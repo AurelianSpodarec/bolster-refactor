@@ -3,7 +3,7 @@ import React from 'react';
 const Dropdown = ({
     placeholder = '--- select an option ---',
     name,
-    handleDropdownChange,
+    handleChange,
     options,
     selectedOption = { text: placeholder }
 }) => {
@@ -12,7 +12,7 @@ const Dropdown = ({
             <label>
                 <input type="text" value={selectedOption.text} />
                 <i className="arrow far fa-chevron-down" />
-                <select name={name} onChange={handleDropdownChange}>
+                <select name={name} onChange={handleChange}>
                     <option value={0}>{placeholder}</option>
                     {options.map(({ text, value }) => (
                         <option

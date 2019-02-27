@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 
-import genericReducers from './generic';
+import fieldErrors from './fieldErrors';
 
 export default combineReducers({
-    genericReducers
+    fieldErrors
 });

@@ -1,11 +1,11 @@
 import React from 'react';
 
-import SitesListFilters from './SitesListFilters';
+import SitesFiltersContainer from '../containers/SitesFiltersContainer';
 
 const AllSites = () => (
     <div>
         <h1>All Sites</h1>
-        <SitesListFilters />
+        <SitesFiltersContainer />
     </div>
 );
 
