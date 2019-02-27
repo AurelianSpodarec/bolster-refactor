@@ -2,7 +2,8 @@ import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 
 import Dashboard from 'components/dashboard/presentational/Dashboard';
-import AllSights from 'components/sites/allSites/presentational/AllSights';
+import AllSights from 'components/sites/allSites/presentational/AllSites';
+import LoginContainer from 'components/auth/login/containers/LoginContainer';
 
 const Routes = () => (
     <div id="page-area">
@@ -10,6 +11,7 @@ const Routes = () => (
             <Switch>
                 <Route exact path="/" component={Dashboard} />
                 <Route exact path="/sites" component={AllSights} />
+                <Route exact path="/login" component={LoginContainer} />
             </Switch>
 
             <div className="clear" />
