@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import HeaderContainer from 'components/layout/containers/HeaderContainer';
-import Routes from 'components/dashboard/presentational/Dashboard';
+import Routes from 'components/app/presentational/Routes';
 
 class App extends Component {
     render() {
