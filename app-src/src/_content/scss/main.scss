@@ -74,6 +74,7 @@ input {
         left: none;
         right: none;
     }
+    background-color: white;
 
     .container {
         height: 100%;
@@ -128,7 +129,8 @@ input {
                 @include content-center;
             }
 
-            &:hover {
+            &:hover,
+            &.active {
                 background-color: #f4f3f3;
             }
         }
