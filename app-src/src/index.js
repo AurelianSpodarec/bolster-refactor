@@ -9,6 +9,7 @@ import { BrowserRouter } from 'react-router-dom';
 import * as serviceWorker from 'helpers/serviceWorker';
 import reducer from 'reducers';
 import App from 'components/app/presentational/App';
+import '_content/scss/font-awesome.css';
 import '_content/scss/main.scss';
 
 let middleWare = [thunk];
