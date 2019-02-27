@@ -1,37 +1,43 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+
+import setSitesFilterStatus from 'actions/sites/sync/setSitesFilterStatus';
+import updateSitesSearchTerm from 'actions/sites/sync/updateSitesSearchTerm';
 
 import SitesFilters from '../presentational/SitesFilters';
 
-class SitesFilltersContainer extends Component {
+class SitesFiltersContainer extends Component {
     state = {
-        searchTerm: '',
         statusOptions: {
-            1: { value: 1, text: 'Active' },
-            2: { value: 2, text: 'Read only' },
-            3: { value: 3, text: 'Archived' }
-        },
-        selectedStatus: 0
+            active: { value: 'active', text: 'Active' },
+            readOnly: { value: 'readOnly', text: 'Read only' },
+            archived: { value: 'archived', text: 'Archived' }
+        }
     };
 
     render() {
-        const { searchTerm, statusOptions, selectedStatus } = this.state;
+        const { statusOptions } = this.state;
+        const { searchTerm, status } = this.props;
 
+        console.log(statusOptions);
+        console.log(status);
         return (
             <SitesFilters
                 searchTerm={searchTerm}
                 statusOptions={Object.values(statusOptions)}
-                selectedStatus={statusOptions[selectedStatus]}
-                handleChange={this.handleChange}
+                selectedStatus={statusOptions[status]}
+                handleSelectStatus={this.handleSelectStatus}
             />
         );
     }
 
-    handleChange = e => {
-        this.setState({
-            ...this.state,
-            [e.state.name]: e.target.value
-        });
+    handleSelectStatus = e => {
+        e.preventDefault();
+
+        this.props.dispatch(setSitesFilterStatus(e.target.value));
     };
 }
 
-export default SitesFilltersContainer;
+export default connect(state => state.sitesReducers.sitesFilters)(
+    SitesFiltersContainer
+);

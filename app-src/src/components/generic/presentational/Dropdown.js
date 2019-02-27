@@ -10,16 +10,16 @@ const Dropdown = ({
     return (
         <div className="custom-dropdown size-lg-12">
             <label>
-                <input type="text" value={selectedOption.text} />
+                <input type="text" value={selectedOption.text} readOnly />
                 <i className="arrow far fa-chevron-down" />
-                <select name={name} onChange={handleChange}>
+                <select
+                    name={name}
+                    onChange={handleChange}
+                    value={selectedOption.value || 0}
+                >
                     <option value={0}>{placeholder}</option>
                     {options.map(({ text, value }) => (
-                        <option
-                            key={value}
-                            value={value}
-                            selected={selectedOption.value === value}
-                        >
+                        <option key={value} value={value}>
                             {text}
                         </option>
                     ))}
