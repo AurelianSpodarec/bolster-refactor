@@ -35,7 +35,6 @@ class LoginContainer extends Component {
     validateEmail = value => {
         if (!(value && value.includes('@')))
             return 'This is not a valid email.';
-
         if (value && value.length < 4) return 'This email is too short.';
     };
 }
