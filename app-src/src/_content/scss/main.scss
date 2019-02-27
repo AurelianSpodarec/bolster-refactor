@@ -1,5 +1,6 @@
 @import "_content/scss/reset.scss";
 @import "_content/scss/variables.scss";
+@import "_content/scss/sizing.scss";
 
 //layouts
 body {
@@ -21,7 +22,6 @@ body {
     float: left;
     width: 100%;
     padding: 10px 0;
-}
 .content-area {
     background-color: white;
     border-radius: 5px;
@@ -88,6 +88,7 @@ input {
         left: none;
         right: none;
     }
+    background-color: white;
 
     .container {
         height: 100%;
@@ -142,7 +143,8 @@ input {
                 @include content-center;
             }
 
-            &:hover {
+            &:hover,
+            &.active {
                 background-color: #f4f3f3;
             }
         }

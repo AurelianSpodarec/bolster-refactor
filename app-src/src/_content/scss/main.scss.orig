@@ -1,17 +1,15 @@
 @import "_content/scss/reset.scss";
 @import "_content/scss/variables.scss";
+@import "_content/scss/sizing.scss";
 
 //layouts
 body {
     font-size: 10px;
     -webkit-font-smoothing: antialiased;
     @include ubuntu;
-<<<<<<< HEAD
     background-color: #212228;
-=======
     color: $body-text;
     line-height: 1.35;
->>>>>>> 74bb71f1eea47f9612c5f685fbb3bd6b1b8324df
 }
 
 .container {
@@ -20,26 +18,24 @@ body {
     padding: 0 15px;
     margin: 0 auto;
 }
-
 <<<<<<< HEAD
 #page-area {
     float: left;
     width: 100%;
-    padding: 10px;
+    padding: 10px 0;
 }
+=======
 
+>>>>>>> af26d6de5efe5dc4409a0766287bf134439c0090
 .content-area {
     background-color: white;
-    border-radius: 15px;
+    border-radius: 5px;
     margin-bottom: 10px;
-
+    padding: 20px 15px;
     .title {
         color: black;
     }
 }
-
-=======
->>>>>>> 74bb71f1eea47f9612c5f685fbb3bd6b1b8324df
 //generics
 input {
     @include ubuntu;
@@ -97,6 +93,7 @@ input {
         left: none;
         right: none;
     }
+    background-color: white;
 
     .container {
         height: 100%;
@@ -151,7 +148,8 @@ input {
                 @include content-center;
             }
 
-            &:hover {
+            &:hover,
+            &.active {
                 background-color: #f4f3f3;
             }
         }
