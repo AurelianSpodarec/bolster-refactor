@@ -1,14 +1,26 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Logo from '_content/images/examples/logo.jpg';
 
 const Header = () => (
-    <div className="container">
-        <header id="page-header">
+    <header id="page-header">
+        <div className="container">
+            {/*** company logo ***/}
             <div className="logo">
-                <img alt="logo of" src={Logo} />
+                <Link to="/">
+                    <img alt="logo of" src={Logo} />
+                </Link>
             </div>
-        </header>
-    </div>
+
+            {/*** search box ***/}
+            <div className="search-area">
+                <div className="generic-search">
+                    <i className="search-icon far fa-search" />
+                    <input type="text" placeholder="Search..." />
+                </div>
+            </div>
+        </div>
+    </header>
 );
 
 export default Header;
