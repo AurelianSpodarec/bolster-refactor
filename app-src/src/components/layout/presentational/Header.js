@@ -34,6 +34,44 @@ const Header = () => (
                     <div className="item">
                         <i className="far fa-envelope fa-fw" />
                     </div>
+
+                    <div className="notification-list">
+                        <div className="item">
+                            <p>
+                                ##CMFT / Build 1 / First Floor / Drawing PDF
+                                report is ready to download
+                            </p>
+
+                            <Link to="#" className="button">
+                                View
+                            </Link>
+                        </div>
+                        <div className="item">
+                            <p>
+                                ##CMFT / Build 1 / First Floor / Drawing PDF
+                                report is ready to download
+                            </p>
+
+                            <Link to="#" className="button">
+                                View
+                            </Link>
+                        </div>
+                        <div className="item">
+                            <p>
+                                ##CMFT / Build 1 / First Floor / Drawing PDF
+                                report is ready to download
+                            </p>
+
+                            <Link to="#" className="button">
+                                View
+                            </Link>
+                        </div>
+                        <div className="item">
+                            <Link to="#" className="button">
+                                View all notifications
+                            </Link>
+                        </div>
+                    </div>
                 </div>
 
                 {/*** profile ***/}
@@ -41,16 +79,18 @@ const Header = () => (
                     <div className="user">
                         <img alt="profile picture of" src={ProfilePic} />
                         <div className="text">
-                            <p>Jamie McMullan</p>
-                            <span className="email">jamie@silverchip.com</span>
+                            <p>##Jamie McMullan##</p>
+                            <span className="email">
+                                ##jamie@silverchip.com##
+                            </span>
                         </div>
                         <i className="arrow fas fa-chevron-right" />
                     </div>
 
                     <div className="options">
-                        <p className="item">Credits Available: 5</p>
+                        <p className="item">Credits Available: ##5##</p>
                         <Link to="#" className="item">
-                            Generation Queue: 1
+                            Generation Queue: ##1##
                             <i className="icon fas fa-chevron-right" />
                         </Link>
                         <Link to="#" className="item">
