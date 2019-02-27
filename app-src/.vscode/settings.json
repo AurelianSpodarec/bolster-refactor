@@ -1,0 +1,6 @@
+{
+    "favorites.resources": [
+        "src/actions",
+        "src/reducers"
+    ]
+}
