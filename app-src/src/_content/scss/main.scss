@@ -6,6 +6,7 @@ body {
     font-size: 10px;
     -webkit-font-smoothing: antialiased;
     @include ubuntu;
+    background-color: #212228;
 }
 
 .container {
@@ -18,6 +19,17 @@ body {
 #page-area {
     float: left;
     width: 100%;
+    padding: 10px;
+}
+
+.content-area {
+    background-color: white;
+    border-radius: 15px;
+    margin-bottom: 10px;
+
+    .title {
+        color: black;
+    }
 }
 
 //generics
@@ -77,4 +89,15 @@ input {
         float: left;
         width: 255px;
     }
+}
+
+.title {
+    font-size: 220%;
+    @include ubuntu;
+    color: white;
+    margin-bottom: 20px;
+}
+
+form,
+.form {
 }
