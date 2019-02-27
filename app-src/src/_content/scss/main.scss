@@ -6,6 +6,8 @@ body {
     font-size: 10px;
     -webkit-font-smoothing: antialiased;
     @include ubuntu;
+    color: $body-text;
+    line-height: 1.25;
 }
 
 .container {
@@ -13,11 +15,6 @@ body {
     max-width: 1230px;
     padding: 0 15px;
     margin: 0 auto;
-}
-
-#page-area {
-    float: left;
-    width: 100%;
 }
 
 //generics
@@ -28,30 +25,43 @@ input {
 .generic-search {
     float: left;
     width: 100%;
-    background-color: $search-grey;
+    background-color: $background-grey;
+    @include rounded-all(3px);
 
     .search-icon {
         position: absolute;
         left: 10px;
         @include vertical-center;
+        color: #939393;
+        font-size: 150%;
     }
 
     input {
         width: 100%;
+        padding: 6px 10px 6px 35px;
         background-color: transparent;
         border: none;
         outline: none;
+        font-size: 160%;
+        color: #8f8f8f;
+    }
+
+    input::placeholder {
+        color: #8f8f8f;
     }
 }
 
 //header
 #page-header {
-    float: left;
-    width: 100%;
+    height: 69px;
     border: 4px solid #16a6e2;
     border: {
         left: none;
         right: none;
+    }
+
+    .container {
+        height: 100%;
     }
 
     //logo
@@ -76,5 +86,115 @@ input {
     .search-area {
         float: left;
         width: 255px;
+        margin-top: 15px;
+    }
+
+    //account area
+    .account-area {
+        float: right;
+        height: 100%;
+    }
+
+    //notifications
+    .notifications {
+        float: left;
+        height: 100%;
+
+        .item {
+            float: left;
+            width: 60px;
+            height: 100%;
+            cursor: pointer;
+            transition: 0.2s background-color;
+
+            > i {
+                position: absolute;
+                font-size: 240%;
+                @include content-center;
+            }
+
+            &:hover {
+                background-color: #f4f3f3;
+            }
+        }
+    }
+
+    //profile
+    .profile {
+        float: left;
+        color: #757575;
+        background-color: $background-grey;
+
+        //user details
+        .user {
+            float: left;
+            width: 100%;
+            max-height: 61px;
+            padding: 10px 50px 10px 15px;
+            cursor: pointer;
+
+            img {
+                float: left;
+                width: 41px;
+                margin-right: 15px;
+                @include rounded-all(50%);
+            }
+
+            .text {
+                float: left;
+
+                p {
+                    @include ubuntu-medium;
+                    font-size: 160%;
+                }
+
+                .email {
+                    font-size: 140%;
+                }
+            }
+
+            .arrow {
+                position: absolute;
+                right: 15px;
+                @include vertical-center;
+                font-size: 160%;
+            }
+        }
+
+        //options
+        .options {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background-color: inherit;
+
+            a {
+                color: #757575;
+                text-decoration: none;
+                transition: 0.2s background-color;
+
+                &.active,
+                &:hover {
+                    background-color: #ececec;
+                }
+            }
+
+            .item {
+                float: left;
+                width: 100%;
+                padding: 12px 15px;
+                @include ubuntu-medium;
+                font-size: 140%;
+                border-top: 1px solid #c6c6c6;
+
+                .icon {
+                    position: absolute;
+                    right: 15px;
+                    @include vertical-center;
+                }
+            }
+        }
     }
 }
