@@ -10,7 +10,7 @@ const SitesListFilters = ({
     handleSearchTermChange,
     handleSelectStatus
 }) => (
-    <form>
+    <form className="size-lg-12">
         <Search
             value={searchTerm}
             name="searchTerm"

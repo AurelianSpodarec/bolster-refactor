@@ -76,7 +76,7 @@ const Header = () => (
                 {/*** profile ***/}
                 <div className="profile">
                     <div className="user">
-                        <img alt="profile picture of" src={ProfilePic} />
+                        <img alt="profile of" src={ProfilePic} />
                         <div className="text">
                             <p>##Jamie McMullan##</p>
                             <span className="email">
