@@ -1,47 +1,6 @@
 @import "_content/scss/variables.scss";
 
-html {
-    height: 100%;
-    width: 100%;
-}
 body {
-    font-size: 10px !important;
-    height: 100%;
-    width: 100%;
-    margin: 0;
-    padding: 0;
-    @include roboto();
-    background-color: white;
-    color: $font-grey;
-}
-
-.brand-logo {
-    margin-left: 1%;
-}
-
-.nav-wrapper {
-    background-color: white;
-
-    a {
-        color: $font-grey;
-    }
-}
-
-.nav-wrapper {
-    background-color: white;
-
-    .tabs {
-        text-align: centre;
-
-        &.tabs-transparent .tab {
-            float: none;
-            a {
-                color: $font-grey !important;
-                &.active {
-                    color: $font-grey;
-                    background-color: rgba(0, 0, 0, 0.1);
-                }
-            }
-        }
-    }
+    font-size: 10px;
+    -webkit-font-smoothing: antialiased;
 }
