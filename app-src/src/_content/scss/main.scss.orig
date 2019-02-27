@@ -6,9 +6,12 @@ body {
     font-size: 10px;
     -webkit-font-smoothing: antialiased;
     @include ubuntu;
+<<<<<<< HEAD
     background-color: #212228;
+=======
     color: $body-text;
     line-height: 1.35;
+>>>>>>> 74bb71f1eea47f9612c5f685fbb3bd6b1b8324df
 }
 
 .container {
@@ -16,6 +19,13 @@ body {
     max-width: 1230px;
     padding: 0 15px;
     margin: 0 auto;
+}
+
+<<<<<<< HEAD
+#page-area {
+    float: left;
+    width: 100%;
+    padding: 10px;
 }
 
 .content-area {
@@ -27,6 +37,9 @@ body {
         color: black;
     }
 }
+
+=======
+>>>>>>> 74bb71f1eea47f9612c5f685fbb3bd6b1b8324df
 //generics
 input {
     @include ubuntu;
@@ -84,7 +97,6 @@ input {
         left: none;
         right: none;
     }
-    background-color: white;
 
     .container {
         height: 100%;
@@ -139,8 +151,7 @@ input {
                 @include content-center;
             }
 
-            &:hover,
-            &.active {
+            &:hover {
                 background-color: #f4f3f3;
             }
         }

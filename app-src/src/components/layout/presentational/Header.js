@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import Logo from '_content/images/examples/logo.jpg';
 import ProfilePic from '_content/images/examples/jamie.png';
 
+import SearchContainer from '../containers/SearchContainer';
+
 const Header = () => (
     <header id="page-header">
         <div className="container">
@@ -15,10 +17,7 @@ const Header = () => (
 
             {/*** search box ***/}
             <div className="search-area">
-                <div className="generic-search">
-                    <i className="search-icon far fa-search" />
-                    <input type="text" placeholder="Search..." />
-                </div>
+                <SearchContainer />
             </div>
 
             {/*** account area ***/}
