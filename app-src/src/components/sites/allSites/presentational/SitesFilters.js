@@ -7,24 +7,27 @@ const SitesListFilters = ({
     searchTerm,
     statusOptions,
     selectedStatus,
-    handleChange
-}) => (
-    <div>
-        <TextInputContainer
-            value={searchTerm}
-            name="searchTerm"
-            placeholder="Search by site name..."
-            handleChange={handleChange}
-        />
-        <Dropdown
-            placeholder="All sites"
-            name="selectedStatus"
-            handleDropdownChange={() => null}
-            options={statusOptions}
-            selectedOption={selectedStatus}
-            handleChange={handleChange}
-        />
-    </div>
-);
+    handleSelectStatus
+}) => {
+    console.log(selectedStatus);
+    return (
+        <form>
+            <TextInputContainer
+                value={searchTerm}
+                name="searchTerm"
+                placeholder="Search by site name..."
+                handleChange={() => null}
+            />
+            <Dropdown
+                placeholder="All sites"
+                name="selectedStatus"
+                handleDropdownChange={() => null}
+                options={statusOptions}
+                selectedOption={selectedStatus}
+                handleChange={handleSelectStatus}
+            />
+        </form>
+    );
+};
 
 export default SitesListFilters;

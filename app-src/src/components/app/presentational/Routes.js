@@ -13,6 +13,8 @@ const Routes = () => (
                 <Route exact path="/sites" component={AllSights} />
                 <Route exact path="/login" component={LoginContainer} />
             </Switch>
+
+            <div className="clear" />
         </div>
     </div>
 );

@@ -1,5 +1,7 @@
 //colours
-$search-grey: #e1e1e1;
+$background-grey: #e1e1e1;
+$body-text: #212228;
+$button-grey: #939393;
 
 //fonts
 @mixin ubuntu() {
@@ -46,24 +48,15 @@ $search-grey: #e1e1e1;
 
 //rounded corners
 @mixin rounded-all($radius: 5px) {
-    -o-border-radius: $radius;
-    -moz-border-radius: $radius;
-    -webkit-border-radius: $radius;
     border-radius: $radius;
 }
 
 //rounded top
 @mixin rounded-top($radius: 5px) {
-    -o-border-radius: $radius $radius 0 0;
-    -moz-border-radius: $radius $radius 0 0;
-    -webkit-border-radius: $radius $radius 0 0;
     border-radius: $radius $radius 0 0;
 }
 
 //rounded bottom
 @mixin rounded-bottom($radius: 5px) {
-    -o-border-radius: 0 0 $radius $radius;
-    -moz-border-radius: 0 0 $radius $radius;
-    -webkit-border-radius: 0 0 $radius $radius;
     border-radius: 0 0 $radius $radius;
 }
