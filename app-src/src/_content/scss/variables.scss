@@ -1,0 +1,84 @@
+//colours
+$submit-green: #218a54;
+$border-grey: #9d9d9e;
+$border-light-grey: #b3b3b4;
+$light-grey: #cccccc;
+$font-grey: rgba(62, 61, 61, 0.694);
+$bg-grey: #efeeef;
+$light-green: #9dcb5e;
+$green: #7db928;
+$dark-green: #218a54;
+$red: #aa3e3e;
+$gold: #efbf00;
+
+.yellow {
+    color: $gold;
+}
+
+//fonts
+@mixin roboto() {
+    font-family: "Roboto", sans-serif !important;
+    font-weight: 400;
+}
+
+@mixin opensans() {
+    font-family: "Open Sans", sans-serif !important;
+    font-weight: 400;
+}
+
+@mixin opensans-semibold() {
+    font-family: "Open Sans", sans-serif !important;
+    font-weight: 600;
+}
+
+//vertical centered content
+@mixin vertical-center() {
+    top: 50%;
+    -moz-transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+//horizontal centered content
+@mixin horizontal-center() {
+    left: 50%;
+    -moz-transform: translateX(-50%);
+    -webkit-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    transform: translateX(-50%);
+}
+
+//center content
+@mixin content-center() {
+    top: 50%;
+    left: 50%;
+    -moz-transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+//rounded corners
+@mixin rounded-all($radius: 5px) {
+    -o-border-radius: $radius;
+    -moz-border-radius: $radius;
+    -webkit-border-radius: $radius;
+    border-radius: $radius;
+}
+
+//rounded top
+@mixin rounded-top($radius: 5px) {
+    -o-border-radius: $radius $radius 0 0;
+    -moz-border-radius: $radius $radius 0 0;
+    -webkit-border-radius: $radius $radius 0 0;
+    border-radius: $radius $radius 0 0;
+}
+
+//rounded bottom
+@mixin rounded-bottom($radius: 5px) {
+    -o-border-radius: 0 0 $radius $radius;
+    -moz-border-radius: 0 0 $radius $radius;
+    -webkit-border-radius: 0 0 $radius $radius;
+    border-radius: 0 0 $radius $radius;
+}
