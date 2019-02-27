@@ -18,10 +18,13 @@ body {
     padding: 0 15px;
     margin: 0 auto;
 }
+
 #page-area {
     float: left;
     width: 100%;
     padding: 10px 0;
+}
+
 .content-area {
     background-color: white;
     border-radius: 5px;
@@ -267,8 +270,4 @@ input {
     @include ubuntu;
     color: white;
     margin-bottom: 20px;
-}
-
-form,
-.form {
 }
