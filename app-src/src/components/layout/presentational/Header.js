@@ -1,5 +1,11 @@
 import React from 'react';
 
-const Header = () => <header className="App-header">Header</header>;
+const Header = () => (
+    <header id="page-header">
+        <div className="logo">
+            <img />
+        </div>
+    </header>
+);
 
 export default Header;
