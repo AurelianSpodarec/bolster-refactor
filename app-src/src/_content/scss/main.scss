@@ -7,7 +7,7 @@ body {
     -webkit-font-smoothing: antialiased;
     @include ubuntu;
     color: $body-text;
-    line-height: 1.25;
+    line-height: 1.35;
 }
 
 .container {
@@ -48,6 +48,21 @@ input {
 
     input::placeholder {
         color: #8f8f8f;
+    }
+}
+
+//buttons
+.button {
+    display: inline-block;
+    padding: 5px 15px;
+    background-color: $button-grey;
+    color: white;
+    text-decoration: none;
+    font-size: 120%;
+    transition: 0.2s background-color;
+
+    &:hover {
+        background-color: #757373;
     }
 }
 
@@ -100,7 +115,7 @@ input {
         float: left;
         height: 100%;
 
-        .item {
+        > .item {
             float: left;
             width: 60px;
             height: 100%;
@@ -115,6 +130,38 @@ input {
 
             &:hover {
                 background-color: #f4f3f3;
+            }
+        }
+
+        //list
+        .notification-list {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            width: 335px;
+            background-color: #f4f3f3;
+
+            .item {
+                float: left;
+                width: 100%;
+                padding: 15px;
+                border-bottom: 1px solid #a6a6a6;
+
+                &:last-child {
+                    border-bottom: none;
+                }
+            }
+
+            p {
+                float: left;
+                width: calc(100% - 75px);
+                color: #939393;
+                font-size: 120%;
+            }
+
+            .button {
+                float: right;
             }
         }
     }
