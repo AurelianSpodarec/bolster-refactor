@@ -5,10 +5,12 @@ import Dashboard from 'components/dashboard/presentational/Dashboard';
 import AllSights from 'components/sites/allSites/presentational/AllSights';
 
 const Routes = () => (
-    <Switch>
-        <Route exact path="/" component={Dashboard} />
-        <Route exact path="/sites" component={AllSights} />
-    </Switch>
+    <div className="container">
+        <Switch>
+            <Route exact path="/" component={Dashboard} />
+            <Route exact path="/sites" component={AllSights} />
+        </Switch>
+    </div>
 );
 
 export default Routes;
