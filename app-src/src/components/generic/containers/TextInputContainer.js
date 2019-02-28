@@ -18,13 +18,12 @@ class TextInputContianer extends Component {
             name,
             type = 'text',
             placeholder,
-            handleChange,
             error,
-            showFieldErrors
+            errorsVisible
         } = this.props;
 
         let errorMessage;
-        if (showFieldError || showFieldErrors) errorMessage = error;
+        if (showFieldError || errorsVisible) errorMessage = error;
 
         return (
             <TextInput
@@ -32,7 +31,7 @@ class TextInputContianer extends Component {
                 name={name}
                 type={type}
                 placeholder={placeholder}
-                handleChange={handleChange}
+                handleChange={this.handleChange}
                 handleBlur={this.handleBlur}
                 error={errorMessage}
             />
@@ -43,8 +42,12 @@ class TextInputContianer extends Component {
         this._validate(this.props.value);
     };
 
-    handleBlur = e => {
+    handleChange = e => {
+        this.props.handleChange(e);
         this._validate(e.target.value);
+    };
+
+    handleBlur = () => {
         this.setState({
             ...this.state,
             showFieldError: true
@@ -67,7 +70,7 @@ class TextInputContianer extends Component {
 
 const mapStateToProps = (state, ownProps) => ({
     error: state.genericReducers.fieldErrors.fieldErrors[ownProps.name],
-    showFieldErrors: state.genericReducers.fieldErrors.showFieldErrors
+    errorsVisible: state.genericReducers.fieldErrors.errorsVisible
 });
 
 const mapDispatchToProps = dispatch => ({

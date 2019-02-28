@@ -30,11 +30,19 @@ class Form extends Component {
     };
 
     handleSubmit = e => {
-        const { fieldErrors, showFieldErrors, onSubmit } = this.props;
+        const {
+            fieldErrors,
+            showFieldErrors,
+            errorsVisible,
+            onSubmit
+        } = this.props;
+        e.persist();
+        e.preventDefault();
 
         if (!isObjEmpty(fieldErrors)) {
-            e.preventDefault();
-            showFieldErrors();
+            if (!errorsVisible) {
+                showFieldErrors();
+            }
 
             return;
         }
@@ -45,7 +53,7 @@ class Form extends Component {
 
 const mapStateToProps = state => ({
     fieldErrors: state.genericReducers.fieldErrors.fieldErrors,
-    showFieldErrors: state.genericReducers.fieldErrors.showFieldErrors
+    errorsVisible: state.genericReducers.fieldErrors.errorsVisible
 });
 
 const mapDispatchToProps = dispatch => ({

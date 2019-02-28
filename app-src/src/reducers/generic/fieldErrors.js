@@ -7,7 +7,7 @@ import {
 
 const initialState = {
     fieldErrors: {},
-    showFieldErrors: false
+    errorsVisible: false
 };
 
 export default (state = initialState, action) => {
@@ -36,7 +36,7 @@ export default (state = initialState, action) => {
         case SHOW_FIELD_ERRORS:
             return {
                 ...state,
-                showFieldErrors: true
+                errorsVisible: true
             };
         case CLEAR_FIELD_ERRORS:
             return initialState;
