@@ -5,8 +5,10 @@ import Header from '../presentational/Header';
 
 class HeaderContainer extends Component {
     render() {
-        return <Header profile={this.props.profile} />;
+        const { props } = this;
+
+        return <Header profile={props.profile} />;
     }
 }
 
-export default connect(state => ({ ...state.profile }))(HeaderContainer);
+export default connect(state => state.profileReducers.profile)(HeaderContainer);
