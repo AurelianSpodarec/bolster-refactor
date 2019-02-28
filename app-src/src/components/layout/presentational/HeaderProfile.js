@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 const HeaderProfile = ({ profile, popupVisible, handleClick, updateNode }) => (
     <div className="profile" ref={updateNode}>
         <div className="user" onClick={handleClick}>
-            <img alt="profile picture of" src={profile.profilePicture} />
+            <img alt="profile of" src={profile.profilePicture} />
             <div className="text">
                 <p>{profile.fullName}</p>
                 <span className="email">{profile.email}</span>

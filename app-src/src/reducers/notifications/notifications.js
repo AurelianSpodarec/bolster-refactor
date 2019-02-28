@@ -25,7 +25,7 @@ export default (state = initialState, action) => {
                 ...state,
                 isFetching: false,
                 success: true,
-                profile: action.payload
+                notifications: action.payload
             };
         case FETCH_NOTIFICATIONS_FAILURE:
             return {

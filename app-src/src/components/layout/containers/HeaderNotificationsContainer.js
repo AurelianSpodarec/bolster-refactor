@@ -9,13 +9,14 @@ class HeaderNotificationsContainer extends Component {
     };
 
     render() {
-        const { state, handleClick } = this;
+        const { state, props, handleClick } = this;
 
         return (
             <HeaderNotifications
                 updateNode={node => {
                     this.node = node;
                 }}
+                notifications={props.notifications}
                 popupVisible={state.popupVisible}
                 handleClick={handleClick}
             />
@@ -49,4 +50,6 @@ class HeaderNotificationsContainer extends Component {
     };
 }
 
-export default connect()(HeaderNotificationsContainer);
+export default connect(state => state.notificationsReducers.notifications)(
+    HeaderNotificationsContainer
+);
