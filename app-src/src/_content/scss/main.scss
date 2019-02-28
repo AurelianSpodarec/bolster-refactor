@@ -69,7 +69,8 @@ input {
 }
 
 //buttons
-.button {
+.button,
+button {
     display: inline-block;
     padding: 5px 15px;
     background-color: $button-grey;
@@ -77,9 +78,21 @@ input {
     text-decoration: none;
     font-size: 120%;
     transition: 0.2s background-color;
-
+    border-radius: 2.5px;
+    @include ubuntu;
+    line-height: 1;
+    min-width: 90px;
     &:hover {
         background-color: #757373;
+    }
+}
+
+.button-area {
+    margin-top: 15px;
+    button,
+    .button {
+        float: right;
+        margin-left: 10px;
     }
 }
 
@@ -285,6 +298,7 @@ input {
 form {
     @include ubuntu;
     .field {
+        margin-bottom: 15px;
         label {
             float: left;
             width: 100%;
@@ -298,17 +312,7 @@ form {
             font-size: 140%;
             background-color: #e1e1e1;
             border: none;
+            border-radius: 2.5px;
         }
     }
-}
-
-.button-area {
-    button {
-        float: right;
-    }
-}
-
-button,
-.button {
-    border-radius: 5px;
 }
