@@ -1,17 +1,18 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 import HeaderContainer from 'components/layout/containers/HeaderContainer';
+import MenuContainer from 'components/layout/containers/MenuContainer';
 import Routes from 'components/app/presentational/Routes';
 
-class App extends Component {
-    render() {
-        return (
-            <div className="App">
-                <HeaderContainer />
-                <Routes />
-            </div>
-        );
-    }
-}
+const App = () => (
+    <div className="App">
+        <HeaderContainer />
+        <div className="container">
+            <MenuContainer />
+            <Routes />
+        </div>
+        <div className="clear" />
+    </div>
+);
 
 export default App;
