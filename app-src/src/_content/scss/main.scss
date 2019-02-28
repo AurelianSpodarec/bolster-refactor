@@ -35,7 +35,7 @@ body {
     border-radius: 5px;
     margin-bottom: 10px;
     padding: 20px 15px;
-    .title {
+    .heading {
         color: black;
     }
 }
@@ -74,7 +74,8 @@ input {
 }
 
 //buttons
-.button {
+.button,
+button {
     display: inline-block;
     padding: 5px 15px;
     background-color: $button-grey;
@@ -82,9 +83,21 @@ input {
     text-decoration: none;
     font-size: 120%;
     transition: 0.2s background-color;
-
+    border-radius: 2.5px;
+    @include ubuntu;
+    line-height: 1;
+    min-width: 90px;
     &:hover {
         background-color: #757373;
+    }
+}
+
+.button-area {
+    margin-top: 15px;
+    button,
+    .button {
+        float: right;
+        margin-left: 10px;
     }
 }
 
@@ -279,9 +292,50 @@ input {
     }
 }
 
-.title {
-    font-size: 220%;
-    @include ubuntu;
+.heading {
+    @include ubuntu-medium;
     color: white;
     margin-bottom: 20px;
+
+    &.heading-1 {
+        font-size: 220%;
+        margin-bottom: 10px;
+    }
+    &.heading-2 {
+        font-size: 200%;
+    }
+    &.heading-3 {
+        font-size: 160%;
+    }
+}
+
+form {
+    @include ubuntu;
+    .field {
+        margin-bottom: 15px;
+
+        label {
+            float: left;
+            width: 100%;
+            font-size: 140%;
+            margin-bottom: 10px;
+            @include ubuntu-medium;
+        }
+        input {
+            float: left;
+            width: 100%;
+            padding: 5px 10px;
+            font-size: 140%;
+            background-color: #e1e1e1;
+            border: none;
+            border-radius: 2.5px;
+        }
+        .error {
+            float: left;
+            width: 100%;
+            color: red;
+            margin-top: 5px;
+            font-size: 120%;
+        }
+    }
 }

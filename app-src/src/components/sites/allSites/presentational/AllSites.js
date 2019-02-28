@@ -7,7 +7,9 @@ const AllSites = () => (
     <div>
         <h1>All Sites</h1>
         <SitesFiltersContainer />
-        <SitesListContainer />
+        <div className="content-area size-lg-12">
+            <SitesListContainer />
+        </div>
     </div>
 );
 
