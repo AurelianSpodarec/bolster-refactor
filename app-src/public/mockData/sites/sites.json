@@ -3,36 +3,36 @@
         "id": 1,
         "name": "site 1",
         "ownedBy": "NHS",
-        "premissions": "You have ready access to this site"
+        "permissions": "You have ready access to this site"
     },
     {
         "id": 2,
         "name": "site 2",
         "ownedBy": "NHS",
-        "premissions": "NHS(client), Prosol UK(company)"
+        "permissions": "NHS(client), Prosol UK(company)"
     },
     {
         "id": 3,
         "name": "site 3",
         "ownedBy": "NHS",
-        "premissions": "NHS(client), Prosol UK(company)"
+        "permissions": "NHS(client), Prosol UK(company)"
     },
     {
         "id": 4,
         "name": "site 4",
         "ownedBy": "NHS",
-        "premissions": "You have ready access to this site"
+        "permissions": "You have ready access to this site"
     },
     {
         "id": 5,
         "name": "site 5",
         "ownedBy": "NHS",
-        "premissions": "You have ready access to this site"
+        "permissions": "You have ready access to this site"
     },
     {
         "id": 6,
         "name": "site 6",
         "ownedBy": "NHS",
-        "premissions": "NHS(client), Prosol UK(company)"
+        "permissions": "NHS(client), Prosol UK(company)"
     }
 ]

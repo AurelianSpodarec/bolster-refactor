@@ -3,14 +3,20 @@ import { connect } from 'react-redux';
 
 import fetchSites from 'actions/sites/async/fetchSites';
 
-import SitesList from '../presentational/SitesList';
+import SitesTable from '../presentational/SitesTable';
 
 class SitesListContainer extends Component {
     render() {
         const { sites, isFetching, error } = this.props;
+        const tableHeaders = ['Site name', 'Owned by', 'Premissions', 'Action'];
 
         return (
-            <SitesList sites={sites} isFetching={isFetching} error={error} />
+            <SitesTable
+                headers={tableHeaders}
+                sites={sites}
+                isFetching={isFetching}
+                error={error}
+            />
         );
     }
 
@@ -20,7 +26,7 @@ class SitesListContainer extends Component {
 }
 
 const mapStateToProps = ({ sitesReducers }) => ({
-    sites: sitesReducers.sites.sites,
+    sites: Object.values(sitesReducers.sites.sites),
     isFetching: sitesReducers.sites.isFetching,
     error: sitesReducers.sites.error,
     searchTerm: sitesReducers.sitesFilters.searchTerm,
