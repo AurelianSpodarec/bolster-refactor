@@ -1,7 +1,8 @@
 {
     "id": 1,
-    "fullName": "Mark Baker",
-    "firstName": "Mark",
-    "lastName": "Baker",
-    "email": "mark@silverchip.com"
+    "fullName": "Jamie McMullan",
+    "firstName": "Jamie",
+    "lastName": "McMullan",
+    "email": "jamie@silverchip.com",
+    "profilePicture": "https://pbs.twimg.com/profile_images/720922614332592128/PMbyPQNk_400x400.jpg"
 }
