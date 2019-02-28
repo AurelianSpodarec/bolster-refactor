@@ -1,14 +1,13 @@
 import React from 'react';
 
-import Error from 'components/generic/presentational/Error';
-import Loading from 'components/generic/presentational/Loading';
-
-const SitesList = ({ sites, isFetching, error }) => {
-    if (error && error.length) return <Error>{error}</Error>;
-    if (isFetching) return <Loading />;
-    if (sites.length) return <p>There are no sites.</p>;
-
-    return <h2>sites list</h2>;
-};
+const SitesList = ({ sites }) =>
+    sites.map(site => (
+        <tr key={site.id}>
+            <td>{site.name}</td>
+            <td>{site.ownedBy}</td>
+            <td>{site.permissions}</td>
+            <td>View</td>
+        </tr>
+    ));
 
 export default SitesList;
