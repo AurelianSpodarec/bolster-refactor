@@ -7,12 +7,33 @@ import SitesList from '../presentational/SitesList';
 
 class SitesListContainer extends Component {
     render() {
-        return <SitesList />;
+        const { sites, isFetching, error } = this.props;
+
+        return (
+            <SitesList sites={sites} isFetching={isFetching} error={error} />
+        );
     }
 
     componentDidMount = () => {
-        this.props.dispatch(fetchSites());
+        this.props.fetchSites();
     };
 }
 
-export default connect()(SitesListContainer);
+const mapStateToProps = ({ sitesReducers }) => ({
+    sites: sitesReducers.sites.sites,
+    isFetching: sitesReducers.sites.isFetching,
+    error: sitesReducers.sites.error,
+    searchTerm: sitesReducers.sitesFilters.searchTerm,
+    status: sitesReducers.sitesFilters.status
+});
+
+const mapDispatchToProps = dispatch => ({
+    fetchSites: () => {
+        dispatch(fetchSites());
+    }
+});
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(SitesListContainer);

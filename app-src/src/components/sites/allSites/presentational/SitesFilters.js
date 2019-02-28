@@ -1,6 +1,6 @@
 import React from 'react';
 
-import TextInputContainer from 'components/generic/containers/TextInputContainer';
+import Search from 'components/generic/presentational/Search';
 import Dropdown from 'components/generic/presentational/Dropdown';
 
 const SitesListFilters = ({
@@ -10,8 +10,8 @@ const SitesListFilters = ({
     handleSearchTermChange,
     handleSelectStatus
 }) => (
-    <form>
-        <TextInputContainer
+    <form className="size-lg-12">
+        <Search
             value={searchTerm}
             name="searchTerm"
             placeholder="Search by site name..."

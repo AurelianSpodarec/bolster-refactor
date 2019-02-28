@@ -15,9 +15,9 @@ export const fetchSitesSuccess = payload => ({
     payload
 });
 
-export const fetchSitesFailure = err => ({
+export const fetchSitesFailure = error => ({
     type: FETCH_SITES_FAILURE,
-    err
+    error
 });
 
 export default () => dispatch => {
@@ -25,6 +25,6 @@ export default () => dispatch => {
 
     axios
         .get('mockData/sites/sites.json')
-        .then(res => dispatch(fetchSitesSuccess(res)))
+        .then(res => dispatch(fetchSitesSuccess(res.data)))
         .catch(err => dispatch(fetchSitesFailure(err)));
 };

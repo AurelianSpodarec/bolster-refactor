@@ -8,7 +8,7 @@ import { BrowserRouter } from 'react-router-dom';
 
 import * as serviceWorker from 'helpers/serviceWorker';
 import reducer from 'reducers';
-import App from 'components/app/presentational/App';
+import AppContainer from 'components/app/containers/AppContainer';
 import '_content/scss/font-awesome.css';
 import '_content/scss/main.scss';
 
@@ -23,7 +23,7 @@ const store = createStore(reducer, applyMiddleware(...middleWare));
 ReactDOM.render(
     <Provider store={store}>
         <BrowserRouter>
-            <App />
+            <AppContainer />
         </BrowserRouter>
     </Provider>,
     document.getElementById('root')

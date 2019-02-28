@@ -1,34 +1,36 @@
-import { convertArrToObj } from 'helpers/generic';
 import {
-    FETCH_SITES_REQUEST,
-    FETCH_SITES_SUCCESS,
-    FETCH_SITES_FAILURE
-} from 'constants/actionTypes/sites';
+    FETCH_PROFILE_REQUEST,
+    FETCH_PROFILE_SUCCESS,
+    FETCH_PROFILE_FAILURE
+} from 'constants/actionTypes/profile';
 
-export const initialState = {
-    sites: {},
+const initialState = {
+    profile: {},
     isFetching: false,
+    success: false,
     error: null
 };
 
 export default (state = initialState, action) => {
     switch (action.type) {
-        case FETCH_SITES_REQUEST:
+        case FETCH_PROFILE_REQUEST:
             return {
                 ...state,
                 isFetching: true,
+                success: false,
                 error: null
             };
-        case FETCH_SITES_SUCCESS:
+        case FETCH_PROFILE_SUCCESS:
             return {
                 ...state,
                 isFetching: false,
-                sites: convertArrToObj(action.payload)
+                success: true,
+                profile: action.payload
             };
-        case FETCH_SITES_FAILURE:
+        case FETCH_PROFILE_FAILURE:
             return {
                 ...state,
-                isFetching: false,
+                success: false,
                 error: action.error.message
             };
         default:

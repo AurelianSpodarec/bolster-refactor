@@ -5,7 +5,7 @@ import ProfilePic from '_content/images/examples/jamie.png';
 
 import SearchContainer from '../containers/SearchContainer';
 
-const Header = () => (
+const Header = ({ profile }) => (
     <header id="page-header">
         <div className="container">
             {/*** company logo ***/}
@@ -76,7 +76,7 @@ const Header = () => (
                 {/*** profile ***/}
                 <div className="profile">
                     <div className="user">
-                        <img alt="profile picture of" src={ProfilePic} />
+                        <img alt="profile of" src={ProfilePic} />
                         <div className="text">
                             <p>##Jamie McMullan##</p>
                             <span className="email">
