@@ -7,15 +7,23 @@ import removeFieldError from 'actions/generic/sync/fieldErrors/removeFieldError'
 import TextInput from '../presentational/TextInput';
 
 class TextInputContianer extends Component {
+    state = {
+        showFieldError: false
+    };
+
     render() {
+        const { showFieldError } = this.state;
         const {
             value,
             name,
             type = 'text',
             placeholder,
-            handleChange,
-            error
+            error,
+            errorsVisible
         } = this.props;
+
+        let errorMessage;
+        if (showFieldError || errorsVisible) errorMessage = error;
 
         return (
             <TextInput
@@ -23,17 +31,31 @@ class TextInputContianer extends Component {
                 name={name}
                 type={type}
                 placeholder={placeholder}
-                handleChange={handleChange}
+                handleChange={this.handleChange}
                 handleBlur={this.handleBlur}
-                error={error}
+                error={errorMessage}
             />
         );
     }
 
-    handleBlur = e => {
-        const { name, value } = e.target;
+    componentDidMount = () => {
+        this._validate(this.props.value);
+    };
 
-        const { error, required, validate = () => {} } = this.props;
+    handleChange = e => {
+        this.props.handleChange(e);
+        this._validate(e.target.value);
+    };
+
+    handleBlur = () => {
+        this.setState({
+            ...this.state,
+            showFieldError: true
+        });
+    };
+
+    _validate = value => {
+        const { name, error, required, validate = () => {} } = this.props;
         const validateError = validate(value);
 
         if (required && !(value && value.length)) {
@@ -47,7 +69,8 @@ class TextInputContianer extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => ({
-    error: state.genericReducers.fieldErrors[ownProps.name]
+    error: state.genericReducers.fieldErrors.fieldErrors[ownProps.name],
+    errorsVisible: state.genericReducers.fieldErrors.errorsVisible
 });
 
 const mapDispatchToProps = dispatch => ({
