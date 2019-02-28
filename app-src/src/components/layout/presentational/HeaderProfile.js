@@ -1,12 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import ProfilePic from '_content/images/examples/jamie.png';
-
 const HeaderProfile = ({ profile, popupVisible, handleClick, updateNode }) => (
     <div className="profile" ref={updateNode}>
         <div className="user" onClick={handleClick}>
-            <img alt="profile picture of" src={ProfilePic} />
+            <img alt="profile of" src={profile.profilePicture} />
             <div className="text">
                 <p>{profile.fullName}</p>
                 <span className="email">{profile.email}</span>

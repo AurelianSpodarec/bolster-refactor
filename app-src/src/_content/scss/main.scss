@@ -86,7 +86,7 @@ button {
     border-radius: 2.5px;
     @include ubuntu;
     line-height: 1;
-    min-width: 90px;
+
     &:hover {
         background-color: #757373;
     }
@@ -151,33 +151,52 @@ button {
         float: left;
         height: 100%;
 
-        > .item {
+        .item-container {
             float: left;
             width: 60px;
             height: 100%;
-            cursor: pointer;
-            transition: 0.2s background-color;
+            position: static;
+        }
 
-            > i {
-                position: absolute;
-                font-size: 240%;
-                @include content-center;
-            }
+        .item {
+            &.main {
+                float: left;
+                width: 60px;
+                height: 100%;
+                cursor: pointer;
+                color: $body-text;
+                transition: 0.2s background-color;
 
-            &:hover,
-            &.active {
-                background-color: #f4f3f3;
+                > i {
+                    position: absolute;
+                    font-size: 240%;
+                    @include content-center;
+                }
+
+                &:hover,
+                &.active {
+                    background-color: #f4f3f3;
+                }
             }
         }
 
         //list
         .notification-list {
-            display: none;
             position: absolute;
             top: 100%;
             right: 0;
             width: 335px;
             background-color: #f4f3f3;
+            z-index: -1;
+            opacity: 0;
+            top: 0;
+            transition: 0.2s opacity, 0.2s top;
+
+            &.visible {
+                z-index: 100;
+                opacity: 1;
+                top: 100%;
+            }
 
             .item {
                 float: left;

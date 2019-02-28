@@ -4,6 +4,7 @@ import Logo from '_content/images/examples/logo.jpg';
 
 import SearchContainer from '../containers/SearchContainer';
 import HeaderProfileContainer from '../containers/HeaderProfileContainer';
+import HeaderNotificationsContainer from '../containers/HeaderNotificationsContainer';
 
 const Header = ({ profile }) => (
     <header id="page-header">
@@ -24,53 +25,13 @@ const Header = ({ profile }) => (
             <div className="account-area">
                 {/*** notifications ***/}
                 <div className="notifications">
-                    <div className="item">
+                    <Link to="#" className="item main">
                         <i className="far fa-money-bill-alt fa-fw" />
-                    </div>
-                    <div className="item">
-                        <i className="far fa-bell fa-fw" />
-                    </div>
-                    <div className="item">
+                    </Link>
+                    <HeaderNotificationsContainer />
+                    <Link to="#" className="item main">
                         <i className="far fa-envelope fa-fw" />
-                    </div>
-
-                    <div className="notification-list">
-                        <div className="item">
-                            <p>
-                                ##CMFT / Build 1 / First Floor / Drawing PDF
-                                report is ready to download
-                            </p>
-
-                            <Link to="#" className="button">
-                                View
-                            </Link>
-                        </div>
-                        <div className="item">
-                            <p>
-                                ##CMFT / Build 1 / First Floor / Drawing PDF
-                                report is ready to download
-                            </p>
-
-                            <Link to="#" className="button">
-                                View
-                            </Link>
-                        </div>
-                        <div className="item">
-                            <p>
-                                ##CMFT / Build 1 / First Floor / Drawing PDF
-                                report is ready to download
-                            </p>
-
-                            <Link to="#" className="button">
-                                View
-                            </Link>
-                        </div>
-                        <div className="item">
-                            <Link to="#" className="button">
-                                View all notifications
-                            </Link>
-                        </div>
-                    </div>
+                    </Link>
                 </div>
 
                 {/*** profile ***/}
