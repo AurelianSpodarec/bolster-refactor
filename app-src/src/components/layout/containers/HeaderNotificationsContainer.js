@@ -9,7 +9,7 @@ class HeaderNotificationsContainer extends Component {
     };
 
     render() {
-        const { state, props, handleClick } = this;
+        const { state, handleClick } = this;
 
         return (
             <HeaderNotifications

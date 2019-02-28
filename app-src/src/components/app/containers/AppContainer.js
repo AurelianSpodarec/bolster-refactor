@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import fetchProfile from 'actions/profile/async/fetchProfile';
+import fetchNotifications from 'actions/notifications/async/fetchNotifications';
 
 import App from '../presentational/App';
 
@@ -12,6 +13,7 @@ class AppContainer extends Component {
 
     componentDidMount = () => {
         this.props.dispatch(fetchProfile());
+        this.props.dispatch(fetchNotifications());
     };
 }
 

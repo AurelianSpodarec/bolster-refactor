@@ -1,0 +1,20 @@
+[
+    {
+        "id": 1,
+        "description": "CMFT / Build 1 / First Floor / Drawing PDF report is ready to download",
+        "isSeen": false,
+        "isRead": false
+    },
+    {
+        "id": 2,
+        "description": "Test Site / Build 2 / First Floor / New PDF report is ready to download",
+        "isSeen": false,
+        "isRead": false
+    },
+    {
+        "id": 3,
+        "description": "Other place / Build 1 / Second Floor / Other PDF report is ready to download",
+        "isSeen": false,
+        "isRead": false
+    }
+]
