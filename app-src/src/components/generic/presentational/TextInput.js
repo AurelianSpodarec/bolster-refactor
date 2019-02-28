@@ -11,7 +11,7 @@ const TextInput = props => (
             onChange={props.handleChange}
             onBlur={props.handleBlur}
         />
-        {!!props.error && (
+        {!!(props.error && props.error.length) && (
             <p className="error red-text text-accent-4">{props.error}</p>
         )}
     </div>

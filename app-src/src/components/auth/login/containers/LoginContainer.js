@@ -3,9 +3,6 @@ import { connect } from 'react-redux';
 
 import Login from '../presentational/Login';
 
-import clearFieldErrors from 'actions/generic/sync/fieldErrors/clearFieldErrors';
-import addFieldError from 'actions/generic/sync/fieldErrors/addFieldError';
-
 class LoginContainer extends Component {
     state = {
         email: '',
@@ -17,13 +14,11 @@ class LoginContainer extends Component {
                 {...this.state}
                 handleInputChange={this.handleInputChange}
                 validateEmail={this.validateEmail}
+                handleSubmit={this.handleSubmit}
             />
         );
     }
 
-    componentDidMount = () => {
-        this.props.clearFieldErrors();
-    };
     handleInputChange = e => {
         e.preventDefault();
 
@@ -32,20 +27,20 @@ class LoginContainer extends Component {
             [e.target.name]: e.target.value
         });
     };
+
     validateEmail = value => {
         if (!(value && value.includes('@')))
             return 'This is not a valid email.';
         if (value && value.length < 4) return 'This email is too short.';
     };
+
+    handleSubmit = e => {
+        e.preventDefault();
+
+        console.log('hi');
+    };
 }
-const mapDispatchToProps = dispatch => ({
-    clearFieldErrors: () => {
-        dispatch(clearFieldErrors());
-    },
-    addFieldError: (fieldName, error) => {
-        dispatch(addFieldError(fieldName, error));
-    }
-});
+const mapDispatchToProps = dispatch => ({});
 
 export default connect(
     null,

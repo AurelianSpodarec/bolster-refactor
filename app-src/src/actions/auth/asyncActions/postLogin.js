@@ -26,7 +26,7 @@ export default (username, password) => dispatch => {
     dispatch(postLoginRequest());
 
     return axios
-        .post(API_URL + '/login', { username, password }, getHeaders())
+        .post('mockData/auth/auth.json', { username, password }, getHeaders())
         .then(res => dispatch(postLoginSuccess(res.data)))
         .catch(err => dispatch(postLoginFailure(formatError(err))));
 };

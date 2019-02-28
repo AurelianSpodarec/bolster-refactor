@@ -2,16 +2,23 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import TextInputContainer from '../../../generic/containers/TextInputContainer';
+import Form from '../../../generic/containers/Form';
 import Field from '../../../generic/presentational/Field';
 
-const Login = ({ email, password, validateEmail, handleInputChange }) => (
+const Login = ({
+    email,
+    password,
+    validateEmail,
+    handleInputChange,
+    handleSubmit
+}) => (
     <div className="auth size-lg-12">
         <h1 className="heading heading-1 size-lg-12">Log in</h1>
         <div className="content-area size-lg-12">
             <h3 className="heading heading-3 size-lg-12">
                 Enter your login details
             </h3>
-            <form className="size-lg-12">
+            <Form className="size-lg-12" onSubmit={handleSubmit}>
                 <Field name="Email" sizeClasses="size-lg-4">
                     <TextInputContainer
                         value={email}
@@ -43,7 +50,7 @@ const Login = ({ email, password, validateEmail, handleInputChange }) => (
                         Forgot password
                     </Link>
                 </div>
-            </form>
+            </Form>
         </div>
     </div>
 );
