@@ -7,7 +7,10 @@ import AllSights from 'components/sites/allSites/presentational/AllSites';
 import LoginContainer from 'components/auth/login/containers/LoginContainer';
 
 const Routes = ({ showLoggedInLayout }) => (
-    <div className={`size-lg-${showLoggedInLayout ? '8' : '12'}`}>
+    <div
+        id="page-area"
+        className={`size-lg-${showLoggedInLayout ? '8' : '12'}`}
+    >
         <Switch>
             <Route exact path="/" component={Dashboard} />
             <Route exact path="/sites" component={AllSights} />

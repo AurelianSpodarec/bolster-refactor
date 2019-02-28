@@ -9,6 +9,7 @@ html {
 
 body {
     min-height: 100%;
+    height: 100%;
     font-size: 10px;
     -webkit-font-smoothing: antialiased;
     @include ubuntu;
@@ -16,18 +17,25 @@ body {
     color: $body-text;
     line-height: 1.35;
 }
-
+#root {
+    height: 100%;
+}
+.App {
+    height: 100%;
+}
 .container {
     width: 100%;
     max-width: 1230px;
     padding: 0 15px;
     margin: 0 auto;
+    height: calc(100% - 69px);
 }
 
 #page-area {
     float: left;
-
-    padding: 10px 0;
+    padding: 10px;
+    height: 100%;
+    background-color: #212228;
 }
 
 .content-area {
@@ -355,6 +363,103 @@ form {
             color: red;
             margin-top: 5px;
             font-size: 120%;
+        }
+    }
+}
+
+.menu {
+    float: left;
+    height: 100%;
+    background-color: #4c4d55;
+    .item {
+        float: left;
+        width: 100%;
+        border-bottom: 1px solid #494a52;
+        &:first-child {
+            border-top: 1px solid #494a52;
+        }
+
+        &.open {
+            .sub-menu {
+                display: block;
+            }
+            a {
+                background-color: #5a5b62;
+                .arrow {
+                    display: none;
+                    &:last-of-type {
+                        display: inline;
+                    }
+                }
+            }
+        }
+
+        .sub-menu {
+            float: left;
+            width: 100%;
+            display: none;
+
+            a {
+                background-color: #62636a;
+
+                &.active,
+                &:hover {
+                    background-color: #75767c;
+                }
+            }
+        }
+    }
+    a {
+        float: left;
+        width: 100%;
+        padding: 15px 10px;
+        text-align: right;
+        font-size: 14px;
+        color: white;
+        text-decoration: none;
+        background-color: #53545c;
+        @include ubuntu-medium;
+        transition: background-color 0.25s ease-in-out;
+
+        .icon {
+            position: absolute;
+            top: 50%;
+            left: 10px;
+            transform: translateY(-50%);
+            font-size: 22px;
+        }
+
+        .arrow {
+            margin-left: 10px;
+            font-size: 12px;
+            &:last-of-type {
+                display: none;
+            }
+        }
+
+        .messages {
+            float: left;
+            font-size: 22px;
+            i {
+                float: left;
+            }
+            sub {
+                display: block;
+                border-radius: 50%;
+                width: 18px;
+                height: 18px;
+                background-color: #ff0000;
+                font-size: 11px;
+                text-align: center;
+                line-height: 18px;
+                position: absolute;
+                right: -9px;
+                top: -5px;
+            }
+        }
+
+        &.active {
+            background-color: #62636a;
         }
     }
 }
