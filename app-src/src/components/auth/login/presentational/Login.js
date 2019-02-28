@@ -6,7 +6,7 @@ import Field from '../../../generic/presentational/Field';
 
 const Login = ({ email, password, validateEmail, handleInputChange }) => (
     <div className="auth size-lg-12">
-        <h1 className="heading heading-1 size-lg-12">Log in</h1>
+        <h1 className="heading heading-1 size-lg-12">Log In</h1>
         <div className="content-area size-lg-12">
             <h3 className="heading heading-3 size-lg-12">
                 Enter your login details
