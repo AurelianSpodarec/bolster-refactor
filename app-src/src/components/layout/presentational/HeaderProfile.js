@@ -13,7 +13,9 @@ const HeaderProfile = ({ profile, popupVisible, handleClick, updateNode }) => (
         </div>
 
         <div className={`options ${popupVisible ? 'visible' : ''}`}>
-            <p className="item">Credits Available: ##5##</p>
+            <p className="item">
+                Credits Available: {profile.creditsAvailable}
+            </p>
             <Link to="#" className="item">
                 Generation Queue: ##1##
                 <i className="icon fas fa-chevron-right" />
