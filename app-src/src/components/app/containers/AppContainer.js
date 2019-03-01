@@ -15,12 +15,41 @@ class AppContainer extends Component {
     }
 
     componentDidMount = () => {
-        this.props.dispatch(fetchProfile());
-        this.props.dispatch(fetchCompany());
-        this.props.dispatch(fetchNotifications());
-        this.props.dispatch(fetchMessages());
-        this.props.dispatch(fetchGenerationQueue());
+        const {
+            fetchProfile,
+            fetchCompany,
+            fetchNotifications,
+            fetchMessages,
+            fetchGenerationQueue
+        } = this.props;
+
+        fetchProfile();
+        fetchCompany();
+        fetchNotifications();
+        fetchMessages();
+        fetchGenerationQueue();
     };
 }
 
-export default connect()(AppContainer);
+const mapDispatchToProps = dispatch => ({
+    fetchProfile: () => {
+        dispatch(fetchProfile());
+    },
+    fetchCompany: () => {
+        dispatch(fetchCompany());
+    },
+    fetchNotifications: () => {
+        dispatch(fetchNotifications());
+    },
+    fetchMessages: () => {
+        dispatch(fetchMessages());
+    },
+    fetchGenerationQueue: () => {
+        dispatch(fetchGenerationQueue());
+    }
+});
+
+export default connect(
+    null,
+    mapDispatchToProps
+)(AppContainer);
