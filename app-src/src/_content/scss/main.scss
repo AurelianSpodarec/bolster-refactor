@@ -432,7 +432,6 @@ form {
 .menu {
     float: left;
     height: 100%;
-    background-color: #4c4d55;
     .item {
         float: left;
         width: 100%;
@@ -440,7 +439,11 @@ form {
         &:first-child {
             border-top: 1px solid #494a52;
         }
-
+        &.active {
+            a {
+                background-color: #62636a;
+            }
+        }
         &.open {
             .sub-menu {
                 display: block;
@@ -518,10 +521,6 @@ form {
                 right: -9px;
                 top: -5px;
             }
-        }
-
-        &.active {
-            background-color: #62636a;
         }
     }
 }
