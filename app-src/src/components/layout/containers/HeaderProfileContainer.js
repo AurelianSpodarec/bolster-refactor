@@ -17,6 +17,7 @@ class HeaderProfileContainer extends Component {
                     this.node = node;
                 }}
                 profile={props.profile}
+                generationQueueLength={props.generationQueueLength}
                 popupVisible={state.popupVisible}
                 handleClick={handleClick}
             />
@@ -50,6 +51,10 @@ class HeaderProfileContainer extends Component {
     };
 }
 
-export default connect(state => state.profileReducers.profile)(
-    HeaderProfileContainer
-);
+const mapStateToProps = ({ profileReducers, generationQueueReducers }) => ({
+    profile: profileReducers.profile.profile,
+    generationQueueLength:
+        generationQueueReducers.generationQueue.generationQueueLength
+});
+
+export default connect(mapStateToProps)(HeaderProfileContainer);

@@ -1,0 +1,23 @@
+[
+    {
+        "id": 1,
+        "status": "Pending",
+        "createdOn": "01/02/2019",
+        "type": "Lorem ipsum",
+        "moreDetails": "Lorem ipsum"
+    },
+    {
+        "id": 2,
+        "status": "Pending",
+        "createdOn": "01/02/2019",
+        "type": "Lorem ipsum",
+        "moreDetails": "Lorem ipsum"
+    },
+    {
+        "id": 3,
+        "status": "Completed",
+        "createdOn": "01/02/2019",
+        "type": "Lorem ipsum",
+        "moreDetails": "Lorem ipsum"
+    }
+]

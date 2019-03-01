@@ -5,10 +5,12 @@ const HeaderNotifications = ({
     popupVisible,
     handleClick,
     updateNode,
-    notifications
+    notifications,
+    notificationsLength
 }) => (
     <div className="item-container" ref={updateNode}>
         <div className="item main" onClick={handleClick}>
+            <span className="number">{notificationsLength}</span>
             <i className="far fa-bell fa-fw" />
         </div>
 
@@ -23,7 +25,7 @@ const HeaderNotifications = ({
                 </div>
             ))}
             <div className="item">
-                <Link to="#" className="button">
+                <Link to="/notifications" className="button">
                     View all notifications
                 </Link>
             </div>

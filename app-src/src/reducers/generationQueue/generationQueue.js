@@ -1,12 +1,12 @@
 import {
-    FETCH_NOTIFICATIONS_REQUEST,
-    FETCH_NOTIFICATIONS_SUCCESS,
-    FETCH_NOTIFICATIONS_FAILURE
-} from 'constants/actionTypes/notifications';
+    FETCH_GENERATION_QUEUE_REQUEST,
+    FETCH_GENERATION_QUEUE_SUCCESS,
+    FETCH_GENERATION_QUEUE_FAILURE
+} from 'constants/actionTypes/generationQueue';
 
 const initialState = {
-    notifications: [],
-    notificationsLength: 0,
+    generationQueue: [],
+    generationQueueLength: 0,
     isFetching: false,
     success: false,
     error: null
@@ -14,24 +14,24 @@ const initialState = {
 
 export default (state = initialState, action) => {
     switch (action.type) {
-        case FETCH_NOTIFICATIONS_REQUEST:
+        case FETCH_GENERATION_QUEUE_REQUEST:
             return {
                 ...state,
                 isFetching: true,
                 success: false,
                 error: null
             };
-        case FETCH_NOTIFICATIONS_SUCCESS:
+        case FETCH_GENERATION_QUEUE_SUCCESS:
             return {
                 ...state,
                 isFetching: false,
                 success: true,
-                notifications: action.payload,
-                notificationsLength: action.payload.filter(
-                    notification => !notification.isSeen
+                generationQueue: action.payload,
+                generationQueueLength: action.payload.filter(
+                    queue => queue.status === 'Pending'
                 ).length
             };
-        case FETCH_NOTIFICATIONS_FAILURE:
+        case FETCH_GENERATION_QUEUE_FAILURE:
             return {
                 ...state,
                 success: false,

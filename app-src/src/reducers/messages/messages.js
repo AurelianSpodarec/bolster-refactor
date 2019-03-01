@@ -1,12 +1,12 @@
 import {
-    FETCH_NOTIFICATIONS_REQUEST,
-    FETCH_NOTIFICATIONS_SUCCESS,
-    FETCH_NOTIFICATIONS_FAILURE
-} from 'constants/actionTypes/notifications';
+    FETCH_MESSAGES_REQUEST,
+    FETCH_MESSAGES_SUCCESS,
+    FETCH_MESSAGES_FAILURE
+} from 'constants/actionTypes/messages';
 
 const initialState = {
-    notifications: [],
-    notificationsLength: 0,
+    messages: [],
+    messagesLength: 0,
     isFetching: false,
     success: false,
     error: null
@@ -14,24 +14,22 @@ const initialState = {
 
 export default (state = initialState, action) => {
     switch (action.type) {
-        case FETCH_NOTIFICATIONS_REQUEST:
+        case FETCH_MESSAGES_REQUEST:
             return {
                 ...state,
                 isFetching: true,
                 success: false,
                 error: null
             };
-        case FETCH_NOTIFICATIONS_SUCCESS:
+        case FETCH_MESSAGES_SUCCESS:
             return {
                 ...state,
                 isFetching: false,
                 success: true,
-                notifications: action.payload,
-                notificationsLength: action.payload.filter(
-                    notification => !notification.isSeen
-                ).length
+                messages: action.payload,
+                messagesLength: action.payload.length
             };
-        case FETCH_NOTIFICATIONS_FAILURE:
+        case FETCH_MESSAGES_FAILURE:
             return {
                 ...state,
                 success: false,

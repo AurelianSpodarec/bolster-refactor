@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import fetchProfile from 'actions/profile/async/fetchProfile';
 import fetchCompany from 'actions/company/async/fetchCompany';
 import fetchNotifications from 'actions/notifications/async/fetchNotifications';
+import fetchMessages from 'actions/messages/async/fetchMessages';
+import fetchGenerationQueue from 'actions/generationQueue/async/fetchGenerationQueue';
 
 import App from '../presentational/App';
 
@@ -13,10 +15,41 @@ class AppContainer extends Component {
     }
 
     componentDidMount = () => {
-        this.props.dispatch(fetchProfile());
-        this.props.dispatch(fetchCompany());
-        this.props.dispatch(fetchNotifications());
+        const {
+            fetchProfile,
+            fetchCompany,
+            fetchNotifications,
+            fetchMessages,
+            fetchGenerationQueue
+        } = this.props;
+
+        fetchProfile();
+        fetchCompany();
+        fetchNotifications();
+        fetchMessages();
+        fetchGenerationQueue();
     };
 }
 
-export default connect()(AppContainer);
+const mapDispatchToProps = dispatch => ({
+    fetchProfile: () => {
+        dispatch(fetchProfile());
+    },
+    fetchCompany: () => {
+        dispatch(fetchCompany());
+    },
+    fetchNotifications: () => {
+        dispatch(fetchNotifications());
+    },
+    fetchMessages: () => {
+        dispatch(fetchMessages());
+    },
+    fetchGenerationQueue: () => {
+        dispatch(fetchGenerationQueue());
+    }
+});
+
+export default connect(
+    null,
+    mapDispatchToProps
+)(AppContainer);

@@ -17,6 +17,7 @@ class HeaderNotificationsContainer extends Component {
                     this.node = node;
                 }}
                 notifications={props.notifications}
+                notificationsLength={props.notificationsLength}
                 popupVisible={state.popupVisible}
                 handleClick={handleClick}
             />
@@ -50,6 +51,9 @@ class HeaderNotificationsContainer extends Component {
     };
 }
 
-export default connect(state => state.notificationsReducers.notifications)(
-    HeaderNotificationsContainer
-);
+const mapStateToProps = ({ notificationsReducers }) => ({
+    notifications: notificationsReducers.notifications.notifications,
+    notificationsLength: notificationsReducers.notifications.notificationsLength
+});
+
+export default connect(mapStateToProps)(HeaderNotificationsContainer);

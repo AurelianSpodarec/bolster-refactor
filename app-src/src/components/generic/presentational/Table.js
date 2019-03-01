@@ -11,7 +11,7 @@ const Table = ({
     children
 }) => {
     return (
-        <table>
+        <table className="generic-table">
             <tbody>
                 <tr>
                     {headers.map((header, i) => (
