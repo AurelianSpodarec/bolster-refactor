@@ -24,14 +24,14 @@ const Header = ({ profile, company, messagesLength }) => (
             <div className="account-area">
                 {/*** notifications ***/}
                 <div className="notifications">
-                    <Link to="#" className="item main">
+                    <Link to="/credit-logs" className="item main">
                         <span className="number green">
                             {profile.creditsAvailable}
                         </span>
                         <i className="far fa-money-bill-alt fa-fw" />
                     </Link>
                     <HeaderNotificationsContainer />
-                    <Link to="#" className="item main">
+                    <Link to="/message-centre" className="item main">
                         <span className="number">{messagesLength}</span>
                         <i className="far fa-envelope fa-fw" />
                     </Link>
