@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+import postLogin from 'actions/auth/asyncActions/postLogin';
 import Login from '../presentational/Login';
 
 class LoginContainer extends Component {
@@ -37,10 +38,15 @@ class LoginContainer extends Component {
     handleSubmit = e => {
         e.preventDefault();
 
-        console.log('hi');
+        const { email, password } = this.state;
+        this.props.postLogin(email, password);
     };
 }
-const mapDispatchToProps = dispatch => ({});
+const mapDispatchToProps = dispatch => ({
+    postLogin: (email, password) => {
+        dispatch(postLogin(email, password));
+    }
+});
 
 export default connect(
     null,
