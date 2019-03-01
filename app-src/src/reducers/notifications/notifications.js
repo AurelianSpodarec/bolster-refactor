@@ -6,6 +6,7 @@ import {
 
 const initialState = {
     notifications: [],
+    notificationsLength: 0,
     isFetching: false,
     success: false,
     error: null
@@ -25,7 +26,10 @@ export default (state = initialState, action) => {
                 ...state,
                 isFetching: false,
                 success: true,
-                notifications: action.payload
+                notifications: action.payload,
+                notificationsLength: action.payload.filter(
+                    notification => !notification.isSeen
+                ).length
             };
         case FETCH_NOTIFICATIONS_FAILURE:
             return {
