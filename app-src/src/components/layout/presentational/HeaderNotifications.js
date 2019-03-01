@@ -9,6 +9,7 @@ const HeaderNotifications = ({
 }) => (
     <div className="item-container" ref={updateNode}>
         <div className="item main" onClick={handleClick}>
+            <span className="number">1</span>
             <i className="far fa-bell fa-fw" />
         </div>
 

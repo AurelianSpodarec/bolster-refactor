@@ -185,6 +185,26 @@ button {
                 &.active {
                     background-color: #f4f3f3;
                 }
+
+                .number {
+                    position: absolute;
+                    @include content-center;
+                    width: 18px;
+                    height: 18px;
+                    line-height: 18px;
+                    margin-top: -10px;
+                    margin-left: 10px;
+                    font-size: 120%;
+                    background-color: red;
+                    color: white;
+                    @include rounded-all(50%);
+                    text-align: center;
+                    z-index: 1;
+
+                    &.green {
+                        background-color: #2eac58;
+                    }
+                }
             }
         }
 

@@ -1,13 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Logo from '_content/images/examples/logo.jpg';
 
 import SearchContainer from '../containers/SearchContainer';
 import HeaderProfileContainer from '../containers/HeaderProfileContainer';
 import HeaderNotificationsContainer from '../containers/HeaderNotificationsContainer';
 
 const Header = ({ profile, company }) => (
-    <header id="page-header">
+    <header id="page-header" style={{ borderColor: company.colorScheme }}>
         <div className="container">
             {/*** company logo ***/}
             <div className="logo">
@@ -26,10 +25,14 @@ const Header = ({ profile, company }) => (
                 {/*** notifications ***/}
                 <div className="notifications">
                     <Link to="#" className="item main">
+                        <span className="number green">
+                            {profile.creditsAvailable}
+                        </span>
                         <i className="far fa-money-bill-alt fa-fw" />
                     </Link>
                     <HeaderNotificationsContainer />
                     <Link to="#" className="item main">
+                        <span className="number">2</span>
                         <i className="far fa-envelope fa-fw" />
                     </Link>
                 </div>
