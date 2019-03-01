@@ -25,7 +25,7 @@ const HeaderNotifications = ({
                 </div>
             ))}
             <div className="item">
-                <Link to="#" className="button">
+                <Link to="/notifications" className="button">
                     View all notifications
                 </Link>
             </div>
