@@ -6,13 +6,13 @@ import SearchContainer from '../containers/SearchContainer';
 import HeaderProfileContainer from '../containers/HeaderProfileContainer';
 import HeaderNotificationsContainer from '../containers/HeaderNotificationsContainer';
 
-const Header = ({ profile }) => (
+const Header = ({ profile, company }) => (
     <header id="page-header">
         <div className="container">
             {/*** company logo ***/}
             <div className="logo">
                 <Link to="/">
-                    <img alt="logo of" src={Logo} />
+                    <img alt={`logo of ${company.name}`} src={company.logo} />
                 </Link>
             </div>
 

@@ -7,8 +7,11 @@ class HeaderContainer extends Component {
     render() {
         const { props } = this;
 
-        return <Header profile={props.profile} />;
+        return <Header profile={props.profile} company={props.company} />;
     }
 }
 
-export default connect(state => state.profileReducers.profile)(HeaderContainer);
+export default connect(state => ({
+    ...state.profileReducers.profile,
+    ...state.companyReducers.company
+}))(HeaderContainer);
