@@ -6,7 +6,10 @@ import HeaderProfileContainer from '../containers/HeaderProfileContainer';
 import HeaderNotificationsContainer from '../containers/HeaderNotificationsContainer';
 
 const Header = ({ profile, company, messagesLength }) => (
-    <header id="page-header" style={{ borderColor: company.colorScheme }}>
+    <header
+        id="page-header"
+        style={{ borderColor: company.colorSchemeBackground }}
+    >
         <div className="container">
             {/*** company logo ***/}
             <div className="logo">
