@@ -18,7 +18,7 @@ const Footer = ({ company }) => {
             <div className="container">
                 <p style={{ color: company.colorSchemeText }}>
                     Bolster Systems Ltd is a company registered in England and
-                    Wales. Company No: 12345678.
+                    Wales. Company No: ##12345678##.
                 </p>
 
                 <img alt="logo of Bolster Systems" src={logo} />
