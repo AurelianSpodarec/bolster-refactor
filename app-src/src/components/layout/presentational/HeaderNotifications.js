@@ -9,7 +9,10 @@ const HeaderNotifications = ({
     notificationsLength
 }) => (
     <div className="item-container" ref={updateNode}>
-        <div className="item main" onClick={handleClick}>
+        <div
+            className={`item main ${popupVisible ? 'active' : ''}`}
+            onClick={handleClick}
+        >
             <span className="number">{notificationsLength}</span>
             <i className="far fa-bell fa-fw" />
         </div>
