@@ -1,12 +1,11 @@
 import axios from 'axios';
 
-import { API_URL } from 'config';
-import { getHeaders, formatError } from 'helpers';
+import { getHeaders } from 'helpers/api';
 import {
     POST_LOGIN_REQUEST,
     POST_LOGIN_SUCCESS,
     POST_LOGIN_FAILURE
-} from 'constants/login';
+} from 'constants/actionTypes/login';
 
 export const postLoginRequest = () => ({
     type: POST_LOGIN_REQUEST
@@ -22,11 +21,14 @@ export const postLoginFailure = payload => ({
     payload
 });
 
-export default (username, password) => dispatch => {
+export default (email, password) => dispatch => {
     dispatch(postLoginRequest());
 
-    return axios
-        .post('mockData/auth/auth.json', { username, password }, getHeaders())
-        .then(res => dispatch(postLoginSuccess(res.data)))
-        .catch(err => dispatch(postLoginFailure(formatError(err))));
+    return (
+        axios
+            // .post('mockData/auth/auth.json', { email, password }, getHeaders())
+            .get('mockData/auth/auth.json', getHeaders())
+            .then(res => dispatch(postLoginSuccess(res.data)))
+            .catch(err => dispatch(postLoginFailure(err)))
+    );
 };

@@ -3,11 +3,13 @@ import React from 'react';
 import Table from 'components/generic/presentational/Table';
 import SitesList from './SitesList';
 
-const SitesTable = ({ sites, ...rest }) => {
+const SitesTable = ({ sites, headers, isFetching, error }) => {
     return (
         <div className="content-area size-lg-12">
             <Table
-                {...rest}
+                headers={headers}
+                isFetching={isFetching}
+                error={error}
                 noData={!sites.length}
                 noDataMessage="There are no sites to display."
             >

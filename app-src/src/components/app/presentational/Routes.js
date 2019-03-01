@@ -15,6 +15,7 @@ const Routes = ({ showLoggedInLayout }) => (
             <Route exact path="/" component={Dashboard} />
             <Route exact path="/sites" component={AllSights} />
             <Route exact path="/login" component={LoginContainer} />
+            <Route exact path="/creditlogs" component={LoginContainer} />
         </Switch>
     </div>
 );
