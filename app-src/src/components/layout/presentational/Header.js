@@ -5,7 +5,7 @@ import SearchContainer from '../containers/SearchContainer';
 import HeaderProfileContainer from '../containers/HeaderProfileContainer';
 import HeaderNotificationsContainer from '../containers/HeaderNotificationsContainer';
 
-const Header = ({ profile, company }) => (
+const Header = ({ profile, company, messagesLength }) => (
     <header id="page-header" style={{ borderColor: company.colorScheme }}>
         <div className="container">
             {/*** company logo ***/}
@@ -32,7 +32,7 @@ const Header = ({ profile, company }) => (
                     </Link>
                     <HeaderNotificationsContainer />
                     <Link to="#" className="item main">
-                        <span className="number">2</span>
+                        <span className="number">{messagesLength}</span>
                         <i className="far fa-envelope fa-fw" />
                     </Link>
                 </div>
