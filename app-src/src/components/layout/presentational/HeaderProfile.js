@@ -1,7 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const HeaderProfile = ({ profile, popupVisible, handleClick, updateNode }) => (
+const HeaderProfile = ({
+    profile,
+    generationQueueLength,
+    popupVisible,
+    handleClick,
+    updateNode
+}) => (
     <div className="profile" ref={updateNode}>
         <div className="user" onClick={handleClick}>
             <img alt="profile of" src={profile.profilePicture} />
@@ -16,23 +22,23 @@ const HeaderProfile = ({ profile, popupVisible, handleClick, updateNode }) => (
             <p className="item">
                 Credits Available: {profile.creditsAvailable}
             </p>
-            <Link to="#" className="item">
-                Generation Queue: ##1##
+            <Link to="/generation-queue" className="item">
+                Generation Queue: {generationQueueLength}
                 <i className="icon fas fa-chevron-right" />
             </Link>
-            <Link to="#" className="item">
+            <Link to="/subscription" className="item">
                 Manage Subscription
                 <i className="icon fas fa-chevron-right" />
             </Link>
-            <Link to="#" className="item active">
+            <Link to="/orders" className="item active">
                 My Orders
                 <i className="icon fas fa-chevron-right" />
             </Link>
-            <Link to="#" className="item">
+            <Link to="/profile" className="item">
                 My Profile
                 <i className="icon fas fa-chevron-right" />
             </Link>
-            <Link to="#" className="item">
+            <Link to="/settings" className="item">
                 Company Settings
                 <i className="icon fas fa-chevron-right" />
             </Link>
