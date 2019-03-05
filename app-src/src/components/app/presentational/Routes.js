@@ -5,6 +5,7 @@ import withShowLayout from 'components/app/hocs/withShowLayout';
 import Dashboard from 'components/dashboard/presentational/Dashboard';
 import AllSights from 'components/sites/allSites/presentational/AllSites';
 import LoginContainer from 'components/auth/login/containers/LoginContainer';
+import AllCreditLogs from 'components/creditLogs//allCreditLogs/presentational/AllCreditLogs';
 
 const Routes = ({ showLoggedInLayout }) => (
     <div
@@ -15,7 +16,7 @@ const Routes = ({ showLoggedInLayout }) => (
             <Route exact path="/" component={Dashboard} />
             <Route exact path="/sites" component={AllSights} />
             <Route exact path="/login" component={LoginContainer} />
-            <Route exact path="/creditlogs" component={LoginContainer} />
+            <Route exact path="/creditlogs" component={AllCreditLogs} />
         </Switch>
     </div>
 );

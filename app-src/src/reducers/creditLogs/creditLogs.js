@@ -1,31 +1,31 @@
 import { convertArrToObj } from 'helpers/generic';
 import {
-    FETCH_SITES_REQUEST,
-    FETCH_SITES_SUCCESS,
-    FETCH_SITES_FAILURE
-} from 'constants/actionTypes/sites';
+    FETCH_CREDIT_LOGS_REQUEST,
+    FETCH_CREDIT_LOGS_SUCCESS,
+    FETCH_CREDIT_LOGS_FAILURE
+} from 'constants/actionTypes/creditLogs';
 
 export const initialState = {
-    sites: {},
+    creditLogs: {},
     isFetching: false,
     error: null
 };
 
 export default (state = initialState, action) => {
     switch (action.type) {
-        case FETCH_SITES_REQUEST:
+        case FETCH_CREDIT_LOGS_REQUEST:
             return {
                 ...state,
                 isFetching: true,
                 error: null
             };
-        case FETCH_SITES_SUCCESS:
+        case FETCH_CREDIT_LOGS_SUCCESS:
             return {
                 ...state,
                 isFetching: false,
-                sites: convertArrToObj(action.payload)
+                creditLogs: convertArrToObj(action.payload)
             };
-        case FETCH_SITES_FAILURE:
+        case FETCH_CREDIT_LOGS_FAILURE:
             return {
                 ...state,
                 isFetching: false,

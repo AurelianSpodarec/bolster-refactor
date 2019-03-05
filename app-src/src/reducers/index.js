@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 
 import genericReducers from './generic';
-import sitesReducers from './sites';
+import sitesReducers from './creditLogs';
 import profileReducers from './profile';
 import companyReducers from './company';
 import notificationsReducers from './notifications';
@@ -12,6 +12,8 @@ export default combineReducers({
     genericReducers,
     sitesReducers,
     profileReducers,
+    notificationsReducers,
+    creditLogsReducers
     companyReducers,
     notificationsReducers,
     messagesReducers,
