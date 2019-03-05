@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { BrowserRouter as Router } from 'react-router-dom';
 
 import fetchProfile from 'actions/profile/async/fetchProfile';
 import fetchCompany from 'actions/company/async/fetchCompany';
@@ -11,7 +12,11 @@ import App from '../presentational/App';
 
 class AppContainer extends Component {
     render() {
-        return <App />;
+        return (
+            <Router>
+                <App />
+            </Router>
+        );
     }
 
     componentDidMount = () => {

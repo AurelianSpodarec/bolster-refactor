@@ -6,7 +6,7 @@ import DropdownMenuItemContainer from '../containers/DropdownMenuItemContainer';
 
 const Menu = () => (
     <div className="menu size-lg-3">
-        <MenuItemContainer link="/dashboard">
+        <MenuItemContainer link="/">
             <i className="fa fa-home icon" /> Dashboard
         </MenuItemContainer>
         <MenuItemContainer link="/sites">
