@@ -11,4 +11,6 @@ class FooterContainer extends Component {
     }
 }
 
-export default connect(state => state.companyReducers.company)(FooterContainer);
+export default connect(state => ({
+    company: state.companyReducers.company.company
+}))(FooterContainer);
