@@ -6,7 +6,7 @@ export default function(WrappedComponent) {
         render() {
             return (
                 <WrappedComponent
-                    curUrl={this.props.match.url}
+                    curUrl={this.props.location.pathname}
                     {...this.props}
                 />
             );

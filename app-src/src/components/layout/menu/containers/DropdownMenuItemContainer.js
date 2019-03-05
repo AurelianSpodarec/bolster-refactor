@@ -8,7 +8,7 @@ class DropdownMenuItemContainer extends Component {
     };
 
     render() {
-        const {icon, title, children } = this.props;
+        const { icon, title, children } = this.props;
         const { isOpen } = this.state;
         return (
             <div className={`item ${isOpen ? 'open' : ''}`}>
@@ -28,17 +28,15 @@ class DropdownMenuItemContainer extends Component {
 
     componentDidMount = () => {
         this._compareRoutes();
-        console.log(this.props.match)
     };
 
     componentDidUpdate = prevProps => {
-        const {curUrl} = this.props;
+        const { curUrl } = this.props;
 
-        console.log(curUrl)
-        if(curUrl !== prevProps.curUrl){
+        if (curUrl !== prevProps.curUrl) {
             this._compareRoutes();
         }
-    }
+    };
 
     toggleExpand = e => {
         e.preventDefault();
@@ -50,15 +48,13 @@ class DropdownMenuItemContainer extends Component {
     };
 
     _compareRoutes = () => {
-        const {baseUrl,curUrl} = this.props;
+        const { baseUrl, curUrl } = this.props;
 
-            this.setState({
-                ...this.state,
-                isOpen: baseUrl.toLowerCase() === curUrl
-            });
-    }
+        this.setState({
+            ...this.state,
+            isOpen: curUrl.startsWith(baseUrl.toLowerCase())
+        });
+    };
 }
 
-
 export default withCurUrl(DropdownMenuItemContainer);
-
