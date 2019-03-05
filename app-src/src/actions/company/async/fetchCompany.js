@@ -24,7 +24,7 @@ export default () => dispatch => {
     dispatch(fetchCompanyRequest());
 
     axios
-        .get('mockData/company/company.json')
+        .get('/mockData/company/company.json')
         .then(res => dispatch(fetchCompanySuccess(res.data)))
         .catch(err => dispatch(fetchCompanyFailure(err.message)));
 };

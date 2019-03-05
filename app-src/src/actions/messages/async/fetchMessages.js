@@ -24,7 +24,7 @@ export default () => dispatch => {
     dispatch(fetchMessagesRequest());
 
     axios
-        .get('mockData/messages/messages.json')
+        .get('/mockData/messages/messages.json')
         .then(res => dispatch(fetchMessagesSuccess(res.data)))
         .catch(err => dispatch(fetchMessagesFailure(err.message)));
 };

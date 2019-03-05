@@ -24,7 +24,7 @@ export default () => dispatch => {
     dispatch(fetchNotificationsRequest());
 
     axios
-        .get('mockData/notifications/notifications.json')
+        .get('/mockData/notifications/notifications.json')
         .then(res => dispatch(fetchNotificationsSuccess(res.data)))
         .catch(err => dispatch(fetchNotificationsFailure(err.message)));
 };

@@ -24,7 +24,7 @@ export default () => dispatch => {
     dispatch(fetchProfileRequest());
 
     axios
-        .get('mockData/profile/profile.json')
+        .get('/mockData/profile/profile.json')
         .then(res => dispatch(fetchProfileSuccess(res.data)))
         .catch(err => dispatch(fetchProfileFailure(err.message)));
 };
