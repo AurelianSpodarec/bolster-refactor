@@ -1,14 +1,19 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 import withShowLayout from 'components/layout/misc/hocs/withShowLayout';
 import Menu from '../presentational/Menu';
 
 class MenuContianer extends Component {
     render() {
-        if (!this.props.showLoggedInLayout) return null;
-
-        return <Menu />;
+        const { showLoggedInLayout, messageCount } = this.props;
+        if (!showLoggedInLayout) return null;
+        return <Menu messageCount={messageCount} />;
     }
 }
 
-export default withShowLayout(MenuContianer);
+export default withShowLayout(
+    connect(({ messagesReducers }) => ({
+        messageCount: messagesReducers.messages.messages.length
+    }))(MenuContianer)
+);

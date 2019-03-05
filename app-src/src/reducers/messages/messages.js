@@ -6,7 +6,6 @@ import {
 
 const initialState = {
     messages: [],
-    messagesLength: 0,
     isFetching: false,
     error: null
 };
@@ -23,8 +22,7 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 isFetching: false,
-                messages: action.payload,
-                messagesLength: action.payload.length
+                messages: action.payload
             };
         case FETCH_MESSAGES_FAILURE:
             return {
