@@ -24,7 +24,7 @@ export default () => dispatch => {
     dispatch(fetchCreditLogsRequest());
 
     axios
-        .get('mockData/creditLogs/creditLogs.json')
+        .get('/mockData/creditLogs/creditLogs.json')
         .then(res => dispatch(fetchCreditLogsSuccess(res.data)))
         .catch(err => dispatch(fetchCreditLogsFailure(err)));
 };

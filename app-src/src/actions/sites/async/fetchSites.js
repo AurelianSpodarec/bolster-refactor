@@ -24,7 +24,7 @@ export default () => dispatch => {
     dispatch(fetchSitesRequest());
 
     axios
-        .get('mockData/sites/sites.json')
+        .get('/mockData/sites/sites.json')
         .then(res => dispatch(fetchSitesSuccess(res.data)))
         .catch(err => dispatch(fetchSitesFailure(err)));
 };

@@ -24,7 +24,7 @@ export default () => dispatch => {
     dispatch(fetchGenerationQueueRequest());
 
     axios
-        .get('mockData/generationQueue/generationQueue.json')
+        .get('/mockData/generationQueue/generationQueue.json')
         .then(res => dispatch(fetchGenerationQueueSuccess(res.data)))
         .catch(err => dispatch(fetchGenerationQueueFailure(err.message)));
 };

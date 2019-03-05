@@ -9,11 +9,12 @@ import AuthRoutes from './AuthRoutes';
 import SitesRoutes from './SitesRoutes';
 import CreditLogRoutes from './CreditLogRoutes';
 import MessagesRoutes from './MessagesRoutes';
+import UserManagementRoutes from './UserManagementRoutes.js';
 
 const Routes = ({ showLoggedInLayout }) => (
     <div
         id="page-area"
-        className={`size-lg-${showLoggedInLayout ? '8' : '12'}`}
+        className={`size-lg-${showLoggedInLayout ? '9' : '12'}`}
     >
         <SwitchWith404>
             <Route exact path="/" component={Dashboard} />
@@ -21,6 +22,7 @@ const Routes = ({ showLoggedInLayout }) => (
             <Route path="/sites" component={SitesRoutes} />
             <Route path="/credit-log" component={CreditLogRoutes} />
             <Route path="/messages" component={MessagesRoutes} />
+            <Route path="/user-management" component={UserManagementRoutes} />
         </SwitchWith404>
     </div>
 );

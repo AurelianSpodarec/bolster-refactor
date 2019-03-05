@@ -7,7 +7,6 @@ import AllSights from 'components/sites/allSites/presentational/AllSites';
 const SitesRoutes = ({ match: { url: baseUrl } }) => (
     <SwitchWith404>
         <Route exact path={baseUrl} component={AllSights} />
-        <Route exact path={`${baseUrl}/:id`} component={AllSights} />
     </SwitchWith404>
 );
 

@@ -24,7 +24,7 @@ export default () => dispatch => {
     dispatch(fetchSearchResultsRequest());
 
     axios
-        .get('mockData/search/results.json')
+        .get('/mockData/search/results.json')
         .then(res => dispatch(fetchSearchResultsSuccess(res.data)))
         .catch(err => dispatch(fetchSearchResultsFailure(err.message)));
 };

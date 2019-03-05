@@ -1,12 +1,8 @@
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
+// import { Route } from 'react-router-dom';
 
-import AllMessages from 'components/';
+import SwitchWith404 from './SwitchWith404';
 
-const AuthRoutes = () => (
-    <Switch>
-        <Route path="/user-management" component={AllMessages} />
-    </Switch>
-);
+const AuthRoutes = () => <SwitchWith404 />;
 
 export default AuthRoutes;
