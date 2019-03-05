@@ -13,7 +13,7 @@ class SearchContainer extends Component {
 
     render() {
         const { resultsVisible } = this.state;
-        const { value, name } = this.props;
+        const { value, name, results, isFetching, error } = this.props;
         const { handleChange } = this;
 
         return (
@@ -29,7 +29,17 @@ class SearchContainer extends Component {
                     placeholder="Search..."
                     handleChange={handleChange}
                 />
-                <SearchResults resultsVisible={resultsVisible} />
+                <div
+                    className={`dropdown-search-results ${
+                        resultsVisible ? 'visible' : ''
+                    }`}
+                >
+                    <SearchResults
+                        results={results}
+                        isFetching={isFetching}
+                        error={error}
+                    />
+                </div>
             </div>
         );
     }
@@ -67,11 +77,11 @@ class SearchContainer extends Component {
     };
 }
 
-// const mapStateToProps = ({ profileReducers, generationQueueReducers }) => ({
-//     profile: profileReducers.profile.profile,
-//     generationQueueLength:
-//         generationQueueReducers.generationQueue.generationQueueLength
-// });
+const mapStateToProps = ({ searchReducers }) => ({
+    results: searchReducers.results.results,
+    isFetching: searchReducers.results.isFetching,
+    error: searchReducers.results.error
+});
 
 const mapDispatchToProps = dispatch => ({
     fetchSearchResults: () => {
@@ -80,6 +90,6 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default connect(
-    null,
+    mapStateToProps,
     mapDispatchToProps
 )(SearchContainer);
