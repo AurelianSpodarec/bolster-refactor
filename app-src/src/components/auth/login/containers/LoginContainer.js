@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import postLogin from 'actions/auth/asyncActions/postLogin';
+import postLogin from 'actions/auth/async/postLogin';
 import Login from '../presentational/Login';
 
 class LoginContainer extends Component {

@@ -8,7 +8,7 @@ import { BrowserRouter } from 'react-router-dom';
 
 import * as serviceWorker from 'helpers/serviceWorker';
 import reducer from 'reducers';
-import AppContainer from 'components/app/containers/AppContainer';
+import AppContainer from 'components/app/app/containers/AppContainer';
 import '_content/scss/font-awesome.css';
 import '_content/scss/main.scss';
 
