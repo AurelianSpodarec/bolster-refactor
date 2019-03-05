@@ -5,7 +5,7 @@ import AllMessages from 'components/';
 
 const AuthRoutes = () => (
     <Switch>
-        <Route exact path="/user-management" component={AllMessages} />
+        <Route path="/user-management" component={AllMessages} />
     </Switch>
 );
 

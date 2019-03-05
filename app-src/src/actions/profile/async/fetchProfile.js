@@ -15,9 +15,9 @@ export const fetchProfileSuccess = payload => ({
     payload
 });
 
-export const fetchProfileFailure = err => ({
+export const fetchProfileFailure = error => ({
     type: FETCH_PROFILE_FAILURE,
-    err
+    error
 });
 
 export default () => dispatch => {

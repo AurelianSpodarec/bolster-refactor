@@ -15,9 +15,9 @@ export const fetchCompanySuccess = payload => ({
     payload
 });
 
-export const fetchCompanyFailure = err => ({
+export const fetchCompanyFailure = error => ({
     type: FETCH_COMPANY_FAILURE,
-    err
+    error
 });
 
 export default () => dispatch => {

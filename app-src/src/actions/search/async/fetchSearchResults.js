@@ -15,9 +15,9 @@ export const fetchSearchResultsSuccess = payload => ({
     payload
 });
 
-export const fetchSearchResultsFailure = err => ({
+export const fetchSearchResultsFailure = error => ({
     type: FETCH_SEARCH_RESULTS_FAILURE,
-    err
+    error
 });
 
 export default () => dispatch => {
