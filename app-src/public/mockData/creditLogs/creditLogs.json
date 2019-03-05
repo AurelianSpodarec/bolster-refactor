@@ -1,28 +1,28 @@
 [
     {
         "id": 1,
-        "datedAdded": "01/11/2018",
+        "dateAdded": "01/11/2018",
         "name": "Jamie McMullan",
         "location": "Manchester Royal infirmary/Buildong one/Drawing name",
         "status": "Expires 01/11/2019"
     },
     {
         "id": 2,
-        "datedAdded": "01/11/2018",
+        "dateAdded": "01/11/2018",
         "name": "Jamie McMullan",
         "location": "Manchester Royal infirmary/Buildong one/Drawing name",
         "status": "Expires 01/11/2019"
     },
     {
         "id": 3,
-        "datedAdded": "01/11/2018",
+        "dateAdded": "01/11/2018",
         "name": "Jamie McMullan",
         "location": "Manchester Royal infirmary/Buildong one/Drawing name",
         "status": "Expires 01/11/2019"
     },
     {
         "id": 4,
-        "datedAdded": "01/11/2018",
+        "dateAdded": "01/11/2018",
         "name": "Jamie McMullan",
         "location": "Manchester Royal infirmary/Buildong one/Drawing name",
         "status": "Expires 01/11/2019"

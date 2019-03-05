@@ -20,7 +20,7 @@ const Routes = ({ showLoggedInLayout }) => (
             <Route exact path="/" component={Dashboard} />
             <Route path="/auth" component={AuthRoutes} />
             <Route path="/sites" component={SitesRoutes} />
-            <Route path="/credit-log" component={CreditLogRoutes} />
+            <Route path="/credit-logs" component={CreditLogRoutes} />
             <Route path="/messages" component={MessagesRoutes} />
             <Route path="/user-management" component={UserManagementRoutes} />
         </SwitchWith404>
