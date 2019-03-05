@@ -5,10 +5,12 @@ import Footer from '../presentational/Footer';
 
 class FooterContainer extends Component {
     render() {
-        const { props } = this;
+        const { company } = this.props;
 
-        return <Footer company={props.company} />;
+        return <Footer company={company} />;
     }
 }
 
-export default connect(state => state.companyReducers.company)(FooterContainer);
+export default connect(state => ({
+    company: state.companyReducers.company.company
+}))(FooterContainer);

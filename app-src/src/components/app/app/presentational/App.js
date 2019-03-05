@@ -1,5 +1,4 @@
 import React from 'react';
-
 import HeaderContainer from 'components/layout/header/containers/HeaderContainer';
 import FooterContainer from 'components/layout/footer/containers/FooterContainer';
 import MenuContainer from 'components/layout/menu/containers/MenuContainer';

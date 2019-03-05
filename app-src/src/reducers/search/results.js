@@ -1,33 +1,36 @@
 import {
-    FETCH_PROFILE_REQUEST,
-    FETCH_PROFILE_SUCCESS,
-    FETCH_PROFILE_FAILURE
-} from 'constants/actionTypes/profile';
+    FETCH_SEARCH_RESULTS_REQUEST,
+    FETCH_SEARCH_RESULTS_SUCCESS,
+    FETCH_SEARCH_RESULTS_FAILURE
+} from 'constants/actionTypes/search';
 
 const initialState = {
-    profile: {},
+    results: [],
     isFetching: false,
+    success: false,
     error: null
 };
 
 export default (state = initialState, action) => {
     switch (action.type) {
-        case FETCH_PROFILE_REQUEST:
+        case FETCH_SEARCH_RESULTS_REQUEST:
             return {
                 ...state,
                 isFetching: true,
+                success: false,
                 error: null
             };
-        case FETCH_PROFILE_SUCCESS:
+        case FETCH_SEARCH_RESULTS_SUCCESS:
             return {
                 ...state,
                 isFetching: false,
-                profile: action.payload
+                success: true,
+                results: action.payload
             };
-        case FETCH_PROFILE_FAILURE:
+        case FETCH_SEARCH_RESULTS_FAILURE:
             return {
                 ...state,
-                isFetching: false,
+                success: false,
                 error: action.error.message
             };
         default:
