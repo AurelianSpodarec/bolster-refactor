@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import Search from 'components/generic/form/presentational/Search';
 import SearchResults from '../presentational/SearchResults';
 
+import fetchSearchResults from 'actions/search/async/fetchSearchResults';
+
 class SearchContainer extends Component {
     state = {
         resultsVisible: false
@@ -33,11 +35,14 @@ class SearchContainer extends Component {
     }
 
     handleChange = e => {
+        const { fetchSearchResults } = this.props;
+
         if (e.target.value.length > 0) {
             this.setState({
                 resultsVisible: true
             });
             document.addEventListener('click', this.handleOutsideClick, false);
+            fetchSearchResults();
         } else {
             this.setState({
                 resultsVisible: false
@@ -62,4 +67,19 @@ class SearchContainer extends Component {
     };
 }
 
-export default connect()(SearchContainer);
+// const mapStateToProps = ({ profileReducers, generationQueueReducers }) => ({
+//     profile: profileReducers.profile.profile,
+//     generationQueueLength:
+//         generationQueueReducers.generationQueue.generationQueueLength
+// });
+
+const mapDispatchToProps = dispatch => ({
+    fetchSearchResults: () => {
+        dispatch(fetchSearchResults());
+    }
+});
+
+export default connect(
+    null,
+    mapDispatchToProps
+)(SearchContainer);
