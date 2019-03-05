@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Error from 'components/generic/presentational/Error';
+import Error from 'components/generic/form/presentational/Error';
 import Loading from 'components/generic/presentational/Loading';
 
 const TableBody = ({

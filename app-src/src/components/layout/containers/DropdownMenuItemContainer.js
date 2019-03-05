@@ -10,7 +10,7 @@ class DropdownMenuItemContainer extends Component {
         const { isOpen } = this.state;
         return (
             <div className={`item ${isOpen ? 'open' : ''}`}>
-                <a href="#" onClick={this.toggleExpand}>
+                <a href="#/" onClick={this.toggleExpand}>
                     {!!icon && <i className={`fa fa-${icon} icon`} />}
                     {title}
                     <i

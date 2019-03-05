@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import TextInputContainer from '../../../generic/containers/TextInputContainer';
-import Form from '../../../generic/containers/Form';
-import Field from '../../../generic/presentational/Field';
+import TextInputContainer from '../../../generic/containers/form/TextInputContainer';
+import Form from '../../../generic/containers/form/Form';
+import Field from '../../../generic/form/presentational/Field';
 
 const Login = ({
     email,

@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import addFieldError from 'actions/generic/sync/fieldErrors/addFieldError';
 import removeFieldError from 'actions/generic/sync/fieldErrors/removeFieldError';
 
-import TextInput from '../presentational/TextInput';
+import TextInput from '../../presentational/TextInput';
 
 class TextInputContianer extends Component {
     state = {

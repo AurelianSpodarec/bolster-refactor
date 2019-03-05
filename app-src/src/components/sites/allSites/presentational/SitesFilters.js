@@ -1,7 +1,7 @@
 import React from 'react';
 
-import Search from 'components/generic/presentational/Search';
-import Dropdown from 'components/generic/presentational/Dropdown';
+import Search from 'components/generic/form/presentational/Search';
+import Dropdown from 'components/generic/form/presentational/Dropdown';
 
 const SitesListFilters = ({
     searchTerm,

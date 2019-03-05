@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import Search from 'components/generic/presentational/Search';
+import Search from 'components/generic/form/presentational/Search';
 import SearchResults from '../presentational/SearchResults';
 
 class SearchContainer extends Component {
