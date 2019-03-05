@@ -46,7 +46,7 @@ const Login = ({
                 <div className="button-area size-lg-12">
                     <button type="submit">Login</button>
 
-                    <Link className="button" to="/">
+                    <Link className="button" to="/forgot-password">
                         Forgot password
                     </Link>
                 </div>

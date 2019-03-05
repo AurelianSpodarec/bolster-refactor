@@ -1,5 +1,6 @@
 import axios from 'axios';
 
+// import { overwriteFieldErrors } from 'actions/generic/fieldErrors/sync/overwriteFieldErrors'
 import { getHeaders } from 'helpers/api';
 import {
     POST_LOGIN_REQUEST,
@@ -29,6 +30,9 @@ export default (email, password) => dispatch => {
             // .post('mockData/auth/auth.json', { email, password }, getHeaders())
             .get('mockData/auth/auth.json', getHeaders())
             .then(res => dispatch(postLoginSuccess(res.data)))
-            .catch(err => dispatch(postLoginFailure(err)))
+            .catch(err => {
+                dispatch(postLoginFailure(err));
+                // dispatch(overwriteFieldErrors(err.fieldErrors))
+            })
     );
 };
