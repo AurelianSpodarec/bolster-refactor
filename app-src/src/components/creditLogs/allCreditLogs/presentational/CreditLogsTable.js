@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Table from 'components/generic/presentational/Table';
+import Table from 'components/generic/tables/presentational/Table';
 import CreditLogsList from './CreditLogsList';
 
 const CreditLogsTable = ({ creditLogs, headers, isFetching, error }) => {
