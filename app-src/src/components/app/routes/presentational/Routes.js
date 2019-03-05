@@ -6,6 +6,7 @@ import AuthRoutes from './AuthRoutes';
 import DashboardRoutes from './DashboardRoutes';
 import SitesRoutes from './SitesRoutes';
 import CreditLogRoutes from './CreditLogRoutes';
+import MessagesRoutes from './MessagesRoutes';
 
 const Routes = ({ showLoggedInLayout }) => (
     <div
@@ -16,6 +17,7 @@ const Routes = ({ showLoggedInLayout }) => (
         <DashboardRoutes />
         <SitesRoutes />
         <CreditLogRoutes />
+        <MessagesRoutes />
     </div>
 );
 
