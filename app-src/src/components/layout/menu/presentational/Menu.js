@@ -37,12 +37,12 @@ const Menu = ({ messageCount }) => (
             </span>
             Message Centre
         </MenuItemContainer>
-            <MenuItemContainer link="/credit-logs">
         <DropdownMenuItemContainer
             icon="wrench"
             title={'Tools & Resources'}
             baseUrl="/tools"
         >
+            <MenuItemContainer link="/credit-logs">
                 Drawing Credit Log
             </MenuItemContainer>
             <MenuItemContainer link="/tools/pin-options">
