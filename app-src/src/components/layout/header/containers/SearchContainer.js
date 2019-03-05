@@ -21,12 +21,7 @@ class SearchContainer extends Component {
                     this.node = node;
                 }}
             >
-                <Search
-                    value={props.value}
-                    name={props.name}
-                    placeholder="Search..."
-                    handleChange={handleChange}
-                />
+                <Search placeholder="Search..." handleChange={handleChange} />
                 <div
                     className={`dropdown-search-results ${
                         state.resultsVisible ? 'visible' : ''
