@@ -8,13 +8,7 @@ import SitesTable from '../presentational/SitesTable';
 class SitesListContainer extends Component {
     render() {
         const { sites, isFetching, error } = this.props;
-        const tableHeaders = [
-            'Site name',
-            'Owned by',
-            'Premissions',
-            'Action',
-            ''
-        ];
+        const tableHeaders = ['Site name', 'Owned by', 'Premissions', 'Action'];
 
         return (
             <SitesTable

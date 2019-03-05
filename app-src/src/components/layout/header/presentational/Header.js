@@ -5,7 +5,7 @@ import SearchContainer from '../containers/SearchContainer';
 import HeaderProfileContainer from '../containers/HeaderProfileContainer';
 import HeaderNotificationsContainer from '../containers/HeaderNotificationsContainer';
 
-const Header = ({ profile, company, messagesLength }) => (
+const Header = ({ profile, company, messageCount }) => (
     <header
         id="page-header"
         style={{ borderColor: company.colorSchemeBackground }}
@@ -35,7 +35,7 @@ const Header = ({ profile, company, messagesLength }) => (
                     </Link>
                     <HeaderNotificationsContainer />
                     <Link to="/message-centre" className="item main">
-                        <span className="number">{messagesLength}</span>
+                        <span className="number">{messageCount}</span>
                         <i className="far fa-envelope fa-fw" />
                     </Link>
                 </div>
