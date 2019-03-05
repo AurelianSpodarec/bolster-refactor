@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import Error from 'components/generic/misc/containers/Error';
 import Loading from 'components/generic/misc/containers/Loading';
 
-const SearchResults = ({ results, isFetching, error }) => {
+const SearchResults = ({ results, isFetching, error, handleLinkClick }) => {
     if (error) {
         return <Error>{error}</Error>;
     }
@@ -14,7 +14,11 @@ const SearchResults = ({ results, isFetching, error }) => {
     }
 
     return results.map(result => (
-        <Link to={`/${result.linkData}/${result.linkId}`} key={result.id}>
+        <Link
+            to={`/${result.linkData}/${result.linkId}`}
+            key={result.id}
+            onClick={handleLinkClick}
+        >
             <i className="far fa-file-edit" /> {result.title}
         </Link>
     ));

@@ -12,9 +12,7 @@ class SearchContainer extends Component {
     };
 
     render() {
-        const { resultsVisible } = this.state;
-        const { value, name, results, isFetching, error } = this.props;
-        const { handleChange } = this;
+        const { state, props, handleChange, handleLinkClick } = this;
 
         return (
             <div
@@ -24,20 +22,21 @@ class SearchContainer extends Component {
                 }}
             >
                 <Search
-                    value={value}
-                    name={name}
+                    value={props.value}
+                    name={props.name}
                     placeholder="Search..."
                     handleChange={handleChange}
                 />
                 <div
                     className={`dropdown-search-results ${
-                        resultsVisible ? 'visible' : ''
+                        state.resultsVisible ? 'visible' : ''
                     }`}
                 >
                     <SearchResults
-                        results={results}
-                        isFetching={isFetching}
-                        error={error}
+                        results={props.results}
+                        isFetching={props.isFetching}
+                        error={props.error}
+                        handleLinkClick={handleLinkClick}
                     />
                 </div>
             </div>
@@ -71,6 +70,12 @@ class SearchContainer extends Component {
             return;
         }
 
+        this.setState({
+            resultsVisible: false
+        });
+    };
+
+    handleLinkClick = () => {
         this.setState({
             resultsVisible: false
         });
