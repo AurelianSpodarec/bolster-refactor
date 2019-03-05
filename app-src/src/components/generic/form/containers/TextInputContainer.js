@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import addFieldError from 'actions/generic/sync/fieldErrors/addFieldError';
-import removeFieldError from 'actions/generic/sync/fieldErrors/removeFieldError';
+import addFieldError from 'actions/generic/fieldErrors/sync/addFieldError';
+import removeFieldError from 'actions/generic/fieldErrors/sync/removeFieldError';
 
 import TextInput from '../../presentational/TextInput';
 

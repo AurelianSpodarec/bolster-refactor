@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { isObjEmpty } from 'helpers/generic';
-import clearFieldErrors from 'actions/generic/sync/fieldErrors/clearFieldErrors';
-import showFieldErrors from 'actions/generic/sync/fieldErrors/showFieldErrors';
+import clearFieldErrors from 'actions/generic/fieldErrors/sync/clearFieldErrors';
+import showFieldErrors from 'actions/generic/fieldErrors/sync/showFieldErrors';
 
 class Form extends Component {
     state = {
