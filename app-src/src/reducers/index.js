@@ -9,6 +9,7 @@ import notificationsReducers from './notifications';
 import messagesReducers from './messages';
 import generationQueueReducers from './generationQueue';
 import searchReducers from './search';
+import authReducers from './auth';
 
 export default combineReducers({
     genericReducers,
@@ -19,5 +20,6 @@ export default combineReducers({
     companyReducers,
     messagesReducers,
     generationQueueReducers,
-    searchReducers
+    searchReducers,
+    authReducers
 });

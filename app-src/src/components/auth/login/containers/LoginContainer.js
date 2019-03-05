@@ -41,7 +41,17 @@ class LoginContainer extends Component {
         const { email, password } = this.state;
         this.props.postLogin(email, password);
     };
+    componentDidUpdate = prevProps => {
+        const { postSuccess, history } = this.props;
+
+        if (postSuccess && !prevProps.postSuccess) {
+            history.push('/dashboard');
+        }
+    };
 }
+
+const mapStateToProps = ({ authReducers }) => authReducers.login;
+
 const mapDispatchToProps = dispatch => ({
     postLogin: (email, password) => {
         dispatch(postLogin(email, password));
@@ -49,6 +59,6 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default connect(
-    null,
+    mapStateToProps,
     mapDispatchToProps
 )(LoginContainer);

@@ -2,7 +2,8 @@ import {
     ADD_FIELD_ERROR,
     REMOVE_FIELD_ERROR,
     CLEAR_FIELD_ERRORS,
-    SHOW_FIELD_ERRORS
+    SHOW_FIELD_ERRORS,
+    OVERWRITE_FIELD_ERRORS
 } from 'constants/actionTypes/generic';
 
 const initialState = {
@@ -37,6 +38,12 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 errorsVisible: true
+            };
+        case OVERWRITE_FIELD_ERRORS:
+            return {
+                ...state,
+                fieldErrors: action.fieldErrors,
+                errorsVisible: action.errorsVisible
             };
         case CLEAR_FIELD_ERRORS:
             return initialState;
