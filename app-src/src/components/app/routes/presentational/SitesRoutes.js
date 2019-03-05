@@ -6,10 +6,10 @@ import AllSights from 'components/sites/allSites/presentational/AllSites';
 import Site from 'components/sites/singleSite/presentational/Site';
 
 const SitesRoutes = () => (
-    <Switch>
+    <SwitchWith404>
         <Route exact path="/sites" component={AllSights} />
         <Route exact path="/site/single" component={Site} />
-    </Switch>
+    </SwitchWith404>
 );
 
 export default SitesRoutes;
