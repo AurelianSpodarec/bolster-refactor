@@ -15,7 +15,12 @@ class SearchContainer extends Component {
         const { handleChange } = this;
 
         return (
-            <div className="size-lg-12">
+            <div
+                className="size-lg-12"
+                ref={node => {
+                    this.node = node;
+                }}
+            >
                 <Search
                     value={value}
                     name={name}
@@ -32,11 +37,28 @@ class SearchContainer extends Component {
             this.setState({
                 resultsVisible: true
             });
+            document.addEventListener('click', this.handleOutsideClick, false);
         } else {
             this.setState({
                 resultsVisible: false
             });
+            document.removeEventListener(
+                'click',
+                this.handleOutsideClick,
+                false
+            );
         }
+    };
+
+    handleOutsideClick = e => {
+        // ignore clicks on the component itself
+        if (this.node.contains(e.target)) {
+            return;
+        }
+
+        this.setState({
+            resultsVisible: false
+        });
     };
 }
 
