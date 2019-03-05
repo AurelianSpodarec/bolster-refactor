@@ -15,9 +15,9 @@ export const fetchGenerationQueueSuccess = payload => ({
     payload
 });
 
-export const fetchGenerationQueueFailure = err => ({
+export const fetchGenerationQueueFailure = error => ({
     type: FETCH_GENERATION_QUEUE_FAILURE,
-    err
+    error
 });
 
 export default () => dispatch => {

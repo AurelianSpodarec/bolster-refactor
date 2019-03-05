@@ -15,9 +15,9 @@ export const fetchNotificationsSuccess = payload => ({
     payload
 });
 
-export const fetchNotificationsFailure = err => ({
+export const fetchNotificationsFailure = error => ({
     type: FETCH_NOTIFICATIONS_FAILURE,
-    err
+    error
 });
 
 export default () => dispatch => {

@@ -52,7 +52,7 @@ class DropdownMenuItemContainer extends Component {
 
         this.setState({
             ...this.state,
-            isOpen: baseUrl.toLowerCase() === curUrl
+            isOpen: curUrl.startsWith(baseUrl.toLowerCase())
         });
     };
 }
