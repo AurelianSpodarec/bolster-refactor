@@ -13,9 +13,17 @@ const Menu = () => (
             <i className="fa fa-building icon" /> Sites
         </MenuItemContainer>
 
-        <DropdownMenuItemContainer icon="users" title={'User Management'} baseUrl="/user-management">
-            <MenuItemContainer link="/user-management/admins">Admins</MenuItemContainer>
-            <MenuItemContainer link="/user-management/users">Users</MenuItemContainer>
+        <DropdownMenuItemContainer
+            icon="users"
+            title={'User Management'}
+            baseUrl="/user-management"
+        >
+            <MenuItemContainer link="/user-management/admins">
+                Admins
+            </MenuItemContainer>
+            <MenuItemContainer link="/user-management/users">
+                Users
+            </MenuItemContainer>
         </DropdownMenuItemContainer>
 
         <MenuItemContainer link="/sites">
@@ -31,11 +39,17 @@ const Menu = () => (
                 Message Centre
             </Link>
         </div>
-        <DropdownMenuItemContainer icon="wrench" title={'Tools & Resources'} baseUrl="/tools">
-            <MenuItemContainer link="/tools/drawing-credit-logs">
+        <DropdownMenuItemContainer
+            icon="wrench"
+            title={'Tools & Resources'}
+            baseUrl="/tools"
+        >
+            <MenuItemContainer link="/credit-logs">
                 Drawing Credit Log
             </MenuItemContainer>
-            <MenuItemContainer link="/tools/pin-options">Pin Options</MenuItemContainer>
+            <MenuItemContainer link="/tools/pin-options">
+                Pin Options
+            </MenuItemContainer>
             <MenuItemContainer link="/tools/support">Support</MenuItemContainer>
         </DropdownMenuItemContainer>
     </div>
