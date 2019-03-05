@@ -7,7 +7,7 @@ class MenuContianer extends Component {
     render() {
         if (!this.props.showLoggedInLayout) return null;
 
-        return <Menu openSubMenu={this.openSubMenu} />;
+        return <Menu />;
     }
 }
 

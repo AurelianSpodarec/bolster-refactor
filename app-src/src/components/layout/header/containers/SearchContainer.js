@@ -4,15 +4,15 @@ import { connect } from 'react-redux';
 import Search from 'components/generic/form/presentational/Search';
 import SearchResults from '../presentational/SearchResults';
 
+import fetchSearchResults from 'actions/search/async/fetchSearchResults';
+
 class SearchContainer extends Component {
     state = {
         resultsVisible: false
     };
 
     render() {
-        const { resultsVisible } = this.state;
-        const { value, name } = this.props;
-        const { handleChange } = this;
+        const { state, props, handleChange, handleLinkClick } = this;
 
         return (
             <div
@@ -21,23 +21,32 @@ class SearchContainer extends Component {
                     this.node = node;
                 }}
             >
-                <Search
-                    value={value}
-                    name={name}
-                    placeholder="Search..."
-                    handleChange={handleChange}
-                />
-                <SearchResults resultsVisible={resultsVisible} />
+                <Search placeholder="Search..." handleChange={handleChange} />
+                <div
+                    className={`dropdown-search-results ${
+                        state.resultsVisible ? 'visible' : ''
+                    }`}
+                >
+                    <SearchResults
+                        results={props.results}
+                        isFetching={props.isFetching}
+                        error={props.error}
+                        handleLinkClick={handleLinkClick}
+                    />
+                </div>
             </div>
         );
     }
 
     handleChange = e => {
+        const { fetchSearchResults } = this.props;
+
         if (e.target.value.length > 0) {
             this.setState({
                 resultsVisible: true
             });
             document.addEventListener('click', this.handleOutsideClick, false);
+            fetchSearchResults();
         } else {
             this.setState({
                 resultsVisible: false
@@ -60,6 +69,27 @@ class SearchContainer extends Component {
             resultsVisible: false
         });
     };
+
+    handleLinkClick = () => {
+        this.setState({
+            resultsVisible: false
+        });
+    };
 }
 
-export default connect()(SearchContainer);
+const mapStateToProps = ({ searchReducers }) => ({
+    results: searchReducers.results.results,
+    isFetching: searchReducers.results.isFetching,
+    error: searchReducers.results.error
+});
+
+const mapDispatchToProps = dispatch => ({
+    fetchSearchResults: () => {
+        dispatch(fetchSearchResults());
+    }
+});
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(SearchContainer);

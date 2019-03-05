@@ -1,23 +1,27 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const SearchResults = ({ resultsVisible }) => (
-    <div
-        className={`dropdown-search-results ${resultsVisible ? 'visible' : ''}`}
-    >
-        <Link to="#">
-            <i className="far fa-file-edit" /> CMFT Hospital / Main Building /
-            Floor 2 / Entrance Hall
+import Error from 'components/generic/misc/containers/Error';
+import Loading from 'components/generic/misc/containers/Loading';
+
+const SearchResults = ({ results, isFetching, error, handleLinkClick }) => {
+    if (error) {
+        return <Error>{error}</Error>;
+    }
+
+    if (isFetching) {
+        return <Loading />;
+    }
+
+    return results.map(result => (
+        <Link
+            to={`/${result.linkData}/${result.linkId}`}
+            key={result.id}
+            onClick={handleLinkClick}
+        >
+            <i className="far fa-file-edit" /> {result.title}
         </Link>
-        <Link to="#">
-            <i className="far fa-file-edit" /> CMFT Hospital / Main Building /
-            Floor 2 / Back Room
-        </Link>
-        <Link to="#">
-            <i className="far fa-file-edit" /> CMFT Hospital / Main Building /
-            Floor 3
-        </Link>
-    </div>
-);
+    ));
+};
 
 export default SearchResults;
