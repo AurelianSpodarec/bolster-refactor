@@ -1,12 +1,14 @@
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 
+import SwitchWith404 from './SwitchWith404';
 import AllSights from 'components/sites/allSites/presentational/AllSites';
 
-const SitesRoutes = () => (
-    <Switch>
-        <Route exact path="/sites" component={AllSights} />
-    </Switch>
+const SitesRoutes = ({ match: { url: baseUrl } }) => (
+    <SwitchWith404>
+        <Route exact path={baseUrl} component={AllSights} />
+        <Route exact path={`${baseUrl}/:id`} component={AllSights} />
+    </SwitchWith404>
 );
 
 export default SitesRoutes;
