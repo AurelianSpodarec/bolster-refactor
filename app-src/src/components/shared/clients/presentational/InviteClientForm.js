@@ -1,0 +1,24 @@
+import React from 'react';
+import { withRouter, Link } from 'react-router-dom';
+
+const InviteClientForm = ({ location }) => (
+    <div className="content-container size-lg-12">
+        <div className="content-area size-lg-12">
+            <h3 className="heading heading-3">Invite client form</h3>
+            <Link
+                className="button"
+                to={location.pathname.replace('/invite-client', '')}
+            >
+                Cancel
+            </Link>
+            <Link
+                className="button"
+                to={location.pathname.replace('/invite-client', '')}
+            >
+                Save
+            </Link>
+        </div>
+    </div>
+);
+
+export default withRouter(InviteClientForm);
