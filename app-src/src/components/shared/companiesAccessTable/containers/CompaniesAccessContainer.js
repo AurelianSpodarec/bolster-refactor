@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import CompaniesAccess from '../presentational/CompaniesAccess';
+import CompaniesAccess from '../presentational/CompaniesAccessTable';
 
 class CompaniesAccessContainer extends Component {
     render() {

@@ -1,47 +1,20 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+
+import FloorDetailsContainer from '../containers/FloorDetailsContainer';
+import DocumentsTableContainer from '../containers/DocumentsTableContainer';
+import DrawingsTableContainer from '../containers/DrawingsTableContainer';
+import OperativesTableContainer from '../containers/OperativesTableContainer';
+import ClientsTableContainer from '../containers/ClientsTableContainer';
+import CompaniesAccessTableContainer from '../containers/CompaniesAccessTableContainer';
 
 const Floor = () => (
     <div className="size-lg-12">
-        <div className="content-container size-lg-8">
-            <div className="content-area site-details size-lg-12">
-                <h3 className="heading heading-3 size-lg-6">
-                    FloorDetailsContainer
-                </h3>
-            </div>
-        </div>
-
-        <div className="content-container size-lg-4">
-            <div className="content-area size-lg-12">
-                <h1 className="heading heading-3 size-lg-12">
-                    DocumentsTableContainer
-                </h1>
-            </div>
-        </div>
-        <div className="content-container size-lg-12">
-            <div className="content-area size-lg-12">
-                <h1 className="heading heading-1 size-lg-12">
-                    FloorsTableContainer
-                </h1>
-                <Link className="button" to="/floors/1">
-                    View Floor
-                </Link>
-            </div>
-        </div>
-        <div className="content-container size-lg-4">
-            <div className="content-area size-lg-12">
-                <h1 className="heading heading-3 size-lg-12">
-                    InviteClientContainer
-                </h1>
-            </div>
-        </div>
-        <div className="content-container size-lg-4">
-            <div className="content-area size-lg-12">
-                <h1 className="heading heading-3 size-lg-12">
-                    AddOperativeContainer
-                </h1>
-            </div>
-        </div>
+        <FloorDetailsContainer />
+        <DocumentsTableContainer />
+        <DrawingsTableContainer />
+        <ClientsTableContainer />
+        <OperativesTableContainer />
+        <CompaniesAccessTableContainer />
     </div>
 );
 
