@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import DrawingPinOptions from 'components/drawings/singleDrawing/presentational/DrawingPinOptions';
+import DrawingPinOptions from '../presentational/DrawingPinOptions';
 
 class DrawingPinOptionsContainer extends Component {
     render() {

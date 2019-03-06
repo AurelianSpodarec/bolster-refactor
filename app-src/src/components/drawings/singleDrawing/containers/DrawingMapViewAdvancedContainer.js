@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import DrawingMapViewAdvanced from 'components/drawings/singleDrawing/presentational/DrawingMapViewAdvanced';
+import DrawingMapViewAdvanced from '../presentational/DrawingMapViewAdvanced';
 
 class DrawingMapViewAdvancedContainer extends Component {
     render() {
