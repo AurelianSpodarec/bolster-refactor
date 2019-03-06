@@ -5,6 +5,7 @@ import SwitchWith404 from './SwitchWith404';
 import Building from 'components/buildings/building/presentational/Building';
 import AttachBuildingOperative from 'components/buildings/attachBuildingOperative/presentational/AttachBuildingOperative';
 import InviteClientToBuilding from 'components/buildings/inviteClientToBuilding/presentational/InviteClientToBuilding';
+import AttachBuildingDocument from 'components/buildings/attachBuildingDocument/presentational/AttachBuildingDocument';
 
 const BuildingRoutes = ({ match: { url: baseUrl } }) => (
     <SwitchWith404>
@@ -18,6 +19,11 @@ const BuildingRoutes = ({ match: { url: baseUrl } }) => (
             exact
             path={`${baseUrl}/:siteId/invite-client`}
             component={InviteClientToBuilding}
+        />
+        <Route
+            exact
+            path={`${baseUrl}/:siteId/attach-document`}
+            component={AttachBuildingDocument}
         />
     </SwitchWith404>
 );
