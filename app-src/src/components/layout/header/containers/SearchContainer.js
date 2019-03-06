@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import Search from 'components/generic/form/presentational/Search';
+import Search from 'components/shared/generic/form/presentational/Search';
 import SearchResults from '../presentational/SearchResults';
 
 import fetchSearchResults from 'actions/search/async/fetchSearchResults';
