@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-class BuildingsContainer extends Component {
+class BuildingsTableContainer extends Component {
     render() {
         return (
             <div className="content-container size-lg-12">
@@ -18,4 +18,4 @@ class BuildingsContainer extends Component {
     }
 }
 
-export default BuildingsContainer;
+export default BuildingsTableContainer;
