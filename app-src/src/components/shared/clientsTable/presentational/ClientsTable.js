@@ -2,13 +2,11 @@ import React from 'react';
 import { withRouter, Link } from 'react-router-dom';
 
 const ClientsTable = ({ location }) => (
-    <div className="content-container size-lg-4">
-        <div className="content-area size-lg-12">
-            <h1 className="heading heading-3 size-lg-12">ClientsContainer</h1>
-            <Link className="button" to={`${location.pathname}/attatch-client`}>
-                Attatch client
-            </Link>
-        </div>
+    <div className="size-lg-12">
+        <h1 className="heading heading-3 size-lg-12">Clients with access</h1>
+        <Link className="button" to={`${location.pathname}/attach-client`}>
+            Attach client
+        </Link>
     </div>
 );
 
