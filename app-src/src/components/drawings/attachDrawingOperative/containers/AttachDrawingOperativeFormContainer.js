@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 
 import AttatchOperativesFormContainer from 'components/shared/operatives/conatiners/AttatchOperativesFormContainer';
 
-class AttachSiteOperativeFromContainer extends Component {
+class AttachDrawingOperativeFromContainer extends Component {
     render() {
         return <AttatchOperativesFormContainer />;
     }
 }
 
-export default AttachSiteOperativeFromContainer;
+export default AttachDrawingOperativeFromContainer;
