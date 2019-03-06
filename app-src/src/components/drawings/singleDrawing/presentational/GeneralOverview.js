@@ -1,7 +1,8 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
-import DrawingMapFiltersContainer from 'components/drawings/singleDrawing/containers/DrawingMapFiltersContainer';
-import DrawingMapViewContainer from 'components/drawings/singleDrawing/containers/DrawingMapViewContainer';
+import DrawingMapFiltersAdvancedContainer from 'components/drawings/singleDrawing/containers/DrawingMapFiltersAdvancedContainer';
+import DrawingMapViewSimpleContainer from 'components/drawings/singleDrawing/containers/DrawingMapViewSimpleContainer';
 import DrawingInspectionLogContainer from 'components/drawings/singleDrawing/containers/DrawingInspectionLogContainer';
 
 const GeneralOverview = () => (
@@ -9,8 +10,8 @@ const GeneralOverview = () => (
         <div className="size-lg-8">
             <div className="content-container size-lg-12">
                 <div className="content-area size-lg-12">
-                    <DrawingMapFiltersContainer />
-                    <DrawingMapViewContainer />
+                    <DrawingMapFiltersAdvancedContainer />
+                    <DrawingMapViewSimpleContainer />
                 </div>
             </div>
 
@@ -27,9 +28,9 @@ const GeneralOverview = () => (
             </div>
 
             <div className="content-container size-lg-12">
-                <a className="button" href="#/">
+                <Link to="#" className="button">
                     <i className="fal fa-trash-alt" /> Delete drawing
-                </a>
+                </Link>
             </div>
         </div>
 
