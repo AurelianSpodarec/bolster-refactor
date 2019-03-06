@@ -6,6 +6,7 @@ import Floor from 'components/floors/floor/presentational/Floor';
 import AttachFloorOperative from 'components/floors/attachFloorOperative/presentational/AttachFloorOperative';
 import InviteClientToFloor from 'components/floors/inviteClientToFloor/presentational/InviteClientToFloor';
 import AttachFloorDocument from 'components/floors/attachFloorDocument/presentational/AttachFloorDocument';
+import InviteCompanyToFloor from 'components/floors/inviteCompanyToFloor/presentational/InviteCompanyToFloor';
 
 const FloorRoutes = ({ match: { url: baseUrl } }) => (
     <SwitchWith404>
@@ -24,6 +25,11 @@ const FloorRoutes = ({ match: { url: baseUrl } }) => (
             exact
             path={`${baseUrl}/:siteId/attach-document`}
             component={AttachFloorDocument}
+        />
+        <Route
+            exact
+            path={`${baseUrl}/:siteId/invite-company`}
+            component={InviteCompanyToFloor}
         />
     </SwitchWith404>
 );
