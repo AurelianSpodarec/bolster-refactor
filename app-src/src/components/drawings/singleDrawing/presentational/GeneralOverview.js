@@ -23,7 +23,7 @@ const GeneralOverview = () => (
             </div>
 
             <div className="content-container size-lg-12">
-                <a className="button" href="#">
+                <a className="button" href="#/">
                     <i className="fal fa-trash-alt" /> Delete drawing
                 </a>
             </div>
