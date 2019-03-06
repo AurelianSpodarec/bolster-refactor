@@ -1,7 +1,7 @@
 import React from 'react';
 
-import DrawingMapFiltersContainer from 'components/drawings/singleDrawing/containers/DrawingMapFiltersContainer';
-import DrawingMapViewContainer from 'components/drawings/singleDrawing/containers/DrawingMapViewContainer';
+import DrawingMapFiltersAdvancedContainer from 'components/drawings/singleDrawing/containers/DrawingMapFiltersAdvancedContainer';
+import DrawingMapViewSimpleContainer from 'components/drawings/singleDrawing/containers/DrawingMapViewSimpleContainer';
 import DrawingInspectionLogContainer from 'components/drawings/singleDrawing/containers/DrawingInspectionLogContainer';
 
 const GeneralOverview = () => (
@@ -9,8 +9,8 @@ const GeneralOverview = () => (
         <div className="size-lg-8">
             <div className="content-container size-lg-12">
                 <div className="content-area size-lg-12">
-                    <DrawingMapFiltersContainer />
-                    <DrawingMapViewContainer />
+                    <DrawingMapFiltersAdvancedContainer />
+                    <DrawingMapViewSimpleContainer />
                 </div>
             </div>
 

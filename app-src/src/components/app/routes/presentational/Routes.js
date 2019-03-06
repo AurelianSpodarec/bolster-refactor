@@ -4,6 +4,7 @@ import withShowLayout from 'components/layout/misc/hocs/withShowLayout';
 
 import SwitchWith404 from './SwitchWith404';
 import Dashboard from 'components/dashboard/dashboard/presentational/Dashboard';
+import NotFound from 'components/notFound/presentational/NotFound';
 
 import AuthRoutes from './AuthRoutes';
 import SitesRoutes from './SitesRoutes';
@@ -31,6 +32,7 @@ const Routes = ({ showLoggedInLayout }) => (
             <Route path="/messages" component={MessagesRoutes} />
             <Route path="/user-management" component={UserManagementRoutes} />
             <Route path="/pins" component={PinRoutes} />
+            <Route exact path="/404" component={NotFound} />
         </SwitchWith404>
     </div>
 );
