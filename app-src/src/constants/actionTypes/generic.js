@@ -1,3 +1,6 @@
+export const SET_TABS = 'SET_TABS';
+export const SELECT_TAB = 'SELECT_TAB';
+
 export const ADD_FIELD_ERROR = 'ADD_FIELD_ERROR';
 export const REMOVE_FIELD_ERROR = 'REMOVE_FIELD_ERROR';
 export const CLEAR_FIELD_ERRORS = 'CLEAR_FIELD_ERRORS';
