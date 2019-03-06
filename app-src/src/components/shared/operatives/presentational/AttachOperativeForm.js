@@ -1,30 +1,22 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 
-const AttachOperativeForm = ({ history }) => (
+const AttachOperativeForm = ({ location }) => (
     <div className="content-container size-lg-12">
         <div className="content-area size-lg-12">
             <h3 className="heading heading-3">Attach operative form</h3>
-            <a
+            <Link
                 className="button"
-                href="#/"
-                onClick={e => {
-                    e.preventDefault();
-                    history.goBack();
-                }}
+                to={location.pathname.replace('/attach-operative', '')}
             >
                 Cancel
-            </a>
-            <a
+            </Link>
+            <Link
                 className="button"
-                href="#/"
-                onClick={e => {
-                    e.preventDefault();
-                    history.goBack();
-                }}
+                to={location.pathname.replace('/attach-operative', '')}
             >
                 Save
-            </a>
+            </Link>
         </div>
     </div>
 );
