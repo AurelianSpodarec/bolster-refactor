@@ -1,11 +1,11 @@
 import React from 'react';
 
-const Drawing = () => (
+const SinglePinMap = () => (
     <div className="content-container size-lg-12">
         <div className="content-area size-lg-12">
-            <p>Single Drawing</p>
+            <h3 className="heading heading-3">Sing pin map</h3>
         </div>
     </div>
 );
 
-export default Drawing;
+export default SinglePinMap;

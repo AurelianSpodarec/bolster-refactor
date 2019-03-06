@@ -1,10 +1,16 @@
 import React from 'react';
 
-import DrawingContainer from '../containers/DrawingContainer';
+import BreadcrumbContainer from 'components/layout/breadcrumb/containers/BreadcrumbContainer';
+import TabsContainer from 'components/generic/tabs/containers/TabsContainer';
+import SingleDrawingRouteContainer from '../containers/SingleDrawingRouteContainer';
 
 const Drawing = () => (
     <div className="size-lg-12">
-        <DrawingContainer />
+        <BreadcrumbContainer>
+            <TabsContainer />
+        </BreadcrumbContainer>
+
+        <SingleDrawingRouteContainer />
     </div>
 );
 
