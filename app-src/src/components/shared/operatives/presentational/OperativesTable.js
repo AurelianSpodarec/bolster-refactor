@@ -1,13 +1,13 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 
-const OperativesTable = () => (
+const OperativesTable = ({ location }) => (
     <div className="size-lg-12">
-        <h2 className="heading heading-3 size-lg-12">Operatives with access</h2>
-        <Link to="3/attach-operative" className="button">
-            <i className="fal fa-plus" /> Invite operative
+        <h1 className="heading heading-3 size-lg-12">Operatives with access</h1>
+        <Link className="button" to={`${location.pathname}/attach-operative`}>
+            Attach operative
         </Link>
     </div>
 );
 
-export default OperativesTable;
+export default withRouter(OperativesTable);

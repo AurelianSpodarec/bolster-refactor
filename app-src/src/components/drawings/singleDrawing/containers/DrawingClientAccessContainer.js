@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import ClientsTable from 'components/shared/clientsTable/presentational/Clients';
+import ClientsTable from 'components/shared/clientsTable/presentational/ClientsTable';
 
 class DrawingClientAccessContainer extends Component {
     render() {

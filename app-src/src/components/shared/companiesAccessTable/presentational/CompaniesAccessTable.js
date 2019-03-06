@@ -1,13 +1,13 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 
-const CompaniesAccess = () => (
+const CompaniesAccess = ({ location }) => (
     <div className="size-lg-12">
-        <h2 className="heading heading-3 size-lg-12">Companies with access</h2>
-        <Link to="" className="button">
-            <i className="fal fa-plus" /> Invite company
+        <h1 className="heading heading-3 size-lg-12">Companies with access</h1>
+        <Link className="button" to={`${location.pathname}/add-company`}>
+            Add company
         </Link>
     </div>
 );
 
-export default CompaniesAccess;
+export default withRouter(CompaniesAccess);
