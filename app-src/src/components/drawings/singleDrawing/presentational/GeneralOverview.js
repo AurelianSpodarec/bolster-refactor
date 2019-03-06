@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import DrawingMapFiltersAdvancedContainer from 'components/drawings/singleDrawing/containers/DrawingMapFiltersAdvancedContainer';
 import DrawingMapViewSimpleContainer from 'components/drawings/singleDrawing/containers/DrawingMapViewSimpleContainer';
@@ -27,9 +28,9 @@ const GeneralOverview = () => (
             </div>
 
             <div className="content-container size-lg-12">
-                <a className="button" href="#/">
+                <Link to="#" className="button">
                     <i className="fal fa-trash-alt" /> Delete drawing
-                </a>
+                </Link>
             </div>
         </div>
 
