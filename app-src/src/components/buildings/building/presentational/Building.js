@@ -9,12 +9,41 @@ import CompaniesAccessTableContainer from '../containers/CompaniesAccessTableCon
 
 const Building = () => (
     <div className="size-lg-12">
-        <BuildingDetailsContainer />
-        <DocumentsTableContainer />
-        <FloorsTableContainer />
-        <ClientsTableContainer />
-        <OperativesTableContainer />
-        <CompaniesAccessTableContainer />
+        <div className="content-container size-lg-8">
+            <div className="content-area site-details size-lg-12">
+                <BuildingDetailsContainer />
+            </div>
+        </div>
+
+        <div className="content-container size-lg-4">
+            <div className="content-area size-lg-12">
+                <DocumentsTableContainer />
+            </div>
+        </div>
+
+        <div className="content-container size-lg-12">
+            <div className="content-area size-lg-12">
+                <FloorsTableContainer />
+            </div>
+        </div>
+
+        <div className="content-container size-lg-4">
+            <div className="content-area size-lg-12">
+                <ClientsTableContainer />
+            </div>
+        </div>
+
+        <div className="content-container size-lg-4">
+            <div className="content-area size-lg-12">
+                <OperativesTableContainer />
+            </div>
+        </div>
+
+        <div className="content-container size-lg-4">
+            <div className="content-area size-lg-12">
+                <CompaniesAccessTableContainer />
+            </div>
+        </div>
     </div>
 );
 
