@@ -1,12 +1,10 @@
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
-
-import NotFound from 'components/notFound/presentational/NotFound';
+import { Switch, Redirect } from 'react-router-dom';
 
 const SwitchWith404 = ({ children }) => (
     <Switch>
         {children}
-        <Route component={NotFound} />
+        <Redirect to="/404" />
     </Switch>
 );
 
