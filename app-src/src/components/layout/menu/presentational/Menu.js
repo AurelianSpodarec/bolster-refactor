@@ -8,6 +8,7 @@ const Menu = ({ messageCount }) => (
         <MenuItemContainer link="/">
             <i className="fa fa-home icon" /> Dashboard
         </MenuItemContainer>
+
         <MenuItemContainer link="/sites">
             <i className="fa fa-building icon" /> Sites
         </MenuItemContainer>
@@ -36,6 +37,7 @@ const Menu = ({ messageCount }) => (
             </span>
             Message Centre
         </MenuItemContainer>
+
         <DropdownMenuItemContainer
             icon="wrench"
             title={'Tools & Resources'}

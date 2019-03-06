@@ -3,10 +3,16 @@ import { Route } from 'react-router-dom';
 
 import SwitchWith404 from './SwitchWith404';
 import Floor from 'components/floors/floor/presentational/Floor';
+import AttachFloorOperative from 'components/floors/attachFloorOperative/presentational/AttachFloorOperative';
 
 const FloorRoutes = ({ match: { url: baseUrl } }) => (
     <SwitchWith404>
         <Route exact path={`${baseUrl}/:id`} component={Floor} />
+        <Route
+            exact
+            path={`${baseUrl}/:siteId/attach-operative`}
+            component={AttachFloorOperative}
+        />
     </SwitchWith404>
 );
 
