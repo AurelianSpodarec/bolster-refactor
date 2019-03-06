@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-import Table from '../../../shared/generic/tables/presentational/Table';
-
 class BuildingsContainer extends Component {
     render() {
         return (
@@ -11,7 +9,6 @@ class BuildingsContainer extends Component {
                     <h1 className="heading heading-1 size-lg-12">
                         BuildingsTableContainer
                     </h1>
-                    <Table />
                     <Link className="button" to="/buildings/1">
                         View building
                     </Link>
