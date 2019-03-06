@@ -1,6 +1,6 @@
 import React from 'react';
 
-import BreadcrumbContainer from 'components/layout/breadcrumb/containers/BreadcrumbContainer';
+import BreadcrumbContainer from 'components/shared/generic/breadcrumb/containers/BreadcrumbContainer';
 import SinglePinMapContainer from '../containers/SinglePinMapContainer';
 import PinHistoriesListContainer from '../containers/PinHistoriesListContainer';
 import PinDetailsContainer from '../containers/PinDetailsContainer';

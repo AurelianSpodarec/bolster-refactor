@@ -1,12 +1,16 @@
 import React from 'react';
 
+import DrawingMapFiltersContainer from 'components/drawings/singleDrawing/containers/DrawingMapFiltersContainer';
+import DrawingMapViewContainer from 'components/drawings/singleDrawing/containers/DrawingMapViewContainer';
+import DrawingInspectionLogContainer from 'components/drawings/singleDrawing/containers/DrawingInspectionLogContainer';
+
 const GeneralOverview = () => (
     <div className="size-lg-12">
         <div className="size-lg-8">
             <div className="content-container size-lg-12">
                 <div className="content-area size-lg-12">
-                    <p>Filters container</p>
-                    <p>Map container</p>
+                    <DrawingMapFiltersContainer />
+                    <DrawingMapViewContainer />
                 </div>
             </div>
 
@@ -32,7 +36,7 @@ const GeneralOverview = () => (
         <div className="size-lg-4">
             <div className="content-container size-lg-12">
                 <div className="content-area size-lg-12">
-                    <p>Inspection log container</p>
+                    <DrawingInspectionLogContainer />
                 </div>
                 <div className="content-area size-lg-12">
                     <p>Documents container</p>
