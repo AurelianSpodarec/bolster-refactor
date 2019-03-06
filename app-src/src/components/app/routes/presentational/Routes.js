@@ -7,6 +7,8 @@ import Dashboard from 'components/dashboard/dashboard/presentational/Dashboard';
 
 import AuthRoutes from './AuthRoutes';
 import SitesRoutes from './SitesRoutes';
+import BuildingsRoutes from './BuildingsRoutes';
+import FloorRoutes from './FloorRoutes';
 import DrawingsRoutes from './DrawingsRoutes';
 import CreditLogRoutes from './CreditLogRoutes';
 import MessagesRoutes from './MessagesRoutes';
@@ -21,6 +23,8 @@ const Routes = ({ showLoggedInLayout }) => (
             <Route exact path="/" component={Dashboard} />
             <Route path="/auth" component={AuthRoutes} />
             <Route path="/sites" component={SitesRoutes} />
+            <Route path="/buildings" component={BuildingsRoutes} />
+            <Route path="/floors" component={FloorRoutes} />
             <Route path="/drawings" component={DrawingsRoutes} />
             <Route path="/credit-logs" component={CreditLogRoutes} />
             <Route path="/messages" component={MessagesRoutes} />
