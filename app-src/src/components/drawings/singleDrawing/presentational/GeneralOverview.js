@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import DrawingMapFiltersAdvancedContainer from 'components/drawings/singleDrawing/containers/DrawingMapFiltersAdvancedContainer';
-import DrawingMapViewSimpleContainer from 'components/drawings/singleDrawing/containers/DrawingMapViewSimpleContainer';
-import DrawingInspectionLogContainer from 'components/drawings/singleDrawing/containers/DrawingInspectionLogContainer';
+import DrawingMapFiltersAdvancedContainer from '../containers/DrawingMapFiltersAdvancedContainer';
+import DrawingMapViewSimpleContainer from '../containers/DrawingMapViewSimpleContainer';
+import DrawingInspectionLogContainer from '../containers/DrawingInspectionLogContainer';
 
 const GeneralOverview = () => (
     <div className="size-lg-12">

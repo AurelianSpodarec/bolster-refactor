@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import DrawingMapFiltersAdvanced from 'components/drawings/singleDrawing/presentational/DrawingMapFiltersAdvanced';
+import DrawingMapFiltersAdvanced from '../presentational/DrawingMapFiltersAdvanced';
 
 class DrawingMapFiltersAdvancedContainer extends Component {
     render() {
