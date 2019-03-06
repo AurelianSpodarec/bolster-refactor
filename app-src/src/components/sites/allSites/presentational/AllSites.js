@@ -9,10 +9,10 @@ const AllSites = () => (
         <h1>All Sites</h1>
         <SitesFiltersContainer />
         <SitesListContainer />
-        <Link className="button" to="/sites/1/building/1">
+        <Link className="button" to="/buildings/1">
             View Building
         </Link>
-        <Link className="button" to="/sites/1/building/1/floor/1">
+        <Link className="button" to="/floors/1">
             View Floor
         </Link>
     </div>

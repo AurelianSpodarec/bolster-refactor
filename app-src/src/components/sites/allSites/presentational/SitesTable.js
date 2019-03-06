@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Table from 'components/generic/tables/presentational/Table';
+import Table from 'components/shared/generic/tables/presentational/Table';
 import SitesList from './SitesList';
 
 const SitesTable = ({ sites, headers, isFetching, error }) => {

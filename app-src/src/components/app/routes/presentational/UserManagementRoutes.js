@@ -3,6 +3,6 @@ import React from 'react';
 
 import SwitchWith404 from './SwitchWith404';
 
-const AuthRoutes = () => <SwitchWith404 />;
+const UserMannagementRoutes = () => <SwitchWith404 />;
 
-export default AuthRoutes;
+export default UserMannagementRoutes;

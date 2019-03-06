@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 
-import SiteDetails from '../presentational/SiteDetails';
+import Stats from 'components/shared/stats/presentational/Stats';
 
 export default class SiteDetailsContainer extends Component {
     render() {
-        return <SiteDetails />;
+        return <Stats />;
     }
 }

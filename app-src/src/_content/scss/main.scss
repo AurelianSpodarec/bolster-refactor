@@ -33,13 +33,9 @@ body {
 
 #page-area {
     float: left;
-    padding: 10px 5px;
+    padding: 10px;
     height: 100%;
     background-color: #212228;
-}
-
-.content-container {
-    padding: 0 5px;
 }
 
 .content-area {
@@ -575,5 +571,12 @@ form {
 
     img {
         float: right;
+    }
+}
+
+.pin-key {
+    .pin {
+        float: left;
+        width: 100%;
     }
 }

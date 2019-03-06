@@ -1,7 +1,7 @@
 import React from 'react';
 
-import BreadcrumbContainer from 'components/layout/breadcrumb/containers/BreadcrumbContainer';
-import TabsContainer from 'components/generic/tabs/containers/TabsContainer';
+import BreadcrumbContainer from 'components/shared/generic/breadcrumb/containers/BreadcrumbContainer';
+import TabsContainer from 'components/shared/generic/tabs/containers/TabsContainer';
 import SingleDrawingRouteContainer from '../containers/SingleDrawingRouteContainer';
 
 const Drawing = () => (

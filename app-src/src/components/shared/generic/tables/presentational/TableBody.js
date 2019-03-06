@@ -1,7 +1,7 @@
 import React from 'react';
 
-import Error from 'components/generic/form/presentational/Error';
-import Loading from 'components/generic/misc/containers/Loading';
+import Error from 'components/shared/generic/form/presentational/Error';
+import Loading from 'components/shared/generic/misc/containers/Loading';
 
 const TableBody = ({
     colCount,
