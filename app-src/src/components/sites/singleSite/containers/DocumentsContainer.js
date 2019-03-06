@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import DocumentsTable from '../../../shared/generic/documents/presentational/DocumentsTable';
+import DocumentsTable from 'components/shared/generic/documents/presentational/DocumentsTable';
 
 class DocumentsContainer extends Component {
     render() {
