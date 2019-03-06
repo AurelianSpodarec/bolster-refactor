@@ -5,7 +5,7 @@ import SwitchWith404 from './SwitchWith404';
 import AllSights from 'components/sites/allSites/presentational/AllSites';
 import Site from 'components/sites/singleSite/presentational/Site';
 import Building from 'components/buildings/building/presentational/Building';
-import ChangeSiteOwnership from 'components/sites/changeSiteOwnership/containers/ChangeSiteOwnership';
+import ChangeSiteOwnership from 'components/sites/changeSiteOwnership/presentational/ChangeSiteOwnership';
 
 const SitesRoutes = ({ match: { url: baseUrl } }) => (
     <SwitchWith404>
