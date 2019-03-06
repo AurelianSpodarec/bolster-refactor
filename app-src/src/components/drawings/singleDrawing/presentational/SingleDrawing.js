@@ -1,10 +1,12 @@
 import React from 'react';
 
-import DrawingContainer from '../containers/DrawingContainer';
+import TabsContainer from 'components/generic/tabs/containers/TabsContainer';
+import SingleDrawingRouteContainer from '../containers/SingleDrawingRouteContainer';
 
 const Drawing = () => (
     <div className="size-lg-12">
-        <DrawingContainer />
+        <TabsContainer />
+        <SingleDrawingRouteContainer />
     </div>
 );
 
