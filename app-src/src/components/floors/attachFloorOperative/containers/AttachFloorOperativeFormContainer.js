@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 
-import AttatchOperativesFormContainer from 'components/shared/operatives/conatiners/AttatchOperativesFormContainer';
+import AttachOperativesFormContainer from 'components/shared/operatives/conatiners/AttachOperativesFormContainer';
 
 class AttachFloorOperativeFromContainer extends Component {
     render() {
-        return <AttatchOperativesFormContainer />;
+        return <AttachOperativesFormContainer />;
     }
 }
 
