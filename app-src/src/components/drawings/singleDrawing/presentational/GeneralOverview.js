@@ -1,16 +1,16 @@
 import React from 'react';
 
-import MapFiltersContainer from 'components/drawings/singleDrawing/containers/MapFiltersContainer';
-import MapViewContainer from 'components/drawings/singleDrawing/containers/MapViewContainer';
-import InspectionLogContainer from 'components/drawings/singleDrawing/containers/InspectionLogContainer';
+import DrawingMapFiltersContainer from 'components/drawings/singleDrawing/containers/DrawingMapFiltersContainer';
+import DrawingMapViewContainer from 'components/drawings/singleDrawing/containers/DrawingMapViewContainer';
+import DrawingInspectionLogContainer from 'components/drawings/singleDrawing/containers/DrawingInspectionLogContainer';
 
 const GeneralOverview = () => (
     <div className="size-lg-12">
         <div className="size-lg-8">
             <div className="content-container size-lg-12">
                 <div className="content-area size-lg-12">
-                    <MapFiltersContainer />
-                    <MapViewContainer />
+                    <DrawingMapFiltersContainer />
+                    <DrawingMapViewContainer />
                 </div>
             </div>
 
@@ -36,7 +36,7 @@ const GeneralOverview = () => (
         <div className="size-lg-4">
             <div className="content-container size-lg-12">
                 <div className="content-area size-lg-12">
-                    <InspectionLogContainer />
+                    <DrawingInspectionLogContainer />
                 </div>
                 <div className="content-area size-lg-12">
                     <p>Documents container</p>
