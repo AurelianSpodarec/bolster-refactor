@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import DrawingReportOptions from 'components/drawings/singleDrawing/presentational/DrawingReportOptions';
+import DrawingReportOptions from '../presentational/DrawingReportOptions';
 
 class DrawingReportOptionsContainer extends Component {
     render() {

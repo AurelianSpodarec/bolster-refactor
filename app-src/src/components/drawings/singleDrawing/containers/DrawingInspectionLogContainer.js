@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import DrawingInspectionLog from 'components/drawings/singleDrawing/presentational/DrawingInspectionLog';
+import DrawingInspectionLog from '../presentational/DrawingInspectionLog';
 
 class DrawingInspectionLogContainer extends Component {
     render() {

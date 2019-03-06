@@ -1,9 +1,9 @@
 import React from 'react';
 
-import DrawingMapFiltersSimpleContainer from 'components/drawings/singleDrawing/containers/DrawingMapFiltersSimpleContainer';
-import DrawingMapViewAdvancedContainer from 'components/drawings/singleDrawing/containers/DrawingMapViewAdvancedContainer';
-import DrawingReportOptionsContainer from 'components/drawings/singleDrawing/containers/DrawingReportOptionsContainer';
-import DrawingPinOptionsContainer from 'components/drawings/singleDrawing/containers/DrawingPinOptionsContainer';
+import DrawingMapFiltersSimpleContainer from '../containers/DrawingMapFiltersSimpleContainer';
+import DrawingMapViewAdvancedContainer from '../containers/DrawingMapViewAdvancedContainer';
+import DrawingReportOptionsContainer from '../containers/DrawingReportOptionsContainer';
+import DrawingPinOptionsContainer from '../containers/DrawingPinOptionsContainer';
 
 const AdvancedReport = () => (
     <div className="size-lg-12">
