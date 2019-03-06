@@ -13,6 +13,7 @@ import DrawingsRoutes from './DrawingsRoutes';
 import CreditLogRoutes from './CreditLogRoutes';
 import MessagesRoutes from './MessagesRoutes';
 import UserManagementRoutes from './UserManagementRoutes.js';
+import PinRoutes from './PinRoutes';
 
 const Routes = ({ showLoggedInLayout }) => (
     <div
@@ -29,6 +30,7 @@ const Routes = ({ showLoggedInLayout }) => (
             <Route path="/credit-logs" component={CreditLogRoutes} />
             <Route path="/messages" component={MessagesRoutes} />
             <Route path="/user-management" component={UserManagementRoutes} />
+            <Route path="/pins" component={PinRoutes} />
         </SwitchWith404>
     </div>
 );
