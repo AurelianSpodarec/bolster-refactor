@@ -1,7 +1,7 @@
 import React from 'react';
 import { withRouter, Link } from 'react-router-dom';
 
-const InviteCompany = () => (
+const InviteCompanyForm = ({ location }) => (
     <div className="content-area size-lg-12">
         <h1 className="heading heading-3">Invite Company</h1>
         <Link
@@ -19,4 +19,4 @@ const InviteCompany = () => (
     </div>
 );
 
-export default withRouter(InviteCompany);
+export default withRouter(InviteCompanyForm);

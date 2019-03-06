@@ -9,6 +9,7 @@ import ChangeSiteOwnership from 'components/sites/changeSiteOwnership/presentati
 import AttachSiteOperative from 'components/sites/attachSiteOperative/presentational/AttachSiteOperative';
 import InviteClientToSite from 'components/sites/inviteClientToSite/presentational/InviteClientToSite';
 import AttachSiteDocument from 'components/sites/attachSiteDocument/presentational/AttachSiteDocument';
+import InviteCompany from 'components/sites/inviteCompanyToSite/presentational/InviteCompanyToSite';
 
 const SitesRoutes = ({ match: { url: baseUrl } }) => (
     <SwitchWith404>
@@ -34,6 +35,11 @@ const SitesRoutes = ({ match: { url: baseUrl } }) => (
             exact
             path={`${baseUrl}/:siteId/attach-document`}
             component={AttachSiteDocument}
+        />
+        <Route
+            exact
+            path={`${baseUrl}/:siteId/invite-company`}
+            component={InviteCompany}
         />
     </SwitchWith404>
 );
