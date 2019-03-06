@@ -56,19 +56,19 @@ const Stats = () => (
                 />
                 <div className="pin-key size-lg-8">
                     <div className="pin">
-                        <img src={PinImage} />
+                        <img src={PinImage} alt="pin" />
                         <p>103</p>
                     </div>
                     <div className="pin">
-                        <img src={PinImage} />
+                        <img src={PinImage} alt="pin" />
                         <p>0</p>
                     </div>
                     <div className="pin">
-                        <img src={PinImage} />
+                        <img src={PinImage} alt="pin" />
                         <p>90</p>
                     </div>
                     <div className="pin">
-                        <img src={PinImage} />
+                        <img src={PinImage} alt="pin" />
                         <p>100</p>
                     </div>
                 </div>
