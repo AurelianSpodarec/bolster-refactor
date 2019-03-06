@@ -1,23 +1,19 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Tabs = ({ tabs, selectedTab, selectTab }) => (
-    <nav className="nav-extended nav-wrapper">
-        <div className="nav-content">
-            <ul className="tabs tabs-transparent center">
-                {tabs.map(tab => (
-                    <li key={tab} className="tab">
-                        <a
-                            href="#/"
-                            className={`${tab === selectedTab ? 'active' : ''}`}
-                            onClick={e => selectTab(e, tab)}
-                        >
-                            {tab}
-                        </a>
-                    </li>
-                ))}
-            </ul>
-        </div>
-    </nav>
+    <div className="button-container">
+        {tabs.map(tab => (
+            <Link
+                key=""
+                to=""
+                className={`button ${tab === selectedTab ? 'active' : ''}`}
+                onClick={e => selectTab(e, tab)}
+            >
+                {tab}
+            </Link>
+        ))}
+    </div>
 );
 
 export default Tabs;
