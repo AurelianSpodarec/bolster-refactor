@@ -143,8 +143,19 @@ button {
     @include ubuntu;
     line-height: 1;
 
-    &:hover {
+    &:hover,
+    &.active {
         background-color: #757373;
+    }
+}
+
+.button-container {
+    float: left;
+    width: calc(100% + 10px);
+    margin-left: -5px;
+
+    .button {
+        margin: 0 5px;
     }
 }
 
@@ -179,12 +190,12 @@ button {
         a {
             float: left;
             width: 100%;
-            padding: 10px;
+            padding: 5px 10px;
             text-align: center;
         }
 
         img {
-            height: 39px;
+            height: 49px;
             max-width: 100%;
         }
     }

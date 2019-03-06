@@ -1,5 +1,7 @@
 import React from 'react';
 
-const DrawingMapViewAdvanced = () => <p>Map View Advanced</p>;
+const DrawingMapViewAdvanced = () => (
+    <h2 className="heading heading-3 size-lg-12">Map view advanced</h2>
+);
 
 export default DrawingMapViewAdvanced;
