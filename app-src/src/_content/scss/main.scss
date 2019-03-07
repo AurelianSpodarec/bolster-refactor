@@ -453,7 +453,8 @@ input {
     }
 }
 
-form {
+form,
+.form {
     @include ubuntu;
     .field {
         margin-bottom: 15px;
