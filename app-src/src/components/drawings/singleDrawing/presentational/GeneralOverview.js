@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+import Block from 'components/shared/generic/block/presentational/Block';
+
 import DrawingMapFiltersAdvancedContainer from '../containers/DrawingMapFiltersAdvancedContainer';
 import DrawingMapViewSimpleContainer from '../containers/DrawingMapViewSimpleContainer';
 import DrawingInspectionLogContainer from '../containers/DrawingInspectionLogContainer';
@@ -12,24 +14,18 @@ import DrawingOperativesAccessContainer from '../containers/DrawingOperativesAcc
 const GeneralOverview = () => (
     <div className="size-lg-12">
         <div className="size-lg-8">
-            <div className="content-container size-lg-12">
-                <div className="content-area size-lg-12">
-                    <DrawingMapFiltersAdvancedContainer />
-                    <DrawingMapViewSimpleContainer />
-                </div>
-            </div>
+            <Block>
+                <DrawingMapFiltersAdvancedContainer />
+                <DrawingMapViewSimpleContainer />
+            </Block>
 
-            <div className="content-container size-lg-6">
-                <div className="content-area size-lg-12">
-                    <DrawingClientAccessContainer />
-                </div>
-            </div>
+            <Block containerClass="size-lg-6">
+                <DrawingClientAccessContainer />
+            </Block>
 
-            <div className="content-container size-lg-6">
-                <div className="content-area size-lg-12">
-                    <DrawingCompanyAccessContainer />
-                </div>
-            </div>
+            <Block containerClass="size-lg-6">
+                <DrawingCompanyAccessContainer />
+            </Block>
 
             <div className="content-container size-lg-12">
                 <Link to="#" className="button">
@@ -39,17 +35,17 @@ const GeneralOverview = () => (
         </div>
 
         <div className="size-lg-4">
-            <div className="content-container size-lg-12">
-                <div className="content-area size-lg-12">
-                    <DrawingInspectionLogContainer />
-                </div>
-                <div className="content-area size-lg-12">
-                    <DrawingDocumentsContainer />
-                </div>
-                <div className="content-area size-lg-12">
-                    <DrawingOperativesAccessContainer />
-                </div>
-            </div>
+            <Block>
+                <DrawingInspectionLogContainer />
+            </Block>
+
+            <Block>
+                <DrawingDocumentsContainer />
+            </Block>
+
+            <Block>
+                <DrawingOperativesAccessContainer />
+            </Block>
         </div>
     </div>
 );
