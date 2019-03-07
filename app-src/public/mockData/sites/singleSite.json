@@ -1,13 +1,12 @@
 {
+    "id": 4,
+    "name": "site 4",
+    "ownedBy": "NHS",
+    "permissions": "You have ready access to this site",
+    "buildingIds": [7, 8],
     "addressLine1": "198 Wildmoor avenue",
     "addressLine2": "Holts Estate",
     "city": "Manchester",
     "postCode": "OL4 5NT",
-    "pins": {
-        "green": 10,
-        "red": 100,
-        "yellow": 50,
-        "blue": 19
-    },
     "lastUpdated": "21/01/2019 18:45"
 }
