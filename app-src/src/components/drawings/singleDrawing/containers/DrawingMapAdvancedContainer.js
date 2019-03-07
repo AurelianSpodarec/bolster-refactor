@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 
-import DrawingMapFiltersGeneralContainer from './DrawingMapFiltersGeneralContainer';
-import DrawingMapViewAdvancedContainer from './DrawingMapViewAdvancedContainer';
+import DrawingMapFiltersSimple from '../presentational/DrawingMapFiltersSimple';
+import DrawingMapViewAdvanced from '../presentational/DrawingMapViewAdvanced';
 
 class DrawingMapAdvancedContainer extends Component {
     render() {
         return (
             <div className="size-lg-12">
-                <DrawingMapFiltersGeneralContainer />
-                <DrawingMapViewAdvancedContainer />
+                <DrawingMapFiltersSimple />
+                <DrawingMapViewAdvanced />
             </div>
         );
     }
