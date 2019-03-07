@@ -8,14 +8,14 @@ import showFieldErrors from 'actions/generic/fieldErrors/sync/showFieldErrors';
 class Form extends Component {
     state = {
         isFieldErrorsCleared: false,
-        canSubmit: true
+        disabled: false
     };
     render() {
         const { className, children } = this.props;
 
         if (!this.state.isFieldErrorsCleared) return null;
         return (
-            <form className={className} onSubmit={this.handleSubmit}>
+            <form noValidate className={className} onSubmit={this.handleSubmit}>
                 {children}
             </form>
         );
@@ -30,7 +30,16 @@ class Form extends Component {
         });
     };
 
+    componentDidUpdate = () => {
+        const { disabled } = this.state;
+        const { fieldErrors } = this.props;
+        if (disabled && !isObjEmpty(fieldErrors)) {
+            this.setState({ disabled: false });
+        }
+    };
+
     handleSubmit = e => {
+        const { disabled } = this.state;
         const {
             fieldErrors,
             showFieldErrors,
@@ -44,9 +53,16 @@ class Form extends Component {
             if (!errorsVisible) {
                 showFieldErrors();
             }
-
             return;
         }
+        if (disabled) {
+            return;
+        }
+
+        this.setState({
+            ...this.state,
+            disabled: true
+        });
 
         onSubmit(e);
     };
