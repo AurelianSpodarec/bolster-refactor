@@ -7,7 +7,8 @@ import showFieldErrors from 'actions/generic/fieldErrors/sync/showFieldErrors';
 
 class Form extends Component {
     state = {
-        isFieldErrorsCleared: false
+        isFieldErrorsCleared: false,
+        canSubmit: true
     };
     render() {
         const { className, children } = this.props;
