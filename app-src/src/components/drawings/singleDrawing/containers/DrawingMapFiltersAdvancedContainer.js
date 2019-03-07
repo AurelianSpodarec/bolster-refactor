@@ -4,7 +4,16 @@ import DrawingMapFiltersAdvanced from '../presentational/DrawingMapFiltersAdvanc
 
 class DrawingMapFiltersAdvancedContainer extends Component {
     state = {
-        serviceTypeOptions: ['All services', 'Service 1'],
+        serviceTypeOptions: [
+            {
+                value: 0,
+                text: 'All services'
+            },
+            {
+                value: 1,
+                text: 'Service 1'
+            }
+        ],
         serviceTypeSelected: 'All services'
     };
 
