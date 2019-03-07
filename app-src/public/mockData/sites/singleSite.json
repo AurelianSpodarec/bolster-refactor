@@ -1,0 +1,13 @@
+{
+    "addressLine1": "198 Wildmoor avenue",
+    "addressLine2": "Holts Estate",
+    "city": "Manchester",
+    "postCode": "OL4 5NT",
+    "pins": {
+        "green": 10,
+        "red": 100,
+        "yellow": 50,
+        "blue": 19
+    },
+    "lastUpdated": "21/01/2019 18:45"
+}
