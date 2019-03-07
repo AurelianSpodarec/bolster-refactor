@@ -3,11 +3,11 @@ import React from 'react';
 import Block from 'components/shared/generic/block/presentational/Block';
 
 import SiteDetailsContainer from '../containers/SiteDetailsContainer';
-import DocumentsTableContainer from '../containers/DocumentsTableContainer';
-import BuildingsTableContainer from '../containers/BuildingsTableContainer';
-import OperativesTableContainer from '../containers/OperativesTableContainer';
-import ClientsTableContainer from '../containers/ClientsTableContainer';
-import CompaniesAccessTableContainer from '../containers/CompaniesAccessTableContainer';
+import SiteDocumentsTableContainer from '../containers/SiteDocumentsTableContainer';
+import SiteBuildingsTableContainer from '../containers/SiteBuildingsTableContainer';
+import SiteOperativesTableContainer from '../containers/SiteOperativesTableContainer';
+import SiteClientsTableContainer from '../containers/SiteClientsTableContainer';
+import SiteCompaniesAccessTableContainer from '../containers/SiteCompaniesAccessTableContainer';
 import Breadcrumb from 'components/shared/generic/breadcrumb/presentational/Breadcrumb';
 
 const Site = () => (
@@ -19,23 +19,23 @@ const Site = () => (
         </Block>
 
         <Block containerClass="size-lg-4">
-            <DocumentsTableContainer />
+            <SiteDocumentsTableContainer />
         </Block>
 
         <Block>
-            <BuildingsTableContainer />
+            <SiteBuildingsTableContainer />
         </Block>
 
         <Block containerClass="size-lg-4">
-            <ClientsTableContainer />
+            <SiteClientsTableContainer />
         </Block>
 
         <Block containerClass="size-lg-4">
-            <OperativesTableContainer />
+            <SiteOperativesTableContainer />
         </Block>
 
         <Block containerClass="size-lg-4">
-            <CompaniesAccessTableContainer />
+            <SiteCompaniesAccessTableContainer />
         </Block>
     </div>
 );

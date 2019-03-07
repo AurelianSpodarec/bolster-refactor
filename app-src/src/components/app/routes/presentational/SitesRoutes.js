@@ -4,7 +4,6 @@ import { Route } from 'react-router-dom';
 import SwitchWith404 from './SwitchWith404';
 import AllSites from 'components/sites/allSites/presentational/AllSites';
 import SingleSite from 'components/sites/singleSite/presentational/SingleSite';
-import Building from 'components/buildings/building/presentational/Building';
 import ChangeSiteOwnership from 'components/sites/changeSiteOwnership/presentational/ChangeSiteOwnership';
 import AttachSiteOperative from 'components/sites/attachSiteOperative/presentational/AttachSiteOperative';
 import InviteClientToSite from 'components/sites/inviteClientToSite/presentational/InviteClientToSite';
@@ -15,7 +14,6 @@ const SitesRoutes = ({ match: { url: baseUrl } }) => (
     <SwitchWith404>
         <Route exact path={`${baseUrl}`} component={AllSites} />
         <Route exact path={`${baseUrl}/:id`} component={SingleSite} />
-        <Route exact path={`${baseUrl}/:siteId`} component={Building} />
         <Route
             exact
             path={`${baseUrl}/:siteId/change-ownership`}

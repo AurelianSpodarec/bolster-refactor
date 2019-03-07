@@ -1,6 +1,8 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
+
 import withShowLayout from 'components/layout/misc/hocs/withShowLayout';
+import withAuth from 'components/auth/auth/hocs/withAuth';
 
 import SwitchWith404 from './SwitchWith404';
 import Dashboard from 'components/dashboard/dashboard/presentational/Dashboard';
@@ -22,16 +24,19 @@ const Routes = ({ showLoggedInLayout }) => (
         className={`size-lg-${showLoggedInLayout ? '9' : '12'}`}
     >
         <SwitchWith404>
-            <Route exact path="/" component={Dashboard} />
+            <Route exact path="/" component={withAuth(Dashboard)} />
             <Route path="/auth" component={AuthRoutes} />
-            <Route path="/sites" component={SitesRoutes} />
-            <Route path="/buildings" component={BuildingsRoutes} />
-            <Route path="/floors" component={FloorRoutes} />
-            <Route path="/drawings" component={DrawingsRoutes} />
-            <Route path="/credit-logs" component={CreditLogRoutes} />
-            <Route path="/messages" component={MessagesRoutes} />
-            <Route path="/user-management" component={UserManagementRoutes} />
-            <Route path="/pins" component={PinRoutes} />
+            <Route path="/sites" component={withAuth(SitesRoutes)} />
+            <Route path="/buildings" component={withAuth(BuildingsRoutes)} />
+            <Route path="/floors" component={withAuth(FloorRoutes)} />
+            <Route path="/drawings" component={withAuth(DrawingsRoutes)} />
+            <Route path="/credit-logs" component={withAuth(CreditLogRoutes)} />
+            <Route path="/messages" component={withAuth(MessagesRoutes)} />
+            <Route
+                path="/user-management"
+                component={withAuth(UserManagementRoutes)}
+            />
+            <Route path="/pins" component={withAuth(PinRoutes)} />
             <Route exact path="/404" component={NotFound} />
         </SwitchWith404>
     </div>
