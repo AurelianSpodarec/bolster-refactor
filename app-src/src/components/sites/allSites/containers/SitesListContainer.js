@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import fetchSites from 'actions/sites/async/fetchSites';
+import fetchSites from 'actions/sites/async/fetchAllSites';
 
 import SitesTable from '../presentational/SitesTable';
 

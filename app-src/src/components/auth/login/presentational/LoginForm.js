@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import Form from 'components/shared/generic/form/containers/Form';
 import Field from 'components/shared/generic/form/presentational/Field';
-import SubmitBtnContainer from 'components/shared/generic/form/containers/SubmitBtnContainer';
 
 const LoginForm = ({ handleSubmit, handleInputChange, email, password }) => (
     <Form className="size-lg-12" onSubmit={handleSubmit}>
@@ -33,7 +32,7 @@ const LoginForm = ({ handleSubmit, handleInputChange, email, password }) => (
         </Field>
 
         <div className="button-area size-lg-12">
-            <SubmitBtnContainer>Login</SubmitBtnContainer>
+            <button type="submit">Login</button>
 
             <Link className="button" to="/forgot-password">
                 Forgot password

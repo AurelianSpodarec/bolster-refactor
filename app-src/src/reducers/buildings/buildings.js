@@ -1,55 +1,55 @@
 import { convertArrToObj } from 'helpers/generic';
 import {
-    FETCH_ALL_SITES_REQUEST,
-    FETCH_ALL_SITES_SUCCESS,
-    FETCH_ALL_SITES_FAILURE,
-    FETCH_SINGLE_SITE_REQUEST,
-    FETCH_SINGLE_SITE_SUCCESS,
-    FETCH_SINGLE_SITE_FAILURE
-} from 'constants/actionTypes/sites';
+    FETCH_ALL_BUILDINGS_REQUEST,
+    FETCH_ALL_BUILDINGS_SUCCESS,
+    FETCH_ALL_BUILDINGS_FAILURE,
+    FETCH_SINGLE_BUILDING_REQUEST,
+    FETCH_SINGLE_BUILDING_SUCCESS,
+    FETCH_SINGLE_BUILDING_FAILURE
+} from 'constants/actionTypes/buildings';
 
 export const initialState = {
-    sites: {},
+    buildings: {},
     isFetching: false,
     error: null
 };
 
 export default (state = initialState, action) => {
     switch (action.type) {
-        case FETCH_ALL_SITES_REQUEST:
+        case FETCH_ALL_BUILDINGS_REQUEST:
             return {
                 ...state,
                 isFetching: true,
                 error: null
             };
-        case FETCH_ALL_SITES_SUCCESS:
+        case FETCH_ALL_BUILDINGS_SUCCESS:
             return {
                 ...state,
                 isFetching: false,
-                sites: convertArrToObj(action.payload)
+                buildings: convertArrToObj(action.payload)
             };
-        case FETCH_ALL_SITES_FAILURE:
+        case FETCH_ALL_BUILDINGS_FAILURE:
             return {
                 ...state,
                 isFetching: false,
                 error: action.error.message
             };
-        case FETCH_SINGLE_SITE_REQUEST:
+        case FETCH_SINGLE_BUILDING_REQUEST:
             return {
                 ...state,
                 isFetching: true,
                 error: null
             };
-        case FETCH_SINGLE_SITE_SUCCESS:
+        case FETCH_SINGLE_BUILDING_SUCCESS:
             return {
                 ...state,
                 isFetching: false,
-                sites: {
-                    ...state.sites,
+                buildings: {
+                    ...state.buildings,
                     [action.payload.id.toString()]: action.payload
                 }
             };
-        case FETCH_SINGLE_SITE_FAILURE:
+        case FETCH_SINGLE_BUILDING_FAILURE:
             return {
                 ...state,
                 isFetching: false,
