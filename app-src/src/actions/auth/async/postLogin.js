@@ -6,7 +6,7 @@ import {
     POST_LOGIN_REQUEST,
     POST_LOGIN_SUCCESS,
     POST_LOGIN_FAILURE
-} from 'constants/actionTypes/login';
+} from 'constants/actionTypes/auth';
 
 export const postLoginRequest = () => ({
     type: POST_LOGIN_REQUEST
