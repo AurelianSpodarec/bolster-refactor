@@ -8,8 +8,12 @@ class SubmitBtnContainer extends Component {
 
     render() {
         return (
-            <button type="submit" disabled={this.state.disabled}>
-                Login
+            <button
+                type="submit"
+                disabled={this.state.disabled}
+                onClick={this.handleClick}
+            >
+                {this.props.children}
             </button>
         );
     }

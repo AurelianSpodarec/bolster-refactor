@@ -33,7 +33,7 @@ const LoginForm = ({ handleSubmit, handleInputChange, email, password }) => (
         </Field>
 
         <div className="button-area size-lg-12">
-            <SubmitBtnContainer type="submit">Login</SubmitBtnContainer>
+            <SubmitBtnContainer>Login</SubmitBtnContainer>
 
             <Link className="button" to="/forgot-password">
                 Forgot password

@@ -4,6 +4,7 @@ import Block from 'components/shared/generic/block/presentational/Block';
 
 import DrawingMapFiltersSimpleContainer from '../containers/DrawingMapFiltersSimpleContainer';
 import DrawingMapViewAdvancedContainer from '../containers/DrawingMapViewAdvancedContainer';
+import DrawingPinSelectorContainer from '../containers/DrawingPinSelectorContainer';
 import DrawingReportOptionsContainer from '../containers/DrawingReportOptionsContainer';
 import DrawingPinOptionsContainer from '../containers/DrawingPinOptionsContainer';
 
@@ -13,6 +14,10 @@ const AdvancedReport = () => (
             <Block>
                 <DrawingMapFiltersSimpleContainer />
                 <DrawingMapViewAdvancedContainer />
+            </Block>
+
+            <Block>
+                <DrawingPinSelectorContainer />
             </Block>
 
             <Block>
