@@ -9,7 +9,7 @@ import OperativesTableContainer from '../containers/OperativesTableContainer';
 import ClientsTableContainer from '../containers/ClientsTableContainer';
 import CompaniesAccessTableContainer from '../containers/CompaniesAccessTableContainer';
 
-const Building = () => (
+const SingleBuilding = () => (
     <div className="size-lg-12">
         <Block containerClass="size-lg-8" contentClass="site-details">
             <BuildingDetailsContainer />
@@ -37,4 +37,4 @@ const Building = () => (
     </div>
 );
 
-export default Building;
+export default SingleBuilding;

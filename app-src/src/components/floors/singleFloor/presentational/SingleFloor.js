@@ -3,11 +3,11 @@ import React from 'react';
 import Block from 'components/shared/generic/block/presentational/Block';
 
 import FloorDetailsContainer from '../containers/FloorDetailsContainer';
-import DocumentsTableContainer from '../containers/DocumentsTableContainer';
-import DrawingsTableContainer from '../containers/DrawingsTableContainer';
-import OperativesTableContainer from '../containers/OperativesTableContainer';
-import ClientsTableContainer from '../containers/ClientsTableContainer';
-import CompaniesAccessTableContainer from '../containers/CompaniesAccessTableContainer';
+import FloorDocumentsTableContainer from '../containers/FloorDocumentsTableContainer';
+import FloorDrawingsTableContainer from '../containers/FloorDrawingsTableContainer';
+import FloorOperativesTableContainer from '../containers/FloorOperativesTableContainer';
+import FloorClientsTableContainer from '../containers/FloorClientsTableContainer';
+import FloorCompaniesAccessTableContainer from '../containers/FloorCompaniesAccessTableContainer';
 
 const Floor = () => (
     <div className="size-lg-12">
@@ -16,23 +16,23 @@ const Floor = () => (
         </Block>
 
         <Block containerClass="size-lg-4">
-            <DocumentsTableContainer />
+            <FloorDocumentsTableContainer />
         </Block>
 
         <Block>
-            <DrawingsTableContainer />
+            <FloorDrawingsTableContainer />
         </Block>
 
         <Block containerClass="size-lg-4">
-            <ClientsTableContainer />
+            <FloorClientsTableContainer />
         </Block>
 
         <Block containerClass="size-lg-4">
-            <OperativesTableContainer />
+            <FloorOperativesTableContainer />
         </Block>
 
         <Block containerClass="size-lg-4">
-            <CompaniesAccessTableContainer />
+            <FloorCompaniesAccessTableContainer />
         </Block>
     </div>
 );
