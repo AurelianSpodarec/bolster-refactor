@@ -187,8 +187,7 @@ input {
 }
 
 //buttons
-.button,
-button {
+.button {
     display: inline-block;
     padding: 5px 15px;
     background-color: $button-grey;
@@ -215,8 +214,7 @@ button {
     width: calc(100% + 10px);
     margin-left: -5px;
 
-    .button,
-    button {
+    .button {
         margin: 0 5px;
     }
 }
