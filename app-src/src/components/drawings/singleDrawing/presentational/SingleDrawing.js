@@ -7,7 +7,9 @@ import SingleDrawingRouteContainer from '../containers/SingleDrawingRouteContain
 const Drawing = () => (
     <div className="size-lg-12">
         <BreadcrumbContainer>
-            <TabsContainer />
+            <div className="breadcrumb-tabs">
+                <TabsContainer />
+            </div>
         </BreadcrumbContainer>
 
         <SingleDrawingRouteContainer />

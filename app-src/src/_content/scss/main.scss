@@ -52,6 +52,13 @@ body {
     .heading {
         color: black;
     }
+
+    &.small-padding {
+        padding: {
+            top: 10px;
+            bottom: 10px;
+        }
+    }
 }
 //generics
 input {
@@ -129,9 +136,58 @@ input {
     }
 }
 
+//breadcrumb
+.breadcrumb {
+    float: left;
+    width: calc(100% - 310px);
+
+    p {
+        margin: 6px 0 5px;
+        @include ubuntu-medium;
+        font-size: 160%;
+
+        a {
+            color: $body-text;
+            text-decoration: none;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+
+    &:last-child {
+        width: 100%;
+    }
+}
+
+//tabs
+.tab-container {
+    float: left;
+    border: 1px solid $background-grey;
+    @include rounded-all(3px);
+
+    button {
+        float: left;
+        padding: 7px 15px;
+        @include ubuntu-medium;
+        font-size: 140%;
+        color: #8f8f8f;
+        background-color: white;
+        outline: none;
+
+        &.active {
+            background-color: $background-grey;
+        }
+    }
+}
+
+.breadcrumb-tabs {
+    float: right;
+}
+
 //buttons
-.button,
-button {
+.button {
     display: inline-block;
     padding: 5px 15px;
     background-color: $button-grey;
@@ -147,6 +203,10 @@ button {
     &.active {
         background-color: #757373;
     }
+
+    &.red {
+        background-color: $red;
+    }
 }
 
 .button-container {
@@ -154,17 +214,9 @@ button {
     width: calc(100% + 10px);
     margin-left: -5px;
 
-    .button {
+    .button,
+    button {
         margin: 0 5px;
-    }
-}
-
-.button-area {
-    margin-top: 15px;
-    button,
-    .button {
-        float: right;
-        margin-left: 10px;
     }
 }
 
@@ -412,6 +464,7 @@ button {
     }
     &.heading-3 {
         font-size: 160%;
+        margin-bottom: 15px;
     }
 }
 
@@ -591,9 +644,37 @@ form {
     }
 }
 
-.pin-key {
-    .pin {
-        float: left;
-        width: 100%;
+.stats {
+    p {
+        font-size: 140%;
+    }
+    .history {
+        label {
+            font-size: 120%;
+            padding-top: 15px;
+        }
+    }
+    .pin-key {
+        padding-left: 15px;
+
+        .pin {
+            float: left;
+            width: 100%;
+            @include ubuntu-medium;
+            margin-bottom: 3.5px;
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+
+            img {
+                float: left;
+                margin-right: 5px;
+            }
+
+            p {
+                padding-top: 2px;
+            }
+        }
     }
 }

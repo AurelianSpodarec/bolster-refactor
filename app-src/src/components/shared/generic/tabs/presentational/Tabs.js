@@ -1,17 +1,15 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
 const Tabs = ({ tabs, selectedTab, selectTab }) => (
-    <div className="button-container">
+    <div className="tab-container">
         {tabs.map(tab => (
-            <Link
-                key=""
-                to=""
-                className={`button ${tab === selectedTab ? 'active' : ''}`}
+            <button
+                key={tab}
+                className={tab === selectedTab ? 'active' : ''}
                 onClick={e => selectTab(e, tab)}
             >
                 {tab}
-            </Link>
+            </button>
         ))}
     </div>
 );

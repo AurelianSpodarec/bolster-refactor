@@ -1,11 +1,14 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import Block from 'components/shared/generic/block/presentational/Block';
 
 const Breadcrumb = ({ className = 'size-lg-12', children }) => (
-    <Block>
+    <Block contentClass="size-lg-12 small-padding">
         <div className={`breadcrumb ${className}`}>
-            <h3 className="heading heading-3">Breadcrumb item 1 - item 2</h3>
+            <p>
+                <Link to="#">Item 1</Link> / <Link to="#">Item 2</Link> / Item 3
+            </p>
         </div>
         {children}
     </Block>
