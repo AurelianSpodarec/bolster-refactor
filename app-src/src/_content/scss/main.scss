@@ -52,6 +52,13 @@ body {
     .heading {
         color: black;
     }
+
+    &.small-padding {
+        padding: {
+            top: 10px;
+            bottom: 10px;
+        }
+    }
 }
 //generics
 input {
@@ -129,9 +136,58 @@ input {
     }
 }
 
+//breadcrumb
+.breadcrumb {
+    float: left;
+    width: calc(100% - 310px);
+
+    p {
+        margin: 6px 0 5px;
+        @include ubuntu-medium;
+        font-size: 160%;
+
+        a {
+            color: $body-text;
+            text-decoration: none;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+
+    &:last-child {
+        width: 100%;
+    }
+}
+
+//tabs
+.tab-container {
+    float: left;
+    border: 1px solid $background-grey;
+    @include rounded-all(3px);
+
+    button {
+        float: left;
+        padding: 7px 15px;
+        @include ubuntu-medium;
+        font-size: 140%;
+        color: #8f8f8f;
+        background-color: white;
+        outline: none;
+
+        &.active {
+            background-color: $background-grey;
+        }
+    }
+}
+
+.breadcrumb-tabs {
+    float: right;
+}
+
 //buttons
-.button,
-button {
+.button {
     display: inline-block;
     padding: 5px 15px;
     background-color: $button-grey;
@@ -161,7 +217,7 @@ button {
 
 .button-area {
     margin-top: 15px;
-    button,
+
     .button {
         float: right;
         margin-left: 10px;
