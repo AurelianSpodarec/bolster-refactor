@@ -15,17 +15,25 @@ class DrawingMapGeneralContainer extends Component {
                 text: 'Service 1'
             }
         ],
-        serviceTypeSelected: 'All services'
+        serviceTypeSelected: 'All services',
+        pinLat: 51.505,
+        pinLng: -0.09,
+        mapZoom: 13
     };
 
     render() {
+        const position = [this.state.pinLat, this.state.pinLng];
+
         return (
             <div className="size-lg-12">
                 <DrawingMapFiltersAdvanced
                     serviceTypeOptions={this.state.serviceTypeOptions}
                     serviceTypeSelected={this.state.serviceTypeSelected}
                 />
-                <DrawingMapViewSimple />
+                <DrawingMapViewSimple
+                    position={position}
+                    zoom={this.state.mapZoom}
+                />
             </div>
         );
     }
