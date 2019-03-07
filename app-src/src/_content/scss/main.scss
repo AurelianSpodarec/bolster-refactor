@@ -1,6 +1,6 @@
-@import "_content/scss/reset.scss";
-@import "_content/scss/variables.scss";
-@import "_content/scss/sizing.scss";
+@import "./reset.scss";
+@import "./variables.scss";
+@import "./sizing.scss";
 
 //layouts
 html {
@@ -677,4 +677,10 @@ form {
             }
         }
     }
+}
+
+//leaflet map
+.leaflet-container {
+    width: 100%;
+    height: 388px;
 }

@@ -6,7 +6,9 @@ const Block = ({ children, containerClass, contentClass }) => (
             containerClass ? containerClass : 'size-lg-12'
         }`}
     >
-        <div className={`content-area ${contentClass}`}>{children}</div>
+        <div className={`content-area ${contentClass ? contentClass : ''}`}>
+            {children}
+        </div>
     </div>
 );
 
