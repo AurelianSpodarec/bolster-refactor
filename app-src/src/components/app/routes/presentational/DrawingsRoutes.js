@@ -6,6 +6,7 @@ import SingleDrawingContainer from 'components/drawings/singleDrawing/containers
 import AttachDrawingOperative from 'components/drawings/attachDrawingOperative/presentational/AttachDrawingOperative';
 import InviteClientToDrawing from 'components/drawings/inviteClientToDrawing/presentational/InviteClientToDrawing';
 import AttachDrawingDocument from 'components/drawings/attachDrawingDocument/presentational/AttachDrawingDocument';
+import InviteCompanyToBuilding from 'components/buildings/inviteCompanyToBuilding/presentational/InviteCompanyToBuilding';
 
 const DrawingsRoutes = ({ match: { url: baseUrl } }) => (
     <SwitchWith404>
@@ -28,6 +29,11 @@ const DrawingsRoutes = ({ match: { url: baseUrl } }) => (
             exact
             path={`${baseUrl}/:siteId/attach-document`}
             component={AttachDrawingDocument}
+        />
+        <Route
+            exact
+            path={`${baseUrl}/:siteId/invite-company`}
+            component={InviteCompanyToBuilding}
         />
     </SwitchWith404>
 );
