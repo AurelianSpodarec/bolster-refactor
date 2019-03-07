@@ -3,8 +3,7 @@ import { Link } from 'react-router-dom';
 
 import Block from 'components/shared/generic/block/presentational/Block';
 
-import DrawingMapFiltersAdvancedContainer from '../containers/DrawingMapFiltersAdvancedContainer';
-import DrawingMapViewSimpleContainer from '../containers/DrawingMapViewSimpleContainer';
+import DrawingMapGeneralContainer from '../containers/DrawingMapGeneralContainer';
 import DrawingInspectionLogContainer from '../containers/DrawingInspectionLogContainer';
 import DrawingDocumentsContainer from '../containers/DrawingDocumentsContainer';
 import DrawingClientAccessContainer from '../containers/DrawingClientAccessContainer';
@@ -15,8 +14,7 @@ const GeneralOverview = () => (
     <div className="size-lg-12">
         <div className="size-lg-8">
             <Block>
-                <DrawingMapFiltersAdvancedContainer />
-                <DrawingMapViewSimpleContainer />
+                <DrawingMapGeneralContainer />
             </Block>
 
             <Block containerClass="size-lg-6">
