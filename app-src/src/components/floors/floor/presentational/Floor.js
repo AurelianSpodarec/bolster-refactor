@@ -1,5 +1,7 @@
 import React from 'react';
 
+import Block from 'components/shared/generic/block/presentational/Block';
+
 import FloorDetailsContainer from '../containers/FloorDetailsContainer';
 import DocumentsTableContainer from '../containers/DocumentsTableContainer';
 import DrawingsTableContainer from '../containers/DrawingsTableContainer';
@@ -9,41 +11,29 @@ import CompaniesAccessTableContainer from '../containers/CompaniesAccessTableCon
 
 const Floor = () => (
     <div className="size-lg-12">
-        <div className="content-container size-lg-8">
-            <div className="content-area site-details size-lg-12">
-                <FloorDetailsContainer />
-            </div>
-        </div>
+        <Block containerClass="size-lg-8" contentClass="site-details">
+            <FloorDetailsContainer />
+        </Block>
 
-        <div className="content-container size-lg-4">
-            <div className="content-area size-lg-12">
-                <DocumentsTableContainer />
-            </div>
-        </div>
+        <Block containerClass="size-lg-4">
+            <DocumentsTableContainer />
+        </Block>
 
-        <div className="content-container size-lg-12">
-            <div className="content-area size-lg-12">
-                <DrawingsTableContainer />
-            </div>
-        </div>
+        <Block>
+            <DrawingsTableContainer />
+        </Block>
 
-        <div className="content-container size-lg-4">
-            <div className="content-area size-lg-12">
-                <ClientsTableContainer />
-            </div>
-        </div>
+        <Block containerClass="size-lg-4">
+            <ClientsTableContainer />
+        </Block>
 
-        <div className="content-container size-lg-4">
-            <div className="content-area size-lg-12">
-                <OperativesTableContainer />
-            </div>
-        </div>
+        <Block containerClass="size-lg-4">
+            <OperativesTableContainer />
+        </Block>
 
-        <div className="content-container size-lg-4">
-            <div className="content-area size-lg-12">
-                <CompaniesAccessTableContainer />
-            </div>
-        </div>
+        <Block containerClass="size-lg-4">
+            <CompaniesAccessTableContainer />
+        </Block>
     </div>
 );
 
