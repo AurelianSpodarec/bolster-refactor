@@ -1,11 +1,11 @@
 import React from 'react';
 
+import Block from 'components/shared/generic/block/presentational/Block';
+
 const PinHistoriesList = () => (
-    <div className="content-container size-lg-12">
-        <div className="content-area size-lg-12">
-            <h3 className="heading heading-3">Other pin histories</h3>
-        </div>
-    </div>
+    <Block>
+        <h3 className="heading heading-3">Other pin histories</h3>
+    </Block>
 );
 
 export default PinHistoriesList;

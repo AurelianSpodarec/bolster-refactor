@@ -1,11 +1,11 @@
 import React from 'react';
 
+import Block from 'components/shared/generic/block/presentational/Block';
+
 const NotFound = () => (
-    <div className="content-container size-lg-12">
-        <div className="content-area">
-            <h1>404 Not found</h1>
-        </div>
-    </div>
+    <Block>
+        <h1>404 Not found</h1>
+    </Block>
 );
 
 export default NotFound;

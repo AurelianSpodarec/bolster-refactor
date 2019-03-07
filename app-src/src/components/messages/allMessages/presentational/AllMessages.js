@@ -1,11 +1,11 @@
 import React from 'react';
 
+import Block from 'components/shared/generic/block/presentational/Block';
+
 const AllMessages = () => (
-    <div className="content-container size-lg-12">
-        <div className="content-area size-lg-12">
-            <h1>All Messages</h1>
-        </div>
-    </div>
+    <Block>
+        <h1>All Messages</h1>
+    </Block>
 );
 
 export default AllMessages;

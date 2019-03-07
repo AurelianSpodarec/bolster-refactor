@@ -1,14 +1,14 @@
 import React from 'react';
 
+import Block from 'components/shared/generic/block/presentational/Block';
+
 const PinDetails = () => (
-    <div className="content-container size-lg-12">
-        <div className="content-area size-lg-12">
-            <h3 className="heading heading-3">Details</h3>
-        </div>
+    <Block>
+        <h3 className="heading heading-3">Details</h3>
         <a className="button" href="#/">
             Edit this history
         </a>
-    </div>
+    </Block>
 );
 
 export default PinDetails;
