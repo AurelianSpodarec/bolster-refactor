@@ -3,15 +3,15 @@ import React from 'react';
 import BreadcrumbContainer from 'components/shared/generic/breadcrumb/containers/BreadcrumbContainer';
 import Block from 'components/shared/generic/block/presentational/Block';
 
-const AllUsers = () => (
+const PinOptions = () => (
     <div>
         <Block>
             <BreadcrumbContainer />
         </Block>
         <Block>
-            <h3 className="heading heading-3">All Users</h3>
+            <h3 className="heading heading-3">Pin options</h3>
         </Block>
     </div>
 );
 
-export default AllUsers;
+export default PinOptions;

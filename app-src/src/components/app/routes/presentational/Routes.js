@@ -13,10 +13,11 @@ import SitesRoutes from './SitesRoutes';
 import BuildingsRoutes from './BuildingsRoutes';
 import FloorRoutes from './FloorRoutes';
 import DrawingsRoutes from './DrawingsRoutes';
-import CreditLogRoutes from './CreditLogRoutes';
 import MessagesRoutes from './MessagesRoutes';
 import UserManagementRoutes from './UserManagementRoutes.js';
 import PinRoutes from './PinRoutes';
+import ReportsRoutes from './ReportsRoutes';
+import ToolsRoutes from './ToolsRoutes';
 
 const Routes = ({ showLoggedInLayout }) => (
     <div
@@ -30,13 +31,14 @@ const Routes = ({ showLoggedInLayout }) => (
             <Route path="/buildings" component={withAuth(BuildingsRoutes)} />
             <Route path="/floors" component={withAuth(FloorRoutes)} />
             <Route path="/drawings" component={withAuth(DrawingsRoutes)} />
-            <Route path="/credit-logs" component={withAuth(CreditLogRoutes)} />
             <Route path="/messages" component={withAuth(MessagesRoutes)} />
             <Route
                 path="/user-management"
                 component={withAuth(UserManagementRoutes)}
             />
             <Route path="/pins" component={withAuth(PinRoutes)} />
+            <Route path="/reports" component={withAuth(ReportsRoutes)} />
+            <Route path="/tools" component={withAuth(ToolsRoutes)} />
             <Route exact path="/404" component={NotFound} />
         </SwitchWith404>
     </div>

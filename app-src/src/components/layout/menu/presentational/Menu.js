@@ -43,7 +43,7 @@ const Menu = ({ messageCount }) => (
             title={'Tools & Resources'}
             baseUrl="/tools"
         >
-            <MenuItemContainer link="/credit-logs">
+            <MenuItemContainer link="/tools/credit-logs">
                 Drawing Credit Log
             </MenuItemContainer>
             <MenuItemContainer link="/tools/pin-options">
