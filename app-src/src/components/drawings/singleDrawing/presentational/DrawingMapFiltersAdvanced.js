@@ -1,7 +1,17 @@
 import React from 'react';
 
-const DrawingMapFiltersAdvanced = () => (
-    <h2 className="heading heading-3 size-lg-12">Map filters advanced</h2>
+import Filter from 'components/shared/generic/form/presentational/Filter';
+
+const DrawingMapFiltersAdvanced = ({
+    serviceTypeOptions,
+    serviceTypeSelected
+}) => (
+    <div className="size-lg-12">
+        <Filter
+            options={serviceTypeOptions}
+            selectedOption={serviceTypeSelected}
+        />
+    </div>
 );
 
 export default DrawingMapFiltersAdvanced;
