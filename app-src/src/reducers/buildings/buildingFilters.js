@@ -1,7 +1,7 @@
 import {
     UPDATE_BUILDINGS_SEARCH_TERM,
     SET_BUILDINGS_FILTER_STATUS
-} from 'constants/actionTypes/sites';
+} from 'constants/actionTypes/buildings';
 
 export const initialState = {
     searchTerm: '',
