@@ -8,9 +8,12 @@ import BuildingsTableContainer from '../containers/BuildingsTableContainer';
 import OperativesTableContainer from '../containers/OperativesTableContainer';
 import ClientsTableContainer from '../containers/ClientsTableContainer';
 import CompaniesAccessTableContainer from '../containers/CompaniesAccessTableContainer';
+import Breadcrumb from 'components/shared/generic/breadcrumb/presentational/Breadcrumb';
 
 const Site = () => (
     <div className="size-lg-12">
+        <Breadcrumb />
+
         <Block containerClass="size-lg-8" contentClass="site-details">
             <SiteDetailsContainer />
         </Block>

@@ -203,6 +203,10 @@ input {
     &.active {
         background-color: #757373;
     }
+
+    &.red {
+        background-color: $red;
+    }
 }
 
 .button-container {
@@ -210,17 +214,9 @@ input {
     width: calc(100% + 10px);
     margin-left: -5px;
 
-    .button {
+    .button,
+    button {
         margin: 0 5px;
-    }
-}
-
-.button-area {
-    margin-top: 15px;
-
-    .button {
-        float: right;
-        margin-left: 10px;
     }
 }
 
@@ -468,6 +464,7 @@ input {
     }
     &.heading-3 {
         font-size: 160%;
+        margin-bottom: 15px;
     }
 }
 
@@ -647,9 +644,37 @@ form {
     }
 }
 
-.pin-key {
-    .pin {
-        float: left;
-        width: 100%;
+.stats {
+    p {
+        font-size: 140%;
+    }
+    .history {
+        label {
+            font-size: 120%;
+            padding-top: 15px;
+        }
+    }
+    .pin-key {
+        padding-left: 15px;
+
+        .pin {
+            float: left;
+            width: 100%;
+            @include ubuntu-medium;
+            margin-bottom: 3.5px;
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+
+            img {
+                float: left;
+                margin-right: 5px;
+            }
+
+            p {
+                padding-top: 2px;
+            }
+        }
     }
 }
