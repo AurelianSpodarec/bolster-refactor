@@ -4,8 +4,10 @@ import Dropdown from './Dropdown';
 
 const Filter = ({ options, selectedOption }) => (
     <div className="filter">
-        <p>Filter</p>
-        <Dropdown options={options} selectedOption={selectedOption} />
+        <div className="field">
+            <label>Filter</label>
+            <Dropdown options={options} selectedOption={selectedOption} />
+        </div>
     </div>
 );
 

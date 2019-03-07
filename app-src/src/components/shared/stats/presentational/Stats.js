@@ -28,7 +28,7 @@ const Stats = () => (
                 <Link className="button" to="/edit">
                     Edit
                 </Link>{' '}
-                <button className="red">Delete Site</button>
+                <button className="button red">Delete Site</button>
             </div>
         </div>
 

@@ -6,7 +6,7 @@ const DrawingMapFiltersAdvanced = ({
     serviceTypeOptions,
     serviceTypeSelected
 }) => (
-    <div className="size-lg-12">
+    <div className="form size-lg-12">
         <Filter
             options={serviceTypeOptions}
             selectedOption={serviceTypeSelected}
