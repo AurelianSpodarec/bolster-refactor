@@ -23,14 +23,20 @@ class SitesListContainer extends Component {
     componentDidMount = () => {
         this.props.fetchSites();
     };
+
+    getFilteredSites = () => {
+        const { sites, filters } = this.props;
+        return sites
+            .filter(site => site.name.includes(filters.name))
+            .filter(site => site);
+    };
 }
 
 const mapStateToProps = ({ sitesReducers }) => ({
     sites: Object.values(sitesReducers.sites.sites),
     isFetching: sitesReducers.sites.isFetching,
     error: sitesReducers.sites.error,
-    searchTerm: sitesReducers.sitesFilters.searchTerm,
-    status: sitesReducers.sitesFilters.status
+    filters: sitesReducers.sitesFilters
 });
 
 const mapDispatchToProps = dispatch => ({
