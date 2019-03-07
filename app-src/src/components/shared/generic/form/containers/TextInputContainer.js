@@ -55,16 +55,33 @@ class TextInputContianer extends Component {
     };
 
     _validate = value => {
-        const { name, error, required, validate = () => {} } = this.props;
+        const {
+            name,
+            type,
+            error,
+            required,
+            validate = () => {},
+            addFieldError,
+            removeFieldError
+        } = this.props;
         const validateError = validate(value);
 
         if (required && !(value && value.length)) {
-            this.props.addFieldError(name, 'This is a required field.');
+            addFieldError(name, 'This is a required field.');
+        } else if (type === 'email' && !this._valdateEmail(value)) {
+            addFieldError(name, 'This is not a valid email.');
         } else if (validateError && validateError.length) {
-            this.props.addFieldError(name, validateError);
+            addFieldError(name, validateError);
         } else if (error) {
-            this.props.removeFieldError(name);
+            removeFieldError(name);
         }
+    };
+
+    _valdateEmail = value => {
+        //eslint-disable-next-line
+        var regEx = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+
+        return regEx.test(value);
     };
 }
 

@@ -1,20 +1,20 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 import postLogin from 'actions/auth/async/postLogin';
-import Login from '../presentational/Login';
+import LoginForm from '../presentational/LoginForm';
 
-class LoginContainer extends Component {
+class LoginFormContainer extends Component {
     state = {
         email: '',
         password: ''
     };
     render() {
         return (
-            <Login
+            <LoginForm
                 {...this.state}
                 handleInputChange={this.handleInputChange}
-                validateEmail={this.validateEmail}
                 handleSubmit={this.handleSubmit}
             />
         );
@@ -29,12 +29,6 @@ class LoginContainer extends Component {
         });
     };
 
-    validateEmail = value => {
-        if (!(value && value.includes('@')))
-            return 'This is not a valid email.';
-        if (value && value.length < 4) return 'This email is too short.';
-    };
-
     handleSubmit = e => {
         e.preventDefault();
 
@@ -45,7 +39,7 @@ class LoginContainer extends Component {
         const { postSuccess, history } = this.props;
 
         if (postSuccess && !prevProps.postSuccess) {
-            history.push('/dashboard');
+            history.push('/');
         }
     };
 }
@@ -58,7 +52,9 @@ const mapDispatchToProps = dispatch => ({
     }
 });
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(LoginContainer);
+export default withRouter(
+    connect(
+        mapStateToProps,
+        mapDispatchToProps
+    )(LoginFormContainer)
+);
