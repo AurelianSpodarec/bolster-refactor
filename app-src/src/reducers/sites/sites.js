@@ -1,11 +1,11 @@
 import { convertArrToObj } from 'helpers/generic';
 import {
-    FETCH_SITES_REQUEST,
-    FETCH_SITES_SUCCESS,
-    FETCH_SITES_FAILURE,
-    FETCH_SITE_REQUEST,
-    FETCH_SITE_SUCCESS,
-    FETCH_SITE_FAILURE
+    FETCH_ALL_SITES_REQUEST,
+    FETCH_ALL_SITES_SUCCESS,
+    FETCH_ALL_SITES_FAILURE,
+    FETCH_SINGLE_SITE_REQUEST,
+    FETCH_SINGLE_SITE_SUCCESS,
+    FETCH_SINGLE_SITE_FAILURE
 } from 'constants/actionTypes/sites';
 
 export const initialState = {
@@ -16,31 +16,31 @@ export const initialState = {
 
 export default (state = initialState, action) => {
     switch (action.type) {
-        case FETCH_SITES_REQUEST:
+        case FETCH_ALL_SITES_REQUEST:
             return {
                 ...state,
                 isFetching: true,
                 error: null
             };
-        case FETCH_SITES_SUCCESS:
+        case FETCH_ALL_SITES_SUCCESS:
             return {
                 ...state,
                 isFetching: false,
                 sites: convertArrToObj(action.payload)
             };
-        case FETCH_SITES_FAILURE:
+        case FETCH_ALL_SITES_FAILURE:
             return {
                 ...state,
                 isFetching: false,
                 error: action.error.message
             };
-        case FETCH_SITE_REQUEST:
+        case FETCH_SINGLE_SITE_REQUEST:
             return {
                 ...state,
                 isFetching: true,
                 error: null
             };
-        case FETCH_SITE_SUCCESS:
+        case FETCH_SINGLE_SITE_SUCCESS:
             return {
                 ...state,
                 isFetching: false,
@@ -49,7 +49,7 @@ export default (state = initialState, action) => {
                     [action.payload.id.toString()]: action.payload
                 }
             };
-        case FETCH_SITE_FAILURE:
+        case FETCH_SINGLE_SITE_FAILURE:
             return {
                 ...state,
                 isFetching: false,

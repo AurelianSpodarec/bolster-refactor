@@ -1,22 +1,22 @@
 import axios from 'axios';
 
 import {
-    FETCH_SITE_REQUEST,
-    FETCH_SITE_SUCCESS,
-    FETCH_SITE_FAILURE
+    FETCH_SINGLE_SITE_REQUEST,
+    FETCH_SINGLE_SITE_SUCCESS,
+    FETCH_SINGLE_SITE_FAILURE
 } from 'constants/actionTypes/sites';
 
 export const fetchSiteRequest = () => ({
-    type: FETCH_SITE_REQUEST
+    type: FETCH_SINGLE_SITE_REQUEST
 });
 
 export const fetchSiteSuccess = payload => ({
-    type: FETCH_SITE_SUCCESS,
+    type: FETCH_SINGLE_SITE_SUCCESS,
     payload
 });
 
 export const fetchSiteFailure = error => ({
-    type: FETCH_SITE_FAILURE,
+    type: FETCH_SINGLE_SITE_FAILURE,
     error
 });
 
