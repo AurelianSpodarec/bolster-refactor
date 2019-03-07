@@ -2,10 +2,13 @@ import React from 'react';
 
 import PieChart from 'react-minimal-pie-chart';
 
-import PinImage from '../../../../_content/images/examples/pin.png';
+import greenPin from '_content/images/pins/green-pin.png';
+import redPin from '_content/images/pins/red-pin.png';
+import bluePin from '_content/images/pins/blue-pin.png';
+import yellowPin from '_content/images/pins/yellow-pin.png';
 
 const Stats = () => (
-    <div className="size-lg-12">
+    <div className="stats size-lg-12">
         <h3 className="heading heading-3 size-lg-6">Details</h3>
         <h4 className="heading heading-3 size-lg-6">Latest Pin Histories</h4>
         <div className="size-lg-6">
@@ -22,9 +25,9 @@ const Stats = () => (
             </p>
         </div>
 
-        <div className="size-lg-6">
+        <div className="history size-lg-6">
             <PieChart
-                className="size-lg-4"
+                className="size-lg-5"
                 //test data
                 data={[
                     {
@@ -51,28 +54,30 @@ const Stats = () => (
                 segmentsStyle={{ transition: 'stroke .3s' }}
                 animate
             />
-            <div className="pin-key size-lg-8">
+            <div className="pin-key size-lg-6">
                 <div className="pin">
-                    <img src={PinImage} alt="pin" />
+                    <img src={redPin} alt="pin" />
                     <p>103</p>
                 </div>
                 <div className="pin">
-                    <img src={PinImage} alt="pin" />
+                    <img src={bluePin} alt="pin" />
                     <p>0</p>
                 </div>
                 <div className="pin">
-                    <img src={PinImage} alt="pin" />
+                    <img src={greenPin} alt="pin" />
                     <p>90</p>
                 </div>
                 <div className="pin">
-                    <img src={PinImage} alt="pin" />
+                    <img src={yellowPin} alt="pin" />
                     <p>100</p>
                 </div>
             </div>
-            <p>Last Update: ##01/01/2018 13:43##</p>
+            <label className="size-lg-12">
+                Last Update: ##01/01/2018 13:43##
+            </label>
         </div>
         <div className="button-container size-lg-12">
-            <button>Edit</button> <button>Delete Site</button>
+            <button>Edit</button> <button className="red">Delete Site</button>
         </div>
     </div>
 );
