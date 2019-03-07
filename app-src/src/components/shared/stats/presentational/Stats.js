@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import PieChart from 'react-minimal-pie-chart';
 
@@ -23,6 +24,12 @@ const Stats = () => (
                 <br />
                 PR7 1AL##
             </p>
+            <div className="button-container size-lg-12">
+                <Link className="button" to="/edit">
+                    Edit
+                </Link>{' '}
+                <button className="red">Delete Site</button>
+            </div>
         </div>
 
         <div className="history size-lg-6">
@@ -75,9 +82,6 @@ const Stats = () => (
             <label className="size-lg-12">
                 Last Update: ##01/01/2018 13:43##
             </label>
-        </div>
-        <div className="button-container size-lg-12">
-            <button>Edit</button> <button className="red">Delete Site</button>
         </div>
     </div>
 );
