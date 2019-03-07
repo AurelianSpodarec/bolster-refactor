@@ -3,6 +3,10 @@ import React from 'react';
 
 import SwitchWith404 from './SwitchWith404';
 
-const UserMannagementRoutes = () => <SwitchWith404 />;
+const UserMannagementRoutes = () => (
+    <SwitchWith404>
+        {/* <Route exact path="/" component={withAuth(Dashboard)} /> */}
+    </SwitchWith404>
+);
 
 export default UserMannagementRoutes;
