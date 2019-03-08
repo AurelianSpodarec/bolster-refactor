@@ -13,7 +13,7 @@ class MenuContianer extends Component {
 }
 
 export default withShowLayout(
-    connect(({ messagesReducers }) => ({
-        messageCount: messagesReducers.messages.messages.length
+    connect(({ messagesReducer }) => ({
+        messageCount: Object.values(messagesReducer.messages).length
     }))(MenuContianer)
 );
