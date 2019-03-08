@@ -1,6 +1,5 @@
 import { combineReducers } from 'redux';
 
-import genericReducers from './generic';
 import sitesReducers from './sites';
 import buildingsReducers from './buildings';
 import creditLogsReducers from './creditLogs';
@@ -13,9 +12,9 @@ import searchReducer from './search';
 import authReducers from './auth';
 import sitesReducer from './sites';
 import fieldErrorsReducer from './fieldErrors';
+import tabsReducer from './tabs';
 
 export default combineReducers({
-    genericReducers,
     sitesReducers,
     buildingsReducers,
     profileReducer,
@@ -27,5 +26,6 @@ export default combineReducers({
     searchReducer,
     authReducers,
     sitesReducer,
-    fieldErrorsReducer
+    fieldErrorsReducer,
+    tabsReducer
 });
