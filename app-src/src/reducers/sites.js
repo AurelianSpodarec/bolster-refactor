@@ -8,16 +8,14 @@ import {
     FETCH_SINGLE_SITE_REQUEST,
     FETCH_SINGLE_SITE_SUCCESS,
     FETCH_SINGLE_SITE_FAILURE,
-    UPDATE_SITES_SEARCH_TERM,
-    SET_SITES_FILTER_STATUS
+    UPDATE_SITES_FILTERS
 } from 'constants/actionTypes/sites';
 
 export default combineReducers({
     sites: sitesReducer,
     isFetching: isFetchingReducer,
     error: errorReducer,
-    nameFilter: nameFilterReducer,
-    stausFilter: statusFilterReducer
+    filters: filtersReducer
 });
 
 function isFetchingReducer(state = false, action) {
@@ -63,19 +61,10 @@ function sitesReducer(state = {}, action) {
     }
 }
 
-function nameFilterReducer(state = '', action) {
+function filtersReducer(state = { name: '', status: '' }, action) {
     switch (action.type) {
-        case UPDATE_SITES_SEARCH_TERM:
-            return action.searchTerm;
-        default:
-            return state;
-    }
-}
-
-function statusFilterReducer(state = '', action) {
-    switch (action.type) {
-        case SET_SITES_FILTER_STATUS:
-            return action.searchTerm;
+        case UPDATE_SITES_FILTERS:
+            return updateObj(state, action.fieldName, action.searchTerm);
         default:
             return state;
     }

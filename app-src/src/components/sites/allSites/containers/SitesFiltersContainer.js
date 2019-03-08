@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import updateSitesSearchTerm from 'actions/sites/sync/updateSitesSearchTerm';
-import setSitesFilterStatus from 'actions/sites/sync/setSitesFilterStatus';
+import updateSitesFilters from 'actions/sites/sync/updateSitesFilters';
 
 import SitesFilters from '../presentational/SitesFilters';
 
@@ -17,33 +16,26 @@ class SitesFiltersContainer extends Component {
 
     render() {
         const { statusOptions } = this.state;
-        const { searchTerm, status } = this.props;
+        const { name, status } = this.props.filters;
 
         return (
             <SitesFilters
-                searchTerm={searchTerm}
+                name={name}
                 statusOptions={Object.values(statusOptions)}
                 selectedStatus={statusOptions[status]}
-                handleSearchTermChange={this.handleSearchTermChange}
-                handleSelectStatus={this.handleSelectStatus}
+                handleChange={this.handleChange}
             />
         );
     }
 
-    handleSearchTermChange = e => {
+    handleChange = e => {
         e.preventDefault();
 
-        this.props.dispatch(updateSitesSearchTerm(e.target.value));
-    };
-
-    handleSelectStatus = e => {
-        e.preventDefault();
-
-        this.props.dispatch(setSitesFilterStatus(e.target.value));
+        const { dispatch } = this.props;
+        dispatch(updateSitesFilters(e.target.name, e.target.value));
     };
 }
 
 export default connect(({ sitesReducer }) => ({
-    nameFilter: sitesReducer.nameFilter,
-    statusFilter: sitesReducer.statusFilter
+    filters: sitesReducer.filters
 }))(SitesFiltersContainer);
