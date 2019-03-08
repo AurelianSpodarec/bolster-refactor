@@ -3,7 +3,7 @@ import { combineReducers } from 'redux';
 import buildingsReducers from './buildings';
 import creditLogsReducer from './creditLogs';
 import profileReducer from './profile';
-import companyReducers from './company';
+import companyReducer from './company';
 import notificationsReducer from './notifications';
 import messagesReducer from './messages';
 import generationQueueReducer from './generationQueue';
@@ -18,7 +18,7 @@ export default combineReducers({
     profileReducer,
     notificationsReducer,
     creditLogsReducer,
-    companyReducers,
+    companyReducer,
     messagesReducer,
     generationQueueReducer,
     searchReducer,
