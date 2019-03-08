@@ -73,6 +73,34 @@ body {
         }
     }
 }
+
+//area filter
+.area-filter {
+    position: absolute;
+    top: -3px;
+    right: 0;
+    width: 120px;
+
+    .icon {
+        position: absolute;
+        @include vertical-center;
+        z-index: 1;
+        left: 5px;
+        font-size: 120%;
+        color: #999;
+    }
+
+    input {
+        width: 100%;
+        padding: 5px 5px 5px 25px;
+        font-size: 140%;
+        @include ubuntu;
+        background-color: $background-grey;
+        border: none;
+        @include rounded-all(3px);
+    }
+}
+
 //generics
 input {
     @include ubuntu;

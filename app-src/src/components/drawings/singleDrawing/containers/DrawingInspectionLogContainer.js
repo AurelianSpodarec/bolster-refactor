@@ -71,12 +71,16 @@ class DrawingInspectionLogContainer extends Component {
 
         const { isFetching, error } = this.props;
 
+        const filteredInspectionLogs = Object.values(inspectionLogs).filter(
+            log => log.name.includes(this.state.filterValue)
+        );
+
         return (
             <DrawingInspectionLogsTable
                 headers={tableHeaders}
                 isFetching={isFetching}
                 error={error}
-                inspectionLogs={inspectionLogs}
+                inspectionLogs={filteredInspectionLogs}
                 handleFilterChange={this.handleFilterChange}
             />
         );
