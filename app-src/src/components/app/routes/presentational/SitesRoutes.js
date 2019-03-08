@@ -2,7 +2,7 @@ import React from 'react';
 import { Route } from 'react-router-dom';
 
 import SwitchWith404 from './SwitchWith404';
-import AllSites from 'components/sites/allSites/presentational/AllSites';
+import AllSitesContainer from 'components/sites/allSites/containers/AllSitesContainer';
 import SingleSiteContainer from 'components/sites/singleSite/containers/SingleSiteContainer';
 import ChangeSiteOwnership from 'components/sites/changeSiteOwnership/presentational/ChangeSiteOwnership';
 import AttachSiteOperative from 'components/sites/attachSiteOperative/presentational/AttachSiteOperative';
@@ -12,7 +12,7 @@ import InviteCompany from 'components/sites/inviteCompanyToSite/presentational/I
 
 const SitesRoutes = ({ match: { url: baseUrl } }) => (
     <SwitchWith404>
-        <Route exact path={`${baseUrl}`} component={AllSites} />
+        <Route exact path={`${baseUrl}`} component={AllSitesContainer} />
         <Route exact path={`${baseUrl}/:id`} component={SingleSiteContainer} />
         <Route
             exact

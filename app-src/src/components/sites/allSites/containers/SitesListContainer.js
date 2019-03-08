@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import fetchSites from 'actions/sites/async/fetchAllSites';
-
 import SitesTable from '../presentational/SitesTable';
 
 class SitesListContainer extends Component {
@@ -20,10 +18,6 @@ class SitesListContainer extends Component {
         );
     }
 
-    componentDidMount = () => {
-        this.props.fetchSites();
-    };
-
     getFilteredSites = () => {
         const { sites, filters } = this.props;
         return sites
@@ -39,13 +33,4 @@ const mapStateToProps = ({ sitesReducer }) => ({
     filters: sitesReducer.sitesFilters
 });
 
-const mapDispatchToProps = dispatch => ({
-    fetchSites: () => {
-        dispatch(fetchSites());
-    }
-});
-
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(SitesListContainer);
+export default connect(mapStateToProps)(SitesListContainer);
