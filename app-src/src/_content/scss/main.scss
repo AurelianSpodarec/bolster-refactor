@@ -588,6 +588,19 @@ form,
     margin-left: -15px;
     text-align: left;
 
+    &.no-actions {
+        td {
+            &:last-child {
+                text-align: left;
+            }
+        }
+        th {
+            &:last-child {
+                text-align: left;
+            }
+        }
+    }
+
     tr {
         border-bottom: 2px solid #f5f5f5;
 
@@ -604,10 +617,17 @@ form,
     th {
         font-size: 140%;
         @include ubuntu-medium;
+        &:last-child {
+            text-align: right;
+            padding-right: 25px;
+        }
     }
 
     td {
         font-size: 120%;
+        &:last-child {
+            text-align: right;
+        }
     }
 }
 
