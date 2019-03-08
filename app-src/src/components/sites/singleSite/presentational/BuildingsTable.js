@@ -6,17 +6,15 @@ import BuildingsList from './BuildingsList';
 
 const BuildingsTable = ({ buildings, headers, isFetching, error }) => {
     return (
-        <Block>
-            <Table
-                headers={headers}
-                isFetching={isFetching}
-                error={error}
-                noData={!buildings.length}
-                noDataMessage="There are no buildings to display."
-            >
-                <BuildingsList buildings={buildings} />
-            </Table>
-        </Block>
+        <Table
+            headers={headers}
+            isFetching={isFetching}
+            error={error}
+            noData={!buildings.length}
+            noDataMessage="There are no buildings to display."
+        >
+            <BuildingsList buildings={buildings} />
+        </Table>
     );
 };
 
