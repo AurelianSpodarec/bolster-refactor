@@ -14,9 +14,9 @@ const Dropdown = ({
             <select
                 name={name}
                 onChange={handleChange}
-                value={selectedOption.value || 0}
+                value={selectedOption.value || ''}
             >
-                <option value={0}>{placeholder}</option>
+                <option value="">{placeholder}</option>
                 {options.map(({ text, value }) => (
                     <option key={value} value={value}>
                         {text}

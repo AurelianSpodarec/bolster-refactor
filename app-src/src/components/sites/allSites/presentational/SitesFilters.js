@@ -4,25 +4,24 @@ import Search from 'components/shared/generic/form/presentational/Search';
 import Dropdown from 'components/shared/generic/form/presentational/Dropdown';
 
 const SitesListFilters = ({
-    searchTerm,
+    name,
     statusOptions,
     selectedStatus,
-    handleSearchTermChange,
-    handleSelectStatus
+    handleChange
 }) => (
     <form className="size-lg-12">
         <Search
-            value={searchTerm}
-            name="searchTerm"
+            value={name}
+            name="name"
             placeholder="Search by site name..."
-            handleChange={handleSearchTermChange}
+            handleChange={handleChange}
         />
         <Dropdown
             placeholder="All sites"
-            name="selectedStatus"
+            name="status"
             options={statusOptions}
             selectedOption={selectedStatus}
-            handleChange={handleSelectStatus}
+            handleChange={handleChange}
         />
     </form>
 );
