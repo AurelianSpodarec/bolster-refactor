@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 
-import { convertArrToObj } from 'helpers/generic';
+import { convertArrToObj, updateObjItem } from 'helpers/generic';
 import {
     FETCH_ALL_SITES_REQUEST,
     FETCH_ALL_SITES_SUCCESS,
@@ -50,10 +50,11 @@ function sitesReducer(state = {}, action) {
         case FETCH_ALL_SITES_SUCCESS:
             return convertArrToObj(action.payload);
         case FETCH_SINGLE_SITE_SUCCESS:
-            return {
-                ...state,
-                [action.payload.id.toString()]: action.payload
-            };
+            return updateObjItem(
+                state,
+                action.payload.id.toString(),
+                action.payload
+            );
         default:
             return state;
     }

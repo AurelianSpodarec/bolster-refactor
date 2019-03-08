@@ -1,33 +1,36 @@
 import {
-    FETCH_MESSAGES_REQUEST,
-    FETCH_MESSAGES_SUCCESS,
-    FETCH_MESSAGES_FAILURE
-} from 'constants/actionTypes/messages';
+    FETCH_SEARCH_RESULTS_REQUEST,
+    FETCH_SEARCH_RESULTS_SUCCESS,
+    FETCH_SEARCH_RESULTS_FAILURE
+} from 'constants/actionTypes/search';
 
 const initialState = {
-    messages: [],
+    results: [],
     isFetching: false,
+    success: false,
     error: null
 };
 
 export default (state = initialState, action) => {
     switch (action.type) {
-        case FETCH_MESSAGES_REQUEST:
+        case FETCH_SEARCH_RESULTS_REQUEST:
             return {
                 ...state,
                 isFetching: true,
+                success: false,
                 error: null
             };
-        case FETCH_MESSAGES_SUCCESS:
+        case FETCH_SEARCH_RESULTS_SUCCESS:
             return {
                 ...state,
                 isFetching: false,
-                messages: action.payload
+                success: true,
+                results: action.payload
             };
-        case FETCH_MESSAGES_FAILURE:
+        case FETCH_SEARCH_RESULTS_FAILURE:
             return {
                 ...state,
-                isFetching: false,
+                success: false,
                 error: action.error.message
             };
         default:

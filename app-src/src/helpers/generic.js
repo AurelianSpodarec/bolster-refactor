@@ -11,3 +11,10 @@ export function isObjEmpty(obj) {
     }
     return true;
 }
+
+export function updateObjItem(origObj, key, newItem) {
+    return {
+        ...origObj,
+        [key]: newItem
+    };
+}

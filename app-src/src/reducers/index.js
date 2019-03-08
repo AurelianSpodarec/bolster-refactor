@@ -7,11 +7,11 @@ import creditLogsReducers from './creditLogs';
 import profileReducers from './profile';
 import companyReducers from './company';
 import notificationsReducers from './notifications';
-import messagesReducers from './messages';
+import messagesReducers from './messages/index';
 import generationQueueReducers from './generationQueue';
 import searchReducers from './search';
 import authReducers from './auth';
-import sites from './sites/sitesReducer';
+import sitesReducer from './sites';
 
 export default combineReducers({
     genericReducers,
@@ -25,5 +25,5 @@ export default combineReducers({
     generationQueueReducers,
     searchReducers,
     authReducers,
-    sites
+    sitesReducer
 });
