@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import fetchAllBuildings from 'actions/buildings/async/fetchAllBuildings';
+import fetchSingleSite from 'actions/sites/async/fetchSingleSite';
 
 import SingleSite from '../presentational/SingleSite';
 
@@ -11,6 +12,7 @@ class SingleSiteContainer extends Component {
     }
     componentDidMount = () => {
         this.props.fetchAllBuildings();
+        this.props.fetchSingleSite();
     };
 }
 
@@ -18,10 +20,10 @@ class SingleSiteContainer extends Component {
 const mapDispatchToProps = dispatch => ({
     fetchAllBuildings: () => {
         dispatch(fetchAllBuildings());
+    },
+    fetchSingleSite: () => {
+        dispatch(fetchSingleSite());
     }
-    // fetchSite: () => {
-    //     dispatch(fetchSite());
-    // }
 });
 
 export default connect(
