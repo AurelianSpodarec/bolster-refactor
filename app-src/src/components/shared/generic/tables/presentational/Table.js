@@ -8,10 +8,11 @@ const Table = ({
     isFetching,
     noData,
     noDataMessage,
+    withActions = true,
     children
 }) => {
     return (
-        <table className="generic-table">
+        <table className={`generic-table ${!withActions && 'no-actions'}`}>
             <tbody>
                 <tr>
                     {headers.map((header, i) => (
