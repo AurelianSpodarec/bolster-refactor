@@ -9,7 +9,7 @@ const BuildingsList = ({ buildings }) =>
             <td>
                 <Link
                     className="button light-blue"
-                    to={`buildings/${building.id}`}
+                    to={`/buildings/${building.id}`}
                 >
                     View
                 </Link>

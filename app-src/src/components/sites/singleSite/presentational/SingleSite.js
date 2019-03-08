@@ -9,10 +9,14 @@ import SiteOperativesTableContainer from '../containers/SiteOperativesTableConta
 import SiteClientsTableContainer from '../containers/SiteClientsTableContainer';
 import SiteCompaniesAccessTableContainer from '../containers/SiteCompaniesAccessTableContainer';
 import Breadcrumb from 'components/shared/generic/breadcrumb/presentational/Breadcrumb';
+import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
+import SitePageHeaderContainer from '../containers/SitePageHeaderContainer';
 
 const Site = () => (
     <div className="size-lg-12">
         <Breadcrumb />
+
+        <SitePageHeaderContainer />
 
         <Block containerClass="size-lg-8" contentClass="site-details">
             <SiteDetailsContainer />
