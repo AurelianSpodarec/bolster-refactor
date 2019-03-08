@@ -12,6 +12,7 @@ import generationQueueReducers from './generationQueue';
 import searchReducer from './search';
 import authReducers from './auth';
 import sitesReducer from './sites';
+import fieldErrorsReducer from './fieldErrors';
 
 export default combineReducers({
     genericReducers,
@@ -25,5 +26,6 @@ export default combineReducers({
     generationQueueReducers,
     searchReducer,
     authReducers,
-    sitesReducer
+    sitesReducer,
+    fieldErrorsReducer
 });

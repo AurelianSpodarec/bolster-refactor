@@ -12,9 +12,18 @@ export function isObjEmpty(obj) {
     return true;
 }
 
-export function updateObjItem(origObj, key, newItem) {
+export function updateObj(origObj, key, newItem) {
     return {
         ...origObj,
         [key]: newItem
     };
+}
+
+export function removeObjItem(obj, key) {
+    const {
+        [key]: removedItem, // eslint-disable-line
+        ...rest
+    } = obj;
+
+    return rest;
 }
