@@ -2,6 +2,7 @@ import { combineReducers } from 'redux';
 
 import genericReducers from './generic';
 import sitesReducers from './sites';
+import buildingsReducers from './buildings';
 import creditLogsReducers from './creditLogs';
 import profileReducers from './profile';
 import companyReducers from './company';
@@ -14,6 +15,7 @@ import authReducers from './auth';
 export default combineReducers({
     genericReducers,
     sitesReducers,
+    buildingsReducers,
     profileReducers,
     notificationsReducers,
     creditLogsReducers,

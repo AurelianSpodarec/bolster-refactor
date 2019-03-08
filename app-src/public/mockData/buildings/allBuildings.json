@@ -1,0 +1,38 @@
+[
+    {
+        "id": 1,
+        "name": "Building 1",
+        "permissions": ["NHS (client)", "Prosol UK (company)"],
+        "floorIds": [1, 2]
+    },
+    {
+        "id": 2,
+        "name": "Building 2",
+        "permissions": ["NHS (client)", "Prosol UK (company)"],
+        "floorIds": [3, 4]
+    },
+    {
+        "id": 3,
+        "name": "Building 3",
+        "permissions": ["NHS (client)", "Prosol UK (company)"],
+        "floorIds": [5, 6]
+    },
+    {
+        "id": 4,
+        "name": "Building 4",
+        "permissions": ["NHS (client)", "Prosol UK (company)"],
+        "floorIds": [7, 8]
+    },
+    {
+        "id": 5,
+        "name": "Building 5",
+        "permissions": ["NHS (client)", "Prosol UK (company)"],
+        "floorIds": [9]
+    },
+    {
+        "id": 6,
+        "name": "Building 6",
+        "permissions": ["NHS (client)", "Prosol UK (company)"],
+        "floorIds": [10]
+    }
+]
