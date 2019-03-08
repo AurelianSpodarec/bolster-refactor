@@ -11,6 +11,7 @@ import messagesReducers from './messages';
 import generationQueueReducers from './generationQueue';
 import searchReducers from './search';
 import authReducers from './auth';
+import sites from './sites/sitesReducer';
 
 export default combineReducers({
     genericReducers,
@@ -23,5 +24,6 @@ export default combineReducers({
     messagesReducers,
     generationQueueReducers,
     searchReducers,
-    authReducers
+    authReducers,
+    sites
 });
