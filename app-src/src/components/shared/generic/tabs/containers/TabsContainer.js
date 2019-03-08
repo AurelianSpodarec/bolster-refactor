@@ -16,6 +16,6 @@ const TabsContainer = ({ dispatch, tabs, selectedTab }) => (
     />
 );
 
-const mapStateToProps = ({ tabsReducer }) => tabsReducer.tabs;
+const mapStateToProps = ({ tabsReducer }) => tabsReducer;
 
 export default connect(mapStateToProps)(TabsContainer);
