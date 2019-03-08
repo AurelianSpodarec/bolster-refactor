@@ -1,8 +1,7 @@
 import { combineReducers } from 'redux';
 
-import sitesReducers from './sites';
 import buildingsReducers from './buildings';
-import creditLogsReducers from './creditLogs';
+import creditLogsReducer from './creditLogs';
 import profileReducer from './profile';
 import companyReducers from './company';
 import notificationsReducer from './notifications';
@@ -15,11 +14,10 @@ import fieldErrorsReducer from './fieldErrors';
 import tabsReducer from './tabs';
 
 export default combineReducers({
-    sitesReducers,
     buildingsReducers,
     profileReducer,
     notificationsReducer,
-    creditLogsReducers,
+    creditLogsReducer,
     companyReducers,
     messagesReducer,
     generationQueueReducer,
