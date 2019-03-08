@@ -25,12 +25,12 @@ class BuildingsTableContainer extends Component {
     };
 }
 
-const mapStateToProps = ({ buildingsReducers }) => ({
-    buildings: Object.values(buildingsReducers.buildings.buildings),
-    isFetching: buildingsReducers.buildings.isFetching,
-    error: buildingsReducers.buildings.error,
-    searchTerm: buildingsReducers.buildingsFilters.searchTerm,
-    status: buildingsReducers.buildingsFilters.status
+const mapStateToProps = ({ buildingsReducer }) => ({
+    buildings: Object.values(buildingsReducer.buildings),
+    isFetching: buildingsReducer.isFetching,
+    error: buildingsReducer.error,
+    nameFilter: buildingsReducer.nameFilter,
+    statusFilter: buildingsReducer.statusFilter
 });
 
 const mapDispatchToProps = dispatch => ({

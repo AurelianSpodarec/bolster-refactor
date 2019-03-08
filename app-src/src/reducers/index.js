@@ -1,20 +1,21 @@
 import { combineReducers } from 'redux';
 
-import buildingsReducers from './buildings';
-import creditLogsReducer from './creditLogs';
-import profileReducer from './profile';
+import authReducer from './auth';
+import buildingsReducer from './buildings';
 import companyReducer from './company';
-import notificationsReducer from './notifications';
-import messagesReducer from './messages';
-import generationQueueReducer from './generationQueue';
-import searchReducer from './search';
-import authReducers from './auth';
-import sitesReducer from './sites';
+import creditLogsReducer from './creditLogs';
 import fieldErrorsReducer from './fieldErrors';
+import generationQueueReducer from './generationQueue';
+import loginReducer from './login';
+import messagesReducer from './messages';
+import notificationsReducer from './notifications';
+import profileReducer from './profile';
+import searchReducer from './search';
+import sitesReducer from './sites';
 import tabsReducer from './tabs';
 
 export default combineReducers({
-    buildingsReducers,
+    buildingsReducer,
     profileReducer,
     notificationsReducer,
     creditLogsReducer,
@@ -22,8 +23,9 @@ export default combineReducers({
     messagesReducer,
     generationQueueReducer,
     searchReducer,
-    authReducers,
     sitesReducer,
     fieldErrorsReducer,
-    tabsReducer
+    tabsReducer,
+    authReducer,
+    loginReducer
 });

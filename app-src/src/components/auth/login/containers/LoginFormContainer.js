@@ -35,6 +35,7 @@ class LoginFormContainer extends Component {
         const { email, password } = this.state;
         this.props.postLogin(email, password);
     };
+
     componentDidUpdate = prevProps => {
         const { postSuccess, history } = this.props;
 
@@ -44,7 +45,7 @@ class LoginFormContainer extends Component {
     };
 }
 
-const mapStateToProps = ({ authReducers }) => authReducers.login;
+const mapStateToProps = ({ loginReducer }) => loginReducer;
 
 const mapDispatchToProps = dispatch => ({
     postLogin: (email, password) => {
