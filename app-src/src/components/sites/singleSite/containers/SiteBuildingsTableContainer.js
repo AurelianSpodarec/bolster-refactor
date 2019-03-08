@@ -20,10 +20,6 @@ class BuildingsTableContainer extends Component {
             />
         );
     }
-
-    componentDidMount = () => {
-        this.props.fetchAllBuildings();
-    };
 }
 
 const mapStateToProps = ({ buildingsReducers }) => ({
@@ -34,13 +30,7 @@ const mapStateToProps = ({ buildingsReducers }) => ({
     status: buildingsReducers.buildingsFilters.status
 });
 
-const mapDispatchToProps = dispatch => ({
-    fetchAllBuildings: () => {
-        dispatch(fetchAllBuildings());
-    }
-});
-
 export default connect(
     mapStateToProps,
-    mapDispatchToProps
+    null
 )(BuildingsTableContainer);

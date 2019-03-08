@@ -9,6 +9,9 @@ class SingleSiteContainer extends Component {
     render() {
         return <SingleSite />;
     }
+    componentDidMount = () => {
+        this.props.fetchAllBuildings();
+    };
 }
 
 //make all fetches needed and this will update our redux store.
