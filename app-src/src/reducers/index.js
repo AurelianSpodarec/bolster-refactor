@@ -9,7 +9,7 @@ import companyReducers from './company';
 import notificationsReducers from './notifications';
 import messagesReducer from './messages';
 import generationQueueReducers from './generationQueue';
-import searchReducers from './search';
+import searchReducer from './search';
 import authReducers from './auth';
 import sitesReducer from './sites';
 
@@ -23,7 +23,7 @@ export default combineReducers({
     companyReducers,
     messagesReducer,
     generationQueueReducers,
-    searchReducers,
+    searchReducer,
     authReducers,
     sitesReducer
 });

@@ -2,23 +2,23 @@ import { combineReducers } from 'redux';
 
 import { convertArrToObj } from 'helpers/generic';
 import {
-    FETCH_MESSAGES_REQUEST,
-    FETCH_MESSAGES_SUCCESS,
-    FETCH_MESSAGES_FAILURE
-} from 'constants/actionTypes/messages';
+    FETCH_SEARCH_RESULTS_REQUEST,
+    FETCH_SEARCH_RESULTS_SUCCESS,
+    FETCH_SEARCH_RESULTS_FAILURE
+} from 'constants/actionTypes/search';
 
 export default combineReducers({
-    messages: messagesReducer,
+    results: resultsReducer,
     isFetching: isFetchingReducer,
     error: errorReducer
 });
 
 function isFetchingReducer(state = false, action) {
     switch (action.type) {
-        case FETCH_MESSAGES_REQUEST:
+        case FETCH_SEARCH_RESULTS_REQUEST:
             return true;
-        case FETCH_MESSAGES_SUCCESS:
-        case FETCH_MESSAGES_FAILURE:
+        case FETCH_SEARCH_RESULTS_SUCCESS:
+        case FETCH_SEARCH_RESULTS_FAILURE:
             return false;
         default:
             return state;
@@ -27,18 +27,18 @@ function isFetchingReducer(state = false, action) {
 
 function errorReducer(state = null, action) {
     switch (action.type) {
-        case FETCH_MESSAGES_REQUEST:
+        case FETCH_SEARCH_RESULTS_REQUEST:
             return null;
-        case FETCH_MESSAGES_FAILURE:
+        case FETCH_SEARCH_RESULTS_FAILURE:
             return action.error.message;
         default:
             return state;
     }
 }
 
-function messagesReducer(state = {}, action) {
+function resultsReducer(state = {}, action) {
     switch (action.type) {
-        case FETCH_MESSAGES_SUCCESS:
+        case FETCH_SEARCH_RESULTS_SUCCESS:
             return convertArrToObj(action.payload);
         default:
             return state;
