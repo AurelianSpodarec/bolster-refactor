@@ -3,7 +3,7 @@ import React from 'react';
 const TextInput = props => (
     <div className="row">
         <input
-            className="col s6"
+            className="generic-input"
             type={props.type}
             name={props.name}
             placeholder={props.placeholder}
