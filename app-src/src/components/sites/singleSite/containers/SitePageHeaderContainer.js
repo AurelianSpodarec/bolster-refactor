@@ -15,7 +15,7 @@ class SitePageHeaderContainer extends Component {
 }
 
 export default withRouter(
-    connect(({ sitesReducers }, ownProps) => ({
-        site: sitesReducers.sites[ownProps.match.params.id] || {}
+    connect(({ sitesReducer }, ownProps) => ({
+        site: sitesReducer.sites[ownProps.match.params.id] || {}
     }))(SitePageHeaderContainer)
 );
