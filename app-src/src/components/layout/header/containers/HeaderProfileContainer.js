@@ -51,8 +51,8 @@ class HeaderProfileContainer extends Component {
     };
 }
 
-const mapStateToProps = ({ profileReducers, generationQueueReducers }) => ({
-    profile: profileReducers.profile.profile,
+const mapStateToProps = ({ profileReducer, generationQueueReducers }) => ({
+    profile: profileReducer.profile,
     generationQueueLength:
         generationQueueReducers.generationQueue.generationQueueLength
 });

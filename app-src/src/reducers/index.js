@@ -4,7 +4,7 @@ import genericReducers from './generic';
 import sitesReducers from './sites';
 import buildingsReducers from './buildings';
 import creditLogsReducers from './creditLogs';
-import profileReducers from './profile';
+import profileReducer from './profile';
 import companyReducers from './company';
 import notificationsReducers from './notifications';
 import messagesReducer from './messages';
@@ -17,7 +17,7 @@ export default combineReducers({
     genericReducers,
     sitesReducers,
     buildingsReducers,
-    profileReducers,
+    profileReducer,
     notificationsReducers,
     creditLogsReducers,
     companyReducers,

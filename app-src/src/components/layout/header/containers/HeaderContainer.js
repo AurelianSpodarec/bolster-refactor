@@ -18,11 +18,11 @@ class HeaderContainer extends Component {
 }
 
 const mapStateToProps = ({
-    profileReducers,
+    profileReducer,
     companyReducers,
     messagesReducer
 }) => ({
-    profile: profileReducers.profile.profile,
+    profile: profileReducer.profile,
     company: companyReducers.company.company,
     messageCount: Object.values(messagesReducer.messages).length
 });
