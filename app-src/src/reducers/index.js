@@ -1,29 +1,31 @@
 import { combineReducers } from 'redux';
 
-import genericReducers from './generic';
-import sitesReducers from './sites';
-import buildingsReducers from './buildings';
-import creditLogsReducers from './creditLogs';
-import profileReducers from './profile';
-import companyReducers from './company';
-import notificationsReducers from './notifications';
-import messagesReducers from './messages';
-import generationQueueReducers from './generationQueue';
-import searchReducers from './search';
-import authReducers from './auth';
-import sites from './sites/sitesReducer';
+import authReducer from './auth';
+import buildingsReducer from './buildings';
+import companyReducer from './company';
+import creditLogsReducer from './creditLogs';
+import fieldErrorsReducer from './fieldErrors';
+import generationQueueReducer from './generationQueue';
+import loginReducer from './login';
+import messagesReducer from './messages';
+import notificationsReducer from './notifications';
+import profileReducer from './profile';
+import searchReducer from './search';
+import sitesReducer from './sites';
+import tabsReducer from './tabs';
 
 export default combineReducers({
-    genericReducers,
-    sitesReducers,
-    buildingsReducers,
-    profileReducers,
-    notificationsReducers,
-    creditLogsReducers,
-    companyReducers,
-    messagesReducers,
-    generationQueueReducers,
-    searchReducers,
-    authReducers,
-    sites
+    buildingsReducer,
+    profileReducer,
+    notificationsReducer,
+    creditLogsReducer,
+    companyReducer,
+    messagesReducer,
+    generationQueueReducer,
+    searchReducer,
+    sitesReducer,
+    fieldErrorsReducer,
+    tabsReducer,
+    authReducer,
+    loginReducer
 });

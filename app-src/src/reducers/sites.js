@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 
-import { convertArrToObj } from 'helpers/generic';
+import { convertArrToObj, updateObj } from 'helpers/generic';
 import {
     FETCH_ALL_SITES_REQUEST,
     FETCH_ALL_SITES_SUCCESS,
@@ -37,6 +37,9 @@ function isFetchingReducer(state = false, action) {
 
 function errorReducer(state = null, action) {
     switch (action.type) {
+        case FETCH_ALL_SITES_REQUEST:
+        case FETCH_SINGLE_SITE_REQUEST:
+            return null;
         case FETCH_ALL_SITES_FAILURE:
         case FETCH_SINGLE_SITE_FAILURE:
             return action.error.message;
@@ -50,10 +53,11 @@ function sitesReducer(state = {}, action) {
         case FETCH_ALL_SITES_SUCCESS:
             return convertArrToObj(action.payload);
         case FETCH_SINGLE_SITE_SUCCESS:
-            return {
-                ...state,
-                [action.payload.id.toString()]: action.payload
-            };
+            return updateObj(
+                state,
+                action.payload.id.toString(),
+                action.payload
+            );
         default:
             return state;
     }

@@ -77,10 +77,10 @@ class SearchContainer extends Component {
     };
 }
 
-const mapStateToProps = ({ searchReducers }) => ({
-    results: searchReducers.results.results,
-    isFetching: searchReducers.results.isFetching,
-    error: searchReducers.results.error
+const mapStateToProps = ({ searchReducer }) => ({
+    results: Object.values(searchReducer.results),
+    isFetching: searchReducer.isFetching,
+    error: searchReducer.error
 });
 
 const mapDispatchToProps = dispatch => ({

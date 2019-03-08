@@ -32,11 +32,11 @@ class SitesListContainer extends Component {
     };
 }
 
-const mapStateToProps = ({ sitesReducers }) => ({
-    sites: Object.values(sitesReducers.sites.sites),
-    isFetching: sitesReducers.sites.isFetching,
-    error: sitesReducers.sites.error,
-    filters: sitesReducers.sitesFilters
+const mapStateToProps = ({ sitesReducer }) => ({
+    sites: Object.values(sitesReducer.sites),
+    isFetching: sitesReducer.isFetching,
+    error: sitesReducer.error,
+    filters: sitesReducer.sitesFilters
 });
 
 const mapDispatchToProps = dispatch => ({

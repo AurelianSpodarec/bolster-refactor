@@ -25,5 +25,5 @@ export default function(ProtectedComponent) {
         }
     }
 
-    return connect(state => state.authReducers.auth)(WithAuth);
+    return connect(state => state.authReducer)(WithAuth);
 }

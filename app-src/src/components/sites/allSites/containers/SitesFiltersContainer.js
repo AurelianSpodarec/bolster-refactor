@@ -43,6 +43,7 @@ class SitesFiltersContainer extends Component {
     };
 }
 
-export default connect(state => state.sitesReducers.sitesFilters)(
-    SitesFiltersContainer
-);
+export default connect(({ sitesReducer }) => ({
+    nameFilter: sitesReducer.nameFilter,
+    statusFilter: sitesReducer.statusFilter
+}))(SitesFiltersContainer);

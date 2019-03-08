@@ -51,10 +51,11 @@ class HeaderProfileContainer extends Component {
     };
 }
 
-const mapStateToProps = ({ profileReducers, generationQueueReducers }) => ({
-    profile: profileReducers.profile.profile,
-    generationQueueLength:
-        generationQueueReducers.generationQueue.generationQueueLength
+const mapStateToProps = ({ profileReducer, generationQueueReducer }) => ({
+    profile: profileReducer.profile,
+    generationQueueLength: Object.values(
+        generationQueueReducer.generationQueue
+    ).filter(item => item.status.toLowerCase() === 'pending').length
 });
 
 export default connect(mapStateToProps)(HeaderProfileContainer);
