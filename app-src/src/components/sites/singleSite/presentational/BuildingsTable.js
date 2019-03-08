@@ -1,6 +1,5 @@
 import React from 'react';
 
-import Block from 'components/shared/generic/block/presentational/Block';
 import Table from 'components/shared/generic/tables/presentational/Table';
 import BuildingsList from './BuildingsList';
 

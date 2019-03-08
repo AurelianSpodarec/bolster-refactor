@@ -19,7 +19,7 @@ function fieldErrorsReducer(state = {}, action) {
         case ADD_FIELD_ERROR:
             return updateObj(state, action.fieldName, action.error);
         case REMOVE_FIELD_ERROR:
-            return removeObjItem(state, action.fieldErrors);
+            return removeObjItem(state, action.fieldName);
         case OVERWRITE_FIELD_ERRORS:
             return action.fieldErrors;
         case CLEAR_FIELD_ERRORS:
