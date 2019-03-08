@@ -2,10 +2,10 @@ import React from 'react';
 
 import Dropdown from './Dropdown';
 
-const Filter = ({ options, selectedOption }) => (
+const Filter = ({ title, options, selectedOption }) => (
     <div className="filter">
         <div className="form-field">
-            <label className="title">Filter</label>
+            <label className="title">{title}</label>
             <Dropdown options={options} selectedOption={selectedOption} />
         </div>
     </div>

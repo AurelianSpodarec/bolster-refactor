@@ -45,10 +45,15 @@ body {
 }
 
 #page-area {
-    float: left;
+    float: right;
+    width: calc(100% - 200px);
     padding: 10px 5px;
     height: 100%;
     background-color: #212228;
+
+    &.full {
+        width: 100%;
+    }
 }
 
 .content-container {
@@ -483,6 +488,8 @@ input {
 
 //form stuff
 .form-field {
+    float: left;
+    width: 100%;
     margin-bottom: 15px;
 
     .title {
@@ -499,6 +506,19 @@ input {
         color: red;
         margin-top: 5px;
         font-size: 120%;
+    }
+}
+
+.filter {
+    padding-right: 20px;
+
+    .title {
+        width: 95px;
+    }
+
+    .custom-dropdown {
+        width: calc(100% - 105px);
+        margin-left: 10px;
     }
 }
 
@@ -524,6 +544,7 @@ input {
         font-size: 140%;
         border: 1px solid $background-grey;
         outline: none;
+        @include rounded-all(2.5px);
     }
 
     .arrow {
@@ -549,6 +570,7 @@ input {
 //side menu
 .menu {
     float: left;
+    width: 200px;
     height: 100%;
     .item {
         float: left;
