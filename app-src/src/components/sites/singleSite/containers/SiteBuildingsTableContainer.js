@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import fetchAllBuildings from 'actions/buildings/async/fetchAllBuildings';
@@ -20,27 +19,17 @@ class BuildingsTableContainer extends Component {
             />
         );
     }
-
-    componentDidMount = () => {
-        this.props.fetchAllBuildings();
-    };
 }
 
-const mapStateToProps = ({ buildingsReducers }) => ({
-    buildings: Object.values(buildingsReducers.buildings.buildings),
-    isFetching: buildingsReducers.buildings.isFetching,
-    error: buildingsReducers.buildings.error,
-    searchTerm: buildingsReducers.buildingsFilters.searchTerm,
-    status: buildingsReducers.buildingsFilters.status
-});
-
-const mapDispatchToProps = dispatch => ({
-    fetchAllBuildings: () => {
-        dispatch(fetchAllBuildings());
-    }
+const mapStateToProps = ({ buildingsReducer }) => ({
+    buildings: Object.values(buildingsReducer.buildings),
+    isFetching: buildingsReducer.isFetching,
+    error: buildingsReducer.error,
+    nameFilter: buildingsReducer.nameFilter,
+    statusFilter: buildingsReducer.statusFilter
 });
 
 export default connect(
     mapStateToProps,
-    mapDispatchToProps
+    null
 )(BuildingsTableContainer);

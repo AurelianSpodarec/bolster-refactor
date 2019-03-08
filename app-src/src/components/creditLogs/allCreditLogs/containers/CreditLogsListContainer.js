@@ -25,10 +25,10 @@ class CreditLogsListContainer extends Component {
     };
 }
 
-const mapStateToProps = ({ creditLogsReducers }) => ({
-    creditLogs: Object.values(creditLogsReducers.creditLogs.creditLogs),
-    isFetching: creditLogsReducers.creditLogs.isFetching,
-    error: creditLogsReducers.creditLogs.error
+const mapStateToProps = ({ creditLogsReducer }) => ({
+    creditLogs: Object.values(creditLogsReducer.creditLogs),
+    isFetching: creditLogsReducer.isFetching,
+    error: creditLogsReducer.error
 });
 
 const mapDispatchToProps = dispatch => ({

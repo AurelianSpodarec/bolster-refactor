@@ -85,9 +85,9 @@ class TextInputContianer extends Component {
     };
 }
 
-const mapStateToProps = (state, ownProps) => ({
-    error: state.genericReducers.fieldErrors.fieldErrors[ownProps.name],
-    errorsVisible: state.genericReducers.fieldErrors.errorsVisible
+const mapStateToProps = ({ fieldErrorsReducer }, ownProps) => ({
+    error: fieldErrorsReducer.fieldErrors[ownProps.name],
+    errorsVisible: fieldErrorsReducer.errorsVisible
 });
 
 const mapDispatchToProps = dispatch => ({

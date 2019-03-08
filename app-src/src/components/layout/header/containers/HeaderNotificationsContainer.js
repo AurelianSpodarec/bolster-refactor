@@ -51,9 +51,10 @@ class HeaderNotificationsContainer extends Component {
     };
 }
 
-const mapStateToProps = ({ notificationsReducers }) => ({
-    notifications: notificationsReducers.notifications.notifications,
-    notificationsLength: notificationsReducers.notifications.notificationsLength
+const mapStateToProps = ({ notificationsReducer }) => ({
+    notifications: Object.values(notificationsReducer.notifications),
+    notificationsLength: Object.values(notificationsReducer.notifications)
+        .length
 });
 
 export default connect(mapStateToProps)(HeaderNotificationsContainer);

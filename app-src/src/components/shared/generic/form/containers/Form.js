@@ -68,9 +68,9 @@ class Form extends Component {
     };
 }
 
-const mapStateToProps = state => ({
-    fieldErrors: state.genericReducers.fieldErrors.fieldErrors,
-    errorsVisible: state.genericReducers.fieldErrors.errorsVisible
+const mapStateToProps = ({ fieldErrorsReducer }) => ({
+    fieldErrors: fieldErrorsReducer.fieldErrors,
+    errorsVisible: fieldErrorsReducer.errorsVisible
 });
 
 const mapDispatchToProps = dispatch => ({
