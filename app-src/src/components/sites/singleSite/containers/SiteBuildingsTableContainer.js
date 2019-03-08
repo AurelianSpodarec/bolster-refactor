@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import fetchAllBuildings from 'actions/buildings/async/fetchAllBuildings';
-
 import BuildingsTable from '../presentational/BuildingsTable';
 
 class BuildingsTableContainer extends Component {
@@ -29,7 +27,4 @@ const mapStateToProps = ({ buildingsReducer }) => ({
     statusFilter: buildingsReducer.statusFilter
 });
 
-export default connect(
-    mapStateToProps,
-    null
-)(BuildingsTableContainer);
+export default connect(mapStateToProps)(BuildingsTableContainer);

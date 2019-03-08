@@ -20,10 +20,7 @@ import ReportsRoutes from './ReportsRoutes';
 import ToolsRoutes from './ToolsRoutes';
 
 const Routes = ({ showLoggedInLayout }) => (
-    <div
-        id="page-area"
-        className={`size-lg-${showLoggedInLayout ? '9' : '12'}`}
-    >
+    <div id="page-area" className={`${!showLoggedInLayout ? 'full' : ''}`}>
         <SwitchWith404>
             <Route exact path="/" component={withAuth(Dashboard)} />
             <Route path="/auth" component={AuthRoutes} />

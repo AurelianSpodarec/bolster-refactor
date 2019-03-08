@@ -4,7 +4,7 @@ import MenuItemContainer from '../containers/MenuItemContainer';
 import DropdownMenuItemContainer from '../containers/DropdownMenuItemContainer';
 
 const Menu = ({ messageCount }) => (
-    <div className="menu size-lg-3">
+    <div className="menu">
         <MenuItemContainer link="/">
             <i className="fa fa-home icon" /> Dashboard
         </MenuItemContainer>

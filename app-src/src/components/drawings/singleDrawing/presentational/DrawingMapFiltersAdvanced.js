@@ -7,10 +7,39 @@ const DrawingMapFiltersAdvanced = ({
     serviceTypeSelected
 }) => (
     <div className="form size-lg-12">
-        <Filter
-            options={serviceTypeOptions}
-            selectedOption={serviceTypeSelected}
-        />
+        <div className="size-lg-8">
+            <div className="size-lg-6">
+                <Filter
+                    title="Service type"
+                    options={serviceTypeOptions}
+                    selectedOption={serviceTypeSelected}
+                />
+            </div>
+
+            <div className="size-lg-6">
+                <Filter
+                    title="Status"
+                    options={serviceTypeOptions}
+                    selectedOption={serviceTypeSelected}
+                />
+            </div>
+
+            <div className="size-lg-6">
+                <Filter
+                    title="Time period"
+                    options={serviceTypeOptions}
+                    selectedOption={serviceTypeSelected}
+                />
+            </div>
+
+            <div className="size-lg-6">
+                <Filter
+                    title="Operative"
+                    options={serviceTypeOptions}
+                    selectedOption={serviceTypeSelected}
+                />
+            </div>
+        </div>
     </div>
 );
 
