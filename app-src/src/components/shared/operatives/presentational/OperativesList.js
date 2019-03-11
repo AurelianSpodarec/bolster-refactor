@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const DocumentsList = ({ operatives }) =>
-    [...operatives].map(operative => (
+    operatives.map(operative => (
         <tr key={operative.id}>
             <td className="small-text">
                 {`${operative.name} - ${operative.id}`}

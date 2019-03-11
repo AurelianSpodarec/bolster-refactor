@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const DocumentsList = ({ documents }) =>
-    [...documents].map(document => (
+    documents.map(document => (
         <tr key={document.id}>
             <td>
                 <i className="table-icon far fa-file-alt" /> {document.name}

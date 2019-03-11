@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const DocumentsList = ({ companies }) =>
-    [...companies].map(company => (
+    companies.map(company => (
         <tr key={company.id}>
             <td>{company.name}</td>
             <td>
