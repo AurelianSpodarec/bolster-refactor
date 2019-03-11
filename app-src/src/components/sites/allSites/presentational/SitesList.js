@@ -1,16 +1,8 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+
+import SitesListItemContainer from '../containers/SitesListItemContainer';
 
 const SitesList = ({ sites }) =>
-    sites.map(site => (
-        <tr key={site.id}>
-            <td>{site.name}</td>
-            <td>{site.ownedBy}</td>
-            <td>{site.permissions}</td>
-            <td>
-                <Link to={`sites/${site.id}`}>View</Link>
-            </td>
-        </tr>
-    ));
+    sites.map(site => <SitesListItemContainer key={site.id} site={site} />);
 
 export default SitesList;

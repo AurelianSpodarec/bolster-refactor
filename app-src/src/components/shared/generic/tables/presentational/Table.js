@@ -13,22 +13,20 @@ const Table = ({
 }) => {
     return (
         <table className={`generic-table ${!withActions && 'no-actions'}`}>
-            <tbody>
-                <tr>
-                    {headers.map((header, i) => (
-                        <th key={header + i}>{header}</th>
-                    ))}
-                </tr>
-                <TableBody
-                    colCount={headers.length}
-                    error={error}
-                    isFetching={isFetching}
-                    noData={noData}
-                    noDataMessage={noDataMessage}
-                >
-                    {children}
-                </TableBody>
-            </tbody>
+            <tr>
+                {headers.map((header, i) => (
+                    <th key={header + i}>{header}</th>
+                ))}
+            </tr>
+            <TableBody
+                colCount={headers.length}
+                error={error}
+                isFetching={isFetching}
+                noData={noData}
+                noDataMessage={noDataMessage}
+            >
+                {children}
+            </TableBody>
         </table>
     );
 };

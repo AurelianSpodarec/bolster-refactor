@@ -20,7 +20,7 @@ const TableBody = ({
             </tr>
         );
 
-    if (isFetching)
+    if (isFetching && noData)
         return (
             <tr>
                 <td colSpan={colCount}>

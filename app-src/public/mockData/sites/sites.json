@@ -4,41 +4,47 @@
         "name": "site 1",
         "ownedBy": "NHS",
         "permissions": "You have ready access to this site",
-        "buildingIds": [1, 2]
+        "buildingIds": [1, 2],
+        "status": "active"
     },
     {
         "id": 2,
         "name": "site 2",
         "ownedBy": "NHS",
         "permissions": "NHS(client), Prosol UK(company)",
-        "buildingIds": [3, 4]
+        "buildingIds": [3, 4],
+        "status": "active"
     },
     {
         "id": 3,
         "name": "site 3",
         "ownedBy": "NHS",
         "permissions": "NHS(client), Prosol UK(company)",
-        "buildingIds": [5, 6]
+        "buildingIds": [5, 6],
+        "status": "archived"
     },
     {
         "id": 4,
         "name": "site 4",
         "ownedBy": "NHS",
         "permissions": "You have ready access to this site",
-        "buildingIds": [7, 8]
+        "buildingIds": [7, 8],
+        "status": "active"
     },
     {
         "id": 5,
         "name": "site 5",
         "ownedBy": "NHS",
         "permissions": "You have ready access to this site",
-        "buildingIds": [9]
+        "buildingIds": [9],
+        "status": "read only"
     },
     {
         "id": 6,
         "name": "site 6",
         "ownedBy": "NHS",
         "permissions": "NHS(client), Prosol UK(company)",
-        "buildingIds": [10]
+        "buildingIds": [10],
+        "status": "archived"
     }
 ]

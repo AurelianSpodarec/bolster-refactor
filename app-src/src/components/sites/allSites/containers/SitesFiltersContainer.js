@@ -9,7 +9,7 @@ class SitesFiltersContainer extends Component {
     state = {
         statusOptions: {
             active: { value: 'active', text: 'Active' },
-            readOnly: { value: 'readOnly', text: 'Read only' },
+            'read only': { value: 'read only', text: 'Read only' },
             archived: { value: 'archived', text: 'Archived' }
         }
     };
