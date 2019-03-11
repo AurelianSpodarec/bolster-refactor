@@ -4,11 +4,11 @@ import Block from 'components/shared/generic/block/presentational/Block';
 import Table from 'components/shared/generic/tables/presentational/Table';
 import SitesList from './SitesList';
 
-const SitesTable = ({ sites, headers, isFetching, error }) => {
+const SitesTable = ({ sites, isFetching, error }) => {
     return (
         <Block>
             <Table
-                headers={headers}
+                headers={['Site name', 'Owned by', 'Premissions', 'Action']}
                 isFetching={isFetching}
                 error={error}
                 noData={!sites.length}

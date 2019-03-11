@@ -1,11 +1,11 @@
 import React from 'react';
 
-import Breadcrumb from 'components/shared/generic/breadcrumb/presentational/Breadcrumb';
+import BreadcrumbContainer from 'components/shared/generic/breadcrumb/containers/BreadcrumbContainer';
 import InviteClientToDrawingFormContainer from '../containers/InviteClientToDrawingFormContainer';
 
 const InviteClientToDrawing = () => (
     <div>
-        <Breadcrumb />
+        <BreadcrumbContainer />
         <InviteClientToDrawingFormContainer />
     </div>
 );

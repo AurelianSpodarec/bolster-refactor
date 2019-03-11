@@ -1,8 +1,8 @@
 import React from 'react';
 
-import SitesListItemContainer from '../containers/SitesListItemContainer';
+import SitesListItem from '../presentational/SitesListItem';
 
 const SitesList = ({ sites }) =>
-    sites.map(site => <SitesListItemContainer key={site.id} site={site} />);
+    sites.map(site => <SitesListItem key={site.id} site={site} />);
 
 export default SitesList;

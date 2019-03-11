@@ -3,14 +3,14 @@ import { Link } from 'react-router-dom';
 
 import BreadcrumbContainer from 'components/shared/generic/breadcrumb/containers/BreadcrumbContainer';
 import SitesFiltersContainer from '../containers/SitesFiltersContainer';
-import SitesListContainer from '../containers/SitesListContainer';
+import SitesTableContainer from '../containers/SitesTableContainer';
 
 const AllSites = () => (
     <div>
         <BreadcrumbContainer />
         <h1>All Sites</h1>
         <SitesFiltersContainer />
-        <SitesListContainer />
+        <SitesTableContainer />
         <Link className="button" to="/buildings/1">
             View Building
         </Link>

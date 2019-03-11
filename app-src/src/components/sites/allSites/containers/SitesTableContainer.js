@@ -3,14 +3,12 @@ import { connect } from 'react-redux';
 
 import SitesTable from '../presentational/SitesTable';
 
-class SitesListContainer extends Component {
+class SitesListTableContainer extends Component {
     render() {
         const { isFetching, error } = this.props;
-        const tableHeaders = ['Site name', 'Owned by', 'Premissions', 'Action'];
 
         return (
             <SitesTable
-                headers={tableHeaders}
                 sites={this._getFilteredSites()}
                 isFetching={isFetching}
                 error={error}
@@ -34,4 +32,4 @@ const mapStateToProps = ({ sitesReducer }) => ({
     filters: sitesReducer.filters
 });
 
-export default connect(mapStateToProps)(SitesListContainer);
+export default connect(mapStateToProps)(SitesListTableContainer);
