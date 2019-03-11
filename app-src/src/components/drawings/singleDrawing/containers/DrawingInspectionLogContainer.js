@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 import DrawingInspectionLogsTable from '../presentational/DrawingInspectionLogsTable';
+import fetchInspectionLogs from 'actions/drawings/async/fetchInspectionLogs';
 
 class DrawingInspectionLogContainer extends Component {
     state = {
@@ -10,66 +12,7 @@ class DrawingInspectionLogContainer extends Component {
     render() {
         const tableHeaders = ['Pin ID', 'Status', 'Action'];
 
-        const inspectionLogs = [
-            {
-                id: '1',
-                name: '0000:23',
-                status: 'Installed',
-                pinId: 3,
-                updated: '08/03/2019 13:23:44'
-            },
-            {
-                id: '2',
-                name: '0000:24',
-                status: 'Inspected',
-                pinId: 4,
-                updated: '08/03/2019 13:28:44'
-            },
-            {
-                id: '3',
-                name: '0000:25',
-                status: 'Installed',
-                pinId: 8,
-                updated: '08/03/2019 13:17:44'
-            },
-            {
-                id: '4',
-                name: '0000:26',
-                status: 'Inspected',
-                pinId: 6,
-                updated: '08/03/2019 13:26:44'
-            },
-            {
-                id: '5',
-                name: '0000:27',
-                status: 'Installed',
-                pinId: 1,
-                updated: '08/03/2019 13:37:44'
-            },
-            {
-                id: '6',
-                name: '0000:28',
-                status: 'Inspected',
-                pinId: 10,
-                updated: '08/03/2019 13:20:44'
-            },
-            {
-                id: '7',
-                name: '0000:29',
-                status: 'Installed',
-                pinId: 11,
-                updated: '08/03/2019 13:42:44'
-            },
-            {
-                id: '8',
-                name: '0000:30',
-                status: 'Inspected',
-                pinId: 2,
-                updated: '08/03/2019 13:16:44'
-            }
-        ];
-
-        const { isFetching, error } = this.props;
+        const { inspectionLogs, isFetching, error } = this.props;
 
         const filteredInspectionLogs = Object.values(inspectionLogs).filter(
             log => log.name.includes(this.state.filterValue)
@@ -86,6 +29,10 @@ class DrawingInspectionLogContainer extends Component {
         );
     }
 
+    componentDidMount = () => {
+        this.props.fetchInspectionLogs();
+    };
+
     handleFilterChange = e => {
         this.setState({
             ...this.state,
@@ -94,4 +41,19 @@ class DrawingInspectionLogContainer extends Component {
     };
 }
 
-export default DrawingInspectionLogContainer;
+const mapStateToProps = ({ inspectionLogsReducer }) => ({
+    inspectionLogs: inspectionLogsReducer.inspectionLogs,
+    isFetching: inspectionLogsReducer.isFetching,
+    error: inspectionLogsReducer.error
+});
+
+const mapDispatchToProps = dispatch => ({
+    fetchInspectionLogs: () => {
+        dispatch(fetchInspectionLogs());
+    }
+});
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(DrawingInspectionLogContainer);

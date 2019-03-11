@@ -14,6 +14,7 @@ import searchReducer from './search';
 import sitesReducer from './sites';
 import tabsReducer from './tabs';
 import breadcrumbsReducer from './breadcrumbs';
+import inspectionLogsReducer from './inspectionLogs';
 
 export default combineReducers({
     buildingsReducer,
@@ -29,5 +30,6 @@ export default combineReducers({
     tabsReducer,
     authReducer,
     loginReducer,
+    inspectionLogsReducer,
     breadcrumbsReducer
 });
