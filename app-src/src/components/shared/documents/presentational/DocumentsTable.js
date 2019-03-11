@@ -15,16 +15,19 @@ const DocumentsTable = ({ location, documents, isFetching, error }) => {
                 isFetching={isFetching}
                 error={error}
                 noData={!documents.length}
-                noDataMessage="There are no credit logs to display."
+                noDataMessage="There are no documents to display."
+                withActions
             >
                 <DocumentsList documents={documents} />
             </Table>
-            <Link
-                className="button"
-                to={`${location.pathname}/attach-document`}
-            >
-                <i className="fal fa-plus" /> Add document
-            </Link>
+            <div className="button-container table">
+                <Link
+                    className="button pull-right"
+                    to={`${location.pathname}/attach-document`}
+                >
+                    <i className="fal fa-plus" /> Add document
+                </Link>
+            </div>
         </div>
     );
 };

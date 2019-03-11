@@ -10,6 +10,7 @@ const App = () => (
         <div className="container">
             <MenuContainer />
             <Routes />
+            <div className="clear" />
         </div>
         <FooterContainer />
         <div className="clear" />

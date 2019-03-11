@@ -21,9 +21,14 @@ const ClientsTable = ({ location, clients, isFetching, error }) => {
             >
                 <ClientsList clients={clients} />
             </Table>
-            <Link className="button" to={`${location.pathname}/invite-client`}>
-                <i className="fal fa-plus" /> Invite client
-            </Link>
+            <div className="button-container table">
+                <Link
+                    className="button pull-right"
+                    to={`${location.pathname}/invite-client`}
+                >
+                    <i className="fal fa-plus" /> Invite client
+                </Link>
+            </div>
         </div>
     );
 };

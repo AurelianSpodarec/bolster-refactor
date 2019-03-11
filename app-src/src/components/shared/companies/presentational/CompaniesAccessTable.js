@@ -18,12 +18,18 @@ const CompaniesAccess = ({ location, companies, isFetching, error }) => {
                 error={error}
                 noData={!companies.length}
                 noDataMessage="There are no companies to display."
+                withActions
             >
                 <CompaniesAccessList companies={companies} />
             </Table>
-            <Link className="button" to={`${location.pathname}/invite-company`}>
-                <i className="fa fa-plus" /> Invite company
-            </Link>
+            <div className="button-container table">
+                <Link
+                    className="button pull-right"
+                    to={`${location.pathname}/invite-company`}
+                >
+                    <i className="fa fa-plus" /> Invite company
+                </Link>
+            </div>
         </div>
     );
 };

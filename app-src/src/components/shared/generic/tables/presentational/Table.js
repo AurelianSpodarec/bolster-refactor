@@ -12,7 +12,7 @@ const Table = ({
     children
 }) => {
     return (
-        <table className={`generic-table ${!withActions && 'no-actions'}`}>
+        <table className={`generic-table ${withActions ? 'with-actions' : ''}`}>
             <tbody>
                 <tr>
                     {headers.map((header, i) => (

@@ -18,15 +18,18 @@ const OperativesTable = ({ location, operatives, isFetching, error }) => {
                 error={error}
                 noData={!operatives.length}
                 noDataMessage="There are no operatives to display."
+                withActions
             >
                 <OperativesList operatives={operatives} />
             </Table>
-            <Link
-                className="button"
-                to={`${location.pathname}/attach-operative`}
-            >
-                <i className="fal fa-plus" /> Invite operative
-            </Link>
+            <div className="button-container table">
+                <Link
+                    className="button pull-right"
+                    to={`${location.pathname}/attach-operative`}
+                >
+                    <i className="fal fa-plus" /> Invite operative
+                </Link>
+            </div>
         </div>
     );
 };

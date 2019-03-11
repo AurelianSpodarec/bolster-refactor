@@ -10,7 +10,7 @@ class DrawingInspectionLogContainer extends Component {
     };
 
     render() {
-        const tableHeaders = ['Pin ID', 'Status', 'Action'];
+        const tableHeaders = ['Pin ID', 'Status', 'Actions'];
 
         const { inspectionLogs, isFetching, error } = this.props;
 

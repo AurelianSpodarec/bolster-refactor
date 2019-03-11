@@ -8,17 +8,17 @@ class DrawingCompanyAccessContainer extends Component {
             {
                 id: 1,
                 name: 'Prosol Uk',
-                inherited: false
+                isInherited: false
             },
             {
                 id: 2,
                 name: 'Alpha Fire',
-                inherited: false
+                isInherited: false
             },
             {
                 id: 3,
                 name: 'Alpha Fire',
-                inherited: true
+                isInherited: true
             }
         ];
 

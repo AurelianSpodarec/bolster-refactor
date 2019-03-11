@@ -27,6 +27,7 @@ const DrawingInspectionLogsTable = ({
             error={error}
             noData={!inspectionLogs.length}
             noDataMessage="There are no credit logs to display."
+            withActions
         >
             <DrawingInspectionLogsList inspectionLogs={inspectionLogs} />
         </Table>
