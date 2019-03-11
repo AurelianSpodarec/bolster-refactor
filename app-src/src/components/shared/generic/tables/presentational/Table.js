@@ -8,7 +8,7 @@ const Table = ({
     isFetching,
     noData,
     noDataMessage = 'There is no data to display.',
-    withActions = true,
+    withActions = false,
     children
 }) => {
     return (

@@ -1,8 +1,10 @@
 import React from 'react';
 
-import SitesListItem from '../presentational/SitesListItem';
+import SitesListItemContainer from '../containers/SitesListItemContainer';
 
-const SitesList = ({ sites }) =>
-    sites.map(site => <SitesListItem key={site.id} site={site} />);
+const SitesList = ({ sites, colCount }) =>
+    sites.map(site => (
+        <SitesListItemContainer key={site.id} site={site} colCount={colCount} />
+    ));
 
 export default SitesList;
