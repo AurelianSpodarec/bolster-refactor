@@ -19,6 +19,7 @@ import inspectionLogsReducer from './inspectionLogs';
 import breadcrumbsReducer from './breadcrumbs';
 import tablesReducer from './tables';
 import documentsReducer from './documents';
+import clientsReducer from './clients';
 
 export default combineReducers({
     buildingsReducer,
@@ -39,5 +40,6 @@ export default combineReducers({
     inspectionLogsReducer,
     breadcrumbsReducer,
     tablesReducer,
-    documentsReducer
+    documentsReducer,
+    clientsReducer
 });
