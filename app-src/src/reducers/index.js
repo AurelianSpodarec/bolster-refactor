@@ -13,6 +13,7 @@ import profileReducer from './profile';
 import searchReducer from './search';
 import sitesReducer from './sites';
 import tabsReducer from './tabs';
+import breadcrumbsReducer from './breadcrumbs';
 
 export default combineReducers({
     buildingsReducer,
@@ -27,5 +28,6 @@ export default combineReducers({
     fieldErrorsReducer,
     tabsReducer,
     authReducer,
-    loginReducer
+    loginReducer,
+    breadcrumbsReducer
 });

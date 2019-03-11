@@ -1,11 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+import BreadcrumbContainer from 'components/shared/generic/breadcrumb/containers/BreadcrumbContainer';
 import SitesFiltersContainer from '../containers/SitesFiltersContainer';
 import SitesListContainer from '../containers/SitesListContainer';
 
 const AllSites = () => (
     <div>
+        <BreadcrumbContainer />
         <h1>All Sites</h1>
         <SitesFiltersContainer />
         <SitesListContainer />

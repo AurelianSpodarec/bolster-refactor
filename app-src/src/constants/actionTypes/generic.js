@@ -1,3 +1,5 @@
+export const SET_BREADCRUMBS = 'SET_BREADCRUMBS';
+
 export const SET_TABS = 'SET_TABS';
 export const SELECT_TAB = 'SELECT_TAB';
 
