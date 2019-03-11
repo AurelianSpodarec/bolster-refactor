@@ -14,7 +14,7 @@ const TableBody = ({
     if (error && error.length)
         return (
             <tr>
-                <td colSpan={colCount}>
+                <td colSpan={colCount} style={{ textAlign: 'center' }}>
                     <Error>{error}</Error>
                 </td>
             </tr>
@@ -23,7 +23,7 @@ const TableBody = ({
     if (isFetching && noData)
         return (
             <tr>
-                <td colSpan={colCount}>
+                <td colSpan={colCount} style={{ textAlign: 'center' }}>
                     <Loading />
                 </td>
             </tr>
@@ -32,7 +32,7 @@ const TableBody = ({
     if (noData)
         return (
             <tr>
-                <td colSpan={colCount}>
+                <td colSpan={colCount} style={{ textAlign: 'center' }}>
                     <p>{noDataMessage}</p>
                 </td>
             </tr>

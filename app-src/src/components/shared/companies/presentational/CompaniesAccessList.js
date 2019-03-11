@@ -6,9 +6,18 @@ const DocumentsList = ({ companies }) =>
         <tr key={company.id}>
             <td>{company.name}</td>
             <td>
-                <Link to={`/pins/${company.id}`} className="button">
-                    View
-                </Link>
+                {company.isInherited ? (
+                    '(inherited from site)'
+                ) : (
+                    <>
+                        <Link to="#" className="button icon-only">
+                            <i className="far fa-pencil fa-fw" />
+                        </Link>
+                        <Link to="#" className="button icon-only">
+                            <i className="far fa-trash-alt fa-fw" />
+                        </Link>
+                    </>
+                )}
             </td>
         </tr>
     ));
