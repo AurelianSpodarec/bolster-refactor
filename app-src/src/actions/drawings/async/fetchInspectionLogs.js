@@ -10,13 +10,14 @@ export const fetchDrawingInspectionLogsRequest = () => ({
     type: FETCH_DRAWING_INSPECTION_LOGS_REQUEST
 });
 
-export const fetchDrawingInspectionLogsSuccess = () => ({
-    type: FETCH_DRAWING_INSPECTION_LOGS_SUCCESS
+export const fetchDrawingInspectionLogsSuccess = payload => ({
+    type: FETCH_DRAWING_INSPECTION_LOGS_SUCCESS,
+    payload
 });
 
-export const fetchDrawingInspectionLogsFailure = payload => ({
+export const fetchDrawingInspectionLogsFailure = error => ({
     type: FETCH_DRAWING_INSPECTION_LOGS_FAILURE,
-    payload
+    error
 });
 
 export default () => dispatch => {
