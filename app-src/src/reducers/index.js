@@ -16,6 +16,7 @@ import tabsReducer from './tabs';
 import inspectionLogsReducer from './inspectionLogs';
 import breadcrumbsReducer from './breadcrumbs';
 import tablesReducer from './tables';
+import documentsReducer from './documents';
 
 export default combineReducers({
     buildingsReducer,
@@ -33,5 +34,6 @@ export default combineReducers({
     loginReducer,
     inspectionLogsReducer,
     breadcrumbsReducer,
-    tablesReducer
+    tablesReducer,
+    documentsReducer
 });
