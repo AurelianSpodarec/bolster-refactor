@@ -4,7 +4,22 @@ import DocumentsTable from 'components/shared/documents/presentational/Documents
 
 class DrawingDocumentsContainer extends Component {
     render() {
-        return <DocumentsTable />;
+        const documents = [
+            {
+                id: 1,
+                name: 'Document 1'
+            },
+            {
+                id: 2,
+                name: 'Document 2'
+            },
+            {
+                id: 3,
+                name: 'Document 3'
+            }
+        ];
+
+        return <DocumentsTable documents={documents} />;
     }
 }
 
