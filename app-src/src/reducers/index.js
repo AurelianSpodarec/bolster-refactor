@@ -2,7 +2,7 @@ import { combineReducers } from 'redux';
 
 import authReducer from './auth';
 import buildingsReducer from './buildings';
-import companyReducer from './company';
+import companiesReducer from './companies';
 import drawingsReducer from './drawings';
 import creditLogsReducer from './creditLogs';
 import floorsReducer from './floors';
@@ -28,7 +28,7 @@ export default combineReducers({
     drawingsReducer,
     notificationsReducer,
     creditLogsReducer,
-    companyReducer,
+    companiesReducer,
     messagesReducer,
     generationQueueReducer,
     searchReducer,

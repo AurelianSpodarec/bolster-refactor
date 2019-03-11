@@ -4,7 +4,7 @@ import {
     FETCH_COMPANY_REQUEST,
     FETCH_COMPANY_SUCCESS,
     FETCH_COMPANY_FAILURE
-} from 'constants/actionTypes/company';
+} from 'constants/actionTypes/companies';
 
 export const fetchCompanyRequest = () => ({
     type: FETCH_COMPANY_REQUEST
