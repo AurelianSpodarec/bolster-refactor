@@ -1,19 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const BuldingsListItem = ({ building }) => (
-    <tr key={building.id}>
-        <td>{building.name}</td>
-        <td>{building.permissions}</td>
+const FloorListItem = ({ floor }) => (
+    <tr>
+        <td>{floor.name}</td>
+        <td>{floor.permissions}</td>
         <td>
-            <Link
-                className="button light-blue"
-                to={`/buildings/${building.id}`}
-            >
+            <Link className="button light-blue" to={`/floors/${floor.id}`}>
                 View
             </Link>
         </td>
     </tr>
 );
 
-export default BuldingsListItem;
+export default FloorListItem;

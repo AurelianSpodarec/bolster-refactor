@@ -4,6 +4,7 @@ import authReducer from './auth';
 import buildingsReducer from './buildings';
 import companyReducer from './company';
 import creditLogsReducer from './creditLogs';
+import floorsReducer from './floors';
 import fieldErrorsReducer from './fieldErrors';
 import generationQueueReducer from './generationQueue';
 import loginReducer from './login';
@@ -19,6 +20,7 @@ import tablesReducer from './tables';
 
 export default combineReducers({
     buildingsReducer,
+    floorsReducer,
     profileReducer,
     notificationsReducer,
     creditLogsReducer,

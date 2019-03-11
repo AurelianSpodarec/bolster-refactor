@@ -1,20 +1,20 @@
 import React from 'react';
 
 import Table from 'components/shared/generic/tables/presentational/Table';
-import BuildingsList from 'components/buildings/shared/presentational/BuildingsList';
+import FloorList from './FloorList';
 
-const BuildingsTable = ({ buildings, headers, isFetching, error }) => {
+const FloorTable = ({ floors, headers, isFetching, error }) => {
     return (
         <Table
             headers={headers}
             isFetching={isFetching}
             error={error}
-            noData={!buildings.length}
-            noDataMessage="There are no buildings to display."
+            noData={!floors.length}
+            noDataMessage="There are no floors to display."
         >
-            <BuildingsList buildings={buildings} />
+            <FloorList floors={floors} />
         </Table>
     );
 };
 
-export default BuildingsTable;
+export default FloorTable;
