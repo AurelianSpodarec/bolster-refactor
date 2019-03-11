@@ -1,30 +1,15 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
-import BuildingsTable from '../presentational/BuildingsTable';
+import BuildingsTableContainer from 'components/buildings/shared/containers/BuildingsTableContainer';
 
-class BuildingsTableContainer extends Component {
-    render() {
-        const { buildings, isFetching, error } = this.props;
-        const tableHeaders = ['Building name', 'Premissions', 'Action'];
+const SiteBuildingsTableContainer = ({ site }) => (
+    <BuildingsTableContainer ids={site.buildingIds || []} />
+);
 
-        return (
-            <BuildingsTable
-                headers={tableHeaders}
-                buildings={buildings}
-                isFetching={isFetching}
-                error={error}
-            />
-        );
-    }
-}
-
-const mapStateToProps = ({ buildingsReducer }) => ({
-    buildings: Object.values(buildingsReducer.buildings),
-    isFetching: buildingsReducer.isFetching,
-    error: buildingsReducer.error,
-    nameFilter: buildingsReducer.nameFilter,
-    statusFilter: buildingsReducer.statusFilter
-});
-
-export default connect(mapStateToProps)(BuildingsTableContainer);
+export default withRouter(
+    connect(({ sitesReducer }, { match }) => ({
+        site: sitesReducer.sites[match.params.id] || {}
+    }))(SiteBuildingsTableContainer)
+);

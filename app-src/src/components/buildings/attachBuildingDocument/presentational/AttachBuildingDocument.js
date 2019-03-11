@@ -1,11 +1,11 @@
 import React from 'react';
 
-import Breadcrumbs from 'components/shared/generic/breadcrumb/containers/BreadcrumbContainer';
+import BreadcrumbContainer from 'components/shared/generic/breadcrumb/containers/BreadcrumbContainer';
 import AttachBuildingDocumentFormContainer from '../containers/AttachBuildingDocumentFormContainer';
 
 const AttachBuildingDocument = () => (
     <div>
-        <Breadcrumbs />
+        <BreadcrumbContainer />
         <AttachBuildingDocumentFormContainer />
     </div>
 );

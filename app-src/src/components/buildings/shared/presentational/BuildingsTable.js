@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Table from 'components/shared/generic/tables/presentational/Table';
-import BuildingsList from './BuildingsList';
+import BuildingsList from 'components/buildings/shared/presentational/BuildingsList';
 
 const BuildingsTable = ({ buildings, headers, isFetching, error }) => {
     return (

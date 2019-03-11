@@ -8,12 +8,12 @@ import SiteBuildingsTableContainer from '../containers/SiteBuildingsTableContain
 import SiteOperativesTableContainer from '../containers/SiteOperativesTableContainer';
 import SiteClientsTableContainer from '../containers/SiteClientsTableContainer';
 import SiteCompaniesAccessTableContainer from '../containers/SiteCompaniesAccessTableContainer';
-import Breadcrumb from 'components/shared/generic/breadcrumb/presentational/Breadcrumb';
+import BreadcrumbContainer from 'components/shared/generic/breadcrumb/containers/BreadcrumbContainer';
 import SitePageHeaderContainer from '../containers/SitePageHeaderContainer';
 
 const Site = () => (
     <div className="size-lg-12">
-        <Breadcrumb />
+        <BreadcrumbContainer />
 
         <SitePageHeaderContainer />
 

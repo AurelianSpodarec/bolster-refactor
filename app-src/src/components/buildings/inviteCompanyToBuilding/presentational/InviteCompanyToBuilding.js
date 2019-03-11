@@ -1,11 +1,11 @@
 import React from 'react';
 
-import Breadcrumb from 'components/shared/generic/breadcrumb/presentational/Breadcrumb';
+import BreadcrumbContainer from 'components/shared/generic/breadcrumb/containers/BreadcrumbContainer';
 import InviteCompanyToBuildingFormContainer from '../containers/InviteCompanyToBuildingFormContainer';
 
 const InviteCompanyToBuilding = () => (
     <div className="size-lg-12">
-        <Breadcrumb />
+        <BreadcrumbContainer />
         <InviteCompanyToBuildingFormContainer />
     </div>
 );

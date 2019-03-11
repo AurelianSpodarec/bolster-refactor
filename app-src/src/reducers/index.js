@@ -13,6 +13,7 @@ import profileReducer from './profile';
 import searchReducer from './search';
 import sitesReducer from './sites';
 import tabsReducer from './tabs';
+import breadcrumbsReducer from './breadcrumbs';
 import inspectionLogsReducer from './inspectionLogs';
 
 export default combineReducers({
@@ -29,5 +30,6 @@ export default combineReducers({
     tabsReducer,
     authReducer,
     loginReducer,
-    inspectionLogsReducer
+    inspectionLogsReducer,
+    breadcrumbsReducer
 });
