@@ -5,6 +5,7 @@ import setBreadcrumbs from 'actions/generic/breadcrumbs/sync/setBreadcrumbs';
 import fetchSites from 'actions/sites/async/fetchAllSites';
 import fetchAllBuildings from 'actions/buildings/async/fetchAllBuildings';
 import fetchAllFloors from 'actions/floors/async/fetchAllFloors';
+import fetchAllDrawings from 'actions/drawings/async/fetchAllDrawings';
 
 import AllSites from '../presentational/AllSites';
 
@@ -18,12 +19,14 @@ class AllSitesContainer extends Component {
             setBreadcrumbs,
             fetchSites,
             fetchAllBuildings,
-            fetchAllFloors
+            fetchAllFloors,
+            fetchAllDrawings
         } = this.props;
         setBreadcrumbs([{ text: 'Sites' }]);
         fetchSites();
         fetchAllBuildings();
         fetchAllFloors();
+        fetchAllDrawings();
     };
 }
 
@@ -41,6 +44,9 @@ export default connect(
         },
         fetchAllFloors: () => {
             dispatch(fetchAllFloors());
-        }
+        },
+        fetchAllDrawings: () => {
+            dispatch(fetchAllDrawings());
+        },
     })
 )(AllSitesContainer);

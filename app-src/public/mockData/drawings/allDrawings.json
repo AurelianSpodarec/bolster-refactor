@@ -1,0 +1,38 @@
+[
+    {
+        "id": 1,
+        "name": "Drawing 1",
+        "permissions": ["NHS (client)", "Prosol UK (company)"],
+        "pinIds": [1, 2]
+    },
+    {
+        "id": 2,
+        "name": "Drawing 2",
+        "permissions": ["NHS (client)", "Prosol UK (company)"],
+        "pinIds": [3, 4]
+    },
+    {
+        "id": 3,
+        "name": "Drawing 3",
+        "permissions": ["NHS (client)", "Prosol UK (company)"],
+        "pinIds": [5, 6]
+    },
+    {
+        "id": 4,
+        "name": "Drawing 4",
+        "permissions": ["NHS (client)", "Prosol UK (company)"],
+        "pinIds": [7, 8]
+    },
+    {
+        "id": 5,
+        "name": "Drawing 5",
+        "permissions": ["NHS (client)", "Prosol UK (company)"],
+        "pinIds": [9]
+    },
+    {
+        "id": 6,
+        "name": "Drawing 6",
+        "permissions": ["NHS (client)", "Prosol UK (company)"],
+        "pinIds": [10]
+    }
+]

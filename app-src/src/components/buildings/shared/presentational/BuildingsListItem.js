@@ -24,7 +24,7 @@ const BuldingsListItem = ({
         {isExpanded && (
             <tr>
                 <td colSpan={colCount}>
-                    <FloorTableContainer />
+                    <FloorTableContainer ids={building.floorIds} />
                 </td>
             </tr>
         )}

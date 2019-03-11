@@ -3,6 +3,7 @@ import { combineReducers } from 'redux';
 import authReducer from './auth';
 import buildingsReducer from './buildings';
 import companyReducer from './company';
+import drawingsReducer from './drawings';
 import creditLogsReducer from './creditLogs';
 import floorsReducer from './floors';
 import fieldErrorsReducer from './fieldErrors';
@@ -22,6 +23,7 @@ export default combineReducers({
     buildingsReducer,
     floorsReducer,
     profileReducer,
+    drawingsReducer,
     notificationsReducer,
     creditLogsReducer,
     companyReducer,

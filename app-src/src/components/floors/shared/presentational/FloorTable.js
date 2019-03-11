@@ -6,6 +6,7 @@ import FloorList from './FloorList';
 const FloorTable = ({ floors, headers, isFetching, error }) => {
     return (
         <Table
+            withActions
             headers={headers}
             isFetching={isFetching}
             error={error}
