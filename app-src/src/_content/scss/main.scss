@@ -244,6 +244,13 @@ input {
     &.red {
         background-color: $red;
     }
+
+    &.icon-only {
+        padding: {
+            left: 5px;
+            right: 5px;
+        }
+    }
 }
 
 .button-container {
@@ -720,6 +727,11 @@ input {
 
     .button {
         font-size: 100%;
+        margin-left: 5px;
+    }
+
+    .table-icon {
+        margin-right: 5px;
     }
 }
 

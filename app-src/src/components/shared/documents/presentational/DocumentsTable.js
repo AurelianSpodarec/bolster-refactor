@@ -15,7 +15,8 @@ const DocumentsTable = ({ location, documents, isFetching, error }) => {
                 isFetching={isFetching}
                 error={error}
                 noData={!documents.length}
-                noDataMessage="There are no credit logs to display."
+                noDataMessage="There are no documents to display."
+                withActions
             >
                 <DocumentsList documents={documents} />
             </Table>
