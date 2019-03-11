@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 import setBreadcrumbs from 'actions/generic/breadcrumbs/sync/setBreadcrumbs';
 import fetchSites from 'actions/sites/async/fetchAllSites';
+import fetchAllBuildings from 'actions/buildings/async/fetchAllBuildings';
 
 import AllSites from '../presentational/AllSites';
 
@@ -12,9 +13,10 @@ class AllSitesContainer extends Component {
     }
 
     componentDidMount = () => {
-        const { setBreadcrumbs, fetchSites } = this.props;
+        const { setBreadcrumbs, fetchSites, fetchAllBuildings } = this.props;
         setBreadcrumbs([{ text: 'Sites' }]);
         fetchSites();
+        fetchAllBuildings();
     };
 }
 
@@ -26,6 +28,9 @@ export default connect(
         },
         fetchSites: () => {
             dispatch(fetchSites());
+        },
+        fetchAllBuildings: () => {
+            dispatch(fetchAllBuildings());
         }
     })
 )(AllSitesContainer);

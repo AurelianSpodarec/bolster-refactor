@@ -1,9 +1,9 @@
 {
     "id": 1,
-    "name": "site 4",
+    "name": "site 1",
     "ownedBy": "NHS",
     "permissions": "You have ready access to this site",
-    "buildingIds": [7, 8],
+    "buildingIds": [1, 2],
     "addressLine1": "198 Wildmoor avenue",
     "addressLine2": "Holts Estate",
     "city": "Manchester",

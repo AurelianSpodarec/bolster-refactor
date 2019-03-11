@@ -4,17 +4,17 @@ import Block from 'components/shared/generic/block/presentational/Block';
 import Table from 'components/shared/generic/tables/presentational/Table';
 import SitesList from './SitesList';
 
-const SitesTable = ({ sites, isFetching, error }) => {
+const SitesTable = ({ headers, sites, isFetching, error }) => {
     return (
         <Block>
             <Table
-                headers={['Site name', 'Owned by', 'Premissions', 'Action']}
+                headers={headers}
                 isFetching={isFetching}
                 error={error}
                 noData={!sites.length}
                 noDataMessage="There are no sites to display."
             >
-                <SitesList sites={sites} />
+                <SitesList colCount={headers.length} sites={sites} />
             </Table>
         </Block>
     );

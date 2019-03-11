@@ -1,0 +1,24 @@
+import React from 'react';
+import { connect } from 'react-redux';
+
+import toggleSiteExpanded from 'actions/generic/tables/sync/toggleSiteExpanded';
+
+import SitesListItem from '../presentational/SitesListItem';
+
+const SitesListItemContainer = ({
+    dispatch,
+    expandedSiteIds,
+    site,
+    colCount
+}) => (
+    <SitesListItem
+        site={site}
+        isExpanded={expandedSiteIds.includes(site.id)}
+        colCount={colCount}
+        toggleExpanded={() => dispatch(toggleSiteExpanded(site.id))}
+    />
+);
+
+export default connect(({ tablesReducer: { expandedSiteIds } }) => ({
+    expandedSiteIds
+}))(SitesListItemContainer);

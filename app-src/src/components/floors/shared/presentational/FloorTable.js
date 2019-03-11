@@ -1,0 +1,20 @@
+import React from 'react';
+
+import Table from 'components/shared/generic/tables/presentational/Table';
+import BuildingsList from 'components/buildings/shared/presentational/BuildingsList';
+
+const BuildingsTable = ({ buildings, headers, isFetching, error }) => {
+    return (
+        <Table
+            headers={headers}
+            isFetching={isFetching}
+            error={error}
+            noData={!buildings.length}
+            noDataMessage="There are no buildings to display."
+        >
+            <BuildingsList buildings={buildings} />
+        </Table>
+    );
+};
+
+export default BuildingsTable;

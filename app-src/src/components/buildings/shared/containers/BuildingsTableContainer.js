@@ -3,11 +3,13 @@ import { connect } from 'react-redux';
 
 import BuildingsTable from '../presentational/BuildingsTable';
 
-const BuildingsTableContainer = props => {
+const BuildingsTableContainer = ({ isFetching, error, buildings }) => {
     return (
         <BuildingsTable
             headers={['Building name', 'Premissions', 'Action']}
-            {...props}
+            isFetching={isFetching}
+            error={error}
+            buildings={buildings}
         />
     );
 };

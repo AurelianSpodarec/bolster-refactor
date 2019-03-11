@@ -27,3 +27,7 @@ export function removeObjItem(obj, key) {
 
     return rest;
 }
+
+export function removeArrItem(arr, index) {
+    return [[...arr.slice(0, index), ...arr.slice(index + 1)]];
+}
