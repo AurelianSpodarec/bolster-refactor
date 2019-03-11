@@ -3,7 +3,9 @@ import { combineReducers } from 'redux';
 import authReducer from './auth';
 import buildingsReducer from './buildings';
 import companyReducer from './company';
+import drawingsReducer from './drawings';
 import creditLogsReducer from './creditLogs';
+import floorsReducer from './floors';
 import fieldErrorsReducer from './fieldErrors';
 import generationQueueReducer from './generationQueue';
 import loginReducer from './login';
@@ -20,7 +22,9 @@ import documentsReducer from './documents';
 
 export default combineReducers({
     buildingsReducer,
+    floorsReducer,
     profileReducer,
+    drawingsReducer,
     notificationsReducer,
     creditLogsReducer,
     companyReducer,

@@ -6,13 +6,14 @@ import BuildingsList from 'components/buildings/shared/presentational/BuildingsL
 const BuildingsTable = ({ buildings, headers, isFetching, error }) => {
     return (
         <Table
+            withActions
             headers={headers}
             isFetching={isFetching}
             error={error}
             noData={!buildings.length}
             noDataMessage="There are no buildings to display."
         >
-            <BuildingsList buildings={buildings} />
+            <BuildingsList colCount={headers.length} buildings={buildings} />
         </Table>
     );
 };

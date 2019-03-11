@@ -8,6 +8,7 @@ const SitesTable = ({ headers, sites, isFetching, error }) => {
     return (
         <Block>
             <Table
+                withActions
                 headers={headers}
                 isFetching={isFetching}
                 error={error}

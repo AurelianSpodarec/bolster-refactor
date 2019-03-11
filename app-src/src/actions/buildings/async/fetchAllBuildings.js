@@ -6,25 +6,25 @@ import {
     FETCH_ALL_BUILDINGS_FAILURE
 } from 'constants/actionTypes/buildings';
 
-export const fetchAllSitesRequest = () => ({
+export const fetchAllBuildingsRequest = () => ({
     type: FETCH_ALL_BUILDINGS_REQUEST
 });
 
-export const fetchAllSitesSuccess = payload => ({
+export const fetchAllBuildingsSuccess = payload => ({
     type: FETCH_ALL_BUILDINGS_SUCCESS,
     payload
 });
 
-export const fetchAllSitesFailure = error => ({
+export const fetchAllBuildingsFailure = error => ({
     type: FETCH_ALL_BUILDINGS_FAILURE,
     error
 });
 
 export default () => dispatch => {
-    dispatch(fetchAllSitesRequest());
+    dispatch(fetchAllBuildingsRequest());
 
     axios
         .get('/mockData/buildings/allBuildings.json')
-        .then(res => dispatch(fetchAllSitesSuccess(res.data)))
-        .catch(err => dispatch(fetchAllSitesFailure(err)));
+        .then(res => dispatch(fetchAllBuildingsSuccess(res.data)))
+        .catch(err => dispatch(fetchAllBuildingsFailure(err)));
 };
