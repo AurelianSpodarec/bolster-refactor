@@ -4,7 +4,25 @@ import OperativesTable from 'components/shared/operatives/presentational/Operati
 
 class DrawingOperativesAccessContainer extends Component {
     render() {
-        return <OperativesTable />;
+        const operatives = [
+            {
+                id: 1,
+                name: 'Jamie McMullan',
+                email: 'jamie@silverchip.com'
+            },
+            {
+                id: 2,
+                name: 'Liam Bateman',
+                email: 'liam@silverchip.com'
+            },
+            {
+                id: 3,
+                name: 'Charlotte Whelan',
+                email: 'charlotte@silverchip.com'
+            }
+        ];
+
+        return <OperativesTable operatives={operatives} />;
     }
 }
 
