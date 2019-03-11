@@ -20,12 +20,14 @@ const DocumentsTable = ({ location, documents, isFetching, error }) => {
             >
                 <DocumentsList documents={documents} />
             </Table>
-            <Link
-                className="button"
-                to={`${location.pathname}/attach-document`}
-            >
-                <i className="fal fa-plus" /> Add document
-            </Link>
+            <div className="button-container table">
+                <Link
+                    className="button pull-right"
+                    to={`${location.pathname}/attach-document`}
+                >
+                    <i className="fal fa-plus" /> Add document
+                </Link>
+            </div>
         </div>
     );
 };

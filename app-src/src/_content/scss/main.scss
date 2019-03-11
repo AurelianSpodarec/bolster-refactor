@@ -261,6 +261,13 @@ input {
     .button {
         margin: 0 5px;
     }
+
+    &.table {
+        width: calc(100% + 30px);
+        padding: 15px 10px 0;
+        margin-left: -15px;
+        border-top: 2px solid #f5f5f5;
+    }
 }
 
 //header
@@ -683,15 +690,15 @@ input {
     margin-left: -15px;
     text-align: left;
 
-    &.no-actions {
+    &.with-actions {
         td {
             &:last-child {
-                text-align: left;
+                text-align: right;
             }
         }
         th {
             &:last-child {
-                text-align: left;
+                text-align: right;
             }
         }
     }
@@ -712,10 +719,6 @@ input {
     th {
         font-size: 140%;
         @include ubuntu-medium;
-        &:last-child {
-            text-align: right;
-            padding-right: 25px;
-        }
     }
 
     td {
