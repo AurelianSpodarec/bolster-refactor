@@ -1,29 +1,35 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 import OperativesTable from 'components/shared/operatives/presentational/OperativesTable';
 
+import fetchOperatives from 'actions/operatives/async/fetchOperatives';
+
 class DrawingOperativesAccessContainer extends Component {
     render() {
-        const operatives = [
-            {
-                id: 1,
-                name: 'Jamie McMullan',
-                email: 'jamie@silverchip.com'
-            },
-            {
-                id: 2,
-                name: 'Liam Bateman',
-                email: 'liam@silverchip.com'
-            },
-            {
-                id: 3,
-                name: 'Charlotte Whelan',
-                email: 'charlotte@silverchip.com'
-            }
-        ];
+        const { props } = this;
 
-        return <OperativesTable operatives={operatives} />;
+        return <OperativesTable operatives={props.operatives} />;
     }
+
+    componentDidMount = () => {
+        this.props.fetchOperatives();
+    };
 }
 
-export default DrawingOperativesAccessContainer;
+const mapStateToProps = ({ operativesReducer }) => ({
+    operatives: Object.values(operativesReducer.operatives),
+    isFetching: operativesReducer.isFetching,
+    error: operativesReducer.error
+});
+
+const mapDispatchToProps = dispatch => ({
+    fetchOperatives: () => {
+        dispatch(fetchOperatives());
+    }
+});
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(DrawingOperativesAccessContainer);
