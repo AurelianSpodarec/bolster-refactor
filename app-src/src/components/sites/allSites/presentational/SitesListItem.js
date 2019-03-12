@@ -17,7 +17,7 @@ const SitesListItem = ({ toggleExpanded, isExpanded, site, colCount }) => {
                         <i className="fa fa-chevron-down" />
                     ) : (
                         <i className="fa fa-chevron-right" />
-                    )}{' '}
+                    )}
                     {site.name}
                 </td>
                 <td>{site.ownedBy}</td>
