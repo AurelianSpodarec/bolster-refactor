@@ -810,6 +810,30 @@ input {
     }
 }
 
+.table-search {
+    .generic-search {
+        width: 27%;
+    }
+
+    .table-filter {
+        float: right;
+        width: 27%;
+        margin-top: 2px;
+
+        p {
+            float: right;
+            padding-right: 10px;
+            font-size: 140%;
+            line-height: 28px;
+        }
+
+        .custom-dropdown {
+            float: right;
+            width: 50%;
+        }
+    }
+}
+
 //footer
 #page-footer {
     width: 100%;

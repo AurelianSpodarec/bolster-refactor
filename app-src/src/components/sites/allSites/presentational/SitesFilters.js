@@ -9,20 +9,23 @@ const SitesListFilters = ({
     selectedStatus,
     handleChange
 }) => (
-    <form className="size-lg-12">
+    <form className="table-search size-lg-12">
         <Search
             value={name}
             name="name"
             placeholder="Search by site name..."
             handleChange={handleChange}
         />
-        <Dropdown
-            placeholder="All sites"
-            name="status"
-            options={statusOptions}
-            selectedOption={selectedStatus}
-            handleChange={handleChange}
-        />
+        <div className="table-filter">
+            <Dropdown
+                placeholder="All sites"
+                name="status"
+                options={statusOptions}
+                selectedOption={selectedStatus}
+                handleChange={handleChange}
+            />
+            <p>Filter by status:</p>
+        </div>
     </form>
 );
 
