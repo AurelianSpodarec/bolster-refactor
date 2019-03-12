@@ -29,7 +29,7 @@ const SitesListItem = ({ toggleExpanded, isExpanded, site, colCount }) => {
                 </td>
             </tr>
             {isExpanded && (
-                <tr className="expanded-row">
+                <tr className="expanded-row buildings-row">
                     <td colSpan={colCount}>
                         <BuildingsTableContainer ids={site.buildingIds} />
                     </td>
