@@ -6,13 +6,31 @@ import fetchSingleSite from 'actions/sites/async/fetchSingleSite';
 
 import SingleSite from '../presentational/SingleSite';
 
+import fetchDocuments from 'actions/documents/async/fetchDocuments';
+import fetchClients from 'actions/clients/async/fetchClients';
+import fetchCompanies from 'actions/companies/async/fetchCompanies';
+import fetchOperatives from 'actions/operatives/async/fetchOperatives';
+
 class SingleSiteContainer extends Component {
     render() {
         return <SingleSite />;
     }
     componentDidMount = () => {
-        this.props.fetchAllBuildings();
-        this.props.fetchSingleSite();
+        const {
+            fetchAllBuildings,
+            fetchSingleSite,
+            fetchDocuments,
+            fetchClients,
+            fetchCompanies,
+            fetchOperatives
+        } = this.props;
+
+        fetchAllBuildings();
+        fetchSingleSite();
+        fetchDocuments();
+        fetchClients();
+        fetchCompanies();
+        fetchOperatives();
     };
 }
 
@@ -23,6 +41,18 @@ const mapDispatchToProps = dispatch => ({
     },
     fetchSingleSite: () => {
         dispatch(fetchSingleSite());
+    },
+    fetchDocuments: () => {
+        dispatch(fetchDocuments());
+    },
+    fetchClients: () => {
+        dispatch(fetchClients());
+    },
+    fetchCompanies: () => {
+        dispatch(fetchCompanies());
+    },
+    fetchOperatives: () => {
+        dispatch(fetchOperatives());
     }
 });
 
