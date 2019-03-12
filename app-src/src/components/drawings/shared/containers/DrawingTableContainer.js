@@ -6,7 +6,13 @@ import DrawingTable from '../presentational/DrawingTable';
 const DrawingTableContainer = ({ isFetching, error, drawings }) => {
     return (
         <DrawingTable
-            headers={['Drawing name', 'Premissions', 'Action']}
+            headers={[
+                'Drawing name',
+                'Lat updated',
+                'Expires',
+                'Permissions',
+                'Action'
+            ]}
             isFetching={isFetching}
             error={error}
             drawings={drawings}
