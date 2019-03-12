@@ -9,10 +9,15 @@ const Table = ({
     noData,
     noDataMessage = 'There is no data to display.',
     withActions = false,
-    children
+    children,
+    extraClasses = ''
 }) => {
     return (
-        <table className={`generic-table ${withActions ? 'with-actions' : ''}`}>
+        <table
+            className={`generic-table ${
+                withActions ? 'with-actions' : ''
+            } ${extraClasses}`}
+        >
             <tbody>
                 <tr>
                     {headers.map((header, i) => (

@@ -17,7 +17,7 @@ const SitesListItem = ({ toggleExpanded, isExpanded, site, colCount }) => {
                         <i className="fa fa-chevron-down" />
                     ) : (
                         <i className="fa fa-chevron-right" />
-                    )}{' '}
+                    )}
                     {site.name}
                 </td>
                 <td>{site.ownedBy}</td>
@@ -29,7 +29,7 @@ const SitesListItem = ({ toggleExpanded, isExpanded, site, colCount }) => {
                 </td>
             </tr>
             {isExpanded && (
-                <tr className="expanded-row">
+                <tr className="expanded-row buildings-row">
                     <td colSpan={colCount}>
                         <BuildingsTableContainer ids={site.buildingIds} />
                     </td>

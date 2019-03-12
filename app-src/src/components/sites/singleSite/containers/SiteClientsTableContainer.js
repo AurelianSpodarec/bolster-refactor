@@ -1,11 +1,26 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 import ClientsTable from 'components/shared/clients/presentational/ClientsTable';
 
 class ClientsTableContainer extends Component {
     render() {
-        return <ClientsTable />;
+        const { props } = this;
+
+        return (
+            <ClientsTable
+                clients={props.clients}
+                isFetching={props.isFetching}
+                error={props.error}
+            />
+        );
     }
 }
 
-export default ClientsTableContainer;
+const mapStateToProps = ({ clientsReducer }) => ({
+    clients: Object.values(clientsReducer.clients),
+    isFetching: clientsReducer.isFetching,
+    error: clientsReducer.error
+});
+
+export default connect(mapStateToProps)(ClientsTableContainer);

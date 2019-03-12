@@ -10,7 +10,15 @@ const BuldingsListItem = ({
 }) => (
     <>
         <tr onClick={toggleExpanded} className={isExpanded && 'open'}>
-            <td>{building.name}</td>
+            <td>
+                {' '}
+                {isExpanded ? (
+                    <i className="fa fa-chevron-down" />
+                ) : (
+                    <i className="fa fa-chevron-right" />
+                )}{' '}
+                {building.name}
+            </td>
             <td>{building.permissions}</td>
             <td>
                 <Link
@@ -23,8 +31,11 @@ const BuldingsListItem = ({
         </tr>
         {isExpanded && (
             <tr>
-                <td colSpan={colCount}>
-                    <FloorTableContainer ids={building.floorIds} />
+                <td colSpan={colCount} className="table-container">
+                    <FloorTableContainer
+                        className="with-actions"
+                        ids={building.floorIds}
+                    />
                 </td>
             </tr>
         )}

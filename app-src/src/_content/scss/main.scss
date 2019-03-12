@@ -707,17 +707,54 @@ input {
             background-color: $light-grey;
         }
 
+        &.buildings-row {
+            padding: 0;
+        }
+
         &.expanded-row {
             table {
-                float: left;
-                width: 100%;
                 tbody {
-                    float: left;
-                    width: 100%;
-                    tr {
-                        float: left;
-                        width: 100%;
+                    th {
+                        padding-top: 15px;
+                    }
+                    th:first-child {
                         padding-left: 100px;
+                    }
+                    td:first-child {
+                        padding-left: 100px;
+                        padding: {
+                            top: 0;
+                            bottom: 0;
+                        }
+                        &.table-container {
+                            padding: 0;
+                            table {
+                                width: 100%;
+                                margin-left: 0;
+
+                                th {
+                                    &:first-child {
+                                        padding-left: 150px;
+                                    }
+                                }
+                                td:first-child {
+                                    padding-left: 150px;
+                                    &.drawing {
+                                        padding-left: 0;
+                                        td {
+                                            &:first-child {
+                                                padding-left: 200px;
+                                            }
+                                        }
+                                        th {
+                                            &:first-child {
+                                                padding-left: 200px;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -754,6 +791,22 @@ input {
 
     .table-icon {
         margin-right: 5px;
+    }
+
+    i {
+        color: $button-grey;
+        margin-right: 5px;
+    }
+
+    .no-data {
+        padding-left: 0 !important;
+        p {
+            padding: {
+                top: 17px;
+                bottom: 5px;
+            }
+            @include ubuntu-medium;
+        }
     }
 }
 
@@ -822,7 +875,7 @@ input {
 //pin amounts
 .pin-amounts {
     .pin {
-        padding: 0 5px;
+        padding-right: 15px;
         margin-bottom: 10px;
 
         img,
