@@ -1,9 +1,13 @@
 import { combineReducers } from 'redux';
 
+import { updateObj, convertArrToObj } from 'helpers/generic';
 import {
     FETCH_SINGLE_PIN_REQUEST,
     FETCH_SINGLE_PIN_SUCCESS,
-    FETCH_SINGLE_PIN_FAILURE
+    FETCH_SINGLE_PIN_FAILURE,
+    FETCH_PINS_REQUEST,
+    FETCH_PINS_SUCCESS,
+    FETCH_PINS_FAILURE
 } from 'constants/actionTypes/pins';
 
 export default combineReducers({
@@ -15,9 +19,12 @@ export default combineReducers({
 function isFetchingReducer(state = false, action) {
     switch (action.type) {
         case FETCH_SINGLE_PIN_REQUEST:
+        case FETCH_PINS_REQUEST:
             return true;
         case FETCH_SINGLE_PIN_SUCCESS:
         case FETCH_SINGLE_PIN_FAILURE:
+        case FETCH_PINS_SUCCESS:
+        case FETCH_PINS_FAILURE:
             return false;
         default:
             return state;
@@ -27,8 +34,10 @@ function isFetchingReducer(state = false, action) {
 function errorReducer(state = null, action) {
     switch (action.type) {
         case FETCH_SINGLE_PIN_REQUEST:
+        case FETCH_PINS_REQUEST:
             return null;
         case FETCH_SINGLE_PIN_FAILURE:
+        case FETCH_PINS_FAILURE:
             return action.error.message;
         default:
             return state;
@@ -38,7 +47,9 @@ function errorReducer(state = null, action) {
 function pinsReducer(state = {}, action) {
     switch (action.type) {
         case FETCH_SINGLE_PIN_SUCCESS:
-            return action.payload;
+            return updateObj(state, action.payload.id, action.payload);
+        case FETCH_PINS_SUCCESS:
+            return convertArrToObj(action.payload);
         default:
             return state;
     }

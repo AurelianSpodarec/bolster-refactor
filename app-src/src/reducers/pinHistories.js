@@ -4,13 +4,15 @@ import { convertArrToObj } from 'helpers/generic';
 import {
     FETCH_PIN_HISTORIES_REQUEST,
     FETCH_PIN_HISTORIES_SUCCESS,
-    FETCH_PIN_HISTORIES_FAILURE
+    FETCH_PIN_HISTORIES_FAILURE,
+    SELECT_PIN_HISTORY
 } from 'constants/actionTypes/pins';
 
 export default combineReducers({
-    pinHistories: pinHistoriesReducer,
+    histories: historiesReducer,
     isFetching: isFetchingReducer,
-    error: errorReducer
+    error: errorReducer,
+    selectedHistoryId: selectedHistoryReducer
 });
 
 function isFetchingReducer(state = false, action) {
@@ -36,10 +38,19 @@ function errorReducer(state = null, action) {
     }
 }
 
-function pinHistoriesReducer(state = {}, action) {
+function historiesReducer(state = {}, action) {
     switch (action.type) {
         case FETCH_PIN_HISTORIES_SUCCESS:
             return convertArrToObj(action.payload);
+        default:
+            return state;
+    }
+}
+
+function selectedHistoryReducer(state = 0, action) {
+    switch (action.type) {
+        case SELECT_PIN_HISTORY:
+            return action.id;
         default:
             return state;
     }
