@@ -3,8 +3,6 @@ import { connect } from 'react-redux';
 
 import DocumentsTable from 'components/shared/documents/presentational/DocumentsTable';
 
-import fetchDocuments from 'actions/documents/async/fetchDocuments';
-
 class DrawingDocumentsContainer extends Component {
     render() {
         const { props } = this;
@@ -17,10 +15,6 @@ class DrawingDocumentsContainer extends Component {
             />
         );
     }
-
-    componentDidMount = () => {
-        this.props.fetchDocuments();
-    };
 }
 
 const mapStateToProps = ({ documentsReducer }) => ({
@@ -29,13 +23,4 @@ const mapStateToProps = ({ documentsReducer }) => ({
     error: documentsReducer.error
 });
 
-const mapDispatchToProps = dispatch => ({
-    fetchDocuments: () => {
-        dispatch(fetchDocuments());
-    }
-});
-
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(DrawingDocumentsContainer);
+export default connect(mapStateToProps)(DrawingDocumentsContainer);
