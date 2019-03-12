@@ -1,13 +1,11 @@
 import React from 'react';
 
-import BreadcrumbContainer from 'components/shared/generic/breadcrumb/containers/BreadcrumbContainer';
+import Breadcrumb from 'components/shared/generic/breadcrumb/presentational/Breadcrumb';
 import Block from 'components/shared/generic/block/presentational/Block';
 
 const Support = () => (
     <div>
-        <Block>
-            <BreadcrumbContainer />
-        </Block>
+        <Breadcrumb breadcrumbs={[{ text: 'item 1' }, { text: 'item 2' }]} />
         <Block>
             <h3 className="heading heading-3">Support</h3>
         </Block>
