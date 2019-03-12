@@ -7,8 +7,19 @@ import BuildingsTableContainer from 'components/buildings/shared/containers/Buil
 const SitesListItem = ({ toggleExpanded, isExpanded, site, colCount }) => {
     return (
         <>
-            <tr key={site.id} onClick={toggleExpanded}>
-                <td>{site.name}</td>
+            <tr
+                key={site.id}
+                onClick={toggleExpanded}
+                className={isExpanded && 'open'}
+            >
+                <td>
+                    {isExpanded ? (
+                        <i className="fa fa-chevron-down" />
+                    ) : (
+                        <i className="fa fa-chevron-right" />
+                    )}{' '}
+                    {site.name}
+                </td>
                 <td>{site.ownedBy}</td>
                 <td>{site.permissions}</td>
                 <td>
@@ -18,7 +29,7 @@ const SitesListItem = ({ toggleExpanded, isExpanded, site, colCount }) => {
                 </td>
             </tr>
             {isExpanded && (
-                <tr>
+                <tr className="expanded-row">
                     <td colSpan={colCount}>
                         <BuildingsTableContainer ids={site.buildingIds} />
                     </td>
