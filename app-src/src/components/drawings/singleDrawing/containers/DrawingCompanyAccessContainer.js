@@ -3,8 +3,6 @@ import { connect } from 'react-redux';
 
 import CompaniesAccessTable from 'components/shared/companies/presentational/CompaniesAccessTable';
 
-import fetchCompanies from 'actions/companies/async/fetchCompanies';
-
 class DrawingCompanyAccessContainer extends Component {
     render() {
         const { props } = this;
@@ -17,10 +15,6 @@ class DrawingCompanyAccessContainer extends Component {
             />
         );
     }
-
-    componentDidMount = () => {
-        this.props.fetchCompanies();
-    };
 }
 
 const mapStateToProps = ({ companiesReducer }) => ({
@@ -29,13 +23,4 @@ const mapStateToProps = ({ companiesReducer }) => ({
     error: companiesReducer.error
 });
 
-const mapDispatchToProps = dispatch => ({
-    fetchCompanies: () => {
-        dispatch(fetchCompanies());
-    }
-});
-
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(DrawingCompanyAccessContainer);
+export default connect(mapStateToProps)(DrawingCompanyAccessContainer);

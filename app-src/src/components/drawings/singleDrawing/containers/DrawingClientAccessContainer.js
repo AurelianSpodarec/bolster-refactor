@@ -3,8 +3,6 @@ import { connect } from 'react-redux';
 
 import ClientsTable from 'components/shared/clients/presentational/ClientsTable';
 
-import fetchClients from 'actions/clients/async/fetchClients';
-
 class DrawingClientAccessContainer extends Component {
     render() {
         const { props } = this;
@@ -17,10 +15,6 @@ class DrawingClientAccessContainer extends Component {
             />
         );
     }
-
-    componentDidMount = () => {
-        this.props.fetchClients();
-    };
 }
 
 const mapStateToProps = ({ clientsReducer }) => ({
@@ -29,13 +23,4 @@ const mapStateToProps = ({ clientsReducer }) => ({
     error: clientsReducer.error
 });
 
-const mapDispatchToProps = dispatch => ({
-    fetchClients: () => {
-        dispatch(fetchClients());
-    }
-});
-
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(DrawingClientAccessContainer);
+export default connect(mapStateToProps)(DrawingClientAccessContainer);

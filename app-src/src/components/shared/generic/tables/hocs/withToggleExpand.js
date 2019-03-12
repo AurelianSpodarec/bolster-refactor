@@ -9,6 +9,7 @@ export default function(WrappedComponent) {
                     {...this.state}
                     {...this.props}
                     toggleExpand={this.toggleExpand}
+                    className={'open'}
                 />
             );
         }

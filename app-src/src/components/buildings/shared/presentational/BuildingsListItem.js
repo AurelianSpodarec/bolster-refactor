@@ -9,7 +9,7 @@ const BuldingsListItem = ({
     colCount
 }) => (
     <>
-        <tr onClick={toggleExpanded}>
+        <tr onClick={toggleExpanded} className={isExpanded && 'open'}>
             <td>{building.name}</td>
             <td>{building.permissions}</td>
             <td>
