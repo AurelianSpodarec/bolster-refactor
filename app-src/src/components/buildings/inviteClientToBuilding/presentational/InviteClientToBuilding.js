@@ -1,11 +1,11 @@
 import React from 'react';
 
-import BreadcrumbContainer from 'components/shared/generic/breadcrumb/containers/BreadcrumbContainer';
+import Breadcrumb from 'components/shared/generic/breadcrumb/presentational/Breadcrumb';
 import InviteClientToBuildingFormContainer from '../containers/InviteClientToBuildingFormContainer';
 
 const InviteClientToBuilding = () => (
     <div>
-        <BreadcrumbContainer />
+        <Breadcrumb breadcrumbs={[{ text: 'item 1' }, { text: 'item 2' }]} />
         <InviteClientToBuildingFormContainer />
     </div>
 );

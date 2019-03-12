@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import setBreadcrumbs from 'actions/generic/breadcrumbs/sync/setBreadcrumbs';
 import fetchSites from 'actions/sites/async/fetchAllSites';
 import fetchAllBuildings from 'actions/buildings/async/fetchAllBuildings';
 import fetchAllFloors from 'actions/floors/async/fetchAllFloors';
@@ -16,13 +15,11 @@ class AllSitesContainer extends Component {
 
     componentDidMount = () => {
         const {
-            setBreadcrumbs,
             fetchSites,
             fetchAllBuildings,
             fetchAllFloors,
             fetchAllDrawings
         } = this.props;
-        setBreadcrumbs([{ text: 'Sites' }]);
         fetchSites();
         fetchAllBuildings();
         fetchAllFloors();
@@ -33,9 +30,6 @@ class AllSitesContainer extends Component {
 export default connect(
     null,
     dispatch => ({
-        setBreadcrumbs: breadcrumbs => {
-            dispatch(setBreadcrumbs(breadcrumbs));
-        },
         fetchSites: () => {
             dispatch(fetchSites());
         },
@@ -47,6 +41,6 @@ export default connect(
         },
         fetchAllDrawings: () => {
             dispatch(fetchAllDrawings());
-        },
+        }
     })
 )(AllSitesContainer);

@@ -16,10 +16,12 @@ import searchReducer from './search';
 import sitesReducer from './sites';
 import tabsReducer from './tabs';
 import inspectionLogsReducer from './inspectionLogs';
-import breadcrumbsReducer from './breadcrumbs';
 import tablesReducer from './tables';
 import documentsReducer from './documents';
 import clientsReducer from './clients';
+import pinsReducer from './pins';
+import pinCustomFieldsReducer from './pinCustomFields';
+import pinHistoriesReducer from './pinHistories';
 import operativesReducer from './operatives';
 
 export default combineReducers({
@@ -39,9 +41,11 @@ export default combineReducers({
     authReducer,
     loginReducer,
     inspectionLogsReducer,
-    breadcrumbsReducer,
     tablesReducer,
     documentsReducer,
     clientsReducer,
+    pinsReducer,
+    pinCustomFieldsReducer,
+    pinHistoriesReducer,
     operativesReducer
 });

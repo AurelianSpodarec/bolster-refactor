@@ -1,0 +1,29 @@
+[
+    {
+        "id": 1,
+        "createdAt": "08/03/2018 at 14:35",
+        "type": "Firestopping",
+        "addedBy": "Jamie McMullan",
+        "status": "Action Required",
+        "customFieldIds": [1, 2, 3],
+        "photoIds": [1, 2, 3]
+    },
+    {
+        "id": 2,
+        "createdAt": "08/01/2018 at 14:35",
+        "type": "Firestopping",
+        "addedBy": "Jamie McMullan",
+        "status": "Action Required",
+        "customFieldIds": [1, 2, 3],
+        "photoIds": [1, 2, 3]
+    },
+    {
+        "id": 3,
+        "createdAt": "08/01/2018 at 14:35",
+        "type": "Firestopping",
+        "addedBy": "Jamie McMullan",
+        "status": "Action Required",
+        "customFieldIds": [1, 2, 3],
+        "photoIds": [1, 2, 3]
+    }
+]

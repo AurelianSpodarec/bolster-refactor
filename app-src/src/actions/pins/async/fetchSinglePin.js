@@ -4,7 +4,7 @@ import {
     FETCH_SINGLE_PIN_REQUEST,
     FETCH_SINGLE_PIN_SUCCESS,
     FETCH_SINGLE_PIN_FAILURE
-} from 'constants/pins';
+} from 'constants/actionTypes/pins';
 
 export const fetchSinglePinRequest = () => ({
     type: FETCH_SINGLE_PIN_REQUEST

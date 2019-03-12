@@ -3,8 +3,6 @@ import { connect } from 'react-redux';
 
 import CompaniesAccessTable from 'components/shared/companies/presentational/CompaniesAccessTable';
 
-import fetchCompanies from 'actions/companies/async/fetchCompanies';
-
 class DrawingCompanyAccessContainer extends Component {
     render() {
         const { props } = this;
