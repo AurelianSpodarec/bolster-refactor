@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
 
+import { updateObj } from 'helpers/generic';
 import {
     FETCH_SINGLE_PIN_REQUEST,
     FETCH_SINGLE_PIN_SUCCESS,
@@ -38,7 +39,7 @@ function errorReducer(state = null, action) {
 function pinsReducer(state = {}, action) {
     switch (action.type) {
         case FETCH_SINGLE_PIN_SUCCESS:
-            return action.payload;
+            return updateObj(state, action.payload.id, action.payload);
         default:
             return state;
     }

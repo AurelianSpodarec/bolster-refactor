@@ -2,5 +2,6 @@
     "id": 1,
     "latitude": 53.48095,
     "longitude": -2.23743,
-    "historyIds": [1, 2, 3, 4]
+    "historyIds": [1, 2, 3, 4],
+    "latestHistoryId": 2
 }

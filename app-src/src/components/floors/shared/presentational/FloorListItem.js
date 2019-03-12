@@ -5,8 +5,15 @@ import DrawingTableContainer from 'components/drawings/shared/containers/Drawing
 
 const FloorListItem = ({ floor, isExpanded, colCount, toggleExpanded }) => (
     <>
-        <tr onClick={toggleExpanded}>
-            <td>{floor.name}</td>
+        <tr onClick={toggleExpanded} className={isExpanded && 'open'}>
+            <td>
+                {isExpanded ? (
+                    <i className="fa fa-chevron-down" />
+                ) : (
+                    <i className="fa fa-chevron-right" />
+                )}{' '}
+                {floor.name}
+            </td>
             <td>{floor.permissions}</td>
             <td>
                 <Link className="button light-blue" to={`/floors/${floor.id}`}>

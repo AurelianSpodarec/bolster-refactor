@@ -32,7 +32,11 @@ const TableBody = ({
     if (noData)
         return (
             <tr>
-                <td colSpan={colCount} style={{ textAlign: 'center' }}>
+                <td
+                    className="no-data"
+                    colSpan={colCount}
+                    style={{ textAlign: 'center' }}
+                >
                     <p>{noDataMessage}</p>
                 </td>
             </tr>

@@ -10,7 +10,15 @@ const BuldingsListItem = ({
 }) => (
     <>
         <tr onClick={toggleExpanded} className={isExpanded && 'open'}>
-            <td>{building.name}</td>
+            <td>
+                {' '}
+                {isExpanded ? (
+                    <i className="fa fa-chevron-down" />
+                ) : (
+                    <i className="fa fa-chevron-right" />
+                )}{' '}
+                {building.name}
+            </td>
             <td>{building.permissions}</td>
             <td>
                 <Link

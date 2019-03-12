@@ -1,7 +1,11 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 import PinHistoriesList from '../presentational/PinHistoriesList';
 
-const PinHistoriesListContainer = () => <PinHistoriesList />;
+const PinHistoriesListContainer = ({ history }) => {
+    return <PinHistoriesList />;
+};
 
-export default PinHistoriesListContainer;
+export default withRouter(connect(() => ({}))(PinHistoriesListContainer));
