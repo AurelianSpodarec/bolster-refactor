@@ -1,11 +1,11 @@
 import React from 'react';
 
-import BreadcrumbContainer from 'components/shared/generic/breadcrumb/containers/BreadcrumbContainer';
+import Breadcrumb from 'components/shared/generic/breadcrumb/presentational/Breadcrumb';
 import AttachFloorOperativeFormContainer from '../containers/AttachFloorOperativeFormContainer';
 
 const AttachFloorOperative = () => (
     <div>
-        <BreadcrumbContainer />
+        <Breadcrumb />
         <AttachFloorOperativeFormContainer />
     </div>
 );
