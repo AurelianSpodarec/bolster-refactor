@@ -1,9 +1,13 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 import Stats from 'components/shared/stats/presentational/Stats';
 
-export default class SiteDetailsContainer extends Component {
-    render() {
-        return <Stats />;
-    }
-}
+const SiteDetailsContainer = ({ site }) => <Stats details={site} />;
+
+export default withRouter(
+    connect(({ sitesReducer }, { match }) => ({
+        site: sitesReducer.sites[match.params.id] || {}
+    }))(SiteDetailsContainer)
+);

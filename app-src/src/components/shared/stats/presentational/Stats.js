@@ -8,21 +8,19 @@ import redPin from '_content/images/pins/red-pin.png';
 import bluePin from '_content/images/pins/blue-pin.png';
 import yellowPin from '_content/images/pins/yellow-pin.png';
 
-const Stats = () => (
+const Stats = ({ details }) => (
     <div className="stats size-lg-12">
         <h3 className="heading heading-3 size-lg-6">Details</h3>
         <h4 className="heading heading-3 size-lg-6">Latest Pin Histories</h4>
         <div className="size-lg-6">
             <p className="size-lg-12">
-                ##Manchester Royal Infirmary
+                {details.addressLine1}
                 <br />
-                Civic Offices
+                {details.addressLine2}
                 <br />
-                Union St
+                {details.city}
                 <br />
-                Chorley
-                <br />
-                PR7 1AL##
+                {details.postCode}
             </p>
             <div className="button-container size-lg-12">
                 <Link className="button" to="/edit">
