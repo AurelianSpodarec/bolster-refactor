@@ -1,20 +1,35 @@
 import React from 'react';
 
-import Block from 'components/shared/generic/block/presentational/Block';
+import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import PinImages from './PinImages';
 
-const PinDetails = ({ pinHistory }) => (
+const PinDetails = ({
+    pinHistory,
+    historyCount,
+    historyVersion,
+    error,
+    isFetching
+}) => (
     <div>
-        <Block>
-            <h3 className="heading heading-3">Details</h3>
+        <BlockContainer
+            heading="Details"
+            error={error}
+            isFetching={isFetching}
+            isEmpty={!pinHistory.id}
+        >
             <p>ID</p>
             <p>{pinHistory.id}</p>
             <p>History</p>
-            <p>{pinHistory.id}</p>
-            <p>ID</p>
-            <p>{pinHistory.id}</p>
-            <p>ID</p>
-            <p>{pinHistory.id}</p>
-        </Block>
+            <p>
+                {historyVersion} of {historyCount}
+            </p>
+            <p>Type</p>
+            <p>{pinHistory.type}</p>
+            <p>Status</p>
+            <p>{pinHistory.status}</p>
+            <p>Photo(s)</p>
+            <PinImages images={pinHistory.photoIds} />
+        </BlockContainer>
         <a className="button" href="#/">
             Edit this history
         </a>

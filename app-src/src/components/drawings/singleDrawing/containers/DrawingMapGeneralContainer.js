@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 import DrawingMapFiltersAdvanced from '../presentational/DrawingMapFiltersAdvanced';
 import DrawingMapViewSimple from '../presentational/DrawingMapViewSimple';
@@ -33,10 +34,17 @@ class DrawingMapGeneralContainer extends Component {
                 <DrawingMapViewSimple
                     position={position}
                     zoom={this.state.mapZoom}
+                    pins={this.props.pins}
                 />
             </div>
         );
     }
 }
 
-export default DrawingMapGeneralContainer;
+const mapStateToProps = ({ pinsReducer }) => ({
+    pins: Object.values(pinsReducer.pins),
+    isFetching: pinsReducer.isFetching,
+    error: pinsReducer.error
+});
+
+export default connect(mapStateToProps)(DrawingMapGeneralContainer);

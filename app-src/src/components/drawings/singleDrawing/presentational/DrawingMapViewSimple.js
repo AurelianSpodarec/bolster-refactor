@@ -1,17 +1,17 @@
 import React from 'react';
-import { Map, TileLayer, Marker, Popup } from 'react-leaflet';
+import { Map, TileLayer } from 'react-leaflet';
 
-const DrawingMapViewSimple = ({ position, zoom }) => (
+import DrawingMapPin from './DrawingMapPin';
+
+const DrawingMapViewSimple = ({ position, zoom, pins }) => (
     <Map center={position} zoom={zoom}>
         <TileLayer
             attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        <Marker position={position}>
-            <Popup>
-                A pretty CSS3 popup. <br /> Easily customizable.
-            </Popup>
-        </Marker>
+        {pins.map(pin => (
+            <DrawingMapPin key={pin.id} pin={pin} />
+        ))}
     </Map>
 );
 
