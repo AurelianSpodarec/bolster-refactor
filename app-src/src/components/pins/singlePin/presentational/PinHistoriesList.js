@@ -1,11 +1,24 @@
 import React from 'react';
 
-import Block from 'components/shared/generic/block/presentational/Block';
+import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import PinHistoriesListItemContainer from '../containers/PinHistoriesListItemContainer';
 
-const PinHistoriesList = () => (
-    <Block>
-        <h3 className="heading heading-3">Other pin histories</h3>
-    </Block>
+const PinHistoriesList = ({ isFetching, error, histories, historyCount }) => (
+    <BlockContainer
+        heading="Details"
+        error={error}
+        isFetching={isFetching}
+        isEmpty={!(histories && histories.length)}
+    >
+        {histories.map((history, i) => (
+            <PinHistoriesListItemContainer
+                key={history.id}
+                history={history}
+                historyCount={historyCount}
+                version={i + 1}
+            />
+        ))}
+    </BlockContainer>
 );
 
 export default PinHistoriesList;
