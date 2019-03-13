@@ -1,9 +1,11 @@
 import React from 'react';
 
 const PageHeading = ({ children, title }) => (
-    <div className="content-container">
-        <h1 className="heading heading-1">{title}</h1>
-        {children}
+    <div className="page-heading size-lg-12">
+        <div className="content-container">
+            <h1 className="heading heading-1 size-lg-6">{title}</h1>
+            {children}
+        </div>
     </div>
 );
 

@@ -30,7 +30,7 @@ const BuldingsListItem = ({
             </td>
         </tr>
         {isExpanded && (
-            <tr>
+            <tr className="expanded-row ">
                 <td colSpan={colCount} className="table-container">
                     <FloorTableContainer
                         className="with-actions"
