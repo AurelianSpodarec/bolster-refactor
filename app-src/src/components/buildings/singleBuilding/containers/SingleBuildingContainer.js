@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-router-dom';
 
+import fetchSingleBuilding from 'actions/buildings/async/fetchSingleBuilding';
+import fetchDocuments from 'actions/documents/async/fetchDocuments';
+
 import Block from 'components/shared/generic/block/presentational/Block';
 
 import BuildingDetailsContainer from '../containers/BuildingDetailsContainer';
@@ -41,7 +44,22 @@ class SingleBuildingContainer extends Component {
         );
     }
 
-    componentDidMount = () => {};
+    componentDidMount = () => {
+        const { fetchSingleBuilding } = this.props;
+        fetchSingleBuilding();
+    };
 }
 
-export default connect()(SingleBuildingContainer);
+const mapDispatchToProps = dispatch => ({
+    fetchSingleBuilding: () => {
+        dispatch(fetchSingleBuilding());
+    },
+    fetchDocuments: () => {
+        dispatch(fetchDocuments());
+    }
+});
+
+export default connect(
+    null,
+    mapDispatchToProps
+)(SingleBuildingContainer);
