@@ -5,7 +5,9 @@
         "type": "Firestopping",
         "createdAt": "2018-08-12T20:17:46.384Z",
         "addedBy": "Jamie McMullan",
-        "status": "Action Required"
+        "status": "Action Required",
+        "latitude": 51.505,
+        "longitude": -0.09
     },
     {
         "id": 2,
@@ -13,7 +15,9 @@
         "type": "Firestopping",
         "createdAt": "2018-08-12T20:17:46.384Z",
         "addedBy": "Jamie McMullan",
-        "status": "Action Required"
+        "status": "Action Required",
+        "latitude": 51.515,
+        "longitude": -0.13
     },
     {
         "id": 3,
@@ -21,7 +25,9 @@
         "type": "Firestopping",
         "createdAt": "2018-08-12T20:17:46.384Z",
         "addedBy": "Jamie McMullan",
-        "status": "Action Required"
+        "status": "Action Required",
+        "latitude": 51.49,
+        "longitude": -0.07
     },
     {
         "id": 4,
@@ -29,7 +35,9 @@
         "type": "Firestopping",
         "createdAt": "2018-08-12T20:17:46.384Z",
         "addedBy": "Jamie McMullan",
-        "status": "Action Required"
+        "status": "Action Required",
+        "latitude": 51.505,
+        "longitude": -0.09
     },
     {
         "id": 5,
@@ -37,6 +45,8 @@
         "type": "Firestopping",
         "createdAt": "2018-08-12T20:17:46.384Z",
         "addedBy": "Jamie McMullan",
-        "status": "Action Required"
+        "status": "Action Required",
+        "latitude": 51.505,
+        "longitude": -0.09
     }
 ]
