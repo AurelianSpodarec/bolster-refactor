@@ -19,38 +19,42 @@ import SiteCompaniesAccessTableContainer from '../containers/SiteCompaniesAccess
 import Breadcrumb from 'components/shared/generic/breadcrumb/presentational/Breadcrumb';
 import SitePageHeaderContainer from '../containers/SitePageHeaderContainer';
 
-
 class SingleSiteContainer extends Component {
     render() {
-        return   <div className="size-lg-12">
-        <Breadcrumb breadcrumbs={[{ text: 'item 1' }, { text: 'item 2' }]} />
+        return (
+            <div className="size-lg-12">
+                <Breadcrumb
+                    breadcrumbs={[{ text: 'item 1' }, { text: 'item 2' }]}
+                />
+                <div className="size-lg-12">
+                    <SitePageHeaderContainer />
+                </div>
 
-        <SitePageHeaderContainer />
+                <Block containerClass="size-lg-8" contentClass="site-details">
+                    <SiteDetailsContainer />
+                </Block>
 
-        <Block containerClass="size-lg-8" contentClass="site-details">
-            <SiteDetailsContainer />
-        </Block>
+                <Block containerClass="size-lg-4">
+                    <SiteDocumentsTableContainer />
+                </Block>
 
-        <Block containerClass="size-lg-4">
-            <SiteDocumentsTableContainer />
-        </Block>
+                <Block>
+                    <SiteBuildingsTableContainer />
+                </Block>
 
-        <Block>
-            <SiteBuildingsTableContainer />
-        </Block>
+                <Block containerClass="size-lg-4">
+                    <SiteClientsTableContainer />
+                </Block>
 
-        <Block containerClass="size-lg-4">
-            <SiteClientsTableContainer />
-        </Block>
+                <Block containerClass="size-lg-4">
+                    <SiteOperativesTableContainer />
+                </Block>
 
-        <Block containerClass="size-lg-4">
-            <SiteOperativesTableContainer />
-        </Block>
-
-        <Block containerClass="size-lg-4">
-            <SiteCompaniesAccessTableContainer />
-        </Block>
-    </div>;
+                <Block containerClass="size-lg-4">
+                    <SiteCompaniesAccessTableContainer />
+                </Block>
+            </div>
+        );
     }
     componentDidMount = () => {
         const {

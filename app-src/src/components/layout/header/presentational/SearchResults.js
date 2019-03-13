@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import Error from 'components/shared/generic/misc/containers/Error';
-import Loading from 'components/shared/generic/misc/containers/Loading';
+import Error from 'components/shared/generic/misc/presentational/Error';
+import Loading from 'components/shared/generic/misc/presentational/Loading';
 
 const SearchResults = ({ results, isFetching, error, handleLinkClick }) => {
     if (error) {

@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
-import { isObjEmpty } from 'helpers/generic';
-
 import Stats from 'components/shared/stats/presentational/Stats';
 
 class SiteDetailsContainer extends Component {
