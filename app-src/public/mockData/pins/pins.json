@@ -15,7 +15,7 @@
         "type": "Firestopping",
         "createdAt": "2018-08-12T20:17:46.384Z",
         "addedBy": "Jamie McMullan",
-        "status": "Action Required",
+        "status": "Inspected",
         "latitude": 51.515,
         "longitude": -0.13
     },
@@ -25,7 +25,7 @@
         "type": "Firestopping",
         "createdAt": "2018-08-12T20:17:46.384Z",
         "addedBy": "Jamie McMullan",
-        "status": "Action Required",
+        "status": "Installed",
         "latitude": 51.49,
         "longitude": -0.07
     },
@@ -35,7 +35,7 @@
         "type": "Firestopping",
         "createdAt": "2018-08-12T20:17:46.384Z",
         "addedBy": "Jamie McMullan",
-        "status": "Action Required",
+        "status": "No Action",
         "latitude": 51.5,
         "longitude": -0.1
     },
