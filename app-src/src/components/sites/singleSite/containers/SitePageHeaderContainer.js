@@ -1,20 +1,10 @@
-import React, { Component } from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import React from 'react';
+import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
+import SitePageHeader from '../presentational/StiePageHeader';
 
-class SitePageHeaderContainer extends Component {
-    render() {
-        return (
-            <PageHeading title={`Site: ${this.props.site.name}`}>
-                <Link className="button" to="/site">
-                    <i className="fa fa-exchange" /> Change Ownership
-                </Link>
-            </PageHeading>
-        );
-    }
-}
+const SitePageHeaderContainer = ({ site }) => <SitePageHeader site={site} />;
 
 export default withRouter(
     connect(({ sitesReducer }, ownProps) => ({
