@@ -7,10 +7,10 @@ import BlockContainer from 'components/shared/generic/block/containers/BlockCont
 
 class SiteDetailsContainer extends Component {
     render() {
-        const { site, isFetching } = this.props;
+        const { site, error, isFetching } = this.props;
 
         return (
-            <BlockContainer>
+            <BlockContainer error={error} isFetching={isFetching}>
                 <Stats details={site} isFetching={isFetching} />
             </BlockContainer>
         );

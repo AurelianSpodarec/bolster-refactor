@@ -24,7 +24,6 @@ const SingleSite = () => (
         <div className="size-lg-12">
             <SiteBuildingsTableContainer />
         </div>
-
         <div className="size-lg-4">
             <SiteClientsTableContainer />
         </div>
