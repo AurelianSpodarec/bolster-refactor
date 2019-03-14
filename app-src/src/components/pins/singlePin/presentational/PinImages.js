@@ -1,9 +1,15 @@
 import React from 'react';
 import image from '_content/images/examples/pipe.jpg';
 
-const PinImages = ({ images }) =>
+const PinImages = ({ images, showModal }) =>
     images.map((src, i) => (
-        <img key={src + i} alt="pin" src={image} style={{ width: 50 }} />
+        <img
+            key={src + i}
+            alt="pin"
+            src={image}
+            style={{ width: 50 }}
+            onClick={() => showModal({ image })}
+        />
     ));
 
 export default PinImages;

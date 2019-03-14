@@ -1,7 +1,7 @@
 import React from 'react';
 
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import PinImages from './PinImages';
+import PinImagesContainer from '../containers/PinImagesContainer';
 
 const PinDetails = ({
     pinHistory,
@@ -13,7 +13,8 @@ const PinDetails = ({
     <div>
         <BlockContainer
             heading="Details"
-            error={error}sfdgdsfgsgs
+            error={error}
+            sfdgdsfgsgs
             isFetching={isFetching}
             isEmpty={!pinHistory.id}
         >
@@ -28,7 +29,7 @@ const PinDetails = ({
             <p>Status</p>
             <p>{pinHistory.status}</p>
             <p>Photo(s)</p>
-            <PinImages images={pinHistory.photoIds} />
+            <PinImagesContainer images={pinHistory.photoIds} />
         </BlockContainer>
         <a className="button" href="#/">
             Edit this history
