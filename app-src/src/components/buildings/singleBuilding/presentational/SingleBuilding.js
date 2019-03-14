@@ -3,11 +3,11 @@ import React from 'react';
 import Block from 'components/shared/generic/block/presentational/Block';
 
 import BuildingDetailsContainer from '../containers/BuildingDetailsContainer';
-import DocumentsTableContainer from '../containers/DocumentsTableContainer';
-import FloorsTableContainer from '../containers/FloorsTableContainer';
-import OperativesTableContainer from '../containers/OperativesTableContainer';
-import ClientsTableContainer from '../containers/ClientsTableContainer';
-import CompaniesAccessTableContainer from '../containers/CompaniesAccessTableContainer';
+import BuildingDocumentsTableContainer from '../containers/BuildingDocumentsTableContainer';
+import BuildingFloorsTableContainer from '../containers/BuildingFloorsTableContainer';
+import BuildingOperativesTableContainer from '../containers/BuildingOperativesTableContainer';
+import BuildingClientsTableContainer from '../containers/BuildingClientsTableContainer';
+import BuildingCompaniesAccessTableContainer from '../containers/BuildingCompaniesAccessTableContainer';
 
 const SingleBuilding = () => (
     <div className="size-lg-12">
@@ -16,23 +16,23 @@ const SingleBuilding = () => (
         </Block>
 
         <Block containerClass="size-lg-4">
-            <DocumentsTableContainer />
+            <BuildingDocumentsTableContainer />
         </Block>
 
         <Block>
-            <FloorsTableContainer />
+            <BuildingFloorsTableContainer />
         </Block>
 
         <Block containerClass="size-lg-4">
-            <ClientsTableContainer />
+            <BuildingOperativesTableContainer />
         </Block>
 
         <Block containerClass="size-lg-4">
-            <OperativesTableContainer />
+            <BuildingClientsTableContainer />
         </Block>
 
         <Block containerClass="size-lg-4">
-            <CompaniesAccessTableContainer />
+            <BuildingCompaniesAccessTableContainer />
         </Block>
     </div>
 );

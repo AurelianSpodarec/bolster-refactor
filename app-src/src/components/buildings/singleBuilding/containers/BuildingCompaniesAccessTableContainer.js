@@ -4,7 +4,11 @@ import CompaniesAccessTable from '../../../shared/companies/presentational/Compa
 
 class CompaniesAccessTableContainer extends Component {
     render() {
-        return <CompaniesAccessTable />;
+        return (
+            <h1 className="heading heading-1 size-lg-12">
+                Building Companies Access Table
+            </h1>
+        );
     }
 }
 

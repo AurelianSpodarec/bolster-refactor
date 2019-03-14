@@ -8,7 +8,7 @@ class BuildingDetailsContainer extends Component {
     render() {
         const { building, isFetching } = this.props;
 
-        return <Stats details={building} isFetching={isFetching} />;
+        return <p>Buidling Details container</p>;
     }
 }
 
@@ -20,7 +20,7 @@ const mapStateToProps = ({ buildingReducer }, { match }) => ({
 
 export default withRouter(
     connect(
-        mapStateToProps,
+        null,
         null
     )(BuildingDetailsContainer)
 );

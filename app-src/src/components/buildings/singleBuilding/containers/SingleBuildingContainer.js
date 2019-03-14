@@ -3,36 +3,24 @@ import { connect } from 'react-router-dom';
 
 import fetchSingleBuilding from 'actions/buildings/async/fetchSingleBuilding';
 import fetchDocuments from 'actions/documents/async/fetchDocuments';
+import fetchClients from 'actions/clients/async/fetchClients';
+import fetchCompanies from 'actions/companies/async/fetchCompanies';
+import fetchOperatives from 'actions/operatives/async/fetchOperatives';
 
-import BuildingDetailsContainer from '../containers/BuildingDetailsContainer';
-import DocumentsTableContainer from '../containers/DocumentsTableContainer';
-import FloorsTableContainer from '../containers/FloorsTableContainer';
-import OperativesTableContainer from '../containers/OperativesTableContainer';
-import ClientsTableContainer from '../containers/ClientsTableContainer';
-import CompaniesAccessTableContainer from '../containers/CompaniesAccessTableContainer';
+import SingleBuilding from '../presentational/SingleBuilding';
 
 class SingleBuildingContainer extends Component {
     render() {
-        return (
-            <div className="size-lg-12">
-                <BuildingDetailsContainer />
-
-                <DocumentsTableContainer />
-
-                <FloorsTableContainer />
-
-                <ClientsTableContainer />
-
-                <OperativesTableContainer />
-
-                <CompaniesAccessTableContainer />
-            </div>
-        );
+        return <SingleBuilding />;
     }
 
     componentDidMount = () => {
-        const { fetchSingleBuilding } = this.props;
+        const { fetchSingleBuilding, fetchDocuments } = this.props;
         fetchSingleBuilding();
+        fetchDocuments();
+        fetchClients();
+        fetchCompanies();
+        fetchOperatives();
     };
 }
 
@@ -42,6 +30,15 @@ const mapDispatchToProps = dispatch => ({
     },
     fetchDocuments: () => {
         dispatch(fetchDocuments());
+    },
+    fetchClients: () => {
+        dispatch(fetchClients());
+    },
+    fetchCompanies: () => {
+        dispatch(fetchCompanies());
+    },
+    fetchOperatives: () => {
+        dispatch(fetchOperatives());
     }
 });
 

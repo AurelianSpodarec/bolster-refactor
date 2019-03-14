@@ -4,7 +4,9 @@ import DocumentsTable from 'components/shared/documents/presentational/Documents
 
 class DocumentsTableContainer extends Component {
     render() {
-        return <DocumentsTable />;
+        return (
+            <h1 className="heading heading-1 size-lg-12">Building Doc Table</h1>
+        );
     }
 }
 

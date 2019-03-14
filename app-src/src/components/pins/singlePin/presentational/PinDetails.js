@@ -13,7 +13,7 @@ const PinDetails = ({
     <div>
         <BlockContainer
             heading="Details"
-            error={error}
+            error={error}sfdgdsfgsgs
             isFetching={isFetching}
             isEmpty={!pinHistory.id}
         >

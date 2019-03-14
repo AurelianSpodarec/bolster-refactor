@@ -8,16 +8,6 @@ import fetchClients from 'actions/clients/async/fetchClients';
 import fetchCompanies from 'actions/companies/async/fetchCompanies';
 import fetchOperatives from 'actions/operatives/async/fetchOperatives';
 
-import Block from 'components/shared/generic/block/presentational/Block';
-
-import SiteDetailsContainer from '../containers/SiteDetailsContainer';
-import SiteDocumentsTableContainer from '../containers/SiteDocumentsTableContainer';
-import SiteBuildingsTableContainer from '../containers/SiteBuildingsTableContainer';
-import SiteOperativesTableContainer from '../containers/SiteOperativesTableContainer';
-import SiteClientsTableContainer from '../containers/SiteClientsTableContainer';
-import SiteCompaniesAccessTableContainer from '../containers/SiteCompaniesAccessTableContainer';
-import Breadcrumb from 'components/shared/generic/breadcrumb/presentational/Breadcrumb';
-import SitePageHeaderContainer from '../containers/SitePageHeaderContainer';
 import SingleSite from '../presentational/SingleSite';
 
 class SingleSiteContainer extends Component {
