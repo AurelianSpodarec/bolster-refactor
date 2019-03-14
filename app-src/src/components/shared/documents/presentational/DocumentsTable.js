@@ -4,16 +4,12 @@ import { withRouter, Link } from 'react-router-dom';
 import Table from 'components/shared/generic/tables/presentational/Table';
 import DocumentsList from './DocumentsList';
 
-const DocumentsTable = ({ location, documents, isFetching, error }) => {
-    const tableHeaders = ['Name', 'Actions'];
-
+const DocumentsTable = ({ location, documents, isFetching }) => {
     return (
         <div className="size-lg-12">
-            <h1 className="heading heading-3 size-lg-12">Documents</h1>
             <Table
-                headers={tableHeaders}
+                headers={['Name', 'Actions']}
                 isFetching={isFetching}
-                error={error}
                 noData={!documents.length}
                 noDataMessage="There are no documents to display."
                 withActions

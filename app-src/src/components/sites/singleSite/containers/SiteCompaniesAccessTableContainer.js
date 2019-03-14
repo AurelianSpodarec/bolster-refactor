@@ -9,11 +9,7 @@ class CompaniesAccessTableContainer extends Component {
         const { props } = this;
 
         return (
-            <BlockContainer
-                isFetching={props.isFetching}
-                isEmpty={!props.companies.length}
-                error={props.error}
-            >
+            <BlockContainer>
                 <CompaniesAccessTable
                     companies={props.companies}
                     isFetching={props.isFetching}

@@ -9,11 +9,7 @@ class OperativesTableContainer extends Component {
         const { props } = this;
 
         return (
-            <BlockContainer
-                isFetching={props.isFetching}
-                error={props.error}
-                isEmpty={!props.operatives.length}
-            >
+            <BlockContainer>
                 <OperativesTable
                     operatives={props.operatives}
                     isFetching={props.isFetching}

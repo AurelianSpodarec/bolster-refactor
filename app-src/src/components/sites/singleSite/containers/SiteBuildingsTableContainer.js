@@ -5,8 +5,8 @@ import { withRouter } from 'react-router-dom';
 import BuildingsTableContainer from 'components/buildings/shared/containers/BuildingsTableContainer';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 
-const SiteBuildingsTableContainer = ({ site, isFetching }) => (
-    <BlockContainer isFetching={isFetching}>
+const SiteBuildingsTableContainer = ({ site }) => (
+    <BlockContainer>
         <BuildingsTableContainer ids={site.buildingIds || []} />
     </BlockContainer>
 );
