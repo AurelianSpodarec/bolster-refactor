@@ -8,7 +8,9 @@ class BuildingDetailsContainer extends Component {
     render() {
         const { building, isFetching } = this.props;
 
-        return <p>Buidling Details container</p>;
+        return (
+            <h3 className="heading heading-3">Buidling Details container</h3>
+        );
     }
 }
 

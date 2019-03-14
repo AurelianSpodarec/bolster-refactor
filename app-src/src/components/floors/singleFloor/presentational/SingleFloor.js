@@ -11,29 +11,29 @@ import FloorCompaniesAccessTableContainer from '../containers/FloorCompaniesAcce
 
 const Floor = () => (
     <div className="size-lg-12">
-        <Block containerClass="size-lg-8" contentClass="site-details">
+        <div className="size-lg-8">
             <FloorDetailsContainer />
-        </Block>
+        </div>
 
-        <Block containerClass="size-lg-4">
+        <div className="size-lg-4">
             <FloorDocumentsTableContainer />
-        </Block>
+        </div>
 
-        <Block>
+        <div className="size-lg-12">
             <FloorDrawingsTableContainer />
-        </Block>
+        </div>
 
-        <Block containerClass="size-lg-4">
+        <div className="size-lg-4">
             <FloorClientsTableContainer />
-        </Block>
+        </div>
 
-        <Block containerClass="size-lg-4">
+        <div className="size-lg-4">
             <FloorOperativesTableContainer />
-        </Block>
+        </div>
 
-        <Block containerClass="size-lg-4">
+        <div className="size-lg-4">
             <FloorCompaniesAccessTableContainer />
-        </Block>
+        </div>
     </div>
 );
 

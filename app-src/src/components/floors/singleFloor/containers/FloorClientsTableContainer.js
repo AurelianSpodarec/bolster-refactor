@@ -4,7 +4,9 @@ import ClientsTable from 'components/shared/clients/presentational/ClientsTable'
 
 class FloorClientsTableContainer extends Component {
     render() {
-        return <ClientsTable />;
+        return (
+            <h3 className="heaading heading-3">FloorClientsTableContainer</h3>
+        );
     }
 }
 

@@ -491,6 +491,10 @@ input {
         font-size: 160%;
         margin-bottom: 15px;
     }
+
+    &.table-heading {
+        margin-bottom: 0;
+    }
 }
 
 .generic-text {
@@ -785,6 +789,7 @@ input {
     th {
         font-size: 14px;
         @include ubuntu-medium;
+        text-transform: capitalize;
     }
 
     td {

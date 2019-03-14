@@ -4,7 +4,11 @@ import OperativesTable from '../../../shared/operatives/presentational/Operative
 
 class FloorOperativesTableContainer extends Component {
     render() {
-        return <OperativesTable />;
+        return (
+            <h3 className="heaading heading-3">
+                FloorOperativesTableContainer
+            </h3>
+        );
     }
 }
 

@@ -5,16 +5,22 @@ import BuildingsList from 'components/buildings/shared/presentational/BuildingsL
 
 const BuildingsTable = ({ buildings, headers, isFetching, error }) => {
     return (
-        <Table
-            withActions
-            headers={headers}
-            isFetching={isFetching}
-            error={error}
-            noData={!buildings.length}
-            noDataMessage="There are no buildings to display."
-        >
-            <BuildingsList colCount={headers.length} buildings={buildings} />
-        </Table>
+        <>
+            <h3 className="heading heading-3 table-heading">Buildings</h3>
+            <Table
+                withActions
+                headers={headers}
+                isFetching={isFetching}
+                error={error}
+                noData={!buildings.length}
+                noDataMessage="There are no buildings to display."
+            >
+                <BuildingsList
+                    colCount={headers.length}
+                    buildings={buildings}
+                />
+            </Table>
+        </>
     );
 };
 
