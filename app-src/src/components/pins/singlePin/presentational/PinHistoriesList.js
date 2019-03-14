@@ -5,17 +5,17 @@ import PinHistoriesListItemContainer from '../containers/PinHistoriesListItemCon
 
 const PinHistoriesList = ({ isFetching, error, histories, historyCount }) => (
     <BlockContainer
-        heading="Details"
+        heading="Other histories"
         error={error}
         isFetching={isFetching}
         isEmpty={!(histories && histories.length)}
     >
-        {histories.map((history, i) => (
+        {histories.map(history => (
             <PinHistoriesListItemContainer
                 key={history.id}
                 history={history}
                 historyCount={historyCount}
-                version={i + 1}
+                version="num"
             />
         ))}
     </BlockContainer>

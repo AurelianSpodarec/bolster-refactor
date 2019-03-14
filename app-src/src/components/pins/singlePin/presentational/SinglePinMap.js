@@ -1,11 +1,26 @@
 import React from 'react';
+import { Map, TileLayer } from 'react-leaflet';
 
-import Block from 'components/shared/generic/block/presentational/Block';
+import DrawingMapPin from 'components/drawings/singleDrawing/presentational/DrawingMapPin';
+import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 
-const SinglePinMap = () => (
-    <Block>
-        <h3 className="heading heading-3">Sing pin map</h3>
-    </Block>
+const SinglePinMap = ({
+    pin,
+    error,
+    isFetching,
+    zoom,
+    mapCentre,
+    handleClick
+}) => (
+    <BlockContainer isEmpty={!pin.id} isFetching={isFetching} error={error}>
+        <Map center={mapCentre} zoom={zoom} onClick={handleClick}>
+            <TileLayer
+                attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            />
+            <DrawingMapPin key={pin.id} pin={pin} />
+        </Map>
+    </BlockContainer>
 );
 
 export default SinglePinMap;

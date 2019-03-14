@@ -8,14 +8,14 @@ const PinHistoriesListContainer = ({
     isFetching,
     error,
     histories,
-    historyCount
+    selectedHistoryId
 }) => {
     return (
         <PinHistoriesList
             isFetching={isFetching}
             error={error}
-            histories={histories}
-            historyCount={historyCount}
+            histories={histories.filter(hist => hist.id !== selectedHistoryId)}
+            historyCount={histories.length}
         />
     );
 };
@@ -25,8 +25,8 @@ export default withRouter(
         return {
             isFetching: pinHistoriesReducer.isFetching,
             error: pinHistoriesReducer.error,
-            historyCount: Object.values(pinHistoriesReducer.histories).length,
-            histories: Object.values(pinHistoriesReducer.histories)
+            histories: Object.values(pinHistoriesReducer.histories),
+            selectedHistoryId: pinHistoriesReducer.selectedHistoryId
         };
     })(PinHistoriesListContainer)
 );
