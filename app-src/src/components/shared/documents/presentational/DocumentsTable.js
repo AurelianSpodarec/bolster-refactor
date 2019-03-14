@@ -7,6 +7,7 @@ import DocumentsList from './DocumentsList';
 const DocumentsTable = ({ location, documents, isFetching }) => {
     return (
         <div className="size-lg-12">
+            <h3 className="heading heading-3">Documents</h3>
             <Table
                 headers={['Name', 'Actions']}
                 isFetching={isFetching}

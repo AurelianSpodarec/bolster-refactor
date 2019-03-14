@@ -9,11 +9,10 @@ class ClientsTableContainer extends Component {
         const { props } = this;
 
         return (
-            <BlockContainer>
+            <BlockContainer error={props.error}>
                 <ClientsTable
                     clients={props.clients}
                     isFetching={props.isFetching}
-                    error={props.error}
                 />
             </BlockContainer>
         );

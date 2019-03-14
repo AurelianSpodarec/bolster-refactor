@@ -9,7 +9,7 @@ class DocumentsTableContainer extends Component {
         const { error, isFetching, documents } = this.props;
 
         return (
-            <BlockContainer error={error} heading="Documents">
+            <BlockContainer error={error}>
                 <DocumentsTable documents={documents} isFetching={isFetching} />
             </BlockContainer>
         );
