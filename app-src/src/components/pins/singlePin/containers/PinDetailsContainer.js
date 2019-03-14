@@ -12,7 +12,9 @@ class PinDetailsContainer extends Component {
         const { selectedHistory, histories, error, isFetching } = this.props;
 
         const historyVersion =
-            histories.findIndex(item => item.id === selectedHistory.id) + 1;
+            [...histories]
+                .sort((a, b) => moment(a.createdAt) - moment(b.createdAt))
+                .findIndex(item => item.id === selectedHistory.id) + 1;
 
         return (
             <PinDetails
@@ -34,7 +36,7 @@ class PinDetailsContainer extends Component {
 
     componentDidUpdate = prevProps => {
         const { latestHistoryId, selectPinHistory } = this.props;
-        if (prevProps.latestHistoryId && latestHistoryId) {
+        if (!prevProps.latestHistoryId && latestHistoryId) {
             selectPinHistory(latestHistoryId);
         }
     };
@@ -49,9 +51,7 @@ const mapStateToProps = ({ pinsReducer, pinHistoriesReducer }, { match }) => {
         error: pinHistoriesReducer.error,
         latestHistoryId: pin.latestHistoryId,
         selectedHistory: histories[selectedHistoryId] || {},
-        histories: Object.values(pinHistoriesReducer.histories).sort(
-            (a, b) => moment(a.createdAt) - moment(b.createdAt)
-        )
+        histories: Object.values(histories)
     };
 };
 
