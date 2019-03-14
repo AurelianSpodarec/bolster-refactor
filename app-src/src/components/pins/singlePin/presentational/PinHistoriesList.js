@@ -10,7 +10,7 @@ const PinHistoriesList = ({ isFetching, error, histories, historyCount }) => (
         isFetching={isFetching}
         isEmpty={!(histories && histories.length)}
     >
-        {histories.map((history, i) => (
+        {histories.map(history => (
             <PinHistoriesListItemContainer
                 key={history.id}
                 history={history}

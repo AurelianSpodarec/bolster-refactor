@@ -7,45 +7,26 @@ const DrawingMapPin = ({ pin }) => {
         iconSize: [24, 27]
     });
 
-    let pinIcon;
+    const pinColours = {
+        'action required': 'red',
+        installed: 'green',
+        inspected: 'blue',
+        'no action': 'yellow'
+    };
 
-    switch (pin.status) {
-        case 'Action Required':
-            pinIcon = new MapMarker({
-                iconUrl: require('_content/images/pins/red-pin.png'),
-                iconRetinaUrl: require('_content/images/pins/red-pin.png')
-            });
-            break;
-        case 'Installed':
-            pinIcon = new MapMarker({
-                iconUrl: require('_content/images/pins/green-pin.png'),
-                iconRetinaUrl: require('_content/images/pins/green-pin.png')
-            });
-            break;
-        case 'Inspected':
-            pinIcon = new MapMarker({
-                iconUrl: require('_content/images/pins/blue-pin.png'),
-                iconRetinaUrl: require('_content/images/pins/blue-pin.png')
-            });
-            break;
-        case 'No Action':
-            pinIcon = new MapMarker({
-                iconUrl: require('_content/images/pins/yellow-pin.png'),
-                iconRetinaUrl: require('_content/images/pins/yellow-pin.png')
-            });
-            break;
-        default:
-            pinIcon = new MapMarker({
-                iconUrl: require('_content/images/pins/red-pin.png'),
-                iconRetinaUrl: require('_content/images/pins/red-pin.png')
-            });
-    }
+    const { status = '' } = pin;
+    const pinColour = pinColours[status.toLowerCase()] || 'red';
+
+    const icon = new MapMarker({
+        iconUrl: require(`_content/images/pins/${pinColour}-pin.png`),
+        iconRetinaUrl: require(`_content/images/pins/${pinColour}-pin.png`)
+    });
 
     return (
         <Marker
             key={pin.id}
             position={[Number(pin.latitude), Number(pin.longitude)]}
-            icon={pinIcon}
+            icon={icon}
         >
             <Popup>{`name: ${pin.name}`}</Popup>
         </Marker>
