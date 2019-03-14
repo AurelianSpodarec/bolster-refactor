@@ -14,7 +14,6 @@ const BlockContainer = ({
     heading,
     children
 }) => {
-    console.log(isEmpty);
     if (error && error.length)
         return (
             <Block containerClass={containerClass} contentClass={contentClass}>
