@@ -8,7 +8,9 @@ class SitePageHeaderContainer extends Component {
     render() {
         return (
             <PageHeading title={`Site: ${this.props.site.name}`}>
-                <Link to="/site">Change Ownership</Link>
+                <Link className="button" to="/site">
+                    <i className="fa fa-exchange" /> Change Ownership
+                </Link>
             </PageHeading>
         );
     }

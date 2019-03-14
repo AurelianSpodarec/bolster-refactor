@@ -3,13 +3,17 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 import BuildingsTableContainer from 'components/buildings/shared/containers/BuildingsTableContainer';
+import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 
-const SiteBuildingsTableContainer = ({ site }) => (
-    <BuildingsTableContainer ids={site.buildingIds || []} />
+const SiteBuildingsTableContainer = ({ site, isFetching }) => (
+    <BlockContainer isFetching={isFetching}>
+        <BuildingsTableContainer ids={site.buildingIds || []} />
+    </BlockContainer>
 );
 
 export default withRouter(
     connect(({ sitesReducer }, { match }) => ({
-        site: sitesReducer.sites[match.params.id] || {}
+        site: sitesReducer.sites[match.params.id] || {},
+        isFetching: sitesReducer.isFetching
     }))(SiteBuildingsTableContainer)
 );

@@ -1,16 +1,12 @@
 import React from 'react';
 
-const Block = ({ children, containerClass = '', contentClass = '' }) => (
+const Block = ({ children, containerClass, contentClass }) => (
     <div
         className={`content-container ${
-            containerClass.length ? containerClass : 'size-lg-12'
+            containerClass ? containerClass : 'size-lg-12'
         }`}
     >
-        <div
-            className={`content-area ${
-                contentClass.length ? contentClass : ''
-            }`}
-        >
+        <div className={`content-area ${contentClass ? contentClass : ''}`}>
             {children}
         </div>
     </div>

@@ -2,17 +2,24 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import CompaniesAccessTable from 'components/shared/companies/presentational/CompaniesAccessTable';
+import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 
 class CompaniesAccessTableContainer extends Component {
     render() {
         const { props } = this;
 
         return (
-            <CompaniesAccessTable
-                companies={props.companies}
+            <BlockContainer
                 isFetching={props.isFetching}
+                isEmpty={!props.companies.length}
                 error={props.error}
-            />
+            >
+                <CompaniesAccessTable
+                    companies={props.companies}
+                    isFetching={props.isFetching}
+                    error={props.error}
+                />
+            </BlockContainer>
         );
     }
 }

@@ -2,15 +2,18 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
-import { isObjEmpty } from 'helpers/generic';
-
 import Stats from 'components/shared/stats/presentational/Stats';
+import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 
 class SiteDetailsContainer extends Component {
     render() {
         const { site, isFetching } = this.props;
 
-        return <Stats details={site} isFetching={isFetching} />;
+        return (
+            <BlockContainer>
+                <Stats details={site} isFetching={isFetching} />
+            </BlockContainer>
+        );
     }
 }
 

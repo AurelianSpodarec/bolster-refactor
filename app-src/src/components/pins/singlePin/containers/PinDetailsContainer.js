@@ -6,15 +6,18 @@ import moment from 'moment';
 import selectPinHistory from 'actions/pins/sync/selectPinHistory';
 
 import PinDetails from '../presentational/PinDetails';
+
 class PinDetailsContainer extends Component {
     render() {
-        const { selectedHistory, histories } = this.props;
+        const { selectedHistory, histories, error, isFetching } = this.props;
 
         const historyVersion =
             histories.findIndex(item => item.id === selectedHistory.id) + 1;
 
         return (
             <PinDetails
+                error={error}
+                isFetching={isFetching}
                 pinHistory={selectedHistory}
                 historyCount={histories.length}
                 historyVersion={historyVersion}
@@ -39,15 +42,16 @@ class PinDetailsContainer extends Component {
 
 const mapStateToProps = ({ pinsReducer, pinHistoriesReducer }, { match }) => {
     const pin = pinsReducer.pins[match.params.id] || {};
-    const { historyIds = [], latestHistoryId } = pin;
     const { selectedHistoryId, histories } = pinHistoriesReducer;
+
     return {
-        latestHistoryId,
+        isFetching: pinsReducer.isFetching || pinHistoriesReducer.isFetching,
+        error: pinHistoriesReducer.error,
+        latestHistoryId: pin.latestHistoryId,
         selectedHistory: histories[selectedHistoryId] || {},
-        histories: historyIds
-            .map(id => histories[id])
-            .filter(h => h)
-            .sort((a, b) => moment(a.createdAt) - moment(b.createdAt))
+        histories: Object.values(pinHistoriesReducer.histories).sort(
+            (a, b) => moment(a.createdAt) - moment(b.createdAt)
+        )
     };
 };
 

@@ -22,12 +22,6 @@ const Stats = ({ details, isFetching }) => (
                 {details.city}
                 <br />
                 {details.postCode}
-                <br />
-                {isFetching || !details.pinHistory ? (
-                    'loading'
-                ) : (
-                    <span>{details.pinHistory.red}</span>
-                )}
             </p>
             <div className="button-container size-lg-12">
                 <Link className="button" to="/edit">
@@ -89,7 +83,7 @@ const Stats = ({ details, isFetching }) => (
                 </div>
                 <label className="size-lg-12">
                     Last Update:{' '}
-                    {moment(details.latestUpdate).format('DD/MM/YYYY hh:mm')}
+                    {moment(details.lastUpdated).format('DD/MM/YYYY hh:mm a')}
                 </label>
             </div>
         )}

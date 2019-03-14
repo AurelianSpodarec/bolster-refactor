@@ -4,8 +4,6 @@ import { connect } from 'react-router-dom';
 import fetchSingleBuilding from 'actions/buildings/async/fetchSingleBuilding';
 import fetchDocuments from 'actions/documents/async/fetchDocuments';
 
-import Block from 'components/shared/generic/block/presentational/Block';
-
 import BuildingDetailsContainer from '../containers/BuildingDetailsContainer';
 import DocumentsTableContainer from '../containers/DocumentsTableContainer';
 import FloorsTableContainer from '../containers/FloorsTableContainer';
@@ -17,29 +15,17 @@ class SingleBuildingContainer extends Component {
     render() {
         return (
             <div className="size-lg-12">
-                <Block containerClass="size-lg-8" contentClass="site-details">
-                    <BuildingDetailsContainer />
-                </Block>
+                <BuildingDetailsContainer />
 
-                <Block containerClass="size-lg-4">
-                    <DocumentsTableContainer />
-                </Block>
+                <DocumentsTableContainer />
 
-                <Block>
-                    <FloorsTableContainer />
-                </Block>
+                <FloorsTableContainer />
 
-                <Block containerClass="size-lg-4">
-                    <ClientsTableContainer />
-                </Block>
+                <ClientsTableContainer />
 
-                <Block containerClass="size-lg-4">
-                    <OperativesTableContainer />
-                </Block>
+                <OperativesTableContainer />
 
-                <Block containerClass="size-lg-4">
-                    <CompaniesAccessTableContainer />
-                </Block>
+                <CompaniesAccessTableContainer />
             </div>
         );
     }

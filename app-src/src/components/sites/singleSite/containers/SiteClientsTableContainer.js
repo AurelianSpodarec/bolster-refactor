@@ -2,17 +2,20 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import ClientsTable from 'components/shared/clients/presentational/ClientsTable';
+import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 
 class ClientsTableContainer extends Component {
     render() {
         const { props } = this;
 
         return (
-            <ClientsTable
-                clients={props.clients}
-                isFetching={props.isFetching}
-                error={props.error}
-            />
+            <BlockContainer isFetching={props.isFetching} error={props.error}>
+                <ClientsTable
+                    clients={props.clients}
+                    isFetching={props.isFetching}
+                    error={props.error}
+                />
+            </BlockContainer>
         );
     }
 }
