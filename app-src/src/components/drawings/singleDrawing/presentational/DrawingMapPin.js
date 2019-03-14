@@ -4,7 +4,7 @@ import { Marker, Popup } from 'react-leaflet';
 
 const DrawingMapPin = ({ pin }) => {
     var MapMarker = L.Icon.extend({
-        iconSize: new L.Point(24, 27)
+        iconSize: [24, 27]
     });
 
     let pinIcon;
