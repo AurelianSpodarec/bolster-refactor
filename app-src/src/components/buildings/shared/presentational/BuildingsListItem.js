@@ -9,7 +9,7 @@ const BuldingsListItem = ({
     colCount
 }) => (
     <>
-        <tr onClick={toggleExpanded} className={isExpanded && 'open'}>
+        <tr onClick={toggleExpanded} className={isExpanded ? 'open' : ''}>
             <td>
                 {' '}
                 {isExpanded ? (

@@ -10,8 +10,12 @@ class SiteDetailsContainer extends Component {
         const { site, error, isFetching } = this.props;
 
         return (
-            <BlockContainer error={error} isFetching={isFetching}>
-                <Stats details={site} isFetching={isFetching} />
+            <BlockContainer
+                error={error}
+                isFetching={isFetching}
+                isEmpty={!site.id}
+            >
+                <Stats details={site} />
             </BlockContainer>
         );
     }
