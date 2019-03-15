@@ -1,7 +1,5 @@
 import React from 'react';
 
-import Block from 'components/shared/generic/block/presentational/Block';
-
 import FloorDetailsContainer from '../containers/FloorDetailsContainer';
 import FloorDocumentsTableContainer from '../containers/FloorDocumentsTableContainer';
 import FloorDrawingsTableContainer from '../containers/FloorDrawingsTableContainer';

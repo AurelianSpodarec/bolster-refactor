@@ -3,13 +3,16 @@ import image from '_content/images/examples/pipe.jpg';
 
 const PinImages = ({ images, showModal }) =>
     images.map((src, i) => (
-        <img
-            key={src + i}
-            alt="pin"
-            src={image}
-            style={{ width: 50 }}
+        <div
+            className="pin-image"
             onClick={() => showModal({ image })}
-        />
+            key={src + i}
+        >
+            <span
+                style={{ backgroundImage: `url(${image})` }}
+                className="image-holder"
+            />
+        </div>
     ));
 
 export default PinImages;

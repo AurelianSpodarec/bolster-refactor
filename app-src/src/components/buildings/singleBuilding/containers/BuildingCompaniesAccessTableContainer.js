@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import CompaniesAccessTable from '../../../shared/companies/presentational/CompaniesAccessTable';
+// import CompaniesAccessTable from '../../../shared/companies/presentational/CompaniesAccessTable';
 
 class CompaniesAccessTableContainer extends Component {
     render() {

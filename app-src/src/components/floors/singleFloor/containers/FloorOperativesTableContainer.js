@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import OperativesTable from '../../../shared/operatives/presentational/OperativesTable';
+// import OperativesTable from '../../../shared/operatives/presentational/OperativesTable';
 
 class FloorOperativesTableContainer extends Component {
     render() {

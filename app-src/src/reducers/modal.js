@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 
 import { HIDE_MODAL, SHOW_MODAL } from 'constants/actionTypes/generic';
-import { PIN_IMAGE } from 'constants/modalTypes';
+
 export default combineReducers({
     modalType: modalTypeReducer,
     modalProps: modalPropsReducer

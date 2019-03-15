@@ -2,6 +2,7 @@ import React from 'react';
 
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import PinImagesContainer from '../containers/PinImagesContainer';
+import FieldOutput from 'components/shared/generic/fieldOutput/presentational/FieldOutput';
 
 const PinDetails = ({
     pinHistory,
@@ -12,24 +13,36 @@ const PinDetails = ({
 }) => (
     <div>
         <BlockContainer
-            heading="Details"
+            heading="Pin options"
             error={error}
-            sfdgdsfgsgs
             isFetching={isFetching}
             isEmpty={!pinHistory.id}
         >
-            <p>ID</p>
-            <p>{pinHistory.id}</p>
-            <p>History</p>
-            <p>
-                {historyVersion} of {historyCount}
-            </p>
-            <p>Type</p>
-            <p>{pinHistory.type}</p>
-            <p>Status</p>
-            <p>{pinHistory.status}</p>
-            <p>Photo(s)</p>
-            <PinImagesContainer images={pinHistory.photoIds} />
+            <FieldOutput
+                title="ID"
+                description={pinHistory.id}
+                fieldClass="no-h-padding"
+            />
+            <FieldOutput
+                title="Type"
+                description={pinHistory.type}
+                fieldClass="no-h-padding"
+            />
+
+            <FieldOutput
+                title="Added by"
+                description={pinHistory.addedBy}
+                fieldClass="no-h-padding"
+            />
+            <FieldOutput
+                title="Status"
+                description={pinHistory.status}
+                fieldClass="no-h-padding"
+            />
+            <div className="field-output no-h-padding size-lg-12">
+                <label className="title">Photo(s)</label>
+                <PinImagesContainer images={pinHistory.photoIds} />
+            </div>
         </BlockContainer>
         <a className="button" href="#/">
             Edit this history

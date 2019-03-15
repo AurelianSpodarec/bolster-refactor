@@ -2,6 +2,7 @@ import React from 'react';
 import moment from 'moment';
 
 import image from '_content/images/examples/pipe.jpg';
+import FieldOutput from 'components/shared/generic/fieldOutput/presentational/FieldOutput';
 
 const PinHistoriesListItem = ({
     history,
@@ -9,42 +10,41 @@ const PinHistoriesListItem = ({
     version,
     selectHistory
 }) => (
-    <div
-        className="item"
-        onMouseOver={() => {
-            console.log('hi');
-        }}
-    >
+    <div className="item">
         <div
             className="image-holder"
             style={{ backgroundImage: `url(${image})` }}
         />
         <div className="outputs">
-            <div className="field-output size-lg-4">
-                <label className="title">History</label>
-                <p>
-                    {version} of {historyCount}
-                </p>
-            </div>
-            <div className="field-output size-lg-4">
-                <label className="title">Type</label>
-                <p>{history.type}</p>
-            </div>
-            <div className="field-output size-lg-4">
-                <label className="title">Status</label>
+            <FieldOutput
+                title="History"
+                description={`${version} of ${historyCount}`}
+                sizeClass="size-lg-4"
+            />
+            <FieldOutput
+                title="Type"
+                description={history.type}
+                sizeClass="size-lg-4"
+            />
 
-                <p>{history.status}</p>
-            </div>
+            <FieldOutput
+                title="Status"
+                description={history.status}
+                sizeClass="size-lg-4"
+            />
 
-            <div className="field-output size-lg-4">
-                <label className="title">Date added</label>
-                <p>{moment(history.createdAt).format('DD-MM-YYYY')}</p>
-            </div>
-            <div className="field-output size-lg-4">
-                <label className="title">Added by</label>
+            <FieldOutput
+                title="Date added"
+                description={moment(history.createdAt).format('DD-MM-YYYY')}
+                sizeClass="size-lg-4"
+            />
 
-                <p>{history.addedBy}</p>
-            </div>
+            <FieldOutput
+                title="Added by"
+                description={history.addedBy}
+                sizeClass="size-lg-4"
+            />
+
             <div className="item-button-container">
                 <button className="button" onClick={selectHistory}>
                     View

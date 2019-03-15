@@ -579,6 +579,15 @@ input {
         right: 5px;
         bottom: 15px;
     }
+
+    //no horizontal padding
+    &.no-h-padding {
+        padding: {
+            left: 0;
+            right: 0;
+        }
+    }
+
     &:last-child {
         padding-bottom: 0;
     }
@@ -1086,16 +1095,9 @@ input {
         }
 
         .image-holder {
-            float: left;
             width: 100px;
-            background: {
-                position: center top;
-                size: cover;
-            }
             height: 100px;
             margin-right: 10px;
-            border-radius: 2.5px;
-            border: 1px solid $light-grey;
         }
 
         .outputs {
@@ -1120,6 +1122,43 @@ input {
             right: 0;
             bottom: 0;
         }
+    }
+}
+//bakcground images - pin single used
+.image-holder {
+    float: left;
+    background: {
+        position: center top;
+        size: cover;
+    }
+    border-radius: 2.5px;
+    border: 1px solid $light-grey;
+}
+
+.pin-single-images {
+    float: left;
+    width: calc(100% + 10px);
+    margin-left: -5px;
+    margin-bottom: -10px;
+
+    .pin-image {
+        float: left;
+        padding: 5px;
+        padding-top: 0;
+        padding-bottom: 10px;
+        height: 70px;
+        width: 25%;
+        &:first-child {
+            width: 50%;
+            height: 140px;
+        }
+    }
+
+    .image-holder {
+        height: 100%;
+        width: 100%;
+        float: none;
+        display: inline-block;
     }
 }
 
