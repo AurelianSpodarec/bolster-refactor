@@ -45,11 +45,12 @@ const PinHistoriesListItem = ({
 
                 <p>{history.addedBy}</p>
             </div>
-
-            {/* <button className="button" onClick={selectHistory}>
-                View
-            </button> */}
-            <button className="button">Edit</button>
+            <div className="item-button-container">
+                <button className="button" onClick={selectHistory}>
+                    View
+                </button>
+                <button className="button yellow">Edit</button>
+            </div>
         </div>
     </div>
 );

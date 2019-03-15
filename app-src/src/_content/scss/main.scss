@@ -238,11 +238,19 @@ input {
 
     &:hover,
     &.active {
-        background-color: #757373;
+        background-color: $blue;
     }
 
     &.red {
         background-color: $red;
+    }
+
+    &.yellow {
+        background-color: $yellow;
+    }
+
+    &.blue {
+        background-color: $blue;
     }
 
     &.icon-only {
@@ -538,6 +546,7 @@ input {
     .button,
     button {
         float: right;
+        margin-left: 2.5px;
     }
 }
 
@@ -1096,12 +1105,17 @@ input {
 
         .field-output {
             &:nth-child(4),
-            &:last-of-type {
+            &:nth-child(5) {
                 padding-bottom: 0;
             }
         }
 
         button {
+            float: right;
+            margin-left: 2.5px;
+        }
+
+        .item-button-container {
             position: absolute;
             right: 0;
             bottom: 0;

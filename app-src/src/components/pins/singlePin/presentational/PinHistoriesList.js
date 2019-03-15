@@ -12,6 +12,10 @@ const PinHistoriesList = ({ isFetching, error, histories, historyCount }) => (
         contentClass="pin-single-history no-horizontal-padding"
     >
         <BlockHeadingWControls title="Other pin histories">
+            <button className="button red">
+                <i className="fa fa-trash" />
+                Delete all
+            </button>
             <button className="button">
                 <i className="fa fa-plus" />
                 Add new history
