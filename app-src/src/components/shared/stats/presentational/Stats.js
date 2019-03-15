@@ -9,7 +9,7 @@ import redPin from '_content/images/pins/red-pin.png';
 import bluePin from '_content/images/pins/blue-pin.png';
 import yellowPin from '_content/images/pins/yellow-pin.png';
 
-const Stats = ({ details, isFetching }) => (
+const Stats = ({ details }) => (
     <div className="stats size-lg-12">
         <h3 className="heading heading-3 size-lg-6">Details</h3>
         <h4 className="heading heading-3 size-lg-6">Latest Pin Histories</h4>
@@ -30,63 +30,59 @@ const Stats = ({ details, isFetching }) => (
                 <button className="button red">Delete Site</button>
             </div>
         </div>
-        {isFetching || !details.pinHistory ? (
-            <p>Loading</p>
-        ) : (
-            <div className="history size-lg-6">
-                <PieChart
-                    className="size-lg-5"
-                    //test data
+        <div className="history size-lg-6">
+            <PieChart
+                className="size-lg-5"
+                //test data
 
-                    data={[
-                        {
-                            title: 'Red',
-                            value: details.pinHistory.red,
-                            color: '#d71a1a'
-                        },
-                        {
-                            title: 'Blue',
-                            value: details.pinHistory.blue,
-                            color: '#3363dd'
-                        },
-                        {
-                            title: 'Green',
-                            value: details.pinHistory.green,
-                            color: '#eec206'
-                        },
-                        {
-                            title: 'Yellow',
-                            value: details.pinHistory.yellow,
-                            color: '#2cac56'
-                        }
-                    ]}
-                    segmentsStyle={{ transition: 'stroke .3s' }}
-                    animate
-                />
-                <div className="pin-key size-lg-6">
-                    <div className="pin">
-                        <img src={redPin} alt="pin" />
-                        <p>{details.pinHistory.red}</p>
-                    </div>
-                    <div className="pin">
-                        <img src={bluePin} alt="pin" />
-                        <p>{details.pinHistory.blue}</p>
-                    </div>
-                    <div className="pin">
-                        <img src={greenPin} alt="pin" />
-                        <p>{details.pinHistory.green}</p>
-                    </div>
-                    <div className="pin">
-                        <img src={yellowPin} alt="pin" />
-                        <p>{details.pinHistory.yellow}</p>
-                    </div>
+                data={[
+                    {
+                        title: 'Red',
+                        value: details.pinHistory.red,
+                        color: '#d71a1a'
+                    },
+                    {
+                        title: 'Blue',
+                        value: details.pinHistory.blue,
+                        color: '#3363dd'
+                    },
+                    {
+                        title: 'Green',
+                        value: details.pinHistory.green,
+                        color: '#eec206'
+                    },
+                    {
+                        title: 'Yellow',
+                        value: details.pinHistory.yellow,
+                        color: '#2cac56'
+                    }
+                ]}
+                segmentsStyle={{ transition: 'stroke .3s' }}
+                animate
+            />
+            <div className="pin-key size-lg-6">
+                <div className="pin">
+                    <img src={redPin} alt="pin" />
+                    <p>{details.pinHistory.red}</p>
                 </div>
-                <label className="size-lg-12">
-                    Last Update:{' '}
-                    {moment(details.lastUpdated).format('DD/MM/YYYY hh:mm a')}
-                </label>
+                <div className="pin">
+                    <img src={bluePin} alt="pin" />
+                    <p>{details.pinHistory.blue}</p>
+                </div>
+                <div className="pin">
+                    <img src={greenPin} alt="pin" />
+                    <p>{details.pinHistory.green}</p>
+                </div>
+                <div className="pin">
+                    <img src={yellowPin} alt="pin" />
+                    <p>{details.pinHistory.yellow}</p>
+                </div>
             </div>
-        )}
+            <label className="size-lg-12">
+                Last Update:{' '}
+                {moment(details.lastUpdated).format('DD/MM/YYYY hh:mm a')}
+            </label>
+        </div>
     </div>
 );
 

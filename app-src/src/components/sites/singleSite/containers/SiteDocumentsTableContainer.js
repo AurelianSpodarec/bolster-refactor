@@ -6,15 +6,11 @@ import BlockContainer from 'components/shared/generic/block/containers/BlockCont
 
 class DocumentsTableContainer extends Component {
     render() {
-        const { props } = this;
+        const { error, isFetching, documents } = this.props;
 
         return (
-            <BlockContainer>
-                <DocumentsTable
-                    documents={props.documents}
-                    isFetching={props.isFetching}
-                    error={props.error}
-                />
+            <BlockContainer error={error}>
+                <DocumentsTable documents={documents} isFetching={isFetching} />
             </BlockContainer>
         );
     }

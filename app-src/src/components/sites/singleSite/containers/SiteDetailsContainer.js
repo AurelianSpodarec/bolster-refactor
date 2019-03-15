@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
-import Stats from 'components/shared/stats/presentational/Stats';
+import SiteStats from '../presentational/SiteStats';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 
 class SiteDetailsContainer extends Component {
@@ -10,8 +10,12 @@ class SiteDetailsContainer extends Component {
         const { site, error, isFetching } = this.props;
 
         return (
-            <BlockContainer error={error} isFetching={isFetching}>
-                <Stats details={site} isFetching={isFetching} />
+            <BlockContainer
+                error={error}
+                isFetching={isFetching}
+                isEmpty={!site.id}
+            >
+                <SiteStats details={site} />
             </BlockContainer>
         );
     }
