@@ -7,12 +7,12 @@ export default combineReducers({
     modalProps: modalPropsReducer
 });
 
-function modalTypeReducer(state = PIN_IMAGE, action) {
+function modalTypeReducer(state = '', action) {
     switch (action.type) {
         case SHOW_MODAL:
             return action.modalType;
         case HIDE_MODAL:
-            return null;
+            return false;
         default:
             return state;
     }
@@ -23,7 +23,7 @@ function modalPropsReducer(state = {}, action) {
         case SHOW_MODAL:
             return action.modalProps;
         case HIDE_MODAL:
-            return {};
+            return false;
         default:
             return state;
     }

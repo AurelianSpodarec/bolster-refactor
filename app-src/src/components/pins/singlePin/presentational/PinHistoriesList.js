@@ -9,6 +9,7 @@ const PinHistoriesList = ({ isFetching, error, histories, historyCount }) => (
         error={error}
         isFetching={isFetching}
         isEmpty={!(histories && histories.length)}
+        contentClass="pin-single-history"
     >
         {histories.map(history => (
             <PinHistoriesListItemContainer

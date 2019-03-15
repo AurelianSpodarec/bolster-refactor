@@ -6,7 +6,12 @@ import hideModal from 'actions/generic/modals/sync/hideModal';
 import PinPhotoModal from '../presentational/PinPhotoModal';
 
 const PinPhotoModalContainer = () => (
-    <PinPhotoModal hideModal={() => this.props.dispatch(hideModal())} />
+    <PinPhotoModal
+        hideModal={e => {
+            e.preventDefualt();
+            this.props.dispatch(hideModal());
+        }}
+    />
 );
 
 export default connect()(PinPhotoModalContainer);

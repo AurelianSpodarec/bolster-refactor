@@ -999,3 +999,71 @@ input {
         }
     }
 }
+
+.pin-single-history {
+    .item {
+        float: left;
+        width: 100%;
+
+        img {
+            float: left;
+            width: 20%;
+            margin-right: 10px;
+        }
+    }
+}
+
+.modal-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    z-index: 1;
+
+    .bg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        background: black;
+        opacity: 0.8;
+    }
+
+    .modal-block {
+        height: 75%;
+        transform: translateX(-50%) translateY(-50%);
+        position: absolute;
+        top: 50%;
+        left: 50%;
+    }
+
+    .content-container {
+        height: 100%;
+        width: auto;
+        padding: 0;
+
+        .content-area {
+            height: 100%;
+            width: auto;
+            margin-bottom: 0;
+        }
+    }
+
+    .close {
+        position: absolute;
+        top: 0;
+        right: 0;
+        color: $button-grey;
+        font-size: 150%;
+        z-index: 2;
+        cursor: pointer;
+        background: transparent;
+    }
+
+    img {
+        float: left;
+        max-width: 100%;
+        max-height: 100%;
+    }
+}

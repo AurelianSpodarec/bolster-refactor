@@ -1,14 +1,11 @@
 import React from 'react';
 import image from '_content/images/examples/pipe.jpg';
+import ModalOuterContainer from '../containers/ModalOuterContainer';
 
-const PinPhotoModal = ({ hideModal }) => (
-    <div>
-        <h3 className="heading heading-3" />
+const PinPhotoModal = () => (
+    <ModalOuterContainer>
         <img alt="pin" src={image} />
-        <button className="button" onClick={hideModal}>
-            Close
-        </button>
-    </div>
+    </ModalOuterContainer>
 );
 
 export default PinPhotoModal;

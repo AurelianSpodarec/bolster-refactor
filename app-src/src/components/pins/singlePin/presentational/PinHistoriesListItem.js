@@ -9,8 +9,8 @@ const PinHistoriesListItem = ({
     version,
     selectHistory
 }) => (
-    <div>
-        <img alt="pipe" src={image} style={{ width: 50 }} />
+    <div className="item">
+        <img alt="pipe" src={image} />
         <p>History</p>
         {version} of {historyCount}
         <p>Date added</p>
