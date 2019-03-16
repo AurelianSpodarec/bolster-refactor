@@ -1139,6 +1139,7 @@ input {
     float: left;
     width: calc(100% + 10px);
     margin-left: -5px;
+    margin-top: 5px;
     margin-bottom: -10px;
 
     .pin-image {
@@ -1148,9 +1149,17 @@ input {
         padding-bottom: 10px;
         height: 70px;
         width: 25%;
+        opacity: 1;
+        transition: opacity 0.25s ease-in-out;
+        cursor: pointer;
+
         &:first-child {
             width: 50%;
             height: 140px;
+        }
+
+        &:hover {
+            opacity: 0.8;
         }
     }
 
