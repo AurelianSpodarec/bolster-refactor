@@ -28,7 +28,7 @@ function errorReducer(state = null, action) {
         case POST_LOGIN_REQUEST:
             return null;
         case POST_LOGIN_FAILURE:
-            return action.payload.message;
+            return 'An error has occured.';
         default:
             return state;
     }

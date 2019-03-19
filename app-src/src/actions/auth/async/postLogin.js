@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { API_URL } from 'config/index';
 
-// import { overwriteFieldErrors } from 'actions/generic/fieldErrors/sync/overwriteFieldErrors'
+import setAPIFieldErrors from 'actions/generic/fieldErrors/sync/setAPIFieldErrors';
 import { getHeaders } from 'helpers/api';
 import {
     POST_LOGIN_REQUEST,
@@ -18,9 +18,8 @@ export const postLoginSuccess = payload => ({
     payload
 });
 
-export const postLoginFailure = payload => ({
-    type: POST_LOGIN_FAILURE,
-    payload
+export const postLoginFailure = () => ({
+    type: POST_LOGIN_FAILURE
 });
 
 export default (email, password) => dispatch => {
@@ -34,7 +33,7 @@ export default (email, password) => dispatch => {
         })
         .then(res => dispatch(postLoginSuccess(res.data)))
         .catch(err => {
-            dispatch(postLoginFailure(err));
-            // dispatch(overwriteFieldErrors(err.fieldErrors))
+            dispatch(postLoginFailure());
+            dispatch(setAPIFieldErrors(err.response.data.errors));
         });
 };
