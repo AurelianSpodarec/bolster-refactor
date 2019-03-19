@@ -58,6 +58,17 @@ body {
     padding: 0 5px;
 }
 
+//for button under content blocks/areas
+.button-block-container {
+    padding: 0 5px;
+
+    .button,
+    button {
+        float: right;
+        margin-left: 7.5px;
+    }
+}
+
 .content-area {
     float: left;
     width: 100%;

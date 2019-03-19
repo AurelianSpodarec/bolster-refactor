@@ -11,7 +11,7 @@ const PinDetails = ({
     error,
     isFetching
 }) => (
-    <div>
+    <>
         <BlockContainer
             heading="Pin options"
             error={error}
@@ -44,10 +44,15 @@ const PinDetails = ({
                 <PinImagesContainer images={pinHistory.photoIds} />
             </div>
         </BlockContainer>
-        <a className="button" href="#/">
-            Edit this history
-        </a>
-    </div>
+        <div className="button-block-container size-lg-12">
+            <a className="button red" href="#/">
+                <i className="icon fa fa-trash" /> Delete this history
+            </a>
+            <a className="button" href="#/">
+                Edit this history
+            </a>
+        </div>
+    </>
 );
 
 export default PinDetails;
