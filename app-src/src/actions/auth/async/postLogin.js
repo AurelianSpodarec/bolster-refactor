@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { API_URL } from 'config';
 
 // import { overwriteFieldErrors } from 'actions/generic/fieldErrors/sync/overwriteFieldErrors'
 import { getHeaders } from 'helpers/api';
@@ -25,18 +26,15 @@ export const postLoginFailure = payload => ({
 export default (email, password) => dispatch => {
     dispatch(postLoginRequest());
 
-    return (
-        axios
-            // .post('mockData/auth/auth.json', { email, password }, getHeaders())
-            .get('/mockData/auth/auth.json', getHeaders())
-            .then(res => {
-                localStorage.setItem('token', res.data.token);
-                return res;
-            })
-            .then(res => dispatch(postLoginSuccess(res.data)))
-            .catch(err => {
-                dispatch(postLoginFailure(err));
-                // dispatch(overwriteFieldErrors(err.fieldErrors))
-            })
-    );
+    return axios
+        .post(`${API_URL}/users/login`, { email, password }, getHeaders())
+        .then(res => {
+            localStorage.setItem('token', res.data.token);
+            return res;
+        })
+        .then(res => dispatch(postLoginSuccess(res.data)))
+        .catch(err => {
+            dispatch(postLoginFailure(err));
+            // dispatch(overwriteFieldErrors(err.fieldErrors))
+        });
 };

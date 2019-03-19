@@ -6,7 +6,7 @@ import Form from 'components/shared/generic/form/containers/Form';
 import Field from 'components/shared/generic/form/presentational/Field';
 
 const LoginForm = ({ handleSubmit, handleInputChange, email, password }) => (
-    <Form className="size-lg-12" onSubmit={handleSubmit}>
+    <Form className="generic-form size-lg-12" onSubmit={handleSubmit}>
         <Field name="Email" sizeClasses="size-lg-4">
             <TextInputContainer
                 value={email}
@@ -17,8 +17,6 @@ const LoginForm = ({ handleSubmit, handleInputChange, email, password }) => (
                 handleChange={handleInputChange}
             />
         </Field>
-
-        <div className="size-lg-1" />
 
         <Field name="Password" sizeClasses="size-lg-4">
             <TextInputContainer

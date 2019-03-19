@@ -6,7 +6,6 @@ import BuildingsList from 'components/buildings/shared/presentational/BuildingsL
 const BuildingsTable = ({ buildings, headers, isFetching, error }) => {
     return (
         <>
-            <h3 className="heading heading-3 table-heading">Buildings</h3>
             <Table
                 withActions
                 headers={headers}

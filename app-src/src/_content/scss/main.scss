@@ -230,6 +230,7 @@ input {
     background-color: $button-grey;
     color: white;
     text-decoration: none;
+    text-transform: capitalize;
     font-size: 120%;
     transition: 0.2s background-color;
     border-radius: 2.5px;
@@ -550,17 +551,21 @@ input {
     }
 }
 
+.generic-form {
+    width: calc(100% + 15px);
+    margin-left: -7.5px;
+}
+
 //form stuff
 .form-field {
-    float: left;
-    width: 100%;
+    padding: 0 7.5px;
     margin-bottom: 15px;
 
     .title {
         float: left;
         width: 100%;
         font-size: 140%;
-        margin-bottom: 5px;
+        margin-bottom: 7.5px;
         @include ubuntu-medium;
     }
 
@@ -665,6 +670,14 @@ input {
         opacity: 0;
         -webkit-appearance: none;
         cursor: pointer;
+    }
+}
+
+.button-area {
+    .button,
+    button {
+        float: right;
+        margin-left: 5px;
     }
 }
 
@@ -801,6 +814,12 @@ input {
 
         &.buildings-row {
             padding: 0;
+            > td {
+                padding: {
+                    top: 0;
+                    bottom: 0;
+                }
+            }
         }
 
         &.expanded-row {
@@ -901,7 +920,7 @@ input {
         p {
             padding: {
                 top: 17px;
-                bottom: 5px;
+                bottom: 17px;
             }
             @include ubuntu-medium;
         }
@@ -927,7 +946,7 @@ input {
 
         .custom-dropdown {
             float: right;
-            width: 50%;
+            width: 40%;
         }
     }
 }
