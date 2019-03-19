@@ -13,7 +13,6 @@ const PieChart = ({ details }) => (
         <ReactPieChart
             className="size-lg-5"
             //test data
-
             data={[
                 {
                     title: 'Red',

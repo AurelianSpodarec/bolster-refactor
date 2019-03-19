@@ -33,7 +33,7 @@ const TableBody = ({
         return (
             <tr>
                 <td
-                    className="no-data"
+                    className="no-data-td"
                     colSpan={colCount}
                     style={{ textAlign: 'center' }}
                 >
