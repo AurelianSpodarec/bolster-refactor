@@ -9,7 +9,7 @@ import ModalRoute from 'components/shared/generic/modals/containers/ModalRoot';
 const App = () => (
     <div className="App">
         <HeaderContainer />
-        <div className="container">
+        <div className="full-container container">
             <MenuContainer />
             <Routes />
             <div className="clear" />

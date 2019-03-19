@@ -25,12 +25,17 @@ body {
     color: $body-text;
     line-height: 1.35;
 }
+
 .container {
     width: 100%;
     max-width: 1230px;
     padding: 0 15px;
     margin: 0 auto;
     height: calc(100% - 69px);
+
+    &.full-container {
+        padding-bottom: 20px;
+    }
 }
 
 .page-container {
@@ -669,6 +674,13 @@ input {
 }
 
 //side menu
+.menu-bg {
+    position: absolute;
+    width: 200px;
+    height: 100%;
+    background-color: #53545c;
+}
+
 .menu {
     float: left;
     width: 200px;
@@ -738,11 +750,13 @@ input {
         }
 
         .arrow {
+            width: 10.5px;
+            text-align: center;
             margin-left: 10px;
             font-size: 12px;
-            &:last-of-type {
-                display: none;
-            }
+            // &:last-of-type {
+            //     display: none;
+            // }
         }
 
         .messages {
@@ -935,7 +949,6 @@ input {
 //footer
 #page-footer {
     width: 100%;
-    margin-top: 20px;
     padding: 10px 0;
 
     p {
