@@ -9,7 +9,7 @@ import PageHeading from 'components/shared/generic/pageHeading/presentational/Pa
 const AllSites = () => (
     <>
         <PageHeading title="Add Sites">
-            <Link to="/sites/add-site" className="button pull-right">
+            <Link to="/sites/add-site" className="button">
                 <i className="far fa-plus" /> Add site
             </Link>
         </PageHeading>
