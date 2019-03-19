@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { API_URL } from 'config';
+import { API_URL } from 'config/index';
 
 // import { overwriteFieldErrors } from 'actions/generic/fieldErrors/sync/overwriteFieldErrors'
 import { getHeaders } from 'helpers/api';
@@ -27,7 +27,7 @@ export default (email, password) => dispatch => {
     dispatch(postLoginRequest());
 
     return axios
-        .post(`${API_URL}/users/login`, { email, password }, getHeaders())
+        .post(`${API_URL}/auth/login`, { email, password }, getHeaders())
         .then(res => {
             localStorage.setItem('token', res.data.token);
             return res;
