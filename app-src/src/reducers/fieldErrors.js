@@ -6,7 +6,7 @@ import {
     REMOVE_FIELD_ERROR,
     CLEAR_FIELD_ERRORS,
     SHOW_FIELD_ERRORS,
-    OVERWRITE_FIELD_ERRORS
+    SET_API_FIELD_ERRORS
 } from 'constants/actionTypes/generic';
 
 export default combineReducers({
@@ -20,7 +20,7 @@ function fieldErrorsReducer(state = {}, action) {
             return updateObj(state, action.fieldName, action.error);
         case REMOVE_FIELD_ERROR:
             return removeObjItem(state, action.fieldName);
-        case OVERWRITE_FIELD_ERRORS:
+        case SET_API_FIELD_ERRORS:
             return action.fieldErrors;
         case CLEAR_FIELD_ERRORS:
             return {};
@@ -33,7 +33,7 @@ function errorsVisibleReducer(state = false, action) {
     switch (action.type) {
         case SHOW_FIELD_ERRORS:
             return true;
-        case OVERWRITE_FIELD_ERRORS:
+        case SET_API_FIELD_ERRORS:
             return action.errorsVisible;
         default:
             return state;

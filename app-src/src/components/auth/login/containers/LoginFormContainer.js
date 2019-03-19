@@ -10,6 +10,7 @@ class LoginFormContainer extends Component {
         email: '',
         password: ''
     };
+
     render() {
         return (
             <LoginForm
