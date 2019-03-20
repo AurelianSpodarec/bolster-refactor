@@ -4,6 +4,7 @@ import { withRouter } from 'react-router-dom';
 
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import FloorStats from '../presentational/FloorStats';
+
 class FloorDetailsContainer extends Component {
     render() {
         const { floor, error, isFetching } = this.props;
@@ -19,15 +20,11 @@ class FloorDetailsContainer extends Component {
         );
     }
 }
+
 const mapStateToProps = ({ floorsReducer }, { match }) => ({
     floor: floorsReducer.floors[match.params.id] || {},
     isFetching: floorsReducer.isFetching,
     error: floorsReducer.error
 });
 
-export default withRouter(
-    connect(
-        mapStateToProps,
-        null
-    )(FloorDetailsContainer)
-);
+export default withRouter(connect(mapStateToProps)(FloorDetailsContainer));

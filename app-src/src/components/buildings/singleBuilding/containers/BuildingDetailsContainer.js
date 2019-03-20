@@ -18,9 +18,4 @@ class BuildingDetailsContainer extends Component {
 //     error: buildingReducer.error
 // });
 
-export default withRouter(
-    connect(
-        null,
-        null
-    )(BuildingDetailsContainer)
-);
+export default withRouter(connect()(BuildingDetailsContainer));

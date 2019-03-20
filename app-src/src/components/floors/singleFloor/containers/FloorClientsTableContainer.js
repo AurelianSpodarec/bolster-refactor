@@ -1,13 +1,28 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
-// import ClientsTable from 'components/shared/clients/presentational/ClientsTable';
+import ClientsTable from 'components/shared/clients/presentational/ClientsTable';
+import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 
-class FloorClientsTableContainer extends Component {
+class ClientsTableContainer extends Component {
     render() {
+        const { props } = this;
+
         return (
-            <h3 className="heaading heading-3">FloorClientsTableContainer</h3>
+            <BlockContainer error={props.error}>
+                <ClientsTable
+                    clients={props.clients}
+                    isFetching={props.isFetching}
+                />
+            </BlockContainer>
         );
     }
 }
 
-export default FloorClientsTableContainer;
+const mapStateToProps = ({ clientsReducer }) => ({
+    clients: Object.values(clientsReducer.clients),
+    isFetching: clientsReducer.isFetching,
+    error: clientsReducer.error
+});
+
+export default connect(mapStateToProps)(ClientsTableContainer);
