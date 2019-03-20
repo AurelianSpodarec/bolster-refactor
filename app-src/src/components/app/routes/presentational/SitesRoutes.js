@@ -14,7 +14,7 @@ import InviteCompany from 'components/sites/inviteCompanyToSite/presentational/I
 const SitesRoutes = ({ match: { url: baseUrl } }) => (
     <SwitchWith404>
         <Route exact path={`${baseUrl}`} component={AllSitesContainer} />
-        <Route exact path={`${baseUrl}/add-site`} component={AddSite} />
+        <Route exact path={`${baseUrl}/create`} component={AddSite} />
         <Route exact path={`${baseUrl}/:id`} component={SingleSiteContainer} />
         <Route
             exact
