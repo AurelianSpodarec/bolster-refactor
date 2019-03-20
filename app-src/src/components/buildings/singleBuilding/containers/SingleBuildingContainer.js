@@ -16,6 +16,7 @@ class SingleBuildingContainer extends Component {
 
     componentDidMount = () => {
         const { fetchSingleBuilding, buildingID } = this.props;
+
         fetchSingleBuilding(buildingID);
         // fetchDocuments();
         // fetchClients();

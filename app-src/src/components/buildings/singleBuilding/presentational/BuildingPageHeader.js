@@ -5,7 +5,7 @@ import PageHeading from 'components/shared/generic/pageHeading/presentational/Pa
 
 const BuildingPageHeader = ({ building }) => (
     <PageHeading title={`Building: ${building.name}`}>
-        <Link className="button" to={`/buildings/create/${building.id}`}>
+        <Link className="button" to={`/floors/create/${building.id}`}>
             <i className="far fa-plus" /> Add floor
         </Link>
         <Link className="button" to="/site">

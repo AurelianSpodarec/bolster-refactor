@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
+import BuildingPageHeader from '../presentational/BuildingPageHeader';
 
 class BuildingPageHeaderContainer extends Component {
     render() {
-        return <PageHeading title={'Building: #Building Name#'} />;
+        return <BuildingPageHeader building={this.props.building} />;
     }
 }
 
