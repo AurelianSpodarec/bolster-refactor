@@ -3,7 +3,7 @@ import React from 'react';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import PinImagesContainer from '../containers/PinImagesContainer';
 import FieldOutput from 'components/shared/generic/fieldOutput/presentational/FieldOutput';
-import BlockButtonWrapper from 'components/shared/generic/blockButtonWrapper/presentational/BlockButtonWrapper';
+import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 
 const PinDetails = ({
     pinHistory,
