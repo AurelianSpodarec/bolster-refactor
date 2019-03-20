@@ -1,27 +1,58 @@
 import React from 'react';
 import Field from 'components/shared/generic/form/presentational/Field';
-import TextInput from 'components/shared/generic/form/presentational/TextInput';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
+import Form from 'components/shared/generic/form/containers/Form';
+import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 
-const AddSiteForm = () => (
-    <form className="generic-form">
+const AddSiteForm = ({
+    handleSubmit,
+    handleInputChange,
+    name,
+    client,
+    addressLine1,
+    addressLine2,
+    postcode
+}) => (
+    <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
         <div className="size-lg-6">
             <Field name="Site Name">
-                <TextInput name="siteName" type="text" />
+                <TextInputContainer
+                    name="name"
+                    value={name}
+                    handleChange={handleInputChange}
+                    required
+                />
             </Field>
             <Field name="Client Name">
-                <TextInput name="clientName" type="text" />
+                <TextInputContainer
+                    value={client}
+                    name="client"
+                    required
+                    handleChange={handleInputChange}
+                />
             </Field>
         </div>
         <div className="size-lg-6">
             <Field name="Address Line 1">
-                <TextInput name="siteAddressLine1" type="text" />
+                <TextInputContainer
+                    value={addressLine1}
+                    name="addressLine1"
+                    handleChange={handleInputChange}
+                />
             </Field>
             <Field name="Address Line 2">
-                <TextInput name="siteAddressLine2" type="text" />
+                <TextInputContainer
+                    value={addressLine2}
+                    name="addressLine2"
+                    handleChange={handleInputChange}
+                />
             </Field>
             <Field name="Postcode">
-                <TextInput name="Postcode" type="text" />
+                <TextInputContainer
+                    value={postcode}
+                    name="postcode"
+                    handleChange={handleInputChange}
+                />
             </Field>
         </div>
         <BlockButtonWrapper>
@@ -30,6 +61,6 @@ const AddSiteForm = () => (
             </button>
             <button className="button">Cancel</button>
         </BlockButtonWrapper>
-    </form>
+    </Form>
 );
 export default AddSiteForm;

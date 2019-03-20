@@ -18,8 +18,9 @@ export const postLoginSuccess = payload => ({
     payload
 });
 
-export const postLoginFailure = () => ({
-    type: POST_LOGIN_FAILURE
+export const postLoginFailure = error => ({
+    type: POST_LOGIN_FAILURE,
+    error
 });
 
 export default (email, password) => dispatch => {
@@ -33,7 +34,7 @@ export default (email, password) => dispatch => {
         })
         .then(res => dispatch(postLoginSuccess(res.data)))
         .catch(err => {
-            dispatch(postLoginFailure());
+            dispatch(postLoginFailure(err.message));
 
             if (err.response.status === 400)
                 dispatch(setAPIFieldErrors(err.response.data.errors));

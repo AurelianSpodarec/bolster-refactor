@@ -16,7 +16,9 @@ import {
 
 export default combineReducers({
     sites: sitesReducer,
+    updatedSiteID: updatedSiteReducer,
     isFetching: isFetchingReducer,
+    postSuccess: postSuccessReducer,
     error: errorReducer,
     filters: filtersReducer
 });
@@ -31,6 +33,26 @@ function isFetchingReducer(state = false, action) {
         case FETCH_SINGLE_SITE_SUCCESS:
         case FETCH_SINGLE_SITE_FAILURE:
             return false;
+        default:
+            return state;
+    }
+}
+
+function postSuccessReducer(state = false, action) {
+    switch (action.type) {
+        case CREATE_SITE_REQUEST:
+            return false;
+        case CREATE_SITE_SUCCESS:
+            return true;
+        default:
+            return state;
+    }
+}
+
+function updatedSiteReducer(state = 0, action) {
+    switch (action.type) {
+        case CREATE_SITE_SUCCESS:
+            return action.payload.id;
         default:
             return state;
     }
