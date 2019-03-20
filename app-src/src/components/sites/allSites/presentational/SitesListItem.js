@@ -10,14 +10,14 @@ const SitesListItem = ({ toggleExpanded, isExpanded, site, colCount }) => {
             <tr
                 key={site.id}
                 onClick={toggleExpanded}
-                className={isExpanded && 'open'}
+                className={isExpanded ? 'open' : ''}
             >
                 <td>
-                    {isExpanded ? (
-                        <i className="fa fa-chevron-down" />
-                    ) : (
-                        <i className="fa fa-chevron-right" />
-                    )}
+                    <i
+                        className={`fa fa-chevron-${
+                            isExpanded ? 'down' : 'right'
+                        }`}
+                    />
                     {site.name}
                 </td>
                 <td>{site.ownedBy}</td>
