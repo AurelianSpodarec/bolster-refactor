@@ -15,7 +15,7 @@ class SiteDetailsContainer extends Component {
                 isFetching={isFetching}
                 isEmpty={!site.id}
             >
-                <SiteStats details={site} />
+                <SiteStats site={site} />
             </BlockContainer>
         );
     }
@@ -26,8 +26,6 @@ const mapStateToProps = ({ sitesReducer }, { match }) => ({
     isFetching: sitesReducer.isFetching,
     error: sitesReducer.error
 });
-
-//if details is empty output loading
 
 export default withRouter(
     connect(

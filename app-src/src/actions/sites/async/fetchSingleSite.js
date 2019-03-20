@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+import { API_URL } from 'config';
+import { getHeaders } from 'helpers/api';
 import {
     FETCH_SINGLE_SITE_REQUEST,
     FETCH_SINGLE_SITE_SUCCESS,
@@ -20,11 +22,11 @@ export const fetchSiteFailure = error => ({
     error
 });
 
-export default () => dispatch => {
+export default id => dispatch => {
     dispatch(fetchSiteRequest());
 
     axios
-        .get('/mockData/sites/singleSite.json')
+        .get(`${API_URL}/sites/${id}`, getHeaders())
         .then(res => dispatch(fetchSiteSuccess(res.data)))
         .catch(err => dispatch(fetchSiteFailure(err.message)));
 };

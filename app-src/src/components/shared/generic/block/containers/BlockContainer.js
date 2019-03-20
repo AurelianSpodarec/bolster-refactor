@@ -18,9 +18,7 @@ const BlockContainer = ({
         return (
             <Block containerClass={containerClass} contentClass={contentClass}>
                 {!!heading && <h3 className="heading heading-3">{heading}</h3>}
-                <Error>
-                    Oops! Something went wrong... Please try again later.
-                </Error>
+                <Error>{error}</Error>
             </Block>
         );
     if (isFetching && isEmpty)
