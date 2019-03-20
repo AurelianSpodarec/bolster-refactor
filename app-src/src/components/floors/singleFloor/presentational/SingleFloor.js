@@ -1,5 +1,6 @@
 import React from 'react';
 
+import Breadcrumb from 'components/shared/generic/breadcrumb/presentational/Breadcrumb';
 import FloorDetailsContainer from '../containers/FloorDetailsContainer';
 import FloorDocumentsTableContainer from '../containers/FloorDocumentsTableContainer';
 import FloorDrawingsTableContainer from '../containers/FloorDrawingsTableContainer';
@@ -9,6 +10,7 @@ import FloorCompaniesAccessTableContainer from '../containers/FloorCompaniesAcce
 
 const Floor = () => (
     <div className="size-lg-12">
+        <Breadcrumb breadcrumbs={[{ text: 'floors' }, { text: 'floor' }]} />
         <div className="size-lg-8">
             <FloorDetailsContainer />
         </div>
