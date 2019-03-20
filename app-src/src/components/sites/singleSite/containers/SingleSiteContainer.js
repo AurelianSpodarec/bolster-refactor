@@ -16,16 +16,17 @@ class SingleSiteContainer extends Component {
     }
     componentDidMount = () => {
         const {
-            fetchAllBuildings,
+            siteID,
             fetchSingleSite,
+            fetchAllBuildings,
             fetchDocuments,
             fetchClients,
             fetchCompanies,
             fetchOperatives
         } = this.props;
 
+        fetchSingleSite(siteID);
         fetchAllBuildings();
-        fetchSingleSite();
         fetchDocuments();
         fetchClients();
         fetchCompanies();
@@ -38,8 +39,8 @@ const mapDispatchToProps = dispatch => ({
     fetchAllBuildings: () => {
         dispatch(fetchAllBuildings());
     },
-    fetchSingleSite: () => {
-        dispatch(fetchSingleSite());
+    fetchSingleSite: siteID => {
+        dispatch(fetchSingleSite(siteID));
     },
     fetchDocuments: () => {
         dispatch(fetchDocuments());
@@ -56,6 +57,6 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default connect(
-    null,
+    (_, { match }) => ({ siteID: match.params['id'] }),
     mapDispatchToProps
 )(SingleSiteContainer);

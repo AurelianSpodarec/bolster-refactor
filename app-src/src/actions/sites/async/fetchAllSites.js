@@ -1,7 +1,7 @@
 import axios from 'axios';
+
 import { API_URL } from 'config';
 import { getHeaders } from 'helpers/api';
-
 import {
     FETCH_ALL_SITES_REQUEST,
     FETCH_ALL_SITES_SUCCESS,
