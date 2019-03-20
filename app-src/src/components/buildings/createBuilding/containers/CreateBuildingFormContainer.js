@@ -2,35 +2,28 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
-import AddSiteForm from '../presentational/AddSiteForm';
-import createSite from 'actions/sites/async/createSite';
+import CreateBuildingForm from '../presentational/CreateBuildingForm';
+import createBuilding from 'actions/buildings/async/createBuilding';
 
-class AddSiteFormContainer extends Component {
+class CreateBuildingFormContainer extends Component {
     state = {
         name: '',
-        client: '',
         addressLine1: '',
         addressLine2: '',
-        postcode: ''
+        postcode: '',
+        client: ''
     };
 
     render() {
         return (
-            <AddSiteForm
+            <CreateBuildingForm
                 {...this.state}
                 handleInputChange={this.handleInputChange}
                 handleSubmit={this.handleSubmit}
+                siteID={this.props.siteID}
             />
         );
     }
-
-    componentDidUpdate = prevProps => {
-        const { postSuccess, history, updatedSiteID } = this.props;
-
-        if (postSuccess && !prevProps.postSuccess) {
-            history.push(`/sites/${updatedSiteID}`);
-        }
-    };
 
     handleInputChange = e => {
         e.preventDefault();
@@ -46,10 +39,10 @@ class AddSiteFormContainer extends Component {
 
         const {
             name,
-            client,
             addressLine1,
             addressLine2,
-            postcode
+            postcode,
+            client
         } = this.state;
 
         const postBody = {
@@ -57,28 +50,36 @@ class AddSiteFormContainer extends Component {
             client: client,
             addressLine1: addressLine1,
             addressLine2: addressLine2,
-            postcode: postcode
+            postcode: postcode,
+            siteID: this.props.siteID
         };
 
-        this.props.createSite(postBody);
+        this.props.createBuilding(postBody);
+    };
+
+    componentDidUpdate = prevProps => {
+        const { postSuccess, history, updatedBuildingID } = this.props;
+
+        if (postSuccess && !prevProps.postSuccess) {
+            history.push(`/buildings/${updatedBuildingID}`);
+        }
     };
 }
-
-const mapStateToProps = ({ sitesReducer }) => ({
-    postSuccess: sitesReducer.postSuccess,
-    error: sitesReducer.error,
-    updatedSiteID: sitesReducer.updatedSiteID
+const mapStateToProps = ({ buildingsReducer }, { match }) => ({
+    postSuccess: buildingsReducer.postSuccess,
+    error: buildingsReducer.error,
+    siteID: match.params.siteID,
+    updatedBuildingID: buildingsReducer.updatedBuildingID
 });
 
 const mapDispatchToProps = dispatch => ({
-    createSite: postBody => {
-        dispatch(createSite(postBody));
+    createBuilding: postBody => {
+        dispatch(createBuilding(postBody));
     }
 });
-
 export default withRouter(
     connect(
         mapStateToProps,
         mapDispatchToProps
-    )(AddSiteFormContainer)
+    )(CreateBuildingFormContainer)
 );
