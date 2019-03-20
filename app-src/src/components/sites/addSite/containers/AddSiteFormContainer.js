@@ -4,7 +4,6 @@ import { withRouter } from 'react-router-dom';
 
 import AddSiteForm from '../presentational/AddSiteForm';
 import createSite from 'actions/sites/async/createSite';
-import sites from 'reducers/sites';
 
 class AddSiteFormContainer extends Component {
     state = {
