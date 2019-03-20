@@ -8,6 +8,7 @@ import AttachBuildingOperative from 'components/buildings/attachBuildingOperativ
 import InviteClientToBuilding from 'components/buildings/inviteClientToBuilding/presentational/InviteClientToBuilding';
 import AttachBuildingDocument from 'components/buildings/attachBuildingDocument/presentational/AttachBuildingDocument';
 import InviteCompanyToBuilding from 'components/buildings/inviteCompanyToBuilding/presentational/InviteCompanyToBuilding';
+import AddFloor from 'components/floors/addFloor/presentational/AddFloor';
 
 const BuildingRoutes = ({ match: { url: baseUrl } }) => (
     <SwitchWith404>
@@ -19,23 +20,28 @@ const BuildingRoutes = ({ match: { url: baseUrl } }) => (
         <Route exact path={`${baseUrl}/:id`} component={SingleBuilding} />
         <Route
             exact
-            path={`${baseUrl}/:siteId/attach-operative`}
+            path={`${baseUrl}/:id/attach-operative`}
             component={AttachBuildingOperative}
         />
         <Route
             exact
-            path={`${baseUrl}/:siteId/invite-client`}
+            path={`${baseUrl}/:id/invite-client`}
             component={InviteClientToBuilding}
         />
         <Route
             exact
-            path={`${baseUrl}/:siteId/attach-document`}
+            path={`${baseUrl}/:id/attach-document`}
             component={AttachBuildingDocument}
         />
         <Route
             exact
-            path={`${baseUrl}/:siteId/invite-company`}
+            path={`${baseUrl}/:id/invite-company`}
             component={InviteCompanyToBuilding}
+        />
+        <Route
+            exact
+            path={`${baseUrl}/:id/create-floor`}
+            component={AddFloor}
         />
     </SwitchWith404>
 );
