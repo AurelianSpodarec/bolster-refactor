@@ -8,6 +8,9 @@ import {
     FETCH_SINGLE_SITE_REQUEST,
     FETCH_SINGLE_SITE_SUCCESS,
     FETCH_SINGLE_SITE_FAILURE,
+    CREATE_SITE_REQUEST,
+    CREATE_SITE_SUCCESS,
+    CREATE_SITE_FAILURE,
     UPDATE_SITES_FILTERS
 } from 'constants/actionTypes/sites';
 
@@ -37,9 +40,11 @@ function errorReducer(state = null, action) {
     switch (action.type) {
         case FETCH_ALL_SITES_REQUEST:
         case FETCH_SINGLE_SITE_REQUEST:
+        case CREATE_SITE_REQUEST:
             return null;
         case FETCH_ALL_SITES_FAILURE:
         case FETCH_SINGLE_SITE_FAILURE:
+        case CREATE_SITE_FAILURE:
             return action.error;
         default:
             return state;
@@ -56,6 +61,9 @@ function sitesReducer(state = {}, action) {
                 action.payload.id.toString(),
                 action.payload
             );
+        case CREATE_SITE_SUCCESS:
+            return updateObj(state, action.payload.id, action.payload);
+
         default:
             return state;
     }
