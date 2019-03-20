@@ -21,6 +21,8 @@ class SingleSiteContainer extends Component {
             siteID,
             fetchSingleSite,
             fetchAllBuildings,
+            fetchAllFloors,
+            fetchAllDrawings,
             fetchDocuments,
             fetchClients,
             fetchCompanies,
@@ -29,6 +31,8 @@ class SingleSiteContainer extends Component {
 
         fetchSingleSite(siteID);
         fetchAllBuildings();
+        fetchAllFloors();
+        fetchAllDrawings();
         fetchDocuments();
         fetchClients();
         fetchCompanies();
