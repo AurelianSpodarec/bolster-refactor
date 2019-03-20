@@ -7,7 +7,7 @@ import BlockContainer from 'components/shared/generic/block/containers/BlockCont
 
 const SiteBuildingsTableContainer = ({ site }) => (
     <BlockContainer>
-        <BuildingsTableContainer ids={site.buildingIds || []} />
+        <BuildingsTableContainer ids={site.buildingIDs || []} />
     </BlockContainer>
 );
 

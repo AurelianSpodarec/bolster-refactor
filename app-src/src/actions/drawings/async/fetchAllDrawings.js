@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+import { API_URL } from 'config';
+import { getHeaders } from 'helpers/api';
 import {
     FETCH_ALL_DRAWINGS_REQUEST,
     FETCH_ALL_DRAWINGS_SUCCESS,
@@ -24,7 +26,7 @@ export default () => dispatch => {
     dispatch(fetchAllDrawingsRequest());
 
     axios
-        .get('/mockData/drawings/allDrawings.json')
+        .get(`${API_URL}/drawings`, getHeaders())
         .then(res => dispatch(fetchAllDrawingsSuccess(res.data)))
         .catch(err => dispatch(fetchAllDrawingsFailure(err.message)));
 };
