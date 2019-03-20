@@ -1,4 +1,6 @@
 import axios from 'axios';
+import { API_URL } from 'config';
+import { getHeaders } from 'helpers/api';
 
 import {
     FETCH_ALL_FLOORS_REQUEST,
@@ -24,7 +26,7 @@ export default () => dispatch => {
     dispatch(fetchAllFloorsRequest());
 
     axios
-        .get('/mockData/floors/allFloors.json')
+        .get(`${API_URL}/floors`, getHeaders())
         .then(res => dispatch(fetchAllFloorsSuccess(res.data)))
         .catch(err => dispatch(fetchAllFloorsFailure(err.message)));
 };

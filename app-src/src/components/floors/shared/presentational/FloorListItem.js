@@ -24,7 +24,7 @@ const FloorListItem = ({ floor, isExpanded, colCount, toggleExpanded }) => (
         {isExpanded && (
             <tr>
                 <td colSpan={colCount} className="table-container drawing">
-                    <DrawingTableContainer ids={floor.drawingIds} />
+                    <DrawingTableContainer ids={floor.drawingIDs} />
                 </td>
             </tr>
         )}

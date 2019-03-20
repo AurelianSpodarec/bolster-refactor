@@ -34,7 +34,7 @@ const BuldingsListItem = ({
                 <td colSpan={colCount} className="table-container">
                     <FloorTableContainer
                         className="with-actions"
-                        ids={building.floorIds}
+                        ids={building.floorIDs}
                     />
                 </td>
             </tr>
