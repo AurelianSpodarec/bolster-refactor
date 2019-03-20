@@ -8,6 +8,9 @@ import {
     FETCH_SINGLE_BUILDING_REQUEST,
     FETCH_SINGLE_BUILDING_SUCCESS,
     FETCH_SINGLE_BUILDING_FAILURE,
+    CREATE_BUILDING_REQUEST,
+    CREATE_BUILDING_SUCCESS,
+    CREATE_BUILDING_FAILURE,
     UPDATE_BUILDINGS_SEARCH_TERM,
     SET_BUILDINGS_FILTER_STATUS
 } from 'constants/actionTypes/buildings';
@@ -15,9 +18,10 @@ import {
 export default combineReducers({
     buildings: buildingsReducer,
     isFetching: isFetchingReducer,
+    postSucess: postSuccessReducer,
     error: errorReducer,
     nameFilter: nameFilterReducer,
-    stausFilter: statusFilterReducer
+    statusFilter: statusFilterReducer
 });
 
 function isFetchingReducer(state = false, action) {
@@ -34,12 +38,25 @@ function isFetchingReducer(state = false, action) {
     }
 }
 
+function postSuccessReducer(state = false, action) {
+    switch (action.type) {
+        case CREATE_BUILDING_REQUEST:
+            return false;
+        case CREATE_BUILDING_SUCCESS:
+            return true;
+        default:
+            return state;
+    }
+}
+
 function errorReducer(state = null, action) {
     switch (action.type) {
         case FETCH_ALL_BUILDINGS_REQUEST:
+        case CREATE_BUILDING_REQUEST:
             return null;
         case FETCH_ALL_BUILDINGS_FAILURE:
         case FETCH_SINGLE_BUILDING_FAILURE:
+        case CREATE_BUILDING_FAILURE:
             return action.error;
         default:
             return state;
@@ -56,6 +73,8 @@ function buildingsReducer(state = {}, action) {
                 action.payload.id.toString(),
                 action.payload
             );
+        case CREATE_BUILDING_SUCCESS:
+            return updateObj(state, action.payload.id, action.payload);
         default:
             return state;
     }
