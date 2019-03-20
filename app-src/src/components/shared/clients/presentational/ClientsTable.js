@@ -16,6 +16,7 @@ const ClientsTable = ({ location, clients, isFetching, error }) => (
         >
             <ClientsList clients={clients} />
         </Table>
+
         <div className="button-container table">
             <Link
                 className="button pull-right"
