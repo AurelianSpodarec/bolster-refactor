@@ -19,22 +19,22 @@ const BuildingRoutes = ({ match: { url: baseUrl } }) => (
         />
         <Route
             exact
-            path={`${baseUrl}/:siteID/attach-operative`}
+            path={`${baseUrl}/:id/attach-operative`}
             component={AttachBuildingOperative}
         />
         <Route
             exact
-            path={`${baseUrl}/:siteID/invite-client`}
+            path={`${baseUrl}/:id/invite-client`}
             component={InviteClientToBuilding}
         />
         <Route
             exact
-            path={`${baseUrl}/:siteID/attach-document`}
+            path={`${baseUrl}/:id/attach-document`}
             component={AttachBuildingDocument}
         />
         <Route
             exact
-            path={`${baseUrl}/:siteID/invite-company`}
+            path={`${baseUrl}/:id/invite-company`}
             component={InviteCompanyToBuilding}
         />
     </SwitchWith404>

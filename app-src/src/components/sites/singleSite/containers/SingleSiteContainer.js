@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import fetchAllBuildings from 'actions/buildings/async/fetchAllBuildings';
+import fetchAllFloors from 'actions/floors/async/fetchAllFloors';
+import fetchAllDrawings from 'actions/drawings/async/fetchAllDrawings';
 import fetchSingleSite from 'actions/sites/async/fetchSingleSite';
 import fetchDocuments from 'actions/documents/async/fetchDocuments';
 import fetchClients from 'actions/clients/async/fetchClients';
@@ -38,6 +40,12 @@ class SingleSiteContainer extends Component {
 const mapDispatchToProps = dispatch => ({
     fetchAllBuildings: () => {
         dispatch(fetchAllBuildings());
+    },
+    fetchAllDrawings: () => {
+        dispatch(fetchAllDrawings());
+    },
+    fetchAllFloors: () => {
+        dispatch(fetchAllFloors());
     },
     fetchSingleSite: siteID => {
         dispatch(fetchSingleSite(siteID));
