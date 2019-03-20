@@ -19,7 +19,7 @@ const BuldingsListItem = ({
                 )}{' '}
                 {building.name}
             </td>
-            <td>{building.permissions}</td>
+            <td>##permissions##</td>
             <td>
                 <Link
                     className="button light-blue"
@@ -34,7 +34,7 @@ const BuldingsListItem = ({
                 <td colSpan={colCount} className="table-container">
                     <FloorTableContainer
                         className="with-actions"
-                        ids={building.floorIds}
+                        ids={building.floorIDs}
                     />
                 </td>
             </tr>

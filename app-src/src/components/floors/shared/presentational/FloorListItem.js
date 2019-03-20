@@ -14,7 +14,7 @@ const FloorListItem = ({ floor, isExpanded, colCount, toggleExpanded }) => (
                 )}{' '}
                 {floor.name}
             </td>
-            <td>{floor.permissions}</td>
+            <td>##permissions##</td>
             <td>
                 <Link className="button light-blue" to={`/floors/${floor.id}`}>
                     View
@@ -24,7 +24,7 @@ const FloorListItem = ({ floor, isExpanded, colCount, toggleExpanded }) => (
         {isExpanded && (
             <tr>
                 <td colSpan={colCount} className="table-container drawing">
-                    <DrawingTableContainer ids={floor.drawingIds} />
+                    <DrawingTableContainer ids={floor.drawingIDs} />
                 </td>
             </tr>
         )}

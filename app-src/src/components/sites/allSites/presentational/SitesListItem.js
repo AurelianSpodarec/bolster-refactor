@@ -20,8 +20,8 @@ const SitesListItem = ({ toggleExpanded, isExpanded, site, colCount }) => {
                     />
                     {site.name}
                 </td>
-                <td>{site.ownedBy}</td>
-                <td>{site.permissions}</td>
+                <td>##oli##</td>
+                <td>##permissions##</td>
                 <td>
                     <Link className="button" to={`sites/${site.id}`}>
                         View
@@ -31,7 +31,7 @@ const SitesListItem = ({ toggleExpanded, isExpanded, site, colCount }) => {
             {isExpanded && (
                 <tr className="expanded-row buildings-row">
                     <td colSpan={colCount}>
-                        <BuildingsTableContainer ids={site.buildingIds} />
+                        <BuildingsTableContainer ids={site.buildingIDs} />
                     </td>
                 </tr>
             )}

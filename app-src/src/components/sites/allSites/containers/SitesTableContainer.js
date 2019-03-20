@@ -19,10 +19,12 @@ class SitesListTableContainer extends Component {
 
     _getFilteredSites = () => {
         const { sites, filters } = this.props;
-        const { status, name } = filters;
+        const { status } = filters;
+        const name = filters.name.toLowerCase();
+
         return sites
             .filter(site => !status.length || site.status === status)
-            .filter(site => site.name.includes(name));
+            .filter(site => site.name.toLowerCase().includes(name));
     };
 }
 
