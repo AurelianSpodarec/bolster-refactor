@@ -8,9 +8,14 @@ import BuildingFloorsTableContainer from '../containers/BuildingFloorsTableConta
 import BuildingOperativesTableContainer from '../containers/BuildingOperativesTableContainer';
 import BuildingClientsTableContainer from '../containers/BuildingClientsTableContainer';
 import BuildingCompaniesAccessTableContainer from '../containers/BuildingCompaniesAccessTableContainer';
+import BuildingPageHeaderContainer from '../containers/BuildingPageHeaderContainer';
 
 const SingleBuilding = () => (
     <div className="size-lg-12">
+        <div className="size-lg-12">
+            <BuildingPageHeaderContainer />
+        </div>
+
         <Block containerClass="size-lg-8" contentClass="site-details">
             <BuildingDetailsContainer />
         </Block>

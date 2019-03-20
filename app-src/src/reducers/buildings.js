@@ -28,6 +28,7 @@ export default combineReducers({
 function isFetchingReducer(state = false, action) {
     switch (action.type) {
         case FETCH_ALL_BUILDINGS_REQUEST:
+        case FETCH_SINGLE_BUILDING_REQUEST:
             return true;
         case FETCH_ALL_BUILDINGS_SUCCESS:
         case FETCH_ALL_BUILDINGS_FAILURE:
@@ -63,6 +64,7 @@ function errorReducer(state = null, action) {
     switch (action.type) {
         case FETCH_ALL_BUILDINGS_REQUEST:
         case CREATE_BUILDING_REQUEST:
+        case FETCH_SINGLE_BUILDING_REQUEST:
             return null;
         case FETCH_ALL_BUILDINGS_FAILURE:
         case FETCH_SINGLE_BUILDING_FAILURE:
@@ -77,12 +79,7 @@ function buildingsReducer(state = {}, action) {
     switch (action.type) {
         case FETCH_ALL_BUILDINGS_SUCCESS:
             return convertArrToObj(action.payload);
-        case FETCH_SINGLE_BUILDING_REQUEST:
-            return updateObj(
-                state,
-                action.payload.id.toString(),
-                action.payload
-            );
+        case FETCH_SINGLE_BUILDING_SUCCESS:
         case CREATE_BUILDING_SUCCESS:
             return updateObj(state, action.payload.id, action.payload);
         default:

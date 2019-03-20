@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { connect } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import fetchSingleBuilding from 'actions/buildings/async/fetchSingleBuilding';
 import fetchDocuments from 'actions/documents/async/fetchDocuments';
@@ -15,18 +15,18 @@ class SingleBuildingContainer extends Component {
     }
 
     componentDidMount = () => {
-        const { fetchSingleBuilding, fetchDocuments } = this.props;
-        fetchSingleBuilding();
-        fetchDocuments();
-        fetchClients();
-        fetchCompanies();
-        fetchOperatives();
+        const { fetchSingleBuilding, buildingID } = this.props;
+        fetchSingleBuilding(buildingID);
+        // fetchDocuments();
+        // fetchClients();
+        // fetchCompanies();
+        // fetchOperatives();
     };
 }
 
 const mapDispatchToProps = dispatch => ({
-    fetchSingleBuilding: () => {
-        dispatch(fetchSingleBuilding());
+    fetchSingleBuilding: buildingID => {
+        dispatch(fetchSingleBuilding(buildingID));
     },
     fetchDocuments: () => {
         dispatch(fetchDocuments());
@@ -43,6 +43,6 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default connect(
-    null,
+    (_, { match }) => ({ buildingID: match.params['id'] }),
     mapDispatchToProps
 )(SingleBuildingContainer);
