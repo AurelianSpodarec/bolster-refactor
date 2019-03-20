@@ -39,7 +39,7 @@ function errorReducer(state = null, action) {
             return null;
         case FETCH_SINGLE_PIN_FAILURE:
         case FETCH_PINS_FAILURE:
-            return action.error.message;
+            return action.error;
         default:
             return state;
     }

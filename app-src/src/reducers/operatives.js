@@ -30,7 +30,7 @@ function errorReducer(state = null, action) {
         case FETCH_OPERATIVES_REQUEST:
             return null;
         case FETCH_OPERATIVES_FAILURE:
-            return action.error.message;
+            return action.error;
         default:
             return state;
     }

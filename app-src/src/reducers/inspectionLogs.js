@@ -30,7 +30,7 @@ function errorReducer(state = null, action) {
         case FETCH_DRAWING_INSPECTION_LOGS_REQUEST:
             return null;
         case FETCH_DRAWING_INSPECTION_LOGS_FAILURE:
-            return action.error.message;
+            return action.error;
         default:
             return state;
     }

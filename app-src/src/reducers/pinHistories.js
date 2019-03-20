@@ -32,7 +32,7 @@ function errorReducer(state = null, action) {
         case FETCH_PIN_HISTORIES_REQUEST:
             return null;
         case FETCH_PIN_HISTORIES_FAILURE:
-            return action.error.message;
+            return action.error;
         default:
             return state;
     }
