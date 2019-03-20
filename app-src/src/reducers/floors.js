@@ -30,7 +30,7 @@ function errorReducer(state = null, action) {
         case FETCH_ALL_FLOORS_REQUEST:
             return null;
         case FETCH_ALL_FLOORS_FAILURE:
-            return action.error.message;
+            return action.error;
         default:
             return state;
     }

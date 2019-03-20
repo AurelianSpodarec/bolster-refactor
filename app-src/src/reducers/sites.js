@@ -40,7 +40,7 @@ function errorReducer(state = null, action) {
             return null;
         case FETCH_ALL_SITES_FAILURE:
         case FETCH_SINGLE_SITE_FAILURE:
-            return action.error.message;
+            return action.error;
         default:
             return state;
     }

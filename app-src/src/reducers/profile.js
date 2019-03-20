@@ -29,7 +29,7 @@ function errorReducer(state = null, action) {
         case FETCH_PROFILE_REQUEST:
             return null;
         case FETCH_PROFILE_FAILURE:
-            return action.error.message;
+            return action.error;
         default:
             return state;
     }

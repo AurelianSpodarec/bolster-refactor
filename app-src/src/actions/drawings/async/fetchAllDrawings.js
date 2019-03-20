@@ -26,5 +26,5 @@ export default () => dispatch => {
     axios
         .get('/mockData/drawings/allDrawings.json')
         .then(res => dispatch(fetchAllDrawingsSuccess(res.data)))
-        .catch(err => dispatch(fetchAllDrawingsFailure(err)));
+        .catch(err => dispatch(fetchAllDrawingsFailure(err.message)));
 };

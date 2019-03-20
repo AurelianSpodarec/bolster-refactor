@@ -30,7 +30,7 @@ function errorReducer(state = null, action) {
         case FETCH_SEARCH_RESULTS_REQUEST:
             return null;
         case FETCH_SEARCH_RESULTS_FAILURE:
-            return action.error.message;
+            return action.error;
         default:
             return state;
     }

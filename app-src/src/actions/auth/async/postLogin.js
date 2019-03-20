@@ -34,6 +34,8 @@ export default (email, password) => dispatch => {
         .then(res => dispatch(postLoginSuccess(res.data)))
         .catch(err => {
             dispatch(postLoginFailure());
-            dispatch(setAPIFieldErrors(err.response.data.errors));
+
+            if (err.response.status === 400)
+                dispatch(setAPIFieldErrors(err.response.data.errors));
         });
 };

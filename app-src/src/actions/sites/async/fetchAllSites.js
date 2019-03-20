@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { API_URL } from 'config';
 
 import {
     FETCH_ALL_SITES_REQUEST,
@@ -24,7 +25,7 @@ export default () => dispatch => {
     dispatch(fetchAllSitesRequest());
 
     axios
-        .get('/mockData/sites/sites.json')
+        .get(`${API_URL}/sites `)
         .then(res => dispatch(fetchAllSitesSuccess(res.data)))
-        .catch(err => dispatch(fetchAllSitesFailure(err)));
+        .catch(err => dispatch(fetchAllSitesFailure(err.message)));
 };
