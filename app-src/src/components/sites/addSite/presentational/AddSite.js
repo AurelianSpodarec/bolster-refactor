@@ -2,14 +2,19 @@ import React from 'react';
 
 import Breadcrumb from 'components/shared/generic/breadcrumb/presentational/Breadcrumb';
 import AddSiteFormContainer from '../containers/AddSiteFormContainer';
-import Block from 'components/shared/generic/block/presentational/Block';
+import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 
 const AddSite = () => (
     <>
-        <Breadcrumb breadcrumbs={[{ text: 'Add site' }]} />
-        <Block>
+        <Breadcrumb
+            breadcrumbs={[
+                { text: 'Sites', link: '/sites' },
+                { text: 'Add site' }
+            ]}
+        />
+        <BlockContainer heading="Add Site">
             <AddSiteFormContainer />
-        </Block>
+        </BlockContainer>
     </>
 );
 
