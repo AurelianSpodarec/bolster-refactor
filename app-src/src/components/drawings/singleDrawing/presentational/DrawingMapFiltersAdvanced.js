@@ -8,7 +8,8 @@ import YellowPin from '_content/images/pins/yellow-pin.png';
 
 const DrawingMapFiltersAdvanced = ({
     serviceTypeOptions,
-    serviceTypeSelected
+    serviceTypeSelected,
+    handleInputChange = () => {}
 }) => (
     <div className="form size-lg-12">
         <div className="size-lg-9">
@@ -17,6 +18,7 @@ const DrawingMapFiltersAdvanced = ({
                     title="Service type"
                     options={serviceTypeOptions}
                     selectedOption={serviceTypeSelected}
+                    handleInputChange={handleInputChange}
                 />
             </div>
 
@@ -25,6 +27,7 @@ const DrawingMapFiltersAdvanced = ({
                     title="Status"
                     options={serviceTypeOptions}
                     selectedOption={serviceTypeSelected}
+                    handleInputChange={handleInputChange}
                 />
             </div>
 
@@ -33,6 +36,7 @@ const DrawingMapFiltersAdvanced = ({
                     title="Time period"
                     options={serviceTypeOptions}
                     selectedOption={serviceTypeSelected}
+                    handleInputChange={handleInputChange}
                 />
             </div>
 
@@ -41,6 +45,7 @@ const DrawingMapFiltersAdvanced = ({
                     title="Operative"
                     options={serviceTypeOptions}
                     selectedOption={serviceTypeSelected}
+                    handleInputChange={handleInputChange}
                 />
             </div>
         </div>
