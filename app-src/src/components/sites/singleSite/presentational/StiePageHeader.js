@@ -5,7 +5,7 @@ import PageHeading from 'components/shared/generic/pageHeading/presentational/Pa
 
 const SitePageHeader = ({ site }) => (
     <PageHeading title={`Site: ${site.name || ''}`}>
-        <Link className="button" to="/sites/2/add-building">
+        <Link className="button" to={`/buildings/create/${site.id}`}>
             <i className="far fa-plus" /> Add building
         </Link>
         <Link className="button" to="/site">

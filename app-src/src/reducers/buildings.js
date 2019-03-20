@@ -17,8 +17,9 @@ import {
 
 export default combineReducers({
     buildings: buildingsReducer,
+    updatedBuildingID: updatedBuildingReducer,
     isFetching: isFetchingReducer,
-    postSucess: postSuccessReducer,
+    postSuccess: postSuccessReducer,
     error: errorReducer,
     nameFilter: nameFilterReducer,
     statusFilter: statusFilterReducer
@@ -44,6 +45,15 @@ function postSuccessReducer(state = false, action) {
             return false;
         case CREATE_BUILDING_SUCCESS:
             return true;
+        default:
+            return state;
+    }
+}
+
+function updatedBuildingReducer(state = 0, action) {
+    switch (action.type) {
+        case CREATE_BUILDING_SUCCESS:
+            return action.payload.id;
         default:
             return state;
     }
