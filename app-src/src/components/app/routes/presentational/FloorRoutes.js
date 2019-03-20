@@ -2,7 +2,7 @@ import React from 'react';
 import { Route } from 'react-router-dom';
 
 import SwitchWith404 from './SwitchWith404';
-import SingleFloor from 'components/floors/singleFloor/presentational/SingleFloor';
+import SingleFloorContainer from 'components/floors/singleFloor/containers/SingleFloorContainer';
 import AttachFloorOperative from 'components/floors/attachFloorOperative/presentational/AttachFloorOperative';
 import InviteClientToFloor from 'components/floors/inviteClientToFloor/presentational/InviteClientToFloor';
 import AttachFloorDocument from 'components/floors/attachFloorDocument/presentational/AttachFloorDocument';
@@ -11,7 +11,7 @@ import AddFloor from 'components/floors/addFloor/presentational/AddFloor';
 
 const FloorRoutes = ({ match: { url: baseUrl } }) => (
     <SwitchWith404>
-        <Route exact path={`${baseUrl}/:id`} component={SingleFloor} />
+        <Route exact path={`${baseUrl}/:id`} component={SingleFloorContainer} />
         <Route
             exact
             path={`${baseUrl}/:id/attach-operative`}

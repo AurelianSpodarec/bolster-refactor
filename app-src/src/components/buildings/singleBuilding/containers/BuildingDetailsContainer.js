@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-// import Stats from 'components/shared/stats/presentational/Stats';
-
 class BuildingDetailsContainer extends Component {
     render() {
         // const { building, isFetching } = this.props;

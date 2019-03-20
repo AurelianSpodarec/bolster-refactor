@@ -1,13 +1,33 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
-// import Stats from 'components/shared/stats/presentational/Stats';
-
-export default class FloorDetailsContainer extends Component {
+import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import FloorStats from '../presentational/FloorStats';
+class FloorDetailsContainer extends Component {
     render() {
+        const { floor, error, isFetching } = this.props;
+
         return (
-            <h1 className="heading heading-1 size-lg-12">
-                Floor Details Container
-            </h1>
+            <BlockContainer
+                error={error}
+                isFetching={isFetching}
+                isEmpty={!floor.id}
+            >
+                <FloorStats floor={floor} />
+            </BlockContainer>
         );
     }
 }
+const mapStateToProps = ({ floorsReducer }, { match }) => ({
+    floor: floorsReducer.floors[match.params.id] || {},
+    isFetching: floorsReducer.isFetching,
+    error: floorsReducer.error
+});
+
+export default withRouter(
+    connect(
+        mapStateToProps,
+        null
+    )(FloorDetailsContainer)
+);
