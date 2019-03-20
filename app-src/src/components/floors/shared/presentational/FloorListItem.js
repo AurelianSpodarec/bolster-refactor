@@ -5,7 +5,7 @@ import DrawingTableContainer from 'components/drawings/shared/containers/Drawing
 
 const FloorListItem = ({ floor, isExpanded, colCount, toggleExpanded }) => (
     <>
-        <tr onClick={toggleExpanded} className={isExpanded && 'open'}>
+        <tr onClick={toggleExpanded} className={isExpanded ? 'open' : ''}>
             <td>
                 {isExpanded ? (
                     <i className="fa fa-chevron-down" />

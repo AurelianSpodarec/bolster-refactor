@@ -1,6 +1,5 @@
 import { combineReducers } from 'redux';
 
-import authReducer from './auth';
 import buildingsReducer from './buildings';
 import companiesReducer from './companies';
 import drawingsReducer from './drawings';
@@ -39,7 +38,6 @@ export default combineReducers({
     sitesReducer,
     fieldErrorsReducer,
     tabsReducer,
-    authReducer,
     loginReducer,
     inspectionLogsReducer,
     tablesReducer,
