@@ -3,6 +3,7 @@ import React from 'react';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import PinImagesContainer from '../containers/PinImagesContainer';
 import FieldOutput from 'components/shared/generic/fieldOutput/presentational/FieldOutput';
+import BlockButtonWrapper from 'components/shared/generic/blockButtonWrapper/presentational/BlockButtonWrapper';
 
 const PinDetails = ({
     pinHistory,
@@ -44,14 +45,14 @@ const PinDetails = ({
                 <PinImagesContainer images={pinHistory.photoIds} />
             </div>
         </BlockContainer>
-        <div className="button-block-container size-lg-12">
+        <BlockButtonWrapper>
             <a className="button red" href="#/">
                 <i className="icon fa fa-trash" /> Delete this history
             </a>
             <a className="button" href="#/">
                 Edit this history
             </a>
-        </div>
+        </BlockButtonWrapper>
     </>
 );
 
