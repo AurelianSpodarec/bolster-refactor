@@ -1,5 +1,4 @@
 import React from 'react';
-import moment from 'moment';
 
 import ReactPieChart from 'react-minimal-pie-chart';
 
@@ -8,7 +7,7 @@ import redPin from '_content/images/pins/red-pin.png';
 import bluePin from '_content/images/pins/blue-pin.png';
 import yellowPin from '_content/images/pins/yellow-pin.png';
 
-const PieChart = ({ details }) => (
+const PieChart = () => (
     <div className="history size-lg-6">
         <ReactPieChart
             className="size-lg-5"
@@ -16,22 +15,22 @@ const PieChart = ({ details }) => (
             data={[
                 {
                     title: 'Red',
-                    value: details.pinHistory.red,
+                    value: 10,
                     color: '#d71a1a'
                 },
                 {
                     title: 'Blue',
-                    value: details.pinHistory.blue,
+                    value: 20,
                     color: '#3363dd'
                 },
                 {
                     title: 'Green',
-                    value: details.pinHistory.green,
+                    value: 35,
                     color: '#eec206'
                 },
                 {
                     title: 'Yellow',
-                    value: details.pinHistory.yellow,
+                    value: 100,
                     color: '#2cac56'
                 }
             ]}
@@ -41,24 +40,23 @@ const PieChart = ({ details }) => (
         <div className="pin-key size-lg-6">
             <div className="pin">
                 <img src={redPin} alt="pin" />
-                <p>{details.pinHistory.red}</p>
+                <p>##10##</p>
             </div>
             <div className="pin">
                 <img src={bluePin} alt="pin" />
-                <p>{details.pinHistory.blue}</p>
+                <p>##20##</p>
             </div>
             <div className="pin">
                 <img src={greenPin} alt="pin" />
-                <p>{details.pinHistory.green}</p>
+                <p>##35##</p>
             </div>
             <div className="pin">
                 <img src={yellowPin} alt="pin" />
-                <p>{details.pinHistory.yellow}</p>
+                <p>##100##</p>
             </div>
         </div>
         <label className="size-lg-12">
-            Last Update:{' '}
-            {moment(details.lastUpdated).format('DD/MM/YYYY hh:mm a')}
+            Last Update: ##12/10/2018 09:17 pm##
         </label>
     </div>
 );
