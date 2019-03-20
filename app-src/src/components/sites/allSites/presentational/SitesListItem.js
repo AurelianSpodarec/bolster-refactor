@@ -20,8 +20,8 @@ const SitesListItem = ({ toggleExpanded, isExpanded, site, colCount }) => {
                     />
                     {site.name}
                 </td>
-                <td>{site.ownedBy}</td>
-                <td>{site.permissions}</td>
+                <td>##oli##</td>
+                <td>##permissions##</td>
                 <td>
                     <Link className="button" to={`sites/${site.id}`}>
                         View

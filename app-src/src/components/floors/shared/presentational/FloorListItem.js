@@ -14,7 +14,7 @@ const FloorListItem = ({ floor, isExpanded, colCount, toggleExpanded }) => (
                 )}{' '}
                 {floor.name}
             </td>
-            <td>{floor.permissions}</td>
+            <td>##permissions##</td>
             <td>
                 <Link className="button light-blue" to={`/floors/${floor.id}`}>
                     View

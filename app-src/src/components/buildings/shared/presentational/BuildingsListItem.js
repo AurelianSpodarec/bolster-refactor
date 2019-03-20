@@ -19,7 +19,7 @@ const BuldingsListItem = ({
                 )}{' '}
                 {building.name}
             </td>
-            <td>{building.permissions}</td>
+            <td>##permissions##</td>
             <td>
                 <Link
                     className="button light-blue"
