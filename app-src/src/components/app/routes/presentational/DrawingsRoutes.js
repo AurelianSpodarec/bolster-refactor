@@ -3,6 +3,7 @@ import { Route } from 'react-router-dom';
 
 import SwitchWith404 from './SwitchWith404';
 import SingleDrawingContainer from 'components/drawings/singleDrawing/containers/SingleDrawingContainer';
+import AddDrawing from 'components/drawings/addDrawing/presentational/AddDrawing';
 import AttachDrawingOperative from 'components/drawings/attachDrawingOperative/presentational/AttachDrawingOperative';
 import InviteClientToDrawing from 'components/drawings/inviteClientToDrawing/presentational/InviteClientToDrawing';
 import AttachDrawingDocument from 'components/drawings/attachDrawingDocument/presentational/AttachDrawingDocument';
@@ -17,8 +18,8 @@ const DrawingsRoutes = ({ match: { url: baseUrl } }) => (
         />
         <Route
             exact
-            path={`${baseUrl}/create/:buildingID`}
-            component={SingleDrawingContainer}
+            path={`${baseUrl}/create/:floorID`}
+            component={AddDrawing}
         />
         <Route
             exact
