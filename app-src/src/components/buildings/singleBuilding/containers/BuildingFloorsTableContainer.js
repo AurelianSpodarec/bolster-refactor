@@ -1,19 +1,19 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import React from 'react';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
-class FloorsTableContainer extends Component {
-    render() {
-        return (
-            <div className="size-lg-12">
-                <h1 className="heading heading-1 size-lg-12">
-                    FloorsTableContainer
-                </h1>
-                <Link className="button" to="/floors/1">
-                    View floor
-                </Link>
-            </div>
-        );
-    }
-}
+import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import FloorTableContainer from 'components/floors/shared/containers/FloorTableContainer';
 
-export default FloorsTableContainer;
+const BuildingsFloorsTableContainer = ({ building }) => (
+    <BlockContainer>
+        <FloorTableContainer ids={building.floorIDs || []} />
+    </BlockContainer>
+);
+
+export default withRouter(
+    connect(({ buildingsReducer }, ownProps) => ({
+        building: buildingsReducer.buildings[ownProps.match.params.id] || {},
+        isFetching: buildingsReducer.isFetching
+    }))(BuildingsFloorsTableContainer)
+);
