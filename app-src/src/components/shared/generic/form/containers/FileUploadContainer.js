@@ -19,6 +19,7 @@ class FileUploadContainer extends Component {
         return (
             <FileUpload
                 addRef={ref => (this.pond = ref)}
+                handleBeforeAddFile={this.handleBeforeAddFile}
                 handleAddFile={this.handleAddFile}
                 handleRemoveFile={this.handleRemoveFile}
                 error={errorMessage}
@@ -26,25 +27,56 @@ class FileUploadContainer extends Component {
         );
     }
 
-    handleAddFile = (err, data) => {
-        const { name, handleChange } = this.props;
-        console.log(data.file);
+    handleBeforeAddFile = ({ file }) => {
+        const {
+            name,
+            error,
+            allowedTypes,
+            addFieldError,
+            removeFieldError
+        } = this.props;
+
+        if (!(allowedTypes && allowedTypes.length)) return true;
+        const isValid = allowedTypes.some(type =>
+            type.toLowerCase().includes(file.type.toLowerCase())
+        );
+
+        if (!isValid) {
+            addFieldError(name, 'This file type is not allowed.');
+            this._showFieldError();
+            return false;
+        } else if (error) {
+            removeFieldError(name);
+        }
+    };
+
+    handleAddFile = (err, { file }) => {
+        // const { name, handleChange } = this.props;
+        this._showFieldError();
         if (!err) {
-            this._getBase64(data.file)
-                // .then(base64 => handleChange(name, base64))
-                .catch();
+            this._getBase64(file);
+            // .then(base64 => handleChange(name, base64))
+            // .catch();
         }
     };
 
     handleRemoveFile = () => {
-        const { name, handleChange } = this.props;
+        // const { name, handleChange } = this.props;
         // handleChange(name, '');
+        this._validateRequired();
+        this._showFieldError();
     };
 
-    _validate = file => {
+    _showFieldError = () => {
+        this.setState({
+            ...this.state,
+            showFieldError: true
+        });
+    };
+
+    _validateRequired = file => {
         const {
             name,
-            allowedTypes,
             error,
             required,
             addFieldError,
@@ -53,16 +85,10 @@ class FileUploadContainer extends Component {
 
         if (required && !file) {
             addFieldError(name, 'This is a required field.');
-        } else if (!(allowedTypes && allowedTypes.length) || allowedTypes.some){
-
         } else if (error) {
             removeFieldError(name);
         }
     };
-
-    _validateTypes = (fileType, types) {
-        if (!(types && types.length))
-    }
 
     _getBase64 = file => {
         return new Promise((resolve, reject) => {
