@@ -18,6 +18,7 @@ import UserManagementRoutes from './UserManagementRoutes.js';
 import PinRoutes from './PinRoutes';
 import ReportsRoutes from './ReportsRoutes';
 import ToolsRoutes from './ToolsRoutes';
+import TemplateBuilderRoutes from './TemplateBuilderRoutes';
 
 const Routes = ({ showLoggedInLayout }) => (
     <div id="page-area" className={`${!showLoggedInLayout ? 'full' : ''}`}>
@@ -36,6 +37,10 @@ const Routes = ({ showLoggedInLayout }) => (
             <Route path="/pins" component={withAuth(PinRoutes)} />
             <Route path="/reports" component={withAuth(ReportsRoutes)} />
             <Route path="/tools" component={withAuth(ToolsRoutes)} />
+            <Route
+                path="/template-builder"
+                component={withAuth(TemplateBuilderRoutes)}
+            />
             <Route exact path="/404" component={NotFound} />
         </SwitchWith404>
     </div>

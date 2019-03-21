@@ -93,7 +93,7 @@ const SuperAdminMenu = () => (
             <MenuItemContainer link="/Users">
                 <i className="fa fa-user icon" /> Users
             </MenuItemContainer>
-            <MenuItemContainer link="/template">
+            <MenuItemContainer link="/template-builder">
                 <i className="fa fa-file icon" /> Template builder
             </MenuItemContainer>
             <MenuItemContainer link="/qr">
