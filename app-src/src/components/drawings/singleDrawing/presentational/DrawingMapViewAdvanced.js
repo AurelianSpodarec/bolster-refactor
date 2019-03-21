@@ -1,6 +1,7 @@
 import React from 'react';
 import { Map, TileLayer, Marker, Popup } from 'react-leaflet';
 
+//old - probably not going to use this componenet
 const DrawingMapViewAdvanced = ({ position, zoom }) => (
     <Map center={position} zoom={zoom}>
         <TileLayer

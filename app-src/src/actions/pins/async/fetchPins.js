@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+import { API_URL } from 'config';
+import { getHeaders } from 'helpers/api';
 import {
     FETCH_PINS_REQUEST,
     FETCH_PINS_SUCCESS,
@@ -24,7 +26,7 @@ export default () => dispatch => {
     dispatch(fetchPinsRequest());
 
     axios
-        .get('/mockData/pins/pins.json')
+        .get(`${API_URL}/pins`, getHeaders())
         .then(res => dispatch(fetchPinsSuccess(res.data)))
         .catch(err => dispatch(fetchPinsFailure(err.message)));
 };
