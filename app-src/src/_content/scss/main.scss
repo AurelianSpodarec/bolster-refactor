@@ -707,7 +707,19 @@ input {
     height: 100%;
     background-color: #53545c;
 }
+.menu-wrapper {
+    float: left;
+    width: 200px;
+    height: 100%;
+    .tab-container {
+        float: left;
+        width: 100%;
 
+        button {
+            width: 50%;
+        }
+    }
+}
 .menu {
     float: left;
     width: 200px;
