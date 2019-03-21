@@ -3,7 +3,7 @@ import React from 'react';
 import MenuItemContainer from '../containers/MenuItemContainer';
 import DropdownMenuItemContainer from '../containers/DropdownMenuItemContainer';
 
-const SuperAdminMenu = ({ messageCount }) => (
+const SuperAdminMenu = () => (
     <>
         <div className="menu-bg" />
 
@@ -16,9 +16,6 @@ const SuperAdminMenu = ({ messageCount }) => (
                 <i className="far fa-file-export icon" /> Generation Queue
             </MenuItemContainer>
 
-            <MenuItemContainer link="/sites">
-                <i className="fa fa-building icon" />
-            </MenuItemContainer>
             <DropdownMenuItemContainer
                 icon="building"
                 title={'Site Management'}
@@ -67,33 +64,41 @@ const SuperAdminMenu = ({ messageCount }) => (
                     Headerquarters
                 </MenuItemContainer>
             </DropdownMenuItemContainer>
-            <MenuItemContainer link="/reports">
-                <i className="fa fa-file icon" /> Reports
-            </MenuItemContainer>
-
-            <MenuItemContainer link="/messages">
-                <span className="messages">
-                    <i className="far fa-envelope" />
-                    <sub>{messageCount}</sub>
-                </span>
-                Message Centre
-            </MenuItemContainer>
-
             <DropdownMenuItemContainer
-                icon="wrench"
-                title={'Tools & Resources'}
-                baseUrl="/tools"
+                icon="hard-hat"
+                title={'Logs'}
+                baseUrl="/logs"
             >
-                <MenuItemContainer link="/tools/credit-logs">
-                    Drawing Credit Log
-                </MenuItemContainer>
-                <MenuItemContainer link="/tools/pin-options">
-                    Pin Options
-                </MenuItemContainer>
-                <MenuItemContainer link="/tools/support">
-                    Support
+                <MenuItemContainer link="/logs/all">All Logs</MenuItemContainer>
+                <MenuItemContainer link="/logs/drawing-credits">
+                    Drawing Credit Logs
                 </MenuItemContainer>
             </DropdownMenuItemContainer>
+
+            <DropdownMenuItemContainer
+                icon="pound-sign"
+                title={'SOS'}
+                baseUrl="/sos"
+            >
+                <MenuItemContainer link="/sos/all">
+                    <i className="fa fa-file icon" /> All SOS data
+                </MenuItemContainer>
+                <MenuItemContainer link="/sos/Invoices">
+                    <i className="fa fa-file icon" /> Invoices
+                </MenuItemContainer>
+            </DropdownMenuItemContainer>
+            <MenuItemContainer link="/companies">
+                <i className="fa fa-users icon" /> Companies
+            </MenuItemContainer>
+            <MenuItemContainer link="/Users">
+                <i className="fa fa-user icon" /> Users
+            </MenuItemContainer>
+            <MenuItemContainer link="/template-builder">
+                <i className="fa fa-file icon" /> Template builder
+            </MenuItemContainer>
+            <MenuItemContainer link="/qr">
+                <i className="fa fa-qr icon" /> QR Codes
+            </MenuItemContainer>
         </div>
     </>
 );

@@ -2,18 +2,26 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import withShowLayout from 'components/layout/misc/hocs/withShowLayout';
-import Menu from '../presentational/Menu';
+import MenusWrapper from '../presentational/MenusWrapper';
 
 class MenuContianer extends Component {
+    state = {
+        showSuperAdminMenu: false
+    };
+
     render() {
         const { showLoggedInLayout, messageCount } = this.props;
         if (!showLoggedInLayout) return null;
-        return <Menu messageCount={messageCount} />;
+        return <MenusWrapper />;
     }
 }
+const mapStateToProps = ({ messagesReducer }) => ({
+    messageCount: Object.values(messagesReducer.messages).length
+});
 
 export default withShowLayout(
-    connect(({ messagesReducer }) => ({
-        messageCount: Object.values(messagesReducer.messages).length
-    }))(MenuContianer)
+    connect(
+        mapStateToProps,
+        null
+    )(MenuContianer)
 );
