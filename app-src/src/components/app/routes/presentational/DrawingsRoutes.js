@@ -17,22 +17,27 @@ const DrawingsRoutes = ({ match: { url: baseUrl } }) => (
         />
         <Route
             exact
-            path={`${baseUrl}/:siteId/attach-operative`}
+            path={`${baseUrl}/create/:buildingID`}
+            component={SingleDrawingContainer}
+        />
+        <Route
+            exact
+            path={`${baseUrl}/:id/attach-operative`}
             component={AttachDrawingOperative}
         />
         <Route
             exact
-            path={`${baseUrl}/:siteId/invite-client`}
+            path={`${baseUrl}/:id/invite-client`}
             component={InviteClientToDrawing}
         />
         <Route
             exact
-            path={`${baseUrl}/:siteId/attach-document`}
+            path={`${baseUrl}/:id/attach-document`}
             component={AttachDrawingDocument}
         />
         <Route
             exact
-            path={`${baseUrl}/:siteId/invite-company`}
+            path={`${baseUrl}/:id/invite-company`}
             component={InviteCompanyToBuilding}
         />
     </SwitchWith404>
