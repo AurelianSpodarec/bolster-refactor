@@ -30,6 +30,7 @@ class DrawingMapGeneralContainer extends Component {
                 <DrawingMapFiltersAdvanced
                     serviceTypeOptions={this.state.serviceTypeOptions}
                     serviceTypeSelected={this.state.serviceTypeSelected}
+                    pins={this.props.pins}
                 />
                 <DrawingMapViewSimple
                     position={position}

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import DrawingMapFiltersSimple from '../presentational/DrawingMapFiltersSimple';
-import DrawingMapViewAdvanced from '../presentational/DrawingMapViewAdvanced';
+import DrawingMapViewSimple from '../presentational/DrawingMapViewSimple';
 
 class DrawingMapAdvancedContainer extends Component {
     state = {
@@ -16,7 +16,7 @@ class DrawingMapAdvancedContainer extends Component {
         return (
             <div className="size-lg-12">
                 <DrawingMapFiltersSimple />
-                <DrawingMapViewAdvanced
+                <DrawingMapViewSimple
                     position={position}
                     zoom={this.state.mapZoom}
                 />

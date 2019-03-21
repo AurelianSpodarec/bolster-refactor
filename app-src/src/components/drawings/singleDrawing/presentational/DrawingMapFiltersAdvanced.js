@@ -9,7 +9,8 @@ import YellowPin from '_content/images/pins/yellow-pin.png';
 const DrawingMapFiltersAdvanced = ({
     serviceTypeOptions,
     serviceTypeSelected,
-    handleInputChange = () => {}
+    handleInputChange = () => {},
+    pins
 }) => (
     <div className="form size-lg-12">
         <div className="size-lg-9">

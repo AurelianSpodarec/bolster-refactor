@@ -25,7 +25,7 @@ const DrawingMapPin = ({ pin }) => {
     return (
         <Marker
             key={pin.id}
-            position={[pin.latitude, pin.longitude]}
+            position={[pin.location.latY, pin.location.lngX]}
             icon={icon}
         >
             <Popup>{`name: ${pin.name}`}</Popup>
