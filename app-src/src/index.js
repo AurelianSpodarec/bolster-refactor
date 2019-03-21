@@ -10,6 +10,8 @@ import reducer from 'reducers';
 import AppContainer from 'components/app/app/containers/AppContainer';
 import '_content/scss/font-awesome.css';
 import '_content/scss/main.scss';
+import 'filepond/dist/filepond.min.css';
+import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css';
 
 let middleWare = [thunk];
 
