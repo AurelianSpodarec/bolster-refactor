@@ -1,6 +1,7 @@
 import React from 'react';
 import { FilePond, registerPlugin } from 'react-filepond';
 import FilePondPluginImagePreview from 'filepond-plugin-image-preview';
+
 registerPlugin(FilePondPluginImagePreview);
 
 const FileUpload = ({
