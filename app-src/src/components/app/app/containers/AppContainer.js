@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { BrowserRouter as Router } from 'react-router-dom';
 
@@ -10,46 +10,24 @@ import fetchGenerationQueue from 'actions/generationQueue/async/fetchGenerationQ
 
 import App from '../presentational/App';
 
-class AppContainer extends Component {
-    render() {
-        return (
-            <Router>
-                <App />
-            </Router>
-        );
-    }
+const AppContainer = ({ fetchHomeData }) => {
+    useEffect(() => {
+        fetchHomeData();
+    }, []);
 
-    componentDidMount = () => {
-        const {
-            fetchProfile,
-            fetchCompany,
-            fetchNotifications,
-            fetchMessages,
-            fetchGenerationQueue
-        } = this.props;
-
-        fetchProfile();
-        fetchCompany();
-        fetchNotifications();
-        fetchMessages();
-        fetchGenerationQueue();
-    };
-}
+    return (
+        <Router>
+            <App />
+        </Router>
+    );
+};
 
 const mapDispatchToProps = dispatch => ({
-    fetchProfile: () => {
+    fetchHomeData: () => {
         dispatch(fetchProfile());
-    },
-    fetchCompany: () => {
         dispatch(fetchCompany());
-    },
-    fetchNotifications: () => {
         dispatch(fetchNotifications());
-    },
-    fetchMessages: () => {
         dispatch(fetchMessages());
-    },
-    fetchGenerationQueue: () => {
         dispatch(fetchGenerationQueue());
     }
 });

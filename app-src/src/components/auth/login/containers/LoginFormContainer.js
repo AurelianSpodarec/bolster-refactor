@@ -45,7 +45,6 @@ class LoginFormContainer extends Component {
         }
     };
 }
-
 const mapStateToProps = ({ loginReducer }) => loginReducer;
 
 const mapDispatchToProps = dispatch => ({
