@@ -10,7 +10,7 @@ import AddTemplateQuestionModalContainer from './AddTemplateQuestionModalContain
 
 const MODAL_COMPONENTS = {
     [PIN_IMAGE]: PinPhotoModal,
-    [ADD_TEMPLATE_QUESTION]: AddTemplateQuestionModalContainer
+    [ADD_TEMPLATE_QUESTION]: AddTemplateQuestionModalContainer,
     [ADD_TEMPLATE_SECTION]: AddTemplateSectionModalContianer
 };
 
