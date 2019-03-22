@@ -24,6 +24,7 @@ import pinHistoriesReducer from './pinHistories';
 import operativesReducer from './operatives';
 import modalReducer from './modal';
 import templateBuilderReducer from './templateBuilder';
+import servicesReducer from './services';
 
 export default combineReducers({
     buildingsReducer,
@@ -50,4 +51,5 @@ export default combineReducers({
     operativesReducer,
     modalReducer,
     templateBuilderReducer
+    servicesReducer
 });

@@ -19,11 +19,17 @@ import PinRoutes from './PinRoutes';
 import ReportsRoutes from './ReportsRoutes';
 import ToolsRoutes from './ToolsRoutes';
 import TemplateBuilderRoutes from './TemplateBuilderRoutes';
+import ServicesRoutes from './ServicesRoutes';
 
 const Routes = ({ showLoggedInLayout }) => (
     <div id="page-area" className={`${!showLoggedInLayout ? 'full' : ''}`}>
         <SwitchWith404>
             <Route exact path="/" component={withAuth(Dashboard)} />
+            <Route
+                exact
+                path="/services/create"
+                component={withAuth(ServicesRoutes)}
+            />
             <Route path="/auth" component={AuthRoutes} />
             <Route path="/sites" component={withAuth(SitesRoutes)} />
             <Route path="/buildings" component={withAuth(BuildingsRoutes)} />
