@@ -1,1 +1,3 @@
 export const PIN_IMAGE = 'PIN_IMAGE';
+
+export const ADD_TEMPLATE_QUESTION = 'ADD_TEMPLATE_QUESTION';
