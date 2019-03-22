@@ -6,7 +6,10 @@ import TemplateFieldList from '../presentational/TemplateFieldList';
 class TemplateSectionTableContainer extends Component {
     render() {
         return (
-            <Table withActions headers={['Reorder', 'Name', 'Type', 'Show']}>
+            <Table
+                withActions
+                headers={['Reorder', 'Name', 'Type', 'Show', '']}
+            >
                 <TemplateFieldList />
             </Table>
         );

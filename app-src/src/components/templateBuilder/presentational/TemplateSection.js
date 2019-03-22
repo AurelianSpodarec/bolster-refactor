@@ -1,6 +1,7 @@
 import React from 'react';
 import BlockHeadingWControls from 'components/shared/generic/blockHeadingWControls/presentational/BlockHeadingWControls';
 import TemplateSectionTableContainer from '../containers/TemplateSectionTableContainer';
+import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 
 const TemplateSection = ({ name = '' }) => (
     <div className="template-block size-lg-12">
@@ -11,6 +12,19 @@ const TemplateSection = ({ name = '' }) => (
             <button className="button">Rename</button>
         </BlockHeadingWControls>
         <TemplateSectionTableContainer />
+        <BlockButtonWrapper>
+            <button className="button">
+                <i className="fa fa-plus" /> Add new fields
+            </button>
+        </BlockButtonWrapper>
+        <BlockButtonWrapper>
+            <button className="button red">
+                <i className="fa fa-times" /> Add new section
+            </button>
+            <button className="button">
+                <i className="fa fa-clone" /> Duplicate
+            </button>
+        </BlockButtonWrapper>
     </div>
 );
 

@@ -1,5 +1,6 @@
 import React from 'react';
+import TemplateFieldItem from './TemplateFieldItem';
 
-const TemplateFieldList = () => <h3>list</h3>;
+const TemplateFieldList = () => <TemplateFieldItem />;
 
 export default TemplateFieldList;
