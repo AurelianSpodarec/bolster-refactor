@@ -4,7 +4,7 @@ import {
     CREATE_SERVICE_SUCCESS,
     CREATE_SERVICE_FAILURE
 } from 'constants/actionTypes/services';
-import { API_URL } from 'config';
+import { ADMIN_API_URL } from 'config';
 import { getHeaders } from 'helpers/api';
 import setAPIFieldErrors from 'actions/generic/fieldErrors/sync/setAPIFieldErrors';
 
@@ -26,7 +26,7 @@ export default postBody => dispatch => {
     dispatch(createServiceRequest());
 
     return axios
-        .post(`${API_URL}/services`, postBody, getHeaders())
+        .post(`${ADMIN_API_URL}/services`, postBody, getHeaders())
         .then(({ data }) => dispatch(createServiceSuccess(data)))
         .catch(err => {
             dispatch(createServiceFailure(err.message));
