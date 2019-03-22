@@ -3,23 +3,24 @@ import BlockHeadingWControls from 'components/shared/generic/blockHeadingWContro
 import TemplateSectionTableContainer from '../containers/TemplateSectionTableContainer';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 
-const TemplateSection = ({ name = '' }) => (
+const TemplateSection = ({ section, questions, showModal, deleteSection }) => (
     <div className="template-block size-lg-12">
-        <BlockHeadingWControls title={name}>
+        <BlockHeadingWControls title={section.name}>
             <button className="button icon-only">
                 <i className="fa fa-eye" />
             </button>
             <button className="button">Rename</button>
         </BlockHeadingWControls>
-        <TemplateSectionTableContainer />
+        <TemplateSectionTableContainer questions={questions} />
         <BlockButtonWrapper>
-            <button className="button">
-                <i className="fa fa-plus" /> Add new fields
+            <button className="button" onClick={showModal}>
+                <i className="fa fa-plus" /> Add new field
             </button>
         </BlockButtonWrapper>
         <BlockButtonWrapper>
-            <button className="button red">
-                <i className="fa fa-times" /> Add new section
+            <button onClick={deleteSection} className="button red">
+                <i className="fa fa-times" />
+                delete section
             </button>
             <button className="button">
                 <i className="fa fa-clone" /> Duplicate

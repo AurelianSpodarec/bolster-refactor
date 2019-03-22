@@ -1,13 +1,33 @@
 import { combineReducers } from 'redux';
 
-import {} from 'constants/actionTypes/generic';
+import { updateObj, removeObjItem } from 'helpers/generic';
+import {
+    ADD_SECTION,
+    DELETE_SECTION,
+    ADD_QUESTION
+} from 'constants/actionTypes/templateBuilder';
 
 export default combineReducers({
-    sections: sectionsReducer
+    sections: sectionsReducer,
+    questions: questionsReducer
 });
 
-function sectionsReducer(state = [], action) {
+function sectionsReducer(state = {}, action) {
     switch (action.type) {
+        case ADD_SECTION:
+            return updateObj(state, action.section.uuid, action.section);
+
+        case DELETE_SECTION:
+            return removeObjItem(state, action.uuid);
+        default:
+            return state;
+    }
+}
+
+function questionsReducer(state = {}, action) {
+    switch (action.type) {
+        case ADD_QUESTION:
+            return updateObj(state, action.question.uuid, action.question);
         default:
             return state;
     }
