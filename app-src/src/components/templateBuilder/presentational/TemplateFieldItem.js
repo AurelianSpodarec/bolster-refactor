@@ -1,15 +1,15 @@
 import React from 'react';
 
-const TemplateFieldItem = () => (
+const TemplateFieldItem = ({ question }) => (
     <>
-        <tr key={1}>
+        <tr>
             <td>
                 <i className="fa fa-bars" />
             </td>
-            <td>##Field Name##</td>
-            <td>##Type##</td>
+            <td>{question.name}</td>
+            <td>{question.questionType}</td>
             <td>
-                <input type="checkbox" />
+                <input type="checkbox" value={question.isRequired} />
             </td>
             <td>
                 <button className="button" type="edit">

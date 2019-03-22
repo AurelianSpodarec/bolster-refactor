@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import {
-    ADD_TEMPLATE_SECTION,
-    ADD_TEMPLATE_QUESTION
-} from 'constants/modalTypes';
+import { ADD_TEMPLATE_SECTION } from 'constants/modalTypes';
 
 import showModal from 'actions/generic/modals/sync/showModal';
 

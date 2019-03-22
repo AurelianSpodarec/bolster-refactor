@@ -3,7 +3,7 @@ import BlockHeadingWControls from 'components/shared/generic/blockHeadingWContro
 import TemplateSectionTableContainer from '../containers/TemplateSectionTableContainer';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 
-const TemplateSection = ({ section }) => (
+const TemplateSection = ({ section, questions, showModal }) => (
     <div className="template-block size-lg-12">
         <BlockHeadingWControls title={section.name}>
             <button className="button icon-only">
@@ -11,10 +11,10 @@ const TemplateSection = ({ section }) => (
             </button>
             <button className="button">Rename</button>
         </BlockHeadingWControls>
-        <TemplateSectionTableContainer />
+        <TemplateSectionTableContainer questions={questions} />
         <BlockButtonWrapper>
-            <button className="button">
-                <i className="fa fa-plus" /> Add new fields
+            <button className="button" onClick={showModal}>
+                <i className="fa fa-plus" /> Add new field
             </button>
         </BlockButtonWrapper>
         <BlockButtonWrapper>
