@@ -4,11 +4,9 @@ import TemplateSection from '../presentational/TemplateSection';
 
 class TemplateSectionContainer extends Component {
     render() {
-        const { name } = this.props;
-
         return (
             <BlockContainer>
-                <TemplateSection name={name} />
+                <TemplateSection section={this.props.section} />
             </BlockContainer>
         );
     }

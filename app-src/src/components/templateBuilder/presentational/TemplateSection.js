@@ -3,9 +3,9 @@ import BlockHeadingWControls from 'components/shared/generic/blockHeadingWContro
 import TemplateSectionTableContainer from '../containers/TemplateSectionTableContainer';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 
-const TemplateSection = ({ name = '' }) => (
+const TemplateSection = ({ section }) => (
     <div className="template-block size-lg-12">
-        <BlockHeadingWControls title={name}>
+        <BlockHeadingWControls title={section.name}>
             <button className="button icon-only">
                 <i className="fa fa-eye" />
             </button>
