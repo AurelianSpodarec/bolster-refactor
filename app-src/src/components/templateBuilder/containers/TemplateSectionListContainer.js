@@ -8,6 +8,6 @@ class TemplateSectionListContainer extends Component {
     }
 }
 
-export default connect(({ templateBuilderReducer: sections }) => ({
-    sections: Object.values(sections)
+export default connect(({ templateBuilderReducer }) => ({
+    sections: Object.values(templateBuilderReducer.sections)
 }))(TemplateSectionListContainer);

@@ -17,18 +17,9 @@ class TemplateBuilderContainer extends Component {
 
     addSection = e => {
         const { showModal } = this.props;
-
         e.preventDefault();
 
         showModal(ADD_TEMPLATE_SECTION);
-    };
-
-    addField = e => {
-        const { showModal } = this.props;
-
-        e.preventDefault();
-
-        showModal(ADD_TEMPLATE_QUESTION);
     };
 }
 
