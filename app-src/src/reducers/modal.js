@@ -7,7 +7,7 @@ export default combineReducers({
     modalProps: modalPropsReducer
 });
 
-function modalTypeReducer(state = 'ADD_TEMPLATE_QUESTION', action) {
+function modalTypeReducer(state = '', action) {
     switch (action.type) {
         case SHOW_MODAL:
             return action.modalType;
