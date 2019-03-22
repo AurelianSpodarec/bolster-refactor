@@ -10,7 +10,7 @@ class MenuContianer extends Component {
     };
 
     render() {
-        const { showLoggedInLayout, messageCount } = this.props;
+        const { showLoggedInLayout } = this.props;
         if (!showLoggedInLayout) return null;
         return <MenusWrapper />;
     }

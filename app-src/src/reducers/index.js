@@ -50,6 +50,6 @@ export default combineReducers({
     pinHistoriesReducer,
     operativesReducer,
     modalReducer,
-    templateBuilderReducer
+    templateBuilderReducer,
     servicesReducer
 });

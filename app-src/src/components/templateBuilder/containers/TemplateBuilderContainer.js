@@ -8,9 +8,9 @@ class TemplateBuilderContainer extends Component {
     }
 }
 
-const mapStateToProps = state => ({});
+const mapStateToProps = () => ({});
 
-const mapDispatchToProps = dispatch => ({});
+const mapDispatchToProps = () => ({});
 
 export default connect(
     mapStateToProps,

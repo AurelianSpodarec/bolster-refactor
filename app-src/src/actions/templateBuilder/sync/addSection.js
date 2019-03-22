@@ -1,8 +1,7 @@
-import { UPDATE_SITES_FILTERS } from 'constants/actionTypes/sites';
+import { ADD_SECTION } from 'constants/actionTypes//templateBuilder';
 
-export default (fieldName, searchTerm) => dispatch =>
+export default section => dispatch =>
     dispatch({
-        type: UPDATE_SITES_FILTERS,
-        fieldName,
-        searchTerm
+        type: ADD_SECTION,
+        section
     });
