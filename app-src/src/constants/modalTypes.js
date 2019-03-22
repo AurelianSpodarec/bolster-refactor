@@ -1,1 +1,4 @@
 export const PIN_IMAGE = 'PIN_IMAGE';
+
+//ADMIN
+export const ADD_TEMPLATE_SECTION = 'ADD_TEMPLATE_SECTION';

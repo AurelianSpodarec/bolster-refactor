@@ -19,7 +19,8 @@ const TemplateSection = ({ name = '' }) => (
         </BlockButtonWrapper>
         <BlockButtonWrapper>
             <button className="button red">
-                <i className="fa fa-times" /> Add new section
+                <i className="fa fa-times" />
+                delete section
             </button>
             <button className="button">
                 <i className="fa fa-clone" /> Duplicate
