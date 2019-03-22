@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { ADD_TEMPLATE_SECTION } from 'constants/modalTypes';
+import {
+    ADD_TEMPLATE_SECTION,
+    ADD_TEMPLATE_QUESTION
+} from 'constants/modalTypes';
 
 import showModal from 'actions/generic/modals/sync/showModal';
 
@@ -15,13 +18,17 @@ class TemplateBuilderContainer extends Component {
     addSection = e => {
         const { showModal } = this.props;
 
-        const modalProps = {
-            name: ''
-        };
+        e.preventDefault();
+
+        showModal(ADD_TEMPLATE_SECTION);
+    };
+
+    addField = e => {
+        const { showModal } = this.props;
 
         e.preventDefault();
 
-        showModal(ADD_TEMPLATE_SECTION, modalProps);
+        showModal(ADD_TEMPLATE_QUESTION);
     };
 }
 
