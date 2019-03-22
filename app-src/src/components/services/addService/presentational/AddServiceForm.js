@@ -23,8 +23,9 @@ const AddServiceForm = ({ handleSubmit, handleInputChange, name }) => (
                 <i className="fa fa-plus" />
                 Add Service
             </button>
-            {/* // ? what is the link for this? */}
-            {/* <Link className="button">Cancel</Link> */}
+            <Link className="button" to="/services">
+                Cancel
+            </Link>
         </BlockButtonWrapper>
     </Form>
 );

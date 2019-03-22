@@ -31,7 +31,6 @@ class AddServiceFormContainer extends Component {
         e.preventDefault();
 
         this.setState({
-            ...this.state,
             [e.target.name]: e.target.value
         });
     };
@@ -46,11 +45,9 @@ class AddServiceFormContainer extends Component {
     };
 }
 
-const mapStateToProps = ({ servicesReducer }, { match }) => ({
+const mapStateToProps = ({ servicesReducer }) => ({
     postSuccess: servicesReducer.postSuccess,
     updatedServiceID: servicesReducer.updatedServiceID
-    // ? What is the parent element of a service?
-    // serviceID: match.params.buildingID
 });
 
 const mapDispatchToProps = dispatch => ({
