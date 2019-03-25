@@ -30,7 +30,8 @@ export default postBody => dispatch => {
         .catch(err => {
             dispatch(createServiceFailure(err.message));
 
-            if (err.response.status === 400)
+            if (err.response.status === 400) {
                 dispatch(setAPIFieldErrors(err.response.data.errors));
+            }
         });
 };
