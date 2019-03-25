@@ -13,7 +13,6 @@ class AddServiceFormContainer extends Component {
         return (
             <AddServiceForm
                 {...this.state}
-                serviceID={this.props.serviceID}
                 handleInputChange={this.handleInputChange}
                 handleSubmit={this.handleSubmit}
             />
@@ -38,10 +37,10 @@ class AddServiceFormContainer extends Component {
     handleSubmit = e => {
         e.preventDefault();
 
-        const { createService, serviceID } = this.props;
+        const { createService } = this.props;
         const { name } = this.state;
 
-        createService({ serviceID, name });
+        createService({ name });
     };
 }
 
