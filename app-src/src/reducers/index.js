@@ -25,6 +25,7 @@ import operativesReducer from './operatives';
 import modalReducer from './modal';
 import templateBuilderReducer from './templateBuilder';
 import servicesReducer from './services';
+import usersReducer from './users';
 
 export default combineReducers({
     buildingsReducer,
@@ -51,5 +52,6 @@ export default combineReducers({
     operativesReducer,
     modalReducer,
     templateBuilderReducer,
-    servicesReducer
+    servicesReducer,
+    usersReducer
 });

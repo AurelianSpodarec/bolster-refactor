@@ -5,7 +5,10 @@ import {
     CREATE_SERVICE_FAILURE,
     FETCH_ALL_SERVICES_REQUEST,
     FETCH_ALL_SERVICES_SUCCESS,
-    FETCH_ALL_SERVICES_FAILURE
+    FETCH_ALL_SERVICES_FAILURE,
+    EDIT_SERVICE_REQUEST,
+    EDIT_SERVICE_SUCCESS,
+    EDIT_SERVICE_FAILURE
 } from 'constants/actionTypes/services';
 import { updateObj, convertArrToObj } from 'helpers/generic';
 
@@ -32,8 +35,10 @@ function isFetchingReducer(state = false, action) {
 function postSuccessReducer(state = false, action) {
     switch (action.type) {
         case CREATE_SERVICE_REQUEST:
+        case EDIT_SERVICE_REQUEST:
             return false;
         case CREATE_SERVICE_SUCCESS:
+        case EDIT_SERVICE_SUCCESS:
             return true;
         default:
             return state;
@@ -44,9 +49,11 @@ function errorReducer(state = null, action) {
     switch (action.type) {
         case CREATE_SERVICE_REQUEST:
         case FETCH_ALL_SERVICES_REQUEST:
+        case EDIT_SERVICE_REQUEST:
             return null;
         case CREATE_SERVICE_FAILURE:
         case FETCH_ALL_SERVICES_FAILURE:
+        case EDIT_SERVICE_FAILURE:
             return action.error;
         default:
             return state;
@@ -56,8 +63,10 @@ function errorReducer(state = null, action) {
 function updatedServiceIDReducer(state = 0, action) {
     switch (action.type) {
         case CREATE_SERVICE_REQUEST:
+        case EDIT_SERVICE_REQUEST:
             return 0;
         case CREATE_SERVICE_SUCCESS:
+        case EDIT_SERVICE_SUCCESS:
             return action.payload.id;
         default:
             return state;
@@ -69,6 +78,7 @@ function servicesReducer(state = {}, action) {
         case FETCH_ALL_SERVICES_SUCCESS:
             return convertArrToObj(action.payload);
         case CREATE_SERVICE_SUCCESS:
+        case EDIT_SERVICE_SUCCESS:
             return updateObj(state, action.payload.id, action.payload);
         default:
             return state;

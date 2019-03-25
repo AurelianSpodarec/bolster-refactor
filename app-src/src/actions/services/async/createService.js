@@ -24,14 +24,14 @@ export const createServiceFailure = error => ({
 
 export default postBody => dispatch => {
     dispatch(createServiceRequest());
-
     return axios
         .post(`${ADMIN_API_URL}/services`, postBody, getHeaders())
         .then(({ data }) => dispatch(createServiceSuccess(data)))
         .catch(err => {
             dispatch(createServiceFailure(err.message));
 
-            if (err.response.status === 400)
+            if (err.response.status === 400) {
                 dispatch(setAPIFieldErrors(err.response.data.errors));
+            }
         });
 };

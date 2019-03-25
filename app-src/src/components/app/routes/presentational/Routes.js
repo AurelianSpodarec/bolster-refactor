@@ -32,10 +32,7 @@ const Routes = ({ showLoggedInLayout }) => (
             <Route path="/floors" component={withAuth(FloorRoutes)} />
             <Route path="/drawings" component={withAuth(DrawingsRoutes)} />
             <Route path="/messages" component={withAuth(MessagesRoutes)} />
-            <Route
-                path="/user-management"
-                component={withAuth(UserManagementRoutes)}
-            />
+            <Route path="/users" component={withAuth(UserManagementRoutes)} />
             <Route path="/pins" component={withAuth(PinRoutes)} />
             <Route path="/reports" component={withAuth(ReportsRoutes)} />
             <Route path="/tools" component={withAuth(ToolsRoutes)} />
