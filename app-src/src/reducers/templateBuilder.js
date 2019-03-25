@@ -3,6 +3,7 @@ import { combineReducers } from 'redux';
 import { updateObj, removeObjItem } from 'helpers/generic';
 import {
     ADD_SECTION,
+    DUPLICATE_SECTION,
     DELETE_SECTION,
     ADD_QUESTION
 } from 'constants/actionTypes/templateBuilder';
@@ -16,7 +17,8 @@ function sectionsReducer(state = {}, action) {
     switch (action.type) {
         case ADD_SECTION:
             return updateObj(state, action.section.uuid, action.section);
-
+        case DUPLICATE_SECTION:
+            return updateObj(state, action.section.uuid, action.section);
         case DELETE_SECTION:
             return removeObjItem(state, action.uuid);
         default:
