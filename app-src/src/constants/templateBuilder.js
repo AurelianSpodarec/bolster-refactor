@@ -3,8 +3,3 @@ export const QUESTION_TYPES = {
     MULTI_LINE: 'Multi line',
     NUMBER_FIELD: 'Number field'
 };
-
-// export const FIELD_TYPES = {
-//     TEXT: 'Text',
-//     NUMBER: 'Number'
-// };

@@ -29,7 +29,7 @@ class AddTemplateQuestionModalContainer extends Component {
             },
             { text: '##Test Field 2##', value: '2', uuid: '2', fieldValue: '3' }
         ],
-        prerequisite: { text: '##Test Field 1##', value: '1', fieldValue: '1' }
+        prerequisite: {}
     };
 
     render() {
@@ -88,23 +88,16 @@ class AddTemplateQuestionModalContainer extends Component {
         this.setState({ [name]: type === 'checkbox' ? checked : value });
     };
 
-    handlePrefieldChange = ({
-        target: { name, text, value, uuid, fieldValue }
-    }) => {
+    handlePrefieldChange = ({ target: { value } }) => {
         this.setState({
-            [name]: {
-                text: text,
-                uuid: uuid,
-                value: value,
-                fieldValue: fieldValue
-            }
+            prerequisite: this.state.prereqFields[value]
         });
         console.log(this.state);
     };
 
     handleSubmit = e => {
         e.preventDefault();
-        const { name, isRequired, questionType } = this.state;
+        const { name, isRequired, questionType, prerequisite } = this.state;
         const { addQuestion, sectionUuid = 'test' } = this.props;
 
         const newSection = {
@@ -113,8 +106,8 @@ class AddTemplateQuestionModalContainer extends Component {
             questionType: questionType,
             sectionUuid,
             uuid: uuid(),
-            preUuid: '',
-            preValue: ''
+            preUuid: prerequisite.uuid,
+            preValue: prerequisite.value
         };
 
         addQuestion(newSection);
