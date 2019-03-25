@@ -19,21 +19,26 @@ class DrawingMapGeneralContainer extends Component {
         serviceTypeSelected: 'All services',
         pinLat: 51.505,
         pinLng: -0.09,
-        mapZoom: 13,
-        pins: [
-            {
-                id: 1,
-                latitude: 56.78696472965114,
-                longitude: -83.74763705103969,
-                title: 'Marker 1',
-                description: 'Description 1',
-                status: 'Action Required'
-            }
-        ]
+        mapZoom: 3
     };
 
     render() {
         const position = [this.state.pinLat, this.state.pinLng];
+
+        // let pins = [];
+
+        // for (let i = 0; i < 5000; i++) {
+        //     const newPin = {
+        //         id: i,
+        //         latitude: 56.78696472965114,
+        //         longitude: -83.74763705103969,
+        //         title: `Marker ${i}`,
+        //         description: `Description ${i}`,
+        //         status: 'Action Required'
+        //     };
+
+        //     pins.push(newPin);
+        // }
 
         return (
             <div className="size-lg-12">
@@ -45,7 +50,7 @@ class DrawingMapGeneralContainer extends Component {
                 <DrawingMapViewSimple
                     position={position}
                     zoom={this.state.mapZoom}
-                    pins={this.state.pins}
+                    pins={this.props.pins}
                     handleClick={this.handleClick}
                 />
             </div>
