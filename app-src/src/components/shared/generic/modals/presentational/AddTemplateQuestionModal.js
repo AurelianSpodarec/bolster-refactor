@@ -16,7 +16,7 @@ const AddTemplateQuestionModal = ({
     hideModal,
     handleSubmit
 }) => (
-    <ModalOuterContainer>
+    <ModalOuterContainer extraClasses="w-form">
         <Form onSubmit={handleSubmit}>
             <Field name="Question type">
                 <Dropdown
@@ -40,6 +40,14 @@ const AddTemplateQuestionModal = ({
                     type="checkbox"
                     value={isRequired}
                     onChange={handleInputChange}
+                />
+            </Field>
+            <Field name="Field type">
+                <Dropdown
+                    name="fieldType"
+                    options={questionTypeOptions}
+                    selectedOption={questionType}
+                    handleChange={handleInputChange}
                 />
             </Field>
             <BlockButtonWrapper>

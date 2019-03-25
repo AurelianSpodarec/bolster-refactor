@@ -8,6 +8,7 @@ import hideModal from 'actions/generic/modals/sync/hideModal';
 import addQuestion from 'actions/templateBuilder/sync/addQuestion';
 
 import AddTemplateQuestionModal from '../presentational/AddTemplateQuestionModal';
+
 const questionTypeOptions = Object.keys(QUESTION_TYPES).map(type => ({
     text: QUESTION_TYPES[type],
     value: type
