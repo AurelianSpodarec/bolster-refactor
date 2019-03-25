@@ -6,7 +6,7 @@ import FloorTable from '../presentational/FloorTable';
 const FloorTableContainer = ({ isFetching, error, floors }) => {
     return (
         <FloorTable
-            headers={['Floor name', 'Premissions', 'Action']}
+            headers={['Floor name', 'Permissions', 'Action']}
             isFetching={isFetching}
             error={error}
             floors={floors}
