@@ -3,11 +3,11 @@ import { Map, TileLayer } from 'react-leaflet';
 
 import DrawingMapPin from './DrawingMapPin';
 
-const DrawingMapViewSimple = ({ position, zoom, pins }) => (
-    <Map center={position} zoom={zoom}>
+const DrawingMapViewSimple = ({ position, zoom, pins, handleClick }) => (
+    <Map center={position} zoom={zoom} onClick={handleClick}>
         <TileLayer
             attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            url="https://www.silverchip.com/tiles/{z}/{x}/{y}.jpg"
         />
         {pins.map(pin => (
             <DrawingMapPin key={pin.id} pin={pin} />
