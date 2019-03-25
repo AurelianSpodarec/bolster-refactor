@@ -1,11 +1,13 @@
 import React from 'react';
 
-const ServiceListItem = ({ service }) => (
+const ServiceListItem = ({ service, onClick }) => (
     <>
         <tr>
             <td>{service.name}</td>
             <td>
-                <button className="button">edit</button>
+                <button onClick={() => onClick(service)} className="button">
+                    edit
+                </button>
             </td>
         </tr>
     </>

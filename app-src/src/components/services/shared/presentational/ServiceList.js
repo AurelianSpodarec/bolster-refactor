@@ -1,9 +1,9 @@
 import React from 'react';
-import ServiceListItem from './ServiceListItem';
+import ServiceListItemContainer from '../containers/ServiceListItemContainer';
 
 const ServiceList = ({ servicesArray, colCount }) =>
     servicesArray.map(service => (
-        <ServiceListItem
+        <ServiceListItemContainer
             key={service.id}
             colCount={colCount}
             service={service}

@@ -16,9 +16,9 @@ export const editServiceRequest = (id, name) => ({
 export const editServiceSuccess = () => ({
     type: EDIT_SERVICE_SUCCESS
 });
-export const editServiceFailure = payload => ({
+export const editServiceFailure = error => ({
     type: EDIT_SERVICE_FAILURE,
-    payload
+    error
 });
 
 export default (id, name) => dispatch => {
