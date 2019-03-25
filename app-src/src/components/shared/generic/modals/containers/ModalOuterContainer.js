@@ -7,13 +7,14 @@ import ModalOuter from '../presentational/ModalOuter';
 
 class ModalOuterContainer extends Component {
     render() {
-        const { hideModal, children } = this.props;
+        const { extraClasses, hideModal, children } = this.props;
 
         return (
             <ModalOuter
                 hideModal={() => {
                     hideModal();
                 }}
+                extraClasses={extraClasses}
             >
                 {children}
             </ModalOuter>
