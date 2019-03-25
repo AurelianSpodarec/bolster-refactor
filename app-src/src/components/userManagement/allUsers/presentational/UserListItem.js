@@ -3,7 +3,9 @@ import moment from 'moment';
 
 const UserListItem = ({ user }) => {
     // ! take this out
-    const role = Math.round(Math.random()) ? 'Operative' : 'Company Admin';
+    const role = Math.round(Math.random())
+        ? '##Operative##'
+        : '##Company Admin##';
 
     return (
         <tr>
