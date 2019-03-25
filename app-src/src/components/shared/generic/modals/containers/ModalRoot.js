@@ -8,13 +8,13 @@ import {
 } from 'constants/modalTypes';
 
 import PinPhotoModal from '../presentational/PinPhotoModal';
-import AddTemplateSectionModalContianer from './AddTemplateSectionModalContianer';
+import addtemplatesectionmodalcontainer from './addtemplatesectionmodalcontainer';
 import AddTemplateQuestionModalContainer from './AddTemplateQuestionModalContainer';
 
 const MODAL_COMPONENTS = {
     [PIN_IMAGE]: PinPhotoModal,
     [ADD_TEMPLATE_QUESTION]: AddTemplateQuestionModalContainer,
-    [ADD_TEMPLATE_SECTION]: AddTemplateSectionModalContianer
+    [ADD_TEMPLATE_SECTION]: addtemplatesectionmodalcontainer
 };
 
 const ModalRoot = ({ modalType, modalProps }) => {
