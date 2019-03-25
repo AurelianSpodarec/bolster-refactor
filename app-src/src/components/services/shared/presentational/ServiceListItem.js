@@ -5,7 +5,7 @@ const ServiceListItem = ({ service }) => (
         <tr>
             <td>{service.name}</td>
             <td>
-                <button>edit</button>
+                <button className="button">edit</button>
             </td>
         </tr>
     </>
