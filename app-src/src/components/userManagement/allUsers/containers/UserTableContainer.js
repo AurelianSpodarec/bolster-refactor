@@ -4,10 +4,10 @@ import UserTable from '../presentational/UserTable';
 
 const UserTableContainer = ({ isFetching, error, users }) => (
     <UserTable
-        headers={'Users'}
+        headers={['Name', 'Email Address', 'Phone Number', 'Created On', '']}
         isFetching={isFetching}
         error={error}
-        users={users}
+        users={Object.values(users)}
     />
 );
 

@@ -7,7 +7,7 @@ const ServiceTableContainer = ({ isFetching, error, services }) => (
         headers={['Service name', '']}
         isFetching={isFetching}
         error={error}
-        services={services}
+        services={Object.values(services)}
     />
 );
 
