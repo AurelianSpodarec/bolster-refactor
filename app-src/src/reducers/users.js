@@ -5,7 +5,10 @@ import {
     FETCH_ALL_USERS_FAILURE,
     EDIT_USER_FAILURE,
     EDIT_USER_REQUEST,
-    EDIT_USER_SUCCESS
+    EDIT_USER_SUCCESS,
+    EDIT_USER_PASSWORD_REQUEST,
+    EDIT_USER_PASSWORD_SUCCESS,
+    EDIT_USER_PASSWORD_FAILURE
 } from 'constants/actionTypes/users';
 import { convertArrToObj, updateObj } from 'helpers/generic';
 
@@ -32,8 +35,10 @@ function isFetchingReducer(state = false, action) {
 function postSuccessReducer(state = false, action) {
     switch (action.type) {
         case EDIT_USER_REQUEST:
+        case EDIT_USER_PASSWORD_REQUEST:
             return false;
         case EDIT_USER_SUCCESS:
+        case EDIT_USER_PASSWORD_SUCCESS:
             return true;
         default:
             return state;
@@ -44,9 +49,11 @@ function errorReducer(state = null, action) {
     switch (action.type) {
         case EDIT_USER_REQUEST:
         case FETCH_ALL_USERS_REQUEST:
+        case EDIT_USER_PASSWORD_REQUEST:
             return null;
         case FETCH_ALL_USERS_FAILURE:
         case EDIT_USER_FAILURE:
+        case EDIT_USER_PASSWORD_FAILURE:
             return action.error;
         default:
             return state;
@@ -67,8 +74,10 @@ function usersReducer(state = {}, action) {
 function updatedUserIDReducer(state = 0, action) {
     switch (action.type) {
         case EDIT_USER_REQUEST:
+        case EDIT_USER_PASSWORD_REQUEST:
             return 0;
         case EDIT_USER_SUCCESS:
+        case EDIT_USER_PASSWORD_SUCCESS:
             return action.payload.id;
         default:
             return state;
