@@ -4,3 +4,5 @@ export const PIN_IMAGE = 'PIN_IMAGE';
 //template builder
 export const ADD_TEMPLATE_SECTION = 'ADD_TEMPLATE_SECTION';
 export const ADD_TEMPLATE_QUESTION = 'ADD_TEMPLATE_QUESTION';
+
+export const EDIT_SERVICE = 'EDIT_SERVICE';

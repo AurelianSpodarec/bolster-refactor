@@ -7,7 +7,7 @@ import hideModal from 'actions/generic/modals/sync/hideModal';
 
 import AddTemplateSectionModal from '../presentational/AddTemplateSectionModal';
 
-class AddTemplateSectionModalContianer extends React.Component {
+class AddTemplateSectionModalContainer extends React.Component {
     state = {
         name: ''
     };
@@ -49,4 +49,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
     null,
     mapDispatchToProps
-)(AddTemplateSectionModalContianer);
+)(AddTemplateSectionModalContainer);
