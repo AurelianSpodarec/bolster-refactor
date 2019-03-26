@@ -43,6 +43,7 @@ const mapDispatchToProps = dispatch => ({
     },
     editUser: (id, user) => {
         dispatch(editUser(id, user));
+        dispatch(hideModal());
     }
 });
 
