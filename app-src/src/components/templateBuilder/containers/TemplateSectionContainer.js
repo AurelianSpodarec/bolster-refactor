@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import uuid from 'uuid/v1';
+import { DragSource } from 'react-dnd';
 
 import {
     ADD_TEMPLATE_QUESTION,
