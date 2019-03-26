@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import uuid from 'uuid/v1';
 
 import { QUESTION_TYPES } from 'constants/templateBuilder';
-import { convertArrToObj, isObjEmpty } from 'helpers/generic';
+import { convertArrToObj } from 'helpers/generic';
 import hideModal from 'actions/generic/modals/sync/hideModal';
 import addQuestion from 'actions/templateBuilder/sync/addQuestion';
 

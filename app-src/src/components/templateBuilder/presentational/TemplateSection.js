@@ -2,7 +2,7 @@ import React from 'react';
 import BlockHeadingWControls from 'components/shared/generic/blockHeadingWControls/presentational/BlockHeadingWControls';
 import TemplateSectionTableContainer from '../containers/TemplateSectionTableContainer';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
-import duplicateSection from 'actions/templateBuilder/sync/duplicateSection';
+// import duplicateSection from 'actions/templateBuilder/sync/duplicateSection';
 
 const TemplateSection = ({
     section,
