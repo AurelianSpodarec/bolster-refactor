@@ -3,6 +3,7 @@ import BlockHeadingWControls from 'components/shared/generic/blockHeadingWContro
 import TemplateSectionTableContainer from '../containers/TemplateSectionTableContainer';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 // import duplicateSection from 'actions/templateBuilder/sync/duplicateSection';
+import { ADD_TEMPLATE_QUESTION } from 'constants/modalTypes';
 
 const TemplateSection = ({
     section,
@@ -20,7 +21,14 @@ const TemplateSection = ({
         </BlockHeadingWControls>
         <TemplateSectionTableContainer questions={questions} />
         <BlockButtonWrapper>
-            <button className="button" onClick={showModal}>
+            <button
+                className="button"
+                onClick={() =>
+                    showModal(ADD_TEMPLATE_QUESTION, {
+                        sectionUuid: section.uuid
+                    })
+                }
+            >
                 <i className="fa fa-plus" /> Add new field
             </button>
         </BlockButtonWrapper>

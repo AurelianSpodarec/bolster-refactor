@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import uuid from 'uuid/v1';
 
-import { ADD_TEMPLATE_QUESTION } from 'constants/modalTypes';
 import showModal from 'actions/generic/modals/sync/showModal';
 import addSection from 'actions/templateBuilder/sync/addSection';
 import deleteSection from 'actions/templateBuilder/sync/deleteSection';
@@ -22,12 +21,7 @@ class TemplateSectionContainer extends Component {
                     questions={this.props.questions}
                     duplicateSection={this.duplicateSection}
                     deleteSection={this.deleteSection}
-                    showModal={e => {
-                        e.preventDefault();
-                        this.props.showModal(ADD_TEMPLATE_QUESTION, {
-                            sectionUuid: this.props.section.uuid
-                        });
-                    }}
+                    showModal={this.props.showModal}
                 />
             </BlockContainer>
         );
