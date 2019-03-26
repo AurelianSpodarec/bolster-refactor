@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import uuid from 'uuid/v1';
 
 import { QUESTION_TYPES } from 'constants/templateBuilder';
-import { convertArrToObj, isObjEmpty } from 'helpers/generic';
+import { convertArrToObj } from 'helpers/generic';
 import hideModal from 'actions/generic/modals/sync/hideModal';
 import addQuestion from 'actions/templateBuilder/sync/addQuestion';
 
@@ -20,6 +20,9 @@ class AddTemplateQuestionModalContainer extends Component {
         isRequired: false,
         questionTypeOptions: convertArrToObj(questionTypeOptions, 'value'),
         questionType: QUESTION_TYPES.SINGLE_LINE,
+        propsQuestions: this.props.questions.filter(
+            question => question.sectionUuid === this.props.sectionUuid
+        ),
         prereqFields: [
             {
                 text: '##Test Field 1##',
@@ -58,6 +61,10 @@ class AddTemplateQuestionModalContainer extends Component {
             />
         );
     }
+
+    //filter question on mount or update to get questions for this section (uuid)
+
+    //need to add questions to prereq dropdown
 
     componentDidUpdate = prevProps => {
         //Need to update questions to the field

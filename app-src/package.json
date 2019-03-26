@@ -4,6 +4,7 @@
     "private": true,
     "dependencies": {
         "axios": "^0.18.0",
+        "cross-env": "^5.2.0",
         "filepond": "^4.2.0",
         "filepond-plugin-image-preview": "^4.0.3",
         "jwt-decode": "^2.2.0",
@@ -25,8 +26,8 @@
         "uuid": "^3.3.2"
     },
     "scripts": {
-        "start": "NODE_PATH=src/ react-scripts start",
-        "build": "NODE_PATH=src/ react-scripts build",
+        "start": "cross-env NODE_PATH=src/ react-scripts start",
+        "build": "cross-env NODE_PATH=src/ react-scripts build",
         "eject": "react-scripts eject"
     },
     "eslintConfig": {
