@@ -2,8 +2,15 @@ import React from 'react';
 import BlockHeadingWControls from 'components/shared/generic/blockHeadingWControls/presentational/BlockHeadingWControls';
 import TemplateSectionTableContainer from '../containers/TemplateSectionTableContainer';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
+import duplicateSection from 'actions/templateBuilder/sync/duplicateSection';
 
-const TemplateSection = ({ section, questions, showModal, deleteSection }) => (
+const TemplateSection = ({
+    section,
+    questions,
+    showModal,
+    deleteSection,
+    duplicateSection
+}) => (
     <div className="template-block size-lg-12">
         <BlockHeadingWControls title={section.name}>
             <button className="button icon-only">
@@ -22,7 +29,7 @@ const TemplateSection = ({ section, questions, showModal, deleteSection }) => (
                 <i className="fa fa-times" />
                 delete section
             </button>
-            <button className="button">
+            <button onClick={duplicateSection} className="button">
                 <i className="fa fa-clone" /> Duplicate
             </button>
         </BlockButtonWrapper>

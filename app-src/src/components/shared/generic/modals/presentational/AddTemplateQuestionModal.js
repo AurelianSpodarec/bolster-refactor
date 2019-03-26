@@ -13,7 +13,10 @@ const AddTemplateQuestionModal = ({
     name,
     isRequired,
     handleInputChange,
+    handlePrefieldChange,
     hideModal,
+    prereqFields,
+    prerequisite,
     handleSubmit
 }) => (
     <ModalOuterContainer extraClasses="w-form">
@@ -34,20 +37,22 @@ const AddTemplateQuestionModal = ({
                     required
                 />
             </Field>
+
+            <Field name="Prerequisite field?">
+                <Dropdown
+                    name="prerequisite"
+                    options={prereqFields}
+                    selectedOption={prerequisite}
+                    handleChange={handlePrefieldChange}
+                />
+            </Field>
+
             <Field name="Is required">
                 <input
                     name="isRequired"
                     type="checkbox"
                     value={isRequired}
                     onChange={handleInputChange}
-                />
-            </Field>
-            <Field name="Field type">
-                <Dropdown
-                    name="fieldType"
-                    options={questionTypeOptions}
-                    selectedOption={questionType}
-                    handleChange={handleInputChange}
                 />
             </Field>
             <BlockButtonWrapper>
