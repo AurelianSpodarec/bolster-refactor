@@ -6,6 +6,7 @@ import {
 import axios from 'axios';
 import { ADMIN_API_URL } from 'config';
 import setAPIFieldErrors from 'actions/generic/fieldErrors/sync/setAPIFieldErrors';
+import { getHeaders } from 'helpers/api';
 
 export const editServiceRequest = (id, name) => ({
     type: EDIT_SERVICE_REQUEST,
@@ -13,8 +14,9 @@ export const editServiceRequest = (id, name) => ({
     name
 });
 
-export const editServiceSuccess = () => ({
-    type: EDIT_SERVICE_SUCCESS
+export const editServiceSuccess = payload => ({
+    type: EDIT_SERVICE_SUCCESS,
+    payload
 });
 export const editServiceFailure = error => ({
     type: EDIT_SERVICE_FAILURE,
@@ -25,16 +27,22 @@ export default (id, name) => dispatch => {
     dispatch(editServiceRequest(id, name));
     // ?
     axios
-        .post(`${ADMIN_API_URL}/services/${id}`, {
-            id,
-            name
+        .post(
+            `${ADMIN_API_URL}/services/${id}`,
+            {
+                id,
+                name
+            },
+            getHeaders()
+        )
+        .then(({ data }) => {
+            dispatch(editServiceSuccess(data));
         })
-        .then(() => {
-            dispatch(editServiceSuccess());
-        })
-        .catch(error => {
-            dispatch(editServiceFailure(error));
-            if (error.response.status === 400)
-                dispatch(setAPIFieldErrors(error.response.data.errors));
+        .catch(err => {
+            dispatch(editServiceFailure(err.message));
+
+            if (err.response.status === 400) {
+                dispatch(setAPIFieldErrors(err.response.data.errors));
+            }
         });
 };
