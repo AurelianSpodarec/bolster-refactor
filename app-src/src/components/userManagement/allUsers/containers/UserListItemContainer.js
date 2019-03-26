@@ -1,18 +1,22 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { showModal } from 'actions/generic/modals/sync/showModal';
-import { EDIT_USER_PASSWORD } from 'constants/modalTypes';
+import { EDIT_USER_PASSWORD, EDIT_USER } from 'constants/modalTypes';
 import UserListItem from '../presentational/UserListItem';
 
 const UserListItemContainer = ({ user, colCount, showModal }) => {
-    const handleShowModal = user => {
+    const handleShowEditUserPasswordModal = user => {
         showModal(EDIT_USER_PASSWORD, user);
+    };
+    const handleShowEditUserModal = user => {
+        showModal(EDIT_USER, user);
     };
     return (
         <UserListItem
             user={user}
             colCount={colCount}
-            handleShowModal={handleShowModal}
+            handleShowEditUserModal={handleShowEditUserModal}
+            handleShowEditUserPasswordModal={handleShowEditUserPasswordModal}
         />
     );
 };

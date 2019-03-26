@@ -32,9 +32,9 @@ class EditUserPasswordModalContainer extends Component {
 
     handleSubmit = e => {
         e.preventDefault();
-        const { password, confirmPassword } = this.state;
-        const { id } = this.props;
-        this.props.editPassword(id, { password });
+        const { password } = this.state;
+        const { id, editPassword } = this.props;
+        editPassword(id, { password });
     };
 
     validatePassword = confirmPassword => {

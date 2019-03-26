@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
 import { hideModal } from 'actions/generic/modals/sync/hideModal';
 import editUser from 'actions/users/async/editUser';
-import { connect } from 'net';
+import { connect } from 'react-redux';
+import EditUserModal from '../presentational/EditUserModal';
 
 class EditUserModalContainer extends Component {
     state = {
-        firstName: '',
-        lastName: '',
-        email: '',
-        confirmEmail: '',
-        phoneNumber: ''
+        firstName: this.props.firstName,
+        lastName: this.props.lastName,
+        email: this.props.email,
+        confirmEmail: this.props.email,
+        phoneNumber: this.props.phoneNumber
     };
     render() {
         return (

@@ -1,7 +1,11 @@
 import React from 'react';
 import moment from 'moment';
 
-const UserListItem = ({ user, handleShowModal }) => {
+const UserListItem = ({
+    user,
+    handleShowEditUserModal,
+    handleShowEditUserPasswordModal
+}) => {
     // ! take this out
     const role = Math.round(Math.random())
         ? '##Operative##'
@@ -15,9 +19,14 @@ const UserListItem = ({ user, handleShowModal }) => {
             <td>{role}</td>
             <td>{moment(user.createdOn).format('DD/MM/YYYY')}</td>
             <td>
-                <button className="button">edit</button>
                 <button
-                    onClick={() => handleShowModal(user)}
+                    className="button"
+                    onClick={() => handleShowEditUserModal(user)}
+                >
+                    edit
+                </button>
+                <button
+                    onClick={() => handleShowEditUserPasswordModal(user)}
                     className="button"
                 >
                     change password
