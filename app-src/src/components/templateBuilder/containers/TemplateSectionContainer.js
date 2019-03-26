@@ -2,9 +2,14 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import uuid from 'uuid/v1';
 
+import {
+    ADD_TEMPLATE_QUESTION,
+    RENAME_TEMPLATE_SECTION
+} from 'constants/modalTypes';
 import showModal from 'actions/generic/modals/sync/showModal';
 import addSection from 'actions/templateBuilder/sync/addSection';
 import deleteSection from 'actions/templateBuilder/sync/deleteSection';
+import renameSection from 'actions/templateBuilder/sync/renameSection';
 import addQuestion from 'actions/templateBuilder/sync/addQuestion';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import TemplateSection from '../presentational/TemplateSection';
@@ -24,11 +29,32 @@ class TemplateSectionContainer extends Component {
                     questions={questions}
                     duplicateSection={this.duplicateSection}
                     deleteSection={this.deleteSection}
-                    showModal={showModal}
+                    showAddQuestionModal={this.showAddQuestionModal}
+                    showRenameSectionModal={this.showRenameSectionModal}
                 />
             </BlockContainer>
         );
     }
+
+    showAddQuestionModal = e => {
+        const { showModal, section } = this.props;
+
+        e.preventDefault();
+
+        showModal(ADD_TEMPLATE_QUESTION, {
+            sectionUuid: section.uuid
+        });
+    };
+
+    showRenameSectionModal = e => {
+        const { showModal, section } = this.props;
+
+        e.preventDefault();
+
+        showModal(RENAME_TEMPLATE_SECTION, {
+            section: section
+        });
+    };
 
     deleteSection = e => {
         const { deleteSection } = this.props;
