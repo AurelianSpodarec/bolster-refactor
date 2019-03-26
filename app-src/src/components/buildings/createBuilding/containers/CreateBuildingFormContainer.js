@@ -10,8 +10,7 @@ class CreateBuildingFormContainer extends Component {
         name: '',
         addressLine1: '',
         addressLine2: '',
-        postcode: '',
-        client: ''
+        postcode: ''
     };
 
     render() {
@@ -53,7 +52,6 @@ class CreateBuildingFormContainer extends Component {
             postcode: postcode,
             siteID: this.props.siteID
         };
-
         this.props.createBuilding(postBody);
     };
 
@@ -68,7 +66,7 @@ class CreateBuildingFormContainer extends Component {
 const mapStateToProps = ({ buildingsReducer }, { match }) => ({
     postSuccess: buildingsReducer.postSuccess,
     error: buildingsReducer.error,
-    siteID: match.params.siteID,
+    siteID: match.params.id,
     updatedBuildingID: buildingsReducer.updatedBuildingID
 });
 
