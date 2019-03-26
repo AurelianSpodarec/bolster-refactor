@@ -2,7 +2,6 @@ import React from 'react';
 import BlockHeadingWControls from 'components/shared/generic/blockHeadingWControls/presentational/BlockHeadingWControls';
 import TemplateSectionTableContainer from '../containers/TemplateSectionTableContainer';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
-// import duplicateSection from 'actions/templateBuilder/sync/duplicateSection';
 import { ADD_TEMPLATE_QUESTION } from 'constants/modalTypes';
 
 const TemplateSection = ({
