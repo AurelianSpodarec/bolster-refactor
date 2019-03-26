@@ -9,7 +9,6 @@ class EditUserModalContainer extends Component {
         firstName: this.props.firstName,
         lastName: this.props.lastName,
         email: this.props.email,
-        confirmEmail: this.props.email,
         phoneNumber: this.props.phoneNumber
     };
     render() {
