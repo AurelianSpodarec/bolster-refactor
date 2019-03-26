@@ -4,6 +4,7 @@ import { updateObj, removeObjItem } from 'helpers/generic';
 import {
     ADD_SECTION,
     DELETE_SECTION,
+    UPDATE_SECTION,
     ADD_QUESTION
 } from 'constants/actionTypes/templateBuilder';
 
@@ -15,6 +16,7 @@ export default combineReducers({
 function sectionsReducer(state = {}, action) {
     switch (action.type) {
         case ADD_SECTION:
+        case UPDATE_SECTION:
             return updateObj(state, action.section.uuid, action.section);
         case DELETE_SECTION:
             return removeObjItem(state, action.uuid);

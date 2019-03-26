@@ -24,7 +24,7 @@ const SuperAdminMenu = () => (
                 <MenuItemContainer link="/site-management/demo-requests">
                     User Demo Requests
                 </MenuItemContainer>
-                <MenuItemContainer link="/site-management/user-enquiries">
+                <MenuItemContainer link="/admin/site-management/user-enquiries">
                     User Enquiries
                 </MenuItemContainer>
                 <MenuItemContainer link="/site-management/companies">
@@ -90,7 +90,7 @@ const SuperAdminMenu = () => (
             <MenuItemContainer link="/companies">
                 <i className="fa fa-users icon" /> Companies
             </MenuItemContainer>
-            <MenuItemContainer link="/Users">
+            <MenuItemContainer link="/admin/users">
                 <i className="fa fa-user icon" /> Users
             </MenuItemContainer>
             <MenuItemContainer link="/template-builder">

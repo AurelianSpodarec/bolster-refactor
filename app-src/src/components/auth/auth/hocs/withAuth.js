@@ -2,7 +2,7 @@ import React from 'react';
 import { Redirect } from 'react-router-dom';
 import jwtDecode from 'jwt-decode';
 
-export default function(ProtectedComponent) {
+export default function(ProtectedComponent, isAdmin) {
     class WithAuth extends React.Component {
         state = {
             checkComplete: false,
@@ -43,8 +43,11 @@ export default function(ProtectedComponent) {
             return new Promise((resolve, reject) => {
                 const decoded = jwtDecode(token);
                 const isExpired = decoded.exp < new Date().valueOf() / 1000;
-
                 if (isExpired) reject();
+
+                if (isAdmin) {
+                    // TODO: add admin auth
+                }
                 resolve();
             });
         };

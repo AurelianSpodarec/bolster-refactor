@@ -10,7 +10,6 @@ const EditUserModal = ({
     firstName,
     lastName,
     email,
-    confirmEmail,
     phoneNumber,
     handleSubmit,
     hideModal,
@@ -20,7 +19,7 @@ const EditUserModal = ({
         <ModalOuterContainer>
             <BlockHeadingWControls title="Edit User Details" />
             <Form className="generic-form" onSubmit={handleSubmit}>
-                <div className="size-lg-6">
+                <div className="size-lg-12">
                     <Field name="First name">
                         <TextInputContainer
                             handleChange={handleChange}
@@ -31,7 +30,7 @@ const EditUserModal = ({
                         />
                     </Field>
                 </div>
-                <div className="size-lg-6">
+                <div className="size-lg-12">
                     <Field name="Last name">
                         <TextInputContainer
                             handleChange={handleChange}
@@ -42,7 +41,7 @@ const EditUserModal = ({
                         />
                     </Field>
                 </div>
-                <div className="size-lg-6">
+                <div className="size-lg-12">
                     <Field name="Email address">
                         <TextInputContainer
                             handleChange={handleChange}
@@ -53,18 +52,7 @@ const EditUserModal = ({
                         />
                     </Field>
                 </div>
-                <div className="size-lg-6">
-                    <Field name="Confirm email address">
-                        <TextInputContainer
-                            handleChange={handleChange}
-                            name={'confirmEmail'}
-                            value={confirmEmail}
-                            type="email"
-                            required
-                        />
-                    </Field>
-                </div>
-                <div className="size-lg-6">
+                <div className="size-lg-12">
                     <Field name="Phone number">
                         <TextInputContainer
                             handleChange={handleChange}
