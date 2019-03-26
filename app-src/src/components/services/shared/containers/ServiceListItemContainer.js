@@ -11,7 +11,7 @@ class ServiceListItemContainer extends Component {
             <ServiceListItem
                 service={service}
                 colCount={colCount}
-                onClick={this.handleShowModal}
+                handleShowModal={this.handleShowModal}
             />
         );
     }
