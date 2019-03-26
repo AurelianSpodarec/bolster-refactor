@@ -6,36 +6,32 @@ import AllUsers from '../presentational/AllUsers';
 class AllUsersContainer extends Component {
     state = {
         filter: '',
-        role: {
-            text: '',
-            value: ''
+        role: '',
+        roleOptions: {
+            'Company Admin': { text: 'Company Admin', value: 'Company Admin' },
+            Operative: { text: 'Operative', value: 'Operative' }
         }
     };
-    componentDidMount() {
-        this.props.fetchAllUsers();
-    }
-    handleSearchInputChange = e => {
-        this.setState({ [e.target.name]: e.target.value });
-    };
-    handleRoleFilterChange = e => {
-        const { value } = e.target;
-        this.setState({
-            role: {
-                text: value,
-                value
-            }
-        });
-    };
+
     render() {
+        const { filter, role, roleOptions } = this.state;
         return (
             <AllUsers
-                filter={this.state.filter}
-                role={this.state.role}
-                handleSearchInputChange={this.handleSearchInputChange}
-                handleRoleFilterChange={this.handleRoleFilterChange}
+                filter={filter}
+                role={roleOptions[role]}
+                roleOptions={Object.values(roleOptions)}
+                handleInputChange={this.handleInputChange}
             />
         );
     }
+
+    componentDidMount() {
+        this.props.fetchAllUsers();
+    }
+
+    handleInputChange = e => {
+        this.setState({ [e.target.name]: e.target.value });
+    };
 }
 
 const mapDispatchToProps = () => dispatch => ({

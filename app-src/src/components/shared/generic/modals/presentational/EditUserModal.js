@@ -18,7 +18,7 @@ const EditUserModal = ({
 }) => {
     return (
         <ModalOuterContainer>
-            <BlockHeadingWControls />
+            <BlockHeadingWControls title="Edit User Details" />
             <Form className="generic-form" onSubmit={handleSubmit}>
                 <div className="size-lg-6">
                     <Field name="First name">

@@ -7,30 +7,29 @@ import PageHeading from 'components/shared/generic/pageHeading/presentational/Pa
 import Dropdown from 'components/shared/generic/form/presentational/Dropdown';
 
 const AllUsers = ({
-    handleSearchInputChange,
-    handleRoleFilterChange,
+    handleInputChange,
     filter,
-    role
+    role,
+    roleOptions
+    // placeholder = 'Filter by role'
 }) => (
     <>
         <Breadcrumb breadcrumbs={[{ text: 'Users' }]} />
         <PageHeading title="Users">
             <div className="area-filter">
                 <Dropdown
-                    handleChange={handleRoleFilterChange}
+                    handleChange={handleInputChange}
                     name="role"
-                    options={[
-                        { text: 'Company Admin', value: 'Company Admin' },
-                        { text: 'Operative', value: 'Operative' }
-                    ]}
+                    options={roleOptions}
                     selectedOption={role}
+                    placeholder={'filter by role..'}
                 />
                 <i className="icon far fa-search" />
                 <input
                     type="text"
                     name="filter"
                     placeholder="Search Email"
-                    onChange={handleSearchInputChange}
+                    onChange={handleInputChange}
                     value={filter}
                 />
             </div>
