@@ -26,6 +26,7 @@ import modalReducer from './modal';
 import templateBuilderReducer from './templateBuilder';
 import servicesReducer from './services';
 import usersReducer from './users';
+import enquiriesReducer from './enquiries';
 
 export default combineReducers({
     buildingsReducer,
@@ -53,5 +54,6 @@ export default combineReducers({
     modalReducer,
     templateBuilderReducer,
     servicesReducer,
-    usersReducer
+    usersReducer,
+    enquiriesReducer
 });
