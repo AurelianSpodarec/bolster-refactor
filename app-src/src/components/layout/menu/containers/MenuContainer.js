@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import withShowLayout from 'components/layout/misc/hocs/withShowLayout';
 import MenusWrapper from '../presentational/MenusWrapper';
 
-class MenuContianer extends Component {
+class MenuContainer extends Component {
     state = {
         showSuperAdminMenu: false
     };
@@ -23,5 +23,5 @@ export default withShowLayout(
     connect(
         mapStateToProps,
         null
-    )(MenuContianer)
+    )(MenuContainer)
 );

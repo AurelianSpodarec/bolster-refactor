@@ -24,7 +24,7 @@ const SuperAdminMenu = () => (
                 <MenuItemContainer link="/site-management/demo-requests">
                     User Demo Requests
                 </MenuItemContainer>
-                <MenuItemContainer link="/site-management/user-enquiries">
+                <MenuItemContainer link="/admin/site-management/user-enquiries">
                     User Enquiries
                 </MenuItemContainer>
                 <MenuItemContainer link="/site-management/companies">

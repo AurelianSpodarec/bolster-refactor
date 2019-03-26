@@ -1,6 +1,8 @@
 import React from 'react';
 import moment from 'moment';
 
+import Roles from './Roles';
+
 const UserListItem = ({
     user,
     handleShowEditUserModal,
@@ -16,7 +18,7 @@ const UserListItem = ({
             <td>{`${user.firstName} ${user.lastName}`}</td>
             <td>{user.email}</td>
             <td>{user.phoneNumber}</td>
-            <td>{role}</td>
+            <Roles roles={user.roles} />
             <td>{moment(user.createdOn).format('DD/MM/YYYY')}</td>
             <td>
                 <button
