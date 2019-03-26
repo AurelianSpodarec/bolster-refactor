@@ -90,7 +90,7 @@ const SuperAdminMenu = () => (
             <MenuItemContainer link="/companies">
                 <i className="fa fa-users icon" /> Companies
             </MenuItemContainer>
-            <MenuItemContainer link="/Users">
+            <MenuItemContainer link="/admin/users">
                 <i className="fa fa-user icon" /> Users
             </MenuItemContainer>
             <MenuItemContainer link="/template-builder">

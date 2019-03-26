@@ -3,6 +3,7 @@ import React from 'react';
 import BlockHeadingWControls from 'components/shared/generic/blockHeadingWControls/presentational/BlockHeadingWControls';
 import TemplateSectionTableContainer from '../containers/TemplateSectionTableContainer';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
+import { ADD_TEMPLATE_QUESTION } from 'constants/modalTypes';
 
 const TemplateSection = ({
     section,

@@ -9,7 +9,7 @@ const TemplateFieldItem = ({ question }) => (
             <td>{question.name}</td>
             <td>{question.questionType}</td>
             <td>
-                <input type="checkbox" value={question.isRequired} />
+                <input type="checkbox" readOnly checked={question.isRequired} />
             </td>
             <td>
                 <button className="button" type="edit">

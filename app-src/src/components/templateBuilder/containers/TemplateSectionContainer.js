@@ -18,12 +18,15 @@ class TemplateSectionContainer extends Component {
     state = {
         section: this.props.section
     };
+
     render() {
+        const { section, questions, showModal } = this.props;
+
         return (
             <BlockContainer>
                 <TemplateSection
-                    section={this.props.section}
-                    questions={this.props.questions}
+                    section={section}
+                    questions={questions}
                     duplicateSection={this.duplicateSection}
                     deleteSection={this.deleteSection}
                     showAddQuestionModal={this.showAddQuestionModal}
