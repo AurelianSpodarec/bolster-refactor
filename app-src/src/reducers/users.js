@@ -8,7 +8,8 @@ import {
     EDIT_USER_SUCCESS,
     EDIT_USER_PASSWORD_REQUEST,
     EDIT_USER_PASSWORD_SUCCESS,
-    EDIT_USER_PASSWORD_FAILURE
+    EDIT_USER_PASSWORD_FAILURE,
+    UPDATE_USERS_FILTERS
 } from 'constants/actionTypes/users';
 import { convertArrToObj, updateObj } from 'helpers/generic';
 
@@ -17,7 +18,8 @@ export default combineReducers({
     isFetching: isFetchingReducer,
     users: usersReducer,
     postSuccess: postSuccessReducer,
-    updatedUserID: updatedUserIDReducer
+    updatedUserID: updatedUserIDReducer,
+    filters: filtersReducer
 });
 
 function isFetchingReducer(state = false, action) {
@@ -79,6 +81,15 @@ function updatedUserIDReducer(state = 0, action) {
         case EDIT_USER_SUCCESS:
         case EDIT_USER_PASSWORD_SUCCESS:
             return action.payload.id;
+        default:
+            return state;
+    }
+}
+
+function filtersReducer(state = { email: '', role: '' }, action) {
+    switch (action.type) {
+        case UPDATE_USERS_FILTERS:
+            return updateObj(state, action.fieldName, action.searchTerm);
         default:
             return state;
     }
