@@ -1,5 +1,5 @@
 import React from 'react';
-import L from 'leaflet';
+// import L from 'leaflet';
 import { Marker, Popup } from 'react-leaflet';
 
 const DrawingMapPin = ({ pin }) => {

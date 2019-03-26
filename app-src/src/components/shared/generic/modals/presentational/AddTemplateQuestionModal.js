@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { isObjEmpty } from 'helpers/generic';
+
 import ModalOuterContainer from '../containers/ModalOuterContainer';
 import Form from 'components/shared/generic/form/containers/Form';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
@@ -10,13 +12,13 @@ import BlockButtonWrapper from '../../blockButtonWrappers/presentational/BlockBu
 const AddTemplateQuestionModal = ({
     questionTypeOptions,
     questionType,
-    name,
-    isRequired,
-    handleInputChange,
-    handlePrefieldChange,
-    hideModal,
     prereqOptions,
     prerequisite,
+    name,
+    isRequired,
+    charLimit,
+    handleInputChange,
+    hideModal,
     handleSubmit
 }) => (
     <ModalOuterContainer extraClasses="w-form">
@@ -29,6 +31,26 @@ const AddTemplateQuestionModal = ({
                     handleChange={handleInputChange}
                 />
             </Field>
+            {!isObjEmpty(prereqOptions) && (
+                <Field name="Prerequisite field?">
+                    <Dropdown
+                        name="prerequisite"
+                        options={prereqOptions}
+                        selectedOption={prerequisite}
+                        handleChange={handleInputChange}
+                    />
+                </Field>
+            )}
+            {prerequisite && prerequisite.length && (
+                <Field name="Prerequisite value">
+                    <TextInputContainer
+                        name="prerequisiteVal"
+                        value={charLimit}
+                        handleChange={handleInputChange}
+                        required
+                    />
+                </Field>
+            )}
             <Field name="Field name">
                 <TextInputContainer
                     name="name"
@@ -37,16 +59,14 @@ const AddTemplateQuestionModal = ({
                     required
                 />
             </Field>
-
-            <Field name="Prerequisite field?">
-                <Dropdown
-                    name="prerequisite"
-                    options={prereqOptions}
-                    selectedOption={prerequisite}
+            <Field name="Character limit">
+                <TextInputContainer
+                    name="charLimit"
+                    value={charLimit}
                     handleChange={handleInputChange}
+                    required
                 />
             </Field>
-
             <Field name="Is required">
                 <input
                     name="isRequired"

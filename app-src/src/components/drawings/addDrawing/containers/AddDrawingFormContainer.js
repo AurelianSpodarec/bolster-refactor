@@ -7,7 +7,7 @@ import AddDrawingForm from '../presentational/AddDrawingForm';
 class AddDrawingFormContainer extends Component {
     state = {
         name: '',
-        fileString: ''
+        file: {}
     };
 
     render() {
@@ -16,20 +16,21 @@ class AddDrawingFormContainer extends Component {
                 {...this.state}
                 floorID={this.props.floorID}
                 handleInputChange={this.handleInputChange}
+                handleFileChange={this.handleFileChange}
                 handleSubmit={this.handleSubmit}
             />
         );
     }
 
     handleInputChange = e => {
-        this.setState({
-            ...this.state,
-            [e.target.name]: e.target.value
-        });
+        this.setState({ [e.target.name]: e.target.value });
     };
 
+    handleFileChange = (name, file) => {
+        this.setState({ [name]: file });
+    };
     handleSubmit = () => {
-        console.log('submitting...');
+        console.log(this.state.file);
     };
 }
 

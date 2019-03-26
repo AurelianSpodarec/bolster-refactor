@@ -8,14 +8,15 @@ import FileUpload from '../presentational/FileUpload';
 
 class FileUploadContainer extends Component {
     state = {
-        showFieldError: false
+        showFieldError: false,
+        isAfterAdd: false
     };
     render() {
         const { showFieldError } = this.state;
         const { errorsVisible, error } = this.props;
-
         let errorMessage;
         if (showFieldError || errorsVisible) errorMessage = error;
+
         return (
             <FileUpload
                 addRef={ref => (this.pond = ref)}
@@ -27,54 +28,44 @@ class FileUploadContainer extends Component {
         );
     }
 
+    componentDidMount = () => {
+        this._validate();
+    };
+
     handleBeforeAddFile = ({ file }) => {
-        const {
-            name,
-            error,
-            allowedTypes,
-            addFieldError,
-            removeFieldError
-        } = this.props;
+        const { name, error, addFieldError, removeFieldError } = this.props;
+        this.setState({ showFieldError: true, isAfterAdd: false });
 
-        if (!(allowedTypes && allowedTypes.length)) return true;
-        const isValid = allowedTypes.some(type =>
-            type.toLowerCase().includes(file.type.toLowerCase())
-        );
-
-        if (!isValid) {
-            addFieldError(name, 'This file type is not allowed.');
-            this._showFieldError();
+        if (!this._isFileTypeValid(file.type)) {
+            addFieldError(name, 'Invalid file type.');
             return false;
-        } else if (error) {
-            removeFieldError(name);
         }
+        if (error) removeFieldError(name);
     };
 
     handleAddFile = (err, { file }) => {
-        // const { name, handleChange } = this.props;
-        this._showFieldError();
+        const { name, handleChange } = this.props;
+        this.setState({ isAfterAdd: true });
+
         if (!err) {
-            this._getBase64(file);
-            // .then(base64 => handleChange(name, base64))
-            // .catch();
+            this._getBase64(file)
+                .then(res => res.split('base64,')[1])
+                .then(base64 =>
+                    handleChange(name, { encoded: base64, fileName: file.name })
+                )
+                .catch();
         }
     };
 
     handleRemoveFile = () => {
-        // const { name, handleChange } = this.props;
-        // handleChange(name, '');
-        this._validateRequired();
-        this._showFieldError();
+        const { name, handleChange } = this.props;
+        const { isAfterAdd } = this.state;
+
+        handleChange(name, {});
+        if (isAfterAdd) this._validate();
     };
 
-    _showFieldError = () => {
-        this.setState({
-            ...this.state,
-            showFieldError: true
-        });
-    };
-
-    _validateRequired = file => {
+    _validate = file => {
         const {
             name,
             error,
@@ -88,6 +79,14 @@ class FileUploadContainer extends Component {
         } else if (error) {
             removeFieldError(name);
         }
+    };
+
+    _isFileTypeValid = fileType => {
+        const { allowedTypes } = this.props;
+        if (!(allowedTypes && allowedTypes.length)) return true;
+        return allowedTypes.some(type =>
+            fileType.toLowerCase().includes(type.toLowerCase())
+        );
     };
 
     _getBase64 = file => {

@@ -19,7 +19,9 @@ class TextInputContianer extends Component {
             type = 'text',
             placeholder,
             error,
-            errorsVisible
+            errorsVisible,
+            maxFiles,
+            allowMultiple
         } = this.props;
 
         let errorMessage;
@@ -27,6 +29,8 @@ class TextInputContianer extends Component {
 
         return (
             <TextInput
+                maxFiles={maxFiles}
+                allowMultiple={allowMultiple}
                 value={value}
                 name={name}
                 type={type}

@@ -9,11 +9,13 @@ const FileUpload = ({
     handleBeforeAddFile,
     handleAddFile,
     handleRemoveFile,
-    error
+    error,
+    maxFiles = 1
 }) => (
     <div>
         <FilePond
             ref={addRef}
+            maxFiles={maxFiles}
             onaddfile={handleAddFile}
             onremovefile={handleRemoveFile}
             beforeAddFile={handleBeforeAddFile}
