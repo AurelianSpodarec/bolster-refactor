@@ -15,7 +15,7 @@ const AddTemplateQuestionModal = ({
     handleInputChange,
     handlePrefieldChange,
     hideModal,
-    prereqFields,
+    prereqOptions,
     prerequisite,
     handleSubmit
 }) => (
@@ -41,9 +41,9 @@ const AddTemplateQuestionModal = ({
             <Field name="Prerequisite field?">
                 <Dropdown
                     name="prerequisite"
-                    options={prereqFields}
+                    options={prereqOptions}
                     selectedOption={prerequisite}
-                    handleChange={handlePrefieldChange}
+                    handleChange={handleInputChange}
                 />
             </Field>
 

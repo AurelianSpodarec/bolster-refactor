@@ -20,26 +20,19 @@ class AddTemplateQuestionModalContainer extends Component {
         isRequired: false,
         questionTypeOptions: convertArrToObj(questionTypeOptions, 'value'),
         questionType: QUESTION_TYPES.SINGLE_LINE,
-        propsQuestions: this.props.questions.filter(
-            question => question.sectionUuid === this.props.sectionUuid
-        ),
-        prereqFields: [
-            {
-                text: '##Test Field 1##',
-                value: '1',
-                uuid: '1',
-                fieldValue: '2'
-            },
-            { text: '##Test Field 2##', value: '2', uuid: '2', fieldValue: '3' }
-        ],
-        prerequisite: {}
+        prereqOptions: {
+            '1': { text: '##Test Field 1##', value: '1' },
+            '2': { text: '##Test Field 2##', value: '2' },
+            '3': { text: '##Test Field 3##', value: '3' }
+        },
+        prerequisite: ''
     };
 
     render() {
         const {
             questionTypeOptions,
             questionType,
-            prereqFields,
+            prereqOptions,
             prerequisite,
             ...otherFields
         } = this.state;
@@ -51,8 +44,8 @@ class AddTemplateQuestionModalContainer extends Component {
                 {...otherFields}
                 handleInputChange={this.handleInputChange}
                 handlePrefieldChange={this.handlePrefieldChange}
-                prerequisite={prerequisite}
-                prereqFields={prereqFields}
+                prerequisite={prereqOptions[prerequisite]}
+                prereqOptions={Object.values(prereqOptions)}
                 hideModal={e => {
                     e.preventDefault();
                     this.props.hideModal();
@@ -62,44 +55,8 @@ class AddTemplateQuestionModalContainer extends Component {
         );
     }
 
-    //filter question on mount or update to get questions for this section (uuid)
-
-    //need to add questions to prereq dropdown
-
-    componentDidUpdate = prevProps => {
-        //Need to update questions to the field
-        console.log(
-            'prevProps questions = ' + Object.values(prevProps.questions).length
-        );
-        console.log(
-            'current props question = ' +
-                Object.values(this.props.questions).length
-        );
-
-        // this.setState({
-        //     ...this.state,
-        //     prereqFields: Object.values(this.props.questions).map(question => ({
-        //         text: question.name,
-        //         value: question.uuid
-        //     }))
-        // });
-        // if (
-        //     Object.values(prevProps.questions).length <
-        //     Object.values(this.props.questions).length
-        // ) {
-        //     console.log('hi');
-
-        // }
-    };
     handleInputChange = ({ target: { type, value, name, checked } }) => {
         this.setState({ [name]: type === 'checkbox' ? checked : value });
-    };
-
-    handlePrefieldChange = ({ target: { value } }) => {
-        this.setState({
-            prerequisite: this.state.prereqFields[value]
-        });
-        console.log(this.state);
     };
 
     handleSubmit = e => {

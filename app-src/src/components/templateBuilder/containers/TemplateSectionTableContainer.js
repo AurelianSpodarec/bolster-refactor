@@ -16,11 +16,4 @@ class TemplateSectionTableContainer extends Component {
     }
 }
 
-const mapStateToProps = state => ({});
-
-const mapDispatchToProps = dispatch => ({});
-
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(TemplateSectionTableContainer);
+export default connect()(TemplateSectionTableContainer);
