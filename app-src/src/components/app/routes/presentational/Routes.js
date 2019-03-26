@@ -9,6 +9,7 @@ import Dashboard from 'components/dashboard/dashboard/presentational/Dashboard';
 import NotFound from 'components/notFound/presentational/NotFound';
 
 import AuthRoutes from './AuthRoutes';
+import AdminRoutes from './AdminRoutes';
 import SitesRoutes from './SitesRoutes';
 import BuildingsRoutes from './BuildingsRoutes';
 import FloorRoutes from './FloorRoutes';
@@ -25,6 +26,7 @@ const Routes = ({ showLoggedInLayout }) => (
     <div id="page-area" className={`${!showLoggedInLayout ? 'full' : ''}`}>
         <SwitchWith404>
             <Route exact path="/" component={withAuth(Dashboard)} />
+            <Route path="/admin" component={withAuth(AdminRoutes)} />
             <Route path="/services" component={withAuth(ServicesRoutes)} />
             <Route path="/auth" component={AuthRoutes} />
             <Route path="/sites" component={withAuth(SitesRoutes)} />
@@ -32,7 +34,10 @@ const Routes = ({ showLoggedInLayout }) => (
             <Route path="/floors" component={withAuth(FloorRoutes)} />
             <Route path="/drawings" component={withAuth(DrawingsRoutes)} />
             <Route path="/messages" component={withAuth(MessagesRoutes)} />
-            <Route path="/users" component={withAuth(UserManagementRoutes)} />
+            <Route
+                path="/users-management"
+                component={withAuth(UserManagementRoutes)}
+            />
             <Route path="/pins" component={withAuth(PinRoutes)} />
             <Route path="/reports" component={withAuth(ReportsRoutes)} />
             <Route path="/tools" component={withAuth(ToolsRoutes)} />
