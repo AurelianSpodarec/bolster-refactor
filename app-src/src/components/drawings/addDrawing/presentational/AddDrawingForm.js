@@ -7,7 +7,13 @@ import Form from 'components/shared/generic/form/containers/Form';
 import FileUploadContainer from 'components/shared/generic/form/containers/FileUploadContainer';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 
-const AddDrawingForm = ({ handleSubmit, handleInputChange, floorID, name }) => (
+const AddDrawingForm = ({
+    handleSubmit,
+    handleInputChange,
+    handleFileChange,
+    floorID,
+    name
+}) => (
     <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
         <div className="size-lg-12">
             <div className="size-lg-6">
@@ -24,7 +30,12 @@ const AddDrawingForm = ({ handleSubmit, handleInputChange, floorID, name }) => (
         <div className="size-lg-12">
             <div className="size-lg-6">
                 <label className="title">Upload file</label>
-                <FileUploadContainer />
+                <FileUploadContainer
+                    required
+                    name="file"
+                    allowedTypes={['pdf']}
+                    handleChange={handleFileChange}
+                />
             </div>
         </div>
 

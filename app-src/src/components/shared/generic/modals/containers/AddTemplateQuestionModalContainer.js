@@ -16,36 +16,32 @@ const questionTypeOptions = Object.keys(QUESTION_TYPES).map(type => ({
 
 class AddTemplateQuestionModalContainer extends Component {
     state = {
-        name: '',
-        isRequired: false,
         questionTypeOptions: convertArrToObj(questionTypeOptions, 'value'),
         questionType: QUESTION_TYPES.SINGLE_LINE,
-        prereqOptions: {
-            '1': { text: '##Test Field 1##', value: '1' },
-            '2': { text: '##Test Field 2##', value: '2' },
-            '3': { text: '##Test Field 3##', value: '3' }
-        },
-        prerequisite: ''
+        prerequisite: '',
+        name: '',
+        charLimit: 300,
+        isRequired: false
     };
 
     render() {
         const {
             questionTypeOptions,
             questionType,
-            prereqOptions,
             prerequisite,
             ...otherFields
         } = this.state;
+        const prereqOptions = this._getPrereqOptions();
 
         return (
             <AddTemplateQuestionModal
                 questionTypeOptions={Object.values(questionTypeOptions)}
                 questionType={questionTypeOptions[questionType]}
+                prereqOptions={Object.values(prereqOptions)}
+                prerequisite={prereqOptions[prerequisite]}
                 {...otherFields}
                 handleInputChange={this.handleInputChange}
                 handlePrefieldChange={this.handlePrefieldChange}
-                prerequisite={prereqOptions[prerequisite]}
-                prereqOptions={Object.values(prereqOptions)}
                 hideModal={e => {
                     e.preventDefault();
                     this.props.hideModal();
@@ -55,6 +51,15 @@ class AddTemplateQuestionModalContainer extends Component {
         );
     }
 
+    _getPrereqOptions = () => {
+        const options = this.props.questions.map(({ uuid, name }) => ({
+            value: uuid,
+            text: name
+        }));
+
+        return convertArrToObj(options, 'value');
+    };
+
     handleInputChange = ({ target: { type, value, name, checked } }) => {
         this.setState({ [name]: type === 'checkbox' ? checked : value });
     };
@@ -62,7 +67,7 @@ class AddTemplateQuestionModalContainer extends Component {
     handleSubmit = e => {
         e.preventDefault();
         const { name, isRequired, questionType, prerequisite } = this.state;
-        const { addQuestion, sectionUuid = 'test' } = this.props;
+        const { addQuestion, sectionUuid } = this.props;
 
         const newSection = {
             name,
@@ -70,8 +75,7 @@ class AddTemplateQuestionModalContainer extends Component {
             questionType: questionType,
             sectionUuid,
             uuid: uuid(),
-            preUuid: prerequisite.uuid,
-            preValue: prerequisite.value
+            prereqUuid: prerequisite
         };
 
         addQuestion(newSection);

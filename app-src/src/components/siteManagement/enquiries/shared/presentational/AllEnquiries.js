@@ -7,8 +7,8 @@ import PageHeading from 'components/shared/generic/pageHeading/presentational/Pa
 
 const AllEnquiries = () => (
     <>
-        <Breadcrumb breadcrumbs={[{ text: 'EnqAllEnquiries' }]} />
-        <PageHeading title="EnqAllEnquiries" />
+        <Breadcrumb breadcrumbs={[{ text: 'User Enquiries' }]} />
+        <PageHeading title="User Enquiries" />
         <BlockContainer>
             <EnquiriesTableContainer />
         </BlockContainer>
