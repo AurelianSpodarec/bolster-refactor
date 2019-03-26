@@ -6,7 +6,7 @@ import { ADD_TEMPLATE_QUESTION } from 'constants/modalTypes';
 import showModal from 'actions/generic/modals/sync/showModal';
 import addSection from 'actions/templateBuilder/sync/addSection';
 import deleteSection from 'actions/templateBuilder/sync/deleteSection';
-import duplicateSection from 'actions/templateBuilder/sync/duplicateSection';
+import duplicateQuestions from 'actions/templateBuilder/sync/duplicateQuestions';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import TemplateSection from '../presentational/TemplateSection';
 
@@ -42,18 +42,30 @@ class TemplateSectionContainer extends Component {
     };
 
     duplicateSection = e => {
-        const { addSection, section, sectionsCount } = this.props;
+        const { addSection, section, sectionsCount, questions } = this.props;
 
         e.preventDefault();
+        const newUuid = uuid();
 
         const newSection = {
             name: section.name + ' ' + sectionsCount,
-            uuid: uuid()
+            uuid: newUuid
         };
+
+        const duplicateQuestions = Object.values(questions).map(question => ({
+            isRequired: question.isRequired,
+            name: question.name,
+            preUuid: question.preUuid,
+            preValue: question.preValue,
+            questionType: question.questionType,
+            sectionUuid: newUuid,
+            uuid: uuid()
+        }));
 
         addSection(newSection);
     };
 }
+
 const mapStateToProps = ({ templateBuilderReducer }, { section }) => ({
     questions: Object.values(templateBuilderReducer.questions).filter(
         q => q.sectionUuid === section.uuid
@@ -68,8 +80,8 @@ const mapDispatchToProps = dispatch => ({
     addSection: newSection => {
         dispatch(addSection(newSection));
     },
-    duplicateSection: section => {
-        dispatch(duplicateSection(section));
+    duplicateQuestions: questions => {
+        dispatch(duplicateQuestions(questions));
     },
     showModal: (modalType, modalProps) => {
         dispatch(showModal(modalType, modalProps));

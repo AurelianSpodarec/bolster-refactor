@@ -1,7 +1,7 @@
-import { DUPLICATE_SECTION } from 'constants/actionTypes//templateBuilder';
+import { DUPLICATE_QUESTIONS } from 'constants/actionTypes//templateBuilder';
 
 export default section => dispatch =>
     dispatch({
-        type: DUPLICATE_SECTION,
+        type: DUPLICATE_QUESTIONS,
         section
     });
