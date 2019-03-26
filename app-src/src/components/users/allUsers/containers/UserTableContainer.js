@@ -25,9 +25,12 @@ class UserTableContainer extends Component {
         const { users, filters } = this.props;
         const { role } = filters;
         const email = filters.email.toLowerCase();
-
         return users
-            .filter(user => !role.length || user.role === role)
+            .filter(
+                user =>
+                    !role ||
+                    user.roles.find(({ type }) => String(type) === role)
+            )
             .filter(user => user.email.toLowerCase().includes(email));
     };
 }
