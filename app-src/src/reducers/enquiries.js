@@ -5,13 +5,18 @@ import { convertArrToObj } from 'helpers/generic';
 import {
     FETCH_ALL_ENQUIRIES_REQUEST,
     FETCH_ALL_ENQUIRIES_SUCCESS,
-    FETCH_ALL_ENQUIRIES_FAILURE
+    FETCH_ALL_ENQUIRIES_FAILURE,
+    DELETE_ENQUIRY_FAILURE,
+    DELETE_ENQUIRY_REQUEST,
+    DELETE_ENQUIRY_SUCCESS
 } from 'constants/actionTypes/enquiries';
 
 export default combineReducers({
     enquiries: enquiriesReducer,
     isFetching: isFetchingReducer,
-    error: errorReducer
+    isPosting: isPostingReducer,
+    postingError: postingErrorReducer,
+    fetchingError: fetchingErrorReducer
 });
 
 function isFetchingReducer(state = false, action) {
@@ -25,12 +30,34 @@ function isFetchingReducer(state = false, action) {
             return state;
     }
 }
+function isPostingReducer(state = false, action) {
+    switch (action.type) {
+        case DELETE_ENQUIRY_REQUEST:
+            return true;
+        case DELETE_ENQUIRY_SUCCESS:
+        case DELETE_ENQUIRY_FAILURE:
+            return false;
+        default:
+            return state;
+    }
+}
 
-function errorReducer(state = null, action) {
+function fetchingErrorReducer(state = null, action) {
     switch (action.type) {
         case FETCH_ALL_ENQUIRIES_REQUEST:
             return null;
         case FETCH_ALL_ENQUIRIES_FAILURE:
+            return action.error;
+        default:
+            return state;
+    }
+}
+
+function postingErrorReducer(state = null, action) {
+    switch (action.type) {
+        case DELETE_ENQUIRY_REQUEST:
+            return null;
+        case DELETE_ENQUIRY_FAILURE:
             return action.error;
         default:
             return state;
