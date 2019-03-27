@@ -2,15 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { showModal } from 'actions/generic/modals/sync/showModal';
 import EnquiriesListItem from '../presentational/EnquiriesListItem';
-import { DELETE_ITEM } from 'constants/modalTypes';
-import { deleteEnquiry } from 'actions/enquiries/async/deleteEnquiry';
+import { DELETE_ENQUIRY } from 'constants/modalTypes';
 
-const EnquiriesListItemContainer = ({
-    enquiry,
-    colCount,
-    showModal,
-    deleteItem
-}) => {
+const EnquiriesListItemContainer = ({ enquiry, colCount, showModal }) => {
     return (
         <EnquiriesListItem
             enquiry={enquiry}
@@ -20,16 +14,13 @@ const EnquiriesListItemContainer = ({
     );
 
     function handleShowModal(enquiry) {
-        showModal(DELETE_ITEM, { id: enquiry.id, deleteItem });
+        showModal(DELETE_ENQUIRY, { id: enquiry.id });
     }
 };
 
 const mapDispatchToProps = dispatch => ({
     showModal: (modalType, modalProps) => {
         dispatch(showModal(modalType, modalProps));
-    },
-    deleteItem: id => {
-        dispatch(deleteEnquiry(id));
     }
 });
 

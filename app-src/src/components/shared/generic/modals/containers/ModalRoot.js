@@ -9,7 +9,7 @@ import {
     EDIT_SERVICE,
     EDIT_USER_PASSWORD,
     EDIT_USER,
-    DELETE_ITEM
+    DELETE_ENQUIRY
 } from 'constants/modalTypes';
 
 import PinPhotoModal from '../presentational/PinPhotoModal';
@@ -19,7 +19,7 @@ import RenameTemplateSectionModalContainer from './RenameTemplateSectionModalCon
 import EditServiceModalContainer from './EditServiceModalContainer';
 import EditUserPasswordModalContainer from './EditUserPasswordModalContainer';
 import EditUserModalContainer from './EditUserModalContainer';
-import ConfirmDeleteModalContainer from './ConfirmDeleteModalContainer';
+import DeleteEnquiryModalContainer from './DeleteEnquiryModalContainer';
 
 const MODAL_COMPONENTS = {
     [PIN_IMAGE]: PinPhotoModal,
@@ -29,7 +29,7 @@ const MODAL_COMPONENTS = {
     [EDIT_SERVICE]: EditServiceModalContainer,
     [EDIT_USER_PASSWORD]: EditUserPasswordModalContainer,
     [EDIT_USER]: EditUserModalContainer,
-    [DELETE_ITEM]: ConfirmDeleteModalContainer
+    [DELETE_ENQUIRY]: DeleteEnquiryModalContainer
 };
 
 const ModalRoot = ({ modalType, modalProps }) => {

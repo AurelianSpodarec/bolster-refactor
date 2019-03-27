@@ -5,7 +5,7 @@ const EnquiriesListItem = ({ enquiry, handleShowModal }) => {
         <tr>
             <td>{enquiry.name}</td>
             <td>{enquiry.email}</td>
-            <td>{enquiry.phoneNumber}</td>
+            <td>{enquiry.contactNumber}</td>
             <td>{moment(enquiry.sentOn).format('DD-MM-YYYY hh:mm a')}</td>
             <td>
                 <button
