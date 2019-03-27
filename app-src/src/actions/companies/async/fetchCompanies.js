@@ -5,6 +5,7 @@ import {
     FETCH_COMPANIES_SUCCESS,
     FETCH_COMPANIES_FAILURE
 } from 'constants/actionTypes/companies';
+import { ADMIN_API_URL } from 'config';
 
 export const fetchCompaniesRequest = () => ({
     type: FETCH_COMPANIES_REQUEST
@@ -24,7 +25,7 @@ export default () => dispatch => {
     dispatch(fetchCompaniesRequest());
 
     axios
-        .get('/mockData/companies/companies.json')
+        .get(`${ADMIN_API_URL}/companies`)
         .then(res => dispatch(fetchCompaniesSuccess(res.data)))
         .catch(err => dispatch(fetchCompaniesFailure(err.message)));
 };
