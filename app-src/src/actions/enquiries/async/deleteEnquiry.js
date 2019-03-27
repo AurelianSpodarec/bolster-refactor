@@ -12,9 +12,9 @@ export const deleteEnquiryRequest = () => ({
     type: DELETE_ENQUIRY_REQUEST
 });
 
-export const deleteEnquirySuccess = payload => ({
+export const deleteEnquirySuccess = id => ({
     type: DELETE_ENQUIRY_SUCCESS,
-    payload
+    id
 });
 
 export const deleteEnquiryFailure = error => ({
@@ -25,7 +25,7 @@ export const deleteEnquiryFailure = error => ({
 export default enquiryID => dispatch => {
     dispatch(deleteEnquiryRequest());
     axios
-        .delete(`${ADMIN_API_URL}/enquiries/${enquiryID}`, getHeaders())
-        .then(res => dispatch(deleteEnquirySuccess(res.data)))
+        .delete(`${ADMIN_API_URL}/enquiries/fdtydt${enquiryID}`, getHeaders())
+        .then(() => dispatch(deleteEnquirySuccess(enquiryID)))
         .catch(err => dispatch(deleteEnquiryFailure(err.message)));
 };
