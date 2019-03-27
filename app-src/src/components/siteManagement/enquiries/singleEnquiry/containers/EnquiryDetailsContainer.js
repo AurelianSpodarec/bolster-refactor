@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import EnquiryDetails from '../presentational/EnquiryDetails';
-import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
+import { showModal } from 'actions/generic/modals/sync/showModal';
+import { DELETE_ENQUIRY, POSTING_ERROR } from 'constants/modalTypes';
 
 class EnquiryDetailsContainer extends Component {
     render() {
@@ -15,21 +16,48 @@ class EnquiryDetailsContainer extends Component {
                     error={fetchingError}
                     isEmpty={!enquiry.id}
                 >
-                    <EnquiryDetails enquiry={enquiry} />
+                    <EnquiryDetails
+                        enquiry={enquiry}
+                        handleShowModal={this.handleShowModal}
+                    />
                 </BlockContainer>
             </>
         );
     }
+
+    componentDidUpdate(prevProps) {
+        const { postingError, showModal } = this.props;
+        if (postingError && !prevProps.postingError) {
+            showModal(POSTING_ERROR, {
+                title: 'Deletion Error:',
+                message:
+                    'An error occurred while deleting this enquiry, please try again later'
+            });
+        }
+    }
+
+    handleShowModal = id => {
+        const { showModal } = this.props;
+        showModal(DELETE_ENQUIRY, { id });
+    };
 }
+
+const mapDispatchToProps = dispatch => ({
+    showModal: (modalType, modalProps) => {
+        dispatch(showModal(modalType, modalProps));
+    }
+});
+
 const mapStateToProps = ({ enquiriesReducer }, { match }) => ({
     enquiry: enquiriesReducer.enquiries[match.params.id] || {},
     isFetching: enquiriesReducer.isFetching,
-    fetchingError: enquiriesReducer.fetchingError
+    fetchingError: enquiriesReducer.fetchingError,
+    postingError: enquiriesReducer.postingError
 });
 
 export default withRouter(
     connect(
         mapStateToProps,
-        null
+        mapDispatchToProps
     )(EnquiryDetailsContainer)
 );
