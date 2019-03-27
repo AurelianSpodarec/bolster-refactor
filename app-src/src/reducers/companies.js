@@ -6,12 +6,15 @@ import {
     FETCH_SINGLE_COMPANY_FAILURE,
     FETCH_ALL_COMPANIES_REQUEST,
     FETCH_ALL_COMPANIES_SUCCESS,
-    FETCH_ALL_COMPANIES_FAILURE
+    FETCH_ALL_COMPANIES_FAILURE,
+    UPDATE_COMPANIES_FILTERS
 } from 'constants/actionTypes/companies';
+import { updateObj } from 'helpers/generic';
 
 export default combineReducers({
     company: companyReducer,
     companies: companiesReducer,
+    filters: filtersReducer,
     isFetching: isFetchingReducer,
     error: errorReducer
 });
@@ -57,6 +60,16 @@ function companiesReducer(state = {}, action) {
     switch (action.type) {
         case FETCH_ALL_COMPANIES_SUCCESS:
             return action.payload;
+        default:
+            return state;
+    }
+}
+
+// TODO: add starting state
+function filtersReducer(state = {}, action) {
+    switch (action.type) {
+        case UPDATE_COMPANIES_FILTERS:
+            return updateObj(state, action.fieldName, action.searchTerm);
         default:
             return state;
     }

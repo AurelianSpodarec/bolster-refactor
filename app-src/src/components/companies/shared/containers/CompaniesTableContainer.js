@@ -4,7 +4,7 @@ import CompaniesTable from '../presentational/CompaniesTable';
 
 const CompaniesTableContainer = ({ isFetching, fetchingError, companies }) => (
     <CompaniesTable
-        headers={['Company', 'Telephone', 'Address', '']}
+        headers={['Company', 'Telephone', 'Address', 'Terms Accepted On', '']}
         isFetching={isFetching}
         error={fetchingError}
         companies={companies}

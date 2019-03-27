@@ -1,4 +1,5 @@
 import React from 'react';
+import moment from 'moment';
 import { Link } from 'react-router-dom';
 
 const CompaniesListItem = ({ company }) => {
@@ -8,7 +9,8 @@ const CompaniesListItem = ({ company }) => {
         addressLine1,
         addressLine2,
         postcode,
-        id
+        id,
+        termsAcceptedOn
     } = company;
     return (
         <tr>
@@ -19,6 +21,7 @@ const CompaniesListItem = ({ company }) => {
                     .filter(thing => thing)
                     .join(',')}
             </td>
+            <td>{moment(termsAcceptedOn).format('DD/MM/YYYY')}</td>
             <td>
                 <Link to={`/${id}`} className="button">
                     More info
