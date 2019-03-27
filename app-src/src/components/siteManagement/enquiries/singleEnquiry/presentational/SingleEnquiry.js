@@ -7,10 +7,8 @@ import EnquiryDetailsContainer from '../containers/EnquiryDetailsContainer';
 const SingleEnquiry = () => (
     <>
         <Breadcrumb breadcrumbs={[{ text: 'Enquiry' }]} />
-        <PageHeading title="Enquiry" />
-        <BlockContainer>
-            <EnquiryDetailsContainer />
-        </BlockContainer>
+        <PageHeading title="Details" />
+        <EnquiryDetailsContainer />
     </>
 );
 
