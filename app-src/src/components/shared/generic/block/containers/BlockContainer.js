@@ -10,7 +10,7 @@ const BlockContainer = ({
     error,
     isFetching,
     isEmpty,
-    noDataMessage = 'There is not data to display.',
+    noDataMessage = 'There is no data to display.',
     heading,
     children
 }) => {
