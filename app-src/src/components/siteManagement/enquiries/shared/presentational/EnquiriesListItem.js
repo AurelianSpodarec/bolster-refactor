@@ -1,5 +1,6 @@
 import React from 'react';
 import moment from 'moment';
+import { Link } from 'react-router-dom';
 const EnquiriesListItem = ({ enquiry, handleShowModal }) => {
     return (
         <tr>
@@ -10,19 +11,14 @@ const EnquiriesListItem = ({ enquiry, handleShowModal }) => {
             <td>{enquiry.contactNumber}</td>
             <td>{moment(enquiry.sentOn).format('DD-MM-YYYY hh:mm a')}</td>
             <td>
-                <button
-                    className="button"
-                    onClick={() =>
-                        console.log('hello you\'ve clicked the open button')
-                    }
-                >
-                    Open
-                </button>
+                <Link className="button" to={`${enquiry.id}`}>
+                    open
+                </Link>
                 <button
                     className="button red"
                     onClick={() => handleShowModal(enquiry)}
                 >
-                    delete
+                    <i className="fa fa-times" /> delete
                 </button>
             </td>
         </tr>
