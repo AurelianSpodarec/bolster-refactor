@@ -25,7 +25,7 @@ export const deleteEnquiryFailure = error => ({
 export default enquiryID => dispatch => {
     dispatch(deleteEnquiryRequest());
     axios
-        .delete(`${ADMIN_API_URL}/enquiries/fdtydt${enquiryID}`, getHeaders())
+        .delete(`${ADMIN_API_URL}/enquiries/${enquiryID}`, getHeaders())
         .then(() => dispatch(deleteEnquirySuccess(enquiryID)))
         .catch(err => dispatch(deleteEnquiryFailure(err.message)));
 };
