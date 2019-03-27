@@ -19,7 +19,8 @@ export default combineReducers({
     isFetching: isFetchingReducer,
     isPosting: isPostingReducer,
     postingError: postingErrorReducer,
-    fetchingError: fetchingErrorReducer
+    fetchingError: fetchingErrorReducer,
+    postSuccess: postSuccessReducer
 });
 
 function isFetchingReducer(state = false, action) {
@@ -43,6 +44,17 @@ function isPostingReducer(state = false, action) {
         case DELETE_ENQUIRY_SUCCESS:
         case DELETE_ENQUIRY_FAILURE:
             return false;
+        default:
+            return state;
+    }
+}
+
+function postSuccessReducer(state = false, action) {
+    switch (action.type) {
+        case DELETE_ENQUIRY_REQUEST:
+            return false;
+        case DELETE_ENQUIRY_SUCCESS:
+            return true;
         default:
             return state;
     }

@@ -26,13 +26,16 @@ class EnquiryDetailsContainer extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        const { postingError, showModal } = this.props;
+        const { postingError, showModal, postSuccess, history } = this.props;
         if (postingError && !prevProps.postingError) {
             showModal(POSTING_ERROR, {
                 title: 'Deletion Error:',
                 message:
                     'An error occurred while deleting this enquiry, please try again later'
             });
+        }
+        if (postSuccess && !prevProps.postSuccess) {
+            history.push('/admin/site-management/user-enquiries');
         }
     }
 
@@ -52,7 +55,8 @@ const mapStateToProps = ({ enquiriesReducer }, { match }) => ({
     enquiry: enquiriesReducer.enquiries[match.params.id] || {},
     isFetching: enquiriesReducer.isFetching,
     fetchingError: enquiriesReducer.fetchingError,
-    postingError: enquiriesReducer.postingError
+    postingError: enquiriesReducer.postingError,
+    postSuccess: enquiriesReducer.postSuccess
 });
 
 export default withRouter(
