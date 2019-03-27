@@ -1,3 +1,5 @@
+import jwtDecode from 'jwt-decode';
+
 // getAuthHeader  returns an authorization header with jwt token.
 export function getAuthHeader() {
     let token = localStorage.getItem('token');
@@ -14,4 +16,14 @@ export function getHeaders() {
     return {
         headers: getAuthHeader()
     };
+}
+
+// returns a decoded jwt object or an error
+export function getDecodedJWT() {
+    const token = localStorage.getItem('token');
+    return new Promise(resolve => {
+        const decoded = jwtDecode(token);
+
+        resolve(decoded);
+    });
 }
