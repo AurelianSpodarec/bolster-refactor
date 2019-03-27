@@ -1,6 +1,6 @@
 import React from 'react';
 
-const EnquiryDetails = () => {
+const EnquiryDetails = ({ enquiry: companyName }) => {
     return <div>These are the enquiry details.</div>;
 };
 

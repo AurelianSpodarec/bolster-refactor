@@ -4,7 +4,7 @@ import EnquiriesTable from '../presentational/EnquiriesTable';
 
 const EnquiriesTableContainer = ({ isFetching, fetchingError, enquiries }) => (
     <EnquiriesTable
-        headers={['Name', 'Email', 'Contact Number', 'Sent On', '']}
+        headers={['Name', 'Company', 'Email', 'Contact Number', 'Sent On', '']}
         isFetching={isFetching}
         error={fetchingError}
         enquiries={enquiries}

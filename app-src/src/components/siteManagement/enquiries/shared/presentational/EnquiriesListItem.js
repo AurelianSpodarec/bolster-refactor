@@ -4,6 +4,8 @@ const EnquiriesListItem = ({ enquiry, handleShowModal }) => {
     return (
         <tr>
             <td>{enquiry.name}</td>
+            <td>{enquiry.companyName}</td>
+
             <td>{enquiry.email}</td>
             <td>{enquiry.contactNumber}</td>
             <td>{moment(enquiry.sentOn).format('DD-MM-YYYY hh:mm a')}</td>
