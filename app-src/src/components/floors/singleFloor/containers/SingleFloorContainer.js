@@ -5,7 +5,7 @@ import fetchSingleFloor from 'actions/floors/async/fetchSingleFloor';
 import fetchAllDrawings from 'actions/drawings/async/fetchAllDrawings';
 import fetchDocuments from 'actions/documents/async/fetchDocuments';
 import fetchClients from 'actions/clients/async/fetchClients';
-import fetchCompanies from 'actions/companies/async/fetchCompanies';
+import fetchAllCompanies from 'actions/companies/async/fetchAllCompanies';
 import fetchOperatives from 'actions/operatives/async/fetchOperatives';
 
 import SingleFloor from '../presentational/SingleFloor';
@@ -22,7 +22,7 @@ class SingleFloorContainer extends Component {
             fetchAllDrawings,
             fetchDocuments,
             fetchClients,
-            fetchCompanies,
+            fetchAllCompanies,
             fetchOperatives
         } = this.props;
 
@@ -30,7 +30,7 @@ class SingleFloorContainer extends Component {
         fetchAllDrawings();
         fetchDocuments();
         fetchClients();
-        fetchCompanies();
+        fetchAllCompanies();
         fetchOperatives();
     };
 }
@@ -52,8 +52,8 @@ const mapDispatchToProps = dispatch => ({
     fetchClients: () => {
         dispatch(fetchClients());
     },
-    fetchCompanies: () => {
-        dispatch(fetchCompanies());
+    fetchAllCompanies: () => {
+        dispatch(fetchAllCompanies());
     },
     fetchOperatives: () => {
         dispatch(fetchOperatives());
