@@ -1,6 +1,6 @@
 import React from 'react';
 import moment from 'moment';
-const EnquiriesListItem = ({ enquiry }) => {
+const EnquiriesListItem = ({ enquiry, handleShowModal }) => {
     return (
         <tr>
             <td>{enquiry.name}</td>
@@ -18,9 +18,7 @@ const EnquiriesListItem = ({ enquiry }) => {
                 </button>
                 <button
                     className="button red"
-                    onClick={() =>
-                        console.log('hello you\'ve clicked the delete button')
-                    }
+                    onClick={() => handleShowModal(enquiry)}
                 >
                     delete
                 </button>
