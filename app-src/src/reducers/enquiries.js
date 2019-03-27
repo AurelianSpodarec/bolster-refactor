@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 
-import { convertArrToObj } from 'helpers/generic';
+import { convertArrToObj, updateObj } from 'helpers/generic';
 
 import {
     FETCH_ALL_ENQUIRIES_REQUEST,
@@ -8,7 +8,10 @@ import {
     FETCH_ALL_ENQUIRIES_FAILURE,
     DELETE_ENQUIRY_FAILURE,
     DELETE_ENQUIRY_REQUEST,
-    DELETE_ENQUIRY_SUCCESS
+    DELETE_ENQUIRY_SUCCESS,
+    FETCH_ENQUIRY_REQUEST,
+    FETCH_ENQUIRY_SUCCESS,
+    FETCH_ENQUIRY_FAILURE
 } from 'constants/actionTypes/enquiries';
 
 export default combineReducers({
@@ -22,9 +25,12 @@ export default combineReducers({
 function isFetchingReducer(state = false, action) {
     switch (action.type) {
         case FETCH_ALL_ENQUIRIES_REQUEST:
+        case FETCH_ENQUIRY_REQUEST:
             return true;
         case FETCH_ALL_ENQUIRIES_SUCCESS:
+        case FETCH_ENQUIRY_SUCCESS:
         case FETCH_ALL_ENQUIRIES_FAILURE:
+        case FETCH_ENQUIRY_FAILURE:
             return false;
         default:
             return state;
@@ -45,8 +51,10 @@ function isPostingReducer(state = false, action) {
 function fetchingErrorReducer(state = null, action) {
     switch (action.type) {
         case FETCH_ALL_ENQUIRIES_REQUEST:
+        case FETCH_ENQUIRY_REQUEST:
             return null;
         case FETCH_ALL_ENQUIRIES_FAILURE:
+        case FETCH_ENQUIRY_FAILURE:
             return action.error;
         default:
             return state;
@@ -68,6 +76,9 @@ function enquiriesReducer(state = {}, action) {
     switch (action.type) {
         case FETCH_ALL_ENQUIRIES_SUCCESS:
             return convertArrToObj(action.payload);
+        case FETCH_ENQUIRY_SUCCESS:
+            return updateObj(state, action.id, action.payload);
+
         default:
             return state;
     }
