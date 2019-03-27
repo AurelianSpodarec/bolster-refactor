@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { showModal } from 'actions/generic/modals/sync/showModal';
 import EnquiriesListItem from '../presentational/EnquiriesListItem';
-import { DELETE_ENQUIRY } from 'constants/modalTypes';
+import { DELETE_ENQUIRY, POSTING_ERROR } from 'constants/modalTypes';
 
 class EnquiriesListItemContainer extends Component {
     render() {
@@ -17,10 +17,13 @@ class EnquiriesListItemContainer extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        const { postingError } = this.props;
+        const { postingError, showModal } = this.props;
         if (postingError && !prevProps.postingError) {
-            // do the thing
-            console.log('error now hello');
+            showModal(POSTING_ERROR, {
+                title: 'Deletion Error:',
+                message:
+                    'An error occurred while deleting this enquiry, please try again later'
+            });
         }
     }
 
