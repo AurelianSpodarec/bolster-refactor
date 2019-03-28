@@ -31,6 +31,8 @@ function fieldErrorsReducer(state = {}, action) {
 
 function errorsVisibleReducer(state = false, action) {
     switch (action.type) {
+        case CLEAR_FIELD_ERRORS:
+            return false;
         case SHOW_FIELD_ERRORS:
             return true;
         case SET_API_FIELD_ERRORS:
