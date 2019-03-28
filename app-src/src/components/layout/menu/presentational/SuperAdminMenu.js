@@ -12,7 +12,7 @@ const SuperAdminMenu = () => (
                 <i className="fa fa-home icon" /> Dashboard
             </MenuItemContainer>
 
-            <MenuItemContainer link="/generation">
+            <MenuItemContainer link="/admin/generation">
                 <i className="far fa-file-export icon" /> Generation Queue
             </MenuItemContainer>
 
