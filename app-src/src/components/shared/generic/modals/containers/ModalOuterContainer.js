@@ -1,28 +1,15 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 
 import hideModal from 'actions/generic/modals/sync/hideModal';
 
 import ModalOuter from '../presentational/ModalOuter';
 
-class ModalOuterContainer extends Component {
-    render() {
-        const { extraClasses, hideModal, children } = this.props;
-
-        return (
-            <ModalOuter
-                hideModal={() => {
-                    hideModal();
-                }}
-                extraClasses={extraClasses}
-            >
-                {children}
-            </ModalOuter>
-        );
-    }
-}
-
-const mapStateToProps = state => ({});
+const ModalOuterContainer = ({ extraClasses, hideModal, children }) => (
+    <ModalOuter hideModal={hideModal} extraClasses={extraClasses}>
+        {children}
+    </ModalOuter>
+);
 
 const mapDispatchToProps = dispatch => ({
     hideModal: () => {
@@ -31,6 +18,6 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default connect(
-    mapStateToProps,
+    null,
     mapDispatchToProps
 )(ModalOuterContainer);

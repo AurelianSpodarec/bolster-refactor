@@ -6,12 +6,7 @@ const ModalOuter = ({ children, hideModal, extraClasses = '' }) => (
         <div className="bg" />
 
         <div className={`modal-block ${extraClasses}`}>
-            <button
-                className="close"
-                onClick={() => {
-                    hideModal();
-                }}
-            >
+            <button className="close" onClick={hideModal}>
                 <i className="fa fa-times" />
             </button>
             <BlockContainer>{children}</BlockContainer>
