@@ -41,3 +41,10 @@ export function updateMultipleKeys(origObj, keys, newValues) {
         { ...origObj }
     );
 }
+
+export function sortArrayByKeyAndOrder(array, key, order) {
+    return [...array].sort((a, b) => {
+        const value = order === 'asc' ? 1 : -1;
+        return a[key] > b[key] ? value : a[key] < b[key] ? -value : 0;
+    });
+}
