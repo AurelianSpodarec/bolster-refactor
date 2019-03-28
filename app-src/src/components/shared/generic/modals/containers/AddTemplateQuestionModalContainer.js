@@ -18,7 +18,9 @@ class AddTemplateQuestionModalContainer extends Component {
     state = {
         questionTypeOptions: convertArrToObj(questionTypeOptions, 'value'),
         questionType: 'SINGLE_LINE',
+        prereqOptions: {},
         prerequisite: '',
+        prerequisiteVal: '',
         name: '',
         charLimit: 300,
         isRequired: false
@@ -28,11 +30,11 @@ class AddTemplateQuestionModalContainer extends Component {
         const {
             questionTypeOptions,
             questionType,
+            prereqOptions,
             prerequisite,
             ...otherFields
         } = this.state;
-        const prereqOptions = this._getPrereqOptions();
-        console.log(this.props.sectionUuid);
+
         return (
             <AddTemplateQuestionModal
                 questionTypeOptions={Object.values(questionTypeOptions)}
@@ -51,6 +53,10 @@ class AddTemplateQuestionModalContainer extends Component {
         );
     }
 
+    componentDidMount = () => {
+        this.setState({ prereqOptions: this._getPrereqOptions() });
+    };
+
     _getPrereqOptions = () => {
         const options = this.props.questions.map(({ uuid, name }) => ({
             value: uuid,
@@ -66,8 +72,14 @@ class AddTemplateQuestionModalContainer extends Component {
 
     handleSubmit = e => {
         e.preventDefault();
-        const { name, isRequired, questionType, prerequisite } = this.state;
         const { addQuestion, sectionUuid } = this.props;
+        const {
+            name,
+            isRequired,
+            questionType,
+            prerequisite,
+            prerequisiteVal
+        } = this.state;
 
         const newSection = {
             name,
@@ -75,7 +87,8 @@ class AddTemplateQuestionModalContainer extends Component {
             questionType: questionType,
             sectionUuid,
             uuid: uuid(),
-            prereqUuid: prerequisite
+            prereqUuid: prerequisite,
+            prerequisiteVal
         };
 
         addQuestion(newSection);
