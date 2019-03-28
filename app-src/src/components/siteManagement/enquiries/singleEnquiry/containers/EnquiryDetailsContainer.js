@@ -8,20 +8,18 @@ import { DELETE_ENQUIRY, POSTING_ERROR } from 'constants/modalTypes';
 
 class EnquiryDetailsContainer extends Component {
     render() {
-        const { isFetching, fetchingError, enquiry } = this.props;
+        const { isFetching, fetchingError, enquiry, showModal } = this.props;
         return (
-            <>
-                <BlockContainer
-                    isFetching={isFetching}
-                    error={fetchingError}
-                    isEmpty={!enquiry.id}
-                >
-                    <EnquiryDetails
-                        enquiry={enquiry}
-                        handleShowModal={this.handleShowModal}
-                    />
-                </BlockContainer>
-            </>
+            <BlockContainer
+                isFetching={isFetching}
+                error={fetchingError}
+                isEmpty={!enquiry.id}
+            >
+                <EnquiryDetails
+                    enquiry={enquiry}
+                    handleShowModal={id => showModal(DELETE_ENQUIRY, { id })}
+                />
+            </BlockContainer>
         );
     }
 

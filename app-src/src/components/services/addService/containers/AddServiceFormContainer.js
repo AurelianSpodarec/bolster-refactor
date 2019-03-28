@@ -9,6 +9,7 @@ class AddServiceFormContainer extends Component {
     state = {
         name: ''
     };
+
     render() {
         return (
             <AddServiceForm
@@ -27,8 +28,6 @@ class AddServiceFormContainer extends Component {
     };
 
     handleInputChange = e => {
-        e.preventDefault();
-
         this.setState({
             [e.target.name]: e.target.value
         });
