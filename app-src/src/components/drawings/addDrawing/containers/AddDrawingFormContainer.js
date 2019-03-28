@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
+import createDrawing from 'actions/drawings/async/createDrawing';
 import AddDrawingForm from '../presentational/AddDrawingForm';
 
 class AddDrawingFormContainer extends Component {
@@ -29,13 +30,27 @@ class AddDrawingFormContainer extends Component {
     handleFileChange = (name, file) => {
         this.setState({ [name]: file });
     };
+
     handleSubmit = () => {
-        console.log(this.state.file);
+        const { createDrawing } = this.props;
+        const { name, file, floorID } = this.state;
+
+        createDrawing({ name, file, floorID });
     };
 }
 
+const mapStateToProps = (_, { match }) => ({
+    floorID: match.params['floorID']
+});
+const mapDispatchToProps = dispatch => ({
+    createDrawing: drawing => {
+        dispatch(createDrawing(drawing));
+    }
+});
+
 export default withRouter(
-    connect((_, { match }) => ({ floorID: match.params['floorID'] }))(
-        AddDrawingFormContainer
-    )
+    connect(
+        mapStateToProps,
+        mapDispatchToProps
+    )(AddDrawingFormContainer)
 );
