@@ -1,16 +1,22 @@
 import { combineReducers } from 'redux';
 
-import { convertArrToObj } from 'helpers/generic';
+import {
+    convertArrToObj,
+    updateObj,
+    updateMultipleKeys
+} from 'helpers/generic';
 import {
     FETCH_GENERATION_QUEUE_REQUEST,
     FETCH_GENERATION_QUEUE_SUCCESS,
-    FETCH_GENERATION_QUEUE_FAILURE
+    FETCH_GENERATION_QUEUE_FAILURE,
+    UPDATE_GENERATION_QUEUE_SORT
 } from 'constants/actionTypes/generationQueue';
 
 export default combineReducers({
     generationQueue: generationQueueReducer,
     isFetching: isFetchingReducer,
-    error: errorReducer
+    error: errorReducer,
+    sort: sortReducer
 });
 
 function isFetchingReducer(state = false, action) {
@@ -40,6 +46,15 @@ function generationQueueReducer(state = {}, action) {
     switch (action.type) {
         case FETCH_GENERATION_QUEUE_SUCCESS:
             return convertArrToObj(action.payload);
+        default:
+            return state;
+    }
+}
+
+function sortReducer(state = { sortString: 'createdOn asc' }, action) {
+    switch (action.type) {
+        case UPDATE_GENERATION_QUEUE_SORT:
+            return updateObj(state, 'sortString', action.sortString);
         default:
             return state;
     }

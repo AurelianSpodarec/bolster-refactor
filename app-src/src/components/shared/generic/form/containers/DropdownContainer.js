@@ -6,7 +6,7 @@ import removeFieldError from 'actions/generic/fieldErrors/sync/removeFieldError'
 
 import Dropdown from '../presentational/Dropdown';
 
-class DropdownContianer extends Component {
+class DropdownContainer extends Component {
     state = {
         showFieldError: false
     };
@@ -99,4 +99,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(DropdownContianer);
+)(DropdownContainer);
