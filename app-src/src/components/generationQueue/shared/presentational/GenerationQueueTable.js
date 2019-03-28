@@ -7,18 +7,17 @@ const GenerationQueueTable = ({
     headers,
     isFetching,
     error
-}) =>
-    console.log(generationQueue) || (
-        <Table
-            withActions
-            headers={headers}
-            isFetching={isFetching}
-            error={error}
-            noData={!generationQueue.length}
-            noDataMessage="Generation queue is empty"
-        >
-            <GenerationQueueList generationQueue={generationQueue} />
-        </Table>
-    );
+}) => (
+    <Table
+        withActions
+        headers={headers}
+        isFetching={isFetching}
+        error={error}
+        noData={!generationQueue.length}
+        noDataMessage="Generation queue is empty"
+    >
+        <GenerationQueueList generationQueue={generationQueue} />
+    </Table>
+);
 
 export default GenerationQueueTable;
