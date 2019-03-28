@@ -4,9 +4,10 @@ const Dropdown = ({
     placeholder = '--- select an option ---',
     name,
     handleChange,
+    handleBlur = () => {},
     options,
     selectedOption = { text: placeholder },
-    withPlaceholder = true,
+    withoutPlaceholder = false,
     error
 }) => {
     return (
@@ -19,9 +20,10 @@ const Dropdown = ({
             <select
                 name={name}
                 onChange={handleChange}
+                onBlur={handleBlur}
                 value={selectedOption.value || ''}
             >
-                {withPlaceholder && <option value="">{placeholder}</option>}
+                {!withoutPlaceholder && <option value="">{placeholder}</option>}
                 {options.map(({ text, value }) => (
                     <option key={value} value={value}>
                         {text}

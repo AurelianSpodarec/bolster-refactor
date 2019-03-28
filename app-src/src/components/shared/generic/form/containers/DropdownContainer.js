@@ -34,6 +34,7 @@ class DropdownContianer extends Component {
                 selectedOption={selectedOption}
                 withoutPlaceholder={withoutPlaceholder}
                 handleChange={this.handleChange}
+                handleBlur={this.handleBlur}
                 error={errorMessage}
             />
         );
@@ -41,21 +42,16 @@ class DropdownContianer extends Component {
 
     componentDidMount = () => {
         const { selectedOption } = this.props;
-        this._validate(selectedOption.value);
+        this._validate(selectedOption ? selectedOption.value : '');
     };
 
     handleChange = e => {
         this.props.handleChange(e);
         this._validate(e.target.value);
-
-        if (!this.state.showFieldError) this.setState({ showFieldError: true });
     };
 
     handleBlur = () => {
-        this.setState({
-            ...this.state,
-            showFieldError: true
-        });
+        if (!this.state.showFieldError) this.setState({ showFieldError: true });
     };
 
     _validate = value => {

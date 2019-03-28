@@ -29,7 +29,7 @@ const AddTemplateQuestionModal = ({
                     options={questionTypeOptions}
                     selectedOption={questionType}
                     handleChange={handleInputChange}
-                    required
+                    withoutPlaceholder
                 />
             </Field>
             {!isObjEmpty(prereqOptions) && (
