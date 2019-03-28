@@ -4,11 +4,11 @@ import fetchAllEnquiries from 'actions/enquiries/async/fetchAllEnquiries';
 import SingleEnquiry from '../presentational/SingleEnquiry';
 
 class SingleEnquiryContainer extends Component {
-    render = () => {
-        return <SingleEnquiry />;
-    };
+    render = () => <SingleEnquiry />;
+
     componentDidMount() {
-        this.props.fetchSingleEnquiry(this.props.id);
+        const { fetchSingleEnquiry, id } = this.props;
+        fetchSingleEnquiry(id);
     }
 }
 

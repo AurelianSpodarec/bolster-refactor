@@ -5,11 +5,11 @@ import hideModal from 'actions/generic/modals/sync/hideModal';
 
 import PinPhotoModal from '../presentational/PinPhotoModal';
 
-const PinPhotoModalContainer = () => (
+const PinPhotoModalContainer = ({ dispatch }) => (
     <PinPhotoModal
         hideModal={e => {
             e.preventDefualt();
-            this.props.dispatch(hideModal());
+            dispatch(hideModal());
         }}
     />
 );
