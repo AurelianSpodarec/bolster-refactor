@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import uuid from 'uuid/v1';
 
 import { QUESTION_TYPES } from 'constants/templateBuilder';
 import { convertArrToObj } from 'helpers/generic';
 import hideModal from 'actions/generic/modals/sync/hideModal';
-import addQuestion from 'actions/templateBuilder/sync/addQuestion';
+import editQuestion from 'actions/templateBuilder/sync/editQuestion';
 
 import TemplateQuestionFormModal from '../presentational/TemplateQuestionFormModal';
 
@@ -23,7 +22,8 @@ class AddTemplateQuestionModalContainer extends Component {
         prerequisiteVal: '',
         name: '',
         charLimit: 300,
-        isRequired: false
+        isRequired: false,
+        test: false
     };
 
     render() {
@@ -34,7 +34,11 @@ class AddTemplateQuestionModalContainer extends Component {
             prerequisite,
             ...otherFields
         } = this.state;
-
+        console.log(this.state.test);
+        console.log(this.state.test);
+        console.log(this.state.test);
+        console.log(this.state.test);
+        console.log(this.state.test);
         return (
             <TemplateQuestionFormModal
                 questionTypeOptions={Object.values(questionTypeOptions)}
@@ -54,14 +58,18 @@ class AddTemplateQuestionModalContainer extends Component {
     }
 
     componentDidMount = () => {
-        this.setState({ prereqOptions: this._getPrereqOptions() });
+        const { question } = this.props;
+        this.setState({ ...question, prereqOptions: this._getPrereqOptions() });
     };
 
     _getPrereqOptions = () => {
-        const options = this.props.questions.map(({ uuid, name }) => ({
-            value: uuid,
-            text: name
-        }));
+        const { questions, uuid } = this.props;
+        const options = questions
+            .filter(question => question.uuid !== uuid)
+            .map(question => ({
+                value: question.uuid,
+                text: question.name
+            }));
 
         return convertArrToObj(options, 'value');
     };
@@ -72,7 +80,7 @@ class AddTemplateQuestionModalContainer extends Component {
 
     handleSubmit = e => {
         e.preventDefault();
-        const { addQuestion, sectionUuid } = this.props;
+        const { editQuestion, question } = this.props;
         const {
             name,
             isRequired,
@@ -82,17 +90,16 @@ class AddTemplateQuestionModalContainer extends Component {
         } = this.state;
 
         const newSection = {
+            ...question,
             name,
             isRequired,
             questionType: questionType,
-            sectionUuid,
-            uuid: uuid(),
             prereqUuid: prerequisite,
             prerequisiteVal,
             sort: this._getSort()
         };
 
-        addQuestion(newSection);
+        editQuestion(newSection);
     };
 
     _getSort = () => {
@@ -104,16 +111,17 @@ class AddTemplateQuestionModalContainer extends Component {
     };
 }
 
-const mapStateToProps = ({ templateBuilderReducer }) => ({
-    questions: Object.values(templateBuilderReducer.questions)
+const mapStateToProps = ({ templateBuilderReducer }, { uuid }) => ({
+    questions: Object.values(templateBuilderReducer.questions),
+    question: templateBuilderReducer.questions[uuid]
 });
 
 const mapDispatchToProps = dispatch => ({
     hideModal: () => {
         dispatch(hideModal());
     },
-    addQuestion: newQuestion => {
-        dispatch(addQuestion(newQuestion));
+    editQuestion: newQuestion => {
+        dispatch(editQuestion(newQuestion));
         dispatch(hideModal());
     }
 });

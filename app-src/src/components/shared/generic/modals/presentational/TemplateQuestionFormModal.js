@@ -9,7 +9,7 @@ import DropdownContainer from 'components/shared/generic/form/containers/Dropdow
 import Field from 'components/shared/generic/form/presentational/Field';
 import BlockButtonWrapper from '../../blockButtonWrappers/presentational/BlockButtonWrapper';
 
-const AddTemplateQuestionModal = ({
+const AddTemplateQuestionFormModal = ({
     questionTypeOptions,
     questionType,
     prereqOptions,
@@ -79,7 +79,7 @@ const AddTemplateQuestionModal = ({
             </Field>
             <BlockButtonWrapper>
                 <button className="button ">
-                    <i className="fa fa-plus" /> Add Question
+                    <i className="fa fa-plus" /> Save
                 </button>
                 <button className="button" onClick={hideModal}>
                     <i className="fa fa-times" /> Cancel
@@ -89,4 +89,4 @@ const AddTemplateQuestionModal = ({
     </ModalOuterContainer>
 );
 
-export default AddTemplateQuestionModal;
+export default AddTemplateQuestionFormModal;
