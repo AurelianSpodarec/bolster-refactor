@@ -882,6 +882,13 @@ input {
             border-bottom: none;
         }
 
+        &.expandable {
+            &:hover {
+                background-color: $light-grey;
+                cursor: pointer;
+            }
+        }
+
         &.open {
             background-color: $light-grey;
         }
@@ -903,10 +910,10 @@ input {
                         padding-top: 15px;
                     }
                     th:first-child {
-                        padding-left: 100px;
+                        padding-left: 60px;
                     }
                     td:first-child {
-                        padding-left: 100px;
+                        padding-left: 60px;
                         padding: {
                             top: 0;
                             bottom: 0;
@@ -919,21 +926,21 @@ input {
 
                                 th {
                                     &:first-child {
-                                        padding-left: 150px;
+                                        padding-left: 120px;
                                     }
                                 }
                                 td:first-child {
-                                    padding-left: 150px;
+                                    padding-left: 120px;
                                     &.drawing {
                                         padding-left: 0;
                                         td {
                                             &:first-child {
-                                                padding-left: 200px;
+                                                padding-left: 180px;
                                             }
                                         }
                                         th {
                                             &:first-child {
-                                                padding-left: 200px;
+                                                padding-left: 180px;
                                             }
                                         }
                                     }
@@ -954,7 +961,6 @@ input {
     th {
         font-size: 14px;
         @include ubuntu-medium;
-        text-transform: capitalize;
     }
 
     td {
@@ -965,7 +971,7 @@ input {
     }
 
     .button {
-        font-size: 10px;
+        font-size: 12px;
         margin-left: 5px;
 
         i {

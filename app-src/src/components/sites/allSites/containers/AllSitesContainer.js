@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import fetchSites from 'actions/sites/async/fetchAllSites';
+import fetchAllSites from 'actions/sites/async/fetchAllSites';
 import fetchAllBuildings from 'actions/buildings/async/fetchAllBuildings';
 import fetchAllFloors from 'actions/floors/async/fetchAllFloors';
 import fetchAllDrawings from 'actions/drawings/async/fetchAllDrawings';
@@ -15,12 +15,12 @@ class AllSitesContainer extends Component {
 
     componentDidMount = () => {
         const {
-            fetchSites,
+            fetchAllSites,
             fetchAllBuildings,
             fetchAllFloors,
             fetchAllDrawings
         } = this.props;
-        fetchSites();
+        fetchAllSites();
         fetchAllBuildings();
         fetchAllFloors();
         fetchAllDrawings();
@@ -30,8 +30,8 @@ class AllSitesContainer extends Component {
 export default connect(
     null,
     dispatch => ({
-        fetchSites: () => {
-            dispatch(fetchSites());
+        fetchAllSites: () => {
+            dispatch(fetchAllSites());
         },
         fetchAllBuildings: () => {
             dispatch(fetchAllBuildings());

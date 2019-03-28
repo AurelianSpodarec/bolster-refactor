@@ -10,7 +10,7 @@ const SitesListItem = ({ toggleExpanded, isExpanded, site, colCount }) => {
             <tr
                 key={site.id}
                 onClick={toggleExpanded}
-                className={isExpanded ? 'open' : ''}
+                className={`expandable ${isExpanded ? 'open' : ''}`}
             >
                 <td>
                     <i
@@ -20,10 +20,14 @@ const SitesListItem = ({ toggleExpanded, isExpanded, site, colCount }) => {
                     />
                     {site.name}
                 </td>
-                <td>##oli##</td>
+                <td>{site.ownerCompany}</td>
                 <td>##permissions##</td>
                 <td>
-                    <Link className="button" to={`/sites/${site.id}`}>
+                    <Link
+                        className="button"
+                        to={`/sites/${site.id}`}
+                        onClick={e => e.stopPropagation()}
+                    >
                         View
                     </Link>
                 </td>

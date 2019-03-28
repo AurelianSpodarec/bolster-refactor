@@ -6,7 +6,7 @@ import BuildingsTable from '../presentational/BuildingsTable';
 const BuildingsTableContainer = ({ isFetching, error, buildings }) => {
     return (
         <BuildingsTable
-            headers={['Building name', 'Premissions', 'Action']}
+            headers={['Building name', 'Permissions', 'Action']}
             isFetching={isFetching}
             error={error}
             buildings={buildings}

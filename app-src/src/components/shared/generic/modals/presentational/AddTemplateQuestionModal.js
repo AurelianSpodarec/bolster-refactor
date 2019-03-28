@@ -14,6 +14,7 @@ const AddTemplateQuestionModal = ({
     questionType,
     prereqOptions,
     prerequisite,
+    prerequisiteVal,
     name,
     isRequired,
     charLimit,
@@ -42,11 +43,11 @@ const AddTemplateQuestionModal = ({
                     />
                 </Field>
             )}
-            {prerequisite && prerequisite.length && (
+            {!!prerequisite && (
                 <Field name="Prerequisite value">
                     <TextInputContainer
                         name="prerequisiteVal"
-                        value={charLimit}
+                        value={prerequisiteVal}
                         handleChange={handleInputChange}
                         required
                     />
@@ -68,7 +69,7 @@ const AddTemplateQuestionModal = ({
                     required
                 />
             </Field>
-            <Field name="Is required">
+            <Field name="Required?">
                 <input
                     name="isRequired"
                     type="checkbox"
