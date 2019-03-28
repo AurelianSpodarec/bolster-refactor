@@ -23,10 +23,10 @@ export const createDrawingFailure = error => ({
     error
 });
 
-export default newDrawing => dispatch => {
+export default drawing => dispatch => {
     dispatch(createDrawingRequest());
     axios
-        .post(`${API_URL}/sites`, newDrawing, getHeaders())
+        .post(`${API_URL}/drawings`, drawing, getHeaders())
         .then(result => dispatch(createDrawingSuccess(result.data)))
         .catch(error => {
             dispatch(createDrawingFailure(error));
