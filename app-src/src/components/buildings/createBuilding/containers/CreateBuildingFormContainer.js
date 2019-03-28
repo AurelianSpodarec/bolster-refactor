@@ -36,17 +36,10 @@ class CreateBuildingFormContainer extends Component {
     handleSubmit = e => {
         e.preventDefault();
 
-        const {
-            name,
-            addressLine1,
-            addressLine2,
-            postcode,
-            client
-        } = this.state;
+        const { name, addressLine1, addressLine2, postcode } = this.state;
 
         const postBody = {
             name: name,
-            client: client,
             addressLine1: addressLine1,
             addressLine2: addressLine2,
             postcode: postcode,

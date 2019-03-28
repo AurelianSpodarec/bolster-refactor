@@ -2,12 +2,13 @@ import React from 'react';
 import MenusRouteContainer from '../containers/MenusRouteContainer';
 import MenuTabsContainer from 'components/shared/generic/tabs/containers/MenuTabsContainer';
 
-const MenusWrapper = () => (
+const MenusWrapper = ({ showSuperAdmin = 'false' }) => (
     <div className="menu-wrapper size-lg-12">
-        <div className="size-lg-12" style={{ zIndex: 1 }}>
-            <MenuTabsContainer />
-        </div>
-
+        {showSuperAdmin === 'true' && (
+            <div className="size-lg-12" style={{ zIndex: 1 }}>
+                <MenuTabsContainer />
+            </div>
+        )}
         <MenusRouteContainer />
     </div>
 );
