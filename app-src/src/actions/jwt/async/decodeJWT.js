@@ -2,8 +2,7 @@ import { getDecodedJWT } from 'helpers/api';
 
 import {
     DECODE_JWT_REQUEST,
-    DECODE_JWT_SUCCESS,
-    DECODE_JWT_FAILURE
+    DECODE_JWT_SUCCESS
 } from 'constants/actionTypes/decodeJWT';
 
 export const decodeJWTRequest = () => ({
@@ -15,15 +14,8 @@ export const decodeJWTSuccess = payload => ({
     payload
 });
 
-export const decodeJWTFailure = error => ({
-    type: DECODE_JWT_FAILURE,
-    error
-});
-
 export default () => dispatch => {
     dispatch(decodeJWTRequest());
 
-    getDecodedJWT()
-        .then(res => dispatch(decodeJWTSuccess(res)))
-        .catch(err => dispatch(decodeJWTFailure(err)));
+    getDecodedJWT().then(data => dispatch(decodeJWTSuccess(data)));
 };

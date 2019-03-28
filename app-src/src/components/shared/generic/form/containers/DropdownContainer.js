@@ -45,6 +45,11 @@ class DropdownContianer extends Component {
         this._validate(selectedOption ? selectedOption.value : '');
     };
 
+    componentWillUnmount = () => {
+        const { name, error, removeFieldError } = this.props;
+        if (error) removeFieldError(name);
+    };
+
     handleChange = e => {
         this.props.handleChange(e);
         this._validate(e.target.value);
