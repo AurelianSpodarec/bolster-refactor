@@ -65,8 +65,9 @@ class TextInputContianer extends Component {
             removeFieldError
         } = this.props;
         const validateError = validate(value);
+        const isNumber = typeof value === 'number';
 
-        if (required && !(value && value.length)) {
+        if (required && (!(value && value.length) && !isNumber)) {
             addFieldError(name, 'This is a required field.');
         } else if (type === 'email' && !this._valdateEmail(value)) {
             addFieldError(name, 'This is not a valid email.');

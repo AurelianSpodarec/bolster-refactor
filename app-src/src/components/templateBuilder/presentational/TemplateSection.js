@@ -37,7 +37,7 @@ const TemplateSection = ({
                 className="button"
                 onClick={() =>
                     showModal(ADD_TEMPLATE_QUESTION, {
-                        sectionUuid: section.sectionUuid
+                        sectionUuid: section.uuid
                     })
                 }
             >

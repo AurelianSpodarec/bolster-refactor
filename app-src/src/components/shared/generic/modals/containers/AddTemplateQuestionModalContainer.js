@@ -32,9 +32,7 @@ class AddTemplateQuestionModalContainer extends Component {
             ...otherFields
         } = this.state;
         const prereqOptions = this._getPrereqOptions();
-        console.log(questionTypeOptions);
-        console.log(questionType);
-        console.log(questionTypeOptions[questionType]);
+        console.log(this.props.sectionUuid);
         return (
             <AddTemplateQuestionModal
                 questionTypeOptions={Object.values(questionTypeOptions)}
