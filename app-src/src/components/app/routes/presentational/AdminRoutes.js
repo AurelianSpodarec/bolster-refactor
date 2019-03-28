@@ -6,12 +6,17 @@ import ServicesRoutes from './ServicesRoutes';
 import UsersRoutes from './UsersRoutes.js';
 import EnquiriesRoutes from './EnquiriesRouter';
 import CompaniesRoutes from './CompaniesRoutes';
+import GenerationQueueRoutes from './GenerationQueueRoutes';
 
 const AdminRoutes = ({ match: { url: baseUrl } }) => (
     <SwitchWith404>
         <Route path={`${baseUrl}/services`} component={ServicesRoutes} />
         <Route path={`${baseUrl}/companies`} component={CompaniesRoutes} />
         <Route path={`${baseUrl}/users`} component={UsersRoutes} />
+        <Route
+            path={`${baseUrl}/generation`}
+            component={GenerationQueueRoutes}
+        />
         <Route
             path={`${baseUrl}/site-management/user-enquiries`}
             component={EnquiriesRoutes}

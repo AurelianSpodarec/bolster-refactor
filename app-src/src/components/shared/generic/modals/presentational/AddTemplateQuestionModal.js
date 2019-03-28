@@ -5,7 +5,7 @@ import { isObjEmpty } from 'helpers/generic';
 import ModalOuterContainer from '../containers/ModalOuterContainer';
 import Form from 'components/shared/generic/form/containers/Form';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
-import Dropdown from 'components/shared/generic/form/presentational/Dropdown';
+import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
 import Field from 'components/shared/generic/form/presentational/Field';
 import BlockButtonWrapper from '../../blockButtonWrappers/presentational/BlockButtonWrapper';
 
@@ -24,16 +24,17 @@ const AddTemplateQuestionModal = ({
     <ModalOuterContainer extraClasses="w-form">
         <Form onSubmit={handleSubmit}>
             <Field name="Question type">
-                <Dropdown
+                <DropdownContainer
                     name="questionType"
                     options={questionTypeOptions}
                     selectedOption={questionType}
                     handleChange={handleInputChange}
+                    withoutPlaceholder
                 />
             </Field>
             {!isObjEmpty(prereqOptions) && (
                 <Field name="Prerequisite field?">
-                    <Dropdown
+                    <DropdownContainer
                         name="prerequisite"
                         options={prereqOptions}
                         selectedOption={prerequisite}

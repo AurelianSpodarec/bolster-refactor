@@ -1,5 +1,9 @@
 import React from 'react';
 
+import {
+    ADD_TEMPLATE_QUESTION,
+    RENAME_TEMPLATE_SECTION
+} from 'constants/modalTypes';
 import BlockHeadingWControls from 'components/shared/generic/blockHeadingWControls/presentational/BlockHeadingWControls';
 import TemplateSectionTableContainer from '../containers/TemplateSectionTableContainer';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
@@ -7,8 +11,7 @@ import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/pr
 const TemplateSection = ({
     section,
     questions,
-    showAddQuestionModal,
-    showRenameSectionModal,
+    showModal,
     deleteSection,
     duplicateSection
 }) => (
@@ -17,13 +20,27 @@ const TemplateSection = ({
             <button className="button icon-only">
                 <i className="fa fa-eye" />
             </button>
-            <button onClick={showRenameSectionModal} className="button">
+            <button
+                onClick={() =>
+                    showModal(RENAME_TEMPLATE_SECTION, {
+                        section
+                    })
+                }
+                className="button"
+            >
                 Rename
             </button>
         </BlockHeadingWControls>
         <TemplateSectionTableContainer questions={questions} />
         <BlockButtonWrapper>
-            <button className="button" onClick={showAddQuestionModal}>
+            <button
+                className="button"
+                onClick={() =>
+                    showModal(ADD_TEMPLATE_QUESTION, {
+                        sectionUuid: section.sectionUuid
+                    })
+                }
+            >
                 <i className="fa fa-plus" /> Add new field
             </button>
         </BlockButtonWrapper>

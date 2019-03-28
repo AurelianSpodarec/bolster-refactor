@@ -2,21 +2,21 @@
     {
         "id": 1,
         "status": "Pending",
-        "createdOn": "01/02/2019",
+        "createdOn": "2011-08-12T20:17:46.384Z",
         "type": "Lorem ipsum",
         "moreDetails": "Lorem ipsum"
     },
     {
         "id": 2,
         "status": "Pending",
-        "createdOn": "01/02/2019",
+        "createdOn": "2011-08-12T20:17:46.384Z",
         "type": "Lorem ipsum",
         "moreDetails": "Lorem ipsum"
     },
     {
         "id": 3,
         "status": "Completed",
-        "createdOn": "01/02/2019",
+        "createdOn": "2011-08-12T20:17:46.384Z",
         "type": "Lorem ipsum",
         "moreDetails": "Lorem ipsum"
     }

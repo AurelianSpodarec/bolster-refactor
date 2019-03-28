@@ -23,6 +23,13 @@ class AddDrawingFormContainer extends Component {
         );
     }
 
+    componentDidUpdate = ({ updatedID: prevUpdatedID }) => {
+        const { updatedID, history } = this.props;
+        if (!prevUpdatedID && updatedID) {
+            history.push(`/drawings/${updatedID}`);
+        }
+    };
+
     handleInputChange = e => {
         this.setState({ [e.target.name]: e.target.value });
     };
@@ -32,15 +39,15 @@ class AddDrawingFormContainer extends Component {
     };
 
     handleSubmit = () => {
-        const { createDrawing } = this.props;
-        const { name, file, floorID } = this.state;
-
+        const { createDrawing, floorID } = this.props;
+        const { name, file } = this.state;
         createDrawing({ name, file, floorID });
     };
 }
 
-const mapStateToProps = (_, { match }) => ({
-    floorID: match.params['floorID']
+const mapStateToProps = ({ drawingsReducer }, { match }) => ({
+    floorID: match.params['floorID'],
+    updatedID: drawingsReducer.updatedID
 });
 const mapDispatchToProps = dispatch => ({
     createDrawing: drawing => {
@@ -48,9 +55,9 @@ const mapDispatchToProps = dispatch => ({
     }
 });
 
-export default withRouter(
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(AddDrawingFormContainer)
-);
+const WithRedux = connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(AddDrawingFormContainer);
+
+export default withRouter(WithRedux);

@@ -13,7 +13,7 @@ import {
 export default combineReducers({
     drawings: drawingsReducer,
     isFetching: isFetchingReducer,
-    postSuccess: postSuccessReducer,
+    updatedID: updatedIDReducer,
     error: errorReducer
 });
 
@@ -29,12 +29,12 @@ function isFetchingReducer(state = false, action) {
     }
 }
 
-function postSuccessReducer(state = false, action) {
+function updatedIDReducer(state = 0, action) {
     switch (action.type) {
         case CREATE_DRAWING_REQUEST:
-            return false;
+            return 0;
         case CREATE_DRAWING_SUCCESS:
-            return false;
+            return action.payload.id;
         default:
             return state;
     }
