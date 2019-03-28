@@ -4,7 +4,7 @@ import { showModal } from 'actions/generic/modals/sync/showModal';
 import { EDIT_USER_PASSWORD, EDIT_USER } from 'constants/modalTypes';
 import UserListItem from '../presentational/UserListItem';
 
-const UserListItemContainer = ({ user, colCount, showModal }) => {
+const UserListItemContainer = ({ user, showModal }) => {
     const handleShowEditUserPasswordModal = user => {
         showModal(EDIT_USER_PASSWORD, user);
     };
@@ -14,7 +14,6 @@ const UserListItemContainer = ({ user, colCount, showModal }) => {
     return (
         <UserListItem
             user={user}
-            colCount={colCount}
             handleShowEditUserModal={handleShowEditUserModal}
             handleShowEditUserPasswordModal={handleShowEditUserPasswordModal}
         />
