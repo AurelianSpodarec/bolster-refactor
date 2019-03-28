@@ -4,9 +4,9 @@ import { connect } from 'react-redux';
 import addFieldError from 'actions/generic/fieldErrors/sync/addFieldError';
 import removeFieldError from 'actions/generic/fieldErrors/sync/removeFieldError';
 
-import TextInput from '../presentational/TextInput';
+import Dropdown from '../presentational/Dropdown';
 
-class TextInputContianer extends Component {
+class DropdownContianer extends Component {
     state = {
         showFieldError: false
     };
@@ -14,10 +14,11 @@ class TextInputContianer extends Component {
     render() {
         const { showFieldError } = this.state;
         const {
-            value,
-            name,
-            type = 'text',
             placeholder,
+            name,
+            options,
+            selectedOption,
+            withoutPlaceholder,
             error,
             errorsVisible
         } = this.props;
@@ -26,25 +27,28 @@ class TextInputContianer extends Component {
         if (showFieldError || errorsVisible) errorMessage = error;
 
         return (
-            <TextInput
-                value={value}
-                name={name}
-                type={type}
+            <Dropdown
                 placeholder={placeholder}
+                name={name}
+                options={options}
+                selectedOption={selectedOption}
+                withoutPlaceholder={withoutPlaceholder}
                 handleChange={this.handleChange}
-                handleBlur={this.handleBlur}
                 error={errorMessage}
             />
         );
     }
 
     componentDidMount = () => {
-        this._validate(this.props.value);
+        const { selectedOption } = this.props;
+        this._validate(selectedOption.value);
     };
 
     handleChange = e => {
         this.props.handleChange(e);
         this._validate(e.target.value);
+
+        if (!this.state.showFieldError) this.setState({ showFieldError: true });
     };
 
     handleBlur = () => {
@@ -57,7 +61,6 @@ class TextInputContianer extends Component {
     _validate = value => {
         const {
             name,
-            type,
             error,
             required,
             validate = () => {},
@@ -68,8 +71,6 @@ class TextInputContianer extends Component {
 
         if (required && !(value && value.length)) {
             addFieldError(name, 'This is a required field.');
-        } else if (type === 'email' && !this._valdateEmail(value)) {
-            addFieldError(name, 'This is not a valid email.');
         } else if (validateError && validateError.length) {
             addFieldError(name, validateError);
         } else if (error) {
@@ -102,4 +103,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(TextInputContianer);
+)(DropdownContianer);
