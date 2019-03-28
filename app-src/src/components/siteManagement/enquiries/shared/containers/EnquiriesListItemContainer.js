@@ -1,10 +1,49 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { showModal } from 'actions/generic/modals/sync/showModal';
 import EnquiriesListItem from '../presentational/EnquiriesListItem';
+import { DELETE_ENQUIRY, POSTING_ERROR } from 'constants/modalTypes';
 
-const EnquiriesListItemContainer = ({ enquiry, colCount }) => {
-    return <EnquiriesListItem enquiry={enquiry} colCount={colCount} />;
-};
+class EnquiriesListItemContainer extends Component {
+    render() {
+        const { enquiry, colCount } = this.props;
+        return (
+            <EnquiriesListItem
+                enquiry={enquiry}
+                colCount={colCount}
+                handleShowModal={this.handleShowModal}
+            />
+        );
+    }
 
-export default EnquiriesListItemContainer;
+    componentDidUpdate(prevProps) {
+        const { postingError, showModal } = this.props;
+        if (postingError && !prevProps.postingError) {
+            showModal(POSTING_ERROR, {
+                title: 'Deletion Error:',
+                message:
+                    'An error occurred while deleting this enquiry, please try again later'
+            });
+        }
+    }
+
+    handleShowModal = enquiry => {
+        const { showModal } = this.props;
+        showModal(DELETE_ENQUIRY, { id: enquiry.id });
+    };
+}
+
+const mapDispatchToProps = dispatch => ({
+    showModal: (modalType, modalProps) => {
+        dispatch(showModal(modalType, modalProps));
+    }
+});
+
+const mapStateToProps = ({ enquiriesReducer }) => ({
+    postingError: enquiriesReducer.postingError
+});
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(EnquiriesListItemContainer);

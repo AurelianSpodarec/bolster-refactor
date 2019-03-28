@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import fetchSingleBuilding from 'actions/buildings/async/fetchSingleBuilding';
 import fetchDocuments from 'actions/documents/async/fetchDocuments';
 import fetchClients from 'actions/clients/async/fetchClients';
-import fetchCompanies from 'actions/companies/async/fetchCompanies';
+import fetchAllCompanies from 'actions/companies/async/fetchAllCompanies';
 import fetchOperatives from 'actions/operatives/async/fetchOperatives';
 import fetchAllFloors from 'actions/floors/async/fetchAllFloors';
 import fetchAllDrawings from 'actions/drawings/async/fetchAllDrawings';
@@ -29,7 +29,7 @@ class SingleBuildingContainer extends Component {
         fetchAllFloors();
         // fetchDocuments();
         // fetchClients();
-        // fetchCompanies();
+        // fetchAllCompanies();
         // fetchOperatives();
     };
 }
@@ -50,8 +50,8 @@ const mapDispatchToProps = dispatch => ({
     fetchClients: () => {
         dispatch(fetchClients());
     },
-    fetchCompanies: () => {
-        dispatch(fetchCompanies());
+    fetchAllCompanies: () => {
+        dispatch(fetchAllCompanies());
     },
     fetchOperatives: () => {
         dispatch(fetchOperatives());

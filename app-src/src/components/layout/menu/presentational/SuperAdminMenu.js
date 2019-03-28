@@ -87,7 +87,7 @@ const SuperAdminMenu = () => (
                     <i className="fa fa-file icon" /> Invoices
                 </MenuItemContainer>
             </DropdownMenuItemContainer>
-            <MenuItemContainer link="/companies">
+            <MenuItemContainer link="/admin/companies">
                 <i className="fa fa-users icon" /> Companies
             </MenuItemContainer>
             <MenuItemContainer link="/admin/users">

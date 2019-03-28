@@ -1,15 +1,19 @@
 import { combineReducers } from 'redux';
 
-import { convertArrToObj } from 'helpers/generic';
+import { convertArrToObj, updateObj } from 'helpers/generic';
 import {
     FETCH_ALL_DRAWINGS_REQUEST,
     FETCH_ALL_DRAWINGS_SUCCESS,
-    FETCH_ALL_DRAWINGS_FAILURE
+    FETCH_ALL_DRAWINGS_FAILURE,
+    CREATE_DRAWING_REQUEST,
+    CREATE_DRAWING_SUCCESS,
+    CREATE_DRAWING_FAILURE
 } from 'constants/actionTypes/drawings';
 
 export default combineReducers({
     drawings: drawingsReducer,
     isFetching: isFetchingReducer,
+    postSuccess: postSuccessReducer,
     error: errorReducer
 });
 
@@ -25,11 +29,24 @@ function isFetchingReducer(state = false, action) {
     }
 }
 
+function postSuccessReducer(state = false, action) {
+    switch (action.type) {
+        case CREATE_DRAWING_REQUEST:
+            return false;
+        case CREATE_DRAWING_SUCCESS:
+            return false;
+        default:
+            return state;
+    }
+}
+
 function errorReducer(state = null, action) {
     switch (action.type) {
         case FETCH_ALL_DRAWINGS_REQUEST:
+        case CREATE_DRAWING_REQUEST:
             return null;
         case FETCH_ALL_DRAWINGS_FAILURE:
+        case CREATE_DRAWING_FAILURE:
             return action.error;
         default:
             return state;
@@ -40,6 +57,8 @@ function drawingsReducer(state = {}, action) {
     switch (action.type) {
         case FETCH_ALL_DRAWINGS_SUCCESS:
             return convertArrToObj(action.payload);
+        case CREATE_DRAWING_SUCCESS:
+            return updateObj(state, action.payload.id, action.payload);
         default:
             return state;
     }

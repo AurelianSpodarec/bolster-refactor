@@ -11,3 +11,7 @@ export const EDIT_SERVICE = 'EDIT_SERVICE';
 
 export const EDIT_USER_PASSWORD = 'EDIT_USER_PASSWORD';
 export const EDIT_USER = 'EDIT_USER';
+
+export const DELETE_ENQUIRY = 'DELETE_ENQUIRY';
+
+export const POSTING_ERROR = 'POSTING_ERROR';

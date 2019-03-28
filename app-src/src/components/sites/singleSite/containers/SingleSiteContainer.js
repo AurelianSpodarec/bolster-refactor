@@ -7,7 +7,7 @@ import fetchAllDrawings from 'actions/drawings/async/fetchAllDrawings';
 import fetchSingleSite from 'actions/sites/async/fetchSingleSite';
 import fetchDocuments from 'actions/documents/async/fetchDocuments';
 import fetchClients from 'actions/clients/async/fetchClients';
-import fetchCompanies from 'actions/companies/async/fetchCompanies';
+import fetchAllCompanies from 'actions/companies/async/fetchAllCompanies';
 import fetchOperatives from 'actions/operatives/async/fetchOperatives';
 
 import SingleSite from '../presentational/SingleSite';
@@ -25,7 +25,7 @@ class SingleSiteContainer extends Component {
             fetchAllDrawings,
             fetchDocuments,
             fetchClients,
-            fetchCompanies,
+            fetchAllCompanies,
             fetchOperatives
         } = this.props;
 
@@ -35,7 +35,7 @@ class SingleSiteContainer extends Component {
         fetchAllDrawings();
         fetchDocuments();
         fetchClients();
-        fetchCompanies();
+        fetchAllCompanies();
         fetchOperatives();
     };
 }
@@ -60,8 +60,8 @@ const mapDispatchToProps = dispatch => ({
     fetchClients: () => {
         dispatch(fetchClients());
     },
-    fetchCompanies: () => {
-        dispatch(fetchCompanies());
+    fetchAllCompanies: () => {
+        dispatch(fetchAllCompanies());
     },
     fetchOperatives: () => {
         dispatch(fetchOperatives());

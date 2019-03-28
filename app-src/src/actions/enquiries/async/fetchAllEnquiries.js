@@ -5,6 +5,8 @@ import {
     FETCH_ALL_ENQUIRIES_SUCCESS,
     FETCH_ALL_ENQUIRIES_FAILURE
 } from 'constants/actionTypes/enquiries';
+import { ADMIN_API_URL } from 'config';
+import { getHeaders } from 'helpers/api';
 
 export const fetchEnquiriesRequest = () => ({
     type: FETCH_ALL_ENQUIRIES_REQUEST
@@ -23,7 +25,7 @@ export const fetchEnquiriesFailure = error => ({
 export default () => dispatch => {
     dispatch(fetchEnquiriesRequest());
     axios
-        .get('/mockData/enquiries/enquiries.json')
+        .get(`${ADMIN_API_URL}/enquiries`, getHeaders())
         .then(res => dispatch(fetchEnquiriesSuccess(res.data)))
         .catch(err => dispatch(fetchEnquiriesFailure(err.message)));
 };

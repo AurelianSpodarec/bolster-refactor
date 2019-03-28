@@ -6,9 +6,9 @@ const EnquiriesTable = ({ headers, isFetching, error, enquiries }) => (
     <Table
         withActions
         headers={headers}
-        isFetching={isFetching}
         error={error}
         noData={!enquiries.length}
+        isFetching={isFetching}
         noDataMessage="There are no enquiries to display"
     >
         <EnquiriesList colCount={headers.length} enquiries={enquiries} />

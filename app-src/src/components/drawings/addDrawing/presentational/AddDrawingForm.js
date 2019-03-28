@@ -33,14 +33,14 @@ const AddDrawingForm = ({
                 <FileUploadContainer
                     required
                     name="file"
-                    allowedTypes={['pdf']}
+                    allowedTypes={['pdf', 'image']}
                     handleChange={handleFileChange}
                 />
             </div>
         </div>
 
         <BlockButtonWrapper>
-            <button className="button green">
+            <button className="button green" type="submit">
                 <i className="fa fa-plus" /> Add Floor
             </button>
             <Link className="button" to={`/floors/${floorID}`}>

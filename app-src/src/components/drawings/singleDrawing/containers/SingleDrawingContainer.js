@@ -8,7 +8,7 @@ import SingleDrawing from '../presentational/SingleDrawing';
 
 import fetchDocuments from 'actions/documents/async/fetchDocuments';
 import fetchClients from 'actions/clients/async/fetchClients';
-import fetchCompanies from 'actions/companies/async/fetchCompanies';
+import fetchAllCompanies from 'actions/companies/async/fetchAllCompanies';
 import fetchOperatives from 'actions/operatives/async/fetchOperatives';
 import fetchPins from 'actions/pins/async/fetchPins';
 
@@ -22,7 +22,7 @@ class SingleDrawingContainer extends Component {
             setTabs,
             fetchDocuments,
             fetchClients,
-            fetchCompanies,
+            fetchAllCompanies,
             fetchOperatives,
             fetchPins
         } = this.props;
@@ -31,7 +31,7 @@ class SingleDrawingContainer extends Component {
 
         fetchDocuments();
         fetchClients();
-        fetchCompanies();
+        fetchAllCompanies();
         fetchOperatives();
         fetchPins();
     };
@@ -47,8 +47,8 @@ const mapDispatchToProps = dispatch => ({
     fetchClients: () => {
         dispatch(fetchClients());
     },
-    fetchCompanies: () => {
-        dispatch(fetchCompanies());
+    fetchAllCompanies: () => {
+        dispatch(fetchAllCompanies());
     },
     fetchOperatives: () => {
         dispatch(fetchOperatives());

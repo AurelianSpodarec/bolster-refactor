@@ -1,6 +1,6 @@
 import axios from 'axios';
-import { API_URL } from 'config/index';
 
+import { API_URL } from 'config/index';
 import setAPIFieldErrors from 'actions/generic/fieldErrors/sync/setAPIFieldErrors';
 import { getHeaders } from 'helpers/api';
 import {
