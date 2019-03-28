@@ -66,7 +66,7 @@ function companiesReducer(state = {}, action) {
 }
 
 // TODO: add starting state
-function filtersReducer(state = {}, action) {
+function filtersReducer(state = {name: '', }, action) {
     switch (action.type) {
         case UPDATE_COMPANIES_FILTERS:
             return updateObj(state, action.fieldName, action.searchTerm);
