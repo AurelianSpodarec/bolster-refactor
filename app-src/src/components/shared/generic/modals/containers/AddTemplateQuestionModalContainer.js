@@ -88,10 +88,19 @@ class AddTemplateQuestionModalContainer extends Component {
             sectionUuid,
             uuid: uuid(),
             prereqUuid: prerequisite,
-            prerequisiteVal
+            prerequisiteVal,
+            sort: this._getSort()
         };
 
         addQuestion(newSection);
+    };
+
+    _getSort = () => {
+        const { questions, sectionUuid } = this.props;
+        const sectionSortList = questions
+            .filter(q => q.sectionUuid === sectionUuid)
+            .map(q => q.sort);
+        return Math.max(0, ...sectionSortList) + 1;
     };
 }
 

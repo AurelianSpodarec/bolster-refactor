@@ -11,6 +11,7 @@ class AddTemplateSectionModalContainer extends React.Component {
     state = {
         name: ''
     };
+
     render() {
         return (
             <AddTemplateSectionModal
@@ -32,9 +33,16 @@ class AddTemplateSectionModalContainer extends React.Component {
     handleSubmit = e => {
         e.preventDefault();
         const { name } = this.state;
-        this.props.addSection({ name, uuid: uuid() });
+        const { sections } = this.props;
+
+        const sort = Math.max(0, ...[...sections].map(s => s.sort)) + 1;
+        this.props.addSection({ name, uuid: uuid(), sort });
     };
 }
+
+const mapStateToProps = ({ templateBuilderReducer }) => ({
+    sections: Object.values(templateBuilderReducer.sections)
+});
 
 const mapDispatchToProps = dispatch => ({
     hideModal: () => {
@@ -47,6 +55,6 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default connect(
-    null,
+    mapStateToProps,
     mapDispatchToProps
 )(AddTemplateSectionModalContainer);
