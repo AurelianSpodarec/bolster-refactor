@@ -714,9 +714,43 @@ input {
     .tab-container {
         float: left;
         width: 100%;
-
+        border: none;
         button {
             width: 50%;
+            border-radius: 0;
+            border: none;
+            color: white;
+            background: #78030a;
+            cursor: pointer;
+            font-size: 120%;
+            padding: {
+                top: 8px;
+                bottom: 8px;
+                left: 10px;
+            }
+
+            &.active,
+            &:hover {
+                background: $red;
+                img {
+                    opacity: 1;
+                }
+                span {
+                    opacity: 1;
+                }
+            }
+
+            img {
+                float: left;
+                opacity: 0.7;
+            }
+            span {
+                float: left;
+                width: calc(100% - 25px);
+                padding-left: 5px;
+                opacity: 0.7;
+                @include ubuntu-medium;
+            }
         }
     }
 }

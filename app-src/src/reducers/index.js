@@ -19,6 +19,7 @@ import tablesReducer from './tables';
 import documentsReducer from './documents';
 import clientsReducer from './clients';
 import pinsReducer from './pins';
+import decodeJWTReducer from './decodeJWT';
 import pinCustomFieldsReducer from './pinCustomFields';
 import pinHistoriesReducer from './pinHistories';
 import operativesReducer from './operatives';
@@ -48,6 +49,7 @@ export default combineReducers({
     documentsReducer,
     clientsReducer,
     pinsReducer,
+    decodeJWTReducer,
     pinCustomFieldsReducer,
     pinHistoriesReducer,
     operativesReducer,

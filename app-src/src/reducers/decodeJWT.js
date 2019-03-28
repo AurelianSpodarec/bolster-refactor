@@ -1,33 +1,20 @@
-import { updateObj } from 'helpers/generic';
-
 import {
     DECODE_JWT_REQUEST,
-    DECODE_JWT_SUCCESS,
-    DECODE_JWT_FAILURE
+    DECODE_JWT_SUCCESS
 } from 'constants/actionTypes/decodeJWT';
 
-const state = {
-    isDecoding: false,
-    account: {},
-    error: null
-};
+import { combineReducers } from 'redux';
 
-export default function decodingJWTReducer(action) {
+export default combineReducers({
+    jwtData: jwtDataReducer
+});
+
+function jwtDataReducer(state = {}, action) {
     switch (action.type) {
         case DECODE_JWT_REQUEST:
-            return this.setState({
-                isDecoding: true
-            });
+            return {};
         case DECODE_JWT_SUCCESS:
-            return this.setState({
-                isDecoding: false,
-                account: updateObj(action.payload)
-            });
-        case DECODE_JWT_FAILURE:
-            return this.setState({
-                isDecoding: false,
-                error: action.error
-            });
+            return action.payload;
         default:
             return state;
     }
