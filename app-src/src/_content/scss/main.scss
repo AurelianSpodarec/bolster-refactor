@@ -848,6 +848,13 @@ input {
             border-bottom: none;
         }
 
+        &.expandable {
+            &:hover {
+                background-color: $light-grey;
+                cursor: pointer;
+            }
+        }
+
         &.open {
             background-color: $light-grey;
         }
@@ -931,7 +938,7 @@ input {
     }
 
     .button {
-        font-size: 10px;
+        font-size: 12px;
         margin-left: 5px;
 
         i {
