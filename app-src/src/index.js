@@ -4,6 +4,8 @@ import { createStore, applyMiddleware } from 'redux';
 import logger from 'redux-logger';
 import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
+import { DragDropContextProvider } from 'react-dnd';
+import HTML5Backend from 'react-dnd-html5-backend';
 
 import * as serviceWorker from 'helpers/serviceWorker';
 import reducer from 'reducers';
@@ -23,7 +25,9 @@ const store = createStore(reducer, applyMiddleware(...middleWare));
 
 ReactDOM.render(
     <Provider store={store}>
-        <AppContainer />
+        <DragDropContextProvider backend={HTML5Backend}>
+            <AppContainer />
+        </DragDropContextProvider>
     </Provider>,
     document.getElementById('root')
 );

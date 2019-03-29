@@ -50,6 +50,10 @@ class AppContainer extends Component {
     };
 }
 
+const mapStateToProps = ({ loginReducer }) => ({
+    loginSuccess: loginReducer.postSuccess
+});
+
 const mapDispatchToProps = dispatch => ({
     fetchHomeData: () => {
         dispatch(fetchProfile());
@@ -65,6 +69,6 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default connect(
-    ({ loginReducer }) => ({ loginSuccess: loginReducer.postSuccess }),
+    mapStateToProps,
     mapDispatchToProps
 )(AppContainer);

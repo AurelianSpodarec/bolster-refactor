@@ -13,15 +13,15 @@ class TemplateQuestionItemContainer extends Component {
         return (
             <TemplateQuestionItem
                 question={question}
+                isPrereq={questions.some(
+                    item => item.prereqUuid === question.uuid
+                )}
                 showEditQuestion={() =>
                     showModal(EDIT_TEMPLATE_QUESTION, {
                         uuid: question.uuid
                     })
                 }
-                deleteQuestion={deleteQuestion}
-                isPrereq={questions.some(
-                    item => item.prereqUuid === question.uuid
-                )}
+                deleteQuestion={() => deleteQuestion}
             />
         );
     }

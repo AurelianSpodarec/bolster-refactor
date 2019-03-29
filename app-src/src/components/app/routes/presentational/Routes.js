@@ -8,6 +8,7 @@ import SwitchWith404 from './SwitchWith404';
 import Dashboard from 'components/dashboard/dashboard/presentational/Dashboard';
 import NotFound from 'components/notFound/presentational/NotFound';
 
+import DnDExample from 'components/shared/generic/dragDrop/example';
 import AuthRoutes from './AuthRoutes';
 import AdminRoutes from './AdminRoutes';
 import SitesRoutes from './SitesRoutes';
@@ -25,6 +26,7 @@ import ServicesRoutes from './ServicesRoutes';
 const Routes = ({ showLoggedInLayout }) => (
     <div id="page-area" className={`${!showLoggedInLayout ? 'full' : ''}`}>
         <SwitchWith404>
+            <Route exact path="/dnd-example" component={DnDExample} />
             <Route exact path="/" component={withAuth(Dashboard)} />
             <Route path="/admin" component={withAuth(AdminRoutes)} />
             <Route path="/services" component={withAuth(ServicesRoutes)} />

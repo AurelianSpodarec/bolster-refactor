@@ -1,4 +1,4 @@
-export const TYPES = {
+export const DRAG_TYPES = {
     SECTION: 'section',
     QUESTION: 'question'
 };

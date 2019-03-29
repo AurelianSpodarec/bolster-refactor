@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import uuid from 'uuid/v1';
+import { DragSource } from 'react-dnd';
 
+import { DRAG_TYPES } from 'constants/dragTypes';
 import showModal from 'actions/generic/modals/sync/showModal';
 import addSection from 'actions/templateBuilder/sync/addSection';
 import deleteSection from 'actions/templateBuilder/sync/deleteSection';
@@ -15,18 +17,26 @@ class TemplateSectionContainer extends Component {
     };
 
     render() {
-        const { section, questions, showModal } = this.props;
-
-        return (
-            <BlockContainer>
-                <TemplateSection
-                    section={section}
-                    questions={questions}
-                    showModal={showModal}
-                    duplicateSection={this.duplicateSection}
-                    deleteSection={this.deleteSection}
-                />
-            </BlockContainer>
+        const {
+            section,
+            questions,
+            showModal,
+            isDragging,
+            dragSource
+        } = this.props;
+        const opacity = isDragging ? 0.5 : 1;
+        return dragSource(
+            <div style={{ opacity }}>
+                <BlockContainer>
+                    <TemplateSection
+                        section={section}
+                        questions={questions}
+                        showModal={showModal}
+                        duplicateSection={this.duplicateSection}
+                        deleteSection={this.deleteSection}
+                    />
+                </BlockContainer>
+            </div>
         );
     }
 
@@ -82,7 +92,20 @@ const mapDispatchToProps = dispatch => ({
     }
 });
 
+const dragSourceSpec = {
+    beginDrag: props => ({ ...props })
+};
+
+const collect = (connect, monitor) => ({
+    dragSource: connect.dragSource(),
+    isDragging: monitor.isDragging()
+});
+
+const WithDragSource = DragSource(DRAG_TYPES.SECTION, dragSourceSpec, collect)(
+    TemplateSectionContainer
+);
+
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(TemplateSectionContainer);
+)(WithDragSource);
