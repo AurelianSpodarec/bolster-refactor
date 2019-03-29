@@ -10,6 +10,7 @@ import ServiceListCheckboxContainer from 'components/shared/services/containers/
 const AttachDocumentForm = ({
     handleInputChange,
     handleFileChange,
+    handleMultiselect,
     handleCheckboxChange,
     handleSubmit,
     requiresAgreement,
@@ -18,7 +19,7 @@ const AttachDocumentForm = ({
     requiresFileView,
     requiresSignature,
     forceUpsyncToContinue,
-    serviceType,
+    checkedServices,
     agreeancePerDay,
     startDate,
     endDate
@@ -76,17 +77,12 @@ const AttachDocumentForm = ({
             />
         </div>
         <Field name="Service type" sizeClasses="size-lg-2">
-            <ServiceListCheckboxContainer />
+            <ServiceListCheckboxContainer
+                checkedServices={checkedServices}
+                handleMultiselect={handleMultiselect}
+            />
         </Field>
     </Form>
 );
 
 export default AttachDocumentForm;
-
-{
-    /* <DropdownContainer
-                placeholder="[ services ]" 
-                name={'serviceType'} 
-                options={['##fire##', '##water##', '##earth##', '##air##', '##heart##'].map(val => ({text: val, value: val}))} 
-                handleChange={handleInputChange}/> */
-}

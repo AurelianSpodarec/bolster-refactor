@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import AttachDocumentForm from '../presentational/AttachDocumentForm';
+import { updateObj } from 'helpers/generic';
 
 class AttachDocumentFormContainer extends Component {
     state = {
@@ -15,7 +16,13 @@ class AttachDocumentFormContainer extends Component {
         requiresSignature: false,
         forceUpsyncToContinue: false,
         // dropdown
-        serviceType: '',
+        checkedServices: {
+            '##fire##': { name: '##fire##', checked: false },
+            '##water##': { name: '##water##', checked: false },
+            '##earth##': { name: '##earth##', checked: false },
+            '##air##': { name: '##air##', checked: false },
+            '##heart##': { name: '##heart##', checked: false }
+        },
         aggreeancePerDay: 0,
         // date selector
         startDate: '',
@@ -28,6 +35,7 @@ class AttachDocumentFormContainer extends Component {
             handleInputChange={this.handleInputChange}
             handleSubmit={this.props.handleSubmit}
             handleCheckboxChange={this.handleCheckboxChange}
+            handleMultiselect={this.handleMultiselect}
         />
     );
 
@@ -46,6 +54,20 @@ class AttachDocumentFormContainer extends Component {
         this.setState(prevState => ({
             [name]: !prevState[name]
         }));
+    };
+
+    handleMultiselect = e => {
+        const { name } = e.target;
+        this.setState(prevState => {
+            const { checkedServices } = prevState;
+            const service = checkedServices[name];
+            return {
+                checkedServices: {
+                    ...checkedServices,
+                    [name]: updateObj(service, 'checked', !service.checked)
+                }
+            };
+        });
     };
 }
 

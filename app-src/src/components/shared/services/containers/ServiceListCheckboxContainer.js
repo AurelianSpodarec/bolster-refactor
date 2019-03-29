@@ -6,18 +6,18 @@ import CheckboxListContainer from 'components/shared/generic/form/containers/Che
 
 class ServiceCheckboxListContainer extends Component {
     render() {
-        const { services, isFetching, error } = this.props;
+        const {
+            checkedServices,
+            isFetching,
+            error,
+            handleMultiselect
+        } = this.props;
         return (
             <CheckboxListContainer
+                handleMultiselect={handleMultiselect}
                 isFetching={isFetching}
                 error={error}
-                items={[
-                    { text: '##fire##', value: '##fire##' },
-                    { text: '##water##', value: '##water##' },
-                    { text: '##earth##', value: '##earth##' },
-                    { text: '##air##', value: '##air##' },
-                    { text: '##heart##', value: '##heart##' }
-                ]}
+                items={checkedServices}
             />
         );
     }

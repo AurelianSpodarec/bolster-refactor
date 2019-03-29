@@ -6,6 +6,13 @@ export default class CheckboxListContainer extends Component {
         showFieldError: false
     };
     render() {
-        return <CheckboxList items={this.props.items} />;
+        const { items, checkedServices, handleMultiselect } = this.props;
+        return (
+            <CheckboxList
+                items={items}
+                checkedServices={checkedServices}
+                handleMultiselect={handleMultiselect}
+            />
+        );
     }
 }
