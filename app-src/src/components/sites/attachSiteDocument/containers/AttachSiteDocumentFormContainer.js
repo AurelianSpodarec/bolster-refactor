@@ -8,11 +8,13 @@ class AttachSiteDocumentFormContainer extends Component {
         return <AttachDocumentFormContainer handleSubmit={this.handleSubmit} />;
     }
 
-    handleSubmit = e => {};
+    handleSubmit = e => {
+        e.preventDefault();
+    };
 }
 
-const mapStateToProps = state => ({});
+// const mapStateToProps = state => ({});
 
-const mapDispatchToProps = {};
+// const mapDispatchToProps = {};
 
 export default connect()(AttachSiteDocumentFormContainer);
