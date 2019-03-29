@@ -1,10 +1,6 @@
 import { combineReducers } from 'redux';
 
-import {
-    convertArrToObj,
-    updateObj,
-    updateMultipleKeys
-} from 'helpers/generic';
+import { convertArrToObj, updateObj } from 'helpers/generic';
 import {
     FETCH_GENERATION_QUEUE_REQUEST,
     FETCH_GENERATION_QUEUE_SUCCESS,
