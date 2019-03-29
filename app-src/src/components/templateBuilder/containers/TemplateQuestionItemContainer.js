@@ -11,9 +11,9 @@ class TemplateQuestionItemContainer extends Component {
             <TemplateQuestionItem
                 question={question}
                 showModal={showModal}
-                isPrereq={
-                    questions.findIndex(q => q.preqUuid === question.uuid) >= 0
-                }
+                isPrereq={questions.some(
+                    item => item.prereqUuid === question.uuid
+                )}
             />
         );
     }
