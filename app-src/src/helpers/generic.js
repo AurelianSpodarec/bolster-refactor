@@ -31,3 +31,20 @@ export function removeObjItem(obj, key) {
 export function removeArrItem(arr, index) {
     return [[...arr.slice(0, index), ...arr.slice(index + 1)]];
 }
+
+export function updateMultipleKeys(origObj, keys, newValues) {
+    return keys.reduce(
+        (newObj, key, i) => {
+            newObj[key] = newValues[i];
+            return newObj;
+        },
+        { ...origObj }
+    );
+}
+
+export function sortArrayByKeyAndOrder(array, key, order) {
+    return [...array].sort((a, b) => {
+        const value = order === 'asc' ? 1 : -1;
+        return a[key] > b[key] ? value : a[key] < b[key] ? -value : 0;
+    });
+}

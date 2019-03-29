@@ -5,14 +5,9 @@ import UsersFilters from '../presentational/UsersFilters';
 import { ROLE_TYPES } from 'constants/enums';
 
 const UsersFiltersContainer = ({ filters: { email, role }, dispatch }) => {
-    const handleChange = e => {
-        e.preventDefault();
-        dispatch(updateUsersFilters(e.target.name, e.target.value));
-    };
-
-    const roleTypes = Object.entries(ROLE_TYPES).map(([type, role]) => ({
+    const roleTypes = Object.entries(ROLE_TYPES).map(([roleEnum, role]) => ({
         text: role,
-        value: type
+        value: roleEnum
     }));
 
     return (
@@ -23,6 +18,11 @@ const UsersFiltersContainer = ({ filters: { email, role }, dispatch }) => {
             handleChange={handleChange}
         />
     );
+
+    function handleChange(e) {
+        e.preventDefault();
+        dispatch(updateUsersFilters(e.target.name, e.target.value));
+    }
 };
 
 export default connect(({ usersReducer }) => ({

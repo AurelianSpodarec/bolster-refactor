@@ -3,11 +3,15 @@ import Breadcrumb from 'components/shared/generic/breadcrumb/presentational/Brea
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import GenerationQueueTableContainer from '../containers/GenerationQueueTableContainer';
+import GenerationQueueFiltersContainer from '../containers/GenerationQueueFiltersContainer';
 
 const GenerationQueue = () => (
     <>
         <Breadcrumb breadcrumbs={[{ text: 'Generation Queue' }]} />
         <PageHeading title="Generation Queue" />
+        <BlockContainer>
+            <GenerationQueueFiltersContainer />
+        </BlockContainer>
         <BlockContainer>
             <GenerationQueueTableContainer />
         </BlockContainer>

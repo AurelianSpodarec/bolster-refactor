@@ -12,9 +12,9 @@ const Tabs = ({ tabs, selectedTab, selectTab }) => (
                 onClick={e => selectTab(e, tab)}
             >
                 {tab === 'Super Admin' ? (
-                    <img src={SuperAdminIcon} />
+                    <img src={SuperAdminIcon} alt="Super admin icon" />
                 ) : (
-                    <img src={CompanyAdminIcon} />
+                    <img src={CompanyAdminIcon} alt="Company admin icon" />
                 )}
                 <span>{tab}</span>
             </button>

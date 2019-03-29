@@ -33,7 +33,11 @@ const AddDrawingForm = ({
                     <FileUploadContainer
                         required
                         name="file"
-                        allowedTypes={['pdf', 'image']}
+                        allowedTypes={[
+                            'application/pdf',
+                            'image/jpeg',
+                            'image/png'
+                        ]}
                         handleChange={handleFileChange}
                     />
                 </Field>
