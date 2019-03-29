@@ -25,8 +25,8 @@ class AttachDocumentFormContainer extends Component {
         },
         aggreeancePerDay: 0,
         // date selector
-        startDate: '',
-        endDate: ''
+        startDate: new Date(),
+        endDate: new Date()
     };
 
     render = () => (
@@ -36,6 +36,7 @@ class AttachDocumentFormContainer extends Component {
             handleSubmit={this.props.handleSubmit}
             handleCheckboxChange={this.handleCheckboxChange}
             handleMultiselect={this.handleMultiselect}
+            handleDateChange={this.handleDateChange}
         />
     );
 
@@ -47,6 +48,12 @@ class AttachDocumentFormContainer extends Component {
     };
     handleFileChange = (name, file) => {
         this.setState({ [name]: file });
+    };
+
+    handleDateChange = (date, name) => {
+        this.setState({
+            [name]: date
+        });
     };
 
     handleCheckboxChange = e => {

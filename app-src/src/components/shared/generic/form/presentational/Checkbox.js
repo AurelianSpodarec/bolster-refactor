@@ -2,7 +2,7 @@ import React from 'react';
 
 const Checkbox = ({ item, checked, handleMultiselect, name }) => {
     return (
-        <>
+        <div className="size-lg-4">
             <input
                 onChange={handleMultiselect}
                 type="checkbox"
@@ -11,7 +11,7 @@ const Checkbox = ({ item, checked, handleMultiselect, name }) => {
                 name={name}
             />
             <label htmlFor={name}>{name}</label>
-        </>
+        </div>
     );
 };
 
