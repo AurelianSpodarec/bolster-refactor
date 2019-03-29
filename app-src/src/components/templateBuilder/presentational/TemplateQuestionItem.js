@@ -1,8 +1,12 @@
 import React from 'react';
-import { EDIT_TEMPLATE_QUESTION } from 'constants/modalTypes';
 import { QUESTION_TYPES } from 'constants/templateBuilder';
 
-const TemplateQuestionItem = ({ question, showModal, isPrereq }) => (
+const TemplateQuestionItem = ({
+    question,
+    showEditQuestion,
+    deleteQuestion,
+    isPrereq
+}) => (
     <>
         <tr>
             <td>
@@ -17,16 +21,15 @@ const TemplateQuestionItem = ({ question, showModal, isPrereq }) => (
                 <button
                     className="button"
                     type="edit"
-                    onClick={() => {
-                        showModal(EDIT_TEMPLATE_QUESTION, {
-                            uuid: question.uuid
-                        });
-                    }}
+                    onClick={showEditQuestion}
                 >
                     Edit
                 </button>
                 {!isPrereq && (
-                    <button className="button red icon-only">
+                    <button
+                        className="button red icon-only"
+                        onClick={() => deleteQuestion(question.uuid)}
+                    >
                         <i className="fa fa-times" />
                     </button>
                 )}
