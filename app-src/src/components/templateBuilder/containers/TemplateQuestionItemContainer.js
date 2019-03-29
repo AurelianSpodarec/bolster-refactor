@@ -6,12 +6,22 @@ import TemplateQuestionItem from '../presentational/TemplateQuestionItem';
 
 class TemplateQuestionItemContainer extends Component {
     render() {
-        const { question, showModal } = this.props;
+        const { question, showModal, questions } = this.props;
         return (
-            <TemplateQuestionItem question={question} showModal={showModal} />
+            <TemplateQuestionItem
+                question={question}
+                showModal={showModal}
+                isPrereq={
+                    questions.findIndex(q => q.preqUuid === question.uuid) >= 0
+                }
+            />
         );
     }
 }
+
+const mapStateToProps = ({ templateBuilderReducer }) => ({
+    questions: Object.values(templateBuilderReducer.questions)
+});
 
 const mapDispatchToProps = dispatch => ({
     showModal: (modalType, modalProps) => {
@@ -20,6 +30,6 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default connect(
-    null,
+    mapStateToProps,
     mapDispatchToProps
 )(TemplateQuestionItemContainer);

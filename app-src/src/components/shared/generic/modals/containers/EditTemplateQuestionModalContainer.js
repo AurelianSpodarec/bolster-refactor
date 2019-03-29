@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { QUESTION_TYPES } from 'constants/templateBuilder';
+import { QUESTION_TYPES, PREREQ_TYPES } from 'constants/templateBuilder';
 import { convertArrToObj } from 'helpers/generic';
 import hideModal from 'actions/generic/modals/sync/hideModal';
 import editQuestion from 'actions/templateBuilder/sync/editQuestion';
@@ -22,7 +22,9 @@ class AddTemplateQuestionModalContainer extends Component {
         prerequisiteVal: '',
         name: '',
         charLimit: 300,
-        isRequired: false
+        isRequired: false,
+        isHidden: false,
+        isPrefill: false
     };
 
     render() {
@@ -60,6 +62,7 @@ class AddTemplateQuestionModalContainer extends Component {
     _getPrereqOptions = () => {
         const { questions, uuid } = this.props;
         const options = questions
+            .filter(({ type }) => PREREQ_TYPES.includes(type))
             .filter(question => question.uuid !== uuid)
             .filter(question => question.prereqUuid !== uuid)
             .map(question => ({
@@ -82,13 +85,17 @@ class AddTemplateQuestionModalContainer extends Component {
             isRequired,
             questionType,
             prerequisite,
-            prerequisiteVal
+            prerequisiteVal,
+            isHidden,
+            isPrefill
         } = this.state;
 
         const newSection = {
             ...question,
             name,
             isRequired,
+            isHidden,
+            isPrefill,
             questionType: questionType,
             prereqUuid: prerequisite,
             prerequisiteVal,

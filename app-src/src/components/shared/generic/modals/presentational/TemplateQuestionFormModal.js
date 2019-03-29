@@ -18,6 +18,8 @@ const AddTemplateQuestionFormModal = ({
     name,
     isRequired,
     charLimit,
+    isHidden,
+    isPrefill,
     handleInputChange,
     hideModal,
     handleSubmit
@@ -73,7 +75,23 @@ const AddTemplateQuestionFormModal = ({
                 <input
                     name="isRequired"
                     type="checkbox"
-                    value={isRequired}
+                    checked={isRequired}
+                    onChange={handleInputChange}
+                />
+            </Field>
+            <Field name="Hidden?">
+                <input
+                    name="isHidden"
+                    type="checkbox"
+                    checked={isHidden}
+                    onChange={handleInputChange}
+                />
+            </Field>
+            <Field name="Prefill on create?">
+                <input
+                    name="isPrefill"
+                    type="checkbox"
+                    checked={isPrefill}
                     onChange={handleInputChange}
                 />
             </Field>

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import uuid from 'uuid/v1';
 
-import { QUESTION_TYPES } from 'constants/templateBuilder';
+import { QUESTION_TYPES, PREREQ_TYPES } from 'constants/templateBuilder';
 import { convertArrToObj } from 'helpers/generic';
 import hideModal from 'actions/generic/modals/sync/hideModal';
 import addQuestion from 'actions/templateBuilder/sync/addQuestion';
@@ -23,7 +23,9 @@ class AddTemplateQuestionModalContainer extends Component {
         prerequisiteVal: '',
         name: '',
         charLimit: 300,
-        isRequired: false
+        isRequired: false,
+        isHidden: false,
+        isPrefill: false
     };
 
     render() {
@@ -57,15 +59,6 @@ class AddTemplateQuestionModalContainer extends Component {
         this.setState({ prereqOptions: this._getPrereqOptions() });
     };
 
-    _getPrereqOptions = () => {
-        const options = this.props.questions.map(({ uuid, name }) => ({
-            value: uuid,
-            text: name
-        }));
-
-        return convertArrToObj(options, 'value');
-    };
-
     handleInputChange = ({ target: { type, value, name, checked } }) => {
         this.setState({ [name]: type === 'checkbox' ? checked : value });
     };
@@ -78,12 +71,16 @@ class AddTemplateQuestionModalContainer extends Component {
             isRequired,
             questionType,
             prerequisite,
-            prerequisiteVal
+            prerequisiteVal,
+            isHidden,
+            isPrefill
         } = this.state;
 
         const newSection = {
             name,
             isRequired,
+            isHidden,
+            isPrefill,
             questionType: questionType,
             sectionUuid,
             uuid: uuid(),
@@ -93,6 +90,17 @@ class AddTemplateQuestionModalContainer extends Component {
         };
 
         addQuestion(newSection);
+    };
+
+    _getPrereqOptions = () => {
+        const options = this.props.questions
+            .filter(({ type }) => PREREQ_TYPES.includes(type))
+            .map(({ uuid, name }) => ({
+                value: uuid,
+                text: name
+            }));
+
+        return convertArrToObj(options, 'value');
     };
 
     _getSort = () => {
