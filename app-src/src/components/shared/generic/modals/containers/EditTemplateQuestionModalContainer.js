@@ -22,8 +22,7 @@ class AddTemplateQuestionModalContainer extends Component {
         prerequisiteVal: '',
         name: '',
         charLimit: 300,
-        isRequired: false,
-        test: false
+        isRequired: false
     };
 
     render() {
@@ -34,11 +33,7 @@ class AddTemplateQuestionModalContainer extends Component {
             prerequisite,
             ...otherFields
         } = this.state;
-        console.log(this.state.test);
-        console.log(this.state.test);
-        console.log(this.state.test);
-        console.log(this.state.test);
-        console.log(this.state.test);
+
         return (
             <TemplateQuestionFormModal
                 questionTypeOptions={Object.values(questionTypeOptions)}
@@ -66,6 +61,7 @@ class AddTemplateQuestionModalContainer extends Component {
         const { questions, uuid } = this.props;
         const options = questions
             .filter(question => question.uuid !== uuid)
+            .filter(question => question.prereqUuid !== uuid)
             .map(question => ({
                 value: question.uuid,
                 text: question.name

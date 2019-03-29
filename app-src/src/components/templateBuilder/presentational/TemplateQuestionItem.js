@@ -1,5 +1,6 @@
 import React from 'react';
 import { EDIT_TEMPLATE_QUESTION } from 'constants/modalTypes';
+import { QUESTION_TYPES } from 'constants/templateBuilder';
 
 const TemplateQuestionItem = ({ question, showModal }) => (
     <>
@@ -8,7 +9,7 @@ const TemplateQuestionItem = ({ question, showModal }) => (
                 <i className="fa fa-bars" />
             </td>
             <td>{question.name}</td>
-            <td>{question.questionType}</td>
+            <td>{QUESTION_TYPES[question.questionType]}</td>
             <td>
                 <input type="checkbox" readOnly checked={question.isRequired} />
             </td>
