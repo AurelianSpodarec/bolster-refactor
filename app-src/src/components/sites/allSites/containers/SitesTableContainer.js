@@ -9,7 +9,7 @@ class SitesListTableContainer extends Component {
 
         return (
             <SitesTable
-                headers={['Site name', 'Owned by', 'Premissions', 'Action']}
+                headers={['Site name', 'Owned by', 'Permissions', 'Action']}
                 sites={this._getFilteredSites()}
                 isFetching={isFetching}
                 error={error}

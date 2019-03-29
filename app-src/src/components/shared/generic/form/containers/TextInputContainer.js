@@ -42,6 +42,11 @@ class TextInputContianer extends Component {
         this._validate(this.props.value);
     };
 
+    componentWillUnmount = () => {
+        const { name, error, removeFieldError } = this.props;
+        if (error) removeFieldError(name);
+    };
+
     handleChange = e => {
         this.props.handleChange(e);
         this._validate(e.target.value);
@@ -65,8 +70,9 @@ class TextInputContianer extends Component {
             removeFieldError
         } = this.props;
         const validateError = validate(value);
+        const isNumber = typeof value === 'number';
 
-        if (required && !(value && value.length)) {
+        if (required && (!(value && value.length) && !isNumber)) {
             addFieldError(name, 'This is a required field.');
         } else if (type === 'email' && !this._valdateEmail(value)) {
             addFieldError(name, 'This is not a valid email.');

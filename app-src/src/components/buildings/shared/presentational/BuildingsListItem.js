@@ -9,7 +9,10 @@ const BuldingsListItem = ({
     colCount
 }) => (
     <>
-        <tr onClick={toggleExpanded} className={isExpanded ? 'open' : ''}>
+        <tr
+            onClick={toggleExpanded}
+            className={`expandable ${isExpanded ? 'open' : ''}`}
+        >
             <td>
                 {' '}
                 {isExpanded ? (
@@ -24,6 +27,7 @@ const BuldingsListItem = ({
                 <Link
                     className="button light-blue"
                     to={`/buildings/${building.id}`}
+                    onClick={e => e.stopPropagation()}
                 >
                     View
                 </Link>

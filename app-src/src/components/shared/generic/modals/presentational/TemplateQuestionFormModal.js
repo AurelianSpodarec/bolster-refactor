@@ -9,11 +9,12 @@ import DropdownContainer from 'components/shared/generic/form/containers/Dropdow
 import Field from 'components/shared/generic/form/presentational/Field';
 import BlockButtonWrapper from '../../blockButtonWrappers/presentational/BlockButtonWrapper';
 
-const AddTemplateQuestionModal = ({
+const AddTemplateQuestionFormModal = ({
     questionTypeOptions,
     questionType,
     prereqOptions,
     prerequisite,
+    prerequisiteVal,
     name,
     isRequired,
     charLimit,
@@ -42,11 +43,11 @@ const AddTemplateQuestionModal = ({
                     />
                 </Field>
             )}
-            {prerequisite && prerequisite.length && (
+            {!!prerequisite && (
                 <Field name="Prerequisite value">
                     <TextInputContainer
                         name="prerequisiteVal"
-                        value={charLimit}
+                        value={prerequisiteVal}
                         handleChange={handleInputChange}
                         required
                     />
@@ -68,7 +69,7 @@ const AddTemplateQuestionModal = ({
                     required
                 />
             </Field>
-            <Field name="Is required">
+            <Field name="Required?">
                 <input
                     name="isRequired"
                     type="checkbox"
@@ -78,7 +79,7 @@ const AddTemplateQuestionModal = ({
             </Field>
             <BlockButtonWrapper>
                 <button className="button ">
-                    <i className="fa fa-plus" /> Add Question
+                    <i className="fa fa-plus" /> Save
                 </button>
                 <button className="button" onClick={hideModal}>
                     <i className="fa fa-times" /> Cancel
@@ -88,4 +89,4 @@ const AddTemplateQuestionModal = ({
     </ModalOuterContainer>
 );
 
-export default AddTemplateQuestionModal;
+export default AddTemplateQuestionFormModal;

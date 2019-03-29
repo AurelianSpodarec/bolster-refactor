@@ -1,6 +1,7 @@
 import React from 'react';
+import { EDIT_TEMPLATE_QUESTION } from 'constants/modalTypes';
 
-const TemplateFieldItem = ({ question }) => (
+const TemplateQuestionItem = ({ question, showModal }) => (
     <>
         <tr>
             <td>
@@ -12,7 +13,15 @@ const TemplateFieldItem = ({ question }) => (
                 <input type="checkbox" readOnly checked={question.isRequired} />
             </td>
             <td>
-                <button className="button" type="edit">
+                <button
+                    className="button"
+                    type="edit"
+                    onClick={() => {
+                        showModal(EDIT_TEMPLATE_QUESTION, {
+                            uuid: question.uuid
+                        });
+                    }}
+                >
                     Edit
                 </button>
                 <button className="button red icon-only">
@@ -23,4 +32,4 @@ const TemplateFieldItem = ({ question }) => (
     </>
 );
 
-export default TemplateFieldItem;
+export default TemplateQuestionItem;

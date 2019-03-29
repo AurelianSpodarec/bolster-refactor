@@ -10,13 +10,16 @@ class MenuContainer extends Component {
     };
 
     render() {
-        const { showLoggedInLayout } = this.props;
+        const { showLoggedInLayout, showSuperAdmin } = this.props;
+
         if (!showLoggedInLayout) return null;
-        return <MenusWrapper />;
+
+        return <MenusWrapper showSuperAdmin={showSuperAdmin} />;
     }
 }
-const mapStateToProps = ({ messagesReducer }) => ({
-    messageCount: Object.values(messagesReducer.messages).length
+const mapStateToProps = ({ messagesReducer, decodeJWTReducer }) => ({
+    messageCount: Object.values(messagesReducer.messages).length,
+    showSuperAdmin: decodeJWTReducer.jwtData.IsSuperAdmin
 });
 
 export default withShowLayout(

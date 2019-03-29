@@ -23,7 +23,6 @@ export function getDecodedJWT() {
     const token = localStorage.getItem('token');
     return new Promise(resolve => {
         const decoded = jwtDecode(token);
-
         resolve(decoded);
     });
 }
