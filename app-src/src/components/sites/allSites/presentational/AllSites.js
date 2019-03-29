@@ -5,9 +5,12 @@ import SitesFiltersContainer from '../containers/SitesFiltersContainer';
 import SitesTableContainer from '../containers/SitesTableContainer';
 import Block from 'components/shared/generic/block/presentational/Block';
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
+import BreadcrumbContainer from 'components/pins/singlePin/containers/BreadcrumbContainer';
 
 const AllSites = () => (
     <>
+        <BreadcrumbContainer />
+
         <PageHeading title="Sites">
             <Link to="/sites/create" className="button">
                 <i className="far fa-plus" /> Add site
