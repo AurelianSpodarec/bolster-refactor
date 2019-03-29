@@ -3,8 +3,9 @@ import { connect } from 'react-redux';
 
 import {
     PIN_IMAGE,
-    ADD_TEMPLATE_QUESTION,
     ADD_TEMPLATE_SECTION,
+    ADD_TEMPLATE_QUESTION,
+    EDIT_TEMPLATE_QUESTION,
     RENAME_TEMPLATE_SECTION,
     EDIT_SERVICE,
     EDIT_USER_PASSWORD,
@@ -16,6 +17,7 @@ import {
 import PinPhotoModal from '../presentational/PinPhotoModal';
 import AddTemplateSectionModalContainer from './AddTemplateSectionModalContainer';
 import AddTemplateQuestionModalContainer from './AddTemplateQuestionModalContainer';
+import EditTemplateQuestionModalContainer from './EditTemplateQuestionModalContainer';
 import RenameTemplateSectionModalContainer from './RenameTemplateSectionModalContainer';
 import EditServiceModalContainer from './EditServiceModalContainer';
 import EditUserPasswordModalContainer from './EditUserPasswordModalContainer';
@@ -27,6 +29,7 @@ const MODAL_COMPONENTS = {
     [PIN_IMAGE]: PinPhotoModal,
     [ADD_TEMPLATE_QUESTION]: AddTemplateQuestionModalContainer,
     [ADD_TEMPLATE_SECTION]: AddTemplateSectionModalContainer,
+    [EDIT_TEMPLATE_QUESTION]: EditTemplateQuestionModalContainer,
     [RENAME_TEMPLATE_SECTION]: RenameTemplateSectionModalContainer,
     [EDIT_SERVICE]: EditServiceModalContainer,
     [EDIT_USER_PASSWORD]: EditUserPasswordModalContainer,
