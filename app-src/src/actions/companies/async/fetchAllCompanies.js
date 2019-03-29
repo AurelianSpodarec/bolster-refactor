@@ -5,7 +5,7 @@ import {
     FETCH_ALL_COMPANIES_SUCCESS,
     FETCH_ALL_COMPANIES_FAILURE
 } from 'constants/actionTypes/companies';
-import { ADMIN_API_URL } from 'config';
+import { API_URL } from 'config';
 import { getHeaders } from 'helpers/api';
 
 export const fetchAllCompaniesRequest = () => ({
@@ -26,7 +26,7 @@ export default () => dispatch => {
     dispatch(fetchAllCompaniesRequest());
 
     axios
-        .get(`${ADMIN_API_URL}/companies`, getHeaders())
+        .get(`${API_URL}/companies`, getHeaders())
         .then(res => dispatch(fetchAllCompaniesSuccess(res.data)))
         .catch(err => dispatch(fetchAllCompaniesFailure(err.message)));
 };
