@@ -6,7 +6,7 @@ import { updateObj } from 'helpers/generic';
 class AttachDocumentFormContainer extends Component {
     state = {
         // view only, agreement once, agreement daily - radio buttons
-        requiresAgreement: '',
+        requiresAgreement: 'View only',
         // textboxes
         documentName: '',
         file: {},
@@ -37,11 +37,11 @@ class AttachDocumentFormContainer extends Component {
             handleCheckboxChange={this.handleCheckboxChange}
             handleMultiselect={this.handleMultiselect}
             handleDateChange={this.handleDateChange}
+            backUrl={this.props.backUrl}
         />
     );
 
     handleInputChange = e => {
-        e.preventDefault();
         this.setState({
             [e.target.name]: e.target.value
         });

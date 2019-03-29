@@ -1,10 +1,19 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import AttachSiteDocument from '../presentational/AttachSiteDocument';
 
 class AttachSiteDocumentContainer extends Component {
     render() {
-        return <AttachSiteDocument handleSubmit={this.handleSubmit} />;
+        const { siteId } = this.props.match.params;
+        const backUrl = `/sites/${siteId}`;
+        return (
+            <AttachSiteDocument
+                handleSubmit={this.handleSubmit}
+                x
+                backUrl={backUrl}
+            />
+        );
     }
 
     handleSubmit = e => {
@@ -16,4 +25,4 @@ class AttachSiteDocumentContainer extends Component {
 
 // const mapDispatchToProps = {};
 
-export default connect()(AttachSiteDocumentContainer);
+export default withRouter(connect()(AttachSiteDocumentContainer));

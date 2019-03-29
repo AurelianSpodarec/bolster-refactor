@@ -13,7 +13,7 @@ const CheckboxList = ({ isFetching, error, items, handleMultiselect }) => {
                 text={item.name}
                 name={item.name}
                 handleMultiselect={handleMultiselect}
-                key={item.text}
+                key={item.name}
                 item={item}
                 checked={item.checked}
             />
