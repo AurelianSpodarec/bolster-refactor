@@ -1338,3 +1338,13 @@ input {
         max-height: 100%;
     }
 }
+
+//file upload
+.filepond--wrapper {
+    float: left;
+    width: 100%;
+}
+
+.filepond--root {
+    margin-bottom: 0 !important;
+}
