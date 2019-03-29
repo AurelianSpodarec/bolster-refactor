@@ -4,7 +4,7 @@ import SiteDetailsContainer from '../containers/SiteDetailsContainer';
 import SiteDocumentsTableContainer from '../containers/SiteDocumentsTableContainer';
 import SiteBuildingsTableContainer from '../containers/SiteBuildingsTableContainer';
 import SiteOperativesTableContainer from '../containers/SiteOperativesTableContainer';
-import SiteClientsTableContainer from '../containers/SiteClientsTableContainer';
+import SiteClientInviteContainer from '../containers/SiteClientInviteContainer';
 import SiteCompaniesAccessTableContainer from '../containers/SiteCompaniesAccessTableContainer';
 import Breadcrumb from 'components/shared/generic/breadcrumb/presentational/Breadcrumb';
 import SitePageHeaderContainer from '../containers/SitePageHeaderContainer';
@@ -12,7 +12,7 @@ import BreadcrumbContainer from 'components/pins/singlePin/containers/Breadcrumb
 
 const SingleSite = () => (
     <>
-    <BreadcrumbContainer></BreadcrumbContainer>
+        <BreadcrumbContainer />
         <Breadcrumb breadcrumbs={[{ text: 'item 1' }, { text: 'item 2' }]} />
         <div className="size-lg-12">
             <SitePageHeaderContainer />
@@ -27,7 +27,7 @@ const SingleSite = () => (
             <SiteBuildingsTableContainer />
         </div>
         <div className="size-lg-4">
-            <SiteClientsTableContainer />
+            <SiteClientInviteContainer />
         </div>
         <div className="size-lg-4">
             <SiteOperativesTableContainer />

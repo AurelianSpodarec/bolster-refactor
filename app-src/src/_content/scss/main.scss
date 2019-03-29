@@ -81,6 +81,14 @@ body {
         color: black;
     }
 
+    p {
+        @include ubuntu;
+        font-size: 140%;
+        strong {
+            @include ubuntu-medium;
+        }
+    }
+
     &.small-padding {
         padding: {
             top: 10px;
@@ -1310,7 +1318,6 @@ input {
         height: 100%;
         width: 100%;
         min-width: 35%;
-
         padding: 0;
 
         .content-area {
