@@ -7,7 +7,7 @@ import BlockContainer from 'components/shared/generic/block/containers/BlockCont
 
 class CompaniesAccessTableContainer extends Component {
     render() {
-        const { state, props } = this;
+        const { props } = this;
 
         return (
             <BlockContainer>
