@@ -18,8 +18,8 @@ class AddTemplateQuestionModalContainer extends Component {
         questionTypeOptions: convertArrToObj(questionTypeOptions, 'value'),
         questionType: 'SINGLE_LINE',
         prereqOptions: {},
-        prerequisite: '',
-        prerequisiteVal: '',
+        prereqUuid: '',
+        prereqVal: '',
         name: '',
         charLimit: 300,
         isRequired: false,
@@ -32,7 +32,7 @@ class AddTemplateQuestionModalContainer extends Component {
             questionTypeOptions,
             questionType,
             prereqOptions,
-            prerequisite,
+            prereqUuid,
             ...otherFields
         } = this.state;
 
@@ -41,7 +41,7 @@ class AddTemplateQuestionModalContainer extends Component {
                 questionTypeOptions={Object.values(questionTypeOptions)}
                 questionType={questionTypeOptions[questionType]}
                 prereqOptions={Object.values(prereqOptions)}
-                prerequisite={prereqOptions[prerequisite]}
+                selectedPrereq={prereqOptions[prereqUuid]}
                 {...otherFields}
                 handleInputChange={this.handleInputChange}
                 handlePrefieldChange={this.handlePrefieldChange}
@@ -62,7 +62,7 @@ class AddTemplateQuestionModalContainer extends Component {
     _getPrereqOptions = () => {
         const { questions, uuid } = this.props;
         const options = questions
-            .filter(({ type }) => PREREQ_TYPES.includes(type))
+            .filter(({ questionType }) => PREREQ_TYPES.includes(questionType))
             .filter(question => question.uuid !== uuid)
             .filter(question => question.prereqUuid !== uuid)
             .map(question => ({
@@ -84,8 +84,8 @@ class AddTemplateQuestionModalContainer extends Component {
             name,
             isRequired,
             questionType,
-            prerequisite,
-            prerequisiteVal,
+            prereqUuid,
+            prereqVal,
             isHidden,
             isPrefill
         } = this.state;
@@ -97,8 +97,8 @@ class AddTemplateQuestionModalContainer extends Component {
             isHidden,
             isPrefill,
             questionType: questionType,
-            prereqUuid: prerequisite,
-            prerequisiteVal,
+            prereqUuid,
+            prereqVal,
             sort: this._getSort()
         };
 

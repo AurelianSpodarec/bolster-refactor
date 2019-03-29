@@ -13,8 +13,8 @@ const AddTemplateQuestionFormModal = ({
     questionTypeOptions,
     questionType,
     prereqOptions,
-    prerequisite,
-    prerequisiteVal,
+    selectedPrereq,
+    prereqVal,
     name,
     isRequired,
     charLimit,
@@ -38,18 +38,18 @@ const AddTemplateQuestionFormModal = ({
             {!isObjEmpty(prereqOptions) && (
                 <Field name="Prerequisite field?">
                     <DropdownContainer
-                        name="prerequisite"
+                        name="prereqUuid"
                         options={prereqOptions}
-                        selectedOption={prerequisite}
+                        selectedOption={selectedPrereq}
                         handleChange={handleInputChange}
                     />
                 </Field>
             )}
-            {!!prerequisite && (
+            {!!selectedPrereq && (
                 <Field name="Prerequisite value">
                     <TextInputContainer
-                        name="prerequisiteVal"
-                        value={prerequisiteVal}
+                        name="prereqVal"
+                        value={prereqVal}
                         handleChange={handleInputChange}
                         required
                     />
