@@ -1,4 +1,6 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 import Breadcrumb from 'components/shared/generic/breadcrumb/presentational/Breadcrumb';
 
@@ -14,4 +16,12 @@ const BreadcrumbContainer = () => {
     return <Breadcrumb breadcrumbs={breadcrumbs} />;
 };
 
-export default BreadcrumbContainer;
+//connect to redux
+//
+//with router to get pathname
+export default withRouter(
+    connect(
+        null,
+        null
+    )(BreadcrumbContainer)
+);

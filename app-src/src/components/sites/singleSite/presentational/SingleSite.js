@@ -8,9 +8,11 @@ import SiteClientsTableContainer from '../containers/SiteClientsTableContainer';
 import SiteCompaniesAccessTableContainer from '../containers/SiteCompaniesAccessTableContainer';
 import Breadcrumb from 'components/shared/generic/breadcrumb/presentational/Breadcrumb';
 import SitePageHeaderContainer from '../containers/SitePageHeaderContainer';
+import BreadcrumbContainer from 'components/pins/singlePin/containers/BreadcrumbContainer';
 
 const SingleSite = () => (
     <>
+    <BreadcrumbContainer></BreadcrumbContainer>
         <Breadcrumb breadcrumbs={[{ text: 'item 1' }, { text: 'item 2' }]} />
         <div className="size-lg-12">
             <SitePageHeaderContainer />

@@ -29,19 +29,20 @@ const AddDrawingForm = ({
         </div>
         <div className="size-lg-12">
             <div className="size-lg-6">
-                <label className="title">Upload file</label>
-                <FileUploadContainer
-                    required
-                    name="file"
-                    allowedTypes={['pdf', 'image']}
-                    handleChange={handleFileChange}
-                />
+                <Field name="Upload plan">
+                    <FileUploadContainer
+                        required
+                        name="file"
+                        allowedTypes={['pdf', 'image']}
+                        handleChange={handleFileChange}
+                    />
+                </Field>
             </div>
         </div>
 
         <BlockButtonWrapper>
             <button className="button green" type="submit">
-                <i className="fa fa-plus" /> Add Floor
+                <i className="fa fa-plus" /> Add Drawing
             </button>
             <Link className="button" to={`/floors/${floorID}`}>
                 Cancel
