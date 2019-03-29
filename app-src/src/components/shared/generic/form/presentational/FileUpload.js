@@ -12,7 +12,7 @@ const FileUpload = ({
     error,
     maxFiles = 1
 }) => (
-    <div>
+    <>
         <FilePond
             ref={addRef}
             maxFiles={maxFiles}
@@ -23,7 +23,7 @@ const FileUpload = ({
         {!!(error && error.length) && (
             <p className="error red-text text-accent-4">{error}</p>
         )}
-    </div>
+    </>
 );
 
 export default FileUpload;

@@ -8,7 +8,8 @@ export default class SwitchContainer extends Component {
             disabled = false,
             handleChange,
             value,
-            name
+            name,
+            text
         } = this.props;
         return (
             <Switch
@@ -17,6 +18,7 @@ export default class SwitchContainer extends Component {
                 handleChange={handleChange}
                 handleBlur={this.handleBlur}
                 name={name}
+                text={text}
                 value={value}
             />
         );
