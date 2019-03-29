@@ -22,19 +22,17 @@ class AttachDocumentFormContainer extends Component {
         endDate: ''
     };
 
-    render() {
-        return (
-            <AttachDocumentForm
-                {...this.state}
-                handleInputChange={this.handleInputChange}
-                handleSubmit={this.props.handleSubmit}
-            />
-        );
-    }
+    render = () => (
+        <AttachDocumentForm
+            {...this.state}
+            handleInputChange={this.handleInputChange}
+            handleSubmit={this.props.handleSubmit}
+            handleCheckboxChange={this.handleCheckboxChange}
+        />
+    );
 
     handleInputChange = e => {
         e.preventDefault();
-        console.log('name', e.target.name, 'value ==>', e.target.value);
         this.setState({
             [e.target.name]: e.target.value
         });
@@ -43,7 +41,12 @@ class AttachDocumentFormContainer extends Component {
         this.setState({ [name]: file });
     };
 
-    handleCheckboxChange = e => {};
+    handleCheckboxChange = e => {
+        const { name } = e.target;
+        this.setState(prevState => ({
+            [name]: !prevState[name]
+        }));
+    };
 }
 
 export default AttachDocumentFormContainer;
