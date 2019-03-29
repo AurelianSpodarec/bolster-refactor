@@ -1,21 +1,29 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import ServiceCheckboxList from '../presentational/ServiceCheckboxList';
+import CheckboxListContainer from 'components/shared/generic/form/containers/CheckboxListContainer';
+
+// ! sort out fetch services
 
 class ServiceCheckboxListContainer extends Component {
     render() {
         const { services, isFetching, error } = this.props;
         return (
-            <ServiceCheckboxList
+            <CheckboxListContainer
                 isFetching={isFetching}
                 error={error}
-                services={services}
+                items={[
+                    { text: '##fire##', value: '##fire##' },
+                    { text: '##water##', value: '##water##' },
+                    { text: '##earth##', value: '##earth##' },
+                    { text: '##air##', value: '##air##' },
+                    { text: '##heart##', value: '##heart##' }
+                ]}
             />
         );
     }
     componentDidMount() {
-        const { fetchServices } = this.props;
-        fetchServices();
+        // const { fetchServices } = this.props;
+        // fetchServices();
     }
 }
 

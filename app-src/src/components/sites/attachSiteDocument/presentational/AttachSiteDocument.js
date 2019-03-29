@@ -1,12 +1,12 @@
 import React from 'react';
 
 import Breadcrumbs from 'components/shared/generic/breadcrumb/presentational/Breadcrumb';
-import AttachSiteDocumentFormContainer from '../containers/AttachSiteDocumentFormContainer';
+import AttachDocumentFormContainer from 'components/shared/documents/containers/AttachDocumentFormContainer';
 
-const AttachSiteDocument = () => (
+const AttachSiteDocument = ({ handleSubmit }) => (
     <div>
         <Breadcrumbs breadcrumbs={[{ text: 'item 1' }, { text: 'item 2' }]} />
-        <AttachSiteDocumentFormContainer />
+        <AttachDocumentFormContainer handleSubmit={handleSubmit} />
     </div>
 );
 

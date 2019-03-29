@@ -5,6 +5,7 @@ import Field from 'components/shared/generic/form/presentational/Field';
 import FileUploadContainer from 'components/shared/generic/form/containers/FileUploadContainer';
 import SwitchContainer from 'components/shared/generic/form/containers/SwitchContainer';
 import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
+import ServiceListCheckboxContainer from 'components/shared/services/containers/ServiceListCheckboxContainer';
 
 const AttachDocumentForm = ({
     handleInputChange,
@@ -75,13 +76,17 @@ const AttachDocumentForm = ({
             />
         </div>
         <Field name="Service type" sizeClasses="size-lg-2">
-            <DropdownContainer
-                placeholder="[ services ]" 
-                name={'serviceType'} 
-                options={['##fire##', '##water##', '##earth##', '##air##', '##heart##'].map(val => ({text: val, value: val}))} 
-                handleChange={handleInputChange}/>
+            <ServiceListCheckboxContainer />
         </Field>
     </Form>
 );
 
 export default AttachDocumentForm;
+
+{
+    /* <DropdownContainer
+                placeholder="[ services ]" 
+                name={'serviceType'} 
+                options={['##fire##', '##water##', '##earth##', '##air##', '##heart##'].map(val => ({text: val, value: val}))} 
+                handleChange={handleInputChange}/> */
+}

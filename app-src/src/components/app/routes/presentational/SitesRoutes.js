@@ -8,8 +8,9 @@ import SingleSiteContainer from 'components/sites/singleSite/containers/SingleSi
 import ChangeSiteOwnership from 'components/sites/changeSiteOwnership/presentational/ChangeSiteOwnership';
 import AttachSiteOperative from 'components/sites/attachSiteOperative/presentational/AttachSiteOperative';
 import InviteClientToSite from 'components/sites/inviteClientToSite/presentational/InviteClientToSite';
-import AttachSiteDocument from 'components/sites/attachSiteDocument/presentational/AttachSiteDocument';
+
 import InviteCompany from 'components/sites/inviteCompanyToSite/presentational/InviteCompanyToSite';
+import AttachSiteDocumentContainer from 'components/sites/attachSiteDocument/containers/AttachSiteDocumentContainer';
 
 const SitesRoutes = ({ match: { url: baseUrl } }) => (
     <SwitchWith404>
@@ -34,7 +35,7 @@ const SitesRoutes = ({ match: { url: baseUrl } }) => (
         <Route
             exact
             path={`${baseUrl}/:siteId/attach-document`}
-            component={AttachSiteDocument}
+            component={AttachSiteDocumentContainer}
         />
         <Route
             exact
