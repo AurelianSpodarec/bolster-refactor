@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import uuid from 'uuid/v1';
 
-import { QUESTION_TYPES } from 'constants/templateBuilder';
+import { QUESTION_TYPES, PREREQ_TYPES } from 'constants/templateBuilder';
 import { convertArrToObj } from 'helpers/generic';
 import hideModal from 'actions/generic/modals/sync/hideModal';
 import addQuestion from 'actions/templateBuilder/sync/addQuestion';
@@ -19,11 +19,13 @@ class AddTemplateQuestionModalContainer extends Component {
         questionTypeOptions: convertArrToObj(questionTypeOptions, 'value'),
         questionType: 'SINGLE_LINE',
         prereqOptions: {},
-        prerequisite: '',
-        prerequisiteVal: '',
+        prereqUuid: '',
+        prereqVal: '',
         name: '',
         charLimit: 300,
-        isRequired: false
+        isRequired: false,
+        isHidden: false,
+        isPrefill: false
     };
 
     render() {
@@ -31,7 +33,7 @@ class AddTemplateQuestionModalContainer extends Component {
             questionTypeOptions,
             questionType,
             prereqOptions,
-            prerequisite,
+            prereqUuid,
             ...otherFields
         } = this.state;
 
@@ -40,7 +42,7 @@ class AddTemplateQuestionModalContainer extends Component {
                 questionTypeOptions={Object.values(questionTypeOptions)}
                 questionType={questionTypeOptions[questionType]}
                 prereqOptions={Object.values(prereqOptions)}
-                prerequisite={prereqOptions[prerequisite]}
+                selectedPrereq={prereqOptions[prereqUuid]}
                 {...otherFields}
                 handleInputChange={this.handleInputChange}
                 handlePrefieldChange={this.handlePrefieldChange}
@@ -57,15 +59,6 @@ class AddTemplateQuestionModalContainer extends Component {
         this.setState({ prereqOptions: this._getPrereqOptions() });
     };
 
-    _getPrereqOptions = () => {
-        const options = this.props.questions.map(({ uuid, name }) => ({
-            value: uuid,
-            text: name
-        }));
-
-        return convertArrToObj(options, 'value');
-    };
-
     handleInputChange = ({ target: { type, value, name, checked } }) => {
         this.setState({ [name]: type === 'checkbox' ? checked : value });
     };
@@ -77,22 +70,37 @@ class AddTemplateQuestionModalContainer extends Component {
             name,
             isRequired,
             questionType,
-            prerequisite,
-            prerequisiteVal
+            prereqUuid,
+            prereqVal,
+            isHidden,
+            isPrefill
         } = this.state;
 
         const newSection = {
             name,
             isRequired,
+            isHidden,
+            isPrefill,
             questionType: questionType,
             sectionUuid,
             uuid: uuid(),
-            prereqUuid: prerequisite,
-            prerequisiteVal,
+            prereqUuid,
+            prereqVal,
             sort: this._getSort()
         };
 
         addQuestion(newSection);
+    };
+
+    _getPrereqOptions = () => {
+        const options = this.props.questions
+            .filter(({ questionType }) => PREREQ_TYPES.includes(questionType))
+            .map(({ uuid, name }) => ({
+                value: uuid,
+                text: name
+            }));
+
+        return convertArrToObj(options, 'value');
     };
 
     _getSort = () => {

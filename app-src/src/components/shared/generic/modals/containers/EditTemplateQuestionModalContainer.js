@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { QUESTION_TYPES } from 'constants/templateBuilder';
+import { QUESTION_TYPES, PREREQ_TYPES } from 'constants/templateBuilder';
 import { convertArrToObj } from 'helpers/generic';
 import hideModal from 'actions/generic/modals/sync/hideModal';
 import editQuestion from 'actions/templateBuilder/sync/editQuestion';
@@ -18,11 +18,13 @@ class AddTemplateQuestionModalContainer extends Component {
         questionTypeOptions: convertArrToObj(questionTypeOptions, 'value'),
         questionType: 'SINGLE_LINE',
         prereqOptions: {},
-        prerequisite: '',
-        prerequisiteVal: '',
+        prereqUuid: '',
+        prereqVal: '',
         name: '',
         charLimit: 300,
-        isRequired: false
+        isRequired: false,
+        isHidden: false,
+        isPrefill: false
     };
 
     render() {
@@ -30,7 +32,7 @@ class AddTemplateQuestionModalContainer extends Component {
             questionTypeOptions,
             questionType,
             prereqOptions,
-            prerequisite,
+            prereqUuid,
             ...otherFields
         } = this.state;
 
@@ -39,7 +41,7 @@ class AddTemplateQuestionModalContainer extends Component {
                 questionTypeOptions={Object.values(questionTypeOptions)}
                 questionType={questionTypeOptions[questionType]}
                 prereqOptions={Object.values(prereqOptions)}
-                prerequisite={prereqOptions[prerequisite]}
+                selectedPrereq={prereqOptions[prereqUuid]}
                 {...otherFields}
                 handleInputChange={this.handleInputChange}
                 handlePrefieldChange={this.handlePrefieldChange}
@@ -60,6 +62,7 @@ class AddTemplateQuestionModalContainer extends Component {
     _getPrereqOptions = () => {
         const { questions, uuid } = this.props;
         const options = questions
+            .filter(({ questionType }) => PREREQ_TYPES.includes(questionType))
             .filter(question => question.uuid !== uuid)
             .filter(question => question.prereqUuid !== uuid)
             .map(question => ({
@@ -81,17 +84,21 @@ class AddTemplateQuestionModalContainer extends Component {
             name,
             isRequired,
             questionType,
-            prerequisite,
-            prerequisiteVal
+            prereqUuid,
+            prereqVal,
+            isHidden,
+            isPrefill
         } = this.state;
 
         const newSection = {
             ...question,
             name,
             isRequired,
+            isHidden,
+            isPrefill,
             questionType: questionType,
-            prereqUuid: prerequisite,
-            prerequisiteVal,
+            prereqUuid,
+            prereqVal,
             sort: this._getSort()
         };
 

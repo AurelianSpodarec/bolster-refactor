@@ -8,7 +8,7 @@ class TemplateSectionTableContainer extends Component {
         return (
             <Table
                 withActions
-                headers={['Reorder', 'Name', 'Type', 'Show', '']}
+                headers={['Reorder', 'Name', 'Type', 'Is required', '']}
             >
                 <TemplateFieldList questions={this.props.questions} />
             </Table>

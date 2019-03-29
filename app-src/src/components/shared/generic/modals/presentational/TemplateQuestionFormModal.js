@@ -13,11 +13,13 @@ const AddTemplateQuestionFormModal = ({
     questionTypeOptions,
     questionType,
     prereqOptions,
-    prerequisite,
-    prerequisiteVal,
+    selectedPrereq,
+    prereqVal,
     name,
     isRequired,
     charLimit,
+    isHidden,
+    isPrefill,
     handleInputChange,
     hideModal,
     handleSubmit
@@ -36,18 +38,18 @@ const AddTemplateQuestionFormModal = ({
             {!isObjEmpty(prereqOptions) && (
                 <Field name="Prerequisite field?">
                     <DropdownContainer
-                        name="prerequisite"
+                        name="prereqUuid"
                         options={prereqOptions}
-                        selectedOption={prerequisite}
+                        selectedOption={selectedPrereq}
                         handleChange={handleInputChange}
                     />
                 </Field>
             )}
-            {!!prerequisite && (
+            {!!selectedPrereq && (
                 <Field name="Prerequisite value">
                     <TextInputContainer
-                        name="prerequisiteVal"
-                        value={prerequisiteVal}
+                        name="prereqVal"
+                        value={prereqVal}
                         handleChange={handleInputChange}
                         required
                     />
@@ -73,7 +75,23 @@ const AddTemplateQuestionFormModal = ({
                 <input
                     name="isRequired"
                     type="checkbox"
-                    value={isRequired}
+                    checked={isRequired}
+                    onChange={handleInputChange}
+                />
+            </Field>
+            <Field name="Hidden?">
+                <input
+                    name="isHidden"
+                    type="checkbox"
+                    checked={isHidden}
+                    onChange={handleInputChange}
+                />
+            </Field>
+            <Field name="Prefill on create?">
+                <input
+                    name="isPrefill"
+                    type="checkbox"
+                    checked={isPrefill}
                     onChange={handleInputChange}
                 />
             </Field>
