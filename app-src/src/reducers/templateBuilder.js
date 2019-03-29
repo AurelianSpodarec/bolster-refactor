@@ -5,7 +5,8 @@ import {
     ADD_SECTION,
     DELETE_SECTION,
     UPDATE_SECTION,
-    ADD_QUESTION
+    ADD_QUESTION,
+    EDIT_QUESTION
 } from 'constants/actionTypes/templateBuilder';
 
 export default combineReducers({
@@ -28,6 +29,7 @@ function sectionsReducer(state = {}, action) {
 function questionsReducer(state = {}, action) {
     switch (action.type) {
         case ADD_QUESTION:
+        case EDIT_QUESTION:
             return updateObj(state, action.question.uuid, action.question);
         default:
             return state;
