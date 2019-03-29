@@ -9,9 +9,11 @@ import BuildingOperativesTableContainer from '../containers/BuildingOperativesTa
 import BuildingClientsTableContainer from '../containers/BuildingClientsTableContainer';
 import BuildingCompaniesAccessTableContainer from '../containers/BuildingCompaniesAccessTableContainer';
 import BuildingPageHeaderContainer from '../containers/BuildingPageHeaderContainer';
+import BreadcrumbContainer from 'components/pins/singlePin/containers/BreadcrumbContainer';
 
 const SingleBuilding = () => (
     <div className="size-lg-12">
+        <BreadcrumbContainer />
         <div className="size-lg-12">
             <BuildingPageHeaderContainer />
         </div>
