@@ -5,17 +5,16 @@ import BlockContainer from 'components/shared/generic/block/containers/BlockCont
 
 // import ClientsTable from 'components/shared/clients/presentational/ClientsTable';
 
-class BuildingClientInviteContainer extends Component {
+class BuildingInviteClientContainer extends Component {
     render() {
-        const {props} = this;
+        const { props } = this;
         return (
             <BlockContainer error={props.error}>
-           <ClientInvite
-                clients={props.clients}
-                isFetching={props.isFetching}
-            />
-        </BlockContainer>
-     
+                <ClientInvite
+                    clients={props.clients}
+                    isFetching={props.isFetching}
+                />
+            </BlockContainer>
         );
     }
 }
@@ -26,4 +25,4 @@ const mapStateToProps = ({ clientsReducer }) => ({
     error: clientsReducer.error
 });
 
-export default connect(mapStateToProps)(BuildingClientInviteContainer);
+export default connect(mapStateToProps)(BuildingInviteClientContainer);

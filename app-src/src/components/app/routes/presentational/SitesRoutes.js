@@ -11,6 +11,7 @@ import InviteClientToSite from 'components/sites/inviteClientToSite/presentation
 
 import InviteCompany from 'components/sites/inviteCompanyToSite/presentational/InviteCompanyToSite';
 import AttachSiteDocumentContainer from 'components/sites/attachSiteDocument/containers/AttachSiteDocumentContainer';
+import SiteClientAccessContainer from 'components/sites/singleSite/containers/SiteClientAccessContainer';
 
 const SitesRoutes = ({ match: { url: baseUrl } }) => (
     <SwitchWith404>
@@ -31,6 +32,12 @@ const SitesRoutes = ({ match: { url: baseUrl } }) => (
             exact
             path={`${baseUrl}/:siteId/invite-client`}
             component={InviteClientToSite}
+        />
+
+        <Route
+            exact
+            path={`${baseUrl}/:siteId/client-access`}
+            component={SiteClientAccessContainer}
         />
         <Route
             exact

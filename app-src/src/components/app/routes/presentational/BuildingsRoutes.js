@@ -8,6 +8,7 @@ import InviteClientToBuilding from 'components/buildings/inviteClientToBuilding/
 import AttachBuildingDocument from 'components/buildings/attachBuildingDocument/presentational/AttachBuildingDocument';
 import InviteCompanyToBuilding from 'components/buildings/inviteCompanyToBuilding/presentational/InviteCompanyToBuilding';
 import CreateBuilding from 'components/buildings/createBuilding/presentational/CreateBuilding';
+import BuildingClientAccessContainer from 'components/buildings/singleBuilding/containers/BuildingClientAccessContainer';
 
 const BuildingRoutes = ({ match: { url: baseUrl } }) => (
     <SwitchWith404>
@@ -30,6 +31,12 @@ const BuildingRoutes = ({ match: { url: baseUrl } }) => (
             exact
             path={`${baseUrl}/:id/invite-client`}
             component={InviteClientToBuilding}
+        />
+
+        <Route
+            exact
+            path={`${baseUrl}/:id/client-access`}
+            component={BuildingClientAccessContainer}
         />
         <Route
             exact
