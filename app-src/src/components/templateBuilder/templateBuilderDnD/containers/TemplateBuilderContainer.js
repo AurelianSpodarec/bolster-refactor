@@ -1,11 +1,21 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { connect } from 'react-redux';
 
+import { ADD_TEMPLATE_SECTION } from 'constants/modalTypes';
+import showModal from 'actions/generic/modals/sync/showModal';
 import TemplateBuilder from '../presentational/TemplateBuilder';
 
-class TemplateBuilderContainer extends Component {
-    render() {
-        return <TemplateBuilder />;
-    }
-}
+const TemplateBuilderContainer = ({ showAddSectionModal }) => (
+    <TemplateBuilder showAddSectionModal={showAddSectionModal} />
+);
 
-export default TemplateBuilderContainer;
+const mapDispatchToProps = dispatch => ({
+    showAddSectionModal: () => {
+        dispatch(showModal(ADD_TEMPLATE_SECTION));
+    }
+});
+
+export default connect(
+    null,
+    mapDispatchToProps
+)(TemplateBuilderContainer);

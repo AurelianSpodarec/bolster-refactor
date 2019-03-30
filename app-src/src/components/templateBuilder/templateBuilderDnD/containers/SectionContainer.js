@@ -1,12 +1,22 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { DropTarget } from 'react-dnd';
+import uuid from 'uuid/v1';
 
+import {
+    ADD_TEMPLATE_QUESTION,
+    RENAME_TEMPLATE_SECTION
+} from 'constants/modalTypes';
 import { DRAG_TYPES } from 'constants/dragTypes';
 import swapQuestionSorts from 'actions/templateBuilder/sync/swapQuestionSorts';
 import changeQuestionSection from 'actions/templateBuilder/sync/changeQuestionSection';
 
 import Section from '../presentational/Section';
+
+import showModal from 'actions/generic/modals/sync/showModal';
+import addSection from 'actions/templateBuilder/sync/addSection';
+import deleteSection from 'actions/templateBuilder/sync/deleteSection';
+import addQuestion from 'actions/templateBuilder/sync/addQuestion';
 
 class SectionContainer extends Component {
     render() {
@@ -15,7 +25,10 @@ class SectionContainer extends Component {
             questions,
             canDrop,
             isOver,
-            connectDropTarget
+            connectDropTarget,
+            deleteSection,
+            showAddQuestModal,
+            showRenameSectModal
         } = this.props;
 
         return connectDropTarget(
@@ -25,6 +38,10 @@ class SectionContainer extends Component {
                     section={section}
                     questions={questions}
                     moveQuestion={this.moveQuestion}
+                    deleteSection={() => deleteSection(section.uuid)}
+                    showAddQuestModal={() => showAddQuestModal(section.uuid)}
+                    showRenameSectModal={() => showRenameSectModal(section)}
+                    duplicateSection={this.duplicateSection}
                 />
             </div>
         );
@@ -43,6 +60,28 @@ class SectionContainer extends Component {
 
         changeQuestionSection(question.uuid, section.uuid, newSort);
     };
+
+    duplicateSection = e => {
+        const { questions, addSection, addQuestion } = this.props;
+
+        e.preventDefault();
+        const newUuid = uuid();
+
+        const newSection = {
+            name: 'New Section',
+            uuid: newUuid
+        };
+
+        questions.forEach(question => {
+            addQuestion({
+                ...question,
+                questionType: question.questionType,
+                sectionUuid: newUuid,
+                uuid: uuid()
+            });
+        });
+        addSection(newSection);
+    };
 }
 
 const mapStateToProps = ({ templateBuilderReducer }, { section }) => ({
@@ -57,6 +96,21 @@ const mapDispatchToProps = dispatch => ({
     },
     changeQuestionSection: (questionUuid, sectionUuid, sort) => {
         dispatch(changeQuestionSection(questionUuid, sectionUuid, sort));
+    },
+    deleteSection: sectionUuid => {
+        dispatch(deleteSection(sectionUuid));
+    },
+    addQuestion: question => {
+        dispatch(addQuestion(question));
+    },
+    addSection: newSection => {
+        dispatch(addSection(newSection));
+    },
+    showAddQuestModal: sectionUuid => {
+        dispatch(showModal(ADD_TEMPLATE_QUESTION, { sectionUuid }));
+    },
+    showRenameSectModal: section => {
+        dispatch(showModal(RENAME_TEMPLATE_SECTION, { section }));
     }
 });
 
