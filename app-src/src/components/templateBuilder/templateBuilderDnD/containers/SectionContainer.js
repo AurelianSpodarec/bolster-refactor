@@ -4,6 +4,7 @@ import { DropTarget } from 'react-dnd';
 
 import { DRAG_TYPES } from 'constants/dragTypes';
 import swapQuestionSorts from 'actions/templateBuilder/sync/swapQuestionSorts';
+import changeQuestionSection from 'actions/templateBuilder/sync/changeQuestionSection';
 
 import Section from '../presentational/Section';
 
@@ -35,6 +36,13 @@ class SectionContainer extends Component {
         const question2 = questions[hoverIndex];
         swapQuestionSorts(question1.uuid, question2.uuid);
     };
+
+    changeSection = question => {
+        const { changeQuestionSection, section, questions } = this.props;
+        const newSort = Math.max(0, ...questions.map(q => q.sort)) + 1;
+
+        changeQuestionSection(question.uuid, section.uuid, newSort);
+    };
 }
 
 const mapStateToProps = ({ templateBuilderReducer }, { section }) => ({
@@ -46,26 +54,26 @@ const mapStateToProps = ({ templateBuilderReducer }, { section }) => ({
 const mapDispatchToProps = dispatch => ({
     swapQuestionSorts: (question1Uuid, question2Uuid) => {
         dispatch(swapQuestionSorts(question1Uuid, question2Uuid));
+    },
+    changeQuestionSection: (questionUuid, sectionUuid, sort) => {
+        dispatch(changeQuestionSection(questionUuid, sectionUuid, sort));
     }
 });
 
-const WithConnect = connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(SectionContainer);
-
 const questionTarget = {
-    drop(props) {
-        const { id } = props;
-        // const sourceObj = monitor.getItem();
-        // if (id !== sourceObj.listId) component.pushCard(sourceObj.card);
+    drop(props, monitor, component) {
+        const { section } = props;
+        const sourceObj = monitor.getItem();
+        if (section.uuid !== sourceObj.sectionUuid) {
+            component.changeSection(sourceObj.question);
+        }
         return {
-            sectionUuid: id
+            sectionUuid: section.uuid
         };
     }
 };
 
-export default DropTarget(
+const WithDragAndDrop = DropTarget(
     DRAG_TYPES.QUESTION,
     questionTarget,
     (connect, monitor) => ({
@@ -73,4 +81,9 @@ export default DropTarget(
         isOver: monitor.isOver(),
         canDrop: monitor.canDrop()
     })
-)(WithConnect);
+)(SectionContainer);
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(WithDragAndDrop);
