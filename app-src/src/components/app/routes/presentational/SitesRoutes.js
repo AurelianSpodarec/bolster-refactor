@@ -12,12 +12,18 @@ import InviteClientToSite from 'components/sites/inviteClientToSite/presentation
 import InviteCompany from 'components/sites/inviteCompanyToSite/presentational/InviteCompanyToSite';
 import AttachSiteDocumentContainer from 'components/sites/attachSiteDocument/containers/AttachSiteDocumentContainer';
 import SiteClientAccessContainer from 'components/sites/singleSite/containers/SiteClientAccessContainer';
+import SiteEditContainer from 'components/sites/singleSite/containers/SiteEditContainer';
 
 const SitesRoutes = ({ match: { url: baseUrl } }) => (
     <SwitchWith404>
         <Route exact path={`${baseUrl}`} component={AllSitesContainer} />
         <Route exact path={`${baseUrl}/create`} component={AddSite} />
         <Route exact path={`${baseUrl}/:id`} component={SingleSiteContainer} />
+        <Route
+            exact
+            path={`${baseUrl}/:id/edit`}
+            component={SiteEditContainer}
+        />
         <Route
             exact
             path={`${baseUrl}/:siteId/change-ownership`}
