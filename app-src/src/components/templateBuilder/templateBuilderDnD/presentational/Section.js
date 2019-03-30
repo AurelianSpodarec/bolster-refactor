@@ -28,9 +28,9 @@ const Section = ({
         className="template-block size-lg-12"
         style={{ ...style, backgroundColor: isActive ? 'lightgreen' : '#FFF' }}
     >
-        {/* <button className="button icon-only">
+        <button className="button icon-only">
             <i className="fa fa-eye" />
-        </button> */}
+        </button>
         <button className="button" onClick={showRenameSectModal}>
             Rename
         </button>
@@ -43,9 +43,11 @@ const Section = ({
             moveQuestion={moveQuestion}
         />
         <button className="button" onClick={showAddQuestModal}>
+            <i className="fa fa-plus" />
             Add question
         </button>
-        <button className="button" onClick={deleteSection}>
+        <button className="button red" onClick={deleteSection}>
+            <i className="fa fa-times" />
             Delete
         </button>
         <button onClick={duplicateSection} className="button">

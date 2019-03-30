@@ -1,27 +1,42 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { DragSource, DropTarget } from 'react-dnd';
 import flow from 'lodash/flow';
 
-import Question from '../presentational/Question';
+import { EDIT_TEMPLATE_QUESTION } from 'constants/modalTypes';
 import { DRAG_TYPES } from 'constants/dragTypes';
+import showModal from 'actions/generic/modals/sync/showModal';
+import deleteQuestion from 'actions/templateBuilder/sync/deleteQuestion';
+
+import Question from '../presentational/Question';
 
 class QuestionContainer extends Component {
     render() {
         const {
+            questions,
             question,
             isDragging,
             connectDragSource,
-            connectDropTarget
+            connectDropTarget,
+            showEditQuesModel,
+            deleteQuestion
         } = this.props;
+        const { uuid } = question;
+        const isPrereq = questions.some(
+            item => item.prereqUuid === question.uuid
+        );
 
         return connectDragSource(
             connectDropTarget(
                 <div ref={ref => (this.question = ref)}>
                     <Question
+                        isPrereq={isPrereq}
                         connectDragSource={connectDragSource}
                         connectDropTarget={connectDropTarget}
                         isDragging={isDragging}
                         question={question}
+                        showEditQuesModel={() => showEditQuesModel(uuid)}
+                        deleteQuestion={() => deleteQuestion(uuid)}
                     />
                 </div>
             )
@@ -90,7 +105,7 @@ const questionTarget = {
     }
 };
 
-export default flow(
+const WithDragAndDrop = flow(
     DropTarget(DRAG_TYPES.QUESTION, questionTarget, connect => ({
         connectDropTarget: connect.dropTarget()
     })),
@@ -99,3 +114,21 @@ export default flow(
         isDragging: monitor.isDragging()
     }))
 )(QuestionContainer);
+
+const mapStateToProps = ({ templateBuilderReducer }) => ({
+    questions: Object.values(templateBuilderReducer.questions)
+});
+
+const mapDispatchToProps = dispatch => ({
+    showEditQuesModel: uuid => {
+        dispatch(showModal(EDIT_TEMPLATE_QUESTION, { uuid }));
+    },
+    deleteQuestion: uuid => {
+        dispatch(deleteQuestion(uuid));
+    }
+});
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(WithDragAndDrop);

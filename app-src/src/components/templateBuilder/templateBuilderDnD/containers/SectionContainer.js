@@ -62,13 +62,13 @@ class SectionContainer extends Component {
     };
 
     duplicateSection = e => {
-        const { questions, addSection, addQuestion } = this.props;
+        const { questions, addSection, addQuestion, section } = this.props;
 
         e.preventDefault();
         const newUuid = uuid();
 
         const newSection = {
-            name: 'New Section',
+            name: `${section.name} - (copy)`,
             uuid: newUuid
         };
 
@@ -83,6 +83,29 @@ class SectionContainer extends Component {
         addSection(newSection);
     };
 }
+
+const questionTarget = {
+    drop(props, monitor, component) {
+        const { section } = props;
+        const sourceObj = monitor.getItem();
+        if (section.uuid !== sourceObj.sectionUuid) {
+            component.changeSection(sourceObj.question);
+        }
+        return {
+            sectionUuid: section.uuid
+        };
+    }
+};
+
+const WithDragAndDrop = DropTarget(
+    DRAG_TYPES.QUESTION,
+    questionTarget,
+    (connect, monitor) => ({
+        connectDropTarget: connect.dropTarget(),
+        isOver: monitor.isOver(),
+        canDrop: monitor.canDrop()
+    })
+)(SectionContainer);
 
 const mapStateToProps = ({ templateBuilderReducer }, { section }) => ({
     questions: Object.values(templateBuilderReducer.questions)
@@ -113,29 +136,6 @@ const mapDispatchToProps = dispatch => ({
         dispatch(showModal(RENAME_TEMPLATE_SECTION, { section }));
     }
 });
-
-const questionTarget = {
-    drop(props, monitor, component) {
-        const { section } = props;
-        const sourceObj = monitor.getItem();
-        if (section.uuid !== sourceObj.sectionUuid) {
-            component.changeSection(sourceObj.question);
-        }
-        return {
-            sectionUuid: section.uuid
-        };
-    }
-};
-
-const WithDragAndDrop = DropTarget(
-    DRAG_TYPES.QUESTION,
-    questionTarget,
-    (connect, monitor) => ({
-        connectDropTarget: connect.dropTarget(),
-        isOver: monitor.isOver(),
-        canDrop: monitor.canDrop()
-    })
-)(SectionContainer);
 
 export default connect(
     mapStateToProps,
