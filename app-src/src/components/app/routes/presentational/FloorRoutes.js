@@ -8,6 +8,7 @@ import InviteClientToFloor from 'components/floors/inviteClientToFloor/presentat
 import AttachFloorDocument from 'components/floors/attachFloorDocument/presentational/AttachFloorDocument';
 import InviteCompanyToFloor from 'components/floors/inviteCompanyToFloor/presentational/InviteCompanyToFloor';
 import AddFloor from 'components/floors/addFloor/presentational/AddFloor';
+import FloorInviteClientContainer from 'components/floors/singleFloor/containers/FloorInviteClientContainer';
 
 const FloorRoutes = ({ match: { url: baseUrl } }) => (
     <SwitchWith404>
@@ -26,6 +27,11 @@ const FloorRoutes = ({ match: { url: baseUrl } }) => (
             exact
             path={`${baseUrl}/:id/attach-document`}
             component={AttachFloorDocument}
+        />
+        <Route
+            exact
+            path={`${baseUrl}/:id/client-access`}
+            component={FloorInviteClientContainer}
         />
         <Route
             exact

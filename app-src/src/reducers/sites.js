@@ -11,6 +11,9 @@ import {
     CREATE_SITE_REQUEST,
     CREATE_SITE_SUCCESS,
     CREATE_SITE_FAILURE,
+    EDIT_SITE_REQUEST,
+    EDIT_SITE_SUCCESS,
+    EDIT_SITE_FAILURE,
     UPDATE_SITES_FILTERS
 } from 'constants/actionTypes/sites';
 
@@ -41,8 +44,10 @@ function isFetchingReducer(state = false, action) {
 function postSuccessReducer(state = false, action) {
     switch (action.type) {
         case CREATE_SITE_REQUEST:
+        case EDIT_SITE_REQUEST:
             return false;
         case CREATE_SITE_SUCCESS:
+        case EDIT_SITE_SUCCESS:
             return true;
         default:
             return state;
@@ -52,6 +57,7 @@ function postSuccessReducer(state = false, action) {
 function updatedSiteReducer(state = 0, action) {
     switch (action.type) {
         case CREATE_SITE_SUCCESS:
+        case EDIT_SITE_SUCCESS:
             return action.payload.id;
         default:
             return state;
@@ -67,6 +73,7 @@ function errorReducer(state = null, action) {
         case FETCH_ALL_SITES_FAILURE:
         case FETCH_SINGLE_SITE_FAILURE:
         case CREATE_SITE_FAILURE:
+        case EDIT_SITE_FAILURE:
             return action.error;
         default:
             return state;

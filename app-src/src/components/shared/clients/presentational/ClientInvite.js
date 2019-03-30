@@ -9,9 +9,10 @@ const ClientsInvite = ({ location }) => (
             given access to each drawing it contains. To remove the client you
             will need to remove them from each drawing individually.
         </p>
-        {/* <p>
-        You can view a list of manage access to all drawings have access to here
-        </p> */}
+        <p className="size-lg-12">
+            You can view a list of manage access to all drawings have access to{' '}
+            <Link to={`${location.pathname}/client-access`}>here</Link>
+        </p>
 
         <div className="button-container">
             <Link

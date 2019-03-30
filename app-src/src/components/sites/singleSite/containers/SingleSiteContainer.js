@@ -29,6 +29,8 @@ class SingleSiteContainer extends Component {
             fetchOperatives
         } = this.props;
 
+        console.log(siteID);
+
         fetchSingleSite(siteID);
         fetchAllBuildings();
         fetchAllFloors();
