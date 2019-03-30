@@ -1,13 +1,15 @@
 import { combineReducers } from 'redux';
 
-import { updateObj, removeObjItem } from 'helpers/generic';
+import { updateObj, removeObjItem, swapItemSorts } from 'helpers/generic';
 import {
     ADD_SECTION,
     DELETE_SECTION,
     UPDATE_SECTION,
     ADD_QUESTION,
     EDIT_QUESTION,
-    DELETE_QUESTION
+    DELETE_QUESTION,
+    CHANGE_QUESTION_SECTION,
+    SWAP_QUESTION_SORTS
 } from 'constants/actionTypes/templateBuilder';
 
 const defaultSections = {
@@ -96,6 +98,20 @@ function questionsReducer(state = defaultQuestions, action) {
         case ADD_QUESTION:
         case EDIT_QUESTION:
             return updateObj(state, action.question.uuid, action.question);
+        case CHANGE_QUESTION_SECTION:
+            return {
+                ...state,
+                [action.questionUuid]: {
+                    ...state[action.questionUuid],
+                    sectionUuid: action.sectionUuid
+                }
+            };
+        case SWAP_QUESTION_SORTS:
+            return swapItemSorts(
+                state,
+                action.question1Uuid,
+                action.question2Uuid
+            );
         case DELETE_QUESTION:
             return removeObjItem(state, action.uuid);
         default:
