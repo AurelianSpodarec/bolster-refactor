@@ -6,7 +6,7 @@ import BuildingDetailsContainer from '../containers/BuildingDetailsContainer';
 import BuildingDocumentsTableContainer from '../containers/BuildingDocumentsTableContainer';
 import BuildingFloorsTableContainer from '../containers/BuildingFloorsTableContainer';
 import BuildingOperativesTableContainer from '../containers/BuildingOperativesTableContainer';
-import BuildingClientsTableContainer from '../containers/BuildingClientsTableContainer';
+import BuildingClientInviteContainer from '../containers/BuildingClientInviteContainer';
 import BuildingCompaniesAccessTableContainer from '../containers/BuildingCompaniesAccessTableContainer';
 import BuildingPageHeaderContainer from '../containers/BuildingPageHeaderContainer';
 import BreadcrumbContainer from 'components/pins/singlePin/containers/BreadcrumbContainer';
@@ -34,9 +34,9 @@ const SingleBuilding = () => (
             <BuildingOperativesTableContainer />
         </Block>
 
-        <Block containerClass="size-lg-4">
-            <BuildingClientsTableContainer />
-        </Block>
+        <div className="size-lg-4">
+            <BuildingClientInviteContainer />
+        </div>
 
         <Block containerClass="size-lg-4">
             <BuildingCompaniesAccessTableContainer />
