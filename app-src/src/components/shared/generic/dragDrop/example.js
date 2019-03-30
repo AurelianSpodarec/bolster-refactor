@@ -1,62 +1,40 @@
-import React, { useState } from 'react';
-import Card from './Card';
+import React, { Component } from 'react';
+import Container from './Container';
 
-const style = {
-    width: 400
-};
-const Container = () => {
-    {
-        const [cards, setCards] = useState([
-            {
-                id: 1,
-                text: 'Write a cool JS library'
-            },
-            {
-                id: 2,
-                text: 'Make it generic enough'
-            },
-            {
-                id: 3,
-                text: 'Write README'
-            },
-            {
-                id: 4,
-                text: 'Create some examples'
-            },
-            {
-                id: 5,
-                text:
-                    'Spam in Twitter and IRC to promote it (note that this element is taller than the others)'
-            },
-            {
-                id: 6,
-                text: '???'
-            },
-            {
-                id: 7,
-                text: 'PROFIT'
-            }
-        ]);
-        const moveCard = (dragIndex, hoverIndex) => {
-            const newArr = [...cards];
-            newArr[dragIndex] = cards[hoverIndex];
-            newArr[hoverIndex] = cards[dragIndex];
-
-            setCards(newArr);
+class Example extends Component {
+    render() {
+        const style = {
+            display: 'flex',
+            justifyContent: 'space-around',
+            paddingTop: '20px'
         };
+
+        const listOne = [
+            { id: 1, text: 'Item 1' },
+            { id: 2, text: 'Item 2' },
+            { id: 3, text: 'Item 3' }
+        ];
+
+        const listTwo = [
+            { id: 4, text: 'Item 4' },
+            { id: 5, text: 'Item 5' },
+            { id: 6, text: 'Item 6' }
+        ];
+
+        const listThree = [
+            { id: 7, text: 'Item 7' },
+            { id: 8, text: 'Item 8' },
+            { id: 9, text: 'Item 9' }
+        ];
+
         return (
-            <div style={style}>
-                {cards.map((card, i) => (
-                    <Card
-                        key={card.id}
-                        index={i}
-                        id={card.id}
-                        text={card.text}
-                        moveCard={moveCard}
-                    />
-                ))}
+            <div style={{ ...style }}>
+                <Container id={1} list={listOne} />
+                <Container id={2} list={listTwo} />
+                <Container id={3} list={listThree} />
             </div>
         );
     }
-};
-export default Container;
+}
+
+export default Example;
