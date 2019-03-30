@@ -42,6 +42,13 @@ class TextInputContianer extends Component {
         this._validate(this.props.value);
     };
 
+    componentDidUpdate = ({ value: prevValue }) => {
+        const { value } = this.props;
+        const isPrevEmpty = !(prevValue && prevValue.length);
+        const isValEmpty = !(value && value.length);
+        if (isPrevEmpty && !isValEmpty) this._validate(value);
+    };
+
     componentWillUnmount = () => {
         const { name, error, removeFieldError } = this.props;
         if (error) removeFieldError(name);

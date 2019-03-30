@@ -77,9 +77,7 @@ const SiteEditForm = ({
         </div>
 
         <BlockButtonWrapper>
-            <button className="button green">
-                <i className="fa fa-plus" /> Add Site
-            </button>
+            <button className="button green">Confirm</button>
             <Link to="/sites" className="button">
                 Cancel
             </Link>
