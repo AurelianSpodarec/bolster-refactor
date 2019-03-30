@@ -37,15 +37,6 @@ const questionSource = {
             question: props.question
         };
     }
-
-    // endDrag(props, monitor) {
-    //     const item = monitor.getItem();
-    //     const dropResult = monitor.getDropResult();
-
-    //     if (dropResult && dropResult.sectionUuid !== item.sectionUuid) {
-    //         props.removeCard(item.index);
-    //     }
-    // }
 };
 
 const questionTarget = {

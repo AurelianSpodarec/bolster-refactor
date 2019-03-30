@@ -103,7 +103,8 @@ function questionsReducer(state = defaultQuestions, action) {
                 ...state,
                 [action.questionUuid]: {
                     ...state[action.questionUuid],
-                    sectionUuid: action.sectionUuid
+                    sectionUuid: action.sectionUuid,
+                    sort: action.sort
                 }
             };
         case SWAP_QUESTION_SORTS:
