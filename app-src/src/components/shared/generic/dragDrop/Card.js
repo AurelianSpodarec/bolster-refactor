@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { findDOMNode } from 'react-dom';
 import { DragSource, DropTarget } from 'react-dnd';
 import flow from 'lodash/flow';
 
@@ -23,7 +22,12 @@ class Card extends Component {
 
         return connectDragSource(
             connectDropTarget(
-                <div style={{ ...style, opacity }}>{card.text}</div>
+                <div
+                    ref={ref => (this.card = ref)}
+                    style={{ ...style, opacity }}
+                >
+                    {card.text}
+                </div>
             )
         );
     }
@@ -59,9 +63,7 @@ const cardTarget = {
         }
 
         // Determine rectangle on screen
-        const hoverBoundingRect = findDOMNode(
-            component
-        ).getBoundingClientRect();
+        const hoverBoundingRect = component.card.getBoundingClientRect();
 
         // Get vertical middle
         const hoverMiddleY =
