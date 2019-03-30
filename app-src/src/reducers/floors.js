@@ -10,7 +10,10 @@ import {
     FETCH_SINGLE_FLOOR_FAILURE,
     CREATE_FLOOR_REQUEST,
     CREATE_FLOOR_SUCCESS,
-    CREATE_FLOOR_FAILURE
+    CREATE_FLOOR_FAILURE,
+    EDIT_FLOOR_REQUEST,
+    EDIT_FLOOR_SUCCESS,
+    EDIT_FLOOR_FAILURE
 } from 'constants/actionTypes/floors';
 
 export default combineReducers({
@@ -25,11 +28,14 @@ function isFetchingReducer(state = false, action) {
     switch (action.type) {
         case FETCH_ALL_FLOORS_REQUEST:
         case FETCH_SINGLE_FLOOR_REQUEST:
+        case EDIT_FLOOR_REQUEST:
             return true;
         case FETCH_ALL_FLOORS_SUCCESS:
         case FETCH_SINGLE_FLOOR_SUCCESS:
+        case EDIT_FLOOR_SUCCESS:
         case FETCH_ALL_FLOORS_FAILURE:
         case FETCH_SINGLE_FLOOR_FAILURE:
+        case EDIT_FLOOR_FAILURE:
             return false;
         default:
             return state;
@@ -39,8 +45,10 @@ function isFetchingReducer(state = false, action) {
 function postSuccessReducer(state = false, action) {
     switch (action.type) {
         case CREATE_FLOOR_REQUEST:
+        case EDIT_FLOOR_REQUEST:
             return false;
         case CREATE_FLOOR_SUCCESS:
+        case EDIT_FLOOR_SUCCESS:
             return true;
         default:
             return state;
@@ -56,6 +64,7 @@ function errorReducer(state = null, action) {
         case FETCH_ALL_FLOORS_FAILURE:
         case FETCH_SINGLE_FLOOR_FAILURE:
         case CREATE_FLOOR_FAILURE:
+        case EDIT_FLOOR_FAILURE:
             return action.error;
         default:
             return state;
@@ -79,6 +88,7 @@ function floorsReducer(state = {}, action) {
             return convertArrToObj(action.payload);
         case FETCH_SINGLE_FLOOR_SUCCESS:
         case CREATE_FLOOR_SUCCESS:
+        case EDIT_FLOOR_SUCCESS:
             return updateObj(state, action.payload.id, action.payload);
         default:
             return state;

@@ -25,15 +25,18 @@ class BuildingEditContainer extends Component {
     componentDidUpdate = prevProps => {
         const { building } = this.props;
 
-        if (!prevProps.building.id && !!building.id) {
+        if (!prevProps.building.id && building.id) {
             this._setBuildingName();
         }
     };
 
     componentDidMount = () => {
-        const { fetchSingleBuilding, buildingID } = this.props;
+        const { fetchSingleBuilding, buildingID, building } = this.props;
 
         fetchSingleBuilding(buildingID);
+        if (building.id) {
+            this._setBuildingName();
+        }
     };
 }
 

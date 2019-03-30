@@ -8,7 +8,6 @@ import editbuilding from 'actions/buildings/async/editBuilding';
 class BuildingEditFormContainer extends Component {
     state = {
         name: '',
-        client: '',
         addressLine1: '',
         addressLine2: '',
         postcode: ''
@@ -57,7 +56,6 @@ class BuildingEditFormContainer extends Component {
 
         this.setState({
             name: building.name,
-            client: building.client,
             addressLine1: building.addressLine1,
             addressLine2: building.addressLine2,
             postcode: building.postcode
@@ -70,17 +68,10 @@ class BuildingEditFormContainer extends Component {
     handleSubmit = e => {
         e.preventDefault();
 
-        const {
-            name,
-            client,
-            addressLine1,
-            addressLine2,
-            postcode
-        } = this.state;
+        const { name, addressLine1, addressLine2, postcode } = this.state;
 
         const postBody = {
             name: name,
-            client: client,
             addressLine1: addressLine1,
             addressLine2: addressLine2,
             postcode: postcode
