@@ -2,18 +2,13 @@ import React, { Component } from 'react';
 import { DragSource, DropTarget } from 'react-dnd';
 import flow from 'lodash/flow';
 
-const style = {
-    border: '1px dashed gray',
-    padding: '0.5rem 1rem',
-    margin: '.5rem',
-    backgroundColor: 'white',
-    cursor: 'move'
-};
+import Question from '../presentational/Question';
+import { DRAG_TYPES } from 'constants/dragTypes';
 
-class CardContainer extends Component {
+class QuestionContainer extends Component {
     render() {
         const {
-            card,
+            question,
             isDragging,
             connectDragSource,
             connectDropTarget
@@ -21,41 +16,43 @@ class CardContainer extends Component {
 
         return connectDragSource(
             connectDropTarget(
-                <div
-                    ref={ref => (this.card = ref)}
-                    style={{ ...style, opacity: isDragging ? 0 : 1 }}
-                >
-                    {card.text}
+                <div ref={ref => (this.question = ref)}>
+                    <Question
+                        connectDragSource={connectDragSource}
+                        connectDropTarget={connectDropTarget}
+                        isDragging={isDragging}
+                        question={question}
+                    />
                 </div>
             )
         );
     }
 }
 
-const cardSource = {
+const questionSource = {
     beginDrag(props) {
         return {
             index: props.index,
-            listId: props.listId,
-            card: props.card
+            sectionUuid: props.sectionUuid,
+            question: props.question
         };
-    },
-
-    endDrag(props, monitor) {
-        const item = monitor.getItem();
-        const dropResult = monitor.getDropResult();
-
-        if (dropResult && dropResult.listId !== item.listId) {
-            props.removeCard(item.index);
-        }
     }
+
+    // endDrag(props, monitor) {
+    //     const item = monitor.getItem();
+    //     const dropResult = monitor.getDropResult();
+
+    //     if (dropResult && dropResult.sectionUuid !== item.sectionUuid) {
+    //         props.removeCard(item.index);
+    //     }
+    // }
 };
 
-const cardTarget = {
+const questionTarget = {
     hover(props, monitor, component) {
         const dragIndex = monitor.getItem().index;
         const hoverIndex = props.index;
-        const sourceListId = monitor.getItem().listId;
+        const sourceSectionUuid = monitor.getItem().sectionUuid;
 
         // Don't replace items with themselves
         if (dragIndex === hoverIndex) {
@@ -63,7 +60,7 @@ const cardTarget = {
         }
 
         // Determine rectangle on screen
-        const hoverBoundingRect = component.card.getBoundingClientRect();
+        const hoverBoundingRect = component.question.getBoundingClientRect();
 
         // Get vertical middle
         const hoverMiddleY =
@@ -90,8 +87,8 @@ const cardTarget = {
         }
 
         // Time to actually perform the action
-        if (props.listId === sourceListId) {
-            props.moveCard(dragIndex, hoverIndex);
+        if (props.sectionUuid === sourceSectionUuid) {
+            props.moveQuestion(dragIndex, hoverIndex);
 
             // Note: we're mutating the monitor item here!
             // Generally it's better to avoid mutations,
@@ -103,11 +100,11 @@ const cardTarget = {
 };
 
 export default flow(
-    DropTarget('CARD', cardTarget, connect => ({
+    DropTarget(DRAG_TYPES.QUESTION, questionTarget, connect => ({
         connectDropTarget: connect.dropTarget()
     })),
-    DragSource('CARD', cardSource, (connect, monitor) => ({
+    DragSource(DRAG_TYPES.QUESTION, questionSource, (connect, monitor) => ({
         connectDragSource: connect.dragSource(),
         isDragging: monitor.isDragging()
     }))
-)(CardContainer);
+)(QuestionContainer);
