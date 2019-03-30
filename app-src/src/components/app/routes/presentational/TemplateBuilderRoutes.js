@@ -2,7 +2,7 @@ import React from 'react';
 import { Route } from 'react-router-dom';
 
 import SwitchWith404 from './SwitchWith404';
-import TemplateBuilderContainer from 'components/templateBuilder/containers/TemplateBuilderContainer';
+import TemplateBuilderContainer from 'components/templateBuilder/templateBuilderOrig/containers/TemplateBuilderContainer';
 
 const TemplateBuilderRoutes = ({ match: { url: baseUrl } }) => (
     <SwitchWith404>

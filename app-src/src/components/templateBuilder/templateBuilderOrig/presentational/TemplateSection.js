@@ -10,10 +10,10 @@ import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/pr
 
 const TemplateSection = ({
     section,
-    questions,
     showModal,
     deleteSection,
-    duplicateSection
+    duplicateSection,
+    questions
 }) => (
     <div className="template-block size-lg-12">
         <BlockHeadingWControls title={section.name}>
@@ -31,7 +31,10 @@ const TemplateSection = ({
                 Rename
             </button>
         </BlockHeadingWControls>
-        <TemplateQuestionListContainer questions={questions} />
+        <TemplateQuestionListContainer
+            questions={questions}
+            sectionUuid={section.uuid}
+        />
         <BlockButtonWrapper>
             <button
                 className="button"
