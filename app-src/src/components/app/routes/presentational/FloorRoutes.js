@@ -9,10 +9,21 @@ import AttachFloorDocument from 'components/floors/attachFloorDocument/presentat
 import InviteCompanyToFloor from 'components/floors/inviteCompanyToFloor/presentational/InviteCompanyToFloor';
 import AddFloor from 'components/floors/addFloor/presentational/AddFloor';
 import FloorInviteClientContainer from 'components/floors/singleFloor/containers/FloorInviteClientContainer';
+import FloorEditContainer from 'components/floors/singleFloor/containers/FloorEditContainer';
 
 const FloorRoutes = ({ match: { url: baseUrl } }) => (
     <SwitchWith404>
         <Route exact path={`${baseUrl}/:id`} component={SingleFloorContainer} />
+        <Route
+            exact
+            path={`${baseUrl}/create/:buildingID`}
+            component={AddFloor}
+        />
+        <Route
+            exact
+            path={`${baseUrl}/edit/:id`}
+            component={FloorEditContainer}
+        />
         <Route
             exact
             path={`${baseUrl}/:id/attach-operative`}
@@ -37,11 +48,6 @@ const FloorRoutes = ({ match: { url: baseUrl } }) => (
             exact
             path={`${baseUrl}/:id/invite-company`}
             component={InviteCompanyToFloor}
-        />
-        <Route
-            exact
-            path={`${baseUrl}/create/:buildingID`}
-            component={AddFloor}
         />
     </SwitchWith404>
 );

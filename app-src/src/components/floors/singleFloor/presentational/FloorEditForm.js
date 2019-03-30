@@ -1,0 +1,33 @@
+import React from 'react';
+import { Link } from 'react-router-dom';
+
+import Field from 'components/shared/generic/form/presentational/Field';
+import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
+import Form from 'components/shared/generic/form/containers/Form';
+import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
+
+const FloorEditForm = ({ handleSubmit, handleInputChange, name, floorID }) => (
+    <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
+        <div className="size-lg-12">
+            <div className="size-lg-6">
+                <Field name="floor name">
+                    <TextInputContainer
+                        name="name"
+                        value={name}
+                        handleChange={handleInputChange}
+                        required
+                    />
+                </Field>
+            </div>
+        </div>
+
+        <BlockButtonWrapper>
+            <button className="button green">Confirm</button>
+            <Link to={`/floors/${floorID}`} className="button">
+                Cancel
+            </Link>
+        </BlockButtonWrapper>
+    </Form>
+);
+
+export default FloorEditForm;
