@@ -48,3 +48,11 @@ export function sortArrayByKeyAndOrder(array, key, order) {
         return a[key] > b[key] ? value : a[key] < b[key] ? -value : 0;
     });
 }
+
+export function swapItemSorts(obj, key1, key2) {
+    return {
+        ...obj,
+        [key1]: updateObj(obj[key1], 'sort', obj[key2].sort),
+        [key2]: updateObj(obj[key2], 'sort', obj[key1].sort)
+    };
+}

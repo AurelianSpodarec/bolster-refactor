@@ -1,4 +1,4 @@
-import { ADD_SECTION } from 'constants/actionTypes//templateBuilder';
+import { ADD_SECTION } from 'constants/actionTypes/templateBuilder';
 
 export default section => dispatch =>
     dispatch({

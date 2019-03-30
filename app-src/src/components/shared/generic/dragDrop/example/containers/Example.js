@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Container from './Container';
+import CardListContainer from './CardListContainer';
 
 class Example extends Component {
     render() {
@@ -29,9 +29,9 @@ class Example extends Component {
 
         return (
             <div style={{ ...style }}>
-                <Container id={1} list={listOne} />
-                <Container id={2} list={listTwo} />
-                <Container id={3} list={listThree} />
+                <CardListContainer id={1} list={listOne} />
+                <CardListContainer id={2} list={listTwo} />
+                <CardListContainer id={3} list={listThree} />
             </div>
         );
     }

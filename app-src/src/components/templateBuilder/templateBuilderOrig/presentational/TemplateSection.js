@@ -5,15 +5,15 @@ import {
     RENAME_TEMPLATE_SECTION
 } from 'constants/modalTypes';
 import BlockHeadingWControls from 'components/shared/generic/blockHeadingWControls/presentational/BlockHeadingWControls';
-import TemplateSectionTableContainer from '../containers/TemplateSectionTableContainer';
+import TemplateQuestionListContainer from '../containers/TemplateQuestionListContainer';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 
 const TemplateSection = ({
     section,
-    questions,
     showModal,
     deleteSection,
-    duplicateSection
+    duplicateSection,
+    questions
 }) => (
     <div className="template-block size-lg-12">
         <BlockHeadingWControls title={section.name}>
@@ -31,7 +31,10 @@ const TemplateSection = ({
                 Rename
             </button>
         </BlockHeadingWControls>
-        <TemplateSectionTableContainer questions={questions} />
+        <TemplateQuestionListContainer
+            questions={questions}
+            sectionUuid={section.uuid}
+        />
         <BlockButtonWrapper>
             <button
                 className="button"

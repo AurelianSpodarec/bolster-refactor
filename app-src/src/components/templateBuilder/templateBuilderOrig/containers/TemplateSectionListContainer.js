@@ -9,5 +9,7 @@ class TemplateSectionListContainer extends Component {
 }
 
 export default connect(({ templateBuilderReducer }) => ({
-    sections: Object.values(templateBuilderReducer.sections)
+    sections: Object.values(templateBuilderReducer.sections).sort(
+        (a, b) => a.sort - b.sort
+    )
 }))(TemplateSectionListContainer);

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import update from 'immutability-helper';
 import { DropTarget } from 'react-dnd';
 
-import Card from './Card';
+import CardContainer from './CardContainer';
 
 class Container extends Component {
     constructor(props) {
@@ -26,7 +26,7 @@ class Container extends Component {
             <div style={{ ...style, backgroundColor }}>
                 {cards.map((card, i) => {
                     return (
-                        <Card
+                        <CardContainer
                             key={card.id}
                             index={i}
                             listId={this.props.id}
