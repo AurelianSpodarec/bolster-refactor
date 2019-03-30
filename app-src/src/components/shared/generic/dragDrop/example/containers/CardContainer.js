@@ -10,7 +10,7 @@ const style = {
     cursor: 'move'
 };
 
-class Card extends Component {
+class CardContainer extends Component {
     render() {
         const {
             card,
@@ -18,13 +18,12 @@ class Card extends Component {
             connectDragSource,
             connectDropTarget
         } = this.props;
-        const opacity = isDragging ? 0 : 1;
 
         return connectDragSource(
             connectDropTarget(
                 <div
                     ref={ref => (this.card = ref)}
-                    style={{ ...style, opacity }}
+                    style={{ ...style, opacity: isDragging ? 0 : 1 }}
                 >
                     {card.text}
                 </div>
@@ -110,4 +109,4 @@ export default flow(
         connectDragSource: connect.dragSource(),
         isDragging: monitor.isDragging()
     }))
-)(Card);
+)(CardContainer);

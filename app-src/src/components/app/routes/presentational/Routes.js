@@ -8,7 +8,7 @@ import SwitchWith404 from './SwitchWith404';
 import Dashboard from 'components/dashboard/dashboard/presentational/Dashboard';
 import NotFound from 'components/notFound/presentational/NotFound';
 
-import DnDExample from 'components/shared/generic/dragDrop/example';
+import DnDExample from 'components/shared/generic/dragDrop/example/containers/Example';
 import AuthRoutes from './AuthRoutes';
 import AdminRoutes from './AdminRoutes';
 import SitesRoutes from './SitesRoutes';
