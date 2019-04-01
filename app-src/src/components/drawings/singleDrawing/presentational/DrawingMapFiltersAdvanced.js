@@ -12,7 +12,7 @@ const DrawingMapFiltersAdvanced = ({
     handleInputChange = () => {},
     pins
 }) => (
-    <div className="form size-lg-12">
+    <div className="form size-lg-8">
         <div className="size-lg-9">
             <div className="size-lg-6">
                 <Filter

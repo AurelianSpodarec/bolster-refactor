@@ -20,15 +20,13 @@ class DrawingInspectionLogContainer extends Component {
         );
 
         return (
-            <BlockContainer>
-                <DrawingInspectionLogsTable
-                    headers={tableHeaders}
-                    isFetching={isFetching}
-                    error={error}
-                    inspectionLogs={filteredInspectionLogs}
-                    handleFilterChange={this.handleFilterChange}
-                />
-            </BlockContainer>
+            <DrawingInspectionLogsTable
+                headers={tableHeaders}
+                isFetching={isFetching}
+                error={error}
+                inspectionLogs={filteredInspectionLogs}
+                handleFilterChange={this.handleFilterChange}
+            />
         );
     }
 

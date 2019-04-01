@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 import DrawingMapFiltersAdvanced from '../presentational/DrawingMapFiltersAdvanced';
 import DrawingMapViewSimple from '../presentational/DrawingMapViewSimple';
+import DrawingInspectionLogContainer from './DrawingInspectionLogContainer';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 
 class DrawingMapGeneralContainer extends Component {
@@ -48,6 +49,7 @@ class DrawingMapGeneralContainer extends Component {
                     serviceTypeSelected={this.state.serviceTypeSelected}
                     pins={this.props.pins}
                 />
+                <DrawingInspectionLogContainer />
                 <DrawingMapViewSimple
                     position={position}
                     zoom={this.state.mapZoom}

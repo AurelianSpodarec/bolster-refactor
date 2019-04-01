@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 const DrawingInspectionLogsList = ({ inspectionLogs }) =>
     [...inspectionLogs]
         .sort((a, b) => moment(b.updated) - moment(a.updated))
-        .slice(0, 5)
+        .slice(0, 2)
         .map(inspectionLog => (
             <tr key={inspectionLog.id}>
                 <td>{inspectionLog.name}</td>
