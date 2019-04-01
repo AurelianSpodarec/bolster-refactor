@@ -40,6 +40,7 @@ const DrawingInspectionLogsTable = ({
                 .slice(0, 2)
                 .map(inspectionLog => (
                     <DrawingInspectionLogsListItem
+                        key={inspectionLog.id}
                         inspectionLog={inspectionLog}
                     />
                 ))}
