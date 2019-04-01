@@ -15,10 +15,11 @@ const AttachDocumentForm = ({
     handleInputChange,
     handleFileChange,
     handleRadioChange,
+    handleCheckboxChange,
     handleMultiselect,
     handleSubmit,
     handleDateChange,
-    requiresAgreement,
+    type,
     name,
     isPhotoRequired,
     isFileViewRequired,
@@ -30,7 +31,7 @@ const AttachDocumentForm = ({
     endOn,
     backUrl
 }) => (
-    <Form className="content-area size-lg-12" handleSubmit={handleSubmit}>
+    <Form className="content-area size-lg-12" onSubmit={handleSubmit}>
         <h1 className="heading heading-3">Attach Document</h1>
         <p>
             Instructions: ##Lorem ipsum dolor sit amet consectetur adipisicing
@@ -42,21 +43,24 @@ const AttachDocumentForm = ({
         </p>
         <div className="size-lg-12">
             <RadioButton
-                name="requiresAgreement"
-                requiresAgreement={requiresAgreement}
-                value="View only"
+                name="type"
+                checked={type === '1' ? true : false}
+                text="View only"
+                value="1"
                 handleInputChange={handleRadioChange}
             />
             <RadioButton
-                name="requiresAgreement"
-                requiresAgreement={requiresAgreement}
-                value="Requires agreement (once)"
+                name="type"
+                checked={type === '2' ? true : false}
+                text="Requires agreement (once)"
+                value="2"
                 handleInputChange={handleRadioChange}
             />
             <RadioButton
-                name="requiresAgreement"
-                requiresAgreement={requiresAgreement}
-                value="Requires agreement (periodically)"
+                name="type"
+                checked={type === '3' ? true : false}
+                text="Requires agreement (periodically)"
+                value="3"
                 handleInputChange={handleRadioChange}
             />
         </div>
@@ -85,14 +89,13 @@ const AttachDocumentForm = ({
             </div>
         </div>
         <div className="size-lg-12">
-            <Field sizeClasses="size-lg-6" name="Select dates">
-                <DatePickerContainer
-                    startOn={startOn}
-                    endOn={endOn}
-                    name="DatePicker"
-                    onChange={handleDateChange}
-                />
-            </Field>
+            <DatePickerContainer
+                startOn={startOn}
+                // ! only receiving errors for end on
+                endOn={endOn}
+                // name="endOn"
+                onChange={handleDateChange}
+            />
         </div>
         <div className="size-lg-12">
             <Field name="Service type">
@@ -102,35 +105,35 @@ const AttachDocumentForm = ({
                 />
             </Field>
         </div>
-        {requiresAgreement !== 'View only' && (
+        {type !== '1' && (
             <>
                 <Field name="Options">
                     <SwitchContainer
                         checked={isPhotoRequired}
-                        handleChange={handleInputChange}
+                        handleChange={handleCheckboxChange}
                         name="isPhotoRequired"
                         text="Requires photo"
                     />
                     <SwitchContainer
                         checked={isFileViewRequired}
-                        handleChange={handleInputChange}
+                        handleChange={handleCheckboxChange}
                         name="isFileViewRequired"
                         text="Requires file view"
                     />
                     <SwitchContainer
                         checked={isSignatureRequired}
-                        handleChange={handleInputChange}
+                        handleChange={handleCheckboxChange}
                         name="isSignatureRequired"
                         text="Requires signature"
                     />
                     <SwitchContainer
                         checked={isUpsyncForced}
-                        handleChange={handleInputChange}
+                        handleChange={handleCheckboxChange}
                         name="isUpsyncForced"
                         text="Force upsync to continue"
                     />
                 </Field>
-                {requiresAgreement === 'Requires agreement (periodically)' && (
+                {type === '3' && (
                     <div className="size-lg-12">
                         <div className="size-lg-6">
                             <Field name="Agreeance frequency (days)">

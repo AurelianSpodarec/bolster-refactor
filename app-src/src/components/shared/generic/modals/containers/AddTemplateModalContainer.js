@@ -1,27 +1,24 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import uuid from 'uuid/v1';
+import { withRouter } from 'react-router-dom';
 
 import addSection from 'actions/superAdmin/templateBuilder/sync/addSection';
 import hideModal from 'actions/generic/modals/sync/hideModal';
 
-import AddTemplateSectionModal from '../presentational/AddTemplateSectionModal';
+import AddTemplateModal from '../presentational/AddTemplateModal';
 
-class AddTemplateSectionModalContainer extends React.Component {
+class AddTemplateModalContainer extends React.Component {
     state = {
         name: ''
     };
 
     render() {
         return (
-            <AddTemplateSectionModal
+            <AddTemplateModal
                 name={this.state.name}
                 handleChange={this.handleChange}
                 handleSubmit={this.handleSubmit}
-                hideModal={e => {
-                    e.preventDefault();
-                    this.props.hideModal();
-                }}
+                handleCancel={this.handleCancel}
             />
         );
     }
@@ -30,19 +27,20 @@ class AddTemplateSectionModalContainer extends React.Component {
         this.setState({ [e.target.name]: e.target.value });
     };
 
+    handleCancel = e => {
+        e.preventDefault();
+        const { history, hideModal } = this.props;
+        history.goBack();
+        hideModal();
+    };
+
     handleSubmit = e => {
         e.preventDefault();
-        const { name } = this.state;
-        const { sections } = this.props;
-
-        const sort = Math.max(0, ...[...sections].map(s => s.sort)) + 1;
-        this.props.addSection({ name, uuid: uuid(), sort });
+        const { companyID } = this.props;
+        console.log('hihihihihi');
+        console.log(companyID);
     };
 }
-
-const mapStateToProps = ({ templateSectionsReducer }) => ({
-    sections: Object.values(templateSectionsReducer.sections)
-});
 
 const mapDispatchToProps = dispatch => ({
     hideModal: () => {
@@ -54,7 +52,9 @@ const mapDispatchToProps = dispatch => ({
     }
 });
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(AddTemplateSectionModalContainer);
+export default withRouter(
+    connect(
+        null,
+        mapDispatchToProps
+    )(AddTemplateModalContainer)
+);
