@@ -1,7 +1,8 @@
 import React from 'react';
+import moment from 'moment';
 
 import Table from 'components/shared/generic/tables/presentational/Table';
-import DrawingInspectionLogsList from '../presentational/DrawingInspectionLogsList.js';
+import DrawingInspectionLogsListItem from '../presentational/DrawingInspectionLogsListItem';
 
 const DrawingInspectionLogsTable = ({
     headers,
@@ -34,7 +35,14 @@ const DrawingInspectionLogsTable = ({
             noDataMessage="There are no credit logs to display."
             withActions
         >
-            <DrawingInspectionLogsList inspectionLogs={inspectionLogs} />
+            {[...inspectionLogs]
+                .sort((a, b) => moment(b.updated) - moment(a.updated))
+                .slice(0, 2)
+                .map(inspectionLog => (
+                    <DrawingInspectionLogsListItem
+                        inspectionLog={inspectionLog}
+                    />
+                ))}
         </Table>
     </div>
 );
