@@ -72,6 +72,7 @@ class FloorEditFormContainer extends Component {
 const mapStateToProps = ({ floorsReducer }, ownProps) => ({
     postSuccess: floorsReducer.postSuccess,
     error: floorsReducer.error,
+    floorID: ownProps.match.params.id,
     floor: floorsReducer.floors[ownProps.match.params.id] || {}
 });
 
