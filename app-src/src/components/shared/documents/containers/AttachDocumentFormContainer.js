@@ -25,8 +25,8 @@ class AttachDocumentFormContainer extends Component {
         },
         aggreeancePerDay: 0,
         // date selector
-        startDate: new Date(),
-        endDate: new Date()
+        startDate: new Date(1558306800000),
+        endDate: new Date(1558306800000)
     };
 
     baseState = this.state;
@@ -39,6 +39,7 @@ class AttachDocumentFormContainer extends Component {
             handleRadioChange={this.handleRadioChange}
             handleMultiselect={this.handleMultiselect}
             handleDateChange={this.handleDateChange}
+            validateDatePicker={this.validateDatePicker}
             backUrl={this.props.backUrl}
         />
     );
@@ -53,6 +54,7 @@ class AttachDocumentFormContainer extends Component {
     };
 
     handleDateChange = (date, name) => {
+        console.log(date, name);
         this.setState({
             [name]: date
         });
