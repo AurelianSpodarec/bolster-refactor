@@ -12,36 +12,36 @@ import BuildingPageHeaderContainer from '../containers/BuildingPageHeaderContain
 import BreadcrumbContainer from 'components/pins/singlePin/containers/BreadcrumbContainer';
 
 const SingleBuilding = () => (
-    <div className="size-lg-12">
+    <>
         <BreadcrumbContainer />
         <div className="size-lg-12">
             <BuildingPageHeaderContainer />
         </div>
 
-        <Block containerClass="size-lg-8" contentClass="site-details">
+        <div className="size-lg-8">
             <BuildingDetailsContainer />
-        </Block>
+        </div>
 
-        <Block containerClass="size-lg-4">
+        <div className="size-lg-4">
             <BuildingDocumentsTableContainer />
-        </Block>
+        </div>
 
-        <Block>
+        <div className="size-lg-12">
             <BuildingFloorsTableContainer />
-        </Block>
+        </div>
 
-        <Block containerClass="size-lg-4">
+        <div className="size-lg-4">
             <BuildingOperativesTableContainer />
-        </Block>
+        </div>
 
         <div className="size-lg-4">
             <BuildingInviteClientContainer />
         </div>
 
-        <Block containerClass="size-lg-4">
+        <div className="size-lg-4">
             <BuildingCompaniesAccessTableContainer />
-        </Block>
-    </div>
+        </div>
+    </>
 );
 
 export default SingleBuilding;

@@ -12,6 +12,7 @@ import DnDExample from 'components/shared/generic/dragDrop/example/containers/Ex
 import AuthRoutes from './AuthRoutes';
 import AdminRoutes from './AdminRoutes';
 import SitesRoutes from './SitesRoutes';
+import CompaniesRoutes from './CompaniesRoutes';
 import BuildingsRoutes from './BuildingsRoutes';
 import FloorRoutes from './FloorRoutes';
 import DrawingsRoutes from './DrawingsRoutes';
@@ -35,6 +36,7 @@ const Routes = ({ showLoggedInLayout }) => (
             <Route path="/buildings" component={withAuth(BuildingsRoutes)} />
             <Route path="/floors" component={withAuth(FloorRoutes)} />
             <Route path="/drawings" component={withAuth(DrawingsRoutes)} />
+            <Route path="/companies" component={withAuth(CompaniesRoutes)} />
             <Route path="/messages" component={withAuth(MessagesRoutes)} />
             <Route
                 path="/users-management"
