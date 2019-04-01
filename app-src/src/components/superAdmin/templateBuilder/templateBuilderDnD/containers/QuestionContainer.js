@@ -115,8 +115,8 @@ const WithDragAndDrop = flow(
     }))
 )(QuestionContainer);
 
-const mapStateToProps = ({ templateBuilderReducer }) => ({
-    questions: Object.values(templateBuilderReducer.questions)
+const mapStateToProps = ({ templateQuestionsReducer }) => ({
+    questions: Object.values(templateQuestionsReducer.questions)
 });
 
 const mapDispatchToProps = dispatch => ({

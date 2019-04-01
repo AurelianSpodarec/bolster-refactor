@@ -24,7 +24,9 @@ import pinCustomFieldsReducer from './pinCustomFields';
 import pinHistoriesReducer from './pinHistories';
 import operativesReducer from './operatives';
 import modalReducer from './modal';
-import templateBuilderReducer from './superAdmin/templateBuilder';
+import templateSectionsReducer from './superAdmin/templateSections';
+import templateQuestionsReducer from './superAdmin/templateQuestions';
+import templatesReducer from './superAdmin/templates';
 import servicesReducer from './services';
 import usersReducer from './users';
 import enquiriesReducer from './enquiries';
@@ -54,7 +56,9 @@ export default combineReducers({
     pinHistoriesReducer,
     operativesReducer,
     modalReducer,
-    templateBuilderReducer,
+    templatesReducer,
+    templateSectionsReducer,
+    templateQuestionsReducer,
     servicesReducer,
     usersReducer,
     enquiriesReducer

@@ -35,11 +35,7 @@ const Question = ({
                 </button>
             </TooltipContainer>
         ) : (
-            <button
-                disabled
-                className="button red icon-only"
-                onClick={deleteQuestion}
-            >
+            <button className="button red icon-only" onClick={deleteQuestion}>
                 <i className="fa fa-times" />
             </button>
         )}

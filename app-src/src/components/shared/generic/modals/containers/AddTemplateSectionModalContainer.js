@@ -40,8 +40,8 @@ class AddTemplateSectionModalContainer extends React.Component {
     };
 }
 
-const mapStateToProps = ({ templateBuilderReducer }) => ({
-    sections: Object.values(templateBuilderReducer.sections)
+const mapStateToProps = ({ templateSectoinsReducer }) => ({
+    sections: Object.values(templateSectoinsReducer.sections)
 });
 
 const mapDispatchToProps = dispatch => ({

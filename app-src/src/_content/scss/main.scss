@@ -1359,6 +1359,12 @@ input {
 //inspection log
 .inspection-log {
     padding-left: 15px;
+
+    .pin {
+        float: left;
+        margin: -8px 5px 0 0;
+        top: 2px;
+    }
 }
 // .tooltip {
 //     position: absolute;
