@@ -12,7 +12,7 @@ class SiteCompaniesAccessTableContainer extends Component {
         return (
             <BlockContainer>
                 <CompaniesAccessTable
-                    companies={props.site.permissions}
+                    companies={[]}
                     parentId={props.site.id}
                     isEmpty={!props.site.id}
                     isFetching={props.isFetching}
