@@ -7,7 +7,7 @@ import BlockContainer from 'components/shared/generic/block/containers/BlockCont
 
 class SiteDocumentsTableContainer extends Component {
     render() {
-        const { error, isFetching, documents } = this.props;
+        const { error, isFetching } = this.props;
 
         return (
             <BlockContainer error={error}>

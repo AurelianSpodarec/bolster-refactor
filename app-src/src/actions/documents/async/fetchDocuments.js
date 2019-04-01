@@ -2,6 +2,7 @@ import axios from 'axios';
 
 import { API_URL } from 'config/index';
 import { getHeaders } from 'helpers/api';
+import setAPIFieldErrors from 'actions/generic/fieldErrors/sync/setAPIFieldErrors';
 
 import {
     FETCH_DOCUMENTS_REQUEST,

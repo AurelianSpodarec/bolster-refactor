@@ -23,7 +23,7 @@ class SingleSiteContainer extends Component {
             fetchAllBuildings,
             fetchAllFloors,
             fetchAllDrawings,
-            fetchDocuments,
+            // fetchDocuments,
             fetchClients,
             fetchAllCompanies,
             fetchOperatives
@@ -33,7 +33,7 @@ class SingleSiteContainer extends Component {
         fetchAllBuildings();
         fetchAllFloors();
         fetchAllDrawings();
-        fetchDocuments('site', siteID);
+        // fetchDocuments('site', siteID);
         fetchClients();
         fetchAllCompanies();
         fetchOperatives();

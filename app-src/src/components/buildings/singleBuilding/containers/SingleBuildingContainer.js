@@ -22,7 +22,7 @@ class SingleBuildingContainer extends Component {
             fetchAllDrawings,
             fetchAllFloors,
             fetchAllCompanies,
-            fetchDocuments,
+            // fetchDocuments,
             buildingID
         } = this.props;
 
