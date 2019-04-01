@@ -8,15 +8,15 @@ import {
     RENAME_TEMPLATE_SECTION
 } from 'constants/modalTypes';
 import { DRAG_TYPES } from 'constants/dragTypes';
-import swapQuestionSorts from 'actions/templateBuilder/sync/swapQuestionSorts';
-import changeQuestionSection from 'actions/templateBuilder/sync/changeQuestionSection';
+import swapQuestionSorts from 'actions/superAdmin/templateBuilder/sync/swapQuestionSorts';
+import changeQuestionSection from 'actions/superAdmin/templateBuilder/sync/changeQuestionSection';
 
 import Section from '../presentational/Section';
 
 import showModal from 'actions/generic/modals/sync/showModal';
-import addSection from 'actions/templateBuilder/sync/addSection';
-import deleteSection from 'actions/templateBuilder/sync/deleteSection';
-import addQuestion from 'actions/templateBuilder/sync/addQuestion';
+import addSection from 'actions/superAdmin/templateBuilder/sync/addSection';
+import deleteSection from 'actions/superAdmin/templateBuilder/sync/deleteSection';
+import addQuestion from 'actions/superAdmin/templateBuilder/sync/addQuestion';
 
 class SectionContainer extends Component {
     render() {

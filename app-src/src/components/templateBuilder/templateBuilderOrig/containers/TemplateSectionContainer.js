@@ -3,9 +3,9 @@ import { connect } from 'react-redux';
 import uuid from 'uuid/v1';
 
 import showModal from 'actions/generic/modals/sync/showModal';
-import addSection from 'actions/templateBuilder/sync/addSection';
-import deleteSection from 'actions/templateBuilder/sync/deleteSection';
-import addQuestion from 'actions/templateBuilder/sync/addQuestion';
+import addSection from 'actions/superAdmin/templateBuilder/sync/addSection';
+import deleteSection from 'actions/superAdmin/templateBuilder/sync/deleteSection';
+import addQuestion from 'actions/superAdmin/templateBuilder/sync/addQuestion';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import TemplateSection from '../presentational/TemplateSection';
 

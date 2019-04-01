@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import uuid from 'uuid/v1';
 
-import addSection from 'actions/templateBuilder/sync/addSection';
+import addSection from 'actions/superAdmin/templateBuilder/sync/addSection';
 import hideModal from 'actions/generic/modals/sync/hideModal';
 
 import AddTemplateSectionModal from '../presentational/AddTemplateSectionModal';
