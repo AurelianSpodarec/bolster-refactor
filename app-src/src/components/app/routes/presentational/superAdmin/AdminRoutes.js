@@ -7,7 +7,6 @@ import UsersRoutes from './UsersRoutes.js';
 import EnquiriesRoutes from './EnquiriesRouter';
 import CompaniesRoutes from './CompaniesRoutes';
 import GenerationQueueRoutes from './GenerationQueueRoutes';
-import TemplateBuilderRoutes from './TemplateBuilderRoutes';
 
 const AdminRoutes = ({ match: { url: baseUrl } }) => (
     <SwitchWith404>
@@ -21,10 +20,6 @@ const AdminRoutes = ({ match: { url: baseUrl } }) => (
         <Route
             path={`${baseUrl}/site-management/user-enquiries`}
             component={EnquiriesRoutes}
-        />
-        <Route
-            path={`${baseUrl}/template-builder`}
-            component={TemplateBuilderRoutes}
         />
     </SwitchWith404>
 );
