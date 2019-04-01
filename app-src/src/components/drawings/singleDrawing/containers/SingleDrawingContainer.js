@@ -8,7 +8,7 @@ import SingleDrawing from '../presentational/SingleDrawing';
 
 import fetchSingleDrawing from 'actions/drawings/async/fetchSingleDrawing';
 import fetchDocuments from 'actions/documents/async/fetchDocuments';
-import fetchClients from 'actions/clients/async/fetchClients';
+import fetchClients from 'actions/companies/async/fetchAllCompanies';
 import fetchAllCompanies from 'actions/companies/async/fetchAllCompanies';
 import fetchOperatives from 'actions/operatives/async/fetchOperatives';
 import fetchPins from 'actions/pins/async/fetchPins';
