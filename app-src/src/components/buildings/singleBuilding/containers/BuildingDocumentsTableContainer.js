@@ -14,5 +14,9 @@ class DocumentsTableContainer extends Component {
         );
     }
 }
-
+// const mapStateToProps = ({ documentsReducer }) => ({
+//     documents: Object.values(documentsReducer.documents),
+//     isFetching: documentsReducer.isFetching,
+//     error: documentsReducer.error
+// });
 export default DocumentsTableContainer;

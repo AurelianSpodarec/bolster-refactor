@@ -39,7 +39,7 @@ function errorReducer(state = null, action) {
 function documentsReducer(state = {}, action) {
     switch (action.type) {
         case FETCH_DOCUMENTS_SUCCESS:
-            return convertArrToObj(action.payload);
+            return { ...state, ...convertArrToObj(action.payload) };
         default:
             return state;
     }

@@ -31,5 +31,9 @@ export default (HierachyType, ID) => dispatch => {
     axios
         .get(`${API_URL}/documents/${HierachyType}/${ID}`, getHeaders())
         .then(res => dispatch(fetchDocumentsSuccess(res.data)))
-        .catch(err => dispatch(fetchDocumentsFailure(err.message)));
+        .catch(error => {
+            dispatch(fetchDocumentsFailure(error.message));
+            if (error.response.status === 400)
+                dispatch(setAPIFieldErrors(error.response.data.errors));
+        });
 };
