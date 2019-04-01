@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const DocumentsList = ({ companies, parentId }) =>
+const CompaniesAccessList = ({ companies, parentId }) =>
     companies.map(company => (
         <tr key={company.id}>
             <td>{company.companyName}</td>
@@ -25,4 +25,4 @@ const DocumentsList = ({ companies, parentId }) =>
         </tr>
     ));
 
-export default DocumentsList;
+export default CompaniesAccessList;

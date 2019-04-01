@@ -5,6 +5,9 @@ import {
     FETCH_ALL_DRAWINGS_REQUEST,
     FETCH_ALL_DRAWINGS_SUCCESS,
     FETCH_ALL_DRAWINGS_FAILURE,
+    FETCH_SINGLE_DRAWING_REQUEST,
+    FETCH_SINGLE_DRAWING_SUCCESS,
+    FETCH_SINGLE_DRAWING_FAILURE,
     CREATE_DRAWING_REQUEST,
     CREATE_DRAWING_SUCCESS,
     CREATE_DRAWING_FAILURE
@@ -20,6 +23,7 @@ export default combineReducers({
 function isFetchingReducer(state = false, action) {
     switch (action.type) {
         case FETCH_ALL_DRAWINGS_REQUEST:
+        case FETCH_SINGLE_DRAWING_REQUEST:
             return true;
         case FETCH_ALL_DRAWINGS_SUCCESS:
         case FETCH_ALL_DRAWINGS_FAILURE:
@@ -43,9 +47,11 @@ function updatedIDReducer(state = 0, action) {
 function errorReducer(state = null, action) {
     switch (action.type) {
         case FETCH_ALL_DRAWINGS_REQUEST:
+        case FETCH_SINGLE_DRAWING_REQUEST:
         case CREATE_DRAWING_REQUEST:
             return null;
         case FETCH_ALL_DRAWINGS_FAILURE:
+        case FETCH_SINGLE_DRAWING_FAILURE:
         case CREATE_DRAWING_FAILURE:
             return action.error;
         default:
@@ -57,6 +63,7 @@ function drawingsReducer(state = {}, action) {
     switch (action.type) {
         case FETCH_ALL_DRAWINGS_SUCCESS:
             return convertArrToObj(action.payload);
+        case FETCH_SINGLE_DRAWING_SUCCESS:
         case CREATE_DRAWING_SUCCESS:
             return updateObj(state, action.payload.id, action.payload);
         default:
