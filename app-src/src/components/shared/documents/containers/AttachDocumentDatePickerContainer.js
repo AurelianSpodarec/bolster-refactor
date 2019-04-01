@@ -11,25 +11,19 @@ class AttachDocumentDatePickerContainer extends Component {
     };
     render() {
         const { showFieldError } = this.state;
-        const {
-            onChange,
-            startDate,
-            endDate,
-            error,
-            errorsVisible
-        } = this.props;
+        const { onChange, startOn, endOn, error, errorsVisible } = this.props;
         const errorMessage = showFieldError || errorsVisible ? error : null;
         return (
             <div>
                 <DatePicker
                     name="Start Date"
-                    selected={startDate}
-                    onChange={e => onChange(e, 'startDate')}
+                    selected={startOn}
+                    onChange={e => onChange(e, 'startOn')}
                 />
                 <DatePicker
                     name="End Date"
-                    selected={endDate}
-                    onChange={e => onChange(e, 'endDate')}
+                    selected={endOn}
+                    onChange={e => onChange(e, 'endOn')}
                 />
                 {errorMessage && errorMessage.length && (
                     <p className="error red-text text-accent-4">
@@ -41,14 +35,14 @@ class AttachDocumentDatePickerContainer extends Component {
     }
 
     componentDidMount() {
-        const { startDate, endDate } = this.props;
-        this._validate(startDate, endDate);
+        const { startOn, endOn } = this.props;
+        this._validate(startOn, endOn);
     }
 
-    componentDidUpdate({ startDate: prevStartDate, endDate: prevEndDate }) {
-        const { startDate, endDate } = this.props;
-        if (startDate !== prevStartDate || endDate !== prevEndDate) {
-            this._validate(startDate, endDate);
+    componentDidUpdate({ startOn: prevstartOn, endOn: prevendOn }) {
+        const { startOn, endOn } = this.props;
+        if (startOn !== prevstartOn || endOn !== prevendOn) {
+            this._validate(startOn, endOn);
         }
     }
 
@@ -57,7 +51,7 @@ class AttachDocumentDatePickerContainer extends Component {
         if (error) removeFieldError(name);
     }
 
-    _validate = (startDate, endDate) => {
+    _validate = (startOn, endOn) => {
         const {
             name,
             error,
@@ -66,9 +60,9 @@ class AttachDocumentDatePickerContainer extends Component {
             removeFieldError
         } = this.props;
 
-        if (required && !(startDate || endDate)) {
+        if (required && !(startOn || endOn)) {
             addFieldError(name, 'This is a required field.');
-        } else if (startDate.getTime() > endDate.getTime()) {
+        } else if (startOn.getTime() > endOn.getTime()) {
             addFieldError(name, 'Start date must be before end date.');
         } else if (error) {
             removeFieldError(name);

@@ -8,13 +8,13 @@ class AttachDocumentFormContainer extends Component {
         // view only, agreement once, agreement daily - radio buttons
         requiresAgreement: 'View only',
         // textboxes
-        documentName: '',
+        name: '',
         file: {},
         // toggles
-        requiresPhoto: false,
-        requiresFileView: false,
-        requiresSignature: false,
-        forceUpsyncToContinue: false,
+        isPhotoRequired: false,
+        isFileViewRequired: false,
+        isSignatureRequired: false,
+        isUpsyncForced: false,
         // dropdown
         checkedServices: {
             '##fire##': { name: '##fire##', checked: false },
@@ -23,10 +23,10 @@ class AttachDocumentFormContainer extends Component {
             '##air##': { name: '##air##', checked: false },
             '##heart##': { name: '##heart##', checked: false }
         },
-        aggreeancePerDay: 0,
+        agreeanceEveryXDays: 0,
         // date selector
-        startDate: new Date(1558306800000),
-        endDate: new Date(1558306800000)
+        startOn: new Date(),
+        endOn: new Date()
     };
 
     baseState = this.state;
