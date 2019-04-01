@@ -24,7 +24,7 @@ import pinCustomFieldsReducer from './pinCustomFields';
 import pinHistoriesReducer from './pinHistories';
 import operativesReducer from './operatives';
 import modalReducer from './modal';
-import templateBuilderReducer from './templateBuilder';
+import templateBuilderReducer from './superAdmin/templateBuilder';
 import servicesReducer from './services';
 import usersReducer from './users';
 import enquiriesReducer from './enquiries';

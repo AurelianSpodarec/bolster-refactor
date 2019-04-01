@@ -4,7 +4,7 @@ import { DragSource, DropTarget } from 'react-dnd';
 import flow from 'lodash/flow';
 
 import { EDIT_TEMPLATE_QUESTION } from 'constants/modalTypes';
-import { DRAG_TYPES } from 'constants/dragTypes';
+import { DRAG_TYPES } from 'constants/superAdmin/dragTypes';
 import showModal from 'actions/generic/modals/sync/showModal';
 import deleteQuestion from 'actions/superAdmin/templateBuilder/sync/deleteQuestion';
 

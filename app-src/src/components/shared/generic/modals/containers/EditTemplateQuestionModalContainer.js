@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { QUESTION_TYPES, PREREQ_TYPES } from 'constants/templateBuilder';
+import {
+    QUESTION_TYPES,
+    PREREQ_TYPES
+} from 'constants/superAdmin/templateBuilder';
 import { convertArrToObj } from 'helpers/generic';
 import hideModal from 'actions/generic/modals/sync/hideModal';
 import editQuestion from 'actions/superAdmin/templateBuilder/sync/editQuestion';
