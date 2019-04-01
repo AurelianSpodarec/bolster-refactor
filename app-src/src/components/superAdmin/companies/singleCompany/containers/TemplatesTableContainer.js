@@ -2,22 +2,36 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import TemplatesTable from '../presentational/TemplatesTable';
 
 class TempaltesTableContainer extends Component {
     render() {
+        const { templates, isFetching, error } = this.props;
+
         return (
             <BlockContainer>
-                <h2>hello</h2>
+                <TemplatesTable
+                    headers={['Name', '']}
+                    templates={templates}
+                    isFetching={isFetching}
+                    error={error}
+                />
             </BlockContainer>
         );
     }
 }
 
-const mapStateToProps = state => ({});
+const mapStateToProps = ({
+    templatesReducer: { templates, isFetching, error }
+}) => ({
+    templates: Object.values(templates),
+    isFetching,
+    error
+});
 
-const mapDispatchToProps = dispatch => ({});
+// const mapDispatchToProps = dispatch => ({});
 
 export default connect(
-    mapStateToProps,
-    mapDispatchToProps
+    mapStateToProps
+    // mapDispatchToProps
 )(TempaltesTableContainer);
