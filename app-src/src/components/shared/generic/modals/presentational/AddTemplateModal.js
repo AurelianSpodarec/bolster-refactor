@@ -1,16 +1,20 @@
 import React from 'react';
 
-import ModalOuterContainer from '../containers/ModalOuterContainer';
+import ModalOuter from '../presentational/ModalOuter';
 import Form from '../../form/containers/Form';
 import Field from '../../form/presentational/Field';
 import TextInputContainer from '../../form/containers/TextInputContainer';
 import BlockHeadingWControls from '../../blockHeadingWControls/presentational/BlockHeadingWControls';
 import BlockButtonWrapper from '../../blockButtonWrappers/presentational/BlockButtonWrapper';
 
-const AddTemplateModal = ({ name, handleChange, handleSubmit, hideModal }) => (
-    <ModalOuterContainer>
+const AddTemplateModal = ({
+    name,
+    handleChange,
+    handleSubmit,
+    handleCancel
+}) => (
+    <ModalOuter hideModal={handleCancel}>
         <BlockHeadingWControls title="Add" />
-
         <Form className="generic-form" onSubmit={handleSubmit}>
             <div className="size-lg-6">
                 <Field name="name">
@@ -27,12 +31,12 @@ const AddTemplateModal = ({ name, handleChange, handleSubmit, hideModal }) => (
                     <i className="fa fa-plus" />
                     Add
                 </button>
-                <button className="button" onClick={hideModal}>
+                <button className="button" onClick={handleCancel}>
                     <i className="fa fa-times" /> Cancel
                 </button>
             </BlockButtonWrapper>
         </Form>
-    </ModalOuterContainer>
+    </ModalOuter>
 );
 
 export default AddTemplateModal;
