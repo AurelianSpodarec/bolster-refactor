@@ -58,14 +58,14 @@ class FloorEditFormContainer extends Component {
 
     handleSubmit = e => {
         e.preventDefault();
-
+        const { floor } = this.props;
         const { name } = this.state;
 
         const postBody = {
             name: name
         };
 
-        this.props.editFloor(postBody);
+        this.props.editFloor(floor.id, postBody);
     };
 }
 
@@ -77,8 +77,8 @@ const mapStateToProps = ({ floorsReducer }, ownProps) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    editFloor: postBody => {
-        dispatch(editFloor(postBody));
+    editFloor: (floorID, postBody) => {
+        dispatch(editFloor(floorID, postBody));
     }
 });
 

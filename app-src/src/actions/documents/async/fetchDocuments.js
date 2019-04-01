@@ -1,5 +1,8 @@
 import axios from 'axios';
 
+import { API_URL } from 'config/index';
+import { getHeaders } from 'helpers/api';
+
 import {
     FETCH_DOCUMENTS_REQUEST,
     FETCH_DOCUMENTS_SUCCESS,
@@ -20,11 +23,12 @@ export const fetchDocumentsFailure = error => ({
     error
 });
 
-export default () => dispatch => {
+//HierachyType = Site/Building/Floor/Drawing
+export default (HierachyType, ID) => dispatch => {
     dispatch(fetchDocumentsRequest());
 
     axios
-        .get('/mockData/documents/documents.json')
+        .get(`${API_URL}/documents/${HierachyType}/${ID}`, getHeaders())
         .then(res => dispatch(fetchDocumentsSuccess(res.data)))
         .catch(err => dispatch(fetchDocumentsFailure(err.message)));
 };

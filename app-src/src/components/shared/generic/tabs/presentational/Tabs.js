@@ -11,9 +11,10 @@ const Tabs = ({ tabs, selectedTab, selectTab }) => (
                 className={tab === selectedTab ? 'active' : ''}
                 onClick={e => selectTab(e, tab)}
             >
-                {tab === 'Super Admin' ? (
+                {tab === 'Super Admin' && (
                     <img src={SuperAdminIcon} alt="Super admin icon" />
-                ) : (
+                )}
+                {tab === 'Company Admin' && (
                     <img src={CompanyAdminIcon} alt="Company admin icon" />
                 )}
                 <span>{tab}</span>

@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 
 import DrawingInspectionLogsTable from '../presentational/DrawingInspectionLogsTable';
 import fetchInspectionLogs from 'actions/drawings/async/fetchInspectionLogs';
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 
 class DrawingInspectionLogContainer extends Component {
     state = {
@@ -20,15 +19,13 @@ class DrawingInspectionLogContainer extends Component {
         );
 
         return (
-            <BlockContainer>
-                <DrawingInspectionLogsTable
-                    headers={tableHeaders}
-                    isFetching={isFetching}
-                    error={error}
-                    inspectionLogs={filteredInspectionLogs}
-                    handleFilterChange={this.handleFilterChange}
-                />
-            </BlockContainer>
+            <DrawingInspectionLogsTable
+                headers={tableHeaders}
+                isFetching={isFetching}
+                error={error}
+                inspectionLogs={filteredInspectionLogs}
+                handleFilterChange={this.handleFilterChange}
+            />
         );
     }
 

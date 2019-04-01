@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { QUESTION_TYPES } from 'constants/superAdmin/templateBuilder';
+import TooltipContainer from 'components/shared/generic/tooltip/containers/TooltipContainer';
 
 const style = {
     border: '1px dashed gray',
@@ -27,8 +28,18 @@ const Question = ({
         <button className="button" onClick={showEditQuesModel}>
             Edit
         </button>
-        {!isPrereq && (
-            <button className="button red icon-only" onClick={deleteQuestion}>
+        {isPrereq ? (
+            <TooltipContainer text="This item is a prerequiste, you must first remove it's dependats.">
+                <button disabled className="button red icon-only">
+                    <i className="fa fa-times" />
+                </button>
+            </TooltipContainer>
+        ) : (
+            <button
+                disabled
+                className="button red icon-only"
+                onClick={deleteQuestion}
+            >
                 <i className="fa fa-times" />
             </button>
         )}

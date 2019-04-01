@@ -52,15 +52,15 @@ const SuperAdminMenu = () => (
             <DropdownMenuItemContainer
                 icon="hard-hat"
                 title={'Operatives'}
-                baseUrl="/opteratives"
+                baseUrl="/operatives"
             >
-                <MenuItemContainer link="/opteratives/all">
+                <MenuItemContainer link="/operatives/all">
                     All Operatives
                 </MenuItemContainer>
-                <MenuItemContainer link="/opteratives/company-administrators">
+                <MenuItemContainer link="/operatives/company-administrators">
                     Company Administrators
                 </MenuItemContainer>
-                <MenuItemContainer link="/opteratives/headerquarters">
+                <MenuItemContainer link="/operatives/headerquarters">
                     Headerquarters
                 </MenuItemContainer>
             </DropdownMenuItemContainer>

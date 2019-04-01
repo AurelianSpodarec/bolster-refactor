@@ -1,7 +1,8 @@
 import React from 'react';
+import moment from 'moment';
 
 import Table from 'components/shared/generic/tables/presentational/Table';
-import DrawingInspectionLogsList from '../presentational/DrawingInspectionLogsList.js';
+import DrawingInspectionLogsListItem from '../presentational/DrawingInspectionLogsListItem';
 
 const DrawingInspectionLogsTable = ({
     headers,
@@ -10,8 +11,13 @@ const DrawingInspectionLogsTable = ({
     inspectionLogs,
     handleFilterChange
 }) => (
-    <div className="size-lg-12">
-        <h2 className="heading heading-3 size-lg-12">Inspection Log</h2>
+    <div className="inspection-log size-lg-4">
+        <h2
+            className="heading heading-3 size-lg-12"
+            style={{ marginBottom: 0 }}
+        >
+            Inspection Log
+        </h2>
         <div className="area-filter">
             <i className="icon far fa-search" />
             <input
@@ -29,7 +35,15 @@ const DrawingInspectionLogsTable = ({
             noDataMessage="There are no credit logs to display."
             withActions
         >
-            <DrawingInspectionLogsList inspectionLogs={inspectionLogs} />
+            {[...inspectionLogs]
+                .sort((a, b) => moment(b.updated) - moment(a.updated))
+                .slice(0, 2)
+                .map(inspectionLog => (
+                    <DrawingInspectionLogsListItem
+                        key={inspectionLog.id}
+                        inspectionLog={inspectionLog}
+                    />
+                ))}
         </Table>
     </div>
 );
