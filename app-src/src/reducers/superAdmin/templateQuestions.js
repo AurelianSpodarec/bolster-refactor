@@ -2,28 +2,12 @@ import { combineReducers } from 'redux';
 
 import { updateObj, removeObjItem, swapItemSorts } from 'helpers/generic';
 import {
-    ADD_SECTION,
-    DELETE_SECTION,
-    UPDATE_SECTION,
     ADD_QUESTION,
     EDIT_QUESTION,
     DELETE_QUESTION,
     CHANGE_QUESTION_SECTION,
     SWAP_QUESTION_SORTS
 } from 'constants/actionTypes/templateBuilder';
-
-const defaultSections = {
-    '9d707ec0-52e3-11e9-8633-45ed325a6f1e': {
-        name: 'Section 1',
-        sort: 1,
-        uuid: '9d707ec0-52e3-11e9-8633-45ed325a6f1e'
-    },
-    '9d707ec0-52e3-11e9-8633-45ed325a6f2f': {
-        name: 'Section 2',
-        sort: 2,
-        uuid: '9d707ec0-52e3-11e9-8633-45ed325a6f2f'
-    }
-};
 
 // dummy data
 const defaultQuestions = {
@@ -77,21 +61,8 @@ const defaultQuestions = {
     }
 };
 export default combineReducers({
-    sections: sectionsReducer,
     questions: questionsReducer
 });
-
-function sectionsReducer(state = defaultSections, action) {
-    switch (action.type) {
-        case ADD_SECTION:
-        case UPDATE_SECTION:
-            return updateObj(state, action.section.uuid, action.section);
-        case DELETE_SECTION:
-            return removeObjItem(state, action.uuid);
-        default:
-            return state;
-    }
-}
 
 function questionsReducer(state = defaultQuestions, action) {
     switch (action.type) {

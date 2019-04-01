@@ -60,8 +60,8 @@ class TemplateSectionContainer extends Component {
     };
 }
 
-const mapStateToProps = ({ templateBuilderReducer }, { section }) => ({
-    questions: Object.values(templateBuilderReducer.questions).filter(
+const mapStateToProps = ({ templateQuestionsReducer }, { section }) => ({
+    questions: Object.values(templateQuestionsReducer.questions).filter(
         q => q.sectionUuid === section.uuid
     )
 });

@@ -115,8 +115,8 @@ class AddTemplateQuestionModalContainer extends Component {
     };
 }
 
-const mapStateToProps = ({ templateBuilderReducer }) => ({
-    questions: Object.values(templateBuilderReducer.questions)
+const mapStateToProps = ({ templateQuestionsReducer }) => ({
+    questions: Object.values(templateQuestionsReducer.questions)
 });
 
 const mapDispatchToProps = dispatch => ({

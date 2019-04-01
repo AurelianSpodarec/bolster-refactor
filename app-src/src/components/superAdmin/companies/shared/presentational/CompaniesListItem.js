@@ -12,7 +12,7 @@ const CompaniesListItem = ({
         <td>{address || '##Not listed##'}</td>
         <td>{moment(termsAcceptedOn).format('DD/MM/YYYY')}</td>
         <td>
-            <Link to={`${pathname}/${id}`} className="button">
+            <Link to={`${pathname}${id}`} className="button">
                 More info
             </Link>
         </td>

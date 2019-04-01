@@ -7,8 +7,8 @@ const TemplateSectionListContainer = ({ sections }) => (
     <TemplateSectionList sections={sections} />
 );
 
-export default connect(({ templateBuilderReducer }) => ({
-    sections: Object.values(templateBuilderReducer.sections).sort(
+export default connect(({ templateSectionsReducer }) => ({
+    sections: Object.values(templateSectionsReducer.sections).sort(
         (a, b) => a.sort - b.sort
     )
 }))(TemplateSectionListContainer);
