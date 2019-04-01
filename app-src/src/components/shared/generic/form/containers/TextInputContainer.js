@@ -61,7 +61,6 @@ class TextInputContianer extends Component {
 
     handleBlur = () => {
         this.setState({
-            ...this.state,
             showFieldError: true
         });
     };
@@ -92,7 +91,7 @@ class TextInputContianer extends Component {
 
     _valdateEmail = value => {
         //eslint-disable-next-line
-        var regEx = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+        const regEx = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
 
         return regEx.test(value);
     };

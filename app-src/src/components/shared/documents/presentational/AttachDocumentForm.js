@@ -17,7 +17,6 @@ const AttachDocumentForm = ({
     handleFileChange,
     handleRadioChange,
     handleMultiselect,
-    handleCheckboxChange,
     handleSubmit,
     handleDateChange,
     requiresAgreement,
@@ -76,51 +75,66 @@ const AttachDocumentForm = ({
         {/* is this the right way of styling this? */}
         <div className="size-lg-12">
             <div className="size-lg-6">
-                <label className="title">Upload PDF or image</label>
-                <FileUploadContainer
-                    name="file"
-                    allowedTypes={['pdf', 'image']}
-                    handleChange={handleFileChange}
-                    required
-                />
+                <Field name="Upload PDF or image">
+                    <FileUploadContainer
+                        name="file"
+                        allowedTypes={['pdf', 'image']}
+                        handleChange={handleFileChange}
+                        required
+                    />
+                </Field>
             </div>
+        </div>
+        <div className="size-lg-6">
+            <Field sizeClasses="size-lg-6" name="Start date">
+                <DatePicker
+                    selected={startDate}
+                    onChange={e => handleDateChange(e, 'startDate')}
+                />
+            </Field>
+            <Field sizeClasses="size-lg-6" name="End date">
+                <DatePicker
+                    selected={endDate}
+                    onChange={e => handleDateChange(e, 'endDate')}
+                />
+            </Field>
+        </div>
+        <div className="size-lg-12">
+            <Field name="Service type">
+                <ServiceListCheckboxContainer
+                    checkedServices={checkedServices}
+                    handleChange={handleMultiselect}
+                />
+            </Field>
         </div>
         {requiresAgreement !== 'View only' && (
             <>
-                <div className="size-lg-6">
+                <Field name="Options">
                     <SwitchContainer
                         checked={requiresPhoto}
-                        handleChange={handleCheckboxChange}
+                        handleChange={handleInputChange}
                         name="requiresPhoto"
                         text="Requires photo"
                     />
                     <SwitchContainer
                         checked={requiresFileView}
-                        handleChange={handleCheckboxChange}
+                        handleChange={handleInputChange}
                         name="requiresFileView"
                         text="Requires file view"
                     />
                     <SwitchContainer
                         checked={requiresSignature}
-                        handleChange={handleCheckboxChange}
+                        handleChange={handleInputChange}
                         name="requiresSignature"
                         text="Requires signature"
                     />
                     <SwitchContainer
                         checked={forceUpsyncToContinue}
-                        handleChange={handleCheckboxChange}
+                        handleChange={handleInputChange}
                         name="forceUpsyncToContinue"
                         text="Force upsync to continue"
                     />
-                </div>
-                <div className="size-lg-12">
-                    <Field name="Service type">
-                        <ServiceListCheckboxContainer
-                            checkedServices={checkedServices}
-                            handleMultiselect={handleMultiselect}
-                        />
-                    </Field>
-                </div>
+                </Field>
                 {requiresAgreement === 'Requires agreement (periodically)' && (
                     <div className="size-lg-12">
                         <div className="size-lg-6">
@@ -135,20 +149,6 @@ const AttachDocumentForm = ({
                         </div>
                     </div>
                 )}
-                <div className="size-lg-6">
-                    <Field sizeClasses="size-lg-6" name="Start date">
-                        <DatePicker
-                            selected={startDate}
-                            onChange={e => handleDateChange(e, 'startDate')}
-                        />
-                    </Field>
-                    <Field sizeClasses="size-lg-6" name="End date">
-                        <DatePicker
-                            selected={endDate}
-                            onChange={e => handleDateChange(e, 'endDate')}
-                        />
-                    </Field>
-                </div>
             </>
         )}
         <BlockButtonWrapper>
