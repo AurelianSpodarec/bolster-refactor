@@ -19,15 +19,15 @@ const AttachDocumentForm = ({
     handleSubmit,
     handleDateChange,
     requiresAgreement,
-    documentName,
-    requiresPhoto,
-    requiresFileView,
-    requiresSignature,
-    forceUpsyncToContinue,
+    name,
+    isPhotoRequired,
+    isFileViewRequired,
+    isSignatureRequired,
+    isUpsyncForced,
     checkedServices,
-    agreeanceFrequency,
-    startDate,
-    endDate,
+    agreeanceEveryXDays,
+    startOn,
+    endOn,
     backUrl
 }) => (
     <Form className="content-area size-lg-12" handleSubmit={handleSubmit}>
@@ -62,8 +62,8 @@ const AttachDocumentForm = ({
         </div>
         <Field name="Name of document" sizeClasses="size-lg-4">
             <TextInputContainer
-                value={documentName}
-                name="documentName"
+                value={name}
+                name="name"
                 type="text"
                 handleChange={handleInputChange}
                 required
@@ -87,8 +87,8 @@ const AttachDocumentForm = ({
         <div className="size-lg-12">
             <Field sizeClasses="size-lg-6" name="Select dates">
                 <DatePickerContainer
-                    startDate={startDate}
-                    endDate={endDate}
+                    startOn={startOn}
+                    endOn={endOn}
                     name="DatePicker"
                     onChange={handleDateChange}
                 />
@@ -106,27 +106,27 @@ const AttachDocumentForm = ({
             <>
                 <Field name="Options">
                     <SwitchContainer
-                        checked={requiresPhoto}
+                        checked={isPhotoRequired}
                         handleChange={handleInputChange}
-                        name="requiresPhoto"
+                        name="isPhotoRequired"
                         text="Requires photo"
                     />
                     <SwitchContainer
-                        checked={requiresFileView}
+                        checked={isFileViewRequired}
                         handleChange={handleInputChange}
-                        name="requiresFileView"
+                        name="isFileViewRequired"
                         text="Requires file view"
                     />
                     <SwitchContainer
-                        checked={requiresSignature}
+                        checked={isSignatureRequired}
                         handleChange={handleInputChange}
-                        name="requiresSignature"
+                        name="isSignatureRequired"
                         text="Requires signature"
                     />
                     <SwitchContainer
-                        checked={forceUpsyncToContinue}
+                        checked={isUpsyncForced}
                         handleChange={handleInputChange}
-                        name="forceUpsyncToContinue"
+                        name="isUpsyncForced"
                         text="Force upsync to continue"
                     />
                 </Field>
@@ -135,9 +135,9 @@ const AttachDocumentForm = ({
                         <div className="size-lg-6">
                             <Field name="Agreeance frequency (days)">
                                 <TextInputContainer
-                                    name="agreeanceFrequency"
+                                    name="agreeanceEveryXDays"
                                     type="number"
-                                    value={agreeanceFrequency}
+                                    value={agreeanceEveryXDays}
                                     handleChange={handleInputChange}
                                 />
                             </Field>
@@ -149,7 +149,7 @@ const AttachDocumentForm = ({
         <BlockButtonWrapper>
             <button className="button green">
                 <i className="fa fa-plus" />
-                Add Service
+                Attach Document
             </button>
             <Link to={backUrl || '/'} className="button">
                 <i className="fa fa-times" /> Cancel
