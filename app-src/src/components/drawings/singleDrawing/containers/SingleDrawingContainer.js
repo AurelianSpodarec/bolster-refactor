@@ -6,6 +6,7 @@ import setTabs from 'actions/generic/tabs/sync/setTabs';
 
 import SingleDrawing from '../presentational/SingleDrawing';
 
+import fetchSingleDrawing from 'actions/drawings/async/fetchSingleDrawing';
 import fetchDocuments from 'actions/documents/async/fetchDocuments';
 import fetchClients from 'actions/clients/async/fetchClients';
 import fetchAllCompanies from 'actions/companies/async/fetchAllCompanies';
@@ -19,7 +20,9 @@ class SingleDrawingContainer extends Component {
 
     componentDidMount = () => {
         const {
+            drawingID,
             setTabs,
+            fetchSingleDrawing,
             fetchDocuments,
             fetchClients,
             fetchAllCompanies,
@@ -29,6 +32,7 @@ class SingleDrawingContainer extends Component {
 
         setTabs(Object.values(DRAWING_TABS), DRAWING_TABS.GENERAL_OVERVIEW);
 
+        fetchSingleDrawing(drawingID);
         fetchDocuments();
         fetchClients();
         fetchAllCompanies();
@@ -40,6 +44,9 @@ class SingleDrawingContainer extends Component {
 const mapDispatchToProps = dispatch => ({
     setTabs: (tabs, selectedTab) => {
         dispatch(setTabs(tabs, selectedTab));
+    },
+    fetchSingleDrawing: drawingID => {
+        dispatch(fetchSingleDrawing(drawingID));
     },
     fetchDocuments: () => {
         dispatch(fetchDocuments());
@@ -59,6 +66,6 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default connect(
-    null,
+    (_, { match }) => ({ drawingID: match.params['id'] }),
     mapDispatchToProps
 )(SingleDrawingContainer);

@@ -13,17 +13,17 @@ import DrawingOperativesAccessContainer from '../containers/DrawingOperativesAcc
 const GeneralOverview = () => (
     <div className="size-lg-12">
         <div className="size-lg-8">
-            <Block>
+            <div className="size-lg-12">
                 <DrawingMapGeneralContainer />
-            </Block>
+            </div>
 
-            <Block containerClass="size-lg-6">
+            <div className="size-lg-6">
                 <DrawingClientAccessContainer />
-            </Block>
+            </div>
 
-            <Block containerClass="size-lg-6">
+            <div className="size-lg-6">
                 <DrawingCompanyAccessContainer />
-            </Block>
+            </div>
 
             <div className="content-container size-lg-12">
                 <Link to="#" className="button">
@@ -33,17 +33,17 @@ const GeneralOverview = () => (
         </div>
 
         <div className="size-lg-4">
-            <Block>
+            <div className="size-lg-12">
                 <DrawingInspectionLogContainer />
-            </Block>
+            </div>
 
-            <Block>
+            <div className="size-lg-12">
                 <DrawingDocumentsContainer />
-            </Block>
+            </div>
 
-            <Block>
+            <div className="size-lg-12">
                 <DrawingOperativesAccessContainer />
-            </Block>
+            </div>
         </div>
     </div>
 );
