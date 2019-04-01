@@ -1,15 +1,37 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
-// import CompaniesAccessTable from '../../../shared/companies/presentational/CompaniesAccessTable';
+import CompaniesAccessTable from 'components/shared/companies/presentational/CompaniesAccessTable';
+import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 
-class CompaniesAccessTableContainer extends Component {
+class BuildingCompaniesAccessTableContainer extends Component {
     render() {
+        const { props } = this;
+
         return (
-            <h1 className="heading heading-1 size-lg-12">
-                Building Companies Access Table
-            </h1>
+            <BlockContainer>
+                <CompaniesAccessTable
+                    companies={props.building.permissions}
+                    parentId={props.building.id}
+                    isEmpty={!props.building.id}
+                    isFetching={props.isFetching}
+                    error={props.error}
+                />
+            </BlockContainer>
         );
     }
 }
 
-export default CompaniesAccessTableContainer;
+const mapStateToProps = (
+    { buildingsReducer, companiesReducer },
+    { match }
+) => ({
+    building: buildingsReducer.buildings[match.params.id] || {},
+    isFetching: companiesReducer.isFetching,
+    error: companiesReducer.error
+});
+
+export default withRouter(
+    connect(mapStateToProps)(BuildingCompaniesAccessTableContainer)
+);
