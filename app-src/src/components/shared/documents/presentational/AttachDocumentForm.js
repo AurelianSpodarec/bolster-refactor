@@ -18,7 +18,6 @@ const AttachDocumentForm = ({
     handleMultiselect,
     handleSubmit,
     handleDateChange,
-    validateDatePicker,
     requiresAgreement,
     documentName,
     requiresPhoto,

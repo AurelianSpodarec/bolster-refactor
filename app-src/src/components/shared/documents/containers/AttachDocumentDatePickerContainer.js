@@ -58,9 +58,6 @@ class AttachDocumentDatePickerContainer extends Component {
     }
 
     _validate = (startDate, endDate) => {
-        let lastMidnight = new Date();
-        lastMidnight.setHours(0, 0, 0, 0);
-
         const {
             name,
             error,
@@ -73,11 +70,6 @@ class AttachDocumentDatePickerContainer extends Component {
             addFieldError(name, 'This is a required field.');
         } else if (startDate.getTime() > endDate.getTime()) {
             addFieldError(name, 'Start date must be before end date.');
-        } else if (
-            startDate.getTime() < lastMidnight ||
-            endDate.getTime() < lastMidnight
-        ) {
-            addFieldError(name, 'Date cannot be in the past');
         } else if (error) {
             removeFieldError(name);
         }

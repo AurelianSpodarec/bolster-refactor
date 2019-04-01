@@ -54,7 +54,6 @@ class AttachDocumentFormContainer extends Component {
     };
 
     handleDateChange = (date, name) => {
-        console.log(date, name);
         this.setState({
             [name]: date
         });
