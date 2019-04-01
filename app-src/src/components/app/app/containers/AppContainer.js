@@ -31,16 +31,22 @@ class AppContainer extends Component {
     };
 
     _callAuthenticatedActions = () => {
-        this._authenticate().then(() => {
-            const { fetchHomeData, decodeJWT } = this.props;
-            fetchHomeData();
-            decodeJWT();
-        });
+        this._authenticate()
+            .then(() => {
+                const { fetchHomeData, decodeJWT } = this.props;
+                fetchHomeData();
+                decodeJWT();
+            })
+            .catch(() => {});
     };
 
     _authenticate = () => {
         return new Promise((resolve, reject) => {
             const token = localStorage.getItem('token');
+
+            if (token == undefined || token == '') {
+                reject();
+            }
             const decoded = jwtDecode(token);
             const isExpired = decoded.exp < new Date().valueOf() / 1000;
             if (isExpired) reject();

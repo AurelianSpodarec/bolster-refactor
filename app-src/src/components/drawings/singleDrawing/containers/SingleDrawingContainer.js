@@ -33,7 +33,7 @@ class SingleDrawingContainer extends Component {
         setTabs(Object.values(DRAWING_TABS), DRAWING_TABS.GENERAL_OVERVIEW);
 
         fetchSingleDrawing(drawingID);
-        fetchDocuments();
+        fetchDocuments('drawing', drawingID);
         fetchClients();
         fetchAllCompanies();
         fetchOperatives();
@@ -48,8 +48,8 @@ const mapDispatchToProps = dispatch => ({
     fetchSingleDrawing: drawingID => {
         dispatch(fetchSingleDrawing(drawingID));
     },
-    fetchDocuments: () => {
-        dispatch(fetchDocuments());
+    fetchDocuments: (HierachyType, drawingID) => {
+        dispatch(fetchDocuments(HierachyType, drawingID));
     },
     fetchClients: () => {
         dispatch(fetchClients());
