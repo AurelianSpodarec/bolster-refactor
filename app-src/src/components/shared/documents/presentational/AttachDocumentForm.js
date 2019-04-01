@@ -15,6 +15,7 @@ import RadioButton from 'components/shared/generic/form/presentational/RadioButt
 const AttachDocumentForm = ({
     handleInputChange,
     handleFileChange,
+    handleRadioChange,
     handleMultiselect,
     handleCheckboxChange,
     handleSubmit,
@@ -46,19 +47,19 @@ const AttachDocumentForm = ({
                 name="requiresAgreement"
                 requiresAgreement={requiresAgreement}
                 value="View only"
-                handleInputChange={handleInputChange}
+                handleInputChange={handleRadioChange}
             />
             <RadioButton
                 name="requiresAgreement"
                 requiresAgreement={requiresAgreement}
                 value="Requires agreement (once)"
-                handleInputChange={handleInputChange}
+                handleInputChange={handleRadioChange}
             />
             <RadioButton
                 name="requiresAgreement"
                 requiresAgreement={requiresAgreement}
                 value="Requires agreement (periodically)"
-                handleInputChange={handleInputChange}
+                handleInputChange={handleRadioChange}
             />
         </div>
         <Field name="Name of document" sizeClasses="size-lg-4">
