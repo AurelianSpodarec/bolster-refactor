@@ -31,7 +31,7 @@ function menuTabsReducer(state = ['Super Admin', 'Company Admin'], action) {
     }
 }
 
-function selectedMenuTabReducer(state = 'Company Admin', action) {
+function selectedMenuTabReducer(state = 'Super Admin', action) {
     switch (action.type) {
         case SET_MENU_TABS:
         case SELECT_MENU_TAB:
