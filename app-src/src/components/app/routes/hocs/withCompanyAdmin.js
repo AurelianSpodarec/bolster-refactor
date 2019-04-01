@@ -1,25 +1,25 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { MENU_TABS } from 'constants/tabNames';
-import setTabs from 'actions/generic/tabs/sync/setTabs';
+// import { MENU_TABS } from 'constants/tabNames';
+import setMenuTabs from 'actions/generic/tabs/sync/setMenuTabs';
 
 function withCompanyAdmin(WrappedComponent) {
     class Wrapper extends React.Component {
         render() {
-            return <WrappedComponent />;
+            return <WrappedComponent {...this.props} />;
         }
 
-        componentDidMount = () => {
-            const { setTabs } = this.props;
-            console.log('hi hi');
-            setTabs(Object.values(MENU_TABS), MENU_TABS.COMPANY_ADMIN);
-        };
+        // componentDidMount = () => {
+        //     const { setMenuTabs } = this.props;
+
+        //     setMenuTabs(Object.values(MENU_TABS), MENU_TABS.COMPANY_ADMIN);
+        // };
     }
 
     const mapDispatchToProps = dispatch => ({
-        setTabs: (tabs, selectedMenuTab) => {
-            dispatch(setTabs(tabs, selectedMenuTab));
+        setMenuTabs: (tabs, selectedTab) => {
+            dispatch(setMenuTabs(tabs, selectedTab));
         }
     });
 
