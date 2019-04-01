@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import addFieldError from 'actions/generic/fieldErrors/sync/addFieldError';
 import removeFieldError from 'actions/generic/fieldErrors/sync/removeFieldError';
 import DatePicker from '../../generic/form/presentational/DatePicker';
+import Field from 'components/shared/generic/form/presentational/Field';
 
 class AttachDocumentDatePickerContainer extends Component {
     state = {
@@ -13,42 +14,55 @@ class AttachDocumentDatePickerContainer extends Component {
         const { showFieldError } = this.state;
         const {
             onChange,
-            startDate,
-            endDate,
-            error,
+            startOn,
+            endOn,
+            startError,
+            endError,
             errorsVisible
         } = this.props;
-        const errorMessage = showFieldError || errorsVisible ? error : null;
+        const startErrorMessage =
+            showFieldError || errorsVisible ? startError : null;
+        const endErrorMessage =
+            showFieldError || errorsVisible ? endError : null;
         return (
-            <div>
-                <DatePicker
-                    name="Start Date"
-                    selected={startDate}
-                    onChange={e => onChange(e, 'startDate')}
-                />
-                <DatePicker
-                    name="End Date"
-                    selected={endDate}
-                    onChange={e => onChange(e, 'endDate')}
-                />
-                {errorMessage && errorMessage.length && (
+            <>
+                <Field name="Start date">
+                    <DatePicker
+                        name="Start Date"
+                        selected={startOn}
+                        onChange={e => onChange(e, 'startOn')}
+                    />
+                </Field>
+                {startErrorMessage && startErrorMessage.length && (
                     <p className="error red-text text-accent-4">
-                        {errorMessage}
+                        {startErrorMessage}
                     </p>
                 )}
-            </div>
+                <Field name="End date">
+                    <DatePicker
+                        name="End Date"
+                        selected={endOn}
+                        onChange={e => onChange(e, 'endOn')}
+                    />
+                    {endErrorMessage && endErrorMessage.length && (
+                        <p className="error red-text text-accent-4">
+                            {endErrorMessage}
+                        </p>
+                    )}
+                </Field>
+            </>
         );
     }
 
     componentDidMount() {
-        const { startDate, endDate } = this.props;
-        this._validate(startDate, endDate);
+        const { startOn, endOn } = this.props;
+        this._validate(startOn, endOn);
     }
 
-    componentDidUpdate({ startDate: prevStartDate, endDate: prevEndDate }) {
-        const { startDate, endDate } = this.props;
-        if (startDate !== prevStartDate || endDate !== prevEndDate) {
-            this._validate(startDate, endDate);
+    componentDidUpdate({ startOn: prevstartOn, endOn: prevendOn }) {
+        const { startOn, endOn } = this.props;
+        if (startOn !== prevstartOn || endOn !== prevendOn) {
+            this._validate(startOn, endOn);
         }
     }
 
@@ -57,27 +71,34 @@ class AttachDocumentDatePickerContainer extends Component {
         if (error) removeFieldError(name);
     }
 
-    _validate = (startDate, endDate) => {
+    _validate = (startOn, endOn) => {
         const {
             name,
-            error,
+            startError,
+            endError,
             required,
             addFieldError,
             removeFieldError
         } = this.props;
 
-        if (required && !(startDate || endDate)) {
+        if (required && !(startOn || endOn)) {
             addFieldError(name, 'This is a required field.');
-        } else if (startDate.getTime() > endDate.getTime()) {
+        } else if (startOn.getTime() > endOn.getTime()) {
             addFieldError(name, 'Start date must be before end date.');
-        } else if (error) {
-            removeFieldError(name);
+        } else {
+            if (startError) {
+                removeFieldError('startOn');
+            }
+            if (endError) {
+                removeFieldError('endOn');
+            }
         }
     };
 }
 
-const mapStateToProps = ({ fieldErrorsReducer }, ownProps) => ({
-    error: fieldErrorsReducer.fieldErrors[ownProps.name],
+const mapStateToProps = ({ fieldErrorsReducer }) => ({
+    startError: fieldErrorsReducer.fieldErrors['startOn'],
+    endError: fieldErrorsReducer.fieldErrors['endOn'],
     errorsVisible: fieldErrorsReducer.errorsVisible
 });
 

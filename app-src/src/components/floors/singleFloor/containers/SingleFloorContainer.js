@@ -28,7 +28,7 @@ class SingleFloorContainer extends Component {
 
         fetchSingleFloor(floorID);
         fetchAllDrawings();
-        fetchDocuments();
+        fetchDocuments('floor', floorID);
         fetchClients();
         fetchAllCompanies();
         fetchOperatives();
@@ -46,8 +46,8 @@ const mapDispatchToProps = dispatch => ({
     fetchAllDrawings: () => {
         dispatch(fetchAllDrawings());
     },
-    fetchDocuments: () => {
-        dispatch(fetchDocuments());
+    fetchDocuments: (HierachyType, floorID) => {
+        dispatch(fetchDocuments(HierachyType, floorID));
     },
     fetchClients: () => {
         dispatch(fetchClients());

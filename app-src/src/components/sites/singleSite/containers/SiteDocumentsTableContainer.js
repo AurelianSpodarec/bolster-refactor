@@ -1,25 +1,39 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 import DocumentsTable from 'components/shared/documents/presentational/DocumentsTable';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 
-class DocumentsTableContainer extends Component {
+class SiteDocumentsTableContainer extends Component {
     render() {
-        const { error, isFetching, documents } = this.props;
+        const { error, isFetching } = this.props;
 
         return (
             <BlockContainer error={error}>
-                <DocumentsTable documents={documents} isFetching={isFetching} />
+                <DocumentsTable
+                    documents={this._getFilteredDocuments()}
+                    isFetching={isFetching}
+                />
             </BlockContainer>
         );
     }
+
+    _getFilteredDocuments = () => {
+        const { documents, site } = this.props;
+        return documents.filter(document =>
+            site.documentIDs.includes(document.id)
+        );
+    };
 }
 
-const mapStateToProps = ({ documentsReducer }) => ({
+const mapStateToProps = ({ documentsReducer, sitesReducer }, { match }) => ({
+    site: sitesReducer.sites[match.params.id] || {},
     documents: Object.values(documentsReducer.documents),
     isFetching: documentsReducer.isFetching,
     error: documentsReducer.error
 });
 
-export default connect(mapStateToProps)(DocumentsTableContainer);
+export default withRouter(
+    connect(mapStateToProps)(SiteDocumentsTableContainer)
+);

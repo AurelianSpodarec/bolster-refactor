@@ -2,6 +2,7 @@ import React from 'react';
 
 import Breadcrumb from 'components/shared/generic/breadcrumb/presentational/Breadcrumb';
 import CompanyHeaderContainer from '../containers/CompanyHeaderContainer';
+import TemplatesTableContainer from '../containers/TemplatesTableContainer';
 
 const SingleCompany = () => (
     <>
@@ -9,8 +10,8 @@ const SingleCompany = () => (
         <div className="size-lg-12">
             <CompanyHeaderContainer />
         </div>
-        <div className="size-lg-8">
-            <h2 className="heading heading-3">company</h2>
+        <div className="size-lg-12">
+            <TemplatesTableContainer />
         </div>
     </>
 );

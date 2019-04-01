@@ -6,15 +6,15 @@ import { updateObj } from 'helpers/generic';
 class AttachDocumentFormContainer extends Component {
     state = {
         // view only, agreement once, agreement daily - radio buttons
-        requiresAgreement: 'View only',
+        type: '1',
         // textboxes
-        documentName: '',
+        name: '',
         file: {},
         // toggles
-        requiresPhoto: false,
-        requiresFileView: false,
-        requiresSignature: false,
-        forceUpsyncToContinue: false,
+        isPhotoRequired: false,
+        isFileViewRequired: false,
+        isSignatureRequired: false,
+        isUpsyncForced: false,
         // dropdown
         checkedServices: {
             '##fire##': { name: '##fire##', checked: false },
@@ -23,10 +23,10 @@ class AttachDocumentFormContainer extends Component {
             '##air##': { name: '##air##', checked: false },
             '##heart##': { name: '##heart##', checked: false }
         },
-        aggreeancePerDay: 0,
+        agreeanceEveryXDays: 0,
         // date selector
-        startDate: new Date(1558306800000),
-        endDate: new Date(1558306800000)
+        startOn: new Date(),
+        endOn: new Date()
     };
 
     baseState = this.state;
@@ -35,20 +35,30 @@ class AttachDocumentFormContainer extends Component {
         <AttachDocumentForm
             {...this.state}
             handleInputChange={this.handleInputChange}
-            handleSubmit={this.props.handleSubmit}
+            handleSubmit={this.handleSubmit}
             handleRadioChange={this.handleRadioChange}
+            handleCheckboxChange={this.handleCheckboxChange}
             handleMultiselect={this.handleMultiselect}
+            handleFileChange={this.handleFileChange}
             handleDateChange={this.handleDateChange}
             validateDatePicker={this.validateDatePicker}
             backUrl={this.props.backUrl}
         />
     );
 
+    handleCheckboxChange = e => {
+        const { name } = e.target;
+        this.setState(prevState => ({
+            [name]: !prevState[name]
+        }));
+    };
+
     handleInputChange = e => {
         this.setState({
             [e.target.name]: e.target.value
         });
     };
+
     handleFileChange = (name, file) => {
         this.setState({ [name]: file });
     };
@@ -76,6 +86,17 @@ class AttachDocumentFormContainer extends Component {
                 }
             };
         });
+    };
+
+    handleSubmit = e => {
+        e.preventDefault();
+        const { handleSubmit } = this.props;
+        const { checkedServices, ...body } = this.state;
+        // ! change this
+        const services = {} || checkedServices;
+        const postBody = { ...body, services };
+
+        handleSubmit(postBody);
     };
 }
 
