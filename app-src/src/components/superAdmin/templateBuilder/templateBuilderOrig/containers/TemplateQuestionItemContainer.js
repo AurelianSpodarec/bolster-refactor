@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import { EDIT_TEMPLATE_QUESTION } from 'constants/modalTypes';
 import showModal from 'actions/generic/modals/sync/showModal';
-import deleteQuestion from 'actions/templateBuilder/sync/deleteQuestion';
+import deleteQuestion from 'actions/superAdmin/templateBuilder/sync/deleteQuestion';
 
 import TemplateQuestionItem from '../presentational/TemplateQuestionItem';
 

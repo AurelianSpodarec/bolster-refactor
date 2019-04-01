@@ -4,7 +4,7 @@ import { withRouter, Link } from 'react-router-dom';
 import Table from 'components/shared/generic/tables/presentational/Table';
 import CompaniesAccessList from './CompaniesAccessList';
 
-const CompaniesAccess = ({
+const CompaniesAccessTable = ({
     location,
     companies,
     parentId,
@@ -46,4 +46,4 @@ const CompaniesAccess = ({
     );
 };
 
-export default withRouter(CompaniesAccess);
+export default withRouter(CompaniesAccessTable);

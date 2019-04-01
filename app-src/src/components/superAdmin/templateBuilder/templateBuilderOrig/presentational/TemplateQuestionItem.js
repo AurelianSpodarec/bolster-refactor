@@ -1,5 +1,5 @@
 import React from 'react';
-import { QUESTION_TYPES } from 'constants/templateBuilder';
+import { QUESTION_TYPES } from 'constants/superAdmin/templateBuilder';
 
 const TemplateQuestionItem = ({
     question,
