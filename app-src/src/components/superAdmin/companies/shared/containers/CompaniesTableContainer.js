@@ -19,11 +19,11 @@ const CompaniesTableContainer = ({
             ]}
             isFetching={isFetching}
             error={fetchingError}
-            companies={_getFilteredUsers()}
+            companies={_getFilteredCompanies()}
         />
     );
 
-    function _getFilteredUsers() {
+    function _getFilteredCompanies() {
         const name = filters.name.toLowerCase();
         return companies.filter(company =>
             company.name.toLowerCase().includes(name)
