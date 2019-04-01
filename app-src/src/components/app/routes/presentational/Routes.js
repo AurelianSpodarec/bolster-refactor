@@ -10,8 +10,9 @@ import NotFound from 'components/notFound/presentational/NotFound';
 
 import DnDExample from 'components/shared/generic/dragDrop/example/containers/Example';
 import AuthRoutes from './AuthRoutes';
-import AdminRoutes from './AdminRoutes';
+import AdminRoutes from './superAdmin/AdminRoutes';
 import SitesRoutes from './SitesRoutes';
+import CompaniesRoutes from './superAdmin/CompaniesRoutes';
 import BuildingsRoutes from './BuildingsRoutes';
 import FloorRoutes from './FloorRoutes';
 import DrawingsRoutes from './DrawingsRoutes';
@@ -20,8 +21,7 @@ import UserManagementRoutes from './UserManagementRoutes.js';
 import PinRoutes from './PinRoutes';
 import ReportsRoutes from './ReportsRoutes';
 import ToolsRoutes from './ToolsRoutes';
-import TemplateBuilderRoutes from './TemplateBuilderRoutes';
-import ServicesRoutes from './ServicesRoutes';
+import ServicesRoutes from './superAdmin/ServicesRoutes';
 
 const Routes = ({ showLoggedInLayout }) => (
     <div id="page-area" className={`${!showLoggedInLayout ? 'full' : ''}`}>
@@ -35,6 +35,7 @@ const Routes = ({ showLoggedInLayout }) => (
             <Route path="/buildings" component={withAuth(BuildingsRoutes)} />
             <Route path="/floors" component={withAuth(FloorRoutes)} />
             <Route path="/drawings" component={withAuth(DrawingsRoutes)} />
+            <Route path="/companies" component={withAuth(CompaniesRoutes)} />
             <Route path="/messages" component={withAuth(MessagesRoutes)} />
             <Route
                 path="/users-management"
@@ -43,10 +44,6 @@ const Routes = ({ showLoggedInLayout }) => (
             <Route path="/pins" component={withAuth(PinRoutes)} />
             <Route path="/reports" component={withAuth(ReportsRoutes)} />
             <Route path="/tools" component={withAuth(ToolsRoutes)} />
-            <Route
-                path="/template-builder"
-                component={withAuth(TemplateBuilderRoutes)}
-            />
             <Route exact path="/404" component={NotFound} />
         </SwitchWith404>
     </div>

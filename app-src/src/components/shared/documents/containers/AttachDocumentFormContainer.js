@@ -36,7 +36,6 @@ class AttachDocumentFormContainer extends Component {
             {...this.state}
             handleInputChange={this.handleInputChange}
             handleSubmit={this.props.handleSubmit}
-            handleCheckboxChange={this.handleCheckboxChange}
             handleRadioChange={this.handleRadioChange}
             handleMultiselect={this.handleMultiselect}
             handleDateChange={this.handleDateChange}
@@ -57,13 +56,6 @@ class AttachDocumentFormContainer extends Component {
         this.setState({
             [name]: date
         });
-    };
-
-    handleCheckboxChange = e => {
-        const { name } = e.target;
-        this.setState(prevState => ({
-            [name]: !prevState[name]
-        }));
     };
 
     handleRadioChange = e => {

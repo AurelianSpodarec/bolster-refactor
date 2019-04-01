@@ -1,10 +1,10 @@
 import React from 'react';
 
-import CompaniesTableContainer from '../containers/CompaniesTableContainer';
+import CompaniesTableContainer from '../../shared/containers/CompaniesTableContainer';
 import Breadcrumb from 'components/shared/generic/breadcrumb/presentational/Breadcrumb';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
-import CompaniesFiltersContainer from '../containers/CompaniesFiltersContainer';
+import CompaniesFiltersContainer from '../../shared/containers/CompaniesFiltersContainer';
 
 const AllCompanies = () => (
     <>

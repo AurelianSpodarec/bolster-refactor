@@ -21,15 +21,16 @@ class SingleBuildingContainer extends Component {
             fetchSingleBuilding,
             fetchAllDrawings,
             fetchAllFloors,
+            fetchAllCompanies,
             buildingID
         } = this.props;
 
         fetchSingleBuilding(buildingID);
         fetchAllDrawings();
         fetchAllFloors();
+        fetchAllCompanies();
         // fetchDocuments();
         // fetchClients();
-        // fetchAllCompanies();
         // fetchOperatives();
     };
 }

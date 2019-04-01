@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
-import SwitchWith404 from './SwitchWith404';
+import SwitchWith404 from '../SwitchWith404';
 import GenerationQueueContainer from 'components/generationQueue/shared/containers/GenerationQueueContainer';
 
 const GenerationQueueRoutes = ({ match: { url: baseUrl } }) => (

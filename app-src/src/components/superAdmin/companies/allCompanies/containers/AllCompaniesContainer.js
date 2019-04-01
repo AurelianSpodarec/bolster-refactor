@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import fetchAllCompanies from 'actions/companies/async/fetchAllCompanies';
+import fetchAllCompanies from 'actions/superAdmin/companies/async/fetchAllCompanies';
 import AllCompanies from '../presentational/AllCompanies';
 
 class AllCompaniesContainer extends Component {

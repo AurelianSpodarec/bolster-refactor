@@ -5,7 +5,7 @@ import { withRouter } from 'react-router-dom';
 import CompaniesAccessTable from 'components/shared/companies/presentational/CompaniesAccessTable';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 
-class CompaniesAccessTableContainer extends Component {
+class SiteCompaniesAccessTableContainer extends Component {
     render() {
         const { props } = this;
 
@@ -30,5 +30,5 @@ const mapStateToProps = ({ sitesReducer, companiesReducer }, { match }) => ({
 });
 
 export default withRouter(
-    connect(mapStateToProps)(CompaniesAccessTableContainer)
+    connect(mapStateToProps)(SiteCompaniesAccessTableContainer)
 );
