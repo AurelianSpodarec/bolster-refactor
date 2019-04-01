@@ -67,7 +67,7 @@ class BuildingEditFormContainer extends Component {
 
     handleSubmit = e => {
         e.preventDefault();
-
+        const { building } = this.props;
         const { name, addressLine1, addressLine2, postcode } = this.state;
 
         const postBody = {
@@ -76,8 +76,7 @@ class BuildingEditFormContainer extends Component {
             addressLine2: addressLine2,
             postcode: postcode
         };
-
-        this.props.editbuilding(postBody);
+        this.props.editbuilding(building.id, postBody);
     };
 }
 
@@ -89,8 +88,8 @@ const mapStateToProps = ({ buildingsReducer }, ownProps) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    editbuilding: postBody => {
-        dispatch(editbuilding(postBody));
+    editbuilding: (buildingID, postBody) => {
+        dispatch(editbuilding(buildingID, postBody));
     }
 });
 

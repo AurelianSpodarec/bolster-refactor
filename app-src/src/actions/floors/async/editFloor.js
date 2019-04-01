@@ -28,7 +28,7 @@ export default (floorID, postBody) => dispatch => {
     dispatch(editFloorRequest());
 
     axios
-        .post(`${API_URL}/floor/${floorID}`, postBody, getHeaders())
+        .post(`${API_URL}/floors/${floorID}`, postBody, getHeaders())
         .then(result => dispatch(editFloorSuccess(result.data)))
         .catch(error => {
             dispatch(editFloorFailure(error));

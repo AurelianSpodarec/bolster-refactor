@@ -28,7 +28,7 @@ export default (siteID, postBody) => dispatch => {
     dispatch(editSiteRequest());
 
     axios
-        .post(`${API_URL}/site/${siteID}`, postBody, getHeaders())
+        .post(`${API_URL}/sites/${siteID}`, postBody, getHeaders())
         .then(result => dispatch(editSiteSuccess(result.data)))
         .catch(error => {
             dispatch(editSiteFailure(error));
