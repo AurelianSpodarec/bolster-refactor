@@ -8,7 +8,7 @@ const RadioButton = ({ name, value, requiresAgreement, handleInputChange }) => (
             name={name}
             value={value}
             checked={requiresAgreement === value}
-            onClick={handleInputChange}
+            onChange={handleInputChange}
         />
         <label htmlFor={value}>{value}</label>
     </>
