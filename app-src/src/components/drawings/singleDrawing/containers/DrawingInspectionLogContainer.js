@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 
 import DrawingInspectionLogsTable from '../presentational/DrawingInspectionLogsTable';
 import fetchInspectionLogs from 'actions/drawings/async/fetchInspectionLogs';
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 
 class DrawingInspectionLogContainer extends Component {
     state = {

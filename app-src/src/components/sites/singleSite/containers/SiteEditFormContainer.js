@@ -68,7 +68,7 @@ class SiteEditFormContainer extends Component {
 
     handleSubmit = e => {
         e.preventDefault();
-
+        const { site } = this.props;
         const {
             name,
             client,
@@ -85,7 +85,7 @@ class SiteEditFormContainer extends Component {
             postcode: postcode
         };
 
-        this.props.editSite(postBody);
+        this.props.editSite(site.id, postBody);
     };
 }
 
@@ -97,8 +97,8 @@ const mapStateToProps = ({ sitesReducer }, ownProps) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    editSite: postBody => {
-        dispatch(editSite(postBody));
+    editSite: (siteID, postBody) => {
+        dispatch(editSite(siteID, postBody));
     }
 });
 

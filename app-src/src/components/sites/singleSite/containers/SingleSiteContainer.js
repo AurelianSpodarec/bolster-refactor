@@ -33,7 +33,7 @@ class SingleSiteContainer extends Component {
         fetchAllBuildings();
         fetchAllFloors();
         fetchAllDrawings();
-        fetchDocuments();
+        fetchDocuments('site', siteID);
         fetchClients();
         fetchAllCompanies();
         fetchOperatives();
@@ -54,8 +54,8 @@ const mapDispatchToProps = dispatch => ({
     fetchSingleSite: siteID => {
         dispatch(fetchSingleSite(siteID));
     },
-    fetchDocuments: () => {
-        dispatch(fetchDocuments());
+    fetchDocuments: (HierachyType, siteID) => {
+        dispatch(fetchDocuments(HierachyType, siteID));
     },
     fetchClients: () => {
         dispatch(fetchClients());

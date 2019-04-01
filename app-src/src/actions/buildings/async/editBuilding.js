@@ -28,7 +28,7 @@ export default (buildingID, postBody) => dispatch => {
     dispatch(editBuildingRequest());
 
     axios
-        .post(`${API_URL}/building/${buildingID}`, postBody, getHeaders())
+        .post(`${API_URL}/buildings/${buildingID}`, postBody, getHeaders())
         .then(result => dispatch(editBuildingSuccess(result.data)))
         .catch(error => {
             dispatch(editBuildingFailure(error));
