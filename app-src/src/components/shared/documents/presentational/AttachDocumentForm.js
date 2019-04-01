@@ -5,12 +5,11 @@ import Field from 'components/shared/generic/form/presentational/Field';
 import FileUploadContainer from 'components/shared/generic/form/containers/FileUploadContainer';
 import SwitchContainer from 'components/shared/generic/form/containers/SwitchContainer';
 import ServiceListCheckboxContainer from 'components/shared/services/containers/ServiceListCheckboxContainer';
-import DatePicker from 'react-datepicker';
 import { Link, withRouter } from 'react-router-dom';
 
-import 'react-datepicker/dist/react-datepicker.css';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import RadioButton from 'components/shared/generic/form/presentational/RadioButton';
+import DatePickerContainer from 'components/shared/documents/containers/AttachDocumentDatePickerContainer';
 
 const AttachDocumentForm = ({
     handleInputChange,
@@ -85,17 +84,13 @@ const AttachDocumentForm = ({
                 </Field>
             </div>
         </div>
-        <div className="size-lg-6">
-            <Field sizeClasses="size-lg-6" name="Start date">
-                <DatePicker
-                    selected={startDate}
-                    onChange={e => handleDateChange(e, 'startDate')}
-                />
-            </Field>
-            <Field sizeClasses="size-lg-6" name="End date">
-                <DatePicker
-                    selected={endDate}
-                    onChange={e => handleDateChange(e, 'endDate')}
+        <div className="size-lg-12">
+            <Field sizeClasses="size-lg-6" name="Select dates">
+                <DatePickerContainer
+                    startDate={startDate}
+                    endDate={endDate}
+                    name="DatePicker"
+                    onChange={handleDateChange}
                 />
             </Field>
         </div>

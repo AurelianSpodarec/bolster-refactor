@@ -9,8 +9,8 @@ class SectionListContainer extends Component {
     }
 }
 
-const mapStateToProps = ({ templateBuilderReducer }) => ({
-    sections: Object.values(templateBuilderReducer.sections).sort(
+const mapStateToProps = ({ templateSectionsReducer }) => ({
+    sections: Object.values(templateSectionsReducer.sections).sort(
         (a, b) => a.sort - b.sort
     )
 });
