@@ -1,22 +1,23 @@
 import React from 'react';
 
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import AllCompanyAdminsTableContainer from '../containers/AllCompanyAdminsTableContainer';
+import AllOperativesTableContainer from '../containers/AllOperativesTableContainer';
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
 import Breadcrumb from 'components/shared/generic/breadcrumb/presentational/Breadcrumb';
 
-const AllCompanyAdmins = () => (
+const AllOperatives = () => (
     <>
-        <Breadcrumb breadcrumbs={[{ text: 'All Company Admins' }]} />
-        <PageHeading title="All Company Admins">
+        <Breadcrumb breadcrumbs={[{ text: 'All Operatives' }]} />
+
+        <PageHeading title="All Operatives">
             <button className="button">
-                <i className="fa fa-plus" /> Add Company Admin
+                <i className="fa fa-plus" /> Add Operative
             </button>
         </PageHeading>
         <BlockContainer>
-            <AllCompanyAdminsTableContainer />
+            <AllOperativesTableContainer />
         </BlockContainer>
     </>
 );
 
-export default AllCompanyAdmins;
+export default AllOperatives;

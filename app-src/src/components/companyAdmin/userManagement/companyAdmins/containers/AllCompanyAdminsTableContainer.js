@@ -2,29 +2,33 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import AllCompanyAdminsTable from '../presentational/AllCompanyAdminsTable';
+import { COMPANY_USER_ROLE_TYPES } from 'constants/companyAdmin/enums';
 
 class AllCompanyAdminTableContainer extends Component {
     render() {
-        const { users, isFetching, error } = this.props;
+        const { isFetching, error } = this.props;
 
         return (
-            // <AllCompanyAdminsTable
-            //     headers={[
-            //         'Name',
-            //         'Email',
-            //         'Phone Number',
-            //         'Last Web Login',
-            //         ''
-            //     ]}
-            //     users={users}
-            //     isFetching={isFetching}
-            //     error={error}
-            // />
-            <p>Hi</p>
+            <AllCompanyAdminsTable
+                headers={['Name', 'Email', 'Phone Number', '']}
+                users={this._filterUsersForAdmins()}
+                isFetching={isFetching}
+                error={error}
+            />
         );
     }
 
-    // _getFilteredSites = () => {
+    _filterUsersForAdmins = () => {
+        const { users } = this.props;
+
+        const ret = users.filter(
+            user => user.type === COMPANY_USER_ROLE_TYPES['Admin']
+        );
+
+        return ret;
+    };
+
+    // _getFilteredAdmins = () => {
     //     const { sites, filters } = this.props;
     //     const { status } = filters;
     //     const name = filters.name.toLowerCase();
@@ -36,7 +40,7 @@ class AllCompanyAdminTableContainer extends Component {
 }
 
 const mapStateToProps = ({ companyAdmin: { companyUsersReducer } }) => ({
-    users: Object.values(companyUsersReducer.users) || {},
+    users: Object.values(companyUsersReducer.users) || [],
     isFetching: companyUsersReducer.isFetching,
     error: companyUsersReducer.error
 });
