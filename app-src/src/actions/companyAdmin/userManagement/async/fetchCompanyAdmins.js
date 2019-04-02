@@ -1,13 +1,13 @@
-import axios from "axios";
-import { API_URL } from "config";
-import { getHeaders } from "helpers/api";
-import setAPIFieldErrors from "actions/shared/generic/fieldErrors/sync/setAPIFieldErrors";
+import axios from 'axios';
+import { API_URL } from 'config';
+import { getHeaders } from 'helpers/api';
+import setAPIFieldErrors from 'actions/shared/generic/fieldErrors/sync/setAPIFieldErrors';
 
 import {
     FETCH_COMPANY_USERS_REQUEST,
     FETCH_COMPANY_USERS_SUCCESS,
     FETCH_COMPANY_USERS_FAILURE
-} from "constants/actionTypes/usersManagement";
+} from 'constants/actionTypes/usersManagement';
 
 export const fetchCompanyUsersRequest = () => ({
     type: FETCH_COMPANY_USERS_REQUEST

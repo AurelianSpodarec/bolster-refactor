@@ -20,7 +20,7 @@ class DrawingClientAccessContainer extends Component {
     }
 }
 
-const mapStateToProps = ({ clientsReducer }) => ({
+const mapStateToProps = ({ companyAdmin: { clientsReducer } }) => ({
     clients: Object.values(clientsReducer.clients),
     isFetching: clientsReducer.isFetching,
     error: clientsReducer.error

@@ -18,6 +18,6 @@ const DrawingRouteContainer = ({ selectedTab }) => {
     return <SpecificContent />;
 };
 
-export default connect(({ tabsReducer }) => ({
+export default connect(({ shared: { tabsReducer } }) => ({
     selectedTab: tabsReducer.selectedTab
 }))(DrawingRouteContainer);

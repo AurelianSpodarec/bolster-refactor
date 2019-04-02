@@ -96,7 +96,7 @@ class AttachDocumentDatePickerContainer extends Component {
     };
 }
 
-const mapStateToProps = ({ fieldErrorsReducer }) => ({
+const mapStateToProps = ({ shared: { fieldErrorsReducer } }) => ({
     startError: fieldErrorsReducer.fieldErrors['startOn'],
     endError: fieldErrorsReducer.fieldErrors['endOn'],
     errorsVisible: fieldErrorsReducer.errorsVisible

@@ -20,7 +20,7 @@ class OperativesTableContainer extends Component {
     }
 }
 
-const mapStateToProps = ({ operativesReducer }) => ({
+const mapStateToProps = ({ companyAdmin: { operativesReducer } }) => ({
     operatives: Object.values(operativesReducer.operatives),
     isFetching: operativesReducer.isFetching,
     error: operativesReducer.error
