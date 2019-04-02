@@ -27,7 +27,10 @@ const BreadcrumbContainer = ({ building, site }) => {
 //check the sites/buildings/floors reducers for these ids for previous links
 
 //
-const mapStateToProps = ({ buildingsReducer, sitesReducer }, { match }) => {
+const mapStateToProps = (
+    { companyAdmin: { buildingsReducer, sitesReducer } },
+    { match }
+) => {
     const building = buildingsReducer.buildings[match.params.id] || {};
     const site = sitesReducer[building.siteID] || {};
     return {
