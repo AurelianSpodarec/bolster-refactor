@@ -41,7 +41,7 @@ class DrawingInspectionLogContainer extends Component {
     };
 }
 
-const mapStateToProps = ({ inspectionLogsReducer }) => ({
+const mapStateToProps = ({ companyAdmin: { inspectionLogsReducer } }) => ({
     inspectionLogs: inspectionLogsReducer.inspectionLogs,
     isFetching: inspectionLogsReducer.isFetching,
     error: inspectionLogsReducer.error

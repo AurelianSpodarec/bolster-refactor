@@ -28,7 +28,10 @@ class DrawingDocumentsContainer extends Component {
     };
 }
 
-const mapStateToProps = ({ documentsReducer, drawingsReducer }, { match }) => ({
+const mapStateToProps = (
+    { companyAdmin: { documentsReducer, drawingsReducer } },
+    { match }
+) => ({
     drawing: drawingsReducer.drawings[match.params.id],
     documents: Object.values(documentsReducer.documents),
     isFetching: documentsReducer.isFetching,
