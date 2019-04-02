@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { ADD_TEMPLATE_SECTION } from 'constants/modalTypes';
+import { ADD_TEMPLATE_SECTION } from 'constants/shared/modalTypes';
 import showModal from 'actions/generic/modals/sync/showModal';
 import TemplateBuilder from '../presentational/TemplateBuilder';
 

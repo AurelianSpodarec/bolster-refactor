@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { DRAWING_TABS } from 'constants/tabNames';
+import { DRAWING_TABS } from 'constants/companyAdmin/tabNames';
 import setTabs from 'actions/generic/tabs/sync/setTabs';
 
 import SingleDrawing from '../presentational/SingleDrawing';

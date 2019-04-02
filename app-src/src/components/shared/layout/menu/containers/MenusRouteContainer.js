@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { MENU_TABS as TABS } from 'constants/tabNames';
+import { MENU_TABS as TABS } from 'constants/companyAdmin/tabNames';
 
 import Menu from '../presentational/Menu';
 import SuperAdminMenu from '../presentational/SuperAdminMenu';

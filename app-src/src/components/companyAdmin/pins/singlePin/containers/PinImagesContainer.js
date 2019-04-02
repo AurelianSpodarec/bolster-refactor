@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { PIN_IMAGE } from 'constants/modalTypes';
+import { PIN_IMAGE } from 'constants/shared/modalTypes';
 import showModal from 'actions/generic/modals/sync/showModal';
 
 import PinImages from '../presentational/PinImages';

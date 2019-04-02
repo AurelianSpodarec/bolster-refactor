@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import uuid from 'uuid/v1';
 
-import { ADD_TEMPLATE } from 'constants/modalTypes';
+import { ADD_TEMPLATE } from 'constants/shared/modalTypes';
 import showModal from 'actions/generic/modals/sync/showModal';
 import CompanyHeader from '../presentational/CompanyHeader';
 

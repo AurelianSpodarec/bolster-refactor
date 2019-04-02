@@ -2,7 +2,7 @@ import React from 'react';
 import ServiceListItem from '../presentational/ServiceListItem';
 import { showModal } from 'actions/generic/modals/sync/showModal';
 import { connect } from 'react-redux';
-import { EDIT_SERVICE } from 'constants/modalTypes';
+import { EDIT_SERVICE } from 'constants/shared/modalTypes';
 
 const ServiceListItemContainer = ({ service, colCount, showModal }) => (
     <ServiceListItem

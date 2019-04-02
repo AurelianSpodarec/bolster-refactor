@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import EnquiryDetails from '../presentational/EnquiryDetails';
 import { showModal } from 'actions/generic/modals/sync/showModal';
-import { DELETE_ENQUIRY, POSTING_ERROR } from 'constants/modalTypes';
+import { DELETE_ENQUIRY, POSTING_ERROR } from 'constants/shared/modalTypes';
 
 class EnquiryDetailsContainer extends Component {
     render() {

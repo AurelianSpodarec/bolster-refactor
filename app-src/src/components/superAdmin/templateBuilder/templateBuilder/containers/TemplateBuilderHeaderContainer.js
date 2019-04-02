@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
-import { ADD_TEMPLATE } from 'constants/modalTypes';
+import { ADD_TEMPLATE } from 'constants/shared/modalTypes';
 import { showModal } from 'actions/generic/modals/sync/showModal';
 import TemplateBuilderHeader from '../presentational/TemplateBuilderHeader';
 

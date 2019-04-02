@@ -6,7 +6,7 @@ import uuid from 'uuid/v1';
 import {
     ADD_TEMPLATE_QUESTION,
     RENAME_TEMPLATE_SECTION
-} from 'constants/modalTypes';
+} from 'constants/shared/modalTypes';
 import { DRAG_TYPES } from 'constants/superAdmin/dragTypes';
 import swapQuestionSorts from 'actions/superAdmin/templateBuilder/sync/swapQuestionSorts';
 import changeQuestionSection from 'actions/superAdmin/templateBuilder/sync/changeQuestionSection';

@@ -1,5 +1,5 @@
 import React from 'react';
-import { ROLE_TYPES } from 'constants/enums';
+import { ROLE_TYPES } from 'constants/companyAdmin/enums';
 
 const Roles = ({ roles }) => {
     const rolesToRender = roles.length ? (

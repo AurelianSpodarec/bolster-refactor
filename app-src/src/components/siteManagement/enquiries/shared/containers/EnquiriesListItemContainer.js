@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { showModal } from 'actions/generic/modals/sync/showModal';
 import EnquiriesListItem from '../presentational/EnquiriesListItem';
-import { DELETE_ENQUIRY, POSTING_ERROR } from 'constants/modalTypes';
+import { DELETE_ENQUIRY, POSTING_ERROR } from 'constants/shared/modalTypes';
 
 class EnquiriesListItemContainer extends Component {
     render() {

@@ -13,7 +13,7 @@ import {
     EDIT_USER,
     DELETE_ENQUIRY,
     POSTING_ERROR
-} from 'constants/modalTypes';
+} from 'constants/shared/modalTypes';
 
 import PinPhotoModal from '../presentational/PinPhotoModal';
 import AddTemplateModalContainer from './AddTemplateModalContainer';
