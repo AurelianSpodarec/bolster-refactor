@@ -117,7 +117,10 @@ class AddTemplateQuestionModalContainer extends Component {
     };
 }
 
-const mapStateToProps = ({ templateQuestionsReducer }, { uuid }) => ({
+const mapStateToProps = (
+    { superAdmin: { templateQuestionsReducer } },
+    { uuid }
+) => ({
     questions: Object.values(templateQuestionsReducer.questions),
     question: templateQuestionsReducer.questions[uuid]
 });
