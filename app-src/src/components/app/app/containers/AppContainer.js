@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { BrowserRouter as Router } from 'react-router-dom';
-import jwtDecode from 'jwt-decode';
 
+import { authenticate } from 'helpers/api';
 import fetchProfile from 'actions/profile/async/fetchProfile';
 import fetchSingleCompany from 'actions/companies/async/fetchSingleCompany';
 import fetchNotifications from 'actions/notifications/async/fetchNotifications';
@@ -11,6 +11,8 @@ import fetchGenerationQueue from 'actions/generationQueue/async/fetchGenerationQ
 import decodeJWT from 'actions/jwt/async/decodeJWT';
 
 import App from '../presentational/App';
+import fetchAllSubscriptions from 'actions/subscriptions/async/fetchAllSubscriptions';
+import fetchAllServices from 'actions/services/async/fetchAllServices';
 
 class AppContainer extends Component {
     render() {
@@ -31,7 +33,7 @@ class AppContainer extends Component {
     };
 
     _callAuthenticatedActions = () => {
-        this._authenticate()
+        authenticate()
             .then(() => {
                 const { fetchHomeData, decodeJWT } = this.props;
                 fetchHomeData();
@@ -68,6 +70,8 @@ const mapDispatchToProps = dispatch => ({
         dispatch(fetchMessages());
         dispatch(fetchGenerationQueue());
         dispatch(decodeJWT());
+        dispatch(fetchAllServices());
+        dispatch(fetchAllSubscriptions());
     },
     decodeJWT: () => {
         dispatch(decodeJWT());

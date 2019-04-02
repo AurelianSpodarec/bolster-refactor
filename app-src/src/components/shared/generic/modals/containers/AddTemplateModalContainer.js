@@ -13,6 +13,7 @@ class AddTemplateModalContainer extends React.Component {
     };
 
     render() {
+        console.log(this.props);
         return (
             <AddTemplateModal
                 name={this.state.name}
