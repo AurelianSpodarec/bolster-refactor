@@ -44,7 +44,7 @@ class AppContainer extends Component {
         return new Promise((resolve, reject) => {
             const token = localStorage.getItem('token');
 
-            if (token == undefined || token == '') {
+            if (token === undefined || token === '') {
                 reject();
             }
             const decoded = jwtDecode(token);

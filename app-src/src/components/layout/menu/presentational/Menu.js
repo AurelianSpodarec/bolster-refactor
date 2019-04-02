@@ -19,13 +19,13 @@ const Menu = ({ messageCount }) => (
             <DropdownMenuItemContainer
                 icon="users"
                 title={'User Management'}
-                baseUrl="/user-management"
+                baseUrl="/users-management"
             >
-                <MenuItemContainer link="/user-management/admins">
-                    Admins
+                <MenuItemContainer link="/users-management/company-admins">
+                    Company Admins
                 </MenuItemContainer>
-                <MenuItemContainer link="/user-management/users">
-                    Users
+                <MenuItemContainer link="/users-management/operatives">
+                    Operatives
                 </MenuItemContainer>
             </DropdownMenuItemContainer>
 
