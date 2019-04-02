@@ -1,12 +1,12 @@
 import React from 'react';
 
 import Breadcrumb from 'components/shared/generic/breadcrumb/presentational/Breadcrumb';
-import AttachSiteOperativeFormContainer from '../containers/AttachSiteOperativeFormContainer';
+import AttachSiteOperativeContainer from '../containers/AttachSiteOperativeContainer';
 
 const AttachSiteOperative = () => (
     <div>
-        <Breadcrumb breadcrumbs={[{ text: 'item 1' }, { text: 'item 2' }]} />
-        <AttachSiteOperativeFormContainer />
+        <Breadcrumb breadcrumbs={[{ text: 'Add operative' }]} />
+        <AttachSiteOperativeContainer />
     </div>
 );
 
