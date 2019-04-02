@@ -10,7 +10,7 @@ import fetchMessages from 'actions/companyAdmin/messages/async/fetchMessages';
 import fetchGenerationQueue from 'actions/companyAdmin/generationQueue/async/fetchGenerationQueue';
 import decodeJWT from 'actions/shared/jwt/async/decodeJWT';
 import fetchAllSubscriptions from 'actions/companyAdmin/subscriptions/async/fetchAllSubscriptions';
-import fetchAllServices from 'actions/companyAdmin/services/async/fetchAllServices';
+import companyFetchAllServices from 'actions/companyAdmin/services/async/fetchAllServices';
 
 import App from '../presentational/App';
 
@@ -55,7 +55,7 @@ const mapDispatchToProps = dispatch => ({
         dispatch(fetchMessages());
         dispatch(fetchGenerationQueue());
         dispatch(decodeJWT());
-        dispatch(fetchAllServices());
+        dispatch(companyFetchAllServices());
         dispatch(fetchAllSubscriptions());
     },
     decodeJWT: () => {

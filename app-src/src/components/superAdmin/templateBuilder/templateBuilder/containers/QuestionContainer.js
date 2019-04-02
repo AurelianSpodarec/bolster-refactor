@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import { DragSource, DropTarget } from 'react-dnd';
 import flow from 'lodash/flow';
 
@@ -115,7 +116,7 @@ const WithDragAndDrop = flow(
     }))
 )(QuestionContainer);
 
-const mapStateToProps = ({ templateQuestionsReducer }) => ({
+const mapStateToProps = ({ superAdmin: { templateQuestionsReducer } }) => ({
     questions: Object.values(templateQuestionsReducer.questions)
 });
 
@@ -128,7 +129,9 @@ const mapDispatchToProps = dispatch => ({
     }
 });
 
-export default connect(
+const WithConnect = connect(
     mapStateToProps,
     mapDispatchToProps
 )(WithDragAndDrop);
+
+export default withRouter(WithConnect);

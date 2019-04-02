@@ -33,10 +33,10 @@ class AddTemplateSectionModalContainer extends React.Component {
     handleSubmit = e => {
         e.preventDefault();
         const { name } = this.state;
-        const { sections } = this.props;
+        const { sections, templateUuid } = this.props;
 
         const sort = Math.max(0, ...[...sections].map(s => s.sort)) + 1;
-        this.props.addSection({ name, uuid: uuid(), sort });
+        this.props.addSection({ name, uuid: uuid(), sort, templateUuid });
     };
 }
 

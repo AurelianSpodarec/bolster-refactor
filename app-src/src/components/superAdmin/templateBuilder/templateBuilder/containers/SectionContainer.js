@@ -107,7 +107,10 @@ const WithDragAndDrop = DropTarget(
     })
 )(SectionContainer);
 
-const mapStateToProps = ({ templateQuestionsReducer }, { section }) => ({
+const mapStateToProps = (
+    { superAdmin: { templateQuestionsReducer } },
+    { section }
+) => ({
     questions: Object.values(templateQuestionsReducer.questions)
         .filter(q => q.sectionUuid === section.uuid)
         .sort((a, b) => a.sort - b.sort)

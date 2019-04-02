@@ -7,7 +7,7 @@ import hideModal from 'actions/shared/generic/modals/sync/hideModal';
 
 import TemplateFormModal from '../presentational/TemplateFormModal';
 
-class TemplateFormModalContainer extends React.Component {
+class TemplateFormContainer extends React.Component {
     state = {
         name: ''
     };
@@ -22,6 +22,14 @@ class TemplateFormModalContainer extends React.Component {
             />
         );
     }
+
+    componentDidMount = () => {
+        const {
+            template: { name }
+        } = this.props;
+
+        this.setState({ name });
+    };
 
     handleChange = e => {
         this.setState({ [e.target.name]: e.target.value });
@@ -62,5 +70,5 @@ export default withRouter(
     connect(
         null,
         mapDispatchToProps
-    )(TemplateFormModalContainer)
+    )(TemplateFormContainer)
 );
