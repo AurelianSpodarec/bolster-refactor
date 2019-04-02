@@ -60,7 +60,7 @@ class CheckboxContainer extends Component {
     }
 }
 
-const mapStateToProps = ({ fieldErrorsReducer }, ownProps) => ({
+const mapStateToProps = ({ shared: { fieldErrorsReducer } }, ownProps) => ({
     error: fieldErrorsReducer.fieldErrors[ownProps.name],
     errorsVisible: fieldErrorsReducer.errorsVisible
 });

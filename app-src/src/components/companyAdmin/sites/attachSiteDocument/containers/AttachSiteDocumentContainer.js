@@ -32,7 +32,7 @@ class AttachSiteDocumentContainer extends Component {
     };
 }
 
-const mapStateToProps = ({ documentsReducer }) => ({
+const mapStateToProps = ({ companyAdmin: { documentsReducer } }) => ({
     postSuccess: documentsReducer.postSuccess
 });
 
