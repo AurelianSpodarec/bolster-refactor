@@ -1,0 +1,25 @@
+import React from 'react';
+import { Route } from 'react-router-dom';
+
+import withShowLayout from 'components/layout/misc/hocs/withShowLayout';
+import withAuth from 'components/auth/auth/hocs/withAuth';
+import withCompanyAdmin from '../hocs/withCompanyAdmin';
+
+import NotFound from 'components/notFound/presentational/NotFound';
+import SwitchWith404 from './SwitchWith404';
+import AuthRoutes from './auth';
+import AdminRoutes from './superAdmin';
+import CompanyAdminRoutes from './companyAdmin';
+
+const Routes = ({ showLoggedInLayout }) => (
+    <div id="page-area" className={`${!showLoggedInLayout ? 'full' : ''}`}>
+        <SwitchWith404>
+            <Route exact path="/404" component={NotFound} />
+            <Route path="/auth" component={AuthRoutes} />
+            <Route path="/admin" component={withAuth(AdminRoutes, true)} />
+            <Route component={withAuth(CompanyAdminRoutes, false)} />
+        </SwitchWith404>
+    </div>
+);
+
+export default withShowLayout(withCompanyAdmin(Routes));

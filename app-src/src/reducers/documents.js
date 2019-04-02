@@ -13,7 +13,7 @@ import {
 export default combineReducers({
     documents: documentsReducer,
     isFetching: isFetchingReducer,
-    postSuccessReducer,
+    postSuccess: postSuccessReducer,
     error: errorReducer,
     updatedDocumentID: updatedDocumentIDReducer
 });

@@ -21,19 +21,23 @@ class CompanyHeaderContainer extends Component {
     showAddTemplateModal = () => {
         const {
             showModal,
-            company,
+            companyID,
             history,
             location: { pathname }
         } = this.props;
         const newUuid = uuid();
 
-        showModal(ADD_TEMPLATE, { companyID: company.id, uuid: newUuid });
+        showModal(ADD_TEMPLATE, { companyID, uuid: newUuid });
         history.push(`${pathname}/template/${newUuid}`);
     };
 }
 
-const mapStateToProps = ({ companiesReducer }, { match }) => ({
-    company: companiesReducer.companies[match.params.id] || {}
+const mapStateToProps = (
+    { companiesReducer: { companies } },
+    { match: { params } }
+) => ({
+    company: companies[params.id] || {},
+    companyID: params.id
 });
 
 const mapDispatchToProps = dispatch => ({

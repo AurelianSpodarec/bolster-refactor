@@ -25,7 +25,7 @@ export const fetchSiteFailure = error => ({
 export default id => dispatch => {
     dispatch(fetchSiteRequest());
 
-    axios
+    return axios
         .get(`${API_URL}/sites/${id}`, getHeaders())
         .then(res => dispatch(fetchSiteSuccess(res.data)))
         .catch(err => dispatch(fetchSiteFailure(err.message)));

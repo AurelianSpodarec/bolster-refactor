@@ -6,20 +6,28 @@ import createDocument from 'actions/documents/async/createDocument';
 
 class AttachSiteDocumentContainer extends Component {
     render() {
-        const { siteId } = this.props.match.params;
-        const backUrl = `/sites/${siteId}`;
+        const { siteID } = this.props.match.params;
+        const backUrl = `/sites/${siteID}`;
         return (
             <AttachSiteDocument
                 handleSubmit={this.handleSubmit}
                 backUrl={backUrl}
-                siteID={siteId}
+                siteID={siteID}
             />
         );
     }
 
+    componentDidUpdate({ postSuccess: prevSuccess }) {
+        const { postSuccess, history, match } = this.props;
+        const { siteID } = match.params;
+        if (postSuccess && !prevSuccess) {
+            history.push(`/sites/${siteID}`);
+        }
+    }
+
     handleSubmit = postBody => {
         const { createDocument } = this.props;
-        const id = this.props.match.params.siteId;
+        const id = this.props.match.params.siteID;
         createDocument(1, id, postBody);
     };
 }

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 
-import SwitchWith404 from './SwitchWith404';
+import SwitchWith404 from '../SwitchWith404';
 import AllSitesContainer from 'components/sites/allSites/containers/AllSitesContainer';
 import AddSite from 'components/sites/addSite/presentational/AddSite';
 import SingleSiteContainer from 'components/sites/singleSite/containers/SingleSiteContainer';
@@ -26,33 +26,33 @@ const SitesRoutes = ({ match: { url: baseUrl } }) => (
         />
         <Route
             exact
-            path={`${baseUrl}/:siteId/change-ownership`}
+            path={`${baseUrl}/:siteID/change-ownership`}
             component={ChangeSiteOwnership}
         />
         <Route
             exact
-            path={`${baseUrl}/:siteId/attach-operative`}
+            path={`${baseUrl}/:siteID/attach-operative`}
             component={AttachSiteOperative}
         />
         <Route
             exact
-            path={`${baseUrl}/:siteId/invite-client`}
+            path={`${baseUrl}/:siteID/invite-client`}
             component={InviteClientToSite}
         />
 
         <Route
             exact
-            path={`${baseUrl}/:siteId/client-access`}
+            path={`${baseUrl}/:siteID/client-access`}
             component={SiteClientAccessContainer}
         />
         <Route
             exact
-            path={`${baseUrl}/:siteId/attach-document`}
+            path={`${baseUrl}/:siteID/attach-document`}
             component={AttachSiteDocumentContainer}
         />
         <Route
             exact
-            path={`${baseUrl}/:siteId/invite-company`}
+            path={`${baseUrl}/:siteID/invite-company`}
             component={InviteCompany}
         />
     </SwitchWith404>
