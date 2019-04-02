@@ -68,6 +68,7 @@ class SectionContainer extends Component {
         const newUuid = uuid();
 
         const newSection = {
+            ...section,
             name: `${section.name} - (copy)`,
             uuid: newUuid
         };
@@ -109,8 +110,9 @@ const WithDragAndDrop = DropTarget(
 
 const mapStateToProps = (
     { superAdmin: { templateQuestionsReducer } },
-    { section }
+    { match: { params }, section }
 ) => ({
+    templateID: params.uuid,
     questions: Object.values(templateQuestionsReducer.questions)
         .filter(q => q.sectionUuid === section.uuid)
         .sort((a, b) => a.sort - b.sort)
