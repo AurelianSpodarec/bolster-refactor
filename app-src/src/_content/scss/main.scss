@@ -549,6 +549,17 @@ input {
 .generic-text {
     margin-bottom: 15px;
     font-size: 140%;
+    line-height: 1.5;
+
+    a {
+        @include ubuntu-medium;
+        color: $body-text;
+        text-decoration: underline;
+
+        &:hover {
+            text-decoration: none;
+        }
+    }
 
     &:last-child {
         margin-bottom: 0;
