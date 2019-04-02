@@ -45,7 +45,7 @@ class LoginFormContainer extends Component {
         }
     };
 }
-const mapStateToProps = ({ companyAdmin: { loginReducer } }) => loginReducer;
+const mapStateToProps = ({ shared: { loginReducer } }) => loginReducer;
 
 const mapDispatchToProps = dispatch => ({
     postLogin: (email, password) => {
