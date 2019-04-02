@@ -42,7 +42,10 @@ class PinDetailsContainer extends Component {
     };
 }
 
-const mapStateToProps = ({ pinsReducer, pinHistoriesReducer }, { match }) => {
+const mapStateToProps = (
+    { companyAdmin: { pinsReducer, pinHistoriesReducer } },
+    { match }
+) => {
     const pin = pinsReducer.pins[match.params.id] || {};
     const { selectedHistoryId, histories } = pinHistoriesReducer;
 
