@@ -19,6 +19,12 @@ const SitesListItemContainer = ({
     />
 );
 
-export default connect(({ tablesReducer: { expandedSiteIds } }) => ({
-    expandedSiteIds
-}))(SitesListItemContainer);
+export default connect(
+    ({
+        shared: {
+            tablesReducer: { expandedSiteIds }
+        }
+    }) => ({
+        expandedSiteIds
+    })
+)(SitesListItemContainer);

@@ -19,6 +19,12 @@ const FloorListItemContainer = ({
     />
 );
 
-export default connect(({ tablesReducer: { expandedFloorIds } }) => ({
-    expandedFloorIds
-}))(FloorListItemContainer);
+export default connect(
+    ({
+        shared: {
+            tablesReducer: { expandedFloorIds }
+        }
+    }) => ({
+        expandedFloorIds
+    })
+)(FloorListItemContainer);

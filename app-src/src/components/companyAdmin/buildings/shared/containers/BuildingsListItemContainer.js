@@ -19,6 +19,12 @@ const BuildingsListItemContainer = ({
     />
 );
 
-export default connect(({ tablesReducer: { expandedBuildingIds } }) => ({
-    expandedBuildingIds
-}))(BuildingsListItemContainer);
+export default connect(
+    ({
+        shared: {
+            tablesReducer: { expandedBuildingIds }
+        }
+    }) => ({
+        expandedBuildingIds
+    })
+)(BuildingsListItemContainer);
