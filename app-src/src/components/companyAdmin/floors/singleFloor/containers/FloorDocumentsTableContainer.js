@@ -27,7 +27,10 @@ class DocumentsTableContainer extends Component {
     };
 }
 
-const mapStateToProps = ({ documentsReducer, floorsReducer }, { match }) => ({
+const mapStateToProps = (
+    { companyAdmin: { documentsReducer, floorsReducer } },
+    { match }
+) => ({
     floor: floorsReducer.floors[match.params.id] || {},
     documents: Object.values(documentsReducer.documents),
     isFetching: documentsReducer.isFetching,
