@@ -11,12 +11,14 @@ const defaultSections = {
     '9d707ec0-52e3-11e9-8633-45ed325a6f1e': {
         name: 'Section 1',
         sort: 1,
-        uuid: '9d707ec0-52e3-11e9-8633-45ed325a6f1e'
+        uuid: '9d707ec0-52e3-11e9-8633-45ed325a6f1e',
+        templateUuid: '9d707ec0-52e3-11e9-8633-45ed325a6f22'
     },
     '9d707ec0-52e3-11e9-8633-45ed325a6f2f': {
         name: 'Section 2',
         sort: 2,
-        uuid: '9d707ec0-52e3-11e9-8633-45ed325a6f2f'
+        uuid: '9d707ec0-52e3-11e9-8633-45ed325a6f2f',
+        templateUuid: '9d707ec0-52e3-11e9-8633-45ed325a6f22'
     }
 };
 

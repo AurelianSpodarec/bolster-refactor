@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 
-import AttachOperativesFormContainer from 'components/shared/operatives/conatiners/AttachOperativesFormContainer';
+import AttachOperativesForm from 'components/shared/operatives/presentational/AttachOperativeForm';
 
 class AttachSiteOperativeFromContainer extends Component {
     render() {
-        return <AttachOperativesFormContainer />;
+        return <AttachOperativesForm />;
     }
 }
 
