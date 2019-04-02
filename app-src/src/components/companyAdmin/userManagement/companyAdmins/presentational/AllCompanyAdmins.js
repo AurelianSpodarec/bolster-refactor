@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import AllCompanyAdminsTableContainer from '../containers/AllCompanyAdminsTableContainer';
@@ -9,9 +10,12 @@ const AllCompanyAdmins = () => (
     <>
         <Breadcrumb breadcrumbs={[{ text: 'All Company Admins' }]} />
         <PageHeading title="All Company Admins">
-            <button className="button">
+            <Link
+                className="button"
+                to="/users-management/company-admins/create"
+            >
                 <i className="fa fa-plus" /> Add Company Admin
-            </button>
+            </Link>
         </PageHeading>
         <BlockContainer>
             <AllCompanyAdminsTableContainer />

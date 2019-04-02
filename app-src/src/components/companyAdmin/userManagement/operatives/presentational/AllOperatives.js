@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import AllOperativesTableContainer from '../containers/AllOperativesTableContainer';
@@ -10,9 +11,9 @@ const AllOperatives = () => (
         <Breadcrumb breadcrumbs={[{ text: 'All Operatives' }]} />
 
         <PageHeading title="All Operatives">
-            <button className="button">
+            <Link className="button" to="/users-management/operatives/create">
                 <i className="fa fa-plus" /> Add Operative
-            </button>
+            </Link>
         </PageHeading>
         <BlockContainer>
             <AllOperativesTableContainer />
