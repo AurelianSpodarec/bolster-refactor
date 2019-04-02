@@ -11,8 +11,10 @@ import fetchAllCompanies from 'actions/companyAdmin/companies/async/fetchAllComp
 import fetchOperatives from 'actions/companyAdmin/operatives/async/fetchOperatives';
 
 import SingleSite from '../presentational/SingleSite';
+import Loading from 'components/shared/generic/misc/presentational/Loading';
 
 class SingleSiteContainer extends Component {
+    state = { siteFetched: false };
     render() {
         return <SingleSite />;
     }
@@ -28,14 +30,12 @@ class SingleSiteContainer extends Component {
             fetchAllCompanies,
             fetchOperatives
         } = this.props;
-
-        console.log('mounted');
-
         fetchSingleSite(siteID).then(() => {
+            this.setState({ siteFetched: true });
+            fetchDocuments('site', siteID);
             fetchAllBuildings();
             fetchAllFloors();
             fetchAllDrawings();
-            fetchDocuments('site', siteID);
             fetchClients();
             fetchAllCompanies();
             fetchOperatives();
