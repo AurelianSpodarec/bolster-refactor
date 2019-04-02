@@ -18,7 +18,20 @@ export function getHeaders() {
     };
 }
 
-// returns a decoded jwt object or an error
+// autenticate validates a JWT token and resolves the decoded token.
+export function authenticate() {
+    return new Promise((resolve, reject) => {
+        const token = localStorage.getItem('token');
+
+        const decoded = jwtDecode(token);
+        const isExpired = decoded.exp < new Date().valueOf() / 1000;
+        if (isExpired) reject('Expired token.');
+
+        resolve(decoded);
+    });
+}
+
+// returns a decoded jwt object or an error.
 export function getDecodedJWT() {
     const token = localStorage.getItem('token');
     return new Promise(resolve => {

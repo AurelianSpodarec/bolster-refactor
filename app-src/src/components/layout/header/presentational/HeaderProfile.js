@@ -31,7 +31,7 @@ const HeaderProfile = ({
                 Manage Subscription
                 <i className="icon fas fa-chevron-right" />
             </Link>
-            <Link to="/orders" className="item active">
+            <Link to="/orders" className="item">
                 My Orders
                 <i className="icon fas fa-chevron-right" />
             </Link>
