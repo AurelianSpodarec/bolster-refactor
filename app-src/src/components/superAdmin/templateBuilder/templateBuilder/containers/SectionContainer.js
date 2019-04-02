@@ -110,9 +110,8 @@ const WithDragAndDrop = DropTarget(
 
 const mapStateToProps = (
     { superAdmin: { templateQuestionsReducer } },
-    { match: { params }, section }
+    { section }
 ) => ({
-    templateID: params.uuid,
     questions: Object.values(templateQuestionsReducer.questions)
         .filter(q => q.sectionUuid === section.uuid)
         .sort((a, b) => a.sort - b.sort)
