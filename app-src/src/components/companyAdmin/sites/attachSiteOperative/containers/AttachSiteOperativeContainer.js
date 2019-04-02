@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import AttachSiteOperativeFormContainer from './AttachSiteOperativeFormContainer';
+import AttachOperativesFormContainer from 'components/shared/operatives/conatiners/AttachOperativesFormContainer';
 
 import fetchCompanyUsers from 'actions/companyAdmin/userManagement/async/fetchCompanyUsers';
 
 class AttachSiteOperativeContainer extends Component {
     render() {
-        return <AttachSiteOperativeFormContainer />;
+        return <AttachOperativesFormContainer />;
     }
 
     componentDidMount = () => {

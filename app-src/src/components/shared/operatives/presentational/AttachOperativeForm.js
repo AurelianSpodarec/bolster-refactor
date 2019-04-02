@@ -3,9 +3,15 @@ import { withRouter, Link } from 'react-router-dom';
 
 import Form from 'components/shared/generic/form/containers/Form';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
+import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
+import Field from 'components/shared/generic/form/presentational/Field';
 
 const AttachOperativeForm = ({ location, handleSubmit }) => (
     <Form className="size-lg-12" onSubmit={handleSubmit}>
+        <Field name="Select an operative" sizeClasses="size-lg-6">
+            <DropdownContainer placeholder="Select operative" options={['']} />
+        </Field>
+
         <BlockButtonWrapper>
             <button className="button green">
                 <i className="fa fa-plus" />
