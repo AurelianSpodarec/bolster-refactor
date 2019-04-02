@@ -32,7 +32,7 @@ const mapStateToProps = (
 });
 
 const mapDispatchToProps = dispatch => ({
-    showTemplateForm: (uuid, companyID) => {
+    showAddTemplateForm: (uuid, companyID) => {
         dispatch(showModal(ADD_TEMPLATE, { uuid, companyID }));
     }
 });
