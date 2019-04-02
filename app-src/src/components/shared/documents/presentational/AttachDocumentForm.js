@@ -10,6 +10,7 @@ import { Link, withRouter } from 'react-router-dom';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import RadioButton from 'components/shared/generic/form/presentational/RadioButton';
 import DatePickerContainer from 'components/shared/documents/containers/AttachDocumentDatePickerContainer';
+import { DOCUMENT_TYPE } from 'constants/enums';
 
 const AttachDocumentForm = ({
     handleInputChange,
@@ -45,21 +46,21 @@ const AttachDocumentForm = ({
             <RadioButton
                 name="type"
                 checked={type === '1' ? true : false}
-                text="View only"
+                text={DOCUMENT_TYPE[1]}
                 value="1"
                 handleInputChange={handleRadioChange}
             />
             <RadioButton
                 name="type"
                 checked={type === '2' ? true : false}
-                text="Requires agreement (once)"
+                text={DOCUMENT_TYPE[2]}
                 value="2"
                 handleInputChange={handleRadioChange}
             />
             <RadioButton
                 name="type"
                 checked={type === '3' ? true : false}
-                text="Requires agreement (periodically)"
+                text={DOCUMENT_TYPE[3]}
                 value="3"
                 handleInputChange={handleRadioChange}
             />
