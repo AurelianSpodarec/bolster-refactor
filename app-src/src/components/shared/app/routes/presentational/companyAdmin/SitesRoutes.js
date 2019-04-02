@@ -11,7 +11,6 @@ import InviteClientToSite from 'components/companyAdmin/sites/inviteClientToSite
 
 import InviteCompany from 'components/companyAdmin/sites/inviteCompanyToSite/presentational/InviteCompanyToSite';
 import AttachSiteDocumentContainer from 'components/companyAdmin/sites/attachSiteDocument/containers/AttachSiteDocumentContainer';
-import SiteClientAccessContainer from 'components/companyAdmin/sites/singleSite/containers/SiteClientAccessContainer';
 import SiteEditContainer from 'components/companyAdmin/sites/singleSite/containers/SiteEditContainer';
 
 const SitesRoutes = ({ match: { url: baseUrl } }) => (
@@ -40,11 +39,6 @@ const SitesRoutes = ({ match: { url: baseUrl } }) => (
             component={InviteClientToSite}
         />
 
-        <Route
-            exact
-            path={`${baseUrl}/:siteID/client-access`}
-            component={SiteClientAccessContainer}
-        />
         <Route
             exact
             path={`${baseUrl}/:siteID/attach-document`}

@@ -26,7 +26,7 @@ const AttachDocumentForm = ({
     isFileViewRequired,
     isSignatureRequired,
     isUpsyncForced,
-    checkedServices,
+    services,
     agreeanceEveryXDays,
     startOn,
     endOn,
@@ -92,16 +92,14 @@ const AttachDocumentForm = ({
         <div className="size-lg-12">
             <DatePickerContainer
                 startOn={startOn}
-                // ! only receiving errors for end on
                 endOn={endOn}
-                // name="endOn"
                 onChange={handleDateChange}
             />
         </div>
         <div className="size-lg-12">
             <Field name="Service type">
                 <ServiceListCheckboxContainer
-                    checkedServices={checkedServices}
+                    services={services}
                     handleChange={handleMultiselect}
                 />
             </Field>

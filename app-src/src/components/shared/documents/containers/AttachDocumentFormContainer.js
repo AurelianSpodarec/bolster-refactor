@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 import AttachDocumentForm from '../presentational/AttachDocumentForm';
 import { updateObj } from 'helpers/generic';
@@ -16,35 +17,48 @@ class AttachDocumentFormContainer extends Component {
         isSignatureRequired: false,
         isUpsyncForced: false,
         // dropdown
-        checkedServices: {
-            '##fire##': { name: '##fire##', checked: false },
-            '##water##': { name: '##water##', checked: false },
-            '##earth##': { name: '##earth##', checked: false },
-            '##air##': { name: '##air##', checked: false },
-            '##heart##': { name: '##heart##', checked: false }
-        },
+        services: {},
         agreeanceEveryXDays: 0,
         // date selector
         startOn: new Date(),
         endOn: new Date()
     };
 
-    baseState = this.state;
+    render = () => {
+        return (
+            <AttachDocumentForm
+                {...this.state}
+                handleInputChange={this.handleInputChange}
+                handleSubmit={this.handleSubmit}
+                handleRadioChange={this.handleRadioChange}
+                handleCheckboxChange={this.handleCheckboxChange}
+                handleMultiselect={this.handleMultiselect}
+                handleFileChange={this.handleFileChange}
+                handleDateChange={this.handleDateChange}
+                validateDatePicker={this.validateDatePicker}
+                backUrl={this.props.backUrl}
+            />
+        );
+    };
 
-    render = () => (
-        <AttachDocumentForm
-            {...this.state}
-            handleInputChange={this.handleInputChange}
-            handleSubmit={this.handleSubmit}
-            handleRadioChange={this.handleRadioChange}
-            handleCheckboxChange={this.handleCheckboxChange}
-            handleMultiselect={this.handleMultiselect}
-            handleFileChange={this.handleFileChange}
-            handleDateChange={this.handleDateChange}
-            validateDatePicker={this.validateDatePicker}
-            backUrl={this.props.backUrl}
-        />
-    );
+    componentDidUpdate(prevProps) {
+        const { isFetching, services, subscriptions } = this.props;
+        if (!isFetching && prevProps.isFetching) {
+            const servicesForState = Object.values(services).reduce(
+                (acc, { id, name }) => {
+                    acc[id] = {
+                        id,
+                        name,
+                        disabled: !subscriptions.includes(id),
+                        checked: false
+                    };
+                    return acc;
+                },
+                {}
+            );
+            this.setState({ services: servicesForState });
+        }
+    }
 
     handleCheckboxChange = e => {
         const { name } = e.target;
@@ -71,18 +85,19 @@ class AttachDocumentFormContainer extends Component {
 
     handleRadioChange = e => {
         const { name, value } = e.target;
-        this.setState({ ...this.baseState, [name]: value });
+        this.setState({ [name]: value });
     };
 
     handleMultiselect = e => {
-        const { name } = e.target;
+        const serviceID = e.target.id;
+        const id = serviceID.split('_')[1];
         this.setState(prevState => {
-            const { checkedServices } = prevState;
-            const service = checkedServices[name];
+            const { services } = prevState;
+            const service = services[id];
             return {
-                checkedServices: {
-                    ...checkedServices,
-                    [name]: updateObj(service, 'checked', !service.checked)
+                services: {
+                    ...services,
+                    [id]: updateObj(service, 'checked', !service.checked)
                 }
             };
         });
@@ -100,4 +115,12 @@ class AttachDocumentFormContainer extends Component {
     };
 }
 
-export default AttachDocumentFormContainer;
+const mapStateToProps = ({
+    companyAdmin: { servicesReducer, subscriptionsReducer }
+}) => ({
+    isFetching: servicesReducer.isFetching || subscriptionsReducer.isFetching,
+    services: servicesReducer.services,
+    subscriptions: subscriptionsReducer.subscriptions.serviceIDs
+});
+
+export default connect(mapStateToProps)(AttachDocumentFormContainer);
