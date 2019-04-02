@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import ClientInvite from 'components/shared/clients/presentational/ClientInvite';
+import OperativesAdd from 'components/shared/operatives/presentational/OperativesAdd';
 
-class FloorInviteClientContainer extends Component {
+class OperativeAddContainer extends Component {
     render() {
         return (
             <BlockContainer>
-                <ClientInvite type="floor" />
+                <OperativesAdd type="floor" />
             </BlockContainer>
         );
     }
 }
 
-export default FloorInviteClientContainer;
+export default OperativeAddContainer;
