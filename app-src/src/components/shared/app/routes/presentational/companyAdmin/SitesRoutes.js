@@ -30,7 +30,7 @@ const SitesRoutes = ({ match: { url: baseUrl } }) => (
         />
         <Route
             exact
-            path={`${baseUrl}/:siteID/attach-operative`}
+            path={`${baseUrl}/:siteID/add-operative`}
             component={AttachSiteOperative}
         />
         <Route
