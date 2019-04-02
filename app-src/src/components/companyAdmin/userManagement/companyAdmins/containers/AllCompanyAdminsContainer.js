@@ -13,8 +13,6 @@ export class AllCompanyAdminsContainer extends Component {
         const { fetchAllCompanyUsers } = this.props;
 
         fetchAllCompanyUsers();
-
-        console.log('hiiiiiii');
     };
 }
 

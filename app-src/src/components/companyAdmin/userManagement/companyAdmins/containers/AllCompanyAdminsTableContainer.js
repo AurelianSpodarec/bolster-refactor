@@ -8,18 +8,19 @@ class AllCompanyAdminTableContainer extends Component {
         const { users, isFetching, error } = this.props;
 
         return (
-            <AllCompanyAdminsTable
-                headers={[
-                    'Name',
-                    'Email',
-                    'Phone Number',
-                    'Last Web Login',
-                    ''
-                ]}
-                users={users}
-                isFetching={isFetching}
-                error={error}
-            />
+            // <AllCompanyAdminsTable
+            //     headers={[
+            //         'Name',
+            //         'Email',
+            //         'Phone Number',
+            //         'Last Web Login',
+            //         ''
+            //     ]}
+            //     users={users}
+            //     isFetching={isFetching}
+            //     error={error}
+            // />
+            <p>Hi</p>
         );
     }
 
@@ -34,8 +35,8 @@ class AllCompanyAdminTableContainer extends Component {
     // };
 }
 
-const mapStateToProps = ({ companyUsersReducer }) => ({
-    users: Object.values(companyUsersReducer.users),
+const mapStateToProps = ({ companyAdmin: { companyUsersReducer } }) => ({
+    users: Object.values(companyUsersReducer.users) || {},
     isFetching: companyUsersReducer.isFetching,
     error: companyUsersReducer.error
 });

@@ -1,14 +1,13 @@
 import React from 'react';
 
-import Breadcrumb from 'components/shared/generic/breadcrumb/presentational/Breadcrumb';
-import Block from 'components/shared/generic/block/presentational/Block';
+import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import AllCompanyAdminsTableContainer from '../containers/AllCompanyAdminsTableContainer';
 
 const AllCompanyAdmins = () => (
     <div>
-        <Breadcrumb breadcrumbs={[{ text: 'item 1' }, { text: 'item 2' }]} />
-        <Block>
-            <h3 className="heading heading-3">Company Adminsssss</h3>
-        </Block>
+        <BlockContainer>
+            <AllCompanyAdminsTableContainer />
+        </BlockContainer>
     </div>
 );
 
