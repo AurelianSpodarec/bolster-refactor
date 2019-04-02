@@ -22,8 +22,6 @@ class EditSiteDocumentContainer extends Component {
         const { documentID } = this.props.match.params;
         const { fetchDocument } = this.props;
         fetchDocument(documentID);
-        console.log(fetchDocument);
-        console.error('fetch document should have been sent here');
     }
 
     componentDidUpdate({ postSuccess: prevSuccess }) {
