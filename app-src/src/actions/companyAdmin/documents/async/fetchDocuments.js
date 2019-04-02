@@ -2,7 +2,6 @@ import axios from 'axios';
 
 import { API_URL } from 'config/index';
 import { getHeaders } from 'helpers/api';
-import setAPIFieldErrors from 'actions/shared/generic/fieldErrors/sync/setAPIFieldErrors';
 
 import {
     FETCH_DOCUMENTS_REQUEST,
@@ -33,7 +32,5 @@ export default (HierachyType, ID) => dispatch => {
         .then(res => dispatch(fetchDocumentsSuccess(res.data)))
         .catch(error => {
             dispatch(fetchDocumentsFailure(error.message));
-            if (error.response.status === 400)
-                dispatch(setAPIFieldErrors(error.response.data.errors));
         });
 };

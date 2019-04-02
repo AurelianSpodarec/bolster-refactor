@@ -1,10 +1,14 @@
 import React from 'react';
 
-import SitesListItemContainer from '../containers/SitesListItemContainer';
+import AllCompanyAdminsListItemContainer from '../containers/AllCompanyAdminsListItemContainer';
 
 const AllCompanyAdminsList = ({ users, colCount }) =>
-    users.map(site => (
-        <SitesListItemContainer key={site.id} site={site} colCount={colCount} />
+    users.map(user => (
+        <AllCompanyAdminsListItemContainer
+            key={user.id}
+            users={user}
+            colCount={colCount}
+        />
     ));
 
 export default AllCompanyAdminsList;

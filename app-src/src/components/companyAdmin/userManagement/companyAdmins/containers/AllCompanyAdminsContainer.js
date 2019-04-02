@@ -1,24 +1,32 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import AllCompanyAdmins from '../presentational/AllCompanyAdmins';
+import fetchCompanyUsers from 'actions/companyAdmin/userManagement/async/fetchCompanyUsers';
 
 export class AllCompanyAdminsContainer extends Component {
-    static propTypes = {
-        prop: PropTypes
-    };
-
     render() {
         return <AllCompanyAdmins />;
     }
+
+    componentDidMount = () => {
+        const { fetchAllCompanyUsers } = this.props;
+
+        fetchAllCompanyUsers();
+
+        console.log('hiiiiiii');
+    };
 }
 
-const mapStateToProps = state => ({});
+// const mapStateToProps = state => ({});
 
-const mapDispatchToProps = {};
+const mapDispatchToProps = dispatch => ({
+    fetchAllCompanyUsers: () => {
+        dispatch(fetchCompanyUsers());
+    }
+});
 
 export default connect(
-    mapStateToProps,
+    null,
     mapDispatchToProps
 )(AllCompanyAdminsContainer);

@@ -1,31 +1,37 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import SitesTable from '../presentational/SitesTable';
+import AllCompanyAdminsTable from '../presentational/AllCompanyAdminsTable';
 
 class AllCompanyAdminTableContainer extends Component {
     render() {
-        const { isFetching, error } = this.props;
+        const { users, isFetching, error } = this.props;
 
         return (
-            <SitesTable
-                headers={['Site name', 'Owned by', 'Permissions', 'Action']}
-                sites={this._getFilteredSites()}
+            <AllCompanyAdminsTable
+                headers={[
+                    'Name',
+                    'Email',
+                    'Phone Number',
+                    'Last Web Login',
+                    ''
+                ]}
+                users={users}
                 isFetching={isFetching}
                 error={error}
             />
         );
     }
 
-    _getFilteredSites = () => {
-        const { sites, filters } = this.props;
-        const { status } = filters;
-        const name = filters.name.toLowerCase();
+    // _getFilteredSites = () => {
+    //     const { sites, filters } = this.props;
+    //     const { status } = filters;
+    //     const name = filters.name.toLowerCase();
 
-        return sites
-            .filter(site => !status.length || site.status === status)
-            .filter(site => site.name.toLowerCase().includes(name));
-    };
+    //     return sites
+    //         .filter(site => !status.length || site.status === status)
+    //         .filter(site => site.name.toLowerCase().includes(name));
+    // };
 }
 
 const mapStateToProps = ({ companyUsersReducer }) => ({

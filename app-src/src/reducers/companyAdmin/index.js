@@ -17,9 +17,11 @@ import pinCustomFieldsReducer from './pinCustomFields';
 import pinHistoriesReducer from './pinHistories';
 import operativesReducer from './operatives';
 import subscriptionsReducer from './subscriptions';
+import companyUsersReducer from '../companyAdmin/companyUsers';
 
 export default combineReducers({
     buildingsReducer,
+    companyUsersReducer,
     floorsReducer,
     drawingsReducer,
     notificationsReducer,
