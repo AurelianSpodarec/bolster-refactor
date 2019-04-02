@@ -321,6 +321,10 @@ input {
     }
     background-color: white;
 
+    &.non-logged-in {
+        background-color: $red;
+        border: 0px;
+    }
     .container {
         height: 100%;
     }
