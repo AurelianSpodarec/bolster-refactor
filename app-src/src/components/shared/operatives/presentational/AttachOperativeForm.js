@@ -6,10 +6,10 @@ import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/pr
 import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
 import Field from 'components/shared/generic/form/presentational/Field';
 
-const AttachOperativeForm = ({ location, handleSubmit }) => (
+const AttachOperativeForm = ({ location, handleSubmit, users }) => (
     <Form className="size-lg-12" onSubmit={handleSubmit}>
         <Field name="Select an operative" sizeClasses="size-lg-6">
-            <DropdownContainer placeholder="Select operative" options={['']} />
+            <DropdownContainer placeholder="Select operative" options={users} />
         </Field>
 
         <BlockButtonWrapper>
