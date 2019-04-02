@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-
-import AllCompanyAdminsTable from '../presentational/AllCompanyAdminsTable';
+//
+// import AllCompanyAdminsTable from '../presentational/AllCompanyAdminsTable';
 
 class AllCompanyAdminTableContainer extends Component {
     render() {
-        const { users, isFetching, error } = this.props;
+        // const { users, isFetching, error } = this.props;
 
         return (
             // <AllCompanyAdminsTable
