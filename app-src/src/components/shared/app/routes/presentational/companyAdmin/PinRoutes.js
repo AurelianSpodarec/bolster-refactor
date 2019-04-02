@@ -2,7 +2,7 @@ import React from 'react';
 import { Route } from 'react-router-dom';
 
 import SwitchWith404 from '../SwitchWith404';
-import SinglePinContainer from 'components/pins/singlePin/containers/SinglePinContainer';
+import SinglePinContainer from 'components/companyAdmin/pins/singlePin/containers/SinglePinContainer';
 
 const PinRoutes = ({ match: { url: baseUrl } }) => (
     <SwitchWith404>

@@ -1,6 +1,6 @@
 import React from 'react';
 import GenerationQueueFilters from '../presentational/GenerationQueueFilters';
-import updateGenerationQueueSort from 'actions/generationQueue/sync/updateGenerationQueueSort';
+import updateGenerationQueueSort from 'actions/companyAdmin/generationQueue/sync/updateGenerationQueueSort';
 import { connect } from 'react-redux';
 
 const GenerationQueueFiltersContainer = ({
@@ -37,7 +37,7 @@ const mapDispatchToProps = dispatch => ({
     }
 });
 
-const mapStateToProps = ({ generationQueueReducer }) => ({
+const mapStateToProps = ({ superAdmin: { generationQueueReducer } }) => ({
     sortString: generationQueueReducer.sort.sortString
 });
 

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import updateSitesFilters from 'actions/sites/sync/updateSitesFilters';
+import updateSitesFilters from 'actions/companyAdmin/sites/sync/updateSitesFilters';
 
 import SitesFilters from '../presentational/SitesFilters';
 
@@ -36,6 +36,6 @@ class SitesFiltersContainer extends Component {
     };
 }
 
-export default connect(({ sitesReducer }) => ({
+export default connect(({ companyAdmin: { sitesReducer } }) => ({
     filters: sitesReducer.filters
 }))(SitesFiltersContainer);

@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import fetchAllSites from 'actions/sites/async/fetchAllSites';
-import fetchAllBuildings from 'actions/buildings/async/fetchAllBuildings';
-import fetchAllFloors from 'actions/floors/async/fetchAllFloors';
-import fetchAllDrawings from 'actions/drawings/async/fetchAllDrawings';
+import fetchAllSites from 'actions/companyAdmin/sites/async/fetchAllSites';
+import fetchAllBuildings from 'actions/companyAdmin/buildings/async/fetchAllBuildings';
+import fetchAllFloors from 'actions/companyAdmin/floors/async/fetchAllFloors';
+import fetchAllDrawings from 'actions/companyAdmin/drawings/async/fetchAllDrawings';
 
 import AllSites from '../presentational/AllSites';
 

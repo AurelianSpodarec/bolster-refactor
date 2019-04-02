@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 import SiteEditForm from '../presentational/SiteEditForm';
-import editSite from 'actions/sites/async/editSite';
+import editSite from 'actions/companyAdmin/sites/async/editSite';
 
 class SiteEditFormContainer extends Component {
     state = {
@@ -89,7 +89,7 @@ class SiteEditFormContainer extends Component {
     };
 }
 
-const mapStateToProps = ({ sitesReducer }, ownProps) => ({
+const mapStateToProps = ({ companyAdmin: { sitesReducer } }, ownProps) => ({
     postSuccess: sitesReducer.postSuccess,
     error: sitesReducer.error,
     siteID: ownProps.match.params.id,

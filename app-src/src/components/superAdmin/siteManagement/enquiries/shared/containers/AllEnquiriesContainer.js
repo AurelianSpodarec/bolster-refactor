@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import fetchAllEnquiries from 'actions/enquiries/async/fetchAllEnquiries';
+import fetchAllEnquiries from 'actions/superAdmin/enquiries/async/fetchAllEnquiries';
 import AllEnquiries from '../presentational/AllEnquiries';
 
 class AllEnquiriesContainer extends Component {

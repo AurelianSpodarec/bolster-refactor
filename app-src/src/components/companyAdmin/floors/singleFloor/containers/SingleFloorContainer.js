@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import fetchSingleFloor from 'actions/floors/async/fetchSingleFloor';
-import fetchAllDrawings from 'actions/drawings/async/fetchAllDrawings';
-import fetchDocuments from 'actions/documents/async/fetchDocuments';
-import fetchClients from 'actions/clients/async/fetchClients';
-import fetchAllCompanies from 'actions/companies/async/fetchAllCompanies';
-import fetchOperatives from 'actions/operatives/async/fetchOperatives';
+import fetchSingleFloor from 'actions/companyAdmin/floors/async/fetchSingleFloor';
+import fetchAllDrawings from 'actions/companyAdmin/drawings/async/fetchAllDrawings';
+import fetchDocuments from 'actions/companyAdmin/documents/async/fetchDocuments';
+import fetchClients from 'actions/companyAdmin/clients/async/fetchClients';
+import fetchAllCompanies from 'actions/companyAdmin/companies/async/fetchAllCompanies';
+import fetchOperatives from 'actions/companyAdmin/operatives/async/fetchOperatives';
 
 import SingleFloor from '../presentational/SingleFloor';
 

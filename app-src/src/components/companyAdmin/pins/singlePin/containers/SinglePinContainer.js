@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import fetchSinglePin from 'actions/pins/async/fetchSinglePin';
-import fetchPinHistories from 'actions/pins/async/fetchPinHistories';
-import fetchCustomFields from 'actions/pins/async/fetchCustomFields';
+import fetchSinglePin from 'actions/companyAdmin/pins/async/fetchSinglePin';
+import fetchPinHistories from 'actions/companyAdmin/pins/async/fetchPinHistories';
+import fetchCustomFields from 'actions/companyAdmin/pins/async/fetchCustomFields';
 import SinglePin from '../presentational/SinglePin';
 
 class SinglePinContainer extends Component {

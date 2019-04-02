@@ -9,7 +9,7 @@ const SingleFloorHeaderContainer = ({ floor }) => (
 );
 
 export default withRouter(
-    connect(({ floorsReducer }, ownProps) => ({
+    connect(({ companyAdmin: { floorsReducer } }, ownProps) => ({
         floor: floorsReducer.floors[ownProps.match.params.id] || {}
     }))(SingleFloorHeaderContainer)
 );

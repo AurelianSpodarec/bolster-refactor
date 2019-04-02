@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import addFieldError from 'actions/generic/fieldErrors/sync/addFieldError';
-import removeFieldError from 'actions/generic/fieldErrors/sync/removeFieldError';
+import addFieldError from 'actions/shared/generic/fieldErrors/sync/addFieldError';
+import removeFieldError from 'actions/shared/generic/fieldErrors/sync/removeFieldError';
 
 import TextInput from '../presentational/TextInput';
 
@@ -97,7 +97,7 @@ class TextInputContianer extends Component {
     };
 }
 
-const mapStateToProps = ({ fieldErrorsReducer }, ownProps) => ({
+const mapStateToProps = ({ shared: { fieldErrorsReducer } }, ownProps) => ({
     error: fieldErrorsReducer.fieldErrors[ownProps.name],
     errorsVisible: fieldErrorsReducer.errorsVisible
 });

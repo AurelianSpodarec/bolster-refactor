@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import Search from 'components/shared/generic/form/presentational/Search';
 import SearchResults from '../presentational/SearchResults';
 
-import fetchSearchResults from 'actions/search/async/fetchSearchResults';
+import fetchSearchResults from 'actions/companyAdmin/search/async/fetchSearchResults';
 
 class SearchContainer extends Component {
     state = {
@@ -77,7 +77,7 @@ class SearchContainer extends Component {
     };
 }
 
-const mapStateToProps = ({ searchReducer }) => ({
+const mapStateToProps = ({ companyAdmin: { searchReducer } }) => ({
     results: Object.values(searchReducer.results),
     isFetching: searchReducer.isFetching,
     error: searchReducer.error

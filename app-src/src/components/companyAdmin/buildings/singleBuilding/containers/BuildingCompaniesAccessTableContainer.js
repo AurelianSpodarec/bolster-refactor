@@ -24,7 +24,7 @@ class BuildingCompaniesAccessTableContainer extends Component {
 }
 
 const mapStateToProps = (
-    { buildingsReducer, companiesReducer },
+    { companyAdmin: { buildingsReducer, companiesReducer } },
     { match }
 ) => ({
     building: buildingsReducer.buildings[match.params.id] || {},

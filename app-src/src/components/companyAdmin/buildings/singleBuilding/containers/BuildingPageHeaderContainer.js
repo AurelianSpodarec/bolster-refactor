@@ -11,7 +11,7 @@ class BuildingPageHeaderContainer extends Component {
 }
 
 export default withRouter(
-    connect(({ buildingsReducer }, ownProps) => ({
+    connect(({ companyAdmin: { buildingsReducer } }, ownProps) => ({
         building: buildingsReducer.buildings[ownProps.match.params.id] || {}
     }))(BuildingPageHeaderContainer)
 );

@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
-import BuildingsTableContainer from 'components/buildings/shared/containers/BuildingsTableContainer';
+import BuildingsTableContainer from 'components/companyAdmin/buildings/shared/containers/BuildingsTableContainer';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 
 const SiteBuildingsTableContainer = ({ site }) => (
@@ -12,7 +12,7 @@ const SiteBuildingsTableContainer = ({ site }) => (
 );
 
 export default withRouter(
-    connect(({ sitesReducer }, { match }) => ({
+    connect(({ companyAdmin: { sitesReducer } }, { match }) => ({
         site: sitesReducer.sites[match.params.id] || {},
         isFetching: sitesReducer.isFetching
     }))(SiteBuildingsTableContainer)

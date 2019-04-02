@@ -2,8 +2,8 @@ import React from 'react';
 import { Route } from 'react-router-dom';
 
 import SwitchWith404 from '../SwitchWith404';
-import Dashboard from 'components/dashboard/dashboard/presentational/Dashboard';
-import NotFound from 'components/notFound/presentational/NotFound';
+import Dashboard from 'components/shared/dashboard/dashboard/presentational/Dashboard';
+import NotFound from 'components/shared/notFound/presentational/NotFound';
 
 import SitesRoutes from './SitesRoutes';
 import BuildingsRoutes from './BuildingsRoutes';

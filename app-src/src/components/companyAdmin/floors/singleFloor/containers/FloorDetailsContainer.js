@@ -21,7 +21,7 @@ class FloorDetailsContainer extends Component {
     }
 }
 
-const mapStateToProps = ({ floorsReducer }, { match }) => ({
+const mapStateToProps = ({ companyAdmin: { floorsReducer } }, { match }) => ({
     floor: floorsReducer.floors[match.params.id] || {},
     isFetching: floorsReducer.isFetching,
     error: floorsReducer.error

@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import withToggleExpand from 'components/shared/generic/tables/hocs/withToggleExpand';
-import BuildingsTableContainer from 'components/buildings/shared/containers/BuildingsTableContainer';
+import BuildingsTableContainer from 'components/companyAdmin/buildings/shared/containers/BuildingsTableContainer';
 
 const SitesListItem = ({ toggleExpanded, isExpanded, site, colCount }) => {
     return (

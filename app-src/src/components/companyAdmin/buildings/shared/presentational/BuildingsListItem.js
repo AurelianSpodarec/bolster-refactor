@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import FloorTableContainer from 'components/floors/shared/containers/FloorTableContainer';
+import FloorTableContainer from 'components/companyAdmin/floors/shared/containers/FloorTableContainer';
 const BuldingsListItem = ({
     building,
     toggleExpanded,

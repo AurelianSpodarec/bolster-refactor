@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { showModal } from 'actions/generic/modals/sync/showModal';
-import EnquiriesListItem from '../presentational/EnquiriesListItem';
+
 import { DELETE_ENQUIRY, POSTING_ERROR } from 'constants/shared/modalTypes';
+import { showModal } from 'actions/shared/generic/modals/sync/showModal';
+import EnquiriesListItem from '../presentational/EnquiriesListItem';
 
 class EnquiriesListItemContainer extends Component {
     render() {
@@ -39,7 +40,7 @@ const mapDispatchToProps = dispatch => ({
     }
 });
 
-const mapStateToProps = ({ enquiriesReducer }) => ({
+const mapStateToProps = ({ superAdmin: { enquiriesReducer } }) => ({
     postingError: enquiriesReducer.postingError
 });
 

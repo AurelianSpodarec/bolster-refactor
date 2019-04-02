@@ -31,7 +31,7 @@ const CompaniesTableContainer = ({
     }
 };
 
-export default connect(({ companiesReducer }) => ({
+export default connect(({ companyAdmin: { companiesReducer } }) => ({
     isFetching: companiesReducer.isFetching,
     fetchingError: companiesReducer.fetchingError,
     companies: Object.values(companiesReducer.companies),

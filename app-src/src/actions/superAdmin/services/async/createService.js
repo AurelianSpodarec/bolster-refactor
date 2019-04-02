@@ -6,7 +6,7 @@ import {
 } from 'constants/actionTypes/services';
 import { ADMIN_API_URL } from 'config';
 import { getHeaders } from 'helpers/api';
-import setAPIFieldErrors from 'actions/generic/fieldErrors/sync/setAPIFieldErrors';
+import setAPIFieldErrors from 'actions/shared/generic/fieldErrors/sync/setAPIFieldErrors';
 
 export const createServiceRequest = () => ({
     type: CREATE_SERVICE_REQUEST

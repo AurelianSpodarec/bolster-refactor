@@ -1,12 +1,13 @@
+import Axios from 'axios';
+
+import { API_URL } from 'config';
+import { getHeaders } from 'helpers/api';
+import setAPIFieldErrors from 'actions/shared/generic/fieldErrors/sync/setAPIFieldErrors';
 import {
     CREATE_DOCUMENT_REQUEST,
     CREATE_DOCUMENT_SUCCESS,
     CREATE_DOCUMENT_FAILURE
 } from 'constants/actionTypes/documents';
-import Axios from 'axios';
-import { API_URL } from 'config';
-import setAPIFieldErrors from 'actions/generic/fieldErrors/sync/setAPIFieldErrors';
-import { getHeaders } from 'helpers/api';
 
 export const createDocumentRequest = () => ({
     type: CREATE_DOCUMENT_REQUEST

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import selectMenuTab from 'actions/generic/tabs/sync/selectMenuTab';
+import selectMenuTab from 'actions/shared/generic/tabs/sync/selectMenuTab';
 
 import Tabs from '../presentational/Tabs';
 
@@ -16,7 +16,7 @@ const MenuTabsContainer = ({ dispatch, menuTabs, selectedMenuTab }) => (
     />
 );
 
-const mapStateToProps = ({ tabsReducer }) => ({
+const mapStateToProps = ({ shared: { tabsReducer } }) => ({
     menuTabs: tabsReducer.menuTabs,
     selectedMenuTab: tabsReducer.selectedMenuTab
 });

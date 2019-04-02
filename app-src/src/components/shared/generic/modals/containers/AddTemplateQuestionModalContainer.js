@@ -7,7 +7,7 @@ import {
     PREREQ_TYPES
 } from 'constants/superAdmin/templateBuilder';
 import { convertArrToObj } from 'helpers/generic';
-import hideModal from 'actions/generic/modals/sync/hideModal';
+import hideModal from 'actions/shared/generic/modals/sync/hideModal';
 import addQuestion from 'actions/superAdmin/templateBuilder/sync/addQuestion';
 
 import TemplateQuestionFormModal from '../presentational/TemplateQuestionFormModal';

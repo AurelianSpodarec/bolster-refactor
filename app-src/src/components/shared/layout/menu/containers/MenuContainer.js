@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import withShowLayout from 'components/layout/misc/hocs/withShowLayout';
+import withShowLayout from 'components/shared/layout/misc/hocs/withShowLayout';
 import MenusWrapper from '../presentational/MenusWrapper';
 
 class MenuContainer extends Component {
@@ -17,7 +17,10 @@ class MenuContainer extends Component {
         return <MenusWrapper showSuperAdmin={showSuperAdmin} />;
     }
 }
-const mapStateToProps = ({ messagesReducer, decodeJWTReducer }) => ({
+const mapStateToProps = ({
+    companyAdmin: { messagesReducer },
+    shared: { decodeJWTReducer }
+}) => ({
     messageCount: Object.values(messagesReducer.messages).length,
     showSuperAdmin: decodeJWTReducer.jwtData.IsSuperAdmin
 });

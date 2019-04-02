@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { MENU_TABS as TABS } from 'constants/companyAdmin/tabNames';
+import { MENU_TABS as TABS } from 'constants/shared/tabNames';
 
 import Menu from '../presentational/Menu';
 import SuperAdminMenu from '../presentational/SuperAdminMenu';
@@ -18,6 +18,6 @@ const MenusRouteContainer = ({ selectedMenuTab }) => {
     return <SpecificContent />;
 };
 
-export default connect(({ tabsReducer }) => ({
+export default connect(({ shared: { tabsReducer } }) => ({
     selectedMenuTab: tabsReducer.selectedMenuTab
 }))(MenusRouteContainer);

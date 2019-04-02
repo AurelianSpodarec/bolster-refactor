@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import toggleSiteExpanded from 'actions/generic/tables/sync/toggleSiteExpanded';
+import toggleSiteExpanded from 'actions/shared/generic/tables/sync/toggleSiteExpanded';
 
 import SitesListItem from '../presentational/SitesListItem';
 

@@ -23,7 +23,10 @@ class SiteCompaniesAccessTableContainer extends Component {
     }
 }
 
-const mapStateToProps = ({ sitesReducer, companiesReducer }, { match }) => ({
+const mapStateToProps = (
+    { companyAdmin: { sitesReducer, companiesReducer } },
+    { match }
+) => ({
     site: sitesReducer.sites[match.params.id] || {},
     isFetching: companiesReducer.isFetching,
     error: companiesReducer.error

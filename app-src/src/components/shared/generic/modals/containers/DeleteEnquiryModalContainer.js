@@ -2,8 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import ConfirmDeleteModal from '../presentational/ConfirmDeleteModal';
-import deleteEnquiry from 'actions/enquiries/async/deleteEnquiry';
-import { hideModal } from 'actions/generic/modals/sync/hideModal';
+import deleteEnquiry from 'actions/superAdmin/enquiries/async/deleteEnquiry';
+import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 
 const DeleteEnquiryModalContainer = ({ id, handleDelete, hideModal }) => (
     <ConfirmDeleteModal

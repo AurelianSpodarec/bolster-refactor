@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import uuid from 'uuid/v1';
 
 import addSection from 'actions/superAdmin/templateBuilder/sync/addSection';
-import hideModal from 'actions/generic/modals/sync/hideModal';
+import hideModal from 'actions/shared/generic/modals/sync/hideModal';
 
 import AddTemplateSectionModal from '../presentational/AddTemplateSectionModal';
 
@@ -40,7 +40,7 @@ class AddTemplateSectionModalContainer extends React.Component {
     };
 }
 
-const mapStateToProps = ({ templateSectionsReducer }) => ({
+const mapStateToProps = ({ superAdmin: { templateSectionsReducer } }) => ({
     sections: Object.values(templateSectionsReducer.sections)
 });
 

@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import updateSection from 'actions/superAdmin/templateBuilder/sync/updateSection';
-import hideModal from 'actions/generic/modals/sync/hideModal';
+import hideModal from 'actions/shared/generic/modals/sync/hideModal';
 
 import RenameTemplateSectionModal from '../presentational/RenameTemplateSectionModal';
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 
-import CompanyAdminsContainer from 'components/userManagement/companyAdmins/containers/CompanyAdminsContainer';
+import CompanyAdminsContainer from 'components/superAdmin/siteManagement/userManagement/companyAdmins/containers/CompanyAdminsContainer';
 
 import SwitchWith404 from '../SwitchWith404';
 

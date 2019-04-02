@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 import AddSiteForm from '../presentational/AddSiteForm';
-import createSite from 'actions/sites/async/createSite';
+import createSite from 'actions/companyAdmin/sites/async/createSite';
 
 class AddSiteFormContainer extends Component {
     state = {
@@ -63,7 +63,7 @@ class AddSiteFormContainer extends Component {
     };
 }
 
-const mapStateToProps = ({ sitesReducer }) => ({
+const mapStateToProps = ({ companyAdmin: { sitesReducer } }) => ({
     postSuccess: sitesReducer.postSuccess,
     error: sitesReducer.error,
     updatedSiteID: sitesReducer.updatedSiteID

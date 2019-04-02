@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom';
 import uuid from 'uuid/v1';
 
 import { ADD_TEMPLATE } from 'constants/shared/modalTypes';
-import showModal from 'actions/generic/modals/sync/showModal';
+import showModal from 'actions/shared/generic/modals/sync/showModal';
 import CompanyHeader from '../presentational/CompanyHeader';
 
 class CompanyHeaderContainer extends Component {
@@ -33,7 +33,11 @@ class CompanyHeaderContainer extends Component {
 }
 
 const mapStateToProps = (
-    { companiesReducer: { companies } },
+    {
+        companyAdmin: {
+            companiesReducer: { companies }
+        }
+    },
     { match: { params } }
 ) => ({
     company: companies[params.id] || {},

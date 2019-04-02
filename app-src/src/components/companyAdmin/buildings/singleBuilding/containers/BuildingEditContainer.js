@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import fetchSingleBuilding from 'actions/buildings/async/fetchSingleBuilding';
+import fetchSingleBuilding from 'actions/companyAdmin/buildings/async/fetchSingleBuilding';
 
 import BuildingEdit from '../presentational/BuildingEdit';
 
@@ -40,7 +40,7 @@ class BuildingEditContainer extends Component {
     };
 }
 
-const mapStateToProps = ({ buildingsReducer }, ownProps) => ({
+const mapStateToProps = ({ companyAdmin: { buildingsReducer } }, ownProps) => ({
     buildingID: ownProps.match.params.id,
     building: buildingsReducer.buildings[ownProps.match.params.id] || {}
 });

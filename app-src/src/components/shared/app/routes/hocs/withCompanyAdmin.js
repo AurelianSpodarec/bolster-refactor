@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 // import { MENU_TABS } from 'constants/tabNames';
-import setMenuTabs from 'actions/generic/tabs/sync/setMenuTabs';
+import setMenuTabs from 'actions/shared/generic/tabs/sync/setMenuTabs';
 
 function withCompanyAdmin(WrappedComponent) {
     class Wrapper extends React.Component {

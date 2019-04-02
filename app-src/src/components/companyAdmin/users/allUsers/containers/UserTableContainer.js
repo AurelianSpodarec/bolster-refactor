@@ -31,7 +31,7 @@ const UserTableContainer = ({ isFetching, error, users, filters }) => {
     }
 };
 
-export default connect(({ usersReducer }) => ({
+export default connect(({ superAdmin: { usersReducer } }) => ({
     isFetching: usersReducer.isFetching,
     error: usersReducer.error,
     users: Object.values(usersReducer.users),

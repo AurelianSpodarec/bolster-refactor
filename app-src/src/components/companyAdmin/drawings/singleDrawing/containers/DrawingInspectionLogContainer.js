@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import DrawingInspectionLogsTable from '../presentational/DrawingInspectionLogsTable';
-import fetchInspectionLogs from 'actions/drawings/async/fetchInspectionLogs';
+import fetchInspectionLogs from 'actions/companyAdmin/drawings/async/fetchInspectionLogs';
 
 class DrawingInspectionLogContainer extends Component {
     state = {

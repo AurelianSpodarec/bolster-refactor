@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+
+import { DELETE_ENQUIRY, POSTING_ERROR } from 'constants/shared/modalTypes';
+import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import EnquiryDetails from '../presentational/EnquiryDetails';
-import { showModal } from 'actions/generic/modals/sync/showModal';
-import { DELETE_ENQUIRY, POSTING_ERROR } from 'constants/shared/modalTypes';
 
 class EnquiryDetailsContainer extends Component {
     render() {
@@ -49,7 +50,7 @@ const mapDispatchToProps = dispatch => ({
     }
 });
 
-const mapStateToProps = ({ enquiriesReducer }, { match }) => ({
+const mapStateToProps = ({ superAdmin: { enquiriesReducer } }, { match }) => ({
     enquiry: enquiriesReducer.enquiries[match.params.id] || {},
     isFetching: enquiriesReducer.isFetching,
     fetchingError: enquiriesReducer.fetchingError,

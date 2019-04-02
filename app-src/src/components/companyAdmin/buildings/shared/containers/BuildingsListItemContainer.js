@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import toggleBuildingExpanded from 'actions/generic/tables/sync/toggleBuildingExpanded';
+import toggleBuildingExpanded from 'actions/shared/generic/tables/sync/toggleBuildingExpanded';
 
 import BuildingsListItem from '../presentational/BuildingsListItem';
 

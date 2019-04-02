@@ -5,7 +5,7 @@ import {
 } from 'constants/actionTypes/services';
 import axios from 'axios';
 import { ADMIN_API_URL } from 'config';
-import setAPIFieldErrors from 'actions/generic/fieldErrors/sync/setAPIFieldErrors';
+import setAPIFieldErrors from 'actions/shared/generic/fieldErrors/sync/setAPIFieldErrors';
 import { getHeaders } from 'helpers/api';
 
 export const editServiceRequest = (id, name) => ({

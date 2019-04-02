@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import DrawingTableContainer from 'components/drawings/shared/containers/DrawingTableContainer';
+import DrawingTableContainer from 'components/companyAdmin/drawings/shared/containers/DrawingTableContainer';
 
 const FloorListItem = ({ floor, isExpanded, colCount, toggleExpanded }) => (
     <>

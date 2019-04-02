@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import FloorTableContainer from 'components/floors/shared/containers/FloorTableContainer';
+import FloorTableContainer from 'components/companyAdmin/floors/shared/containers/FloorTableContainer';
 
 const BuildingsFloorsTableContainer = ({ building }) => (
     <BlockContainer>
@@ -12,7 +12,7 @@ const BuildingsFloorsTableContainer = ({ building }) => (
 );
 
 export default withRouter(
-    connect(({ buildingsReducer }, ownProps) => ({
+    connect(({ companyAdmin: { buildingsReducer } }, ownProps) => ({
         building: buildingsReducer.buildings[ownProps.match.params.id] || {},
         isFetching: buildingsReducer.isFetching
     }))(BuildingsFloorsTableContainer)

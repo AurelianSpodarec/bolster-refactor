@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import fetchSingleFloor from 'actions/floors/async/fetchSingleFloor';
+import fetchSingleFloor from 'actions/companyAdmin/floors/async/fetchSingleFloor';
 
 import FloorEdit from '../presentational/FloorEdit';
 
@@ -40,7 +40,7 @@ class FloorEditContainer extends Component {
     };
 }
 
-const mapStateToProps = ({ floorsReducer }, ownProps) => ({
+const mapStateToProps = ({ companyAdmin: { floorsReducer } }, ownProps) => ({
     floorID: ownProps.match.params.id,
     floor: floorsReducer.floors[ownProps.match.params.id] || {}
 });

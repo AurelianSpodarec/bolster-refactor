@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { hideModal } from 'actions/generic/modals/sync/hideModal';
-import editUser from 'actions/users/async/editUser';
 import { connect } from 'react-redux';
+
+import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
+import editUser from 'actions/superAdmin/users/async/editUser';
 import EditUserModal from '../presentational/EditUserModal';
 
 class EditUserModalContainer extends Component {

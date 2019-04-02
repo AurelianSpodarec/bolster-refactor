@@ -1,11 +1,11 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 
-import withShowLayout from 'components/layout/misc/hocs/withShowLayout';
+import withShowLayout from 'components/shared/layout/misc/hocs/withShowLayout';
 import withAuth from 'components/shared/auth/auth/hocs/withAuth';
 import withCompanyAdmin from '../hocs/withCompanyAdmin';
 
-import NotFound from 'components/notFound/presentational/NotFound';
+import NotFound from 'components/shared/notFound/presentational/NotFound';
 import SwitchWith404 from './SwitchWith404';
 import AuthRoutes from './auth';
 import AdminRoutes from './superAdmin';

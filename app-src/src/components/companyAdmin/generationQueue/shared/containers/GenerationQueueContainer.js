@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import fetchGenerationQueue from 'actions/generationQueue/async/fetchGenerationQueue';
+import fetchGenerationQueue from 'actions/companyAdmin/generationQueue/async/fetchGenerationQueue';
 import GenerationQueue from '../presentational/GenerationQueue';
 
 class GenerationQueueContainer extends Component {

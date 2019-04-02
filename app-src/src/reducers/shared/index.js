@@ -4,14 +4,16 @@ import fieldErrorsReducer from './fieldErrors';
 import loginReducer from './login';
 import profileReducer from './profile';
 import tabsReducer from './tabs';
+import tablesReducer from './tables';
 import decodeJWTReducer from './decodeJWT';
 import modalReducer from './modal';
 
 export default combineReducers({
-    profileReducer,
-    fieldErrorsReducer,
-    tabsReducer,
-    loginReducer,
     decodeJWTReducer,
-    modalReducer
+    fieldErrorsReducer,
+    loginReducer,
+    modalReducer,
+    profileReducer,
+    tabsReducer,
+    tablesReducer
 });

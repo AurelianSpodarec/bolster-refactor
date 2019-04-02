@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import hideModal from 'actions/generic/modals/sync/hideModal';
+import hideModal from 'actions/shared/generic/modals/sync/hideModal';
 
 import ModalOuter from '../presentational/ModalOuter';
 

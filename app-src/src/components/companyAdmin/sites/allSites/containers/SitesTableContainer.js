@@ -28,7 +28,7 @@ class SitesListTableContainer extends Component {
     };
 }
 
-const mapStateToProps = ({ sitesReducer }) => ({
+const mapStateToProps = ({ companyAdmin: { sitesReducer } }) => ({
     sites: Object.values(sitesReducer.sites),
     isFetching: sitesReducer.isFetching,
     error: sitesReducer.error,

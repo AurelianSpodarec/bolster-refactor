@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import selectPinHistory from 'actions/pins/sync/selectPinHistory';
+import selectPinHistory from 'actions/companyAdmin/pins/sync/selectPinHistory';
 import PinHistoriesListItem from '../presentational/PinHistoriesListItem';
 
 const PinHistoriesListItemContainer = ({ dispatch, ...otherProps }) => (

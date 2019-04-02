@@ -23,7 +23,9 @@ class TempaltesTableContainer extends Component {
 }
 
 const mapStateToProps = ({
-    templatesReducer: { templates, isFetching, error }
+    superAdmin: {
+        templatesReducer: { templates, isFetching, error }
+    }
 }) => ({
     templates: Object.values(templates),
     isFetching,

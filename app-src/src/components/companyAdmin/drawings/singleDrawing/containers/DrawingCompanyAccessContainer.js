@@ -23,7 +23,10 @@ class DrawingCompanyAccessContainer extends Component {
     }
 }
 
-const mapStateToProps = ({ drawingsReducer, companiesReducer }, { match }) => ({
+const mapStateToProps = (
+    { companyAdmin: { drawingsReducer, companiesReducer } },
+    { match }
+) => ({
     drawing: drawingsReducer.drawings[match.params.id] || {},
     isFetching: companiesReducer.isFetching,
     error: companiesReducer.error

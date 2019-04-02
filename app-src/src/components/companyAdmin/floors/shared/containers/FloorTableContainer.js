@@ -14,7 +14,7 @@ const FloorTableContainer = ({ isFetching, error, floors }) => {
     );
 };
 
-export default connect(({ floorsReducer }, ownProps) => ({
+export default connect(({ companyAdmin: { floorsReducer } }, ownProps) => ({
     isFetching: floorsReducer.isFetching,
     error: floorsReducer.error,
     floors: ownProps.ids

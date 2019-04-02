@@ -11,7 +11,11 @@ class SectionListContainer extends Component {
 }
 
 const mapStateToProps = (
-    { templateSectionsReducer: { sections } },
+    {
+        superAdmin: {
+            templateSectionsReducer: { sections }
+        }
+    },
     { match: { params } }
 ) => ({
     sections: Object.values(sections)

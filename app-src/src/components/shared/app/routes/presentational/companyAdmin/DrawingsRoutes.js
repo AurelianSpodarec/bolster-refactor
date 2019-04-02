@@ -2,12 +2,12 @@ import React from 'react';
 import { Route } from 'react-router-dom';
 
 import SwitchWith404 from '../SwitchWith404';
-import SingleDrawingContainer from 'components/drawings/singleDrawing/containers/SingleDrawingContainer';
-import AddDrawing from 'components/drawings/addDrawing/presentational/AddDrawing';
-import AttachDrawingOperative from 'components/drawings/attachDrawingOperative/presentational/AttachDrawingOperative';
-import InviteClientToDrawing from 'components/drawings/inviteClientToDrawing/presentational/InviteClientToDrawing';
-import AttachDrawingDocument from 'components/drawings/attachDrawingDocument/presentational/AttachDrawingDocument';
-import InviteCompanyToBuilding from 'components/buildings/inviteCompanyToBuilding/presentational/InviteCompanyToBuilding';
+import SingleDrawingContainer from 'components/companyAdmin/drawings/singleDrawing/containers/SingleDrawingContainer';
+import AddDrawing from 'components/companyAdmin/drawings/addDrawing/presentational/AddDrawing';
+import AttachDrawingOperative from 'components/companyAdmin/drawings/attachDrawingOperative/presentational/AttachDrawingOperative';
+import InviteClientToDrawing from 'components/companyAdmin/drawings/inviteClientToDrawing/presentational/InviteClientToDrawing';
+import AttachDrawingDocument from 'components/companyAdmin/drawings/attachDrawingDocument/presentational/AttachDrawingDocument';
+import InviteCompanyToBuilding from 'components/companyAdmin/buildings/inviteCompanyToBuilding/presentational/InviteCompanyToBuilding';
 
 const DrawingsRoutes = ({ match: { url: baseUrl } }) => (
     <SwitchWith404>

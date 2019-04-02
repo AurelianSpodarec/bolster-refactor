@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 import { ADD_TEMPLATE } from 'constants/shared/modalTypes';
-import { showModal } from 'actions/generic/modals/sync/showModal';
+import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import TemplateBuilderHeader from '../presentational/TemplateBuilderHeader';
 
 const TemplateBuilderHeaderContainer = ({
@@ -19,7 +19,11 @@ const TemplateBuilderHeaderContainer = ({
 );
 
 const mapStateToProps = (
-    { templatesReducer: { templates } },
+    {
+        superAdmin: {
+            templatesReducer: { templates }
+        }
+    },
     { match: { params } }
 ) => ({
     template: templates[params['uuid']] || {},

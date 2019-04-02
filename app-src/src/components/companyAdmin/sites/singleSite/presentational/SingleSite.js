@@ -8,7 +8,7 @@ import SiteClientInviteContainer from '../containers/SiteClientInviteContainer';
 import SiteCompaniesAccessTableContainer from '../containers/SiteCompaniesAccessTableContainer';
 import Breadcrumb from 'components/shared/generic/breadcrumb/presentational/Breadcrumb';
 import SitePageHeaderContainer from '../containers/SitePageHeaderContainer';
-import BreadcrumbContainer from 'components/pins/singlePin/containers/BreadcrumbContainer';
+import BreadcrumbContainer from 'components/companyAdmin/pins/singlePin/containers/BreadcrumbContainer';
 
 const SingleSite = () => (
     <>

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 import BuildingEditForm from '../presentational/BuildingEditForm';
-import editbuilding from 'actions/buildings/async/editBuilding';
+import editbuilding from 'actions/companyAdmin/buildings/async/editBuilding';
 
 class BuildingEditFormContainer extends Component {
     state = {
@@ -80,7 +80,7 @@ class BuildingEditFormContainer extends Component {
     };
 }
 
-const mapStateToProps = ({ buildingsReducer }, ownProps) => ({
+const mapStateToProps = ({ companyAdmin: { buildingsReducer } }, ownProps) => ({
     postSuccess: buildingsReducer.postSuccess,
     error: buildingsReducer.error,
     buildingID: ownProps.match.params.id,

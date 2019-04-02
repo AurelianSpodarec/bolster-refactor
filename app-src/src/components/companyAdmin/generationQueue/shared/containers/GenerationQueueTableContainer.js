@@ -24,7 +24,7 @@ const GenerationQueueTableContainer = ({
     }
 };
 
-const mapStateToProps = ({ generationQueueReducer }) => ({
+const mapStateToProps = ({ superAdmin: { generationQueueReducer } }) => ({
     generationQueue: Object.values(generationQueueReducer.generationQueue),
     error: generationQueueReducer.error,
     isFetching: generationQueueReducer.isFetching,

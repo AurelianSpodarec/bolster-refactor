@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 import addTemplate from 'actions/superAdmin/templateBuilder/sync/addTemplate';
-import hideModal from 'actions/generic/modals/sync/hideModal';
+import hideModal from 'actions/shared/generic/modals/sync/hideModal';
 
 import AddTemplateModal from '../presentational/AddTemplateModal';
 

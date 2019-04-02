@@ -1,7 +1,7 @@
 import React from 'react';
 import { Map, TileLayer } from 'react-leaflet';
 
-import DrawingMapPin from 'components/drawings/singleDrawing/presentational/DrawingMapPin';
+import DrawingMapPin from 'components/companyAdmin/drawings/singleDrawing/presentational/DrawingMapPin';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 
 const SinglePinMap = ({

@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { isObjEmpty } from 'helpers/generic';
-import clearFieldErrors from 'actions/generic/fieldErrors/sync/clearFieldErrors';
-import showFieldErrors from 'actions/generic/fieldErrors/sync/showFieldErrors';
+import clearFieldErrors from 'actions/shared/generic/fieldErrors/sync/clearFieldErrors';
+import showFieldErrors from 'actions/shared/generic/fieldErrors/sync/showFieldErrors';
 
 class Form extends Component {
     state = {
@@ -68,7 +68,7 @@ class Form extends Component {
     };
 }
 
-const mapStateToProps = ({ fieldErrorsReducer }) => ({
+const mapStateToProps = ({ shared: { fieldErrorsReducer } }) => ({
     fieldErrors: fieldErrorsReducer.fieldErrors,
     errorsVisible: fieldErrorsReducer.errorsVisible
 });

@@ -18,4 +18,4 @@ export class CompanyAdminsContainer extends Component {
 
 // const mapDispatchToProps = {};
 
-export default connect(null)(CompanyAdminsContainer);
+export default connect()(CompanyAdminsContainer);

@@ -20,7 +20,7 @@ const DrawingTableContainer = ({ isFetching, error, drawings }) => {
     );
 };
 
-export default connect(({ drawingsReducer }, ownProps) => ({
+export default connect(({ companyAdmin: { drawingsReducer } }, ownProps) => ({
     isFetching: drawingsReducer.isFetching,
     error: drawingsReducer.error,
     drawings: ownProps.ids

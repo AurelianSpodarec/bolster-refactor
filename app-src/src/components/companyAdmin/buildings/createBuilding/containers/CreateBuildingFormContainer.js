@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 import CreateBuildingForm from '../presentational/CreateBuildingForm';
-import createBuilding from 'actions/buildings/async/createBuilding';
+import createBuilding from 'actions/companyAdmin/buildings/async/createBuilding';
 
 class CreateBuildingFormContainer extends Component {
     state = {
@@ -56,7 +56,10 @@ class CreateBuildingFormContainer extends Component {
         }
     };
 }
-const mapStateToProps = ({ buildingsReducer }, { match }) => ({
+const mapStateToProps = (
+    { companyAdmin: { buildingsReducer } },
+    { match }
+) => ({
     postSuccess: buildingsReducer.postSuccess,
     error: buildingsReducer.error,
     siteID: match.params.id,

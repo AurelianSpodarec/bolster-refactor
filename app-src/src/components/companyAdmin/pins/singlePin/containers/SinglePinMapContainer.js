@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
-import editPinLocation from 'actions/pins/async/editPinLocation';
+import editPinLocation from 'actions/companyAdmin/pins/async/editPinLocation';
 
 import SinglePinMap from '../presentational/SinglePinMap';
 
@@ -51,7 +51,7 @@ class SinglePinMapContainer extends Component {
 }
 
 export default withRouter(
-    connect(({ pinsReducer }, { match }) => ({
+    connect(({ companyAdmin: { pinsReducer } }, { match }) => ({
         pin: pinsReducer.pins[match.params.id] || {},
         error: pinsReducer.error,
         isFetching: pinsReducer.isFetching

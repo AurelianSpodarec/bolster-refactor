@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import fetchSingleSite from 'actions/sites/async/fetchSingleSite';
+import fetchSingleSite from 'actions/companyAdmin/sites/async/fetchSingleSite';
 
 import SiteEdit from '../presentational/SiteEdit';
 
@@ -37,7 +37,7 @@ class SiteEditContainer extends Component {
     };
 }
 
-const mapStateToProps = ({ sitesReducer }, ownProps) => ({
+const mapStateToProps = ({ companyAdmin: { sitesReducer } }, ownProps) => ({
     siteID: ownProps.match.params.id,
     site: sitesReducer.sites[ownProps.match.params.id] || {}
 });

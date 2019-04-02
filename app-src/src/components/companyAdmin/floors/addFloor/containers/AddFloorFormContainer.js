@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
-import createFloor from 'actions/floors/async/createFloor';
+import createFloor from 'actions/companyAdmin/floors/async/createFloor';
 
 import AddFloorForm from '../presentational/AddFloorForm';
 
@@ -51,7 +51,7 @@ class AddFloorFormContainer extends Component {
     };
 }
 
-const mapStateToProps = ({ floorsReducer }, { match }) => ({
+const mapStateToProps = ({ companyAdmin: { floorsReducer } }, { match }) => ({
     postSuccess: floorsReducer.postSuccess,
     updatedFloorID: floorsReducer.updatedFloorID,
     buildingID: match.params.buildingID

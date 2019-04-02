@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
-import postLogin from 'actions/auth/async/postLogin';
+import postLogin from 'actions/shared/auth/async/postLogin';
 import LoginForm from '../presentational/LoginForm';
 
 class LoginFormContainer extends Component {
@@ -45,7 +45,7 @@ class LoginFormContainer extends Component {
         }
     };
 }
-const mapStateToProps = ({ loginReducer }) => loginReducer;
+const mapStateToProps = ({ companyAdmin: { loginReducer } }) => loginReducer;
 
 const mapDispatchToProps = dispatch => ({
     postLogin: (email, password) => {

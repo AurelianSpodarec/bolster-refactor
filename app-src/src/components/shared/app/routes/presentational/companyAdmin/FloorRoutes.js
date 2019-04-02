@@ -2,14 +2,14 @@ import React from 'react';
 import { Route } from 'react-router-dom';
 
 import SwitchWith404 from '../SwitchWith404';
-import SingleFloorContainer from 'components/floors/singleFloor/containers/SingleFloorContainer';
-import AttachFloorOperative from 'components/floors/attachFloorOperative/presentational/AttachFloorOperative';
-import InviteClientToFloor from 'components/floors/inviteClientToFloor/presentational/InviteClientToFloor';
-import AttachFloorDocument from 'components/floors/attachFloorDocument/presentational/AttachFloorDocument';
-import InviteCompanyToFloor from 'components/floors/inviteCompanyToFloor/presentational/InviteCompanyToFloor';
-import AddFloor from 'components/floors/addFloor/presentational/AddFloor';
-import FloorInviteClientContainer from 'components/floors/singleFloor/containers/FloorInviteClientContainer';
-import FloorEditContainer from 'components/floors/singleFloor/containers/FloorEditContainer';
+import SingleFloorContainer from 'components/companyAdmin/floors/singleFloor/containers/SingleFloorContainer';
+import AttachFloorOperative from 'components/companyAdmin/floors/attachFloorOperative/presentational/AttachFloorOperative';
+import InviteClientToFloor from 'components/companyAdmin/floors/inviteClientToFloor/presentational/InviteClientToFloor';
+import AttachFloorDocument from 'components/companyAdmin/floors/attachFloorDocument/presentational/AttachFloorDocument';
+import InviteCompanyToFloor from 'components/companyAdmin/floors/inviteCompanyToFloor/presentational/InviteCompanyToFloor';
+import AddFloor from 'components/companyAdmin/floors/addFloor/presentational/AddFloor';
+import FloorInviteClientContainer from 'components/companyAdmin/floors/singleFloor/containers/FloorInviteClientContainer';
+import FloorEditContainer from 'components/companyAdmin/floors/singleFloor/containers/FloorEditContainer';
 
 const FloorRoutes = ({ match: { url: baseUrl } }) => (
     <SwitchWith404>

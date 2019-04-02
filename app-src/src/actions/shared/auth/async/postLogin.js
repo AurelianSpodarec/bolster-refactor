@@ -2,7 +2,7 @@ import axios from 'axios';
 
 import { AUTH_API_URL } from 'config/index';
 import { getHeaders } from 'helpers/api';
-import setAPIFieldErrors from 'actions/generic/fieldErrors/sync/setAPIFieldErrors';
+import setAPIFieldErrors from 'actions/shared/generic/fieldErrors/sync/setAPIFieldErrors';
 import {
     POST_LOGIN_REQUEST,
     POST_LOGIN_SUCCESS,

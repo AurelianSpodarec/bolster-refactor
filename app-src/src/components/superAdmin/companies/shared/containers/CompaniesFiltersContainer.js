@@ -1,5 +1,5 @@
 import React from 'react';
-import updateCompaniesFilters from 'actions/companies/sync/updateCompaniesFilters';
+import updateCompaniesFilters from 'actions/companyAdmin/companies/sync/updateCompaniesFilters';
 import { connect } from 'react-redux';
 import CompaniesFilters from '../presentational/CompaniesFilters';
 
@@ -14,6 +14,6 @@ const CompaniesFiltersContainer = ({ filters: { name }, dispatch }) => {
     return <CompaniesFilters handleChange={handleChange} name={name} />;
 };
 
-export default connect(({ companiesReducer }) => ({
+export default connect(({ companyAdmin: { companiesReducer } }) => ({
     filters: companiesReducer.filters
 }))(CompaniesFiltersContainer);

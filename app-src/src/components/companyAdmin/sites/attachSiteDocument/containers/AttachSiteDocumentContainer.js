@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import AttachSiteDocument from '../presentational/AttachSiteDocument';
-import createDocument from 'actions/documents/async/createDocument';
+import createDocument from 'actions/companyAdmin/documents/async/createDocument';
 
 class AttachSiteDocumentContainer extends Component {
     render() {

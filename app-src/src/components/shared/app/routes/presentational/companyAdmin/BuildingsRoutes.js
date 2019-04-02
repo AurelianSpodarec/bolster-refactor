@@ -2,14 +2,14 @@ import React from 'react';
 import { Route } from 'react-router-dom';
 
 import SwitchWith404 from '../SwitchWith404';
-import SingleBuildingContainer from 'components/buildings/singleBuilding/containers/SingleBuildingContainer';
-import AttachBuildingOperative from 'components/buildings/attachBuildingOperative/presentational/AttachBuildingOperative';
-import InviteClientToBuilding from 'components/buildings/inviteClientToBuilding/presentational/InviteClientToBuilding';
-import AttachBuildingDocument from 'components/buildings/attachBuildingDocument/presentational/AttachBuildingDocument';
-import InviteCompanyToBuilding from 'components/buildings/inviteCompanyToBuilding/presentational/InviteCompanyToBuilding';
-import CreateBuilding from 'components/buildings/createBuilding/presentational/CreateBuilding';
-import BuildingClientAccessContainer from 'components/buildings/singleBuilding/containers/BuildingClientAccessContainer';
-import BuildingEditContainer from 'components/buildings/singleBuilding/containers/BuildingEditContainer';
+import SingleBuildingContainer from 'components/companyAdmin/buildings/singleBuilding/containers/SingleBuildingContainer';
+import AttachBuildingOperative from 'components/companyAdmin/buildings/attachBuildingOperative/presentational/AttachBuildingOperative';
+import InviteClientToBuilding from 'components/companyAdmin/buildings/inviteClientToBuilding/presentational/InviteClientToBuilding';
+import AttachBuildingDocument from 'components/companyAdmin/buildings/attachBuildingDocument/presentational/AttachBuildingDocument';
+import InviteCompanyToBuilding from 'components/companyAdmin/buildings/inviteCompanyToBuilding/presentational/InviteCompanyToBuilding';
+import CreateBuilding from 'components/companyAdmin/buildings/createBuilding/presentational/CreateBuilding';
+import BuildingClientAccessContainer from 'components/companyAdmin/buildings/singleBuilding/containers/BuildingClientAccessContainer';
+import BuildingEditContainer from 'components/companyAdmin/buildings/singleBuilding/containers/BuildingEditContainer';
 
 const BuildingRoutes = ({ match: { url: baseUrl } }) => (
     <SwitchWith404>

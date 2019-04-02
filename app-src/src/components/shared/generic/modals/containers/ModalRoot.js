@@ -48,4 +48,4 @@ const ModalRoot = ({ modalType, modalProps }) => {
     return <SpecificModel {...modalProps} />;
 };
 
-export default connect(state => state.modalReducer)(ModalRoot);
+export default connect(({ shared }) => shared.modalReducer)(ModalRoot);

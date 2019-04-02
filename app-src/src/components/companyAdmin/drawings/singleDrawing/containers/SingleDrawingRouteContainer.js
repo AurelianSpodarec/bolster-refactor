@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { DRAWING_TABS as TABS } from 'constants/companyAdmin/tabNames';
+import { DRAWING_TABS as TABS } from 'constants/shared/tabNames';
 
 import GeneralOverview from '../presentational/GeneralOverview';
 import AdvancedReport from '../presentational/AdvancedReport';

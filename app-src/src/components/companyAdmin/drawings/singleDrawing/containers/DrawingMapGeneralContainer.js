@@ -66,7 +66,7 @@ class DrawingMapGeneralContainer extends Component {
     };
 }
 
-const mapStateToProps = ({ pinsReducer }) => ({
+const mapStateToProps = ({ companyAdmin: { pinsReducer } }) => ({
     pins: Object.values(pinsReducer.pins),
     isFetching: pinsReducer.isFetching,
     error: pinsReducer.error

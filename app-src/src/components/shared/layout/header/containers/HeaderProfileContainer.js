@@ -60,7 +60,10 @@ class HeaderProfileContainer extends Component {
     };
 }
 
-const mapStateToProps = ({ profileReducer, generationQueueReducer }) => ({
+const mapStateToProps = ({
+    superAdmin: { generationQueueReducer },
+    shared: { profileReducer }
+}) => ({
     profile: profileReducer.profile,
     generationQueueLength: Object.values(
         generationQueueReducer.generationQueue

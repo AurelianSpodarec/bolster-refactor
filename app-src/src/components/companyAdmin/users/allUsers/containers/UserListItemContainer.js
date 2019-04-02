@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { showModal } from 'actions/generic/modals/sync/showModal';
+import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { EDIT_USER_PASSWORD, EDIT_USER } from 'constants/shared/modalTypes';
 import UserListItem from '../presentational/UserListItem';
 

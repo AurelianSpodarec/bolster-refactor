@@ -3,16 +3,16 @@ import { connect } from 'react-redux';
 import { BrowserRouter as Router } from 'react-router-dom';
 
 import { authenticate } from 'helpers/api';
-import fetchProfile from 'actions/profile/async/fetchProfile';
-import fetchSingleCompany from 'actions/companies/async/fetchSingleCompany';
-import fetchNotifications from 'actions/notifications/async/fetchNotifications';
-import fetchMessages from 'actions/messages/async/fetchMessages';
-import fetchGenerationQueue from 'actions/generationQueue/async/fetchGenerationQueue';
-import decodeJWT from 'actions/jwt/async/decodeJWT';
+import fetchProfile from 'actions/companyAdmin/profile/async/fetchProfile';
+import fetchSingleCompany from 'actions/companyAdmin/companies/async/fetchSingleCompany';
+import fetchNotifications from 'actions/companyAdmin/notifications/async/fetchNotifications';
+import fetchMessages from 'actions/companyAdmin/messages/async/fetchMessages';
+import fetchGenerationQueue from 'actions/companyAdmin/generationQueue/async/fetchGenerationQueue';
+import decodeJWT from 'actions/shared/jwt/async/decodeJWT';
+import fetchAllSubscriptions from 'actions/companyAdmin/subscriptions/async/fetchAllSubscriptions';
+import fetchAllServices from 'actions/superAdmin/services/async/fetchAllServices';
 
 import App from '../presentational/App';
-import fetchAllSubscriptions from 'actions/subscriptions/async/fetchAllSubscriptions';
-import fetchAllServices from 'actions/superAdmin/services/async/fetchAllServices';
 
 class AppContainer extends Component {
     render() {
@@ -43,7 +43,7 @@ class AppContainer extends Component {
     };
 }
 
-const mapStateToProps = ({ loginReducer }) => ({
+const mapStateToProps = ({ shared: { loginReducer } }) => ({
     loginSuccess: loginReducer.postSuccess
 });
 

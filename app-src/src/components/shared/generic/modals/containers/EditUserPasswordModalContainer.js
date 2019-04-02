@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import editPassword from 'actions/users/async/editPassword';
-import { hideModal } from 'actions/generic/modals/sync/hideModal';
+import editPassword from 'actions/superAdmin/users/async/editPassword';
+import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import EditUserPasswordModal from '../presentational/EditUserPasswordModal';
 
 class EditUserPasswordModalContainer extends Component {

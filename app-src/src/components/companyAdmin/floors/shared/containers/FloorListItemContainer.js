@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import toggleFloorExpanded from 'actions/generic/tables/sync/toggleFloorExpanded';
+import toggleFloorExpanded from 'actions/shared/generic/tables/sync/toggleFloorExpanded';
 
 import FloorListItem from '../presentational/FloorListItem';
 

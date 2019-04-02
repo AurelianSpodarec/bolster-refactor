@@ -11,7 +11,7 @@ const EnquiriesTableContainer = ({ isFetching, fetchingError, enquiries }) => (
     />
 );
 
-export default connect(({ enquiriesReducer }) => ({
+export default connect(({ superAdmin: { enquiriesReducer } }) => ({
     isFetching: enquiriesReducer.isFetching,
     fetchingError: enquiriesReducer.fetchingError,
     enquiries: Object.values(enquiriesReducer.enquiries)

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
-import createDrawing from 'actions/drawings/async/createDrawing';
+import createDrawing from 'actions/companyAdmin/drawings/async/createDrawing';
 import AddDrawingForm from '../presentational/AddDrawingForm';
 
 class AddDrawingFormContainer extends Component {
@@ -45,7 +45,7 @@ class AddDrawingFormContainer extends Component {
     };
 }
 
-const mapStateToProps = ({ drawingsReducer }, { match }) => ({
+const mapStateToProps = ({ companyAdmin: { drawingsReducer } }, { match }) => ({
     floorID: match.params['floorID'],
     updatedID: drawingsReducer.updatedID
 });

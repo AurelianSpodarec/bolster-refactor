@@ -21,7 +21,7 @@ class SiteDetailsContainer extends Component {
     }
 }
 
-const mapStateToProps = ({ sitesReducer }, { match }) => ({
+const mapStateToProps = ({ companyAdmin: { sitesReducer } }, { match }) => ({
     site: sitesReducer.sites[match.params.id] || {},
     isFetching: sitesReducer.isFetching,
     error: sitesReducer.error

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import selectTab from 'actions/generic/tabs/sync/selectTab';
+import selectTab from 'actions/shared/generic/tabs/sync/selectTab';
 
 import Tabs from '../presentational/Tabs';
 

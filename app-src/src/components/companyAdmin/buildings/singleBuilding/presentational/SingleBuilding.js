@@ -7,7 +7,7 @@ import BuildingOperativesTableContainer from '../containers/BuildingOperativesTa
 import BuildingInviteClientContainer from '../containers/BuildingInviteClientContainer';
 import BuildingCompaniesAccessTableContainer from '../containers/BuildingCompaniesAccessTableContainer';
 import BuildingPageHeaderContainer from '../containers/BuildingPageHeaderContainer';
-import BreadcrumbContainer from 'components/pins/singlePin/containers/BreadcrumbContainer';
+import BreadcrumbContainer from 'components/companyAdmin/pins/singlePin/containers/BreadcrumbContainer';
 
 const SingleBuilding = () => (
     <>

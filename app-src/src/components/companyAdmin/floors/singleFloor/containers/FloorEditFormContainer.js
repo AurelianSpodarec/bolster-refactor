@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 import FloorEditForm from '../presentational/FloorEditForm';
-import editFloor from 'actions/floors/async/editFloor';
+import editFloor from 'actions/companyAdmin/floors/async/editFloor';
 
 class FloorEditFormContainer extends Component {
     state = {
@@ -69,7 +69,7 @@ class FloorEditFormContainer extends Component {
     };
 }
 
-const mapStateToProps = ({ floorsReducer }, ownProps) => ({
+const mapStateToProps = ({ companyAdmin: { floorsReducer } }, ownProps) => ({
     postSuccess: floorsReducer.postSuccess,
     error: floorsReducer.error,
     floorID: ownProps.match.params.id,

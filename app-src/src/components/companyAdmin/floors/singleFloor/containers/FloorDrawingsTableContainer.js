@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
-import DrawingTableContainer from 'components/drawings/shared/containers/DrawingTableContainer';
+import DrawingTableContainer from 'components/companyAdmin/drawings/shared/containers/DrawingTableContainer';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 
 const FloorDrawingsTableContainer = ({ floor }) => (
@@ -12,7 +12,7 @@ const FloorDrawingsTableContainer = ({ floor }) => (
 );
 
 export default withRouter(
-    connect(({ floorsReducer }, { match }) => ({
+    connect(({ companyAdmin: { floorsReducer } }, { match }) => ({
         floor: floorsReducer.floors[match.params.id] || {},
         isFetching: floorsReducer.isFetching
     }))(FloorDrawingsTableContainer)

@@ -3,7 +3,7 @@ import React from 'react';
 import Breadcrumb from 'components/shared/generic/breadcrumb/presentational/Breadcrumb';
 import AddSiteFormContainer from '../containers/AddSiteFormContainer';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import BreadcrumbContainer from 'components/pins/singlePin/containers/BreadcrumbContainer';
+import BreadcrumbContainer from 'components/companyAdmin/pins/singlePin/containers/BreadcrumbContainer';
 
 const AddSite = () => (
     <>

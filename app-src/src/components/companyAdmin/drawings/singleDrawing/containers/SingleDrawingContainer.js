@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { DRAWING_TABS } from 'constants/companyAdmin/tabNames';
-import setTabs from 'actions/generic/tabs/sync/setTabs';
+import { DRAWING_TABS } from 'constants/shared/tabNames';
+import setTabs from 'actions/shared/generic/tabs/sync/setTabs';
 
 import SingleDrawing from '../presentational/SingleDrawing';
 
-import fetchSingleDrawing from 'actions/drawings/async/fetchSingleDrawing';
-import fetchDocuments from 'actions/documents/async/fetchDocuments';
-import fetchClients from 'actions/companies/async/fetchAllCompanies';
-import fetchAllCompanies from 'actions/companies/async/fetchAllCompanies';
-import fetchOperatives from 'actions/operatives/async/fetchOperatives';
-import fetchPins from 'actions/pins/async/fetchPins';
+import fetchSingleDrawing from 'actions/companyAdmin/drawings/async/fetchSingleDrawing';
+import fetchDocuments from 'actions/companyAdmin/documents/async/fetchDocuments';
+import fetchClients from 'actions/companyAdmin/companies/async/fetchAllCompanies';
+import fetchAllCompanies from 'actions/companyAdmin/companies/async/fetchAllCompanies';
+import fetchOperatives from 'actions/companyAdmin/operatives/async/fetchOperatives';
+import fetchPins from 'actions/companyAdmin/pins/async/fetchPins';
 
 class SingleDrawingContainer extends Component {
     render() {

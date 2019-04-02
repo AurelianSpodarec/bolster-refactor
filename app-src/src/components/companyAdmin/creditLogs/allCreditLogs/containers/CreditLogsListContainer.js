@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import fetchCreditLogs from 'actions/creditLogs/async/fetchCreditLogs';
+import fetchCreditLogs from 'actions/companyAdmin/creditLogs/async/fetchCreditLogs';
 
 import CreditLogsTable from '../presentational/CreditLogsTable';
 
@@ -25,7 +25,7 @@ class CreditLogsListContainer extends Component {
     };
 }
 
-const mapStateToProps = ({ creditLogsReducer }) => ({
+const mapStateToProps = ({ companyAdmin: { creditLogsReducer } }) => ({
     creditLogs: Object.values(creditLogsReducer.creditLogs),
     isFetching: creditLogsReducer.isFetching,
     error: creditLogsReducer.error

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import moment from 'moment';
 
-import selectPinHistory from 'actions/pins/sync/selectPinHistory';
+import selectPinHistory from 'actions/companyAdmin/pins/sync/selectPinHistory';
 
 import PinDetails from '../presentational/PinDetails';
 

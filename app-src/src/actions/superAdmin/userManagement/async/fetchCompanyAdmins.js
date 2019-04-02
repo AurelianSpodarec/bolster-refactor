@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { API_URL } from 'config';
 import { getHeaders } from 'helpers/api';
-import setAPIFieldErrors from 'actions/generic/fieldErrors/sync/setAPIFieldErrors';
+import setAPIFieldErrors from 'actions/shared/generic/fieldErrors/sync/setAPIFieldErrors';
 
 import {
     FETCH_COMPANY_ADMINS_REQUEST,

@@ -13,7 +13,7 @@ import changeQuestionSection from 'actions/superAdmin/templateBuilder/sync/chang
 
 import Section from '../presentational/Section';
 
-import showModal from 'actions/generic/modals/sync/showModal';
+import showModal from 'actions/shared/generic/modals/sync/showModal';
 import addSection from 'actions/superAdmin/templateBuilder/sync/addSection';
 import deleteSection from 'actions/superAdmin/templateBuilder/sync/deleteSection';
 import addQuestion from 'actions/superAdmin/templateBuilder/sync/addQuestion';
