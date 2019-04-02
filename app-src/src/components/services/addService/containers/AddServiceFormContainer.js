@@ -10,15 +10,13 @@ class AddServiceFormContainer extends Component {
         name: ''
     };
 
-    render() {
-        return (
-            <AddServiceForm
-                {...this.state}
-                handleInputChange={this.handleInputChange}
-                handleSubmit={this.handleSubmit}
-            />
-        );
-    }
+    render = () => (
+        <AddServiceForm
+            {...this.state}
+            handleInputChange={this.handleInputChange}
+            handleSubmit={this.handleSubmit}
+        />
+    );
 
     componentDidUpdate = prevProps => {
         const { postSuccess, history } = this.props;
