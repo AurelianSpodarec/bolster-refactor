@@ -3,7 +3,7 @@ import { Route } from 'react-router-dom';
 
 import AllAdmins from 'components/userManagement/allAdmins/presentational/AllAdmins';
 
-import SwitchWith404 from './SwitchWith404';
+import SwitchWith404 from '../SwitchWith404';
 
 const UserManagementRoutes = ({ match: { url: baseUrl } }) => (
     <SwitchWith404>

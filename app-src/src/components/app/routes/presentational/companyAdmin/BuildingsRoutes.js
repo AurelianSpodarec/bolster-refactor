@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 
-import SwitchWith404 from './SwitchWith404';
+import SwitchWith404 from '../SwitchWith404';
 import SingleBuildingContainer from 'components/buildings/singleBuilding/containers/SingleBuildingContainer';
 import AttachBuildingOperative from 'components/buildings/attachBuildingOperative/presentational/AttachBuildingOperative';
 import InviteClientToBuilding from 'components/buildings/inviteClientToBuilding/presentational/InviteClientToBuilding';

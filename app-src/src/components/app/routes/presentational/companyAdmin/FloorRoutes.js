@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 
-import SwitchWith404 from './SwitchWith404';
+import SwitchWith404 from '../SwitchWith404';
 import SingleFloorContainer from 'components/floors/singleFloor/containers/SingleFloorContainer';
 import AttachFloorOperative from 'components/floors/attachFloorOperative/presentational/AttachFloorOperative';
 import InviteClientToFloor from 'components/floors/inviteClientToFloor/presentational/InviteClientToFloor';

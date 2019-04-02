@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 
-import SwitchWith404 from './SwitchWith404';
+import SwitchWith404 from '../SwitchWith404';
 import AllSitesContainer from 'components/sites/allSites/containers/AllSitesContainer';
 import AddSite from 'components/sites/addSite/presentational/AddSite';
 import SingleSiteContainer from 'components/sites/singleSite/containers/SingleSiteContainer';
