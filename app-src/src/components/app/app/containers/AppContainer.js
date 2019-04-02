@@ -11,6 +11,8 @@ import fetchGenerationQueue from 'actions/generationQueue/async/fetchGenerationQ
 import decodeJWT from 'actions/jwt/async/decodeJWT';
 
 import App from '../presentational/App';
+import fetchAllSubscriptions from 'actions/subscriptions/async/fetchAllSubscriptions';
+import fetchAllServices from 'actions/services/async/fetchAllServices';
 
 class AppContainer extends Component {
     render() {
@@ -53,6 +55,8 @@ const mapDispatchToProps = dispatch => ({
         dispatch(fetchMessages());
         dispatch(fetchGenerationQueue());
         dispatch(decodeJWT());
+        dispatch(fetchAllServices());
+        dispatch(fetchAllSubscriptions());
     },
     decodeJWT: () => {
         dispatch(decodeJWT());

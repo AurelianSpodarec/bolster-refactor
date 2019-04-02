@@ -4,7 +4,6 @@ import {
     FETCH_ALL_SUBSCRIPTIONS_SUCCESS,
     FETCH_ALL_SUBSCRIPTIONS_FAILURE
 } from 'constants/actionTypes/subscriptions';
-import { convertArrToObj } from 'helpers/generic';
 
 export default combineReducers({
     isFetching: isFetchingReducer,
@@ -38,7 +37,7 @@ function errorReducer(state = null, action) {
 function subscriptionsReducer(state = {}, action) {
     switch (action.type) {
         case FETCH_ALL_SUBSCRIPTIONS_SUCCESS:
-            return convertArrToObj(action.payload);
+            return action.payload;
         default:
             return state;
     }

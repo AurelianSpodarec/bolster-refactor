@@ -30,6 +30,7 @@ import templatesReducer from './superAdmin/templates';
 import servicesReducer from './services';
 import usersReducer from './users';
 import enquiriesReducer from './enquiries';
+import subscriptionsReducer from './subscriptions';
 
 export default combineReducers({
     buildingsReducer,
@@ -61,5 +62,6 @@ export default combineReducers({
     templateQuestionsReducer,
     servicesReducer,
     usersReducer,
-    enquiriesReducer
+    enquiriesReducer,
+    subscriptionsReducer
 });

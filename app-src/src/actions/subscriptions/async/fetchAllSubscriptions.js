@@ -25,7 +25,7 @@ export default () => dispatch => {
     dispatch(fetchAllSubscriptionsRequest());
 
     axios
-        .get(`${API_URL}/subscriptions`, getHeaders())
+        .get(`${API_URL}/subscriptions/active`, getHeaders())
         .then(res => dispatch(fetchAllSubscriptionsSuccess(res.data)))
         .catch(err => dispatch(fetchAllSubscriptionsFailure(err.message)));
 };
