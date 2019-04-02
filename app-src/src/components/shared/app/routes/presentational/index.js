@@ -2,7 +2,7 @@ import React from 'react';
 import { Route } from 'react-router-dom';
 
 import withShowLayout from 'components/layout/misc/hocs/withShowLayout';
-import withAuth from 'components/auth/auth/hocs/withAuth';
+import withAuth from 'components/shared/auth/auth/hocs/withAuth';
 import withCompanyAdmin from '../hocs/withCompanyAdmin';
 
 import NotFound from 'components/notFound/presentational/NotFound';

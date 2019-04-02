@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import withCurUrl from 'components/app/routes/hocs/withCurUrl';
+import withCurUrl from 'components/shared/app/routes/hocs/withCurUrl';
 
 class DropdownMenuItemContainer extends Component {
     state = {
