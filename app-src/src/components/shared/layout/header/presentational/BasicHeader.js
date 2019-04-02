@@ -8,7 +8,6 @@ const BasicHeader = () => (
             <div className="logo">
                 <img alt="logo of Bolster Systems" src={WhiteLogo} />
             </div>
-
             <div className="clear" />
         </div>
     </header>
