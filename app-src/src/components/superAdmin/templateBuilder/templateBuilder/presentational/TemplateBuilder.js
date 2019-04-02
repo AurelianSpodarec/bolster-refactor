@@ -1,11 +1,11 @@
 import React from 'react';
 
-import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
 import SectionListContiner from '../containers/SectionListContainer';
+import TemplateBuilderHeaderContainer from '../containers/TemplateBuilderHeaderContainer';
 
 const TemplateBuilder = ({ showAddSectionModal }) => (
     <div className="size-lg-12">
-        <PageHeading title="Template Builder" />
+        <TemplateBuilderHeaderContainer />
         <div className="size-lg-12">
             <SectionListContiner />
         </div>
