@@ -29,6 +29,8 @@ class SingleSiteContainer extends Component {
             fetchOperatives
         } = this.props;
 
+        console.log('mounted');
+
         fetchSingleSite(siteID).then(() => {
             fetchAllBuildings();
             fetchAllFloors();
