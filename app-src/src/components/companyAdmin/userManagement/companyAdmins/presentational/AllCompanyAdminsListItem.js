@@ -5,8 +5,8 @@ const AllCompanyAdminsListItem = ({ user }) => {
     return (
         <>
             <tr key={user.id}>
-                <td>{user.firstName}</td>
-                <td>{user.lastName}</td>
+                <td>{`${user.firstName} ${user.lastName}`}</td>
+
                 <td>{user.email}</td>
                 <td>{user.phoneNumber}</td>
                 <td>##permissions##</td>

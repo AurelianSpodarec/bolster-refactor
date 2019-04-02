@@ -1,11 +1,12 @@
 import React from 'react';
 
-import Block from 'components/shared/generic/block/presentational/Block';
 import Table from 'components/shared/generic/tables/presentational/Table';
+import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import AllCompanyAdminsList from './AllCompanyAdminsList';
 
 const AllCompanyAdminsTable = ({ headers, users, isFetching, error }) => {
     return (
-        <Block>
+        <BlockContainer>
             <Table
                 withActions
                 headers={headers}
@@ -14,9 +15,9 @@ const AllCompanyAdminsTable = ({ headers, users, isFetching, error }) => {
                 noData={!users.length}
                 noDataMessage="There are no admins to display."
             >
-                {/* <AllCompanyAdminsList colCount={headers.length} users={users} /> */}
+                <AllCompanyAdminsList colCount={headers.length} users={users} />
             </Table>
-        </Block>
+        </BlockContainer>
     );
 };
 

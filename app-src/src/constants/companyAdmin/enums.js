@@ -16,3 +16,9 @@ export const DOCUMENT_TYPE = {
     '2': 'Requires agreement (once)',
     '3': 'Requires agreement (multiple)'
 };
+
+export const COMPANY_USER_ROLE_TYPES = {
+    Owner: '100',
+    Admin: '75',
+    Operative: '50'
+};

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 
-import CompanyAdminsContainer from 'components/superAdmin/siteManagement/userManagement/companyAdmins/containers/CompanyAdminsContainer';
+import AllCompanyAdminsContainer from 'components/companyAdmin/userManagement/companyAdmins/containers/AllCompanyAdminsContainer';
 
 import SwitchWith404 from '../SwitchWith404';
 
@@ -10,7 +10,7 @@ const UserManagementRoutes = ({ match: { url: baseUrl } }) => (
         <Route
             exact
             path={`${baseUrl}/company-admins`}
-            component={CompanyAdminsContainer}
+            component={AllCompanyAdminsContainer}
         />
     </SwitchWith404>
 );
