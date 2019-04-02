@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 import HeaderProfile from '../presentational/HeaderProfile';
 
@@ -16,6 +17,7 @@ class HeaderProfileContainer extends Component {
                 updateNode={node => {
                     this.node = node;
                 }}
+                logout={this.logout}
                 profile={props.profile}
                 generationQueueLength={props.generationQueueLength}
                 popupVisible={state.popupVisible}
@@ -49,6 +51,13 @@ class HeaderProfileContainer extends Component {
 
         this.handleClick();
     };
+    logout = e => {
+        const { history } = this.props;
+        e.preventDefault();
+        localStorage.setItem('token', '');
+
+        history.replace('/auth/login');
+    };
 }
 
 const mapStateToProps = ({ profileReducer, generationQueueReducer }) => ({
@@ -58,4 +67,4 @@ const mapStateToProps = ({ profileReducer, generationQueueReducer }) => ({
     ).filter(item => item.status.toLowerCase() === 'pending').length
 });
 
-export default connect(mapStateToProps)(HeaderProfileContainer);
+export default withRouter(connect(mapStateToProps)(HeaderProfileContainer));

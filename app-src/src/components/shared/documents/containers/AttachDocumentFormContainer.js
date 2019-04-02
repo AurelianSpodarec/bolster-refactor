@@ -6,7 +6,7 @@ import { updateObj } from 'helpers/generic';
 class AttachDocumentFormContainer extends Component {
     state = {
         // view only, agreement once, agreement daily - radio buttons
-        requiresAgreement: 'View only',
+        type: '1',
         // textboxes
         name: '',
         file: {},
@@ -35,20 +35,30 @@ class AttachDocumentFormContainer extends Component {
         <AttachDocumentForm
             {...this.state}
             handleInputChange={this.handleInputChange}
-            handleSubmit={this.props.handleSubmit}
+            handleSubmit={this.handleSubmit}
             handleRadioChange={this.handleRadioChange}
+            handleCheckboxChange={this.handleCheckboxChange}
             handleMultiselect={this.handleMultiselect}
+            handleFileChange={this.handleFileChange}
             handleDateChange={this.handleDateChange}
             validateDatePicker={this.validateDatePicker}
             backUrl={this.props.backUrl}
         />
     );
 
+    handleCheckboxChange = e => {
+        const { name } = e.target;
+        this.setState(prevState => ({
+            [name]: !prevState[name]
+        }));
+    };
+
     handleInputChange = e => {
         this.setState({
             [e.target.name]: e.target.value
         });
     };
+
     handleFileChange = (name, file) => {
         this.setState({ [name]: file });
     };
@@ -76,6 +86,17 @@ class AttachDocumentFormContainer extends Component {
                 }
             };
         });
+    };
+
+    handleSubmit = e => {
+        e.preventDefault();
+        const { handleSubmit } = this.props;
+        const { checkedServices, ...body } = this.state;
+        // ! change this
+        const services = {} || checkedServices;
+        const postBody = { ...body, services };
+
+        handleSubmit(postBody);
     };
 }
 

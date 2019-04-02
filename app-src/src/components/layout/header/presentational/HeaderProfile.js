@@ -6,6 +6,7 @@ const HeaderProfile = ({
     generationQueueLength,
     popupVisible,
     handleClick,
+    logout,
     updateNode
 }) => (
     <div className="profile" ref={updateNode}>
@@ -42,7 +43,7 @@ const HeaderProfile = ({
                 Company Settings
                 <i className="icon fas fa-chevron-right" />
             </Link>
-            <Link to="#" className="item">
+            <Link onClick={e => logout(e)} to="#" className="item">
                 Logout
                 <i className="icon fas fa-sign-out" />
             </Link>

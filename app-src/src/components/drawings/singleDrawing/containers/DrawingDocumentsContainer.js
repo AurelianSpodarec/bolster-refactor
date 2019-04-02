@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 import DocumentsTable from 'components/shared/documents/presentational/DocumentsTable';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
@@ -11,19 +12,27 @@ class DrawingDocumentsContainer extends Component {
         return (
             <BlockContainer>
                 <DocumentsTable
-                    documents={props.documents}
+                    documents={this._getFilteredDocuments()}
                     isFetching={props.isFetching}
                     error={props.error}
                 />
             </BlockContainer>
         );
     }
+
+    _getFilteredDocuments = () => {
+        const { documents, drawing } = this.props;
+        return documents.filter(document =>
+            drawing.documentIDs.includes(document.id)
+        );
+    };
 }
 
-const mapStateToProps = ({ documentsReducer }) => ({
+const mapStateToProps = ({ documentsReducer, drawingsReducer }, { match }) => ({
+    drawing: drawingsReducer.drawings[match.params.id],
     documents: Object.values(documentsReducer.documents),
     isFetching: documentsReducer.isFetching,
     error: documentsReducer.error
 });
 
-export default connect(mapStateToProps)(DrawingDocumentsContainer);
+export default withRouter(connect(mapStateToProps)(DrawingDocumentsContainer));
