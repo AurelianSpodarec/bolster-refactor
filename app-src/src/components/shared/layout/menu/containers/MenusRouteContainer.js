@@ -7,7 +7,7 @@ import Menu from '../presentational/Menu';
 import SuperAdminMenu from '../presentational/SuperAdminMenu';
 
 const contentOptions = {
-    [TABS.COMPANY_ADMIN]: Menu,
+    [TABS.COMPANY_USER]: Menu,
     [TABS.SUPER_ADMIN]: SuperAdminMenu
 };
 

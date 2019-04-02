@@ -13,7 +13,7 @@ function withCompanyAdmin(WrappedComponent) {
         // componentDidMount = () => {
         //     const { setMenuTabs } = this.props;
 
-        //     setMenuTabs(Object.values(MENU_TABS), MENU_TABS.COMPANY_ADMIN);
+        //     setMenuTabs(Object.values(MENU_TABS), MENU_TABS.COMPANY_USER);
         // };
     }
 

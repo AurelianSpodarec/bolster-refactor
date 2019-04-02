@@ -1,0 +1,66 @@
+import { combineReducers } from 'redux';
+
+import { convertArrToObj, updateObj, removeObjItem } from 'helpers/generic';
+import {
+    FETCH_COMPANY_USERS_REQUEST,
+    FETCH_COMPANY_USERS_SUCCESS,
+    FETCH_COMPANY_USERS_FAILURE,
+    CREATE_COMPANY_USER_REQUEST,
+    CREATE_COMPANY_USER_SUCCESS,
+    CREATE_COMPANY_USER_FAILURE,
+    EDIT_COMPANY_USER_REQUEST,
+    EDIT_COMPANY_USER_SUCCESS,
+    EDIT_COMPANY_USER_FAILURE,
+    DELETE_COMPANY_USER_REQUEST,
+    DELETE_COMPANY_USER_SUCCESS,
+    DELETE_COMPANY_USER_FAILURE
+} from 'constants/actionTypes/usersManagement';
+
+export default combineReducers({
+    users: companyUsersReducer,
+    isFetching: isFetchingReducer,
+    error: errorReducer
+});
+
+function isFetchingReducer(state = false, action) {
+    switch (action.type) {
+        case FETCH_COMPANY_USERS_REQUEST:
+            return true;
+        case FETCH_COMPANY_USERS_SUCCESS:
+        case FETCH_COMPANY_USERS_FAILURE:
+            return false;
+        default:
+            return state;
+    }
+}
+
+function errorReducer(state = null, action) {
+    switch (action.type) {
+        case FETCH_COMPANY_USERS_REQUEST:
+        case EDIT_COMPANY_USER_REQUEST:
+        case CREATE_COMPANY_USER_REQUEST:
+        case DELETE_COMPANY_USER_REQUEST:
+            return null;
+        case FETCH_COMPANY_USERS_FAILURE:
+        case DELETE_COMPANY_USER_FAILURE:
+        case EDIT_COMPANY_USER_FAILURE:
+        case CREATE_COMPANY_USER_FAILURE:
+            return action.error;
+        default:
+            return state;
+    }
+}
+
+function companyUsersReducer(state = {}, action) {
+    switch (action.type) {
+        case FETCH_COMPANY_USERS_SUCCESS:
+            return convertArrToObj(action.payload);
+        case CREATE_COMPANY_USER_SUCCESS:
+        case EDIT_COMPANY_USER_SUCCESS:
+            return updateObj(state, action.payload.id, action.payload);
+        case DELETE_COMPANY_USER_SUCCESS:
+            return removeObjItem(state, action.id);
+        default:
+            return state;
+    }
+}

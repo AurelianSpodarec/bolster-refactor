@@ -4,21 +4,21 @@ import { getHeaders } from 'helpers/api';
 import setAPIFieldErrors from 'actions/shared/generic/fieldErrors/sync/setAPIFieldErrors';
 
 import {
-    FETCH_COMPANY_ADMINS_REQUEST,
-    FETCH_COMPANY_ADMINS_SUCCESS,
-    FETCH_COMPANY_ADMINS_FAILURE
+    FETCH_COMPANY_USERS_REQUEST,
+    FETCH_COMPANY_USERS_SUCCESS,
+    FETCH_COMPANY_USERS_FAILURE
 } from 'constants/actionTypes';
 
 export const fetchCompanyAdminsRequest = () => ({
-    type: FETCH_COMPANY_ADMINS_REQUEST
+    type: FETCH_COMPANY_USERS_REQUEST
 });
 
 export const fetchCompanyAdminsSuccess = () => ({
-    type: FETCH_COMPANY_ADMINS_SUCCESS
+    type: FETCH_COMPANY_USERS_SUCCESS
 });
 
 export const fetchCompanyAdminsFailure = error => ({
-    type: FETCH_COMPANY_ADMINS_FAILURE,
+    type: FETCH_COMPANY_USERS_FAILURE,
     error
 });
 
