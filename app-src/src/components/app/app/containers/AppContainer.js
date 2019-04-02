@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { BrowserRouter as Router } from 'react-router-dom';
-import jwtDecode from 'jwt-decode';
 
+import { authenticate } from 'helpers/api';
 import fetchProfile from 'actions/profile/async/fetchProfile';
 import fetchSingleCompany from 'actions/companies/async/fetchSingleCompany';
 import fetchNotifications from 'actions/notifications/async/fetchNotifications';
@@ -31,28 +31,13 @@ class AppContainer extends Component {
     };
 
     _callAuthenticatedActions = () => {
-        this._authenticate()
+        authenticate()
             .then(() => {
                 const { fetchHomeData, decodeJWT } = this.props;
                 fetchHomeData();
                 decodeJWT();
             })
             .catch(() => {});
-    };
-
-    _authenticate = () => {
-        return new Promise((resolve, reject) => {
-            const token = localStorage.getItem('token');
-
-            if (token == undefined || token == '') {
-                reject();
-            }
-            const decoded = jwtDecode(token);
-            const isExpired = decoded.exp < new Date().valueOf() / 1000;
-            if (isExpired) reject();
-
-            resolve();
-        });
     };
 }
 

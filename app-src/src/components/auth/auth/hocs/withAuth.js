@@ -1,8 +1,9 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
-import jwtDecode from 'jwt-decode';
 
-export default function(ProtectedComponent, isAdmin) {
+import { authenticate } from 'helpers/api';
+
+export default function(ProtectedComponent, requiresAdmin = false) {
     class WithAuth extends React.Component {
         state = {
             checkComplete: false,
@@ -39,16 +40,18 @@ export default function(ProtectedComponent, isAdmin) {
                 });
         }
 
-        _authenticate = token => {
+        _authenticate = () => {
             return new Promise((resolve, reject) => {
-                const decoded = jwtDecode(token);
-                const isExpired = decoded.exp < new Date().valueOf() / 1000;
-                if (isExpired) reject();
+                authenticate()
+                    .then(() => {
+                        resolve();
+                        if (requiresAdmin) {
+                            // return isAdmin ? resolve() : reject()
+                        }
 
-                if (isAdmin) {
-                    // TODO: add admin auth
-                }
-                resolve();
+                        return resolve();
+                    })
+                    .catch(reject);
             });
         };
     }
