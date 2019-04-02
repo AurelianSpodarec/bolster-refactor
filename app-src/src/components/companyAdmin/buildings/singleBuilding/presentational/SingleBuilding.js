@@ -3,7 +3,7 @@ import React from 'react';
 import BuildingDetailsContainer from '../containers/BuildingDetailsContainer';
 import BuildingDocumentsTableContainer from '../containers/BuildingDocumentsTableContainer';
 import BuildingFloorsTableContainer from '../containers/BuildingFloorsTableContainer';
-import BuildingOperativesTableContainer from '../containers/BuildingOperativesTableContainer';
+import BuildingOperativeAddContainer from '../containers/BuildingOperativeAddContainer';
 import BuildingInviteClientContainer from '../containers/BuildingInviteClientContainer';
 import BuildingCompaniesAccessTableContainer from '../containers/BuildingCompaniesAccessTableContainer';
 import BuildingPageHeaderContainer from '../containers/BuildingPageHeaderContainer';
@@ -29,11 +29,11 @@ const SingleBuilding = () => (
         </div>
 
         <div className="size-lg-4">
-            <BuildingOperativesTableContainer />
+            <BuildingInviteClientContainer />
         </div>
 
         <div className="size-lg-4">
-            <BuildingInviteClientContainer />
+            <BuildingOperativeAddContainer />
         </div>
 
         <div className="size-lg-4">

@@ -21,7 +21,7 @@ const PinHistoriesListContainer = ({
 };
 
 export default withRouter(
-    connect(({ pinHistoriesReducer }) => {
+    connect(({ companyAdmin: { pinHistoriesReducer } }) => {
         return {
             isFetching: pinHistoriesReducer.isFetching,
             error: pinHistoriesReducer.error,

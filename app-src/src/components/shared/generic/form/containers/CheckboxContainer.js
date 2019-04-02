@@ -17,7 +17,9 @@ class CheckboxContainer extends Component {
             handleChange,
             name,
             errorsVisible,
-            error
+            disabled,
+            error,
+            id
         } = this.props;
         const errorMessage = showFieldError || errorsVisible ? error : null;
 
@@ -27,7 +29,9 @@ class CheckboxContainer extends Component {
                 checked={checked}
                 handleChange={handleChange}
                 name={name}
+                id={id}
                 error={errorMessage}
+                disabled={disabled}
             />
         );
     }
@@ -60,7 +64,7 @@ class CheckboxContainer extends Component {
     }
 }
 
-const mapStateToProps = ({ shared: { fieldErrorsReducer } }, ownProps) => ({
+const mapStateToProps = ({ fieldErrorsReducer }, ownProps) => ({
     error: fieldErrorsReducer.fieldErrors[ownProps.name],
     errorsVisible: fieldErrorsReducer.errorsVisible
 });

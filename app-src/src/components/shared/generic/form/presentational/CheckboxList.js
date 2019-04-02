@@ -13,9 +13,11 @@ const CheckboxList = ({ isFetching, error, items, handleChange }) => {
                 text={item.name}
                 name={item.name}
                 handleChange={handleChange}
-                key={item.name}
+                key={item.id}
+                id={item.id}
                 item={item}
                 checked={item.checked}
+                disabled={item.disabled}
             />
         ))
     );

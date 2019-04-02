@@ -1,28 +1,16 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import ClientInvite from 'components/shared/clients/presentational/ClientInvite';
 
 class FloorInviteClientContainer extends Component {
     render() {
-        const { props } = this;
-
         return (
-            <BlockContainer error={props.error}>
-                <ClientInvite
-                    clients={props.clients}
-                    isFetching={props.isFetching}
-                />
+            <BlockContainer>
+                <ClientInvite type="floor" />
             </BlockContainer>
         );
     }
 }
 
-const mapStateToProps = ({ clientsReducer }) => ({
-    clients: Object.values(clientsReducer.clients),
-    isFetching: clientsReducer.isFetching,
-    error: clientsReducer.error
-});
-
-export default connect(mapStateToProps)(FloorInviteClientContainer);
+export default FloorInviteClientContainer;

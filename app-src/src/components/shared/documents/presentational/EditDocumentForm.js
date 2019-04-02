@@ -10,9 +10,9 @@ import { Link, withRouter } from 'react-router-dom';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import RadioButton from 'components/shared/generic/form/presentational/RadioButton';
 import DatePickerContainer from 'components/shared/documents/containers/AttachDocumentDatePickerContainer';
-import { DOCUMENT_TYPE } from 'constants/companyAdmin/enums';
+import { DOCUMENT_TYPE } from 'constants/enums';
 
-const AttachDocumentForm = ({
+const EditDocumentForm = ({
     handleInputChange,
     handleFileChange,
     handleRadioChange,
@@ -92,7 +92,9 @@ const AttachDocumentForm = ({
         <div className="size-lg-12">
             <DatePickerContainer
                 startOn={startOn}
+                // ! only receiving errors for end on
                 endOn={endOn}
+                // name="endOn"
                 onChange={handleDateChange}
             />
         </div>
@@ -160,4 +162,4 @@ const AttachDocumentForm = ({
     </Form>
 );
 
-export default withRouter(AttachDocumentForm);
+export default withRouter(EditDocumentForm);
