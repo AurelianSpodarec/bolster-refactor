@@ -68,6 +68,7 @@ class SectionContainer extends Component {
         const newUuid = uuid();
 
         const newSection = {
+            ...section,
             name: `${section.name} - (copy)`,
             uuid: newUuid
         };
