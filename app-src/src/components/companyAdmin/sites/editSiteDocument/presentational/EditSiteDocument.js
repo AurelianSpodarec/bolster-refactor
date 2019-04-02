@@ -1,9 +1,9 @@
 import React from 'react';
 
 import Breadcrumbs from 'components/shared/generic/breadcrumb/presentational/Breadcrumb';
-import AttachDocumentFormContainer from 'components/shared/documents/containers/AttachDocumentFormContainer';
+import EditDocumentFormContainer from 'components/shared/documents/containers/EditDocumentFormContainer';
 
-const EditSiteDocument = ({ handleSubmit, siteID }) => (
+const EditSiteDocument = ({ handleSubmit, siteID, documentID }) => (
     <div>
         <Breadcrumbs
             // ? what is the route?
@@ -15,8 +15,9 @@ const EditSiteDocument = ({ handleSubmit, siteID }) => (
                 { text: '##' }
             ]}
         />
-        <AttachDocumentFormContainer
+        <EditDocumentFormContainer
             handleSubmit={handleSubmit}
+            documentID={documentID}
             // ! this needs sorting
             // backUrl={backUrl}
         />

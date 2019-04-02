@@ -31,9 +31,9 @@ const mapStateToProps = (
     { companyAdmin: { documentsReducer, sitesReducer } },
     { match }
 ) => ({
-    site: sitesReducer.sites[match.params.id] || {},
+    site: sitesReducer.sites[match.params.id] || { documentIDs: [] },
     documents: Object.values(documentsReducer.documents),
-    isFetching: documentsReducer.isFetching,
+    isFetching: documentsReducer.isFetching || sitesReducer.isFetching,
     error: documentsReducer.error
 });
 

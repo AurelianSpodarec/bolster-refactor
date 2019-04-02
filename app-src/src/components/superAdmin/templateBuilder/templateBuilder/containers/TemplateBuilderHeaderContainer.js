@@ -7,13 +7,13 @@ import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import TemplateBuilderHeader from '../presentational/TemplateBuilderHeader';
 
 const TemplateBuilderHeaderContainer = ({
-    showTemplateForm,
+    showAddTemplateForm,
     uuid,
     companyID,
     template: { name = '' }
 }) => (
     <TemplateBuilderHeader
-        showTemplateForm={() => showTemplateForm(uuid, companyID)}
+        showTemplateForm={() => showAddTemplateForm(uuid, companyID)}
         name={name}
     />
 );

@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+//
+// import AllCompanyAdminsTable from '../presentational/AllCompanyAdminsTable';
 
 import AllCompanyAdminsTable from '../presentational/AllCompanyAdminsTable';
 import { COMPANY_USER_ROLE_TYPES } from 'constants/companyAdmin/enums';

@@ -28,14 +28,11 @@ class SingleSiteContainer extends Component {
             fetchAllCompanies,
             fetchOperatives
         } = this.props;
-
-        console.log('mounted');
-
         fetchSingleSite(siteID).then(() => {
+            fetchDocuments('site', siteID);
             fetchAllBuildings();
             fetchAllFloors();
             fetchAllDrawings();
-            fetchDocuments('site', siteID);
             fetchClients();
             fetchAllCompanies();
             fetchOperatives();

@@ -1,24 +1,30 @@
 import React from 'react';
 import { withRouter, Link } from 'react-router-dom';
 
-import Block from 'components/shared/generic/block/presentational/Block';
+import Form from 'components/shared/generic/form/containers/Form';
+import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
+import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
+import Field from 'components/shared/generic/form/presentational/Field';
 
-const AttachOperativeForm = ({ location }) => (
-    <Block>
-        <h3 className="heading heading-3">Attach operative form</h3>
-        <Link
-            className="button"
-            to={location.pathname.replace('/attach-operative', '')}
-        >
-            Cancel
-        </Link>
-        <Link
-            className="button"
-            to={location.pathname.replace('/attach-operative', '')}
-        >
-            Save
-        </Link>
-    </Block>
+const AttachOperativeForm = ({ location, handleSubmit, users }) => (
+    <Form className="size-lg-12" onSubmit={handleSubmit}>
+        <Field name="Select an operative" sizeClasses="size-lg-6">
+            <DropdownContainer placeholder="Select operative" options={users} />
+        </Field>
+
+        <BlockButtonWrapper>
+            <button className="button green">
+                <i className="fa fa-plus" />
+                Add Operative
+            </button>
+            <Link
+                to={location.pathname.replace('/add-operative', '')}
+                className="button"
+            >
+                <i className="fa fa-times" /> Cancel
+            </Link>
+        </BlockButtonWrapper>
+    </Form>
 );
 
 export default withRouter(AttachOperativeForm);

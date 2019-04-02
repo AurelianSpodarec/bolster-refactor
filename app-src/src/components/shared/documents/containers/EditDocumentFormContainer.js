@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import EditDocumentForm from '../presentational/EditDocumentForm';
-import { updateObj } from 'helpers/generic';
 import { FILE_STORAGE_URL } from 'config';
+import Loading from 'components/shared/generic/misc/presentational/Loading';
 
 class EditDocumentFormContainer extends Component {
     state = {
@@ -26,7 +26,9 @@ class EditDocumentFormContainer extends Component {
     };
 
     render() {
-        return (
+        console.log(this.props);
+        const { document } = this.props;
+        return document ? (
             <EditDocumentForm
                 {...this.state}
                 handleInputChange={this.handleInputChange}
@@ -39,6 +41,8 @@ class EditDocumentFormContainer extends Component {
                 validateDatePicker={this.validateDatePicker}
                 backUrl={this.props.backUrl}
             />
+        ) : (
+            <Loading />
         );
     }
 
@@ -63,12 +67,20 @@ class EditDocumentFormContainer extends Component {
                 services: servicesForState,
                 file: `${FILE_STORAGE_URL}/${document.fileS3Key}`
             });
+            console.log(document);
+            console.log(servicesForState);
         }
     }
 }
 
 const mapStateToProps = (
-    { documentsReducer, servicesReducer, subscriptionsReducer },
+    {
+        companyAdmin: {
+            documentsReducer,
+            servicesReducer,
+            subscriptionsReducer
+        }
+    },
     ownProps
 ) => ({
     isFetching:
@@ -77,7 +89,9 @@ const mapStateToProps = (
         documentsReducer.isFetching,
     services: servicesReducer.services,
     subscriptions: subscriptionsReducer.subscriptions.serviceIDs,
-    document: documentsReducer.documents[ownProps.documentID]
+    document:
+        console.log(documentsReducer) ||
+        documentsReducer.documents[ownProps.documentID]
 });
 
 export default connect(mapStateToProps)(EditDocumentFormContainer);

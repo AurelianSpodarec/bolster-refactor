@@ -35,8 +35,9 @@ class RenameTemplateSectionModalContainer extends React.Component {
 
     handleSubmit = e => {
         e.preventDefault();
+        const { section } = this.props;
         const { name } = this.state;
-        this.props.updateSection({ name, uuid: this.props.section.uuid });
+        this.props.updateSection({ ...section, name });
     };
 }
 
