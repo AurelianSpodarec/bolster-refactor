@@ -17,6 +17,7 @@ import pinCustomFieldsReducer from './pinCustomFields';
 import pinHistoriesReducer from './pinHistories';
 import operativesReducer from './operatives';
 import subscriptionsReducer from './subscriptions';
+import servicesReducer from './services';
 
 export default combineReducers({
     buildingsReducer,
@@ -35,5 +36,6 @@ export default combineReducers({
     pinCustomFieldsReducer,
     pinHistoriesReducer,
     operativesReducer,
-    subscriptionsReducer
+    subscriptionsReducer,
+    servicesReducer
 });
