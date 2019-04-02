@@ -16,6 +16,6 @@ const TabsContainer = ({ dispatch, tabs, selectedTab }) => (
     />
 );
 
-const mapStateToProps = ({ tabsReducer }) => tabsReducer;
+const mapStateToProps = ({ shared: { tabsReducer } }) => tabsReducer;
 
 export default connect(mapStateToProps)(TabsContainer);
