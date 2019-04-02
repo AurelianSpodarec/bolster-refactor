@@ -30,7 +30,7 @@ class DocumentsTableContainer extends Component {
 }
 
 const mapStateToProps = (
-    { documentsReducer, buildingsReducer },
+    { companyAdmin: { documentsReducer, buildingsReducer } },
     { match }
 ) => ({
     building: buildingsReducer.buildings[match.params.id] || {},
