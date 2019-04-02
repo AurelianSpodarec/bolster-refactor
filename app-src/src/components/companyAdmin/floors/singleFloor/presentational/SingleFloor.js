@@ -5,7 +5,7 @@ import SingleFloorHeaderContainer from '../containers/SingleFloorHeaderContainer
 import FloorDetailsContainer from '../containers/FloorDetailsContainer';
 import FloorDocumentsTableContainer from '../containers/FloorDocumentsTableContainer';
 import FloorDrawingsTableContainer from '../containers/FloorDrawingsTableContainer';
-import FloorOperativesTableContainer from '../containers/FloorOperativesTableContainer';
+import FloorOperativeAddContainer from '../containers/FloorOperativeAddContainer';
 import FloorInviteClientContainer from '../containers/FloorInviteClientContainer';
 import FloorCompaniesAccessTableContainer from '../containers/FloorCompaniesAccessTableContainer';
 
@@ -32,7 +32,7 @@ const Floor = () => (
         </div>
 
         <div className="size-lg-4">
-            <FloorOperativesTableContainer />
+            <FloorOperativeAddContainer />
         </div>
 
         <div className="size-lg-4">

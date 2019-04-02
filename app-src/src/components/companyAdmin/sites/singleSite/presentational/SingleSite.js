@@ -3,7 +3,7 @@ import React from 'react';
 import SiteDetailsContainer from '../containers/SiteDetailsContainer';
 import SiteDocumentsTableContainer from '../containers/SiteDocumentsTableContainer';
 import SiteBuildingsTableContainer from '../containers/SiteBuildingsTableContainer';
-import SiteOperativesTableContainer from '../containers/SiteOperativesTableContainer';
+import SiteOperativeAddContainer from '../containers/SiteOperativeAddContainer';
 import SiteClientInviteContainer from '../containers/SiteClientInviteContainer';
 import SiteCompaniesAccessTableContainer from '../containers/SiteCompaniesAccessTableContainer';
 import Breadcrumb from 'components/shared/generic/breadcrumb/presentational/Breadcrumb';
@@ -30,7 +30,7 @@ const SingleSite = () => (
             <SiteClientInviteContainer />
         </div>
         <div className="size-lg-4">
-            <SiteOperativesTableContainer />
+            <SiteOperativeAddContainer />
         </div>
         <div className="size-lg-4">
             <SiteCompaniesAccessTableContainer />
