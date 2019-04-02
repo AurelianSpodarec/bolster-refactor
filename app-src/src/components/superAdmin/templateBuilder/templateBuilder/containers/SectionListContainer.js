@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 import SectionList from '../presentational/SectionList';
 class SectionListContainer extends Component {
@@ -9,15 +10,20 @@ class SectionListContainer extends Component {
     }
 }
 
-const mapStateToProps = ({ templateSectionsReducer }) => ({
-    sections: Object.values(templateSectionsReducer.sections).sort(
-        (a, b) => a.sort - b.sort
-    )
+const mapStateToProps = (
+    { templateSectionsReducer: { sections } },
+    { match: { params } }
+) => ({
+    sections: Object.values(sections)
+        .filter(section => section.templateUuid === params.uuid)
+        .sort((a, b) => a.sort - b.sort)
 });
 
 const mapDispatchToProps = () => ({});
 
-export default connect(
+const ComponentWithConnect = connect(
     mapStateToProps,
     mapDispatchToProps
 )(SectionListContainer);
+
+export default withRouter(ComponentWithConnect);

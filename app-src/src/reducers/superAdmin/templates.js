@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 
-// import { updateObj, removeObjItem } from 'helpers/generic';
-import {} from 'constants/actionTypes/templateBuilder';
+import { updateObj } from 'helpers/generic';
+import { ADD_TEMPLATE } from 'constants/actionTypes/templateBuilder';
 
 const defaultTemplates = {
     '9d707ec0-52e3-11e9-8633-45ed325a6f22': {
@@ -20,6 +20,8 @@ export default combineReducers({
 
 function templatesReducer(state = defaultTemplates, action) {
     switch (action.type) {
+        case ADD_TEMPLATE:
+            return updateObj(state, action.template.uuid, action.template);
         default:
             return state;
     }

@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
-import addSection from 'actions/superAdmin/templateBuilder/sync/addSection';
+import addTemplate from 'actions/superAdmin/templateBuilder/sync/addTemplate';
 import hideModal from 'actions/generic/modals/sync/hideModal';
 
 import AddTemplateModal from '../presentational/AddTemplateModal';
@@ -36,9 +36,15 @@ class AddTemplateModalContainer extends React.Component {
 
     handleSubmit = e => {
         e.preventDefault();
-        const { companyID } = this.props;
-        console.log('hihihihihi');
-        console.log(companyID);
+        const { companyID, uuid, addTemplate } = this.props;
+        const { name } = this.state;
+        const template = {
+            companyID,
+            uuid,
+            name
+        };
+
+        addTemplate(template);
     };
 }
 
@@ -46,8 +52,8 @@ const mapDispatchToProps = dispatch => ({
     hideModal: () => {
         dispatch(hideModal());
     },
-    addSection: newSection => {
-        dispatch(addSection(newSection));
+    addTemplate: template => {
+        dispatch(addTemplate(template));
         dispatch(hideModal());
     }
 });
