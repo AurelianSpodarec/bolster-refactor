@@ -10,7 +10,7 @@ import { Link, withRouter } from 'react-router-dom';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import RadioButton from 'components/shared/generic/form/presentational/RadioButton';
 import DatePickerContainer from 'components/shared/documents/containers/AttachDocumentDatePickerContainer';
-import { DOCUMENT_TYPE } from 'constants/enums';
+import { DOCUMENT_TYPE } from 'constants/companyAdmin/enums';
 
 const EditDocumentForm = ({
     handleInputChange,
