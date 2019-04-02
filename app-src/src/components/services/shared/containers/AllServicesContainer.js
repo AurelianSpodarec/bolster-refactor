@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import fetchAllServices from 'actions/services/async/fetchAllServices';
+import fetchAllServices from 'actions/superAdmin/services/async/fetchAllServices';
 import AllServices from '../presentational/AllServices';
 
 class AllServicesContainer extends Component {

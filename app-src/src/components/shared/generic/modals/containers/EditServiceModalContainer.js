@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import editService from 'actions/services/async/editService';
+import editService from 'actions/superAdmin/services/async/editService';
 import { hideModal } from 'actions/generic/modals/sync/hideModal';
 import EditServiceModal from '../presentational/EditServiceModal';
 

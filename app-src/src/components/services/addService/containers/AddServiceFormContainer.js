@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 import AddServiceForm from '../presentational/AddServiceForm';
-import createService from 'actions/services/async/createService';
+import createService from 'actions/superAdmin/services/async/createService';
 
 class AddServiceFormContainer extends Component {
     state = {

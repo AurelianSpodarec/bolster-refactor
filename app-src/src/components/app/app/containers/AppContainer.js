@@ -12,7 +12,7 @@ import decodeJWT from 'actions/jwt/async/decodeJWT';
 
 import App from '../presentational/App';
 import fetchAllSubscriptions from 'actions/subscriptions/async/fetchAllSubscriptions';
-import fetchAllServices from 'actions/services/async/fetchAllServices';
+import fetchAllServices from 'actions/superAdmin/services/async/fetchAllServices';
 
 class AppContainer extends Component {
     render() {
@@ -40,21 +40,6 @@ class AppContainer extends Component {
                 decodeJWT();
             })
             .catch(() => {});
-    };
-
-    _authenticate = () => {
-        return new Promise((resolve, reject) => {
-            const token = localStorage.getItem('token');
-
-            if (token === undefined || token === '') {
-                reject();
-            }
-            const decoded = jwtDecode(token);
-            const isExpired = decoded.exp < new Date().valueOf() / 1000;
-            if (isExpired) reject();
-
-            resolve();
-        });
     };
 }
 
