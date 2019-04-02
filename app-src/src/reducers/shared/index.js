@@ -1,11 +1,11 @@
 import { combineReducers } from 'redux';
 
-import fieldErrorsReducer from './shared/fieldErrors';
-import loginReducer from './shared/login';
-import profileReducer from './shared/profile';
-import tabsReducer from './shared/tabs';
-import decodeJWTReducer from './shared/decodeJWT';
-import modalReducer from './shared/modal';
+import fieldErrorsReducer from './fieldErrors';
+import loginReducer from './login';
+import profileReducer from './profile';
+import tabsReducer from './tabs';
+import decodeJWTReducer from './decodeJWT';
+import modalReducer from './modal';
 
 export default combineReducers({
     profileReducer,
