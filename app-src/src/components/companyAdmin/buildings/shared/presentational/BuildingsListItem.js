@@ -22,7 +22,11 @@ const BuldingsListItem = ({
                 )}{' '}
                 {building.name}
             </td>
-            <td>##permissions##</td>
+            <td>
+                {building.permissions
+                    .map(permission => permission.companyName)
+                    .join(', ')}
+            </td>
             <td>
                 <Link
                     className="button light-blue"

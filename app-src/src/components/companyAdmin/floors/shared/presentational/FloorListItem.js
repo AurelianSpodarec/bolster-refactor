@@ -17,7 +17,11 @@ const FloorListItem = ({ floor, isExpanded, colCount, toggleExpanded }) => (
                 )}{' '}
                 {floor.name}
             </td>
-            <td>##permissions##</td>
+            <td>
+                {floor.permissions
+                    .map(permission => permission.companyName)
+                    .join(', ')}
+            </td>
             <td>
                 <Link
                     className="button light-blue"
