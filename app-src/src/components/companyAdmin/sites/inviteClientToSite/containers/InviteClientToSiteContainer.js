@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import AttachOperativesFormContainer from 'components/shared/operatives/containers/AttachOperativesFormContainer';
+import InviteClientToSiteFormContainer from 'components/shared/clients/containers/InviteClientToSiteFormContainer';
 
 import fetchCompanyUsers from 'actions/companyAdmin/userManagement/async/fetchCompanyUsers';
 
 class AttachSiteOperativeContainer extends Component {
     render() {
-        return <AttachOperativesFormContainer hierarchyType="site" />;
+        return <InviteClientToSiteFormContainer hierarchyType="site" />;
     }
 
     componentDidMount = () => {

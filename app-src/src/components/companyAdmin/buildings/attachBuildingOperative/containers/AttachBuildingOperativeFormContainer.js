@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import AttachOperativesFormContainer from 'components/shared/operatives/conatiners/AttachOperativesFormContainer';
+import AttachOperativesFormContainer from 'components/shared/operatives/containers/AttachOperativesFormContainer';
 
 class AttachBuildingOperativeFromContainer extends Component {
     render() {
