@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const AllCompanyAdminsListItem = ({ user }) => {
+const AllOperativesListItem = ({ user }) => {
     return (
         <tr key={user.id}>
             <td>{`${user.userFirstName} ${user.userLastName}`}</td>
@@ -10,7 +10,7 @@ const AllCompanyAdminsListItem = ({ user }) => {
             <td>
                 <Link
                     className="button"
-                    to={`/user-management/company-admins/${user.id}`}
+                    to={`/user-management/operatives/${user.id}`}
                 >
                     Edit
                 </Link>
@@ -19,4 +19,4 @@ const AllCompanyAdminsListItem = ({ user }) => {
     );
 };
 
-export default AllCompanyAdminsListItem;
+export default AllOperativesListItem;
