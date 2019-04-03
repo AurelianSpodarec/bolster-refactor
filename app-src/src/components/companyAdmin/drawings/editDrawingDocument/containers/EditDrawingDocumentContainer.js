@@ -2,22 +2,22 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
-import EditSiteDocument from '../presentational/EditSiteDocument';
 import editDocument from 'actions/companyAdmin/documents/async/editDocument';
 import fetchDocument from 'actions/companyAdmin/documents/async/fetchDocument';
+import EditDrawingDocument from '../presentational/EditDrawingDocument';
 
 import { HIERARCHY_IDS } from 'constants/companyAdmin/enums';
 
-class EditSiteDocumentContainer extends Component {
+class EditDrawingDocumentContainer extends Component {
     render() {
         const { id, documentID } = this.props.match.params;
-        const backUrl = `/sites/${id}`;
+        const backUrl = `/drawings/${id}`;
 
         return (
-            <EditSiteDocument
+            <EditDrawingDocument
                 handleSubmit={this.handleSubmit}
                 backUrl={backUrl}
-                siteID={id}
+                drawingID={id}
                 documentID={documentID}
             />
         );
@@ -32,8 +32,7 @@ class EditSiteDocumentContainer extends Component {
         const { postSuccess, history, match } = this.props;
         const { id } = match.params;
         if (postSuccess && !prevSuccess) {
-            // ? what redirect route?
-            history.push(`/sites/${id}`);
+            history.push(`/drawings/${id}`);
         }
     }
 
@@ -41,7 +40,7 @@ class EditSiteDocumentContainer extends Component {
         const { id, documentID } = this.props.match.params;
         const postBody = {
             ...body,
-            hierarchyType: HIERARCHY_IDS.Site,
+            hierarchyType: HIERARCHY_IDS.Drawing,
             hierarchyID: id
         };
         this.props.editDocument(documentID, postBody);
@@ -65,5 +64,5 @@ export default withRouter(
     connect(
         mapStateToProps,
         mapDispatchToProps
-    )(EditSiteDocumentContainer)
+    )(EditDrawingDocumentContainer)
 );

@@ -10,6 +10,10 @@ import AttachDrawingDocument from 'components/companyAdmin/drawings/attachDrawin
 import InviteCompanyToBuilding from 'components/companyAdmin/buildings/inviteCompanyToBuilding/presentational/InviteCompanyToBuilding';
 import ClientEdit from 'components/shared/clients/presentational/ClientEdit';
 
+import AttachDrawingDocumentFormContainer from 'components/companyAdmin/drawings/attachDrawingDocument/containers/AttachDrawingDocumentFormContainer';
+import InviteCompanyToDrawing from 'components/companyAdmin/drawings/inviteCompanyToDrawing/presentational/InviteCompanyToDrawing';
+import EditDrawingDocumentContainer from 'components/companyAdmin/drawings/editDrawingDocument/containers/EditDrawingDocumentContainer';
+
 const DrawingsRoutes = ({ match: { url: baseUrl } }) => (
     <SwitchWith404>
         <Route
@@ -36,12 +40,17 @@ const DrawingsRoutes = ({ match: { url: baseUrl } }) => (
         <Route
             exact
             path={`${baseUrl}/:id/attach-document`}
-            component={AttachDrawingDocument}
+            component={AttachDrawingDocumentFormContainer}
+        />
+        <Route
+            exact
+            path={`${baseUrl}/:id/documents/:documentID/edit`}
+            component={EditDrawingDocumentContainer}
         />
         <Route
             exact
             path={`${baseUrl}/:id/invite-company`}
-            component={InviteCompanyToBuilding}
+            component={InviteCompanyToDrawing}
         />
     </SwitchWith404>
 );

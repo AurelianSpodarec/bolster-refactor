@@ -27,7 +27,7 @@ export default messageType => dispatch => {
     dispatch(dismissMessagesRequest(messageType));
 
     return axios
-        .post(`${API_URL}/messages/read/${messageType}`, null, getHeaders())
+        .post(`${API_URL}/messages/read-all/${messageType}`, null, getHeaders())
         .then(() => dispatch(dismissMessagesSuccess()))
         .catch(err => {
             dispatch(dismissMessagesFailure(err));

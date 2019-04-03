@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import HeaderNotifications from '../presentational/HeaderNotifications';
 import { MESSAGE_TYPES } from 'constants/companyAdmin/enums';
 import dismissMessages from 'actions/companyAdmin/messages/async/dismissMessages';
+import moment from 'moment';
 
 class HeaderNotificationsContainer extends Component {
     state = {
@@ -11,12 +12,16 @@ class HeaderNotificationsContainer extends Component {
     };
 
     render() {
-        const { notifications, unreadCount } = this.props;
+        const { notifications } = this.props;
+        const unread = notifications.filter(({ isRead }) => !isRead);
+        const unreadCount = unread.length;
 
         return (
             <HeaderNotifications
                 {...this.state}
-                notifications={notifications}
+                notifications={
+                    unreadCount > 10 ? unread : notifications.slice(0, 10)
+                }
                 unreadCount={unreadCount}
                 togglePopup={this.togglePopup}
                 updateNode={node => {
@@ -60,17 +65,11 @@ const mapStateToProps = ({
     companyAdmin: {
         messagesReducer: { messages }
     }
-}) => {
-    const notifications = Object.values(messages).filter(
-        ({ type }) => type === MESSAGE_TYPES.NOTIFICATION
-    );
-    const unreadCount = notifications.filter(({ isRead }) => !isRead).length;
-
-    return {
-        notifications,
-        unreadCount
-    };
-};
+}) => ({
+    notifications: Object.values(messages)
+        .filter(({ type }) => type === MESSAGE_TYPES.NOTIFICATION)
+        .sort((a, b) => moment(b.createAt) - moment(a.createAt))
+});
 
 const mapDispatchToProps = dispatch => ({
     dismissMessages: messageType => {
