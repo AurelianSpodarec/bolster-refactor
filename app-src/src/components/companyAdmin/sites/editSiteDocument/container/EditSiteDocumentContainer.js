@@ -9,10 +9,12 @@ import fetchDocument from 'actions/companyAdmin/documents/async/fetchDocument';
 class EditSiteDocumentContainer extends Component {
     render() {
         const { siteID, documentID } = this.props.match.params;
+        const backUrl = `/sites/${siteID}`;
 
         return (
             <EditSiteDocument
                 handleSubmit={this.handleSubmit}
+                backUrl={backUrl}
                 siteID={siteID}
                 documentID={documentID}
             />
