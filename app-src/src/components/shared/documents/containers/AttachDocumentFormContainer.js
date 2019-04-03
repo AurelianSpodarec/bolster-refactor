@@ -107,8 +107,12 @@ class AttachDocumentFormContainer extends Component {
         e.preventDefault();
         const { handleSubmit } = this.props;
         const { services, ...body } = this.state;
-        const postBody = { ...body, services: Object.keys(services) };
 
+        const serviceIDs = Object.values(services).reduce((acc, service) => {
+            if (service.checked) acc.push(String(service.id));
+            return acc;
+        }, []);
+        const postBody = { ...body, serviceIDs };
         handleSubmit(postBody);
     };
 }

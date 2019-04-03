@@ -10,6 +10,7 @@ import { Link, withRouter } from 'react-router-dom';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import RadioButton from 'components/shared/generic/form/presentational/RadioButton';
 import DatePickerContainer from 'components/shared/documents/containers/AttachDocumentDatePickerContainer';
+import FileView from 'components/shared/generic/form/presentational/FileView';
 import { DOCUMENT_TYPE } from 'constants/companyAdmin/enums';
 
 const EditDocumentForm = ({
@@ -20,10 +21,14 @@ const EditDocumentForm = ({
     handleMultiselect,
     handleSubmit,
     handleDateChange,
+    handleHide,
+    handleCancelUpload,
     type,
     name,
+    fileS3Key,
     isPhotoRequired,
     isFileViewRequired,
+    isFileViewHidden,
     isSignatureRequired,
     isUpsyncForced,
     services,
@@ -79,14 +84,23 @@ const EditDocumentForm = ({
         {/* is this the right way of styling this? */}
         <div className="size-lg-12">
             <div className="size-lg-6">
-                <Field name="Upload PDF or image">
-                    <FileUploadContainer
-                        name="file"
-                        allowedTypes={['pdf', 'image']}
-                        handleChange={handleFileChange}
-                        required
-                    />
-                </Field>
+                {!isFileViewHidden ? (
+                    <Field name="Attached file">
+                        <FileView file={fileS3Key} handleHide={handleHide} />
+                    </Field>
+                ) : (
+                    <Field name="Upload PDF or image">
+                        <FileUploadContainer
+                            name="file"
+                            allowedTypes={['pdf', 'image']}
+                            handleChange={handleFileChange}
+                            required
+                        />
+                        <button className="button" onClick={handleCancelUpload}>
+                            Cancel File Replace
+                        </button>
+                    </Field>
+                )}
             </div>
         </div>
         <div className="size-lg-12">
@@ -155,7 +169,7 @@ const EditDocumentForm = ({
                 <i className="fa fa-plus" />
                 Attach Document
             </button>
-            <Link to={backUrl || '/'} className="button">
+            <Link to={backUrl} className="button">
                 <i className="fa fa-times" /> Cancel
             </Link>
         </BlockButtonWrapper>
