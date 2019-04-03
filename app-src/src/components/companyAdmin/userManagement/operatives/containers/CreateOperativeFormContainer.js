@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
-import CreateBuildingForm from '../presentational/CreateBuildingForm';
 import createOperative from 'actions/companyAdmin/userManagement/async/createOperative';
+import CreateOperativeForm from '../presentational/CreateOperativeForm';
 
 class CreateOperativeFormContainer extends Component {
     state = {
@@ -17,7 +17,7 @@ class CreateOperativeFormContainer extends Component {
 
     render() {
         return (
-            <CreateBuildingForm
+            <CreateOperativeForm
                 {...this.state}
                 handleInputChange={this.handleInputChange}
                 handleSubmit={this.handleSubmit}

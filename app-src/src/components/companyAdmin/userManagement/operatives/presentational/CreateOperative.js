@@ -3,6 +3,7 @@ import React from 'react';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
 import Breadcrumb from 'components/shared/generic/breadcrumb/presentational/Breadcrumb';
+import CreateOperativeFormContainer from '../containers/CreateOperativeFormContainer';
 
 const CreateOperative = () => (
     <>
@@ -14,7 +15,7 @@ const CreateOperative = () => (
         />
         <PageHeading title="Create Operative" />
         <BlockContainer>
-            <p>Create Operative</p>
+            <CreateOperativeFormContainer />
         </BlockContainer>
     </>
 );
