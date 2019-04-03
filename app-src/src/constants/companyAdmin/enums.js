@@ -11,6 +11,13 @@ export const HIERARCHY_TYPE = {
     '4': 'Drawing'
 };
 
+export const HIERARCHY_IDS = {
+    Site: '1',
+    Building: '2',
+    Floor: '3',
+    Drawing: '4'
+};
+
 export const DOCUMENT_TYPE = {
     '1': 'View only',
     '2': 'Requires agreement (once)',

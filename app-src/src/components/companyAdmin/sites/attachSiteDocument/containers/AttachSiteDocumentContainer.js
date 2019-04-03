@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+
 import AttachSiteDocument from '../presentational/AttachSiteDocument';
 import createDocument from 'actions/companyAdmin/documents/async/createDocument';
+
+import { HIERARCHY_IDS } from 'constants/companyAdmin/enums';
 
 class AttachSiteDocumentContainer extends Component {
     render() {
@@ -28,7 +31,7 @@ class AttachSiteDocumentContainer extends Component {
     handleSubmit = postBody => {
         const { createDocument } = this.props;
         const { id } = this.props.match.params;
-        createDocument(1, id, postBody);
+        createDocument(HIERARCHY_IDS.Site, id, postBody);
     };
 }
 
