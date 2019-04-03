@@ -60,6 +60,7 @@ const defaultQuestions = {
         uuid: '273ab210-52e4-11e9-ac26-8590a0785f34'
     }
 };
+
 export default combineReducers({
     questions: questionsReducer
 });

@@ -27,7 +27,7 @@ const Header = ({ profile, company, messageCount }) => (
             <div className="account-area">
                 {/*** notifications ***/}
                 <div className="notifications">
-                    <Link to="/credit-logs" className="item main">
+                    <Link to="/tools/credit-logs" className="item main">
                         <span className="number green">
                             {profile.creditsAvailable}
                         </span>

@@ -10,6 +10,7 @@ const HeaderContainer = ({ profile, company, messageCount, curUrl }) => {
     if (basicHeaderUrls.some(url => curUrl.startsWith(url.toLowerCase()))) {
         return <BasicHeader />;
     }
+
     return (
         <Header
             profile={profile}
