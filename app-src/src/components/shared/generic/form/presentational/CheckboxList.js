@@ -1,26 +1,30 @@
 import React from 'react';
-import Loading from 'components/shared/generic/misc/presentational/Loading';
-import CheckboxContainer from '../containers/CheckboxContainer';
 
-const CheckboxList = ({ isFetching, error, items, handleChange }) => {
-    return error ? (
-        <p>error</p>
-    ) : isFetching ? (
-        <Loading />
-    ) : (
-        Object.values(items).map(item => (
-            <CheckboxContainer
-                text={item.name}
-                name={item.name}
+import Checkbox from './Checkbox';
+
+const CheckboxList = ({
+    options,
+    selectedOptions,
+    handleChange,
+    name,
+    error
+}) => (
+    <>
+        {options.map(({ text, value, disabled }) => (
+            <Checkbox
+                key={`${text}${value}`}
+                value={value}
+                name={name}
+                text={text}
+                disabled={disabled}
+                checked={selectedOptions.includes(value + '')}
                 handleChange={handleChange}
-                key={item.id}
-                id={item.id}
-                item={item}
-                checked={item.checked}
-                disabled={item.disabled}
             />
-        ))
-    );
-};
+        ))}
+        {error && error.length && (
+            <p className="error red-text text-accent-4">{error}</p>
+        )}
+    </>
+);
 
 export default CheckboxList;
