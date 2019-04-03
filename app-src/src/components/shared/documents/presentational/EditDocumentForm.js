@@ -12,6 +12,7 @@ import RadioButton from 'components/shared/generic/form/presentational/RadioButt
 import DatePickerContainer from 'components/shared/documents/containers/AttachDocumentDatePickerContainer';
 import FileView from 'components/shared/generic/form/presentational/FileView';
 import { DOCUMENT_TYPE } from 'constants/companyAdmin/enums';
+import CheckboxListContainer from 'components/shared/generic/form/containers/CheckboxListContainer';
 
 const EditDocumentForm = ({
     handleInputChange,
@@ -32,6 +33,7 @@ const EditDocumentForm = ({
     isSignatureRequired,
     isUpsyncForced,
     services,
+    selectedServices,
     agreeanceEveryXDays,
     startOn,
     endOn,
@@ -114,8 +116,10 @@ const EditDocumentForm = ({
         </div>
         <div className="size-lg-12">
             <Field name="Service type">
-                <ServiceListCheckboxContainer
-                    services={services}
+                <CheckboxListContainer
+                    name="selectedServices"
+                    options={services}
+                    selectedOptions={selectedServices}
                     handleChange={handleMultiselect}
                 />
             </Field>

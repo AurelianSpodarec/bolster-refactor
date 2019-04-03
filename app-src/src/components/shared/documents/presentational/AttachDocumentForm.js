@@ -11,6 +11,7 @@ import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/pr
 import RadioButton from 'components/shared/generic/form/presentational/RadioButton';
 import DatePickerContainer from 'components/shared/documents/containers/AttachDocumentDatePickerContainer';
 import { DOCUMENT_TYPE } from 'constants/companyAdmin/enums';
+import CheckboxListContainer from 'components/shared/generic/form/containers/CheckboxListContainer';
 
 const AttachDocumentForm = ({
     handleInputChange,
@@ -100,7 +101,7 @@ const AttachDocumentForm = ({
         </div>
         <div className="size-lg-12">
             <Field name="Service type">
-                <ServiceListCheckboxContainer
+                <CheckboxListContainer
                     services={services}
                     handleChange={handleMultiselect}
                 />

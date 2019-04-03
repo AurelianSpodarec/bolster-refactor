@@ -20,7 +20,6 @@ class CheckboxListContainer extends Component {
             selectedOptions,
             name
         } = this.props;
-
         let errorMessage;
         if (showFieldError || errorsVisible) errorMessage = error;
         return (

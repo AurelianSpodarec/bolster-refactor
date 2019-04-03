@@ -19,7 +19,8 @@ class EditDocumentFormContainer extends Component {
         isSignatureRequired: false,
         isUpsyncForced: false,
         // dropdown
-        services: {},
+        services: [],
+        selectedServices: [],
         agreeanceEveryXDays: '0',
         // date selector
         startOn: new Date(),
@@ -57,26 +58,24 @@ class EditDocumentFormContainer extends Component {
             document
         } = this.props;
         if (!isFetching && prevProps.isFetching) {
-            const { serviceIDs: documentServices = [] } = document;
             const servicesForState = Object.values(services).reduce(
                 (acc, { id, name }) => {
-                    acc[id] = {
-                        id,
-                        name,
-                        disabled: !subscriptions.includes(id),
-                        // ? is this the right key?
-                        checked: documentServices.includes(id)
-                    };
+                    acc.push({
+                        value: id,
+                        text: name,
+                        disabled: !subscriptions.includes(id)
+                    });
                     return acc;
                 },
-                {}
+                []
             );
             this.setState({
                 ...document,
                 type: String(document.type),
                 startOn: new Date(document.startOn),
                 endOn: new Date(document.endOn),
-                services: servicesForState
+                services: servicesForState,
+                selectedServices: document.serviceIDs
             });
         }
     }
@@ -114,18 +113,13 @@ class EditDocumentFormContainer extends Component {
         });
     };
 
-    handleMultiselect = e => {
-        const serviceID = e.target.id;
-        const id = serviceID.split('_')[1];
-        this.setState(prevState => {
-            const service = prevState.services[id];
-            return {
-                services: {
-                    ...prevState.services,
-                    [id]: updateObj(service, 'checked', !service.checked)
-                }
-            };
-        });
+    handleMultiselect = ({ target: { name, value } }) => {
+        const checkedValues = this.state[name];
+        const newValues = checkedValues.includes(value)
+            ? checkedValues.filter(val => val !== value)
+            : [...checkedValues, value];
+
+        this.setState({ [name]: newValues });
     };
 
     handleCheckboxChange = e => {
@@ -136,21 +130,21 @@ class EditDocumentFormContainer extends Component {
     };
 
     handleSubmit = e => {
-        console.log('submitting generic');
         e.preventDefault();
-        // fileS3Key doesn't need submitting,
         const { handleSubmit } = this.props;
-        const { services, file, fileS3Key, ...body } = this.state;
-        const serviceIDs = Object.values(services).reduce((acc, service) => {
-            if (service.checked) acc.push(service.id);
-            return acc;
-        }, []);
+        const {
+            selectedServices,
+            // eslint-disable-next-line no-unused-vars
+            services,
+            file,
+            fileS3Key,
+            ...body
+        } = this.state;
         const postBody = {
             ...body,
-            serviceIDs,
+            serviceIDs: selectedServices,
             file: isObjEmpty(file) ? { s3Key: fileS3Key } : file
         };
-
         handleSubmit(postBody);
     };
 }
