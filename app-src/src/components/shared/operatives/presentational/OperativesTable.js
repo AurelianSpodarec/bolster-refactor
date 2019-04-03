@@ -25,7 +25,7 @@ const OperativesTable = ({ location, operatives, isFetching, error }) => {
             <div className="button-container table">
                 <Link
                     className="button pull-right"
-                    to={`${location.pathname}/attach-operative`}
+                    to={`${location.pathname}/add-operative`}
                 >
                     <i className="fal fa-plus" /> Invite operative
                 </Link>

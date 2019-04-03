@@ -6,7 +6,6 @@ import drawingsReducer from './drawings';
 import creditLogsReducer from './creditLogs';
 import floorsReducer from './floors';
 import messagesReducer from './messages';
-import notificationsReducer from './notifications';
 import searchReducer from './search';
 import sitesReducer from './sites';
 import inspectionLogsReducer from './inspectionLogs';
@@ -25,7 +24,6 @@ export default combineReducers({
     companyUsersReducer,
     floorsReducer,
     drawingsReducer,
-    notificationsReducer,
     creditLogsReducer,
     companiesReducer,
     messagesReducer,
