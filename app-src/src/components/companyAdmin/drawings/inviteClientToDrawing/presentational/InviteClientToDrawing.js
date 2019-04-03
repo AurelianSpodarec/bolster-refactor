@@ -4,10 +4,10 @@ import Breadcrumb from 'components/shared/generic/breadcrumb/presentational/Brea
 import InviteClientToDrawingFormContainer from '../containers/InviteClientToDrawingFormContainer';
 
 const InviteClientToDrawing = () => (
-    <div>
+    <>
         <Breadcrumb breadcrumbs={[{ text: 'item 1' }, { text: 'item 2' }]} />
         <InviteClientToDrawingFormContainer />
-    </div>
+    </>
 );
 
 export default InviteClientToDrawing;
