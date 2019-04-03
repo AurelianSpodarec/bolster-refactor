@@ -33,7 +33,7 @@ const Menu = ({ messageCount }) => (
                 <i className="fa fa-file icon" /> Reports
             </MenuItemContainer>
 
-            <MenuItemContainer link="/messages">
+            <MenuItemContainer link="/message-centre">
                 <span className="messages">
                     <i className="far fa-envelope" />
                     <sub>{messageCount}</sub>

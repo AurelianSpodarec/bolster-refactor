@@ -24,7 +24,7 @@ const CompanyRoutes = () => (
         <Route path="/buildings" component={BuildingsRoutes} />
         <Route path="/floors" component={FloorRoutes} />
         <Route path="/drawings" component={DrawingsRoutes} />
-        <Route path="/messages" component={MessagesRoutes} />
+        <Route path="/message-centre" component={MessagesRoutes} />
         <Route path="/users-management" component={UserManagementRoutes} />
         <Route path="/pins" component={PinRoutes} />
         <Route path="/reports" component={ReportsRoutes} />
