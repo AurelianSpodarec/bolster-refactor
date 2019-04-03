@@ -4,7 +4,6 @@ import TextInputContainer from 'components/shared/generic/form/containers/TextIn
 import Field from 'components/shared/generic/form/presentational/Field';
 import FileUploadContainer from 'components/shared/generic/form/containers/FileUploadContainer';
 import SwitchContainer from 'components/shared/generic/form/containers/SwitchContainer';
-import ServiceListCheckboxContainer from 'components/shared/services/containers/ServiceListCheckboxContainer';
 import { Link, withRouter } from 'react-router-dom';
 
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
@@ -28,6 +27,7 @@ const AttachDocumentForm = ({
     isSignatureRequired,
     isUpsyncForced,
     services,
+    selectedServices,
     agreeanceEveryXDays,
     startOn,
     endOn,
@@ -102,7 +102,9 @@ const AttachDocumentForm = ({
         <div className="size-lg-12">
             <Field name="Service type">
                 <CheckboxListContainer
-                    services={services}
+                    name="selectedServices"
+                    options={services}
+                    selectedOptions={selectedServices}
                     handleChange={handleMultiselect}
                 />
             </Field>

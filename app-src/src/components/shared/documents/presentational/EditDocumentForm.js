@@ -4,7 +4,6 @@ import TextInputContainer from 'components/shared/generic/form/containers/TextIn
 import Field from 'components/shared/generic/form/presentational/Field';
 import FileUploadContainer from 'components/shared/generic/form/containers/FileUploadContainer';
 import SwitchContainer from 'components/shared/generic/form/containers/SwitchContainer';
-import ServiceListCheckboxContainer from 'components/shared/services/containers/ServiceListCheckboxContainer';
 import { Link, withRouter } from 'react-router-dom';
 
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
@@ -108,9 +107,7 @@ const EditDocumentForm = ({
         <div className="size-lg-12">
             <DatePickerContainer
                 startOn={startOn}
-                // ! only receiving errors for end on
                 endOn={endOn}
-                // name="endOn"
                 onChange={handleDateChange}
             />
         </div>
