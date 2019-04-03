@@ -9,10 +9,12 @@ import fetchDocument from 'actions/companyAdmin/documents/async/fetchDocument';
 class EditSiteDocumentContainer extends Component {
     render() {
         const { siteID, documentID } = this.props.match.params;
+        const backUrl = `/sites/${siteID}`;
 
         return (
             <EditSiteDocument
                 handleSubmit={this.handleSubmit}
+                backUrl={backUrl}
                 siteID={siteID}
                 documentID={documentID}
             />
@@ -33,10 +35,11 @@ class EditSiteDocumentContainer extends Component {
         }
     }
 
-    handleSubmit = postBody => {
+    handleSubmit = body => {
+        console.log('submitting site level');
         const { siteID, documentID } = this.props.match.params;
-        // postbody must include hierarchy type/id
-        editDocument(1, siteID, documentID, postBody);
+        const postBody = { ...body, hierarchyType: '1', hierarchyID: siteID };
+        this.props.editDocument(documentID, postBody);
     };
 }
 
@@ -48,8 +51,8 @@ const mapDispatchToProps = dispatch => ({
     fetchDocument: ID => {
         dispatch(fetchDocument(ID));
     },
-    editDocument: (type, siteID, documentID, postBody) => {
-        dispatch(editDocument(type, siteID, documentID, postBody));
+    editDocument: (documentID, postBody) => {
+        dispatch(editDocument(documentID, postBody));
     }
 });
 

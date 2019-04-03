@@ -1,21 +1,30 @@
 import React from 'react';
 
-const Checkbox = ({ id, checked, handleChange, name, error, disabled }) => (
+const Checkbox = ({
+    value,
+    checked,
+    handleChange,
+    name,
+    text,
+    error,
+    disabled = false
+}) => (
     <div className="size-lg-4">
         <input
+            id={`${name}_${value}`}
             onChange={handleChange}
             type="checkbox"
-            id={`service_${id}`}
+            value={value}
             checked={checked}
             name={name}
             disabled={disabled}
         />
         <label
-            htmlFor={`service_${id}`}
+            htmlFor={`${name}_${value}`}
             // ? ## needs styling for disabled ##
             // style={disabled ? { color: 'grey' } : {}}
         >
-            {name}
+            {text}
         </label>
         {error && error.length && (
             <p className="error red-text text-accent-4">{error}</p>

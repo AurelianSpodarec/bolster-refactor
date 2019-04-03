@@ -1,14 +1,21 @@
 import React from 'react';
+import { FILE_STORAGE_URL } from 'config';
+import BlockButtonWrapper from '../../blockButtonWrappers/presentational/BlockButtonWrapper';
 
 const FileView = ({ file, handleHide }) => {
+    const fileURL = `${FILE_STORAGE_URL}/${file}`;
     return (
         <div>
             {file.endsWith('.pdf') ? (
-                <embed src="file" type="application/pdf" />
+                <embed src={`${fileURL}?width=500`} type="application/pdf" />
             ) : (
-                <img src="file" />
+                <img src={`${fileURL}?width=500`} alt="preview of the upload" />
             )}
-            <embed />
+            <BlockButtonWrapper>
+                <button onClick={handleHide} className="button">
+                    Upload Different File
+                </button>
+            </BlockButtonWrapper>
         </div>
     );
 };
