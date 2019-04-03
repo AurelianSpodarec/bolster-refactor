@@ -10,6 +10,7 @@ import AddFloor from 'components/companyAdmin/floors/addFloor/presentational/Add
 import FloorInviteClientContainer from 'components/companyAdmin/floors/singleFloor/containers/FloorInviteClientContainer';
 import FloorEditContainer from 'components/companyAdmin/floors/singleFloor/containers/FloorEditContainer';
 import AttachFloorDocumentFormContainer from 'components/companyAdmin/floors/attachFloorDocument/containers/AttachFloorDocumentFormContainer';
+import EditFloorDocumentContainer from 'components/companyAdmin/floors/editFloorDocument/containers/EditFloorDocumentContainer';
 
 const FloorRoutes = ({ match: { url: baseUrl } }) => (
     <SwitchWith404>
@@ -34,6 +35,11 @@ const FloorRoutes = ({ match: { url: baseUrl } }) => (
             exact
             path={`${baseUrl}/:id/attach-document`}
             component={AttachFloorDocumentFormContainer}
+        />
+        <Route
+            exact
+            path={`${baseUrl}/:id/documents/:documentID/edit`}
+            component={EditFloorDocumentContainer}
         />
         <Route
             exact
