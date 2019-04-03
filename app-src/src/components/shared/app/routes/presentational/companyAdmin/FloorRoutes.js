@@ -14,11 +14,7 @@ import FloorEditContainer from 'components/companyAdmin/floors/singleFloor/conta
 const FloorRoutes = ({ match: { url: baseUrl } }) => (
     <SwitchWith404>
         <Route exact path={`${baseUrl}/:id`} component={SingleFloorContainer} />
-        <Route
-            exact
-            path={`${baseUrl}/create/:buildingID`}
-            component={AddFloor}
-        />
+        <Route exact path={`${baseUrl}/create/:id`} component={AddFloor} />
         <Route
             exact
             path={`${baseUrl}/edit/:id`}
@@ -26,7 +22,7 @@ const FloorRoutes = ({ match: { url: baseUrl } }) => (
         />
         <Route
             exact
-            path={`${baseUrl}/:id/attach-operative`}
+            path={`${baseUrl}/:id/add-operative`}
             component={AttachFloorOperative}
         />
         <Route
