@@ -24,7 +24,7 @@ class AllCompanyAdminTableContainer extends Component {
         const { users } = this.props;
 
         const ret = users.filter(
-            user => user.type === COMPANY_USER_ROLE_TYPES['Admin']
+            user => user.type === COMPANY_USER_ROLE_TYPES.ADMIN
         );
 
         return ret;

@@ -18,7 +18,13 @@ export const DOCUMENT_TYPE = {
 };
 
 export const COMPANY_USER_ROLE_TYPES = {
-    Owner: 100,
-    Admin: 75,
-    Operative: 50
+    OWNER: 100,
+    ADMIN: 75,
+    OPERATIVE: 50
+};
+
+export const CREDIT_LOG_TYPES = {
+    1: 'Purchased',
+    2: 'Unused new drawing',
+    3: 'Used update drawing'
 };
