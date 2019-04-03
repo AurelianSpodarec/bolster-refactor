@@ -7,6 +7,9 @@ import {
     FETCH_ALL_COMPANIES_REQUEST,
     FETCH_ALL_COMPANIES_SUCCESS,
     FETCH_ALL_COMPANIES_FAILURE,
+    ADD_COMPANY_REQUEST,
+    ADD_COMPANY_SUCCESS,
+    ADD_COMPANY_FAILURE,
     UPDATE_COMPANIES_FILTERS
 } from 'constants/actionTypes/companies';
 import { updateObj } from 'helpers/generic';
@@ -16,7 +19,9 @@ export default combineReducers({
     companies: companiesReducer,
     filters: filtersReducer,
     isFetching: isFetchingReducer,
-    error: errorReducer
+    isPosting: isPostingReducer,
+    error: errorReducer,
+    postSuccess: postSuccessReducer
 });
 
 function isFetchingReducer(state = false, action) {
@@ -34,6 +39,18 @@ function isFetchingReducer(state = false, action) {
     }
 }
 
+function isPostingReducer(state = false, action) {
+    switch (action.type) {
+        case ADD_COMPANY_REQUEST:
+            return true;
+        case ADD_COMPANY_SUCCESS:
+        case ADD_COMPANY_FAILURE:
+            return false;
+        default:
+            return state;
+    }
+}
+
 function errorReducer(state = null, action) {
     switch (action.type) {
         case FETCH_SINGLE_COMPANY_REQUEST:
@@ -42,6 +59,18 @@ function errorReducer(state = null, action) {
         case FETCH_SINGLE_COMPANY_FAILURE:
         case FETCH_ALL_COMPANIES_FAILURE:
             return action.error;
+        default:
+            return state;
+    }
+}
+
+function postSuccessReducer(state = false, action) {
+    switch (action.type) {
+        case ADD_COMPANY_FAILURE:
+        case ADD_COMPANY_REQUEST:
+            return false;
+        case ADD_COMPANY_SUCCESS:
+            return true;
         default:
             return state;
     }
