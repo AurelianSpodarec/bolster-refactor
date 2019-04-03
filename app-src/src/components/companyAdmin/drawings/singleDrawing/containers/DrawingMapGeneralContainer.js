@@ -26,34 +26,21 @@ class DrawingMapGeneralContainer extends Component {
 
     render() {
         const position = [this.state.pinLat, this.state.pinLng];
-
-        // let pins = [];
-
-        // for (let i = 0; i < 5000; i++) {
-        //     const newPin = {
-        //         id: i,
-        //         latitude: 56.78696472965114,
-        //         longitude: -83.74763705103969,
-        //         title: `Marker ${i}`,
-        //         description: `Description ${i}`,
-        //         status: 'Action Required'
-        //     };
-
-        //     pins.push(newPin);
-        // }
+        const { serviceTypeOptions, serviceTypeSelected, mapZoom } = this.state;
+        const { error, pins } = this.props;
 
         return (
-            <BlockContainer>
+            <BlockContainer error={error}>
                 <DrawingMapFiltersAdvanced
-                    serviceTypeOptions={this.state.serviceTypeOptions}
-                    serviceTypeSelected={this.state.serviceTypeSelected}
-                    pins={this.props.pins}
+                    serviceTypeOptions={serviceTypeOptions}
+                    serviceTypeSelected={serviceTypeSelected}
+                    pins={pins}
                 />
                 <DrawingInspectionLogContainer />
                 <DrawingMapViewSimple
                     position={position}
-                    zoom={this.state.mapZoom}
-                    pins={this.props.pins}
+                    zoom={mapZoom}
+                    pins={pins}
                     handleClick={this.handleClick}
                 />
             </BlockContainer>
