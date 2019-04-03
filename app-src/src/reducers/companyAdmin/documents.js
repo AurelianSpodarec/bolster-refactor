@@ -10,7 +10,10 @@ import {
     FETCH_DOCUMENT_FAILURE,
     CREATE_DOCUMENT_REQUEST,
     CREATE_DOCUMENT_FAILURE,
-    CREATE_DOCUMENT_SUCCESS
+    CREATE_DOCUMENT_SUCCESS,
+    EDIT_DOCUMENT_REQUEST,
+    EDIT_DOCUMENT_FAILURE,
+    EDIT_DOCUMENT_SUCCESS
 } from 'constants/actionTypes/documents';
 
 export default combineReducers({
@@ -44,10 +47,12 @@ function errorReducer(state = null, action) {
         case FETCH_DOCUMENTS_REQUEST:
         case FETCH_DOCUMENT_REQUEST:
         case CREATE_DOCUMENT_REQUEST:
+        case EDIT_DOCUMENT_REQUEST:
             return null;
         case FETCH_DOCUMENTS_FAILURE:
         case FETCH_DOCUMENT_FAILURE:
         case CREATE_DOCUMENT_FAILURE:
+        case EDIT_DOCUMENT_FAILURE:
             return action.error;
         default:
             return state;
@@ -61,6 +66,7 @@ function documentsReducer(state = {}, action) {
         case FETCH_DOCUMENT_SUCCESS:
             return updateObj(state, action.payload.id, action.payload);
         case CREATE_DOCUMENT_SUCCESS:
+        case EDIT_DOCUMENT_SUCCESS:
             return updateObj(state, action.payload.id, action.payload);
         default:
             return state;
@@ -70,8 +76,10 @@ function documentsReducer(state = {}, action) {
 function postSuccessReducer(state = false, action) {
     switch (action.type) {
         case CREATE_DOCUMENT_REQUEST:
+        case EDIT_DOCUMENT_REQUEST:
             return false;
         case CREATE_DOCUMENT_SUCCESS:
+        case EDIT_DOCUMENT_SUCCESS:
             return true;
         default:
             return state;
@@ -81,8 +89,10 @@ function postSuccessReducer(state = false, action) {
 function updatedDocumentIDReducer(state = 0, action) {
     switch (action.type) {
         case CREATE_DOCUMENT_REQUEST:
+        case EDIT_DOCUMENT_REQUEST:
             return 0;
         case CREATE_DOCUMENT_SUCCESS:
+        case EDIT_DOCUMENT_SUCCESS:
             return action.payload.id;
         default:
             return state;

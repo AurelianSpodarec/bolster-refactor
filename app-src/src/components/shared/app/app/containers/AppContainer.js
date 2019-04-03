@@ -5,7 +5,6 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { authenticate } from 'helpers/api';
 import fetchProfile from 'actions/companyAdmin/profile/async/fetchProfile';
 import fetchSingleCompany from 'actions/companyAdmin/companies/async/fetchSingleCompany';
-import fetchNotifications from 'actions/companyAdmin/notifications/async/fetchNotifications';
 import fetchMessages from 'actions/companyAdmin/messages/async/fetchMessages';
 import fetchGenerationQueue from 'actions/companyAdmin/generationQueue/async/fetchGenerationQueue';
 import decodeJWT from 'actions/shared/jwt/async/decodeJWT';
@@ -52,7 +51,6 @@ const mapDispatchToProps = dispatch => ({
     fetchHomeData: () => {
         dispatch(fetchProfile());
         dispatch(fetchSingleCompany());
-        dispatch(fetchNotifications());
         dispatch(fetchMessages());
         dispatch(fetchGenerationQueue());
         dispatch(decodeJWT());

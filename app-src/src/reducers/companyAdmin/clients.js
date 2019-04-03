@@ -7,13 +7,18 @@ import {
     FETCH_CLIENTS_FAILURE,
     INVITE_CLIENT_REQUEST,
     INVITE_CLIENT_SUCCESS,
-    INVITE_CLIENT_FAILURE
+    INVITE_CLIENT_FAILURE,
+    ADD_CLIENT_REQUEST,
+    ADD_CLIENT_SUCCESS,
+    ADD_CLIENT_FAILURE
 } from 'constants/actionTypes/clients';
 
 export default combineReducers({
     clients: clientsReducer,
     isFetching: isFetchingReducer,
-    error: errorReducer
+    isPosting: isPostingReducer,
+    error: errorReducer,
+    postSuccess: postSuccessReducer
 });
 
 function isFetchingReducer(state = false, action) {
@@ -28,6 +33,18 @@ function isFetchingReducer(state = false, action) {
     }
 }
 
+function isPostingReducer(state = false, action) {
+    switch (action.type) {
+        case ADD_CLIENT_REQUEST:
+            return true;
+        case ADD_CLIENT_SUCCESS:
+        case ADD_CLIENT_FAILURE:
+            return false;
+        default:
+            return state;
+    }
+}
+
 function errorReducer(state = null, action) {
     switch (action.type) {
         case FETCH_CLIENTS_REQUEST:
@@ -36,6 +53,18 @@ function errorReducer(state = null, action) {
         case FETCH_CLIENTS_FAILURE:
         case INVITE_CLIENT_FAILURE:
             return action.error;
+        default:
+            return state;
+    }
+}
+
+function postSuccessReducer(state = false, action) {
+    switch (action.type) {
+        case ADD_CLIENT_FAILURE:
+        case ADD_CLIENT_REQUEST:
+            return false;
+        case ADD_CLIENT_SUCCESS:
+            return true;
         default:
             return state;
     }
