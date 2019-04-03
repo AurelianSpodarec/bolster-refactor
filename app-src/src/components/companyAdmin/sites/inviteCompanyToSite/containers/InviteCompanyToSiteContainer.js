@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 
 import InviteCompanyFormContainer from 'components/shared/companies/containers/InviteCompanyFormContainer';
-class InviteCompanyToFloorFormContainer extends Component {
+
+class InviteCompanyToSiteContainer extends Component {
     render() {
-        return <InviteCompanyFormContainer />;
+        return <InviteCompanyFormContainer hierarchyType="site" />;
     }
 }
 
-export default InviteCompanyToFloorFormContainer;
+export default InviteCompanyToSiteContainer;

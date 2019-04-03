@@ -6,8 +6,9 @@ import SingleDrawingContainer from 'components/companyAdmin/drawings/singleDrawi
 import AddDrawing from 'components/companyAdmin/drawings/addDrawing/presentational/AddDrawing';
 import AttachDrawingOperative from 'components/companyAdmin/drawings/attachDrawingOperative/presentational/AttachDrawingOperative';
 import InviteClientToDrawing from 'components/companyAdmin/drawings/inviteClientToDrawing/presentational/InviteClientToDrawing';
-import InviteCompanyToBuilding from 'components/companyAdmin/buildings/inviteCompanyToBuilding/presentational/InviteCompanyToBuilding';
+
 import AttachDrawingDocumentFormContainer from 'components/companyAdmin/drawings/attachDrawingDocument/containers/AttachDrawingDocumentFormContainer';
+import InviteCompanyToDrawing from 'components/companyAdmin/drawings/inviteCompanyToDrawing/presentational/InviteCompanyToDrawing';
 
 const DrawingsRoutes = ({ match: { url: baseUrl } }) => (
     <SwitchWith404>
@@ -35,7 +36,7 @@ const DrawingsRoutes = ({ match: { url: baseUrl } }) => (
         <Route
             exact
             path={`${baseUrl}/:id/invite-company`}
-            component={InviteCompanyToBuilding}
+            component={InviteCompanyToDrawing}
         />
     </SwitchWith404>
 );
