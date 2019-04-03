@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import MessageTable from '../presentational/MessageTable';
+import { MESSAGE_TYPES } from 'constants/companyAdmin/enums';
 
 const SystemMessageTableContainer = ({ messages, isFetching, error }) => (
     <BlockContainer heading="System Messages" error={error}>
@@ -15,7 +16,9 @@ const mapStateToProps = ({
         messagesReducer: { messages, isFetching, error }
     }
 }) => ({
-    messages: Object.values(messages),
+    messages: Object.values(messages).filter(
+        ({ isRead, type }) => !isRead && type === MESSAGE_TYPES.SYSTEM
+    ),
     isFetching,
     error
 });

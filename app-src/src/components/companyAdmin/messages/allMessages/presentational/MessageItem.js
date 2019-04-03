@@ -1,10 +1,12 @@
 import React from 'react';
 
-const MessageItem = ({ message: { message } }) => (
+const MessageItem = ({ message: { message }, dismissMessage }) => (
     <tr>
         <td>{message}</td>
         <td>
-            <button className="button">Dismiss</button>
+            <button className="button" onClick={dismissMessage}>
+                Dismiss
+            </button>
         </td>
     </tr>
 );
