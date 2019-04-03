@@ -4,7 +4,7 @@ import InviteClientFormContainer from 'components/shared/clients/containers/Invi
 
 class InviteClientToDrawingFormContainer extends Component {
     render() {
-        return <InviteClientFormContainer />;
+        return <InviteClientFormContainer hierarchyType="drawing" />;
     }
 }
 
