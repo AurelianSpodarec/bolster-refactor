@@ -1,11 +1,53 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
-import AttachDocumentFormContainer from 'components/shared/documents/containers/AttachDocumentFormContainer';
+import createDocument from 'actions/companyAdmin/documents/async/createDocument';
+import AttachFloorDocument from '../presentational/AttachFloorDocument';
 
-class AttachFloorDocumentFormContainer extends Component {
+import { HIERARCHY_IDS } from 'constants/companyAdmin/enums';
+
+class AttachFloorDocumentContainer extends Component {
     render() {
-        return <AttachDocumentFormContainer />;
+        const { id } = this.props.match.params;
+        const backUrl = `/floors/${id}`;
+        return (
+            <AttachFloorDocument
+                handleSubmit={this.handleSubmit}
+                backUrl={backUrl}
+                floorID={id}
+            />
+        );
     }
+
+    componentDidUpdate({ postSuccess: prevSuccess }) {
+        const { postSuccess, history, match } = this.props;
+        const { id } = match.params;
+        if (postSuccess && !prevSuccess) {
+            history.push(`/floors/${id}`);
+        }
+    }
+
+    handleSubmit = postBody => {
+        const { createDocument } = this.props;
+        const { id } = this.props.match.params;
+        createDocument(HIERARCHY_IDS.Floor, id, postBody);
+    };
 }
 
-export default AttachFloorDocumentFormContainer;
+const mapStateToProps = ({ companyAdmin: { documentsReducer } }) => ({
+    postSuccess: documentsReducer.postSuccess
+});
+
+const mapDispatchToProps = dispatch => ({
+    createDocument: (type, id, postBody) => {
+        dispatch(createDocument(type, id, postBody));
+    }
+});
+
+export default withRouter(
+    connect(
+        mapStateToProps,
+        mapDispatchToProps
+    )(AttachFloorDocumentContainer)
+);
