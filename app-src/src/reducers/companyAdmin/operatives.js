@@ -57,10 +57,11 @@ function errorReducer(state = null, action) {
 
 function postSuccessReducer(state = false, action) {
     switch (action.type) {
-        case ADD_OPERATIVE_SUCCESS:
-            return true;
+        case ADD_OPERATIVE_REQUEST:
         case ADD_OPERATIVE_FAILURE:
             return false;
+        case ADD_OPERATIVE_SUCCESS:
+            return true;
         default:
             return state;
     }

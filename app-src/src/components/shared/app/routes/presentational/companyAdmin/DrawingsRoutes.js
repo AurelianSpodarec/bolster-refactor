@@ -16,14 +16,10 @@ const DrawingsRoutes = ({ match: { url: baseUrl } }) => (
             path={`${baseUrl}/:id`}
             component={SingleDrawingContainer}
         />
+        <Route exact path={`${baseUrl}/create/:id`} component={AddDrawing} />
         <Route
             exact
-            path={`${baseUrl}/create/:floorID`}
-            component={AddDrawing}
-        />
-        <Route
-            exact
-            path={`${baseUrl}/:id/attach-operative`}
+            path={`${baseUrl}/:id/add-operative`}
             component={AttachDrawingOperative}
         />
         <Route
