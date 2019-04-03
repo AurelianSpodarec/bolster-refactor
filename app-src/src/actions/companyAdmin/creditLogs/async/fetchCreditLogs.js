@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+import { API_URL } from 'config';
+import { getHeaders } from 'helpers/api';
 import {
     FETCH_CREDIT_LOGS_REQUEST,
     FETCH_CREDIT_LOGS_SUCCESS,
@@ -24,7 +26,7 @@ export default () => dispatch => {
     dispatch(fetchCreditLogsRequest());
 
     axios
-        .get('/mockData/creditLogs/creditLogs.json')
+        .get(`${API_URL}/credits`, getHeaders())
         .then(res => dispatch(fetchCreditLogsSuccess(res.data)))
         .catch(err => dispatch(fetchCreditLogsFailure(err.message)));
 };

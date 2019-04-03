@@ -23,7 +23,7 @@ const HeaderProfile = ({
             <p className="item">
                 Credits Available: {profile.creditsAvailable}
             </p>
-            <Link to="/generation-queue" className="item">
+            <Link to="/tools/generation-queue" className="item">
                 Generation Queue: {generationQueueLength}
                 <i className="icon fas fa-chevron-right" />
             </Link>
@@ -43,7 +43,7 @@ const HeaderProfile = ({
                 Company Settings
                 <i className="icon fas fa-chevron-right" />
             </Link>
-            <Link onClick={e => logout(e)} to="#" className="item">
+            <Link onClick={logout} to="#" className="item">
                 Logout
                 <i className="icon fas fa-sign-out" />
             </Link>
