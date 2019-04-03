@@ -29,5 +29,5 @@ export default id => dispatch => {
     return axios
         .post(`${API_URL}/messages/read/${id}`, null, getHeaders())
         .then(() => dispatch(dismissMessageSuccess()))
-        .catch(() => dispatch(dismissMessageFailure(id)));
+        .catch(err => dispatch(dismissMessageFailure(id, err.message)));
 };

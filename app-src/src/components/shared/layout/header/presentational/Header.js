@@ -33,7 +33,9 @@ const Header = ({ company, unreadMessageCount, totalCedits }) => (
                     </Link>
                     <HeaderNotificationsContainer />
                     <Link to="/message-centre" className="item main">
-                        <span className="number">{unreadMessageCount}</span>
+                        {!!unreadMessageCount && (
+                            <span className="number">{unreadMessageCount}</span>
+                        )}
                         <i className="far fa-envelope fa-fw" />
                     </Link>
                 </div>
