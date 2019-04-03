@@ -28,3 +28,8 @@ export const CREDIT_LOG_TYPES = {
     2: 'Unused new drawing',
     3: 'Used update drawing'
 };
+
+export const MESSAGE_TYPES = {
+    NOTIFICATION: 1,
+    SYSTEM: 20
+};

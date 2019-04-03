@@ -11,6 +11,7 @@ import fetchGenerationQueue from 'actions/companyAdmin/generationQueue/async/fet
 import decodeJWT from 'actions/shared/jwt/async/decodeJWT';
 import fetchAllSubscriptions from 'actions/companyAdmin/subscriptions/async/fetchAllSubscriptions';
 import companyFetchAllServices from 'actions/companyAdmin/services/async/fetchAllServices';
+import fetchCreditLogs from 'actions/companyAdmin/creditLogs/async/fetchCreditLogs';
 
 import App from '../presentational/App';
 
@@ -57,6 +58,7 @@ const mapDispatchToProps = dispatch => ({
         dispatch(decodeJWT());
         dispatch(companyFetchAllServices());
         dispatch(fetchAllSubscriptions());
+        dispatch(fetchCreditLogs());
     },
     decodeJWT: () => {
         dispatch(decodeJWT());

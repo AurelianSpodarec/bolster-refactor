@@ -6,25 +6,35 @@ const HeaderNotifications = ({
     togglePopup,
     updateNode,
     notifications,
-    notificationsLength
+    unreadCount
 }) => (
     <div className="item-container" ref={updateNode}>
         <div
             className={`item main ${popupVisible ? 'active' : ''}`}
             onClick={togglePopup}
         >
-            <span className="number">{notificationsLength}</span>
+            {!!unreadCount && <span className="number">{unreadCount}</span>}
             <i className="far fa-bell fa-fw" />
         </div>
 
         <div className={`notification-list ${popupVisible ? 'visible' : ''}`}>
-            {notifications.map(notification => (
-                <div className="item" key={notification.id}>
-                    <p>{notification.description}</p>
+            {notifications.map(({ isRead, id, message, link }) => (
+                <div className={`item ${isRead ? '' : 'unread'}`} key={id}>
+                    <p>{message}</p>
 
-                    <Link onClick={togglePopup} to="#" className="button">
-                        View
-                    </Link>
+                    {link.toLowerCase().includes('http') ? (
+                        <a className="button" href={link}>
+                            View
+                        </a>
+                    ) : (
+                        <Link
+                            onClick={togglePopup}
+                            to={link}
+                            className="button"
+                        >
+                            View
+                        </Link>
+                    )}
                 </div>
             ))}
             <div className="item">

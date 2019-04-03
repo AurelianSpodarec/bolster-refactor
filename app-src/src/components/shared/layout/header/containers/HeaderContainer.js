@@ -4,12 +4,13 @@ import { withRouter } from 'react-router-dom';
 
 import BasicHeader from '../presentational/BasicHeader';
 import Header from '../presentational/Header';
+import { MESSAGE_TYPES } from 'constants/companyAdmin/enums';
 
 const HeaderContainer = ({
     profile,
     company,
-    messageCount,
-    creditCount,
+    unreadMessageCount,
+    totalCedits,
     curUrl
 }) => {
     const basicHeaderUrls = ['/auth'];
@@ -21,28 +22,41 @@ const HeaderContainer = ({
         <Header
             profile={profile}
             company={company}
-            messageCount={messageCount}
-            creditCount={creditCount}
+            unreadMessageCount={unreadMessageCount}
+            totalCedits={totalCedits}
         />
     );
 };
 
 const mapStateToProps = (
     {
-        companyAdmin: { companiesReducer, messagesReducer, creditLogsReducer },
-        shared: { profileReducer }
+        companyAdmin: {
+            companiesReducer: { company },
+            messagesReducer: { messages },
+            creditLogsReducer: { creditLogs }
+        },
+        shared: {
+            profileReducer: { profile }
+        }
     },
     { location: { pathname } }
-) => ({
-    profile: profileReducer.profile,
-    company: companiesReducer.company,
-    messageCount: Object.values(messagesReducer.messages).length,
-    creditCount: Object.values(creditLogsReducer.creditLogs).reduce(
+) => {
+    const unreadMessageCount = Object.values(messages).filter(
+        ({ type, isRead }) => type === MESSAGE_TYPES.SYSTEM && !isRead
+    ).length;
+    const totalCedits = Object.values(creditLogs).reduce(
         (a, b) => a + b.quantity,
         0
-    ),
-    curUrl: pathname.toLowerCase()
-});
+    );
+
+    return {
+        profile: profile,
+        company,
+        unreadMessageCount,
+        totalCedits,
+        curUrl: pathname.toLowerCase()
+    };
+};
 const WithConnect = connect(mapStateToProps)(HeaderContainer);
 
 export default withRouter(WithConnect);
