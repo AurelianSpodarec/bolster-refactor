@@ -20,7 +20,7 @@ class EditDocumentFormContainer extends Component {
         isUpsyncForced: false,
         // dropdown
         services: {},
-        agreeanceEveryXDays: 0,
+        agreeanceEveryXDays: '0',
         // date selector
         startOn: new Date(),
         endOn: new Date(),
@@ -100,7 +100,7 @@ class EditDocumentFormContainer extends Component {
 
     handleInputChange = e => {
         this.setState({
-            [e.target.name]: e.target.value
+            [e.target.name]: String(e.target.value)
         });
     };
 
@@ -136,6 +136,7 @@ class EditDocumentFormContainer extends Component {
     };
 
     handleSubmit = e => {
+        console.log('submitting generic');
         e.preventDefault();
         // fileS3Key doesn't need submitting,
         const { handleSubmit } = this.props;

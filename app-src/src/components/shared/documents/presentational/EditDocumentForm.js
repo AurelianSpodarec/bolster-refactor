@@ -165,9 +165,9 @@ const EditDocumentForm = ({
             </>
         )}
         <BlockButtonWrapper>
-            <button className="button green">
+            <button onClick={handleSubmit} className="button green">
                 <i className="fa fa-plus" />
-                Attach Document
+                Confirm Changes
             </button>
             <Link to={backUrl} className="button">
                 <i className="fa fa-times" /> Cancel

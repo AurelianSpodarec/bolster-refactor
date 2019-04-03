@@ -9,7 +9,7 @@ const DocumentsList = ({ documents, location }) =>
             </td>
             <td>
                 <Link
-                    to={`${location.pathname}documents/${document.id}/edit`}
+                    to={`${location.pathname}/documents/${document.id}/edit`}
                     className="button icon-only"
                 >
                     <i className="far fa-pencil fa-fw" />

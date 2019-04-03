@@ -1,4 +1,4 @@
-import Axios from 'axios';
+import axios from 'axios';
 
 import { API_URL } from 'config';
 import { getHeaders } from 'helpers/api';
@@ -25,7 +25,8 @@ export const editDocumentFailure = error => ({
 
 export default (id, postBody) => dispatch => {
     dispatch(editDocumentRequest());
-    return Axios.post(`${API_URL}/documents/${id}`, postBody, getHeaders())
+    return axios
+        .post(`${API_URL}/documents/${id}`, postBody, getHeaders())
         .then(({ data }) => dispatch(editDocumentSuccess(data)))
         .catch(err => {
             dispatch(editDocumentFailure(err.message));
