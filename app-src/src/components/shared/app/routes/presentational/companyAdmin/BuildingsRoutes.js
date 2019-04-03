@@ -31,7 +31,7 @@ const BuildingRoutes = ({ match: { url: baseUrl } }) => (
         />
         <Route
             exact
-            path={`${baseUrl}/:id/attach-operative`}
+            path={`${baseUrl}/:id/add-operative`}
             component={AttachBuildingOperative}
         />
         <Route

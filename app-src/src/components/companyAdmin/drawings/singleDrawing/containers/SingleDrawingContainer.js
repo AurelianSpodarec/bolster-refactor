@@ -48,8 +48,8 @@ const mapDispatchToProps = dispatch => ({
     fetchSingleDrawing: drawingID => {
         dispatch(fetchSingleDrawing(drawingID));
     },
-    fetchDocuments: (HierachyType, drawingID) => {
-        dispatch(fetchDocuments(HierachyType, drawingID));
+    fetchDocuments: (HierarchyType, drawingID) => {
+        dispatch(fetchDocuments(HierarchyType, drawingID));
     },
     fetchClients: () => {
         dispatch(fetchClients());

@@ -27,7 +27,7 @@ class AttachSiteDocumentContainer extends Component {
 
     handleSubmit = postBody => {
         const { createDocument } = this.props;
-        const id = this.props.match.params.siteID;
+        const id = this.props.match.params.id;
         createDocument(1, id, postBody);
     };
 }

@@ -5,9 +5,9 @@ import AttachOperativesFormContainer from 'components/shared/operatives/containe
 
 import fetchCompanyUsers from 'actions/companyAdmin/userManagement/async/fetchCompanyUsers';
 
-class AttachSiteOperativeContainer extends Component {
+class AttachBuildingOperativeContainer extends Component {
     render() {
-        return <AttachOperativesFormContainer hierarchyType="site" />;
+        return <AttachOperativesFormContainer hierarchyType="building" />;
     }
 
     componentDidMount = () => {
@@ -26,4 +26,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
     null,
     mapDispatchToProps
-)(AttachSiteOperativeContainer);
+)(AttachBuildingOperativeContainer);

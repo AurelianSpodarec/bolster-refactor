@@ -32,7 +32,7 @@ const AttachOperativeForm = ({
         <Field name="Service type" sizeClasses="size-lg-6">
             <CheckboxListContainer
                 required
-                name="checkedServices"
+                name="serviceIDs"
                 handleChange={handleMultiselectChange}
                 options={serviceOptions}
                 selectedOptions={checkedServices}

@@ -2,12 +2,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import AttachOperativesFormContainer from 'components/shared/operatives/containers/AttachOperativesFormContainer';
-
 import fetchCompanyUsers from 'actions/companyAdmin/userManagement/async/fetchCompanyUsers';
 
-class AttachSiteOperativeContainer extends Component {
+class AttachFloorOperativeContainer extends Component {
     render() {
-        return <AttachOperativesFormContainer hierarchyType="site" />;
+        return <AttachOperativesFormContainer hierarchyType="floor" />;
     }
 
     componentDidMount = () => {
@@ -16,7 +15,6 @@ class AttachSiteOperativeContainer extends Component {
         fetchAllCompanyUsers();
     };
 }
-
 const mapDispatchToProps = dispatch => ({
     fetchAllCompanyUsers: () => {
         dispatch(fetchCompanyUsers());
@@ -26,4 +24,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
     null,
     mapDispatchToProps
-)(AttachSiteOperativeContainer);
+)(AttachFloorOperativeContainer);
