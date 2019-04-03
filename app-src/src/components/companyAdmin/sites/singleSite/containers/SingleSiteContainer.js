@@ -54,8 +54,8 @@ const mapDispatchToProps = dispatch => ({
     fetchSingleSite: siteID => {
         return dispatch(fetchSingleSite(siteID));
     },
-    fetchDocuments: (HierachyType, siteID) => {
-        dispatch(fetchDocuments(HierachyType, siteID));
+    fetchDocuments: (HierarchyType, siteID) => {
+        dispatch(fetchDocuments(HierarchyType, siteID));
     },
     fetchClients: () => {
         dispatch(fetchClients());

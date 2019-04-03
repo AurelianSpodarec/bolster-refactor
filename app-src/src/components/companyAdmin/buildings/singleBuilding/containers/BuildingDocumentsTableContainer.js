@@ -22,7 +22,7 @@ class DocumentsTableContainer extends Component {
     }
 
     _getFilteredDocuments = () => {
-        const { documents, building } = this.props;
+        const { documents = [], building } = this.props;
         return documents.filter(document =>
             building.documentIDs.includes(document.id)
         );
@@ -33,7 +33,9 @@ const mapStateToProps = (
     { companyAdmin: { documentsReducer, buildingsReducer } },
     { match }
 ) => ({
-    building: buildingsReducer.buildings[match.params.id] || {},
+    building: buildingsReducer.buildings[match.params.id] || {
+        documentIDs: []
+    },
     documents: Object.values(documentsReducer.documents),
     isFetching: documentsReducer.isFetching,
     error: documentsReducer.error

@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 
 import InviteClientFormContainer from 'components/shared/clients/containers/InviteClientFormContainer';
-class InviteClientToSiteFormContainer extends Component {
+
+class AttachSiteOperativeContainer extends Component {
     render() {
-        return <InviteClientFormContainer />;
+        return <InviteClientFormContainer hierarchyType="site" />;
     }
 }
 
-export default InviteClientToSiteFormContainer;
+export default AttachSiteOperativeContainer;

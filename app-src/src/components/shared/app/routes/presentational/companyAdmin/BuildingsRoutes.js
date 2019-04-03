@@ -5,11 +5,12 @@ import SwitchWith404 from '../SwitchWith404';
 import SingleBuildingContainer from 'components/companyAdmin/buildings/singleBuilding/containers/SingleBuildingContainer';
 import AttachBuildingOperative from 'components/companyAdmin/buildings/attachBuildingOperative/presentational/AttachBuildingOperative';
 import InviteClientToBuilding from 'components/companyAdmin/buildings/inviteClientToBuilding/presentational/InviteClientToBuilding';
-import AttachBuildingDocument from 'components/companyAdmin/buildings/attachBuildingDocument/presentational/AttachBuildingDocument';
 import InviteCompanyToBuilding from 'components/companyAdmin/buildings/inviteCompanyToBuilding/presentational/InviteCompanyToBuilding';
 import CreateBuilding from 'components/companyAdmin/buildings/createBuilding/presentational/CreateBuilding';
 import BuildingClientAccessContainer from 'components/companyAdmin/buildings/singleBuilding/containers/BuildingClientAccessContainer';
 import BuildingEditContainer from 'components/companyAdmin/buildings/singleBuilding/containers/BuildingEditContainer';
+import AttachBuildingDocumentFormContainer from 'components/companyAdmin/buildings/attachBuildingDocument/containers/AttachBuildingDocumentFormContainer';
+import EditBuildingDocumentContainer from 'components/companyAdmin/buildings/editBuildingDocument/containers/EditBuildingDocumentContainer';
 
 const BuildingRoutes = ({ match: { url: baseUrl } }) => (
     <SwitchWith404>
@@ -30,7 +31,7 @@ const BuildingRoutes = ({ match: { url: baseUrl } }) => (
         />
         <Route
             exact
-            path={`${baseUrl}/:id/attach-operative`}
+            path={`${baseUrl}/:id/add-operative`}
             component={AttachBuildingOperative}
         />
         <Route
@@ -47,8 +48,15 @@ const BuildingRoutes = ({ match: { url: baseUrl } }) => (
         <Route
             exact
             path={`${baseUrl}/:id/attach-document`}
-            component={AttachBuildingDocument}
+            component={AttachBuildingDocumentFormContainer}
         />
+
+        <Route
+            exact
+            path={`${baseUrl}/:id/documents/:documentID/edit`}
+            component={EditBuildingDocumentContainer}
+        />
+
         <Route
             exact
             path={`${baseUrl}/:id/invite-company`}
