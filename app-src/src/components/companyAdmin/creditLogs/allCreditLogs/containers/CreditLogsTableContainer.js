@@ -5,10 +5,10 @@ import fetchCreditLogs from 'actions/companyAdmin/creditLogs/async/fetchCreditLo
 
 import CreditLogsTable from '../presentational/CreditLogsTable';
 
-class CreditLogsListContainer extends Component {
+class CreditLogsTableContainer extends Component {
     render() {
         const { creditLogs, isFetching, error } = this.props;
-        const tableHeaders = ['Date added', 'Name', 'Location', 'Status'];
+        const tableHeaders = ['Date', 'Type', 'Quantity'];
 
         return (
             <CreditLogsTable
@@ -40,4 +40,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(CreditLogsListContainer);
+)(CreditLogsTableContainer);

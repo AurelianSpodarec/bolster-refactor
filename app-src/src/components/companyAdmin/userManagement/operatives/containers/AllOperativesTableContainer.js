@@ -22,7 +22,7 @@ class AllOperativesTableContainer extends Component {
         const { users } = this.props;
 
         const ret = users.filter(
-            user => user.type === COMPANY_USER_ROLE_TYPES['Operative']
+            user => user.type === COMPANY_USER_ROLE_TYPES.OPERATIVE
         );
 
         return ret;

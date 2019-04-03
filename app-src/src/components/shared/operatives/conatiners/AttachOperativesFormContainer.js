@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import { convertArrToObj } from 'helpers/generic';
 
-import { convertArrToObj, updateObj } from 'helpers/generic';
 import { COMPANY_USER_ROLE_TYPES } from 'constants/companyAdmin/enums';
 
 import AttachOperativesForm from '../presentational/AttachOperativeForm';
@@ -25,7 +25,7 @@ class AttachOperativesFormContainer extends Component {
                 <AttachOperativesForm
                     users={Object.values(userOptions)}
                     selectedUser={userOptions[CompanyUserID]}
-                    serviceOptions={Object.values(serviceOptions)}
+                    serviceOptions={serviceOptions}
                     checkedServices={serviceIDs}
                     handleChange={this.handleChange}
                     handleMultiselectChange={this.handleMultiselectChange}
@@ -56,13 +56,11 @@ class AttachOperativesFormContainer extends Component {
 
     _getServicesOptions = () => {
         const { services, subscriptions } = this.props;
-        const serviceOptions = services.map(({ id, name }) => ({
+        return services.map(({ id, name }) => ({
             value: id,
             text: name,
             disabled: !subscriptions.includes(id)
         }));
-
-        return convertArrToObj(serviceOptions, 'value');
     };
 
     handleChange = ({ target: { type, value, name, checked } }) => {

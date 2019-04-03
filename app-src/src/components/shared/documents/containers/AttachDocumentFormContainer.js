@@ -17,11 +17,12 @@ class AttachDocumentFormContainer extends Component {
         isSignatureRequired: false,
         isUpsyncForced: false,
         // dropdown
-        services: {},
+        services: [],
+        selectedServices: [],
         agreeanceEveryXDays: 0,
         // date selector
-        startOn: new Date(),
-        endOn: new Date()
+        startOn: undefined,
+        endOn: undefined
     };
 
     render = () => {
@@ -46,15 +47,14 @@ class AttachDocumentFormContainer extends Component {
         if (!isFetching && prevProps.isFetching) {
             const servicesForState = Object.values(services).reduce(
                 (acc, { id, name }) => {
-                    acc[id] = {
-                        id,
-                        name,
-                        disabled: !subscriptions.includes(id),
-                        checked: false
-                    };
+                    acc.push({
+                        value: id,
+                        text: name,
+                        disabled: !subscriptions.includes(id)
+                    });
                     return acc;
                 },
-                {}
+                []
             );
             this.setState({ services: servicesForState });
         }
@@ -88,31 +88,28 @@ class AttachDocumentFormContainer extends Component {
         this.setState({ [name]: value });
     };
 
-    handleMultiselect = e => {
-        const serviceID = e.target.id;
-        const id = serviceID.split('_')[1];
-        this.setState(prevState => {
-            const { services } = prevState;
-            const service = services[id];
-            return {
-                services: {
-                    ...services,
-                    [id]: updateObj(service, 'checked', !service.checked)
-                }
-            };
-        });
+    handleMultiselect = ({ target: { name, value } }) => {
+        const checkedValues = this.state[name];
+        const newValues = checkedValues.includes(value)
+            ? checkedValues.filter(val => val !== value)
+            : [...checkedValues, value];
+
+        this.setState({ [name]: newValues });
     };
 
     handleSubmit = e => {
         e.preventDefault();
         const { handleSubmit } = this.props;
-        const { services, ...body } = this.state;
-
-        const serviceIDs = Object.values(services).reduce((acc, service) => {
-            if (service.checked) acc.push(String(service.id));
-            return acc;
-        }, []);
-        const postBody = { ...body, serviceIDs };
+        const {
+            selectedServices,
+            // eslint-disable-next-line no-unused-vars
+            services,
+            ...body
+        } = this.state;
+        const postBody = {
+            ...body,
+            serviceIDs: selectedServices
+        };
         handleSubmit(postBody);
     };
 }
