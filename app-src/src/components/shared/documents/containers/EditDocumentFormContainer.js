@@ -26,7 +26,6 @@ class EditDocumentFormContainer extends Component {
     };
 
     render() {
-        console.log(this.props);
         const { document } = this.props;
         return document ? (
             <EditDocumentForm
@@ -47,8 +46,14 @@ class EditDocumentFormContainer extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        const { isFetching, services, subscriptions, document } = this.props;
+        const {
+            isFetching,
+            services,
+            subscriptions = [],
+            document
+        } = this.props;
         if (!isFetching && prevProps.isFetching) {
+            const { services: documentServices = [] } = document;
             const servicesForState = Object.values(services).reduce(
                 (acc, { id, name }) => {
                     acc[id] = {
@@ -56,7 +61,7 @@ class EditDocumentFormContainer extends Component {
                         name,
                         disabled: !subscriptions.includes(id),
                         // ? is this the right key?
-                        checked: document.services.includes(id)
+                        checked: documentServices.includes(id)
                     };
                     return acc;
                 },
@@ -64,11 +69,12 @@ class EditDocumentFormContainer extends Component {
             );
             this.setState({
                 ...document,
+                type: String(document.type),
+                startOn: new Date(document.startOn),
+                endOn: new Date(document.endOn),
                 services: servicesForState,
                 file: `${FILE_STORAGE_URL}/${document.fileS3Key}`
             });
-            console.log(document);
-            console.log(servicesForState);
         }
     }
 }
@@ -89,9 +95,7 @@ const mapStateToProps = (
         documentsReducer.isFetching,
     services: servicesReducer.services,
     subscriptions: subscriptionsReducer.subscriptions.serviceIDs,
-    document:
-        console.log(documentsReducer) ||
-        documentsReducer.documents[ownProps.documentID]
+    document: documentsReducer.documents[ownProps.documentID]
 });
 
 export default connect(mapStateToProps)(EditDocumentFormContainer);
