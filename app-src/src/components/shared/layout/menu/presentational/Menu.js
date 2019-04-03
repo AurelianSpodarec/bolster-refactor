@@ -55,6 +55,9 @@ const Menu = ({ messageCount }) => (
                 <MenuItemContainer link="/tools/support">
                     Support
                 </MenuItemContainer>
+                <MenuItemContainer link="/tools/generation-queue">
+                    Queneration queue
+                </MenuItemContainer>
             </DropdownMenuItemContainer>
         </div>
     </>
