@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 const HeaderNotifications = ({
     popupVisible,
-    handleClick,
+    togglePopup,
     updateNode,
     notifications,
     notificationsLength
@@ -11,7 +11,7 @@ const HeaderNotifications = ({
     <div className="item-container" ref={updateNode}>
         <div
             className={`item main ${popupVisible ? 'active' : ''}`}
-            onClick={handleClick}
+            onClick={togglePopup}
         >
             <span className="number">{notificationsLength}</span>
             <i className="far fa-bell fa-fw" />
@@ -22,14 +22,18 @@ const HeaderNotifications = ({
                 <div className="item" key={notification.id}>
                     <p>{notification.description}</p>
 
-                    <Link to="#" className="button">
+                    <Link onClick={togglePopup} to="#" className="button">
                         View
                     </Link>
                 </div>
             ))}
             <div className="item">
-                <Link to="/notifications" className="button">
-                    View all notifications
+                <Link
+                    onClick={togglePopup}
+                    to="/tools/generation-queue"
+                    className="button"
+                >
+                    View qeneration queue
                 </Link>
             </div>
         </div>

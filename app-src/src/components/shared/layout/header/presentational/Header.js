@@ -5,7 +5,7 @@ import SearchContainer from '../containers/SearchContainer';
 import HeaderProfileContainer from '../containers/HeaderProfileContainer';
 import HeaderNotificationsContainer from '../containers/HeaderNotificationsContainer';
 
-const Header = ({ profile, company, messageCount }) => (
+const Header = ({ company, messageCount, creditCount }) => (
     <header
         id="page-header"
         style={{ borderColor: company.colorSchemeBackground }}
@@ -27,10 +27,8 @@ const Header = ({ profile, company, messageCount }) => (
             <div className="account-area">
                 {/*** notifications ***/}
                 <div className="notifications">
-                    <Link to="/credit-logs" className="item main">
-                        <span className="number green">
-                            {profile.creditsAvailable}
-                        </span>
+                    <Link to="/tools/credit-logs" className="item main">
+                        <span className="number green">{creditCount}</span>
                         <i className="far fa-money-bill-alt fa-fw" />
                     </Link>
                     <HeaderNotificationsContainer />

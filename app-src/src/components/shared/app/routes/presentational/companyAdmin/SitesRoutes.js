@@ -12,6 +12,7 @@ import InviteClientToSite from 'components/companyAdmin/sites/inviteClientToSite
 import InviteCompany from 'components/companyAdmin/sites/inviteCompanyToSite/presentational/InviteCompanyToSite';
 import AttachSiteDocumentContainer from 'components/companyAdmin/sites/attachSiteDocument/containers/AttachSiteDocumentContainer';
 import SiteEditContainer from 'components/companyAdmin/sites/singleSite/containers/SiteEditContainer';
+import EditSiteDocumentContainer from 'components/companyAdmin/sites/editSiteDocument/container/EditSiteDocumentContainer';
 
 const SitesRoutes = ({ match: { url: baseUrl } }) => (
     <SwitchWith404>
@@ -44,6 +45,13 @@ const SitesRoutes = ({ match: { url: baseUrl } }) => (
             path={`${baseUrl}/:siteID/attach-document`}
             component={AttachSiteDocumentContainer}
         />
+
+        <Route
+            exact
+            path={`${baseUrl}/:siteID/documents/:documentID/edit`}
+            component={EditSiteDocumentContainer}
+        />
+
         <Route
             exact
             path={`${baseUrl}/:siteID/invite-company`}

@@ -18,7 +18,7 @@ export const DOCUMENT_TYPE = {
 };
 
 export const COMPANY_USER_ROLE_TYPES = {
-    Owner: '100',
-    Admin: '75',
-    Operative: '50'
+    Owner: 100,
+    Admin: 75,
+    Operative: 50
 };

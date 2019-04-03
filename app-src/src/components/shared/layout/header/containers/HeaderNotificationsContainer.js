@@ -9,7 +9,7 @@ class HeaderNotificationsContainer extends Component {
     };
 
     render() {
-        const { state, props, handleClick } = this;
+        const { state, props, togglePopup } = this;
 
         return (
             <HeaderNotifications
@@ -19,12 +19,12 @@ class HeaderNotificationsContainer extends Component {
                 notifications={props.notifications}
                 notificationsLength={props.notificationsLength}
                 popupVisible={state.popupVisible}
-                handleClick={handleClick}
+                togglePopup={togglePopup}
             />
         );
     }
 
-    handleClick = () => {
+    togglePopup = () => {
         if (!this.state.popupVisible) {
             // attach/remove event handler
             document.addEventListener('click', this.handleOutsideClick, false);
@@ -47,7 +47,7 @@ class HeaderNotificationsContainer extends Component {
             return;
         }
 
-        this.handleClick();
+        this.togglePopup();
     };
 }
 

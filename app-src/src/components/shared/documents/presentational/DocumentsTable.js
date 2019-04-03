@@ -15,7 +15,7 @@ const DocumentsTable = ({ location, documents, isFetching }) => {
                 noDataMessage="There are no documents to display."
                 withActions
             >
-                <DocumentsList documents={documents} />
+                <DocumentsList location={location} documents={documents} />
             </Table>
             <div className="button-container table">
                 <Link
