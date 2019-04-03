@@ -50,13 +50,11 @@ const BuildingRoutes = ({ match: { url: baseUrl } }) => (
             path={`${baseUrl}/:id/attach-document`}
             component={AttachBuildingDocumentFormContainer}
         />
-
         <Route
             exact
             path={`${baseUrl}/:id/documents/:documentID/edit`}
             component={EditBuildingDocumentContainer}
         />
-
         <Route
             exact
             path={`${baseUrl}/:id/invite-company`}
