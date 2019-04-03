@@ -45,7 +45,7 @@ class AttachOperativesFormContainer extends Component {
 
     _getUserOptions = () => {
         const options = this.props.users
-            .filter(user => user.type === COMPANY_USER_ROLE_TYPES['Operative'])
+            .filter(user => user.type === COMPANY_USER_ROLE_TYPES.OPERATIVE)
             .map(({ id, userFirstName, userLastName }) => ({
                 value: id,
                 text: `${userFirstName} ${userLastName}`
