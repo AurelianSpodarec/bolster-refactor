@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import AttachDocumentForm from '../presentational/AttachDocumentForm';
-import { updateObj } from 'helpers/generic';
 
 class AttachDocumentFormContainer extends Component {
     state = {
@@ -41,24 +40,27 @@ class AttachDocumentFormContainer extends Component {
             />
         );
     };
-
-    componentDidUpdate(prevProps) {
-        const { isFetching, services, subscriptions } = this.props;
-        if (!isFetching && prevProps.isFetching) {
-            const servicesForState = Object.values(services).reduce(
-                (acc, { id, name }) => {
-                    acc.push({
-                        value: id,
-                        text: name,
-                        disabled: !subscriptions.includes(id)
-                    });
-                    return acc;
-                },
-                []
-            );
-            this.setState({ services: servicesForState });
+    componentDidMount() {
+        const { isFetching, services } = this.props;
+        if (!isFetching) {
+            this.setState({ services: this.getServicesForState(services) });
         }
     }
+    componentDidUpdate(prevProps) {
+        const { isFetching, services } = this.props;
+        if (!isFetching && prevProps.isFetching) {
+            this.setState({ services: this.getServicesForState(services) });
+        }
+    }
+    getServicesForState = services =>
+        Object.values(services).reduce((acc, { id, name }) => {
+            acc.push({
+                value: id,
+                text: name,
+                disabled: !this.props.subscriptions.includes(id)
+            });
+            return acc;
+        }, []);
 
     handleCheckboxChange = e => {
         const { name } = e.target;

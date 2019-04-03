@@ -36,7 +36,6 @@ class EditSiteDocumentContainer extends Component {
     }
 
     handleSubmit = body => {
-        console.log('submitting site level');
         const { siteID, documentID } = this.props.match.params;
         const postBody = { ...body, hierarchyType: '1', hierarchyID: siteID };
         this.props.editDocument(documentID, postBody);

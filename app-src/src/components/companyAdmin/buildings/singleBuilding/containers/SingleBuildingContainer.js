@@ -22,15 +22,16 @@ class SingleBuildingContainer extends Component {
             fetchAllDrawings,
             fetchAllFloors,
             fetchAllCompanies,
-            // fetchDocuments,
+            fetchDocuments,
             buildingID
         } = this.props;
 
-        fetchSingleBuilding(buildingID);
-        fetchAllDrawings();
-        fetchAllFloors();
-        fetchAllCompanies();
-        fetchDocuments('building', buildingID);
+        fetchSingleBuilding(buildingID).then(() => {
+            fetchAllDrawings();
+            fetchAllFloors();
+            fetchAllCompanies();
+            fetchDocuments('building', buildingID);
+        });
 
         // fetchClients();
         // fetchOperatives();
@@ -39,7 +40,7 @@ class SingleBuildingContainer extends Component {
 
 const mapDispatchToProps = dispatch => ({
     fetchSingleBuilding: buildingID => {
-        dispatch(fetchSingleBuilding(buildingID));
+        return dispatch(fetchSingleBuilding(buildingID));
     },
     fetchAllDrawings: () => {
         dispatch(fetchAllDrawings());

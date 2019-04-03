@@ -24,7 +24,7 @@ export const fetchBuildingFailure = error => ({
 
 export default id => dispatch => {
     dispatch(fetchBuildingRequest());
-    axios
+    return axios
         .get(`${API_URL}/buildings/${id}`, getHeaders())
         .then(res => dispatch(fetchBuildingSuccess(res.data)))
         .catch(err => dispatch(fetchBuildingFailure(err.message)));
