@@ -12,6 +12,7 @@ const DatePickerPresentational = ({ selected, onChange, name }) => {
                 selected={selected}
                 onChange={onChange}
                 dateFormat="dd/MM/YYYY"
+                placeholderText={`Please select ${name}`}
             />
         </div>
     );

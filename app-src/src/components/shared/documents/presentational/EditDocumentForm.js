@@ -4,7 +4,6 @@ import TextInputContainer from 'components/shared/generic/form/containers/TextIn
 import Field from 'components/shared/generic/form/presentational/Field';
 import FileUploadContainer from 'components/shared/generic/form/containers/FileUploadContainer';
 import SwitchContainer from 'components/shared/generic/form/containers/SwitchContainer';
-import ServiceListCheckboxContainer from 'components/shared/services/containers/ServiceListCheckboxContainer';
 import { Link, withRouter } from 'react-router-dom';
 
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
@@ -12,6 +11,7 @@ import RadioButton from 'components/shared/generic/form/presentational/RadioButt
 import DatePickerContainer from 'components/shared/documents/containers/AttachDocumentDatePickerContainer';
 import FileView from 'components/shared/generic/form/presentational/FileView';
 import { DOCUMENT_TYPE } from 'constants/companyAdmin/enums';
+import CheckboxListContainer from 'components/shared/generic/form/containers/CheckboxListContainer';
 
 const EditDocumentForm = ({
     handleInputChange,
@@ -32,13 +32,14 @@ const EditDocumentForm = ({
     isSignatureRequired,
     isUpsyncForced,
     services,
+    selectedServices,
     agreeanceEveryXDays,
     startOn,
     endOn,
     backUrl
 }) => (
     <Form className="content-area size-lg-12" onSubmit={handleSubmit}>
-        <h1 className="heading heading-3">Attach Document</h1>
+        <h1 className="heading heading-3">Edit Document</h1>
         <p>
             Instructions: ##Lorem ipsum dolor sit amet consectetur adipisicing
             elit. Expedita sit quas, aliquam explicabo laboriosam illo. Beatae
@@ -106,16 +107,16 @@ const EditDocumentForm = ({
         <div className="size-lg-12">
             <DatePickerContainer
                 startOn={startOn}
-                // ! only receiving errors for end on
                 endOn={endOn}
-                // name="endOn"
                 onChange={handleDateChange}
             />
         </div>
         <div className="size-lg-12">
             <Field name="Service type">
-                <ServiceListCheckboxContainer
-                    services={services}
+                <CheckboxListContainer
+                    name="selectedServices"
+                    options={services}
+                    selectedOptions={selectedServices}
                     handleChange={handleMultiselect}
                 />
             </Field>
