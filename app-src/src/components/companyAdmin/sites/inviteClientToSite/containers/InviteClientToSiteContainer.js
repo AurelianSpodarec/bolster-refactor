@@ -1,29 +1,11 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 
-import InviteClientToSiteFormContainer from 'components/shared/clients/containers/InviteClientToSiteFormContainer';
-
-import fetchCompanyUsers from 'actions/companyAdmin/userManagement/async/fetchCompanyUsers';
+import InviteClientFormContainer from 'components/shared/clients/containers/InviteClientFormContainer';
 
 class AttachSiteOperativeContainer extends Component {
     render() {
-        return <InviteClientToSiteFormContainer hierarchyType="site" />;
+        return <InviteClientFormContainer hierarchyType="site" />;
     }
-
-    componentDidMount = () => {
-        const { fetchAllCompanyUsers } = this.props;
-
-        fetchAllCompanyUsers();
-    };
 }
 
-const mapDispatchToProps = dispatch => ({
-    fetchAllCompanyUsers: () => {
-        dispatch(fetchCompanyUsers());
-    }
-});
-
-export default connect(
-    null,
-    mapDispatchToProps
-)(AttachSiteOperativeContainer);
+export default AttachSiteOperativeContainer;
