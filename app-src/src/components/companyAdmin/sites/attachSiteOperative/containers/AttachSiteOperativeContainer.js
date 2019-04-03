@@ -7,7 +7,7 @@ import fetchCompanyUsers from 'actions/companyAdmin/userManagement/async/fetchCo
 
 class AttachSiteOperativeContainer extends Component {
     render() {
-        return <AttachOperativesFormContainer />;
+        return <AttachOperativesFormContainer hierarchyType="site" />;
     }
 
     componentDidMount = () => {

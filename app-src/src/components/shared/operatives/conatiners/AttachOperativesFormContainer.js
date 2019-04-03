@@ -1,17 +1,22 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+
 import { convertArrToObj, updateObj } from 'helpers/generic';
+import { COMPANY_USER_ROLE_TYPES } from 'constants/companyAdmin/enums';
+
 import AttachOperativesForm from '../presentational/AttachOperativeForm';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import addOperative from 'actions/companyAdmin/operatives/async/addOperative';
 
 class AttachOperativesFormContainer extends Component {
     state = {
         CompanyUserID: '',
-        checkedServices: []
+        serviceIDs: []
     };
 
     render() {
-        const { CompanyUserID, checkedServices } = this.state;
+        const { CompanyUserID, serviceIDs } = this.state;
         const userOptions = this._getUserOptions();
         const serviceOptions = this._getServicesOptions();
 
@@ -21,7 +26,7 @@ class AttachOperativesFormContainer extends Component {
                     users={Object.values(userOptions)}
                     selectedUser={userOptions[CompanyUserID]}
                     serviceOptions={Object.values(serviceOptions)}
-                    checkedServices={checkedServices}
+                    checkedServices={serviceIDs}
                     handleChange={this.handleChange}
                     handleMultiselectChange={this.handleMultiselectChange}
                     handleSubmit={this.handleSubmit}
@@ -30,13 +35,21 @@ class AttachOperativesFormContainer extends Component {
         );
     }
 
+    componentDidUpdate = prevProps => {
+        const { success, history, hierarchyType, hierarchyID } = this.props;
+
+        if (!prevProps.success && success) {
+            history.replace(`/${hierarchyType}s/${hierarchyID}`);
+        }
+    };
+
     _getUserOptions = () => {
-        const options = this.props.users.map(
-            ({ id, userFirstName, userLastName }) => ({
+        const options = this.props.users
+            .filter(user => user.type === COMPANY_USER_ROLE_TYPES['Operative'])
+            .map(({ id, userFirstName, userLastName }) => ({
                 value: id,
                 text: `${userFirstName} ${userLastName}`
-            })
-        );
+            }));
 
         return convertArrToObj(options, 'value');
     };
@@ -66,18 +79,47 @@ class AttachOperativesFormContainer extends Component {
     };
 
     handleSubmit = () => {
-        console.log('submitted');
+        const { CompanyUserID, serviceIDs } = this.state;
+        const { hierarchyType, hierarchyID, addOperative } = this.props;
+
+        const postBody = {
+            CompanyUserID: CompanyUserID,
+            ServiceIDs: serviceIDs
+        };
+
+        addOperative(hierarchyType, hierarchyID, postBody);
     };
 }
 
-const mapStateToProps = ({
-    companyAdmin: { companyUsersReducer, servicesReducer, subscriptionsReducer }
-}) => ({
+const mapStateToProps = (
+    {
+        companyAdmin: {
+            companyUsersReducer,
+            servicesReducer,
+            subscriptionsReducer,
+            operativesReducer
+        }
+    },
+    { match }
+) => ({
     users: Object.values(companyUsersReducer.users),
     services: Object.values(servicesReducer.services),
     subscriptions: subscriptionsReducer.subscriptions.serviceIDs || [],
+    hierarchyID: match.params.id,
     isFetching: companyUsersReducer.isFetching,
-    error: companyUsersReducer.error
+    error: companyUsersReducer.error,
+    success: operativesReducer.postSuccess
 });
 
-export default connect(mapStateToProps)(AttachOperativesFormContainer);
+const mapDispatchToProps = dispatch => ({
+    addOperative: (hierarchyType, hierarchyID, postBody) => {
+        dispatch(addOperative(hierarchyType, hierarchyID, postBody));
+    }
+});
+
+export default withRouter(
+    connect(
+        mapStateToProps,
+        mapDispatchToProps
+    )(AttachOperativesFormContainer)
+);

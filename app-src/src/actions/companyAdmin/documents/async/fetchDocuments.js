@@ -23,12 +23,12 @@ export const fetchDocumentsFailure = error => ({
     error
 });
 
-//HierachyType = Site/Building/Floor/Drawing
-export default (HierachyType, ID) => dispatch => {
+//HierarchyType = Site/Building/Floor/Drawing
+export default (HierarchyType, ID) => dispatch => {
     dispatch(fetchDocumentsRequest());
 
     axios
-        .get(`${API_URL}/documents/${HierachyType}/${ID}`, getHeaders())
+        .get(`${API_URL}/documents/${HierarchyType}/${ID}`, getHeaders())
         .then(res => dispatch(fetchDocumentsSuccess(res.data)))
         .catch(error => {
             dispatch(fetchDocumentsFailure(error.message));

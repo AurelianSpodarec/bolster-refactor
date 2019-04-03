@@ -23,7 +23,7 @@ export const fetchDocumentFailure = error => ({
     error
 });
 
-//HierachyType = Site/Building/Floor/Drawing
+//HierarchyType = Site/Building/Floor/Drawing
 export default ID => dispatch => {
     dispatch(fetchDocumentRequest());
 

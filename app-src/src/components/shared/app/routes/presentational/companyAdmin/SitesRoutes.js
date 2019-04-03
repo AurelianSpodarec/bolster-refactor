@@ -26,35 +26,35 @@ const SitesRoutes = ({ match: { url: baseUrl } }) => (
         />
         <Route
             exact
-            path={`${baseUrl}/:siteID/change-ownership`}
+            path={`${baseUrl}/:id/change-ownership`}
             component={ChangeSiteOwnership}
         />
         <Route
             exact
-            path={`${baseUrl}/:siteID/add-operative`}
+            path={`${baseUrl}/:id/add-operative`}
             component={AttachSiteOperative}
         />
         <Route
             exact
-            path={`${baseUrl}/:siteID/invite-client`}
+            path={`${baseUrl}/:id/invite-client`}
             component={InviteClientToSite}
         />
 
         <Route
             exact
-            path={`${baseUrl}/:siteID/attach-document`}
+            path={`${baseUrl}/:id/attach-document`}
             component={AttachSiteDocumentContainer}
         />
 
         <Route
             exact
-            path={`${baseUrl}/:siteID/documents/:documentID/edit`}
+            path={`${baseUrl}/:id/documents/:documentID/edit`}
             component={EditSiteDocumentContainer}
         />
 
         <Route
             exact
-            path={`${baseUrl}/:siteID/invite-company`}
+            path={`${baseUrl}/:id/invite-company`}
             component={InviteCompany}
         />
     </SwitchWith404>

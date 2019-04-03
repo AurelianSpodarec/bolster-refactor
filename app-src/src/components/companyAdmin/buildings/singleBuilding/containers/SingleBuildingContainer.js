@@ -47,8 +47,8 @@ const mapDispatchToProps = dispatch => ({
     fetchAllFloors: () => {
         dispatch(fetchAllFloors());
     },
-    fetchDocuments: (HierachyType, buildingID) => {
-        dispatch(fetchDocuments(HierachyType, buildingID));
+    fetchDocuments: (HierarchyType, buildingID) => {
+        dispatch(fetchDocuments(HierarchyType, buildingID));
     },
     fetchClients: () => {
         dispatch(fetchClients());
