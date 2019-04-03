@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import EditDocumentForm from '../presentational/EditDocumentForm';
 import Loading from 'components/shared/generic/misc/presentational/Loading';
-import { updateObj, isObjEmpty } from 'helpers/generic';
+import { isObjEmpty } from 'helpers/generic';
 
 class EditDocumentFormContainer extends Component {
     state = {
@@ -50,35 +50,43 @@ class EditDocumentFormContainer extends Component {
         );
     }
 
-    componentDidUpdate(prevProps) {
-        const {
-            isFetching,
-            services,
-            subscriptions = [],
-            document
-        } = this.props;
-        if (!isFetching && prevProps.isFetching) {
-            const servicesForState = Object.values(services).reduce(
-                (acc, { id, name }) => {
-                    acc.push({
-                        value: id,
-                        text: name,
-                        disabled: !subscriptions.includes(id)
-                    });
-                    return acc;
-                },
-                []
-            );
+    componentDidMount() {
+        const { isFetching, services, document } = this.props;
+        if (!isFetching) {
             this.setState({
                 ...document,
                 type: String(document.type),
                 startOn: new Date(document.startOn),
                 endOn: new Date(document.endOn),
-                services: servicesForState,
+                services: this.getServicesForState(services),
                 selectedServices: document.serviceIDs
             });
         }
     }
+
+    componentDidUpdate(prevProps) {
+        const { isFetching, services, document } = this.props;
+        if (!isFetching && prevProps.isFetching) {
+            this.setState({
+                ...document,
+                type: String(document.type),
+                startOn: new Date(document.startOn),
+                endOn: new Date(document.endOn),
+                services: this.getServicesForState(services),
+                selectedServices: document.serviceIDs
+            });
+        }
+    }
+
+    getServicesForState = services =>
+        Object.values(services).reduce((acc, { id, name }) => {
+            acc.push({
+                value: id,
+                text: name,
+                disabled: !this.props.subscriptions.includes(id)
+            });
+            return acc;
+        }, []);
 
     handleHide = () => {
         this.setState({

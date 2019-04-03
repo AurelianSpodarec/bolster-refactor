@@ -22,7 +22,7 @@ class DocumentsTableContainer extends Component {
     }
 
     _getFilteredDocuments = () => {
-        const { documents, building } = this.props;
+        const { documents = [], building } = this.props;
         return documents.filter(document =>
             building.documentIDs.includes(document.id)
         );
