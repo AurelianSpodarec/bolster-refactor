@@ -59,7 +59,7 @@ class EditDocumentFormContainer extends Component {
                 startOn: new Date(document.startOn),
                 endOn: new Date(document.endOn),
                 services: this.getServicesForState(services),
-                selectedServices: document.serviceIDs
+                selectedServices: document.serviceIDs.map(key => String(key))
             });
         }
     }
@@ -67,26 +67,29 @@ class EditDocumentFormContainer extends Component {
     componentDidUpdate(prevProps) {
         const { isFetching, services, document } = this.props;
         if (!isFetching && prevProps.isFetching) {
+            const selectedServices =
+                document && document.serviceIDs.map(key => String(key));
             this.setState({
                 ...document,
                 type: String(document.type),
                 startOn: new Date(document.startOn),
                 endOn: new Date(document.endOn),
                 services: this.getServicesForState(services),
-                selectedServices: document.serviceIDs
+                selectedServices
             });
         }
     }
 
-    getServicesForState = services =>
-        Object.values(services).reduce((acc, { id, name }) => {
+    getServicesForState = services => {
+        return Object.values(services).reduce((acc, { id, name }) => {
             acc.push({
-                value: id,
+                value: String(id),
                 text: name,
                 disabled: !this.props.subscriptions.includes(id)
             });
             return acc;
         }, []);
+    };
 
     handleHide = () => {
         this.setState({
@@ -126,7 +129,6 @@ class EditDocumentFormContainer extends Component {
         const newValues = checkedValues.includes(value)
             ? checkedValues.filter(val => val !== value)
             : [...checkedValues, value];
-
         this.setState({ [name]: newValues });
     };
 
