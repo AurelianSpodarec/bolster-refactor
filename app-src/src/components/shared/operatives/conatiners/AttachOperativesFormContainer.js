@@ -46,8 +46,7 @@ class AttachOperativesFormContainer extends Component {
         const serviceOptions = services.map(({ id, name }) => ({
             value: id,
             text: name,
-            disabled: false
-            // disabled: subscriptions.includes(id)
+            disabled: !subscriptions.includes(id)
         }));
 
         return convertArrToObj(serviceOptions, 'value');

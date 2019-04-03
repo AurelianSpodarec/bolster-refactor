@@ -7,7 +7,7 @@ const Checkbox = ({
     name,
     text,
     error,
-    disabled
+    disabled = false
 }) => (
     <div className="size-lg-4">
         <input
