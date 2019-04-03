@@ -100,7 +100,7 @@ class EditDocumentFormContainer extends Component {
 
     handleInputChange = e => {
         this.setState({
-            [e.target.name]: String(e.target.value)
+            [e.target.name]: e.target.value
         });
     };
 
@@ -142,7 +142,7 @@ class EditDocumentFormContainer extends Component {
         const { handleSubmit } = this.props;
         const { services, file, fileS3Key, ...body } = this.state;
         const serviceIDs = Object.values(services).reduce((acc, service) => {
-            if (service.checked) acc.push(String(service.id));
+            if (service.checked) acc.push(service.id);
             return acc;
         }, []);
         const postBody = {

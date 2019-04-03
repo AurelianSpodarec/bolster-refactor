@@ -38,7 +38,7 @@ const EditDocumentForm = ({
     backUrl
 }) => (
     <Form className="content-area size-lg-12" onSubmit={handleSubmit}>
-        <h1 className="heading heading-3">Attach Document</h1>
+        <h1 className="heading heading-3">Edit Document</h1>
         <p>
             Instructions: ##Lorem ipsum dolor sit amet consectetur adipisicing
             elit. Expedita sit quas, aliquam explicabo laboriosam illo. Beatae

@@ -28,21 +28,22 @@ class AttachDocumentDatePickerContainer extends Component {
             <>
                 <Field name="Start date">
                     <DatePicker
-                        name="Start Date"
+                        name="startOn"
                         selected={startOn}
                         onChange={e => onChange(e, 'startOn')}
                     />
+                    {startErrorMessage && startErrorMessage.length && (
+                        <p className="error red-text text-accent-4">
+                            {startErrorMessage}
+                        </p>
+                    )}
                 </Field>
-                {startErrorMessage && startErrorMessage.length && (
-                    <p className="error red-text text-accent-4">
-                        {startErrorMessage}
-                    </p>
-                )}
                 <Field name="End date">
                     <DatePicker
-                        name="End Date"
+                        name="endOn"
                         selected={endOn}
                         onChange={e => onChange(e, 'endOn')}
+                        placeholderText="click to select a date"
                     />
                     {endErrorMessage && endErrorMessage.length && (
                         <p className="error red-text text-accent-4">
@@ -73,26 +74,19 @@ class AttachDocumentDatePickerContainer extends Component {
 
     _validate = (startOn, endOn) => {
         const {
-            name,
             startError,
             endError,
-            required,
             addFieldError,
             removeFieldError
         } = this.props;
 
-        if (required && !(startOn || endOn)) {
-            addFieldError(name, 'This is a required field.');
-        } else if (startOn.getTime() > endOn.getTime()) {
-            addFieldError(name, 'Start date must be before end date.');
-        } else {
-            if (startError) {
-                removeFieldError('startOn');
-            }
-            if (endError) {
-                removeFieldError('endOn');
-            }
-        }
+        if (!startOn) addFieldError('startOn', 'Start date must be entered');
+        else if (startError) removeFieldError('startOn');
+
+        if (!endOn) addFieldError('endOn', 'End date must be entered');
+        else if (startOn && startOn.getTime() >= endOn.getTime())
+            addFieldError('endOn', 'End date must be after start date.');
+        else if (endError) removeFieldError('endOn');
     };
 }
 

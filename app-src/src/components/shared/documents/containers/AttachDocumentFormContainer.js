@@ -20,8 +20,8 @@ class AttachDocumentFormContainer extends Component {
         services: {},
         agreeanceEveryXDays: 0,
         // date selector
-        startOn: new Date(),
-        endOn: new Date()
+        startOn: undefined,
+        endOn: undefined
     };
 
     render = () => {
