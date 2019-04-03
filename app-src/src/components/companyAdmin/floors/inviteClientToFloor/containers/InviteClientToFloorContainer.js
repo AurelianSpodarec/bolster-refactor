@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 
 import InviteClientFormContainer from 'components/shared/clients/containers/InviteClientFormContainer';
 
-class InviteClientToFloorFormContainer extends Component {
+class InviteClientToFloorContainer extends Component {
     render() {
-        return <InviteClientFormContainer />;
+        return <InviteClientFormContainer hierarchyType="floor" />;
     }
 }
 
-export default InviteClientToFloorFormContainer;
+export default InviteClientToFloorContainer;

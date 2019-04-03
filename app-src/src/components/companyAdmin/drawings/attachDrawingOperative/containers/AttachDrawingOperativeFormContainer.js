@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import AttachOperativesFormContainer from 'components/shared/operatives/containers/AttachOperativesFormContainer';
 import fetchCompanyUsers from 'actions/companyAdmin/userManagement/async/fetchCompanyUsers';
 
-class AttachDrawingOperativeFromContainer extends Component {
+class AttachDrawingOperativeFormContainer extends Component {
     render() {
         return <AttachOperativesFormContainer hierarchyType="drawing" />;
     }
@@ -23,4 +23,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
     null,
     mapDispatchToProps
-)(AttachDrawingOperativeFromContainer);
+)(AttachDrawingOperativeFormContainer);
