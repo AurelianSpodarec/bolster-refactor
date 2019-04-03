@@ -20,8 +20,12 @@ const SitesListItem = ({ toggleExpanded, isExpanded, site, colCount }) => {
                     />
                     {site.name}
                 </td>
-                <td>{site.ownerCompany}</td>
-                <td>##permissions##</td>
+                <td>{site.ownerCompanyName}</td>
+                <td>
+                    {site.permissions
+                        .map(permission => permission.companyName)
+                        .join(', ')}
+                </td>
                 <td>
                     <Link
                         className="button"
