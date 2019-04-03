@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { convertArrToObj } from 'helpers/generic';
 import { withRouter } from 'react-router-dom';
 
 import ClientsTable from 'components/shared/clients/presentational/ClientsTable';
