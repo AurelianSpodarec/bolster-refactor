@@ -22,7 +22,7 @@ const CompaniesAccessTable = ({
                 Companies with access
             </h3>
             <Table
-                headers={['Name', 'Actions']}
+                headers={['Name', 'Status', 'Actions']}
                 isFetching={isFetching}
                 error={error}
                 noData={!companies.length}

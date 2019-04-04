@@ -47,3 +47,9 @@ export const ACCESS_TYPES = {
     WRITE: 50,
     OWNER: 100
 };
+
+export const PERMISSION_STATES = {
+    PENDING: 0,
+    ACCEPTED: 1,
+    REJECTED: 2
+};
