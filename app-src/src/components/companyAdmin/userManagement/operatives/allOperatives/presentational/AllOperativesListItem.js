@@ -10,7 +10,7 @@ const AllOperativesListItem = ({ user }) => {
             <td>
                 <Link
                     className="button"
-                    to={`/user-management/operatives/${user.id}/edit`}
+                    to={`/users-management/operatives/${user.id}/edit`}
                 >
                     Edit
                 </Link>
