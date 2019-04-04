@@ -59,8 +59,6 @@ class AttachDocumentFormContainer extends Component {
             : [...checkedValues, value];
 
         this.setState({ [name]: newValues });
-
-        console.log('clicked');
     };
 
     handleCheckboxChange = e => {

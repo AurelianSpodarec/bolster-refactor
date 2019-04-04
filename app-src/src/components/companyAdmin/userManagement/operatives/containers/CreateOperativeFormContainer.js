@@ -45,7 +45,7 @@ class CreateOperativeFormContainer extends Component {
 
     handleSubmit = e => {
         e.preventDefault();
-
+        // eslint-disable-next-line no-unused-vars
         const { confirmPassword, ...restForm } = this.state;
         const postBody = {
             ...restForm,
