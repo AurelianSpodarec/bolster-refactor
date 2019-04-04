@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 
-import { convertArrToObj } from 'helpers/generic';
+import { convertArrToObj, updateObj } from 'helpers/generic';
 import {
     FETCH_CLIENTS_REQUEST,
     FETCH_CLIENTS_SUCCESS,
@@ -81,10 +81,10 @@ function postSuccessReducer(state = false, action) {
 function clientsReducer(state = {}, action) {
     switch (action.type) {
         case FETCH_CLIENTS_SUCCESS:
-        case INVITE_CLIENT_SUCCESS:
-            return convertArrToObj(action.payload);
         case FETCH_CLIENTS_FOR_DRAWING_SUCCESS:
-            return convertArrToObj(action.payload);
+            return { ...state, ...convertArrToObj(action.payload) };
+        case INVITE_CLIENT_SUCCESS:
+            return updateObj(state, action.payload.id, action.payload);
         default:
             return state;
     }
