@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const DocumentsList = ({ operatives }) =>
+const OperativesList = ({ operatives }) =>
     operatives.map(operative => {
         const {
             id,
@@ -28,4 +28,4 @@ const DocumentsList = ({ operatives }) =>
         );
     });
 
-export default DocumentsList;
+export default OperativesList;
