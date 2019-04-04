@@ -39,7 +39,6 @@ class AddTemplateQuestionModalContainer extends Component {
             prereqUuid,
             ...otherFields
         } = this.state;
-
         return (
             <TemplateQuestionFormModal
                 {...otherFields}
@@ -71,7 +70,7 @@ class AddTemplateQuestionModalContainer extends Component {
 
     handleSubmit = e => {
         e.preventDefault();
-        const { setQuestion, sectionUuid } = this.props;
+        const { setQuestion, sectionUuid, templateUuid } = this.props;
         const {
             name,
             isRequired,
@@ -88,6 +87,7 @@ class AddTemplateQuestionModalContainer extends Component {
             isHidden,
             isPrefill,
             questionType: questionType,
+            templateUuid,
             sectionUuid,
             uuid: uuid(),
             prereqUuid,
@@ -99,7 +99,9 @@ class AddTemplateQuestionModalContainer extends Component {
     };
 
     _getPrereqOptions = () => {
-        const options = this.props.questions
+        const { questions, templateUuid: temUuid } = this.props;
+        const options = questions
+            .filter(({ templateUuid }) => templateUuid === temUuid)
             .filter(({ questionType }) => PREREQ_TYPES.includes(questionType))
             .map(({ uuid, name }) => ({
                 value: uuid,
@@ -132,7 +134,9 @@ const mapDispatchToProps = dispatch => ({
     }
 });
 
-export default connect(
+const WithConnect = connect(
     mapStateToProps,
     mapDispatchToProps
 )(AddTemplateQuestionModalContainer);
+
+export default WithConnect;

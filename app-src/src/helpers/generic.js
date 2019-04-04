@@ -56,3 +56,12 @@ export function swapItemSorts(obj, key1, key2) {
         [key2]: updateObj(obj[key2], 'sort', obj[key1].sort)
     };
 }
+
+export function convertEnumToDropdownOptions(obj) {
+    const options = Object.keys(obj).map(key => ({
+        value: key,
+        text: obj[key]
+    }));
+
+    return convertArrToObj(options, 'value');
+}

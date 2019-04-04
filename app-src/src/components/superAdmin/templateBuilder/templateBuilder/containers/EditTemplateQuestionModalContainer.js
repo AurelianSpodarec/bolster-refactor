@@ -64,15 +64,13 @@ class AddTemplateQuestionModalContainer extends Component {
     };
 
     _getPrereqOptions = () => {
-        const { questions, uuid } = this.props;
+        const { questions, uuid, question } = this.props;
         const options = questions
             .filter(({ questionType }) => PREREQ_TYPES.includes(questionType))
-            .filter(question => question.uuid !== uuid)
-            .filter(question => question.prereqUuid !== uuid)
-            .map(question => ({
-                value: question.uuid,
-                text: question.name
-            }));
+            .filter(q => q.templateUuid === question.templateUuid)
+            .filter(q => q.uuid !== uuid)
+            .filter(q => q.prereqUuid !== uuid)
+            .map(q => ({ value: q.uuid, text: q.name }));
 
         return convertArrToObj(options, 'value');
     };
@@ -102,19 +100,10 @@ class AddTemplateQuestionModalContainer extends Component {
             isPrefill,
             questionType: questionType,
             prereqUuid,
-            prereqVal,
-            sort: this._getSort()
+            prereqVal
         };
 
         setQuestion(newSection);
-    };
-
-    _getSort = () => {
-        const { questions, sectionUuid } = this.props;
-        const sectionSortList = questions
-            .filter(q => q.sectionUuid === sectionUuid)
-            .map(q => q.sort);
-        return Math.max(0, ...sectionSortList) + 1;
     };
 }
 

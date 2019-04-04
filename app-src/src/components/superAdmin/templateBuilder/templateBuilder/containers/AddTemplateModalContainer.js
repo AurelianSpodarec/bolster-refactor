@@ -7,21 +7,31 @@ import setTemplate from 'actions/superAdmin/templateBuilder/sync/setTemplate';
 import hideModal from 'actions/shared/generic/modals/sync/hideModal';
 
 import TemplateFormModal from '../presentational/TemplateFormModal';
-import { convertArrToObj } from 'helpers/generic';
+import { convertArrToObj, convertEnumToDropdownOptions } from 'helpers/generic';
+import { LABEL_TYPES } from 'constants/companyAdmin/enums';
 
 class TemplateFormModalContainer extends React.Component {
     state = {
         name: '',
-        serviceID: ''
+        serviceID: '',
+        labelType: '',
+        labelTypeOptions: convertEnumToDropdownOptions(LABEL_TYPES)
     };
 
     render() {
-        const { serviceID, ...otherFields } = this.state;
+        const {
+            serviceID,
+            labelType,
+            labelTypeOptions,
+            ...otherFields
+        } = this.state;
         const serviceOptions = this._getSeviceOptions();
 
         return (
             <TemplateFormModal
                 {...otherFields}
+                selectedLabelType={labelTypeOptions[labelType]}
+                labelTypeOptions={Object.values(labelTypeOptions)}
                 serviceOptions={Object.values(serviceOptions)}
                 selectedService={serviceOptions[serviceID]}
                 action="Add"
@@ -51,9 +61,11 @@ class TemplateFormModalContainer extends React.Component {
     handleSubmit = e => {
         e.preventDefault();
         const { companyID, uuid, setTemplate } = this.props;
-        const { name } = this.state;
+        const { name, serviceID, labelType } = this.state;
         const template = {
             companyID,
+            serviceID,
+            labelType,
             uuid,
             name
         };

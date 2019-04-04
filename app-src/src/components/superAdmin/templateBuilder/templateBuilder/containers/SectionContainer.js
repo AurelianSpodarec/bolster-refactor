@@ -39,7 +39,9 @@ class SectionContainer extends Component {
                     questions={questions}
                     moveQuestion={this.moveQuestion}
                     deleteSection={() => deleteSection(section.uuid)}
-                    showAddQuestModal={() => showAddQuestModal(section.uuid)}
+                    showAddQuestModal={() =>
+                        showAddQuestModal(section.uuid, section.templateUuid)
+                    }
                     showRenameSectModal={() => showRenameSectModal(section)}
                     duplicateSection={this.duplicateSection}
                 />
@@ -133,8 +135,10 @@ const mapDispatchToProps = dispatch => ({
     setSection: newSection => {
         dispatch(setSection(newSection));
     },
-    showAddQuestModal: sectionUuid => {
-        dispatch(showModal(ADD_TEMPLATE_QUESTION, { sectionUuid }));
+    showAddQuestModal: (sectionUuid, templateUuid) => {
+        dispatch(
+            showModal(ADD_TEMPLATE_QUESTION, { sectionUuid, templateUuid })
+        );
     },
     showRenameSectModal: section => {
         dispatch(showModal(RENAME_TEMPLATE_SECTION, { section }));

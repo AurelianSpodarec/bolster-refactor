@@ -41,8 +41,13 @@ class AddTemplateSectionModalContainer extends React.Component {
     };
 }
 
-const mapStateToProps = ({ superAdmin: { templateSectionsReducer } }) => ({
-    sections: Object.values(templateSectionsReducer.sections)
+const mapStateToProps = (
+    { superAdmin: { templateSectionsReducer } },
+    { templateUuid }
+) => ({
+    sections: Object.values(templateSectionsReducer.sections).filter(
+        sec => templateUuid === sec.templateUuid
+    )
 });
 
 const mapDispatchToProps = dispatch => ({
