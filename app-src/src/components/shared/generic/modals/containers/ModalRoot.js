@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import {
     PIN_IMAGE,
     ADD_TEMPLATE,
+    EDIT_TEMPLATE,
     ADD_TEMPLATE_SECTION,
     ADD_TEMPLATE_QUESTION,
     EDIT_TEMPLATE_QUESTION,
@@ -18,11 +19,12 @@ import {
 } from 'constants/shared/modalTypes';
 
 import PinPhotoModal from '../presentational/PinPhotoModal';
-import AddTemplateModalContainer from './AddTemplateModalContainer';
-import AddTemplateSectionModalContainer from './AddTemplateSectionModalContainer';
-import AddTemplateQuestionModalContainer from './AddTemplateQuestionModalContainer';
-import EditTemplateQuestionModalContainer from './EditTemplateQuestionModalContainer';
-import RenameTemplateSectionModalContainer from './RenameTemplateSectionModalContainer';
+import AddTemplateModalContainer from 'components/superAdmin/templateBuilder/templateBuilder/containers/AddTemplateModalContainer';
+import EditTemplateModalContainer from 'components/superAdmin/templateBuilder/templateBuilder/containers/EditTemplateModalContainer';
+import AddTemplateSectionModalContainer from 'components/superAdmin/templateBuilder/templateBuilder/containers/AddTemplateSectionModalContainer';
+import AddTemplateQuestionModalContainer from 'components/superAdmin/templateBuilder/templateBuilder/containers/AddTemplateQuestionModalContainer';
+import EditTemplateQuestionModalContainer from 'components/superAdmin/templateBuilder/templateBuilder/containers/EditTemplateQuestionModalContainer';
+import RenameTemplateSectionModalContainer from 'components/superAdmin/templateBuilder/templateBuilder/containers/EditTemplateSectionModalContainer';
 import EditServiceModalContainer from './EditServiceModalContainer';
 import EditUserPasswordModalContainer from './EditUserPasswordModalContainer';
 import EditUserModalContainer from './EditUserModalContainer';
@@ -34,6 +36,7 @@ import DeleteOperativeModalContainer from './DeleteOperativeModalContainer';
 const MODAL_COMPONENTS = {
     [PIN_IMAGE]: PinPhotoModal,
     [ADD_TEMPLATE]: AddTemplateModalContainer,
+    [EDIT_TEMPLATE]: EditTemplateModalContainer,
     [ADD_TEMPLATE_QUESTION]: AddTemplateQuestionModalContainer,
     [ADD_TEMPLATE_SECTION]: AddTemplateSectionModalContainer,
     [EDIT_TEMPLATE_QUESTION]: EditTemplateQuestionModalContainer,

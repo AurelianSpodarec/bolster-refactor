@@ -3,17 +3,12 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import addClient from 'actions/companyAdmin/clients/async/addClient';
 import EditClientForm from '../presentational/EditClientForm';
-import fetchClientsForDrawing from 'actions/companyAdmin/clients/async/fetchClientsForDrawing';
+
+import editClientForDrawing from 'actions/companyAdmin/clients/async/editClientForDrawing';
 
 class EditClientFormContainer extends Component {
     state = {
-        firstName: '',
-        lastName: '',
-        email: '',
-        phoneNumber: '',
-        companyName: '',
         serviceIDs: []
     };
 
@@ -27,7 +22,6 @@ class EditClientFormContainer extends Component {
                     {...this.state}
                     serviceOptions={serviceOptions}
                     checkedServices={serviceIDs}
-                    handleChange={this.handleChange}
                     handleMultiselectChange={this.handleMultiselectChange}
                     handleSubmit={this.handleSubmit}
                 />
@@ -35,14 +29,9 @@ class EditClientFormContainer extends Component {
         );
     }
     _setClientDetails = () => {
-        const { client } = this.props;
+        // const { client } = this.props;
 
         this.setState({
-            firstName: client.userFirstName,
-            lastName: client.userLastName,
-            email: client.userEmail,
-            phoneNumber: client.userPhoneNumber,
-            companyName: client.companyName
             //Need to get service IDs from api
             // serviceIDs: []
         });
@@ -61,14 +50,12 @@ class EditClientFormContainer extends Component {
         }
 
         if (!prevProps.success && success) {
-            history.replace(`/${hierarchyType}s/${hierarchyID}`);
+            history.replace(`/drawings/${hierarchyID}`);
         }
     };
 
     componentDidMount = () => {
-        const { hierarchyID, fetchClientsForDrawing, client } = this.props;
-
-        fetchClientsForDrawing(hierarchyID);
+        const { client } = this.props;
 
         if (client.id) {
             this._setClientDetails();
@@ -93,31 +80,15 @@ class EditClientFormContainer extends Component {
         this.setState({ [name]: newValues });
     };
 
-    handleChange = ({ target: { type, value, name, checked } }) => {
-        this.setState({ [name]: type === 'checkbox' ? checked : value });
-    };
-
     handleSubmit = () => {
-        const {
-            firstName,
-            lastName,
-            email,
-            phoneNumber,
-            companyName,
-            serviceIDs
-        } = this.state;
-        const { hierarchyType, hierarchyID, addClient } = this.props;
+        const { serviceIDs } = this.state;
+        const { hierarchyID, editClient } = this.props;
 
         const postBody = {
-            FirstName: firstName,
-            LastName: lastName,
-            Email: email,
-            PhoneNumber: phoneNumber,
-            CompanyName: companyName,
             ServiceIDs: serviceIDs
         };
 
-        addClient(hierarchyType, hierarchyID, postBody);
+        editClient(hierarchyID, postBody);
     };
 }
 
@@ -134,11 +105,8 @@ const mapStateToProps = (
 });
 
 const mapDispatchToProps = dispatch => ({
-    addClient: (hierarchyType, hierarchyID, postBody) => {
-        dispatch(addClient(hierarchyType, hierarchyID, postBody));
-    },
-    fetchClientsForDrawing: drawingID => {
-        dispatch(fetchClientsForDrawing(drawingID));
+    editClient: (drawingID, postBody) => {
+        dispatch(editClientForDrawing(drawingID, postBody));
     }
 });
 

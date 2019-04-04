@@ -6,12 +6,12 @@ import SingleDrawingContainer from 'components/companyAdmin/drawings/singleDrawi
 import AddDrawing from 'components/companyAdmin/drawings/addDrawing/presentational/AddDrawing';
 import AttachDrawingOperative from 'components/companyAdmin/drawings/attachDrawingOperative/presentational/AttachDrawingOperative';
 import InviteClientToDrawing from 'components/companyAdmin/drawings/inviteClientToDrawing/presentational/InviteClientToDrawing';
-import ClientEdit from 'components/shared/clients/presentational/ClientEdit';
+import ClientEditContainer from 'components/shared/clients/containers/ClientEditContainer';
 
 import AttachDrawingDocumentFormContainer from 'components/companyAdmin/drawings/attachDrawingDocument/containers/AttachDrawingDocumentFormContainer';
 import InviteCompanyToDrawing from 'components/companyAdmin/drawings/inviteCompanyToDrawing/presentational/InviteCompanyToDrawing';
 import EditDrawingDocumentContainer from 'components/companyAdmin/drawings/editDrawingDocument/containers/EditDrawingDocumentContainer';
-import EditDrawingOperativeContainer from 'components/companyAdmin/drawings/editDrawingOperative/containers/EditDrawingOperativeContainer';
+import EditDrawingOperativeFormContainer from 'components/companyAdmin/drawings/editDrawingOperative/containers/EditDrawingOperativeFormContainer';
 
 const DrawingsRoutes = ({ match: { url: baseUrl } }) => (
     <SwitchWith404>
@@ -29,12 +29,12 @@ const DrawingsRoutes = ({ match: { url: baseUrl } }) => (
         <Route
             exact
             path={`${baseUrl}/:id/edit-operative/:operativeID`}
-            component={EditDrawingOperativeContainer}
+            component={EditDrawingOperativeFormContainer}
         />
         <Route
             exact
             path={`${baseUrl}/:id/client/:clientID/edit`}
-            component={ClientEdit}
+            component={ClientEditContainer}
         />
         <Route
             exact
