@@ -1,71 +1,13 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
 
-import editCompanyUser from 'actions/companyAdmin/userManagement/async/editCompanyUser';
-import EditOperativeForm from '../presentational/EditOperativeForm';
+import EditOperative from '../presentational/EditOperative';
 
-class EditOperativeFormContainer extends Component {
-    state = {
-        firstName: '',
-        lastName: '',
-        email: '',
-        phoneNumber: ''
-    };
-
+export default class EditOperativeFormContainer extends Component {
     render() {
         return (
-            <EditOperativeForm
-                {...this.state}
-                handleInputChange={this.handleInputChange}
-                handleSubmit={this.handleSubmit}
-            />
+            <div>
+                <EditOperative />
+            </div>
         );
     }
-
-    handleInputChange = e => {
-        e.preventDefault();
-
-        this.setState({
-            [e.target.name]: e.target.value
-        });
-    };
-
-    handleSubmit = e => {
-        e.preventDefault();
-        const postBody = {
-            ...this.state
-        };
-        const { id } = this.props;
-        this.props.editCompanyUser(id, postBody);
-    };
-
-    componentDidUpdate = prevProps => {
-        const { postSuccess, history } = this.props;
-
-        if (postSuccess && !prevProps.postSuccess) {
-            history.push('/users-management/operatives');
-        }
-    };
 }
-const mapStateToProps = (
-    { companyAdmin: { companyUsersReducer } },
-    { match }
-) => ({
-    postSuccess: companyUsersReducer.postSuccess,
-    error: companyUsersReducer.error,
-    id: match.params.id
-});
-
-const mapDispatchToProps = dispatch => ({
-    editCompanyUser: postBody => {
-        dispatch(editCompanyUser(postBody));
-    }
-});
-
-export default withRouter(
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(EditOperativeFormContainer)
-);
