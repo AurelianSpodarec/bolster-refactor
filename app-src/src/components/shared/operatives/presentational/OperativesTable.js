@@ -9,10 +9,11 @@ const OperativesTable = ({
     operatives,
     isFetching,
     error,
-    handleShowModal
+    handleShowModal,
+    match
 }) => {
     const tableHeaders = ['Name', 'Actions'];
-
+    const { id } = match.params;
     return (
         <div className="size-lg-12">
             <h2 className="heading heading-3 size-lg-12">
@@ -29,6 +30,7 @@ const OperativesTable = ({
                 <OperativesList
                     operatives={operatives}
                     handleShowModal={handleShowModal}
+                    documentID={id}
                 />
             </Table>
             <div className="button-container table">
