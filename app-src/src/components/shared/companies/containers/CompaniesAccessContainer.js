@@ -15,8 +15,7 @@ class CompaniesAccessContainer extends Component {
             <BlockContainer>
                 <CompaniesAccessTable
                     companies={props.companiesWithPermissions}
-                    parentId={props.site.id}
-                    isEmpty={!props.site.id}
+                    parentId={props.hierarchyID}
                     isFetching={props.isFetching}
                     error={props.error}
                 />
@@ -36,10 +35,9 @@ class CompaniesAccessContainer extends Component {
 }
 
 const mapStateToProps = (
-    { companyAdmin: { sitesReducer, companiesReducer } },
+    { companyAdmin: { companiesReducer } },
     { match }
 ) => ({
-    site: sitesReducer.sites[match.params.id] || {},
     hierarchyID: match.params.id,
     isFetching: companiesReducer.isFetching,
     error: companiesReducer.error,
