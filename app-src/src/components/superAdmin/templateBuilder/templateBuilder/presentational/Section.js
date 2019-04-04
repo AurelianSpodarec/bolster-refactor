@@ -32,7 +32,7 @@ const Section = ({
             <i className="fa fa-eye" />
         </button>
         <button className="button" onClick={showRenameSectModal}>
-            Rename
+            Edit
         </button>
         <h3 style={{ ...headingStyle }} className="heading ">
             {section.name}

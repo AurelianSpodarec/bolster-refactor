@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import uuid from 'uuid/v1';
 
 import {
     QUESTION_TYPES,
@@ -8,9 +7,9 @@ import {
 } from 'constants/superAdmin/templateBuilder';
 import { convertArrToObj } from 'helpers/generic';
 import hideModal from 'actions/shared/generic/modals/sync/hideModal';
-import addQuestion from 'actions/superAdmin/templateBuilder/sync/addQuestion';
+import editQuestion from 'actions/superAdmin/templateBuilder/sync/editQuestion';
 
-import TemplateQuestionFormModal from '../presentational/TemplateQuestionFormModal';
+import TemplateQuestionFormModal from '../../../../superAdmin/templateBuilder/templateBuilder/presentational/TemplateQuestionFormModal';
 
 const questionTypeOptions = Object.keys(QUESTION_TYPES).map(type => ({
     text: QUESTION_TYPES[type],
@@ -42,6 +41,7 @@ class AddTemplateQuestionModalContainer extends Component {
 
         return (
             <TemplateQuestionFormModal
+                action="Edit"
                 questionTypeOptions={Object.values(questionTypeOptions)}
                 questionType={questionTypeOptions[questionType]}
                 prereqOptions={Object.values(prereqOptions)}
@@ -59,7 +59,22 @@ class AddTemplateQuestionModalContainer extends Component {
     }
 
     componentDidMount = () => {
-        this.setState({ prereqOptions: this._getPrereqOptions() });
+        const { question } = this.props;
+        this.setState({ ...question, prereqOptions: this._getPrereqOptions() });
+    };
+
+    _getPrereqOptions = () => {
+        const { questions, uuid } = this.props;
+        const options = questions
+            .filter(({ questionType }) => PREREQ_TYPES.includes(questionType))
+            .filter(question => question.uuid !== uuid)
+            .filter(question => question.prereqUuid !== uuid)
+            .map(question => ({
+                value: question.uuid,
+                text: question.name
+            }));
+
+        return convertArrToObj(options, 'value');
     };
 
     handleInputChange = ({ target: { type, value, name, checked } }) => {
@@ -68,7 +83,7 @@ class AddTemplateQuestionModalContainer extends Component {
 
     handleSubmit = e => {
         e.preventDefault();
-        const { addQuestion, sectionUuid } = this.props;
+        const { editQuestion, question } = this.props;
         const {
             name,
             isRequired,
@@ -80,30 +95,18 @@ class AddTemplateQuestionModalContainer extends Component {
         } = this.state;
 
         const newSection = {
+            ...question,
             name,
             isRequired,
             isHidden,
             isPrefill,
             questionType: questionType,
-            sectionUuid,
-            uuid: uuid(),
             prereqUuid,
             prereqVal,
             sort: this._getSort()
         };
 
-        addQuestion(newSection);
-    };
-
-    _getPrereqOptions = () => {
-        const options = this.props.questions
-            .filter(({ questionType }) => PREREQ_TYPES.includes(questionType))
-            .map(({ uuid, name }) => ({
-                value: uuid,
-                text: name
-            }));
-
-        return convertArrToObj(options, 'value');
+        editQuestion(newSection);
     };
 
     _getSort = () => {
@@ -115,16 +118,20 @@ class AddTemplateQuestionModalContainer extends Component {
     };
 }
 
-const mapStateToProps = ({ superAdmin: { templateQuestionsReducer } }) => ({
-    questions: Object.values(templateQuestionsReducer.questions)
+const mapStateToProps = (
+    { superAdmin: { templateQuestionsReducer } },
+    { uuid }
+) => ({
+    questions: Object.values(templateQuestionsReducer.questions),
+    question: templateQuestionsReducer.questions[uuid]
 });
 
 const mapDispatchToProps = dispatch => ({
     hideModal: () => {
         dispatch(hideModal());
     },
-    addQuestion: newQuestion => {
-        dispatch(addQuestion(newQuestion));
+    editQuestion: newQuestion => {
+        dispatch(editQuestion(newQuestion));
         dispatch(hideModal());
     }
 });

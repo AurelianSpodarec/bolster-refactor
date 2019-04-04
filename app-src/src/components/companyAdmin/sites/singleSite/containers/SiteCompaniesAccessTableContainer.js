@@ -2,36 +2,12 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
-import CompaniesAccessTable from 'components/shared/companies/presentational/CompaniesAccessTable';
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import CompaniesAccessContainer from 'components/shared/companies/containers/CompaniesAccessContainer';
 
 class SiteCompaniesAccessTableContainer extends Component {
     render() {
-        const { props } = this;
-
-        return (
-            <BlockContainer>
-                <CompaniesAccessTable
-                    companies={[]}
-                    parentId={props.site.id}
-                    isEmpty={!props.site.id}
-                    isFetching={props.isFetching}
-                    error={props.error}
-                />
-            </BlockContainer>
-        );
+        return <CompaniesAccessContainer hierarchyType="site" />;
     }
 }
 
-const mapStateToProps = (
-    { companyAdmin: { sitesReducer, companiesReducer } },
-    { match }
-) => ({
-    site: sitesReducer.sites[match.params.id] || {},
-    isFetching: companiesReducer.isFetching,
-    error: companiesReducer.error
-});
-
-export default withRouter(
-    connect(mapStateToProps)(SiteCompaniesAccessTableContainer)
-);
+export default SiteCompaniesAccessTableContainer;

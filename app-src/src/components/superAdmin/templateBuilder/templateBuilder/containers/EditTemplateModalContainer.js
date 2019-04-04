@@ -15,6 +15,7 @@ class TemplateFormContainer extends React.Component {
     render() {
         return (
             <TemplateFormModal
+                action="Edit"
                 name={this.state.name}
                 handleChange={this.handleChange}
                 handleSubmit={this.handleSubmit}
@@ -37,22 +38,20 @@ class TemplateFormContainer extends React.Component {
 
     handleCancel = e => {
         e.preventDefault();
-        const { history, hideModal } = this.props;
-        history.goBack();
+        const { hideModal } = this.props;
         hideModal();
     };
 
     handleSubmit = e => {
         e.preventDefault();
-        const { companyID, uuid, setTemplate } = this.props;
+        const { template, setTemplate } = this.props;
         const { name } = this.state;
-        const template = {
-            companyID,
-            uuid,
+        const updatedTemplate = {
+            ...template,
             name
         };
 
-        setTemplate(template);
+        setTemplate(updatedTemplate);
     };
 }
 
