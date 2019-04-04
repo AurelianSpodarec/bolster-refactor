@@ -5,6 +5,8 @@ import {
     FETCH_OPERATIVES_SUCCESS,
     FETCH_OPERATIVES_FAILURE
 } from 'constants/actionTypes/operatives';
+import { getHeaders } from 'helpers/api';
+import { API_URL } from 'config';
 
 export const fetchOperativesRequest = () => ({
     type: FETCH_OPERATIVES_REQUEST
@@ -20,11 +22,11 @@ export const fetchOperativesFailure = error => ({
     error
 });
 
-export default () => dispatch => {
+export default drawingID => dispatch => {
     dispatch(fetchOperativesRequest());
 
     axios
-        .get('/mockData/operatives/operatives.json')
+        .get(`${API_URL}/permissions/operative/${drawingID}`, getHeaders())
         .then(res => dispatch(fetchOperativesSuccess(res.data)))
         .catch(err => dispatch(fetchOperativesFailure(err.message)));
 };
