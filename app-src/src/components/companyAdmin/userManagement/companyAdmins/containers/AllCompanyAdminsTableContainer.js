@@ -5,6 +5,8 @@ import { connect } from 'react-redux';
 
 import AllCompanyAdminsTable from '../presentational/AllCompanyAdminsTable';
 import { COMPANY_USER_ROLE_TYPES } from 'constants/companyAdmin/enums';
+import { showModal } from 'actions/shared/generic/modals/sync/showModal';
+import { DELETE_COMPANY_USER } from 'constants/shared/modalTypes';
 
 class AllCompanyAdminTableContainer extends Component {
     render() {
