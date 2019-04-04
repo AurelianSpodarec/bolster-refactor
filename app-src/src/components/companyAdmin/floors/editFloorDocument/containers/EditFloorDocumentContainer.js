@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 import editDocument from 'actions/companyAdmin/documents/async/editDocument';
-import fetchDocument from 'actions/companyAdmin/documents/async/fetchDocument';
+import fetchSingleDocument from 'actions/companyAdmin/documents/async/fetchSingleDocument';
 import EditFloorDocument from '../presentational/EditFloorDocument';
 
 import { HIERARCHY_IDS } from 'constants/companyAdmin/enums';
@@ -24,8 +24,8 @@ class EditFloorDocumentContainer extends Component {
     }
     componentDidMount() {
         const { documentID } = this.props.match.params;
-        const { fetchDocument } = this.props;
-        fetchDocument(documentID);
+        const { fetchSingleDocument } = this.props;
+        fetchSingleDocument(documentID);
     }
 
     componentDidUpdate({ postSuccess: prevSuccess }) {
@@ -52,8 +52,8 @@ const mapStateToProps = ({ companyAdmin: { documentsReducer } }) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    fetchDocument: ID => {
-        dispatch(fetchDocument(ID));
+    fetchSingleDocument: ID => {
+        dispatch(fetchSingleDocument(ID));
     },
     editDocument: (documentID, postBody) => {
         dispatch(editDocument(documentID, postBody));
