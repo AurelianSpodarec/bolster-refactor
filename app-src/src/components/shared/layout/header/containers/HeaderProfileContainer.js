@@ -51,7 +51,9 @@ class HeaderProfileContainer extends Component {
 
         this.handleClick();
     };
+
     logout = e => {
+        this.handleClick();
         const { history } = this.props;
         e.preventDefault();
         localStorage.setItem('token', '');

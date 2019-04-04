@@ -6,7 +6,6 @@ import fetchAllDrawings from 'actions/companyAdmin/drawings/async/fetchAllDrawin
 import fetchDocuments from 'actions/companyAdmin/documents/async/fetchDocuments';
 import fetchClients from 'actions/companyAdmin/clients/async/fetchClients';
 import fetchAllCompanies from 'actions/companyAdmin/companies/async/fetchAllCompanies';
-import fetchOperatives from 'actions/companyAdmin/operatives/async/fetchOperatives';
 
 import SingleFloor from '../presentational/SingleFloor';
 
@@ -22,8 +21,7 @@ class SingleFloorContainer extends Component {
             fetchAllDrawings,
             fetchDocuments,
             fetchClients,
-            fetchAllCompanies,
-            fetchOperatives
+            fetchAllCompanies
         } = this.props;
 
         fetchSingleFloor(floorID);
@@ -31,7 +29,6 @@ class SingleFloorContainer extends Component {
         fetchDocuments('floor', floorID);
         fetchClients();
         fetchAllCompanies();
-        fetchOperatives();
     };
 }
 
@@ -54,9 +51,6 @@ const mapDispatchToProps = dispatch => ({
     },
     fetchAllCompanies: () => {
         dispatch(fetchAllCompanies());
-    },
-    fetchOperatives: () => {
-        dispatch(fetchOperatives());
     }
 });
 

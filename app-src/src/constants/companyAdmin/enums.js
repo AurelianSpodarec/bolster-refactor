@@ -40,3 +40,10 @@ export const MESSAGE_TYPES = {
     NOTIFICATION: 1,
     SYSTEM: 20
 };
+
+export const ACCESS_TYPES = {
+    READONLY: 1,
+    VIEWONLY: 10,
+    WRITE: 50,
+    OWNER: 100
+};
