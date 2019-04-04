@@ -84,8 +84,8 @@ const mapStateToProps = (
 });
 
 const mapDispatchToProps = dispatch => ({
-    editCompanyUser: postBody => {
-        dispatch(editCompanyUser(postBody));
+    editCompanyUser: (id, postBody) => {
+        dispatch(editCompanyUser(id, postBody));
     }
 });
 
