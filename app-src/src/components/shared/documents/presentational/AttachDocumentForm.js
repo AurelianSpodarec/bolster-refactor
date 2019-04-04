@@ -31,7 +31,7 @@ const AttachDocumentForm = ({
     agreeanceEveryXDays,
     startOn,
     endOn,
-    backUrl
+    location
 }) => (
     <Form className="content-area size-lg-12" onSubmit={handleSubmit}>
         <h1 className="heading heading-3">Attach Document</h1>
@@ -163,7 +163,10 @@ const AttachDocumentForm = ({
                 <i className="fa fa-plus" />
                 Attach Document
             </button>
-            <Link to={backUrl || '/'} className="button">
+            <Link
+                to={location.pathname.replace('/attach-document', '')}
+                className="button"
+            >
                 <i className="fa fa-times" /> Cancel
             </Link>
         </BlockButtonWrapper>
