@@ -10,18 +10,19 @@ const AllCompanyAdminsListItem = ({ user, showDeleteModal }) => {
             <td>{user.userPhoneNumber}</td>
             <td>
                 <BlockButtonWrapper>
+                    <button
+                        className="button red"
+                        onClick={() => showDeleteModal(user.id)}
+                    >
+                        <i className="fa fa-trash" />
+                        Delete User
+                    </button>
                     <Link
                         className="button"
                         to={`/user-management/company-admins/${user.id}`}
                     >
                         Edit
                     </Link>
-                    <button
-                        className="button"
-                        onClick={() => showDeleteModal(user.id)}
-                    >
-                        Delete User
-                    </button>
                 </BlockButtonWrapper>
             </td>
         </tr>

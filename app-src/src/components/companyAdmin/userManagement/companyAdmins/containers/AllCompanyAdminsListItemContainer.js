@@ -5,12 +5,7 @@ import AllCompanyAdminsListItem from '../presentational/AllCompanyAdminsListItem
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { DELETE_COMPANY_USER } from 'constants/shared/modalTypes';
 
-const AllCompanyAdminsListItemContainer = ({
-    user,
-    colCount,
-    showDeleteModal,
-    showModal
-}) => (
+const AllCompanyAdminsListItemContainer = ({ user, colCount, showModal }) => (
     <AllCompanyAdminsListItem
         user={user}
         colCount={colCount}
