@@ -10,39 +10,22 @@ import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 
 class SiteDocumentsTableContainer extends Component {
     render() {
-        const { error, isFetching } = this.props;
+        const { error, isFetching, parent } = this.props;
 
         return (
             <BlockContainer error={error}>
                 <DocumentsTable
                     documents={this._getFilteredDocuments()}
                     isFetching={isFetching}
-                    handleShowModal={this.handleShowModal}
                 />
             </BlockContainer>
         );
     }
 
-    componentDidUpdate(prevProps) {
-        const { deletionError, showModal } = this.props;
-        if (deletionError && !prevProps.deletionError) {
-            showModal(DELETION_ERROR, {
-                title: 'Deletion Error:',
-                message:
-                    'An error occurred while deleting this document, please try again later'
-            });
-        }
-    }
-
-    handleShowModal = document => {
-        const { showModal } = this.props;
-        showModal(DELETE_DOCUMENT, { id: document.id });
-    };
-
     _getFilteredDocuments = () => {
-        const { documents, site } = this.props;
+        const { documents, parent } = this.props;
         return documents.filter(document =>
-            site.documentIDs.includes(document.id)
+            parent.documentIDs.includes(document.id)
         );
     };
 }
@@ -51,7 +34,7 @@ const mapStateToProps = (
     { companyAdmin: { documentsReducer, sitesReducer } },
     { match }
 ) => ({
-    site: sitesReducer.sites[match.params.id] || { documentIDs: [] },
+    parent: sitesReducer.sites[match.params.id] || { documentIDs: [] },
     documents: Object.values(documentsReducer.documents),
     isFetching: documentsReducer.isFetching || sitesReducer.isFetching,
     error: documentsReducer.error,
