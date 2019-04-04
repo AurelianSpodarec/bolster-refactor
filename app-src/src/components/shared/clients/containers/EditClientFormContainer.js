@@ -37,13 +37,7 @@ class EditClientFormContainer extends Component {
         });
     };
     componentDidUpdate = prevProps => {
-        const {
-            success,
-            history,
-            hierarchyType,
-            hierarchyID,
-            client
-        } = this.props;
+        const { success, history, hierarchyID, client } = this.props;
 
         if (!prevProps.client.id && !!client.id) {
             this._setClientDetails();

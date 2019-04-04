@@ -9,7 +9,7 @@ import InviteCompanyToBuilding from 'components/companyAdmin/buildings/inviteCom
 import CreateBuilding from 'components/companyAdmin/buildings/createBuilding/presentational/CreateBuilding';
 import BuildingClientAccessContainer from 'components/companyAdmin/buildings/singleBuilding/containers/BuildingClientAccessContainer';
 import BuildingEditContainer from 'components/companyAdmin/buildings/singleBuilding/containers/BuildingEditContainer';
-import AttachBuildingDocumentFormContainer from 'components/companyAdmin/buildings/attachBuildingDocument/containers/AttachBuildingDocumentFormContainer';
+import AttachBuildingDocument from 'components/companyAdmin/buildings/attachBuildingDocument/presentational/AttachBuildingDocument';
 import EditBuildingDocumentContainer from 'components/companyAdmin/buildings/editBuildingDocument/containers/EditBuildingDocumentContainer';
 
 const BuildingRoutes = ({ match: { url: baseUrl } }) => (
@@ -48,7 +48,7 @@ const BuildingRoutes = ({ match: { url: baseUrl } }) => (
         <Route
             exact
             path={`${baseUrl}/:id/attach-document`}
-            component={AttachBuildingDocumentFormContainer}
+            component={AttachBuildingDocument}
         />
         <Route
             exact

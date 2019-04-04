@@ -8,7 +8,7 @@ import AttachDrawingOperative from 'components/companyAdmin/drawings/attachDrawi
 import InviteClientToDrawing from 'components/companyAdmin/drawings/inviteClientToDrawing/presentational/InviteClientToDrawing';
 import ClientEditContainer from 'components/shared/clients/containers/ClientEditContainer';
 
-import AttachDrawingDocumentFormContainer from 'components/companyAdmin/drawings/attachDrawingDocument/containers/AttachDrawingDocumentFormContainer';
+import AttachDrawingDocument from 'components/companyAdmin/drawings/attachDrawingDocument/presentational/AttachDrawingDocument';
 import InviteCompanyToDrawing from 'components/companyAdmin/drawings/inviteCompanyToDrawing/presentational/InviteCompanyToDrawing';
 import EditDrawingDocumentContainer from 'components/companyAdmin/drawings/editDrawingDocument/containers/EditDrawingDocumentContainer';
 import EditDrawingOperativeFormContainer from 'components/companyAdmin/drawings/editDrawingOperative/containers/EditDrawingOperativeFormContainer';
@@ -44,7 +44,7 @@ const DrawingsRoutes = ({ match: { url: baseUrl } }) => (
         <Route
             exact
             path={`${baseUrl}/:id/attach-document`}
-            component={AttachDrawingDocumentFormContainer}
+            component={AttachDrawingDocument}
         />
         <Route
             exact

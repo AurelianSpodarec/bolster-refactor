@@ -5,8 +5,6 @@ import { withRouter } from 'react-router-dom';
 import DocumentsTable from 'components/shared/documents/presentational/DocumentsTable';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 
-import { showModal } from 'actions/shared/generic/modals/sync/showModal';
-
 class SiteDocumentsTableContainer extends Component {
     render() {
         const { error, isFetching } = this.props;
@@ -35,7 +33,7 @@ const mapStateToProps = (
 ) => ({
     parent: sitesReducer.sites[match.params.id] || { documentIDs: [] },
     documents: Object.values(documentsReducer.documents),
-    isFetching: documentsReducer.isFetching || sitesReducer.isFetching,
+    isFetching: documentsReducer.isFetching,
     error: documentsReducer.error
 });
 

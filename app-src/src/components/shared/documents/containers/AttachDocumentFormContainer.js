@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 import AttachDocumentForm from '../presentational/AttachDocumentForm';
+import createDocument from 'actions/companyAdmin/documents/async/createDocument';
 
 class AttachDocumentFormContainer extends Component {
     state = {
@@ -41,6 +43,14 @@ class AttachDocumentFormContainer extends Component {
                 backUrl={this.props.backUrl}
             />
         );
+    };
+
+    componentDidUpdate = prevProps => {
+        const { postSuccess, history, hierarchyType, hierarchyID } = this.props;
+
+        if (!prevProps.postSuccess && postSuccess) {
+            history.replace(`/${hierarchyType}s/${hierarchyID}`);
+        }
     };
 
     _getServicesOptions = () => {
@@ -91,7 +101,8 @@ class AttachDocumentFormContainer extends Component {
 
     handleSubmit = e => {
         e.preventDefault();
-        const { handleSubmit } = this.props;
+        const { createDocument, hierarchyType, hierarchyID } = this.props;
+
         const {
             serviceIDs,
             // eslint-disable-next-line no-unused-vars
@@ -102,16 +113,36 @@ class AttachDocumentFormContainer extends Component {
             ...body,
             serviceIDs: serviceIDs
         };
-        handleSubmit(postBody);
+        createDocument(hierarchyType, hierarchyID, postBody);
     };
 }
 
-const mapStateToProps = ({
-    companyAdmin: { servicesReducer, subscriptionsReducer }
-}) => ({
+const mapStateToProps = (
+    {
+        companyAdmin: {
+            servicesReducer,
+            subscriptionsReducer,
+            documentsReducer
+        }
+    },
+    { match }
+) => ({
     isFetching: servicesReducer.isFetching || subscriptionsReducer.isFetching,
     services: Object.values(servicesReducer.services),
-    subscriptions: subscriptionsReducer.subscriptions.serviceIDs || []
+    subscriptions: subscriptionsReducer.subscriptions.serviceIDs || [],
+    hierarchyID: match.params.id,
+    postSuccess: documentsReducer.postSuccess
 });
 
-export default connect(mapStateToProps)(AttachDocumentFormContainer);
+const mapDispatchToProps = dispatch => ({
+    createDocument: (type, id, postBody) => {
+        dispatch(createDocument(type, id, postBody));
+    }
+});
+
+export default withRouter(
+    connect(
+        mapStateToProps,
+        mapDispatchToProps
+    )(AttachDocumentFormContainer)
+);

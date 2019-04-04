@@ -10,7 +10,7 @@ import AttachSiteOperative from 'components/companyAdmin/sites/attachSiteOperati
 import InviteClientToSite from 'components/companyAdmin/sites/inviteClientToSite/presentational/InviteClientToSite';
 
 import InviteCompany from 'components/companyAdmin/sites/inviteCompanyToSite/presentational/InviteCompanyToSite';
-import AttachSiteDocumentContainer from 'components/companyAdmin/sites/attachSiteDocument/containers/AttachSiteDocumentContainer';
+import AttachSiteDocument from 'components/companyAdmin/sites/attachSiteDocument/presentational/AttachSiteDocument';
 import SiteEditContainer from 'components/companyAdmin/sites/singleSite/containers/SiteEditContainer';
 import EditSiteDocumentContainer from 'components/companyAdmin/sites/editSiteDocument/container/EditSiteDocumentContainer';
 
@@ -43,7 +43,7 @@ const SitesRoutes = ({ match: { url: baseUrl } }) => (
         <Route
             exact
             path={`${baseUrl}/:id/attach-document`}
-            component={AttachSiteDocumentContainer}
+            component={AttachSiteDocument}
         />
 
         <Route
