@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import updateSection from 'actions/superAdmin/templateBuilder/sync/updateSection';
+import setSection from 'actions/superAdmin/templateBuilder/sync/setSection';
 import hideModal from 'actions/shared/generic/modals/sync/hideModal';
 
 import TemplateSectionFormModal from '../presentational/TemplateSectionFormModal';
@@ -38,7 +38,7 @@ class EditTemplateSectionModalContainer extends React.Component {
         e.preventDefault();
         const { section } = this.props;
         const { name } = this.state;
-        this.props.updateSection({ ...section, name });
+        this.props.setSection({ ...section, name });
     };
 }
 
@@ -46,8 +46,8 @@ const mapDispatchToProps = dispatch => ({
     hideModal: () => {
         dispatch(hideModal());
     },
-    updateSection: section => {
-        dispatch(updateSection(section));
+    setSection: section => {
+        dispatch(setSection(section));
         dispatch(hideModal());
     }
 });

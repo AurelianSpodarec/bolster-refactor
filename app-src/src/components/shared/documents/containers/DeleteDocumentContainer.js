@@ -35,12 +35,7 @@ class DeleteDocumentContainer extends Component {
     };
 }
 
-const mapStateToProps = ({
-    companyAdmin: { documentsReducer, sitesReducer }
-}) => ({
-    documents: Object.values(documentsReducer.documents),
-    isFetching: documentsReducer.isFetching || sitesReducer.isFetching,
-    error: documentsReducer.error,
+const mapStateToProps = ({ companyAdmin: { documentsReducer } }) => ({
     deletionError: documentsReducer.deletionError
 });
 

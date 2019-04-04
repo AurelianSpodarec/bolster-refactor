@@ -14,9 +14,9 @@ import changeQuestionSection from 'actions/superAdmin/templateBuilder/sync/chang
 import Section from '../presentational/Section';
 
 import showModal from 'actions/shared/generic/modals/sync/showModal';
-import addSection from 'actions/superAdmin/templateBuilder/sync/addSection';
+import setSection from 'actions/superAdmin/templateBuilder/sync/setSection';
 import deleteSection from 'actions/superAdmin/templateBuilder/sync/deleteSection';
-import addQuestion from 'actions/superAdmin/templateBuilder/sync/addQuestion';
+import setQuestion from 'actions/superAdmin/templateBuilder/sync/setQuestion';
 
 class SectionContainer extends Component {
     render() {
@@ -62,7 +62,7 @@ class SectionContainer extends Component {
     };
 
     duplicateSection = e => {
-        const { questions, addSection, addQuestion, section } = this.props;
+        const { questions, setSection, setQuestion, section } = this.props;
 
         e.preventDefault();
         const newUuid = uuid();
@@ -74,14 +74,14 @@ class SectionContainer extends Component {
         };
 
         questions.forEach(question => {
-            addQuestion({
+            setQuestion({
                 ...question,
                 questionType: question.questionType,
                 sectionUuid: newUuid,
                 uuid: uuid()
             });
         });
-        addSection(newSection);
+        setSection(newSection);
     };
 }
 
@@ -127,11 +127,11 @@ const mapDispatchToProps = dispatch => ({
     deleteSection: sectionUuid => {
         dispatch(deleteSection(sectionUuid));
     },
-    addQuestion: question => {
-        dispatch(addQuestion(question));
+    setQuestion: question => {
+        dispatch(setQuestion(question));
     },
-    addSection: newSection => {
-        dispatch(addSection(newSection));
+    setSection: newSection => {
+        dispatch(setSection(newSection));
     },
     showAddQuestModal: sectionUuid => {
         dispatch(showModal(ADD_TEMPLATE_QUESTION, { sectionUuid }));
