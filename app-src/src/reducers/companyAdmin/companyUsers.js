@@ -77,7 +77,6 @@ function errorReducer(state = null, action) {
 }
 
 function companyUsersReducer(state = {}, action) {
-    console.log(action);
     switch (action.type) {
         case FETCH_COMPANY_USERS_SUCCESS:
             return convertArrToObj(action.payload);
