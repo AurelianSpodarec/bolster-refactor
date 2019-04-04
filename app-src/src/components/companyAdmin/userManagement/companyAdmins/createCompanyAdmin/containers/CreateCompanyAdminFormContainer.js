@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
-import createCompanyAdmin from 'actions/companyAdmin/userManagement/async/createCompanyAdmin';
 import CreateCompanyAdminForm from '../presentational/CreateCompanyAdminForm';
 import { COMPANY_USER_ROLE_TYPES } from 'constants/companyAdmin/enums';
+import createCompanyUser from 'actions/companyAdmin/userManagement/async/createCompanyUser';
 
 class CreateCompanyAdminFormContainer extends Component {
     state = {
@@ -46,7 +46,7 @@ class CreateCompanyAdminFormContainer extends Component {
             ...rest,
             type: COMPANY_USER_ROLE_TYPES.ADMIN
         };
-        this.props.createCompanyAdmin(postBody);
+        this.props.createCompanyUser(postBody);
     };
 
     componentDidUpdate = prevProps => {
@@ -68,8 +68,8 @@ const mapStateToProps = ({ companyAdmin: { companyUsersReducer } }) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    createCompanyAdmin: postBody => {
-        dispatch(createCompanyAdmin(postBody));
+    createCompanyUser: postBody => {
+        dispatch(createCompanyUser(postBody));
     }
 });
 
