@@ -13,7 +13,10 @@ import {
     ADD_CLIENT_FAILURE,
     FETCH_CLIENTS_FOR_DRAWING_REQUEST,
     FETCH_CLIENTS_FOR_DRAWING_SUCCESS,
-    FETCH_CLIENTS_FOR_DRAWING_FAILURE
+    FETCH_CLIENTS_FOR_DRAWING_FAILURE,
+    EDIT_CLIENT_FOR_DRAWING_REQUEST,
+    EDIT_CLIENT_FOR_DRAWING_SUCCESS,
+    EDIT_CLIENT_FOR_DRAWING_FAILURE
 } from 'constants/actionTypes/clients';
 
 export default combineReducers({
@@ -42,9 +45,12 @@ function isFetchingReducer(state = false, action) {
 function isPostingReducer(state = false, action) {
     switch (action.type) {
         case ADD_CLIENT_REQUEST:
+        case EDIT_CLIENT_FOR_DRAWING_REQUEST:
             return true;
         case ADD_CLIENT_SUCCESS:
         case ADD_CLIENT_FAILURE:
+        case EDIT_CLIENT_FOR_DRAWING_SUCCESS:
+        case EDIT_CLIENT_FOR_DRAWING_FAILURE:
             return false;
         default:
             return state;
@@ -56,10 +62,12 @@ function errorReducer(state = null, action) {
         case FETCH_CLIENTS_FOR_DRAWING_REQUEST:
         case FETCH_CLIENTS_REQUEST:
         case INVITE_CLIENT_REQUEST:
+        case EDIT_CLIENT_FOR_DRAWING_REQUEST:
             return null;
         case FETCH_CLIENTS_FAILURE:
         case INVITE_CLIENT_FAILURE:
         case FETCH_CLIENTS_FOR_DRAWING_FAILURE:
+        case EDIT_CLIENT_FOR_DRAWING_FAILURE:
             return action.error;
         default:
             return state;
@@ -70,8 +78,11 @@ function postSuccessReducer(state = false, action) {
     switch (action.type) {
         case ADD_CLIENT_FAILURE:
         case ADD_CLIENT_REQUEST:
+        case EDIT_CLIENT_FOR_DRAWING_REQUEST:
+        case EDIT_CLIENT_FOR_DRAWING_FAILURE:
             return false;
         case ADD_CLIENT_SUCCESS:
+        case EDIT_CLIENT_FOR_DRAWING_SUCCESS:
             return true;
         default:
             return state;
@@ -84,6 +95,7 @@ function clientsReducer(state = {}, action) {
         case FETCH_CLIENTS_FOR_DRAWING_SUCCESS:
             return { ...state, ...convertArrToObj(action.payload) };
         case INVITE_CLIENT_SUCCESS:
+        case EDIT_CLIENT_FOR_DRAWING_SUCCESS:
             return updateObj(state, action.payload.id, action.payload);
         default:
             return state;
