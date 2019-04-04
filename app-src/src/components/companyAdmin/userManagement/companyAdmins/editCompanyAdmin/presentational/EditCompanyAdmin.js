@@ -15,7 +15,7 @@ const EditCompanyAdmin = () => (
         />
         <PageHeading title="Edit Company Admin" />
         <BlockContainer>
-            <EditCompanyUserFormContainer />
+            <EditCompanyUserFormContainer type="company-admins" />
         </BlockContainer>
     </>
 );

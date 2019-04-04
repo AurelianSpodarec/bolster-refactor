@@ -19,6 +19,7 @@ class EditCompanyUserFormContainer extends Component {
                 {...this.state}
                 handleInputChange={this.handleInputChange}
                 handleSubmit={this.handleSubmit}
+                type={this.props.type}
             />
         );
     }
@@ -52,7 +53,7 @@ class EditCompanyUserFormContainer extends Component {
     };
 
     componentDidUpdate = prevProps => {
-        const { postSuccess, history, isFetching, user } = this.props;
+        const { postSuccess, history, isFetching, user, type } = this.props;
 
         if (user && !isFetching && prevProps.isFetching)
             this.setState({
@@ -63,7 +64,7 @@ class EditCompanyUserFormContainer extends Component {
             });
 
         if (postSuccess && !prevProps.postSuccess) {
-            history.push('/users-management/operatives');
+            history.push(`/users-management/${type}`);
         }
     };
 }
@@ -83,8 +84,8 @@ const mapStateToProps = (
 });
 
 const mapDispatchToProps = dispatch => ({
-    editCompanyUser: postBody => {
-        dispatch(editCompanyUser(postBody));
+    editCompanyUser: (id, postBody) => {
+        dispatch(editCompanyUser(id, postBody));
     }
 });
 
