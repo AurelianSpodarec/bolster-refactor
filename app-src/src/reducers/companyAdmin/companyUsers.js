@@ -13,7 +13,10 @@ import {
     EDIT_COMPANY_USER_FAILURE,
     DELETE_COMPANY_USER_REQUEST,
     DELETE_COMPANY_USER_SUCCESS,
-    DELETE_COMPANY_USER_FAILURE
+    DELETE_COMPANY_USER_FAILURE,
+    FETCH_SINGLE_COMPANY_USER_REQUEST,
+    FETCH_SINGLE_COMPANY_USER_SUCCESS,
+    FETCH_SINGLE_COMPANY_USER_FAILURE
 } from 'constants/actionTypes/usersManagement';
 
 export default combineReducers({
@@ -21,15 +24,19 @@ export default combineReducers({
     isFetching: isFetchingReducer,
     error: errorReducer,
     isPosting: isPostingReducer,
-    postSuccess: postSuccessReducer
+    postSuccess: postSuccessReducer,
+    updatedCompanyUserID: updatedCompanyUserIDReducer
 });
 
 function isFetchingReducer(state = false, action) {
     switch (action.type) {
         case FETCH_COMPANY_USERS_REQUEST:
+        case FETCH_SINGLE_COMPANY_USER_REQUEST:
             return true;
         case FETCH_COMPANY_USERS_SUCCESS:
         case FETCH_COMPANY_USERS_FAILURE:
+        case FETCH_SINGLE_COMPANY_USER_SUCCESS:
+        case FETCH_SINGLE_COMPANY_USER_FAILURE:
             return false;
         default:
             return state;
@@ -67,12 +74,27 @@ function errorReducer(state = null, action) {
         case EDIT_COMPANY_USER_REQUEST:
         case CREATE_COMPANY_USER_REQUEST:
         case DELETE_COMPANY_USER_REQUEST:
+        case FETCH_SINGLE_COMPANY_USER_REQUEST:
             return null;
         case FETCH_COMPANY_USERS_FAILURE:
         case DELETE_COMPANY_USER_FAILURE:
         case EDIT_COMPANY_USER_FAILURE:
         case CREATE_COMPANY_USER_FAILURE:
+        case FETCH_SINGLE_COMPANY_USER_FAILURE:
             return action.error;
+        default:
+            return state;
+    }
+}
+
+function updatedCompanyUserIDReducer(state = 0, action) {
+    switch (action.type) {
+        case CREATE_COMPANY_USER_REQUEST:
+        case EDIT_COMPANY_USER_REQUEST:
+            return 0;
+        case CREATE_COMPANY_USER_SUCCESS:
+        case EDIT_COMPANY_USER_SUCCESS:
+            return action.payload.id;
         default:
             return state;
     }
@@ -84,6 +106,7 @@ function companyUsersReducer(state = {}, action) {
             return convertArrToObj(action.payload);
         case CREATE_COMPANY_USER_SUCCESS:
         case EDIT_COMPANY_USER_SUCCESS:
+        case FETCH_SINGLE_COMPANY_USER_SUCCESS:
             return updateObj(state, action.payload.id, action.payload);
         case DELETE_COMPANY_USER_SUCCESS:
             return removeObjItem(state, action.id);

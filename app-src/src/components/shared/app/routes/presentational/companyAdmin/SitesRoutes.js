@@ -9,7 +9,7 @@ import ChangeSiteOwnership from 'components/companyAdmin/sites/changeSiteOwnersh
 import AttachSiteOperative from 'components/companyAdmin/sites/attachSiteOperative/presentational/AttachSiteOperative';
 import InviteClientToSite from 'components/companyAdmin/sites/inviteClientToSite/presentational/InviteClientToSite';
 
-import InviteCompany from 'components/companyAdmin/sites/inviteCompanyToSite/presentational/InviteCompanyToSite';
+import InviteCompanyToSiteContainer from 'components/companyAdmin/sites/inviteCompanyToSite/containers/InviteCompanyToSiteContainer';
 import AttachSiteDocument from 'components/companyAdmin/sites/attachSiteDocument/presentational/AttachSiteDocument';
 import SiteEditContainer from 'components/companyAdmin/sites/singleSite/containers/SiteEditContainer';
 import EditSiteDocumentContainer from 'components/companyAdmin/sites/editSiteDocument/container/EditSiteDocumentContainer';
@@ -55,7 +55,7 @@ const SitesRoutes = ({ match: { url: baseUrl } }) => (
         <Route
             exact
             path={`${baseUrl}/:id/invite-company`}
-            component={InviteCompany}
+            component={InviteCompanyToSiteContainer}
         />
     </SwitchWith404>
 );
