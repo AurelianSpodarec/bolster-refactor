@@ -13,7 +13,8 @@ import {
     EDIT_USER,
     DELETE_ENQUIRY,
     DELETION_ERROR,
-    DELETE_DOCUMENT
+    DELETE_DOCUMENT,
+    DELETE_OPERATIVE
 } from 'constants/shared/modalTypes';
 
 import PinPhotoModal from '../presentational/PinPhotoModal';
@@ -28,6 +29,7 @@ import EditUserModalContainer from './EditUserModalContainer';
 import DeleteEnquiryModalContainer from './DeleteEnquiryModalContainer';
 import DeletionErrorModalContainer from './DeletionErrorModalContainer';
 import DeleteDocumentModalContainer from './DeleteDocumentModalContainer';
+import DeleteOperativeModalContainer from './DeleteOperativeModalContainer';
 
 const MODAL_COMPONENTS = {
     [PIN_IMAGE]: PinPhotoModal,
@@ -41,6 +43,7 @@ const MODAL_COMPONENTS = {
     [EDIT_USER]: EditUserModalContainer,
     [DELETE_ENQUIRY]: DeleteEnquiryModalContainer,
     [DELETE_DOCUMENT]: DeleteDocumentModalContainer,
+    [DELETE_OPERATIVE]: DeleteOperativeModalContainer,
     [DELETION_ERROR]: DeletionErrorModalContainer
 };
 

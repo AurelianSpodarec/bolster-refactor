@@ -5,6 +5,7 @@ import { withRouter } from 'react-router-dom';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import addClient from 'actions/companyAdmin/clients/async/addClient';
 import EditClientForm from '../presentational/EditClientForm';
+import fetchClientsForDrawing from 'actions/companyAdmin/clients/async/fetchClientsForDrawing';
 
 class EditClientFormContainer extends Component {
     state = {
@@ -33,12 +34,44 @@ class EditClientFormContainer extends Component {
             </BlockContainer>
         );
     }
+    _setClientDetails = () => {
+        const { client } = this.props;
 
+        this.setState({
+            firstName: client.userFirstName,
+            lastName: client.userLastName,
+            email: client.userEmail,
+            phoneNumber: client.userPhoneNumber,
+            companyName: client.companyName
+            //Need to get service IDs from api
+            // serviceIDs: []
+        });
+    };
     componentDidUpdate = prevProps => {
-        const { success, history, hierarchyType, hierarchyID } = this.props;
+        const {
+            success,
+            history,
+            hierarchyType,
+            hierarchyID,
+            client
+        } = this.props;
+
+        if (!prevProps.client.id && !!client.id) {
+            this._setClientDetails();
+        }
 
         if (!prevProps.success && success) {
             history.replace(`/${hierarchyType}s/${hierarchyID}`);
+        }
+    };
+
+    componentDidMount = () => {
+        const { hierarchyID, fetchClientsForDrawing, client } = this.props;
+
+        fetchClientsForDrawing(hierarchyID);
+
+        if (client.id) {
+            this._setClientDetails();
         }
     };
 
@@ -95,12 +128,17 @@ const mapStateToProps = (
     services: Object.values(servicesReducer.services),
     subscriptions: subscriptionsReducer.subscriptions.serviceIDs || [],
     hierarchyID: match.params.id,
+    client: clientsReducer.clients[match.params.clientID] || {},
+    clientID: match.params.clientID,
     success: clientsReducer.postSuccess
 });
 
 const mapDispatchToProps = dispatch => ({
     addClient: (hierarchyType, hierarchyID, postBody) => {
         dispatch(addClient(hierarchyType, hierarchyID, postBody));
+    },
+    fetchClientsForDrawing: drawingID => {
+        dispatch(fetchClientsForDrawing(drawingID));
     }
 });
 
