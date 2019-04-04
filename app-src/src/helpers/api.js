@@ -23,6 +23,7 @@ export function authenticate() {
     return new Promise((resolve, reject) => {
         const token = localStorage.getItem('token');
 
+        if (!(token && token.length)) reject();
         const decoded = jwtDecode(token);
         const isExpired = decoded.exp < new Date().valueOf() / 1000;
         if (isExpired) reject('Expired token.');
