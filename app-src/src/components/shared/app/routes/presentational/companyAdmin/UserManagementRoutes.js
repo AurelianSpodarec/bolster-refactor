@@ -1,13 +1,13 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 
-import AllCompanyAdminsContainer from 'components/companyAdmin/userManagement/companyAdmins/containers/AllCompanyAdminsContainer';
+import AllCompanyAdminsContainer from 'components/companyAdmin/userManagement/companyAdmins/allCompanyAdmins/containers/AllCompanyAdminsContainer';
 
 import SwitchWith404 from '../SwitchWith404';
-import AllOperativesContainer from 'components/companyAdmin/userManagement/operatives/containers/AllOperativesContainer';
-import CreateOperative from 'components/companyAdmin/userManagement/operatives/presentational/CreateOperative';
-import CreateCompanyAdmin from 'components/companyAdmin/userManagement/companyAdmins/presentational/CreateCompanyAdmin';
-import EditOperative from 'components/companyAdmin/userManagement/operatives/containers/EditOperativeFormContainer';
+import AllOperativesContainer from 'components/companyAdmin/userManagement/operatives/allOperatives/containers/AllOperativesContainer';
+import CreateOperative from 'components/companyAdmin/userManagement/operatives/createOperative/presentational/CreateOperative';
+import CreateCompanyAdmin from 'components/companyAdmin/userManagement/companyAdmins/createCompanyAdmin/presentational/CreateCompanyAdmin';
+import EditOperative from 'components/companyAdmin/userManagement/operatives/editOperative/presentational/EditOperative';
 
 const UserManagementRoutes = ({ match: { url: baseUrl } }) => (
     <SwitchWith404>
