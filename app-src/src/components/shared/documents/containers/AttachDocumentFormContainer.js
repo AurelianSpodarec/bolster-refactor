@@ -91,15 +91,6 @@ class AttachDocumentFormContainer extends Component {
         this.setState({ [name]: value });
     };
 
-    handleMultiselect = ({ target: { name, value } }) => {
-        const checkedValues = this.state[name];
-        const newValues = checkedValues.includes(value)
-            ? checkedValues.filter(val => val !== value)
-            : [...checkedValues, value];
-
-        this.setState({ [name]: newValues });
-    };
-
     handleSubmit = e => {
         e.preventDefault();
         const { handleSubmit } = this.props;
