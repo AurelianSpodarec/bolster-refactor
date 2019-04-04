@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const OperativesList = ({ operatives }) =>
+const OperativesList = ({ operatives, documentID }) =>
     operatives.map(operative => {
         const {
             id,
@@ -17,7 +17,10 @@ const OperativesList = ({ operatives }) =>
                     {email}
                 </td>
                 <td>
-                    <Link to="#" className="button icon-only">
+                    <Link
+                        to={`/drawings/${documentID}/edit-operative/${id}`}
+                        className="button icon-only"
+                    >
                         <i className="far fa-pencil fa-fw" />
                     </Link>
                     <Link to="#" className="button icon-only">

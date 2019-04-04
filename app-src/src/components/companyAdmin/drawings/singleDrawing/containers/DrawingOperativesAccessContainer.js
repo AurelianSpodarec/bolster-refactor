@@ -7,7 +7,6 @@ import BlockContainer from 'components/shared/generic/block/containers/BlockCont
 class DrawingOperativesAccessContainer extends Component {
     render() {
         const { operatives } = this.props;
-        console.log(operatives);
 
         return (
             <BlockContainer>

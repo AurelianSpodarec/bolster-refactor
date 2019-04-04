@@ -11,6 +11,7 @@ import ClientEdit from 'components/shared/clients/presentational/ClientEdit';
 import AttachDrawingDocumentFormContainer from 'components/companyAdmin/drawings/attachDrawingDocument/containers/AttachDrawingDocumentFormContainer';
 import InviteCompanyToDrawing from 'components/companyAdmin/drawings/inviteCompanyToDrawing/presentational/InviteCompanyToDrawing';
 import EditDrawingDocumentContainer from 'components/companyAdmin/drawings/editDrawingDocument/containers/EditDrawingDocumentContainer';
+import EditDrawingOperativeContainer from 'components/companyAdmin/drawings/editDrawingOperative/containers/EditDrawingOperativeContainer';
 
 const DrawingsRoutes = ({ match: { url: baseUrl } }) => (
     <SwitchWith404>
@@ -24,6 +25,11 @@ const DrawingsRoutes = ({ match: { url: baseUrl } }) => (
             exact
             path={`${baseUrl}/:id/add-operative`}
             component={AttachDrawingOperative}
+        />
+        <Route
+            exact
+            path={`${baseUrl}/:id/edit-operative/:operativeID`}
+            component={EditDrawingOperativeContainer}
         />
         <Route
             exact
