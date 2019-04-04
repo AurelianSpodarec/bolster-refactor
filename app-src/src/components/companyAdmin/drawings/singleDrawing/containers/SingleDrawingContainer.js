@@ -29,9 +29,7 @@ class SingleDrawingContainer extends Component {
             fetchPins,
             fetchClientsForDrawing
         } = this.props;
-        console.log(this.props);
         setTabs(Object.values(DRAWING_TABS), DRAWING_TABS.GENERAL_OVERVIEW);
-
         fetchSingleDrawing(drawingID);
         fetchDocuments('drawing', drawingID);
         fetchAllCompanies();
