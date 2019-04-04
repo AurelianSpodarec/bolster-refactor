@@ -1,20 +1,21 @@
 import React from 'react';
 
-import ModalOuter from '../presentational/ModalOuter';
-import Form from '../../form/containers/Form';
-import Field from '../../form/presentational/Field';
-import TextInputContainer from '../../form/containers/TextInputContainer';
-import BlockHeadingWControls from '../../blockHeadingWControls/presentational/BlockHeadingWControls';
-import BlockButtonWrapper from '../../blockButtonWrappers/presentational/BlockButtonWrapper';
+import ModalOuter from '../../../../shared/generic/modals/presentational/ModalOuter';
+import Form from '../../../../shared/generic/form/containers/Form';
+import Field from '../../../../shared/generic/form/presentational/Field';
+import TextInputContainer from '../../../../shared/generic/form/containers/TextInputContainer';
+import BlockHeadingWControls from '../../../../shared/generic/blockHeadingWControls/presentational/BlockHeadingWControls';
+import BlockButtonWrapper from '../../../../shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 
-const AddTemplateModal = ({
+const TemplateformModal = ({
+    action,
     name,
     handleChange,
     handleSubmit,
     handleCancel
 }) => (
     <ModalOuter hideModal={handleCancel}>
-        <BlockHeadingWControls title="Add" />
+        <BlockHeadingWControls title={`${action} template`} />
         <Form className="generic-form" onSubmit={handleSubmit}>
             <div className="size-lg-6">
                 <Field name="name">
@@ -29,7 +30,7 @@ const AddTemplateModal = ({
             <BlockButtonWrapper>
                 <button className="button ">
                     <i className="fa fa-plus" />
-                    Add
+                    Save
                 </button>
                 <button className="button" onClick={handleCancel}>
                     <i className="fa fa-times" /> Cancel
@@ -39,4 +40,4 @@ const AddTemplateModal = ({
     </ModalOuter>
 );
 
-export default AddTemplateModal;
+export default TemplateformModal;

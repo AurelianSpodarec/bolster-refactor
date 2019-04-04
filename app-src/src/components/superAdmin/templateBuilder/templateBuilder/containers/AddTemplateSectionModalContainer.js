@@ -1,18 +1,21 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import uuid from 'uuid/v1';
 
-import updateSection from 'actions/superAdmin/templateBuilder/sync/updateSection';
+import addSection from 'actions/superAdmin/templateBuilder/sync/addSection';
 import hideModal from 'actions/shared/generic/modals/sync/hideModal';
 
-import RenameTemplateSectionModal from '../presentational/RenameTemplateSectionModal';
+import TemplateSectionFormModal from '../presentational/TemplateSectionFormModal';
 
-class RenameTemplateSectionModalContainer extends React.Component {
+class AddTemplateSectionModalContainer extends React.Component {
     state = {
         name: ''
     };
+
     render() {
         return (
-            <RenameTemplateSectionModal
+            <TemplateSectionFormModal
+                action="Add"
                 name={this.state.name}
                 handleChange={this.handleChange}
                 handleSubmit={this.handleSubmit}
@@ -23,11 +26,6 @@ class RenameTemplateSectionModalContainer extends React.Component {
             />
         );
     }
-    componentDidMount = () => {
-        this.setState({
-            name: this.props.section.name
-        });
-    };
 
     handleChange = e => {
         this.setState({ [e.target.name]: e.target.value });
@@ -35,23 +33,29 @@ class RenameTemplateSectionModalContainer extends React.Component {
 
     handleSubmit = e => {
         e.preventDefault();
-        const { section } = this.props;
         const { name } = this.state;
-        this.props.updateSection({ ...section, name });
+        const { sections, templateUuid } = this.props;
+
+        const sort = Math.max(0, ...[...sections].map(s => s.sort)) + 1;
+        this.props.addSection({ name, uuid: uuid(), sort, templateUuid });
     };
 }
+
+const mapStateToProps = ({ superAdmin: { templateSectionsReducer } }) => ({
+    sections: Object.values(templateSectionsReducer.sections)
+});
 
 const mapDispatchToProps = dispatch => ({
     hideModal: () => {
         dispatch(hideModal());
     },
-    updateSection: section => {
-        dispatch(updateSection(section));
+    addSection: newSection => {
+        dispatch(addSection(newSection));
         dispatch(hideModal());
     }
 });
 
 export default connect(
-    null,
+    mapStateToProps,
     mapDispatchToProps
-)(RenameTemplateSectionModalContainer);
+)(AddTemplateSectionModalContainer);

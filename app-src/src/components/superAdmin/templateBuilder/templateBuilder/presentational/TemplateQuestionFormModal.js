@@ -2,12 +2,13 @@ import React from 'react';
 
 import { isObjEmpty } from 'helpers/generic';
 
-import ModalOuterContainer from '../containers/ModalOuterContainer';
+import ModalOuterContainer from '../../../../shared/generic/modals/containers/ModalOuterContainer';
 import Form from 'components/shared/generic/form/containers/Form';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
 import Field from 'components/shared/generic/form/presentational/Field';
-import BlockButtonWrapper from '../../blockButtonWrappers/presentational/BlockButtonWrapper';
+import BlockButtonWrapper from '../../../../shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
+import BlockHeadingWControls from 'components/shared/generic/blockHeadingWControls/presentational/BlockHeadingWControls';
 
 const AddTemplateQuestionFormModal = ({
     questionTypeOptions,
@@ -22,9 +23,11 @@ const AddTemplateQuestionFormModal = ({
     isPrefill,
     handleInputChange,
     hideModal,
-    handleSubmit
+    handleSubmit,
+    action
 }) => (
     <ModalOuterContainer extraClasses="w-form">
+        <BlockHeadingWControls title={`${action} question`} />
         <Form onSubmit={handleSubmit}>
             <Field name="Question type">
                 <DropdownContainer
