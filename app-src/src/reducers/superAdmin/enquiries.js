@@ -17,10 +17,10 @@ import {
 export default combineReducers({
     enquiries: enquiriesReducer,
     isFetching: isFetchingReducer,
-    isPosting: isPostingReducer,
-    postingError: postingErrorReducer,
+    isDeleting: isDeletingReducer,
+    deletionError: deletionErrorReducer,
     fetchingError: fetchingErrorReducer,
-    postSuccess: postSuccessReducer
+    deleteSuccess: deleteSuccessReducer
 });
 
 function isFetchingReducer(state = false, action) {
@@ -37,7 +37,7 @@ function isFetchingReducer(state = false, action) {
             return state;
     }
 }
-function isPostingReducer(state = false, action) {
+function isDeletingReducer(state = false, action) {
     switch (action.type) {
         case DELETE_ENQUIRY_REQUEST:
             return true;
@@ -49,7 +49,7 @@ function isPostingReducer(state = false, action) {
     }
 }
 
-function postSuccessReducer(state = false, action) {
+function deleteSuccessReducer(state = false, action) {
     switch (action.type) {
         case DELETE_ENQUIRY_REQUEST:
             return false;
@@ -73,7 +73,7 @@ function fetchingErrorReducer(state = null, action) {
     }
 }
 
-function postingErrorReducer(state = null, action) {
+function deletionErrorReducer(state = null, action) {
     switch (action.type) {
         case DELETE_ENQUIRY_REQUEST:
             return null;

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
-import { DELETE_ENQUIRY, POSTING_ERROR } from 'constants/shared/modalTypes';
+import { DELETE_ENQUIRY, DELETION_ERROR } from 'constants/shared/modalTypes';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import EnquiryDetails from '../presentational/EnquiryDetails';
@@ -25,9 +25,9 @@ class EnquiryDetailsContainer extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        const { postingError, showModal, postSuccess, history } = this.props;
-        if (postingError && !prevProps.postingError) {
-            showModal(POSTING_ERROR, {
+        const { deletionError, showModal, postSuccess, history } = this.props;
+        if (deletionError && !prevProps.deletionError) {
+            showModal(DELETION_ERROR, {
                 title: 'Deletion Error:',
                 message:
                     'An error occurred while deleting this enquiry, please try again later'
@@ -54,7 +54,7 @@ const mapStateToProps = ({ superAdmin: { enquiriesReducer } }, { match }) => ({
     enquiry: enquiriesReducer.enquiries[match.params.id] || {},
     isFetching: enquiriesReducer.isFetching,
     fetchingError: enquiriesReducer.fetchingError,
-    postingError: enquiriesReducer.postingError,
+    deletionError: enquiriesReducer.deletionError,
     postSuccess: enquiriesReducer.postSuccess
 });
 

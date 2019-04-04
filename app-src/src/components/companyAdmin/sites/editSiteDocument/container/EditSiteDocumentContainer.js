@@ -6,16 +6,18 @@ import EditSiteDocument from '../presentational/EditSiteDocument';
 import editDocument from 'actions/companyAdmin/documents/async/editDocument';
 import fetchDocument from 'actions/companyAdmin/documents/async/fetchDocument';
 
+import { HIERARCHY_IDS } from 'constants/companyAdmin/enums';
+
 class EditSiteDocumentContainer extends Component {
     render() {
-        const { siteID, documentID } = this.props.match.params;
-        const backUrl = `/sites/${siteID}`;
+        const { id, documentID } = this.props.match.params;
+        const backUrl = `/sites/${id}`;
 
         return (
             <EditSiteDocument
                 handleSubmit={this.handleSubmit}
                 backUrl={backUrl}
-                siteID={siteID}
+                siteID={id}
                 documentID={documentID}
             />
         );
@@ -28,16 +30,20 @@ class EditSiteDocumentContainer extends Component {
 
     componentDidUpdate({ postSuccess: prevSuccess }) {
         const { postSuccess, history, match } = this.props;
-        const { siteID } = match.params;
+        const { id } = match.params;
         if (postSuccess && !prevSuccess) {
             // ? what redirect route?
-            history.push(`/sites/${siteID}`);
+            history.push(`/sites/${id}`);
         }
     }
 
     handleSubmit = body => {
-        const { siteID, documentID } = this.props.match.params;
-        const postBody = { ...body, hierarchyType: '1', hierarchyID: siteID };
+        const { id, documentID } = this.props.match.params;
+        const postBody = {
+            ...body,
+            hierarchyType: HIERARCHY_IDS.Site,
+            hierarchyID: id
+        };
         this.props.editDocument(documentID, postBody);
     };
 }

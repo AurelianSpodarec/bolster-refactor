@@ -14,7 +14,7 @@ const ClientsTable = ({ location, clients, isFetching, error }) => (
             noData={!clients.length}
             noDataMessage="There are no clients to display."
         >
-            <ClientsList clients={clients} />
+            <ClientsList location={location} clients={clients} />
         </Table>
 
         <div className="button-container table">

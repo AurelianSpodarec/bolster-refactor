@@ -1,16 +1,19 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const DocumentsList = ({ clients }) =>
+const ClientsList = ({ location, clients }) =>
     clients.map(client => (
-        <tr key={client.id}>
+        <tr key={client.userID}>
             <td className="small-text">
-                {`${client.name} - (${client.company})`}
-                <br />
-                {client.types.join(', ')}
+                {`${client.userFirstName} ${client.userLastName} - (${
+                    client.companyName
+                })`}
             </td>
             <td>
-                <Link to="#" className="button icon-only">
+                <Link
+                    to={`${location.pathname}/client/${client.userID}/edit`}
+                    className="button icon-only"
+                >
                     <i className="far fa-pencil fa-fw" />
                 </Link>
                 <Link to="#" className="button icon-only">
@@ -20,4 +23,4 @@ const DocumentsList = ({ clients }) =>
         </tr>
     ));
 
-export default DocumentsList;
+export default ClientsList;

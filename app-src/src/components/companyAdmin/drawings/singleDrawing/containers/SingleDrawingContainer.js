@@ -8,10 +8,10 @@ import SingleDrawing from '../presentational/SingleDrawing';
 
 import fetchSingleDrawing from 'actions/companyAdmin/drawings/async/fetchSingleDrawing';
 import fetchDocuments from 'actions/companyAdmin/documents/async/fetchDocuments';
-import fetchClients from 'actions/companyAdmin/companies/async/fetchAllCompanies';
 import fetchAllCompanies from 'actions/companyAdmin/companies/async/fetchAllCompanies';
 import fetchOperatives from 'actions/companyAdmin/operatives/async/fetchOperatives';
 import fetchPins from 'actions/companyAdmin/pins/async/fetchPins';
+import fetchClientsForDrawing from 'actions/companyAdmin/clients/async/fetchClientsForDrawing';
 
 class SingleDrawingContainer extends Component {
     render() {
@@ -24,20 +24,20 @@ class SingleDrawingContainer extends Component {
             setTabs,
             fetchSingleDrawing,
             fetchDocuments,
-            fetchClients,
             fetchAllCompanies,
             fetchOperatives,
-            fetchPins
+            fetchPins,
+            fetchClientsForDrawing
         } = this.props;
 
         setTabs(Object.values(DRAWING_TABS), DRAWING_TABS.GENERAL_OVERVIEW);
 
         fetchSingleDrawing(drawingID);
         fetchDocuments('drawing', drawingID);
-        fetchClients();
         fetchAllCompanies();
         fetchOperatives();
         fetchPins();
+        fetchClientsForDrawing(drawingID);
     };
 }
 
@@ -51,8 +51,8 @@ const mapDispatchToProps = dispatch => ({
     fetchDocuments: (HierarchyType, drawingID) => {
         dispatch(fetchDocuments(HierarchyType, drawingID));
     },
-    fetchClients: () => {
-        dispatch(fetchClients());
+    fetchClientsForDrawing: drawingID => {
+        dispatch(fetchClientsForDrawing(drawingID));
     },
     fetchAllCompanies: () => {
         dispatch(fetchAllCompanies());

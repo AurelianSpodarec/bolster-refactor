@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 import ClientsTable from 'components/shared/clients/presentational/ClientsTable';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
@@ -21,9 +22,11 @@ class DrawingClientAccessContainer extends Component {
 }
 
 const mapStateToProps = ({ companyAdmin: { clientsReducer } }) => ({
-    clients: Object.values(clientsReducer.clients),
+    clients: Object.values(clientsReducer.clients) || [],
     isFetching: clientsReducer.isFetching,
     error: clientsReducer.error
 });
 
-export default connect(mapStateToProps)(DrawingClientAccessContainer);
+export default withRouter(
+    connect(mapStateToProps)(DrawingClientAccessContainer)
+);

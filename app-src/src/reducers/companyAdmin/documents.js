@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 
-import { convertArrToObj, updateObj } from 'helpers/generic';
+import { convertArrToObj, updateObj, removeObjItem } from 'helpers/generic';
 import {
     FETCH_DOCUMENTS_REQUEST,
     FETCH_DOCUMENT_REQUEST,
@@ -13,7 +13,10 @@ import {
     CREATE_DOCUMENT_SUCCESS,
     EDIT_DOCUMENT_REQUEST,
     EDIT_DOCUMENT_FAILURE,
-    EDIT_DOCUMENT_SUCCESS
+    EDIT_DOCUMENT_SUCCESS,
+    DELETE_DOCUMENT_REQUEST,
+    DELETE_DOCUMENT_SUCCESS,
+    DELETE_DOCUMENT_FAILURE
 } from 'constants/actionTypes/documents';
 
 export default combineReducers({
@@ -21,7 +24,10 @@ export default combineReducers({
     isFetching: isFetchingReducer,
     postSuccess: postSuccessReducer,
     error: errorReducer,
-    updatedDocumentID: updatedDocumentIDReducer
+    updatedDocumentID: updatedDocumentIDReducer,
+    isDeleting: isDeletingReducer,
+    deletionError: deletionErrorReducer,
+    deleteSuccess: deleteSuccessReducer
 });
 
 function isFetchingReducer(state = false, action) {
@@ -59,6 +65,40 @@ function errorReducer(state = null, action) {
     }
 }
 
+function isDeletingReducer(state = false, action) {
+    switch (action.type) {
+        case DELETE_DOCUMENT_REQUEST:
+            return true;
+        case DELETE_DOCUMENT_SUCCESS:
+        case DELETE_DOCUMENT_FAILURE:
+            return false;
+        default:
+            return state;
+    }
+}
+
+function deletionErrorReducer(state = null, action) {
+    switch (action.type) {
+        case DELETE_DOCUMENT_REQUEST:
+            return null;
+        case DELETE_DOCUMENT_FAILURE:
+            return action.error;
+        default:
+            return state;
+    }
+}
+
+function deleteSuccessReducer(state = false, action) {
+    switch (action.type) {
+        case DELETE_DOCUMENT_REQUEST:
+            return false;
+        case DELETE_DOCUMENT_SUCCESS:
+            return true;
+        default:
+            return state;
+    }
+}
+
 function documentsReducer(state = {}, action) {
     switch (action.type) {
         case FETCH_DOCUMENTS_SUCCESS:
@@ -68,6 +108,8 @@ function documentsReducer(state = {}, action) {
         case CREATE_DOCUMENT_SUCCESS:
         case EDIT_DOCUMENT_SUCCESS:
             return updateObj(state, action.payload.id, action.payload);
+        case DELETE_DOCUMENT_SUCCESS:
+            return removeObjItem(state, action.id);
         default:
             return state;
     }
