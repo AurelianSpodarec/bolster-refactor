@@ -3,7 +3,7 @@ import React from 'react';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
 import Breadcrumb from 'components/shared/generic/breadcrumb/presentational/Breadcrumb';
-import EditOperativeFormContainer from '../../createOperative/containers/CreateOperativeFormContainer';
+import EditCompanyUserFormContainer from 'components/companyAdmin/userManagement/shared/editCompanyUser/containers/EditCompanyUserFormContainer';
 
 const EditOperative = () => (
     <>
@@ -15,7 +15,7 @@ const EditOperative = () => (
         />
         <PageHeading title="Edit Operative" />
         <BlockContainer>
-            <EditOperativeFormContainer />
+            <EditCompanyUserFormContainer />
         </BlockContainer>
     </>
 );
