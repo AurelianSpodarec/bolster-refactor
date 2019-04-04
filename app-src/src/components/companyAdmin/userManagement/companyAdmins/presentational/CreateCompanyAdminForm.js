@@ -7,20 +7,21 @@ import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/pr
 const CreateCompanyAdminForm = ({
     handleSubmit,
     handleInputChange,
-    name,
-    addressLine1,
-    addressLine2,
-    postcode,
+    firstName,
+    lastName,
+    email,
+    phoneNumber,
     password,
-    confirmPassword
+    confirmPassword,
+    validateConfirmPassword
 }) => (
     <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
         <div className="size-lg-12">
             <div className="size-lg-6">
-                <Field name="Building name">
+                <Field name="First name">
                     <TextInputContainer
-                        name="name"
-                        value={name}
+                        name="firstName"
+                        value={firstName}
                         handleChange={handleInputChange}
                         required
                     />
@@ -28,10 +29,10 @@ const CreateCompanyAdminForm = ({
             </div>
 
             <div className="size-lg-6">
-                <Field name="Address Line 1">
+                <Field name="Last name">
                     <TextInputContainer
-                        value={addressLine1}
-                        name="addressLine1"
+                        value={lastName}
+                        name="lastName"
                         handleChange={handleInputChange}
                         required
                     />
@@ -41,20 +42,20 @@ const CreateCompanyAdminForm = ({
 
         <div className="size-lg-12">
             <div className="size-lg-6">
-                <Field name="Address Line 2">
+                <Field name="E-mail address">
                     <TextInputContainer
-                        value={addressLine2}
-                        name="addressLine2"
+                        value={email}
+                        name="email"
                         handleChange={handleInputChange}
                     />
                 </Field>
             </div>
 
             <div className="size-lg-6">
-                <Field name="Postcode">
+                <Field name="Phone number">
                     <TextInputContainer
-                        value={postcode}
-                        name="postcode"
+                        value={phoneNumber}
+                        name="phoneNumber"
                         handleChange={handleInputChange}
                         required
                     />
@@ -66,6 +67,7 @@ const CreateCompanyAdminForm = ({
                     <TextInputContainer
                         value={password}
                         name="password"
+                        type="password"
                         handleChange={handleInputChange}
                         required
                     />
@@ -77,7 +79,9 @@ const CreateCompanyAdminForm = ({
                     <TextInputContainer
                         value={confirmPassword}
                         name="confirmPassword"
+                        type="password"
                         handleChange={handleInputChange}
+                        validate={validateConfirmPassword}
                         required
                     />
                 </Field>

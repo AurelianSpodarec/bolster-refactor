@@ -27,7 +27,7 @@ export default postBody => dispatch => {
     dispatch(createCompanyAdminRequest());
 
     return axios
-        .post(`${API_URL}/sites`, postBody, getHeaders())
+        .post(`${API_URL}/users`, postBody, getHeaders())
         .then(result => dispatch(createCompanyAdminSuccess(result.data)))
         .catch(error => {
             dispatch(createCompanyAdminFailure(error));

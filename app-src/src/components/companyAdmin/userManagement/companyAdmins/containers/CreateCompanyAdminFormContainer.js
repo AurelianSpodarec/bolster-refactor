@@ -11,9 +11,9 @@ class CreateCompanyAdminFormContainer extends Component {
         firstName: '',
         lastName: '',
         email: '',
-        postcode: '',
         phoneNumber: '',
-        password: ''
+        password: '',
+        confirmPassword: ''
     };
 
     render() {
@@ -22,6 +22,7 @@ class CreateCompanyAdminFormContainer extends Component {
                 {...this.state}
                 handleInputChange={this.handleInputChange}
                 handleSubmit={this.handleSubmit}
+                validateConfirmPassword={this.validateConfirmPassword}
             />
         );
     }
@@ -38,22 +39,11 @@ class CreateCompanyAdminFormContainer extends Component {
     handleSubmit = e => {
         e.preventDefault();
 
-        const {
-            firstName,
-            lastName,
-            email,
-            postcode,
-            phoneNumber,
-            password
-        } = this.state;
+        // eslint-disable-next-line no-unused-vars
+        const { confirmPassword, ...rest } = this.state;
 
         const postBody = {
-            firstName: firstName,
-            lastName: lastName,
-            email: email,
-            postcode: postcode,
-            phoneNumber: phoneNumber,
-            password: password,
+            ...rest,
             type: COMPANY_USER_ROLE_TYPES.ADMIN
         };
         this.props.createCompanyAdmin(postBody);
@@ -66,6 +56,11 @@ class CreateCompanyAdminFormContainer extends Component {
             history.push('/users-management/company-admins');
         }
     };
+
+    validateConfirmPassword = confirmPassword =>
+        this.state.password !== confirmPassword
+            ? 'Passwords do not match'
+            : null;
 }
 const mapStateToProps = ({ companyAdmin: { companyUsersReducer } }) => ({
     postSuccess: companyUsersReducer.postSuccess,
