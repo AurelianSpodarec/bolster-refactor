@@ -5,7 +5,7 @@ import PageHeading from 'components/shared/generic/pageHeading/presentational/Pa
 import Breadcrumb from 'components/shared/generic/breadcrumb/presentational/Breadcrumb';
 import EditCompanyUserFormContainer from 'components/companyAdmin/userManagement/shared/editCompanyUser/containers/EditCompanyUserFormContainer';
 
-const EditOperative = ({ handleSubmit, userID }) => (
+const EditOperative = () => (
     <>
         <Breadcrumb
             breadcrumbs={[
@@ -15,11 +15,7 @@ const EditOperative = ({ handleSubmit, userID }) => (
         />
         <PageHeading title="Edit Operative" />
         <BlockContainer>
-            <EditCompanyUserFormContainer
-                handleSubmit={handleSubmit}
-                userID={userID}
-                type="operatives"
-            />
+            <EditCompanyUserFormContainer type="operatives" />
         </BlockContainer>
     </>
 );

@@ -6,8 +6,7 @@ import EditOperative from '../presentational/EditOperative';
 
 class EditOperativeFormContainer extends Component {
     render() {
-        const { id } = this.props;
-        return <EditOperative handleSubmit={this.handleSubmit} userID={id} />;
+        return <EditOperative />;
     }
 
     componentDidMount() {
