@@ -1,12 +1,12 @@
 import React from 'react';
 
-import Block from 'components/shared/generic/block/presentational/Block';
 import Table from 'components/shared/generic/tables/presentational/Table';
 import SitesList from './SitesList';
+import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 
 const SitesTable = ({ headers, sites, isFetching, error }) => {
     return (
-        <Block>
+        <BlockContainer>
             <Table
                 withActions
                 headers={headers}
@@ -17,7 +17,7 @@ const SitesTable = ({ headers, sites, isFetching, error }) => {
             >
                 <SitesList colCount={headers.length} sites={sites} />
             </Table>
-        </Block>
+        </BlockContainer>
     );
 };
 

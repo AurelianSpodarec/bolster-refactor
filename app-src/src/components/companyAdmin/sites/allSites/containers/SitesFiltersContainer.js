@@ -4,14 +4,16 @@ import { connect } from 'react-redux';
 import updateSitesFilters from 'actions/companyAdmin/sites/sync/updateSitesFilters';
 
 import SitesFilters from '../presentational/SitesFilters';
+import { ACCESS_TYPES } from 'constants/companyAdmin/enums';
+import { convertArrToObj } from 'helpers/generic';
 
+const statusOptions = Object.keys(ACCESS_TYPES).map(key => ({
+    value: key,
+    text: ACCESS_TYPES[key]
+}));
 class SitesFiltersContainer extends Component {
     state = {
-        statusOptions: {
-            active: { value: 'active', text: 'Active' },
-            'read only': { value: 'read only', text: 'Read only' },
-            archived: { value: 'archived', text: 'Archived' }
-        }
+        statusOptions: convertArrToObj(statusOptions, 'value')
     };
 
     render() {

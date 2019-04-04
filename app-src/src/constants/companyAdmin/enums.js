@@ -1,3 +1,5 @@
+import sites from 'reducers/companyAdmin/sites';
+
 export const ROLE_TYPES = {
     '0': 'Owner',
     '1': 'Admin',
@@ -42,10 +44,10 @@ export const MESSAGE_TYPES = {
 };
 
 export const ACCESS_TYPES = {
-    READONLY: 1,
-    VIEWONLY: 10,
-    WRITE: 50,
-    OWNER: 100
+    1: 'Read only',
+    10: 'View only',
+    50: 'Write',
+    100: 'Owner'
 };
 
 export const PERMISSION_STATES = {
