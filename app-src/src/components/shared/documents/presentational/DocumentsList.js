@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const DocumentsList = ({ documents, location }) =>
+const DocumentsList = ({ documents, location, handleShowModal }) =>
     documents.map(document => (
         <tr key={document.id}>
             <td>
@@ -14,9 +14,12 @@ const DocumentsList = ({ documents, location }) =>
                 >
                     <i className="far fa-pencil fa-fw" />
                 </Link>
-                <Link to="#" className="button icon-only">
+                <button
+                    onClick={() => handleShowModal(document)}
+                    className="button icon-only"
+                >
                     <i className="far fa-trash-alt fa-fw" />
-                </Link>
+                </button>
             </td>
         </tr>
     ));
