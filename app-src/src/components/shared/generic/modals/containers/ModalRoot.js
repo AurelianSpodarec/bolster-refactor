@@ -12,7 +12,8 @@ import {
     EDIT_USER_PASSWORD,
     EDIT_USER,
     DELETE_ENQUIRY,
-    POSTING_ERROR
+    DELETION_ERROR,
+    DELETE_DOCUMENT
 } from 'constants/shared/modalTypes';
 
 import PinPhotoModal from '../presentational/PinPhotoModal';
@@ -25,7 +26,8 @@ import EditServiceModalContainer from './EditServiceModalContainer';
 import EditUserPasswordModalContainer from './EditUserPasswordModalContainer';
 import EditUserModalContainer from './EditUserModalContainer';
 import DeleteEnquiryModalContainer from './DeleteEnquiryModalContainer';
-import PostingErrorModalContainer from './PostingErrorModalContainer';
+import DeletionErrorModalContainer from './DeletionErrorModalContainer';
+import DeleteDocumentModalContainer from './DeleteDocumentModalContainer';
 
 const MODAL_COMPONENTS = {
     [PIN_IMAGE]: PinPhotoModal,
@@ -38,7 +40,8 @@ const MODAL_COMPONENTS = {
     [EDIT_USER_PASSWORD]: EditUserPasswordModalContainer,
     [EDIT_USER]: EditUserModalContainer,
     [DELETE_ENQUIRY]: DeleteEnquiryModalContainer,
-    [POSTING_ERROR]: PostingErrorModalContainer
+    [DELETE_DOCUMENT]: DeleteDocumentModalContainer,
+    [DELETION_ERROR]: DeletionErrorModalContainer
 };
 
 const ModalRoot = ({ modalType, modalProps }) => {

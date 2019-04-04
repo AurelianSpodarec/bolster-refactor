@@ -4,7 +4,12 @@ import { withRouter, Link } from 'react-router-dom';
 import Table from 'components/shared/generic/tables/presentational/Table';
 import DocumentsList from './DocumentsList';
 
-const DocumentsTable = ({ location, documents, isFetching }) => {
+const DocumentsTable = ({
+    location,
+    documents,
+    isFetching,
+    handleShowModal
+}) => {
     return (
         <div className="size-lg-12">
             <h3 className="heading heading-3">Documents</h3>
@@ -15,7 +20,11 @@ const DocumentsTable = ({ location, documents, isFetching }) => {
                 noDataMessage="There are no documents to display."
                 withActions
             >
-                <DocumentsList location={location} documents={documents} />
+                <DocumentsList
+                    location={location}
+                    documents={documents}
+                    handleShowModal={handleShowModal}
+                />
             </Table>
             <div className="button-container table">
                 <Link
