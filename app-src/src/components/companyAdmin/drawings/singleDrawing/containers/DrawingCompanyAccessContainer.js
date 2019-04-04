@@ -1,37 +1,11 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
 
-import CompaniesAccessTable from 'components/shared/companies/presentational/CompaniesAccessTable';
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import CompaniesAccessContainer from 'components/shared/companies/containers/CompaniesAccessContainer';
 
-class DrawingCompanyAccessContainer extends Component {
+class DrawingCompaniesAccessTableContainer extends Component {
     render() {
-        const { props } = this;
-
-        return (
-            <BlockContainer>
-                <CompaniesAccessTable
-                    companies={props.drawing.permissions}
-                    parentId={props.drawing.id}
-                    isEmpty={!props.drawing.id}
-                    isFetching={props.isFetching}
-                    error={props.error}
-                />
-            </BlockContainer>
-        );
+        return <CompaniesAccessContainer hierarchyType="drawing" />;
     }
 }
 
-const mapStateToProps = (
-    { companyAdmin: { drawingsReducer, companiesReducer } },
-    { match }
-) => ({
-    drawing: drawingsReducer.drawings[match.params.id] || {},
-    isFetching: companiesReducer.isFetching,
-    error: companiesReducer.error
-});
-
-export default withRouter(
-    connect(mapStateToProps)(DrawingCompanyAccessContainer)
-);
+export default DrawingCompaniesAccessTableContainer;
