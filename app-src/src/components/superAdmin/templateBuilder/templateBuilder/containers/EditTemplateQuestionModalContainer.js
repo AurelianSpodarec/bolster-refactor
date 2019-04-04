@@ -7,7 +7,7 @@ import {
 } from 'constants/superAdmin/templateBuilder';
 import { convertArrToObj } from 'helpers/generic';
 import hideModal from 'actions/shared/generic/modals/sync/hideModal';
-import editQuestion from 'actions/superAdmin/templateBuilder/sync/editQuestion';
+import setQuestion from 'actions/superAdmin/templateBuilder/sync/setQuestion';
 
 import TemplateQuestionFormModal from '../../../../superAdmin/templateBuilder/templateBuilder/presentational/TemplateQuestionFormModal';
 
@@ -83,7 +83,7 @@ class AddTemplateQuestionModalContainer extends Component {
 
     handleSubmit = e => {
         e.preventDefault();
-        const { editQuestion, question } = this.props;
+        const { setQuestion, question } = this.props;
         const {
             name,
             isRequired,
@@ -106,7 +106,7 @@ class AddTemplateQuestionModalContainer extends Component {
             sort: this._getSort()
         };
 
-        editQuestion(newSection);
+        setQuestion(newSection);
     };
 
     _getSort = () => {
@@ -130,8 +130,8 @@ const mapDispatchToProps = dispatch => ({
     hideModal: () => {
         dispatch(hideModal());
     },
-    editQuestion: newQuestion => {
-        dispatch(editQuestion(newQuestion));
+    setQuestion: newQuestion => {
+        dispatch(setQuestion(newQuestion));
         dispatch(hideModal());
     }
 });

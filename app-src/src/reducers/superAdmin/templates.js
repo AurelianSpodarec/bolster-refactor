@@ -15,13 +15,23 @@ const defaultTemplates = {
 };
 
 export default combineReducers({
-    templates: templatesReducer
+    templates: templatesReducer,
+    requiresSave: requiresSaveReducer
 });
 
 function templatesReducer(state = defaultTemplates, action) {
     switch (action.type) {
         case SET_TEMPLATE:
             return updateObj(state, action.template.uuid, action.template);
+        default:
+            return state;
+    }
+}
+
+function requiresSaveReducer(state = false, action) {
+    switch (action.type) {
+        case SET_TEMPLATE:
+            return true;
         default:
             return state;
     }

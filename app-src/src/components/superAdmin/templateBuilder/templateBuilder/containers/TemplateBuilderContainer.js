@@ -11,13 +11,13 @@ class TemplateBuilderContainer extends Component {
         isBlocking: false
     };
     render() {
-        const { showAddSectionModal, uuid } = this.props;
+        const { showsetSectionModal, uuid } = this.props;
         const { isBlocking } = this.state;
         return (
             <>
                 <Prompt when={isBlocking} message={() => 'are you sure?'} />
                 <TemplateBuilder
-                    showAddSectionModal={() => showAddSectionModal(uuid)}
+                    showsetSectionModal={() => showsetSectionModal(uuid)}
                 />
             </>
         );
@@ -43,7 +43,7 @@ class TemplateBuilderContainer extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-    showAddSectionModal: templateUuid => {
+    showsetSectionModal: templateUuid => {
         dispatch(showModal(ADD_TEMPLATE_SECTION, { templateUuid }));
     }
 });
