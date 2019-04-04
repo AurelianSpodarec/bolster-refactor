@@ -53,7 +53,7 @@ class EditCompanyUserFormContainer extends Component {
     };
 
     componentDidUpdate = prevProps => {
-        const { postSuccess, history, isFetching, user } = this.props;
+        const { postSuccess, history, isFetching, user, type } = this.props;
 
         if (user && !isFetching && prevProps.isFetching)
             this.setState({
@@ -64,7 +64,7 @@ class EditCompanyUserFormContainer extends Component {
             });
 
         if (postSuccess && !prevProps.postSuccess) {
-            history.push('/users-management/operatives');
+            history.push(`/users-management/${type}`);
         }
     };
 }

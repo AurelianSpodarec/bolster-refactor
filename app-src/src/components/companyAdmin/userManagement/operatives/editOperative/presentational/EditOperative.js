@@ -15,7 +15,7 @@ const EditOperative = () => (
         />
         <PageHeading title="Edit Operative" />
         <BlockContainer>
-            <EditCompanyUserFormContainer type="operative" />
+            <EditCompanyUserFormContainer type="operatives" />
         </BlockContainer>
     </>
 );
