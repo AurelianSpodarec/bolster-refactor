@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import fetchOperativesForDrawing from 'actions/companyAdmin/operatives/async/fetchOperativesForDrawing';
-import Loading from 'components/shared/generic/misc/presentational/Loading';
 import EditDrawingOperativeForm from '../presentational/EditDrawingOperativeForm';
 import fetchAllServices from 'actions/companyAdmin/services/async/fetchAllServices';
 import editDrawingOperative from 'actions/companyAdmin/operatives/async/editDrawingOperative';
@@ -16,7 +15,8 @@ class EditDrawingOperativeFormContainer extends Component {
     render() {
         const { match, operative, isFetching } = this.props;
         const { services, serviceIDs } = this.state;
-        const { id: documentID, operativeID } = match;
+        const { id: drawingID, operativeID } = match;
+        const backUrl = `/drawings/${drawingID}/edit-operative/${operativeID}`;
         return (
             <EditDrawingOperativeForm
                 operative={operative}
@@ -25,6 +25,7 @@ class EditDrawingOperativeFormContainer extends Component {
                 services={services}
                 serviceIDs={serviceIDs}
                 isFetching={isFetching}
+                backUrl={backUrl}
             />
         );
     }
@@ -35,8 +36,8 @@ class EditDrawingOperativeFormContainer extends Component {
             services,
             isFetching
         } = this.props;
-        const { id: documentID } = match.params;
-        fetchOperativesForDrawing(documentID);
+        const { id: drawingID } = match.params;
+        fetchOperativesForDrawing(drawingID);
         if (services && !isFetching)
             this.setState({ services: this.getServicesForState(services) });
     }
@@ -58,8 +59,12 @@ class EditDrawingOperativeFormContainer extends Component {
             return acc;
         }, []);
 
-    handleSubmit = () => {
-        const { editDrawingOperative } = this.props;
+    handleSubmit = e => {
+        e.preventDefault();
+        const { serviceIDs } = this.state;
+        const { editDrawingOperative, match } = this.props;
+        const { operativeID } = match.params;
+        editDrawingOperative(operativeID, { serviceIDs });
     };
 
     handleMultiselect = ({ target: { name, value } }) => {
@@ -95,8 +100,8 @@ const mapDispatchToProps = dispatch => ({
     fetchAllServices: () => {
         dispatch(fetchAllServices);
     },
-    editDrawingOperative: id => {
-        dispatch(editDrawingOperative(id));
+    editDrawingOperative: (id, body) => {
+        dispatch(editDrawingOperative(id, body));
     }
 });
 

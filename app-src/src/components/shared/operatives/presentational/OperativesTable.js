@@ -9,6 +9,7 @@ const OperativesTable = ({
     operatives,
     isFetching,
     error,
+    handleShowModal,
     match
 }) => {
     const tableHeaders = ['Name', 'Actions'];
@@ -26,7 +27,11 @@ const OperativesTable = ({
                 noDataMessage="There are no operatives to display."
                 withActions
             >
-                <OperativesList documentID={id} operatives={operatives} />
+                <OperativesList
+                    operatives={operatives}
+                    handleShowModal={handleShowModal}
+                    documentID={id}
+                />
             </Table>
             <div className="button-container table">
                 <Link

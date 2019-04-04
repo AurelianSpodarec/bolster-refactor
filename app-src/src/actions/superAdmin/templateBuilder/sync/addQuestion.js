@@ -1,4 +1,4 @@
-import { ADD_QUESTION } from 'constants/actionTypes//templateBuilder';
+import { ADD_QUESTION } from 'constants/actionTypes/templateBuilder';
 
 export default question => dispatch =>
     dispatch({

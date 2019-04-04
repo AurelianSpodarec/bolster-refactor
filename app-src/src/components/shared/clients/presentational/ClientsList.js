@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 const ClientsList = ({ location, clients }) =>
     clients.map(client => (
-        <tr key={client.userID}>
+        <tr key={`${client.id} ${client.userFirstName}`}>
             <td className="small-text">
                 {`${client.userFirstName} ${client.userLastName} - (${
                     client.companyName
@@ -11,7 +11,7 @@ const ClientsList = ({ location, clients }) =>
             </td>
             <td>
                 <Link
-                    to={`${location.pathname}/client/${client.userID}/edit`}
+                    to={`${location.pathname}/client/${client.id}/edit`}
                     className="button icon-only"
                 >
                     <i className="far fa-pencil fa-fw" />

@@ -25,10 +25,15 @@ export const editDrawingOperativeFailure = error => ({
 });
 
 export default (operativeID, postBody) => dispatch => {
+    console.log(operativeID, postBody);
     dispatch(editDrawingOperativeRequest());
 
     axios
-        .post(`${API_URL}/operatives/${operativeID}`, postBody, getHeaders())
+        .post(
+            `${API_URL}/permissions/operative/${operativeID}`,
+            postBody,
+            getHeaders()
+        )
         .then(result => dispatch(editDrawingOperativeSuccess(result.data)))
         .catch(error => {
             dispatch(editDrawingOperativeFailure(error));

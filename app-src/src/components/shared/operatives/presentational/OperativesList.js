@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const OperativesList = ({ operatives, documentID }) =>
+const OperativesList = ({ operatives, documentID, handleShowModal }) =>
     operatives.map(operative => {
         const {
             id,
@@ -23,9 +23,13 @@ const OperativesList = ({ operatives, documentID }) =>
                     >
                         <i className="far fa-pencil fa-fw" />
                     </Link>
-                    <Link to="#" className="button icon-only">
+                    <button
+                        onClick={() => handleShowModal(operative)}
+                        to="#"
+                        className="button icon-only"
+                    >
                         <i className="far fa-trash-alt fa-fw" />
-                    </Link>
+                    </button>
                 </td>
             </tr>
         );

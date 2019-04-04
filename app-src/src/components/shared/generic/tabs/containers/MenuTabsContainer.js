@@ -8,14 +8,14 @@ import Tabs from '../presentational/Tabs';
 
 class MenuTabsContainer extends Component {
     render() {
-        const { dispatch, menuTabs, selectedMenuTab } = this.props;
+        const { menuTabs, selectedMenuTab } = this.props;
         return (
             <Tabs
                 tabs={menuTabs}
                 selectedTab={selectedMenuTab}
                 selectTab={(e, tab) => {
                     e.preventDefault();
-                    dispatch(selectMenuTab(tab));
+                    this.props.selectMenuTab(tab);
                 }}
             />
         );
