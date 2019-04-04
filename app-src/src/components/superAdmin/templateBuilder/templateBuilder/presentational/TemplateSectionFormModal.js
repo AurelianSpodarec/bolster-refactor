@@ -1,13 +1,13 @@
 import React from 'react';
 
-import ModalOuterContainer from '../containers/ModalOuterContainer';
-import Form from '../../form/containers/Form';
-import Field from '../../form/presentational/Field';
-import TextInputContainer from '../../form/containers/TextInputContainer';
-import BlockHeadingWControls from '../../blockHeadingWControls/presentational/BlockHeadingWControls';
-import BlockButtonWrapper from '../../blockButtonWrappers/presentational/BlockButtonWrapper';
+import ModalOuterContainer from '../../../../shared/generic/modals/containers/ModalOuterContainer';
+import Form from '../../../../shared/generic/form/containers/Form';
+import Field from '../../../../shared/generic/form/presentational/Field';
+import TextInputContainer from '../../../../shared/generic/form/containers/TextInputContainer';
+import BlockHeadingWControls from '../../../../shared/generic/blockHeadingWControls/presentational/BlockHeadingWControls';
+import BlockButtonWrapper from '../../../../shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 
-const AddTemplateSectionModal = ({
+const TemplateSectionFormModal = ({
     name,
     handleChange,
     handleSubmit,
@@ -39,4 +39,4 @@ const AddTemplateSectionModal = ({
     </ModalOuterContainer>
 );
 
-export default AddTemplateSectionModal;
+export default TemplateSectionFormModal;

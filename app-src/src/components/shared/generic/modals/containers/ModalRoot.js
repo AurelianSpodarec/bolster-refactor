@@ -17,11 +17,11 @@ import {
 } from 'constants/shared/modalTypes';
 
 import PinPhotoModal from '../presentational/PinPhotoModal';
-import AddTemplateModalContainer from './AddTemplateModalContainer';
-import AddTemplateSectionModalContainer from './AddTemplateSectionModalContainer';
-import AddTemplateQuestionModalContainer from './AddTemplateQuestionModalContainer';
-import EditTemplateQuestionModalContainer from './EditTemplateQuestionModalContainer';
-import RenameTemplateSectionModalContainer from './RenameTemplateSectionModalContainer';
+import AddTemplateModalContainer from 'components/superAdmin/templateBuilder/templateBuilder/containers/AddTemplateModalContainer';
+import AddTemplateSectionModalContainer from 'components/superAdmin/templateBuilder/templateBuilder/containers/AddTemplateSectionModalContainer';
+import AddTemplateQuestionModalContainer from 'components/superAdmin/templateBuilder/templateBuilder/containers/AddTemplateQuestionModalContainer';
+import EditTemplateQuestionModalContainer from 'components/superAdmin/templateBuilder/templateBuilder/containers/EditTemplateQuestionModalContainer';
+import RenameTemplateSectionModalContainer from 'components/superAdmin/templateBuilder/templateBuilder/containers/RenameTemplateSectionModalContainer';
 import EditServiceModalContainer from './EditServiceModalContainer';
 import EditUserPasswordModalContainer from './EditUserPasswordModalContainer';
 import EditUserModalContainer from './EditUserModalContainer';

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import uuid from 'uuid/v1';
 
 import {
     QUESTION_TYPES,
@@ -7,7 +8,7 @@ import {
 } from 'constants/superAdmin/templateBuilder';
 import { convertArrToObj } from 'helpers/generic';
 import hideModal from 'actions/shared/generic/modals/sync/hideModal';
-import editQuestion from 'actions/superAdmin/templateBuilder/sync/editQuestion';
+import addQuestion from 'actions/superAdmin/templateBuilder/sync/addQuestion';
 
 import TemplateQuestionFormModal from '../presentational/TemplateQuestionFormModal';
 
@@ -41,48 +42,35 @@ class AddTemplateQuestionModalContainer extends Component {
 
         return (
             <TemplateQuestionFormModal
+                {...otherFields}
                 questionTypeOptions={Object.values(questionTypeOptions)}
                 questionType={questionTypeOptions[questionType]}
                 prereqOptions={Object.values(prereqOptions)}
                 selectedPrereq={prereqOptions[prereqUuid]}
-                {...otherFields}
                 handleInputChange={this.handleInputChange}
                 handlePrefieldChange={this.handlePrefieldChange}
-                hideModal={e => {
-                    e.preventDefault();
-                    this.props.hideModal();
-                }}
+                hideModal={this.hideModel}
                 handleSubmit={this.handleSubmit}
             />
         );
     }
 
     componentDidMount = () => {
-        const { question } = this.props;
-        this.setState({ ...question, prereqOptions: this._getPrereqOptions() });
-    };
-
-    _getPrereqOptions = () => {
-        const { questions, uuid } = this.props;
-        const options = questions
-            .filter(({ questionType }) => PREREQ_TYPES.includes(questionType))
-            .filter(question => question.uuid !== uuid)
-            .filter(question => question.prereqUuid !== uuid)
-            .map(question => ({
-                value: question.uuid,
-                text: question.name
-            }));
-
-        return convertArrToObj(options, 'value');
+        this.setState({ prereqOptions: this._getPrereqOptions() });
     };
 
     handleInputChange = ({ target: { type, value, name, checked } }) => {
         this.setState({ [name]: type === 'checkbox' ? checked : value });
     };
 
+    hideModel = e => {
+        e.preventDefault();
+        this.props.hideModal();
+    };
+
     handleSubmit = e => {
         e.preventDefault();
-        const { editQuestion, question } = this.props;
+        const { addQuestion, sectionUuid } = this.props;
         const {
             name,
             isRequired,
@@ -94,18 +82,30 @@ class AddTemplateQuestionModalContainer extends Component {
         } = this.state;
 
         const newSection = {
-            ...question,
             name,
             isRequired,
             isHidden,
             isPrefill,
             questionType: questionType,
+            sectionUuid,
+            uuid: uuid(),
             prereqUuid,
             prereqVal,
             sort: this._getSort()
         };
 
-        editQuestion(newSection);
+        addQuestion(newSection);
+    };
+
+    _getPrereqOptions = () => {
+        const options = this.props.questions
+            .filter(({ questionType }) => PREREQ_TYPES.includes(questionType))
+            .map(({ uuid, name }) => ({
+                value: uuid,
+                text: name
+            }));
+
+        return convertArrToObj(options, 'value');
     };
 
     _getSort = () => {
@@ -117,20 +117,16 @@ class AddTemplateQuestionModalContainer extends Component {
     };
 }
 
-const mapStateToProps = (
-    { superAdmin: { templateQuestionsReducer } },
-    { uuid }
-) => ({
-    questions: Object.values(templateQuestionsReducer.questions),
-    question: templateQuestionsReducer.questions[uuid]
+const mapStateToProps = ({ superAdmin: { templateQuestionsReducer } }) => ({
+    questions: Object.values(templateQuestionsReducer.questions)
 });
 
 const mapDispatchToProps = dispatch => ({
     hideModal: () => {
         dispatch(hideModal());
     },
-    editQuestion: newQuestion => {
-        dispatch(editQuestion(newQuestion));
+    addQuestion: newQuestion => {
+        dispatch(addQuestion(newQuestion));
         dispatch(hideModal());
     }
 });
