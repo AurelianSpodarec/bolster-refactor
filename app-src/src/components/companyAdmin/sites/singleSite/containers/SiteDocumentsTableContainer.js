@@ -4,8 +4,9 @@ import { withRouter } from 'react-router-dom';
 
 import DocumentsTable from 'components/shared/documents/presentational/DocumentsTable';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import { showModal } from 'actions/shared/generic/modals/sync/showModal';
+
 import { DELETE_DOCUMENT, DELETION_ERROR } from 'constants/shared/modalTypes';
+import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 
 class SiteDocumentsTableContainer extends Component {
     render() {
@@ -33,16 +34,16 @@ class SiteDocumentsTableContainer extends Component {
         }
     }
 
+    handleShowModal = document => {
+        const { showModal } = this.props;
+        showModal(DELETE_DOCUMENT, { id: document.id });
+    };
+
     _getFilteredDocuments = () => {
         const { documents, site } = this.props;
         return documents.filter(document =>
             site.documentIDs.includes(document.id)
         );
-    };
-
-    handleShowModal = document => {
-        const { showModal } = this.props;
-        showModal(DELETE_DOCUMENT, { id: document.id });
     };
 }
 

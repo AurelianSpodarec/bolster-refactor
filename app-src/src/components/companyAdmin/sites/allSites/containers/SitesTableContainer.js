@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+import { ACCESS_TYPES } from 'constants/companyAdmin/enums';
+
 import SitesTable from '../presentational/SitesTable';
 
 class SitesListTableContainer extends Component {
@@ -22,9 +24,25 @@ class SitesListTableContainer extends Component {
         const { status } = filters;
         const name = filters.name.toLowerCase();
 
-        return sites
-            .filter(site => !status.length || site.status === status)
-            .filter(site => site.name.toLowerCase().includes(name));
+        let sitesSearched = sites.filter(site =>
+            site.name.toLowerCase().includes(name)
+        );
+
+        if (status === 'active') {
+            return sitesSearched.filter(site => !site.isArchived);
+        }
+
+        if (status === 'read only') {
+            return sitesSearched.filter(
+                site => site.accessType === ACCESS_TYPES.READONLY
+            );
+        }
+
+        if (status === 'archived') {
+            return sitesSearched.filter(site => site.isArchived);
+        }
+
+        return sitesSearched;
     };
 }
 
