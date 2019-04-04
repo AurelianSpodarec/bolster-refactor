@@ -40,6 +40,17 @@ class EditCompanyUserFormContainer extends Component {
         this.props.editCompanyUser(id, postBody);
     };
 
+    componentDidMount = () => {
+        const { isFetching, user } = this.props;
+        if (!isFetching && user)
+            this.setState({
+                firstName: user.userFirstName,
+                lastName: user.userLastName,
+                email: user.userEmail,
+                phoneNumber: user.userPhoneNumber
+            });
+    };
+
     componentDidUpdate = prevProps => {
         const { postSuccess, history, isFetching, user } = this.props;
 
