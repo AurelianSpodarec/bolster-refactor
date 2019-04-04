@@ -7,19 +7,21 @@ import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/pr
 const CreateOperativeForm = ({
     handleSubmit,
     handleInputChange,
-    name,
-    addressLine1,
-    addressLine2,
-    postcode,
-    siteID
+    validatePassword,
+    firstName,
+    lastName,
+    email,
+    phoneNumber,
+    password,
+    confirmPassword
 }) => (
     <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
         <div className="size-lg-12">
             <div className="size-lg-6">
-                <Field name="Building name">
+                <Field name="First Name">
                     <TextInputContainer
-                        name="name"
-                        value={name}
+                        name="firstName"
+                        value={firstName}
                         handleChange={handleInputChange}
                         required
                     />
@@ -27,10 +29,10 @@ const CreateOperativeForm = ({
             </div>
 
             <div className="size-lg-6">
-                <Field name="Address Line 1">
+                <Field name="Last Name">
                     <TextInputContainer
-                        value={addressLine1}
-                        name="addressLine1"
+                        value={lastName}
+                        name="lastName"
                         handleChange={handleInputChange}
                         required
                     />
@@ -40,21 +42,44 @@ const CreateOperativeForm = ({
 
         <div className="size-lg-12">
             <div className="size-lg-6">
-                <Field name="Address Line 2">
+                <Field name="Email Address">
                     <TextInputContainer
-                        value={addressLine2}
-                        name="addressLine2"
+                        value={email}
+                        name="email"
+                        type="email"
                         handleChange={handleInputChange}
                     />
                 </Field>
             </div>
-
             <div className="size-lg-6">
-                <Field name="Postcode">
+                <Field name="Phone Number">
                     <TextInputContainer
-                        value={postcode}
-                        name="postcode"
+                        value={phoneNumber}
+                        name="phoneNumber"
                         handleChange={handleInputChange}
+                        required
+                    />
+                </Field>
+            </div>
+            <div className="size-lg-6">
+                <Field name="Password">
+                    <TextInputContainer
+                        value={password}
+                        name="password"
+                        handleChange={handleInputChange}
+                        type="password"
+                        required
+                    />
+                </Field>
+            </div>
+            <div className="size-lg-6">
+                <Field name="Confirm Password">
+                    <TextInputContainer
+                        value={confirmPassword}
+                        name="confirmPassword"
+                        validate={validatePassword}
+                        handleChange={handleInputChange}
+                        type="password"
                         required
                     />
                 </Field>
@@ -63,9 +88,10 @@ const CreateOperativeForm = ({
 
         <BlockButtonWrapper>
             <button className="button green">
-                <i className="fa fa-plus" /> Add Building
+                <i className="fa fa-plus" /> Add Operative
             </button>
-            <a className="button" href={`/sites/${siteID}`}>
+            <a className="button" href="#">
+                <i className="fa fa-times" />
                 Cancel
             </a>
         </BlockButtonWrapper>

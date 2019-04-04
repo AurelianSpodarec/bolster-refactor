@@ -9,28 +9,29 @@ import {
     CREATE_COMPANY_USER_FAILURE
 } from 'constants/actionTypes/usersManagement';
 
-export const createOperativeRequest = () => ({
+export const createCompanyUserRequest = () => ({
     type: CREATE_COMPANY_USER_REQUEST
 });
 
-export const createOperativeSuccess = payload => ({
+export const createCompanyUserSuccess = payload => ({
     type: CREATE_COMPANY_USER_SUCCESS,
     payload
 });
 
-export const createOperativeFailure = error => ({
+export const createCompanyUserFailure = error => ({
     type: CREATE_COMPANY_USER_FAILURE,
     error
 });
 
 export default postBody => dispatch => {
-    dispatch(createOperativeRequest());
+    dispatch(createCompanyUserRequest());
 
     return axios
-        .post(`${API_URL}/sites`, postBody, getHeaders())
-        .then(result => dispatch(createOperativeSuccess(result.data)))
+        .post(`${API_URL}/users`, postBody, getHeaders())
+        .then(result => dispatch(createCompanyUserSuccess(result.data)))
         .catch(error => {
-            dispatch(createOperativeFailure(error));
+            console.log(error, 'error <=========');
+            dispatch(createCompanyUserFailure(error));
             if (error.response.status === 400)
                 dispatch(setAPIFieldErrors(error.response.data.errors));
         });
