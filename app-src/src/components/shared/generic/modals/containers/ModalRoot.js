@@ -16,7 +16,8 @@ import {
     DELETION_ERROR,
     DELETE_DOCUMENT,
     DELETE_OPERATIVE,
-    DELETE_COMPANY_USER
+    DELETE_COMPANY_USER,
+    DELETE_CLIENT_FROM_DRAWING
 } from 'constants/shared/modalTypes';
 
 import PinPhotoModal from '../presentational/PinPhotoModal';
@@ -33,6 +34,7 @@ import DeleteEnquiryModalContainer from './DeleteEnquiryModalContainer';
 import DeletionErrorModalContainer from './DeletionErrorModalContainer';
 import DeleteDocumentModalContainer from './DeleteDocumentModalContainer';
 import DeleteOperativeModalContainer from './DeleteOperativeModalContainer';
+import DeleteClientModalContainer from './DeleteClientModalContainer';
 import DeleteCompanyUserModalContainer from './DeleteCompanyUserModalContainer';
 
 const MODAL_COMPONENTS = {
@@ -50,7 +52,8 @@ const MODAL_COMPONENTS = {
     [DELETE_DOCUMENT]: DeleteDocumentModalContainer,
     [DELETE_OPERATIVE]: DeleteOperativeModalContainer,
     [DELETION_ERROR]: DeletionErrorModalContainer,
-    [DELETE_COMPANY_USER]: DeleteCompanyUserModalContainer
+    [DELETE_COMPANY_USER]: DeleteCompanyUserModalContainer,
+    [DELETE_CLIENT_FROM_DRAWING]: DeleteClientModalContainer
 };
 
 const ModalRoot = ({ modalType, modalProps }) => {

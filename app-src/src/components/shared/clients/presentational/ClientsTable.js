@@ -4,7 +4,13 @@ import { withRouter, Link } from 'react-router-dom';
 import Table from 'components/shared/generic/tables/presentational/Table';
 import ClientsList from './ClientsList';
 
-const ClientsTable = ({ location, clients, isFetching, error }) => (
+const ClientsTable = ({
+    location,
+    clients,
+    isFetching,
+    error,
+    handleShowModal
+}) => (
     <div className="size-lg-12">
         <h1 className="heading heading-3 size-lg-12">Clients with access</h1>
         <Table
@@ -14,7 +20,11 @@ const ClientsTable = ({ location, clients, isFetching, error }) => (
             noData={!clients.length}
             noDataMessage="There are no clients to display."
         >
-            <ClientsList location={location} clients={clients} />
+            <ClientsList
+                handleShowModal={handleShowModal}
+                location={location}
+                clients={clients}
+            />
         </Table>
 
         <div className="button-container table">

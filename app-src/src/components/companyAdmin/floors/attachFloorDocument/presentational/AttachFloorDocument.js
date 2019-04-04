@@ -3,20 +3,17 @@ import React from 'react';
 import Breadcrumbs from 'components/shared/generic/breadcrumb/presentational/Breadcrumb';
 import AttachDocumentFormContainer from 'components/shared/documents/containers/AttachDocumentFormContainer';
 
-const AttachFloorDocument = ({ handleSubmit, backUrl, floorID }) => (
-    <div>
+const AttachFloorDocument = () => (
+    <>
         <Breadcrumbs
             breadcrumbs={[
                 { text: 'Floors' },
-                { text: floorID },
+                { text: 'Floor ID' },
                 { text: 'Attach Document' }
             ]}
         />
-        <AttachDocumentFormContainer
-            handleSubmit={handleSubmit}
-            backUrl={backUrl}
-        />
-    </div>
+        <AttachDocumentFormContainer hierarchyType="floor" />
+    </>
 );
 
 export default AttachFloorDocument;
