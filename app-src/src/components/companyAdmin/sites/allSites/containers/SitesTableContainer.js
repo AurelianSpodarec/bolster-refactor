@@ -24,25 +24,12 @@ class SitesListTableContainer extends Component {
         const { status } = filters;
         const name = filters.name.toLowerCase();
 
-        let sitesSearched = sites.filter(site =>
-            site.name.toLowerCase().includes(name)
-        );
-
-        if (status === 'active') {
-            return sitesSearched.filter(site => !site.isArchived);
-        }
-
-        if (status === 'read only') {
-            return sitesSearched.filter(
-                site => site.accessType === ACCESS_TYPES.READONLY
+        return sites
+            .filter(site => site.name.toLowerCase().includes(name))
+            .filter(
+                ({ accessType }) =>
+                    !status.length || status + '' === accessType + ''
             );
-        }
-
-        if (status === 'archived') {
-            return sitesSearched.filter(site => site.isArchived);
-        }
-
-        return sitesSearched;
     };
 }
 
