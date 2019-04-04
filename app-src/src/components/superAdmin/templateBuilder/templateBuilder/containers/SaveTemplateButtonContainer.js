@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import SaveTemplateButton from '../presentational/SaveTemplateButton';
+import resetSaveRequired from 'actions/superAdmin/templateBuilder/sync/resetSaveRequired';
 
 class SaveTemplateButtonContainer extends Component {
     render() {
         return (
             <SaveTemplateButton
                 saveRequired={true}
-                promptMessage={() => 'Are you sure?'}
+                promptMessage={() => 'You have unsaved changes, are you sure?'}
+                handleSave={this.handleSave}
             />
         );
     }
@@ -23,14 +26,59 @@ class SaveTemplateButtonContainer extends Component {
     handleBeforeUnload = e => {
         e.returnValue = '';
     };
+
+    handleSave = () => {
+        const {
+            template,
+            allSections,
+            allQuestions,
+            resetSaveRequired
+        } = this.props;
+        const sections = allSections.filter(
+            ({ templateUuid }) => templateUuid === template.uuid
+        );
+        const questions = allQuestions.filter(
+            ({ templateUuid }) => templateUuid === template.uuid
+        );
+        const newTemplateData = {
+            template,
+            sections,
+            questions
+        };
+
+        resetSaveRequired();
+        console.log(newTemplateData);
+    };
 }
 
-const mapStateToProps = ({
-    superAdmin: {
-        templatesReducer: { saveRequired }
+const mapStateToProps = (
+    {
+        superAdmin: {
+            templatesReducer: { saveRequired, templates },
+            templateSectionsReducer: { sections },
+            templateQuestionsReducer: { questions }
+        }
+    },
+    {
+        match: {
+            params: { uuid }
+        }
     }
-}) => ({
-    saveRequired
+) => ({
+    saveRequired,
+    template: templates[uuid],
+    allSections: Object.values(sections),
+    allQuestions: Object.values(questions)
 });
 
-export default connect(mapStateToProps)(SaveTemplateButtonContainer);
+const mapDispatchToProps = dispatch => ({
+    resetSaveRequired: () => {
+        dispatch(resetSaveRequired());
+    }
+});
+
+const WithConnect = connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(SaveTemplateButtonContainer);
+export default withRouter(WithConnect);

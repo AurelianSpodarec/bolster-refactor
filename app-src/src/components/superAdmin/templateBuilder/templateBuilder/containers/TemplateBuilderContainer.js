@@ -9,10 +9,16 @@ import resetSaveRequired from 'actions/superAdmin/templateBuilder/sync/resetSave
 
 class TemplateBuilderContainer extends Component {
     render() {
-        const { showAddSectionModal, uuid, saveRequired } = this.props;
+        const {
+            showAddSectionModal,
+            uuid,
+            saveRequired,
+            isExisting
+        } = this.props;
         return (
             <>
                 <TemplateBuilder
+                    isExisting={isExisting}
                     saveRequired={saveRequired}
                     showAddSectionModal={() => showAddSectionModal(uuid)}
                 />
@@ -31,7 +37,8 @@ const mapStateToProps = (
     { match: { params } }
 ) => ({
     saveRequired: templatesReducer.saveRequired,
-    uuid: params.uuid
+    uuid: params.uuid,
+    isExisting: !!templatesReducer.templates[params.uuid]
 });
 
 const mapDispatchToProps = dispatch => ({

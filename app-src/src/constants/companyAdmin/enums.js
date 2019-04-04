@@ -53,3 +53,8 @@ export const PERMISSION_STATES = {
     ACCEPTED: 1,
     REJECTED: 2
 };
+
+export const LABEL_TYPES = {
+    1: 'Standard',
+    2: 'Trim'
+};
