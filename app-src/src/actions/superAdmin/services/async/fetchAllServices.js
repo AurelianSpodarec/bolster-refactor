@@ -2,22 +2,22 @@ import axios from 'axios';
 import { ADMIN_API_URL } from 'config';
 import { getHeaders } from 'helpers/api';
 import {
-    FETCH_ALL_SERVICES_REQUEST,
-    FETCH_ALL_SERVICES_SUCCESS,
-    FETCH_ALL_SERVICES_FAILURE
+    ADMIN_FETCH_ALL_SERVICES_REQUEST,
+    ADMIN_FETCH_ALL_SERVICES_SUCCESS,
+    ADMIN_FETCH_ALL_SERVICES_FAILURE
 } from 'constants/actionTypes/services';
 
 export const fetchAllServicesRequest = () => ({
-    type: FETCH_ALL_SERVICES_REQUEST
+    type: ADMIN_FETCH_ALL_SERVICES_REQUEST
 });
 
 export const fetchAllServicesSuccess = payload => ({
-    type: FETCH_ALL_SERVICES_SUCCESS,
+    type: ADMIN_FETCH_ALL_SERVICES_SUCCESS,
     payload
 });
 
 export const fetchAllServicesFailure = error => ({
-    type: FETCH_ALL_SERVICES_FAILURE,
+    type: ADMIN_FETCH_ALL_SERVICES_FAILURE,
     error
 });
 

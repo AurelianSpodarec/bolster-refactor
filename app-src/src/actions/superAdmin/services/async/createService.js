@@ -1,24 +1,24 @@
 import axios from 'axios';
 import {
-    CREATE_SERVICE_REQUEST,
-    CREATE_SERVICE_SUCCESS,
-    CREATE_SERVICE_FAILURE
+    ADMIN_CREATE_SERVICE_REQUEST,
+    ADMIN_CREATE_SERVICE_SUCCESS,
+    ADMIN_CREATE_SERVICE_FAILURE
 } from 'constants/actionTypes/services';
 import { ADMIN_API_URL } from 'config';
 import { getHeaders } from 'helpers/api';
 import setAPIFieldErrors from 'actions/shared/generic/fieldErrors/sync/setAPIFieldErrors';
 
 export const createServiceRequest = () => ({
-    type: CREATE_SERVICE_REQUEST
+    type: ADMIN_CREATE_SERVICE_REQUEST
 });
 
 export const createServiceSuccess = payload => ({
-    type: CREATE_SERVICE_SUCCESS,
+    type: ADMIN_CREATE_SERVICE_SUCCESS,
     payload
 });
 
 export const createServiceFailure = error => ({
-    type: CREATE_SERVICE_FAILURE,
+    type: ADMIN_CREATE_SERVICE_FAILURE,
     error
 });
 

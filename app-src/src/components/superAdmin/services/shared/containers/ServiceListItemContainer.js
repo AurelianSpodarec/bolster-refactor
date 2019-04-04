@@ -2,13 +2,13 @@ import React from 'react';
 import ServiceListItem from '../presentational/ServiceListItem';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { connect } from 'react-redux';
-import { EDIT_SERVICE } from 'constants/shared/modalTypes';
+import { ADMIN_EDIT_SERVICE } from 'constants/shared/modalTypes';
 
 const ServiceListItemContainer = ({ service, colCount, showModal }) => (
     <ServiceListItem
         service={service}
         colCount={colCount}
-        handleShowModal={() => showModal(EDIT_SERVICE, service)}
+        handleShowModal={() => showModal(ADMIN_EDIT_SERVICE, service)}
     />
 );
 

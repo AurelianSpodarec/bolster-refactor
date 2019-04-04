@@ -4,6 +4,7 @@ const Dropdown = ({
     placeholder = '--- select an option ---',
     name,
     handleChange,
+    handleFocus = () => {},
     handleBlur = () => {},
     options,
     selectedOption = { text: placeholder },
@@ -20,6 +21,7 @@ const Dropdown = ({
             <select
                 name={name}
                 onChange={handleChange}
+                onFocus={handleFocus}
                 onBlur={handleBlur}
                 value={selectedOption.value || ''}
             >

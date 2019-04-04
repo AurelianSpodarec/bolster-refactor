@@ -3,7 +3,6 @@ import { combineReducers } from 'redux';
 import { updateObj, removeObjItem, swapItemSorts } from 'helpers/generic';
 import {
     SET_QUESTION,
-    EDIT_QUESTION,
     DELETE_QUESTION,
     CHANGE_QUESTION_SECTION,
     SWAP_QUESTION_SORTS
@@ -68,7 +67,6 @@ export default combineReducers({
 function questionsReducer(state = defaultQuestions, action) {
     switch (action.type) {
         case SET_QUESTION:
-        case EDIT_QUESTION:
             return updateObj(state, action.question.uuid, action.question);
         case CHANGE_QUESTION_SECTION:
             return {
