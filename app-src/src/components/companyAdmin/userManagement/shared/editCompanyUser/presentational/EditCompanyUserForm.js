@@ -11,7 +11,8 @@ const EditCompanyUserForm = ({
     firstName,
     lastName,
     email,
-    phoneNumber
+    phoneNumber,
+    type
 }) => (
     <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
         <div className="size-lg-12">
@@ -65,7 +66,7 @@ const EditCompanyUserForm = ({
             <button className="button green">
                 <i className="fa fa-plus" /> Confirm Edit
             </button>
-            <Link to="/users-management/operatives" className="button">
+            <Link to={`/users-management/${type}`} className="button">
                 <i className="fa fa-times" />
                 Cancel
             </Link>

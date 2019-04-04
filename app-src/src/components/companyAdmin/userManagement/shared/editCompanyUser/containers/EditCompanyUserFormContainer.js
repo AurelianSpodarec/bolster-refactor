@@ -19,6 +19,7 @@ class EditCompanyUserFormContainer extends Component {
                 {...this.state}
                 handleInputChange={this.handleInputChange}
                 handleSubmit={this.handleSubmit}
+                type={this.props.type}
             />
         );
     }
