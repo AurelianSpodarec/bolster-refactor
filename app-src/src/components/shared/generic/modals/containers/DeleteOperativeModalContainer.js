@@ -8,14 +8,13 @@ import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 
 const DeleteOperativeModalContainer = ({
     operative,
-    drawingID,
     handleDelete,
     hideModal
 }) => {
-    const { userFirstName, userLastName, id: operativeID } = operative;
+    const { userFirstName, userLastName, id } = operative;
     return (
         <ConfirmDeleteModal
-            handleDelete={() => handleDelete(drawingID, operativeID)}
+            handleDelete={() => handleDelete(id)}
             hideModal={e => {
                 e.preventDefault();
                 hideModal();
@@ -29,8 +28,8 @@ const mapDispatchToProps = dispatch => ({
     hideModal: () => {
         dispatch(hideModal());
     },
-    handleDelete: (drawingID, operativeID) => {
-        dispatch(deleteOperative(drawingID, operativeID));
+    handleDelete: id => {
+        dispatch(deleteOperative(id));
         dispatch(hideModal());
     }
 });

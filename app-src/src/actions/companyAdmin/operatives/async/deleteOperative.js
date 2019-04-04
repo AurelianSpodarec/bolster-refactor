@@ -23,13 +23,15 @@ export const deleteOperativeFailure = error => ({
     error
 });
 
-export default (drawingID, operativeID) => dispatch => {
+export default companyOperativePermissionID => dispatch => {
     dispatch(deleteOperativeRequest());
     axios
         .delete(
-            `${API_URL}/operative/${drawingID}/${operativeID}`,
+            `${API_URL}/permissions/operative/${companyOperativePermissionID}`,
             getHeaders()
         )
-        .then(() => dispatch(deleteOperativeSuccess(operativeID)))
+        .then(() =>
+            dispatch(deleteOperativeSuccess(companyOperativePermissionID))
+        )
         .catch(err => dispatch(deleteOperativeFailure(err.message)));
 };
