@@ -8,7 +8,7 @@ import TemplateBuilder from '../presentational/TemplateBuilder';
 
 class TemplateBuilderContainer extends Component {
     state = {
-        isBlocking: true
+        isBlocking: false
     };
     render() {
         const { showAddSectionModal, uuid } = this.props;
