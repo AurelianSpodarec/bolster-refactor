@@ -33,7 +33,7 @@ const mapStateToProps = (
 ) => ({
     parent: sitesReducer.sites[match.params.id] || { documentIDs: [] },
     documents: Object.values(documentsReducer.documents),
-    isFetching: documentsReducer.isFetching || sitesReducer.isFetching,
+    isFetching: documentsReducer.isFetching,
     error: documentsReducer.error
 });
 

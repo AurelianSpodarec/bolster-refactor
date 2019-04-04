@@ -46,7 +46,7 @@ class AddDrawingFormContainer extends Component {
 }
 
 const mapStateToProps = ({ companyAdmin: { drawingsReducer } }, { match }) => ({
-    floorID: match.params['floorID'],
+    floorID: match.params.id,
     updatedID: drawingsReducer.updatedID
 });
 const mapDispatchToProps = dispatch => ({
