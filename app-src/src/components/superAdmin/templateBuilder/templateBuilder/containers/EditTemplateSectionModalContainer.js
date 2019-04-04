@@ -6,13 +6,14 @@ import hideModal from 'actions/shared/generic/modals/sync/hideModal';
 
 import TemplateSectionFormModal from '../presentational/TemplateSectionFormModal';
 
-class RenameTemplateSectionModalContainer extends React.Component {
+class EditTemplateSectionModalContainer extends React.Component {
     state = {
         name: ''
     };
     render() {
         return (
             <TemplateSectionFormModal
+                action="Edit"
                 name={this.state.name}
                 handleChange={this.handleChange}
                 handleSubmit={this.handleSubmit}
@@ -54,4 +55,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
     null,
     mapDispatchToProps
-)(RenameTemplateSectionModalContainer);
+)(EditTemplateSectionModalContainer);

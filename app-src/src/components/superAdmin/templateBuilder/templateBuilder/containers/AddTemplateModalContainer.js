@@ -15,7 +15,7 @@ class TemplateFormModalContainer extends React.Component {
     render() {
         return (
             <TemplateFormModal
-                title="Add template"
+                action="Add"
                 name={this.state.name}
                 handleChange={this.handleChange}
                 handleSubmit={this.handleSubmit}

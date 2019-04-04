@@ -11,10 +11,11 @@ const TemplateSectionFormModal = ({
     name,
     handleChange,
     handleSubmit,
-    hideModal
+    hideModal,
+    action
 }) => (
     <ModalOuterContainer>
-        <BlockHeadingWControls title="Add Section" />
+        <BlockHeadingWControls title={`${action} section`} />
 
         <Form className="generic-form" onSubmit={handleSubmit}>
             <div className="size-lg-6">
@@ -29,7 +30,7 @@ const TemplateSectionFormModal = ({
             </div>
             <BlockButtonWrapper>
                 <button className="button ">
-                    <i className="fa fa-plus" /> Add Section
+                    <i className="fa fa-plus" /> Save
                 </button>
                 <button className="button" onClick={hideModal}>
                     <i className="fa fa-times" /> Cancel

@@ -15,6 +15,7 @@ class AddTemplateSectionModalContainer extends React.Component {
     render() {
         return (
             <TemplateSectionFormModal
+                action="Add"
                 name={this.state.name}
                 handleChange={this.handleChange}
                 handleSubmit={this.handleSubmit}

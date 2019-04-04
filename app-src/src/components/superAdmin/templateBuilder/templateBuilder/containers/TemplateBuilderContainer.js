@@ -14,11 +14,12 @@ class TemplateBuilderContainer extends Component {
         const { showAddSectionModal, uuid } = this.props;
         const { isBlocking } = this.state;
         return (
-            <Prompt when={isBlocking} message={() => 'are you sure?'}>
+            <>
+                <Prompt when={isBlocking} message={() => 'are you sure?'} />
                 <TemplateBuilder
                     showAddSectionModal={() => showAddSectionModal(uuid)}
                 />
-            </Prompt>
+            </>
         );
     }
 

@@ -7,14 +7,15 @@ import TextInputContainer from '../../../../shared/generic/form/containers/TextI
 import BlockHeadingWControls from '../../../../shared/generic/blockHeadingWControls/presentational/BlockHeadingWControls';
 import BlockButtonWrapper from '../../../../shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 
-const AddTemplateModal = ({
+const TemplateformModal = ({
+    action,
     name,
     handleChange,
     handleSubmit,
     handleCancel
 }) => (
     <ModalOuter hideModal={handleCancel}>
-        <BlockHeadingWControls title="Add" />
+        <BlockHeadingWControls title={`${action} template`} />
         <Form className="generic-form" onSubmit={handleSubmit}>
             <div className="size-lg-6">
                 <Field name="name">
@@ -29,7 +30,7 @@ const AddTemplateModal = ({
             <BlockButtonWrapper>
                 <button className="button ">
                     <i className="fa fa-plus" />
-                    Add
+                    Save
                 </button>
                 <button className="button" onClick={handleCancel}>
                     <i className="fa fa-times" /> Cancel
@@ -39,4 +40,4 @@ const AddTemplateModal = ({
     </ModalOuter>
 );
 
-export default AddTemplateModal;
+export default TemplateformModal;

@@ -43,6 +43,7 @@ class AddTemplateQuestionModalContainer extends Component {
         return (
             <TemplateQuestionFormModal
                 {...otherFields}
+                action="Add"
                 questionTypeOptions={Object.values(questionTypeOptions)}
                 questionType={questionTypeOptions[questionType]}
                 prereqOptions={Object.values(prereqOptions)}
