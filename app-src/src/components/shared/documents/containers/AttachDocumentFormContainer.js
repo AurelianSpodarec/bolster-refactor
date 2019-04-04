@@ -5,8 +5,6 @@ import { withRouter } from 'react-router-dom';
 import AttachDocumentForm from '../presentational/AttachDocumentForm';
 import createDocument from 'actions/companyAdmin/documents/async/createDocument';
 
-import { HIERARCHY_IDS } from 'constants/companyAdmin/enums';
-
 class AttachDocumentFormContainer extends Component {
     state = {
         // view only, agreement once, agreement daily - radio buttons
@@ -103,7 +101,7 @@ class AttachDocumentFormContainer extends Component {
 
     handleSubmit = e => {
         e.preventDefault();
-        const { match, createDocument, hierarchyID } = this.props;
+        const { createDocument, hierarchyType, hierarchyID } = this.props;
 
         const {
             serviceIDs,
@@ -115,7 +113,7 @@ class AttachDocumentFormContainer extends Component {
             ...body,
             serviceIDs: serviceIDs
         };
-        createDocument(HIERARCHY_IDS.Site, hierarchyID, postBody);
+        createDocument(hierarchyType, hierarchyID, postBody);
     };
 }
 
