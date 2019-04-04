@@ -53,8 +53,8 @@ const mapStateToProps = ({ companyAdmin: { documentsReducer } }) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    fetchDocument: ID => {
-        dispatch(fetchDocument(ID));
+    fetchDocument: id => {
+        dispatch(fetchDocument(id));
     },
     editDocument: (documentID, postBody) => {
         dispatch(editDocument(documentID, postBody));
