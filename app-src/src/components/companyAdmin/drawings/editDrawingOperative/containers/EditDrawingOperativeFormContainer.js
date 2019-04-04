@@ -43,9 +43,18 @@ class EditDrawingOperativeFormContainer extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        const { isFetching, services } = this.props;
+        const {
+            isFetching,
+            services,
+            postSuccess,
+            history,
+            match
+        } = this.props;
         if (!isFetching && prevProps.isFetching)
             this.setState({ services: this.getServicesForState(services) });
+
+        if (postSuccess && !prevProps.postSuccess)
+            history.push(`/drawings/${match.params.id}`);
     }
 
     getServicesForState = services =>
@@ -89,6 +98,7 @@ const mapStateToProps = (
     operative:
         operativesReducer.operatives[ownProps.match.params.operativeID] || null,
     isFetching: operativesReducer.isFetching || servicesReducer.isFetching,
+    postSuccess: operativesReducer.postSuccess,
     services: servicesReducer.services || [],
     subscriptions: subscriptionsReducer.subscriptions || []
 });

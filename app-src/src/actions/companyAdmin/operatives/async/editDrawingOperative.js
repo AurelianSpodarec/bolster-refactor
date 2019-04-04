@@ -25,7 +25,6 @@ export const editDrawingOperativeFailure = error => ({
 });
 
 export default (operativeID, postBody) => dispatch => {
-    console.log(operativeID, postBody);
     dispatch(editDrawingOperativeRequest());
 
     axios
