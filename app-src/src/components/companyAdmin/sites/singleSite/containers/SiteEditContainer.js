@@ -34,6 +34,10 @@ class SiteEditContainer extends Component {
         const { fetchSingleSite, siteID } = this.props;
 
         fetchSingleSite(siteID);
+
+        if (siteID) {
+            this._setSiteName();
+        }
     };
 }
 
