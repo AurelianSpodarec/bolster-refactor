@@ -2,17 +2,19 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
-import createOperative from 'actions/companyAdmin/userManagement/async/createOperative';
+import createCompanyUser from 'actions/companyAdmin/userManagement/async/createCompanyUser';
 import CreateOperativeForm from '../presentational/CreateOperativeForm';
+
+import { COMPANY_USER_ROLE_TYPES } from 'constants/companyAdmin/enums';
 
 class CreateOperativeFormContainer extends Component {
     state = {
         firstName: '',
         lastName: '',
         email: '',
-        postcode: '',
         phoneNumber: '',
-        password: ''
+        password: '',
+        confirmPassword: ''
     };
 
     render() {
@@ -21,6 +23,7 @@ class CreateOperativeFormContainer extends Component {
                 {...this.state}
                 handleInputChange={this.handleInputChange}
                 handleSubmit={this.handleSubmit}
+                validatePassword={this.validatePassword}
             />
         );
     }
@@ -29,33 +32,27 @@ class CreateOperativeFormContainer extends Component {
         e.preventDefault();
 
         this.setState({
-            ...this.state,
             [e.target.name]: e.target.value
         });
     };
 
+    validatePassword = confirmPassword => {
+        const { password } = this.state;
+        if (password !== confirmPassword) {
+            return 'Password and Confirm Password do not match';
+        }
+    };
+
     handleSubmit = e => {
         e.preventDefault();
-
-        const {
-            firstName,
-            lastName,
-            email,
-            postcode,
-            phoneNumber,
-            password
-        } = this.state;
-
+        // eslint-disable-next-line no-unused-vars
+        const { confirmPassword, ...restForm } = this.state;
         const postBody = {
-            firstName: firstName,
-            lastName: lastName,
-            email: email,
-            postcode: postcode,
-            phoneNumber: phoneNumber,
-            password: password,
-            type: '50'
+            ...restForm,
+            type: COMPANY_USER_ROLE_TYPES.OPERATIVE
         };
-        this.props.createOperative(postBody);
+
+        this.props.createCompanyUser(postBody);
     };
 
     componentDidUpdate = prevProps => {
@@ -72,8 +69,8 @@ const mapStateToProps = ({ companyAdmin: { companyUsersReducer } }) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    createOperative: postBody => {
-        dispatch(createOperative(postBody));
+    createCompanyUser: postBody => {
+        dispatch(createCompanyUser(postBody));
     }
 });
 
