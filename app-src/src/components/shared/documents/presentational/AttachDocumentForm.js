@@ -83,7 +83,11 @@ const AttachDocumentForm = ({
                 <Field name="Upload PDF or image">
                     <FileUploadContainer
                         name="file"
-                        allowedTypes={['pdf', 'image']}
+                        allowedTypes={[
+                            'application/pdf',
+                            'image/jpeg',
+                            'image/png'
+                        ]}
                         handleChange={handleFileChange}
                         required
                     />
