@@ -2,22 +2,20 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
-import createOperative from 'actions/companyAdmin/userManagement/async/createOperative';
-import CreateOperativeForm from '../presentational/CreateOperativeForm';
+import editCompanyUser from 'actions/companyAdmin/userManagement/async/editCompanyUser';
+import EditOperativeForm from '../presentational/EditOperativeForm';
 
-class CreateOperativeFormContainer extends Component {
+class EditOperativeFormContainer extends Component {
     state = {
         firstName: '',
         lastName: '',
         email: '',
-        postcode: '',
-        phoneNumber: '',
-        password: ''
+        phoneNumber: ''
     };
 
     render() {
         return (
-            <CreateOperativeForm
+            <EditOperativeForm
                 {...this.state}
                 handleInputChange={this.handleInputChange}
                 handleSubmit={this.handleSubmit}
@@ -29,33 +27,17 @@ class CreateOperativeFormContainer extends Component {
         e.preventDefault();
 
         this.setState({
-            ...this.state,
             [e.target.name]: e.target.value
         });
     };
 
     handleSubmit = e => {
         e.preventDefault();
-
-        const {
-            firstName,
-            lastName,
-            email,
-            postcode,
-            phoneNumber,
-            password
-        } = this.state;
-
         const postBody = {
-            firstName: firstName,
-            lastName: lastName,
-            email: email,
-            postcode: postcode,
-            phoneNumber: phoneNumber,
-            password: password,
-            type: '50'
+            ...this.state
         };
-        this.props.createOperative(postBody);
+        const { id } = this.props;
+        this.props.editCompanyUser(id, postBody);
     };
 
     componentDidUpdate = prevProps => {
@@ -66,14 +48,18 @@ class CreateOperativeFormContainer extends Component {
         }
     };
 }
-const mapStateToProps = ({ companyAdmin: { companyUsersReducer } }) => ({
+const mapStateToProps = (
+    { companyAdmin: { companyUsersReducer } },
+    { match }
+) => ({
     postSuccess: companyUsersReducer.postSuccess,
-    error: companyUsersReducer.error
+    error: companyUsersReducer.error,
+    id: match.params.id
 });
 
 const mapDispatchToProps = dispatch => ({
-    createOperative: postBody => {
-        dispatch(createOperative(postBody));
+    editCompanyUser: postBody => {
+        dispatch(editCompanyUser(postBody));
     }
 });
 
@@ -81,5 +67,5 @@ export default withRouter(
     connect(
         mapStateToProps,
         mapDispatchToProps
-    )(CreateOperativeFormContainer)
+    )(EditOperativeFormContainer)
 );

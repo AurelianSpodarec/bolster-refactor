@@ -34,6 +34,7 @@ class DropdownContainer extends Component {
                 selectedOption={selectedOption}
                 withoutPlaceholder={withoutPlaceholder}
                 handleChange={this.handleChange}
+                handleFocus={this.handleFocus}
                 handleBlur={this.handleBlur}
                 error={errorMessage}
             />
@@ -53,10 +54,30 @@ class DropdownContainer extends Component {
     handleChange = e => {
         this.props.handleChange(e);
         this._validate(e.target.value);
+        this._showFieldError();
     };
 
     handleBlur = () => {
-        if (!this.state.showFieldError) this.setState({ showFieldError: true });
+        this._showFieldError();
+    };
+
+    // handleFocus = () => {
+    //     const { showFieldError } = this.state;
+    //     console.log('hihi');
+    //     if (showFieldError) return;
+    //     document.addEventListener('click', this._showFieldError);
+    // };
+
+    // handleClick = () => {
+    //     const { showFieldError } = this.state;
+    //     console.log('ghugugu');
+    //     if (showFieldError) return;
+    //     document.removeEventListener('click', this._showFieldError);
+    // };
+
+    _showFieldError = () => {
+        const { showFieldError } = this.state;
+        if (!showFieldError) this.setState({ showFieldError: true });
     };
 
     _validate = value => {

@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 import AttachDocumentForm from '../presentational/AttachDocumentForm';
+import createDocument from 'actions/companyAdmin/documents/async/createDocument';
 
 class AttachDocumentFormContainer extends Component {
     state = {
@@ -16,8 +18,7 @@ class AttachDocumentFormContainer extends Component {
         isSignatureRequired: false,
         isUpsyncForced: false,
         // dropdown
-        services: [],
-        selectedServices: [],
+        serviceIDs: [],
         agreeanceEveryXDays: 0,
         // date selector
         startOn: undefined,
@@ -25,14 +26,17 @@ class AttachDocumentFormContainer extends Component {
     };
 
     render = () => {
+        const serviceOptions = this._getServicesOptions();
+
         return (
             <AttachDocumentForm
                 {...this.state}
+                services={serviceOptions}
                 handleInputChange={this.handleInputChange}
                 handleSubmit={this.handleSubmit}
                 handleRadioChange={this.handleRadioChange}
                 handleCheckboxChange={this.handleCheckboxChange}
-                handleMultiselect={this.handleMultiselect}
+                handleMultiselectChange={this.handleMultiselectChange}
                 handleFileChange={this.handleFileChange}
                 handleDateChange={this.handleDateChange}
                 validateDatePicker={this.validateDatePicker}
@@ -40,27 +44,32 @@ class AttachDocumentFormContainer extends Component {
             />
         );
     };
-    componentDidMount() {
-        const { isFetching, services } = this.props;
-        if (!isFetching) {
-            this.setState({ services: this.getServicesForState(services) });
+
+    componentDidUpdate = prevProps => {
+        const { postSuccess, history, hierarchyType, hierarchyID } = this.props;
+
+        if (!prevProps.postSuccess && postSuccess) {
+            history.replace(`/${hierarchyType}s/${hierarchyID}`);
         }
-    }
-    componentDidUpdate(prevProps) {
-        const { isFetching, services } = this.props;
-        if (!isFetching && prevProps.isFetching) {
-            this.setState({ services: this.getServicesForState(services) });
-        }
-    }
-    getServicesForState = services =>
-        Object.values(services).reduce((acc, { id, name }) => {
-            acc.push({
-                value: id,
-                text: name,
-                disabled: !this.props.subscriptions.includes(id)
-            });
-            return acc;
-        }, []);
+    };
+
+    _getServicesOptions = () => {
+        const { services, subscriptions } = this.props;
+        return services.map(({ id, name }) => ({
+            value: id,
+            text: name,
+            disabled: !subscriptions.includes(id)
+        }));
+    };
+
+    handleMultiselectChange = ({ target: { name, value } }) => {
+        const checkedValues = this.state[name];
+        const newValues = checkedValues.includes(value)
+            ? checkedValues.filter(val => val !== value)
+            : [...checkedValues, value];
+
+        this.setState({ [name]: newValues });
+    };
 
     handleCheckboxChange = e => {
         const { name } = e.target;
@@ -90,38 +99,50 @@ class AttachDocumentFormContainer extends Component {
         this.setState({ [name]: value });
     };
 
-    handleMultiselect = ({ target: { name, value } }) => {
-        const checkedValues = this.state[name];
-        const newValues = checkedValues.includes(value)
-            ? checkedValues.filter(val => val !== value)
-            : [...checkedValues, value];
-
-        this.setState({ [name]: newValues });
-    };
-
     handleSubmit = e => {
         e.preventDefault();
-        const { handleSubmit } = this.props;
+        const { createDocument, hierarchyType, hierarchyID } = this.props;
+
         const {
-            selectedServices,
+            serviceIDs,
             // eslint-disable-next-line no-unused-vars
             services,
             ...body
         } = this.state;
         const postBody = {
             ...body,
-            serviceIDs: selectedServices
+            serviceIDs: serviceIDs
         };
-        handleSubmit(postBody);
+        createDocument(hierarchyType, hierarchyID, postBody);
     };
 }
 
-const mapStateToProps = ({
-    companyAdmin: { servicesReducer, subscriptionsReducer }
-}) => ({
+const mapStateToProps = (
+    {
+        companyAdmin: {
+            servicesReducer,
+            subscriptionsReducer,
+            documentsReducer
+        }
+    },
+    { match }
+) => ({
     isFetching: servicesReducer.isFetching || subscriptionsReducer.isFetching,
-    services: servicesReducer.services,
-    subscriptions: subscriptionsReducer.subscriptions.serviceIDs
+    services: Object.values(servicesReducer.services),
+    subscriptions: subscriptionsReducer.subscriptions.serviceIDs || [],
+    hierarchyID: match.params.id,
+    postSuccess: documentsReducer.postSuccess
 });
 
-export default connect(mapStateToProps)(AttachDocumentFormContainer);
+const mapDispatchToProps = dispatch => ({
+    createDocument: (type, id, postBody) => {
+        dispatch(createDocument(type, id, postBody));
+    }
+});
+
+export default withRouter(
+    connect(
+        mapStateToProps,
+        mapDispatchToProps
+    )(AttachDocumentFormContainer)
+);

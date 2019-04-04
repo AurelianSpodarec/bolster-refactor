@@ -19,7 +19,9 @@ import {
 export default combineReducers({
     users: companyUsersReducer,
     isFetching: isFetchingReducer,
-    error: errorReducer
+    error: errorReducer,
+    isPosting: isPostingReducer,
+    postSuccess: postSuccessReducer
 });
 
 function isFetchingReducer(state = false, action) {
@@ -29,6 +31,31 @@ function isFetchingReducer(state = false, action) {
         case FETCH_COMPANY_USERS_SUCCESS:
         case FETCH_COMPANY_USERS_FAILURE:
             return false;
+        default:
+            return state;
+    }
+}
+
+function isPostingReducer(state = false, action) {
+    switch (action.type) {
+        case CREATE_COMPANY_USER_REQUEST:
+            return true;
+        case CREATE_COMPANY_USER_SUCCESS:
+        case CREATE_COMPANY_USER_FAILURE:
+            return false;
+        default:
+            return state;
+    }
+}
+
+function postSuccessReducer(state = false, action) {
+    switch (action.type) {
+        case CREATE_COMPANY_USER_REQUEST:
+        case EDIT_COMPANY_USER_REQUEST:
+            return false;
+        case CREATE_COMPANY_USER_SUCCESS:
+        case EDIT_COMPANY_USER_SUCCESS:
+            return true;
         default:
             return state;
     }

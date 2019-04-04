@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import DeleteDocumentContainer from '../containers/DeleteDocumentContainer';
 
-const DocumentsList = ({ documents, location, handleShowModal }) =>
+const DocumentsList = ({ documents, location }) =>
     documents.map(document => (
         <tr key={document.id}>
             <td>
@@ -14,12 +15,7 @@ const DocumentsList = ({ documents, location, handleShowModal }) =>
                 >
                     <i className="far fa-pencil fa-fw" />
                 </Link>
-                <button
-                    onClick={() => handleShowModal(document)}
-                    className="button icon-only"
-                >
-                    <i className="far fa-trash-alt fa-fw" />
-                </button>
+                <DeleteDocumentContainer document={document} />
             </td>
         </tr>
     ));
