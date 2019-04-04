@@ -4,9 +4,15 @@ import { withRouter, Link } from 'react-router-dom';
 import Table from 'components/shared/generic/tables/presentational/Table';
 import OperativesList from './OperativesList';
 
-const OperativesTable = ({ location, operatives, isFetching, error }) => {
+const OperativesTable = ({
+    location,
+    operatives,
+    isFetching,
+    error,
+    match
+}) => {
     const tableHeaders = ['Name', 'Actions'];
-
+    const { id } = match.params;
     return (
         <div className="size-lg-12">
             <h2 className="heading heading-3 size-lg-12">
@@ -20,7 +26,7 @@ const OperativesTable = ({ location, operatives, isFetching, error }) => {
                 noDataMessage="There are no operatives to display."
                 withActions
             >
-                <OperativesList operatives={operatives} />
+                <OperativesList documentID={id} operatives={operatives} />
             </Table>
             <div className="button-container table">
                 <Link

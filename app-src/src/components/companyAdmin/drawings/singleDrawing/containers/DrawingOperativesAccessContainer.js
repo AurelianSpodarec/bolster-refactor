@@ -6,11 +6,11 @@ import BlockContainer from 'components/shared/generic/block/containers/BlockCont
 
 class DrawingOperativesAccessContainer extends Component {
     render() {
-        const { props } = this;
+        const { operatives } = this.props;
 
         return (
             <BlockContainer>
-                <OperativesTable operatives={props.operatives} />
+                <OperativesTable operatives={operatives} />
             </BlockContainer>
         );
     }
