@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+
 import fetchOperativesForDrawing from 'actions/companyAdmin/operatives/async/fetchOperativesForDrawing';
 import EditDrawingOperativeForm from '../presentational/EditDrawingOperativeForm';
 import fetchAllServices from 'actions/companyAdmin/services/async/fetchAllServices';
@@ -15,8 +16,8 @@ class EditDrawingOperativeFormContainer extends Component {
     render() {
         const { match, operative, isFetching } = this.props;
         const { services, serviceIDs } = this.state;
-        const { id: drawingID, operativeID } = match;
-        const backUrl = `/drawings/${drawingID}/edit-operative/${operativeID}`;
+        const { id } = match.params;
+        const backUrl = `/drawings/${id}`;
         return (
             <EditDrawingOperativeForm
                 operative={operative}
@@ -36,8 +37,8 @@ class EditDrawingOperativeFormContainer extends Component {
             services,
             isFetching
         } = this.props;
-        const { id: drawingID } = match.params;
-        fetchOperativesForDrawing(drawingID);
+        const { id } = match.params;
+        fetchOperativesForDrawing(id);
         if (services && !isFetching)
             this.setState({ services: this.getServicesForState(services) });
     }
@@ -62,8 +63,7 @@ class EditDrawingOperativeFormContainer extends Component {
             acc.push({
                 value: id,
                 text: name,
-                disabled: false
-                // disabled: !this.props.subscriptions.includes(id)
+                disabled: !this.props.subscriptions.includes(id)
             });
             return acc;
         }, []);
@@ -100,7 +100,7 @@ const mapStateToProps = (
     isFetching: operativesReducer.isFetching || servicesReducer.isFetching,
     postSuccess: operativesReducer.postSuccess,
     services: servicesReducer.services || [],
-    subscriptions: subscriptionsReducer.subscriptions || []
+    subscriptions: subscriptionsReducer.subscriptions.serviceIDs || []
 });
 
 const mapDispatchToProps = dispatch => ({

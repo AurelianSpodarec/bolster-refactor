@@ -2,12 +2,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
-import createCompanyUser from 'actions/companyAdmin/userManagement/async/createCompanyUser';
-import CreateOperativeForm from '../presentational/CreateOperativeForm';
-
+import createCompanyAdmin from 'actions/companyAdmin/userManagement/async/createCompanyAdmin';
+import CreateCompanyAdminForm from '../presentational/CreateCompanyAdminForm';
 import { COMPANY_USER_ROLE_TYPES } from 'constants/companyAdmin/enums';
 
-class CreateOperativeFormContainer extends Component {
+class CreateCompanyAdminFormContainer extends Component {
     state = {
         firstName: '',
         lastName: '',
@@ -19,11 +18,11 @@ class CreateOperativeFormContainer extends Component {
 
     render() {
         return (
-            <CreateOperativeForm
+            <CreateCompanyAdminForm
                 {...this.state}
                 handleInputChange={this.handleInputChange}
                 handleSubmit={this.handleSubmit}
-                validatePassword={this.validatePassword}
+                validateConfirmPassword={this.validateConfirmPassword}
             />
         );
     }
@@ -32,36 +31,36 @@ class CreateOperativeFormContainer extends Component {
         e.preventDefault();
 
         this.setState({
+            ...this.state,
             [e.target.name]: e.target.value
         });
     };
 
-    validatePassword = confirmPassword => {
-        const { password } = this.state;
-        if (password !== confirmPassword) {
-            return 'Password and Confirm Password do not match';
-        }
-    };
-
     handleSubmit = e => {
         e.preventDefault();
-        // eslint-disable-next-line no-unused-vars
-        const { confirmPassword, ...restForm } = this.state;
-        const postBody = {
-            ...restForm,
-            type: COMPANY_USER_ROLE_TYPES.OPERATIVE
-        };
 
-        this.props.createCompanyUser(postBody);
+        // eslint-disable-next-line no-unused-vars
+        const { confirmPassword, ...rest } = this.state;
+
+        const postBody = {
+            ...rest,
+            type: COMPANY_USER_ROLE_TYPES.ADMIN
+        };
+        this.props.createCompanyAdmin(postBody);
     };
 
     componentDidUpdate = prevProps => {
         const { postSuccess, history } = this.props;
 
         if (postSuccess && !prevProps.postSuccess) {
-            history.push('/users-management/operatives');
+            history.push('/users-management/company-admins');
         }
     };
+
+    validateConfirmPassword = confirmPassword =>
+        this.state.password !== confirmPassword
+            ? 'Passwords do not match'
+            : null;
 }
 const mapStateToProps = ({ companyAdmin: { companyUsersReducer } }) => ({
     postSuccess: companyUsersReducer.postSuccess,
@@ -69,8 +68,8 @@ const mapStateToProps = ({ companyAdmin: { companyUsersReducer } }) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    createCompanyUser: postBody => {
-        dispatch(createCompanyUser(postBody));
+    createCompanyAdmin: postBody => {
+        dispatch(createCompanyAdmin(postBody));
     }
 });
 
@@ -78,5 +77,5 @@ export default withRouter(
     connect(
         mapStateToProps,
         mapDispatchToProps
-    )(CreateOperativeFormContainer)
+    )(CreateCompanyAdminFormContainer)
 );

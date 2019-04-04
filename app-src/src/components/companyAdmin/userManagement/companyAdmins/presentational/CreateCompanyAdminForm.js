@@ -1,25 +1,24 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import Form from 'components/shared/generic/form/containers/Form';
 import Field from 'components/shared/generic/form/presentational/Field';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 
-const CreateOperativeForm = ({
+const CreateCompanyAdminForm = ({
     handleSubmit,
     handleInputChange,
-    validatePassword,
     firstName,
     lastName,
     email,
     phoneNumber,
     password,
-    confirmPassword
+    confirmPassword,
+    validateConfirmPassword
 }) => (
     <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
         <div className="size-lg-12">
             <div className="size-lg-6">
-                <Field name="First Name">
+                <Field name="First name">
                     <TextInputContainer
                         name="firstName"
                         value={firstName}
@@ -30,7 +29,7 @@ const CreateOperativeForm = ({
             </div>
 
             <div className="size-lg-6">
-                <Field name="Last Name">
+                <Field name="Last name">
                     <TextInputContainer
                         value={lastName}
                         name="lastName"
@@ -43,17 +42,17 @@ const CreateOperativeForm = ({
 
         <div className="size-lg-12">
             <div className="size-lg-6">
-                <Field name="Email Address">
+                <Field name="E-mail address">
                     <TextInputContainer
                         value={email}
                         name="email"
-                        type="email"
                         handleChange={handleInputChange}
                     />
                 </Field>
             </div>
+
             <div className="size-lg-6">
-                <Field name="Phone Number">
+                <Field name="Phone number">
                     <TextInputContainer
                         value={phoneNumber}
                         name="phoneNumber"
@@ -62,25 +61,27 @@ const CreateOperativeForm = ({
                     />
                 </Field>
             </div>
+
             <div className="size-lg-6">
                 <Field name="Password">
                     <TextInputContainer
                         value={password}
                         name="password"
-                        handleChange={handleInputChange}
                         type="password"
+                        handleChange={handleInputChange}
                         required
                     />
                 </Field>
             </div>
+
             <div className="size-lg-6">
                 <Field name="Confirm Password">
                     <TextInputContainer
                         value={confirmPassword}
                         name="confirmPassword"
-                        validate={validatePassword}
-                        handleChange={handleInputChange}
                         type="password"
+                        handleChange={handleInputChange}
+                        validate={validateConfirmPassword}
                         required
                     />
                 </Field>
@@ -89,14 +90,13 @@ const CreateOperativeForm = ({
 
         <BlockButtonWrapper>
             <button className="button green">
-                <i className="fa fa-plus" /> Add Operative
+                <i className="fa fa-plus" /> Create Company Admin
             </button>
-            <Link to="/users-management/operatives" className="button">
-                <i className="fa fa-times" />
+            <a className="button" href="/users-management/company-admins">
                 Cancel
-            </Link>
+            </a>
         </BlockButtonWrapper>
     </Form>
 );
 
-export default CreateOperativeForm;
+export default CreateCompanyAdminForm;

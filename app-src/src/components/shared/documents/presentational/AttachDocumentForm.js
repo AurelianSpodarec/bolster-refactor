@@ -17,7 +17,7 @@ const AttachDocumentForm = ({
     handleFileChange,
     handleRadioChange,
     handleCheckboxChange,
-    handleMultiselect,
+    handleMultiselectChange,
     handleSubmit,
     handleDateChange,
     type,
@@ -27,7 +27,7 @@ const AttachDocumentForm = ({
     isSignatureRequired,
     isUpsyncForced,
     services,
-    selectedServices,
+    serviceIDs,
     agreeanceEveryXDays,
     startOn,
     endOn,
@@ -83,7 +83,11 @@ const AttachDocumentForm = ({
                 <Field name="Upload PDF or image">
                     <FileUploadContainer
                         name="file"
-                        allowedTypes={['pdf', 'image']}
+                        allowedTypes={[
+                            'application/pdf',
+                            'image/jpeg',
+                            'image/png'
+                        ]}
                         handleChange={handleFileChange}
                         required
                     />
@@ -100,12 +104,13 @@ const AttachDocumentForm = ({
             />
         </div>
         <div className="size-lg-12">
-            <Field name="Service type">
+            <Field name="Service types">
                 <CheckboxListContainer
-                    name="selectedServices"
+                    required
+                    name="serviceIDs"
+                    handleChange={handleMultiselectChange}
                     options={services}
-                    selectedOptions={selectedServices}
-                    handleChange={handleMultiselect}
+                    selectedOptions={serviceIDs}
                 />
             </Field>
         </div>

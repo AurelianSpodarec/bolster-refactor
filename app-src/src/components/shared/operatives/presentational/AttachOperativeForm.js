@@ -29,7 +29,7 @@ const AttachOperativeForm = ({
             />
         </Field>
 
-        <Field name="Service type" sizeClasses="size-lg-6">
+        <Field name="Service types" sizeClasses="size-lg-6">
             <CheckboxListContainer
                 required
                 name="serviceIDs"
