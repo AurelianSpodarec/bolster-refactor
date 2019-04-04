@@ -10,6 +10,7 @@ import SwitchWith404 from './SwitchWith404';
 import AuthRoutes from './auth';
 import AdminRoutes from './superAdmin';
 import CompanyAdminRoutes from './companyAdmin';
+import TestRoutes from './test';
 
 const Routes = ({ showLoggedInLayout }) => (
     <div id="page-area" className={`${!showLoggedInLayout ? 'full' : ''}`}>
@@ -17,7 +18,8 @@ const Routes = ({ showLoggedInLayout }) => (
             <Route exact path="/404" component={NotFound} />
             <Route path="/auth" component={AuthRoutes} />
             <Route path="/admin" component={withAuth(AdminRoutes, true)} />
-            <Route component={withAuth(CompanyAdminRoutes, false)} />
+            <Route path="/test" component={withAuth(TestRoutes)} />
+            <Route component={withAuth(CompanyAdminRoutes)} />
         </SwitchWith404>
     </div>
 );

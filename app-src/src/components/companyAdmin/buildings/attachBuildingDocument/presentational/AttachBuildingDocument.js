@@ -4,7 +4,7 @@ import Breadcrumb from 'components/shared/generic/breadcrumb/presentational/Brea
 import AttachDocumentFormContainer from 'components/shared/documents/containers/AttachDocumentFormContainer';
 
 const AttachBuildingDocument = () => (
-    <div>
+    <>
         <Breadcrumb
             breadcrumbs={[
                 { text: 'Buildings' },
@@ -13,7 +13,7 @@ const AttachBuildingDocument = () => (
             ]}
         />
         <AttachDocumentFormContainer hierarchyType="building" />
-    </div>
+    </>
 );
 
 export default AttachBuildingDocument;

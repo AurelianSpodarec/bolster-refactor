@@ -2,70 +2,29 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
-import editCompanyUser from 'actions/companyAdmin/userManagement/async/editCompanyUser';
-import EditOperativeForm from '../presentational/EditOperativeForm';
+import EditOperative from '../presentational/EditOperative';
 
 class EditOperativeFormContainer extends Component {
-    state = {
-        firstName: '',
-        lastName: '',
-        email: '',
-        phoneNumber: ''
-    };
-
     render() {
-        return (
-            <EditOperativeForm
-                {...this.state}
-                handleInputChange={this.handleInputChange}
-                handleSubmit={this.handleSubmit}
-            />
-        );
+        return <EditOperative />;
     }
 
-    handleInputChange = e => {
-        e.preventDefault();
-
-        this.setState({
-            [e.target.name]: e.target.value
-        });
-    };
-
-    handleSubmit = e => {
-        e.preventDefault();
-        const postBody = {
-            ...this.state
-        };
-        const { id } = this.props;
-        this.props.editCompanyUser(id, postBody);
-    };
-
-    componentDidUpdate = prevProps => {
-        const { postSuccess, history } = this.props;
-
-        if (postSuccess && !prevProps.postSuccess) {
-            history.push('/users-management/operatives');
-        }
-    };
+    componentDidMount() {
+        // const { id } = this.props.match.params.id;
+        // const { fetchSingleCompanyUser } = this.props;
+        // fetchSingleCompanyUser(id);
+    }
 }
-const mapStateToProps = (
-    { companyAdmin: { companyUsersReducer } },
-    { match }
-) => ({
-    postSuccess: companyUsersReducer.postSuccess,
-    error: companyUsersReducer.error,
-    id: match.params.id
-});
 
 const mapDispatchToProps = dispatch => ({
-    editCompanyUser: postBody => {
-        dispatch(editCompanyUser(postBody));
-    }
+    // fetchCompanyUser: id => {
+    //     dispatch(fetchSingleCompanyUser(id));
+    // }
 });
 
 export default withRouter(
     connect(
-        mapStateToProps,
+        null,
         mapDispatchToProps
     )(EditOperativeFormContainer)
 );

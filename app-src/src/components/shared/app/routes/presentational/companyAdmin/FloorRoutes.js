@@ -9,7 +9,7 @@ import InviteCompanyToFloor from 'components/companyAdmin/floors/inviteCompanyTo
 import AddFloor from 'components/companyAdmin/floors/addFloor/presentational/AddFloor';
 import FloorInviteClientContainer from 'components/companyAdmin/floors/singleFloor/containers/FloorInviteClientContainer';
 import FloorEditContainer from 'components/companyAdmin/floors/singleFloor/containers/FloorEditContainer';
-import AttachFloorDocumentFormContainer from 'components/companyAdmin/floors/attachFloorDocument/containers/AttachFloorDocumentFormContainer';
+import AttachFloorDocument from 'components/companyAdmin/floors/attachFloorDocument/presentational/AttachFloorDocument';
 import EditFloorDocumentContainer from 'components/companyAdmin/floors/editFloorDocument/containers/EditFloorDocumentContainer';
 
 const FloorRoutes = ({ match: { url: baseUrl } }) => (
@@ -34,7 +34,7 @@ const FloorRoutes = ({ match: { url: baseUrl } }) => (
         <Route
             exact
             path={`${baseUrl}/:id/attach-document`}
-            component={AttachFloorDocumentFormContainer}
+            component={AttachFloorDocument}
         />
         <Route
             exact
