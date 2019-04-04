@@ -16,7 +16,7 @@ import {
     DELETION_ERROR,
     DELETE_DOCUMENT,
     DELETE_OPERATIVE,
-    DELETE_COMPANY_USER
+    DELETE_COMPANY_USER,
     DELETE_CLIENT_FROM_DRAWING
 } from 'constants/shared/modalTypes';
 
@@ -52,7 +52,7 @@ const MODAL_COMPONENTS = {
     [DELETE_DOCUMENT]: DeleteDocumentModalContainer,
     [DELETE_OPERATIVE]: DeleteOperativeModalContainer,
     [DELETION_ERROR]: DeletionErrorModalContainer,
-    [DELETE_COMPANY_USER]: DeleteCompanyUserModalContainer
+    [DELETE_COMPANY_USER]: DeleteCompanyUserModalContainer,
     [DELETE_CLIENT_FROM_DRAWING]: DeleteClientModalContainer
 };
 
