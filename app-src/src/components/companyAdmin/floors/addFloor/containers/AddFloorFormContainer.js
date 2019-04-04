@@ -45,8 +45,8 @@ class AddFloorFormContainer extends Component {
         const { name } = this.state;
 
         createFloor({
-            buildingID,
-            name
+            name,
+            buildingID
         });
     };
 }
@@ -54,7 +54,7 @@ class AddFloorFormContainer extends Component {
 const mapStateToProps = ({ companyAdmin: { floorsReducer } }, { match }) => ({
     postSuccess: floorsReducer.postSuccess,
     updatedFloorID: floorsReducer.updatedFloorID,
-    buildingID: match.params.buildingID
+    buildingID: match.params.id
 });
 
 const mapDispatchToProps = dispatch => ({
