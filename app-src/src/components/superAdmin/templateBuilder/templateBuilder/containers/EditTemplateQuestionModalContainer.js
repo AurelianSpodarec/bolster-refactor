@@ -19,7 +19,7 @@ const questionTypeOptions = Object.keys(QUESTION_TYPES).map(type => ({
 class AddTemplateQuestionModalContainer extends Component {
     state = {
         questionTypeOptions: convertArrToObj(questionTypeOptions, 'value'),
-        questionType: 'SINGLE_LINE',
+        questionType: '1',
         prereqOptions: {},
         prereqUuid: '',
         prereqVal: '',

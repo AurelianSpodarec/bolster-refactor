@@ -2,13 +2,14 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import SaveTemplateButton from '../presentational/SaveTemplateButton';
+import resetSaveRequired from 'actions/superAdmin/templateBuilder/sync/resetSaveRequired';
 
 class SaveTemplateButtonContainer extends Component {
     render() {
         return (
             <SaveTemplateButton
                 saveRequired={true}
-                promptMessage={() => 'Are you sure?'}
+                promptMessage={() => 'You have unsaved changes, are you sure?'}
                 handleSave={this.handleSave}
             />
         );
@@ -27,21 +28,25 @@ class SaveTemplateButtonContainer extends Component {
     };
 
     handleSave = () => {
-        const { template, allSections, allQuestions } = this.props;
+        const {
+            template,
+            allSections,
+            allQuestions,
+            resetSaveRequired
+        } = this.props;
         const sections = allSections.filter(
             ({ templateUuid }) => templateUuid === template.uuid
         );
-        const sectionUuids = sections.map(({ uuid }) => uuid);
-        const questions = allQuestions.filter(({ sectionUuid }) =>
-            sectionUuids.includes(sectionUuid)
+        const questions = allQuestions.filter(
+            ({ templateUuid }) => templateUuid === template.uuid
         );
-
         const newTemplateData = {
             template,
             sections,
             questions
         };
 
+        resetSaveRequired();
         console.log(newTemplateData);
     };
 }
@@ -66,5 +71,14 @@ const mapStateToProps = (
     allQuestions: Object.values(questions)
 });
 
-const WithConnect = connect(mapStateToProps)(SaveTemplateButtonContainer);
+const mapDispatchToProps = dispatch => ({
+    resetSaveRequired: () => {
+        dispatch(resetSaveRequired());
+    }
+});
+
+const WithConnect = connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(SaveTemplateButtonContainer);
 export default withRouter(WithConnect);

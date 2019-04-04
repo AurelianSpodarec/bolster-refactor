@@ -20,7 +20,7 @@ const questionTypeOptions = Object.keys(QUESTION_TYPES).map(type => ({
 class AddTemplateQuestionModalContainer extends Component {
     state = {
         questionTypeOptions: convertArrToObj(questionTypeOptions, 'value'),
-        questionType: 'SINGLE_LINE',
+        questionType: '1',
         prereqOptions: {},
         prereqUuid: '',
         prereqVal: '',
@@ -86,7 +86,7 @@ class AddTemplateQuestionModalContainer extends Component {
             isRequired,
             isHidden,
             isPrefill,
-            questionType: questionType,
+            questionType,
             templateUuid,
             sectionUuid,
             uuid: uuid(),
@@ -103,10 +103,7 @@ class AddTemplateQuestionModalContainer extends Component {
         const options = questions
             .filter(({ templateUuid }) => templateUuid === temUuid)
             .filter(({ questionType }) => PREREQ_TYPES.includes(questionType))
-            .map(({ uuid, name }) => ({
-                value: uuid,
-                text: name
-            }));
+            .map(({ uuid, name }) => ({ value: uuid, text: name }));
 
         return convertArrToObj(options, 'value');
     };
