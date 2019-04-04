@@ -51,8 +51,10 @@ function isPostingReducer(state = false, action) {
 function postSuccessReducer(state = false, action) {
     switch (action.type) {
         case CREATE_COMPANY_USER_REQUEST:
+        case EDIT_COMPANY_USER_REQUEST:
             return false;
         case CREATE_COMPANY_USER_SUCCESS:
+        case EDIT_COMPANY_USER_SUCCESS:
             return true;
         default:
             return state;
