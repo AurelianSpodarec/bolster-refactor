@@ -9,13 +9,14 @@ import {
     ADD_TEMPLATE_QUESTION,
     EDIT_TEMPLATE_QUESTION,
     RENAME_TEMPLATE_SECTION,
-    EDIT_SERVICE,
+    ADMIN_EDIT_SERVICE,
     EDIT_USER_PASSWORD,
     EDIT_USER,
     DELETE_ENQUIRY,
     DELETION_ERROR,
     DELETE_DOCUMENT,
-    DELETE_OPERATIVE
+    DELETE_OPERATIVE,
+    DELETE_COMPANY_USER
 } from 'constants/shared/modalTypes';
 
 import PinPhotoModal from '../presentational/PinPhotoModal';
@@ -32,6 +33,7 @@ import DeleteEnquiryModalContainer from './DeleteEnquiryModalContainer';
 import DeletionErrorModalContainer from './DeletionErrorModalContainer';
 import DeleteDocumentModalContainer from './DeleteDocumentModalContainer';
 import DeleteOperativeModalContainer from './DeleteOperativeModalContainer';
+import DeleteCompanyUserModalContainer from './DeleteCompanyUserModalContainer';
 
 const MODAL_COMPONENTS = {
     [PIN_IMAGE]: PinPhotoModal,
@@ -41,13 +43,14 @@ const MODAL_COMPONENTS = {
     [ADD_TEMPLATE_SECTION]: AddTemplateSectionModalContainer,
     [EDIT_TEMPLATE_QUESTION]: EditTemplateQuestionModalContainer,
     [RENAME_TEMPLATE_SECTION]: RenameTemplateSectionModalContainer,
-    [EDIT_SERVICE]: EditServiceModalContainer,
+    [ADMIN_EDIT_SERVICE]: EditServiceModalContainer,
     [EDIT_USER_PASSWORD]: EditUserPasswordModalContainer,
     [EDIT_USER]: EditUserModalContainer,
     [DELETE_ENQUIRY]: DeleteEnquiryModalContainer,
     [DELETE_DOCUMENT]: DeleteDocumentModalContainer,
     [DELETE_OPERATIVE]: DeleteOperativeModalContainer,
-    [DELETION_ERROR]: DeletionErrorModalContainer
+    [DELETION_ERROR]: DeletionErrorModalContainer,
+    [DELETE_COMPANY_USER]: DeleteCompanyUserModalContainer
 };
 
 const ModalRoot = ({ modalType, modalProps }) => {

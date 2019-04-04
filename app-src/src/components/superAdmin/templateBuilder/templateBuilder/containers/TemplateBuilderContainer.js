@@ -1,22 +1,19 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { withRouter, Prompt } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 import { ADD_TEMPLATE_SECTION } from 'constants/shared/modalTypes';
 import showModal from 'actions/shared/generic/modals/sync/showModal';
 import TemplateBuilder from '../presentational/TemplateBuilder';
+import resetSaveRequired from 'actions/superAdmin/templateBuilder/sync/resetSaveRequired';
 
 class TemplateBuilderContainer extends Component {
-    state = {
-        isBlocking: false
-    };
     render() {
-        const { showAddSectionModal, uuid } = this.props;
-        const { isBlocking } = this.state;
+        const { showAddSectionModal, uuid, saveRequired } = this.props;
         return (
             <>
-                <Prompt when={isBlocking} message={() => 'are you sure?'} />
                 <TemplateBuilder
+                    saveRequired={saveRequired}
                     showAddSectionModal={() => showAddSectionModal(uuid)}
                 />
             </>
@@ -24,34 +21,30 @@ class TemplateBuilderContainer extends Component {
     }
 
     componentDidMount() {
-        window.addEventListener('beforeunload', this.handleWillLeaveSite);
+        const { resetSaveRequired } = this.props;
+        resetSaveRequired();
     }
-
-    componentWillUnmount() {
-        window.removeEventListener('beforeunload', this.handleWillLeaveSite);
-    }
-
-    handleWillLeaveSite = e => {
-        if (this.state.isBlocking) {
-            e.returnValue = '';
-        }
-    };
-
-    handleWillLeaveRoute = () => {
-        return false;
-    };
 }
+
+const mapStateToProps = (
+    { superAdmin: { templatesReducer } },
+    { match: { params } }
+) => ({
+    saveRequired: templatesReducer.saveRequired,
+    uuid: params.uuid
+});
 
 const mapDispatchToProps = dispatch => ({
     showAddSectionModal: templateUuid => {
         dispatch(showModal(ADD_TEMPLATE_SECTION, { templateUuid }));
+    },
+    resetSaveRequired: () => {
+        dispatch(resetSaveRequired());
     }
 });
 
 const WithConnect = connect(
-    (_, { match }) => ({
-        uuid: match.params.uuid
-    }),
+    mapStateToProps,
     mapDispatchToProps
 )(TemplateBuilderContainer);
 

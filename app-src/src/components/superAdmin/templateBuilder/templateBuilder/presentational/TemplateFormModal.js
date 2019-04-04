@@ -6,10 +6,13 @@ import Field from '../../../../shared/generic/form/presentational/Field';
 import TextInputContainer from '../../../../shared/generic/form/containers/TextInputContainer';
 import BlockHeadingWControls from '../../../../shared/generic/blockHeadingWControls/presentational/BlockHeadingWControls';
 import BlockButtonWrapper from '../../../../shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
+import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
 
 const TemplateformModal = ({
     action,
     name,
+    serviceOptions,
+    selectedService,
     handleChange,
     handleSubmit,
     handleCancel
@@ -20,9 +23,19 @@ const TemplateformModal = ({
             <div className="size-lg-6">
                 <Field name="name">
                     <TextInputContainer
-                        handleChange={handleChange}
                         name="name"
+                        handleChange={handleChange}
                         value={name}
+                        required
+                    />
+                </Field>
+                <Field name="Service">
+                    <DropdownContainer
+                        name="serviceID"
+                        placeholder="-- select a service --"
+                        handleChange={handleChange}
+                        options={serviceOptions}
+                        selectedOption={selectedService}
                         required
                     />
                 </Field>

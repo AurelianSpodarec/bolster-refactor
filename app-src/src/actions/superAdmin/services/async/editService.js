@@ -1,7 +1,7 @@
 import {
-    EDIT_SERVICE_REQUEST,
-    EDIT_SERVICE_SUCCESS,
-    EDIT_SERVICE_FAILURE
+    ADMIN_EDIT_SERVICE_REQUEST,
+    ADMIN_EDIT_SERVICE_SUCCESS,
+    ADMIN_EDIT_SERVICE_FAILURE
 } from 'constants/actionTypes/services';
 import axios from 'axios';
 import { ADMIN_API_URL } from 'config';
@@ -9,17 +9,17 @@ import setAPIFieldErrors from 'actions/shared/generic/fieldErrors/sync/setAPIFie
 import { getHeaders } from 'helpers/api';
 
 export const editServiceRequest = (id, name) => ({
-    type: EDIT_SERVICE_REQUEST,
+    type: ADMIN_EDIT_SERVICE_REQUEST,
     id: id.toString(),
     name
 });
 
 export const editServiceSuccess = payload => ({
-    type: EDIT_SERVICE_SUCCESS,
+    type: ADMIN_EDIT_SERVICE_SUCCESS,
     payload
 });
 export const editServiceFailure = error => ({
-    type: EDIT_SERVICE_FAILURE,
+    type: ADMIN_EDIT_SERVICE_FAILURE,
     error
 });
 

@@ -2,9 +2,8 @@ import { combineReducers } from 'redux';
 
 import { updateObj, removeObjItem } from 'helpers/generic';
 import {
-    ADD_SECTION,
-    DELETE_SECTION,
-    UPDATE_SECTION
+    SET_SECTION,
+    DELETE_SECTION
 } from 'constants/actionTypes/templateBuilder';
 
 const defaultSections = {
@@ -28,8 +27,7 @@ export default combineReducers({
 
 function sectionsReducer(state = defaultSections, action) {
     switch (action.type) {
-        case ADD_SECTION:
-        case UPDATE_SECTION:
+        case SET_SECTION:
             return updateObj(state, action.section.uuid, action.section);
         case DELETE_SECTION:
             return removeObjItem(state, action.uuid);

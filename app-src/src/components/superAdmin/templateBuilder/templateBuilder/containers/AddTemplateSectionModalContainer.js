@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import uuid from 'uuid/v1';
 
-import addSection from 'actions/superAdmin/templateBuilder/sync/addSection';
+import setSection from 'actions/superAdmin/templateBuilder/sync/setSection';
 import hideModal from 'actions/shared/generic/modals/sync/hideModal';
 
 import TemplateSectionFormModal from '../presentational/TemplateSectionFormModal';
@@ -37,7 +37,7 @@ class AddTemplateSectionModalContainer extends React.Component {
         const { sections, templateUuid } = this.props;
 
         const sort = Math.max(0, ...[...sections].map(s => s.sort)) + 1;
-        this.props.addSection({ name, uuid: uuid(), sort, templateUuid });
+        this.props.setSection({ name, uuid: uuid(), sort, templateUuid });
     };
 }
 
@@ -49,8 +49,8 @@ const mapDispatchToProps = dispatch => ({
     hideModal: () => {
         dispatch(hideModal());
     },
-    addSection: newSection => {
-        dispatch(addSection(newSection));
+    setSection: newSection => {
+        dispatch(setSection(newSection));
         dispatch(hideModal());
     }
 });

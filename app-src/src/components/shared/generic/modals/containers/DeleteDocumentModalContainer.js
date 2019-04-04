@@ -5,7 +5,7 @@ import ConfirmDeleteModal from '../presentational/ConfirmDeleteModal';
 import deleteDocument from 'actions/companyAdmin/documents/async/deleteDocument';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 
-const DeleteEnquiryModalContainer = ({ id, handleDelete, hideModal }) => (
+const DeleteDocumentModalContainer = ({ id, handleDelete, hideModal }) => (
     <ConfirmDeleteModal
         handleDelete={() => handleDelete(id)}
         hideModal={e => {
@@ -29,4 +29,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
     null,
     mapDispatchToProps
-)(DeleteEnquiryModalContainer);
+)(DeleteDocumentModalContainer);
