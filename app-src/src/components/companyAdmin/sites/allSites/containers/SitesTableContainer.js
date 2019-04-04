@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { ACCESS_TYPES } from 'constants/companyAdmin/enums';
-
 import SitesTable from '../presentational/SitesTable';
 
 class SitesListTableContainer extends Component {
