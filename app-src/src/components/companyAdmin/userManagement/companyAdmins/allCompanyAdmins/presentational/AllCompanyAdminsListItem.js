@@ -19,7 +19,7 @@ const AllCompanyAdminsListItem = ({ user, showDeleteModal }) => {
                     </button>
                     <Link
                         className="button"
-                        to={`/user-management/company-admins/${user.id}`}
+                        to={`/users-management/company-admins/${user.id}/edit`}
                     >
                         Edit
                     </Link>

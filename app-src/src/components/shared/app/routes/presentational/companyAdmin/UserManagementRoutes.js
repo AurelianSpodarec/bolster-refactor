@@ -8,6 +8,7 @@ import AllOperativesContainer from 'components/companyAdmin/userManagement/opera
 import CreateOperative from 'components/companyAdmin/userManagement/operatives/createOperative/presentational/CreateOperative';
 import CreateCompanyAdmin from 'components/companyAdmin/userManagement/companyAdmins/createCompanyAdmin/presentational/CreateCompanyAdmin';
 import EditOperativeFormContainer from 'components/companyAdmin/userManagement/operatives/editOperative/containers/EditOperativeFormContainer';
+import EditCompanyAdminFormContainer from 'components/companyAdmin/userManagement/companyAdmins/editCompanyAdmin/containers/EditCompanyAdminFormContainer';
 
 const UserManagementRoutes = ({ match: { url: baseUrl } }) => (
     <SwitchWith404>
@@ -35,6 +36,11 @@ const UserManagementRoutes = ({ match: { url: baseUrl } }) => (
             exact
             path={`${baseUrl}/operatives/:id/edit`}
             component={EditOperativeFormContainer}
+        />
+        <Route
+            exact
+            path={`${baseUrl}/company-admins/:id/edit`}
+            component={EditCompanyAdminFormContainer}
         />
     </SwitchWith404>
 );
