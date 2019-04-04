@@ -104,25 +104,11 @@ function documentsReducer(state = {}, action) {
         case FETCH_DOCUMENTS_SUCCESS:
             return convertArrToObj(action.payload);
         case FETCH_DOCUMENT_SUCCESS:
-            return updateObj(state, action.payload.id, action.payload);
         case CREATE_DOCUMENT_SUCCESS:
         case EDIT_DOCUMENT_SUCCESS:
             return updateObj(state, action.payload.id, action.payload);
         case DELETE_DOCUMENT_SUCCESS:
             return removeObjItem(state, action.id);
-        default:
-            return state;
-    }
-}
-
-function postSuccessReducer(state = false, action) {
-    switch (action.type) {
-        case CREATE_DOCUMENT_REQUEST:
-        case EDIT_DOCUMENT_REQUEST:
-            return false;
-        case CREATE_DOCUMENT_SUCCESS:
-        case EDIT_DOCUMENT_SUCCESS:
-            return true;
         default:
             return state;
     }
@@ -136,6 +122,19 @@ function updatedDocumentIDReducer(state = 0, action) {
         case CREATE_DOCUMENT_SUCCESS:
         case EDIT_DOCUMENT_SUCCESS:
             return action.payload.id;
+        default:
+            return state;
+    }
+}
+
+function postSuccessReducer(state = false, action) {
+    switch (action.type) {
+        case CREATE_DOCUMENT_REQUEST:
+        case EDIT_DOCUMENT_REQUEST:
+            return false;
+        case CREATE_DOCUMENT_SUCCESS:
+        case EDIT_DOCUMENT_SUCCESS:
+            return true;
         default:
             return state;
     }

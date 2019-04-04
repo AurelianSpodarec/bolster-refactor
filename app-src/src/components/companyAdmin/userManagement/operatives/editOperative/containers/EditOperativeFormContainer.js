@@ -12,14 +12,14 @@ class EditOperativeFormContainer extends Component {
 
     componentDidMount() {
         // const { id } = this.props.match.params.id;
-        // const { fetchCompanyUser } = this.props;
-        // fetchCompanyUser(id);
+        // const { fetchSingleCompanyUser } = this.props;
+        // fetchSingleCompanyUser(id);
     }
 }
 
 const mapDispatchToProps = dispatch => ({
     // fetchCompanyUser: id => {
-    //     dispatch(fetchCompanyUser(id));
+    //     dispatch(fetchSingleCompanyUser(id));
     // }
 });
 
