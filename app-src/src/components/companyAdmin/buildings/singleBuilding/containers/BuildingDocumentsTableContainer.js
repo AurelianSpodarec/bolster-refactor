@@ -35,7 +35,7 @@ const mapStateToProps = (
         documentIDs: []
     },
     documents: Object.values(documentsReducer.documents),
-    isFetching: documentsReducer.isFetching || buildingsReducer.isFetching,
+    isFetching: documentsReducer.isFetching,
     error: documentsReducer.error
 });
 

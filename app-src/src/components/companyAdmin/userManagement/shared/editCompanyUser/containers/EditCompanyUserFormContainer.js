@@ -19,6 +19,7 @@ class EditCompanyUserFormContainer extends Component {
                 {...this.state}
                 handleInputChange={this.handleInputChange}
                 handleSubmit={this.handleSubmit}
+                type={this.props.type}
             />
         );
     }
@@ -40,26 +41,51 @@ class EditCompanyUserFormContainer extends Component {
         this.props.editCompanyUser(id, postBody);
     };
 
+    componentDidMount = () => {
+        const { isFetching, user } = this.props;
+        if (!isFetching && user)
+            this.setState({
+                firstName: user.userFirstName,
+                lastName: user.userLastName,
+                email: user.userEmail,
+                phoneNumber: user.userPhoneNumber
+            });
+    };
+
     componentDidUpdate = prevProps => {
-        const { postSuccess, history } = this.props;
+        const { postSuccess, history, isFetching, user, type } = this.props;
+
+        if (user && !isFetching && prevProps.isFetching)
+            this.setState({
+                firstName: user.userFirstName,
+                lastName: user.userLastName,
+                email: user.userEmail,
+                phoneNumber: user.userPhoneNumber
+            });
 
         if (postSuccess && !prevProps.postSuccess) {
-            history.push('/users-management/operatives');
+            history.push(`/users-management/${type}`);
         }
     };
 }
 const mapStateToProps = (
     { companyAdmin: { companyUsersReducer } },
-    { match }
+    {
+        match: {
+            params: { id }
+        }
+    }
 ) => ({
+    user: companyUsersReducer.users[id],
     postSuccess: companyUsersReducer.postSuccess,
     error: companyUsersReducer.error,
-    id: match.params.id
+    isFetching: companyUsersReducer.isFetching,
+    id
 });
 
 const mapDispatchToProps = dispatch => ({
-    editCompanyUser: postBody => {
-        dispatch(editCompanyUser(postBody));
+    editCompanyUser: (id, postBody) => {
+        dispatch(editCompanyUser(id, postBody));
     }
 });
 

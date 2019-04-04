@@ -5,23 +5,19 @@ import PageHeading from 'components/shared/generic/pageHeading/presentational/Pa
 import Breadcrumb from 'components/shared/generic/breadcrumb/presentational/Breadcrumb';
 import EditCompanyUserFormContainer from 'components/companyAdmin/userManagement/shared/editCompanyUser/containers/EditCompanyUserFormContainer';
 
-const EditOperative = ({ handleSubmit, userID }) => (
+const EditCompanyAdmin = () => (
     <>
         <Breadcrumb
             breadcrumbs={[
-                { text: 'All Operatives' },
-                { text: 'Edit Operative' }
+                { text: 'All Company Admins' },
+                { text: 'Edit Company Admin' }
             ]}
         />
-        <PageHeading title="Edit Operative" />
+        <PageHeading title="Edit Company Admin" />
         <BlockContainer>
-            <EditCompanyUserFormContainer
-                handleSubmit={handleSubmit}
-                userID={userID}
-                type="operatives"
-            />
+            <EditCompanyUserFormContainer type="company-admins" />
         </BlockContainer>
     </>
 );
 
-export default EditOperative;
+export default EditCompanyAdmin;
