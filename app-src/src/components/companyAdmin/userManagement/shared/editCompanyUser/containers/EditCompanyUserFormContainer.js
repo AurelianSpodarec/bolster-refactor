@@ -41,7 +41,15 @@ class EditCompanyUserFormContainer extends Component {
     };
 
     componentDidUpdate = prevProps => {
-        const { postSuccess, history } = this.props;
+        const { postSuccess, history, isFetching, user } = this.props;
+
+        if (user && !isFetching && prevProps.isFetching)
+            this.setState({
+                firstName: user.userFirstName,
+                lastName: user.userLastName,
+                email: user.userEmail,
+                phoneNumber: user.userPhoneNumber
+            });
 
         if (postSuccess && !prevProps.postSuccess) {
             history.push('/users-management/operatives');
@@ -50,11 +58,17 @@ class EditCompanyUserFormContainer extends Component {
 }
 const mapStateToProps = (
     { companyAdmin: { companyUsersReducer } },
-    { match }
+    {
+        match: {
+            params: { id }
+        }
+    }
 ) => ({
+    user: companyUsersReducer.users[id],
     postSuccess: companyUsersReducer.postSuccess,
     error: companyUsersReducer.error,
-    id: match.params.id
+    isFetching: companyUsersReducer.isFetching,
+    id
 });
 
 const mapDispatchToProps = dispatch => ({
