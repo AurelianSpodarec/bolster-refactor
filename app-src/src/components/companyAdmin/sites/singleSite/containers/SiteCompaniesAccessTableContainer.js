@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
 
 import CompaniesAccessContainer from 'components/shared/companies/containers/CompaniesAccessContainer';
 

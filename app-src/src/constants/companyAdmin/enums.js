@@ -1,5 +1,3 @@
-import sites from 'reducers/companyAdmin/sites';
-
 export const ROLE_TYPES = {
     '0': 'Owner',
     '1': 'Admin',
