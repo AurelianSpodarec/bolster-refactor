@@ -11,9 +11,6 @@ const BuildingPageHeader = ({ building }) => (
         <Link className="button" to="/site">
             <i className="fa fa-exchange" /> Change Ownership
         </Link>
-        <Link className="button yellow" to={`/buildings/edit/${building.id}`}>
-            <i className="far fa-pencil" /> Edit Building
-        </Link>
     </PageHeading>
 );
 

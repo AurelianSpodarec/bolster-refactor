@@ -18,6 +18,7 @@ import operativesReducer from './operatives';
 import subscriptionsReducer from './subscriptions';
 import companyUsersReducer from '../companyAdmin/companyUsers';
 import servicesReducer from './services';
+import statsReducer from './stats';
 
 export default combineReducers({
     buildingsReducer,
@@ -37,5 +38,6 @@ export default combineReducers({
     pinHistoriesReducer,
     operativesReducer,
     subscriptionsReducer,
-    servicesReducer
+    servicesReducer,
+    statsReducer
 });

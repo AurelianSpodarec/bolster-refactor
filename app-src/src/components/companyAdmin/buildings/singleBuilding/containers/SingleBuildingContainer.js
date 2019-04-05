@@ -6,6 +6,7 @@ import fetchDocuments from 'actions/companyAdmin/documents/async/fetchDocuments'
 import fetchAllCompanies from 'actions/companyAdmin/companies/async/fetchAllCompanies';
 import fetchAllFloors from 'actions/companyAdmin/floors/async/fetchAllFloors';
 import fetchAllDrawings from 'actions/companyAdmin/drawings/async/fetchAllDrawings';
+import fetchPinStatsForLevel from 'actions/companyAdmin/stats/async/fetchPinStatsForLevel';
 
 import SingleBuilding from '../presentational/SingleBuilding';
 
@@ -21,10 +22,12 @@ class SingleBuildingContainer extends Component {
             fetchAllFloors,
             fetchAllCompanies,
             fetchDocuments,
-            buildingID
+            buildingID,
+            fetchPinStatsForLevel
         } = this.props;
 
         fetchSingleBuilding(buildingID).then(() => {
+            fetchPinStatsForLevel('building', buildingID);
             fetchAllDrawings();
             fetchAllFloors();
             fetchAllCompanies();
@@ -48,6 +51,9 @@ const mapDispatchToProps = dispatch => ({
     },
     fetchAllCompanies: () => {
         dispatch(fetchAllCompanies());
+    },
+    fetchPinStatsForLevel: (hierarchyType, levelID) => {
+        dispatch(fetchPinStatsForLevel(hierarchyType, levelID));
     }
 });
 

@@ -311,6 +311,10 @@ input {
     }
 }
 
+.disabled-link {
+    pointer-events: none;
+}
+
 //header
 #page-header {
     height: 69px;
@@ -1104,6 +1108,7 @@ input {
 
             img {
                 float: left;
+                width: 24px;
                 margin-right: 5px;
             }
 

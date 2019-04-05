@@ -75,6 +75,7 @@ function postSuccessReducer(state = false, action) {
         case EDIT_DRAWING_OPERATIVE_FAILURE:
             return false;
         case EDIT_DRAWING_OPERATIVE_SUCCESS:
+        case ADD_OPERATIVE_SUCCESS:
             return true;
         default:
             return state;

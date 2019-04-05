@@ -8,6 +8,7 @@ import fetchSingleSite from 'actions/companyAdmin/sites/async/fetchSingleSite';
 import fetchDocuments from 'actions/companyAdmin/documents/async/fetchDocuments';
 import fetchClients from 'actions/companyAdmin/clients/async/fetchClients';
 import fetchAllCompanies from 'actions/companyAdmin/companies/async/fetchAllCompanies';
+import fetchPinStatsForLevel from 'actions/companyAdmin/stats/async/fetchPinStatsForLevel';
 
 import SingleSite from '../presentational/SingleSite';
 
@@ -24,10 +25,12 @@ class SingleSiteContainer extends Component {
             fetchAllDrawings,
             fetchDocuments,
             // fetchClients,
-            fetchAllCompanies
+            fetchAllCompanies,
+            fetchPinStatsForLevel
         } = this.props;
         fetchSingleSite(siteID).then(() => {
             fetchDocuments('site', siteID);
+            fetchPinStatsForLevel('site', siteID);
             fetchAllBuildings();
             fetchAllFloors();
             fetchAllDrawings();
@@ -59,6 +62,9 @@ const mapDispatchToProps = dispatch => ({
     },
     fetchAllCompanies: () => {
         dispatch(fetchAllCompanies());
+    },
+    fetchPinStatsForLevel: (hierarchyType, levelID) => {
+        dispatch(fetchPinStatsForLevel(hierarchyType, levelID));
     }
 });
 
