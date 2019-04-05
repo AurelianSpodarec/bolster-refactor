@@ -202,6 +202,7 @@ const mapStateToProps = (
     services: Object.values(servicesReducer.services),
     subscriptions: subscriptionsReducer.subscriptions.serviceIDs || [],
     document: documentsReducer.documents[match.params.documentID],
+    hierarchyID: match.params.id,
     documentID: match.params.documentID,
     postSuccess: documentsReducer.postSuccess
 });
