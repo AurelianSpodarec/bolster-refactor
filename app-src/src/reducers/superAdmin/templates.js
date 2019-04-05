@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 
-import { updateObj } from 'helpers/generic';
+import { updateObj, removeObjItem } from 'helpers/generic';
 import {
     SET_TEMPLATE,
     SET_SECTION,
@@ -9,29 +9,62 @@ import {
     DELETE_QUESTION,
     CHANGE_QUESTION_SECTION,
     SWAP_QUESTION_SORTS,
-    RESET_SAVE_REQUIRED
+    RESET_SAVE_REQUIRED,
+    POST_TEMPLATE_REQUEST,
+    POST_TEMPLATE_SUCCESS,
+    POST_TEMPLATE_FAILURE
 } from 'constants/actionTypes/templateBuilder';
-
-const defaultTemplates = {
-    '9d707ec0-52e3-11e9-8633-45ed325a6f22': {
-        name: 'Template 1',
-        uuid: '9d707ec0-52e3-11e9-8633-45ed325a6f22'
-    },
-    '33707ec0-52e3-11e9-8633-45ed325a6f2f': {
-        name: 'Template 2',
-        uuid: '33707ec0-52e3-11e9-8633-45ed325a6f2f'
-    }
-};
 
 export default combineReducers({
     templates: templatesReducer,
-    saveRequired: saveRequiredReducer
+    saveRequired: saveRequiredReducer,
+    error: errorReducer,
+    postSuccess: postSuccessReducer,
+    updatedTemplateUUID: updatedTemplateUUIDReducer
 });
 
-function templatesReducer(state = defaultTemplates, action) {
+function errorReducer(state = null, action) {
+    switch (action.type) {
+        case POST_TEMPLATE_REQUEST:
+            return null;
+        case POST_TEMPLATE_FAILURE:
+            return action.error;
+        default:
+            return state;
+    }
+}
+
+function postSuccessReducer(state = false, action) {
+    switch (action.type) {
+        case POST_TEMPLATE_REQUEST:
+            return false;
+        case POST_TEMPLATE_SUCCESS:
+            return true;
+        default:
+            return state;
+    }
+}
+
+function updatedTemplateUUIDReducer(state = 0, action) {
+    switch (action.type) {
+        case POST_TEMPLATE_REQUEST:
+            return 0;
+        case POST_TEMPLATE_SUCCESS:
+            return action.template.uuid;
+        default:
+            return state;
+    }
+}
+
+function templatesReducer(state = {}, action) {
     switch (action.type) {
         case SET_TEMPLATE:
             return updateObj(state, action.template.uuid, action.template);
+        case POST_TEMPLATE_SUCCESS:
+            return {
+                ...removeObjItem(state, action.oldUUID),
+                [action.template.uuid]: action.template
+            };
         default:
             return state;
     }
@@ -48,6 +81,7 @@ function saveRequiredReducer(state = false, action) {
         case SWAP_QUESTION_SORTS:
             return true;
         case RESET_SAVE_REQUIRED:
+        case POST_TEMPLATE_SUCCESS:
             return false;
         default:
             return state;

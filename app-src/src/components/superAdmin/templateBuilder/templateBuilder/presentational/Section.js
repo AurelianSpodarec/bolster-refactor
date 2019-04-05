@@ -1,6 +1,7 @@
 import React from 'react';
 
 import QuestionList from '../presentational/QuestionList';
+import TooltipContainer from 'components/shared/generic/tooltip/containers/TooltipContainer';
 
 const style = {
     width: '250px',
@@ -22,7 +23,8 @@ const Section = ({
     deleteSection,
     showAddQuestModal,
     showRenameSectModal,
-    duplicateSection
+    duplicateSection,
+    tooltipMessage
 }) => (
     <div
         className="template-block size-lg-12"
@@ -32,13 +34,13 @@ const Section = ({
             <i className="fa fa-eye" />
         </button>
         <button className="button" onClick={showRenameSectModal}>
-            Edit
+            Rename
         </button>
         <h3 style={{ ...headingStyle }} className="heading ">
             {section.name}
         </h3>
         <QuestionList
-            sectionUuid={section.uuid}
+            sectionUUID={section.uuid}
             questions={questions}
             moveQuestion={moveQuestion}
         />
@@ -46,10 +48,19 @@ const Section = ({
             <i className="fa fa-plus" />
             Add question
         </button>
-        <button className="button red" onClick={deleteSection}>
-            <i className="fa fa-times" />
-            Delete
-        </button>
+        {tooltipMessage ? (
+            <TooltipContainer text={tooltipMessage}>
+                <button className="button red disabled">
+                    <i className="fa fa-times" />
+                    Delete
+                </button>
+            </TooltipContainer>
+        ) : (
+            <button className="button red" onClick={deleteSection}>
+                <i className="fa fa-times" />
+                Delete
+            </button>
+        )}
         <button onClick={duplicateSection} className="button">
             <i className="fa fa-clone" /> Duplicate
         </button>

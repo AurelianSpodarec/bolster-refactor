@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import generateUuid from 'uuid/v1';
 
 import fetchAllServices from 'actions/superAdmin/services/async/fetchAllServices';
 import setTemplate from 'actions/superAdmin/templateBuilder/sync/setTemplate';
@@ -9,6 +10,7 @@ import hideModal from 'actions/shared/generic/modals/sync/hideModal';
 import TemplateFormModal from '../presentational/TemplateFormModal';
 import { convertArrToObj, convertEnumToDropdownOptions } from 'helpers/generic';
 import { LABEL_TYPES } from 'constants/companyAdmin/enums';
+import setSection from 'actions/superAdmin/templateBuilder/sync/setSection';
 
 class TemplateFormModalContainer extends React.Component {
     state = {
@@ -70,7 +72,13 @@ class TemplateFormModalContainer extends React.Component {
             name
         };
 
-        setTemplate(template);
+        const section1 = {
+            uuid: generateUuid(),
+            templateUUID: uuid,
+            name: 'Section 1'
+        };
+
+        setTemplate(template, section1);
     };
 
     _getSeviceOptions = () => {
@@ -94,8 +102,9 @@ const mapDispatchToProps = dispatch => ({
     hideModal: () => {
         dispatch(hideModal());
     },
-    setTemplate: template => {
+    setTemplate: (template, section1) => {
         dispatch(setTemplate(template));
+        dispatch(setSection(section1));
         dispatch(hideModal());
     },
     fetchData: () => {
