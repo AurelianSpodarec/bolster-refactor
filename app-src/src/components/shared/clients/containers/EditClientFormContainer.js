@@ -15,7 +15,7 @@ class EditClientFormContainer extends Component {
     render() {
         const { serviceIDs } = this.state;
         const serviceOptions = this._getServicesOptions();
-
+        console.log(serviceIDs);
         return (
             <BlockContainer>
                 <EditClientForm
@@ -29,16 +29,14 @@ class EditClientFormContainer extends Component {
         );
     }
     _setClientDetails = () => {
-        // const { client } = this.props;
-
+        const serviceIDs = this.props.client.serviceIDs.map(id => String(id));
         this.setState({
-            //Need to get service IDs from api
-            // serviceIDs: []
+            serviceIDs
         });
     };
     componentDidUpdate = prevProps => {
         const { success, history, hierarchyID, client } = this.props;
-
+        console.log(client);
         if (!prevProps.client.id && !!client.id) {
             this._setClientDetails();
         }
