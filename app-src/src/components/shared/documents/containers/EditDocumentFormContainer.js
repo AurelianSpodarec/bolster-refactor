@@ -79,10 +79,11 @@ class EditDocumentFormContainer extends Component {
             postSuccess,
             history,
             hierarchyType,
-            hierarchyID,
+            match,
             isFetching,
             document
         } = this.props;
+        const { id: hierarchyID } = match.params;
 
         if (!isFetching && prevProps.isFetching) {
             const serviceIDs =
@@ -162,7 +163,8 @@ class EditDocumentFormContainer extends Component {
 
     handleSubmit = e => {
         e.preventDefault();
-        const { editDocument, documentID } = this.props;
+        const { editDocument, documentID, hierarchyType, match } = this.props;
+        const { id: hierarchyID } = match.params;
         const {
             serviceIDs,
             // eslint-disable-next-line no-unused-vars
@@ -174,7 +176,9 @@ class EditDocumentFormContainer extends Component {
         const postBody = {
             ...body,
             serviceIDs: serviceIDs,
-            file: isObjEmpty(file) ? { s3Key: fileS3Key } : file
+            file: isObjEmpty(file) ? { s3Key: fileS3Key } : file,
+            hierarchyID,
+            hierarchyType
         };
         editDocument(documentID, postBody);
     };
