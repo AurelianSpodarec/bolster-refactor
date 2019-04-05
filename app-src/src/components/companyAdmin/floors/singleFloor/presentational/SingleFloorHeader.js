@@ -11,9 +11,6 @@ const SingleFloorHeader = ({ floor }) => (
         <Link className="button" to="/floor">
             <i className="fa fa-exchange" /> Change Ownership
         </Link>
-        <Link className="button yellow" to={`/floors/edit/${floor.id}`}>
-            <i className="far fa-pencil" /> Edit Floor
-        </Link>
     </PageHeading>
 );
 

@@ -18,7 +18,7 @@ const FloorRoutes = ({ match: { url: baseUrl } }) => (
         <Route exact path={`${baseUrl}/create/:id`} component={AddFloor} />
         <Route
             exact
-            path={`${baseUrl}/edit/:id`}
+            path={`${baseUrl}/:id/edit`}
             component={FloorEditContainer}
         />
         <Route
