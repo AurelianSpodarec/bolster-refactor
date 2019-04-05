@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 import InviteCompanyForm from '../presentational/InviteCompanyForm';
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import addCompany from 'actions/companyAdmin/companies/async/addCompany';
 
 class InviteCompanyFormContainer extends Component {
@@ -17,16 +16,14 @@ class InviteCompanyFormContainer extends Component {
         const serviceOptions = this._getServicesOptions();
 
         return (
-            <BlockContainer>
-                <InviteCompanyForm
-                    {...this.state}
-                    serviceOptions={serviceOptions}
-                    checkedServices={serviceIDs}
-                    handleChange={this.handleChange}
-                    handleMultiselectChange={this.handleMultiselectChange}
-                    handleSubmit={this.handleSubmit}
-                />
-            </BlockContainer>
+            <InviteCompanyForm
+                {...this.state}
+                serviceOptions={serviceOptions}
+                checkedServices={serviceIDs}
+                handleChange={this.handleChange}
+                handleMultiselectChange={this.handleMultiselectChange}
+                handleSubmit={this.handleSubmit}
+            />
         );
     }
 

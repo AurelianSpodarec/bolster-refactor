@@ -8,6 +8,7 @@ const CompaniesAccessTable = ({
     location,
     companies,
     parentId,
+    handleShowModal,
     isFetching,
     error
 }) => (
@@ -21,7 +22,11 @@ const CompaniesAccessTable = ({
             noDataMessage="There are no companies to display."
             withActions
         >
-            <CompaniesAccessList companies={companies} parentId={parentId} />
+            <CompaniesAccessList
+                handleShowModal={handleShowModal}
+                companies={companies}
+                parentId={parentId}
+            />
         </Table>
         <div className="button-container table">
             <Link

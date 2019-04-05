@@ -5,7 +5,7 @@ import PageHeading from 'components/shared/generic/pageHeading/presentational/Pa
 const TemplateBuilderHeader = ({ name = '', showTemplateForm }) => (
     <PageHeading title={`Template builder : ${name}`}>
         <button className="button" onClick={showTemplateForm}>
-            {name.length ? 'Edit' : 'Add'} name
+            {name.length ? 'Edit' : 'Add'} template
         </button>
     </PageHeading>
 );

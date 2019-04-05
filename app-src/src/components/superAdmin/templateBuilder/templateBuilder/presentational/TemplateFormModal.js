@@ -13,6 +13,8 @@ const TemplateformModal = ({
     name,
     serviceOptions,
     selectedService,
+    labelTypeOptions,
+    selectedLabelType,
     handleChange,
     handleSubmit,
     handleCancel
@@ -36,6 +38,16 @@ const TemplateformModal = ({
                         handleChange={handleChange}
                         options={serviceOptions}
                         selectedOption={selectedService}
+                        required
+                    />
+                </Field>
+                <Field name="Label type">
+                    <DropdownContainer
+                        name="labelType"
+                        placeholder="-- select a label type --"
+                        handleChange={handleChange}
+                        options={labelTypeOptions}
+                        selectedOption={selectedLabelType}
                         required
                     />
                 </Field>

@@ -1,13 +1,30 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 import EditOperative from '../presentational/EditOperative';
 
-export default class EditOperativeFormContainer extends Component {
+class EditOperativeFormContainer extends Component {
     render() {
-        return (
-            <div>
-                <EditOperative />
-            </div>
-        );
+        return <EditOperative />;
+    }
+
+    componentDidMount() {
+        // const { id } = this.props.match.params.id;
+        // const { fetchSingleCompanyUser } = this.props;
+        // fetchSingleCompanyUser(id);
     }
 }
+
+const mapDispatchToProps = dispatch => ({
+    // fetchCompanyUser: id => {
+    //     dispatch(fetchSingleCompanyUser(id));
+    // }
+});
+
+export default withRouter(
+    connect(
+        null,
+        mapDispatchToProps
+    )(EditOperativeFormContainer)
+);

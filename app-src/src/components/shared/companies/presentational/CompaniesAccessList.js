@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 import { PERMISSION_STATES as STATE } from 'constants/companyAdmin/enums';
 
-const CompaniesAccessList = ({ companies, parentId }) =>
+const CompaniesAccessList = ({ companies, parentId, handleShowModal }) =>
     companies.map(company => (
         <tr key={company.id}>
             <td>{company.companyName}</td>
@@ -27,9 +27,12 @@ const CompaniesAccessList = ({ companies, parentId }) =>
                         >
                             <i className="far fa-pencil fa-fw" />
                         </Link>
-                        <Link to="#" className="button icon-only">
+                        <button
+                            onClick={() => handleShowModal(company.id)}
+                            className="button icon-only"
+                        >
                             <i className="far fa-trash-alt fa-fw" />
-                        </Link>
+                        </button>
                     </>
                 )}
             </td>

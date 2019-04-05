@@ -1,9 +1,10 @@
 export const QUESTION_TYPES = {
-    SINGLE_LINE: 'Single line',
-    MULTI_LINE: 'Multi line',
-    NUMBER_FIELD: 'Number field',
-    DROPDOWN: 'Dropdown',
-    CHECKBOX: 'Checkbox'
+    '1': 'Single line',
+    '2': 'Multi line',
+    '3': 'Number field',
+    '4': 'Dropdown',
+    '5': 'Checkbox',
+    '6': 'Photo'
 };
 
-export const PREREQ_TYPES = ['DROPDOWN', 'CHECKBOX'];
+export const PREREQ_TYPES = ['4', '5'];

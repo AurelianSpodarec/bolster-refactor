@@ -13,9 +13,12 @@ import {
     ADD_COMPANY_REQUEST,
     ADD_COMPANY_SUCCESS,
     ADD_COMPANY_FAILURE,
+    DELETE_COMPANY_PERMISSIONS_REQUEST,
+    DELETE_COMPANY_PERMISSIONS_SUCCESS,
+    DELETE_COMPANY_PERMISSIONS_FAILURE,
     UPDATE_COMPANIES_FILTERS
 } from 'constants/actionTypes/companies';
-import { updateObj } from 'helpers/generic';
+import { updateObj, removeObjItem } from 'helpers/generic';
 
 export default combineReducers({
     company: companyReducer,
@@ -49,9 +52,12 @@ function isFetchingReducer(state = false, action) {
 function isPostingReducer(state = false, action) {
     switch (action.type) {
         case ADD_COMPANY_REQUEST:
+        case DELETE_COMPANY_PERMISSIONS_REQUEST:
             return true;
         case ADD_COMPANY_SUCCESS:
         case ADD_COMPANY_FAILURE:
+        case DELETE_COMPANY_PERMISSIONS_SUCCESS:
+        case DELETE_COMPANY_PERMISSIONS_FAILURE:
             return false;
         default:
             return state;
@@ -77,8 +83,11 @@ function postSuccessReducer(state = false, action) {
     switch (action.type) {
         case ADD_COMPANY_FAILURE:
         case ADD_COMPANY_REQUEST:
+        case DELETE_COMPANY_PERMISSIONS_REQUEST:
+        case DELETE_COMPANY_PERMISSIONS_FAILURE:
             return false;
         case ADD_COMPANY_SUCCESS:
+        case DELETE_COMPANY_PERMISSIONS_SUCCESS:
             return true;
         default:
             return state;
@@ -107,6 +116,8 @@ function companiesWithPermissionsReducer(state = {}, action) {
     switch (action.type) {
         case FETCH_COMPANY_PERMISSIONS_SUCCESS:
             return action.payload;
+        case DELETE_COMPANY_PERMISSIONS_SUCCESS:
+            return removeObjItem(action.payload, action.payload.id);
         default:
             return state;
     }

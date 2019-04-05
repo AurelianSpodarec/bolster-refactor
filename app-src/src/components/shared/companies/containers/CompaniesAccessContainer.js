@@ -5,6 +5,12 @@ import { withRouter } from 'react-router-dom';
 import CompaniesAccessTable from 'components/shared/companies/presentational/CompaniesAccessTable';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 
+import {
+    DELETE_COMPANY_PERMISSIONS,
+    DELETION_ERROR
+} from 'constants/shared/modalTypes';
+
+import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import fetchCompaniesPermissions from 'actions/companyAdmin/companies/async/fetchCompanyPermissions';
 
 class CompaniesAccessContainer extends Component {
@@ -18,6 +24,7 @@ class CompaniesAccessContainer extends Component {
                     parentId={props.hierarchyID}
                     isFetching={props.isFetching}
                     error={props.error}
+                    handleShowModal={this.handleShowModal}
                 />
             </BlockContainer>
         );
@@ -31,6 +38,12 @@ class CompaniesAccessContainer extends Component {
         } = this.props;
 
         fetchCompaniesPermissions(hierarchyType, hierarchyID);
+    };
+
+    handleShowModal = companyPermissionID => {
+        const { showModal } = this.props;
+        console.log(companyPermissionID);
+        showModal(DELETE_COMPANY_PERMISSIONS, { companyPermissionID });
     };
 }
 
@@ -47,6 +60,9 @@ const mapStateToProps = (
 const mapDispatchToProps = dispatch => ({
     fetchCompaniesPermissions: (hierarchyType, hierarchyID) => {
         dispatch(fetchCompaniesPermissions(hierarchyType, hierarchyID));
+    },
+    showModal: (type, props) => {
+        dispatch(showModal(type, props));
     }
 });
 
