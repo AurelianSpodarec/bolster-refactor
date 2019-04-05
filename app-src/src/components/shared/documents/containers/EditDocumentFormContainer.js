@@ -167,7 +167,7 @@ class EditDocumentFormContainer extends Component {
 
     handleSubmit = e => {
         e.preventDefault();
-        const { editDocument, hierarchyType, hierarchyID } = this.props;
+        const { editDocument, documentID } = this.props;
         const {
             serviceIDs,
             // eslint-disable-next-line no-unused-vars
@@ -181,7 +181,7 @@ class EditDocumentFormContainer extends Component {
             serviceIDs: serviceIDs,
             file: isObjEmpty(file) ? { s3Key: fileS3Key } : file
         };
-        editDocument(hierarchyID, postBody);
+        editDocument(documentID, postBody);
     };
 }
 
@@ -203,6 +203,7 @@ const mapStateToProps = (
     services: Object.values(servicesReducer.services),
     subscriptions: subscriptionsReducer.subscriptions.serviceIDs || [],
     document: documentsReducer.documents[match.params.documentID],
+    hierarchyID: match.params.id,
     documentID: match.params.documentID,
     postSuccess: documentsReducer.postSuccess
 });
