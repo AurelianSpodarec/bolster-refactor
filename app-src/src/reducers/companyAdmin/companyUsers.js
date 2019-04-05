@@ -11,6 +11,9 @@ import {
     EDIT_COMPANY_USER_REQUEST,
     EDIT_COMPANY_USER_SUCCESS,
     EDIT_COMPANY_USER_FAILURE,
+    EDIT_COMPANY_USER_PASSWORD_REQUEST,
+    EDIT_COMPANY_USER_PASSWORD_SUCCESS,
+    EDIT_COMPANY_USER_PASSWORD_FAILURE,
     DELETE_COMPANY_USER_REQUEST,
     DELETE_COMPANY_USER_SUCCESS,
     DELETE_COMPANY_USER_FAILURE,
@@ -59,9 +62,11 @@ function postSuccessReducer(state = false, action) {
     switch (action.type) {
         case CREATE_COMPANY_USER_REQUEST:
         case EDIT_COMPANY_USER_REQUEST:
+        case EDIT_COMPANY_USER_PASSWORD_REQUEST:
             return false;
         case CREATE_COMPANY_USER_SUCCESS:
         case EDIT_COMPANY_USER_SUCCESS:
+        case EDIT_COMPANY_USER_PASSWORD_SUCCESS:
             return true;
         default:
             return state;
@@ -72,6 +77,7 @@ function errorReducer(state = null, action) {
     switch (action.type) {
         case FETCH_COMPANY_USERS_REQUEST:
         case EDIT_COMPANY_USER_REQUEST:
+        case EDIT_COMPANY_USER_PASSWORD_REQUEST:
         case CREATE_COMPANY_USER_REQUEST:
         case DELETE_COMPANY_USER_REQUEST:
         case FETCH_SINGLE_COMPANY_USER_REQUEST:
@@ -79,6 +85,7 @@ function errorReducer(state = null, action) {
         case FETCH_COMPANY_USERS_FAILURE:
         case DELETE_COMPANY_USER_FAILURE:
         case EDIT_COMPANY_USER_FAILURE:
+        case EDIT_COMPANY_USER_PASSWORD_FAILURE:
         case CREATE_COMPANY_USER_FAILURE:
         case FETCH_SINGLE_COMPANY_USER_FAILURE:
             return action.error;
@@ -91,9 +98,11 @@ function updatedCompanyUserIDReducer(state = 0, action) {
     switch (action.type) {
         case CREATE_COMPANY_USER_REQUEST:
         case EDIT_COMPANY_USER_REQUEST:
+        case EDIT_COMPANY_USER_PASSWORD_REQUEST:
             return 0;
         case CREATE_COMPANY_USER_SUCCESS:
         case EDIT_COMPANY_USER_SUCCESS:
+        case EDIT_COMPANY_USER_PASSWORD_SUCCESS:
             return action.payload.id;
         default:
             return state;
