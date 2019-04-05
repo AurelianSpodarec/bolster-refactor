@@ -7,27 +7,35 @@ import BuildingStats from '../presentational/BuildingStats';
 
 class BuildingDetailsContainer extends Component {
     render() {
-        const { building, isFetching, error } = this.props;
+        const {
+            building,
+            stats,
+            isFetching,
+            error,
+            isFetchingStats
+        } = this.props;
 
         return (
             <BlockContainer
                 error={error}
-                isFetching={isFetching}
-                isEmpty={!building.id}
+                isFetching={isFetching || isFetchingStats}
+                isEmpty={!building.id || !stats.statuses}
             >
-                <BuildingStats building={building} />
+                <BuildingStats building={building} stats={stats} />
             </BlockContainer>
         );
     }
 }
 
 const mapStateToProps = (
-    { companyAdmin: { buildingsReducer } },
+    { companyAdmin: { buildingsReducer, statsReducer } },
     { match }
 ) => ({
     building: buildingsReducer.buildings[match.params.id] || {},
     isFetching: buildingsReducer.isFetching,
-    error: buildingsReducer.error
+    error: buildingsReducer.error,
+    isFetchingStats: statsReducer.isFetching,
+    stats: statsReducer.stats
 });
 
 export default withRouter(connect(mapStateToProps)(BuildingDetailsContainer));
