@@ -35,12 +35,18 @@ class EditDrawingOperativeFormContainer extends Component {
             fetchOperativesForDrawing,
             match,
             services,
-            isFetching
+            isFetching,
+            operative
         } = this.props;
         const { id } = match.params;
         fetchOperativesForDrawing(id);
-        if (services && !isFetching)
-            this.setState({ services: this.getServicesForState(services) });
+        if (services && operative && !isFetching) {
+            const serviceIDs = operative.serviceIDs.map(id => String(id));
+            this.setState({
+                services: this.getServicesForState(services),
+                serviceIDs
+            });
+        }
     }
 
     componentDidUpdate(prevProps) {
@@ -49,11 +55,16 @@ class EditDrawingOperativeFormContainer extends Component {
             services,
             postSuccess,
             history,
-            match
+            match,
+            operative
         } = this.props;
-        if (!isFetching && prevProps.isFetching)
-            this.setState({ services: this.getServicesForState(services) });
-
+        if (!isFetching && prevProps.isFetching && operative) {
+            const serviceIDs = operative.serviceIDs.map(id => String(id));
+            this.setState({
+                services: this.getServicesForState(services),
+                serviceIDs
+            });
+        }
         if (postSuccess && !prevProps.postSuccess)
             history.push(`/drawings/${match.params.id}`);
     }
