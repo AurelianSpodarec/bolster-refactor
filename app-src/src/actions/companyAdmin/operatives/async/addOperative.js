@@ -26,7 +26,7 @@ export const addOperativeFailure = error => ({
 export default (HierarchyType, HierarchyID, postBody) => dispatch => {
     dispatch(addOperativeRequest());
     return Axios.post(
-        `${API_URL}/permissions/operative/${HierarchyType}/${HierarchyID}`,
+        `${API_URL}/operativepermissions/${HierarchyType}/${HierarchyID}`,
         postBody,
         getHeaders()
     )

@@ -22,14 +22,10 @@ export const fetchCompanyPermissionsFailure = error => ({
     error
 });
 
-export default (hierarchyType, hierarchyID) => dispatch => {
+export default hierarchyID => dispatch => {
     dispatch(fetchCompanyPermissionsRequest());
-
     axios
-        .get(
-            `${API_URL}/permissions/company/${hierarchyType}/${hierarchyID}`,
-            getHeaders()
-        )
+        .get(`${API_URL}/companypermissions/${hierarchyID}`, getHeaders())
         .then(res => dispatch(fetchCompanyPermissionsSuccess(res.data)))
         .catch(err => dispatch(fetchCompanyPermissionsFailure(err.message)));
 };

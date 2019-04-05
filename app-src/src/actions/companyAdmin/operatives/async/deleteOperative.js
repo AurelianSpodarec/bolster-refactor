@@ -27,7 +27,7 @@ export default companyOperativePermissionID => dispatch => {
     dispatch(deleteOperativeRequest());
     axios
         .delete(
-            `${API_URL}/permissions/operative/${companyOperativePermissionID}`,
+            `${API_URL}/operativepermissions/${companyOperativePermissionID}`,
             getHeaders()
         )
         .then(() =>

@@ -29,7 +29,7 @@ export default (operativeID, postBody) => dispatch => {
 
     axios
         .post(
-            `${API_URL}/permissions/operative/${operativeID}`,
+            `${API_URL}/operativepermissions/${operativeID}`,
             postBody,
             getHeaders()
         )

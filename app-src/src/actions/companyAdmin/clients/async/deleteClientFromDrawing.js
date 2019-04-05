@@ -26,7 +26,7 @@ export const deleteClientFromDrawingFailure = error => ({
 export default clientID => dispatch => {
     dispatch(deleteClientFromDrawingRequest());
     axios
-        .delete(`${API_URL}/permissions/client/${clientID}`, getHeaders())
+        .delete(`${API_URL}/clientpermissions/${clientID}`, getHeaders())
         .then(() => dispatch(deleteClientFromDrawingSuccess(clientID)))
         .catch(err => dispatch(deleteClientFromDrawingFailure(err.message)));
 };
