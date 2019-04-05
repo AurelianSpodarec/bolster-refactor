@@ -70,7 +70,7 @@ class AddTemplateQuestionModalContainer extends Component {
 
     handleSubmit = e => {
         e.preventDefault();
-        const { setQuestion, sectionUuid, templateUuid } = this.props;
+        const { setQuestion, sectionUUID, templateUUID } = this.props;
         const {
             name,
             isRequired,
@@ -87,8 +87,8 @@ class AddTemplateQuestionModalContainer extends Component {
             isHidden,
             isPrefill,
             questionType,
-            templateUuid,
-            sectionUuid,
+            templateUUID,
+            sectionUUID,
             uuid: uuid(),
             prereqUuid,
             prereqVal,
@@ -99,9 +99,9 @@ class AddTemplateQuestionModalContainer extends Component {
     };
 
     _getPrereqOptions = () => {
-        const { questions, templateUuid: temUuid } = this.props;
+        const { questions, templateUUID: temUuid } = this.props;
         const options = questions
-            .filter(({ templateUuid }) => templateUuid === temUuid)
+            .filter(({ templateUUID }) => templateUUID === temUuid)
             .filter(({ questionType }) => PREREQ_TYPES.includes(questionType))
             .map(({ uuid, name }) => ({ value: uuid, text: name }));
 
@@ -109,9 +109,9 @@ class AddTemplateQuestionModalContainer extends Component {
     };
 
     _getSort = () => {
-        const { questions, sectionUuid } = this.props;
+        const { questions, sectionUUID } = this.props;
         const sectionSortList = questions
-            .filter(q => q.sectionUuid === sectionUuid)
+            .filter(q => q.sectionUUID === sectionUUID)
             .map(q => q.sort);
         return Math.max(0, ...sectionSortList) + 1;
     };

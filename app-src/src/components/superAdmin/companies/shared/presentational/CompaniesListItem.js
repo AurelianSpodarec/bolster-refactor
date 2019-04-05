@@ -10,7 +10,11 @@ const CompaniesListItem = ({
         <td>{name}</td>
         <td>{telephone || '##Not listed##'}</td>
         <td>{address || '##Not listed##'}</td>
-        <td>{moment(termsAcceptedOn).format('DD/MM/YYYY')}</td>
+        <td>
+            {termsAcceptedOn
+                ? moment(termsAcceptedOn).format('DD/MM/YYYY')
+                : '-'}
+        </td>
         <td>
             <Link to={`${pathname}/${id}`} className="button">
                 More info

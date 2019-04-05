@@ -58,12 +58,7 @@ class EditDocumentFormContainer extends Component {
 
     componentDidMount() {
         const { documentID } = this.props.match.params;
-        const {
-            isFetching,
-            services,
-            document,
-            fetchSingleDocument
-        } = this.props;
+        const { isFetching, document, fetchSingleDocument } = this.props;
 
         if (!isFetching) {
             this.setState({
@@ -84,10 +79,11 @@ class EditDocumentFormContainer extends Component {
             postSuccess,
             history,
             hierarchyType,
-            hierarchyID,
+            match,
             isFetching,
             document
         } = this.props;
+        const { id: hierarchyID } = match.params;
 
         if (!isFetching && prevProps.isFetching) {
             const serviceIDs =
@@ -167,7 +163,8 @@ class EditDocumentFormContainer extends Component {
 
     handleSubmit = e => {
         e.preventDefault();
-        const { editDocument, hierarchyType, hierarchyID } = this.props;
+        const { editDocument, documentID, hierarchyType, match } = this.props;
+        const { id: hierarchyID } = match.params;
         const {
             serviceIDs,
             // eslint-disable-next-line no-unused-vars
@@ -179,9 +176,11 @@ class EditDocumentFormContainer extends Component {
         const postBody = {
             ...body,
             serviceIDs: serviceIDs,
-            file: isObjEmpty(file) ? { s3Key: fileS3Key } : file
+            file: isObjEmpty(file) ? { s3Key: fileS3Key } : file,
+            hierarchyID,
+            hierarchyType
         };
-        editDocument(hierarchyID, postBody);
+        editDocument(documentID, postBody);
     };
 }
 
@@ -193,8 +192,7 @@ const mapStateToProps = (
             subscriptionsReducer
         }
     },
-    { match },
-    ownProps
+    { match }
 ) => ({
     isFetching:
         servicesReducer.isFetching ||
@@ -203,6 +201,7 @@ const mapStateToProps = (
     services: Object.values(servicesReducer.services),
     subscriptions: subscriptionsReducer.subscriptions.serviceIDs || [],
     document: documentsReducer.documents[match.params.documentID],
+    hierarchyID: match.params.id,
     documentID: match.params.documentID,
     postSuccess: documentsReducer.postSuccess
 });

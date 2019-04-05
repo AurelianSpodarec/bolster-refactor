@@ -25,7 +25,7 @@ export const fetchSingleCompanyUserFailure = error => ({
 export default id => dispatch => {
     dispatch(fetchSingleCompanyUserRequest());
     return axios
-        .get(`${API_URL}/company/users/${id}`, getHeaders())
+        .get(`${API_URL}/users/${id}`, getHeaders())
         .then(res => dispatch(fetchSingleCompanyUserSuccess(res.data)))
         .catch(err => dispatch(fetchSingleCompanyUserFailure(err.message)));
 };
