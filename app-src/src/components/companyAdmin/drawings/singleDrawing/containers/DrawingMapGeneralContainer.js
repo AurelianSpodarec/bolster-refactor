@@ -5,11 +5,13 @@ import DrawingMapFiltersAdvanced from '../presentational/DrawingMapFiltersAdvanc
 import DrawingMapViewSimple from '../presentational/DrawingMapViewSimple';
 import DrawingInspectionLogContainer from './DrawingInspectionLogContainer';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import { convertArrToObj } from 'helpers/generic';
+import { convertArrToObj, convertEnumToDropdownOptions } from 'helpers/generic';
+import { PIN_STATUS_TYPES } from 'constants/companyAdmin/enums';
 
 class DrawingMapGeneralContainer extends Component {
     state = {
         serviceSelectedID: '',
+        statusSelectedID: '',
         pinLat: 51.505,
         pinLng: -0.09,
         mapZoom: 3
@@ -17,17 +19,21 @@ class DrawingMapGeneralContainer extends Component {
 
     render() {
         const position = [this.state.pinLat, this.state.pinLng];
-        const { serviceSelectedID, mapZoom } = this.state;
+        const { serviceSelectedID, statusSelectedID, mapZoom } = this.state;
         const { error, pins } = this.props;
 
         const serviceOptions = this._getServicesOptions();
+        const statusOptions = convertEnumToDropdownOptions(PIN_STATUS_TYPES);
+
+        console.log(statusOptions);
 
         return (
             <BlockContainer error={error}>
                 <DrawingMapFiltersAdvanced
                     serviceOptions={Object.values(serviceOptions)}
-                    serviceSelectedID={serviceSelectedID}
                     selectedService={serviceOptions[serviceSelectedID]}
+                    statusOptions={Object.values(statusOptions)}
+                    selectedStatus={statusOptions[statusSelectedID]}
                     pins={pins}
                     handleChange={this.handleChange}
                 />
@@ -61,6 +67,8 @@ class DrawingMapGeneralContainer extends Component {
 
         return convertArrToObj(options, 'value');
     };
+
+    _getStatusOptions = () => {};
 }
 
 const mapStateToProps = ({
