@@ -52,7 +52,7 @@ const mapStateToProps = (
 
 const mapDispatchToProps = dispatch => ({
     fetchCompaniesPermissions: hierarchyID => {
-        dispatch(fetchCompaniesPermissions(hierarchyID));
+        dispatch(fetchCompaniesPermissions('drawing', hierarchyID));
     },
     showModal: (type, props) => {
         dispatch(showModal(type, props));
