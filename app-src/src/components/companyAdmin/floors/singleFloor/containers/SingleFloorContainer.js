@@ -20,14 +20,15 @@ class SingleFloorContainer extends Component {
             fetchSingleFloor,
             fetchAllDrawings,
             fetchDocuments,
-            fetchClients,
+            // fetchClients,
             fetchAllCompanies
         } = this.props;
 
         fetchSingleFloor(floorID);
         fetchAllDrawings();
         fetchDocuments('floor', floorID);
-        fetchClients();
+        // fetch Clients hooked up to mock data
+        // fetchClients();
         fetchAllCompanies();
     };
 }
