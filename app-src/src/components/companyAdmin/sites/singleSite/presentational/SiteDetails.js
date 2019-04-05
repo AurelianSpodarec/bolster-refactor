@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const SiteDetails = ({
-    site: { addressLine1, addressLine2, city, postcode }
+    site: { addressLine1, addressLine2, city, postcode, id }
 }) => (
     <div className="size-lg-6">
         {!!addressLine1 && <p className="size-lg-12">{addressLine1}</p>}
@@ -11,10 +11,9 @@ const SiteDetails = ({
         {!!postcode && <p className="size-lg-12">{postcode}</p>}
 
         <div className="button-container size-lg-12">
-            <Link className="button" to="/edit">
-                Edit
-            </Link>{' '}
-            <button className="button red">Delete Site</button>
+            <Link className="button yellow" to={`/sites/${id}/edit`}>
+                <i className="far fa-pencil" /> Edit
+            </Link>
         </div>
     </div>
 );
