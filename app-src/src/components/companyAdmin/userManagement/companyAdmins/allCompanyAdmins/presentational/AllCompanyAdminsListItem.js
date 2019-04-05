@@ -23,6 +23,14 @@ const AllCompanyAdminsListItem = ({ user, showDeleteModal }) => {
                     >
                         Edit
                     </Link>
+                    <Link
+                        className="button"
+                        to={`/users-management/company-admins/${
+                            user.id
+                        }/edit-password`}
+                    >
+                        Change password
+                    </Link>
                 </BlockButtonWrapper>
             </td>
         </tr>
