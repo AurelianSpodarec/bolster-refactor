@@ -12,7 +12,8 @@ import {
     CHANGE_QUESTION_SECTION,
     SWAP_QUESTION_SORTS,
     DELETE_SECTION,
-    POST_TEMPLATE_SUCCESS
+    POST_TEMPLATE_SUCCESS,
+    FETCH_TEMPLATE_SUCCESS
 } from 'constants/actionTypes/templateBuilder';
 
 export default combineReducers({
@@ -21,6 +22,8 @@ export default combineReducers({
 
 function questionsReducer(state = {}, action) {
     switch (action.type) {
+        case FETCH_TEMPLATE_SUCCESS:
+            return { ...state, ...convertArrToObj(action.questions) };
         case SET_QUESTION:
             return updateObj(state, action.question.uuid, action.question);
         case CHANGE_QUESTION_SECTION:

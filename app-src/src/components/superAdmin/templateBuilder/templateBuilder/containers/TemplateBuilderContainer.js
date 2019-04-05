@@ -10,6 +10,7 @@ import showModal from 'actions/shared/generic/modals/sync/showModal';
 import resetSaveRequired from 'actions/superAdmin/templateBuilder/sync/resetSaveRequired';
 
 import TemplateBuilder from '../presentational/TemplateBuilder';
+import fetchTemplate from 'actions/superAdmin/templateBuilder/async/fetchTemplate';
 
 class TemplateBuilderContainer extends Component {
     render() {
@@ -31,8 +32,9 @@ class TemplateBuilderContainer extends Component {
     }
 
     componentDidMount() {
-        const { resetSaveRequired } = this.props;
+        const { resetSaveRequired, fetchPageData, templateUUID } = this.props;
         resetSaveRequired();
+        fetchPageData(templateUUID);
     }
 
     componentDidUpdate({ postSuccess: prevPostSuccess }) {
@@ -42,12 +44,12 @@ class TemplateBuilderContainer extends Component {
             curUrl,
             templateUuid,
             history,
-            updatedTemplateUUID
+            oldTemplateUUID
         } = this.props;
         if (!prevPostSuccess && postSuccess) {
             const message = 'Template saved successfully.';
             showModal(SUCCESS_MODAL, { message });
-            history.replace(curUrl.replace(templateUuid, updatedTemplateUUID));
+            history.replace(curUrl.replace(templateUuid, oldTemplateUUID));
         }
     }
 }
@@ -57,9 +59,9 @@ const mapStateToProps = (
     { match: { params, url } }
 ) => ({
     curUrl: url,
-    templateUuid: params.uuid,
+    templateUUID: params.uuid,
     postSuccess: templatesReducer.postSuccess,
-    updatedTemplateUUID: templatesReducer.updatedTemplateUUID,
+    oldTemplateUUID: templatesReducer.oldTemplateUUID,
     saveRequired: templatesReducer.saveRequired,
     uuid: params.uuid,
     isExisting: !!templatesReducer.templates[params.uuid]
@@ -74,6 +76,9 @@ const mapDispatchToProps = dispatch => ({
     },
     showModal: (modalType, modalProps) => {
         dispatch(showModal(modalType, modalProps));
+    },
+    fetchPageData: templateUUID => {
+        dispatch(fetchTemplate(templateUUID));
     }
 });
 
