@@ -311,6 +311,10 @@ input {
     }
 }
 
+.disabled-link {
+    pointer-events: none;
+}
+
 //header
 #page-header {
     height: 69px;
