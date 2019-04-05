@@ -1,24 +1,23 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import { PERMISSION_STATES as STATE } from 'constants/companyAdmin/enums';
+import {
+    COMPANY_USER_ROLE_TYPES,
+    PERMISSION_STATES
+} from 'constants/companyAdmin/enums';
 
 const CompaniesAccessList = ({ companies, parentId, handleShowModal }) =>
     companies.map(company => (
         <tr key={company.id}>
             <td>{company.companyName}</td>
             <td>
-                {company.state === STATE.ACCEPTED
-                    ? 'Accepted'
-                    : company.state === STATE.PENDING
-                    ? 'Pending'
-                    : company.state === STATE.REJECTED
-                    ? 'Rejected'
-                    : ''}
+                {company.state === PERMISSION_STATES.PENDING && '(Pending)'}
             </td>
             <td>
-                {company.isInherited ? (
-                    '(inherited from site)'
+                {company.accessType === COMPANY_USER_ROLE_TYPES.OWNER ? (
+                    '(Owner)'
+                ) : company.inherted ? (
+                    '(Inherited from site)'
                 ) : (
                     <>
                         <Link

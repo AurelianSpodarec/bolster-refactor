@@ -15,7 +15,7 @@ const CompaniesAccessTable = ({
     <div className="size-lg-12">
         <h3 className="heading heading-3 size-lg-12">Companies with access</h3>
         <Table
-            headers={['Name', 'Status', 'Actions']}
+            headers={['Name', '', 'Actions']}
             isFetching={isFetching}
             error={error}
             noData={!companies.length}
