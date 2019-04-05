@@ -7,7 +7,6 @@ import editDocument from 'actions/companyAdmin/documents/async/editDocument';
 import fetchSingleDocument from 'actions/companyAdmin/documents/async/fetchSingleDocument';
 import Loading from 'components/shared/generic/misc/presentational/Loading';
 import { isObjEmpty } from 'helpers/generic';
-import { HIERARCHY_TYPE, HIERARCHY_IDS } from 'constants/companyAdmin/enums';
 
 class EditDocumentFormContainer extends Component {
     state = {
