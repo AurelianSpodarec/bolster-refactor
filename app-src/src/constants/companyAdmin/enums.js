@@ -70,7 +70,7 @@ export const PIN_STATUS_IDS = {
 export const PIN_STATUS_TYPES = {
     10: 'Installed',
     20: 'Inspected',
-    30: 'No Action',
+    30: 'No Action Required',
     40: 'Action Required',
     50: 'Other'
 };

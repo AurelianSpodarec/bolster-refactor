@@ -16,6 +16,8 @@ const DrawingMapFiltersAdvanced = ({
     selectedService,
     statusOptions,
     selectedStatus,
+    operativeOptions,
+    selectedOperative,
     handleChange,
     pins
 }) => (
@@ -41,6 +43,16 @@ const DrawingMapFiltersAdvanced = ({
                 />
             </div>
 
+            <div className="size-lg-6">
+                <DropdownContainer
+                    placeholder="Select operative"
+                    name="operativeSelectedID"
+                    options={operativeOptions}
+                    selectedOption={selectedOperative}
+                    handleChange={handleChange}
+                />
+            </div>
+
             {/* <div className="size-lg-6">
                 <Filter
                     title="Time period"
@@ -48,16 +60,7 @@ const DrawingMapFiltersAdvanced = ({
                     selectedOption={serviceSelectedID}
                     handleInputChange={handleChange}
                 />
-            </div>
-
-            <div className="size-lg-6">
-                <Filter
-                    title="Operative"
-                    options={serviceOptions}
-                    selectedOption={serviceSelectedID}
-                    handleInputChange={handleChange}
-                />
-            </div> */}
+            </div>*/}
         </div>
 
         <div className="size-lg-3">
