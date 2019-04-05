@@ -9,8 +9,7 @@ import CreateOperative from 'components/companyAdmin/userManagement/operatives/c
 import CreateCompanyAdmin from 'components/companyAdmin/userManagement/companyAdmins/createCompanyAdmin/presentational/CreateCompanyAdmin';
 import EditOperativeFormContainer from 'components/companyAdmin/userManagement/operatives/editOperative/containers/EditOperativeFormContainer';
 import EditCompanyAdminFormContainer from 'components/companyAdmin/userManagement/companyAdmins/editCompanyAdmin/containers/EditCompanyAdminFormContainer';
-import EditOperativePassword from 'components/companyAdmin/userManagement/operatives/editOperativePassword/presentational/EditOperativePassword';
-import editCompanyAdminPassword from 'components/companyAdmin/userManagement/companyAdmins/editCompanyAdminPassword/presentational/editCompanyAdminPassword';
+import EditCompanyUserPassword from 'components/companyAdmin/userManagement/shared/editCompanyUserPassword/presentational/EditCompanyUserPassword';
 
 const UserManagementRoutes = ({ match: { url: baseUrl } }) => (
     <SwitchWith404>
@@ -47,12 +46,12 @@ const UserManagementRoutes = ({ match: { url: baseUrl } }) => (
         <Route
             exact
             path={`${baseUrl}/operatives/:id/edit-password`}
-            component={EditOperativePassword}
+            component={EditCompanyUserPassword}
         />
         <Route
             exact
             path={`${baseUrl}/company-admins/:id/edit-password`}
-            component={editCompanyAdminPassword}
+            component={EditCompanyUserPassword}
         />
     </SwitchWith404>
 );
