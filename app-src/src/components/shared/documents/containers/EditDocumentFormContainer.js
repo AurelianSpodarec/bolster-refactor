@@ -7,6 +7,7 @@ import editDocument from 'actions/companyAdmin/documents/async/editDocument';
 import fetchSingleDocument from 'actions/companyAdmin/documents/async/fetchSingleDocument';
 import Loading from 'components/shared/generic/misc/presentational/Loading';
 import { isObjEmpty } from 'helpers/generic';
+import { HIERARCHY_TYPE, HIERARCHY_IDS } from 'constants/companyAdmin/enums';
 
 class EditDocumentFormContainer extends Component {
     state = {
@@ -79,10 +80,11 @@ class EditDocumentFormContainer extends Component {
             postSuccess,
             history,
             hierarchyType,
-            hierarchyID,
+            match,
             isFetching,
             document
         } = this.props;
+        const { id: hierarchyID } = match.params;
 
         if (!isFetching && prevProps.isFetching) {
             const serviceIDs =
@@ -162,7 +164,8 @@ class EditDocumentFormContainer extends Component {
 
     handleSubmit = e => {
         e.preventDefault();
-        const { editDocument, hierarchyID } = this.props;
+        const { editDocument, documentID, hierarchyType, match } = this.props;
+        const { id: hierarchyID } = match.params;
         const {
             serviceIDs,
             // eslint-disable-next-line no-unused-vars
@@ -174,9 +177,11 @@ class EditDocumentFormContainer extends Component {
         const postBody = {
             ...body,
             serviceIDs: serviceIDs,
-            file: isObjEmpty(file) ? { s3Key: fileS3Key } : file
+            file: isObjEmpty(file) ? { s3Key: fileS3Key } : file,
+            hierarchyID,
+            hierarchyType
         };
-        editDocument(hierarchyID, postBody);
+        editDocument(documentID, postBody);
     };
 }
 

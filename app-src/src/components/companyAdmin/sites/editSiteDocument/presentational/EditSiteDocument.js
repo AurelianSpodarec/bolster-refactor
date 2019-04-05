@@ -15,7 +15,7 @@ const EditSiteDocument = () => (
                 { text: '##' }
             ]}
         />
-        <EditDocumentFormContainer hierarchyType="site" />
+        <EditDocumentFormContainer hierarchyType="Site" />
     </>
 );
 

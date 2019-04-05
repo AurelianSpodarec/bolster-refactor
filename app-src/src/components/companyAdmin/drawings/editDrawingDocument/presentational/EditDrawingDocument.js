@@ -15,7 +15,7 @@ const EditFloorDocument = () => (
                 { text: '##' }
             ]}
         />
-        <EditDocumentFormContainer hierarchyType="drawing" />
+        <EditDocumentFormContainer hierarchyType="Drawing" />
     </>
 );
 
