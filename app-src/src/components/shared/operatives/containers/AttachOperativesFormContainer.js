@@ -37,7 +37,6 @@ class AttachOperativesFormContainer extends Component {
 
     componentDidUpdate = prevProps => {
         const { success, history, hierarchyType, hierarchyID } = this.props;
-
         if (!prevProps.success && success) {
             history.replace(`/${hierarchyType}s/${hierarchyID}`);
         }
