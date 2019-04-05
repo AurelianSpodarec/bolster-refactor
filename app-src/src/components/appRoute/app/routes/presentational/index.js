@@ -7,14 +7,14 @@ import SwitchWith404 from './SwitchWith404';
 
 import AuthApp from 'components/auth/app/app/presentational/AuthApp';
 import TestApp from 'components/test/app/app/presentational/TestApp';
-import AdminApp from 'components/superAdmin/app/app/presentational/AdminApp';
+import AdminAppContainer from 'components/superAdmin/app/app/containers/AdminAppContainer';
 
 const Routes = () => (
     <SwitchWith404>
         <Route exact path="/404" component={NotFound} />
         <Route path="/auth" component={AuthApp} />
         <Route path="/test" component={withAuth(TestApp)} />
-        <Route path="/admin" component={withAuth(AdminApp, true)} />
+        <Route path="/admin" component={withAuth(AdminAppContainer, true)} />
     </SwitchWith404>
 );
 

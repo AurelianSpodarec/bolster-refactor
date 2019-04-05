@@ -321,9 +321,8 @@ input {
     }
     background-color: white;
 
-    &.non-logged-in {
-        background-color: $red;
-        border: 0px;
+    &.basic {
+        border-color: $red;
     }
     .container {
         height: 100%;
@@ -1063,7 +1062,7 @@ input {
 #page-footer {
     width: 100%;
     padding: 10px 0;
-
+    float: left;
     p {
         float: left;
         font-size: 120%;
@@ -1072,6 +1071,11 @@ input {
 
     img {
         float: right;
+    }
+
+    &.basic {
+        background-color: $red;
+        color: white;
     }
 }
 

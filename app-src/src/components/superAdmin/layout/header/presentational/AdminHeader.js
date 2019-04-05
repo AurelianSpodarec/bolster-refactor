@@ -2,10 +2,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const bolsterLogo =
-    'https://pbs.twimg.com/profile_images/720922614332592128/PMbyPQNk_400x400.jpg';
+    'https://app.bolstersystems.com/_Content/images/original/logo.png';
 
 const AdminHeader = () => (
-    <header id="page-header" style={{ borderColor: 'red' }}>
+    <header id="page-header" className="basic">
         <div className="container">
             <div className="logo">
                 <Link to="/admin">

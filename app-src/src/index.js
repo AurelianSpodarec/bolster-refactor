@@ -10,7 +10,7 @@ import HTML5Backend from 'react-dnd-html5-backend';
 
 import * as serviceWorker from 'helpers/serviceWorker';
 import reducer from 'reducers';
-import App from 'components/shared/app/app/presentational/App';
+import App from 'components/appRoute/app/app/presentational/App';
 import '_content/scss/font-awesome.css';
 import '_content/scss/main.scss';
 import 'filepond/dist/filepond.min.css';

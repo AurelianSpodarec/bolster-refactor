@@ -1,12 +1,13 @@
 import React from 'react';
 
-import whiteLogo from '_content/images/footer/logo-white.png';
+const bolsterLogo =
+    'https://app.bolstersystems.com/_Content/images/original/logo.png';
 
 const AuthHeader = () => (
-    <header id="page-header" className="non-logged-in">
+    <header id="page-header" className="basic">
         <div className="container">
             <div className="logo">
-                <img alt="logo of Bolster Systems" src={whiteLogo} />
+                <img alt="logo of Bolster Systems" src={bolsterLogo} />
             </div>
             <div className="clear" />
         </div>
