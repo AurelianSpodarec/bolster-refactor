@@ -26,7 +26,7 @@ export default drawingID => dispatch => {
     dispatch(fetchClientsForDrawingRequest());
 
     return axios
-        .get(`${API_URL}/permissions/client/${drawingID}`, getHeaders())
+        .get(`${API_URL}/ClientPermissions/${drawingID}`, getHeaders())
         .then(res => dispatch(fetchClientsForDrawingSuccess(res.data)))
         .catch(err => dispatch(fetchClientsForDrawingFailure(err.message)));
 };

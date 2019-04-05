@@ -26,7 +26,7 @@ export default drawingID => dispatch => {
     dispatch(fetchOperativesRequest());
 
     axios
-        .get(`${API_URL}/permissions/operative/${drawingID}`, getHeaders())
+        .get(`${API_URL}/operativepermissions/${drawingID}`, getHeaders())
         .then(res => dispatch(fetchOperativesSuccess(res.data)))
         .catch(err => dispatch(fetchOperativesFailure(err.message)));
 };

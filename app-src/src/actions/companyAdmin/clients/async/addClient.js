@@ -26,7 +26,7 @@ export const addClientFailure = error => ({
 export default (HierarchyType, HierarchyID, postBody) => dispatch => {
     dispatch(addClientRequest());
     return Axios.post(
-        `${API_URL}/permissions/client/${HierarchyType}/${HierarchyID}`,
+        `${API_URL}/clientpermissions/${HierarchyType}/${HierarchyID}`,
         postBody,
         getHeaders()
     )
