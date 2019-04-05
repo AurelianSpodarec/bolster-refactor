@@ -19,7 +19,6 @@ class EditCompanyUserFormContainer extends Component {
                 {...this.state}
                 handleInputChange={this.handleInputChange}
                 handleSubmit={this.handleSubmit}
-                type={this.props.type}
             />
         );
     }
@@ -53,8 +52,15 @@ class EditCompanyUserFormContainer extends Component {
     };
 
     componentDidUpdate = prevProps => {
-        const { postSuccess, history, isFetching, user, type } = this.props;
-
+        const {
+            postSuccess,
+            history,
+            isFetching,
+            user,
+            location,
+            match
+        } = this.props;
+        const { id } = match.params;
         if (user && !isFetching && prevProps.isFetching)
             this.setState({
                 firstName: user.userFirstName,
@@ -64,7 +70,7 @@ class EditCompanyUserFormContainer extends Component {
             });
 
         if (postSuccess && !prevProps.postSuccess) {
-            history.push(`/users-management/${type}`);
+            history.push(location.pathname.replace(`/${id}/edit`, ''));
         }
     };
 }
