@@ -18,7 +18,7 @@ const EditDocumentForm = ({
     handleFileChange,
     handleRadioChange,
     handleCheckboxChange,
-    handleMultiselect,
+    handleMultiselectChange,
     handleSubmit,
     handleDateChange,
     handleHide,
@@ -32,11 +32,12 @@ const EditDocumentForm = ({
     isSignatureRequired,
     isUpsyncForced,
     services,
-    selectedServices,
+    serviceIDs,
     agreeanceEveryXDays,
     startOn,
     endOn,
-    backUrl
+    location,
+    documentID
 }) => (
     <Form className="content-area size-lg-12" onSubmit={handleSubmit}>
         <h1 className="heading heading-3">Edit Document</h1>
@@ -116,12 +117,13 @@ const EditDocumentForm = ({
             />
         </div>
         <div className="size-lg-12">
-            <Field name="Service type">
+            <Field name="Service types">
                 <CheckboxListContainer
-                    name="selectedServices"
+                    required
+                    name="serviceIDs"
+                    handleChange={handleMultiselectChange}
                     options={services}
-                    selectedOptions={selectedServices}
-                    handleChange={handleMultiselect}
+                    selectedOptions={serviceIDs}
                 />
             </Field>
         </div>
@@ -174,7 +176,13 @@ const EditDocumentForm = ({
                 <i className="fa fa-plus" />
                 Confirm Changes
             </button>
-            <Link to={backUrl} className="button">
+            <Link
+                to={location.pathname.replace(
+                    `/edit-document/${documentID}`,
+                    ''
+                )}
+                className="button"
+            >
                 <i className="fa fa-times" /> Cancel
             </Link>
         </BlockButtonWrapper>

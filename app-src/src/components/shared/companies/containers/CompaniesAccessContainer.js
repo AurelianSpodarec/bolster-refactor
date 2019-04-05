@@ -31,18 +31,14 @@ class CompaniesAccessContainer extends Component {
     }
 
     componentDidMount = () => {
-        const {
-            fetchCompaniesPermissions,
-            hierarchyType,
-            hierarchyID
-        } = this.props;
+        const { fetchCompaniesPermissions, hierarchyID } = this.props;
 
-        fetchCompaniesPermissions(hierarchyType, hierarchyID);
+        fetchCompaniesPermissions(hierarchyID);
     };
 
     handleShowModal = companyPermissionID => {
         const { showModal } = this.props;
-        console.log(companyPermissionID);
+
         showModal(DELETE_COMPANY_PERMISSIONS, { companyPermissionID });
     };
 }
@@ -58,8 +54,8 @@ const mapStateToProps = (
 });
 
 const mapDispatchToProps = dispatch => ({
-    fetchCompaniesPermissions: (hierarchyType, hierarchyID) => {
-        dispatch(fetchCompaniesPermissions(hierarchyType, hierarchyID));
+    fetchCompaniesPermissions: hierarchyID => {
+        dispatch(fetchCompaniesPermissions(hierarchyID));
     },
     showModal: (type, props) => {
         dispatch(showModal(type, props));

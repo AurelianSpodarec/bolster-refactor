@@ -10,7 +10,7 @@ import ClientEditContainer from 'components/shared/clients/containers/ClientEdit
 
 import AttachDrawingDocument from 'components/companyAdmin/drawings/attachDrawingDocument/presentational/AttachDrawingDocument';
 import InviteCompanyToDrawing from 'components/companyAdmin/drawings/inviteCompanyToDrawing/presentational/InviteCompanyToDrawing';
-import EditDrawingDocumentContainer from 'components/companyAdmin/drawings/editDrawingDocument/containers/EditDrawingDocumentContainer';
+import EditDrawingDocument from 'components/companyAdmin/drawings/editDrawingDocument/presentational/EditDrawingDocument';
 import EditDrawingOperativeFormContainer from 'components/companyAdmin/drawings/editDrawingOperative/containers/EditDrawingOperativeFormContainer';
 
 const DrawingsRoutes = ({ match: { url: baseUrl } }) => (
@@ -48,8 +48,8 @@ const DrawingsRoutes = ({ match: { url: baseUrl } }) => (
         />
         <Route
             exact
-            path={`${baseUrl}/:id/documents/:documentID/edit`}
-            component={EditDrawingDocumentContainer}
+            path={`${baseUrl}/:id/edit-document/:documentID`}
+            component={EditDrawingDocument}
         />
         <Route
             exact
