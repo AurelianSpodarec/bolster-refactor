@@ -42,14 +42,14 @@ class SaveTemplateButtonContainer extends Component {
         const questions = allQuestions.filter(
             ({ templateUuid }) => templateUuid === template.uuid
         );
-        const newTemplate = {
+        const newTemplateData = {
             template,
             sections,
             questions
         };
 
-        console.log(newTemplate);
-        postTemplate(newTemplate);
+        console.log(newTemplateData);
+        postTemplate(newTemplateData);
     };
 }
 
@@ -74,8 +74,8 @@ const mapStateToProps = (
 });
 
 const mapDispatchToProps = dispatch => ({
-    postTemplate: () => {
-        dispatch(postTemplate());
+    postTemplate: templateData => {
+        dispatch(postTemplate(templateData));
     }
 });
 

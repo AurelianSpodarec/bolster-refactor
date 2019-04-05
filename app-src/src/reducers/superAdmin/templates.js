@@ -51,7 +51,8 @@ function templatesReducer(state = {}, action) {
         case POST_TEMPLATE_SUCCESS:
             return {
                 ...removeObjItem(state, action.oldUuid),
-                [action.newTemplate.uuid]: action.newTemplate
+                [action.templateData.template.uuid]:
+                    action.templateData.template
             };
         default:
             return state;

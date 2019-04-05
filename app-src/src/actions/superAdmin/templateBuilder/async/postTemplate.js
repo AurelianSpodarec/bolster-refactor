@@ -12,9 +12,9 @@ export const postTemplateRequest = () => ({
     type: POST_TEMPLATE_REQUEST
 });
 
-export const postTemplateSuccess = (newTemplate, oldUuid) => ({
+export const postTemplateSuccess = (templateData, oldUuid) => ({
     type: POST_TEMPLATE_SUCCESS,
-    newTemplate,
+    templateData,
     oldUuid
 });
 
@@ -23,11 +23,13 @@ export const postTemplateFailure = error => ({
     error
 });
 
-export default template => dispatch => {
+export default templateData => dispatch => {
     dispatch(postTemplateRequest());
 
     return axios
-        .post(`${ADMIN_API_URL}/templates`, template, getHeaders())
-        .then(res => dispatch(postTemplateSuccess(res.data, template.uuid)))
+        .post(`${ADMIN_API_URL}/templates`, templateData, getHeaders())
+        .then(res =>
+            dispatch(postTemplateSuccess(res.data, templateData.template.uuid))
+        )
         .catch(err => dispatch(postTemplateFailure(err.message)));
 };
