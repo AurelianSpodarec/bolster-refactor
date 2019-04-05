@@ -9,7 +9,6 @@ import AttachOperativesForm from '../presentational/AttachOperativeForm';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 
 import addOperative from 'actions/companyAdmin/operatives/async/addOperative';
-import fetchCompanyUsers from 'actions/companyAdmin/userManagement/async/fetchCompanyUsers';
 import fetchOperativesForDrawing from 'actions/companyAdmin/operatives/async/fetchOperativesForDrawing';
 
 class AttachOperativesFormContainer extends Component {
@@ -47,7 +46,22 @@ class AttachOperativesFormContainer extends Component {
     }
 
     componentDidUpdate = prevProps => {
-        const { success, history, hierarchyType, hierarchyID } = this.props;
+        const {
+            success,
+            history,
+            hierarchyType,
+            hierarchyID,
+            operativeIDs,
+            users
+        } = this.props;
+        if (operativeIDs && users) {
+            const operativeUsers = users.filter(
+                user => user.type === COMPANY_USER_ROLE_TYPES.OPERATIVE
+            );
+            if (operativeIDs.length === operativeUsers.length) {
+                history.replace(`/${hierarchyType}s/${hierarchyID}`);
+            }
+        }
         if (!prevProps.success && success) {
             history.replace(`/${hierarchyType}s/${hierarchyID}`);
         }

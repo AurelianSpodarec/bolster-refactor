@@ -10,12 +10,8 @@ import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 
 class DrawingOperativesAccessContainer extends Component {
     render() {
-        const { operatives, users } = this.props;
-        const availableOperatives = users.filter(
-            user => user.type === COMPANY_USER_ROLE_TYPES.OPERATIVE
-        );
-        const isAddOperativeDisabled =
-            operatives.length === availableOperatives.length;
+        const { operatives } = this.props;
+        const isAddOperativeDisabled = this.checkAvailableOperatives();
 
         return (
             <BlockContainer>
@@ -38,6 +34,14 @@ class DrawingOperativesAccessContainer extends Component {
             });
         }
     }
+
+    checkAvailableOperatives = () => {
+        const { operatives, users } = this.props;
+        const availableOperatives = users.filter(
+            user => user.type === COMPANY_USER_ROLE_TYPES.OPERATIVE
+        );
+        return operatives.length === availableOperatives.length;
+    };
 
     handleShowModal = operative => {
         const { showModal } = this.props;
