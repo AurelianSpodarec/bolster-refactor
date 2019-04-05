@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 import EditDocumentForm from '../presentational/EditDocumentForm';
+import editDocument from 'actions/companyAdmin/documents/async/editDocument';
+import fetchSingleDocument from 'actions/companyAdmin/documents/async/fetchSingleDocument';
 import Loading from 'components/shared/generic/misc/presentational/Loading';
 import { isObjEmpty } from 'helpers/generic';
 
@@ -19,8 +22,7 @@ class EditDocumentFormContainer extends Component {
         isSignatureRequired: false,
         isUpsyncForced: false,
         // dropdown
-        services: [],
-        selectedServices: [],
+        serviceIDs: [],
         agreeanceEveryXDays: '0',
         // date selector
         startOn: new Date(),
@@ -30,20 +32,24 @@ class EditDocumentFormContainer extends Component {
 
     render() {
         const { document } = this.props;
+        const serviceOptions = this._getServicesOptions();
+
         return document ? (
             <EditDocumentForm
                 {...this.state}
+                services={serviceOptions}
                 handleInputChange={this.handleInputChange}
                 handleSubmit={this.handleSubmit}
                 handleRadioChange={this.handleRadioChange}
                 handleCheckboxChange={this.handleCheckboxChange}
                 handleCancelUpload={this.handleCancelUpload}
-                handleMultiselect={this.handleMultiselect}
+                handleMultiselectChange={this.handleMultiselectChange}
                 handleFileChange={this.handleFileChange}
                 handleDateChange={this.handleDateChange}
                 handleHide={this.handleHide}
                 validateDatePicker={this.validateDatePicker}
                 backUrl={this.props.backUrl}
+                documentID={this.props.documentID}
             />
         ) : (
             <Loading />
@@ -51,44 +57,63 @@ class EditDocumentFormContainer extends Component {
     }
 
     componentDidMount() {
-        const { isFetching, services, document } = this.props;
+        const { documentID } = this.props.match.params;
+        const {
+            isFetching,
+            services,
+            document,
+            fetchSingleDocument
+        } = this.props;
+
         if (!isFetching) {
             this.setState({
                 ...document,
                 type: String(document.type),
                 startOn: new Date(document.startOn),
                 endOn: new Date(document.endOn),
-                services: this.getServicesForState(services),
-                selectedServices: document.serviceIDs.map(key => String(key))
+                services: this._getServicesOptions,
+                serviceIDs: document.serviceIDs.map(key => String(key))
             });
         }
+
+        fetchSingleDocument(documentID);
     }
 
-    componentDidUpdate(prevProps) {
-        const { isFetching, services, document } = this.props;
+    componentDidUpdate = prevProps => {
+        const {
+            postSuccess,
+            history,
+            hierarchyType,
+            hierarchyID,
+            isFetching,
+            document
+        } = this.props;
+
         if (!isFetching && prevProps.isFetching) {
-            const selectedServices =
+            const serviceIDs =
                 document && document.serviceIDs.map(key => String(key));
             this.setState({
                 ...document,
                 type: String(document.type),
                 startOn: new Date(document.startOn),
                 endOn: new Date(document.endOn),
-                services: this.getServicesForState(services),
-                selectedServices
+                services: this._getServicesOptions,
+                serviceIDs
             });
         }
-    }
 
-    getServicesForState = services => {
-        return Object.values(services).reduce((acc, { id, name }) => {
-            acc.push({
-                value: String(id),
-                text: name,
-                disabled: !this.props.subscriptions.includes(id)
-            });
-            return acc;
-        }, []);
+        if (!prevProps.postSuccess && postSuccess) {
+            history.replace(`/${hierarchyType}s/${hierarchyID}`);
+        }
+    };
+
+    _getServicesOptions = () => {
+        const { services, subscriptions } = this.props;
+        return services.map(({ id, name }) => ({
+            value: id,
+            text: name,
+            disabled: !subscriptions.includes(id)
+        }));
     };
 
     handleHide = () => {
@@ -124,11 +149,12 @@ class EditDocumentFormContainer extends Component {
         });
     };
 
-    handleMultiselect = ({ target: { name, value } }) => {
+    handleMultiselectChange = ({ target: { name, value } }) => {
         const checkedValues = this.state[name];
         const newValues = checkedValues.includes(value)
             ? checkedValues.filter(val => val !== value)
             : [...checkedValues, value];
+
         this.setState({ [name]: newValues });
     };
 
@@ -141,9 +167,9 @@ class EditDocumentFormContainer extends Component {
 
     handleSubmit = e => {
         e.preventDefault();
-        const { handleSubmit } = this.props;
+        const { editDocument, hierarchyType, hierarchyID } = this.props;
         const {
-            selectedServices,
+            serviceIDs,
             // eslint-disable-next-line no-unused-vars
             services,
             file,
@@ -152,10 +178,10 @@ class EditDocumentFormContainer extends Component {
         } = this.state;
         const postBody = {
             ...body,
-            serviceIDs: selectedServices,
+            serviceIDs: serviceIDs,
             file: isObjEmpty(file) ? { s3Key: fileS3Key } : file
         };
-        handleSubmit(postBody);
+        editDocument(hierarchyID, postBody);
     };
 }
 
@@ -167,15 +193,32 @@ const mapStateToProps = (
             subscriptionsReducer
         }
     },
+    { match },
     ownProps
 ) => ({
     isFetching:
         servicesReducer.isFetching ||
         subscriptionsReducer.isFetching ||
         documentsReducer.isFetching,
-    services: servicesReducer.services,
-    subscriptions: subscriptionsReducer.subscriptions.serviceIDs,
-    document: documentsReducer.documents[ownProps.documentID]
+    services: Object.values(servicesReducer.services),
+    subscriptions: subscriptionsReducer.subscriptions.serviceIDs || [],
+    document: documentsReducer.documents[match.params.documentID],
+    documentID: match.params.documentID,
+    postSuccess: documentsReducer.postSuccess
 });
 
-export default connect(mapStateToProps)(EditDocumentFormContainer);
+const mapDispatchToProps = dispatch => ({
+    fetchSingleDocument: ID => {
+        dispatch(fetchSingleDocument(ID));
+    },
+    editDocument: (documentID, postBody) => {
+        dispatch(editDocument(documentID, postBody));
+    }
+});
+
+export default withRouter(
+    connect(
+        mapStateToProps,
+        mapDispatchToProps
+    )(EditDocumentFormContainer)
+);

@@ -10,7 +10,7 @@ import CreateBuilding from 'components/companyAdmin/buildings/createBuilding/pre
 import BuildingClientAccessContainer from 'components/companyAdmin/buildings/singleBuilding/containers/BuildingClientAccessContainer';
 import BuildingEditContainer from 'components/companyAdmin/buildings/singleBuilding/containers/BuildingEditContainer';
 import AttachBuildingDocument from 'components/companyAdmin/buildings/attachBuildingDocument/presentational/AttachBuildingDocument';
-import EditBuildingDocumentContainer from 'components/companyAdmin/buildings/editBuildingDocument/containers/EditBuildingDocumentContainer';
+import EditBuildingDocument from 'components/companyAdmin/buildings/editBuildingDocument/presentational/EditBuildingDocument';
 
 const BuildingRoutes = ({ match: { url: baseUrl } }) => (
     <SwitchWith404>
@@ -52,8 +52,8 @@ const BuildingRoutes = ({ match: { url: baseUrl } }) => (
         />
         <Route
             exact
-            path={`${baseUrl}/:id/documents/:documentID/edit`}
-            component={EditBuildingDocumentContainer}
+            path={`${baseUrl}/:id/edit-document/:documentID`}
+            component={EditBuildingDocument}
         />
         <Route
             exact
