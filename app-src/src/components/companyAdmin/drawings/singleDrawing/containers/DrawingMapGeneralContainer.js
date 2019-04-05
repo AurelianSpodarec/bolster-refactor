@@ -7,7 +7,10 @@ import DrawingMapViewSimple from '../presentational/DrawingMapViewSimple';
 import DrawingInspectionLogContainer from './DrawingInspectionLogContainer';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import { convertArrToObj, convertEnumToDropdownOptions } from 'helpers/generic';
-import { PIN_STATUS_TYPES } from 'constants/companyAdmin/enums';
+import {
+    PIN_STATUS_TYPES,
+    COMPANY_USER_ROLE_TYPES as USER_ROLE
+} from 'constants/companyAdmin/enums';
 
 class DrawingMapGeneralContainer extends Component {
     state = {
@@ -83,12 +86,12 @@ class DrawingMapGeneralContainer extends Component {
     _getOperativeOptions = () => {
         const { users } = this.props;
 
-        const options = users.map(
-            ({ id, userFirstName, userLastName, userEmail }) => ({
+        const options = users
+            .filter(user => user.type === USER_ROLE.OPERATIVE)
+            .map(({ id, userFirstName, userLastName, userEmail }) => ({
                 value: id,
                 text: `${userFirstName} ${userLastName} <${userEmail}>`
-            })
-        );
+            }));
 
         return convertArrToObj(options, 'value');
     };
