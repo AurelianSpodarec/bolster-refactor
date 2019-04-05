@@ -66,3 +66,11 @@ export const PIN_STATUS_IDS = {
     ACTION_REQUIRED: 40,
     OTHER: 50
 };
+
+export const PIN_STATUS_TYPES = {
+    10: 'Installed',
+    20: 'Inspected',
+    30: 'No Action',
+    40: 'Action Required',
+    50: 'Other'
+};

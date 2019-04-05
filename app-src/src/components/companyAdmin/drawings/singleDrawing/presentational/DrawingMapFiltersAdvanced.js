@@ -13,8 +13,9 @@ import { PIN_STATUS_IDS as STATUS } from 'constants/companyAdmin/enums';
 
 const DrawingMapFiltersAdvanced = ({
     serviceOptions,
-    serviceSelectedID,
     selectedService,
+    statusOptions,
+    selectedStatus,
     handleChange,
     pins
 }) => (
@@ -22,7 +23,7 @@ const DrawingMapFiltersAdvanced = ({
         <div className="size-lg-9">
             <div className="size-lg-6">
                 <DropdownContainer
-                    placeholder="Select operative"
+                    placeholder="Select service"
                     name="serviceSelectedID"
                     options={serviceOptions}
                     selectedOption={selectedService}
@@ -31,15 +32,16 @@ const DrawingMapFiltersAdvanced = ({
             </div>
 
             <div className="size-lg-6">
-                <Filter
-                    title="Status"
-                    options={serviceOptions}
-                    selectedOption={serviceSelectedID}
-                    handleInputChange={handleChange}
+                <DropdownContainer
+                    placeholder="Select status"
+                    name="statusSelectedID"
+                    options={statusOptions}
+                    selectedOption={selectedStatus}
+                    handleChange={handleChange}
                 />
             </div>
 
-            <div className="size-lg-6">
+            {/* <div className="size-lg-6">
                 <Filter
                     title="Time period"
                     options={serviceOptions}
@@ -55,7 +57,7 @@ const DrawingMapFiltersAdvanced = ({
                     selectedOption={serviceSelectedID}
                     handleInputChange={handleChange}
                 />
-            </div>
+            </div> */}
         </div>
 
         <div className="size-lg-3">
