@@ -1,22 +1,25 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 import EditCompanyAdmin from '../presentational/EditCompanyAdmin';
-import fetchCompanyUsers from 'actions/companyAdmin/userManagement/async/fetchCompanyUsers';
+import fetchSingleCompanyUser from 'actions/companyAdmin/userManagement/async/fetchSingleCompanyUser';
 
 class EditCompanyAdminFormContainer extends Component {
     render = () => <EditCompanyAdmin />;
+
     componentDidMount() {
-        // ! should be a fetch single user?
-        this.props.fetchCompanyUsers();
+        this.props.fetchSingleCompanyUser();
     }
 }
 
-const mapDispatchToProps = dispatch => ({
-    fetchCompanyUsers: () => dispatch(fetchCompanyUsers())
+const mapDispatchToProps = (dispatch, { match: { params } }) => ({
+    fetchSingleCompanyUser: () => dispatch(fetchSingleCompanyUser(params.id))
 });
 
-export default connect(
-    null,
-    mapDispatchToProps
-)(EditCompanyAdminFormContainer);
+export default withRouter(
+    connect(
+        null,
+        mapDispatchToProps
+    )(EditCompanyAdminFormContainer)
+);

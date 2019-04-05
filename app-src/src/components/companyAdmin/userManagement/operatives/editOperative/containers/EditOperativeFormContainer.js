@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 import EditOperative from '../presentational/EditOperative';
+import fetchSingleCompanyUser from 'actions/companyAdmin/userManagement/async/fetchSingleCompanyUser';
 
 class EditOperativeFormContainer extends Component {
     render() {
@@ -10,16 +11,15 @@ class EditOperativeFormContainer extends Component {
     }
 
     componentDidMount() {
-        // const { id } = this.props.match.params.id;
-        // const { fetchSingleCompanyUser } = this.props;
-        // fetchSingleCompanyUser(id);
+        const { id } = this.props.match.params.id;
+        this.props.fetchSingleCompanyUser(id);
     }
 }
 
 const mapDispatchToProps = dispatch => ({
-    // fetchCompanyUser: id => {
-    //     dispatch(fetchSingleCompanyUser(id));
-    // }
+    fetchCompanyUser: id => {
+        dispatch(fetchSingleCompanyUser(id));
+    }
 });
 
 export default withRouter(

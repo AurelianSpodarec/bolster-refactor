@@ -6,7 +6,7 @@ import {
     FETCH_SINGLE_COMPANY_USER_REQUEST,
     FETCH_SINGLE_COMPANY_USER_SUCCESS,
     FETCH_SINGLE_COMPANY_USER_FAILURE
-} from 'constants/actionTypes/';
+} from 'constants/actionTypes/usersManagement';
 
 export const fetchSingleCompanyUserRequest = () => ({
     type: FETCH_SINGLE_COMPANY_USER_REQUEST

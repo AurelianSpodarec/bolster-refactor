@@ -48,7 +48,7 @@ const SitesRoutes = ({ match: { url: baseUrl } }) => (
 
         <Route
             exact
-            path={`${baseUrl}/:id/documents/:documentID/edit`}
+            path={`${baseUrl}/:id/edit-document/:documentID`}
             component={EditSiteDocumentContainer}
         />
 
