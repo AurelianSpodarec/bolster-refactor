@@ -2,18 +2,23 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import EditCompanyUserPassword from '../presentational/EditCompanyUserPassword';
+import editCompanyUserPassword from 'actions/companyAdmin/userManagement/async/editCompanyUserPassword';
+
+import EditCompanyUserPassword from '../presentational/EditCompanyUserPasswordForm';
 
 class EditCompanyUserPasswordContainer extends Component {
     state = {
         password: '',
         confirmPassword: ''
     };
+
     render() {
+        const { type } = this.props;
         return (
             <EditCompanyUserPassword
                 validate={this.validatePassword}
                 handleSubmit={this.handleSubmit}
+                type={type}
             />
         );
     }
@@ -34,7 +39,14 @@ class EditCompanyUserPasswordContainer extends Component {
 }
 
 const mapDispatchToProps = dispatch => {
-    (id, password) => {};
+    (id, password) => {
+        dispatch(editCompanyUserPassword(id, password));
+    };
 };
 
-export default withRouter(connect()(EditCompanyUserPasswordContainer));
+export default withRouter(
+    connect(
+        null,
+        mapDispatchToProps
+    )(EditCompanyUserPasswordContainer)
+);
