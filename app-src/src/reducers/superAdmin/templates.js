@@ -19,7 +19,8 @@ export default combineReducers({
     templates: templatesReducer,
     saveRequired: saveRequiredReducer,
     error: errorReducer,
-    postSuccess: postSuccessReducer
+    postSuccess: postSuccessReducer,
+    updatedTemplateUUID: updatedTemplateUUIDReducer
 });
 
 function errorReducer(state = null, action) {
@@ -44,15 +45,25 @@ function postSuccessReducer(state = false, action) {
     }
 }
 
+function updatedTemplateUUIDReducer(state = 0, action) {
+    switch (action.type) {
+        case POST_TEMPLATE_REQUEST:
+            return 0;
+        case POST_TEMPLATE_SUCCESS:
+            return action.template.uuid;
+        default:
+            return state;
+    }
+}
+
 function templatesReducer(state = {}, action) {
     switch (action.type) {
         case SET_TEMPLATE:
             return updateObj(state, action.template.uuid, action.template);
         case POST_TEMPLATE_SUCCESS:
             return {
-                ...removeObjItem(state, action.oldUuid),
-                [action.templateData.template.uuid]:
-                    action.templateData.template
+                ...removeObjItem(state, action.oldUUID),
+                [action.template.uuid]: action.template
             };
         default:
             return state;

@@ -34,13 +34,13 @@ const Section = ({
             <i className="fa fa-eye" />
         </button>
         <button className="button" onClick={showRenameSectModal}>
-            Edit
+            Rename
         </button>
         <h3 style={{ ...headingStyle }} className="heading ">
             {section.name}
         </h3>
         <QuestionList
-            sectionUuid={section.uuid}
+            sectionUUID={section.uuid}
             questions={questions}
             moveQuestion={moveQuestion}
         />

@@ -1,9 +1,9 @@
 import { CHANGE_QUESTION_SECTION } from 'constants/actionTypes/templateBuilder';
 
-export default (questionUuid, sectionUuid, sort) => dispatch =>
+export default (questionUUID, sectionUUID, sort) => dispatch =>
     dispatch({
         type: CHANGE_QUESTION_SECTION,
-        questionUuid,
-        sectionUuid,
+        questionUUID,
+        sectionUUID,
         sort
     });

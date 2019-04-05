@@ -37,10 +37,10 @@ class SaveTemplateButtonContainer extends Component {
             postTemplate
         } = this.props;
         const sections = allSections.filter(
-            ({ templateUuid }) => templateUuid === template.uuid
+            ({ templateUUID }) => templateUUID === template.uuid
         );
         const questions = allQuestions.filter(
-            ({ templateUuid }) => templateUuid === template.uuid
+            ({ templateUUID }) => templateUUID === template.uuid
         );
         const newTemplateData = {
             template,
@@ -48,7 +48,6 @@ class SaveTemplateButtonContainer extends Component {
             questions
         };
 
-        console.log(newTemplateData);
         postTemplate(newTemplateData);
     };
 }
@@ -56,7 +55,7 @@ class SaveTemplateButtonContainer extends Component {
 const mapStateToProps = (
     {
         superAdmin: {
-            templatesReducer: { saveRequired, templates },
+            templatesReducer: { templates },
             templateSectionsReducer: { sections },
             templateQuestionsReducer: { questions }
         }
@@ -67,7 +66,6 @@ const mapStateToProps = (
         }
     }
 ) => ({
-    saveRequired,
     template: templates[uuid],
     allSections: Object.values(sections),
     allQuestions: Object.values(questions)

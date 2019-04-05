@@ -2,10 +2,14 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
-import { ADD_TEMPLATE_SECTION } from 'constants/shared/modalTypes';
+import {
+    ADD_TEMPLATE_SECTION,
+    SUCCESS_MODAL
+} from 'constants/shared/modalTypes';
 import showModal from 'actions/shared/generic/modals/sync/showModal';
-import TemplateBuilder from '../presentational/TemplateBuilder';
 import resetSaveRequired from 'actions/superAdmin/templateBuilder/sync/resetSaveRequired';
+
+import TemplateBuilder from '../presentational/TemplateBuilder';
 
 class TemplateBuilderContainer extends Component {
     render() {
@@ -30,23 +34,46 @@ class TemplateBuilderContainer extends Component {
         const { resetSaveRequired } = this.props;
         resetSaveRequired();
     }
+
+    componentDidUpdate({ postSuccess: prevPostSuccess }) {
+        const {
+            postSuccess,
+            showModal,
+            curUrl,
+            templateUuid,
+            history,
+            updatedTemplateUUID
+        } = this.props;
+        if (!prevPostSuccess && postSuccess) {
+            const message = 'Template saved successfully.';
+            showModal(SUCCESS_MODAL, { message });
+            history.replace(curUrl.replace(templateUuid, updatedTemplateUUID));
+        }
+    }
 }
 
 const mapStateToProps = (
     { superAdmin: { templatesReducer } },
-    { match: { params } }
+    { match: { params, url } }
 ) => ({
+    curUrl: url,
+    templateUuid: params.uuid,
+    postSuccess: templatesReducer.postSuccess,
+    updatedTemplateUUID: templatesReducer.updatedTemplateUUID,
     saveRequired: templatesReducer.saveRequired,
     uuid: params.uuid,
     isExisting: !!templatesReducer.templates[params.uuid]
 });
 
 const mapDispatchToProps = dispatch => ({
-    showAddSectionModal: templateUuid => {
-        dispatch(showModal(ADD_TEMPLATE_SECTION, { templateUuid }));
+    showAddSectionModal: templateUUID => {
+        dispatch(showModal(ADD_TEMPLATE_SECTION, { templateUUID }));
     },
     resetSaveRequired: () => {
         dispatch(resetSaveRequired());
+    },
+    showModal: (modalType, modalProps) => {
+        dispatch(showModal(modalType, modalProps));
     }
 });
 

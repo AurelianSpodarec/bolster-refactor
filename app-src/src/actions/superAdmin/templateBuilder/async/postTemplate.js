@@ -12,10 +12,15 @@ export const postTemplateRequest = () => ({
     type: POST_TEMPLATE_REQUEST
 });
 
-export const postTemplateSuccess = (templateData, oldUuid) => ({
+export const postTemplateSuccess = (
+    { template, sections, questions },
+    oldUUID
+) => ({
     type: POST_TEMPLATE_SUCCESS,
-    templateData,
-    oldUuid
+    template,
+    sections,
+    questions,
+    oldUUID
 });
 
 export const postTemplateFailure = error => ({

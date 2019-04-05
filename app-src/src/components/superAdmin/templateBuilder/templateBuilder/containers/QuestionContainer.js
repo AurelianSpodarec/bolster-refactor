@@ -49,7 +49,7 @@ const questionSource = {
     beginDrag(props) {
         return {
             index: props.index,
-            sectionUuid: props.sectionUuid,
+            sectionUUID: props.sectionUUID,
             question: props.question
         };
     }
@@ -59,7 +59,7 @@ const questionTarget = {
     hover(props, monitor, component) {
         const dragIndex = monitor.getItem().index;
         const hoverIndex = props.index;
-        const sourceSectionUuid = monitor.getItem().sectionUuid;
+        const sourceSectionUuid = monitor.getItem().sectionUUID;
 
         // Don't replace items with themselves
         if (dragIndex === hoverIndex) {
@@ -94,7 +94,7 @@ const questionTarget = {
         }
 
         // Time to actually perform the action
-        if (props.sectionUuid === sourceSectionUuid) {
+        if (props.sectionUUID === sourceSectionUuid) {
             props.moveQuestion(dragIndex, hoverIndex);
 
             // Note: we're mutating the monitor item here!

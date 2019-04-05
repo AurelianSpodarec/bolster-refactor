@@ -42,7 +42,7 @@ class SectionContainer extends Component {
                     moveQuestion={this.moveQuestion}
                     deleteSection={() => deleteSection(section.uuid)}
                     showAddQuestModal={() =>
-                        showAddQuestModal(section.uuid, section.templateUuid)
+                        showAddQuestModal(section.uuid, section.templateUUID)
                     }
                     showRenameSectModal={() => showRenameSectModal(section)}
                     duplicateSection={this.duplicateSection}
@@ -59,7 +59,7 @@ class SectionContainer extends Component {
         } = this.props;
         const sectionQuestionUuids = sectionQuestions.map(({ uuid }) => uuid);
         const otherQuestionPrereqUuids = templateQuestions
-            .filter(q => q.sectionUuid !== section.uuid)
+            .filter(q => q.sectionUUID !== section.uuid)
             .map(q => q.prereqUuid);
 
         return otherQuestionPrereqUuids.every(
@@ -97,7 +97,7 @@ class SectionContainer extends Component {
             setQuestion({
                 ...question,
                 questionType: question.questionType,
-                sectionUuid: newUuid,
+                sectionUUID: newUuid,
                 uuid: uuid()
             });
         });
@@ -109,11 +109,11 @@ const questionTarget = {
     drop(props, monitor, component) {
         const { section } = props;
         const sourceObj = monitor.getItem();
-        if (section.uuid !== sourceObj.sectionUuid) {
+        if (section.uuid !== sourceObj.sectionUUID) {
             component.changeSection(sourceObj.question);
         }
         return {
-            sectionUuid: section.uuid
+            sectionUUID: section.uuid
         };
     }
 };
@@ -133,10 +133,10 @@ const mapStateToProps = (
     { section }
 ) => ({
     templateQuestions: Object.values(templateQuestionsReducer.questions).filter(
-        q => q.templateUuid === section.templateUuid
+        q => q.templateUUID === section.templateUUID
     ),
     questions: Object.values(templateQuestionsReducer.questions)
-        .filter(q => q.sectionUuid === section.uuid)
+        .filter(q => q.sectionUUID === section.uuid)
         .sort((a, b) => a.sort - b.sort)
 });
 
@@ -144,11 +144,11 @@ const mapDispatchToProps = dispatch => ({
     swapQuestionSorts: (question1Uuid, question2Uuid) => {
         dispatch(swapQuestionSorts(question1Uuid, question2Uuid));
     },
-    changeQuestionSection: (questionUuid, sectionUuid, sort) => {
-        dispatch(changeQuestionSection(questionUuid, sectionUuid, sort));
+    changeQuestionSection: (questionUUID, sectionUUID, sort) => {
+        dispatch(changeQuestionSection(questionUUID, sectionUUID, sort));
     },
-    deleteSection: sectionUuid => {
-        dispatch(deleteSection(sectionUuid));
+    deleteSection: sectionUUID => {
+        dispatch(deleteSection(sectionUUID));
     },
     setQuestion: question => {
         dispatch(setQuestion(question));
@@ -156,16 +156,16 @@ const mapDispatchToProps = dispatch => ({
     setSection: newSection => {
         dispatch(setSection(newSection));
     },
-    showAddQuestModal: (sectionUuid, templateUuid) => {
+    showAddQuestModal: (sectionUUID, templateUUID) => {
         dispatch(
-            showModal(ADD_TEMPLATE_QUESTION, { sectionUuid, templateUuid })
+            showModal(ADD_TEMPLATE_QUESTION, { sectionUUID, templateUUID })
         );
     },
     showRenameSectModal: section => {
         dispatch(showModal(RENAME_TEMPLATE_SECTION, { section }));
     },
-    deleteQuestion: questionUuid => {
-        dispatch(deleteQuestion(questionUuid));
+    deleteQuestion: questionUUID => {
+        dispatch(deleteQuestion(questionUUID));
     }
 });
 
