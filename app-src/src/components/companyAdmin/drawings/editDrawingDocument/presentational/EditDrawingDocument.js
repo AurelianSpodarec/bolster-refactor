@@ -3,29 +3,20 @@ import React from 'react';
 import Breadcrumbs from 'components/shared/generic/breadcrumb/presentational/Breadcrumb';
 import EditDocumentFormContainer from 'components/shared/documents/containers/EditDocumentFormContainer';
 
-const EditDrawingDocument = ({
-    handleSubmit,
-    drawingID,
-    documentID,
-    backUrl
-}) => (
-    <div>
+const EditFloorDocument = () => (
+    <>
         <Breadcrumbs
             // ? what is the route?
             breadcrumbs={[
                 { text: '##' },
                 { text: 'Drawings' },
-                { text: drawingID },
+                { text: 'Drawing ID' },
                 { text: 'Edit Document' },
                 { text: '##' }
             ]}
         />
-        <EditDocumentFormContainer
-            handleSubmit={handleSubmit}
-            documentID={documentID}
-            backUrl={backUrl}
-        />
-    </div>
+        <EditDocumentFormContainer hierarchyType="drawing" />
+    </>
 );
 
-export default EditDrawingDocument;
+export default EditFloorDocument;
