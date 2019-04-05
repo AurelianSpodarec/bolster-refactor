@@ -67,10 +67,6 @@ class SectionContainer extends Component {
         );
     };
 
-    handleDeleteSection = () => {
-        const { section, deleteSection } = this.props;
-    };
-
     moveQuestion = (dragIndex, hoverIndex) => {
         const { questions, swapQuestionSorts } = this.props;
         const question1 = questions[dragIndex];

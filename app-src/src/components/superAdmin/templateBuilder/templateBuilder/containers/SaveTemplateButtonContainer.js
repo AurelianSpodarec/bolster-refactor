@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+
+import postTemplate from 'actions/superAdmin/templateBuilder/async/postTemplate';
+
 import SaveTemplateButton from '../presentational/SaveTemplateButton';
-import resetSaveRequired from 'actions/superAdmin/templateBuilder/sync/resetSaveRequired';
 
 class SaveTemplateButtonContainer extends Component {
     render() {
@@ -32,7 +34,7 @@ class SaveTemplateButtonContainer extends Component {
             template,
             allSections,
             allQuestions,
-            resetSaveRequired
+            postTemplate
         } = this.props;
         const sections = allSections.filter(
             ({ templateUuid }) => templateUuid === template.uuid
@@ -40,14 +42,14 @@ class SaveTemplateButtonContainer extends Component {
         const questions = allQuestions.filter(
             ({ templateUuid }) => templateUuid === template.uuid
         );
-        const newTemplateData = {
+        const newTemplate = {
             template,
             sections,
             questions
         };
 
-        resetSaveRequired();
-        console.log(newTemplateData);
+        console.log(newTemplate);
+        postTemplate(newTemplate);
     };
 }
 
@@ -72,8 +74,8 @@ const mapStateToProps = (
 });
 
 const mapDispatchToProps = dispatch => ({
-    resetSaveRequired: () => {
-        dispatch(resetSaveRequired());
+    postTemplate: () => {
+        dispatch(postTemplate());
     }
 });
 
