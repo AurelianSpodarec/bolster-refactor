@@ -4,7 +4,6 @@ import {
     FETCH_PIN_STATS_SUCCESS,
     FETCH_PIN_STATS_FAILURE
 } from 'constants/actionTypes/stats';
-import { convertArrToObj } from 'helpers/generic';
 
 export default combineReducers({
     error: errorReducer,
@@ -39,7 +38,7 @@ function errorReducer(state = null, action) {
 function statsReducer(state = {}, action) {
     switch (action.type) {
         case FETCH_PIN_STATS_SUCCESS:
-            return action.payload.statuses;
+            return action.payload;
         default:
             return state;
     }

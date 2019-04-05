@@ -24,7 +24,7 @@ class SingleSiteContainer extends Component {
             fetchAllFloors,
             fetchAllDrawings,
             fetchDocuments,
-            fetchClients,
+            // fetchClients,
             fetchAllCompanies,
             fetchPinStatsForLevel
         } = this.props;
@@ -34,7 +34,7 @@ class SingleSiteContainer extends Component {
             fetchAllBuildings();
             fetchAllFloors();
             fetchAllDrawings();
-            fetchClients();
+            // fetchClients();
             fetchAllCompanies();
         });
     };

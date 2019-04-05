@@ -2,7 +2,7 @@ import React from 'react';
 // import L from 'leaflet';
 import { Marker, Popup } from 'react-leaflet';
 
-const DrawingMapPin = ({ pin: { id, location, name } }) => {
+const DrawingMapPin = ({ pin: { id, location, pinCode } }) => {
     // const MapMarker = L.Icon.extend({
     //     iconSize: [24, 27]
     // });
@@ -28,7 +28,7 @@ const DrawingMapPin = ({ pin: { id, location, name } }) => {
             position={[location.latY, location.lngX]}
             // icon={icon}
         >
-            <Popup>{`name: ${name}`}</Popup>
+            <Popup>{`name: ${pinCode}`}</Popup>
         </Marker>
     );
 };
