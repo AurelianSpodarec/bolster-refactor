@@ -20,9 +20,21 @@ class EditCompanyUserPasswordContainer extends Component {
 
     handleSubmit = e => {
         e.preventDefault();
+        const { password } = this.state;
+        const { id, editPassword } = this.props;
+        editPassword(id, { password });
     };
 
-    validatePassword = confirmPassword => {};
+    validatePassword = confirmPassword => {
+        const { password } = this.state;
+        if (password !== confirmPassword) {
+            return 'Password and Confirm Password do not match';
+        }
+    };
 }
+
+const mapDispatchToProps = dispatch => {
+    (id, password) => {};
+};
 
 export default withRouter(connect()(EditCompanyUserPasswordContainer));
