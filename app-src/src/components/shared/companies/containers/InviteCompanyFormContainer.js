@@ -69,7 +69,6 @@ class InviteCompanyFormContainer extends Component {
     handleSubmit = () => {
         const { companyCode, serviceIDs } = this.state;
         const { hierarchyType, hierarchyID, addCompany } = this.props;
-
         const postBody = {
             CompanyCode: companyCode,
             ServiceIDs: serviceIDs
