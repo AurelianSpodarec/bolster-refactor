@@ -5,20 +5,11 @@ import DrawingMapFiltersAdvanced from '../presentational/DrawingMapFiltersAdvanc
 import DrawingMapViewSimple from '../presentational/DrawingMapViewSimple';
 import DrawingInspectionLogContainer from './DrawingInspectionLogContainer';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import { convertArrToObj } from 'helpers/generic';
 
 class DrawingMapGeneralContainer extends Component {
     state = {
-        serviceTypeOptions: [
-            {
-                value: 0,
-                text: 'All services'
-            },
-            {
-                value: 1,
-                text: 'Service 1'
-            }
-        ],
-        serviceTypeSelected: 'All services',
+        serviceSelectedID: '',
         pinLat: 51.505,
         pinLng: -0.09,
         mapZoom: 3
@@ -26,15 +17,19 @@ class DrawingMapGeneralContainer extends Component {
 
     render() {
         const position = [this.state.pinLat, this.state.pinLng];
-        const { serviceTypeOptions, serviceTypeSelected, mapZoom } = this.state;
+        const { serviceSelectedID, mapZoom } = this.state;
         const { error, pins } = this.props;
+
+        const serviceOptions = this._getServicesOptions();
 
         return (
             <BlockContainer error={error}>
                 <DrawingMapFiltersAdvanced
-                    serviceTypeOptions={serviceTypeOptions}
-                    serviceTypeSelected={serviceTypeSelected}
+                    serviceOptions={Object.values(serviceOptions)}
+                    serviceSelectedID={serviceSelectedID}
+                    selectedService={serviceOptions[serviceSelectedID]}
                     pins={pins}
+                    handleChange={this.handleChange}
                 />
                 <DrawingInspectionLogContainer />
                 <DrawingMapViewSimple
@@ -51,10 +46,28 @@ class DrawingMapGeneralContainer extends Component {
         const { lat, lng } = e.latlng;
         console.log(lat, lng);
     };
+
+    handleChange = ({ target: { type, value, name, checked } }) => {
+        this.setState({ [name]: type === 'checkbox' ? checked : value });
+    };
+
+    _getServicesOptions = () => {
+        const { services } = this.props;
+
+        const options = services.map(({ id, name }) => ({
+            value: id,
+            text: name
+        }));
+
+        return convertArrToObj(options, 'value');
+    };
 }
 
-const mapStateToProps = ({ companyAdmin: { pinsReducer } }) => ({
+const mapStateToProps = ({
+    companyAdmin: { pinsReducer, servicesReducer }
+}) => ({
     pins: Object.values(pinsReducer.pins),
+    services: Object.values(servicesReducer.services),
     isFetching: pinsReducer.isFetching,
     error: pinsReducer.error
 });
