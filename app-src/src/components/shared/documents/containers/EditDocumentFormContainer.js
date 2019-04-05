@@ -58,12 +58,7 @@ class EditDocumentFormContainer extends Component {
 
     componentDidMount() {
         const { documentID } = this.props.match.params;
-        const {
-            isFetching,
-            services,
-            document,
-            fetchSingleDocument
-        } = this.props;
+        const { isFetching, document, fetchSingleDocument } = this.props;
 
         if (!isFetching) {
             this.setState({
@@ -193,8 +188,7 @@ const mapStateToProps = (
             subscriptionsReducer
         }
     },
-    { match },
-    ownProps
+    { match }
 ) => ({
     isFetching:
         servicesReducer.isFetching ||

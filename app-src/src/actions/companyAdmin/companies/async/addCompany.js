@@ -26,7 +26,7 @@ export const addCompanyFailure = error => ({
 export default (HierarchyType, HierarchyID, postBody) => dispatch => {
     dispatch(addCompanyRequest());
     return Axios.post(
-        `${API_URL}/permissions/company/${HierarchyType}/${HierarchyID}`,
+        `${API_URL}/companypermissions/${HierarchyType}/${HierarchyID}`,
         postBody,
         getHeaders()
     )

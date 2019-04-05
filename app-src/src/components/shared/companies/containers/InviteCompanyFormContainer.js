@@ -33,6 +33,7 @@ class InviteCompanyFormContainer extends Component {
         if (!prevProps.success && success) {
             history.replace(`/${hierarchyType}s/${hierarchyID}`);
         }
+        console.log(this._checkNoServicesAvailable());
     };
 
     _getServicesOptions = () => {
@@ -42,6 +43,14 @@ class InviteCompanyFormContainer extends Component {
             text: name,
             disabled: !subscriptions.includes(id)
         }));
+    };
+
+    _checkNoServicesAvailable = () => {
+        return this._getServicesOptions().filter(
+            service => service.disabled === true
+        ).length === this._getServicesOptions().length
+            ? true
+            : false;
     };
 
     handleChange = ({ target: { type, value, name, checked } }) => {
