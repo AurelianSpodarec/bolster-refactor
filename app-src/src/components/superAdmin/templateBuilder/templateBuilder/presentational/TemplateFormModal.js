@@ -55,7 +55,7 @@ const TemplateformModal = ({
             <BlockButtonWrapper>
                 <button className="button ">
                     <i className="fa fa-plus" />
-                    Save
+                    Set
                 </button>
                 <button className="button" onClick={handleCancel}>
                     <i className="fa fa-times" /> Cancel
