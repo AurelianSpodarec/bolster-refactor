@@ -58,12 +58,7 @@ class EditDocumentFormContainer extends Component {
 
     componentDidMount() {
         const { documentID } = this.props.match.params;
-        const {
-            isFetching,
-            services,
-            document,
-            fetchSingleDocument
-        } = this.props;
+        const { isFetching, document, fetchSingleDocument } = this.props;
 
         if (!isFetching) {
             this.setState({
@@ -167,7 +162,7 @@ class EditDocumentFormContainer extends Component {
 
     handleSubmit = e => {
         e.preventDefault();
-        const { editDocument, hierarchyType, hierarchyID } = this.props;
+        const { editDocument, hierarchyID } = this.props;
         const {
             serviceIDs,
             // eslint-disable-next-line no-unused-vars
@@ -193,8 +188,7 @@ const mapStateToProps = (
             subscriptionsReducer
         }
     },
-    { match },
-    ownProps
+    { match }
 ) => ({
     isFetching:
         servicesReducer.isFetching ||
