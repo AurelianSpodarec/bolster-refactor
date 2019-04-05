@@ -22,11 +22,11 @@ export const fetchPinsFailure = error => ({
     error
 });
 
-export default () => dispatch => {
-    dispatch(fetchPinsRequest());
+export default (type, id) => dispatch => {
+    dispatch(fetchPinsRequest(type, id));
 
     axios
-        .get(`${API_URL}/pins`, getHeaders())
+        .get(`${API_URL}/pins/${type}/${id}`, getHeaders())
         .then(res => dispatch(fetchPinsSuccess(res.data)))
         .catch(err => dispatch(fetchPinsFailure(err.message)));
 };

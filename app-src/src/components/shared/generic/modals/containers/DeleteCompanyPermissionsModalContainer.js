@@ -16,7 +16,7 @@ const DeleteCompanyPermissionsModalContainer = ({
             e.preventDefault();
             hideModal();
         }}
-        message="Are you sure you want to delete this companies persmissions?"
+        message="Are you sure you want to delete this companies permissions?"
     />
 );
 

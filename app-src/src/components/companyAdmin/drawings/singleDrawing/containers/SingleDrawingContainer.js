@@ -34,7 +34,7 @@ class SingleDrawingContainer extends Component {
         fetchDocuments('drawing', drawingID);
         fetchAllCompanies();
         fetchOperativesForDrawing(drawingID);
-        fetchPins();
+        fetchPins('drawing', drawingID);
         fetchClientsForDrawing(drawingID);
     };
 }
@@ -58,8 +58,8 @@ const mapDispatchToProps = dispatch => ({
     fetchOperativesForDrawing: drawingID => {
         dispatch(fetchOperativesForDrawing(drawingID));
     },
-    fetchPins: () => {
-        dispatch(fetchPins());
+    fetchPins: (type, id) => {
+        dispatch(fetchPins(type, id));
     }
 });
 

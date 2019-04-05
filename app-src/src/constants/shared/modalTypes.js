@@ -1,3 +1,7 @@
+//generic
+export const SUCCESS_MODAL = 'SUCCESS_MODAL';
+
+// company
 export const PIN_IMAGE = 'PIN_IMAGE';
 
 //ADMIN

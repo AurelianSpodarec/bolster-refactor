@@ -28,7 +28,7 @@ export default companyPermissionID => dispatch => {
 
     return axios
         .post(
-            `${API_URL}/permissions/company/${companyPermissionID}/end`,
+            `${API_URL}/companypermissions/${companyPermissionID}/end`,
             getHeaders()
         )
         .then(({ data }) => dispatch(deleteCompanySuccess(data)))

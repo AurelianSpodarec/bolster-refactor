@@ -1,11 +1,19 @@
 import { combineReducers } from 'redux';
 
-import { updateObj, removeObjItem, swapItemSorts } from 'helpers/generic';
+import {
+    updateObj,
+    removeObjItem,
+    swapItemSorts,
+    convertArrToObj
+} from 'helpers/generic';
 import {
     SET_QUESTION,
     DELETE_QUESTION,
     CHANGE_QUESTION_SECTION,
-    SWAP_QUESTION_SORTS
+    SWAP_QUESTION_SORTS,
+    DELETE_SECTION,
+    POST_TEMPLATE_SUCCESS,
+    FETCH_TEMPLATE_SUCCESS
 } from 'constants/actionTypes/templateBuilder';
 
 export default combineReducers({
@@ -14,14 +22,16 @@ export default combineReducers({
 
 function questionsReducer(state = {}, action) {
     switch (action.type) {
+        case FETCH_TEMPLATE_SUCCESS:
+            return { ...state, ...convertArrToObj(action.questions) };
         case SET_QUESTION:
             return updateObj(state, action.question.uuid, action.question);
         case CHANGE_QUESTION_SECTION:
             return {
                 ...state,
-                [action.questionUuid]: {
-                    ...state[action.questionUuid],
-                    sectionUuid: action.sectionUuid,
+                [action.questionUUID]: {
+                    ...state[action.questionUUID],
+                    sectionUUID: action.sectionUUID,
                     sort: action.sort
                 }
             };
@@ -33,6 +43,22 @@ function questionsReducer(state = {}, action) {
             );
         case DELETE_QUESTION:
             return removeObjItem(state, action.uuid);
+        case DELETE_SECTION: {
+            const questionsArr = Object.values(state).filter(
+                ({ sectionUUID }) => sectionUUID !== action.uuid
+            );
+
+            return convertArrToObj(questionsArr, 'uuid');
+        }
+        case POST_TEMPLATE_SUCCESS: {
+            const filteredQuestions = Object.values(state).filter(
+                ques => ques.templateUUID !== action.oldUUID
+            );
+            return {
+                ...convertArrToObj(filteredQuestions, 'uuid'),
+                ...convertArrToObj(action.questions, 'uuid')
+            };
+        }
         default:
             return state;
     }

@@ -34,19 +34,19 @@ class AddTemplateSectionModalContainer extends React.Component {
     handleSubmit = e => {
         e.preventDefault();
         const { name } = this.state;
-        const { sections, templateUuid } = this.props;
+        const { sections, templateUUID } = this.props;
 
         const sort = Math.max(0, ...[...sections].map(s => s.sort)) + 1;
-        this.props.setSection({ name, uuid: uuid(), sort, templateUuid });
+        this.props.setSection({ name, uuid: uuid(), sort, templateUUID });
     };
 }
 
 const mapStateToProps = (
     { superAdmin: { templateSectionsReducer } },
-    { templateUuid }
+    { templateUUID }
 ) => ({
     sections: Object.values(templateSectionsReducer.sections).filter(
-        sec => templateUuid === sec.templateUuid
+        sec => templateUUID === sec.templateUUID
     )
 });
 

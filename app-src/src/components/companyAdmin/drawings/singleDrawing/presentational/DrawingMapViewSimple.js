@@ -14,6 +14,7 @@ const DrawingMapViewSimple = ({ position, zoom, pins, handleClick }) => (
         <TileLayer
             attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
             url="https://www.silverchip.com/tiles/{z}/{x}/{y}.jpg"
+            noWrap={true}
         />
         {pins.map(pin => (
             <DrawingMapPin key={pin.id} pin={pin} />

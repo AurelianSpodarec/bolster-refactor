@@ -26,11 +26,11 @@ export const editClientFailure = error => ({
 export default (DrawingID, postBody) => dispatch => {
     dispatch(editClientRequest());
     return Axios.post(
-        `${API_URL}/permissions/client/${DrawingID}`,
+        `${API_URL}/clientpermissions/${DrawingID}`,
         postBody,
         getHeaders()
     )
-        .then(({ data }) => dispatch(editClientSuccess(data)))
+        .then(res => dispatch(editClientSuccess(res.data)))
         .catch(err => {
             dispatch(editClientFailure(err.message));
             if (err.response.status === 400) {

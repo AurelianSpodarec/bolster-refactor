@@ -16,12 +16,26 @@ class EditCompanyUserPasswordContainer extends Component {
         const { type } = this.props;
         return (
             <EditCompanyUserPassword
+                handleInputChange={this.handleInputChange}
                 validate={this.validatePassword}
                 handleSubmit={this.handleSubmit}
                 type={type}
             />
         );
     }
+
+    componentDidUpdate(prevProps) {
+        const { postSuccess, type, history } = this.props;
+        if (postSuccess && !prevProps.postSuccess) {
+            history.push(`/users-management/${type}`);
+        }
+    }
+
+    handleInputChange = e => {
+        this.setState({
+            [e.target.name]: e.target.value
+        });
+    };
 
     handleSubmit = e => {
         e.preventDefault();
@@ -38,6 +52,10 @@ class EditCompanyUserPasswordContainer extends Component {
     };
 }
 
+const mapStateToProps = ({ companyAdmin: { companyUsersReducer } }) => ({
+    postSuccess: companyUsersReducer.postSuccess
+});
+
 const mapDispatchToProps = dispatch => ({
     editCompanyUserPassword: (id, password) => {
         dispatch(editCompanyUserPassword(id, password));
@@ -46,7 +64,7 @@ const mapDispatchToProps = dispatch => ({
 
 export default withRouter(
     connect(
-        null,
+        mapStateToProps,
         mapDispatchToProps
     )(EditCompanyUserPasswordContainer)
 );
