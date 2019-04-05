@@ -75,7 +75,8 @@ class TemplateFormModalContainer extends React.Component {
         const section1 = {
             uuid: generateUuid(),
             templateUUID: uuid,
-            name: 'Section 1'
+            name: 'Section 1',
+            sort: 1
         };
 
         setTemplate(template, section1);
