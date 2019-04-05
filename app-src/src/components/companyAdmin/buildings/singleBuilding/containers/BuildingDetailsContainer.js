@@ -1,26 +1,33 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import BuildingStats from '../presentational/BuildingStats';
 
 class BuildingDetailsContainer extends Component {
     render() {
-        // const { building, isFetching } = this.props;
+        const { building, isFetching, error } = this.props;
 
         return (
-            <BlockContainer>
-                <h3 className="heading heading-3">
-                    Buidling Details container
-                </h3>
+            <BlockContainer
+                error={error}
+                isFetching={isFetching}
+                isEmpty={!building.id}
+            >
+                <BuildingStats building={building} />
             </BlockContainer>
         );
     }
 }
 
-// const mapStateToProps = ({ buildingReducer }, { match }) => ({
-//     building: buildingReducer.building[match.params.id] || {},
-//     isFetching: buildingReducer.isFetching,
-//     error: buildingReducer.error
-// });
+const mapStateToProps = (
+    { companyAdmin: { buildingsReducer } },
+    { match }
+) => ({
+    building: buildingsReducer.buildings[match.params.id] || {},
+    isFetching: buildingsReducer.isFetching,
+    error: buildingsReducer.error
+});
 
-export default withRouter(connect()(BuildingDetailsContainer));
+export default withRouter(connect(mapStateToProps)(BuildingDetailsContainer));

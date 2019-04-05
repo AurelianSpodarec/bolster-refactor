@@ -26,7 +26,7 @@ const BuildingRoutes = ({ match: { url: baseUrl } }) => (
         />
         <Route
             exact
-            path={`${baseUrl}/edit/:id`}
+            path={`${baseUrl}/:id/edit/`}
             component={BuildingEditContainer}
         />
         <Route
