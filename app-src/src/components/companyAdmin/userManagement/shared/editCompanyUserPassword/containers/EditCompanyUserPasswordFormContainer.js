@@ -26,8 +26,8 @@ class EditCompanyUserPasswordContainer extends Component {
     handleSubmit = e => {
         e.preventDefault();
         const { password } = this.state;
-        const { id, editPassword } = this.props;
-        editPassword(id, { password });
+        const { id } = this.props.match.params;
+        this.props.editCompanyUserPassword(id, { password });
     };
 
     validatePassword = confirmPassword => {
@@ -38,11 +38,11 @@ class EditCompanyUserPasswordContainer extends Component {
     };
 }
 
-const mapDispatchToProps = dispatch => {
-    (id, password) => {
+const mapDispatchToProps = dispatch => ({
+    editCompanyUserPassword: (id, password) => {
         dispatch(editCompanyUserPassword(id, password));
-    };
-};
+    }
+});
 
 export default withRouter(
     connect(
