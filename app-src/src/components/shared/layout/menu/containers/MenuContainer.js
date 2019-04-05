@@ -1,18 +1,19 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 
 import MenusWrapper from '../presentational/MenusWrapper';
 
-class MenuContainer extends Component {
-    render() {
-        const { showSuperAdmin } = this.props;
+const MenuContainer = ({ isSuperAdmin, isCompanyAdmin }) => (
+    <MenusWrapper showTabs={isSuperAdmin && isCompanyAdmin} />
+);
 
-        return <MenusWrapper showSuperAdmin={showSuperAdmin} />;
+const mapStateToProps = ({
+    shared: {
+        decodeJWTReducer: { jwtData }
     }
-}
-
-const mapStateToProps = ({ shared: { decodeJWTReducer } }) => ({
-    showSuperAdmin: decodeJWTReducer.jwtData.IsSuperAdmin
+}) => ({
+    isSuperAdmin: jwtData.isSuperAdmin,
+    isCompanyAdmin: !!jwtData.companyID
 });
 
 export default connect(mapStateToProps)(MenuContainer);
