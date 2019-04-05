@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 
-import { updateObj, removeObjItem } from 'helpers/generic';
+import { updateObj, removeObjItem, convertArrToObj } from 'helpers/generic';
 import {
     SET_TEMPLATE,
     SET_SECTION,
@@ -12,7 +12,13 @@ import {
     RESET_SAVE_REQUIRED,
     POST_TEMPLATE_REQUEST,
     POST_TEMPLATE_SUCCESS,
-    POST_TEMPLATE_FAILURE
+    POST_TEMPLATE_FAILURE,
+    FETCH_TEMPLATES_REQUEST,
+    FETCH_TEMPLATES_SUCCESS,
+    FETCH_TEMPLATES_FAILURE,
+    FETCH_TEMPLATE_REQUEST,
+    FETCH_TEMPLATE_SUCCESS,
+    FETCH_TEMPLATE_FAILURE
 } from 'constants/actionTypes/templateBuilder';
 
 export default combineReducers({
@@ -20,14 +26,34 @@ export default combineReducers({
     saveRequired: saveRequiredReducer,
     error: errorReducer,
     postSuccess: postSuccessReducer,
-    updatedTemplateUUID: updatedTemplateUUIDReducer
+    oldTemplateUUID: oldTemplateUUIDReducer,
+    isFetching: isFetchingReducer
 });
+
+function isFetchingReducer(state = false, action) {
+    switch (action.type) {
+        case FETCH_TEMPLATES_REQUEST:
+        case FETCH_TEMPLATE_REQUEST:
+            return true;
+        case FETCH_TEMPLATES_SUCCESS:
+        case FETCH_TEMPLATE_SUCCESS:
+        case FETCH_TEMPLATES_FAILURE:
+        case FETCH_TEMPLATE_FAILURE:
+            return false;
+        default:
+            return state;
+    }
+}
 
 function errorReducer(state = null, action) {
     switch (action.type) {
         case POST_TEMPLATE_REQUEST:
+        case FETCH_TEMPLATES_REQUEST:
+        case FETCH_TEMPLATE_REQUEST:
             return null;
         case POST_TEMPLATE_FAILURE:
+        case FETCH_TEMPLATES_FAILURE:
+        case FETCH_TEMPLATE_FAILURE:
             return action.error;
         default:
             return state;
@@ -45,7 +71,7 @@ function postSuccessReducer(state = false, action) {
     }
 }
 
-function updatedTemplateUUIDReducer(state = 0, action) {
+function oldTemplateUUIDReducer(state = 0, action) {
     switch (action.type) {
         case POST_TEMPLATE_REQUEST:
             return 0;
@@ -58,6 +84,12 @@ function updatedTemplateUUIDReducer(state = 0, action) {
 
 function templatesReducer(state = {}, action) {
     switch (action.type) {
+        case FETCH_TEMPLATES_SUCCESS:
+            return {
+                ...state,
+                ...convertArrToObj(action.payload, 'uuid')
+            };
+        case FETCH_TEMPLATE_SUCCESS:
         case SET_TEMPLATE:
             return updateObj(state, action.template.uuid, action.template);
         case POST_TEMPLATE_SUCCESS:

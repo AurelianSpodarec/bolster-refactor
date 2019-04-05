@@ -4,19 +4,16 @@ import Breadcrumb from 'components/shared/generic/breadcrumb/presentational/Brea
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
 import EditCompanyUserPasswordFormContainer from 'components/companyAdmin/userManagement/shared/editCompanyUserPassword/containers/EditCompanyUserPasswordFormContainer';
 
-const editCompanyAdminPassword = () => (
+const editCompanyUserPassword = () => (
     <>
         <Breadcrumb
-            breadcrumbs={[
-                { text: 'Company Admins' },
-                { text: 'Edit Password' }
-            ]}
+            breadcrumbs={[{ text: 'Company Users' }, { text: 'Edit Password' }]}
         />
-        <PageHeading title="Edit Company Admin Password" />
+        <PageHeading title="Edit Company User Password" />
         <BlockContainer>
-            <EditCompanyUserPasswordFormContainer type="company-admins" />
+            <EditCompanyUserPasswordFormContainer />
         </BlockContainer>
     </>
 );
 
-export default editCompanyAdminPassword;
+export default editCompanyUserPassword;
