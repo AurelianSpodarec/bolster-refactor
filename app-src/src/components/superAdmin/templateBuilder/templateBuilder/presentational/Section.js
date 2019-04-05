@@ -1,6 +1,7 @@
 import React from 'react';
 
 import QuestionList from '../presentational/QuestionList';
+import TooltipContainer from 'components/shared/generic/tooltip/containers/TooltipContainer';
 
 const style = {
     width: '250px',
@@ -22,7 +23,8 @@ const Section = ({
     deleteSection,
     showAddQuestModal,
     showRenameSectModal,
-    duplicateSection
+    duplicateSection,
+    isDeleteable
 }) => (
     <div
         className="template-block size-lg-12"
@@ -46,10 +48,19 @@ const Section = ({
             <i className="fa fa-plus" />
             Add question
         </button>
-        <button className="button red" onClick={deleteSection}>
-            <i className="fa fa-times" />
-            Delete
-        </button>
+        {isDeleteable ? (
+            <button className="button red" onClick={deleteSection}>
+                <i className="fa fa-times" />
+                Delete
+            </button>
+        ) : (
+            <TooltipContainer text="This section has prerequisites with dependants in other sections.">
+                <button className="button red disabled">
+                    <i className="fa fa-times" />
+                    Delete
+                </button>
+            </TooltipContainer>
+        )}
         <button onClick={duplicateSection} className="button">
             <i className="fa fa-clone" /> Duplicate
         </button>

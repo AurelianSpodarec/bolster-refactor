@@ -17,6 +17,7 @@ import showModal from 'actions/shared/generic/modals/sync/showModal';
 import setSection from 'actions/superAdmin/templateBuilder/sync/setSection';
 import deleteSection from 'actions/superAdmin/templateBuilder/sync/deleteSection';
 import setQuestion from 'actions/superAdmin/templateBuilder/sync/setQuestion';
+import deleteQuestion from 'actions/superAdmin/templateBuilder/sync/deleteQuestion';
 
 class SectionContainer extends Component {
     render() {
@@ -34,6 +35,7 @@ class SectionContainer extends Component {
         return connectDropTarget(
             <div>
                 <Section
+                    isDeleteable={this._checkIsDeleteable()}
                     isActive={canDrop && isOver}
                     section={section}
                     questions={questions}
@@ -48,6 +50,26 @@ class SectionContainer extends Component {
             </div>
         );
     }
+
+    _checkIsDeleteable = () => {
+        const {
+            templateQuestions,
+            questions: sectionQuestions,
+            section
+        } = this.props;
+        const sectionQuestionUuids = sectionQuestions.map(({ uuid }) => uuid);
+        const otherQuestionPrereqUuids = templateQuestions
+            .filter(q => q.sectionUuid !== section.uuid)
+            .map(q => q.prereqUuid);
+
+        return otherQuestionPrereqUuids.every(
+            prereqUuid => !sectionQuestionUuids.includes(prereqUuid)
+        );
+    };
+
+    handleDeleteSection = () => {
+        const { section, deleteSection } = this.props;
+    };
 
     moveQuestion = (dragIndex, hoverIndex) => {
         const { questions, swapQuestionSorts } = this.props;
@@ -114,6 +136,9 @@ const mapStateToProps = (
     { superAdmin: { templateQuestionsReducer } },
     { section }
 ) => ({
+    templateQuestions: Object.values(templateQuestionsReducer.questions).filter(
+        q => q.templateUuid === section.templateUuid
+    ),
     questions: Object.values(templateQuestionsReducer.questions)
         .filter(q => q.sectionUuid === section.uuid)
         .sort((a, b) => a.sort - b.sort)
@@ -142,6 +167,9 @@ const mapDispatchToProps = dispatch => ({
     },
     showRenameSectModal: section => {
         dispatch(showModal(RENAME_TEMPLATE_SECTION, { section }));
+    },
+    deleteQuestion: questionUuid => {
+        dispatch(deleteQuestion(questionUuid));
     }
 });
 

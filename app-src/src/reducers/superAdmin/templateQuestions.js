@@ -1,11 +1,17 @@
 import { combineReducers } from 'redux';
 
-import { updateObj, removeObjItem, swapItemSorts } from 'helpers/generic';
+import {
+    updateObj,
+    removeObjItem,
+    swapItemSorts,
+    convertArrToObj
+} from 'helpers/generic';
 import {
     SET_QUESTION,
     DELETE_QUESTION,
     CHANGE_QUESTION_SECTION,
-    SWAP_QUESTION_SORTS
+    SWAP_QUESTION_SORTS,
+    DELETE_SECTION
 } from 'constants/actionTypes/templateBuilder';
 
 export default combineReducers({
@@ -33,6 +39,13 @@ function questionsReducer(state = {}, action) {
             );
         case DELETE_QUESTION:
             return removeObjItem(state, action.uuid);
+        case DELETE_SECTION: {
+            const questionsArr = Object.values(state).filter(
+                ({ sectionUuid }) => sectionUuid !== action.uuid
+            );
+
+            return convertArrToObj(questionsArr, 'uuid');
+        }
         default:
             return state;
     }
