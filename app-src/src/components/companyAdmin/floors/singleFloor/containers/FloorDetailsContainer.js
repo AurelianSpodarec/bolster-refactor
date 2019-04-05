@@ -7,24 +7,29 @@ import FloorStats from '../presentational/FloorStats';
 
 class FloorDetailsContainer extends Component {
     render() {
-        const { floor, error, isFetching } = this.props;
+        const { floor, stats, error, isFetching, isFetchingStats } = this.props;
 
         return (
             <BlockContainer
                 error={error}
-                isFetching={isFetching}
-                isEmpty={!floor.id}
+                isFetching={isFetching || isFetchingStats}
+                isEmpty={!floor.id || !stats.statuses}
             >
-                <FloorStats floor={floor} />
+                <FloorStats floor={floor} stats={stats} />
             </BlockContainer>
         );
     }
 }
 
-const mapStateToProps = ({ companyAdmin: { floorsReducer } }, { match }) => ({
+const mapStateToProps = (
+    { companyAdmin: { floorsReducer, statsReducer } },
+    { match }
+) => ({
     floor: floorsReducer.floors[match.params.id] || {},
     isFetching: floorsReducer.isFetching,
-    error: floorsReducer.error
+    error: floorsReducer.error,
+    isFetchingStats: statsReducer.isFetching,
+    stats: statsReducer.stats
 });
 
 export default withRouter(connect(mapStateToProps)(FloorDetailsContainer));
