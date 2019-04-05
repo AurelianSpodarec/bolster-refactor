@@ -15,7 +15,6 @@ class EditClientFormContainer extends Component {
     render() {
         const { serviceIDs } = this.state;
         const serviceOptions = this._getServicesOptions();
-        console.log(serviceIDs);
         return (
             <BlockContainer>
                 <EditClientForm
@@ -29,6 +28,7 @@ class EditClientFormContainer extends Component {
         );
     }
     _setClientDetails = () => {
+        // * ID comes out of DB as number, but checkbox stores value as string
         const serviceIDs = this.props.client.serviceIDs.map(id => String(id));
         this.setState({
             serviceIDs
@@ -36,7 +36,6 @@ class EditClientFormContainer extends Component {
     };
     componentDidUpdate = prevProps => {
         const { success, history, hierarchyID, client } = this.props;
-        console.log(client);
         if (!prevProps.client.id && !!client.id) {
             this._setClientDetails();
         }
