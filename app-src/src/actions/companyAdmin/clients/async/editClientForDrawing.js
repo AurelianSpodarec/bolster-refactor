@@ -30,7 +30,7 @@ export default (DrawingID, postBody) => dispatch => {
         postBody,
         getHeaders()
     )
-        .then(res => console.log(res) || dispatch(editClientSuccess(res.data)))
+        .then(res => dispatch(editClientSuccess(res.data)))
         .catch(err => {
             dispatch(editClientFailure(err.message));
             if (err.response.status === 400) {
