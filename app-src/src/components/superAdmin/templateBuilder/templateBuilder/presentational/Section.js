@@ -24,7 +24,7 @@ const Section = ({
     showAddQuestModal,
     showRenameSectModal,
     duplicateSection,
-    isDeleteable
+    tooltipMessage
 }) => (
     <div
         className="template-block size-lg-12"
@@ -48,18 +48,18 @@ const Section = ({
             <i className="fa fa-plus" />
             Add question
         </button>
-        {isDeleteable ? (
-            <button className="button red" onClick={deleteSection}>
-                <i className="fa fa-times" />
-                Delete
-            </button>
-        ) : (
-            <TooltipContainer text="This section has prerequisites with dependants in other sections.">
+        {tooltipMessage ? (
+            <TooltipContainer text={tooltipMessage}>
                 <button className="button red disabled">
                     <i className="fa fa-times" />
                     Delete
                 </button>
             </TooltipContainer>
+        ) : (
+            <button className="button red" onClick={deleteSection}>
+                <i className="fa fa-times" />
+                Delete
+            </button>
         )}
         <button onClick={duplicateSection} className="button">
             <i className="fa fa-clone" /> Duplicate

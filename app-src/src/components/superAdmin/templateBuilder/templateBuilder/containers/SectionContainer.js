@@ -29,13 +29,21 @@ class SectionContainer extends Component {
             connectDropTarget,
             deleteSection,
             showAddQuestModal,
-            showRenameSectModal
+            showRenameSectModal,
+            sections
         } = this.props;
+
+        let tooltipMessage;
+        if (sections.length <= 1)
+            tooltipMessage = 'You must have at least one section.';
+        else if (!this._isDeletable())
+            tooltipMessage =
+                'This section has prerequisites with dependants in other sections.';
 
         return connectDropTarget(
             <div>
                 <Section
-                    isDeleteable={this._checkIsDeleteable()}
+                    tooltipMessage={tooltipMessage}
                     isActive={canDrop && isOver}
                     section={section}
                     questions={questions}
@@ -51,19 +59,22 @@ class SectionContainer extends Component {
         );
     }
 
-    _checkIsDeleteable = () => {
+    _isDeletable = () => {
         const {
             templateQuestions,
             questions: sectionQuestions,
-            section
+            section,
+            sections
         } = this.props;
         const sectionQuestionUuids = sectionQuestions.map(({ uuid }) => uuid);
         const otherQuestionPrereqUuids = templateQuestions
             .filter(q => q.sectionUUID !== section.uuid)
             .map(q => q.prereqUuid);
 
-        return otherQuestionPrereqUuids.every(
-            prereqUuid => !sectionQuestionUuids.includes(prereqUuid)
+        return (
+            otherQuestionPrereqUuids.every(
+                prereqUuid => !sectionQuestionUuids.includes(prereqUuid)
+            ) && sections.length > 1
         );
     };
 
@@ -129,7 +140,7 @@ const WithDragAndDrop = DropTarget(
 )(SectionContainer);
 
 const mapStateToProps = (
-    { superAdmin: { templateQuestionsReducer } },
+    { superAdmin: { templateQuestionsReducer, templateSectionsReducer } },
     { section }
 ) => ({
     templateQuestions: Object.values(templateQuestionsReducer.questions).filter(
@@ -137,7 +148,10 @@ const mapStateToProps = (
     ),
     questions: Object.values(templateQuestionsReducer.questions)
         .filter(q => q.sectionUUID === section.uuid)
-        .sort((a, b) => a.sort - b.sort)
+        .sort((a, b) => a.sort - b.sort),
+    sections: Object.values(templateSectionsReducer.sections).filter(
+        s => s.templateUUID === section.templateUUID
+    )
 });
 
 const mapDispatchToProps = dispatch => ({
