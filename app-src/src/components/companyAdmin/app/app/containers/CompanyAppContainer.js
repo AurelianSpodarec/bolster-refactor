@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { BrowserRouter as Router } from 'react-router-dom';
 
-import { authenticate } from 'helpers/api';
 import fetchProfile from 'actions/companyAdmin/profile/async/fetchProfile';
 import fetchSingleCompany from 'actions/companyAdmin/companies/async/fetchSingleCompany';
 import fetchMessages from 'actions/companyAdmin/messages/async/fetchMessages';
@@ -12,40 +10,17 @@ import fetchAllSubscriptions from 'actions/companyAdmin/subscriptions/async/fetc
 import companyFetchAllServices from 'actions/companyAdmin/services/async/fetchAllServices';
 import fetchCreditLogs from 'actions/companyAdmin/creditLogs/async/fetchCreditLogs';
 
-import App from '../presentational/App';
+import CompanyApp from '../presentational/CompanyApp';
 
-class AppContainer extends Component {
+class CompanyAppContainer extends Component {
     render() {
-        return (
-            <Router>
-                <App />
-            </Router>
-        );
+        return <CompanyApp />;
     }
 
     componentDidMount = () => {
         this._callAuthenticatedActions();
     };
-
-    componentDidUpdate = ({ loginSuccess: prevLoginSuccess }) => {
-        const { loginSuccess } = this.props;
-        if (!prevLoginSuccess && loginSuccess) this._callAuthenticatedActions();
-    };
-
-    _callAuthenticatedActions = () => {
-        authenticate()
-            .then(() => {
-                const { fetchHomeData, decodeJWT } = this.props;
-                fetchHomeData();
-                decodeJWT();
-            })
-            .catch(() => {});
-    };
 }
-
-const mapStateToProps = ({ shared: { loginReducer } }) => ({
-    loginSuccess: loginReducer.postSuccess
-});
 
 const mapDispatchToProps = dispatch => ({
     fetchHomeData: () => {
@@ -57,13 +32,10 @@ const mapDispatchToProps = dispatch => ({
         dispatch(companyFetchAllServices());
         dispatch(fetchAllSubscriptions());
         dispatch(fetchCreditLogs());
-    },
-    decodeJWT: () => {
-        dispatch(decodeJWT());
     }
 });
 
 export default connect(
-    mapStateToProps,
+    null,
     mapDispatchToProps
-)(AppContainer);
+)(CompanyAppContainer);

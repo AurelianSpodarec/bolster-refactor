@@ -14,7 +14,7 @@ import fetchCreditLogs from 'actions/companyAdmin/creditLogs/async/fetchCreditLo
 
 import App from '../presentational/App';
 
-class CompanyAppContainer extends Component {
+class AdminAppContainer extends Component {
     render() {
         return (
             <Router>
@@ -66,4 +66,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(CompanyAppContainer);
+)(AdminAppContainer);

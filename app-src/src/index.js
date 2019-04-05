@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { createStore, applyMiddleware } from 'redux';
+import { BrowserRouter as Router } from 'react-router-dom';
 import logger from 'redux-logger';
 import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
@@ -9,7 +10,7 @@ import HTML5Backend from 'react-dnd-html5-backend';
 
 import * as serviceWorker from 'helpers/serviceWorker';
 import reducer from 'reducers';
-import AppContainer from 'components/shared/app/app/containers/AppContainer';
+import App from 'components/shared/app/app/presentational/App';
 import '_content/scss/font-awesome.css';
 import '_content/scss/main.scss';
 import 'filepond/dist/filepond.min.css';
@@ -24,11 +25,13 @@ if (process.env.NODE_ENV !== 'production') {
 const store = createStore(reducer, applyMiddleware(...middleWare));
 
 ReactDOM.render(
-    <Provider store={store}>
-        <DragDropContextProvider backend={HTML5Backend}>
-            <AppContainer />
-        </DragDropContextProvider>
-    </Provider>,
+    <Router>
+        <Provider store={store}>
+            <DragDropContextProvider backend={HTML5Backend}>
+                <App />
+            </DragDropContextProvider>
+        </Provider>
+    </Router>,
     document.getElementById('root')
 );
 
