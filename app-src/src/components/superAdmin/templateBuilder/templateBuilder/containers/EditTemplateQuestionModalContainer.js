@@ -67,7 +67,7 @@ class AddTemplateQuestionModalContainer extends Component {
         const { questions, uuid, question } = this.props;
         const options = questions
             .filter(({ questionType }) => PREREQ_TYPES.includes(questionType))
-            .filter(q => q.templateUuid === question.templateUuid)
+            .filter(q => q.templateUUID === question.templateUUID)
             .filter(q => q.uuid !== uuid)
             .filter(q => q.prereqUuid !== uuid)
             .map(q => ({ value: q.uuid, text: q.name }));

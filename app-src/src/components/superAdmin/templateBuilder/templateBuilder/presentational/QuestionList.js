@@ -2,12 +2,12 @@ import React from 'react';
 
 import QuestionContainer from '../containers/QuestionContainer';
 
-const QuestionList = ({ sectionUuid, questions, moveQuestion }) =>
+const QuestionList = ({ sectionUUID, questions, moveQuestion }) =>
     questions.map((question, i) => (
         <QuestionContainer
             key={question.uuid}
             index={i}
-            sectionUuid={sectionUuid}
+            sectionUUID={sectionUUID}
             question={question}
             moveQuestion={moveQuestion}
         />

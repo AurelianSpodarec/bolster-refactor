@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+
+import postTemplate from 'actions/superAdmin/templateBuilder/async/postTemplate';
+
 import SaveTemplateButton from '../presentational/SaveTemplateButton';
-import resetSaveRequired from 'actions/superAdmin/templateBuilder/sync/resetSaveRequired';
 
 class SaveTemplateButtonContainer extends Component {
     render() {
@@ -32,13 +34,13 @@ class SaveTemplateButtonContainer extends Component {
             template,
             allSections,
             allQuestions,
-            resetSaveRequired
+            postTemplate
         } = this.props;
         const sections = allSections.filter(
-            ({ templateUuid }) => templateUuid === template.uuid
+            ({ templateUUID }) => templateUUID === template.uuid
         );
         const questions = allQuestions.filter(
-            ({ templateUuid }) => templateUuid === template.uuid
+            ({ templateUUID }) => templateUUID === template.uuid
         );
         const newTemplateData = {
             template,
@@ -46,15 +48,14 @@ class SaveTemplateButtonContainer extends Component {
             questions
         };
 
-        resetSaveRequired();
-        console.log(newTemplateData);
+        postTemplate(newTemplateData);
     };
 }
 
 const mapStateToProps = (
     {
         superAdmin: {
-            templatesReducer: { saveRequired, templates },
+            templatesReducer: { templates },
             templateSectionsReducer: { sections },
             templateQuestionsReducer: { questions }
         }
@@ -65,15 +66,14 @@ const mapStateToProps = (
         }
     }
 ) => ({
-    saveRequired,
     template: templates[uuid],
     allSections: Object.values(sections),
     allQuestions: Object.values(questions)
 });
 
 const mapDispatchToProps = dispatch => ({
-    resetSaveRequired: () => {
-        dispatch(resetSaveRequired());
+    postTemplate: templateData => {
+        dispatch(postTemplate(templateData));
     }
 });
 

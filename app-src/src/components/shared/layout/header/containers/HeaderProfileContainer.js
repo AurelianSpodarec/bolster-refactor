@@ -66,7 +66,7 @@ const mapStateToProps = ({
     superAdmin: { generationQueueReducer },
     shared: { profileReducer }
 }) => ({
-    profile: profileReducer.profile,
+    profile: profileReducer.profile || {},
     generationQueueLength: Object.values(
         generationQueueReducer.generationQueue
     ).filter(item => item.status.toLowerCase() === 'pending').length

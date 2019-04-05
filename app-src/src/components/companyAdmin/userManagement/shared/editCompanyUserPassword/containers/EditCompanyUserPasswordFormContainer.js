@@ -12,22 +12,19 @@ class EditCompanyUserPasswordContainer extends Component {
         confirmPassword: ''
     };
 
-    render() {
-        const { type } = this.props;
-        return (
-            <EditCompanyUserPassword
-                handleInputChange={this.handleInputChange}
-                validate={this.validatePassword}
-                handleSubmit={this.handleSubmit}
-                type={type}
-            />
-        );
-    }
+    render = () => (
+        <EditCompanyUserPassword
+            handleInputChange={this.handleInputChange}
+            validate={this.validatePassword}
+            handleSubmit={this.handleSubmit}
+        />
+    );
 
     componentDidUpdate(prevProps) {
-        const { postSuccess, type, history } = this.props;
+        const { postSuccess, history, location, match } = this.props;
+        const { id } = match.params;
         if (postSuccess && !prevProps.postSuccess) {
-            history.push(`/users-management/${type}`);
+            history.push(location.pathname.replace(`/${id}/edit-password`, ''));
         }
     }
 

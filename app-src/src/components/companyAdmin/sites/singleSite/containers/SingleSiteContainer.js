@@ -23,7 +23,7 @@ class SingleSiteContainer extends Component {
             fetchAllFloors,
             fetchAllDrawings,
             fetchDocuments,
-            fetchClients,
+            // fetchClients,
             fetchAllCompanies
         } = this.props;
         fetchSingleSite(siteID).then(() => {
@@ -31,7 +31,7 @@ class SingleSiteContainer extends Component {
             fetchAllBuildings();
             fetchAllFloors();
             fetchAllDrawings();
-            fetchClients();
+            // fetchClients();
             fetchAllCompanies();
         });
     };

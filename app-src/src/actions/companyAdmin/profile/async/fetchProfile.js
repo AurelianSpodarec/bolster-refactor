@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+import { API_URL } from 'config/index';
+import { getHeaders } from 'helpers/api';
 import {
     FETCH_PROFILE_REQUEST,
     FETCH_PROFILE_SUCCESS,
@@ -22,9 +24,8 @@ export const fetchProfileFailure = error => ({
 
 export default () => dispatch => {
     dispatch(fetchProfileRequest());
-
-    axios
-        .get('/mockData/profile/profile.json')
+    return axios
+        .get(`${API_URL}/profile`, getHeaders())
         .then(res => dispatch(fetchProfileSuccess(res.data)))
         .catch(err => dispatch(fetchProfileFailure(err.message)));
 };

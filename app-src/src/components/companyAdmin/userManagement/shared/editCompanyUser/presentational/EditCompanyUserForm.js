@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import Form from 'components/shared/generic/form/containers/Form';
 import Field from 'components/shared/generic/form/presentational/Field';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
@@ -12,7 +12,8 @@ const EditCompanyUserForm = ({
     lastName,
     email,
     phoneNumber,
-    type
+    location,
+    match
 }) => (
     <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
         <div className="size-lg-12">
@@ -66,7 +67,10 @@ const EditCompanyUserForm = ({
             <button className="button green">
                 <i className="fa fa-plus" /> Confirm Edit
             </button>
-            <Link to={`/users-management/${type}`} className="button">
+            <Link
+                to={location.pathname.replace(`/${match.params.id}/edit`, '')}
+                className="button"
+            >
                 <i className="fa fa-times" />
                 Cancel
             </Link>
@@ -74,4 +78,4 @@ const EditCompanyUserForm = ({
     </Form>
 );
 
-export default EditCompanyUserForm;
+export default withRouter(EditCompanyUserForm);

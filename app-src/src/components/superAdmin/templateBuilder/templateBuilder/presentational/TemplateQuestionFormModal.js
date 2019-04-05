@@ -100,7 +100,7 @@ const AddTemplateQuestionFormModal = ({
             </Field>
             <BlockButtonWrapper>
                 <button className="button ">
-                    <i className="fa fa-plus" /> Save
+                    <i className="fa fa-plus" /> Set
                 </button>
                 <button className="button" onClick={hideModal}>
                     <i className="fa fa-times" /> Cancel

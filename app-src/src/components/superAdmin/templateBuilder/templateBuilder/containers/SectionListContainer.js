@@ -19,7 +19,7 @@ const mapStateToProps = (
     { match: { params } }
 ) => ({
     sections: Object.values(sections)
-        .filter(section => section.templateUuid === params.uuid)
+        .filter(section => section.templateUUID === params.uuid)
         .sort((a, b) => a.sort - b.sort)
 });
 
