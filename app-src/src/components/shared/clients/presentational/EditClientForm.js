@@ -11,7 +11,10 @@ const EditClientForm = ({
     handleSubmit,
     serviceOptions,
     checkedServices,
-    handleMultiselectChange
+    handleMultiselectChange,
+    match: {
+        params: { clientID }
+    }
 }) => (
     <Form className="size-lg-12" onSubmit={handleSubmit}>
         <Field name="Service types" sizeClasses="size-lg-12">
@@ -26,10 +29,10 @@ const EditClientForm = ({
 
         <BlockButtonWrapper>
             <button type="submit" className="button green">
-                Confrim
+                Confirm
             </button>
             <Link
-                to={location.pathname.replace('/invite-client', '')}
+                to={location.pathname.replace(`/client/${clientID}/edit`, '')}
                 className="button red"
             >
                 <i className="fa fa-times" /> Cancel

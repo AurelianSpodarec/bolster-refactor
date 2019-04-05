@@ -24,12 +24,6 @@ const AllOperativesListItem = ({ user, showDeleteModal }) => (
                 </Link>
                 <Link
                     className="button"
-                    to={`/users-management/operatives/${user.id}/edit`}
-                >
-                    Edit
-                </Link>
-                <Link
-                    className="button"
                     to={`/users-management/operatives/${user.id}/edit-password`}
                 >
                     Change Password
