@@ -27,7 +27,7 @@ class SiteEditFormContainer extends Component {
         const { postSuccess, history, siteID, site } = this.props;
 
         if (postSuccess && !prevProps.postSuccess) {
-            history.push(`/sites/${siteID}`);
+            history.push(`/company/sites/${siteID}`);
         }
         if (!prevProps.site.id && !!site.id) {
             this._setFormDetails();

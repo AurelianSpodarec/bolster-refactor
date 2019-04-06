@@ -25,7 +25,7 @@ class FloorEditFormContainer extends Component {
         const { postSuccess, history, floorID, floor } = this.props;
 
         if (postSuccess && !prevProps.postSuccess) {
-            history.push(`/floors/${floorID}`);
+            history.push(`/company/floors/${floorID}`);
         }
         if (!prevProps.floor.id && !!floor.id) {
             this._setFormDetails();

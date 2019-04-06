@@ -28,7 +28,7 @@ export function authenticate() {
         const isExpired = decoded.exp < new Date().valueOf() / 1000;
         if (isExpired) reject('Expired token.');
 
-        resolve(decoded);
+        resolve(formatJWTData(decoded));
     });
 }
 
@@ -37,6 +37,28 @@ export function getDecodedJWT() {
     const token = localStorage.getItem('token');
     return new Promise(resolve => {
         const decoded = jwtDecode(token);
-        resolve(decoded);
+        resolve(formatJWTData(decoded));
     });
+}
+
+export function formatJWTData({
+    exp,
+    iat,
+    nbf,
+    IsSuperAdmin,
+    ID,
+    CompanyID,
+    CompanyUserID,
+    CompanyUserType
+}) {
+    return {
+        exp,
+        iat,
+        nbf,
+        id: JSON.parse(ID),
+        isSuperAdmin: JSON.parse(IsSuperAdmin),
+        companyID: JSON.parse(CompanyID),
+        companyUserID: JSON.parse(CompanyUserID),
+        companyUserType: JSON.parse(CompanyUserType)
+    };
 }

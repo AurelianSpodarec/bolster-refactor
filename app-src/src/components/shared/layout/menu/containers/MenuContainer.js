@@ -1,33 +1,19 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 
-import withShowLayout from 'components/shared/layout/misc/hocs/withShowLayout';
 import MenusWrapper from '../presentational/MenusWrapper';
 
-class MenuContainer extends Component {
-    state = {
-        showSuperAdminMenu: false
-    };
+const MenuContainer = ({ isSuperAdmin, isCompanyAdmin }) => (
+    <MenusWrapper showTabs={isSuperAdmin && isCompanyAdmin} />
+);
 
-    render() {
-        const { showLoggedInLayout, showSuperAdmin } = this.props;
-
-        if (!showLoggedInLayout) return null;
-
-        return <MenusWrapper showSuperAdmin={showSuperAdmin} />;
-    }
-}
 const mapStateToProps = ({
-    companyAdmin: { messagesReducer },
-    shared: { decodeJWTReducer }
+    shared: {
+        decodeJWTReducer: { jwtData }
+    }
 }) => ({
-    messageCount: Object.values(messagesReducer.messages).length,
-    showSuperAdmin: decodeJWTReducer.jwtData.IsSuperAdmin
+    isSuperAdmin: jwtData.isSuperAdmin,
+    isCompanyAdmin: !!jwtData.companyID
 });
 
-export default withShowLayout(
-    connect(
-        mapStateToProps,
-        null
-    )(MenuContainer)
-);
+export default connect(mapStateToProps)(MenuContainer);

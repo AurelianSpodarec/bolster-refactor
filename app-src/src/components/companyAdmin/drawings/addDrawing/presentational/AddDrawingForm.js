@@ -48,7 +48,7 @@ const AddDrawingForm = ({
             <button className="button green" type="submit">
                 <i className="fa fa-plus" /> Add Drawing
             </button>
-            <Link className="button" to={`/floors/${floorID}`}>
+            <Link className="button" to={`/company/floors/${floorID}`}>
                 Cancel
             </Link>
         </BlockButtonWrapper>

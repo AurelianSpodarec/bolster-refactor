@@ -25,7 +25,7 @@ class AddFloorFormContainer extends Component {
         const { postSuccess, updatedFloorID, history } = this.props;
 
         if (!prevProps.postSuccess && postSuccess) {
-            return history.push(`/floors/${updatedFloorID}`);
+            return history.push(`/company/floors/${updatedFloorID}`);
         }
     };
 
