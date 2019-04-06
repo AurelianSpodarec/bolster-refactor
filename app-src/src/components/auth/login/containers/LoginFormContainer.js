@@ -4,6 +4,7 @@ import { withRouter } from 'react-router-dom';
 
 import postLogin from 'actions/shared/auth/async/postLogin';
 import LoginForm from '../presentational/LoginForm';
+import { authenticate } from 'helpers/api';
 
 class LoginFormContainer extends Component {
     state = {
@@ -41,7 +42,9 @@ class LoginFormContainer extends Component {
         const { postSuccess, history } = this.props;
 
         if (postSuccess && !prevProps.postSuccess) {
-            history.push('/');
+            authenticate().then(({ isSuperAdmin }) => {
+                history.push(isSuperAdmin ? '/admin' : '/company');
+            });
         }
     };
 }
