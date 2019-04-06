@@ -65,7 +65,7 @@ const CreateBuildingForm = ({
             <button className="button green">
                 <i className="fa fa-plus" /> Add Building
             </button>
-            <a className="button" href={`/sites/${siteID}`}>
+            <a className="button" href={`/company/sites/${siteID}`}>
                 Cancel
             </a>
         </BlockButtonWrapper>

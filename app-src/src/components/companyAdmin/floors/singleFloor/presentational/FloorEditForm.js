@@ -23,7 +23,7 @@ const FloorEditForm = ({ handleSubmit, handleInputChange, name, floorID }) => (
 
         <BlockButtonWrapper>
             <button className="button green">Confirm</button>
-            <Link to={`/floors/${floorID}`} className="button">
+            <Link to={`/company/floors/${floorID}`} className="button">
                 Cancel
             </Link>
         </BlockButtonWrapper>

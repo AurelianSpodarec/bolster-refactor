@@ -29,7 +29,7 @@ const SitesListItem = ({ toggleExpanded, isExpanded, site, colCount }) => {
                 <td>
                     <Link
                         className="button"
-                        to={`/sites/${site.id}`}
+                        to={`/company/sites/${site.id}`}
                         onClick={e => e.stopPropagation()}
                     >
                         View

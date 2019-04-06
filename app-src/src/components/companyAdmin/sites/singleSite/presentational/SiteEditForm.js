@@ -78,7 +78,7 @@ const SiteEditForm = ({
 
         <BlockButtonWrapper>
             <button className="button green">Confirm</button>
-            <Link to="/sites" className="button">
+            <Link to="/company/sites" className="button">
                 Cancel
             </Link>
         </BlockButtonWrapper>

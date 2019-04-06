@@ -79,7 +79,7 @@ const AddSiteForm = ({
             <button className="button green">
                 <i className="fa fa-plus" /> Add Site
             </button>
-            <Link to="/sites" className="button">
+            <Link to="/company/sites" className="button">
                 Cancel
             </Link>
         </BlockButtonWrapper>

@@ -40,7 +40,7 @@ const HeaderNotifications = ({
             <div className="item">
                 <Link
                     onClick={togglePopup}
-                    to="/tools/generation-queue"
+                    to="company/tools/generation-queue"
                     className="button"
                 >
                     View qeneration queue

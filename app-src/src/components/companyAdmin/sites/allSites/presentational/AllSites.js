@@ -12,7 +12,7 @@ const AllSites = () => (
         <Breadcrumb breadcrumbs={[{ text: 'Sites' }]} />
 
         <PageHeading title="Sites">
-            <Link to="/sites/create" className="button">
+            <Link to="/company/sites/create" className="button">
                 <i className="far fa-plus" /> Add site
             </Link>
         </PageHeading>
