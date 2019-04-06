@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+import moment from 'moment';
+
 import fetchCompanyUsers from 'actions/companyAdmin/userManagement/async/fetchCompanyUsers';
 import DrawingMapFiltersAdvanced from '../presentational/DrawingMapFiltersAdvanced';
 import DrawingMapViewSimple from '../presentational/DrawingMapViewSimple';
@@ -59,7 +61,7 @@ class DrawingMapGeneralContainer extends Component {
                 <DrawingMapViewSimple
                     position={position}
                     zoom={mapZoom}
-                    pins={pins}
+                    pins={this._getFilteredPins()}
                     handleClick={this.handleClick}
                 />
             </BlockContainer>
@@ -107,6 +109,49 @@ class DrawingMapGeneralContainer extends Component {
             }));
 
         return convertArrToObj(options, 'value');
+    };
+
+    _getFilteredPins = () => {
+        const { pins } = this.props;
+        const {
+            serviceSelectedID,
+            statusSelectedID,
+            operativeSelectedID,
+            startDateSelected,
+            endDateSelected
+        } = this.state;
+
+        let filteredPins = pins;
+
+        if (serviceSelectedID) {
+            filteredPins = filteredPins.filter(
+                pin => pin.latestServiceID == serviceSelectedID
+            );
+        }
+
+        if (statusSelectedID) {
+            filteredPins = filteredPins.filter(
+                pin => pin.latestStatus == statusSelectedID
+            );
+        }
+
+        if (operativeSelectedID) {
+            filteredPins = filteredPins.filter(
+                pin => pin.latestCreatedByCompanyUserID == operativeSelectedID
+            );
+        }
+
+        if (startDateSelected && endDateSelected) {
+            filteredPins = filteredPins.filter(
+                pin =>
+                    new Date(pin.latestCreatedOn).getTime() >=
+                        startDateSelected.getTime() &&
+                    new Date(pin.latestCreatedOn).getTime() <=
+                        endDateSelected.getTime()
+            );
+        }
+
+        return filteredPins;
     };
 }
 
