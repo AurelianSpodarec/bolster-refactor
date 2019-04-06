@@ -9,14 +9,15 @@ const SinglePinMap = ({
     error,
     isFetching,
     zoom,
-    mapCentre,
+    position,
     handleClick
 }) => (
     <BlockContainer isEmpty={!pin.id} isFetching={isFetching} error={error}>
-        <Map center={mapCentre} zoom={zoom} onClick={handleClick}>
+        <Map center={position} zoom={zoom} onClick={handleClick}>
             <TileLayer
                 attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                url="https://www.silverchip.com/tiles/{z}/{x}/{y}.jpg"
+                noWrap={true}
             />
             <DrawingMapPin key={pin.id} pin={pin} />
         </Map>
