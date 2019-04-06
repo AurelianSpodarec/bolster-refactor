@@ -13,14 +13,12 @@ const serverOptions = {
     }
 };
 const FileUpload = ({ handleProcessFile }) => (
-    <>
-        <FilePond
-            allowMultiple
-            maxFiles={5}
-            server={serverOptions}
-            handleProcessFile={handleProcessFile}
-        />
-    </>
+    <FilePond
+        allowMultiple
+        maxFiles={5}
+        server={serverOptions}
+        handleProcessFile={handleProcessFile}
+    />
 );
 
 export default FileUpload;
