@@ -9,14 +9,18 @@ import SinglePinMap from '../presentational/SinglePinMap';
 class SinglePinMapContainer extends Component {
     state = {
         zoom: 18,
-        mapCentre: [53.48057611856212, -2.2364002698505447]
+        pinLat: 51.505,
+        pinLng: -0.09
     };
 
     render() {
         const { pin, error, isFetching } = this.props;
+        const position = [this.state.pinLat, this.state.pinLng];
+
         return (
             <SinglePinMap
-                {...this.state}
+                zoom={this.state.zoom}
+                position={position}
                 pin={pin}
                 error={error}
                 isFetching={isFetching}

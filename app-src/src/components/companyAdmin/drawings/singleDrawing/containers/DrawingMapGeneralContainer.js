@@ -123,19 +123,21 @@ class DrawingMapGeneralContainer extends Component {
 
         if (serviceSelectedID) {
             filteredPins = filteredPins.filter(
-                pin => pin.latestServiceID === serviceSelectedID
+                pin => pin.latestServiceID === parseInt(serviceSelectedID)
             );
         }
 
         if (statusSelectedID) {
             filteredPins = filteredPins.filter(
-                pin => pin.latestStatus === statusSelectedID
+                pin => pin.latestStatus === parseInt(statusSelectedID)
             );
         }
 
         if (operativeSelectedID) {
             filteredPins = filteredPins.filter(
-                pin => pin.latestCreatedByCompanyUserID === operativeSelectedID
+                pin =>
+                    pin.latestCreatedByCompanyUserID ===
+                    parseInt(operativeSelectedID)
             );
         }
 
