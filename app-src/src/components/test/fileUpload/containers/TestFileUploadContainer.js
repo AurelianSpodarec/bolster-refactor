@@ -10,11 +10,13 @@ import TestFileUpload from '../presentational/TestFileUpload';
 import { getAuthHeader } from 'helpers/api';
 import { areArraysEqual } from 'helpers/generic';
 
+const testImageSrc =
+    'https://dizelaxol0ewg.cloudfront.net/5aeb8e07-7765-4425-948f-5481f81027bc/larry.jpg';
 class FileUploadContainer extends Component {
     state = {
         showFieldError: false,
         isAfterAdd: false,
-        files: []
+        files: [{ source: testImageSrc, options: { type: 'local' } }]
     };
 
     render() {
@@ -37,25 +39,6 @@ class FileUploadContainer extends Component {
 
     componentDidMount = () => {
         this._validate();
-
-        const { value } = this.props;
-        if (Array.isArray(value)) {
-            this.setState({
-                files: value.map(source => ({
-                    source,
-                    options: { type: 'local' }
-                }))
-            });
-        } else if (value && value.length) {
-            this.setState({
-                files: [
-                    {
-                        source: value,
-                        options: { type: 'local' }
-                    }
-                ]
-            });
-        }
     };
 
     componentWillUnmount = () => {
@@ -96,7 +79,7 @@ class FileUploadContainer extends Component {
             url: FILE_API_URL,
             process: this._handleUpload,
             revert: this._handleRevert,
-            load: null,
+            // load: this._handleLoad,
             restore: null,
             fetch: null
         };
@@ -144,17 +127,37 @@ class FileUploadContainer extends Component {
         };
     };
 
-    handleUpdateFiles = fileItems => {
-        this.setState({
-            files: fileItems.map(fileItem => fileItem.file)
-        });
-    };
+    // _handleLoad = (source, load, error, progress, abort) => {
+    //     var options = {
+    //         method: 'GET',
+    //         mode: 'no-cors',
+    //         cache: 'default'
+    //     };
 
-    _handleRevert = (s3Key, load) => {
-        const { name, handleChange } = this.props;
-        handleChange(name, s3Key);
-        load();
-    };
+    //     const request = new Request(source);
+
+    //     fetch(request, options)
+    //         .then(res => res.blob().then(blob => load(blob)))
+    //         .catch(error);
+
+    //     return {
+    //         abort: () => {
+    //             abort();
+    //         }
+    //     };
+    // };
+
+    // handleUpdateFiles = fileItems => {
+    //     this.setState({
+    //         files: fileItems.map(fileItem => fileItem.file)
+    //     });
+    // };
+
+    // _handleRevert = (s3Key, load) => {
+    //     const { name, handleChange } = this.props;
+    //     handleChange(name, s3Key);
+    //     load();
+    // };
 }
 
 const mapStateToProps = ({ shared: { fieldErrorsReducer } }, ownProps) => ({
