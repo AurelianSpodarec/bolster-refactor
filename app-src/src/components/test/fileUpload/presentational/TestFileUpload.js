@@ -1,24 +1,23 @@
 import React from 'react';
 import { FilePond, registerPlugin } from 'react-filepond';
 import FilePondPluginImagePreview from 'filepond-plugin-image-preview';
-import { FILE_API_URL } from 'config';
-import { getHeaders } from 'helpers/api';
+import FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type';
 
-registerPlugin(FilePondPluginImagePreview);
+registerPlugin(FilePondPluginImagePreview, FilePondPluginFileValidateType);
 
-const serverOptions = {
-    url: FILE_API_URL,
-    process: {
-        headers: getHeaders()
-    }
-};
-const FileUpload = ({ handleProcessFile }) => (
-    <FilePond
-        allowMultiple
-        maxFiles={5}
-        server={serverOptions}
-        handleProcessFile={handleProcessFile}
-    />
+const FileUpload = ({ serverOptions, error, maxFiles = 1, acceptedTypes }) => (
+    <>
+        <FilePond
+            allowFileTypeValidation={!!acceptedTypes}
+            acceptedFileTypes={acceptedTypes}
+            allowMultiple
+            maxFiles={maxFiles}
+            server={serverOptions}
+        />
+        {!!(error && error.length) && (
+            <p className="error red-text text-accent-4">{error}</p>
+        )}
+    </>
 );
 
 export default FileUpload;

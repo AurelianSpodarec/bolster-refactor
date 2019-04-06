@@ -5,7 +5,7 @@ import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/pr
 import Form from 'components/shared/generic/form/containers/Form';
 import TestFileUploadContainer from '../containers/TestFileUploadContainer';
 
-const TestFileUploadForm = ({ handleSubmit, handleFileChange }) => (
+const TestFileUploadForm = ({ handleSubmit, handleChange, file }) => (
     <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
         <div className="size-lg-12">
             <div className="size-lg-6">
@@ -13,7 +13,9 @@ const TestFileUploadForm = ({ handleSubmit, handleFileChange }) => (
                     <TestFileUploadContainer
                         required
                         name="file"
-                        handleChange={handleFileChange}
+                        value={file}
+                        handleChange={handleChange}
+                        maxFiles={3}
                     />
                 </Field>
             </div>

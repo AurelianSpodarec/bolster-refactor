@@ -28,6 +28,15 @@ export function removeObjItem(obj, key) {
     return rest;
 }
 
+export function areArraysEqual(arr1, arr2) {
+    if (!arr1 || !arr2) return arr1 === arr2;
+    return (
+        arr1.length === arr2.length &&
+        arr1.every(item => arr2.includes(item)) &&
+        arr2.every(item => arr1.includes(item))
+    );
+}
+
 export function removeArrItem(arr, index) {
     return [[...arr.slice(0, index), ...arr.slice(index + 1)]];
 }

@@ -11,6 +11,7 @@ class FileUploadContainer extends Component {
         showFieldError: false,
         isAfterAdd: false
     };
+
     render() {
         const { showFieldError } = this.state;
         const { errorsVisible, error } = this.props;
