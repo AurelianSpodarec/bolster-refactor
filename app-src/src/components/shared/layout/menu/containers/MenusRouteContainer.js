@@ -3,16 +3,16 @@ import { connect } from 'react-redux';
 
 import { MENU_TABS as TABS } from 'constants/shared/tabNames';
 
-import Menu from '../presentational/Menu';
+import CompanyMenu from '../presentational/CompanyMenu';
 import SuperAdminMenu from '../presentational/SuperAdminMenu';
 
 const contentOptions = {
-    [TABS.COMPANY_USER]: Menu,
+    [TABS.COMPANY_USER]: CompanyMenu,
     [TABS.SUPER_ADMIN]: SuperAdminMenu
 };
 
 const MenusRouteContainer = ({ selectedMenuTab }) => {
-    const SpecificContent = contentOptions[selectedMenuTab] || Menu;
+    const SpecificContent = contentOptions[selectedMenuTab] || CompanyMenu;
 
     return <SpecificContent />;
 };

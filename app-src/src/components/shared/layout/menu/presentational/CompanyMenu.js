@@ -3,10 +3,9 @@ import React from 'react';
 import MenuItemContainer from '../containers/MenuItemContainer';
 import DropdownMenuItemContainer from '../containers/DropdownMenuItemContainer';
 
-const Menu = ({ messageCount }) => (
+const CompanyMenu = ({ messageCount }) => (
     <>
         <div className="menu-bg" />
-
         <div className="menu">
             <MenuItemContainer link="/company">
                 <i className="fa fa-home icon" /> Dashboard
@@ -63,4 +62,4 @@ const Menu = ({ messageCount }) => (
     </>
 );
 
-export default Menu;
+export default CompanyMenu;
