@@ -1,33 +1,24 @@
 import React from 'react';
-// import L from 'leaflet';
+import L from 'leaflet';
 import { Marker, Popup } from 'react-leaflet';
+import { PIN_STATUS_COLOURS as COLOURS } from 'constants/companyAdmin/enums';
 
-const DrawingMapPin = ({ pin: { id, location, pinCode } }) => {
-    // const MapMarker = L.Icon.extend({
-    //     iconSize: [24, 27]
-    // });
+const DrawingMapPin = ({
+    pin: { id, location, pinCode, latestStatus = '' }
+}) => {
+    const MapMarker = L.Icon.extend({
+        iconSize: [24, 27]
+    });
 
-    // const pinColours = {
-    //     'action required': 'red',
-    //     installed: 'green',
-    //     inspected: 'blue',
-    //     'no action': 'yellow'
-    // };
+    const pinColour = COLOURS[latestStatus] || 'red';
 
-    // const { status = '' } = pin;
-    // const pinColour = pinColours[status.toLowerCase()] || 'red';
-
-    // const icon = new MapMarker({
-    //     iconUrl: require(`_content/images/pins/${pinColour}-pin.png`),
-    //     iconRetinaUrl: require(`_content/images/pins/${pinColour}-pin.png`)
-    // });
+    const icon = new MapMarker({
+        iconUrl: require(`_content/images/pins/${pinColour}-pin.png`),
+        iconRetinaUrl: require(`_content/images/pins/${pinColour}-pin.png`)
+    });
 
     return (
-        <Marker
-            key={id}
-            position={[location.latY, location.lngX]}
-            // icon={icon}
-        >
+        <Marker key={id} position={[location.latY, location.lngX]} icon={icon}>
             <Popup>{`name: ${pinCode}`}</Popup>
         </Marker>
     );

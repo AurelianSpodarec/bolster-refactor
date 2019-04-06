@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+import moment from 'moment';
+
 import fetchCompanyUsers from 'actions/companyAdmin/userManagement/async/fetchCompanyUsers';
 import DrawingMapFiltersAdvanced from '../presentational/DrawingMapFiltersAdvanced';
 import DrawingMapViewSimple from '../presentational/DrawingMapViewSimple';
@@ -17,6 +19,8 @@ class DrawingMapGeneralContainer extends Component {
         serviceSelectedID: '',
         statusSelectedID: '',
         operativeSelectedID: '',
+        startDateSelected: undefined,
+        endDateSelected: undefined,
         pinLat: 51.505,
         pinLng: -0.09,
         mapZoom: 3
@@ -28,6 +32,8 @@ class DrawingMapGeneralContainer extends Component {
             serviceSelectedID,
             statusSelectedID,
             operativeSelectedID,
+            startDateSelected,
+            endDateSelected,
             mapZoom
         } = this.state;
         const { error, pins } = this.props;
@@ -45,14 +51,17 @@ class DrawingMapGeneralContainer extends Component {
                     selectedStatus={statusOptions[statusSelectedID]}
                     operativeOptions={Object.values(operativeOptions)}
                     selectedOperative={operativeOptions[operativeSelectedID]}
+                    startDateSelected={startDateSelected}
+                    endDateSelected={endDateSelected}
                     pins={pins}
                     handleChange={this.handleChange}
+                    handleDateChange={this.handleDateChange}
                 />
                 <DrawingInspectionLogContainer />
                 <DrawingMapViewSimple
                     position={position}
                     zoom={mapZoom}
-                    pins={pins}
+                    pins={this._getFilteredPins()}
                     handleClick={this.handleClick}
                 />
             </BlockContainer>
@@ -70,6 +79,12 @@ class DrawingMapGeneralContainer extends Component {
 
     handleChange = ({ target: { type, value, name, checked } }) => {
         this.setState({ [name]: type === 'checkbox' ? checked : value });
+    };
+
+    handleDateChange = (date, name) => {
+        this.setState({
+            [name]: date
+        });
     };
 
     _getServicesOptions = () => {
@@ -94,6 +109,49 @@ class DrawingMapGeneralContainer extends Component {
             }));
 
         return convertArrToObj(options, 'value');
+    };
+
+    _getFilteredPins = () => {
+        const { pins } = this.props;
+        const {
+            serviceSelectedID,
+            statusSelectedID,
+            operativeSelectedID,
+            startDateSelected,
+            endDateSelected
+        } = this.state;
+
+        let filteredPins = pins;
+
+        if (serviceSelectedID) {
+            filteredPins = filteredPins.filter(
+                pin => pin.latestServiceID == serviceSelectedID
+            );
+        }
+
+        if (statusSelectedID) {
+            filteredPins = filteredPins.filter(
+                pin => pin.latestStatus == statusSelectedID
+            );
+        }
+
+        if (operativeSelectedID) {
+            filteredPins = filteredPins.filter(
+                pin => pin.latestCreatedByCompanyUserID == operativeSelectedID
+            );
+        }
+
+        if (startDateSelected && endDateSelected) {
+            filteredPins = filteredPins.filter(
+                pin =>
+                    new Date(pin.latestCreatedOn).getTime() >=
+                        startDateSelected.getTime() &&
+                    new Date(pin.latestCreatedOn).getTime() <=
+                        endDateSelected.getTime()
+            );
+        }
+
+        return filteredPins;
     };
 }
 

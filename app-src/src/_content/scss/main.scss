@@ -1567,3 +1567,8 @@ input {
     background-color: #000;
     border-radius: 4px;
 }
+
+//datepicker
+.react-datepicker-popper {
+    z-index: 10000;
+}
