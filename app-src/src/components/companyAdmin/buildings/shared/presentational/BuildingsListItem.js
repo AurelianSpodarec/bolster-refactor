@@ -30,7 +30,7 @@ const BuldingsListItem = ({
             <td>
                 <Link
                     className="button light-blue"
-                    to={`/buildings/${building.id}`}
+                    to={`/company/buildings/${building.id}`}
                     onClick={e => e.stopPropagation()}
                 >
                     View

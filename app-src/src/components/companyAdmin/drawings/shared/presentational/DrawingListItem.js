@@ -15,7 +15,10 @@ const DrawingListItem = ({ drawing }) => (
                 .join(', ')}
         </td>
         <td>
-            <Link className="button light-blue" to={`/drawings/${drawing.id}`}>
+            <Link
+                className="button light-blue"
+                to={`/company/drawings/${drawing.id}`}
+            >
                 View
             </Link>
         </td>
