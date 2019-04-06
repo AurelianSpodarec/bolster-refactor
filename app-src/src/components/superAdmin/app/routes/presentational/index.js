@@ -1,8 +1,8 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 
-import Dashboard from 'components/shared/dashboard/dashboard/presentational/Dashboard';
 import SwitchWith404 from 'components/appRoute/routes/presentational/SwitchWith404';
+import Dashboard from 'components/shared/dashboard/dashboard/presentational/Dashboard';
 import ServicesRoutes from './ServicesRoutes';
 import UsersRoutes from './UsersRoutes.js';
 import EnquiriesRoutes from './EnquiriesRouter';
@@ -11,7 +11,7 @@ import GenerationQueueRoutes from './GenerationQueueRoutes';
 
 const AdminRoutes = ({ base = '/admin' }) => (
     <SwitchWith404>
-        <Route path={`${base}`} component={Dashboard} />
+        <Route exact path={`${base}`} component={Dashboard} />
         <Route path={`${base}/services`} component={ServicesRoutes} />
         <Route path={`${base}/companies`} component={CompaniesRoutes} />
         <Route path={`${base}/users`} component={UsersRoutes} />

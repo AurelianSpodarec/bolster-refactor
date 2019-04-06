@@ -8,69 +8,71 @@ const SuperAdminMenu = () => (
         <div className="menu-bg" />
 
         <div className="menu">
-            <MenuItemContainer link="/">
+            <MenuItemContainer link="/admin">
                 <i className="fa fa-home icon" /> Dashboard
             </MenuItemContainer>
 
-            <MenuItemContainer link="/admin/generation">
+            <MenuItemContainer link="/admin/generation-queue">
                 <i className="far fa-file-export icon" /> Generation Queue
             </MenuItemContainer>
 
             <DropdownMenuItemContainer
                 icon="building"
                 title={'Site Management'}
-                baseUrl="/company/site-management"
+                baseUrl="/admin/company/site-management"
             >
-                <MenuItemContainer link="/company/site-management/demo-requests">
+                <MenuItemContainer link="/admin/company/site-management/demo-requests">
                     User Demo Requests
                 </MenuItemContainer>
                 <MenuItemContainer link="/admin/site-management/user-enquiries">
                     User Enquiries
                 </MenuItemContainer>
-                <MenuItemContainer link="/company/site-management/companies">
+                <MenuItemContainer link="/admin/company/site-management/companies">
                     Companies
                 </MenuItemContainer>
-                <MenuItemContainer link="/company/site-management/services">
+                <MenuItemContainer link="/admin/company/site-management/services">
                     Services
                 </MenuItemContainer>
-                <MenuItemContainer link="/company/site-management/settings">
+                <MenuItemContainer link="/admin/company/site-management/settings">
                     Settings
                 </MenuItemContainer>
             </DropdownMenuItemContainer>
             <DropdownMenuItemContainer
                 icon="pound-sign"
                 title={'Financials'}
-                baseUrl="/financials"
+                baseUrl="/admin/financials"
             >
-                <MenuItemContainer link="/financials/orders">
+                <MenuItemContainer link="/admin/financials/orders">
                     Orders
                 </MenuItemContainer>
-                <MenuItemContainer link="/financials/renewals">
+                <MenuItemContainer link="/admin/financials/renewals">
                     Renewals
                 </MenuItemContainer>
             </DropdownMenuItemContainer>
             <DropdownMenuItemContainer
                 icon="hard-hat"
                 title={'Operatives'}
-                baseUrl="/operatives"
+                baseUrl="/admin/operatives"
             >
-                <MenuItemContainer link="/operatives/all">
+                <MenuItemContainer link="/admin/operatives/all">
                     All Operatives
                 </MenuItemContainer>
-                <MenuItemContainer link="/operatives/company-administrators">
+                <MenuItemContainer link="/admin/operatives/company-administrators">
                     Company Administrators
                 </MenuItemContainer>
-                <MenuItemContainer link="/operatives/headerquarters">
+                <MenuItemContainer link="/admin/operatives/headerquarters">
                     Headerquarters
                 </MenuItemContainer>
             </DropdownMenuItemContainer>
             <DropdownMenuItemContainer
                 icon="hard-hat"
                 title={'Logs'}
-                baseUrl="/logs"
+                baseUrl="/admin/logs"
             >
-                <MenuItemContainer link="/logs/all">All Logs</MenuItemContainer>
-                <MenuItemContainer link="/logs/drawing-credits">
+                <MenuItemContainer link="/admin/logs/all">
+                    All Logs
+                </MenuItemContainer>
+                <MenuItemContainer link="/admin/logs/drawing-credits">
                     Drawing Credit Logs
                 </MenuItemContainer>
             </DropdownMenuItemContainer>
@@ -78,12 +80,12 @@ const SuperAdminMenu = () => (
             <DropdownMenuItemContainer
                 icon="pound-sign"
                 title={'SOS'}
-                baseUrl="/sos"
+                baseUrl="/admin/sos"
             >
-                <MenuItemContainer link="/sos/all">
+                <MenuItemContainer link="/admin/sos/all">
                     <i className="fa fa-file icon" /> All SOS data
                 </MenuItemContainer>
-                <MenuItemContainer link="/sos/Invoices">
+                <MenuItemContainer link="/admin/sos/Invoices">
                     <i className="fa fa-file icon" /> Invoices
                 </MenuItemContainer>
             </DropdownMenuItemContainer>
@@ -93,10 +95,10 @@ const SuperAdminMenu = () => (
             <MenuItemContainer link="/admin/users">
                 <i className="fa fa-user icon" /> Users
             </MenuItemContainer>
-            <MenuItemContainer link="/template-builder">
+            <MenuItemContainer link="/admin/template-builder">
                 <i className="fa fa-file icon" /> Template builder
             </MenuItemContainer>
-            <MenuItemContainer link="/qr">
+            <MenuItemContainer link="/admin/qr">
                 <i className="fa fa-qr icon" /> QR Codes
             </MenuItemContainer>
         </div>
