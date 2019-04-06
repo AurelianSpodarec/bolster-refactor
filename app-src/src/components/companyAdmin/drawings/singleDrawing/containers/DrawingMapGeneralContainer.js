@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import moment from 'moment';
-
 import fetchCompanyUsers from 'actions/companyAdmin/userManagement/async/fetchCompanyUsers';
 import DrawingMapFiltersAdvanced from '../presentational/DrawingMapFiltersAdvanced';
 import DrawingMapViewSimple from '../presentational/DrawingMapViewSimple';
@@ -125,19 +123,19 @@ class DrawingMapGeneralContainer extends Component {
 
         if (serviceSelectedID) {
             filteredPins = filteredPins.filter(
-                pin => pin.latestServiceID == serviceSelectedID
+                pin => pin.latestServiceID === serviceSelectedID
             );
         }
 
         if (statusSelectedID) {
             filteredPins = filteredPins.filter(
-                pin => pin.latestStatus == statusSelectedID
+                pin => pin.latestStatus === statusSelectedID
             );
         }
 
         if (operativeSelectedID) {
             filteredPins = filteredPins.filter(
-                pin => pin.latestCreatedByCompanyUserID == operativeSelectedID
+                pin => pin.latestCreatedByCompanyUserID === operativeSelectedID
             );
         }
 
