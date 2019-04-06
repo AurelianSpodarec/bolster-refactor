@@ -4,13 +4,14 @@ import BreadcrumbContainer from '../containers/BreadcrumbContainer';
 import SinglePinMapContainer from '../containers/SinglePinMapContainer';
 import PinHistoriesListContainer from '../containers/PinHistoriesListContainer';
 import PinDetailsContainer from '../containers/PinDetailsContainer';
+import PinHistoriesContainer from '../containers/PinHistoriesContainer';
 
 const SinglePin = () => (
     <>
         <BreadcrumbContainer />
         <div className="size-lg-8">
             <SinglePinMapContainer />
-            <PinHistoriesListContainer />
+            <PinHistoriesContainer />
         </div>
         <div className="size-lg-4">
             <PinDetailsContainer />

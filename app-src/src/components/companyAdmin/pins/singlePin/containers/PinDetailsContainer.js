@@ -54,8 +54,7 @@ const mapStateToProps = (
         error: pinHistoriesReducer.error,
         latestHistoryId: pin.latestHistoryId,
         selectedHistory: histories[selectedHistoryId] || {},
-        histories: Object.values(histories),
-        pin: pin
+        histories: Object.values(histories)
     };
 };
 
