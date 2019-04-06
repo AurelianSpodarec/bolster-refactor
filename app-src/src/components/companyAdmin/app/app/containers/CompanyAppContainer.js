@@ -9,8 +9,9 @@ import decodeJWT from 'actions/shared/jwt/async/decodeJWT';
 import fetchAllSubscriptions from 'actions/companyAdmin/subscriptions/async/fetchAllSubscriptions';
 import companyFetchAllServices from 'actions/companyAdmin/services/async/fetchAllServices';
 import fetchCreditLogs from 'actions/companyAdmin/creditLogs/async/fetchCreditLogs';
-
 import CompanyApp from '../presentational/CompanyApp';
+import selectMenuTab from 'actions/shared/generic/tabs/sync/selectMenuTab';
+import { MENU_TABS } from 'constants/shared/tabNames';
 
 class CompanyAppContainer extends Component {
     render() {
@@ -18,7 +19,9 @@ class CompanyAppContainer extends Component {
     }
 
     componentDidMount = () => {
-        this._callAuthenticatedActions();
+        const { fetchHomeData, selectCompanyMenuTab } = this.props;
+        fetchHomeData();
+        selectCompanyMenuTab();
     };
 }
 
@@ -32,6 +35,9 @@ const mapDispatchToProps = dispatch => ({
         dispatch(companyFetchAllServices());
         dispatch(fetchAllSubscriptions());
         dispatch(fetchCreditLogs());
+    },
+    selectCompanyMenuTab: () => {
+        dispatch(selectMenuTab(MENU_TABS.COMPANY_USER));
     }
 });
 

@@ -1,12 +1,12 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 
-import SwitchWith404 from '../SwitchWith404';
+import SwitchWith404 from 'components/appRoute/routes/presentational/SwitchWith404';
 import AllReports from 'components/companyAdmin/reports/allReports/components/AllReports';
 
-const ReportsRoutes = ({ match: { url: baseUrl } }) => (
+const ReportsRoutes = ({ base = '/company/reports' }) => (
     <SwitchWith404>
-        <Route exact path={`${baseUrl}`} component={AllReports} />
+        <Route exact path={`${base}`} component={AllReports} />
     </SwitchWith404>
 );
 

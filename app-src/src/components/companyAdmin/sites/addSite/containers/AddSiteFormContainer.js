@@ -28,7 +28,7 @@ class AddSiteFormContainer extends Component {
         const { postSuccess, history, updatedSiteID } = this.props;
 
         if (postSuccess && !prevProps.postSuccess) {
-            history.push(`/sites/${updatedSiteID}`);
+            history.push(`/company/sites/${updatedSiteID}`);
         }
     };
 

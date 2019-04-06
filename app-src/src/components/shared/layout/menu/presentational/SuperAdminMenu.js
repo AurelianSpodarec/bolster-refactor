@@ -19,21 +19,21 @@ const SuperAdminMenu = () => (
             <DropdownMenuItemContainer
                 icon="building"
                 title={'Site Management'}
-                baseUrl="/site-management"
+                baseUrl="/company/site-management"
             >
-                <MenuItemContainer link="/site-management/demo-requests">
+                <MenuItemContainer link="/company/site-management/demo-requests">
                     User Demo Requests
                 </MenuItemContainer>
                 <MenuItemContainer link="/admin/site-management/user-enquiries">
                     User Enquiries
                 </MenuItemContainer>
-                <MenuItemContainer link="/site-management/companies">
+                <MenuItemContainer link="/company/site-management/companies">
                     Companies
                 </MenuItemContainer>
-                <MenuItemContainer link="/site-management/services">
+                <MenuItemContainer link="/company/site-management/services">
                     Services
                 </MenuItemContainer>
-                <MenuItemContainer link="/site-management/settings">
+                <MenuItemContainer link="/company/site-management/settings">
                     Settings
                 </MenuItemContainer>
             </DropdownMenuItemContainer>

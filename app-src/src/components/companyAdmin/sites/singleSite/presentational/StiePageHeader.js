@@ -8,10 +8,10 @@ const SitePageHeader = ({ site }) => (
         <Link className="button" to={`/buildings/create/${site.id}`}>
             <i className="far fa-plus" /> Add building
         </Link>
-        <Link className="button" to="/site">
+        <Link className="button" to="/company/site">
             <i className="fa fa-exchange" /> Change Ownership
         </Link>
-        <Link className="button yellow" to={`/sites/${site.id}/edit`}>
+        <Link className="button yellow" to={`/company/sites/${site.id}/edit`}>
             <i className="far fa-pencil" /> Edit
         </Link>
     </PageHeading>

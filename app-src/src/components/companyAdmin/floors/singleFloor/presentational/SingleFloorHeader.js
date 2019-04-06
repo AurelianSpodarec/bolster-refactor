@@ -8,10 +8,10 @@ const SingleFloorHeader = ({ floor }) => (
         <Link className="button" to={`/drawings/create/${floor.id}`}>
             <i className="far fa-plus" /> Add drawing
         </Link>
-        <Link className="button" to="/floor">
+        <Link className="button" to="/company/floor">
             <i className="fa fa-exchange" /> Change Ownership
         </Link>
-        <Link className="button yellow" to={`/floors/edit/${floor.id}`}>
+        <Link className="button yellow" to={`/company/floors/edit/${floor.id}`}>
             <i className="far fa-pencil" /> Edit Floor
         </Link>
     </PageHeading>

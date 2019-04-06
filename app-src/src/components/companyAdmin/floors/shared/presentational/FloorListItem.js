@@ -25,7 +25,7 @@ const FloorListItem = ({ floor, isExpanded, colCount, toggleExpanded }) => (
             <td>
                 <Link
                     className="button light-blue"
-                    to={`/floors/${floor.id}`}
+                    to={`/company/floors/${floor.id}`}
                     onClick={e => e.stopPropagation()}
                 >
                     View

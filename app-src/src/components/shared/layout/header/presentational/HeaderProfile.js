@@ -23,7 +23,7 @@ const HeaderProfile = ({
             <p className="item">
                 Credits Available: {profile.creditsAvailable}
             </p>
-            <Link to="/tools/generation-queue" className="item">
+            <Link to="company/tools/generation-queue" className="item">
                 Generation Queue: {generationQueueLength}
                 <i className="icon fas fa-chevron-right" />
             </Link>

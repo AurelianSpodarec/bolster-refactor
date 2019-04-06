@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 
-import SwitchWith404 from '../SwitchWith404';
+import SwitchWith404 from 'components/appRoute/routes/presentational/SwitchWith404';
 import SingleDrawingContainer from 'components/companyAdmin/drawings/singleDrawing/containers/SingleDrawingContainer';
 import AddDrawing from 'components/companyAdmin/drawings/addDrawing/presentational/AddDrawing';
 import AttachDrawingOperative from 'components/companyAdmin/drawings/attachDrawingOperative/presentational/AttachDrawingOperative';
@@ -13,47 +13,43 @@ import InviteCompanyToDrawing from 'components/companyAdmin/drawings/inviteCompa
 import EditDrawingDocument from 'components/companyAdmin/drawings/editDrawingDocument/presentational/EditDrawingDocument';
 import EditDrawingOperativeFormContainer from 'components/companyAdmin/drawings/editDrawingOperative/containers/EditDrawingOperativeFormContainer';
 
-const DrawingsRoutes = ({ match: { url: baseUrl } }) => (
+const DrawingsRoutes = ({ base = '/company/drawings' }) => (
     <SwitchWith404>
+        <Route exact path={`${base}/:id`} component={SingleDrawingContainer} />
+        <Route exact path={`${base}/create/:id`} component={AddDrawing} />
         <Route
             exact
-            path={`${baseUrl}/:id`}
-            component={SingleDrawingContainer}
-        />
-        <Route exact path={`${baseUrl}/create/:id`} component={AddDrawing} />
-        <Route
-            exact
-            path={`${baseUrl}/:id/add-operative`}
+            path={`${base}/:id/add-operative`}
             component={AttachDrawingOperative}
         />
         <Route
             exact
-            path={`${baseUrl}/:id/edit-operative/:operativeID`}
+            path={`${base}/:id/edit-operative/:operativeID`}
             component={EditDrawingOperativeFormContainer}
         />
         <Route
             exact
-            path={`${baseUrl}/:id/client/:clientID/edit`}
+            path={`${base}/:id/client/:clientID/edit`}
             component={ClientEditContainer}
         />
         <Route
             exact
-            path={`${baseUrl}/:id/invite-client`}
+            path={`${base}/:id/invite-client`}
             component={InviteClientToDrawing}
         />
         <Route
             exact
-            path={`${baseUrl}/:id/attach-document`}
+            path={`${base}/:id/attach-document`}
             component={AttachDrawingDocument}
         />
         <Route
             exact
-            path={`${baseUrl}/:id/edit-document/:documentID`}
+            path={`${base}/:id/edit-document/:documentID`}
             component={EditDrawingDocument}
         />
         <Route
             exact
-            path={`${baseUrl}/:id/invite-company`}
+            path={`${base}/:id/invite-company`}
             component={InviteCompanyToDrawing}
         />
     </SwitchWith404>

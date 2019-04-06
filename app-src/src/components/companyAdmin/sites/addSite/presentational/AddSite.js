@@ -10,7 +10,7 @@ const AddSite = () => (
         <BreadcrumbContainer />
         <Breadcrumb
             breadcrumbs={[
-                { text: 'Sites', link: '/sites' },
+                { text: 'Sites', link: '/company/sites' },
                 { text: 'Add site' }
             ]}
         />

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 
-import SwitchWith404 from '../SwitchWith404';
+import SwitchWith404 from 'components/appRoute/routes/presentational/SwitchWith404';
 import SingleFloorContainer from 'components/companyAdmin/floors/singleFloor/containers/SingleFloorContainer';
 import AttachFloorOperative from 'components/companyAdmin/floors/attachFloorOperative/presentational/AttachFloorOperative';
 import InviteClientToFloor from 'components/companyAdmin/floors/inviteClientToFloor/presentational/InviteClientToFloor';
@@ -12,43 +12,39 @@ import FloorEditContainer from 'components/companyAdmin/floors/singleFloor/conta
 import AttachFloorDocument from 'components/companyAdmin/floors/attachFloorDocument/presentational/AttachFloorDocument';
 import EditFloorDocument from 'components/companyAdmin/floors/editFloorDocument/presentational/EditFloorDocument';
 
-const FloorRoutes = ({ match: { url: baseUrl } }) => (
+const FloorRoutes = ({ base = '/company/floors' }) => (
     <SwitchWith404>
-        <Route exact path={`${baseUrl}/:id`} component={SingleFloorContainer} />
-        <Route exact path={`${baseUrl}/create/:id`} component={AddFloor} />
+        <Route exact path={`${base}/:id`} component={SingleFloorContainer} />
+        <Route exact path={`${base}/create/:id`} component={AddFloor} />
+        <Route exact path={`${base}/edit/:id`} component={FloorEditContainer} />
         <Route
             exact
-            path={`${baseUrl}/edit/:id`}
-            component={FloorEditContainer}
-        />
-        <Route
-            exact
-            path={`${baseUrl}/:id/add-operative`}
+            path={`${base}/:id/add-operative`}
             component={AttachFloorOperative}
         />
         <Route
             exact
-            path={`${baseUrl}/:id/invite-client`}
+            path={`${base}/:id/invite-client`}
             component={InviteClientToFloor}
         />
         <Route
             exact
-            path={`${baseUrl}/:id/attach-document`}
+            path={`${base}/:id/attach-document`}
             component={AttachFloorDocument}
         />
         <Route
             exact
-            path={`${baseUrl}/:id/edit-document/:documentID`}
+            path={`${base}/:id/edit-document/:documentID`}
             component={EditFloorDocument}
         />
         <Route
             exact
-            path={`${baseUrl}/:id/client-access`}
+            path={`${base}/:id/client-access`}
             component={FloorInviteClientContainer}
         />
         <Route
             exact
-            path={`${baseUrl}/:id/invite-company`}
+            path={`${base}/:id/invite-company`}
             component={InviteCompanyToFloor}
         />
     </SwitchWith404>

@@ -8,32 +8,32 @@ const Menu = ({ messageCount }) => (
         <div className="menu-bg" />
 
         <div className="menu">
-            <MenuItemContainer link="/">
+            <MenuItemContainer link="/company">
                 <i className="fa fa-home icon" /> Dashboard
             </MenuItemContainer>
 
-            <MenuItemContainer link="/sites">
+            <MenuItemContainer link="/company/sites">
                 <i className="fa fa-building icon" /> Sites
             </MenuItemContainer>
 
             <DropdownMenuItemContainer
                 icon="users"
                 title={'User Management'}
-                baseUrl="/users-management"
+                baseUrl="/company/users-management"
             >
-                <MenuItemContainer link="/users-management/company-admins">
+                <MenuItemContainer link="/company/users-management/company-admins">
                     Company Admins
                 </MenuItemContainer>
-                <MenuItemContainer link="/users-management/operatives">
+                <MenuItemContainer link="/company/users-management/operatives">
                     Operatives
                 </MenuItemContainer>
             </DropdownMenuItemContainer>
 
-            <MenuItemContainer link="/reports">
+            <MenuItemContainer link="/company/reports">
                 <i className="fa fa-file icon" /> Reports
             </MenuItemContainer>
 
-            <MenuItemContainer link="/message-centre">
+            <MenuItemContainer link="/company/message-centre">
                 <span className="messages">
                     <i className="far fa-envelope" />
                     <sub>{messageCount}</sub>
@@ -44,18 +44,18 @@ const Menu = ({ messageCount }) => (
             <DropdownMenuItemContainer
                 icon="wrench"
                 title={'Tools & Resources'}
-                baseUrl="/tools"
+                baseUrl="/company/tools"
             >
-                <MenuItemContainer link="/tools/credit-logs">
+                <MenuItemContainer link="/company/tools/credit-logs">
                     Drawing Credit Log
                 </MenuItemContainer>
-                <MenuItemContainer link="/tools/pin-options">
+                <MenuItemContainer link="/company/tools/pin-options">
                     Pin Options
                 </MenuItemContainer>
-                <MenuItemContainer link="/tools/support">
+                <MenuItemContainer link="/company/tools/support">
                     Support
                 </MenuItemContainer>
-                <MenuItemContainer link="/tools/generation-queue">
+                <MenuItemContainer link="/company/tools/generation-queue">
                     Queneration queue
                 </MenuItemContainer>
             </DropdownMenuItemContainer>

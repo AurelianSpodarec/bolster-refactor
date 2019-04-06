@@ -1,12 +1,12 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 
-import SwitchWith404 from '../SwitchWith404';
+import SwitchWith404 from 'components/appRoute/routes/presentational/SwitchWith404';
 import AllMessagesContainer from 'components/companyAdmin/messages/allMessages/containers/AllMessagesContainer';
 
-const MessagesRoutes = ({ match: { url: baseUrl } }) => (
+const MessagesRoutes = ({ base = '/company/message-centre' }) => (
     <SwitchWith404>
-        <Route exact path={`${baseUrl}`} component={AllMessagesContainer} />
+        <Route exact path={`${base}`} component={AllMessagesContainer} />
     </SwitchWith404>
 );
 

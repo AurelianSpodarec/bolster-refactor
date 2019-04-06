@@ -12,8 +12,7 @@ const contentOptions = {
 };
 
 const MenusRouteContainer = ({ selectedMenuTab }) => {
-    const SpecificContent =
-        contentOptions[selectedMenuTab] || contentOptions[TABS.SUPER_ADMIN];
+    const SpecificContent = contentOptions[selectedMenuTab] || Menu;
 
     return <SpecificContent />;
 };

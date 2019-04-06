@@ -6,10 +6,10 @@ import Block from 'components/shared/generic/block/presentational/Block';
 const ChangeOwnershipForm = () => (
     <Block>
         <h3 className="heading heading-3">Change ownership form</h3>
-        <Link className="button" to="/sites/1">
+        <Link className="button" to="/company/sites/1">
             Cancel
         </Link>
-        <Link className="button" to="/sites/1">
+        <Link className="button" to="/company/sites/1">
             Save
         </Link>
     </Block>

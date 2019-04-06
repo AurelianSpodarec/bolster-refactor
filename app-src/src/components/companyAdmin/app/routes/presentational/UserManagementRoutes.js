@@ -1,9 +1,8 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 
+import SwitchWith404 from 'components/appRoute/routes/presentational/SwitchWith404';
 import AllCompanyAdminsContainer from 'components/companyAdmin/userManagement/companyAdmins/allCompanyAdmins/containers/AllCompanyAdminsContainer';
-
-import SwitchWith404 from '../SwitchWith404';
 import AllOperativesContainer from 'components/companyAdmin/userManagement/operatives/allOperatives/containers/AllOperativesContainer';
 import CreateOperative from 'components/companyAdmin/userManagement/operatives/createOperative/presentational/CreateOperative';
 import CreateCompanyAdmin from 'components/companyAdmin/userManagement/companyAdmins/createCompanyAdmin/presentational/CreateCompanyAdmin';
@@ -12,46 +11,46 @@ import EditCompanyAdminFormContainer from 'components/companyAdmin/userManagemen
 import EditOperativePassword from 'components/companyAdmin/userManagement/operatives/editOperativePassword/presentational/EditOperativePassword';
 import editCompanyAdminPassword from 'components/companyAdmin/userManagement/companyAdmins/editCompanyAdminPassword/presentational/editCompanyAdminPassword';
 
-const UserManagementRoutes = ({ match: { url: baseUrl } }) => (
+const UserManagementRoutes = ({ base = '/company/users-management' }) => (
     <SwitchWith404>
         <Route
             exact
-            path={`${baseUrl}/company-admins`}
+            path={`${base}/company-admins`}
             component={AllCompanyAdminsContainer}
         />
         <Route
             exact
-            path={`${baseUrl}/operatives`}
+            path={`${base}/operatives`}
             component={AllOperativesContainer}
         />
         <Route
             exact
-            path={`${baseUrl}/company-admins/create`}
+            path={`${base}/company-admins/create`}
             component={CreateCompanyAdmin}
         />
         <Route
             exact
-            path={`${baseUrl}/operatives/create`}
+            path={`${base}/operatives/create`}
             component={CreateOperative}
         />
         <Route
             exact
-            path={`${baseUrl}/operatives/:id/edit`}
+            path={`${base}/operatives/:id/edit`}
             component={EditOperativeFormContainer}
         />
         <Route
             exact
-            path={`${baseUrl}/company-admins/:id/edit`}
+            path={`${base}/company-admins/:id/edit`}
             component={EditCompanyAdminFormContainer}
         />
         <Route
             exact
-            path={`${baseUrl}/operatives/:id/edit-password`}
+            path={`${base}/operatives/:id/edit-password`}
             component={EditOperativePassword}
         />
         <Route
             exact
-            path={`${baseUrl}/company-admins/:id/edit-password`}
+            path={`${base}/company-admins/:id/edit-password`}
             component={editCompanyAdminPassword}
         />
     </SwitchWith404>
