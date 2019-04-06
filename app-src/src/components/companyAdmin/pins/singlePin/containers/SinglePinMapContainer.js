@@ -5,27 +5,26 @@ import { withRouter } from 'react-router-dom';
 import editPinLocation from 'actions/companyAdmin/pins/async/editPinLocation';
 
 import SinglePinMap from '../presentational/SinglePinMap';
+import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 
 class SinglePinMapContainer extends Component {
-    state = {
-        zoom: 18,
-        pinLat: 51.505,
-        pinLng: -0.09
-    };
-
     render() {
         const { pin, error, isFetching } = this.props;
-        const position = [this.state.pinLat, this.state.pinLng];
 
         return (
-            <SinglePinMap
-                zoom={this.state.zoom}
-                position={position}
-                pin={pin}
-                error={error}
+            <BlockContainer
+                isEmpty={!pin.pin}
                 isFetching={isFetching}
-                handleClick={this.handleClick}
-            />
+                error={error}
+            >
+                <SinglePinMap
+                    zoom={3}
+                    pin={pin}
+                    error={error}
+                    isFetching={isFetching}
+                    handleClick={this.handleClick}
+                />
+            </BlockContainer>
         );
     }
 

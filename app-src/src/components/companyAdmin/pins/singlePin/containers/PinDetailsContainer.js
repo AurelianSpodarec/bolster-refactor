@@ -16,12 +16,6 @@ class PinDetailsContainer extends Component {
                 .sort((a, b) => moment(a.createdAt) - moment(b.createdAt))
                 .findIndex(item => item.id === selectedHistory.id) + 1;
 
-        console.log('*************');
-        console.log('*************');
-        console.log(this.props.pin);
-        console.log('*************');
-        console.log('*************');
-
         return (
             <PinDetails
                 error={error}
@@ -60,8 +54,7 @@ const mapStateToProps = (
         error: pinHistoriesReducer.error,
         latestHistoryId: pin.latestHistoryId,
         selectedHistory: histories[selectedHistoryId] || {},
-        histories: Object.values(histories),
-        pin: pin
+        histories: Object.values(histories)
     };
 };
 

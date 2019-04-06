@@ -22,7 +22,10 @@ const DrawingInspectionLogsListItem = ({ inspectionLog }) => {
             </td>
             <td>{inspectionLog.status}</td>
             <td>
-                <Link to={`/pins/${inspectionLog.pinId}`} className="button">
+                <Link
+                    to={`/company/pins/${inspectionLog.pinId}`}
+                    className="button"
+                >
                     View
                 </Link>
             </td>
