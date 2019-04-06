@@ -17,6 +17,8 @@ class DrawingMapGeneralContainer extends Component {
         serviceSelectedID: '',
         statusSelectedID: '',
         operativeSelectedID: '',
+        startDateSelected: undefined,
+        endDateSelected: undefined,
         pinLat: 51.505,
         pinLng: -0.09,
         mapZoom: 3
@@ -28,6 +30,8 @@ class DrawingMapGeneralContainer extends Component {
             serviceSelectedID,
             statusSelectedID,
             operativeSelectedID,
+            startDateSelected,
+            endDateSelected,
             mapZoom
         } = this.state;
         const { error, pins } = this.props;
@@ -45,8 +49,11 @@ class DrawingMapGeneralContainer extends Component {
                     selectedStatus={statusOptions[statusSelectedID]}
                     operativeOptions={Object.values(operativeOptions)}
                     selectedOperative={operativeOptions[operativeSelectedID]}
+                    startDateSelected={startDateSelected}
+                    endDateSelected={endDateSelected}
                     pins={pins}
                     handleChange={this.handleChange}
+                    handleDateChange={this.handleDateChange}
                 />
                 <DrawingInspectionLogContainer />
                 <DrawingMapViewSimple
@@ -70,6 +77,12 @@ class DrawingMapGeneralContainer extends Component {
 
     handleChange = ({ target: { type, value, name, checked } }) => {
         this.setState({ [name]: type === 'checkbox' ? checked : value });
+    };
+
+    handleDateChange = (date, name) => {
+        this.setState({
+            [name]: date
+        });
     };
 
     _getServicesOptions = () => {

@@ -1,6 +1,5 @@
 import React from 'react';
 
-import Filter from 'components/shared/generic/form/presentational/Filter';
 import RedPin from '_content/images/pins/red-pin.png';
 import GreenPin from '_content/images/pins/green-pin.png';
 import BluePin from '_content/images/pins/blue-pin.png';
@@ -8,6 +7,7 @@ import YellowPin from '_content/images/pins/yellow-pin.png';
 import PurplePin from '_content/images/pins/purple-pin.png';
 
 import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
+import DatePicker from 'components/shared/generic/form/presentational/DatePicker';
 
 import { PIN_STATUS_IDS as STATUS } from 'constants/companyAdmin/enums';
 
@@ -18,7 +18,10 @@ const DrawingMapFiltersAdvanced = ({
     selectedStatus,
     operativeOptions,
     selectedOperative,
+    startDateSelected,
+    endDateSelected,
     handleChange,
+    handleDateChange,
     pins
 }) => (
     <div className="form size-lg-8">
@@ -44,6 +47,25 @@ const DrawingMapFiltersAdvanced = ({
             </div>
 
             <div className="size-lg-6">
+                <div className="size-lg-6">
+                    <DatePicker
+                        name="startDateSelected"
+                        selected={startDateSelected}
+                        onChange={e => handleDateChange(e, 'startDateSelected')}
+                        placeholderText="Select start date"
+                    />
+                </div>
+                <div className="size-lg-6">
+                    <DatePicker
+                        name="endDateSelected"
+                        selected={endDateSelected}
+                        onChange={e => handleDateChange(e, 'endDateSelected')}
+                        placeholderText="Select end date"
+                    />
+                </div>
+            </div>
+
+            <div className="size-lg-6">
                 <DropdownContainer
                     placeholder="Select operative"
                     name="operativeSelectedID"
@@ -52,15 +74,6 @@ const DrawingMapFiltersAdvanced = ({
                     handleChange={handleChange}
                 />
             </div>
-
-            {/* <div className="size-lg-6">
-                <Filter
-                    title="Time period"
-                    options={serviceOptions}
-                    selectedOption={serviceSelectedID}
-                    handleInputChange={handleChange}
-                />
-            </div>*/}
         </div>
 
         <div className="size-lg-3">

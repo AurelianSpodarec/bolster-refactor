@@ -3,7 +3,12 @@ import DatePicker from 'react-datepicker';
 
 import 'react-datepicker/dist/react-datepicker.css';
 
-const DatePickerPresentational = ({ selected, onChange, name }) => {
+const DatePickerPresentational = ({
+    selected,
+    onChange,
+    name,
+    placeholderText = `Please select ${name}`
+}) => {
     return (
         <div className="size-lg-4">
             <DatePicker
@@ -11,7 +16,7 @@ const DatePickerPresentational = ({ selected, onChange, name }) => {
                 selected={selected}
                 onChange={onChange}
                 dateFormat="dd/MM/YYYY"
-                placeholderText={`Please select ${name}`}
+                placeholderText={placeholderText}
             />
         </div>
     );
