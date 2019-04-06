@@ -6,10 +6,8 @@ import AllCompanyAdminsContainer from 'components/companyAdmin/userManagement/co
 import AllOperativesContainer from 'components/companyAdmin/userManagement/operatives/allOperatives/containers/AllOperativesContainer';
 import CreateOperative from 'components/companyAdmin/userManagement/operatives/createOperative/presentational/CreateOperative';
 import CreateCompanyAdmin from 'components/companyAdmin/userManagement/companyAdmins/createCompanyAdmin/presentational/CreateCompanyAdmin';
-import EditOperativeFormContainer from 'components/companyAdmin/userManagement/operatives/editOperative/containers/EditOperativeFormContainer';
-import EditCompanyAdminFormContainer from 'components/companyAdmin/userManagement/companyAdmins/editCompanyAdmin/containers/EditCompanyAdminFormContainer';
-import EditOperativePassword from 'components/companyAdmin/userManagement/operatives/editOperativePassword/presentational/EditOperativePassword';
-import editCompanyAdminPassword from 'components/companyAdmin/userManagement/companyAdmins/editCompanyAdminPassword/presentational/editCompanyAdminPassword';
+import EditCompanyUserPassword from 'components/companyAdmin/userManagement/shared/editCompanyUserPassword/presentational/EditCompanyUserPassword';
+import EditCompanyUser from 'components/companyAdmin/userManagement/shared/editCompanyUser/presentational/EditCompanyUser';
 
 const UserManagementRoutes = ({ base = '/company/users-management' }) => (
     <SwitchWith404>
@@ -35,23 +33,13 @@ const UserManagementRoutes = ({ base = '/company/users-management' }) => (
         />
         <Route
             exact
-            path={`${base}/operatives/:id/edit`}
-            component={EditOperativeFormContainer}
-        />
-        <Route
-            exact
-            path={`${base}/company-admins/:id/edit`}
-            component={EditCompanyAdminFormContainer}
-        />
-        <Route
-            exact
             path={`${base}/operatives/:id/edit-password`}
-            component={EditOperativePassword}
+            component={EditCompanyUserPassword}
         />
         <Route
             exact
             path={`${base}/company-admins/:id/edit-password`}
-            component={editCompanyAdminPassword}
+            component={EditCompanyUser}
         />
     </SwitchWith404>
 );
