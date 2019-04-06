@@ -1,13 +1,14 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
-import SwitchWith404 from '../SwitchWith404';
+
+import SwitchWith404 from 'components/appRoute/routes/presentational/SwitchWith404';
 import AddService from 'components/superAdmin/services/addService/presentational/AddService';
 import AllServicesContainer from 'components/superAdmin/services/shared/containers/AllServicesContainer';
 
-const ServicesRoutes = ({ match: { url: baseUrl } }) => (
+const ServicesRoutes = ({ base = '/admin/services' }) => (
     <SwitchWith404>
-        <Route exact path={`${baseUrl}`} component={AllServicesContainer} />
-        <Route exact path={`${baseUrl}/create`} component={AddService} />
+        <Route exact path={`${base}`} component={AllServicesContainer} />
+        <Route exact path={`${base}/create`} component={AddService} />
     </SwitchWith404>
 );
 

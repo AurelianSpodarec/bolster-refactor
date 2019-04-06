@@ -1,22 +1,18 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 
-import SwitchWith404 from '../SwitchWith404';
+import SwitchWith404 from 'components/appRoute/routes/presentational/SwitchWith404';
 import AllCompaniesContainer from 'components/superAdmin/companies/allCompanies/containers/AllCompaniesContainer';
 import SingleCompanyContainer from 'components/superAdmin/companies/singleCompany/containers/SingleCompanyContainer';
 import TemplateBuilderContainer from 'components/superAdmin/templateBuilder/templateBuilder/containers/TemplateBuilderContainer';
 
-const CompaniesRoutes = ({ match: { url: baseUrl } }) => (
+const CompaniesRoutes = ({ base = '/admin/companies' }) => (
     <SwitchWith404>
-        <Route exact path={`${baseUrl}`} component={AllCompaniesContainer} />
+        <Route exact path={`${base}`} component={AllCompaniesContainer} />
+        <Route exact path={`${base}/:id`} component={SingleCompanyContainer} />
         <Route
             exact
-            path={`${baseUrl}/:id`}
-            component={SingleCompanyContainer}
-        />
-        <Route
-            exact
-            path={`${baseUrl}/:companyID/template/:uuid`}
+            path={`${base}/:companyID/template/:uuid`}
             component={TemplateBuilderContainer}
         />
     </SwitchWith404>

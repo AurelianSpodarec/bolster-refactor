@@ -1,12 +1,12 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 
-import SwitchWith404 from '../SwitchWith404';
+import SwitchWith404 from 'components/appRoute/routes/presentational/SwitchWith404';
 import AllUsersContainer from 'components/companyAdmin/users/allUsers/containers/AllUsersContainer';
 
-const UsersRoutes = ({ match: { url: baseUrl } }) => (
+const UsersRoutes = ({ base = '/admin/users' }) => (
     <SwitchWith404>
-        <Route exact path={`${baseUrl}`} component={AllUsersContainer} />
+        <Route exact path={`${base}`} component={AllUsersContainer} />
     </SwitchWith404>
 );
 
