@@ -74,3 +74,11 @@ export const PIN_STATUS_TYPES = {
     40: 'Action Required',
     50: 'Other'
 };
+
+export const PIN_STATUS_COLOURS = {
+    10: 'green',
+    20: 'blue',
+    30: 'yellow',
+    40: 'red',
+    50: 'purple'
+};
