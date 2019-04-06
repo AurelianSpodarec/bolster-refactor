@@ -13,8 +13,10 @@ import { areArraysEqual } from 'helpers/generic';
 class FileUploadContainer extends Component {
     state = {
         showFieldError: false,
-        isAfterAdd: false
+        isAfterAdd: false,
+        files: []
     };
+
     render() {
         const { showFieldError } = this.state;
         const { errorsVisible, error, maxFiles, acceptedTypes } = this.props;
@@ -23,16 +25,34 @@ class FileUploadContainer extends Component {
 
         return (
             <TestFileUpload
+                files={this.state.files}
                 serverOptions={this._getServerOptions()}
                 error={errorMessage}
                 maxFiles={maxFiles}
                 acceptedTypes={acceptedTypes}
+                handleUpdateFiles={this.handleUpdateFiles}
             />
         );
     }
 
     componentDidMount = () => {
         this._validate();
+
+        const { value } = this.props;
+        if (Array.isArray(value)) {
+            this.setState({
+                files: value.map(source => ({ source, options: { type: 3 } }))
+            });
+        } else if (value && value.length) {
+            this.setState({
+                files: [
+                    {
+                        source: value,
+                        options: { type: 3 }
+                    }
+                ]
+            });
+        }
     };
 
     componentWillUnmount = () => {
@@ -119,6 +139,12 @@ class FileUploadContainer extends Component {
                 abort();
             }
         };
+    };
+
+    handleUpdateFiles = fileItems => {
+        this.setState({
+            files: fileItems.map(fileItem => fileItem.file)
+        });
     };
 
     _handleRemove = (s3Key, load) => {

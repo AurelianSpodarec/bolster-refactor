@@ -5,9 +5,18 @@ import FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type';
 
 registerPlugin(FilePondPluginImagePreview, FilePondPluginFileValidateType);
 
-const FileUpload = ({ serverOptions, error, maxFiles = 1, acceptedTypes }) => (
+const FileUpload = ({
+    serverOptions,
+    error,
+    maxFiles = 1,
+    acceptedTypes,
+    files,
+    handleUpdateFiles
+}) => (
     <>
         <FilePond
+            onupdatefiles={handleUpdateFiles}
+            files={files}
             allowFileTypeValidation={!!acceptedTypes}
             acceptedFileTypes={acceptedTypes}
             allowMultiple
