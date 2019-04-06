@@ -16,12 +16,6 @@ class PinDetailsContainer extends Component {
                 .sort((a, b) => moment(a.createdAt) - moment(b.createdAt))
                 .findIndex(item => item.id === selectedHistory.id) + 1;
 
-        console.log('*************');
-        console.log('*************');
-        console.log(this.props.pin);
-        console.log('*************');
-        console.log('*************');
-
         return (
             <PinDetails
                 error={error}

@@ -5,6 +5,7 @@ import { withRouter } from 'react-router-dom';
 import editPinLocation from 'actions/companyAdmin/pins/async/editPinLocation';
 
 import SinglePinMap from '../presentational/SinglePinMap';
+import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 
 class SinglePinMapContainer extends Component {
     state = {
@@ -18,14 +19,20 @@ class SinglePinMapContainer extends Component {
         const position = [this.state.pinLat, this.state.pinLng];
 
         return (
-            <SinglePinMap
-                zoom={this.state.zoom}
-                position={position}
-                pin={pin}
-                error={error}
+            <BlockContainer
+                isEmpty={!pin.id}
                 isFetching={isFetching}
-                handleClick={this.handleClick}
-            />
+                error={error}
+            >
+                <SinglePinMap
+                    zoom={this.state.zoom}
+                    position={position}
+                    pin={pin}
+                    error={error}
+                    isFetching={isFetching}
+                    handleClick={this.handleClick}
+                />
+            </BlockContainer>
         );
     }
 

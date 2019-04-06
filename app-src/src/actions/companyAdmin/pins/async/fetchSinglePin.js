@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+import { API_URL } from 'config';
+import { getHeaders } from 'helpers/api';
 import {
     FETCH_SINGLE_PIN_REQUEST,
     FETCH_SINGLE_PIN_SUCCESS,
@@ -20,11 +22,11 @@ export const fetchSinglePinFailure = error => ({
     error
 });
 
-export default () => dispatch => {
+export default id => dispatch => {
     dispatch(fetchSinglePinRequest());
 
     axios
-        .get('/mockData/pins/singlePin.json')
+        .get(`${API_URL}/pins/${id}`, getHeaders())
         .then(res => dispatch(fetchSinglePinSuccess(res.data)))
         .catch(err => dispatch(fetchSinglePinFailure(err.message)));
 };
