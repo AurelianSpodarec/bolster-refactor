@@ -31,7 +31,7 @@ class InviteCompanyFormContainer extends Component {
         const { success, history, hierarchyType, hierarchyID } = this.props;
 
         if (!prevProps.success && success) {
-            history.replace(`/${hierarchyType}s/${hierarchyID}`);
+            history.replace(`/company/${hierarchyType}s/${hierarchyID}`);
         }
         console.log(this._checkNoServicesAvailable());
     };

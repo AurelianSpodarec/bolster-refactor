@@ -31,7 +31,8 @@ const AttachDocumentForm = ({
     agreeanceEveryXDays,
     startOn,
     endOn,
-    location
+    location,
+    file
 }) => (
     <Form className="content-area size-lg-12" onSubmit={handleSubmit}>
         <h1 className="heading heading-3">Attach Document</h1>
@@ -83,13 +84,10 @@ const AttachDocumentForm = ({
                 <Field name="Upload PDF or image">
                     <FileUploadContainer
                         name="file"
-                        allowedTypes={[
-                            'application/pdf',
-                            'image/jpeg',
-                            'image/png'
-                        ]}
+                        allowedTypes={['application/pdf', '*']}
                         handleChange={handleFileChange}
                         required
+                        value={file}
                     />
                 </Field>
             </div>

@@ -59,11 +59,11 @@ class AttachOperativesFormContainer extends Component {
                 user => user.type === COMPANY_USER_ROLE_TYPES.OPERATIVE
             );
             if (operativeIDs.length === operativeUsers.length) {
-                history.replace(`/${hierarchyType}s/${hierarchyID}`);
+                history.replace(`/company/${hierarchyType}s/${hierarchyID}`);
             }
         }
         if (!prevProps.success && success) {
-            history.replace(`/${hierarchyType}s/${hierarchyID}`);
+            history.replace(`/company/${hierarchyType}s/${hierarchyID}`);
         }
     };
 

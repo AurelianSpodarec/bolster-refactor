@@ -41,14 +41,17 @@ class FileUploadContainer extends Component {
         const { value } = this.props;
         if (Array.isArray(value)) {
             this.setState({
-                files: value.map(source => ({ source, options: { type: 3 } }))
+                files: value.map(source => ({
+                    source,
+                    options: { type: 'local' }
+                }))
             });
         } else if (value && value.length) {
             this.setState({
                 files: [
                     {
                         source: value,
-                        options: { type: 3 }
+                        options: { type: 'local' }
                     }
                 ]
             });
@@ -92,7 +95,7 @@ class FileUploadContainer extends Component {
         return {
             url: FILE_API_URL,
             process: this._handleUpload,
-            revert: this._handleRemove,
+            revert: this._handleRevert,
             load: null,
             restore: null,
             fetch: null
@@ -147,7 +150,7 @@ class FileUploadContainer extends Component {
         });
     };
 
-    _handleRemove = (s3Key, load) => {
+    _handleRevert = (s3Key, load) => {
         const { name, handleChange } = this.props;
         handleChange(name, s3Key);
         load();

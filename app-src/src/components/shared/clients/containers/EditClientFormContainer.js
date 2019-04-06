@@ -41,7 +41,7 @@ class EditClientFormContainer extends Component {
         }
 
         if (!prevProps.success && success) {
-            history.replace(`/drawings/${hierarchyID}`);
+            history.replace(`/company/drawings/${hierarchyID}`);
         }
     };
 

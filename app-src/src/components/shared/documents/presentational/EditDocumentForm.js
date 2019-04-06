@@ -37,7 +37,8 @@ const EditDocumentForm = ({
     startOn,
     endOn,
     location,
-    documentID
+    documentID,
+    file
 }) => (
     <Form className="content-area size-lg-12" onSubmit={handleSubmit}>
         <h1 className="heading heading-3">Edit Document</h1>
@@ -94,11 +95,8 @@ const EditDocumentForm = ({
                     <Field name="Upload PDF or image">
                         <FileUploadContainer
                             name="file"
-                            allowedTypes={[
-                                'application/pdf',
-                                'image/jpeg',
-                                'image/png'
-                            ]}
+                            value={file}
+                            acceptedTypes={['application/pdf', 'image/*']}
                             handleChange={handleFileChange}
                             required
                         />

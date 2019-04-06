@@ -17,18 +17,12 @@ class TestFileUploadFormContainer extends Component {
         );
     }
 
-    componentDidUpdate = () => {
-        console.log(this.state);
-    };
-
     handleChange = (name, s3Key) => {
         const { [name]: file } = this.state;
         this.setState({ [name]: file === s3Key ? '' : s3Key });
     };
 
-    handleSubmit = () => {
-        console.log('submitting...');
-    };
+    handleSubmit = () => {};
 }
 
 export default TestFileUploadFormContainer;

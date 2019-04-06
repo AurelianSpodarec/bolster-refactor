@@ -17,7 +17,7 @@ class EditDrawingOperativeFormContainer extends Component {
         const { match, operative, isFetching } = this.props;
         const { services, serviceIDs } = this.state;
         const { id } = match.params;
-        const backUrl = `/drawings/${id}`;
+        const backUrl = `/company/drawings/${id}`;
         return (
             <EditDrawingOperativeForm
                 operative={operative}
@@ -66,7 +66,7 @@ class EditDrawingOperativeFormContainer extends Component {
             });
         }
         if (postSuccess && !prevProps.postSuccess)
-            history.push(`/drawings/${match.params.id}`);
+            history.push(`/company/drawings/${match.params.id}`);
     }
 
     getServicesForState = services =>

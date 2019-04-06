@@ -18,7 +18,7 @@ const OperativesList = ({ operatives, documentID, handleShowModal }) =>
                 </td>
                 <td>
                     <Link
-                        to={`/drawings/${documentID}/edit-operative/${id}`}
+                        to={`/company/drawings/${documentID}/edit-operative/${id}`}
                         className="button icon-only"
                     >
                         <i className="far fa-pencil fa-fw" />

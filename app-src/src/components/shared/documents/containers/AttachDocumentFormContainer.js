@@ -11,7 +11,7 @@ class AttachDocumentFormContainer extends Component {
         type: '1',
         // textboxes
         name: '',
-        file: {},
+        file: '',
         // toggles
         isPhotoRequired: false,
         isFileViewRequired: false,
@@ -49,7 +49,7 @@ class AttachDocumentFormContainer extends Component {
         const { postSuccess, history, hierarchyType, hierarchyID } = this.props;
 
         if (!prevProps.postSuccess && postSuccess) {
-            history.replace(`/${hierarchyType}s/${hierarchyID}`);
+            history.replace(`company/${hierarchyType}s/${hierarchyID}`);
         }
     };
 
@@ -84,8 +84,9 @@ class AttachDocumentFormContainer extends Component {
         });
     };
 
-    handleFileChange = (name, file) => {
-        this.setState({ [name]: file });
+    handleFileChange = (name, s3Key) => {
+        const { [name]: file } = this.state;
+        this.setState({ [name]: file === s3Key ? '' : s3Key });
     };
 
     handleDateChange = (date, name) => {

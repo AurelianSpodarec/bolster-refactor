@@ -38,7 +38,7 @@ class InviteClientFormContainer extends Component {
         const { success, history, hierarchyType, hierarchyID } = this.props;
 
         if (!prevProps.success && success) {
-            history.replace(`/${hierarchyType}s/${hierarchyID}`);
+            history.replace(`/company/${hierarchyType}s/${hierarchyID}`);
         }
     };
 

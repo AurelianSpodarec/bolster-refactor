@@ -15,7 +15,7 @@ class EditDocumentFormContainer extends Component {
         // textboxes
         name: '',
         fileS3Key: '',
-        file: {},
+        file: '',
         // toggles
         isPhotoRequired: false,
         isFileViewRequired: false,
@@ -58,15 +58,14 @@ class EditDocumentFormContainer extends Component {
 
     componentDidMount() {
         const { documentID } = this.props.match.params;
-        const { isFetching, document, fetchSingleDocument } = this.props;
+        const { document, fetchSingleDocument } = this.props;
 
-        if (!isFetching) {
+        if (document && document.type) {
             this.setState({
                 ...document,
                 type: String(document.type),
                 startOn: new Date(document.startOn),
                 endOn: new Date(document.endOn),
-                services: this._getServicesOptions,
                 serviceIDs: document.serviceIDs.map(key => String(key))
             });
         }
@@ -93,13 +92,12 @@ class EditDocumentFormContainer extends Component {
                 type: String(document.type),
                 startOn: new Date(document.startOn),
                 endOn: new Date(document.endOn),
-                services: this._getServicesOptions,
                 serviceIDs
             });
         }
 
         if (!prevProps.postSuccess && postSuccess) {
-            history.replace(`/${hierarchyType}s/${hierarchyID}`);
+            history.replace(`/company/${hierarchyType}s/${hierarchyID}`);
         }
     };
 
@@ -120,7 +118,7 @@ class EditDocumentFormContainer extends Component {
 
     handleCancelUpload = () => {
         this.setState({
-            file: {},
+            file: '',
             isFileViewHidden: false
         });
     };
@@ -176,7 +174,7 @@ class EditDocumentFormContainer extends Component {
         const postBody = {
             ...body,
             serviceIDs: serviceIDs,
-            file: isObjEmpty(file) ? { s3Key: fileS3Key } : file,
+            file: file.length ? file : fileS3Key,
             hierarchyID,
             hierarchyType
         };

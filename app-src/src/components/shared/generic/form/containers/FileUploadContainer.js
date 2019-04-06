@@ -1,102 +1,159 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import axios from 'axios';
 
+import { FILE_API_URL } from 'config';
 import addFieldError from 'actions/shared/generic/fieldErrors/sync/addFieldError';
 import removeFieldError from 'actions/shared/generic/fieldErrors/sync/removeFieldError';
 
 import FileUpload from '../presentational/FileUpload';
+import { getAuthHeader } from 'helpers/api';
+import { areArraysEqual } from 'helpers/generic';
 
 class FileUploadContainer extends Component {
     state = {
         showFieldError: false,
-        isAfterAdd: false
+        isAfterAdd: false,
+        files: []
     };
 
     render() {
         const { showFieldError } = this.state;
-        const { errorsVisible, error } = this.props;
+        const { errorsVisible, error, maxFiles, acceptedTypes } = this.props;
         let errorMessage;
         if (showFieldError || errorsVisible) errorMessage = error;
 
         return (
             <FileUpload
-                addRef={ref => (this.pond = ref)}
-                handleBeforeAddFile={this.handleBeforeAddFile}
-                handleAddFile={this.handleAddFile}
-                handleRemoveFile={this.handleRemoveFile}
+                files={this.state.files}
+                serverOptions={this._getServerOptions()}
                 error={errorMessage}
+                maxFiles={maxFiles}
+                acceptedTypes={acceptedTypes}
+                handleUpdateFiles={this.handleUpdateFiles}
             />
         );
     }
 
     componentDidMount = () => {
         this._validate();
-    };
 
-    handleBeforeAddFile = ({ file }) => {
-        const { name, error, addFieldError, removeFieldError } = this.props;
-        this.setState({ showFieldError: true, isAfterAdd: false });
-
-        if (!this._isFileTypeValid(file.type)) {
-            addFieldError(name, 'Invalid file type.');
-            return false;
-        }
-        if (error) removeFieldError(name);
-    };
-
-    handleAddFile = (err, { file }) => {
-        const { name, handleChange } = this.props;
-        this.setState({ isAfterAdd: true });
-
-        if (!err) {
-            this._getBase64(file)
-                .then(res => res.split('base64,')[1])
-                .then(base64 =>
-                    handleChange(name, { encoded: base64, fileName: file.name })
-                )
-                .catch();
+        const { value } = this.props;
+        if (Array.isArray(value)) {
+            this.setState({
+                files: value.map(source => ({
+                    source,
+                    options: { type: 'local' }
+                }))
+            });
+        } else if (value && value.length) {
+            this.setState({
+                files: [
+                    {
+                        source: value,
+                        options: { type: 'local' }
+                    }
+                ]
+            });
         }
     };
 
-    handleRemoveFile = () => {
-        const { name, handleChange } = this.props;
-        const { isAfterAdd } = this.state;
-
-        handleChange(name, {});
-        if (isAfterAdd) this._validate();
+    componentWillUnmount = () => {
+        const { name, removeFieldError } = this.props;
+        removeFieldError(name);
     };
 
-    _validate = file => {
+    componentDidUpdate = ({ value: prevValue }) => {
+        const { value, maxFiles = 1 } = this.props;
+
+        if (
+            (maxFiles > 1 && !areArraysEqual(value, prevValue)) ||
+            (maxFiles === 1 && value !== prevValue)
+        ) {
+            this._validate(value);
+        }
+    };
+
+    _validate = () => {
         const {
             name,
             error,
             required,
             addFieldError,
-            removeFieldError
+            removeFieldError,
+            value
         } = this.props;
 
-        if (required && !file) {
+        if (required && !(value && value.length)) {
             addFieldError(name, 'This is a required field.');
         } else if (error) {
             removeFieldError(name);
         }
     };
 
-    _isFileTypeValid = fileType => {
-        const { allowedTypes } = this.props;
-        if (!(allowedTypes && allowedTypes.length)) return true;
-        return allowedTypes.some(type =>
-            fileType.toLowerCase().includes(type.toLowerCase())
-        );
+    _getServerOptions = () => {
+        return {
+            url: FILE_API_URL,
+            process: this._handleUpload,
+            revert: this._handleRevert,
+            load: null,
+            restore: null,
+            fetch: null
+        };
     };
 
-    _getBase64 = file => {
-        return new Promise((resolve, reject) => {
-            const reader = new FileReader();
-            reader.readAsDataURL(file);
-            reader.onload = () => resolve(reader.result);
-            reader.onerror = error => reject(error);
+    _handleUpload = (
+        fieldName,
+        file,
+        metadata,
+        load,
+        error,
+        progress,
+        abort
+    ) => {
+        const formData = new FormData();
+        formData.append(fieldName, file, file.name);
+
+        const CancelToken = axios.CancelToken;
+        const source = CancelToken.source();
+        const headers = {
+            ...getAuthHeader(),
+            'content-type': 'multipart/form-data'
+        };
+        const config = {
+            headers,
+            cancelToken: source.token,
+            onUploadProgress: e =>
+                progress(e.lengthComputable, e.loaded, e.total)
+        };
+
+        axios
+            .post(FILE_API_URL, formData, config)
+            .then(({ data: { s3Key } }) => {
+                const { name, handleChange } = this.props;
+                handleChange(name, s3Key);
+                load(s3Key);
+            })
+            .catch(() => error('Something went wrong'));
+
+        return {
+            abort: () => {
+                source.cancel('Upload canceled');
+                abort();
+            }
+        };
+    };
+
+    handleUpdateFiles = fileItems => {
+        this.setState({
+            files: fileItems.map(fileItem => fileItem.file)
         });
+    };
+
+    _handleRevert = (s3Key, load) => {
+        const { name, handleChange } = this.props;
+        handleChange(name, s3Key);
+        load();
     };
 }
 

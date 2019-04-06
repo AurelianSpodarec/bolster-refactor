@@ -1,24 +1,27 @@
 import React from 'react';
 import { FilePond, registerPlugin } from 'react-filepond';
 import FilePondPluginImagePreview from 'filepond-plugin-image-preview';
+import FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type';
 
-registerPlugin(FilePondPluginImagePreview);
+registerPlugin(FilePondPluginImagePreview, FilePondPluginFileValidateType);
 
 const FileUpload = ({
-    addRef,
-    handleBeforeAddFile,
-    handleAddFile,
-    handleRemoveFile,
+    serverOptions,
     error,
-    maxFiles = 1
+    maxFiles = 1,
+    acceptedTypes,
+    files,
+    handleUpdateFiles
 }) => (
     <>
         <FilePond
-            ref={addRef}
+            onupdatefiles={handleUpdateFiles}
+            files={files}
+            allowFileTypeValidation={!!acceptedTypes}
+            acceptedFileTypes={acceptedTypes}
+            allowMultiple
             maxFiles={maxFiles}
-            onaddfile={handleAddFile}
-            onremovefile={handleRemoveFile}
-            beforeAddFile={handleBeforeAddFile}
+            server={serverOptions}
         />
         {!!(error && error.length) && (
             <p className="error red-text text-accent-4">{error}</p>

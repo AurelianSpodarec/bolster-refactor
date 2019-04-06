@@ -12,7 +12,8 @@ const AddDrawingForm = ({
     handleInputChange,
     handleFileChange,
     floorID,
-    name
+    name,
+    file
 }) => (
     <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
         <div className="size-lg-12">
@@ -31,13 +32,10 @@ const AddDrawingForm = ({
             <div className="size-lg-6">
                 <Field name="Upload plan">
                     <FileUploadContainer
+                        value={file}
                         required
                         name="file"
-                        allowedTypes={[
-                            'application/pdf',
-                            'image/jpeg',
-                            'image/png'
-                        ]}
+                        acceptedTypes={['application/pdf', 'image/*']}
                         handleChange={handleFileChange}
                     />
                 </Field>

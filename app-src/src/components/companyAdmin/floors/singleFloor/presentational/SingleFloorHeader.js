@@ -5,7 +5,7 @@ import PageHeading from 'components/shared/generic/pageHeading/presentational/Pa
 
 const SingleFloorHeader = ({ floor }) => (
     <PageHeading title={`Floor: ${floor.name || ''}`}>
-        <Link className="button" to={`/drawings/create/${floor.id}`}>
+        <Link className="button" to={`/company/drawings/create/${floor.id}`}>
             <i className="far fa-plus" /> Add drawing
         </Link>
         <Link className="button" to="/company/floor">

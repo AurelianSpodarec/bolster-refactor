@@ -8,7 +8,7 @@ import AddDrawingForm from '../presentational/AddDrawingForm';
 class AddDrawingFormContainer extends Component {
     state = {
         name: '',
-        file: {}
+        file: ''
     };
 
     render() {
@@ -26,7 +26,7 @@ class AddDrawingFormContainer extends Component {
     componentDidUpdate = ({ updatedID: prevUpdatedID }) => {
         const { updatedID, history } = this.props;
         if (!prevUpdatedID && updatedID) {
-            history.push(`/drawings/${updatedID}`);
+            history.push(`/company/drawings/${updatedID}`);
         }
     };
 
@@ -34,8 +34,9 @@ class AddDrawingFormContainer extends Component {
         this.setState({ [e.target.name]: e.target.value });
     };
 
-    handleFileChange = (name, file) => {
-        this.setState({ [name]: file });
+    handleFileChange = (name, s3Key) => {
+        const { [name]: file } = this.state;
+        this.setState({ [name]: file === s3Key ? '' : s3Key });
     };
 
     handleSubmit = () => {
