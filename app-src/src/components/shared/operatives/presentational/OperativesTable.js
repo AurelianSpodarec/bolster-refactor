@@ -8,6 +8,7 @@ const OperativesTable = ({
     location,
     operatives,
     isFetching,
+    isAddOperativeDisabled,
     error,
     handleShowModal,
     match
@@ -35,8 +36,14 @@ const OperativesTable = ({
             </Table>
             <div className="button-container table">
                 <Link
-                    className="button pull-right"
-                    to={`${location.pathname}/add-operative`}
+                    className={`button pull-right ${
+                        isAddOperativeDisabled ? 'disabled-link' : ''
+                    }`}
+                    to={
+                        isAddOperativeDisabled
+                            ? `${location.pathname}`
+                            : `${location.pathname}/add-operative`
+                    }
                 >
                     <i className="fal fa-plus" /> Invite operative
                 </Link>

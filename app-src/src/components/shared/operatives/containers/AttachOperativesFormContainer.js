@@ -7,7 +7,9 @@ import { COMPANY_USER_ROLE_TYPES } from 'constants/companyAdmin/enums';
 
 import AttachOperativesForm from '../presentational/AttachOperativeForm';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+
 import addOperative from 'actions/companyAdmin/operatives/async/addOperative';
+import fetchOperativesForDrawing from 'actions/companyAdmin/operatives/async/fetchOperativesForDrawing';
 
 class AttachOperativesFormContainer extends Component {
     state = {
@@ -35,17 +37,44 @@ class AttachOperativesFormContainer extends Component {
         );
     }
 
-    componentDidUpdate = prevProps => {
-        const { success, history, hierarchyType, hierarchyID } = this.props;
+    componentDidMount() {
+        const { fetchOperativesForDrawing, isFetchingOperatives } = this.props;
+        const { id } = this.props.match.params;
+        if (!isFetchingOperatives) {
+            fetchOperativesForDrawing(id);
+        }
+    }
 
+    componentDidUpdate = prevProps => {
+        const {
+            success,
+            history,
+            hierarchyType,
+            hierarchyID,
+            operativeIDs,
+            users
+        } = this.props;
+        if (operativeIDs && users) {
+            const operativeUsers = users.filter(
+                user => user.type === COMPANY_USER_ROLE_TYPES.OPERATIVE
+            );
+            if (operativeIDs.length === operativeUsers.length) {
+                history.replace(`/${hierarchyType}s/${hierarchyID}`);
+            }
+        }
         if (!prevProps.success && success) {
             history.replace(`/${hierarchyType}s/${hierarchyID}`);
         }
     };
 
     _getUserOptions = () => {
+        const { operativeIDs } = this.props;
         const options = this.props.users
-            .filter(user => user.type === COMPANY_USER_ROLE_TYPES.OPERATIVE)
+            .filter(
+                user =>
+                    user.type === COMPANY_USER_ROLE_TYPES.OPERATIVE &&
+                    !operativeIDs.includes(user.id)
+            )
             .map(({ id, userFirstName, userLastName }) => ({
                 value: id,
                 text: `${userFirstName} ${userLastName}`
@@ -105,13 +134,20 @@ const mapStateToProps = (
     subscriptions: subscriptionsReducer.subscriptions.serviceIDs || [],
     hierarchyID: match.params.id,
     isFetching: companyUsersReducer.isFetching,
+    isFetchingOperatives: operativesReducer.isFetching,
     error: companyUsersReducer.error,
-    success: operativesReducer.postSuccess
+    success: operativesReducer.postSuccess,
+    operativeIDs: Object.values(operativesReducer.operatives).map(
+        operative => operative.companyUserID
+    )
 });
 
 const mapDispatchToProps = dispatch => ({
     addOperative: (hierarchyType, hierarchyID, postBody) => {
         dispatch(addOperative(hierarchyType, hierarchyID, postBody));
+    },
+    fetchOperativesForDrawing: id => {
+        dispatch(fetchOperativesForDrawing(id));
     }
 });
 

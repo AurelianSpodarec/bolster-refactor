@@ -58,3 +58,19 @@ export const LABEL_TYPES = {
     1: 'Standard',
     2: 'Trim'
 };
+
+export const PIN_STATUS_IDS = {
+    INSTALLED: 10,
+    INSPECTED: 20,
+    NO_ACTION: 30,
+    ACTION_REQUIRED: 40,
+    OTHER: 50
+};
+
+export const PIN_STATUS_TYPES = {
+    10: 'Installed',
+    20: 'Inspected',
+    30: 'No Action Required',
+    40: 'Action Required',
+    50: 'Other'
+};

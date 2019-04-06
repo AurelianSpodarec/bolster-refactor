@@ -8,12 +8,13 @@ class AttachDrawingOperativeFormContainer extends Component {
     render() {
         return <AttachOperativesFormContainer hierarchyType="drawing" />;
     }
+
     componentDidMount = () => {
         const { fetchAllCompanyUsers } = this.props;
-
         fetchAllCompanyUsers();
     };
 }
+
 const mapDispatchToProps = dispatch => ({
     fetchAllCompanyUsers: () => {
         dispatch(fetchCompanyUsers());

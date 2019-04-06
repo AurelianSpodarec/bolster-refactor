@@ -7,24 +7,29 @@ import BlockContainer from 'components/shared/generic/block/containers/BlockCont
 
 class SiteDetailsContainer extends Component {
     render() {
-        const { site, error, isFetching } = this.props;
+        const { site, error, isFetching, stats, isFetchingStats } = this.props;
 
         return (
             <BlockContainer
                 error={error}
-                isFetching={isFetching}
-                isEmpty={!site.id}
+                isFetching={isFetching || isFetchingStats}
+                isEmpty={!site.id || !stats.statuses}
             >
-                <SiteStats site={site} />
+                <SiteStats site={site} stats={stats} />
             </BlockContainer>
         );
     }
 }
 
-const mapStateToProps = ({ companyAdmin: { sitesReducer } }, { match }) => ({
+const mapStateToProps = (
+    { companyAdmin: { sitesReducer, statsReducer } },
+    { match }
+) => ({
     site: sitesReducer.sites[match.params.id] || {},
     isFetching: sitesReducer.isFetching,
-    error: sitesReducer.error
+    error: sitesReducer.error,
+    isFetchingStats: statsReducer.isFetching,
+    stats: statsReducer.stats
 });
 
 export default withRouter(
