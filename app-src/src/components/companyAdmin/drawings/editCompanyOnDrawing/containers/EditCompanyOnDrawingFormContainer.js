@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
+import editCompanyPermissions from 'actions/companyAdmin/companies/async/editCompanyPermissions';
+
 import fetchCompaniesPermissions from 'actions/companyAdmin/companies/async/fetchCompanyPermissions';
 import fetchAllServices from 'actions/companyAdmin/services/async/fetchAllServices';
 import EditCompanyOnDrawingForm from '../presentational/EditCompanyOnDrawingForm';
@@ -57,7 +59,6 @@ class EditCompanyOnDrawingFormContainer extends Component {
             match,
             company
         } = this.props;
-        console.error('HERE!!!', company);
 
         if (!isFetching && prevProps.isFetching && company) {
             const serviceIDs = company.serviceIDs.map(id => String(id));
@@ -71,7 +72,6 @@ class EditCompanyOnDrawingFormContainer extends Component {
     }
 
     getServicesForState = services =>
-        console.log(services) ||
         Object.values(services).reduce((acc, { id, name }) => {
             acc.push({
                 value: id,
@@ -81,21 +81,20 @@ class EditCompanyOnDrawingFormContainer extends Component {
             return acc;
         }, []);
 
-    //     handleSubmit = e => {
-    //         e.preventDefault();
-    //         const { serviceIDs } = this.state;
-    //         const { editDrawingOperative, match } = this.props;
-    //         const { operativeID } = match.params;
-    //         editDrawingOperative(operativeID, { serviceIDs });
-    //     };
+    handleSubmit = e => {
+        e.preventDefault();
+        const { serviceIDs } = this.state;
+        const { editCompanyPermissions, id } = this.props;
+        editCompanyPermissions('site', id, { serviceIDs });
+    };
 
-    //     handleMultiselect = ({ target: { name, value } }) => {
-    //         const checkedValues = this.state[name];
-    //         const newValues = checkedValues.includes(value)
-    //             ? checkedValues.filter(val => val !== value)
-    //             : [...checkedValues, value];
-    //         this.setState({ [name]: newValues });
-    //     };
+    handleMultiselect = ({ target: { name, value } }) => {
+        const checkedValues = this.state[name];
+        const newValues = checkedValues.includes(value)
+            ? checkedValues.filter(val => val !== value)
+            : [...checkedValues, value];
+        this.setState({ [name]: newValues });
+    };
 }
 
 const mapStateToProps = (
@@ -112,7 +111,10 @@ const mapStateToProps = (
         companiesReducer.companiesWithPermissions[
             ownProps.match.params.companyID
         ] || null,
-    isFetching: companiesReducer.isFetching || servicesReducer.isFetching,
+    isFetching:
+        companiesReducer.isFetching ||
+        servicesReducer.isFetching ||
+        subscriptionsReducer.isFetching,
     postSuccess: companiesReducer.postSuccess,
     services: servicesReducer.services || [],
     subscriptions: subscriptionsReducer.subscriptions.serviceIDs || [],
@@ -125,10 +127,12 @@ const mapDispatchToProps = dispatch => ({
     },
     fetchAllServices: () => {
         dispatch(fetchAllServices);
+    },
+    editCompanyPermissions: (hierarchicalLevel, hierarchicalID, body) => {
+        dispatch(
+            editCompanyPermissions(hierarchicalLevel, hierarchicalID, body)
+        );
     }
-    // editCompanyWithPermission: (id, body) => {
-    //     dispatch(editCompanyWithPermission(id, body));
-    // }
 });
 
 export default withRouter(

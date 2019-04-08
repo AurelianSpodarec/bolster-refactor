@@ -16,7 +16,10 @@ import {
     DELETE_COMPANY_PERMISSIONS_REQUEST,
     DELETE_COMPANY_PERMISSIONS_SUCCESS,
     DELETE_COMPANY_PERMISSIONS_FAILURE,
-    UPDATE_COMPANIES_FILTERS
+    UPDATE_COMPANIES_FILTERS,
+    EDIT_COMPANY_PERMISSIONS_REQUEST,
+    EDIT_COMPANY_PERMISSIONS_SUCCESS,
+    EDIT_COMPANY_PERMISSIONS_FAILURE
 } from 'constants/actionTypes/companies';
 import { updateObj, convertArrToObj, removeObjItem } from 'helpers/generic';
 
@@ -53,11 +56,14 @@ function isPostingReducer(state = false, action) {
     switch (action.type) {
         case ADD_COMPANY_REQUEST:
         case DELETE_COMPANY_PERMISSIONS_REQUEST:
+        case EDIT_COMPANY_PERMISSIONS_REQUEST:
             return true;
         case ADD_COMPANY_SUCCESS:
         case ADD_COMPANY_FAILURE:
         case DELETE_COMPANY_PERMISSIONS_SUCCESS:
         case DELETE_COMPANY_PERMISSIONS_FAILURE:
+        case EDIT_COMPANY_PERMISSIONS_SUCCESS:
+        case EDIT_COMPANY_PERMISSIONS_FAILURE:
             return false;
         default:
             return state;
@@ -69,10 +75,12 @@ function errorReducer(state = null, action) {
         case FETCH_SINGLE_COMPANY_REQUEST:
         case FETCH_ALL_COMPANIES_REQUEST:
         case FETCH_COMPANY_PERMISSIONS_REQUEST:
+        case EDIT_COMPANY_PERMISSIONS_REQUEST:
             return null;
         case FETCH_SINGLE_COMPANY_FAILURE:
         case FETCH_ALL_COMPANIES_FAILURE:
         case FETCH_COMPANY_PERMISSIONS_FAILURE:
+        case EDIT_COMPANY_PERMISSIONS_FAILURE:
             return action.error;
         default:
             return state;
@@ -118,6 +126,8 @@ function companiesWithPermissionsReducer(state = {}, action) {
             return convertArrToObj(action.payload);
         case DELETE_COMPANY_PERMISSIONS_SUCCESS:
             return removeObjItem(state, action.id);
+        case EDIT_COMPANY_PERMISSIONS_SUCCESS:
+            return updateObj(state, action.payload.id, action.payload);
         default:
             return state;
     }
