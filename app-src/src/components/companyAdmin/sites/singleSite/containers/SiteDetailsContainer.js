@@ -7,12 +7,12 @@ import BlockContainer from 'components/shared/generic/block/containers/BlockCont
 
 class SiteDetailsContainer extends Component {
     render() {
-        const { site, error, isFetching, stats, isFetchingStats } = this.props;
+        const { site, error, isFetching, stats } = this.props;
 
         return (
             <BlockContainer
                 error={error}
-                isFetching={isFetching || isFetchingStats}
+                isFetching={isFetching}
                 isEmpty={!site.id || !stats.statuses}
             >
                 <SiteStats site={site} stats={stats} />
@@ -26,9 +26,8 @@ const mapStateToProps = (
     { match }
 ) => ({
     site: sitesReducer.sites[match.params.id] || {},
-    isFetching: sitesReducer.isFetching,
+    isFetching: sitesReducer.isFetching || statsReducer.isFetching,
     error: sitesReducer.error,
-    isFetchingStats: statsReducer.isFetching,
     stats: statsReducer.stats
 });
 
