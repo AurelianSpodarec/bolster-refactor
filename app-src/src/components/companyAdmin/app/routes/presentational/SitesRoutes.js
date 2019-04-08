@@ -7,8 +7,7 @@ import AddSite from 'components/companyAdmin/sites/addSite/presentational/AddSit
 import SingleSiteContainer from 'components/companyAdmin/sites/singleSite/containers/SingleSiteContainer';
 import ChangeSiteOwnership from 'components/companyAdmin/sites/changeSiteOwnership/presentational/ChangeSiteOwnership';
 import AttachSiteOperative from 'components/companyAdmin/sites/attachSiteOperative/presentational/AttachSiteOperative';
-import InviteClientToSite from 'components/companyAdmin/sites/inviteClientToSite/presentational/InviteClientToSite';
-
+import InviteClientToSiteContainer from 'components/companyAdmin/sites/inviteClientToSite/containers/InviteClientToSiteContainer';
 import InviteCompanyToSiteContainer from 'components/companyAdmin/sites/inviteCompanyToSite/containers/InviteCompanyToSiteContainer';
 import AttachSiteDocument from 'components/companyAdmin/sites/attachSiteDocument/presentational/AttachSiteDocument';
 import SiteEditContainer from 'components/companyAdmin/sites/singleSite/containers/SiteEditContainer';
@@ -33,7 +32,7 @@ const SitesRoutes = ({ base = '/company/sites' }) => (
         <Route
             exact
             path={`${base}/:id/invite-client`}
-            component={InviteClientToSite}
+            component={InviteClientToSiteContainer}
         />
 
         <Route

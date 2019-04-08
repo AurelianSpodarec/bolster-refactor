@@ -66,6 +66,17 @@ body {
         .content-area {
             display: flex;
         }
+
+        .generic-table {
+            min-height: 165px;
+            margin-bottom: 40px;
+        }
+
+        .button-container {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+        }
     }
 }
 

@@ -20,7 +20,7 @@ class CompaniesAccessContainer extends Component {
         } = this.props;
 
         return (
-            <BlockContainer error={error} heading="Companies with access">
+            <BlockContainer error={error}>
                 <CompaniesAccessTable
                     companies={companiesWithPermissions}
                     parentId={hierarchyID}
