@@ -10,10 +10,9 @@ const OperativesTable = ({
     isFetching,
     isAddOperativeDisabled,
     error,
-    handleShowModal,
+    handleDeleteOperativeModal,
     match
 }) => {
-    const tableHeaders = ['Name', 'Actions'];
     const { id } = match.params;
     return (
         <div className="size-lg-12">
@@ -21,7 +20,7 @@ const OperativesTable = ({
                 Operatives with access
             </h2>
             <Table
-                headers={tableHeaders}
+                headers={['Name', 'Actions']}
                 isFetching={isFetching}
                 error={error}
                 noData={!operatives.length}
@@ -30,7 +29,7 @@ const OperativesTable = ({
             >
                 <OperativesList
                     operatives={operatives}
-                    handleShowModal={handleShowModal}
+                    handleDeleteOperativeModal={handleDeleteOperativeModal}
                     documentID={id}
                 />
             </Table>
