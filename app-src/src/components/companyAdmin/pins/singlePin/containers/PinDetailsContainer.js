@@ -6,6 +6,7 @@ import moment from 'moment';
 import selectPinHistory from 'actions/companyAdmin/pins/sync/selectPinHistory';
 
 import PinDetails from '../presentational/PinDetails';
+import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 
 class PinDetailsContainer extends Component {
     render() {
@@ -17,13 +18,17 @@ class PinDetailsContainer extends Component {
                 .findIndex(item => item.id === selectedHistory.id) + 1;
 
         return (
-            <PinDetails
-                error={error}
+            <BlockContainer
+                heading="Pin options"
                 isFetching={isFetching}
-                pinHistory={selectedHistory}
-                historyCount={histories.length}
-                historyVersion={historyVersion}
-            />
+                error={error}
+            >
+                <PinDetails
+                    pinHistory={selectedHistory}
+                    historyCount={histories.length}
+                    historyVersion={historyVersion}
+                />
+            </BlockContainer>
         );
     }
 
@@ -52,7 +57,7 @@ const mapStateToProps = (
     return {
         isFetching: pinsReducer.isFetching || pinHistoriesReducer.isFetching,
         error: pinHistoriesReducer.error,
-        latestHistoryId: pin.latestHistoryId,
+        latestHistoryId: pin.latestHistoryID,
         selectedHistory: histories[selectedHistoryId] || {},
         histories: Object.values(histories)
     };
