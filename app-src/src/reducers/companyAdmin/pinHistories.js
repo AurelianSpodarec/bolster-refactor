@@ -44,7 +44,7 @@ function historiesReducer(state = {}, action) {
         case FETCH_PIN_HISTORIES_SUCCESS:
             return convertArrToObj(action.payload);
         case FETCH_SINGLE_PIN_SUCCESS:
-            return { ...state, ...convertArrToObj(action.payload.histories) };
+            return convertArrToObj(action.payload.histories);
         default:
             return state;
     }

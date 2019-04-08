@@ -21,14 +21,17 @@ class PinHistoriesListContainer extends Component {
     }
 }
 
-const mapStateToProps = ({ companyAdmin: { pinsReducer } }, { match }) => {
+const mapStateToProps = (
+    { companyAdmin: { pinsReducer, pinHistoriesReducer } },
+    { match }
+) => {
     const pin = pinsReducer.pins[match.params.id];
 
     return {
         isFetching: pinsReducer.isFetching,
         error: pinsReducer.error,
-        histories: Object.values(pin.histories),
-        selectedHistoryId: pin.pin.latestHistoryID
+        histories: Object.values(pinHistoriesReducer.histories) || [],
+        selectedHistoryId: pin.latestHistoryID
     };
 };
 
