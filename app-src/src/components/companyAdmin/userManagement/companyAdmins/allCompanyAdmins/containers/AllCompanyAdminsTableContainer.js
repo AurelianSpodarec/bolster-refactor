@@ -27,16 +27,6 @@ class AllCompanyAdminTableContainer extends Component {
 
         return ret;
     };
-
-    // _getFilteredAdmins = () => {
-    //     const { sites, filters } = this.props;
-    //     const { status } = filters;
-    //     const name = filters.name.toLowerCase();
-
-    //     return sites
-    //         .filter(site => !status.length || site.status === status)
-    //         .filter(site => site.name.toLowerCase().includes(name));
-    // };
 }
 
 const mapStateToProps = ({ companyAdmin: { companyUsersReducer } }) => ({

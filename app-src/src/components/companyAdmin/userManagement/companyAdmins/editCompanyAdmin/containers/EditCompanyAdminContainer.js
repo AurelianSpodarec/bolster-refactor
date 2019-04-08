@@ -1,0 +1,15 @@
+import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+
+import EditCompanyAdmin from '../presentational/EditCompanyAdmin';
+
+class EditCompanyAdminContainer extends Component {
+    render = () => <EditCompanyAdmin adminName="##User Name##" />;
+}
+
+// const mapDispatchToProps = dispatch => ({
+//    fetchSingleUser
+// });
+
+export default withRouter(connect(null)(EditCompanyAdminContainer));

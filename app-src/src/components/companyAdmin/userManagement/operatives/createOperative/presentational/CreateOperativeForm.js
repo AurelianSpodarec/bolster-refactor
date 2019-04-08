@@ -91,7 +91,7 @@ const CreateOperativeForm = ({
             <button className="button green">
                 <i className="fa fa-plus" /> Add Operative
             </button>
-            <Link to="/users-management/operatives" className="button">
+            <Link to="/company/users-management/operatives" className="button">
                 <i className="fa fa-times" />
                 Cancel
             </Link>

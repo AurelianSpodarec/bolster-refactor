@@ -3,24 +3,24 @@ import React from 'react';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
 import Breadcrumb from 'components/shared/generic/breadcrumb/presentational/Breadcrumb';
-import CreateOperativeFormContainer from '../containers/CreateOperativeFormContainer';
+import EditCompanyUserPasswordFormContainer from 'components/companyAdmin/userManagement/shared/editCompanyUserPassword/containers/EditCompanyUserPasswordFormContainer';
 
-const CreateOperative = () => (
+const EditOperativePassword = ({ operativeName }) => (
     <>
         <Breadcrumb
             breadcrumbs={[
                 {
                     text: 'All Operatives',
-                    link: '/company/users-management/operatives'
+                    link: '/company/users-management/operatvies'
                 },
-                { text: 'Create Operative' }
+                { text: `Edit ${operativeName} password` }
             ]}
         />
-        <PageHeading title="Create Operative" />
+        <PageHeading title={`Edit ${operativeName} password`} />
         <BlockContainer>
-            <CreateOperativeFormContainer />
+            <EditCompanyUserPasswordFormContainer />
         </BlockContainer>
     </>
 );
 
-export default CreateOperative;
+export default EditOperativePassword;
