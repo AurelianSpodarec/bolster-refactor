@@ -4,29 +4,29 @@ import { withRouter } from 'react-router-dom';
 import { convertArrToObj } from 'helpers/generic';
 
 import { COMPANY_USER_ROLE_TYPES } from 'constants/companyAdmin/enums';
+import addOperative from 'actions/companyAdmin/operatives/async/addOperative';
+import fetchOperativesForDrawing from 'actions/companyAdmin/operatives/async/fetchOperativesForDrawing';
 
 import AttachOperativesForm from '../presentational/AttachOperativeForm';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 
-import addOperative from 'actions/companyAdmin/operatives/async/addOperative';
-import fetchOperativesForDrawing from 'actions/companyAdmin/operatives/async/fetchOperativesForDrawing';
-
 class AttachOperativesFormContainer extends Component {
     state = {
-        CompanyUserID: '',
+        companyUserID: '',
         serviceIDs: []
     };
 
     render() {
-        const { CompanyUserID, serviceIDs } = this.state;
+        const { companyUserID, serviceIDs } = this.state;
         const userOptions = this._getUserOptions();
         const serviceOptions = this._getServicesOptions();
+        const { isFetching, error } = this.props;
 
         return (
-            <BlockContainer>
+            <BlockContainer isFetching={isFetching} error={error}>
                 <AttachOperativesForm
                     users={Object.values(userOptions)}
-                    selectedUser={userOptions[CompanyUserID]}
+                    selectedUser={userOptions[companyUserID]}
                     serviceOptions={serviceOptions}
                     checkedServices={serviceIDs}
                     handleChange={this.handleChange}
@@ -51,14 +51,13 @@ class AttachOperativesFormContainer extends Component {
             history,
             hierarchyType,
             hierarchyID,
-            operativeIDs,
-            users
+            drawingUserIDs,
+            operativeUsers,
+            isFetching
         } = this.props;
-        if (operativeIDs && users) {
-            const operativeUsers = users.filter(
-                user => user.type === COMPANY_USER_ROLE_TYPES.OPERATIVE
-            );
-            if (operativeIDs.length === operativeUsers.length) {
+
+        if ((drawingUserIDs.length && operativeUsers.length) || !isFetching) {
+            if (drawingUserIDs.length === operativeUsers.length) {
                 history.replace(`/company/${hierarchyType}s/${hierarchyID}`);
             }
         }
@@ -68,13 +67,9 @@ class AttachOperativesFormContainer extends Component {
     };
 
     _getUserOptions = () => {
-        const { operativeIDs } = this.props;
-        const options = this.props.users
-            .filter(
-                user =>
-                    user.type === COMPANY_USER_ROLE_TYPES.OPERATIVE &&
-                    !operativeIDs.includes(user.id)
-            )
+        const { drawingUserIDs, operativeUsers } = this.props;
+        const options = operativeUsers
+            .filter(user => !drawingUserIDs.includes(user.id))
             .map(({ id, userFirstName, userLastName }) => ({
                 value: id,
                 text: `${userFirstName} ${userLastName}`
@@ -106,38 +101,44 @@ class AttachOperativesFormContainer extends Component {
     };
 
     handleSubmit = () => {
-        const { CompanyUserID, serviceIDs } = this.state;
+        const { companyUserID, serviceIDs } = this.state;
         const { hierarchyType, hierarchyID, addOperative } = this.props;
 
         const postBody = {
-            CompanyUserID: CompanyUserID,
-            ServiceIDs: serviceIDs
+            companyUserID,
+            serviceIDs
         };
 
         addOperative(hierarchyType, hierarchyID, postBody);
     };
 }
 
+const { OPERATIVE } = COMPANY_USER_ROLE_TYPES;
 const mapStateToProps = (
     {
         companyAdmin: {
-            companyUsersReducer,
-            servicesReducer,
-            subscriptionsReducer,
-            operativesReducer
+            companyUsersReducer: { users, isFetching, error },
+            servicesReducer: { services },
+            subscriptionsReducer: { subscriptions },
+            operativesReducer: {
+                operatives,
+                isFetching: fetchingOps,
+                postSuccess
+            }
         }
     },
-    { match }
+    { match: { params } }
 ) => ({
-    users: Object.values(companyUsersReducer.users),
-    services: Object.values(servicesReducer.services),
-    subscriptions: subscriptionsReducer.subscriptions.serviceIDs || [],
-    hierarchyID: match.params.id,
-    isFetching: companyUsersReducer.isFetching,
-    isFetchingOperatives: operativesReducer.isFetching,
-    error: companyUsersReducer.error,
-    success: operativesReducer.postSuccess,
-    operativeIDs: Object.values(operativesReducer.operatives).map(
+    hierarchyID: params.id,
+    operativeUsers: Object.values(users).filter(
+        ({ type }) => type === OPERATIVE
+    ),
+    services: Object.values(services),
+    subscriptions: subscriptions.serviceIDs || [],
+    isFetching: isFetching || fetchingOps,
+    error,
+    postSuccess,
+    drawingUserIDs: Object.values(operatives).map(
         operative => operative.companyUserID
     )
 });

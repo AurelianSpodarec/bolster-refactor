@@ -31,10 +31,9 @@ export default (HierarchyType, HierarchyID, postBody) => dispatch => {
         getHeaders()
     )
         .then(({ data }) => dispatch(addOperativeSuccess(data)))
-        .catch(err => {
-            dispatch(addOperativeFailure(err.message));
-            if (err.response.status === 400) {
-                dispatch(setAPIFieldErrors(err.response.data.errors));
-            }
+        .catch(({ response, message }) => {
+            response.status === 400
+                ? dispatch(setAPIFieldErrors(response.data.errors))
+                : dispatch(addOperativeFailure(message));
         });
 };
