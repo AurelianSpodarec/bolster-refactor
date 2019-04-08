@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import BlockHeadingWControls from 'components/shared/generic/blockHeadingWControls/presentational/BlockHeadingWControls';
+import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 
 const PinHistoriesActions = ({ location }) => (
-    <BlockHeadingWControls title="Other pin histories">
+    <BlockHeading title="Other pin histories">
         <button className="button red">
             <i className="fa fa-trash" />
             Delete all
@@ -14,7 +14,7 @@ const PinHistoriesActions = ({ location }) => (
             <i className="fa fa-plus" />
             Add new history
         </Link>
-    </BlockHeadingWControls>
+    </BlockHeading>
 );
 
 export default PinHistoriesActions;

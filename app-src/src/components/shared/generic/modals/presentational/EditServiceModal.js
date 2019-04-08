@@ -1,6 +1,6 @@
 import React from 'react';
 import ModalOuterContainer from '../containers/ModalOuterContainer';
-import BlockHeadingWControls from 'components/shared/generic/blockHeadingWControls/presentational/BlockHeadingWControls';
+import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import Form from 'components/shared/generic/form/containers/Form';
 import Field from 'components/shared/generic/form/presentational/Field';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
@@ -8,7 +8,7 @@ import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/pr
 
 const EditServiceModal = ({ name, handleChange, handleSubmit, hideModal }) => (
     <ModalOuterContainer>
-        <BlockHeadingWControls title="Edit Service" />
+        <BlockHeading title="Edit Service" />
 
         <Form className="generic-form" onSubmit={handleSubmit}>
             <div className="size-lg-6">

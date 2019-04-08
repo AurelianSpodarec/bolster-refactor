@@ -1,7 +1,7 @@
 import React from 'react';
 
 import PinHistoriesListItemContainer from '../containers/PinHistoriesListItemContainer';
-import BlockHeadingWControls from 'components/shared/generic/blockHeadingWControls/presentational/BlockHeadingWControls';
+import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 
 const PinHistoriesList = ({ histories, historyCount }) => {
     if (!(histories && histories.length)) {
