@@ -15,7 +15,7 @@ const TestFileUploadForm = ({ handleSubmit, handleChange, file }) => (
                         name="file"
                         value={file}
                         handleChange={handleChange}
-                        maxFiles={1}
+                        maxFiles={3}
                     />
                 </Field>
             </div>

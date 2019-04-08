@@ -47,12 +47,13 @@ class FileUploadContainer extends Component {
     };
 
     componentDidUpdate = ({ value: prevValue }) => {
-        const { value, maxFiles = 1 } = this.props;
+        const { value } = this.props;
+        const hasArrChanged =
+            Array.isArray(value) && !areArraysEqual(value, prevValue);
+        const hasStringChanged =
+            typeof value === 'string' && value !== prevValue;
 
-        if (
-            (maxFiles > 1 && !areArraysEqual(value, prevValue)) ||
-            (maxFiles === 1 && value !== prevValue)
-        ) {
+        if (hasArrChanged || hasStringChanged) {
             this._validate(value);
         }
     };
@@ -128,17 +129,25 @@ class FileUploadContainer extends Component {
     };
 
     // _handleLoad = (source, load, error, progress, abort) => {
-    //     var options = {
-    //         method: 'GET',
-    //         mode: 'no-cors',
-    //         cache: 'default'
+    // var options = {
+    //     method: 'GET',
+    //     mode: 'no-cors',
+    //     cache: 'default'
+    // };
+
+    // const request = new Request(source);
+
+    //     const headers = {
+    //         ...getAuthHeader(),
+    //         'content-type': 'multipart/form-data'
+    //     };
+    //     const config = {
+    //         headers,
+    //         cancelToken: source.token,
+    //         responseType: 'blob'
     //     };
 
-    //     const request = new Request(source);
-
-    //     fetch(request, options)
-    //         .then(res => res.blob().then(blob => load(blob)))
-    //         .catch(error);
+    //     axios.get(source, config);
 
     //     return {
     //         abort: () => {
@@ -147,17 +156,17 @@ class FileUploadContainer extends Component {
     //     };
     // };
 
-    // handleUpdateFiles = fileItems => {
-    //     this.setState({
-    //         files: fileItems.map(fileItem => fileItem.file)
-    //     });
-    // };
+    handleUpdateFiles = fileItems => {
+        this.setState({
+            files: fileItems.map(fileItem => fileItem.file)
+        });
+    };
 
-    // _handleRevert = (s3Key, load) => {
-    //     const { name, handleChange } = this.props;
-    //     handleChange(name, s3Key);
-    //     load();
-    // };
+    _handleRevert = (s3Key, load) => {
+        const { name, handleChange } = this.props;
+        handleChange(name, s3Key);
+        load();
+    };
 }
 
 const mapStateToProps = ({ shared: { fieldErrorsReducer } }, ownProps) => ({

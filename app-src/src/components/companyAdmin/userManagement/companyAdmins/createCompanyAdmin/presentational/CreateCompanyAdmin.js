@@ -9,7 +9,7 @@ const CreateCompanyAdmin = () => (
     <>
         <Breadcrumb
             breadcrumbs={[
-                { text: 'All Company Admins' },
+                { text: 'All Company Admins', link: '/company/users-management/company-admins' },
                 { text: 'Create Company Admin' }
             ]}
         />

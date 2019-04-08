@@ -12,7 +12,7 @@ const AllCompanyAdmins = () => (
         <PageHeading title="All Company Admins">
             <Link
                 className="button"
-                to="/users-management/company-admins/create"
+                to="/company/users-management/company-admins/create"
             >
                 <i className="fa fa-plus" /> Add Company Admin
             </Link>
