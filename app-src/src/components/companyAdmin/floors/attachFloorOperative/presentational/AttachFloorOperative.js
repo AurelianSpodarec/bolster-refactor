@@ -1,7 +1,8 @@
 import React from 'react';
 
 import Breadcrumb from 'components/shared/generic/breadcrumb/presentational/Breadcrumb';
-import AttachFloorOperativeContainer from '../containers/AttachFloorOperativeContainer';
+import AttachOperativesFormContainer from 'components/shared/operatives/containers/AttachOperativesFormContainer';
+import { HIERARCHY_IDS } from 'constants/companyAdmin/enums';
 
 const AttachFloorOperative = () => (
     <>
@@ -11,7 +12,7 @@ const AttachFloorOperative = () => (
                 { text: '##add operative##' }
             ]}
         />
-        <AttachFloorOperativeContainer />
+        <AttachOperativesFormContainer hierarchyType={HIERARCHY_IDS.FLOOR} />
     </>
 );
 

@@ -5,11 +5,9 @@ import { convertArrToObj } from 'helpers/generic';
 
 import {
     COMPANY_USER_ROLE_TYPES,
-    HIERARCHY_TYPES,
-    HIERARCHY_IDS
+    HIERARCHY_TYPES
 } from 'constants/companyAdmin/enums';
 import addOperative from 'actions/companyAdmin/operatives/async/addOperative';
-import fetchOperativesForDrawing from 'actions/companyAdmin/operatives/async/fetchOperativesForDrawing';
 import fetchCompanyUsers from 'actions/companyAdmin/userManagement/async/fetchCompanyUsers';
 
 import AttachOperativesForm from '../presentational/AttachOperativeForm';
@@ -28,7 +26,12 @@ class AttachOperativesFormContainer extends Component {
         const { isFetching, error } = this.props;
 
         return (
-            <BlockContainer isFetching={isFetching} error={error}>
+            <BlockContainer
+                isFetching={isFetching}
+                isEmpty={!Object.values(userOptions).length}
+                noDataMessage="There are no operatives options available."
+                error={error}
+            >
                 <AttachOperativesForm
                     users={Object.values(userOptions)}
                     selectedUser={userOptions[companyUserID]}
@@ -43,53 +46,24 @@ class AttachOperativesFormContainer extends Component {
     }
 
     componentDidMount() {
-        const {
-            fetchOperativesForDrawing,
-            isFetchingOperatives,
-            fetchCompanyUsers
-        } = this.props;
+        const { fetchCompanyUsers } = this.props;
         fetchCompanyUsers();
-        const { id } = this.props.match.params;
-        if (!isFetchingOperatives) {
-            fetchOperativesForDrawing(id);
-        }
     }
 
     componentDidUpdate = prevProps => {
-        const {
-            success,
-            history,
-            hierarchyType,
-            hierarchyID,
-            drawingUserIDs,
-            operativeUsers,
-            isFetching
-        } = this.props;
-
-        if ((drawingUserIDs.length && operativeUsers.length) || !isFetching) {
-            if (drawingUserIDs.length === operativeUsers.length) {
-                history.replace(`/company/${hierarchyType}s/${hierarchyID}`);
-            }
-        }
-        if (!prevProps.success && success) {
-            history.replace(`/company/${hierarchyType}s/${hierarchyID}`);
-        }
+        const { postSuccess, history, redirectUrl } = this.props;
+        if (!prevProps.postSuccess && postSuccess)
+            return history.replace(redirectUrl);
     };
 
     _getUserOptions = () => {
-        const { drawingUserIDs, operativeUsers, hierarchyType } = this.props;
-        const { DRAWING } = HIERARCHY_IDS;
-
-        const options = operativeUsers
-            .filter(
-                user =>
-                    hierarchyType !== DRAWING ||
-                    !drawingUserIDs.includes(user.id)
-            )
-            .map(({ id, userFirstName, userLastName }) => ({
+        const { operativeUsers } = this.props;
+        const options = operativeUsers.map(
+            ({ id, userFirstName, userLastName }) => ({
                 value: id,
                 text: `${userFirstName} ${userLastName}`
-            }));
+            })
+        );
 
         return convertArrToObj(options, 'value');
     };
@@ -139,20 +113,22 @@ const mapStateToProps = (
             operativesReducer: {
                 operatives,
                 isFetching: fetchingOps,
+                error: opsError,
                 postSuccess
             }
         }
     },
-    { match: { params } }
+    { match: { params, url }, operativeUsers }
 ) => ({
+    redirectUrl: url.replace('/add-operative', ''),
     hierarchyID: params.id,
-    operativeUsers: Object.values(users).filter(
-        ({ type }) => type === OPERATIVE
-    ),
+    operativeUsers:
+        operativeUsers ||
+        Object.values(users).filter(({ type }) => type === OPERATIVE),
     services: Object.values(services),
     subscriptions: subscriptions.serviceIDs || [],
     isFetching: isFetching || fetchingOps,
-    error,
+    error: error || opsError,
     postSuccess,
     drawingUserIDs: Object.values(operatives).map(
         operative => operative.companyUserID
@@ -164,9 +140,6 @@ const mapDispatchToProps = dispatch => ({
         dispatch(
             addOperative(HIERARCHY_TYPES[hierarchyType], hierarchyID, postBody)
         );
-    },
-    fetchOperativesForDrawing: id => {
-        dispatch(fetchOperativesForDrawing(id));
     },
     fetchCompanyUsers: () => {
         dispatch(fetchCompanyUsers());

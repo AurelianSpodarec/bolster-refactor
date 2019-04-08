@@ -5,10 +5,10 @@ export const ROLE_TYPES = {
 };
 
 export const HIERARCHY_TYPES = {
-    '1': 'Site',
-    '2': 'Building',
-    '3': 'Floor',
-    '4': 'Drawing'
+    '1': 'site',
+    '2': 'building',
+    '3': 'floor',
+    '4': 'drawing'
 };
 
 export const HIERARCHY_IDS = {

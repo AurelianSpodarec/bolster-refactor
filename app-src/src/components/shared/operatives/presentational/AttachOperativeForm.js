@@ -20,7 +20,7 @@ const AttachOperativeForm = ({
     <Form className="size-lg-12" onSubmit={handleSubmit}>
         <Field name="Select an operative" sizeClasses="size-lg-6">
             <DropdownContainer
-                placeholder="Select operative"
+                placeholder="-- select operative --"
                 name="companyUserID"
                 options={users}
                 selectedOption={selectedUser}
