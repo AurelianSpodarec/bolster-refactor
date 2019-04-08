@@ -8,7 +8,7 @@ import TextInputContainer from 'components/shared/generic/form/containers/TextIn
 import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
 import Field from 'components/shared/generic/form/presentational/Field';
 import BlockButtonWrapper from '../../../../shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
-import BlockHeadingWControls from 'components/shared/generic/blockHeadingWControls/presentational/BlockHeadingWControls';
+import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 
 const AddTemplateQuestionFormModal = ({
     questionTypeOptions,
@@ -27,7 +27,7 @@ const AddTemplateQuestionFormModal = ({
     action
 }) => (
     <ModalOuterContainer extraClasses="w-form">
-        <BlockHeadingWControls title={`${action} question`} />
+        <BlockHeading title={`${action} question`} />
         <Form onSubmit={handleSubmit}>
             <Field name="Question type">
                 <DropdownContainer

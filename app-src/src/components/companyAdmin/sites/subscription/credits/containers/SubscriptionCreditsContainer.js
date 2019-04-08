@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+
 import SubscriptionCredits from '../presentational/SubscriptionCredits';
 
-export default class SubscriptionCreditsContainer extends Component {
+class SubscriptionCreditsContainer extends Component {
     render() {
         return <SubscriptionCredits />;
     }
 }
+
+export default connect()(SubscriptionCreditsContainer);

@@ -6,6 +6,7 @@ import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/pr
 import Field from 'components/shared/generic/form/presentational/Field';
 import CheckboxListContainer from 'components/shared/generic/form/containers/CheckboxListContainer';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
+import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 
 const InviteClientForm = ({
     location,
@@ -21,7 +22,26 @@ const InviteClientForm = ({
     companyName
 }) => (
     <Form className="size-lg-12" onSubmit={handleSubmit}>
-        <Field name="First name" sizeClasses="size-lg-6">
+        <BlockHeading />
+        <Field name="Invite Client">
+            <p className="generic-text size-lg-12">
+                Please enter the email address of the user you wish to invite.
+                If the user does not have a Bolster systems account, they will
+                be prompted to create one to accepted your invitation.
+            </p>
+        </Field>
+        <div className="size-lg-12">
+            <Field name="Email address" sizeClasses="size-lg-6">
+                <TextInputContainer
+                    name="email"
+                    value={email}
+                    handleChange={handleChange}
+                    required
+                />
+            </Field>
+        </div>
+
+        <Field name="First name" sizeClasses="size-lg-4">
             <TextInputContainer
                 name="firstName"
                 value={firstName}
@@ -30,7 +50,7 @@ const InviteClientForm = ({
             />
         </Field>
 
-        <Field name="Last name" sizeClasses="size-lg-6">
+        <Field name="Last name" sizeClasses="size-lg-4">
             <TextInputContainer
                 name="lastName"
                 value={lastName}
@@ -39,16 +59,7 @@ const InviteClientForm = ({
             />
         </Field>
 
-        <Field name="Email address" sizeClasses="size-lg-6">
-            <TextInputContainer
-                name="email"
-                value={email}
-                handleChange={handleChange}
-                required
-            />
-        </Field>
-
-        <Field name="Phone number" sizeClasses="size-lg-6">
+        <Field name="Phone number" sizeClasses="size-lg-4">
             <TextInputContainer
                 name="phoneNumber"
                 value={phoneNumber}
@@ -57,7 +68,7 @@ const InviteClientForm = ({
             />
         </Field>
 
-        <Field name="Company name" sizeClasses="size-lg-6">
+        <Field name="Company name" sizeClasses="size-lg-4">
             <TextInputContainer
                 name="companyName"
                 value={companyName}
@@ -67,6 +78,9 @@ const InviteClientForm = ({
         </Field>
 
         <Field name="Service types" sizeClasses="size-lg-12">
+            <p className="generic-text size-lg-12">
+                Select the services the client should have access to:
+            </p>
             <CheckboxListContainer
                 required
                 name="serviceIDs"

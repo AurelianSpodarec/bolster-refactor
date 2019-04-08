@@ -9,7 +9,7 @@ const CheckboxList = ({
     name,
     error
 }) => (
-    <>
+    <div className="checkbox-list">
         {options &&
             options.map(({ text, value, disabled }) => (
                 <Checkbox
@@ -25,7 +25,7 @@ const CheckboxList = ({
         {error && error.length && (
             <p className="error red-text text-accent-4">{error}</p>
         )}
-    </>
+    </div>
 );
 
 export default CheckboxList;

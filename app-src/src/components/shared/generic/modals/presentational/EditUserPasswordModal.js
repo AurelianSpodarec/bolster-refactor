@@ -1,10 +1,10 @@
 import React from 'react';
 import ModalOuterContainer from '../containers/ModalOuterContainer';
-import BlockHeadingWControls from '../../blockHeadingWControls/presentational/BlockHeadingWControls';
-import Form from '../../form/containers/Form';
-import Field from '../../form/presentational/Field';
-import TextInputContainer from '../../form/containers/TextInputContainer';
-import BlockButtonWrapper from '../../blockButtonWrappers/presentational/BlockButtonWrapper';
+import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
+import Form from 'components/shared/generic/form/containers/Form';
+import Field from 'components/shared/generic/form/presentational/Field';
+import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
+import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 
 const EditUserPasswordModal = ({
     password,
@@ -15,7 +15,7 @@ const EditUserPasswordModal = ({
     validatePassword
 }) => (
     <ModalOuterContainer>
-        <BlockHeadingWControls title="Change Password" />
+        <BlockHeading title="Change Password" />
         <Form className="generic-form" onSubmit={handleSubmit}>
             <div className="size-lg-6">
                 <Field name="Enter New Password">

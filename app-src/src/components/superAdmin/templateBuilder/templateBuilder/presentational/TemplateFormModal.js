@@ -1,11 +1,11 @@
 import React from 'react';
 
-import ModalOuter from '../../../../shared/generic/modals/presentational/ModalOuter';
-import Form from '../../../../shared/generic/form/containers/Form';
-import Field from '../../../../shared/generic/form/presentational/Field';
-import TextInputContainer from '../../../../shared/generic/form/containers/TextInputContainer';
-import BlockHeadingWControls from '../../../../shared/generic/blockHeadingWControls/presentational/BlockHeadingWControls';
-import BlockButtonWrapper from '../../../../shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
+import ModalOuter from 'components/shared/generic/modals/presentational/ModalOuter';
+import Form from 'components/shared/generic/form/containers/Form';
+import Field from 'components/shared/generic/form/presentational/Field';
+import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
+import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
+import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
 
 const TemplateformModal = ({
@@ -20,7 +20,7 @@ const TemplateformModal = ({
     handleCancel
 }) => (
     <ModalOuter hideModal={handleCancel}>
-        <BlockHeadingWControls title={`${action} template`} />
+        <BlockHeading title={`${action} template`} />
         <Form className="generic-form" onSubmit={handleSubmit}>
             <div className="size-lg-6">
                 <Field name="name">

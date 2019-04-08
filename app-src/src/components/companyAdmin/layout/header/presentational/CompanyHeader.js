@@ -13,7 +13,7 @@ const Header = ({ company, unreadMessageCount, totalCedits }) => (
         <div className="container">
             {/*** company logo ***/}
             <div className="logo">
-                <Link to="/">
+                <Link to="/company">
                     <img alt={`logo of ${company.name}`} src={company.logo} />
                 </Link>
             </div>
