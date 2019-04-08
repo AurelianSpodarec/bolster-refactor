@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { withRouter, Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 import PinHistoriesList from '../presentational/PinHistoriesList';
 import PinHistoriesActions from '../presentational/PinHistoriesActions';
@@ -21,14 +21,17 @@ class PinHistoriesListContainer extends Component {
     }
 }
 
-const mapStateToProps = ({ companyAdmin: { pinsReducer } }, { match }) => {
+const mapStateToProps = (
+    { companyAdmin: { pinsReducer, pinHistoriesReducer } },
+    { match }
+) => {
     const pin = pinsReducer.pins[match.params.id];
 
     return {
         isFetching: pinsReducer.isFetching,
         error: pinsReducer.error,
-        histories: Object.values(pin.histories),
-        selectedHistoryId: pin.pin.latestHistoryID
+        histories: Object.values(pinHistoriesReducer.histories) || [],
+        selectedHistoryId: pin.latestHistoryID
     };
 };
 

@@ -9,7 +9,7 @@ const Checkbox = ({
     error,
     disabled = false
 }) => (
-    <div className="size-lg-4">
+    <div className={`checkbox ${disabled ? 'left grey-out' : ''}`}>
         <input
             id={`${name}_${value}`}
             onChange={handleChange}
@@ -19,12 +19,16 @@ const Checkbox = ({
             name={name}
             disabled={disabled}
         />
+
         <label
             htmlFor={`${name}_${value}`}
             // ? ## needs styling for disabled ##
             // style={disabled ? { color: 'grey' } : {}}
         >
-            {text}
+            <span className="text">{text}</span>
+            <span className="outer">
+                <span className="inner" />
+            </span>
         </label>
         {error && error.length && (
             <p className="error red-text text-accent-4">{error}</p>
