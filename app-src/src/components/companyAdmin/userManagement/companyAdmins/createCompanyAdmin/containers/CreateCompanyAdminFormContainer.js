@@ -31,7 +31,6 @@ class CreateCompanyAdminFormContainer extends Component {
         e.preventDefault();
 
         this.setState({
-            ...this.state,
             [e.target.name]: e.target.value
         });
     };
