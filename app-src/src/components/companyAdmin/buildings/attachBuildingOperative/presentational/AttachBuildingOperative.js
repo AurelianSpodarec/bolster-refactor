@@ -1,14 +1,16 @@
 import React from 'react';
 
+import { HIERARCHY_IDS } from 'constants/companyAdmin/enums';
+
 import Breadcrumb from 'components/shared/generic/breadcrumb/presentational/Breadcrumb';
-import AttachBuildingOperativeContainer from '../containers/AttachBuildingOperativeContainer';
+import AttachOperativesFormContainer from 'components/shared/operatives/containers/AttachOperativesFormContainer';
 
 const AttachBuildingOperative = () => (
     <div>
         <Breadcrumb
             breadcrumbs={[{ text: 'Building' }, { text: 'Add Operative' }]}
         />
-        <AttachBuildingOperativeContainer />
+        <AttachOperativesFormContainer hierarchyType={HIERARCHY_IDS.BUILDING} />
     </div>
 );
 
