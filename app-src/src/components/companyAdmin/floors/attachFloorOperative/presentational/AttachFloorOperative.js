@@ -5,7 +5,12 @@ import AttachFloorOperativeContainer from '../containers/AttachFloorOperativeCon
 
 const AttachFloorOperative = () => (
     <>
-        <Breadcrumb />
+        <Breadcrumb
+            breadcrumbs={[
+                { text: '##floor name##' },
+                { text: '##add operative##' }
+            ]}
+        />
         <AttachFloorOperativeContainer />
     </>
 );

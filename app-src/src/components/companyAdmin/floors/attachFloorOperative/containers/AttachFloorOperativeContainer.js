@@ -2,26 +2,16 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import AttachOperativesFormContainer from 'components/shared/operatives/containers/AttachOperativesFormContainer';
-import fetchCompanyUsers from 'actions/companyAdmin/userManagement/async/fetchCompanyUsers';
+import { HIERARCHY_IDS } from 'constants/companyAdmin/enums';
 
 class AttachFloorOperativeContainer extends Component {
     render() {
-        return <AttachOperativesFormContainer hierarchyType="floor" />;
+        return (
+            <AttachOperativesFormContainer
+                hierarchyType={HIERARCHY_IDS.FLOOR}
+            />
+        );
     }
-
-    componentDidMount = () => {
-        const { fetchAllCompanyUsers } = this.props;
-
-        fetchAllCompanyUsers();
-    };
 }
-const mapDispatchToProps = dispatch => ({
-    fetchAllCompanyUsers: () => {
-        dispatch(fetchCompanyUsers());
-    }
-});
 
-export default connect(
-    null,
-    mapDispatchToProps
-)(AttachFloorOperativeContainer);
+export default connect()(AttachFloorOperativeContainer);

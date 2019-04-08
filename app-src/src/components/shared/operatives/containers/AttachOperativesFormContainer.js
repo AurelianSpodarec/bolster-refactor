@@ -3,7 +3,11 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { convertArrToObj } from 'helpers/generic';
 
-import { COMPANY_USER_ROLE_TYPES } from 'constants/companyAdmin/enums';
+import {
+    COMPANY_USER_ROLE_TYPES,
+    HIERARCHY_TYPES,
+    HIERARCHY_IDS
+} from 'constants/companyAdmin/enums';
 import addOperative from 'actions/companyAdmin/operatives/async/addOperative';
 import fetchOperativesForDrawing from 'actions/companyAdmin/operatives/async/fetchOperativesForDrawing';
 import fetchCompanyUsers from 'actions/companyAdmin/userManagement/async/fetchCompanyUsers';
@@ -73,9 +77,15 @@ class AttachOperativesFormContainer extends Component {
     };
 
     _getUserOptions = () => {
-        const { drawingUserIDs, operativeUsers } = this.props;
+        const { drawingUserIDs, operativeUsers, hierarchyType } = this.props;
+        const { DRAWING } = HIERARCHY_IDS;
+
         const options = operativeUsers
-            .filter(user => !drawingUserIDs.includes(user.id))
+            .filter(
+                user =>
+                    hierarchyType !== DRAWING ||
+                    !drawingUserIDs.includes(user.id)
+            )
             .map(({ id, userFirstName, userLastName }) => ({
                 value: id,
                 text: `${userFirstName} ${userLastName}`
@@ -151,7 +161,9 @@ const mapStateToProps = (
 
 const mapDispatchToProps = dispatch => ({
     addOperative: (hierarchyType, hierarchyID, postBody) => {
-        dispatch(addOperative(hierarchyType, hierarchyID, postBody));
+        dispatch(
+            addOperative(HIERARCHY_TYPES[hierarchyType], hierarchyID, postBody)
+        );
     },
     fetchOperativesForDrawing: id => {
         dispatch(fetchOperativesForDrawing(id));
