@@ -6,6 +6,7 @@ import { convertArrToObj } from 'helpers/generic';
 import { COMPANY_USER_ROLE_TYPES } from 'constants/companyAdmin/enums';
 import addOperative from 'actions/companyAdmin/operatives/async/addOperative';
 import fetchOperativesForDrawing from 'actions/companyAdmin/operatives/async/fetchOperativesForDrawing';
+import fetchCompanyUsers from 'actions/companyAdmin/userManagement/async/fetchCompanyUsers';
 
 import AttachOperativesForm from '../presentational/AttachOperativeForm';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
@@ -38,7 +39,12 @@ class AttachOperativesFormContainer extends Component {
     }
 
     componentDidMount() {
-        const { fetchOperativesForDrawing, isFetchingOperatives } = this.props;
+        const {
+            fetchOperativesForDrawing,
+            isFetchingOperatives,
+            fetchCompanyUsers
+        } = this.props;
+        fetchCompanyUsers();
         const { id } = this.props.match.params;
         if (!isFetchingOperatives) {
             fetchOperativesForDrawing(id);
@@ -149,6 +155,9 @@ const mapDispatchToProps = dispatch => ({
     },
     fetchOperativesForDrawing: id => {
         dispatch(fetchOperativesForDrawing(id));
+    },
+    fetchCompanyUsers: () => {
+        dispatch(fetchCompanyUsers());
     }
 });
 
