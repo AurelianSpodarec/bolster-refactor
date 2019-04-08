@@ -18,7 +18,7 @@ import {
     DELETE_COMPANY_PERMISSIONS_FAILURE,
     UPDATE_COMPANIES_FILTERS
 } from 'constants/actionTypes/companies';
-import { updateObj } from 'helpers/generic';
+import { updateObj, convertArrToObj, removeObjItem } from 'helpers/generic';
 
 export default combineReducers({
     company: companyReducer,
@@ -115,9 +115,9 @@ function companiesReducer(state = {}, action) {
 function companiesWithPermissionsReducer(state = {}, action) {
     switch (action.type) {
         case FETCH_COMPANY_PERMISSIONS_SUCCESS:
-            return action.payload;
+            return convertArrToObj(action.payload);
         case DELETE_COMPANY_PERMISSIONS_SUCCESS:
-            return state.filter(company => company.id !== action.payload.id);
+            return removeObjItem(state, action.id);
         default:
             return state;
     }
