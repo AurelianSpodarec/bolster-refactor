@@ -3,30 +3,38 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { convertArrToObj } from 'helpers/generic';
 
-import { COMPANY_USER_ROLE_TYPES } from 'constants/companyAdmin/enums';
+import {
+    COMPANY_USER_ROLE_TYPES,
+    HIERARCHY_TYPES
+} from 'constants/companyAdmin/enums';
+import addOperative from 'actions/companyAdmin/operatives/async/addOperative';
+import fetchCompanyUsers from 'actions/companyAdmin/userManagement/async/fetchCompanyUsers';
 
 import AttachOperativesForm from '../presentational/AttachOperativeForm';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 
-import addOperative from 'actions/companyAdmin/operatives/async/addOperative';
-import fetchOperativesForDrawing from 'actions/companyAdmin/operatives/async/fetchOperativesForDrawing';
-
 class AttachOperativesFormContainer extends Component {
     state = {
-        CompanyUserID: '',
+        companyUserID: '',
         serviceIDs: []
     };
 
     render() {
-        const { CompanyUserID, serviceIDs } = this.state;
+        const { companyUserID, serviceIDs } = this.state;
         const userOptions = this._getUserOptions();
         const serviceOptions = this._getServicesOptions();
+        const { isFetching, error } = this.props;
 
         return (
-            <BlockContainer>
+            <BlockContainer
+                isFetching={isFetching}
+                isEmpty={!Object.values(userOptions).length}
+                noDataMessage="There are no operatives options available."
+                error={error}
+            >
                 <AttachOperativesForm
                     users={Object.values(userOptions)}
-                    selectedUser={userOptions[CompanyUserID]}
+                    selectedUser={userOptions[companyUserID]}
                     serviceOptions={serviceOptions}
                     checkedServices={serviceIDs}
                     handleChange={this.handleChange}
@@ -38,47 +46,24 @@ class AttachOperativesFormContainer extends Component {
     }
 
     componentDidMount() {
-        const { fetchOperativesForDrawing, isFetchingOperatives } = this.props;
-        const { id } = this.props.match.params;
-        if (!isFetchingOperatives) {
-            fetchOperativesForDrawing(id);
-        }
+        const { fetchCompanyUsers } = this.props;
+        fetchCompanyUsers();
     }
 
     componentDidUpdate = prevProps => {
-        const {
-            success,
-            history,
-            hierarchyType,
-            hierarchyID,
-            operativeIDs,
-            users
-        } = this.props;
-        if (operativeIDs && users) {
-            const operativeUsers = users.filter(
-                user => user.type === COMPANY_USER_ROLE_TYPES.OPERATIVE
-            );
-            if (operativeIDs.length === operativeUsers.length) {
-                history.replace(`/company/${hierarchyType}s/${hierarchyID}`);
-            }
-        }
-        if (!prevProps.success && success) {
-            history.replace(`/company/${hierarchyType}s/${hierarchyID}`);
-        }
+        const { postSuccess, history, redirectUrl } = this.props;
+        if (!prevProps.postSuccess && postSuccess)
+            return history.replace(redirectUrl);
     };
 
     _getUserOptions = () => {
-        const { operativeIDs } = this.props;
-        const options = this.props.users
-            .filter(
-                user =>
-                    user.type === COMPANY_USER_ROLE_TYPES.OPERATIVE &&
-                    !operativeIDs.includes(user.id)
-            )
-            .map(({ id, userFirstName, userLastName }) => ({
+        const { operativeUsers } = this.props;
+        const options = operativeUsers.map(
+            ({ id, userFirstName, userLastName }) => ({
                 value: id,
                 text: `${userFirstName} ${userLastName}`
-            }));
+            })
+        );
 
         return convertArrToObj(options, 'value');
     };
@@ -106,48 +91,58 @@ class AttachOperativesFormContainer extends Component {
     };
 
     handleSubmit = () => {
-        const { CompanyUserID, serviceIDs } = this.state;
+        const { companyUserID, serviceIDs } = this.state;
         const { hierarchyType, hierarchyID, addOperative } = this.props;
 
         const postBody = {
-            CompanyUserID: CompanyUserID,
-            ServiceIDs: serviceIDs
+            companyUserID,
+            serviceIDs
         };
 
         addOperative(hierarchyType, hierarchyID, postBody);
     };
 }
 
+const { OPERATIVE } = COMPANY_USER_ROLE_TYPES;
 const mapStateToProps = (
     {
         companyAdmin: {
-            companyUsersReducer,
-            servicesReducer,
-            subscriptionsReducer,
-            operativesReducer
+            companyUsersReducer: { users, isFetching, error },
+            servicesReducer: { services },
+            subscriptionsReducer: { subscriptions },
+            operativesReducer: {
+                operatives,
+                isFetching: fetchingOps,
+                error: opsError,
+                postSuccess
+            }
         }
     },
-    { match }
+    { match: { params, url }, operativeUsers }
 ) => ({
-    users: Object.values(companyUsersReducer.users),
-    services: Object.values(servicesReducer.services),
-    subscriptions: subscriptionsReducer.subscriptions.serviceIDs || [],
-    hierarchyID: match.params.id,
-    isFetching: companyUsersReducer.isFetching,
-    isFetchingOperatives: operativesReducer.isFetching,
-    error: companyUsersReducer.error,
-    success: operativesReducer.postSuccess,
-    operativeIDs: Object.values(operativesReducer.operatives).map(
+    redirectUrl: url.replace('/add-operative', ''),
+    hierarchyID: params.id,
+    operativeUsers:
+        operativeUsers ||
+        Object.values(users).filter(({ type }) => type === OPERATIVE),
+    services: Object.values(services),
+    subscriptions: subscriptions.serviceIDs || [],
+    isFetching: isFetching || fetchingOps,
+    error: error || opsError,
+    postSuccess,
+    drawingUserIDs: Object.values(operatives).map(
         operative => operative.companyUserID
     )
 });
 
 const mapDispatchToProps = dispatch => ({
     addOperative: (hierarchyType, hierarchyID, postBody) => {
-        dispatch(addOperative(hierarchyType, hierarchyID, postBody));
+        dispatch(
+            addOperative(HIERARCHY_TYPES[hierarchyType], hierarchyID, postBody)
+        );
     },
-    fetchOperativesForDrawing: id => {
-        dispatch(fetchOperativesForDrawing(id));
+    fetchCompanyUsers: () => {
+        dispatch(fetchCompanyUsers());
     }
 });
 

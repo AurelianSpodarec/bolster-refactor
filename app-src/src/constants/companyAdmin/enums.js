@@ -4,18 +4,18 @@ export const ROLE_TYPES = {
     '2': 'Operative'
 };
 
-export const HIERARCHY_TYPE = {
-    '1': 'Site',
-    '2': 'Building',
-    '3': 'Floor',
-    '4': 'Drawing'
+export const HIERARCHY_TYPES = {
+    '1': 'site',
+    '2': 'building',
+    '3': 'floor',
+    '4': 'drawing'
 };
 
 export const HIERARCHY_IDS = {
-    Site: '1',
-    Building: '2',
-    Floor: '3',
-    Drawing: '4'
+    SITE: '1',
+    BUILDING: '2',
+    FLOOR: '3',
+    DRAWING: '4'
 };
 
 export const DOCUMENT_TYPE = {
