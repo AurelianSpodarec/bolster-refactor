@@ -47,6 +47,7 @@ const CreateCompanyAdminForm = ({
                         value={email}
                         name="email"
                         handleChange={handleInputChange}
+                        required
                     />
                 </Field>
             </div>

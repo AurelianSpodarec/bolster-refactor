@@ -11,7 +11,10 @@ const AllOperatives = () => (
         <Breadcrumb breadcrumbs={[{ text: 'All Operatives' }]} />
 
         <PageHeading title="All Operatives">
-            <Link className="button" to="/users-management/operatives/create">
+            <Link
+                className="button"
+                to="/company/users-management/operatives/create"
+            >
                 <i className="fa fa-plus" /> Add Operative
             </Link>
         </PageHeading>
