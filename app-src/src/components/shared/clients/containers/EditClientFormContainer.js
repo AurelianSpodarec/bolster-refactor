@@ -73,13 +73,13 @@ class EditClientFormContainer extends Component {
 
     handleSubmit = () => {
         const { serviceIDs } = this.state;
-        const { hierarchyID, editClient } = this.props;
+        const { editClient, clientID } = this.props;
 
         const postBody = {
             ServiceIDs: serviceIDs
         };
 
-        editClient(hierarchyID, postBody);
+        editClient(clientID, postBody);
     };
 }
 

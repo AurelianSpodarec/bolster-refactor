@@ -21,13 +21,13 @@ class DrawingClientAccessContainer extends Component {
                     clients={props.clients}
                     isFetching={props.isFetching}
                     error={props.error}
-                    handleShowModal={this.handleShowModal}
+                    handleDeleteClientModal={this.handleDeleteClientModal}
                 />
             </BlockContainer>
         );
     }
 
-    handleShowModal = clientID => {
+    handleDeleteClientModal = clientID => {
         const { showModal } = this.props;
         showModal(DELETE_CLIENT_FROM_DRAWING, { clientID });
     };
