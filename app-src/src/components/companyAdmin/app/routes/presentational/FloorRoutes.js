@@ -16,7 +16,7 @@ const FloorRoutes = ({ base = '/company/floors' }) => (
     <SwitchWith404>
         <Route exact path={`${base}/:id`} component={SingleFloorContainer} />
         <Route exact path={`${base}/create/:id`} component={AddFloor} />
-        <Route exact path={`${base}/edit/:id`} component={FloorEditContainer} />
+        <Route exact path={`${base}/:id/edit`} component={FloorEditContainer} />
         <Route
             exact
             path={`${base}/:id/add-operative`}

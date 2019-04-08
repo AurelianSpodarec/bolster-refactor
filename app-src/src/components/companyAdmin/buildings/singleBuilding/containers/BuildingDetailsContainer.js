@@ -7,18 +7,12 @@ import BuildingStats from '../presentational/BuildingStats';
 
 class BuildingDetailsContainer extends Component {
     render() {
-        const {
-            building,
-            stats,
-            isFetching,
-            error,
-            isFetchingStats
-        } = this.props;
+        const { building, stats, isFetching, error } = this.props;
 
         return (
             <BlockContainer
                 error={error}
-                isFetching={isFetching || isFetchingStats}
+                isFetching={isFetching}
                 isEmpty={!building.id || !stats.statuses}
             >
                 <BuildingStats building={building} stats={stats} />
@@ -32,9 +26,8 @@ const mapStateToProps = (
     { match }
 ) => ({
     building: buildingsReducer.buildings[match.params.id] || {},
-    isFetching: buildingsReducer.isFetching,
+    isFetching: buildingsReducer.isFetching || statsReducer.isFetching,
     error: buildingsReducer.error,
-    isFetchingStats: statsReducer.isFetching,
     stats: statsReducer.stats
 });
 

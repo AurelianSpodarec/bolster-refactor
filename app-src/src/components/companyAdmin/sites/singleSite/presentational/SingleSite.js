@@ -17,23 +17,28 @@ const SingleSite = () => (
         <div className="size-lg-12">
             <SitePageHeaderContainer />
         </div>
-        <div className="size-lg-8">
-            <SiteDetailsContainer />
+        <div className="flex-container size-lg-12">
+            <div className="flex-item size-lg-8">
+                <SiteDetailsContainer />
+            </div>
+            <div className="flex-item size-lg-4">
+                <SiteDocumentsTableContainer />
+            </div>
         </div>
-        <div className="size-lg-4">
-            <SiteDocumentsTableContainer />
-        </div>
+
         <div className="size-lg-12">
             <SiteBuildingsTableContainer />
         </div>
-        <div className="size-lg-4">
-            <SiteClientInviteContainer />
-        </div>
-        <div className="size-lg-4">
-            <SiteOperativeAddContainer />
-        </div>
-        <div className="size-lg-4">
-            <SiteCompaniesAccessTableContainer />
+        <div className="flex-container size-lg-12">
+            <div className="flex-item size-lg-4">
+                <SiteClientInviteContainer />
+            </div>
+            <div className="flex-item size-lg-4">
+                <SiteOperativeAddContainer />
+            </div>
+            <div className="flex-item size-lg-4">
+                <SiteCompaniesAccessTableContainer />
+            </div>
         </div>
     </>
 );

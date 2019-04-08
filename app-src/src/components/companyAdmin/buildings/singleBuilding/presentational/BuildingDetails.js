@@ -11,7 +11,10 @@ const BuildingDetails = ({
         {!!postcode && <p className="size-lg-12">{postcode}</p>}
 
         <div className="button-container size-lg-12">
-            <Link className="button yellow" to={`/buildings/${id}/edit`}>
+            <Link
+                className="button yellow"
+                to={`/company/buildings/${id}/edit`}
+            >
                 <i className="far fa-pencil" /> Edit Building
             </Link>
         </div>

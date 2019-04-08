@@ -8,7 +8,7 @@ const BuildingStats = ({ building, stats }) => (
         <h3 className="heading heading-3 size-lg-6">Details</h3>
         <h4 className="heading heading-3 size-lg-6">Latest Pin Histories</h4>
         <BuildingDetails building={building} />
-        <PieChart stats={stats} />
+        <PieChart stats={stats} hierarchyType="building" />
     </div>
 );
 

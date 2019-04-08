@@ -10,14 +10,20 @@ import purplePin from '_content/images/pins/purple-pin.png';
 
 import statsPieChartColours from 'constants/companyAdmin/statsPieColours';
 
-const PieChart = ({ stats }) => {
-    const pieStats = Object.entries(stats.statuses).map(([title, value]) => {
-        return {
-            title,
-            value,
-            color: statsPieChartColours[title]
-        };
-    });
+const PieChart = ({ stats, hierarchyType }) => {
+    const isStatsEmpty = Object.values(stats.statuses).every(
+        stat => stat === 0
+    );
+
+    const pieStats = !isStatsEmpty
+        ? Object.entries(stats.statuses).map(([title, value]) => {
+              return {
+                  title,
+                  value,
+                  color: statsPieChartColours[title]
+              };
+          })
+        : [{ title: 'Empty', value: 100, color: '#cecece' }];
     return (
         <div className="history size-lg-6">
             <ReactPieChart
@@ -49,9 +55,11 @@ const PieChart = ({ stats }) => {
                 </div>
             </div>
             <label className="size-lg-12">
-                {`Last Update: ${moment(stats.lastUpdatedOn).format(
-                    'DD/MM/YYYY hh:mm a'
-                )}`}
+                {isStatsEmpty
+                    ? `There are currently no pins for this ${hierarchyType}.`
+                    : `Last Update: ${moment(stats.lastUpdatedOn).format(
+                          'DD/MM/YYYY hh:mm a'
+                      )}`}
             </label>
         </div>
     );

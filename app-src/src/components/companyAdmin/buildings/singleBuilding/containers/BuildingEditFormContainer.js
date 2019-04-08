@@ -27,7 +27,7 @@ class BuildingEditFormContainer extends Component {
         const { postSuccess, history, buildingID, building } = this.props;
 
         if (postSuccess && !prevProps.postSuccess) {
-            history.push(`/buildings/${buildingID}`);
+            history.push(`/company/buildings/${buildingID}`);
         }
         if (!prevProps.building.id && !!building.id) {
             this._setFormDetails();

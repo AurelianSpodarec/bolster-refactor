@@ -20,6 +20,7 @@ class SiteEditFormContainer extends Component {
                 {...this.state}
                 handleInputChange={this.handleInputChange}
                 handleSubmit={this.handleSubmit}
+                siteID={this.props.siteID}
             />
         );
     }

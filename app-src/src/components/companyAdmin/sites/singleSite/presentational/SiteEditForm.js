@@ -13,7 +13,8 @@ const SiteEditForm = ({
     client,
     addressLine1,
     addressLine2,
-    postcode
+    postcode,
+    siteID
 }) => (
     <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
         <div className="size-lg-12">
@@ -78,7 +79,7 @@ const SiteEditForm = ({
 
         <BlockButtonWrapper>
             <button className="button green">Confirm</button>
-            <Link to="/company/sites" className="button">
+            <Link to={`/company/sites/${siteID}`} className="button">
                 Cancel
             </Link>
         </BlockButtonWrapper>

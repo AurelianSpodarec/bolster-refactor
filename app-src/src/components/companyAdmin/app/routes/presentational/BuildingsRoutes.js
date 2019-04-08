@@ -18,7 +18,7 @@ const BuildingRoutes = ({ base = '/company/buildings' }) => (
         <Route exact path={`${base}/create/:id`} component={CreateBuilding} />
         <Route
             exact
-            path={`${base}/edit/:id`}
+            path={`${base}/:id/edit`}
             component={BuildingEditContainer}
         />
         <Route
