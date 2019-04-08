@@ -10,6 +10,7 @@ import EditCompanyAdminContainer from 'components/companyAdmin/userManagement/co
 import EditOperativeContainer from 'components/companyAdmin/userManagement/operatives/editOperative/containers/EditOperativeContainer';
 import EditCompanyAdminPasswordContainer from 'components/companyAdmin/userManagement/companyAdmins/editCompanyAdminPassword/containers/EditCompanyAdminPasswordContainer';
 import EditOperativePasswordContainer from 'components/companyAdmin/userManagement/operatives/editOperativePassword/containers/EditOperativePasswordContainer';
+import ClientsAccessContainer from 'components/shared/clients/containers/ClientsAccessContainer';
 
 const UserManagementRoutes = ({ base = '/company/users-management' }) => (
     <SwitchWith404>
