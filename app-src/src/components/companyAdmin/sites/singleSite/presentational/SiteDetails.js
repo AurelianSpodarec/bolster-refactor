@@ -11,8 +11,8 @@ const SiteDetails = ({
         {!!postcode && <p className="size-lg-12">{postcode}</p>}
 
         <div className="button-container size-lg-12">
-            <Link className="button yellow" to={`/sites/${id}/edit`}>
-                <i className="far fa-pencil" /> Edit
+            <Link className="button yellow" to={`/company/sites/${id}/edit`}>
+                <i className="far fa-pencil" /> Edit site
             </Link>
         </div>
     </div>

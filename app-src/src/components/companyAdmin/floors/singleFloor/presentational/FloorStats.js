@@ -8,7 +8,7 @@ const FloorStats = ({ floor, stats }) => (
         <h3 className="heading heading-3 size-lg-6">Details</h3>
         <h4 className="heading heading-3 size-lg-6">Latest Pin Histories</h4>
         <FloorDetails floor={floor} />
-        <PieChart stats={stats} />
+        <PieChart stats={stats} hierarchyType="floor" />
     </div>
 );
 

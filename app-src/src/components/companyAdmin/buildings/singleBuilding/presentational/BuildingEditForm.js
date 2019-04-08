@@ -63,7 +63,7 @@ const BuildingEditForm = ({
 
         <BlockButtonWrapper>
             <button className="button green">Confirm</button>
-            <Link to={`/buildings/${buildingID}`} className="button">
+            <Link to={`/company/buildings/${buildingID}`} className="button">
                 Cancel
             </Link>
         </BlockButtonWrapper>
