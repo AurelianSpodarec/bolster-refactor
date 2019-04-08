@@ -1,10 +1,10 @@
 import React from 'react';
 import ModalOuterContainer from '../containers/ModalOuterContainer';
-import BlockHeadingWControls from '../../blockHeadingWControls/presentational/BlockHeadingWControls';
-import Form from '../../form/containers/Form';
-import Field from '../../form/presentational/Field';
-import TextInputContainer from '../../form/containers/TextInputContainer';
-import BlockButtonWrapper from '../../blockButtonWrappers/presentational/BlockButtonWrapper';
+import BlockHeadingWControls from 'components/shared/generic/blockHeadingWControls/presentational/BlockHeadingWControls';
+import Form from 'components/shared/generic/form/containers/Form';
+import Field from 'components/shared/generic/form/presentational/Field';
+import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
+import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 
 const EditServiceModal = ({ name, handleChange, handleSubmit, hideModal }) => (
     <ModalOuterContainer>

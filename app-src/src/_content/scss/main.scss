@@ -653,6 +653,88 @@ input {
         margin-top: 5px;
         font-size: 120%;
     }
+
+    .checkbox-list {
+        .checkbox {
+            width: 25%;
+        }
+    }
+
+    .checkbox {
+        float: left;
+        margin-bottom: 25px;
+        cursor: pointer;
+
+        input {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 20px;
+            opacity: 0;
+            margin: 0;
+            z-index: 1;
+            border: none;
+            padding: 0;
+            &:checked {
+                + label,
+                + input + label {
+                    .outer {
+                        background-color: $green;
+                    }
+
+                    .inner {
+                        left: calc(100% - 19px);
+                    }
+                }
+            }
+        }
+        label {
+            font-size: 140%;
+            @include ubuntu;
+        }
+
+        .outer {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            transform: translateY(-50%);
+            width: 33px;
+            height: 20px;
+            border-radius: 20px;
+            background-color: $button-grey;
+            transition: background-color 0.2s;
+        }
+
+        .text {
+            width: 100%;
+            padding-left: 40px;
+            padding-right: 10px;
+        }
+
+        .inner {
+            position: absolute;
+            left: 3px;
+            top: 2px;
+            width: 15px;
+            height: 15px;
+            background-color: white;
+            border-radius: 50%;
+            transition: left 0.2s;
+        }
+        &.left {
+            .outer {
+                left: 0;
+                right: auto;
+            }
+        }
+        &.grey-out {
+            opacity: 0.3;
+        }
+        .field-validation-error {
+            border-top: 2px solid #9d9d9e;
+        }
+    }
 }
 
 .field-output {

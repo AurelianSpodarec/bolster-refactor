@@ -3,12 +3,12 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 import PinHistoriesList from '../presentational/PinHistoriesList';
-import BlockHeadingWControls from 'components/shared/generic/blockHeadingWControls/presentational/BlockHeadingWControls';
+import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 
 const PinHistoriesListContainer = ({ histories, selectedHistoryId }) => {
     return (
         <>
-            <BlockHeadingWControls title="Other pin histories">
+            <BlockHeading title="Other pin histories">
                 <button className="button red">
                     <i className="fa fa-trash" />
                     Delete all
@@ -17,7 +17,7 @@ const PinHistoriesListContainer = ({ histories, selectedHistoryId }) => {
                     <i className="fa fa-plus" />
                     Add new history
                 </button>
-            </BlockHeadingWControls>
+            </BlockHeading>
             <PinHistoriesList
                 histories={histories.filter(
                     hist => hist.id !== selectedHistoryId
