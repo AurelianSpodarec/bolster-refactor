@@ -18,7 +18,7 @@ const CheckboxList = ({
                     name={name}
                     text={text}
                     disabled={disabled}
-                    checked={selectedOptions.includes(value + '')}
+                    checked={selectedOptions.includes(value + '') && !disabled}
                     handleChange={handleChange}
                 />
             ))}

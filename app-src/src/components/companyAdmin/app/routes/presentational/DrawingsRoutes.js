@@ -29,7 +29,7 @@ const DrawingsRoutes = ({ base = '/company/drawings' }) => (
         />
         <Route
             exact
-            path={`${base}/:id/client/:clientID/edit`}
+            path={`${base}/:id/edit-client/:clientID`}
             component={ClientEditContainer}
         />
         <Route

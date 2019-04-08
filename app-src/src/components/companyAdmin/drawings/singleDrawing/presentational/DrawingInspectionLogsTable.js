@@ -5,7 +5,6 @@ import Table from 'components/shared/generic/tables/presentational/Table';
 import DrawingInspectionLogsListItem from '../presentational/DrawingInspectionLogsListItem';
 
 const DrawingInspectionLogsTable = ({
-    headers,
     isFetching,
     error,
     inspectionLogs,
@@ -28,11 +27,11 @@ const DrawingInspectionLogsTable = ({
             />
         </div>
         <Table
-            headers={headers}
+            headers={['Pin ID', 'Status', 'Actions']}
             isFetching={isFetching}
             error={error}
             noData={!inspectionLogs.length}
-            noDataMessage="There are no credit logs to display."
+            noDataMessage="There are no inspection logs to display."
             withActions
         >
             {[...inspectionLogs]

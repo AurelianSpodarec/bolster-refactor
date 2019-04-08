@@ -53,6 +53,11 @@ const UserManagementRoutes = ({ base = '/company/users-management' }) => (
             path={`${base}/company-admins/:id/edit-password`}
             component={EditCompanyAdminPasswordContainer}
         />
+        <Route
+            exact
+            path={`${base}/client-access`}
+            component={ClientsAccessContainer}
+        />
     </SwitchWith404>
 );
 
