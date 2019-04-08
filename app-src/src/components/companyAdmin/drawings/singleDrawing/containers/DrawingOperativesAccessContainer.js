@@ -10,15 +10,16 @@ import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 
 class DrawingOperativesAccessContainer extends Component {
     render() {
-        const { operatives } = this.props;
-        const isAddOperativeDisabled = this.checkAvailableOperatives();
+        const { operatives, isFetching, error } = this.props;
 
         return (
             <BlockContainer>
                 <OperativesTable
                     operatives={operatives}
-                    handleShowModal={this.handleShowModal}
-                    isAddOperativeDisabled={isAddOperativeDisabled}
+                    handleDeleteOperativeModal={this.handleDeleteOperativeModal}
+                    isAddOperativeDisabled={this.checkAvailableOperatives()}
+                    isFetching={isFetching}
+                    error={error}
                 />
             </BlockContainer>
         );
@@ -43,7 +44,7 @@ class DrawingOperativesAccessContainer extends Component {
         return operatives.length === availableOperatives.length;
     };
 
-    handleShowModal = operative => {
+    handleDeleteOperativeModal = operative => {
         const { showModal } = this.props;
         showModal(DELETE_OPERATIVE, { operative });
     };
