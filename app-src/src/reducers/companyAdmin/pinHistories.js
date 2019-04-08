@@ -5,6 +5,7 @@ import {
     FETCH_PIN_HISTORIES_REQUEST,
     FETCH_PIN_HISTORIES_SUCCESS,
     FETCH_PIN_HISTORIES_FAILURE,
+    FETCH_SINGLE_PIN_SUCCESS,
     SELECT_PIN_HISTORY
 } from 'constants/actionTypes/pins';
 
@@ -42,6 +43,8 @@ function historiesReducer(state = {}, action) {
     switch (action.type) {
         case FETCH_PIN_HISTORIES_SUCCESS:
             return convertArrToObj(action.payload);
+        case FETCH_SINGLE_PIN_SUCCESS:
+            return convertArrToObj(action.payload.histories);
         default:
             return state;
     }

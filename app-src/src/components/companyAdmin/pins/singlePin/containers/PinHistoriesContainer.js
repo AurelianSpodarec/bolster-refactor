@@ -13,7 +13,7 @@ class PinHistoriesContainer extends Component {
             <BlockContainer
                 error={error}
                 isFetching={isFetching}
-                isEmpty={!pin.pin}
+                isEmpty={!pin.id}
                 contentClass="pin-single-history no-horizontal-padding"
             >
                 <PinHistoriesListContainer />

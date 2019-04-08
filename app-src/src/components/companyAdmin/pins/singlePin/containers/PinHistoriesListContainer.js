@@ -1,44 +1,38 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 import PinHistoriesList from '../presentational/PinHistoriesList';
-import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
+import PinHistoriesActions from '../presentational/PinHistoriesActions';
 
-const PinHistoriesListContainer = ({ histories, selectedHistoryId }) => {
-    return (
-        <>
-            <BlockHeading title="Other pin histories">
-                <button className="button red">
-                    <i className="fa fa-trash" />
-                    Delete all
-                </button>
-                <button className="button">
-                    <i className="fa fa-plus" />
-                    Add new history
-                </button>
-            </BlockHeading>
-            <PinHistoriesList
-                histories={histories.filter(
-                    hist => hist.id !== selectedHistoryId
-                )}
-                historyCount={histories.length}
-            />
-        </>
-    );
+class PinHistoriesListContainer extends Component {
+    render() {
+        return (
+            <>
+                <PinHistoriesActions location={this.props.location} />
+                <PinHistoriesList
+                    histories={this.props.histories.filter(
+                        hist => hist.id !== this.props.selectedHistoryId
+                    )}
+                    historyCount={this.props.histories.length}
+                />
+            </>
+        );
+    }
+}
+
+const mapStateToProps = (
+    { companyAdmin: { pinsReducer, pinHistoriesReducer } },
+    { match }
+) => {
+    const pin = pinsReducer.pins[match.params.id];
+
+    return {
+        isFetching: pinsReducer.isFetching,
+        error: pinsReducer.error,
+        histories: Object.values(pinHistoriesReducer.histories) || [],
+        selectedHistoryId: pin.latestHistoryID
+    };
 };
 
-export default withRouter(
-    connect(
-        ({ companyAdmin: { pinsReducer, pinHistoriesReducer } }, { match }) => {
-            return {
-                isFetching: pinHistoriesReducer.isFetching,
-                error: pinHistoriesReducer.error,
-                histories: Object.values(
-                    pinsReducer.pins[match.params.id].histories
-                ),
-                selectedHistoryId: pinHistoriesReducer.selectedHistoryId
-            };
-        }
-    )(PinHistoriesListContainer)
-);
+export default withRouter(connect(mapStateToProps)(PinHistoriesListContainer));
