@@ -117,7 +117,7 @@ function companiesWithPermissionsReducer(state = {}, action) {
         case FETCH_COMPANY_PERMISSIONS_SUCCESS:
             return action.payload;
         case DELETE_COMPANY_PERMISSIONS_SUCCESS:
-            return removeObjItem(action.payload, action.payload.id);
+            return state.filter(company => company.id !== action.payload.id);
         default:
             return state;
     }
