@@ -11,7 +11,7 @@ const ClientsList = ({ location, clients, handleShowModal }) =>
             </td>
             <td>
                 <Link
-                    to={`${location.pathname}/client/${client.id}/edit`}
+                    to={`${location.pathname}/edit-client/${client.id}`}
                     className="button icon-only"
                 >
                     <i className="far fa-pencil fa-fw" />

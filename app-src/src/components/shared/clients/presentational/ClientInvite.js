@@ -11,7 +11,7 @@ const ClientsInvite = ({ type, location }) => (
         </p>
         <p className="generic-text size-lg-12">
             You can view a list of all clients who have access{' '}
-            <Link to={'/clients/access'}>here</Link>.
+            <Link to={'/company/users-management/client-access'}>here</Link>.
         </p>
 
         <div className="button-container">

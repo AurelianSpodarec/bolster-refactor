@@ -37,7 +37,7 @@ const OperativesTable = ({
             <div className="button-container table">
                 <Link
                     className={`button pull-right ${
-                        isAddOperativeDisabled ? 'disabled-link' : ''
+                        isAddOperativeDisabled ? 'disabled' : ''
                     }`}
                     to={
                         isAddOperativeDisabled
@@ -45,7 +45,10 @@ const OperativesTable = ({
                             : `${location.pathname}/add-operative`
                     }
                 >
-                    <i className="fal fa-plus" /> Invite operative
+                    <i className="fal fa-plus" />{' '}
+                    {isAddOperativeDisabled
+                        ? 'Operatives full'
+                        : 'Invite operative'}
                 </Link>
             </div>
         </div>

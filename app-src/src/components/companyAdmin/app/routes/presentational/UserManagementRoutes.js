@@ -8,6 +8,7 @@ import CreateOperative from 'components/companyAdmin/userManagement/operatives/c
 import CreateCompanyAdmin from 'components/companyAdmin/userManagement/companyAdmins/createCompanyAdmin/presentational/CreateCompanyAdmin';
 import EditCompanyUserPassword from 'components/companyAdmin/userManagement/shared/editCompanyUserPassword/presentational/EditCompanyUserPassword';
 import EditCompanyUser from 'components/companyAdmin/userManagement/shared/editCompanyUser/presentational/EditCompanyUser';
+import ClientsAccessContainer from 'components/shared/clients/containers/ClientsAccessContainer';
 
 const UserManagementRoutes = ({ base = '/company/users-management' }) => (
     <SwitchWith404>
@@ -40,6 +41,11 @@ const UserManagementRoutes = ({ base = '/company/users-management' }) => (
             exact
             path={`${base}/company-admins/:id/edit-password`}
             component={EditCompanyUser}
+        />
+        <Route
+            exact
+            path={`${base}/client-access`}
+            component={ClientsAccessContainer}
         />
     </SwitchWith404>
 );

@@ -13,7 +13,6 @@ import UserManagementRoutes from './UserManagementRoutes.js';
 import PinRoutes from './PinRoutes';
 import ReportsRoutes from './ReportsRoutes';
 import ToolsRoutes from './ToolsRoutes';
-import ClientsRoutes from './ClientsRoutes';
 
 const CompanyRoutes = ({ base = '/company' }) => (
     <SwitchWith404>
@@ -30,7 +29,6 @@ const CompanyRoutes = ({ base = '/company' }) => (
         <Route path={`${base}/pins`} component={PinRoutes} />
         <Route path={`${base}/reports`} component={ReportsRoutes} />
         <Route path={`${base}/tools`} component={ToolsRoutes} />
-        <Route path={`${base}/clients`} component={ClientsRoutes} />
     </SwitchWith404>
 );
 
