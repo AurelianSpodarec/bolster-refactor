@@ -13,7 +13,7 @@ class SinglePinMapContainer extends Component {
 
         return (
             <BlockContainer
-                isEmpty={!pin.pin}
+                isEmpty={!pin.id}
                 isFetching={isFetching}
                 error={error}
             >
@@ -30,13 +30,13 @@ class SinglePinMapContainer extends Component {
 
     componentDidMount = () => {
         const { pin } = this.props;
-        if (pin.id) this._setMapCentre(pin.latitude, pin.longitude);
+        if (pin.id) this._setMapCentre(pin.location.latY, pin.location.lngX);
     };
 
     componentDidUpdate = prevProps => {
         const { pin } = this.props;
         if (!prevProps.pin.id && pin.id) {
-            this._setMapCentre(pin.latitude, pin.longitude);
+            this._setMapCentre(pin.location.latY, pin.location.lngX);
         }
     };
 
