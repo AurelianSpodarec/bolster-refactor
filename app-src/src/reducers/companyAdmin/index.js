@@ -13,6 +13,7 @@ import documentsReducer from './documents';
 import clientsReducer from './clients';
 import pinsReducer from './pins';
 import pinCustomFieldsReducer from './pinCustomFields';
+import pinAnswersReducer from './pinAnswers';
 import pinHistoriesReducer from './pinHistories';
 import operativesReducer from './operatives';
 import subscriptionsReducer from './subscriptions';
@@ -34,6 +35,7 @@ export default combineReducers({
     documentsReducer,
     clientsReducer,
     pinsReducer,
+    pinAnswersReducer,
     pinCustomFieldsReducer,
     pinHistoriesReducer,
     operativesReducer,

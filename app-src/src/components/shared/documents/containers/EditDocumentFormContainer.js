@@ -6,7 +6,6 @@ import EditDocumentForm from '../presentational/EditDocumentForm';
 import editDocument from 'actions/companyAdmin/documents/async/editDocument';
 import fetchSingleDocument from 'actions/companyAdmin/documents/async/fetchSingleDocument';
 import Loading from 'components/shared/generic/misc/presentational/Loading';
-import { isObjEmpty } from 'helpers/generic';
 
 class EditDocumentFormContainer extends Component {
     state = {
