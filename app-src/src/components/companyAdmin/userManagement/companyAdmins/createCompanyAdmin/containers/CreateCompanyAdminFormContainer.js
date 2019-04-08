@@ -53,7 +53,7 @@ class CreateCompanyAdminFormContainer extends Component {
         const { postSuccess, history } = this.props;
 
         if (postSuccess && !prevProps.postSuccess) {
-            history.push('/users-management/company-admins');
+            history.push('/company/users-management/company-admins');
         }
     };
 

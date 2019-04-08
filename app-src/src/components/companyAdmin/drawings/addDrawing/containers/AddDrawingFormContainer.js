@@ -41,8 +41,8 @@ class AddDrawingFormContainer extends Component {
 
     handleSubmit = () => {
         const { createDrawing, floorID } = this.props;
-        const { name, file } = this.state;
-        createDrawing({ name, file, floorID });
+
+        createDrawing({ ...this.state, floorID });
     };
 }
 

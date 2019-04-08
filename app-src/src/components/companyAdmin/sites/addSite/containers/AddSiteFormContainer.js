@@ -43,20 +43,8 @@ class AddSiteFormContainer extends Component {
     handleSubmit = e => {
         e.preventDefault();
 
-        const {
-            name,
-            client,
-            addressLine1,
-            addressLine2,
-            postcode
-        } = this.state;
-
         const postBody = {
-            name: name,
-            client: client,
-            addressLine1: addressLine1,
-            addressLine2: addressLine2,
-            postcode: postcode
+            ...this.state
         };
 
         this.props.createSite(postBody);

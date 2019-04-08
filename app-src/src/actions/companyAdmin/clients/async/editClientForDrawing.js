@@ -23,10 +23,10 @@ export const editClientFailure = error => ({
     error
 });
 
-export default (DrawingID, postBody) => dispatch => {
+export default (ClientID, postBody) => dispatch => {
     dispatch(editClientRequest());
     return Axios.post(
-        `${API_URL}/clientpermissions/${DrawingID}`,
+        `${API_URL}/clientpermissions/${ClientID}`,
         postBody,
         getHeaders()
     )

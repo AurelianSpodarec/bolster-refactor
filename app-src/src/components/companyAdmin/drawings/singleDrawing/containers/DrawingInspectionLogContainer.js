@@ -10,8 +10,6 @@ class DrawingInspectionLogContainer extends Component {
     };
 
     render() {
-        const tableHeaders = ['Pin ID', 'Status', 'Actions'];
-
         const { inspectionLogs, isFetching, error } = this.props;
 
         const filteredInspectionLogs = Object.values(inspectionLogs).filter(
@@ -20,7 +18,6 @@ class DrawingInspectionLogContainer extends Component {
 
         return (
             <DrawingInspectionLogsTable
-                headers={tableHeaders}
                 isFetching={isFetching}
                 error={error}
                 inspectionLogs={filteredInspectionLogs}
@@ -35,7 +32,6 @@ class DrawingInspectionLogContainer extends Component {
 
     handleFilterChange = e => {
         this.setState({
-            ...this.state,
             [e.target.name]: e.target.value
         });
     };

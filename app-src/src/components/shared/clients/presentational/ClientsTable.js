@@ -9,7 +9,7 @@ const ClientsTable = ({
     clients,
     isFetching,
     error,
-    handleShowModal
+    handleDeleteClientModal
 }) => (
     <div className="size-lg-12">
         <h1 className="heading heading-3 size-lg-12">Clients with access</h1>
@@ -21,7 +21,7 @@ const ClientsTable = ({
             noDataMessage="There are no clients to display."
         >
             <ClientsList
-                handleShowModal={handleShowModal}
+                handleDeleteClientModal={handleDeleteClientModal}
                 location={location}
                 clients={clients}
             />

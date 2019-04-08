@@ -33,7 +33,6 @@ class AddFloorFormContainer extends Component {
         e.preventDefault();
 
         this.setState({
-            ...this.state,
             [e.target.name]: e.target.value
         });
     };
@@ -42,10 +41,9 @@ class AddFloorFormContainer extends Component {
         e.preventDefault();
 
         const { createFloor, buildingID } = this.props;
-        const { name } = this.state;
 
         createFloor({
-            name,
+            ...this.state,
             buildingID
         });
     };

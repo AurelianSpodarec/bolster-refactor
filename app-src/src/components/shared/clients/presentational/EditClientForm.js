@@ -32,7 +32,7 @@ const EditClientForm = ({
                 Confirm
             </button>
             <Link
-                to={location.pathname.replace(`/client/${clientID}/edit`, '')}
+                to={location.pathname.replace(`/edit-client/${clientID}`, '')}
                 className="button red"
             >
                 <i className="fa fa-times" /> Cancel

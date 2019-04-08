@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const ClientsList = ({ location, clients, handleShowModal }) =>
+const ClientsList = ({ location, clients, handleDeleteClientModal }) =>
     clients.map(client => (
         <tr key={`${client.id} ${client.userFirstName}`}>
             <td className="small-text">
@@ -17,7 +17,7 @@ const ClientsList = ({ location, clients, handleShowModal }) =>
                     <i className="far fa-pencil fa-fw" />
                 </Link>
                 <button
-                    onClick={() => handleShowModal(client.id)}
+                    onClick={() => handleDeleteClientModal(client.id)}
                     to="#"
                     className="button icon-only"
                 >
