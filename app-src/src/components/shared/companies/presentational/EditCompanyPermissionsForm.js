@@ -16,7 +16,8 @@ const EditCompanyPermissionsForm = ({
     handleMultiSelect,
     handleSubmit,
     serviceIDs,
-    backUrl
+    backUrl,
+    type
 }) => {
     if (!isFetching) {
         // const { userFirstName, userLastName } = company;
@@ -24,10 +25,7 @@ const EditCompanyPermissionsForm = ({
             company && (
                 <>
                     <Breadcrumb
-                        breadcrumbs={[
-                            { text: 'Sites' },
-                            { text: 'Edit Company' }
-                        ]}
+                        breadcrumbs={[{ text: type }, { text: 'Edit Company' }]}
                     />
                     <BlockContainer
                         isFetching={isFetching}

@@ -28,6 +28,7 @@ class EditCompanyPermissionsOnSiteFormContainer extends Component {
                 serviceIDs={serviceIDs}
                 isFetching={isFetching}
                 backUrl={backUrl}
+                type="Sites"
             />
         );
     }

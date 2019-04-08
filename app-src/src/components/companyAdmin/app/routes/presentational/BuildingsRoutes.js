@@ -11,6 +11,7 @@ import BuildingClientAccessContainer from 'components/companyAdmin/buildings/sin
 import BuildingEditContainer from 'components/companyAdmin/buildings/singleBuilding/containers/BuildingEditContainer';
 import AttachBuildingDocument from 'components/companyAdmin/buildings/attachBuildingDocument/presentational/AttachBuildingDocument';
 import EditBuildingDocument from 'components/companyAdmin/buildings/editBuildingDocument/presentational/EditBuildingDocument';
+import EditCompanyPermissionsOnBuildingFormContainer from 'components/companyAdmin/buildings/editCompanyOnBuilding/containers/EditCompanyPermissionsOnBuildingFormContainer';
 
 const BuildingRoutes = ({ base = '/company/buildings' }) => (
     <SwitchWith404>
@@ -51,6 +52,11 @@ const BuildingRoutes = ({ base = '/company/buildings' }) => (
             exact
             path={`${base}/:id/invite-company`}
             component={InviteCompanyToBuilding}
+        />
+        <Route
+            exact
+            path={`${base}/:id/edit-company/:companyID`}
+            component={EditCompanyPermissionsOnBuildingFormContainer}
         />
     </SwitchWith404>
 );

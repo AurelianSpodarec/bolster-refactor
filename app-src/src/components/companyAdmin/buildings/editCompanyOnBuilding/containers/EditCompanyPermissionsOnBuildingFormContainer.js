@@ -8,7 +8,7 @@ import fetchCompaniesPermissions from 'actions/companyAdmin/companies/async/fetc
 import fetchAllServices from 'actions/companyAdmin/services/async/fetchAllServices';
 import EditCompanyPermissionsForm from 'components/shared/companies/presentational/EditCompanyPermissionsForm';
 
-class EditCompanyPermissionsOnDrawingFormContainer extends Component {
+class EditCompanyPermissionsOnBuildingFormContainer extends Component {
     state = {
         serviceIDs: [],
         services: []
@@ -18,7 +18,7 @@ class EditCompanyPermissionsOnDrawingFormContainer extends Component {
         const { match, company, isFetching } = this.props;
         const { services, serviceIDs } = this.state;
         const { id } = match.params;
-        const backUrl = `/company/drawings/${id}`;
+        const backUrl = `/company/sites/${id}`;
         return (
             <EditCompanyPermissionsForm
                 company={company}
@@ -28,7 +28,7 @@ class EditCompanyPermissionsOnDrawingFormContainer extends Component {
                 serviceIDs={serviceIDs}
                 isFetching={isFetching}
                 backUrl={backUrl}
-                type="Drawings"
+                type="Buildings"
             />
         );
     }
@@ -42,7 +42,7 @@ class EditCompanyPermissionsOnDrawingFormContainer extends Component {
             company
         } = this.props;
         const { id } = match.params;
-        fetchCompaniesPermissions('drawing', id).then(() => {
+        fetchCompaniesPermissions('building', id).then(() => {
             fetchAllServices();
         });
         if (services && company && !isFetching) {
@@ -143,5 +143,5 @@ export default withRouter(
     connect(
         mapStateToProps,
         mapDispatchToProps
-    )(EditCompanyPermissionsOnDrawingFormContainer)
+    )(EditCompanyPermissionsOnBuildingFormContainer)
 );
