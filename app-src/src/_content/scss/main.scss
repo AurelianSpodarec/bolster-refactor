@@ -54,6 +54,21 @@ body {
     }
 }
 
+.flex-container {
+    display: flex;
+    flex-direction: row;
+
+    .flex-item {
+        display: flex;
+        .content-container {
+            display: flex;
+        }
+        .content-area {
+            display: flex;
+        }
+    }
+}
+
 .content-container {
     padding: 0 5px;
 }

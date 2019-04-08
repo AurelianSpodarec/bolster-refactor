@@ -15,23 +15,24 @@ const GeneralOverview = () => (
             </div>
         </div>
 
-        <div className="size-lg-12">
-            <div className="size-lg-3">
+        <div className="flex-container size-lg-12">
+            <div className="flex-item size-lg-3">
                 <DrawingClientAccessContainer />
             </div>
 
-            <div className="size-lg-3">
+            <div className="flex-item size-lg-3">
                 <DrawingCompaniesAccessContainer />
             </div>
 
-            <div className="size-lg-3">
+            <div className="flex-item size-lg-3">
                 <DrawingDocumentsContainer />
             </div>
 
-            <div className="size-lg-3">
+            <div className="flex-item size-lg-3">
                 <DrawingOperativesAccessContainer />
             </div>
-
+        </div>
+        <div className="size-lg-12">
             <div className="content-container size-lg-12">
                 <Link to="#" className="button">
                     <i className="fal fa-trash-alt" /> Delete drawing

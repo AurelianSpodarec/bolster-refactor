@@ -15,29 +15,31 @@ const SingleBuilding = () => (
         <div className="size-lg-12">
             <BuildingPageHeaderContainer />
         </div>
+        <div className="flex-container size-lg-12">
+            <div className="flex-item size-lg-8">
+                <BuildingDetailsContainer />
+            </div>
 
-        <div className="size-lg-8">
-            <BuildingDetailsContainer />
+            <div className="flex-item size-lg-4">
+                <BuildingDocumentsTableContainer />
+            </div>
         </div>
-
-        <div className="size-lg-4">
-            <BuildingDocumentsTableContainer />
-        </div>
-
         <div className="size-lg-12">
             <BuildingFloorsTableContainer />
         </div>
 
-        <div className="size-lg-4">
-            <BuildingInviteClientContainer />
-        </div>
+        <div className="flex-container size-lg-12">
+            <div className="flex-item size-lg-4">
+                <BuildingInviteClientContainer />
+            </div>
 
-        <div className="size-lg-4">
-            <BuildingOperativeAddContainer />
-        </div>
+            <div className="flex-item size-lg-4">
+                <BuildingOperativeAddContainer />
+            </div>
 
-        <div className="size-lg-4">
-            <BuildingCompaniesAccessTableContainer />
+            <div className="flex-item size-lg-4">
+                <BuildingCompaniesAccessTableContainer />
+            </div>
         </div>
     </>
 );
