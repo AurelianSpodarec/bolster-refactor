@@ -38,24 +38,24 @@ class FileUploadContainer extends Component {
     componentDidMount = () => {
         this._validate();
 
-        const { value } = this.props;
-        if (Array.isArray(value)) {
-            this.setState({
-                files: value.map(source => ({
-                    source,
-                    options: { type: 'local' }
-                }))
-            });
-        } else if (value && value.length) {
-            this.setState({
-                files: [
-                    {
-                        source: value,
-                        options: { type: 'local' }
-                    }
-                ]
-            });
-        }
+        // const { value } = this.props;
+        // if (Array.isArray(value)) {
+        //     this.setState({
+        //         files: value.map(source => ({
+        //             source,
+        //             options: { type: 'local' }
+        //         }))
+        //     });
+        // } else if (value && value.length) {
+        //     this.setState({
+        //         files: [
+        //             {
+        //                 source: value,
+        //                 options: { type: 'local' }
+        //             }
+        //         ]
+        //     });
+        // }
     };
 
     componentWillUnmount = () => {
@@ -64,12 +64,13 @@ class FileUploadContainer extends Component {
     };
 
     componentDidUpdate = ({ value: prevValue }) => {
-        const { value, maxFiles = 1 } = this.props;
+        const { value } = this.props;
+        const hasArrChanged =
+            Array.isArray(value) && !areArraysEqual(value, prevValue);
+        const hasStringChanged =
+            typeof value === 'string' && value !== prevValue;
 
-        if (
-            (maxFiles > 1 && !areArraysEqual(value, prevValue)) ||
-            (maxFiles === 1 && value !== prevValue)
-        ) {
+        if (hasArrChanged || hasStringChanged) {
             this._validate(value);
         }
     };

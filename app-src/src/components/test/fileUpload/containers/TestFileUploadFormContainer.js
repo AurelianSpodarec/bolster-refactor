@@ -20,7 +20,7 @@ class TestFileUploadFormContainer extends Component {
     }
 
     handleChange = (name, s3Key) => {
-        console.log(s3Key);
+        // console.log(s3Key);
         const { [name]: file } = this.state;
         this.setState({ [name]: file === s3Key ? '' : s3Key });
     };
