@@ -6,7 +6,8 @@ const BuldingsListItem = ({
     building,
     toggleExpanded,
     isExpanded,
-    colCount
+    colCount,
+    permissions
 }) => (
     <>
         <tr
@@ -22,11 +23,7 @@ const BuldingsListItem = ({
                 )}{' '}
                 {building.name}
             </td>
-            <td>
-                {building.permissions
-                    .map(permission => permission.companyName)
-                    .join(', ')}
-            </td>
+            <td>{permissions}</td>
             <td>
                 <Link
                     className="button light-blue"

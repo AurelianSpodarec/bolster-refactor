@@ -12,15 +12,19 @@ import fetchCompaniesPermissions from 'actions/companyAdmin/companies/async/fetc
 
 class CompaniesAccessContainer extends Component {
     render() {
-        const { props } = this;
+        const {
+            companiesWithPermissions,
+            hierarchyID,
+            isFetching,
+            error
+        } = this.props;
 
         return (
-            <BlockContainer>
+            <BlockContainer error={error}>
                 <CompaniesAccessTable
-                    companies={props.companiesWithPermissions}
-                    parentId={props.hierarchyID}
-                    isFetching={props.isFetching}
-                    error={props.error}
+                    companies={companiesWithPermissions}
+                    parentId={hierarchyID}
+                    isFetching={isFetching}
                     handleShowModal={this.handleShowModal}
                 />
             </BlockContainer>
@@ -39,7 +43,6 @@ class CompaniesAccessContainer extends Component {
 
     handleShowModal = companyPermissionID => {
         const { showModal } = this.props;
-
         showModal(DELETE_COMPANY_PERMISSIONS, { companyPermissionID });
     };
 }

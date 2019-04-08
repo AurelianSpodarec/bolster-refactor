@@ -4,7 +4,13 @@ import { Link } from 'react-router-dom';
 import withToggleExpand from 'components/shared/generic/tables/hocs/withToggleExpand';
 import BuildingsTableContainer from 'components/companyAdmin/buildings/shared/containers/BuildingsTableContainer';
 
-const SitesListItem = ({ toggleExpanded, isExpanded, site, colCount }) => {
+const SitesListItem = ({
+    toggleExpanded,
+    isExpanded,
+    site,
+    colCount,
+    permissions
+}) => {
     return (
         <>
             <tr
@@ -21,11 +27,7 @@ const SitesListItem = ({ toggleExpanded, isExpanded, site, colCount }) => {
                     {site.name}
                 </td>
                 <td>{site.ownerCompanyName}</td>
-                <td>
-                    {site.permissions
-                        .map(permission => permission.companyName)
-                        .join(', ')}
-                </td>
+                <td>{permissions}</td>
                 <td>
                     <Link
                         className="button"

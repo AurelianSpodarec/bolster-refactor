@@ -3,7 +3,13 @@ import { Link } from 'react-router-dom';
 
 import DrawingTableContainer from 'components/companyAdmin/drawings/shared/containers/DrawingTableContainer';
 
-const FloorListItem = ({ floor, isExpanded, colCount, toggleExpanded }) => (
+const FloorListItem = ({
+    floor,
+    isExpanded,
+    colCount,
+    toggleExpanded,
+    permissions
+}) => (
     <>
         <tr
             onClick={toggleExpanded}
@@ -17,11 +23,7 @@ const FloorListItem = ({ floor, isExpanded, colCount, toggleExpanded }) => (
                 )}{' '}
                 {floor.name}
             </td>
-            <td>
-                {floor.permissions
-                    .map(permission => permission.companyName)
-                    .join(', ')}
-            </td>
+            <td>{permissions}</td>
             <td>
                 <Link
                     className="button light-blue"

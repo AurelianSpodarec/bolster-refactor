@@ -1,9 +1,9 @@
 import React from 'react';
 
-import DrawingListItem from './DrawingListItem';
+import DrawingListItemContainer from '../containers/DrawingListItemContainer';
 
 const DrawingList = ({ drawings }) =>
     drawings.map(drawing => (
-        <DrawingListItem key={drawing.id} drawing={drawing} />
+        <DrawingListItemContainer key={drawing.id} drawing={drawing} />
     ));
 export default DrawingList;
