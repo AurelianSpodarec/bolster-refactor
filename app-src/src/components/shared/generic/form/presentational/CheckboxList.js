@@ -9,7 +9,7 @@ const CheckboxList = ({
     name,
     error
 }) => (
-    <div className="checkbox-list">
+    <div className="checkbox-list size-lg-12">
         {options &&
             options.map(({ text, value, disabled }) => (
                 <Checkbox

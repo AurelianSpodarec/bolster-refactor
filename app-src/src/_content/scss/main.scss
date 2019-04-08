@@ -635,7 +635,11 @@ input {
 
 //form stuff
 .form-field {
-    padding: 0 7.5px;
+    padding: {
+        left: 7.5px;
+        right: 7.5px;
+        bottom: 21px;
+    }
     margin-bottom: 15px;
 
     .title {
@@ -647,6 +651,9 @@ input {
     }
 
     .error {
+        position: absolute;
+        bottom: 0;
+        left: 7.5px;
         float: left;
         width: 100%;
         color: red;
@@ -657,6 +664,10 @@ input {
     .checkbox-list {
         .checkbox {
             width: 25%;
+        }
+        .error {
+            left: 0;
+            bottom: -5px;
         }
     }
 
@@ -684,7 +695,7 @@ input {
                     }
 
                     .inner {
-                        left: calc(100% - 19px);
+                        left: calc(100% - 18px);
                     }
                 }
             }
