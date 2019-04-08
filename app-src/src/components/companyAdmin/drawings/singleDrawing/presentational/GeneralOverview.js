@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import DrawingMapGeneralContainer from '../containers/DrawingMapGeneralContainer';
 import DrawingDocumentsContainer from '../containers/DrawingDocumentsContainer';
 import DrawingClientAccessContainer from '../containers/DrawingClientAccessContainer';
-import DrawingCompanyAccessContainer from '../containers/DrawingCompanyAccessContainer';
+import DrawingCompaniesAccessContainer from '../containers/DrawingCompaniesAccessContainer';
 import DrawingOperativesAccessContainer from '../containers/DrawingOperativesAccessContainer';
 
 const GeneralOverview = () => (
@@ -21,7 +21,7 @@ const GeneralOverview = () => (
             </div>
 
             <div className="size-lg-3">
-                <DrawingCompanyAccessContainer />
+                <DrawingCompaniesAccessContainer />
             </div>
 
             <div className="size-lg-3">

@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 
 import CompaniesAccessContainer from 'components/shared/companies/containers/CompaniesAccessContainer';
 
-class DrawingCompaniesAccessTableContainer extends Component {
+class DrawingCompaniesAccessContainer extends Component {
     render() {
         return <CompaniesAccessContainer hierarchyType="drawing" />;
     }
 }
 
-export default DrawingCompaniesAccessTableContainer;
+export default DrawingCompaniesAccessContainer;
