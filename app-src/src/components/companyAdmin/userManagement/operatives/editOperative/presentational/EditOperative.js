@@ -3,24 +3,24 @@ import React from 'react';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
 import Breadcrumb from 'components/shared/generic/breadcrumb/presentational/Breadcrumb';
-import CreateOperativeFormContainer from '../containers/CreateOperativeFormContainer';
+import EditCompanyUserFormContainer from 'components/companyAdmin/userManagement/shared/editCompanyUser/containers/EditCompanyUserFormContainer';
 
-const CreateOperative = () => (
+const EditOperative = ({ operativeName }) => (
     <>
         <Breadcrumb
             breadcrumbs={[
                 {
                     text: 'All Operatives',
-                    link: '/company/users-management/operatives'
+                    link: '/company/users-management/company-admins'
                 },
-                { text: 'Create Operative' }
+                { text: `Edit ${operativeName}` }
             ]}
         />
-        <PageHeading title="Create Operative" />
+        <PageHeading title={`Edit ${operativeName}`} />
         <BlockContainer>
-            <CreateOperativeFormContainer />
+            <EditCompanyUserFormContainer />
         </BlockContainer>
     </>
 );
 
-export default CreateOperative;
+export default EditOperative;

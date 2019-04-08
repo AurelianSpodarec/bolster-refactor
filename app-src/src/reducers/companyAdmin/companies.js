@@ -18,7 +18,7 @@ import {
     DELETE_COMPANY_PERMISSIONS_FAILURE,
     UPDATE_COMPANIES_FILTERS
 } from 'constants/actionTypes/companies';
-import { updateObj, removeObjItem } from 'helpers/generic';
+import { updateObj } from 'helpers/generic';
 
 export default combineReducers({
     company: companyReducer,

@@ -93,7 +93,10 @@ const CreateCompanyAdminForm = ({
             <button className="button green">
                 <i className="fa fa-plus" /> Create Company Admin
             </button>
-            <a className="button" href="/users-management/company-admins">
+            <a
+                className="button"
+                href="/company/users-management/company-admins"
+            >
                 Cancel
             </a>
         </BlockButtonWrapper>
