@@ -48,6 +48,13 @@ export const ACCESS_TYPES = {
     100: 'Owner'
 };
 
+export const ACCESS_TYPES_VALUES = {
+    READ_ONLY: 1,
+    VIEW_ONLY: 10,
+    WRITE: 50,
+    OWNER: 100
+};
+
 export const PERMISSION_STATES = {
     PENDING: 0,
     ACCEPTED: 1,
