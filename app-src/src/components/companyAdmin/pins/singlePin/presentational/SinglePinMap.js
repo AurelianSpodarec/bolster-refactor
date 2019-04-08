@@ -3,7 +3,7 @@ import { Map, TileLayer } from 'react-leaflet';
 
 import DrawingMapPin from 'components/companyAdmin/drawings/singleDrawing/presentational/DrawingMapPin';
 
-const SinglePinMap = ({ pin: { pin }, zoom, handleClick }) => (
+const SinglePinMap = ({ pin, zoom, handleClick }) => (
     <Map
         center={[pin.location.latY, pin.location.lngX]}
         zoom={zoom}
