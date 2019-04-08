@@ -6,9 +6,9 @@ import editCompanyPermissions from 'actions/companyAdmin/companies/async/editCom
 
 import fetchCompaniesPermissions from 'actions/companyAdmin/companies/async/fetchCompanyPermissions';
 import fetchAllServices from 'actions/companyAdmin/services/async/fetchAllServices';
-import EditCompanyOnDrawingForm from '../presentational/EditCompanyOnDrawingForm';
+import EditCompanyPermissionsForm from 'components/shared/companies/presentational/EditCompanyPermissionsForm';
 
-class EditCompanyOnDrawingFormContainer extends Component {
+class EditCompanyPermissionsOnDrawingFormContainer extends Component {
     state = {
         serviceIDs: [],
         services: []
@@ -20,7 +20,7 @@ class EditCompanyOnDrawingFormContainer extends Component {
         const { id } = match.params;
         const backUrl = `/company/drawings/${id}`;
         return (
-            <EditCompanyOnDrawingForm
+            <EditCompanyPermissionsForm
                 company={company}
                 handleSubmit={this.handleSubmit}
                 handleMultiSelect={this.handleMultiselect}
@@ -34,13 +34,16 @@ class EditCompanyOnDrawingFormContainer extends Component {
     componentDidMount() {
         const {
             fetchCompaniesPermissions,
+            fetchAllServices,
             match,
             services,
             isFetching,
             company
         } = this.props;
         const { id } = match.params;
-        fetchCompaniesPermissions('drawing', id);
+        fetchCompaniesPermissions('drawing', id).then(() => {
+            fetchAllServices();
+        });
         if (services && company && !isFetching) {
             const serviceIDs = company.serviceIDs.map(id => String(id));
             this.setState({
@@ -123,10 +126,10 @@ const mapStateToProps = (
 
 const mapDispatchToProps = dispatch => ({
     fetchCompaniesPermissions: (hierarchyType, hierarchyID) => {
-        dispatch(fetchCompaniesPermissions(hierarchyType, hierarchyID));
+        return dispatch(fetchCompaniesPermissions(hierarchyType, hierarchyID));
     },
     fetchAllServices: () => {
-        dispatch(fetchAllServices);
+        return dispatch(fetchAllServices());
     },
     editCompanyPermissions: (hierarchicalLevel, hierarchicalID, body) => {
         dispatch(
@@ -139,5 +142,5 @@ export default withRouter(
     connect(
         mapStateToProps,
         mapDispatchToProps
-    )(EditCompanyOnDrawingFormContainer)
+    )(EditCompanyPermissionsOnDrawingFormContainer)
 );

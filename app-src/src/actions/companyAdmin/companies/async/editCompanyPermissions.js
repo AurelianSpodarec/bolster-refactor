@@ -26,7 +26,6 @@ export const editCompanyPermissionsFailure = error => ({
 });
 
 export default (hierarchicalLevel, hierarchicalID, postBody) => dispatch => {
-    console.log(postBody);
     dispatch(editCompanyPermissionsRequest());
 
     axios

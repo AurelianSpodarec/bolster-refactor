@@ -12,7 +12,7 @@ import AttachDrawingDocument from 'components/companyAdmin/drawings/attachDrawin
 import InviteCompanyToDrawing from 'components/companyAdmin/drawings/inviteCompanyToDrawing/presentational/InviteCompanyToDrawing';
 import EditDrawingDocument from 'components/companyAdmin/drawings/editDrawingDocument/presentational/EditDrawingDocument';
 import EditDrawingOperativeFormContainer from 'components/companyAdmin/drawings/editDrawingOperative/containers/EditDrawingOperativeFormContainer';
-import EditCompanyOnDrawingFormContainer from 'components/companyAdmin/drawings/editCompanyOnDrawing/containers/EditCompanyOnDrawingFormContainer';
+import EditCompanyPermissionsOnDrawingFormContainer from 'components/companyAdmin/drawings/editCompanyOnDrawing/containers/EditCompanyPermissionsOnDrawingFormContainer';
 
 const DrawingsRoutes = ({ base = '/company/drawings' }) => (
     <SwitchWith404>
@@ -56,7 +56,7 @@ const DrawingsRoutes = ({ base = '/company/drawings' }) => (
         <Route
             exact
             path={`${base}/:id/edit-company/:companyID`}
-            component={EditCompanyOnDrawingFormContainer}
+            component={EditCompanyPermissionsOnDrawingFormContainer}
         />
     </SwitchWith404>
 );

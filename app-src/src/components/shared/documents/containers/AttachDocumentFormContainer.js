@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 import AttachDocumentForm from '../presentational/AttachDocumentForm';
-import createDocument from 'actions/companyAdmin/documents/async/createDocument';
+import createDocument from 'actions/companyAdmin/creditLogs/documents/async/createDocument';
 
 class AttachDocumentFormContainer extends Component {
     state = {
