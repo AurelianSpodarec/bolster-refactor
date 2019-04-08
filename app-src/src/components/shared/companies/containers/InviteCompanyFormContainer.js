@@ -4,6 +4,7 @@ import { withRouter } from 'react-router-dom';
 
 import InviteCompanyForm from '../presentational/InviteCompanyForm';
 import addCompany from 'actions/companyAdmin/companies/async/addCompany';
+import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 
 class InviteCompanyFormContainer extends Component {
     state = {
@@ -14,26 +15,25 @@ class InviteCompanyFormContainer extends Component {
     render() {
         const { serviceIDs } = this.state;
         const serviceOptions = this._getServicesOptions();
+        const { error } = this.props;
 
         return (
-            <InviteCompanyForm
-                {...this.state}
-                serviceOptions={serviceOptions}
-                checkedServices={serviceIDs}
-                handleChange={this.handleChange}
-                handleMultiselectChange={this.handleMultiselectChange}
-                handleSubmit={this.handleSubmit}
-            />
+            <BlockContainer error={error}>
+                <InviteCompanyForm
+                    {...this.state}
+                    serviceOptions={serviceOptions}
+                    checkedServices={serviceIDs}
+                    handleChange={this.handleChange}
+                    handleMultiselectChange={this.handleMultiselectChange}
+                    handleSubmit={this.handleSubmit}
+                />
+            </BlockContainer>
         );
     }
 
     componentDidUpdate = prevProps => {
-        const { success, history, hierarchyType, hierarchyID } = this.props;
-
-        if (!prevProps.success && success) {
-            history.replace(`/company/${hierarchyType}s/${hierarchyID}`);
-        }
-        console.log(this._checkNoServicesAvailable());
+        const { success, history, redirectUrl } = this.props;
+        if (!prevProps.success && success) return history.replace(redirectUrl);
     };
 
     _getServicesOptions = () => {
@@ -43,14 +43,6 @@ class InviteCompanyFormContainer extends Component {
             text: name,
             disabled: !subscriptions.includes(id)
         }));
-    };
-
-    _checkNoServicesAvailable = () => {
-        return this._getServicesOptions().filter(
-            service => service.disabled === true
-        ).length === this._getServicesOptions().length
-            ? true
-            : false;
     };
 
     handleChange = ({ target: { type, value, name, checked } }) => {
@@ -70,8 +62,8 @@ class InviteCompanyFormContainer extends Component {
         const { companyCode, serviceIDs } = this.state;
         const { hierarchyType, hierarchyID, addCompany } = this.props;
         const postBody = {
-            CompanyCode: companyCode,
-            ServiceIDs: serviceIDs
+            companyCode,
+            serviceIDs
         };
 
         addCompany(hierarchyType, hierarchyID, postBody);
@@ -81,17 +73,19 @@ class InviteCompanyFormContainer extends Component {
 const mapStateToProps = (
     {
         companyAdmin: {
-            servicesReducer,
-            subscriptionsReducer,
-            companiesReducer
+            servicesReducer: { services },
+            subscriptionsReducer: { subscriptions },
+            companiesReducer: { postSuccess, error }
         }
     },
-    { match }
+    { match: { url, params } }
 ) => ({
-    services: Object.values(servicesReducer.services),
-    subscriptions: subscriptionsReducer.subscriptions.serviceIDs || [],
-    hierarchyID: match.params.id,
-    success: companiesReducer.postSuccess
+    hierarchyID: params.id,
+    redirectUrl: url.replace('/invite-company', ''),
+    services: Object.values(services),
+    subscriptions: subscriptions.serviceIDs || [],
+    success: postSuccess,
+    error
 });
 
 const mapDispatchToProps = dispatch => ({
