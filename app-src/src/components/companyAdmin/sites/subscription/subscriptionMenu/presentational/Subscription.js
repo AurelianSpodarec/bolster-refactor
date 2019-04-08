@@ -1,10 +1,10 @@
 import React from 'react';
 import Breadcrumb from 'components/shared/generic/breadcrumb/presentational/Breadcrumb';
 import SubscriptionStatusContainer from '../containers/SubscriptionStatusContainer';
-import ActiveServicesContainer from '../containers/ActiveServicesContainer';
-import PendingInvoicesContainer from '../containers/PendingInvoicesContainer';
-import SubscriptionAutoRenewalContainer from '../containers/SubscriptionAutoRenewalContainer';
-import SubscriptionCreditsContainer from '../containers/SubscriptionCreditsContainer';
+import ActiveServicesContainer from '../../activeServices/containers/ActiveServicesContainer';
+import PendingInvoicesContainer from '../../pendingInvoices/containers/PendingInvoicesContainer';
+import SubscriptionAutoRenewalContainer from '../../autoRenewal/containers/SubscriptionAutoRenewalContainer';
+import SubscriptionCreditsContainer from '../../credits/containers/SubscriptionCreditsContainer';
 
 const Subscription = () => (
     <>
