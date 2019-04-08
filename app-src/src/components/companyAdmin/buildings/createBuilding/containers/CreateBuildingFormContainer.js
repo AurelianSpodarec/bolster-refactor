@@ -36,13 +36,8 @@ class CreateBuildingFormContainer extends Component {
     handleSubmit = e => {
         e.preventDefault();
 
-        const { name, addressLine1, addressLine2, postcode } = this.state;
-
         const postBody = {
-            name: name,
-            addressLine1: addressLine1,
-            addressLine2: addressLine2,
-            postcode: postcode,
+            ...this.state,
             siteID: this.props.siteID
         };
         this.props.createBuilding(postBody);
@@ -52,7 +47,7 @@ class CreateBuildingFormContainer extends Component {
         const { postSuccess, history, updatedBuildingID } = this.props;
 
         if (postSuccess && !prevProps.postSuccess) {
-            history.push(`/buildings/${updatedBuildingID}`);
+            history.push(`/company/buildings/${updatedBuildingID}`);
         }
     };
 }

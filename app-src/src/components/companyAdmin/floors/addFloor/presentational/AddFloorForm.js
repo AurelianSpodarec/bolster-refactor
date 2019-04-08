@@ -27,7 +27,7 @@ const AddFloorForm = ({
             <button className="button green">
                 <i className="fa fa-plus" /> Add Floor
             </button>
-            <Link className="button" to={`/buildings/${buildingID}`}>
+            <Link className="button" to={`/company/buildings/${buildingID}`}>
                 Cancel
             </Link>
         </BlockButtonWrapper>
