@@ -1,50 +1,58 @@
 import React from 'react';
+import moment from 'moment';
 
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import PinImagesContainer from '../containers/PinImagesContainer';
+// import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+// import PinImagesContainer from '../containers/PinImagesContainer';
 import FieldOutput from 'components/shared/generic/fieldOutput/presentational/FieldOutput';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 
-const PinDetails = ({
-    pinHistory,
-    historyCount,
-    historyVersion,
-    error,
-    isFetching
-}) => (
-    <>
-        <BlockContainer
-            heading="Pin options"
-            error={error}
-            isFetching={isFetching}
-            isEmpty={!pinHistory.id}
-        >
-            <FieldOutput
-                title="ID"
-                description={pinHistory.id}
-                fieldClass="no-h-padding"
-            />
-            <FieldOutput
-                title="Type"
-                description={pinHistory.type}
-                fieldClass="no-h-padding"
-            />
+import { PIN_STATUS_TYPES as STATUS } from 'constants/companyAdmin/enums';
 
-            <FieldOutput
-                title="Added by"
-                description={pinHistory.addedBy}
-                fieldClass="no-h-padding"
-            />
-            <FieldOutput
-                title="Status"
-                description={pinHistory.status}
-                fieldClass="no-h-padding"
-            />
-            <div className="field-output no-h-padding size-lg-12">
+const PinDetails = ({ pinHistory, historyCount, historyVersion }) => (
+    <>
+        <FieldOutput
+            title="ID"
+            description={pinHistory.id}
+            fieldClass="no-h-padding"
+        />
+
+        <FieldOutput
+            title="History"
+            description={`${historyVersion} of ${historyCount}`}
+            fieldClass="no-h-padding"
+        />
+
+        <FieldOutput
+            title="Date created"
+            description={moment(pinHistory.createdOn).format(
+                'DD-MM-YYYY, h:mm:ss a'
+            )}
+            fieldClass="no-h-padding"
+        />
+
+        <FieldOutput
+            title="Type"
+            description={pinHistory.type}
+            fieldClass="no-h-padding"
+        />
+
+        <FieldOutput
+            title="Added by"
+            description={pinHistory.addedBy}
+            fieldClass="no-h-padding"
+        />
+
+        <FieldOutput
+            title="Status"
+            description={STATUS[pinHistory.status]}
+            fieldClass="no-h-padding"
+        />
+
+        {/* <div className="field-output no-h-padding size-lg-12">
                 <label className="title">Photo(s)</label>
                 <PinImagesContainer images={pinHistory.photoIds} />
-            </div>
-        </BlockContainer>
+            </div> */}
+
         <BlockButtonWrapper>
             <a className="button red" href="#/">
                 <i className="icon fa fa-trash" /> Delete this history
