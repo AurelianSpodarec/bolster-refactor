@@ -27,7 +27,7 @@ const HeaderProfile = ({
                 Generation Queue: {generationQueueLength}
                 <i className="icon fas fa-chevron-right" />
             </Link>
-            <Link to="/subscription" className="item">
+            <Link to="/company/subscription" className="item">
                 Manage Subscription
                 <i className="icon fas fa-chevron-right" />
             </Link>
