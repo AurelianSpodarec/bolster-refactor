@@ -2,7 +2,6 @@ import React from 'react';
 
 import BreadcrumbContainer from '../containers/BreadcrumbContainer';
 import SinglePinMapContainer from '../containers/SinglePinMapContainer';
-import PinHistoriesListContainer from '../containers/PinHistoriesListContainer';
 import PinDetailsContainer from '../containers/PinDetailsContainer';
 import PinHistoriesContainer from '../containers/PinHistoriesContainer';
 

@@ -1,14 +1,12 @@
 import React from 'react';
 
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import PinHistoriesListItemContainer from '../containers/PinHistoriesListItemContainer';
-import BlockHeadingWControls from 'components/shared/generic/blockHeadingWControls/presentational/BlockHeadingWControls';
 
 const PinHistoriesList = ({ histories, historyCount }) => {
     if (!(histories && histories.length)) {
         return (
             <p
-                className="no-data"
+                className="no-data size-lg-12"
                 style={{ paddingLeft: 15, paddingRight: 15 }}
             >
                 There are no other pin histories
