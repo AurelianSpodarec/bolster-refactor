@@ -10,7 +10,9 @@ const PinHistoriesListItem = ({
     history,
     historyCount,
     version,
-    selectHistory
+    selectHistory,
+    createdBy,
+    services
 }) => (
     <div className="item">
         <div
@@ -25,7 +27,7 @@ const PinHistoriesListItem = ({
             />
             <FieldOutput
                 title="Type"
-                description={history.type}
+                description={services[history.serviceID].name}
                 sizeClass="size-lg-4"
             />
 
@@ -37,7 +39,7 @@ const PinHistoriesListItem = ({
 
             <FieldOutput
                 title="Date added"
-                description={moment(history.createdAt).format(
+                description={moment(history.createdOn).format(
                     'DD-MM-YYYY, HH:mm a'
                 )}
                 sizeClass="size-lg-4"
@@ -45,7 +47,9 @@ const PinHistoriesListItem = ({
 
             <FieldOutput
                 title="Added by"
-                description={history.addedBy}
+                description={`${createdBy.userFirstName} ${
+                    createdBy.userLastName
+                }`}
                 sizeClass="size-lg-4"
             />
 

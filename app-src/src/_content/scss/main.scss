@@ -79,6 +79,18 @@ body {
     }
 }
 
+.small-text-table {
+    .generic-table {
+        tr {
+            td {
+                font-size: 11px;
+                padding: 7px 15px;
+                vertical-align: top;
+            }
+        }
+    }
+}
+
 .set-height-container {
     .content-area {
         height: 250px;

@@ -2,8 +2,8 @@ import React from 'react';
 
 import PinHistoriesListItemContainer from '../containers/PinHistoriesListItemContainer';
 
-const PinHistoriesList = ({ histories, historyCount }) => {
-    if (!(histories && histories.length)) {
+const PinHistoriesList = ({ otherHistories, historyCount }) => {
+    if (!(otherHistories && otherHistories.length)) {
         return (
             <p
                 className="no-data size-lg-12"
@@ -14,12 +14,11 @@ const PinHistoriesList = ({ histories, historyCount }) => {
         );
     }
 
-    return histories.map(history => (
+    return otherHistories.map(history => (
         <PinHistoriesListItemContainer
             key={history.id}
             history={history}
             historyCount={historyCount}
-            version="num"
         />
     ));
 };

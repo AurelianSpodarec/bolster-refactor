@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 const ClientsList = ({ location, clients, handleDeleteClientModal }) =>
     clients.map(client => (
         <tr key={`${client.id} ${client.userFirstName}`}>
-            <td className="small-text">
+            <td>
                 {`${client.userFirstName} ${client.userLastName} - (${
                     client.companyName
                 })`}
