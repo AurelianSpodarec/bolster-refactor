@@ -6,7 +6,7 @@ import PaidInvoicesContainer from '../../paidInvoices/containers/PaidInvoicesCon
 const Invoices = () => {
     return (
         <>
-            <Breadcrumb breadcrumbs={[{ text: '##invoices##' }]} />
+            <Breadcrumb breadcrumbs={[{ text: '##My Invoices##' }]} />
             <PendingInvoicesContainer />
             <PaidInvoicesContainer />
         </>

@@ -20,12 +20,10 @@ class PaidInvoicesContainer extends Component {
 }
 
 const mapStateToProps = ({ companyAdmin: { invoicesReducer } }) => ({
-    isFetching: invoicesReducer.isFetching,
     paidInvoices:
         Object.values(invoicesReducer.invoices).filter(
             invoice => invoice.isPaid
-        ) || [],
-    error: invoicesReducer.error
+        ) || []
 });
 
 export default connect(mapStateToProps)(PaidInvoicesContainer);
