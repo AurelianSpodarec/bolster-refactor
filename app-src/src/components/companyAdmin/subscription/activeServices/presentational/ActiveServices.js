@@ -38,7 +38,7 @@ const ActiveServices = ({ subscriptions, handleChange, services }) => {
                             <div className="size-lg-6">
                                 <span>
                                     <i className="fa fa-plus" />
-                                    {service.name}
+                                    ##{service.name}##
                                 </span>
                             </div>
                             <button
