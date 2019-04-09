@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import fetchSinglePin from 'actions/companyAdmin/pins/async/fetchSinglePin';
 import fetchPinHistories from 'actions/companyAdmin/pins/async/fetchPinHistories';
 import fetchCustomFields from 'actions/companyAdmin/pins/async/fetchCustomFields';
+import fetchCompanyUsers from 'actions/companyAdmin/userManagement/async/fetchCompanyUsers';
 import SinglePin from '../presentational/SinglePin';
 
 class SinglePinContainer extends Component {
@@ -16,12 +17,14 @@ class SinglePinContainer extends Component {
             pinId,
             fetchSinglePin,
             fetchPinHistories,
-            fetchCustomFields
+            fetchCustomFields,
+            fetchAllCompanyUsers
         } = this.props;
 
         fetchSinglePin(pinId);
         fetchPinHistories(pinId);
         fetchCustomFields(pinId);
+        fetchAllCompanyUsers();
     };
 }
 
@@ -38,6 +41,9 @@ const mapDispatchToProps = dispatch => ({
     },
     fetchCustomFields: id => {
         dispatch(fetchCustomFields(id));
+    },
+    fetchAllCompanyUsers: () => {
+        dispatch(fetchCompanyUsers());
     }
 });
 

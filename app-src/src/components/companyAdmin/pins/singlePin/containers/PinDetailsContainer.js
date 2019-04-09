@@ -48,7 +48,7 @@ class PinDetailsContainer extends Component {
 }
 
 const mapStateToProps = (
-    { companyAdmin: { pinsReducer, pinHistoriesReducer } },
+    { companyAdmin: { pinsReducer, pinHistoriesReducer, companyUsersReducer } },
     { match }
 ) => {
     const pin = pinsReducer.pins[match.params.id] || {};
@@ -59,7 +59,8 @@ const mapStateToProps = (
         error: pinHistoriesReducer.error,
         latestHistoryId: pin.latestHistoryID,
         selectedHistory: histories[selectedHistoryId] || {},
-        histories: Object.values(histories)
+        histories: Object.values(histories),
+        users: companyUsersReducer.users
     };
 };
 

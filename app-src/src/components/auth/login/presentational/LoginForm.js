@@ -25,7 +25,7 @@ const LoginForm = ({ handleSubmit, handleInputChange, email, password }) => (
                 type="password"
                 placeholder="Please enter your password"
                 handleChange={handleInputChange}
-                // required
+                required
             />
         </Field>
 
