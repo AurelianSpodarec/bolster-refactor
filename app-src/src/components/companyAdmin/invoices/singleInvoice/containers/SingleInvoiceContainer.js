@@ -1,29 +1,36 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
-import fetchAllInvoices from 'actions/companyAdmin/invoices/async/fetchAllInvoices';
-import fetchAllInvoiceItems from 'actions/companyAdmin/invoices/async/fetchAllInvoiceItems';
+import fetchSingleInvoice from 'actions/companyAdmin/invoices/async/fetchSingleInvoiceItems';
+import fetchSingleInvoiceItems from 'actions/companyAdmin/invoices/async/fetchSingleInvoice';
 
 import SingleInvoice from '../presentational/SingleInvoice';
 
 class SingleInvoiceContainer extends Component {
     render() {
-        return <SingleInvoice id={this.props.match.params} />;
+        return <SingleInvoice id={this.props.id} />;
     }
 
     componentDidMount = () => {
-        this.props.fetchInvoiceAndItems();
+        this.props.fetchInvoiceAndItems(this.props.id);
     };
 }
 
+const mapStateToProps = (_, { match }) => ({
+    id: match.params.id
+});
+
 const mapDispatchToProps = dispatch => ({
-    fetchInvoiceAndItems: () => {
-        dispatch(fetchAllInvoices());
-        dispatch(fetchAllInvoiceItems());
+    fetchInvoiceAndItems: id => {
+        dispatch(fetchSingleInvoice(id));
+        dispatch(fetchSingleInvoiceItems(id));
     }
 });
 
-export default connect(
-    null,
-    mapDispatchToProps
-)(SingleInvoiceContainer);
+export default withRouter(
+    connect(
+        mapStateToProps,
+        mapDispatchToProps
+    )(SingleInvoiceContainer)
+);
