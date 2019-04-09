@@ -9,7 +9,7 @@ import { convertArrToObj } from 'helpers/generic';
 import hideModal from 'actions/shared/generic/modals/sync/hideModal';
 import setQuestion from 'actions/superAdmin/templateBuilder/sync/setQuestion';
 
-import TemplateQuestionFormModal from '../../../../superAdmin/templateBuilder/templateBuilder/presentational/TemplateQuestionFormModal';
+import TemplateQuestionFormModal from '../presentational/TemplateQuestionFormModal';
 
 const questionTypeOptions = Object.keys(QUESTION_TYPES).map(type => ({
     text: QUESTION_TYPES[type],

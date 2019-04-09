@@ -11,7 +11,7 @@ const DocumentsList = ({ documents, location }) =>
             <td>
                 <Link
                     to={`${location.pathname}/edit-document/${document.id}`}
-                    className="button icon-only"
+                    className="button yellow icon-only"
                 >
                     <i className="far fa-pencil fa-fw" />
                 </Link>

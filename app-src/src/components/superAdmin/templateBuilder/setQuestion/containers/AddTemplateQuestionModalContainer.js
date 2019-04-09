@@ -4,7 +4,8 @@ import uuid from 'uuid/v1';
 
 import {
     QUESTION_TYPES,
-    PREREQ_TYPES
+    PREREQ_TYPES,
+    QUESTION_TYPE_VALUES
 } from 'constants/superAdmin/templateBuilder';
 import { convertArrToObj } from 'helpers/generic';
 import hideModal from 'actions/shared/generic/modals/sync/hideModal';
@@ -20,7 +21,7 @@ const questionTypeOptions = Object.keys(QUESTION_TYPES).map(type => ({
 class AddTemplateQuestionModalContainer extends Component {
     state = {
         questionTypeOptions: convertArrToObj(questionTypeOptions, 'value'),
-        questionType: '1',
+        questionType: QUESTION_TYPE_VALUES.SINGLE_LINE,
         prereqOptions: {},
         prereqUuid: '',
         prereqVal: '',
@@ -77,11 +78,12 @@ class AddTemplateQuestionModalContainer extends Component {
             questionType,
             prereqUuid,
             prereqVal,
+            charLimit,
             isHidden,
             isPrefill
         } = this.state;
 
-        const newSection = {
+        const newQuestion = {
             name,
             isRequired,
             isHidden,
@@ -92,10 +94,11 @@ class AddTemplateQuestionModalContainer extends Component {
             uuid: uuid(),
             prereqUuid,
             prereqVal,
+            charLimit,
             sort: this._getSort()
         };
 
-        setQuestion(newSection);
+        setQuestion(newQuestion);
     };
 
     _getPrereqOptions = () => {

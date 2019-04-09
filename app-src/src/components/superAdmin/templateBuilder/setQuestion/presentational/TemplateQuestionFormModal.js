@@ -9,6 +9,7 @@ import DropdownContainer from 'components/shared/generic/form/containers/Dropdow
 import Field from 'components/shared/generic/form/presentational/Field';
 import BlockButtonWrapper from '../../../../shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
+import SpecificFieldsRoute from '../containers/SpecificFieldsRoute';
 
 const AddTemplateQuestionFormModal = ({
     questionTypeOptions,
@@ -18,13 +19,13 @@ const AddTemplateQuestionFormModal = ({
     prereqVal,
     name,
     isRequired,
-    charLimit,
     isHidden,
     isPrefill,
     handleInputChange,
     hideModal,
     handleSubmit,
-    action
+    action,
+    ...otherFields
 }) => (
     <ModalOuterContainer extraClasses="w-form">
         <BlockHeading title={`${action} question`} />
@@ -66,14 +67,11 @@ const AddTemplateQuestionFormModal = ({
                     required
                 />
             </Field>
-            <Field name="Character limit">
-                <TextInputContainer
-                    name="charLimit"
-                    value={charLimit}
-                    handleChange={handleInputChange}
-                    required
-                />
-            </Field>
+            <SpecificFieldsRoute
+                questionType={questionType.value}
+                handleInputChange={handleInputChange}
+                {...otherFields}
+            />
             <Field name="Required?">
                 <input
                     name="isRequired"

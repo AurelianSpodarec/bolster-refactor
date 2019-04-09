@@ -12,14 +12,14 @@ const ClientsList = ({ location, clients, handleDeleteClientModal }) =>
             <td>
                 <Link
                     to={`${location.pathname}/edit-client/${client.id}`}
-                    className="button icon-only"
+                    className="button yellow icon-only"
                 >
                     <i className="far fa-pencil fa-fw" />
                 </Link>
                 <button
                     onClick={() => handleDeleteClientModal(client.id)}
                     to="#"
-                    className="button icon-only"
+                    className="button red icon-only"
                 >
                     <i className="far fa-trash-alt fa-fw" />
                 </button>
