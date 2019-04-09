@@ -40,7 +40,7 @@ class PinDetailsContainer extends Component {
     };
 
     componentDidUpdate = prevProps => {
-        const { latestHistoryId, selectPinHistory } = this.props;
+        const { latestHistoryId, selectPinHistory, isFetching } = this.props;
         if (!prevProps.latestHistoryId && latestHistoryId) {
             selectPinHistory(latestHistoryId);
         }
@@ -55,12 +55,14 @@ const mapStateToProps = (
     const { selectedHistoryId, histories } = pinHistoriesReducer;
 
     return {
-        isFetching: pinsReducer.isFetching || pinHistoriesReducer.isFetching,
+        isFetching:
+            pinsReducer.isFetching ||
+            pinHistoriesReducer.isFetching ||
+            companyUsersReducer.isFetching,
         error: pinHistoriesReducer.error,
         latestHistoryId: pin.latestHistoryID,
         selectedHistory: histories[selectedHistoryId] || {},
-        histories: Object.values(histories),
-        users: companyUsersReducer.users
+        histories: Object.values(histories)
     };
 };
 
