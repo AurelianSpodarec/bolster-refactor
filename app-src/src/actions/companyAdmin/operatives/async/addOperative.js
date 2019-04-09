@@ -32,8 +32,8 @@ export default (HierarchyType, HierarchyID, postBody) => dispatch => {
     )
         .then(({ data }) => dispatch(addOperativeSuccess(data)))
         .catch(({ response, message }) => {
-            response.status === 400
-                ? dispatch(setAPIFieldErrors(response.data.errors))
+            response && response.status === 400
+                ? dispatch(setAPIFieldErrors(response.data.error))
                 : dispatch(addOperativeFailure(message));
         });
 };
