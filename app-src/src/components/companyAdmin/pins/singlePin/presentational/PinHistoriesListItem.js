@@ -4,6 +4,8 @@ import moment from 'moment';
 import image from '_content/images/examples/pipe.jpg';
 import FieldOutput from 'components/shared/generic/fieldOutput/presentational/FieldOutput';
 
+import { PIN_STATUS_TYPES as STATUS } from 'constants/companyAdmin/enums';
+
 const PinHistoriesListItem = ({
     history,
     historyCount,
@@ -29,13 +31,15 @@ const PinHistoriesListItem = ({
 
             <FieldOutput
                 title="Status"
-                description={history.status}
+                description={STATUS[history.status]}
                 sizeClass="size-lg-4"
             />
 
             <FieldOutput
                 title="Date added"
-                description={moment(history.createdAt).format('DD-MM-YYYY')}
+                description={moment(history.createdAt).format(
+                    'DD-MM-YYYY, HH:mm a'
+                )}
                 sizeClass="size-lg-4"
             />
 

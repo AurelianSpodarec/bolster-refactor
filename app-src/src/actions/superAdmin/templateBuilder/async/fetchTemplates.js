@@ -8,27 +8,27 @@ import {
 import { ADMIN_API_URL } from 'config';
 import { getHeaders } from 'helpers/api';
 
-export const fetchTemplateRequest = () => ({
+export const fetchTemplatesRequest = () => ({
     type: FETCH_TEMPLATES_REQUEST
 });
 
-export const fetchTemplateSuccess = payload => ({
+export const fetchTemplatesSuccess = payload => ({
     type: FETCH_TEMPLATES_SUCCESS,
     payload
 });
 
-export const fetchTemplateFailure = error => ({
+export const fetchTemplatesFailure = error => ({
     type: FETCH_TEMPLATES_FAILURE,
     error
 });
 
 export default () => dispatch => {
-    dispatch(fetchTemplateRequest());
+    dispatch(fetchTemplatesRequest());
 
     return axios
         .get(`${ADMIN_API_URL}/templates`, getHeaders())
         .then(res =>
-            dispatch(fetchTemplateSuccess(res.data.map(item => item.template)))
+            dispatch(fetchTemplatesSuccess(res.data.map(item => item.template)))
         )
-        .catch(err => dispatch(fetchTemplateFailure(err.message)));
+        .catch(err => dispatch(fetchTemplatesFailure(err.message)));
 };

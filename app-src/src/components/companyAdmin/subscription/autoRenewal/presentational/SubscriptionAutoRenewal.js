@@ -3,9 +3,11 @@ import Form from 'components/shared/generic/form/containers/Form';
 import Dropdown from 'components/shared/generic/form/presentational/Dropdown';
 import Field from 'components/shared/generic/form/presentational/Field';
 import Checkbox from 'components/shared/generic/form/presentational/Checkbox';
+import { SUBSCRIPTION_RENEWAL_IDS } from 'constants/companyAdmin/enums';
 
 const SubscriptionAutoRenewal = ({
     isAutoRenew,
+    renewalType,
     handleAutoRenewChange,
     handleRadioChange
 }) => (
@@ -24,7 +26,10 @@ const SubscriptionAutoRenewal = ({
                     id="radio-card"
                     type="radio"
                     name="paymentMethod"
-                    value="card"
+                    value={SUBSCRIPTION_RENEWAL_IDS.CARD}
+                    checked={renewalType === SUBSCRIPTION_RENEWAL_IDS.CARD}
+                    disabled={!isAutoRenew}
+                    onChange={handleRadioChange}
                 />
                 <Dropdown options={[]} handleChange={handleRadioChange} />
             </Field>
@@ -33,7 +38,10 @@ const SubscriptionAutoRenewal = ({
                     id="radio-invoice"
                     type="radio"
                     name="paymentMethod"
-                    value="invoice"
+                    value={SUBSCRIPTION_RENEWAL_IDS.INVOICE}
+                    checked={renewalType === SUBSCRIPTION_RENEWAL_IDS.INVOICE}
+                    disabled={!isAutoRenew}
+                    onChange={handleRadioChange}
                 />
                 <br />
                 <label htmlFor="radio-invoice">
