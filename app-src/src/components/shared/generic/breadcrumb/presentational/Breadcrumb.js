@@ -8,7 +8,7 @@ const Breadcrumb = ({
     breadcrumbs = [],
     children
 }) => (
-    <div contentClass="size-lg-12">
+    <div className="size-lg-12">
         <div className={`breadcrumb ${className}`}>
             <p>
                 {breadcrumbs.map((item, i) =>

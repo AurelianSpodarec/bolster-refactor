@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactPieChart from 'react-minimal-pie-chart';
-import moment from 'moment';
 
 import greenPin from '_content/images/pins/green-pin.png';
 import redPin from '_content/images/pins/red-pin.png';
@@ -26,18 +25,16 @@ const PieChart = ({ stats, hierarchyType }) => {
         : [{ title: 'Empty', value: 100, color: '#cecece' }];
     return (
         <div className="history size-lg-6">
+            <h4 className="heading heading-3 size-lg-6">
+                Latest Pin Histories
+            </h4>
+
             {/* {isStatsEmpty ? (
                 <p className="no-data">
                     There are currently no pins for this {hierarchyType}.
                 </p>
             ) : ( */}
             <div className="size-lg-12">
-                <ReactPieChart
-                    className="size-lg-5"
-                    data={pieStats}
-                    segmentsStyle={{ transition: 'stroke .3s' }}
-                    animate
-                />
                 <div className="pin-key size-lg-6">
                     <div className="pin">
                         <img src={redPin} alt="pin" />
@@ -60,10 +57,12 @@ const PieChart = ({ stats, hierarchyType }) => {
                         <p>Other</p>
                     </div>
                 </div>
-                <label className="size-lg-12">
-                    Last Update:
-                    {moment(stats.lastUpdatedOn).format('DD/MM/YYYY hh:mm a')}
-                </label>
+                <ReactPieChart
+                    className="size-lg-5"
+                    data={pieStats}
+                    segmentsStyle={{ transition: 'stroke .3s' }}
+                    animate
+                />
             </div>
             {/* )} */}
         </div>

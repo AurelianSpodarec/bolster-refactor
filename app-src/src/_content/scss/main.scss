@@ -1269,6 +1269,13 @@ input {
         font-size: 140%;
         line-height: 1.5;
     }
+    .heading {
+        margin-top: 10px;
+
+        &:first-of-type {
+            margin-top: 0;
+        }
+    }
     .button-container {
         position: absolute;
         bottom: 0;
@@ -1281,8 +1288,8 @@ input {
         }
     }
     .pin-key {
-        padding-left: 15px;
-
+        padding-right: 15px;
+        margin-bottom: 40px;
         .pin {
             float: left;
             width: 100%;

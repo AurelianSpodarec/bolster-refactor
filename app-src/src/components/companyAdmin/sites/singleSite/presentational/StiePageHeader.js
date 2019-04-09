@@ -12,17 +12,7 @@ const SitePageHeader = ({ site }) => (
                 { text: 'Sites', link: '/company/sites' },
                 { text: site.name }
             ]}
-        >
-            <Link
-                className="button"
-                to={`/company/buildings/create/${site.id}`}
-            >
-                <i className="far fa-plus" /> Add building
-            </Link>
-            <Link className="button" to="/company/site">
-                <i className="fa fa-exchange" /> Change Ownership
-            </Link>
-        </Breadcrumb>
+        />
     </div>
 );
 export default SitePageHeader;
