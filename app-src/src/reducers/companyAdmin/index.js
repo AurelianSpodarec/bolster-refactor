@@ -1,45 +1,47 @@
 import { combineReducers } from 'redux';
 
 import buildingsReducer from './buildings';
-import companiesReducer from './companies';
-import drawingsReducer from './drawings';
-import creditLogsReducer from './creditLogs';
-import floorsReducer from './floors';
-import messagesReducer from './messages';
-import searchReducer from './search';
-import sitesReducer from './sites';
-import inspectionLogsReducer from './inspectionLogs';
-import documentsReducer from './documents';
 import clientsReducer from './clients';
-import pinsReducer from './pins';
-import pinCustomFieldsReducer from './pinCustomFields';
-import pinAnswersReducer from './pinAnswers';
-import pinHistoriesReducer from './pinHistories';
-import operativesReducer from './operatives';
-import subscriptionsReducer from './subscriptions';
+import companiesReducer from './companies';
 import companyUsersReducer from '../companyAdmin/companyUsers';
+import creditLogsReducer from './creditLogs';
+import documentsReducer from './documents';
+import drawingsReducer from './drawings';
+import floorsReducer from './floors';
+import inspectionLogsReducer from './inspectionLogs';
+import invoicesReducer from './invoices';
+import messagesReducer from './messages';
+import operativesReducer from './operatives';
+import pinAnswersReducer from './pinAnswers';
+import pinCustomFieldsReducer from './pinCustomFields';
+import pinHistoriesReducer from './pinHistories';
+import pinsReducer from './pins';
+import searchReducer from './search';
 import servicesReducer from './services';
+import sitesReducer from './sites';
 import statsReducer from './stats';
+import subscriptionsReducer from './subscriptions';
 
 export default combineReducers({
     buildingsReducer,
-    companyUsersReducer,
-    floorsReducer,
-    drawingsReducer,
-    creditLogsReducer,
-    companiesReducer,
-    messagesReducer,
-    searchReducer,
-    sitesReducer,
-    inspectionLogsReducer,
-    documentsReducer,
     clientsReducer,
-    pinsReducer,
+    companiesReducer,
+    companyUsersReducer,
+    creditLogsReducer,
+    documentsReducer,
+    drawingsReducer,
+    floorsReducer,
+    inspectionLogsReducer,
+    invoicesReducer,
+    messagesReducer,
+    operativesReducer,
     pinAnswersReducer,
     pinCustomFieldsReducer,
     pinHistoriesReducer,
-    operativesReducer,
-    subscriptionsReducer,
+    pinsReducer,
+    searchReducer,
     servicesReducer,
-    statsReducer
+    sitesReducer,
+    statsReducer,
+    subscriptionsReducer
 });
