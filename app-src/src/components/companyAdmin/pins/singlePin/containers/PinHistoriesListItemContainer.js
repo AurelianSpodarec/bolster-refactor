@@ -1,17 +1,43 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import selectPinHistory from 'actions/companyAdmin/pins/sync/selectPinHistory';
 import PinHistoriesListItem from '../presentational/PinHistoriesListItem';
 
-const PinHistoriesListItemContainer = ({ dispatch, ...otherProps }) => (
-    <PinHistoriesListItem
-        {...otherProps}
-        selectHistory={e => {
-            e.preventDefault();
-            dispatch(selectPinHistory(otherProps.history.id));
-        }}
-    />
-);
+class PinHistoriesListItemContainer extends Component {
+    render() {
+        const { history, historyCount, version, users, services } = this.props;
 
-export default connect()(PinHistoriesListItemContainer);
+        const user = users[history.createdByCompanyUserID];
+
+        return (
+            <PinHistoriesListItem
+                history={history}
+                historyCount={historyCount}
+                version={version}
+                selectHistory={this.selectHistory}
+                createdBy={user}
+                services={services}
+            />
+        );
+    }
+
+    selectHistory = e => {
+        const { dispatch, history } = this.props;
+
+        e.preventDefault();
+        dispatch(selectPinHistory(history.id));
+    };
+}
+
+const mapStateToProps = ({
+    companyAdmin: {
+        companyUsersReducer: { users },
+        servicesReducer: { services }
+    }
+}) => ({
+    users: users,
+    services: services
+});
+
+export default connect(mapStateToProps)(PinHistoriesListItemContainer);
