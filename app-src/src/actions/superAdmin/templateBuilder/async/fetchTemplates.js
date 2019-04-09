@@ -28,9 +28,7 @@ export default () => dispatch => {
     return axios
         .get(`${ADMIN_API_URL}/templates`, getHeaders())
         .then(res =>
-            dispatch(
-                fetchTemplatesSuccess(res.data.map(item => item.adminTemplate))
-            )
+            dispatch(fetchTemplatesSuccess(res.data.map(item => item.template)))
         )
         .catch(err => dispatch(fetchTemplatesFailure(err.message)));
 };
