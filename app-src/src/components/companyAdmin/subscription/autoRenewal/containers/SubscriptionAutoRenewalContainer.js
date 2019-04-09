@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 import SubscriptionAutoRenewal from '../presentational/SubscriptionAutoRenewal';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import editSubscriptionRenewalStatus from 'actions/companyAdmin/subscriptions/async/editSubscriptionRenewalStatus';
 
 class SubscriptionAutoRenewalContainer extends Component {
     render() {
@@ -35,6 +36,11 @@ const mapStateToProps = ({
 }) => ({
     isFetching,
     isAutoRenew
+});
+
+const mapDispatchToProps = dispatch => ({
+    editSubscriptionRenewalStatus: () =>
+        dispatch(editSubscriptionRenewalStatus())
 });
 
 export default connect(mapStateToProps)(SubscriptionAutoRenewalContainer);

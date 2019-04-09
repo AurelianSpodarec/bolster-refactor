@@ -7,14 +7,14 @@ const InvoiceListItem = ({ invoice }) => (
     <tr>
         <td>{moment(invoice.createdOn).format('DD/MM/YYYY')}</td>
         <td>{invoice.id}</td>
-        <td>{`£${invoice.subTotal}`}</td>
+        <td>{`£${invoice.total}`}</td>
         <td>{PAYMENT_TYPES[invoice.paymentType]}</td>
         <td>{invoice.isPaid ? 'Paid' : 'Awaiting Payment'}</td>
         <td>{!invoice.isPaid && <i className="fa fa-exclamation" />}</td>
         <td>
             <BlockButtonWrapper>
                 <button className="button">View</button>
-                <button className="button">Pay</button>
+                {!invoice.isPaid && <button className="button">Pay</button>}
             </BlockButtonWrapper>
         </td>
     </tr>
