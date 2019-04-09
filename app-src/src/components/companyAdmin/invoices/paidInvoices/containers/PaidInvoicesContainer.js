@@ -8,7 +8,7 @@ class PaidInvoicesContainer extends Component {
     render = () => {
         const { error, isFetching, paidInvoices } = this.props;
         return (
-            <BlockContainer>
+            <BlockContainer heading="Paid Invoices">
                 <InvoicesTableContainer
                     error={error}
                     isFetching={isFetching}
@@ -22,7 +22,7 @@ class PaidInvoicesContainer extends Component {
 const mapStateToProps = ({ companyAdmin: { invoicesReducer } }) => ({
     isFetching: invoicesReducer.isFetching,
     paidInvoices:
-        Object.values(invoicesReducer.invoice).filter(
+        Object.values(invoicesReducer.invoices).filter(
             invoice => invoice.isPaid
         ) || [],
     error: invoicesReducer.error
