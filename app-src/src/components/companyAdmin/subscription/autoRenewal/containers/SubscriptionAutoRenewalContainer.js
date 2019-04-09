@@ -10,14 +10,18 @@ class SubscriptionAutoRenewalContainer extends Component {
         const { isFetching, isAutoRenew } = this.props;
         return (
             <BlockContainer isFetching={isFetching}>
-                <SubscriptionAutoRenewal isAutoRenew={isAutoRenew} />
+                <SubscriptionAutoRenewal
+                    isAutoRenew={isAutoRenew}
+                    handleAutoRenewChange={this.handleAutoRenewChange}
+                />
             </BlockContainer>
         );
     }
 
-    handleAutoRenewChange = e => {
-        e.preventDefault();
-        // dispatch the auto renew action
+    handleAutoRenewChange = () => {
+        console.log('firing');
+        const { editSubscriptionRenewalStatus, isAutoRenew } = this.props;
+        editSubscriptionRenewalStatus({ renewalStatus: !isAutoRenew });
     };
 
     handleRadioChange = e => {
@@ -39,8 +43,11 @@ const mapStateToProps = ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    editSubscriptionRenewalStatus: () =>
-        dispatch(editSubscriptionRenewalStatus())
+    editSubscriptionRenewalStatus: body =>
+        dispatch(editSubscriptionRenewalStatus(body))
 });
 
-export default connect(mapStateToProps)(SubscriptionAutoRenewalContainer);
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(SubscriptionAutoRenewalContainer);
