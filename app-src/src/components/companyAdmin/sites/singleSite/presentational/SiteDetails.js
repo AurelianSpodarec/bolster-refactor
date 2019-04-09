@@ -1,7 +1,7 @@
 import React from 'react';
 
 const SiteDetails = ({
-    site: { addressLine1, addressLine2, city, postcode, id }
+    site: { addressLine1, addressLine2, city, postcode }
 }) => (
     <div className="size-lg-6">
         {!!addressLine1 && <p className="size-lg-12">{addressLine1}</p>}

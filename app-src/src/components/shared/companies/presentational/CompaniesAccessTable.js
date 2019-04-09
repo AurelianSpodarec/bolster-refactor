@@ -3,6 +3,7 @@ import { withRouter, Link } from 'react-router-dom';
 
 import Table from 'components/shared/generic/tables/presentational/Table';
 import CompaniesAccessList from './CompaniesAccessList';
+import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 
 const CompaniesAccessTable = ({
     location,
@@ -12,7 +13,14 @@ const CompaniesAccessTable = ({
     isFetching
 }) => (
     <div className="size-lg-12">
-        <h3 className="heading heading-3">Companies with access</h3>
+        <BlockHeading title="Companies Access">
+            <Link
+                className="button pull-right"
+                to={`${location.pathname}/invite-company`}
+            >
+                <i className="fa fa-plus" /> Invite
+            </Link>
+        </BlockHeading>
         <Table
             headers={['Name', '', 'Actions']}
             isFetching={isFetching}
@@ -26,14 +34,6 @@ const CompaniesAccessTable = ({
                 parentId={parentId}
             />
         </Table>
-        <div className="button-container table">
-            <Link
-                className="button pull-right"
-                to={`${location.pathname}/invite-company`}
-            >
-                <i className="fa fa-plus" /> Invite company
-            </Link>
-        </div>
     </div>
 );
 

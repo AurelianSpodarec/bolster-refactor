@@ -16,11 +16,11 @@ const GeneralOverview = () => (
         </div>
 
         <div className="flex-container size-lg-12">
-            <div className="flex-item size-lg-3">
+            <div className="flex-item small-text-table size-lg-3">
                 <DrawingClientAccessContainer />
             </div>
 
-            <div className="flex-item size-lg-3">
+            <div className="flex-item small-text-table size-lg-3">
                 <DrawingCompaniesAccessContainer />
             </div>
 
@@ -28,7 +28,7 @@ const GeneralOverview = () => (
                 <DrawingDocumentsContainer />
             </div>
 
-            <div className="flex-item size-lg-3">
+            <div className="flex-item small-text-table size-lg-3">
                 <DrawingOperativesAccessContainer />
             </div>
         </div>

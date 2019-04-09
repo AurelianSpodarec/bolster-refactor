@@ -1,14 +1,10 @@
 import React from 'react';
 
-import InvoiceListItemContainer from '../containers/InvoiceListItemContainer';
+import InvoiceListItem from '../presentational/InvoiceListItem';
 
-const InvoiceList = ({ invoices, colCount }) =>
+const InvoiceList = ({ invoices }) =>
     invoices.map(invoice => (
-        <InvoiceListItemContainer
-            key={invoice.id}
-            invoice={invoice}
-            colCount={colCount}
-        />
+        <InvoiceListItem key={invoice.id} invoice={invoice} />
     ));
 
 export default InvoiceList;
