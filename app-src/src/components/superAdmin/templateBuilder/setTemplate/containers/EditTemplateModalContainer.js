@@ -4,19 +4,37 @@ import { withRouter } from 'react-router-dom';
 
 import setTemplate from 'actions/superAdmin/templateBuilder/sync/setTemplate';
 import hideModal from 'actions/shared/generic/modals/sync/hideModal';
+import fetchAllServices from 'actions/superAdmin/services/async/fetchAllServices';
+import { convertEnumToDropdownOptions, convertArrToObj } from 'helpers/generic';
+import { LABEL_TYPES } from 'constants/companyAdmin/enums';
 
 import TemplateFormModal from '../presentational/TemplateFormModal';
 
-class TemplateFormContainer extends React.Component {
+class EditTemplateFormContainer extends React.Component {
     state = {
-        name: ''
+        name: '',
+        serviceID: '',
+        labelType: '',
+        labelTypeOptions: convertEnumToDropdownOptions(LABEL_TYPES)
     };
 
     render() {
+        const {
+            serviceID,
+            labelType,
+            labelTypeOptions,
+            ...otherFields
+        } = this.state;
+        const serviceOptions = this._getSeviceOptions();
+
         return (
             <TemplateFormModal
                 action="Edit"
-                name={this.state.name}
+                {...otherFields}
+                selectedLabelType={labelTypeOptions[labelType]}
+                labelTypeOptions={Object.values(labelTypeOptions)}
+                serviceOptions={Object.values(serviceOptions)}
+                selectedService={serviceOptions[serviceID]}
                 handleChange={this.handleChange}
                 handleSubmit={this.handleSubmit}
                 handleCancel={this.handleCancel}
@@ -26,10 +44,11 @@ class TemplateFormContainer extends React.Component {
 
     componentDidMount = () => {
         const {
-            template: { name }
+            template: { name, serviceID, labelType },
+            fetchData
         } = this.props;
-
-        this.setState({ name });
+        fetchData();
+        this.setState({ name, serviceID, labelType });
     };
 
     handleChange = e => {
@@ -45,15 +64,33 @@ class TemplateFormContainer extends React.Component {
     handleSubmit = e => {
         e.preventDefault();
         const { template, setTemplate } = this.props;
-        const { name } = this.state;
+        const { name, serviceID, labelType } = this.state;
         const updatedTemplate = {
             ...template,
-            name
+            name,
+            serviceID,
+            labelType
         };
 
         setTemplate(updatedTemplate);
     };
+
+    _getSeviceOptions = () => {
+        const { services } = this.props;
+        const options = services.map(({ id, name }) => ({
+            value: id,
+            text: name
+        }));
+
+        return convertArrToObj(options, 'value');
+    };
 }
+
+const mapStateToProps = ({
+    superAdmin: {
+        servicesReducer: { services }
+    }
+}) => ({ services: Object.values(services) });
 
 const mapDispatchToProps = dispatch => ({
     hideModal: () => {
@@ -62,12 +99,15 @@ const mapDispatchToProps = dispatch => ({
     setTemplate: template => {
         dispatch(setTemplate(template));
         dispatch(hideModal());
+    },
+    fetchData: () => {
+        dispatch(fetchAllServices());
     }
 });
 
-export default withRouter(
-    connect(
-        null,
-        mapDispatchToProps
-    )(TemplateFormContainer)
-);
+const WithConnect = connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(EditTemplateFormContainer);
+
+export default withRouter(WithConnect);
