@@ -2,13 +2,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import PendingInvoices from '../presentational/PendingInvoices';
-import fetchAllInvoices from 'actions/companyAdmin/invoices/async/fetchAllInvoices';
-import fetchAllInvoiceItems from 'actions/companyAdmin/invoices/async/fetchAllInvoiceItems';
 
 class PendingInvoicesContainer extends Component {
     render = () => <PendingInvoices invoices={this.props.invoices} />;
 
-    componentDidMount = () => this.props.fetchInvoiceData();
+    PendingInvoices = invoices => invoices.filter(({ isPaid }) => !isPaid);
 }
 
 const mapStateToProps = ({
@@ -21,14 +19,4 @@ const mapStateToProps = ({
     isFetching
 });
 
-const mapDispatchToProps = dispatch => ({
-    fetchInvoiceData: () => {
-        dispatch(fetchAllInvoices());
-        dispatch(fetchAllInvoiceItems());
-    }
-});
-
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(PendingInvoicesContainer);
+export default connect(mapStateToProps)(PendingInvoicesContainer);
