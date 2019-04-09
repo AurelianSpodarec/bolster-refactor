@@ -34,7 +34,7 @@ const GeneralOverview = () => (
         </div>
         <div className="size-lg-12">
             <div className="content-container size-lg-12">
-                <Link to="#" className="button">
+                <Link to="#" className="button red">
                     <i className="fal fa-trash-alt" /> Delete drawing
                 </Link>
             </div>
