@@ -638,7 +638,6 @@ input {
     padding: {
         left: 7.5px;
         right: 7.5px;
-        bottom: 21px;
     }
     margin-bottom: 15px;
 
@@ -651,9 +650,6 @@ input {
     }
 
     .error {
-        position: absolute;
-        bottom: 0;
-        left: 7.5px;
         float: left;
         width: 100%;
         color: red;

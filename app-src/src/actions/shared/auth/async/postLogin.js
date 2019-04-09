@@ -1,8 +1,7 @@
 import axios from 'axios';
 
 import { AUTH_API_URL } from 'config/index';
-import { getHeaders } from 'helpers/api';
-import setAPIFieldErrors from 'actions/shared/generic/fieldErrors/sync/setAPIFieldErrors';
+import { getHeaders, handleErrors } from 'helpers/api';
 import {
     POST_LOGIN_REQUEST,
     POST_LOGIN_SUCCESS,
@@ -34,9 +33,7 @@ export default (email, password) => dispatch => {
         })
         .then(res => dispatch(postLoginSuccess(res.data)))
         .catch(err => {
-            dispatch(postLoginFailure(err.message));
-
-            if (err.response.status === 400)
-                dispatch(setAPIFieldErrors(err.response.data.errors));
+            const errorAction = handleErrors(postLoginFailure);
+            dispatch(errorAction(err));
         });
 };
