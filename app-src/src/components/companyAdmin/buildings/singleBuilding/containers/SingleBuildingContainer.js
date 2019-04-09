@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import fetchSingleBuilding from 'actions/companyAdmin/buildings/async/fetchSingleBuilding';
-import fetchDocuments from 'actions/companyAdmin/documents/async/fetchDocuments';
+import fetchDocuments from 'actions/companyAdmin/creditLogs/documents/async/fetchDocuments';
 import fetchAllCompanies from 'actions/companyAdmin/companies/async/fetchAllCompanies';
 import fetchAllFloors from 'actions/companyAdmin/floors/async/fetchAllFloors';
 import fetchAllDrawings from 'actions/companyAdmin/drawings/async/fetchAllDrawings';
