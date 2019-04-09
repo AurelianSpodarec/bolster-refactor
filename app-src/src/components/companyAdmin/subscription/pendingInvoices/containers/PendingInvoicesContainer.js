@@ -5,18 +5,14 @@ import PendingInvoices from '../presentational/PendingInvoices';
 
 class PendingInvoicesContainer extends Component {
     render = () => <PendingInvoices invoices={this.props.invoices} />;
-
-    PendingInvoices = invoices => invoices.filter(({ isPaid }) => !isPaid);
 }
 
 const mapStateToProps = ({
     companyAdmin: {
-        invoicesReducer: { invoices, error, isFetching }
+        invoicesReducer: { invoices }
     }
 }) => ({
-    invoices: Object.values(invoices).filter(invoice => !invoice.isPaid),
-    error,
-    isFetching
+    invoices: Object.values(invoices).filter(invoice => !invoice.isPaid)
 });
 
 export default connect(mapStateToProps)(PendingInvoicesContainer);
