@@ -17,7 +17,7 @@ const OperativesTable = ({
     const { id } = match.params;
     return (
         <div className="size-lg-12">
-            <BlockHeading title="Operatives Access">
+            <BlockHeading title="Operative Access">
                 <Link
                     className={`button pull-right ${
                         isAddOperativeDisabled ? 'disabled' : ''
