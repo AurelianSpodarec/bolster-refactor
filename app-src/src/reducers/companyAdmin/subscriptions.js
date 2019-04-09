@@ -2,7 +2,8 @@ import { combineReducers } from 'redux';
 import {
     FETCH_ALL_SUBSCRIPTIONS_REQUEST,
     FETCH_ALL_SUBSCRIPTIONS_SUCCESS,
-    FETCH_ALL_SUBSCRIPTIONS_FAILURE
+    FETCH_ALL_SUBSCRIPTIONS_FAILURE,
+    EDIT_SERVICE_RENEWAL_STATUS_FAILURE
 } from 'constants/actionTypes/subscriptions';
 
 export default combineReducers({
@@ -28,6 +29,7 @@ function errorReducer(state = null, action) {
         case FETCH_ALL_SUBSCRIPTIONS_REQUEST:
             return null;
         case FETCH_ALL_SUBSCRIPTIONS_FAILURE:
+        case EDIT_SERVICE_RENEWAL_STATUS_FAILURE:
             return action.error;
         default:
             return state;

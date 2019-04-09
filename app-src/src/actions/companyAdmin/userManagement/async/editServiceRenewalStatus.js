@@ -2,8 +2,10 @@ import {
     EDIT_SERVICE_RENEWAL_STATUS_REQUEST,
     EDIT_SERVICE_RENEWAL_STATUS_SUCCESS,
     EDIT_SERVICE_RENEWAL_STATUS_FAILURE
-} from 'constants/actionTypes/services';
+} from 'constants/actionTypes/subscriptions';
 import axios from 'axios';
+import { API_URL } from 'config';
+import { getHeaders, handleErrors } from 'helpers/api';
 
 export const editServiceRenewalStatusRequest = () => ({
     type: EDIT_SERVICE_RENEWAL_STATUS_REQUEST
@@ -19,8 +21,18 @@ export const editServiceRenewalStatusFailure = error => ({
     error
 });
 
-export default (postbody => dispatch => ({
+export default postBody => dispatch => {
     dispatch(editServiceRenewalStatusRequest());
 
     axios
-}));
+        .post(
+            `${API_URL}/company/subscriptions/service/renewal`,
+            postBody,
+            getHeaders()
+        )
+        .then(({ data }) => dispatch(editServiceRenewalStatusSuccess(data)))
+        .catch(err => {
+            const errorAction = handleErrors(editServiceRenewalStatusFailure);
+            dispatch(errorAction(err));
+        });
+};
