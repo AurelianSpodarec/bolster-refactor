@@ -12,6 +12,7 @@ const InvoiceItemsTable = ({
     error
 }) => (
     <Table
+        withActions
         headers={headers}
         isFetching={isFetching}
         error={error}
