@@ -54,7 +54,9 @@ const mapStateToProps = (
     hierarchyID: match.params.id,
     isFetching: companiesReducer.isFetching,
     error: companiesReducer.error,
-    companiesWithPermissions: companiesReducer.companiesWithPermissions
+    companiesWithPermissions: Object.values(
+        companiesReducer.companiesWithPermissions
+    )
 });
 
 const mapDispatchToProps = dispatch => ({

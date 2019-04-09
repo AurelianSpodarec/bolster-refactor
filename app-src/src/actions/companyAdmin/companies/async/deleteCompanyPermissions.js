@@ -13,9 +13,10 @@ export const deleteCompanyRequest = () => ({
     type: DELETE_COMPANY_PERMISSIONS_REQUEST
 });
 
-export const deleteCompanySuccess = payload => ({
+export const deleteCompanySuccess = (payload, companyPermissionID) => ({
     type: DELETE_COMPANY_PERMISSIONS_SUCCESS,
-    payload
+    payload,
+    id: companyPermissionID
 });
 
 export const deleteCompanyFailure = error => ({
@@ -32,7 +33,9 @@ export default companyPermissionID => dispatch => {
             null,
             getHeaders()
         )
-        .then(({ data }) => dispatch(deleteCompanySuccess(data)))
+        .then(({ data }) =>
+            dispatch(deleteCompanySuccess(data, companyPermissionID))
+        )
         .catch(err => {
             dispatch(deleteCompanyFailure(err.message));
             if (err.response.status === 400) {
