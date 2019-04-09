@@ -7,7 +7,7 @@ import setTabs from 'actions/shared/generic/tabs/sync/setTabs';
 import SingleDrawing from '../presentational/SingleDrawing';
 
 import fetchSingleDrawing from 'actions/companyAdmin/drawings/async/fetchSingleDrawing';
-import fetchDocuments from 'actions/companyAdmin/documents/async/fetchDocuments';
+import fetchDocuments from 'actions/companyAdmin/creditLogs/documents/async/fetchDocuments';
 import fetchAllCompanies from 'actions/companyAdmin/companies/async/fetchAllCompanies';
 import fetchPins from 'actions/companyAdmin/pins/async/fetchPins';
 import fetchClientsForDrawing from 'actions/companyAdmin/clients/async/fetchClientsForDrawing';

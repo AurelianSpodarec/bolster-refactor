@@ -24,7 +24,7 @@ export const companyFetchAllServicesFailure = error => ({
 export default () => dispatch => {
     dispatch(companyFetchAllServicesRequest());
 
-    axios
+    return axios
         .get(`${API_URL}/services`, getHeaders())
         .then(res => dispatch(companyFetchAllServicesSuccess(res.data)))
         .catch(err => dispatch(companyFetchAllServicesFailure(err.message)));
