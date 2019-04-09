@@ -16,6 +16,7 @@ import operativesReducer from './operatives';
 import pinAnswersReducer from './pinAnswers';
 import pinCustomFieldsReducer from './pinCustomFields';
 import pinHistoriesReducer from './pinHistories';
+import templatesReducer from './templates';
 import pinsReducer from './pins';
 import searchReducer from './search';
 import servicesReducer from './services';
@@ -42,6 +43,7 @@ export default combineReducers({
     pinAnswersReducer,
     pinCustomFieldsReducer,
     pinHistoriesReducer,
+    templatesReducer,
     pinsReducer,
     searchReducer,
     servicesReducer,
