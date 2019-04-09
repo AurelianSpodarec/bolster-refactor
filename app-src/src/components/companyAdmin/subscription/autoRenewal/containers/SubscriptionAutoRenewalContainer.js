@@ -26,8 +26,12 @@ class SubscriptionAutoRenewalContainer extends Component {
     };
 
     handleRadioChange = ({ target: { value } }) => {
+        const { editSubscriptionRenewalStatus, isAutoRenew } = this.props;
         // switch between pay using card, pay by invoice
-        editSubscriptionRenewalStatus({});
+        editSubscriptionRenewalStatus({
+            isAutoRenew,
+            renewPaymentType: value
+        });
     };
 }
 

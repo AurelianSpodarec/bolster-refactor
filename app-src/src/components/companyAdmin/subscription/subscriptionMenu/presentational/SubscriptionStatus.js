@@ -11,7 +11,7 @@ const SubscriptionStatus = ({ subscriptions, active, endOn }) => (
         <p>
             {subscriptions.isAutoRenew
                 ? `Your subscription is set to auto-renew on ${endOn} at a
-            cost of ##£3000##`
+            cost of £${subscriptions.renewalPrice}`
                 : `Your subscription is not set to auto-renew and will end on ${endOn}`}
         </p>
     </div>
