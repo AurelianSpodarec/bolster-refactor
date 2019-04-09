@@ -3,23 +3,19 @@ import { connect } from 'react-redux';
 
 import { isObjEmpty } from 'helpers/generic';
 import ActiveServices from 'components/companyAdmin/subscription/activeServices/presentational/ActiveServices';
-import editServiceRenewalStatus from 'actions/companyAdmin/userManagement/async/editServiceRenewalStatus';
+import editServiceRenewalStatus from 'actions/companyAdmin/subscriptions/async/editServiceRenewalStatus';
 
 class ActiveServicesContainer extends Component {
     state = {
         subscriptions: []
     };
 
-    render() {
-        const { subscriptions } = this.state;
-
-        return (
-            <ActiveServices
-                subscriptions={subscriptions}
-                handleChange={this.handleChange}
-            />
-        );
-    }
+    render = () => (
+        <ActiveServices
+            subscriptions={this.state.subscriptions}
+            handleChange={this.handleChange}
+        />
+    );
 
     componentDidMount = () => {};
 
