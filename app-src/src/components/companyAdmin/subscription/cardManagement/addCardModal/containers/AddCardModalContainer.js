@@ -24,6 +24,7 @@ class AddCardModalContainer extends Component {
                 e.preventDefault();
                 this.props.hideModal();
             }}
+            validateMaxLength={this.validateMaxLength}
         />
     );
 
@@ -50,9 +51,13 @@ class AddCardModalContainer extends Component {
             expiryYear,
             CV2
         };
-        const { addCard } = this.props;
+        const { addCard, hideModal } = this.props;
         addCard(postBody);
+        hideModal();
     };
+
+    validateMaxLength = num => value =>
+        value.length <= num ? '' : `Maximum length for this field is ${num}`;
 }
 
 const mapDispatchToProps = dispatch => ({

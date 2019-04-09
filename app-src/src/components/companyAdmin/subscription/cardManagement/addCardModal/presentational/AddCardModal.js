@@ -15,7 +15,8 @@ const AddCardModal = ({
     cardNumber,
     expiryMonth,
     expiryYear,
-    CV2
+    CV2,
+    validateMaxLength
 }) => {
     return (
         <ModalOuterContainer>
@@ -63,9 +64,10 @@ const AddCardModal = ({
                             handleChange={handleChange}
                             name={'expiryMonth'}
                             value={expiryMonth}
-                            type="text"
+                            type="number"
                             required
                             placeholder="11"
+                            validate={validateMaxLength(2)}
                         />
                     </Field>
                 </div>
@@ -75,9 +77,10 @@ const AddCardModal = ({
                             handleChange={handleChange}
                             name={'expiryYear'}
                             value={expiryYear}
-                            type="text"
+                            type="number"
                             required
                             placeholder="19"
+                            validate={validateMaxLength(4)}
                         />
                     </Field>
                 </div>
@@ -87,9 +90,10 @@ const AddCardModal = ({
                             handleChange={handleChange}
                             name={'CV2'}
                             value={CV2}
-                            type="text"
+                            type="number"
                             required
                             placeholder="777"
+                            validate={value => validateMaxLength(3)(value)}
                         />
                     </Field>
                 </div>
