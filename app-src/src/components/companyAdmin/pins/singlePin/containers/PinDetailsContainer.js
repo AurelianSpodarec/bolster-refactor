@@ -48,14 +48,17 @@ class PinDetailsContainer extends Component {
 }
 
 const mapStateToProps = (
-    { companyAdmin: { pinsReducer, pinHistoriesReducer } },
+    { companyAdmin: { pinsReducer, pinHistoriesReducer, companyUsersReducer } },
     { match }
 ) => {
     const pin = pinsReducer.pins[match.params.id] || {};
     const { selectedHistoryId, histories } = pinHistoriesReducer;
 
     return {
-        isFetching: pinsReducer.isFetching || pinHistoriesReducer.isFetching,
+        isFetching:
+            pinsReducer.isFetching ||
+            pinHistoriesReducer.isFetching ||
+            companyUsersReducer.isFetching,
         error: pinHistoriesReducer.error,
         latestHistoryId: pin.latestHistoryID,
         selectedHistory: histories[selectedHistoryId] || {},

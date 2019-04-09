@@ -1,4 +1,5 @@
 import jwtDecode from 'jwt-decode';
+import setAPIFieldErrors from 'actions/shared/generic/fieldErrors/sync/setAPIFieldErrors';
 
 // getAuthHeader  returns an authorization header with jwt token.
 export function getAuthHeader() {
@@ -60,5 +61,16 @@ export function formatJWTData({
         companyID: JSON.parse(CompanyID),
         companyUserID: JSON.parse(CompanyUserID),
         companyUserType: JSON.parse(CompanyUserType)
+    };
+}
+
+export function handleErrors(func) {
+    return function({ response, message }) {
+        if (response && response.status === 400)
+            return setAPIFieldErrors(response.data.errors);
+        // if (response && response.status === 401)
+        // redirect to login
+
+        return func(message);
     };
 }

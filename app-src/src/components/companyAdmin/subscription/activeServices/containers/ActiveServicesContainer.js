@@ -3,22 +3,19 @@ import { connect } from 'react-redux';
 
 import { isObjEmpty } from 'helpers/generic';
 import ActiveServices from 'components/companyAdmin/subscription/activeServices/presentational/ActiveServices';
+import editServiceRenewalStatus from 'actions/companyAdmin/subscriptions/async/editServiceRenewalStatus';
 
 class ActiveServicesContainer extends Component {
     state = {
         subscriptions: []
     };
 
-    render() {
-        const { subscriptions } = this.state;
-
-        return (
-            <ActiveServices
-                subscriptions={subscriptions}
-                handleChange={this.handleChange}
-            />
-        );
-    }
+    render = () => (
+        <ActiveServices
+            subscriptions={this.state.subscriptions}
+            handleChange={this.handleChange}
+        />
+    );
 
     componentDidMount = () => {};
 
@@ -39,7 +36,22 @@ class ActiveServicesContainer extends Component {
             : [];
     };
 
-    handleChange = () => {};
+    handleChange = ({ target: { value } }) => {
+        const { editServiceRenewalStatus } = this.props;
+        const updatedServices = this.state.subscriptions.reduce((acc, curr) => {
+            if (curr.serviceID === +value) {
+                acc.push({ ...curr, isAutoRenew: !curr.isAutoRenew });
+                const postBody = {
+                    companySubscriptionServiceID: curr.id,
+                    renewalStatus: !curr.isAutoRenew
+                };
+                editServiceRenewalStatus(postBody);
+            } else acc.push(curr);
+            return acc;
+        }, []);
+
+        this.setState({ subscriptions: updatedServices });
+    };
 }
 
 const mapStateToProps = ({
@@ -54,7 +66,10 @@ const mapStateToProps = ({
     isFetching
 });
 
-const mapDispatchToProps = {};
+const mapDispatchToProps = dispatch => ({
+    editServiceRenewalStatus: postBody =>
+        dispatch(editServiceRenewalStatus(postBody))
+});
 
 export default connect(
     mapStateToProps,

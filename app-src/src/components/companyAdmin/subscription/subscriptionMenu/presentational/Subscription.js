@@ -2,7 +2,7 @@ import React from 'react';
 import Breadcrumb from 'components/shared/generic/breadcrumb/presentational/Breadcrumb';
 import SubscriptionStatusContainer from '../containers/SubscriptionStatusContainer';
 import ActiveServicesContainer from '../../activeServices/containers/ActiveServicesContainer';
-import PendingInvoicesContainer from '../../pendingInvoices/containers/PendingInvoicesContainer';
+import PendingInvoicesContainer from 'components/companyAdmin/invoices/pendingInvoices/containers/PendingInvoicesContainer';
 import SubscriptionAutoRenewalContainer from '../../autoRenewal/containers/SubscriptionAutoRenewalContainer';
 import SubscriptionCreditsContainer from '../../credits/containers/SubscriptionCreditsContainer';
 

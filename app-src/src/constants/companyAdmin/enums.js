@@ -89,3 +89,13 @@ export const PIN_STATUS_COLOURS = {
     40: 'red',
     50: 'purple'
 };
+
+export const PAYMENT_IDS = {
+    CARD: 1,
+    INVOICE: 2
+};
+
+export const PAYMENT_TYPES = {
+    1: 'By Card',
+    2: 'By Invoice'
+};
