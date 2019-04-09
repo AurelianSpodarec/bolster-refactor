@@ -13,7 +13,7 @@ const AllCompanyAdminsListItem = ({ user, showDeleteModal }) => (
                     className="button red"
                     onClick={() => showDeleteModal(user.id)}
                 >
-                    <i className="fa fa-trash" />
+                    <i className="fa fa-trash-alt" />
                     Delete User
                 </button>
                 <Link

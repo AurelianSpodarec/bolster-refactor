@@ -61,7 +61,7 @@ const PinDetails = ({
 
         <BlockButtonWrapper>
             <a className="button red" href="#/">
-                <i className="icon fa fa-trash" /> Delete this history
+                <i className="icon fa fa-trash-alt" /> Delete this history
             </a>
             <a className="button" href="#/">
                 Edit this history

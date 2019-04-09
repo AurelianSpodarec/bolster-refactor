@@ -6,7 +6,7 @@ import BlockHeading from 'components/shared/generic/blockHeading/presentational/
 const PinHistoriesActions = ({ location }) => (
     <BlockHeading title="Other pin histories">
         <button className="button red">
-            <i className="fa fa-trash" />
+            <i className="fa fa-trash-alt" />
             Delete all
         </button>
 

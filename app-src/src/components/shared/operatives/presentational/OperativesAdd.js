@@ -15,7 +15,7 @@ const ClientsInvite = ({ type, location }) => (
                 className="button pull-right"
                 to={`${location.pathname}/add-operative`}
             >
-                <i className="fal fa-plus" /> Add operative
+                <i className="fa fa-plus" /> Add operative
             </Link>
         </div>
     </div>
