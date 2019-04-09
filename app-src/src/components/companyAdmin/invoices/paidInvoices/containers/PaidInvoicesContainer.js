@@ -2,19 +2,30 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import fetchAllInvoices from 'actions/companyAdmin/invoices/async/fetchAllInvoices';
-import fetchAllInvoiceItems from 'actions/companyAdmin/invoices/async/fetchAllInvoiceItems';
+import InvoicesTableContainer from 'components/companyAdmin/subscription/pendingInvoices/containers/InvoicesTableContainer';
 
 class PaidInvoicesContainer extends Component {
-    render = () => (
-        <BlockContainer>
-            <div />
-        </BlockContainer>
-    );
+    render = () => {
+        const { error, isFetching, paidInvoices } = this.props;
+        return (
+            <BlockContainer>
+                <InvoicesTableContainer
+                    error={error}
+                    isFetching={isFetching}
+                    invoices={paidInvoices}
+                />
+            </BlockContainer>
+        );
+    };
 }
 
-const mapStateToProps = ()
+const mapStateToProps = ({ companyAdmin: { invoicesReducer } }) => ({
+    isFetching: invoicesReducer.isFetching,
+    paidInvoices:
+        Object.values(invoicesReducer.invoice).filter(
+            invoice => invoice.isPaid
+        ) || [],
+    error: invoicesReducer.error
+});
 
-export default connect(
-    null,
-)(PaidInvoicesContainer);
+export default connect(mapStateToProps)(PaidInvoicesContainer);

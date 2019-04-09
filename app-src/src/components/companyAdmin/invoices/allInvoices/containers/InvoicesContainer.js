@@ -3,7 +3,6 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import fetchAllInvoices from 'actions/companyAdmin/invoices/async/fetchAllInvoices';
-import fetchAllInvoiceItems from 'actions/companyAdmin/invoices/async/fetchAllInvoiceItems';
 
 import Invoices from '../presentational/Invoices';
 
@@ -13,14 +12,13 @@ class InvoicesContainer extends Component {
     }
 
     componentDidMount = () => {
-        this.props.fetchAllInvoicesAndItems();
+        this.props.fetchAllInvoices();
     };
 }
 
 const mapDispatchToProps = dispatch => ({
-    fetchAllInvoicesAndItems: () => {
+    fetchAllInvoices: () => {
         dispatch(fetchAllInvoices());
-        dispatch(fetchAllInvoiceItems());
     }
 });
 
