@@ -40,7 +40,7 @@ class PinDetailsContainer extends Component {
     };
 
     componentDidUpdate = prevProps => {
-        const { latestHistoryId, selectPinHistory, isFetching } = this.props;
+        const { latestHistoryId, selectPinHistory } = this.props;
         if (!prevProps.latestHistoryId && latestHistoryId) {
             selectPinHistory(latestHistoryId);
         }
