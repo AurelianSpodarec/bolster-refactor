@@ -5,7 +5,7 @@ import Field from 'components/shared/generic/form/presentational/Field';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 
-const SubscriptionCredits = () => (
+const SubscriptionCredits = ({ creditsToBuy, handleInputChange }) => (
     <>
         <PageHeading title="Credits" />
         <p>##You currently have 13 credits available to use##</p>
@@ -15,6 +15,8 @@ const SubscriptionCredits = () => (
                     id="add-credits"
                     type="number"
                     placeholder="##Enter number of credits..##"
+                    value={creditsToBuy}
+                    handleChange={handleInputChange}
                 />
             </Field>
             <BlockButtonWrapper>
