@@ -32,7 +32,7 @@ const ClientsTable = ({
                 className="button pull-right"
                 to={`${location.pathname}/invite-client`}
             >
-                <i className="fal fa-plus" /> Invite client
+                <i className="fa fa-plus" /> Invite client
             </Link>
         </div>
     </div>

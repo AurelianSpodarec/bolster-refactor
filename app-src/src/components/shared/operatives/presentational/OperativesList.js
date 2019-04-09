@@ -23,14 +23,14 @@ const OperativesList = ({
                 <td>
                     <Link
                         to={`/company/drawings/${documentID}/edit-operative/${id}`}
-                        className="button icon-only"
+                        className="button yellow icon-only"
                     >
                         <i className="far fa-pencil fa-fw" />
                     </Link>
                     <button
                         onClick={() => handleDeleteOperativeModal(operative)}
                         to="#"
-                        className="button icon-only"
+                        className="button red icon-only"
                     >
                         <i className="far fa-trash-alt fa-fw" />
                     </button>

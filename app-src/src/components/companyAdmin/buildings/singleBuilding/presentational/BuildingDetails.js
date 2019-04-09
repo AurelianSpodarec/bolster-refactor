@@ -15,7 +15,7 @@ const BuildingDetails = ({
                 className="button yellow"
                 to={`/company/buildings/${id}/edit`}
             >
-                <i className="far fa-pencil" /> Edit Building
+                <i className="far fa-pencil fa-fw" /> Edit Building
             </Link>
         </div>
     </div>

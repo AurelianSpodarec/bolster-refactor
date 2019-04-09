@@ -4,7 +4,7 @@ import { Map, TileLayer } from 'react-leaflet';
 
 import DrawingMapPin from 'components/companyAdmin/drawings/singleDrawing/presentational/DrawingMapPin';
 
-const SinglePinMap = ({ pin, zoom, handleClick }) => (
+const SinglePinMap = ({ pin, zoom, handleClick, user }) => (
     <>
         <Map
             center={[pin.location.latY, pin.location.lngX]}
@@ -20,7 +20,9 @@ const SinglePinMap = ({ pin, zoom, handleClick }) => (
         </Map>
         <p className="map-details">
             Last updated by:{' '}
-            {moment(pin.latestCreatedOn).format('DD/MM/YYYY HH:mm')}
+            {`${user.userFirstName} ${user.userLastName} ${moment(
+                pin.latestCreatedOn
+            ).format('DD/MM/YYYY HH:mm')}`}
         </p>
     </>
 );

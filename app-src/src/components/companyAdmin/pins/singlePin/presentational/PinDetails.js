@@ -8,12 +8,7 @@ import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/pr
 
 import { PIN_STATUS_TYPES as STATUS } from 'constants/companyAdmin/enums';
 
-const PinDetails = ({
-    pinHistory,
-    historyCount,
-    historyVersion,
-    createdBy
-}) => (
+const PinDetails = ({ pinHistory, historyCount, historyVersion, user }) => (
     <>
         <FieldOutput
             title="ID"
@@ -43,7 +38,7 @@ const PinDetails = ({
 
         <FieldOutput
             title="Added by"
-            description={createdBy}
+            description={`${user.userFirstName} ${user.userLastName}`}
             fieldClass="no-h-padding"
         />
 
@@ -60,7 +55,7 @@ const PinDetails = ({
 
         <BlockButtonWrapper>
             <a className="button red" href="#/">
-                <i className="icon fa fa-trash" /> Delete this history
+                <i className="icon fa fa-trash-alt" /> Delete this history
             </a>
             <a className="button" href="#/">
                 Edit this history

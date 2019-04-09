@@ -23,12 +23,12 @@ import {
 } from 'constants/shared/modalTypes';
 
 import PinPhotoModal from '../presentational/PinPhotoModal';
-import AddTemplateModalContainer from 'components/superAdmin/templateBuilder/templateBuilder/containers/AddTemplateModalContainer';
-import EditTemplateModalContainer from 'components/superAdmin/templateBuilder/templateBuilder/containers/EditTemplateModalContainer';
-import AddTemplateSectionModalContainer from 'components/superAdmin/templateBuilder/templateBuilder/containers/AddTemplateSectionModalContainer';
-import AddTemplateQuestionModalContainer from 'components/superAdmin/templateBuilder/templateBuilder/containers/AddTemplateQuestionModalContainer';
-import EditTemplateQuestionModalContainer from 'components/superAdmin/templateBuilder/templateBuilder/containers/EditTemplateQuestionModalContainer';
-import RenameTemplateSectionModalContainer from 'components/superAdmin/templateBuilder/templateBuilder/containers/EditTemplateSectionModalContainer';
+import AddTemplateModalContainer from 'components/superAdmin/templateBuilder/setTemplate/containers/AddTemplateModalContainer';
+import EditTemplateModalContainer from 'components/superAdmin/templateBuilder/setTemplate/containers/EditTemplateModalContainer';
+import AddTemplateSectionModalContainer from 'components/superAdmin/templateBuilder/setSection/containers/AddTemplateSectionModalContainer';
+import AddTemplateQuestionModalContainer from 'components/superAdmin/templateBuilder/setQuestion/containers/AddTemplateQuestionModalContainer';
+import EditTemplateQuestionModalContainer from 'components/superAdmin/templateBuilder/setQuestion/containers/EditTemplateQuestionModalContainer';
+import RenameTemplateSectionModalContainer from 'components/superAdmin/templateBuilder/setSection/containers/EditTemplateSectionModalContainer';
 import EditServiceModalContainer from './EditServiceModalContainer';
 import EditUserPasswordModalContainer from './EditUserPasswordModalContainer';
 import EditUserModalContainer from './EditUserModalContainer';
