@@ -80,8 +80,18 @@ body {
     }
 }
 
+.set-height-container {
+    .content-area {
+        height: 250px;
+    }
+}
+
 .content-container {
     padding: 0 5px;
+}
+
+.table-container {
+    height: 100px;
 }
 
 //for button under content blocks/areas
@@ -1213,7 +1223,9 @@ input {
         line-height: 1.5;
     }
     .button-container {
-        margin-top: 15px;
+        position: absolute;
+        bottom: 0;
+        left: 0;
     }
     .history {
         label {

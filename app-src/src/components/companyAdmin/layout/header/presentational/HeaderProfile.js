@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+import NoProfilePic from '_content/images/layout/blank-profile.png';
+
 const HeaderProfile = ({
     profile,
     generationQueueLength,
@@ -11,7 +13,12 @@ const HeaderProfile = ({
 }) => (
     <div className="profile" ref={updateNode}>
         <div className="user" onClick={handleClick}>
-            <img alt="profile of" src={profile.profileImageS3Key} />
+            {profile.profileImageS3Key ? (
+                <img alt="profile image" src={profile.profileImageS3Key} />
+            ) : (
+                <img src={NoProfilePic} />
+            )}
+
             <div className="text">
                 <p>{profile.fullName}</p>
                 <span className="email">{profile.email}</span>
