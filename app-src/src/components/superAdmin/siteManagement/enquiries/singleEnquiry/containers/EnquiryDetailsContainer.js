@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
-import { DELETE_ENQUIRY, DELETION_ERROR } from 'constants/shared/modalTypes';
+import { DELETE_ENQUIRY, ERROR_MODAL } from 'constants/shared/modalTypes';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import EnquiryDetails from '../presentational/EnquiryDetails';
@@ -27,7 +27,7 @@ class EnquiryDetailsContainer extends Component {
     componentDidUpdate(prevProps) {
         const { deletionError, showModal, postSuccess, history } = this.props;
         if (deletionError && !prevProps.deletionError) {
-            showModal(DELETION_ERROR, {
+            showModal(ERROR_MODAL, {
                 title: 'Deletion Error:',
                 message:
                     'An error occurred while deleting this enquiry, please try again later'

@@ -5,7 +5,7 @@ import OperativesTable from 'components/shared/operatives/presentational/Operati
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 
 import { COMPANY_USER_ROLE_TYPES } from 'constants/companyAdmin/enums';
-import { DELETION_ERROR, DELETE_OPERATIVE } from 'constants/shared/modalTypes';
+import { ERROR_MODAL, DELETE_OPERATIVE } from 'constants/shared/modalTypes';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 
 class DrawingOperativesAccessContainer extends Component {
@@ -28,7 +28,7 @@ class DrawingOperativesAccessContainer extends Component {
     componentDidUpdate(prevProps) {
         const { deletionError, showModal } = this.props;
         if (deletionError && !prevProps.deletionError) {
-            showModal(DELETION_ERROR, {
+            showModal(ERROR_MODAL, {
                 title: 'Deletion Error:',
                 message:
                     'An error occurred while removing this operative, please try again later'

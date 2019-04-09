@@ -1,0 +1,113 @@
+import React from 'react';
+import ModalOuterContainer from 'components/shared/generic/modals/containers/ModalOuterContainer';
+import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
+import Form from 'components/shared/generic/form/containers/Form';
+import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
+import Field from 'components/shared/generic/form/presentational/Field';
+import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
+
+const AddCardModal = ({
+    hideModal,
+    handleChange,
+    handleSubmit,
+    nickname,
+    name,
+    cardNumber,
+    expiryMonth,
+    expiryYear,
+    CV2,
+    validateMaxLength
+}) => {
+    return (
+        <ModalOuterContainer>
+            <BlockHeading title="Add a card" />
+            <Form className="generic-form" onSubmit={handleSubmit}>
+                <div className="size-lg-6">
+                    <Field name="Card Nickname">
+                        <TextInputContainer
+                            handleChange={handleChange}
+                            name={'nickname'}
+                            value={nickname}
+                            type="text"
+                            required
+                            placeholder="Expenses..."
+                        />
+                    </Field>
+                </div>
+                <div className="size-lg-6">
+                    <Field name="Name on card">
+                        <TextInputContainer
+                            handleChange={handleChange}
+                            name={'name'}
+                            value={name}
+                            type="text"
+                            required
+                            placeholder="Name on card..."
+                        />
+                    </Field>
+                </div>
+                <div className="size-lg-12">
+                    <Field name="Card Number">
+                        <TextInputContainer
+                            handleChange={handleChange}
+                            name={'cardNumber'}
+                            value={cardNumber}
+                            type="text"
+                            required
+                            placeholder="0123-4567-8901-2345"
+                        />
+                    </Field>
+                </div>
+                <div className="size-lg-4">
+                    <Field name="Expiry Month">
+                        <TextInputContainer
+                            handleChange={handleChange}
+                            name={'expiryMonth'}
+                            value={expiryMonth}
+                            type="number"
+                            required
+                            placeholder="11"
+                            validate={validateMaxLength(2)}
+                        />
+                    </Field>
+                </div>
+                <div className="size-lg-4">
+                    <Field name="Expiry Year">
+                        <TextInputContainer
+                            handleChange={handleChange}
+                            name={'expiryYear'}
+                            value={expiryYear}
+                            type="number"
+                            required
+                            placeholder="19"
+                            validate={validateMaxLength(4)}
+                        />
+                    </Field>
+                </div>
+                <div className="size-lg-4">
+                    <Field name="CV2">
+                        <TextInputContainer
+                            handleChange={handleChange}
+                            name={'CV2'}
+                            value={CV2}
+                            type="number"
+                            required
+                            placeholder="777"
+                            validate={value => validateMaxLength(3)(value)}
+                        />
+                    </Field>
+                </div>
+                <BlockButtonWrapper>
+                    <button className="button" type="submit">
+                        Add new card
+                    </button>
+                    <button className="button" onClick={hideModal}>
+                        <i className="fa fa-times" /> Cancel
+                    </button>
+                </BlockButtonWrapper>
+            </Form>
+        </ModalOuterContainer>
+    );
+};
+
+export default AddCardModal;

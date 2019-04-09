@@ -1,24 +1,23 @@
 import React from 'react';
 import { withRouter, Link } from 'react-router-dom';
+import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 
-const ClientsInvite = ({ type, location }) => (
+const OperativeAdd = ({ type, location }) => (
     <div className="size-lg-12">
-        <h1 className="heading heading-3 size-lg-12">Add Operative</h1>
-        <p className="generic-text size-lg-12">
-            If you invite an operative to this {type}, they will be given access
-            to each drawing it contains. To remove the operative you will need
-            to remove them from each drawing individually.
-        </p>
-
-        <div className="button-container">
+        <BlockHeading title="Add Operative">
             <Link
                 className="button pull-right"
                 to={`${location.pathname}/add-operative`}
             >
                 <i className="fa fa-plus" /> Add operative
             </Link>
-        </div>
+        </BlockHeading>
+        <p className="generic-text size-lg-12">
+            If you invite an operative to this {type}, they will be given access
+            to each drawing it contains. To remove the operative you will need
+            to remove them from each drawing individually.
+        </p>
     </div>
 );
 
-export default withRouter(ClientsInvite);
+export default withRouter(OperativeAdd);

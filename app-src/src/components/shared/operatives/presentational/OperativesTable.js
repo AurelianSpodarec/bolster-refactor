@@ -3,6 +3,7 @@ import { withRouter, Link } from 'react-router-dom';
 
 import Table from 'components/shared/generic/tables/presentational/Table';
 import OperativesList from './OperativesList';
+import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 
 const OperativesTable = ({
     location,
@@ -16,9 +17,21 @@ const OperativesTable = ({
     const { id } = match.params;
     return (
         <div className="size-lg-12">
-            <h2 className="heading heading-3 size-lg-12">
-                Operatives with access
-            </h2>
+            <BlockHeading title="Operatives Access">
+                <Link
+                    className={`button pull-right ${
+                        isAddOperativeDisabled ? 'disabled' : ''
+                    }`}
+                    to={
+                        isAddOperativeDisabled
+                            ? `${location.pathname}`
+                            : `${location.pathname}/add-operative`
+                    }
+                >
+                    <i className="fa fa-plus" />{' '}
+                    {isAddOperativeDisabled ? 'Full' : 'Invite'}
+                </Link>
+            </BlockHeading>
             <Table
                 headers={['Name', 'Actions']}
                 isFetching={isFetching}
@@ -33,23 +46,6 @@ const OperativesTable = ({
                     documentID={id}
                 />
             </Table>
-            <div className="button-container table">
-                <Link
-                    className={`button pull-right ${
-                        isAddOperativeDisabled ? 'disabled' : ''
-                    }`}
-                    to={
-                        isAddOperativeDisabled
-                            ? `${location.pathname}`
-                            : `${location.pathname}/add-operative`
-                    }
-                >
-                    <i className="fa fa-plus" />{' '}
-                    {isAddOperativeDisabled
-                        ? 'Operatives full'
-                        : 'Invite operative'}
-                </Link>
-            </div>
         </div>
     );
 };
