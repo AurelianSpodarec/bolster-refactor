@@ -10,7 +10,6 @@ class PinHistoriesListItemContainer extends Component {
         const {
             history,
             historyCount,
-            version,
             users,
             services,
             allHistories
