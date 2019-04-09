@@ -3,6 +3,7 @@ import { withRouter, Link } from 'react-router-dom';
 
 import Table from 'components/shared/generic/tables/presentational/Table';
 import ClientsList from './ClientsList';
+import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 
 const ClientsTable = ({
     location,
@@ -12,7 +13,14 @@ const ClientsTable = ({
     handleDeleteClientModal
 }) => (
     <div className="size-lg-12">
-        <h1 className="heading heading-3 size-lg-12">Clients with access</h1>
+        <BlockHeading title="Client access">
+            <Link
+                className="button pull-right"
+                to={`${location.pathname}/invite-client`}
+            >
+                <i className="fa fa-plus" /> Invite
+            </Link>
+        </BlockHeading>
         <Table
             headers={['Name', 'Actions']}
             isFetching={isFetching}
@@ -26,15 +34,6 @@ const ClientsTable = ({
                 clients={clients}
             />
         </Table>
-
-        <div className="button-container table">
-            <Link
-                className="button pull-right"
-                to={`${location.pathname}/invite-client`}
-            >
-                <i className="fa fa-plus" /> Invite client
-            </Link>
-        </div>
     </div>
 );
 
