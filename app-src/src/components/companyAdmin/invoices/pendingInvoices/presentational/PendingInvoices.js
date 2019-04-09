@@ -1,5 +1,5 @@
 import React from 'react';
-import InvoicesTableContainer from '../containers/InvoicesTableContainer';
+import InvoicesTableContainer from 'components/companyAdmin/invoices/shared/invoiceListTable/containers/InvoicesTableContainer';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 
 const PendingInvoices = ({ invoices }) => (
