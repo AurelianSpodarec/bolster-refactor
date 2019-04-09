@@ -9,7 +9,7 @@ import BlockContainer from 'components/shared/generic/block/containers/BlockCont
 
 class SinglePinMapContainer extends Component {
     render() {
-        const { pin, error, isFetching } = this.props;
+        const { pin, user, error, isFetching } = this.props;
 
         return (
             <BlockContainer
@@ -20,9 +20,8 @@ class SinglePinMapContainer extends Component {
                 <SinglePinMap
                     zoom={3}
                     pin={pin}
-                    error={error}
-                    isFetching={isFetching}
                     handleClick={this.handleClick}
+                    user={user}
                 />
             </BlockContainer>
         );
@@ -53,10 +52,23 @@ class SinglePinMapContainer extends Component {
     };
 }
 
-export default withRouter(
-    connect(({ companyAdmin: { pinsReducer } }, { match }) => ({
-        pin: pinsReducer.pins[match.params.id] || {},
-        error: pinsReducer.error,
-        isFetching: pinsReducer.isFetching
-    }))(SinglePinMapContainer)
-);
+const mapStateToProps = (
+    {
+        companyAdmin: {
+            pinsReducer: { pins, error, isFetching },
+            companyUsersReducer: { users }
+        }
+    },
+    { match: { params } }
+) => {
+    const pin = pins[params.id] || {};
+
+    return {
+        pin,
+        user: users[pin.latestCreatedByCompanyUserID] || {},
+        error,
+        isFetching
+    };
+};
+
+export default withRouter(connect(mapStateToProps)(SinglePinMapContainer));

@@ -42,6 +42,7 @@ class CheckboxContainer extends Component {
     componentDidUpdate = ({ checked: prevChecked }) => {
         if (this.props.checked !== prevChecked) this._validate();
     };
+
     componentWillUnmount = () => {
         const { name, error, removeFieldError } = this.props;
         if (error) removeFieldError(name);

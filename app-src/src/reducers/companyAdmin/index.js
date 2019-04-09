@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 
 import buildingsReducer from './buildings';
+import cardsReducer from './cards';
 import clientsReducer from './clients';
 import companiesReducer from './companies';
 import companyUsersReducer from '../companyAdmin/companyUsers';
@@ -24,6 +25,7 @@ import subscriptionsReducer from './subscriptions';
 
 export default combineReducers({
     buildingsReducer,
+    cardsReducer,
     clientsReducer,
     companiesReducer,
     companyUsersReducer,

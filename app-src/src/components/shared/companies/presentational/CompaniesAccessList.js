@@ -22,13 +22,13 @@ const CompaniesAccessList = ({ companies, parentId, handleShowModal }) =>
                     <>
                         <Link
                             to={`${parentId}/edit-company/${company.id}`}
-                            className="button icon-only"
+                            className="button yellow icon-only"
                         >
                             <i className="far fa-pencil fa-fw" />
                         </Link>
                         <button
                             onClick={() => handleShowModal(company.id)}
-                            className="button icon-only"
+                            className="button red icon-only"
                         >
                             <i className="far fa-trash-alt fa-fw" />
                         </button>
