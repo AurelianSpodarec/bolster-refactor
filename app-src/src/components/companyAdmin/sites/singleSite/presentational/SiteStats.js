@@ -20,7 +20,7 @@ const SiteStats = ({ site, stats }) => (
                 <i className="far fa-pencil fa-fw" /> Edit
             </Link>
             <Link className="button red" to={`/company/sites/${site.id}/edit`}>
-                <i className="far fa-trash fa-fw" /> Delete
+                <i className="far fa-trash-alt fa-fw" /> Delete
             </Link>
         </div>
     </div>

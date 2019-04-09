@@ -44,7 +44,7 @@ const OperativesTable = ({
                             : `${location.pathname}/add-operative`
                     }
                 >
-                    <i className="fal fa-plus" />{' '}
+                    <i className="fa fa-plus" />{' '}
                     {isAddOperativeDisabled
                         ? 'Operatives full'
                         : 'Invite operative'}
