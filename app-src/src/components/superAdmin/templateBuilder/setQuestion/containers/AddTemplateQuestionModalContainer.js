@@ -26,10 +26,11 @@ class AddTemplateQuestionModalContainer extends Component {
         prereqUuid: '',
         prereqVal: '',
         name: '',
-        charLimit: 300,
         isRequired: false,
         isHidden: false,
-        isPrefill: false
+        isPrefill: false,
+        charLimit: 300,
+        maxNum: null
     };
 
     render() {

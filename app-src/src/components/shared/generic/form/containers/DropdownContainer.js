@@ -42,8 +42,15 @@ class DropdownContainer extends Component {
     }
 
     componentDidMount = () => {
-        const { selectedOption } = this.props;
-        this._validate(selectedOption ? selectedOption.value : '');
+        const { selectedOption = {} } = this.props;
+        this._validate(selectedOption.value);
+    };
+
+    componentDidUpdate = ({ selectedOption: prevOpt = {} }) => {
+        const { selectedOption = {} } = this.props;
+        if (selectedOption.value !== prevOpt.value) {
+            this._validate(selectedOption.value);
+        }
     };
 
     componentWillUnmount = () => {
@@ -53,7 +60,6 @@ class DropdownContainer extends Component {
 
     handleChange = e => {
         this.props.handleChange(e);
-        this._validate(e.target.value);
         this._showFieldError();
     };
 
@@ -91,7 +97,7 @@ class DropdownContainer extends Component {
         } = this.props;
         const validateError = validate(value);
 
-        if (required && !(value && value.length)) {
+        if (required && !(value && (value.length || value > 0))) {
             addFieldError(name, 'This is a required field.');
         } else if (validateError && validateError.length) {
             addFieldError(name, validateError);
