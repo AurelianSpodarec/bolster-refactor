@@ -19,7 +19,6 @@ const PinHistoriesList = ({ otherHistories, historyCount }) => {
             key={history.id}
             history={history}
             historyCount={historyCount}
-            version="num"
         />
     ));
 };

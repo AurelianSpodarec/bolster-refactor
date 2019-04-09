@@ -47,7 +47,7 @@ const mapStateToProps = (
             pinsReducer,
             companyUsersReducer: { users },
             servicesReducer: { services },
-            pinHistoriesReducer: { histories }
+            pinHistoriesReducer: { histories, selectedHistoryId }
         }
     },
     { match }
@@ -61,7 +61,7 @@ const mapStateToProps = (
         users: users || {},
         services: services || {},
         histories: Object.values(histories) || {},
-        selectedHistoryId: pin.latestHistoryID
+        selectedHistoryId: selectedHistoryId
     };
 };
 
