@@ -69,7 +69,6 @@ body {
 
         .generic-table {
             min-height: 165px;
-            margin-bottom: 40px;
         }
 
         .button-container {
@@ -80,8 +79,17 @@ body {
     }
 }
 
+.set-height-container {
+    .content-area {
+        height: 250px;
+    }
+}
+
 .content-container {
     padding: 0 5px;
+}
+
+.table-container {
 }
 
 //for button under content blocks/areas
@@ -311,8 +319,8 @@ input {
 
     &.icon-only {
         padding: {
-            left: 5px;
-            right: 5px;
+            left: 4px;
+            right: 4px;
         }
         i {
             margin-right: 0;
@@ -623,7 +631,9 @@ input {
     width: 100%;
     .heading {
         float: left;
+        max-width: 50%;
         margin-bottom: 20px;
+        text-transform: capitalize;
     }
     .button,
     button {
@@ -1112,6 +1122,7 @@ input {
     th {
         font-size: 14px;
         @include ubuntu-medium;
+        height: 39px;
     }
 
     td {
@@ -1123,7 +1134,9 @@ input {
 
     .button {
         font-size: 12px;
-        margin-left: 5px;
+        &:last-child {
+            margin-left: 2.5px;
+        }
 
         i {
             color: white;
@@ -1213,7 +1226,9 @@ input {
         line-height: 1.5;
     }
     .button-container {
-        margin-top: 15px;
+        position: absolute;
+        bottom: 0;
+        left: 0;
     }
     .history {
         label {

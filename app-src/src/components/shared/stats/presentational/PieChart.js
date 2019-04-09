@@ -26,48 +26,46 @@ const PieChart = ({ stats, hierarchyType }) => {
         : [{ title: 'Empty', value: 100, color: '#cecece' }];
     return (
         <div className="history size-lg-6">
-            {isStatsEmpty ? (
+            {/* {isStatsEmpty ? (
                 <p className="no-data">
                     There are currently no pins for this {hierarchyType}.
                 </p>
-            ) : (
-                <div className="size-lg-12">
-                    <ReactPieChart
-                        className="size-lg-5"
-                        data={pieStats}
-                        segmentsStyle={{ transition: 'stroke .3s' }}
-                        animate
-                    />
-                    <div className="pin-key size-lg-6">
-                        <div className="pin">
-                            <img src={redPin} alt="pin" />
-                            <p>Action Required</p>
-                        </div>
-                        <div className="pin">
-                            <img src={bluePin} alt="pin" />
-                            <p>Inspected</p>
-                        </div>
-                        <div className="pin">
-                            <img src={greenPin} alt="pin" />
-                            <p>Installed</p>
-                        </div>
-                        <div className="pin">
-                            <img src={yellowPin} alt="pin" />
-                            <p>No Action</p>
-                        </div>
-                        <div className="pin">
-                            <img src={purplePin} alt="pin" />
-                            <p>Other</p>
-                        </div>
+            ) : ( */}
+            <div className="size-lg-12">
+                <ReactPieChart
+                    className="size-lg-5"
+                    data={pieStats}
+                    segmentsStyle={{ transition: 'stroke .3s' }}
+                    animate
+                />
+                <div className="pin-key size-lg-6">
+                    <div className="pin">
+                        <img src={redPin} alt="pin" />
+                        <p>Action Required</p>
                     </div>
-                    <label className="size-lg-12">
-                        Last Update:
-                        {moment(stats.lastUpdatedOn).format(
-                            'DD/MM/YYYY hh:mm a'
-                        )}
-                    </label>
+                    <div className="pin">
+                        <img src={bluePin} alt="pin" />
+                        <p>Inspected</p>
+                    </div>
+                    <div className="pin">
+                        <img src={greenPin} alt="pin" />
+                        <p>Installed</p>
+                    </div>
+                    <div className="pin">
+                        <img src={yellowPin} alt="pin" />
+                        <p>No Action</p>
+                    </div>
+                    <div className="pin">
+                        <img src={purplePin} alt="pin" />
+                        <p>Other</p>
+                    </div>
                 </div>
-            )}
+                <label className="size-lg-12">
+                    Last Update:
+                    {moment(stats.lastUpdatedOn).format('DD/MM/YYYY hh:mm a')}
+                </label>
+            </div>
+            {/* )} */}
         </div>
     );
 };

@@ -1,6 +1,5 @@
 import React from 'react';
 import Form from 'components/shared/generic/form/containers/Form';
-import Dropdown from 'components/shared/generic/form/presentational/Dropdown';
 import Field from 'components/shared/generic/form/presentational/Field';
 import Checkbox from 'components/shared/generic/form/presentational/Checkbox';
 import { SUBSCRIPTION_RENEWAL_IDS } from 'constants/companyAdmin/enums';
@@ -31,7 +30,13 @@ const SubscriptionAutoRenewal = ({
                     disabled={!isAutoRenew}
                     onChange={handleRadioChange}
                 />
-                <Dropdown options={[]} handleChange={handleRadioChange} />
+                <br />
+                <label htmlFor="radio-card">
+                    Note: Lorem ipsum dolor sit, amet consectetur adipisicing
+                    elit. Qui architecto voluptas, nisi explicabo eveniet saepe
+                    voluptates reiciendis doloribus, assumenda quam dolorum ut
+                    ad ducimus est.
+                </label>
             </Field>
             <Field name="Pay by invoice" htmlFor="radio-invoice">
                 <input

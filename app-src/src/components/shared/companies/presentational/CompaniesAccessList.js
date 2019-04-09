@@ -9,11 +9,11 @@ import {
 const CompaniesAccessList = ({ companies, parentId, handleShowModal }) =>
     companies.map(company => (
         <tr key={company.id}>
-            <td>{company.companyName}</td>
-            <td>
+            <td className="small-text">{company.companyName}</td>
+            <td className="small-text">
                 {company.state === PERMISSION_STATES.PENDING && '(Pending)'}
             </td>
-            <td>
+            <td className="small-text">
                 {company.accessType === COMPANY_USER_ROLE_TYPES.OWNER ? (
                     '(Owner)'
                 ) : company.inherted ? (
