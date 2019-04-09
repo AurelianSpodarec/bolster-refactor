@@ -12,7 +12,11 @@ export const fetchTemplateRequest = () => ({
     type: FETCH_TEMPLATE_REQUEST
 });
 
-export const fetchTemplateSuccess = ({ template, sections, questions }) => ({
+export const fetchTemplateSuccess = ({
+    adminTemplate: template,
+    sections,
+    questions
+}) => ({
     type: FETCH_TEMPLATE_SUCCESS,
     template,
     sections,

@@ -30,7 +30,7 @@ class AddTemplateQuestionModalContainer extends Component {
         isHidden: false,
         isPrefill: false,
         charLimit: 300,
-        maxNum: null
+        maxNum: ''
     };
 
     render() {

@@ -7,9 +7,9 @@ const NumberInputForm = ({ handleInputChange, maxNum }) => (
     <>
         <Field name="Maximum number">
             <TextInputContainer
-                type="number"
+                placeholder="No max"
                 name="maxNum"
-                value={maxNum === null ? undefined : maxNum}
+                value={maxNum}
                 handleChange={handleInputChange}
                 required
             />
