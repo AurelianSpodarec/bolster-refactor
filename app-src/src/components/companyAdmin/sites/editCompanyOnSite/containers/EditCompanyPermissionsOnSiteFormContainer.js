@@ -72,7 +72,7 @@ class EditCompanyPermissionsOnSiteFormContainer extends Component {
             });
         }
         if (postSuccess && !prevProps.postSuccess)
-            history.push(`/company/drawings/${match.params.id}`);
+            history.push(`/company/sites/${match.params.id}`);
     }
 
     getServicesForState = services =>
@@ -89,7 +89,7 @@ class EditCompanyPermissionsOnSiteFormContainer extends Component {
         e.preventDefault();
         const { serviceIDs } = this.state;
         const { editCompanyPermissions, id } = this.props;
-        editCompanyPermissions('site', id, { serviceIDs });
+        editCompanyPermissions(id, { serviceIDs });
     };
 
     handleMultiselect = ({ target: { name, value } }) => {
@@ -132,10 +132,8 @@ const mapDispatchToProps = dispatch => ({
     fetchAllServices: () => {
         return dispatch(fetchAllServices());
     },
-    editCompanyPermissions: (hierarchicalLevel, hierarchicalID, body) => {
-        dispatch(
-            editCompanyPermissions(hierarchicalLevel, hierarchicalID, body)
-        );
+    editCompanyPermissions: (hierarchicalID, body) => {
+        dispatch(editCompanyPermissions(hierarchicalID, body));
     }
 });
 
