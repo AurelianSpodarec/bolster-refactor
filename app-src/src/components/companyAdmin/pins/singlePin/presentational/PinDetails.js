@@ -8,7 +8,12 @@ import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/pr
 
 import { PIN_STATUS_TYPES as STATUS } from 'constants/companyAdmin/enums';
 
-const PinDetails = ({ pinHistory, historyCount, historyVersion }) => (
+const PinDetails = ({
+    pinHistory,
+    historyCount,
+    historyVersion,
+    createdBy
+}) => (
     <>
         <FieldOutput
             title="ID"
@@ -38,7 +43,7 @@ const PinDetails = ({ pinHistory, historyCount, historyVersion }) => (
 
         <FieldOutput
             title="Added by"
-            description={pinHistory.addedBy}
+            description={createdBy}
             fieldClass="no-h-padding"
         />
 
