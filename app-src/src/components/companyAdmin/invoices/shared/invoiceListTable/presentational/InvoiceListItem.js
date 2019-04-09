@@ -1,23 +1,31 @@
 import React from 'react';
 import moment from 'moment';
+import { Link, withRouter } from 'react-router-dom';
+
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
+
 import { PAYMENT_TYPES } from 'constants/companyAdmin/enums';
 
-const InvoiceListItem = ({ invoice }) => (
+const InvoiceListItem = ({
+    location,
+    invoice: { createdOn, isPaid, total, id, paymentType }
+}) => (
     <tr>
-        <td>{moment(invoice.createdOn).format('DD/MM/YYYY')}</td>
-        <td>{invoice.id}</td>
-        <td>{`£${invoice.total}`}</td>
-        <td>{PAYMENT_TYPES[invoice.paymentType]}</td>
-        <td>{invoice.isPaid ? 'Paid' : 'Awaiting Payment'}</td>
-        <td>{!invoice.isPaid && <i className="fa fa-exclamation" />}</td>
+        <td>{moment(createdOn).format('DD/MM/YYYY')}</td>
+        <td>{id}</td>
+        <td>{`£${total}`}</td>
+        <td>{PAYMENT_TYPES[paymentType]}</td>
+        <td>{isPaid ? 'Paid' : 'Awaiting Payment'}</td>
+        <td>{!isPaid && <i className="fa fa-exclamation" />}</td>
         <td>
             <BlockButtonWrapper>
-                <button className="button">View</button>
-                {!invoice.isPaid && <button className="button">Pay</button>}
+                <Link to={`${location.pathname}/${id}`} className="button">
+                    View
+                </Link>
+                {!isPaid && <button className="button">Pay</button>}
             </BlockButtonWrapper>
         </td>
     </tr>
 );
 
-export default InvoiceListItem;
+export default withRouter(InvoiceListItem);
