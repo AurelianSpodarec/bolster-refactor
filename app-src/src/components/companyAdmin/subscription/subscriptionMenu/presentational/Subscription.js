@@ -5,6 +5,7 @@ import ActiveServicesContainer from '../../activeServices/containers/ActiveServi
 import PendingInvoicesContainer from 'components/companyAdmin/invoices/pendingInvoices/containers/PendingInvoicesContainer';
 import SubscriptionAutoRenewalContainer from '../../autoRenewal/containers/SubscriptionAutoRenewalContainer';
 import SubscriptionCreditsContainer from '../../credits/containers/SubscriptionCreditsContainer';
+import CardManagementContainer from '../../cardManagement/containers/CardManagementContainer';
 
 const Subscription = () => (
     <>
@@ -18,6 +19,7 @@ const Subscription = () => (
         </div>
         <div className="flex-item size-lg-8">
             <PendingInvoicesContainer />
+            <CardManagementContainer />
         </div>
         <div className="flex-item size-lg-4">
             <SubscriptionCreditsContainer />

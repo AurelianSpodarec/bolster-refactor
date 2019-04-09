@@ -25,9 +25,9 @@ class SubscriptionAutoRenewalContainer extends Component {
         editSubscriptionRenewalStatus({ renewalStatus: !isAutoRenew });
     };
 
-    handleRadioChange = e => {
-        e.preventDefault();
+    handleRadioChange = ({ target: { value } }) => {
         // switch between pay using card, pay by invoice
+        editSubscriptionRenewalStatus({});
     };
 }
 
