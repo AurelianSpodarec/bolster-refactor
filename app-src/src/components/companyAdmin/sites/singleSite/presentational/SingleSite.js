@@ -15,11 +15,11 @@ const SingleSite = () => (
         <div className="size-lg-12">
             <SitePageHeaderContainer />
         </div>
-        <div className="set-height-container size-lg-12">
-            <div className="size-lg-8">
+        <div className="flex-container size-lg-12">
+            <div className="flex-item size-lg-8">
                 <SiteDetailsContainer />
             </div>
-            <div className="size-lg-4">
+            <div className="flex-item size-lg-4">
                 <SiteDocumentsTableContainer />
             </div>
         </div>
