@@ -42,7 +42,7 @@ const HeaderProfile = ({
                 My Invoices
                 <i className="icon fas fa-chevron-right" />
             </Link>
-            <Link to="company/profile" className="item">
+            <Link to="/company/profile" className="item">
                 My Profile
                 <i className="icon fas fa-chevron-right" />
             </Link>

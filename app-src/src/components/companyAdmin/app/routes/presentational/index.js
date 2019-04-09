@@ -15,6 +15,7 @@ import ReportsRoutes from './ReportsRoutes';
 import ToolsRoutes from './ToolsRoutes';
 import SubscriptionRoutes from './SubscriptionRoutes';
 import InvoicesRoutes from './InvoicesRoutes.js';
+import ProfilesRoutes from './ProfilesRoutes';
 
 const CompanyRoutes = ({ base = '/company' }) => (
     <SwitchWith404>
@@ -33,6 +34,7 @@ const CompanyRoutes = ({ base = '/company' }) => (
         <Route path={`${base}/tools`} component={ToolsRoutes} />
         <Route path={`${base}/subscription`} component={SubscriptionRoutes} />
         <Route path={`${base}/invoices`} component={InvoicesRoutes} />
+        <Route path={`${base}/profile`} component={ProfilesRoutes} />
     </SwitchWith404>
 );
 
