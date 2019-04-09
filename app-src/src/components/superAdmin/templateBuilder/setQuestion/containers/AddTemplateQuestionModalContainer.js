@@ -18,20 +18,24 @@ const questionTypeOptions = Object.keys(QUESTION_TYPES).map(type => ({
     value: type
 }));
 
+const initialState = {
+    questionTypeOptions: convertArrToObj(questionTypeOptions, 'value'),
+    questionType: QUESTION_TYPE_VALUES.SINGLE_LINE,
+    prereqOptions: {},
+    prereqUuid: '',
+    prereqVal: '',
+    name: '',
+    isRequired: false,
+    isHidden: false,
+    isPrefill: false,
+    charLimit: '300',
+    maxNum: '',
+    options: [],
+    maxPhotos: ''
+};
+
 class AddTemplateQuestionModalContainer extends Component {
-    state = {
-        questionTypeOptions: convertArrToObj(questionTypeOptions, 'value'),
-        questionType: QUESTION_TYPE_VALUES.SINGLE_LINE,
-        prereqOptions: {},
-        prereqUuid: '',
-        prereqVal: '',
-        name: '',
-        isRequired: false,
-        isHidden: false,
-        isPrefill: false,
-        charLimit: 300,
-        maxNum: ''
-    };
+    state = initialState;
 
     render() {
         const {
@@ -51,8 +55,12 @@ class AddTemplateQuestionModalContainer extends Component {
                 selectedPrereq={prereqOptions[prereqUuid]}
                 handleInputChange={this.handleInputChange}
                 handlePrefieldChange={this.handlePrefieldChange}
-                hideModal={this.hideModel}
+                hideModal={this.hideModal}
                 handleSubmit={this.handleSubmit}
+                addOption={this.addOption}
+                removeOption={this.removeOption}
+                updateOption={this.updateOption}
+                emptyOptions={this.emptyOptions}
             />
         );
     }
@@ -61,11 +69,18 @@ class AddTemplateQuestionModalContainer extends Component {
         this.setState({ prereqOptions: this._getPrereqOptions() });
     };
 
+    componentDidUpdate = (_, prevState) => {
+        const { questionType } = this.state;
+        if (prevState.questionType !== questionType) {
+            this.setState({ ...initialState, questionType });
+        }
+    };
+
     handleInputChange = ({ target: { type, value, name, checked } }) => {
         this.setState({ [name]: type === 'checkbox' ? checked : value });
     };
 
-    hideModel = e => {
+    hideModal = e => {
         e.preventDefault();
         this.props.hideModal();
     };
@@ -81,7 +96,10 @@ class AddTemplateQuestionModalContainer extends Component {
             prereqVal,
             charLimit,
             isHidden,
-            isPrefill
+            isPrefill,
+            options,
+            maxNum,
+            maxPhotos
         } = this.state;
 
         const newQuestion = {
@@ -96,10 +114,38 @@ class AddTemplateQuestionModalContainer extends Component {
             prereqUuid,
             prereqVal,
             charLimit,
-            sort: this._getSort()
+            sort: this._getSort(),
+            options: options.map(({ text }) => text),
+            maxNum,
+            maxPhotos
         };
 
         setQuestion(newQuestion);
+    };
+
+    addOption = () => {
+        const { options } = this.state;
+        this.setState({ options: [...options, { text: '', id: uuid() }] });
+    };
+
+    removeOption = id => {
+        const { options } = this.state;
+        this.setState({ options: options.filter(op => op.id !== id) });
+    };
+
+    emptyOptions = () => {
+        this.setState({ options: [] });
+    };
+
+    updateOption = e => {
+        e.preventDefault();
+        const { value, name } = e.target;
+        const { options } = this.state;
+        const newOptions = options.map(opt =>
+            opt.id === name ? { ...opt, text: value } : opt
+        );
+
+        this.setState({ options: newOptions });
     };
 
     _getPrereqOptions = () => {
