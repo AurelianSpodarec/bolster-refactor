@@ -3,37 +3,38 @@ import { QUESTION_TYPE_VALUES } from 'constants/superAdmin/templateBuilder';
 
 import TextInputForm from '../presentational/TextInputForm';
 import NumberInputForm from '../presentational/NumberInputForm';
-import CheckboxForm from '../presentational/CheckboxForm';
-import ImageUploadForm from '../presentational/ImageUploadForm';
-import BasicForm from '../presentational/BasicForm';
 import MultiOptionFormContainer from './MultiOptionFormContainer';
+import MultiPhotoForm from '../presentational/MultiPhotoForm';
 
 const {
     SINGLE_LINE,
     MULTI_LINE,
     NUMBER,
     DROPDOWN,
-    CHECKBOX,
-    PHOTO,
+    MULTI_DROPDOWN,
     RADIO,
+    CHECKBOX,
     SIGNITURE,
-    MULTI_SELECT
+    SINGLE_PHOTO,
+    MULTI_PHOTO
 } = QUESTION_TYPE_VALUES;
 
+const NoFields = () => null;
 const SpecificFieldsRoute = ({ questionType, ...otherProps }) => {
     const questionForms = {
         [SINGLE_LINE]: TextInputForm,
         [MULTI_LINE]: TextInputForm,
         [NUMBER]: NumberInputForm,
         [DROPDOWN]: MultiOptionFormContainer,
-        [CHECKBOX]: CheckboxForm,
-        [PHOTO]: ImageUploadForm,
+        [MULTI_DROPDOWN]: MultiOptionFormContainer,
         [RADIO]: MultiOptionFormContainer,
-        [SIGNITURE]: BasicForm,
-        [MULTI_SELECT]: MultiOptionFormContainer
+        [CHECKBOX]: NoFields,
+        [SIGNITURE]: NoFields,
+        [SINGLE_PHOTO]: NoFields,
+        [MULTI_PHOTO]: MultiPhotoForm
     };
 
-    const SpecificForm = questionForms[questionType] || BasicForm;
+    const SpecificForm = questionForms[questionType] || NoFields;
     return <SpecificForm {...otherProps} />;
 };
 

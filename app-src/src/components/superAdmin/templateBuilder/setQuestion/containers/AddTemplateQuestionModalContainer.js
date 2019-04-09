@@ -18,21 +18,24 @@ const questionTypeOptions = Object.keys(QUESTION_TYPES).map(type => ({
     value: type
 }));
 
+const initialState = {
+    questionTypeOptions: convertArrToObj(questionTypeOptions, 'value'),
+    questionType: QUESTION_TYPE_VALUES.SINGLE_LINE,
+    prereqOptions: {},
+    prereqUuid: '',
+    prereqVal: '',
+    name: '',
+    isRequired: false,
+    isHidden: false,
+    isPrefill: false,
+    charLimit: '300',
+    maxNum: '',
+    options: [],
+    maxPhotos: ''
+};
+
 class AddTemplateQuestionModalContainer extends Component {
-    state = {
-        questionTypeOptions: convertArrToObj(questionTypeOptions, 'value'),
-        questionType: QUESTION_TYPE_VALUES.SINGLE_LINE,
-        prereqOptions: {},
-        prereqUuid: '',
-        prereqVal: '',
-        name: '',
-        isRequired: false,
-        isHidden: false,
-        isPrefill: false,
-        charLimit: '300',
-        maxNum: '',
-        options: []
-    };
+    state = initialState;
 
     render() {
         const {
@@ -66,6 +69,13 @@ class AddTemplateQuestionModalContainer extends Component {
         this.setState({ prereqOptions: this._getPrereqOptions() });
     };
 
+    componentDidUpdate = (_, prevState) => {
+        const { questionType } = this.state;
+        if (prevState.questionType !== questionType) {
+            this.setState({ ...initialState, questionType });
+        }
+    };
+
     handleInputChange = ({ target: { type, value, name, checked } }) => {
         this.setState({ [name]: type === 'checkbox' ? checked : value });
     };
@@ -87,7 +97,9 @@ class AddTemplateQuestionModalContainer extends Component {
             charLimit,
             isHidden,
             isPrefill,
-            options
+            options,
+            maxNum,
+            maxPhotos
         } = this.state;
 
         const newQuestion = {
@@ -103,15 +115,10 @@ class AddTemplateQuestionModalContainer extends Component {
             prereqVal,
             charLimit,
             sort: this._getSort(),
-            options: options.map(({ text }) => text)
+            options: options.map(({ text }) => text),
+            maxNum,
+            maxPhotos
         };
-
-        console.log(newQuestion.options);
-        console.log(newQuestion.options);
-        console.log(newQuestion.options);
-        console.log(newQuestion.options);
-        console.log(newQuestion.options);
-        console.log(newQuestion.options);
 
         setQuestion(newQuestion);
     };

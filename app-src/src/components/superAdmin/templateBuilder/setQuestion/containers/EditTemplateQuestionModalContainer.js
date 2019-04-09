@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import uuid from 'uuid/v1';
 
 import {
     QUESTION_TYPES,
-    PREREQ_TYPES
+    PREREQ_TYPES,
+    QUESTION_TYPE_VALUES
 } from 'constants/superAdmin/templateBuilder';
 import { convertArrToObj } from 'helpers/generic';
 import hideModal from 'actions/shared/generic/modals/sync/hideModal';
@@ -19,16 +21,18 @@ const questionTypeOptions = Object.keys(QUESTION_TYPES).map(type => ({
 class AddTemplateQuestionModalContainer extends Component {
     state = {
         questionTypeOptions: convertArrToObj(questionTypeOptions, 'value'),
-        questionType: '1',
+        questionType: QUESTION_TYPE_VALUES.SINGLE_LINE,
         prereqOptions: {},
         prereqUuid: '',
         prereqVal: '',
         name: '',
-        charLimit: 300,
         isRequired: false,
         isHidden: false,
         isPrefill: false,
-        maxNum: ''
+        charLimit: '300',
+        maxNum: '',
+        options: [],
+        maxPhotos: ''
     };
 
     render() {
@@ -42,12 +46,12 @@ class AddTemplateQuestionModalContainer extends Component {
 
         return (
             <TemplateQuestionFormModal
+                {...otherFields}
                 action="Edit"
                 questionTypeOptions={Object.values(questionTypeOptions)}
                 questionType={questionTypeOptions[questionType]}
                 prereqOptions={Object.values(prereqOptions)}
                 selectedPrereq={prereqOptions[prereqUuid]}
-                {...otherFields}
                 handleInputChange={this.handleInputChange}
                 handlePrefieldChange={this.handlePrefieldChange}
                 hideModal={e => {
@@ -61,7 +65,15 @@ class AddTemplateQuestionModalContainer extends Component {
 
     componentDidMount = () => {
         const { question } = this.props;
-        this.setState({ ...question, prereqOptions: this._getPrereqOptions() });
+        const options = question.options.map(opt => ({
+            text: opt,
+            id: uuid()
+        }));
+        this.setState({
+            ...question,
+            options,
+            prereqOptions: this._getPrereqOptions()
+        });
     };
 
     _getPrereqOptions = () => {
@@ -90,7 +102,10 @@ class AddTemplateQuestionModalContainer extends Component {
             prereqUuid,
             prereqVal,
             isHidden,
-            isPrefill
+            isPrefill,
+            options,
+            maxNum,
+            maxPhotos
         } = this.state;
 
         const newSection = {
@@ -101,10 +116,38 @@ class AddTemplateQuestionModalContainer extends Component {
             isPrefill,
             questionType: questionType,
             prereqUuid,
-            prereqVal
+            prereqVal,
+            options: options.map(({ text }) => text),
+            maxNum,
+            maxPhotos
         };
 
         setQuestion(newSection);
+    };
+
+    addOption = () => {
+        const { options } = this.state;
+        this.setState({ options: [...options, { text: '', id: uuid() }] });
+    };
+
+    removeOption = id => {
+        const { options } = this.state;
+        this.setState({ options: options.filter(op => op.id !== id) });
+    };
+
+    emptyOptions = () => {
+        this.setState({ options: [] });
+    };
+
+    updateOption = e => {
+        e.preventDefault();
+        const { value, name } = e.target;
+        const { options } = this.state;
+        const newOptions = options.map(opt =>
+            opt.id === name ? { ...opt, text: value } : opt
+        );
+
+        this.setState({ options: newOptions });
     };
 }
 
