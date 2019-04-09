@@ -9,7 +9,7 @@ const TextInput = ({
     handleBlur,
     error
 }) => (
-    <div className="row">
+    <>
         <input
             className="generic-input"
             type={type}
@@ -22,7 +22,7 @@ const TextInput = ({
         {!!(error && error.length) && (
             <p className="error red-text text-accent-4">{error}</p>
         )}
-    </div>
+    </>
 );
 
 export default TextInput;
