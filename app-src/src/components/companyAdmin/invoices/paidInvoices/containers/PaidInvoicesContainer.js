@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import InvoicesTableContainer from 'components/companyAdmin/subscription/pendingInvoices/containers/InvoicesTableContainer';
+import InvoicesTableContainer from 'components/companyAdmin/invoices/shared/invoiceListTable/containers/InvoicesTableContainer';
 
 class PaidInvoicesContainer extends Component {
     render = () => {
@@ -20,12 +20,10 @@ class PaidInvoicesContainer extends Component {
 }
 
 const mapStateToProps = ({ companyAdmin: { invoicesReducer } }) => ({
-    isFetching: invoicesReducer.isFetching,
     paidInvoices:
         Object.values(invoicesReducer.invoices).filter(
             invoice => invoice.isPaid
-        ) || [],
-    error: invoicesReducer.error
+        ) || []
 });
 
 export default connect(mapStateToProps)(PaidInvoicesContainer);
