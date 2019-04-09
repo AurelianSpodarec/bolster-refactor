@@ -25,7 +25,7 @@ const PinDetails = ({ pinHistory, historyCount, historyVersion }) => (
         <FieldOutput
             title="Date created"
             description={moment(pinHistory.createdOn).format(
-                'DD-MM-YYYY, h:mm:ss a'
+                'DD-MM-YYYY, HH:mm a'
             )}
             fieldClass="no-h-padding"
         />
