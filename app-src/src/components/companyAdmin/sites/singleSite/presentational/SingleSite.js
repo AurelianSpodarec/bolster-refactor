@@ -6,12 +6,10 @@ import SiteBuildingsTableContainer from '../containers/SiteBuildingsTableContain
 import SiteOperativeAddContainer from '../containers/SiteOperativeAddContainer';
 import SiteClientInviteContainer from '../containers/SiteClientInviteContainer';
 import SiteCompaniesAccessTableContainer from '../containers/SiteCompaniesAccessTableContainer';
-import Breadcrumb from 'components/shared/generic/breadcrumb/presentational/Breadcrumb';
 import SitePageHeaderContainer from '../containers/SitePageHeaderContainer';
 
 const SingleSite = () => (
     <>
-        <Breadcrumb breadcrumbs={[{ text: 'Site' }, { text: 'item 2' }]} />
         <div className="size-lg-12">
             <SitePageHeaderContainer />
         </div>
