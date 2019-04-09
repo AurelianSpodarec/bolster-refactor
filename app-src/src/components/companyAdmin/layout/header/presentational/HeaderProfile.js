@@ -30,7 +30,7 @@ const HeaderProfile = ({
             <p className="item">
                 Credits Available: {profile.creditsAvailable}
             </p>
-            <Link to="company/tools/generation-queue" className="item">
+            <Link to="/company/tools/generation-queue" className="item">
                 Generation Queue: {generationQueueLength}
                 <i className="icon fas fa-chevron-right" />
             </Link>
@@ -42,7 +42,7 @@ const HeaderProfile = ({
                 My Invoices
                 <i className="icon fas fa-chevron-right" />
             </Link>
-            <Link to="/profile" className="item">
+            <Link to="company/profile" className="item">
                 My Profile
                 <i className="icon fas fa-chevron-right" />
             </Link>

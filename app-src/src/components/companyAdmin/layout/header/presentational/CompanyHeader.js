@@ -27,12 +27,12 @@ const Header = ({ company, unreadMessageCount, totalCedits }) => (
             <div className="account-area">
                 {/*** notifications ***/}
                 <div className="notifications">
-                    <Link to="company/tools/credit-logs" className="item main">
+                    <Link to="/company/tools/credit-logs" className="item main">
                         <span className="number green">{totalCedits}</span>
                         <i className="far fa-money-bill-alt fa-fw" />
                     </Link>
                     <HeaderNotificationsContainer />
-                    <Link to="company/message-centre" className="item main">
+                    <Link to="/company/message-centre" className="item main">
                         {!!unreadMessageCount && (
                             <span className="number">{unreadMessageCount}</span>
                         )}
