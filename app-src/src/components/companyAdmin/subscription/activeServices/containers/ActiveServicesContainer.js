@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { isObjEmpty } from 'helpers/generic';
-import ActiveServices from 'components/companyAdmin/sites/subscription/activeServices/presentational/ActiveServices';
+import ActiveServices from 'components/companyAdmin/subscription/activeServices/presentational/ActiveServices';
 
 class ActiveServicesContainer extends Component {
     state = {
