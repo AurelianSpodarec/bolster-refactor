@@ -44,9 +44,7 @@ class TextInputContianer extends Component {
 
     componentDidUpdate = ({ value: prevValue }) => {
         const { value } = this.props;
-        const isPrevEmpty = !(prevValue && prevValue.length);
-        const isValEmpty = !(value && value.length);
-        if (isPrevEmpty && !isValEmpty) this._validate(value);
+        if (prevValue !== value) this._validate(value);
     };
 
     componentWillUnmount = () => {
@@ -56,7 +54,6 @@ class TextInputContianer extends Component {
 
     handleChange = e => {
         this.props.handleChange(e);
-        this._validate(e.target.value);
     };
 
     handleBlur = () => {

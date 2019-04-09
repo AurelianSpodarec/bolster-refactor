@@ -3,18 +3,18 @@ import React from 'react';
 import Field from 'components/shared/generic/form/presentational/Field';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 
-const NumberInputForm = ({ handleInputChange, maxNum }) => (
+const MultiPhotoForm = ({ handleInputChange, maxPhotos }) => (
     <>
-        <Field name="Maximum number">
+        <Field name="Maximum files">
             <TextInputContainer
-                placeholder="No max"
-                name="maxNum"
-                value={maxNum}
+                name="maxPhotos"
+                value={maxPhotos}
                 handleChange={handleInputChange}
                 type="number"
+                required
             />
         </Field>
     </>
 );
 
-export default NumberInputForm;
+export default MultiPhotoForm;

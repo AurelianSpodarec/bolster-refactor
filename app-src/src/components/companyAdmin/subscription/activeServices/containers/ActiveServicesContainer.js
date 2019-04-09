@@ -28,8 +28,8 @@ class ActiveServicesContainer extends Component {
     componentDidMount = () => {};
 
     componentDidUpdate = prevProps => {
-        const { isFetching, subscriptions, services } = this.props;
-        if (!isFetching && prevProps.isFetching && subscriptions && services)
+        const { isFetching } = this.props;
+        if (!isFetching && prevProps.isFetching)
             this.setState({
                 subscriptions: this.getActiveSubscriptions()
             });
@@ -66,14 +66,18 @@ class ActiveServicesContainer extends Component {
 
 const mapStateToProps = ({
     companyAdmin: {
-        subscriptionsReducer: { error, isFetching, subscriptions },
-        servicesReducer: { services }
+        subscriptionsReducer: {
+            error,
+            isFetching: fetchingSubscriptions,
+            subscriptions
+        },
+        servicesReducer: { services, isFetching: fetchingServices }
     }
 }) => ({
     subscriptions,
     services,
     error,
-    isFetching
+    isFetching: fetchingSubscriptions || fetchingServices
 });
 
 const mapDispatchToProps = dispatch => ({

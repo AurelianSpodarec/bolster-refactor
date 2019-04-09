@@ -3,11 +3,12 @@ export const QUESTION_TYPES = {
     '2': 'Multi line',
     '3': 'Number',
     '4': 'Dropdown',
-    '5': 'Checkbox',
-    '6': 'Photo',
-    '7': 'Radio',
+    '5': 'Multi dropdown',
+    '6': 'Radio',
+    '7': 'Checkbox',
     '8': 'Signiture',
-    '9': 'Multi select'
+    '9': 'Single photo',
+    '10': 'Multi photo'
 };
 
 export const QUESTION_TYPE_VALUES = {
@@ -15,11 +16,13 @@ export const QUESTION_TYPE_VALUES = {
     MULTI_LINE: '2',
     NUMBER: '3',
     DROPDOWN: '4',
-    CHECKBOX: '5',
-    PHOTO: '6',
-    RADIO: '7',
+    MULTI_DROPDOWN: '5',
+    RADIO: '6',
+    CHECKBOX: '7',
     SIGNITURE: '8',
-    MULTI_SELECT: '9'
+    SINGLE_PHOTO: '9',
+    MULTI_PHOTO: '10'
 };
 
-export const PREREQ_TYPES = ['4', '5'];
+const { DROPDOWN, MULTI_DROPDOWN, RADIO, CHECKBOX } = QUESTION_TYPE_VALUES;
+export const PREREQ_TYPES = [DROPDOWN, MULTI_DROPDOWN, RADIO, CHECKBOX];
