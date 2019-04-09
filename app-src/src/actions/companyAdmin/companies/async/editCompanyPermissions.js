@@ -25,12 +25,12 @@ export const editCompanyPermissionsFailure = error => ({
     error
 });
 
-export default (hierarchicalLevel, hierarchicalID, postBody) => dispatch => {
+export default (hierarchicalID, postBody) => dispatch => {
     dispatch(editCompanyPermissionsRequest());
 
     axios
         .post(
-            `${API_URL}/companypermissions/${hierarchicalLevel}/${hierarchicalID}`,
+            `${API_URL}/companypermissions/${hierarchicalID}`,
             postBody,
             getHeaders()
         )

@@ -93,9 +93,12 @@ function postSuccessReducer(state = false, action) {
         case ADD_COMPANY_REQUEST:
         case DELETE_COMPANY_PERMISSIONS_REQUEST:
         case DELETE_COMPANY_PERMISSIONS_FAILURE:
+        case EDIT_COMPANY_PERMISSIONS_REQUEST:
+        case EDIT_COMPANY_PERMISSIONS_FAILURE:
             return false;
         case ADD_COMPANY_SUCCESS:
         case DELETE_COMPANY_PERMISSIONS_SUCCESS:
+        case EDIT_COMPANY_PERMISSIONS_SUCCESS:
             return true;
         default:
             return state;
