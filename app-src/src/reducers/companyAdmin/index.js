@@ -22,6 +22,7 @@ import servicesReducer from './services';
 import sitesReducer from './sites';
 import statsReducer from './stats';
 import subscriptionsReducer from './subscriptions';
+import invoiceItemsReducer from './invoiceItems';
 
 export default combineReducers({
     buildingsReducer,
@@ -35,6 +36,7 @@ export default combineReducers({
     floorsReducer,
     inspectionLogsReducer,
     invoicesReducer,
+    invoiceItemsReducer,
     messagesReducer,
     operativesReducer,
     pinAnswersReducer,
