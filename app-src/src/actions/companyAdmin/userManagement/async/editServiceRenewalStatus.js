@@ -23,10 +23,10 @@ export const editServiceRenewalStatusFailure = error => ({
 
 export default postBody => dispatch => {
     dispatch(editServiceRenewalStatusRequest());
-
+    console.log(postBody);
     axios
         .post(
-            `${API_URL}/company/subscriptions/service/renewal`,
+            `${API_URL}/subscriptions/service/renewal`,
             postBody,
             getHeaders()
         )
