@@ -5,19 +5,24 @@ import { connect } from 'react-redux';
 import Subscription from '../presentational/Subscription';
 import fetchAllSubscriptions from 'actions/companyAdmin/subscriptions/async/fetchAllSubscriptions';
 import fetchAllServices from 'actions/companyAdmin/services/async/fetchAllServices';
+import fetchAllInvoices from 'actions/companyAdmin/invoices/async/fetchAllInvoices';
+import fetchAllInvoiceItems from 'actions/companyAdmin/invoices/async/fetchAllInvoiceItems';
 
 class SubscriptionContainer extends Component {
     render = () => <Subscription />;
 
     componentDidMount = () => {
-        this.props.fetchAllSubscriptions();
-        this.props.fetchAllServices();
+        this.props.fetchSubscriptionData();
     };
 }
 
 const mapDispatchToProps = dispatch => ({
-    fetchAllSubscriptions: () => dispatch(fetchAllSubscriptions()),
-    fetchAllServices: () => dispatch(fetchAllServices())
+    fetchSubscriptionData: () => {
+        dispatch(fetchAllSubscriptions());
+        dispatch(fetchAllServices());
+        dispatch(fetchAllInvoices());
+        dispatch(fetchAllInvoiceItems());
+    }
 });
 
 export default withRouter(

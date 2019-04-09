@@ -1,13 +1,11 @@
 import React from 'react';
-import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
+import InvoicesTableContainer from '../containers/InvoicesTableContainer';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 
-const PendingInvoices = () => {
-    return (
-        <BlockContainer>
-            <PageHeading title="Pending Invoices" />
-        </BlockContainer>
-    );
-};
+const PendingInvoices = ({ invoices }) => (
+    <BlockContainer heading="Pending Invoices">
+        <InvoicesTableContainer invoices={invoices} />
+    </BlockContainer>
+);
 
 export default PendingInvoices;
