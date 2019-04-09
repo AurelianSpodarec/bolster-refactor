@@ -12,13 +12,14 @@ const InvoiceDetails = ({
 }) => {
     return (
         <BlockContainer
-            heading={`${isRenewal ? 'Renewal' : ''} Details`}
-            isFetching={isFetching}
+            heading="Details"
             error={error}
             isEmpty={!id}
+            isFetching={isFetching}
         >
             <p>{`Invoice no: ${id}`}</p>
             <p>{`Date: ${moment(createdOn).format('DD/MM/YY')}`}</p>
+            <p>{`Type: ${isRenewal ? 'Renewal' : 'New Purchase'}`}</p>
             <p>{`Status: ${isPaid ? 'Paid' : 'Not Paid'}`}</p>
             {isPaid && <p>{`Payment Method: ${PAYMENT_TYPES[paymentType]}`}</p>}
             <p>{`Total: ${total && total.toFixed(2)} GBP (inc. VAT)`}</p>
