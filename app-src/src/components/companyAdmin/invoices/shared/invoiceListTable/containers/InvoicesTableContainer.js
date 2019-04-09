@@ -18,7 +18,7 @@ class InvoicesTableContainer extends Component {
                 ]}
                 error={error}
                 isFetching={isFetching}
-                invoices={Object.values(invoices)}
+                invoices={invoices}
             />
         );
     }

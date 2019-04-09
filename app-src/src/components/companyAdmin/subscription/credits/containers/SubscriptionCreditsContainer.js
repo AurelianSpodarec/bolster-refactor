@@ -6,7 +6,7 @@ import BlockContainer from 'components/shared/generic/block/containers/BlockCont
 
 class SubscriptionCreditsContainer extends Component {
     state = {
-        creditsToBuy: null
+        creditsToBuy: ''
     };
 
     render = () => (
