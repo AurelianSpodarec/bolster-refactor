@@ -113,6 +113,10 @@ body {
         strong {
             @include ubuntu-medium;
         }
+
+        &.map-details {
+            font-size: 120%;
+        }
     }
 
     &.small-padding {
@@ -1248,6 +1252,10 @@ input {
 .leaflet-container {
     width: 100%;
     height: 388px;
+}
+
+.map-details {
+    margin-top: 10px;
 }
 
 //pin amounts

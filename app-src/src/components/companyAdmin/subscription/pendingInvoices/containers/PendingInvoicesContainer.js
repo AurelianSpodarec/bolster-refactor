@@ -2,31 +2,17 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import PendingInvoices from '../presentational/PendingInvoices';
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import fetchAllInvoices from 'actions/companyAdmin/invoices/async/fetchAllInvoices';
-import fetchAllInvoiceItems from 'actions/companyAdmin/invoices/async/fetchAllInvoiceItems';
 
 class PendingInvoicesContainer extends Component {
-    render = () => (
-        <BlockContainer>
-            <PendingInvoices />
-        </BlockContainer>
-    );
-
-    componentDidMount = () => {
-        const { fetchInvoiceData } = this.props;
-        fetchInvoiceData();
-    };
+    render = () => <PendingInvoices invoices={this.props.invoices} />;
 }
 
-const mapDispatchToProps = dispatch => ({
-    fetchInvoiceData: () => {
-        dispatch(fetchAllInvoices());
-        dispatch(fetchAllInvoiceItems());
+const mapStateToProps = ({
+    companyAdmin: {
+        invoicesReducer: { invoices }
     }
+}) => ({
+    invoices: Object.values(invoices).filter(invoice => !invoice.isPaid)
 });
 
-export default connect(
-    null,
-    mapDispatchToProps
-)(PendingInvoicesContainer);
+export default connect(mapStateToProps)(PendingInvoicesContainer);
