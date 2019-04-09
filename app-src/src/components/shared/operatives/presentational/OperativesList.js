@@ -15,7 +15,7 @@ const OperativesList = ({
         } = operative;
         return (
             <tr key={id}>
-                <td className="small-text">
+                <td>
                     {`${firstName} ${lastName} - ${id}`}
                     <br />
                     {email}
