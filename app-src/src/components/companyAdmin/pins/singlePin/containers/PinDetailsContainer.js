@@ -14,6 +14,7 @@ class PinDetailsContainer extends Component {
             selectedHistory,
             histories,
             users,
+            services,
             error,
             isFetching
         } = this.props;
@@ -28,7 +29,7 @@ class PinDetailsContainer extends Component {
         return (
             <BlockContainer
                 heading="Pin options"
-                isEmpty={!user}
+                isEmpty={!user || Object.values(services).length < 1}
                 isFetching={isFetching}
                 error={error}
             >
@@ -37,6 +38,7 @@ class PinDetailsContainer extends Component {
                     historyCount={histories.length}
                     historyVersion={historyVersion}
                     user={user}
+                    services={services}
                 />
             </BlockContainer>
         );
@@ -58,7 +60,14 @@ class PinDetailsContainer extends Component {
 }
 
 const mapStateToProps = (
-    { companyAdmin: { pinsReducer, pinHistoriesReducer, companyUsersReducer } },
+    {
+        companyAdmin: {
+            pinsReducer,
+            pinHistoriesReducer,
+            companyUsersReducer,
+            servicesReducer: { services }
+        }
+    },
     { match }
 ) => {
     const pin = pinsReducer.pins[match.params.id] || {};
@@ -73,7 +82,8 @@ const mapStateToProps = (
         latestHistoryId: pin.latestHistoryID,
         selectedHistory: histories[selectedHistoryId] || {},
         histories: Object.values(histories),
-        users: companyUsersReducer.users || {}
+        users: companyUsersReducer.users || {},
+        services: services || {}
     };
 };
 
