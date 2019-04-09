@@ -11,7 +11,7 @@ const NumberInputForm = ({ handleInputChange, maxNum }) => (
                 name="maxNum"
                 value={maxNum}
                 handleChange={handleInputChange}
-                required
+                type="number"
             />
         </Field>
     </>

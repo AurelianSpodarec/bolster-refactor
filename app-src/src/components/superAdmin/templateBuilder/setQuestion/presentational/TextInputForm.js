@@ -10,6 +10,7 @@ const TextInputForm = ({ handleInputChange, charLimit }) => (
                 value={charLimit}
                 handleChange={handleInputChange}
                 required
+                type="number"
             />
         </Field>
     </>

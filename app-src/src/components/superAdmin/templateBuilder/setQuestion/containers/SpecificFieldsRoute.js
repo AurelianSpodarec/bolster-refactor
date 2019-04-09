@@ -3,10 +3,10 @@ import { QUESTION_TYPE_VALUES } from 'constants/superAdmin/templateBuilder';
 
 import TextInputForm from '../presentational/TextInputForm';
 import NumberInputForm from '../presentational/NumberInputForm';
-import MultiOptionForm from '../presentational/MultiOptionForm';
 import CheckboxForm from '../presentational/CheckboxForm';
 import ImageUploadForm from '../presentational/ImageUploadForm';
 import BasicForm from '../presentational/BasicForm';
+import MultiOptionFormContainer from './MultiOptionFormContainer';
 
 const {
     SINGLE_LINE,
@@ -25,12 +25,12 @@ const SpecificFieldsRoute = ({ questionType, ...otherProps }) => {
         [SINGLE_LINE]: TextInputForm,
         [MULTI_LINE]: TextInputForm,
         [NUMBER]: NumberInputForm,
-        [DROPDOWN]: MultiOptionForm,
+        [DROPDOWN]: MultiOptionFormContainer,
         [CHECKBOX]: CheckboxForm,
         [PHOTO]: ImageUploadForm,
-        [RADIO]: MultiOptionForm,
+        [RADIO]: MultiOptionFormContainer,
         [SIGNITURE]: BasicForm,
-        [MULTI_SELECT]: MultiOptionForm
+        [MULTI_SELECT]: MultiOptionFormContainer
     };
 
     const SpecificForm = questionForms[questionType] || BasicForm;

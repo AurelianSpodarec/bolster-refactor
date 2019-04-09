@@ -29,8 +29,9 @@ class AddTemplateQuestionModalContainer extends Component {
         isRequired: false,
         isHidden: false,
         isPrefill: false,
-        charLimit: 300,
-        maxNum: ''
+        charLimit: '300',
+        maxNum: '',
+        options: []
     };
 
     render() {
@@ -51,8 +52,12 @@ class AddTemplateQuestionModalContainer extends Component {
                 selectedPrereq={prereqOptions[prereqUuid]}
                 handleInputChange={this.handleInputChange}
                 handlePrefieldChange={this.handlePrefieldChange}
-                hideModal={this.hideModel}
+                hideModal={this.hideModal}
                 handleSubmit={this.handleSubmit}
+                addOption={this.addOption}
+                removeOption={this.removeOption}
+                updateOption={this.updateOption}
+                emptyOptions={this.emptyOptions}
             />
         );
     }
@@ -65,7 +70,7 @@ class AddTemplateQuestionModalContainer extends Component {
         this.setState({ [name]: type === 'checkbox' ? checked : value });
     };
 
-    hideModel = e => {
+    hideModal = e => {
         e.preventDefault();
         this.props.hideModal();
     };
@@ -81,7 +86,8 @@ class AddTemplateQuestionModalContainer extends Component {
             prereqVal,
             charLimit,
             isHidden,
-            isPrefill
+            isPrefill,
+            options
         } = this.state;
 
         const newQuestion = {
@@ -96,10 +102,43 @@ class AddTemplateQuestionModalContainer extends Component {
             prereqUuid,
             prereqVal,
             charLimit,
-            sort: this._getSort()
+            sort: this._getSort(),
+            options: options.map(({ text }) => text)
         };
 
+        console.log(newQuestion.options);
+        console.log(newQuestion.options);
+        console.log(newQuestion.options);
+        console.log(newQuestion.options);
+        console.log(newQuestion.options);
+        console.log(newQuestion.options);
+
         setQuestion(newQuestion);
+    };
+
+    addOption = () => {
+        const { options } = this.state;
+        this.setState({ options: [...options, { text: '', id: uuid() }] });
+    };
+
+    removeOption = id => {
+        const { options } = this.state;
+        this.setState({ options: options.filter(op => op.id !== id) });
+    };
+
+    emptyOptions = () => {
+        this.setState({ options: [] });
+    };
+
+    updateOption = e => {
+        e.preventDefault();
+        const { value, name } = e.target;
+        const { options } = this.state;
+        const newOptions = options.map(opt =>
+            opt.id === name ? { ...opt, text: value } : opt
+        );
+
+        this.setState({ options: newOptions });
     };
 
     _getPrereqOptions = () => {
