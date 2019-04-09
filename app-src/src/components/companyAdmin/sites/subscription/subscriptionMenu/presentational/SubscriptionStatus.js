@@ -4,7 +4,7 @@ import PageHeading from 'components/shared/generic/pageHeading/presentational/Pa
 const SubscriptionStatus = ({ subscriptions, active, endOn }) => (
     <div className="size-lg-12">
         <PageHeading
-            title={`Subscription status: ${active ? 'active' : 'inactive'}`}
+            title={`Subscription status: ${active ? 'Active' : 'Inactive'}`}
         >
             <i className={`fa ${active ? 'fa-check' : 'fa-times'}`} />
         </PageHeading>

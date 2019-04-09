@@ -9,19 +9,32 @@ const ActiveServices = ({ subscriptions, handleChange }) => (
         <Form>
             <Field name="Services">
                 {subscriptions.map(sub => (
-                    <Checkbox
+                    <div
                         key={`subscription-id-${sub.id}`}
-                        checked={sub.isAutoRenew}
-                        name={sub.name}
-                        value={sub.serviceID}
-                        id={`subscription-id-${sub.id}`}
-                        handleChange={handleChange}
-                        text={sub.name}
-                    />
+                        className="size-lg-6"
+                    >
+                        <div className="size-lg-6">
+                            <i className="fa fa-check" />
+                            <label
+                                className="heading heading-3"
+                                htmlFor={`subscription-id-${sub.id}`}
+                            >
+                                {sub.name}
+                            </label>
+                        </div>
+                        <Checkbox
+                            checked={sub.isAutoRenew}
+                            name={sub.name}
+                            value={sub.serviceID}
+                            id={`subscription-id-${sub.id}`}
+                            handleChange={handleChange}
+                            text="Renew?"
+                        />
+                    </div>
                 ))}
                 <>
                     <span>
-                        <i className="fa fa-add" /> Add service{' '}
+                        <i className="fa fa-plus" /> Add service{' '}
                         <button className="button green" onClick={() => {}}>
                             Add{' '}
                         </button>
