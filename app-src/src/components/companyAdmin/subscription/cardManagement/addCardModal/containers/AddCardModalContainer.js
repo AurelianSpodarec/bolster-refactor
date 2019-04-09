@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
+import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import addCard from 'actions/companyAdmin/cards/async/addCard';
 import AddCardModal from '../presentational/AddCardModal';
 
@@ -28,6 +29,11 @@ class AddCardModalContainer extends Component {
         />
     );
 
+    componentDidUpdate = prevProps => {
+        const { hideModal, postSuccess } = this.props;
+        if (postSuccess && !prevProps.postSuccess) hideModal();
+    };
+
     handleChange = e => {
         this.setState({
             [e.target.name]: e.target.value
@@ -51,21 +57,29 @@ class AddCardModalContainer extends Component {
             expiryYear,
             CV2
         };
-        const { addCard, hideModal } = this.props;
+        const { addCard } = this.props;
         addCard(postBody);
-        hideModal();
     };
 
     validateMaxLength = num => value =>
         value.length <= num ? '' : `Maximum length for this field is ${num}`;
 }
 
+const mapStateToProps = ({
+    companyAdmin: {
+        cardsReducer: { postError }
+    }
+}) => ({
+    postError
+});
+
 const mapDispatchToProps = dispatch => ({
+    showModal: (type, props) => dispatch(showModal(type, props)),
     hideModal: () => dispatch(hideModal()),
     addCard: body => dispatch(addCard(body))
 });
 
 export default connect(
-    null,
+    mapStateToProps,
     mapDispatchToProps
 )(AddCardModalContainer);
