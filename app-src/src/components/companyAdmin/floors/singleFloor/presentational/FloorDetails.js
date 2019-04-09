@@ -8,7 +8,7 @@ const FloorDetails = ({ floor }) => (
                 className="button yellow"
                 to={`/company/floors/${floor.id}/edit`}
             >
-                <i className="far fa-pencil" /> Edit floor
+                <i className="far fa-pencil fa-fw" /> Edit floor
             </Link>
         </div>
     </div>

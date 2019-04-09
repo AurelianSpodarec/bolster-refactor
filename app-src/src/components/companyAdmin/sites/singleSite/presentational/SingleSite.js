@@ -8,12 +8,10 @@ import SiteClientInviteContainer from '../containers/SiteClientInviteContainer';
 import SiteCompaniesAccessTableContainer from '../containers/SiteCompaniesAccessTableContainer';
 import Breadcrumb from 'components/shared/generic/breadcrumb/presentational/Breadcrumb';
 import SitePageHeaderContainer from '../containers/SitePageHeaderContainer';
-import BreadcrumbContainer from 'components/companyAdmin/pins/singlePin/containers/BreadcrumbContainer';
 
 const SingleSite = () => (
     <>
-        <BreadcrumbContainer />
-        <Breadcrumb breadcrumbs={[{ text: 'item 1' }, { text: 'item 2' }]} />
+        <Breadcrumb breadcrumbs={[{ text: 'Site' }, { text: 'item 2' }]} />
         <div className="size-lg-12">
             <SitePageHeaderContainer />
         </div>

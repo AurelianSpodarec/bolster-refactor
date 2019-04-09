@@ -1147,13 +1147,12 @@ input {
     }
 
     .no-data-td {
-        padding-left: 0 !important;
         p {
+            font-size: 14px;
             padding: {
                 top: 17px;
                 bottom: 17px;
             }
-            @include ubuntu-medium;
         }
     }
 }

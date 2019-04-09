@@ -11,7 +11,7 @@ const CompaniesAccessTable = ({
     handleShowModal,
     isFetching
 }) => (
-    <div className="">
+    <div className="size-lg-12">
         <h3 className="heading heading-3">Companies with access</h3>
         <Table
             headers={['Name', '', 'Actions']}

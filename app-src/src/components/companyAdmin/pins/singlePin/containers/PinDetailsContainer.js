@@ -10,16 +10,25 @@ import BlockContainer from 'components/shared/generic/block/containers/BlockCont
 
 class PinDetailsContainer extends Component {
     render() {
-        const { selectedHistory, histories, error, isFetching } = this.props;
+        const {
+            selectedHistory,
+            histories,
+            users,
+            error,
+            isFetching
+        } = this.props;
 
         const historyVersion =
             [...histories]
                 .sort((a, b) => moment(a.createdAt) - moment(b.createdAt))
                 .findIndex(item => item.id === selectedHistory.id) + 1;
 
+        const user = users[selectedHistory.createdByCompanyUserID];
+
         return (
             <BlockContainer
                 heading="Pin options"
+                isEmpty={!user}
                 isFetching={isFetching}
                 error={error}
             >
@@ -27,6 +36,7 @@ class PinDetailsContainer extends Component {
                     pinHistory={selectedHistory}
                     historyCount={histories.length}
                     historyVersion={historyVersion}
+                    user={user}
                 />
             </BlockContainer>
         );
@@ -62,7 +72,8 @@ const mapStateToProps = (
         error: pinHistoriesReducer.error,
         latestHistoryId: pin.latestHistoryID,
         selectedHistory: histories[selectedHistoryId] || {},
-        histories: Object.values(histories)
+        histories: Object.values(histories),
+        users: companyUsersReducer.users || {}
     };
 };
 

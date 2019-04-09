@@ -22,7 +22,7 @@ const DocumentsTable = ({ location, documents, isFetching }) => {
                     className="button pull-right"
                     to={`${location.pathname}/attach-document`}
                 >
-                    <i className="fal fa-plus" /> Add document
+                    <i className="fa fa-plus" /> Add document
                 </Link>
             </div>
         </div>
