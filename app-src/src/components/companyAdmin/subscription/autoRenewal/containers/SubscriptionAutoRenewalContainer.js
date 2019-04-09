@@ -7,19 +7,20 @@ import editSubscriptionRenewalStatus from 'actions/companyAdmin/subscriptions/as
 
 class SubscriptionAutoRenewalContainer extends Component {
     render() {
-        const { isFetching, isAutoRenew } = this.props;
+        const { isFetching, isAutoRenew, renewalType } = this.props;
         return (
             <BlockContainer isFetching={isFetching}>
                 <SubscriptionAutoRenewal
                     isAutoRenew={isAutoRenew}
                     handleAutoRenewChange={this.handleAutoRenewChange}
+                    handleRadioChange={this.handleRadioChange}
+                    renewalType={renewalType}
                 />
             </BlockContainer>
         );
     }
 
     handleAutoRenewChange = () => {
-        console.log('firing');
         const { editSubscriptionRenewalStatus, isAutoRenew } = this.props;
         editSubscriptionRenewalStatus({ renewalStatus: !isAutoRenew });
     };
@@ -34,12 +35,13 @@ const mapStateToProps = ({
     companyAdmin: {
         subscriptionsReducer: {
             isFetching,
-            subscriptions: { isAutoRenew }
+            subscriptions: { isAutoRenew, renewalType }
         }
     }
 }) => ({
     isFetching,
-    isAutoRenew
+    isAutoRenew,
+    renewalType
 });
 
 const mapDispatchToProps = dispatch => ({
