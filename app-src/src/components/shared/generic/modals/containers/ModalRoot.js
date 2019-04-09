@@ -13,7 +13,7 @@ import {
     DELETE_CLIENT_FROM_DRAWING,
     DELETE_COMPANY_PERMISSIONS,
     DELETE_OPERATIVE,
-    DELETION_ERROR,
+    ERROR_MODAL,
     EDIT_TEMPLATE,
     EDIT_TEMPLATE_QUESTION,
     EDIT_USER,
@@ -27,7 +27,6 @@ import AddTemplateModalContainer from 'components/superAdmin/templateBuilder/set
 import AddTemplateSectionModalContainer from 'components/superAdmin/templateBuilder/setSection/containers/AddTemplateSectionModalContainer';
 import AddTemplateQuestionModalContainer from 'components/superAdmin/templateBuilder/setQuestion/containers/AddTemplateQuestionModalContainer';
 import DeleteEnquiryModalContainer from './DeleteEnquiryModalContainer';
-import DeletionErrorModalContainer from './DeletionErrorModalContainer';
 import DeleteDocumentModalContainer from './DeleteDocumentModalContainer';
 import DeleteOperativeModalContainer from './DeleteOperativeModalContainer';
 import DeleteClientModalContainer from './DeleteClientModalContainer';
@@ -38,6 +37,7 @@ import EditTemplateModalContainer from 'components/superAdmin/templateBuilder/se
 import EditTemplateQuestionModalContainer from 'components/superAdmin/templateBuilder/setQuestion/containers/EditTemplateQuestionModalContainer';
 import EditUserPasswordModalContainer from './EditUserPasswordModalContainer';
 import EditUserModalContainer from './EditUserModalContainer';
+import ErrorModal from '../presentational/ErrorModal';
 import PinPhotoModal from '../presentational/PinPhotoModal';
 import RenameTemplateSectionModalContainer from 'components/superAdmin/templateBuilder/setSection/containers/EditTemplateSectionModalContainer';
 import SuccessModalContainer from './SuccessModalContainer';
@@ -55,7 +55,7 @@ const MODAL_COMPONENTS = {
     [DELETE_DOCUMENT]: DeleteDocumentModalContainer,
     [DELETE_ENQUIRY]: DeleteEnquiryModalContainer,
     [DELETE_OPERATIVE]: DeleteOperativeModalContainer,
-    [DELETION_ERROR]: DeletionErrorModalContainer,
+    [ERROR_MODAL]: ErrorModal,
     [EDIT_TEMPLATE]: EditTemplateModalContainer,
     [EDIT_TEMPLATE_QUESTION]: EditTemplateQuestionModalContainer,
     [EDIT_USER]: EditUserModalContainer,

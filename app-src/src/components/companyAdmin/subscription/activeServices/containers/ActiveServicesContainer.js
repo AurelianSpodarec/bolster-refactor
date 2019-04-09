@@ -10,17 +10,26 @@ class ActiveServicesContainer extends Component {
         subscriptions: []
     };
 
-    render = () => (
-        <ActiveServices
-            subscriptions={this.state.subscriptions}
-            handleChange={this.handleChange}
-        />
-    );
+    render = () => {
+        const { services, subscriptions } = this.props;
+        const { serviceIDs = [] } = subscriptions;
+        const unsubscribedServices = Object.values(services).filter(
+            service => !serviceIDs.includes(service.id)
+        );
+        return (
+            <ActiveServices
+                subscriptions={this.state.subscriptions}
+                services={unsubscribedServices}
+                handleChange={this.handleChange}
+            />
+        );
+    };
 
     componentDidMount = () => {};
 
     componentDidUpdate = prevProps => {
-        if (!this.props.isFetching && prevProps.isFetching)
+        const { isFetching, subscriptions, services } = this.props;
+        if (!isFetching && prevProps.isFetching && subscriptions && services)
             this.setState({
                 subscriptions: this.getActiveSubscriptions()
             });
@@ -28,6 +37,7 @@ class ActiveServicesContainer extends Component {
 
     getActiveSubscriptions = () => {
         const { subscriptions, services } = this.props;
+
         return subscriptions.services && !isObjEmpty(services)
             ? subscriptions.services.map(service => ({
                   ...service,

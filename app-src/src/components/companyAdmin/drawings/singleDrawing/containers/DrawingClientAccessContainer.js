@@ -7,7 +7,7 @@ import BlockContainer from 'components/shared/generic/block/containers/BlockCont
 
 import {
     DELETE_CLIENT_FROM_DRAWING,
-    DELETION_ERROR
+    ERROR_MODAL
 } from 'constants/shared/modalTypes';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 
@@ -35,7 +35,7 @@ class DrawingClientAccessContainer extends Component {
     componentDidUpdate(prevProps) {
         const { deletionError, showModal } = this.props;
         if (deletionError && !prevProps.deletionError) {
-            showModal(DELETION_ERROR, {
+            showModal(ERROR_MODAL, {
                 title: 'Deletion Error:',
                 message:
                     'An error occurred while deleting this client, please try again later'
