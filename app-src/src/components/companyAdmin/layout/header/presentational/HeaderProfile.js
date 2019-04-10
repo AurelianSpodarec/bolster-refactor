@@ -13,9 +13,9 @@ const HeaderProfile = ({
     <div className="profile" ref={updateNode}>
         <div className="user" onClick={handleClick}>
             {profile.profileImageS3Key ? (
-                <img alt="profile image" src={profile.profileImageS3Key} />
+                <img alt="profile" src={profile.profileImageS3Key} />
             ) : (
-                <img src={NoProfilePic} />
+                <img src={NoProfilePic} alt="generic profile" />
             )}
 
             <div className="text">

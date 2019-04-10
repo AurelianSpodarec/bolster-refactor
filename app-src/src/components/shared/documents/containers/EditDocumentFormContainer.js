@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 import EditDocumentForm from '../presentational/EditDocumentForm';
-import editDocument from 'actions/companyAdmin/creditLogs/documents/async/editDocument';
-import fetchSingleDocument from 'actions/companyAdmin/creditLogs/documents/async/fetchSingleDocument';
+import editDocument from 'actions/documents/async/editDocument';
+import fetchSingleDocument from 'actions/documents/async/fetchSingleDocument';
 import Loading from 'components/shared/generic/misc/presentational/Loading';
 
 class EditDocumentFormContainer extends Component {

@@ -1,8 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import Block from 'components/shared/generic/block/presentational/Block';
-
 const Breadcrumb = ({
     className = 'size-lg-12',
     breadcrumbs = [],
