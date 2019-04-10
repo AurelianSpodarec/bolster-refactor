@@ -2,7 +2,7 @@ import React from 'react';
 import moment from 'moment';
 import { Map, TileLayer } from 'react-leaflet';
 
-import DrawingMapPin from 'components/companyAdmin/drawings/singleDrawing/presentational/DrawingMapPin';
+import MapPin from 'components/shared/pins/presentational/MapPin';
 
 const SinglePinMap = ({ pin, zoom, handleClick, user }) => (
     <>
@@ -16,7 +16,7 @@ const SinglePinMap = ({ pin, zoom, handleClick, user }) => (
                 url="https://www.silverchip.com/tiles/{z}/{x}/{y}.jpg"
                 noWrap={true}
             />
-            <DrawingMapPin key={pin.id} pin={pin} />
+            <MapPin key={pin.id} pin={pin} />
         </Map>
         <p className="map-details">
             Last updated by:{' '}
