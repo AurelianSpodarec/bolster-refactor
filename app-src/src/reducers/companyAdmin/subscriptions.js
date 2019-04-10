@@ -9,14 +9,20 @@ import {
     FETCH_PRO_RATA_SUBSCRIPTION_COST_REQUEST,
     FETCH_PRO_RATA_SUBSCRIPTION_COST_FAILURE,
     FETCH_PRO_RATA_SUBSCRIPTION_COST_SUCCESS,
+    ADD_SERVICE_TO_SUBSCRIPTION_FAILURE,
+    EDIT_SUBSCRIPTION_RENEWAL_STATUS_REQUEST,
+    ADD_SERVICE_TO_SUBSCRIPTION_REQUEST,
+    EDIT_SERVICE_RENEWAL_STATUS_SUCCESS,
     ADD_SERVICE_TO_SUBSCRIPTION_SUCCESS
 } from 'constants/actionTypes/subscriptions';
-import { updateObj } from 'helpers/generic';
+import { EDIT_SERVICE_RENEWAL_STATUS_REQUEST } from 'constants/actionTypes/services';
 
 export default combineReducers({
     isFetching: isFetchingReducer,
     error: errorReducer,
     subscriptions: subscriptionsReducer,
+    postSuccess: postSuccessReducer,
+    postFailure: postFailureReducer,
     proRataCost: proRataCostReducer
 });
 
@@ -44,7 +50,37 @@ function errorReducer(state = null, action) {
         case EDIT_SERVICE_RENEWAL_STATUS_FAILURE:
         case EDIT_SUBSCRIPTION_RENEWAL_STATUS_FAILURE:
         case FETCH_PRO_RATA_SUBSCRIPTION_COST_FAILURE:
+        case ADD_SERVICE_TO_SUBSCRIPTION_FAILURE:
             return action.error;
+        default:
+            return state;
+    }
+}
+
+function postSuccessReducer(state = false, action) {
+    switch (action.type) {
+        case EDIT_SERVICE_RENEWAL_STATUS_REQUEST:
+        case EDIT_SUBSCRIPTION_RENEWAL_STATUS_REQUEST:
+        case ADD_SERVICE_TO_SUBSCRIPTION_REQUEST:
+            return false;
+        case EDIT_SERVICE_RENEWAL_STATUS_SUCCESS:
+        case EDIT_SUBSCRIPTION_RENEWAL_STATUS_SUCCESS:
+        case ADD_SERVICE_TO_SUBSCRIPTION_SUCCESS:
+            return true;
+        default:
+            return state;
+    }
+}
+function postFailureReducer(state = false, action) {
+    switch (action.type) {
+        case EDIT_SERVICE_RENEWAL_STATUS_REQUEST:
+        case EDIT_SUBSCRIPTION_RENEWAL_STATUS_REQUEST:
+        case ADD_SERVICE_TO_SUBSCRIPTION_REQUEST:
+            return false;
+        case EDIT_SERVICE_RENEWAL_STATUS_FAILURE:
+        case EDIT_SUBSCRIPTION_RENEWAL_STATUS_FAILURE:
+        case ADD_SERVICE_TO_SUBSCRIPTION_FAILURE:
+            return true;
         default:
             return state;
     }
@@ -55,9 +91,6 @@ function subscriptionsReducer(state = {}, action) {
         case FETCH_ALL_SUBSCRIPTIONS_SUCCESS:
         case EDIT_SUBSCRIPTION_RENEWAL_STATUS_SUCCESS:
             return action.payload;
-        case ADD_SERVICE_TO_SUBSCRIPTION_SUCCESS:
-            // ?????
-            return updateObj(state, action.payload.id, action.payload);
         default:
             return state;
     }

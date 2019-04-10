@@ -27,7 +27,7 @@ class TextInputContianer extends Component {
 
         return (
             <TextInput
-                value={value}
+                value={value || ''}
                 name={name}
                 type={type}
                 placeholder={placeholder}

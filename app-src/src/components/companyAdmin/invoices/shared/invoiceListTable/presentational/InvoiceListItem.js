@@ -19,7 +19,7 @@ const InvoiceListItem = ({
         <td>{!isPaid && <i className="fa fa-exclamation" />}</td>
         <td>
             <BlockButtonWrapper>
-                <Link to={`${location.pathname}/${id}`} className="button">
+                <Link to={`/company/invoices/${id}`} className="button">
                     View
                 </Link>
                 {!isPaid && <button className="button">Pay</button>}

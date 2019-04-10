@@ -15,7 +15,7 @@ export default combineReducers({
 function sectionsReducer(state = {}, action) {
     switch (action.type) {
         case FETCH_TEMPLATE_SUCCESS:
-            return { ...state, ...convertArrToObj(action.sections) };
+            return { ...state, ...convertArrToObj(action.sections, 'uuid') };
         case SET_SECTION:
             return updateObj(state, action.section.uuid, action.section);
         case DELETE_SECTION:

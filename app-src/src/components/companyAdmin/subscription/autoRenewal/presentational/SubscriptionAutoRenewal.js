@@ -32,10 +32,10 @@ const SubscriptionAutoRenewal = ({
                 />
                 <br />
                 <label htmlFor="radio-card">
-                    Note: Lorem ipsum dolor sit, amet consectetur adipisicing
+                    ##Note: Lorem ipsum dolor sit, amet consectetur adipisicing
                     elit. Qui architecto voluptas, nisi explicabo eveniet saepe
                     voluptates reiciendis doloribus, assumenda quam dolorum ut
-                    ad ducimus est.
+                    ad ducimus est.##
                 </label>
             </Field>
             <Field name="Pay by invoice" htmlFor="radio-invoice">
@@ -50,10 +50,10 @@ const SubscriptionAutoRenewal = ({
                 />
                 <br />
                 <label htmlFor="radio-invoice">
-                    Note: Lorem ipsum dolor sit, amet consectetur adipisicing
+                    ##Note: Lorem ipsum dolor sit, amet consectetur adipisicing
                     elit. Qui architecto voluptas, nisi explicabo eveniet saepe
                     voluptates reiciendis doloribus, assumenda quam dolorum ut
-                    ad ducimus est.
+                    ad ducimus est.##
                 </label>
             </Field>
         </Form>

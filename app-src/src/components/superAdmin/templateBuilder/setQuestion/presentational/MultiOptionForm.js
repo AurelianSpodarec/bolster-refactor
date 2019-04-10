@@ -21,7 +21,6 @@ const MultiOptionForm = ({
                             Remove option
                         </button>
                     )}
-
                     <TextInputContainer
                         placeholder="[type option here]"
                         name={option.id}
