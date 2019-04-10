@@ -9,7 +9,8 @@ const SubscriptionCredits = ({
     creditsToBuy,
     handleInputChange,
     totalCredits,
-    showModal
+    showModal,
+    costOfCredits
 }) => (
     <>
         <PageHeading title="Credits" />
@@ -29,7 +30,7 @@ const SubscriptionCredits = ({
                 <button className="button" onClick={showModal}>
                     Buy
                 </button>
-                <p>##Total: £1,500##</p>
+                {creditsToBuy && <p>Total : £{costOfCredits * creditsToBuy}</p>}
             </BlockButtonWrapper>
         </Form>
     </>

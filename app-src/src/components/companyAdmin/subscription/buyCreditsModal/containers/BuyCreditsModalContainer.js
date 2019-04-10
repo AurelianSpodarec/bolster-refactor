@@ -18,7 +18,7 @@ class BuyCreditsModalContainer extends Component {
     };
 
     render = () => {
-        const { cards, hideModal } = this.props;
+        const { cards, hideModal, costOfCredits } = this.props;
         const cardOptions = Object.values(cards).map(card => ({
             text: `${card.nickname || card.name} - ${card.lastFour}`,
             value: card.id
@@ -29,6 +29,7 @@ class BuyCreditsModalContainer extends Component {
                 handleChange={this.handleChange}
                 handleSubmit={this.handleSubmit}
                 cards={cardOptions}
+                costOfCredits={costOfCredits}
                 selectedCard={
                     cardOptions.find(
                         ({ value }) => value === this.state.stripeCardID
@@ -82,11 +83,12 @@ class BuyCreditsModalContainer extends Component {
 
 const mapStateToProps = ({
     companyAdmin: {
-        creditsReducer: { postSuccess, postError },
+        creditsReducer: { postSuccess, postError, costOfCredits },
         cardsReducer: { cards, isFetching }
     }
 }) => ({
     cards,
+    costOfCredits,
     postSuccess,
     postError,
     isFetching

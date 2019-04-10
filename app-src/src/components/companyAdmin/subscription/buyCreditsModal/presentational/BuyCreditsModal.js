@@ -16,9 +16,9 @@ const BuyCreditsModal = ({
     paymentType,
     creditsToBuy,
     cards,
-    selectedCard
+    selectedCard,
+    costOfCredits
 }) => {
-    console.log(+paymentType, PAYMENT_IDS.CARD);
     return (
         <ModalOuterContainer>
             <BlockHeading title="Buy Credits" />
@@ -58,7 +58,11 @@ const BuyCreditsModal = ({
                             handleChange={handleChange}
                             placeholder="Number of credits to buy"
                             required
+                            type="number"
                         />
+                        {creditsToBuy && (
+                            <p>Total : £{costOfCredits * creditsToBuy}</p>
+                        )}
                     </Field>
                 </div>
                 <BlockButtonWrapper>
