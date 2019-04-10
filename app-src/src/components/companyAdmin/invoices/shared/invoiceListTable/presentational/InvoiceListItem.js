@@ -7,7 +7,6 @@ import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/pr
 import { PAYMENT_TYPES } from 'constants/companyAdmin/enums';
 
 const InvoiceListItem = ({
-    location,
     invoice: { createdOn, isPaid, total, id, paymentType }
 }) => (
     <tr>
