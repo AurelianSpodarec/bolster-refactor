@@ -7,7 +7,9 @@ const MultiOptionForm = ({
     addOption,
     removeOption,
     updateOption,
-    options
+    options,
+    canEditOption,
+    handleInputChange
 }) => (
     <>
         {options.map((option, i) => {
@@ -21,7 +23,6 @@ const MultiOptionForm = ({
                             Remove option
                         </button>
                     )}
-
                     <TextInputContainer
                         placeholder="[type option here]"
                         name={option.id}
@@ -32,6 +33,14 @@ const MultiOptionForm = ({
                 </Field>
             );
         })}
+        <Field name="Can company edit?">
+            <input
+                name="canEditOption"
+                type="checkbox"
+                checked={canEditOption}
+                onChange={handleInputChange}
+            />
+        </Field>
         <button onClick={addOption} type="button">
             Add option
         </button>

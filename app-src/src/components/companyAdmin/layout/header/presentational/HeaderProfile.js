@@ -16,7 +16,7 @@ const HeaderProfile = ({
             {profile.profileImageS3Key ? (
                 <img
                     alt="profile"
-                    src={`${FILE_STORAGE_URL}${profile.profileImageS3Key}`}
+                    src={`${FILE_STORAGE_URL}/${profile.profileImageS3Key}`}
                 />
             ) : (
                 <img src={NoProfilePic} alt="generic profile" />

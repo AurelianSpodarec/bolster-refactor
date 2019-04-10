@@ -23,7 +23,7 @@ export default combineReducers({
 function questionsReducer(state = {}, action) {
     switch (action.type) {
         case FETCH_TEMPLATE_SUCCESS:
-            return { ...state, ...convertArrToObj(action.questions) };
+            return { ...state, ...convertArrToObj(action.questions, 'uuid') };
         case SET_QUESTION:
             return updateObj(state, action.question.uuid, action.question);
         case CHANGE_QUESTION_SECTION:

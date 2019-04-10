@@ -18,7 +18,7 @@ const ProfileDetails = ({ error, isFetching, profile }) => {
             <p>{`email: ${email}`}</p>
             <p>{`phone number: ${phoneNumber}`}</p>
             <BlockButtonWrapper>
-                <Link className="button" to="profile/edit">
+                <Link className="button" to="/company/profile/edit">
                     Edit
                 </Link>
             </BlockButtonWrapper>

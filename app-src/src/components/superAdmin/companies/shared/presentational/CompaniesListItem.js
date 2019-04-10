@@ -4,7 +4,7 @@ import { Link, withRouter } from 'react-router-dom';
 
 const CompaniesListItem = ({
     company: { name, telephone, address, id, termsAcceptedOn },
-    location: { pathname }
+    match: { url }
 }) => (
     <tr>
         <td>{name}</td>
@@ -16,7 +16,7 @@ const CompaniesListItem = ({
                 : '-'}
         </td>
         <td>
-            <Link to={`${pathname}/${id}`} className="button">
+            <Link to={`${url}/${id}`} className="button">
                 More info
             </Link>
         </td>

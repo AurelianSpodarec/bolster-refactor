@@ -2,7 +2,6 @@ import axios from 'axios';
 
 import { API_URL } from 'config';
 import { getHeaders } from 'helpers/api';
-import setAPIFieldErrors from 'actions/shared/generic/fieldErrors/sync/setAPIFieldErrors';
 import {
     CREATE_CREDITS_REQUEST,
     CREATE_CREDITS_SUCCESS,
@@ -29,10 +28,5 @@ export default postBody => dispatch => {
     return axios
         .post(`${API_URL}/subscriptions/credits`, postBody, getHeaders())
         .then(res => dispatch(createCreditsSuccess(res.data)))
-        .catch(err => {
-            dispatch(createCreditsFailure(err.message));
-
-            if (err.response.status === 400)
-                dispatch(setAPIFieldErrors(err.response.data.errors));
-        });
+        .catch(err => dispatch(createCreditsFailure(err.message)));
 };

@@ -49,11 +49,39 @@ class BuyCreditsModalContainer extends Component {
     };
 
     componentDidUpdate = prevProps => {
-        const { isFetching, cards } = this.props;
+        const {
+            isFetching,
+            cards,
+            postError,
+            postSuccess,
+            fetchAllCredits,
+            fetchAllInvoices,
+            showModal
+        } = this.props;
+        const { paymentType } = this.state;
         if (!isFetching && prevProps.isFetching) {
             const primaryCard = cards.find(({ isPrimary }) => isPrimary);
             this.setState({
                 stripeCardID: primaryCard ? primaryCard.id : cards[0].id
+            });
+        }
+        if (postSuccess && !prevProps.postSuccess) {
+            fetchAllCredits();
+            fetchAllInvoices();
+            showModal(PAYMENT_SUCCESS, {
+                message: `Your order has been successfully placed and your new credits ${
+                    +paymentType === PAYMENT_IDS.CARD
+                        ? 'have been added.'
+                        : 'will be available once the invoice has been paid'
+                }`
+            });
+        }
+        if (postError && !prevProps.postError) {
+            fetchAllCredits();
+            showModal(PAYMENT_ERROR, {
+                message:
+                    'There was an error while purchasing your credits. Please try again.',
+                resubmit: hideModal
             });
         }
     };
@@ -65,7 +93,7 @@ class BuyCreditsModalContainer extends Component {
     handleSubmit = e => {
         e.preventDefault();
         const { paymentType, creditsToBuy: credits, stripeCardID } = this.state;
-        const { createCredits, showModal, fetchAllCredits } = this.props;
+        const { createCredits } = this.props;
 
         const postBody = {
             paymentType,
@@ -74,25 +102,7 @@ class BuyCreditsModalContainer extends Component {
                 +paymentType === PAYMENT_IDS.CARD ? stripeCardID : null
         };
 
-        createCredits(postBody)
-            .then(() => {
-                fetchAllCredits();
-                fetchAllInvoices();
-                showModal(PAYMENT_SUCCESS, {
-                    message: `Your order has been successfully placed and your new credits ${
-                        +paymentType === PAYMENT_IDS.CARD
-                            ? 'have been added.'
-                            : 'will be available once the invoice has been paid'
-                    }`
-                });
-            })
-            .catch(() => {
-                showModal(PAYMENT_ERROR, {
-                    message:
-                        'There was an error while purchasing your credits. Please try again.',
-                    resubmit: this.handleSubmit
-                });
-            });
+        createCredits(postBody);
     };
 }
 
