@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import fetchProfile from 'actions/companyAdmin/profile/async/fetchProfile';
+import fetchProfile from 'actions/shared/profile/async/fetchProfile';
 
 import Profile from '../presentational/Profile';
 

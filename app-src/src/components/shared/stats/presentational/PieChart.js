@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactPieChart from 'react-minimal-pie-chart';
 
-import greenPin from '_content/images/pins/green-pin.png';
-import redPin from '_content/images/pins/red-pin.png';
-import bluePin from '_content/images/pins/blue-pin.png';
-import yellowPin from '_content/images/pins/yellow-pin.png';
-import purplePin from '_content/images/pins/purple-pin.png';
+import greenPin from '_content/images/pins-examples/green-pin.svg';
+import redPin from '_content/images/pins-examples/red-pin.svg';
+import bluePin from '_content/images/pins-examples/blue-pin.svg';
+import yellowPin from '_content/images/pins-examples/yellow-pin.svg';
+import purplePin from '_content/images/pins-examples/purple-pin.svg';
 
 import statsPieChartColours from 'constants/companyAdmin/statsPieColours';
 
