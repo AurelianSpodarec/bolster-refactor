@@ -20,7 +20,7 @@ const SubscriptionCredits = ({
                     name="creditsToBuy"
                     id="add-credits"
                     type="number"
-                    placeholder="##Enter number of credits..##"
+                    placeholder="Enter number of credits.."
                     value={creditsToBuy}
                     handleChange={handleInputChange}
                 />

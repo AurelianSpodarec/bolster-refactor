@@ -18,6 +18,7 @@ const BuyCreditsModal = ({
     cards,
     selectedCard
 }) => {
+    console.log(+paymentType, PAYMENT_IDS.CARD);
     return (
         <ModalOuterContainer>
             <BlockHeading title="Buy Credits" />
@@ -32,7 +33,8 @@ const BuyCreditsModal = ({
                     />
                     <DropdownContainer
                         disabled={+paymentType !== PAYMENT_IDS.CARD}
-                        placeholder="Select a card..."
+                        required={+paymentType === PAYMENT_IDS.CARD}
+                        withoutPlaceholder
                         name="stripeCardID"
                         options={cards}
                         selectedOption={selectedCard}
@@ -54,6 +56,8 @@ const BuyCreditsModal = ({
                             name="creditsToBuy"
                             value={creditsToBuy}
                             handleChange={handleChange}
+                            placeholder="Number of credits to buy"
+                            required
                         />
                     </Field>
                 </div>

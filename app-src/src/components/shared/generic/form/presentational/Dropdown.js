@@ -10,7 +10,8 @@ const Dropdown = ({
     selectedOption = { text: placeholder },
     withoutPlaceholder = false,
     error,
-    disabled = false
+    disabled = false,
+    required = false
 }) => {
     return (
         <div className="custom-dropdown size-lg-12">
@@ -26,6 +27,7 @@ const Dropdown = ({
                 onBlur={handleBlur}
                 value={selectedOption.value || ''}
                 disabled={disabled}
+                required={required}
             >
                 {!withoutPlaceholder && <option value="">{placeholder}</option>}
                 {options.map(({ text, value }) => (
