@@ -3,9 +3,12 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import SingleFloorHeader from '../presentational/SingleFloorHeader';
+import FloorBreadcrumbContainer from './FloorBreadcrumbContainer';
 
 const SingleFloorHeaderContainer = ({ floor }) => (
-    <SingleFloorHeader floor={floor} />
+    <SingleFloorHeader floor={floor}>
+        <FloorBreadcrumbContainer />
+    </SingleFloorHeader>
 );
 
 export default withRouter(

@@ -7,15 +7,6 @@ import fetchSingleSite from 'actions/companyAdmin/sites/async/fetchSingleSite';
 import Breadcrumb from 'components/shared/generic/breadcrumb/presentational/Breadcrumb';
 
 class BuildingBreadcrumbContainer extends Component {
-    // const breadcrumbs = [
-    //     { text: 'Site one', link: 'sites/1' },
-    //     { text: 'Building one', link: 'buildings/1' },
-    //     { text: 'Floor one', link: 'floors/1' },
-    //     { text: 'Drawing one', link: 'drawings/1' },
-    //     { text: '00067:34' }
-    // ];
-    //needs to be array to map out each link
-    //how do i know if is a neext
     state = {
         siteName: '',
         siteID: 0
@@ -56,17 +47,12 @@ class BuildingBreadcrumbContainer extends Component {
     };
 
     componentDidUpdate = prevProps => {
-        const { sites, building, fetchSingleSite } = this.props;
+        const { building, fetchSingleSite } = this.props;
 
         if (!prevProps.building.id && !!building.id) {
-            fetchSingleSite(building.siteID);
-        }
-
-        if (
-            !Object.values(prevProps.sites).length &&
-            Object.values(sites).length
-        ) {
-            this._setSiteDetails(building.siteID);
+            fetchSingleSite(building.siteID).then(() => {
+                this._setSiteDetails(building.siteID);
+            });
         }
     };
 }
@@ -83,11 +69,13 @@ const mapStateToProps = (
     building: buildings[match.params.id] || {},
     sites: sites
 });
+
 const mapDispatchToProps = dispatch => ({
     fetchSingleSite: siteID => {
-        dispatch(fetchSingleSite(siteID));
+        return dispatch(fetchSingleSite(siteID));
     }
 });
+
 export default withRouter(
     connect(
         mapStateToProps,

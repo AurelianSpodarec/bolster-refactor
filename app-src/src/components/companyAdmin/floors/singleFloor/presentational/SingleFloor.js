@@ -1,6 +1,5 @@
 import React from 'react';
 
-import Breadcrumb from 'components/shared/generic/breadcrumb/presentational/Breadcrumb';
 import SingleFloorHeaderContainer from '../containers/SingleFloorHeaderContainer';
 import FloorDetailsContainer from '../containers/FloorDetailsContainer';
 import FloorDocumentsTableContainer from '../containers/FloorDocumentsTableContainer';
@@ -11,7 +10,6 @@ import FloorCompaniesAccessTableContainer from '../containers/FloorCompaniesAcce
 
 const Floor = () => (
     <div className="size-lg-12">
-        <Breadcrumb breadcrumbs={[{ text: 'floors' }, { text: 'floor' }]} />
         <div className="size-lg-12">
             <SingleFloorHeaderContainer />
         </div>
