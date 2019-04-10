@@ -3,8 +3,14 @@ import Checkbox from 'components/shared/generic/form/presentational/Checkbox';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import Form from 'components/shared/generic/form/containers/Form';
 import Field from 'components/shared/generic/form/presentational/Field';
+import { ADD_SERVICE_TO_SUBSCRIPTION } from 'constants/shared/modalTypes';
 
-const ActiveServices = ({ subscriptions, handleChange, services }) => {
+const ActiveServices = ({
+    subscriptions,
+    handleChange,
+    services,
+    showModal
+}) => {
     return (
         <BlockContainer>
             <Form>
@@ -45,6 +51,9 @@ const ActiveServices = ({ subscriptions, handleChange, services }) => {
                                 className="button green"
                                 onClick={e => {
                                     e.preventDefault();
+                                    showModal(ADD_SERVICE_TO_SUBSCRIPTION, {
+                                        service
+                                    });
                                 }}
                             >
                                 Add
