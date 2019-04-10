@@ -13,11 +13,17 @@ class SubscriptionCreditsContainer extends Component {
 
     render = () => {
         const { creditsToBuy } = this.state;
-        const { isFetching, totalCredits, showModal } = this.props;
+        const {
+            isFetching,
+            totalCredits,
+            showModal,
+            costOfCredits
+        } = this.props;
         return (
             <BlockContainer isFetching={isFetching}>
                 <SubscriptionCredits
                     creditsToBuy={creditsToBuy}
+                    costOfCredits={costOfCredits}
                     handleInputChange={this.handleInputChange}
                     totalCredits={totalCredits}
                     showModal={e => {
@@ -36,14 +42,15 @@ class SubscriptionCreditsContainer extends Component {
 
 const mapStateToProps = ({
     companyAdmin: {
-        creditsReducer: { credits, isFetching }
+        creditsReducer: { credits, isFetching, costOfCredits }
     }
 }) => ({
     totalCredits: Object.values(credits).reduce(
         (acc, curr) => acc + curr.quantity,
         0
     ),
-    isFetching
+    isFetching,
+    costOfCredits
 });
 
 const mapDispatchToProps = dispatch => ({

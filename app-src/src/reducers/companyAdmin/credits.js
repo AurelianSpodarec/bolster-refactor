@@ -7,7 +7,10 @@ import {
     FETCH_CREDITS_FAILURE,
     CREATE_CREDITS_FAILURE,
     CREATE_CREDITS_SUCCESS,
-    CREATE_CREDITS_REQUEST
+    CREATE_CREDITS_REQUEST,
+    FETCH_COST_OF_CREDITS_REQUEST,
+    FETCH_COST_OF_CREDITS_SUCCESS,
+    FETCH_COST_OF_CREDITS_FAILURE
 } from 'constants/actionTypes/credits';
 
 export default combineReducers({
@@ -15,14 +18,18 @@ export default combineReducers({
     isFetching: isFetchingReducer,
     postSuccess: postSuccessReducer,
     postError: postErrorReducer,
-    error: errorReducer
+    error: errorReducer,
+    costOfCredits: costOfCreditsReducer
 });
 
 function isFetchingReducer(state = false, action) {
     switch (action.type) {
         case FETCH_CREDITS_REQUEST:
+        case FETCH_COST_OF_CREDITS_REQUEST:
             return true;
         case FETCH_CREDITS_SUCCESS:
+        case FETCH_COST_OF_CREDITS_SUCCESS:
+        case FETCH_COST_OF_CREDITS_FAILURE:
         case FETCH_CREDITS_FAILURE:
             return false;
         default:
@@ -54,9 +61,11 @@ function errorReducer(state = null, action) {
     switch (action.type) {
         case FETCH_CREDITS_REQUEST:
         case CREATE_CREDITS_REQUEST:
+        case FETCH_COST_OF_CREDITS_REQUEST:
             return null;
         case FETCH_CREDITS_FAILURE:
         case CREATE_CREDITS_FAILURE:
+        case FETCH_COST_OF_CREDITS_FAILURE:
             return action.error;
         default:
             return state;
@@ -67,6 +76,15 @@ function creditsReducer(state = {}, action) {
     switch (action.type) {
         case FETCH_CREDITS_SUCCESS:
             return convertArrToObj(action.payload);
+        default:
+            return state;
+    }
+}
+
+function costOfCreditsReducer(state = {}, action) {
+    switch (action.type) {
+        case FETCH_COST_OF_CREDITS_SUCCESS:
+            return action.payload.cost;
         default:
             return state;
     }
