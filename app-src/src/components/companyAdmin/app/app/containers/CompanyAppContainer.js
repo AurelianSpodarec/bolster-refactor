@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import fetchProfile from 'actions/companyAdmin/profile/async/fetchProfile';
+import fetchProfile from 'actions/shared/profile/async/fetchProfile';
 import fetchSingleCompany from 'actions/companyAdmin/companies/async/fetchSingleCompany';
 import fetchMessages from 'actions/companyAdmin/messages/async/fetchMessages';
 import fetchGenerationQueue from 'actions/companyAdmin/generationQueue/async/fetchGenerationQueue';
