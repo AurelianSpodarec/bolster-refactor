@@ -2,7 +2,14 @@ import React from 'react';
 import Table from 'components/shared/generic/tables/presentational/Table';
 import CardsList from './CardsList';
 
-const CardTable = ({ headers, cards, error, isFetching, showModal }) => (
+const CardTable = ({
+    headers,
+    cards,
+    error,
+    isFetching,
+    showModal,
+    setPrimaryCard
+}) => (
     <>
         <Table
             withActions
@@ -12,7 +19,7 @@ const CardTable = ({ headers, cards, error, isFetching, showModal }) => (
             noData={!cards.length}
             noDataMessage="No Cards"
         >
-            <CardsList cards={cards} />
+            <CardsList cards={cards} setPrimaryCard={setPrimaryCard} />
         </Table>
         <button className="button" onClick={showModal}>
             <i className="fa fa-plus" />
