@@ -18,25 +18,32 @@ const HeaderNotifications = ({
         </div>
 
         <div className={`notification-list ${popupVisible ? 'visible' : ''}`}>
-            {notifications.map(({ isRead, id, message, link }) => (
-                <div className={`item ${isRead ? '' : 'unread'}`} key={id}>
-                    <p>{message}</p>
+            {notifications.length ? (
+                notifications.map(({ isRead, id, message, link }) => (
+                    <div className={`item ${isRead ? '' : 'unread'}`} key={id}>
+                        <p>{message}</p>
 
-                    {link.toLowerCase().includes('http') ? (
-                        <a className="button" href={link}>
-                            View
-                        </a>
-                    ) : (
-                        <Link
-                            onClick={togglePopup}
-                            to={link}
-                            className="button"
-                        >
-                            View
-                        </Link>
-                    )}
-                </div>
-            ))}
+                        {link.toLowerCase().includes('http') ? (
+                            <a className="button" href={link}>
+                                View
+                            </a>
+                        ) : (
+                            <Link
+                                onClick={togglePopup}
+                                to={link}
+                                className="button"
+                            >
+                                View
+                            </Link>
+                        )}
+                    </div>
+                ))
+            ) : (
+                <span className="no-data centered size-lg-12">
+                    You have no notifications
+                </span>
+            )}
+            {}
             <div className="item">
                 <Link
                     onClick={togglePopup}
