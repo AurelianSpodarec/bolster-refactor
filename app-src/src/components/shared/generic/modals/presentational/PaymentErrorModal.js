@@ -11,6 +11,26 @@ const PaymentErrorModal = ({
 }) => {
     return (
         <ModalOuterContainer>
+            {/* ##Needs css## */}
+            <div
+                className="size-lg-12"
+                style={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignContent: 'center'
+                }}
+            >
+                <i
+                    className="fa fa-times"
+                    style={{
+                        borderRadius: '100%',
+                        backgroundColor: 'red',
+                        color: 'white',
+                        fontSize: '3em',
+                        padding: '0.5em'
+                    }}
+                />
+            </div>
             <BlockHeading title={title} />
             <p>{message}</p>
             <BlockButtonWrapper>
