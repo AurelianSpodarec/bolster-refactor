@@ -479,6 +479,15 @@ input {
                 font-size: 120%;
             }
 
+            .no-data {
+                color: #939393;
+                font-size: 140%;
+                padding: {
+                    top: 30px;
+                    bottom: 10px;
+                }
+            }
+
             .button {
                 float: right;
             }
@@ -488,6 +497,7 @@ input {
     //profile
     .profile {
         float: left;
+        height: 100%;
         min-width: 295px;
         color: #757575;
         background-color: $background-grey;
@@ -578,11 +588,6 @@ input {
     }
     &.heading-3 {
         font-size: 160%;
-        margin-bottom: 15px;
-    }
-
-    &.table-heading {
-        margin-bottom: 0;
     }
 }
 
@@ -655,10 +660,14 @@ input {
 .block-heading {
     float: left;
     width: 100%;
+    margin-bottom: 20px;
+
+    &.w-table {
+        margin-bottom: 5px;
+    }
     .heading {
         float: left;
         max-width: 50%;
-        margin-bottom: 20px;
         text-transform: capitalize;
     }
     .button,
@@ -1223,6 +1232,14 @@ input {
 .no-data {
     @include ubuntu-medium;
     font-size: 120%;
+
+    &.centered {
+        text-align: center;
+        padding: {
+            top: 17px;
+            bottom: 17px;
+        }
+    }
 }
 
 //footer
@@ -1251,6 +1268,14 @@ input {
         font-size: 140%;
         line-height: 1.5;
     }
+    .heading {
+        margin-top: 10px;
+        margin-bottom: 10px;
+
+        &:first-of-type {
+            margin-top: 0;
+        }
+    }
     .button-container {
         position: absolute;
         bottom: 0;
@@ -1263,8 +1288,8 @@ input {
         }
     }
     .pin-key {
-        padding-left: 15px;
-
+        padding-right: 15px;
+        margin-bottom: 40px;
         .pin {
             float: left;
             width: 100%;

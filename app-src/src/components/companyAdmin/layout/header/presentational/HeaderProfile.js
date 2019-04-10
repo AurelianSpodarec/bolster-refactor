@@ -2,10 +2,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import NoProfilePic from '_content/images/layout/blank-profile.png';
+import { FILE_STORAGE_URL } from 'config';
 
 const HeaderProfile = ({
     profile,
-    generationQueueLength,
     popupVisible,
     handleClick,
     logout,
@@ -14,24 +14,28 @@ const HeaderProfile = ({
     <div className="profile" ref={updateNode}>
         <div className="user" onClick={handleClick}>
             {profile.profileImageS3Key ? (
-                <img alt="profile" src={profile.profileImageS3Key} />
+                <img
+                    alt="profile"
+                    src={`${FILE_STORAGE_URL}${profile.profileImageS3Key}`}
+                />
             ) : (
                 <img src={NoProfilePic} alt="generic profile" />
             )}
-
+            {/* {todo: need to put FILE_STORAGE_URL on no profile pic and every image, when live. } */}
             <div className="text">
-                <p>{profile.fullName}</p>
+                <p>{`${profile.firstName} ${profile.lastName}`}</p>
                 <span className="email">{profile.email}</span>
             </div>
             <i className="arrow fas fa-chevron-right" />
         </div>
 
         <div className={`options ${popupVisible ? 'visible' : ''}`}>
-            <p className="item">
-                Credits Available: {profile.creditsAvailable}
-            </p>
+            <Link to="/company/tools/credit-logs" className="item">
+                Credits Log <i className="icon fas fa-chevron-right" />
+            </Link>
+
             <Link to="/company/tools/generation-queue" className="item">
-                Generation Queue: {generationQueueLength}
+                Generation Queue
                 <i className="icon fas fa-chevron-right" />
             </Link>
             <Link to="/company/subscription" className="item">

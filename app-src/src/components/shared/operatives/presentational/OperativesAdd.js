@@ -4,12 +4,12 @@ import BlockHeading from 'components/shared/generic/blockHeading/presentational/
 
 const OperativeAdd = ({ type, location }) => (
     <div className="size-lg-12">
-        <BlockHeading title="Add Operative">
+        <BlockHeading title="Invite Operative">
             <Link
                 className="button pull-right"
                 to={`${location.pathname}/add-operative`}
             >
-                <i className="fa fa-plus" /> Add operative
+                <i className="fa fa-plus" /> Invite
             </Link>
         </BlockHeading>
         <p className="generic-text size-lg-12">

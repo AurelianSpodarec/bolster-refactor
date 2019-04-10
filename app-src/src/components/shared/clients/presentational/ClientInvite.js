@@ -9,7 +9,7 @@ const ClientsInvite = ({ type, location }) => (
                 className="button pull-right"
                 to={`${location.pathname}/invite-client`}
             >
-                <i className="fa fa-plus" /> Invite client
+                <i className="fa fa-plus" /> Invite
             </Link>
         </BlockHeading>
         <p className="generic-text size-lg-12">

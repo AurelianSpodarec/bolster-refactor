@@ -15,9 +15,11 @@ import invoicesReducer from './invoices';
 import messagesReducer from './messages';
 import operativesReducer from './operatives';
 import pinAnswersReducer from './pinAnswers';
-import pinCustomFieldsReducer from './pinCustomFields';
 import pinHistoriesReducer from './pinHistories';
 import templatesReducer from './templates';
+import templateSectionsReducer from './templateSections';
+import templateVersionsReducer from './templateVersions';
+import templateQuestionsReducer from './templateQuestions';
 import pinsReducer from './pins';
 import searchReducer from './search';
 import servicesReducer from './services';
@@ -43,9 +45,11 @@ export default combineReducers({
     messagesReducer,
     operativesReducer,
     pinAnswersReducer,
-    pinCustomFieldsReducer,
     pinHistoriesReducer,
     templatesReducer,
+    templateSectionsReducer,
+    templateVersionsReducer,
+    templateQuestionsReducer,
     pinsReducer,
     searchReducer,
     servicesReducer,
