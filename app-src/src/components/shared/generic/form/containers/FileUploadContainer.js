@@ -31,6 +31,9 @@ class FileUploadContainer extends Component {
                 maxFiles={maxFiles}
                 acceptedTypes={acceptedTypes}
                 handleUpdateFiles={this.handleUpdateFiles}
+                handleBeforeAdd={this.handleBeforeAdd}
+                handleFileUploadStart={this.handleFileUploadStart}
+                handleFileUploadFinish={this.handleFileUploadFinish}
             />
         );
     }
@@ -90,6 +93,16 @@ class FileUploadContainer extends Component {
         } else if (error) {
             removeFieldError(name);
         }
+    };
+
+    handleFileUploadStart = () => {
+        const { name, addFieldError } = this.props;
+        addFieldError(name, '');
+    };
+
+    handleFileUploadFinish = () => {
+        const { name, removeFieldError } = this.props;
+        removeFieldError(name);
     };
 
     _getServerOptions = () => {

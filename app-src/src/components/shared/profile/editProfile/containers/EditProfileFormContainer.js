@@ -24,6 +24,7 @@ class EditProfileFormContainer extends Component {
                 handleInputChange={this.handleInputChange}
                 handleSubmit={this.handleSubmit}
                 handleImageChange={this.handleImageChange}
+                handleUploadStatus={this.handleUploadStatus}
             />
         );
     }
@@ -52,6 +53,10 @@ class EditProfileFormContainer extends Component {
                 [name]: value === prevState[name] ? '' : value
             };
         });
+    };
+
+    handleUploadStatus = uploading => {
+        console.log(uploading);
     };
 
     handleSubmit = e => {
