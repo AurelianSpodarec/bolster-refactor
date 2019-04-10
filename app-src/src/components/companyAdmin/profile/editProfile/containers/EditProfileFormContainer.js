@@ -10,7 +10,9 @@ class EditProfileFormContainer extends Component {
         firstName: '',
         lastName: '',
         email: '',
-        phoneNumber: ''
+        phoneNumber: '',
+        profileImageS3Key: '',
+        currentProfileImage: ''
     };
 
     render() {
@@ -19,19 +21,18 @@ class EditProfileFormContainer extends Component {
                 {...this.state}
                 handleInputChange={this.handleInputChange}
                 handleSubmit={this.handleSubmit}
+                handleImageChange={this.handleImageChange}
             />
         );
     }
 
     componentDidMount = () => {
-        this.props.fetchProfile();
+        const { profile } = this.props;
+        this._setFormDetails(profile);
     };
 
     componentDidUpdate = prevProps => {
-        const { isFetching, profile, postSuccess, history } = this.props;
-        if (!isFetching && prevProps.isFetching) {
-            this._setFormDetails(profile);
-        }
+        const { postSuccess, history } = this.props;
         if (postSuccess && !prevProps.postSuccess) {
             history.push('/company/profile');
         }
@@ -43,17 +44,34 @@ class EditProfileFormContainer extends Component {
         });
     };
 
+    handleImageChange = (name, value) => {
+        this.setState(prevState => {
+            return {
+                [name]: value === prevState[name] ? '' : value
+            };
+        });
+    };
+
     handleSubmit = e => {
         e.preventDefault();
-        const postBody = { ...this.state };
+        const {
+            profileImageS3Key,
+            currentProfileImage,
+            ...restForm
+        } = this.state;
+        const image = profileImageS3Key
+            ? profileImageS3Key
+            : currentProfileImage;
+        const postBody = { profileImageS3Key: image, ...restForm };
         this.props.editProfile(postBody);
     };
 
     _setFormDetails = profile => {
         // eslint-disable-next-line no-unused-vars
-        const { profileImageS3Key, ...restProfile } = profile;
-        this.setState({
-            ...restProfile
+        const currentS3Key = this.setState({
+            ...profile,
+            profileImageS3Key: '',
+            currentProfileImage: profile.profileImageS3Key
         });
     };
 }
