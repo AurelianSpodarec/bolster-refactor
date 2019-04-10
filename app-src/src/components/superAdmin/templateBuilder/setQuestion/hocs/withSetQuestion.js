@@ -10,6 +10,7 @@ import setQuestion from 'actions/superAdmin/templateBuilder/sync/setQuestion';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { convertArrToObj } from 'helpers/generic';
 import resetQuestionFields from 'actions/superAdmin/templateBuilder/sync/resetQuestionFields';
+import updateQuestionFields from 'actions/superAdmin/templateBuilder/sync/updateQuestionFields';
 
 export default function(WrappedComponent) {
     class WithSetQuestion extends React.Component {
@@ -115,6 +116,9 @@ export default function(WrappedComponent) {
     const mapDispatchToProps = dispatch => ({
         updateQuestionField: (name, value) => {
             dispatch(updateQuestionField(name, value));
+        },
+        updateQuestionFields: fields => {
+            dispatch(updateQuestionFields(fields));
         },
         setQuestion: question => {
             dispatch(setQuestion(question));

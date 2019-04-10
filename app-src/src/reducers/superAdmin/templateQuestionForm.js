@@ -7,6 +7,7 @@ import {
 } from 'constants/superAdmin/templateBuilder';
 import {
     UPDATE_QUESTION_FIELD,
+    UPDATE_QUESTION_FIELDS,
     RESET_QUESTION_FIELDS
 } from 'constants/actionTypes/templateBuilder';
 import { convertArrToObj } from 'helpers/generic';
@@ -21,8 +22,8 @@ const initialQuestionFields = {
     questionType: QUESTION_TYPE_VALUES.SINGLE_LINE,
     prereqOptions: {},
     prereqUuid: '',
-    name: '',
     prereqVal: '',
+    name: '',
     isRequired: false,
     isHidden: false,
     isPrefill: false,
@@ -42,6 +43,11 @@ function fieldsReducer(state = initialQuestionFields, action) {
             return {
                 ...state,
                 [action.name]: action.value
+            };
+        case UPDATE_QUESTION_FIELDS:
+            return {
+                ...state,
+                ...action.fields
             };
         case RESET_QUESTION_FIELDS:
             return initialQuestionFields;

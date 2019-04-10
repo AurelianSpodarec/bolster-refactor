@@ -36,7 +36,7 @@ class QuestionContainer extends Component {
                         connectDropTarget={connectDropTarget}
                         isDragging={isDragging}
                         question={question}
-                        showEditQuesModel={() => showEditQuesModel(uuid)}
+                        showEditQuesModel={() => showEditQuesModel(question)}
                         deleteQuestion={() => deleteQuestion(uuid)}
                     />
                 </div>
@@ -121,8 +121,8 @@ const mapStateToProps = ({ superAdmin: { templateQuestionsReducer } }) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    showEditQuesModel: uuid => {
-        dispatch(showModal(EDIT_TEMPLATE_QUESTION, { uuid }));
+    showEditQuesModel: question => {
+        dispatch(showModal(EDIT_TEMPLATE_QUESTION, { question }));
     },
     deleteQuestion: uuid => {
         dispatch(deleteQuestion(uuid));
