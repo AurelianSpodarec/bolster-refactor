@@ -13,7 +13,7 @@ const AllSites = () => (
 
         <PageHeading title="Sites">
             <Link to="/company/sites/create" className="button">
-                <i className="far fa-plus" /> Add site
+                <i className="fa fa-plus" /> Add site
             </Link>
         </PageHeading>
 
