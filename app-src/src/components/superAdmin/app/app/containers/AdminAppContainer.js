@@ -5,6 +5,7 @@ import { MENU_TABS } from 'constants/shared/tabNames';
 import selectMenuTab from 'actions/shared/generic/tabs/sync/selectMenuTab';
 import AdminApp from '../presentational/AdminApp';
 import decodeJWT from 'actions/shared/jwt/async/decodeJWT';
+import fetchProfile from 'actions/companyAdmin/profile/async/fetchProfile';
 
 class AdminAppContainer extends Component {
     render() {
@@ -12,9 +13,10 @@ class AdminAppContainer extends Component {
     }
 
     componentDidMount() {
-        const { selectAdminMenuTab, decodeJWT } = this.props;
+        const { selectAdminMenuTab, decodeJWT, fetchHomeData } = this.props;
         selectAdminMenuTab();
         decodeJWT();
+        fetchHomeData();
     }
 }
 
@@ -24,6 +26,9 @@ const mapDispatchToProps = dispatch => ({
     },
     decodeJWT: () => {
         dispatch(decodeJWT());
+    },
+    fetchHomeData: () => {
+        dispatch(fetchProfile());
     }
 });
 
