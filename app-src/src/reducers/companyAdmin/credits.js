@@ -4,12 +4,17 @@ import { convertArrToObj } from 'helpers/generic';
 import {
     FETCH_CREDITS_REQUEST,
     FETCH_CREDITS_SUCCESS,
-    FETCH_CREDITS_FAILURE
-} from 'constants/actionTypes/creditLogs';
+    FETCH_CREDITS_FAILURE,
+    CREATE_CREDITS_FAILURE,
+    CREATE_CREDITS_SUCCESS,
+    CREATE_CREDITS_REQUEST
+} from 'constants/actionTypes/credits';
 
 export default combineReducers({
     credits: creditsReducer,
     isFetching: isFetchingReducer,
+    postSuccess: postSuccessReducer,
+    postError: postErrorReducer,
     error: errorReducer
 });
 
@@ -25,11 +30,33 @@ function isFetchingReducer(state = false, action) {
     }
 }
 
+function postSuccessReducer(state = false, action) {
+    switch (action.type) {
+        case CREATE_CREDITS_REQUEST:
+            return false;
+        case CREATE_CREDITS_SUCCESS:
+            return true;
+        default:
+            return state;
+    }
+}
+
+function postErrorReducer(state = null, action) {
+    switch (action.type) {
+        case CREATE_CREDITS_FAILURE:
+            return true;
+        default:
+            return state;
+    }
+}
+
 function errorReducer(state = null, action) {
     switch (action.type) {
         case FETCH_CREDITS_REQUEST:
+        case CREATE_CREDITS_REQUEST:
             return null;
         case FETCH_CREDITS_FAILURE:
+        case CREATE_CREDITS_FAILURE:
             return action.error;
         default:
             return state;

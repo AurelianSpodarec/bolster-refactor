@@ -5,7 +5,7 @@ import PageHeading from 'components/shared/generic/pageHeading/presentational/Pa
 const CompanyHeader = ({ showAddTemplateModal, company: { name = '' } }) => (
     <PageHeading title={`Company: ${name}`}>
         <button onClick={showAddTemplateModal} className="button">
-            <i className="far fa-plus" /> Add template
+            <i className="fa fa-plus" /> Add template
         </button>
     </PageHeading>
 );

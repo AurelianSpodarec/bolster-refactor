@@ -24,7 +24,7 @@ const SiteStats = ({ site, stats }) => (
                 className="button"
                 to={`/company/buildings/create/${site.id}`}
             >
-                <i className="far fa-plus" /> Add building
+                <i className="fa fa-plus" /> Add building
             </Link>
             <Link className="button" to="/company/site">
                 <i className="fa fa-exchange" /> Change Ownership

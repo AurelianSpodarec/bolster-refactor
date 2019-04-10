@@ -6,7 +6,7 @@ import PageHeading from 'components/shared/generic/pageHeading/presentational/Pa
 const SingleFloorHeader = ({ floor }) => (
     <PageHeading title={`Floor: ${floor.name || ''}`}>
         <Link className="button" to={`/company/drawings/create/${floor.id}`}>
-            <i className="far fa-plus" /> Add drawing
+            <i className="fa fa-plus" /> Add drawing
         </Link>
         <Link className="button" to="/company/floor">
             <i className="fa fa-exchange" /> Change Ownership
