@@ -18,7 +18,6 @@ class SinglePinContainer extends Component {
             fetchSinglePin,
             fetchPinHistories,
             fetchPinTemplates,
-            fetchCustomFields,
             fetchAllCompanyUsers
         } = this.props;
 
