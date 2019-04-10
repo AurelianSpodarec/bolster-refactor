@@ -7,15 +7,16 @@ const DrawingMapPin = ({
     pin: { id, location = {}, pinCode, latestStatus = '' }
 }) => {
     const { latY = 1, lngX = 1 } = location;
-    const MapMarker = L.Icon.extend({
-        iconSize: [24, 27]
-    });
+    const MapMarker = L.Icon.extend({});
 
     const pinColour = COLOURS[latestStatus] || 'red';
 
     const icon = new MapMarker({
-        iconUrl: require(`_content/images/pins-examples/${pinColour}-pin.svg`),
-        iconRetinaUrl: require(`_content/images/pins-examples/${pinColour}-pin.svg`)
+        iconSize: [24, 40],
+        iconAnchor: [12, 40],
+        popupAnchor: [0, -40],
+        iconUrl: require(`_content/images/map-markers/${pinColour}-pin.png`),
+        iconRetinaUrl: require(`_content/images/map-markers/${pinColour}-pin.png`)
     });
 
     return (
