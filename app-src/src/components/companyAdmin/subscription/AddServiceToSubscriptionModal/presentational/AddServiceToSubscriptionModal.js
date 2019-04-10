@@ -33,7 +33,7 @@ const AddServiceToSubscriptionModal = ({
                 <div className="size-lg-6">
                     <RadioButton
                         name="paymentType"
-                        value={paymentType}
+                        value={PAYMENT_IDS.CARD}
                         checked={+paymentType === PAYMENT_IDS.CARD}
                         handleInputChange={handleChange}
                         text="Pay using card"
@@ -51,7 +51,7 @@ const AddServiceToSubscriptionModal = ({
                 <div className="size-lg-6">
                     <RadioButton
                         name="paymentType"
-                        value={paymentType}
+                        value={PAYMENT_IDS.INVOICE}
                         checked={+paymentType === PAYMENT_IDS.INVOICE}
                         handleInputChange={handleChange}
                         text="Pay by card"

@@ -50,14 +50,28 @@ class AddServiceToSubscriptionModalContainer extends Component {
 
     componentDidUpdate = prevProps => {
         // put primary card as default into state
-        const { isFetching } = this.props;
-        const cards = this.props.cards;
+        const { isFetching, cards } = this.props;
+
         if (!isFetching && prevProps.isFetching) {
             const primaryCard = cards.find(({ isPrimary }) => isPrimary);
             this.setState({
                 stripeCardID: primaryCard ? primaryCard.id : cards[0].id
             });
         }
+    };
+
+    handleChange = ({ target: { name, value } }) => {
+        this.setState({ [name]: value });
+    };
+
+    handleSubmit = e => {
+        e.preventDefault();
+        const { paymentType, stripeCardID } = this.state;
+        const {
+            service: { id }
+        } = this.props;
+        const postBody = { paymentType, stripeCardID, servicesIDs: [id] };
+        // ! add service to subscription here
     };
 }
 

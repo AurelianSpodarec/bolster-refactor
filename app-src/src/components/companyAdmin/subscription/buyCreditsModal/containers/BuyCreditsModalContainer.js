@@ -20,7 +20,7 @@ class BuyCreditsModalContainer extends Component {
 
     render = () => {
         const { cards, hideModal, costOfCredits } = this.props;
-        const cardOptions = Object.values(cards).map(card => ({
+        const cardOptions = cards.map(card => ({
             text: `${card.nickname || card.name} - ${card.lastFour}`,
             value: card.id
         }));
@@ -49,12 +49,11 @@ class BuyCreditsModalContainer extends Component {
     };
 
     componentDidUpdate = prevProps => {
-        const { isFetching } = this.props;
+        const { isFetching, cards } = this.props;
         if (!isFetching && prevProps.isFetching) {
-            const { cards } = this.props;
+            const primaryCard = cards.find(({ isPrimary }) => isPrimary);
             this.setState({
-                stripeCardID:
-                    cards.find(({ isPrimary }) => isPrimary).id || cards[0].id
+                stripeCardID: primaryCard ? primaryCard.id : cards[0].id
             });
         }
     };
@@ -103,7 +102,7 @@ const mapStateToProps = ({
         cardsReducer: { cards, isFetching }
     }
 }) => ({
-    cards,
+    cards: Object.values(cards),
     costOfCredits,
     postSuccess,
     postError,
