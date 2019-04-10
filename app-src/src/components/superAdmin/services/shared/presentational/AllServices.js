@@ -10,7 +10,7 @@ const AllServices = () => (
         <Breadcrumb breadcrumbs={[{ text: 'Services' }]} />
         <PageHeading title="Services">
             <Link to="/services/create" className="button">
-                <i className="far fa-plus" />
+                <i className="fa fa-plus" />
                 Add service
             </Link>
         </PageHeading>

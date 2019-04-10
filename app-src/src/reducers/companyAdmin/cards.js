@@ -7,7 +7,10 @@ import {
     FETCH_ALL_CARDS_FAILURE,
     ADD_CARD_REQUEST,
     ADD_CARD_SUCCESS,
-    ADD_CARD_FAILURE
+    ADD_CARD_FAILURE,
+    SET_PRIMARY_CARD_REQUEST,
+    SET_PRIMARY_CARD_SUCCESS,
+    SET_PRIMARY_CARD_FAILURE
 } from 'constants/actionTypes/cards';
 
 export default combineReducers({
@@ -34,8 +37,10 @@ function isFetchingReducer(state = false, action) {
 function postSuccessReducer(state = false, action) {
     switch (action.type) {
         case ADD_CARD_REQUEST:
+        case SET_PRIMARY_CARD_REQUEST:
             return false;
         case ADD_CARD_SUCCESS:
+        case SET_PRIMARY_CARD_SUCCESS:
             return true;
         default:
             return state;
@@ -56,8 +61,11 @@ function updatedCardIDReducer(state = 0, action) {
 function errorReducer(state = null, action) {
     switch (action.type) {
         case FETCH_ALL_CARDS_REQUEST:
+        case SET_PRIMARY_CARD_REQUEST:
+        case ADD_CARD_REQUEST:
             return null;
         case FETCH_ALL_CARDS_FAILURE:
+        case SET_PRIMARY_CARD_FAILURE:
         case ADD_CARD_FAILURE:
             return action.error;
         default:
@@ -67,6 +75,7 @@ function errorReducer(state = null, action) {
 
 function postErrorReducer(state = null, action) {
     switch (action.type) {
+        case SET_PRIMARY_CARD_FAILURE:
         case ADD_CARD_FAILURE:
             return action.error;
         default:

@@ -1,12 +1,13 @@
 import React from 'react';
 import ReactPieChart from 'react-minimal-pie-chart';
-import moment from 'moment';
 
-import greenPin from '_content/images/pins/green-pin.png';
-import redPin from '_content/images/pins/red-pin.png';
-import bluePin from '_content/images/pins/blue-pin.png';
-import yellowPin from '_content/images/pins/yellow-pin.png';
-import purplePin from '_content/images/pins/purple-pin.png';
+import greenPin from '_content/images/pins-examples/green-pin.svg';
+import redPin from '_content/images/pins-examples/red-pin.svg';
+import bluePin from '_content/images/pins-examples/blue-pin.svg';
+import yellowPin from '_content/images/pins-examples/yellow-pin.svg';
+import purplePin from '_content/images/pins-examples/purple-pin.svg';
+// import { FILE_STORAGE_URL } from 'config';
+//todo: reference images with FILE_STORAGE_URL
 
 import statsPieChartColours from 'constants/companyAdmin/statsPieColours';
 
@@ -26,46 +27,46 @@ const PieChart = ({ stats, hierarchyType }) => {
         : [{ title: 'Empty', value: 100, color: '#cecece' }];
     return (
         <div className="history size-lg-6">
-            {/* {isStatsEmpty ? (
-                <p className="no-data">
-                    There are currently no pins for this {hierarchyType}.
+            <h4 className="heading heading-3 size-lg-6">
+                Latest Pin Histories
+            </h4>
+
+            {isStatsEmpty ? (
+                <p className="no-data size-lg-12">
+                    There are currently no pins on this {hierarchyType}.
                 </p>
-            ) : ( */}
-            <div className="size-lg-12">
-                <ReactPieChart
-                    className="size-lg-5"
-                    data={pieStats}
-                    segmentsStyle={{ transition: 'stroke .3s' }}
-                    animate
-                />
-                <div className="pin-key size-lg-6">
-                    <div className="pin">
-                        <img src={redPin} alt="pin" />
-                        <p>Action Required</p>
+            ) : (
+                <div className="size-lg-12">
+                    <div className="pin-key size-lg-6">
+                        <div className="pin">
+                            <img src={redPin} alt="pin" />
+                            <p>Action Required</p>
+                        </div>
+                        <div className="pin">
+                            <img src={bluePin} alt="pin" />
+                            <p>Inspected</p>
+                        </div>
+                        <div className="pin">
+                            <img src={greenPin} alt="pin" />
+                            <p>Installed</p>
+                        </div>
+                        <div className="pin">
+                            <img src={yellowPin} alt="pin" />
+                            <p>No Action</p>
+                        </div>
+                        <div className="pin">
+                            <img src={purplePin} alt="pin" />
+                            <p>Other</p>
+                        </div>
                     </div>
-                    <div className="pin">
-                        <img src={bluePin} alt="pin" />
-                        <p>Inspected</p>
-                    </div>
-                    <div className="pin">
-                        <img src={greenPin} alt="pin" />
-                        <p>Installed</p>
-                    </div>
-                    <div className="pin">
-                        <img src={yellowPin} alt="pin" />
-                        <p>No Action</p>
-                    </div>
-                    <div className="pin">
-                        <img src={purplePin} alt="pin" />
-                        <p>Other</p>
-                    </div>
+                    <ReactPieChart
+                        className="size-lg-5"
+                        data={pieStats}
+                        segmentsStyle={{ transition: 'stroke .3s' }}
+                        animate
+                    />
                 </div>
-                <label className="size-lg-12">
-                    Last Update:
-                    {moment(stats.lastUpdatedOn).format('DD/MM/YYYY hh:mm a')}
-                </label>
-            </div>
-            {/* )} */}
+            )}
         </div>
     );
 };

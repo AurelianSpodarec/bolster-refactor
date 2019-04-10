@@ -5,23 +5,32 @@ import Field from 'components/shared/generic/form/presentational/Field';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 
-const SubscriptionCredits = ({ creditsToBuy, handleInputChange }) => (
+const SubscriptionCredits = ({
+    creditsToBuy,
+    handleInputChange,
+    totalCredits,
+    showModal,
+    costOfCredits
+}) => (
     <>
         <PageHeading title="Credits" />
-        <p>##You currently have 13 credits available to use##</p>
+        <p>You currently have {totalCredits} credits available to use.</p>
         <Form>
             <Field name="Add Credits" htmlFor="add-credits">
                 <TextInputContainer
+                    name="creditsToBuy"
                     id="add-credits"
                     type="number"
-                    placeholder="##Enter number of credits..##"
+                    placeholder="Enter number of credits.."
                     value={creditsToBuy}
                     handleChange={handleInputChange}
                 />
             </Field>
             <BlockButtonWrapper>
-                <button className="button">Buy</button>
-                <p>##Total: £1,500##</p>
+                <button className="button" onClick={showModal}>
+                    Buy
+                </button>
+                {creditsToBuy && <p>Total : £{costOfCredits * creditsToBuy}</p>}
             </BlockButtonWrapper>
         </Form>
     </>

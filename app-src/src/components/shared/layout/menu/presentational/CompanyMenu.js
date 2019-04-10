@@ -49,7 +49,7 @@ const CompanyMenu = ({ messageCount }) => (
                     Drawing Credit Log
                 </MenuItemContainer>
                 <MenuItemContainer link="/company/tools/pin-options">
-                    Pin Options
+                    My Templates
                 </MenuItemContainer>
                 <MenuItemContainer link="/company/tools/support">
                     Support

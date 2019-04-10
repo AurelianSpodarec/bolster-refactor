@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { API_URL } from 'config/index';
+import { ROOT_API_URL } from 'config';
 import { getHeaders } from 'helpers/api';
 import {
     FETCH_PROFILE_REQUEST,
@@ -25,7 +25,7 @@ export const fetchProfileFailure = error => ({
 export default () => dispatch => {
     dispatch(fetchProfileRequest());
     return axios
-        .get(`${API_URL}/profile`, getHeaders())
+        .get(`${ROOT_API_URL}/profile`, getHeaders())
         .then(res => dispatch(fetchProfileSuccess(res.data)))
         .catch(err => dispatch(fetchProfileFailure(err.message)));
 };

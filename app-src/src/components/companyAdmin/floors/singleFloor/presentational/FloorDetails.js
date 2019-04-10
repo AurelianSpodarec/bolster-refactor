@@ -1,16 +1,17 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import moment from 'moment';
 
-const FloorDetails = ({ floor }) => (
+const FloorDetails = ({ stats: { lastUpdatedOn } }) => (
     <div className="size-lg-6">
-        <div className="button-container size-lg-12">
-            <Link
-                className="button yellow"
-                to={`/company/floors/${floor.id}/edit`}
-            >
-                <i className="far fa-pencil fa-fw" /> Edit floor
-            </Link>
-        </div>
+        <h3 className="heading heading-3 size-lg-12">Last Updated</h3>
+
+        {lastUpdatedOn ? (
+            <p className="size-lg-12">
+                {moment(lastUpdatedOn).format('DD/MM/YYYY hh:mm a')}
+            </p>
+        ) : (
+            <p className="size-lg-12">Not Updated</p>
+        )}
     </div>
 );
 

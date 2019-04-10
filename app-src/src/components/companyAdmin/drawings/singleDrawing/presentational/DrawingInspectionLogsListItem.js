@@ -12,7 +12,7 @@ const DrawingInspectionLogsListItem = ({ inspectionLog }) => {
     const { status = '' } = inspectionLog;
     const pinColour = pinColours[status.toLowerCase()] || 'red';
 
-    const pinIcon = require(`_content/images/pins/${pinColour}-pin.png`);
+    const pinIcon = require(`_content/images/pins-examples/${pinColour}-pin.svg`);
 
     return (
         <tr key={inspectionLog.id}>

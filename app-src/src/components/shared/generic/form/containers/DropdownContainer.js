@@ -20,7 +20,9 @@ class DropdownContainer extends Component {
             selectedOption,
             withoutPlaceholder,
             error,
-            errorsVisible
+            errorsVisible,
+            disabled = false,
+            required = false
         } = this.props;
 
         let errorMessage;
@@ -28,6 +30,7 @@ class DropdownContainer extends Component {
 
         return (
             <Dropdown
+                required={required}
                 placeholder={placeholder}
                 name={name}
                 options={options}
@@ -37,6 +40,7 @@ class DropdownContainer extends Component {
                 handleFocus={this.handleFocus}
                 handleBlur={this.handleBlur}
                 error={errorMessage}
+                disabled={disabled}
             />
         );
     }

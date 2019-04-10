@@ -7,6 +7,7 @@ import FieldOutput from 'components/shared/generic/fieldOutput/presentational/Fi
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 
 import { PIN_STATUS_TYPES as STATUS } from 'constants/companyAdmin/enums';
+import PinSectionsContainer from '../containers/PinSectionsContainer';
 
 const PinDetails = ({
     pinHistory,
@@ -53,6 +54,8 @@ const PinDetails = ({
             description={STATUS[pinHistory.status]}
             fieldClass="no-h-padding"
         />
+
+        <PinSectionsContainer />
 
         {/* <div className="field-output no-h-padding size-lg-12">
                 <label className="title">Photo(s)</label>

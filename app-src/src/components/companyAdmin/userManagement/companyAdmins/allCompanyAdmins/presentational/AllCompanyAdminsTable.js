@@ -20,6 +20,7 @@ const AllCompanyAdminsTable = ({
                 error={error}
                 noData={!users.length}
                 noDataMessage="There are no admins to display."
+                extraClasses="large"
             >
                 <AllCompanyAdminsList
                     colCount={headers.length}

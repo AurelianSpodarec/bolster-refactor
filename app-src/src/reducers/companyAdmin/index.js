@@ -5,6 +5,7 @@ import cardsReducer from './cards';
 import clientsReducer from './clients';
 import companiesReducer from './companies';
 import companyUsersReducer from '../companyAdmin/companyUsers';
+import creditsReducer from './credits';
 import creditLogsReducer from './creditLogs';
 import documentsReducer from './documents';
 import drawingsReducer from './drawings';
@@ -14,9 +15,11 @@ import invoicesReducer from './invoices';
 import messagesReducer from './messages';
 import operativesReducer from './operatives';
 import pinAnswersReducer from './pinAnswers';
-import pinCustomFieldsReducer from './pinCustomFields';
 import pinHistoriesReducer from './pinHistories';
 import templatesReducer from './templates';
+import templateSectionsReducer from './templateSections';
+import templateVersionsReducer from './templateVersions';
+import templateQuestionsReducer from './templateQuestions';
 import pinsReducer from './pins';
 import searchReducer from './search';
 import servicesReducer from './services';
@@ -31,6 +34,7 @@ export default combineReducers({
     clientsReducer,
     companiesReducer,
     companyUsersReducer,
+    creditsReducer,
     creditLogsReducer,
     documentsReducer,
     drawingsReducer,
@@ -41,13 +45,15 @@ export default combineReducers({
     messagesReducer,
     operativesReducer,
     pinAnswersReducer,
-    pinCustomFieldsReducer,
     pinHistoriesReducer,
-    templatesReducer,
     pinsReducer,
     searchReducer,
     servicesReducer,
     sitesReducer,
     statsReducer,
-    subscriptionsReducer
+    subscriptionsReducer,
+    templateQuestionsReducer,
+    templatesReducer,
+    templateSectionsReducer,
+    templateVersionsReducer
 });

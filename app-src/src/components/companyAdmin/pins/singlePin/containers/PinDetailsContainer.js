@@ -29,7 +29,11 @@ class PinDetailsContainer extends Component {
         return (
             <BlockContainer
                 heading="Pin options"
-                isEmpty={!user || Object.values(services).length < 1}
+                isEmpty={
+                    !user ||
+                    Object.values(services).length < 1 ||
+                    histories.length < 1
+                }
                 isFetching={isFetching}
                 error={error}
             >
