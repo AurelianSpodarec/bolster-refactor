@@ -14,7 +14,8 @@ const EditProfileForm = ({
     firstName,
     lastName,
     email,
-    phoneNumber
+    phoneNumber,
+    profileImageS3Key
 }) => (
     <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
         <div className="size-lg-12">
@@ -64,6 +65,7 @@ const EditProfileForm = ({
                 <Field name="Upload New Profile Image (optional)">
                     <FileUploadContainer
                         name="profileImageS3Key"
+                        value={profileImageS3Key}
                         handleChange={handleImageChange}
                         required
                         acceptedTypes={['image/*']}

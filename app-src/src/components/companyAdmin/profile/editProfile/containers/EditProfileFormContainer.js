@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 import fetchProfile from 'actions/shared/profile/async/fetchProfile';
+import editProfile from 'actions/shared/profile/async/editProfile';
+
 import EditProfileForm from '../presentational/EditProfileForm';
 
 class EditProfileFormContainer extends Component {
@@ -59,6 +61,7 @@ class EditProfileFormContainer extends Component {
             currentProfileImage,
             ...restForm
         } = this.state;
+        // check if image should stay the same or be changed to a new value
         const image = profileImageS3Key
             ? profileImageS3Key
             : currentProfileImage;
@@ -78,17 +81,21 @@ class EditProfileFormContainer extends Component {
 
 const mapStateToProps = ({
     shared: {
-        profileReducer: { isFetching, error, profile }
+        profileReducer: { isFetching, error, profile, postSuccess }
     }
 }) => ({
     isFetching,
     error,
-    profile
+    profile,
+    postSuccess
 });
 
 const mapDispatchToProps = dispatch => ({
     fetchProfile: () => {
         return dispatch(fetchProfile());
+    },
+    editProfile: postBody => {
+        return dispatch(editProfile(postBody));
     }
 });
 
