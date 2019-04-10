@@ -33,11 +33,9 @@ class AddServiceToSubscriptionModalContainer extends Component {
                 handleChange={this.handleChange}
                 handleSubmit={this.handleSubmit}
                 cards={cardOptions}
-                selectedCard={
-                    cardOptions.find(
-                        ({ value }) => value === this.state.stripeCardID
-                    ) || cardOptions[0]
-                }
+                selectedCard={cardOptions.find(
+                    ({ value }) => value === this.state.stripeCardID
+                )}
                 hideModal={e => {
                     e.preventDefault();
                     hideModal();
@@ -68,7 +66,7 @@ class AddServiceToSubscriptionModalContainer extends Component {
         if (!isFetching && prevProps.isFetching && cards.length) {
             const primaryCard = cards.find(({ isPrimary }) => isPrimary);
             this.setState({
-                stripeCardID: primaryCard ? primaryCard.id : cards[0].id
+                stripeCardID: primaryCard ? primaryCard.id : null
             });
         }
 
