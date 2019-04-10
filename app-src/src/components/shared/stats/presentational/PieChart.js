@@ -29,42 +29,42 @@ const PieChart = ({ stats, hierarchyType }) => {
                 Latest Pin Histories
             </h4>
 
-            {/* {isStatsEmpty ? (
-                <p className="no-data">
-                    There are currently no pins for this {hierarchyType}.
+            {isStatsEmpty ? (
+                <p className="no-data size-lg-12">
+                    There are currently no pins on this {hierarchyType}
                 </p>
-            ) : ( */}
-            <div className="size-lg-12">
-                <div className="pin-key size-lg-6">
-                    <div className="pin">
-                        <img src={redPin} alt="pin" />
-                        <p>Action Required</p>
+            ) : (
+                <div className="size-lg-12">
+                    <div className="pin-key size-lg-6">
+                        <div className="pin">
+                            <img src={redPin} alt="pin" />
+                            <p>Action Required</p>
+                        </div>
+                        <div className="pin">
+                            <img src={bluePin} alt="pin" />
+                            <p>Inspected</p>
+                        </div>
+                        <div className="pin">
+                            <img src={greenPin} alt="pin" />
+                            <p>Installed</p>
+                        </div>
+                        <div className="pin">
+                            <img src={yellowPin} alt="pin" />
+                            <p>No Action</p>
+                        </div>
+                        <div className="pin">
+                            <img src={purplePin} alt="pin" />
+                            <p>Other</p>
+                        </div>
                     </div>
-                    <div className="pin">
-                        <img src={bluePin} alt="pin" />
-                        <p>Inspected</p>
-                    </div>
-                    <div className="pin">
-                        <img src={greenPin} alt="pin" />
-                        <p>Installed</p>
-                    </div>
-                    <div className="pin">
-                        <img src={yellowPin} alt="pin" />
-                        <p>No Action</p>
-                    </div>
-                    <div className="pin">
-                        <img src={purplePin} alt="pin" />
-                        <p>Other</p>
-                    </div>
+                    <ReactPieChart
+                        className="size-lg-5"
+                        data={pieStats}
+                        segmentsStyle={{ transition: 'stroke .3s' }}
+                        animate
+                    />
                 </div>
-                <ReactPieChart
-                    className="size-lg-5"
-                    data={pieStats}
-                    segmentsStyle={{ transition: 'stroke .3s' }}
-                    animate
-                />
-            </div>
-            {/* )} */}
+            )}
         </div>
     );
 };
