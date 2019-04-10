@@ -20,12 +20,7 @@ const SiteStats = ({ site, stats }) => (
             <Link className="button red" to={`/company/sites/${site.id}/edit`}>
                 <i className="far fa-trash-alt fa-fw" /> Delete
             </Link>
-            <Link
-                className="button"
-                to={`/company/buildings/create/${site.id}`}
-            >
-                <i className="fa fa-plus" /> Add building
-            </Link>
+
             <Link className="button" to="/company/site">
                 <i className="fa fa-exchange" /> Change Ownership
             </Link>
