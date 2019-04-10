@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import ConfirmDeleteModal from '../presentational/ConfirmDeleteModal';
-import deleteDocument from 'actions/companyAdmin/creditLogs/documents/async/deleteDocument';
+import deleteDocument from 'actions/documents/async/deleteDocument';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 
 const DeleteDocumentModalContainer = ({ id, handleDelete, hideModal }) => (
