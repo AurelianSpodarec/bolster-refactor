@@ -5,7 +5,7 @@ import { MENU_TABS } from 'constants/shared/tabNames';
 import selectMenuTab from 'actions/shared/generic/tabs/sync/selectMenuTab';
 import AdminApp from '../presentational/AdminApp';
 import decodeJWT from 'actions/shared/jwt/async/decodeJWT';
-import fetchProfile from 'actions/companyAdmin/profile/async/fetchProfile';
+import fetchProfile from 'actions/shared/profile/async/fetchProfile';
 
 class AdminAppContainer extends Component {
     render() {
