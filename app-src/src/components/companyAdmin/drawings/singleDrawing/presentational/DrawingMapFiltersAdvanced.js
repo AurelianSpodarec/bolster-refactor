@@ -1,10 +1,10 @@
 import React from 'react';
 
-import RedPin from '_content/images/pins/red-pin.png';
-import GreenPin from '_content/images/pins/green-pin.png';
-import BluePin from '_content/images/pins/blue-pin.png';
-import YellowPin from '_content/images/pins/yellow-pin.png';
-import PurplePin from '_content/images/pins/purple-pin.png';
+import RedPin from '_content/images/pins-examples/red-pin.svg';
+import GreenPin from '_content/images/pins-examples/green-pin.svg';
+import BluePin from '_content/images/pins-examples/blue-pin.svg';
+import YellowPin from '_content/images/pins-examples/yellow-pin.svg';
+import PurplePin from '_content/images/pins-examples/purple-pin.svg';
 
 import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
 import DatePicker from 'components/shared/generic/form/presentational/DatePicker';
