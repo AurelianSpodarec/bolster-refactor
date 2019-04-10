@@ -5,7 +5,8 @@ import {
 } from 'constants/actionTypes/subscriptions';
 import axios from 'axios';
 import { API_URL } from 'config';
-import { getHeaders, handleErrors } from 'helpers/api';
+import { getHeaders } from 'helpers/api';
+import setAPIFieldErrors from 'actions/shared/generic/fieldErrors/sync/setAPIFieldErrors';
 
 export const addServiceToSubscriptionRequest = () => ({
     type: ADD_SERVICE_TO_SUBSCRIPTION_REQUEST
@@ -23,11 +24,14 @@ export const addServiceToSubscriptionFailure = error => ({
 
 export default postBody => dispatch => {
     dispatch(addServiceToSubscriptionRequest());
-    axios
-        .post(`${API_URL}/subscriptions/`, postBody, getHeaders())
+
+    return axios
+        .post(`${API_URL}/subscriptions`, postBody, getHeaders())
         .then(({ data }) => dispatch(addServiceToSubscriptionSuccess(data)))
         .catch(err => {
-            const errorAction = handleErrors(addServiceToSubscriptionFailure);
-            dispatch(errorAction(err));
+            if (err.response.status === 400) {
+                dispatch(setAPIFieldErrors(err.response.data.errors));
+            }
+            return dispatch(addServiceToSubscriptionFailure(err.message));
         });
 };

@@ -6,6 +6,10 @@ import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import fetchAllCards from 'actions/companyAdmin/cards/async/fetchAllCards';
 import fetchProRataSubscriptionCost from 'actions/companyAdmin/subscriptions/async/fetchProRataSubscriptionCost';
+import addServiceToSubscription from 'actions/companyAdmin/subscriptions/async/addServiceToSubscription';
+import { PAYMENT_SUCCESS, PAYMENT_ERROR } from 'constants/shared/modalTypes';
+import { PAYMENT_IDS } from 'constants/companyAdmin/enums';
+import fetchAllSubscriptions from 'actions/companyAdmin/subscriptions/async/fetchAllSubscriptions';
 
 class AddServiceToSubscriptionModalContainer extends Component {
     state = {
@@ -50,12 +54,43 @@ class AddServiceToSubscriptionModalContainer extends Component {
 
     componentDidUpdate = prevProps => {
         // put primary card as default into state
-        const { isFetching, cards } = this.props;
+        const {
+            isFetching,
+            cards,
+            postSuccess,
+            postFailure,
+            showModal,
+            hideModal,
+            fetchAllSubscriptions
+        } = this.props;
+        const { paymentType } = this.state;
 
         if (!isFetching && prevProps.isFetching && cards.length) {
             const primaryCard = cards.find(({ isPrimary }) => isPrimary);
             this.setState({
                 stripeCardID: primaryCard ? primaryCard.id : cards[0].id
+            });
+        }
+
+        if (postSuccess && !prevProps.postSuccess) {
+            // success modal
+            fetchAllSubscriptions();
+            showModal(PAYMENT_SUCCESS, {
+                message: `Your order has been placed successfully and your new service ${
+                    paymentType === PAYMENT_IDS.CARD
+                        ? 'has been added for you to use immediately.'
+                        : 'will be available for use once the invoice has been paid.'
+                }`
+            });
+        }
+
+        if (postFailure && !prevProps.postFailure) {
+            // fail modal
+            fetchAllSubscriptions();
+            showModal(PAYMENT_ERROR, {
+                message:
+                    'There was an error while purchasing your subscription. Please try again',
+                resubmit: hideModal
             });
         }
     };
@@ -68,26 +103,42 @@ class AddServiceToSubscriptionModalContainer extends Component {
         e.preventDefault();
         const { paymentType, stripeCardID } = this.state;
         const {
-            service: { id }
+            service: { id },
+            addServiceToSubscription
         } = this.props;
-        const postBody = { paymentType, stripeCardID, servicesIDs: [id] };
-        // ! add service to subscription here
+
+        const postBody = {
+            paymentType,
+            stripeCardID:
+                paymentType === PAYMENT_IDS.CARD ? stripeCardID : null,
+            serviceIDs: [id]
+        };
+        addServiceToSubscription(postBody);
     };
 }
 
 const mapStateToProps = ({
     companyAdmin: {
         cardsReducer: { cards, isFetching: fetchingCards },
-        subscriptionsReducer: { isFetching: fetchingSubs, proRataCost }
+        subscriptionsReducer: {
+            isFetching: fetchingSubs,
+            proRataCost,
+            postSuccess,
+            postFailure
+        }
     }
 }) => ({
     cards: Object.values(cards),
     isFetching: fetchingCards || fetchingSubs,
-    proRataCost
+    proRataCost,
+    postSuccess,
+    postFailure
 });
 
 const mapDispatchToProps = dispatch => ({
+    addServiceToSubscription: body => dispatch(addServiceToSubscription(body)),
     fetchAllCards: () => dispatch(fetchAllCards()),
+    fetchAllSubscriptions: () => dispatch(fetchAllSubscriptions()),
     fetchProRataSubscriptionCost: () =>
         dispatch(fetchProRataSubscriptionCost()),
     hideModal: () => dispatch(hideModal()),
