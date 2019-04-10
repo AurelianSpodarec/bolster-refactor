@@ -588,11 +588,6 @@ input {
     }
     &.heading-3 {
         font-size: 160%;
-        margin-bottom: 15px;
-    }
-
-    &.table-heading {
-        margin-bottom: 0;
     }
 }
 
@@ -665,10 +660,14 @@ input {
 .block-heading {
     float: left;
     width: 100%;
+    margin-bottom: 20px;
+
+    &.w-table {
+        margin-bottom: 5px;
+    }
     .heading {
         float: left;
         max-width: 50%;
-        margin-bottom: 20px;
         text-transform: capitalize;
     }
     .button,

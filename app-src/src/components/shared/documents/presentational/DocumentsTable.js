@@ -8,7 +8,7 @@ import BlockHeading from 'components/shared/generic/blockHeading/presentational/
 const DocumentsTable = ({ location, documents, isFetching }) => {
     return (
         <div className="size-lg-12">
-            <BlockHeading title="Documents">
+            <BlockHeading title="Documents" classes="w-table">
                 <Link
                     className="button pull-right"
                     to={`${location.pathname}/attach-document`}

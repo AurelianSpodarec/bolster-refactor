@@ -14,8 +14,8 @@ const DrawingMapPin = ({
     const pinColour = COLOURS[latestStatus] || 'red';
 
     const icon = new MapMarker({
-        iconUrl: require(`_content/images/pins/${pinColour}-pin.png`),
-        iconRetinaUrl: require(`_content/images/pins/${pinColour}-pin.png`)
+        iconUrl: require(`_content/images/pins-examples/${pinColour}-pin.svg`),
+        iconRetinaUrl: require(`_content/images/pins-examples/${pinColour}-pin.svg`)
     });
 
     return (

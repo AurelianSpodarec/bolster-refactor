@@ -1,9 +1,9 @@
 import React from 'react';
 
-import RedPin from '_content/images/pins/red-pin.png';
-import GreenPin from '_content/images/pins/green-pin.png';
-import BluePin from '_content/images/pins/blue-pin.png';
-import YellowPin from '_content/images/pins/yellow-pin.png';
+import RedPin from '_content/images/pins-examples/red-pin.svg';
+import GreenPin from '_content/images/pins-examples/green-pin.svg';
+import BluePin from '_content/images/pins-examples/blue-pin.svg';
+import YellowPin from '_content/images/pins-examples/yellow-pin.svg';
 
 const DrawingMapFiltersSimple = () => (
     <div className="size-lg-12">
