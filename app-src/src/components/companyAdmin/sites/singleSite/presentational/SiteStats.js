@@ -10,7 +10,7 @@ const SiteStats = ({ site, stats }) => (
             <PieChart stats={stats} hierarchyType="site" />
         </div>
 
-        <div className="button-container size-lg-12">
+        <div className="button-container">
             <Link
                 className="button yellow"
                 to={`/company/sites/${site.id}/edit`}

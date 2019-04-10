@@ -16,7 +16,6 @@ class FloorEditContainer extends Component {
 
     _setFloorName = () => {
         const { floor } = this.props;
-        console.log(floor);
         this.setState({
             floorName: floor.name
         });

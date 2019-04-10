@@ -1,15 +1,11 @@
 import React from 'react';
-import FieldOutput from 'components/shared/generic/fieldOutput/presentational/FieldOutput';
+import PinQuestionsContainer from '../containers/PinQuestionsContainer';
 
 const PinSection = ({ sections }) =>
     sections.map(section => (
-        <div className="pin-details-section size-lg-12">
+        <div className="pin-details-section size-lg-12" key={section.id}>
             <h4 className="title">{section.name}</h4>
-            <FieldOutput
-                title="Test"
-                description={'Test'}
-                fieldClass="no-h-padding"
-            />
+            <PinQuestionsContainer sectionID={section.id} />
         </div>
     ));
 
