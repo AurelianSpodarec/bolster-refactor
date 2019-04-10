@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { isObjEmpty } from 'helpers/generic';
 import ActiveServices from 'components/companyAdmin/subscription/activeServices/presentational/ActiveServices';
 import editServiceRenewalStatus from 'actions/companyAdmin/subscriptions/async/editServiceRenewalStatus';
+import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 
 class ActiveServicesContainer extends Component {
     state = {
@@ -11,7 +12,7 @@ class ActiveServicesContainer extends Component {
     };
 
     render = () => {
-        const { services, subscriptions } = this.props;
+        const { services, subscriptions, showModal } = this.props;
         const { serviceIDs = [] } = subscriptions;
         const unsubscribedServices = Object.values(services).filter(
             service => !serviceIDs.includes(service.id)
@@ -21,11 +22,10 @@ class ActiveServicesContainer extends Component {
                 subscriptions={this.state.subscriptions}
                 services={unsubscribedServices}
                 handleChange={this.handleChange}
+                showModal={showModal}
             />
         );
     };
-
-    componentDidMount = () => {};
 
     componentDidUpdate = prevProps => {
         const { isFetching } = this.props;
@@ -82,7 +82,8 @@ const mapStateToProps = ({
 
 const mapDispatchToProps = dispatch => ({
     editServiceRenewalStatus: postBody =>
-        dispatch(editServiceRenewalStatus(postBody))
+        dispatch(editServiceRenewalStatus(postBody)),
+    showModal: (type, props) => dispatch(showModal(type, props))
 });
 
 export default connect(

@@ -9,6 +9,7 @@ import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { PAYMENT_ERROR, PAYMENT_SUCCESS } from 'constants/shared/modalTypes';
 import { PAYMENT_IDS } from 'constants/companyAdmin/enums';
 import fetchAllInvoices from 'actions/companyAdmin/invoices/async/fetchAllInvoices';
+import fetchAllCards from 'actions/companyAdmin/cards/async/fetchAllCards';
 
 class BuyCreditsModalContainer extends Component {
     state = {
@@ -41,6 +42,21 @@ class BuyCreditsModalContainer extends Component {
                 }}
             />
         );
+    };
+
+    componentDidMount = () => {
+        this.props.fetchAllCards();
+    };
+
+    componentDidUpdate = prevProps => {
+        const { isFetching } = this.props;
+        if (!isFetching && prevProps.isFetching) {
+            const { cards } = this.props;
+            this.setState({
+                stripeCardID:
+                    cards.find(({ isPrimary }) => isPrimary).id || cards[0].id
+            });
+        }
     };
 
     handleChange = ({ target: { name, value } }) => {
@@ -96,6 +112,7 @@ const mapStateToProps = ({
 
 const mapDispatchToProps = dispatch => ({
     createCredits: body => dispatch(createCredits(body)),
+    fetchAllCards: () => dispatch(fetchAllCards()),
     fetchAllCredits: () => dispatch(fetchAllCredits()),
     fetchAllInvoices: () => dispatch(fetchAllInvoices()),
     showModal: (type, props) => dispatch(showModal(type, props)),

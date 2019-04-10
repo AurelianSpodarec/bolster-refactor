@@ -23,7 +23,8 @@ import {
     PAYMENT_SUCCESS,
     PIN_IMAGE,
     RENAME_TEMPLATE_SECTION,
-    SUCCESS_MODAL
+    SUCCESS_MODAL,
+    ADD_SERVICE_TO_SUBSCRIPTION
 } from 'constants/shared/modalTypes';
 
 import AddTemplateModalContainer from 'components/superAdmin/templateBuilder/setTemplate/containers/AddTemplateModalContainer';
@@ -48,9 +49,11 @@ import AddCardModalContainer from 'components/companyAdmin/subscription/cardMana
 import BuyCreditsModalContainer from 'components/companyAdmin/subscription/buyCreditsModal/containers/BuyCreditsModalContainer';
 import PaymentErrorModalContainer from './PaymentErrorModalContainer';
 import PaymentSuccessModal from '../presentational/PaymentSuccessModal';
+import AddServiceToSubscriptionModalContainer from 'components/companyAdmin/subscription/AddServiceToSubscriptionModal/containers/AddServiceToSubscriptionModalContainer';
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModalContainer,
+    [ADD_SERVICE_TO_SUBSCRIPTION]: AddServiceToSubscriptionModalContainer,
     [ADD_TEMPLATE]: AddTemplateModalContainer,
     [ADD_TEMPLATE_QUESTION]: AddTemplateQuestionModalContainer,
     [ADD_TEMPLATE_SECTION]: AddTemplateSectionModalContainer,
