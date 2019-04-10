@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 import fetchProfile from 'actions/shared/profile/async/fetchProfile';
 import EditProfileForm from '../presentational/EditProfileForm';
@@ -27,13 +28,12 @@ class EditProfileFormContainer extends Component {
     };
 
     componentDidUpdate = prevProps => {
-        const { isFetching, profile } = this.props;
+        const { isFetching, profile, postSuccess, history } = this.props;
         if (!isFetching && prevProps.isFetching) {
-            // eslint-disable-next-line no-unused-vars
-            const { profileImageS3Key, ...restProfile } = profile;
-            this.setState({
-                ...restProfile
-            });
+            this._setFormDetails(profile);
+        }
+        if (postSuccess && !prevProps.postSuccess) {
+            history.push('/company/profile');
         }
     };
 
@@ -47,6 +47,14 @@ class EditProfileFormContainer extends Component {
         e.preventDefault();
         const postBody = { ...this.state };
         this.props.editProfile(postBody);
+    };
+
+    _setFormDetails = profile => {
+        // eslint-disable-next-line no-unused-vars
+        const { profileImageS3Key, ...restProfile } = profile;
+        this.setState({
+            ...restProfile
+        });
     };
 }
 
@@ -66,7 +74,9 @@ const mapDispatchToProps = dispatch => ({
     }
 });
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(EditProfileFormContainer);
+export default withRouter(
+    connect(
+        mapStateToProps,
+        mapDispatchToProps
+    )(EditProfileFormContainer)
+);
