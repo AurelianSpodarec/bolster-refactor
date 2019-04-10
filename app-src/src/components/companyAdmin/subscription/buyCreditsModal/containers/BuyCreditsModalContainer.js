@@ -8,16 +8,17 @@ import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { PAYMENT_ERROR, PAYMENT_SUCCESS } from 'constants/shared/modalTypes';
 import { PAYMENT_IDS } from 'constants/companyAdmin/enums';
+import fetchAllInvoices from 'actions/companyAdmin/invoices/async/fetchAllInvoices';
 
 class BuyCreditsModalContainer extends Component {
     state = {
         paymentType: 2,
         stripeCardID: null,
-        creditsToBuy: this.props.creditsToBuy || 0
+        creditsToBuy: this.props.creditsToBuy || ''
     };
 
     render = () => {
-        const { cards, hideModal } = this.props;
+        const { cards, hideModal, costOfCredits } = this.props;
         const cardOptions = Object.values(cards).map(card => ({
             text: `${card.nickname || card.name} - ${card.lastFour}`,
             value: card.id
@@ -28,9 +29,12 @@ class BuyCreditsModalContainer extends Component {
                 handleChange={this.handleChange}
                 handleSubmit={this.handleSubmit}
                 cards={cardOptions}
-                selectedCard={cardOptions.find(
-                    ({ value }) => value === this.state.stripeCardID
-                )}
+                costOfCredits={costOfCredits}
+                selectedCard={
+                    cardOptions.find(
+                        ({ value }) => value === this.state.stripeCardID
+                    ) || cardOptions[0]
+                }
                 hideModal={e => {
                     e.preventDefault();
                     hideModal();
@@ -46,25 +50,25 @@ class BuyCreditsModalContainer extends Component {
     handleSubmit = e => {
         e.preventDefault();
         const { paymentType, creditsToBuy: credits, stripeCardID } = this.state;
-        const {
-            createCredits,
-            hideModal,
-            showModal,
-            fetchAllCredits
-        } = this.props;
+        const { createCredits, showModal, fetchAllCredits } = this.props;
 
         const postBody = {
             paymentType,
             credits,
-            stripeCardID: paymentType === PAYMENT_IDS.CARD ? stripeCardID : null
+            stripeCardID:
+                +paymentType === PAYMENT_IDS.CARD ? stripeCardID : null
         };
 
         createCredits(postBody)
             .then(() => {
                 fetchAllCredits();
+                fetchAllInvoices();
                 showModal(PAYMENT_SUCCESS, {
-                    message:
-                        'Your order has been successfully placed and your new credits have been added.'
+                    message: `Your order has been successfully placed and your new credits ${
+                        +paymentType === PAYMENT_IDS.CARD
+                            ? 'have been added.'
+                            : 'will be available once the invoice has been paid'
+                    }`
                 });
             })
             .catch(() => {
@@ -79,11 +83,12 @@ class BuyCreditsModalContainer extends Component {
 
 const mapStateToProps = ({
     companyAdmin: {
-        creditsReducer: { postSuccess, postError },
+        creditsReducer: { postSuccess, postError, costOfCredits },
         cardsReducer: { cards, isFetching }
     }
 }) => ({
     cards,
+    costOfCredits,
     postSuccess,
     postError,
     isFetching
@@ -92,6 +97,7 @@ const mapStateToProps = ({
 const mapDispatchToProps = dispatch => ({
     createCredits: body => dispatch(createCredits(body)),
     fetchAllCredits: () => dispatch(fetchAllCredits()),
+    fetchAllInvoices: () => dispatch(fetchAllInvoices()),
     showModal: (type, props) => dispatch(showModal(type, props)),
     hideModal: () => dispatch(hideModal())
 });

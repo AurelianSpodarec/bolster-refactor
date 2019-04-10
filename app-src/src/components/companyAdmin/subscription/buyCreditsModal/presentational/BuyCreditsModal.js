@@ -16,7 +16,8 @@ const BuyCreditsModal = ({
     paymentType,
     creditsToBuy,
     cards,
-    selectedCard
+    selectedCard,
+    costOfCredits
 }) => {
     return (
         <ModalOuterContainer>
@@ -32,7 +33,8 @@ const BuyCreditsModal = ({
                     />
                     <DropdownContainer
                         disabled={+paymentType !== PAYMENT_IDS.CARD}
-                        placeholder="Select a card..."
+                        required={+paymentType === PAYMENT_IDS.CARD}
+                        withoutPlaceholder
                         name="stripeCardID"
                         options={cards}
                         selectedOption={selectedCard}
@@ -54,7 +56,13 @@ const BuyCreditsModal = ({
                             name="creditsToBuy"
                             value={creditsToBuy}
                             handleChange={handleChange}
+                            placeholder="Number of credits to buy"
+                            required
+                            type="number"
                         />
+                        {creditsToBuy && (
+                            <p>Total : £{costOfCredits * creditsToBuy}</p>
+                        )}
                     </Field>
                 </div>
                 <BlockButtonWrapper>

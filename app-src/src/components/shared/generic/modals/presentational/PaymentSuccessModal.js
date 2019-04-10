@@ -8,6 +8,25 @@ const PaymentSuccessModal = ({
 }) => {
     return (
         <ModalOuterContainer>
+            <div
+                className="size-lg-12"
+                style={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignContent: 'center'
+                }}
+            >
+                <i
+                    className="fa fa-check"
+                    style={{
+                        borderRadius: '100%',
+                        backgroundColor: 'green',
+                        color: 'white',
+                        fontSize: '3em',
+                        padding: '0.5em'
+                    }}
+                />
+            </div>
             <BlockHeading title={title} />
             <p>{message}</p>
         </ModalOuterContainer>

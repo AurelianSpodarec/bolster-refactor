@@ -46,14 +46,14 @@ export default combineReducers({
     operativesReducer,
     pinAnswersReducer,
     pinHistoriesReducer,
-    templatesReducer,
-    templateSectionsReducer,
-    templateVersionsReducer,
-    templateQuestionsReducer,
     pinsReducer,
     searchReducer,
     servicesReducer,
     sitesReducer,
     statsReducer,
-    subscriptionsReducer
+    subscriptionsReducer,
+    templateQuestionsReducer,
+    templatesReducer,
+    templateSectionsReducer,
+    templateVersionsReducer
 });
