@@ -6,6 +6,8 @@ import redPin from '_content/images/pins-examples/red-pin.svg';
 import bluePin from '_content/images/pins-examples/blue-pin.svg';
 import yellowPin from '_content/images/pins-examples/yellow-pin.svg';
 import purplePin from '_content/images/pins-examples/purple-pin.svg';
+// import { FILE_STORAGE_URL } from 'config';
+//todo: reference images with FILE_STORAGE_URL
 
 import statsPieChartColours from 'constants/companyAdmin/statsPieColours';
 
