@@ -1,23 +1,25 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import moment from 'moment';
 
 const BuildingDetails = ({
-    building: { addressLine1, addressLine2, city, postcode, id }
+    building: { addressLine1, addressLine2, city, postcode },
+    stats: { lastUpdatedOn }
 }) => (
     <div className="size-lg-6">
+        <h3 className="heading heading-3 size-lg-12">Address</h3>
+
         {!!addressLine1 && <p className="size-lg-12">{addressLine1}</p>}
         {!!addressLine2 && <p className="size-lg-12">{addressLine2}</p>}
         {!!city && <p className="size-lg-12">{city}</p>}
         {!!postcode && <p className="size-lg-12">{postcode}</p>}
-
-        <div className="button-container size-lg-12">
-            <Link
-                className="button yellow"
-                to={`/company/buildings/${id}/edit`}
-            >
-                <i className="far fa-pencil fa-fw" /> Edit Building
-            </Link>
-        </div>
+        <h3 className="heading heading-3 size-lg-12">Last Updated</h3>
+        {lastUpdatedOn ? (
+            <p className="size-lg-12">
+                {moment(lastUpdatedOn).format('DD/MM/YYYY hh:mm a')}
+            </p>
+        ) : (
+            <p className="size-lg-12">Not Updated</p>
+        )}
     </div>
 );
 

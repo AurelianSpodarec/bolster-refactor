@@ -1,17 +1,9 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
 
 const BuildingPageHeader = ({ building }) => (
-    <PageHeading title={`Building: ${building.name}`}>
-        <Link className="button" to={`/company/floors/create/${building.id}`}>
-            <i className="fa fa-plus" /> Add floor
-        </Link>
-        <Link className="button" to="/company/site">
-            <i className="fa fa-exchange" /> Change Ownership
-        </Link>
-    </PageHeading>
+    <PageHeading title={`Building: ${building.name}`} />
 );
 
 export default BuildingPageHeader;
