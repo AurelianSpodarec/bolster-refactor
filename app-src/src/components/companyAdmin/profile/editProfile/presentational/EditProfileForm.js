@@ -67,7 +67,6 @@ const EditProfileForm = ({
                         name="profileImageS3Key"
                         value={profileImageS3Key}
                         handleChange={handleImageChange}
-                        required
                         acceptedTypes={['image/*']}
                     />
                 </Field>
