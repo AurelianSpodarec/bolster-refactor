@@ -74,7 +74,8 @@ body {
         .button-container {
             position: absolute;
             bottom: 0;
-            left: 0;
+            right: 0;
+            width: auto;
         }
     }
 }
@@ -1275,12 +1276,9 @@ input {
             margin-top: 0;
         }
     }
-    .button-container {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-    }
+
     .history {
+        margin-bottom: 10px;
         label {
             font-size: 120%;
             padding-top: 15px;

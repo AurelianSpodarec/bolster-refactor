@@ -33,7 +33,7 @@ const PieChart = ({ stats, hierarchyType }) => {
 
             {isStatsEmpty ? (
                 <p className="no-data size-lg-12">
-                    There are currently no pins on this {hierarchyType}
+                    There are currently no pins on this {hierarchyType}.
                 </p>
             ) : (
                 <div className="size-lg-12">

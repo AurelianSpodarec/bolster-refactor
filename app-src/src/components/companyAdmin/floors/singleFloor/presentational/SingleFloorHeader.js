@@ -4,14 +4,7 @@ import { Link } from 'react-router-dom';
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
 
 const SingleFloorHeader = ({ floor }) => (
-    <PageHeading title={`Floor: ${floor.name || ''}`}>
-        <Link className="button" to={`/company/drawings/create/${floor.id}`}>
-            <i className="fa fa-plus" /> Add drawing
-        </Link>
-        <Link className="button" to="/company/floor">
-            <i className="fa fa-exchange" /> Change Ownership
-        </Link>
-    </PageHeading>
+    <PageHeading title={`Floor: ${floor.name || ''}`} />
 );
 
 export default SingleFloorHeader;
