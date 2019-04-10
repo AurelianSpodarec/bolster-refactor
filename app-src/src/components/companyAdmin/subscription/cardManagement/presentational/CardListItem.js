@@ -3,7 +3,8 @@ import { withRouter } from 'react-router-dom';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 
 const CardListItem = ({
-    card: { expMonth, expYear, isPrimary, lastFour, name }
+    card: { expMonth, expYear, isPrimary, lastFour, name, id },
+    setPrimaryCard
 }) => (
     <tr>
         <td>{name}</td>
@@ -12,7 +13,14 @@ const CardListItem = ({
         <td>{<i className={isPrimary ? 'fa fa-check' : 'fa fa-times'} />}</td>
         <td>
             <BlockButtonWrapper>
-                <button className="button">Make Primary</button>
+                {!isPrimary && (
+                    <button
+                        className="button"
+                        onClick={() => setPrimaryCard({ stripeCardID: id })}
+                    >
+                        Make Primary
+                    </button>
+                )}
                 <button className="button red">
                     <i className="fa fa-times" />
                     Delete
