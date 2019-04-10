@@ -13,7 +13,7 @@ const CompaniesAccessTable = ({
     isFetching
 }) => (
     <div className="size-lg-12">
-        <BlockHeading title="Companies Access">
+        <BlockHeading title="Company Access">
             <Link
                 className="button pull-right"
                 to={`${location.pathname}/invite-company`}

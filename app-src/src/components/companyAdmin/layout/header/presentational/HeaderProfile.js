@@ -5,7 +5,6 @@ import NoProfilePic from '_content/images/layout/blank-profile.png';
 
 const HeaderProfile = ({
     profile,
-    generationQueueLength,
     popupVisible,
     handleClick,
     logout,
@@ -20,18 +19,19 @@ const HeaderProfile = ({
             )}
 
             <div className="text">
-                <p>{profile.fullName}</p>
+                <p>{`${profile.firstName} ${profile.lastName}`}</p>
                 <span className="email">{profile.email}</span>
             </div>
             <i className="arrow fas fa-chevron-right" />
         </div>
 
         <div className={`options ${popupVisible ? 'visible' : ''}`}>
-            <p className="item">
-                Credits Available: {profile.creditsAvailable}
-            </p>
+            <Link to="/company/tools/credit-logs" className="item">
+                Credits Log <i className="icon fas fa-chevron-right" />
+            </Link>
+
             <Link to="/company/tools/generation-queue" className="item">
-                Generation Queue: {generationQueueLength}
+                Generation Queue
                 <i className="icon fas fa-chevron-right" />
             </Link>
             <Link to="/company/subscription" className="item">

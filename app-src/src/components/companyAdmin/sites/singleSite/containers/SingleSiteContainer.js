@@ -5,7 +5,7 @@ import fetchAllBuildings from 'actions/companyAdmin/buildings/async/fetchAllBuil
 import fetchAllFloors from 'actions/companyAdmin/floors/async/fetchAllFloors';
 import fetchAllDrawings from 'actions/companyAdmin/drawings/async/fetchAllDrawings';
 import fetchSingleSite from 'actions/companyAdmin/sites/async/fetchSingleSite';
-import fetchDocuments from 'actions/companyAdmin/creditLogs/documents/async/fetchDocuments';
+import fetchDocuments from 'actions/documents/async/fetchDocuments';
 import fetchClients from 'actions/companyAdmin/clients/async/fetchClients';
 import fetchAllCompanies from 'actions/companyAdmin/companies/async/fetchAllCompanies';
 import fetchPinStatsForLevel from 'actions/companyAdmin/stats/async/fetchPinStatsForLevel';
