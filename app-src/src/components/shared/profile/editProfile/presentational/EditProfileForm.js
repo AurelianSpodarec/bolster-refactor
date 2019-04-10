@@ -18,7 +18,7 @@ const EditProfileForm = ({
     profileImageS3Key,
     location
 }) => {
-    const backURL = location.pathname.contains('admin')
+    const backURL = location.pathname.includes('admin')
         ? '/admin/profile'
         : '/company/profile';
     return (
