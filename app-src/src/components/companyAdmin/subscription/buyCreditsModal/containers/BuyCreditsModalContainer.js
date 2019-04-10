@@ -9,6 +9,7 @@ import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { PAYMENT_ERROR, PAYMENT_SUCCESS } from 'constants/shared/modalTypes';
 import { PAYMENT_IDS } from 'constants/companyAdmin/enums';
 import fetchAllInvoices from 'actions/companyAdmin/invoices/async/fetchAllInvoices';
+import fetchAllCards from 'actions/companyAdmin/cards/async/fetchAllCards';
 
 class BuyCreditsModalContainer extends Component {
     state = {
@@ -19,7 +20,7 @@ class BuyCreditsModalContainer extends Component {
 
     render = () => {
         const { cards, hideModal, costOfCredits } = this.props;
-        const cardOptions = Object.values(cards).map(card => ({
+        const cardOptions = cards.map(card => ({
             text: `${card.nickname || card.name} - ${card.lastFour}`,
             value: card.id
         }));
@@ -41,6 +42,20 @@ class BuyCreditsModalContainer extends Component {
                 }}
             />
         );
+    };
+
+    componentDidMount = () => {
+        this.props.fetchAllCards();
+    };
+
+    componentDidUpdate = prevProps => {
+        const { isFetching, cards } = this.props;
+        if (!isFetching && prevProps.isFetching) {
+            const primaryCard = cards.find(({ isPrimary }) => isPrimary);
+            this.setState({
+                stripeCardID: primaryCard ? primaryCard.id : cards[0].id
+            });
+        }
     };
 
     handleChange = ({ target: { name, value } }) => {
@@ -87,7 +102,7 @@ const mapStateToProps = ({
         cardsReducer: { cards, isFetching }
     }
 }) => ({
-    cards,
+    cards: Object.values(cards),
     costOfCredits,
     postSuccess,
     postError,
@@ -96,6 +111,7 @@ const mapStateToProps = ({
 
 const mapDispatchToProps = dispatch => ({
     createCredits: body => dispatch(createCredits(body)),
+    fetchAllCards: () => dispatch(fetchAllCards()),
     fetchAllCredits: () => dispatch(fetchAllCredits()),
     fetchAllInvoices: () => dispatch(fetchAllInvoices()),
     showModal: (type, props) => dispatch(showModal(type, props)),

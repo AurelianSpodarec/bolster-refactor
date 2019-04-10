@@ -10,7 +10,7 @@ const SiteStats = ({ site, stats }) => (
             <PieChart stats={stats} hierarchyType="site" />
         </div>
 
-        <div className="button-container size-lg-12">
+        <div className="button-container">
             <Link
                 className="button yellow"
                 to={`/company/sites/${site.id}/edit`}
@@ -20,12 +20,7 @@ const SiteStats = ({ site, stats }) => (
             <Link className="button red" to={`/company/sites/${site.id}/edit`}>
                 <i className="far fa-trash-alt fa-fw" /> Delete
             </Link>
-            <Link
-                className="button"
-                to={`/company/buildings/create/${site.id}`}
-            >
-                <i className="fa fa-plus" /> Add building
-            </Link>
+
             <Link className="button" to="/company/site">
                 <i className="fa fa-exchange" /> Change Ownership
             </Link>
