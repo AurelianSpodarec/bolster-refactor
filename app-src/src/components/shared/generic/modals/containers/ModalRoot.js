@@ -7,17 +7,20 @@ import {
     ADD_TEMPLATE_SECTION,
     ADD_TEMPLATE_QUESTION,
     ADMIN_EDIT_SERVICE,
+    BUY_CREDITS,
     DELETE_ENQUIRY,
     DELETE_COMPANY_USER,
     DELETE_DOCUMENT,
     DELETE_CLIENT_FROM_DRAWING,
     DELETE_COMPANY_PERMISSIONS,
     DELETE_OPERATIVE,
-    ERROR_MODAL,
     EDIT_TEMPLATE,
     EDIT_TEMPLATE_QUESTION,
     EDIT_USER,
     EDIT_USER_PASSWORD,
+    ERROR_MODAL,
+    PAYMENT_ERROR,
+    PAYMENT_SUCCESS,
     PIN_IMAGE,
     RENAME_TEMPLATE_SECTION,
     SUCCESS_MODAL
@@ -42,6 +45,9 @@ import PinPhotoModal from '../presentational/PinPhotoModal';
 import RenameTemplateSectionModalContainer from 'components/superAdmin/templateBuilder/setSection/containers/EditTemplateSectionModalContainer';
 import SuccessModalContainer from './SuccessModalContainer';
 import AddCardModalContainer from 'components/companyAdmin/subscription/cardManagement/addCardModal/containers/AddCardModalContainer';
+import BuyCreditsModalContainer from 'components/companyAdmin/subscription/buyCreditsModal/containers/BuyCreditsModalContainer';
+import PaymentErrorModalContainer from './PaymentErrorModalContainer';
+import PaymentSuccessModal from '../presentational/PaymentSuccessModal';
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModalContainer,
@@ -49,6 +55,7 @@ const MODAL_COMPONENTS = {
     [ADD_TEMPLATE_QUESTION]: AddTemplateQuestionModalContainer,
     [ADD_TEMPLATE_SECTION]: AddTemplateSectionModalContainer,
     [ADMIN_EDIT_SERVICE]: EditServiceModalContainer,
+    [BUY_CREDITS]: BuyCreditsModalContainer,
     [DELETE_CLIENT_FROM_DRAWING]: DeleteClientModalContainer,
     [DELETE_COMPANY_PERMISSIONS]: DeleteCompanyPermissionsModalContainer,
     [DELETE_COMPANY_USER]: DeleteCompanyUserModalContainer,
@@ -60,8 +67,10 @@ const MODAL_COMPONENTS = {
     [EDIT_TEMPLATE_QUESTION]: EditTemplateQuestionModalContainer,
     [EDIT_USER]: EditUserModalContainer,
     [EDIT_USER_PASSWORD]: EditUserPasswordModalContainer,
-    [RENAME_TEMPLATE_SECTION]: RenameTemplateSectionModalContainer,
+    [PAYMENT_ERROR]: PaymentErrorModalContainer,
+    [PAYMENT_SUCCESS]: PaymentSuccessModal,
     [PIN_IMAGE]: PinPhotoModal,
+    [RENAME_TEMPLATE_SECTION]: RenameTemplateSectionModalContainer,
     [SUCCESS_MODAL]: SuccessModalContainer
 };
 

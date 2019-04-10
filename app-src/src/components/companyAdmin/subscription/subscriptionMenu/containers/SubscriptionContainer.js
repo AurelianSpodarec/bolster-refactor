@@ -7,6 +7,7 @@ import fetchAllSubscriptions from 'actions/companyAdmin/subscriptions/async/fetc
 import fetchAllServices from 'actions/companyAdmin/services/async/fetchAllServices';
 import fetchAllInvoices from 'actions/companyAdmin/invoices/async/fetchAllInvoices';
 import fetchAllCards from 'actions/companyAdmin/cards/async/fetchAllCards';
+import fetchAllCredits from 'actions/companyAdmin/credits/fetchAllCredits';
 
 class SubscriptionContainer extends Component {
     render = () => <Subscription />;
@@ -22,6 +23,7 @@ const mapDispatchToProps = dispatch => ({
         dispatch(fetchAllServices());
         dispatch(fetchAllInvoices());
         dispatch(fetchAllCards());
+        dispatch(fetchAllCredits());
     }
 });
 

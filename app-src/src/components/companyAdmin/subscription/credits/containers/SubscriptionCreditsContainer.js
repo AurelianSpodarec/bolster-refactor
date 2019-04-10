@@ -3,26 +3,54 @@ import { connect } from 'react-redux';
 
 import SubscriptionCredits from '../presentational/SubscriptionCredits';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import { showModal } from 'actions/shared/generic/modals/sync/showModal';
+import { BUY_CREDITS } from 'constants/shared/modalTypes';
 
 class SubscriptionCreditsContainer extends Component {
     state = {
         creditsToBuy: ''
     };
 
-    render = () => (
-        <BlockContainer>
-            <SubscriptionCredits
-                creditsToBuy={this.state.creditsToBuy}
-                handleInputChange={this.handleInputChange}
-            />
-        </BlockContainer>
-    );
-
-    handleBuyCredits = () => {};
+    render = () => {
+        const { creditsToBuy } = this.state;
+        const { isFetching, totalCredits, showModal } = this.props;
+        return (
+            <BlockContainer isFetching={isFetching}>
+                <SubscriptionCredits
+                    creditsToBuy={creditsToBuy}
+                    handleInputChange={this.handleInputChange}
+                    totalCredits={totalCredits}
+                    showModal={e => {
+                        e.preventDefault();
+                        showModal(BUY_CREDITS, { creditsToBuy });
+                    }}
+                />
+            </BlockContainer>
+        );
+    };
 
     handleInputChange = ({ target: { name, value } }) => {
         this.setState({ [name]: value });
     };
 }
 
-export default connect()(SubscriptionCreditsContainer);
+const mapStateToProps = ({
+    companyAdmin: {
+        creditsReducer: { credits, isFetching }
+    }
+}) => ({
+    totalCredits: Object.values(credits).reduce(
+        (acc, curr) => acc + curr.quantity,
+        0
+    ),
+    isFetching
+});
+
+const mapDispatchToProps = dispatch => ({
+    showModal: (type, props) => dispatch(showModal(type, props))
+});
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(SubscriptionCreditsContainer);
