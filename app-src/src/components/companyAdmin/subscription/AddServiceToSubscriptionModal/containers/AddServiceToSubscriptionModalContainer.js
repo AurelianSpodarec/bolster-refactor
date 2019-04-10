@@ -52,7 +52,7 @@ class AddServiceToSubscriptionModalContainer extends Component {
         // put primary card as default into state
         const { isFetching, cards } = this.props;
 
-        if (!isFetching && prevProps.isFetching) {
+        if (!isFetching && prevProps.isFetching && cards.length) {
             const primaryCard = cards.find(({ isPrimary }) => isPrimary);
             this.setState({
                 stripeCardID: primaryCard ? primaryCard.id : cards[0].id

@@ -8,8 +8,10 @@ import {
     EDIT_SUBSCRIPTION_RENEWAL_STATUS_FAILURE,
     FETCH_PRO_RATA_SUBSCRIPTION_COST_REQUEST,
     FETCH_PRO_RATA_SUBSCRIPTION_COST_FAILURE,
-    FETCH_PRO_RATA_SUBSCRIPTION_COST_SUCCESS
+    FETCH_PRO_RATA_SUBSCRIPTION_COST_SUCCESS,
+    ADD_SERVICE_TO_SUBSCRIPTION_SUCCESS
 } from 'constants/actionTypes/subscriptions';
+import { updateObj } from 'helpers/generic';
 
 export default combineReducers({
     isFetching: isFetchingReducer,
@@ -53,6 +55,9 @@ function subscriptionsReducer(state = {}, action) {
         case FETCH_ALL_SUBSCRIPTIONS_SUCCESS:
         case EDIT_SUBSCRIPTION_RENEWAL_STATUS_SUCCESS:
             return action.payload;
+        case ADD_SERVICE_TO_SUBSCRIPTION_SUCCESS:
+            // ?????
+            return updateObj(state, action.payload.id, action.payload);
         default:
             return state;
     }
