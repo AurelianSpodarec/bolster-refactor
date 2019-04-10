@@ -1,10 +1,10 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 
-const ProfileDetails = ({ error, isFetching, profile }) => {
+const ProfileDetails = ({ error, isFetching, profile, location }) => {
     const { email, firstName, lastName, phoneNumber } = profile;
     return (
         <BlockContainer
@@ -18,7 +18,7 @@ const ProfileDetails = ({ error, isFetching, profile }) => {
             <p>{`email: ${email}`}</p>
             <p>{`phone number: ${phoneNumber}`}</p>
             <BlockButtonWrapper>
-                <Link className="button" to="/company/profile/edit">
+                <Link className="button" to={`${location.pathname}/edit`}>
                     Edit
                 </Link>
             </BlockButtonWrapper>
@@ -26,4 +26,4 @@ const ProfileDetails = ({ error, isFetching, profile }) => {
     );
 };
 
-export default ProfileDetails;
+export default withRouter(ProfileDetails);
