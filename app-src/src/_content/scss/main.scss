@@ -794,6 +794,20 @@ input {
     }
 }
 
+//pin sections
+.pin-details-section {
+    margin: 10px 0 15px;
+
+    > .title {
+        margin-bottom: 10px;
+        border-bottom: 1px solid #e0e0e0;
+        @include ubuntu;
+        color: $text-grey;
+        font-size: 140%;
+    }
+}
+
+//field outputs
 .field-output {
     padding: {
         left: 5px;

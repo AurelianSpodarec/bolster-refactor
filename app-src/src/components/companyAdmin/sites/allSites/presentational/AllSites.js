@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
 import SitesFiltersContainer from '../containers/SitesFiltersContainer';
 import SitesTableContainer from '../containers/SitesTableContainer';
@@ -11,11 +10,7 @@ const AllSites = () => (
     <>
         <Breadcrumb breadcrumbs={[{ text: 'Sites' }]} />
 
-        <PageHeading title="Sites">
-            <Link to="/company/sites/create" className="button">
-                <i className="fa fa-plus" /> Add site
-            </Link>
-        </PageHeading>
+        <PageHeading title="Sites" />
 
         <BlockContainer>
             <SitesFiltersContainer />

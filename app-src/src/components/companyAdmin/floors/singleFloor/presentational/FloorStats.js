@@ -21,9 +21,7 @@ const FloorStats = ({ floor, stats }) => (
             >
                 <i className="far fa-trash-alt fa-fw" /> Delete
             </Link>
-            <Link className="button" to={`/company/floors/create/${floor.id}`}>
-                <i className="fa fa-plus" /> Add floor
-            </Link>
+
             <Link className="button" to="/company/site">
                 <i className="fa fa-exchange" /> Change Ownership
             </Link>
