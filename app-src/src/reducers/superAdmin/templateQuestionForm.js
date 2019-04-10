@@ -30,7 +30,8 @@ const initialQuestionFields = {
     charLimit: '300',
     maxNum: '',
     options: [{ text: '', id: uuid() }],
-    maxPhotos: ''
+    maxPhotos: '',
+    canEditOption: ''
 };
 
 export default combineReducers({

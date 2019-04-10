@@ -7,11 +7,9 @@ import BuildingOperativeAddContainer from '../containers/BuildingOperativeAddCon
 import BuildingInviteClientContainer from '../containers/BuildingInviteClientContainer';
 import BuildingCompaniesAccessTableContainer from '../containers/BuildingCompaniesAccessTableContainer';
 import BuildingPageHeaderContainer from '../containers/BuildingPageHeaderContainer';
-import BreadcrumbContainer from 'components/companyAdmin/pins/singlePin/containers/BreadcrumbContainer';
 
 const SingleBuilding = () => (
     <>
-        <BreadcrumbContainer />
         <div className="size-lg-12">
             <BuildingPageHeaderContainer />
         </div>

@@ -7,7 +7,6 @@ import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/pr
 import { PAYMENT_TYPES } from 'constants/companyAdmin/enums';
 
 const InvoiceListItem = ({
-    location,
     invoice: { createdOn, isPaid, total, id, paymentType }
 }) => (
     <tr>
@@ -19,7 +18,7 @@ const InvoiceListItem = ({
         <td>{!isPaid && <i className="fa fa-exclamation" />}</td>
         <td>
             <BlockButtonWrapper>
-                <Link to={`${location.pathname}/${id}`} className="button">
+                <Link to={`/company/invoices/${id}`} className="button">
                     View
                 </Link>
                 {!isPaid && <button className="button">Pay</button>}
