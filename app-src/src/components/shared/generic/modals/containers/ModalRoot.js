@@ -24,7 +24,8 @@ import {
     PIN_IMAGE,
     RENAME_TEMPLATE_SECTION,
     SUCCESS_MODAL,
-    ADD_SERVICE_TO_SUBSCRIPTION
+    ADD_SERVICE_TO_SUBSCRIPTION,
+    PAY_INVOICE
 } from 'constants/shared/modalTypes';
 
 import AddTemplateModalContainer from 'components/superAdmin/templateBuilder/setTemplate/containers/AddTemplateModalContainer';
@@ -50,6 +51,7 @@ import BuyCreditsModalContainer from 'components/companyAdmin/subscription/buyCr
 import PaymentErrorModalContainer from './PaymentErrorModalContainer';
 import PaymentSuccessModal from '../presentational/PaymentSuccessModal';
 import AddServiceToSubscriptionModalContainer from 'components/companyAdmin/subscription/AddServiceToSubscriptionModal/containers/AddServiceToSubscriptionModalContainer';
+import PayInvoiceModalContainer from 'components/companyAdmin/invoices/shared/payInvoiceModal/containers/PayInvoiceModalContainer';
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModalContainer,
@@ -70,6 +72,7 @@ const MODAL_COMPONENTS = {
     [EDIT_TEMPLATE_QUESTION]: EditTemplateQuestionModalContainer,
     [EDIT_USER]: EditUserModalContainer,
     [EDIT_USER_PASSWORD]: EditUserPasswordModalContainer,
+    [PAY_INVOICE]: PayInvoiceModalContainer,
     [PAYMENT_ERROR]: PaymentErrorModalContainer,
     [PAYMENT_SUCCESS]: PaymentSuccessModal,
     [PIN_IMAGE]: PinPhotoModal,

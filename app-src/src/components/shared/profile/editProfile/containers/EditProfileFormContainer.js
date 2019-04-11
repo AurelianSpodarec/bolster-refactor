@@ -24,6 +24,7 @@ class EditProfileFormContainer extends Component {
                 handleInputChange={this.handleInputChange}
                 handleSubmit={this.handleSubmit}
                 handleImageChange={this.handleImageChange}
+                filesUploading={this.props.filesUploading}
             />
         );
     }
@@ -56,17 +57,20 @@ class EditProfileFormContainer extends Component {
 
     handleSubmit = e => {
         e.preventDefault();
-        const {
-            profileImageS3Key,
-            currentProfileImage,
-            ...restForm
-        } = this.state;
-        // check if image should stay the same or be changed to a new value
-        const image = profileImageS3Key
-            ? profileImageS3Key
-            : currentProfileImage;
-        const postBody = { profileImageS3Key: image, ...restForm };
-        this.props.editProfile(postBody);
+        const { filesUploading } = this.props;
+        if (!filesUploading) {
+            const {
+                profileImageS3Key,
+                currentProfileImage,
+                ...restForm
+            } = this.state;
+            // check if image should stay the same or be changed to a new value
+            const image = profileImageS3Key
+                ? profileImageS3Key
+                : currentProfileImage;
+            const postBody = { profileImageS3Key: image, ...restForm };
+            this.props.editProfile(postBody);
+        }
     };
 
     _setFormDetails = profile => {
@@ -81,13 +85,15 @@ class EditProfileFormContainer extends Component {
 
 const mapStateToProps = ({
     shared: {
-        profileReducer: { isFetching, error, profile, postSuccess }
+        profileReducer: { isFetching, error, profile, postSuccess },
+        filesUploadingReducer: { filesUploading }
     }
 }) => ({
     isFetching,
     error,
     profile,
-    postSuccess
+    postSuccess,
+    filesUploading
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -5,6 +5,7 @@ import { withRouter } from 'react-router-dom';
 import postTemplate from 'actions/superAdmin/templateBuilder/async/postTemplate';
 
 import SaveTemplateButton from '../presentational/SaveTemplateButton';
+import { setDynamicFields } from 'actions/superAdmin/templateBuilder/async/helpers';
 
 class SaveTemplateButtonContainer extends Component {
     render() {
@@ -45,10 +46,9 @@ class SaveTemplateButtonContainer extends Component {
         const newTemplateData = {
             template,
             sections,
-            questions
+            questions: setDynamicFields(questions)
         };
 
-        // console.log(new)
         postTemplate(newTemplateData);
     };
 }

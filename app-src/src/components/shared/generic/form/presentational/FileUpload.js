@@ -11,7 +11,9 @@ const FileUpload = ({
     maxFiles = 1,
     acceptedTypes,
     files,
-    handleUpdateFiles
+    handleUpdateFiles,
+    handleFileUploadStart,
+    handleFileUploadFinish
 }) => (
     <>
         <FilePond
@@ -22,6 +24,8 @@ const FileUpload = ({
             allowMultiple
             maxFiles={maxFiles}
             server={serverOptions}
+            onaddfilestart={file => handleFileUploadStart(file)}
+            onprocessfile={file => handleFileUploadFinish(file)}
         />
         {!!(error && error.length) && (
             <p className="error red-text text-accent-4">{error}</p>

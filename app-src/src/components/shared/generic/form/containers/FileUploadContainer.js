@@ -9,6 +9,10 @@ import removeFieldError from 'actions/shared/generic/fieldErrors/sync/removeFiel
 import FileUpload from '../presentational/FileUpload';
 import { getAuthHeader } from 'helpers/api';
 import { areArraysEqual } from 'helpers/generic';
+import {
+    fileUploadStart,
+    fileUploadFinish
+} from 'actions/shared/fileUpload/sync/fileUpload';
 
 class FileUploadContainer extends Component {
     state = {
@@ -31,6 +35,9 @@ class FileUploadContainer extends Component {
                 maxFiles={maxFiles}
                 acceptedTypes={acceptedTypes}
                 handleUpdateFiles={this.handleUpdateFiles}
+                handleBeforeAdd={this.handleBeforeAdd}
+                handleFileUploadStart={this.handleFileUploadStart}
+                handleFileUploadFinish={this.handleFileUploadFinish}
             />
         );
     }
@@ -90,6 +97,14 @@ class FileUploadContainer extends Component {
         } else if (error) {
             removeFieldError(name);
         }
+    };
+
+    handleFileUploadStart = () => {
+        this.props.fileUploadStart();
+    };
+
+    handleFileUploadFinish = () => {
+        this.props.fileUploadFinish();
     };
 
     _getServerOptions = () => {
@@ -169,6 +184,12 @@ const mapDispatchToProps = dispatch => ({
     },
     removeFieldError: fieldName => {
         dispatch(removeFieldError(fieldName));
+    },
+    fileUploadStart: () => {
+        dispatch(fileUploadStart());
+    },
+    fileUploadFinish: () => {
+        dispatch(fileUploadFinish());
     }
 });
 

@@ -26,6 +26,7 @@ class AttachDocumentFormContainer extends Component {
     };
 
     render = () => {
+        const { filesUploading, backUrl } = this.props;
         const serviceOptions = this._getServicesOptions();
 
         return (
@@ -40,7 +41,8 @@ class AttachDocumentFormContainer extends Component {
                 handleFileChange={this.handleFileChange}
                 handleDateChange={this.handleDateChange}
                 validateDatePicker={this.validateDatePicker}
-                backUrl={this.props.backUrl}
+                backUrl={backUrl}
+                filesUploading={filesUploading}
             />
         );
     };
@@ -49,7 +51,7 @@ class AttachDocumentFormContainer extends Component {
         const { postSuccess, history, hierarchyType, hierarchyID } = this.props;
 
         if (!prevProps.postSuccess && postSuccess) {
-            history.replace(`company/${hierarchyType}s/${hierarchyID}`);
+            history.replace(`/company/${hierarchyType}s/${hierarchyID}`);
         }
     };
 
@@ -102,19 +104,25 @@ class AttachDocumentFormContainer extends Component {
 
     handleSubmit = e => {
         e.preventDefault();
-        const { createDocument, hierarchyType, hierarchyID } = this.props;
-
         const {
-            serviceIDs,
-            // eslint-disable-next-line no-unused-vars
-            services,
-            ...body
-        } = this.state;
-        const postBody = {
-            ...body,
-            serviceIDs: serviceIDs
-        };
-        createDocument(hierarchyType, hierarchyID, postBody);
+            createDocument,
+            hierarchyType,
+            hierarchyID,
+            filesUploading
+        } = this.props;
+        if (!filesUploading) {
+            const {
+                serviceIDs,
+                // eslint-disable-next-line no-unused-vars
+                services,
+                ...body
+            } = this.state;
+            const postBody = {
+                ...body,
+                serviceIDs: serviceIDs
+            };
+            createDocument(hierarchyType, hierarchyID, postBody);
+        }
     };
 }
 
@@ -124,10 +132,14 @@ const mapStateToProps = (
             servicesReducer,
             subscriptionsReducer,
             documentsReducer
+        },
+        shared: {
+            filesUploadingReducer: { filesUploading }
         }
     },
     { match }
 ) => ({
+    filesUploading,
     isFetching: servicesReducer.isFetching || subscriptionsReducer.isFetching,
     services: Object.values(servicesReducer.services),
     subscriptions: subscriptionsReducer.subscriptions.serviceIDs || [],

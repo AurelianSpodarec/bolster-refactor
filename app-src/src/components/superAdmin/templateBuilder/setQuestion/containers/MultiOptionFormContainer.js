@@ -6,10 +6,9 @@ import updateQuestionField from 'actions/superAdmin/templateBuilder/sync/updateQ
 
 class MultiOptionFormContainer extends Component {
     render() {
-        const { options } = this.props;
         return (
             <MultiOptionForm
-                options={options}
+                {...this.props}
                 addOption={this.addOption}
                 removeOption={this.removeOption}
                 updateOption={this.updateOption}

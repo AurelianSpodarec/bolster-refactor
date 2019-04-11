@@ -49,7 +49,7 @@ export default function(WrappedComponent) {
         getQuestionData = () => {
             return {
                 ...this._getSharedData(),
-                dynamicFields: this._getSpecificData()
+                ...this._getSpecificData()
             };
         };
 

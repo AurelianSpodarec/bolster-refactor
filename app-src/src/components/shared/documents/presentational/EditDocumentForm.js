@@ -23,6 +23,7 @@ const EditDocumentForm = ({
     handleDateChange,
     handleHide,
     handleCancelUpload,
+    filesUploading,
     type,
     name,
     fileS3Key,
@@ -170,9 +171,18 @@ const EditDocumentForm = ({
             </>
         )}
         <BlockButtonWrapper>
-            <button onClick={handleSubmit} className="button green">
-                <i className="fa fa-plus" />
-                Confirm Changes
+            <button
+                disabled={filesUploading}
+                onClick={handleSubmit}
+                className="button green"
+            >
+                {filesUploading ? (
+                    'Please wait...'
+                ) : (
+                    <>
+                        <i className="fa fa-plus" /> {'Confirm Changes'}
+                    </>
+                )}
             </button>
             <Link
                 to={location.pathname.replace(

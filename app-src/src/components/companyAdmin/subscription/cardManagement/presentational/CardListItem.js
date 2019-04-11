@@ -19,7 +19,12 @@ const CardListItem = ({
                         Make Primary
                     </button>
                 )}
-                <button className="button red" onClick={deleteCard}>
+                <button
+                    className="button red"
+                    onClick={() => {
+                        deleteCard();
+                    }}
+                >
                     <i className="fa fa-times" />
                     Delete
                 </button>

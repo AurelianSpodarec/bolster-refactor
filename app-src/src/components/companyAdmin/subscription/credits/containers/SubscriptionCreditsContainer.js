@@ -29,6 +29,7 @@ class SubscriptionCreditsContainer extends Component {
                     showModal={e => {
                         e.preventDefault();
                         showModal(BUY_CREDITS, { creditsToBuy });
+                        this.setState({ creditsToBuy: '' });
                     }}
                 />
             </BlockContainer>

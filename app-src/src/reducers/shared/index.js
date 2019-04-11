@@ -7,6 +7,7 @@ import tabsReducer from './tabs';
 import tablesReducer from './tables';
 import decodeJWTReducer from './decodeJWT';
 import modalReducer from './modal';
+import filesUploadingReducer from './fileUpload';
 
 export default combineReducers({
     decodeJWTReducer,
@@ -15,5 +16,6 @@ export default combineReducers({
     modalReducer,
     profileReducer,
     tabsReducer,
-    tablesReducer
+    tablesReducer,
+    filesUploadingReducer
 });

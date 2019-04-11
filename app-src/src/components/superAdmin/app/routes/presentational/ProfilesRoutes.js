@@ -5,7 +5,7 @@ import SwitchWith404 from 'components/appRoute/routes/presentational/SwitchWith4
 import ProfileContainer from 'components/shared/profile/profilePage/containers/ProfileContainer';
 import EditProfileContainer from 'components/shared/profile/editProfile/containers/EditProfileContainer';
 
-const ProfilesRoutes = ({ base = '/company/profile' }) => (
+const ProfilesRoutes = ({ base = '/admin/profile' }) => (
     <SwitchWith404>
         <Route exact path={base} component={ProfileContainer} />
         <Route exact path={`${base}/edit`} component={EditProfileContainer} />

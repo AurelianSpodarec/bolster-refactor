@@ -20,6 +20,7 @@ const AttachDocumentForm = ({
     handleMultiselectChange,
     handleSubmit,
     handleDateChange,
+    filesUploading,
     type,
     name,
     isPhotoRequired,
@@ -84,7 +85,7 @@ const AttachDocumentForm = ({
                 <Field name="Upload PDF or image">
                     <FileUploadContainer
                         name="file"
-                        allowedTypes={['application/pdf', '*']}
+                        acceptedTypes={['application/pdf', 'image/*']}
                         handleChange={handleFileChange}
                         required
                         value={file}
@@ -157,9 +158,15 @@ const AttachDocumentForm = ({
             </>
         )}
         <BlockButtonWrapper>
-            <button className="button green">
-                <i className="fa fa-plus" />
-                Attach Document
+            <button disabled={filesUploading} className="button green">
+                {filesUploading ? (
+                    'Please wait...'
+                ) : (
+                    <>
+                        <i className="fa fa-plus" />
+                        Attach Document
+                    </>
+                )}
             </button>
             <Link
                 to={location.pathname.replace('/attach-document', '')}
