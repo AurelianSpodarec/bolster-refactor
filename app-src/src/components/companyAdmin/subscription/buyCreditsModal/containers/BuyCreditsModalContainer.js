@@ -24,6 +24,10 @@ class BuyCreditsModalContainer extends Component {
             text: `${card.nickname || card.name} - ${card.lastFour}`,
             value: card.id
         }));
+        const selectedCard = cardOptions.find(
+            ({ isPrimary, value }) =>
+                value === this.state.stripeCardID || isPrimary
+        );
         return (
             <BuyCreditsModal
                 {...this.state}
@@ -31,11 +35,7 @@ class BuyCreditsModalContainer extends Component {
                 handleSubmit={this.handleSubmit}
                 cards={cardOptions}
                 costOfCredits={costOfCredits}
-                selectedCard={
-                    cardOptions.find(
-                        ({ value }) => value === this.state.stripeCardID
-                    ) || cardOptions[0]
-                }
+                selectedCard={selectedCard}
                 hideModal={e => {
                     e.preventDefault();
                     hideModal();
