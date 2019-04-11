@@ -33,7 +33,6 @@ class SingleSiteContainer extends Component {
             fetchAllBuildings();
             fetchAllFloors();
             fetchAllDrawings();
-            fetchAllCompanies();
         });
     };
 }
@@ -57,9 +56,6 @@ const mapDispatchToProps = dispatch => ({
     },
     fetchClients: () => {
         dispatch(fetchClients());
-    },
-    fetchAllCompanies: () => {
-        dispatch(fetchAllCompanies());
     },
     fetchPinStatsForLevel: (hierarchyType, levelID) => {
         dispatch(fetchPinStatsForLevel(hierarchyType, levelID));

@@ -48,14 +48,14 @@ class CompaniesAccessContainer extends Component {
 }
 
 const mapStateToProps = (
-    { companyAdmin: { companiesReducer } },
+    { companyAdmin: { companiesPermissionsReducer } },
     { match }
 ) => ({
     hierarchyID: match.params.id,
-    isFetching: companiesReducer.isFetching,
-    error: companiesReducer.error,
+    isFetching: companiesPermissionsReducer.isFetching,
+    error: companiesPermissionsReducer.error,
     companiesWithPermissions: Object.values(
-        companiesReducer.companiesWithPermissions
+        companiesPermissionsReducer.companiesPermissions
     )
 });
 

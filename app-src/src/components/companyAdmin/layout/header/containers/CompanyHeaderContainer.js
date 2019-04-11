@@ -22,7 +22,7 @@ const CompanyHeaderContainer = ({
 
 const mapStateToProps = ({
     companyAdmin: {
-        companiesReducer: { company },
+        // companiesReducer: { company },
         messagesReducer: { messages },
         creditLogsReducer: { creditLogs }
     },
@@ -40,7 +40,7 @@ const mapStateToProps = ({
 
     return {
         profile: profile,
-        company,
+        // company,
         unreadMessageCount,
         totalCedits
     };

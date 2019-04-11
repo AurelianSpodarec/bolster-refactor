@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 import InviteCompanyForm from '../presentational/InviteCompanyForm';
-import addCompany from 'actions/companyAdmin/companies/async/addCompany';
+import addCompany from 'actions/companyAdmin/companies/async/addCompanyPermissions';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 
 class InviteCompanyFormContainer extends Component {
@@ -75,7 +75,7 @@ const mapStateToProps = (
         companyAdmin: {
             servicesReducer: { services },
             subscriptionsReducer: { subscriptions },
-            companiesReducer: { postSuccess, error }
+            companiesPermissionsReducer: { postSuccess, error }
         }
     },
     { match: { url, params } }

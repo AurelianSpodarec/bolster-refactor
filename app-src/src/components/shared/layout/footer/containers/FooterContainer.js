@@ -5,12 +5,12 @@ import Footer from '../presentational/Footer';
 
 class FooterContainer extends Component {
     render() {
-        const { company } = this.props;
-
-        return <Footer company={company} />;
+        // const { company } = this.props;
+        // company={company}
+        return <Footer />;
     }
 }
 
 export default connect(state => ({
-    company: state.companyAdmin.companiesReducer.company
+    // company: state.companyAdmin.companiesReducer.company
 }))(FooterContainer);

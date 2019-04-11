@@ -8,7 +8,7 @@ import {
     EDIT_COMPANY_PERMISSIONS_REQUEST,
     EDIT_COMPANY_PERMISSIONS_SUCCESS,
     EDIT_COMPANY_PERMISSIONS_FAILURE
-} from 'constants/actionTypes/companies';
+} from 'constants/actionTypes/companiesWithPermissions';
 
 export const editCompanyPermissionsRequest = () => ({
     type: EDIT_COMPANY_PERMISSIONS_REQUEST

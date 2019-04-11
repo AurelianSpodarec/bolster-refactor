@@ -3,7 +3,7 @@ import { combineReducers } from 'redux';
 import buildingsReducer from './buildings';
 import cardsReducer from './cards';
 import clientsReducer from './clients';
-import companiesReducer from './companies';
+import companiesPermissionsReducer from './companiesPermissions';
 import companyUsersReducer from '../companyAdmin/companyUsers';
 import creditsReducer from './credits';
 import creditLogsReducer from './creditLogs';
@@ -32,7 +32,7 @@ export default combineReducers({
     buildingsReducer,
     cardsReducer,
     clientsReducer,
-    companiesReducer,
+    companiesPermissionsReducer,
     companyUsersReducer,
     creditsReducer,
     creditLogsReducer,

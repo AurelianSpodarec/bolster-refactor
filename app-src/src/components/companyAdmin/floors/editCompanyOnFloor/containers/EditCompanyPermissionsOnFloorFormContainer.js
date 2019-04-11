@@ -104,7 +104,7 @@ class EditCompanyPermissionsOnFloorFormContainer extends Component {
 const mapStateToProps = (
     {
         companyAdmin: {
-            companiesReducer,
+            companiesPermissionsReducer,
             servicesReducer,
             subscriptionsReducer
         }
@@ -112,14 +112,14 @@ const mapStateToProps = (
     ownProps
 ) => ({
     company:
-        companiesReducer.companiesWithPermissions[
+        companiesPermissionsReducer.companiesPermissions[
             ownProps.match.params.companyID
         ] || null,
     isFetching:
-        companiesReducer.isFetching ||
+        companiesPermissionsReducer.isFetching ||
         servicesReducer.isFetching ||
         subscriptionsReducer.isFetching,
-    postSuccess: companiesReducer.postSuccess,
+    postSuccess: companiesPermissionsReducer.postSuccess,
     services: servicesReducer.services || [],
     subscriptions: subscriptionsReducer.subscriptions.serviceIDs || [],
     id: ownProps.match.params.companyID
