@@ -4,7 +4,7 @@ import {
     FETCH_COMPANY_PERMISSIONS_REQUEST,
     FETCH_COMPANY_PERMISSIONS_SUCCESS,
     FETCH_COMPANY_PERMISSIONS_FAILURE
-} from 'constants/actionTypes/companies';
+} from 'constants/actionTypes/companiesWithPermissions';
 import { API_URL } from 'config';
 import { getHeaders } from 'helpers/api';
 

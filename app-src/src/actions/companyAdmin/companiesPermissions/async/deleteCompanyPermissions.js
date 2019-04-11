@@ -7,7 +7,7 @@ import {
     DELETE_COMPANY_PERMISSIONS_REQUEST,
     DELETE_COMPANY_PERMISSIONS_SUCCESS,
     DELETE_COMPANY_PERMISSIONS_FAILURE
-} from 'constants/actionTypes/companies';
+} from 'constants/actionTypes/companiesWithPermissions';
 
 export const deleteCompanyRequest = () => ({
     type: DELETE_COMPANY_PERMISSIONS_REQUEST

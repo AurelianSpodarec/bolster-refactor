@@ -4,22 +4,22 @@ import { API_URL } from 'config';
 import { getHeaders } from 'helpers/api';
 import setAPIFieldErrors from 'actions/shared/generic/fieldErrors/sync/setAPIFieldErrors';
 import {
-    ADD_COMPANY_REQUEST,
-    ADD_COMPANY_SUCCESS,
-    ADD_COMPANY_FAILURE
-} from 'constants/actionTypes/companies';
+    ADD_COMPANY_PERMISSIONS_REQUEST,
+    ADD_COMPANY_PERMISSIONS_SUCCESS,
+    ADD_COMPANY_PERMISSIONS_FAILURE
+} from 'constants/actionTypes/companiesWithPermissions';
 
 export const addCompanyRequest = () => ({
-    type: ADD_COMPANY_REQUEST
+    type: ADD_COMPANY_PERMISSIONS_REQUEST
 });
 
 export const addCompanySuccess = payload => ({
-    type: ADD_COMPANY_SUCCESS,
+    type: ADD_COMPANY_PERMISSIONS_SUCCESS,
     payload
 });
 
 export const addCompanyFailure = error => ({
-    type: ADD_COMPANY_FAILURE,
+    type: ADD_COMPANY_PERMISSIONS_FAILURE,
     error
 });
 

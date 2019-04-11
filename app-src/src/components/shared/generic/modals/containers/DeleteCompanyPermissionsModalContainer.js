@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import ConfirmDeleteModal from '../presentational/ConfirmDeleteModal';
-import deleteCompanyPermissions from 'actions/companyAdmin/companies/async/deleteCompanyPermissions';
+import deleteCompanyPermissions from 'actions/companyAdmin/companiesPermissions/async/deleteCompanyPermissions';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 
 const DeleteCompanyPermissionsModalContainer = ({

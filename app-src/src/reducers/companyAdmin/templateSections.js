@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 
-import { convertArrToObj } from 'helpers/generic';
 import { FETCH_PIN_TEMPLATES_SUCCESS } from 'constants/actionTypes/pins';
+import { FETCH_ALL_TEMPLATES_SUCCESS } from 'constants/actionTypes/templates';
 
 export default combineReducers({
     sections: sectionsReducer
@@ -10,7 +10,8 @@ export default combineReducers({
 function sectionsReducer(state = {}, action) {
     switch (action.type) {
         case FETCH_PIN_TEMPLATES_SUCCESS:
-            return convertArrToObj(action.payload.sections);
+        case FETCH_ALL_TEMPLATES_SUCCESS:
+            return { ...state, ...action.payload.sections };
         default:
             return state;
     }

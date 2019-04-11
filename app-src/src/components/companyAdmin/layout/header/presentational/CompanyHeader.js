@@ -8,13 +8,13 @@ import HeaderNotificationsContainer from '../containers/HeaderNotificationsConta
 const Header = ({ company, unreadMessageCount, totalCedits }) => (
     <header
         id="page-header"
-        style={{ borderColor: company.colorSchemeBackground }}
+        // style={{ borderColor: company.colorSchemeBackground }}
     >
         <div className="container">
             {/*** company logo ***/}
             <div className="logo">
                 <Link to="/company">
-                    <img alt={`logo of ${company.name}`} src={company.logo} />
+                    {/* <img alt={`logo of ${company.name}`} src={company.logo} /> */}
                 </Link>
             </div>
 

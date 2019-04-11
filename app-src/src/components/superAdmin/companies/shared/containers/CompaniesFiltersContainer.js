@@ -1,5 +1,5 @@
 import React from 'react';
-import updateCompaniesFilters from 'actions/companyAdmin/companies/sync/updateCompaniesFilters';
+import updateCompaniesFilters from 'actions/companyAdmin/companiesPermissions/sync/updateCompaniesFilters';
 import { connect } from 'react-redux';
 import CompaniesFilters from '../presentational/CompaniesFilters';
 

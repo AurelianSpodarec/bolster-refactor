@@ -4,7 +4,7 @@ import {
     FETCH_SINGLE_COMPANY_REQUEST,
     FETCH_SINGLE_COMPANY_SUCCESS,
     FETCH_SINGLE_COMPANY_FAILURE
-} from 'constants/actionTypes/companies';
+} from 'constants/actionTypes/companiesWithPermissions';
 import { getHeaders } from 'helpers/api';
 
 export const fetchSingleCompanyRequest = () => ({
