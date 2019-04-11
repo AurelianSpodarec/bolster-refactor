@@ -3,13 +3,7 @@ import React from 'react';
 import { QUESTION_TYPES } from 'constants/superAdmin/templateBuilder';
 import TooltipContainer from 'components/shared/generic/tooltip/containers/TooltipContainer';
 
-const style = {
-    border: '1px dashed gray',
-    padding: '0.5rem 1rem',
-    marginTop: '.5rem',
-    backgroundColor: 'white',
-    cursor: 'move'
-};
+const style = {};
 
 const Question = ({
     isDragging,
@@ -19,7 +13,7 @@ const Question = ({
     isPrereq
 }) => (
     <div
-        className="size-lg-12"
+        className="question-item size-lg-12"
         style={{ ...style, opacity: isDragging ? 0 : 1 }}
     >
         <p className="size-lg-3">{question.name}</p>
@@ -32,7 +26,15 @@ const Question = ({
                 checked={question.isRequired}
             />
         </p>
-        <div className="size-lg-4">
+        <p className="size-lg-2">
+            <input
+                type="checkbox"
+                disabled
+                readOnly
+                checked={question.isHidden}
+            />
+        </p>
+        <div className="size-lg-2">
             {isPrereq ? (
                 <TooltipContainer text="This item is a prerequiste, you must first remove it's dependats.">
                     <button disabled className="button red icon-only">
