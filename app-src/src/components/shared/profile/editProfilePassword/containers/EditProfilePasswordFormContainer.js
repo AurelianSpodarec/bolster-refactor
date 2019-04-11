@@ -20,15 +20,13 @@ class EditProfilePasswordFormContainer extends Component {
     );
 
     componentDidUpdate(prevProps) {
-        const { postSuccess, history, location, match } = this.props;
-        // const { id } = match.params;
+        const { postSuccess, history, location } = this.props;
         if (postSuccess && !prevProps.postSuccess) {
             history.push(location.pathname.replace('/edit-password', ''));
         }
     }
 
     handleInputChange = e => {
-        console.error(e);
         this.setState({
             [e.target.name]: e.target.value
         });
