@@ -7,6 +7,7 @@ import {
 } from 'constants/actionTypes/templateBuilder';
 import { ADMIN_API_URL } from 'config';
 import { getHeaders } from 'helpers/api';
+import { formatQuestions } from './helpers';
 
 export const fetchTemplateRequest = () => ({
     type: FETCH_TEMPLATE_REQUEST
@@ -16,7 +17,7 @@ export const fetchTemplateSuccess = ({ template, sections, questions }) => ({
     type: FETCH_TEMPLATE_SUCCESS,
     template,
     sections,
-    questions
+    questions: formatQuestions(questions)
 });
 
 export const fetchTemplateFailure = error => ({
