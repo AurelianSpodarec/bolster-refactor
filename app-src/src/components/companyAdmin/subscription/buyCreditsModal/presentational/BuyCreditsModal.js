@@ -31,15 +31,20 @@ const BuyCreditsModal = ({
                         handleInputChange={handleChange}
                         checked={+paymentType === PAYMENT_IDS.CARD}
                     />
-                    <DropdownContainer
-                        disabled={+paymentType !== PAYMENT_IDS.CARD}
-                        required={+paymentType === PAYMENT_IDS.CARD}
-                        withoutPlaceholder
-                        name="stripeCardID"
-                        options={cards}
-                        selectedOption={selectedCard}
-                        handleChange={handleChange}
-                    />
+                    {+paymentType === PAYMENT_IDS.CARD && (
+                        <DropdownContainer
+                            required
+                            withoutPlaceholder
+                            name="stripeCardID"
+                            options={cards}
+                            placeholder={
+                                !cards.length &&
+                                'Please add a card to use card payments.'
+                            }
+                            selectedOption={selectedCard}
+                            handleChange={handleChange}
+                        />
+                    )}
                 </div>
                 <div className="size-lg-6">
                     <RadioButton
@@ -59,6 +64,11 @@ const BuyCreditsModal = ({
                             placeholder="Number of credits to buy"
                             required
                             type="number"
+                            validate={value =>
+                                value <= 0 || value % 1
+                                    ? 'Please enter a positive integer.'
+                                    : ''
+                            }
                         />
                         {creditsToBuy && (
                             <p>Total : £{costOfCredits * creditsToBuy}</p>

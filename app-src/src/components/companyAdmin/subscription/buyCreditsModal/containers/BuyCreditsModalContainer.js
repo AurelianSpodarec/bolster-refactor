@@ -62,7 +62,7 @@ class BuyCreditsModalContainer extends Component {
         if (!isFetching && prevProps.isFetching) {
             const primaryCard = cards.find(({ isPrimary }) => isPrimary);
             this.setState({
-                stripeCardID: primaryCard ? primaryCard.id : cards[0].id
+                stripeCardID: primaryCard ? primaryCard.id : null
             });
         }
         if (postSuccess && !prevProps.postSuccess) {
