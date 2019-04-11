@@ -18,6 +18,12 @@ const ProfileDetails = ({ error, isFetching, profile, location }) => {
             <p>{`email: ${email}`}</p>
             <p>{`phone number: ${phoneNumber}`}</p>
             <BlockButtonWrapper>
+                <Link
+                    className="button"
+                    to={`${location.pathname}/edit-password`}
+                >
+                    Change Password
+                </Link>
                 <Link className="button" to={`${location.pathname}/edit`}>
                     Edit
                 </Link>

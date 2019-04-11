@@ -1817,5 +1817,61 @@ input {
 //ADMIN
 //TEMPLATE BUILDER
 .template-block {
-    min-height: 200px;
+    .content-area {
+        min-height: 160px;
+        padding-bottom: 40px;
+        transition: background-color 0.25s ease-in-out;
+
+        &.active {
+            background-color: lightcoral;
+        }
+
+        .button-container {
+            bottom: 10px;
+            width: 100%;
+            padding: 0 15px;
+        }
+    }
+
+    .question-list {
+        width: calc(100% + 30px);
+        margin-left: -15px;
+        text-align: left;
+    }
+
+    .question-item {
+        border-top: 1px solid $light-grey;
+        padding: 10px 15px;
+        cursor: move;
+        background-color: white;
+        transition: background-color 0.25s ease-in-out;
+
+        &:hover {
+            background-color: $light-grey;
+        }
+
+        .button {
+            float: right;
+            margin-left: 5px;
+        }
+
+        p {
+            font-size: 120%;
+        }
+
+        input[type="checkbox"] {
+            display: block;
+            margin: 0 auto;
+            cursor: move;
+        }
+    }
+
+    .question-header {
+        padding: 0 5px;
+        margin-bottom: 5px;
+        p {
+            @include ubuntu-medium;
+            padding: 5px 10px 2.5px 10px;
+        }
+    }
 }

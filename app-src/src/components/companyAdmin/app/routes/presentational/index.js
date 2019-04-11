@@ -17,6 +17,7 @@ import SubscriptionRoutes from './SubscriptionRoutes';
 import InvoicesRoutes from './InvoicesRoutes.js';
 import ProfilesRoutes from './ProfilesRoutes';
 import TemplatesRoutes from './TemplatesRoutes';
+import SettingsRoutes from './SettingsRoutes';
 
 const CompanyRoutes = ({ base = '/company' }) => (
     <SwitchWith404>
@@ -29,10 +30,10 @@ const CompanyRoutes = ({ base = '/company' }) => (
         <Route path={`${base}/pins`} component={PinRoutes} />
         <Route path={`${base}/profile`} component={ProfilesRoutes} />
         <Route path={`${base}/reports`} component={ReportsRoutes} />
+        <Route path={`${base}/settings`} component={SettingsRoutes} />
         <Route path={`${base}/sites`} component={SitesRoutes} />
         <Route path={`${base}/subscription`} component={SubscriptionRoutes} />
         <Route path={`${base}/templates`} component={TemplatesRoutes} />
-
         <Route path={`${base}/tools`} component={ToolsRoutes} />
         <Route
             path={`${base}/users-management`}

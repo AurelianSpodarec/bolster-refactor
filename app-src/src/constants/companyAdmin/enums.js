@@ -18,6 +18,12 @@ export const HIERARCHY_IDS = {
     DRAWING: '4'
 };
 
+export const TEMPLATE_USAGE_RULES = {
+    useOnlyOwnerCompany: 1,
+    useOnlyOwn: 2,
+    useAny: 3
+};
+
 export const DOCUMENT_TYPE = {
     '1': 'View only',
     '2': 'Requires agreement (once)',

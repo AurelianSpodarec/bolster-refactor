@@ -6,6 +6,7 @@ import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/pr
 import Form from 'components/shared/generic/form/containers/Form';
 import FileUploadContainer from 'components/shared/generic/form/containers/FileUploadContainer';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
+import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
 
 const AddDrawingForm = ({
     handleSubmit,
@@ -14,7 +15,9 @@ const AddDrawingForm = ({
     filesUploading,
     floorID,
     name,
-    file
+    file,
+    templateUsageRules,
+    selectedRule
 }) => (
     <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
         <div className="size-lg-12">
@@ -38,6 +41,20 @@ const AddDrawingForm = ({
                         name="file"
                         acceptedTypes={['application/pdf', 'image/*']}
                         handleChange={handleFileChange}
+                    />
+                </Field>
+            </div>
+        </div>
+        <div className="size-lg-12">
+            <div className="size-lg-6">
+                <Field name="Set Template Usage Rule">
+                    <DropdownContainer
+                        placeholder="-- select rule --"
+                        name="templateUsageRule"
+                        options={templateUsageRules}
+                        selectedOption={selectedRule}
+                        handleChange={handleInputChange}
+                        required
                     />
                 </Field>
             </div>

@@ -11,7 +11,7 @@ class InvoiceItemsTableContainer extends Component {
             <InvoiceItemsTable
                 headers={[
                     'Item',
-                    'Details',
+                    'Custom Name',
                     'QTY',
                     'Item Price',
                     'Item VAT',
