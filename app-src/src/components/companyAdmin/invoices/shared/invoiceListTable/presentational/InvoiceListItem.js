@@ -12,7 +12,7 @@ const InvoiceListItem = ({
     <tr>
         <td>{moment(createdOn).format('DD/MM/YYYY')}</td>
         <td>{id}</td>
-        <td>{`£${total}`}</td>
+        <td>{`£${total.toFixed(2)}`}</td>
         <td>{PAYMENT_TYPES[paymentType]}</td>
         <td>{isPaid ? 'Paid' : 'Awaiting Payment'}</td>
         <td>{!isPaid && <i className="fa fa-exclamation" />}</td>
