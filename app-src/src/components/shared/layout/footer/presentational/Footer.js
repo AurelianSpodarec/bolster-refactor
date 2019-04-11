@@ -22,7 +22,7 @@ const Footer = ({ company }) => (
 
             <img
                 alt="logo of Bolster Systems"
-                // src={logos[company.colorSchemeText] || WhiteLogo}
+                src={company ? logos[company.colorSchemeText] : WhiteLogo}
             />
 
             <div className="clear" />
