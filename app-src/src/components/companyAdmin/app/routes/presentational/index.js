@@ -16,25 +16,28 @@ import ToolsRoutes from './ToolsRoutes';
 import SubscriptionRoutes from './SubscriptionRoutes';
 import InvoicesRoutes from './InvoicesRoutes.js';
 import ProfilesRoutes from './ProfilesRoutes';
+import TemplatesRoutes from './TemplatesRoutes';
 
 const CompanyRoutes = ({ base = '/company' }) => (
     <SwitchWith404>
         <Route exact path={base} component={Dashboard} />
-        <Route path={`${base}/sites`} component={SitesRoutes} />
         <Route path={`${base}/buildings`} component={BuildingsRoutes} />
-        <Route path={`${base}/floors`} component={FloorRoutes} />
         <Route path={`${base}/drawings`} component={DrawingsRoutes} />
+        <Route path={`${base}/floors`} component={FloorRoutes} />
+        <Route path={`${base}/invoices`} component={InvoicesRoutes} />
         <Route path={`${base}/message-centre`} component={MessagesRoutes} />
+        <Route path={`${base}/pins`} component={PinRoutes} />
+        <Route path={`${base}/profile`} component={ProfilesRoutes} />
+        <Route path={`${base}/reports`} component={ReportsRoutes} />
+        <Route path={`${base}/sites`} component={SitesRoutes} />
+        <Route path={`${base}/subscription`} component={SubscriptionRoutes} />
+        <Route path={`${base}/templates`} component={TemplatesRoutes} />
+
+        <Route path={`${base}/tools`} component={ToolsRoutes} />
         <Route
             path={`${base}/users-management`}
             component={UserManagementRoutes}
         />
-        <Route path={`${base}/pins`} component={PinRoutes} />
-        <Route path={`${base}/reports`} component={ReportsRoutes} />
-        <Route path={`${base}/tools`} component={ToolsRoutes} />
-        <Route path={`${base}/subscription`} component={SubscriptionRoutes} />
-        <Route path={`${base}/invoices`} component={InvoicesRoutes} />
-        <Route path={`${base}/profile`} component={ProfilesRoutes} />
     </SwitchWith404>
 );
 
