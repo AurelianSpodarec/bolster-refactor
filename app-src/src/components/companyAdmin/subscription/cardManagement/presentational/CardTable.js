@@ -8,7 +8,8 @@ const CardTable = ({
     error,
     isFetching,
     showModal,
-    setPrimaryCard
+    setPrimaryCard,
+    deleteCard
 }) => (
     <>
         <Table
@@ -19,7 +20,11 @@ const CardTable = ({
             noData={!cards.length}
             noDataMessage="No Cards"
         >
-            <CardsList cards={cards} setPrimaryCard={setPrimaryCard} />
+            <CardsList
+                cards={cards}
+                setPrimaryCard={setPrimaryCard}
+                deleteCard={deleteCard}
+            />
         </Table>
         <button className="button" onClick={showModal}>
             <i className="fa fa-plus" />

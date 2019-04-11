@@ -8,7 +8,7 @@ const MultiOptionForm = ({
     removeOption,
     updateOption,
     options,
-    canEditOption,
+    canCompanyEdit,
     handleInputChange
 }) => (
     <>
@@ -35,9 +35,9 @@ const MultiOptionForm = ({
         })}
         <Field name="Can company edit?">
             <input
-                name="canEditOption"
+                name="canCompanyEdit"
                 type="checkbox"
-                checked={canEditOption}
+                checked={canCompanyEdit}
                 onChange={handleInputChange}
             />
         </Field>

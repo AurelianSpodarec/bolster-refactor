@@ -6,16 +6,16 @@ import { ADD_CARD } from 'constants/shared/modalTypes';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import setPrimaryCard from 'actions/companyAdmin/cards/async/setPrimaryCard';
 import fetchAllCards from 'actions/companyAdmin/cards/async/fetchAllCards';
+import deleteCard from 'actions/companyAdmin/cards/async/deleteCard';
 
 class CardTableContainer extends Component {
-    render() {
-        const {
-            cards = [],
-            isFetching,
-            error,
-            showModal,
-            setPrimaryCard
-        } = this.props;
+    state = {
+        cards: [],
+        settingCard: false
+    };
+
+    render = () => {
+        const { isFetching, error, showModal, deleteCard } = this.props;
         const headers = [
             'Name',
             'Card No',
@@ -25,36 +25,68 @@ class CardTableContainer extends Component {
         ];
         return (
             <CardTable
-                cards={Object.values(cards)}
+                cards={this.state.cards}
                 headers={headers}
                 isFetching={isFetching}
                 error={error}
                 showModal={showModal}
-                setPrimaryCard={setPrimaryCard}
+                setPrimaryCard={this.setPrimaryCard}
+                deleteCard={deleteCard}
             />
         );
-    }
+    };
+
+    componentDidMount = () => {
+        const { isFetching, cards } = this.props;
+        if (!isFetching) this.setState({ cards });
+    };
 
     componentDidUpdate = prevProps => {
-        const { postSuccess, fetchAllCards } = this.props;
-        if (postSuccess && !prevProps.postSuccess) fetchAllCards();
+        const {
+            postError,
+            postSuccess,
+            fetchAllCards,
+            cards,
+            isFetching
+        } = this.props;
+        if (!isFetching && prevProps.isFetching) this.setState({ cards });
+
+        if (
+            (postError && !prevProps.postError) ||
+            (postSuccess && !prevProps.postSuccess)
+        ) {
+            const { settingCard } = this.state;
+            if (settingCard) this.setState({ settingCard: false });
+            else fetchAllCards();
+        }
+    };
+
+    setPrimaryCard = (cards, id) => {
+        this.props.setPrimaryCard(id);
+        const updatedCards = cards.map(card => ({
+            ...card,
+            isPrimary: card.id === id
+        }));
+        this.setState({ cards: updatedCards, settingCard: true });
     };
 }
 
 const mapStateToProps = ({
     companyAdmin: {
-        cardsReducer: { cards, isFetching, error, postSuccess }
+        cardsReducer: { cards, isFetching, error, postError, postSuccess }
     }
 }) => ({
-    cards,
+    cards: Object.values(cards),
     isFetching,
     error,
+    postError,
     postSuccess
 });
 
 const mapDispatchToProps = dispatch => ({
     showModal: () => dispatch(showModal(ADD_CARD)),
-    setPrimaryCard: body => dispatch(setPrimaryCard(body)),
+    setPrimaryCard: stripeCardID => dispatch(setPrimaryCard({ stripeCardID })),
+    deleteCard: stripeCardID => dispatch(deleteCard({ stripeCardID })),
     fetchAllCards: () => dispatch(fetchAllCards())
 });
 
