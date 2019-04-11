@@ -4,10 +4,11 @@ import Block from 'components/shared/generic/block/presentational/Block';
 
 import Table from 'components/shared/generic/tables/presentational/Table';
 import CreditLogsList from './CreditLogsList';
+import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 
 const CreditLogsTable = ({ creditLogs, headers, isFetching, error }) => {
     return (
-        <Block>
+        <BlockContainer heading="Drawing Credit Logs">
             <Table
                 headers={headers}
                 isFetching={isFetching}
@@ -17,7 +18,7 @@ const CreditLogsTable = ({ creditLogs, headers, isFetching, error }) => {
             >
                 <CreditLogsList creditLogs={creditLogs} />
             </Table>
-        </Block>
+        </BlockContainer>
     );
 };
 
