@@ -41,28 +41,44 @@ class DrawingMapGeneralContainer extends Component {
         const operativeOptions = this._getOperativeOptions();
 
         return (
-            <BlockContainer error={error}>
-                <DrawingMapFiltersAdvanced
-                    serviceOptions={Object.values(serviceOptions)}
-                    selectedService={serviceOptions[serviceSelectedID]}
-                    statusOptions={Object.values(statusOptions)}
-                    selectedStatus={statusOptions[statusSelectedID]}
-                    operativeOptions={Object.values(operativeOptions)}
-                    selectedOperative={operativeOptions[operativeSelectedID]}
-                    startDateSelected={startDateSelected}
-                    endDateSelected={endDateSelected}
-                    pins={pins}
-                    handleChange={this.handleChange}
-                    handleDateChange={this.handleDateChange}
-                />
-                <DrawingInspectionLogContainer />
-                <DrawingMapViewSimple
-                    position={position}
-                    zoom={mapZoom}
-                    pins={this._getFilteredPins()}
-                    handleClick={this.handleClick}
-                />
-            </BlockContainer>
+            <>
+                <div className="flex-container size-lg-12">
+                    <div className="flex-item size-lg-8">
+                        <BlockContainer error={error}>
+                            <DrawingMapFiltersAdvanced
+                                serviceOptions={Object.values(serviceOptions)}
+                                selectedService={
+                                    serviceOptions[serviceSelectedID]
+                                }
+                                statusOptions={Object.values(statusOptions)}
+                                selectedStatus={statusOptions[statusSelectedID]}
+                                operativeOptions={Object.values(
+                                    operativeOptions
+                                )}
+                                selectedOperative={
+                                    operativeOptions[operativeSelectedID]
+                                }
+                                startDateSelected={startDateSelected}
+                                endDateSelected={endDateSelected}
+                                pins={pins}
+                                handleChange={this.handleChange}
+                                handleDateChange={this.handleDateChange}
+                            />
+                        </BlockContainer>
+                    </div>
+                    <div className="flex-item size-lg-4">
+                        <DrawingInspectionLogContainer />
+                    </div>
+                </div>
+                <BlockContainer error={error}>
+                    <DrawingMapViewSimple
+                        position={position}
+                        zoom={mapZoom}
+                        pins={this._getFilteredPins()}
+                        handleClick={this.handleClick}
+                    />
+                </BlockContainer>
+            </>
         );
     }
 

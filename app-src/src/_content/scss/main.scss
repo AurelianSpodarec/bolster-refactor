@@ -706,7 +706,19 @@ input {
         right: 7.5px;
     }
     margin-bottom: 15px;
-
+    &.w-dates {
+        p {
+            text-align: center;
+            line-height: 26px;
+        }
+        i {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            right: 8px;
+            color: #767676;
+        }
+    }
     .title {
         float: left;
         width: 100%;
@@ -806,6 +818,24 @@ input {
         }
         .field-validation-error {
             border-top: 2px solid #9d9d9e;
+        }
+    }
+
+    .react-datepicker-wrapper {
+        float: left;
+        width: 100%;
+        .react-datepicker__input-container {
+            float: left;
+            width: 100%;
+        }
+        input {
+            float: left;
+            width: 100%;
+            padding: 5px 10px;
+            font-size: 140%;
+            @include ubuntu;
+            border-radius: 2.5px;
+            border: 1px solid #e1e1e1;
         }
     }
 }
@@ -1369,11 +1399,13 @@ input {
         text-align: center;
     }
 }
-
+.map-filters {
+}
 //pin amounts
 .pin-amounts {
+    margin-top: 20px;
     .pin {
-        padding-right: 15px;
+        padding-left: 15px;
         margin-bottom: 10px;
 
         img,
@@ -1382,11 +1414,11 @@ input {
         }
 
         img {
-            width: 24px;
+            width: 22px;
         }
 
         p {
-            padding: 5px 0 0 10px;
+            padding: 5px 0 0 7px;
             font-size: 140%;
             @include ubuntu-medium;
         }
@@ -1627,14 +1659,15 @@ input {
 
 //inspection log
 .inspection-log {
-    padding-left: 15px;
-
+    background-color: $body-text;
     .pin {
         float: left;
-        margin: -8px 5px 0 0;
-        top: 2px;
+        margin: -8px 8px 0 0;
+        top: 7px;
+        width: 16px;
     }
 }
+
 // .tooltip {
 //     position: absolute;
 //     left: 0px;
