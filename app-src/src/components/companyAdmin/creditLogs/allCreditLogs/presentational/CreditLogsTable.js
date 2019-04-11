@@ -1,7 +1,5 @@
 import React from 'react';
 
-import Block from 'components/shared/generic/block/presentational/Block';
-
 import Table from 'components/shared/generic/tables/presentational/Table';
 import CreditLogsList from './CreditLogsList';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
