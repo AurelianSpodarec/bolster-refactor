@@ -31,7 +31,7 @@ const initialQuestionFields = {
     maxNum: '',
     options: [{ text: '', id: uuid() }],
     maxPhotos: '',
-    canCompanyEdit: ''
+    canCompanyEdit: false
 };
 
 export default combineReducers({

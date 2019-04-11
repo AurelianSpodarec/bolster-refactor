@@ -6,7 +6,7 @@ import {
     POST_TEMPLATE_FAILURE
 } from 'constants/actionTypes/templateBuilder';
 import { ADMIN_API_URL } from 'config';
-import { getHeaders, handleErrors } from 'helpers/api';
+import { getHeaders } from 'helpers/api';
 import { formatQuestions } from './helpers';
 
 export const postTemplateRequest = () => ({
@@ -37,5 +37,5 @@ export default templateData => dispatch => {
         .then(res =>
             dispatch(postTemplateSuccess(res.data, templateData.template.uuid))
         )
-        .catch(err => dispatch(handleErrors(postTemplateFailure)(err)));
+        .catch(() => postTemplateFailure('Something went wrong'));
 };
