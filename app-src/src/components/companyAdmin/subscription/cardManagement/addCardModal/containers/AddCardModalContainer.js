@@ -67,10 +67,11 @@ class AddCardModalContainer extends Component {
 
 const mapStateToProps = ({
     companyAdmin: {
-        cardsReducer: { postError }
+        cardsReducer: { postError, postSuccess }
     }
 }) => ({
-    postError
+    postError,
+    postSuccess
 });
 
 const mapDispatchToProps = dispatch => ({
