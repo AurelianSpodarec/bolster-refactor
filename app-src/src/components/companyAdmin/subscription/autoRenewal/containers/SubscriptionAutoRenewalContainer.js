@@ -22,14 +22,20 @@ class SubscriptionAutoRenewalContainer extends Component {
 
     handleAutoRenewChange = () => {
         const { editSubscriptionRenewalStatus, isAutoRenew } = this.props;
-        editSubscriptionRenewalStatus({ renewalStatus: !isAutoRenew });
+        editSubscriptionRenewalStatus({
+            renewalStatus: !isAutoRenew,
+            renewPaymentType: isAutoRenew ? 0 : 20
+        });
     };
 
     handleRadioChange = ({ target: { value } }) => {
-        const { editSubscriptionRenewalStatus, isAutoRenew } = this.props;
+        const {
+            editSubscriptionRenewalStatus,
+            isAutoRenew: renewalStatus
+        } = this.props;
         // switch between pay using card, pay by invoice
         editSubscriptionRenewalStatus({
-            isAutoRenew,
+            renewalStatus,
             renewPaymentType: value
         });
     };

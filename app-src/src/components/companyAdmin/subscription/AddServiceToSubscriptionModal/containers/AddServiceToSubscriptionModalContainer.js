@@ -59,9 +59,11 @@ class AddServiceToSubscriptionModalContainer extends Component {
             postFailure,
             showModal,
             hideModal,
-            fetchAllSubscriptions
+            fetchAllSubscriptions,
+            error
         } = this.props;
         const { paymentType } = this.state;
+        console.log(error);
 
         if (!isFetching && prevProps.isFetching && cards.length) {
             const primaryCard = cards.find(({ isPrimary }) => isPrimary);
@@ -88,7 +90,8 @@ class AddServiceToSubscriptionModalContainer extends Component {
             showModal(PAYMENT_ERROR, {
                 message:
                     'There was an error while purchasing your subscription. Please try again',
-                resubmit: hideModal
+                resubmit: hideModal,
+                error
             });
         }
     };
@@ -122,7 +125,8 @@ const mapStateToProps = ({
             isFetching: fetchingSubs,
             proRataCost,
             postSuccess,
-            postFailure
+            postFailure,
+            error
         }
     }
 }) => ({
@@ -130,7 +134,8 @@ const mapStateToProps = ({
     isFetching: fetchingCards || fetchingSubs,
     proRataCost,
     postSuccess,
-    postFailure
+    postFailure,
+    error
 });
 
 const mapDispatchToProps = dispatch => ({

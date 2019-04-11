@@ -315,7 +315,17 @@ input {
     margin-left: -5px;
 
     .button {
+        float: right;
         margin: 0 5px;
+        &:first-child {
+            margin-right: 0;
+        }
+    }
+
+    &.position-bottom {
+        position: absolute;
+        bottom: 0;
+        right: 0;
     }
 
     &.table {
@@ -671,6 +681,7 @@ input {
     &.w-table {
         margin-bottom: 5px;
     }
+
     .heading {
         float: left;
         max-width: 50%;
@@ -1801,4 +1812,10 @@ input {
 //datepicker
 .react-datepicker-popper {
     z-index: 10000;
+}
+
+//ADMIN
+//TEMPLATE BUILDER
+.template-block {
+    min-height: 200px;
 }

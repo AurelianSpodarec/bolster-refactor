@@ -14,7 +14,7 @@ const SubscriptionCredits = ({
 }) => (
     <>
         <PageHeading title="Credits" />
-        <p>You currently have {totalCredits} credits available to use.</p>
+        <span>You currently have {totalCredits} credits available to use.</span>
         <Form>
             <Field name="Add Credits" htmlFor="add-credits">
                 <TextInputContainer
