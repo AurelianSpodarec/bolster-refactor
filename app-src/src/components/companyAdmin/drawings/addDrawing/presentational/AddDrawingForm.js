@@ -11,6 +11,7 @@ const AddDrawingForm = ({
     handleSubmit,
     handleInputChange,
     handleFileChange,
+    filesUploading,
     floorID,
     name,
     file
@@ -43,8 +44,19 @@ const AddDrawingForm = ({
         </div>
 
         <BlockButtonWrapper>
-            <button className="button green" type="submit">
-                <i className="fa fa-plus" /> Add Drawing
+            <button
+                disabled={filesUploading}
+                className="button green"
+                type="submit"
+            >
+                {filesUploading ? (
+                    'Please wait...'
+                ) : (
+                    <>
+                        {' '}
+                        <i className="fa fa-plus" /> Add Drawing{' '}
+                    </>
+                )}
             </button>
             <Link className="button" to={`/company/floors/${floorID}`}>
                 Cancel

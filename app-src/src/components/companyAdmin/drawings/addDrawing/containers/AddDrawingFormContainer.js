@@ -12,13 +12,15 @@ class AddDrawingFormContainer extends Component {
     };
 
     render() {
+        const { floorID, filesUploading } = this.props;
         return (
             <AddDrawingForm
                 {...this.state}
-                floorID={this.props.floorID}
+                floorID={floorID}
                 handleInputChange={this.handleInputChange}
                 handleFileChange={this.handleFileChange}
                 handleSubmit={this.handleSubmit}
+                filesUploading={filesUploading}
             />
         );
     }
@@ -40,13 +42,23 @@ class AddDrawingFormContainer extends Component {
     };
 
     handleSubmit = () => {
-        const { createDrawing, floorID } = this.props;
-
-        createDrawing({ ...this.state, floorID });
+        const { createDrawing, floorID, filesUploading } = this.props;
+        if (!filesUploading) {
+            createDrawing({ ...this.state, floorID });
+        }
     };
 }
 
-const mapStateToProps = ({ companyAdmin: { drawingsReducer } }, { match }) => ({
+const mapStateToProps = (
+    {
+        companyAdmin: { drawingsReducer },
+        shared: {
+            filesUploadingReducer: { filesUploading }
+        }
+    },
+    { match }
+) => ({
+    filesUploading,
     floorID: match.params.id,
     updatedID: drawingsReducer.updatedID
 });
