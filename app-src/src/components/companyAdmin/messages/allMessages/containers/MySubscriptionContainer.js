@@ -39,7 +39,7 @@ class MySubscriptionContainer extends Component {
     };
 
     componentDidUpdate = () => {
-        console.log(this._servicesAvailable());
+        // console.log(this._servicesAvailable());
     };
 }
 const mapStateToProps = ({
