@@ -3,6 +3,7 @@ import moment from 'moment';
 import { Link } from 'react-router-dom';
 
 import { CREDIT_LOG_TYPES } from 'constants/companyAdmin/enums';
+//! need to put in link to specific invoice id
 
 const CreditLogsList = ({ creditLogs }) =>
     [...creditLogs]
