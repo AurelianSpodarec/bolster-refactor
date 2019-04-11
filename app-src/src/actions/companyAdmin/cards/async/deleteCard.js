@@ -4,7 +4,7 @@ import {
     DELETE_CARD_REQUEST,
     DELETE_CARD_SUCCESS,
     DELETE_CARD_FAILURE
-} from 'constants/actionTypes/card';
+} from 'constants/actionTypes/cards';
 
 import { API_URL } from 'config';
 import { getHeaders } from 'helpers/api';
