@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
-import editCompanyPermissions from 'actions/companyAdmin/companies/async/editCompanyPermissions';
+import editCompanyPermissions from 'actions/companyAdmin/companiesPermissions/async/editCompanyPermissions';
 
-import fetchCompaniesPermissions from 'actions/companyAdmin/companies/async/fetchCompanyPermissions';
+import fetchCompaniesPermissions from 'actions/companyAdmin/companiesPermissions/async/fetchCompanyPermissions';
 import fetchAllServices from 'actions/companyAdmin/services/async/fetchAllServices';
 import EditCompanyPermissionsForm from 'components/shared/companies/presentational/EditCompanyPermissionsForm';
 

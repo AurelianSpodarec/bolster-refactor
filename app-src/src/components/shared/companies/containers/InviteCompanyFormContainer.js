@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 import InviteCompanyForm from '../presentational/InviteCompanyForm';
-import addCompany from 'actions/companyAdmin/companies/async/addCompanyPermissions';
+import addCompany from 'actions/companyAdmin/companiesPermissions/async/addCompanyPermissions';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 
 class InviteCompanyFormContainer extends Component {

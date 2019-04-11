@@ -8,7 +8,7 @@ import BlockContainer from 'components/shared/generic/block/containers/BlockCont
 import { DELETE_COMPANY_PERMISSIONS } from 'constants/shared/modalTypes';
 
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
-import fetchCompaniesPermissions from 'actions/companyAdmin/companies/async/fetchCompanyPermissions';
+import fetchCompaniesPermissions from 'actions/companyAdmin/companiesPermissions/async/fetchCompanyPermissions';
 
 class CompaniesAccessContainer extends Component {
     render() {
