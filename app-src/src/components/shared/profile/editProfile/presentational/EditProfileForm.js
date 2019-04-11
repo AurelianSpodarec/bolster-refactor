@@ -11,7 +11,7 @@ const EditProfileForm = ({
     handleInputChange,
     handleImageChange,
     handleSubmit,
-    handleUploadStatus,
+    filesUploading,
     firstName,
     lastName,
     email,
@@ -70,19 +70,19 @@ const EditProfileForm = ({
                 <div className="size-lg-6">
                     <Field name="Upload New Profile Image (optional)">
                         <FileUploadContainer
-                            isImageUploading={handleUploadStatus}
                             name="profileImageS3Key"
                             value={profileImageS3Key}
                             handleChange={handleImageChange}
                             acceptedTypes={['image/*']}
-                            handleUploadStatus={handleUploadStatus}
                         />
                     </Field>
                 </div>
             </div>
 
             <BlockButtonWrapper>
-                <button className="button green">Confirm</button>
+                <button disabled={filesUploading} className="button green">
+                    {filesUploading ? 'Please wait...' : 'Confirm'}
+                </button>
                 <Link to={backURL} className="button">
                     Cancel
                 </Link>

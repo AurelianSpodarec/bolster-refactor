@@ -24,8 +24,8 @@ const FileUpload = ({
             allowMultiple
             maxFiles={maxFiles}
             server={serverOptions}
-            onaddfilestart={handleFileUploadStart}
-            onprocessfile={handleFileUploadFinish}
+            onaddfilestart={file => handleFileUploadStart(file)}
+            onprocessfile={file => handleFileUploadFinish(file)}
         />
         {!!(error && error.length) && (
             <p className="error red-text text-accent-4">{error}</p>

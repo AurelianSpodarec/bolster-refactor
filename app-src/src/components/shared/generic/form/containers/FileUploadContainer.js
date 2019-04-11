@@ -9,6 +9,10 @@ import removeFieldError from 'actions/shared/generic/fieldErrors/sync/removeFiel
 import FileUpload from '../presentational/FileUpload';
 import { getAuthHeader } from 'helpers/api';
 import { areArraysEqual } from 'helpers/generic';
+import {
+    fileUploadStart,
+    fileUploadFinish
+} from 'actions/shared/fileUpload/sync/fileUpload';
 
 class FileUploadContainer extends Component {
     state = {
@@ -96,13 +100,11 @@ class FileUploadContainer extends Component {
     };
 
     handleFileUploadStart = () => {
-        const { name, addFieldError } = this.props;
-        addFieldError(name, '');
+        this.props.fileUploadStart();
     };
 
     handleFileUploadFinish = () => {
-        const { name, removeFieldError } = this.props;
-        removeFieldError(name);
+        this.props.fileUploadFinish();
     };
 
     _getServerOptions = () => {
@@ -182,6 +184,12 @@ const mapDispatchToProps = dispatch => ({
     },
     removeFieldError: fieldName => {
         dispatch(removeFieldError(fieldName));
+    },
+    fileUploadStart: () => {
+        dispatch(fileUploadStart());
+    },
+    fileUploadFinish: () => {
+        dispatch(fileUploadFinish());
     }
 });
 
