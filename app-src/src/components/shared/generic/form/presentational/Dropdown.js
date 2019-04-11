@@ -13,7 +13,6 @@ const Dropdown = ({
     disabled = false,
     required = false
 }) => {
-    console.log(required);
     return (
         <div className="custom-dropdown size-lg-12">
             <input type="text" value={selectedOption.text} readOnly />
