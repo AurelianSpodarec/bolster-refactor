@@ -1,7 +1,7 @@
 import React from 'react';
 
-const TemplateSection = ({ section, questions }) =>
-    console.log(questions) || questions.length ? (
+const TemplateSection = ({ questions }) =>
+    questions.length ? (
         questions.map(question => (
             <tr key={question.id}>
                 <td>{question.name}</td>

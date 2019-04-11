@@ -8,7 +8,7 @@ const TemplatesTableContainer = ({
     error,
     services
 }) => {
-    const headers = ['a', 'b', 'c'];
+    const headers = ['Name', 'Service', ''];
     const templateData = templates.map(template => ({
         ...template,
         serviceName: services[template.serviceID].name

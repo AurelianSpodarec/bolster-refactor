@@ -4,7 +4,7 @@ import BlockHeading from 'components/shared/generic/blockHeading/presentational/
 import Table from 'components/shared/generic/tables/presentational/Table';
 import TemplateSection from './TemplateSection';
 
-const SingleTemplate = ({ version, sections, questions, headers }) => (
+const SingleTemplate = ({ sections, questions, headers }) => (
     <Block>
         <BlockHeading title="Template" />
         {sections.map(section => (
