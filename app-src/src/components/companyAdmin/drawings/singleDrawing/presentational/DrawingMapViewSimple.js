@@ -1,7 +1,7 @@
 import React from 'react';
 import { Map, TileLayer } from 'react-leaflet';
 
-import DrawingMapPin from './DrawingMapPin';
+import MapPin from 'components/shared/pins/presentational/MapPin';
 
 const DrawingMapViewSimple = ({ position, zoom, pins, handleClick }) => (
     <Map
@@ -17,7 +17,7 @@ const DrawingMapViewSimple = ({ position, zoom, pins, handleClick }) => (
             noWrap={true}
         />
         {pins.map(pin => (
-            <DrawingMapPin key={pin.id} pin={pin} />
+            <MapPin key={pin.id} pin={pin} />
         ))}
     </Map>
 );

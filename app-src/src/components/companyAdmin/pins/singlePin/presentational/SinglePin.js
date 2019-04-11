@@ -1,13 +1,11 @@
 import React from 'react';
 
-import BreadcrumbContainer from '../containers/BreadcrumbContainer';
 import SinglePinMapContainer from '../containers/SinglePinMapContainer';
 import PinDetailsContainer from '../containers/PinDetailsContainer';
 import PinHistoriesContainer from '../containers/PinHistoriesContainer';
 
 const SinglePin = () => (
     <>
-        <BreadcrumbContainer />
         <div className="size-lg-8">
             <SinglePinMapContainer />
             <PinHistoriesContainer />
