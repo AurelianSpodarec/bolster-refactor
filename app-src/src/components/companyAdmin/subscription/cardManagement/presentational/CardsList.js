@@ -1,9 +1,8 @@
 import React from 'react';
 
 import CardListItem from './CardListItem';
-import deleteCard from 'actions/companyAdmin/cards/async/deleteCard';
 
-const CardsList = ({ cards, setPrimaryCard }) =>
+const CardsList = ({ cards, setPrimaryCard, deleteCard }) =>
     cards.map(card => (
         <CardListItem
             key={card.id}

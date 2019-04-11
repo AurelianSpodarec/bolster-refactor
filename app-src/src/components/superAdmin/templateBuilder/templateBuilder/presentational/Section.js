@@ -41,13 +41,13 @@ const Section = ({
             {tooltipMessage ? (
                 <TooltipContainer text={tooltipMessage}>
                     <button className="button red disabled">
-                        <i className="fa fa-times" />
+                        <i className="far fa-trash-alt" />
                         Delete
                     </button>
                 </TooltipContainer>
             ) : (
                 <button className="button red" onClick={deleteSection}>
-                    <i className="fa fa-times" />
+                    <i className="far fa-trash-alt" />
                     Delete
                 </button>
             )}

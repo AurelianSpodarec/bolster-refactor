@@ -34,6 +34,7 @@ const PaymentErrorModal = ({
             </div>
             <BlockHeading title={title} />
             <p>{message}</p>
+            <br />
             {error && <p>{error}</p>}
             <BlockButtonWrapper>
                 <button className="button" onClick={hideModal}>

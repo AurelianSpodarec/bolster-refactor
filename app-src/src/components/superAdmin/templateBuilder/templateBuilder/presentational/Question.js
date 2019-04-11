@@ -18,27 +18,42 @@ const Question = ({
     deleteQuestion,
     isPrereq
 }) => (
-    <div style={{ ...style, opacity: isDragging ? 0 : 1 }}>
-        <p>name - {question.name}</p>
-        <p>type - {QUESTION_TYPES[question.questionType]}</p>
-        <p>
-            required? -{' '}
-            <input type="checkbox" readOnly checked={question.isRequired} />
+    <div
+        className="size-lg-12"
+        style={{ ...style, opacity: isDragging ? 0 : 1 }}
+    >
+        <p className="size-lg-3">{question.name}</p>
+        <p className="size-lg-3">{QUESTION_TYPES[question.questionType]}</p>
+        <p className="size-lg-2">
+            <input
+                type="checkbox"
+                disabled
+                readOnly
+                checked={question.isRequired}
+            />
         </p>
-        <button className="button" onClick={showEditQuesModel}>
-            Edit
-        </button>
-        {isPrereq ? (
-            <TooltipContainer text="This item is a prerequiste, you must first remove it's dependats.">
-                <button disabled className="button red icon-only">
-                    <i className="fa fa-times" />
+        <div className="size-lg-4">
+            {isPrereq ? (
+                <TooltipContainer text="This item is a prerequiste, you must first remove it's dependats.">
+                    <button disabled className="button red icon-only">
+                        <i className="far fa-trash-alt" />
+                    </button>
+                </TooltipContainer>
+            ) : (
+                <button
+                    className="button red icon-only"
+                    onClick={deleteQuestion}
+                >
+                    <i className="far fa-trash-alt" />
                 </button>
-            </TooltipContainer>
-        ) : (
-            <button className="button red icon-only" onClick={deleteQuestion}>
-                <i className="fa fa-times" />
+            )}
+            <button
+                className="button yellow icon-only"
+                onClick={showEditQuesModel}
+            >
+                <i className="far fa-pencil" />
             </button>
-        )}
+        </div>
     </div>
 );
 

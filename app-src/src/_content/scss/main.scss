@@ -1817,5 +1817,18 @@ input {
 //ADMIN
 //TEMPLATE BUILDER
 .template-block {
-    min-height: 200px;
+    min-height: 160px;
+    padding-bottom: 40px;
+
+    .question-item {
+        .button {
+            float: right;
+            margin-left: 5px;
+        }
+    }
+
+    .question-header {
+        p {
+        }
+    }
 }

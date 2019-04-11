@@ -16,6 +16,7 @@ import { convertArrToObj, updateObj, removeObjItem } from 'helpers/generic';
 export default combineReducers({
     isFetching: isFetchingReducer,
     postSuccess: postSuccessReducer,
+    postFailure: postFailureReducer,
     invoices: invoiceReducer,
     error: errorReducer
 });
@@ -55,6 +56,17 @@ function postSuccessReducer(state = false, action) {
         case PAY_INVOICE_REQUEST:
             return false;
         case PAY_INVOICE_SUCCESS:
+            return true;
+        default:
+            return state;
+    }
+}
+
+function postFailureReducer(state = false, action) {
+    switch (action.type) {
+        case PAY_INVOICE_REQUEST:
+            return false;
+        case PAY_INVOICE_FAILURE:
             return true;
         default:
             return state;
