@@ -8,7 +8,7 @@ import CreditLogsTable from '../presentational/CreditLogsTable';
 class CreditLogsTableContainer extends Component {
     render() {
         const { creditLogs, isFetching, error } = this.props;
-        const tableHeaders = ['Date', 'Type', 'Quantity'];
+        const tableHeaders = ['Date', 'Type', 'Quantity', ''];
 
         return (
             <CreditLogsTable
