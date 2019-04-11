@@ -22,7 +22,7 @@ const InvoiceDetails = ({
             <p>{`Type: ${isRenewal ? 'Renewal' : 'New Purchase'}`}</p>
             <p>{`Status: ${isPaid ? 'Paid' : 'Not Paid'}`}</p>
             {isPaid && <p>{`Payment Method: ${PAYMENT_TYPES[paymentType]}`}</p>}
-            <p>{`Total: ${total && total.toFixed(2)} GBP (inc. VAT)`}</p>
+            <p>{`Total: £${total && total.toFixed(2)} GBP (inc. VAT)`}</p>
         </BlockContainer>
     );
 };

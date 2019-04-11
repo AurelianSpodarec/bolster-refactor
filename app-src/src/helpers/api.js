@@ -43,24 +43,20 @@ export function getDecodedJWT() {
 }
 
 export function formatJWTData({
-    exp,
-    iat,
-    nbf,
     IsSuperAdmin,
     ID,
     CompanyID,
     CompanyUserID,
-    CompanyUserType
+    CompanyUserType,
+    ...rest
 }) {
     return {
-        exp,
-        iat,
-        nbf,
         id: JSON.parse(ID),
         isSuperAdmin: JSON.parse(IsSuperAdmin),
         companyID: JSON.parse(CompanyID),
         companyUserID: JSON.parse(CompanyUserID),
-        companyUserType: JSON.parse(CompanyUserType)
+        companyUserType: JSON.parse(CompanyUserType),
+        ...rest
     };
 }
 
