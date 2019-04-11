@@ -29,10 +29,7 @@ class QuestionContainer extends Component {
 
         return connectDragSource(
             connectDropTarget(
-                <div
-                    className="question-item size-lg-12"
-                    ref={ref => (this.question = ref)}
-                >
+                <div className="size-lg-12" ref={ref => (this.question = ref)}>
                     <Question
                         isPrereq={isPrereq}
                         connectDragSource={connectDragSource}
