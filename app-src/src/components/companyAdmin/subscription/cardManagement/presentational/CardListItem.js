@@ -16,7 +16,7 @@ const CardListItem = ({
                 {!isPrimary && (
                     <button
                         className="button"
-                        onClick={() => setPrimaryCard({ stripeCardID: id })}
+                        onClick={() => setPrimaryCard(id)}
                     >
                         Make Primary
                     </button>
