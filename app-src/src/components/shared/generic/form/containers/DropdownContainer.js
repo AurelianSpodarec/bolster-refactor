@@ -71,20 +71,6 @@ class DropdownContainer extends Component {
         this._showFieldError();
     };
 
-    // handleFocus = () => {
-    //     const { showFieldError } = this.state;
-    //     console.log('hihi');
-    //     if (showFieldError) return;
-    //     document.addEventListener('click', this._showFieldError);
-    // };
-
-    // handleClick = () => {
-    //     const { showFieldError } = this.state;
-    //     console.log('ghugugu');
-    //     if (showFieldError) return;
-    //     document.removeEventListener('click', this._showFieldError);
-    // };
-
     _showFieldError = () => {
         const { showFieldError } = this.state;
         if (!showFieldError) this.setState({ showFieldError: true });
@@ -100,7 +86,6 @@ class DropdownContainer extends Component {
             removeFieldError
         } = this.props;
         const validateError = validate(value);
-        console.log(required, value);
         if (required && !(value && (value.length || value > 0))) {
             addFieldError(name, 'This is a required field.');
         } else if (validateError && validateError.length) {
