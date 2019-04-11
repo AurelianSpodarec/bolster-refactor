@@ -11,13 +11,21 @@ const TemplateBuilderHeaderContainer = ({
     showEditTemplateForm,
     uuid,
     companyID,
-    template
+    template,
+    isExisting,
+    showAddSectionModal
 }) => {
     return (
         <TemplateBuilderHeader
             showTemplateForm={showTemplateForm}
             name={template.name}
-        />
+        >
+            {isExisting && (
+                <button onClick={showAddSectionModal} className="button">
+                    <i className="fa fa-plus" /> Add Section
+                </button>
+            )}
+        </TemplateBuilderHeader>
     );
 
     function showTemplateForm() {
