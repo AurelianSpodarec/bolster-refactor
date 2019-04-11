@@ -57,10 +57,10 @@ const AddServiceToSubscriptionModal = ({
                         text="Pay by card"
                     />
                     <p>
-                        Note: lorem ipsum lorem ipsum lorem ipsum lorem ipsum
+                        ##Note: lorem ipsum lorem ipsum lorem ipsum lorem ipsum
                         lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem
                         ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum
-                        lorem ipsum lorem ipsum lorem ipsum lorem ipsum
+                        lorem ipsum lorem ipsum lorem ipsum lorem ipsum##
                     </p>
                 </div>
             </Field>

@@ -5,32 +5,30 @@ import BlockHeading from '../../blockHeading/presentational/BlockHeading';
 const PaymentSuccessModal = ({
     title = 'Order Complete',
     message = 'Your order has been placed successfully.'
-}) => {
-    return (
-        <ModalOuterContainer>
-            <div
-                className="size-lg-12"
+}) => (
+    <ModalOuterContainer>
+        <div
+            className="size-lg-12"
+            style={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignContent: 'center'
+            }}
+        >
+            <i
+                className="fa fa-check"
                 style={{
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignContent: 'center'
+                    borderRadius: '100%',
+                    backgroundColor: 'green',
+                    color: 'white',
+                    fontSize: '3em',
+                    padding: '0.5em'
                 }}
-            >
-                <i
-                    className="fa fa-check"
-                    style={{
-                        borderRadius: '100%',
-                        backgroundColor: 'green',
-                        color: 'white',
-                        fontSize: '3em',
-                        padding: '0.5em'
-                    }}
-                />
-            </div>
-            <BlockHeading title={title} />
-            <p>{message}</p>
-        </ModalOuterContainer>
-    );
-};
+            />
+        </div>
+        <BlockHeading title={title} />
+        <p>{message}</p>
+    </ModalOuterContainer>
+);
 
 export default PaymentSuccessModal;

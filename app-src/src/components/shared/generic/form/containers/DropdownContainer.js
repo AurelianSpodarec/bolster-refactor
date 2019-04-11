@@ -100,7 +100,7 @@ class DropdownContainer extends Component {
             removeFieldError
         } = this.props;
         const validateError = validate(value);
-
+        console.log(required, value);
         if (required && !(value && (value.length || value > 0))) {
             addFieldError(name, 'This is a required field.');
         } else if (validateError && validateError.length) {

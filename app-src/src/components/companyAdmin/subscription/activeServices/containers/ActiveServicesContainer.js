@@ -5,6 +5,7 @@ import { isObjEmpty } from 'helpers/generic';
 import ActiveServices from 'components/companyAdmin/subscription/activeServices/presentational/ActiveServices';
 import editServiceRenewalStatus from 'actions/companyAdmin/subscriptions/async/editServiceRenewalStatus';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
+import fetchAllSubscriptions from 'actions/companyAdmin/subscriptions/async/fetchAllSubscriptions';
 
 class ActiveServicesContainer extends Component {
     state = {
@@ -28,11 +29,12 @@ class ActiveServicesContainer extends Component {
     };
 
     componentDidUpdate = prevProps => {
-        const { isFetching } = this.props;
+        const { isFetching, postSuccess, fetchAllSubscriptions } = this.props;
         if (!isFetching && prevProps.isFetching)
             this.setState({
                 subscriptions: this.getActiveSubscriptions()
             });
+        if (postSuccess && !prevProps.postSuccess) fetchAllSubscriptions();
     };
 
     getActiveSubscriptions = () => {
@@ -69,7 +71,8 @@ const mapStateToProps = ({
         subscriptionsReducer: {
             error,
             isFetching: fetchingSubscriptions,
-            subscriptions
+            subscriptions,
+            postSuccess
         },
         servicesReducer: { services, isFetching: fetchingServices }
     }
@@ -77,10 +80,12 @@ const mapStateToProps = ({
     subscriptions,
     services,
     error,
+    postSuccess,
     isFetching: fetchingSubscriptions || fetchingServices
 });
 
 const mapDispatchToProps = dispatch => ({
+    fetchAllSubscriptions: () => dispatch(fetchAllSubscriptions()),
     editServiceRenewalStatus: postBody =>
         dispatch(editServiceRenewalStatus(postBody)),
     showModal: (type, props) => dispatch(showModal(type, props))
