@@ -8,14 +8,29 @@ import AddDrawingForm from '../presentational/AddDrawingForm';
 class AddDrawingFormContainer extends Component {
     state = {
         name: '',
-        file: ''
+        file: '',
+        templateUsageRuleOptions: {
+            '1': { text: 'Use Only Owner Company', value: 1 },
+            '2': { text: 'Use Only Own', value: 2 },
+            '3': { text: 'Use Any', value: 3 }
+        },
+        templateUsageRule: ''
     };
 
     render() {
+        const {
+            name,
+            file,
+            templateUsageRuleOptions,
+            templateUsageRule
+        } = this.state;
         const { floorID, filesUploading } = this.props;
         return (
             <AddDrawingForm
-                {...this.state}
+                name={name}
+                file={file}
+                templateUsageRules={Object.values(templateUsageRuleOptions)}
+                selectedRule={templateUsageRuleOptions[templateUsageRule]}
                 floorID={floorID}
                 handleInputChange={this.handleInputChange}
                 handleFileChange={this.handleFileChange}
@@ -43,8 +58,9 @@ class AddDrawingFormContainer extends Component {
 
     handleSubmit = () => {
         const { createDrawing, floorID, filesUploading } = this.props;
+        const { templateUsageRuleOptions, ...restState } = this.state;
         if (!filesUploading) {
-            createDrawing({ ...this.state, floorID });
+            createDrawing({ ...restState, floorID });
         }
     };
 }
