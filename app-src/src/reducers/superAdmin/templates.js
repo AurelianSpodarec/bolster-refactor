@@ -26,7 +26,8 @@ export default combineReducers({
     saveRequired: saveRequiredReducer,
     error: errorReducer,
     postSuccess: postSuccessReducer,
-    oldTemplateUUID: oldTemplateUUIDReducer,
+    isPosting: isPostingReducer,
+    updatedTemplateUUID: updatedTemplateUUIDReducer,
     isFetching: isFetchingReducer
 });
 
@@ -71,7 +72,19 @@ function postSuccessReducer(state = false, action) {
     }
 }
 
-function oldTemplateUUIDReducer(state = 0, action) {
+function isPostingReducer(state = false, action) {
+    switch (action.type) {
+        case POST_TEMPLATE_REQUEST:
+            return true;
+        case POST_TEMPLATE_SUCCESS:
+        case POST_TEMPLATE_FAILURE:
+            return false;
+        default:
+            return state;
+    }
+}
+
+function updatedTemplateUUIDReducer(state = 0, action) {
     switch (action.type) {
         case POST_TEMPLATE_REQUEST:
             return 0;

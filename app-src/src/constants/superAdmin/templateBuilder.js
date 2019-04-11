@@ -6,7 +6,7 @@ export const QUESTION_TYPES = {
     '5': 'Multi dropdown',
     '6': 'Radio',
     '7': 'Checkbox',
-    '8': 'Signiture',
+    '8': 'Signature',
     '9': 'Single photo',
     '10': 'Multi photo'
 };
@@ -19,7 +19,7 @@ export const QUESTION_TYPE_VALUES = {
     MULTI_DROPDOWN: '5',
     RADIO: '6',
     CHECKBOX: '7',
-    SIGNITURE: '8',
+    SIGNATURE: '8',
     SINGLE_PHOTO: '9',
     MULTI_PHOTO: '10'
 };

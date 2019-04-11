@@ -4,15 +4,18 @@ import { withRouter } from 'react-router-dom';
 
 import fetchSingleSite from 'actions/companyAdmin/sites/async/fetchSingleSite';
 import fetchSingleBuilding from 'actions/companyAdmin/buildings/async/fetchSingleBuilding';
+import fetchSingleFloor from 'actions/companyAdmin/floors/async/fetchSingleFloor';
 
 import Breadcrumb from 'components/shared/generic/breadcrumb/presentational/Breadcrumb';
 
-class FloorBreadcrumbContainer extends Component {
+class DrawingBreadcrumbContainer extends Component {
     state = {
         siteName: '',
         siteID: 0,
         buildingName: '',
-        buildingID: 0
+        buildingID: 0,
+        floorName: '',
+        floorID: 0
     };
 
     render() {
@@ -29,19 +32,31 @@ class FloorBreadcrumbContainer extends Component {
                 text: this.state.buildingName,
                 link: `/company/buildings/${this.state.buildingID}`
             },
-            { text: this.props.floor.name }
+            {
+                text: this.state.floorName,
+                link: `/company/drawings/${this.state.floorID}`
+            },
+            { text: this.props.drawing.name }
         ];
-        return <Breadcrumb breadcrumbs={breadcrumbsArray} />;
+        return (
+            <Breadcrumb breadcrumbs={breadcrumbsArray}>
+                {this.props.children}
+            </Breadcrumb>
+        );
     }
 
-    _setFloorDetails = () => {
-        const { floor, sites, buildings } = this.props;
+    _setDrawingDetails = () => {
+        const { drawing, floors, sites, buildings } = this.props;
 
         this.setState({
-            siteName: sites[buildings[floor.buildingID].siteID].name,
-            siteID: buildings[floor.buildingID].siteID,
-            buildingName: buildings[floor.buildingID].name,
-            buildingID: floor.buildingID
+            siteName:
+                sites[buildings[floors[drawing.floorID].buildingID].siteID]
+                    .name,
+            siteID: buildings[floors[drawing.floorID].buildingID].siteID,
+            buildingName: buildings[floors[drawing.floorID].buildingID].name,
+            buildingID: floors[drawing.floorID].buildingID,
+            floorName: floors[drawing.floorID].name,
+            floorID: drawing.floorID
         });
     };
 
@@ -49,34 +64,45 @@ class FloorBreadcrumbContainer extends Component {
         const { sites, buildings } = this.props;
 
         if (Object.values(sites).length && Object.values(buildings).length) {
-            this._setFloorDetails();
+            this._setDrawingDetails();
         }
     };
 
     componentDidUpdate = prevProps => {
         const {
-            floor,
+            drawing,
+            floors,
             buildings,
             fetchSingleSite,
             fetchSingleBuilding,
+            fetchSingleFloor,
             sites
         } = this.props;
 
-        if (!prevProps.floor.id && !!floor.id) {
-            fetchSingleBuilding(floor.buildingID);
+        if (!prevProps.drawing.id && !!drawing.id) {
+            fetchSingleFloor(drawing.floorID);
+        }
+
+        if (
+            !Object.values(prevProps.floors).length &&
+            Object.values(floors).length
+        ) {
+            fetchSingleBuilding(floors[drawing.floorID].buildingID);
         }
 
         if (
             !Object.values(prevProps.buildings).length &&
             Object.values(buildings).length
         ) {
-            fetchSingleSite(buildings[floor.buildingID].siteID);
+            fetchSingleSite(
+                buildings[floors[drawing.floorID].buildingID].siteID
+            );
         }
         if (
             !Object.values(prevProps.sites).length &&
             Object.values(sites).length
         ) {
-            this._setFloorDetails();
+            this._setDrawingDetails();
         }
     };
 }
@@ -84,6 +110,7 @@ class FloorBreadcrumbContainer extends Component {
 const mapStateToProps = (
     {
         companyAdmin: {
+            drawingsReducer: { drawings },
             floorsReducer: { floors },
             buildingsReducer: { buildings },
             sitesReducer: { sites }
@@ -91,7 +118,8 @@ const mapStateToProps = (
     },
     { match }
 ) => ({
-    floor: floors[match.params.id] || {},
+    drawing: drawings[match.params.id] || {},
+    floors: floors,
     buildings: buildings,
     sites: sites
 });
@@ -102,6 +130,9 @@ const mapDispatchToProps = dispatch => ({
     },
     fetchSingleSite: siteID => {
         return dispatch(fetchSingleSite(siteID));
+    },
+    fetchSingleFloor: floorID => {
+        return dispatch(fetchSingleFloor(floorID));
     }
 });
 
@@ -109,5 +140,5 @@ export default withRouter(
     connect(
         mapStateToProps,
         mapDispatchToProps
-    )(FloorBreadcrumbContainer)
+    )(DrawingBreadcrumbContainer)
 );

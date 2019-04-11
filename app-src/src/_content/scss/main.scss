@@ -249,27 +249,6 @@ input {
     }
 }
 
-//tabs
-.tab-container {
-    float: left;
-    border: 1px solid $background-grey;
-    @include rounded-all(3px);
-
-    button {
-        float: left;
-        padding: 7px 15px;
-        @include ubuntu-medium;
-        font-size: 140%;
-        color: #8f8f8f;
-        background-color: white;
-        outline: none;
-
-        &.active {
-            background-color: $background-grey;
-        }
-    }
-}
-
 //buttons
 .button {
     display: inline-block;
@@ -434,17 +413,18 @@ input {
                 .number {
                     position: absolute;
                     @include content-center;
-                    width: 18px;
-                    height: 18px;
-                    line-height: 18px;
+                    width: 27px;
+                    height: 27px;
+                    line-height: 25px;
                     margin-top: -10px;
                     margin-left: 10px;
-                    font-size: 120%;
+                    font-size: 110%;
                     background-color: red;
                     color: white;
                     @include rounded-all(50%);
                     text-align: center;
                     z-index: 1;
+                    @include ubuntu-medium;
 
                     &.green {
                         background-color: #2eac58;
@@ -642,7 +622,9 @@ input {
             text-decoration: none;
 
             &:hover {
-                text-decoration: underline;
+                sub {
+                    text-decoration: underline;
+                }
             }
         }
     }
@@ -652,8 +634,33 @@ input {
     }
 }
 
-.breadcrumb-tabs {
+//tabs
+.tab-container {
     float: right;
+    margin-top: -7px;
+
+    button {
+        padding: 5px 10px 6px;
+        @include ubuntu-medium;
+        font-size: 120%;
+        outline: none;
+        margin-top: 0;
+        margin-left: 0;
+        color: #3c3c3c;
+        opacity: 0.3;
+        transition: opacity 0.25s ease-in-out;
+        background: white;
+
+        &.active {
+            opacity: 1;
+        }
+        &:first-child {
+            border-radius: 0 5px 5px 0;
+        }
+        &:last-child {
+            border-radius: 5px 0px 0px 5px;
+        }
+    }
 }
 
 .block-heading {
@@ -923,7 +930,7 @@ input {
     .tab-container {
         float: left;
         width: 100%;
-        border: none;
+        margin-top: 0;
         button {
             width: 50%;
             border-radius: 0;

@@ -48,6 +48,7 @@ class SaveTemplateButtonContainer extends Component {
             questions
         };
 
+        // console.log(new)
         postTemplate(newTemplateData);
     };
 }

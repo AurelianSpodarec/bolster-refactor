@@ -1,19 +1,14 @@
 import React from 'react';
 
-import Breadcrumb from 'components/shared/generic/breadcrumb/presentational/Breadcrumb';
-import TabsContainer from 'components/shared/generic/tabs/containers/TabsContainer';
 import SingleDrawingRouteContainer from '../containers/SingleDrawingRouteContainer';
+import SingleDrawingHeaderContainer from '../containers/SingleDrawingHeaderContainer';
 
-const Drawing = () => (
+const SingleDrawing = () => (
     <div className="size-lg-12">
-        <Breadcrumb breadcrumbs={[{ text: 'item 1' }, { text: 'item 2' }]}>
-            <div className="breadcrumb-tabs">
-                <TabsContainer />
-            </div>
-        </Breadcrumb>
+        <SingleDrawingHeaderContainer />
 
         <SingleDrawingRouteContainer />
     </div>
 );
 
-export default Drawing;
+export default SingleDrawing;

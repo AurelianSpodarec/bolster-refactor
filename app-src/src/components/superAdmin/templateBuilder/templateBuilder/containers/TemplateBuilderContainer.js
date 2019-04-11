@@ -42,14 +42,22 @@ class TemplateBuilderContainer extends Component {
             postSuccess,
             showModal,
             curUrl,
-            templateUuid,
-            history,
-            oldTemplateUUID
+            templateUUID,
+            updatedTemplateUUID,
+            history
         } = this.props;
         if (!prevPostSuccess && postSuccess) {
             const message = 'Template saved successfully.';
             showModal(SUCCESS_MODAL, { message });
-            history.replace(curUrl.replace(templateUuid, oldTemplateUUID));
+
+            if (templateUUID !== updatedTemplateUUID) {
+                const redirectUrl = curUrl.replace(
+                    templateUUID,
+                    updatedTemplateUUID
+                );
+
+                history.replace(redirectUrl);
+            }
         }
     }
 }
@@ -61,7 +69,7 @@ const mapStateToProps = (
     curUrl: url,
     templateUUID: params.uuid,
     postSuccess: templatesReducer.postSuccess,
-    oldTemplateUUID: templatesReducer.oldTemplateUUID,
+    updatedTemplateUUID: templatesReducer.updatedTemplateUUID,
     saveRequired: templatesReducer.saveRequired,
     uuid: params.uuid,
     isExisting: !!templatesReducer.templates[params.uuid]
