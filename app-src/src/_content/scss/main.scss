@@ -622,7 +622,9 @@ input {
             text-decoration: none;
 
             &:hover {
-                text-decoration: underline;
+                sub {
+                    text-decoration: underline;
+                }
             }
         }
     }
