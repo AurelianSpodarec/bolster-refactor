@@ -25,6 +25,7 @@ export const deleteCardFailure = error => ({
 
 export default cardID => dispatch => {
     dispatch(deleteCardRequest());
+
     axios
         .delete(`${API_URL}/cards/${cardID}`, getHeaders())
         .then(() => dispatch(deleteCardSuccess(cardID)))

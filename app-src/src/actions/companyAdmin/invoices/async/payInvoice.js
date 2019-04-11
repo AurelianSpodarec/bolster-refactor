@@ -25,9 +25,12 @@ export const payInvoiceFailure = error => ({
 export default (invoiceID, stripeCardID) => dispatch => {
     dispatch(payInvoiceRequest());
 
-    return (axios.post(`${API_URL}/invoices/${invoiceID}/pay`),
-    { invoiceID, stripeCardID },
-    getHeaders())
+    return axios
+        .post(
+            `${API_URL}/invoices/${invoiceID}/pay`,
+            { invoiceID, stripeCardID },
+            getHeaders()
+        )
         .then(({ data }) => dispatch(payInvoiceSuccess(data)))
         .catch(err => dispatch(payInvoiceFailure(err.message)));
 };

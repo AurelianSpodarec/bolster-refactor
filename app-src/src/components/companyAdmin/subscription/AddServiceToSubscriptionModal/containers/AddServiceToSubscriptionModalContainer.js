@@ -34,7 +34,7 @@ class AddServiceToSubscriptionModalContainer extends Component {
                 handleSubmit={this.handleSubmit}
                 cards={cardOptions}
                 selectedCard={cardOptions.find(
-                    ({ value }) => value === this.state.stripeCardID
+                    ({ value }) => value === stripeCardID
                 )}
                 hideModal={e => {
                     e.preventDefault();
@@ -63,7 +63,6 @@ class AddServiceToSubscriptionModalContainer extends Component {
             error
         } = this.props;
         const { paymentType } = this.state;
-        console.log(error);
 
         if (!isFetching && prevProps.isFetching && cards.length) {
             const primaryCard = cards.find(({ isPrimary }) => isPrimary);

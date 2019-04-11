@@ -42,6 +42,11 @@ const AddServiceToSubscriptionModal = ({
                         disabled={+paymentType !== PAYMENT_IDS.CARD}
                         required={+paymentType === PAYMENT_IDS.CARD}
                         withoutPlaceholder
+                        placeholder={
+                            !cards.length
+                                ? 'Please add a card to use card payments.'
+                                : 'Loading cards...'
+                        }
                         name="stripeCardID"
                         options={cards}
                         selectedOption={selectedCard}

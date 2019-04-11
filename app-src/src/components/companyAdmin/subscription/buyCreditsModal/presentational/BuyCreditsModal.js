@@ -34,12 +34,13 @@ const BuyCreditsModal = ({
                     {+paymentType === PAYMENT_IDS.CARD && (
                         <DropdownContainer
                             required
-                            withoutPlaceholder
                             name="stripeCardID"
                             options={cards}
+                            withoutPlaceholder
                             placeholder={
-                                !cards.length &&
-                                'Please add a card to use card payments.'
+                                !cards.length
+                                    ? 'Please add a card to use card payments.'
+                                    : 'Loading cards...'
                             }
                             selectedOption={selectedCard}
                             handleChange={handleChange}
