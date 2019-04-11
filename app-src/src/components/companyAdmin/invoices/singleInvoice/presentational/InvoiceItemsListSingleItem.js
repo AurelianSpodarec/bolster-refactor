@@ -1,10 +1,10 @@
 import React from 'react';
 
 const InvoiceItemsListSingleItem = ({
-    item: { serviceID, customName, quantity, itemPrice, itemVAT, total }
+    item: { description, customName, quantity, itemPrice, itemVAT, total }
 }) => (
     <tr>
-        <td>{`##${serviceID}##`}</td>
+        <td>{`${description || ''}`}</td>
         <td>{customName || 'N/A'}</td>
         <td>{quantity}</td>
         <td>{itemPrice.toFixed(2)}</td>
