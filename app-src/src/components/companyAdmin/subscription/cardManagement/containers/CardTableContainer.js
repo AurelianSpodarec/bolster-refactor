@@ -6,6 +6,7 @@ import { ADD_CARD } from 'constants/shared/modalTypes';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import setPrimaryCard from 'actions/companyAdmin/cards/async/setPrimaryCard';
 import fetchAllCards from 'actions/companyAdmin/cards/async/fetchAllCards';
+import deleteCard from 'actions/companyAdmin/cards/async/deleteCard';
 
 class CardTableContainer extends Component {
     state = {
@@ -14,7 +15,7 @@ class CardTableContainer extends Component {
     };
 
     render = () => {
-        const { isFetching, error, showModal } = this.props;
+        const { isFetching, error, showModal, deleteCard } = this.props;
         const headers = [
             'Name',
             'Card No',
@@ -30,6 +31,7 @@ class CardTableContainer extends Component {
                 error={error}
                 showModal={showModal}
                 setPrimaryCard={this.setPrimaryCard}
+                deleteCard={deleteCard}
             />
         );
     };
@@ -84,6 +86,7 @@ const mapStateToProps = ({
 const mapDispatchToProps = dispatch => ({
     showModal: () => dispatch(showModal(ADD_CARD)),
     setPrimaryCard: stripeCardID => dispatch(setPrimaryCard({ stripeCardID })),
+    deleteCard: stripeCardID => dispatch(deleteCard({ stripeCardID })),
     fetchAllCards: () => dispatch(fetchAllCards())
 });
 
