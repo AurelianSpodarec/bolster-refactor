@@ -30,7 +30,7 @@ class EditDocumentFormContainer extends Component {
     };
 
     render() {
-        const { document } = this.props;
+        const { document, backUrl, documentID, filesUploading } = this.props;
         const serviceOptions = this._getServicesOptions();
 
         return document ? (
@@ -47,8 +47,9 @@ class EditDocumentFormContainer extends Component {
                 handleDateChange={this.handleDateChange}
                 handleHide={this.handleHide}
                 validateDatePicker={this.validateDatePicker}
-                backUrl={this.props.backUrl}
-                documentID={this.props.documentID}
+                backUrl={backUrl}
+                documentID={documentID}
+                filesUploading={filesUploading}
             />
         ) : (
             <Loading />
@@ -160,24 +161,32 @@ class EditDocumentFormContainer extends Component {
 
     handleSubmit = e => {
         e.preventDefault();
-        const { editDocument, documentID, hierarchyType, match } = this.props;
-        const { id: hierarchyID } = match.params;
         const {
-            serviceIDs,
-            // eslint-disable-next-line no-unused-vars
-            services,
-            file,
-            fileS3Key,
-            ...body
-        } = this.state;
-        const postBody = {
-            ...body,
-            serviceIDs: serviceIDs,
-            file: file.length ? file : fileS3Key,
-            hierarchyID,
-            hierarchyType
-        };
-        editDocument(documentID, postBody);
+            editDocument,
+            documentID,
+            hierarchyType,
+            match,
+            filesUploading
+        } = this.props;
+        if (!filesUploading) {
+            const { id: hierarchyID } = match.params;
+            const {
+                serviceIDs,
+                // eslint-disable-next-line no-unused-vars
+                services,
+                file,
+                fileS3Key,
+                ...body
+            } = this.state;
+            const postBody = {
+                ...body,
+                serviceIDs: serviceIDs,
+                file: file.length ? file : fileS3Key,
+                hierarchyID,
+                hierarchyType
+            };
+            editDocument(documentID, postBody);
+        }
     };
 }
 
@@ -187,10 +196,14 @@ const mapStateToProps = (
             documentsReducer,
             servicesReducer,
             subscriptionsReducer
+        },
+        shared: {
+            filesUploadingReducer: { filesUploading }
         }
     },
     { match }
 ) => ({
+    filesUploading,
     isFetching:
         servicesReducer.isFetching ||
         subscriptionsReducer.isFetching ||
