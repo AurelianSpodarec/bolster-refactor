@@ -54,7 +54,7 @@ const AddServiceToSubscriptionModal = ({
                         value={PAYMENT_IDS.INVOICE}
                         checked={+paymentType === PAYMENT_IDS.INVOICE}
                         handleInputChange={handleChange}
-                        text="Pay by card"
+                        text="Pay by invoice"
                     />
                     <p>
                         ##Note: lorem ipsum lorem ipsum lorem ipsum lorem ipsum

@@ -32,6 +32,13 @@ export default postBody => dispatch => {
             if (err.response.status === 400) {
                 dispatch(setAPIFieldErrors(err.response.data.errors));
             }
-            return dispatch(addServiceToSubscriptionFailure(err.message));
+            // pulls out nested API error if existing
+            return dispatch(
+                addServiceToSubscriptionFailure(
+                    err.response.data.ServiceIDs
+                        ? err.response.data.ServiceIDs[0]
+                        : err.message
+                )
+            );
         });
 };
