@@ -16,6 +16,7 @@ import ToolsRoutes from './ToolsRoutes';
 import SubscriptionRoutes from './SubscriptionRoutes';
 import InvoicesRoutes from './InvoicesRoutes.js';
 import ProfilesRoutes from './ProfilesRoutes';
+import SettingsRoutes from './SettingsRoutes';
 
 const CompanyRoutes = ({ base = '/company' }) => (
     <SwitchWith404>
@@ -25,6 +26,7 @@ const CompanyRoutes = ({ base = '/company' }) => (
         <Route path={`${base}/floors`} component={FloorRoutes} />
         <Route path={`${base}/drawings`} component={DrawingsRoutes} />
         <Route path={`${base}/message-centre`} component={MessagesRoutes} />
+        <Route path={`${base}/settings`} component={SettingsRoutes} />
         <Route
             path={`${base}/users-management`}
             component={UserManagementRoutes}
