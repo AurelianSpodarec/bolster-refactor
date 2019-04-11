@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 
-import { convertArrToObj, updateObj } from 'helpers/generic';
+import { convertArrToObj, updateObj, removeObjItem } from 'helpers/generic';
 import {
     FETCH_ALL_CARDS_REQUEST,
     FETCH_ALL_CARDS_SUCCESS,
@@ -10,7 +10,10 @@ import {
     ADD_CARD_FAILURE,
     SET_PRIMARY_CARD_REQUEST,
     SET_PRIMARY_CARD_SUCCESS,
-    SET_PRIMARY_CARD_FAILURE
+    SET_PRIMARY_CARD_FAILURE,
+    DELETE_CARD_REQUEST,
+    DELETE_CARD_SUCCESS,
+    DELETE_CARD_FAILURE
 } from 'constants/actionTypes/cards';
 
 export default combineReducers({
@@ -50,8 +53,10 @@ function postSuccessReducer(state = false, action) {
 function updatedCardIDReducer(state = 0, action) {
     switch (action.type) {
         case ADD_CARD_REQUEST:
+        case DELETE_CARD_REQUEST:
             return 0;
         case ADD_CARD_SUCCESS:
+        case DELETE_CARD_SUCCESS:
             return action.payload.id;
         default:
             return state;
@@ -63,10 +68,12 @@ function errorReducer(state = null, action) {
         case FETCH_ALL_CARDS_REQUEST:
         case SET_PRIMARY_CARD_REQUEST:
         case ADD_CARD_REQUEST:
+        case DELETE_CARD_REQUEST:
             return null;
         case FETCH_ALL_CARDS_FAILURE:
         case SET_PRIMARY_CARD_FAILURE:
         case ADD_CARD_FAILURE:
+        case DELETE_CARD_FAILURE:
             return action.error;
         default:
             return state;
@@ -77,6 +84,7 @@ function postErrorReducer(state = null, action) {
     switch (action.type) {
         case SET_PRIMARY_CARD_FAILURE:
         case ADD_CARD_FAILURE:
+        case DELETE_CARD_FAILURE:
             return action.error;
         default:
             return state;
@@ -89,6 +97,8 @@ function cardsReducer(state = {}, action) {
             return convertArrToObj(action.payload);
         case ADD_CARD_SUCCESS:
             return updateObj(state, action.payload.id, action.payload);
+        case DELETE_CARD_SUCCESS:
+            return removeObjItem(state, action.id);
         default:
             return state;
     }
