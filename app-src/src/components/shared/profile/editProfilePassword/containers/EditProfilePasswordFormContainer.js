@@ -2,18 +2,16 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import editCompanyUserPassword from 'actions/companyAdmin/userManagement/async/editCompanyUserPassword';
+import EditProfilePasswordForm from 'components/shared/profile/editProfilePassword/presentational/EditProfilePasswordForm';
 
-import EditCompanyUserPassword from '../presentational/EditCompanyUserPasswordForm';
-
-class EditCompanyUserPasswordContainer extends Component {
+class EditProfilePasswordFormContainer extends Component {
     state = {
         password: '',
         confirmPassword: ''
     };
 
     render = () => (
-        <EditCompanyUserPassword
+        <EditProfilePasswordForm
             {...this.state}
             handleInputChange={this.handleInputChange}
             validate={this.validatePassword}
@@ -23,13 +21,14 @@ class EditCompanyUserPasswordContainer extends Component {
 
     componentDidUpdate(prevProps) {
         const { postSuccess, history, location, match } = this.props;
-        const { id } = match.params;
+        // const { id } = match.params;
         if (postSuccess && !prevProps.postSuccess) {
-            history.push(location.pathname.replace(`/${id}/edit-password`, ''));
+            history.push(location.pathname.replace('/edit-password', ''));
         }
     }
 
     handleInputChange = e => {
+        console.error(e);
         this.setState({
             [e.target.name]: e.target.value
         });
@@ -39,7 +38,7 @@ class EditCompanyUserPasswordContainer extends Component {
         e.preventDefault();
         const { password } = this.state;
         const { id } = this.props.match.params;
-        this.props.editCompanyUserPassword(id, { password });
+        this.props.editProfilePassword(id, { password });
     };
 
     validatePassword = confirmPassword => {
@@ -50,19 +49,19 @@ class EditCompanyUserPasswordContainer extends Component {
     };
 }
 
-const mapStateToProps = ({ companyAdmin: { companyUsersReducer } }) => ({
-    postSuccess: companyUsersReducer.postSuccess
+const mapStateToProps = ({ shared: { profileReducer } }) => ({
+    postSuccess: profileReducer.postSuccess
 });
 
 const mapDispatchToProps = dispatch => ({
-    editCompanyUserPassword: (id, password) => {
-        dispatch(editCompanyUserPassword(id, password));
-    }
+    // editProfilePassword: (id, password) => {
+    //     dispatch(editProfilePassword(id, password));
+    // }
 });
 
 export default withRouter(
     connect(
         mapStateToProps,
         mapDispatchToProps
-    )(EditCompanyUserPasswordContainer)
+    )(EditProfilePasswordFormContainer)
 );
