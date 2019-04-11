@@ -10,7 +10,7 @@ const TemplateSection = ({ questions }) =>
                 <td>{question.isPrefill ? 'Prefilled' : 'Not prefilled'}</td>
                 <td>{question.type}</td>
                 <td>{question.groupKey}</td>
-                <td>{question.configuration.charLimit}</td>
+                <td>{'##300##'}</td>
             </tr>
         ))
     ) : (

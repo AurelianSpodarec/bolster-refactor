@@ -3,32 +3,38 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import SingleTemplate from '../presentational/SingleTemplate';
 import fetchAllTemplates from 'actions/companyAdmin/templates/async/fetchAllTemplates';
+import Loading from 'components/shared/generic/misc/presentational/Loading';
 
 class SingleTemplateContainer extends Component {
     render() {
-        const latestVersion = this.getLatestVersion();
-        const latestVersionSections = this.getVersionSections(latestVersion);
-        const sectionQuestions = this.getSectionQuestions(
-            latestVersionSections
-        );
-        const headers = [
-            'Question Name',
-            'Hidden?',
-            'Required?',
-            'Prefilled?',
-            'Type',
-            'Group Key',
-            'Char limit'
-        ];
+        const { isFetching } = this.props;
+        if (!isFetching) {
+            const latestVersion = this.getLatestVersion();
+            const latestVersionSections = this.getVersionSections(
+                latestVersion
+            );
+            const sectionQuestions = this.getSectionQuestions(
+                latestVersionSections
+            );
+            const headers = [
+                'Question Name',
+                'Hidden?',
+                'Required?',
+                'Prefilled?',
+                'Type',
+                'Group Key',
+                'Char limit'
+            ];
 
-        return (
-            <SingleTemplate
-                headers={headers}
-                version={latestVersion}
-                sections={latestVersionSections}
-                questions={sectionQuestions}
-            />
-        );
+            return (
+                <SingleTemplate
+                    headers={headers}
+                    version={latestVersion}
+                    sections={latestVersionSections}
+                    questions={sectionQuestions}
+                />
+            );
+        } else return <Loading />;
     }
 
     componentDidMount = () => {
