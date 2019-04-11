@@ -37,5 +37,5 @@ export default templateData => dispatch => {
         .then(res =>
             dispatch(postTemplateSuccess(res.data, templateData.template.uuid))
         )
-        .catch(err => dispatch(postTemplateFailure(err.message)));
+        .catch(() => postTemplateFailure('Something went wrong'));
 };

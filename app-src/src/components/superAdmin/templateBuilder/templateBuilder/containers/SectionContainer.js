@@ -41,7 +41,7 @@ class SectionContainer extends Component {
                 'This section has prerequisites with dependants in other sections.';
 
         return connectDropTarget(
-            <div>
+            <div className="size-lg-12">
                 <Section
                     tooltipMessage={tooltipMessage}
                     isActive={canDrop && isOver}

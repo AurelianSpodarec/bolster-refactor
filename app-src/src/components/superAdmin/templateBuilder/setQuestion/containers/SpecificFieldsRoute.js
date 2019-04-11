@@ -14,7 +14,7 @@ const {
     MULTI_DROPDOWN,
     RADIO,
     CHECKBOX,
-    SIGNITURE,
+    SIGNATURE,
     SINGLE_PHOTO,
     MULTI_PHOTO
 } = QUESTION_TYPE_VALUES;
@@ -29,7 +29,7 @@ const SpecificFieldsRoute = ({ questionType, ...otherProps }) => {
         [MULTI_DROPDOWN]: MultiOptionFormContainer,
         [RADIO]: MultiOptionFormContainer,
         [CHECKBOX]: NoFields,
-        [SIGNITURE]: NoFields,
+        [SIGNATURE]: NoFields,
         [SINGLE_PHOTO]: NoFields,
         [MULTI_PHOTO]: MultiPhotoForm
     };

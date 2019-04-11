@@ -95,9 +95,7 @@ const SuperAdminMenu = () => (
             <MenuItemContainer link="/admin/users">
                 <i className="fa fa-user icon" /> Users
             </MenuItemContainer>
-            <MenuItemContainer link="/admin/template-builder">
-                <i className="fa fa-file icon" /> Template builder
-            </MenuItemContainer>
+
             <MenuItemContainer link="/admin/qr">
                 <i className="fa fa-qr icon" /> QR Codes
             </MenuItemContainer>

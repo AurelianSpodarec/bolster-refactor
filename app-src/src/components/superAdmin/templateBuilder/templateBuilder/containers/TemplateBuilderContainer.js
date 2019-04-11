@@ -4,7 +4,8 @@ import { withRouter } from 'react-router-dom';
 
 import {
     ADD_TEMPLATE_SECTION,
-    SUCCESS_MODAL
+    SUCCESS_MODAL,
+    ERROR_MODAL
 } from 'constants/shared/modalTypes';
 import showModal from 'actions/shared/generic/modals/sync/showModal';
 import resetSaveRequired from 'actions/superAdmin/templateBuilder/sync/resetSaveRequired';
@@ -37,19 +38,32 @@ class TemplateBuilderContainer extends Component {
         fetchPageData(templateUUID);
     }
 
-    componentDidUpdate({ postSuccess: prevPostSuccess }) {
+    componentDidUpdate({ postSuccess: prevPostSuccess, prevIsPosting }) {
         const {
             postSuccess,
+            isPosting,
             showModal,
+            error,
             curUrl,
-            templateUuid,
-            history,
-            oldTemplateUUID
+            templateUUID,
+            updatedTemplateUUID,
+            history
         } = this.props;
         if (!prevPostSuccess && postSuccess) {
             const message = 'Template saved successfully.';
             showModal(SUCCESS_MODAL, { message });
-            history.replace(curUrl.replace(templateUuid, oldTemplateUUID));
+
+            if (templateUUID !== updatedTemplateUUID) {
+                const redirectUrl = curUrl.replace(
+                    templateUUID,
+                    updatedTemplateUUID
+                );
+
+                history.replace(redirectUrl);
+            }
+        }
+        if (prevIsPosting && !isPosting && error) {
+            showModal(ERROR_MODAL);
         }
     }
 }
@@ -61,7 +75,9 @@ const mapStateToProps = (
     curUrl: url,
     templateUUID: params.uuid,
     postSuccess: templatesReducer.postSuccess,
-    oldTemplateUUID: templatesReducer.oldTemplateUUID,
+    isPosting: templatesReducer.isPosting,
+    error: templatesReducer.error,
+    updatedTemplateUUID: templatesReducer.updatedTemplateUUID,
     saveRequired: templatesReducer.saveRequired,
     uuid: params.uuid,
     isExisting: !!templatesReducer.templates[params.uuid]

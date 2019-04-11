@@ -10,10 +10,13 @@ class PaymentErrorModalContainer extends Component {
             title = 'Payment Failed',
             message = 'Something went wrong while trying to take your payment, please try again',
             resubmit,
-            hideModal
+            hideModal,
+            error
         } = this.props;
         return (
-            <PaymentErrorModal {...{ title, message, resubmit, hideModal }} />
+            <PaymentErrorModal
+                {...{ title, message, resubmit, hideModal, error }}
+            />
         );
     }
 }

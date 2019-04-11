@@ -72,7 +72,7 @@ class DrawingMapGeneralContainer extends Component {
 
     handleClick = e => {
         const { lat, lng } = e.latlng;
-        console.log(lat, lng);
+        // console.log(lat, lng);
     };
 
     handleChange = ({ target: { type, value, name, checked } }) => {

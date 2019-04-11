@@ -7,7 +7,8 @@ const PaymentErrorModal = ({
     title = 'Payment Failed',
     message = 'Something went wrong while trying to take your payment, please try again',
     resubmit,
-    hideModal
+    hideModal,
+    error
 }) => {
     return (
         <ModalOuterContainer>
@@ -33,6 +34,7 @@ const PaymentErrorModal = ({
             </div>
             <BlockHeading title={title} />
             <p>{message}</p>
+            {error && <p>{error}</p>}
             <BlockButtonWrapper>
                 <button className="button" onClick={hideModal}>
                     Cancel

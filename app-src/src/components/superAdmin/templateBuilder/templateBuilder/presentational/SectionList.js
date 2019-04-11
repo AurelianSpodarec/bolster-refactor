@@ -1,17 +1,19 @@
 import React from 'react';
 
 import SectionContainer from '../containers/SectionContainer';
+import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 
 const style = {
     display: 'flex',
-    justifyContent: 'space-around',
-    paddingTop: '20px'
+    justifyContent: 'space-around'
 };
 
 const SectionList = ({ sections }) => (
-    <div style={{ ...style }}>
+    <div className="size-lg-12" style={{ ...style }}>
         {sections.map(section => (
-            <SectionContainer key={section.uuid} section={section} />
+            <BlockContainer key={section.uuid}>
+                <SectionContainer section={section} />
+            </BlockContainer>
         ))}
     </div>
 );
