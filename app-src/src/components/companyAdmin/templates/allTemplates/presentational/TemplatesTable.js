@@ -9,7 +9,7 @@ const TemplatesTable = ({ headers, isFetching, error, templates }) => (
         isFetching={isFetching}
         error={error}
         noData={!templates.length}
-        noDataMessage={'There are no templates to display.'}
+        noDataMessage={'No templates to display'}
     >
         <TemplatesList templates={templates} />
     </Table>

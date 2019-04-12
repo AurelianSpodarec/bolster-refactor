@@ -30,7 +30,7 @@ const DrawingInspectionLogsTable = ({
                 isFetching={isFetching}
                 error={error}
                 noData={!inspectionLogs.length}
-                noDataMessage="There are no inspection logs to display."
+                noDataMessage="No inspection logs to display"
                 withActions
             >
                 {[...inspectionLogs]

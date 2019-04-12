@@ -11,7 +11,7 @@ const DrawingTable = ({ drawings, headers, isFetching, error }) => {
             isFetching={isFetching}
             error={error}
             noData={!drawings.length}
-            noDataMessage="There are no drawings to display."
+            noDataMessage="No drawings to display"
         >
             <DrawingList colCount={headers.length} drawings={drawings} />
         </Table>

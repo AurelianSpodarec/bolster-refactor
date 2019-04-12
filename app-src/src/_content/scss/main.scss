@@ -1258,6 +1258,7 @@ input {
     }
 
     .no-data-td {
+        text-align: center !important;
         p {
             font-size: 14px;
             padding: {
@@ -1271,6 +1272,18 @@ input {
 .table-search {
     .generic-search {
         width: 27%;
+    }
+
+    &.in-table {
+        .table-filter {
+            margin-top: 0;
+            p {
+                line-height: 22px;
+            }
+        }
+        .custom-dropdown {
+            margin-top: -3px;
+        }
     }
 
     .table-filter {
@@ -1287,7 +1300,7 @@ input {
 
         .custom-dropdown {
             float: right;
-            width: 40%;
+            width: 42%;
         }
     }
 }

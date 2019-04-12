@@ -21,7 +21,7 @@ const SitesTable = ({ headers, sites, isFetching, error }) => {
                 isFetching={isFetching}
                 error={error}
                 noData={!sites.length}
-                noDataMessage="There are no sites to display."
+                noDataMessage="No sites to display"
             >
                 <SitesList colCount={headers.length} sites={sites} />
             </Table>
