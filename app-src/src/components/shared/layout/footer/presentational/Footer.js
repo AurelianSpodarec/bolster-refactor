@@ -9,13 +9,9 @@ const logos = {
 };
 
 const Footer = ({ company }) => (
-    <footer
-        id="page-footer"
-        // style={{ backgroundColor: company.colorSchemeBackground }}
-    >
+    <footer id="page-footer" style={{ backgroundColor: company.colourCode }}>
         <div className="container">
-            {/* <p style={{ color: company.colorSchemeText }}> */}
-            <p>
+            <p style={{ color: company.colorSchemeText }}>
                 Bolster Systems Ltd is a company registered in England and
                 Wales. Company No: ##12345678##.
             </p>
