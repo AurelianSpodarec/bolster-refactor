@@ -6,10 +6,7 @@ import Templates from '../presentational/Templates';
 class TemplatesContainer extends Component {
     render = () => <Templates />;
 
-    componentDidMount = () => {
-        const { fetchAllTemplates } = this.props;
-        fetchAllTemplates();
-    };
+    componentDidMount = () => this.props.fetchAllTemplates();
 }
 
 const mapDispatchToProps = dispatch => ({
