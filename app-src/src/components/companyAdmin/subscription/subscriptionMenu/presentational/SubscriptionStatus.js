@@ -1,14 +1,16 @@
 import React from 'react';
-import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
+
+import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
+import StatusIcon from 'components/shared/generic/statusIcon/presentationl/StatusIcon';
 
 const SubscriptionStatus = ({ subscriptions, active, endOn }) => (
     <div className="size-lg-12">
-        <PageHeading
+        <BlockHeading
             title={`Subscription status: ${active ? 'Active' : 'Inactive'}`}
         >
-            <i className={`fa ${active ? 'fa-check' : 'fa-times'}`} />
-        </PageHeading>
-        <p>
+            <StatusIcon />
+        </BlockHeading>
+        <p className="size-lg-12">
             {subscriptions.isAutoRenew
                 ? `Your subscription is set to auto-renew on ${endOn} at a
             cost of £${subscriptions.renewalPrice}`

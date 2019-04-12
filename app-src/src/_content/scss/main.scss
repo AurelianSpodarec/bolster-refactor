@@ -803,7 +803,7 @@ input {
         .inner {
             position: absolute;
             left: 3px;
-            top: 2px;
+            top: 2.5px;
             width: 15px;
             height: 15px;
             background-color: white;
@@ -1860,6 +1860,28 @@ input {
     text-align: center;
     background-color: #000;
     border-radius: 4px;
+}
+
+.status-icon {
+    display: inline-block;
+    margin: 0 5px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    color: white;
+
+    i {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        left: 0;
+        text-align: center;
+        width: 100%;
+    }
+
+    &.green {
+        background-color: $green;
+    }
 }
 
 //datepicker
