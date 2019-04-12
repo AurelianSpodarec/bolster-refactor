@@ -7,13 +7,10 @@ import { formatQuestions, getQuestionDetails } from 'helpers/templates';
 
 const TemplateSectionQuestionDetailsContainer = ({ question }) => (
     <BlockContainer>
-        {question && (
-            <TemplateSectionQuestionDetails
-                question={question}
-                details={getQuestionDetails(question)}
-                canCompanyEdit={question.canCompanyEdit}
-            />
-        )}
+        <TemplateSectionQuestionDetails
+            question={question}
+            details={question && getQuestionDetails(question)}
+        />
     </BlockContainer>
 );
 
