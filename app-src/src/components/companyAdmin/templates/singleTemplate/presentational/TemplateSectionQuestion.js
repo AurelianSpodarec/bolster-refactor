@@ -1,11 +1,20 @@
 import React from 'react';
-import TemplateSectionQuestionDetailsContainer from '../containers/TemplateSectionQuestionDetailsContainer';
+import { QUESTION_TYPES } from 'constants/shared/templateBuilder';
 
-const TemplateSectionQuestion = ({ question }) => (
-    <tr key={question.id}>
-        <td>{question.name}</td>
+const TemplateSectionQuestion = ({
+    question: { id, name, isHidden, isRequired, isPrefill, type },
+    selectQuestion
+}) => (
+    <tr key={id}>
+        <td>{name}</td>
+        <td>{QUESTION_TYPES[type]}</td>
+        <td>{isHidden ? 'Hidden' : 'Not hidden'}</td>
+        <td>{isRequired ? 'Required' : 'Not required'}</td>
+        <td>{isPrefill ? 'Prefilled' : 'Not prefilled'}</td>
         <td>
-            <TemplateSectionQuestionDetailsContainer question={question} />
+            <button className="button" onClick={() => selectQuestion(id)}>
+                More info
+            </button>
         </td>
     </tr>
 );

@@ -14,23 +14,19 @@ class SingleTemplateContainer extends Component {
     render = () => {
         if (!this.props.isFetching) {
             const { id, versions, sections, questions } = this.props;
-            console.log(id);
             const version = getLatestVersion(id, versions);
-            console.log(version);
             const versionSections = getVersionSections(version, sections);
-            console.log(versionSections);
             const sectionQuestions = getSectionQuestions(
                 versionSections,
                 questions
             );
-            console.log(sectionQuestions);
             const headers = [
                 'Question Name',
+                'Type',
                 'Hidden?',
                 'Required?',
                 'Prefilled?',
-                'Type',
-                'Group Key'
+                ''
             ];
             return (
                 <SingleTemplate

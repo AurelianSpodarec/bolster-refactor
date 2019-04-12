@@ -3,6 +3,7 @@ import { QUESTION_TYPES } from 'constants/shared/templateBuilder';
 function formatQuestion({ type, dynamicFields, ...otherFields }) {
     return {
         questionType: QUESTION_TYPES[type],
+        type,
         ...otherFields,
         ...dynamicFields
     };

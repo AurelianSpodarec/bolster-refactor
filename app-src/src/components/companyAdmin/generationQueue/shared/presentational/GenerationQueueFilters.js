@@ -6,7 +6,7 @@ const GenerationQueueFilters = ({
     handleChange,
     selectedOption
 }) => (
-    <form className="table-search size-lg-12">
+    <form className="table-search in-table">
         <div className="table-filter">
             <Dropdown
                 options={sortOptions}

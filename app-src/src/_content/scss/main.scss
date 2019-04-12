@@ -1274,6 +1274,18 @@ input {
         width: 27%;
     }
 
+    &.in-table {
+        .table-filter {
+            margin-top: 0;
+            p {
+                line-height: 22px;
+            }
+        }
+        .custom-dropdown {
+            margin-top: -3px;
+        }
+    }
+
     .table-filter {
         float: right;
         width: 27%;
@@ -1288,7 +1300,7 @@ input {
 
         .custom-dropdown {
             float: right;
-            width: 40%;
+            width: 42%;
         }
     }
 }
