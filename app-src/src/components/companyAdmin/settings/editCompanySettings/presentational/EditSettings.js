@@ -14,7 +14,6 @@ const EditSettings = ({ isFetching, error, companySettings: company }) => {
                 isFetching={isFetching}
                 error={error}
                 isEmpty={!company.name}
-                className=""
             >
                 <EditSettingsFormContainer />
             </BlockContainer>
