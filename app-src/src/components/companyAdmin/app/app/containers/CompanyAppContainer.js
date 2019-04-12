@@ -9,10 +9,13 @@ import decodeJWT from 'actions/shared/jwt/async/decodeJWT';
 import fetchAllSubscriptions from 'actions/companyAdmin/subscriptions/async/fetchAllSubscriptions';
 import companyFetchAllServices from 'actions/companyAdmin/services/async/fetchAllServices';
 import fetchCreditLogs from 'actions/companyAdmin/creditLogs/async/fetchCreditLogs';
-import CompanyApp from '../presentational/CompanyApp';
+import fetchCompanySettings from 'actions/companyAdmin/companySettings/async/fetchCompanySettings';
 import selectMenuTab from 'actions/shared/generic/tabs/sync/selectMenuTab';
-import { MENU_TABS } from 'constants/shared/tabNames';
 import fetchAllCredits from 'actions/companyAdmin/credits/fetchAllCredits';
+
+import CompanyApp from '../presentational/CompanyApp';
+
+import { MENU_TABS } from 'constants/shared/tabNames';
 
 class CompanyAppContainer extends Component {
     render() {
@@ -28,6 +31,7 @@ class CompanyAppContainer extends Component {
 
 const mapDispatchToProps = dispatch => ({
     fetchHomeData: () => {
+        dispatch(fetchCompanySettings());
         dispatch(fetchProfile());
         dispatch(fetchSingleCompany());
         dispatch(fetchMessages());
