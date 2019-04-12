@@ -6,17 +6,23 @@ import PendingInvoicesContainer from 'components/companyAdmin/invoices/pendingIn
 import SubscriptionAutoRenewalContainer from '../../autoRenewal/containers/SubscriptionAutoRenewalContainer';
 import SubscriptionCreditsContainer from '../../credits/containers/SubscriptionCreditsContainer';
 import CardManagement from '../../cardManagement/presentational/CardManagement';
+import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
 
 const Subscription = () => (
     <>
-        <Breadcrumb breadcrumbs={[{ text: '##subscription##' }]} />
-        <div className="size-lg-8">
-            <SubscriptionStatusContainer />
-            <ActiveServicesContainer />
+        <PageHeading title="My Subscription">
+            <Breadcrumb breadcrumbs={[{ text: 'My Subscription' }]} />
+        </PageHeading>
+        <div className="flex-container size-lg-12">
+            <div className="size-lg-8">
+                <SubscriptionStatusContainer />
+                <ActiveServicesContainer />
+            </div>
+            <div className="flex-item size-lg-4">
+                <SubscriptionAutoRenewalContainer />
+            </div>
         </div>
-        <div className="flex-item size-lg-4">
-            <SubscriptionAutoRenewalContainer />
-        </div>
+
         <div className="flex-item size-lg-8">
             <PendingInvoicesContainer />
             <CardManagement />

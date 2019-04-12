@@ -3,7 +3,11 @@ import FieldOutput from 'components/shared/generic/fieldOutput/presentational/Fi
 import { isObjEmpty } from 'helpers/generic';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 
-const TemplateSectionQuestionDetails = ({ question, details = {} }) =>
+const TemplateSectionQuestionDetails = ({
+    question,
+    details = {},
+    showModal
+}) =>
     !isObjEmpty(details) ? (
         <>
             <BlockHeading title={question.name} />
@@ -15,6 +19,11 @@ const TemplateSectionQuestionDetails = ({ question, details = {} }) =>
                     fieldClass="no-h-padding"
                 />
             ))}
+            {question.canCompanyEdit && (
+                <button className="button" onClick={showModal}>
+                    Edit
+                </button>
+            )}
         </>
     ) : (
         <BlockHeading title="Select a question for more info" />
