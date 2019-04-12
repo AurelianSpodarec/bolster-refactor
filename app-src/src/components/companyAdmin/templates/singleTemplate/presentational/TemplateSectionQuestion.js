@@ -1,17 +1,13 @@
 import React from 'react';
+import TemplateSectionQuestionDetailsContainer from '../containers/TemplateSectionQuestionDetailsContainer';
 
-const TemplateSectionQuestion = ({ question }) => {
-    return (
-        <tr key={question.id}>
-            <td>{question.name}</td>
-            <td>{question.isHidden ? 'Hidden' : 'Not hidden'}</td>
-            <td>{question.isRequired ? 'Required' : 'Not required'}</td>
-            <td>{question.isPrefill ? 'Prefilled' : 'Not prefilled'}</td>
-            <td>{question.type}</td>
-            <td>{question.groupKey}</td>
-            <td>{''}</td>
-        </tr>
-    );
-};
+const TemplateSectionQuestion = ({ question }) => (
+    <tr key={question.id}>
+        <td>{question.name}</td>
+        <td>
+            <TemplateSectionQuestionDetailsContainer question={question} />
+        </td>
+    </tr>
+);
 
 export default TemplateSectionQuestion;

@@ -7,7 +7,7 @@ const Table = ({
     error,
     isFetching,
     noData,
-    noDataMessage = 'There is no data to display.',
+    noDataMessage = 'There is no data to display',
     withActions = false,
     children,
     extraClasses = ''

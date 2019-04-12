@@ -4,6 +4,7 @@ import moment from 'moment';
 import Table from 'components/shared/generic/tables/presentational/Table';
 import DrawingInspectionLogsListItem from '../presentational/DrawingInspectionLogsListItem';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 
 const DrawingInspectionLogsTable = ({
     isFetching,
@@ -11,29 +12,25 @@ const DrawingInspectionLogsTable = ({
     inspectionLogs,
     handleFilterChange
 }) => (
-    <BlockContainer containerClass="inspection-log size-lg-12">
+    <BlockContainer containerClass="inspection-log flex-item size-lg-4">
         <div className="size-lg-12">
-            <h2
-                className="heading heading-3 size-lg-12"
-                style={{ marginBottom: 0 }}
-            >
-                Inspection Log
-            </h2>
-            <div className="area-filter">
-                <i className="icon far fa-search" />
-                <input
-                    type="text"
-                    name="filterValue"
-                    placeholder="Enter Pin ID..."
-                    onChange={handleFilterChange}
-                />
-            </div>
+            <BlockHeading title="Inspection Log">
+                <div className="area-filter">
+                    <i className="icon far fa-search" />
+                    <input
+                        type="text"
+                        name="filterValue"
+                        placeholder="Enter Pin ID..."
+                        onChange={handleFilterChange}
+                    />
+                </div>
+            </BlockHeading>
             <Table
                 headers={['Pin ID', 'Status', 'Actions']}
                 isFetching={isFetching}
                 error={error}
                 noData={!inspectionLogs.length}
-                noDataMessage="There are no inspection logs to display."
+                noDataMessage="No inspection logs to display"
                 withActions
             >
                 {[...inspectionLogs]

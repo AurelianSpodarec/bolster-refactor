@@ -9,7 +9,7 @@ const UserTable = ({ users, headers, isFetching, error }) => (
         isFetching={isFetching}
         error={error}
         noData={!users.length}
-        noDataMessage="There are no users to display"
+        noDataMessage="No users to display"
     >
         <UserList colCount={headers.length} users={users} />
     </Table>

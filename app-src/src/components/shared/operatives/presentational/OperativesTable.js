@@ -37,7 +37,7 @@ const OperativesTable = ({
                 isFetching={isFetching}
                 error={error}
                 noData={!operatives.length}
-                noDataMessage="There are no operatives to display."
+                noDataMessage="No operatives to display"
                 withActions
             >
                 <OperativesList

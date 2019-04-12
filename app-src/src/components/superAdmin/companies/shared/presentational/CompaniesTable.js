@@ -9,7 +9,7 @@ const CompaniesTable = ({ headers, isFetching, error, companies }) => (
         error={error}
         noData={!companies.length}
         isFetching={isFetching}
-        noDataMessage="There are no companies to display"
+        noDataMessage="No companies to display"
     >
         <CompaniesList colCount={headers.length} companies={companies} />
     </Table>

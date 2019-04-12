@@ -4,70 +4,48 @@ import { connect } from 'react-redux';
 import SingleTemplate from '../presentational/SingleTemplate';
 import fetchAllTemplates from 'actions/companyAdmin/templates/async/fetchAllTemplates';
 import Loading from 'components/shared/generic/misc/presentational/Loading';
+import {
+    getLatestVersion,
+    getVersionSections,
+    getSectionQuestions
+} from 'helpers/templates';
 
 class SingleTemplateContainer extends Component {
     render = () => {
         if (!this.props.isFetching) {
-            const latestVersion = this.getLatestVersion();
-            const latestVersionSections = this.getVersionSections(
-                latestVersion
+            const { id, versions, sections, questions } = this.props;
+            console.log(id);
+            const version = getLatestVersion(id, versions);
+            console.log(version);
+            const versionSections = getVersionSections(version, sections);
+            console.log(versionSections);
+            const sectionQuestions = getSectionQuestions(
+                versionSections,
+                questions
             );
-            const sectionQuestions = this.getSectionQuestions(
-                latestVersionSections
-            );
+            console.log(sectionQuestions);
             const headers = [
                 'Question Name',
                 'Hidden?',
                 'Required?',
                 'Prefilled?',
                 'Type',
-                'Group Key',
-                'Char limit'
+                'Group Key'
             ];
-
             return (
                 <SingleTemplate
                     headers={headers}
-                    version={latestVersion}
-                    sections={latestVersionSections}
+                    sections={versionSections}
                     questions={sectionQuestions}
                 />
             );
-        } else return <Loading />;
+        } else {
+            return <Loading />;
+        }
     };
 
     componentDidMount = () => {
         this.props.fetchAllTemplates();
-    };
-
-    getLatestVersion = () => {
-        const { versions, id } = this.props;
-        const filteredVersionIDs = versions
-            .filter(({ templateID }) => +templateID === +id)
-            .map(({ id }) => id);
-        const latestVersionID = Math.max(...filteredVersionIDs);
-        const latestVersion = versions.find(({ id }) => id === latestVersionID);
-        return latestVersion;
-    };
-
-    getVersionSections = version =>
-        this.props.sections
-            .filter(({ templateVersionID }) => templateVersionID === version.id)
-            .sort((a, b) => a.sort - b.sort);
-
-    getSectionQuestions = sections => {
-        const { questions } = this.props;
-        const sectionIDs = sections.map(({ id }) => id);
-        const sectionQuestions = sectionIDs.reduce(
-            (acc, id) => ({
-                ...acc,
-                [id]: questions
-                    .filter(({ templateSectionID }) => templateSectionID === id)
-                    .sort((a, b) => a.sort - b.sort)
-            }),
-            {}
-        );
-        return sectionQuestions;
     };
 }
 

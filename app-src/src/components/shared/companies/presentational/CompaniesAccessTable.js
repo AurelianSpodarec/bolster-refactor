@@ -25,7 +25,7 @@ const CompaniesAccessTable = ({
             headers={['Name', '', 'Actions']}
             isFetching={isFetching}
             noData={!companies.length}
-            noDataMessage="There are no companies to display."
+            noDataMessage="No companies to display"
             withActions
         >
             <CompaniesAccessList

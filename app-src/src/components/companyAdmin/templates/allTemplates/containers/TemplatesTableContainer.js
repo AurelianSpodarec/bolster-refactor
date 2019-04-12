@@ -3,28 +3,20 @@ import { connect } from 'react-redux';
 import TemplatesTable from '../presentational/TemplatesTable';
 import Loading from 'components/shared/generic/misc/presentational/Loading';
 
-const TemplatesTableContainer = ({
-    templates,
-    isFetching,
-    error,
-    services
-}) => {
-    if (!isFetching) {
-        const headers = ['Name', 'Service', ''];
-        const templateData = templates.map(template => ({
-            ...template,
-            serviceName: services[template.serviceID].name
-        }));
-        return (
-            <TemplatesTable
-                headers={headers}
-                templates={templateData}
-                isFetching={isFetching}
-                error={error}
-            />
-        );
-    } else return <Loading />;
-};
+const TemplatesTableContainer = ({ templates, isFetching, error, services }) =>
+    isFetching ? (
+        <Loading />
+    ) : (
+        <TemplatesTable
+            headers={['Name', 'Service', '']}
+            templates={templates.map(({ serviceID, ...template }) => ({
+                serviceName: services[serviceID].name,
+                ...template
+            }))}
+            isFetching={isFetching}
+            error={error}
+        />
+    );
 
 const mapStateToProps = ({
     companyAdmin: {

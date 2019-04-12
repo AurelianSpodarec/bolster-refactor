@@ -23,7 +23,7 @@ const TableBody = ({
     if (isFetching && noData)
         return (
             <tr>
-                <td colSpan={colCount} style={{ textAlign: 'center' }}>
+                <td colSpan={colCount} className="no-data-td">
                     <Loading />
                 </td>
             </tr>

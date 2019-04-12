@@ -9,7 +9,7 @@ const ServiceTable = ({ services, headers, isFetching, error }) => (
         isFetching={isFetching}
         error={error}
         noData={!services.length}
-        noDataMessage="There are no services to display"
+        noDataMessage="No services to display"
     >
         <ServiceList colCount={headers.length} services={services} />
     </Table>

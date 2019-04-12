@@ -69,6 +69,9 @@ body {
 
         .generic-table {
             min-height: 165px;
+            tbody {
+                display: table-header-group;
+            }
         }
 
         .button-container {
@@ -678,9 +681,9 @@ input {
     width: 100%;
     margin-bottom: 20px;
 
-    &.w-table {
-        margin-bottom: 5px;
-    }
+    // &.w-table {
+    //     margin-bottom: 5px;
+    // }
 
     .heading {
         float: left;
@@ -1218,7 +1221,7 @@ input {
     th {
         font-size: 14px;
         @include ubuntu-medium;
-        height: 39px;
+        padding-top: 0;
     }
 
     td {
@@ -1255,6 +1258,7 @@ input {
     }
 
     .no-data-td {
+        text-align: center !important;
         p {
             font-size: 14px;
             padding: {
@@ -1400,27 +1404,30 @@ input {
     }
 }
 .map-filters {
-}
-//pin amounts
-.pin-amounts {
-    margin-top: 20px;
-    .pin {
-        padding-left: 15px;
-        margin-bottom: 10px;
+    .block-heading {
+        margin-bottom: 15px;
+    }
+    //pin amounts
+    .pin-amounts {
+        float: right;
+        .pin {
+            float: right;
+            width: 70px;
 
-        img,
-        p {
-            float: left;
-        }
+            img,
+            p {
+                float: right;
+            }
 
-        img {
-            width: 22px;
-        }
+            img {
+                width: 22px;
+            }
 
-        p {
-            padding: 5px 0 0 7px;
-            font-size: 140%;
-            @include ubuntu-medium;
+            p {
+                padding: 5px 7px 0 0;
+                font-size: 140%;
+                @include ubuntu-medium;
+            }
         }
     }
 }
@@ -1660,6 +1667,7 @@ input {
 //inspection log
 .inspection-log {
     background-color: $body-text;
+
     .pin {
         float: left;
         margin: -8px 8px 0 0;
