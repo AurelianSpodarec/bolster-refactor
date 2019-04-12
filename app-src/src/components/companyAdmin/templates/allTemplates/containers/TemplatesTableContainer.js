@@ -10,8 +10,8 @@ const TemplatesTableContainer = ({ templates, isFetching, error, services }) =>
         <TemplatesTable
             headers={['Name', 'Service', '']}
             templates={templates.map(({ serviceID, ...template }) => ({
-                ...template,
-                serviceName: services[serviceID].name
+                serviceName: services[serviceID].name,
+                ...template
             }))}
             isFetching={isFetching}
             error={error}
