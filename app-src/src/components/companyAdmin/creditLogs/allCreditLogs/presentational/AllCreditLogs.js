@@ -4,23 +4,20 @@ import { connect } from 'react-redux';
 import CreditLogsTableContainer from '../containers/CreditLogsTableContainer';
 import Breadcrumb from 'components/shared/generic/breadcrumb/presentational/Breadcrumb';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
 
-const AllCreditLogs = ({ isFetching, creditLogs, error }) => (
+const AllCreditLogs = ({ isFetching }) => (
     <>
-        <Breadcrumb breadcrumbs={[{ text: '##Drawing credit logs##' }]} />
-        <BlockContainer
-            isFetching={isFetching}
-            isEmpty={!creditLogs.length}
-            error={error}
-            heading="Drawing Credit Logs"
-        >
+        <PageHeading title="Credit Logs">
+            <Breadcrumb breadcrumbs={[{ text: 'Credit Logs' }]} />
+        </PageHeading>
+        <BlockContainer isFetching={isFetching}>
             <CreditLogsTableContainer />
         </BlockContainer>
     </>
 );
 
 const mapStateToProps = ({ companyAdmin: { creditLogsReducer } }) => ({
-    creditLogs: Object.values(creditLogsReducer.creditLogs) || [],
     isFetching: creditLogsReducer.isFetching,
     error: creditLogsReducer.error
 });

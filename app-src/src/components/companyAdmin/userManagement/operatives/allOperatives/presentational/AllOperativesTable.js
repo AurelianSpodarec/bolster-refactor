@@ -13,7 +13,7 @@ const AllOperativesTable = ({ headers, users, isFetching, error }) => {
                 isFetching={isFetching}
                 error={error}
                 noData={!users.length}
-                noDataMessage="There are no admins to display."
+                noDataMessage="No admins to display"
             >
                 <AllOperativesList colCount={headers.length} users={users} />
             </Table>

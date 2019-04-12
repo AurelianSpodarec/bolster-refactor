@@ -29,7 +29,7 @@ class AttachOperativesFormContainer extends Component {
             <BlockContainer
                 isFetching={isFetching}
                 isEmpty={!Object.values(userOptions).length}
-                noDataMessage="There are no operatives options available."
+                noDataMessage="No operatives options available."
                 error={error}
             >
                 <AttachOperativesForm

@@ -9,7 +9,7 @@ const PinHistoriesList = ({ otherHistories, historyCount }) => {
                 className="no-data size-lg-12"
                 style={{ paddingLeft: 15, paddingRight: 15 }}
             >
-                There are no other pin histories
+                No other pin histories
             </p>
         );
     }
