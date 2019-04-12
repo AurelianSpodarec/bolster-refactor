@@ -17,7 +17,10 @@ class AddPinFormContainer extends Component {
                 isFetching={isFetching}
                 error={error}
             >
-                <AddPinForm />
+                <AddPinForm
+                    location={this.props.location}
+                    handleSubmit={this.handleSubmit}
+                />
             </BlockContainer>
         );
     }
@@ -26,6 +29,10 @@ class AddPinFormContainer extends Component {
         const { fetchAllTemplates } = this.props;
 
         fetchAllTemplates();
+    };
+
+    handleSubmit = e => {
+        e.preventDefault();
     };
 }
 
