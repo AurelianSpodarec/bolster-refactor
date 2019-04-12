@@ -8,15 +8,15 @@ const SingleTemplate = ({ sections, questions, headers }) => (
     <Block>
         <BlockHeading title="Template" />
         {sections.map(section => (
-            <>
+            <React.Fragment key={section.id}>
                 <BlockHeading title={section.name} />
-                <Table key={section.id} headers={headers}>
+                <Table headers={headers}>
                     <TemplateSection
                         section={section}
                         questions={questions[section.id]}
                     />
                 </Table>
-            </>
+            </React.Fragment>
         ))}
     </Block>
 );
