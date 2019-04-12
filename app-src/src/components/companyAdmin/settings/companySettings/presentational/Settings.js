@@ -52,10 +52,15 @@ const Settings = ({ isFetching, error, companySettings: company }) => {
                 <div>
                     <h3 className="heading">Display Settings</h3>
                     <p>Company Logo:</p>
-                    <img
-                        alt={`company logo for ${company.name}`}
-                        src={`${FILE_STORAGE_URL}/${company.logoFile}`}
-                    />
+                    {company.logoFile ? (
+                        <img
+                            alt={`company logo for ${company.name}`}
+                            src={`${FILE_STORAGE_URL}/${company.logoFile}`}
+                        />
+                    ) : (
+                        <p>##No logo##</p>
+                    )}
+
                     <p>Colour Code: {company.colourCode}</p>
                     <p>Dark Mode: {company.isBolsterLogoDark ? 'On' : 'Off'}</p>
                 </div>
