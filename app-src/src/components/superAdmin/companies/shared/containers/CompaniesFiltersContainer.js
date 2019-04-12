@@ -1,6 +1,9 @@
 import React from 'react';
-import updateCompaniesFilters from 'actions/companyAdmin/companiesPermissions/sync/updateCompaniesFilters';
+
+import updateCompaniesFilters from 'actions/superAdmin/companies/sync/updateCompaniesFilters';
+
 import { connect } from 'react-redux';
+
 import CompaniesFilters from '../presentational/CompaniesFilters';
 
 // TODO: add filters
@@ -14,6 +17,6 @@ const CompaniesFiltersContainer = ({ filters: { name }, dispatch }) => {
     return <CompaniesFilters handleChange={handleChange} name={name} />;
 };
 
-export default connect(({ companyAdmin: { companiesReducer } }) => ({
+export default connect(({ superAdmin: { companiesReducer } }) => ({
     filters: companiesReducer.filters
 }))(CompaniesFiltersContainer);

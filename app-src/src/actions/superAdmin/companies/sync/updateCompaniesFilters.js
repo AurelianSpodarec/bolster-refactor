@@ -1,4 +1,4 @@
-import { UPDATE_COMPANIES_FILTERS } from 'constants/actionTypes/companiesWithPermissions';
+import { UPDATE_COMPANIES_FILTERS } from 'constants/actionTypes/companies';
 
 export default (fieldName, searchTerm) => dispatch =>
     dispatch({

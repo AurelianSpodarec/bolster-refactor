@@ -50,7 +50,7 @@ const HeaderProfile = ({
                 My Profile
                 <i className="icon fas fa-chevron-right" />
             </Link>
-            <Link to="/settings" className="item">
+            <Link to="/company/settings" className="item">
                 Company Settings
                 <i className="icon fas fa-chevron-right" />
             </Link>
