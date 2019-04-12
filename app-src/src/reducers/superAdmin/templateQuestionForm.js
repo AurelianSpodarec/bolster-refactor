@@ -4,7 +4,7 @@ import uuid from 'uuid/v1';
 import {
     QUESTION_TYPE_VALUES,
     QUESTION_TYPES
-} from 'constants/superAdmin/templateBuilder';
+} from 'constants/shared/templateBuilder';
 import {
     UPDATE_QUESTION_FIELD,
     UPDATE_QUESTION_FIELDS,

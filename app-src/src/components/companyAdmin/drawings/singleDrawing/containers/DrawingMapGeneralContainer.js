@@ -87,7 +87,8 @@ class DrawingMapGeneralContainer extends Component {
     };
 
     handleClick = e => {
-        const { lat, lng } = e.latlng;
+        e.preventDefault();
+        // const { lat, lng } = e.latlng;
         // console.log(lat, lng);
     };
 

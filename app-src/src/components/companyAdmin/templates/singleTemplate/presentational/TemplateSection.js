@@ -1,17 +1,13 @@
 import React from 'react';
+import TemplateSectionQuestionContainer from '../containers/TemplateSectionQuestionContainer';
 
 const TemplateSection = ({ questions }) =>
     questions.length ? (
         questions.map(question => (
-            <tr key={question.id}>
-                <td>{question.name}</td>
-                <td>{question.isHidden ? 'Hidden' : 'Not hidden'}</td>
-                <td>{question.isRequired ? 'Required' : 'Not required'}</td>
-                <td>{question.isPrefill ? 'Prefilled' : 'Not prefilled'}</td>
-                <td>{question.type}</td>
-                <td>{question.groupKey}</td>
-                <td>{''}</td>
-            </tr>
+            <TemplateSectionQuestionContainer
+                question={question}
+                key={question.id}
+            />
         ))
     ) : (
         <tr>
