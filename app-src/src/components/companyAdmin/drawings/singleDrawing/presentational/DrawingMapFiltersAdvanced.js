@@ -10,6 +10,9 @@ import DropdownContainer from 'components/shared/generic/form/containers/Dropdow
 import DatePicker from 'components/shared/generic/form/presentational/DatePicker';
 
 import { PIN_STATUS_IDS as STATUS } from 'constants/companyAdmin/enums';
+import Form from 'components/shared/generic/form/containers/Form';
+import Field from 'components/shared/generic/form/presentational/Field';
+import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 
 const DrawingMapFiltersAdvanced = ({
     serviceOptions,
@@ -24,111 +27,113 @@ const DrawingMapFiltersAdvanced = ({
     handleDateChange,
     pins
 }) => (
-    <div className="form size-lg-8">
+    <div className="map-filters size-lg-12">
         <div className="size-lg-9">
-            <div className="size-lg-6">
-                <DropdownContainer
-                    placeholder="Select service"
-                    name="serviceSelectedID"
-                    options={serviceOptions}
-                    selectedOption={selectedService}
-                    handleChange={handleChange}
-                />
-            </div>
-
-            <div className="size-lg-6">
-                <DropdownContainer
-                    placeholder="Select status"
-                    name="statusSelectedID"
-                    options={statusOptions}
-                    selectedOption={selectedStatus}
-                    handleChange={handleChange}
-                />
-            </div>
-
-            <div className="size-lg-6">
-                <div className="size-lg-6">
-                    <DatePicker
-                        name="startDateSelected"
-                        selected={startDateSelected}
-                        onChange={e => handleDateChange(e, 'startDateSelected')}
-                        placeholderText="Select start date"
+            <BlockHeading title="Pin Filters" />
+            <Form className="generic-form">
+                <Field name="Service type" sizeClasses="size-lg-6">
+                    <DropdownContainer
+                        placeholder="All services"
+                        name="serviceSelectedID"
+                        options={serviceOptions}
+                        selectedOption={selectedService}
+                        handleChange={handleChange}
                     />
-                </div>
-                <div className="size-lg-6">
-                    <DatePicker
-                        name="endDateSelected"
-                        selected={endDateSelected}
-                        onChange={e => handleDateChange(e, 'endDateSelected')}
-                        placeholderText="Select end date"
+                </Field>
+                <Field name="Status" sizeClasses="size-lg-6">
+                    <DropdownContainer
+                        placeholder="All Status'"
+                        name="statusSelectedID"
+                        options={statusOptions}
+                        selectedOption={selectedStatus}
+                        handleChange={handleChange}
                     />
-                </div>
-            </div>
+                </Field>
+                <Field name="Data" sizeClasses="w-dates size-lg-6">
+                    <div className="size-lg-5">
+                        <DatePicker
+                            name="startDateSelected"
+                            selected={startDateSelected}
+                            onChange={e =>
+                                handleDateChange(e, 'startDateSelected')
+                            }
+                            placeholderText="Date"
+                        />
+                    </div>
+                    <p className="size-lg-2">to</p>
+                    <div className="size-lg-5">
+                        <DatePicker
+                            name="endDateSelected"
+                            selected={endDateSelected}
+                            onChange={e =>
+                                handleDateChange(e, 'endDateSelected')
+                            }
+                            placeholderText="Date"
+                        />
+                    </div>
+                </Field>
 
-            <div className="size-lg-6">
-                <DropdownContainer
-                    placeholder="Select operative"
-                    name="operativeSelectedID"
-                    options={operativeOptions}
-                    selectedOption={selectedOperative}
-                    handleChange={handleChange}
-                />
-            </div>
+                <Field name="Operative" sizeClasses="size-lg-6">
+                    <DropdownContainer
+                        placeholder="Select operative"
+                        name="operativeSelectedID"
+                        options={operativeOptions}
+                        selectedOption={selectedOperative}
+                        handleChange={handleChange}
+                    />
+                </Field>
+            </Form>
         </div>
 
-        <div className="size-lg-3">
-            <div className="pin-amounts" style={{ top: '5px' }}>
-                <div className="pin size-lg-6">
-                    <img alt="red pin" src={RedPin} />
-                    <p>
-                        {
-                            pins.filter(
-                                pin =>
-                                    pin.latestStatus === STATUS.ACTION_REQUIRED
-                            ).length
-                        }
-                    </p>
-                </div>
-                <div className="pin size-lg-6">
-                    <img alt="green pin" src={GreenPin} />
-                    <p>
-                        {
-                            pins.filter(
-                                pin => pin.latestStatus === STATUS.INSTALLED
-                            ).length
-                        }
-                    </p>
-                </div>
-                <div className="pin size-lg-6">
-                    <img alt="blue pin" src={BluePin} />
-                    <p>
-                        {
-                            pins.filter(
-                                pin => pin.latestStatus === STATUS.INSPECTED
-                            ).length
-                        }
-                    </p>
-                </div>
-                <div className="pin size-lg-6">
-                    <img alt="yellow pin" src={YellowPin} />
-                    <p>
-                        {
-                            pins.filter(
-                                pin => pin.latestStatus === STATUS.NO_ACTION
-                            ).length
-                        }
-                    </p>
-                </div>
-                <div className="pin size-lg-6">
-                    <img alt="purple pin" src={PurplePin} />
-                    <p>
-                        {
-                            pins.filter(
-                                pin => pin.latestStatus === STATUS.OTHER
-                            ).length
-                        }
-                    </p>
-                </div>
+        <div className="pin-amounts size-lg-3">
+            <div className="pin size-lg-6">
+                <img alt="red pin" src={RedPin} />
+                <p>
+                    {
+                        pins.filter(
+                            pin => pin.latestStatus === STATUS.ACTION_REQUIRED
+                        ).length
+                    }
+                </p>
+            </div>
+            <div className="pin size-lg-6">
+                <img alt="green pin" src={GreenPin} />
+                <p>
+                    {
+                        pins.filter(
+                            pin => pin.latestStatus === STATUS.INSTALLED
+                        ).length
+                    }
+                </p>
+            </div>
+            <div className="pin size-lg-6">
+                <img alt="blue pin" src={BluePin} />
+                <p>
+                    {
+                        pins.filter(
+                            pin => pin.latestStatus === STATUS.INSPECTED
+                        ).length
+                    }
+                </p>
+            </div>
+            <div className="pin size-lg-6">
+                <img alt="yellow pin" src={YellowPin} />
+                <p>
+                    {
+                        pins.filter(
+                            pin => pin.latestStatus === STATUS.NO_ACTION
+                        ).length
+                    }
+                </p>
+            </div>
+            <div className="pin size-lg-6">
+                <img alt="purple pin" src={PurplePin} />
+                <p>
+                    {
+                        pins.filter(pin => pin.latestStatus === STATUS.OTHER)
+                            .length
+                    }
+                </p>
             </div>
         </div>
     </div>

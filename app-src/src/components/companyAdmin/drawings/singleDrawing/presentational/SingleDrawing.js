@@ -6,7 +6,6 @@ import SingleDrawingHeaderContainer from '../containers/SingleDrawingHeaderConta
 const SingleDrawing = () => (
     <div className="size-lg-12">
         <SingleDrawingHeaderContainer />
-
         <SingleDrawingRouteContainer />
     </div>
 );

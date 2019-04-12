@@ -10,7 +10,7 @@ const DatePickerPresentational = ({
     placeholderText = `Please select ${name}`
 }) => {
     return (
-        <div className="size-lg-4">
+        <div className="size-lg-12">
             <DatePicker
                 id={name}
                 selected={selected}
@@ -18,6 +18,7 @@ const DatePickerPresentational = ({
                 dateFormat="dd/MM/YYYY"
                 placeholderText={placeholderText}
             />
+            <i className="far fa-calendar" />
         </div>
     );
 };
