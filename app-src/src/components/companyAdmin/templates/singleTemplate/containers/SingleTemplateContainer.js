@@ -6,9 +6,8 @@ import fetchAllTemplates from 'actions/companyAdmin/templates/async/fetchAllTemp
 import Loading from 'components/shared/generic/misc/presentational/Loading';
 
 class SingleTemplateContainer extends Component {
-    render() {
-        const { isFetching } = this.props;
-        if (!isFetching) {
+    render = () => {
+        if (!this.props.isFetching) {
             const latestVersion = this.getLatestVersion();
             const latestVersionSections = this.getVersionSections(
                 latestVersion
@@ -25,6 +24,7 @@ class SingleTemplateContainer extends Component {
                 'Group Key',
                 'Char limit'
             ];
+
             return (
                 <SingleTemplate
                     headers={headers}
@@ -34,24 +34,20 @@ class SingleTemplateContainer extends Component {
                 />
             );
         } else return <Loading />;
-    }
+    };
 
     componentDidMount = () => {
         this.props.fetchAllTemplates();
     };
 
     getLatestVersion = () => {
-        const { versions, id, isFetching } = this.props;
-        if (!isFetching) {
-            const filteredVersionIDs = versions
-                .filter(version => +version.templateID === +id)
-                .map(({ id }) => id);
-            const latestVersionID = Math.max(...filteredVersionIDs);
-            const latestVersion = versions.find(
-                ({ id }) => id === latestVersionID
-            );
-            return latestVersion;
-        }
+        const { versions, id } = this.props;
+        const filteredVersionIDs = versions
+            .filter(({ templateID }) => +templateID === +id)
+            .map(({ id }) => id);
+        const latestVersionID = Math.max(...filteredVersionIDs);
+        const latestVersion = versions.find(({ id }) => id === latestVersionID);
+        return latestVersion;
     };
 
     getVersionSections = version =>
