@@ -5,11 +5,12 @@ const Checkbox = ({
     checked,
     handleChange,
     name,
-    text,
+    text = '',
     error,
+    classes = '',
     disabled = false
 }) => (
-    <div className={`checkbox ${disabled ? 'left grey-out' : ''}`}>
+    <div className={`checkbox ${disabled ? 'left grey-out' : ''} ${classes}`}>
         <input
             id={`${name}_${value}`}
             onChange={handleChange}
@@ -19,13 +20,12 @@ const Checkbox = ({
             name={name}
             disabled={disabled}
         />
-
         <label
             htmlFor={`${name}_${value}`}
             // ? ## needs styling for disabled ##
             // style={disabled ? { color: 'grey' } : {}}
         >
-            <span className="text">{text}</span>
+            {text.length && <span className="text">{text}</span>}
             <span className="outer">
                 <span className="inner" />
             </span>

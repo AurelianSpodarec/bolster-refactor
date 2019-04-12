@@ -1,9 +1,9 @@
 import React from 'react';
-import Checkbox from 'components/shared/generic/form/presentational/Checkbox';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import Form from 'components/shared/generic/form/containers/Form';
-import Field from 'components/shared/generic/form/presentational/Field';
 import { ADD_SERVICE_TO_SUBSCRIPTION } from 'constants/shared/modalTypes';
+import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
+import CompanyServicesList from './CompanyServicesList';
 
 const ActiveServices = ({
     subscriptions,
@@ -13,32 +13,13 @@ const ActiveServices = ({
 }) => {
     return (
         <BlockContainer>
-            <Form>
-                <Field name="Services">
-                    {subscriptions.map(sub => (
-                        <div
-                            key={`subscription-id-${sub.id}`}
-                            className="size-lg-6"
-                        >
-                            <div className="size-lg-6">
-                                <i className="fa fa-check" />
-                                <label
-                                    className="heading heading-3"
-                                    htmlFor={`subscription-id-${sub.id}`}
-                                >
-                                    {sub.name}
-                                </label>
-                            </div>
-                            <Checkbox
-                                checked={sub.isAutoRenew}
-                                name={sub.name}
-                                value={sub.serviceID}
-                                id={`subscription-id-${sub.id}`}
-                                handleChange={handleChange}
-                                text="Renew?"
-                            />
-                        </div>
-                    ))}
+            <BlockHeading title="Services" />
+
+            <Form className="generic-form ignore-padding size-lg-12">
+                <CompanyServicesList
+                    subscriptions={subscriptions}
+                    handleChange={handleChange}
+                >
                     {services.map(service => (
                         <div key={service.id} className="size-lg-6">
                             <div className="size-lg-6">
@@ -60,7 +41,7 @@ const ActiveServices = ({
                             </button>
                         </div>
                     ))}
-                </Field>
+                </CompanyServicesList>
 
                 <div className="size-lg-12">
                     <h3 className="heading heading-3">

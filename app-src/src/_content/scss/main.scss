@@ -695,6 +695,15 @@ input {
         float: right;
         margin-left: 2.5px;
     }
+
+    .checkbox {
+        float: right;
+    }
+
+    .status-icon {
+        margin-left: 15px;
+        top: 1px;
+    }
 }
 
 .generic-form {
@@ -748,82 +757,6 @@ input {
         }
     }
 
-    .checkbox {
-        float: left;
-        margin-bottom: 25px;
-        cursor: pointer;
-
-        input {
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 20px;
-            opacity: 0;
-            margin: 0;
-            z-index: 1;
-            border: none;
-            padding: 0;
-            &:checked {
-                + label,
-                + input + label {
-                    .outer {
-                        background-color: $green;
-                    }
-
-                    .inner {
-                        left: calc(100% - 18px);
-                    }
-                }
-            }
-        }
-        label {
-            font-size: 140%;
-            @include ubuntu;
-        }
-
-        .outer {
-            position: absolute;
-            top: 50%;
-            left: 0;
-            transform: translateY(-50%);
-            width: 33px;
-            height: 20px;
-            border-radius: 20px;
-            background-color: $button-grey;
-            transition: background-color 0.2s;
-        }
-
-        .text {
-            width: 100%;
-            padding-left: 40px;
-            padding-right: 10px;
-        }
-
-        .inner {
-            position: absolute;
-            left: 3px;
-            top: 2.5px;
-            width: 15px;
-            height: 15px;
-            background-color: white;
-            border-radius: 50%;
-            transition: left 0.2s;
-        }
-        &.left {
-            .outer {
-                left: 0;
-                right: auto;
-            }
-        }
-        &.grey-out {
-            opacity: 0.3;
-        }
-        .field-validation-error {
-            border-top: 2px solid #9d9d9e;
-        }
-    }
-
     .react-datepicker-wrapper {
         float: left;
         width: 100%;
@@ -841,8 +774,116 @@ input {
             border: 1px solid #e1e1e1;
         }
     }
+    .checkbox {
+        margin-bottom: 25px;
+    }
 }
 
+.checkbox {
+    float: left;
+    cursor: pointer;
+    width: 35px;
+
+    input {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        margin: 0;
+        z-index: 1;
+        border: none;
+        padding: 0;
+        &:checked {
+            + label,
+            + input + label {
+                .outer {
+                    background-color: $green;
+                }
+
+                .inner {
+                    left: calc(100% - 18px);
+                }
+            }
+        }
+    }
+    label {
+        float: left;
+        width: 100%;
+        font-size: 140%;
+        @include ubuntu;
+    }
+
+    .outer {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        transform: translateY(-50%);
+        width: 100%;
+        height: 20px;
+        border-radius: 20px;
+        background-color: $button-grey;
+        transition: background-color 0.2s;
+    }
+
+    .text {
+        width: 100%;
+        padding-left: 40px;
+        padding-right: 10px;
+    }
+
+    .inner {
+        position: absolute;
+        left: 3px;
+        top: 2.25px;
+        width: 15px;
+        height: 15px;
+        background-color: white;
+        border-radius: 50%;
+        transition: left 0.2s;
+    }
+
+    &.left {
+        .outer {
+            left: 0;
+            right: auto;
+        }
+    }
+    &.grey-out {
+        opacity: 0.3;
+    }
+    &.small-text {
+        width: 45px;
+
+        label {
+            float: left;
+            width: 100%;
+        }
+        .text {
+            float: left;
+            width: 100%;
+            font-size: 12px;
+            line-height: 0.75;
+            margin-bottom: 5px;
+            padding: {
+                left: 0;
+                right: 0;
+            }
+        }
+        .outer {
+            float: left;
+            width: 35px;
+            margin-left: 3px;
+            position: relative;
+            top: 0;
+            transform: none;
+        }
+    }
+    .field-validation-error {
+        border-top: 2px solid #9d9d9e;
+    }
+}
 //pin sections
 .pin-details-section {
     margin: 10px 0 15px;
@@ -1882,6 +1923,37 @@ input {
     &.green {
         background-color: $green;
     }
+}
+
+//subscriptions page
+.subscriptions-list {
+    .subscription-item {
+        border: 1px solid $light-grey;
+        padding: 10px 25px;
+
+        .field-name {
+            line-height: 34px;
+            label {
+                @include ubuntu-medium;
+                font-size: 140%;
+            }
+
+            .status-icon {
+                top: 4px;
+                margin-right: 15px;
+                margin-left: 10px;
+            }
+        }
+
+        .checkbox {
+            float: right;
+        }
+    }
+}
+
+.ignore-padding {
+    width: calc(100% + 30px);
+    margin-left: -15px;
 }
 
 //datepicker
