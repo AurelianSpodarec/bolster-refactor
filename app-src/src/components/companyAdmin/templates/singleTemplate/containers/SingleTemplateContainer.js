@@ -9,31 +9,26 @@ class SingleTemplateContainer extends Component {
     render = () => {
         if (!this.props.isFetching) {
             const latestVersion = this.getLatestVersion();
-            const latestVersionSections = this.getVersionSections(
-                latestVersion
-            );
-            const sectionQuestions = this.getSectionQuestions(
-                latestVersionSections
-            );
+            const versionSections = this.getVersionSections(latestVersion);
+            const sectionQuestions = this.getSectionQuestions(versionSections);
             const headers = [
                 'Question Name',
                 'Hidden?',
                 'Required?',
                 'Prefilled?',
                 'Type',
-                'Group Key',
-                'Char limit'
+                'Group Key'
             ];
-
             return (
                 <SingleTemplate
                     headers={headers}
-                    version={latestVersion}
-                    sections={latestVersionSections}
+                    sections={versionSections}
                     questions={sectionQuestions}
                 />
             );
-        } else return <Loading />;
+        } else {
+            return <Loading />;
+        }
     };
 
     componentDidMount = () => {
@@ -42,11 +37,9 @@ class SingleTemplateContainer extends Component {
 
     getLatestVersion = () => {
         const { versions, id } = this.props;
-        const filteredVersionIDs = versions
+        const latestVersion = [...versions]
             .filter(({ templateID }) => +templateID === +id)
-            .map(({ id }) => id);
-        const latestVersionID = Math.max(...filteredVersionIDs);
-        const latestVersion = versions.find(({ id }) => id === latestVersionID);
+            .sort((a, b) => a.id - b.id)[0];
         return latestVersion;
     };
 
