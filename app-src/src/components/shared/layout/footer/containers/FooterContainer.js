@@ -5,12 +5,18 @@ import Footer from '../presentational/Footer';
 
 class FooterContainer extends Component {
     render() {
-        // const { company } = this.props;
-        // company={company}
-        return <Footer />;
+        const { companySettings } = this.props;
+
+        return <Footer company={companySettings} />;
     }
 }
 
-export default connect(state => ({
-    // company: state.companyAdmin.companiesReducer.company
-}))(FooterContainer);
+const mapStateToProps = ({
+    companyAdmin: {
+        companySettingsReducer: { companySettings }
+    }
+}) => ({
+    companySettings
+});
+
+export default connect(mapStateToProps)(FooterContainer);

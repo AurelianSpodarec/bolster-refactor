@@ -59,7 +59,7 @@ class CreateOperativeFormContainer extends Component {
         const { postSuccess, history } = this.props;
 
         if (postSuccess && !prevProps.postSuccess) {
-            history.push('/users-management/operatives');
+            history.push('/company/users-management/operatives');
         }
     };
 }
