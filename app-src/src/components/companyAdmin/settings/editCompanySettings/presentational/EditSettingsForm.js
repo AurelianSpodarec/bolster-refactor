@@ -7,12 +7,8 @@ import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/pr
 import Field from 'components/shared/generic/form/presentational/Field';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import FileUploadContainer from 'components/shared/generic/form/containers/FileUploadContainer';
-import SwitchContainer from 'components/shared/generic/form/containers/SwitchContainer';
 import Checkbox from 'components/shared/generic/form/presentational/Checkbox';
-import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
-import Dropdown from 'components/shared/generic/form/presentational/Dropdown';
 import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 
 const EditSettingsForm = ({
     handleInputChange,
@@ -41,7 +37,7 @@ const EditSettingsForm = ({
 }) => (
     <>
         <Form className="content-area size-lg-12" onSubmit={handleSubmit}>
-            {/* <h1>Company Details</h1> */}
+            {/* <p>##Company Details##</p> */}
             <Field name="Company Name" sizeClasses="size-lg-6">
                 <TextInputContainer
                     value={name}
@@ -122,7 +118,7 @@ const EditSettingsForm = ({
                 />
             </Field>
             <div>
-                {/* <h1>Visual Settings</h1> */}
+                {/* <p>##Display Settings##</p> */}
                 <Field name="Change Company Logo (optional)">
                     <FileUploadContainer
                         name="logoFile"
@@ -148,7 +144,7 @@ const EditSettingsForm = ({
                 </Field>
             </div>
             <div>
-                {/* <h1>Label Settings</h1> */}
+                {/* <p>##Label Settings##</p> */}
                 <Field name="Label Company Name" sizeClasses="size-lg-6">
                     <TextInputContainer
                         value={labelCompanyName}
@@ -171,7 +167,7 @@ const EditSettingsForm = ({
                 </Field>
             </div>
             <div>
-                {/* <h1>Default Template Settings</h1> */}
+                {/* <p>##Template Settings##</p> */}
                 <Field
                     name="Default Template Usage Rule"
                     sizeClasses="size-lg-12"
@@ -187,7 +183,7 @@ const EditSettingsForm = ({
                 </Field>
             </div>
             <div>
-                {/* <h1>Bolster Settings</h1> */}
+                {/* <p>##Bolster Client List##</p> */}
                 <Field name="Hide On Client List" sizeClasses="size-lg-6">
                     <Checkbox
                         checked={hideOnClientList}

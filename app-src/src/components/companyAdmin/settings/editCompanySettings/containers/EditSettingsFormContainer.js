@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+
+import editCompanySettings from 'actions/companyAdmin/companySettings/async/editCompanySettings';
 
 import EditSettingsForm from '../presentational/EditSettingsForm';
 
@@ -24,7 +27,8 @@ class EditSettingsFormContainer extends Component {
         labelTelNumber: null,
         labelCompanyName: null,
         hideOnClientList: false,
-        defaultTemplateUsageRule: 0
+        defaultTemplateUsageRule: 0,
+        initialFile: ''
     };
 
     render() {
@@ -53,21 +57,32 @@ class EditSettingsFormContainer extends Component {
     }
 
     componentDidMount = () => {
-        // eslint-disable-next-line no-unused-vars
         const {
-            createdOn,
-            cultureInfoID,
-            id,
-            timeZoneID,
-            type,
-            vatCode,
-            vatType,
-            ...restCompanySettings
+            companySettings: {
+                createdOn,
+                cultureInfoID,
+                id,
+                timeZoneID,
+                type,
+                vatCode,
+                vatType,
+                logoFile,
+                ...restSettings
+            }
         } = this.props;
         this.setState({
-            ...restCompanySettings,
-            colourCode: restCompanySettings.colourCode || '#fff'
+            ...restSettings,
+            colourCode: restSettings.colourCode || '#fff',
+            initialFile: logoFile,
+            logoFile
         });
+    };
+
+    componentDidUpdate = prevProps => {
+        const { postSuccess, history } = this.props;
+        if (postSuccess && !prevProps.postSuccess) {
+            history.push('/company/settings');
+        }
     };
 
     handleInputChange = e => {
@@ -83,7 +98,13 @@ class EditSettingsFormContainer extends Component {
     };
 
     handleFileChange = (name, file) => {
-        this.setState({ [name]: file });
+        this.setState(prevState => {
+            if (prevState.logoFile === file) {
+                return { [name]: prevState.initialFile };
+            } else {
+                return { [name]: file };
+            }
+        });
     };
 
     handleCheckboxChange = e => {
@@ -95,16 +116,29 @@ class EditSettingsFormContainer extends Component {
 
     handleSubmit = e => {
         e.preventDefault();
-        const { filesUploading } = this.props;
+        const { filesUploading, editCompanySettings } = this.props;
         if (!filesUploading) {
-            //do something
+            // eslint-disable-next-line no-unused-vars
+            const { templateUsageRuleOptions, ...postBody } = this.state;
+            editCompanySettings(postBody);
         }
     };
 }
 
+const mapDispatchToProps = dispatch => ({
+    editCompanySettings: postBody => {
+        dispatch(editCompanySettings(postBody));
+    }
+});
+
 const mapStateToProps = ({
     companyAdmin: {
-        companySettingsReducer: { isFetching, error, companySettings }
+        companySettingsReducer: {
+            isFetching,
+            error,
+            companySettings,
+            postSuccess
+        }
     },
     shared: {
         filesUploadingReducer: { filesUploading }
@@ -113,7 +147,13 @@ const mapStateToProps = ({
     isFetching,
     error,
     companySettings,
-    filesUploading
+    filesUploading,
+    postSuccess
 });
 
-export default connect(mapStateToProps)(EditSettingsFormContainer);
+export default withRouter(
+    connect(
+        mapStateToProps,
+        mapDispatchToProps
+    )(EditSettingsFormContainer)
+);
