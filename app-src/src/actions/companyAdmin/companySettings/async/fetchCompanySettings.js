@@ -1,31 +1,32 @@
 import axios from 'axios';
 
 import {
-    FETCH_SINGLE_COMPANY_REQUEST,
-    FETCH_SINGLE_COMPANY_SUCCESS,
-    FETCH_SINGLE_COMPANY_FAILURE
-} from 'constants/actionTypes/companiesWithPermissions';
+    FETCH_COMPANY_SETTINGS_REQUEST,
+    FETCH_COMPANY_SETTINGS_SUCCESS,
+    FETCH_COMPANY_SETTINGS_FAILURE
+} from 'constants/actionTypes/companySettings';
+import { API_URL } from 'config';
 import { getHeaders } from 'helpers/api';
 
-export const fetchSingleCompanyRequest = () => ({
-    type: FETCH_SINGLE_COMPANY_REQUEST
+export const fetchCompanySettingsRequest = () => ({
+    type: FETCH_COMPANY_SETTINGS_REQUEST
 });
 
-export const fetchSingleCompanySuccess = payload => ({
-    type: FETCH_SINGLE_COMPANY_SUCCESS,
+export const fetchCompanySettingsSuccess = payload => ({
+    type: FETCH_COMPANY_SETTINGS_SUCCESS,
     payload
 });
 
-export const fetchSingleCompanyFailure = error => ({
-    type: FETCH_SINGLE_COMPANY_FAILURE,
+export const fetchCompanySettingsFailure = error => ({
+    type: FETCH_COMPANY_SETTINGS_FAILURE,
     error
 });
 
 export default () => dispatch => {
-    dispatch(fetchSingleCompanyRequest());
+    dispatch(fetchCompanySettingsRequest());
 
     axios
-        .get('/mockData/company/company.json', getHeaders())
-        .then(res => dispatch(fetchSingleCompanySuccess(res.data)))
-        .catch(err => dispatch(fetchSingleCompanyFailure(err.message)));
+        .get(`${API_URL}/settings`, getHeaders())
+        .then(res => dispatch(fetchCompanySettingsSuccess(res.data)))
+        .catch(err => dispatch(fetchCompanySettingsFailure(err.message)));
 };
