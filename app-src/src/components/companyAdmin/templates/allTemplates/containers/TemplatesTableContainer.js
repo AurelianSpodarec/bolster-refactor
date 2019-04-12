@@ -5,9 +5,10 @@ import Loading from 'components/shared/generic/misc/presentational/Loading';
 
 const TemplatesTableContainer = ({ templates, isFetching, error, services }) =>
     isFetching ? (
+        <Loading />
+    ) : (
         <TemplatesTable
             headers={['Name', 'Service', '']}
-            // adds name of service to template object
             templates={templates.map(({ serviceID, ...template }) => ({
                 ...template,
                 serviceName: services[serviceID].name
@@ -15,8 +16,6 @@ const TemplatesTableContainer = ({ templates, isFetching, error, services }) =>
             isFetching={isFetching}
             error={error}
         />
-    ) : (
-        <Loading />
     );
 
 const mapStateToProps = ({
