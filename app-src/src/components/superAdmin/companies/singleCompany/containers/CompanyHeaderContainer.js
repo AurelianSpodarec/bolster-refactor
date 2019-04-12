@@ -34,7 +34,7 @@ class CompanyHeaderContainer extends Component {
 
 const mapStateToProps = (
     {
-        companyAdmin: {
+        superAdmin: {
             companiesReducer: { companies }
         }
     },
