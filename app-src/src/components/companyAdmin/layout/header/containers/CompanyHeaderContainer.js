@@ -6,14 +6,14 @@ import { MESSAGE_TYPES } from 'constants/companyAdmin/enums';
 
 const CompanyHeaderContainer = ({
     profile,
-    company,
+    companySettings,
     unreadMessageCount,
     totalCedits
 }) => {
     return (
         <CompanyHeader
             profile={profile}
-            company={company}
+            company={companySettings}
             unreadMessageCount={unreadMessageCount}
             totalCedits={totalCedits}
         />
@@ -22,7 +22,7 @@ const CompanyHeaderContainer = ({
 
 const mapStateToProps = ({
     companyAdmin: {
-        // companiesReducer: { company },
+        companySettingsReducer: { companySettings },
         messagesReducer: { messages },
         creditLogsReducer: { creditLogs }
     },
@@ -40,7 +40,7 @@ const mapStateToProps = ({
 
     return {
         profile: profile,
-        // company,
+        companySettings,
         unreadMessageCount,
         totalCedits
     };
