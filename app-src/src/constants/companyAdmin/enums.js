@@ -19,9 +19,9 @@ export const HIERARCHY_IDS = {
 };
 
 export const TEMPLATE_USAGE_RULES = {
-    useOnlyOwnerCompany: 1,
-    useOnlyOwn: 2,
-    useAny: 3
+    1: 'Use Only Owner Company',
+    2: 'Use Only Own',
+    3: 'Use Any'
 };
 
 export const DOCUMENT_TYPE = {

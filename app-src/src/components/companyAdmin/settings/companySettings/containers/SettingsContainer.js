@@ -8,6 +8,10 @@ class SettingsContainer extends Component {
     render() {
         return <Settings />;
     }
+
+    componentDidMount = () => {
+        this.props.fetchCompanySettings();
+    };
 }
 
 const mapDispatchToProps = dispatch => ({
