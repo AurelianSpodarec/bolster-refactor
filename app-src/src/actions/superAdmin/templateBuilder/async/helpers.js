@@ -1,4 +1,4 @@
-import { QUESTION_TYPE_VALUES as VALS } from 'constants/superAdmin/templateBuilder';
+import { QUESTION_TYPE_VALUES as VALS } from 'constants/shared/templateBuilder';
 
 function formatQuestion({ questionType, dynamicFields, ...otherFields }) {
     return {

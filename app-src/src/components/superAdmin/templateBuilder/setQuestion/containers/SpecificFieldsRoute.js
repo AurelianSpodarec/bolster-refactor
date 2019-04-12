@@ -1,5 +1,5 @@
 import React from 'react';
-import { QUESTION_TYPE_VALUES } from 'constants/superAdmin/templateBuilder';
+import { QUESTION_TYPE_VALUES } from 'constants/shared/templateBuilder';
 
 import TextInputForm from '../presentational/TextInputForm';
 import NumberInputForm from '../presentational/NumberInputForm';

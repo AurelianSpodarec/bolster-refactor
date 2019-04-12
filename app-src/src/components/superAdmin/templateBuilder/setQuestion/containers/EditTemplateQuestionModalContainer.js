@@ -3,7 +3,7 @@ import uuid from 'uuid/v1';
 
 import withSetQuestion from '../hocs/withSetQuestion';
 import { convertArrToObj } from 'helpers/generic';
-import { PREREQ_TYPES } from 'constants/superAdmin/templateBuilder';
+import { PREREQ_TYPES } from 'constants/shared/templateBuilder';
 import TemplateQuestionFormModal from '../presentational/TemplateQuestionFormModal';
 
 class TemplateQuestionModalContainer extends Component {

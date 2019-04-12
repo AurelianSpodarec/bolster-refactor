@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { QUESTION_TYPES } from 'constants/superAdmin/templateBuilder';
+import { QUESTION_TYPES } from 'constants/shared/templateBuilder';
 import TooltipContainer from 'components/shared/generic/tooltip/containers/TooltipContainer';
 
 const style = {};
