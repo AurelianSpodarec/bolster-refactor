@@ -1,15 +1,16 @@
 import React from 'react';
 import TemplateSectionQuestionContainer from '../containers/TemplateSectionQuestionContainer';
 
-const TemplateSection = ({ questions }) =>
-    questions.length ? (
-        questions.map(({ id, ...question }) => (
-            <TemplateSectionQuestionContainer question={question} key={id} />
-        ))
+const TemplateSection = ({ questions = [] }) =>
+    !questions.length ? (
+        <tr>No questions for this section.</tr>
     ) : (
-        <tr>
-            <td>No questions for this section.</td>
-        </tr>
+        questions.map(question => (
+            <TemplateSectionQuestionContainer
+                question={question}
+                key={question.id}
+            />
+        ))
     );
 
 export default TemplateSection;
