@@ -66,9 +66,8 @@ class DrawingMapGeneralContainer extends Component {
                             />
                         </BlockContainer>
                     </div>
-                    <div className="flex-item size-lg-4">
-                        <DrawingInspectionLogContainer />
-                    </div>
+
+                    <DrawingInspectionLogContainer />
                 </div>
                 <BlockContainer error={error}>
                     <DrawingMapViewSimple

@@ -28,8 +28,63 @@ const DrawingMapFiltersAdvanced = ({
     pins
 }) => (
     <div className="map-filters size-lg-12">
-        <div className="size-lg-9">
-            <BlockHeading title="Pin Filters" />
+        <div className="size-lg-12">
+            <BlockHeading title="Pin Filters">
+                <div className="pin-amounts">
+                    <div className="pin">
+                        <img alt="red pin" src={RedPin} />
+                        <p>
+                            {
+                                pins.filter(
+                                    pin =>
+                                        pin.latestStatus ===
+                                        STATUS.ACTION_REQUIRED
+                                ).length
+                            }
+                        </p>
+                    </div>
+                    <div className="pin">
+                        <img alt="green pin" src={GreenPin} />
+                        <p>
+                            {
+                                pins.filter(
+                                    pin => pin.latestStatus === STATUS.INSTALLED
+                                ).length
+                            }
+                        </p>
+                    </div>
+                    <div className="pin">
+                        <img alt="blue pin" src={BluePin} />
+                        <p>
+                            {
+                                pins.filter(
+                                    pin => pin.latestStatus === STATUS.INSPECTED
+                                ).length
+                            }
+                        </p>
+                    </div>
+                    <div className="pin">
+                        <img alt="yellow pin" src={YellowPin} />
+                        <p>
+                            {
+                                pins.filter(
+                                    pin => pin.latestStatus === STATUS.NO_ACTION
+                                ).length
+                            }
+                        </p>
+                    </div>
+                    <div className="pin">
+                        <img alt="purple pin" src={PurplePin} />
+                        <p>
+                            {
+                                pins.filter(
+                                    pin => pin.latestStatus === STATUS.OTHER
+                                ).length
+                            }
+                        </p>
+                    </div>
+                </div>
+            </BlockHeading>
             <Form className="generic-form">
                 <Field name="Service type" sizeClasses="size-lg-6">
                     <DropdownContainer
@@ -83,58 +138,6 @@ const DrawingMapFiltersAdvanced = ({
                     />
                 </Field>
             </Form>
-        </div>
-
-        <div className="pin-amounts size-lg-3">
-            <div className="pin size-lg-6">
-                <img alt="red pin" src={RedPin} />
-                <p>
-                    {
-                        pins.filter(
-                            pin => pin.latestStatus === STATUS.ACTION_REQUIRED
-                        ).length
-                    }
-                </p>
-            </div>
-            <div className="pin size-lg-6">
-                <img alt="green pin" src={GreenPin} />
-                <p>
-                    {
-                        pins.filter(
-                            pin => pin.latestStatus === STATUS.INSTALLED
-                        ).length
-                    }
-                </p>
-            </div>
-            <div className="pin size-lg-6">
-                <img alt="blue pin" src={BluePin} />
-                <p>
-                    {
-                        pins.filter(
-                            pin => pin.latestStatus === STATUS.INSPECTED
-                        ).length
-                    }
-                </p>
-            </div>
-            <div className="pin size-lg-6">
-                <img alt="yellow pin" src={YellowPin} />
-                <p>
-                    {
-                        pins.filter(
-                            pin => pin.latestStatus === STATUS.NO_ACTION
-                        ).length
-                    }
-                </p>
-            </div>
-            <div className="pin size-lg-6">
-                <img alt="purple pin" src={PurplePin} />
-                <p>
-                    {
-                        pins.filter(pin => pin.latestStatus === STATUS.OTHER)
-                            .length
-                    }
-                </p>
-            </div>
         </div>
     </div>
 );
