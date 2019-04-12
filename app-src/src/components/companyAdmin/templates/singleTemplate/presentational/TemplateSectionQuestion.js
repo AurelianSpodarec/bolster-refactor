@@ -1,4 +1,5 @@
 import React from 'react';
+import { QUESTION_TYPES } from 'constants/shared/templateBuilder';
 
 const TemplateSectionQuestion = ({ question }) => {
     return (
@@ -7,7 +8,7 @@ const TemplateSectionQuestion = ({ question }) => {
             <td>{question.isHidden ? 'Hidden' : 'Not hidden'}</td>
             <td>{question.isRequired ? 'Required' : 'Not required'}</td>
             <td>{question.isPrefill ? 'Prefilled' : 'Not prefilled'}</td>
-            <td>{question.type}</td>
+            <td>{QUESTION_TYPES[question.type]}</td>
             <td>{question.groupKey}</td>
             <td>{''}</td>
         </tr>
