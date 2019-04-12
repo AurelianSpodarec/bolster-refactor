@@ -4,6 +4,7 @@ import BlockHeading from 'components/shared/generic/blockHeading/presentational/
 import Table from 'components/shared/generic/tables/presentational/Table';
 import TemplateSection from './TemplateSection';
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
+import { formatQuestions } from 'helpers/templates';
 
 const SingleTemplate = ({ sections, questions, headers }) => (
     <>
@@ -14,7 +15,7 @@ const SingleTemplate = ({ sections, questions, headers }) => (
                 <Table headers={headers}>
                     <TemplateSection
                         section={section}
-                        questions={questions[id]}
+                        questions={formatQuestions(questions[id])}
                     />
                 </Table>
             </Block>
