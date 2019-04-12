@@ -15,7 +15,7 @@ export function formatQuestions(questions) {
 export const getLatestVersion = (id, versions) =>
     [...versions]
         .filter(({ templateID }) => +templateID === +id)
-        .sort((a, b) => a.id - b.id)[0];
+        .sort((a, b) => b.id - a.id)[0];
 
 export const getVersionSections = (version, sections) =>
     sections
