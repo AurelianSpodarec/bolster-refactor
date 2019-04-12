@@ -1,21 +1,23 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+import { FILE_STORAGE_URL } from 'config';
+
 import SearchContainer from '../containers/SearchContainer';
 import HeaderProfileContainer from '../containers/HeaderProfileContainer';
 import HeaderNotificationsContainer from '../containers/HeaderNotificationsContainer';
 
 const Header = ({ company, unreadMessageCount, totalCedits }) => (
-    <header
-        id="page-header"
-        // style={{ borderColor: company.colorSchemeBackground }}
-    >
+    <header id="page-header" style={{ borderColor: company.colorCode }}>
         <div className="container">
             {/*** company logo ***/}
             <div className="logo">
                 <Link to="/company">
                     ##Home company logo##
-                    {/* <img alt={`logo of ${company.name}`} src={company.logo} /> */}
+                    <img
+                        alt={`logo of ${company.name}`}
+                        src={`${FILE_STORAGE_URL}/${company.logoFile}`}
+                    />
                 </Link>
             </div>
 
