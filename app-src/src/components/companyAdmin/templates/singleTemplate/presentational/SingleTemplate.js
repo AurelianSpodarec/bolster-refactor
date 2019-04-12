@@ -13,7 +13,7 @@ const SingleTemplate = ({ sections, questions, headers }) => (
         <div className="size-lg-8">
             {sections.map(({ id, name, ...section }) => (
                 <Block key={id}>
-                    <BlockHeading title={name} />
+                    <BlockHeading title={`Section: ${name}`} />
                     <Table headers={headers}>
                         <TemplateSection
                             section={section}

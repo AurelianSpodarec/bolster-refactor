@@ -25,12 +25,17 @@ import {
     RENAME_TEMPLATE_SECTION,
     SUCCESS_MODAL,
     ADD_SERVICE_TO_SUBSCRIPTION,
-    PAY_INVOICE
+    PAY_INVOICE,
+    COMPANY_EDIT_TEMPLATE_QUESTION
 } from 'constants/shared/modalTypes';
 
+import AddCardModalContainer from 'components/companyAdmin/subscription/cardManagement/addCardModal/containers/AddCardModalContainer';
+import AddServiceToSubscriptionModalContainer from 'components/companyAdmin/subscription/AddServiceToSubscriptionModal/containers/AddServiceToSubscriptionModalContainer';
 import AddTemplateModalContainer from 'components/superAdmin/templateBuilder/setTemplate/containers/AddTemplateModalContainer';
 import AddTemplateSectionModalContainer from 'components/superAdmin/templateBuilder/setSection/containers/AddTemplateSectionModalContainer';
 import AddTemplateQuestionModalContainer from 'components/superAdmin/templateBuilder/setQuestion/containers/AddTemplateQuestionModalContainer';
+import BuyCreditsModalContainer from 'components/companyAdmin/subscription/buyCreditsModal/containers/BuyCreditsModalContainer';
+import CompanyEditTemplateQuestionModalContainer from 'components/companyAdmin/templates/singleTemplate/editTemplateQuestionModal/containers/EditTemplateQuestionModalContainer.js';
 import DeleteEnquiryModalContainer from './DeleteEnquiryModalContainer';
 import DeleteDocumentModalContainer from './DeleteDocumentModalContainer';
 import DeleteOperativeModalContainer from './DeleteOperativeModalContainer';
@@ -43,15 +48,12 @@ import EditTemplateQuestionModalContainer from 'components/superAdmin/templateBu
 import EditUserPasswordModalContainer from './EditUserPasswordModalContainer';
 import EditUserModalContainer from './EditUserModalContainer';
 import ErrorModal from '../presentational/ErrorModal';
+import PayInvoiceModalContainer from 'components/companyAdmin/invoices/shared/payInvoiceModal/containers/PayInvoiceModalContainer';
+import PaymentErrorModalContainer from './PaymentErrorModalContainer';
+import PaymentSuccessModal from '../presentational/PaymentSuccessModal';
 import PinPhotoModal from '../presentational/PinPhotoModal';
 import RenameTemplateSectionModalContainer from 'components/superAdmin/templateBuilder/setSection/containers/EditTemplateSectionModalContainer';
 import SuccessModalContainer from './SuccessModalContainer';
-import AddCardModalContainer from 'components/companyAdmin/subscription/cardManagement/addCardModal/containers/AddCardModalContainer';
-import BuyCreditsModalContainer from 'components/companyAdmin/subscription/buyCreditsModal/containers/BuyCreditsModalContainer';
-import PaymentErrorModalContainer from './PaymentErrorModalContainer';
-import PaymentSuccessModal from '../presentational/PaymentSuccessModal';
-import AddServiceToSubscriptionModalContainer from 'components/companyAdmin/subscription/AddServiceToSubscriptionModal/containers/AddServiceToSubscriptionModalContainer';
-import PayInvoiceModalContainer from 'components/companyAdmin/invoices/shared/payInvoiceModal/containers/PayInvoiceModalContainer';
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModalContainer,
@@ -61,6 +63,7 @@ const MODAL_COMPONENTS = {
     [ADD_TEMPLATE_SECTION]: AddTemplateSectionModalContainer,
     [ADMIN_EDIT_SERVICE]: EditServiceModalContainer,
     [BUY_CREDITS]: BuyCreditsModalContainer,
+    [COMPANY_EDIT_TEMPLATE_QUESTION]: CompanyEditTemplateQuestionModalContainer,
     [DELETE_CLIENT_FROM_DRAWING]: DeleteClientModalContainer,
     [DELETE_COMPANY_PERMISSIONS]: DeleteCompanyPermissionsModalContainer,
     [DELETE_COMPANY_USER]: DeleteCompanyUserModalContainer,

@@ -3,7 +3,9 @@ import TemplateSectionQuestionContainer from '../containers/TemplateSectionQuest
 
 const TemplateSection = ({ questions = [] }) =>
     !questions.length ? (
-        <tr>No questions for this section.</tr>
+        <tr>
+            <td>No questions for this section.</td>
+        </tr>
     ) : (
         questions.map(question => (
             <TemplateSectionQuestionContainer

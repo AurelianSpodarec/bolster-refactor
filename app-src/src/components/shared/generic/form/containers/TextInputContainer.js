@@ -6,7 +6,7 @@ import removeFieldError from 'actions/shared/generic/fieldErrors/sync/removeFiel
 
 import TextInput from '../presentational/TextInput';
 
-class TextInputContianer extends Component {
+class TextInputContainer extends Component {
     state = {
         showFieldError: false
     };
@@ -111,4 +111,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(TextInputContianer);
+)(TextInputContainer);

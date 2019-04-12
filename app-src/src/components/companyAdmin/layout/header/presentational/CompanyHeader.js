@@ -2,23 +2,32 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import { FILE_STORAGE_URL } from 'config';
+import defaultStyles from 'constants/defaultStyles';
 
 import SearchContainer from '../containers/SearchContainer';
 import HeaderProfileContainer from '../containers/HeaderProfileContainer';
 import HeaderNotificationsContainer from '../containers/HeaderNotificationsContainer';
 
 const Header = ({ company, unreadMessageCount, totalCedits }) => (
-    <header id="page-header" style={{ borderColor: company.colorCode }}>
+    <header
+        id="page-header"
+        style={{ borderColor: company.colourCode || defaultStyles.colourCode }}
+    >
         <div className="container">
             {/*** company logo ***/}
             <div className="logo">
-                <Link to="/company">
-                    ##Home company logo##
-                    <img
-                        alt={`logo of ${company.name}`}
-                        src={`${FILE_STORAGE_URL}/${company.logoFile}`}
-                    />
-                </Link>
+                {!!company.id && (
+                    <Link to="/company">
+                        <img
+                            alt={`logo of ${company.name}`}
+                            src={
+                                company.logoFile
+                                    ? `${FILE_STORAGE_URL}/${company.logoFile}`
+                                    : defaultStyles.logoFile
+                            }
+                        />
+                    </Link>
+                )}
             </div>
 
             {/*** search box ***/}
@@ -46,7 +55,6 @@ const Header = ({ company, unreadMessageCount, totalCedits }) => (
                 {/*** profile ***/}
                 <HeaderProfileContainer />
             </div>
-
             <div className="clear" />
         </div>
     </header>
