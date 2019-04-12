@@ -25,7 +25,6 @@ class SingleTemplateContainer extends Component {
                 'Group Key',
                 'Char limit'
             ];
-
             return (
                 <SingleTemplate
                     headers={headers}
@@ -56,9 +55,9 @@ class SingleTemplateContainer extends Component {
     };
 
     getVersionSections = version =>
-        this.props.sections.filter(
-            ({ templateVersionID }) => templateVersionID === version.id
-        );
+        this.props.sections
+            .filter(({ templateVersionID }) => templateVersionID === version.id)
+            .sort((a, b) => a.sort - b.sort);
 
     getSectionQuestions = sections => {
         const { questions } = this.props;
@@ -66,9 +65,9 @@ class SingleTemplateContainer extends Component {
         const sectionQuestions = sectionIDs.reduce(
             (acc, id) => ({
                 ...acc,
-                [id]: questions.filter(
-                    ({ templateSectionID }) => templateSectionID === id
-                )
+                [id]: questions
+                    .filter(({ templateSectionID }) => templateSectionID === id)
+                    .sort((a, b) => a.sort - b.sort)
             }),
             {}
         );

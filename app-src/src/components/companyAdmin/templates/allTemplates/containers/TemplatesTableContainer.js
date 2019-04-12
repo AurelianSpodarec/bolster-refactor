@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import TemplatesTable from '../presentational/TemplatesTable';
+import Loading from 'components/shared/generic/misc/presentational/Loading';
 
 const TemplatesTableContainer = ({
     templates,
@@ -8,19 +9,21 @@ const TemplatesTableContainer = ({
     error,
     services
 }) => {
-    const headers = ['Name', 'Service', ''];
-    const templateData = templates.map(template => ({
-        ...template,
-        serviceName: services[template.serviceID].name
-    }));
-    return (
-        <TemplatesTable
-            headers={headers}
-            templates={templateData}
-            isFetching={isFetching}
-            error={error}
-        />
-    );
+    if (!isFetching) {
+        const headers = ['Name', 'Service', ''];
+        const templateData = templates.map(template => ({
+            ...template,
+            serviceName: services[template.serviceID].name
+        }));
+        return (
+            <TemplatesTable
+                headers={headers}
+                templates={templateData}
+                isFetching={isFetching}
+                error={error}
+            />
+        );
+    } else return <Loading />;
 };
 
 const mapStateToProps = ({
