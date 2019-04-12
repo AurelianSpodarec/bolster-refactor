@@ -4,6 +4,7 @@ import buildingsReducer from './buildings';
 import cardsReducer from './cards';
 import clientsReducer from './clients';
 import companiesPermissionsReducer from './companiesPermissions';
+import companySettingsReducer from './companySettings';
 import companyUsersReducer from '../companyAdmin/companyUsers';
 import creditsReducer from './credits';
 import creditLogsReducer from './creditLogs';
@@ -33,6 +34,7 @@ export default combineReducers({
     cardsReducer,
     clientsReducer,
     companiesPermissionsReducer,
+    companySettingsReducer,
     companyUsersReducer,
     creditsReducer,
     creditLogsReducer,
