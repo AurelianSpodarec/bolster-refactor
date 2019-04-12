@@ -12,37 +12,30 @@ import {
 
 class SingleTemplateContainer extends Component {
     render = () => {
-        if (!this.props.isFetching) {
-            const { id, versions, sections, questions } = this.props;
+        const { isFetching, id, versions, sections, questions } = this.props;
+        if (isFetching) return <Loading />;
+        else {
             const version = getLatestVersion(id, versions);
-            const versionSections = getVersionSections(version, sections);
-            const sectionQuestions = getSectionQuestions(
-                versionSections,
-                questions
-            );
-            const headers = [
-                'Question Name',
-                'Type',
-                'Hidden?',
-                'Required?',
-                'Prefilled?',
-                ''
-            ];
+            const versSections = getVersionSections(version, sections);
+            const sectQuestions = getSectionQuestions(versSections, questions);
             return (
                 <SingleTemplate
-                    headers={headers}
-                    sections={versionSections}
-                    questions={sectionQuestions}
+                    headers={[
+                        'Question Name',
+                        'Type',
+                        'Hidden?',
+                        'Required?',
+                        'Prefilled?',
+                        ''
+                    ]}
+                    sections={versSections}
+                    questions={sectQuestions}
                 />
             );
-        } else {
-            return <Loading />;
         }
     };
 
-    componentDidMount = () => {
-        this.props.fetchAllTemplates();
-    };
+    componentDidMount = () => this.props.fetchAllTemplates();
 }
 
 const mapStateToProps = (
