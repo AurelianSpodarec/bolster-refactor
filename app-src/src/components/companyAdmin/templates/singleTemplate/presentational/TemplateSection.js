@@ -3,8 +3,11 @@ import TemplateSectionQuestionContainer from '../containers/TemplateSectionQuest
 
 const TemplateSection = ({ questions }) =>
     questions.length ? (
-        questions.map(({ id, ...question }) => (
-            <TemplateSectionQuestionContainer question={question} key={id} />
+        questions.map(question => (
+            <TemplateSectionQuestionContainer
+                question={question}
+                key={question.id}
+            />
         ))
     ) : (
         <tr>

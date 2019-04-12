@@ -1,12 +1,27 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+
 import TemplateSectionQuestion from '../presentational/TemplateSectionQuestion';
+import selectQuestion from 'actions/companyAdmin/templates/sync/selectQuestion';
 
-export default class TemplateSectionQuestionContainer extends Component {
+class TemplateSectionQuestionContainer extends Component {
     render = () => {
-        const { question } = this.props;
-        // ? what to do with config?
-        // const { configuration = {} } = question;
+        const { question, selectQuestion } = this.props;
 
-        return <TemplateSectionQuestion question={question} />;
+        return (
+            <TemplateSectionQuestion
+                question={question}
+                selectQuestion={selectQuestion}
+            />
+        );
     };
 }
+
+const mapDispatchToProps = dispatch => ({
+    selectQuestion: id => dispatch(selectQuestion(id))
+});
+
+export default connect(
+    null,
+    mapDispatchToProps
+)(TemplateSectionQuestionContainer);
