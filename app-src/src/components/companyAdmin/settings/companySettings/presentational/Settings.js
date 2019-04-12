@@ -31,41 +31,57 @@ const Settings = ({ isFetching, error, companySettings: company }) => {
             >
                 {/* address  */}
                 <div>
-                    <h3>Company Name: {company.name}</h3>
+                    <h3 className="heading">Company Details</h3>
+                    <p>Company Name: {company.name}</p>
                     <p>Address Line 1: {company.addressLine1}</p>
                     <p>Address Line 2: {company.addressLine2}</p>
                     <p>Town: {company.town}</p>
                     <p>County: {company.county}</p>
                     <p>Postcode: {company.postcode}</p>
-                </div>{' '}
-                {/* company logo */}
+                    <p>Telephone: {company.telephone}</p>
+                    <p>Fax: {company.fax}</p>
+                    <p>
+                        Company Reg. Number: {company.companyRegistrationNumber}
+                    </p>
+                </div>
                 <div>
-                    <h3>Logo</h3>
+                    <h3 className="heading">Company Codes</h3>
+                    <p>Code: {company.code}</p>
+                    <p>Short Code: {company.shortCode}</p>
+                </div>
+                <div>
+                    <h3 className="heading">Display Settings</h3>
+                    <p>Company Logo:</p>
                     <img
                         alt={`company logo for ${company.name}`}
                         src={`${FILE_STORAGE_URL}/${company.logoFile}`}
                     />
-                </div>
-                {/* contact numbers */}
-                <div>
-                    <h3>Contact Numbers:</h3>
-                    <p>Telephone: {company.telephone}</p>
-                    <p>Fax: {company.fax}</p>
-                </div>
-                {/* company code */}
-                <div>
-                    <p>Company Code: {company.companyRegistrationNumber}</p>
-                </div>
-                {/* dark mode */}
-                <div>
-                    <h3>Colour Settings:</h3>
                     <p>Colour Code: {company.colourCode}</p>
                     <p>Dark Mode: {company.isBolsterLogoDark ? 'On' : 'Off'}</p>
                 </div>
                 <div>
+                    <h3 className="heading">Template Settings</h3>
                     <p>
                         Default Template Usage Rule:{' '}
                         {TEMPLATE_USAGE_RULES[company.defaultTemplateUsageRule]}
+                    </p>
+                </div>
+                <div>
+                    <h3 className="heading">Label Settings</h3>
+                    <p>
+                        Telephone Number:
+                        {company.labelTelNumber}
+                    </p>
+                    <p>
+                        Company Name:
+                        {company.labelCompanyName}
+                    </p>
+                </div>
+                <div>
+                    <h3 className="heading">Bolster Client List</h3>
+                    <p>
+                        Hidden on client list?{' '}
+                        {company.hideOnClientList ? 'Yes' : 'No'}
                     </p>
                 </div>
             </BlockContainer>
