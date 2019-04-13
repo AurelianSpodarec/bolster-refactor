@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 
 import { FETCH_PIN_TEMPLATES_SUCCESS } from 'constants/actionTypes/pins';
+import { FETCH_DRAWING_TEMPLATES_SUCCESS } from 'constants/actionTypes/drawings';
 import {
     FETCH_ALL_TEMPLATES_SUCCESS,
     SELECT_QUESTION
@@ -14,6 +15,7 @@ export default combineReducers({
 function questionsReducer(state = {}, action) {
     switch (action.type) {
         case FETCH_PIN_TEMPLATES_SUCCESS:
+        case FETCH_DRAWING_TEMPLATES_SUCCESS:
         case FETCH_ALL_TEMPLATES_SUCCESS:
             return { ...state, ...action.payload.questions };
         default:
