@@ -3,11 +3,28 @@ import { Link } from 'react-router-dom';
 
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import Form from 'components/shared/generic/form/containers/Form';
+import Field from 'components/shared/generic/form/presentational/Field';
+import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
 
-const AddPinForm = ({ location, handleSubmit }) => (
+const AddPinForm = ({
+    location,
+    handleChange,
+    handleSubmit,
+    templates,
+    selectedTemplate
+}) => (
     <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
         <div className="size-lg-12">
-            <div className="size-lg-6">Add pin</div>
+            <Field name="Select a template" sizeClasses="size-lg-6">
+                <DropdownContainer
+                    placeholder="-- select --"
+                    name="templateID"
+                    options={templates}
+                    selectedOption={selectedTemplate}
+                    handleChange={handleChange}
+                    required
+                />
+            </Field>
         </div>
 
         <BlockButtonWrapper>
