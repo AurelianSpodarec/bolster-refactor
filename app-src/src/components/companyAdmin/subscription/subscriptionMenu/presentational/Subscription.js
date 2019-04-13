@@ -13,22 +13,19 @@ const Subscription = () => (
         <PageHeading title="My Subscription">
             <Breadcrumb breadcrumbs={[{ text: 'My Subscription' }]} />
         </PageHeading>
-        <div className="flex-container size-lg-12">
-            <div className="size-lg-8">
-                <SubscriptionStatusContainer />
-                <ActiveServicesContainer />
-            </div>
-            <div className="flex-item size-lg-4">
-                <SubscriptionAutoRenewalContainer />
-            </div>
+
+        <div className="size-lg-8">
+            <SubscriptionStatusContainer />
+            <ActiveServicesContainer />
+        </div>
+        <div className="size-lg-4">
+            <SubscriptionAutoRenewalContainer />
+            <SubscriptionCreditsContainer />
         </div>
 
-        <div className="flex-item size-lg-8">
+        <div className="size-lg-8">
             <PendingInvoicesContainer />
             <CardManagement />
-        </div>
-        <div className="flex-item size-lg-4">
-            <SubscriptionCreditsContainer />
         </div>
     </>
 );

@@ -4,6 +4,7 @@ const TextInput = ({
     type,
     name,
     placeholder,
+    classes,
     value,
     handleChange,
     handleBlur,
@@ -11,7 +12,7 @@ const TextInput = ({
 }) => (
     <>
         <input
-            className="generic-input"
+            className={`generic-input ${classes}`}
             type={type}
             name={name}
             placeholder={placeholder}

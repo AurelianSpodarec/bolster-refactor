@@ -18,6 +18,7 @@ class TextInputContainer extends Component {
             name,
             type = 'text',
             placeholder,
+            classes = '',
             error,
             errorsVisible
         } = this.props;
@@ -29,6 +30,7 @@ class TextInputContainer extends Component {
             <TextInput
                 value={value || ''}
                 name={name}
+                classes={classes}
                 type={type}
                 placeholder={placeholder}
                 handleChange={this.handleChange}

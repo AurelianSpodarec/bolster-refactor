@@ -119,6 +119,10 @@ body {
     }
 }
 
+.align-right {
+    text-align: right;
+}
+
 //for button under content blocks/areas
 .button-block-container {
     padding: 0 5px;
@@ -912,6 +916,7 @@ input {
 .radio-button {
     float: left;
     width: 100%;
+    cursor: pointer;
     input {
         position: absolute;
         left: 0;
@@ -932,6 +937,10 @@ input {
             }
         }
     }
+    &.grey-out {
+        opacity: 0.5;
+        cursor: default;
+    }
     .holder {
         float: left;
         font-size: 140%;
@@ -951,7 +960,7 @@ input {
 
     .text {
         width: 100%;
-        padding-left: 30px;
+        padding-left: 20px;
         padding-right: 10px;
     }
 
@@ -1052,6 +1061,12 @@ input {
     border: none;
     border-radius: 2.5px;
     @include ubuntu;
+
+    &.large {
+        font-size: 160%;
+        padding: 8px 15px;
+        margin-top: 5px;
+    }
 }
 
 .custom-dropdown {
@@ -2084,6 +2099,11 @@ input {
         .checkbox {
             float: right;
         }
+    }
+}
+.credits {
+    p {
+        margin-bottom: 15px;
     }
 }
 
