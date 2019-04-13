@@ -1,15 +1,23 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import { convertArrToObj } from 'helpers/generic';
 
-import fetchAllTemplates from 'actions/companyAdmin/templates/async/fetchAllTemplates';
+import fetchDrawingTemplates from 'actions/companyAdmin/drawings/async/fetchDrawingTemplates';
 
 import AddPinForm from '../presentational/AddPinForm';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 
 class AddPinFormContainer extends Component {
+    state = {
+        templateID: ''
+    };
+
     render() {
-        const { isFetching, error, templates } = this.props;
+        const { templateID } = this.state;
+        const { location, isFetching, error, templates } = this.props;
+
+        const templateOptions = this._getTemplates();
 
         return (
             <BlockContainer
@@ -18,7 +26,10 @@ class AddPinFormContainer extends Component {
                 error={error}
             >
                 <AddPinForm
-                    location={this.props.location}
+                    templates={Object.values(templateOptions)}
+                    selectedTemplate={templateOptions[templateID]}
+                    location={location}
+                    handleChange={this.handleChange}
                     handleSubmit={this.handleSubmit}
                 />
             </BlockContainer>
@@ -26,9 +37,23 @@ class AddPinFormContainer extends Component {
     }
 
     componentDidMount = () => {
-        const { fetchAllTemplates } = this.props;
+        const { drawingID, fetchDrawingTemplates } = this.props;
 
-        fetchAllTemplates();
+        fetchDrawingTemplates(drawingID);
+    };
+
+    _getTemplates = () => {
+        const { templates } = this.props;
+        const templateOptions = templates.map(({ id, name }) => ({
+            value: id,
+            text: name
+        }));
+
+        return convertArrToObj(templateOptions, 'value');
+    };
+
+    handleChange = ({ target: { type, value, name, checked } }) => {
+        this.setState({ [name]: type === 'checkbox' ? checked : value });
     };
 
     handleSubmit = e => {
@@ -39,28 +64,28 @@ class AddPinFormContainer extends Component {
 const mapStateToProps = (
     {
         companyAdmin: {
-            templatesReducer,
-            templateVersionsReducer,
-            templateSectionsReducer,
-            templateQuestionsReducer
+            templatesReducer: { templates, isFetching, error },
+            templateVersionsReducer: { versions },
+            templateSectionsReducer: { sections },
+            templateQuestionsReducer: { questions }
         }
     },
     { match }
 ) => {
     return {
-        templates: Object.values(templatesReducer.templates),
-        templateVersions: Object.values(templateVersionsReducer.versions),
-        templateSections: Object.values(templateSectionsReducer.sections),
-        templateQuestions: Object.values(templateQuestionsReducer.questions),
-        isFetching: templatesReducer.isFetching,
-        error: templatesReducer.error,
+        templates: Object.values(templates),
+        templateVersions: Object.values(versions),
+        templateSections: Object.values(sections),
+        templateQuestions: Object.values(questions),
+        isFetching,
+        error,
         drawingID: match.params.id
     };
 };
 
 const mapDispatchToProps = dispatch => ({
-    fetchAllTemplates: () => {
-        dispatch(fetchAllTemplates());
+    fetchDrawingTemplates: drawingID => {
+        dispatch(fetchDrawingTemplates(drawingID));
     }
 });
 
