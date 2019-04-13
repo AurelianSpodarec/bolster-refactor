@@ -962,13 +962,17 @@ input {
         width: 10px;
         height: 10px;
         background-color: white;
-        border: 2px solid white;
+        border: 1px solid white;
         border-radius: 50%;
         transition: background-color 0.2s ease-in-out;
     }
     .details {
         float: left;
         width: 100%;
+        margin-top: 10px;
+        font-size: 12px;
+        line-height: 1.5;
+        @include ubuntu;
         strong {
             @include ubuntu-medium;
         }

@@ -23,12 +23,28 @@ const SubscriptionAutoRenewal = ({
                 />
             </BlockHeading>
             <div className="generic-form size-lg-12">
-                <Field name="Pay using card" htmlFor="radio-card">
+                <Field htmlFor="radio-card">
                     <RadioButton
                         id="radio-card"
                         name="paymentMethod"
                         value={SUBSCRIPTION_RENEWAL_IDS.CARD}
                         checked={renewalType === SUBSCRIPTION_RENEWAL_IDS.CARD}
+                        disabled={!isAutoRenew}
+                        text="Pay using card"
+                        handleInputChange={handleRadioChange}
+                    />
+                </Field>
+
+                <Field htmlFor="radio-invoice">
+                    <RadioButton
+                        id="radio-invoice"
+                        type="radio"
+                        name="paymentMethod"
+                        text="Pay by invoice"
+                        value={SUBSCRIPTION_RENEWAL_IDS.INVOICE}
+                        checked={
+                            renewalType === SUBSCRIPTION_RENEWAL_IDS.INVOICE
+                        }
                         disabled={!isAutoRenew}
                         handleInputChange={handleRadioChange}
                         extraDetails="##Lorem ipsum dolor sit, amet consectetur
@@ -36,38 +52,6 @@ const SubscriptionAutoRenewal = ({
                         explicabo eveniet saepe voluptates reiciendis doloribus,
                         assumenda quam dolorum ut ad ducimus est.##"
                     />
-                    {/* <input
-                        id="radio-card"
-                        type="radio"
-                        name="paymentMethod"
-                        value={SUBSCRIPTION_RENEWAL_IDS.CARD}
-                        checked={renewalType === SUBSCRIPTION_RENEWAL_IDS.CARD}
-                        disabled={!isAutoRenew}
-                        onChange={handleRadioChange}
-                    /> */}
-                </Field>
-                <Field>
-                    <Checkbox />
-                </Field>
-                <Field name="Pay by invoice" htmlFor="radio-invoice">
-                    <input
-                        id="radio-invoice"
-                        type="radio"
-                        name="paymentMethod"
-                        value={SUBSCRIPTION_RENEWAL_IDS.INVOICE}
-                        checked={
-                            renewalType === SUBSCRIPTION_RENEWAL_IDS.INVOICE
-                        }
-                        disabled={!isAutoRenew}
-                        onChange={handleRadioChange}
-                    />
-                    <br />
-                    <label htmlFor="radio-invoice">
-                        ##Note: Lorem ipsum dolor sit, amet consectetur
-                        adipisicing elit. Qui architecto voluptas, nisi
-                        explicabo eveniet saepe voluptates reiciendis doloribus,
-                        assumenda quam dolorum ut ad ducimus est.##
-                    </label>
                 </Field>
             </div>
         </Form>

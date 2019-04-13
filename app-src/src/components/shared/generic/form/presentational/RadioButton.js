@@ -5,6 +5,7 @@ const RadioButton = ({
     value,
     text,
     checked,
+    id,
     handleInputChange,
     disabled = false,
     extraDetails = ''
@@ -12,7 +13,7 @@ const RadioButton = ({
     <div className="radio-button">
         <input
             type="radio"
-            id={value}
+            id={id}
             name={name}
             value={value}
             checked={checked}
@@ -30,7 +31,7 @@ const RadioButton = ({
         </div>
         {!!extraDetails.length && (
             <span className="details">
-                <strong>Note:</strong>
+                <strong>Note: </strong>
                 {extraDetails}
             </span>
         )}
