@@ -26,7 +26,7 @@ export default (email, password) => dispatch => {
     dispatch(postLoginRequest());
 
     return axios
-        .post(`${AUTH_API_URL}/login`, { email, password }, getHeaders())
+        .post(`${AUTH_API_URL}/auth/login`, { email, password }, getHeaders())
         .then(res => {
             localStorage.setItem('token', res.data.token);
             return res;
