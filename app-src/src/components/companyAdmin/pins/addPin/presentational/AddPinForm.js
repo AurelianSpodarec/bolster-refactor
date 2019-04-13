@@ -29,11 +29,9 @@ const AddPinForm = ({
         </div>
 
         {selectedTemplate && (
-            <>
-                <AddPinVersionsContainer
-                    selectedTemplateID={selectedTemplate.value}
-                />
-            </>
+            <AddPinVersionsContainer
+                selectedTemplateID={selectedTemplate.value}
+            />
         )}
 
         <BlockButtonWrapper>

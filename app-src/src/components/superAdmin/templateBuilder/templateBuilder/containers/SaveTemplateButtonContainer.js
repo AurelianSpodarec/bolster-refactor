@@ -5,7 +5,7 @@ import { withRouter } from 'react-router-dom';
 import postTemplate from 'actions/superAdmin/templateBuilder/async/postTemplate';
 
 import SaveTemplateButton from '../presentational/SaveTemplateButton';
-import { setDynamicFields } from 'actions/superAdmin/templateBuilder/async/helpers';
+import { setDynamicFields } from 'helpers/templates';
 
 class SaveTemplateButtonContainer extends Component {
     render() {
