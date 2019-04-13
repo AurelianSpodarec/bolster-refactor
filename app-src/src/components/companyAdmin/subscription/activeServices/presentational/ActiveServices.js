@@ -1,9 +1,12 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import Form from 'components/shared/generic/form/containers/Form';
-import { ADD_SERVICE_TO_SUBSCRIPTION } from 'constants/shared/modalTypes';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import CompanyServicesList from './CompanyServicesList';
+import StatusIcon from 'components/shared/generic/statusIcon/presentationl/StatusIcon';
+import AddServiceItem from './AddServiceItem';
 
 const ActiveServices = ({
     subscriptions,
@@ -21,41 +24,34 @@ const ActiveServices = ({
                     handleChange={handleChange}
                 >
                     {services.map(service => (
-                        <div key={service.id} className="size-lg-6">
-                            <div className="size-lg-6">
-                                <span>
-                                    <i className="fa fa-plus" />
-                                    ##{service.name}##
-                                </span>
-                            </div>
-                            <button
-                                className="button green"
-                                onClick={e => {
-                                    e.preventDefault();
-                                    showModal(ADD_SERVICE_TO_SUBSCRIPTION, {
-                                        service
-                                    });
-                                }}
-                            >
-                                Add
-                            </button>
-                        </div>
+                        <AddServiceItem
+                            key={service.id}
+                            showModal={showModal}
+                            service={service}
+                        />
                     ))}
                 </CompanyServicesList>
-
-                <div className="size-lg-12">
-                    <h3 className="heading heading-3">
-                        <i className="fa fa-question" />
-                        Looking for something specific?
-                    </h3>
-                    <p>
-                        The Bolster System can support a wide range of
-                        additional services, template and workflows{' '}
-                        <strong>so get in touch </strong> and we can talk
-                        through your custom requirements
-                    </p>
-                </div>
             </Form>
+            <div className="size-lg-12">
+                <BlockHeading
+                    leftIcon={true}
+                    classes="sub-header w-left-icon"
+                    title="Looking for something specific?"
+                >
+                    <StatusIcon
+                        classes="question pull-left"
+                        iconClass="fa fa-question"
+                    />
+                </BlockHeading>
+
+                <p className="size-lg-12">
+                    The Bolster System can support a wide range of additional
+                    services, template and workflows
+                    <br />
+                    <Link to="#">so get in touch </Link> and we can talk through
+                    your custom requirements
+                </p>
+            </div>
         </BlockContainer>
     );
 };

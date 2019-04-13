@@ -1,12 +1,8 @@
 import React from 'react';
 
-const StatusIcon = ({
-    statusType = 'green',
-    classes = '',
-    iconClass = 'fa fa-check'
-}) => (
-    <div className={`status-icon ${classes} ${statusType}`}>
-        <i className={iconClass} />
+const StatusIcon = ({ classes = 'check', iconClass = 'fa fa-check' }) => (
+    <div className={`status-icon ${classes}`}>
+        <i className={`${iconClass}`} />
     </div>
 );
 
