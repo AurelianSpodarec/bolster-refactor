@@ -5,6 +5,8 @@ import TextInputContainer from 'components/shared/generic/form/containers/TextIn
 import TextAreaContainer from 'components/shared/generic/form/containers/TextAreaContainer';
 import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
 import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
+import FileUploadContainer from 'components/shared/generic/form/containers/FileUploadContainer';
+import RadioButtonsContainer from 'components/shared/generic/form/containers/RadioButtonsContainer';
 
 const {
     SINGLE_LINE,
@@ -38,7 +40,35 @@ const SingleDropdown = ({ question: { isRequired, options } }) => {
 };
 
 const CheckBox = ({ question: { isRequired } }) => (
-    <CheckboxContainer checked={false} text="" />
+    <CheckboxContainer required={isRequired} checked={false} text="" />
+);
+
+const Radio = ({ question: { id, isRequired, options } }) =>
+    options.map(radio => (
+        <RadioButtonsContainer
+            key={radio.id}
+            name={id}
+            value={radio.id}
+            text={radio.text}
+            checked={false}
+            required={isRequired}
+        />
+    ));
+
+const SinglePhoto = ({ question: { isRequired } }) => (
+    <FileUploadContainer
+        required={isRequired}
+        acceptedTypes={['image/*']}
+        maxFiles={1}
+    />
+);
+
+const MultiPhoto = ({ question: { isRequired, maxPhotos } }) => (
+    <FileUploadContainer
+        required={isRequired}
+        acceptedTypes={['image/*']}
+        maxFiles={maxPhotos}
+    />
 );
 
 const AddPinQuestionRoute = ({ question }) => {
@@ -47,7 +77,10 @@ const AddPinQuestionRoute = ({ question }) => {
         [MULTI_LINE]: MultiLine,
         [NUMBER]: NumberInput,
         [DROPDOWN]: SingleDropdown,
-        [CHECKBOX]: CheckBox
+        [CHECKBOX]: CheckBox,
+        [RADIO]: Radio,
+        [SINGLE_PHOTO]: SinglePhoto,
+        [MULTI_PHOTO]: MultiPhoto
     };
     const SpecificField = fieldTypes[question.type + ''] || SingleLine;
     return <SpecificField question={question} />;

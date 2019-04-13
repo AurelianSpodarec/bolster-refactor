@@ -13,23 +13,25 @@ class RadioButtonsContainer extends Component {
         const { showFieldError } = this.state;
         const {
             item,
+            text,
             checked,
             handleChange,
             name,
             errorsVisible,
             disabled,
             error,
-            id
+            value
         } = this.props;
         const errorMessage = showFieldError || errorsVisible ? error : null;
 
         return (
             <Checkbox
                 item={item}
+                text={text}
                 checked={checked}
                 handleChange={handleChange}
                 name={name}
-                id={id}
+                value={value}
                 error={errorMessage}
                 disabled={disabled}
             />

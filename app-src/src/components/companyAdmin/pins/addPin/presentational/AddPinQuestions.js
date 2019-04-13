@@ -1,7 +1,6 @@
 import React from 'react';
 import Field from 'components/shared/generic/form/presentational/Field';
 
-import { QUESTION_TYPE_VALUES as TYPES } from 'constants/shared/templateBuilder';
 import AddPinQuestionRoute from '../containers/AddPinQuestionRoute';
 
 const AddPinQuestions = ({ sections, questions }) =>
