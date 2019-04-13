@@ -6,6 +6,8 @@ import {
     FETCH_ALL_TEMPLATES_SUCCESS,
     SELECT_QUESTION
 } from 'constants/actionTypes/templates';
+import { convertArrToObj } from 'helpers/generic';
+import { formatQuestions } from 'helpers/templates';
 
 export default combineReducers({
     questions: questionsReducer,
@@ -17,7 +19,10 @@ function questionsReducer(state = {}, action) {
         case FETCH_PIN_TEMPLATES_SUCCESS:
         case FETCH_DRAWING_TEMPLATES_SUCCESS:
         case FETCH_ALL_TEMPLATES_SUCCESS:
-            return { ...state, ...action.payload.questions };
+            return {
+                ...state,
+                ...convertArrToObj(formatQuestions(action.payload.questions))
+            };
         default:
             return state;
     }

@@ -3,6 +3,7 @@ import { combineReducers } from 'redux';
 import { FETCH_PIN_TEMPLATES_SUCCESS } from 'constants/actionTypes/pins';
 import { FETCH_DRAWING_TEMPLATES_SUCCESS } from 'constants/actionTypes/drawings';
 import { FETCH_ALL_TEMPLATES_SUCCESS } from 'constants/actionTypes/templates';
+import { convertArrToObj } from 'helpers/generic';
 
 export default combineReducers({
     sections: sectionsReducer
@@ -13,7 +14,7 @@ function sectionsReducer(state = {}, action) {
         case FETCH_PIN_TEMPLATES_SUCCESS:
         case FETCH_DRAWING_TEMPLATES_SUCCESS:
         case FETCH_ALL_TEMPLATES_SUCCESS:
-            return { ...state, ...action.payload.sections };
+            return { ...state, ...convertArrToObj(action.payload.sections) };
         default:
             return state;
     }

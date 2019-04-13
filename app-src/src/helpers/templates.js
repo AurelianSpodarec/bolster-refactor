@@ -3,7 +3,7 @@ import { QUESTION_TYPE_VALUES as VALS } from 'constants/shared/templateBuilder';
 
 function formatQuestion({ type, dynamicFields, ...otherFields }) {
     return {
-        questionType: QUESTION_TYPES[type],
+        questionType: QUESTION_TYPES[type + ''],
         type,
         ...otherFields,
         ...dynamicFields
@@ -86,7 +86,7 @@ function setDynamicFieldsSingle({
     ...otherFields
 }) {
     let dynamicFields = {};
-    switch (otherFields.questionType) {
+    switch (otherFields.questionType + '') {
         case VALS.SINGLE_LINE:
         case VALS.MULTI_LINE:
             dynamicFields = { charLimit };
