@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { ROOT_API_URL } from 'config';
+import { AUTH_API_URL } from 'config';
 import { getHeaders, handleErrors } from 'helpers/api';
 import {
     EDIT_PROFILE_REQUEST,
@@ -25,7 +25,7 @@ export const editProfileFailure = error => ({
 export default postBody => dispatch => {
     dispatch(editProfileRequest());
     return axios
-        .post(`${ROOT_API_URL}/profile`, postBody, getHeaders())
+        .post(`${AUTH_API_URL}/profile`, postBody, getHeaders())
         .then(res => dispatch(editProfileSuccess(res.data)))
         .catch(err => {
             const errorAction = handleErrors(editProfileFailure);

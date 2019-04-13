@@ -64,24 +64,16 @@ class AddPinFormContainer extends Component {
 const mapStateToProps = (
     {
         companyAdmin: {
-            templatesReducer: { templates, isFetching, error },
-            templateVersionsReducer: { versions },
-            templateSectionsReducer: { sections },
-            templateQuestionsReducer: { questions }
+            templatesReducer: { templates, isFetching, error }
         }
     },
     { match }
-) => {
-    return {
-        templates: Object.values(templates),
-        templateVersions: Object.values(versions),
-        templateSections: Object.values(sections),
-        templateQuestions: Object.values(questions),
-        isFetching,
-        error,
-        drawingID: match.params.id
-    };
-};
+) => ({
+    templates: Object.values(templates),
+    isFetching,
+    error,
+    drawingID: match.params.id
+});
 
 const mapDispatchToProps = dispatch => ({
     fetchDrawingTemplates: drawingID => {
