@@ -5,7 +5,6 @@ import TextInputContainer from 'components/shared/generic/form/containers/TextIn
 import TextAreaContainer from 'components/shared/generic/form/containers/TextAreaContainer';
 import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
 import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
-import SwitchContainer from 'components/shared/generic/form/containers/SwitchContainer';
 
 const {
     SINGLE_LINE,
@@ -39,7 +38,7 @@ const SingleDropdown = ({ question: { isRequired, options } }) => {
 };
 
 const CheckBox = ({ question: { isRequired } }) => (
-    <SwitchContainer checked={false} text="" />
+    <CheckboxContainer checked={false} text="" />
 );
 
 const AddPinQuestionRoute = ({ question }) => {
