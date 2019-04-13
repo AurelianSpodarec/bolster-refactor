@@ -8,8 +8,12 @@ const FieldOutput = ({
     children
 }) => (
     <div className={`field-output ${fieldClass} ${sizeClass}`}>
-        {!!title.length && <label className="title">{title}</label>}
-        {!!description.length && <p>{description}</p>}
+        {title && title.length > 0 ? (
+            <label className="title">{title}</label>
+        ) : (
+            ''
+        )}
+        {description && description.length > 0 ? <p>{description}</p> : ''}
         {children}
     </div>
 );

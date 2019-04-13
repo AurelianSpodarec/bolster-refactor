@@ -5,7 +5,6 @@ import Checkbox from 'components/shared/generic/form/presentational/Checkbox';
 import { SUBSCRIPTION_RENEWAL_IDS } from 'constants/companyAdmin/enums';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import RadioButton from 'components/shared/generic/form/presentational/RadioButton';
-import Dropdown from 'components/shared/generic/form/presentational/Dropdown';
 
 const SubscriptionAutoRenewal = ({
     isAutoRenew,
