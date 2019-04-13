@@ -3,6 +3,7 @@ import Form from 'components/shared/generic/form/containers/Form';
 import Field from 'components/shared/generic/form/presentational/Field';
 import Checkbox from 'components/shared/generic/form/presentational/Checkbox';
 import { SUBSCRIPTION_RENEWAL_IDS } from 'constants/companyAdmin/enums';
+import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 
 const SubscriptionAutoRenewal = ({
     isAutoRenew,
@@ -11,15 +12,16 @@ const SubscriptionAutoRenewal = ({
     handleRadioChange
 }) => (
     <>
-        <Field name="Auto-Renewal" sizeClasses="size-lg-12 heading heading-3">
-            <Checkbox
-                name={'isAutoRenew'}
-                value={isAutoRenew}
-                handleChange={handleAutoRenewChange}
-                checked={!!isAutoRenew}
-            />
-        </Field>
-        <Form>
+        <Form className="generic-form">
+            <BlockHeading title="Auto-Renewal">
+                <Checkbox
+                    name={'isAutoRenew'}
+                    value={isAutoRenew}
+                    handleChange={handleAutoRenewChange}
+                    checked={!!isAutoRenew}
+                />
+            </BlockHeading>
+
             <Field name="Pay using card" htmlFor="radio-card">
                 <input
                     id="radio-card"
