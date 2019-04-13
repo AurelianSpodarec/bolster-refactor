@@ -12,7 +12,7 @@ const ProfilesRoutes = ({ base = '/company/profile' }) => (
         <Route exact path={`${base}/edit`} component={EditProfileContainer} />
         <Route
             exact
-            path={`${base}/edit-password`}
+            path={`${base}/change-password`}
             component={EditProfilePasswordContainer}
         />
     </SwitchWith404>

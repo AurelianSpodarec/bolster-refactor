@@ -36,6 +36,18 @@ const EditProfileForm = ({
                     </Field>
                 </div>
                 <div className="size-lg-6">
+                    <Field name="Email">
+                        <TextInputContainer
+                            value={email}
+                            name="email"
+                            handleChange={handleInputChange}
+                        />
+                    </Field>
+                </div>
+            </div>
+
+            <div className="size-lg-12">
+                <div className="size-lg-6">
                     <Field name="Last Name">
                         <TextInputContainer
                             value={lastName}
@@ -45,18 +57,7 @@ const EditProfileForm = ({
                         />
                     </Field>
                 </div>
-            </div>
 
-            <div className="size-lg-12">
-                <div className="size-lg-6">
-                    <Field name="Email">
-                        <TextInputContainer
-                            value={email}
-                            name="email"
-                            handleChange={handleInputChange}
-                        />
-                    </Field>
-                </div>
                 <div className="size-lg-6">
                     <Field name="Phone Number">
                         <TextInputContainer

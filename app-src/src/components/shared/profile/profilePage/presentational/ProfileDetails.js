@@ -43,16 +43,16 @@ const ProfileDetails = ({ error, isFetching, profile, location }) => {
 
             <BlockButtonWrapper>
                 <Link
-                    className="button"
-                    to={`${location.pathname}/edit-password`}
-                >
-                    Change Password
-                </Link>
-                <Link
                     className="button yellow"
                     to={`${location.pathname}/edit`}
                 >
                     <i className="far fa-pencil" /> Edit
+                </Link>
+                <Link
+                    className="button"
+                    to={`${location.pathname}/change-password`}
+                >
+                    Change Password
                 </Link>
             </BlockButtonWrapper>
         </BlockContainer>

@@ -4,20 +4,23 @@ import BlockContainer from 'components/shared/generic/block/containers/BlockCont
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
 import Breadcrumb from 'components/shared/generic/breadcrumb/presentational/Breadcrumb';
 import EditProfilePasswordFormContainer from '../containers/EditProfilePasswordFormContainer';
+import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 
-const EditProfilePassword = ({ userName }) => (
+const EditProfilePassword = () => (
     <>
-        <Breadcrumb
-            breadcrumbs={[
-                {
-                    text: 'Profile',
-                    link: '/company/profile'
-                },
-                { text: `Edit ${userName} password` }
-            ]}
-        />
-        <PageHeading title={`Edit ${userName} password`} />
+        <PageHeading title="Change Password">
+            <Breadcrumb
+                breadcrumbs={[
+                    {
+                        text: 'My Profile',
+                        link: '/company/profile'
+                    },
+                    { text: 'Change Password' }
+                ]}
+            />
+        </PageHeading>
         <BlockContainer>
+            <BlockHeading title="New password" />
             <EditProfilePasswordFormContainer />
         </BlockContainer>
     </>
