@@ -16,16 +16,18 @@ const Header = ({ company, unreadMessageCount, totalCedits }) => (
         <div className="container">
             {/*** company logo ***/}
             <div className="logo">
-                <Link to="/company">
-                    <img
-                        alt={`logo of ${company.name}`}
-                        src={
-                            company.logoFile
-                                ? `${FILE_STORAGE_URL}/${company.logoFile}`
-                                : defaultStyles.logoFile
-                        }
-                    />
-                </Link>
+                {!!company.id && (
+                    <Link to="/company">
+                        <img
+                            alt={`logo of ${company.name}`}
+                            src={
+                                company.logoFile
+                                    ? `${FILE_STORAGE_URL}/${company.logoFile}`
+                                    : defaultStyles.logoFile
+                            }
+                        />
+                    </Link>
+                )}
             </div>
 
             {/*** search box ***/}
@@ -53,7 +55,6 @@ const Header = ({ company, unreadMessageCount, totalCedits }) => (
                 {/*** profile ***/}
                 <HeaderProfileContainer />
             </div>
-
             <div className="clear" />
         </div>
     </header>
