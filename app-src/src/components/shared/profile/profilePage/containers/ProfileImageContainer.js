@@ -3,18 +3,16 @@ import { connect } from 'react-redux';
 
 import ProfileImage from '../presentational/ProfileImage';
 
-const ProfileImageContainer = ({ error, isFetching, profile }) => (
-    <ProfileImage error={error} isFetching={isFetching} profile={profile} />
+const ProfileImageContainer = ({ profile }) => (
+    <ProfileImage profile={profile} />
 );
 
 const mapStateToProps = ({
     shared: {
-        profileReducer: { error, isFetching, profile }
+        profileReducer: { profile }
     }
 }) => ({
-    profile: profile || null,
-    error,
-    isFetching
+    profile: profile || null
 });
 
 export default connect(mapStateToProps)(ProfileImageContainer);

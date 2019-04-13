@@ -1,14 +1,12 @@
 import React from 'react';
 
-import Breadcrumb from 'components/shared/generic/breadcrumb/presentational/Breadcrumb';
-import ProfileImageContainer from '../containers/ProfileImageContainer';
 import ProfileDetailsContainer from '../containers/ProfileDetailsContainer';
+import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
 
 const Profile = () => {
     return (
         <>
-            <Breadcrumb breadcrumbs={[{ text: 'Profile' }]} />
-            <ProfileImageContainer />
+            <PageHeading title="My Profile" />
             <ProfileDetailsContainer />
         </>
     );
