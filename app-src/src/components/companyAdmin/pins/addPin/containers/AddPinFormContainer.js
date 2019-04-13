@@ -4,6 +4,7 @@ import { withRouter } from 'react-router-dom';
 import { convertArrToObj } from 'helpers/generic';
 
 import fetchDrawingTemplates from 'actions/companyAdmin/drawings/async/fetchDrawingTemplates';
+import createPin from 'actions/companyAdmin/pins/async/createPin';
 
 import AddPinForm from '../presentational/AddPinForm';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
@@ -58,18 +59,43 @@ class AddPinFormContainer extends Component {
 
     handleSubmit = e => {
         e.preventDefault();
+
+        const { answers, drawingID, createPin } = this.props;
+
+        const formattedAnswers = Object.keys(answers).map(function(key) {
+            return { templateQuestionID: key, answer: answers[key] };
+        });
+
+        const postBody = {
+            pin: {
+                drawingID: parseInt(drawingID),
+                location: {
+                    lngX: 123.58631,
+                    latY: 23.16812
+                }
+            },
+            history: {
+                templateVersionID: 8,
+                pinStatus: 10
+            },
+            answers: formattedAnswers
+        };
+
+        createPin(postBody);
     };
 }
 
 const mapStateToProps = (
     {
         companyAdmin: {
-            templatesReducer: { templates, isFetching, error }
+            templatesReducer: { templates, isFetching, error },
+            addPinFormReducer: { answers }
         }
     },
     { match }
 ) => ({
     templates: Object.values(templates),
+    answers: answers,
     isFetching,
     error,
     drawingID: match.params.id
@@ -78,6 +104,9 @@ const mapStateToProps = (
 const mapDispatchToProps = dispatch => ({
     fetchDrawingTemplates: drawingID => {
         dispatch(fetchDrawingTemplates(drawingID));
+    },
+    createPin: postBody => {
+        dispatch(createPin(postBody));
     }
 });
 

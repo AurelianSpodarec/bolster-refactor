@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 import { QUESTION_TYPE_VALUES } from 'constants/shared/templateBuilder';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
@@ -8,21 +9,32 @@ import CheckboxContainer from 'components/shared/generic/form/containers/Checkbo
 import FileUploadContainer from 'components/shared/generic/form/containers/FileUploadContainer';
 import RadioButtonsContainer from 'components/shared/generic/form/containers/RadioButtonsContainer';
 
+import updateAddPinAnswer from 'actions/companyAdmin/drawings/sync/updateAddPinAnswer';
+import resetPinAnswers from 'actions/companyAdmin/drawings/sync/resetPinAnswers';
+
 const {
     SINGLE_LINE,
     MULTI_LINE,
     NUMBER,
     DROPDOWN,
-    MULTI_DROPDOWN,
+    //MULTI_DROPDOWN,
     RADIO,
     CHECKBOX,
-    SIGNATURE,
+    //SIGNATURE,
     SINGLE_PHOTO,
     MULTI_PHOTO
 } = QUESTION_TYPE_VALUES;
 
-const SingleLine = ({ question: { isRequired } }) => (
-    <TextInputContainer required={isRequired} />
+const SingleLine = ({
+    question: { id, isRequired },
+    answers,
+    handleChange
+}) => (
+    <TextInputContainer
+        required={isRequired}
+        value={answers[id]}
+        handleChange={handleChange}
+    />
 );
 
 const MultiLine = ({ question: { isRequired } }) => (
@@ -71,19 +83,83 @@ const MultiPhoto = ({ question: { isRequired, maxPhotos } }) => (
     />
 );
 
-const AddPinQuestionRoute = ({ question }) => {
-    const fieldTypes = {
-        [SINGLE_LINE]: SingleLine,
-        [MULTI_LINE]: MultiLine,
-        [NUMBER]: NumberInput,
-        [DROPDOWN]: SingleDropdown,
-        [CHECKBOX]: CheckBox,
-        [RADIO]: Radio,
-        [SINGLE_PHOTO]: SinglePhoto,
-        [MULTI_PHOTO]: MultiPhoto
-    };
-    const SpecificField = fieldTypes[question.type + ''] || SingleLine;
-    return <SpecificField question={question} />;
-};
+class AddPinQuestionRoute extends Component {
+    render() {
+        const { question, answers } = this.props;
 
-export default AddPinQuestionRoute;
+        const fieldTypes = {
+            [SINGLE_LINE]: SingleLine,
+            [MULTI_LINE]: MultiLine,
+            [NUMBER]: NumberInput,
+            [DROPDOWN]: SingleDropdown,
+            [CHECKBOX]: CheckBox,
+            [RADIO]: Radio,
+            [SINGLE_PHOTO]: SinglePhoto,
+            [MULTI_PHOTO]: MultiPhoto
+        };
+
+        const SpecificField = fieldTypes[question.type + ''] || SingleLine;
+        return (
+            <SpecificField
+                question={question}
+                answers={answers}
+                handleChange={this.handleChange}
+            />
+        );
+    }
+
+    componentDidMount() {
+        const { updateAddPinAnswer, resetPinAnswers, question } = this.props;
+
+        this._getDefaultValue();
+
+        //resetPinAnswers();
+        updateAddPinAnswer(question.id, this._getDefaultValue());
+    }
+
+    handleChange = ({ target: { type, value, checked } }) => {
+        const { updateAddPinAnswer, question } = this.props;
+        const val = type === 'checkbox' ? checked : value;
+
+        updateAddPinAnswer(question.id, val);
+    };
+
+    _getDefaultValue = () => {
+        const type = this.props.question.type + '';
+        switch (type) {
+            case SINGLE_LINE:
+            case MULTI_LINE:
+            case NUMBER:
+            case DROPDOWN:
+            case RADIO:
+            case SINGLE_PHOTO:
+                return '';
+            case MULTI_PHOTO:
+                return [];
+            case CHECKBOX:
+                return false;
+        }
+    };
+}
+
+const mapStateToProps = ({
+    companyAdmin: {
+        addPinFormReducer: { answers }
+    }
+}) => ({
+    answers: answers
+});
+
+const mapDispatchToProps = dispatch => ({
+    updateAddPinAnswer: (key, value) => {
+        dispatch(updateAddPinAnswer(key, value));
+    },
+    resetPinAnswers: () => {
+        dispatch(resetPinAnswers());
+    }
+});
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(AddPinQuestionRoute);
