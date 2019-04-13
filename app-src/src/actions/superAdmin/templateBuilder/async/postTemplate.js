@@ -7,7 +7,7 @@ import {
 } from 'constants/actionTypes/templateBuilder';
 import { ADMIN_API_URL } from 'config';
 import { getHeaders } from 'helpers/api';
-import { formatQuestions } from './helpers';
+import { formatQuestions } from 'helpers/templates';
 
 export const postTemplateRequest = () => ({
     type: POST_TEMPLATE_REQUEST

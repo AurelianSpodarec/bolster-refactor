@@ -3,6 +3,7 @@ import React from 'react';
 import { QUESTION_TYPE_VALUES } from 'constants/shared/templateBuilder';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import TextAreaContainer from 'components/shared/generic/form/containers/TextAreaContainer';
+import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
 
 const {
     SINGLE_LINE,
@@ -25,15 +26,23 @@ const MultiLine = ({ question: { isRequired } }) => (
     <TextAreaContainer required={isRequired} />
 );
 
-const NumberInput = ({ isRequired }) => (
+const NumberInput = ({ question: { isRequired } }) => (
     <TextInputContainer required={isRequired} type="number" />
 );
+
+const SingleDropdown = ({
+    question: { isRequired },
+    options: {
+        dynamicFields: { options }
+    }
+}) => <DropdownContainer required={isRequired} options={options} />;
 
 const AddPinQuestionRoute = ({ question }) => {
     const fieldTypes = {
         [SINGLE_LINE]: SingleLine,
         [MULTI_LINE]: MultiLine,
-        [NUMBER]: NumberInput
+        [NUMBER]: NumberInput,
+        [DROPDOWN]: SingleDropdown
     };
     const SpecificField = fieldTypes[question.type + ''] || SingleLine;
     return <SpecificField question={question} />;
