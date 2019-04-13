@@ -1,14 +1,20 @@
 import React from 'react';
 
 const FieldOutput = ({
-    title,
-    description,
+    title = '',
+    description = '',
     sizeClass = 'size-lg-12',
-    fieldClass = ''
+    fieldClass = '',
+    children
 }) => (
     <div className={`field-output ${fieldClass} ${sizeClass}`}>
-        <label className="title">{title}</label>
-        <p>{description}</p>
+        {title && title.length > 0 ? (
+            <label className="title">{title}</label>
+        ) : (
+            ''
+        )}
+        {description && description.length > 0 ? <p>{description}</p> : ''}
+        {children}
     </div>
 );
 

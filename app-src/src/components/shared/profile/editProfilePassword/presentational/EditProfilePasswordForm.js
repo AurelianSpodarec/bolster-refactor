@@ -38,14 +38,11 @@ const EditProfilePassword = ({
                 </Field>
             </div>
             <BlockButtonWrapper>
-                <button className="button green">
-                    <i className="fa fa-plus" /> Confirm Edit
-                </button>
+                <button className="button green">Confirm</button>
                 <Link
-                    to={location.pathname.replace('/edit-password', '')}
+                    to={location.pathname.replace('/change-password', '')}
                     className="button"
                 >
-                    <i className="fa fa-times" />
                     Cancel
                 </Link>
             </BlockButtonWrapper>

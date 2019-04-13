@@ -1035,6 +1035,19 @@ input {
         font-size: 140%;
         color: $text-grey;
     }
+
+    img {
+        max-width: 50px;
+        margin: 0 5px;
+    }
+
+    .profile-pic-field {
+        img {
+            border-radius: 50%;
+            width: 41px;
+            margin-top: 5px;
+        }
+    }
 }
 
 .filter {

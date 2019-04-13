@@ -3,29 +3,56 @@ import { Link, withRouter } from 'react-router-dom';
 
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
+import FieldOutput from 'components/shared/generic/fieldOutput/presentational/FieldOutput';
+import ProfileImageContainer from '../containers/ProfileImageContainer';
+import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 
 const ProfileDetails = ({ error, isFetching, profile, location }) => {
     const { email, firstName, lastName, phoneNumber } = profile;
     return (
-        <BlockContainer
-            heading="Details"
-            error={error}
-            isFetching={isFetching}
-            isEmpty={!email}
-        >
-            <p>{`first name: ${firstName}`}</p>
-            <p>{`last name: ${lastName}`}</p>
-            <p>{`email: ${email}`}</p>
-            <p>{`phone number: ${phoneNumber}`}</p>
+        <BlockContainer error={error} isFetching={isFetching} isEmpty={!email}>
+            <BlockHeading title="Details" />
+
+            <div className="size-lg-4">
+                <FieldOutput
+                    fieldClass="no-h-padding"
+                    title="First Name"
+                    description={firstName}
+                />
+                <FieldOutput
+                    fieldClass="no-h-padding"
+                    title="Last Name"
+                    description={lastName}
+                />
+                <FieldOutput fieldClass="no-h-padding" title="Profile Picture">
+                    <ProfileImageContainer />
+                </FieldOutput>
+            </div>
+            <div className="size-lg-4">
+                <FieldOutput
+                    fieldClass="no-h-padding"
+                    title="Email"
+                    description={email}
+                />
+                <FieldOutput
+                    fieldClass="no-h-padding"
+                    title="Phone number"
+                    description={phoneNumber}
+                />
+            </div>
+
             <BlockButtonWrapper>
                 <Link
+                    className="button yellow"
+                    to={`${location.pathname}/edit`}
+                >
+                    <i className="far fa-pencil" /> Edit
+                </Link>
+                <Link
                     className="button"
-                    to={`${location.pathname}/edit-password`}
+                    to={`${location.pathname}/change-password`}
                 >
                     Change Password
-                </Link>
-                <Link className="button" to={`${location.pathname}/edit`}>
-                    Edit
                 </Link>
             </BlockButtonWrapper>
         </BlockContainer>

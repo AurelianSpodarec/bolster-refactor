@@ -1,26 +1,21 @@
 import React from 'react';
 
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import { FILE_STORAGE_URL } from 'config';
 
 import NoProfilePic from '_content/images/layout/blank-profile.png';
 
-const ProfileImage = ({
-    error,
-    isFetching,
-    profile: { email, profileImageS3Key }
-}) => {
+const ProfileImage = ({ profile: { profileImageS3Key } }) => {
     return (
-        <BlockContainer error={error} isFetching={isFetching} isEmpty={!email}>
+        <div className="profile-pic-field size-lg-12">
             {profileImageS3Key ? (
                 <img
-                    alt="profile"
+                    alt="profile picture"
                     src={`${FILE_STORAGE_URL}/${profileImageS3Key}`}
                 />
             ) : (
                 <img src={NoProfilePic} alt="generic profile" />
             )}
-        </BlockContainer>
+        </div>
     );
 };
 
