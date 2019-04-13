@@ -1,0 +1,26 @@
+import React from 'react';
+
+const TextInput = ({
+    name,
+    placeholder,
+    value,
+    handleChange,
+    handleBlur,
+    error
+}) => (
+    <>
+        <textarea
+            className="generic-input"
+            name={name}
+            placeholder={placeholder}
+            value={value}
+            onChange={handleChange}
+            onBlur={handleBlur}
+        />
+        {!!(error && error.length) && (
+            <p className="error red-text text-accent-4">{error}</p>
+        )}
+    </>
+);
+
+export default TextInput;
