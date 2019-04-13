@@ -1,5 +1,5 @@
 import React from 'react';
 
-const Error = ({ children }) => <h3 className="no-data">{children}</h3>;
+const Error = ({ children }) => <p>{children}</p>;
 
 export default Error;

@@ -1,6 +1,7 @@
 import React from 'react';
 import Table from 'components/shared/generic/tables/presentational/Table';
 import CardsList from './CardsList';
+import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 
 const CardTable = ({
     headers,
@@ -26,10 +27,12 @@ const CardTable = ({
                 deleteCard={deleteCard}
             />
         </Table>
-        <button className="button" onClick={showModal}>
-            <i className="fa fa-plus" />
-            Add Card
-        </button>
+        <BlockButtonWrapper>
+            <button className="button" onClick={showModal}>
+                <i className="fa fa-plus" />
+                Add Card
+            </button>
+        </BlockButtonWrapper>
     </>
 );
 

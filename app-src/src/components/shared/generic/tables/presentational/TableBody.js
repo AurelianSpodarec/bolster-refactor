@@ -14,7 +14,7 @@ const TableBody = ({
     if (error && error.length)
         return (
             <tr>
-                <td colSpan={colCount} style={{ textAlign: 'center' }}>
+                <td colSpan={colCount} className="no-data-td">
                     <Error>{error}</Error>
                 </td>
             </tr>
