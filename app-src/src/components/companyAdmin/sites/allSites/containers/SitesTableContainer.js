@@ -5,7 +5,9 @@ import SitesTable from '../presentational/SitesTable';
 
 class SitesListTableContainer extends Component {
     render() {
-        const { isFetching, error } = this.props;
+        const { isFetching, error, sites } = this.props;
+
+        console.log(sites);
 
         return (
             <SitesTable

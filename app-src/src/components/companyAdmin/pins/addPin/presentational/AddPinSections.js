@@ -1,5 +1,8 @@
 import React from 'react';
+import AddPinQuestionsContainer from '../containers/AddPinQuestionsContainer';
 
-const AddPinSections = () => <p>Sections</p>;
+const AddPinSections = ({ sections }) => (
+    <AddPinQuestionsContainer sections={sections} />
+);
 
 export default AddPinSections;

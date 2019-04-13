@@ -1,14 +1,29 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { convertArrToObj } from 'helpers/generic';
 
 import AddPinSections from '../presentational/AddPinSections';
 
 class AddPinSectionsContainer extends Component {
     render() {
-        console.log(this.props.selectedVersionID);
+        const relevantSections = this._getSections();
 
-        return <AddPinSections />;
+        return <AddPinSections sections={relevantSections} />;
     }
+
+    _getSections = () => {
+        const { sections, selectedVersionID } = this.props;
+
+        const relevantSections = sections
+            .filter(section => section.templateVersionID === selectedVersionID)
+            .map(({ id, name, sort }) => ({
+                value: id,
+                text: name,
+                sort: sort
+            }));
+
+        return convertArrToObj(relevantSections, 'value');
+    };
 }
 
 const mapStateToProps = ({
