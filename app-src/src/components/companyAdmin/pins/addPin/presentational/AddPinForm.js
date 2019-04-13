@@ -5,6 +5,7 @@ import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/pr
 import Form from 'components/shared/generic/form/containers/Form';
 import Field from 'components/shared/generic/form/presentational/Field';
 import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
+import AddPinVersionsContainer from '../containers/AddPinVersionsContainer';
 
 const AddPinForm = ({
     location,
@@ -26,6 +27,14 @@ const AddPinForm = ({
                 />
             </Field>
         </div>
+
+        {selectedTemplate && (
+            <>
+                <AddPinVersionsContainer
+                    selectedTemplateID={selectedTemplate.value}
+                />
+            </>
+        )}
 
         <BlockButtonWrapper>
             <button className="button green">
