@@ -10,7 +10,7 @@ import FileUploadContainer from 'components/shared/generic/form/containers/FileU
 import RadioButtonsContainer from 'components/shared/generic/form/containers/RadioButtonsContainer';
 
 import updateAddPinAnswer from 'actions/companyAdmin/drawings/sync/updateAddPinAnswer';
-import resetPinAnswers from 'actions/companyAdmin/drawings/sync/resetPinAnswers';
+//import resetPinAnswers from 'actions/companyAdmin/drawings/sync/resetPinAnswers';
 
 import { convertArrToObj } from 'helpers/generic';
 
@@ -94,7 +94,7 @@ const SingleDropdown = ({
 const CheckBox = ({ question: { id, isRequired }, answers, handleChange }) => (
     <CheckboxContainer
         required={isRequired}
-        checked={answers[id]}
+        checked={answers[id] || false}
         name={`answer-${id}`}
         text=""
         handleChange={handleChange}
@@ -113,7 +113,11 @@ const Radio = ({ question: { id, isRequired, options } }) =>
         />
     ));
 
-const SinglePhoto = ({ question: { isRequired, id }, answers, handleFileChange }) => (
+const SinglePhoto = ({
+    question: { isRequired, id },
+    answers,
+    handleFileChange
+}) => (
     <FileUploadContainer
         name={`answer-${id}`}
         required={isRequired}
@@ -124,7 +128,11 @@ const SinglePhoto = ({ question: { isRequired, id }, answers, handleFileChange }
     />
 );
 
-const MultiPhoto = ({ question: { isRequired, maxPhotos, id }, answers, handleFileChange }) => (
+const MultiPhoto = ({
+    question: { isRequired, maxPhotos, id },
+    answers,
+    handleFileChange
+}) => (
     <FileUploadContainer
         name={`answer-${id}`}
         required={isRequired}
@@ -162,7 +170,7 @@ class AddPinQuestionRoute extends Component {
     }
 
     componentDidMount() {
-        const { updateAddPinAnswer, resetPinAnswers, question } = this.props;
+        const { updateAddPinAnswer, question } = this.props;
 
         this._getDefaultValue();
 
@@ -181,22 +189,20 @@ class AddPinQuestionRoute extends Component {
         const { updateAddPinAnswer, question, answers } = this.props;
         const curAnswer = answers[question.id];
 
-        if(Array.isArray(curAnswer))
-        {
+        if (Array.isArray(curAnswer)) {
             //Multi File
             var existing = curAnswer.includes(s3Key);
 
-            if(existing)
-            {
+            if (existing) {
                 //Delete
                 const updated = curAnswer.splice(curAnswer.indexOf(existing));
                 updateAddPinAnswer(question.id, updated);
-            }else{
+            } else {
                 //Add
                 curAnswer.push(s3Key);
                 updateAddPinAnswer(question.id, curAnswer);
             }
-        }else{
+        } else {
             updateAddPinAnswer(question.id, s3Key);
         }
     };
@@ -230,10 +236,10 @@ const mapStateToProps = ({
 const mapDispatchToProps = dispatch => ({
     updateAddPinAnswer: (key, value) => {
         dispatch(updateAddPinAnswer(key, value));
-    },
-    resetPinAnswers: () => {
-        dispatch(resetPinAnswers());
     }
+    // resetPinAnswers: () => {
+    //     dispatch(resetPinAnswers());
+    // }
 });
 
 export default connect(
