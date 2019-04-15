@@ -14,7 +14,10 @@ import {
     EDIT_SITE_REQUEST,
     EDIT_SITE_SUCCESS,
     EDIT_SITE_FAILURE,
-    UPDATE_SITES_FILTERS
+    UPDATE_SITES_FILTERS,
+    DELETE_SITE_REQUEST,
+    DELETE_SITE_SUCCESS,
+    DELETE_SITE_FAILURE
 } from 'constants/actionTypes/sites';
 
 export default combineReducers({
@@ -22,6 +25,7 @@ export default combineReducers({
     updatedSiteID: updatedSiteReducer,
     isFetching: isFetchingReducer,
     postSuccess: postSuccessReducer,
+    deleteSuccess: deleteSuccessReducer,
     error: errorReducer,
     filters: filtersReducer
 });
@@ -45,9 +49,23 @@ function postSuccessReducer(state = false, action) {
     switch (action.type) {
         case CREATE_SITE_REQUEST:
         case EDIT_SITE_REQUEST:
+        case DELETE_SITE_REQUEST:
             return false;
         case CREATE_SITE_SUCCESS:
         case EDIT_SITE_SUCCESS:
+        case DELETE_SITE_SUCCESS:
+            return true;
+        default:
+            return state;
+    }
+}
+
+// for redirect after delete, can't use postsuccess as edit shares that success bool
+function deleteSuccessReducer(state = false, action) {
+    switch (action.type) {
+        case DELETE_SITE_REQUEST:
+            return false;
+        case DELETE_SITE_SUCCESS:
             return true;
         default:
             return state;
@@ -69,11 +87,13 @@ function errorReducer(state = null, action) {
         case FETCH_ALL_SITES_REQUEST:
         case FETCH_SINGLE_SITE_REQUEST:
         case CREATE_SITE_REQUEST:
+        case DELETE_SITE_REQUEST:
             return null;
         case FETCH_ALL_SITES_FAILURE:
         case FETCH_SINGLE_SITE_FAILURE:
         case CREATE_SITE_FAILURE:
         case EDIT_SITE_FAILURE:
+        case DELETE_SITE_FAILURE:
             return action.error;
         default:
             return state;
