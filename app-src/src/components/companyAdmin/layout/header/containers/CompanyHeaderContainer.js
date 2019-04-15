@@ -8,23 +8,23 @@ const CompanyHeaderContainer = ({
     profile,
     companySettings,
     unreadMessageCount,
-    totalCedits
-}) => {
-    return (
-        <CompanyHeader
-            profile={profile}
-            company={companySettings}
-            unreadMessageCount={unreadMessageCount}
-            totalCedits={totalCedits}
-        />
-    );
-};
-
+    totalCredits,
+    totalRequests
+}) => (
+    <CompanyHeader
+        profile={profile}
+        company={companySettings}
+        unreadMessageCount={unreadMessageCount}
+        totalCredits={totalCredits}
+        totalRequests={totalRequests}
+    />
+);
 const mapStateToProps = ({
     companyAdmin: {
         companySettingsReducer: { companySettings },
         messagesReducer: { messages },
-        creditLogsReducer: { creditLogs }
+        creditLogsReducer: { creditLogs },
+        transferRequestsReducer: { incomingTransferRequests }
     },
     shared: {
         profileReducer: { profile }
@@ -33,16 +33,18 @@ const mapStateToProps = ({
     const unreadMessageCount = Object.values(messages).filter(
         ({ type, isRead }) => type === MESSAGE_TYPES.SYSTEM && !isRead
     ).length;
-    const totalCedits = Object.values(creditLogs).reduce(
+    const totalCredits = Object.values(creditLogs).reduce(
         (a, b) => a + b.quantity,
         0
     );
+    const totalRequests = Object.values(incomingTransferRequests).length;
 
     return {
         profile: profile,
         companySettings,
         unreadMessageCount,
-        totalCedits
+        totalCredits,
+        totalRequests
     };
 };
 export default connect(mapStateToProps)(CompanyHeaderContainer);
