@@ -25,7 +25,8 @@ export default combineReducers({
     updatedID: updatedIDReducer,
     error: errorReducer,
     postSuccess: postSuccessReducer,
-    postFailure: postFailureReducer
+    postFailure: postFailureReducer,
+    deleteSuccess: deleteSuccessReducer
 });
 
 function isFetchingReducer(state = false, action) {
@@ -91,6 +92,17 @@ function postFailureReducer(state = false, action) {
             return false;
         case DELETE_DRAWING_FAILURE:
         case ARCHIVE_DRAWING_FAILURE:
+            return true;
+        default:
+            return state;
+    }
+}
+
+function deleteSuccessReducer(state = false, action) {
+    switch (action.type) {
+        case DELETE_DRAWING_REQUEST:
+            return false;
+        case DELETE_DRAWING_SUCCESS:
             return true;
         default:
             return state;

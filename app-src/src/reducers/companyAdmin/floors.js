@@ -16,7 +16,8 @@ import {
     EDIT_FLOOR_FAILURE,
     DELETE_FLOOR_REQUEST,
     DELETE_FLOOR_SUCCESS,
-    DELETE_FLOOR_FAILURE
+    DELETE_FLOOR_FAILURE,
+    ARCHIVE_FLOOR_SUCCESS
 } from 'constants/actionTypes/floors';
 import {
     ARCHIVE_BUILDING_REQUEST,
@@ -138,6 +139,7 @@ function floorsReducer(state = {}, action) {
         case FETCH_SINGLE_FLOOR_SUCCESS:
         case CREATE_FLOOR_SUCCESS:
         case EDIT_FLOOR_SUCCESS:
+        case ARCHIVE_FLOOR_SUCCESS:
             return updateObj(state, action.payload.id, action.payload);
         default:
             return state;

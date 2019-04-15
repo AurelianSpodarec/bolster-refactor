@@ -1,6 +1,7 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 
-const CustomPin = ({ pinColour, pinCode }) => {
+const CustomPin = ({ pinColour, pinCode, pinID, history }) => {
     const imageLocation = require(`_content/images/map-markers/${pinColour}-pin2x.png`);
 
     return (

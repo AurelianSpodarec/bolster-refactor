@@ -87,6 +87,7 @@ class DrawingMapGeneralContainer extends Component {
                         drawing={drawing}
                         addMode={addMode}
                         toggleAddMode={this.toggleAddMode}
+                        history={this.props.history}
                     />
                 </BlockContainer>
             </>
@@ -163,7 +164,7 @@ class DrawingMapGeneralContainer extends Component {
         const { users } = this.props;
 
         const options = users
-            .filter(user => user.type === USER_ROLE.OPERATIVE)
+            .filter(user => user.type >= USER_ROLE.OPERATIVE)
             .map(({ id, userFirstName, userLastName, userEmail }) => ({
                 value: id,
                 text: `${userFirstName} ${userLastName} <${userEmail}>`

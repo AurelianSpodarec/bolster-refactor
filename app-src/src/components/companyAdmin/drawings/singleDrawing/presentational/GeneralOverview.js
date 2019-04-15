@@ -6,7 +6,7 @@ import DrawingClientAccessContainer from '../containers/DrawingClientAccessConta
 import DrawingCompaniesAccessContainer from '../containers/DrawingCompaniesAccessContainer';
 import DrawingOperativesAccessContainer from '../containers/DrawingOperativesAccessContainer';
 
-const GeneralOverview = ({ handleDelete }) => (
+const GeneralOverview = ({ handleDelete, handleArchive, drawing }) => (
     <>
         <div className="size-lg-12">
             <div className="size-lg-12">
@@ -39,6 +39,14 @@ const GeneralOverview = ({ handleDelete }) => (
                     onClick={handleDelete}
                 >
                     <i className="fal fa-trash-alt" /> Delete drawing
+                </button>
+                <button
+                    className="button"
+                    onClick={handleArchive}
+                    type="button"
+                >
+                    <i className="fa fa-archive" />
+                    {drawing.isArchived ? 'Un-Archive' : 'Archive'}
                 </button>
             </div>
         </div>

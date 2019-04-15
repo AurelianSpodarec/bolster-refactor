@@ -13,7 +13,8 @@ const DrawingMapViewSimple = ({
     handleClick,
     drawing,
     addMode,
-    toggleAddMode
+    toggleAddMode,
+    history
 }) => (
     <>
         {addMode ? (
@@ -49,7 +50,7 @@ const DrawingMapViewSimple = ({
                 noWrap={true}
             />
             {pins.map(pin => (
-                <MapPin key={pin.id} pin={pin} />
+                <MapPin key={pin.id} pin={pin} history={history} />
             ))}
             {addMode && <Marker position={addPinPosition} />}
         </Map>

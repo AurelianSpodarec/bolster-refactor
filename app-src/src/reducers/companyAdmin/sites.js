@@ -20,7 +20,10 @@ import {
     DELETE_SITE_FAILURE,
     ARCHIVE_SITE_REQUEST,
     ARCHIVE_SITE_SUCCESS,
-    ARCHIVE_SITE_FAILURE
+    ARCHIVE_SITE_FAILURE,
+    CREATE_TRANSFER_SITE_REQUEST,
+    CREATE_TRANSFER_SITE_SUCCESS,
+    CREATE_TRANSFER_SITE_FAILURE
 } from 'constants/actionTypes/sites';
 
 export default combineReducers({
@@ -28,6 +31,7 @@ export default combineReducers({
     updatedSiteID: updatedSiteReducer,
     isFetching: isFetchingReducer,
     postSuccess: postSuccessReducer,
+    postFailure: postFailureReducer,
     deleteSuccess: deleteSuccessReducer,
     error: errorReducer,
     filters: filtersReducer
@@ -54,11 +58,13 @@ function postSuccessReducer(state = false, action) {
         case EDIT_SITE_REQUEST:
         case DELETE_SITE_REQUEST:
         case ARCHIVE_SITE_REQUEST:
+        case CREATE_TRANSFER_SITE_REQUEST:
             return false;
         case CREATE_SITE_SUCCESS:
         case EDIT_SITE_SUCCESS:
         case DELETE_SITE_SUCCESS:
         case ARCHIVE_SITE_SUCCESS:
+        case CREATE_TRANSFER_SITE_SUCCESS:
             return true;
         default:
             return state;
@@ -71,6 +77,23 @@ function deleteSuccessReducer(state = false, action) {
         case DELETE_SITE_REQUEST:
             return false;
         case DELETE_SITE_SUCCESS:
+            return true;
+        default:
+            return state;
+    }
+}
+
+function postFailureReducer(state = false, action) {
+    switch (action.type) {
+        case CREATE_SITE_REQUEST:
+        case EDIT_SITE_REQUEST:
+        case DELETE_SITE_REQUEST:
+        case ARCHIVE_SITE_REQUEST:
+            return false;
+        case CREATE_SITE_FAILURE:
+        case EDIT_SITE_FAILURE:
+        case DELETE_SITE_FAILURE:
+        case ARCHIVE_SITE_FAILURE:
             return true;
         default:
             return state;
@@ -96,6 +119,7 @@ function errorReducer(state = null, action) {
         case EDIT_SITE_REQUEST:
         case FETCH_ALL_SITES_REQUEST:
         case FETCH_SINGLE_SITE_REQUEST:
+        case CREATE_TRANSFER_SITE_REQUEST:
             return null;
         case ARCHIVE_SITE_FAILURE:
         case CREATE_SITE_FAILURE:
@@ -103,6 +127,7 @@ function errorReducer(state = null, action) {
         case EDIT_SITE_FAILURE:
         case FETCH_ALL_SITES_FAILURE:
         case FETCH_SINGLE_SITE_FAILURE:
+        case CREATE_TRANSFER_SITE_FAILURE:
             return action.error;
         default:
             return state;

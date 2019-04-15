@@ -7,7 +7,12 @@ import FloorStats from '../presentational/FloorStats';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import deleteFloor from 'actions/companyAdmin/floors/async/deleteFloor';
-import { CONFIRM_DELETE, ERROR_MODAL } from 'constants/shared/modalTypes';
+import {
+    CONFIRM_DELETE,
+    ERROR_MODAL,
+    CONFIRM_ARCHIVE
+} from 'constants/shared/modalTypes';
+import archiveFloor from 'actions/companyAdmin/floors/async/archiveFloor';
 
 class FloorDetailsContainer extends Component {
     render() {
@@ -23,6 +28,7 @@ class FloorDetailsContainer extends Component {
                     floor={floor}
                     stats={stats}
                     handleDelete={this.handleDeleteModal}
+                    handleArchive={this.handleArchiveModal}
                 />
             </BlockContainer>
         );
@@ -49,6 +55,18 @@ class FloorDetailsContainer extends Component {
         const handleDelete = () => deleteFloor(id);
         const message = 'Are you sure you want to delete this floor?';
         showModal(CONFIRM_DELETE, { hideModal, handleDelete, message });
+    };
+
+    handleArchiveModal = () => {
+        const { id, showModal, hideModal, floor, archiveFloor } = this.props;
+        const handleArchive = () => {
+            archiveFloor(id, floor.isArchived);
+            hideModal();
+        };
+        const message = `Are you sure you want to ${
+            floor.isArchived ? 'un-' : ''
+        }archive ${floor.name}?`;
+        showModal(CONFIRM_ARCHIVE, { hideModal, handleArchive, message });
     };
 }
 
@@ -79,7 +97,8 @@ const mapStateToProps = (
 const mapDispatchToProps = dispatch => ({
     showModal: (type, props) => dispatch(showModal(type, props)),
     hideModal: () => dispatch(hideModal()),
-    deleteFloor: id => dispatch(deleteFloor(id))
+    deleteFloor: id => dispatch(deleteFloor(id)),
+    archiveFloor: (id, undo) => dispatch(archiveFloor(id, undo))
 });
 
 export default withRouter(

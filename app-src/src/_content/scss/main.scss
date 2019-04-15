@@ -608,6 +608,11 @@ input {
     font-size: 140%;
     line-height: 1.5;
 
+    &.intro-text {
+        margin-bottom: 30px;
+        margin-top: -10px;
+    }
+
     a {
         @include ubuntu-medium;
         color: $body-text;
@@ -764,6 +769,10 @@ input {
             text-align: center;
             line-height: 26px;
         }
+        .error {
+            text-align: left;
+            line-height: 1;
+        }
         i {
             position: absolute;
             top: 50%;
@@ -772,11 +781,17 @@ input {
             color: #767676;
         }
     }
+
+    &.large-margin {
+        margin-bottom: 40px;
+        margin-top: 10px;
+    }
+
     .title {
         float: left;
         width: 100%;
         font-size: 140%;
-        margin-bottom: 7.5px;
+        margin-bottom: 12.5px;
         @include ubuntu-medium;
     }
 
@@ -928,7 +943,7 @@ input {
 
 .radio-button {
     float: left;
-    width: 100%;
+    padding-right: 60px;
     cursor: pointer;
     input {
         position: absolute;

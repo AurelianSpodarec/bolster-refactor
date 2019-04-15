@@ -3,17 +3,17 @@ import ModalOuterContainer from '../containers/ModalOuterContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 
-const ConfirmDeleteModal = ({
-    handleDelete,
+const ConfirmSubmitModal = ({
+    handleSubmit,
     hideModal,
-    message = 'Are you sure you want to delete this?'
+    message = 'Are you sure you want to submit this?'
 }) => (
     <ModalOuterContainer>
         <BlockHeading title={message} />
         <BlockButtonWrapper>
-            <button className="button red" onClick={handleDelete}>
-                <i className="far fa-trash-alt fa-fw" />
-                Delete
+            <button className="button" onClick={handleSubmit}>
+                <i className="fa fa-save fa-fw" />
+                Submit
             </button>
             <button className="button" onClick={hideModal}>
                 <i className="fa fa-times" /> Cancel
@@ -22,4 +22,4 @@ const ConfirmDeleteModal = ({
     </ModalOuterContainer>
 );
 
-export default ConfirmDeleteModal;
+export default ConfirmSubmitModal;

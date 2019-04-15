@@ -1,6 +1,8 @@
 //generic
 export const SUCCESS_MODAL = 'SUCCESS_MODAL';
 export const CONFIRM_DELETE = 'CONFIRM_DELETE_MODAL';
+export const CONFIRM_ARCHIVE = 'CONFIRM_ARCHIVE_MODAL';
+export const CONFIRM_SUBMIT = 'CONFIRM_SUBMIT_MODAL';
 
 // company
 export const PIN_IMAGE = 'PIN_IMAGE';

@@ -4,7 +4,11 @@ import PageHeading from 'components/shared/generic/pageHeading/presentational/Pa
 import Breadcrumb from 'components/shared/generic/breadcrumb/presentational/Breadcrumb';
 
 const SitePageHeader = ({ site }) => (
-    <PageHeading title={`Site: ${site.name || ''}`}>
+    <PageHeading
+        title={`Site: ${site.name || ''} ${
+            site.isArchived ? '(ARCHIVED)' : ''
+        }`}
+    >
         <Breadcrumb
             breadcrumbs={[
                 { text: 'Sites', link: '/company/sites' },
