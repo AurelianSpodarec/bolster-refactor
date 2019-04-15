@@ -13,9 +13,9 @@ export const archiveBuildingRequest = () => ({
     type: ARCHIVE_BUILDING_REQUEST
 });
 
-export const archiveBuildingSuccess = id => ({
+export const archiveBuildingSuccess = payload => ({
     type: ARCHIVE_BUILDING_SUCCESS,
-    id
+    payload
 });
 
 export const archiveBuildingFailure = error => ({
@@ -23,10 +23,16 @@ export const archiveBuildingFailure = error => ({
     error
 });
 
-export default buildingID => dispatch => {
+export default (buildingID, undo) => dispatch => {
     dispatch(archiveBuildingRequest());
     return axios
-        .post(`${API_URL}/buildings/${buildingID}`, null, getHeaders())
+        .post(
+            `${API_URL}/buildings/${buildingID}/archive${
+                undo ? '?undo=true' : ''
+            }`,
+            null,
+            getHeaders()
+        )
         .then(({ data }) => dispatch(archiveBuildingSuccess(data)))
         .catch(err => dispatch(archiveBuildingFailure(err.message)));
 };

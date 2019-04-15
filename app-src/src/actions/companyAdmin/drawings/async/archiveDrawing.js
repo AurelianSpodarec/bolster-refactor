@@ -13,9 +13,9 @@ export const archiveDrawingRequest = () => ({
     type: ARCHIVE_DRAWING_REQUEST
 });
 
-export const archiveDrawingSuccess = id => ({
+export const archiveDrawingSuccess = payload => ({
     type: ARCHIVE_DRAWING_SUCCESS,
-    id
+    payload
 });
 
 export const archiveDrawingFailure = error => ({
@@ -23,10 +23,16 @@ export const archiveDrawingFailure = error => ({
     error
 });
 
-export default drawingID => dispatch => {
+export default (drawingID, undo) => dispatch => {
     dispatch(archiveDrawingRequest());
     return axios
-        .post(`${API_URL}/drawings/${drawingID}`, null, getHeaders())
+        .post(
+            `${API_URL}/drawings/${drawingID}/archive${
+                undo ? '?undo=true' : ''
+            }`,
+            null,
+            getHeaders()
+        )
         .then(({ data }) => dispatch(archiveDrawingSuccess(data)))
         .catch(err => dispatch(archiveDrawingFailure(err.message)));
 };

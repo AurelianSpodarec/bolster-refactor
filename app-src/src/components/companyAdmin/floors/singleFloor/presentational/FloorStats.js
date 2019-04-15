@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import PieChart from 'components/shared/stats/presentational/PieChart';
 import FloorDetails from './FloorDetails';
 
-const FloorStats = ({ floor, stats, handleDelete }) => (
+const FloorStats = ({ floor, stats, handleDelete, handleArchive }) => (
     <div className="stats size-lg-12">
         <FloorDetails stats={stats} floor={floor} />
         <PieChart stats={stats} hierarchyType="floor" />
@@ -18,7 +18,10 @@ const FloorStats = ({ floor, stats, handleDelete }) => (
             <button className="button red" type="button" onClick={handleDelete}>
                 <i className="far fa-trash-alt fa-fw" /> Delete
             </button>
-
+            <button className="button" onClick={handleArchive} type="button">
+                <i className="fa fa-archive" />
+                {floor.isArchived ? 'Un-Archive' : 'Archive'}
+            </button>
             <Link className="button" to="/company/site">
                 <i className="fa fa-exchange" /> Change Ownership
             </Link>

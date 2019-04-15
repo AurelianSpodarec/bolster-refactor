@@ -99,7 +99,6 @@ function updatedBuildingReducer(state = 0, action) {
     switch (action.type) {
         case CREATE_BUILDING_SUCCESS:
         case EDIT_BUILDING_SUCCESS:
-        case ARCHIVE_BUILDING_SUCCESS:
             return action.payload.id;
         default:
             return state;

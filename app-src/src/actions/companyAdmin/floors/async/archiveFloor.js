@@ -13,9 +13,9 @@ export const archiveFloorRequest = () => ({
     type: ARCHIVE_FLOOR_REQUEST
 });
 
-export const archiveFloorSuccess = id => ({
+export const archiveFloorSuccess = payload => ({
     type: ARCHIVE_FLOOR_SUCCESS,
-    id
+    payload
 });
 
 export const archiveFloorFailure = error => ({
@@ -23,10 +23,14 @@ export const archiveFloorFailure = error => ({
     error
 });
 
-export default floorID => dispatch => {
+export default (floorID, undo) => dispatch => {
     dispatch(archiveFloorRequest());
     return axios
-        .post(`${API_URL}/floors/${floorID}`, null, getHeaders())
+        .post(
+            `${API_URL}/floors/${floorID}/archive${undo ? '?undo=true' : ''}`,
+            null,
+            getHeaders()
+        )
         .then(({ data }) => dispatch(archiveFloorSuccess(data)))
         .catch(err => dispatch(archiveFloorFailure(err.message)));
 };
