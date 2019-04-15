@@ -34,7 +34,7 @@ class DrawingBreadcrumbContainer extends Component {
             },
             {
                 text: this.state.floorName,
-                link: `/company/drawings/${this.state.floorID}`
+                link: `/company/floors/${this.state.floorID}`
             },
             { text: this.props.drawing.name }
         ];

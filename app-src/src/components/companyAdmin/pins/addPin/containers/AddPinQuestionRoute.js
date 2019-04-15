@@ -26,19 +26,31 @@ const {
 } = QUESTION_TYPE_VALUES;
 
 const SingleLine = ({
-    question: { id, isRequired },
+    question: { id, isRequired, charLimit },
     answers,
     handleChange
 }) => (
     <TextInputContainer
         required={isRequired}
+        name={`answer-${id}`}
         value={answers[id]}
         handleChange={handleChange}
+        charLimit={charLimit}
     />
 );
 
-const MultiLine = ({ question: { isRequired } }) => (
-    <TextAreaContainer required={isRequired} />
+const MultiLine = ({
+    question: { id, isRequired, charLimit },
+    answers,
+    handleChange
+}) => (
+    <TextAreaContainer
+        required={isRequired}
+        name={`answer-${id}`}
+        value={answers[id]}
+        handleChange={handleChange}
+        charLimit={charLimit}
+    />
 );
 
 const NumberInput = ({ question: { isRequired } }) => (
