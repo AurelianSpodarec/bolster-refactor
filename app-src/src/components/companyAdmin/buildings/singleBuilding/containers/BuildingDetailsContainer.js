@@ -65,7 +65,8 @@ const mapStateToProps = (
                 deleteSuccess,
                 buildings,
                 error,
-                isFetching: fetchingBuildings
+                isFetching: fetchingBuildings,
+                postFailure
             },
             statsReducer: { stats, isFetching: fetchingStats }
         }
@@ -77,7 +78,8 @@ const mapStateToProps = (
     error,
     stats,
     id: match.params.id,
-    deleteSuccess
+    deleteSuccess,
+    postFailure
 });
 
 const mapDispatchToProps = dispatch => ({

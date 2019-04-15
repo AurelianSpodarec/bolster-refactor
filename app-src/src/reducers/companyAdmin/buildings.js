@@ -26,6 +26,7 @@ export default combineReducers({
     updatedBuildingID: updatedBuildingReducer,
     isFetching: isFetchingReducer,
     postSuccess: postSuccessReducer,
+    postFailure: postFailureReducer,
     deleteSuccess: deleteSuccessReducer,
     error: errorReducer,
     nameFilter: nameFilterReducer,
@@ -56,6 +57,20 @@ function postSuccessReducer(state = false, action) {
         case CREATE_BUILDING_SUCCESS:
         case EDIT_BUILDING_SUCCESS:
         case DELETE_BUILDING_SUCCESS:
+            return true;
+        default:
+            return state;
+    }
+}
+function postFailureReducer(state = false, action) {
+    switch (action.type) {
+        case CREATE_BUILDING_REQUEST:
+        case EDIT_BUILDING_REQUEST:
+        case DELETE_BUILDING_REQUEST:
+            return false;
+        case CREATE_BUILDING_FAILURE:
+        case EDIT_BUILDING_FAILURE:
+        case DELETE_BUILDING_FAILURE:
             return true;
         default:
             return state;
