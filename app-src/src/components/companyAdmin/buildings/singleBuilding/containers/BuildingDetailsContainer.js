@@ -6,8 +6,13 @@ import BlockContainer from 'components/shared/generic/block/containers/BlockCont
 import BuildingStats from '../presentational/BuildingStats';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
-import { CONFIRM_DELETE, ERROR_MODAL } from 'constants/shared/modalTypes';
+import {
+    CONFIRM_DELETE,
+    ERROR_MODAL,
+    CONFIRM_ARCHIVE
+} from 'constants/shared/modalTypes';
 import deleteBuilding from 'actions/companyAdmin/buildings/async/deleteBuilding';
+import archiveBuilding from 'actions/companyAdmin/buildings/async/archiveBuilding';
 
 class BuildingDetailsContainer extends Component {
     render() {
@@ -23,6 +28,7 @@ class BuildingDetailsContainer extends Component {
                     building={building}
                     stats={stats}
                     handleDelete={this.handleDeleteModal}
+                    handleArchive={this.handleArchiveModal}
                 />
             </BlockContainer>
         );
@@ -56,6 +62,24 @@ class BuildingDetailsContainer extends Component {
         const message = `Are you sure you want to delete ${building.name}`;
         showModal(CONFIRM_DELETE, { hideModal, handleDelete, message });
     };
+
+    handleArchiveModal = () => {
+        const {
+            id,
+            showModal,
+            hideModal,
+            building,
+            archiveBuilding
+        } = this.props;
+        const handleArchive = () => {
+            archiveBuilding(id, building.isArchived);
+            hideModal();
+        };
+        const message = `Are you sure you want to ${
+            building.isArchived ? 'un-' : ''
+        }archive ${building.name}?`;
+        showModal(CONFIRM_ARCHIVE, { hideModal, handleArchive, message });
+    };
 }
 
 const mapStateToProps = (
@@ -85,7 +109,8 @@ const mapStateToProps = (
 const mapDispatchToProps = dispatch => ({
     showModal: (type, props) => dispatch(showModal(type, props)),
     hideModal: () => dispatch(hideModal()),
-    deleteBuilding: id => dispatch(deleteBuilding(id))
+    deleteBuilding: id => dispatch(deleteBuilding(id)),
+    archiveBuilding: (id, undo) => dispatch(archiveBuilding(id, undo))
 });
 
 export default withRouter(

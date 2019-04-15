@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 import PieChart from 'components/shared/stats/presentational/PieChart';
 import SiteDetails from './SiteDetails';
-const SiteStats = ({ site, stats, handleDelete }) => (
+const SiteStats = ({ site, stats, handleDelete, handleArchive }) => (
     <div className="stats size-lg-12">
         <div className="flex-item size-lg-12">
             <SiteDetails site={site} stats={stats} />
@@ -19,6 +19,10 @@ const SiteStats = ({ site, stats, handleDelete }) => (
             </Link>
             <button className="button red" onClick={handleDelete} type="button">
                 <i className="far fa-trash-alt fa-fw" /> Delete
+            </button>
+            <button className="button" onClick={handleArchive} type="button">
+                <i className="fa fa-archive" />
+                {site.isArchived ? 'Un-Archive' : 'Archive'}
             </button>
 
             <Link className="button" to="/company/site">

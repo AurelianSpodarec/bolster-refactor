@@ -12,51 +12,25 @@ import fetchPinStatsForLevel from 'actions/companyAdmin/stats/async/fetchPinStat
 import SingleSite from '../presentational/SingleSite';
 
 class SingleSiteContainer extends Component {
-    render() {
-        return <SingleSite />;
-    }
+    render = () => <SingleSite />;
+
     componentDidMount = () => {
-        const {
-            siteID,
-            fetchSingleSite,
-            fetchAllBuildings,
-            fetchAllFloors,
-            fetchAllDrawings,
-            fetchDocuments,
-            fetchPinStatsForLevel
-        } = this.props;
-        fetchSingleSite(siteID).then(() => {
-            fetchDocuments('site', siteID);
-            fetchPinStatsForLevel('site', siteID);
-            fetchAllBuildings();
-            fetchAllFloors();
-            fetchAllDrawings();
-        });
+        const { siteID, fetchSiteData } = this.props;
+        fetchSiteData(siteID);
     };
 }
 
 //make all fetches needed and this will update our redux store.
 const mapDispatchToProps = dispatch => ({
-    fetchAllBuildings: () => {
+    fetchSiteData: siteID => {
+        const hierarchyType = 'site';
+        dispatch(fetchSingleSite(siteID));
         dispatch(fetchAllBuildings());
-    },
-    fetchAllDrawings: () => {
         dispatch(fetchAllDrawings());
-    },
-    fetchAllFloors: () => {
         dispatch(fetchAllFloors());
-    },
-    fetchSingleSite: siteID => {
-        return dispatch(fetchSingleSite(siteID));
-    },
-    fetchDocuments: (HierarchyType, siteID) => {
-        dispatch(fetchDocuments(HierarchyType, siteID));
-    },
-    fetchClients: () => {
+        dispatch(fetchDocuments(hierarchyType, siteID));
         dispatch(fetchClients());
-    },
-    fetchPinStatsForLevel: (hierarchyType, levelID) => {
-        dispatch(fetchPinStatsForLevel(hierarchyType, levelID));
+        dispatch(fetchPinStatsForLevel(hierarchyType, siteID));
     }
 });
 
