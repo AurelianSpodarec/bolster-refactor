@@ -7,7 +7,7 @@ import TextAreaContainer from 'components/shared/generic/form/containers/TextAre
 import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
 import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
 import FileUploadContainer from 'components/shared/generic/form/containers/FileUploadContainer';
-import RadioButtonsContainer from 'components/shared/generic/form/containers/RadioButtonsContainer';
+import RadioButtonListContainer from 'components/shared/generic/form/containers/RadioButtonListContainer';
 
 import updateAddPinAnswer from 'actions/companyAdmin/drawings/sync/updateAddPinAnswer';
 //import resetPinAnswers from 'actions/companyAdmin/drawings/sync/resetPinAnswers';
@@ -101,17 +101,14 @@ const CheckBox = ({ question: { id, isRequired }, answers, handleChange }) => (
     />
 );
 
-const Radio = ({ question: { id, isRequired, options } }) =>
-    options.map(radio => (
-        <RadioButtonsContainer
-            key={radio.id}
-            name={id}
-            value={radio.id}
-            text={radio.text}
-            checked={false}
-            required={isRequired}
-        />
-    ));
+const Radio = ({ question: { id, options }, answers, handleChange }) => (
+    <RadioButtonListContainer
+        name={`answer-${id}`}
+        options={options}
+        selectedOption={answers[id]}
+        handleChange={handleChange}
+    />
+);
 
 const SinglePhoto = ({
     question: { isRequired, id },
