@@ -8,6 +8,7 @@ import DropdownContainer from 'components/shared/generic/form/containers/Dropdow
 import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
 import FileUploadContainer from 'components/shared/generic/form/containers/FileUploadContainer';
 import RadioButtonsContainer from 'components/shared/generic/form/containers/RadioButtonsContainer';
+import SignatureContainer from 'components/shared/generic/form/containers/SignatureContainer';
 
 import updateAddPinAnswer from 'actions/companyAdmin/drawings/sync/updateAddPinAnswer';
 import resetPinAnswers from 'actions/companyAdmin/drawings/sync/resetPinAnswers';
@@ -22,7 +23,7 @@ const {
     //MULTI_DROPDOWN,
     RADIO,
     CHECKBOX,
-    //SIGNATURE,
+    SIGNATURE,
     SINGLE_PHOTO,
     MULTI_PHOTO
 } = QUESTION_TYPE_VALUES;
@@ -129,7 +130,20 @@ const MultiPhoto = ({ question: { isRequired, maxPhotos, id }, answers, handleFi
     />
 );
 
+const Signature = ({ question: { isRequired, id }, handleSignatureChange}) => (
+    <SignatureContainer
+        name={`answer-${id}`}
+        canvasProps={{width: 500, height: 200, className: 'sigCanvas'}}
+        required={isRequired}
+        onChange={handleSignatureChange}
+    />
+);
+
 class AddPinQuestionRoute extends Component {
+    state = {
+        sigPad: {}
+    };
+
     render() {
         const { question, answers } = this.props;
 
@@ -141,7 +155,8 @@ class AddPinQuestionRoute extends Component {
             [CHECKBOX]: CheckBox,
             [RADIO]: Radio,
             [SINGLE_PHOTO]: SinglePhoto,
-            [MULTI_PHOTO]: MultiPhoto
+            [MULTI_PHOTO]: MultiPhoto,
+            [SIGNATURE]: Signature
         };
 
         const SpecificField = fieldTypes[question.type + ''] || SingleLine;
@@ -151,6 +166,8 @@ class AddPinQuestionRoute extends Component {
                 answers={answers}
                 handleChange={this.handleChange}
                 handleFileChange={this.handleFileChange}
+                handleSignatureChange={this.handleSignatureChange}
+                sigPad={this.state.sigPad}
             />
         );
     }
@@ -169,6 +186,11 @@ class AddPinQuestionRoute extends Component {
         const val = type === 'checkbox' ? checked : value;
 
         updateAddPinAnswer(question.id, val);
+    };
+
+    handleSignatureChange = (d) => {
+        const { updateAddPinAnswer, question } = this.props;
+        updateAddPinAnswer(question.id, d);
     };
 
     handleFileChange = (name, s3Key) => {
