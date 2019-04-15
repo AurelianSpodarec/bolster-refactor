@@ -42,7 +42,7 @@ class DrawingMapGeneralContainer extends Component {
             mapZoom,
             addMode
         } = this.state;
-        const { error, pins, drawing, coordinates } = this.props;
+        const { error, pins, drawing } = this.props;
 
         const serviceOptions = this._getServicesOptions();
         const statusOptions = convertEnumToDropdownOptions(PIN_STATUS_TYPES);

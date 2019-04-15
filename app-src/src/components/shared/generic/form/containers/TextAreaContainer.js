@@ -13,7 +13,14 @@ class TextAreaContainer extends Component {
 
     render() {
         const { showFieldError } = this.state;
-        const { value, name, placeholder, error, errorsVisible } = this.props;
+        const {
+            value,
+            name,
+            placeholder,
+            error,
+            errorsVisible,
+            charLimit
+        } = this.props;
 
         let errorMessage;
         if (showFieldError || errorsVisible) errorMessage = error;
@@ -26,6 +33,7 @@ class TextAreaContainer extends Component {
                 handleChange={this.handleChange}
                 handleBlur={this.handleBlur}
                 error={errorMessage}
+                charLimit={charLimit}
             />
         );
     }
