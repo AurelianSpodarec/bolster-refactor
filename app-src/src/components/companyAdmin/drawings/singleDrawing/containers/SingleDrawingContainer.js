@@ -19,23 +19,9 @@ class SingleDrawingContainer extends Component {
     }
 
     componentDidMount = () => {
-        const {
-            drawingID,
-            setTabs,
-            fetchSingleDrawing,
-            fetchDocuments,
-            fetchOperativesForDrawing,
-            fetchPins,
-            fetchClientsForDrawing,
-            fetchAllCompanyUsers
-        } = this.props;
+        const { drawingID, setTabs, fetchDrawingData } = this.props;
         setTabs(Object.values(DRAWING_TABS), DRAWING_TABS.GENERAL_OVERVIEW);
-        fetchSingleDrawing(drawingID);
-        fetchDocuments('drawing', drawingID);
-        fetchOperativesForDrawing(drawingID);
-        fetchPins('drawing', drawingID);
-        fetchClientsForDrawing(drawingID);
-        fetchAllCompanyUsers();
+        fetchDrawingData(drawingID);
     };
 }
 
@@ -43,22 +29,13 @@ const mapDispatchToProps = dispatch => ({
     setTabs: (tabs, selectedTab) => {
         dispatch(setTabs(tabs, selectedTab));
     },
-    fetchSingleDrawing: drawingID => {
+
+    fetchDrawingData: drawingID => {
         dispatch(fetchSingleDrawing(drawingID));
-    },
-    fetchDocuments: (HierarchyType, drawingID) => {
-        dispatch(fetchDocuments(HierarchyType, drawingID));
-    },
-    fetchClientsForDrawing: drawingID => {
+        dispatch(fetchDocuments('drawing', drawingID));
         dispatch(fetchClientsForDrawing(drawingID));
-    },
-    fetchOperativesForDrawing: drawingID => {
         dispatch(fetchOperativesForDrawing(drawingID));
-    },
-    fetchPins: (type, id) => {
-        dispatch(fetchPins(type, id));
-    },
-    fetchAllCompanyUsers: () => {
+        dispatch(fetchPins('drawing', drawingID));
         dispatch(fetchCompanyUsers());
     }
 });

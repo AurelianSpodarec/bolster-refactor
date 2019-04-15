@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
 import DrawingMapGeneralContainer from '../containers/DrawingMapGeneralContainer';
 import DrawingDocumentsContainer from '../containers/DrawingDocumentsContainer';
@@ -7,7 +6,7 @@ import DrawingClientAccessContainer from '../containers/DrawingClientAccessConta
 import DrawingCompaniesAccessContainer from '../containers/DrawingCompaniesAccessContainer';
 import DrawingOperativesAccessContainer from '../containers/DrawingOperativesAccessContainer';
 
-const GeneralOverview = () => (
+const GeneralOverview = ({ handleDelete }) => (
     <>
         <div className="size-lg-12">
             <div className="size-lg-12">
@@ -34,9 +33,13 @@ const GeneralOverview = () => (
         </div>
         <div className="size-lg-12">
             <div className="content-container size-lg-12">
-                <Link to="#" className="button red">
+                <button
+                    type="button"
+                    className="button red"
+                    onClick={handleDelete}
+                >
                     <i className="fal fa-trash-alt" /> Delete drawing
-                </Link>
+                </button>
             </div>
         </div>
     </>
