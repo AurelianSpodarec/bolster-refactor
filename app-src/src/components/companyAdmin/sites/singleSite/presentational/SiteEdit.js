@@ -11,7 +11,7 @@ const SiteEdit = ({ siteName }) => (
             <BackButtonContainer />
         </PageHeading>
         <BlockContainer>
-            <BlockHeading title="Edit Site" />
+            <BlockHeading title="Edit Site Details" />
             <SiteEditFormContainer />
         </BlockContainer>
     </>

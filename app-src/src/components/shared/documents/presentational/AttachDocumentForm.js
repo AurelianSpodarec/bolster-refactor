@@ -37,7 +37,7 @@ const AttachDocumentForm = ({
     file
 }) => (
     <>
-        <BlockHeading title="Attach Document " />
+        <BlockHeading title="Document details" />
         <p className="generic-text intro-text size-lg-12">
             <strong>Instructions:</strong> ##Lorem ipsum dolor sit amet
             consectetur adipisicing elit. Expedita sit quas, aliquam explicabo

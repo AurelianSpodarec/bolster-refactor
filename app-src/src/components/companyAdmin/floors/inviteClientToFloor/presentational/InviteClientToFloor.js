@@ -10,7 +10,6 @@ const InviteClientToFloor = () => (
         <PageHeading leftChildren={true} title="Invite Client">
             <BackButtonContainer />
         </PageHeading>
-        <Breadcrumb breadcrumbs={[{ text: 'item 1' }, { text: 'item 2' }]} />
         <InviteClientToFloorContainer />
     </>
 );

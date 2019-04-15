@@ -8,7 +8,7 @@ import PageHeading from 'components/shared/generic/pageHeading/presentational/Pa
 
 const AttachSiteOperative = () => (
     <>
-        <PageHeading leftChildren={true} title="Attach Operative">
+        <PageHeading leftChildren={true} title="Invite Operative">
             <BackButtonContainer />
         </PageHeading>
         <AttachOperativesFormContainer hierarchyType={HIERARCHY_IDS.SITE} />

@@ -11,7 +11,7 @@ const FloorEdit = ({ floorName }) => (
             <BackButtonContainer />
         </PageHeading>
         <BlockContainer>
-            <BlockHeading title="Edit Floor" />
+            <BlockHeading title="Edit Floor details" />
             <FloorEditFormContainer />
         </BlockContainer>
     </>

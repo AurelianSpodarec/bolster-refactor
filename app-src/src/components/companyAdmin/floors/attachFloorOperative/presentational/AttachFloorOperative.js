@@ -7,7 +7,7 @@ import BackButtonContainer from 'components/shared/generic/backButton/containers
 
 const AttachFloorOperative = () => (
     <>
-        <PageHeading leftChildren={true} title="Attatch Operative">
+        <PageHeading leftChildren={true} title="Invite operative">
             <BackButtonContainer />
         </PageHeading>{' '}
         <AttachOperativesFormContainer hierarchyType={HIERARCHY_IDS.FLOOR} />

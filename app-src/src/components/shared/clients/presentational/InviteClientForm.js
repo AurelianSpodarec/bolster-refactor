@@ -22,7 +22,7 @@ const InviteClientForm = ({
     companyName
 }) => (
     <>
-        <BlockHeading title="Invite Client" />
+        <BlockHeading title="Client Details" />
         <p className="generic-text size-lg-12">
             Please enter the email address of the user you wish to invite. If
             the user does not have a Bolster systems account, they will be

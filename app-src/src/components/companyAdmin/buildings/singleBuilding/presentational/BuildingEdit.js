@@ -11,7 +11,7 @@ const BuildingEdit = ({ buildingName }) => (
             <BackButtonContainer />
         </PageHeading>
         <BlockContainer>
-            <BlockHeading title="Edit Building" />
+            <BlockHeading title="Edit Building details" />
             <BuildingEditFormContainer />
         </BlockContainer>
     </>

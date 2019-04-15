@@ -6,6 +6,7 @@ import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/pr
 import Field from 'components/shared/generic/form/presentational/Field';
 import CheckboxListContainer from 'components/shared/generic/form/containers/CheckboxListContainer';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
+import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 
 const InviteCompanyForm = ({
     location,
@@ -16,39 +17,42 @@ const InviteCompanyForm = ({
     handleChange,
     handleMultiselectChange
 }) => (
-    <Form className="size-lg-12" onSubmit={handleSubmit}>
-        <Field name="Enter the company code" sizeClasses="size-lg-6">
-            <TextInputContainer
-                name="companyCode"
-                value={companyCode}
-                handleChange={handleChange}
-                required
-            />
-        </Field>
+    <>
+        <BlockHeading title="Company details" />
+        <Form className="generic-form size-lg-12" onSubmit={handleSubmit}>
+            <Field name="Enter the company code" sizeClasses="size-lg-6">
+                <TextInputContainer
+                    name="companyCode"
+                    value={companyCode}
+                    handleChange={handleChange}
+                    required
+                />
+            </Field>
 
-        <Field name="Service types" sizeClasses="size-lg-12">
-            <CheckboxListContainer
-                required
-                name="serviceIDs"
-                handleChange={handleMultiselectChange}
-                options={serviceOptions}
-                selectedOptions={checkedServices}
-            />
-        </Field>
+            <Field name="Service types" sizeClasses="size-lg-12">
+                <CheckboxListContainer
+                    required
+                    name="serviceIDs"
+                    handleChange={handleMultiselectChange}
+                    options={serviceOptions}
+                    selectedOptions={checkedServices}
+                />
+            </Field>
 
-        <BlockButtonWrapper>
-            <button className="button green">
-                <i className="fa fa-plus" />
-                Invite Company
-            </button>
-            <Link
-                to={location.pathname.replace('/invite-company', '')}
-                className="button"
-            >
-                Cancel
-            </Link>
-        </BlockButtonWrapper>
-    </Form>
+            <BlockButtonWrapper>
+                <button className="button green">
+                    <i className="fa fa-plus" />
+                    Invite Company
+                </button>
+                <Link
+                    to={location.pathname.replace('/invite-company', '')}
+                    className="button"
+                >
+                    Cancel
+                </Link>
+            </BlockButtonWrapper>
+        </Form>
+    </>
 );
 
 export default withRouter(InviteCompanyForm);
