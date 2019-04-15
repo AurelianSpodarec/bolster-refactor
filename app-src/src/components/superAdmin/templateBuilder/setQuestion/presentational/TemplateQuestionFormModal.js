@@ -101,7 +101,7 @@ const AddTemplateQuestionFormModal = ({
                     <i className="fa fa-plus" /> Set
                 </button>
                 <button className="button" onClick={hideModal}>
-                    <i className="fa fa-times" /> Cancel
+                    Cancel
                 </button>
             </BlockButtonWrapper>
         </Form>

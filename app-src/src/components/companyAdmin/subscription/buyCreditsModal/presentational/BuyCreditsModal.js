@@ -81,7 +81,7 @@ const BuyCreditsModal = ({
                         Buy credits
                     </button>
                     <button className="button" onClick={hideModal}>
-                        <i className="fa fa-times" /> Cancel
+                        Cancel
                     </button>
                 </BlockButtonWrapper>
             </Form>

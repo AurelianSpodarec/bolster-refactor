@@ -33,9 +33,9 @@ const EditClientForm = ({
             </button>
             <Link
                 to={location.pathname.replace(`/edit-client/${clientID}`, '')}
-                className="button red"
+                className="button"
             >
-                <i className="fa fa-times" /> Cancel
+                Cancel
             </Link>
         </BlockButtonWrapper>
     </Form>

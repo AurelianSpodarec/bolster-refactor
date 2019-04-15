@@ -74,7 +74,7 @@ const AddServiceToSubscriptionModal = ({
                     Buy now
                 </button>
                 <button className="button" onClick={hideModal}>
-                    <i className="fa fa-times" /> Cancel
+                    Cancel
                 </button>
             </BlockButtonWrapper>
         </Form>
