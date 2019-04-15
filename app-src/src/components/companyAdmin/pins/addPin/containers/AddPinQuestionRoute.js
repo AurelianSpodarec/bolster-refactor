@@ -53,8 +53,19 @@ const MultiLine = ({
     />
 );
 
-const NumberInput = ({ question: { isRequired } }) => (
-    <TextInputContainer required={isRequired} type="number" />
+const NumberInput = ({
+    question: { id, isRequired, maxNum },
+    answers,
+    handleChange
+}) => (
+    <TextInputContainer
+        required={isRequired}
+        type="number"
+        name={`answer-${id}`}
+        value={answers[id]}
+        maxNum={maxNum}
+        handleChange={handleChange}
+    />
 );
 
 const SingleDropdown = ({ question: { isRequired, options } }) => {
