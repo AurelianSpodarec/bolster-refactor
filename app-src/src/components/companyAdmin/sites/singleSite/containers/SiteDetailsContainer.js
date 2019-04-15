@@ -45,9 +45,7 @@ class SiteDetailsContainer extends Component {
 
     handleDeleteModal = () => {
         const { id, showModal, hideModal, site, deleteSite } = this.props;
-        const handleDelete = () => {
-            deleteSite(id);
-        };
+        const handleDelete = () => deleteSite(id);
         const message = `Are you sure you want to delete ${site.name}?`;
         showModal(CONFIRM_DELETE, { hideModal, handleDelete, message });
     };
