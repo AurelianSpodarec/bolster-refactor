@@ -6,10 +6,10 @@ export default combineReducers({
     coordinates: coordinatesReducer
 });
 
-function coordinatesReducer(state = {}, action) {
+function coordinatesReducer(state = { latX: '', lngY: '' }, action) {
     switch (action.type) {
         case UPDATE_PIN_COORDINATES:
-            return updateObj(state, action.key, action.value);
+            return updateObj(state, action.name, action.value);
         default:
             return state;
     }

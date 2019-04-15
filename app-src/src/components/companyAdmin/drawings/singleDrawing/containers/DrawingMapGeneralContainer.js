@@ -92,7 +92,7 @@ class DrawingMapGeneralContainer extends Component {
         const { fetchCompanyUsers, updatePinCoordinates } = this.props;
 
         fetchCompanyUsers();
-        updatePinCoordinates([0, 0]);
+        updatePinCoordinates('latX', 0);
     };
 
     handleClick = e => {
@@ -214,8 +214,8 @@ const mapDispatchToProps = dispatch => ({
     fetchCompanyUsers: () => {
         dispatch(fetchCompanyUsers());
     },
-    updatePinCoordinates: (latX, lngX) => {
-        dispatch(updatePinCoordinates(latX, lngX));
+    updatePinCoordinates: (name, value) => {
+        dispatch(updatePinCoordinates(name, value));
     }
 });
 

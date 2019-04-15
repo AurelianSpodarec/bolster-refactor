@@ -34,6 +34,7 @@ class SitesFiltersContainer extends Component {
         e.preventDefault();
 
         const { dispatch } = this.props;
+
         dispatch(updateSitesFilters(e.target.name, e.target.value));
     };
 }
