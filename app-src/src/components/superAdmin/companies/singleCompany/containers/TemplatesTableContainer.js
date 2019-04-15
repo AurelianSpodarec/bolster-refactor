@@ -5,7 +5,7 @@ import { withRouter } from 'react-router-dom';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import TemplatesTable from '../presentational/TemplatesTable';
 
-class TempaltesTableContainer extends Component {
+class TemplatesTableContainer extends Component {
     render() {
         const { templates, isFetching, error } = this.props;
 
@@ -22,16 +22,21 @@ class TempaltesTableContainer extends Component {
     }
 }
 
-const mapStateToProps = ({
-    superAdmin: {
-        templatesReducer: { templates, isFetching, error }
-    }
-}) => ({
-    templates: Object.values(templates),
+const mapStateToProps = (
+    {
+        superAdmin: {
+            templatesReducer: { templates, isFetching, error }
+        }
+    },
+    { match }
+) => ({
+    templates: Object.values(templates).filter(
+        temp => +temp.companyID === +match.params.id
+    ),
     isFetching,
     error
 });
 
-const TableWithConnect = connect(mapStateToProps)(TempaltesTableContainer);
+const TableWithConnect = connect(mapStateToProps)(TemplatesTableContainer);
 
 export default withRouter(TableWithConnect);

@@ -10,7 +10,9 @@ import FileUploadContainer from 'components/shared/generic/form/containers/FileU
 import RadioButtonsContainer from 'components/shared/generic/form/containers/RadioButtonsContainer';
 
 import updateAddPinAnswer from 'actions/companyAdmin/drawings/sync/updateAddPinAnswer';
-import resetPinAnswers from 'actions/companyAdmin/drawings/sync/resetPinAnswers';
+//import resetPinAnswers from 'actions/companyAdmin/drawings/sync/resetPinAnswers';
+
+import { convertArrToObj } from 'helpers/generic';
 
 const {
     SINGLE_LINE,
@@ -26,33 +28,77 @@ const {
 } = QUESTION_TYPE_VALUES;
 
 const SingleLine = ({
-    question: { id, isRequired },
+    question: { id, isRequired, charLimit },
     answers,
     handleChange
 }) => (
     <TextInputContainer
         required={isRequired}
+        name={`answer-${id}`}
         value={answers[id]}
+        handleChange={handleChange}
+        charLimit={charLimit}
+    />
+);
+
+const MultiLine = ({
+    question: { id, isRequired, charLimit },
+    answers,
+    handleChange
+}) => (
+    <TextAreaContainer
+        required={isRequired}
+        name={`answer-${id}`}
+        value={answers[id]}
+        handleChange={handleChange}
+        charLimit={charLimit}
+    />
+);
+
+const NumberInput = ({
+    question: { id, isRequired, maxNum },
+    answers,
+    handleChange
+}) => (
+    <TextInputContainer
+        required={isRequired}
+        type="number"
+        name={`answer-${id}`}
+        value={answers[id]}
+        maxNum={maxNum}
         handleChange={handleChange}
     />
 );
 
-const MultiLine = ({ question: { isRequired } }) => (
-    <TextAreaContainer required={isRequired} />
-);
-
-const NumberInput = ({ question: { isRequired } }) => (
-    <TextInputContainer required={isRequired} type="number" />
-);
-
-const SingleDropdown = ({ question: { isRequired, options } }) => {
+const SingleDropdown = ({
+    question: { id, isRequired, options },
+    answers,
+    handleChange
+}) => {
     const formattedOpts = options.map(({ id, text }) => ({ value: id, text }));
+    const convertedOpts = convertArrToObj(formattedOpts, 'value');
+    const answerID = answers[id];
 
-    return <DropdownContainer required={isRequired} options={formattedOpts} />;
+    return (
+        <DropdownContainer
+            placeholder="-- select --"
+            name={`answer-${id}`}
+            options={formattedOpts}
+            selectedOption={convertedOpts[answerID]}
+            handleChange={handleChange}
+            required={isRequired}
+        />
+    );
 };
 
-const CheckBox = ({ question: { isRequired } }) => (
-    <CheckboxContainer required={isRequired} checked={false} text="" />
+const CheckBox = ({ question: { id, isRequired }, answers, handleChange }) => (
+    <CheckboxContainer
+        required={isRequired}
+        checked={answers[id] || false}
+        name={`answer-${id}`}
+        text=""
+        handleChange={handleChange}
+    />
 );
 
 const Radio = ({ question: { id, isRequired, options } }) =>
@@ -67,19 +113,33 @@ const Radio = ({ question: { id, isRequired, options } }) =>
         />
     ));
 
-const SinglePhoto = ({ question: { isRequired } }) => (
+const SinglePhoto = ({
+    question: { isRequired, id },
+    answers,
+    handleFileChange
+}) => (
     <FileUploadContainer
+        name={`answer-${id}`}
         required={isRequired}
         acceptedTypes={['image/*']}
         maxFiles={1}
+        handleChange={handleFileChange}
+        value={answers[id]}
     />
 );
 
-const MultiPhoto = ({ question: { isRequired, maxPhotos } }) => (
+const MultiPhoto = ({
+    question: { isRequired, maxPhotos, id },
+    answers,
+    handleFileChange
+}) => (
     <FileUploadContainer
+        name={`answer-${id}`}
         required={isRequired}
         acceptedTypes={['image/*']}
         maxFiles={maxPhotos}
+        handleChange={handleFileChange}
+        value={answers[id]}
     />
 );
 
@@ -104,12 +164,13 @@ class AddPinQuestionRoute extends Component {
                 question={question}
                 answers={answers}
                 handleChange={this.handleChange}
+                handleFileChange={this.handleFileChange}
             />
         );
     }
 
     componentDidMount() {
-        const { updateAddPinAnswer, resetPinAnswers, question } = this.props;
+        const { updateAddPinAnswer, question } = this.props;
 
         this._getDefaultValue();
 
@@ -122,6 +183,28 @@ class AddPinQuestionRoute extends Component {
         const val = type === 'checkbox' ? checked : value;
 
         updateAddPinAnswer(question.id, val);
+    };
+
+    handleFileChange = (name, s3Key) => {
+        const { updateAddPinAnswer, question, answers } = this.props;
+        const curAnswer = answers[question.id];
+
+        if (Array.isArray(curAnswer)) {
+            //Multi File
+            var existing = curAnswer.includes(s3Key);
+
+            if (existing) {
+                //Delete
+                const updated = curAnswer.splice(curAnswer.indexOf(existing));
+                updateAddPinAnswer(question.id, updated);
+            } else {
+                //Add
+                curAnswer.push(s3Key);
+                updateAddPinAnswer(question.id, curAnswer);
+            }
+        } else {
+            updateAddPinAnswer(question.id, s3Key);
+        }
     };
 
     _getDefaultValue = () => {
@@ -153,10 +236,10 @@ const mapStateToProps = ({
 const mapDispatchToProps = dispatch => ({
     updateAddPinAnswer: (key, value) => {
         dispatch(updateAddPinAnswer(key, value));
-    },
-    resetPinAnswers: () => {
-        dispatch(resetPinAnswers());
     }
+    // resetPinAnswers: () => {
+    //     dispatch(resetPinAnswers());
+    // }
 });
 
 export default connect(

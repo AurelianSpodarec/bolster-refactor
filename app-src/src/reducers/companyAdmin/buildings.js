@@ -15,7 +15,13 @@ import {
     EDIT_BUILDING_SUCCESS,
     EDIT_BUILDING_FAILURE,
     UPDATE_BUILDINGS_SEARCH_TERM,
-    SET_BUILDINGS_FILTER_STATUS
+    SET_BUILDINGS_FILTER_STATUS,
+    DELETE_BUILDING_REQUEST,
+    DELETE_BUILDING_SUCCESS,
+    DELETE_BUILDING_FAILURE,
+    ARCHIVE_BUILDING_REQUEST,
+    ARCHIVE_BUILDING_SUCCESS,
+    ARCHIVE_BUILDING_FAILURE
 } from 'constants/actionTypes/buildings';
 
 export default combineReducers({
@@ -23,6 +29,8 @@ export default combineReducers({
     updatedBuildingID: updatedBuildingReducer,
     isFetching: isFetchingReducer,
     postSuccess: postSuccessReducer,
+    postFailure: postFailureReducer,
+    deleteSuccess: deleteSuccessReducer,
     error: errorReducer,
     nameFilter: nameFilterReducer,
     statusFilter: statusFilterReducer
@@ -47,9 +55,40 @@ function postSuccessReducer(state = false, action) {
     switch (action.type) {
         case CREATE_BUILDING_REQUEST:
         case EDIT_BUILDING_REQUEST:
+        case DELETE_BUILDING_REQUEST:
+        case ARCHIVE_BUILDING_REQUEST:
             return false;
         case CREATE_BUILDING_SUCCESS:
         case EDIT_BUILDING_SUCCESS:
+        case DELETE_BUILDING_SUCCESS:
+        case ARCHIVE_BUILDING_SUCCESS:
+            return true;
+        default:
+            return state;
+    }
+}
+function postFailureReducer(state = false, action) {
+    switch (action.type) {
+        case CREATE_BUILDING_REQUEST:
+        case EDIT_BUILDING_REQUEST:
+        case DELETE_BUILDING_REQUEST:
+        case ARCHIVE_BUILDING_REQUEST:
+            return false;
+        case CREATE_BUILDING_FAILURE:
+        case EDIT_BUILDING_FAILURE:
+        case DELETE_BUILDING_FAILURE:
+        case ARCHIVE_BUILDING_FAILURE:
+            return true;
+        default:
+            return state;
+    }
+}
+
+function deleteSuccessReducer(state = false, action) {
+    switch (action.type) {
+        case DELETE_BUILDING_REQUEST:
+            return false;
+        case DELETE_BUILDING_SUCCESS:
             return true;
         default:
             return state;
@@ -60,6 +99,7 @@ function updatedBuildingReducer(state = 0, action) {
     switch (action.type) {
         case CREATE_BUILDING_SUCCESS:
         case EDIT_BUILDING_SUCCESS:
+        case ARCHIVE_BUILDING_SUCCESS:
             return action.payload.id;
         default:
             return state;
@@ -72,11 +112,15 @@ function errorReducer(state = null, action) {
         case CREATE_BUILDING_REQUEST:
         case FETCH_SINGLE_BUILDING_REQUEST:
         case EDIT_BUILDING_REQUEST:
+        case DELETE_BUILDING_REQUEST:
+        case ARCHIVE_BUILDING_REQUEST:
             return null;
         case FETCH_ALL_BUILDINGS_FAILURE:
         case FETCH_SINGLE_BUILDING_FAILURE:
         case CREATE_BUILDING_FAILURE:
         case EDIT_BUILDING_FAILURE:
+        case DELETE_BUILDING_FAILURE:
+        case ARCHIVE_BUILDING_FAILURE:
             return action.error;
         default:
             return state;
@@ -90,6 +134,7 @@ function buildingsReducer(state = {}, action) {
         case FETCH_SINGLE_BUILDING_SUCCESS:
         case CREATE_BUILDING_SUCCESS:
         case EDIT_BUILDING_SUCCESS:
+        case ARCHIVE_BUILDING_SUCCESS:
             return updateObj(state, action.payload.id, action.payload);
         default:
             return state;

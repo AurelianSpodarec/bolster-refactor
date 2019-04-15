@@ -9,6 +9,7 @@ import {
     getVersionSections,
     getSectionQuestions
 } from 'helpers/templates';
+import selectQuestion from 'actions/companyAdmin/templates/sync/selectQuestion';
 
 class SingleTemplateContainer extends Component {
     render = () => {
@@ -35,7 +36,10 @@ class SingleTemplateContainer extends Component {
         }
     };
 
-    componentDidMount = () => this.props.fetchAllTemplates();
+    componentDidMount = () => {
+        this.props.selectQuestion(0);
+        this.props.fetchAllTemplates();
+    };
 }
 
 const mapStateToProps = (
@@ -59,7 +63,8 @@ const mapStateToProps = (
 });
 
 const mapDispatchToProps = dispatch => ({
-    fetchAllTemplates: () => dispatch(fetchAllTemplates())
+    fetchAllTemplates: () => dispatch(fetchAllTemplates()),
+    selectQuestion: id => dispatch(selectQuestion(id))
 });
 
 export default withRouter(

@@ -35,8 +35,7 @@ function selectedQuestionIDReducer(state = 0, action) {
         case SELECT_QUESTION:
             return action.id;
         case EDIT_TEMPLATE_QUESTION_SUCCESS:
-            // TODO: CHECK
-            return action.payload.id;
+            return action.payload.newQuestionID;
         default:
             return state;
     }

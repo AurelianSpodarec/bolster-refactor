@@ -43,7 +43,6 @@ class DrawingMapGeneralContainer extends Component {
             addMode
         } = this.state;
         const { error, pins, drawing } = this.props;
-        //coordinates - old prop not used, needed anymore?
 
         const serviceOptions = this._getServicesOptions();
         const statusOptions = convertEnumToDropdownOptions(PIN_STATUS_TYPES);
