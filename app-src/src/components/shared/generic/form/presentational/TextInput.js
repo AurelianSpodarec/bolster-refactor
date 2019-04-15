@@ -9,7 +9,8 @@ const TextInput = ({
     handleChange,
     handleBlur,
     error,
-    charLimit
+    charLimit,
+    maxNum
 }) => (
     <>
         <input
@@ -21,6 +22,7 @@ const TextInput = ({
             onChange={handleChange}
             onBlur={handleBlur}
             maxLength={charLimit}
+            max={maxNum}
         />
         {!!(error && error.length) && (
             <p className="error red-text text-accent-4">{error}</p>

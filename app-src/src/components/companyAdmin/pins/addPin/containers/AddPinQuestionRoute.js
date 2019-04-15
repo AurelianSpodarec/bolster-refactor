@@ -12,6 +12,8 @@ import RadioButtonsContainer from 'components/shared/generic/form/containers/Rad
 import updateAddPinAnswer from 'actions/companyAdmin/drawings/sync/updateAddPinAnswer';
 import resetPinAnswers from 'actions/companyAdmin/drawings/sync/resetPinAnswers';
 
+import { convertArrToObj } from 'helpers/generic';
+
 const {
     SINGLE_LINE,
     MULTI_LINE,
@@ -53,14 +55,40 @@ const MultiLine = ({
     />
 );
 
-const NumberInput = ({ question: { isRequired } }) => (
-    <TextInputContainer required={isRequired} type="number" />
+const NumberInput = ({
+    question: { id, isRequired, maxNum },
+    answers,
+    handleChange
+}) => (
+    <TextInputContainer
+        required={isRequired}
+        type="number"
+        name={`answer-${id}`}
+        value={answers[id]}
+        maxNum={maxNum}
+        handleChange={handleChange}
+    />
 );
 
-const SingleDropdown = ({ question: { isRequired, options } }) => {
+const SingleDropdown = ({
+    question: { id, isRequired, options },
+    answers,
+    handleChange
+}) => {
     const formattedOpts = options.map(({ id, text }) => ({ value: id, text }));
+    const convertedOpts = convertArrToObj(formattedOpts, 'value');
+    const answerID = answers[id];
 
-    return <DropdownContainer required={isRequired} options={formattedOpts} />;
+    return (
+        <DropdownContainer
+            placeholder="-- select --"
+            name={`answer-${id}`}
+            options={formattedOpts}
+            selectedOption={convertedOpts[answerID]}
+            handleChange={handleChange}
+            required={isRequired}
+        />
+    );
 };
 
 const CheckBox = ({ question: { isRequired } }) => (

@@ -21,7 +21,8 @@ class TextInputContainer extends Component {
             classes = '',
             error,
             errorsVisible,
-            charLimit
+            charLimit,
+            maxNum
         } = this.props;
 
         let errorMessage;
@@ -38,6 +39,7 @@ class TextInputContainer extends Component {
                 handleBlur={this.handleBlur}
                 error={errorMessage}
                 charLimit={charLimit}
+                maxNum={maxNum}
             />
         );
     }
