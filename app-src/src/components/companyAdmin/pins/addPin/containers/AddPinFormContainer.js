@@ -45,7 +45,12 @@ class AddPinFormContainer extends Component {
     }
 
     componentDidMount = () => {
-        const { drawingID, fetchDrawingTemplates } = this.props;
+        const { drawingID, fetchDrawingTemplates, coordinates, history } = this.props;
+
+        if(!coordinates.lat || !coordinates.lng)
+        {
+            history.push(`/company/drawings/${drawingID}`);
+        }
 
         fetchDrawingTemplates(drawingID);
     };
