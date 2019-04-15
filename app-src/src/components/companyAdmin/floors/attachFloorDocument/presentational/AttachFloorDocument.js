@@ -3,13 +3,16 @@ import React from 'react';
 import AttachDocumentFormContainer from 'components/shared/documents/containers/AttachDocumentFormContainer';
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
 import BackButtonContainer from 'components/shared/generic/backButton/containers/BackButtonContainer';
+import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 
 const AttachFloorDocument = () => (
     <>
         <PageHeading leftChildren={true} title={'Attach Document'}>
             <BackButtonContainer />
         </PageHeading>
-        <AttachDocumentFormContainer hierarchyType="floor" />
+        <BlockContainer>
+            <AttachDocumentFormContainer hierarchyType="floor" />
+        </BlockContainer>
     </>
 );
 

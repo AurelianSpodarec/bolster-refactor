@@ -50,7 +50,6 @@ const EditTemplateQuestionModal = ({
                     Add Option
                 </button>
                 <button className="button" type="button" onClick={hideModal}>
-                    <i className="fa fa-times" />
                     Cancel
                 </button>
             </BlockButtonWrapper>

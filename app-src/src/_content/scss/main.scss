@@ -759,6 +759,11 @@ input {
     .button-block-container {
         margin-top: 15px;
     }
+
+    .block-heading {
+        padding-left: 7.5px;
+        padding-right: 7.5px;
+    }
 }
 
 //form stuff
@@ -768,6 +773,7 @@ input {
         right: 7.5px;
     }
     margin-bottom: 15px;
+
     &.w-dates {
         p {
             text-align: center;

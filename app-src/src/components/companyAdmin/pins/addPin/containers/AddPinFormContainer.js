@@ -11,6 +11,7 @@ import BlockContainer from 'components/shared/generic/block/containers/BlockCont
 
 import { PIN_STATUS_TYPES } from 'constants/companyAdmin/enums';
 import { convertEnumToDropdownOptions } from 'helpers/generic';
+import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 
 class AddPinFormContainer extends Component {
     state = {
@@ -31,6 +32,7 @@ class AddPinFormContainer extends Component {
                 isFetching={isFetching}
                 error={error}
             >
+                <BlockHeading title="Add pin" />
                 <AddPinForm
                     templates={Object.values(templateOptions)}
                     selectedTemplate={templateOptions[templateID]}
@@ -45,21 +47,24 @@ class AddPinFormContainer extends Component {
     }
 
     componentDidMount = () => {
-        const { drawingID, fetchDrawingTemplates, coordinates, history } = this.props;
+        const {
+            drawingID,
+            fetchDrawingTemplates,
+            coordinates,
+            history
+        } = this.props;
 
-        if(!coordinates.lat || !coordinates.lng)
-        {
+        if (!coordinates.lat || !coordinates.lng) {
             history.push(`/company/drawings/${drawingID}`);
         }
 
         fetchDrawingTemplates(drawingID);
     };
 
-    componentDidUpdate = (prevProps) => {
+    componentDidUpdate = prevProps => {
         const { postSuccess, history, drawingID } = this.props;
 
-        if(!prevProps.postSuccess && postSuccess)
-        {
+        if (!prevProps.postSuccess && postSuccess) {
             history.push(`/company/drawings/${drawingID}`);
         }
     };
@@ -112,7 +117,7 @@ const mapStateToProps = (
             templatesReducer: { templates, isFetching, error },
             addPinFormReducer: { answers },
             addPinCoordinatesReducer: { coordinates },
-            pinsReducer: {postSuccess}
+            pinsReducer: { postSuccess }
         }
     },
     { match }
