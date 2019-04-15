@@ -11,30 +11,35 @@ const AttachDocumentDatePicker = ({
     onChange
 }) => (
     <>
-        <Field classes="w-dates" sizeClasses="size-lg-6" name="Start date">
-            <DatePicker
-                name="startOn"
-                selected={startOn}
-                onChange={e => onChange(e, 'startOn')}
-            />
-            {startErrorMessage && startErrorMessage.length && (
-                <p className="error red-text text-accent-4">
-                    {startErrorMessage}
-                </p>
-            )}
-        </Field>
-        <Field classes="w-dates" sizeClasses="size-lg-6" name="End date">
-            <DatePicker
-                name="endOn"
-                selected={endOn}
-                onChange={e => onChange(e, 'endOn')}
-                placeholderText="click to select a date"
-            />
-            {endErrorMessage && endErrorMessage.length && (
-                <p className="error red-text text-accent-4">
-                    {endErrorMessage}
-                </p>
-            )}
+        <Field
+            classes="w-dates"
+            sizeClasses="size-lg-12"
+            name="Dates available"
+        >
+            <div className="size-lg-4">
+                <DatePicker
+                    name="startOn"
+                    selected={startOn}
+                    onChange={e => onChange(e, 'startOn')}
+                    placeholderText="Start date"
+                />
+
+                {endErrorMessage && endErrorMessage.length && (
+                    <p className="error size-lg-12">{endErrorMessage}</p>
+                )}
+            </div>
+            <p className="to size-lg-1">to</p>
+            <div className="size-lg-4">
+                <DatePicker
+                    name="endOn"
+                    selected={endOn}
+                    onChange={e => onChange(e, 'endOn')}
+                    placeholderText="End date"
+                />
+                {startErrorMessage && startErrorMessage.length && (
+                    <p className="error size-lg-12">{startErrorMessage}</p>
+                )}
+            </div>
         </Field>
     </>
 );
