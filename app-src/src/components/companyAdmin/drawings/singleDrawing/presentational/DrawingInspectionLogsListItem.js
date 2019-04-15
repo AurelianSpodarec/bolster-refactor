@@ -1,29 +1,27 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { PIN_STATUS_COLOURS as COLOURS } from 'constants/companyAdmin/enums';
+
 
 const DrawingInspectionLogsListItem = ({ inspectionLog }) => {
-    const pinColours = {
-        'action required': 'red',
-        installed: 'green',
-        inspected: 'blue',
-        'no action': 'yellow'
-    };
 
-    const { status = '' } = inspectionLog;
-    const pinColour = pinColours[status.toLowerCase()] || 'red';
+
+    const pinColour = COLOURS[inspectionLog.latestStatus] || 'red';
 
     const pinIcon = require(`_content/images/pins-examples/${pinColour}-pin.svg`);
 
     return (
         <tr key={inspectionLog.id}>
             <td>
-                <img className="pin" alt={`${pinColour} pin`} src={pinIcon} />{' '}
-                {inspectionLog.name}
+
+                {inspectionLog.pinCode}
             </td>
-            <td>{inspectionLog.status}</td>
+            <td>
+                <img className="pin" alt={`${pinColour} pin`} src={pinIcon} />
+            </td>
             <td>
                 <Link
-                    to={`/company/pins/${inspectionLog.pinId}`}
+                    to={`/company/pins/${inspectionLog.id}`}
                     className="button"
                 >
                     View

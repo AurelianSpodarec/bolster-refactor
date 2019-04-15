@@ -87,6 +87,7 @@ class DrawingMapGeneralContainer extends Component {
                         drawing={drawing}
                         addMode={addMode}
                         toggleAddMode={this.toggleAddMode}
+                        history={this.props.history}
                     />
                 </BlockContainer>
             </>
