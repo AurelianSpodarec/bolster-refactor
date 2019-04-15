@@ -91,7 +91,7 @@ class FileUploadContainer extends Component {
             removeFieldError,
             value
         } = this.props;
-
+        console.log(value);
         if (required && !(value && value.length)) {
             addFieldError(name, 'This is a required field.');
         } else if (error) {
@@ -104,6 +104,7 @@ class FileUploadContainer extends Component {
     };
 
     handleFileUploadFinish = () => {
+        this._validate();
         this.props.fileUploadFinish();
     };
 

@@ -45,9 +45,23 @@ class AddPinFormContainer extends Component {
     }
 
     componentDidMount = () => {
-        const { drawingID, fetchDrawingTemplates } = this.props;
+        const { drawingID, fetchDrawingTemplates, coordinates, history } = this.props;
+
+        if(!coordinates.lat || !coordinates.lng)
+        {
+            history.push(`/company/drawings/${drawingID}`);
+        }
 
         fetchDrawingTemplates(drawingID);
+    };
+
+    componentDidUpdate = (prevProps) => {
+        const { postSuccess, history, drawingID } = this.props;
+
+        if(!prevProps.postSuccess && postSuccess)
+        {
+            history.push(`/company/drawings/${drawingID}`);
+        }
     };
 
     _getTemplates = () => {
@@ -97,7 +111,8 @@ const mapStateToProps = (
         companyAdmin: {
             templatesReducer: { templates, isFetching, error },
             addPinFormReducer: { answers },
-            addPinCoordinatesReducer: { coordinates }
+            addPinCoordinatesReducer: { coordinates },
+            pinsReducer: {postSuccess}
         }
     },
     { match }
@@ -107,6 +122,7 @@ const mapStateToProps = (
     coordinates,
     isFetching,
     error,
+    postSuccess,
     drawingID: match.params.id
 });
 
