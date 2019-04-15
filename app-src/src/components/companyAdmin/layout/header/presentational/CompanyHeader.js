@@ -50,6 +50,9 @@ const Header = ({ company, unreadMessageCount, totalCedits }) => (
                         )}
                         <i className="far fa-envelope fa-fw" />
                     </Link>
+                    <Link to="/company/transfer-requests" className="item main">
+                        <i className="far fa-exchange-alt fa-fw" />
+                    </Link>
                 </div>
 
                 {/*** profile ***/}
