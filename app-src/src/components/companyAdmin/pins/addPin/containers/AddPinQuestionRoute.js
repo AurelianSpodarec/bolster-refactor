@@ -9,6 +9,7 @@ import CheckboxContainer from 'components/shared/generic/form/containers/Checkbo
 import FileUploadContainer from 'components/shared/generic/form/containers/FileUploadContainer';
 import RadioButtonListContainer from 'components/shared/generic/form/containers/RadioButtonListContainer';
 import SignatureContainer from 'components/shared/generic/form/containers/SignatureContainer';
+import MultiDropdownContainer from 'components/shared/generic/form/containers/MultiDropdownContainer';
 
 import updateAddPinAnswer from 'actions/companyAdmin/drawings/sync/updateAddPinAnswer';
 //import resetPinAnswers from 'actions/companyAdmin/drawings/sync/resetPinAnswers';
@@ -20,7 +21,7 @@ const {
     MULTI_LINE,
     NUMBER,
     DROPDOWN,
-    //MULTI_DROPDOWN,
+    MULTI_DROPDOWN,
     RADIO,
     CHECKBOX,
     SIGNATURE,
@@ -92,6 +93,24 @@ const SingleDropdown = ({
     );
 };
 
+const MultiDropdown = ({
+    question: { options, isRequired },
+    handleMultiDropdownChange
+}) => {
+    const formattedOpts = options.map(({ id, text }) => ({
+        value: id,
+        label: text
+    }));
+
+    return (
+        <MultiDropdownContainer
+            required={isRequired}
+            options={formattedOpts}
+            handleChange={handleMultiDropdownChange}
+        />
+    );
+};
+
 const CheckBox = ({ question: { id, isRequired }, answers, handleChange }) => (
     <CheckboxContainer
         required={isRequired}
@@ -141,10 +160,10 @@ const MultiPhoto = ({
     />
 );
 
-const Signature = ({ question: { isRequired, id }, handleSignatureChange}) => (
+const Signature = ({ question: { isRequired, id }, handleSignatureChange }) => (
     <SignatureContainer
         name={`answer-${id}`}
-        canvasProps={{width: 500, height: 200, className: 'sigCanvas'}}
+        canvasProps={{ width: 500, height: 200, className: 'sigCanvas' }}
         required={isRequired}
         onChange={handleSignatureChange}
     />
@@ -163,6 +182,7 @@ class AddPinQuestionRoute extends Component {
             [MULTI_LINE]: MultiLine,
             [NUMBER]: NumberInput,
             [DROPDOWN]: SingleDropdown,
+            [MULTI_DROPDOWN]: MultiDropdown,
             [CHECKBOX]: CheckBox,
             [RADIO]: Radio,
             [SINGLE_PHOTO]: SinglePhoto,
@@ -178,6 +198,7 @@ class AddPinQuestionRoute extends Component {
                 handleChange={this.handleChange}
                 handleFileChange={this.handleFileChange}
                 handleSignatureChange={this.handleSignatureChange}
+                handleMultiDropdownChange={this.handleMultiDropdownChange}
                 sigPad={this.state.sigPad}
             />
         );
@@ -199,7 +220,15 @@ class AddPinQuestionRoute extends Component {
         updateAddPinAnswer(question.id, val);
     };
 
-    handleSignatureChange = (d) => {
+    handleMultiDropdownChange = e => {
+        const { updateAddPinAnswer, question, answers } = this.props;
+
+        const results = e.map(a => a.value);
+
+        updateAddPinAnswer(question.id, results);
+    };
+
+    handleSignatureChange = d => {
         const { updateAddPinAnswer, question } = this.props;
         updateAddPinAnswer(question.id, d);
     };
@@ -237,6 +266,7 @@ class AddPinQuestionRoute extends Component {
             case SINGLE_PHOTO:
                 return '';
             case MULTI_PHOTO:
+            case MULTI_DROPDOWN:
                 return [];
             case CHECKBOX:
                 return false;

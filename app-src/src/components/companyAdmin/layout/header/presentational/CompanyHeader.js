@@ -8,7 +8,12 @@ import SearchContainer from '../containers/SearchContainer';
 import HeaderProfileContainer from '../containers/HeaderProfileContainer';
 import HeaderNotificationsContainer from '../containers/HeaderNotificationsContainer';
 
-const Header = ({ company, unreadMessageCount, totalCedits }) => (
+const Header = ({
+    company,
+    unreadMessageCount,
+    totalCredits,
+    totalRequests
+}) => (
     <header
         id="page-header"
         style={{ borderColor: company.colourCode || defaultStyles.colourCode }}
@@ -40,7 +45,7 @@ const Header = ({ company, unreadMessageCount, totalCedits }) => (
                 {/*** notifications ***/}
                 <div className="notifications">
                     <Link to="/company/tools/credit-logs" className="item main">
-                        <span className="number green">{totalCedits}</span>
+                        <span className="number green">{totalCredits}</span>
                         <i className="far fa-money-bill-alt fa-fw" />
                     </Link>
                     <HeaderNotificationsContainer />
@@ -51,6 +56,9 @@ const Header = ({ company, unreadMessageCount, totalCedits }) => (
                         <i className="far fa-envelope fa-fw" />
                     </Link>
                     <Link to="/company/transfer-requests" className="item main">
+                        {!!totalRequests && (
+                            <span className="number">{totalRequests}</span>
+                        )}
                         <i className="far fa-exchange-alt fa-fw" />
                     </Link>
                 </div>
