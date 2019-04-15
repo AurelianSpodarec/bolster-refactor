@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import PieChart from 'components/shared/stats/presentational/PieChart';
 import BuildingDetails from './BuildingDetails';
 
-const BuildingStats = ({ building, stats }) => (
+const BuildingStats = ({ building, stats, handleDelete }) => (
     <div className="stats size-lg-12">
         <div className="flex-item size-lg-12">
             <BuildingDetails stats={stats} building={building} />
@@ -18,12 +18,9 @@ const BuildingStats = ({ building, stats }) => (
             >
                 <i className="far fa-pencil fa-fw" /> Edit
             </Link>
-            <Link
-                className="button red"
-                to={`/company/buildings/${building.id}/edit`}
-            >
+            <button className="button red" type="button" onClick={handleDelete}>
                 <i className="far fa-trash-alt fa-fw" /> Delete
-            </Link>
+            </button>
 
             <Link className="button" to="/company/site">
                 <i className="fa fa-exchange" /> Change Ownership

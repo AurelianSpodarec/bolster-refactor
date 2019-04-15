@@ -113,19 +113,25 @@ const Radio = ({ question: { id, isRequired, options } }) =>
         />
     ));
 
-const SinglePhoto = ({ question: { isRequired } }) => (
+const SinglePhoto = ({ question: { isRequired, id }, answers, handleFileChange }) => (
     <FileUploadContainer
+        name={`answer-${id}`}
         required={isRequired}
         acceptedTypes={['image/*']}
         maxFiles={1}
+        handleChange={handleFileChange}
+        value={answers[id]}
     />
 );
 
-const MultiPhoto = ({ question: { isRequired, maxPhotos } }) => (
+const MultiPhoto = ({ question: { isRequired, maxPhotos, id }, answers, handleFileChange }) => (
     <FileUploadContainer
+        name={`answer-${id}`}
         required={isRequired}
         acceptedTypes={['image/*']}
         maxFiles={maxPhotos}
+        handleChange={handleFileChange}
+        value={answers[id]}
     />
 );
 
@@ -150,6 +156,7 @@ class AddPinQuestionRoute extends Component {
                 question={question}
                 answers={answers}
                 handleChange={this.handleChange}
+                handleFileChange={this.handleFileChange}
             />
         );
     }
@@ -168,6 +175,30 @@ class AddPinQuestionRoute extends Component {
         const val = type === 'checkbox' ? checked : value;
 
         updateAddPinAnswer(question.id, val);
+    };
+
+    handleFileChange = (name, s3Key) => {
+        const { updateAddPinAnswer, question, answers } = this.props;
+        const curAnswer = answers[question.id];
+
+        if(Array.isArray(curAnswer))
+        {
+            //Multi File
+            var existing = curAnswer.includes(s3Key);
+
+            if(existing)
+            {
+                //Delete
+                const updated = curAnswer.splice(curAnswer.indexOf(existing));
+                updateAddPinAnswer(question.id, updated);
+            }else{
+                //Add
+                curAnswer.push(s3Key);
+                updateAddPinAnswer(question.id, curAnswer);
+            }
+        }else{
+            updateAddPinAnswer(question.id, s3Key);
+        }
     };
 
     _getDefaultValue = () => {
