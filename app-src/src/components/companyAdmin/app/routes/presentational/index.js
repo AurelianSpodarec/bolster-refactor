@@ -18,6 +18,7 @@ import InvoicesRoutes from './InvoicesRoutes.js';
 import ProfilesRoutes from './ProfilesRoutes';
 import TemplatesRoutes from './TemplatesRoutes';
 import SettingsRoutes from './SettingsRoutes';
+import TransferRequestsRoutes from './TransferRequestsRoutes';
 
 const CompanyRoutes = ({ base = '/company' }) => (
     <SwitchWith404>
@@ -35,6 +36,10 @@ const CompanyRoutes = ({ base = '/company' }) => (
         <Route path={`${base}/subscription`} component={SubscriptionRoutes} />
         <Route path={`${base}/templates`} component={TemplatesRoutes} />
         <Route path={`${base}/tools`} component={ToolsRoutes} />
+        <Route
+            path={`${base}/transfer-requests`}
+            component={TransferRequestsRoutes}
+        />
         <Route
             path={`${base}/users-management`}
             component={UserManagementRoutes}

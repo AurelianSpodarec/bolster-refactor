@@ -12,6 +12,7 @@ import DatePickerContainer from 'components/shared/documents/containers/AttachDo
 import { DOCUMENT_TYPE } from 'constants/companyAdmin/enums';
 import CheckboxListContainer from 'components/shared/generic/form/containers/CheckboxListContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
+import Checkbox from 'components/shared/generic/form/presentational/Checkbox';
 
 const AttachDocumentForm = ({
     handleInputChange,
@@ -122,30 +123,32 @@ const AttachDocumentForm = ({
             {type !== '1' && (
                 <>
                     <Field name="Options">
-                        <SwitchContainer
-                            checked={isPhotoRequired}
-                            handleChange={handleCheckboxChange}
-                            name="isPhotoRequired"
-                            text="Requires photo"
-                        />
-                        <SwitchContainer
-                            checked={isFileViewRequired}
-                            handleChange={handleCheckboxChange}
-                            name="isFileViewRequired"
-                            text="Requires file view"
-                        />
-                        <SwitchContainer
-                            checked={isSignatureRequired}
-                            handleChange={handleCheckboxChange}
-                            name="isSignatureRequired"
-                            text="Requires signature"
-                        />
-                        <SwitchContainer
-                            checked={isUpsyncForced}
-                            handleChange={handleCheckboxChange}
-                            name="isUpsyncForced"
-                            text="Force upsync to continue"
-                        />
+                        <div className="checkbox-list size-lg-12">
+                            <Checkbox
+                                name="isPhotoRequired"
+                                text="Requires photo"
+                                checked={isPhotoRequired}
+                                handleChange={handleCheckboxChange}
+                            />
+                            <Checkbox
+                                name="isFileViewRequired"
+                                text="Requires file view"
+                                checked={isFileViewRequired}
+                                handleChange={handleCheckboxChange}
+                            />
+                            <Checkbox
+                                name="isSignatureRequired"
+                                text="Requires signature"
+                                checked={isSignatureRequired}
+                                handleChange={handleCheckboxChange}
+                            />
+                            <Checkbox
+                                name="isUpsyncForced"
+                                text="Force upsync to continue"
+                                checked={isUpsyncForced}
+                                handleChange={handleCheckboxChange}
+                            />
+                        </div>
                     </Field>
                     {type === '3' && (
                         <div className="size-lg-12">
@@ -178,7 +181,7 @@ const AttachDocumentForm = ({
                     to={location.pathname.replace('/attach-document', '')}
                     className="button"
                 >
-                    <i className="fa fa-times" /> Cancel
+                    Cancel
                 </Link>
             </BlockButtonWrapper>
         </Form>

@@ -16,7 +16,7 @@ const ConfirmArchiveModal = ({
                 Archive
             </button>
             <button className="button" onClick={hideModal}>
-                <i className="fa fa-times" /> Cancel
+                Cancel
             </button>
         </BlockButtonWrapper>
     </ModalOuterContainer>

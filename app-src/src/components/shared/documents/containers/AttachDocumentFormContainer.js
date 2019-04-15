@@ -75,6 +75,7 @@ class AttachDocumentFormContainer extends Component {
 
     handleCheckboxChange = e => {
         const { name } = e.target;
+
         this.setState(prevState => ({
             [name]: !prevState[name]
         }));

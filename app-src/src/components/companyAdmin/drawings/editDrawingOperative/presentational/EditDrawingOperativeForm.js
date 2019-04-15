@@ -46,7 +46,7 @@ const EditDrawingOperative = ({
                             Confirm Changes
                         </button>
                         <Link to={backUrl} className="button">
-                            <i className="fa fa-times" /> Cancel
+                            Cancel
                         </Link>
                     </BlockButtonWrapper>
                 </BlockContainer>
