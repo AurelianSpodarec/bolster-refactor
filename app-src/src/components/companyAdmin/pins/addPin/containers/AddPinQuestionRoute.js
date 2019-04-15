@@ -39,11 +39,11 @@ const SingleLine = ({
     />
 );
 
-const MultiLine = (
-    { question: { id, isRequired, charLimit } },
+const MultiLine = ({
+    question: { id, isRequired, charLimit },
     answers,
     handleChange
-) => (
+}) => (
     <TextAreaContainer
         required={isRequired}
         name={`answer-${id}`}
