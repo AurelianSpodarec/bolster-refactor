@@ -27,6 +27,6 @@ export default drawingID => dispatch => {
     dispatch(archiveDrawingRequest());
     return axios
         .post(`${API_URL}/drawings/${drawingID}`, null, getHeaders())
-        .then(() => dispatch(archiveDrawingSuccess(drawingID)))
+        .then(({ data }) => dispatch(archiveDrawingSuccess(data)))
         .catch(err => dispatch(archiveDrawingFailure(err.message)));
 };

@@ -27,6 +27,6 @@ export default buildingID => dispatch => {
     dispatch(archiveBuildingRequest());
     return axios
         .post(`${API_URL}/buildings/${buildingID}`, null, getHeaders())
-        .then(() => dispatch(archiveBuildingSuccess(buildingID)))
+        .then(({ data }) => dispatch(archiveBuildingSuccess(data)))
         .catch(err => dispatch(archiveBuildingFailure(err.message)));
 };

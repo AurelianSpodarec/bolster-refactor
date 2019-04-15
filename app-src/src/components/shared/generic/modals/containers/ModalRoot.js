@@ -27,7 +27,8 @@ import {
     ADD_SERVICE_TO_SUBSCRIPTION,
     PAY_INVOICE,
     COMPANY_EDIT_TEMPLATE_QUESTION,
-    CONFIRM_DELETE
+    CONFIRM_DELETE,
+    CONFIRM_ARCHIVE
 } from 'constants/shared/modalTypes';
 
 import AddCardModalContainer from 'components/companyAdmin/subscription/cardManagement/addCardModal/containers/AddCardModalContainer';
@@ -56,6 +57,7 @@ import PinPhotoModal from '../presentational/PinPhotoModal';
 import RenameTemplateSectionModalContainer from 'components/superAdmin/templateBuilder/setSection/containers/EditTemplateSectionModalContainer';
 import SuccessModalContainer from './SuccessModalContainer';
 import ConfirmDeleteModal from '../presentational/ConfirmDeleteModal';
+import ConfirmArchiveModal from '../presentational/ConfirmArchiveModal';
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModalContainer,
@@ -66,6 +68,7 @@ const MODAL_COMPONENTS = {
     [ADMIN_EDIT_SERVICE]: EditServiceModalContainer,
     [BUY_CREDITS]: BuyCreditsModalContainer,
     [COMPANY_EDIT_TEMPLATE_QUESTION]: CompanyEditTemplateQuestionModalContainer,
+    [CONFIRM_ARCHIVE]: ConfirmArchiveModal,
     [CONFIRM_DELETE]: ConfirmDeleteModal,
     [DELETE_CLIENT_FROM_DRAWING]: DeleteClientModalContainer,
     [DELETE_COMPANY_PERMISSIONS]: DeleteCompanyPermissionsModalContainer,

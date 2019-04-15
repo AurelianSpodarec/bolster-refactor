@@ -13,9 +13,9 @@ export const archiveSiteRequest = () => ({
     type: ARCHIVE_SITE_REQUEST
 });
 
-export const archiveSiteSuccess = id => ({
+export const archiveSiteSuccess = payload => ({
     type: ARCHIVE_SITE_SUCCESS,
-    id
+    payload
 });
 
 export const archiveSiteFailure = error => ({
@@ -23,10 +23,14 @@ export const archiveSiteFailure = error => ({
     error
 });
 
-export default siteID => dispatch => {
+export default (siteID, undo) => dispatch => {
     dispatch(archiveSiteRequest());
     return axios
-        .post(`${API_URL}/sites/${siteID}`, null, getHeaders())
-        .then(() => dispatch(archiveSiteSuccess(siteID)))
+        .post(
+            `${API_URL}/sites/${siteID}/archive${undo ? '?undo=true' : ''}`,
+            null,
+            getHeaders()
+        )
+        .then(({ data }) => dispatch(archiveSiteSuccess(data)))
         .catch(err => dispatch(archiveSiteFailure(err.message)));
 };

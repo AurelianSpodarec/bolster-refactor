@@ -27,6 +27,6 @@ export default floorID => dispatch => {
     dispatch(archiveFloorRequest());
     return axios
         .post(`${API_URL}/floors/${floorID}`, null, getHeaders())
-        .then(() => dispatch(archiveFloorSuccess(floorID)))
+        .then(({ data }) => dispatch(archiveFloorSuccess(data)))
         .catch(err => dispatch(archiveFloorFailure(err.message)));
 };

@@ -28,6 +28,7 @@ export default combineReducers({
     updatedSiteID: updatedSiteReducer,
     isFetching: isFetchingReducer,
     postSuccess: postSuccessReducer,
+    postFailure: postFailureReducer,
     deleteSuccess: deleteSuccessReducer,
     error: errorReducer,
     filters: filtersReducer
@@ -71,6 +72,23 @@ function deleteSuccessReducer(state = false, action) {
         case DELETE_SITE_REQUEST:
             return false;
         case DELETE_SITE_SUCCESS:
+            return true;
+        default:
+            return state;
+    }
+}
+
+function postFailureReducer(state = false, action) {
+    switch (action.type) {
+        case CREATE_SITE_REQUEST:
+        case EDIT_SITE_REQUEST:
+        case DELETE_SITE_REQUEST:
+        case ARCHIVE_SITE_REQUEST:
+            return false;
+        case CREATE_SITE_FAILURE:
+        case EDIT_SITE_FAILURE:
+        case DELETE_SITE_FAILURE:
+        case ARCHIVE_SITE_FAILURE:
             return true;
         default:
             return state;
