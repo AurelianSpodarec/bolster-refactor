@@ -2,14 +2,17 @@ import React from 'react';
 
 import { HIERARCHY_IDS } from 'constants/companyAdmin/enums';
 
-import Breadcrumb from 'components/shared/generic/breadcrumb/presentational/Breadcrumb';
 import AttachOperativesFormContainer from 'components/shared/operatives/containers/AttachOperativesFormContainer';
+import BackButtonContainer from 'components/shared/generic/backButton/containers/BackButtonContainer';
+import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
 
 const AttachSiteOperative = () => (
-    <div>
-        <Breadcrumb breadcrumbs={[{ text: 'Add operative' }]} />
+    <>
+        <PageHeading leftChildren={true} title="Attach Operative">
+            <BackButtonContainer />
+        </PageHeading>
         <AttachOperativesFormContainer hierarchyType={HIERARCHY_IDS.SITE} />
-    </div>
+    </>
 );
 
 export default AttachSiteOperative;

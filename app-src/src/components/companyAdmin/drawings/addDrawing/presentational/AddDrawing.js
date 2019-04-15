@@ -1,15 +1,18 @@
 import React from 'react';
 
-import Breadcrumb from 'components/shared/generic/breadcrumb/presentational/Breadcrumb';
 import AddDrawingFormContainer from '../containers/AddDrawingFormContainer';
-import Block from 'components/shared/generic/block/presentational/Block';
+import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
+import BackButtonContainer from 'components/shared/generic/backButton/containers/BackButtonContainer';
+import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 
 const AddDrawing = () => (
     <>
-        <Breadcrumb breadcrumbs={[{ text: 'Add drawing' }]} />
-        <Block>
+        <PageHeading leftChildren={true} title={'Create Drawing'}>
+            <BackButtonContainer />
+        </PageHeading>
+        <BlockContainer>
             <AddDrawingFormContainer />
-        </Block>
+        </BlockContainer>
     </>
 );
 

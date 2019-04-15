@@ -1,15 +1,18 @@
 import React from 'react';
 
-import Breadcrumb from 'components/shared/generic/breadcrumb/presentational/Breadcrumb';
 import AddBuildingFormContainer from '../containers/CreateBuildingFormContainer';
-import Block from 'components/shared/generic/block/presentational/Block';
+import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
+import BackButtonContainer from 'components/shared/generic/backButton/containers/BackButtonContainer';
 
 const CreateBuilding = () => (
     <>
-        <Breadcrumb breadcrumbs={[{ text: 'Add building' }]} />
-        <Block>
+        <PageHeading leftChildren={true} title="Create Building">
+            <BackButtonContainer />
+        </PageHeading>
+        <BlockContainer>
             <AddBuildingFormContainer />
-        </Block>
+        </BlockContainer>
     </>
 );
 
