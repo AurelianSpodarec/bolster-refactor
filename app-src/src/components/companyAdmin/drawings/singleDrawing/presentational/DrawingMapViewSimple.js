@@ -7,6 +7,7 @@ import MapPin from 'components/shared/pins/presentational/MapPin';
 
 const DrawingMapViewSimple = ({
     position,
+    addPinPosition,
     zoom,
     pins,
     handleClick,
@@ -50,7 +51,7 @@ const DrawingMapViewSimple = ({
             {pins.map(pin => (
                 <MapPin key={pin.id} pin={pin} />
             ))}
-            {addMode && <Marker position={[39.0, 9.14]} />}
+            {addMode && <Marker position={addPinPosition} />}
         </Map>
     </>
 );

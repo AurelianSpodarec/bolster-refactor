@@ -24,11 +24,15 @@ class DrawingMapGeneralContainer extends Component {
         pinLat: 51.505,
         pinLng: -0.09,
         mapZoom: 3,
-        addMode: false
+        addMode: false,
+        addPinLat: 51.505,
+        addPinLng: -0.09
     };
 
     render() {
-        const position = [this.state.pinLat, this.state.pinLng];
+        const position = [this.state.addPinLat, this.state.addPinLng];
+        const addPinPosition = [this.state.addPinLat, this.state.addPinLng];
+
         const {
             serviceSelectedID,
             statusSelectedID,
@@ -76,6 +80,7 @@ class DrawingMapGeneralContainer extends Component {
                 <BlockContainer error={error} isEmpty={!drawing}>
                     <DrawingMapViewSimple
                         position={position}
+                        addPinPosition={addPinPosition}
                         zoom={mapZoom}
                         pins={this._getFilteredPins()}
                         handleClick={this.handleClick}
@@ -89,17 +94,17 @@ class DrawingMapGeneralContainer extends Component {
     }
 
     componentDidMount = () => {
-        const { fetchCompanyUsers, updatePinCoordinates } = this.props;
+        const { fetchCompanyUsers } = this.props;
 
         fetchCompanyUsers();
-        updatePinCoordinates('latX', 0);
+        this._resetCoordinates();
     };
 
     handleClick = e => {
         const { lat, lng } = e.latlng;
 
         if (this.state.addMode) {
-            console.log(lat, lng);
+            this._updateCoordinates(lat, lng);
         }
     };
 
@@ -116,6 +121,30 @@ class DrawingMapGeneralContainer extends Component {
     toggleAddMode = () => {
         this.setState({
             addMode: !this.state.addMode
+        });
+    };
+
+    _resetCoordinates = () => {
+        const { updatePinCoordinates } = this.props;
+
+        updatePinCoordinates('latX', 0);
+        updatePinCoordinates('lngY', 0);
+
+        this.setState({
+            addPinLat: 51.505,
+            addPinLng: -0.09
+        });
+    };
+
+    _updateCoordinates = (latX, lngY) => {
+        const { updatePinCoordinates } = this.props;
+
+        updatePinCoordinates('latX', latX);
+        updatePinCoordinates('lngY', lngY);
+
+        this.setState({
+            addPinLat: latX,
+            addPinLng: lngY
         });
     };
 
