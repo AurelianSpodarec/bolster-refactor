@@ -2,16 +2,37 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import Block from 'components/shared/generic/block/presentational/Block';
+import Form from 'components/shared/generic/form/containers/Form';
+import Field from 'components/shared/generic/form/presentational/Field';
+import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 
-const ChangeOwnershipForm = () => (
+const ChangeOwnershipForm = ({
+    companyCode,
+    handleChange,
+    handleSubmit,
+    url
+}) => (
     <Block>
-        <h3 className="heading heading-3">Change ownership form</h3>
-        <Link className="button" to="/company/sites/1">
-            Cancel
-        </Link>
-        <Link className="button" to="/company/sites/1">
-            Save
-        </Link>
+        <Form className="generic-form" onSubmit={handleSubmit}>
+            <h3 className="heading heading-3">Change ownership form</h3>
+            <Field name="Company code">
+                <TextInputContainer
+                    value={companyCode}
+                    name="companyCode"
+                    handleChange={handleChange}
+                    required
+                />
+            </Field>
+            <p />
+            <Link className="button" to={url.replace('/change-ownership', '')}>
+                <i className="fa fa-times" />
+                Cancel
+            </Link>
+            <button className="button" onClick={handleSubmit}>
+                <i className="fa fa-save" />
+                Save
+            </button>
+        </Form>
     </Block>
 );
 

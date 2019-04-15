@@ -16,6 +16,8 @@ import fetchAllCredits from 'actions/companyAdmin/credits/fetchAllCredits';
 import CompanyApp from '../presentational/CompanyApp';
 
 import { MENU_TABS } from 'constants/shared/tabNames';
+import fetchIncomingTransferRequests from 'actions/companyAdmin/transferRequests/async/fetchIncomingTransferRequests';
+import fetchOutgoingTransferRequests from 'actions/companyAdmin/transferRequests/async/fetchOutgoingTransferRequests';
 
 class CompanyAppContainer extends Component {
     render() {
@@ -41,6 +43,8 @@ const mapDispatchToProps = dispatch => ({
         dispatch(fetchAllSubscriptions());
         dispatch(fetchCreditLogs());
         dispatch(fetchAllCredits());
+        dispatch(fetchIncomingTransferRequests());
+        dispatch(fetchOutgoingTransferRequests());
     },
     selectCompanyMenuTab: () => {
         dispatch(selectMenuTab(MENU_TABS.COMPANY_USER));

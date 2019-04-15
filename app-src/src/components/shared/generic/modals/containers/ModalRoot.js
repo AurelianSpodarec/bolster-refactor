@@ -28,7 +28,8 @@ import {
     PAY_INVOICE,
     COMPANY_EDIT_TEMPLATE_QUESTION,
     CONFIRM_DELETE,
-    CONFIRM_ARCHIVE
+    CONFIRM_ARCHIVE,
+    CONFIRM_SUBMIT
 } from 'constants/shared/modalTypes';
 
 import AddCardModalContainer from 'components/companyAdmin/subscription/cardManagement/addCardModal/containers/AddCardModalContainer';
@@ -58,6 +59,7 @@ import RenameTemplateSectionModalContainer from 'components/superAdmin/templateB
 import SuccessModalContainer from './SuccessModalContainer';
 import ConfirmDeleteModal from '../presentational/ConfirmDeleteModal';
 import ConfirmArchiveModal from '../presentational/ConfirmArchiveModal';
+import ConfirmSubmitModal from '../presentational/ConfirmSubmitModal';
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModalContainer,
@@ -70,6 +72,7 @@ const MODAL_COMPONENTS = {
     [COMPANY_EDIT_TEMPLATE_QUESTION]: CompanyEditTemplateQuestionModalContainer,
     [CONFIRM_ARCHIVE]: ConfirmArchiveModal,
     [CONFIRM_DELETE]: ConfirmDeleteModal,
+    [CONFIRM_SUBMIT]: ConfirmSubmitModal,
     [DELETE_CLIENT_FROM_DRAWING]: DeleteClientModalContainer,
     [DELETE_COMPANY_PERMISSIONS]: DeleteCompanyPermissionsModalContainer,
     [DELETE_COMPANY_USER]: DeleteCompanyUserModalContainer,

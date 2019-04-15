@@ -9,7 +9,7 @@ import BlockHeading from 'components/shared/generic/blockHeading/presentational/
 const DrawingInspectionLogsTable = ({
     isFetching,
     error,
-    inspectionLogs,
+    pins,
     handleFilterChange
 }) => (
     <BlockContainer containerClass="inspection-log flex-item size-lg-4">
@@ -29,17 +29,17 @@ const DrawingInspectionLogsTable = ({
                 headers={['Pin ID', 'Status', 'Actions']}
                 isFetching={isFetching}
                 error={error}
-                noData={!inspectionLogs.length}
+                noData={!pins.length}
                 noDataMessage="No inspection logs to display"
                 withActions
             >
-                {[...inspectionLogs]
+                {[...pins]
                     .sort((a, b) => moment(b.updated) - moment(a.updated))
                     .slice(0, 2)
-                    .map(inspectionLog => (
+                    .map(pin => (
                         <DrawingInspectionLogsListItem
-                            key={inspectionLog.id}
-                            inspectionLog={inspectionLog}
+                            key={pin.id}
+                            pin={pin}
                         />
                     ))}
             </Table>

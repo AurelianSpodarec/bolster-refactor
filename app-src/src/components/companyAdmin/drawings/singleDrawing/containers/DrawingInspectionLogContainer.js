@@ -10,17 +10,17 @@ class DrawingInspectionLogContainer extends Component {
     };
 
     render() {
-        const { inspectionLogs, isFetching, error } = this.props;
+        const { pins, isFetching, error } = this.props;
 
-        const filteredInspectionLogs = Object.values(inspectionLogs).filter(
-            log => log.name.includes(this.state.filterValue)
+        const filterPins = Object.values(pins).filter(
+            pin => pin.pinCode.includes(this.state.filterValue)
         );
 
         return (
             <DrawingInspectionLogsTable
                 isFetching={isFetching}
                 error={error}
-                inspectionLogs={filteredInspectionLogs}
+                pins={filterPins}
                 handleFilterChange={this.handleFilterChange}
             />
         );
@@ -37,10 +37,10 @@ class DrawingInspectionLogContainer extends Component {
     };
 }
 
-const mapStateToProps = ({ companyAdmin: { inspectionLogsReducer } }) => ({
-    inspectionLogs: inspectionLogsReducer.inspectionLogs,
-    isFetching: inspectionLogsReducer.isFetching,
-    error: inspectionLogsReducer.error
+const mapStateToProps = ({ companyAdmin: { pinsReducer: { pins, isFetching, error }, } }) => ({
+    pins: Object.values(pins),
+    isFetching: isFetching,
+    error: error
 });
 
 const mapDispatchToProps = dispatch => ({
