@@ -14,7 +14,8 @@ import {
 import {
     FETCH_ALL_TEMPLATES_REQUEST,
     FETCH_ALL_TEMPLATES_SUCCESS,
-    FETCH_ALL_TEMPLATES_FAILURE
+    FETCH_ALL_TEMPLATES_FAILURE,
+    EDIT_TEMPLATE_QUESTION_FAILURE
 } from 'constants/actionTypes/templates';
 
 export default combineReducers({
@@ -50,6 +51,7 @@ function errorReducer(state = null, action) {
         case FETCH_PIN_TEMPLATES_FAILURE:
         case FETCH_DRAWING_TEMPLATES_FAILURE:
         case FETCH_ALL_TEMPLATES_FAILURE:
+        case EDIT_TEMPLATE_QUESTION_FAILURE:
             return action.error;
         default:
             return state;
