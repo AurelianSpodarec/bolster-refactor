@@ -25,7 +25,10 @@ const SiteStats = ({ site, stats, handleDelete, handleArchive }) => (
                 {site.isArchived ? 'Un-Archive' : 'Archive'}
             </button>
 
-            <Link className="button" to="/company/site">
+            <Link
+                className="button"
+                to={`/company/sites/${site.id}/change-ownership`}
+            >
                 <i className="fa fa-exchange" /> Change Ownership
             </Link>
         </div>
