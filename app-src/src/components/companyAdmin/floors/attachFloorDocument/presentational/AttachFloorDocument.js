@@ -1,17 +1,14 @@
 import React from 'react';
 
-import Breadcrumbs from 'components/shared/generic/breadcrumb/presentational/Breadcrumb';
 import AttachDocumentFormContainer from 'components/shared/documents/containers/AttachDocumentFormContainer';
+import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
+import BackButtonContainer from 'components/shared/generic/backButton/containers/BackButtonContainer';
 
 const AttachFloorDocument = () => (
     <>
-        <Breadcrumbs
-            breadcrumbs={[
-                { text: 'Floors' },
-                { text: 'Floor ID' },
-                { text: 'Attach Document' }
-            ]}
-        />
+        <PageHeading leftChildren={true} title={'Attach Document'}>
+            <BackButtonContainer />
+        </PageHeading>
         <AttachDocumentFormContainer hierarchyType="floor" />
     </>
 );
