@@ -4,9 +4,10 @@ import { FETCH_PIN_TEMPLATES_SUCCESS } from 'constants/actionTypes/pins';
 import { FETCH_DRAWING_TEMPLATES_SUCCESS } from 'constants/actionTypes/drawings';
 import {
     FETCH_ALL_TEMPLATES_SUCCESS,
-    SELECT_QUESTION
+    SELECT_QUESTION,
+    EDIT_TEMPLATE_QUESTION_SUCCESS
 } from 'constants/actionTypes/templates';
-import { convertArrToObj } from 'helpers/generic';
+import { convertArrToObj, updateObj } from 'helpers/generic';
 import { formatQuestions } from 'helpers/templates';
 
 export default combineReducers({
@@ -23,6 +24,9 @@ function questionsReducer(state = {}, action) {
                 ...state,
                 ...convertArrToObj(formatQuestions(action.payload.questions))
             };
+        case EDIT_TEMPLATE_QUESTION_SUCCESS:
+            // TODO: CHECK
+            return updateObj(state, action.questions.id, action.questions);
         default:
             return state;
     }

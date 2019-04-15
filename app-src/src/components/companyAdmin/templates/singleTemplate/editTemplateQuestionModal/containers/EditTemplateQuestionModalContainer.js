@@ -1,30 +1,28 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import uuid from 'uuid/v1';
 
 import EditTemplateQuestionModal from '../presentational/EditTemplateQuestionModal';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
+import editTemplateQuestion from 'actions/companyAdmin/templates/async/editTemplateQuestion';
 
 class EditTemplateQuestionModalContainer extends Component {
     state = {
-        options: {},
-        addingOption: false,
-        newOption: ''
+        options: {}
     };
 
     render = () => {
-        const { addingOption, options, newOption } = this.state;
+        const { question, hideModal } = this.props;
+        const { options } = this.state;
         return (
             <EditTemplateQuestionModal
-                addingOption={addingOption}
                 options={Object.entries(options)}
-                newOption={newOption}
-                hideModal={this.props.hideModal}
+                hideModal={hideModal}
                 handleChange={this.handleChange}
-                handleNewOptionChange={this.handleNewOptionChange}
                 handleSubmit={this.handleSubmit}
                 handleRemoveOption={this.handleRemoveOption}
-                handleShowAddOption={this.handleShowAddOption}
                 handleAddOption={this.handleAddOption}
+                question={question}
             />
         );
     };
@@ -34,25 +32,19 @@ class EditTemplateQuestionModalContainer extends Component {
             question: { options }
         } = this.props;
         const optionsForState = options.reduce(
-            (acc, curr) => ({ ...acc, [curr.id]: [curr.text] }),
+            (acc, { id, text }) => ({ ...acc, [id]: text }),
             {}
         );
         this.setState({ options: optionsForState });
     };
 
     handleChange = ({ target: { value, name } }) => {
-        const { options } = this.state;
         this.setState({
-            options: { ...options, [name]: value }
+            options: { ...this.state.options, [name]: value }
         });
     };
 
-    handleNewOptionChange = ({ target: { value, name } }) => {
-        this.setState({ [name]: value });
-    };
-
     handleRemoveOption = ({ target: { value } }) => {
-        // ? No confirmation
         const {
             // eslint-disable-next-line no-unused-vars
             options: { [value]: removed, ...options }
@@ -60,32 +52,33 @@ class EditTemplateQuestionModalContainer extends Component {
         this.setState({ options });
     };
 
-    handleShowAddOption = () => {
-        this.setState({ addingOption: true, newOption: '' });
-    };
-
     handleAddOption = () => {
-        const { options, newOption } = this.state;
-        // ! add actual new option
         this.setState({
-            addingOption: false,
-            newOption: '',
             options: {
-                ...options,
-                // ## Obviously change this ##
-                [Math.floor(Math.random() * 15653522432.359264)]: newOption
+                ...this.state.options,
+                [uuid()]: ''
             }
         });
     };
 
     handleSubmit = e => {
         e.preventDefault();
+        const {
+            editTemplateQuestion,
+            question: { id }
+        } = this.props;
+        const options = Object.entries(this.state.options).map(
+            ([id, text]) => ({ id, text })
+        );
+        editTemplateQuestion(id, { options });
         alert('submit');
     };
 }
 
 const mapDispatchToProps = dispatch => ({
-    hideModal: () => dispatch(hideModal())
+    hideModal: () => dispatch(hideModal()),
+    editTemplateQuestion: (id, postBody) =>
+        dispatch(editTemplateQuestion(id, postBody))
 });
 
 export default connect(

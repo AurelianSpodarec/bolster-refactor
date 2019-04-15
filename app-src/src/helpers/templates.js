@@ -56,9 +56,12 @@ export const getQuestionDetails = question => {
     switch (String(type)) {
         case VALS.SINGLE_LINE:
         case VALS.MULTI_LINE:
-            return { ...options, 'Character limit': question.charLimit };
+            return {
+                ...options,
+                'Character limit': question.charLimit || 'N/A'
+            };
         case VALS.NUMBER:
-            return { ...options, 'Max number': question.maxNum };
+            return { ...options, 'Max number': question.maxNum || 'N/A' };
         case VALS.DROPDOWN:
         case VALS.MULTI_DROPDOWN:
         case VALS.RADIO:
@@ -70,7 +73,7 @@ export const getQuestionDetails = question => {
             };
 
         case VALS.MULTI_PHOTO:
-            return { ...options, 'Max photos': question.maxPhotos };
+            return { ...options, 'Max photos': question.maxPhotos || 'N/A' };
         default:
             return options;
         // empty obj
