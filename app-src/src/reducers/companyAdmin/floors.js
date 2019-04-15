@@ -23,6 +23,7 @@ export default combineReducers({
     floors: floorsReducer,
     isFetching: isFetchingReducer,
     postSuccess: postSuccessReducer,
+    deleteSuccess: deleteSuccessReducer,
     postFailure: postFailureReducer,
     error: errorReducer,
     updatedFloorID: updatedFloorIDReducer
@@ -54,6 +55,17 @@ function postSuccessReducer(state = false, action) {
             return false;
         case CREATE_FLOOR_SUCCESS:
         case EDIT_FLOOR_SUCCESS:
+        case DELETE_FLOOR_SUCCESS:
+            return true;
+        default:
+            return state;
+    }
+}
+
+function deleteSuccessReducer(state = false, action) {
+    switch (action.type) {
+        case DELETE_FLOOR_REQUEST:
+            return false;
         case DELETE_FLOOR_SUCCESS:
             return true;
         default:
