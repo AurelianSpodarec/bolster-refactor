@@ -9,7 +9,7 @@ const ProfileImage = ({ profile: { profileImageS3Key } }) => {
         <div className="profile-pic-field size-lg-12">
             {profileImageS3Key ? (
                 <img
-                    alt="profile picture"
+                    alt="avatar"
                     src={`${FILE_STORAGE_URL}/${profileImageS3Key}`}
                 />
             ) : (

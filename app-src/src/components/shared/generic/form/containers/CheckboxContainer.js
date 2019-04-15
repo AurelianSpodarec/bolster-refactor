@@ -48,6 +48,10 @@ class CheckboxContainer extends Component {
         if (error) removeFieldError(name);
     };
 
+    handleChange = e => {
+        this.props.handleChange(e);
+    };
+
     _validate() {
         const {
             required,

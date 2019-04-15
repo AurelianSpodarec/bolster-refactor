@@ -81,7 +81,7 @@ const EditDocumentForm = ({
                 type="text"
                 handleChange={handleInputChange}
                 required
-                placeholder="document name..."
+                placeholder="Document name..."
             />
         </Field>
 
