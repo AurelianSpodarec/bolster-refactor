@@ -29,8 +29,6 @@ class FloorDetailsContainer extends Component {
     }
 
     componentDidUpdate = prevProps => {
-        console.log(prevProps, 'BEFORE');
-        console.log(this.props, 'NOW');
         const {
             deleteSuccess,
             postFailure,
@@ -40,7 +38,6 @@ class FloorDetailsContainer extends Component {
             floor
         } = this.props;
         if (deleteSuccess && !prevProps.deleteSuccess) {
-            console.log('hmmm');
             hideModal();
             history.push(`/company/buildings/${floor.buildingID}`);
         }
