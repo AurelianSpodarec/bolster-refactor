@@ -3,8 +3,7 @@ import { connect } from 'react-redux';
 
 import addFieldError from 'actions/shared/generic/fieldErrors/sync/addFieldError';
 import removeFieldError from 'actions/shared/generic/fieldErrors/sync/removeFieldError';
-import DatePicker from '../../generic/form/presentational/DatePicker';
-import Field from 'components/shared/generic/form/presentational/Field';
+import AttachDocumentDatePicker from '../presentational/AttachDocumentDatePicker';
 
 class AttachDocumentDatePickerContainer extends Component {
     state = {
@@ -25,33 +24,13 @@ class AttachDocumentDatePickerContainer extends Component {
         const endErrorMessage =
             showFieldError || errorsVisible ? endError : null;
         return (
-            <>
-                <Field name="Start date">
-                    <DatePicker
-                        name="startOn"
-                        selected={startOn}
-                        onChange={e => onChange(e, 'startOn')}
-                    />
-                    {startErrorMessage && startErrorMessage.length && (
-                        <p className="error red-text text-accent-4">
-                            {startErrorMessage}
-                        </p>
-                    )}
-                </Field>
-                <Field name="End date">
-                    <DatePicker
-                        name="endOn"
-                        selected={endOn}
-                        onChange={e => onChange(e, 'endOn')}
-                        placeholderText="click to select a date"
-                    />
-                    {endErrorMessage && endErrorMessage.length && (
-                        <p className="error red-text text-accent-4">
-                            {endErrorMessage}
-                        </p>
-                    )}
-                </Field>
-            </>
+            <AttachDocumentDatePicker
+                startOn={startOn}
+                endOn={endOn}
+                startErrorMessage={startErrorMessage}
+                endErrorMessage={endErrorMessage}
+                onChange={onChange}
+            />
         );
     }
 

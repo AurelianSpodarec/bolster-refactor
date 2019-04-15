@@ -16,8 +16,14 @@ import {
     EDIT_FLOOR_FAILURE,
     DELETE_FLOOR_REQUEST,
     DELETE_FLOOR_SUCCESS,
-    DELETE_FLOOR_FAILURE
+    DELETE_FLOOR_FAILURE,
+    ARCHIVE_FLOOR_SUCCESS
 } from 'constants/actionTypes/floors';
+import {
+    ARCHIVE_BUILDING_REQUEST,
+    ARCHIVE_BUILDING_SUCCESS,
+    ARCHIVE_BUILDING_FAILURE
+} from 'constants/actionTypes/buildings';
 
 export default combineReducers({
     floors: floorsReducer,
@@ -52,10 +58,12 @@ function postSuccessReducer(state = false, action) {
         case CREATE_FLOOR_REQUEST:
         case EDIT_FLOOR_REQUEST:
         case DELETE_FLOOR_REQUEST:
+        case ARCHIVE_BUILDING_REQUEST:
             return false;
         case CREATE_FLOOR_SUCCESS:
         case EDIT_FLOOR_SUCCESS:
         case DELETE_FLOOR_SUCCESS:
+        case ARCHIVE_BUILDING_SUCCESS:
             return true;
         default:
             return state;
@@ -78,10 +86,12 @@ function postFailureReducer(state = false, action) {
         case CREATE_FLOOR_REQUEST:
         case EDIT_FLOOR_REQUEST:
         case DELETE_FLOOR_REQUEST:
+        case ARCHIVE_BUILDING_REQUEST:
             return false;
         case CREATE_FLOOR_FAILURE:
         case EDIT_FLOOR_FAILURE:
         case DELETE_FLOOR_FAILURE:
+        case ARCHIVE_BUILDING_FAILURE:
             return true;
         default:
             return state;
@@ -95,12 +105,14 @@ function errorReducer(state = null, action) {
         case CREATE_FLOOR_REQUEST:
         case EDIT_FLOOR_REQUEST:
         case DELETE_FLOOR_REQUEST:
+        case ARCHIVE_BUILDING_REQUEST:
             return null;
         case FETCH_ALL_FLOORS_FAILURE:
         case FETCH_SINGLE_FLOOR_FAILURE:
         case CREATE_FLOOR_FAILURE:
         case EDIT_FLOOR_FAILURE:
         case DELETE_FLOOR_FAILURE:
+        case ARCHIVE_BUILDING_FAILURE:
             return action.error;
         default:
             return state;
@@ -110,8 +122,10 @@ function errorReducer(state = null, action) {
 function updatedFloorIDReducer(state = 0, action) {
     switch (action.type) {
         case CREATE_FLOOR_REQUEST:
+        case ARCHIVE_BUILDING_REQUEST:
             return 0;
         case CREATE_FLOOR_SUCCESS:
+        case ARCHIVE_BUILDING_SUCCESS:
             return action.payload.id;
         default:
             return state;
@@ -125,6 +139,7 @@ function floorsReducer(state = {}, action) {
         case FETCH_SINGLE_FLOOR_SUCCESS:
         case CREATE_FLOOR_SUCCESS:
         case EDIT_FLOOR_SUCCESS:
+        case ARCHIVE_FLOOR_SUCCESS:
             return updateObj(state, action.payload.id, action.payload);
         default:
             return state;

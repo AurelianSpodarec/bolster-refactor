@@ -5,9 +5,14 @@ import { withRouter } from 'react-router-dom';
 import SiteStats from '../presentational/SiteStats';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
-import { CONFIRM_DELETE, ERROR_MODAL } from 'constants/shared/modalTypes';
+import {
+    CONFIRM_DELETE,
+    ERROR_MODAL,
+    CONFIRM_ARCHIVE
+} from 'constants/shared/modalTypes';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import deleteSite from 'actions/companyAdmin/sites/async/deleteSite';
+import archiveSite from 'actions/companyAdmin/sites/async/archiveSite';
 
 class SiteDetailsContainer extends Component {
     render() {
@@ -23,6 +28,7 @@ class SiteDetailsContainer extends Component {
                     site={site}
                     stats={stats}
                     handleDelete={this.handleDeleteModal}
+                    handleArchive={this.handleArchiveModal}
                 />
             </BlockContainer>
         );
@@ -48,6 +54,18 @@ class SiteDetailsContainer extends Component {
         const handleDelete = () => deleteSite(id);
         const message = `Are you sure you want to delete ${site.name}?`;
         showModal(CONFIRM_DELETE, { hideModal, handleDelete, message });
+    };
+
+    handleArchiveModal = () => {
+        const { id, showModal, hideModal, site, archiveSite } = this.props;
+        const handleArchive = () => {
+            archiveSite(id, site.isArchived);
+            hideModal();
+        };
+        const message = `Are you sure you want to ${
+            site.isArchived ? 'un-' : ''
+        }archive ${site.name}?`;
+        showModal(CONFIRM_ARCHIVE, { hideModal, handleArchive, message });
     };
 }
 
@@ -78,7 +96,8 @@ const mapStateToProps = (
 const mapDispatchToProps = dispatch => ({
     showModal: (type, props) => dispatch(showModal(type, props)),
     hideModal: () => dispatch(hideModal()),
-    deleteSite: id => dispatch(deleteSite(id))
+    deleteSite: id => dispatch(deleteSite(id)),
+    archiveSite: (id, undo) => dispatch(archiveSite(id, undo))
 });
 
 export default withRouter(
