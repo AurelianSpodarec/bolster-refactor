@@ -33,21 +33,23 @@ const GeneralOverview = ({ handleDelete, handleArchive, drawing }) => (
         </div>
         <div className="size-lg-12">
             <div className="content-container size-lg-12">
-                <button
-                    type="button"
-                    className="button red"
-                    onClick={handleDelete}
-                >
-                    <i className="fal fa-trash-alt" /> Delete drawing
-                </button>
-                <button
-                    className="button"
-                    onClick={handleArchive}
-                    type="button"
-                >
-                    <i className="fa fa-archive" />
-                    {drawing.isArchived ? 'Un-Archive' : 'Archive'}
-                </button>
+                <div className="button-container outside-block">
+                    <button
+                        type="button"
+                        className="button red"
+                        onClick={handleDelete}
+                    >
+                        <i className="fal fa-trash-alt" /> Delete drawing
+                    </button>
+                    <button
+                        className="button"
+                        onClick={handleArchive}
+                        type="button"
+                    >
+                        <i className="fa fa-archive" />
+                        {drawing.isArchived ? 'Un-Archive' : 'Archive'}
+                    </button>
+                </div>
             </div>
         </div>
     </>
