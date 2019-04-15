@@ -9,6 +9,7 @@ import EnquiriesRoutes from './EnquiriesRouter';
 import CompaniesRoutes from './CompaniesRoutes';
 import GenerationQueueRoutes from './GenerationQueueRoutes';
 import ProfilesRoutes from './ProfilesRoutes';
+import InvoicesRoutes from './InvoicesRoutes';
 
 const AdminRoutes = ({ base = '/admin' }) => (
     <SwitchWith404>
@@ -21,6 +22,8 @@ const AdminRoutes = ({ base = '/admin' }) => (
             path={`${base}/generation-queue`}
             component={GenerationQueueRoutes}
         />
+        <Route path={`${base}/invoices`} component={InvoicesRoutes} />
+
         <Route
             path={`${base}/site-management/user-enquiries`}
             component={EnquiriesRoutes}
