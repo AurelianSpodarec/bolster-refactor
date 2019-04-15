@@ -91,8 +91,14 @@ const SingleDropdown = ({
     );
 };
 
-const CheckBox = ({ question: { isRequired } }) => (
-    <CheckboxContainer required={isRequired} checked={false} text="" />
+const CheckBox = ({ question: { id, isRequired }, answers, handleChange }) => (
+    <CheckboxContainer
+        required={isRequired}
+        checked={answers[id]}
+        name={`answer-${id}`}
+        text=""
+        handleChange={handleChange}
+    />
 );
 
 const Radio = ({ question: { id, isRequired, options } }) =>
