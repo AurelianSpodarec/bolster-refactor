@@ -4,21 +4,19 @@ import Field from 'components/shared/generic/form/presentational/Field';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import Form from 'components/shared/generic/form/containers/Form';
+import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 
 const EditTemplateQuestionModal = ({
     options,
     handleChange,
-    handleNewOptionChange,
     handleRemoveOption,
     hideModal,
     handleSubmit,
-    newOption,
-    handleShowAddOption,
     handleAddOption,
-    addingOption
+    question
 }) => (
     <ModalOuterContainer>
-        <p>Hello</p>
+        <BlockHeading title={`Edit question options - ${question.name}`} />
         <Form onSubmit={handleSubmit}>
             {options.map(([id, text], i) => (
                 <Field key={id} name={`Option ${i + 1}`}>
@@ -26,6 +24,7 @@ const EditTemplateQuestionModal = ({
                         name={id}
                         value={text}
                         handleChange={handleChange}
+                        required
                     />
                     <button
                         className="button red"
@@ -37,29 +36,21 @@ const EditTemplateQuestionModal = ({
                     </button>
                 </Field>
             ))}
-            {addingOption && (
-                <Field name="New Option">
-                    <TextInputContainer
-                        name="newOption"
-                        value={newOption}
-                        handleChange={handleNewOptionChange}
-                    />
-                    <button className="button" onClick={handleAddOption}>
-                        Set option
-                    </button>
-                </Field>
-            )}
             <BlockButtonWrapper>
-                {!addingOption && (
-                    <button className="button" onClick={handleShowAddOption}>
-                        <i className="fa fa-plus" />
-                        Add Option
-                    </button>
-                )}
                 <button type="submit" className="button">
+                    <i className="fa fa-save" />
                     Save
                 </button>
-                <button className="button" onClick={hideModal}>
+                <button
+                    className="button"
+                    type="button"
+                    onClick={handleAddOption}
+                >
+                    <i className="fa fa-plus" />
+                    Add Option
+                </button>
+                <button className="button" type="button" onClick={hideModal}>
+                    <i className="fa fa-times" />
                     Cancel
                 </button>
             </BlockButtonWrapper>

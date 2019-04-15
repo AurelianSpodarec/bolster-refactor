@@ -21,11 +21,14 @@ export const editTemplateQuestionFailure = error => ({
     error
 });
 
-export default postBody => dispatch => {
-    // ! URL PROBABLY WRONG!
+export default (questionID, postBody) => dispatch => {
     dispatch(editTemplateQuestionRequest());
     axios
-        .post(`${API_URL}/templates`, postBody, getHeaders())
+        .post(
+            `${API_URL}/templates/${questionID}/options`,
+            postBody,
+            getHeaders()
+        )
         .then(({ data }) => dispatch(editTemplateQuestionSuccess(data)))
         .catch(err => {
             const errorAction = handleErrors(editTemplateQuestionFailure);
