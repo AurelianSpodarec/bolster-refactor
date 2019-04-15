@@ -15,13 +15,17 @@ import {
     FETCH_ALL_TEMPLATES_REQUEST,
     FETCH_ALL_TEMPLATES_SUCCESS,
     FETCH_ALL_TEMPLATES_FAILURE,
-    EDIT_TEMPLATE_QUESTION_FAILURE
+    EDIT_TEMPLATE_QUESTION_FAILURE,
+    EDIT_TEMPLATE_QUESTION_REQUEST,
+    EDIT_TEMPLATE_QUESTION_SUCCESS
 } from 'constants/actionTypes/templates';
 
 export default combineReducers({
     templates: templatesReducer,
     isFetching: isFetchingReducer,
-    error: errorReducer
+    error: errorReducer,
+    postSuccess: postSuccessReducer,
+    postFailure: postFailureReducer
 });
 
 function isFetchingReducer(state = false, action) {
@@ -37,6 +41,28 @@ function isFetchingReducer(state = false, action) {
         case FETCH_ALL_TEMPLATES_SUCCESS:
         case FETCH_ALL_TEMPLATES_FAILURE:
             return false;
+        default:
+            return state;
+    }
+}
+
+function postSuccessReducer(state = false, action) {
+    switch (action.type) {
+        case EDIT_TEMPLATE_QUESTION_REQUEST:
+            return false;
+        case EDIT_TEMPLATE_QUESTION_SUCCESS:
+            return true;
+        default:
+            return state;
+    }
+}
+
+function postFailureReducer(state = false, action) {
+    switch (action.type) {
+        case EDIT_TEMPLATE_QUESTION_REQUEST:
+            return false;
+        case EDIT_TEMPLATE_QUESTION_FAILURE:
+            return true;
         default:
             return state;
     }

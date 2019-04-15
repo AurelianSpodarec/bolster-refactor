@@ -13,10 +13,10 @@ const EditTemplateQuestionModal = ({
     hideModal,
     handleSubmit,
     handleAddOption,
-    question
+    questionName
 }) => (
     <ModalOuterContainer>
-        <BlockHeading title={`Edit question options - ${question.name}`} />
+        <BlockHeading title={`Edit question options - ${questionName}`} />
         <Form onSubmit={handleSubmit}>
             {options.map(([id, text], i) => (
                 <Field key={id} name={`Option ${i + 1}`}>
