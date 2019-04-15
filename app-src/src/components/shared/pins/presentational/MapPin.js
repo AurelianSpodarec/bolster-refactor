@@ -6,7 +6,7 @@ import CustomPin from './CustomPin';
 import ReactDOMServer from 'react-dom/server';
 
 const DrawingMapPin = ({
-    pin: { id, location = {}, pinCode, latestStatus = '' }
+    pin: { id, location = {}, pinCode, latestStatus = '' }, history
 }) => {
     const { latY = 1, lngX = 1 } = location;
 
@@ -15,7 +15,7 @@ const DrawingMapPin = ({
     const divIcon = L.divIcon({
         className: '',
         html: ReactDOMServer.renderToString(
-            <CustomPin pinColour={pinColour} pinCode={pinCode} />
+            <CustomPin pinColour={pinColour} pinCode={pinCode} pinID={id} history={history} />
         ),
         iconSize: [24, 40],
         iconAnchor: [12, 40],
