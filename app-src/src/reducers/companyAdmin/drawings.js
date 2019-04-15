@@ -13,7 +13,10 @@ import {
     CREATE_DRAWING_FAILURE,
     DELETE_DRAWING_REQUEST,
     DELETE_DRAWING_SUCCESS,
-    DELETE_DRAWING_FAILURE
+    DELETE_DRAWING_FAILURE,
+    ARCHIVE_DRAWING_REQUEST,
+    ARCHIVE_DRAWING_SUCCESS,
+    ARCHIVE_DRAWING_FAILURE
 } from 'constants/actionTypes/drawings';
 
 export default combineReducers({
@@ -55,11 +58,13 @@ function errorReducer(state = null, action) {
         case FETCH_SINGLE_DRAWING_REQUEST:
         case CREATE_DRAWING_REQUEST:
         case DELETE_DRAWING_REQUEST:
+        case ARCHIVE_DRAWING_REQUEST:
             return null;
         case FETCH_ALL_DRAWINGS_FAILURE:
         case FETCH_SINGLE_DRAWING_FAILURE:
         case CREATE_DRAWING_FAILURE:
         case DELETE_DRAWING_FAILURE:
+        case ARCHIVE_DRAWING_FAILURE:
             return action.error;
         default:
             return state;
@@ -69,8 +74,10 @@ function errorReducer(state = null, action) {
 function postSuccessReducer(state = false, action) {
     switch (action.type) {
         case DELETE_DRAWING_REQUEST:
+        case ARCHIVE_DRAWING_REQUEST:
             return false;
         case DELETE_DRAWING_SUCCESS:
+        case ARCHIVE_DRAWING_SUCCESS:
             return true;
         default:
             return state;
@@ -80,8 +87,10 @@ function postSuccessReducer(state = false, action) {
 function postFailureReducer(state = false, action) {
     switch (action.type) {
         case DELETE_DRAWING_REQUEST:
+        case ARCHIVE_DRAWING_REQUEST:
             return false;
         case DELETE_DRAWING_FAILURE:
+        case ARCHIVE_DRAWING_FAILURE:
             return true;
         default:
             return state;
@@ -94,6 +103,7 @@ function drawingsReducer(state = {}, action) {
             return convertArrToObj(action.payload);
         case FETCH_SINGLE_DRAWING_SUCCESS:
         case CREATE_DRAWING_SUCCESS:
+        case ARCHIVE_DRAWING_SUCCESS:
             return updateObj(state, action.payload.id, action.payload);
         default:
             return state;
