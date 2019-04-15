@@ -8,6 +8,8 @@ import Breadcrumb from 'components/shared/generic/breadcrumb/presentational/Brea
 import Form from 'components/shared/generic/form/containers/Form';
 import Field from 'components/shared/generic/form/presentational/Field';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
+import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
+import BackButtonContainer from 'components/shared/generic/backButton/containers/BackButtonContainer';
 
 const EditCompanyPermissionsForm = ({
     company,
@@ -24,6 +26,12 @@ const EditCompanyPermissionsForm = ({
         return (
             company && (
                 <>
+                    <PageHeading
+                        leftChildren={true}
+                        title="Edit Company Permisions"
+                    >
+                        <BackButtonContainer />
+                    </PageHeading>
                     <Breadcrumb
                         breadcrumbs={[{ text: type }, { text: 'Edit Company' }]}
                     />

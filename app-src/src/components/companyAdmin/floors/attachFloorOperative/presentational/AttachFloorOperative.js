@@ -1,17 +1,15 @@
 import React from 'react';
 
-import Breadcrumb from 'components/shared/generic/breadcrumb/presentational/Breadcrumb';
 import AttachOperativesFormContainer from 'components/shared/operatives/containers/AttachOperativesFormContainer';
 import { HIERARCHY_IDS } from 'constants/companyAdmin/enums';
+import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
+import BackButtonContainer from 'components/shared/generic/backButton/containers/BackButtonContainer';
 
 const AttachFloorOperative = () => (
     <>
-        <Breadcrumb
-            breadcrumbs={[
-                { text: '##floor name##' },
-                { text: '##add operative##' }
-            ]}
-        />
+        <PageHeading leftChildren={true} title="Attatch Operative">
+            <BackButtonContainer />
+        </PageHeading>{' '}
         <AttachOperativesFormContainer hierarchyType={HIERARCHY_IDS.FLOOR} />
     </>
 );
