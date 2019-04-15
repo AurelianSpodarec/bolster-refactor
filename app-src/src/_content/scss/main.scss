@@ -626,6 +626,19 @@ input {
 .page-heading {
     margin-bottom: 10px;
 
+    &.left-controls {
+        .heading {
+            float: left;
+            width: auto;
+        }
+        .button {
+            float: left;
+            margin-left: 0;
+            margin-right: 10px;
+            margin-top: 0;
+        }
+    }
+
     .heading {
         line-height: 1;
         margin-bottom: 5px;
