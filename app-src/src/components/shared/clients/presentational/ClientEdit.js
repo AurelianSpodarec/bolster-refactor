@@ -1,16 +1,23 @@
 import React from 'react';
-import Breadcrumb from 'components/shared/generic/breadcrumb/presentational/Breadcrumb';
+
 import EditClientFormContainer from '../containers/EditClientFormContainer';
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
+import BackButtonContainer from 'components/shared/generic/backButton/containers/BackButtonContainer';
+import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 
 const ClientEdit = ({ firstName, lastName }) => (
     <>
-        <Breadcrumb
-            breadcrumbs={[{ text: 'Drawing' }, { text: 'Edit Client' }]}
-        />
-        <PageHeading title={`Edit Client: ${firstName} ${lastName}`} />
-
-        <EditClientFormContainer />
+        <PageHeading
+            leftChildren={true}
+            title={`Edit Client: ${firstName} ${lastName}`}
+        >
+            <BackButtonContainer />
+        </PageHeading>
+        <BlockContainer>
+            <BlockHeading title="Edit Client" />
+            <EditClientFormContainer />
+        </BlockContainer>
     </>
 );
 

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import EditClientForm from '../presentational/EditClientForm';
 
 import editClientForDrawing from 'actions/companyAdmin/clients/async/editClientForDrawing';
@@ -16,15 +15,13 @@ class EditClientFormContainer extends Component {
         const { serviceIDs } = this.state;
         const serviceOptions = this._getServicesOptions();
         return (
-            <BlockContainer>
-                <EditClientForm
-                    {...this.state}
-                    serviceOptions={serviceOptions}
-                    checkedServices={serviceIDs}
-                    handleMultiselectChange={this.handleMultiselectChange}
-                    handleSubmit={this.handleSubmit}
-                />
-            </BlockContainer>
+            <EditClientForm
+                {...this.state}
+                serviceOptions={serviceOptions}
+                checkedServices={serviceIDs}
+                handleMultiselectChange={this.handleMultiselectChange}
+                handleSubmit={this.handleSubmit}
+            />
         );
     }
     _setClientDetails = () => {

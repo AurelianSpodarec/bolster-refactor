@@ -1,18 +1,15 @@
 import { QUESTION_TYPES } from 'constants/shared/templateBuilder';
 import { QUESTION_TYPE_VALUES as VALS } from 'constants/shared/templateBuilder';
 
-function formatQuestion({ type, dynamicFields, ...otherFields }) {
-    return {
-        questionType: QUESTION_TYPES[type + ''],
-        type,
-        ...otherFields,
-        ...dynamicFields
-    };
-}
+const formatQuestion = ({ type, dynamicFields, ...otherFields }) => ({
+    questionType: QUESTION_TYPES[type + ''],
+    type,
+    ...otherFields,
+    ...dynamicFields
+});
 
-export function formatQuestions(questions) {
-    return questions.map(ques => formatQuestion(ques));
-}
+export const formatQuestions = questions =>
+    questions.map(ques => formatQuestion(ques));
 
 export const getLatestVersion = (id, versions) =>
     [...versions]
@@ -112,6 +109,5 @@ function setDynamicFieldsSingle({
     return { ...otherFields, dynamicFields };
 }
 
-export function setDynamicFields(questions) {
-    return questions.map(ques => setDynamicFieldsSingle(ques));
-}
+export const setDynamicFields = questions =>
+    questions.map(ques => setDynamicFieldsSingle(ques));
