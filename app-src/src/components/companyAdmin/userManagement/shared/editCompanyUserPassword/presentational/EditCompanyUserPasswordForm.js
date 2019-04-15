@@ -49,7 +49,6 @@ const EditCompanyUserPassword = ({
                     )}
                     className="button"
                 >
-                    <i className="fa fa-times" />
                     Cancel
                 </Link>
             </BlockButtonWrapper>

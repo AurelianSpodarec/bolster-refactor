@@ -38,10 +38,7 @@ class DrawingOperativesAccessContainer extends Component {
 
     checkAvailableOperatives = () => {
         const { operatives, users } = this.props;
-        const availableOperatives = users.filter(
-            user => user.type === COMPANY_USER_ROLE_TYPES.OPERATIVE
-        );
-        return operatives.length === availableOperatives.length;
+        return operatives.length === users.length;
     };
 
     handleDeleteOperativeModal = operative => {

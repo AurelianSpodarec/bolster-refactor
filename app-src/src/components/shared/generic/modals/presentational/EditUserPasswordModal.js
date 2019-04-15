@@ -45,7 +45,7 @@ const EditUserPasswordModal = ({
                     Save
                 </button>
                 <button className="button" onClick={hideModal}>
-                    <i className="fa fa-times" /> Cancel
+                    Cancel
                 </button>
             </BlockButtonWrapper>
         </Form>

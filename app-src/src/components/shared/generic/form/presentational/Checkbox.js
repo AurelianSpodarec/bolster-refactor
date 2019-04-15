@@ -12,7 +12,7 @@ const Checkbox = ({
 }) => (
     <div className={`checkbox ${disabled ? 'left grey-out' : ''} ${classes}`}>
         <input
-            id={`${name}_${value}`}
+            id={name}
             onChange={handleChange}
             type="checkbox"
             value={value}
@@ -21,7 +21,7 @@ const Checkbox = ({
             disabled={disabled}
         />
         <label
-            htmlFor={`${name}_${value}`}
+            htmlFor={name}
             // ? ## needs styling for disabled ##
             // style={disabled ? { color: 'grey' } : {}}
         >

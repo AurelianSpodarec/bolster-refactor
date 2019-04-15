@@ -755,6 +755,10 @@ input {
 .generic-form {
     width: calc(100% + 15px);
     margin-left: -7.5px;
+
+    .button-block-container {
+        margin-top: 15px;
+    }
 }
 
 //form stuff
@@ -804,8 +808,13 @@ input {
     }
 
     .checkbox-list {
+        margin-top: -17px;
+        padding-bottom: 2.5px;
+
         .checkbox {
             width: 25%;
+            margin-top: 20px;
+            margin-bottom: 0;
         }
         .error {
             left: 0;
@@ -838,7 +847,7 @@ input {
 .checkbox {
     float: left;
     cursor: pointer;
-    width: 35px;
+    width: 100%;
 
     input {
         position: absolute;
@@ -876,7 +885,7 @@ input {
         top: 50%;
         left: 0;
         transform: translateY(-50%);
-        width: 100%;
+        width: 35px;
         height: 20px;
         border-radius: 20px;
         background-color: $button-grey;
@@ -885,7 +894,7 @@ input {
 
     .text {
         width: 100%;
-        padding-left: 40px;
+        padding-left: 45px;
         padding-right: 10px;
     }
 
@@ -929,7 +938,6 @@ input {
         }
         .outer {
             float: left;
-            width: 35px;
             margin-left: 3px;
             position: relative;
             top: 0;

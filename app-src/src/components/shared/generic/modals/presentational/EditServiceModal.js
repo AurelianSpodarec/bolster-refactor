@@ -24,7 +24,7 @@ const EditServiceModal = ({ name, handleChange, handleSubmit, hideModal }) => (
             <BlockButtonWrapper>
                 <button className="button">Save</button>
                 <button className="button" onClick={hideModal}>
-                    <i className="fa fa-times" /> Cancel
+                    Cancel
                 </button>
             </BlockButtonWrapper>
         </Form>

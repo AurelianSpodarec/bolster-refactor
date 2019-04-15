@@ -98,7 +98,7 @@ const InviteClientForm = ({
                     to={location.pathname.replace('/invite-client', '')}
                     className="button"
                 >
-                    <i className="fa fa-times" /> Cancel
+                    Cancel
                 </Link>
             </BlockButtonWrapper>
         </Form>

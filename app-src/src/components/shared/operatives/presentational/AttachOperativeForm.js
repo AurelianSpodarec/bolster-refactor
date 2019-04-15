@@ -48,7 +48,7 @@ const AttachOperativeForm = ({
                 to={location.pathname.replace('/add-operative', '')}
                 className="button"
             >
-                <i className="fa fa-times" /> Cancel
+                Cancel
             </Link>
         </BlockButtonWrapper>
     </Form>

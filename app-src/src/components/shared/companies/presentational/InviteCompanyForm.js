@@ -45,7 +45,7 @@ const InviteCompanyForm = ({
                 to={location.pathname.replace('/invite-company', '')}
                 className="button"
             >
-                <i className="fa fa-times" /> Cancel
+                Cancel
             </Link>
         </BlockButtonWrapper>
     </Form>
