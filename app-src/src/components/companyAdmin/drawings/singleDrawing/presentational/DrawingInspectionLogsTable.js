@@ -39,7 +39,7 @@ const DrawingInspectionLogsTable = ({
                     .map(pin => (
                         <DrawingInspectionLogsListItem
                             key={pin.id}
-                            inspectionLog={pin}
+                            pin={pin}
                         />
                     ))}
             </Table>

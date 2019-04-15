@@ -3,25 +3,25 @@ import { Link } from 'react-router-dom';
 import { PIN_STATUS_COLOURS as COLOURS } from 'constants/companyAdmin/enums';
 
 
-const DrawingInspectionLogsListItem = ({ inspectionLog }) => {
+const DrawingInspectionLogsListItem = ({ pin }) => {
 
 
-    const pinColour = COLOURS[inspectionLog.latestStatus] || 'red';
+    const pinColour = COLOURS[pin.latestStatus] || 'red';
 
     const pinIcon = require(`_content/images/pins-examples/${pinColour}-pin.svg`);
 
     return (
-        <tr key={inspectionLog.id}>
+        <tr key={pin.id}>
             <td>
 
-                {inspectionLog.pinCode}
+                {pin.pinCode}
             </td>
             <td>
                 <img className="pin" alt={`${pinColour} pin`} src={pinIcon} />
             </td>
             <td>
                 <Link
-                    to={`/company/pins/${inspectionLog.id}`}
+                    to={`/company/pins/${pin.id}`}
                     className="button"
                 >
                     View
