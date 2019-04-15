@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 import fetchCompanyUsers from 'actions/companyAdmin/userManagement/async/fetchCompanyUsers';
+import updatePinCoordinates from 'actions/companyAdmin/drawings/sync/updatePinCoordinates';
 import DrawingMapFiltersAdvanced from '../presentational/DrawingMapFiltersAdvanced';
 import DrawingMapViewSimple from '../presentational/DrawingMapViewSimple';
 import DrawingInspectionLogContainer from './DrawingInspectionLogContainer';
@@ -21,7 +23,8 @@ class DrawingMapGeneralContainer extends Component {
         endDateSelected: undefined,
         pinLat: 51.505,
         pinLng: -0.09,
-        mapZoom: 3
+        mapZoom: 3,
+        addMode: false
     };
 
     render() {
@@ -32,9 +35,10 @@ class DrawingMapGeneralContainer extends Component {
             operativeSelectedID,
             startDateSelected,
             endDateSelected,
-            mapZoom
+            mapZoom,
+            addMode
         } = this.state;
-        const { error, pins } = this.props;
+        const { error, pins, drawing, coordinates } = this.props;
 
         const serviceOptions = this._getServicesOptions();
         const statusOptions = convertEnumToDropdownOptions(PIN_STATUS_TYPES);
@@ -69,12 +73,15 @@ class DrawingMapGeneralContainer extends Component {
 
                     <DrawingInspectionLogContainer />
                 </div>
-                <BlockContainer error={error}>
+                <BlockContainer error={error} isEmpty={!drawing}>
                     <DrawingMapViewSimple
                         position={position}
                         zoom={mapZoom}
                         pins={this._getFilteredPins()}
                         handleClick={this.handleClick}
+                        drawing={drawing}
+                        addMode={addMode}
+                        toggleAddMode={this.toggleAddMode}
                     />
                 </BlockContainer>
             </>
@@ -82,13 +89,18 @@ class DrawingMapGeneralContainer extends Component {
     }
 
     componentDidMount = () => {
-        this.props.fetchCompanyUsers();
+        const { fetchCompanyUsers, updatePinCoordinates } = this.props;
+
+        fetchCompanyUsers();
+        updatePinCoordinates([0, 0]);
     };
 
     handleClick = e => {
-        e.preventDefault();
-        // const { lat, lng } = e.latlng;
-        // console.log(lat, lng);
+        const { lat, lng } = e.latlng;
+
+        if (this.state.addMode) {
+            console.log(lat, lng);
+        }
     };
 
     handleChange = ({ target: { type, value, name, checked } }) => {
@@ -98,6 +110,12 @@ class DrawingMapGeneralContainer extends Component {
     handleDateChange = (date, name) => {
         this.setState({
             [name]: date
+        });
+    };
+
+    toggleAddMode = () => {
+        this.setState({
+            addMode: !this.state.addMode
         });
     };
 
@@ -171,23 +189,39 @@ class DrawingMapGeneralContainer extends Component {
     };
 }
 
-const mapStateToProps = ({
-    companyAdmin: { pinsReducer, servicesReducer, companyUsersReducer }
-}) => ({
-    pins: Object.values(pinsReducer.pins),
-    users: Object.values(companyUsersReducer.users),
-    services: Object.values(servicesReducer.services),
-    isFetching: pinsReducer.isFetching,
-    error: pinsReducer.error
+const mapStateToProps = (
+    {
+        companyAdmin: {
+            pinsReducer: { pins, isFetching, error },
+            servicesReducer: { services },
+            companyUsersReducer: { users },
+            drawingsReducer: { drawings },
+            addPinCoordinatesReducer: { coordinates }
+        }
+    },
+    { match }
+) => ({
+    drawing: drawings[match.params.id],
+    coordinates: coordinates,
+    pins: Object.values(pins),
+    users: Object.values(users),
+    services: Object.values(services),
+    isFetching: isFetching,
+    error: error
 });
 
 const mapDispatchToProps = dispatch => ({
     fetchCompanyUsers: () => {
         dispatch(fetchCompanyUsers());
+    },
+    updatePinCoordinates: (latX, lngX) => {
+        dispatch(updatePinCoordinates(latX, lngX));
     }
 });
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(DrawingMapGeneralContainer);
+export default withRouter(
+    connect(
+        mapStateToProps,
+        mapDispatchToProps
+    )(DrawingMapGeneralContainer)
+);

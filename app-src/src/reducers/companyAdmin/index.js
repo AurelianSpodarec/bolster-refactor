@@ -1,5 +1,7 @@
 import { combineReducers } from 'redux';
 
+import addPinFormReducer from './addPinForm';
+import addPinCoordinatesReducer from './addPinCoordinates';
 import buildingsReducer from './buildings';
 import cardsReducer from './cards';
 import clientsReducer from './clients';
@@ -30,6 +32,8 @@ import subscriptionsReducer from './subscriptions';
 import invoiceItemsReducer from './invoiceItems';
 
 export default combineReducers({
+    addPinCoordinatesReducer,
+    addPinFormReducer,
     buildingsReducer,
     cardsReducer,
     clientsReducer,

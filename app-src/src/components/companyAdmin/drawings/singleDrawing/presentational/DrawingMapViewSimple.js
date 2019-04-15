@@ -1,25 +1,58 @@
 import React from 'react';
-import { Map, TileLayer } from 'react-leaflet';
+import { Link } from 'react-router-dom';
+import { Map, TileLayer, Marker } from 'react-leaflet';
+import { FILE_STORAGE_URL } from 'config';
 
 import MapPin from 'components/shared/pins/presentational/MapPin';
 
-const DrawingMapViewSimple = ({ position, zoom, pins, handleClick }) => (
-    <Map
-        center={position}
-        zoom={zoom}
-        minZoom={0}
-        maxZoom={6}
-        onClick={handleClick}
-    >
-        <TileLayer
-            attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-            url="https://www.silverchip.com/tiles/{z}/{x}/{y}.jpg"
-            noWrap={true}
-        />
-        {pins.map(pin => (
-            <MapPin key={pin.id} pin={pin} />
-        ))}
-    </Map>
+const DrawingMapViewSimple = ({
+    position,
+    zoom,
+    pins,
+    handleClick,
+    drawing,
+    addMode,
+    toggleAddMode
+}) => (
+    <>
+        {addMode ? (
+            <>
+                <Link
+                    to={`${drawing.id}/add-pin`}
+                    className="button pull-right"
+                >
+                    <i className="fa fa-times" /> Confirm position
+                </Link>
+                <button className="button pull-right" onClick={toggleAddMode}>
+                    <i className="fa fa-plus" /> Stop
+                </button>
+            </>
+        ) : (
+            <button className="button pull-right" onClick={toggleAddMode}>
+                <i className="fa fa-plus" /> Add pin
+            </button>
+        )}
+
+        <Map
+            center={position}
+            zoom={zoom}
+            minZoom={0}
+            maxZoom={5}
+            onClick={e => handleClick(e)}
+        >
+            <TileLayer
+                attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                url={`${FILE_STORAGE_URL}/${
+                    drawing.tilesetS3Key
+                }/{z}/{x}/{y}.jpg`}
+                noWrap={true}
+            />
+            {pins.map(pin => (
+                <MapPin key={pin.id} pin={pin} />
+            ))}
+            {addMode && <Marker position={[39.0, 9.14]} />}
+        </Map>
+    </>
 );
 
 export default DrawingMapViewSimple;

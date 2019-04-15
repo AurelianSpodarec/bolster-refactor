@@ -10,7 +10,8 @@ import {
     FETCH_SINGLE_DRAWING_FAILURE,
     CREATE_DRAWING_REQUEST,
     CREATE_DRAWING_SUCCESS,
-    CREATE_DRAWING_FAILURE
+    CREATE_DRAWING_FAILURE,
+    UPDATE_PIN_COORDINATES
 } from 'constants/actionTypes/drawings';
 
 export default combineReducers({
