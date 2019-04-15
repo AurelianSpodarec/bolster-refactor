@@ -55,7 +55,6 @@ class AddPinFormContainer extends Component {
 
         if(!prevProps.postSuccess && postSuccess)
         {
-
             history.push(`/company/drawings/${drawingID}`);
         }
     };
