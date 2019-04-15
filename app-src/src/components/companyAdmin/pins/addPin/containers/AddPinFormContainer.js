@@ -9,16 +9,21 @@ import createPin from 'actions/companyAdmin/pins/async/createPin';
 import AddPinForm from '../presentational/AddPinForm';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 
+import { PIN_STATUS_TYPES } from 'constants/companyAdmin/enums';
+import { convertEnumToDropdownOptions } from 'helpers/generic';
+
 class AddPinFormContainer extends Component {
     state = {
-        templateID: ''
+        templateID: '',
+        statusID: ''
     };
 
     render() {
-        const { templateID } = this.state;
+        const { templateID, statusID } = this.state;
         const { location, isFetching, error, templates } = this.props;
 
         const templateOptions = this._getTemplates();
+        const statusOptions = convertEnumToDropdownOptions(PIN_STATUS_TYPES);
 
         return (
             <BlockContainer
@@ -29,6 +34,8 @@ class AddPinFormContainer extends Component {
                 <AddPinForm
                     templates={Object.values(templateOptions)}
                     selectedTemplate={templateOptions[templateID]}
+                    statuses={Object.values(statusOptions)}
+                    selectedStatus={statusOptions[statusID]}
                     location={location}
                     handleChange={this.handleChange}
                     handleSubmit={this.handleSubmit}
@@ -60,7 +67,7 @@ class AddPinFormContainer extends Component {
     handleSubmit = e => {
         e.preventDefault();
 
-        const { answers, drawingID, createPin } = this.props;
+        const { answers, drawingID, createPin, coordinates } = this.props;
 
         const formattedAnswers = Object.keys(answers).map(function(key) {
             return { templateQuestionID: key, answer: answers[key] };
@@ -70,13 +77,13 @@ class AddPinFormContainer extends Component {
             pin: {
                 drawingID: parseInt(drawingID),
                 location: {
-                    lngX: 123.58631,
-                    latY: 23.16812
+                    lngX: coordinates.lng,
+                    latY: coordinates.lat
                 }
             },
             history: {
                 templateVersionID: 8,
-                pinStatus: 10
+                pinStatus: this.state.statusID
             },
             answers: formattedAnswers
         };
@@ -89,13 +96,15 @@ const mapStateToProps = (
     {
         companyAdmin: {
             templatesReducer: { templates, isFetching, error },
-            addPinFormReducer: { answers }
+            addPinFormReducer: { answers },
+            addPinCoordinatesReducer: { coordinates }
         }
     },
     { match }
 ) => ({
     templates: Object.values(templates),
-    answers: answers,
+    answers,
+    coordinates,
     isFetching,
     error,
     drawingID: match.params.id

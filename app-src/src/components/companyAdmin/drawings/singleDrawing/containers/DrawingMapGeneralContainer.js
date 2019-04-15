@@ -127,8 +127,8 @@ class DrawingMapGeneralContainer extends Component {
     _resetCoordinates = () => {
         const { updatePinCoordinates } = this.props;
 
-        updatePinCoordinates('latX', 0);
-        updatePinCoordinates('lngY', 0);
+        updatePinCoordinates('lat', 0);
+        updatePinCoordinates('lng', 0);
 
         this.setState({
             addPinLat: 51.505,
@@ -136,15 +136,15 @@ class DrawingMapGeneralContainer extends Component {
         });
     };
 
-    _updateCoordinates = (latX, lngY) => {
+    _updateCoordinates = (lat, lng) => {
         const { updatePinCoordinates } = this.props;
 
-        updatePinCoordinates('latX', latX);
-        updatePinCoordinates('lngY', lngY);
+        updatePinCoordinates('lat', lat);
+        updatePinCoordinates('lng', lng);
 
         this.setState({
-            addPinLat: latX,
-            addPinLng: lngY
+            addPinLat: lat,
+            addPinLng: lng
         });
     };
 
