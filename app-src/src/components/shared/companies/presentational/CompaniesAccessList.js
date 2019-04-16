@@ -3,39 +3,68 @@ import { Link } from 'react-router-dom';
 
 import {
     COMPANY_USER_ROLE_TYPES,
-    PERMISSION_STATES
+    PERMISSION_STATES,
+    ACCESS_TYPES
 } from 'constants/companyAdmin/enums';
 
-const CompaniesAccessList = ({ companies, parentId, handleShowModal }) =>
+const CompaniesAccessList = ({ companies, parentId, handleRemovePermission }) =>
     companies.map(company => (
-        <tr key={company.id}>
-            <td>{company.companyName}</td>
-            <td>
-                {company.state === PERMISSION_STATES.PENDING && '(Pending)'}
-            </td>
-            <td>
-                {company.accessType === COMPANY_USER_ROLE_TYPES.OWNER ? (
-                    '(Owner)'
-                ) : company.inherted ? (
-                    '(Inherited from site)'
-                ) : (
-                    <>
-                        <Link
-                            to={`${parentId}/edit-company/${company.id}`}
-                            className="button yellow icon-only"
-                        >
-                            <i className="far fa-pencil fa-fw" />
-                        </Link>
-                        <button
-                            onClick={() => handleShowModal(company.id)}
-                            className="button red icon-only"
-                        >
-                            <i className="far fa-trash-alt fa-fw" />
-                        </button>
-                    </>
-                )}
-            </td>
-        </tr>
+        <React.Fragment key={company.id}>
+            <tr>
+                <td>{company.companyName}</td>
+                <td>
+                    {!!company.allAccess && <i>(access to all services)</i>}
+                </td>
+                <td>
+                    {company.accessType === COMPANY_USER_ROLE_TYPES.OWNER ? (
+                        '(Owner)'
+                    ) : (
+                        <>
+                            <Link
+                                to={`${parentId}/edit-company/${
+                                    company.companyID
+                                }`}
+                                className="button green icon-only"
+                            >
+                                <i className="far fa-plus fa-fw" />
+                            </Link>
+                        </>
+                    )}
+                </td>
+            </tr>
+            {company.services.map(
+                service =>
+                    !!service && (
+                        <tr key={service.serviceID}>
+                            <td>
+                                {service.state ===
+                                    PERMISSION_STATES.PENDING && (
+                                    <i>(Pending)</i>
+                                )}
+                            </td>
+                            <td>
+                                {service.serviceName}
+                                <i>({ACCESS_TYPES[service.accessType]})</i>
+                            </td>
+                            <td>
+                                {!service.inherited && (
+                                    <button
+                                        onClick={() => {
+                                            handleRemovePermission(
+                                                service.permissionID,
+                                                service.serviceName
+                                            );
+                                        }}
+                                        className="button red icon-only"
+                                    >
+                                        <i className="far fa-minus fa-fw" />
+                                    </button>
+                                )}
+                            </td>
+                        </tr>
+                    )
+            )}
+        </React.Fragment>
     ));
 
 export default CompaniesAccessList;
