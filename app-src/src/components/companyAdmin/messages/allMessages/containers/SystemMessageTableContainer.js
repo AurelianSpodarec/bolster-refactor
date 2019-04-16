@@ -4,9 +4,11 @@ import { connect } from 'react-redux';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import MessageTable from '../presentational/MessageTable';
 import { MESSAGE_TYPES } from 'constants/companyAdmin/enums';
+import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 
 const SystemMessageTableContainer = ({ messages, isFetching, error }) => (
-    <BlockContainer heading="System Messages" error={error}>
+    <BlockContainer error={error}>
+        <BlockHeading title="System Messages" />
         <MessageTable messages={messages} isFetching={isFetching} />
     </BlockContainer>
 );

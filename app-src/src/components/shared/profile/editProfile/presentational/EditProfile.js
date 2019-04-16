@@ -5,16 +5,12 @@ import Breadcrumb from 'components/shared/generic/breadcrumb/presentational/Brea
 import EditProfileFormContainer from '../containers/EditProfileFormContainer';
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
+import BackButtonContainer from 'components/shared/generic/backButton/containers/BackButtonContainer';
 
 const EditProfile = ({ error, isFetching, profile }) => (
     <>
-        <PageHeading title="Edit Profile">
-            <Breadcrumb
-                breadcrumbs={[
-                    { text: 'My Profile', link: '/company/profile' },
-                    { text: 'Edit Profile' }
-                ]}
-            />
+        <PageHeading leftChildren={true} title="Edit Profile">
+            <BackButtonContainer />
         </PageHeading>
 
         <BlockContainer
@@ -22,7 +18,7 @@ const EditProfile = ({ error, isFetching, profile }) => (
             isFetching={isFetching}
             isEmpty={!profile.email}
         >
-            <BlockHeading title="Edit Details" />
+            <BlockHeading title="Your Details" />
             <EditProfileFormContainer />
         </BlockContainer>
     </>

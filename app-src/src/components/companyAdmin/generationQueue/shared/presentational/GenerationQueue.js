@@ -6,9 +6,7 @@ import GenerationQueueTableContainer from '../containers/GenerationQueueTableCon
 
 const GenerationQueue = () => (
     <>
-        <PageHeading title="Generation Queue">
-            <Breadcrumb breadcrumbs={[{ text: 'Generation Queue' }]} />{' '}
-        </PageHeading>
+        <PageHeading title="Generation Queue" />
 
         <BlockContainer>
             <GenerationQueueTableContainer />

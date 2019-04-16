@@ -11,7 +11,7 @@ const ProfileDetails = ({ error, isFetching, profile, location }) => {
     const { email, firstName, lastName, phoneNumber } = profile;
     return (
         <BlockContainer error={error} isFetching={isFetching} isEmpty={!email}>
-            <BlockHeading title="Details" />
+            <BlockHeading title="Your Details" />
 
             <div className="size-lg-4">
                 <FieldOutput

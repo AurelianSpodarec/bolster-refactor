@@ -7,9 +7,7 @@ import PageHeading from 'components/shared/generic/pageHeading/presentational/Pa
 const Invoices = () => {
     return (
         <>
-            <PageHeading title="My Invoices">
-                <Breadcrumb breadcrumbs={[{ text: 'My Invoices' }]} />
-            </PageHeading>
+            <PageHeading title="My Invoices" />
 
             <PendingInvoicesContainer />
             <PaidInvoicesContainer />

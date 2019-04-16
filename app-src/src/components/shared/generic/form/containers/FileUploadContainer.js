@@ -44,6 +44,11 @@ class FileUploadContainer extends Component {
 
     componentDidMount = () => {
         this._validate();
+        console.log(this.props.value);
+        console.log(this.props.value);
+        console.log(this.props.value);
+        console.log(this.props.value);
+        console.log(this.props.value);
 
         // const { value } = this.props;
         // if (Array.isArray(value)) {

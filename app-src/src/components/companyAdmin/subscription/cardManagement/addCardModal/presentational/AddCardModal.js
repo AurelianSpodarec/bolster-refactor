@@ -98,8 +98,8 @@ const AddCardModal = ({
                     </Field>
                 </div>
                 <BlockButtonWrapper>
-                    <button className="button" type="submit">
-                        Add new card
+                    <button className="button green" type="submit">
+                        <i className="fa fa-plus" /> Add Card
                     </button>
                     <button className="button" onClick={hideModal}>
                         Cancel
