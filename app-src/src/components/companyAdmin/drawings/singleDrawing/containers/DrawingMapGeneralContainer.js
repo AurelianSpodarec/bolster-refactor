@@ -123,6 +123,8 @@ class DrawingMapGeneralContainer extends Component {
         this.setState({
             addMode: !this.state.addMode
         });
+
+        this._resetCoordinates();
     };
 
     _resetCoordinates = () => {
