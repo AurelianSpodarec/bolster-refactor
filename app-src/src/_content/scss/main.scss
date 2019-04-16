@@ -1085,6 +1085,14 @@ input {
         }
     }
 
+    &.address {
+        p {
+            &:last-child {
+                margin-bottom: 15px;
+            }
+        }
+    }
+
     &:last-child {
         padding-bottom: 0;
     }
