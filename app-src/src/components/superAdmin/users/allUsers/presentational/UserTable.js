@@ -1,6 +1,6 @@
 import React from 'react';
 import Table from 'components/shared/generic/tables/presentational/Table';
-import UserList from '../presentational/UserList';
+import UserList from './UserList';
 
 const UserTable = ({ users, headers, isFetching, error }) => (
     <Table
