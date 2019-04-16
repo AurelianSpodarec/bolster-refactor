@@ -94,7 +94,8 @@ const SingleDropdown = ({
 };
 
 const MultiDropdown = ({
-    question: { options, isRequired },
+    question: { id, options, isRequired },
+    answers,
     handleMultiDropdownChange
 }) => {
     const formattedOpts = options.map(({ id, text }) => ({
@@ -106,6 +107,8 @@ const MultiDropdown = ({
         <MultiDropdownContainer
             required={isRequired}
             options={formattedOpts}
+            value={answers[id]}
+            name={`answer-${id}`}
             handleChange={handleMultiDropdownChange}
         />
     );

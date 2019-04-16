@@ -1,18 +1,91 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+
+import addFieldError from 'actions/shared/generic/fieldErrors/sync/addFieldError';
+import removeFieldError from 'actions/shared/generic/fieldErrors/sync/removeFieldError';
+
 import MultiDropdown from '../presentational/MultiDropdown';
 
 class MultiSelectDropdown extends Component {
+    state = {
+        showFieldError: false
+    };
+
     render() {
-        const { options } = this.props;
+        const { showFieldError } = this.state;
+        const { options, error, errorsVisible } = this.props;
+
+        let errorMessage;
+        if (showFieldError || errorsVisible) errorMessage = error;
 
         return (
-            <MultiDropdown options={options} handleChange={this.handleChange} />
+            <MultiDropdown
+                options={options}
+                handleChange={this.handleChange}
+                error={errorMessage}
+            />
         );
     }
+
+    componentDidMount = () => {
+        this._validate(this.props.value);
+    };
+
+    componentDidUpdate = ({ value: prevValue }) => {
+        const { value } = this.props;
+        if (prevValue !== value) this._validate(value);
+    };
+
+    componentWillUnmount = () => {
+        const { name, error, removeFieldError } = this.props;
+        if (error) removeFieldError(name);
+    };
 
     handleChange = e => {
         this.props.handleChange(e);
     };
+
+    handleChange = e => {
+        this.props.handleChange(e);
+        this._validate(this.props.value);
+    };
+
+    _validate = value => {
+        const {
+            name,
+            error,
+            required,
+            validate = () => {},
+            addFieldError,
+            removeFieldError
+        } = this.props;
+        const validateError = validate(value);
+
+        if (required && !(value && value.length)) {
+            addFieldError(name, 'This is a required field.');
+        } else if (validateError && validateError.length) {
+            addFieldError(name, validateError);
+        } else if (error) {
+            removeFieldError(name);
+        }
+    };
 }
 
-export default MultiSelectDropdown;
+const mapStateToProps = ({ shared: { fieldErrorsReducer } }, ownProps) => ({
+    error: fieldErrorsReducer.fieldErrors[ownProps.name],
+    errorsVisible: fieldErrorsReducer.errorsVisible
+});
+
+const mapDispatchToProps = dispatch => ({
+    addFieldError: (fieldName, error) => {
+        dispatch(addFieldError(fieldName, error));
+    },
+    removeFieldError: fieldName => {
+        dispatch(removeFieldError(fieldName));
+    }
+});
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(MultiSelectDropdown);
