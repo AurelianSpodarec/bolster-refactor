@@ -1,56 +1,80 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import Search from 'components/shared/generic/form/presentational/Search';
-import SearchResults from '../presentational/SearchResults';
-
 import fetchSearchResults from 'actions/companyAdmin/search/async/fetchSearchResults';
+import SearchBar from '../presentational/SearchBar';
 
 class SearchContainer extends Component {
     state = {
-        resultsVisible: false
+        resultsVisible: false,
+        searchTerm: ''
     };
 
     render() {
-        const { state, props, handleChange, handleLinkClick } = this;
-
+        const { searchTerm, resultsVisible } = this.state;
+        const { isFetching, error } = this.props;
         return (
             <div
-                className="size-lg-12"
                 ref={node => {
                     this.node = node;
                 }}
             >
-                <Search placeholder="Search..." handleChange={handleChange} />
-                <div
-                    className={`dropdown-search-results ${
-                        state.resultsVisible ? 'visible' : ''
-                    }`}
-                >
-                    <SearchResults
-                        results={props.results}
-                        isFetching={props.isFetching}
-                        error={props.error}
-                        handleLinkClick={handleLinkClick}
-                    />
-                </div>
+                <SearchBar
+                    searchTerm={searchTerm}
+                    resultsVisible={resultsVisible}
+                    isFetching={isFetching}
+                    error={error}
+                    handleChange={this.handleChange}
+                    results={this.formatSearchResults()}
+                    handleLinkClick={() => this._closeResults()}
+                />
             </div>
         );
     }
 
-    handleChange = e => {
-        const { fetchSearchResults } = this.props;
+    formatSearchResults() {
+        const { searchTerm } = this.state;
+        const { results } = this.props;
+        const resultMap = results.map(result => {
+            // get type and ID
+            const typeData = result.siteID
+                ? { type: 'sites', hierarchyID: result.siteID }
+                : result.buildingID
+                ? { type: 'buildings', hierarchyID: result.buildingID }
+                : result.floorID
+                ? { type: 'floors', hierarchyID: result.floorID }
+                : { type: 'drawings', hierarchyID: result.drawingID };
 
-        if (e.target.value.length > 0) {
-            this.setState({
-                resultsVisible: true
-            });
+            // highlight searchterm
+            const splitRegex = new RegExp(`(${searchTerm})`, 'ig');
+            const searchText = result.searchText.split(splitRegex);
+            const searchTextComponent = (
+                <span>
+                    {searchText.map((text, i) =>
+                        text.toLowerCase() === searchTerm.toLowerCase() ? (
+                            // TODO: ## needs styling ##
+                            <span key={i} style={{ backgroundColor: 'yellow' }}>
+                                {text}
+                            </span>
+                        ) : (
+                            text
+                        )
+                    )}
+                </span>
+            );
+            return { ...result, ...typeData, searchText: searchTextComponent };
+        });
+        return resultMap;
+    }
+
+    handleChange = ({ target: { value, name } }) => {
+        const { fetchSearchResults } = this.props;
+        const resultsVisible = !!value.length;
+        this.setState({ resultsVisible, [name]: value });
+        if (resultsVisible) {
             document.addEventListener('click', this.handleOutsideClick, false);
-            fetchSearchResults();
+            fetchSearchResults(value);
         } else {
-            this.setState({
-                resultsVisible: false
-            });
             document.removeEventListener(
                 'click',
                 this.handleOutsideClick,
@@ -61,31 +85,33 @@ class SearchContainer extends Component {
 
     handleOutsideClick = e => {
         // ignore clicks on the component itself
-        if (this.node.contains(e.target)) {
+        if (this.node && this.node.contains(e.target)) {
             return;
         }
-
-        this.setState({
-            resultsVisible: false
-        });
+        this._closeResults();
     };
 
-    handleLinkClick = () => {
-        this.setState({
-            resultsVisible: false
-        });
+    _closeResults = () => {
+        const { resultsVisible } = this.state;
+        if (!resultsVisible) return;
+        document.removeEventListener('click', this.handleOutsideClick, false);
+        // this.setState({ resultsVisible: false });
     };
 }
 
-const mapStateToProps = ({ companyAdmin: { searchReducer } }) => ({
-    results: Object.values(searchReducer.results),
-    isFetching: searchReducer.isFetching,
-    error: searchReducer.error
+const mapStateToProps = ({
+    companyAdmin: {
+        searchReducer: { results, isFetching, error }
+    }
+}) => ({
+    results: Object.values(results),
+    isFetching,
+    error
 });
 
 const mapDispatchToProps = dispatch => ({
-    fetchSearchResults: () => {
-        dispatch(fetchSearchResults());
+    fetchSearchResults: searchTerm => {
+        dispatch(fetchSearchResults(searchTerm));
     }
 });
 

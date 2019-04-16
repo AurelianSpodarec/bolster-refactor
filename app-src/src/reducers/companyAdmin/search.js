@@ -39,7 +39,9 @@ function errorReducer(state = null, action) {
 function resultsReducer(state = {}, action) {
     switch (action.type) {
         case FETCH_SEARCH_RESULTS_SUCCESS:
-            return convertArrToObj(action.payload);
+            return convertArrToObj(
+                action.payload.map((res, i) => ({ id: i, ...res }))
+            );
         default:
             return state;
     }

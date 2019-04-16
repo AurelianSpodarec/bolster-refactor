@@ -6,6 +6,7 @@ import {
     FETCH_SEARCH_RESULTS_FAILURE
 } from 'constants/actionTypes/search';
 import { API_URL } from 'config';
+import { getHeaders } from 'helpers/api';
 
 export const fetchSearchResultsRequest = () => ({
     type: FETCH_SEARCH_RESULTS_REQUEST
@@ -25,7 +26,7 @@ export default searchTerm => dispatch => {
     dispatch(fetchSearchResultsRequest());
 
     axios
-        .get(`${API_URL}?searchTerm=${searchTerm}`)
+        .get(`${API_URL}/search?searchTerm=${searchTerm}`, getHeaders())
         .then(({ data }) => dispatch(fetchSearchResultsSuccess(data)))
         .catch(err => dispatch(fetchSearchResultsFailure(err.message)));
 };
