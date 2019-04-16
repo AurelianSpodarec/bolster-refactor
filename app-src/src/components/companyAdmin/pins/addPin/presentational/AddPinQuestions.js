@@ -17,13 +17,10 @@ const AddPinQuestions = ({ sections, questions }) =>
                     )
                     .sort((a, b) => a.sort - b.sort)
                     .map(question => (
-                        <Field
+                        <AddPinQuestionRoute
                             key={question.id}
-                            name={question.name}
-                            sizeClasses="size-lg-6"
-                        >
-                            <AddPinQuestionRoute question={question} />
-                        </Field>
+                            question={question}
+                        />
                     ))}
             </div>
         ));
