@@ -51,24 +51,26 @@ const AddServiceToSubscriptionModal = ({
                     />
                 </div>
             </Field>
+            {+paymentType === PAYMENT_IDS.CARD && (
+                <Field sizeClasses="size-lg-5">
+                    <DropdownContainer
+                        disabled={+paymentType !== PAYMENT_IDS.CARD}
+                        required={+paymentType === PAYMENT_IDS.CARD}
+                        withoutPlaceholder
+                        placeholder={
+                            !cards.length
+                                ? 'Please add a card to use card payments.'
+                                : 'Loading cards...'
+                        }
+                        name="stripeCardID"
+                        options={cards}
+                        selectedOption={selectedCard}
+                        handleChange={handleChange}
+                        classes="w-radio"
+                    />
+                </Field>
+            )}
 
-            <Field sizeClasses="size-lg-5">
-                <DropdownContainer
-                    disabled={+paymentType !== PAYMENT_IDS.CARD}
-                    required={+paymentType === PAYMENT_IDS.CARD}
-                    withoutPlaceholder
-                    placeholder={
-                        !cards.length
-                            ? 'Please add a card to use card payments.'
-                            : 'Loading cards...'
-                    }
-                    name="stripeCardID"
-                    options={cards}
-                    selectedOption={selectedCard}
-                    handleChange={handleChange}
-                    classes="w-radio"
-                />
-            </Field>
             <BlockButtonWrapper>
                 <button className="button green" type="submit">
                     Buy
