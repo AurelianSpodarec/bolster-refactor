@@ -10,12 +10,16 @@ const SubscriptionStatus = ({ subscriptions, active, endOn }) => (
         >
             <StatusIcon />
         </BlockHeading>
-        <p className="size-lg-12">
-            {subscriptions.isAutoRenew
-                ? `Your subscription is set to auto-renew on ${endOn} at a
-            cost of £${subscriptions.renewalPrice}`
-                : `Your subscription is not set to auto-renew and will end on ${endOn}`}
-        </p>
+        {subscriptions.isAutoRenew ?
+            <p className="size-lg-12">
+                Your subscription is set to auto-renew on <strong>{endOn}</strong> at a cost
+                of <strong>£{subscriptions.renewalPrice}</strong>
+            </p>
+            :
+            <p className="size-lg-12">
+                Your subscription is not set to auto-renew and will end on ${endOn}
+            </p>
+        }
     </div>
 );
 

@@ -34,9 +34,7 @@ const LoginForm = ({ handleSubmit, handleInputChange, email, password }) => (
                 Login
             </button>
 
-            <Link className="button" to="/forgot-password">
-                Forgot password
-            </Link>
+         
         </div>
     </Form>
 );
