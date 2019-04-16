@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
 
+import confirmLeaveReducer from './confirmLeave';
 import fieldErrorsReducer from './fieldErrors';
 import loginReducer from './login';
 import profileReducer from './profile';
@@ -10,6 +11,7 @@ import modalReducer from './modal';
 import filesUploadingReducer from './fileUpload';
 
 export default combineReducers({
+    confirmLeaveReducer,
     decodeJWTReducer,
     fieldErrorsReducer,
     loginReducer,
