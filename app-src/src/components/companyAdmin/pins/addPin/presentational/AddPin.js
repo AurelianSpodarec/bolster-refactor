@@ -1,6 +1,6 @@
 import React from 'react';
 
-import AddPinFormContainer from '../containers/AddPinFormContainer';
+import AddPinFormContainer from 'components/shared/pins/addPin/containers/AddPinFormContainer';
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
 import BackButtonContainer from 'components/shared/generic/backButton/containers/BackButtonContainer';
 

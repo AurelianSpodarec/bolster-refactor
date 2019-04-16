@@ -2,7 +2,7 @@ import React from 'react';
 import moment from 'moment';
 import { Map, TileLayer } from 'react-leaflet';
 
-import MapPin from 'components/shared/pins/presentational/MapPin';
+import MapPin from 'components/shared/pins/map/presentational/MapPin';
 
 const SinglePinMap = ({ pin, zoom, handleClick, user }) => (
     <>
