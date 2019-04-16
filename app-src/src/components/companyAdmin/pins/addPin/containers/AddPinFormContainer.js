@@ -5,6 +5,7 @@ import { convertArrToObj } from 'helpers/generic';
 
 import fetchDrawingTemplates from 'actions/companyAdmin/drawings/async/fetchDrawingTemplates';
 import createPin from 'actions/companyAdmin/pins/async/createPin';
+import resetPinAnswers from 'actions/companyAdmin/drawings/sync/resetPinAnswers';
 
 import AddPinForm from '../presentational/AddPinForm';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
@@ -69,9 +70,10 @@ class AddPinFormContainer extends Component {
     };
 
     componentDidUpdate = prevProps => {
-        const { postSuccess, history, drawingID } = this.props;
+        const { postSuccess, history, drawingID, resetPinAnswers } = this.props;
 
         if (!prevProps.postSuccess && postSuccess) {
+            resetPinAnswers();
             history.push(`/company/drawings/${drawingID}`);
         }
     };
@@ -161,6 +163,9 @@ const mapDispatchToProps = dispatch => ({
     },
     createPin: postBody => {
         dispatch(createPin(postBody));
+    },
+    resetPinAnswers: () => {
+        dispatch(resetPinAnswers());
     }
 });
 
