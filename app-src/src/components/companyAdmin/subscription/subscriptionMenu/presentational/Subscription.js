@@ -1,5 +1,4 @@
 import React from 'react';
-import Breadcrumb from 'components/shared/generic/breadcrumb/presentational/Breadcrumb';
 import SubscriptionStatusContainer from '../containers/SubscriptionStatusContainer';
 import ActiveServicesContainer from '../../activeServices/containers/ActiveServicesContainer';
 import PendingInvoicesContainer from 'components/companyAdmin/invoices/pendingInvoices/containers/PendingInvoicesContainer';

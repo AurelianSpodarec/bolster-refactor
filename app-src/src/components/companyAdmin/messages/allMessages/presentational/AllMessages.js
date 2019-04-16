@@ -1,6 +1,5 @@
 import React from 'react';
 
-import Breadcrumb from 'components/shared/generic/breadcrumb/presentational/Breadcrumb';
 import SystemMessageTableContainer from '../containers/SystemMessageTableContainer';
 import MySubscriptionContainer from '../containers/MySubscriptionContainer';
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';

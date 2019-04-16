@@ -1,6 +1,5 @@
 import React from 'react';
 
-import Breadcrumb from 'components/shared/generic/breadcrumb/presentational/Breadcrumb';
 import CompanyHeaderContainer from '../containers/CompanyHeaderContainer';
 import TemplatesTableContainer from '../containers/TemplatesTableContainer';
 
