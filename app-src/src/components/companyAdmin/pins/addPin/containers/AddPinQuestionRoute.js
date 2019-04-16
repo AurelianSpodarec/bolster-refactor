@@ -211,6 +211,8 @@ class AddPinQuestionRoute extends Component {
                 return true;
             }
 
+            /*eslint-disable */
+
             if (preReqQuestion.type == QUESTION_TYPE_VALUES.CHECKBOX) {
                 //Convert true to 'true'
                 preReqAnswer = preReqAnswer + '';
@@ -251,6 +253,8 @@ class AddPinQuestionRoute extends Component {
 
                 preReqAnswer = retArray;
             }
+
+            /*eslint-enable */
 
             if (Array.isArray(preReqAnswer)) {
                 //TODO maybe so case in-sensitive check

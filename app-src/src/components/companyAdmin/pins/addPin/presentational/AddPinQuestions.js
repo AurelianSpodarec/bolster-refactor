@@ -1,5 +1,4 @@
 import React from 'react';
-import Field from 'components/shared/generic/form/presentational/Field';
 
 import AddPinQuestionRoute from '../containers/AddPinQuestionRoute';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
