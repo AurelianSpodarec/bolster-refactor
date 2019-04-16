@@ -1176,6 +1176,14 @@ input {
         -webkit-appearance: none;
         cursor: pointer;
     }
+
+    &.disabled {
+        opacity: 0.5;
+    }
+
+    &.w-radio {
+        margin-left: 20px;
+    }
 }
 
 .button-area {
@@ -1852,6 +1860,7 @@ input {
         top: 50%;
         left: 50%;
         min-width: 35%;
+        max-width: 40%;
 
         &.w-form {
             width: 30%;

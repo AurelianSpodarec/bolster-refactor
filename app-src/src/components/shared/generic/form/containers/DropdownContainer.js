@@ -22,7 +22,8 @@ class DropdownContainer extends Component {
             error,
             errorsVisible,
             disabled = false,
-            required = false
+            required = false,
+            classes = ''
         } = this.props;
 
         let errorMessage;
@@ -41,6 +42,7 @@ class DropdownContainer extends Component {
                 handleBlur={this.handleBlur}
                 error={errorMessage}
                 disabled={disabled}
+                classes={classes}
             />
         );
     }
