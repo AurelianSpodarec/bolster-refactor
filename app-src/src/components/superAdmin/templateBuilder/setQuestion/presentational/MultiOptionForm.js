@@ -2,6 +2,7 @@ import React from 'react';
 
 import Field from 'components/shared/generic/form/presentational/Field';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
+import Checkbox from 'components/shared/generic/form/presentational/Checkbox';
 
 const MultiOptionForm = ({
     addOption,
@@ -11,20 +12,21 @@ const MultiOptionForm = ({
     canCompanyEdit,
     handleInputChange
 }) => (
-    <>
+    <div className="dropdown-create size-lg-12">
         {options.map((option, i) => {
             return (
                 <Field key={option.id} name={`Option ${i + 1}`}>
                     {options.length > 1 && (
                         <button
+                            className="button red icon-only delete-question"
                             onClick={e => removeOption(e, option.id)}
                             type="button"
                         >
-                            Remove option
+                            <i className="far fa-trash-alt" />
                         </button>
                     )}
                     <TextInputContainer
-                        placeholder="[type option here]"
+                        placeholder="Type the option here"
                         name={option.id}
                         required
                         handleChange={updateOption}
@@ -33,18 +35,27 @@ const MultiOptionForm = ({
                 </Field>
             );
         })}
+
+        <div className="field-intro size-lg-12">
+            <div className="size-lg-12">
+                <button
+                    className="button add-option"
+                    onClick={addOption}
+                    type="button"
+                >
+                    <i className="fa fa-plus" />
+                    Add option
+                </button>
+            </div>
+        </div>
         <Field name="Can company edit?">
-            <input
-                name="canCompanyEdit"
-                type="checkbox"
+            <Checkbox
+                handleChange={handleInputChange}
                 checked={canCompanyEdit}
-                onChange={handleInputChange}
+                name="canCompanyEdit"
             />
         </Field>
-        <button onClick={addOption} type="button">
-            Add option
-        </button>
-    </>
+    </div>
 );
 
 export default MultiOptionForm;
