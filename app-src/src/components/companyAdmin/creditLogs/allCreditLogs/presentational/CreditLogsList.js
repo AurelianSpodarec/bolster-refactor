@@ -5,7 +5,7 @@ import CreditLogsListItem from './CreditLogListItem';
 
 const CreditLogsList = ({ creditLogs }) =>
     [...creditLogs]
-        .sort((a, b) => moment(b.dateAdded) - moment(a.dateAdded))
+        .sort((a, b) => moment(b.dateAdded) - moment(a.dateAdded)).reverse()
         .map(item => <CreditLogsListItem key={item.id} item={item} />);
 
 export default CreditLogsList;

@@ -38,8 +38,8 @@ export const COMPANY_USER_ROLE_TYPES = {
 
 export const CREDIT_LOG_TYPES = {
     1: 'Purchased',
-    2: 'Unused new drawing',
-    3: 'Used update drawing'
+    51: 'Used on new drawing',
+    52: 'Used to update drawing'
 };
 
 export const MESSAGE_TYPES = {

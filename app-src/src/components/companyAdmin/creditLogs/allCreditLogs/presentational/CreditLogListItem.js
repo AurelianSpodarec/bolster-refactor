@@ -5,17 +5,22 @@ import { Link } from 'react-router-dom';
 import { CREDIT_LOG_TYPES } from 'constants/companyAdmin/enums';
 
 const CreditLogsListItem = ({
-    item: { createdOn, quantity, invoiceID, type }
+    item: { createdOn, quantity, invoiceID, type, drawingID }
 }) => (
     <tr>
         <td>{moment(createdOn).format('DD/MM/YYYY hh:mm a')}</td>
         <td>{CREDIT_LOG_TYPES[type]}</td>
         <td>{quantity}</td>
-        <td>{invoiceID}</td>
         <td>
-            <Link className="button" to={`/company/invoices/${invoiceID}`}>
-                View Invoice
-            </Link>
+            {invoiceID ?
+                <Link className="button" to={`/company/invoices/${invoiceID}`}>
+                    View Invoice
+                </Link>
+                :
+                <Link className="button" to={`/company/drawings/${drawingID}`}>
+                    View Drawing
+                </Link>
+            }
         </td>
     </tr>
 );
