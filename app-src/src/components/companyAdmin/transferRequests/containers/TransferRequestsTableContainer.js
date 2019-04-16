@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import TransferRequestsTable from '../presentational/TransferRequestsTable';
+import fetchIncomingTransferRequests from 'actions/companyAdmin/transferRequests/async/fetchIncomingTransferRequests';
+import fetchOutgoingTransferRequests from 'actions/companyAdmin/transferRequests/async/fetchOutgoingTransferRequests';
+import { showModal } from 'actions/shared/generic/modals/sync/showModal';
+import { ERROR_MODAL } from 'constants/shared/modalTypes';
 
 class TransferRequestsTableContainer extends Component {
     render() {
@@ -21,6 +25,21 @@ class TransferRequestsTableContainer extends Component {
             />
         );
     }
+
+    componentDidUpdate = prevProps => {
+        const {
+            fetchTransferRequests,
+            postSuccess,
+            error,
+            showModal
+        } = this.props;
+        if (postSuccess && !prevProps.postSuccess) {
+            fetchTransferRequests();
+        }
+        if (error && !prevProps.error) {
+            showModal(ERROR_MODAL);
+        }
+    };
 }
 
 const mapStateToProps = ({
@@ -29,14 +48,27 @@ const mapStateToProps = ({
             incomingTransferRequests,
             outgoingTransferRequests,
             isFetching,
-            error
+            error,
+            postSuccess
         }
     }
 }) => ({
     incomingTransferRequests: Object.values(incomingTransferRequests),
     outgoingTransferRequests: Object.values(outgoingTransferRequests),
     isFetching,
-    error
+    error,
+    postSuccess
 });
 
-export default connect(mapStateToProps)(TransferRequestsTableContainer);
+const mapDispatchToProps = dispatch => ({
+    fetchTransferRequests: () => {
+        dispatch(fetchIncomingTransferRequests());
+        dispatch(fetchOutgoingTransferRequests());
+    },
+    showModal: (type, props) => dispatch(showModal(type, props))
+});
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(TransferRequestsTableContainer);

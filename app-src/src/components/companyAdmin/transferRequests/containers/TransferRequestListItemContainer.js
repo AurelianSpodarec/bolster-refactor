@@ -1,30 +1,62 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 
 import TransferRequestListItem from '../presentational/TransferRequestListItem';
+import deleteTransferRequest from 'actions/companyAdmin/transferRequests/async/deleteTransferRequest';
+import respondToTransferRequest from 'actions/companyAdmin/transferRequests/async/respondToTransferRequest';
+import { showModal } from 'actions/shared/generic/modals/sync/showModal';
+import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
+import { CONFIRM_SUBMIT, CONFIRM_DELETE } from 'constants/shared/modalTypes';
 
-class TransferRequestListItemContainer extends Component {
-    render() {
-        const { id, request } = this.props;
-        return <TransferRequestListItem request={request} companyID={id} />;
+const TransferRequestListItemContainer = ({
+    request,
+    id,
+    respondToTransferRequest,
+    deleteTransferRequest,
+    showModal,
+    hideModal
+}) => {
+    return (
+        <TransferRequestListItem
+            request={request}
+            companyID={id}
+            handleAccept={handleAcceptModal}
+            handleDecline={handleDeclineModal}
+        />
+    );
+
+    function handleAcceptModal() {
+        if (id === request.inviteToCompanyID) {
+            const handleSubmit = () => {
+                respondToTransferRequest(request.id, { isAccepting: true });
+                hideModal();
+            };
+            const message =
+                '##Are you sure you want to accept this transfer ownership request?##';
+            showModal(CONFIRM_SUBMIT, { hideModal, handleSubmit, message });
+        }
     }
 
-    handleAccept = () => {
-        const { id, request } = this.props;
+    function handleDeclineModal() {
         if (id === request.inviteToCompanyID) {
-            // respond to request with { isAccepting: true }
-        }
-    };
-
-    handleDecline = () => {
-        const { id, request } = this.props;
-        if (id === request.inviteToCompanyID) {
-            // respond to request with { isAccepting: false }
+            const handleSubmit = () => {
+                respondToTransferRequest(request.id, { isAccepting: true });
+                hideModal();
+            };
+            const message =
+                '##Are you sure you want to decline this transfer ownership request?##';
+            showModal(CONFIRM_SUBMIT, { hideModal, handleSubmit, message });
         } else {
-            // delete / cancel request
+            const handleDelete = () => {
+                deleteTransferRequest(request.id);
+                hideModal();
+            };
+            const message =
+                '##Are you sure you want to delete this transfer ownership request?##';
+            showModal(CONFIRM_DELETE, { hideModal, handleDelete, message });
         }
-    };
-}
+    }
+};
 
 const mapStateToProps = ({
     companyAdmin: {
@@ -36,4 +68,15 @@ const mapStateToProps = ({
     id
 });
 
-export default connect(mapStateToProps)(TransferRequestListItemContainer);
+const mapDispatchToProps = dispatch => ({
+    deleteTransferRequest: id => dispatch(deleteTransferRequest(id)),
+    respondToTransferRequest: (id, body) =>
+        dispatch(respondToTransferRequest(id, body)),
+    showModal: (type, props) => dispatch(showModal(type, props)),
+    hideModal: () => dispatch(hideModal())
+});
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(TransferRequestListItemContainer);

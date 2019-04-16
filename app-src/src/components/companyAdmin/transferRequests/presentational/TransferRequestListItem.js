@@ -3,7 +3,7 @@ import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/pr
 
 const TransferRequestListItem = ({
     request,
-    id,
+    companyID,
     handleAccept,
     handleDecline
 }) => (
@@ -16,7 +16,7 @@ const TransferRequestListItem = ({
         <td>{request.inviteToCompanyName}</td>
         <td>
             <BlockButtonWrapper>
-                {id === request.inviteToCompanyID && (
+                {companyID === request.inviteToCompanyID && (
                     <button
                         type="button"
                         className="button"
