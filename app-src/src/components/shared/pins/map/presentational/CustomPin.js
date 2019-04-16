@@ -4,10 +4,10 @@ const CustomPin = ({ pinColour, pinCode, pinID, history }) => {
     const imageLocation = require(`_content/images/map-markers/${pinColour}-pin2x.png`);
 
     return (
-        <div className="custom-pin">
+        <a className="custom-pin" href={'/company/pins/' + pinID}>
             <img alt={`${pinColour} pin`} src={imageLocation} />
             <span className="code">{pinCode}</span>
-        </div>
+        </a>
     );
 };
 
