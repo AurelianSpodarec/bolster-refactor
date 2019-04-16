@@ -12,7 +12,7 @@ import SignatureContainer from 'components/shared/generic/form/containers/Signat
 import MultiDropdownContainer from 'components/shared/generic/form/containers/MultiDropdownContainer';
 
 import updateAddPinAnswer from 'actions/companyAdmin/drawings/sync/updateAddPinAnswer';
-//import resetPinAnswers from 'actions/companyAdmin/drawings/sync/resetPinAnswers';
+import resetPinAnswers from 'actions/companyAdmin/drawings/sync/resetPinAnswers';
 
 import { convertArrToObj } from 'helpers/generic';
 import Field from 'components/shared/generic/form/presentational/Field';
@@ -306,12 +306,9 @@ class AddPinQuestionRoute extends Component {
     }
 
     componentDidMount() {
-        const { updateAddPinAnswer, question } = this.props;
+        const { resetPinAnswers } = this.props;
 
-        this._getDefaultValue();
-
-        //resetPinAnswers();
-        updateAddPinAnswer(question.id, this._getDefaultValue());
+        resetPinAnswers();
     }
 
     handleChange = ({ target: { type, value, checked } }) => {
@@ -388,10 +385,10 @@ const mapStateToProps = ({
 const mapDispatchToProps = dispatch => ({
     updateAddPinAnswer: (key, value) => {
         dispatch(updateAddPinAnswer(key, value));
+    },
+    resetPinAnswers: () => {
+        dispatch(resetPinAnswers());
     }
-    // resetPinAnswers: () => {
-    //     dispatch(resetPinAnswers());
-    // }
 });
 
 export default connect(
