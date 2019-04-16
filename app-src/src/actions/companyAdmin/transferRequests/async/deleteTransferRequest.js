@@ -6,7 +6,7 @@ import {
     DELETE_TRANSFER_REQUEST_REQUEST,
     DELETE_TRANSFER_REQUEST_SUCCESS,
     DELETE_TRANSFER_REQUEST_FAILURE
-} from 'constants/actionTypes/documents';
+} from 'constants/actionTypes/transferRequests';
 
 export const deleteTransferRequestRequest = () => ({
     type: DELETE_TRANSFER_REQUEST_REQUEST

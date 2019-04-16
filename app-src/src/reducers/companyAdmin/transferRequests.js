@@ -11,7 +11,9 @@ import {
     FETCH_OUTGOING_TRANSFER_REQUESTS_SUCCESS,
     DELETE_TRANSFER_REQUEST_REQUEST,
     DELETE_TRANSFER_REQUEST_FAILURE,
-    DELETE_TRANSFER_REQUEST_SUCCESS
+    DELETE_TRANSFER_REQUEST_SUCCESS,
+    RESPOND_TO_TRANSFER_REQUEST_REQUEST,
+    RESPOND_TO_TRANSFER_REQUEST_SUCCESS
 } from 'constants/actionTypes/transferRequests';
 
 export default combineReducers({
@@ -64,8 +66,10 @@ function incomingTransferRequestsReducer(state = {}, action) {
 function postSuccessReducer(state = false, action) {
     switch (action.type) {
         case DELETE_TRANSFER_REQUEST_REQUEST:
+        case RESPOND_TO_TRANSFER_REQUEST_REQUEST:
             return false;
         case DELETE_TRANSFER_REQUEST_SUCCESS:
+        case RESPOND_TO_TRANSFER_REQUEST_SUCCESS:
             return true;
         default:
             return state;
