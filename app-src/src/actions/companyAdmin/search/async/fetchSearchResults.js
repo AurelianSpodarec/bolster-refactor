@@ -5,6 +5,7 @@ import {
     FETCH_SEARCH_RESULTS_SUCCESS,
     FETCH_SEARCH_RESULTS_FAILURE
 } from 'constants/actionTypes/search';
+import { API_URL } from 'config';
 
 export const fetchSearchResultsRequest = () => ({
     type: FETCH_SEARCH_RESULTS_REQUEST
@@ -20,11 +21,11 @@ export const fetchSearchResultsFailure = error => ({
     error
 });
 
-export default () => dispatch => {
+export default searchTerm => dispatch => {
     dispatch(fetchSearchResultsRequest());
 
     axios
-        .get('/mockData/search/results.json')
-        .then(res => dispatch(fetchSearchResultsSuccess(res.data)))
+        .get(`${API_URL}?searchTerm=${searchTerm}`)
+        .then(({ data }) => dispatch(fetchSearchResultsSuccess(data)))
         .catch(err => dispatch(fetchSearchResultsFailure(err.message)));
 };
