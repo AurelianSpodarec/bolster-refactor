@@ -2,22 +2,18 @@ import React from 'react';
 
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
-import Breadcrumb from 'components/shared/generic/breadcrumb/presentational/Breadcrumb';
 import CreateOperativeFormContainer from '../containers/CreateOperativeFormContainer';
+import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
+import BackButtonContainer from 'components/shared/generic/backButton/containers/BackButtonContainer';
 
 const CreateOperative = () => (
     <>
-        <Breadcrumb
-            breadcrumbs={[
-                {
-                    text: 'All Operatives',
-                    link: '/company/users-management/operatives'
-                },
-                { text: 'Create Operative' }
-            ]}
-        />
-        <PageHeading title="Create Operative" />
+        <PageHeading leftChildren={true} title="Create Operative">
+            <BackButtonContainer />
+        </PageHeading>
+
         <BlockContainer>
+            <BlockHeading title="Operatvie Details" />
             <CreateOperativeFormContainer />
         </BlockContainer>
     </>

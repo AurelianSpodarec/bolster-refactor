@@ -2,22 +2,22 @@ import React from 'react';
 
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
-import Breadcrumb from 'components/shared/generic/breadcrumb/presentational/Breadcrumb';
 import EditCompanyUserPasswordFormContainer from 'components/companyAdmin/userManagement/shared/editCompanyUserPassword/containers/EditCompanyUserPasswordFormContainer';
+import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
+import BackButtonContainer from 'components/shared/generic/backButton/containers/BackButtonContainer';
 
-const EditCompanyAdminPassword = ({ adminName }) => (
+const EditCompanyAdminPassword = () => (
     <>
-        <Breadcrumb
-            breadcrumbs={[
-                {
-                    text: 'All Company Admins',
-                    link: '/company/users-management/company-admins'
-                },
-                { text: `Edit ${adminName} password` }
-            ]}
-        />
-        <PageHeading title={`Edit ${adminName} password`} />
+        <PageHeading
+            leftChildren={true}
+            title={'Change Company Admin password'}
+        >
+            <BackButtonContainer />
+        </PageHeading>
+
         <BlockContainer>
+            <BlockHeading title="New password" />
+
             <EditCompanyUserPasswordFormContainer />
         </BlockContainer>
     </>

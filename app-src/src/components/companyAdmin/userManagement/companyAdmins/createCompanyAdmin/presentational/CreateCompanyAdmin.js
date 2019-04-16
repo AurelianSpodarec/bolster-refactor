@@ -2,19 +2,17 @@ import React from 'react';
 
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
-import Breadcrumb from 'components/shared/generic/breadcrumb/presentational/Breadcrumb';
 import CreateCompanyAdminFormContainer from '../containers/CreateCompanyAdminFormContainer';
+import BackButtonContainer from 'components/shared/generic/backButton/containers/BackButtonContainer';
+import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 
 const CreateCompanyAdmin = () => (
     <>
-        <Breadcrumb
-            breadcrumbs={[
-                { text: 'All Company Admins', link: '/company/users-management/company-admins' },
-                { text: 'Create Company Admin' }
-            ]}
-        />
-        <PageHeading title="Create Company Admin" />
+        <PageHeading leftChildren={true} title="Create Company Admin">
+            <BackButtonContainer />
+        </PageHeading>
         <BlockContainer>
+            <BlockHeading title="Company Admin Details" />
             <CreateCompanyAdminFormContainer />
         </BlockContainer>
     </>
