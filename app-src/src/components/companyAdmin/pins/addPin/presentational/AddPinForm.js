@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Prompt } from 'react-router-dom';
 
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import Form from 'components/shared/generic/form/containers/Form';
@@ -15,7 +15,8 @@ const AddPinForm = ({
     selectedTemplate,
     statuses,
     selectedStatus,
-    filesUploading
+    filesUploading,
+    confirmLeave
 }) => (
     <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
         <div className="size-lg-12">
@@ -51,13 +52,14 @@ const AddPinForm = ({
         )}
 
         <BlockButtonWrapper>
+        <Prompt when={confirmLeave} message={'You will lose any added information, are you sure you would like to leave the page?'} />
             <button className="button green" disabled={filesUploading}>
                 {filesUploading ? (
                     'Please wait...'
                 ) : (
                     <>
                         <i className="fa fa-plus" />
-                        Attach Document
+                        Add pin
                     </>
                 )}
             </button>

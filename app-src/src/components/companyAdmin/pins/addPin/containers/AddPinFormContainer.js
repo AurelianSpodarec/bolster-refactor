@@ -27,7 +27,8 @@ class AddPinFormContainer extends Component {
             isFetching,
             error,
             templates,
-            filesUploading
+            filesUploading,
+            confirmLeave
         } = this.props;
 
         const templateOptions = this._getTemplates();
@@ -49,6 +50,7 @@ class AddPinFormContainer extends Component {
                     handleChange={this.handleChange}
                     handleSubmit={this.handleSubmit}
                     filesUploading={filesUploading}
+                    confirmLeave={confirmLeave}
                 />
             </BlockContainer>
         );
@@ -67,6 +69,16 @@ class AddPinFormContainer extends Component {
         }
 
         fetchDrawingTemplates(drawingID);
+        
+        window.addEventListener('beforeunload', this.handleBeforeUnload);
+    };
+
+    componentWillUnmount() {
+        window.removeEventListener('beforeunload', this.handleBeforeUnload);
+    }
+
+    handleBeforeUnload = e => {
+        e.returnValue = '';
     };
 
     componentDidUpdate = prevProps => {
@@ -142,7 +154,8 @@ const mapStateToProps = (
             pinsReducer: { postSuccess }
         },
         shared: {
-            filesUploadingReducer: { filesUploading }
+            filesUploadingReducer: { filesUploading },
+            confirmLeaveReducer: {confirmLeave}
         }
     },
     { match }
@@ -154,7 +167,8 @@ const mapStateToProps = (
     error,
     postSuccess,
     drawingID: match.params.id,
-    filesUploading
+    filesUploading,
+    confirmLeave
 });
 
 const mapDispatchToProps = dispatch => ({

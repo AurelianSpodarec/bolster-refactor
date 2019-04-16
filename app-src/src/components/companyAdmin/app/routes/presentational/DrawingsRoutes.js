@@ -15,6 +15,7 @@ import EditDrawingOperativeFormContainer from 'components/companyAdmin/drawings/
 import EditCompanyPermissionsOnDrawingFormContainer from 'components/companyAdmin/drawings/editCompanyOnDrawing/containers/EditCompanyPermissionsOnDrawingFormContainer';
 
 import AddPin from 'components/companyAdmin/pins/addPin/presentational/AddPin';
+import AddCompanyPermissionsToDrawing from 'components/companyAdmin/drawings/addCompanyPermissionsToDrawing/presentational/AddCompanyPermissionsToDrawing';
 
 const DrawingsRoutes = ({ base = '/company/drawings' }) => (
     <SwitchWith404>
@@ -54,6 +55,11 @@ const DrawingsRoutes = ({ base = '/company/drawings' }) => (
             exact
             path={`${base}/:id/invite-company`}
             component={InviteCompanyToDrawing}
+        />
+        <Route
+            exact
+            path={`${base}/:id/add-permissions/:companyID`}
+            component={AddCompanyPermissionsToDrawing}
         />
         <Route
             exact

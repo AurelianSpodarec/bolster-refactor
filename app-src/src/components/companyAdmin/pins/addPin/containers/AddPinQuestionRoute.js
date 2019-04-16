@@ -333,22 +333,32 @@ class AddPinQuestionRoute extends Component {
 
     handleFileChange = (name, s3Key) => {
         const { updateAddPinAnswer, question, answers } = this.props;
-        const curAnswer = answers[question.id];
+        let curAnswer = answers[question.id];
 
-        if (Array.isArray(curAnswer)) {
+        if (question.type == QUESTION_TYPE_VALUES.MULTI_PHOTO) {
+            if (!curAnswer) {
+                curAnswer = [];
+            }
+
             //Multi File
             var existing = curAnswer.includes(s3Key);
 
             if (existing) {
                 //Delete
-                const updated = curAnswer.splice(curAnswer.indexOf(existing));
-                updateAddPinAnswer(question.id, updated);
+
+                curAnswer = curAnswer.filter(item => item != s3Key);
+
+                updateAddPinAnswer(question.id, curAnswer);
             } else {
                 //Add
                 curAnswer.push(s3Key);
                 updateAddPinAnswer(question.id, curAnswer);
             }
         } else {
+            if (answers[question.id] == s3Key) {
+                s3Key = '';
+            }
+
             updateAddPinAnswer(question.id, s3Key);
         }
     };

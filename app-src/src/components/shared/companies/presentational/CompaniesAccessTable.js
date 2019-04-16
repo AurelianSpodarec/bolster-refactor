@@ -2,8 +2,8 @@ import React from 'react';
 import { withRouter, Link } from 'react-router-dom';
 
 import Table from 'components/shared/generic/tables/presentational/Table';
-import CompaniesAccessList from './CompaniesAccessList';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
+import CompaniesAccessListContainer from '../containers/CompaniesAccessListContainer';
 
 const CompaniesAccessTable = ({
     location,
@@ -28,7 +28,7 @@ const CompaniesAccessTable = ({
             noDataMessage="No companies to display"
             withActions
         >
-            <CompaniesAccessList
+            <CompaniesAccessListContainer
                 handleShowModal={handleShowModal}
                 companies={companies}
                 parentId={parentId}
