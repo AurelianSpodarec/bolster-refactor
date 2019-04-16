@@ -16,10 +16,10 @@ const UserListItem = ({
         <td>{moment(user.createdOn).format('DD/MM/YYYY')}</td>
         <td>
             <button
-                className="button"
+                className="button yellow"
                 onClick={() => handleShowEditUserModal(user)}
             >
-                edit
+                <i className="far fa-pencil" /> edit
             </button>
             <button
                 onClick={() => handleShowEditUserPasswordModal(user)}
