@@ -1,14 +1,18 @@
 import React from 'react';
-import Block from 'components/shared/generic/block/presentational/Block';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import TransferRequestsTableContainer from '../containers/TransferRequestsTableContainer';
+import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
 
 const TransferRequests = () => {
     return (
-        <Block>
-            <BlockHeading title="Owner Requests" />
-            <TransferRequestsTableContainer />
-        </Block>
+        <>
+            <PageHeading title="Owner Requests" />
+            <BlockContainer>
+                <BlockHeading title="Owner Requests Table" />
+                <TransferRequestsTableContainer />
+            </BlockContainer>
+        </>
     );
 };
 

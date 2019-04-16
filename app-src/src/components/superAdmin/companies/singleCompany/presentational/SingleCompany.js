@@ -6,7 +6,6 @@ import TemplatesTableContainer from '../containers/TemplatesTableContainer';
 
 const SingleCompany = () => (
     <>
-        <Breadcrumb breadcrumbs={[{ text: 'item 1' }, { text: 'item 2' }]} />
         <div className="size-lg-12">
             <CompanyHeaderContainer />
         </div>

@@ -8,7 +8,7 @@ import BackButtonContainer from 'components/shared/generic/backButton/containers
 
 const CreateOperative = () => (
     <>
-        <PageHeading leftChildren={true} title="Create Operative">
+        <PageHeading leftChildren={true} title="Invite Operative">
             <BackButtonContainer />
         </PageHeading>
 

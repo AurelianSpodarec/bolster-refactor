@@ -4,13 +4,13 @@ import { ROLE_TYPES } from 'constants/companyAdmin/enums';
 const Roles = ({ roles }) => {
     const rolesToRender = roles.length ? (
         roles.map((role, i) => (
-            <p key={i}>
+            <span key={i}>
                 {ROLE_TYPES[role.type]}
                 <span> ({role.companyName})</span>
-            </p>
+            </span>
         ))
     ) : (
-        <p>No assigned roles</p>
+        <span>No assigned roles</span>
     );
 
     return <td>{rolesToRender}</td>;
