@@ -54,7 +54,7 @@ const DrawingMapViewSimple = ({
                     onClick={e => handleClick(e)}
                 >
                     <TileLayer
-                        attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                        attribution='&amp;copy <a href="http://app.bolstersystems.com">Bolster Systems Ltd</a>'
                         url={`${FILE_STORAGE_URL}/${
                             drawing.tilesetS3Key
                         }/{z}/{x}/{y}.jpg`}
