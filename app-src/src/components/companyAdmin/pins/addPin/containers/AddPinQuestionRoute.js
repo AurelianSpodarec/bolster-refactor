@@ -15,6 +15,7 @@ import updateAddPinAnswer from 'actions/companyAdmin/drawings/sync/updateAddPinA
 //import resetPinAnswers from 'actions/companyAdmin/drawings/sync/resetPinAnswers';
 
 import { convertArrToObj } from 'helpers/generic';
+import Field from 'components/shared/generic/form/presentational/Field';
 
 const {
     SINGLE_LINE,
@@ -178,7 +179,7 @@ class AddPinQuestionRoute extends Component {
     };
 
     render() {
-        const { question, answers } = this.props;
+        const { question, answers, questions } = this.props;
 
         const fieldTypes = {
             [SINGLE_LINE]: SingleLine,
@@ -194,17 +195,114 @@ class AddPinQuestionRoute extends Component {
         };
 
         const SpecificField = fieldTypes[question.type + ''] || SingleLine;
-        return (
-            <SpecificField
-                question={question}
-                answers={answers}
-                handleChange={this.handleChange}
-                handleFileChange={this.handleFileChange}
-                handleSignatureChange={this.handleSignatureChange}
-                handleMultiDropdownChange={this.handleMultiDropdownChange}
-                sigPad={this.state.sigPad}
-            />
+
+        const checkIfShouldShowByPreReq = (
+            currentQuestionID,
+            prerequisiteQuestionID,
+            answers,
+            questions
+        ) => {
+            const preReqQuestion = questions[prerequisiteQuestionID];
+            let preReqAnswer = answers[prerequisiteQuestionID];
+            const curQuestion = questions[currentQuestionID];
+
+            if (!preReqQuestion) {
+                //No Pre Req Question So Show
+                return true;
+            }
+
+            /*eslint-disable */
+
+            if (preReqQuestion.type == QUESTION_TYPE_VALUES.CHECKBOX) {
+                //Convert true to 'true'
+                preReqAnswer = preReqAnswer + '';
+            }
+
+            if (
+                preReqQuestion.type == QUESTION_TYPE_VALUES.DROPDOWN ||
+                preReqQuestion.type == QUESTION_TYPE_VALUES.RADIO
+            ) {
+                //For a drop down we have to convert the GUID to the questin option.
+                const selectedOption = preReqQuestion.options.filter(
+                    option => option.id == preReqAnswer
+                );
+
+                if (selectedOption && selectedOption.length > 0) {
+                    preReqAnswer = selectedOption[0].text;
+                } else {
+                    return false;
+                }
+            }
+
+            if (preReqQuestion.type == QUESTION_TYPE_VALUES.MULTI_DROPDOWN) {
+                const retArray = [];
+
+                if (!preReqAnswer) {
+                    return false;
+                }
+
+                preReqAnswer.forEach(curAnswer => {
+                    const selectedOption = preReqQuestion.options.filter(
+                        option => option.id == curAnswer
+                    );
+
+                    if (selectedOption && selectedOption.length > 0) {
+                        retArray.push(selectedOption[0].text);
+                    }
+                });
+
+                preReqAnswer = retArray;
+            }
+
+            /*eslint-enable */
+
+            if (Array.isArray(preReqAnswer)) {
+                //TODO maybe so case in-sensitive check
+                if (
+                    preReqAnswer.includes(curQuestion.prerequisiteQuestionValue)
+                ) {
+                    return true;
+                }
+            } else {
+                if (curQuestion.prerequisiteQuestionValue === preReqAnswer) {
+                    //Exactly matches value
+                    return true;
+                }
+            }
+
+            return false;
+        };
+
+        const showPreReq = checkIfShouldShowByPreReq(
+            question.id,
+            question.prerequisiteQuestionID,
+            answers,
+            questions
         );
+
+        if (showPreReq) {
+            return (
+                <Field
+                    key={question.id}
+                    name={question.name}
+                    sizeClasses="size-lg-6"
+                >
+                    <SpecificField
+                        question={question}
+                        answers={answers}
+                        handleChange={this.handleChange}
+                        handleFileChange={this.handleFileChange}
+                        handleSignatureChange={this.handleSignatureChange}
+                        handleMultiDropdownChange={
+                            this.handleMultiDropdownChange
+                        }
+                        sigPad={this.state.sigPad}
+                    />
+                </Field>
+            );
+        }
+
+        return <></>;
     }
 
     componentDidMount() {
@@ -224,7 +322,7 @@ class AddPinQuestionRoute extends Component {
     };
 
     handleMultiDropdownChange = e => {
-        const { updateAddPinAnswer, question, answers } = this.props;
+        const { updateAddPinAnswer, question } = this.props;
 
         const results = e.map(a => a.value);
 
@@ -279,10 +377,12 @@ class AddPinQuestionRoute extends Component {
 
 const mapStateToProps = ({
     companyAdmin: {
-        addPinFormReducer: { answers }
+        addPinFormReducer: { answers },
+        templateQuestionsReducer: { questions }
     }
 }) => ({
-    answers: answers
+    answers,
+    questions
 });
 
 const mapDispatchToProps = dispatch => ({

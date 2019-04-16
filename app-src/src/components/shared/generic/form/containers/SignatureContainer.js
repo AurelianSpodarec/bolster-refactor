@@ -6,21 +6,14 @@ import removeFieldError from 'actions/shared/generic/fieldErrors/sync/removeFiel
 
 class SignatureContainer extends Component {
     state = {
-        showFieldError: false,
+        showFieldError: false
     };
 
-    sigPad = {
-
-    };
+    sigPad = {};
 
     render() {
         const { showFieldError } = this.state;
-        const {
-            name,
-            error,
-            errorsVisible,
-            canvasProps,
-        } = this.props;
+        const { name, error, errorsVisible, canvasProps } = this.props;
 
         let errorMessage;
         if (showFieldError || errorsVisible) errorMessage = error;
@@ -29,27 +22,29 @@ class SignatureContainer extends Component {
             <>
                 <SignatureCanvas
                     onEnd={this.handleChange}
-                    penColor={"black"}
+                    penColor={'black'}
                     canvasProps={canvasProps}
                     name={name}
-                    ref={(ref) => {
+                    ref={ref => {
                         this.sigPad = ref;
                     }}
                 />
                 {!!(error && error.length) && (
-                    <p className="error red-text text-accent-4">{error}</p>
+                    <p className="error red-text text-accent-4">
+                        {errorMessage}
+                    </p>
                 )}
             </>
         );
     }
 
     componentDidMount = () => {
-        const val = this.sigPad.toDataURL("image/jpg");
+        const val = this.sigPad.toDataURL('image/jpg');
         this._validate(val);
     };
 
     componentDidUpdate = ({ value: prevValue }) => {
-        const val = this.sigPad.toDataURL("image/jpg");
+        const val = this.sigPad.toDataURL('image/jpg');
         if (prevValue !== val) this._validate(val);
     };
 
@@ -60,20 +55,20 @@ class SignatureContainer extends Component {
 
     handleChange = e => {
         this._validate();
-        this.props.onChange(this.sigPad.toDataURL("image/jpg"));
+        this.props.onChange(this.sigPad.toDataURL('image/jpg'));
     };
 
     _validate = value => {
-    const {
-        name,
-        error,
-        required,
-        validate = () => {},
-        addFieldError,
-        removeFieldError
-    } = this.props;
+        const {
+            name,
+            error,
+            required,
+            validate = () => {},
+            addFieldError,
+            removeFieldError
+        } = this.props;
 
-    const validateError = validate(value);
+        const validateError = validate(value);
 
         if (required && this.sigPad.isEmpty()) {
             addFieldError(name, 'This is a required field.');
@@ -83,7 +78,6 @@ class SignatureContainer extends Component {
             removeFieldError(name);
         }
     };
-
 }
 
 const mapStateToProps = ({ shared: { fieldErrorsReducer } }, ownProps) => ({

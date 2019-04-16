@@ -1,5 +1,4 @@
 import React from 'react';
-import Field from 'components/shared/generic/form/presentational/Field';
 
 import AddPinQuestionRoute from '../containers/AddPinQuestionRoute';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
@@ -17,13 +16,10 @@ const AddPinQuestions = ({ sections, questions }) =>
                     )
                     .sort((a, b) => a.sort - b.sort)
                     .map(question => (
-                        <Field
+                        <AddPinQuestionRoute
                             key={question.id}
-                            name={question.name}
-                            sizeClasses="size-lg-6"
-                        >
-                            <AddPinQuestionRoute question={question} />
-                        </Field>
+                            question={question}
+                        />
                     ))}
             </div>
         ));
