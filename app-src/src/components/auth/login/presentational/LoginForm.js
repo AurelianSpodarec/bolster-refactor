@@ -34,7 +34,7 @@ const LoginForm = ({ handleSubmit, handleInputChange, email, password }) => (
                 Login
             </button>
 
-         
+
         </div>
     </Form>
 );
