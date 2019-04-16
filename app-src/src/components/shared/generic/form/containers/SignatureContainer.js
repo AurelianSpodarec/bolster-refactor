@@ -1,15 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import SignatureCanvas from 'react-signature-canvas';
 import addFieldError from 'actions/shared/generic/fieldErrors/sync/addFieldError';
 import removeFieldError from 'actions/shared/generic/fieldErrors/sync/removeFieldError';
+import Signature from "../presentational/Signature";
 
 class SignatureContainer extends Component {
     state = {
         showFieldError: false
     };
-
-    sigPad = {};
 
     render() {
         const { showFieldError } = this.state;
@@ -19,28 +17,19 @@ class SignatureContainer extends Component {
         if (showFieldError || errorsVisible) errorMessage = error;
 
         return (
-            <>
-                <SignatureCanvas
-                    onEnd={this.handleChange}
-                    penColor={'black'}
-                    canvasProps={canvasProps}
-                    name={name}
-                    ref={ref => {
-                        this.sigPad = ref;
-                    }}
-                />
-                {!!(error && error.length) && (
-                    <p className="error red-text text-accent-4">
-                        {errorMessage}
-                    </p>
-                )}
-            </>
+            <Signature
+                updateRef={ref => this.sigPad = ref}
+                onEnd={this.handleChange}
+                penColor={'black'}
+                canvasProps={canvasProps}
+                name={name}
+                error={errorMessage}
+            />
         );
     }
 
     componentDidMount = () => {
-        const val = this.sigPad.toDataURL('image/jpg');
-        this._validate(val);
+         this._validate('');
     };
 
     componentDidUpdate = ({ value: prevValue }) => {

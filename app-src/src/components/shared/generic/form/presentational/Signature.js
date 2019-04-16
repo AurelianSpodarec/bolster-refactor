@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import SignatureCanvas from 'react-signature-canvas';
 
 const Signature = ({
@@ -8,7 +7,7 @@ const Signature = ({
     name,
     canvasProps,
     onEnd,
-    sigPad
+   updateRef
 }) => (
     <>
         <SignatureCanvas
@@ -16,10 +15,7 @@ const Signature = ({
             penColor={penColor}
             canvasProps={canvasProps}
             name={name}
-            ref={(ref) => {
-                console.log(ref);
-                this.sigPad = ref;
-            }}
+            ref={updateRef}
         />
         {!!(error && error.length) && (
             <p className="error red-text text-accent-4">{error}</p>

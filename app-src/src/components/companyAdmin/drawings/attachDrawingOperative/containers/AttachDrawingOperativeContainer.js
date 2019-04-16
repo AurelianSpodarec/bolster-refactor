@@ -42,7 +42,7 @@ const mapStateToProps = ({
     }
 }) => ({
     operativeUsers: Object.values(users).filter(
-        ({ type }) => type === OPERATIVE
+        ({ type }) => type >= OPERATIVE
     ),
     drawingUserIDs: Object.values(operatives).map(
         operative => operative.companyUserID

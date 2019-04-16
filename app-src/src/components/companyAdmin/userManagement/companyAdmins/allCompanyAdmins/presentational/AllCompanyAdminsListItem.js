@@ -1,10 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
+import { COMPANY_USER_ROLE_TYPES } from 'constants/companyAdmin/enums';
 
 const AllCompanyAdminsListItem = ({ user, showDeleteModal }) => (
     <tr key={user.id}>
-        <td>{`${user.userFirstName} ${user.userLastName}`}</td>
+        <td>{`${user.userFirstName} ${user.userLastName}`}  {user.type === COMPANY_USER_ROLE_TYPES.OWNER ? <span>(OWNER)</span> : <></>} </td>
         <td>{user.userEmail}</td>
         <td>{user.userPhoneNumber}</td>
         <td>
