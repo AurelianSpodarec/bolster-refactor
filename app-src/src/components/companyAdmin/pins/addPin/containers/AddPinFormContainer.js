@@ -21,7 +21,13 @@ class AddPinFormContainer extends Component {
 
     render() {
         const { templateID, statusID } = this.state;
-        const { location, isFetching, error, templates } = this.props;
+        const {
+            location,
+            isFetching,
+            error,
+            templates,
+            filesUploading
+        } = this.props;
 
         const templateOptions = this._getTemplates();
         const statusOptions = convertEnumToDropdownOptions(PIN_STATUS_TYPES);
@@ -41,6 +47,7 @@ class AddPinFormContainer extends Component {
                     location={location}
                     handleChange={this.handleChange}
                     handleSubmit={this.handleSubmit}
+                    filesUploading={filesUploading}
                 />
             </BlockContainer>
         );
@@ -86,7 +93,18 @@ class AddPinFormContainer extends Component {
     handleSubmit = e => {
         e.preventDefault();
 
-        const { answers, drawingID, createPin, coordinates } = this.props;
+        const { templateID } = this.state;
+
+        const {
+            answers,
+            drawingID,
+            createPin,
+            coordinates,
+            filesUploading
+        } = this.props;
+
+        const templateOptions = this._getTemplates();
+        const selectedTemplate = templateOptions[templateID].value;
 
         const formattedAnswers = Object.keys(answers).map(function(key) {
             return { templateQuestionID: key, answer: answers[key] };
@@ -101,13 +119,15 @@ class AddPinFormContainer extends Component {
                 }
             },
             history: {
-                templateVersionID: 8,
+                templateVersionID: selectedTemplate,
                 pinStatus: this.state.statusID
             },
             answers: formattedAnswers
         };
 
-        createPin(postBody);
+        if (!filesUploading) {
+            createPin(postBody);
+        }
     };
 }
 
@@ -118,6 +138,9 @@ const mapStateToProps = (
             addPinFormReducer: { answers },
             addPinCoordinatesReducer: { coordinates },
             pinsReducer: { postSuccess }
+        },
+        shared: {
+            filesUploadingReducer: { filesUploading }
         }
     },
     { match }
@@ -128,7 +151,8 @@ const mapStateToProps = (
     isFetching,
     error,
     postSuccess,
-    drawingID: match.params.id
+    drawingID: match.params.id,
+    filesUploading
 });
 
 const mapDispatchToProps = dispatch => ({

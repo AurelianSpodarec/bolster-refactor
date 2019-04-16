@@ -14,7 +14,8 @@ const AddPinForm = ({
     templates,
     selectedTemplate,
     statuses,
-    selectedStatus
+    selectedStatus,
+    filesUploading
 }) => (
     <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
         <div className="size-lg-12">
@@ -50,8 +51,15 @@ const AddPinForm = ({
         )}
 
         <BlockButtonWrapper>
-            <button className="button green">
-                <i className="fa fa-plus" /> Add Pin
+            <button className="button green" disabled={filesUploading}>
+                {filesUploading ? (
+                    'Please wait...'
+                ) : (
+                    <>
+                        <i className="fa fa-plus" />
+                        Attach Document
+                    </>
+                )}
             </button>
             <Link
                 to={location.pathname.replace('/add-pin', '')}
