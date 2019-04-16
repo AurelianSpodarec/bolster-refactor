@@ -1,20 +1,16 @@
 import React from 'react';
 
 import LoginFormContainer from '../containers/LoginFormContainer';
-import Block from 'components/shared/generic/block/presentational/Block';
+import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
+import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
 
 const Login = () => (
     <div className="auth size-lg-12">
-        <div className="content-container size-lg-12">
-            <h1 className="heading heading-1 size-lg-12">Log In</h1>
-        </div>
-
-        <Block>
-            <h3 className="heading heading-3 size-lg-12">
-                Enter your login details
-            </h3>
+        <PageHeading title="Log In" />
+        <BlockContainer>
             <LoginFormContainer />
-        </Block>
+        </BlockContainer>
     </div>
 );
 
