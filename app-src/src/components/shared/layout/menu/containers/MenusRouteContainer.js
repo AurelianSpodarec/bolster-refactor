@@ -4,11 +4,11 @@ import { connect } from 'react-redux';
 import { MENU_TABS as TABS } from 'constants/shared/tabNames';
 
 import CompanyMenu from '../presentational/CompanyMenu';
-import SuperAdminMenu from '../presentational/SuperAdminMenu';
+import SuperAdminMenuContainer from './SuperAdminMenuContainer';
 
 const contentOptions = {
     [TABS.COMPANY_USER]: CompanyMenu,
-    [TABS.SUPER_ADMIN]: SuperAdminMenu
+    [TABS.SUPER_ADMIN]: SuperAdminMenuContainer
 };
 
 const MenusRouteContainer = ({ selectedMenuTab }) => {

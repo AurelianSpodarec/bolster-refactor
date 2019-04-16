@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import EditUser from '../presentational/EditUser';
 
 class EditUsersContainer extends Component {
-    render = () => <EditUser userName="##User Name##" />;
+    render = () => <EditUser />;
 }
 
 // const mapDispatchToProps = dispatch => ({
