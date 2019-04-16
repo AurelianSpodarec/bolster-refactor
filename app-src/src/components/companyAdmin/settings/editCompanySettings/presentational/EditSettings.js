@@ -4,17 +4,22 @@ import { connect } from 'react-redux';
 import Breadcrumb from 'components/shared/generic/breadcrumb/presentational/Breadcrumb';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import EditSettingsFormContainer from '../containers/EditSettingsFormContainer';
+import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
+import BackButtonContainer from 'components/shared/generic/backButton/containers/BackButtonContainer';
+import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 
 const EditSettings = ({ isFetching, error, companySettings: company }) => {
     return (
         <>
-            <Breadcrumb breadcrumbs={[{ text: '##Edit Company Settings##' }]} />
+            <PageHeading leftChildren={true} title="Edit Company Settings">
+                <BackButtonContainer />
+            </PageHeading>
             <BlockContainer
-                heading={company.name && `Edit ${company.name} Settings`}
                 isFetching={isFetching}
                 error={error}
                 isEmpty={!company.name}
             >
+                <BlockHeading title="Company Details" />
                 <EditSettingsFormContainer />
             </BlockContainer>
         </>
