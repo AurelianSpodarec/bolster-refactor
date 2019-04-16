@@ -67,9 +67,8 @@ const EditCompanyUserForm = ({
             <button className="button green">Confirm</button>
             <Link
                 to={location.pathname.replace(`/${match.params.id}/edit`, '')}
-                className="button red"
+                className="button"
             >
-                <i className="fa fa-times" />
                 Cancel
             </Link>
         </BlockButtonWrapper>

@@ -18,7 +18,7 @@ const EnquiriesListItem = ({ enquiry, handleShowModal }) => {
                     className="button red"
                     onClick={() => handleShowModal(enquiry)}
                 >
-                    <i className="fa fa-times" /> delete
+                    <i className="far fa-trash-alt" /> Delete
                 </button>
             </td>
         </tr>

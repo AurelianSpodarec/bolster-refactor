@@ -16,7 +16,7 @@ const ConfirmSubmitModal = ({
                 Submit
             </button>
             <button className="button" onClick={hideModal}>
-                <i className="fa fa-times" /> Cancel
+                Cancel
             </button>
         </BlockButtonWrapper>
     </ModalOuterContainer>

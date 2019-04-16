@@ -21,7 +21,7 @@ const EnquiryDetails = ({
         {!!message && <p>{message}</p>}
         <BlockButtonWrapper>
             <button onClick={() => handleShowModal(id)} className="button red">
-                <i className="fa fa-times" />
+                <i className="far fa-trash-alt" />
                 Delete
             </button>
         </BlockButtonWrapper>
