@@ -3,8 +3,9 @@ import moment from 'moment';
 import { Map, TileLayer } from 'react-leaflet';
 
 import MapPin from 'components/shared/pins/map/presentational/MapPin';
+import { FILE_STORAGE_URL } from 'config';
 
-const SinglePinMap = ({ pin, zoom, handleClick, user }) => (
+const SinglePinMap = ({ pin, zoom, handleClick, user, drawing }) => (
     <>
         <Map
             center={[pin.location.latY, pin.location.lngX]}
@@ -12,8 +13,10 @@ const SinglePinMap = ({ pin, zoom, handleClick, user }) => (
             onClick={handleClick}
         >
             <TileLayer
-                attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-                url="https://www.silverchip.com/tiles/{z}/{x}/{y}.jpg"
+                attribution='&amp;copy <a href="http://app.bolstersystems.com">Bolster Systems Ltd</a>'
+                url={`${FILE_STORAGE_URL}/${
+                    drawing.tilesetS3Key
+                    }/{z}/{x}/{y}.jpg`}
                 noWrap={true}
             />
             <MapPin key={pin.id} pin={pin} />

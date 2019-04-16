@@ -10,7 +10,9 @@ import BlockContainer from 'components/shared/generic/block/containers/BlockCont
 
 class SinglePinMapContainer extends Component {
     render() {
-        const { pin, user, error, isFetching } = this.props;
+        const { pin, user, error, isFetching, drawings } = this.props;
+
+        const curDrawing = drawings.filter(item=>item.id === pin.drawingID)[0];
 
         return (
             <BlockContainer
@@ -23,6 +25,7 @@ class SinglePinMapContainer extends Component {
                     pin={pin}
                     handleClick={this.handleClick}
                     user={user}
+                    drawing={curDrawing}
                 />
             </BlockContainer>
         );
@@ -57,7 +60,8 @@ const mapStateToProps = (
     {
         companyAdmin: {
             pinsReducer: { pins, error, isFetching },
-            companyUsersReducer: { users }
+            companyUsersReducer: { users },
+            drawingsReducer: {drawings}
         }
     },
     { match: { params } }
@@ -68,7 +72,8 @@ const mapStateToProps = (
         pin,
         user: users[pin.latestCreatedByCompanyUserID] || {},
         error,
-        isFetching
+        isFetching,
+        drawings: Object.values(drawings)
     };
 };
 
