@@ -83,14 +83,15 @@ const mapStateToProps = (
             companiesPermissionsReducer: { postSuccess, error }
         }
     },
-    { match: { params } }
+    { match: { params, url } }
 ) => ({
     hierarchyID: params.id,
     services: Object.values(services),
     subscriptions: subscriptions.serviceIDs || [],
     success: postSuccess,
     error,
-    companyID: params.companyID
+    companyID: params.companyID,
+    redirectUrl: url.replace(`/add-permissions/${params.companyID}`, '')
 });
 
 const mapDispatchToProps = dispatch => ({
