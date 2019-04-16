@@ -12,15 +12,16 @@ const BuildingStats = ({ building, stats, handleDelete, handleArchive }) => (
         </div>
 
         <div className="button-container">
+            <button className="button red" type="button" onClick={handleDelete}>
+                <i className="far fa-trash-alt fa-fw" /> Delete
+            </button>
             <Link
                 className="button yellow"
                 to={`/company/buildings/${building.id}/edit`}
             >
                 <i className="far fa-pencil fa-fw" /> Edit
             </Link>
-            <button className="button red" type="button" onClick={handleDelete}>
-                <i className="far fa-trash-alt fa-fw" /> Delete
-            </button>
+
             <button className="button" onClick={handleArchive} type="button">
                 <i className="fa fa-archive" />
                 {building.isArchived ? 'Un-Archive' : 'Archive'}

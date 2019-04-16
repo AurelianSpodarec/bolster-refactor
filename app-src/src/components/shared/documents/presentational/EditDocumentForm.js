@@ -14,6 +14,9 @@ import { DOCUMENT_TYPE } from 'constants/companyAdmin/enums';
 import CheckboxListContainer from 'components/shared/generic/form/containers/CheckboxListContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import Checkbox from 'components/shared/generic/form/presentational/Checkbox';
+import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
+import BackButtonContainer from 'components/shared/generic/backButton/containers/BackButtonContainer';
 
 const EditDocumentForm = ({
     handleInputChange,
@@ -43,169 +46,175 @@ const EditDocumentForm = ({
     documentID,
     file
 }) => (
-    <BlockContainer>
-        <BlockHeading title="Document Details" />
-        <p className="generic-text intro-text size-lg-12">
-            Instructions: ##Lorem ipsum dolor sit amet consectetur adipisicing
-            elit. Expedita sit quas, aliquam explicabo laboriosam illo. Beatae
-            architecto, laudantium iusto iure atque quas ea at possimus alias
-            iste eaque, fuga tenetur non vero repellat nostrum adipisci? Veniam,
-            aspernatur quidem sed voluptas hic quis doloremque tempora
-            dignissimos, incidunt natus perferendis, placeat possimus.##
-        </p>
-        <Form className="generic-form size-lg-12" onSubmit={handleSubmit}>
-            <Field classes="large-margin">
-                <RadioButton
-                    name="type"
-                    checked={type === '1' ? true : false}
-                    text={DOCUMENT_TYPE[1]}
-                    value="1"
-                    handleInputChange={handleRadioChange}
-                />
+    <>
+        <PageHeading leftChildren={true} title="Edit Document">
+            <BackButtonContainer />
+        </PageHeading>
 
-                <RadioButton
-                    name="type"
-                    checked={type === '2' ? true : false}
-                    text={DOCUMENT_TYPE[2]}
-                    value="2"
-                    handleInputChange={handleRadioChange}
-                />
+        <BlockContainer>
+            <BlockHeading title="Document Details" />
+            <p className="generic-text intro-text size-lg-12">
+                Instructions: ##Lorem ipsum dolor sit amet consectetur
+                adipisicing elit. Expedita sit quas, aliquam explicabo
+                laboriosam illo. Beatae architecto, laudantium iusto iure atque
+                quas ea at possimus alias iste eaque, fuga tenetur non vero
+                repellat nostrum adipisci? Veniam, aspernatur quidem sed
+                voluptas hic quis doloremque tempora dignissimos, incidunt natus
+                perferendis, placeat possimus.##
+            </p>
+            <Form className="generic-form size-lg-12" onSubmit={handleSubmit}>
+                <Field classes="large-margin">
+                    <RadioButton
+                        name="type"
+                        checked={type === '1' ? true : false}
+                        text={DOCUMENT_TYPE[1]}
+                        value="1"
+                        handleInputChange={handleRadioChange}
+                    />
 
-                <RadioButton
-                    name="type"
-                    checked={type === '3' ? true : false}
-                    text={DOCUMENT_TYPE[3]}
-                    value="3"
-                    handleInputChange={handleRadioChange}
-                />
-            </Field>
-            <Field name="Name of document" sizeClasses="size-lg-4">
-                <TextInputContainer
-                    value={name}
-                    name="name"
-                    type="text"
-                    handleChange={handleInputChange}
-                    required
-                    placeholder="Document name..."
-                />
-            </Field>
+                    <RadioButton
+                        name="type"
+                        checked={type === '2' ? true : false}
+                        text={DOCUMENT_TYPE[2]}
+                        value="2"
+                        handleInputChange={handleRadioChange}
+                    />
 
-            <div className="size-lg-12">
-                <div className="size-lg-6">
-                    {!isFileViewHidden ? (
-                        <Field name="Attached file">
-                            <FileView
-                                file={fileS3Key}
-                                handleHide={handleHide}
-                            />
-                        </Field>
-                    ) : (
-                        <Field name="Upload PDF or image">
-                            <FileUploadContainer
-                                name="file"
-                                value={file}
-                                acceptedTypes={['application/pdf', 'image/*']}
-                                handleChange={handleFileChange}
-                                required
-                            />
-                            <button
-                                className="button"
-                                onClick={handleCancelUpload}
-                            >
-                                Cancel File Replace
-                            </button>
-                        </Field>
-                    )}
-                </div>
-            </div>
-            <div className="size-lg-12">
-                <DatePickerContainer
-                    startOn={startOn}
-                    endOn={endOn}
-                    onChange={handleDateChange}
-                />
-            </div>
-            <div className="size-lg-12">
-                <Field name="Service types">
-                    <CheckboxListContainer
-                        required
-                        name="serviceIDs"
-                        handleChange={handleMultiselectChange}
-                        options={services}
-                        selectedOptions={serviceIDs}
+                    <RadioButton
+                        name="type"
+                        checked={type === '3' ? true : false}
+                        text={DOCUMENT_TYPE[3]}
+                        value="3"
+                        handleInputChange={handleRadioChange}
                     />
                 </Field>
-            </div>
-            {type !== '1' && (
-                <>
-                    <Field name="Options">
-                        <SwitchContainer
-                            checked={isPhotoRequired}
-                            handleChange={handleCheckboxChange}
-                            name="isPhotoRequired"
-                            text="Requires photo"
-                        />
-                        <SwitchContainer
-                            checked={isFileViewRequired}
-                            handleChange={handleCheckboxChange}
-                            name="isFileViewRequired"
-                            text="Requires file view"
-                        />
-                        <SwitchContainer
-                            checked={isSignatureRequired}
-                            handleChange={handleCheckboxChange}
-                            name="isSignatureRequired"
-                            text="Requires signature"
-                        />
-                        <SwitchContainer
-                            checked={isUpsyncForced}
-                            handleChange={handleCheckboxChange}
-                            name="isUpsyncForced"
-                            text="Force upsync to continue"
+                <Field name="Name of document" sizeClasses="size-lg-4">
+                    <TextInputContainer
+                        value={name}
+                        name="name"
+                        type="text"
+                        handleChange={handleInputChange}
+                        required
+                        placeholder="Document name..."
+                    />
+                </Field>
+
+                <div className="size-lg-12">
+                    <div className="size-lg-6">
+                        {!isFileViewHidden ? (
+                            <Field name="Attached file">
+                                <FileView
+                                    file={fileS3Key}
+                                    handleHide={handleHide}
+                                />
+                            </Field>
+                        ) : (
+                            <Field name="Upload PDF or image">
+                                <FileUploadContainer
+                                    name="file"
+                                    value={file}
+                                    acceptedTypes={[
+                                        'application/pdf',
+                                        'image/*'
+                                    ]}
+                                    handleChange={handleFileChange}
+                                    required
+                                />
+                                <button
+                                    className="button"
+                                    onClick={handleCancelUpload}
+                                >
+                                    Cancel File Replace
+                                </button>
+                            </Field>
+                        )}
+                    </div>
+                </div>
+                <div className="size-lg-12">
+                    <DatePickerContainer
+                        startOn={startOn}
+                        endOn={endOn}
+                        onChange={handleDateChange}
+                    />
+                </div>
+                <div className="size-lg-12">
+                    <Field name="Service types">
+                        <CheckboxListContainer
+                            required
+                            name="serviceIDs"
+                            handleChange={handleMultiselectChange}
+                            options={services}
+                            selectedOptions={serviceIDs}
                         />
                     </Field>
-                    {type === '3' && (
-                        <div className="size-lg-12">
-                            <div className="size-lg-6">
-                                <Field name="Agreeance frequency (days)">
-                                    <TextInputContainer
-                                        name="agreeanceEveryXDays"
-                                        type="number"
-                                        value={agreeanceEveryXDays}
-                                        handleChange={handleInputChange}
-                                    />
-                                </Field>
+                </div>
+                {type !== '1' && (
+                    <>
+                        <Field name="Options">
+                            <div className="checkbox-list size-lg-12">
+                                <Checkbox
+                                    name="isPhotoRequired"
+                                    text="Requires photo"
+                                    checked={isPhotoRequired}
+                                    handleChange={handleCheckboxChange}
+                                />
+                                <Checkbox
+                                    name="isFileViewRequired"
+                                    text="Requires file view"
+                                    checked={isFileViewRequired}
+                                    handleChange={handleCheckboxChange}
+                                />
+                                <Checkbox
+                                    name="isSignatureRequired"
+                                    text="Requires signature"
+                                    checked={isSignatureRequired}
+                                    handleChange={handleCheckboxChange}
+                                />
+                                <Checkbox
+                                    name="isUpsyncForced"
+                                    text="Force upsync to continue"
+                                    checked={isUpsyncForced}
+                                    handleChange={handleCheckboxChange}
+                                />
                             </div>
-                        </div>
-                    )}
-                </>
-            )}
-            <BlockButtonWrapper>
-                <button
-                    disabled={filesUploading}
-                    onClick={handleSubmit}
-                    className="button green"
-                >
-                    {filesUploading ? (
-                        'Please wait...'
-                    ) : (
-                        <>
-                            <i className="fa fa-plus" /> {'Confirm Changes'}
-                        </>
-                    )}
-                </button>
-                <Link
-                    to={location.pathname.replace(
-                        `/edit-document/${documentID}`,
-                        ''
-                    )}
-                    className="button"
-                >
-                    Cancel
-                </Link>
-            </BlockButtonWrapper>
-        </Form>
-    </BlockContainer>
+                        </Field>
+                        {type === '3' && (
+                            <div className="size-lg-12">
+                                <div className="size-lg-6">
+                                    <Field name="Agreeance frequency (days)">
+                                        <TextInputContainer
+                                            name="agreeanceEveryXDays"
+                                            type="number"
+                                            value={agreeanceEveryXDays}
+                                            handleChange={handleInputChange}
+                                        />
+                                    </Field>
+                                </div>
+                            </div>
+                        )}
+                    </>
+                )}
+                <BlockButtonWrapper>
+                    <button
+                        disabled={filesUploading}
+                        onClick={handleSubmit}
+                        className="button green"
+                    >
+                        {filesUploading ? 'Please wait...' : <>{'Confirm'}</>}
+                    </button>
+                    <Link
+                        to={location.pathname.replace(
+                            `/edit-document/${documentID}`,
+                            ''
+                        )}
+                        className="button"
+                    >
+                        Cancel
+                    </Link>
+                </BlockButtonWrapper>
+            </Form>
+        </BlockContainer>
+    </>
 );
 
 export default withRouter(EditDocumentForm);

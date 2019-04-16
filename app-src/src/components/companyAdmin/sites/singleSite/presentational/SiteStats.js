@@ -11,15 +11,16 @@ const SiteStats = ({ site, stats, handleDelete, handleArchive }) => (
         </div>
 
         <div className="button-container">
+            <button className="button red" onClick={handleDelete} type="button">
+                <i className="far fa-trash-alt fa-fw" /> Delete
+            </button>
             <Link
                 className="button yellow"
                 to={`/company/sites/${site.id}/edit`}
             >
                 <i className="far fa-pencil fa-fw" /> Edit
             </Link>
-            <button className="button red" onClick={handleDelete} type="button">
-                <i className="far fa-trash-alt fa-fw" /> Delete
-            </button>
+
             <button className="button" onClick={handleArchive} type="button">
                 <i className="fa fa-archive" />
                 {site.isArchived ? 'Un-Archive' : 'Archive'}

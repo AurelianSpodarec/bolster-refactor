@@ -27,7 +27,7 @@ const PieChart = ({ stats, hierarchyType }) => {
         : [{ title: 'Empty', value: 100, color: '#cecece' }];
     return (
         <div className="history size-lg-6">
-            <h4 className="heading heading-3 size-lg-6">
+            <h4 className="heading heading-3 size-lg-12">
                 Latest Pin Histories
             </h4>
 

@@ -14,7 +14,7 @@ const AllOperativesTable = ({ headers, users, isFetching, error }) => {
                     className="button"
                     to="/company/users-management/operatives/create"
                 >
-                    <i className="fa fa-plus" /> Add Operative
+                    <i className="fa fa-plus" /> Invite Operative
                 </Link>
             </BlockHeading>
             <Table

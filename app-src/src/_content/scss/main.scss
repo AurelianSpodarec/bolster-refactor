@@ -1036,6 +1036,18 @@ input {
     }
 }
 
+//uploaded file on edit doc
+.file-view {
+    img {
+        max-width: 100%;
+    }
+    .button {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+    }
+}
+
 //pin sections
 .pin-details-section {
     margin: 10px 0 15px;
