@@ -22,12 +22,12 @@ const Settings = ({ isFetching, error, companySettings: company }) => {
                 isEmpty={!company.name}
             >
                 {/* address  */}
-                <div className="size-lg-12">
+                <div className="field-group size-lg-12">
                     <BlockHeading
                         classes="sub-heading"
                         title="Company Details"
                     />
-                    <div className="size-lg-4">
+                    <div className=" size-lg-4">
                         <FieldOutput
                             title="Company Name"
                             description={company.name}
@@ -36,7 +36,7 @@ const Settings = ({ isFetching, error, companySettings: company }) => {
                         <FieldOutput
                             title="Address"
                             description={company.addressLine1}
-                            fieldClass="no-h-padding"
+                            fieldClass="address no-h-padding"
                         >
                             <p>{company.addressLine2}</p>
                             <p>{company.town}</p>
@@ -44,12 +44,8 @@ const Settings = ({ isFetching, error, companySettings: company }) => {
                             <p>{company.postcode}</p>
                         </FieldOutput>
                     </div>
+
                     <div className="size-lg-4">
-                        <FieldOutput
-                            title="Telephone"
-                            description={company.telephone}
-                            fieldClass="no-h-padding"
-                        />
                         <FieldOutput
                             title="Fax"
                             description={company.fax}
@@ -64,50 +60,83 @@ const Settings = ({ isFetching, error, companySettings: company }) => {
                 </div>
                 <div className="size-lg-12">
                     <BlockHeading title="Company Code" />
-                    {/* <h3 className="heading">Company Codes</h3> */}
-                    <p>Code: {company.code}</p>
-                    <p>Short Code: {company.shortCode}</p>
+
+                    <FieldOutput
+                        title="Code"
+                        description={company.code}
+                        fieldClass="no-h-padding"
+                        sizeClass="size-lg-4"
+                    />
+                    <FieldOutput
+                        title="Short Code"
+                        description={company.shortCode}
+                        fieldClass="no-h-padding"
+                        sizeClass="size-lg-4"
+                    />
                 </div>
-                <div>
-                    <h3 className="heading">Display Settings</h3>
-                    <p>Company Logo:</p>
+
+                <BlockHeading title="Display Settings" />
+
+                <FieldOutput
+                    title="Company Logo"
+                    fieldClass="no-h-padding"
+                    sizeClass="size-lg-4"
+                >
                     {company.logoFile ? (
                         <img
                             alt={`company logo for ${company.name}`}
                             src={`${FILE_STORAGE_URL}/${company.logoFile}`}
                         />
                     ) : (
-                        <p>##No logo##</p>
+                        <p className="no-data size-lg-12">No logo</p>
                     )}
+                </FieldOutput>
+                <FieldOutput
+                    title="Colour Code"
+                    description={company.colourCode}
+                    fieldClass="no-h-padding"
+                    sizeClass="size-lg-4"
+                />
+                <FieldOutput
+                    title="Dark Mode"
+                    description={company.isBolsterLogoDark ? 'On' : 'Off'}
+                    fieldClass="no-h-padding"
+                    sizeClass="size-lg-4"
+                />
 
-                    <p>Colour Code: {company.colourCode}</p>
-                    <p>Dark Mode: {company.isBolsterLogoDark ? 'On' : 'Off'}</p>
+                <BlockHeading title="Template Settings" />
+                <FieldOutput
+                    title="Default Template Usage Rule"
+                    description={
+                        TEMPLATE_USAGE_RULES[company.defaultTemplateUsageRule]
+                    }
+                    fieldClass="no-h-padding"
+                    sizeClass="size-lg-4"
+                />
+                <div className="size-lg-12">
+                    <BlockHeading title="Label Settings" />
+                    <FieldOutput
+                        title="Telephone Number"
+                        description={company.labelTelNumber}
+                        fieldClass="no-h-padding"
+                        sizeClass="size-lg-4"
+                    />
+                    <FieldOutput
+                        title="Company Name"
+                        description={company.labelCompanyName}
+                        fieldClass="no-h-padding"
+                        sizeClass="size-lg-4"
+                    />
+
+                    <BlockHeading title="Bolster Client List" />
+                    <FieldOutput
+                        title="Hidden on client list?"
+                        description={company.hideOnClientList ? 'Yes' : 'No'}
+                        fieldClass="no-h-padding"
+                        sizeClass="size-lg-4"
+                    />
                 </div>
-                <div>
-                    <h3 className="heading">Template Settings</h3>
-                    <p>
-                        Default Template Usage Rule:{' '}
-                        {TEMPLATE_USAGE_RULES[company.defaultTemplateUsageRule]}
-                    </p>
-                </div>
-                <div>
-                    <h3 className="heading">Label Settings</h3>
-                    <p>
-                        Telephone Number:
-                        {company.labelTelNumber}
-                    </p>
-                    <p>
-                        Company Name:
-                        {company.labelCompanyName}
-                    </p>
-                </div>
-                <div>
-                    <h3 className="heading">Bolster Client List</h3>
-                    <p>
-                        Hidden on client list?{' '}
-                        {company.hideOnClientList ? 'Yes' : 'No'}
-                    </p>
-                </div>
+
                 <BlockButtonWrapper>
                     <Link
                         className="button yellow"

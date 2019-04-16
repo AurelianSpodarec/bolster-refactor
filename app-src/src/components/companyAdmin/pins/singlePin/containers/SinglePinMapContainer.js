@@ -7,14 +7,17 @@ import updatePinCoordinates from 'actions/companyAdmin/drawings/sync/updatePinCo
 
 import SinglePinMap from '../presentational/SinglePinMap';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import fetchSingleDrawing from 'actions/companyAdmin/drawings/async/fetchSingleDrawing';
 
 class SinglePinMapContainer extends Component {
     render() {
-        const { pin, user, error, isFetching } = this.props;
+        const { pin, user, error, isFetching, drawings } = this.props;
+
+        const curDrawing = drawings.filter(item=>item.id === pin.drawingID)[0];
 
         return (
             <BlockContainer
-                isEmpty={!pin.id}
+                isEmpty={!pin.id || drawings.length===0}
                 isFetching={isFetching}
                 error={error}
             >
@@ -23,13 +26,15 @@ class SinglePinMapContainer extends Component {
                     pin={pin}
                     handleClick={this.handleClick}
                     user={user}
+                    drawing={curDrawing}
                 />
             </BlockContainer>
         );
     }
 
+
     componentDidUpdate = prevProps => {
-        const { pin, updatePinCoordinates } = this.props;
+        const { pin, updatePinCoordinates, fetchDrawing } = this.props;
         if (!prevProps.pin.id && pin.id) {
             this._setMapCentre(pin.location.latY, pin.location.lngX);
             const lat = pin.location.latY;
@@ -37,7 +42,11 @@ class SinglePinMapContainer extends Component {
 
             updatePinCoordinates('lat', lat);
             updatePinCoordinates('lng', lng);
+
+            fetchDrawing(pin.drawingID);
         }
+
+
     };
 
     handleClick = ({ latlng: { lat, lng } }) => {
@@ -57,7 +66,8 @@ const mapStateToProps = (
     {
         companyAdmin: {
             pinsReducer: { pins, error, isFetching },
-            companyUsersReducer: { users }
+            companyUsersReducer: { users },
+            drawingsReducer: {drawings}
         }
     },
     { match: { params } }
@@ -68,7 +78,8 @@ const mapStateToProps = (
         pin,
         user: users[pin.latestCreatedByCompanyUserID] || {},
         error,
-        isFetching
+        isFetching,
+        drawings: Object.values(drawings)
     };
 };
 
@@ -78,6 +89,9 @@ const mapDispatchToProps = dispatch => ({
     },
     updatePinCoordinates: (name, value) => {
         dispatch(updatePinCoordinates(name, value));
+    },
+    fetchDrawing: (drawingID) => {
+        dispatch(fetchSingleDrawing(drawingID));
     }
 });
 

@@ -1,29 +1,24 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 
-import Breadcrumb from 'components/shared/generic/breadcrumb/presentational/Breadcrumb';
 import InvoiceDetailsContainer from '../containers/InvoiceDetailsContainer';
 import InvoiceItemsTableContainer from '../containers/InvoiceItemsTableContainer';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
+import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
+import BackButtonContainer from 'components/shared/generic/backButton/containers/BackButtonContainer';
+import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 
 const SingleInvoice = ({ id, history }) => {
     return (
         <>
-            <Breadcrumb breadcrumbs={[{ text: `Invoice #${id}` }]} />
+            <PageHeading leftChildren={true} title={`Invoice #${id}`}>
+                <BackButtonContainer />
+            </PageHeading>
             <InvoiceDetailsContainer />
             <BlockContainer>
+                <BlockHeading title="Items Table" />
                 <InvoiceItemsTableContainer />
-                <BlockButtonWrapper>
-                    <button
-                        onClick={() => {
-                            history.goBack();
-                        }}
-                        className="button"
-                    >
-                        Back
-                    </button>
-                </BlockButtonWrapper>
             </BlockContainer>
         </>
     );
