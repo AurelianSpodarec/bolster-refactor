@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { convertArrToObj } from 'helpers/generic';
 
-import fetchDrawingTemplates from 'actions/companyAdmin/drawings/async/fetchDrawingTemplates';
 import createPin from 'actions/companyAdmin/pins/async/createPin';
 import resetPinAnswers from 'actions/companyAdmin/drawings/sync/resetPinAnswers';
 
@@ -59,16 +58,23 @@ class AddPinFormContainer extends Component {
     componentDidMount = () => {
         const {
             drawingID,
-            fetchDrawingTemplates,
+            pinID,
             coordinates,
-            history
+            history,
+            hierarchyType
         } = this.props;
 
-        if (!coordinates.lat || !coordinates.lng) {
-            history.push(`/company/drawings/${drawingID}`);
-        }
+        console.warn(hierarchyType);
 
-        fetchDrawingTemplates(drawingID);
+        if (!coordinates.lat || !coordinates.lng) {
+            if (hierarchyType === 'drawing') {
+                history.push(`/company/drawings/${drawingID}`);
+            }
+
+            if (hierarchyType === 'pin') {
+                history.push(`/company/pins/${pinID}`);
+            }
+        }
 
         window.addEventListener('beforeunload', this.handleBeforeUnload);
     };
@@ -150,36 +156,29 @@ class AddPinFormContainer extends Component {
     };
 }
 
-const mapStateToProps = (
-    {
-        companyAdmin: {
-            templatesReducer: { templates, isFetching, error },
-            addPinFormReducer: { answers },
-            addPinCoordinatesReducer: { coordinates },
-            pinsReducer: { postSuccess }
-        },
-        shared: {
-            filesUploadingReducer: { filesUploading },
-            confirmLeaveReducer: { confirmLeave }
-        }
+const mapStateToProps = ({
+    companyAdmin: {
+        templatesReducer: { templates, isFetching, error },
+        addPinFormReducer: { answers },
+        addPinCoordinatesReducer: { coordinates },
+        pinsReducer: { postSuccess }
     },
-    { match }
-) => ({
+    shared: {
+        filesUploadingReducer: { filesUploading },
+        confirmLeaveReducer: { confirmLeave }
+    }
+}) => ({
     templates: Object.values(templates),
     answers,
     coordinates,
     isFetching,
     error,
     postSuccess,
-    drawingID: match.params.id,
     filesUploading,
     confirmLeave
 });
 
 const mapDispatchToProps = dispatch => ({
-    fetchDrawingTemplates: drawingID => {
-        dispatch(fetchDrawingTemplates(drawingID));
-    },
     createPin: postBody => {
         dispatch(createPin(postBody));
     },

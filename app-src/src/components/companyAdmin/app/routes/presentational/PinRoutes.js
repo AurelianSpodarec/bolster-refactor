@@ -3,7 +3,7 @@ import { Route } from 'react-router-dom';
 
 import SwitchWith404 from 'components/appRoute/routes/presentational/SwitchWith404';
 import SinglePinContainer from 'components/companyAdmin/pins/singlePin/containers/SinglePinContainer';
-import AddPinHistoryContainer from 'components/companyAdmin/pins/addPinHistory/containers/AddPinHistoryContainer';
+import AddPinHistory from 'components/companyAdmin/pins/addPinHistory/presentational/AddPinHistory';
 
 const PinRoutes = ({ base = '/company/pins' }) => (
     <SwitchWith404>
@@ -11,7 +11,7 @@ const PinRoutes = ({ base = '/company/pins' }) => (
         <Route
             exact
             path={`${base}/:id/add-history`}
-            component={AddPinHistoryContainer}
+            component={AddPinHistory}
         />
     </SwitchWith404>
 );
