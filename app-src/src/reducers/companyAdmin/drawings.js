@@ -36,6 +36,8 @@ function isFetchingReducer(state = false, action) {
             return true;
         case FETCH_ALL_DRAWINGS_SUCCESS:
         case FETCH_ALL_DRAWINGS_FAILURE:
+        case FETCH_SINGLE_DRAWING_SUCCESS:
+        case FETCH_SINGLE_DRAWING_FAILURE:
             return false;
         default:
             return state;
