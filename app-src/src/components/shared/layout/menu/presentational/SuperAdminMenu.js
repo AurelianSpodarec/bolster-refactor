@@ -1,9 +1,10 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import MenuItemContainer from '../containers/MenuItemContainer';
 // import DropdownMenuItemContainer from '../containers/DropdownMenuItemContainer';
 
-const SuperAdminMenu = () => (
+const SuperAdminMenu = ({ logout }) => (
     <>
         <div className="menu-bg" />
 
@@ -26,6 +27,10 @@ const SuperAdminMenu = () => (
             <MenuItemContainer link="/admin/users">
                 <i className="fa fa-user icon" /> Users
             </MenuItemContainer>
+            <Link className="item" to="#" link="/admin/users" onClick={logout}>
+                <i className="icon fas fa-sign-out" />
+                Logout
+            </Link>
         </div>
     </>
 );
