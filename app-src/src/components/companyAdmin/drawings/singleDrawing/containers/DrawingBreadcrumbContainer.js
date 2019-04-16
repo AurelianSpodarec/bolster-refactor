@@ -9,120 +9,88 @@ import fetchSingleFloor from 'actions/companyAdmin/floors/async/fetchSingleFloor
 import Breadcrumb from 'components/shared/generic/breadcrumb/presentational/Breadcrumb';
 
 class DrawingBreadcrumbContainer extends Component {
-    state = {
-        siteName: '',
-        siteID: 0,
-        buildingName: '',
-        buildingID: 0,
-        floorName: '',
-        floorID: 0
-    };
-
     render() {
+        const { site, building, floor, drawing, isFetching } = this.props;
         const breadcrumbsArray = [
             {
                 text: 'Sites',
                 link: '/company/sites/'
             },
             {
-                text: this.state.siteName,
-                link: `/company/sites/${this.state.siteID}`
+                text: site.name,
+                link: `/company/sites/${site.id}`
             },
             {
-                text: this.state.buildingName,
-                link: `/company/buildings/${this.state.buildingID}`
+                text: building.name,
+                link: `/company/buildings/${building.id}`
             },
             {
-                text: this.state.floorName,
-                link: `/company/floors/${this.state.floorID}`
+                text: floor.name,
+                link: `/company/floors/${floor.id}`
             },
-            { text: this.props.drawing.name }
+            { text: drawing.name }
         ];
         return (
-            <Breadcrumb breadcrumbs={breadcrumbsArray}>
+            <Breadcrumb
+                breadcrumbs={
+                    !isFetching ? breadcrumbsArray : [{ text: 'Loading...' }]
+                }
+            >
                 {this.props.children}
             </Breadcrumb>
         );
     }
 
-    _setDrawingDetails = () => {
-        const { drawing, floors, sites, buildings } = this.props;
+    componentDidMount() {
+        const { drawing } = this.props;
+        if (drawing.floorID) this.fetchData();
+    }
+    componentDidUpdate(prevProps) {
+        const { drawing } = this.props;
+        if (drawing.floorID && !prevProps.drawing.floorID) this.fetchData();
+    }
 
-        this.setState({
-            siteName:
-                sites[buildings[floors[drawing.floorID].buildingID].siteID]
-                    .name,
-            siteID: buildings[floors[drawing.floorID].buildingID].siteID,
-            buildingName: buildings[floors[drawing.floorID].buildingID].name,
-            buildingID: floors[drawing.floorID].buildingID,
-            floorName: floors[drawing.floorID].name,
-            floorID: drawing.floorID
-        });
-    };
-
-    componentDidMount = () => {
-        const { sites, buildings } = this.props;
-
-        if (Object.values(sites).length && Object.values(buildings).length) {
-            this._setDrawingDetails();
-        }
-    };
-
-    componentDidUpdate = prevProps => {
+    fetchData = () => {
         const {
             drawing,
-            floors,
-            buildings,
-            fetchSingleSite,
-            fetchSingleBuilding,
             fetchSingleFloor,
-            sites
+            fetchSingleBuilding,
+            fetchSingleSite
         } = this.props;
 
-        if (!prevProps.drawing.id && !!drawing.id) {
-            fetchSingleFloor(drawing.floorID);
-        }
-
-        if (
-            !Object.values(prevProps.floors).length &&
-            Object.values(floors).length
-        ) {
-            fetchSingleBuilding(floors[drawing.floorID].buildingID);
-        }
-
-        if (
-            !Object.values(prevProps.buildings).length &&
-            Object.values(buildings).length
-        ) {
-            fetchSingleSite(
-                buildings[floors[drawing.floorID].buildingID].siteID
-            );
-        }
-        if (
-            !Object.values(prevProps.sites).length &&
-            Object.values(sites).length
-        ) {
-            this._setDrawingDetails();
-        }
+        fetchSingleFloor(drawing.floorID)
+            .then(({ payload }) => fetchSingleBuilding(payload.buildingID))
+            .then(({ payload }) => fetchSingleSite(payload.siteID));
     };
 }
 
 const mapStateToProps = (
     {
         companyAdmin: {
-            drawingsReducer: { drawings },
-            floorsReducer: { floors },
-            buildingsReducer: { buildings },
-            sitesReducer: { sites }
+            drawingsReducer: { drawings, isFetching: fetchingDrawings },
+            floorsReducer: { floors, isFetching: fetchingFloors },
+            buildingsReducer: { buildings, isFetching: fetchingBuildings },
+            sitesReducer: { sites, isFetching: fetchingSites }
         }
     },
     { match }
-) => ({
-    drawing: drawings[match.params.id] || {},
-    floors: floors,
-    buildings: buildings,
-    sites: sites
-});
+) => {
+    const drawing = drawings[match.params.id] || {};
+    const floor = floors[drawing.floorID] || {};
+    const building = buildings[floor.buildingID] || {};
+    const site = sites[building.siteID] || {};
+    return {
+        drawing,
+        floor,
+        building,
+        site,
+        isFetching:
+            fetchingDrawings ||
+            fetchingFloors ||
+            fetchingBuildings ||
+            fetchingSites
+    };
+};
 
 const mapDispatchToProps = dispatch => ({
     fetchSingleBuilding: buildingID => {
