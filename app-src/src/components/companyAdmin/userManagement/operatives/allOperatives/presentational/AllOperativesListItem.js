@@ -13,14 +13,14 @@ const AllOperativesListItem = ({ user, showDeleteModal }) => (
                     className="button red"
                     onClick={() => showDeleteModal(user.id)}
                 >
-                    <i className="fa -alt" />
-                    Delete User
+                    <i className="far fa-trash-alt" />
+                    Delete
                 </button>
                 <Link
-                    className="button"
+                    className="button yellow"
                     to={`/company/users-management/operatives/${user.id}/edit`}
                 >
-                    Edit
+                    <i className="far fa-pencil" /> Edit
                 </Link>
                 <Link
                     className="button"

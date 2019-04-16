@@ -64,10 +64,10 @@ const PinDetails = ({
 
         <BlockButtonWrapper>
             <a className="button red" href="#/">
-                <i className="icon fa fa-trash-alt" /> Delete this history
+                <i className="icon fa fa-trash-alt" /> Delete history
             </a>
-            <a className="button" href="#/">
-                Edit this history
+            <a className="button yellow" href="#">
+                <i className="far fa-pencil" /> Edit history
             </a>
         </BlockButtonWrapper>
     </>

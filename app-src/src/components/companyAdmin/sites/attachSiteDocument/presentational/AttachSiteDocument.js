@@ -10,9 +10,8 @@ const AttachSiteDocument = () => (
         <PageHeading leftChildren={true} title="Attach Document">
             <BackButtonContainer />
         </PageHeading>
-        <BlockContainer>
-            <AttachDocumentFormContainer hierarchyType="site" />
-        </BlockContainer>
+
+        <AttachDocumentFormContainer hierarchyType="site" />
     </>
 );
 

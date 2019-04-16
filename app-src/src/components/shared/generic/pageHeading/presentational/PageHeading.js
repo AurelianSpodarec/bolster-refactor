@@ -6,7 +6,7 @@ const PageHeading = ({ children, title, leftChildren = false }) => (
     >
         <div className="content-container size-lg-12">
             {leftChildren && children}
-            <h1 className="heading heading-1 size-lg-12">{title}</h1>
+            <h1 className="heading heading-1">{title}</h1>
             {!leftChildren && children}
         </div>
     </div>

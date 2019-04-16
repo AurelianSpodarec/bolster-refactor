@@ -40,7 +40,7 @@ const EditCompanyUserPassword = ({
             </div>
             <BlockButtonWrapper>
                 <button className="button green">
-                    <i className="fa fa-plus" /> Confirm Edit
+                    <i className="fa fa-plus" /> Confirm
                 </button>
                 <Link
                     to={location.pathname.replace(

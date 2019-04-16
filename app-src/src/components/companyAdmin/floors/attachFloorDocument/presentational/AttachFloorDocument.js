@@ -10,9 +10,8 @@ const AttachFloorDocument = () => (
         <PageHeading leftChildren={true} title={'Attach Document'}>
             <BackButtonContainer />
         </PageHeading>
-        <BlockContainer>
-            <AttachDocumentFormContainer hierarchyType="floor" />
-        </BlockContainer>
+
+        <AttachDocumentFormContainer hierarchyType="floor" />
     </>
 );
 

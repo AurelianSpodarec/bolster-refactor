@@ -39,7 +39,7 @@ const GeneralOverview = ({ handleDelete, handleArchive, drawing }) => (
                         className="button red"
                         onClick={handleDelete}
                     >
-                        <i className="fal fa-trash-alt" /> Delete drawing
+                        <i className="far fa-trash-alt" /> Delete drawing
                     </button>
                     <button
                         className="button"

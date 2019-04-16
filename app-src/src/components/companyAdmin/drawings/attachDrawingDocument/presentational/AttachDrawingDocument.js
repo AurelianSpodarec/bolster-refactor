@@ -10,9 +10,8 @@ const AttachDrawingDocument = () => (
         <PageHeading leftChildren={true} title={'Attach Document'}>
             <BackButtonContainer />
         </PageHeading>
-        <BlockContainer>
-            <AttachDocumentFormContainer hierarchyType="drawing" />
-        </BlockContainer>
+
+        <AttachDocumentFormContainer hierarchyType="drawing" />
     </>
 );
 
