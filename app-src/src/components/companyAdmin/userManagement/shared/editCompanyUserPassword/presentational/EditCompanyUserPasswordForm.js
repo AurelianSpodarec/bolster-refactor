@@ -39,9 +39,7 @@ const EditCompanyUserPassword = ({
                 </Field>
             </div>
             <BlockButtonWrapper>
-                <button className="button green">
-                    <i className="fa fa-plus" /> Confirm Edit
-                </button>
+                <button className="button green">Confirm</button>
                 <Link
                     to={location.pathname.replace(
                         `${match.params.id}/edit-password`,

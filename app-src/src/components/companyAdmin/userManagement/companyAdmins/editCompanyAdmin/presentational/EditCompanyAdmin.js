@@ -2,22 +2,17 @@ import React from 'react';
 
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
-import Breadcrumb from 'components/shared/generic/breadcrumb/presentational/Breadcrumb';
 import EditCompanyUserFormContainer from 'components/companyAdmin/userManagement/shared/editCompanyUser/containers/EditCompanyUserFormContainer';
+import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
+import BackButtonContainer from 'components/shared/generic/backButton/containers/BackButtonContainer';
 
-const EditCompanyAdmin = ({ adminName }) => (
+const EditCompanyAdmin = () => (
     <>
-        <Breadcrumb
-            breadcrumbs={[
-                {
-                    text: 'All Company Admins',
-                    link: '/company/users-management/company-admins'
-                },
-                { text: `Edit ${adminName}` }
-            ]}
-        />
-        <PageHeading title={`Edit ${adminName}`} />
+        <PageHeading leftChildren={true} title={'Edit company admin'}>
+            <BackButtonContainer />
+        </PageHeading>
         <BlockContainer>
+            <BlockHeading title="Company Admin Details" />
             <EditCompanyUserFormContainer />
         </BlockContainer>
     </>

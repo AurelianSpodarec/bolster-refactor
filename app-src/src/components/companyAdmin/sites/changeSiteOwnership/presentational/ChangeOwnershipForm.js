@@ -25,7 +25,6 @@ const ChangeOwnershipForm = ({
             </Field>
             <p />
             <Link className="button" to={url.replace('/change-ownership', '')}>
-                <i className="fa fa-times" />
                 Cancel
             </Link>
             <button className="button" onClick={handleSubmit}>

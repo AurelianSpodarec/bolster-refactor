@@ -31,7 +31,7 @@ const EditTemplateQuestionModal = ({
                         value={id}
                         onClick={handleRemoveOption}
                     >
-                        <i className="fa fa-times" />
+                        <i className="far fa-trash-alt" />
                         Delete Option
                     </button>
                 </Field>

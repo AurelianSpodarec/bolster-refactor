@@ -2,22 +2,19 @@ import React from 'react';
 
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
-import Breadcrumb from 'components/shared/generic/breadcrumb/presentational/Breadcrumb';
 import EditCompanyUserPasswordFormContainer from 'components/companyAdmin/userManagement/shared/editCompanyUserPassword/containers/EditCompanyUserPasswordFormContainer';
+import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
+import BackButtonContainer from 'components/shared/generic/backButton/containers/BackButtonContainer';
 
-const EditOperativePassword = ({ operativeName }) => (
+const EditOperativePassword = () => (
     <>
-        <Breadcrumb
-            breadcrumbs={[
-                {
-                    text: 'All Operatives',
-                    link: '/company/users-management/operatvies'
-                },
-                { text: `Edit ${operativeName} password` }
-            ]}
-        />
-        <PageHeading title={`Edit ${operativeName} password`} />
+        <PageHeading leftChildren={true} title="Change Operative Password">
+            <BackButtonContainer />
+        </PageHeading>
+
         <BlockContainer>
+            <BlockHeading title="New password" />
+
             <EditCompanyUserPasswordFormContainer />
         </BlockContainer>
     </>

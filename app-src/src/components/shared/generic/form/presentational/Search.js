@@ -1,14 +1,14 @@
 import React from 'react';
 
-const Search = props => (
+const Search = ({ name, placeholder, value, handleChange }) => (
     <div className="generic-search">
         <i className="search-icon far fa-search" />
         <input
             type="text"
-            name={props.name}
-            placeholder={props.placeholder}
-            value={props.value}
-            onChange={props.handleChange}
+            name={name}
+            placeholder={placeholder}
+            value={value}
+            onChange={handleChange}
         />
     </div>
 );

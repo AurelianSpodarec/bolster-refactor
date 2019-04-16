@@ -25,7 +25,7 @@ const CardListItem = ({
                         deleteCard();
                     }}
                 >
-                    <i className="fa fa-times" />
+                    <i className="far fa-trash-alt" />
                     Delete
                 </button>
             </BlockButtonWrapper>

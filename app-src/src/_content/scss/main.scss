@@ -650,8 +650,10 @@ input {
     }
 
     .heading {
+        float: left;
         line-height: 1;
         margin-bottom: 5px;
+        text-transform: capitalize;
     }
 
     .button,
@@ -1032,6 +1034,18 @@ input {
         strong {
             @include ubuntu-medium;
         }
+    }
+}
+
+//uploaded file on edit doc
+.file-view {
+    img {
+        max-width: 100%;
+    }
+    .button {
+        position: absolute;
+        top: 5px;
+        right: 5px;
     }
 }
 

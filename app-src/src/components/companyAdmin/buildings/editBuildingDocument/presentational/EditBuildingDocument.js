@@ -5,16 +5,6 @@ import EditDocumentFormContainer from 'components/shared/documents/containers/Ed
 
 const EditBuildingDocument = () => (
     <>
-        <Breadcrumbs
-            // ? what is the route?
-            breadcrumbs={[
-                { text: '##' },
-                { text: 'Buildings' },
-                { text: 'Building ID' },
-                { text: 'Edit Document' },
-                { text: '##' }
-            ]}
-        />
         <EditDocumentFormContainer hierarchyType="building" />
     </>
 );

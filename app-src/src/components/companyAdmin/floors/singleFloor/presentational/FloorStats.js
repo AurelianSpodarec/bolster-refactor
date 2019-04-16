@@ -9,15 +9,16 @@ const FloorStats = ({ floor, stats, handleDelete, handleArchive }) => (
         <FloorDetails stats={stats} floor={floor} />
         <PieChart stats={stats} hierarchyType="floor" />
         <div className="button-container">
+            <button className="button red" type="button" onClick={handleDelete}>
+                <i className="far fa-trash-alt fa-fw" /> Delete
+            </button>
             <Link
                 className="button yellow"
                 to={`/company/floors/${floor.id}/edit`}
             >
                 <i className="far fa-pencil fa-fw" /> Edit
             </Link>
-            <button className="button red" type="button" onClick={handleDelete}>
-                <i className="far fa-trash-alt fa-fw" /> Delete
-            </button>
+
             <button className="button" onClick={handleArchive} type="button">
                 <i className="fa fa-archive" />
                 {floor.isArchived ? 'Un-Archive' : 'Archive'}

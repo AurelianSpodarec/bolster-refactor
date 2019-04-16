@@ -12,6 +12,7 @@ import { DOCUMENT_TYPE } from 'constants/companyAdmin/enums';
 import CheckboxListContainer from 'components/shared/generic/form/containers/CheckboxListContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import Checkbox from 'components/shared/generic/form/presentational/Checkbox';
+import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 
 const AttachDocumentForm = ({
     handleInputChange,
@@ -36,7 +37,7 @@ const AttachDocumentForm = ({
     location,
     file
 }) => (
-    <>
+    <BlockContainer>
         <BlockHeading title="Document details" />
         <p className="generic-text intro-text size-lg-12">
             <strong>Instructions:</strong> ##Lorem ipsum dolor sit amet
@@ -85,7 +86,6 @@ const AttachDocumentForm = ({
                 />
             </Field>
 
-            {/* is this the right way of styling this? */}
             <div className="size-lg-12">
                 <div className="size-lg-6">
                     <Field name="Upload PDF or image">
@@ -184,7 +184,7 @@ const AttachDocumentForm = ({
                 </Link>
             </BlockButtonWrapper>
         </Form>
-    </>
+    </BlockContainer>
 );
 
 export default withRouter(AttachDocumentForm);
