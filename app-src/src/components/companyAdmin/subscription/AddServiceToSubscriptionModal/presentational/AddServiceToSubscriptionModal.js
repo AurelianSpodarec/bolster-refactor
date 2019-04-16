@@ -20,12 +20,13 @@ const AddServiceToSubscriptionModal = ({
 }) => (
     <ModalOuterContainer>
         <BlockHeading title="Add service to your subscription" />
-        <p>
-            Adding the {service.name} service to your subscription will increase
-            your yearly renewal from £{proRataCost.currentAnnualCost} to £
-            {proRataCost.newAnnualCost}, you will be billed pro-rata for your
-            remaining subscription, leaving a £{proRataCost.proRataCost}
-            fee to pay now.
+        <p className="generic-text intro-text size-lg-12">
+            Adding the <strong>{service.name}</strong> service to your
+            subscription will increase your yearly renewal from{' '}
+            <strong>£{proRataCost.currentAnnualCost}</strong> to{' '}
+            <strong>£{proRataCost.newAnnualCost}</strong>, you will be billed
+            pro-rata for your remaining subscription, leaving a{' '}
+            <strong>£{proRataCost.proRataCost}</strong> fee to pay now.
         </p>
 
         <Form className="generic-form" onSubmit={handleSubmit}>
@@ -38,21 +39,8 @@ const AddServiceToSubscriptionModal = ({
                         handleInputChange={handleChange}
                         text="Pay using card"
                     />
-                    <DropdownContainer
-                        disabled={+paymentType !== PAYMENT_IDS.CARD}
-                        required={+paymentType === PAYMENT_IDS.CARD}
-                        withoutPlaceholder
-                        placeholder={
-                            !cards.length
-                                ? 'Please add a card to use card payments.'
-                                : 'Loading cards...'
-                        }
-                        name="stripeCardID"
-                        options={cards}
-                        selectedOption={selectedCard}
-                        handleChange={handleChange}
-                    />
                 </div>
+
                 <div className="size-lg-6">
                     <RadioButton
                         name="paymentType"
@@ -61,17 +49,29 @@ const AddServiceToSubscriptionModal = ({
                         handleInputChange={handleChange}
                         text="Pay by invoice"
                     />
-                    <p>
-                        ##Note: lorem ipsum lorem ipsum lorem ipsum lorem ipsum
-                        lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem
-                        ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum
-                        lorem ipsum lorem ipsum lorem ipsum lorem ipsum##
-                    </p>
                 </div>
             </Field>
+
+            <Field sizeClasses="size-lg-5">
+                <DropdownContainer
+                    disabled={+paymentType !== PAYMENT_IDS.CARD}
+                    required={+paymentType === PAYMENT_IDS.CARD}
+                    withoutPlaceholder
+                    placeholder={
+                        !cards.length
+                            ? 'Please add a card to use card payments.'
+                            : 'Loading cards...'
+                    }
+                    name="stripeCardID"
+                    options={cards}
+                    selectedOption={selectedCard}
+                    handleChange={handleChange}
+                    classes="w-radio"
+                />
+            </Field>
             <BlockButtonWrapper>
-                <button className="button" type="submit">
-                    Buy now
+                <button className="button green" type="submit">
+                    Buy
                 </button>
                 <button className="button" onClick={hideModal}>
                     Cancel

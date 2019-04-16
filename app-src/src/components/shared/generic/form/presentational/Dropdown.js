@@ -11,10 +11,14 @@ const Dropdown = ({
     withoutPlaceholder = false,
     error,
     disabled = false,
-    required = false
+    required = false,
+    classes = ''
 }) => {
     return (
-        <div className="custom-dropdown size-lg-12">
+        <div
+            className={`custom-dropdown ${disabled &&
+                'disabled'} ${classes} size-lg-12`}
+        >
             <input type="text" value={selectedOption.text} readOnly />
             <i className="arrow fas fa-caret-down" />
             {!!(error && error.length) && (

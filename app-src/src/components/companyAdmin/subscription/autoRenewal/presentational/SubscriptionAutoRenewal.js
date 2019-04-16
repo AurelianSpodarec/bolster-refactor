@@ -44,10 +44,7 @@ const SubscriptionAutoRenewal = ({
                     checked={renewalType === SUBSCRIPTION_RENEWAL_IDS.INVOICE}
                     disabled={!isAutoRenew}
                     handleInputChange={handleRadioChange}
-                    extraDetails="##Lorem ipsum dolor sit, amet consectetur
-                        adipisicing elit. Qui architecto voluptas, nisi
-                        explicabo eveniet saepe voluptates reiciendis doloribus,
-                        assumenda quam dolorum ut ad ducimus est.##"
+                    extraDetails=" You can choose to pay for your renewal with either your default credit card or by invoice"
                 />
             </Field>
         </div>
