@@ -36,7 +36,7 @@ const EditSettingsForm = ({
     selectedRule
 }) => (
     <>
-        <Form className="content-area size-lg-12" onSubmit={handleSubmit}>
+        <Form className="generic-form ize-lg-12" onSubmit={handleSubmit}>
             {/* <p>##Company Details##</p> */}
             <Field name="Company Name" sizeClasses="size-lg-6">
                 <TextInputContainer
@@ -199,13 +199,7 @@ const EditSettingsForm = ({
                     onClick={handleSubmit}
                     className="button green"
                 >
-                    {filesUploading ? (
-                        'Please wait...'
-                    ) : (
-                        <>
-                            <i className="fa fa-plus" /> {'Confirm Changes'}
-                        </>
-                    )}
+                    {filesUploading ? 'Please wait...' : <>{'Confirm'}</>}
                 </button>
                 <Link
                     to={location.pathname.replace('/edit-settings', '')}
