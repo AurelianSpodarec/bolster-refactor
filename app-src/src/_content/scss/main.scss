@@ -814,6 +814,7 @@ input {
         font-size: 140%;
         margin-bottom: 12.5px;
         @include ubuntu-medium;
+        text-transform: capitalize;
     }
 
     .error {

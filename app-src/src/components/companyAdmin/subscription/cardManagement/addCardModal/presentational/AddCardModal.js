@@ -20,7 +20,7 @@ const AddCardModal = ({
 }) => {
     return (
         <ModalOuterContainer>
-            <BlockHeading title="Add a card" />
+            <BlockHeading title="Add card" />
             <Form className="generic-form" onSubmit={handleSubmit}>
                 <div className="size-lg-6">
                     <Field name="Card Nickname">
@@ -42,7 +42,7 @@ const AddCardModal = ({
                             value={name}
                             type="text"
                             required
-                            placeholder="Name on card..."
+                            placeholder="Name On Card"
                         />
                     </Field>
                 </div>
@@ -66,7 +66,7 @@ const AddCardModal = ({
                             value={expiryMonth}
                             type="number"
                             required
-                            placeholder="11"
+                            placeholder="00"
                             validate={validateMaxLength(2)}
                         />
                     </Field>
@@ -79,7 +79,7 @@ const AddCardModal = ({
                             value={expiryYear}
                             type="number"
                             required
-                            placeholder="19"
+                            placeholder="00"
                             validate={validateMaxLength(4)}
                         />
                     </Field>
@@ -92,7 +92,7 @@ const AddCardModal = ({
                             value={CV2}
                             type="number"
                             required
-                            placeholder="777"
+                            placeholder="000"
                             validate={value => validateMaxLength(3)(value)}
                         />
                     </Field>

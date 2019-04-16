@@ -20,13 +20,12 @@ const CardListItem = ({
                     </button>
                 )}
                 <button
-                    className="button red"
+                    className="button icon-only red"
                     onClick={() => {
                         deleteCard();
                     }}
                 >
                     <i className="far fa-trash-alt" />
-                    Delete
                 </button>
             </BlockButtonWrapper>
         </td>
