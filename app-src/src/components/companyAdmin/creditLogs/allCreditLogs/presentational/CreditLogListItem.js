@@ -11,7 +11,6 @@ const CreditLogsListItem = ({
         <td>{moment(createdOn).format('DD/MM/YYYY hh:mm a')}</td>
         <td>{CREDIT_LOG_TYPES[type]}</td>
         <td>{quantity}</td>
-        <td>{invoiceID}</td>
         <td>
             {invoiceID ?
                 <Link className="button" to={`/company/invoices/${invoiceID}`}>
