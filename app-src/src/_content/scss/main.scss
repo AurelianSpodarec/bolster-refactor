@@ -856,9 +856,6 @@ input {
             border: 1px solid #e1e1e1;
         }
     }
-    .checkbox {
-        margin-bottom: 25px;
-    }
 }
 
 .checkbox {
@@ -1860,6 +1857,11 @@ input {
             width: 30%;
             min-width: 30%;
             height: auto;
+            .generic-form {
+                max-height: 887px;
+                overflow-y: scroll;
+                float: left;
+            }
         }
     }
 
@@ -2254,5 +2256,18 @@ input {
             @include ubuntu-medium;
             padding: 5px 10px 2.5px 10px;
         }
+    }
+}
+
+.dropdown-create {
+    .add-option {
+        float: right;
+        margin-right: 10px;
+    }
+
+    .delete-question {
+        position: absolute;
+        right: 15px;
+        top: -2px;
     }
 }

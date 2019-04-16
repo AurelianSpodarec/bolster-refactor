@@ -10,6 +10,7 @@ import Field from 'components/shared/generic/form/presentational/Field';
 import BlockButtonWrapper from '../../../../shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import SpecificFieldsRoute from '../containers/SpecificFieldsRoute';
+import Checkbox from 'components/shared/generic/form/presentational/Checkbox';
 
 const AddTemplateQuestionFormModal = ({
     questionTypeOptions,
@@ -29,7 +30,7 @@ const AddTemplateQuestionFormModal = ({
 }) => (
     <ModalOuterContainer extraClasses="w-form">
         <BlockHeading title={`${action} question`} />
-        <Form onSubmit={handleSubmit}>
+        <Form onSubmit={handleSubmit} className="generic-form">
             <Field name="Question type">
                 <DropdownContainer
                     name="questionType"
@@ -73,27 +74,24 @@ const AddTemplateQuestionFormModal = ({
                 {...otherFields}
             />
             <Field name="Required?">
-                <input
+                <Checkbox
                     name="isRequired"
-                    type="checkbox"
                     checked={isRequired}
-                    onChange={handleInputChange}
+                    handleChange={handleInputChange}
                 />
             </Field>
             <Field name="Hidden?">
-                <input
+                <Checkbox
                     name="isHidden"
-                    type="checkbox"
                     checked={isHidden}
-                    onChange={handleInputChange}
+                    handleChange={handleInputChange}
                 />
             </Field>
             <Field name="Prefill on create?">
-                <input
+                <Checkbox
                     name="isPrefill"
-                    type="checkbox"
                     checked={isPrefill}
-                    onChange={handleInputChange}
+                    handleChange={handleInputChange}
                 />
             </Field>
             <BlockButtonWrapper>
