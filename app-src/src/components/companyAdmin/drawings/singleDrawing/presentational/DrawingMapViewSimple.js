@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Map, TileLayer, Marker } from 'react-leaflet';
 import { FILE_STORAGE_URL } from 'config';
 
-import MapPin from 'components/shared/pins/presentational/MapPin';
+import MapPin from 'components/shared/pins/map/presentational/MapPin';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 
 const DrawingMapViewSimple = ({
