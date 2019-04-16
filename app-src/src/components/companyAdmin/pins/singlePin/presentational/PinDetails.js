@@ -56,7 +56,7 @@ const PinDetails = ({
             fieldClass="no-h-padding"
         />
 
-        <PinSectionsContainer />
+        <PinSectionsContainer pinHistory={pinHistory} />
 
         {/* <div className="field-output no-h-padding size-lg-12">
                 <label className="title">Photo(s)</label>

@@ -15,10 +15,10 @@ const PinHistoriesListItem = ({
     services
 }) => (
     <div className="item">
-        <div
+        {/* <div
             className="image-holder"
             style={{ backgroundImage: `url(${image})` }}
-        />
+        /> */}
         <div className="outputs">
             <FieldOutput
                 title="History"
