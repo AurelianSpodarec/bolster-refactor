@@ -14,7 +14,7 @@ class AddCompanyPermissionsFormContainer extends Component {
     render() {
         const { serviceIDs } = this.state;
         const serviceOptions = this._getServicesOptions();
-        const { error } = this.props;
+        const { error, companyID } = this.props;
 
         return (
             <BlockContainer error={error}>
@@ -25,6 +25,7 @@ class AddCompanyPermissionsFormContainer extends Component {
                     handleChange={this.handleChange}
                     handleMultiselectChange={this.handleMultiselectChange}
                     handleSubmit={this.handleSubmit}
+                    companyID={companyID}
                 />
             </BlockContainer>
         );

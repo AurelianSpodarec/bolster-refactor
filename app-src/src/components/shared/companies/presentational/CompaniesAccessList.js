@@ -21,7 +21,7 @@ const CompaniesAccessList = ({ companies, parentId, handleRemovePermission }) =>
                     ) : (
                         <>
                             <Link
-                                to={`${parentId}/edit-company/${
+                                to={`${parentId}/add-permissions/${
                                     company.companyID
                                 }`}
                                 className="button green icon-only"

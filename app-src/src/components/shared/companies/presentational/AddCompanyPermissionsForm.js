@@ -12,7 +12,8 @@ const AddCompanyPermissionsForm = ({
     handleSubmit,
     serviceOptions,
     checkedServices,
-    handleMultiselectChange
+    handleMultiselectChange,
+    companyID
 }) => (
     <>
         <BlockHeading title="Services" />
@@ -33,7 +34,10 @@ const AddCompanyPermissionsForm = ({
                     Add permissions
                 </button>
                 <Link
-                    to={location.pathname.replace('/add-permissions/', '')}
+                    to={location.pathname.replace(
+                        `/add-permissions/${companyID}`,
+                        ''
+                    )}
                     className="button"
                 >
                     Cancel
