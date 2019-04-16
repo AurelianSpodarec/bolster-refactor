@@ -69,6 +69,16 @@ class AddPinFormContainer extends Component {
         }
 
         fetchDrawingTemplates(drawingID);
+        
+        window.addEventListener('beforeunload', this.handleBeforeUnload);
+    };
+
+    componentWillUnmount() {
+        window.removeEventListener('beforeunload', this.handleBeforeUnload);
+    }
+
+    handleBeforeUnload = e => {
+        e.returnValue = '';
     };
 
     componentDidUpdate = prevProps => {
