@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 
 import TransferRequestListItem from '../presentational/TransferRequestListItem';
@@ -8,28 +8,24 @@ import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { CONFIRM_SUBMIT, CONFIRM_DELETE } from 'constants/shared/modalTypes';
 
-class TransferRequestListItemContainer extends Component {
-    render() {
-        const { id, request } = this.props;
-        console.log(id, request);
-        return (
-            <TransferRequestListItem
-                request={request}
-                companyID={id}
-                handleAccept={this.handleAcceptModal}
-                handleDecline={this.handleDeclineModal}
-            />
-        );
-    }
+const TransferRequestListItemContainer = ({
+    request,
+    id,
+    respondToTransferRequest,
+    deleteTransferRequest,
+    showModal,
+    hideModal
+}) => {
+    return (
+        <TransferRequestListItem
+            request={request}
+            companyID={id}
+            handleAccept={handleAcceptModal}
+            handleDecline={handleDeclineModal}
+        />
+    );
 
-    handleAcceptModal = () => {
-        const {
-            id,
-            request,
-            respondToTransferRequest,
-            showModal,
-            hideModal
-        } = this.props;
+    function handleAcceptModal() {
         if (id === request.inviteToCompanyID) {
             const handleSubmit = () => {
                 respondToTransferRequest(request.id, { isAccepting: true });
@@ -39,17 +35,9 @@ class TransferRequestListItemContainer extends Component {
                 '##Are you sure you want to accept this transfer ownership request?##';
             showModal(CONFIRM_SUBMIT, { hideModal, handleSubmit, message });
         }
-    };
+    }
 
-    handleDeclineModal = () => {
-        const {
-            id,
-            request,
-            respondToTransferRequest,
-            deleteTransferRequest,
-            showModal,
-            hideModal
-        } = this.props;
+    function handleDeclineModal() {
         if (id === request.inviteToCompanyID) {
             const handleSubmit = () => {
                 respondToTransferRequest(request.id, { isAccepting: true });
@@ -67,8 +55,8 @@ class TransferRequestListItemContainer extends Component {
                 '##Are you sure you want to delete this transfer ownership request?##';
             showModal(CONFIRM_DELETE, { hideModal, handleDelete, message });
         }
-    };
-}
+    }
+};
 
 const mapStateToProps = ({
     companyAdmin: {
