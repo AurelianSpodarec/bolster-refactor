@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 import editPinLocation from 'actions/companyAdmin/pins/async/editPinLocation';
+import updatePinCoordinates from 'actions/companyAdmin/drawings/sync/updatePinCoordinates';
 
 import SinglePinMap from '../presentational/SinglePinMap';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
@@ -27,21 +28,21 @@ class SinglePinMapContainer extends Component {
         );
     }
 
-    componentDidMount = () => {
-        const { pin } = this.props;
-        if (pin.id) this._setMapCentre(pin.location.latY, pin.location.lngX);
-    };
-
     componentDidUpdate = prevProps => {
-        const { pin } = this.props;
+        const { pin, updatePinCoordinates } = this.props;
         if (!prevProps.pin.id && pin.id) {
             this._setMapCentre(pin.location.latY, pin.location.lngX);
+            const lat = pin.location.latY;
+            const lng = pin.location.lngX;
+
+            updatePinCoordinates('lat', lat);
+            updatePinCoordinates('lng', lng);
         }
     };
 
     handleClick = ({ latlng: { lat, lng } }) => {
-        const { dispatch, pin } = this.props;
-        dispatch(editPinLocation(pin.id, lat, lng));
+        const { editPinLocation, pin } = this.props;
+        editPinLocation(pin.id, lat, lng);
     };
 
     _setMapCentre = (lat, lng) => {
@@ -71,4 +72,18 @@ const mapStateToProps = (
     };
 };
 
-export default withRouter(connect(mapStateToProps)(SinglePinMapContainer));
+const mapDispatchToProps = dispatch => ({
+    editPinLocation: (id, lat, lng) => {
+        dispatch(editPinLocation(id, lat, lng));
+    },
+    updatePinCoordinates: (name, value) => {
+        dispatch(updatePinCoordinates(name, value));
+    }
+});
+
+export default withRouter(
+    connect(
+        mapStateToProps,
+        mapDispatchToProps
+    )(SinglePinMapContainer)
+);

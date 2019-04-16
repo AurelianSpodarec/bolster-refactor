@@ -2,22 +2,36 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
-import AddPinHistory from '../presentational/AddPinHistory';
 import fetchSinglePin from 'actions/companyAdmin/pins/async/fetchSinglePin';
+import AddPinFormContainer from 'components/shared/pins/addPin/containers/AddPinFormContainer';
 
 class AddPinHistoryContainer extends Component {
     render() {
-        return <AddPinHistory />;
+        const { pinID } = this.props;
+
+        return <AddPinFormContainer hierarchyType="pin" pinID={pinID} />;
     }
 
     componentDidMount = () => {
-        const { pinID, fetchSinglePin } = this.props;
+        const { pinID, fetchSinglePin, drawings, history } = this.props;
         fetchSinglePin(pinID);
+
+        if (!drawings) {
+            history.push(`/company/pins/${pinID}`);
+        }
     };
 }
 
-const mapStateToProps = (_, { match: { params } }) => ({
-    pinID: params.id
+const mapStateToProps = (
+    {
+        companyAdmin: {
+            drawingsReducer: { drawings }
+        }
+    },
+    { match: { params } }
+) => ({
+    pinID: params.id,
+    drawings
 });
 
 const mapDispatchToProps = dispatch => ({

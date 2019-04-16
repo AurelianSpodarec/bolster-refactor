@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import PinHistoriesList from '../presentational/PinHistoriesList';
@@ -32,6 +32,12 @@ class PinHistoriesContainer extends Component {
                 }
                 contentClass="pin-single-history no-horizontal-padding"
             >
+                <Link
+                    className="button"
+                    to={`/company/pins/${pin.id}/add-history`}
+                >
+                    Add pin history
+                </Link>
                 <PinHistoriesList
                     otherHistories={otherHistories}
                     historyCount={histories.length}
