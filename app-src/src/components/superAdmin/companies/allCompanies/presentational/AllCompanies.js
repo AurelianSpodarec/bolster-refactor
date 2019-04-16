@@ -5,15 +5,17 @@ import Breadcrumb from 'components/shared/generic/breadcrumb/presentational/Brea
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
 import CompaniesFiltersContainer from '../../shared/containers/CompaniesFiltersContainer';
+import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 
 const AllCompanies = () => (
     <>
-        <Breadcrumb breadcrumbs={[{ text: 'Companies' }]} />
         <PageHeading title="Companies" />
+
         <BlockContainer>
-            <CompaniesFiltersContainer />
-        </BlockContainer>
-        <BlockContainer>
+            <BlockHeading title="Companies Table">
+                <CompaniesFiltersContainer />
+            </BlockHeading>
+
             <CompaniesTableContainer />
         </BlockContainer>
     </>

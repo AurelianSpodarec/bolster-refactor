@@ -746,8 +746,12 @@ input {
 
     .checkbox {
         float: right;
+        width: 35px;
     }
-
+    .generic-search {
+        float: right;
+        width: 27%;
+    }
     .status-icon {
         margin-left: 15px;
         top: 1px;

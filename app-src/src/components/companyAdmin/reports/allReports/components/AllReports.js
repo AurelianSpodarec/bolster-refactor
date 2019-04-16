@@ -1,15 +1,17 @@
 import React from 'react';
 
-import Breadcrumb from 'components/shared/generic/breadcrumb/presentational/Breadcrumb';
 import Block from 'components/shared/generic/block/presentational/Block';
+import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
+import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
 
 const AllReports = () => (
-    <div>
-        <Breadcrumb breadcrumbs={[{ text: 'item 1' }, { text: 'item 2' }]} />
-        <Block>
-            <h3 className="heading heading-3">All Reports</h3>
-        </Block>
-    </div>
+    <>
+        <PageHeading title="All Reports" />
+        <BlockContainer>
+            <BlockHeading title="Reports Table" />
+        </BlockContainer>
+    </>
 );
 
 export default AllReports;

@@ -3,12 +3,14 @@ import { connect } from 'react-redux';
 
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import InvoicesTableContainer from 'components/companyAdmin/invoices/shared/invoiceListTable/containers/InvoicesTableContainer';
+import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 
 class PaidInvoicesContainer extends Component {
     render = () => {
         const { error, isFetching, paidInvoices } = this.props;
         return (
-            <BlockContainer heading="Paid Invoices">
+            <BlockContainer>
+                <BlockHeading title="Paid Invoices" />
                 <InvoicesTableContainer
                     error={error}
                     isFetching={isFetching}

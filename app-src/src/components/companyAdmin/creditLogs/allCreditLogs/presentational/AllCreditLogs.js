@@ -8,9 +8,7 @@ import PageHeading from 'components/shared/generic/pageHeading/presentational/Pa
 
 const AllCreditLogs = ({ isFetching }) => (
     <>
-        <PageHeading title="Credit Logs">
-            <Breadcrumb breadcrumbs={[{ text: 'Credit Logs' }]} />
-        </PageHeading>
+        <PageHeading title="Credit Logs" />
         <BlockContainer isFetching={isFetching}>
             <CreditLogsTableContainer />
         </BlockContainer>
