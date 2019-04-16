@@ -44,14 +44,20 @@ class SearchContainer extends Component {
                 : result.floorID
                 ? { type: 'floors', hierarchyID: result.floorID }
                 : { type: 'drawings', hierarchyID: result.drawingID };
-
+            // split search terms to highlight multiple words split by / or space
+            const multiSearchTerms = searchTerm
+                .split(/\/|\s/gi)
+                .map(term => term.toLowerCase());
+            const splitRegex = new RegExp(
+                `(${multiSearchTerms.join('|')})`,
+                'ig'
+            );
             // highlight searchterm
-            const splitRegex = new RegExp(`(${searchTerm})`, 'ig');
             const searchText = result.searchText.split(splitRegex);
             const searchTextComponent = (
                 <span>
                     {searchText.map((text, i) =>
-                        text.toLowerCase() === searchTerm.toLowerCase() ? (
+                        multiSearchTerms.includes(text.toLowerCase()) ? (
                             // TODO: ## needs styling ##
                             <span key={i} style={{ backgroundColor: 'yellow' }}>
                                 {text}
