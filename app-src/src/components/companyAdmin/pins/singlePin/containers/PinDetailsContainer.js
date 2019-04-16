@@ -16,7 +16,8 @@ class PinDetailsContainer extends Component {
             users,
             services,
             error,
-            isFetching
+            isFetching,
+            pin
         } = this.props;
 
         const historyVersion =
@@ -43,6 +44,7 @@ class PinDetailsContainer extends Component {
                     historyVersion={historyVersion}
                     user={user}
                     services={services}
+                    pin={pin}
                 />
             </BlockContainer>
         );
@@ -87,7 +89,8 @@ const mapStateToProps = (
         selectedHistory: histories[selectedHistoryId] || {},
         histories: Object.values(histories),
         users: companyUsersReducer.users || {},
-        services: services || {}
+        services: services || {},
+        pin
     };
 };
 

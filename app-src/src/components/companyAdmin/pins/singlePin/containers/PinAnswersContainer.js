@@ -4,10 +4,15 @@ import PinAnswer from '../presentational/PinAnswer';
 
 class PinAnswersContainer extends Component {
     render() {
-        const { questionType } = this.props;
+        const { questionType, questions, pinAnswers } = this.props;
 
         return (
-            <PinAnswer answer={this._getRelevantAnswer()} type={questionType} />
+            <PinAnswer
+                answers={pinAnswers}
+                trimmedAnswer={this._getRelevantAnswer()}
+                questions={questions}
+                type={questionType}
+            />
         );
     }
 
@@ -29,11 +34,13 @@ class PinAnswersContainer extends Component {
 
 const mapStateToProps = ({
     companyAdmin: {
-        pinAnswersReducer: { answers }
+        pinAnswersReducer: { answers },
+        templateQuestionsReducer: { questions }
     }
 }) => {
     return {
-        pinAnswers: Object.values(answers)
+        pinAnswers: Object.values(answers),
+        questions: Object.values(questions)
     };
 };
 
