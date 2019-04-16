@@ -7,7 +7,7 @@ const SubscribedServicesItem = ({ key, subscription, handleChange }) => (
     <div key={`subscription-${key}`} className="subscription-item size-lg-6">
         <div className="field-name size-lg-6">
             <StatusIcon />
-            <label className="" htmlFor={`subscription-id-${subscription.id}`}>
+            <label htmlFor={`subscription-id-${subscription.id}`}>
                 {subscription.name}
             </label>
         </div>

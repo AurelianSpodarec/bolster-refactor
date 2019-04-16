@@ -1,27 +1,40 @@
 import React from 'react';
 import { withRouter, Link } from 'react-router-dom';
+import MySubscribedServicesList from './MySubscribedServicesList';
+import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
+import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 
-const MySubscription = ({ services, daysleft }) => (
+const MySubscription = ({ services, daysleft, subscriptions, endOn }) => (
     <div className="size-lg-12">
-        <h1 className="heading heading-3 size-lg-12">My Subscription</h1>
+        <BlockHeading title="My Subscription">
+            {' '}
+            <p className="generic-text small pull-right">
+                {daysleft > 1
+                    ? `(expires in ${daysleft} days)`
+                    : daysleft
+                    ? `(expires in ${daysleft} day)`
+                    : 'expired'}
+            </p>
+        </BlockHeading>
 
-        <p className="generic-text size-lg-12">
-            {daysleft > 1
-                ? `Expires in ${daysleft} days.`
-                : daysleft
-                ? `Expires in ${daysleft} day.`
-                : 'Expired'}
-        </p>
-
-        {services.map(service => (
-            <p key={service.value}>{service.text}</p>
-        ))}
-
-        <div className="button-container">
+        <MySubscribedServicesList services={services} />
+        {subscriptions.isAutoRenew ? (
+            <p className="generic-text size-lg-12">
+                Your subscription is set to auto-renew on{' '}
+                <strong>{endOn}</strong> at a cost of{' '}
+                <strong>£{subscriptions.renewalPrice}</strong>
+            </p>
+        ) : (
+            <p className="generic-text size-lg-12">
+                Your subscription is not set to auto-renew and will end on $
+                {endOn}
+            </p>
+        )}
+        <BlockButtonWrapper>
             <Link className="button pull-right" to="/company/subscription">
                 Manage My Subscription
             </Link>
-        </div>
+        </BlockButtonWrapper>
     </div>
 );
 

@@ -7,28 +7,31 @@ import MySubscription from '../presentational/MySubscription';
 
 class MySubscriptionContainer extends Component {
     render() {
-        const { subscriptionEndDate } = this.props;
+        const { subscriptionEndDate, subscriptions } = this.props;
 
         const endDate = moment(subscriptionEndDate);
         const currentDate = moment();
         const daysleft = endDate.diff(currentDate, 'days');
+        const endOn = moment(subscriptions.endOn).format('DD/MM/YYYY');
 
         return (
             <BlockContainer>
                 <MySubscription
                     services={this._servicesAvailable()}
                     daysleft={daysleft}
+                    subscriptions={subscriptions}
+                    endOn={endOn}
                 />
             </BlockContainer>
         );
     }
 
     _getServicesOptions = () => {
-        const { services, subscriptions } = this.props;
+        const { services, subscriptionServiceIDs } = this.props;
         return services.map(({ id, name }) => ({
             value: id,
             text: name,
-            disabled: !subscriptions.includes(id)
+            disabled: !subscriptionServiceIDs.includes(id)
         }));
     };
 
@@ -46,7 +49,8 @@ const mapStateToProps = ({
     companyAdmin: { servicesReducer, subscriptionsReducer }
 }) => ({
     services: Object.values(servicesReducer.services),
-    subscriptions: subscriptionsReducer.subscriptions.serviceIDs || [],
+    subscriptionServiceIDs: subscriptionsReducer.subscriptions.serviceIDs || [],
+    subscriptions: subscriptionsReducer.subscriptions,
     subscriptionEndDate: subscriptionsReducer.subscriptions.endOn || ''
 });
 

@@ -126,7 +126,7 @@ body {
 //for button under content blocks/areas
 .button-block-container {
     padding: 0 5px;
-
+    margin-top: 15px;
     .button,
     button {
         float: right;
@@ -631,6 +631,10 @@ input {
     &:last-child {
         margin-bottom: 0;
     }
+
+    &.small {
+        font-size: 120%;
+    }
 }
 
 .page-heading {
@@ -761,15 +765,16 @@ input {
             margin-right: 15px;
         }
     }
+    .generic-text {
+        &.small {
+            line-height: 21px;
+        }
+    }
 }
 
 .generic-form {
     width: calc(100% + 15px);
     margin-left: -7.5px;
-
-    .button-block-container {
-        margin-top: 15px;
-    }
 
     .block-heading {
         padding-left: 7.5px;
@@ -2163,6 +2168,25 @@ input {
         top: -10px;
         bottom: 5px;
     }
+
+    &.alt {
+        margin-bottom: 25px;
+
+        .subscription-item {
+            padding: 5px 15px;
+            min-height: 48px;
+
+            .field-name {
+                .status-icon {
+                    float: right;
+                    margin-right: 0;
+                    margin-left: 0;
+                    top: 8px;
+                }
+            }
+        }
+    }
+
     .subscription-item {
         border: 1px solid $light-grey;
         padding: 10px 25px;
