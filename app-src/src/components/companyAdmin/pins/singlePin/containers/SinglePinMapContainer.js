@@ -7,6 +7,7 @@ import updatePinCoordinates from 'actions/companyAdmin/drawings/sync/updatePinCo
 
 import SinglePinMap from '../presentational/SinglePinMap';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import fetchSingleDrawing from 'actions/companyAdmin/drawings/async/fetchSingleDrawing';
 
 class SinglePinMapContainer extends Component {
     render() {
@@ -16,7 +17,7 @@ class SinglePinMapContainer extends Component {
 
         return (
             <BlockContainer
-                isEmpty={!pin.id}
+                isEmpty={!pin.id || drawings.length===0}
                 isFetching={isFetching}
                 error={error}
             >
@@ -31,8 +32,9 @@ class SinglePinMapContainer extends Component {
         );
     }
 
+
     componentDidUpdate = prevProps => {
-        const { pin, updatePinCoordinates } = this.props;
+        const { pin, updatePinCoordinates, fetchDrawing } = this.props;
         if (!prevProps.pin.id && pin.id) {
             this._setMapCentre(pin.location.latY, pin.location.lngX);
             const lat = pin.location.latY;
@@ -40,7 +42,11 @@ class SinglePinMapContainer extends Component {
 
             updatePinCoordinates('lat', lat);
             updatePinCoordinates('lng', lng);
+
+            fetchDrawing(pin.drawingID);
         }
+
+
     };
 
     handleClick = ({ latlng: { lat, lng } }) => {
@@ -83,6 +89,9 @@ const mapDispatchToProps = dispatch => ({
     },
     updatePinCoordinates: (name, value) => {
         dispatch(updatePinCoordinates(name, value));
+    },
+    fetchDrawing: (drawingID) => {
+        dispatch(fetchSingleDrawing(drawingID));
     }
 });
 
