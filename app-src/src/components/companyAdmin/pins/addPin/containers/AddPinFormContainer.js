@@ -69,7 +69,7 @@ class AddPinFormContainer extends Component {
         }
 
         fetchDrawingTemplates(drawingID);
-        
+
         window.addEventListener('beforeunload', this.handleBeforeUnload);
     };
 
@@ -106,6 +106,7 @@ class AddPinFormContainer extends Component {
 
     handleSubmit = e => {
         e.preventDefault();
+        const { templates } = this.props;
 
         const { templateID } = this.state;
 
@@ -117,8 +118,12 @@ class AddPinFormContainer extends Component {
             filesUploading
         } = this.props;
 
-        const templateOptions = this._getTemplates();
-        const selectedTemplate = templateOptions[templateID].value;
+        const curTemplates = templates.filter(item => item.id == templateID);
+        let curTemplate;
+
+        if (curTemplates) {
+            curTemplate = curTemplates[0];
+        }
 
         const formattedAnswers = Object.keys(answers).map(function(key) {
             return { templateQuestionID: key, answer: answers[key] };
@@ -133,7 +138,7 @@ class AddPinFormContainer extends Component {
                 }
             },
             history: {
-                templateVersionID: selectedTemplate,
+                templateVersionID: curTemplate.latestVersionID,
                 pinStatus: this.state.statusID
             },
             answers: formattedAnswers
@@ -155,7 +160,7 @@ const mapStateToProps = (
         },
         shared: {
             filesUploadingReducer: { filesUploading },
-            confirmLeaveReducer: {confirmLeave}
+            confirmLeaveReducer: { confirmLeave }
         }
     },
     { match }
