@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import addFieldError from 'actions/shared/generic/fieldErrors/sync/addFieldError';
 import removeFieldError from 'actions/shared/generic/fieldErrors/sync/removeFieldError';
-import Signature from "../presentational/Signature";
+import Signature from '../presentational/Signature';
 
 class SignatureContainer extends Component {
     state = {

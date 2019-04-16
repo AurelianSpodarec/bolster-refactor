@@ -123,13 +123,15 @@ class DrawingMapGeneralContainer extends Component {
         this.setState({
             addMode: !this.state.addMode
         });
+
+        this._resetCoordinates();
     };
 
     _resetCoordinates = () => {
         const { updatePinCoordinates } = this.props;
 
-        updatePinCoordinates('lat', 0);
-        updatePinCoordinates('lng', 0);
+        updatePinCoordinates('lat', 51.505);
+        updatePinCoordinates('lng', -0.09);
 
         this.setState({
             addPinLat: 51.505,
