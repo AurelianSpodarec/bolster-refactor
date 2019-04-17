@@ -12,7 +12,7 @@ const DrawingMapViewSimple = ({
     zoom,
     pins,
     handleClick,
-    drawing,
+    drawing = {},
     addMode,
     toggleAddMode,
     history
