@@ -78,7 +78,10 @@ const AddDrawingForm = ({
                     )}
                 </button>
             ) : (
-                <TooltipContainer text="You must have credits to add a drawing.">
+                <TooltipContainer
+                    side="top"
+                    text="You must have credits to add a drawing."
+                >
                     <button disabled className="button red">
                         No credits available
                     </button>
