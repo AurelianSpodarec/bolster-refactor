@@ -13,7 +13,10 @@ import {
     CREATE_PIN_FAILURE,
     EDIT_PIN_LOCATION_REQUEST,
     EDIT_PIN_LOCATION_FAILURE,
-    EDIT_PIN_LOCATION_SUCCESS
+    EDIT_PIN_LOCATION_SUCCESS,
+    DELETE_PIN_HISTORY_REQUEST,
+    DELETE_PIN_HISTORY_FAILURE,
+    DELETE_PIN_HISTORY_SUCCESS
 } from 'constants/actionTypes/pins';
 
 export default combineReducers({
@@ -44,11 +47,13 @@ function errorReducer(state = null, action) {
         case FETCH_PINS_REQUEST:
         case CREATE_PIN_REQUEST:
         case EDIT_PIN_LOCATION_REQUEST:
+        case DELETE_PIN_HISTORY_REQUEST:
             return null;
         case FETCH_SINGLE_PIN_FAILURE:
         case FETCH_PINS_FAILURE:
         case CREATE_PIN_FAILURE:
         case EDIT_PIN_LOCATION_FAILURE:
+        case DELETE_PIN_HISTORY_FAILURE:
             return action.error;
         default:
             return state;
@@ -81,9 +86,11 @@ function postSuccessReducer(state = false, action) {
     switch (action.type) {
         case CREATE_PIN_REQUEST:
         case EDIT_PIN_LOCATION_REQUEST:
+        case DELETE_PIN_HISTORY_REQUEST:
             return false;
         case CREATE_PIN_SUCCESS:
         case EDIT_PIN_LOCATION_SUCCESS:
+        case DELETE_PIN_HISTORY_SUCCESS:
             return true;
         default:
             return state;
