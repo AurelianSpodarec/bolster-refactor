@@ -33,7 +33,7 @@ const PendingInvitesListItemContainer = ({
     function handleAcceptModal() {
         const handleSubmit = () => {
             const postBody = { inviteID, isAccepted: true };
-            respondToPendingInvite(inviteID, postBody);
+            respondToPendingInvite(postBody);
             hideModal();
         };
         const message = 'Are you sure you wish to accept this invite?';
@@ -48,7 +48,7 @@ const PendingInvitesListItemContainer = ({
         const handleDelete = () => {
             if (isIncoming) {
                 const postBody = { inviteID, isAccepted: false };
-                respondToPendingInvite(inviteID, postBody);
+                respondToPendingInvite(postBody);
             } else {
                 deleteOutgoingInvite(inviteID);
             }
@@ -72,8 +72,8 @@ const mapStateToProps = (
 });
 
 const mapDispatchToProps = dispatch => ({
-    respondToPendingInvite: (id, postbody) =>
-        dispatch(respondToPendingInvite(id, postbody)),
+    respondToPendingInvite: postbody =>
+        dispatch(respondToPendingInvite(postbody)),
     deleteOutgoingInvite: id => dispatch(deleteOutgoingInvite(id)),
     showModal: (type, props) => dispatch(showModal(type, props)),
     hideModal: () => dispatch(hideModal())

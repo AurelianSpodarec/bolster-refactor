@@ -22,15 +22,10 @@ export const respondToPendingInviteFailure = error => ({
     error
 });
 
-export default (id, postBody) => dispatch => {
-    console.log(id, postBody);
+export default postBody => dispatch => {
     dispatch(respondToPendingInviteRequest());
     return axios
-        .post(
-            `${API_URL}/companypermissions/${id}/respond`,
-            postBody,
-            getHeaders()
-        )
+        .post(`${API_URL}/companypermissions/respond`, postBody, getHeaders())
         .then(({ data }) => dispatch(respondToPendingInviteSuccess(data)))
         .catch(err => dispatch(respondToPendingInviteFailure(err.message)));
 };
