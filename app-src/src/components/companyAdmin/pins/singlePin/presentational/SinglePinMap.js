@@ -14,15 +14,15 @@ const SinglePinMap = ({
     drawing = {},
     moveMode,
     toggleMoveMode,
-    movePinPosition,
-    handleMovePin
+    editPinLocationPosition,
+    handleeditPinLocation
 }) => {
     return (
         <>
             {moveMode ? (
                 <BlockHeading>
                     <button
-                        onClick={handleMovePin}
+                        onClick={handleeditPinLocation}
                         className="button green pull-right"
                     >
                         <i className="fa fa-check" /> Confirm position
@@ -59,7 +59,7 @@ const SinglePinMap = ({
                 />
                 <MapPin key={pin.id} pin={pin} />
 
-                {moveMode && <Marker position={movePinPosition} />}
+                {moveMode && <Marker position={editPinLocationPosition} />}
             </Map>
             <p className="map-details">
                 Last updated by:{' '}
