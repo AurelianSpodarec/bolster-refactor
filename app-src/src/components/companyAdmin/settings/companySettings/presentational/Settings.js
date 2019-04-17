@@ -12,6 +12,7 @@ import BlockHeading from 'components/shared/generic/blockHeading/presentational/
 import FieldOutput from 'components/shared/generic/fieldOutput/presentational/FieldOutput';
 
 const Settings = ({ isFetching, error, companySettings: company }) => {
+    const { timeZone = {}, dateFormat = {} } = company;
     return (
         <>
             <PageHeading title="Company Settings" />
@@ -102,6 +103,16 @@ const Settings = ({ isFetching, error, companySettings: company }) => {
                     description={company.isBolsterLogoDark ? 'On' : 'Off'}
                     fieldClass="no-h-padding"
                     sizeClass="size-lg-4"
+                />
+
+                <FieldOutput
+                    title="Timezone"
+                    description={`${timeZone.name} - ${timeZone.offset}`}
+                />
+
+                <FieldOutput
+                    title="Date Format"
+                    description={dateFormat.momentDateTimeFormat}
                 />
 
                 <BlockHeading title="Template Settings" />
