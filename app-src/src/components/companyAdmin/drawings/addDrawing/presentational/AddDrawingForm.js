@@ -7,6 +7,7 @@ import Form from 'components/shared/generic/form/containers/Form';
 import FileUploadContainer from 'components/shared/generic/form/containers/FileUploadContainer';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
+import TooltipContainer from 'components/shared/generic/tooltip/containers/TooltipContainer';
 
 const AddDrawingForm = ({
     handleSubmit,
@@ -17,7 +18,8 @@ const AddDrawingForm = ({
     name,
     file,
     templateUsageRules,
-    selectedRule
+    selectedRule,
+    credits
 }) => (
     <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
         <div className="size-lg-12">
@@ -61,20 +63,27 @@ const AddDrawingForm = ({
         </div>
 
         <BlockButtonWrapper>
-            <button
-                disabled={filesUploading}
-                className="button green"
-                type="submit"
-            >
-                {filesUploading ? (
-                    'Please wait...'
-                ) : (
-                    <>
-                        {' '}
-                        <i className="fa fa-plus" /> Add Drawing{' '}
-                    </>
-                )}
-            </button>
+            {credits > 0 ? (
+                <button
+                    disabled={filesUploading}
+                    className="button green"
+                    type="submit"
+                >
+                    {filesUploading ? (
+                        'Please wait...'
+                    ) : (
+                        <>
+                            <i className="fa fa-plus" /> Add Drawing
+                        </>
+                    )}
+                </button>
+            ) : (
+                <TooltipContainer text="You must have credits to add a drawing.">
+                    <button disabled className="button red">
+                        No credits available
+                    </button>
+                </TooltipContainer>
+            )}
             <Link className="button" to={`/company/floors/${floorID}`}>
                 Cancel
             </Link>

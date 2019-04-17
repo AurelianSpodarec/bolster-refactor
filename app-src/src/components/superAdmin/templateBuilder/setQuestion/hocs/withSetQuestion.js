@@ -40,7 +40,7 @@ export default function(WrappedComponent) {
             const { questions, templateUUID: temUuid } = this.props;
             const options = questions
                 .filter(q => q.templateUUID === temUuid)
-                .filter(q => PREREQ_TYPES.includes(q.questionType))
+                .filter(q => PREREQ_TYPES.includes(q.questionType + ''))
                 .map(({ uuid, name }) => ({ value: uuid, text: name }));
 
             return convertArrToObj(options, 'value');

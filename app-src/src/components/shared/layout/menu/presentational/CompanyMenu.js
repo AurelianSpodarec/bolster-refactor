@@ -45,7 +45,7 @@ const CompanyMenu = ({ messageCount }) => (
                 <MenuItemContainer link="/company/tools/credit-logs">
                     Drawing Credit Log
                 </MenuItemContainer>
-                <MenuItemContainer link="/company/tools/pin-options">
+                <MenuItemContainer link="/company/templates">
                     My Templates
                 </MenuItemContainer>
                 <MenuItemContainer link="/company/tools/support">

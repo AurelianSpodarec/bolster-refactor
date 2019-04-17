@@ -11,6 +11,11 @@ const TwitterFeed = () => (
         >
             Tweets by bolstersystems
         </a>
+        <script
+            async
+            src="https://platform.twitter.com/widgets.js"
+            charset="utf-8"
+        />
     </div>
 );
 
