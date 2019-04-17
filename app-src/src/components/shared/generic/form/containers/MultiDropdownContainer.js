@@ -13,16 +13,19 @@ class MultiSelectDropdown extends Component {
 
     render() {
         const { showFieldError } = this.state;
-        const { options, error, errorsVisible } = this.props;
+        const { options, error, errorsVisible, value } = this.props;
 
         let errorMessage;
         if (showFieldError || errorsVisible) errorMessage = error;
+
+        console.log(value);
 
         return (
             <MultiDropdown
                 options={options}
                 handleChange={this.handleChange}
                 error={errorMessage}
+                value={value || []}
             />
         );
     }
@@ -43,11 +46,8 @@ class MultiSelectDropdown extends Component {
 
     handleChange = e => {
         this.props.handleChange(e);
-    };
-
-    handleChange = e => {
-        this.props.handleChange(e);
         this._validate(this.props.value);
+        console.log(e);
     };
 
     _validate = value => {
