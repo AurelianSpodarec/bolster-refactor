@@ -4,6 +4,7 @@ import { withRouter, Link } from 'react-router-dom';
 
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import PinHistoriesList from '../presentational/PinHistoriesList';
+import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 
 class PinHistoriesContainer extends Component {
     render() {
@@ -17,10 +18,6 @@ class PinHistoriesContainer extends Component {
             error
         } = this.props;
 
-        const otherHistories = histories.filter(
-            hist => hist.id !== selectedHistoryId
-        );
-
         return (
             <BlockContainer
                 error={error}
@@ -32,15 +29,19 @@ class PinHistoriesContainer extends Component {
                 }
                 contentClass="pin-single-history no-horizontal-padding"
             >
-                <Link
-                    className="button"
-                    to={`/company/pins/${pin.id}/add-history`}
-                >
-                    Add pin history
-                </Link>
+                <BlockHeading title={`Pin #${pin.id}`}>
+                    <Link
+                        className="button"
+                        to={`/company/pins/${pin.id}/add-history`}
+                    >
+                        <i className="fa fa-plus" /> Add history
+                    </Link>
+                </BlockHeading>
+
                 <PinHistoriesList
-                    otherHistories={otherHistories}
+                    histories={histories}
                     historyCount={histories.length}
+                    selectedHistoryId={selectedHistoryId}
                 />
             </BlockContainer>
         );

@@ -20,7 +20,7 @@ const SinglePinMap = ({
     return (
         <>
             {moveMode ? (
-                <BlockHeading>
+                <BlockHeading title={`Pin #${pin.id}`}>
                     <button
                         onClick={handleeditPinLocation}
                         className="button green pull-right"
@@ -35,12 +35,13 @@ const SinglePinMap = ({
                     </button>
                 </BlockHeading>
             ) : (
-                <BlockHeading>
+                <BlockHeading title={`Pin #${pin.id}`}>
                     <button
                         className="button pull-right"
                         onClick={toggleMoveMode}
                     >
-                        <i className="fa fa-plus" /> Move Pin
+                        <i className="fa fa-arrows-alt" />
+                        Move Pin
                     </button>
                 </BlockHeading>
             )}
