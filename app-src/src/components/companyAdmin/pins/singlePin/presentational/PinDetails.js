@@ -11,7 +11,6 @@ import { PIN_STATUS_TYPES as STATUS } from 'constants/companyAdmin/enums';
 import PinSectionsContainer from '../containers/PinSectionsContainer';
 
 const PinDetails = ({
-    pin,
     pinHistory,
     historyCount,
     historyVersion,
