@@ -56,21 +56,11 @@ class AddPinFormContainer extends Component {
     }
 
     componentDidMount = () => {
-        const {
-            drawingID,
-            pinID,
-            coordinates,
-            history,
-            hierarchyType
-        } = this.props;
+        const { drawingID, coordinates, history, hierarchyType } = this.props;
 
         if (!coordinates.lat || !coordinates.lng) {
             if (hierarchyType === 'drawing') {
                 history.push(`/company/drawings/${drawingID}`);
-            }
-
-            if (hierarchyType === 'pin') {
-                history.push(`/company/pins/${pinID}`);
             }
         }
 

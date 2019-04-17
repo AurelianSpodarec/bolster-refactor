@@ -164,12 +164,17 @@ const MultiPhoto = ({
     />
 );
 
-const Signature = ({ question: { isRequired, id }, handleSignatureChange }) => (
+const Signature = ({
+    question: { isRequired, id },
+    answers,
+    handleSignatureChange
+}) => (
     <SignatureContainer
         name={`answer-${id}`}
         canvasProps={{ width: 500, height: 200, className: 'sigCanvas' }}
         required={isRequired}
         onChange={handleSignatureChange}
+        value={answers[id]}
     />
 );
 
@@ -179,7 +184,7 @@ class AddPinQuestionRoute extends Component {
     };
 
     render() {
-        const { question, answers, questions, oldAnswers } = this.props;
+        const { question, answers, questions } = this.props;
 
         const fieldTypes = {
             [SINGLE_LINE]: SingleLine,
@@ -306,15 +311,13 @@ class AddPinQuestionRoute extends Component {
     }
 
     componentDidMount() {
-        const { resetPinAnswers, oldAnswers, updateAddPinAnswer } = this.props;
+        const { oldAnswers, updateAddPinAnswer } = this.props;
 
         const oldAnswersArray = Object.values(oldAnswers);
 
         oldAnswersArray.map(answer =>
             updateAddPinAnswer(answer.templateQuestionID, answer.answer)
         );
-
-        //resetPinAnswers();
     }
 
     handleChange = ({ target: { type, value, checked } }) => {

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Map, TileLayer, Marker } from 'react-leaflet';
 import { FILE_STORAGE_URL } from 'config';
 
@@ -14,20 +15,19 @@ const DrawingMapViewSimple = ({
     drawing = {},
     addMode,
     toggleAddMode,
-    history,
-    handleAddPin
+    history
 }) => (
     <>
         {drawing.tilesetS3Key ? (
             <>
                 {addMode ? (
                     <BlockHeading>
-                        <button
-                            onClick={handleAddPin}
+                        <Link
+                            to={`${drawing.id}/add-pin`}
                             className="button green pull-right"
                         >
                             <i className="fa fa-check" /> Confirm position
-                        </button>
+                        </Link>
                         <button
                             className="button red pull-right"
                             onClick={toggleAddMode}

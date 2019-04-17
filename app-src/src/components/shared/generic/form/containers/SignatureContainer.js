@@ -18,7 +18,7 @@ class SignatureContainer extends Component {
 
         return (
             <Signature
-                updateRef={ref => this.sigPad = ref}
+                updateRef={ref => (this.sigPad = ref)}
                 onEnd={this.handleChange}
                 penColor={'black'}
                 canvasProps={canvasProps}
@@ -29,12 +29,18 @@ class SignatureContainer extends Component {
     }
 
     componentDidMount = () => {
-         this._validate('');
+        this._validate('');
     };
 
     componentDidUpdate = ({ value: prevValue }) => {
+        const { value } = this.props;
+
         const val = this.sigPad.toDataURL('image/jpg');
         if (prevValue !== val) this._validate(val);
+
+        if (!prevValue && value) {
+            this.sigPad.fromDataURL(value);
+        }
     };
 
     componentWillUnmount = () => {

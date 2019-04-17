@@ -13,16 +13,27 @@ class MultiSelectDropdown extends Component {
 
     render() {
         const { showFieldError } = this.state;
-        const { options, error, errorsVisible } = this.props;
+        const { options, error, errorsVisible, value = [] } = this.props;
 
         let errorMessage;
         if (showFieldError || errorsVisible) errorMessage = error;
+
+        let defaultDropDown = [];
+
+        value.forEach(curValue => {
+            const val = curValue;
+            const selectedOpton = options.find(x => x.value == curValue);
+            const text = selectedOpton.label;
+
+            defaultDropDown.push({ label: text, value: val });
+        });
 
         return (
             <MultiDropdown
                 options={options}
                 handleChange={this.handleChange}
                 error={errorMessage}
+                value={defaultDropDown}
             />
         );
     }
@@ -39,10 +50,6 @@ class MultiSelectDropdown extends Component {
     componentWillUnmount = () => {
         const { name, error, removeFieldError } = this.props;
         if (error) removeFieldError(name);
-    };
-
-    handleChange = e => {
-        this.props.handleChange(e);
     };
 
     handleChange = e => {
