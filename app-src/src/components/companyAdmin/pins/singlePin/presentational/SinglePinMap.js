@@ -4,7 +4,6 @@ import { Map, Marker, TileLayer } from 'react-leaflet';
 
 import MapPin from 'components/shared/pins/map/presentational/MapPin';
 import { FILE_STORAGE_URL } from 'config';
-import { Link } from 'react-router-dom';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 
 const SinglePinMap = ({
@@ -15,18 +14,19 @@ const SinglePinMap = ({
     drawing = {},
     moveMode,
     toggleMoveMode,
-    movePinPosition
+    editPinLocationPosition,
+    handleeditPinLocation
 }) => {
     return (
         <>
             {moveMode ? (
-                <BlockHeading title={`Pin #${pin.id}`}>
-                    <Link
-                        to={`${drawing.id}/add-pin`}
+                <BlockHeading>
+                    <button
+                        onClick={handleeditPinLocation}
                         className="button green pull-right"
                     >
                         <i className="fa fa-check" /> Confirm position
-                    </Link>
+                    </button>
                     <button
                         className="button red pull-right"
                         onClick={toggleMoveMode}
@@ -35,7 +35,7 @@ const SinglePinMap = ({
                     </button>
                 </BlockHeading>
             ) : (
-                <BlockHeading title={`Pin #${pin.id}`}>
+                <BlockHeading>
                     <button
                         className="button pull-right"
                         onClick={toggleMoveMode}
@@ -59,7 +59,7 @@ const SinglePinMap = ({
                 />
                 <MapPin key={pin.id} pin={pin} />
 
-                {moveMode && <Marker position={movePinPosition} />}
+                {moveMode && <Marker position={editPinLocationPosition} />}
             </Map>
             <p className="map-details">
                 Last updated by:{' '}

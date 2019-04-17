@@ -9,10 +9,10 @@ import { CONFIRM_SUBMIT, CONFIRM_DELETE } from 'constants/shared/modalTypes';
 
 const PendingInvitesListItemContainer = ({
     invite,
-    companyID,
     acceptPendingInvite,
     showModal,
-    hideModal
+    hideModal,
+    isIncoming
 }) => {
     const { siteName, buildingName, floorName, drawingName } = invite;
     const name = [siteName, buildingName, floorName, drawingName]
@@ -21,7 +21,7 @@ const PendingInvitesListItemContainer = ({
     return (
         <PendingInvitesListItem
             invite={invite}
-            companyID={companyID}
+            isIncoming={isIncoming}
             handleAccept={handleAcceptModal}
             handleDecline={handleDeclineModal}
             name={name}
@@ -38,8 +38,7 @@ const PendingInvitesListItemContainer = ({
     }
 
     function handleDeclineModal() {
-        const { hideModal } = this.props;
-        const isIncoming = companyID === invite.companyID;
+        const { hideModal, isIncoming } = this.props;
         const message = `Are you sure you wish to ${
             isIncoming ? 'decline' : 'delete'
         } this invitation?`;
@@ -53,14 +52,17 @@ const PendingInvitesListItemContainer = ({
     }
 };
 
-const mapStateToProps = ({
-    companyAdmin: {
-        companySettingsReducer: {
-            companySettings: { id }
+const mapStateToProps = (
+    {
+        companyAdmin: {
+            companySettingsReducer: {
+                companySettings: { id }
+            }
         }
-    }
-}) => ({
-    companyID: id
+    },
+    { invite: { companyID } }
+) => ({
+    isIncoming: companyID === id
 });
 
 const mapDispatchToProps = dispatch => ({

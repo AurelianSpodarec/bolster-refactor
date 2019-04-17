@@ -7,7 +7,6 @@ import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/pr
 const MySubscription = ({ services, daysleft, subscriptions, endOn }) => (
     <div className="size-lg-12">
         <BlockHeading title="My Subscription">
-            {' '}
             <p className="generic-text small pull-right">
                 {daysleft > 1
                     ? `(expires in ${daysleft} days)`
@@ -21,12 +20,14 @@ const MySubscription = ({ services, daysleft, subscriptions, endOn }) => (
         {subscriptions.isAutoRenew ? (
             <p className="generic-text size-lg-12">
                 Your subscription is set to auto-renew on{' '}
-                <strong>{endOn}</strong> at a cost of{' '}
-                <strong>£{subscriptions.renewalPrice}</strong>
+                <span style={{ fontWeight: 'bold' }}>{endOn}</span> at a cost of{' '}
+                <span style={{ fontWeight: 'bold' }}>
+                    £{subscriptions.renewalPrice}
+                </span>
             </p>
         ) : (
             <p className="generic-text size-lg-12">
-                Your subscription is not set to auto-renew and will end on $
+                Your subscription is not set to auto-renew and will end on
                 {endOn}
             </p>
         )}

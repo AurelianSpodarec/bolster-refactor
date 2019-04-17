@@ -4,7 +4,7 @@ import moment from 'moment';
 
 const PendingInvitesListItem = ({
     invite,
-    companyID,
+    isIncoming,
     handleAccept,
     handleDecline,
     name
@@ -16,13 +16,13 @@ const PendingInvitesListItem = ({
         <td>{invite.companyName}</td>
         <td>
             <BlockButtonWrapper>
-                {companyID === invite.companyID && (
+                {isIncoming && (
                     <button
                         type="button"
                         className="button green icon-only"
                         onClick={handleAccept}
                     >
-                        <i className="fa fa-check" />
+                        <i className="far fa-check" />
                     </button>
                 )}
                 <button
@@ -30,7 +30,7 @@ const PendingInvitesListItem = ({
                     className="button red icon-only"
                     onClick={handleDecline}
                 >
-                    <i className="fa fa-times" />
+                    <i className="far fa-ban" />
                 </button>
             </BlockButtonWrapper>
         </td>

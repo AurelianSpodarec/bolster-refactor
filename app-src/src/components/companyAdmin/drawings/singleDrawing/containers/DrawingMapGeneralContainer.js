@@ -43,7 +43,6 @@ class DrawingMapGeneralContainer extends Component {
             addMode
         } = this.state;
         const { error, pins, drawing } = this.props;
-
         const serviceOptions = this._getServicesOptions();
         const statusOptions = convertEnumToDropdownOptions(PIN_STATUS_TYPES);
         const operativeOptions = this._getOperativeOptions();
