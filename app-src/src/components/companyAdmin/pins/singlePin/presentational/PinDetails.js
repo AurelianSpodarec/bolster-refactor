@@ -1,5 +1,6 @@
 import React from 'react';
 import moment from 'moment';
+import { Link } from 'react-router-dom';
 
 // import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 // import PinImagesContainer from '../containers/PinImagesContainer';
@@ -10,7 +11,6 @@ import { PIN_STATUS_TYPES as STATUS } from 'constants/companyAdmin/enums';
 import PinSectionsContainer from '../containers/PinSectionsContainer';
 
 const PinDetails = ({
-    pin,
     pinHistory,
     historyCount,
     historyVersion,
@@ -67,9 +67,14 @@ const PinDetails = ({
             <a className="button red" href="#/">
                 <i className="icon fa fa-trash-alt" /> Delete history
             </a>
-            <a className="button yellow" href="#/">
+            <Link
+                className="button yellow"
+                to={`/company/pins/${pinHistory.pinID}/edit-history/${
+                    pinHistory.id
+                }`}
+            >
                 <i className="far fa-pencil" /> Edit history
-            </a>
+            </Link>
         </BlockButtonWrapper>
     </>
 );
