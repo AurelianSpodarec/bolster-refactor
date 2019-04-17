@@ -6,14 +6,19 @@ import selectPinHistory from 'actions/companyAdmin/pins/sync/selectPinHistory';
 import PinHistoriesListItem from '../presentational/PinHistoriesListItem';
 
 class PinHistoriesListItemContainer extends Component {
+    state = { active: false };
+
     render() {
         const {
             history,
             historyCount,
             users,
             services,
-            allHistories
+            allHistories,
+            selectedHistoryId
         } = this.props;
+
+        const { active } = this.state;
 
         const user = users[history.createdByCompanyUserID];
 
@@ -30,14 +35,46 @@ class PinHistoriesListItemContainer extends Component {
                 selectHistory={this.selectHistory}
                 createdBy={user}
                 services={services}
+                active={active}
             />
         );
     }
+
+    componentDidMount = () => {
+        const { selectedHistoryId, history } = this.props;
+        if (selectedHistoryId === history.id) {
+            this.setState({
+                active: !this.state.active
+            });
+        }
+    };
+
+    componentDidUpdate = prevProps => {
+        const { selectedHistoryId, history } = this.props;
+
+        if (
+            prevProps.selectedHistoryId != history.id &&
+            selectedHistoryId === history.id
+        ) {
+            this.setState({
+                active: !this.state.active
+            });
+        }
+        if (
+            prevProps.selectedHistoryId === history.id &&
+            selectedHistoryId != history.id
+        ) {
+            this.setState({
+                active: !this.state.active
+            });
+        }
+    };
 
     selectHistory = e => {
         const { dispatch, history } = this.props;
 
         e.preventDefault();
+
         dispatch(selectPinHistory(history.id));
     };
 }

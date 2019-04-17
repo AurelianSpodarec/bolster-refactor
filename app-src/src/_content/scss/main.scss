@@ -729,10 +729,6 @@ input {
     width: 100%;
     margin-bottom: 20px;
 
-    // &.w-table {
-    //     margin-bottom: 5px;
-    // }
-
     &.sub-heading {
         margin-top: 10px;
         margin-bottom: 10px;
@@ -746,6 +742,7 @@ input {
         max-width: 50%;
         text-transform: capitalize;
     }
+
     .button,
     button {
         float: right;
@@ -1760,6 +1757,7 @@ input {
 }
 
 .pin-single-history {
+    padding-bottom: 0;
     .block-heading {
         padding: 0 15px;
     }
@@ -1770,33 +1768,25 @@ input {
         padding: {
             left: 15px;
             right: 15px;
-            bottom: 10px;
+            top: 10px;
         }
         border-bottom: 2px solid $light-grey;
-        margin-bottom: 10px;
+
+        &.active {
+            background-color: $light-grey;
+        }
 
         &:last-child {
             margin-bottom: 0;
             border-bottom: none;
             padding-bottom: 0;
+            border-radius: 0 0 5px 5px;
         }
 
         .image-holder {
             width: 100px;
             height: 100px;
             margin-right: 10px;
-        }
-
-        .outputs {
-            float: left;
-            width: calc(100% - 110px);
-        }
-
-        .field-output {
-            &:nth-child(4),
-            &:nth-child(5) {
-                padding-bottom: 0;
-            }
         }
 
         button {
