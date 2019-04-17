@@ -26,9 +26,6 @@ const BuildingStats = ({ building, stats, handleDelete, handleArchive }) => (
                 <i className="fa fa-archive" />
                 {building.isArchived ? 'Un-Archive' : 'Archive'}
             </button>
-            <Link className="button" to="/company/site">
-                <i className="fa fa-exchange" /> Change Ownership
-            </Link>
         </div>
     </div>
 );

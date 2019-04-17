@@ -31,16 +31,15 @@ const ChangeOwnershipForm = ({
                     />
                 </Field>
                 <BlockButtonWrapper>
+                    <button className="button green" onClick={handleSubmit}>
+                        Confirm
+                    </button>
                     <Link
                         className="button"
                         to={url.replace('/change-ownership', '')}
                     >
                         Cancel
                     </Link>
-                    <button className="button" onClick={handleSubmit}>
-                        <i className="fa fa-save" />
-                        Save
-                    </button>
                 </BlockButtonWrapper>
             </Form>
         </BlockContainer>
