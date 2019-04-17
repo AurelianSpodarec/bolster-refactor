@@ -1,11 +1,11 @@
 import React from 'react';
-import moment from 'moment';
 
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 
-import { PAYMENT_TYPES } from 'constants/companyAdmin/enums';
+import { PAYMENT_TYPES, DATE_TIME_IDS } from 'constants/companyAdmin/enums';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import FieldOutput from 'components/shared/generic/fieldOutput/presentational/FieldOutput';
+import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 
 const InvoiceDetails = ({
     isFetching,
@@ -21,11 +21,14 @@ const InvoiceDetails = ({
                 description={`${id}`}
                 sizeClass="size-lg-4"
             />
-            <FieldOutput
-                title="Date"
-                description={moment(createdOn).format('DD/MM/YY')}
-                sizeClass="size-lg-4"
-            />
+            <FieldOutput title="Date" sizeClass="size-lg-4">
+                <p>
+                    <DateTimeContainer
+                        date={createdOn}
+                        datetime={DATE_TIME_IDS.DATE}
+                    />
+                </p>
+            </FieldOutput>
             <FieldOutput
                 title="Type"
                 description={isRenewal ? 'Renewal' : 'New Purchase'}

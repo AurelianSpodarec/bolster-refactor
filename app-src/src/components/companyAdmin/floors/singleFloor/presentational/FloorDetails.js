@@ -1,5 +1,5 @@
 import React from 'react';
-import moment from 'moment';
+import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 
 const FloorDetails = ({ stats: { lastUpdatedOn } }) => (
     <div className="size-lg-6">
@@ -7,7 +7,7 @@ const FloorDetails = ({ stats: { lastUpdatedOn } }) => (
 
         {lastUpdatedOn ? (
             <p className="size-lg-12">
-                {moment(lastUpdatedOn).format('DD/MM/YYYY hh:mm a')}
+                <DateTimeContainer date={lastUpdatedOn} />
             </p>
         ) : (
             <p className="size-lg-12">Not Updated</p>

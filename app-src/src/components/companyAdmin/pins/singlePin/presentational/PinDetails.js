@@ -1,5 +1,4 @@
 import React from 'react';
-import moment from 'moment';
 import { Link } from 'react-router-dom';
 
 // import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
@@ -9,6 +8,7 @@ import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/pr
 
 import { PIN_STATUS_TYPES as STATUS } from 'constants/companyAdmin/enums';
 import PinSectionsContainer from '../containers/PinSectionsContainer';
+import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 
 const PinDetails = ({
     pinHistory,
@@ -27,12 +27,13 @@ const PinDetails = ({
 
             <FieldOutput
                 title="Date created"
-                description={moment(pinHistory.createdOn).format(
-                    'DD-MM-YYYY, HH:mm a'
-                )}
                 fieldClass="no-h-padding"
                 sizeClass="size-lg-6"
-            />
+            >
+                <p>
+                    <DateTimeContainer date={pinHistory.createdOn} />
+                </p>
+            </FieldOutput>
 
             <FieldOutput
                 title="Type"

@@ -1,5 +1,5 @@
 import React from 'react';
-import moment from 'moment';
+import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 
 const SiteDetails = ({
     site: { addressLine1, addressLine2, city, postcode },
@@ -16,7 +16,8 @@ const SiteDetails = ({
         <h3 className="heading heading-3 size-lg-12">Last Updated</h3>
         {lastUpdatedOn ? (
             <p className="size-lg-12">
-                {moment(lastUpdatedOn).format('DD/MM/YYYY hh:mm a')}
+                <DateTimeContainer date={lastUpdatedOn} />
+                {/* {moment(lastUpdatedOn).format('DD/MM/YYYY hh:mm a')} */}
             </p>
         ) : (
             <p className="size-lg-12">Not Updated</p>
