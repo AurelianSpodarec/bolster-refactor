@@ -1,4 +1,5 @@
 import React from 'react';
+import moment from 'moment';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 
 const TransferRequestListItem = ({
@@ -8,9 +9,7 @@ const TransferRequestListItem = ({
     handleDecline
 }) => (
     <tr>
-        {/* TODO: moment */}
-        <td>{request.createdOn}</td>
-        {/* TODO: site TYPE? */}
+        <td>{moment(request.createdOn).format('DD/MM/YYYY')}</td>
         <td>{request.siteName}</td>
         <td>{request.inviteFromCompanyName}</td>
         <td>{request.inviteToCompanyName}</td>
@@ -22,7 +21,7 @@ const TransferRequestListItem = ({
                         className="button"
                         onClick={handleAccept}
                     >
-                        <i className="fa fa-check" />
+                        <i className="far fa-check" />
                     </button>
                 )}
                 <button
@@ -30,9 +29,8 @@ const TransferRequestListItem = ({
                     className="button"
                     onClick={handleDecline}
                 >
-                    <i className="fa fa-times" />
+                    <i className="far fa-ban" />
                 </button>
-                {/* X button */}
             </BlockButtonWrapper>
         </td>
     </tr>

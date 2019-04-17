@@ -5,9 +5,8 @@ import fetchCompanySettings from 'actions/companyAdmin/companySettings/async/fet
 import EditSettings from '../presentational/EditSettings';
 
 class EditSettingsContainer extends Component {
-    render() {
-        return <EditSettings />;
-    }
+    render = () => <EditSettings />;
+
     componentDidMount = () => {
         this.props.fetchCompanySettings();
     };

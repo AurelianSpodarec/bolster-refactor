@@ -8,10 +8,10 @@ const SinglePin = () => (
     <>
         <div className="size-lg-8">
             <SinglePinMapContainer />
-            <PinHistoriesContainer />
+            <PinDetailsContainer />
         </div>
         <div className="size-lg-4">
-            <PinDetailsContainer />
+            <PinHistoriesContainer />
         </div>
     </>
 );

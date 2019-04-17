@@ -68,7 +68,7 @@ const mapStateToProps = ({
 }) => ({
     notifications: Object.values(messages)
         .filter(({ type }) => type === MESSAGE_TYPES.NOTIFICATION)
-        .sort((a, b) => moment(b.createAt) - moment(a.createAt))
+        .sort((a, b) => moment(b.createdAt) - moment(a.createdAt))
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -19,43 +19,43 @@ const PinDetails = ({
     services
 }) => (
     <>
-        <FieldOutput
-            title="ID"
-            description={pin.pinCode}
-            fieldClass="no-h-padding"
-        />
+        <div className="size-lg-12">
+            <FieldOutput
+                title="History"
+                description={`${historyVersion} of ${historyCount}`}
+                sizeClass="size-lg-6"
+            />
 
-        <FieldOutput
-            title="History"
-            description={`${historyVersion} of ${historyCount}`}
-            fieldClass="no-h-padding"
-        />
+            <FieldOutput
+                title="Date created"
+                description={moment(pinHistory.createdOn).format(
+                    'DD-MM-YYYY, HH:mm a'
+                )}
+                fieldClass="no-h-padding"
+                sizeClass="size-lg-6"
+            />
 
-        <FieldOutput
-            title="Date created"
-            description={moment(pinHistory.createdOn).format(
-                'DD-MM-YYYY, HH:mm a'
-            )}
-            fieldClass="no-h-padding"
-        />
+            <FieldOutput
+                title="Type"
+                description={services[pinHistory.serviceID].name}
+                fieldClass="no-h-padding"
+                sizeClass="size-lg-6"
+            />
 
-        <FieldOutput
-            title="Type"
-            description={services[pinHistory.serviceID].name}
-            fieldClass="no-h-padding"
-        />
+            <FieldOutput
+                title="Added by"
+                description={`${user.userFirstName} ${user.userLastName}`}
+                fieldClass="no-h-padding"
+                sizeClass="size-lg-6"
+            />
 
-        <FieldOutput
-            title="Added by"
-            description={`${user.userFirstName} ${user.userLastName}`}
-            fieldClass="no-h-padding"
-        />
-
-        <FieldOutput
-            title="Status"
-            description={STATUS[pinHistory.status]}
-            fieldClass="no-h-padding"
-        />
+            <FieldOutput
+                title="Status"
+                description={STATUS[pinHistory.status]}
+                fieldClass="no-h-padding"
+                sizeClass="size-lg-6"
+            />
+        </div>
 
         <PinSectionsContainer pinHistory={pinHistory} />
 

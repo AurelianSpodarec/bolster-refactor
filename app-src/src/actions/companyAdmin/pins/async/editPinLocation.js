@@ -1,29 +1,37 @@
+import axios from 'axios';
+
+import { API_URL } from 'config/index';
+import setAPIFieldErrors from 'actions/shared/generic/fieldErrors/sync/setAPIFieldErrors';
+import { getHeaders } from 'helpers/api';
 import {
     EDIT_PIN_LOCATION_REQUEST,
     EDIT_PIN_LOCATION_SUCCESS,
     EDIT_PIN_LOCATION_FAILURE
 } from 'constants/actionTypes/pins';
 
-export const editLocationRequest = (id, lat, lng) => ({
-    type: EDIT_PIN_LOCATION_REQUEST,
-    id: id.toString(),
-    lat,
-    lng
+export const editPinLocationRequest = () => ({
+    type: EDIT_PIN_LOCATION_REQUEST
 });
 
-// success and failure need plugging into the reducer
-export const editLocationSuccess = () => ({
-    type: EDIT_PIN_LOCATION_SUCCESS
-});
-
-export const editLocationFailure = payload => ({
-    type: EDIT_PIN_LOCATION_FAILURE,
+export const editPinLocationSuccess = payload => ({
+    type: EDIT_PIN_LOCATION_SUCCESS,
     payload
 });
 
-export default (id, lat, lng) => dispatch => {
-    dispatch(editLocationRequest(id, lat, lng));
+export const editPinLocationFailure = error => ({
+    type: EDIT_PIN_LOCATION_FAILURE,
+    error
+});
 
-    // dispatch(editLocationSuccess());
-    // dispatch(editLocationFailure());
+export default (pinID, postBody) => dispatch => {
+    dispatch(editPinLocationRequest());
+
+    return axios
+        .post(`${API_URL}/pins/${pinID}/move`, postBody, getHeaders())
+        .then(result => dispatch(editPinLocationSuccess(result.data)))
+        .catch(error => {
+            dispatch(editPinLocationFailure(error));
+            if (error.response.status === 400)
+                dispatch(setAPIFieldErrors(error.response.data.errors));
+        });
 };

@@ -4,12 +4,35 @@ import { connect } from 'react-redux';
 import PendingInvitesTable from '../presentational/PendingInvitesTable';
 import fetchPendingInvites from 'actions/companyAdmin/pendingInvites/fetchPendingInvites';
 import fetchOutgoingInvites from 'actions/companyAdmin/pendingInvites/fetchOutgoingInvites';
+import { ERROR_MODAL } from 'constants/shared/modalTypes';
 
 class PendingInvitesTableContainer extends Component {
     render() {
-        const headers = ['Date', 'Site name/type', 'From', 'To', 'Actions'];
-        return <PendingInvitesTable headers={headers} />;
+        const {
+            pendingInvites,
+            outgoingInvites,
+            error,
+            isFetching
+        } = this.props;
+        const headers = ['Date', 'Site name', 'From', 'To', 'Action(s)'];
+        return (
+            <PendingInvitesTable
+                headers={headers}
+                pendingInvites={pendingInvites}
+                outgoingInvites={outgoingInvites}
+                isFetching={isFetching}
+                error={error}
+            />
+        );
     }
+
+    componentDidUpdate = prevProps => {
+        const { fetchInvites, postSuccess, error, showModal } = this.props;
+
+        if (postSuccess && !prevProps.postSuccess) fetchInvites();
+
+        if (error && !prevProps) showModal(ERROR_MODAL);
+    };
 }
 
 const mapStateToProps = ({
@@ -17,15 +40,17 @@ const mapStateToProps = ({
         pendingInvitesReducer: {
             pendingInvites,
             outgoingInvites,
+            postSuccess,
             isFetching,
             error
         }
     }
 }) => ({
-    pendingInvites,
-    outgoingInvites,
+    pendingInvites: Object.values(pendingInvites),
+    outgoingInvites: Object.values(outgoingInvites),
     isFetching,
-    error
+    error,
+    postSuccess
 });
 
 const mapDispatchToProps = dispatch => ({

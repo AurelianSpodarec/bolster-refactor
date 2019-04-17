@@ -33,10 +33,7 @@ const CompanyMenu = ({ messageCount }) => (
             </MenuItemContainer>
 
             <MenuItemContainer link="/company/message-centre">
-                <span className="messages">
-                    <i className="far fa-envelope" />
-                    <sub>{messageCount}</sub>
-                </span>
+                <i className="far fa-envelope icon" />
                 Message Centre
             </MenuItemContainer>
 
@@ -48,7 +45,7 @@ const CompanyMenu = ({ messageCount }) => (
                 <MenuItemContainer link="/company/tools/credit-logs">
                     Drawing Credit Log
                 </MenuItemContainer>
-                <MenuItemContainer link="/company/tools/pin-options">
+                <MenuItemContainer link="/company/templates">
                     My Templates
                 </MenuItemContainer>
                 <MenuItemContainer link="/company/tools/support">

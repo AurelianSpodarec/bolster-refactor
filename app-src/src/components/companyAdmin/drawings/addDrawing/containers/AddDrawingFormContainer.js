@@ -24,7 +24,7 @@ class AddDrawingFormContainer extends Component {
             templateUsageRuleOptions,
             templateUsageRule
         } = this.state;
-        const { floorID, filesUploading } = this.props;
+        const { floorID, filesUploading, credits } = this.props;
         return (
             <AddDrawingForm
                 name={name}
@@ -36,13 +36,14 @@ class AddDrawingFormContainer extends Component {
                 handleFileChange={this.handleFileChange}
                 handleSubmit={this.handleSubmit}
                 filesUploading={filesUploading}
+                credits={credits}
             />
         );
     }
 
-    componentDidUpdate = ({ updatedID: prevUpdatedID }) => {
+    componentDidUpdate = prevProps => {
         const { updatedID, history } = this.props;
-        if (!prevUpdatedID && updatedID) {
+        if (!prevProps.updatedID && updatedID) {
             history.push(`/company/drawings/${updatedID}`);
         }
     };
@@ -58,6 +59,7 @@ class AddDrawingFormContainer extends Component {
 
     handleSubmit = () => {
         const { createDrawing, floorID, filesUploading } = this.props;
+        // eslint-disable-next-line no-unused-vars
         const { templateUsageRuleOptions, ...restState } = this.state;
         if (!filesUploading) {
             createDrawing({ ...restState, floorID });
@@ -67,7 +69,11 @@ class AddDrawingFormContainer extends Component {
 
 const mapStateToProps = (
     {
-        companyAdmin: { drawingsReducer },
+        companyAdmin: {
+            drawingsReducer: { updatedID },
+            creditsReducer: { credits }
+        },
+
         shared: {
             filesUploadingReducer: { filesUploading }
         }
@@ -76,7 +82,11 @@ const mapStateToProps = (
 ) => ({
     filesUploading,
     floorID: match.params.id,
-    updatedID: drawingsReducer.updatedID
+    updatedID,
+    credits: Object.values(credits).reduce(
+        (acc, curr) => acc + curr.quantity,
+        0
+    )
 });
 const mapDispatchToProps = dispatch => ({
     createDrawing: drawing => {
