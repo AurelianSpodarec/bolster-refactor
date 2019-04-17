@@ -1,6 +1,7 @@
 import React from 'react';
-import moment from 'moment';
 import { Link, withRouter } from 'react-router-dom';
+import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
+import { DATE_TIME_IDS } from 'constants/companyAdmin/enums';
 
 const CompaniesListItem = ({
     company: { name, telephone, address, id, termsAcceptedOn },
@@ -11,9 +12,14 @@ const CompaniesListItem = ({
         <td>{telephone || '##Not listed##'}</td>
         <td>{address || '##Not listed##'}</td>
         <td>
-            {termsAcceptedOn
-                ? moment(termsAcceptedOn).format('DD/MM/YYYY')
-                : '-'}
+            {termsAcceptedOn ? (
+                <DateTimeContainer
+                    date={termsAcceptedOn}
+                    datetime={DATE_TIME_IDS.DATE}
+                />
+            ) : (
+                '-'
+            )}
         </td>
         <td>
             <Link to={`${url}/${id}`} className="button">

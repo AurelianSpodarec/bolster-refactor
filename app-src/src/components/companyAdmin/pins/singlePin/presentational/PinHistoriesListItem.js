@@ -1,5 +1,4 @@
 import React from 'react';
-import moment from 'moment';
 
 import FieldOutput from 'components/shared/generic/fieldOutput/presentational/FieldOutput';
 
@@ -39,13 +38,7 @@ const PinHistoriesListItem = ({
             sizeClass="size-lg-6"
         />
 
-        <FieldOutput
-            title="Date added"
-            description={moment(history.createdOn).format(
-                'DD-MM-YYYY, HH:mm a'
-            )}
-            sizeClass="size-lg-6"
-        >
+        <FieldOutput title="Date added" sizeClass="size-lg-6">
             <p>
                 <DateTimeContainer date={history.createdOn} />
             </p>

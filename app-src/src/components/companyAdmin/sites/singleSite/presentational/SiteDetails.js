@@ -17,7 +17,6 @@ const SiteDetails = ({
         {lastUpdatedOn ? (
             <p className="size-lg-12">
                 <DateTimeContainer date={lastUpdatedOn} />
-                {/* {moment(lastUpdatedOn).format('DD/MM/YYYY hh:mm a')} */}
             </p>
         ) : (
             <p className="size-lg-12">Not Updated</p>

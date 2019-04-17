@@ -1,6 +1,6 @@
 import React from 'react';
-import moment from 'moment';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
+import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 
 const EnquiryDetails = ({
     handleShowModal,
@@ -15,7 +15,7 @@ const EnquiryDetails = ({
         )}
         {!!createdOn && (
             <p className="size-lg-12">
-                Sent On: {moment(createdOn).format('DD-MM-YYYY hh:mm a')}
+                Sent On: <DateTimeContainer date={createdOn} />
             </p>
         )}
         {!!message && <p>{message}</p>}

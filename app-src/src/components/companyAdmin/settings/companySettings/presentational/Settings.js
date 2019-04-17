@@ -10,6 +10,7 @@ import { TEMPLATE_USAGE_RULES } from 'constants/companyAdmin/enums';
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import FieldOutput from 'components/shared/generic/fieldOutput/presentational/FieldOutput';
+import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 
 const Settings = ({ isFetching, error, companySettings: company }) => {
     const { timeZone = {}, dateFormat = {} } = company;

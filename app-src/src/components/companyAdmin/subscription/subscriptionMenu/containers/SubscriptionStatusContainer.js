@@ -9,7 +9,6 @@ import { isObjEmpty } from 'helpers/generic';
 class SubscriptionStatusContainer extends Component {
     render = () => {
         const { subscriptions, error, isFetching } = this.props;
-        const endOn = moment(subscriptions.endOn).format('DD/MM/YYYY');
         return (
             <BlockContainer
                 error={error}
@@ -18,7 +17,7 @@ class SubscriptionStatusContainer extends Component {
             >
                 <SubscriptionStatus
                     subscriptions={subscriptions}
-                    endOn={endOn}
+                    endOn={subscriptions.endOn}
                     active={this.checkSubActive(
                         subscriptions.startOn,
                         subscriptions.endOn
