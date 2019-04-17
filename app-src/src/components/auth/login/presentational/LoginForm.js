@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import Form from 'components/shared/generic/form/containers/Form';
@@ -33,8 +32,6 @@ const LoginForm = ({ handleSubmit, handleInputChange, email, password }) => (
             <button className="button" type="submit">
                 Login
             </button>
-
-
         </div>
     </Form>
 );

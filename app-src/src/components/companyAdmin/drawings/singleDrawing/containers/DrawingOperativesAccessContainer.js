@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import OperativesTable from 'components/shared/operatives/presentational/OperativesTable';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 
-import { COMPANY_USER_ROLE_TYPES } from 'constants/companyAdmin/enums';
 import { ERROR_MODAL, DELETE_OPERATIVE } from 'constants/shared/modalTypes';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 

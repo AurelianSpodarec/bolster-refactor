@@ -18,6 +18,8 @@ import CompanyApp from '../presentational/CompanyApp';
 import { MENU_TABS } from 'constants/shared/tabNames';
 import fetchIncomingTransferRequests from 'actions/companyAdmin/transferRequests/async/fetchIncomingTransferRequests';
 import fetchOutgoingTransferRequests from 'actions/companyAdmin/transferRequests/async/fetchOutgoingTransferRequests';
+import fetchPendingInvites from 'actions/companyAdmin/pendingInvites/fetchPendingInvites';
+import fetchOutgoingInvites from 'actions/companyAdmin/pendingInvites/fetchOutgoingInvites';
 
 class CompanyAppContainer extends Component {
     render() {
@@ -45,6 +47,8 @@ const mapDispatchToProps = dispatch => ({
         dispatch(fetchAllCredits());
         dispatch(fetchIncomingTransferRequests());
         dispatch(fetchOutgoingTransferRequests());
+        dispatch(fetchPendingInvites());
+        dispatch(fetchOutgoingInvites());
     },
     selectCompanyMenuTab: () => {
         dispatch(selectMenuTab(MENU_TABS.COMPANY_USER));
