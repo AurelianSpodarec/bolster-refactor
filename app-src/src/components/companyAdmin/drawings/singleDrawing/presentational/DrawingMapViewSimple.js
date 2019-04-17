@@ -15,7 +15,7 @@ const DrawingMapViewSimple = ({
     addMode,
     toggleAddMode,
     history,
-    handleMovePin
+    handleAddPin
 }) => (
     <>
         {drawing.tilesetS3Key ? (
@@ -23,7 +23,7 @@ const DrawingMapViewSimple = ({
                 {addMode ? (
                     <BlockHeading>
                         <button
-                            onClick={handleMovePin}
+                            onClick={handleAddPin}
                             className="button green pull-right"
                         >
                             <i className="fa fa-check" /> Confirm position
