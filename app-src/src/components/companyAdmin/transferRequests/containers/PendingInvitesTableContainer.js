@@ -14,7 +14,7 @@ class PendingInvitesTableContainer extends Component {
             error,
             isFetching
         } = this.props;
-        const headers = ['Date', 'Site name', 'From', 'To', 'Actions'];
+        const headers = ['Date', 'Site name', 'From', 'To', 'Action(s)'];
         return (
             <PendingInvitesTable
                 headers={headers}

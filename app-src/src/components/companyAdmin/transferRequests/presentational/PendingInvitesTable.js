@@ -10,6 +10,7 @@ const PendingInvitesTable = ({
     outgoingInvites
 }) => (
     <Table
+        withActions
         headers={headers}
         isFetching={isFetching}
         noData={!pendingInvites.length || !outgoingInvites.length}
