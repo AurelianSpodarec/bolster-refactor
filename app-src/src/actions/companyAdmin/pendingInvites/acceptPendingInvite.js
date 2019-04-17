@@ -22,7 +22,7 @@ export const respondToRequestFailure = error => ({
     error
 });
 
-export default (id, postBody) => dispatch => {
+export default postBody => dispatch => {
     dispatch(respondToRequestRequest());
     return axios
         .post(`${API_URL}/companypermissions/accept`, postBody, getHeaders())
