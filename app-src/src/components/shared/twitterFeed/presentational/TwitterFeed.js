@@ -1,16 +1,14 @@
 import React from 'react';
 
 const TwitterFeed = () => (
-    <div className="size-lg-12">
+    <div className="twitter size-lg-12">
         <a
             className="twitter-timeline"
-            data-lang="en"
-            data-height="800"
-            data-theme="light"
+            data-height="421"
             href="https://twitter.com/bolstersystems?ref_src=twsrc%5Etfw"
         >
             Tweets by bolstersystems
-        </a>
+        </a>{' '}
         <script
             async
             src="https://platform.twitter.com/widgets.js"

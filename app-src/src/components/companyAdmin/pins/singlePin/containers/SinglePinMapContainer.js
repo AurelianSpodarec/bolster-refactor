@@ -6,6 +6,7 @@ import SinglePinMap from '../presentational/SinglePinMap';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import fetchSingleDrawing from 'actions/companyAdmin/drawings/async/fetchSingleDrawing';
 import editPinLocation from 'actions/companyAdmin/pins/async/editPinLocation';
+import updatePinCoordinates from 'actions/companyAdmin/drawings/sync/updatePinCoordinates';
 
 class SinglePinMapContainer extends Component {
     state = {
@@ -44,9 +45,15 @@ class SinglePinMapContainer extends Component {
     }
 
     componentDidUpdate = prevProps => {
-        const { pin, fetchDrawing } = this.props;
+        const { pin, updatePinCoordinates, fetchDrawing } = this.props;
         if (!prevProps.pin.id && pin.id) {
             this._setMapCentre(pin.location.latY, pin.location.lngX);
+
+            const lat = pin.location.latY;
+            const lng = pin.location.lngX;
+
+            updatePinCoordinates('lat', lat);
+            updatePinCoordinates('lng', lng);
 
             this.setState({
                 editPinLocationLat: pin.location.latY,
@@ -121,6 +128,10 @@ const mapStateToProps = (
 const mapDispatchToProps = dispatch => ({
     editPinLocation: (id, lat, lng) =>
         dispatch(editPinLocation(id, { location: { lngX: lng, latY: lat } })),
+    updatePinCoordinates: (name, value) => {
+        dispatch(updatePinCoordinates(name, value));
+    },
+
     fetchDrawing: drawingID => {
         dispatch(fetchSingleDrawing(drawingID));
     }

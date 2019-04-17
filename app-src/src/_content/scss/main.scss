@@ -171,6 +171,20 @@ body {
             right: 0;
         }
     }
+
+    .twitter {
+        width: calc(100% + 30px);
+        margin-left: -15px;
+        margin-top: -9px;
+
+        // .SandboxRoot {
+        //     &.env-bp-min {
+        //         .timeline-Tweet {
+        //             padding: 0 10px !important;
+        //         }
+        //     }
+        // }
+    }
 }
 
 //area filter
