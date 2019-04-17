@@ -14,11 +14,17 @@ const InviteCompanyForm = ({
     companyCode,
     serviceOptions,
     checkedServices,
+    hierarchyType,
     handleChange,
     handleMultiselectChange
 }) => (
     <>
         <BlockHeading title="Company details" />
+        <p className="generic-text intro-text size-lg-12">
+            Please be aware that adding a company that already has permissions
+            within this {hierarchyType} may end their current access
+            <br /> until they accept this new invitation.
+        </p>
         <Form className="generic-form size-lg-12" onSubmit={handleSubmit}>
             <Field name="Enter the company code" sizeClasses="size-lg-6">
                 <TextInputContainer
