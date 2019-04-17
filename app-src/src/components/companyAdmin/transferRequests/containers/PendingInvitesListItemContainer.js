@@ -2,14 +2,16 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import PendingInvitesListItem from '../presentational/PendingInvitesListItem';
-import acceptPendingInvite from 'actions/companyAdmin/pendingInvites/acceptPendingInvite';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { CONFIRM_SUBMIT, CONFIRM_DELETE } from 'constants/shared/modalTypes';
+import respondToPendingInvite from 'actions/companyAdmin/pendingInvites/respondToPendingInvite';
+import deleteOutgoingInvite from 'actions/companyAdmin/pendingInvites/deleteOutgoingInvite';
 
 const PendingInvitesListItemContainer = ({
-    invite,
-    acceptPendingInvite,
+    invite: { id: inviteID, ...invite },
+    respondToPendingInvite,
+    deleteOutgoingInvite,
     showModal,
     hideModal,
     isIncoming
@@ -30,7 +32,8 @@ const PendingInvitesListItemContainer = ({
 
     function handleAcceptModal() {
         const handleSubmit = () => {
-            acceptPendingInvite({ inviteID: invite.id });
+            const postBody = { inviteID, isAccepted: true };
+            respondToPendingInvite(inviteID, postBody);
             hideModal();
         };
         const message = 'Are you sure you wish to accept this invite?';
@@ -38,14 +41,17 @@ const PendingInvitesListItemContainer = ({
     }
 
     function handleDeclineModal() {
-        const { hideModal, isIncoming } = this.props;
         const message = `Are you sure you wish to ${
             isIncoming ? 'decline' : 'delete'
         } this invitation?`;
+
         const handleDelete = () => {
-            if (isIncoming) console.log('incoming');
-            // decline
-            else console.log('outgoing'); // delete
+            if (isIncoming) {
+                const postBody = { inviteID, isAccepted: false };
+                respondToPendingInvite(inviteID, postBody);
+            } else {
+                deleteOutgoingInvite(inviteID);
+            }
             hideModal();
         };
         showModal(CONFIRM_DELETE, { message, handleDelete, hideModal });
@@ -66,7 +72,9 @@ const mapStateToProps = (
 });
 
 const mapDispatchToProps = dispatch => ({
-    acceptPendingInvite: postbody => dispatch(acceptPendingInvite(postbody)),
+    respondToPendingInvite: (id, postbody) =>
+        dispatch(respondToPendingInvite(id, postbody)),
+    deleteOutgoingInvite: id => dispatch(deleteOutgoingInvite(id)),
     showModal: (type, props) => dispatch(showModal(type, props)),
     hideModal: () => dispatch(hideModal())
 });

@@ -25,7 +25,7 @@ export const deleteOutgoingInviteFailure = error => ({
 export default id => dispatch => {
     dispatch(deleteOutgoingInviteRequest());
     return axios
-        .delete(`${API_URL}/outgoinginvites/${id}/`, getHeaders())
+        .delete(`${API_URL}/companypermissions/${id}/`, getHeaders())
         .then(({ data }) => dispatch(deleteOutgoingInviteSuccess(data)))
         .catch(err => dispatch(deleteOutgoingInviteFailure(err.message)));
 };

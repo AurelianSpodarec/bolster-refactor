@@ -8,9 +8,9 @@ import {
     FETCH_PENDING_INVITES_SUCCESS,
     FETCH_OUTGOING_INVITES_FAILURE,
     FETCH_OUTGOING_INVITES_SUCCESS,
-    ACCEPT_PENDING_INVITE_REQUEST,
-    ACCEPT_PENDING_INVITE_FAILURE,
-    ACCEPT_PENDING_INVITE_SUCCESS
+    RESPOND_TO_PENDING_INVITE_REQUEST,
+    RESPOND_TO_PENDING_INVITE_FAILURE,
+    RESPOND_TO_PENDING_INVITE_SUCCESS
 } from 'constants/actionTypes/pendingInvites';
 
 export default combineReducers({
@@ -40,11 +40,11 @@ function errorReducer(state = null, action) {
     switch (action.type) {
         case FETCH_PENDING_INVITES_REQUEST:
         case FETCH_OUTGOING_INVITES_REQUEST:
-        case ACCEPT_PENDING_INVITE_REQUEST:
+        case RESPOND_TO_PENDING_INVITE_REQUEST:
             return null;
         case FETCH_PENDING_INVITES_FAILURE:
         case FETCH_OUTGOING_INVITES_FAILURE:
-        case ACCEPT_PENDING_INVITE_FAILURE:
+        case RESPOND_TO_PENDING_INVITE_FAILURE:
             return action.error;
         default:
             return state;
@@ -53,9 +53,9 @@ function errorReducer(state = null, action) {
 
 function postSuccessReducer(state = false, action) {
     switch (action.type) {
-        case ACCEPT_PENDING_INVITE_REQUEST:
+        case RESPOND_TO_PENDING_INVITE_REQUEST:
             return false;
-        case ACCEPT_PENDING_INVITE_SUCCESS:
+        case RESPOND_TO_PENDING_INVITE_SUCCESS:
             return true;
         default:
             return state;
