@@ -38,7 +38,7 @@ const Section = ({
                     Add question
                 </button>
                 {tooltipMessage ? (
-                    <TooltipContainer text={tooltipMessage}>
+                    <TooltipContainer text={tooltipMessage} side="top">
                         <button className="button red disabled">
                             <i className="far fa-trash-alt" />
                             Delete
