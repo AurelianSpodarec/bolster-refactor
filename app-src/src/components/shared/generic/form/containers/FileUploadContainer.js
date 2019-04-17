@@ -29,6 +29,7 @@ class FileUploadContainer extends Component {
 
         return (
             <FileUpload
+                updateRef={ref => (this.pond = ref)}
                 files={this.state.files}
                 serverOptions={this._getServerOptions()}
                 error={errorMessage}
@@ -44,25 +45,6 @@ class FileUploadContainer extends Component {
 
     componentDidMount = () => {
         this._validate();
-
-        // const { value } = this.props;
-        // if (Array.isArray(value)) {
-        //     this.setState({
-        //         files: value.map(source => ({
-        //             source,
-        //             options: { type: 'local' }
-        //         }))
-        //     });
-        // } else if (value && value.length) {
-        //     this.setState({
-        //         files: [
-        //             {
-        //                 source: value,
-        //                 options: { type: 'local' }
-        //             }
-        //         ]
-        //     });
-        // }
     };
 
     componentWillUnmount = () => {
@@ -80,6 +62,10 @@ class FileUploadContainer extends Component {
         if (hasArrChanged || hasStringChanged) {
             this._validate(value);
         }
+
+        // if (!prevValue && value) {
+        //     this.setState({files: value});
+        // }
     };
 
     _validate = () => {
