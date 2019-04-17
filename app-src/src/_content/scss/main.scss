@@ -748,7 +748,14 @@ input {
         margin-bottom: 10px;
 
         .heading {
+            float: left;
+            width: 100%;
             font-size: 140%;
+            padding-bottom: 5px;
+            margin-bottom: 10px;
+            border-bottom: 1px solid $light-grey;
+            max-width: 100%;
+            color: $text-grey;
         }
     }
     .heading {
@@ -804,6 +811,7 @@ input {
         right: 7.5px;
     }
     margin-bottom: 15px;
+    min-height: 56px;
 
     &.w-dates {
         p {
@@ -849,7 +857,8 @@ input {
         margin-top: -17px;
         padding-bottom: 2.5px;
 
-        .checkbox {
+        .checkbox,
+        .radio-button {
             width: 33.33%;
             margin-top: 20px;
             margin-bottom: 0;
@@ -860,6 +869,10 @@ input {
         }
     }
 
+    textarea {
+        min-height: 100px;
+        max-width: 100%;
+    }
     .react-datepicker-wrapper {
         float: left;
         width: 100%;
@@ -876,6 +889,17 @@ input {
             border-radius: 2.5px;
             border: 1px solid #e1e1e1;
         }
+    }
+
+    .sigCanvas {
+        background-color: $background-grey;
+        max-width: 100%;
+        border-radius: 5px;
+    }
+
+    .filepond--drop-label {
+        background-color: $background-grey;
+        border-radius: 5px;
     }
 }
 

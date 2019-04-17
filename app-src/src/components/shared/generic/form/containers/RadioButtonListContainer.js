@@ -6,7 +6,7 @@ import removeFieldError from 'actions/shared/generic/fieldErrors/sync/removeFiel
 
 import RadioButtonList from '../presentational/RadioButtonList';
 
-class CheckboxListContainer extends Component {
+class RadioButtonListContainer extends Component {
     state = {
         showFieldError: false
     };
@@ -84,4 +84,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(CheckboxListContainer);
+)(RadioButtonListContainer);
