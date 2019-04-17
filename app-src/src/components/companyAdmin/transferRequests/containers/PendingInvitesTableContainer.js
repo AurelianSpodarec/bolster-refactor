@@ -7,8 +7,22 @@ import fetchOutgoingInvites from 'actions/companyAdmin/pendingInvites/fetchOutgo
 
 class PendingInvitesTableContainer extends Component {
     render() {
-        const headers = ['Date', 'Site name/type', 'From', 'To', 'Actions'];
-        return <PendingInvitesTable headers={headers} />;
+        const {
+            pendingInvites,
+            outgoingInvites,
+            error,
+            isFetching
+        } = this.props;
+        const headers = ['Date', 'Site name', 'From', 'To', 'Actions'];
+        return (
+            <PendingInvitesTable
+                headers={headers}
+                pendingInvites={pendingInvites}
+                outgoingInvites={outgoingInvites}
+                isFetching={isFetching}
+                error={error}
+            />
+        );
     }
 }
 
@@ -22,8 +36,8 @@ const mapStateToProps = ({
         }
     }
 }) => ({
-    pendingInvites,
-    outgoingInvites,
+    pendingInvites: Object.values(pendingInvites),
+    outgoingInvites: Object.values(outgoingInvites),
     isFetching,
     error
 });
