@@ -24,7 +24,8 @@ const mapStateToProps = ({
         companySettingsReducer: { companySettings },
         messagesReducer: { messages },
         creditLogsReducer: { creditLogs },
-        transferRequestsReducer: { incomingTransferRequests }
+        transferRequestsReducer: { incomingTransferRequests },
+        pendingInvitesReducer: { pendingInvites }
     },
     shared: {
         profileReducer: { profile }
@@ -37,7 +38,9 @@ const mapStateToProps = ({
         (a, b) => a + b.quantity,
         0
     );
-    const totalRequests = Object.values(incomingTransferRequests).length;
+    const totalRequests =
+        Object.values(incomingTransferRequests).length +
+        Object.values(pendingInvites).length;
 
     return {
         profile: profile,
