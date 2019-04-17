@@ -733,9 +733,13 @@ input {
     //     margin-bottom: 5px;
     // }
 
-    &.sub-header {
+    &.sub-heading {
         margin-top: 10px;
         margin-bottom: 10px;
+
+        .heading {
+            font-size: 140%;
+        }
     }
     .heading {
         float: left;
@@ -1058,14 +1062,18 @@ input {
 
 //pin sections
 .pin-details-section {
-    margin: 10px 0 15px;
+    margin: 10px 0 0;
 
-    > .title {
-        margin-bottom: 10px;
-        border-bottom: 1px solid #e0e0e0;
-        @include ubuntu;
-        color: $text-grey;
-        font-size: 140%;
+    > .block-heading {
+        .heading {
+            float: left;
+            width: 100%;
+            padding-bottom: 5px;
+            margin-bottom: 10px;
+            border-bottom: 1px solid $light-grey;
+            max-width: 100%;
+            color: $text-grey;
+        }
     }
 }
 
