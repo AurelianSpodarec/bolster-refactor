@@ -14,8 +14,7 @@ class PinHistoriesListItemContainer extends Component {
             historyCount,
             users,
             services,
-            allHistories,
-            selectedHistoryId
+            allHistories
         } = this.props;
 
         const { active } = this.state;

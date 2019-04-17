@@ -1,6 +1,7 @@
 import React from 'react';
-import moment from 'moment';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
+import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
+import { DATE_TIME_IDS } from 'constants/companyAdmin/enums';
 
 const TransferRequestListItem = ({
     request,
@@ -9,7 +10,12 @@ const TransferRequestListItem = ({
     handleDecline
 }) => (
     <tr>
-        <td>{moment(request.createdOn).format('DD/MM/YYYY')}</td>
+        <td>
+            <DateTimeContainer
+                date={request.createdOn}
+                datetime={DATE_TIME_IDS.DATE}
+            />
+        </td>
         <td>{request.siteName}</td>
         <td>{request.inviteFromCompanyName}</td>
         <td>{request.inviteToCompanyName}</td>

@@ -1,10 +1,10 @@
 import React from 'react';
-import moment from 'moment';
 
 import FieldOutput from 'components/shared/generic/fieldOutput/presentational/FieldOutput';
 
 import { PIN_STATUS_TYPES as STATUS } from 'constants/companyAdmin/enums';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
+import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 
 const PinHistoriesListItem = ({
     history,
@@ -38,13 +38,11 @@ const PinHistoriesListItem = ({
             sizeClass="size-lg-6"
         />
 
-        <FieldOutput
-            title="Date added"
-            description={moment(history.createdOn).format(
-                'DD-MM-YYYY, HH:mm a'
-            )}
-            sizeClass="size-lg-6"
-        />
+        <FieldOutput title="Date added" sizeClass="size-lg-6">
+            <p>
+                <DateTimeContainer date={history.createdOn} />
+            </p>
+        </FieldOutput>
 
         <FieldOutput
             title="Added by"

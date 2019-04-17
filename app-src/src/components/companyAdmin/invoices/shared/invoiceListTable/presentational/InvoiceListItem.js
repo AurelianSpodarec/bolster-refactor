@@ -1,18 +1,20 @@
 import React from 'react';
-import moment from 'moment';
 import { Link, withRouter } from 'react-router-dom';
 
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 
-import { PAYMENT_TYPES } from 'constants/companyAdmin/enums';
+import { PAYMENT_TYPES, DATE_TIME_IDS } from 'constants/companyAdmin/enums';
 import { PAY_INVOICE } from 'constants/shared/modalTypes';
+import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 
 const InvoiceListItem = ({
     invoice: { createdOn, isPaid, total, id, paymentType },
     showModal
 }) => (
     <tr>
-        <td>{moment(createdOn).format('DD/MM/YYYY')}</td>
+        <td>
+            <DateTimeContainer date={createdOn} datetime={DATE_TIME_IDS.DATE} />
+        </td>
         <td>{id}</td>
         <td>{`£${total.toFixed(2)}`}</td>
         <td>{PAYMENT_TYPES[paymentType]}</td>

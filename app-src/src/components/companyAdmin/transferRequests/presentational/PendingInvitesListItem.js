@@ -1,6 +1,7 @@
 import React from 'react';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
-import moment from 'moment';
+import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
+import { DATE_TIME_IDS } from 'constants/companyAdmin/enums';
 
 const PendingInvitesListItem = ({
     invite,
@@ -10,7 +11,12 @@ const PendingInvitesListItem = ({
     name
 }) => (
     <tr>
-        <td>{moment(invite.createdOn).format('DD/MM/YYYY')}</td>
+        <td>
+            <DateTimeContainer
+                date={invite.createdOn}
+                datetime={DATE_TIME_IDS.DATE}
+            />
+        </td>
         <td>{name}</td>
         <td>{invite.ownerCompanyName}</td>
         <td>{invite.companyName}</td>
