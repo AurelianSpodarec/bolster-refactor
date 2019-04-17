@@ -1496,6 +1496,10 @@ input {
         &:last-child {
             text-align: right;
         }
+
+        .button-block-container {
+            margin-top: 0;
+        }
     }
 
     .button {

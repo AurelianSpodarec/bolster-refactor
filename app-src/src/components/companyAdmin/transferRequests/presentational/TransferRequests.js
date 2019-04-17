@@ -15,17 +15,15 @@ const TransferRequests = () => (
                 <BlockHeading title="Pending Invites" />
                 <PendingInvitesTableContainer />
             </BlockContainer>
+            <BlockContainer>
+                <BlockHeading title="Owner Requests" />
+                <TransferRequestsTableContainer />
+            </BlockContainer>
         </div>
         <div className="size-lg-4">
             <MySubscriptionContainer />
             <BlockContainer>
                 <TwitterFeed />
-            </BlockContainer>
-        </div>
-        <div className="size-lg-8">
-            <BlockContainer>
-                <BlockHeading title="Owner Requests" />
-                <TransferRequestsTableContainer />
             </BlockContainer>
         </div>
     </>

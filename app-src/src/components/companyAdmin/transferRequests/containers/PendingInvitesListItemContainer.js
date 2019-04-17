@@ -54,7 +54,12 @@ const PendingInvitesListItemContainer = ({
             }
             hideModal();
         };
-        showModal(CONFIRM_DELETE, { message, handleDelete, hideModal });
+        showModal(CONFIRM_DELETE, {
+            message,
+            handleDelete,
+            hideModal,
+            isIncoming
+        });
     }
 };
 

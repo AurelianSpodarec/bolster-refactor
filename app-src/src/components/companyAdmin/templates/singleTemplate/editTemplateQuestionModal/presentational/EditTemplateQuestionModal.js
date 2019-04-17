@@ -17,38 +17,43 @@ const EditTemplateQuestionModal = ({
 }) => (
     <ModalOuterContainer>
         <BlockHeading title={`Edit question options - ${questionName}`} />
-        <Form onSubmit={handleSubmit}>
-            {options.map(([id, text], i) => (
-                <Field key={id} name={`Option ${i + 1}`}>
-                    <TextInputContainer
-                        name={id}
-                        value={text}
-                        handleChange={handleChange}
-                        required
-                    />
+        <Form className="generic-form size-lg-12" onSubmit={handleSubmit}>
+            <div className="dropdown-create size-lg-12">
+                {options.map(([id, text], i) => (
+                    <Field key={id} name={`Option ${i + 1}`}>
+                        <TextInputContainer
+                            name={id}
+                            value={text}
+                            handleChange={handleChange}
+                            required
+                        />
+                        <button
+                            className="button red delete-question icon-only"
+                            value={id}
+                            onClick={handleRemoveOption}
+                        >
+                            <i className="far fa-trash-alt" />
+                        </button>
+                    </Field>
+                ))}
+                <div className="size-lg-12">
                     <button
-                        className="button red"
-                        value={id}
-                        onClick={handleRemoveOption}
+                        className="button add-option"
+                        type="button"
+                        onClick={handleAddOption}
                     >
-                        <i className="far fa-trash-alt" />
-                        Delete Option
+                        <i className="fa fa-plus" />
+                        Add Option
                     </button>
-                </Field>
-            ))}
+                </div>
+            </div>
+
             <BlockButtonWrapper>
-                <button type="submit" className="button">
+                <button type="submit" className="button green">
                     <i className="fa fa-save" />
                     Save
                 </button>
-                <button
-                    className="button"
-                    type="button"
-                    onClick={handleAddOption}
-                >
-                    <i className="fa fa-plus" />
-                    Add Option
-                </button>
+
                 <button className="button" type="button" onClick={hideModal}>
                     Cancel
                 </button>

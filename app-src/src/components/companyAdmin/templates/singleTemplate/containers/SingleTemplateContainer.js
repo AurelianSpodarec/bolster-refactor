@@ -21,14 +21,7 @@ class SingleTemplateContainer extends Component {
             const sectQuestions = getSectionQuestions(versSections, questions);
             return (
                 <SingleTemplate
-                    headers={[
-                        'Question Name',
-                        'Type',
-                        'Hidden?',
-                        'Required?',
-                        'Prefilled?',
-                        ''
-                    ]}
+                    headers={['Question Name', 'Type', 'Required?', '']}
                     sections={versSections}
                     questions={sectQuestions}
                 />

@@ -6,14 +6,24 @@ import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/pr
 const ConfirmDeleteModal = ({
     handleDelete,
     hideModal,
-    message = 'Are you sure you want to delete this?'
+    message = 'Are you sure you want to delete this?',
+    isIncoming = false
 }) => (
     <ModalOuterContainer>
         <BlockHeading title={message} />
         <BlockButtonWrapper>
             <button className="button red" onClick={handleDelete}>
-                <i className="far fa-trash-alt fa-fw" />
-                Delete
+                {isIncoming ? (
+                    <>
+                        <i className="far fa-ban fa-fw" />
+                        Decline
+                    </>
+                ) : (
+                    <>
+                        <i className="far fa-trash-alt fa-fw" />
+                        Delete
+                    </>
+                )}
             </button>
             <button className="button" onClick={hideModal}>
                 Cancel

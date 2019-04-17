@@ -2,6 +2,7 @@ import React from 'react';
 import FieldOutput from 'components/shared/generic/fieldOutput/presentational/FieldOutput';
 import { isObjEmpty } from 'helpers/generic';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
+import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 
 const TemplateSectionQuestionDetails = ({
     question,
@@ -10,7 +11,13 @@ const TemplateSectionQuestionDetails = ({
 }) =>
     !isObjEmpty(details) ? (
         <>
-            <BlockHeading title={question.name} />
+            <BlockHeading title={question.name}>
+                {question.canCompanyEdit && (
+                    <button className="button yellow" onClick={showModal}>
+                        <i className="fal fa-pencil" /> Edit
+                    </button>
+                )}
+            </BlockHeading>
             {Object.entries(details).map(([key, val]) => (
                 <FieldOutput
                     key={key}
@@ -19,14 +26,14 @@ const TemplateSectionQuestionDetails = ({
                     fieldClass="no-h-padding"
                 />
             ))}
-            {question.canCompanyEdit && (
-                <button className="button" onClick={showModal}>
-                    Edit
-                </button>
-            )}
         </>
     ) : (
-        <BlockHeading title="Select a question for more info" />
+        <>
+            <BlockHeading title="Question Preview" />
+            <p className="generic-text intro-text size-lg-12">
+                Press "More info" on a question and view the details here.
+            </p>
+        </>
     );
 
 export default TemplateSectionQuestionDetails;
