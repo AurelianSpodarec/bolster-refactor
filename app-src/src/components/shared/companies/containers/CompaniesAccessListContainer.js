@@ -6,11 +6,20 @@ import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { CONFIRM_SUBMIT } from 'constants/shared/modalTypes';
 import deleteCompanyPermissions from 'actions/companyAdmin/companiesPermissions/async/deleteCompanyPermissions';
+import CompaniesAccessListSmall from '../presentational/CompaniesAccessListSmall';
 
 class CompaniesAccessListContainer extends Component {
     render() {
-        const { handleShowModal, parentId } = this.props;
-        return (
+        const { handleShowModal, parentId, smallPod } = this.props;
+
+        return smallPod ? (
+            <CompaniesAccessListSmall
+                handleShowModal={handleShowModal}
+                companies={Object.values(this.formatCompanies())}
+                parentId={parentId}
+                handleRemovePermission={this.handleRemovePermissionModal}
+            />
+        ) : (
             <CompaniesAccessList
                 handleShowModal={handleShowModal}
                 companies={Object.values(this.formatCompanies())}
