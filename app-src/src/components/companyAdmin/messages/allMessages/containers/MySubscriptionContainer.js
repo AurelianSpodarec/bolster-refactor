@@ -12,7 +12,6 @@ class MySubscriptionContainer extends Component {
         const endDate = moment(subscriptionEndDate);
         const currentDate = moment();
         const daysleft = endDate.diff(currentDate, 'days');
-        const endOn = moment(subscriptions.endOn).format('DD/MM/YYYY');
 
         return (
             <BlockContainer>
@@ -20,7 +19,7 @@ class MySubscriptionContainer extends Component {
                     services={this._servicesAvailable()}
                     daysleft={daysleft}
                     subscriptions={subscriptions}
-                    endOn={endOn}
+                    endOn={subscriptions.endOn}
                 />
             </BlockContainer>
         );

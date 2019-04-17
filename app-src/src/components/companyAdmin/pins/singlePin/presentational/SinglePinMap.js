@@ -1,10 +1,10 @@
 import React from 'react';
-import moment from 'moment';
 import { Map, Marker, TileLayer } from 'react-leaflet';
 
 import MapPin from 'components/shared/pins/map/presentational/MapPin';
 import { FILE_STORAGE_URL } from 'config';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
+import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 
 const SinglePinMap = ({
     pin,
@@ -63,10 +63,8 @@ const SinglePinMap = ({
                 {moveMode && <Marker position={editPinLocationPosition} />}
             </Map>
             <p className="map-details">
-                Last updated by:{' '}
-                {`${user.userFirstName} ${user.userLastName} ${moment(
-                    pin.latestCreatedOn
-                ).format('DD/MM/YYYY HH:mm')}`}
+                Last updated by: {`${user.userFirstName} ${user.userLastName} `}
+                <DateTimeContainer date={pin.latestCreatedOn} />
             </p>
         </>
     );

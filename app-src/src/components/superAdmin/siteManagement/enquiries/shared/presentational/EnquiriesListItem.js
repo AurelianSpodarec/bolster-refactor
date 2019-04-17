@@ -1,6 +1,6 @@
 import React from 'react';
-import moment from 'moment';
 import { Link } from 'react-router-dom';
+import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 const EnquiriesListItem = ({ enquiry, handleShowModal }) => {
     return (
         <tr>
@@ -9,7 +9,9 @@ const EnquiriesListItem = ({ enquiry, handleShowModal }) => {
 
             <td>{enquiry.email}</td>
             <td>{enquiry.contactNumber}</td>
-            <td>{moment(enquiry.sentOn).format('DD-MM-YYYY hh:mm a')}</td>
+            <td>
+                <DateTimeContainer date={enquiry.sentOn} />
+            </td>
             <td>
                 <Link className="button" to={`${enquiry.id}`}>
                     open

@@ -110,3 +110,15 @@ export const SUBSCRIPTION_RENEWAL_IDS = {
     CARD: 10,
     INVOICE: 20
 };
+
+export const DATE_TIME_IDS = {
+    DATETIME: 1,
+    DATE: 2,
+    TIME: 3
+};
+
+export const DATE_TIMES = {
+    1: 'momentDateTimeFormat',
+    2: 'momentDateFormat',
+    3: 'momentTimeFormat'
+};

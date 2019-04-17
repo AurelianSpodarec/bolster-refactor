@@ -1,7 +1,8 @@
 import React from 'react';
-import moment from 'moment';
 
 import Roles from './Roles';
+import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
+import { DATE_TIME_IDS } from 'constants/companyAdmin/enums';
 
 const UserListItem = ({
     user,
@@ -13,7 +14,12 @@ const UserListItem = ({
         <td>{user.email}</td>
         <td>{user.phoneNumber}</td>
         <Roles roles={user.roles} />
-        <td>{moment(user.createdOn).format('DD/MM/YYYY')}</td>
+        <td>
+            <DateTimeContainer
+                date={user.createdOn}
+                datetime={DATE_TIME_IDS.DATE}
+            />
+        </td>
         <td>
             <button
                 className="button yellow"

@@ -12,7 +12,14 @@ const DrawingListItemContainer = ({
         drawing={drawing}
         permissions={
             (!permissions && ACCESS_TYPES[accessType]) ||
-            permissions.map(permission => permission.companyName).join(', ')
+            permissions
+                .map(
+                    permission =>
+                        `${permission.companyName} (${
+                            ACCESS_TYPES[permission.accessType]
+                        })`
+                )
+                .join(', ')
         }
     />
 );

@@ -20,7 +20,14 @@ const SitesListItemContainer = ({
         toggleExpanded={() => dispatch(toggleSiteExpanded(site.id))}
         permissions={
             (!permissions && ACCESS_TYPES[accessType]) ||
-            permissions.map(permission => permission.companyName).join(', ')
+            permissions
+                .map(
+                    permission =>
+                        `${permission.companyName} (${
+                            ACCESS_TYPES[permission.accessType]
+                        })`
+                )
+                .join(', ')
         }
     />
 );

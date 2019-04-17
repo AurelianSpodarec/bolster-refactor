@@ -1,14 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import moment from 'moment';
+import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 
 const DrawingListItem = ({ drawing, permissions }) => (
     <tr>
         <td>{drawing.name}</td>
         <td>
-            {moment(drawing.pinsLastUpdatedOn).format('DD-MM-YYYY, h:mm a')}
+            <DateTimeContainer date={drawing.pinsLastUpdatedOn} />
         </td>
-        <td>{moment(drawing.expiresOn).format('DD-MM-YYYY, h:mm a')}</td>
+        <td>
+            <DateTimeContainer date={drawing.expiresOn} />
+        </td>
         <td>{permissions}</td>
         <td>
             <Link

@@ -1,5 +1,5 @@
 import React from 'react';
-import moment from 'moment';
+import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 
 const GenerationQueueListItem = ({ queueItem }) => (
     <tr>
@@ -7,7 +7,7 @@ const GenerationQueueListItem = ({ queueItem }) => (
         <td>##{queueItem.moreDetails}##</td>
         <td>##{queueItem.status}##</td>
         <td>
-            ##{moment(queueItem.createdOn).format('DD/MM/YYYY  hh:mm:ss a')}##
+            <DateTimeContainer date={queueItem.createdOn} />
         </td>
         <td />
     </tr>
