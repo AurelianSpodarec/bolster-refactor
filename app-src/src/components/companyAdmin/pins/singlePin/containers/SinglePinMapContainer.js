@@ -4,6 +4,7 @@ import { withRouter } from 'react-router-dom';
 
 import SinglePinMap from '../presentational/SinglePinMap';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+
 import fetchSingleDrawing from 'actions/companyAdmin/drawings/async/fetchSingleDrawing';
 import editPinLocation from 'actions/companyAdmin/pins/async/editPinLocation';
 import updatePinCoordinates from 'actions/companyAdmin/drawings/sync/updatePinCoordinates';
@@ -45,12 +46,12 @@ class SinglePinMapContainer extends Component {
     }
 
     componentDidUpdate = prevProps => {
-        const { pin, updatePinCoordinates, fetchDrawing } = this.props;
+        const { pin, fetchDrawing, updatePinCoordinates } = this.props;
         if (!prevProps.pin.id && pin.id) {
-            this._setMapCentre(pin.location.latY, pin.location.lngX);
-
             const lat = pin.location.latY;
             const lng = pin.location.lngX;
+
+            this._setMapCentre(lat, lng);
 
             updatePinCoordinates('lat', lat);
             updatePinCoordinates('lng', lng);
@@ -131,7 +132,6 @@ const mapDispatchToProps = dispatch => ({
     updatePinCoordinates: (name, value) => {
         dispatch(updatePinCoordinates(name, value));
     },
-
     fetchDrawing: drawingID => {
         dispatch(fetchSingleDrawing(drawingID));
     }
