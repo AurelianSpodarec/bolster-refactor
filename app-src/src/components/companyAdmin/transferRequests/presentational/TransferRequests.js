@@ -4,16 +4,17 @@ import TransferRequestsTableContainer from '../containers/TransferRequestsTableC
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
 
-const TransferRequests = () => {
-    return (
-        <>
-            <PageHeading title="Owner Requests" />
-            <BlockContainer>
-                <BlockHeading title="Owner Requests Table" />
-                <TransferRequestsTableContainer />
-            </BlockContainer>
-        </>
-    );
-};
+const TransferRequests = () => (
+    <>
+        <PageHeading title="Pending Requests" />
+        <BlockContainer>
+            <BlockHeading title="Pending Invites" />
+        </BlockContainer>
+        <BlockContainer>
+            <BlockHeading title="Owner Requests" />
+            <TransferRequestsTableContainer />
+        </BlockContainer>
+    </>
+);
 
 export default TransferRequests;

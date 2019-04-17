@@ -58,7 +58,7 @@ const CompanyMenu = ({ messageCount }) => (
                     Generation queue
                 </MenuItemContainer>
                 <MenuItemContainer link="/company/transfer-requests">
-                    Owner requests
+                    Pending Requests
                 </MenuItemContainer>
             </DropdownMenuItemContainer>
         </div>
