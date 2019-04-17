@@ -36,7 +36,7 @@ const Question = ({
         </p>
         <div className="size-lg-2">
             {isPrereq ? (
-                <TooltipContainer text="This item is a prerequiste, you must first remove it's dependats.">
+                <TooltipContainer text="This item is a prerequisite, you must first remove it's dependents.">
                     <button disabled className="button red icon-only">
                         <i className="far fa-trash-alt" />
                     </button>
