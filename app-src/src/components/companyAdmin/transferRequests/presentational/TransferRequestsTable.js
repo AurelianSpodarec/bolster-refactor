@@ -15,6 +15,7 @@ const TransferRequestsTable = ({
         noData={
             !incomingTransferRequests.length && !outgoingTransferRequests.length
         }
+        noDataMessage="You have no pending owner requests."
         error={error}
     >
         {!!incomingTransferRequests.length && (

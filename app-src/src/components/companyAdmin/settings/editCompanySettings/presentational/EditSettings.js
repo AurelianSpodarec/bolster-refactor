@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import Breadcrumb from 'components/shared/generic/breadcrumb/presentational/Breadcrumb';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import EditSettingsFormContainer from '../containers/EditSettingsFormContainer';
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';

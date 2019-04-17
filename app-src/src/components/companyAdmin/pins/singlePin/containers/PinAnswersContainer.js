@@ -4,7 +4,7 @@ import PinAnswer from '../presentational/PinAnswer';
 
 class PinAnswersContainer extends Component {
     render() {
-        const { questionType, questions, pinAnswers } = this.props;
+        const { questionType, questions, pinAnswers, pinHistory } = this.props;
 
         return (
             <PinAnswer
@@ -12,15 +12,18 @@ class PinAnswersContainer extends Component {
                 trimmedAnswer={this._getRelevantAnswer()}
                 questions={questions}
                 type={questionType}
+                pinHistory={pinHistory}
             />
         );
     }
 
     _getRelevantAnswer = () => {
-        const { questionID, pinAnswers } = this.props;
+        const { questionID, pinAnswers, pinHistory } = this.props;
 
         const relevantAnswer = pinAnswers.filter(
-            answer => answer.templateQuestionID === questionID
+            answer =>
+                answer.templateQuestionID === questionID &&
+                answer.pinHistoryID === pinHistory.id
         );
 
         const answer = {

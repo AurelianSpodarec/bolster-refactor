@@ -33,10 +33,7 @@ const CompanyMenu = ({ messageCount }) => (
             </MenuItemContainer>
 
             <MenuItemContainer link="/company/message-centre">
-                <span className="messages">
-                    <i className="far fa-envelope" />
-                    <sub>{messageCount}</sub>
-                </span>
+                <i className="far fa-envelope icon" />
                 Message Centre
             </MenuItemContainer>
 
@@ -58,7 +55,7 @@ const CompanyMenu = ({ messageCount }) => (
                     Generation queue
                 </MenuItemContainer>
                 <MenuItemContainer link="/company/transfer-requests">
-                    Owner requests
+                    Pending Requests
                 </MenuItemContainer>
             </DropdownMenuItemContainer>
         </div>

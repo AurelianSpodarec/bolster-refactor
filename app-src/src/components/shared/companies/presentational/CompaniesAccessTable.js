@@ -10,7 +10,8 @@ const CompaniesAccessTable = ({
     companies,
     parentId,
     handleShowModal,
-    isFetching
+    isFetching,
+    smallPod
 }) => (
     <div className="size-lg-12">
         <BlockHeading title="Company Access">
@@ -22,7 +23,7 @@ const CompaniesAccessTable = ({
             </Link>
         </BlockHeading>
         <Table
-            headers={['Name', '', 'Actions']}
+            headers={smallPod ? ['Name', 'Actions'] : ['Name', '', 'Actions']}
             isFetching={isFetching}
             noData={!companies.length}
             noDataMessage="No companies to display"
@@ -32,6 +33,7 @@ const CompaniesAccessTable = ({
                 handleShowModal={handleShowModal}
                 companies={companies}
                 parentId={parentId}
+                smallPod={smallPod}
             />
         </Table>
     </div>

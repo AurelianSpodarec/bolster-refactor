@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import CreditLogsTableContainer from '../containers/CreditLogsTableContainer';
-import Breadcrumb from 'components/shared/generic/breadcrumb/presentational/Breadcrumb';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
 
