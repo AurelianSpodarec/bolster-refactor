@@ -3,30 +3,38 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 import editPinLocation from 'actions/companyAdmin/pins/async/editPinLocation';
-import updatePinCoordinates from 'actions/companyAdmin/drawings/sync/updatePinCoordinates';
 
 import SinglePinMap from '../presentational/SinglePinMap';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import fetchSingleDrawing from 'actions/companyAdmin/drawings/async/fetchSingleDrawing';
 
 class SinglePinMapContainer extends Component {
-    render() {
-        const { pin, user, error, isFetching, drawings } = this.props;
+    state = {
+        moveMode: false,
+        movePinLat: 0,
+        movePinLng: 0
+    };
 
-        const curDrawing = drawings.filter(item=>item.id === pin.drawingID)[0];
+    render() {
+        const { pin, user, error, isFetching, drawing } = this.props;
+
+        const movePinPosition = [this.state.movePinLat, this.state.movePinLng];
 
         return (
             <BlockContainer
-                isEmpty={!pin.id || drawings.length===0}
+                isEmpty={!pin.id || !drawing.id}
                 isFetching={isFetching}
                 error={error}
             >
                 <SinglePinMap
                     zoom={3}
+                    movePinPosition={movePinPosition}
                     pin={pin}
-                    handleClick={this.handleClick}
+                    handleClick={this.handleMapClick}
                     user={user}
-                    drawing={curDrawing}
+                    drawing={drawing}
+                    toggleMoveMode={this.toggleMoveMode}
+                    moveMode={this.state.moveMode}
                 />
             </BlockContainer>
         );
@@ -34,14 +42,14 @@ class SinglePinMapContainer extends Component {
 
 
     componentDidUpdate = prevProps => {
-        const { pin, updatePinCoordinates, fetchDrawing } = this.props;
+        const { pin, fetchDrawing } = this.props;
         if (!prevProps.pin.id && pin.id) {
             this._setMapCentre(pin.location.latY, pin.location.lngX);
-            const lat = pin.location.latY;
-            const lng = pin.location.lngX;
 
-            updatePinCoordinates('lat', lat);
-            updatePinCoordinates('lng', lng);
+            this.setState({
+                movePinLat: pin.location.latY,
+                movePinLng: pin.location.lngX
+            });
 
             fetchDrawing(pin.drawingID);
         }
@@ -49,9 +57,25 @@ class SinglePinMapContainer extends Component {
 
     };
 
-    handleClick = ({ latlng: { lat, lng } }) => {
-        const { editPinLocation, pin } = this.props;
-        editPinLocation(pin.id, lat, lng);
+    toggleMoveMode = () => {
+        this.setState({
+            moveMode: !this.state.moveMode
+        });
+    };
+
+    handleMapClick = ({ latlng: { lat, lng } }) => {
+        if (this.state.moveMode) {
+            this.setState({
+                movePinLat: lat,
+                movePinLng: lng
+            });
+        }
+    };
+
+    _updateCoordinates = (lat, lng) => {
+        const { pin } = this.props;
+
+
     };
 
     _setMapCentre = (lat, lng) => {
@@ -79,16 +103,13 @@ const mapStateToProps = (
         user: users[pin.latestCreatedByCompanyUserID] || {},
         error,
         isFetching,
-        drawings: Object.values(drawings)
+        drawing: drawings[pin.drawingID] || {}
     };
 };
 
 const mapDispatchToProps = dispatch => ({
     editPinLocation: (id, lat, lng) => {
         dispatch(editPinLocation(id, lat, lng));
-    },
-    updatePinCoordinates: (name, value) => {
-        dispatch(updatePinCoordinates(name, value));
     },
     fetchDrawing: (drawingID) => {
         dispatch(fetchSingleDrawing(drawingID));
