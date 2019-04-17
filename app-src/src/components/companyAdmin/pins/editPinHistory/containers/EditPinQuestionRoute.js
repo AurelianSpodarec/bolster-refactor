@@ -164,12 +164,17 @@ const MultiPhoto = ({
     />
 );
 
-const Signature = ({ question: { isRequired, id }, handleSignatureChange }) => (
+const Signature = ({
+    question: { isRequired, id },
+    answers,
+    handleSignatureChange
+}) => (
     <SignatureContainer
         name={`answer-${id}`}
         canvasProps={{ width: 500, height: 200, className: 'sigCanvas' }}
         required={isRequired}
         onChange={handleSignatureChange}
+        value={answers[id]}
     />
 );
 
