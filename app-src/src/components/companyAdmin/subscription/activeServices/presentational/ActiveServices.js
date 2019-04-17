@@ -35,7 +35,7 @@ const ActiveServices = ({
             <div className="size-lg-12">
                 <BlockHeading
                     leftIcon={true}
-                    classes="sub-header w-left-icon"
+                    classes="sub-heading w-left-icon"
                     title="Looking for something specific?"
                 >
                     <StatusIcon

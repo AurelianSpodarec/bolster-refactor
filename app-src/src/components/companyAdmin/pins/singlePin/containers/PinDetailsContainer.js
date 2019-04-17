@@ -7,6 +7,7 @@ import selectPinHistory from 'actions/companyAdmin/pins/sync/selectPinHistory';
 
 import PinDetails from '../presentational/PinDetails';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 
 class PinDetailsContainer extends Component {
     render() {
@@ -29,7 +30,6 @@ class PinDetailsContainer extends Component {
 
         return (
             <BlockContainer
-                heading="Pin options"
                 isEmpty={
                     !user ||
                     Object.values(services).length < 1 ||
@@ -38,6 +38,7 @@ class PinDetailsContainer extends Component {
                 isFetching={isFetching}
                 error={error}
             >
+                <BlockHeading title="Pin Options" />
                 <PinDetails
                     pinHistory={selectedHistory}
                     historyCount={histories.length}
