@@ -14,7 +14,7 @@ class TransferRequestsTableContainer extends Component {
             isFetching,
             error
         } = this.props;
-        const headers = ['Date', 'Site name/type', 'From', 'To', 'Actions'];
+        const headers = ['Date', 'Site name', 'From', 'To', 'Action(s)'];
         return (
             <TransferRequestsTable
                 headers={headers}

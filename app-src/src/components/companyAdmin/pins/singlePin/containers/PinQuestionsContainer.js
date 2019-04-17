@@ -4,13 +4,18 @@ import PinQuestion from '../presentational/PinQuestion';
 
 class PinQuestionsContainer extends Component {
     render() {
-        const { sectionID, templateQuestions } = this.props;
+        const { sectionID, templateQuestions, pinHistory } = this.props;
 
         const relevantQuestions = templateQuestions.filter(
             question => question.templateSectionID === sectionID
         );
 
-        return <PinQuestion questions={relevantQuestions} />;
+        return (
+            <PinQuestion
+                questions={relevantQuestions}
+                pinHistory={pinHistory}
+            />
+        );
     }
 }
 

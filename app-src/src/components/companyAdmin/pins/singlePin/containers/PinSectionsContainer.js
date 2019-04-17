@@ -4,13 +4,15 @@ import PinSection from '../presentational/PinSection';
 
 class PinSectionsContainer extends Component {
     render() {
-        const { templateVersionID, templateSections } = this.props;
+        const { templateVersionID, templateSections, pinHistory } = this.props;
 
         const relevantSections = templateSections.filter(
             template => template.templateVersionID === templateVersionID
         );
 
-        return <PinSection sections={relevantSections} />;
+        return (
+            <PinSection sections={relevantSections} pinHistory={pinHistory} />
+        );
     }
 }
 

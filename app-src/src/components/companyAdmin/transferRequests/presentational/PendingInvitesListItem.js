@@ -1,24 +1,25 @@
 import React from 'react';
-import moment from 'moment';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
+import moment from 'moment';
 
-const TransferRequestListItem = ({
-    request,
+const PendingInvitesListItem = ({
+    invite,
     companyID,
     handleAccept,
-    handleDecline
+    handleDecline,
+    name
 }) => (
     <tr>
-        <td>{moment(request.createdOn).format('DD/MM/YYYY')}</td>
-        <td>{request.siteName}</td>
-        <td>{request.inviteFromCompanyName}</td>
-        <td>{request.inviteToCompanyName}</td>
+        <td>{moment(invite.createdOn).format('DD/MM/YYYY')}</td>
+        <td>{name}</td>
+        <td>{invite.ownerCompanyName}</td>
+        <td>{invite.companyName}</td>
         <td>
             <BlockButtonWrapper>
-                {companyID === request.inviteToCompanyID && (
+                {companyID === invite.companyID && (
                     <button
                         type="button"
-                        className="button"
+                        className="button green icon-only"
                         onClick={handleAccept}
                     >
                         <i className="fa fa-check" />
@@ -26,7 +27,7 @@ const TransferRequestListItem = ({
                 )}
                 <button
                     type="button"
-                    className="button"
+                    className="button red icon-only"
                     onClick={handleDecline}
                 >
                     <i className="fa fa-times" />
@@ -36,4 +37,4 @@ const TransferRequestListItem = ({
     </tr>
 );
 
-export default TransferRequestListItem;
+export default PendingInvitesListItem;

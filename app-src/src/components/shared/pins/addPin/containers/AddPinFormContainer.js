@@ -64,8 +64,6 @@ class AddPinFormContainer extends Component {
             hierarchyType
         } = this.props;
 
-        console.warn(hierarchyType);
-
         if (!coordinates.lat || !coordinates.lng) {
             if (hierarchyType === 'drawing') {
                 history.push(`/company/drawings/${drawingID}`);
@@ -88,11 +86,25 @@ class AddPinFormContainer extends Component {
     };
 
     componentDidUpdate = prevProps => {
-        const { postSuccess, history, drawingID, resetPinAnswers } = this.props;
+        const {
+            postSuccess,
+            history,
+            drawingID,
+            pinID,
+            resetPinAnswers,
+            hierarchyType
+        } = this.props;
 
         if (!prevProps.postSuccess && postSuccess) {
             resetPinAnswers();
-            history.push(`/company/drawings/${drawingID}`);
+
+            if (hierarchyType === 'drawing') {
+                history.push(`/company/drawings/${drawingID}`);
+            }
+
+            if (hierarchyType === 'pin') {
+                history.push(`/company/pins/${pinID}`);
+            }
         }
     };
 
@@ -112,16 +124,18 @@ class AddPinFormContainer extends Component {
 
     handleSubmit = e => {
         e.preventDefault();
-        const { templates } = this.props;
 
         const { templateID } = this.state;
 
         const {
+            templates,
             answers,
             drawingID,
             createPin,
             coordinates,
-            filesUploading
+            filesUploading,
+            hierarchyType,
+            pinID
         } = this.props;
 
         const curTemplates = templates.filter(item => item.id == templateID);
@@ -136,19 +150,24 @@ class AddPinFormContainer extends Component {
         });
 
         const postBody = {
-            pin: {
-                drawingID: parseInt(drawingID),
-                location: {
-                    lngX: coordinates.lng,
-                    latY: coordinates.lat
-                }
-            },
             history: {
                 templateVersionID: curTemplate.latestVersionID,
                 pinStatus: this.state.statusID
             },
             answers: formattedAnswers
         };
+
+        if (hierarchyType === 'drawing') {
+            postBody.pin = {};
+            postBody.pin.drawingID = parseInt(drawingID);
+            postBody.pin.location = {};
+            postBody.pin.location.lngX = coordinates.lng;
+            postBody.pin.location.latY = coordinates.lat;
+        }
+
+        if (hierarchyType === 'pin') {
+            postBody.pinID = pinID;
+        }
 
         if (!filesUploading) {
             createPin(postBody);

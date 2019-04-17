@@ -56,7 +56,7 @@ const PinDetails = ({
             fieldClass="no-h-padding"
         />
 
-        <PinSectionsContainer />
+        <PinSectionsContainer pinHistory={pinHistory} />
 
         {/* <div className="field-output no-h-padding size-lg-12">
                 <label className="title">Photo(s)</label>
@@ -67,7 +67,7 @@ const PinDetails = ({
             <a className="button red" href="#/">
                 <i className="icon fa fa-trash-alt" /> Delete history
             </a>
-            <a className="button yellow" href="#">
+            <a className="button yellow" href="#/">
                 <i className="far fa-pencil" /> Edit history
             </a>
         </BlockButtonWrapper>

@@ -1,7 +1,6 @@
 import React from 'react';
 import moment from 'moment';
 
-import image from '_content/images/examples/pipe.jpg';
 import FieldOutput from 'components/shared/generic/fieldOutput/presentational/FieldOutput';
 
 import { PIN_STATUS_TYPES as STATUS } from 'constants/companyAdmin/enums';
@@ -15,10 +14,10 @@ const PinHistoriesListItem = ({
     services
 }) => (
     <div className="item">
-        <div
+        {/* <div
             className="image-holder"
             style={{ backgroundImage: `url(${image})` }}
-        />
+        /> */}
         <div className="outputs">
             <FieldOutput
                 title="History"

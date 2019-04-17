@@ -3,7 +3,6 @@ import Form from 'components/shared/generic/form/containers/Form';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import Field from 'components/shared/generic/form/presentational/Field';
 import FileUploadContainer from 'components/shared/generic/form/containers/FileUploadContainer';
-import SwitchContainer from 'components/shared/generic/form/containers/SwitchContainer';
 import { Link, withRouter } from 'react-router-dom';
 
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';

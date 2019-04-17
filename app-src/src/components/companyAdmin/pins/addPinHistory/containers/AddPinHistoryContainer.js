@@ -13,25 +13,13 @@ class AddPinHistoryContainer extends Component {
     }
 
     componentDidMount = () => {
-        const { pinID, fetchSinglePin, drawings, history } = this.props;
+        const { pinID, fetchSinglePin } = this.props;
         fetchSinglePin(pinID);
-
-        if (!drawings) {
-            history.push(`/company/pins/${pinID}`);
-        }
     };
 }
 
-const mapStateToProps = (
-    {
-        companyAdmin: {
-            drawingsReducer: { drawings }
-        }
-    },
-    { match: { params } }
-) => ({
-    pinID: params.id,
-    drawings
+const mapStateToProps = (_, { match: { params } }) => ({
+    pinID: params.id
 });
 
 const mapDispatchToProps = dispatch => ({

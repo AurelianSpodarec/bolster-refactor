@@ -18,6 +18,7 @@ import invoiceItemsReducer from './invoiceItems';
 import invoicesReducer from './invoices';
 import messagesReducer from './messages';
 import operativesReducer from './operatives';
+import pendingInvitesReducer from './pendingInvites';
 import pinAnswersReducer from './pinAnswers';
 import pinHistoriesReducer from './pinHistories';
 import pinsReducer from './pins';
@@ -51,6 +52,7 @@ export default combineReducers({
     invoiceItemsReducer,
     messagesReducer,
     operativesReducer,
+    pendingInvitesReducer,
     pinAnswersReducer,
     pinHistoriesReducer,
     pinsReducer,
