@@ -1,10 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import Block from 'components/shared/generic/block/presentational/Block';
 import Form from 'components/shared/generic/form/containers/Form';
 import Field from 'components/shared/generic/form/presentational/Field';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
+import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
+import BackButtonContainer from 'components/shared/generic/backButton/containers/BackButtonContainer';
+import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
+import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 
 const ChangeOwnershipForm = ({
     companyCode,
@@ -12,27 +16,35 @@ const ChangeOwnershipForm = ({
     handleSubmit,
     url
 }) => (
-    <Block>
-        <Form className="generic-form" onSubmit={handleSubmit}>
-            <h3 className="heading heading-3">Change ownership form</h3>
-            <Field name="Company code">
-                <TextInputContainer
-                    value={companyCode}
-                    name="companyCode"
-                    handleChange={handleChange}
-                    required
-                />
-            </Field>
-            <p />
-            <Link className="button" to={url.replace('/change-ownership', '')}>
-                Cancel
-            </Link>
-            <button className="button" onClick={handleSubmit}>
-                <i className="fa fa-save" />
-                Save
-            </button>
-        </Form>
-    </Block>
+    <>
+        <PageHeading leftChildren={true} title="Change Ownership">
+            <BackButtonContainer />
+        </PageHeading>
+        <BlockContainer>
+            <Form className="generic-form" onSubmit={handleSubmit}>
+                <Field name="Company code" sizeClasses="size-lg-6">
+                    <TextInputContainer
+                        value={companyCode}
+                        name="companyCode"
+                        handleChange={handleChange}
+                        required
+                    />
+                </Field>
+                <BlockButtonWrapper>
+                    <Link
+                        className="button"
+                        to={url.replace('/change-ownership', '')}
+                    >
+                        Cancel
+                    </Link>
+                    <button className="button" onClick={handleSubmit}>
+                        <i className="fa fa-save" />
+                        Save
+                    </button>
+                </BlockButtonWrapper>
+            </Form>
+        </BlockContainer>
+    </>
 );
 
 export default ChangeOwnershipForm;

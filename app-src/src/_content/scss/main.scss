@@ -750,7 +750,7 @@ input {
         .heading {
             float: left;
             width: 100%;
-            font-size: 140%;
+            font-size: 150%;
             padding-bottom: 5px;
             margin-bottom: 10px;
             border-bottom: 1px solid $light-grey;
@@ -1098,18 +1098,6 @@ input {
 //pin sections
 .pin-details-section {
     margin: 10px 0 0;
-
-    > .block-heading {
-        .heading {
-            float: left;
-            width: 100%;
-            padding-bottom: 5px;
-            margin-bottom: 10px;
-            border-bottom: 1px solid $light-grey;
-            max-width: 100%;
-            color: $text-grey;
-        }
-    }
 }
 
 //field outputs

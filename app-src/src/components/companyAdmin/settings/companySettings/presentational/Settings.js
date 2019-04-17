@@ -24,10 +24,7 @@ const Settings = ({ isFetching, error, companySettings: company }) => {
             >
                 {/* address  */}
                 <div className="field-group size-lg-12">
-                    <BlockHeading
-                        classes="sub-heading"
-                        title="Company Details"
-                    />
+                    <BlockHeading title="Company Details" />
                     <div className=" size-lg-4">
                         <FieldOutput
                             title="Company Name"
@@ -60,7 +57,7 @@ const Settings = ({ isFetching, error, companySettings: company }) => {
                     </div>
                 </div>
                 <div className="size-lg-12">
-                    <BlockHeading title="Company Code" />
+                    <BlockHeading classes="sub-heading" title="Company Code" />
 
                     <FieldOutput
                         title="Code"
@@ -76,7 +73,7 @@ const Settings = ({ isFetching, error, companySettings: company }) => {
                     />
                 </div>
 
-                <BlockHeading title="Display Settings" />
+                <BlockHeading classes="sub-heading" title="Display Settings" />
 
                 <FieldOutput
                     title="Company Logo"
@@ -115,7 +112,7 @@ const Settings = ({ isFetching, error, companySettings: company }) => {
                     description={dateFormat.momentDateTimeFormat}
                 />
 
-                <BlockHeading title="Template Settings" />
+                <BlockHeading classes="sub-heading" title="Template Settings" />
                 <FieldOutput
                     title="Default Template Usage Rule"
                     description={
@@ -139,7 +136,10 @@ const Settings = ({ isFetching, error, companySettings: company }) => {
                         sizeClass="size-lg-4"
                     />
 
-                    <BlockHeading title="Bolster Client List" />
+                    <BlockHeading
+                        classes="sub-heading"
+                        title="Bolster Client List"
+                    />
                     <FieldOutput
                         title="Hidden on client list?"
                         description={company.hideOnClientList ? 'Yes' : 'No'}
