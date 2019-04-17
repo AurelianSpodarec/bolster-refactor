@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { HuePicker } from 'react-color';
+import Select from 'react-select';
 
 import Form from 'components/shared/generic/form/containers/Form';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
@@ -33,7 +34,13 @@ const EditSettingsForm = ({
     labelTelNumber,
     labelCompanyName,
     hideOnClientList,
-    selectedRule
+    selectedRule,
+    timezones,
+    timezone,
+    handleTimezoneChange,
+    dateFormats,
+    dateFormat,
+    handleDateFormatChange
 }) => (
     <>
         <Form className="generic-form ize-lg-12" onSubmit={handleSubmit}>
@@ -192,7 +199,24 @@ const EditSettingsForm = ({
                     />
                 </Field>
             </div>
-
+            <div>
+                <Field name="timezone">
+                    <Select
+                        options={timezones}
+                        value={timezone}
+                        isSearchable
+                        onChange={handleTimezoneChange}
+                    />
+                </Field>
+                <Field name="Date format">
+                    <Select
+                        options={dateFormats}
+                        value={dateFormat}
+                        isSearchable
+                        onChange={handleDateFormatChange}
+                    />
+                </Field>
+            </div>
             <BlockButtonWrapper>
                 <button
                     disabled={filesUploading}

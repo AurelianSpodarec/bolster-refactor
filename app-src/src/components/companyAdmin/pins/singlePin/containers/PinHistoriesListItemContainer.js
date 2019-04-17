@@ -53,7 +53,7 @@ class PinHistoriesListItemContainer extends Component {
         const { selectedHistoryId, history } = this.props;
 
         if (
-            prevProps.selectedHistoryId != history.id &&
+            prevProps.selectedHistoryId !== history.id &&
             selectedHistoryId === history.id
         ) {
             this.setState({
@@ -62,7 +62,7 @@ class PinHistoriesListItemContainer extends Component {
         }
         if (
             prevProps.selectedHistoryId === history.id &&
-            selectedHistoryId != history.id
+            selectedHistoryId !== history.id
         ) {
             this.setState({
                 active: !this.state.active

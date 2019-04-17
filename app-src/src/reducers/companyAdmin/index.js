@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
 
+import accountsReducer from './accounts';
 import addPinFormReducer from './addPinForm';
 import addPinCoordinatesReducer from './addPinCoordinates';
 import buildingsReducer from './buildings';
@@ -34,6 +35,7 @@ import templateQuestionsReducer from './templateQuestions';
 import transferRequestsReducer from './transferRequests';
 
 export default combineReducers({
+    accountsReducer,
     addPinCoordinatesReducer,
     addPinFormReducer,
     buildingsReducer,

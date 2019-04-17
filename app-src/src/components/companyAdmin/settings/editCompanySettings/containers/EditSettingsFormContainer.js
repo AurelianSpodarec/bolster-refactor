@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
@@ -28,15 +29,20 @@ class EditSettingsFormContainer extends Component {
         labelCompanyName: null,
         hideOnClientList: false,
         defaultTemplateUsageRule: 0,
-        initialFile: ''
+        initialFile: '',
+        timezone: { value: '', label: '' },
+        dateFormat: { value: '', label: '' }
     };
 
     render() {
         const { filesUploading } = this.props;
         const {
             templateUsageRuleOptions,
-            defaultTemplateUsageRule
+            defaultTemplateUsageRule,
+            timezone,
+            dateFormat
         } = this.state;
+
         return (
             <>
                 <EditSettingsForm
@@ -51,6 +57,12 @@ class EditSettingsFormContainer extends Component {
                     selectedRule={
                         templateUsageRuleOptions[defaultTemplateUsageRule]
                     }
+                    timezones={this.formatTimezones()}
+                    timezone={timezone}
+                    handleTimezoneChange={this.handleTimezoneChange}
+                    dateFormats={this.formatDateFormats()}
+                    dateFormat={dateFormat}
+                    handleDateFormatChange={this.handleDateFormatChange}
                 />
             </>
         );
@@ -67,6 +79,8 @@ class EditSettingsFormContainer extends Component {
                 vatCode,
                 vatType,
                 logoFile,
+                timeZone,
+                dateFormat,
                 ...restSettings
             }
         } = this.props;
@@ -74,7 +88,17 @@ class EditSettingsFormContainer extends Component {
             ...restSettings,
             colourCode: restSettings.colourCode || '#fff',
             initialFile: logoFile,
-            logoFile
+            logoFile,
+            timezone: {
+                label: `${timeZone.name} - ${timeZone.offset}`,
+                value: timeZone.id
+            },
+            dateFormat: {
+                label: `${dateFormat.momentDateTimeFormat} - eg. ${
+                    dateFormat.example
+                }`,
+                value: dateFormat.id
+            }
         });
     };
 
@@ -107,6 +131,10 @@ class EditSettingsFormContainer extends Component {
         });
     };
 
+    handleTimezoneChange = timezone => this.setState({ timezone });
+
+    handleDateFormatChange = dateFormat => this.setState({ dateFormat });
+
     handleCheckboxChange = e => {
         const { name } = e.target;
         this.setState(prevState => ({
@@ -118,11 +146,31 @@ class EditSettingsFormContainer extends Component {
         e.preventDefault();
         const { filesUploading, editCompanySettings } = this.props;
         if (!filesUploading) {
-            // eslint-disable-next-line no-unused-vars
-            const { templateUsageRuleOptions, ...postBody } = this.state;
-            editCompanySettings(postBody);
+            const {
+                templateUsageRuleOptions,
+                timezone,
+                dateFormat,
+                ...postBody
+            } = this.state;
+            editCompanySettings({
+                ...postBody,
+                timezone: timezone.value,
+                dateFormatID: dateFormat.value
+            });
         }
     };
+
+    formatTimezones = () =>
+        this.props.timezones.map(({ id, name, offset }) => ({
+            value: id,
+            label: `${name} - ${offset}`
+        }));
+
+    formatDateFormats = () =>
+        this.props.dateFormats.map(({ id, example, momentDateTimeFormat }) => ({
+            value: id,
+            label: `${momentDateTimeFormat} (eg. ${example})}`
+        }));
 }
 
 const mapDispatchToProps = dispatch => ({
@@ -142,13 +190,18 @@ const mapStateToProps = ({
     },
     shared: {
         filesUploadingReducer: { filesUploading }
+    },
+    companyAdmin: {
+        accountsReducer: { timezones, dateFormats }
     }
 }) => ({
     isFetching,
     error,
     companySettings,
     filesUploading,
-    postSuccess
+    postSuccess,
+    timezones: Object.values(timezones),
+    dateFormats: Object.values(dateFormats)
 });
 
 export default withRouter(

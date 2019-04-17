@@ -26,7 +26,9 @@ const TransferRequests = () => (
             </BlockContainer>
         </div>
         <div className="size-lg-4">
-            <TwitterFeed />
+            <BlockContainer>
+                <TwitterFeed />
+            </BlockContainer>
         </div>
     </>
 );
