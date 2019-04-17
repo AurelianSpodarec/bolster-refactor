@@ -13,7 +13,8 @@ const FileUpload = ({
     files,
     handleUpdateFiles,
     handleFileUploadStart,
-    handleFileUploadFinish
+    handleFileUploadFinish,
+    updateRef
 }) => (
     <>
         <FilePond
@@ -26,6 +27,7 @@ const FileUpload = ({
             server={serverOptions}
             onaddfilestart={file => handleFileUploadStart(file)}
             onprocessfile={file => handleFileUploadFinish(file)}
+            ref={updateRef}
         />
         {!!(error && error.length) && (
             <p className="error red-text text-accent-4">{error}</p>

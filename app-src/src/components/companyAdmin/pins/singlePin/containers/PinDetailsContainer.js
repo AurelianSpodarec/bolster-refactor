@@ -8,6 +8,11 @@ import selectPinHistory from 'actions/companyAdmin/pins/sync/selectPinHistory';
 import PinDetails from '../presentational/PinDetails';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
+import deletePinHistory from 'actions/companyAdmin/pins/async/deletePinHistory';
+import { showModal } from 'actions/shared/generic/modals/sync/showModal';
+import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
+import { CONFIRM_DELETE } from 'constants/shared/modalTypes';
+import fetchSinglePin from 'actions/companyAdmin/pins/async/fetchSinglePin';
 
 class PinDetailsContainer extends Component {
     render() {
@@ -46,6 +51,7 @@ class PinDetailsContainer extends Component {
                     user={user}
                     services={services}
                     pin={pin}
+                    handleDelete={this.handleDeleteModal}
                 />
             </BlockContainer>
         );
@@ -59,10 +65,36 @@ class PinDetailsContainer extends Component {
     };
 
     componentDidUpdate = prevProps => {
-        const { latestHistoryId, selectPinHistory } = this.props;
+        const {
+            latestHistoryId,
+            selectPinHistory,
+            postSuccess,
+            fetchSinglePin,
+            pin
+        } = this.props;
         if (!prevProps.latestHistoryId && latestHistoryId) {
             selectPinHistory(latestHistoryId);
         }
+        if (postSuccess && !prevProps.postSuccess) {
+            fetchSinglePin(pin.id);
+        }
+        // TODO: check if pin still exists after deleted history and redirect if not
+    };
+
+    handleDeleteModal = () => {
+        const {
+            hideModal,
+            showModal,
+            selectedHistory,
+            deletePinHistory
+        } = this.props;
+
+        const handleDelete = () => {
+            deletePinHistory(selectedHistory.id);
+            hideModal();
+        };
+        const message = 'Are you sure you wish to delete this pin history?';
+        showModal(CONFIRM_DELETE, { hideModal, handleDelete, message });
     };
 }
 
@@ -91,14 +123,17 @@ const mapStateToProps = (
         histories: Object.values(histories),
         users: companyUsersReducer.users || {},
         services: services || {},
-        pin
+        pin,
+        postSuccess: pinsReducer.postSuccess
     };
 };
 
 const mapDispatchToProps = dispatch => ({
-    selectPinHistory: historyId => {
-        dispatch(selectPinHistory(historyId));
-    }
+    getSinglePin: id => dispatch(fetchSinglePin(id)),
+    selectPinHistory: historyID => dispatch(selectPinHistory(historyID)),
+    deletePinHistory: historyID => dispatch(deletePinHistory(historyID)),
+    showModal: (type, props) => showModal(type, props),
+    hideModal: () => hideModal()
 });
 
 export default withRouter(

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { convertArrToObj, isObjEmpty } from 'helpers/generic';
 
-import createPin from 'actions/companyAdmin/pins/async/createPin';
+import editPinHistory from 'actions/companyAdmin/pins/async/editPinHistory';
 import resetPinAnswers from 'actions/companyAdmin/drawings/sync/resetPinAnswers';
 
 import EditPinForm from '../presentational/EditPinForm';
@@ -139,52 +139,23 @@ class EditPinFormContainer extends Component {
     handleSubmit = e => {
         e.preventDefault();
 
-        const { templateID } = this.state;
-
         const {
-            templates,
+            editPinHistory,
             answers,
-            drawingID,
-            createPin,
-            coordinates,
             filesUploading,
-            hierarchyType,
-            pinID
+            selectedHistory
         } = this.props;
 
-        const curTemplates = templates.filter(item => item.id == templateID);
-        let curTemplate;
-
-        if (curTemplates) {
-            curTemplate = curTemplates[0];
-        }
-
         const formattedAnswers = Object.keys(answers).map(function(key) {
-            return { templateQuestionID: key, answer: answers[key] };
+            return { id: key, answer: answers[key] };
         });
 
         const postBody = {
-            history: {
-                templateVersionID: curTemplate.latestVersionID,
-                pinStatus: this.state.statusID
-            },
             answers: formattedAnswers
         };
 
-        if (hierarchyType === 'drawing') {
-            postBody.pin = {};
-            postBody.pin.drawingID = parseInt(drawingID);
-            postBody.pin.location = {};
-            postBody.pin.location.lngX = coordinates.lng;
-            postBody.pin.location.latY = coordinates.lat;
-        }
-
-        if (hierarchyType === 'pin') {
-            postBody.pinID = pinID;
-        }
-
         if (!filesUploading) {
-            createPin(postBody);
+            editPinHistory(selectedHistory.id, postBody);
         }
     };
 }
@@ -215,8 +186,8 @@ const mapStateToProps = ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    createPin: postBody => {
-        dispatch(createPin(postBody));
+    editPinHistory: (pinHistoryID, postBody) => {
+        dispatch(editPinHistory(pinHistoryID, postBody));
     },
     resetPinAnswers: () => {
         dispatch(resetPinAnswers());

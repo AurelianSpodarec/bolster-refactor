@@ -15,7 +15,8 @@ const PinDetails = ({
     historyCount,
     historyVersion,
     user,
-    services
+    services,
+    handleDelete
 }) => (
     <>
         <div className="size-lg-12">
@@ -65,9 +66,9 @@ const PinDetails = ({
             </div> */}
 
         <BlockButtonWrapper>
-            <a className="button red" href="#/">
+            <button className="button red" onClick={handleDelete}>
                 <i className="icon fa fa-trash-alt" /> Delete history
-            </a>
+            </button>
             <Link
                 className="button yellow"
                 to={`/company/pins/${pinHistory.pinID}/edit-history/${
