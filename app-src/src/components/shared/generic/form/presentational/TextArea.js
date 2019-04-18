@@ -1,6 +1,6 @@
 import React from 'react';
 
-const TextInput = ({
+const TextArea = ({
     name,
     placeholder,
     value,
@@ -25,4 +25,4 @@ const TextInput = ({
     </>
 );
 
-export default TextInput;
+export default TextArea;
