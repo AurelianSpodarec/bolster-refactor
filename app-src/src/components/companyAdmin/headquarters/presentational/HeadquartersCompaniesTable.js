@@ -10,6 +10,7 @@ const HeadquartersCompaniesTable = ({
 }) => {
     return (
         <Table
+            withActions
             noData={!companies.length}
             noDataMessage="You have no companies to view."
             error={error}

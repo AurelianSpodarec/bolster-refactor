@@ -63,8 +63,6 @@ class FileUploadContainer extends Component {
             this._validate(value);
         }
 
-        console.warn(value);
-
         if (!prevValue && value) {
             var retFiles = [];
 
@@ -75,7 +73,10 @@ class FileUploadContainer extends Component {
 
                     newFile.source = RAW_S3_STORAGE_URL + '/' + item;
                     newFile.options = {
-                        type: 'local'
+                        type: 'local',
+                        metadata: {
+                            key: item
+                        }
                     };
 
                     retFiles.push(newFile);
@@ -85,7 +86,10 @@ class FileUploadContainer extends Component {
 
                 newFile.source = RAW_S3_STORAGE_URL + '/' + value;
                 newFile.options = {
-                    type: 'local'
+                    type: 'local',
+                    metadata: {
+                        key: value
+                    }
                 };
 
                 retFiles.push(newFile);

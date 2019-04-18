@@ -341,6 +341,8 @@ class AddPinQuestionRoute extends Component {
     };
 
     handleFileChange = (name, s3Key) => {
+        console.error(name, s3Key);
+
         const { updateAddPinAnswer, question, answers } = this.props;
         let curAnswer = answers[question.id];
 

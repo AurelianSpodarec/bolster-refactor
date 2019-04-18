@@ -51,7 +51,10 @@ const EditPinForm = ({
                 )}
             </button>
             <Link
-                to={location.pathname.replace('/add-pin', '')}
+                to={location.pathname.replace(
+                    `/edit-history/${selectedHistory.id}`,
+                    ''
+                )}
                 className="button"
             >
                 Cancel
