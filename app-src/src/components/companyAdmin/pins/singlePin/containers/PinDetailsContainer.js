@@ -38,8 +38,8 @@ class PinDetailsContainer extends Component {
             <BlockContainer
                 isEmpty={
                     !user ||
-                    Object.values(services).length < 1 ||
-                    histories.length < 1
+                    !Object.values(services).length ||
+                    !histories.length
                 }
                 isFetching={isFetching}
                 error={error}
@@ -113,30 +113,30 @@ class PinDetailsContainer extends Component {
 const mapStateToProps = (
     {
         companyAdmin: {
-            pinsReducer,
-            pinHistoriesReducer,
-            companyUsersReducer,
+            pinsReducer: { isFetching: fetchingPins, postSuccess, pins },
+            pinHistoriesReducer: {
+                selectedHistoryId,
+                histories,
+                isFetching: fetchingHistories,
+                error
+            },
+            companyUsersReducer: { users, isFetching: fetchingUsers },
             servicesReducer: { services }
         }
     },
     { match }
 ) => {
-    const pin = pinsReducer.pins[match.params.id] || {};
-    const { selectedHistoryId, histories } = pinHistoriesReducer;
-
+    const pin = pins[match.params.id] || {};
     return {
-        isFetching:
-            pinsReducer.isFetching ||
-            pinHistoriesReducer.isFetching ||
-            companyUsersReducer.isFetching,
-        error: pinHistoriesReducer.error,
+        isFetching: fetchingPins || fetchingHistories || fetchingUsers,
+        error,
         latestHistoryId: pin.latestHistoryID,
         selectedHistory: histories[selectedHistoryId] || {},
         histories: Object.values(histories),
-        users: companyUsersReducer.users || {},
+        users: users || {},
         services: services || {},
         pin,
-        postSuccess: pinsReducer.postSuccess
+        postSuccess
     };
 };
 
