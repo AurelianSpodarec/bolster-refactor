@@ -70,11 +70,11 @@ class PinHistoriesListItemContainer extends Component {
     };
 
     selectHistory = e => {
-        const { dispatch, history } = this.props;
+        const { history, selectPinHistory } = this.props;
 
         e.preventDefault();
 
-        dispatch(selectPinHistory(history.id));
+        selectPinHistory(history.id);
     };
 }
 
@@ -90,4 +90,13 @@ const mapStateToProps = ({
     allHistories: Object.values(histories)
 });
 
-export default connect(mapStateToProps)(PinHistoriesListItemContainer);
+const mapDispatchToProps = dispatch => ({
+    selectPinHistory: historyID => {
+        dispatch(selectPinHistory(historyID));
+    }
+});
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(PinHistoriesListItemContainer);

@@ -74,10 +74,14 @@ class PinDetailsContainer extends Component {
         } = this.props;
 
         // update selected pin after a history is deleted
-        if (
-            (!prevProps.latestHistoryId && latestHistoryId) ||
-            prevProps.latestHistoryID !== latestHistoryId
-        ) {
+        // if (
+        //     (!prevProps.latestHistoryId && latestHistoryId) ||
+        //     prevProps.latestHistoryId !== latestHistoryId
+        // ) {
+        //     selectPinHistory(latestHistoryId);
+        // }
+
+        if (prevProps.latestHistoryId !== latestHistoryId) {
             selectPinHistory(latestHistoryId);
         }
 
