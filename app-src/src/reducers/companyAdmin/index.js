@@ -34,6 +34,7 @@ import templateSectionsReducer from './templateSections';
 import templateVersionsReducer from './templateVersions';
 import templateQuestionsReducer from './templateQuestions';
 import transferRequestsReducer from './transferRequests';
+import operativeAlertsReducer from './operativeAlerts';
 
 export default combineReducers({
     accountsReducer,
@@ -55,6 +56,7 @@ export default combineReducers({
     invoicesReducer,
     invoiceItemsReducer,
     messagesReducer,
+    operativeAlertsReducer,
     operativesReducer,
     pendingInvitesReducer,
     pinAnswersReducer,
