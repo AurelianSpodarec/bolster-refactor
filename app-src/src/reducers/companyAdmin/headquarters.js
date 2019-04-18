@@ -12,7 +12,8 @@ import { convertArrToObj, updateObj } from 'helpers/generic';
 export default combineReducers({
     error: errorReducer,
     isFetching: isFetchingReducer,
-    companies: companiesReducer
+    companies: companiesReducer,
+    postSuccess: postSuccessReducer
 });
 
 function isFetchingReducer(state = false, action) {
@@ -35,6 +36,17 @@ function errorReducer(state = null, action) {
         case FETCH_ALL_HEADQUARTERS_COMPANIES_FAILURE:
         case CREATE_HEADQUARTERS_COMPANY_FAILURE:
             return action.error;
+        default:
+            return state;
+    }
+}
+
+function postSuccessReducer(state = false, action) {
+    switch (action.type) {
+        case CREATE_HEADQUARTERS_COMPANY_REQUEST:
+            return false;
+        case CREATE_HEADQUARTERS_COMPANY_SUCCESS:
+            return true;
         default:
             return state;
     }

@@ -10,7 +10,7 @@ class TemplatesTableContainer extends Component {
         const { templates, isFetching, error } = this.props;
 
         return (
-            <BlockContainer>
+            <BlockContainer heading="Templates">
                 <TemplatesTable
                     headers={['Name', '']}
                     templates={templates}
