@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import fetchTemplates from 'actions/superAdmin/templateBuilder/async/fetchTemplates';
 import fetchSingleCompany from 'actions/superAdmin/companies/async/fetchSingleCompany';
 import SingleCompany from '../presentational/SingleCompany';
+import fetchCompanyInvoices from 'actions/superAdmin/invoices/async/fetchCompanyInvoices';
 
 class SingleCompanyContainer extends Component {
     render() {
@@ -24,6 +25,7 @@ const mapDispatchToProps = dispatch => ({
     fetchPageData: id => {
         dispatch(fetchSingleCompany(id));
         dispatch(fetchTemplates());
+        dispatch(fetchCompanyInvoices(id));
     }
 });
 
