@@ -2,10 +2,18 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import fetchAllHeadquartersCompanies from 'actions/companyAdmin/headquarters/async/fetchAllHeadquartersCompanies';
 import HeadquartersCompanies from '../presentational/HeadquartersCompanies';
+import reissueToken from 'actions/shared/auth/async/reissueToken';
 
 class HeadquartersCompaniesContainer extends Component {
-    render = () => <HeadquartersCompanies />;
-
+    render = () => (
+        <HeadquartersCompanies
+            handleCancelImpersonation={this.handleCancelImpersonation}
+        />
+    );
+    handleCancelImpersonation = () => {
+        const { reissueToken } = this.props;
+        reissueToken();
+    };
     componentDidMount = () => this.props.fetchAllHeadquartersCompanies();
 }
 
@@ -17,7 +25,8 @@ const mapStateToProps = ({
 
 const mapDispatchToProps = dispatch => ({
     fetchAllHeadquartersCompanies: () =>
-        dispatch(fetchAllHeadquartersCompanies())
+        dispatch(fetchAllHeadquartersCompanies()),
+    reissueToken: () => dispatch(reissueToken())
 });
 
 export default connect(
