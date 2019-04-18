@@ -124,10 +124,12 @@ class FileUploadContainer extends Component {
 
     _handleFileLoad = (source, load, error, progress, abort, headers) => {
         var myRequest = new Request(source);
+        const that = this;
         fetch(myRequest)
             .then(function(response) {
                 response.blob().then(function(myBlob) {
                     load(myBlob);
+                    that.handleFileUploadFinish();
                 });
             })
             .catch(function(err) {
