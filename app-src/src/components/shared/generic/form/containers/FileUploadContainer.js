@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
 
-import { FILE_API_URL } from 'config';
+import { FILE_API_URL, FILE_STORAGE_URL } from 'config';
 import addFieldError from 'actions/shared/generic/fieldErrors/sync/addFieldError';
 import removeFieldError from 'actions/shared/generic/fieldErrors/sync/removeFieldError';
 
@@ -63,9 +63,37 @@ class FileUploadContainer extends Component {
             this._validate(value);
         }
 
-        // if (!prevValue && value) {
-        //     this.setState({files: value});
-        // }
+        console.warn(value);
+
+        if (!prevValue && value) {
+            var retFiles = [];
+
+            if (Array.isArray(value)) {
+                //Multi File
+                value.forEach(item => {
+                    var newFile = {};
+
+                    newFile.source = FILE_STORAGE_URL + '/' + item;
+                    newFile.options = {
+                        type: 'local'
+                    };
+
+                    retFiles.push(newFile);
+                });
+            } else {
+                var newFile = {};
+
+                newFile.source = FILE_STORAGE_URL + '/' + value;
+                newFile.options = {
+                    type: 'local'
+                };
+
+                retFiles.push(newFile);
+            }
+
+            this.setState({ files: retFiles });
+            //this.setState({ files: value });
+        }
     };
 
     _validate = () => {
@@ -94,12 +122,26 @@ class FileUploadContainer extends Component {
         this.props.fileUploadFinish();
     };
 
+    _handleFileLoad = (source, load, error, progress, abort, headers) => {
+        var myRequest = new Request(source);
+        fetch(myRequest)
+            .then(function(response) {
+                response.blob().then(function(myBlob) {
+                    load(myBlob);
+                });
+            })
+            .catch(function(err) {
+                console.error(err);
+                console.error(error);
+            });
+    };
+
     _getServerOptions = () => {
         return {
             url: FILE_API_URL,
             process: this._handleUpload,
             revert: this._handleRevert,
-            load: null,
+            load: this._handleFileLoad,
             restore: null,
             fetch: null
         };
