@@ -7,9 +7,9 @@ const PinAnswer = ({ trimmedAnswer, type, questions, answers }) => {
     let relevantQuestion;
     let relevantOption;
     let relevantOptions;
-    let tmpAnswer = answers.filter(item => item.id == trimmedAnswer.id);
+    let tmpAnswer = answers.filter(item => +item.id === +trimmedAnswer.id);
 
-    if (!tmpAnswer || tmpAnswer.length == 0) {
+    if (!tmpAnswer || !tmpAnswer.length) {
         return <p>Not Found</p>;
     }
 
@@ -24,7 +24,7 @@ const PinAnswer = ({ trimmedAnswer, type, questions, answers }) => {
         case TYPES.DROPDOWN:
         case TYPES.RADIO:
             relevantQuestion = questions.filter(
-                item => item.id == curAnswer.templateQuestionID
+                item => +item.id === +curAnswer.templateQuestionID
             )[0];
 
             relevantOption = relevantQuestion.options.filter(
@@ -35,7 +35,7 @@ const PinAnswer = ({ trimmedAnswer, type, questions, answers }) => {
             return <p>{contentDisplay}</p>;
         case TYPES.MULTI_DROPDOWN:
             relevantQuestion = questions.filter(
-                item => item.id == curAnswer.templateQuestionID
+                item => +item.id === curAnswer.templateQuestionID
             )[0];
 
             relevantOptions = relevantQuestion.options.filter(option =>

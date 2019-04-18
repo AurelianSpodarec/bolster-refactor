@@ -134,7 +134,7 @@ class AddPinFormContainer extends Component {
             pinID
         } = this.props;
 
-        const curTemplates = templates.filter(item => item.id == templateID);
+        const curTemplates = templates.filter(({ id }) => +id === +templateID);
         let curTemplate;
 
         if (curTemplates) {

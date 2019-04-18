@@ -22,7 +22,7 @@ class MultiSelectDropdown extends Component {
 
         value.forEach(curValue => {
             const val = curValue;
-            const selectedOpton = options.find(x => x.value == curValue);
+            const selectedOpton = options.find(x => x.value === curValue);
             const text = selectedOpton.label;
 
             defaultDropDown.push({ label: text, value: val });

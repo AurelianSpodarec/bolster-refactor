@@ -5,22 +5,29 @@ import { COMPANY_USER_ROLE_TYPES } from 'constants/companyAdmin/enums';
 
 const AllCompanyAdminsListItem = ({ user, showDeleteModal }) => (
     <tr key={user.id}>
-        <td>{`${user.userFirstName} ${user.userLastName}`}  {user.type === COMPANY_USER_ROLE_TYPES.OWNER ? <span>(OWNER)</span> : <></>} </td>
+        <td>
+            {`${user.userFirstName} ${user.userLastName}`}{' '}
+            {user.type === COMPANY_USER_ROLE_TYPES.OWNER ? (
+                <span>(OWNER)</span>
+            ) : (
+                <></>
+            )}{' '}
+        </td>
         <td>{user.userEmail}</td>
         <td>{user.userPhoneNumber}</td>
         <td>
             <BlockButtonWrapper>
-                {user.type != COMPANY_USER_ROLE_TYPES.OWNER ?
+                {+user.type !== +COMPANY_USER_ROLE_TYPES.OWNER ? (
                     <button
-                    className="button red"
-                    onClick={() => showDeleteModal(user.id)}
+                        className="button red"
+                        onClick={() => showDeleteModal(user.id)}
                     >
-                    <i className="far fa-trash-alt" />
-                    Delete
+                        <i className="far fa-trash-alt" />
+                        Delete
                     </button>
-                    :
+                ) : (
                     <></>
-                }
+                )}
                 <Link
                     className="button yellow "
                     to={`/company/users-management/company-admins/${

@@ -341,23 +341,19 @@ class AddPinQuestionRoute extends Component {
     };
 
     handleFileChange = (name, s3Key) => {
-        console.error(name, s3Key);
-
         const { updateAddPinAnswer, question, answers } = this.props;
         let curAnswer = answers[question.id];
 
-        if (question.type == QUESTION_TYPE_VALUES.MULTI_PHOTO) {
+        if (+question.type === +QUESTION_TYPE_VALUES.MULTI_PHOTO) {
             if (!curAnswer) {
                 curAnswer = [];
             }
 
             //Multi File
-            var existing = curAnswer.includes(s3Key);
-
+            const existing = curAnswer.includes(s3Key);
             if (existing) {
                 //Delete
-
-                curAnswer = curAnswer.filter(item => item != s3Key);
+                curAnswer = curAnswer.filter(item => item !== s3Key);
 
                 updateAddPinAnswer(question.id, curAnswer);
             } else {
@@ -366,7 +362,7 @@ class AddPinQuestionRoute extends Component {
                 updateAddPinAnswer(question.id, curAnswer);
             }
         } else {
-            if (answers[question.id] == s3Key) {
+            if (answers[question.id] === s3Key) {
                 s3Key = '';
             }
 
@@ -389,6 +385,8 @@ class AddPinQuestionRoute extends Component {
                 return [];
             case CHECKBOX:
                 return false;
+            default:
+                return '';
         }
     };
 }

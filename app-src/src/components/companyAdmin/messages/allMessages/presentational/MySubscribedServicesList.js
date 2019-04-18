@@ -10,7 +10,7 @@ const MySubscribedServicesList = ({ services }) => (
                 serviceName={service.text}
             />
         ))}
-        {services.length % 2 != 0 && (
+        {services.length % 2 !== 0 && (
             <div className="subscription-item size-lg-6" />
         )}
     </div>
