@@ -29,7 +29,7 @@ const RadioButton = ({
         </div>
         {!!extraDetails.length && (
             <span className="details">
-                <strong>Note:</strong>
+                <strong>Note: </strong>
                 {extraDetails}
             </span>
         )}

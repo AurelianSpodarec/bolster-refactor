@@ -52,7 +52,7 @@ const AddServiceToSubscriptionModal = ({
                 </div>
             </Field>
             {+paymentType === PAYMENT_IDS.CARD && (
-                <Field sizeClasses="size-lg-5">
+                <Field name="Select Card" sizeClasses="size-lg-12">
                     <DropdownContainer
                         disabled={+paymentType !== PAYMENT_IDS.CARD}
                         required={+paymentType === PAYMENT_IDS.CARD}
@@ -66,7 +66,6 @@ const AddServiceToSubscriptionModal = ({
                         options={cards}
                         selectedOption={selectedCard}
                         handleChange={handleChange}
-                        classes="w-radio"
                     />
                 </Field>
             )}

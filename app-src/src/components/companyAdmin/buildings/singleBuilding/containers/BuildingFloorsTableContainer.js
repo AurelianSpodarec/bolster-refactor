@@ -11,7 +11,7 @@ const BuildingsFloorsTableContainer = ({ building }) => (
     <BlockContainer>
         <BlockHeading title="Floors Table" classes="w-table">
             <Link
-                className="button"
+                className="button green"
                 to={`/company/floors/create/${building.id}`}
             >
                 <i className="fa fa-plus" /> Add floor

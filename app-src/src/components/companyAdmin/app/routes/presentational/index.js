@@ -19,6 +19,7 @@ import ProfilesRoutes from './ProfilesRoutes';
 import TemplatesRoutes from './TemplatesRoutes';
 import SettingsRoutes from './SettingsRoutes';
 import TransferRequestsRoutes from './TransferRequestsRoutes';
+import HeadquartersRoutes from './HeadquartersRoutes';
 
 const CompanyRoutes = ({ base = '/company' }) => (
     <SwitchWith404>
@@ -26,6 +27,7 @@ const CompanyRoutes = ({ base = '/company' }) => (
         <Route path={`${base}/buildings`} component={BuildingsRoutes} />
         <Route path={`${base}/drawings`} component={DrawingsRoutes} />
         <Route path={`${base}/floors`} component={FloorRoutes} />
+        <Route path={`${base}/headquarters`} component={HeadquartersRoutes} />
         <Route path={`${base}/invoices`} component={InvoicesRoutes} />
         <Route path={`${base}/message-centre`} component={MessagesRoutes} />
         <Route path={`${base}/pins`} component={PinRoutes} />

@@ -14,6 +14,7 @@ import creditLogsReducer from './creditLogs';
 import documentsReducer from './documents';
 import drawingsReducer from './drawings';
 import floorsReducer from './floors';
+import headquartersReducer from './headquarters';
 import inspectionLogsReducer from './inspectionLogs';
 import invoiceItemsReducer from './invoiceItems';
 import invoicesReducer from './invoices';
@@ -49,6 +50,7 @@ export default combineReducers({
     documentsReducer,
     drawingsReducer,
     floorsReducer,
+    headquartersReducer,
     inspectionLogsReducer,
     invoicesReducer,
     invoiceItemsReducer,
