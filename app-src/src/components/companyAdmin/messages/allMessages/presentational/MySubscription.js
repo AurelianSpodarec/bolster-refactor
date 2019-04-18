@@ -4,6 +4,7 @@ import MySubscribedServicesList from './MySubscribedServicesList';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
+import { DATE_TIME_IDS } from 'constants/companyAdmin/enums';
 
 const MySubscription = ({ services, daysleft, subscriptions, endOn }) => (
     <div className="size-lg-12">
@@ -31,8 +32,8 @@ const MySubscription = ({ services, daysleft, subscriptions, endOn }) => (
             </p>
         ) : (
             <p className="generic-text size-lg-12">
-                Your subscription is not set to auto-renew and will end on
-                {endOn}
+                Your subscription is not set to auto-renew and will end on{' '}
+                <DateTimeContainer date={endOn} datetime={DATE_TIME_IDS.DATE} />
             </p>
         )}
         <BlockButtonWrapper>
