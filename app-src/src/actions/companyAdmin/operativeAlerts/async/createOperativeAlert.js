@@ -1,7 +1,6 @@
 import axios from 'axios';
 
 import { API_URL } from 'config/index';
-import setAPIFieldErrors from 'actions/shared/generic/fieldErrors/sync/setAPIFieldErrors';
 import { getHeaders, handleErrors } from 'helpers/api';
 import {
     CREATE_OPERATIVE_ALERT_REQUEST,
