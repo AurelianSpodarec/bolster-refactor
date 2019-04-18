@@ -9,9 +9,10 @@ const ConfirmArchiveModal = ({
     message = 'Are you sure you want to archive this?'
 }) => (
     <ModalOuterContainer>
-        <BlockHeading title={message} />
+        <BlockHeading title="Archive Confirmation" />
+        <p className="generic-text intro-text size-lg-12">{message}</p>
         <BlockButtonWrapper>
-            <button className="button" onClick={handleArchive}>
+            <button className="button blue" onClick={handleArchive}>
                 <i className="fa fa-archive" />
                 Archive
             </button>

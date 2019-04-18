@@ -62,7 +62,7 @@ const EditDocumentForm = ({
                 perferendis, placeat possimus.##
             </p>
             <Form className="generic-form size-lg-12" onSubmit={handleSubmit}>
-                <Field classes="large-margin">
+                <Field>
                     <RadioButton
                         name="type"
                         checked={type === '1' ? true : false}

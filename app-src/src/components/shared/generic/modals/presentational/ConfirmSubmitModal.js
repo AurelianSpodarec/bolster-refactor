@@ -9,7 +9,8 @@ const ConfirmSubmitModal = ({
     message = 'Are you sure you want to submit this?'
 }) => (
     <ModalOuterContainer>
-        <BlockHeading title={message} />
+        <BlockHeading title="Submit Confirmation" />
+        <p className="generic-text intro-text size-lg-12">{message}</p>
         <BlockButtonWrapper>
             <button className="button" onClick={handleSubmit}>
                 <i className="fa fa-save fa-fw" />
