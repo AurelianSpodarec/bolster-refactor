@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 import CreateOperativeAlertForm from '../presentational/CreateOperativeAlertForm';
+import createOperativeAlert from 'actions/companyAdmin/operativeAlerts/async/createOperativeAlert';
 
 class CreateOperativeAlertContainer extends Component {
     state = {
@@ -19,10 +21,10 @@ class CreateOperativeAlertContainer extends Component {
     }
 
     componentDidUpdate = prevProps => {
-        const { postSuccess, history, updatedSiteID } = this.props;
+        const { postSuccess, history } = this.props;
 
         if (postSuccess && !prevProps.postSuccess) {
-            history.push(`/company/sites/${updatedSiteID}`);
+            history.push('/company/tools/operative-alerts');
         }
     };
 
@@ -34,15 +36,34 @@ class CreateOperativeAlertContainer extends Component {
         });
     };
 
-    // handleSubmit = e => {
-    //     e.preventDefault();
+    handleSubmit = e => {
+        e.preventDefault();
 
-    //     const postBody = {
-    //         ...this.state
-    //     };
+        const postBody = {
+            ...this.state
+        };
 
-    //     this.props.createSite(postBody);
-    // };
+        this.props.createOperativeAlert(postBody);
+    };
 }
 
-export default connect()(CreateOperativeAlertContainer);
+const mapStateToProps = ({
+    companyAdmin: {
+        operativeAlertsReducer: { postSuccess }
+    }
+}) => ({
+    postSuccess
+});
+
+const mapDispatchToProps = dispatch => ({
+    createOperativeAlert: postBody => {
+        dispatch(createOperativeAlert(postBody));
+    }
+});
+
+export default withRouter(
+    connect(
+        mapStateToProps,
+        mapDispatchToProps
+    )(CreateOperativeAlertContainer)
+);

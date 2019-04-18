@@ -32,8 +32,5 @@ export default (email, password) => dispatch => {
             return res;
         })
         .then(res => dispatch(postLoginSuccess(res.data)))
-        .catch(err => {
-            const errorAction = handleErrors(postLoginFailure);
-            dispatch(errorAction(err));
-        });
+        .catch(err => dispatch(handleErrors(postLoginFailure)(err)));
 };

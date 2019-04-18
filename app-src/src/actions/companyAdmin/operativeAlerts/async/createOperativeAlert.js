@@ -2,7 +2,7 @@ import axios from 'axios';
 
 import { API_URL } from 'config/index';
 import setAPIFieldErrors from 'actions/shared/generic/fieldErrors/sync/setAPIFieldErrors';
-import { getHeaders } from 'helpers/api';
+import { getHeaders, handleErrors } from 'helpers/api';
 import {
     CREATE_OPERATIVE_ALERT_REQUEST,
     CREATE_OPERATIVE_ALERT_SUCCESS,
@@ -29,9 +29,5 @@ export default postBody => dispatch => {
     axios
         .post(`${API_URL}/operativealerts`, postBody, getHeaders())
         .then(result => dispatch(createOperativeAlertSuccess(result.data)))
-        .catch(error => {
-            dispatch(createOperativeAlertFailure(error));
-            if (error.response.status === 400)
-                dispatch(setAPIFieldErrors(error.response.data.errors));
-        });
+        .catch(err => dispatch(handleErrors(createOperativeAlertFailure)(err)));
 };
