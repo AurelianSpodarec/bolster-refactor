@@ -26,7 +26,7 @@ export default companyID => dispatch => {
     dispatch(fetchAllCompaniesRequest());
 
     axios
-        .get(`${ADMIN_API_URL}/companies/${companyID}`, getHeaders())
+        .get(`${ADMIN_API_URL}/companies/${companyID}/invoices`, getHeaders())
         .then(res => dispatch(fetchAllCompaniesSuccess(res.data)))
         .catch(err => dispatch(fetchAllCompaniesFailure(err.message)));
 };
