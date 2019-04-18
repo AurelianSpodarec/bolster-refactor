@@ -25,7 +25,7 @@ export const fetchSinglePinFailure = error => ({
 export default id => dispatch => {
     dispatch(fetchSinglePinRequest());
 
-    axios
+    return axios
         .get(`${API_URL}/pins/${id}`, getHeaders())
         .then(res => dispatch(fetchSinglePinSuccess(res.data)))
         .catch(err => dispatch(fetchSinglePinFailure(err.message)));

@@ -297,7 +297,7 @@ input {
 
     &:hover,
     &.active {
-        background-color: $blue;
+        background-color: #1083b3;
     }
 
     &.red {
@@ -318,6 +318,10 @@ input {
 
     &.blue {
         background-color: $blue;
+
+        &:hover {
+            background-color: #1083b3;
+        }
     }
 
     &.green {
@@ -760,7 +764,7 @@ input {
     }
     .heading {
         float: left;
-        max-width: 50%;
+        max-width: 70%;
         text-transform: capitalize;
     }
 
@@ -829,11 +833,6 @@ input {
             right: 8px;
             color: #767676;
         }
-    }
-
-    &.large-margin {
-        margin-bottom: 40px;
-        margin-top: 10px;
     }
 
     .title {
@@ -1912,6 +1911,12 @@ input {
                 max-height: 887px;
                 overflow-y: scroll;
                 float: left;
+            }
+        }
+
+        .block-heading {
+            .heading {
+                max-width: 100%;
             }
         }
     }

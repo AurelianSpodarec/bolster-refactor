@@ -42,7 +42,7 @@ const GeneralOverview = ({ handleDelete, handleArchive, drawing }) => (
                         <i className="far fa-trash-alt" /> Delete drawing
                     </button>
                     <button
-                        className="button"
+                        className="button blue"
                         onClick={handleArchive}
                         type="button"
                     >

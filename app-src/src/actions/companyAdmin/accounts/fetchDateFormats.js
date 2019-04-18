@@ -6,7 +6,7 @@ import {
     FETCH_DATE_FORMATS_FAILURE
 } from 'constants/actionTypes/accounts';
 import { getHeaders } from 'helpers/api';
-import { ACCOUNTS_API_URL } from 'config';
+import { AUTH_API_URL } from 'config';
 
 export const fetchDateFormatsRequest = () => ({
     type: FETCH_DATE_FORMATS_REQUEST
@@ -26,7 +26,7 @@ export default () => dispatch => {
     dispatch(fetchDateFormatsRequest());
 
     axios
-        .get(`${ACCOUNTS_API_URL}/localisation/dateformats`, getHeaders())
+        .get(`${AUTH_API_URL}/localisation/dateformats`, getHeaders())
         .then(res => dispatch(fetchDateFormatsSuccess(res.data)))
         .catch(err => dispatch(fetchDateFormatsFailure(err.message)));
 };

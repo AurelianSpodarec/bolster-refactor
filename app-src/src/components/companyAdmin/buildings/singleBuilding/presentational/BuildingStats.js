@@ -22,7 +22,11 @@ const BuildingStats = ({ building, stats, handleDelete, handleArchive }) => (
                 <i className="far fa-pencil fa-fw" /> Edit
             </Link>
 
-            <button className="button" onClick={handleArchive} type="button">
+            <button
+                className="button blue"
+                onClick={handleArchive}
+                type="button"
+            >
                 <i className="fa fa-archive" />
                 {building.isArchived ? 'Un-Archive' : 'Archive'}
             </button>
