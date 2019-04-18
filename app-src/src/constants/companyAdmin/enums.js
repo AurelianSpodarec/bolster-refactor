@@ -122,3 +122,9 @@ export const DATE_TIMES = {
     2: 'momentDateFormat',
     3: 'momentTimeFormat'
 };
+
+export const VAT_TYPES = {
+    GB: 1,
+    EU: 2,
+    OUTSIDEEU: 3
+};

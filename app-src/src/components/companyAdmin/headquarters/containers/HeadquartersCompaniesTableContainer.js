@@ -1,26 +1,19 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 
 import HeadquartersCompaniesTable from '../presentational/HeadquartersCompaniesTable';
 
-class HeadquartersCompaniesTableContainer extends Component {
-    render() {
-        const headers = ['name', 'something'];
-        return (
-            <HeadquartersCompaniesTable
-                companies={this.props.companies}
-                headers={headers}
-            />
-        );
-    }
-}
+const HeadquartersCompaniesTableContainer = ({
+    companies,
+    headers = ['Name', '', 'Actions']
+}) => <HeadquartersCompaniesTable companies={companies} headers={headers} />;
 
 const mapStateToProps = ({
     companyAdmin: {
         headquartersReducer: { companies }
     }
 }) => ({
-    companies
+    companies: Object.values(companies)
 });
 
 export default connect(mapStateToProps)(HeadquartersCompaniesTableContainer);
