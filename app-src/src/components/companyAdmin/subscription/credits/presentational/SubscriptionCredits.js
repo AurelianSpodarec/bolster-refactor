@@ -36,7 +36,7 @@ const SubscriptionCredits = ({
             {creditsToBuy && `Total: £${costOfCredits * creditsToBuy}`}
         </p>
         <BlockButtonWrapper>
-            <button className="button" onClick={showModal}>
+            <button className="button green" onClick={showModal}>
                 Buy
             </button>
         </BlockButtonWrapper>

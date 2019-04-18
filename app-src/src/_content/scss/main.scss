@@ -297,7 +297,7 @@ input {
 
     &:hover,
     &.active {
-        background-color: #1083b3;
+        background-color: #737373;
     }
 
     &.red {
@@ -326,6 +326,9 @@ input {
 
     &.green {
         background-color: $green;
+        &:hover {
+            background-color: #258e48;
+        }
     }
 
     &.icon-only {
@@ -1908,7 +1911,7 @@ input {
             min-width: 30%;
             height: auto;
             .generic-form {
-                max-height: 887px;
+                max-height: 600px;
                 overflow-y: scroll;
                 float: left;
             }

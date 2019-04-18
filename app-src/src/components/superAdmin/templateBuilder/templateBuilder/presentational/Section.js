@@ -22,7 +22,7 @@ const Section = ({
                 <button className="button icon-only">
                     <i className="fa fa-eye" />
                 </button>
-                <button className="button" onClick={showRenameSectModal}>
+                <button className="button blue" onClick={showRenameSectModal}>
                     Rename
                 </button>
             </BlockHeading>
@@ -33,7 +33,7 @@ const Section = ({
                 moveQuestion={moveQuestion}
             />
             <div className="button-container position-bottom">
-                <button className="button" onClick={showAddQuestModal}>
+                <button className="button green" onClick={showAddQuestModal}>
                     <i className="fa fa-plus" />
                     Add question
                 </button>

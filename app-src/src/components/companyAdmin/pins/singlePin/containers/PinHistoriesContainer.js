@@ -31,7 +31,7 @@ class PinHistoriesContainer extends Component {
             >
                 <BlockHeading title={`Pin #${pin.id}`}>
                     <Link
-                        className="button"
+                        className="button green"
                         to={`/company/pins/${pin.id}/add-history`}
                     >
                         <i className="fa fa-plus" /> Add history

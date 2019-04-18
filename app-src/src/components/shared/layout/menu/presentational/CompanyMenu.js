@@ -3,13 +3,24 @@ import React from 'react';
 import MenuItemContainer from '../containers/MenuItemContainer';
 import DropdownMenuItemContainer from '../containers/DropdownMenuItemContainer';
 
-const CompanyMenu = ({ messageCount }) => (
+const CompanyMenu = ({ isFromHeadquarters }) => (
     <>
         <div className="menu-bg" />
         <div className="menu">
             <MenuItemContainer link="/company">
                 <i className="fa fa-home icon" /> Dashboard
             </MenuItemContainer>
+            {isFromHeadquarters && (
+                <DropdownMenuItemContainer
+                    icon="city"
+                    title={'Headquarters'}
+                    baseUrl="/company/headquarters"
+                >
+                    <MenuItemContainer link="/company/headquarters">
+                        Companies
+                    </MenuItemContainer>
+                </DropdownMenuItemContainer>
+            )}
 
             <MenuItemContainer link="/company/sites">
                 <i className="fa fa-building icon" /> Sites

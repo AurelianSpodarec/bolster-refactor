@@ -28,7 +28,7 @@ const CardTable = ({
             />
         </Table>
         <BlockButtonWrapper>
-            <button className="button" onClick={showModal}>
+            <button className="button green" onClick={showModal}>
                 <i className="fa fa-plus" />
                 Add Card
             </button>

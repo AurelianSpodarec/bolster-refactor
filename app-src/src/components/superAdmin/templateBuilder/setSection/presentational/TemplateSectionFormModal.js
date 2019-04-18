@@ -18,7 +18,7 @@ const TemplateSectionFormModal = ({
         <BlockHeading title={`${action} section`} />
 
         <Form className="generic-form" onSubmit={handleSubmit}>
-            <div className="size-lg-6">
+            <div className="size-lg-12">
                 <Field name="Section name">
                     <TextInputContainer
                         handleChange={handleChange}
@@ -29,8 +29,8 @@ const TemplateSectionFormModal = ({
                 </Field>
             </div>
             <BlockButtonWrapper>
-                <button className="button ">
-                    <i className="fa fa-plus" /> Set
+                <button className="button blue">
+                    <i className="fa fa-plus" /> Add Section
                 </button>
                 <button className="button" onClick={hideModal}>
                     Cancel

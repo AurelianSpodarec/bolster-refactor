@@ -17,7 +17,7 @@ const AllCompanyAdminsTable = ({
         <BlockContainer>
             <BlockHeading title="Company Admins Table">
                 <Link
-                    className="button"
+                    className="button green"
                     to="/company/users-management/company-admins/create"
                 >
                     <i className="fa fa-plus" /> Add Company Admin

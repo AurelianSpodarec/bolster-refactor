@@ -48,6 +48,9 @@ export function formatJWTData({
     CompanyID,
     CompanyUserID,
     CompanyUserType,
+    HeadquartersCompanyUserID,
+    HeadquartersCompanyUserType,
+    HeadquartersCompanyID,
     ...rest
 }) {
     return {
@@ -56,6 +59,9 @@ export function formatJWTData({
         companyID: JSON.parse(CompanyID),
         companyUserID: JSON.parse(CompanyUserID),
         companyUserType: JSON.parse(CompanyUserType),
+        headquartersCompanyID: JSON.parse(HeadquartersCompanyID),
+        headQuartersCompanyUserID: JSON.parse(HeadquartersCompanyUserID),
+        headQuartersCompanyUserType: JSON.parse(HeadquartersCompanyUserType),
         ...rest
     };
 }
