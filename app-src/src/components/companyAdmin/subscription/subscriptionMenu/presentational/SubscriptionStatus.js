@@ -19,7 +19,7 @@ const SubscriptionStatus = ({ subscriptions, active, endOn }) => (
             </p>
         ) : (
             <p className="size-lg-12">
-                Your subscription is not set to auto-renew and will end on:
+                Your subscription is not set to auto-renew and will end on{' '}
                 <DateTimeContainer date={endOn} />
             </p>
         )}
