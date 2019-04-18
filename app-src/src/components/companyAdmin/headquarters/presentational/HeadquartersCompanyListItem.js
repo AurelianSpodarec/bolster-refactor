@@ -1,7 +1,7 @@
 import React from 'react';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 
-const HeadquartersCompanyListItem = ({ company }) => (
+const HeadquartersCompanyListItem = ({ company, handleImpersonate }) => (
     <tr>
         <td>{company.name}</td>
         <td>
@@ -15,9 +15,13 @@ const HeadquartersCompanyListItem = ({ company }) => (
                     <i className="far fa-edit" />
                     ##Edit##
                 </button>
-                <button type="button" onClick={() => {}} className="button">
+                <button
+                    type="button"
+                    onClick={handleImpersonate}
+                    className="button"
+                >
                     <i className="far fa-user-secret" />
-                    ##Impersonate##
+                    Impersonate
                 </button>
             </BlockButtonWrapper>
         </td>

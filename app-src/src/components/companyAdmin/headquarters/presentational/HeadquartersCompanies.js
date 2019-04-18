@@ -4,9 +4,12 @@ import BlockContainer from 'components/shared/generic/block/containers/BlockCont
 import HeadquartersCompaniesTableContainer from '../containers/HeadquartersCompaniesTableContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 
-const HeadquartersCompanies = () => (
+const HeadquartersCompanies = ({ handleCancelImpersonation }) => (
     <BlockContainer heading="Headquarters Companies">
         <BlockHeading title="Companies Table" classes="w-table">
+            <button className="button" onClick={handleCancelImpersonation}>
+                Cancel impersonation
+            </button>
             <Link
                 to="/company/headquarters/companies/create"
                 className="button green"
