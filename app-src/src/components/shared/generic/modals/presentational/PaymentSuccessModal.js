@@ -1,14 +1,15 @@
 import React from 'react';
 import ModalOuterContainer from '../containers/ModalOuterContainer';
 import BlockHeading from '../../blockHeading/presentational/BlockHeading';
+import StatusIcon from '../../statusIcon/presentationl/StatusIcon';
 
 const PaymentSuccessModal = ({
     title = 'Order Complete',
     message = 'Your order has been placed successfully.'
 }) => (
-    <ModalOuterContainer>
+    <ModalOuterContainer extraClasses="response-modal">
         <div
-            className="size-lg-12"
+            className=" size-lg-12"
             style={{
                 display: 'flex',
                 justifyContent: 'center',
@@ -25,6 +26,7 @@ const PaymentSuccessModal = ({
                     padding: '0.5em'
                 }}
             />
+            <StatusIcon classes="large" />
         </div>
         <BlockHeading title={title} />
         <p>{message}</p>
