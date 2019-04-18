@@ -24,7 +24,6 @@ const Settings = ({ isFetching, error, companySettings: company }) => {
             >
                 {/* address  */}
                 <div className="field-group size-lg-12">
-                    <BlockHeading title="Company Details" />
                     <div className=" size-lg-4">
                         <FieldOutput
                             title="Company Name"

@@ -4,9 +4,6 @@ import AddPinHistoryContainer from '../containers/AddPinHistoryContainer';
 
 const AddPinHistory = () => (
     <>
-        <Breadcrumb
-            breadcrumbs={[{ text: '##pin##' }, { text: '##add history' }]}
-        />
         <AddPinHistoryContainer />
     </>
 );
