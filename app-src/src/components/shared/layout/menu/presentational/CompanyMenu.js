@@ -53,6 +53,9 @@ const CompanyMenu = ({ isFromHeadquarters }) => (
                 title={'Tools & Resources'}
                 baseUrl="/company/tools"
             >
+                <MenuItemContainer link="/company/tools/operative-alerts">
+                    Operative Alerts
+                </MenuItemContainer>
                 <MenuItemContainer link="/company/tools/credit-logs">
                     Drawing Credit Log
                 </MenuItemContainer>
