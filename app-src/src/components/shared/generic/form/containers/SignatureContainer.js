@@ -46,7 +46,7 @@ class SignatureContainer extends Component {
         if (error) removeFieldError(name);
     };
 
-    handleChange = e => {
+    handleChange = () => {
         this._validate();
         this.props.onChange(this.sigPad.toDataURL('image/jpg'));
     };

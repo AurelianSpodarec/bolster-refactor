@@ -147,7 +147,7 @@ class EditPinFormContainer extends Component {
         } = this.props;
 
         const formattedAnswers = Object.keys(answers).map(function(key) {
-            return { id: key, answer: answers[key] };
+            return { questionID: key, answer: answers[key] };
         });
 
         const postBody = {
