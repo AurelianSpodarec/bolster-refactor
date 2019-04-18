@@ -11,7 +11,7 @@ const PaymentErrorModal = ({
     error
 }) => {
     return (
-        <ModalOuterContainer>
+        <ModalOuterContainer extraClasses="response-modal">
             {/* ##Needs css## */}
             <div
                 className="size-lg-12"
