@@ -36,6 +36,12 @@ export const COMPANY_USER_ROLE_TYPES = {
     OPERATIVE: 50
 };
 
+export const COMPANY_USER_ROLE_IDS = {
+    50: 'Operative',
+    75: 'Admin',
+    100: 'Owner'
+};
+
 export const CREDIT_LOG_TYPES = {
     1: 'Purchased',
     51: 'Used on new drawing',

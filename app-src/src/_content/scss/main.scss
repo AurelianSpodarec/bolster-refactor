@@ -1344,10 +1344,17 @@ input {
             width: 100%;
             display: none;
 
+            .item {
+                &.active {
+                    a {
+                        background-color: #75767c;
+                    }
+                }
+            }
+
             a {
                 background-color: #62636a;
 
-                &.active,
                 &:hover {
                     background-color: #75767c;
                 }
@@ -2153,7 +2160,7 @@ input {
     }
     margin: {
         top: -10px;
-        bottom: 5px;
+        bottom: 25px;
     }
 
     &.alt {

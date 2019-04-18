@@ -5,7 +5,7 @@ import InvoicesTable from '../presentational/InvoicesTable';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 
 const InvoicesTableContainer = ({ invoices, isFetching, error }) => {
-    const headers = ['Created', 'Total', 'Payment Type', 'Paid'];
+    const headers = ['Created', 'Total', 'Payment Type', 'Paid', ''];
     return (
         <BlockContainer heading="Invoices">
             <InvoicesTable
