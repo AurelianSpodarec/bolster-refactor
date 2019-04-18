@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import FieldOutput from 'components/shared/generic/fieldOutput/presentational/FieldOutput';
 
@@ -53,9 +54,12 @@ const PinHistoriesListItem = ({
             <button className="button" onClick={selectHistory}>
                 View
             </button>
-            <button className="button yellow">
-                <i className="fal fa-pencil" /> Edit
-            </button>
+            <Link
+                className="button yellow"
+                to={`/company/pins/${history.pinID}/edit-history/${history.id}`}
+            >
+                <i className="far fa-pencil" /> Edit history
+            </Link>
         </BlockButtonWrapper>
     </div>
 );
