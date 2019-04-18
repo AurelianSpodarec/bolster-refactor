@@ -32,15 +32,13 @@ class SignatureContainer extends Component {
         this._validate('');
     };
 
-    componentDidUpdate = ({ value: prevValue }) => {
+    componentDidUpdate = () => {
         const { value } = this.props;
 
         const val = this.sigPad.toDataURL('image/jpg');
-        if (prevValue !== val) this._validate(val);
+        const oldVal = this.sigPad.fromDataURL(value);
 
-        if (!prevValue && value) {
-            this.sigPad.fromDataURL(value);
-        }
+        if (!oldVal && value) this._validate(val);
     };
 
     componentWillUnmount = () => {

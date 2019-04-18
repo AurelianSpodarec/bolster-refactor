@@ -10,7 +10,7 @@ const PinHistoriesActions = ({ location }) => (
             Delete all
         </button>
 
-        <Link className="button" to={`${location.pathname}/add-history`}>
+        <Link className="button green" to={`${location.pathname}/add-history`}>
             <i className="fa fa-plus" />
             Add new history
         </Link>

@@ -38,7 +38,7 @@ const DrawingMapViewSimple = ({
                 ) : (
                     <BlockHeading>
                         <button
-                            className="button pull-right"
+                            className="button green pull-right"
                             onClick={toggleAddMode}
                         >
                             <i className="fa fa-plus" /> Add pin

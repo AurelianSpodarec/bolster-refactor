@@ -95,8 +95,8 @@ const AddTemplateQuestionFormModal = ({
                 />
             </Field>
             <BlockButtonWrapper>
-                <button className="button ">
-                    <i className="fa fa-plus" /> Set
+                <button className="button green">
+                    <i className="fa fa-plus" /> Add Question
                 </button>
                 <button className="button" onClick={hideModal}>
                     Cancel
