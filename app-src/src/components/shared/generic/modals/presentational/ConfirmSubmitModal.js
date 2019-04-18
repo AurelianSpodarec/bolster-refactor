@@ -12,7 +12,7 @@ const ConfirmSubmitModal = ({
         <BlockHeading title="Submit Confirmation" />
         <p className="generic-text intro-text size-lg-12">{message}</p>
         <BlockButtonWrapper>
-            <button className="button" onClick={handleSubmit}>
+            <button className="button green" onClick={handleSubmit}>
                 <i className="fa fa-save fa-fw" />
                 Submit
             </button>

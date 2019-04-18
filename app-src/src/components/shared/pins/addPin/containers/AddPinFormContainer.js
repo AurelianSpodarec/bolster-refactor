@@ -11,7 +11,9 @@ import BlockContainer from 'components/shared/generic/block/containers/BlockCont
 
 import { PIN_STATUS_TYPES } from 'constants/companyAdmin/enums';
 import { convertEnumToDropdownOptions } from 'helpers/generic';
-import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
+
+import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
+import BackButtonContainer from 'components/shared/generic/backButton/containers/BackButtonContainer';
 
 class AddPinFormContainer extends Component {
     state = {
@@ -34,24 +36,28 @@ class AddPinFormContainer extends Component {
         const statusOptions = convertEnumToDropdownOptions(PIN_STATUS_TYPES);
 
         return (
-            <BlockContainer
-                isEmpty={!Object.values(templates).length}
-                isFetching={isFetching}
-                error={error}
-            >
-                <BlockHeading title="Add pin" />
-                <AddPinForm
-                    templates={Object.values(templateOptions)}
-                    selectedTemplate={templateOptions[templateID]}
-                    statuses={Object.values(statusOptions)}
-                    selectedStatus={statusOptions[statusID]}
-                    location={location}
-                    handleChange={this.handleChange}
-                    handleSubmit={this.handleSubmit}
-                    filesUploading={filesUploading}
-                    confirmLeave={confirmLeave}
-                />
-            </BlockContainer>
+            <>
+                <PageHeading leftChildren={true} title="Add Pin">
+                    <BackButtonContainer />
+                </PageHeading>
+                <BlockContainer
+                    isEmpty={!Object.values(templates).length}
+                    isFetching={isFetching}
+                    error={error}
+                >
+                    <AddPinForm
+                        templates={Object.values(templateOptions)}
+                        selectedTemplate={templateOptions[templateID]}
+                        statuses={Object.values(statusOptions)}
+                        selectedStatus={statusOptions[statusID]}
+                        location={location}
+                        handleChange={this.handleChange}
+                        handleSubmit={this.handleSubmit}
+                        filesUploading={filesUploading}
+                        confirmLeave={confirmLeave}
+                    />
+                </BlockContainer>
+            </>
         );
     }
 

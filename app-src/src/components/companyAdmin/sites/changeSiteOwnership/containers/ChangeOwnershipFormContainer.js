@@ -45,10 +45,10 @@ class ChangeOwnershipFormContainer extends Component {
             createTransferSiteRequest({ siteID, companyCode });
             hideModal();
         };
-        const message = `##Are you sure you want to send this request?
+        const message = `Are you sure you want to send this request?
              If accepted, you will no longer have write access to this site,
               and the recipient will gain write access.
-               You will still have read-only access. ##`;
+               You will still have read-only access.`;
         showModal(CONFIRM_SUBMIT, { handleSubmit, hideModal, message });
     };
 }

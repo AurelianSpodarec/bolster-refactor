@@ -42,7 +42,12 @@ class GeneralOverviewContainer extends Component {
         const { id, showModal, hideModal, deleteDrawing, drawing } = this.props;
         const handleDelete = () => deleteDrawing(id);
         const message = `Are you sure you want to delete ${drawing.name}`;
-        showModal(CONFIRM_DELETE, { hideModal, handleDelete, message });
+        showModal(CONFIRM_DELETE, {
+            hideModal,
+            handleDelete,
+            message,
+            isIncoming: false
+        });
     };
 
     handleArchiveModal = () => {

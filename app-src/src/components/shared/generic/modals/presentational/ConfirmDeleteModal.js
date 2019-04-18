@@ -10,9 +10,7 @@ const ConfirmDeleteModal = ({
     isIncoming = false
 }) => (
     <ModalOuterContainer>
-        <BlockHeading
-            title={isIncoming ? 'Delete Confirmation' : 'Decline Confirmation'}
-        />
+        <BlockHeading title={'Confirmation'} />
         <p className="generic-text intro-text size-lg-12">{message}</p>
         <BlockButtonWrapper>
             <button className="button red" onClick={handleDelete}>
