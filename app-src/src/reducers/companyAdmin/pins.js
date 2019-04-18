@@ -70,8 +70,9 @@ function pinsReducer(state = {}, action) {
         case FETCH_SINGLE_PIN_SUCCESS:
         case CREATE_PIN_SUCCESS:
         case EDIT_PIN_LOCATION_SUCCESS:
-        case EDIT_PIN_HISTORY_SUCCESS:
             return updateObj(state, action.payload.pin.id, action.payload.pin);
+        case EDIT_PIN_HISTORY_SUCCESS:
+            return updateObj(state, action.payload.id, action.payload);
         case FETCH_PINS_SUCCESS:
             return convertArrToObj(action.payload);
         case EDIT_PIN_LOCATION_REQUEST:
