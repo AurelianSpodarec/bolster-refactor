@@ -8,12 +8,11 @@ import BackButtonContainer from 'components/shared/generic/backButton/containers
 
 const EditProfilePassword = () => (
     <>
-        <PageHeading title="Change Password">
+        <PageHeading leftChildren={true} title="Change Password">
             <BackButtonContainer />
         </PageHeading>
 
         <BlockContainer>
-            <BlockHeading title="New password" />
             <EditProfilePasswordFormContainer />
         </BlockContainer>
     </>

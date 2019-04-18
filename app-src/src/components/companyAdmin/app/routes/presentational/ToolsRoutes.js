@@ -6,6 +6,7 @@ import PinOptions from 'components/companyAdmin/pins/pinOptions/presentational/P
 import Support from 'components/companyAdmin/support/support/presentational/Support';
 import GenerationQueueContainer from 'components/companyAdmin/generationQueue/shared/containers/GenerationQueueContainer';
 import AllCreditLogsContainer from 'components/companyAdmin/creditLogs/allCreditLogs/containers/AllCreditLogsContainer';
+import AllOperativeAlertsContainer from 'components/companyAdmin/operativeAlerts/allOperativeAlerts/containers/AllOperativeAlertsContainer';
 
 const ToolsRoutes = ({ base = '/company/tools' }) => (
     <SwitchWith404>
@@ -20,6 +21,11 @@ const ToolsRoutes = ({ base = '/company/tools' }) => (
             exact
             path={`${base}/generation-queue`}
             component={GenerationQueueContainer}
+        />
+        <Route
+            exact
+            path={`${base}/operative-alerts`}
+            component={AllOperativeAlertsContainer}
         />
     </SwitchWith404>
 );
