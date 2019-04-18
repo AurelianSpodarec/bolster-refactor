@@ -6,6 +6,7 @@ import PinOptions from 'components/companyAdmin/pins/pinOptions/presentational/P
 import Support from 'components/companyAdmin/support/support/presentational/Support';
 import GenerationQueueContainer from 'components/companyAdmin/generationQueue/shared/containers/GenerationQueueContainer';
 import AllCreditLogsContainer from 'components/companyAdmin/creditLogs/allCreditLogs/containers/AllCreditLogsContainer';
+import CreateOperativeAlert from 'components/companyAdmin/operativeAlerts/createOperativeAlert/presentational/CreateOperativeAlert';
 import AllOperativeAlertsContainer from 'components/companyAdmin/operativeAlerts/allOperativeAlerts/containers/AllOperativeAlertsContainer';
 import TemplatesContainer from 'components/companyAdmin/templates/allTemplates/containers/TemplatesContainer';
 import SingleTemplateContainer from 'components/companyAdmin/templates/singleTemplate/containers/SingleTemplateContainer';
@@ -37,6 +38,11 @@ const ToolsRoutes = ({ base = '/company/tools' }) => (
         <Route
             path={`${base}/templates/:id`}
             component={SingleTemplateContainer}
+        />
+        <Route
+            exact
+            path={`${base}/operative-alerts/create`}
+            component={CreateOperativeAlert}
         />
     </SwitchWith404>
 );

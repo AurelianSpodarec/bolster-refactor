@@ -8,25 +8,25 @@ import {
     FETCH_ALL_OPERATIVE_ALERTS_FAILURE
 } from 'constants/actionTypes/operativeAlerts';
 
-export const fetchAllSitesRequest = () => ({
+export const fetchAllOperativeAlertsRequest = () => ({
     type: FETCH_ALL_OPERATIVE_ALERTS_REQUEST
 });
 
-export const fetchAllSitesSuccess = payload => ({
+export const fetchAllOperativeAlertsSuccess = payload => ({
     type: FETCH_ALL_OPERATIVE_ALERTS_SUCCESS,
     payload
 });
 
-export const fetchAllSitesFailure = error => ({
+export const fetchAllOperativeAlertsFailure = error => ({
     type: FETCH_ALL_OPERATIVE_ALERTS_FAILURE,
     error
 });
 
 export default () => dispatch => {
-    dispatch(fetchAllSitesRequest());
+    dispatch(fetchAllOperativeAlertsRequest());
 
     axios
         .get(`${API_URL}/operativealerts `, getHeaders())
-        .then(res => dispatch(fetchAllSitesSuccess(res.data)))
-        .catch(err => dispatch(fetchAllSitesFailure(err.message)));
+        .then(res => dispatch(fetchAllOperativeAlertsSuccess(res.data)))
+        .catch(err => dispatch(fetchAllOperativeAlertsFailure(err.message)));
 };
