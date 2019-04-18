@@ -21,7 +21,7 @@ const SubscriptionAutoRenewal = ({
                 checked={!!isAutoRenew}
             />
         </BlockHeading>
-        <div className="generic-form size-lg-12">
+        <div className="generic-form no-min-heights size-lg-12">
             <Field htmlFor="radio-card">
                 <RadioButton
                     id="radio-card"
@@ -44,7 +44,7 @@ const SubscriptionAutoRenewal = ({
                     checked={renewalType === SUBSCRIPTION_RENEWAL_IDS.INVOICE}
                     disabled={!isAutoRenew}
                     handleInputChange={handleRadioChange}
-                    extraDetails=" You can choose to pay for your renewal with either your default credit card or by invoice"
+                    extraDetails="You can choose to pay for your renewal with either your default credit card or by invoice"
                 />
             </Field>
         </div>

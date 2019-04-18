@@ -22,7 +22,10 @@ const BuyCreditsModal = ({
     return (
         <ModalOuterContainer>
             <BlockHeading title="Buy Credits" />
-            <Form className="generic-form" onSubmit={handleSubmit}>
+            <Form
+                className="generic-form no-min-heights"
+                onSubmit={handleSubmit}
+            >
                 <Field sizeClasses="size-lg-6">
                     <RadioButton
                         name={'paymentType'}
@@ -42,7 +45,7 @@ const BuyCreditsModal = ({
                     />
                 </Field>
                 {+paymentType === PAYMENT_IDS.CARD && (
-                    <Field sizeClasses="size-lg-5">
+                    <Field sizeClasses="size-lg-12" name="Select Card">
                         <DropdownContainer
                             required
                             name="stripeCardID"
@@ -55,11 +58,9 @@ const BuyCreditsModal = ({
                             }
                             selectedOption={selectedCard}
                             handleChange={handleChange}
-                            classes="w-radio"
                         />
                     </Field>
                 )}
-
                 <Field name="Credits to buy" sizeClasses="size-lg-12">
                     <TextInputContainer
                         name="creditsToBuy"
@@ -77,11 +78,9 @@ const BuyCreditsModal = ({
                     />
                 </Field>
                 {creditsToBuy && (
-                    <Field>
-                        <p className="generic-text align-right size-lg-12">
-                            Total : £{costOfCredits * creditsToBuy}
-                        </p>
-                    </Field>
+                    <p className="generic-text total-text align-right size-lg-12">
+                        Total: £{costOfCredits * creditsToBuy}
+                    </p>
                 )}
                 <BlockButtonWrapper>
                     <button className="button green" type="submit">

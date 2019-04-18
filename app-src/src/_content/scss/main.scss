@@ -639,6 +639,11 @@ input {
         margin-top: -10px;
     }
 
+    &.total-text {
+        padding: 0 10px;
+        margin-bottom: 0;
+    }
+
     a {
         @include ubuntu-medium;
         color: $body-text;
@@ -808,6 +813,12 @@ input {
     .block-heading {
         padding-left: 7.5px;
         padding-right: 7.5px;
+    }
+
+    &.no-min-heights {
+        .form-field {
+            min-height: auto;
+        }
     }
 }
 
@@ -1230,6 +1241,7 @@ input {
 
     &.w-radio {
         margin-left: 20px;
+        margin-top: 20px;
     }
 }
 
