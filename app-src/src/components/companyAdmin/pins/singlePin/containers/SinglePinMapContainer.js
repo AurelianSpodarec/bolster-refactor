@@ -80,9 +80,9 @@ class SinglePinMapContainer extends Component {
         }
     };
 
-    _updateCoordinates = (lat, lng) => {
-        const { pin } = this.props;
-    };
+    // _updateCoordinates = (lat, lng) => {
+    //     const { pin } = this.props;
+    // };
 
     _setMapCentre = (lat, lng) => {
         this.setState({

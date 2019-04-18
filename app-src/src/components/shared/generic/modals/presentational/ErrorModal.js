@@ -1,6 +1,5 @@
 import React from 'react';
 import ModalOuterContainer from '../containers/ModalOuterContainer';
-import PageHeading from '../../pageHeading/presentational/PageHeading';
 import BlockHeading from '../../blockHeading/presentational/BlockHeading';
 
 const ErrorModal = ({

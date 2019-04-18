@@ -2,7 +2,6 @@ import React from 'react';
 import FieldOutput from 'components/shared/generic/fieldOutput/presentational/FieldOutput';
 import { isObjEmpty } from 'helpers/generic';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
-import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 
 const TemplateSectionQuestionDetails = ({
     question,

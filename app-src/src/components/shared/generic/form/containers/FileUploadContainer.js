@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
 
-import { FILE_API_URL, FILE_STORAGE_URL, RAW_S3_STORAGE_URL } from 'config';
+import { FILE_API_URL, RAW_S3_STORAGE_URL } from 'config';
 import addFieldError from 'actions/shared/generic/fieldErrors/sync/addFieldError';
 import removeFieldError from 'actions/shared/generic/fieldErrors/sync/removeFieldError';
 

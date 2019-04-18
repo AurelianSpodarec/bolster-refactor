@@ -8,7 +8,6 @@ import BlockContainer from 'components/shared/generic/block/containers/BlockCont
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
 import BackButtonContainer from 'components/shared/generic/backButton/containers/BackButtonContainer';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
-import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 
 const ChangeOwnershipForm = ({
     companyCode,
