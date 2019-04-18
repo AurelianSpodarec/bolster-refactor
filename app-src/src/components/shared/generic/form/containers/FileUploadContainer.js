@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
 
-import { FILE_API_URL, FILE_STORAGE_URL } from 'config';
+import { FILE_API_URL, FILE_STORAGE_URL, RAW_S3_STORAGE_URL } from 'config';
 import addFieldError from 'actions/shared/generic/fieldErrors/sync/addFieldError';
 import removeFieldError from 'actions/shared/generic/fieldErrors/sync/removeFieldError';
 
@@ -73,7 +73,7 @@ class FileUploadContainer extends Component {
                 value.forEach(item => {
                     var newFile = {};
 
-                    newFile.source = FILE_STORAGE_URL + '/' + item;
+                    newFile.source = RAW_S3_STORAGE_URL + '/' + item;
                     newFile.options = {
                         type: 'local'
                     };
@@ -83,7 +83,7 @@ class FileUploadContainer extends Component {
             } else {
                 var newFile = {};
 
-                newFile.source = FILE_STORAGE_URL + '/' + value;
+                newFile.source = RAW_S3_STORAGE_URL + '/' + value;
                 newFile.options = {
                     type: 'local'
                 };
