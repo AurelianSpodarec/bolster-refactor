@@ -8,25 +8,25 @@ import {
 import { ADMIN_API_URL } from 'config';
 import { getHeaders } from 'helpers/api';
 
-export const fetchAllCompaniesRequest = () => ({
+export const fetchCompanyInvoicesRequest = () => ({
     type: ADMIN_FETCH_COMPANY_INVOICES_REQUEST
 });
 
-export const fetchAllCompaniesSuccess = payload => ({
+export const fetchCompanyInvoicesSuccess = payload => ({
     type: ADMIN_FETCH_COMPANY_INVOICES_SUCCESS,
     payload
 });
 
-export const fetchAllCompaniesFailure = error => ({
+export const fetchCompanyInvoicesFailure = error => ({
     type: ADMIN_FETCH_COMPANY_INVOICES_FAILURE,
     error
 });
 
 export default companyID => dispatch => {
-    dispatch(fetchAllCompaniesRequest());
+    dispatch(fetchCompanyInvoicesRequest());
 
     axios
         .get(`${ADMIN_API_URL}/companies/${companyID}/invoices`, getHeaders())
-        .then(res => dispatch(fetchAllCompaniesSuccess(res.data)))
-        .catch(err => dispatch(fetchAllCompaniesFailure(err.message)));
+        .then(res => dispatch(fetchCompanyInvoicesSuccess(res.data)))
+        .catch(err => dispatch(fetchCompanyInvoicesFailure(err.message)));
 };
