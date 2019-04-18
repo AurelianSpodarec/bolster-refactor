@@ -4,7 +4,7 @@ import {
     FETCH_DATE_FORMATS_REQUEST,
     FETCH_DATE_FORMATS_SUCCESS,
     FETCH_DATE_FORMATS_FAILURE
-} from 'constants/actionTypes/accounts';
+} from 'constants/actionTypes/time';
 import { getHeaders } from 'helpers/api';
 import { AUTH_API_URL } from 'config';
 

@@ -28,7 +28,7 @@ const AddHeadquartersCompanyForm = ({
         confirmPassword
     },
     dateFormats,
-    timezones,
+    timeZones,
     vatOptions,
     handleUserChange,
     handleCompanyChange,
@@ -113,7 +113,7 @@ const AddHeadquartersCompanyForm = ({
             <div>
                 <Field name="timezone">
                     <Select
-                        options={timezones}
+                        options={timeZones}
                         value={timezone}
                         isSearchable
                         onChange={handleTimezoneChange}

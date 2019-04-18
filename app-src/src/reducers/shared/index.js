@@ -3,12 +3,14 @@ import { combineReducers } from 'redux';
 import confirmLeaveReducer from './confirmLeave';
 import fieldErrorsReducer from './fieldErrors';
 import loginReducer from './login';
+import registerReducer from './register';
 import profileReducer from './profile';
 import tabsReducer from './tabs';
 import tablesReducer from './tables';
 import decodeJWTReducer from './decodeJWT';
 import modalReducer from './modal';
 import filesUploadingReducer from './fileUpload';
+import timeReducer from './time';
 
 export default combineReducers({
     confirmLeaveReducer,
@@ -18,6 +20,8 @@ export default combineReducers({
     modalReducer,
     profileReducer,
     tabsReducer,
+    timeReducer,
+    registerReducer,
     tablesReducer,
     filesUploadingReducer
 });

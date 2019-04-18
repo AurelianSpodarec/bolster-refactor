@@ -57,7 +57,7 @@ class EditSettingsFormContainer extends Component {
                     selectedRule={
                         templateUsageRuleOptions[defaultTemplateUsageRule]
                     }
-                    timezones={this.formatTimezones()}
+                    timeZones={this.formatTimezones()}
                     timezone={timezone}
                     handleTimezoneChange={this.handleTimezoneChange}
                     dateFormats={this.formatDateFormats()}
@@ -161,7 +161,7 @@ class EditSettingsFormContainer extends Component {
     };
 
     formatTimezones = () =>
-        this.props.timezones.map(({ id, name, offset }) => ({
+        this.props.timeZones.map(({ id, name, offset }) => ({
             value: id,
             label: `${name} - ${offset}`
         }));
@@ -189,10 +189,8 @@ const mapStateToProps = ({
         }
     },
     shared: {
-        filesUploadingReducer: { filesUploading }
-    },
-    companyAdmin: {
-        accountsReducer: { timezones, dateFormats }
+        filesUploadingReducer: { filesUploading },
+        timeReducer: { timeZones, dateFormats }
     }
 }) => ({
     isFetching,
@@ -200,7 +198,7 @@ const mapStateToProps = ({
     companySettings,
     filesUploading,
     postSuccess,
-    timezones: Object.values(timezones),
+    timeZones: Object.values(timeZones),
     dateFormats: Object.values(dateFormats)
 });
 

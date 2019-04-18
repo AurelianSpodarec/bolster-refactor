@@ -9,10 +9,10 @@ import {
     FETCH_DATE_FORMATS_REQUEST,
     FETCH_DATE_FORMATS_FAILURE,
     FETCH_DATE_FORMATS_SUCCESS
-} from 'constants/actionTypes/accounts';
+} from 'constants/actionTypes/time';
 
 export default combineReducers({
-    timezones: timezonesReducer,
+    timeZones: timeZonesReducer,
     dateFormats: dateFormatsReducer,
     isFetching: isFetchingReducer,
     error: errorReducer
@@ -46,7 +46,7 @@ function errorReducer(state = null, action) {
     }
 }
 
-function timezonesReducer(state = {}, action) {
+function timeZonesReducer(state = {}, action) {
     switch (action.type) {
         case FETCH_TIMEZONES_SUCCESS:
             return convertArrToObj(action.payload);

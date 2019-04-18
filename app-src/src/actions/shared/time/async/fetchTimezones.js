@@ -4,7 +4,7 @@ import {
     FETCH_TIMEZONES_REQUEST,
     FETCH_TIMEZONES_SUCCESS,
     FETCH_TIMEZONES_FAILURE
-} from 'constants/actionTypes/accounts';
+} from 'constants/actionTypes/time';
 import { getHeaders } from 'helpers/api';
 import { AUTH_API_URL } from 'config';
 
@@ -26,7 +26,7 @@ export default () => dispatch => {
     dispatch(fetchTimezonesRequest());
 
     axios
-        .get(`${AUTH_API_URL}/localisation/timezones`, getHeaders())
+        .get(`${AUTH_API_URL}/localisation/timeZones`, getHeaders())
         .then(res => dispatch(fetchTimezonesSuccess(res.data)))
         .catch(err => dispatch(fetchTimezonesFailure(err.message)));
 };

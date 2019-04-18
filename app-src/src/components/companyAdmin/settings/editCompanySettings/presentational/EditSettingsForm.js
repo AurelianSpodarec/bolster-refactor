@@ -35,7 +35,7 @@ const EditSettingsForm = ({
     labelCompanyName,
     hideOnClientList,
     selectedRule,
-    timezones,
+    timeZones,
     timezone,
     handleTimezoneChange,
     dateFormats,
@@ -202,7 +202,7 @@ const EditSettingsForm = ({
             <div>
                 <Field name="timezone">
                     <Select
-                        options={timezones}
+                        options={timeZones}
                         value={timezone}
                         isSearchable
                         onChange={handleTimezoneChange}

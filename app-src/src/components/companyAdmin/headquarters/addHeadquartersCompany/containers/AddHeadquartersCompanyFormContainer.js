@@ -5,8 +5,8 @@ import { withRouter } from 'react-router-dom';
 import AddHeadquartersCompanyForm from '../presentational/AddHeadquartersCompanyForm';
 import { VAT_TYPES } from 'constants/companyAdmin/enums';
 import createHeadquartersCompany from 'actions/companyAdmin/headquarters/async/createHeadquartersCompany';
-import fetchTimezones from 'actions/companyAdmin/accounts/fetchTimezones';
-import fetchDateFormats from 'actions/companyAdmin/accounts/fetchDateFormats';
+import fetchTimezones from 'actions/shared/time/async/fetchTimezones';
+import fetchDateFormats from 'actions/shared/time/async/fetchDateFormats';
 
 class AddHeadquartersCompanyFormContainer extends Component {
     state = {
@@ -50,7 +50,7 @@ class AddHeadquartersCompanyFormContainer extends Component {
                 handleTimezoneChange={this.handleTimezoneChange}
                 handleSubmit={this.handleSubmit}
                 dateFormats={this.formatDateFormats()}
-                timezones={this.formatTimezones()}
+                timeZones={this.formatTimezones()}
                 validateConfirmPassword={this.validateConfirmPassword}
             />
         );
@@ -116,7 +116,7 @@ class AddHeadquartersCompanyFormContainer extends Component {
 
     // utilities
     formatTimezones = () =>
-        this.props.timezones.map(({ id, name, offset }) => ({
+        this.props.timeZones.map(({ id, name, offset }) => ({
             value: id,
             label: `${name} - ${offset}`
         }));
@@ -135,12 +135,14 @@ class AddHeadquartersCompanyFormContainer extends Component {
 
 const mapStateToProps = ({
     companyAdmin: {
-        accountsReducer: { dateFormats, timezones },
         headquartersReducer: { postSuccess }
+    },
+    shared: {
+        timeReducer: { dateFormats, timeZones }
     }
 }) => ({
     dateFormats: Object.values(dateFormats),
-    timezones: Object.values(timezones),
+    timeZones: Object.values(timeZones),
     postSuccess
 });
 

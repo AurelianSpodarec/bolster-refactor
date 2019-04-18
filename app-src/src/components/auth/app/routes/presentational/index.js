@@ -3,10 +3,12 @@ import { Route } from 'react-router-dom';
 
 import SwitchWith404 from 'components/appRoute/routes/presentational/SwitchWith404';
 import Login from 'components/auth/login/presentational/Login';
+import Register from 'components/auth/registration/presentational/Register';
 
 const AuthRoutes = ({ base = '/auth' }) => (
     <SwitchWith404>
         <Route exact path={`${base}/login`} component={Login} />
+        <Route exact path={`${base}/register`} component={Register} />
     </SwitchWith404>
 );
 
