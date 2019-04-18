@@ -5,6 +5,7 @@ import fetchTemplates from 'actions/superAdmin/templateBuilder/async/fetchTempla
 import fetchSingleCompany from 'actions/superAdmin/companies/async/fetchSingleCompany';
 import SingleCompany from '../presentational/SingleCompany';
 import fetchCompanyInvoices from 'actions/superAdmin/invoices/async/fetchCompanyInvoices';
+import fetchCompanySubscription from 'actions/superAdmin/companies/async/fetchCompanySubscription';
 import fetchCompanyUsers from 'actions/superAdmin/users/async/fetchCompanyUsers';
 
 class SingleCompanyContainer extends Component {
@@ -27,6 +28,7 @@ const mapDispatchToProps = dispatch => ({
         dispatch(fetchSingleCompany(id));
         dispatch(fetchTemplates());
         dispatch(fetchCompanyInvoices(id));
+        dispatch(fetchCompanySubscription(id));
         dispatch(fetchCompanyUsers(id));
     }
 });

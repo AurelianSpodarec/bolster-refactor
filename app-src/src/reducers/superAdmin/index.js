@@ -10,6 +10,7 @@ import templateQuestionsReducer from './templateQuestions';
 import templatesReducer from './templates';
 import templateSectionsReducer from './templateSections';
 import usersReducer from './users';
+import companySubscriptionReducer from './companySubscription';
 
 export default combineReducers({
     companiesReducer,
@@ -21,5 +22,6 @@ export default combineReducers({
     templateSectionsReducer,
     templateQuestionsReducer,
     templateQuestionFormReducer,
-    usersReducer
+    usersReducer,
+    companySubscriptionReducer
 });
