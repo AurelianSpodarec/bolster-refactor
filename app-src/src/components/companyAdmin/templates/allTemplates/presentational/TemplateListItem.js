@@ -6,7 +6,7 @@ const TemplateListItem = ({ template: { name, serviceName, id } }) => (
         <td>{name}</td>
         <td>{serviceName}</td>
         <td>
-            <Link to={`/company/templates/${id}`} className="button">
+            <Link to={`/company/tools/templates/${id}`} className="button">
                 View
             </Link>
         </td>

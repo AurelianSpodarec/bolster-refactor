@@ -59,7 +59,7 @@ const CompanyMenu = ({ isFromHeadquarters }) => (
                 <MenuItemContainer link="/company/tools/credit-logs">
                     Drawing Credit Log
                 </MenuItemContainer>
-                <MenuItemContainer link="/company/templates">
+                <MenuItemContainer link="/company/tools/templates">
                     My Templates
                 </MenuItemContainer>
                 <MenuItemContainer link="/company/tools/support">

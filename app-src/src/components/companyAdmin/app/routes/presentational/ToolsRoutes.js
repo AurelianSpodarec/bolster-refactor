@@ -7,6 +7,8 @@ import Support from 'components/companyAdmin/support/support/presentational/Supp
 import GenerationQueueContainer from 'components/companyAdmin/generationQueue/shared/containers/GenerationQueueContainer';
 import AllCreditLogsContainer from 'components/companyAdmin/creditLogs/allCreditLogs/containers/AllCreditLogsContainer';
 import AllOperativeAlertsContainer from 'components/companyAdmin/operativeAlerts/allOperativeAlerts/containers/AllOperativeAlertsContainer';
+import TemplatesContainer from 'components/companyAdmin/templates/allTemplates/containers/TemplatesContainer';
+import SingleTemplateContainer from 'components/companyAdmin/templates/singleTemplate/containers/SingleTemplateContainer';
 
 const ToolsRoutes = ({ base = '/company/tools' }) => (
     <SwitchWith404>
@@ -26,6 +28,15 @@ const ToolsRoutes = ({ base = '/company/tools' }) => (
             exact
             path={`${base}/operative-alerts`}
             component={AllOperativeAlertsContainer}
+        />
+        <Route
+            exact
+            path={`${base}/templates`}
+            component={TemplatesContainer}
+        />
+        <Route
+            path={`${base}/templates/:id`}
+            component={SingleTemplateContainer}
         />
     </SwitchWith404>
 );
