@@ -13,6 +13,7 @@ import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { CONFIRM_DELETE } from 'constants/shared/modalTypes';
 import fetchSinglePin from 'actions/companyAdmin/pins/async/fetchSinglePin';
+import { isObjEmpty } from 'helpers/generic';
 
 class PinDetailsContainer extends Component {
     render() {
@@ -59,9 +60,7 @@ class PinDetailsContainer extends Component {
 
     componentDidMount = () => {
         const { latestHistoryId, selectPinHistory } = this.props;
-        if (latestHistoryId) {
-            selectPinHistory(latestHistoryId);
-        }
+        if (latestHistoryId) selectPinHistory(latestHistoryId);
     };
 
     componentDidUpdate = prevProps => {
@@ -70,15 +69,28 @@ class PinDetailsContainer extends Component {
             selectPinHistory,
             postSuccess,
             fetchSinglePin,
-            pin
+            pin,
+            history
         } = this.props;
-        if (!prevProps.latestHistoryId && latestHistoryId) {
+
+        // update selected pin after a history is deleted
+        if (
+            (!prevProps.latestHistoryId && latestHistoryId) ||
+            prevProps.latestHistoryID !== latestHistoryId
+        ) {
             selectPinHistory(latestHistoryId);
         }
+
+        // redirect to drawing if deleting pin history has deleted pin
+        const { drawingID } = prevProps.pin;
         if (postSuccess && !prevProps.postSuccess) {
-            fetchSinglePin(pin.id);
+            fetchSinglePin(pin.id).then(({ error }) => {
+                if (error) history.push(`/company/drawings/${drawingID}`);
+            });
         }
-        // TODO: check if pin still exists after deleted history and redirect if not
+        if (!isObjEmpty(prevProps.pin) && isObjEmpty(pin)) {
+            history.push(`/company/drawings/${drawingID}`);
+        }
     };
 
     handleDeleteModal = () => {
@@ -129,11 +141,11 @@ const mapStateToProps = (
 };
 
 const mapDispatchToProps = dispatch => ({
-    getSinglePin: id => dispatch(fetchSinglePin(id)),
+    fetchSinglePin: id => dispatch(fetchSinglePin(id)),
     selectPinHistory: historyID => dispatch(selectPinHistory(historyID)),
     deletePinHistory: historyID => dispatch(deletePinHistory(historyID)),
-    showModal: (type, props) => showModal(type, props),
-    hideModal: () => hideModal()
+    showModal: (type, props) => dispatch(showModal(type, props)),
+    hideModal: () => dispatch(hideModal())
 });
 
 export default withRouter(
