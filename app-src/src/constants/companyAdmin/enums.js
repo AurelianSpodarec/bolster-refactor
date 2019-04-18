@@ -117,6 +117,12 @@ export const DATE_TIME_IDS = {
     TIME: 3
 };
 
+export const DATE_TIME_DEFAULTS = {
+    1: 'DD/MM/YYYY HH:mm',
+    2: 'DD/MM/YYYY',
+    3: 'HH:mm'
+};
+
 export const DATE_TIMES = {
     1: 'momentDateTimeFormat',
     2: 'momentDateFormat',

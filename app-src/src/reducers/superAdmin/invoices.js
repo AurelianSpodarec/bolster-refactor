@@ -5,7 +5,7 @@ import {
     ADMIN_FETCH_COMPANY_INVOICES_SUCCESS,
     ADMIN_FETCH_COMPANY_INVOICES_FAILURE
 } from 'constants/actionTypes/invoices';
-import { updateObj } from 'helpers/generic';
+import { convertArrToObj } from 'helpers/generic';
 
 export default combineReducers({
     invoices: invoicesReducer,
@@ -39,7 +39,7 @@ function errorReducer(state = null, action) {
 function invoicesReducer(state = {}, action) {
     switch (action.type) {
         case ADMIN_FETCH_COMPANY_INVOICES_SUCCESS:
-            return updateObj(state, action.payload.id, action.payload);
+            return { ...state, ...convertArrToObj(action.payload) };
         default:
             return state;
     }
