@@ -10,7 +10,7 @@ const SitesTable = ({ headers, sites, isFetching, error }) => {
     return (
         <BlockContainer>
             <BlockHeading title="Sites Table" classes="w-table">
-                <Link to="/company/sites/create" className="button">
+                <Link to="/company/sites/create" className="button green">
                     <i className="fa fa-plus" /> Add site
                 </Link>
             </BlockHeading>

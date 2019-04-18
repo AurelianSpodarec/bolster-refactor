@@ -11,7 +11,7 @@ const AllOperativesTable = ({ headers, users, isFetching, error }) => {
         <BlockContainer>
             <BlockHeading title="Operatives Table">
                 <Link
-                    className="button"
+                    className="button green"
                     to="/company/users-management/operatives/create"
                 >
                     <i className="fa fa-plus" /> Invite Operative

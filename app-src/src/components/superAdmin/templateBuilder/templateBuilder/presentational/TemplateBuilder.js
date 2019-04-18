@@ -10,11 +10,11 @@ const TemplateBuilder = ({ showAddSectionModal, saveRequired, isExisting }) => (
             showAddSectionModal={showAddSectionModal}
             isExisting={isExisting}
         />
-        <div className="size-lg-12">
+        <div className="size-lg-6">
             <SectionListContiner />
-        </div>
 
-        {saveRequired && <SaveTemplateButtonContainer />}
+            {saveRequired && <SaveTemplateButtonContainer />}
+        </div>
     </div>
 );
 

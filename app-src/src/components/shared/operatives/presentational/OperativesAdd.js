@@ -2,7 +2,7 @@ import React from 'react';
 import { withRouter, Link } from 'react-router-dom';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 
-const OperativeAdd = ({ type, location }) => (
+const OperativesAdd = ({ type, location }) => (
     <div className="size-lg-12">
         <BlockHeading title="Invite Operative">
             <Link
@@ -20,4 +20,4 @@ const OperativeAdd = ({ type, location }) => (
     </div>
 );
 
-export default withRouter(OperativeAdd);
+export default withRouter(OperativesAdd);

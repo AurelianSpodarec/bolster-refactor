@@ -21,7 +21,7 @@ const TemplateBuilderHeaderContainer = ({
             name={template.name}
         >
             {isExisting && (
-                <button onClick={showAddSectionModal} className="button">
+                <button onClick={showAddSectionModal} className="button blue">
                     <i className="fa fa-plus" /> Add Section
                 </button>
             )}
