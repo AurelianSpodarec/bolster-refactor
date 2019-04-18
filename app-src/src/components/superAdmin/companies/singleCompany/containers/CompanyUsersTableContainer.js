@@ -8,7 +8,15 @@ import BlockContainer from 'components/shared/generic/block/containers/BlockCont
 class CompanyUsersTableContainer extends Component {
     render() {
         const { users, error, isFetching } = this.props;
-        const headers = ['Name', 'Email', 'Phone #', 'User Type'];
+        const headers = [
+            'Name',
+            'Email',
+            'Phone #',
+            'User Type',
+            'Operative Code',
+            'Linked Device?',
+            ''
+        ];
         return (
             <BlockContainer>
                 <CompanyUsersTable {...{ users, error, isFetching, headers }} />

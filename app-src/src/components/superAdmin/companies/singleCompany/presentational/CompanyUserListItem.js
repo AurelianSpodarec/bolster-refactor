@@ -10,7 +10,8 @@ const CompanyUserListItem = ({ user }) => {
             <td>{user.userEmail}</td>
             <td>{user.userPhoneNumber}</td>
             <td>{COMPANY_USER_ROLE_IDS[String(user.type)]}</td>
-            <td />
+            <td>{user.formattedOperativeCode}</td>
+            <td>{user.linkedDeviceID ? 'Yes' : 'No'}</td>
         </tr>
     );
 };
