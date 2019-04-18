@@ -1,7 +1,11 @@
 import React from 'react';
 
-const HeadquartersListItem = () => {
-    return <div />;
+const HeadquartersCompanyListItem = () => {
+    return (
+        <tr>
+            <td>hello</td>
+        </tr>
+    );
 };
 
-export default HeadquartersListItem;
+export default HeadquartersCompanyListItem;

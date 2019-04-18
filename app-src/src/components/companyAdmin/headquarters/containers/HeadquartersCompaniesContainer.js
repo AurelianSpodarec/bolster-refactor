@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import fetchAllHeadquartersCompanies from 'actions/companyAdmin/headquarters/fetchAllHeadquartersCompanies';
+import fetchAllHeadquartersCompanies from 'actions/companyAdmin/headquarters/async/fetchAllHeadquartersCompanies';
 import HeadquartersCompanies from '../presentational/HeadquartersCompanies';
 
 class HeadquartersCompaniesContainer extends Component {
