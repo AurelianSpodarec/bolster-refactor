@@ -12,6 +12,8 @@ import BlockContainer from 'components/shared/generic/block/containers/BlockCont
 import { PIN_STATUS_TYPES } from 'constants/companyAdmin/enums';
 import { convertEnumToDropdownOptions } from 'helpers/generic';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
+import BackButtonContainer from 'components/shared/generic/backButton/containers/BackButtonContainer';
+import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
 
 class EditPinFormContainer extends Component {
     state = {
@@ -33,23 +35,28 @@ class EditPinFormContainer extends Component {
         const statusOptions = convertEnumToDropdownOptions(PIN_STATUS_TYPES);
 
         return (
-            <BlockContainer
-                isEmpty={!Object.values(templates).length}
-                isFetching={isFetching}
-                error={error}
-            >
-                <BlockHeading title="Edit pin history" />
-                <EditPinForm
-                    statuses={Object.values(statusOptions)}
-                    selectedStatus={statusOptions[statusID]}
-                    location={location}
-                    handleChange={this.handleChange}
-                    handleSubmit={this.handleSubmit}
-                    filesUploading={filesUploading}
-                    confirmLeave={confirmLeave}
-                    selectedHistory={selectedHistory}
-                />
-            </BlockContainer>
+            <>
+                <PageHeading leftChildren={true} title="Edit Pin History">
+                    <BackButtonContainer />
+                </PageHeading>
+                <BlockContainer
+                    isEmpty={!Object.values(templates).length}
+                    isFetching={isFetching}
+                    error={error}
+                >
+                    <BlockHeading title="Pin history Details" />
+                    <EditPinForm
+                        statuses={Object.values(statusOptions)}
+                        selectedStatus={statusOptions[statusID]}
+                        location={location}
+                        handleChange={this.handleChange}
+                        handleSubmit={this.handleSubmit}
+                        filesUploading={filesUploading}
+                        confirmLeave={confirmLeave}
+                        selectedHistory={selectedHistory}
+                    />
+                </BlockContainer>
+            </>
         );
     }
 
