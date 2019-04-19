@@ -53,10 +53,11 @@ const mapStateToProps = (
             templatesReducer: { templates, isFetching, error }
         }
     },
-    { match }
+    { match: { params } }
 ) => ({
+    companyID: params.id,
     templates: Object.values(templates).filter(
-        temp => +temp.companyID === +match.params.id
+        temp => temp.companyID + '' === params.id + ''
     ),
     isFetching,
     error
