@@ -5,9 +5,11 @@ import Dropdown from 'components/shared/generic/form/presentational/Dropdown';
 import Form from 'components/shared/generic/form/containers/Form';
 import MultiDropdownContainer from 'components/shared/generic/form/containers/MultiDropdownContainer';
 import DatePicker from 'components/shared/generic/form/presentational/DatePicker';
+import LevelsFilterContainer from '../containers/LevelsFilterContainer';
 
 const PinFiltersForm = () => (
     <Form className="generic-form ">
+        <LevelsFilterContainer />
         <Field title="Level">
             {/* <Dropdown placeholder="Site" name="site" />
             <Dropdown placeholder="Building" name="building" />
