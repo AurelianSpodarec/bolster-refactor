@@ -6,18 +6,28 @@ import { ACCESS_TYPES } from 'constants/companyAdmin/enums';
 import { convertArrToObj } from 'helpers/generic';
 import updateReportFilter from 'actions/companyAdmin/reports/sync/updateReportFilter';
 import LevelsBuildingsFilters from '../presentational/LevelsBuildingsFilters';
+import LevelsFloorsFilters from '../presentational/LevelsFloorsFilters';
+import LevelsDrawingsFilters from '../presentational/LevelsDrawingsFilters';
 
 class LevelsFilterContainer extends Component {
     render() {
         const {
-            filters: { siteID, buildingID },
+            filters: { siteID, buildingID, floorID, drawingID },
             sites,
-            buildings
+            buildings,
+            floors,
+            drawings
         } = this.props;
 
         const sitesOptions = this._formatArrForDropdown(sites);
         const selectedSite = sitesOptions[siteID];
         const buildingOptions = this._formatArrForDropdown(buildings);
+        const selectedBuilding = buildingOptions[buildingID];
+        const floorOptions = this._formatArrForDropdown(floors);
+        const selectedFloor = floorOptions[floorID];
+        const drawingOptions = this._formatArrForDropdown(drawings);
+        const selectedDrawing = drawingOptions[drawingID];
+
         return (
             <>
                 <LevelsSitesFilters
@@ -30,8 +40,21 @@ class LevelsFilterContainer extends Component {
                     <LevelsBuildingsFilters
                         buildingOptions={Object.values(buildingOptions)}
                         handleChange={this.handleChange}
-                        selectedBuilding={buildingOptions[buildingID]}
-                        handleBuildingChange={this.handleBuildingChange}
+                        selectedBuilding={selectedBuilding}
+                    />
+                )}
+                {!!selectedBuilding && (
+                    <LevelsFloorsFilters
+                        floorOptions={Object.values(floorOptions)}
+                        handleChange={this.handleChange}
+                        selectedFloor={selectedFloor}
+                    />
+                )}
+                {!!selectedFloor && (
+                    <LevelsDrawingsFilters
+                        drawingOptions={Object.values(drawingOptions)}
+                        handleChange={this.handleChange}
+                        selectedDrawing={selectedDrawing}
                     />
                 )}
             </>
@@ -40,10 +63,6 @@ class LevelsFilterContainer extends Component {
 
     handleChange = ({ target: { value, name } }) => {
         const { updateReportFilter } = this.props;
-
-        console.log(value);
-        console.log(value);
-        console.log(value);
 
         updateReportFilter(name, value);
     };
@@ -76,12 +95,20 @@ const mapStateToProps = ({
     const selectedSite = sitesReducer.sites[filters.siteID] || {};
     const buildingIDs = selectedSite.buildingIDs || [];
     const buildings = buildingIDs.map(id => buildingsReducer.buildings[id]);
+    const selectedBuilding =
+        buildingsReducer.buildings[filters.buildingID] || {};
+    const floorIDs = selectedBuilding.floorIDs || [];
+    const floors = floorIDs.map(id => floorsReducer.floors[id]);
+
+    const selectedFloor = floorsReducer.floors[filters.floorID] || {};
+    const drawingIDs = selectedFloor.drawingIDs || [];
+    const drawings = drawingIDs.map(id => drawingsReducer.drawings[id]);
 
     return {
         sites: Object.values(sitesReducer.sites),
         buildings,
-        floors: Object.values(floorsReducer.floors),
-        drawings: Object.values(drawingsReducer),
+        floors,
+        drawings,
         filters
     };
 };
