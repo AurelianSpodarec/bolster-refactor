@@ -4,42 +4,64 @@ import { connect } from 'react-redux';
 import LevelsSitesFilters from '../presentational/LevelsSitesFilters';
 import { ACCESS_TYPES } from 'constants/companyAdmin/enums';
 import { convertArrToObj } from 'helpers/generic';
+import updateReportFilter from 'actions/companyAdmin/reports/sync/updateReportFilter';
+import LevelsBuildingsFilters from '../presentational/LevelsBuildingsFilters';
 
 class LevelsFilterContainer extends Component {
-    state = {
-        siteID: ''
-    };
-
     render() {
-        const { siteID } = this.state;
+        const {
+            filters: { siteID, buildingID },
+            sites,
+            buildings
+        } = this.props;
 
-        const sitesOptions = this._formatSites();
-
-        const selectedSite = sitesOptions.find(
-            site => site.value + '' === siteID
-        );
-
+        const sitesOptions = this._formatArrForDropdown(sites);
+        const selectedSite = sitesOptions[siteID];
+        const buildingOptions = this._formatArrForDropdown(buildings);
         return (
-            <LevelsSitesFilters
-                sitesOptions={sitesOptions}
-                handleChange={this.handleChange}
-                selectedSite={selectedSite}
-                handleSitesChange={this._handleSitesChange}
-            />
+            <>
+                <LevelsSitesFilters
+                    sitesOptions={Object.values(sitesOptions)}
+                    selectedSite={selectedSite}
+                    handleChange={this.handleChange}
+                />
+
+                {!!selectedSite && (
+                    <LevelsBuildingsFilters
+                        buildingOptions={Object.values(buildingOptions)}
+                        handleChange={this.handleChange}
+                        selectedBuilding={buildingOptions[buildingID]}
+                        handleBuildingChange={this.handleBuildingChange}
+                    />
+                )}
+            </>
         );
     }
 
-    _handleSitesChange = ({ target: { value, name } }) =>
-        this.setState({ [name]: value });
+    handleChange = ({ target: { value, name } }) => {
+        const { updateReportFilter } = this.props;
 
-    _formatSites = () => {
-        const { sites } = this.props;
+        console.log(value);
+        console.log(value);
+        console.log(value);
 
-        return sites.map(({ name, id }) => ({
+        updateReportFilter(name, value);
+    };
+
+    _formatArrForDropdown = arr => {
+        const options = arr.map(({ name, id }) => ({
             value: id,
             text: name
         }));
+
+        return convertArrToObj(options, 'value');
     };
+
+    // _formatBuildings = () => {
+    //     const {sites, buildings} = this.props;
+
+    //     buildings.filter(({siteID}) => () );
+    // };
 }
 
 const mapStateToProps = ({
@@ -47,16 +69,30 @@ const mapStateToProps = ({
         sitesReducer,
         buildingsReducer,
         floorsReducer,
-        drawingsReducer
+        drawingsReducer,
+        reportsReducer: { filters }
     }
-}) => ({
-    sites: Object.values(sitesReducer.sites),
-    buildings: Object.values(buildingsReducer.buildings),
-    floors: Object.values(floorsReducer.floors),
-    drawings: Object.values(drawingsReducer)
+}) => {
+    const selectedSite = sitesReducer.sites[filters.siteID] || {};
+    const buildingIDs = selectedSite.buildingIDs || [];
+    const buildings = buildingIDs.map(id => buildingsReducer.buildings[id]);
+
+    return {
+        sites: Object.values(sitesReducer.sites),
+        buildings,
+        floors: Object.values(floorsReducer.floors),
+        drawings: Object.values(drawingsReducer),
+        filters
+    };
+};
+
+const mapDispatchToProps = dispatch => ({
+    updateReportFilter: (name, val) => {
+        dispatch(updateReportFilter(name, val));
+    }
 });
 
 export default connect(
     mapStateToProps,
-    null
+    mapDispatchToProps
 )(LevelsFilterContainer);

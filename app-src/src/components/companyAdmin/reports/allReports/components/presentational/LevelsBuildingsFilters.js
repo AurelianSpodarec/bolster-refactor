@@ -5,19 +5,22 @@ import Dropdown from 'components/shared/generic/form/presentational/Dropdown';
 import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
 import Field from 'components/shared/generic/form/presentational/Field';
 
-const LevelsSitesFilters = ({ sitesOptions, selectedSite, handleChange }) => (
+const LevelsBuildingsFilters = ({
+    buildingOptions,
+    selectedBuilding,
+    handleChange
+}) => (
     <>
         <Field>
             <DropdownContainer
                 placeholder="-- select --"
-                name="siteID"
-                options={sitesOptions}
-                selectedOption={selectedSite}
+                name="buildingID"
+                options={buildingOptions}
+                selectedOption={selectedBuilding}
                 handleChange={handleChange}
-                required
             />
         </Field>
     </>
 );
 
-export default LevelsSitesFilters;
+export default LevelsBuildingsFilters;
