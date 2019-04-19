@@ -11,7 +11,7 @@ const LevelsDrawingsFilters = ({
     handleChange
 }) => (
     <>
-        <Field>
+        <Field name="Drawing">
             <DropdownContainer
                 placeholder="-- select --"
                 name="drawingID"

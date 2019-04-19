@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import LevelsSitesFilters from '../presentational/LevelsSitesFilters';
-import { ACCESS_TYPES } from 'constants/companyAdmin/enums';
 import { convertArrToObj } from 'helpers/generic';
 import updateReportFilter from 'actions/companyAdmin/reports/sync/updateReportFilter';
 import LevelsBuildingsFilters from '../presentational/LevelsBuildingsFilters';
@@ -50,7 +49,7 @@ class LevelsFilterContainer extends Component {
                         selectedFloor={selectedFloor}
                     />
                 )}
-                {!!selectedFloor && (
+                {!!selectedFloor && !!selectedBuilding && (
                     <LevelsDrawingsFilters
                         drawingOptions={Object.values(drawingOptions)}
                         handleChange={this.handleChange}
@@ -95,6 +94,7 @@ const mapStateToProps = ({
     const selectedSite = sitesReducer.sites[filters.siteID] || {};
     const buildingIDs = selectedSite.buildingIDs || [];
     const buildings = buildingIDs.map(id => buildingsReducer.buildings[id]);
+
     const selectedBuilding =
         buildingsReducer.buildings[filters.buildingID] || {};
     const floorIDs = selectedBuilding.floorIDs || [];

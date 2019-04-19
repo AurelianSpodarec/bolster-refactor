@@ -6,16 +6,14 @@ import Form from 'components/shared/generic/form/containers/Form';
 import MultiDropdownContainer from 'components/shared/generic/form/containers/MultiDropdownContainer';
 import DatePicker from 'components/shared/generic/form/presentational/DatePicker';
 import LevelsFilterContainer from '../containers/LevelsFilterContainer';
+import StatusTypeFilterContainer from '../containers/StatusTypeFilterContainer';
+import ServicesFilterContainer from '../containers/ServicesFilterContainer';
 
 const PinFiltersForm = () => (
     <Form className="generic-form ">
         <LevelsFilterContainer />
-        <Field title="Level">
-            {/* <Dropdown placeholder="Site" name="site" />
-            <Dropdown placeholder="Building" name="building" />
-            <Dropdown placeholder="Floor" name="floor" />
-            <Dropdown placeholder="Drawing" name="drawing" /> */}
-        </Field>
+        <StatusTypeFilterContainer />
+        <ServicesFilterContainer />
         <Field title="Service">
             {/* <Dropdown placeholder="Firestopping" name="service" /> */}
         </Field>

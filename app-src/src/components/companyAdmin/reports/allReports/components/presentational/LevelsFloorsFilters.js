@@ -7,7 +7,7 @@ import Field from 'components/shared/generic/form/presentational/Field';
 
 const LevelsFloorsFilters = ({ floorOptions, selectedFloor, handleChange }) => (
     <>
-        <Field>
+        <Field name="Floor">
             <DropdownContainer
                 placeholder="-- select --"
                 name="floorID"
