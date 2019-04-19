@@ -1,15 +1,22 @@
 import React from 'react';
+import Select from 'react-select';
+
+import { VAT_TYPES } from 'constants/companyAdmin/enums';
 
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import Form from 'components/shared/generic/form/containers/Form';
 import Field from 'components/shared/generic/form/presentational/Field';
-import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
+import Checkbox from 'components/shared/generic/form/presentational/Checkbox';
 
 const RegisterForm = ({
     handleSubmit,
     handleInputChange,
-    timeZoneOptions,
-    selectedTimeZone,
+    handleTimezoneChange,
+    handleDateFormatChange,
+    handleVatTypeChange,
+    handleCheckboxChange,
+    timezoneOptions,
+    timezone,
     email,
     password,
     firstName,
@@ -17,13 +24,15 @@ const RegisterForm = ({
     //company name
     name,
     telephone,
-    businessName,
-    culture,
     addressLine1,
     town,
     postcode,
-    VATType,
-    VATCode
+    vatType,
+    vatCode,
+    vatOptions,
+    dateFormats,
+    dateFormat,
+    terms
 }) => (
     <Form className="generic-form size-lg-12" onSubmit={handleSubmit}>
         <Field name="First name" sizeClasses="size-lg-4">
@@ -84,19 +93,81 @@ const RegisterForm = ({
                 required
             />
         </Field>
-        <Field name="Time zones">
-            <DropdownContainer
-                required
-                name="TimeZone"
-                options={timeZoneOptions}
-                selectedOption={selectedTimeZone}
+        <Field name="First Line of Address" sizeClasses="size-lg-4">
+            <TextInputContainer
+                value={addressLine1}
+                name="name"
+                placeholder="Address line 1"
                 handleChange={handleInputChange}
+                required
+            />
+        </Field>
+        <Field name="Town/City" sizeClasses="size-lg-4">
+            <TextInputContainer
+                value={town}
+                name="town"
+                placeholder="Town or City"
+                handleChange={handleInputChange}
+                required
+            />
+        </Field>
+        <Field name="Postcode" sizeClasses="size-lg-4">
+            <TextInputContainer
+                value={postcode}
+                name="name"
+                placeholder="Postcode"
+                handleChange={handleInputChange}
+                required
             />
         </Field>
 
+        <Field name="Timezone">
+            <Select
+                options={timezoneOptions}
+                value={timezone}
+                isSearchable
+                onChange={handleTimezoneChange}
+            />
+        </Field>
+        <Field name="Date format">
+            <Select
+                options={dateFormats}
+                value={dateFormat}
+                isSearchable
+                onChange={handleDateFormatChange}
+            />
+        </Field>
+
+        <Field name="VAT Type">
+            <Select
+                value={vatType}
+                options={vatOptions}
+                onChange={handleVatTypeChange}
+            />
+        </Field>
+        {vatType.value !== VAT_TYPES.OUTSIDEEU && (
+            <Field name="VAT Code">
+                <TextInputContainer
+                    name="vatCode"
+                    value={vatCode}
+                    handleChange={handleInputChange}
+                    required={vatType.value !== VAT_TYPES.OUTSIDEEU}
+                />
+            </Field>
+        )}
+        <Field name="Terms and Conditions">
+            <p className="generic-text size-lg-12">
+                Please tick to agree to our Terms and Conditions
+            </p>
+            <Checkbox
+                checked={terms}
+                handleChange={handleCheckboxChange}
+                name="terms"
+            />
+        </Field>
         <div className="button-area size-lg-12">
-            <button className="button" type="submit">
-                Login
+            <button className="button green" type="submit">
+                Submit
             </button>
         </div>
     </Form>

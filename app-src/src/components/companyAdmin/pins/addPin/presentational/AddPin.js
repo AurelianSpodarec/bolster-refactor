@@ -6,9 +6,6 @@ import AddPinContainer from '../containers/AddPinContainer';
 
 const AddPin = () => (
     <>
-        <PageHeading leftChildren={true} title="Add Pin">
-            <BackButtonContainer />
-        </PageHeading>
         <AddPinContainer />
     </>
 );
