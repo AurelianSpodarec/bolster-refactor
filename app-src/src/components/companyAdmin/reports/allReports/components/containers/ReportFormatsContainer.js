@@ -9,7 +9,7 @@ import ReportFormats from '../presentational/ReportFormats';
 class ReportFormatsContainer extends Component {
     render() {
         const {
-            filters: { reportFormatsID }
+            filters: { includeLocationDrawing, reportFormatsID }
         } = this.props;
 
         const reportFormatOptions = convertEnumToDropdownOptions(
@@ -21,14 +21,15 @@ class ReportFormatsContainer extends Component {
                 reportFormatOptions={Object.values(reportFormatOptions)}
                 selectedReportFormat={reportFormatOptions[reportFormatsID]}
                 handleChange={this.handleChange}
+                includeLocationDrawing={includeLocationDrawing}
             />
         );
     }
 
-    handleChange = ({ target: { value, name } }) => {
+    handleChange = ({ target: { value, name, checked, type } }) => {
         const { updateReportFilter } = this.props;
 
-        updateReportFilter(name, value);
+        updateReportFilter(name, type === 'checkbox' ? checked : value);
     };
 }
 
