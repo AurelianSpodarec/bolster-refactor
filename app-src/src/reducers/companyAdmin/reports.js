@@ -15,6 +15,8 @@ function filtersReducer(
         drawingID: 0,
         serviceID: 0,
         statusID: 0,
+        startDate: undefined,
+        endDate: undefined,
         oprativeIDs: []
     },
     action

@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { convertArrToObj, convertEnumToDropdownOptions } from 'helpers/generic';
 import updateReportFilter from 'actions/companyAdmin/reports/sync/updateReportFilter';
 import ServicesFilters from '../presentational/ServicesFilters';
-import { PIN_STATUS_TYPES } from 'constants/companyAdmin/enums';
 
 class ServicesFilterContainer extends Component {
     render() {
