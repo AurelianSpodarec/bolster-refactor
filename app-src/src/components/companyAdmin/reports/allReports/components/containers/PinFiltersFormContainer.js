@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { FUTHER_FILTRATION } from 'constants/companyAdmin/enums';
-import { convertArrToObj, convertEnumToDropdownOptions } from 'helpers/generic';
+import { convertEnumToDropdownOptions } from 'helpers/generic';
 import PinFiltersForm from '../presentational/PinFiltersForm';
+
+import postReport from 'actions/companyAdmin/reports/async/postReport';
 
 export class PinFiltersFormContainer extends Component {
     state = {
@@ -24,11 +26,53 @@ export class PinFiltersFormContainer extends Component {
                     this.handleFurtherFiltrationChange
                 }
                 filterOption={filterOption}
+                handleSubmit={this.handleSubmit}
             />
         );
     }
+
     handleFurtherFiltrationChange = ({ target: { value, name } }) => {
         this.setState({ [name]: value });
+    };
+
+    handleSubmit = () => {
+        const {
+            filters: {
+                siteID,
+                buildingID,
+                floorID,
+                drawingID,
+                numberOfHistoriesID,
+                reportFormatID,
+                includeLocationDrawing
+            },
+            postReport
+        } = this.props;
+
+        const hierarchyType = drawingID
+            ? 'drawing'
+            : floorID
+            ? 'floor'
+            : buildingID
+            ? 'building'
+            : 'site';
+        const hierarchyID = drawingID
+            ? drawingID
+            : floorID
+            ? floorID
+            : buildingID
+            ? buildingID
+            : siteID;
+
+        const postBody = {
+            hierarchyType: hierarchyType,
+            hierarchyID: hierarchyID,
+            reportHistories: numberOfHistoriesID,
+            fileType: reportFormatID,
+            includePinLocation: includeLocationDrawing
+        };
+
+        postReport(postBody);
     };
 }
 
@@ -37,17 +81,25 @@ const mapStateToProps = ({
         sitesReducer,
         buildingsReducer,
         floorsReducer,
-        drawingsReducer
+        drawingsReducer,
+        reportsReducer: { filters }
     }
 }) => ({
     sites: Object.values(sitesReducer.sites),
     sitesFilter: sitesReducer.filters,
     buildings: Object.values(buildingsReducer.buildings),
     floors: Object.values(floorsReducer.floors),
-    drawings: Object.values(drawingsReducer)
+    drawings: Object.values(drawingsReducer),
+    filters
+});
+
+const mapDispatchToProps = dipatch => ({
+    postReport: postBody => {
+        dipatch(postReport(postBody));
+    }
 });
 
 export default connect(
     mapStateToProps,
-    null
+    mapDispatchToProps
 )(PinFiltersFormContainer);

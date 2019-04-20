@@ -8,14 +8,17 @@ import ServicesFilterContainer from '../containers/ServicesFilterContainer';
 import DatesFilterContainer from '../containers/DatesFilterContainer';
 import FurtherFiltration from './FurtherFiltration';
 import ReportOptionsContainer from '../containers/ReportOptionsContainer';
+import PinSelectorContainer from 'components/shared/pinSelector/container/PinSelectorContainer';
+import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 
 const PinFiltersForm = ({
     futherFiltrationOptions,
     selectedFutherFiltration,
     handleFurtherFiltrationChange,
-    filterOption
+    filterOption,
+    handleSubmit
 }) => (
-    <Form className="generic-form ">
+    <Form className="generic-form " onSubmit={() => handleSubmit()}>
         <LevelsFilterContainer />
         <StatusTypeFilterContainer />
         <ServicesFilterContainer />
@@ -25,7 +28,9 @@ const PinFiltersForm = ({
             selectedFutherFiltration={selectedFutherFiltration}
             handleChange={handleFurtherFiltrationChange}
         />
-        {filterOption === '1' && <ReportOptionsContainer />}
+        <ReportOptionsContainer />
+
+        {filterOption === '2' && <PinSelectorContainer />}
         <Field title="Service">
             {/* <Dropdown placeholder="Firestopping" name="service" /> */}
         </Field>
@@ -49,6 +54,13 @@ const PinFiltersForm = ({
                 placeholderText="Start date"
             /> */}
         </Field>
+
+        <BlockButtonWrapper>
+            <button className="button green" type="submit">
+                <i className="fa fa-file" />
+                Generate report
+            </button>
+        </BlockButtonWrapper>
     </Form>
 );
 

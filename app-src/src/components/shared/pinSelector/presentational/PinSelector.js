@@ -1,7 +1,9 @@
 import React from 'react';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
+import Field from 'components/shared/generic/form/presentational/Field';
+import ExcludedBox from './ExcludedBox';
 
-const DrawingPinSelector = () => (
+const PinSelector = ({ excludedPins, handlePinClick }) => (
     <>
         <BlockHeading title="Pin Selector" />
 
@@ -10,7 +12,17 @@ const DrawingPinSelector = () => (
             you would like to be included in your report.
         </p>
 
-        <div className="pin-selection-box">
+        <Field title="Excluded">
+            <ExcludedBox
+                excludedPins={excludedPins}
+                handlePinClick={handlePinClick}
+            />
+        </Field>
+        {/* <Field title="Included">
+            <IncludedBox />
+        </Field> */}
+
+        {/* <div className="pin-selection-box">
             <h3>Excluded</h3>
             <div className="content">
                 <p>0023:01</p>
@@ -38,8 +50,8 @@ const DrawingPinSelector = () => (
                 <p>0023:07</p>
                 <p>0023:08</p>
             </div>
-        </div>
+        </div> */}
     </>
 );
 
-export default DrawingPinSelector;
+export default PinSelector;
