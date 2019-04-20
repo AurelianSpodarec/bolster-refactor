@@ -7,7 +7,7 @@ import PinFiltersForm from '../presentational/PinFiltersForm';
 
 export class PinFiltersFormContainer extends Component {
     state = {
-        filterOption: 1
+        filterOption: 0
     };
 
     render() {
@@ -16,7 +16,6 @@ export class PinFiltersFormContainer extends Component {
         const futherFiltrationOptions = convertEnumToDropdownOptions(
             FUTHER_FILTRATION
         );
-        console.log(Object.values(futherFiltrationOptions));
         return (
             <PinFiltersForm
                 futherFiltrationOptions={Object.values(futherFiltrationOptions)}
@@ -24,6 +23,7 @@ export class PinFiltersFormContainer extends Component {
                 handleFurtherFiltrationChange={
                     this.handleFurtherFiltrationChange
                 }
+                filterOption={filterOption}
             />
         );
     }

@@ -7,11 +7,13 @@ import StatusTypeFilterContainer from '../containers/StatusTypeFilterContainer';
 import ServicesFilterContainer from '../containers/ServicesFilterContainer';
 import DatesFilterContainer from '../containers/DatesFilterContainer';
 import FurtherFiltration from './FurtherFiltration';
+import ReportOptionsContainer from '../containers/ReportOptionsContainer';
 
 const PinFiltersForm = ({
     futherFiltrationOptions,
     selectedFutherFiltration,
-    handleFurtherFiltrationChange
+    handleFurtherFiltrationChange,
+    filterOption
 }) => (
     <Form className="generic-form ">
         <LevelsFilterContainer />
@@ -23,6 +25,7 @@ const PinFiltersForm = ({
             selectedFutherFiltration={selectedFutherFiltration}
             handleChange={handleFurtherFiltrationChange}
         />
+        {filterOption === '1' && <ReportOptionsContainer />}
         <Field title="Service">
             {/* <Dropdown placeholder="Firestopping" name="service" /> */}
         </Field>

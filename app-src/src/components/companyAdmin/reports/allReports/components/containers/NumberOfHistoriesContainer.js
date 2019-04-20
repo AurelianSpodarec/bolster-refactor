@@ -2,22 +2,26 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { convertEnumToDropdownOptions } from 'helpers/generic';
+import { NUMBER_OF_HISTORIES } from 'constants/companyAdmin/enums';
 import updateReportFilter from 'actions/companyAdmin/reports/sync/updateReportFilter';
-import StatusTypeFilters from '../presentational/StatusTypeFilters';
-import { PIN_STATUS_TYPES } from 'constants/companyAdmin/enums';
+import NumberOfHistories from '../presentational/NumberOfHistories';
 
-class StatusTypeFilterContainer extends Component {
+class NumberOfHistoriesContainer extends Component {
     render() {
         const {
-            filters: { statusID }
+            filters: { numberOfHistoriesID }
         } = this.props;
 
-        const statusOptions = convertEnumToDropdownOptions(PIN_STATUS_TYPES);
+        const numberOfHistoriesOptions = convertEnumToDropdownOptions(
+            NUMBER_OF_HISTORIES
+        );
 
         return (
-            <StatusTypeFilters
-                statusOptions={Object.values(statusOptions)}
-                selectedStatus={statusOptions[statusID]}
+            <NumberOfHistories
+                numberOfHistoriesOptions={Object.values(
+                    numberOfHistoriesOptions
+                )}
+                selectedHistory={numberOfHistoriesOptions[numberOfHistoriesID]}
                 handleChange={this.handleChange}
             />
         );
@@ -49,4 +53,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(StatusTypeFilterContainer);
+)(NumberOfHistoriesContainer);

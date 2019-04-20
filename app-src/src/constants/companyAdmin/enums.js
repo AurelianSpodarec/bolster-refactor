@@ -141,7 +141,22 @@ export const VAT_TYPES = {
     OUTSIDEEU: 3
 };
 
+//Report generator
 export const FUTHER_FILTRATION = {
     1: 'Pin Selection',
     2: 'Filters'
 };
+
+export const NUMBER_OF_HISTORIES = {
+    1: 'Latest',
+    2: 'Earliest',
+    3: 'All'
+};
+
+export const SORT_BY = {
+    1: 'Ascending',
+    2: 'Decending'
+};
+
+//csv 1
+//pdf 2
