@@ -28,15 +28,6 @@ class StatusTypeFilterContainer extends Component {
 
         updateReportFilter(name, value);
     };
-
-    _formatArrForDropdown = arr => {
-        const options = arr.map(({ name, id }) => ({
-            value: id,
-            text: name
-        }));
-
-        return convertArrToObj(options, 'value');
-    };
 }
 
 const mapStateToProps = ({

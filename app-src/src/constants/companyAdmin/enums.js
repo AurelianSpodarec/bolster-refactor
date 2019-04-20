@@ -140,3 +140,8 @@ export const VAT_TYPES = {
     EU: 2,
     OUTSIDEEU: 3
 };
+
+export const FUTHER_FILTRATION = {
+    1: 'Pin Selection',
+    2: 'Filters'
+};

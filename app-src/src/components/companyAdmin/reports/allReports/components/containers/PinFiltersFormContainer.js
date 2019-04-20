@@ -1,14 +1,35 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import updateSitesFilters from 'actions/companyAdmin/sites/sync/updateSitesFilters';
-
+import { FUTHER_FILTRATION } from 'constants/companyAdmin/enums';
+import { convertArrToObj, convertEnumToDropdownOptions } from 'helpers/generic';
 import PinFiltersForm from '../presentational/PinFiltersForm';
 
 export class PinFiltersFormContainer extends Component {
+    state = {
+        filterOption: 1
+    };
+
     render() {
-        return <PinFiltersForm />;
+        const { filterOption } = this.state;
+
+        const futherFiltrationOptions = convertEnumToDropdownOptions(
+            FUTHER_FILTRATION
+        );
+        console.log(Object.values(futherFiltrationOptions));
+        return (
+            <PinFiltersForm
+                futherFiltrationOptions={Object.values(futherFiltrationOptions)}
+                selectedFutherFiltration={futherFiltrationOptions[filterOption]}
+                handleFurtherFiltrationChange={
+                    this.handleFurtherFiltrationChange
+                }
+            />
+        );
     }
+    handleFurtherFiltrationChange = ({ target: { value, name } }) => {
+        this.setState({ [name]: value });
+    };
 }
 
 const mapStateToProps = ({
