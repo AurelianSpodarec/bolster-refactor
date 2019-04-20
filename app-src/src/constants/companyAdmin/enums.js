@@ -158,5 +158,7 @@ export const SORT_BY = {
     2: 'Decending'
 };
 
-//csv 1
-//pdf 2
+export const REPORT_FORMATS = {
+    1: 'csv',
+    2: 'pdf'
+};

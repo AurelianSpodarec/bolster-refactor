@@ -16,6 +16,9 @@ function filtersReducer(
         serviceID: 0,
         statusID: 0,
         numberOfHistoriesID: 0,
+        sortByID: 0,
+        reportFormatID: 0,
+        locationDrawing: false,
         startDate: undefined,
         endDate: undefined,
         oprativeIDs: []
