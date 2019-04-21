@@ -1,22 +1,37 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+import { RAW_S3_STORAGE_URL_REPORTS } from 'config';
+
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 
 import {
     GENERATION_STATE_TEXT,
+    GENERATION_STATE_VAL,
     REPORT_FORMATS
 } from 'constants/companyAdmin/enums';
 
 const GenerationQueueListItem = ({ queueItem }) => (
     <tr>
         <td>{REPORT_FORMATS[queueItem.type]}</td>
-        <td>{queueItem.moreDetails}</td>
+        <td>{!!queueItem.stateMessage && queueItem.stateMessage}</td>
         <td>{GENERATION_STATE_TEXT[queueItem.state]}</td>
         <td>
             <DateTimeContainer date={queueItem.createdOn} />
         </td>
-        <td />
+        <td>
+            {queueItem.state === GENERATION_STATE_VAL.COMPLETE ? (
+                <a
+                    className="button geen"
+                    target="_blank"
+                    href={`${RAW_S3_STORAGE_URL_REPORTS}/${queueItem.s3Key}`}
+                >
+                    <i className="fa fa-download" /> Download File
+                </a>
+            ) : (
+                <button className="button disabled">Unavailable</button>
+            )}
+        </td>
     </tr>
 );
 
