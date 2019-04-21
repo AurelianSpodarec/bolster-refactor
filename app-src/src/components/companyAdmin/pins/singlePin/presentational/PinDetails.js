@@ -22,16 +22,6 @@ const PinDetails = ({
     <>
         <div className="size-lg-12">
             <FieldOutput
-                title="History"
-                description={`${historyVersion} of ${historyCount}`}
-                sizeClass="size-lg-6"
-            />
-            <FieldOutput
-                title="Pin Code"
-                sizeClass="size-lg-6"
-                description={pin.pinCode}
-            />
-            <FieldOutput
                 title="Date created"
                 fieldClass="no-h-padding"
                 sizeClass="size-lg-6"

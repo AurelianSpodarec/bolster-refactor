@@ -778,6 +778,13 @@ input {
         text-transform: capitalize;
     }
 
+    .small-text {
+        float: left;
+        padding-left: 5px;
+        font-size: 140%;
+        line-height: 21px;
+    }
+
     .button,
     button {
         float: right;
