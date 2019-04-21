@@ -159,6 +159,19 @@ export const SORT_BY = {
 };
 
 export const REPORT_FORMATS = {
-    1: 'csv',
-    2: 'pdf'
+    1: 'pdf',
+    2: 'csv'
+};
+
+export const GENERATION_STATE_TEXT = {
+    0: 'Waiting',
+    1: 'Running',
+    2: 'Complete',
+    3: 'Failed'
+};
+export const GENERATION_STATE_VAL = {
+    WAITING: 0,
+    RUNNING: 1,
+    COMPLETE: 2,
+    FAILED: 3
 };

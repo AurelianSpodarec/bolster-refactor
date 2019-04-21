@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import { GENERATION_STATE_VAL } from 'constants/companyAdmin/enums';
 
 import HeaderProfile from '../presentational/HeaderProfile';
 
@@ -69,7 +70,7 @@ const mapStateToProps = ({
     profile: profileReducer.profile || {},
     generationQueueLength: Object.values(
         generationQueueReducer.generationQueue
-    ).filter(item => item.status.toLowerCase() === 'pending').length
+    ).filter(item => item.state === GENERATION_STATE_VAL.WAITING).length
 });
 
 export default withRouter(connect(mapStateToProps)(HeaderProfileContainer));
