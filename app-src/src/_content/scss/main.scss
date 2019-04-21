@@ -256,6 +256,10 @@ input {
     background-color: white;
     @include dropdown-popup();
 
+    &.visible {
+        z-index: 10001;
+    }
+
     a {
         float: left;
         width: 100%;
@@ -765,7 +769,6 @@ input {
             font-size: 150%;
             padding-bottom: 5px;
             margin-bottom: 10px;
-            border-bottom: 1px solid $light-grey;
             max-width: 100%;
         }
     }
@@ -1621,6 +1624,13 @@ input {
     }
 }
 
+.loading-text {
+    @include ubuntu;
+    font-size: 140%;
+    text-align: center;
+    padding: 10px;
+}
+
 //footer
 #page-footer {
     width: 100%;
@@ -1846,8 +1856,8 @@ input {
 
         .item-button-container {
             position: absolute;
-            right: 0;
-            bottom: 0;
+            right: 10px;
+            bottom: 15px;
         }
     }
 }

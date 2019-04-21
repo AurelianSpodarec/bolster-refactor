@@ -12,6 +12,7 @@ import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeCon
 
 const PinDetails = ({
     pinHistory,
+    pin,
     historyCount,
     historyVersion,
     user,
@@ -25,7 +26,11 @@ const PinDetails = ({
                 description={`${historyVersion} of ${historyCount}`}
                 sizeClass="size-lg-6"
             />
-
+            <FieldOutput
+                title="Pin Code"
+                sizeClass="size-lg-6"
+                description={pin.pinCode}
+            />
             <FieldOutput
                 title="Date created"
                 fieldClass="no-h-padding"
