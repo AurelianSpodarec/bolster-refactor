@@ -47,7 +47,7 @@ function generationQueueReducer(state = {}, action) {
     }
 }
 
-function sortReducer(state = { sortString: 'createdOn asc' }, action) {
+function sortReducer(state = { sortString: 'createdOn desc' }, action) {
     switch (action.type) {
         case UPDATE_GENERATION_QUEUE_SORT:
             return updateObj(state, 'sortString', action.sortString);

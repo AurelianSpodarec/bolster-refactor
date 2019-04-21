@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import GenerationQueueTable from '../presentational/GenerationQueueTable';
 import { sortArrayByKeyAndOrder } from 'helpers/generic';
-import { GENERATION_STATE, REPORT_FORMATS } from 'constants/companyAdmin/enums';
 
 const GenerationQueueTableContainer = ({
     isFetching,
@@ -12,7 +11,7 @@ const GenerationQueueTableContainer = ({
 }) => {
     return (
         <GenerationQueueTable
-            headers={['Type', 'Details', 'Status', 'Created On', '']}
+            headers={['Name', 'Type', 'Details', 'Status', 'Created On', '']}
             isFetching={isFetching}
             error={error}
             generationQueue={_getSortedQueue()}

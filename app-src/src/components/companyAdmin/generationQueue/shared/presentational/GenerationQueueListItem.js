@@ -13,6 +13,7 @@ import {
 
 const GenerationQueueListItem = ({ queueItem }) => (
     <tr>
+        <td>{queueItem.friendlyName}</td>
         <td>{REPORT_FORMATS[queueItem.type]}</td>
         <td>{!!queueItem.stateMessage && queueItem.stateMessage}</td>
         <td>{GENERATION_STATE_TEXT[queueItem.state]}</td>
