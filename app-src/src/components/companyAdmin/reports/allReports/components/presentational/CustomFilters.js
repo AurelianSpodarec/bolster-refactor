@@ -3,16 +3,16 @@ import React from 'react';
 import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
 import Field from 'components/shared/generic/form/presentational/Field';
 
-const CustomFilters = ({ sortByOptions, selectedSortBy, handleChange }) => (
+const CustomFilter = ({ questionsOptions, selectedQuestion, handleChange }) => (
     <Field name="Sort by">
         <DropdownContainer
             placeholder="Please select'"
             name="sortByID"
-            options={sortByOptions}
-            selectedOption={selectedSortBy}
+            options={questionsOptions}
+            selectedOption={selectedQuestion}
             handleChange={handleChange}
         />
     </Field>
 );
 
-export default CustomFilters;
+export default CustomFilter;

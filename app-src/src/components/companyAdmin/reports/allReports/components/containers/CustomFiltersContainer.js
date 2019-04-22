@@ -1,22 +1,24 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { convertEnumToDropdownOptions } from 'helpers/generic';
+import { convertArrToObj } from 'helpers/generic';
 import updateReportFilter from 'actions/companyAdmin/reports/sync/updateReportFilter';
-import SortBy from '../presentational/SortBy';
+import CustomFilter from '../presentational/CustomFilters';
 
-class CustomFiltersContainer extends Component {
+class CustomFilterContainer extends Component {
+    state = {
+        selectedQuestionID: ''
+    };
+
     render() {
-        const {
-            filters: {}
-        } = this.props;
+        const { selectedQuestionID } = this.state;
 
-        //post hierachyType / hierachyID to get the questions
+        const questionsOptions = this._getQuestionsOptions();
 
         return (
-            <CustomFilters
-                sortByOptions={Object.values(sortByOptions)}
-                selectedSortBy={sortByOptions[sortByID]}
+            <CustomFilter
+                questionsOptions={Object.values(questionsOptions)}
+                selectedQuestion={questionsOptions[selectedQuestionID]}
                 handleChange={this.handleChange}
             />
         );
@@ -24,27 +26,34 @@ class CustomFiltersContainer extends Component {
 
     handleChange = ({ target: { value, name } }) => {
         const { updateReportFilter } = this.props;
+        console.log(value);
 
-        updateReportFilter(name, value);
+        this.setState({
+            selectedQuestionID: value
+        });
+        // updateReportFilter(name, value);
+    };
+
+    _getQuestionsOptions = () => {
+        const { customQuestions } = this.props;
+
+        const options = customQuestions.map(({ id, name }) => ({
+            value: id,
+            text: name
+        }));
+
+        return convertArrToObj(options, 'value');
     };
 }
 
 const mapStateToProps = ({
     companyAdmin: {
-        reportsReducer: { filters }
-    }
-}) => {
-    return {
-        filters
-    };
-};
-
-const mapStateToProps = ({
-    companyAdmin: {
-        reportsReducer: { filters }
+        reportsReducer: {
+            customFilters: { questions }
+        }
     }
 }) => ({
-    filters
+    customQuestions: questions || []
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -56,4 +65,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(PinFiltersFormContainer);
+)(CustomFilterContainer);

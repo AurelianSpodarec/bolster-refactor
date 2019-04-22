@@ -66,32 +66,40 @@ class LevelsFilterContainer extends Component {
     }
 
     handleChange = ({ target: { value, name } }) => {
-        const { updateReportFilter, postCustomFilters } = this.props;
+        const {
+            updateReportFilter,
+            postCustomFilters,
+            filters: { numberOfHistoriesID }
+        } = this.props;
 
         updateReportFilter(name, value);
 
         name === 'siteID' &&
             postCustomFilters({
                 hierarchyType: HIERARCHY_IDS.SITE,
-                hierarchyID: value
+                hierarchyID: value,
+                ReportHistories: numberOfHistoriesID
             });
 
         name === 'buildingID' &&
             postCustomFilters({
                 hierarchyType: HIERARCHY_IDS.BUILDING,
-                hierarchyID: value
+                hierarchyID: value,
+                ReportHistories: numberOfHistoriesID
             });
 
         name === 'floorID' &&
             postCustomFilters({
                 hierarchyType: HIERARCHY_IDS.FLOOR,
-                hierarchyID: value
+                hierarchyID: value,
+                ReportHistories: numberOfHistoriesID
             });
 
         name === 'drawingID' &&
             postCustomFilters({
                 hierarchyType: HIERARCHY_IDS.DRAWING,
-                hierarchyID: value
+                hierarchyID: value,
+                ReportHistories: numberOfHistoriesID
             });
 
         updateReportFilter('hierarchyID', value);
@@ -105,12 +113,6 @@ class LevelsFilterContainer extends Component {
 
         return convertArrToObj(options, 'value');
     };
-
-    // _formatBuildings = () => {
-    //     const {sites, buildings} = this.props;
-
-    //     buildings.filter(({siteID}) => () );
-    // };
 }
 
 const mapStateToProps = ({

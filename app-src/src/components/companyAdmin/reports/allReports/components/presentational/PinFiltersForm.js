@@ -14,6 +14,7 @@ import NumberOfHistoriesContainer from '../containers/NumberOfHistoriesContainer
 import ReportFormatsContainer from '../containers/ReportFormatsContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import CustomFiltersContainer from '../containers/CustomFiltersContainer';
 
 const PinFiltersForm = ({
     futherFiltrationOptions,
@@ -32,9 +33,7 @@ const PinFiltersForm = ({
         <div className="size-lg-6">
             <BlockContainer>
                 <ServicesFilterContainer />
-
                 <StatusTypeFilterContainer />
-
                 <DatesFilterContainer />
             </BlockContainer>
         </div>
@@ -46,6 +45,7 @@ const PinFiltersForm = ({
                     handleChange={handleFurtherFiltrationChange}
                 />
                 {filterOption === '1' && <PinSelectorContainer />}
+                <CustomFiltersContainer />
             </BlockContainer>
         </div>
         <div className="size-lg-12">
@@ -55,7 +55,9 @@ const PinFiltersForm = ({
                 </div>
                 <div className="size-lg-6">
                     <NumberOfHistoriesContainer />
-                    <p>Show Hidden Checkbox</p>
+                    <p className="generic-text size-lg-12">
+                        Show Hidden Checkbox
+                    </p>
                 </div>
                 <BlockButtonWrapper>
                     <button className="button green" type="submit">
@@ -70,7 +72,6 @@ const PinFiltersForm = ({
         </div> */}
 
         {/* <PinSelectorContainer /> */}
-        {/* <CustomFiltersContainer /> */}
     </Form>
 );
 
