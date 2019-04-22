@@ -6,6 +6,7 @@ import { convertEnumToDropdownOptions } from 'helpers/generic';
 import PinFiltersForm from '../presentational/PinFiltersForm';
 
 import postReport from 'actions/companyAdmin/reports/async/postReport';
+import postCustomFilters from 'actions/companyAdmin/reports/async/postCustomFilters';
 
 export class PinFiltersFormContainer extends Component {
     state = {
@@ -42,9 +43,13 @@ export class PinFiltersFormContainer extends Component {
                 buildingID,
                 floorID,
                 drawingID,
+                serviceID,
+                statusID,
                 numberOfHistoriesID,
                 reportFormatID,
-                includeLocationDrawing
+                includeLocationDrawing,
+                startDate,
+                endDate
             },
             postReport
         } = this.props;
@@ -69,7 +74,10 @@ export class PinFiltersFormContainer extends Component {
             hierarchyID: hierarchyID,
             reportHistories: numberOfHistoriesID,
             fileType: reportFormatID,
-            includePinLocation: includeLocationDrawing
+            includePinLocation: includeLocationDrawing,
+            fromDateInclusive: startDate,
+            ToDateInclusive: endDate
+            //company user ID
         };
 
         postReport(postBody);
@@ -96,6 +104,9 @@ const mapStateToProps = ({
 const mapDispatchToProps = dipatch => ({
     postReport: postBody => {
         dipatch(postReport(postBody));
+    },
+    postCustomFilters: postBody => {
+        dipatch(postCustomFilters(postBody));
     }
 });
 

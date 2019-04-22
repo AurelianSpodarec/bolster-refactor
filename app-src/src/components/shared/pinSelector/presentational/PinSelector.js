@@ -2,8 +2,14 @@ import React from 'react';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import Field from 'components/shared/generic/form/presentational/Field';
 import ExcludedBox from './ExcludedBox';
+import IncludedBox from './IncludedBox';
 
-const PinSelector = ({ excludedPins, handlePinClick }) => (
+const PinSelector = ({
+    excludedPins,
+    includedPins,
+    handlePinClick,
+    handleSubmit
+}) => (
     <>
         <BlockHeading title="Pin Selector" />
 
@@ -11,13 +17,29 @@ const PinSelector = ({ excludedPins, handlePinClick }) => (
             Using either of the boxes below or the pin map, select which pins
             you would like to be included in your report.
         </p>
+        <div className="pin-selector size-lg-12">
+            <div className="size-lg-4">
+                <Field title="Excluded">
+                    <ExcludedBox
+                        excludedPins={excludedPins}
+                        handlePinClick={handlePinClick}
+                    />
+                </Field>
+            </div>
+            <div className="size-lg-4">
+                <Field title="Included">
+                    <IncludedBox
+                        includedPins={includedPins}
+                        handlePinClick={handlePinClick}
+                    />
+                </Field>
+            </div>
 
-        <Field title="Excluded">
-            <ExcludedBox
-                excludedPins={excludedPins}
-                handlePinClick={handlePinClick}
-            />
-        </Field>
+            <button className="button" onClick={() => handleSubmit()}>
+                Submit
+            </button>
+        </div>
+
         {/* <Field title="Included">
             <IncludedBox />
         </Field> */}

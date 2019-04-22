@@ -2330,3 +2330,18 @@ input {
         }
     }
 }
+
+.pin-selector {
+    .selector-box {
+        border: 1px solid black;
+        border-radius: 2.5px;
+        font-size: 120%;
+        @include ubuntu;
+
+        .selector-pin {
+            &.active {
+                background-color: $background-grey;
+            }
+        }
+    }
+}

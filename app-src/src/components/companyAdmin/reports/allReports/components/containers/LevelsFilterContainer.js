@@ -4,9 +4,12 @@ import { connect } from 'react-redux';
 import LevelsSitesFilters from '../presentational/LevelsSitesFilters';
 import { convertArrToObj } from 'helpers/generic';
 import updateReportFilter from 'actions/companyAdmin/reports/sync/updateReportFilter';
+import postCustomFilters from 'actions/companyAdmin/reports/async/postCustomFilters';
+
 import LevelsBuildingsFilters from '../presentational/LevelsBuildingsFilters';
 import LevelsFloorsFilters from '../presentational/LevelsFloorsFilters';
 import LevelsDrawingsFilters from '../presentational/LevelsDrawingsFilters';
+import { HIERARCHY_IDS } from 'constants/companyAdmin/enums';
 
 class LevelsFilterContainer extends Component {
     render() {
@@ -63,9 +66,35 @@ class LevelsFilterContainer extends Component {
     }
 
     handleChange = ({ target: { value, name } }) => {
-        const { updateReportFilter } = this.props;
+        const { updateReportFilter, postCustomFilters } = this.props;
 
         updateReportFilter(name, value);
+
+        name === 'siteID' &&
+            postCustomFilters({
+                hierarchyType: HIERARCHY_IDS.SITE,
+                hierarchyID: value
+            });
+
+        name === 'buildingID' &&
+            postCustomFilters({
+                hierarchyType: HIERARCHY_IDS.BUILDING,
+                hierarchyID: value
+            });
+
+        name === 'floorID' &&
+            postCustomFilters({
+                hierarchyType: HIERARCHY_IDS.FLOOR,
+                hierarchyID: value
+            });
+
+        name === 'drawingID' &&
+            postCustomFilters({
+                hierarchyType: HIERARCHY_IDS.DRAWING,
+                hierarchyID: value
+            });
+
+        updateReportFilter('hierarchyID', value);
     };
 
     _formatArrForDropdown = arr => {
@@ -118,6 +147,9 @@ const mapStateToProps = ({
 const mapDispatchToProps = dispatch => ({
     updateReportFilter: (name, val) => {
         dispatch(updateReportFilter(name, val));
+    },
+    postCustomFilters: postBody => {
+        dispatch(postCustomFilters(postBody));
     }
 });
 

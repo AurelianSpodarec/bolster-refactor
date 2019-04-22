@@ -2,9 +2,9 @@ import React from 'react';
 
 import SelectorPinItemContainer from '../container/SelectorPinItemContainer';
 
-const ExcludedBox = ({ handlePinClick, excludedPins }) => (
-    <div className="selector-box excluded size-lg-12">
-        {excludedPins.map(pin => (
+const IncludedBox = ({ handlePinClick, includedPins }) => (
+    <div className="selector-box included size-lg-12">
+        {includedPins.map(pin => (
             <SelectorPinItemContainer
                 key={pin.value}
                 pin={pin}
@@ -14,4 +14,4 @@ const ExcludedBox = ({ handlePinClick, excludedPins }) => (
     </div>
 );
 
-export default ExcludedBox;
+export default IncludedBox;

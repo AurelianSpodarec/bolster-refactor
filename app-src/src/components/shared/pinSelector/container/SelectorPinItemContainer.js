@@ -2,30 +2,19 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import fetchPins from 'actions/companyAdmin/pins/async/fetchPins';
-import PinSelector from '../presentational/PinSelector';
+import SelectorPinItem from '../presentational/SelectorPinItem';
 
-class PinSelectorContainer extends Component {
+class SelectorPinItemContainer extends Component {
     state = {
-        pinOptions: {},
-        selectedPinOptions: []
+        active: false
     };
 
     render() {
-        const { pinOptions } = this.state;
-
-        const excludedPins = Object.values(pinOptions).filter(
-            pinOption => !pinOption.included
-        );
-        const includedPins = Object.values(pinOptions).filter(
-            pinOption => pinOption.included
-        );
-
         return (
-            <PinSelector
-                excludedPins={excludedPins}
-                includedPins={includedPins}
+            <SelectorPinItem
                 handlePinClick={this.handlePinClick}
-                handleSubmit={this.handleSubmit}
+                pin={this.props.pin}
+                active={this.state.active}
             />
         );
     }
@@ -34,31 +23,17 @@ class PinSelectorContainer extends Component {
     //on submit, map new array of pins with isIncluded for checked
 
     handlePinClick = (e, pinID) => {
-        const { selectedPinOptions } = this.state;
-        e.preventDefault();
-        //add pinID to selectedOptions array
+        const { handlePinClick } = this.props;
 
-        const checkedPins = selectedPinOptions;
-        const newCheckedPins = checkedPins.includes(pinID)
-            ? checkedPins.filter(val => val !== pinID)
-            : [...checkedPins, pinID];
+        handlePinClick(e, pinID);
 
         this.setState({
-            selectedPinOptions: newCheckedPins
+            active: !this.state.active
         });
     };
 
     handleSubmit = () => {
-        const { selectedPinOptions, pinOptions } = this.state;
-
-        const setPinInclude = Object.values(pinOptions)
-            .filter(pin => selectedPinOptions.includes(pin.value))
-            .map((pin, { included }) => ({
-                ...pin,
-                included: !included
-            }));
-
-        this.setState({ pinOptions: setPinInclude });
+        //map out each pin from selectedOption to have !included
     };
 
     componentDidMount = () => {
@@ -71,7 +46,7 @@ class PinSelectorContainer extends Component {
     componentDidUpdate = prevProps => {
         const { pins } = this.props;
 
-        const { pinOptions, selectedPinOptions } = this.state;
+        const { pinOptions } = this.state;
 
         if (!Object.values(prevProps.pins).length && pins.length) {
             this._setPinOptions();
@@ -92,7 +67,6 @@ class PinSelectorContainer extends Component {
     };
 }
 
-//need to fetch different pins for each level is chosen
 const mapDispatchToProps = dispatch => ({
     fetchPins: () => {
         dispatch(fetchPins('drawing', 8));
@@ -110,4 +84,4 @@ const mapStateToProps = ({
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(PinSelectorContainer);
+)(SelectorPinItemContainer);
