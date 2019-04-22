@@ -84,6 +84,11 @@ body {
 }
 
 .small-text-table {
+    .block-heading {
+        .heading {
+            font-size: 150%;
+        }
+    }
     .generic-table {
         tr {
             td {

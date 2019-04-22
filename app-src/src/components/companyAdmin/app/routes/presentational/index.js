@@ -37,10 +37,6 @@ const CompanyRoutes = ({ base = '/company' }) => (
         <Route path={`${base}/subscription`} component={SubscriptionRoutes} />
         <Route path={`${base}/tools`} component={ToolsRoutes} />
         <Route
-            path={`${base}/transfer-requests`}
-            component={TransferRequestsRoutes}
-        />
-        <Route
             path={`${base}/users-management`}
             component={UserManagementRoutes}
         />

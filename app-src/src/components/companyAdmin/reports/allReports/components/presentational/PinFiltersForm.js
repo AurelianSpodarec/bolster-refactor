@@ -12,7 +12,6 @@ import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/pr
 import NumberOfHistoriesContainer from '../containers/NumberOfHistoriesContainer';
 // import SortByContainer from '../containers/SortByContainer';
 import ReportFormatsContainer from '../containers/ReportFormatsContainer';
-import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import CustomFiltersContainer from '../containers/CustomFiltersContainer';
 

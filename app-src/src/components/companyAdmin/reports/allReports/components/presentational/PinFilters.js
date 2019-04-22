@@ -5,7 +5,6 @@ import PinFiltersFormContainer from '../containers/PinFiltersFormContainer';
 
 const PinFilters = () => (
     <>
-        <BlockHeading title="Pin options" />
         <PinFiltersFormContainer />
     </>
 );

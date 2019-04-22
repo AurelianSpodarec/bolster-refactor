@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
 import { RAW_S3_STORAGE_URL_REPORTS } from 'config';
 
@@ -14,7 +13,7 @@ import {
 const GenerationQueueListItem = ({ queueItem }) => (
     <tr>
         <td>{queueItem.friendlyName}</td>
-        <td>{REPORT_FORMATS[queueItem.type]}</td>
+        <td>##{REPORT_FORMATS[queueItem.type]}##</td>
         <td>{!!queueItem.stateMessage && queueItem.stateMessage}</td>
         <td>{GENERATION_STATE_TEXT[queueItem.state]}</td>
         <td>

@@ -17,7 +17,7 @@ class RegisterFormContainer extends Component {
         password: '',
         //company name
         name: '',
-        telephone: '',
+        phoneNumber: '',
         addressLine1: '',
         town: '',
         postcode: '',
@@ -45,6 +45,7 @@ class RegisterFormContainer extends Component {
         return (
             <RegisterForm
                 {...this.state}
+                error={this.props.error}
                 handleInputChange={this.handleInputChange}
                 timezoneOptions={timezoneOptions}
                 handleTimezoneChange={this._handleTimezoneChange}
@@ -88,7 +89,7 @@ class RegisterFormContainer extends Component {
             password,
             //company name
             name,
-            telephone,
+            phoneNumber,
             addressLine1,
             town,
             postcode,
@@ -103,11 +104,11 @@ class RegisterFormContainer extends Component {
                 firstName: firstName,
                 lastName: lastName,
                 email: email,
+                phoneNumber: phoneNumber,
                 password: password
             },
             company: {
                 name: name,
-                telephone: telephone,
                 addressLine1,
                 town,
                 postcode,
@@ -120,7 +121,7 @@ class RegisterFormContainer extends Component {
                 vatCode: vatCode
             }
         };
-        console.log(postBody);
+        console.log(dateFormat.value);
         this.props.postRegister(postBody);
     };
 
@@ -159,11 +160,13 @@ class RegisterFormContainer extends Component {
 
 const mapStateToProps = ({
     shared: {
-        timeReducer: { timeZones, dateFormats }
+        timeReducer: { timeZones, dateFormats },
+        registerReducer: { error }
     }
 }) => ({
     timeZones: Object.values(timeZones),
-    dateFormats: Object.values(dateFormats)
+    dateFormats: Object.values(dateFormats),
+    error
 });
 
 const mapDispatchToProps = dispatch => ({

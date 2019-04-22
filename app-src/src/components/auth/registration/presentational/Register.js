@@ -8,10 +8,8 @@ import BlockHeading from 'components/shared/generic/blockHeading/presentational/
 const Register = () => (
     <div className="auth size-lg-12">
         <PageHeading title="Register" />
-        <BlockContainer>
-            <BlockHeading title="Register for bolster systems" />
-            <RegisterFormContainer />
-        </BlockContainer>
+
+        <RegisterFormContainer />
     </div>
 );
 

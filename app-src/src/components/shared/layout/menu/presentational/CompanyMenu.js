@@ -68,7 +68,7 @@ const CompanyMenu = ({ isFromHeadquarters }) => (
                 <MenuItemContainer link="/company/tools/generation-queue">
                     Generation queue
                 </MenuItemContainer>
-                <MenuItemContainer link="/company/transfer-requests">
+                <MenuItemContainer link="/company/tools/transfer-requests">
                     Pending Requests
                 </MenuItemContainer>
             </DropdownMenuItemContainer>
