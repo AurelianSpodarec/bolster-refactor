@@ -4,7 +4,7 @@ import Field from 'components/shared/generic/form/presentational/Field';
 import DatePicker from 'components/shared/generic/form/presentational/DatePicker';
 
 const DateFilters = ({ startDateSelected, endDateSelected, handleChange }) => (
-    <Field name="Data" sizeClasses="w-dates size-lg-12">
+    <Field name="Date range" sizeClasses="w-dates size-lg-12">
         <div className="size-lg-5">
             <DatePicker
                 name="startDate"

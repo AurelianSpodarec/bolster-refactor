@@ -64,34 +64,37 @@ const Settings = ({ isFetching, error, companySettings: company }) => {
                         />
                     </div>
                 </div>
-
-                <div className="size-lg-12" />
             </BlockContainer>
             <BlockContainer
                 isFetching={isFetching}
                 error={error}
                 isEmpty={!company.name}
             >
-                <BlockHeading title="Label Settings" />
-                <FieldOutput
-                    title="Telephone Number"
-                    description={company.labelTelNumber}
-                    fieldClass="no-h-padding"
-                    sizeClass="size-lg-4"
-                />
-                <FieldOutput
-                    title="Company Name"
-                    description={company.labelCompanyName}
-                    fieldClass="no-h-padding"
-                    sizeClass="size-lg-4"
-                />
-                <BlockHeading title="Bolster Client List" />
-                <FieldOutput
-                    title="Hidden on client list?"
-                    description={company.hideOnClientList ? 'Yes' : 'No'}
-                    fieldClass="no-h-padding"
-                    sizeClass="size-lg-4"
-                />
+                <div className="size-lg-4">
+                    <BlockHeading title="Label Settings" />
+                    <FieldOutput
+                        title="Telephone Number"
+                        description={company.labelTelNumber}
+                        fieldClass="no-h-padding"
+                        sizeClass="size-lg-12"
+                    />
+                    <FieldOutput
+                        title="Company Name"
+                        description={company.labelCompanyName}
+                        fieldClass="no-h-padding"
+                        sizeClass="size-lg-12"
+                    />
+                </div>
+
+                <div className="size-lg-8">
+                    <BlockHeading title="Bolster Client List" />
+                    <FieldOutput
+                        title="Hidden on client list?"
+                        description={company.hideOnClientList ? 'Yes' : 'No'}
+                        fieldClass="no-h-padding"
+                        sizeClass="size-lg-12"
+                    />
+                </div>
             </BlockContainer>
             <BlockContainer
                 isFetching={isFetching}
