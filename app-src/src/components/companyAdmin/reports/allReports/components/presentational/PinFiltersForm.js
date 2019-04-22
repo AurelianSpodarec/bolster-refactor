@@ -45,7 +45,7 @@ const PinFiltersForm = ({
                     handleChange={handleFurtherFiltrationChange}
                 />
                 {filterOption === '1' && <PinSelectorContainer />}
-                <CustomFiltersContainer />
+                {filterOption === '2' && <CustomFiltersContainer />}
             </BlockContainer>
         </div>
         <div className="size-lg-12">

@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+import uuid from 'uuid/v1';
 
 import {
     POST_REPORT_REQUEST,
@@ -7,7 +8,9 @@ import {
     POST_CUSTOM_FILTERS_REQUEST,
     POST_CUSTOM_FILTERS_SUCCESS,
     POST_CUSTOM_FILTERS_FAILURE,
-    UPDATE_REPORT_FILTER
+    UPDATE_REPORT_FILTER,
+    UPDATE_FILTER_QUESTION_FIELD,
+    UPDATE_FILTER_QUESTION_FIELDS
 } from 'constants/actionTypes/reports';
 import { updateObj } from 'helpers/generic';
 
@@ -18,6 +21,12 @@ export default combineReducers({
     postSuccess: postSuccessReducer,
     postFailure: postFailureReducer
 });
+
+//send the questionsIDs
+
+//send question values/fields
+//these will have the questionID attached to them
+//so we can filter on post to create postBody
 
 function filtersReducer(
     state = {
@@ -42,6 +51,30 @@ function filtersReducer(
     switch (action.type) {
         case UPDATE_REPORT_FILTER:
             return updateObj(state, action.name, action.value);
+        default:
+            return state;
+    }
+}
+const initialQuestionFields = {
+    name: '',
+    questionIDs: [],
+    questionValues: [{ text: '', id: uuid() }]
+};
+
+function fieldsReducer(state = initialQuestionFields, action) {
+    switch (action.type) {
+        case UPDATE_FILTER_QUESTION_FIELD:
+            return {
+                ...state,
+                [action.name]: action.value
+            };
+        case UPDATE_FILTER_QUESTION_FIELD:
+            return {
+                ...state,
+                ...action.fields
+            };
+        case UPDATE_FILTER_QUESTION_FIELDS:
+            return initialQuestionFields;
         default:
             return state;
     }

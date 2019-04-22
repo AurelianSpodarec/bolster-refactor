@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import uuid from 'uuid/v1';
 
 import { convertArrToObj } from 'helpers/generic';
 import updateReportFilter from 'actions/companyAdmin/reports/sync/updateReportFilter';
@@ -8,6 +9,7 @@ import CustomFilter from '../presentational/CustomFilters';
 class CustomFilterContainer extends Component {
     state = {
         selectedQuestionID: ''
+        // questionValues:[{ value: '', id: uuid() }]
     };
 
     render() {
@@ -23,6 +25,10 @@ class CustomFilterContainer extends Component {
             />
         );
     }
+
+    //when an option is chosen - send this object to redux store, using the questionID as the object key
+    //add an empty field/value within this question object.
+    //todo that we need to use the questionID, to place the value into the question object.
 
     handleChange = ({ target: { value, name } }) => {
         const { updateReportFilter } = this.props;
@@ -43,6 +49,36 @@ class CustomFilterContainer extends Component {
         }));
 
         return convertArrToObj(options, 'value');
+    };
+
+    //unused
+    addOption = e => {
+        e.preventDefault();
+        const { questionValues } = this.state;
+
+        //action to add to redux store
+        this.setState({
+            questionValues: [...questionValues, { value: '', id: uuid() }]
+        });
+    };
+    //unused
+    removeOption = (e, id) => {
+        e.preventDefault();
+        const { options, updateQuestionField } = this.props;
+        updateQuestionField('options', options.filter(op => op.id !== id));
+    };
+    //unused
+    updateOption = e => {
+        e.preventDefault();
+        const { name: id, value } = e.target;
+
+        const { options, updateQuestionField } = this.props;
+
+        const updated = options.map(opt =>
+            opt.id === id ? { ...opt, value: value } : opt
+        );
+
+        updateQuestionField('options', updated);
     };
 }
 
