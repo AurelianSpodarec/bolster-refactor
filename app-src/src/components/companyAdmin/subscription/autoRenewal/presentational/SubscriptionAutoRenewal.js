@@ -10,7 +10,8 @@ const SubscriptionAutoRenewal = ({
     isAutoRenew,
     renewalType,
     handleAutoRenewChange,
-    handleRadioChange
+    handleRadioChange,
+    noCards
 }) => (
     <Form className="size-lg-12">
         <BlockHeading title="Auto-Renewal">
@@ -28,9 +29,10 @@ const SubscriptionAutoRenewal = ({
                     name="paymentMethod"
                     value={SUBSCRIPTION_RENEWAL_IDS.CARD}
                     checked={renewalType === SUBSCRIPTION_RENEWAL_IDS.CARD}
-                    disabled={!isAutoRenew}
+                    disabled={!isAutoRenew || noCards}
                     text="Pay using card"
                     handleInputChange={handleRadioChange}
+                    extraDetails={noCards ? 'No cards available' : ''}
                 />
             </Field>
 

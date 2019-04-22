@@ -23,7 +23,7 @@ const SinglePinMap = ({
     return (
         <>
             {moveMode ? (
-                <BlockHeading title={`Pin #${pin.pinCode}`}>
+                <BlockHeading title={`Pin ${pin.pinCode}`}>
                     <h4 className="small-text">
                         (History {historyVersion} of {historyCount})
                     </h4>
@@ -41,7 +41,7 @@ const SinglePinMap = ({
                     </button>
                 </BlockHeading>
             ) : (
-                <BlockHeading title={`Pin #${pin.pinCode}`}>
+                <BlockHeading title={`Pin ${pin.pinCode}`}>
                     <h4 className="small-text">
                         (History {historyVersion} of {historyCount})
                     </h4>

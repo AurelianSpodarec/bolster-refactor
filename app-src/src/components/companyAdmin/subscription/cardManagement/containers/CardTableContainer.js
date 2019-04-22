@@ -86,7 +86,7 @@ const mapStateToProps = ({
 const mapDispatchToProps = dispatch => ({
     showModal: () => dispatch(showModal(ADD_CARD)),
     setPrimaryCard: stripeCardID => dispatch(setPrimaryCard({ stripeCardID })),
-    deleteCard: stripeCardID => dispatch(deleteCard({ stripeCardID })),
+    deleteCard: stripeCardID => dispatch(deleteCard(stripeCardID)),
     fetchAllCards: () => dispatch(fetchAllCards())
 });
 
