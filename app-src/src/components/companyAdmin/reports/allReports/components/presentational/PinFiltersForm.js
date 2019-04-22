@@ -10,6 +10,9 @@ import FurtherFiltration from './FurtherFiltration';
 import ReportOptionsContainer from '../containers/ReportOptionsContainer';
 import PinSelectorContainer from 'components/shared/pinSelector/container/PinSelectorContainer';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
+import NumberOfHistoriesContainer from '../containers/NumberOfHistoriesContainer';
+import SortByContainer from '../containers/SortByContainer';
+import ReportFormatsContainer from '../containers/ReportFormatsContainer';
 
 const PinFiltersForm = ({
     futherFiltrationOptions,
@@ -19,16 +22,30 @@ const PinFiltersForm = ({
     handleSubmit
 }) => (
     <Form className="generic-form " onSubmit={() => handleSubmit()}>
-        <LevelsFilterContainer />
-        <StatusTypeFilterContainer />
-        <ServicesFilterContainer />
-        <DatesFilterContainer />
-        <FurtherFiltration
-            futherFiltrationOptions={futherFiltrationOptions}
-            selectedFutherFiltration={selectedFutherFiltration}
-            handleChange={handleFurtherFiltrationChange}
-        />
-        <ReportOptionsContainer />
+        <div className="size-lg-12">
+            <div className="size-lg-6">
+                <LevelsFilterContainer />
+            </div>
+            <div className="size-lg-6">
+                <StatusTypeFilterContainer />
+                <ServicesFilterContainer />
+                <FurtherFiltration
+                    futherFiltrationOptions={futherFiltrationOptions}
+                    selectedFutherFiltration={selectedFutherFiltration}
+                    handleChange={handleFurtherFiltrationChange}
+                />
+                <NumberOfHistoriesContainer />
+            </div>
+        </div>
+        <div className="size-lg-6">
+            <SortByContainer />
+        </div>
+        <div className="size-lg-6">
+            <DatesFilterContainer />
+        </div>
+        <div className="size-lg-6">
+            <ReportFormatsContainer />
+        </div>
 
         {filterOption === '2' && <PinSelectorContainer />}
         <Field title="Service">

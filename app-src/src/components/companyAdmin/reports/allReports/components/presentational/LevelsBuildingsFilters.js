@@ -6,10 +6,11 @@ import Field from 'components/shared/generic/form/presentational/Field';
 const LevelsBuildingsFilters = ({
     buildingOptions,
     selectedBuilding,
-    handleChange
+    handleChange,
+    classes = ''
 }) => (
     <>
-        <Field name="Building">
+        <Field name="Building" classes={classes}>
             <DropdownContainer
                 placeholder="-- select --"
                 name="buildingID"

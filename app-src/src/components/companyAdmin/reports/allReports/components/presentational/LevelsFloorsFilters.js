@@ -3,9 +3,14 @@ import React from 'react';
 import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
 import Field from 'components/shared/generic/form/presentational/Field';
 
-const LevelsFloorsFilters = ({ floorOptions, selectedFloor, handleChange }) => (
+const LevelsFloorsFilters = ({
+    floorOptions,
+    selectedFloor,
+    handleChange,
+    classes = ''
+}) => (
     <>
-        <Field name="Floor">
+        <Field name="Floor" classes={classes}>
             <DropdownContainer
                 placeholder="-- select --"
                 name="floorID"

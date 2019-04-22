@@ -2320,3 +2320,13 @@ input {
         top: -2px;
     }
 }
+
+//report page
+.levels-filter {
+    .form-field {
+        opacity: 0.2;
+        &.active {
+            opacity: 1;
+        }
+    }
+}

@@ -6,10 +6,11 @@ import Field from 'components/shared/generic/form/presentational/Field';
 const LevelsDrawingsFilters = ({
     drawingOptions,
     selectedDrawing,
-    handleChange
+    handleChange,
+    classes = ''
 }) => (
     <>
-        <Field name="Drawing">
+        <Field name="Drawing" classes={classes}>
             <DropdownContainer
                 placeholder="-- select --"
                 name="drawingID"
