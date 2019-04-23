@@ -41,7 +41,7 @@ function filtersReducer(
         statusID: 0,
         numberOfHistoriesID: 1,
         sortByID: 0,
-        reportFormatID: 0,
+        reportFormatID: 1,
         includeLocationDrawing: false,
         startDate: undefined,
         endDate: undefined,

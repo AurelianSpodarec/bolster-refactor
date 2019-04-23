@@ -49,11 +49,11 @@ export class PinFiltersFormContainer extends Component {
                 reportFormatID,
                 includeLocationDrawing,
                 startDate,
-                endDate
+                endDate,
+                operativeIDs
             },
             postReport
         } = this.props;
-
         const hierarchyType = drawingID
             ? 'drawing'
             : floorID
@@ -70,13 +70,16 @@ export class PinFiltersFormContainer extends Component {
             : siteID;
 
         const postBody = {
-            hierarchyType: hierarchyType,
-            hierarchyID: hierarchyID,
+            hierarchyType,
+            hierarchyID,
             reportHistories: numberOfHistoriesID,
             fileType: reportFormatID,
             includePinLocation: includeLocationDrawing,
             fromDateInclusive: startDate,
-            ToDateInclusive: endDate
+            ToDateInclusive: endDate,
+            companyUserIDs: operativeIDs,
+            serviceID,
+            status: statusID
             //company user ID
         };
 
