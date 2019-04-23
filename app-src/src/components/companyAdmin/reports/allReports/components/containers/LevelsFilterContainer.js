@@ -29,7 +29,6 @@ class LevelsFilterContainer extends Component {
         const selectedFloor = floorOptions[floorID];
         const drawingOptions = this._formatArrForDropdown(drawings);
         const selectedDrawing = drawingOptions[drawingID];
-
         return (
             <div className="levels-filter size-lg-12">
                 <LevelsSitesFilters
@@ -65,44 +64,44 @@ class LevelsFilterContainer extends Component {
         );
     }
 
-    handleChange = ({ target: { value, name } }) => {
+    handleChange = ({ target: { value: hierarchyID, name } }) => {
         const {
             updateReportFilter,
             postCustomFilters,
-            filters: { numberOfHistoriesID }
+            filters: { numberOfHistoriesID: ReportHistories }
         } = this.props;
 
-        updateReportFilter(name, value);
+        updateReportFilter(name, hierarchyID);
+        updateReportFilter('hierarchyID', hierarchyID);
 
-        name === 'siteID' &&
-            postCustomFilters({
-                hierarchyType: HIERARCHY_IDS.SITE,
-                hierarchyID: value,
-                ReportHistories: numberOfHistoriesID
-            });
-
-        name === 'buildingID' &&
-            postCustomFilters({
-                hierarchyType: HIERARCHY_IDS.BUILDING,
-                hierarchyID: value,
-                ReportHistories: numberOfHistoriesID
-            });
-
-        name === 'floorID' &&
-            postCustomFilters({
-                hierarchyType: HIERARCHY_IDS.FLOOR,
-                hierarchyID: value,
-                ReportHistories: numberOfHistoriesID
-            });
-
-        name === 'drawingID' &&
-            postCustomFilters({
-                hierarchyType: HIERARCHY_IDS.DRAWING,
-                hierarchyID: value,
-                ReportHistories: numberOfHistoriesID
-            });
-
-        updateReportFilter('hierarchyID', value);
+        switch (name) {
+            case 'siteID':
+                return postCustomFilters({
+                    hierarchyType: HIERARCHY_IDS.SITE,
+                    hierarchyID,
+                    ReportHistories
+                });
+            case 'buildingID':
+                return postCustomFilters({
+                    hierarchyType: HIERARCHY_IDS.BUILDING,
+                    hierarchyID,
+                    ReportHistories
+                });
+            case 'floorID':
+                return postCustomFilters({
+                    hierarchyType: HIERARCHY_IDS.FLOOR,
+                    hierarchyID,
+                    ReportHistories
+                });
+            case 'drawingID':
+                return postCustomFilters({
+                    hierarchyType: HIERARCHY_IDS.DRAWING,
+                    hierarchyID,
+                    ReportHistories
+                });
+            default:
+                break;
+        }
     };
 
     _formatArrForDropdown = arr => {
@@ -147,12 +146,8 @@ const mapStateToProps = ({
 };
 
 const mapDispatchToProps = dispatch => ({
-    updateReportFilter: (name, val) => {
-        dispatch(updateReportFilter(name, val));
-    },
-    postCustomFilters: postBody => {
-        dispatch(postCustomFilters(postBody));
-    }
+    updateReportFilter: (name, val) => dispatch(updateReportFilter(name, val)),
+    postCustomFilters: postBody => dispatch(postCustomFilters(postBody))
 });
 
 export default connect(

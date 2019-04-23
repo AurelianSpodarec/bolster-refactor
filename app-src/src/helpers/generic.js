@@ -12,6 +12,15 @@ export function isObjEmpty(obj) {
     return true;
 }
 
+export function isEmpty(item) {
+    if (Array.isArray(item)) return !item.length;
+    if (typeof item === 'string') return !item.length;
+    if (typeof item === 'object') return isObjEmpty(item);
+    if (typeof item === 'number') return false;
+
+    return !item;
+}
+
 export function updateObj(origObj, key, newItem) {
     return {
         ...origObj,

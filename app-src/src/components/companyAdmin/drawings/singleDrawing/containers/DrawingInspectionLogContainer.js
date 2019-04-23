@@ -11,9 +11,8 @@ class DrawingInspectionLogContainer extends Component {
 
     render() {
         const { pins, isFetching, error } = this.props;
-
-        const filterPins = Object.values(pins).filter(
-            pin => pin.pinCode.includes(this.state.filterValue)
+        const filterPins = pins.filter(({ pinCode }) =>
+            pinCode.includes(this.state.filterValue)
         );
 
         return (
@@ -37,16 +36,26 @@ class DrawingInspectionLogContainer extends Component {
     };
 }
 
-const mapStateToProps = ({ companyAdmin: { pinsReducer: { pins, isFetching, error }, } }) => ({
+const mapStateToProps = ({
+    companyAdmin: {
+        pinsReducer: { pins, isFetching, error },
+        inspectionLogsReducer: {
+            inspectionLogs,
+            isFetching: fetchingLogs,
+            error: inspectionError
+        }
+    }
+}) => ({
     pins: Object.values(pins),
     isFetching: isFetching,
-    error: error
+    error: error,
+    inspectionLogs: Object.values(inspectionLogs),
+    fetchingLogs,
+    inspectionError
 });
 
 const mapDispatchToProps = dispatch => ({
-    fetchInspectionLogs: () => {
-        dispatch(fetchInspectionLogs());
-    }
+    fetchInspectionLogs: () => dispatch(fetchInspectionLogs())
 });
 
 export default connect(
