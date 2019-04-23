@@ -18,7 +18,8 @@ class FileUploadContainer extends Component {
     state = {
         showFieldError: false,
         isAfterAdd: false,
-        files: []
+        files: [],
+        keyIDs: {}
     };
 
     render() {
@@ -117,6 +118,29 @@ class FileUploadContainer extends Component {
         }
     };
 
+    _getServerOptions = () => {
+        return {
+            url: FILE_API_URL,
+            process: this._handleUpload,
+            revert: this._handleRevert,
+            load: this._handleFileLoad,
+            remove: this._handleRemove,
+            restore: null,
+            fetch: null
+        };
+    };
+
+    _handleRemove = (source = '', load, error) => {
+        try {
+            const s3Key = source.replace(`${RAW_S3_STORAGE_URL}/`, '');
+            const { handleChange, name } = this.props;
+            handleChange(name, s3Key);
+            load();
+        } catch {
+            error('Something went wrong.');
+        }
+    };
+
     handleFileUploadStart = () => {
         this.props.fileUploadStart();
     };
@@ -127,30 +151,22 @@ class FileUploadContainer extends Component {
     };
 
     _handleFileLoad = (source, load, error) => {
-        var myRequest = new Request(source);
-        console.log('loading!!!');
-        const that = this;
-        fetch(myRequest)
-            .then(function(response) {
-                response.blob().then(function(myBlob) {
-                    load(myBlob);
-                    that.handleFileUploadFinish();
+        try {
+            var myRequest = new Request(source);
+            const that = this;
+            fetch(myRequest)
+                .then(function(response) {
+                    response.blob().then(function(myBlob) {
+                        load(myBlob);
+                        that.handleFileUploadFinish();
+                    });
+                })
+                .catch(function() {
+                    error('Something went wrong.');
                 });
-            })
-            .catch(function(err) {
-                error(err);
-            });
-    };
-
-    _getServerOptions = () => {
-        return {
-            url: FILE_API_URL,
-            process: this._handleUpload,
-            revert: this._handleRevert,
-            load: this._handleFileLoad,
-            restore: null,
-            fetch: null
-        };
+        } catch {
+            error('Something went wrong.');
+        }
     };
 
     _handleUpload = (
@@ -184,7 +200,6 @@ class FileUploadContainer extends Component {
                 const { name, handleChange } = this.props;
                 handleChange(name, s3Key);
                 load(s3Key);
-                console.log(metadata);
             })
             .catch(() => error('Something went wrong'));
 
@@ -197,7 +212,8 @@ class FileUploadContainer extends Component {
     };
 
     handleUpdateFiles = fileItems => {
-        console.log(fileItems.map(f => f.getMetadata()));
+        // console.log(fileItems);
+        // console.log(fileItems.map(f => f.getMetadata()));
         this.setState({
             files: fileItems.map(fileItem => fileItem.file)
         });
