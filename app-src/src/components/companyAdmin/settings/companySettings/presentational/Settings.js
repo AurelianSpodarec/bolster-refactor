@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 import { FILE_STORAGE_URL } from 'config';
 
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import { TEMPLATE_USAGE_RULES } from 'constants/companyAdmin/enums';
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';

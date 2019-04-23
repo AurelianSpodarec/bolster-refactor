@@ -98,10 +98,7 @@ const AddCardModal = ({
                         />
                     </Field>
                 </div>
-                {postError != false && (
-                    <p className="error size-lg-12">{postError}</p>
-                )}
-
+                {!!postError && <p className="error size-lg-12">{postError}</p>}
                 <BlockButtonWrapper>
                     <button className="button green" type="submit">
                         <i className="fa fa-plus" /> Add Card
