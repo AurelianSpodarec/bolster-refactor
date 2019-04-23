@@ -23,8 +23,19 @@ export default combineReducers({
     subscriptions: subscriptionsReducer,
     postSuccess: postSuccessReducer,
     postFailure: postFailureReducer,
-    proRataCost: proRataCostReducer
+    proRataCost: proRataCostReducer,
+    hasInitiallyFetched: hasInitiallyFetchedReducer
 });
+
+function hasInitiallyFetchedReducer(state = false, action) {
+    switch (action.type) {
+        case FETCH_ALL_SUBSCRIPTIONS_SUCCESS:
+        case FETCH_ALL_SUBSCRIPTIONS_FAILURE:
+            return true;
+        default:
+            return state;
+    }
+}
 
 function isFetchingReducer(state = false, action) {
     switch (action.type) {
