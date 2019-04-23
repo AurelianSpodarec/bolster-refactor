@@ -91,7 +91,7 @@ class AddServiceToSubscriptionModalContainer extends Component {
             fetchAllSubscriptions();
             showModal(PAYMENT_ERROR, {
                 message:
-                    'There was an error while purchasing your subscription. Please try again',
+                    'There was an error while purchasing your subscription. Please try again.',
                 resubmit: hideModal,
                 error
             });

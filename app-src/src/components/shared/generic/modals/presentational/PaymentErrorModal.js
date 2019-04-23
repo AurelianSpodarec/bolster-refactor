@@ -40,7 +40,7 @@ const PaymentErrorModal = ({
                 <button className="button" onClick={hideModal}>
                     Cancel
                 </button>
-                <button className="button" onClick={resubmit}>
+                <button className="button yellow" onClick={resubmit}>
                     Try again
                 </button>
             </BlockButtonWrapper>

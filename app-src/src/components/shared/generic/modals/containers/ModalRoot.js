@@ -53,13 +53,13 @@ import EditUserModalContainer from './EditUserModalContainer';
 import ErrorModal from '../presentational/ErrorModal';
 import PayInvoiceModalContainer from 'components/companyAdmin/invoices/shared/payInvoiceModal/containers/PayInvoiceModalContainer';
 import PaymentErrorModalContainer from './PaymentErrorModalContainer';
-import PaymentSuccessModal from '../presentational/PaymentSuccessModal';
 import PinPhotoModal from '../presentational/PinPhotoModal';
 import RenameTemplateSectionModalContainer from 'components/superAdmin/templateBuilder/setSection/containers/EditTemplateSectionModalContainer';
 import SuccessModalContainer from './SuccessModalContainer';
 import ConfirmDeleteModal from '../presentational/ConfirmDeleteModal';
 import ConfirmArchiveModal from '../presentational/ConfirmArchiveModal';
 import ConfirmSubmitModal from '../presentational/ConfirmSubmitModal';
+import PaymentSuccessModalContainer from './PaymentSuccessModalContainer';
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModalContainer,
@@ -86,7 +86,7 @@ const MODAL_COMPONENTS = {
     [EDIT_USER_PASSWORD]: EditUserPasswordModalContainer,
     [PAY_INVOICE]: PayInvoiceModalContainer,
     [PAYMENT_ERROR]: PaymentErrorModalContainer,
-    [PAYMENT_SUCCESS]: PaymentSuccessModal,
+    [PAYMENT_SUCCESS]: PaymentSuccessModalContainer,
     [PIN_IMAGE]: PinPhotoModal,
     [RENAME_TEMPLATE_SECTION]: RenameTemplateSectionModalContainer,
     [SUCCESS_MODAL]: SuccessModalContainer

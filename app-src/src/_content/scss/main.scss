@@ -136,6 +136,15 @@ body {
 .button-block-container {
     padding: 0 5px;
     margin-top: 15px;
+
+    &.center-align {
+        text-align: center;
+
+        .button {
+            display: inline-block;
+        }
+    }
+
     .button,
     button {
         float: right;

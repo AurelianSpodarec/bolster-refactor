@@ -30,6 +30,11 @@ const PaymentSuccessModal = ({
         </div>
         <BlockHeading title={title} />
         <p>{message}</p>
+        {/* <BlockButtonWrapper addtionalClasses="center-align">
+            <button onClick={() => handleClose()} className="button green">
+                Confirm
+            </button>
+        </BlockButtonWrapper> */}
     </ModalOuterContainer>
 );
 

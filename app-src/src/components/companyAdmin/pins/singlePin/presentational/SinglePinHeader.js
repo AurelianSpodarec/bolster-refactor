@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
 
-const SinglePinHeader = ({ pin, handleClick, location }) => (
+const SinglePinHeader = ({ pin, location }) => (
     <PageHeading leftChildren={true} title={`Pin ${pin.pinCode || ''}`}>
         <Link
             to={location.pathname.replace(
