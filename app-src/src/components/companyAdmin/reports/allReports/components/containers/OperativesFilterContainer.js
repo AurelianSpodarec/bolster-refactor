@@ -14,11 +14,10 @@ class OperativesFilterContainer extends Component {
             value: id,
             label: name
         }));
-        const { isSiteSelected } = this.props;
 
         return (
             <OperativesFilter
-                required={!isSiteSelected}
+                // required={!isSiteSelected}
                 operatives={operatives}
                 selectedOperatives={this.state.selectedOperatives}
                 handleChange={this.handleChange}

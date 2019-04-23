@@ -14,7 +14,7 @@ import { HIERARCHY_IDS } from 'constants/companyAdmin/enums';
 class LevelsFilterContainer extends Component {
     render() {
         const {
-            filters: { siteID, buildingID, floorID, drawingID, operativeIDs },
+            filters: { siteID, buildingID, floorID, drawingID },
             sites,
             buildings,
             floors,
@@ -30,8 +30,6 @@ class LevelsFilterContainer extends Component {
         const drawingOptions = this._formatArrForDropdown(drawings);
         const selectedDrawing = drawingOptions[drawingID];
 
-        const isOperativeSelected = !!operativeIDs.length;
-
         return (
             <div className="levels-filter size-lg-12">
                 <LevelsSitesFilters
@@ -39,7 +37,7 @@ class LevelsFilterContainer extends Component {
                     sitesOptions={Object.values(sitesOptions)}
                     selectedSite={selectedSite}
                     handleChange={this.handleChange}
-                    required={!isOperativeSelected}
+                    // required={!isOperativeSelected}
                 />
 
                 <LevelsBuildingsFilters
@@ -77,7 +75,11 @@ class LevelsFilterContainer extends Component {
 
         updateReportFilter(name, hierarchyID);
         updateReportFilter('hierarchyID', hierarchyID);
+
+        if (name === 'siteID' && !hierarchyID) return;
+
         const filters = { hierarchyID, operativeIDs };
+
         switch (name) {
             case 'siteID':
                 return postCustomFilters({

@@ -18,6 +18,8 @@ import FurtherFiltrationContainer from '../containers/FurtherFiltrationContainer
 import OtherOptionsContainer from '../containers/OtherOptionsContainer';
 import FilterMapContainer from '../containers/FilterMapContainer';
 
+import Block1FiltersContainer from '../containers/Block1FiltersContainer';
+
 const PinFiltersForm = ({
     furtherFiltrationOptions,
     selectedfurtherFiltration,
@@ -29,14 +31,7 @@ const PinFiltersForm = ({
         <FilterMapContainer />
 
         <div className="flex-container size-lg-12">
-            <div className="flex-item size-lg-6">
-                <BlockContainer>
-                    <div className="size-lg-12">
-                        <LevelsFilterContainer />
-                        <OperativesFilterContainer />
-                    </div>
-                </BlockContainer>
-            </div>
+            <Block1FiltersContainer />
             <div className="flex-item size-lg-6">
                 <BlockContainer>
                     <div className="size-lg-12">
