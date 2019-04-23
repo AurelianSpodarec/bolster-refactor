@@ -16,6 +16,7 @@ import {
 import { updateObj } from 'helpers/generic';
 
 export default combineReducers({
+    fields: fieldsReducer,
     filters: filtersReducer,
     error: errorReducer,
     customFilters: customFiltersReducer,
@@ -64,17 +65,19 @@ const initialQuestionFields = {
     questionValues: [{ text: '', id: uuid() }]
 };
 
-function fieldsReducer(state = initialQuestionFields, action) {
+function fieldsReducer(
+    state = {
+        name: '',
+        questionIDs: [],
+        questionValues: [{ text: '', id: uuid() }]
+    },
+    action
+) {
     switch (action.type) {
         case UPDATE_FILTER_QUESTION_FIELD:
             return {
                 ...state,
                 [action.name]: action.value
-            };
-        case UPDATE_FILTER_QUESTION_FIELD:
-            return {
-                ...state,
-                ...action.fields
             };
         case UPDATE_FILTER_QUESTION_FIELDS:
             return initialQuestionFields;

@@ -8,8 +8,8 @@ const CustomFilter = ({ questionsOptions, selectedQuestion, handleChange }) => (
     <>
         <Field name="Field Name">
             <DropdownContainer
-                placeholder="Please select'"
-                name="sortByID"
+                placeholder="Please select"
+                name="fieldName"
                 options={questionsOptions}
                 selectedOption={selectedQuestion}
                 handleChange={handleChange}
