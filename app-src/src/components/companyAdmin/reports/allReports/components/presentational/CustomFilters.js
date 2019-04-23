@@ -1,6 +1,5 @@
 import React from 'react';
 
-import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
 import Field from 'components/shared/generic/form/presentational/Field';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import NewSelect from 'components/shared/generic/form/presentational/NewSelect';

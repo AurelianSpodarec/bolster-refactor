@@ -78,15 +78,11 @@ const CustomFilterContainer = ({
 const mapStateToProps = (
     {
         companyAdmin: {
-            reportsReducer: {
-                customFilters: { questions },
-                fields
-            }
+            reportsReducer: { fields }
         }
     },
     ownProps
 ) => ({
-    customQuestions: questions || [],
     field: fields[ownProps.id] || {}
 });
 

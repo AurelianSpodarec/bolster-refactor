@@ -60,6 +60,7 @@ export class PinFiltersFormContainer extends Component {
                 endDate,
                 operativeIDs
             },
+            fields,
             postReport
         } = this.props;
         const hierarchyType = drawingID
@@ -77,6 +78,13 @@ export class PinFiltersFormContainer extends Component {
             ? buildingID
             : siteID;
 
+        const questionFilters = fields.map(
+            ({ selectedQuestions, questionValues }) => ({
+                questionGroupKeys: selectedQuestions,
+                values: Object.values(questionValues).map(({ value }) => value)
+            })
+        );
+
         const postBody = {
             hierarchyType,
             hierarchyID,
@@ -87,9 +95,11 @@ export class PinFiltersFormContainer extends Component {
             ToDateInclusive: endDate,
             companyUserIDs: operativeIDs,
             serviceID,
-            status: statusID
-            //company user ID
+            status: statusID || null,
+            questionFilters
         };
+
+        console.log(postBody);
 
         postReport(postBody);
     };
@@ -101,9 +111,10 @@ const mapStateToProps = ({
         buildingsReducer,
         floorsReducer,
         drawingsReducer,
-        reportsReducer: { filters }
+        reportsReducer: { filters, fields }
     }
 }) => ({
+    fields: Object.values(fields),
     sites: Object.values(sitesReducer.sites),
     sitesFilter: sitesReducer.filters,
     buildings: Object.values(buildingsReducer.buildings),
