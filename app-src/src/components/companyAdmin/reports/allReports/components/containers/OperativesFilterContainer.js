@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import OperativesFilter from '../presentational/OperativesFilter';
+import updateOperativeFilter from 'actions/companyAdmin/reports/sync/updateOperativeFilter';
 
 class OperativesFilterContainer extends Component {
     state = {
@@ -22,7 +23,17 @@ class OperativesFilterContainer extends Component {
     }
 
     handleChange = selectedOperatives => {
+        const { updateOperativeFilter } = this.props;
+        const operativeIDs = selectedOperatives.map(({ value }) => value);
         this.setState({ selectedOperatives });
+        updateOperativeFilter(operativeIDs);
+    };
+
+    componentDidUpdate = prevProps => {
+        const { operatives } = this.props;
+        if (operatives.length !== prevProps.operatives.length) {
+            // re-set operative if they're no longer available
+        }
     };
 }
 
@@ -36,4 +47,11 @@ const mapStateToProps = ({
     operatives
 });
 
-export default connect(mapStateToProps)(OperativesFilterContainer);
+const mapDispatchToProps = dispatch => ({
+    updateOperativeFilter: ids => dispatch(updateOperativeFilter(ids))
+});
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(OperativesFilterContainer);
