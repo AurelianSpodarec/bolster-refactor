@@ -128,6 +128,7 @@ class FileUploadContainer extends Component {
 
     _handleFileLoad = (source, load, error) => {
         var myRequest = new Request(source);
+        console.log('loading!!!');
         const that = this;
         fetch(myRequest)
             .then(function(response) {
@@ -183,6 +184,7 @@ class FileUploadContainer extends Component {
                 const { name, handleChange } = this.props;
                 handleChange(name, s3Key);
                 load(s3Key);
+                console.log(metadata);
             })
             .catch(() => error('Something went wrong'));
 
@@ -195,6 +197,7 @@ class FileUploadContainer extends Component {
     };
 
     handleUpdateFiles = fileItems => {
+        console.log(fileItems.map(f => f.getMetadata()));
         this.setState({
             files: fileItems.map(fileItem => fileItem.file)
         });

@@ -37,7 +37,8 @@ class SelectorPinItemContainer extends Component {
     };
 
     componentDidMount = () => {
-        const { fetchPins, pins } = this.props;
+        const { fetchPins } = this.props;
+        // const {pins} = this.props;
 
         // if (pins.length) this._setPinOptions();
         fetchPins();
@@ -46,7 +47,7 @@ class SelectorPinItemContainer extends Component {
     componentDidUpdate = prevProps => {
         const { pins } = this.props;
 
-        const { pinOptions } = this.state;
+        // const { pinOptions } = this.state;
 
         if (!Object.values(prevProps.pins).length && pins.length) {
             this._setPinOptions();

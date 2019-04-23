@@ -5,17 +5,17 @@ import LevelsFilterContainer from '../containers/LevelsFilterContainer';
 import StatusTypeFilterContainer from '../containers/StatusTypeFilterContainer';
 import ServicesFilterContainer from '../containers/ServicesFilterContainer';
 import DatesFilterContainer from '../containers/DatesFilterContainer';
-import FurtherFiltration from './FurtherFiltration';
 // import ReportOptionsContainer from '../containers/ReportOptionsContainer';
-import PinSelectorContainer from 'components/shared/pinSelector/container/PinSelectorContainer';
+// import PinSelectorContainer from 'components/shared/pinSelector/container/PinSelectorContainer';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import NumberOfHistoriesContainer from '../containers/NumberOfHistoriesContainer';
 // import SortByContainer from '../containers/SortByContainer';
 import ReportFormatsContainer from '../containers/ReportFormatsContainer';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import CustomFiltersContainer from '../containers/CustomFiltersContainer';
+// import CustomFiltersContainer from '../containers/CustomFiltersContainer';
 import OperativesFilterContainer from '../containers/OperativesFilterContainer';
 import FurtherFiltrationContainer from '../containers/FurtherFiltrationContainer';
+import OtherOptionsContainer from '../containers/OtherOptionsContainer';
 
 const PinFiltersForm = ({
     furtherFiltrationOptions,
@@ -62,9 +62,7 @@ const PinFiltersForm = ({
                 </div>
                 <div className="size-lg-6">
                     <NumberOfHistoriesContainer />
-                    <p className="generic-text size-lg-12">
-                        Show Hidden Checkbox
-                    </p>
+                    <OtherOptionsContainer />
                 </div>
                 <BlockButtonWrapper>
                     <button className="button green" type="submit">
