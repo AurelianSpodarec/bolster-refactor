@@ -40,6 +40,7 @@ const CompanyMenu = ({ isFromHeadquarters }) => (
             </DropdownMenuItemContainer>
 
             <MenuItemContainer link="/company/reports">
+                {/* <MenuItemContainer link="/company/reports"> */}
                 <i className="fa fa-file icon" /> Reports
             </MenuItemContainer>
 
@@ -65,8 +66,8 @@ const CompanyMenu = ({ isFromHeadquarters }) => (
                 <MenuItemContainer link="/company/tools/support">
                     Support
                 </MenuItemContainer>
-                <MenuItemContainer link="/company/tools/generation-queue">
-                    Generation queue
+                <MenuItemContainer link="/company/tools/create-report">
+                    Create Report
                 </MenuItemContainer>
                 <MenuItemContainer link="/company/tools/transfer-requests">
                     Pending Requests

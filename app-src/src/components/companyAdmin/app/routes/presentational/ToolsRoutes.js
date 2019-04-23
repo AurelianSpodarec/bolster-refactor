@@ -11,6 +11,7 @@ import AllOperativeAlertsContainer from 'components/companyAdmin/operativeAlerts
 import TemplatesContainer from 'components/companyAdmin/templates/allTemplates/containers/TemplatesContainer';
 import SingleTemplateContainer from 'components/companyAdmin/templates/singleTemplate/containers/SingleTemplateContainer';
 import TransferRequests from 'components/companyAdmin/transferRequests/presentational/TransferRequests';
+import AllReports from 'components/companyAdmin/reports/allReports/components/presentational/AllReports';
 
 const ToolsRoutes = ({ base = '/company/tools' }) => (
     <SwitchWith404>
@@ -19,6 +20,7 @@ const ToolsRoutes = ({ base = '/company/tools' }) => (
             path={`${base}/credit-logs`}
             component={AllCreditLogsContainer}
         />
+        <Route exact path={`${base}/create-report`} component={AllReports} />
         <Route exact path={`${base}/pin-options`} component={PinOptions} />
         <Route exact path={`${base}/support`} component={Support} />
         <Route
