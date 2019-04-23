@@ -10,7 +10,7 @@ const SubscriptionStatus = ({ subscriptions, active, endOn }) => (
             title={`Subscription status: ${active ? 'Active' : 'Inactive'}`}
         >
             <StatusIcon
-                classes={active ? '' : 'none'}
+                classes={active ? 'check' : 'none'}
                 iconClass={active ? 'fa fa-check' : 'fa fa-times'}
             />
         </BlockHeading>
