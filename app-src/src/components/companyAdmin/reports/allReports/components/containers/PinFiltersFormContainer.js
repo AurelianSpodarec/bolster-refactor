@@ -24,7 +24,7 @@ export class PinFiltersFormContainer extends Component {
 
         const furtherFiltrationOptionsArr = Object.values(
             furtherFiltrationOptions
-        ).filter(({ text }) => (drawingID ? true : text !== 'Pin Selection'));
+        ).filter(({ text }) => drawingID || text !== 'Pin Selection');
 
         return (
             <PinFiltersForm
@@ -78,6 +78,7 @@ export class PinFiltersFormContainer extends Component {
                 operativeIDs
             },
             fields,
+            options: { showHidden, layout, sortBy },
             postReport
         } = this.props;
         const hierarchyType = drawingID
@@ -113,7 +114,10 @@ export class PinFiltersFormContainer extends Component {
             companyUserIDs: operativeIDs,
             serviceID,
             status: statusID || null,
-            questionFilters
+            questionFilters,
+            showHidden,
+            layout,
+            sortBy
         };
 
         postReport(postBody);
@@ -126,7 +130,7 @@ const mapStateToProps = ({
         buildingsReducer,
         floorsReducer,
         drawingsReducer,
-        reportsReducer: { filters, fields }
+        reportsReducer: { filters, fields, options }
     }
 }) => ({
     fields: Object.values(fields),
@@ -135,7 +139,8 @@ const mapStateToProps = ({
     buildings: Object.values(buildingsReducer.buildings),
     floors: Object.values(floorsReducer.floors),
     drawings: Object.values(drawingsReducer),
-    filters
+    filters,
+    options
 });
 
 const mapDispatchToProps = dispatch => ({

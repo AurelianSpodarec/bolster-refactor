@@ -181,7 +181,17 @@ export const SORT_BY_OPTIONS = {
     CREATED_ON_DESC: 2
 };
 
+export const SORT_BY_OPTIONS_TEXT = {
+    1: 'Created on (ascending)',
+    2: 'Created on (descending)'
+};
+
 export const LAYOUT_OPTIONS = {
     ONE_COLUMN: 1,
     TWO_COLUMN: 2
+};
+
+export const LAYOUT_OPTIONS_TEXT = {
+    1: 'One column',
+    2: 'Two columns'
 };

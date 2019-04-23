@@ -16,6 +16,7 @@ import BlockContainer from 'components/shared/generic/block/containers/BlockCont
 import CustomFiltersContainer from '../containers/CustomFiltersContainer';
 import OperativesFilterContainer from '../containers/OperativesFilterContainer';
 import FurtherFiltrationContainer from '../containers/FurtherFiltrationContainer';
+import OtherOptionsContainer from '../containers/OtherOptionsContainer';
 
 const PinFiltersForm = ({
     furtherFiltrationOptions,
@@ -62,9 +63,7 @@ const PinFiltersForm = ({
                 </div>
                 <div className="size-lg-6">
                     <NumberOfHistoriesContainer />
-                    <p className="generic-text size-lg-12">
-                        Show Hidden Checkbox
-                    </p>
+                    <OtherOptionsContainer />
                 </div>
                 <BlockButtonWrapper>
                     <button className="button green" type="submit">
