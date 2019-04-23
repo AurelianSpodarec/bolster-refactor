@@ -10,7 +10,7 @@ export default combineReducers({
     confirmLeave: confirmLeaveReducer
 });
 
-function confirmLeaveReducer(state = {}, action) {
+function confirmLeaveReducer(state = false, action) {
     switch (action.type) {
         case FETCH_DRAWING_TEMPLATES_REQUEST:
             return true;

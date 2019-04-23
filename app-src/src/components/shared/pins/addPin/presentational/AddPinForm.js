@@ -37,7 +37,7 @@ const AddPinForm = ({
                 <Field name="Select a status" sizeClasses="size-lg-6">
                     <DropdownContainer
                         placeholder="-- select --"
-                        name="statusID"
+                        name="pinStatus"
                         options={statuses}
                         selectedOption={selectedStatus}
                         handleChange={handleChange}
@@ -52,7 +52,12 @@ const AddPinForm = ({
         )}
 
         <BlockButtonWrapper>
-        <Prompt when={confirmLeave} message={'You will lose any added information, are you sure you would like to leave the page?'} />
+            <Prompt
+                when={confirmLeave}
+                message={
+                    'You will lose any added information, are you sure you would like to leave the page?'
+                }
+            />
             <button className="button green" disabled={filesUploading}>
                 {filesUploading ? (
                     'Please wait...'

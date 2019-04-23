@@ -17,11 +17,11 @@ import PageHeading from 'components/shared/generic/pageHeading/presentational/Pa
 
 class EditPinFormContainer extends Component {
     state = {
-        statusID: ''
+        status: ''
     };
 
     render() {
-        const { statusID } = this.state;
+        const { status } = this.state;
         const {
             location,
             isFetching,
@@ -47,7 +47,7 @@ class EditPinFormContainer extends Component {
                     <BlockHeading title="Pin history Details" />
                     <EditPinForm
                         statuses={Object.values(statusOptions)}
-                        selectedStatus={statusOptions[statusID]}
+                        selectedStatus={statusOptions[status]}
                         location={location}
                         handleChange={this.handleChange}
                         handleSubmit={this.handleSubmit}
@@ -83,7 +83,7 @@ class EditPinFormContainer extends Component {
 
         if (!isObjEmpty(pins)) {
             this.setState({
-                statusID: selectedHistory.status
+                status: selectedHistory.status
             });
         }
 
@@ -112,7 +112,7 @@ class EditPinFormContainer extends Component {
 
         if (isObjEmpty(prevProps.pins) && !isObjEmpty(pins)) {
             this.setState({
-                statusID: selectedHistory.status
+                status: selectedHistory.status
             });
         }
 
@@ -152,13 +152,15 @@ class EditPinFormContainer extends Component {
             filesUploading,
             selectedHistory
         } = this.props;
+        const { status } = this.state;
 
         const formattedAnswers = Object.keys(answers).map(function(key) {
             return { questionID: key, answer: answers[key] };
         });
 
         const postBody = {
-            answers: formattedAnswers
+            answers: formattedAnswers,
+            status
         };
 
         if (!filesUploading) {
