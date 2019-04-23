@@ -14,7 +14,7 @@ import { HIERARCHY_IDS } from 'constants/companyAdmin/enums';
 class LevelsFilterContainer extends Component {
     render() {
         const {
-            filters: { siteID, buildingID, floorID, drawingID },
+            filters: { siteID, buildingID, floorID, drawingID, operativeIDs },
             sites,
             buildings,
             floors,
@@ -29,6 +29,9 @@ class LevelsFilterContainer extends Component {
         const selectedFloor = floorOptions[floorID];
         const drawingOptions = this._formatArrForDropdown(drawings);
         const selectedDrawing = drawingOptions[drawingID];
+
+        const isOperativeSelected = !!operativeIDs.length;
+
         return (
             <div className="levels-filter size-lg-12">
                 <LevelsSitesFilters
@@ -36,6 +39,7 @@ class LevelsFilterContainer extends Component {
                     sitesOptions={Object.values(sitesOptions)}
                     selectedSite={selectedSite}
                     handleChange={this.handleChange}
+                    required={!isOperativeSelected}
                 />
 
                 <LevelsBuildingsFilters
@@ -68,36 +72,32 @@ class LevelsFilterContainer extends Component {
         const {
             updateReportFilter,
             postCustomFilters,
-            filters: { numberOfHistoriesID: ReportHistories }
+            filters: { operativeIDs }
         } = this.props;
 
         updateReportFilter(name, hierarchyID);
         updateReportFilter('hierarchyID', hierarchyID);
-
+        const filters = { hierarchyID, operativeIDs };
         switch (name) {
             case 'siteID':
                 return postCustomFilters({
-                    hierarchyType: HIERARCHY_IDS.SITE,
-                    hierarchyID,
-                    ReportHistories
+                    ...filters,
+                    hierarchyType: HIERARCHY_IDS.SITE
                 });
             case 'buildingID':
                 return postCustomFilters({
-                    hierarchyType: HIERARCHY_IDS.BUILDING,
-                    hierarchyID,
-                    ReportHistories
+                    ...filters,
+                    hierarchyType: HIERARCHY_IDS.BUILDING
                 });
             case 'floorID':
                 return postCustomFilters({
-                    hierarchyType: HIERARCHY_IDS.FLOOR,
-                    hierarchyID,
-                    ReportHistories
+                    ...filters,
+                    hierarchyType: HIERARCHY_IDS.FLOOR
                 });
             case 'drawingID':
                 return postCustomFilters({
-                    hierarchyType: HIERARCHY_IDS.DRAWING,
-                    hierarchyID,
-                    ReportHistories
+                    ...filters,
+                    hierarchyType: HIERARCHY_IDS.DRAWING
                 });
             default:
                 break;

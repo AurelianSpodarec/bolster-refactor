@@ -33,7 +33,7 @@ const RegisterForm = ({
     vatCode,
     vatOptions,
     dateFormats,
-    'company.dateFormatID': dateFormatID,
+    dateFormatID,
     terms,
     error
 }) => (
@@ -134,20 +134,13 @@ const RegisterForm = ({
                 />
             </Field>
             <Field name="Date format">
-                {/* <Select
-                    name="dateFormatID"
-                    required
-                    options={dateFormats}
-                    value={dateFormatID}
-                    isSearchable
-                    onChange={handleDateFormatChange}
-                /> */}
                 <NewSelect
                     options={dateFormats}
                     value={dateFormatID}
                     onChange={handleDateFormatChange}
                     name="dateFormatID"
                     singleSelect
+                    required
                 />
             </Field>
 

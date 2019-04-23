@@ -9,7 +9,7 @@ import ReportFormats from '../presentational/ReportFormats';
 class ReportFormatsContainer extends Component {
     render() {
         const {
-            filters: { includeLocationDrawing, reportFormatsID }
+            filters: { includeLocationDrawing, reportFormatID }
         } = this.props;
 
         const reportFormatOptions = convertEnumToDropdownOptions(
@@ -19,7 +19,7 @@ class ReportFormatsContainer extends Component {
         return (
             <ReportFormats
                 reportFormatOptions={Object.values(reportFormatOptions)}
-                selectedReportFormat={reportFormatOptions[reportFormatsID]}
+                selectedReportFormat={reportFormatOptions[reportFormatID]}
                 handleChange={this.handleChange}
                 includeLocationDrawing={includeLocationDrawing}
             />

@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 import OperativesFilter from '../presentational/OperativesFilter';
 import updateOperativeFilter from 'actions/companyAdmin/reports/sync/updateOperativeFilter';
+import postCustomFilters from 'actions/companyAdmin/reports/async/postCustomFilters';
 
 class OperativesFilterContainer extends Component {
     state = {
@@ -13,8 +14,11 @@ class OperativesFilterContainer extends Component {
             value: id,
             label: name
         }));
+        const { isSiteSelected } = this.props;
+
         return (
             <OperativesFilter
+                required={!isSiteSelected}
                 operatives={operatives}
                 selectedOperatives={this.state.selectedOperatives}
                 handleChange={this.handleChange}
@@ -27,6 +31,10 @@ class OperativesFilterContainer extends Component {
         const operativeIDs = selectedOperatives.map(({ value }) => value);
         this.setState({ selectedOperatives });
         updateOperativeFilter(operativeIDs);
+    };
+
+    componentDidMount = () => {
+        this.props.postCustomFilters();
     };
 
     componentDidUpdate = prevProps => {
@@ -44,15 +52,19 @@ class OperativesFilterContainer extends Component {
 const mapStateToProps = ({
     companyAdmin: {
         reportsReducer: {
+            filters: { siteID },
             customFilters: { operatives = [] }
         }
     }
 }) => ({
-    operatives
+    operatives,
+    isSiteSelected: !!siteID
 });
 
 const mapDispatchToProps = dispatch => ({
-    updateOperativeFilter: ids => dispatch(updateOperativeFilter(ids))
+    updateOperativeFilter: ids => dispatch(updateOperativeFilter(ids)),
+    postCustomFilters: () =>
+        dispatch(postCustomFilters({ name: '', value: '' }))
 });
 
 export default connect(
