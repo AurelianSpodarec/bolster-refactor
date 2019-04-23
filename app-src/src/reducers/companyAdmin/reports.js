@@ -112,8 +112,8 @@ function customFiltersReducer(state = {}, action) {
 function optionsReducer(
     state = {
         showHidden: false,
-        sortBy: SORT_BY_OPTIONS.CREATED_ON_DESC,
-        layout: LAYOUT_OPTIONS.ONE_COLUMN
+        sortBy: String(SORT_BY_OPTIONS.CREATED_ON_DESC),
+        layout: String(LAYOUT_OPTIONS.ONE_COLUMN)
     },
     action
 ) {
