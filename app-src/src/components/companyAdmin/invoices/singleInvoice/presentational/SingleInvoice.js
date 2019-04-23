@@ -16,7 +16,7 @@ const SingleInvoice = ({ id }) => {
             </PageHeading>
             <InvoiceDetailsContainer />
             <BlockContainer>
-                <BlockHeading title="Items Table" />
+                <BlockHeading title="Items" />
                 <InvoiceItemsTableContainer />
             </BlockContainer>
         </>

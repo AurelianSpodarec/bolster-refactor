@@ -9,7 +9,7 @@ import BlockHeading from 'components/shared/generic/blockHeading/presentational/
 const AllOperativesTable = ({ headers, users, isFetching, error }) => {
     return (
         <BlockContainer>
-            <BlockHeading title="Operatives Table">
+            <BlockHeading title="Operatives">
                 <Link
                     className="button green"
                     to="/company/users-management/operatives/create"

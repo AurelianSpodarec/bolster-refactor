@@ -9,7 +9,7 @@ import BlockHeading from 'components/shared/generic/blockHeading/presentational/
 
 const FloorDrawingsTableContainer = ({ floor }) => (
     <BlockContainer>
-        <BlockHeading title="Drawings Table" classes="w-table">
+        <BlockHeading title="Drawings" classes="w-table">
             <Link
                 className="button green"
                 to={`/company/drawings/create/${floor.id}`}

@@ -9,7 +9,7 @@ const HeadquartersCompanies = ({ handleCancelImpersonation }) => (
     <>
         <PageHeading title="Headquarters Companies" />
         <BlockContainer>
-            <BlockHeading title="Companies Table" classes="w-table">
+            <BlockHeading title="Companies" classes="w-table">
                 <Link
                     to="/company/headquarters/companies/create"
                     className="button green"

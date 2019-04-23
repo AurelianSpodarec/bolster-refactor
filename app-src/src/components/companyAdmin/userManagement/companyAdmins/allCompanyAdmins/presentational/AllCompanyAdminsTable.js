@@ -15,7 +15,7 @@ const AllCompanyAdminsTable = ({
 }) => {
     return (
         <BlockContainer>
-            <BlockHeading title="Company Admins Table">
+            <BlockHeading title="Company Admins">
                 <Link
                     className="button green"
                     to="/company/users-management/company-admins/create"
