@@ -9,6 +9,7 @@ import Field from 'components/shared/generic/form/presentational/Field';
 import Checkbox from 'components/shared/generic/form/presentational/Checkbox';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
+import NewSelect from 'components/shared/generic/form/presentational/NewSelect';
 
 const RegisterForm = ({
     handleSubmit,
@@ -17,7 +18,7 @@ const RegisterForm = ({
     handleDateFormatChange,
     handleVatTypeChange,
     timezoneOptions,
-    timeZone,
+    timezone,
     email,
     password,
     firstName,
@@ -127,17 +128,26 @@ const RegisterForm = ({
             <Field name="Timezone">
                 <Select
                     options={timezoneOptions}
-                    value={timeZone}
+                    value={timezone}
                     isSearchable
                     onChange={handleTimezoneChange}
                 />
             </Field>
             <Field name="Date format">
-                <Select
+                {/* <Select
+                    name="dateFormatID"
+                    required
                     options={dateFormats}
                     value={dateFormatID}
                     isSearchable
                     onChange={handleDateFormatChange}
+                /> */}
+                <NewSelect
+                    options={dateFormats}
+                    value={dateFormatID}
+                    onChange={handleDateFormatChange}
+                    name="dateFormatID"
+                    singleSelect
                 />
             </Field>
 

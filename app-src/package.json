@@ -3,6 +3,7 @@
     "version": "0.1.0",
     "private": true,
     "dependencies": {
+        "@khanacademy/react-multi-select": "^0.3.2",
         "axios": "^0.18.0",
         "cross-env": "^5.2.0",
         "filepond": "^4.2.0",
