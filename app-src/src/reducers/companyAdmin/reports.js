@@ -70,7 +70,14 @@ function fieldsReducer(state = {}, action) {
         case REMOVE_FILTER_QUESTION:
             return removeObjItem(state, action.id);
         case ADD_FILTER_QUESTION:
-            return { ...state, [action.id]: { id: action.id, value: {} } };
+            return {
+                ...state,
+                [action.id]: {
+                    id: action.id,
+                    selectedQuestions: [],
+                    questionValues: {}
+                }
+            };
         default:
             return state;
     }

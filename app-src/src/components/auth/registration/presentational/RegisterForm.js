@@ -150,7 +150,6 @@ const RegisterForm = ({
                 <NewSelect
                     options={timezoneOptions}
                     value={timezone}
-                    isSearchable
                     onChange={handleDropDown}
                     name="Company.timezone"
                     singleSelect

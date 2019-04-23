@@ -6,21 +6,17 @@ import { convertArrToObj, removeObjItem, updateObj } from 'helpers/generic';
 import updateReportFilter from 'actions/companyAdmin/reports/sync/updateReportFilter';
 import CustomFilter from '../presentational/CustomFilters';
 import updateFilterQuestionField from 'actions/companyAdmin/reports/sync/updateFilterQuestionField';
-const id = uuid();
 class CustomFilterContainer extends Component {
-    state = {
-        selectedQuestionID: '',
-        selectedQuestions: {},
-        questionValues: { [id]: { value: '', id } }
-    };
-
     render() {
-        const { selectedQuestionID, questionValues } = this.state;
-        const { questionOptions, removeField } = this.props;
+        const { questionOptions, removeField, field } = this.props;
+        const { selectedQuestions, questionValues } = field;
+        const formattedOptions = Object.values(questionOptions).map(
+            ({ value, text }) => ({ value, label: text })
+        );
         return (
             <CustomFilter
-                questionOptions={Object.values(questionOptions)}
-                selectedQuestion={questionOptions[selectedQuestionID]}
+                questionOptions={formattedOptions}
+                selectedQuestions={selectedQuestions}
                 handleChange={this.handleChange}
                 addOption={this.addOption}
                 removeOption={this.removeOption}
@@ -31,12 +27,12 @@ class CustomFilterContainer extends Component {
         );
     }
 
-    handleChange = ({ target: { value } }) => {
-        const { field } = this.props;
-        this.setState({
-            selectedQuestionID: value
-        });
-        updateObj(field, 'selectedQuestionID', value);
+    handleChange = (_, options) => {
+        const { field, updateFilterQuestionField } = this.props;
+        updateFilterQuestionField(
+            field.id,
+            updateObj(field, 'selectedQuestions', options)
+        );
     };
 
     _getQuestionsOptions = () => {
@@ -52,37 +48,39 @@ class CustomFilterContainer extends Component {
 
     addOption = e => {
         e.preventDefault();
-        const { questionValues } = this.state;
+        const { field, updateFilterQuestionField } = this.props;
         const id = uuid();
-        this.setState({
-            questionValues: { ...questionValues, [id]: { value: '', id } }
-        });
-    };
-
-    removeOption = id => {
-        this.setState({
-            questionValues: removeObjItem(this.state.questionValues, id)
-        });
-    };
-
-    updateOption = ({ target: { name: id, value } }) => {
-        const { id: fieldID, updateFilterQuestionField } = this.props;
-
-        const { selectedQuestionID } = this.state;
-        const updated = updateObj(this.state.questionValues, id, { id, value });
-        this.setState({
-            questionValues: updated
-        });
-
+        const { questionValues } = field;
+        const updated = updateObj(questionValues, id, { id, value: '' });
         updateFilterQuestionField(
-            fieldID,
-            this.formatField(fieldID, selectedQuestionID, updated)
+            field.id,
+            this.formatField(field.id, field.selectedQuestions, updated)
         );
     };
 
-    formatField = (id, selectedQuestionID, questionValues) => ({
+    removeOption = id => {
+        const { field, updateFilterQuestionField } = this.props;
+        const updated = {
+            ...field,
+            questionValues: removeObjItem(field.questionValues, id)
+        };
+        updateFilterQuestionField(field.id, updated);
+    };
+
+    updateOption = ({ target: { name: id, value } }) => {
+        const { id: fieldID, updateFilterQuestionField, field } = this.props;
+
+        const updated = updateObj(field.questionValues, id, { id, value });
+
+        updateFilterQuestionField(
+            fieldID,
+            this.formatField(fieldID, field.selectedQuestions, updated)
+        );
+    };
+
+    formatField = (id, selectedQuestions, questionValues) => ({
         id,
-        selectedQuestionID,
+        selectedQuestions,
         questionValues
     });
 }
@@ -99,7 +97,7 @@ const mapStateToProps = (
     ownProps
 ) => ({
     customQuestions: questions || [],
-    field: fields[ownProps.id]
+    field: fields[ownProps.id] || {}
 });
 
 const mapDispatchToProps = dispatch => ({
