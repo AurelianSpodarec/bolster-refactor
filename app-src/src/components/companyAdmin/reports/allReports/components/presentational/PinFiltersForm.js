@@ -44,6 +44,9 @@ const PinFiltersForm = ({
                 </BlockContainer>
             </div>
         </div>
+        <div className="size-lg-12">
+            <BlockContainer />
+        </div>
 
         <div className="size-lg-12">
             <BlockContainer>
