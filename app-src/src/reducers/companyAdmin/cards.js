@@ -102,11 +102,16 @@ function cardsReducer(state = {}, action) {
             return convertArrToObj(action.payload);
         case ADD_CARD_SUCCESS:
             return updateObj(state, action.payload.id, action.payload);
-        case DELETE_CARD_SUCCESS: {
-            const newState = removeObjItem(state, action.id);
-            console.log(newState);
+        case DELETE_CARD_SUCCESS:
             return removeObjItem(state, action.id);
+        case SET_PRIMARY_CARD_SUCCESS: {
+            const cards = Object.values(state).map(card => ({
+                ...card,
+                isPrimary: action.cardID === card.id
+            }));
+            return convertArrToObj(cards);
         }
+
         default:
             return state;
     }

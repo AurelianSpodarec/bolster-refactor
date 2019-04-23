@@ -13,9 +13,9 @@ export const setPrimaryCardRequest = () => ({
     type: SET_PRIMARY_CARD_REQUEST
 });
 
-export const setPrimaryCardSuccess = payload => ({
+export const setPrimaryCardSuccess = cardID => ({
     type: SET_PRIMARY_CARD_SUCCESS,
-    payload
+    cardID
 });
 
 export const setPrimaryCardFailure = error => ({
@@ -23,16 +23,15 @@ export const setPrimaryCardFailure = error => ({
     error
 });
 
-export default postBody => dispatch => {
+export default stripeCardID => dispatch => {
     dispatch(setPrimaryCardRequest());
 
     return axios
-        .post(`${API_URL}/cards/primary`, postBody, getHeaders())
-        .then(res => dispatch(setPrimaryCardSuccess(res.data)))
+        .post(`${API_URL}/cards/primary`, { stripeCardID }, getHeaders())
+        .then(() => dispatch(setPrimaryCardSuccess(stripeCardID)))
         .catch(err => {
-            dispatch(setPrimaryCardFailure(err.message));
-
             if (err.response.status === 400)
-                dispatch(setAPIFieldErrors(err.response.data.errors));
+                return dispatch(setAPIFieldErrors(err.response.data.errors));
+            return dispatch(setPrimaryCardFailure(err.message));
         });
 };
