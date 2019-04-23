@@ -10,12 +10,11 @@ import deleteCard from 'actions/companyAdmin/cards/async/deleteCard';
 
 class CardTableContainer extends Component {
     state = {
-        cards: [],
-        settingCard: false
+        cards: []
     };
 
     render = () => {
-        const { isFetching, error, showModal, deleteCard } = this.props;
+        const { isFetching, error, showModal, deleteCard, cards } = this.props;
         const headers = [
             'Name',
             'Card No',
@@ -25,7 +24,7 @@ class CardTableContainer extends Component {
         ];
         return (
             <CardTable
-                cards={this.state.cards}
+                cards={cards}
                 headers={headers}
                 isFetching={isFetching}
                 error={error}
@@ -36,38 +35,8 @@ class CardTableContainer extends Component {
         );
     };
 
-    componentDidMount = () => {
-        const { isFetching, cards } = this.props;
-        if (!isFetching) this.setState({ cards });
-    };
-
-    componentDidUpdate = prevProps => {
-        const {
-            postError,
-            postSuccess,
-            fetchAllCards,
-            cards,
-            isFetching
-        } = this.props;
-        if (!isFetching && prevProps.isFetching) this.setState({ cards });
-
-        if (
-            (postError && !prevProps.postError) ||
-            (postSuccess && !prevProps.postSuccess)
-        ) {
-            const { settingCard } = this.state;
-            if (settingCard) this.setState({ settingCard: false });
-            else fetchAllCards();
-        }
-    };
-
-    setPrimaryCard = (cards, id) => {
+    setPrimaryCard = id => {
         this.props.setPrimaryCard(id);
-        const updatedCards = cards.map(card => ({
-            ...card,
-            isPrimary: card.id === id
-        }));
-        this.setState({ cards: updatedCards, settingCard: true });
     };
 }
 
@@ -85,9 +54,8 @@ const mapStateToProps = ({
 
 const mapDispatchToProps = dispatch => ({
     showModal: () => dispatch(showModal(ADD_CARD)),
-    setPrimaryCard: stripeCardID => dispatch(setPrimaryCard({ stripeCardID })),
+    setPrimaryCard: stripeCardID => dispatch(setPrimaryCard(stripeCardID)),
     deleteCard: stripeCardID => {
-        // console.log(stripeCardID);
         dispatch(deleteCard(stripeCardID));
     },
     fetchAllCards: () => dispatch(fetchAllCards())
