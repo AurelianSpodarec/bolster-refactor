@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import { FURTHER_FILTRATION } from 'constants/companyAdmin/enums';
@@ -8,6 +9,9 @@ import PinFiltersForm from '../presentational/PinFiltersForm';
 import postReport from 'actions/companyAdmin/reports/async/postReport';
 import postCustomFilters from 'actions/companyAdmin/reports/async/postCustomFilters';
 import removeFilterQuestions from 'actions/companyAdmin/reports/sync/removeFilterQuestions';
+import { showModal } from 'actions/shared/generic/modals/sync/showModal';
+import { SUCCESS_MODAL, ERROR_MODAL } from 'constants/shared/modalTypes';
+import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 
 export class PinFiltersFormContainer extends Component {
     state = {
@@ -44,8 +48,14 @@ export class PinFiltersFormContainer extends Component {
     componentDidUpdate = prevProps => {
         const {
             filters: { siteID, buildingID, floorID, drawingID },
-            removeFilterQuestions
+            removeFilterQuestions,
+            postSuccess,
+            error,
+            showModal,
+            match: { history }
         } = this.props;
+
+        // reset further filters if site info changes
         if (
             siteID !== prevProps.filters.siteID ||
             buildingID !== prevProps.filters.buildingID ||
@@ -54,6 +64,25 @@ export class PinFiltersFormContainer extends Component {
         ) {
             this.setState({ filterOption: 0 });
             removeFilterQuestions();
+        }
+
+        if (postSuccess && !prevProps.postSuccess) {
+            showModal(SUCCESS_MODAL, {
+                hideModal: () => {
+                    hideModal();
+                    history.push('/company/tools/generation-queue');
+                },
+                message: '##Your report is now being generated##'
+            });
+            if (error && !prevProps.error) {
+                showModal(ERROR_MODAL, {
+                    hideModal,
+                    title: 'Error',
+                    message:
+                        error.message ||
+                        '##There was an error processing your request, please try again later.##'
+                });
+            }
         }
     };
 
@@ -130,7 +159,7 @@ const mapStateToProps = ({
         buildingsReducer,
         floorsReducer,
         drawingsReducer,
-        reportsReducer: { filters, fields, options }
+        reportsReducer: { filters, fields, options, postSuccess, error }
     }
 }) => ({
     fields: Object.values(fields),
@@ -140,16 +169,22 @@ const mapStateToProps = ({
     floors: Object.values(floorsReducer.floors),
     drawings: Object.values(drawingsReducer),
     filters,
-    options
+    options,
+    postSuccess,
+    error
 });
 
 const mapDispatchToProps = dispatch => ({
     postReport: postBody => dispatch(postReport(postBody)),
     postCustomFilters: postBody => dispatch(postCustomFilters(postBody)),
-    removeFilterQuestions: () => dispatch(removeFilterQuestions())
+    removeFilterQuestions: () => dispatch(removeFilterQuestions()),
+    showModal: (type, props) => dispatch(showModal(type, props)),
+    hideModal: () => dispatch(hideModal())
 });
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(PinFiltersFormContainer);
+export default withRouter(
+    connect(
+        mapStateToProps,
+        mapDispatchToProps
+    )(PinFiltersFormContainer)
+);

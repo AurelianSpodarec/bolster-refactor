@@ -94,7 +94,6 @@ function postSuccessReducer(state = false, action) {
         case POST_REPORT_REQUEST:
             return false;
         case POST_REPORT_SUCCESS:
-        case POST_CUSTOM_FILTERS_SUCCESS:
             return true;
         default:
             return state;
