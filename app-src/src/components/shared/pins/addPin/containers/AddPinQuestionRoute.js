@@ -153,16 +153,18 @@ const MultiPhoto = ({
     question: { isRequired, maxPhotos, id },
     answers,
     handleFileChange
-}) => (
-    <FileUploadContainer
-        name={`answer-${id}`}
-        required={isRequired}
-        acceptedTypes={['image/*']}
-        maxFiles={maxPhotos}
-        handleChange={handleFileChange}
-        value={answers[id]}
-    />
-);
+}) => {
+    return (
+        <FileUploadContainer
+            name={`answer-${id}`}
+            required={isRequired}
+            acceptedTypes={['image/*']}
+            maxFiles={maxPhotos ? maxPhotos : 25}
+            handleChange={handleFileChange}
+            value={answers[id]}
+        />
+    );
+};
 
 const Signature = ({ question: { isRequired, id }, handleSignatureChange }) => (
     <SignatureContainer
