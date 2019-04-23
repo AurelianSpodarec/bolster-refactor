@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import DrawingInspectionLogsTable from '../presentational/DrawingInspectionLogsTable';
-import fetchInspectionLogs from 'actions/companyAdmin/drawings/async/fetchInspectionLogs';
 
 class DrawingInspectionLogContainer extends Component {
     state = {
@@ -24,10 +23,6 @@ class DrawingInspectionLogContainer extends Component {
             />
         );
     }
-
-    componentDidMount = () => {
-        this.props.fetchInspectionLogs();
-    };
 
     handleFilterChange = e => {
         this.setState({
@@ -54,11 +49,4 @@ const mapStateToProps = ({
     inspectionError
 });
 
-const mapDispatchToProps = dispatch => ({
-    fetchInspectionLogs: () => dispatch(fetchInspectionLogs())
-});
-
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(DrawingInspectionLogContainer);
+export default connect(mapStateToProps)(DrawingInspectionLogContainer);
