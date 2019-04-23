@@ -5,12 +5,13 @@ const Field = ({
     name = '',
     sizeClasses = 'size-lg-12',
     classes = '',
+    reqiured = false,
     htmlFor
 }) => (
-    <div className={`form-field ${sizeClasses} ${classes}`}>
+    <div className={`form-field ${sizeClasses} ${classes} `}>
         {name && name.length && (
             <label className="title" htmlFor={htmlFor}>
-                {name}
+                {name} {reqiured && <sub>*</sub>}
             </label>
         )}
 

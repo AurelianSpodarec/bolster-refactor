@@ -8,7 +8,7 @@ const NumberOfHistories = ({
     selectedHistory,
     handleChange
 }) => (
-    <Field name="Number of Hitories">
+    <Field name="Number of Hitories" reqiured={true}>
         <DropdownContainer
             placeholder="Please select'"
             name="numberOfHistoriesID"

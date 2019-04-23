@@ -67,6 +67,10 @@ body {
             display: flex;
         }
 
+        .form-field {
+            flex: none;
+        }
+
         .generic-table {
             min-height: 165px;
             tbody {
@@ -870,6 +874,9 @@ input {
         margin-bottom: 12.5px;
         @include ubuntu-medium;
         text-transform: capitalize;
+        sub {
+            color: $red;
+        }
     }
 
     .error {

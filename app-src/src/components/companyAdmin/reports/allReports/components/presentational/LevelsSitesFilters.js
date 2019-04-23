@@ -10,7 +10,7 @@ const LevelsSitesFilters = ({
     classes = ''
 }) => (
     <>
-        <Field name="Site" classes={classes}>
+        <Field name="Site" reqiured={true} classes={classes}>
             <DropdownContainer
                 placeholder="-- select --"
                 name="siteID"

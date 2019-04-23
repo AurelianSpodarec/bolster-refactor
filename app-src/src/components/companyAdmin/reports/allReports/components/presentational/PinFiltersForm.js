@@ -23,19 +23,26 @@ const PinFiltersForm = ({
     handleSubmit
 }) => (
     <Form className="size-lg-12" onSubmit={() => handleSubmit()}>
-        <div className="size-lg-6">
-            <BlockContainer>
-                <LevelsFilterContainer />
-                <p className="generic-text size-lg-12">Operatives</p>
-            </BlockContainer>
+        <div className="flex-container size-lg-12">
+            <div className="flex-item size-lg-6">
+                <BlockContainer>
+                    <div className="size-lg-12">
+                        <LevelsFilterContainer />
+                        <p className="generic-text size-lg-12">Operatives</p>
+                    </div>
+                </BlockContainer>
+            </div>
+            <div className="flex-item size-lg-6">
+                <BlockContainer>
+                    <div className="size-lg-12">
+                        <ServicesFilterContainer />
+                        <StatusTypeFilterContainer />
+                        <DatesFilterContainer />
+                    </div>
+                </BlockContainer>
+            </div>
         </div>
-        <div className="size-lg-6">
-            <BlockContainer>
-                <ServicesFilterContainer />
-                <StatusTypeFilterContainer />
-                <DatesFilterContainer />
-            </BlockContainer>
-        </div>
+
         <div className="size-lg-12">
             <BlockContainer>
                 <FurtherFiltration
