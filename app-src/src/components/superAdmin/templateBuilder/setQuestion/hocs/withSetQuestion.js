@@ -86,7 +86,7 @@ export default function(WrappedComponent) {
                 canCompanyEdit
             } = this.props.fields;
 
-            switch (questionType) {
+            switch (questionType + '') {
                 case VALS.SINGLE_LINE:
                 case VALS.MULTI_LINE:
                     return { charLimit };
