@@ -1,8 +1,8 @@
 import axios from 'axios';
 
 import { API_URL } from 'config';
-import { getHeaders } from 'helpers/api';
-import setAPIFieldErrors from 'actions/shared/generic/fieldErrors/sync/setAPIFieldErrors';
+import { getHeaders, handleErrors } from 'helpers/api';
+
 import {
     ADD_CARD_REQUEST,
     ADD_CARD_SUCCESS,
@@ -29,10 +29,5 @@ export default postBody => dispatch => {
     return axios
         .post(`${API_URL}/cards`, postBody, getHeaders())
         .then(res => dispatch(addCardSuccess(res.data)))
-        .catch(err => {
-            dispatch(addCardFailure(err.message));
-
-            if (err.response.status === 400)
-                dispatch(setAPIFieldErrors(err.response.data.errors));
-        });
+        .catch(err => dispatch(handleErrors(addCardFailure)(err)));
 };

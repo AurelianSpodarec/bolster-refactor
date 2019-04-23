@@ -81,7 +81,7 @@ export default function withFieldValidation(WrappedComponent) {
 
     const mapStateToProps = ({ shared: { fieldErrorsReducer } }, ownProps) => ({
         error: fieldErrorsReducer.fieldErrors[ownProps.name],
-        errorsVisible: fieldErrorsReducer.errorsVisible
+        showFieldErrors: fieldErrorsReducer.errorsVisible
     });
 
     const mapDispatchToProps = dispatch => ({

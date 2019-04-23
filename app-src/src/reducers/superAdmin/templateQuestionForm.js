@@ -21,7 +21,7 @@ const initialQuestionFields = {
     questionTypeOptions: fotmattedQuestionTypes,
     questionType: QUESTION_TYPE_VALUES.SINGLE_LINE,
     prereqOptions: {},
-    prereqUuid: '',
+    prereqUUID: '',
     prereqVal: '',
     name: '',
     isRequired: false,

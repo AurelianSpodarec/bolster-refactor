@@ -28,12 +28,16 @@ class BuyCreditsModalContainer extends Component {
             ({ isPrimary, value }) =>
                 value === this.state.stripeCardID || isPrimary
         );
+
+        const noCards = !cards.length;
+
         return (
             <BuyCreditsModal
                 {...this.state}
                 handleChange={this.handleChange}
                 handleSubmit={this.handleSubmit}
                 cards={cardOptions}
+                noCards={noCards}
                 costOfCredits={costOfCredits}
                 selectedCard={selectedCard}
                 hideModal={e => {
@@ -112,7 +116,7 @@ const mapStateToProps = ({
         cardsReducer: { cards, isFetching }
     }
 }) => ({
-    cards: Object.values(cards),
+    cards: Object.values(cards) || [],
     costOfCredits,
     postSuccess,
     postError,

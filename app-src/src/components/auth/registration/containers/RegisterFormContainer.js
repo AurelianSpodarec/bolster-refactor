@@ -24,7 +24,7 @@ class RegisterFormContainer extends Component {
         vatType: { label: 'GB', value: VAT_TYPES.GB },
         vatCode: '',
         timezone: { value: '', label: '' },
-        'company.dateFormatID': { value: '', label: '' },
+        0: 0,
         terms: false
     };
 
@@ -68,8 +68,8 @@ class RegisterFormContainer extends Component {
 
     _handleTimezoneChange = timezone => this.setState({ timezone });
 
-    _handleDateFormatChange = dateFormat => {
-        console.log(dateFormat);
+    _handleDateFormatChange = (name, val) => {
+        this.setState({ [name]: val });
     };
 
     _handleVatTypeChange = vatType => this.setState({ vatType });

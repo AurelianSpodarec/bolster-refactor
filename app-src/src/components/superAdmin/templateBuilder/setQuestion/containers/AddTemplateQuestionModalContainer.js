@@ -10,7 +10,7 @@ class AddTemplateQuestionModalContainer extends Component {
             fields: {
                 questionType,
                 questionTypeOptions,
-                prereqUuid,
+                prereqUUID,
                 ...fields
             },
             hideModal,
@@ -22,7 +22,7 @@ class AddTemplateQuestionModalContainer extends Component {
             <TemplateQuestionFormModal
                 {...fields}
                 prereqOptions={Object.values(prereqOptions)}
-                selectedPrereq={prereqOptions[prereqUuid]}
+                selectedPrereq={prereqOptions[prereqUUID]}
                 questionType={questionTypeOptions[questionType]}
                 questionTypeOptions={Object.values(questionTypeOptions)}
                 hideModal={hideModal}

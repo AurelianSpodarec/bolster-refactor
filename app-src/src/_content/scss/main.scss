@@ -838,6 +838,12 @@ input {
             min-height: auto;
         }
     }
+
+    .multi-select {
+        input[type="checkbox"] {
+            display: none;
+        }
+    }
 }
 
 //form stuff
