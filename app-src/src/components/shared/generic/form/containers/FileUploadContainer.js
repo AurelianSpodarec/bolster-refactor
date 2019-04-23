@@ -126,7 +126,7 @@ class FileUploadContainer extends Component {
         this.props.fileUploadFinish();
     };
 
-    _handleFileLoad = (source, load, error, progress, abort, headers) => {
+    _handleFileLoad = (source, load, error) => {
         var myRequest = new Request(source);
         const that = this;
         fetch(myRequest)
@@ -137,8 +137,7 @@ class FileUploadContainer extends Component {
                 });
             })
             .catch(function(err) {
-                console.error(err);
-                console.error(error);
+                error(err);
             });
     };
 

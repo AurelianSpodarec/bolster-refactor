@@ -21,7 +21,7 @@ const EditPinForm = ({
         <Field name="Select a status" sizeClasses="size-lg-6">
             <DropdownContainer
                 placeholder="-- select --"
-                name="statusID"
+                name="status"
                 options={statuses}
                 selectedOption={selectedStatus}
                 handleChange={handleChange}

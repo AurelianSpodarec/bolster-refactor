@@ -18,11 +18,11 @@ import BackButtonContainer from 'components/shared/generic/backButton/containers
 class AddPinFormContainer extends Component {
     state = {
         templateID: '',
-        statusID: ''
+        pinStatus: ''
     };
 
     render() {
-        const { templateID, statusID } = this.state;
+        const { templateID, pinStatus } = this.state;
         const {
             location,
             isFetching,
@@ -49,7 +49,7 @@ class AddPinFormContainer extends Component {
                         templates={Object.values(templateOptions)}
                         selectedTemplate={templateOptions[templateID]}
                         statuses={Object.values(statusOptions)}
-                        selectedStatus={statusOptions[statusID]}
+                        selectedStatus={statusOptions[pinStatus]}
                         location={location}
                         handleChange={this.handleChange}
                         handleSubmit={this.handleSubmit}
@@ -148,7 +148,7 @@ class AddPinFormContainer extends Component {
         const postBody = {
             history: {
                 templateVersionID: curTemplate.latestVersionID,
-                pinStatus: this.state.statusID
+                pinStatus: this.state.pinStatus
             },
             answers: formattedAnswers
         };
