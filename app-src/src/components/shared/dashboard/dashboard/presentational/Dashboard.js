@@ -1,11 +1,16 @@
 import React from 'react';
 
-import Block from 'components/shared/generic/block/presentational/Block';
+import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
+import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
 
 const Dashboard = () => (
-    <Block>
-        <h3 className="heading heading-3">Dashboard</h3>
-    </Block>
+    <>
+        <PageHeading title="Dashboard" />
+        <BlockContainer>
+            <BlockHeading title="Live Pin Feed" />
+        </BlockContainer>
+    </>
 );
 
 export default Dashboard;

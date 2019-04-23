@@ -1,11 +1,16 @@
 import React from 'react';
 import AddHeadquartersCompanyFormContainer from '../containers/AddHeadquartersCompanyFormContainer';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
 
 const AddHeadquartersCompany = () => (
-    <BlockContainer heading="Add a company">
-        <AddHeadquartersCompanyFormContainer />
-    </BlockContainer>
+    <>
+        <PageHeading title="Add a company" />
+
+        <BlockContainer>
+            <AddHeadquartersCompanyFormContainer />
+        </BlockContainer>
+    </>
 );
 
 export default AddHeadquartersCompany;
