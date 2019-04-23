@@ -9,6 +9,7 @@ import updateReportFilter from 'actions/companyAdmin/reports/sync/updateReportFi
 import { convertArrToObj } from 'helpers/generic';
 import addFilterQuestion from 'actions/companyAdmin/reports/sync/addFilterQuestion';
 import removeFilterQuestion from 'actions/companyAdmin/reports/sync/removeFilterQuestion';
+import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 
 const FurtherFiltrationContainer = ({
     furtherFiltrationOptions,
@@ -31,23 +32,28 @@ const FurtherFiltrationContainer = ({
             {/* {filterOption === '1' ? (
                 <PinSelectorContainer /> */
             filterOption === '2' ? (
-                <>
-                    <button
-                        onClick={addCustomField}
-                        type="button"
-                        className="button"
-                    >
-                        Add field
-                    </button>
-                    {fields.map(field => (
-                        <CustomFiltersContainer
-                            key={field.id}
-                            id={field.id}
-                            removeField={() => removeCustomField(field.id)}
-                            questionOptions={questionOptions}
-                        />
-                    ))}
-                </>
+                <div className="custom-filters-block ignore-padding">
+                    <div className="size-lg-12">
+                        {fields.map(field => (
+                            <CustomFiltersContainer
+                                key={field.id}
+                                id={field.id}
+                                removeField={() => removeCustomField(field.id)}
+                                questionOptions={questionOptions}
+                            />
+                        ))}
+                    </div>
+
+                    <BlockButtonWrapper>
+                        <button
+                            onClick={addCustomField}
+                            type="button"
+                            className="button"
+                        >
+                            <i className="fa fa-plus" /> Add field
+                        </button>
+                    </BlockButtonWrapper>
+                </div>
             ) : null}
         </>
     );
