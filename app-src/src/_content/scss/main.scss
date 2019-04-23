@@ -2188,6 +2188,13 @@ input {
             left: 0.5px;
         }
     }
+
+    &.none {
+        background-color: $red;
+        i {
+            font-size: 14px;
+        }
+    }
 }
 
 //subscriptions page

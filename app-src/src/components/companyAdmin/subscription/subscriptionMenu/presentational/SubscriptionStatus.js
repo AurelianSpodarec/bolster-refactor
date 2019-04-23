@@ -9,20 +9,32 @@ const SubscriptionStatus = ({ subscriptions, active, endOn }) => (
         <BlockHeading
             title={`Subscription status: ${active ? 'Active' : 'Inactive'}`}
         >
-            <StatusIcon />
+            <StatusIcon
+                classes={active ? '' : 'none'}
+                iconClass={active ? 'fa fa-check' : 'fa fa-times'}
+            />
         </BlockHeading>
-        {subscriptions.isAutoRenew ? (
-            <p className="size-lg-12">
-                Your subscription is set to auto-renew on{' '}
-                <strong>
-                    <DateTimeContainer date={endOn} />
-                </strong>{' '}
-                at a cost of <strong>£{subscriptions.renewalPrice}</strong>
-            </p>
+        {active ? (
+            subscriptions.isAutoRenew ? (
+                <p className="size-lg-12">
+                    Company subscription is set to auto-renew on{' '}
+                    <strong>
+                        <DateTimeContainer date={endOn} />
+                    </strong>{' '}
+                    at a cost of <strong>£{subscriptions.renewalPrice}</strong>
+                </p>
+            ) : (
+                <p className="size-lg-12">
+                    Company subscription is not set to auto-renew and will end
+                    on{' '}
+                    <strong>
+                        <DateTimeContainer date={endOn} />
+                    </strong>
+                </p>
+            )
         ) : (
             <p className="size-lg-12">
-                Your subscription is not set to auto-renew and will end on{' '}
-                <DateTimeContainer date={endOn} />
+                You have no subscription, please add a service to subscribe.
             </p>
         )}
     </div>
