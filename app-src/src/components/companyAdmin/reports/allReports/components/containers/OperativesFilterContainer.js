@@ -32,7 +32,11 @@ class OperativesFilterContainer extends Component {
     componentDidUpdate = prevProps => {
         const { operatives } = this.props;
         if (operatives.length !== prevProps.operatives.length) {
-            // re-set operative if they're no longer available
+            // remove operative if they're no longer available after filter update
+            const selectedOperatives = this.state.selectedOperatives.filter(
+                ({ value }) => operatives.find(({ id }) => id === value)
+            );
+            this.setState({ selectedOperatives });
         }
     };
 }
