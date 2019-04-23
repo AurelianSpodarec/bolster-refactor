@@ -8,7 +8,6 @@ const NewSelect = ({ options, value, onChange, name, singleSelect }) => (
         options={options}
         selected={singleSelect ? [value] : value}
         onSelectedChanged={selected => {
-            console.log(selected);
             let val;
 
             if (singleSelect && selected && selected.length > 2) val = null;
