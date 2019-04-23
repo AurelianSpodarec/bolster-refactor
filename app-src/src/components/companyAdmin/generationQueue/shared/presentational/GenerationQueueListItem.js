@@ -24,6 +24,7 @@ const GenerationQueueListItem = ({ queueItem }) => (
                 <a
                     className="button geen"
                     target="_blank"
+                    rel="noopener noreferrer"
                     href={`${RAW_S3_STORAGE_URL_REPORTS}/${queueItem.s3Key}`}
                 >
                     <i className="fa fa-download" /> Download File

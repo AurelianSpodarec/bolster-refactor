@@ -1,5 +1,4 @@
 import React from 'react';
-import Select from 'react-select';
 
 import { VAT_TYPES } from 'constants/companyAdmin/enums';
 

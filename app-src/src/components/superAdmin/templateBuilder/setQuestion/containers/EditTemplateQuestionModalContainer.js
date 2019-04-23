@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import uuid from 'uuid/v1';
 
 import withSetQuestion from '../hocs/withSetQuestion';
 import { convertArrToObj } from 'helpers/generic';
