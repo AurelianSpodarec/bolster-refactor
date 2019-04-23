@@ -16,7 +16,8 @@ const AddServiceToSubscriptionModal = ({
     cards,
     selectedCard,
     service,
-    proRataCost
+    proRataCost,
+    noCards
 }) => (
     <ModalOuterContainer>
         <BlockHeading title="Add service to your subscription" />
@@ -38,6 +39,8 @@ const AddServiceToSubscriptionModal = ({
                         checked={+paymentType === PAYMENT_IDS.CARD}
                         handleInputChange={handleChange}
                         text="Pay using card"
+                        extraDetails={noCards ? 'No cards available' : ''}
+                        disabled={noCards}
                     />
                 </div>
 
@@ -51,7 +54,7 @@ const AddServiceToSubscriptionModal = ({
                     />
                 </div>
             </Field>
-            {+paymentType === PAYMENT_IDS.CARD && (
+            {+paymentType === PAYMENT_IDS.CARD && noCards && (
                 <Field name="Select Card" sizeClasses="size-lg-12">
                     <DropdownContainer
                         disabled={+paymentType !== PAYMENT_IDS.CARD}

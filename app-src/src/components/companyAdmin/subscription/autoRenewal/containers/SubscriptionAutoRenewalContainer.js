@@ -9,8 +9,7 @@ class SubscriptionAutoRenewalContainer extends Component {
     render() {
         const { isFetching, isAutoRenew, renewalType } = this.props;
         const noCards = !Object.values(this.props.cards).length;
-        console.log(noCards);
-        console.log(Object.values(this.props.cards).length);
+
         return (
             <BlockContainer isFetching={isFetching}>
                 <SubscriptionAutoRenewal
