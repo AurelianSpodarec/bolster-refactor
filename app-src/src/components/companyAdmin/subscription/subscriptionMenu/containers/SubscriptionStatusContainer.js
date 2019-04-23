@@ -8,13 +8,9 @@ import { isObjEmpty } from 'helpers/generic';
 
 class SubscriptionStatusContainer extends Component {
     render = () => {
-        const { subscriptions, error, isFetching } = this.props;
+        const { subscriptions, isFetching } = this.props;
         return (
-            <BlockContainer
-                error={error}
-                isFetching={isFetching}
-                isEmpty={isObjEmpty(subscriptions)}
-            >
+            <BlockContainer isFetching={isFetching}>
                 <SubscriptionStatus
                     subscriptions={subscriptions}
                     endOn={subscriptions.endOn}

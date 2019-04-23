@@ -8,13 +8,9 @@ import { isObjEmpty } from 'helpers/generic';
 
 class SubscriptionStatusContainer extends Component {
     render = () => {
-        const { subscription, error, isFetching } = this.props;
+        const { subscription, isFetching } = this.props;
         return (
-            <BlockContainer
-                error={error}
-                isFetching={isFetching}
-                isEmpty={isObjEmpty(subscription)}
-            >
+            <BlockContainer>
                 <SubscriptionStatus
                     subscription={subscription}
                     endOn={subscription.endOn}
@@ -33,11 +29,10 @@ class SubscriptionStatusContainer extends Component {
 
 const mapStateToProps = ({
     superAdmin: {
-        companySubscriptionReducer: { error, isFetching, subscription }
+        companySubscriptionReducer: { isFetching, subscription }
     }
 }) => ({
     subscription,
-    error,
     isFetching
 });
 

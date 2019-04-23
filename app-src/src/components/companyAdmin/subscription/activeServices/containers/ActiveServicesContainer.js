@@ -28,6 +28,14 @@ class ActiveServicesContainer extends Component {
         );
     };
 
+    componentDidMount = () => {
+        const { fetchAllSubscriptions, subscriptions } = this.props;
+
+        if (!Object.values(subscriptions).length) {
+            fetchAllSubscriptions();
+        }
+    };
+
     componentDidUpdate = prevProps => {
         const { isFetching, postSuccess, fetchAllSubscriptions } = this.props;
         if (!isFetching && prevProps.isFetching)

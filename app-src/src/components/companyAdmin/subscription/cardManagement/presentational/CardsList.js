@@ -7,7 +7,7 @@ const CardsList = ({ cards, setPrimaryCard, deleteCard }) =>
         <CardListItem
             key={card.id}
             card={card}
-            setPrimaryCard={() => setPrimaryCard(cards, card.id)}
+            setPrimaryCard={() => setPrimaryCard(card.id)}
             deleteCard={() => deleteCard(card.id)}
         />
     ));
