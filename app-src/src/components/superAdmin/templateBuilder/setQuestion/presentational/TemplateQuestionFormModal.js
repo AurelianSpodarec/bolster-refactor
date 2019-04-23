@@ -43,7 +43,7 @@ const AddTemplateQuestionFormModal = ({
             {!isObjEmpty(prereqOptions) && (
                 <Field name="Prerequisite field?">
                     <DropdownContainer
-                        name="prereqUuid"
+                        name="prereqUUID"
                         options={prereqOptions}
                         selectedOption={selectedPrereq}
                         handleChange={handleInputChange}

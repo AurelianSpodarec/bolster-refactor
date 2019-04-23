@@ -57,7 +57,7 @@ export default function(WrappedComponent) {
             const {
                 questionType,
                 name,
-                prereqUuid,
+                prereqUUID,
                 prereqVal,
                 isRequired,
                 isHidden,
@@ -67,7 +67,7 @@ export default function(WrappedComponent) {
             return {
                 questionType,
                 name,
-                prereqUuid,
+                prereqUUID,
                 prereqVal,
                 isRequired,
                 isHidden,

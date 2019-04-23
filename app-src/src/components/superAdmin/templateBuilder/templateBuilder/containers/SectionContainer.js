@@ -69,11 +69,11 @@ class SectionContainer extends Component {
         const sectionQuestionUuids = sectionQuestions.map(({ uuid }) => uuid);
         const otherQuestionPrereqUuids = templateQuestions
             .filter(q => q.sectionUUID !== section.uuid)
-            .map(q => q.prereqUuid);
+            .map(q => q.prereqUUID);
 
         return (
             otherQuestionPrereqUuids.every(
-                prereqUuid => !sectionQuestionUuids.includes(prereqUuid)
+                prereqUUID => !sectionQuestionUuids.includes(prereqUUID)
             ) && sections.length > 1
         );
     };
