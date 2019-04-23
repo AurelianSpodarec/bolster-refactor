@@ -7,7 +7,8 @@ const LevelsSitesFilters = ({
     sitesOptions,
     selectedSite,
     handleChange,
-    classes = ''
+    classes = '',
+    required
 }) => (
     <>
         <Field name="Site" reqiured={true} classes={classes}>
@@ -18,7 +19,7 @@ const LevelsSitesFilters = ({
                 options={sitesOptions}
                 selectedOption={selectedSite}
                 handleChange={handleChange}
-                required
+                required={required}
             />
         </Field>
     </>
