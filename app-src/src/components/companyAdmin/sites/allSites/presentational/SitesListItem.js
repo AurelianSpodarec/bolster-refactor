@@ -1,8 +1,8 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
 import withToggleExpand from 'components/shared/generic/tables/hocs/withToggleExpand';
 import BuildingsTableContainer from 'components/companyAdmin/buildings/shared/containers/BuildingsTableContainer';
+import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 
 const SitesListItem = ({
     toggleExpanded,
@@ -29,13 +29,12 @@ const SitesListItem = ({
                 <td>{site.ownerCompanyName}</td>
                 <td>{permissions}</td>
                 <td>
-                    <Link
-                        className="button"
+                    <ButtonContainer
                         to={`/company/sites/${site.id}`}
-                        onClick={e => e.stopPropagation()}
+                        handleClick={e => e.stopPropagation()}
                     >
                         View
-                    </Link>
+                    </ButtonContainer>
                 </td>
             </tr>
             {isExpanded && (

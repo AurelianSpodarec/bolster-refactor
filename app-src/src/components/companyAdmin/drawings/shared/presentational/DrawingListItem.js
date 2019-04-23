@@ -1,6 +1,7 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
+import ButtonNoClickContainer from 'components/shared/generic/button/containers/ButtonNoClickContainer';
 
 const DrawingListItem = ({ drawing, permissions }) => (
     <tr>
@@ -13,12 +14,9 @@ const DrawingListItem = ({ drawing, permissions }) => (
         </td>
         <td>{permissions}</td>
         <td>
-            <Link
-                className="button light-blue"
-                to={`/company/drawings/${drawing.id}`}
-            >
+            <ButtonNoClickContainer to={`/company/drawings/${drawing.id}`}>
                 View
-            </Link>
+            </ButtonNoClickContainer>
         </td>
     </tr>
 );

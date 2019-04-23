@@ -6,6 +6,8 @@ import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/pr
 import { PAYMENT_TYPES, DATE_TIME_IDS } from 'constants/companyAdmin/enums';
 import { PAY_INVOICE } from 'constants/shared/modalTypes';
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
+import ButtonNoClickContainer from 'components/shared/generic/button/containers/ButtonNoClickContainer';
+import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 
 const InvoiceListItem = ({
     invoice: { createdOn, isPaid, total, id, paymentType },
@@ -22,12 +24,13 @@ const InvoiceListItem = ({
         <td>{!isPaid && <i className="fa fa-exclamation" />}</td>
         <td>
             <BlockButtonWrapper>
-                <Link to={`/company/invoices/${id}`} className="button">
+                <ButtonNoClickContainer to={`/company/invoices/${id}`}>
                     View
-                </Link>
+                </ButtonNoClickContainer>
+
                 {!isPaid && (
                     <button
-                        className="button"
+                        className="button green"
                         onClick={() =>
                             showModal(PAY_INVOICE, { invoiceID: id })
                         }

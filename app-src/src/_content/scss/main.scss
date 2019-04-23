@@ -146,7 +146,8 @@ body {
     }
 
     .button,
-    button {
+    button,
+    .link-holder {
         float: right;
         margin-left: 7.5px;
     }
@@ -302,7 +303,44 @@ input {
         }
     }
 }
+.link-holder {
+    display: inline-block;
+    text-decoration: none;
+    text-transform: capitalize;
 
+    transition: 0.2s background-color;
+    border-radius: 2.5px;
+    @include ubuntu;
+    line-height: 1;
+
+    a {
+        display: inline-block;
+        padding: 5px 15px;
+        font-size: 12px;
+        text-decoration: none;
+        color: white;
+        line-height: 1;
+    }
+
+    &.disabled {
+        opacity: 0.5;
+        pointer-events: none;
+        cursor: not-allowed;
+    }
+    &.icon-only {
+        padding: {
+            left: 4px;
+            right: 4px;
+        }
+        i {
+            margin-right: 0;
+        }
+    }
+
+    i {
+        margin-right: 5px;
+    }
+}
 //buttons
 .button {
     display: inline-block;
@@ -549,7 +587,8 @@ input {
                 }
             }
 
-            .button {
+            .button,
+            .link-holder {
                 float: right;
             }
         }
@@ -693,7 +732,8 @@ input {
             float: left;
             width: auto;
         }
-        .button {
+        .button,
+        .link-holder {
             float: left;
             margin-left: 0;
             margin-right: 10px;
@@ -1582,6 +1622,13 @@ input {
 
         .button-block-container {
             margin-top: 0;
+            padding: 0;
+
+            .link-holder,
+            .button {
+                margin-left: 2.5px;
+                margin-bottom: 1px;
+            }
         }
     }
 

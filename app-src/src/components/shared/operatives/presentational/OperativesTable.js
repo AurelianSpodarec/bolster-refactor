@@ -4,6 +4,7 @@ import { withRouter, Link } from 'react-router-dom';
 import Table from 'components/shared/generic/tables/presentational/Table';
 import OperativesList from './OperativesList';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
+import ButtonNoClickContainer from 'components/shared/generic/button/containers/ButtonNoClickContainer';
 
 const OperativesTable = ({
     location,
@@ -18,8 +19,8 @@ const OperativesTable = ({
     return (
         <div className="size-lg-12">
             <BlockHeading title="Operative Access">
-                <Link
-                    className={`button pull-right ${
+                <ButtonNoClickContainer
+                    className={`pull-right ${
                         isAddOperativeDisabled ? 'disabled' : ''
                     }`}
                     to={
@@ -30,7 +31,7 @@ const OperativesTable = ({
                 >
                     <i className="fa fa-plus" />{' '}
                     {isAddOperativeDisabled ? 'Full' : 'Invite'}
-                </Link>
+                </ButtonNoClickContainer>
             </BlockHeading>
             <Table
                 headers={['Name', 'Actions']}

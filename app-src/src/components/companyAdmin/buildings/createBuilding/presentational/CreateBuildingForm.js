@@ -4,6 +4,7 @@ import Field from 'components/shared/generic/form/presentational/Field';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
+import ButtonNoClickContainer from 'components/shared/generic/button/containers/ButtonNoClickContainer';
 
 const CreateBuildingForm = ({
     handleSubmit,
@@ -68,9 +69,9 @@ const CreateBuildingForm = ({
                 <button className="button green">
                     <i className="fa fa-plus" /> Add Building
                 </button>
-                <a className="button" href={`/company/sites/${siteID}`}>
+                <ButtonNoClickContainer to={`/company/sites/${siteID}`}>
                     Cancel
-                </a>
+                </ButtonNoClickContainer>
             </BlockButtonWrapper>
         </Form>
     </>

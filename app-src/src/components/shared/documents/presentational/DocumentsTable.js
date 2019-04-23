@@ -4,17 +4,18 @@ import { withRouter, Link } from 'react-router-dom';
 import Table from 'components/shared/generic/tables/presentational/Table';
 import DocumentsList from './DocumentsList';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
+import ButtonNoClickContainer from 'components/shared/generic/button/containers/ButtonNoClickContainer';
 
 const DocumentsTable = ({ location, documents, isFetching }) => {
     return (
         <div className="size-lg-12">
             <BlockHeading title="Documents" classes="w-table">
-                <Link
-                    className="button pull-right"
+                <ButtonNoClickContainer
+                    className="pull-right"
                     to={`${location.pathname}/attach-document`}
                 >
                     <i className="fa fa-plus" /> Add
-                </Link>
+                </ButtonNoClickContainer>
             </BlockHeading>
             <div className="table-container size-lg-12">
                 <Table

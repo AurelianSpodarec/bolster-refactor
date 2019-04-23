@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import FloorTableContainer from 'components/companyAdmin/floors/shared/containers/FloorTableContainer';
+import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 const BuldingsListItem = ({
     building,
     toggleExpanded,
@@ -25,13 +26,12 @@ const BuldingsListItem = ({
             </td>
             <td>{permissions}</td>
             <td>
-                <Link
-                    className="button light-blue"
+                <ButtonContainer
                     to={`/company/buildings/${building.id}`}
-                    onClick={e => e.stopPropagation()}
+                    handleClick={e => e.stopPropagation()}
                 >
                     View
-                </Link>
+                </ButtonContainer>
             </td>
         </tr>
         {isExpanded && (

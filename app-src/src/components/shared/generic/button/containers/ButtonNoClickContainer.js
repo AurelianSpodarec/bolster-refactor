@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
-class ButtonContainer extends Component {
+class ButtonNoClickContainer extends Component {
     state = {
         hover: false
     };
@@ -13,7 +13,8 @@ class ButtonContainer extends Component {
             children,
             companySettings,
             to = '',
-            type = 'buttton'
+            type = 'buttton',
+            className = ''
         } = this.props;
         const { hover } = this.state;
 
@@ -27,21 +28,19 @@ class ButtonContainer extends Component {
 
         return to && to.length ? (
             <div
-                className="link-holder"
+                className={`link-holder ${className}`}
                 onMouseLeave={() => this.handleMouseLeave()}
                 onMouseOver={() => this.handleMouseOver()}
                 style={hover ? hoverStyle : normalStyle}
-                onClick={this.handleClick}
             >
                 <Link to={to}>{children}</Link>
             </div>
         ) : (
             <button
-                className="button"
+                className={`button ${className}`}
                 onMouseLeave={() => this.handleMouseLeave()}
                 onMouseOver={() => this.handleMouseOver()}
                 style={hover ? hoverStyle : normalStyle}
-                onClick={this.handleClick}
                 type={type}
             >
                 {children}
@@ -60,10 +59,6 @@ class ButtonContainer extends Component {
             hover: false
         });
     };
-
-    handleClick = e => {
-        this.props.handleClick(e);
-    };
 }
 
 const mapStateToProps = ({
@@ -80,5 +75,5 @@ export default withRouter(
     connect(
         mapStateToProps,
         mapDispatchToProps
-    )(ButtonContainer)
+    )(ButtonNoClickContainer)
 );

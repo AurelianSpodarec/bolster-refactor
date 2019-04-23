@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 
 const HeaderNotifications = ({
     popupVisible,
@@ -45,13 +46,12 @@ const HeaderNotifications = ({
             )}
             {}
             <div className="item">
-                <Link
+                <ButtonContainer
                     onClick={togglePopup}
                     to="/company/tools/generation-queue"
-                    className="button"
                 >
                     View generation queue
-                </Link>
+                </ButtonContainer>
             </div>
         </div>
     </div>

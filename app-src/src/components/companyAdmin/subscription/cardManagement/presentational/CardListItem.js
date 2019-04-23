@@ -1,6 +1,7 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
+import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 
 const CardListItem = ({
     card: { expMonth, expYear, isPrimary, lastFour, name, id },
@@ -14,11 +15,6 @@ const CardListItem = ({
         <td>{<i className={isPrimary ? 'fa fa-check' : 'fa fa-times'} />}</td>
         <td>
             <BlockButtonWrapper>
-                {!isPrimary && (
-                    <button className="button" onClick={setPrimaryCard}>
-                        Make Primary
-                    </button>
-                )}
                 <button
                     className="button icon-only red"
                     onClick={() => {
@@ -27,6 +23,11 @@ const CardListItem = ({
                 >
                     <i className="far fa-trash-alt" />
                 </button>
+                {!isPrimary && (
+                    <ButtonContainer handleClick={setPrimaryCard}>
+                        Make Primary
+                    </ButtonContainer>
+                )}
             </BlockButtonWrapper>
         </td>
     </tr>

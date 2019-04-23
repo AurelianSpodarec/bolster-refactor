@@ -5,6 +5,7 @@ import BlockHeading from 'components/shared/generic/blockHeading/presentational/
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 import { DATE_TIME_IDS } from 'constants/companyAdmin/enums';
+import ButtonNoClickContainer from 'components/shared/generic/button/containers/ButtonNoClickContainer';
 
 const MySubscription = ({ services, daysleft, subscriptions, endOn }) => (
     <div className="size-lg-12">
@@ -37,9 +38,12 @@ const MySubscription = ({ services, daysleft, subscriptions, endOn }) => (
             </p>
         )}
         <BlockButtonWrapper>
-            <Link className="button pull-right" to="/company/subscription">
+            <ButtonNoClickContainer
+                className="pull-right"
+                to="/company/subscription"
+            >
                 Manage My Subscription
-            </Link>
+            </ButtonNoClickContainer>
         </BlockButtonWrapper>
     </div>
 );
