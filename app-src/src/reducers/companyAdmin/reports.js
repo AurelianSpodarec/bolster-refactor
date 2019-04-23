@@ -94,7 +94,6 @@ function postSuccessReducer(state = false, action) {
         case POST_REPORT_REQUEST:
             return false;
         case POST_REPORT_SUCCESS:
-        case POST_CUSTOM_FILTERS_SUCCESS:
             return true;
         default:
             return state;
@@ -113,8 +112,8 @@ function customFiltersReducer(state = {}, action) {
 function optionsReducer(
     state = {
         showHidden: false,
-        sortBy: SORT_BY_OPTIONS.CREATED_ON_DESC,
-        layout: LAYOUT_OPTIONS.ONE_COLUMN
+        sortBy: String(SORT_BY_OPTIONS.CREATED_ON_DESC),
+        layout: String(LAYOUT_OPTIONS.ONE_COLUMN)
     },
     action
 ) {

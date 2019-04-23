@@ -14,13 +14,6 @@ export default function(ProtectedComponent) {
             if (!this._isSubscribed())
                 return <Redirect to="/company/subscription" />;
 
-            console.log('subscribed!!');
-            console.log('subscribed!!');
-            console.log('subscribed!!');
-            console.log('subscribed!!');
-            console.log('subscribed!!');
-            console.log('subscribed!!');
-            console.log('subscribed!!');
             return <ProtectedComponent {...this.props} />;
         }
 
