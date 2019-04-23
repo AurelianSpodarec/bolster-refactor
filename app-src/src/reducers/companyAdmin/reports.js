@@ -15,7 +15,7 @@ import {
     REMOVE_FILTER_QUESTIONS,
     UPDATE_FILTER_OPTION
 } from 'constants/actionTypes/reports';
-import { updateObj, removeObjItem } from 'helpers/generic';
+import { updateObj, removeObjItem, convertArrToObj } from 'helpers/generic';
 import { SORT_BY_OPTIONS, LAYOUT_OPTIONS } from 'constants/companyAdmin/enums';
 
 export default combineReducers({
@@ -25,7 +25,8 @@ export default combineReducers({
     filters: filtersReducer,
     options: optionsReducer,
     postFailure: postFailureReducer,
-    postSuccess: postSuccessReducer
+    postSuccess: postSuccessReducer,
+    pinResults: pinResultsReducer
 });
 
 //send the questionsIDs
@@ -104,6 +105,15 @@ function customFiltersReducer(state = {}, action) {
     switch (action.type) {
         case POST_CUSTOM_FILTERS_SUCCESS:
             return action.payload;
+        default:
+            return state;
+    }
+}
+
+function pinResultsReducer(state = {}, action) {
+    switch (action.type) {
+        case POST_CUSTOM_FILTERS_SUCCESS:
+            return convertArrToObj(action.payload.pins);
         default:
             return state;
     }
