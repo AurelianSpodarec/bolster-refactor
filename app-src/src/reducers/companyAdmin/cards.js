@@ -56,8 +56,9 @@ function updatedCardIDReducer(state = 0, action) {
         case DELETE_CARD_REQUEST:
             return 0;
         case ADD_CARD_SUCCESS:
-        case DELETE_CARD_SUCCESS:
             return action.payload.id;
+        case DELETE_CARD_SUCCESS:
+            return action.id;
         default:
             return state;
     }
@@ -101,8 +102,11 @@ function cardsReducer(state = {}, action) {
             return convertArrToObj(action.payload);
         case ADD_CARD_SUCCESS:
             return updateObj(state, action.payload.id, action.payload);
-        case DELETE_CARD_SUCCESS:
+        case DELETE_CARD_SUCCESS: {
+            const newState = removeObjItem(state, action.id);
+            console.log(newState);
             return removeObjItem(state, action.id);
+        }
         default:
             return state;
     }
