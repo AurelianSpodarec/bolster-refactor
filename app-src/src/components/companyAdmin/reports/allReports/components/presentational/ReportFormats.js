@@ -13,7 +13,7 @@ const ReportFormats = ({
     <>
         <Field name="Report formats">
             <DropdownContainer
-                placeholder="Please select'"
+                placeholder="Please select"
                 name="reportFormatsID"
                 options={reportFormatOptions}
                 selectedOption={selectedReportFormat}

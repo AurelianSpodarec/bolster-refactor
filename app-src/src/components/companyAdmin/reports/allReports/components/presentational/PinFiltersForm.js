@@ -15,10 +15,11 @@ import ReportFormatsContainer from '../containers/ReportFormatsContainer';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import CustomFiltersContainer from '../containers/CustomFiltersContainer';
 import OperativesFilterContainer from '../containers/OperativesFilterContainer';
+import FurtherFiltrationContainer from '../containers/FurtherFiltrationContainer';
 
 const PinFiltersForm = ({
-    futherFiltrationOptions,
-    selectedFutherFiltration,
+    furtherFiltrationOptions,
+    selectedfurtherFiltration,
     handleFurtherFiltrationChange,
     filterOption,
     handleSubmit
@@ -46,13 +47,12 @@ const PinFiltersForm = ({
 
         <div className="size-lg-12">
             <BlockContainer>
-                <FurtherFiltration
-                    futherFiltrationOptions={futherFiltrationOptions}
-                    selectedFutherFiltration={selectedFutherFiltration}
+                <FurtherFiltrationContainer
+                    filterOption={filterOption}
+                    furtherFiltrationOptions={furtherFiltrationOptions}
+                    selectedfurtherFiltration={selectedfurtherFiltration}
                     handleChange={handleFurtherFiltrationChange}
                 />
-                {filterOption === '1' && <PinSelectorContainer />}
-                {filterOption === '2' && <CustomFiltersContainer />}
             </BlockContainer>
         </div>
         <div className="size-lg-12">

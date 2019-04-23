@@ -10,7 +10,7 @@ const NumberOfHistories = ({
 }) => (
     <Field name="Number of Histories" reqiured={true}>
         <DropdownContainer
-            placeholder="Please select'"
+            placeholder="Please select"
             name="numberOfHistoriesID"
             options={numberOfHistoriesOptions}
             selectedOption={selectedHistory}

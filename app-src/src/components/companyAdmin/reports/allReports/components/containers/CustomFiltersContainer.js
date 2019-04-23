@@ -2,42 +2,41 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import uuid from 'uuid/v1';
 
-import { convertArrToObj } from 'helpers/generic';
+import { convertArrToObj, removeObjItem, updateObj } from 'helpers/generic';
 import updateReportFilter from 'actions/companyAdmin/reports/sync/updateReportFilter';
 import CustomFilter from '../presentational/CustomFilters';
-
+import updateFilterQuestionField from 'actions/companyAdmin/reports/sync/updateFilterQuestionField';
+const id = uuid();
 class CustomFilterContainer extends Component {
     state = {
-        selectedQuestionID: ''
-        // questionValues:[{ value: '', id: uuid() }]
+        selectedQuestionID: '',
+        selectedQuestions: {},
+        questionValues: { [id]: { value: '', id } }
     };
 
     render() {
-        const { selectedQuestionID } = this.state;
-
-        const questionsOptions = this._getQuestionsOptions();
-
+        const { selectedQuestionID, questionValues } = this.state;
+        const { questionOptions, removeField } = this.props;
         return (
             <CustomFilter
-                questionsOptions={Object.values(questionsOptions)}
-                selectedQuestion={questionsOptions[selectedQuestionID]}
+                questionOptions={Object.values(questionOptions)}
+                selectedQuestion={questionOptions[selectedQuestionID]}
                 handleChange={this.handleChange}
+                addOption={this.addOption}
+                removeOption={this.removeOption}
+                updateOption={this.updateOption}
+                questionValues={Object.values(questionValues)}
+                removeField={removeField}
             />
         );
     }
 
-    //when an option is chosen - send this object to redux store, using the questionID as the object key
-    //add an empty field/value within this question object.
-    //todo that we need to use the questionID, to place the value into the question object.
-
-    handleChange = ({ target: { value, name } }) => {
-        const { updateReportFilter } = this.props;
-        console.log(value);
-
+    handleChange = ({ target: { value } }) => {
+        const { field } = this.props;
         this.setState({
             selectedQuestionID: value
         });
-        // updateReportFilter(name, value);
+        updateObj(field, 'selectedQuestionID', value);
     };
 
     _getQuestionsOptions = () => {
@@ -51,51 +50,62 @@ class CustomFilterContainer extends Component {
         return convertArrToObj(options, 'value');
     };
 
-    //unused
     addOption = e => {
         e.preventDefault();
         const { questionValues } = this.state;
-
-        //action to add to redux store
+        const id = uuid();
         this.setState({
-            questionValues: [...questionValues, { value: '', id: uuid() }]
+            questionValues: { ...questionValues, [id]: { value: '', id } }
         });
     };
-    //unused
-    removeOption = (e, id) => {
-        e.preventDefault();
-        const { options, updateQuestionField } = this.props;
-        updateQuestionField('options', options.filter(op => op.id !== id));
+
+    removeOption = id => {
+        this.setState({
+            questionValues: removeObjItem(this.state.questionValues, id)
+        });
     };
-    //unused
-    updateOption = e => {
-        e.preventDefault();
-        const { name: id, value } = e.target;
 
-        const { options, updateQuestionField } = this.props;
+    updateOption = ({ target: { name: id, value } }) => {
+        const { id: fieldID, updateFilterQuestionField } = this.props;
 
-        const updated = options.map(opt =>
-            opt.id === id ? { ...opt, value: value } : opt
+        const { selectedQuestionID } = this.state;
+        const updated = updateObj(this.state.questionValues, id, { id, value });
+        this.setState({
+            questionValues: updated
+        });
+
+        updateFilterQuestionField(
+            fieldID,
+            this.formatField(fieldID, selectedQuestionID, updated)
         );
-
-        updateQuestionField('options', updated);
     };
+
+    formatField = (id, selectedQuestionID, questionValues) => ({
+        id,
+        selectedQuestionID,
+        questionValues
+    });
 }
 
-const mapStateToProps = ({
-    companyAdmin: {
-        reportsReducer: {
-            customFilters: { questions }
+const mapStateToProps = (
+    {
+        companyAdmin: {
+            reportsReducer: {
+                customFilters: { questions },
+                fields
+            }
         }
-    }
-}) => ({
-    customQuestions: questions || []
+    },
+    ownProps
+) => ({
+    customQuestions: questions || [],
+    field: fields[ownProps.id]
 });
 
 const mapDispatchToProps = dispatch => ({
-    updateReportFilter: (name, val) => {
-        dispatch(updateReportFilter(name, val));
-    }
+    updateReportFilter: (name, val) => dispatch(updateReportFilter(name, val)),
+    updateFilterQuestionField: (name, val) =>
+        dispatch(updateFilterQuestionField(name, val))
 });
 
 export default connect(

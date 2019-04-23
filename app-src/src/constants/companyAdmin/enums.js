@@ -142,7 +142,7 @@ export const VAT_TYPES = {
 };
 
 //Report generator
-export const FUTHER_FILTRATION = {
+export const FURTHER_FILTRATION = {
     1: 'Pin Selection',
     2: 'Filters'
 };

@@ -840,6 +840,9 @@ input {
     }
 
     .multi-select {
+        .dropdown-content {
+            z-index: 1;
+        }
         input[type="checkbox"] {
             display: none;
         }

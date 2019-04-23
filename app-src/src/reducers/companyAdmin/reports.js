@@ -1,5 +1,4 @@
 import { combineReducers } from 'redux';
-import uuid from 'uuid/v1';
 
 import {
     POST_REPORT_REQUEST,
@@ -10,12 +9,14 @@ import {
     POST_CUSTOM_FILTERS_FAILURE,
     UPDATE_REPORT_FILTER,
     UPDATE_FILTER_QUESTION_FIELD,
-    UPDATE_FILTER_QUESTION_FIELDS,
-    UPDATE_OPERATIVE_FILTER
+    UPDATE_OPERATIVE_FILTER,
+    REMOVE_FILTER_QUESTION,
+    ADD_FILTER_QUESTION
 } from 'constants/actionTypes/reports';
-import { updateObj } from 'helpers/generic';
+import { updateObj, removeObjItem } from 'helpers/generic';
 
 export default combineReducers({
+    fields: fieldsReducer,
     filters: filtersReducer,
     error: errorReducer,
     customFilters: customFiltersReducer,
@@ -58,26 +59,18 @@ function filtersReducer(
             return state;
     }
 }
-const initialQuestionFields = {
-    name: '',
-    questionIDs: [],
-    questionValues: [{ text: '', id: uuid() }]
-};
 
-function fieldsReducer(state = initialQuestionFields, action) {
+function fieldsReducer(state = {}, action) {
     switch (action.type) {
         case UPDATE_FILTER_QUESTION_FIELD:
             return {
                 ...state,
                 [action.name]: action.value
             };
-        case UPDATE_FILTER_QUESTION_FIELD:
-            return {
-                ...state,
-                ...action.fields
-            };
-        case UPDATE_FILTER_QUESTION_FIELDS:
-            return initialQuestionFields;
+        case REMOVE_FILTER_QUESTION:
+            return removeObjItem(state, action.id);
+        case ADD_FILTER_QUESTION:
+            return { ...state, [action.id]: { id: action.id, value: {} } };
         default:
             return state;
     }

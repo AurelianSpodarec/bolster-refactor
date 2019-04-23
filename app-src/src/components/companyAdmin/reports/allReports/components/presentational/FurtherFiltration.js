@@ -4,16 +4,16 @@ import Field from 'components/shared/generic/form/presentational/Field';
 import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
 
 const FurtherFiltration = ({
-    selectedFutherFiltration,
-    futherFiltrationOptions,
+    selectedfurtherFiltration,
+    furtherFiltrationOptions,
     handleChange
 }) => (
     <Field name="Further Filtration" sizeClasses="size-lg-12">
         <DropdownContainer
-            placeholder="Please select'"
+            placeholder="None"
             name="filterOption"
-            options={futherFiltrationOptions}
-            selectedOption={selectedFutherFiltration}
+            options={furtherFiltrationOptions}
+            selectedOption={selectedfurtherFiltration}
             handleChange={handleChange}
         />
     </Field>

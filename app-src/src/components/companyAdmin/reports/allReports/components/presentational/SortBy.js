@@ -6,7 +6,7 @@ import Field from 'components/shared/generic/form/presentational/Field';
 const SortBy = ({ sortByOptions, selectedSortBy, handleChange }) => (
     <Field name="Sort by">
         <DropdownContainer
-            placeholder="Please select'"
+            placeholder="Please select"
             name="sortByID"
             options={sortByOptions}
             selectedOption={selectedSortBy}
