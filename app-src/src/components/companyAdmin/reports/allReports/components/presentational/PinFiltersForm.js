@@ -16,6 +16,7 @@ import BlockContainer from 'components/shared/generic/block/containers/BlockCont
 import OperativesFilterContainer from '../containers/OperativesFilterContainer';
 import FurtherFiltrationContainer from '../containers/FurtherFiltrationContainer';
 import OtherOptionsContainer from '../containers/OtherOptionsContainer';
+import FilterMapContainer from '../containers/FilterMapContainer';
 
 const PinFiltersForm = ({
     furtherFiltrationOptions,
@@ -25,6 +26,8 @@ const PinFiltersForm = ({
     handleSubmit
 }) => (
     <Form className="size-lg-12" onSubmit={handleSubmit}>
+        <FilterMapContainer />
+
         <div className="flex-container size-lg-12">
             <div className="flex-item size-lg-6">
                 <BlockContainer>
@@ -43,9 +46,6 @@ const PinFiltersForm = ({
                     </div>
                 </BlockContainer>
             </div>
-        </div>
-        <div className="size-lg-12">
-            <BlockContainer />
         </div>
 
         <div className="size-lg-12">

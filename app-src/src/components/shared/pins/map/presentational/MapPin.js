@@ -9,7 +9,8 @@ import ReactDOMServer from 'react-dom/server';
 
 const DrawingMapPin = ({
     pin: { id, location = {}, pinCode, latestStatus = '' },
-    history
+    history,
+    isReport
 }) => {
     const { latY = 1, lngX = 1 } = location;
 
@@ -35,7 +36,9 @@ const DrawingMapPin = ({
             key={id}
             position={[latY, lngX]}
             icon={divIcon}
-            onClick={() => history.push('/company/pins/' + id)}
+            onClick={() =>
+                isReport ? null : history.push('/company/pins/' + id)
+            }
         />
     );
 };
