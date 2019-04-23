@@ -2,7 +2,7 @@ import React from 'react';
 import { Route } from 'react-router-dom';
 
 import SwitchWith404 from 'components/appRoute/routes/presentational/SwitchWith404';
-import Dashboard from 'components/shared/dashboard/dashboard/presentational/Dashboard';
+import Dashboard from 'components/companyAdmin/dashboard/presentational/Dashboard';
 
 import withSubscriptionAuth from '../../hocs/withSubscriptionAuth';
 import SitesRoutes from './SitesRoutes';
