@@ -18,8 +18,7 @@ class FileUploadContainer extends Component {
     state = {
         showFieldError: false,
         isAfterAdd: false,
-        files: [],
-        keyIDs: {}
+        files: []
     };
 
     render() {
