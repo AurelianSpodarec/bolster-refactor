@@ -7,7 +7,7 @@ import BlockHeading from 'components/shared/generic/blockHeading/presentational/
 
 const OperativeAlertsTable = ({ isFetching, operativeAlerts }) => (
     <>
-        <BlockHeading title="Operative Alerts Table">
+        <BlockHeading title="Operative Alerts">
             <Link
                 to="/company/tools/operative-alerts/create"
                 className="button green"

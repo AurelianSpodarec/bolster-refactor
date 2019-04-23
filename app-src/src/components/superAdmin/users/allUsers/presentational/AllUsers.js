@@ -12,7 +12,7 @@ const AllUsers = () => (
             <UsersFiltersContainer />
         </BlockContainer>
         <BlockContainer>
-            <BlockHeading title="Users Table" />
+            <BlockHeading title="Users" />
             <UserTableContainer />
         </BlockContainer>
     </>

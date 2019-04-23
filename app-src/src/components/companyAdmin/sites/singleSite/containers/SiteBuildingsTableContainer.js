@@ -9,7 +9,7 @@ import BlockHeading from 'components/shared/generic/blockHeading/presentational/
 
 const SiteBuildingsTableContainer = ({ site }) => (
     <BlockContainer>
-        <BlockHeading title="Buildings Table" classes="w-table">
+        <BlockHeading title="Buildings" classes="w-table">
             <Link
                 className="button green"
                 to={`/company/buildings/create/${site.id}`}

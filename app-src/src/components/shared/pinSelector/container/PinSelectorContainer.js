@@ -50,14 +50,16 @@ class PinSelectorContainer extends Component {
     handleSubmit = () => {
         const { selectedPinOptions, pinOptions } = this.state;
 
-        const setPinInclude = Object.values(pinOptions)
-            .filter(pin => selectedPinOptions.includes(pin.value))
-            .map((pin, { included }) => ({
+        const setPinInclude = Object.values(pinOptions).map(
+            (pin, { included }) => ({
                 ...pin,
-                included: !included
-            }));
+                included: selectedPinOptions.includes(pin.value)
+                    ? !included
+                    : included
+            })
+        );
 
-        this.setState({ pinOptions: setPinInclude });
+        this.setState({ pinOptions: setPinInclude, selectedPinOptions: [] });
     };
 
     componentDidMount = () => {
@@ -75,9 +77,9 @@ class PinSelectorContainer extends Component {
     _setPinOptions = () => {
         const { pins } = this.props;
         const pinOptions = pins.reduce(
-            (acc, { id, pinCode }) => ({
+            (acc, { id, pinCode, status }) => ({
                 ...acc,
-                [id]: { value: id, text: pinCode, included: true }
+                [id]: { value: id, text: pinCode, status, included: true }
             }),
             {}
         );
