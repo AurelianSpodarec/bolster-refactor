@@ -6,7 +6,7 @@ import FurtherFiltration from '../presentational/FurtherFiltration';
 import PinSelectorContainer from 'components/shared/pinSelector/container/PinSelectorContainer';
 import CustomFiltersContainer from './CustomFiltersContainer';
 import updateReportFilter from 'actions/companyAdmin/reports/sync/updateReportFilter';
-import { removeObjItem, convertArrToObj } from 'helpers/generic';
+import { convertArrToObj } from 'helpers/generic';
 import addFilterQuestion from 'actions/companyAdmin/reports/sync/addFilterQuestion';
 import removeFilterQuestion from 'actions/companyAdmin/reports/sync/removeFilterQuestion';
 
@@ -19,9 +19,9 @@ class FurtherFiltrationContainer extends React.Component {
             furtherFiltrationOptions,
             selectedfurtherFiltration,
             handleChange,
-            filterOption
+            filterOption,
+            fields
         } = this.props;
-        const customFields = Object.values(this.state.customFields);
 
         const questionOptions = this._getQuestionsOptions();
         return (
@@ -42,11 +42,13 @@ class FurtherFiltrationContainer extends React.Component {
                         >
                             Add field
                         </button>
-                        {customFields.map(id => (
+                        {fields.map(field => (
                             <CustomFiltersContainer
-                                key={id}
-                                id={id}
-                                removeField={() => this.removeCustomField(id)}
+                                key={field.id}
+                                id={field.id}
+                                removeField={() =>
+                                    this.removeCustomField(field.id)
+                                }
                                 questionOptions={questionOptions}
                             />
                         ))}
@@ -72,6 +74,7 @@ class FurtherFiltrationContainer extends React.Component {
     // };
 
     removeCustomField = id => {
+        const { removeFilterQuestion } = this.props;
         this.setState({
             customFields: this.state.customFields.filter(
                 fieldID => id !== fieldID
@@ -95,11 +98,13 @@ class FurtherFiltrationContainer extends React.Component {
 const mapStateToProps = ({
     companyAdmin: {
         reportsReducer: {
-            customFilters: { questions }
+            customFilters: { questions },
+            fields
         }
     }
 }) => ({
-    customQuestions: questions || []
+    customQuestions: questions || [],
+    fields: Object.values(fields)
 });
 
 const mapDispatchToProps = dispatch => ({

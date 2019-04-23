@@ -1,5 +1,4 @@
 import { combineReducers } from 'redux';
-import uuid from 'uuid/v1';
 
 import {
     POST_REPORT_REQUEST,
@@ -10,7 +9,6 @@ import {
     POST_CUSTOM_FILTERS_FAILURE,
     UPDATE_REPORT_FILTER,
     UPDATE_FILTER_QUESTION_FIELD,
-    UPDATE_FILTER_QUESTION_FIELDS,
     UPDATE_OPERATIVE_FILTER,
     REMOVE_FILTER_QUESTION,
     ADD_FILTER_QUESTION

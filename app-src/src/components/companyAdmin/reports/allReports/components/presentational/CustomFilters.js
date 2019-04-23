@@ -9,6 +9,7 @@ const CustomFilter = ({
     selectedQuestion,
     handleChange,
     removeOption,
+    removeField,
     addOption,
     updateOption,
     questionValues
@@ -34,6 +35,7 @@ const CustomFilter = ({
                     {questionValues.length > 1 && (
                         <button
                             className="button"
+                            type="button"
                             onClick={() => removeOption(option.id)}
                         >
                             delete option
@@ -44,7 +46,7 @@ const CustomFilter = ({
             <button className="button" type="button" onClick={addOption}>
                 add option
             </button>
-            <button className="button" type="button" onClick={removeOption}>
+            <button className="button" type="button" onClick={removeField}>
                 X delete field
             </button>
         </Field>
