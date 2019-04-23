@@ -857,7 +857,18 @@ input {
         }
     }
 }
+.multi-select {
+    float: left;
+    width: 100%;
+    font-size: 12px;
 
+    .dropdown-content {
+        z-index: 1;
+    }
+    input[type="checkbox"] {
+        display: none;
+    }
+}
 //form stuff
 .form-field {
     padding: {
@@ -2350,14 +2361,12 @@ input {
         float: right;
         margin-right: 10px;
     }
-
-    .delete-question {
-        position: absolute;
-        right: 15px;
-        top: -2px;
-    }
 }
-
+.delete-question {
+    position: absolute;
+    right: 15px;
+    top: -2px;
+}
 //report page
 .levels-filter {
     .form-field {
@@ -2378,6 +2387,61 @@ input {
         .selector-pin {
             &.active {
                 background-color: $background-grey;
+            }
+        }
+    }
+}
+
+.custom-filters-block {
+    .button-block-container {
+        padding: 0 25px;
+        margin-top: 0;
+    }
+    .item {
+        padding-left: 15px;
+        padding-right: 15px;
+        padding: {
+            top: 11px;
+            bottom: 10px;
+        }
+        margin-top: 12.5px;
+
+        &:nth-child(odd) {
+            background-color: $background-grey;
+
+            .option-item {
+                .generic-input {
+                    background-color: white;
+                }
+            }
+        }
+
+        &:last-of-type {
+            margin-bottom: 10px;
+        }
+        .button-block-container {
+            padding: 0;
+            margin-top: 5px;
+        }
+        .delete-question {
+            right: 9px;
+        }
+        .form-field {
+            margin-bottom: 0;
+        }
+        .options-list-block {
+            margin-top: 10px;
+            .option-item {
+                margin: {
+                    top: 0;
+                    bottom: 0;
+                }
+                padding: 10px 0;
+
+                .delete-question {
+                    top: 7px;
+                    right: 0;
+                }
             }
         }
     }
