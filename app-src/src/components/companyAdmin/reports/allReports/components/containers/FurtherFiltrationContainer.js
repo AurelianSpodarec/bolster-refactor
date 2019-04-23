@@ -10,90 +10,65 @@ import { convertArrToObj } from 'helpers/generic';
 import addFilterQuestion from 'actions/companyAdmin/reports/sync/addFilterQuestion';
 import removeFilterQuestion from 'actions/companyAdmin/reports/sync/removeFilterQuestion';
 
-class FurtherFiltrationContainer extends React.Component {
-    state = {
-        customFields: []
-    };
-    render() {
-        const {
-            furtherFiltrationOptions,
-            selectedfurtherFiltration,
-            handleChange,
-            filterOption,
-            fields
-        } = this.props;
+const FurtherFiltrationContainer = ({
+    furtherFiltrationOptions,
+    selectedfurtherFiltration,
+    handleChange,
+    filterOption,
+    fields,
+    removeFilterQuestion,
+    addFilterQuestion,
+    customQuestions
+}) => {
+    const questionOptions = _getQuestionsOptions();
+    return (
+        <>
+            <FurtherFiltration
+                furtherFiltrationOptions={furtherFiltrationOptions}
+                selectedfurtherFiltration={selectedfurtherFiltration}
+                handleChange={handleChange}
+            />
+            {filterOption === '1' ? (
+                <PinSelectorContainer />
+            ) : filterOption === '2' ? (
+                <>
+                    <button
+                        onClick={addCustomField}
+                        type="button"
+                        className="button"
+                    >
+                        Add field
+                    </button>
+                    {fields.map(field => (
+                        <CustomFiltersContainer
+                            key={field.id}
+                            id={field.id}
+                            removeField={() => removeCustomField(field.id)}
+                            questionOptions={questionOptions}
+                        />
+                    ))}
+                </>
+            ) : null}
+        </>
+    );
+    function addCustomField() {
+        const id = uuid();
 
-        const questionOptions = this._getQuestionsOptions();
-        return (
-            <>
-                <FurtherFiltration
-                    furtherFiltrationOptions={furtherFiltrationOptions}
-                    selectedfurtherFiltration={selectedfurtherFiltration}
-                    handleChange={handleChange}
-                />
-                {filterOption === '1' ? (
-                    <PinSelectorContainer />
-                ) : filterOption === '2' ? (
-                    <>
-                        <button
-                            onClick={this.addCustomField}
-                            type="button"
-                            className="button"
-                        >
-                            Add field
-                        </button>
-                        {fields.map(field => (
-                            <CustomFiltersContainer
-                                key={field.id}
-                                id={field.id}
-                                removeField={() =>
-                                    this.removeCustomField(field.id)
-                                }
-                                questionOptions={questionOptions}
-                            />
-                        ))}
-                    </>
-                ) : null}
-            </>
-        );
+        addFilterQuestion(id);
     }
 
-    addCustomField = () => {
-        const { addFilterQuestion } = this.props;
-        const id = uuid();
-        this.setState({
-            customFields: [...this.state.customFields, id]
-        });
-        addFilterQuestion(id);
-    };
-
-    // updateCustomField = (id, field) => {
-    //     this.setState({
-    //         customFields: { ...this.state.customFields, [id]: field }
-    //     });
-    // };
-
-    removeCustomField = id => {
-        const { removeFilterQuestion } = this.props;
-        this.setState({
-            customFields: this.state.customFields.filter(
-                fieldID => id !== fieldID
-            )
-        });
+    function removeCustomField(id) {
         removeFilterQuestion(id);
-    };
+    }
 
-    _getQuestionsOptions = () => {
-        const { customQuestions } = this.props;
-
-        const options = customQuestions.map(({ id, name }) => ({
-            value: id,
-            text: name
+    function _getQuestionsOptions() {
+        const options = customQuestions.map(({ id: value, name: text }) => ({
+            value,
+            text
         }));
-
         return convertArrToObj(options, 'value');
-    };
-}
+    }
+};
 
 const mapStateToProps = ({
     companyAdmin: {
