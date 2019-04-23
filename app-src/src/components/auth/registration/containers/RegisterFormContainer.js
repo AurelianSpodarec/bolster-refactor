@@ -46,12 +46,11 @@ class RegisterFormContainer extends Component {
             <RegisterForm
                 {...this.state}
                 error={this.props.error}
-                handleInputChange={this.handleInputChange}
+                handleInputChange={this.handleChange}
                 timezoneOptions={timezoneOptions}
                 handleTimezoneChange={this._handleTimezoneChange}
                 handleDateFormatChange={this._handleDateFormatChange}
                 handleVatTypeChange={this._handleVatTypeChange}
-                handleCheckboxChange={this.handleCheckboxChange}
                 dateFormats={dateFormats}
                 vatOptions={vatOptions}
                 handleSubmit={this.handleSubmit}
@@ -59,20 +58,14 @@ class RegisterFormContainer extends Component {
         );
     }
 
-    handleInputChange = e => {
-        e.preventDefault();
-
+    handleChange = ({ target: { type, value, checked, name } }) => {
+        const { updateAddPinAnswer, question } = this.props;
+        const val = type === 'checkbox' ? checked : value;
         this.setState({
-            [e.target.name]: e.target.value
+            [name]: val
         });
     };
 
-    handleCheckboxChange = e => {
-        const { name } = e.target;
-        this.setState(prevState => ({
-            [name]: !prevState[name]
-        }));
-    };
     _handleTimezoneChange = timezone => this.setState({ timezone });
 
     _handleDateFormatChange = dateFormat => this.setState({ dateFormat });

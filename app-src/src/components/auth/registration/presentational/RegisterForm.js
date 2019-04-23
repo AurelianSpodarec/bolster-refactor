@@ -16,9 +16,8 @@ const RegisterForm = ({
     handleTimezoneChange,
     handleDateFormatChange,
     handleVatTypeChange,
-    handleCheckboxChange,
     timezoneOptions,
-    timezone,
+    timeZone,
     email,
     password,
     firstName,
@@ -33,7 +32,7 @@ const RegisterForm = ({
     vatCode,
     vatOptions,
     dateFormats,
-    dateFormat,
+    'company.dateFormatID': dateFormatID,
     terms,
     error
 }) => (
@@ -128,7 +127,7 @@ const RegisterForm = ({
             <Field name="Timezone">
                 <Select
                     options={timezoneOptions}
-                    value={timezone}
+                    value={timeZone}
                     isSearchable
                     onChange={handleTimezoneChange}
                 />
@@ -136,7 +135,7 @@ const RegisterForm = ({
             <Field name="Date format">
                 <Select
                     options={dateFormats}
-                    value={dateFormat}
+                    value={dateFormatID}
                     isSearchable
                     onChange={handleDateFormatChange}
                 />
@@ -165,7 +164,7 @@ const RegisterForm = ({
                 </p>
                 <Checkbox
                     checked={terms}
-                    handleChange={handleCheckboxChange}
+                    handleChange={handleInputChange}
                     name="terms"
                 />
             </Field>
