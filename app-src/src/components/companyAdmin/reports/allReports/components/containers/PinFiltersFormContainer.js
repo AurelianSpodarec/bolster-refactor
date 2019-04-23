@@ -7,6 +7,7 @@ import PinFiltersForm from '../presentational/PinFiltersForm';
 
 import postReport from 'actions/companyAdmin/reports/async/postReport';
 import postCustomFilters from 'actions/companyAdmin/reports/async/postCustomFilters';
+import removeFilterQuestions from 'actions/companyAdmin/reports/sync/removeFilterQuestions';
 
 export class PinFiltersFormContainer extends Component {
     state = {
@@ -39,6 +40,22 @@ export class PinFiltersFormContainer extends Component {
             />
         );
     }
+
+    componentDidUpdate = prevProps => {
+        const {
+            filters: { siteID, buildingID, floorID, drawingID },
+            removeFilterQuestions
+        } = this.props;
+        if (
+            siteID !== prevProps.filters.siteID ||
+            buildingID !== prevProps.filters.buildingID ||
+            floorID !== prevProps.filters.floorID ||
+            drawingID !== prevProps.filters.drawingID
+        ) {
+            this.setState({ filterOption: 0 });
+            removeFilterQuestions();
+        }
+    };
 
     handleFurtherFiltrationChange = ({ target: { value, name } }) => {
         this.setState({ [name]: value });
@@ -99,8 +116,6 @@ export class PinFiltersFormContainer extends Component {
             questionFilters
         };
 
-        console.log(postBody);
-
         postReport(postBody);
     };
 }
@@ -123,13 +138,10 @@ const mapStateToProps = ({
     filters
 });
 
-const mapDispatchToProps = dipatch => ({
-    postReport: postBody => {
-        dipatch(postReport(postBody));
-    },
-    postCustomFilters: postBody => {
-        dipatch(postCustomFilters(postBody));
-    }
+const mapDispatchToProps = dispatch => ({
+    postReport: postBody => dispatch(postReport(postBody)),
+    postCustomFilters: postBody => dispatch(postCustomFilters(postBody)),
+    removeFilterQuestions: () => dispatch(removeFilterQuestions())
 });
 
 export default connect(

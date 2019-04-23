@@ -11,7 +11,8 @@ import {
     UPDATE_FILTER_QUESTION_FIELD,
     UPDATE_OPERATIVE_FILTER,
     REMOVE_FILTER_QUESTION,
-    ADD_FILTER_QUESTION
+    ADD_FILTER_QUESTION,
+    REMOVE_FILTER_QUESTIONS
 } from 'constants/actionTypes/reports';
 import { updateObj, removeObjItem } from 'helpers/generic';
 
@@ -78,6 +79,8 @@ function fieldsReducer(state = {}, action) {
                     questionValues: {}
                 }
             };
+        case REMOVE_FILTER_QUESTIONS:
+            return {};
         default:
             return state;
     }
