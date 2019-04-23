@@ -175,3 +175,13 @@ export const GENERATION_STATE_VAL = {
     COMPLETE: 2,
     FAILED: 3
 };
+
+export const SORT_BY_OPTIONS = {
+    CREATED_ON_ASC: 1,
+    CREATED_ON_DESC: 2
+};
+
+export const LAYOUT_OPTIONS = {
+    ONE_COLUMN: 1,
+    TWO_COLUMN: 2
+};

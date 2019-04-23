@@ -12,17 +12,20 @@ import {
     UPDATE_OPERATIVE_FILTER,
     REMOVE_FILTER_QUESTION,
     ADD_FILTER_QUESTION,
-    REMOVE_FILTER_QUESTIONS
+    REMOVE_FILTER_QUESTIONS,
+    UPDATE_FILTER_OPTION
 } from 'constants/actionTypes/reports';
 import { updateObj, removeObjItem } from 'helpers/generic';
+import { SORT_BY_OPTIONS, LAYOUT_OPTIONS } from 'constants/companyAdmin/enums';
 
 export default combineReducers({
+    customFilters: customFiltersReducer,
+    error: errorReducer,
     fields: fieldsReducer,
     filters: filtersReducer,
-    error: errorReducer,
-    customFilters: customFiltersReducer,
-    postSuccess: postSuccessReducer,
-    postFailure: postFailureReducer
+    options: optionsReducer,
+    postFailure: postFailureReducer,
+    postSuccess: postSuccessReducer
 });
 
 //send the questionsIDs
@@ -102,6 +105,22 @@ function customFiltersReducer(state = {}, action) {
     switch (action.type) {
         case POST_CUSTOM_FILTERS_SUCCESS:
             return action.payload;
+        default:
+            return state;
+    }
+}
+
+function optionsReducer(
+    state = {
+        showHidden: false,
+        sortBy: SORT_BY_OPTIONS.CREATED_ON_DESC,
+        layout: LAYOUT_OPTIONS.ONE_COLUMN
+    },
+    action
+) {
+    switch (action.type) {
+        case UPDATE_FILTER_OPTION:
+            return updateObj(state, action.key, action.value);
         default:
             return state;
     }
