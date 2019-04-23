@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route } from 'react-router-dom';
+import { Route, Redirect } from 'react-router-dom';
 
 import withAuth from 'components/shared/auth/auth/hocs/withAuth';
 import NotFound from 'components/shared/notFound/presentational/NotFound';
@@ -14,6 +14,7 @@ import { AUTH_TYPES } from 'constants/shared/auth';
 const { SUPER_ADMIN, COMPANY } = AUTH_TYPES;
 const Routes = () => (
     <SwitchWith404>
+        <Redirect exact path="/" to="/company" />
         <Route exact path="/404" component={NotFound} />
         <Route path="/auth" component={AuthApp} />
         <Route path="/test" component={withAuth(TestApp, COMPANY)} />
