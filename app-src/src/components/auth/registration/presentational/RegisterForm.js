@@ -105,7 +105,6 @@ const RegisterForm = ({
                     required
                 />
             </Field>
-            <div className="size-lg-12" />
             <Field name="Business name" reqiured={true} sizeClasses="size-lg-4">
                 <TextInputContainer
                     value={name}

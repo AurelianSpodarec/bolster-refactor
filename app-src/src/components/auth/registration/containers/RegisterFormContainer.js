@@ -144,11 +144,9 @@ class RegisterFormContainer extends Component {
     componentDidUpdate = prevProps => {
         const { postSuccess, history } = this.props;
 
-        // if (postSuccess && !prevProps.postSuccess) {
-        //     authenticate().then(({ isSuperAdmin }) => {
-        //         history.push(isSuperAdmin ? '/admin' : '/company');
-        //     });
-        // }
+        if (postSuccess && !prevProps.postSuccess) {
+            history.push('/auth/login');
+        }
     };
     validateConfirmPassword = confirmPassword => {
         const { 'User.password': password } = this.state;
@@ -160,12 +158,13 @@ class RegisterFormContainer extends Component {
 const mapStateToProps = ({
     shared: {
         timeReducer: { timeZones, dateFormats },
-        registerReducer: { error }
+        registerReducer: { error, postSuccess }
     }
 }) => ({
     timezones: Object.values(timeZones) || [],
     dateFormats: Object.values(dateFormats) || [],
-    error
+    error,
+    postSuccess
 });
 
 const mapDispatchToProps = dispatch => ({
