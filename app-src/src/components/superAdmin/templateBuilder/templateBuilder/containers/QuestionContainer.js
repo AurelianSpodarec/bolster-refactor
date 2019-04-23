@@ -24,7 +24,7 @@ class QuestionContainer extends Component {
         } = this.props;
         const { uuid } = question;
         const isPrereq = questions.some(
-            item => item.prereqUuid === question.uuid
+            item => item.prereqUUID === question.uuid
         );
 
         return connectDragSource(

@@ -12,7 +12,7 @@ class TemplateQuestionModalContainer extends Component {
             fields: {
                 questionType,
                 questionTypeOptions,
-                prereqUuid,
+                prereqUUID,
                 ...fields
             },
             hideModal,
@@ -25,7 +25,7 @@ class TemplateQuestionModalContainer extends Component {
             <TemplateQuestionFormModal
                 {...fields}
                 prereqOptions={Object.values(prereqOptions)}
-                selectedPrereq={prereqOptions[prereqUuid]}
+                selectedPrereq={prereqOptions[prereqUUID]}
                 questionType={questionTypeOptions[questionType]}
                 questionTypeOptions={Object.values(questionTypeOptions)}
                 hideModal={hideModal}
@@ -55,14 +55,14 @@ class TemplateQuestionModalContainer extends Component {
     _getPrereqOptions = () => {
         const {
             questions,
-            question: { templateUUID }
+            question: { templateUUID, uuid }
         } = this.props;
 
         const options = questions
             .filter(q => q.templateUUID === templateUUID)
             .filter(q => PREREQ_TYPES.includes(q.questionType + ''))
             .filter(q => q.uuid !== uuid)
-            .filter(q => q.prereqUuid !== uuid)
+            .filter(q => q.prereqUUID !== uuid)
             .map(q => ({ value: q.uuid, text: q.name }));
 
         return convertArrToObj(options, 'value');

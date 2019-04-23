@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { FUTHER_FILTRATION } from 'constants/companyAdmin/enums';
+import { FURTHER_FILTRATION } from 'constants/companyAdmin/enums';
 import { convertEnumToDropdownOptions } from 'helpers/generic';
 import PinFiltersForm from '../presentational/PinFiltersForm';
 
@@ -15,14 +15,22 @@ export class PinFiltersFormContainer extends Component {
 
     render() {
         const { filterOption } = this.state;
+        const { drawingID } = this.props.filters;
 
-        const futherFiltrationOptions = convertEnumToDropdownOptions(
-            FUTHER_FILTRATION
+        const furtherFiltrationOptions = convertEnumToDropdownOptions(
+            FURTHER_FILTRATION
         );
+
+        const furtherFiltrationOptionsArr = Object.values(
+            furtherFiltrationOptions
+        ).filter(({ text }) => (drawingID ? true : text !== 'Pin Selection'));
+
         return (
             <PinFiltersForm
-                futherFiltrationOptions={Object.values(futherFiltrationOptions)}
-                selectedFutherFiltration={futherFiltrationOptions[filterOption]}
+                furtherFiltrationOptions={furtherFiltrationOptionsArr}
+                selectedfurtherFiltration={
+                    furtherFiltrationOptions[filterOption]
+                }
                 handleFurtherFiltrationChange={
                     this.handleFurtherFiltrationChange
                 }

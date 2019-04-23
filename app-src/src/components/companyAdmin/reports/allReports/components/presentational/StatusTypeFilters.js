@@ -6,7 +6,7 @@ import Field from 'components/shared/generic/form/presentational/Field';
 const StatusTypeFilters = ({ statusOptions, selectedStatus, handleChange }) => (
     <Field name="Status">
         <DropdownContainer
-            placeholder="All Status'"
+            placeholder="All Statuses"
             name="statusID"
             options={statusOptions}
             selectedOption={selectedStatus}

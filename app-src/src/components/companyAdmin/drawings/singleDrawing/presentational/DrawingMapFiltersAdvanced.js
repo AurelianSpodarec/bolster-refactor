@@ -97,7 +97,7 @@ const DrawingMapFiltersAdvanced = ({
                 </Field>
                 <Field name="Status" sizeClasses="size-lg-6">
                     <DropdownContainer
-                        placeholder="All Status'"
+                        placeholder="All Statuses"
                         name="statusSelectedID"
                         options={statusOptions}
                         selectedOption={selectedStatus}
