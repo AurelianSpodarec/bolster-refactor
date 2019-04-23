@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import fetchPins from 'actions/companyAdmin/pins/async/fetchPins';
 import PinSelector from '../presentational/PinSelector';
 
 class PinSelectorContainer extends Component {
@@ -51,29 +50,25 @@ class PinSelectorContainer extends Component {
     handleSubmit = () => {
         const { selectedPinOptions, pinOptions } = this.state;
 
-        const setPinInclude = Object.values(pinOptions)
-            .filter(pin => selectedPinOptions.includes(pin.value))
-            .map((pin, { included }) => ({
+        const setPinInclude = Object.values(pinOptions).map(
+            (pin, { included }) => ({
                 ...pin,
-                included: !included
-            }));
+                included: selectedPinOptions.includes(pin.value)
+                    ? !included
+                    : included
+            })
+        );
 
-        this.setState({ pinOptions: setPinInclude });
+        this.setState({ pinOptions: setPinInclude, selectedPinOptions: [] });
     };
 
     componentDidMount = () => {
-        const { fetchPins } = this.props;
-        // const {pins} = this.props;
-
-        // if (pins.length) this._setPinOptions();
-        fetchPins();
+        const { pins } = this.props;
+        if (pins.length) this._setPinOptions();
     };
 
     componentDidUpdate = prevProps => {
         const { pins } = this.props;
-
-        // const { pinOptions, selectedPinOptions } = this.state;
-
         if (!Object.values(prevProps.pins).length && pins.length) {
             this._setPinOptions();
         }
@@ -82,9 +77,9 @@ class PinSelectorContainer extends Component {
     _setPinOptions = () => {
         const { pins } = this.props;
         const pinOptions = pins.reduce(
-            (acc, { id, pinCode }) => ({
+            (acc, { id, pinCode, status }) => ({
                 ...acc,
-                [id]: { value: id, text: pinCode, included: false }
+                [id]: { value: id, text: pinCode, status, included: true }
             }),
             {}
         );
@@ -93,22 +88,14 @@ class PinSelectorContainer extends Component {
     };
 }
 
-//need to fetch different pins for each level is chosen
-const mapDispatchToProps = dispatch => ({
-    fetchPins: () => {
-        dispatch(fetchPins('drawing', 8));
-    }
-});
-
 const mapStateToProps = ({
     companyAdmin: {
-        pinsReducer: { pins }
+        reportsReducer: {
+            customFilters: { pins }
+        }
     }
 }) => ({
     pins: Object.values(pins) || []
 });
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(PinSelectorContainer);
+export default connect(mapStateToProps)(PinSelectorContainer);

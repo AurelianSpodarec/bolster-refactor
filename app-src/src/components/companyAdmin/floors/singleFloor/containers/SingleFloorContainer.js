@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import fetchSingleFloor from 'actions/companyAdmin/floors/async/fetchSingleFloor';
 import fetchAllDrawings from 'actions/companyAdmin/drawings/async/fetchAllDrawings';
 import fetchDocuments from 'actions/documents/async/fetchDocuments';
-import fetchClients from 'actions/companyAdmin/clients/async/fetchClients';
 import fetchPinStatsForLevel from 'actions/companyAdmin/stats/async/fetchPinStatsForLevel';
 
 import SingleFloor from '../presentational/SingleFloor';
@@ -29,7 +28,6 @@ class SingleFloorContainer extends Component {
         fetchDocuments('floor', floorID);
         fetchPinStatsForLevel('floor', floorID);
         // fetch Clients hooked up to mock data
-        // fetchClients();
     };
 }
 
@@ -46,9 +44,6 @@ const mapDispatchToProps = dispatch => ({
     },
     fetchDocuments: (HierarchyType, floorID) => {
         dispatch(fetchDocuments(HierarchyType, floorID));
-    },
-    fetchClients: () => {
-        dispatch(fetchClients());
     },
     fetchPinStatsForLevel: (hierarchyType, levelID) => {
         dispatch(fetchPinStatsForLevel(hierarchyType, levelID));

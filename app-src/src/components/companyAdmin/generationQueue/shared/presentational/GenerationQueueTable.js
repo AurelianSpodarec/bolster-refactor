@@ -11,7 +11,7 @@ const GenerationQueueTable = ({
     error
 }) => (
     <>
-        <BlockHeading title="Generation Queue Table">
+        <BlockHeading title="Reports Table">
             <GenerationQueueFiltersContainer />
         </BlockHeading>
 

@@ -19,7 +19,7 @@ const PinSelector = ({
         </p>
         <div className="pin-selector size-lg-12">
             <div className="size-lg-4">
-                <Field title="Excluded">
+                <Field name="Excluded">
                     <ExcludedBox
                         excludedPins={excludedPins}
                         handlePinClick={handlePinClick}
@@ -27,7 +27,7 @@ const PinSelector = ({
                 </Field>
             </div>
             <div className="size-lg-4">
-                <Field title="Included">
+                <Field name="Included">
                     <IncludedBox
                         includedPins={includedPins}
                         handlePinClick={handlePinClick}
@@ -35,7 +35,7 @@ const PinSelector = ({
                 </Field>
             </div>
 
-            <button className="button" onClick={() => handleSubmit()}>
+            <button className="button" type="button" onClick={handleSubmit}>
                 Submit
             </button>
         </div>

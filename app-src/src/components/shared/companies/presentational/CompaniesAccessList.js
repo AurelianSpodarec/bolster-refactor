@@ -9,7 +9,7 @@ import {
 
 const CompaniesAccessList = ({ companies, parentId, handleRemovePermission }) =>
     companies.map(company => (
-        <React.Fragment key={company.id}>
+        <React.Fragment key={company.id + parentId}>
             <tr>
                 <td>{company.companyName}</td>
                 <td>
@@ -33,9 +33,9 @@ const CompaniesAccessList = ({ companies, parentId, handleRemovePermission }) =>
                 </td>
             </tr>
             {company.services.map(
-                service =>
+                (service, i) =>
                     !!service && (
-                        <tr key={service.serviceID}>
+                        <tr key={service.serviceID + company.id + i}>
                             <td>
                                 {service.state ===
                                     PERMISSION_STATES.PENDING && (

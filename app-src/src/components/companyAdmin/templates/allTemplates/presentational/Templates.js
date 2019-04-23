@@ -8,7 +8,7 @@ const Templates = () => (
     <>
         <PageHeading title="My Templates" />
         <BlockContainer>
-            <BlockHeading title="Templates Table" />
+            <BlockHeading title="Templates" />
             <TemplatesTableContainer />
         </BlockContainer>
     </>

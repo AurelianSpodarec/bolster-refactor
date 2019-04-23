@@ -9,7 +9,7 @@ import BlockHeading from 'components/shared/generic/blockHeading/presentational/
 const SitesTable = ({ headers, sites, isFetching, error }) => {
     return (
         <BlockContainer>
-            <BlockHeading title="Sites Table" classes="w-table">
+            <BlockHeading title="Sites" classes="w-table">
                 <Link to="/company/sites/create" className="button green">
                     <i className="fa fa-plus" /> Add site
                 </Link>

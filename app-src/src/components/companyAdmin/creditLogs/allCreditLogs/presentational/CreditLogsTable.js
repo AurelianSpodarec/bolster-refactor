@@ -7,7 +7,7 @@ import BlockHeading from 'components/shared/generic/blockHeading/presentational/
 
 const CreditLogsTable = ({ creditLogs, isFetching, headers, error }) => (
     <div className="size-lg-12">
-        <BlockHeading title="Credit Logs Table">
+        <BlockHeading title="Credit Logs">
             <Link to="/company/subscription" className="button green">
                 <i className="fa fa-plus" /> Get Credits
             </Link>

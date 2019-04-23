@@ -12,7 +12,7 @@ const AllCompanies = () => (
         <PageHeading title="Companies" />
 
         <BlockContainer>
-            <BlockHeading title="Companies Table">
+            <BlockHeading title="Companies">
                 <CompaniesFiltersContainer />
             </BlockHeading>
 

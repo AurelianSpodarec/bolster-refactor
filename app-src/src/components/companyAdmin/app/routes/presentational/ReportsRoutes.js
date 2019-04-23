@@ -2,11 +2,11 @@ import React from 'react';
 import { Route } from 'react-router-dom';
 
 import SwitchWith404 from 'components/appRoute/routes/presentational/SwitchWith404';
-import AllReports from 'components/companyAdmin/reports/allReports/components/presentational/AllReports';
+import GenerationQueueContainer from 'components/companyAdmin/generationQueue/shared/containers/GenerationQueueContainer';
 
 const ReportsRoutes = ({ base = '/company/reports' }) => (
     <SwitchWith404>
-        <Route exact path={`${base}`} component={AllReports} />
+        <Route exact path={`${base}`} component={GenerationQueueContainer} />
     </SwitchWith404>
 );
 
