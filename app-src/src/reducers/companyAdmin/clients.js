@@ -2,9 +2,6 @@ import { combineReducers } from 'redux';
 
 import { convertArrToObj, updateObj, removeObjItem } from 'helpers/generic';
 import {
-    FETCH_CLIENTS_REQUEST,
-    FETCH_CLIENTS_SUCCESS,
-    FETCH_CLIENTS_FAILURE,
     INVITE_CLIENT_REQUEST,
     INVITE_CLIENT_SUCCESS,
     INVITE_CLIENT_FAILURE,
@@ -33,11 +30,8 @@ export default combineReducers({
 
 function isFetchingReducer(state = false, action) {
     switch (action.type) {
-        case FETCH_CLIENTS_REQUEST:
         case FETCH_CLIENTS_FOR_DRAWING_REQUEST:
             return true;
-        case FETCH_CLIENTS_SUCCESS:
-        case FETCH_CLIENTS_FAILURE:
         case FETCH_CLIENTS_FOR_DRAWING_SUCCESS:
         case FETCH_CLIENTS_FOR_DRAWING_FAILURE:
             return false;
@@ -75,12 +69,10 @@ function deletionErrorReducer(state = null, action) {
 function errorReducer(state = null, action) {
     switch (action.type) {
         case FETCH_CLIENTS_FOR_DRAWING_REQUEST:
-        case FETCH_CLIENTS_REQUEST:
         case INVITE_CLIENT_REQUEST:
         case EDIT_CLIENT_FOR_DRAWING_REQUEST:
         case DELETE_CLIENT_FROM_DRAWING_REQUEST:
             return null;
-        case FETCH_CLIENTS_FAILURE:
         case INVITE_CLIENT_FAILURE:
         case FETCH_CLIENTS_FOR_DRAWING_FAILURE:
         case EDIT_CLIENT_FOR_DRAWING_FAILURE:
@@ -111,7 +103,6 @@ function postSuccessReducer(state = false, action) {
 
 function clientsReducer(state = {}, action) {
     switch (action.type) {
-        case FETCH_CLIENTS_SUCCESS:
         case FETCH_CLIENTS_FOR_DRAWING_SUCCESS:
             return { ...state, ...convertArrToObj(action.payload) };
         case INVITE_CLIENT_SUCCESS:

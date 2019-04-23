@@ -13,7 +13,7 @@ const CompaniesAccessListSmall = ({
     handleRemovePermission
 }) =>
     companies.map(company => (
-        <React.Fragment key={company.id}>
+        <React.Fragment key={company.id + parentId}>
             <tr>
                 <td>
                     {company.companyName} <br />
@@ -40,7 +40,7 @@ const CompaniesAccessListSmall = ({
             {company.services.map(
                 service =>
                     !!service && (
-                        <tr key={service.serviceID}>
+                        <tr key={service.serviceID + company.id}>
                             <td>
                                 {service.state ===
                                     PERMISSION_STATES.PENDING && (
