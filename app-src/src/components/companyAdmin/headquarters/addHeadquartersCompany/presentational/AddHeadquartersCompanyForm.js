@@ -1,41 +1,35 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Select from 'react-select';
 import Form from 'components/shared/generic/form/containers/Form';
 import Field from 'components/shared/generic/form/presentational/Field';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import { VAT_TYPES } from 'constants/companyAdmin/enums';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
+import NewSelect from 'components/shared/generic/form/presentational/NewSelect';
 
 const AddHeadquartersCompanyForm = ({
-    company: {
-        name,
-        addressLine1,
-        town,
-        postcode,
-        vatType,
-        vatCode,
-        dateFormat,
-        timezone
-    },
-    user: {
-        firstName,
-        lastName,
-        email,
-        phoneNumber,
-        password,
-        confirmPassword
-    },
-    dateFormats,
-    timeZones,
+    'User.email': email,
+    'User.password': password,
+    confirmPassword,
+    'User.firstName': firstName,
+    'User.lastName': lastName,
+    //company name
+    'Company.name': name,
+    'Company.phoneNumber': phoneNumber,
+    'Company.addressLine1': addressLine1,
+    'Company.town': town,
+    'Company.postcode': postcode,
+    'Company.vatCode': vatCode,
+    'Company.vatType': vatType,
     vatOptions,
-    handleUserChange,
-    handleCompanyChange,
-    handleVatTypeChange,
+    dateFormats,
+    timezoneOptions,
+    'Company.dateFormatID': dateFormatID,
+    'Company.timezone': timezone,
+    handleChange,
     handleSubmit,
-    handleDateFormatChange,
-    handleTimezoneChange,
+    handleDropDown,
     validateConfirmPassword
 }) => (
     <Form
@@ -46,11 +40,11 @@ const AddHeadquartersCompanyForm = ({
         <BlockHeading title="Company information" />
         <div className="size-lg-12">
             <div className="size-lg-6">
-                <Field name="Company name">
+                <Field reqiured={true} name="Company name">
                     <TextInputContainer
-                        name="name"
+                        name="Company.name"
                         value={name}
-                        handleChange={handleCompanyChange}
+                        handleChange={handleChange}
                         required
                     />
                 </Field>
@@ -58,31 +52,31 @@ const AddHeadquartersCompanyForm = ({
         </div>
         <div className="size-lg-12">
             <div className="size-lg-6">
-                <Field name="Address">
+                <Field reqiured={true} name="Address">
                     <TextInputContainer
-                        name="addressLine1"
+                        name="Company.addressLine1"
                         value={addressLine1}
-                        handleChange={handleCompanyChange}
+                        handleChange={handleChange}
                         required
                     />
                 </Field>
             </div>
             <div className="size-lg-6">
-                <Field name="Town">
+                <Field reqiured={true} name="Town">
                     <TextInputContainer
-                        name="town"
+                        name="Company.town"
                         value={town}
-                        handleChange={handleCompanyChange}
+                        handleChange={handleChange}
                         required
                     />
                 </Field>
             </div>
             <div className="size-lg-6">
-                <Field name="Postcode">
+                <Field reqiured={true} name="Postcode">
                     <TextInputContainer
-                        name="postcode"
+                        name="Company.postcode"
                         value={postcode}
-                        handleChange={handleCompanyChange}
+                        handleChange={handleChange}
                         required
                     />
                 </Field>
@@ -90,41 +84,47 @@ const AddHeadquartersCompanyForm = ({
         </div>
         <div className="size-lg-12">
             <div className="size-lg-6">
-                <Field name="VAT Type">
-                    <Select
-                        value={vatType}
+                <Field reqiured={true} name="VAT Type">
+                    <NewSelect
                         options={vatOptions}
-                        onChange={handleVatTypeChange}
+                        value={vatType}
+                        onChange={handleDropDown}
+                        name="Company.vatType"
+                        singleSelect
+                        required
                     />
                 </Field>
             </div>
             <div className="size-lg-6">
-                {vatType.value !== VAT_TYPES.OUTSIDEEU && (
-                    <Field name="VAT Code">
+                {vatType !== VAT_TYPES.OUTSIDEEU && (
+                    <Field reqiured={true} name="VAT Code">
                         <TextInputContainer
-                            name="vatCode"
+                            name="Company.vatCode"
                             value={vatCode}
-                            handleChange={handleCompanyChange}
-                            required={vatType.value !== VAT_TYPES.OUTSIDEEU}
+                            handleChange={handleChange}
+                            required={vatType !== VAT_TYPES.OUTSIDEEU}
                         />
                     </Field>
                 )}
             </div>
-            <div>
-                <Field name="timezone">
-                    <Select
-                        options={timeZones}
+            <div className="size-lg-12">
+                <Field reqiured={true} name="Timezone">
+                    <NewSelect
+                        options={timezoneOptions}
                         value={timezone}
-                        isSearchable
-                        onChange={handleTimezoneChange}
+                        onChange={handleDropDown}
+                        name="Company.timezone"
+                        singleSelect
                     />
                 </Field>
-                <Field name="Date format">
-                    <Select
+                <Field reqiured={true} name="Date format">
+                    <NewSelect
                         options={dateFormats}
-                        value={dateFormat}
-                        isSearchable
-                        onChange={handleDateFormatChange}
+                        value={dateFormatID}
+                        onChange={handleDropDown}
+                        name="Company.dateFormatID"
+                        singleSelect
+                        required
                     />
                 </Field>
             </div>
@@ -133,59 +133,59 @@ const AddHeadquartersCompanyForm = ({
         <BlockHeading title="Company user information" />
         <div className="size-lg-12">
             <div className="size-lg-6">
-                <Field name="First name">
+                <Field reqiured={true} name="First name">
                     <TextInputContainer
-                        name="firstName"
+                        name="User.firstName"
                         value={firstName}
-                        handleChange={handleUserChange}
+                        handleChange={handleChange}
                     />
                 </Field>
             </div>
             <div className="size-lg-6">
-                <Field name="Last name">
+                <Field reqiured={true} name="Last name">
                     <TextInputContainer
-                        name="lastName"
+                        name="User.lastName"
                         value={lastName}
-                        handleChange={handleUserChange}
+                        handleChange={handleChange}
                     />
                 </Field>
             </div>
             <div className="size-lg-6">
-                <Field name="E-mail Address">
+                <Field reqiured={true} name="E-mail Address">
                     <TextInputContainer
-                        name="email"
+                        name="User.email"
                         value={email}
-                        handleChange={handleUserChange}
+                        handleChange={handleChange}
                         type="email"
                     />
                 </Field>
             </div>
             <div className="size-lg-6">
-                <Field name="Phone number">
+                <Field reqiured={true} name="Phone number">
                     <TextInputContainer
-                        name="phoneNumber"
+                        name="Company.phoneNumber"
                         value={phoneNumber}
-                        handleChange={handleUserChange}
+                        handleChange={handleChange}
                     />
                 </Field>
             </div>
             <div className="size-lg-12">
                 <div className="size-lg-6">
-                    <Field name="Password">
+                    <Field reqiured={true} name="Password">
                         <TextInputContainer
-                            name="password"
+                            name="User.password"
                             value={password}
-                            handleChange={handleUserChange}
+                            handleChange={handleChange}
                             type="password"
                         />
                     </Field>
                 </div>
                 <div className="size-lg-6">
-                    <Field name="Confirm password">
+                    <Field reqiured={true} name="Confirm password">
                         <TextInputContainer
                             name="confirmPassword"
                             value={confirmPassword}
-                            handleChange={handleUserChange}
+                            handleChange={handleChange}
                             type="password"
                             validate={validateConfirmPassword}
                         />
@@ -194,7 +194,7 @@ const AddHeadquartersCompanyForm = ({
             </div>
         </div>
         <BlockButtonWrapper>
-            <button className="button" type="submit">
+            <button className="button green" type="submit">
                 Submit
             </button>
             <Link className="button" to="/company/headquarters/companies">

@@ -10,35 +10,32 @@ import fetchDateFormats from 'actions/shared/time/async/fetchDateFormats';
 
 class AddHeadquartersCompanyFormContainer extends Component {
     state = {
-        user: {
-            firstName: '',
-            lastName: '',
-            email: '',
-            phoneNumber: '',
-            password: '',
-            confirmPassword: ''
-        },
-        company: {
-            name: '',
-            addressLine1: '',
-            town: '',
-            postcode: '',
-            vatCode: '',
-            vatType: { label: 'GB', value: VAT_TYPES.GB },
-            timezone: {
-                label:
-                    'Europe/London - (UTC+00:00) Dublin, Edinburgh, Lisbon, London)',
-                value: 'Europe/London'
-            },
-            dateFormat: { label: 'DD/MM/YYYY HH: mm', value: 1 }
-        }
+        'User.firstName': '',
+        'User.lastName': '',
+        'User.email': '',
+        'User.password': '',
+        confirmPassword: '',
+        'Company.name': '',
+        'Company.phoneNumber': '',
+        'Company.addressLine1': '',
+        'Company.town': '',
+        'Company.postCode ': '',
+        'Company.vatCode': '',
+        'Company.timezone': 0,
+        'Company.dateFormatID': 0,
+        'Company.vatType': 0
     };
     render() {
+        const timezoneOptions = this.formatTimezones();
+
+        const dateFormats = this.formatDateFormats();
+
         const vatOptions = [
             { label: 'GB', value: VAT_TYPES.GB },
             { label: 'EU', value: VAT_TYPES.EU },
             { label: 'Outside EU', value: VAT_TYPES.OUTSIDEEU }
         ];
+
         return (
             <AddHeadquartersCompanyForm
                 {...this.state}
@@ -48,10 +45,12 @@ class AddHeadquartersCompanyFormContainer extends Component {
                 handleVatTypeChange={this.handleVatTypeChange}
                 handleDateFormatChange={this.handleDateFormatChange}
                 handleTimezoneChange={this.handleTimezoneChange}
+                handleDropDown={this.handleDropDown}
                 handleSubmit={this.handleSubmit}
-                dateFormats={this.formatDateFormats()}
-                timeZones={this.formatTimezones()}
+                dateFormats={dateFormats}
+                timezoneOptions={timezoneOptions}
                 validateConfirmPassword={this.validateConfirmPassword}
+                handleChange={this.handleChange}
             />
         );
     }
@@ -67,7 +66,12 @@ class AddHeadquartersCompanyFormContainer extends Component {
             history.push('/company/headquarters/companies');
         }
     };
-
+    handleChange = ({ target: { type, value, checked, name } }) => {
+        const val = type === 'checkbox' ? checked : value;
+        this.setState({
+            [name]: val
+        });
+    };
     // change handlers
     handleUserChange = ({ target: { name, value } }) => {
         const { user } = this.state;
@@ -88,7 +92,9 @@ class AddHeadquartersCompanyFormContainer extends Component {
         const company = { ...this.state.company, timezone };
         this.setState({ company });
     };
-
+    handleDropDown = (name, val) => {
+        this.setState({ [name]: val });
+    };
     handleVatTypeChange = vatType => {
         const company = { ...this.state.company, vatType };
         this.setState({ company });
@@ -97,28 +103,51 @@ class AddHeadquartersCompanyFormContainer extends Component {
     // submit handler
     handleSubmit = () => {
         const { createHeadquartersCompany } = this.props;
+
         const {
-            // eslint-disable-next-line no-unused-vars
-            user: { confirmPassword, ...user },
-            company: {
-                vatType: { value: vatType },
-                timezone: { value: timezone },
-                dateFormat: { value: dateFormatID },
-                ...company
-            }
+            'User.email': email,
+            'User.password': password,
+            'User.firstName': firstName,
+            'User.lastName': lastName,
+            //company name
+            'Company.name': name,
+            'Company.phoneNumber': phoneNumber,
+            'Company.addressLine1': addressLine1,
+            'Company.town': town,
+            'Company.postcode': postcode,
+            'Company.vatCode': vatCode,
+            'Company.vatType': vatType,
+            'Company.dateFormatID': dateFormatID,
+            'Company.timezone': timezone
         } = this.state;
+
         const postBody = {
-            user,
-            company: { ...company, vatType, timezone, dateFormatID }
+            user: {
+                firstName: firstName,
+                lastName: lastName,
+                email: email,
+                phoneNumber: phoneNumber,
+                password: password
+            },
+            company: {
+                name: name,
+                addressLine1: addressLine1,
+                town: town,
+                postcode: postcode,
+                vatType: vatType,
+                vatCode: vatCode,
+                dateFormatID: dateFormatID,
+                timezone: timezone
+            }
         };
         createHeadquartersCompany(postBody);
     };
 
     // utilities
     formatTimezones = () =>
-        this.props.timeZones.map(({ id, name, offset }) => ({
+        this.props.timeZones.map(({ id, name }) => ({
             value: id,
-            label: `${name} - ${offset}`
+            label: name
         }));
 
     formatDateFormats = () =>
@@ -127,10 +156,11 @@ class AddHeadquartersCompanyFormContainer extends Component {
             label: `${momentDateTimeFormat} (eg. ${example})}`
         }));
 
-    validateConfirmPassword = confirmPassword =>
-        this.state.user.password !== confirmPassword
-            ? 'Passwords do not match'
-            : null;
+    validateConfirmPassword = confirmPassword => {
+        const { 'User.password': password } = this.state;
+
+        return password !== confirmPassword ? 'Passwords do not match' : null;
+    };
 }
 
 const mapStateToProps = ({
