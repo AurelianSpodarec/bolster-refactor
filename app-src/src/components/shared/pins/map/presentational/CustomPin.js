@@ -1,6 +1,6 @@
 import React from 'react';
 
-const CustomPin = ({ pinColour, pinCode }) => {
+const CustomPin = ({ pinColour = 'red', pinCode = '' }) => {
     const imageLocation = require(`_content/images/map-markers/${pinColour}-pin2x.png`);
 
     return (
