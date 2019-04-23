@@ -14,6 +14,7 @@ import NumberOfHistoriesContainer from '../containers/NumberOfHistoriesContainer
 import ReportFormatsContainer from '../containers/ReportFormatsContainer';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import CustomFiltersContainer from '../containers/CustomFiltersContainer';
+import OperativesFilterContainer from '../containers/OperativesFilterContainer';
 
 const PinFiltersForm = ({
     futherFiltrationOptions,
@@ -22,13 +23,13 @@ const PinFiltersForm = ({
     filterOption,
     handleSubmit
 }) => (
-    <Form className="size-lg-12" onSubmit={() => handleSubmit()}>
+    <Form className="size-lg-12" onSubmit={handleSubmit}>
         <div className="flex-container size-lg-12">
             <div className="flex-item size-lg-6">
                 <BlockContainer>
                     <div className="size-lg-12">
                         <LevelsFilterContainer />
-                        <p className="generic-text size-lg-12">Operatives</p>
+                        <OperativesFilterContainer />
                     </div>
                 </BlockContainer>
             </div>
