@@ -7,6 +7,7 @@ import PinFiltersForm from '../presentational/PinFiltersForm';
 
 import postReport from 'actions/companyAdmin/reports/async/postReport';
 import postCustomFilters from 'actions/companyAdmin/reports/async/postCustomFilters';
+import removeFilterQuestions from 'actions/companyAdmin/reports/sync/removeFilterQuestions';
 
 export class PinFiltersFormContainer extends Component {
     state = {
@@ -40,6 +41,22 @@ export class PinFiltersFormContainer extends Component {
         );
     }
 
+    componentDidUpdate = prevProps => {
+        const {
+            filters: { siteID, buildingID, floorID, drawingID },
+            removeFilterQuestions
+        } = this.props;
+        if (
+            siteID !== prevProps.filters.siteID ||
+            buildingID !== prevProps.filters.buildingID ||
+            floorID !== prevProps.filters.floorID ||
+            drawingID !== prevProps.filters.drawingID
+        ) {
+            this.setState({ filterOption: 0 });
+            removeFilterQuestions();
+        }
+    };
+
     handleFurtherFiltrationChange = ({ target: { value, name } }) => {
         this.setState({ [name]: value });
     };
@@ -60,6 +77,7 @@ export class PinFiltersFormContainer extends Component {
                 endDate,
                 operativeIDs
             },
+            fields,
             postReport
         } = this.props;
         const hierarchyType = drawingID
@@ -77,6 +95,13 @@ export class PinFiltersFormContainer extends Component {
             ? buildingID
             : siteID;
 
+        const questionFilters = fields.map(
+            ({ selectedQuestions, questionValues }) => ({
+                questionGroupKeys: selectedQuestions,
+                values: Object.values(questionValues).map(({ value }) => value)
+            })
+        );
+
         const postBody = {
             hierarchyType,
             hierarchyID,
@@ -87,8 +112,8 @@ export class PinFiltersFormContainer extends Component {
             ToDateInclusive: endDate,
             companyUserIDs: operativeIDs,
             serviceID,
-            status: statusID
-            //company user ID
+            status: statusID || null,
+            questionFilters
         };
 
         postReport(postBody);
@@ -101,9 +126,10 @@ const mapStateToProps = ({
         buildingsReducer,
         floorsReducer,
         drawingsReducer,
-        reportsReducer: { filters }
+        reportsReducer: { filters, fields }
     }
 }) => ({
+    fields: Object.values(fields),
     sites: Object.values(sitesReducer.sites),
     sitesFilter: sitesReducer.filters,
     buildings: Object.values(buildingsReducer.buildings),
@@ -112,13 +138,10 @@ const mapStateToProps = ({
     filters
 });
 
-const mapDispatchToProps = dipatch => ({
-    postReport: postBody => {
-        dipatch(postReport(postBody));
-    },
-    postCustomFilters: postBody => {
-        dipatch(postCustomFilters(postBody));
-    }
+const mapDispatchToProps = dispatch => ({
+    postReport: postBody => dispatch(postReport(postBody)),
+    postCustomFilters: postBody => dispatch(postCustomFilters(postBody)),
+    removeFilterQuestions: () => dispatch(removeFilterQuestions())
 });
 
 export default connect(

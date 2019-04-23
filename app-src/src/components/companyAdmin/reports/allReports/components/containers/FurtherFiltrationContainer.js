@@ -52,9 +52,7 @@ const FurtherFiltrationContainer = ({
         </>
     );
     function addCustomField() {
-        const id = uuid();
-
-        addFilterQuestion(id);
+        addFilterQuestion(uuid());
     }
 
     function removeCustomField(id) {
