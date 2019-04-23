@@ -11,30 +11,27 @@ import RegisterForm from '../presentational/RegisterForm';
 
 class RegisterFormContainer extends Component {
     state = {
-        firstName: '',
-        lastName: '',
-        email: '',
-        password: '',
+        'User.firstName': '',
+        'User.lastName': '',
+        'User.email': '',
+        'User.password': '',
+        confirmPassword: '',
         //company name
-        name: '',
-        phoneNumber: '',
-        addressLine1: '',
-        town: '',
-        postcode: '',
-        vatType: { label: 'GB', value: VAT_TYPES.GB },
-        vatCode: '',
-        timezone: { value: '', label: '' },
-        0: 0,
+        'Company.name': '',
+        'Company.phoneNumber': '',
+        'Company.addressLine1': '',
+        'Company.town': '',
+        'Company.postCode ': '',
+        'Company.vatCode': '',
+        'Company.timezone': 0,
+        'Company.dateFormatID': 0,
+        'Company.vatType': 0,
         terms: false
     };
 
     render() {
-        const { timezone } = this.state;
-
         const timezoneOptions = this._getTimezoneOptions();
-        const selectedTimezone = timezoneOptions.find(
-            ({ value }) => value === timezone
-        );
+
         const dateFormats = this._formatDateFormats();
         const vatOptions = [
             { label: 'GB', value: VAT_TYPES.GB },
@@ -54,12 +51,13 @@ class RegisterFormContainer extends Component {
                 dateFormats={dateFormats}
                 vatOptions={vatOptions}
                 handleSubmit={this.handleSubmit}
+                handleDropDown={this.handleDropDown}
+                validateConfirmPassword={this.validateConfirmPassword}
             />
         );
     }
 
     handleChange = ({ target: { type, value, checked, name } }) => {
-        const { updateAddPinAnswer, question } = this.props;
         const val = type === 'checkbox' ? checked : value;
         this.setState({
             [name]: val
@@ -72,26 +70,30 @@ class RegisterFormContainer extends Component {
         this.setState({ [name]: val });
     };
 
+    handleDropDown = (name, val) => {
+        this.setState({ [name]: val });
+    };
+
     _handleVatTypeChange = vatType => this.setState({ vatType });
 
     handleSubmit = e => {
         e.preventDefault();
 
         const {
-            firstName,
-            lastName,
-            email,
-            password,
+            'User.email': email,
+            'User.password': password,
+            'User.firstName': firstName,
+            'User.lastName': lastName,
             //company name
-            name,
-            phoneNumber,
-            addressLine1,
-            town,
-            postcode,
-            vatType,
-            vatCode,
-            timezone,
-            dateFormat
+            'Company.name': name,
+            'Company.phoneNumber': phoneNumber,
+            'Company.addressLine1': addressLine1,
+            'Company.town': town,
+            'Company.postcode': postcode,
+            'Company.vatCode': vatCode,
+            'Company.vatType': vatType,
+            'Company.dateFormatID': dateFormatID,
+            'Company.timezone': timezone
         } = this.state;
 
         const postBody = {
@@ -104,19 +106,16 @@ class RegisterFormContainer extends Component {
             },
             company: {
                 name: name,
-                addressLine1,
-                town,
-                postcode,
-                dateFormatID: `${dateFormat.value}`,
-                timezone: timezone.value,
                 addressLine1: addressLine1,
                 town: town,
                 postcode: postcode,
-                vatType: vatType.value,
-                vatCode: vatCode
+                vatType: vatType,
+                vatCode: vatCode,
+                dateFormatID: dateFormatID,
+                timezone: timezone
             }
         };
-        console.log(dateFormat.value);
+
         this.props.postRegister(postBody);
     };
 
@@ -132,7 +131,7 @@ class RegisterFormContainer extends Component {
     _formatDateFormats = () =>
         this.props.dateFormats.map(({ id, example, momentDateTimeFormat }) => ({
             value: id,
-            label: `${momentDateTimeFormat} (eg. ${example})}`
+            label: `${momentDateTimeFormat} (eg. ${example})`
         }));
 
     componentDidMount = () => {
@@ -151,6 +150,11 @@ class RegisterFormContainer extends Component {
         //     });
         // }
     };
+    validateConfirmPassword = confirmPassword => {
+        const { 'User.password': password } = this.state;
+
+        return password !== confirmPassword ? 'Passwords do not match' : null;
+    };
 }
 
 const mapStateToProps = ({
@@ -159,8 +163,8 @@ const mapStateToProps = ({
         registerReducer: { error }
     }
 }) => ({
-    timezones: Object.values(timeZones),
-    dateFormats: Object.values(dateFormats),
+    timezones: Object.values(timeZones) || [],
+    dateFormats: Object.values(dateFormats) || [],
     error
 });
 
