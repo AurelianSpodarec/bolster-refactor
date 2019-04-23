@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import fetchAllSites from 'actions/companyAdmin/sites/async/fetchAllSites';
@@ -10,10 +9,6 @@ import fetchAllDrawings from 'actions/companyAdmin/drawings/async/fetchAllDrawin
 import PinFilters from '../presentational/PinFilters';
 
 export class PinFiltersContainer extends Component {
-    static propTypes = {
-        prop: PropTypes
-    };
-
     render() {
         return <PinFilters />;
     }
@@ -25,8 +20,6 @@ export class PinFiltersContainer extends Component {
     };
 }
 
-const mapStateToProps = state => ({});
-
 const mapDispatchToProps = dispatch => ({
     fetchAllLevels: () => {
         dispatch(fetchAllSites());
@@ -37,6 +30,6 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default connect(
-    mapStateToProps,
+    null,
     mapDispatchToProps
 )(PinFiltersContainer);

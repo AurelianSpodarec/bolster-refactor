@@ -10,7 +10,8 @@ import {
     POST_CUSTOM_FILTERS_FAILURE,
     UPDATE_REPORT_FILTER,
     UPDATE_FILTER_QUESTION_FIELD,
-    UPDATE_FILTER_QUESTION_FIELDS
+    UPDATE_FILTER_QUESTION_FIELDS,
+    UPDATE_OPERATIVE_FILTER
 } from 'constants/actionTypes/reports';
 import { updateObj } from 'helpers/generic';
 
@@ -38,19 +39,21 @@ function filtersReducer(
         hierarchyType: '',
         hierarchyID: 0,
         statusID: 0,
-        numberOfHistoriesID: 0,
+        numberOfHistoriesID: 1,
         sortByID: 0,
         reportFormatID: 0,
         includeLocationDrawing: false,
         startDate: undefined,
         endDate: undefined,
-        oprativeIDs: []
+        operativeIDs: []
     },
     action
 ) {
     switch (action.type) {
         case UPDATE_REPORT_FILTER:
             return updateObj(state, action.name, action.value);
+        case UPDATE_OPERATIVE_FILTER:
+            return updateObj(state, 'operativeIDs', action.value);
         default:
             return state;
     }
