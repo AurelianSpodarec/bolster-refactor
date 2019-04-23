@@ -38,7 +38,7 @@ const EditTemplateQuestionModal = ({
                 ))}
                 <div className="size-lg-12">
                     <button
-                        className="button add-option"
+                        className="button add-option green"
                         type="button"
                         onClick={handleAddOption}
                     >
