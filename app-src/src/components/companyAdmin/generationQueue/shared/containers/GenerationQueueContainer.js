@@ -15,7 +15,7 @@ class GenerationQueueContainer extends Component {
 
 const mapDispatchToProps = dispatch => ({
     fetchGenerationQueue: () => {
-        dispatch(fetchGenerationQueue);
+        return dispatch(fetchGenerationQueue());
     }
 });
 

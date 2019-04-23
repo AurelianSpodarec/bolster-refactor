@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 
 const CardListItem = ({
-    card: { expMonth, expYear, isPrimary, lastFour, name },
+    card: { expMonth, expYear, isPrimary, lastFour, name, id },
     setPrimaryCard,
     deleteCard
 }) => (
@@ -22,7 +22,7 @@ const CardListItem = ({
                 <button
                     className="button icon-only red"
                     onClick={() => {
-                        deleteCard();
+                        deleteCard(id);
                     }}
                 >
                     <i className="far fa-trash-alt" />

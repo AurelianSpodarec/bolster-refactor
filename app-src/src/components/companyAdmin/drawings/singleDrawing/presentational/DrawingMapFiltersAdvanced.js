@@ -104,7 +104,7 @@ const DrawingMapFiltersAdvanced = ({
                         handleChange={handleChange}
                     />
                 </Field>
-                <Field name="Data" sizeClasses="w-dates size-lg-6">
+                <Field name="Date range" sizeClasses="w-dates size-lg-6">
                     <div className="size-lg-5">
                         <DatePicker
                             name="startDateSelected"
@@ -112,7 +112,7 @@ const DrawingMapFiltersAdvanced = ({
                             onChange={e =>
                                 handleDateChange(e, 'startDateSelected')
                             }
-                            placeholderText="Date"
+                            placeholderText="Start Date"
                         />
                     </div>
                     <p className="size-lg-2">to</p>
@@ -123,7 +123,7 @@ const DrawingMapFiltersAdvanced = ({
                             onChange={e =>
                                 handleDateChange(e, 'endDateSelected')
                             }
-                            placeholderText="Date"
+                            placeholderText="End Date"
                         />
                     </div>
                 </Field>

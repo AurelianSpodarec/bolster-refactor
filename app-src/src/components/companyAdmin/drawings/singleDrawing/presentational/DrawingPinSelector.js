@@ -1,10 +1,11 @@
 import React from 'react';
+import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 
 const DrawingPinSelector = () => (
     <>
-        <h2 className="heading heading-3 size-lg-12">Pin selector</h2>
+        <BlockHeading title="Pin Selector" />
 
-        <p className="generic-text size-lg-12">
+        <p className="generic-text intro-text size-lg-12">
             Using either of the boxes below or the pin map, select which pins
             you would like to be included in your report.
         </p>

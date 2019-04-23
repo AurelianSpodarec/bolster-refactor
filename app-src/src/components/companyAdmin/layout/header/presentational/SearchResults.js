@@ -7,8 +7,6 @@ import Loading from 'components/shared/generic/misc/presentational/Loading';
 const SearchResults = ({ results, isFetching, error, handleLinkClick }) =>
     error ? (
         <Error>{error}</Error>
-    ) : isFetching ? (
-        <Loading />
     ) : (
         results.map(result => (
             <Link
@@ -16,7 +14,6 @@ const SearchResults = ({ results, isFetching, error, handleLinkClick }) =>
                 key={result.id}
                 onClick={handleLinkClick}
             >
-                <i className="far fa-file-edit" />
                 {result.searchText}
             </Link>
         ))

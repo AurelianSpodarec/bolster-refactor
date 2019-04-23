@@ -29,7 +29,7 @@ class PinHistoriesContainer extends Component {
                 }
                 contentClass="pin-single-history no-horizontal-padding"
             >
-                <BlockHeading title={`Pin #${pin.id}`}>
+                <BlockHeading title={`Pin ${pin.pinCode}`}>
                     <Link
                         className="button green"
                         to={`/company/pins/${pin.id}/add-history`}

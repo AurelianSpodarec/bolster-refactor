@@ -5,7 +5,7 @@ import {
     POST_REGISTER_SUCCESS,
     POST_REGISTER_FAILURE
 } from 'constants/actionTypes/auth';
-import { getHeaders } from 'helpers/api';
+import { getHeaders, handleErrors } from 'helpers/api';
 import { AUTH_API_URL } from 'config';
 
 export const postRegisterRequest = () => ({
@@ -28,5 +28,5 @@ export default postBody => dispatch => {
     axios
         .post(`${AUTH_API_URL}/auth/register`, postBody, getHeaders())
         .then(res => dispatch(postRegisterSuccess(res.data)))
-        .catch(err => dispatch(postRegisterFailure(err.message)));
+        .catch(err => dispatch(handleErrors(postRegisterFailure)(err)));
 };

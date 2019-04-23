@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import SitesTable from '../presentational/SitesTable';
 
-class SitesListTableContainer extends Component {
+class SitesTableContainer extends Component {
     render() {
         const { isFetching, error } = this.props;
         return (
@@ -37,4 +37,4 @@ const mapStateToProps = ({ companyAdmin: { sitesReducer } }) => ({
     filters: sitesReducer.filters
 });
 
-export default connect(mapStateToProps)(SitesListTableContainer);
+export default connect(mapStateToProps)(SitesTableContainer);

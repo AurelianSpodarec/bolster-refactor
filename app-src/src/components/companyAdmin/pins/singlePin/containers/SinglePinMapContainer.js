@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import moment from 'moment';
 
 import SinglePinMap from '../presentational/SinglePinMap';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
@@ -17,13 +18,25 @@ class SinglePinMapContainer extends Component {
     };
 
     render() {
-        const { pin, user, error, isFetching, drawing } = this.props;
+        const {
+            pin,
+            user,
+            error,
+            isFetching,
+            drawing,
+            selectedHistory,
+            histories
+        } = this.props;
 
         const editPinLocationPosition = [
             this.state.editPinLocationLat,
             this.state.editPinLocationLng
         ];
 
+        const historyVersion =
+            [...histories]
+                .sort((a, b) => moment(a.createdAt) - moment(b.createdAt))
+                .findIndex(item => item.id === selectedHistory.id) + 1;
         return (
             <BlockContainer
                 isEmpty={!pin.id || !drawing.id}
@@ -40,6 +53,9 @@ class SinglePinMapContainer extends Component {
                     toggleMoveMode={this.toggleMoveMode}
                     moveMode={this.state.moveMode}
                     handleeditPinLocation={this.handleeditPinLocation}
+                    pinHistory={selectedHistory}
+                    historyVersion={historyVersion}
+                    historyCount={histories.length}
                 />
             </BlockContainer>
         );
@@ -108,6 +124,7 @@ const mapStateToProps = (
     {
         companyAdmin: {
             pinsReducer: { pins, error, isFetching, postSuccess },
+            pinHistoriesReducer: { selectedHistoryId, histories },
             companyUsersReducer: { users },
             drawingsReducer: { drawings }
         }
@@ -119,6 +136,8 @@ const mapStateToProps = (
     return {
         pin,
         user: users[pin.latestCreatedByCompanyUserID] || {},
+        histories: Object.values(histories),
+        selectedHistory: histories[selectedHistoryId] || {},
         error,
         isFetching,
         postSuccess,

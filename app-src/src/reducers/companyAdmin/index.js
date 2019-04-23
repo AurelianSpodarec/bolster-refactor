@@ -13,6 +13,7 @@ import creditLogsReducer from './creditLogs';
 import documentsReducer from './documents';
 import drawingsReducer from './drawings';
 import floorsReducer from './floors';
+import generationQueueReducer from './generationQueue';
 import headquartersReducer from './headquarters';
 import inspectionLogsReducer from './inspectionLogs';
 import invoiceItemsReducer from './invoiceItems';
@@ -25,6 +26,7 @@ import pinHistoriesReducer from './pinHistories';
 import pinsReducer from './pins';
 import searchReducer from './search';
 import servicesReducer from './services';
+import reportsReducer from './reports';
 import sitesReducer from './sites';
 import statsReducer from './stats';
 import subscriptionsReducer from './subscriptions';
@@ -53,6 +55,7 @@ export default combineReducers({
     inspectionLogsReducer,
     invoicesReducer,
     invoiceItemsReducer,
+    generationQueueReducer,
     messagesReducer,
     operativeAlertsReducer,
     operativesReducer,
@@ -60,6 +63,7 @@ export default combineReducers({
     pinAnswersReducer,
     pinHistoriesReducer,
     pinsReducer,
+    reportsReducer,
     searchReducer,
     servicesReducer,
     sitesReducer,

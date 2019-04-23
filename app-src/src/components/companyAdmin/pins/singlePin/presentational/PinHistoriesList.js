@@ -1,4 +1,5 @@
 import React from 'react';
+import moment from 'moment';
 
 import PinHistoriesListItemContainer from '../containers/PinHistoriesListItemContainer';
 
@@ -14,14 +15,17 @@ const PinHistoriesList = ({ histories, historyCount, selectedHistoryId }) => {
         );
     }
 
-    return histories.map(history => (
-        <PinHistoriesListItemContainer
-            key={history.id}
-            history={history}
-            historyCount={historyCount}
-            selectedHistoryId={selectedHistoryId}
-        />
-    ));
+    return [...histories]
+        .sort((a, b) => moment(b.dateAdded) - moment(a.dateAdded))
+        .reverse()
+        .map(history => (
+            <PinHistoriesListItemContainer
+                key={history.id}
+                history={history}
+                historyCount={historyCount}
+                selectedHistoryId={selectedHistoryId}
+            />
+        ));
 };
 
 export default PinHistoriesList;

@@ -15,14 +15,23 @@ const Settings = ({ isFetching, error, companySettings: company }) => {
     const { timeZone = {}, dateFormat = {} } = company;
     return (
         <>
-            <PageHeading title="Company Settings" />
+            <PageHeading title="Company Settings">
+                <Link
+                    className="button yellow"
+                    to="/company/settings/edit-settings"
+                >
+                    <i className="far fa-pencil" />
+                    Edit Settings
+                </Link>
+            </PageHeading>
 
             <BlockContainer
                 isFetching={isFetching}
                 error={error}
                 isEmpty={!company.name}
             >
-                {/* address  */}
+                {/* address, need block heading  */}
+                <BlockHeading title="Company Details" />
                 <div className="field-group size-lg-12">
                     <div className=" size-lg-4">
                         <FieldOutput
@@ -55,25 +64,82 @@ const Settings = ({ isFetching, error, companySettings: company }) => {
                         />
                     </div>
                 </div>
-                <div className="size-lg-12">
-                    <BlockHeading classes="sub-heading" title="Company Code" />
-
+            </BlockContainer>
+            <BlockContainer
+                isFetching={isFetching}
+                error={error}
+                isEmpty={!company.name}
+            >
+                <div className="size-lg-4">
+                    <BlockHeading title="Label Settings" />
                     <FieldOutput
-                        title="Code"
-                        description={company.code}
+                        title="Telephone Number"
+                        description={company.labelTelNumber}
                         fieldClass="no-h-padding"
-                        sizeClass="size-lg-4"
+                        sizeClass="size-lg-12"
                     />
                     <FieldOutput
-                        title="Short Code"
-                        description={company.shortCode}
+                        title="Company Name"
+                        description={company.labelCompanyName}
                         fieldClass="no-h-padding"
-                        sizeClass="size-lg-4"
+                        sizeClass="size-lg-12"
                     />
                 </div>
 
-                <BlockHeading classes="sub-heading" title="Display Settings" />
+                <div className="size-lg-8">
+                    <BlockHeading title="Bolster Client List" />
+                    <FieldOutput
+                        title="Hidden on client list?"
+                        description={company.hideOnClientList ? 'Yes' : 'No'}
+                        fieldClass="no-h-padding"
+                        sizeClass="size-lg-12"
+                    />
+                </div>
+            </BlockContainer>
+            <BlockContainer
+                isFetching={isFetching}
+                error={error}
+                isEmpty={!company.name}
+            >
+                <div className="size-lg-12">
+                    <div className="size-lg-4">
+                        <BlockHeading title="Company Code" />
 
+                        <FieldOutput
+                            title="Code"
+                            description={company.code}
+                            fieldClass="no-h-padding"
+                            sizeClass="size-lg-12"
+                        />
+                        <FieldOutput
+                            title="Short Code"
+                            description={company.shortCode}
+                            fieldClass="no-h-padding"
+                            sizeClass="size-lg-12"
+                        />
+                    </div>
+                    <div className="size-lg-8">
+                        <BlockHeading title="Template Settings" />
+                        <FieldOutput
+                            title="Default Template Usage Rule"
+                            description={
+                                TEMPLATE_USAGE_RULES[
+                                    company.defaultTemplateUsageRule
+                                ]
+                            }
+                            fieldClass="no-h-padding"
+                            sizeClass="size-lg-4"
+                        />
+                    </div>
+                </div>
+            </BlockContainer>
+            <BlockContainer
+                isFetching={isFetching}
+                error={error}
+                isEmpty={!company.name}
+            >
+                {' '}
+                <BlockHeading title="Display Settings" />
                 <FieldOutput
                     title="Company Logo"
                     fieldClass="no-h-padding"
@@ -100,62 +166,14 @@ const Settings = ({ isFetching, error, companySettings: company }) => {
                     fieldClass="no-h-padding"
                     sizeClass="size-lg-4"
                 />
-
                 <FieldOutput
                     title="Timezone"
                     description={`${timeZone.name} - ${timeZone.offset}`}
                 />
-
                 <FieldOutput
                     title="Date Format"
                     description={dateFormat.momentDateTimeFormat}
                 />
-
-                <BlockHeading classes="sub-heading" title="Template Settings" />
-                <FieldOutput
-                    title="Default Template Usage Rule"
-                    description={
-                        TEMPLATE_USAGE_RULES[company.defaultTemplateUsageRule]
-                    }
-                    fieldClass="no-h-padding"
-                    sizeClass="size-lg-4"
-                />
-                <div className="size-lg-12">
-                    <BlockHeading title="Label Settings" />
-                    <FieldOutput
-                        title="Telephone Number"
-                        description={company.labelTelNumber}
-                        fieldClass="no-h-padding"
-                        sizeClass="size-lg-4"
-                    />
-                    <FieldOutput
-                        title="Company Name"
-                        description={company.labelCompanyName}
-                        fieldClass="no-h-padding"
-                        sizeClass="size-lg-4"
-                    />
-
-                    <BlockHeading
-                        classes="sub-heading"
-                        title="Bolster Client List"
-                    />
-                    <FieldOutput
-                        title="Hidden on client list?"
-                        description={company.hideOnClientList ? 'Yes' : 'No'}
-                        fieldClass="no-h-padding"
-                        sizeClass="size-lg-4"
-                    />
-                </div>
-
-                <BlockButtonWrapper>
-                    <Link
-                        className="button yellow"
-                        to="/company/settings/edit-settings"
-                    >
-                        <i className="far fa-pencil" />
-                        Edit Settings
-                    </Link>
-                </BlockButtonWrapper>
             </BlockContainer>
         </>
     );

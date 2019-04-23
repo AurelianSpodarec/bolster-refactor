@@ -8,6 +8,9 @@ import editSubscriptionRenewalStatus from 'actions/companyAdmin/subscriptions/as
 class SubscriptionAutoRenewalContainer extends Component {
     render() {
         const { isFetching, isAutoRenew, renewalType } = this.props;
+        const noCards = !Object.values(this.props.cards).length;
+        console.log(noCards);
+        console.log(Object.values(this.props.cards).length);
         return (
             <BlockContainer isFetching={isFetching}>
                 <SubscriptionAutoRenewal
@@ -15,6 +18,7 @@ class SubscriptionAutoRenewalContainer extends Component {
                     handleAutoRenewChange={this.handleAutoRenewChange}
                     handleRadioChange={this.handleRadioChange}
                     renewalType={renewalType}
+                    noCards={noCards}
                 />
             </BlockContainer>
         );
@@ -46,12 +50,14 @@ const mapStateToProps = ({
         subscriptionsReducer: {
             isFetching,
             subscriptions: { isAutoRenew, renewalType }
-        }
+        },
+        cardsReducer: { cards }
     }
 }) => ({
     isFetching,
     isAutoRenew,
-    renewalType
+    renewalType,
+    cards: cards || {}
 });
 
 const mapDispatchToProps = dispatch => ({

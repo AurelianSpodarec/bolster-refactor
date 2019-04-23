@@ -15,12 +15,18 @@ const SinglePinMap = ({
     moveMode,
     toggleMoveMode,
     editPinLocationPosition,
-    handleeditPinLocation
+    handleeditPinLocation,
+    pinHistory,
+    historyVersion,
+    historyCount
 }) => {
     return (
         <>
             {moveMode ? (
-                <BlockHeading title={`Pin #${pin.id}`}>
+                <BlockHeading title={`Pin ${pin.pinCode}`}>
+                    <h4 className="small-text">
+                        (History {historyVersion} of {historyCount})
+                    </h4>
                     <button
                         onClick={handleeditPinLocation}
                         className="button green pull-right"
@@ -35,7 +41,10 @@ const SinglePinMap = ({
                     </button>
                 </BlockHeading>
             ) : (
-                <BlockHeading title={`Pin #${pin.id}`}>
+                <BlockHeading title={`Pin ${pin.pinCode}`}>
+                    <h4 className="small-text">
+                        (History {historyVersion} of {historyCount})
+                    </h4>
                     <button
                         className="button pull-right"
                         onClick={toggleMoveMode}

@@ -26,12 +26,17 @@ class PinAnswersContainer extends Component {
                 answer.pinHistoryID === pinHistory.id
         );
 
-        const answer = {
-            id: relevantAnswer[0].id,
-            answer: relevantAnswer[0].answer
-        };
+        if (!!relevantAnswer.length){
+            const answer = {
+                id: relevantAnswer[0].id,
+                answer: relevantAnswer[0].answer
+            };
 
-        return answer;
+            return answer;
+        }else{
+            return {};
+        }
+
     };
 }
 

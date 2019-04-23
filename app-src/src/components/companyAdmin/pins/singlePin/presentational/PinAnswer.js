@@ -8,9 +8,10 @@ const PinAnswer = ({ trimmedAnswer, type, questions, answers }) => {
     let relevantOption;
     let relevantOptions;
     let tmpAnswer = answers.filter(item => +item.id === +trimmedAnswer.id);
+    let notFoundResponse = <p>Not Found</p>;
 
     if (!tmpAnswer || !tmpAnswer.length) {
-        return <p>Not Found</p>;
+        return notFoundResponse;
     }
 
     let curAnswer = tmpAnswer[0];
@@ -26,10 +27,16 @@ const PinAnswer = ({ trimmedAnswer, type, questions, answers }) => {
             relevantQuestion = questions.filter(
                 item => +item.id === +curAnswer.templateQuestionID
             )[0];
+            if(!relevantQuestion){
+                return notFoundResponse;
+            }
 
             relevantOption = relevantQuestion.options.filter(
                 option => option.id === curAnswer.answer
             )[0];
+            if(!relevantOption){
+                return notFoundResponse;
+            }
 
             contentDisplay = relevantOption.text;
             return <p>{contentDisplay}</p>;
@@ -78,7 +85,7 @@ const PinAnswer = ({ trimmedAnswer, type, questions, answers }) => {
             contentDisplay = curAnswer.answer;
     }
 
-    return <p>Not Found</p>;
+    return notFoundResponse;
 };
 
 export default PinAnswer;

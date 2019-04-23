@@ -67,6 +67,7 @@ function postSuccessReducer(state = false, action) {
             return state;
     }
 }
+
 function postFailureReducer(state = false, action) {
     switch (action.type) {
         case CREATE_BUILDING_REQUEST:

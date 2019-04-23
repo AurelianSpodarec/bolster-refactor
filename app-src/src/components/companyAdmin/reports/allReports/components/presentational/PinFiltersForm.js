@@ -1,42 +1,84 @@
 import React from 'react';
 
-import Field from 'components/shared/generic/form/presentational/Field';
-import Dropdown from 'components/shared/generic/form/presentational/Dropdown';
 import Form from 'components/shared/generic/form/containers/Form';
-import MultiDropdownContainer from 'components/shared/generic/form/containers/MultiDropdownContainer';
-import DatePicker from 'components/shared/generic/form/presentational/DatePicker';
+import LevelsFilterContainer from '../containers/LevelsFilterContainer';
+import StatusTypeFilterContainer from '../containers/StatusTypeFilterContainer';
+import ServicesFilterContainer from '../containers/ServicesFilterContainer';
+import DatesFilterContainer from '../containers/DatesFilterContainer';
+import FurtherFiltration from './FurtherFiltration';
+// import ReportOptionsContainer from '../containers/ReportOptionsContainer';
+import PinSelectorContainer from 'components/shared/pinSelector/container/PinSelectorContainer';
+import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
+import NumberOfHistoriesContainer from '../containers/NumberOfHistoriesContainer';
+// import SortByContainer from '../containers/SortByContainer';
+import ReportFormatsContainer from '../containers/ReportFormatsContainer';
+import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import CustomFiltersContainer from '../containers/CustomFiltersContainer';
+import OperativesFilterContainer from '../containers/OperativesFilterContainer';
 
-const PinFiltersForm = () => (
-    <Form className="generic-form ">
-        <Field title="Level">
-            {/* <Dropdown placeholder="Site" name="site" />
-            <Dropdown placeholder="Building" name="building" />
-            <Dropdown placeholder="Floor" name="floor" />
-            <Dropdown placeholder="Drawing" name="drawing" /> */}
-        </Field>
-        <Field title="Service">
-            {/* <Dropdown placeholder="Firestopping" name="service" /> */}
-        </Field>
-        <Field title="Status">
-            {/* <Dropdown placeholder="All" name="status" /> */}
-        </Field>
-        <Field title="Operative">
-            {/* <MultiDropdownContainer
-                required={true}
-                options={}
-                value={}
-                name="operative"
-                handleChange={}
-            /> */}
-        </Field>
-        <Field title="Date Range">
-            {/* <DatePicker
-                name="startOn"
-                selected={startOn}
-                onChange={e => onChange(e, 'startOn')}
-                placeholderText="Start date"
-            /> */}
-        </Field>
+const PinFiltersForm = ({
+    futherFiltrationOptions,
+    selectedFutherFiltration,
+    handleFurtherFiltrationChange,
+    filterOption,
+    handleSubmit
+}) => (
+    <Form className="size-lg-12" onSubmit={handleSubmit}>
+        <div className="flex-container size-lg-12">
+            <div className="flex-item size-lg-6">
+                <BlockContainer>
+                    <div className="size-lg-12">
+                        <LevelsFilterContainer />
+                        <OperativesFilterContainer />
+                    </div>
+                </BlockContainer>
+            </div>
+            <div className="flex-item size-lg-6">
+                <BlockContainer>
+                    <div className="size-lg-12">
+                        <ServicesFilterContainer />
+                        <StatusTypeFilterContainer />
+                        <DatesFilterContainer />
+                    </div>
+                </BlockContainer>
+            </div>
+        </div>
+
+        <div className="size-lg-12">
+            <BlockContainer>
+                <FurtherFiltration
+                    futherFiltrationOptions={futherFiltrationOptions}
+                    selectedFutherFiltration={selectedFutherFiltration}
+                    handleChange={handleFurtherFiltrationChange}
+                />
+                {filterOption === '1' && <PinSelectorContainer />}
+                {filterOption === '2' && <CustomFiltersContainer />}
+            </BlockContainer>
+        </div>
+        <div className="size-lg-12">
+            <BlockContainer>
+                <div className="size-lg-6">
+                    <ReportFormatsContainer />
+                </div>
+                <div className="size-lg-6">
+                    <NumberOfHistoriesContainer />
+                    <p className="generic-text size-lg-12">
+                        Show Hidden Checkbox
+                    </p>
+                </div>
+                <BlockButtonWrapper>
+                    <button className="button green" type="submit">
+                        <i className="fa fa-file" />
+                        Generate report
+                    </button>
+                </BlockButtonWrapper>
+            </BlockContainer>
+        </div>
+        {/* <div className="size-lg-6">
+            <SortByContainer />
+        </div> */}
+
+        {/* <PinSelectorContainer /> */}
     </Form>
 );
 

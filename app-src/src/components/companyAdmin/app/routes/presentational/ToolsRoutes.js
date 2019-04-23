@@ -10,6 +10,7 @@ import CreateOperativeAlert from 'components/companyAdmin/operativeAlerts/create
 import AllOperativeAlertsContainer from 'components/companyAdmin/operativeAlerts/allOperativeAlerts/containers/AllOperativeAlertsContainer';
 import TemplatesContainer from 'components/companyAdmin/templates/allTemplates/containers/TemplatesContainer';
 import SingleTemplateContainer from 'components/companyAdmin/templates/singleTemplate/containers/SingleTemplateContainer';
+import TransferRequests from 'components/companyAdmin/transferRequests/presentational/TransferRequests';
 
 const ToolsRoutes = ({ base = '/company/tools' }) => (
     <SwitchWith404>
@@ -43,6 +44,11 @@ const ToolsRoutes = ({ base = '/company/tools' }) => (
             exact
             path={`${base}/operative-alerts/create`}
             component={CreateOperativeAlert}
+        />
+        <Route
+            exact
+            path={`${base}/transfer-requests`}
+            component={TransferRequests}
         />
     </SwitchWith404>
 );

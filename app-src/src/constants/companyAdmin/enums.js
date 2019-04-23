@@ -140,3 +140,38 @@ export const VAT_TYPES = {
     EU: 2,
     OUTSIDEEU: 3
 };
+
+//Report generator
+export const FUTHER_FILTRATION = {
+    1: 'Pin Selection',
+    2: 'Filters'
+};
+
+export const NUMBER_OF_HISTORIES = {
+    1: 'Latest',
+    2: 'Earliest',
+    3: 'All'
+};
+
+export const SORT_BY = {
+    1: 'Ascending',
+    2: 'Decending'
+};
+
+export const REPORT_FORMATS = {
+    1: 'pdf',
+    2: 'csv'
+};
+
+export const GENERATION_STATE_TEXT = {
+    0: 'Waiting',
+    1: 'Running',
+    2: 'Complete',
+    3: 'Failed'
+};
+export const GENERATION_STATE_VAL = {
+    WAITING: 0,
+    RUNNING: 1,
+    COMPLETE: 2,
+    FAILED: 3
+};

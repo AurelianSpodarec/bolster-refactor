@@ -11,7 +11,7 @@ const GenerationQueueTableContainer = ({
 }) => {
     return (
         <GenerationQueueTable
-            headers={['Type', 'Details', 'Status', 'Created On', '']}
+            headers={['Name', 'Type', 'Details', 'Status', 'Created On', '']}
             isFetching={isFetching}
             error={error}
             generationQueue={_getSortedQueue()}
