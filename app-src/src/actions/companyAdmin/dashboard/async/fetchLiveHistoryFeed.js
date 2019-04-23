@@ -22,11 +22,11 @@ export const fetchLiveHistoriesFailure = error => ({
     error
 });
 
-export default postBody => dispatch => {
+export default lastUpdate => dispatch => {
     dispatch(fetchLiveHistoriesRequest());
 
     return axios
-        .get(`${API_URL}/pins/historyfeed${postBody}`, getHeaders())
+        .get(`${API_URL}/pins/historyfeed${lastUpdate}`, getHeaders())
         .then(res => dispatch(fetchLiveHistoriesSuccess(res.data)))
         .catch(err => dispatch(fetchLiveHistoriesFailure(err.message)));
 };
