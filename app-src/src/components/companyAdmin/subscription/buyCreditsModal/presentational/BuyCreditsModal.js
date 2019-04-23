@@ -17,7 +17,8 @@ const BuyCreditsModal = ({
     creditsToBuy,
     cards,
     selectedCard,
-    costOfCredits
+    costOfCredits,
+    noCards
 }) => {
     return (
         <ModalOuterContainer>
@@ -33,6 +34,8 @@ const BuyCreditsModal = ({
                         text="Pay by card"
                         handleInputChange={handleChange}
                         checked={+paymentType === PAYMENT_IDS.CARD}
+                        extraDetails={noCards ? 'No cards available' : ''}
+                        disabled={noCards}
                     />
                 </Field>
                 <Field sizeClasses="size-lg-6">
@@ -44,7 +47,7 @@ const BuyCreditsModal = ({
                         checked={+paymentType === PAYMENT_IDS.INVOICE}
                     />
                 </Field>
-                {+paymentType === PAYMENT_IDS.CARD && (
+                {+paymentType === PAYMENT_IDS.CARD && !noCards && (
                     <Field sizeClasses="size-lg-12" name="Select Card">
                         <DropdownContainer
                             required

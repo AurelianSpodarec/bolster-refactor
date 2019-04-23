@@ -25,6 +25,8 @@ class AddServiceToSubscriptionModalContainer extends Component {
             value: card.id
         }));
 
+        const noCards = !cards.length;
+
         return (
             <AddServiceToSubscriptionModal
                 paymentType={paymentType}
@@ -33,6 +35,7 @@ class AddServiceToSubscriptionModalContainer extends Component {
                 handleChange={this.handleChange}
                 handleSubmit={this.handleSubmit}
                 cards={cardOptions}
+                noCards={noCards}
                 selectedCard={cardOptions.find(
                     ({ value }) => value === stripeCardID
                 )}
@@ -129,7 +132,7 @@ const mapStateToProps = ({
         }
     }
 }) => ({
-    cards: Object.values(cards),
+    cards: Object.values(cards) || [],
     isFetching: fetchingCards || fetchingSubs,
     proRataCost,
     postSuccess,
