@@ -70,6 +70,7 @@ class SearchContainer extends Component {
             );
             return { ...result, ...typeData, searchText: searchTextComponent };
         });
+        console.log(resultMap);
         return resultMap;
     }
 
