@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import HeadquartersCompanyListItem from '../presentational/HeadquartersCompanyListItem';
 import reissueToken from 'actions/shared/auth/async/reissueToken';
 import decodeJWT from 'actions/shared/jwt/async/decodeJWT';
+import fetchCompanySettings from 'actions/companyAdmin/companySettings/async/fetchCompanySettings';
 
 class HeadquartersCompanyListItemContainer extends Component {
     render() {
@@ -39,7 +40,9 @@ const mapStateToProps = ({
 
 const mapDispatchToProps = dispatch => ({
     reissueToken: companyID =>
-        dispatch(reissueToken(companyID)).then(() => dispatch(decodeJWT()))
+        dispatch(reissueToken(companyID))
+            .then(() => dispatch(decodeJWT()))
+            .then(() => dispatch(fetchCompanySettings()))
 });
 
 export default connect(
