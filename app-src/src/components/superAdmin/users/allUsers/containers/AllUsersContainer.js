@@ -5,13 +5,9 @@ import fetchAllUsers from 'actions/superAdmin/users/async/fetchAllUsers';
 import AllUsers from '../presentational/AllUsers';
 
 class AllUsersContainer extends Component {
-    render() {
-        return <AllUsers />;
-    }
+    render = () => <AllUsers />;
 
-    componentDidMount() {
-        this.props.fetchAllUsers();
-    }
+    componentDidMount = () => this.props.fetchAllUsers();
 }
 
 const mapDispatchToProps = () => dispatch => ({
