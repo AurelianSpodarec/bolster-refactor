@@ -1,7 +1,6 @@
 import React from 'react';
 
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
-import ButtonNoClickContainer from 'components/shared/generic/button/containers/ButtonNoClickContainer';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 
 const DrawingListItem = ({ drawing, permissions }) => (
