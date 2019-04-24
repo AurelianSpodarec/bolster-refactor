@@ -16,7 +16,7 @@ const ClientsTable = ({
     <div className="size-lg-12">
         <BlockHeading title="Client access">
             <ButtonNoClickContainer
-                className="pull-right"
+                className="pull-right green"
                 to={`${location.pathname}/invite-client`}
             >
                 <i className="fa fa-plus" /> Invite

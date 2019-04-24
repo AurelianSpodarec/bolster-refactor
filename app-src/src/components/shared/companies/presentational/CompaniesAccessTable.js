@@ -17,7 +17,7 @@ const CompaniesAccessTable = ({
     <div className="size-lg-12">
         <BlockHeading title="Company Access">
             <ButtonNoClickContainer
-                className="pull-right"
+                className="pull-right green"
                 to={`${location.pathname}/invite-company`}
             >
                 <i className="fa fa-plus" /> Invite

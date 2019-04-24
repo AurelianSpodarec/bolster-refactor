@@ -29,7 +29,7 @@ const CompaniesAccessListSmall = ({
                                 to={`${parentId}/add-permissions/${
                                     company.companyID
                                 }`}
-                                className="button icon-only"
+                                className="button icon-only green"
                             >
                                 <i className="far fa-plus fa-fw" />
                             </Link>

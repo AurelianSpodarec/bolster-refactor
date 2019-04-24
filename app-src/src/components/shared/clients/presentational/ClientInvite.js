@@ -7,7 +7,7 @@ const ClientsInvite = ({ type, location }) => (
     <div className="size-lg-12">
         <BlockHeading title="Invite Client">
             <ButtonNoClickContainer
-                className="pull-right"
+                className="pull-right green"
                 to={`${location.pathname}/invite-client`}
             >
                 <i className="fa fa-plus" /> Invite

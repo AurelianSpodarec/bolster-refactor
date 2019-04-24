@@ -11,7 +11,7 @@ const DocumentsTable = ({ location, documents, isFetching }) => {
         <div className="size-lg-12">
             <BlockHeading title="Documents" classes="w-table">
                 <ButtonNoClickContainer
-                    className="pull-right"
+                    className="pull-right green"
                     to={`${location.pathname}/attach-document`}
                 >
                     <i className="fa fa-plus" /> Add

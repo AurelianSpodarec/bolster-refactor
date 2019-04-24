@@ -7,7 +7,7 @@ const OperativesAdd = ({ type, location }) => (
     <div className="size-lg-12">
         <BlockHeading title="Invite Operative">
             <ButtonNoClickContainer
-                className="pull-right"
+                className="pull-right green"
                 to={`${location.pathname}/add-operative`}
             >
                 <i className="fa fa-plus" /> Invite

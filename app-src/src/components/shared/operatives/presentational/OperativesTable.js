@@ -21,7 +21,7 @@ const OperativesTable = ({
             <BlockHeading title="Operative Access">
                 <ButtonNoClickContainer
                     className={`pull-right ${
-                        isAddOperativeDisabled ? 'disabled' : ''
+                        isAddOperativeDisabled ? 'disabled' : 'green'
                     }`}
                     to={
                         isAddOperativeDisabled

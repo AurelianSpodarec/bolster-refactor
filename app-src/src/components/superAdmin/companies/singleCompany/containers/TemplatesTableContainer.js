@@ -17,7 +17,7 @@ class TemplatesTableContainer extends Component {
             <BlockContainer>
                 <BlockHeading title="Templates">
                     <button
-                        className="button"
+                        className="button green"
                         onClick={this.showAddTemplateModal}
                     >
                         <i className="fa fa-plus" /> Add template

@@ -53,7 +53,7 @@ const TemplateformModal = ({
                 </Field>
             </div>
             <BlockButtonWrapper>
-                <button className="button ">
+                <button className="button green">
                     <i className="fa fa-plus" />
                     Set
                 </button>
