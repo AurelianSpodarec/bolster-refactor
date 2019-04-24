@@ -75,6 +75,7 @@ export default function(ProtectedComponent) {
                 sortBy
             };
     
+            console.log(postBody)
             postCustomFilters(postBody);
         };
     }

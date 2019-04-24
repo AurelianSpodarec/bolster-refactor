@@ -76,12 +76,11 @@ class LevelsFilterContainer extends Component {
             postFilters
         } = this.props;
 
-        updateReportFilter(name, hierarchyID);
-        updateReportFilter('hierarchyID', hierarchyID);
-
-        if (name === 'siteID' && !hierarchyID) return;
-
-        postFilters();
+        return updateReportFilter(name, hierarchyID)
+            .then(() => updateReportFilter('hierarchyID', hierarchyID)
+                .then(() => !(name === 'siteID' && !hierarchyID) &&  postFilters()));
+            
+        
     };
 
     _formatArrForDropdown = arr => {
