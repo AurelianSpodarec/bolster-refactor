@@ -8,6 +8,8 @@ import createHeadquartersCompany from 'actions/companyAdmin/headquarters/async/c
 import fetchTimezones from 'actions/shared/time/async/fetchTimezones';
 import fetchDateFormats from 'actions/shared/time/async/fetchDateFormats';
 import { sortTimezones } from 'helpers/generic';
+import addFieldError from 'actions/shared/generic/fieldErrors/sync/addFieldError';
+import removeFieldError from 'actions/shared/generic/fieldErrors/sync/removeFieldError';
 
 class AddHeadquartersCompanyFormContainer extends Component {
     state = {
@@ -50,6 +52,7 @@ class AddHeadquartersCompanyFormContainer extends Component {
                 handleSubmit={this.handleSubmit}
                 dateFormats={dateFormats}
                 timezoneOptions={timezoneOptions}
+                validatePassword={this.validatePassword}
                 validateConfirmPassword={this.validateConfirmPassword}
                 handleChange={this.handleChange}
             />
@@ -157,9 +160,18 @@ class AddHeadquartersCompanyFormContainer extends Component {
             label: `${momentDateTimeFormat} (eg. ${example})}`
         }));
 
+    validatePassword = password => {
+        const { confirmPassword } = this.state;
+        const { addFieldError, removeFieldError } = this.props;
+        if (password !== confirmPassword) {
+            addFieldError('confirmPassword', 'Passwords do not match');
+        } else {
+            removeFieldError('confirmPassword');
+        }
+        return null;
+    };
     validateConfirmPassword = confirmPassword => {
         const { 'User.password': password } = this.state;
-
         return password !== confirmPassword ? 'Passwords do not match' : null;
     };
 }
@@ -183,7 +195,9 @@ const mapDispatchToProps = dispatch => ({
     fetchDateTimeData: () => {
         dispatch(fetchTimezones());
         dispatch(fetchDateFormats());
-    }
+    },
+    addFieldError: (field, err) => dispatch(addFieldError(field, err)),
+    removeFieldError: field => dispatch(removeFieldError(field))
 });
 
 export default withRouter(
