@@ -11,13 +11,6 @@ const OtherOptions = ({
     layoutOptions
 }) => (
     <>
-        <Field name="Show hidden?">
-            <Checkbox
-                checked={showHidden}
-                handleChange={handleChange}
-                name="showHidden"
-            />
-        </Field>
         <Field name="Sort by">
             <NewSelect
                 name="sortBy"
@@ -34,6 +27,13 @@ const OtherOptions = ({
                 singleSelect={true}
                 onChange={handleChangeSelect}
                 value={layout}
+            />
+        </Field>
+        <Field name="Show hidden?">
+            <Checkbox
+                checked={showHidden}
+                handleChange={handleChange}
+                name="showHidden"
             />
         </Field>
     </>

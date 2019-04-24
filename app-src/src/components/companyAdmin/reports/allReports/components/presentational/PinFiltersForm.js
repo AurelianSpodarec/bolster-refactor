@@ -56,10 +56,10 @@ const PinFiltersForm = ({
         <div className="size-lg-12">
             <BlockContainer>
                 <div className="size-lg-6">
+                    <NumberOfHistoriesContainer />
                     <ReportFormatsContainer />
                 </div>
                 <div className="size-lg-6">
-                    <NumberOfHistoriesContainer />
                     <OtherOptionsContainer />
                 </div>
                 <BlockButtonWrapper>
