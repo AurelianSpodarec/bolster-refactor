@@ -69,11 +69,4 @@ const mapStateToProps = ({
     companySettings
 });
 
-const mapDispatchToProps = dispatch => ({});
-
-export default withRouter(
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(ButtonNoClickContainer)
-);
+export default withRouter(connect(mapStateToProps)(ButtonNoClickContainer));

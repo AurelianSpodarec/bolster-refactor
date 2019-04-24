@@ -55,7 +55,10 @@ const Header = ({
                         )}
                         <i className="far fa-envelope fa-fw" />
                     </Link>
-                    <Link to="/company/transfer-requests" className="item main">
+                    <Link
+                        to="/company/tools/transfer-requests"
+                        className="item main"
+                    >
                         {!!totalRequests && (
                             <span className="number">{totalRequests}</span>
                         )}

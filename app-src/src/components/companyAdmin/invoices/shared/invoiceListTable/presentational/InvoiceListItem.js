@@ -21,7 +21,21 @@ const InvoiceListItem = ({
         <td>{`£${formatCurrency(total)}`}</td>
         <td>{PAYMENT_TYPES[paymentType]}</td>
         <td>{isPaid ? 'Paid' : 'Awaiting Payment'}</td>
-        <td>{!isPaid && <i className="fa fa-exclamation" />}</td>
+        <td>
+            {!isPaid && (
+                <i
+                    className="fa fa-exclamation-triangle far"
+                    // TODO ##needs styling##
+                    style={{
+                        color: 'yellow',
+                        fontSize: '2em',
+                        backgroundColor: 'black',
+                        borderRadius: '0.1em',
+                        padding: '0.05em'
+                    }}
+                />
+            )}
+        </td>
         <td>
             <BlockButtonWrapper>
                 <ButtonNoClickContainer to={`/company/invoices/${id}`}>

@@ -14,12 +14,14 @@ const Subscription = () => (
         <div className="size-lg-8">
             <SubscriptionStatusContainer />
             <ActiveServicesContainer />
-            <PendingInvoicesContainer />
             <CardManagement />
         </div>
         <div className="size-lg-4">
             <SubscriptionAutoRenewalContainer />
             <SubscriptionCreditsContainer />
+        </div>
+        <div className="size-lg-12">
+            <PendingInvoicesContainer />
         </div>
     </>
 );
