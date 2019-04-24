@@ -11,17 +11,13 @@ const SingleCompany = () => (
         <div className="size-lg-12">
             <CompanyHeaderContainer />
         </div>
-        <div className="size-lg-4">
-            <TemplatesTableContainer />
-        </div>
         <div className="size-lg-8">
             <InvoicesTableContainer />
+            <CompanyUsersTableContainer />
         </div>
         <div className="size-lg-4">
             <SubscriptionStatusContainer />
-        </div>
-        <div className="size-lg-12">
-            <CompanyUsersTableContainer />
+            <TemplatesTableContainer />
         </div>
     </>
 );

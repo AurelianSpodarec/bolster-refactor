@@ -7,11 +7,12 @@ import BlockContainer from 'components/shared/generic/block/containers/BlockCont
 
 class SubscriptionStatusContainer extends Component {
     render = () => {
-        const { subscription } = this.props;
+        const { subscription, services } = this.props;
         return (
             <BlockContainer>
                 <SubscriptionStatus
                     subscription={subscription}
+                    services={services}
                     endOn={subscription.endOn}
                     active={this.checkSubActive(
                         subscription.startOn,
@@ -28,11 +29,14 @@ class SubscriptionStatusContainer extends Component {
 
 const mapStateToProps = ({
     superAdmin: {
-        companySubscriptionReducer: { isFetching, subscription }
+        companySubscriptionReducer: { isFetching, subscription },
+        servicesReducer: { services, isFetching: fetchingServices }
     }
 }) => ({
     subscription,
-    isFetching
+    isFetching,
+    services,
+    fetchingServices
 });
 
 export default connect(mapStateToProps)(SubscriptionStatusContainer);
