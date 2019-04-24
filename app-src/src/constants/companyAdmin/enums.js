@@ -196,3 +196,9 @@ export const LAYOUT_OPTIONS_TEXT = {
     1: 'One column',
     2: 'Two columns'
 };
+
+export const PARENTAL_TYPES = {
+    NONE: 1,
+    HEADQUARTERS: 2,
+    CHILD_COMPANY: 3
+};
