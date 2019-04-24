@@ -5,7 +5,10 @@ import HeadquartersCompaniesTableContainer from '../containers/HeadquartersCompa
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
 
-const HeadquartersCompanies = ({ handleCancelImpersonation }) => (
+const HeadquartersCompanies = ({
+    handleCancelImpersonation,
+    isImpersonating
+}) => (
     <>
         <PageHeading title="Headquarters Companies" />
         <BlockContainer>
@@ -16,9 +19,14 @@ const HeadquartersCompanies = ({ handleCancelImpersonation }) => (
                 >
                     <i className="fa fa-plus" /> Add Company
                 </Link>
-                <button className="button" onClick={handleCancelImpersonation}>
-                    Cancel impersonation
-                </button>
+                {isImpersonating && (
+                    <button
+                        className="button"
+                        onClick={handleCancelImpersonation}
+                    >
+                        Cancel impersonation
+                    </button>
+                )}
             </BlockHeading>
             <HeadquartersCompaniesTableContainer />
         </BlockContainer>{' '}

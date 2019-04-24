@@ -3,11 +3,13 @@ import { connect } from 'react-redux';
 import fetchAllHeadquartersCompanies from 'actions/companyAdmin/headquarters/async/fetchAllHeadquartersCompanies';
 import HeadquartersCompanies from '../presentational/HeadquartersCompanies';
 import reissueToken from 'actions/shared/auth/async/reissueToken';
+import decodeJWT from 'actions/shared/jwt/async/decodeJWT';
 
 class HeadquartersCompaniesContainer extends Component {
     render = () => (
         <HeadquartersCompanies
             handleCancelImpersonation={this.handleCancelImpersonation}
+            isImpersonating={this.props.isImpersonating}
         />
     );
     handleCancelImpersonation = () => {
@@ -19,14 +21,25 @@ class HeadquartersCompaniesContainer extends Component {
 
 const mapStateToProps = ({
     companyAdmin: {
-        headquartersReducer: { companies }
+        headquartersReducer: { companies, postSuccess }
+    },
+    shared: {
+        decodeJWTReducer: {
+            jwtData: { companyID, headquartersCompanyID }
+        }
     }
-}) => ({ companies });
+}) => ({
+    companies,
+    isImpersonating: companyID !== headquartersCompanyID,
+    postSuccess
+});
 
 const mapDispatchToProps = dispatch => ({
     fetchAllHeadquartersCompanies: () =>
         dispatch(fetchAllHeadquartersCompanies()),
-    reissueToken: () => dispatch(reissueToken())
+    reissueToken: () => {
+        dispatch(reissueToken()).then(() => dispatch(decodeJWT()));
+    }
 });
 
 export default connect(
