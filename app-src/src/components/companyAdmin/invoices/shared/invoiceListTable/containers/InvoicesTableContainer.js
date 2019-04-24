@@ -27,8 +27,8 @@ class InvoicesTableContainer extends Component {
     };
 
     componentDidUpdate = prevProps => {
-        const { postSuccess, fetchAllInvoices } = this.props;
-        if (postSuccess && !prevProps.postSuccess) fetchAllInvoices();
+        const { postSuccess, fetchInvoices } = this.props;
+        if (postSuccess && !prevProps.postSuccess) fetchInvoices();
     };
 }
 
