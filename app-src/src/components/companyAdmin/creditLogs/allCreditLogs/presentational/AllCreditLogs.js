@@ -14,9 +14,9 @@ const AllCreditLogs = ({ isFetching }) => (
     </>
 );
 
-const mapStateToProps = ({ companyAdmin: { creditLogsReducer } }) => ({
-    isFetching: creditLogsReducer.isFetching,
-    error: creditLogsReducer.error
+const mapStateToProps = ({ companyAdmin: { creditsReducer } }) => ({
+    isFetching: creditsReducer.isFetching,
+    error: creditsReducer.error
 });
 
 export default connect(mapStateToProps)(AllCreditLogs);

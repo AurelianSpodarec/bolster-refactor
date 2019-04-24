@@ -19,10 +19,10 @@ class CreditLogsTableContainer extends Component {
     }
 }
 
-const mapStateToProps = ({ companyAdmin: { creditLogsReducer } }) => ({
-    creditLogs: Object.values(creditLogsReducer.creditLogs) || null,
-    isFetching: creditLogsReducer.isFetching,
-    error: creditLogsReducer.error
+const mapStateToProps = ({ companyAdmin: { creditsReducer } }) => ({
+    creditLogs: Object.values(creditsReducer.credits) || null,
+    isFetching: creditsReducer.isFetching,
+    error: creditsReducer.error
 });
 
 export default connect(mapStateToProps)(CreditLogsTableContainer);

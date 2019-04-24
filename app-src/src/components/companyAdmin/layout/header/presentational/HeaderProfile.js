@@ -28,6 +28,7 @@ const HeaderProfile = ({
                 <p>{`${profile.firstName} ${profile.lastName}`}</p>
                 <span className="email">
                     {profile.email}{' '}
+                    {/* todo: ##  impersonation needs stling ## */}
                     {isImpersonating ? `(impersonating ${companyName})` : ''}
                 </span>
             </div>
