@@ -4,6 +4,7 @@ import { withRouter } from 'react-router-dom';
 
 import CompanyUsersTable from '../presentational/CompanyUsersTable';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 
 class CompanyUsersTableContainer extends Component {
     render() {
@@ -19,6 +20,7 @@ class CompanyUsersTableContainer extends Component {
         ];
         return (
             <BlockContainer>
+                <BlockHeading title="Users" />
                 <CompanyUsersTable {...{ users, error, isFetching, headers }} />
             </BlockContainer>
         );

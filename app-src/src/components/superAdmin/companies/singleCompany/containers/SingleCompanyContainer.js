@@ -9,9 +9,7 @@ import fetchCompanySubscription from 'actions/superAdmin/companies/async/fetchCo
 import fetchCompanyUsers from 'actions/superAdmin/users/async/fetchCompanyUsers';
 
 class SingleCompanyContainer extends Component {
-    render() {
-        return <SingleCompany />;
-    }
+    render = () => <SingleCompany />;
 
     componentDidMount = () => {
         const { companyID, fetchPageData } = this.props;

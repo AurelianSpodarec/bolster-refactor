@@ -15,9 +15,7 @@ class AllUsersContainer extends Component {
 }
 
 const mapDispatchToProps = () => dispatch => ({
-    fetchAllUsers: () => {
-        dispatch(fetchAllUsers());
-    }
+    fetchAllUsers: () => dispatch(fetchAllUsers())
 });
 export default connect(
     null,

@@ -8,6 +8,7 @@ import fetchTimeZones from 'actions/shared/time/async/fetchTimezones';
 import fetchDateFormats from 'actions/shared/time/async/fetchDateFormats';
 import postRegister from 'actions/shared/register/async/postRegister';
 import RegisterForm from '../presentational/RegisterForm';
+import { sortTimezones } from 'helpers/generic';
 
 class RegisterFormContainer extends Component {
     state = {
@@ -121,10 +122,9 @@ class RegisterFormContainer extends Component {
 
     _getTimezoneOptions = () => {
         const { timezones } = this.props;
-
-        return timezones.map(({ id, name }) => ({
+        return sortTimezones(timezones).map(({ id, name, offset }) => ({
             value: id,
-            label: name
+            label: `${name} (${offset})`
         }));
     };
 
@@ -168,15 +168,9 @@ const mapStateToProps = ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    fetchTimeZones: () => {
-        dispatch(fetchTimeZones());
-    },
-    fetchDateFormats: () => {
-        dispatch(fetchDateFormats());
-    },
-    postRegister: postBody => {
-        dispatch(postRegister(postBody));
-    }
+    fetchTimeZones: () => dispatch(fetchTimeZones()),
+    fetchDateFormats: () => dispatch(fetchDateFormats()),
+    postRegister: postBody => dispatch(postRegister(postBody))
 });
 
 export default withRouter(

@@ -2,15 +2,7 @@ import React from 'react';
 import { QUESTION_TYPES } from 'constants/shared/templateBuilder';
 
 const TemplateSectionQuestion = ({
-    question: {
-        id,
-        name,
-        isHidden,
-        isRequired,
-        isPrefill,
-        type,
-        canCompanyEdit
-    },
+    question: { id, name, isRequired, type, canCompanyEdit },
     selectQuestion
 }) => (
     <tr key={id}>

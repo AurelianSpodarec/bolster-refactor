@@ -98,3 +98,10 @@ export const formatNumber = num => Number(num).toLocaleString('en-us');
 // for decimal .00
 export const formatCurrency = num =>
     num.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+
+const getOffsetValue = ({ offset }) =>
+    Number(offset.slice(4, 10).replace(':', '')) || 0;
+const sortByOffset = (a, b) => getOffsetValue(a) - getOffsetValue(b);
+
+export const sortTimezones = timezonesArr =>
+    [...timezonesArr].sort(sortByOffset);
