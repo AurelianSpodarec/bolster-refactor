@@ -30,7 +30,7 @@ const TemplateSectionQuestionDetails = ({
         <>
             <BlockHeading title="Question Preview" />
             <p className="generic-text intro-text size-lg-12">
-                {'Press "More info" on a question and view the details here.'}
+                {'Press "Info" on a question and view the details here.'}
             </p>
         </>
     );

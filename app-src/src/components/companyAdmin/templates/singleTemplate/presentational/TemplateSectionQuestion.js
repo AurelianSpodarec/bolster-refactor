@@ -2,7 +2,15 @@ import React from 'react';
 import { QUESTION_TYPES } from 'constants/shared/templateBuilder';
 
 const TemplateSectionQuestion = ({
-    question: { id, name, isHidden, isRequired, isPrefill, type },
+    question: {
+        id,
+        name,
+        isHidden,
+        isRequired,
+        isPrefill,
+        type,
+        canCompanyEdit
+    },
     selectQuestion
 }) => (
     <tr key={id}>
@@ -11,7 +19,14 @@ const TemplateSectionQuestion = ({
         <td>{isRequired ? 'Required' : 'Not required'}</td>
         <td>
             <button className="button" onClick={() => selectQuestion(id)}>
-                More info
+                {canCompanyEdit ? (
+                    <span>
+                        <i className="fal fa-pencil" />
+                        Info/edit
+                    </span>
+                ) : (
+                    <span>Info</span>
+                )}
             </button>
         </td>
     </tr>
