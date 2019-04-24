@@ -21,7 +21,6 @@ class LevelsFilterContainer extends Component {
             buildings,
             floors,
             drawings,
-            handleChange
         } = this.props;
 
         const sitesOptions = this._formatArrForDropdown(sites);
