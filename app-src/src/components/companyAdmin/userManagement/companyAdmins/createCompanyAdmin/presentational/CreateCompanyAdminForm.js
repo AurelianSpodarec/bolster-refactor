@@ -13,6 +13,7 @@ const CreateCompanyAdminForm = ({
     phoneNumber,
     password,
     confirmPassword,
+    validatePassword,
     validateConfirmPassword
 }) => (
     <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
@@ -70,6 +71,7 @@ const CreateCompanyAdminForm = ({
                         name="password"
                         type="password"
                         handleChange={handleInputChange}
+                        validate={validatePassword}
                         required
                     />
                 </Field>
