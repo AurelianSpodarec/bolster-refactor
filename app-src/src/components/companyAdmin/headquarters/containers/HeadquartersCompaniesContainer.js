@@ -31,7 +31,10 @@ const mapStateToProps = ({
     }
 }) => ({
     companies,
-    isImpersonating: companyID !== headquartersCompanyID,
+    isImpersonating:
+        companyID &&
+        headquartersCompanyID &&
+        companyID !== headquartersCompanyID,
     postSuccess
 });
 

@@ -83,7 +83,10 @@ const mapStateToProps = ({
         }
     }
 }) => ({
-    isImpersonating: companyID !== headquartersCompanyID,
+    isImpersonating:
+        companyID &&
+        headquartersCompanyID &&
+        companyID !== headquartersCompanyID,
     companyName: name,
     profile: profileReducer.profile || {},
     generationQueueLength: Object.values(
