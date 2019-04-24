@@ -83,3 +83,10 @@ export function convertEnumToDropdownOptions(obj) {
 
     return convertArrToObj(options, 'value');
 }
+
+// For numbers without decimal
+export const formatNumber = num => Number(num).toLocaleString('en-us');
+
+// for decimal .00
+export const formatCurrency = num =>
+    num.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');

@@ -7,6 +7,7 @@ import RadioButton from 'components/shared/generic/form/presentational/RadioButt
 import { PAYMENT_IDS } from 'constants/companyAdmin/enums';
 import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
+import { formatNumber } from 'helpers/generic';
 
 const AddServiceToSubscriptionModal = ({
     handleSubmit,
@@ -24,10 +25,11 @@ const AddServiceToSubscriptionModal = ({
         <p className="generic-text intro-text size-lg-12">
             Adding the <strong>{service.name}</strong> service to your
             subscription will increase your yearly renewal from{' '}
-            <strong>£{proRataCost.currentAnnualCost}</strong> to{' '}
-            <strong>£{proRataCost.newAnnualCost}</strong>, you will be billed
-            pro-rata for your remaining subscription, leaving a{' '}
-            <strong>£{proRataCost.proRataCost}</strong> fee to pay now.
+            <strong>£{formatNumber(proRataCost.currentAnnualCost)}</strong> to{' '}
+            <strong>£{formatNumber(proRataCost.newAnnualCost)}</strong>, you
+            will be billed pro-rata for your remaining subscription, leaving a{' '}
+            <strong>£{formatNumber(proRataCost.proRataCost)}</strong> fee to pay
+            now.
         </p>
 
         <Form className="generic-form" onSubmit={handleSubmit}>

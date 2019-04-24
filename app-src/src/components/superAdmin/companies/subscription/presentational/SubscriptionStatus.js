@@ -3,6 +3,7 @@ import React from 'react';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import StatusIcon from 'components/shared/generic/statusIcon/presentationl/StatusIcon';
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
+import { formatNumber } from 'helpers/generic';
 
 const SubscriptionStatus = ({ subscription, active, endOn }) => (
     <div className="size-lg-12">
@@ -21,7 +22,8 @@ const SubscriptionStatus = ({ subscription, active, endOn }) => (
                     <strong>
                         <DateTimeContainer date={endOn} />
                     </strong>{' '}
-                    at a cost of <strong>£{subscription.renewalPrice}</strong>
+                    at a cost of{' '}
+                    <strong>£{formatNumber(subscription.renewalPrice)}</strong>
                 </p>
             ) : (
                 <p className="size-lg-12">

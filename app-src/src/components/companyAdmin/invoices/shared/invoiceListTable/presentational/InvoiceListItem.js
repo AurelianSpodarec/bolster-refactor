@@ -7,6 +7,7 @@ import { PAYMENT_TYPES, DATE_TIME_IDS } from 'constants/companyAdmin/enums';
 import { PAY_INVOICE } from 'constants/shared/modalTypes';
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 import ButtonNoClickContainer from 'components/shared/generic/button/containers/ButtonNoClickContainer';
+import { formatCurrency } from 'helpers/generic';
 
 const InvoiceListItem = ({
     invoice: { createdOn, isPaid, total, id, paymentType },
@@ -17,7 +18,7 @@ const InvoiceListItem = ({
             <DateTimeContainer date={createdOn} datetime={DATE_TIME_IDS.DATE} />
         </td>
         <td>{id}</td>
-        <td>{`£${total.toFixed(2)}`}</td>
+        <td>{`£${formatCurrency(total)}`}</td>
         <td>{PAYMENT_TYPES[paymentType]}</td>
         <td>{isPaid ? 'Paid' : 'Awaiting Payment'}</td>
         <td>{!isPaid && <i className="fa fa-exclamation" />}</td>

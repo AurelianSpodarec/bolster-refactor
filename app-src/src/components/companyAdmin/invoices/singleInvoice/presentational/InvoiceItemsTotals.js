@@ -1,13 +1,14 @@
 import React from 'react';
+import { formatCurrency } from 'helpers/generic';
 
 const InvoiceItemsTotals = ({ invoice: { subTotal, vatTotal, total } }) => (
     <tr>
         <td>{''}</td>
         <td>{''}</td>
         <td>{''}</td>
-        <td>{`Total (ex. VAT): £${subTotal.toFixed(2)} GBP`}</td>
-        <td>{`VAT total: £${vatTotal.toFixed(2)} GBP`}</td>
-        <td>{`Total (inc. VAT) £${total.toFixed(2)} GBP`}</td>
+        <td>{`Total (ex. VAT): £${formatCurrency(subTotal)} GBP`}</td>
+        <td>{`VAT total: £${formatCurrency(vatTotal)} GBP`}</td>
+        <td>{`Total (inc. VAT) £${formatCurrency(total)} GBP`}</td>
     </tr>
 );
 

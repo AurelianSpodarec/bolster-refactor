@@ -6,6 +6,7 @@ import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/pr
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 import { DATE_TIME_IDS } from 'constants/companyAdmin/enums';
 import ButtonNoClickContainer from 'components/shared/generic/button/containers/ButtonNoClickContainer';
+import { formatNumber } from 'helpers/generic';
 
 const MySubscription = ({ services, daysleft, subscriptions, endOn }) => (
     <div className="size-lg-12">
@@ -28,7 +29,7 @@ const MySubscription = ({ services, daysleft, subscriptions, endOn }) => (
                 </span>{' '}
                 at a cost of{' '}
                 <span style={{ fontWeight: 'bold' }}>
-                    £{subscriptions.renewalPrice}
+                    £{formatNumber(subscriptions.renewalPrice)}
                 </span>
             </p>
         ) : (
