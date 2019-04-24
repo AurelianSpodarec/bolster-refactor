@@ -1,5 +1,5 @@
 import React from 'react';
-import { withRouter, Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 import Table from 'components/shared/generic/tables/presentational/Table';
 import ClientsList from './ClientsList';

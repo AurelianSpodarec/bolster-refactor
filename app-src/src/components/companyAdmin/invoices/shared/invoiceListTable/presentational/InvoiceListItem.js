@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 
@@ -7,7 +7,6 @@ import { PAYMENT_TYPES, DATE_TIME_IDS } from 'constants/companyAdmin/enums';
 import { PAY_INVOICE } from 'constants/shared/modalTypes';
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 import ButtonNoClickContainer from 'components/shared/generic/button/containers/ButtonNoClickContainer';
-import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 
 const InvoiceListItem = ({
     invoice: { createdOn, isPaid, total, id, paymentType },

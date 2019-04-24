@@ -1,5 +1,5 @@
 import React from 'react';
-import { withRouter, Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import ButtonNoClickContainer from 'components/shared/generic/button/containers/ButtonNoClickContainer';
 
