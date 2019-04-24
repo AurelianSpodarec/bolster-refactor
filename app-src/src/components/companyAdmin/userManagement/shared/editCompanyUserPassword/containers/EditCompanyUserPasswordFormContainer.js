@@ -16,7 +16,7 @@ class EditCompanyUserPasswordContainer extends Component {
         <EditCompanyUserPassword
             {...this.state}
             handleInputChange={this.handleInputChange}
-            validate={this.validatePassword}
+            validateConfirmPassword={this.validateConfirmPassword}
             handleSubmit={this.handleSubmit}
         />
     );
@@ -42,7 +42,18 @@ class EditCompanyUserPasswordContainer extends Component {
         this.props.editCompanyUserPassword(id, { password });
     };
 
-    validatePassword = confirmPassword => {
+    validatePassword = password => {
+        const { confirmPassword } = this.state;
+        const { addFieldError, removeFieldError } = this.props;
+        if (password !== confirmPassword) {
+            addFieldError('confirmPassword', 'Passwords do not match');
+        } else {
+            removeFieldError('confirmPassword');
+        }
+        return null;
+    };
+
+    validateConfirmPassword = confirmPassword => {
         const { password } = this.state;
         if (password !== confirmPassword) {
             return 'Password and Confirm Password do not match';
