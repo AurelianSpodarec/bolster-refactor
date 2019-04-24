@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+import withUpdateOnChange from '../hocs/withUpdateOnChange';
+
 import LevelsSitesFilters from '../presentational/LevelsSitesFilters';
 import { convertArrToObj } from 'helpers/generic';
 import updateReportFilter from 'actions/companyAdmin/reports/sync/updateReportFilter';
@@ -9,7 +11,7 @@ import postCustomFilters from 'actions/companyAdmin/reports/async/postCustomFilt
 import LevelsBuildingsFilters from '../presentational/LevelsBuildingsFilters';
 import LevelsFloorsFilters from '../presentational/LevelsFloorsFilters';
 import LevelsDrawingsFilters from '../presentational/LevelsDrawingsFilters';
-import { HIERARCHY_IDS } from 'constants/companyAdmin/enums';
+// import { HIERARCHY_IDS } from 'constants/companyAdmin/enums';
 
 class LevelsFilterContainer extends Component {
     render() {
@@ -18,7 +20,8 @@ class LevelsFilterContainer extends Component {
             sites,
             buildings,
             floors,
-            drawings
+            drawings,
+            handleChange
         } = this.props;
 
         const sitesOptions = this._formatArrForDropdown(sites);
@@ -37,6 +40,7 @@ class LevelsFilterContainer extends Component {
                     sitesOptions={Object.values(sitesOptions)}
                     selectedSite={selectedSite}
                     handleChange={this.handleChange}
+
                     // required={!isOperativeSelected}
                 />
 
@@ -69,8 +73,7 @@ class LevelsFilterContainer extends Component {
     handleChange = ({ target: { value: hierarchyID, name } }) => {
         const {
             updateReportFilter,
-            postCustomFilters,
-            filters: { operativeIDs }
+            postFilters
         } = this.props;
 
         updateReportFilter(name, hierarchyID);
@@ -78,32 +81,7 @@ class LevelsFilterContainer extends Component {
 
         if (name === 'siteID' && !hierarchyID) return;
 
-        const filters = { hierarchyID, operativeIDs };
-
-        switch (name) {
-            case 'siteID':
-                return postCustomFilters({
-                    ...filters,
-                    hierarchyType: HIERARCHY_IDS.SITE
-                });
-            case 'buildingID':
-                return postCustomFilters({
-                    ...filters,
-                    hierarchyType: HIERARCHY_IDS.BUILDING
-                });
-            case 'floorID':
-                return postCustomFilters({
-                    ...filters,
-                    hierarchyType: HIERARCHY_IDS.FLOOR
-                });
-            case 'drawingID':
-                return postCustomFilters({
-                    ...filters,
-                    hierarchyType: HIERARCHY_IDS.DRAWING
-                });
-            default:
-                break;
-        }
+        postFilters();
     };
 
     _formatArrForDropdown = arr => {
@@ -122,7 +100,7 @@ const mapStateToProps = ({
         buildingsReducer,
         floorsReducer,
         drawingsReducer,
-        reportsReducer: { filters }
+        reportsReducer: { filters, fields, options, postSuccess, error }
     }
 }) => {
     const selectedSite = sitesReducer.sites[filters.siteID] || {};
@@ -143,7 +121,12 @@ const mapStateToProps = ({
         buildings,
         floors,
         drawings,
-        filters
+        filters,
+        fields: Object.values(fields),
+        sitesFilter: sitesReducer.filters,
+        options,
+        postSuccess,
+        error
     };
 };
 
@@ -152,7 +135,9 @@ const mapDispatchToProps = dispatch => ({
     postCustomFilters: postBody => dispatch(postCustomFilters(postBody))
 });
 
-export default connect(
+const WithRedux = connect(
     mapStateToProps,
     mapDispatchToProps
 )(LevelsFilterContainer);
+
+export default withUpdateOnChange(WithRedux);
