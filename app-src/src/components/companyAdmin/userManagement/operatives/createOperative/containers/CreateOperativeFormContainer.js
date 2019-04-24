@@ -24,6 +24,7 @@ class CreateOperativeFormContainer extends Component {
                 handleInputChange={this.handleInputChange}
                 handleSubmit={this.handleSubmit}
                 validatePassword={this.validatePassword}
+                validateConfirmPassword={this.validateConfirmPassword}
             />
         );
     }
@@ -36,7 +37,18 @@ class CreateOperativeFormContainer extends Component {
         });
     };
 
-    validatePassword = confirmPassword => {
+    validatePassword = password => {
+        const { confirmPassword } = this.state;
+        const { addFieldError, removeFieldError } = this.props;
+        if (password !== confirmPassword) {
+            addFieldError('confirmPassword', 'Passwords do not match');
+        } else {
+            removeFieldError('confirmPassword');
+        }
+        return null;
+    };
+
+    validateConfirmPassword = confirmPassword => {
         const { password } = this.state;
         if (password !== confirmPassword) {
             return 'Password and Confirm Password do not match';
