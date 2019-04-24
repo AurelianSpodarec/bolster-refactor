@@ -75,6 +75,7 @@ export function swapItemSorts(obj, key1, key2) {
     };
 }
 
+// for dropdowncontainer component
 export function convertEnumToDropdownOptions(obj) {
     const options = Object.keys(obj).map(key => ({
         value: key,
@@ -83,6 +84,13 @@ export function convertEnumToDropdownOptions(obj) {
 
     return convertArrToObj(options, 'value');
 }
+
+// for the NewSelect component
+export const enumFormat = obj =>
+    Object.entries(obj).map(([value, label]) => ({
+        value: String(value),
+        label
+    }));
 
 // For numbers without decimal
 export const formatNumber = num => Number(num).toLocaleString('en-us');
