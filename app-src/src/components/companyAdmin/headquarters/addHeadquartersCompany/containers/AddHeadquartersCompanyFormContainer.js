@@ -7,6 +7,7 @@ import { VAT_TYPES } from 'constants/companyAdmin/enums';
 import createHeadquartersCompany from 'actions/companyAdmin/headquarters/async/createHeadquartersCompany';
 import fetchTimezones from 'actions/shared/time/async/fetchTimezones';
 import fetchDateFormats from 'actions/shared/time/async/fetchDateFormats';
+import { sortTimezones } from 'helpers/generic';
 
 class AddHeadquartersCompanyFormContainer extends Component {
     state = {
@@ -145,9 +146,9 @@ class AddHeadquartersCompanyFormContainer extends Component {
 
     // utilities
     formatTimezones = () =>
-        this.props.timeZones.map(({ id, name }) => ({
+        sortTimezones(this.props.timeZones).map(({ id, name, offset }) => ({
             value: id,
-            label: name
+            label: `${name} (${offset})`
         }));
 
     formatDateFormats = () =>

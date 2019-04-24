@@ -6,6 +6,7 @@ import { withRouter } from 'react-router-dom';
 import editCompanySettings from 'actions/companyAdmin/companySettings/async/editCompanySettings';
 
 import EditSettingsForm from '../presentational/EditSettingsForm';
+import { sortTimezones } from 'helpers/generic';
 
 class EditSettingsFormContainer extends Component {
     state = {
@@ -161,7 +162,7 @@ class EditSettingsFormContainer extends Component {
     };
 
     formatTimezones = () =>
-        this.props.timeZones.map(({ id, name, offset }) => ({
+        sortTimezones(this.props.timeZones).map(({ id, name, offset }) => ({
             value: id,
             label: `${name} - ${offset}`
         }));
