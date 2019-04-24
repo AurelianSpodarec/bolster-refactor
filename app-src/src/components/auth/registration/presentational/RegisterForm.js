@@ -35,6 +35,7 @@ const RegisterForm = ({
     terms,
     handleDropDown,
     error,
+    validatePassword,
     validateConfirmPassword
 }) => (
     <BlockContainer error={error}>
@@ -75,6 +76,7 @@ const RegisterForm = ({
                     type="password"
                     placeholder="Please enter your password"
                     handleChange={handleInputChange}
+                    validate={validatePassword}
                     required
                 />
             </Field>

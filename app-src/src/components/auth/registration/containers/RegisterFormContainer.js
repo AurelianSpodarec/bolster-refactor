@@ -9,6 +9,8 @@ import fetchDateFormats from 'actions/shared/time/async/fetchDateFormats';
 import postRegister from 'actions/shared/register/async/postRegister';
 import RegisterForm from '../presentational/RegisterForm';
 import { sortTimezones } from 'helpers/generic';
+import addFieldError from 'actions/shared/generic/fieldErrors/sync/addFieldError';
+import removeFieldError from 'actions/shared/generic/fieldErrors/sync/removeFieldError';
 
 class RegisterFormContainer extends Component {
     state = {
@@ -53,6 +55,7 @@ class RegisterFormContainer extends Component {
                 vatOptions={vatOptions}
                 handleSubmit={this.handleSubmit}
                 handleDropDown={this.handleDropDown}
+                validatePassword={this.validatePassword}
                 validateConfirmPassword={this.validateConfirmPassword}
             />
         );
@@ -148,10 +151,23 @@ class RegisterFormContainer extends Component {
             history.push('/auth/login');
         }
     };
+    validatePassword = password => {
+        const { confirmPassword } = this.state;
+        const { addFieldError, removeFieldError } = this.props;
+        if (password !== confirmPassword) {
+            addFieldError('confirmPassword', 'Passwords do not match');
+        } else {
+            removeFieldError('confirmPassword');
+        }
+        return null;
+    };
     validateConfirmPassword = confirmPassword => {
         const { 'User.password': password } = this.state;
+        const { removeFieldError } = this.props;
 
-        return password !== confirmPassword ? 'Passwords do not match' : null;
+        return password !== confirmPassword
+            ? 'Passwords do not match'
+            : removeFieldError('confirmPassword');
     };
 }
 
@@ -170,7 +186,9 @@ const mapStateToProps = ({
 const mapDispatchToProps = dispatch => ({
     fetchTimeZones: () => dispatch(fetchTimeZones()),
     fetchDateFormats: () => dispatch(fetchDateFormats()),
-    postRegister: postBody => dispatch(postRegister(postBody))
+    postRegister: postBody => dispatch(postRegister(postBody)),
+    addFieldError: (field, err) => dispatch(addFieldError(field, err)),
+    removeFieldError: field => dispatch(removeFieldError(field))
 });
 
 export default withRouter(
