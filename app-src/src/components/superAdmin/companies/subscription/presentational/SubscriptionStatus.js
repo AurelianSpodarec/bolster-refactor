@@ -42,7 +42,10 @@ const SubscriptionStatus = ({ subscription, active, endOn, services }) => (
                         <BlockHeading title="Services:" />
                         {subscription.services.map(({ serviceID }) =>
                             services[serviceID] ? (
-                                <div className="field-name size-lg-6">
+                                <div
+                                    className="field-name size-lg-6"
+                                    key={serviceID}
+                                >
                                     <label className="generic-text">
                                         {services[serviceID].name}
                                         <StatusIcon />
