@@ -6,6 +6,8 @@ import createCompanyUser from 'actions/companyAdmin/userManagement/async/createC
 import CreateOperativeForm from '../presentational/CreateOperativeForm';
 
 import { COMPANY_USER_ROLE_TYPES } from 'constants/companyAdmin/enums';
+import addFieldError from 'actions/shared/generic/fieldErrors/sync/addFieldError';
+import removeFieldError from 'actions/shared/generic/fieldErrors/sync/removeFieldError';
 
 class CreateOperativeFormContainer extends Component {
     state = {
@@ -83,7 +85,9 @@ const mapStateToProps = ({ companyAdmin: { companyUsersReducer } }) => ({
 const mapDispatchToProps = dispatch => ({
     createCompanyUser: postBody => {
         dispatch(createCompanyUser(postBody));
-    }
+    },
+    addFieldError: (field, err) => dispatch(addFieldError(field, err)),
+    removeFieldError: field => dispatch(removeFieldError(field))
 });
 
 export default withRouter(

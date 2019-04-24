@@ -17,6 +17,7 @@ class EditUserPasswordModalContainer extends Component {
                 handleChange={this.handleChange}
                 handleSubmit={this.handleSubmit}
                 validatePassword={this.validatePassword}
+                validateConfirmPassword={this.validateConfirmPassword}
                 hideModal={e => {
                     e.preventDefault();
                     this.props.hideModal();
@@ -37,7 +38,18 @@ class EditUserPasswordModalContainer extends Component {
         editPassword(id, { password });
     };
 
-    validatePassword = confirmPassword => {
+    validatePassword = password => {
+        const { confirmPassword } = this.state;
+        const { addFieldError, removeFieldError } = this.props;
+        if (password !== confirmPassword) {
+            addFieldError('confirmPassword', 'Passwords do not match');
+        } else {
+            removeFieldError('confirmPassword');
+        }
+        return null;
+    };
+
+    validateConfirmPassword = confirmPassword => {
         const { password } = this.state;
         if (password !== confirmPassword) {
             return 'Password and Confirm Password do not match';

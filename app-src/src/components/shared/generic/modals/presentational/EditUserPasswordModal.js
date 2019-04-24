@@ -12,7 +12,8 @@ const EditUserPasswordModal = ({
     handleChange,
     handleSubmit,
     hideModal,
-    validatePassword
+    validatePassword,
+    validateConfirmPassword
 }) => (
     <ModalOuterContainer>
         <BlockHeading title="Change Password" />
@@ -24,6 +25,7 @@ const EditUserPasswordModal = ({
                         name="password"
                         value={password}
                         type="password"
+                        validate={validatePassword}
                         required
                     />
                 </Field>
@@ -35,7 +37,7 @@ const EditUserPasswordModal = ({
                         handleChange={handleChange}
                         name="confirmPassword"
                         value={confirmPassword}
-                        validate={validatePassword}
+                        validate={validateConfirmPassword}
                         required
                     />
                 </Field>

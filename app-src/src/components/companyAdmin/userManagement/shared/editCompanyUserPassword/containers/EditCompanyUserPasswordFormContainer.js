@@ -5,6 +5,8 @@ import { connect } from 'react-redux';
 import editCompanyUserPassword from 'actions/companyAdmin/userManagement/async/editCompanyUserPassword';
 
 import EditCompanyUserPassword from '../presentational/EditCompanyUserPasswordForm';
+import addFieldError from 'actions/shared/generic/fieldErrors/sync/addFieldError';
+import removeFieldError from 'actions/shared/generic/fieldErrors/sync/removeFieldError';
 
 class EditCompanyUserPasswordContainer extends Component {
     state = {
@@ -68,7 +70,9 @@ const mapStateToProps = ({ companyAdmin: { companyUsersReducer } }) => ({
 const mapDispatchToProps = dispatch => ({
     editCompanyUserPassword: (id, password) => {
         dispatch(editCompanyUserPassword(id, password));
-    }
+    },
+    addFieldError: (field, err) => dispatch(addFieldError(field, err)),
+    removeFieldError: field => dispatch(removeFieldError(field))
 });
 
 export default withRouter(
