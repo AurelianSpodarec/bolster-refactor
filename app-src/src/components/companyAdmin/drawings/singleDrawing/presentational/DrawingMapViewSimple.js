@@ -13,6 +13,7 @@ import { RAW_S3_STORAGE_URL } from 'config';
 import { EDIT_FLOOR_PLAN } from 'constants/shared/modalTypes';
 
 const getDataUrl = src => `${FILE_STORAGE_URL}/${src}/{z}/{x}/{y}.jpg`;
+const getFileName = src => src.match('[^/]*$')[0];
 
 const DrawingMapViewSimple = ({
     position,
@@ -78,7 +79,12 @@ const DrawingMapViewSimple = ({
                                             }`
                                         ).then(res => {
                                             res.blob().then(blob =>
-                                                fileDownload(blob)
+                                                fileDownload(
+                                                    blob,
+                                                    getFileName(
+                                                        drawing.tilesetS3KeyOrig
+                                                    )
+                                                )
                                             );
                                         })
                                     }
@@ -98,7 +104,6 @@ const DrawingMapViewSimple = ({
                             </>
                         )}
                     </BlockHeading>
-
                     <Map
                         center={position}
                         zoom={zoom}

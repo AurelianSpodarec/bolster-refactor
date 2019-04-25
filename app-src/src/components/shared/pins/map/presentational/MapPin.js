@@ -37,9 +37,7 @@ const DrawingMapPin = ({
             key={id}
             position={[latY, lngX]}
             icon={divIcon}
-            onClick={() =>
-                isReport ? null : history.push('/company/pins/' + id)
-            }
+            onClick={() => isReport && history.push('/company/pins/' + id)}
         />
     );
 };
