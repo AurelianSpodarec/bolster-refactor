@@ -9,7 +9,7 @@ const editCompanyUserPassword = () => (
         <Breadcrumb
             breadcrumbs={[{ text: 'Company Users' }, { text: 'Edit Password' }]}
         />
-        <PageHeading title="Edit Company User Password" />
+        <PageHeading title="Edit Company User Password" withBackButton />
         <BlockContainer>
             <EditCompanyUserPasswordFormContainer />
         </BlockContainer>

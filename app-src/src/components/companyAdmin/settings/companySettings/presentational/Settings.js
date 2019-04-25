@@ -14,7 +14,7 @@ const Settings = ({ isFetching, error, companySettings: company }) => {
     const { timeZone = {}, dateFormat = {} } = company;
     return (
         <>
-            <PageHeading title="Company Settings">
+            <PageHeading title="Company Settings" withBackButton>
                 <Link
                     className="button yellow"
                     to="/company/settings/edit-settings"

@@ -9,7 +9,7 @@ import PageHeading from 'components/shared/generic/pageHeading/presentational/Pa
 
 const Subscription = () => (
     <>
-        <PageHeading title="My Subscription" />
+        <PageHeading title="My Subscription" withBackButton />
 
         <div className="size-lg-8">
             <SubscriptionStatusContainer />

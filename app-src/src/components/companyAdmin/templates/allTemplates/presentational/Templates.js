@@ -6,7 +6,7 @@ import PageHeading from 'components/shared/generic/pageHeading/presentational/Pa
 
 const Templates = () => (
     <>
-        <PageHeading title="My Templates" />
+        <PageHeading title="My Templates" withBackButton />
         <BlockContainer>
             <BlockHeading title="Templates" />
             <TemplatesTableContainer />

@@ -6,7 +6,7 @@ import PageHeading from 'components/shared/generic/pageHeading/presentational/Pa
 
 const Support = () => (
     <>
-        <PageHeading title="Support" />
+        <PageHeading title="Support" withBackButton />
         <BlockContainer>
             <BlockHeading title="Support" />
             <p className="generic-text intro-text size-lg-12">

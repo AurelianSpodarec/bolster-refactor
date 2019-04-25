@@ -14,7 +14,8 @@ class ButtonContainer extends Component {
             companySettings,
             to = '',
             type = 'buttton',
-            handleClick = function() {}
+            handleClick = function() {},
+            className
         } = this.props;
         const { hover } = this.state;
 
@@ -28,7 +29,7 @@ class ButtonContainer extends Component {
 
         return to && to.length ? (
             <div
-                className="link-holder"
+                className={`link-holder ${className}`}
                 onMouseLeave={() => this.handleMouseLeave()}
                 onMouseOver={() => this.handleMouseOver()}
                 style={hover ? hoverStyle : normalStyle}
@@ -38,7 +39,7 @@ class ButtonContainer extends Component {
             </div>
         ) : (
             <button
-                className="button"
+                className={`button ${className}`}
                 onMouseLeave={() => this.handleMouseLeave()}
                 onMouseOver={() => this.handleMouseOver()}
                 style={hover ? hoverStyle : normalStyle}
