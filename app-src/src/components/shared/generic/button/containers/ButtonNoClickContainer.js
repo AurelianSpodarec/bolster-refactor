@@ -23,7 +23,7 @@ class ButtonNoClickContainer extends Component {
         };
 
         const hoverStyle = {
-            backgroundColor: companySettings.colourCode
+            backgroundColor: companySettings.colourCode || '#e10512'
         };
 
         return to && to.length ? (

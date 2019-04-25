@@ -5,7 +5,7 @@ import GenerationQueueTableContainer from '../containers/GenerationQueueTableCon
 
 const GenerationQueue = () => (
     <>
-        <PageHeading title="Reports" />
+        <PageHeading title="Reports" withBackButton />
 
         <BlockContainer>
             <GenerationQueueTableContainer />

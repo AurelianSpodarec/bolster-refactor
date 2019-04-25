@@ -8,6 +8,7 @@ import { PAY_INVOICE } from 'constants/shared/modalTypes';
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 import ButtonNoClickContainer from 'components/shared/generic/button/containers/ButtonNoClickContainer';
 import { formatCurrency } from 'helpers/generic';
+import StatusIcon from 'components/shared/generic/statusIcon/presentationl/StatusIcon';
 
 const InvoiceListItem = ({
     invoice: { createdOn, isPaid, total, id, paymentType },
@@ -23,16 +24,20 @@ const InvoiceListItem = ({
         <td>{isPaid ? 'Paid' : 'Awaiting Payment'}</td>
         <td>
             {!isPaid && (
-                <i
-                    className="fa fa-exclamation-triangle far"
-                    // TODO ##needs styling##
-                    style={{
-                        color: 'yellow',
-                        fontSize: '2em',
-                        backgroundColor: 'black',
-                        borderRadius: '0.1em',
-                        padding: '0.05em'
-                    }}
+                // <i
+                //     className="fa fa-exclamation-triangle far"
+                //     // TODO ##needs styling##
+                //     style={{
+                //         color: 'yellow',
+                //         fontSize: '2em',
+                //         backgroundColor: 'black',
+                //         borderRadius: '0.1em',
+                //         padding: '0.05em'
+                //     }}
+                // />
+                <StatusIcon
+                    classes="warning"
+                    iconClass="fa fa-exclamation-triangle far"
                 />
             )}
         </td>

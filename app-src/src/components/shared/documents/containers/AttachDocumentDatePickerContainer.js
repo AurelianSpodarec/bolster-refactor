@@ -52,18 +52,9 @@ class AttachDocumentDatePickerContainer extends Component {
     }
 
     _validate = (startOn, endOn) => {
-        const {
-            startError,
-            endError,
-            addFieldError,
-            removeFieldError
-        } = this.props;
+        const { endError, addFieldError, removeFieldError } = this.props;
 
-        if (!startOn) addFieldError('startOn', 'Start date must be entered');
-        else if (startError) removeFieldError('startOn');
-
-        if (!endOn) addFieldError('endOn', 'End date must be entered');
-        else if (startOn && startOn.getTime() >= endOn.getTime())
+        if (startOn && endOn && startOn.getTime() >= endOn.getTime())
             addFieldError('endOn', 'End date must be after start date.');
         else if (endError) removeFieldError('endOn');
     };

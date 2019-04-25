@@ -6,7 +6,7 @@ import PageHeading from 'components/shared/generic/pageHeading/presentational/Pa
 
 const AllMessages = () => (
     <>
-        <PageHeading title="All messages" />
+        <PageHeading title="All messages" withBackButton />
         <div className="size-lg-8">
             <SystemMessageTableContainer />
         </div>

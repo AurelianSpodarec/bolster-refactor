@@ -7,7 +7,7 @@ import BlockHeading from 'components/shared/generic/blockHeading/presentational/
 
 const AllUsers = () => (
     <>
-        <PageHeading title="Users" />
+        <PageHeading title="Users" withBackButton />
         <BlockContainer>
             <UsersFiltersContainer />
         </BlockContainer>

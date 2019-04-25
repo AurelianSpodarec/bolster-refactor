@@ -9,12 +9,13 @@ import ReactDOMServer from 'react-dom/server';
 
 const DrawingMapPin = ({
     pin: { id, location = {}, pinCode, latestStatus = '' },
+    pinHistory = {},
     history,
     isReport
 }) => {
     const { latY = 1, lngX = 1 } = location;
 
-    const pinColour = COLOURS[latestStatus] || 'red';
+    const pinColour = COLOURS[pinHistory.status || latestStatus] || 'red';
 
     const divIcon = L.divIcon({
         className: '',
@@ -23,7 +24,7 @@ const DrawingMapPin = ({
                 pinColour={pinColour}
                 pinCode={pinCode}
                 pinID={id}
-                history={history}
+                history={pinHistory}
             />
         ),
         iconSize: [24, 40],

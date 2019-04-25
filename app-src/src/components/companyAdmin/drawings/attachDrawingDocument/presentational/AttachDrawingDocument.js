@@ -2,14 +2,10 @@ import React from 'react';
 
 import AttachDocumentFormContainer from 'components/shared/documents/containers/AttachDocumentFormContainer';
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
-import BackButtonContainer from 'components/shared/generic/backButton/containers/BackButtonContainer';
 
 const AttachDrawingDocument = () => (
     <>
-        <PageHeading leftChildren={true} title={'Attach Document'}>
-            <BackButtonContainer />
-        </PageHeading>
-
+        <PageHeading leftChildren={true} title={'Attach Document'} />
         <AttachDocumentFormContainer hierarchyType="drawing" />
     </>
 );

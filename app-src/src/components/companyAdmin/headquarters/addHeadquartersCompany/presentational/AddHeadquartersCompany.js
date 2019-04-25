@@ -5,7 +5,7 @@ import PageHeading from 'components/shared/generic/pageHeading/presentational/Pa
 
 const AddHeadquartersCompany = () => (
     <>
-        <PageHeading title="Add a company" />
+        <PageHeading title="Add a company" withBackButton />
 
         <BlockContainer>
             <AddHeadquartersCompanyFormContainer />

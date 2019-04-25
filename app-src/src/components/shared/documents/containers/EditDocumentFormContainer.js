@@ -24,8 +24,8 @@ class EditDocumentFormContainer extends Component {
         serviceIDs: [],
         agreeanceEveryXDays: '0',
         // date selector
-        startOn: new Date(),
-        endOn: new Date(),
+        startOn: undefined,
+        endOn: undefined,
         isFileViewHidden: false
     };
 
@@ -90,8 +90,10 @@ class EditDocumentFormContainer extends Component {
             this.setState({
                 ...document,
                 type: String(document.type),
-                startOn: new Date(document.startOn),
-                endOn: new Date(document.endOn),
+                startOn: document.startOn
+                    ? new Date(document.startOn)
+                    : undefined,
+                endOn: document.endOn ? new Date(document.endOn) : undefined,
                 serviceIDs
             });
         }

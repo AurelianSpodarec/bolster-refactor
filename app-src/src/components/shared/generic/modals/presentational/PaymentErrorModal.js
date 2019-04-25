@@ -9,43 +9,41 @@ const PaymentErrorModal = ({
     resubmit,
     hideModal,
     error
-}) => {
-    return (
-        <ModalOuterContainer extraClasses="response-modal">
-            {/* ##Needs css## */}
-            <div
-                className="size-lg-12"
+}) => (
+    <ModalOuterContainer extraClasses="response-modal">
+        {/* ##Needs css## */}
+        <div
+            className="size-lg-12"
+            style={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignContent: 'center'
+            }}
+        >
+            <i
+                className="fa fa-times"
                 style={{
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignContent: 'center'
+                    borderRadius: '100%',
+                    backgroundColor: 'red',
+                    color: 'white',
+                    fontSize: '3em',
+                    padding: '0.5em'
                 }}
-            >
-                <i
-                    className="fa fa-times"
-                    style={{
-                        borderRadius: '100%',
-                        backgroundColor: 'red',
-                        color: 'white',
-                        fontSize: '3em',
-                        padding: '0.5em'
-                    }}
-                />
-            </div>
-            <BlockHeading title={title} />
-            <p>{message}</p>
-            <br />
-            {error && <p>{error}</p>}
-            <BlockButtonWrapper>
-                <button className="button" onClick={hideModal}>
-                    Cancel
-                </button>
-                <button className="button yellow" onClick={resubmit}>
-                    Try again
-                </button>
-            </BlockButtonWrapper>
-        </ModalOuterContainer>
-    );
-};
+            />
+        </div>
+        <BlockHeading title={title} />
+        <p>{message}</p>
+        <br />
+        {error && <p>{error}</p>}
+        <BlockButtonWrapper>
+            <button className="button" onClick={hideModal}>
+                Cancel
+            </button>
+            <button className="button yellow" onClick={resubmit}>
+                Try again
+            </button>
+        </BlockButtonWrapper>
+    </ModalOuterContainer>
+);
 
 export default PaymentErrorModal;

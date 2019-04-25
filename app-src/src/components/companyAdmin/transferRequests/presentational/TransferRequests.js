@@ -9,7 +9,7 @@ import TwitterFeed from 'components/shared/twitterFeed/presentational/TwitterFee
 
 const TransferRequests = () => (
     <>
-        <PageHeading title="Pending Requests" />
+        <PageHeading title="Pending Requests" withBackButton />
         <div className="size-lg-8">
             <BlockContainer>
                 <BlockHeading title="Pending Invites" />
