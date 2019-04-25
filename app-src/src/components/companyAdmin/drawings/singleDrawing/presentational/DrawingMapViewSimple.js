@@ -66,29 +66,37 @@ const DrawingMapViewSimple = ({
                             </button>
                         )}
 
-                        <button
-                            className="button"
-                            onClick={() =>
-                                fetch(
-                                    `${RAW_S3_STORAGE_URL}/${
-                                        drawing.tilesetS3KeyOrig
-                                    }`
-                                ).then(res => {
-                                    res.blob().then(blob => fileDownload(blob));
-                                })
-                            }
-                        >
-                            <i className="fa fa-download" /> Download Floor Plan
-                        </button>
-                        <button
-                            className="button yellow"
-                            onClick={() =>
-                                showModal(EDIT_FLOOR_PLAN, { drawing })
-                            }
-                        >
-                            <i className="far fa-pencil fa-fw" /> Edit Floor
-                            Plan
-                        </button>
+                        {!!drawing.tilesetS3KeyOrig && (
+                            <>
+                                {' '}
+                                <button
+                                    className="button"
+                                    onClick={() =>
+                                        fetch(
+                                            `${RAW_S3_STORAGE_URL}/${
+                                                drawing.tilesetS3KeyOrig
+                                            }`
+                                        ).then(res => {
+                                            res.blob().then(blob =>
+                                                fileDownload(blob)
+                                            );
+                                        })
+                                    }
+                                >
+                                    <i className="fa fa-download" /> Download
+                                    Floor Plan
+                                </button>
+                                <button
+                                    className="button yellow"
+                                    onClick={() =>
+                                        showModal(EDIT_FLOOR_PLAN, { drawing })
+                                    }
+                                >
+                                    <i className="far fa-pencil fa-fw" /> Edit
+                                    Floor Plan
+                                </button>{' '}
+                            </>
+                        )}
                     </BlockHeading>
 
                     <Map
