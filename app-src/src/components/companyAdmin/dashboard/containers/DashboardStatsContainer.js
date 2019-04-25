@@ -44,15 +44,7 @@ class DashboardStatsContainer extends Component {
 
         const datasets = [
             {
-                label: 'red',
-                borderColor: 'black',
-                backgroundColor: 'red',
-                stack: 'pins',
-                borderWidth: 1,
-                data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
-            },
-            {
-                label: 'green',
+                label: 'Installed',
                 borderColor: 'black',
                 backgroundColor: 'green',
                 stack: 'pins',
@@ -60,7 +52,7 @@ class DashboardStatsContainer extends Component {
                 data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
             },
             {
-                label: 'blue',
+                label: 'Inspected',
                 borderColor: 'black',
                 backgroundColor: 'blue',
                 stack: 'pins',
@@ -68,7 +60,7 @@ class DashboardStatsContainer extends Component {
                 data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
             },
             {
-                label: 'yellow',
+                label: 'No action required',
                 borderColor: 'black',
                 backgroundColor: 'yellow',
                 stack: 'pins',
@@ -76,7 +68,15 @@ class DashboardStatsContainer extends Component {
                 data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
             },
             {
-                label: 'purple',
+                label: 'Action required',
+                borderColor: 'black',
+                backgroundColor: 'red',
+                stack: 'pins',
+                borderWidth: 1,
+                data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+            },
+            {
+                label: 'Other',
                 borderColor: 'black',
                 backgroundColor: 'purple',
                 stack: 'pins',
