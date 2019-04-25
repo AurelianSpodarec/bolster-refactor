@@ -8,6 +8,8 @@ import L from 'leaflet';
 import MapPin from 'components/shared/pins/map/presentational/MapPin';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import CustomPin from 'components/shared/pins/map/presentational/CustomPin';
+import LoadingIcon from 'components/shared/generic/misc/presentational/LoadingIcon';
+import Loading from 'components/shared/generic/misc/presentational/Loading';
 
 const DrawingMapViewSimple = ({
     position,
@@ -86,9 +88,7 @@ const DrawingMapViewSimple = ({
                     </Map>
                 </>
             ) : (
-                <p className="no-data centered">
-                    Please wait for your tileset to load
-                </p>
+                <Loading message="Please wait for your tileset to load" />
             )}
         </>
     );

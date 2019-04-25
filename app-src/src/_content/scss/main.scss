@@ -1733,9 +1733,15 @@ input {
 
 .loading-text {
     @include ubuntu;
-    font-size: 140%;
     text-align: center;
     padding: 10px;
+    p {
+        font-size: 160%;
+        margin-bottom: 10px;
+    }
+    i {
+        font-size: 180%;
+    }
 }
 
 //footer
