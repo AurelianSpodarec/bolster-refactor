@@ -5,13 +5,27 @@ import DashboardStats from '../presentational/DashboardStats';
 // import fetchPins from 'actions/companyAdmin/pins/async/fetchPins';
 
 class DashboardStatsContainer extends Component {
-    render() {
-        return <DashboardStats data={this._getChartData()} />;
+    render = () => (
+        <DashboardStats
+            data={this._getChartData()}
+            options={this._getChartOptions()}
+        />
+    );
+
+    _getChartOptions() {
+        return {
+            title: {
+                text: 'Number of histories added',
+                display: true,
+                position: 'left'
+            }
+        };
     }
 
     _getChartData() {
         // const { pins } = this.props;
         // data needed on pins - pin type/colour, time, pin service ID
+        // pin colour key
         // fill empty with a grey stack?
         const labels = [
             '00:00',
@@ -70,12 +84,24 @@ class DashboardStatsContainer extends Component {
                 data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
             }
         ];
-        return { labels, datasets };
+        // const columnHeights = datasets.reduce(
+        //     (acc, { data }) => acc.map((num, i) => num + data[i]),
+        //     Array(12).fill(0)
+        // );
+        // const max = Math.max(...columnHeights);
+        // const grey = {
+        //     label: '',
+        //     backgroundColor: 'lightgrey',
+        //     stack: 'pins',
+        //     data: columnHeights.map(col => max - col)
+        // };
+        return {
+            labels,
+            datasets: [...datasets]
+        };
     }
 
-    componentDidMount() {
-        // this.props.fetchPins();
-    }
+    componentDidMount() {}
 }
 
 const mapStateToProps = ({
