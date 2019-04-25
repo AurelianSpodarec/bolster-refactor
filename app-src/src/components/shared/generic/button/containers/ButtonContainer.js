@@ -11,20 +11,16 @@ class ButtonContainer extends Component {
     render() {
         const {
             children,
-            companySettings,
+            colourCode,
             to = '',
             type = 'buttton',
-            handleClick = function() {},
+            handleClick = () => {},
             className
         } = this.props;
         const { hover } = this.state;
 
-        const normalStyle = {
-            backgroundColor: '#939393'
-        };
-
-        const hoverStyle = {
-            backgroundColor: companySettings.colourCode
+        const style = {
+            backgroundColor: hover ? colourCode : '#939393'
         };
 
         return to && to.length ? (
@@ -32,7 +28,7 @@ class ButtonContainer extends Component {
                 className={`link-holder ${className}`}
                 onMouseLeave={() => this.handleMouseLeave()}
                 onMouseOver={() => this.handleMouseOver()}
-                style={hover ? hoverStyle : normalStyle}
+                style={style}
                 onClick={handleClick}
             >
                 <Link to={to}>{children}</Link>
@@ -42,7 +38,7 @@ class ButtonContainer extends Component {
                 className={`button ${className}`}
                 onMouseLeave={() => this.handleMouseLeave()}
                 onMouseOver={() => this.handleMouseOver()}
-                style={hover ? hoverStyle : normalStyle}
+                style={style}
                 onClick={handleClick}
                 type={type}
             >
@@ -62,25 +58,16 @@ class ButtonContainer extends Component {
             hover: false
         });
     };
-
-    // handleClick = e => {
-    //     this.props.handleClick(e);
-    // };
 }
 
 const mapStateToProps = ({
     companyAdmin: {
-        companySettingsReducer: { companySettings }
+        companySettingsReducer: {
+            companySettings: { colourCode }
+        }
     }
 }) => ({
-    companySettings
+    colourCode: colourCode || '#e10512'
 });
 
-const mapDispatchToProps = dispatch => ({});
-
-export default withRouter(
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(ButtonContainer)
-);
+export default withRouter(connect(mapStateToProps)(ButtonContainer));
