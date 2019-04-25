@@ -2,7 +2,7 @@ import React from 'react';
 import MultiSelect from '@khanacademy/react-multi-select';
 import withFieldValidation from '../hocs/withFieldValidation';
 
-const NewSelect = ({ options, value, onChange, name, singleSelect }) => (
+const NewSelect = ({ options, value, onChange, name, singleSelect, id }) => (
     <MultiSelect
         name
         options={options}
@@ -20,6 +20,7 @@ const NewSelect = ({ options, value, onChange, name, singleSelect }) => (
             selectAll: singleSelect ? '--- select single ---' : ''
         }}
         autoBlur={true}
+        id={id}
     />
 );
 

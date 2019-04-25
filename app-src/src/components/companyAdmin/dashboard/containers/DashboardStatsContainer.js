@@ -10,8 +10,9 @@ class DashboardStatsContainer extends Component {
     }
 
     _getChartData() {
-        const { pins } = this.props;
-        // data needed on pins - pin type/colour, time
+        // const { pins } = this.props;
+        // data needed on pins - pin type/colour, time, pin service ID
+        // fill empty with a grey stack?
         const labels = [
             '00:00',
             '02:00',
