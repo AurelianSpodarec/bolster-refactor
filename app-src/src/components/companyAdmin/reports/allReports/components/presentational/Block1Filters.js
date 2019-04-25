@@ -10,10 +10,10 @@ const Block1Filters = ({ error, showErr }) => (
             <div className="size-lg-12">
                 <LevelsFilterContainer />
                 <OperativesFilterContainer />
-                {showErr && error && (
+                {showErr && !!error && (
                     <div
                         className="form-field size-lg-12"
-                        style={{ 'min-height': 0 }}
+                        style={{ minHeight: 0 }}
                     >
                         <p className="error red-text text-accent-4">{error}</p>
                     </div>
