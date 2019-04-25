@@ -893,11 +893,15 @@ input {
         .dropdown-content {
             z-index: 1;
         }
+    }
+
+    .single-select {
         input[type="checkbox"] {
             display: none;
         }
     }
 }
+
 .multi-select {
     float: left;
     width: 100%;
@@ -906,6 +910,13 @@ input {
     .dropdown-content {
         z-index: 1;
     }
+
+    // input[type="checkbox"] {
+    //     display: none;
+    // }
+}
+
+.single-select {
     input[type="checkbox"] {
         display: none;
     }
