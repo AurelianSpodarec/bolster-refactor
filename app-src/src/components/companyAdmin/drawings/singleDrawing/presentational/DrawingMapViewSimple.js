@@ -4,10 +4,15 @@ import { Map, TileLayer, Marker } from 'react-leaflet';
 import ReactDOMServer from 'react-dom/server';
 import { FILE_STORAGE_URL } from 'config';
 import L from 'leaflet';
+import fileDownload from 'js-file-download';
 
 import MapPin from 'components/shared/pins/map/presentational/MapPin';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import CustomPin from 'components/shared/pins/map/presentational/CustomPin';
+import { RAW_S3_STORAGE_URL } from 'config';
+import { EDIT_FLOOR_PLAN } from 'constants/shared/modalTypes';
+
+const getDataUrl = src => `${FILE_STORAGE_URL}/${src}/{z}/{x}/{y}.jpg`;
 
 const DrawingMapViewSimple = ({
     position,
@@ -18,7 +23,8 @@ const DrawingMapViewSimple = ({
     drawing = {},
     addMode,
     toggleAddMode,
-    history
+    history,
+    showModal
 }) => {
     const newPinIcon = L.divIcon({
         className: '',
@@ -34,31 +40,56 @@ const DrawingMapViewSimple = ({
         <>
             {drawing.tilesetS3Key ? (
                 <>
-                    {addMode ? (
-                        <BlockHeading>
-                            <Link
-                                to={`${drawing.id}/add-pin`}
-                                className="button green pull-right"
-                            >
-                                <i className="fa fa-check" /> Confirm position
-                            </Link>
-                            <button
-                                className="button red pull-right"
-                                onClick={toggleAddMode}
-                            >
-                                Stop
-                            </button>
-                        </BlockHeading>
-                    ) : (
-                        <BlockHeading>
+                    <BlockHeading>
+                        {addMode ? (
+                            <>
+                                <Link
+                                    to={`${drawing.id}/add-pin`}
+                                    className="button green pull-right"
+                                >
+                                    <i className="fa fa-check" /> Confirm
+                                    position
+                                </Link>
+                                <button
+                                    className="button red pull-right"
+                                    onClick={toggleAddMode}
+                                >
+                                    Stop
+                                </button>
+                            </>
+                        ) : (
                             <button
                                 className="button green pull-right"
                                 onClick={toggleAddMode}
                             >
                                 <i className="fa fa-plus" /> Add pin
                             </button>
-                        </BlockHeading>
-                    )}
+                        )}
+
+                        <button
+                            className="button"
+                            onClick={() =>
+                                fetch(
+                                    `${RAW_S3_STORAGE_URL}/${
+                                        drawing.tilesetS3KeyOrig
+                                    }`
+                                ).then(res => {
+                                    res.blob().then(blob => fileDownload(blob));
+                                })
+                            }
+                        >
+                            <i className="fa fa-download" /> Download Floor Plan
+                        </button>
+                        <button
+                            className="button yellow"
+                            onClick={() =>
+                                showModal(EDIT_FLOOR_PLAN, { drawing })
+                            }
+                        >
+                            <i className="far fa-pencil fa-fw" /> Edit Floor
+                            Plan
+                        </button>
+                    </BlockHeading>
 
                     <Map
                         center={position}
@@ -69,9 +100,7 @@ const DrawingMapViewSimple = ({
                     >
                         <TileLayer
                             attribution='&amp;copy <a href="http://app.bolstersystems.com">Bolster Systems Ltd</a>'
-                            url={`${FILE_STORAGE_URL}/${
-                                drawing.tilesetS3Key
-                            }/{z}/{x}/{y}.jpg`}
+                            url={getDataUrl(drawing.tilesetS3Key)}
                             noWrap={true}
                         />
                         {pins.map(pin => (

@@ -29,7 +29,8 @@ import {
     COMPANY_EDIT_TEMPLATE_QUESTION,
     CONFIRM_DELETE,
     CONFIRM_ARCHIVE,
-    CONFIRM_SUBMIT
+    CONFIRM_SUBMIT,
+    EDIT_FLOOR_PLAN
 } from 'constants/shared/modalTypes';
 
 import AddCardModalContainer from 'components/companyAdmin/subscription/cardManagement/addCardModal/containers/AddCardModalContainer';
@@ -60,6 +61,7 @@ import ConfirmDeleteModal from '../presentational/ConfirmDeleteModal';
 import ConfirmArchiveModal from '../presentational/ConfirmArchiveModal';
 import ConfirmSubmitModal from '../presentational/ConfirmSubmitModal';
 import PaymentSuccessModalContainer from './PaymentSuccessModalContainer';
+import EditFloorPlanModalContainer from 'components/companyAdmin/drawings/singleDrawing/containers/EditFloorPlanModalContainer';
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModalContainer,
@@ -89,7 +91,8 @@ const MODAL_COMPONENTS = {
     [PAYMENT_SUCCESS]: PaymentSuccessModalContainer,
     [PIN_IMAGE]: PinPhotoModal,
     [RENAME_TEMPLATE_SECTION]: RenameTemplateSectionModalContainer,
-    [SUCCESS_MODAL]: SuccessModalContainer
+    [SUCCESS_MODAL]: SuccessModalContainer.WrappedComponent,
+    [EDIT_FLOOR_PLAN]: EditFloorPlanModalContainer
 };
 
 const ModalRoot = ({ modalType, modalProps }) => {
