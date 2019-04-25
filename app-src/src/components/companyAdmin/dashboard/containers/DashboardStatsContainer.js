@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import DashboardStats from '../presentational/DashboardStats';
-import fetchPins from 'actions/companyAdmin/pins/async/fetchPins';
+// import fetchPins from 'actions/companyAdmin/pins/async/fetchPins';
 
 class DashboardStatsContainer extends Component {
     render() {
@@ -74,7 +74,7 @@ class DashboardStatsContainer extends Component {
     }
 
     componentDidMount() {
-        this.props.fetchPins();
+        // this.props.fetchPins();
     }
 }
 
@@ -89,7 +89,7 @@ const mapStateToProps = ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    fetchPins: () => dispatch(fetchPins(1, 1))
+    // fetchPins: () => dispatch(fetchPins(1, 1))
 });
 
 export default connect(
