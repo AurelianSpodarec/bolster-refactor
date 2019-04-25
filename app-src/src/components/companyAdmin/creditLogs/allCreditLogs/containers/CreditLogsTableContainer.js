@@ -1,28 +1,26 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 
 import CreditLogsTable from '../presentational/CreditLogsTable';
 
-class CreditLogsTableContainer extends Component {
-    render() {
-        const { creditLogs, isFetching, error } = this.props;
-        const tableHeaders = ['Date', 'Type', 'Quantity', ''];
+const CreditLogsTableContainer = ({ credits, isFetching, error, headers }) => (
+    <CreditLogsTable
+        headers={headers}
+        creditLogs={credits}
+        isFetching={isFetching}
+        error={error}
+    />
+);
 
-        return (
-            <CreditLogsTable
-                headers={tableHeaders}
-                creditLogs={creditLogs}
-                isFetching={isFetching}
-                error={error}
-            />
-        );
+const mapStateToProps = ({
+    companyAdmin: {
+        creditsReducer: { credits, isFetching, error }
     }
-}
-
-const mapStateToProps = ({ companyAdmin: { creditsReducer } }) => ({
-    creditLogs: Object.values(creditsReducer.credits) || null,
-    isFetching: creditsReducer.isFetching,
-    error: creditsReducer.error
+}) => ({
+    credits: Object.values(credits) || null,
+    isFetching,
+    error,
+    headers: ['Date', 'Type', 'Quantity', '']
 });
 
 export default connect(mapStateToProps)(CreditLogsTableContainer);
