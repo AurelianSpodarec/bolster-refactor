@@ -19,6 +19,7 @@ const NewSelect = ({ options, value, onChange, name, singleSelect }) => (
         overrideStrings={{
             selectAll: singleSelect ? '--- select single ---' : ''
         }}
+        autoBlur={true}
     />
 );
 

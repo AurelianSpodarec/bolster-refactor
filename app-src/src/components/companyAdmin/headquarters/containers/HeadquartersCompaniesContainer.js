@@ -4,6 +4,7 @@ import fetchAllHeadquartersCompanies from 'actions/companyAdmin/headquarters/asy
 import HeadquartersCompanies from '../presentational/HeadquartersCompanies';
 import reissueToken from 'actions/shared/auth/async/reissueToken';
 import decodeJWT from 'actions/shared/jwt/async/decodeJWT';
+import fetchCompanySettings from 'actions/companyAdmin/companySettings/async/fetchCompanySettings';
 
 class HeadquartersCompaniesContainer extends Component {
     render = () => (
@@ -30,7 +31,10 @@ const mapStateToProps = ({
     }
 }) => ({
     companies,
-    isImpersonating: companyID !== headquartersCompanyID,
+    isImpersonating:
+        companyID &&
+        headquartersCompanyID &&
+        companyID !== headquartersCompanyID,
     postSuccess
 });
 
@@ -38,7 +42,9 @@ const mapDispatchToProps = dispatch => ({
     fetchAllHeadquartersCompanies: () =>
         dispatch(fetchAllHeadquartersCompanies()),
     reissueToken: () => {
-        dispatch(reissueToken()).then(() => dispatch(decodeJWT()));
+        dispatch(reissueToken())
+            .then(() => dispatch(decodeJWT()))
+            .then(() => dispatch(fetchCompanySettings()));
     }
 });
 

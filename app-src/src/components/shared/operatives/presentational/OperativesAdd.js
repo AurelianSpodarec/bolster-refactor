@@ -1,5 +1,5 @@
 import React from 'react';
-import { withRouter, Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import ButtonNoClickContainer from 'components/shared/generic/button/containers/ButtonNoClickContainer';
 
@@ -7,7 +7,7 @@ const OperativesAdd = ({ type, location }) => (
     <div className="size-lg-12">
         <BlockHeading title="Invite Operative">
             <ButtonNoClickContainer
-                className="pull-right"
+                className="pull-right green"
                 to={`${location.pathname}/add-operative`}
             >
                 <i className="fa fa-plus" /> Invite

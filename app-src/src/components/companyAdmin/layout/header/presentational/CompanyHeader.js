@@ -7,6 +7,7 @@ import defaultStyles from 'constants/defaultStyles';
 import SearchContainer from '../containers/SearchContainer';
 import HeaderProfileContainer from '../containers/HeaderProfileContainer';
 import HeaderNotificationsContainer from '../containers/HeaderNotificationsContainer';
+import { PARENTAL_TYPES } from 'constants/companyAdmin/enums';
 
 const Header = ({
     company,
@@ -45,7 +46,9 @@ const Header = ({
                 {/*** notifications ***/}
                 <div className="notifications">
                     <Link to="/company/tools/credit-logs" className="item main">
-                        <span className="number green">{totalCredits}</span>
+                        {company.parentalType === PARENTAL_TYPES.NONE && (
+                            <span className="number green">{totalCredits}</span>
+                        )}
                         <i className="far fa-money-bill-alt fa-fw" />
                     </Link>
                     <HeaderNotificationsContainer />
@@ -55,7 +58,10 @@ const Header = ({
                         )}
                         <i className="far fa-envelope fa-fw" />
                     </Link>
-                    <Link to="/company/transfer-requests" className="item main">
+                    <Link
+                        to="/company/tools/transfer-requests"
+                        className="item main"
+                    >
                         {!!totalRequests && (
                             <span className="number">{totalRequests}</span>
                         )}

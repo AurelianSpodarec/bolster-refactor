@@ -6,14 +6,13 @@ import DashboardPinFeed from '../presentational/DashboardPinFeed';
 
 class DashboardPinFeedContainer extends Component {
     render() {
-        const { pins } = this.props;
+        // const { pins } = this.props;
 
         return <DashboardPinFeed />;
     }
 
     componentDidMount = () => {
-        const { fetchPinFeed } = this.props;
-
+        // const { fetchPinFeed } = this.props;
         //fetchPinFeed();
     };
 }

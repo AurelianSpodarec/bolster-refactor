@@ -12,6 +12,7 @@ import resetSaveRequired from 'actions/superAdmin/templateBuilder/sync/resetSave
 
 import TemplateBuilder from '../presentational/TemplateBuilder';
 import fetchTemplate from 'actions/superAdmin/templateBuilder/async/fetchTemplate';
+import fetchAllServices from 'actions/superAdmin/services/async/fetchAllServices';
 
 class TemplateBuilderContainer extends Component {
     render() {
@@ -95,6 +96,7 @@ const mapDispatchToProps = dispatch => ({
     },
     fetchPageData: templateUUID => {
         dispatch(fetchTemplate(templateUUID));
+        dispatch(fetchAllServices());
     }
 });
 

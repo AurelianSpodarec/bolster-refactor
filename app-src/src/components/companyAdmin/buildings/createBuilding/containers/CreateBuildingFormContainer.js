@@ -13,33 +13,24 @@ class CreateBuildingFormContainer extends Component {
         postcode: ''
     };
 
-    render() {
-        return (
-            <CreateBuildingForm
-                {...this.state}
-                handleInputChange={this.handleInputChange}
-                handleSubmit={this.handleSubmit}
-                siteID={this.props.siteID}
-            />
-        );
-    }
+    render = () => (
+        <CreateBuildingForm
+            {...this.state}
+            handleInputChange={this.handleInputChange}
+            handleSubmit={this.handleSubmit}
+            siteID={this.props.siteID}
+        />
+    );
 
-    handleInputChange = e => {
-        e.preventDefault();
-
-        this.setState({
-            [e.target.name]: e.target.value
-        });
+    handleInputChange = ({ target: { name, value } }) => {
+        this.setState({ [name]: value });
     };
 
     handleSubmit = e => {
         e.preventDefault();
-
-        const postBody = {
-            ...this.state,
-            siteID: this.props.siteID
-        };
-        this.props.createBuilding(postBody);
+        const { siteID, createBuilding } = this.props;
+        const postBody = { ...this.state, siteID };
+        createBuilding(postBody);
     };
 
     componentDidUpdate = prevProps => {
@@ -51,19 +42,21 @@ class CreateBuildingFormContainer extends Component {
     };
 }
 const mapStateToProps = (
-    { companyAdmin: { buildingsReducer } },
-    { match }
+    {
+        companyAdmin: {
+            buildingsReducer: { postSuccess, error, updatedBuildingID }
+        }
+    },
+    { match: { params } }
 ) => ({
-    postSuccess: buildingsReducer.postSuccess,
-    error: buildingsReducer.error,
-    siteID: match.params.id,
-    updatedBuildingID: buildingsReducer.updatedBuildingID
+    postSuccess,
+    error,
+    siteID: params.id,
+    updatedBuildingID
 });
 
 const mapDispatchToProps = dispatch => ({
-    createBuilding: postBody => {
-        dispatch(createBuilding(postBody));
-    }
+    createBuilding: postBody => dispatch(createBuilding(postBody))
 });
 export default withRouter(
     connect(

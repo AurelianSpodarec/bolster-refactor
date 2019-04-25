@@ -13,7 +13,8 @@ class ButtonContainer extends Component {
             children,
             companySettings,
             to = '',
-            type = 'buttton'
+            type = 'buttton',
+            handleClick = function() {}
         } = this.props;
         const { hover } = this.state;
 
@@ -31,7 +32,7 @@ class ButtonContainer extends Component {
                 onMouseLeave={() => this.handleMouseLeave()}
                 onMouseOver={() => this.handleMouseOver()}
                 style={hover ? hoverStyle : normalStyle}
-                onClick={this.handleClick}
+                onClick={handleClick}
             >
                 <Link to={to}>{children}</Link>
             </div>
@@ -41,7 +42,7 @@ class ButtonContainer extends Component {
                 onMouseLeave={() => this.handleMouseLeave()}
                 onMouseOver={() => this.handleMouseOver()}
                 style={hover ? hoverStyle : normalStyle}
-                onClick={this.handleClick}
+                onClick={handleClick}
                 type={type}
             >
                 {children}
@@ -61,9 +62,9 @@ class ButtonContainer extends Component {
         });
     };
 
-    handleClick = e => {
-        this.props.handleClick(e);
-    };
+    // handleClick = e => {
+    //     this.props.handleClick(e);
+    // };
 }
 
 const mapStateToProps = ({

@@ -13,12 +13,14 @@ const TemplateBuilderHeaderContainer = ({
     companyID,
     template,
     isExisting,
-    showAddSectionModal
+    showAddSectionModal,
+    serviceName
 }) => {
     return (
         <TemplateBuilderHeader
             showTemplateForm={showTemplateForm}
             name={template.name}
+            serviceName={serviceName}
         >
             {isExisting && (
                 <button onClick={showAddSectionModal} className="button blue">
@@ -38,15 +40,25 @@ const TemplateBuilderHeaderContainer = ({
 const mapStateToProps = (
     {
         superAdmin: {
-            templatesReducer: { templates }
+            templatesReducer: { templates },
+            servicesReducer: { services }
         }
     },
-    { match: { params } }
-) => ({
-    template: templates[params['uuid']] || {},
-    uuid: params['uuid'],
-    companyID: params['companyID']
-});
+    {
+        match: {
+            params: { uuid, companyID }
+        }
+    }
+) => {
+    const template = templates[uuid] || { serviceID: '' };
+    const service = services[template.serviceID] || {};
+    return {
+        template,
+        uuid,
+        companyID,
+        serviceName: services && template ? service.name : ''
+    };
+};
 
 const mapDispatchToProps = dispatch => ({
     showAddTemplateForm: (uuid, companyID) => {

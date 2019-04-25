@@ -39,7 +39,7 @@ const MultiOptionForm = ({
         <div className="field-intro size-lg-12">
             <div className="size-lg-12">
                 <button
-                    className="button add-option"
+                    className="button add-option green"
                     onClick={addOption}
                     type="button"
                 >

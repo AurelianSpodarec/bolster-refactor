@@ -1,5 +1,5 @@
 import React from 'react';
-import { withRouter, Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 import Table from 'components/shared/generic/tables/presentational/Table';
 import DocumentsList from './DocumentsList';
@@ -11,7 +11,7 @@ const DocumentsTable = ({ location, documents, isFetching }) => {
         <div className="size-lg-12">
             <BlockHeading title="Documents" classes="w-table">
                 <ButtonNoClickContainer
-                    className="pull-right"
+                    className="pull-right green"
                     to={`${location.pathname}/attach-document`}
                 >
                     <i className="fa fa-plus" /> Add

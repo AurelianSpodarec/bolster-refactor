@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Form from 'components/shared/generic/form/containers/Form';
-import LevelsFilterContainer from '../containers/LevelsFilterContainer';
+// import LevelsFilterContainer from '../containers/LevelsFilterContainer';
 import StatusTypeFilterContainer from '../containers/StatusTypeFilterContainer';
 import ServicesFilterContainer from '../containers/ServicesFilterContainer';
 import DatesFilterContainer from '../containers/DatesFilterContainer';
@@ -13,7 +13,7 @@ import NumberOfHistoriesContainer from '../containers/NumberOfHistoriesContainer
 import ReportFormatsContainer from '../containers/ReportFormatsContainer';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 // import CustomFiltersContainer from '../containers/CustomFiltersContainer';
-import OperativesFilterContainer from '../containers/OperativesFilterContainer';
+// import OperativesFilterContainer from '../containers/OperativesFilterContainer';
 import FurtherFiltrationContainer from '../containers/FurtherFiltrationContainer';
 import OtherOptionsContainer from '../containers/OtherOptionsContainer';
 import FilterMapContainer from '../containers/FilterMapContainer';
@@ -56,10 +56,10 @@ const PinFiltersForm = ({
         <div className="size-lg-12">
             <BlockContainer>
                 <div className="size-lg-6">
+                    <NumberOfHistoriesContainer />
                     <ReportFormatsContainer />
                 </div>
                 <div className="size-lg-6">
-                    <NumberOfHistoriesContainer />
                     <OtherOptionsContainer />
                 </div>
                 <BlockButtonWrapper>

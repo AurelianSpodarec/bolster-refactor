@@ -6,6 +6,8 @@ import createCompanyUser from 'actions/companyAdmin/userManagement/async/createC
 import CreateOperativeForm from '../presentational/CreateOperativeForm';
 
 import { COMPANY_USER_ROLE_TYPES } from 'constants/companyAdmin/enums';
+import addFieldError from 'actions/shared/generic/fieldErrors/sync/addFieldError';
+import removeFieldError from 'actions/shared/generic/fieldErrors/sync/removeFieldError';
 
 class CreateOperativeFormContainer extends Component {
     state = {
@@ -24,6 +26,7 @@ class CreateOperativeFormContainer extends Component {
                 handleInputChange={this.handleInputChange}
                 handleSubmit={this.handleSubmit}
                 validatePassword={this.validatePassword}
+                validateConfirmPassword={this.validateConfirmPassword}
             />
         );
     }
@@ -36,7 +39,18 @@ class CreateOperativeFormContainer extends Component {
         });
     };
 
-    validatePassword = confirmPassword => {
+    validatePassword = password => {
+        const { confirmPassword } = this.state;
+        const { addFieldError, removeFieldError } = this.props;
+        if (password !== confirmPassword) {
+            addFieldError('confirmPassword', 'Passwords do not match');
+        } else {
+            removeFieldError('confirmPassword');
+        }
+        return null;
+    };
+
+    validateConfirmPassword = confirmPassword => {
         const { password } = this.state;
         if (password !== confirmPassword) {
             return 'Password and Confirm Password do not match';
@@ -71,7 +85,9 @@ const mapStateToProps = ({ companyAdmin: { companyUsersReducer } }) => ({
 const mapDispatchToProps = dispatch => ({
     createCompanyUser: postBody => {
         dispatch(createCompanyUser(postBody));
-    }
+    },
+    addFieldError: (field, err) => dispatch(addFieldError(field, err)),
+    removeFieldError: field => dispatch(removeFieldError(field))
 });
 
 export default withRouter(

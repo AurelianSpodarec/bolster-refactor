@@ -11,7 +11,8 @@ const EditProfilePassword = ({
     handleInputChange,
     password,
     confirmPassword,
-    validate,
+    validatePassword,
+    validateConfirmPassword,
     location
 }) => (
     <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
@@ -22,6 +23,7 @@ const EditProfilePassword = ({
                         value={password}
                         name="password"
                         handleChange={handleInputChange}
+                        validate={validatePassword}
                         type="password"
                         required
                     />
@@ -33,7 +35,7 @@ const EditProfilePassword = ({
                         handleChange={handleInputChange}
                         type="password"
                         required
-                        validate={validate}
+                        validate={validateConfirmPassword}
                     />
                 </Field>
             </div>

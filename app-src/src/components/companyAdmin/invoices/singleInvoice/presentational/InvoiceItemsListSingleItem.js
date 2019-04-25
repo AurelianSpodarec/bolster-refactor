@@ -1,4 +1,5 @@
 import React from 'react';
+import { formatCurrency } from 'helpers/generic';
 
 const InvoiceItemsListSingleItem = ({
     item: { description, customName, quantity, itemPrice, itemVAT, total }
@@ -7,9 +8,9 @@ const InvoiceItemsListSingleItem = ({
         <td>{`${description || ''}`}</td>
         <td>{customName || 'N/A'}</td>
         <td>{quantity}</td>
-        <td>{`£${itemPrice.toFixed(2)}`}</td>
-        <td>{`£${itemVAT.toFixed(2)}`}</td>
-        <td>{`£${total.toFixed(2)}`}</td>
+        <td>{`£${formatCurrency(itemPrice)}`}</td>
+        <td>{`£${formatCurrency(itemVAT)}`}</td>
+        <td>{`£${formatCurrency(total)}`}</td>
     </tr>
 );
 

@@ -25,7 +25,7 @@ const mapStateToProps = ({
     companyAdmin: {
         companySettingsReducer: { companySettings },
         messagesReducer: { messages },
-        creditLogsReducer: { creditLogs },
+        creditsReducer: { credits },
         transferRequestsReducer: { incomingTransferRequests },
         pendingInvitesReducer: { pendingInvites }
     },
@@ -41,7 +41,7 @@ const mapStateToProps = ({
     const unreadMessageCount = Object.values(messages).filter(
         ({ type, isRead }) => type === MESSAGE_TYPES.SYSTEM && !isRead
     ).length;
-    const totalCredits = Object.values(creditLogs).reduce(
+    const totalCredits = Object.values(credits).reduce(
         (a, b) => a + b.quantity,
         0
     );

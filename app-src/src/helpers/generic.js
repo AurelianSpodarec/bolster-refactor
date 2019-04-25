@@ -75,6 +75,7 @@ export function swapItemSorts(obj, key1, key2) {
     };
 }
 
+// for dropdowncontainer component
 export function convertEnumToDropdownOptions(obj) {
     const options = Object.keys(obj).map(key => ({
         value: key,
@@ -83,3 +84,24 @@ export function convertEnumToDropdownOptions(obj) {
 
     return convertArrToObj(options, 'value');
 }
+
+// for the NewSelect component
+export const enumFormat = obj =>
+    Object.entries(obj).map(([value, label]) => ({
+        value: String(value),
+        label
+    }));
+
+// For numbers without decimal
+export const formatNumber = num => Number(num).toLocaleString('en-us');
+
+// for decimal .00
+export const formatCurrency = num =>
+    num.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+
+const getOffsetValue = ({ offset }) =>
+    Number(offset.slice(4, 10).replace(':', '')) || 0;
+const sortByOffset = (a, b) => getOffsetValue(a) - getOffsetValue(b);
+
+export const sortTimezones = timezonesArr =>
+    [...timezonesArr].sort(sortByOffset);

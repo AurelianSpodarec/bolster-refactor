@@ -8,6 +8,7 @@ import DropdownContainer from 'components/shared/generic/form/containers/Dropdow
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import Field from 'components/shared/generic/form/presentational/Field';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
+import { formatNumber } from 'helpers/generic';
 
 const BuyCreditsModal = ({
     hideModal,
@@ -82,7 +83,7 @@ const BuyCreditsModal = ({
                 </Field>
                 {creditsToBuy && (
                     <p className="generic-text total-text align-right size-lg-12">
-                        Total: £{costOfCredits * creditsToBuy}
+                        Total: £{formatNumber(costOfCredits * creditsToBuy)}
                     </p>
                 )}
                 <BlockButtonWrapper>

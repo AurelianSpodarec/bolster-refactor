@@ -1,5 +1,5 @@
 import React from 'react';
-import { withRouter, Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 import Table from 'components/shared/generic/tables/presentational/Table';
 import ClientsList from './ClientsList';
@@ -16,7 +16,7 @@ const ClientsTable = ({
     <div className="size-lg-12">
         <BlockHeading title="Client access">
             <ButtonNoClickContainer
-                className="pull-right"
+                className="pull-right green"
                 to={`${location.pathname}/invite-client`}
             >
                 <i className="fa fa-plus" /> Invite

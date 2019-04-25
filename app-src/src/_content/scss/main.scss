@@ -24,6 +24,7 @@ body {
     background-color: #212228;
     color: $body-text;
     line-height: 1.35;
+    margin-bottom: 5em;
 }
 
 .container {
@@ -1728,6 +1729,8 @@ input {
 
 //footer
 #page-footer {
+    position: fixed;
+    bottom: 0;
     width: 100%;
     padding: 10px 0;
     float: left;

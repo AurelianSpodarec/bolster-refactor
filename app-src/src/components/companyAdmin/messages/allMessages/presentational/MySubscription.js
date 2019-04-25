@@ -1,11 +1,12 @@
 import React from 'react';
-import { withRouter, Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import MySubscribedServicesList from './MySubscribedServicesList';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 import { DATE_TIME_IDS } from 'constants/companyAdmin/enums';
 import ButtonNoClickContainer from 'components/shared/generic/button/containers/ButtonNoClickContainer';
+import { formatNumber } from 'helpers/generic';
 
 const MySubscription = ({ services, daysleft, subscriptions, endOn }) => (
     <div className="size-lg-12">
@@ -28,7 +29,7 @@ const MySubscription = ({ services, daysleft, subscriptions, endOn }) => (
                 </span>{' '}
                 at a cost of{' '}
                 <span style={{ fontWeight: 'bold' }}>
-                    £{subscriptions.renewalPrice}
+                    £{formatNumber(subscriptions.renewalPrice)}
                 </span>
             </p>
         ) : (

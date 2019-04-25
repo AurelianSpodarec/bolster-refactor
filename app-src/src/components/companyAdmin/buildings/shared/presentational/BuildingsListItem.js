@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
 import FloorTableContainer from 'components/companyAdmin/floors/shared/containers/FloorTableContainer';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';

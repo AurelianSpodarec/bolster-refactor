@@ -1,5 +1,5 @@
 import React from 'react';
-import { withRouter, Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 import Table from 'components/shared/generic/tables/presentational/Table';
 import OperativesList from './OperativesList';
@@ -21,7 +21,7 @@ const OperativesTable = ({
             <BlockHeading title="Operative Access">
                 <ButtonNoClickContainer
                     className={`pull-right ${
-                        isAddOperativeDisabled ? 'disabled' : ''
+                        isAddOperativeDisabled ? 'disabled' : 'green'
                     }`}
                     to={
                         isAddOperativeDisabled

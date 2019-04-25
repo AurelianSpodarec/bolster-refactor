@@ -9,8 +9,8 @@ const CompaniesListItem = ({
 }) => (
     <tr>
         <td>{name}</td>
-        <td>{telephone || '##Not listed##'}</td>
-        <td>{address || '##Not listed##'}</td>
+        <td>{telephone || '-'}</td>
+        <td>{address || '-'}</td>
         <td>
             {termsAcceptedOn ? (
                 <DateTimeContainer

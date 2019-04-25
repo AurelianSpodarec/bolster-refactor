@@ -48,7 +48,7 @@ const FurtherFiltrationContainer = ({
                         <button
                             onClick={addCustomField}
                             type="button"
-                            className="button"
+                            className="button green"
                         >
                             <i className="fa fa-plus" /> Add field
                         </button>

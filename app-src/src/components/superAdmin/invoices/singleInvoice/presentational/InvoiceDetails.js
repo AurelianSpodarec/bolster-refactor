@@ -6,6 +6,7 @@ import { PAYMENT_TYPES, DATE_TIME_IDS } from 'constants/companyAdmin/enums';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import FieldOutput from 'components/shared/generic/fieldOutput/presentational/FieldOutput';
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
+import { formatCurrency } from 'helpers/generic';
 
 const InvoiceDetails = ({
     isFetching,
@@ -50,7 +51,7 @@ const InvoiceDetails = ({
 
             <FieldOutput
                 title="Total"
-                description={`${total && total.toFixed(2)} GBP (inc. VAT)`}
+                description={`${total && formatCurrency(total)} GBP (inc. VAT)`}
                 sizeClass="size-lg-12"
             />
         </BlockContainer>

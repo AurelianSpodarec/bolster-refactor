@@ -1,12 +1,18 @@
 import React from 'react';
-import { ROLE_TYPES } from 'constants/companyAdmin/enums';
+import { Link } from 'react-router-dom';
+import { COMPANY_USER_ROLE_IDS } from 'constants/companyAdmin/enums';
 
 const Roles = ({ roles }) => {
     const rolesToRender = roles.length ? (
         roles.map((role, i) => (
             <span key={i}>
-                {ROLE_TYPES[role.type]}
-                <span> ({role.companyName})</span>
+                {COMPANY_USER_ROLE_IDS[role.type]}
+                <span>
+                    (
+                    <Link to={`/admin/companies/${role.companyID}`}>
+                        {role.companyName})
+                    </Link>
+                </span>
             </span>
         ))
     ) : (

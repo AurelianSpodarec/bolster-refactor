@@ -7,19 +7,18 @@ const OperativesFilter = ({
     handleChange,
     selectedOperatives,
     required
-}) => {
-    return (
-        <Field name="Operatives">
-            <Select
-                options={operatives}
-                isMulti
-                name="selectedOperatives"
-                onChange={handleChange}
-                value={selectedOperatives}
-                required={required}
-            />
-        </Field>
-    );
-};
+}) => (
+    <Field name="Operatives">
+        <Select
+            options={operatives}
+            isMulti
+            name="selectedOperatives"
+            onChange={handleChange}
+            value={selectedOperatives}
+            required={required}
+            placeholder="All Operatives"
+        />
+    </Field>
+);
 
 export default OperativesFilter;

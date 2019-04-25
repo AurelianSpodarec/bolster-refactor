@@ -14,7 +14,8 @@ const CreateOperativeForm = ({
     email,
     phoneNumber,
     password,
-    confirmPassword
+    confirmPassword,
+    validateConfirmPassword
 }) => (
     <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
         <div className="size-lg-12">
@@ -69,6 +70,7 @@ const CreateOperativeForm = ({
                         name="password"
                         handleChange={handleInputChange}
                         type="password"
+                        validate={validatePassword}
                         required
                     />
                 </Field>
@@ -78,9 +80,9 @@ const CreateOperativeForm = ({
                     <TextInputContainer
                         value={confirmPassword}
                         name="confirmPassword"
-                        validate={validatePassword}
                         handleChange={handleInputChange}
                         type="password"
+                        validate={validateConfirmPassword}
                         required
                     />
                 </Field>

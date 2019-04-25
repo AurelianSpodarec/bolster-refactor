@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { PIN_STATUS_COLOURS as COLOURS } from 'constants/companyAdmin/enums';
 import ButtonNoClickContainer from 'components/shared/generic/button/containers/ButtonNoClickContainer';
 
