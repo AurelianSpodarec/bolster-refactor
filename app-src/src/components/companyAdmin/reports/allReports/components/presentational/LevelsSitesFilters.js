@@ -7,8 +7,7 @@ const LevelsSitesFilters = ({
     sitesOptions,
     selectedSite,
     handleChange,
-    classes = '',
-    required
+    classes = ''
 }) => (
     <Field name="Site" reqiured={true} classes={classes}>
         <DropdownContainer
@@ -18,7 +17,6 @@ const LevelsSitesFilters = ({
             options={sitesOptions}
             selectedOption={selectedSite}
             handleChange={handleChange}
-            required={required}
         />
     </Field>
 );

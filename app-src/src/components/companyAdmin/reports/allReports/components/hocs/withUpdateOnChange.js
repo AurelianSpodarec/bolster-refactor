@@ -11,9 +11,17 @@ export default function(ProtectedComponent) {
                 <ProtectedComponent
                     {...this.props}
                     postFilters={this.postFilters}
+                    formatArrForDropdown={this.formatArrForDropdown}
                 />
             );
         }
+
+        formatArrForDropdown = arr => {
+            return arr.map(({ id, name }) => ({
+                value: id,
+                label: name
+            }));
+        };
 
         postFilters = () => {
             const {
@@ -76,7 +84,7 @@ export default function(ProtectedComponent) {
                 sortBy
             };
 
-            postCustomFilters(postBody);
+            return postCustomFilters(postBody);
         };
     }
 
@@ -86,7 +94,14 @@ export default function(ProtectedComponent) {
             buildingsReducer,
             floorsReducer,
             drawingsReducer,
-            reportsReducer: { filters, fields, options, postSuccess, error }
+            reportsReducer: {
+                filters,
+                fields,
+                options,
+                postSuccess,
+                error,
+                customFilters
+            }
         }
     }) => {
         const selectedSite = sitesReducer.sites[filters.siteID] || {};
@@ -103,22 +118,21 @@ export default function(ProtectedComponent) {
         const drawings = drawingIDs.map(id => drawingsReducer.drawings[id]);
 
         return {
+            filters,
+            customFilters,
+            options,
+            postSuccess,
+            error,
             sites: Object.values(sitesReducer.sites),
             buildings,
             floors,
             drawings,
-            filters,
-            fields: Object.values(fields),
-            sitesFilter: sitesReducer.filters,
-            options,
-            postSuccess,
-            error
+            fields: Object.values(fields)
         };
     };
 
     const mapDispatchToProps = dispatch => ({
-        updateReportFilter: (name, val) =>
-            dispatch(updateReportFilter(name, val)),
+        handleChange: (name, val) => dispatch(updateReportFilter(name, val)),
         postCustomFilters: postBody => dispatch(postCustomFilters(postBody))
     });
 
