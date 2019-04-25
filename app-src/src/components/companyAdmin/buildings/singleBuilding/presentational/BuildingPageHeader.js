@@ -7,6 +7,7 @@ const BuildingPageHeader = ({ building, children }) => (
         title={`Building: ${building.name} ${
             building.isArchived ? '(ARCHIVED)' : ''
         }`}
+        withBackButton
     >
         {children}
     </PageHeading>

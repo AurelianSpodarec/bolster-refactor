@@ -7,7 +7,7 @@ import BlockContainer from 'components/shared/generic/block/containers/BlockCont
 
 const AllSites = () => (
     <>
-        <PageHeading title="Sites" />
+        <PageHeading title="Sites" withBackButton />
 
         <BlockContainer>
             <SitesFiltersContainer />

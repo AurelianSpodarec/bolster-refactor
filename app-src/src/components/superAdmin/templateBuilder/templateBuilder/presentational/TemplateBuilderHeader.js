@@ -12,6 +12,7 @@ const TemplateBuilderHeader = ({
         title={`Template builder : ${name} ${
             serviceName ? `(${serviceName})` : ''
         }`}
+        withBackButton
     >
         <button className="button yellow" onClick={showTemplateForm}>
             <i className="far fa-pencil" /> {name.length ? 'Edit' : 'Add'}{' '}

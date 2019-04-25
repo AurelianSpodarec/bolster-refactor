@@ -12,7 +12,6 @@ import BlockContainer from 'components/shared/generic/block/containers/BlockCont
 import { PIN_STATUS_TYPES } from 'constants/companyAdmin/enums';
 import { convertEnumToDropdownOptions } from 'helpers/generic';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
-import BackButtonContainer from 'components/shared/generic/backButton/containers/BackButtonContainer';
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
 
 class EditPinFormContainer extends Component {
@@ -36,9 +35,11 @@ class EditPinFormContainer extends Component {
 
         return (
             <>
-                <PageHeading leftChildren={true} title="Edit Pin History">
-                    <BackButtonContainer />
-                </PageHeading>
+                <PageHeading
+                    leftChildren={true}
+                    title="Edit Pin History"
+                    withBackButton
+                />
                 <BlockContainer
                     isEmpty={!Object.values(templates).length}
                     isFetching={isFetching}

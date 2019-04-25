@@ -7,6 +7,7 @@ const SingleDrawingHeader = ({ drawing, children }) => (
         title={`Drawing: ${drawing.name || ''} ${
             drawing.isArchived ? '(ARCHIVED)' : ''
         }`}
+        withBackButton
     >
         {children}
     </PageHeading>

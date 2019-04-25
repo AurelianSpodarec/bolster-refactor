@@ -7,6 +7,7 @@ const SingleFloorHeader = ({ floor, children }) => (
         title={`Floor: ${floor.name || ''} ${
             floor.isArchived ? '(ARCHIVED)' : ''
         }`}
+        withBackButton
     >
         {children}
     </PageHeading>
