@@ -11,27 +11,21 @@ class ButtonNoClickContainer extends Component {
     render() {
         const {
             children,
-            companySettings,
+            colourCode,
             to = '',
             type = 'buttton',
             className = ''
         } = this.props;
         const { hover } = this.state;
 
-        const normalStyle = {
-            backgroundColor: '#939393'
-        };
-
-        const hoverStyle = {
-            backgroundColor: companySettings.colourCode || '#e10512'
-        };
+        const style = { backgroundColor: hover ? colourCode : '#939393' };
 
         return to && to.length ? (
             <div
                 className={`link-holder ${className}`}
                 onMouseLeave={() => this.handleMouseLeave()}
                 onMouseOver={() => this.handleMouseOver()}
-                style={hover ? hoverStyle : normalStyle}
+                style={style}
             >
                 <Link to={to}>{children}</Link>
             </div>
@@ -40,7 +34,7 @@ class ButtonNoClickContainer extends Component {
                 className={`button ${className}`}
                 onMouseLeave={() => this.handleMouseLeave()}
                 onMouseOver={() => this.handleMouseOver()}
-                style={hover ? hoverStyle : normalStyle}
+                style={style}
                 type={type}
             >
                 {children}
@@ -48,25 +42,25 @@ class ButtonNoClickContainer extends Component {
         );
     }
 
-    handleMouseOver = () => {
+    handleMouseOver = () =>
         this.setState({
             hover: true
         });
-    };
 
-    handleMouseLeave = () => {
+    handleMouseLeave = () =>
         this.setState({
             hover: false
         });
-    };
 }
 
 const mapStateToProps = ({
     companyAdmin: {
-        companySettingsReducer: { companySettings }
+        companySettingsReducer: {
+            companySettings: { colourCode }
+        }
     }
 }) => ({
-    companySettings
+    colourCode: colourCode || '#e10512'
 });
 
 export default withRouter(connect(mapStateToProps)(ButtonNoClickContainer));
