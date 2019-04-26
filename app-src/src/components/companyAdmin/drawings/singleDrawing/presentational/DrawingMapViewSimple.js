@@ -112,6 +112,10 @@ const DrawingMapViewSimple = ({
                         minZoom={0}
                         maxZoom={5}
                         onClick={e => handleClick(e)}
+
+                        // Sets boundary to prevent scrolling into nothing, maxboundsviscosity prevents a snapback effect and disables scrolling out of bounds altogether
+                        // maxBounds={[[-1000, -1000], [1000, 1000]]}
+                        // maxBoundsViscosity={1}
                     >
                         <TileLayer
                             attribution='&amp;copy <a href="http://app.bolstersystems.com">Bolster Systems Ltd</a>'
