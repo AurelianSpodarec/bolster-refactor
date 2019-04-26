@@ -4,6 +4,9 @@ import { withRouter } from 'react-router-dom';
 
 import EditServiceForm from '../presentational/EditServiceForm';
 
+import fetchSingleService from 'actions/superAdmin/services/async/fetchSingleService';
+import editService from 'actions/superAdmin/services/async/editService';
+
 class EditServiceFormContainer extends Component {
     state = {
         name: ''
@@ -17,12 +20,19 @@ class EditServiceFormContainer extends Component {
         />
     );
 
-    componentDidMount = () => {};
+    componentDidMount = () => {
+        this.props.fetchSingleService(this.props.id);
+    };
 
     componentDidUpdate = prevProps => {
-        const { postSuccess, history } = this.props;
+        const { postSuccess, history, isFetching, service } = this.props;
         if (!prevProps.postSuccess && postSuccess) {
             return history.push('/admin/services');
+        }
+        if (!isFetching && prevProps.isFetching) {
+            this.setState({
+                name: service.name
+            });
         }
     };
 
@@ -31,13 +41,39 @@ class EditServiceFormContainer extends Component {
             [e.target.name]: e.target.value
         });
     };
+
+    handleSubmit = e => {
+        e.preventDefault();
+        this.props.editService(this.props.id, this.state.name);
+    };
 }
 
-const mapStateToProps = ({ superAdmin: { adminServicesReducer } }) => ({
-    postSuccess: adminServicesReducer.postSuccess
+const mapStateToProps = (
+    {
+        superAdmin: {
+            adminServicesReducer: { isFetching, postSuccess, adminServices }
+        }
+    },
+    {
+        match: {
+            params: { id }
+        }
+    }
+) => ({
+    isFetching,
+    postSuccess,
+    id,
+    service: adminServices[id]
 });
 
-const mapDispatchToProps = dispatch => ({});
+const mapDispatchToProps = dispatch => ({
+    fetchSingleService: id => {
+        dispatch(fetchSingleService(id));
+    },
+    editService: (id, name) => {
+        dispatch(editService(id, name));
+    }
+});
 
 export default withRouter(
     connect(

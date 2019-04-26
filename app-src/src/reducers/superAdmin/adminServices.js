@@ -8,7 +8,10 @@ import {
     ADMIN_FETCH_ALL_SERVICES_FAILURE,
     ADMIN_EDIT_SERVICE_REQUEST,
     ADMIN_EDIT_SERVICE_SUCCESS,
-    ADMIN_EDIT_SERVICE_FAILURE
+    ADMIN_EDIT_SERVICE_FAILURE,
+    ADMIN_FETCH_SINGLE_SERVICE_REQUEST,
+    ADMIN_FETCH_SINGLE_SERVICE_SUCCESS,
+    ADMIN_FETCH_SINGLE_SERVICE_FAILURE
 } from 'constants/actionTypes/services';
 import { updateObj, convertArrToObj } from 'helpers/generic';
 
@@ -23,9 +26,12 @@ export default combineReducers({
 function isFetchingReducer(state = false, action) {
     switch (action.type) {
         case ADMIN_FETCH_ALL_SERVICES_REQUEST:
+        case ADMIN_FETCH_SINGLE_SERVICE_REQUEST:
             return true;
         case ADMIN_FETCH_ALL_SERVICES_SUCCESS:
         case ADMIN_FETCH_ALL_SERVICES_FAILURE:
+        case ADMIN_FETCH_SINGLE_SERVICE_SUCCESS:
+        case ADMIN_FETCH_SINGLE_SERVICE_FAILURE:
             return false;
         default:
             return state;
@@ -49,10 +55,12 @@ function errorReducer(state = null, action) {
     switch (action.type) {
         case ADMIN_CREATE_SERVICE_REQUEST:
         case ADMIN_FETCH_ALL_SERVICES_REQUEST:
+        case ADMIN_FETCH_SINGLE_SERVICE_REQUEST:
         case ADMIN_EDIT_SERVICE_REQUEST:
             return null;
         case ADMIN_CREATE_SERVICE_FAILURE:
         case ADMIN_FETCH_ALL_SERVICES_FAILURE:
+        case ADMIN_FETCH_SINGLE_SERVICE_FAILURE:
         case ADMIN_EDIT_SERVICE_FAILURE:
             return action.error;
         default:
@@ -77,6 +85,8 @@ function adminServicesReducer(state = {}, action) {
     switch (action.type) {
         case ADMIN_FETCH_ALL_SERVICES_SUCCESS:
             return convertArrToObj(action.payload);
+        case ADMIN_FETCH_SINGLE_SERVICE_SUCCESS:
+            return updateObj(state, action.payload.id, action.payload);
         case ADMIN_CREATE_SERVICE_SUCCESS:
         case ADMIN_EDIT_SERVICE_SUCCESS:
             return updateObj(state, action.payload.id, action.payload);
