@@ -8,7 +8,6 @@ import PageHeading from 'components/shared/generic/pageHeading/presentational/Pa
 import Form from 'components/shared/generic/form/containers/Form';
 import Field from 'components/shared/generic/form/presentational/Field';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
-import BackButtonContainer from 'components/shared/generic/backButton/containers/BackButtonContainer';
 
 const EditDrawingOperative = ({
     operative,
@@ -26,9 +25,8 @@ const EditDrawingOperative = ({
                 <PageHeading
                     leftChildren={true}
                     title={`Edit Operative: ${userFirstName} ${userLastName}`}
-                >
-                    <BackButtonContainer />
-                </PageHeading>
+                    withBackButton
+                />
                 <BlockContainer>
                     <Form onSubmit={handleSubmit}>
                         <Field name="Services">

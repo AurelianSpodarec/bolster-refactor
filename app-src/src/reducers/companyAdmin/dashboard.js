@@ -5,14 +5,17 @@ import {
     FETCH_LIVE_HISTORIES_FAILURE,
     FETCH_HISTORY_FEED_REQUEST,
     FETCH_HISTORY_FEED_SUCCESS,
-    FETCH_HISTORY_FEED_FAILURE
-} from 'constants/actionTypes/stats';
+    FETCH_HISTORY_FEED_FAILURE,
+    UPDATE_DASHBOARD_SETTING
+} from 'constants/actionTypes/dashboard';
+import { updateObj } from 'helpers/generic';
 
 export default combineReducers({
     error: errorReducer,
     isInitialFetching: isInitialFetchingReducer,
     isLiveFetching: isLiveFetchingReducer,
-    liveHistories: liveHistoriesReducer
+    liveHistories: liveHistoriesReducer,
+    settings: settingsReducer
 });
 
 function isInitialFetchingReducer(state = false, action) {
@@ -64,6 +67,23 @@ function liveHistoriesReducer(state = {}, action) {
                 updatedOn: action.payload.updatedOn,
                 items: { ...state.items }
             };
+        default:
+            return state;
+    }
+}
+
+function settingsReducer(
+    state = {
+        serviceType: [],
+        liveTimePeriod: 0,
+        startDate: new Date(),
+        endDate: new Date()
+    },
+    action
+) {
+    switch (action.type) {
+        case UPDATE_DASHBOARD_SETTING:
+            return updateObj(state, action.key, action.value);
         default:
             return state;
     }

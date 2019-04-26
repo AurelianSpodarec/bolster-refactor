@@ -6,7 +6,7 @@ const AdminFooter = () => (
         <div className="container">
             <p>
                 Bolster Systems Ltd is a company registered in England and
-                Wales. Company No: ##12345678##.
+                Wales.
             </p>
 
             <img alt="logo of Bolster Systems" src={WhiteLogo} />

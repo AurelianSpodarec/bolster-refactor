@@ -10,7 +10,7 @@ const HeadquartersCompanies = ({
     isImpersonating
 }) => (
     <>
-        <PageHeading title="Headquarters Companies" />
+        <PageHeading title="Headquarters Companies" withBackButton />
         <BlockContainer>
             <BlockHeading title="Companies" classes="w-table">
                 <Link

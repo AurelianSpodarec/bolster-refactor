@@ -1,3 +1,6 @@
+//drawing
+export const EDIT_FLOOR_PLAN = 'EDIT_FLOOR_PLAN';
+
 //generic
 export const SUCCESS_MODAL = 'SUCCESS_MODAL';
 export const CONFIRM_DELETE = 'CONFIRM_DELETE_MODAL';

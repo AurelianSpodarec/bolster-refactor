@@ -1,22 +1,19 @@
 import React from 'react';
-import Select from 'react-select';
 import Field from 'components/shared/generic/form/presentational/Field';
+import NewSelect from 'components/shared/generic/form/presentational/NewSelect';
 
 const OperativesFilter = ({
-    operatives,
+    operativeOptions,
     handleChange,
-    selectedOperatives,
-    required
+    selectedOperatives
 }) => (
     <Field name="Operatives">
-        <Select
-            options={operatives}
-            isMulti
-            name="selectedOperatives"
+        <NewSelect
+            options={operativeOptions}
+            name="operativeIDs"
             onChange={handleChange}
+            placeholder
             value={selectedOperatives}
-            required={required}
-            placeholder="All Operatives"
         />
     </Field>
 );

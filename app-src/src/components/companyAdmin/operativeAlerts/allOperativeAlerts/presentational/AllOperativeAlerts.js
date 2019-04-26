@@ -6,7 +6,7 @@ import OperativeAlertsTableContainer from '../containers/OperativeAlertsTableCon
 
 const AllOperativeAlerts = () => (
     <>
-        <PageHeading title="Operative Alerts" />
+        <PageHeading title="Operative Alerts" withBackButton />
         <BlockContainer>
             <OperativeAlertsTableContainer />
         </BlockContainer>

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
+import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import fetchCompanyUsers from 'actions/companyAdmin/userManagement/async/fetchCompanyUsers';
 import updatePinCoordinates from 'actions/companyAdmin/drawings/sync/updatePinCoordinates';
 import DrawingMapFiltersAdvanced from '../presentational/DrawingMapFiltersAdvanced';
@@ -78,6 +79,7 @@ class DrawingMapGeneralContainer extends Component {
                 </div>
                 <BlockContainer error={error} isEmpty={!drawing}>
                     <DrawingMapViewSimple
+                        showModal={this.props.showModal}
                         position={position}
                         addPinPosition={addPinPosition}
                         zoom={mapZoom}
@@ -247,6 +249,9 @@ const mapDispatchToProps = dispatch => ({
     },
     updatePinCoordinates: (name, value) => {
         dispatch(updatePinCoordinates(name, value));
+    },
+    showModal: (modalType, modalProps) => {
+        dispatch(showModal(modalType, modalProps));
     }
 });
 

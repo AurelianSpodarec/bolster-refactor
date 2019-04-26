@@ -24,7 +24,6 @@ body {
     background-color: #212228;
     color: $body-text;
     line-height: 1.35;
-    margin-bottom: 5em;
 }
 
 .container {
@@ -742,6 +741,11 @@ input {
         }
     }
 
+    .back-button {
+        float: left;
+        width: auto;
+        margin-right: 1em;
+    }
     .heading {
         float: left;
         line-height: 1;
@@ -1659,6 +1663,13 @@ input {
         margin-right: 5px;
     }
 
+    .status-icon {
+        margin: 0;
+        i {
+            margin-right: 0;
+        }
+    }
+
     .no-data-td {
         text-align: center !important;
         p {
@@ -1722,15 +1733,19 @@ input {
 
 .loading-text {
     @include ubuntu;
-    font-size: 140%;
     text-align: center;
     padding: 10px;
+    p {
+        font-size: 160%;
+        margin-bottom: 10px;
+    }
+    i {
+        font-size: 180%;
+    }
 }
 
 //footer
 #page-footer {
-    position: fixed;
-    bottom: 0;
     width: 100%;
     padding: 10px 0;
     float: left;
@@ -2256,6 +2271,17 @@ input {
         i {
             font-size: 14px;
             left: 0.5px;
+        }
+    }
+
+    &.warning {
+        width: 20px;
+        height: 20px;
+        background-color: transparent;
+
+        i {
+            color: $yellow;
+            font-size: 18px;
         }
     }
 

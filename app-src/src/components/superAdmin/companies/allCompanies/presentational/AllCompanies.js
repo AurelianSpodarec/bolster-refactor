@@ -9,7 +9,7 @@ import BlockHeading from 'components/shared/generic/blockHeading/presentational/
 
 const AllCompanies = () => (
     <>
-        <PageHeading title="Companies" />
+        <PageHeading title="Companies" withBackButton />
 
         <BlockContainer>
             <BlockHeading title="Companies">

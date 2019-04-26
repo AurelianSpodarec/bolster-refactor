@@ -10,6 +10,7 @@ import companySettingsReducer from './companySettings';
 import companyUsersReducer from '../companyAdmin/companyUsers';
 import creditsReducer from './credits';
 import creditLogsReducer from './creditLogs';
+import dashboardReducer from './dashboard';
 import documentsReducer from './documents';
 import drawingsReducer from './drawings';
 import floorsReducer from './floors';
@@ -19,6 +20,7 @@ import inspectionLogsReducer from './inspectionLogs';
 import invoiceItemsReducer from './invoiceItems';
 import invoicesReducer from './invoices';
 import messagesReducer from './messages';
+import operativeAlertsReducer from './operativeAlerts';
 import operativesReducer from './operatives';
 import pendingInvitesReducer from './pendingInvites';
 import pinAnswersReducer from './pinAnswers';
@@ -35,7 +37,6 @@ import templateSectionsReducer from './templateSections';
 import templateVersionsReducer from './templateVersions';
 import templateQuestionsReducer from './templateQuestions';
 import transferRequestsReducer from './transferRequests';
-import operativeAlertsReducer from './operativeAlerts';
 
 export default combineReducers({
     addPinCoordinatesReducer,
@@ -48,6 +49,7 @@ export default combineReducers({
     companyUsersReducer,
     creditsReducer,
     creditLogsReducer,
+    dashboardReducer,
     documentsReducer,
     drawingsReducer,
     floorsReducer,
