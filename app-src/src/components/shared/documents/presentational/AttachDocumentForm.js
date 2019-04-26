@@ -3,7 +3,7 @@ import Form from 'components/shared/generic/form/containers/Form';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import Field from 'components/shared/generic/form/presentational/Field';
 import FileUploadContainer from 'components/shared/generic/form/containers/FileUploadContainer';
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import RadioButton from 'components/shared/generic/form/presentational/RadioButton';
@@ -13,6 +13,7 @@ import CheckboxListContainer from 'components/shared/generic/form/containers/Che
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import Checkbox from 'components/shared/generic/form/presentational/Checkbox';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 
 const AttachDocumentForm = ({
     handleInputChange,
@@ -177,12 +178,11 @@ const AttachDocumentForm = ({
                         </>
                     )}
                 </button>
-                <Link
+                <ButtonContainer
                     to={location.pathname.replace('/attach-document', '')}
-                    className="button"
                 >
                     Cancel
-                </Link>
+                </ButtonContainer>
             </BlockButtonWrapper>
         </Form>
     </BlockContainer>

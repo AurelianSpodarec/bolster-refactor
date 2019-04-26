@@ -3,7 +3,7 @@ import Form from 'components/shared/generic/form/containers/Form';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import Field from 'components/shared/generic/form/presentational/Field';
 import FileUploadContainer from 'components/shared/generic/form/containers/FileUploadContainer';
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import RadioButton from 'components/shared/generic/form/presentational/RadioButton';
@@ -16,6 +16,7 @@ import BlockContainer from 'components/shared/generic/block/containers/BlockCont
 import Checkbox from 'components/shared/generic/form/presentational/Checkbox';
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
 import BackButtonContainer from 'components/shared/generic/backButton/containers/BackButtonContainer';
+import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 
 const EditDocumentForm = ({
     handleInputChange,
@@ -119,12 +120,9 @@ const EditDocumentForm = ({
                                     handleChange={handleFileChange}
                                     required
                                 />
-                                <button
-                                    className="button"
-                                    onClick={handleCancelUpload}
-                                >
+                                <ButtonContainer onClick={handleCancelUpload}>
                                     Cancel File Replace
-                                </button>
+                                </ButtonContainer>
                             </Field>
                         )}
                     </div>
@@ -202,15 +200,14 @@ const EditDocumentForm = ({
                     >
                         {filesUploading ? 'Please wait...' : <>{'Confirm'}</>}
                     </button>
-                    <Link
+                    <ButtonContainer
                         to={location.pathname.replace(
                             `/edit-document/${documentID}`,
                             ''
                         )}
-                        className="button"
                     >
                         Cancel
-                    </Link>
+                    </ButtonContainer>
                 </BlockButtonWrapper>
             </Form>
         </BlockContainer>
