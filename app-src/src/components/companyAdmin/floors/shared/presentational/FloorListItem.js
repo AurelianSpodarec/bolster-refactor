@@ -26,7 +26,6 @@ const FloorListItem = ({
             <td>{permissions}</td>
             <td>
                 <ButtonContainer
-                    className="button light-blue"
                     to={`/company/floors/${floor.id}`}
                     handleClick={e => e.stopPropagation()}
                 >

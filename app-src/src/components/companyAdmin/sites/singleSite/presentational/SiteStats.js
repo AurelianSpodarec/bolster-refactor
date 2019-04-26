@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 
 import PieChart from 'components/shared/stats/presentational/PieChart';
 import SiteDetails from './SiteDetails';
+import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 const SiteStats = ({ site, stats, handleDelete, handleArchive }) => (
     <div className="stats size-lg-12">
         <div className="flex-item size-lg-12">
@@ -29,13 +30,9 @@ const SiteStats = ({ site, stats, handleDelete, handleArchive }) => (
                 <i className="fa fa-archive" />
                 {site.isArchived ? 'Un-Archive' : 'Archive'}
             </button>
-
-            <Link
-                className="button"
-                to={`/company/sites/${site.id}/change-ownership`}
-            >
+            <ButtonContainer to={`/company/sites/${site.id}/change-ownership`}>
                 <i className="fa fa-exchange" /> Change Ownership
-            </Link>
+            </ButtonContainer>
         </div>
     </div>
 );

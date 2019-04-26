@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
 import CheckboxListContainer from 'components/shared/generic/form/containers/CheckboxListContainer';
 import Loading from 'components/shared/generic/misc/presentational/Loading';
@@ -10,6 +9,7 @@ import Field from 'components/shared/generic/form/presentational/Field';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
 import BackButtonContainer from 'components/shared/generic/backButton/containers/BackButtonContainer';
+import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 
 const EditCompanyPermissionsForm = ({
     company,
@@ -58,9 +58,10 @@ const EditCompanyPermissionsForm = ({
                                 <i className="fa fa-plus" />
                                 Confirm Changes
                             </button>
-                            <Link to={backUrl} className="button">
+
+                            <ButtonContainer to={backUrl}>
                                 Cancel
-                            </Link>
+                            </ButtonContainer>
                         </BlockButtonWrapper>
                     </BlockContainer>
                 </>
