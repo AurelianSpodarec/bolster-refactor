@@ -8,6 +8,7 @@ import { PAYMENT_IDS } from 'constants/companyAdmin/enums';
 import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import { formatNumber } from 'helpers/generic';
+import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 
 const AddServiceToSubscriptionModal = ({
     handleSubmit,
@@ -79,9 +80,9 @@ const AddServiceToSubscriptionModal = ({
                 <button className="button green" type="submit">
                     Buy
                 </button>
-                <button className="button" onClick={hideModal}>
+                <ButtonContainer handleClick={hideModal}>
                     Cancel
-                </button>
+                </ButtonContainer>
             </BlockButtonWrapper>
         </Form>
     </ModalOuterContainer>

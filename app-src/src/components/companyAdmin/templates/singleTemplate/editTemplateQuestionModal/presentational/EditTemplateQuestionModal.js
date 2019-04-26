@@ -5,6 +5,7 @@ import TextInputContainer from 'components/shared/generic/form/containers/TextIn
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import Form from 'components/shared/generic/form/containers/Form';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
+import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 
 const EditTemplateQuestionModal = ({
     options,
@@ -53,10 +54,9 @@ const EditTemplateQuestionModal = ({
                     <i className="fa fa-save" />
                     Save
                 </button>
-
-                <button className="button" type="button" onClick={hideModal}>
+                <ButtonContainer handleClick={hideModal}>
                     Cancel
-                </button>
+                </ButtonContainer>
             </BlockButtonWrapper>
         </Form>
     </ModalOuterContainer>

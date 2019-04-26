@@ -5,6 +5,7 @@ import Form from 'components/shared/generic/form/containers/Form';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import Field from 'components/shared/generic/form/presentational/Field';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
+import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 
 const AddCardModal = ({
     hideModal,
@@ -103,9 +104,9 @@ const AddCardModal = ({
                     <button className="button green" type="submit">
                         <i className="fa fa-plus" /> Add Card
                     </button>
-                    <button className="button" onClick={hideModal}>
+                    <ButtonContainer handleClick={hideModal}>
                         Cancel
-                    </button>
+                    </ButtonContainer>
                 </BlockButtonWrapper>
             </Form>
         </ModalOuterContainer>
