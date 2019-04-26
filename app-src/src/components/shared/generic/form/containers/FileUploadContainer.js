@@ -44,6 +44,11 @@ class FileUploadContainer extends Component {
     }
 
     componentDidMount = () => {
+        const { value } = this.props;
+        if (value && value.length) {
+            this._setFiles(value);
+        }
+
         this._validate();
     };
 
@@ -64,40 +69,38 @@ class FileUploadContainer extends Component {
         }
 
         if (!prevValue && value) {
-            var retFiles = [];
+            this._setFiles(value);
+        }
+    };
 
-            if (Array.isArray(value)) {
-                //Multi File
-                value.forEach(item => {
-                    var newFile = {};
+    _setFiles = value => {
+        var retFiles = [];
 
-                    newFile.source = RAW_S3_STORAGE_URL + '/' + item;
-                    newFile.options = {
-                        type: 'local',
-                        metadata: {
-                            key: item
-                        }
-                    };
-
-                    retFiles.push(newFile);
-                });
-            } else {
+        if (Array.isArray(value)) {
+            //Multi File
+            value.forEach(item => {
                 var newFile = {};
 
-                newFile.source = RAW_S3_STORAGE_URL + '/' + value;
+                newFile.source = RAW_S3_STORAGE_URL + '/' + item;
                 newFile.options = {
-                    type: 'local',
-                    metadata: {
-                        key: value
-                    }
+                    type: 'local'
                 };
 
                 retFiles.push(newFile);
-            }
+            });
+        } else {
+            var newFile = {};
 
-            this.setState({ files: retFiles });
-            //this.setState({ files: value });
+            newFile.source = RAW_S3_STORAGE_URL + '/' + value;
+            newFile.options = {
+                type: 'local'
+            };
+
+            retFiles.push(newFile);
         }
+
+        this.setState({ files: retFiles });
+        //this.setState({ files: value });
     };
 
     _validate = () => {
@@ -149,23 +152,19 @@ class FileUploadContainer extends Component {
         this.props.fileUploadFinish();
     };
 
-    _handleFileLoad = (source, load, error) => {
-        try {
-            var myRequest = new Request(source);
-            const that = this;
-            fetch(myRequest)
-                .then(function(response) {
-                    response.blob().then(function(myBlob) {
-                        load(myBlob);
-                        that.handleFileUploadFinish();
-                    });
-                })
-                .catch(function() {
-                    error('Something went wrong.');
+    _handleFileLoad = (source = '', load, error) => {
+        var myRequest = new Request(source);
+        const that = this;
+        fetch(myRequest)
+            .then(function(response) {
+                response.blob().then(function(myBlob) {
+                    load(myBlob);
+                    that.handleFileUploadFinish();
                 });
-        } catch {
-            error('Something went wrong.');
-        }
+            })
+            .catch(function() {
+                error('Something went wrong.');
+            });
     };
 
     _handleUpload = (

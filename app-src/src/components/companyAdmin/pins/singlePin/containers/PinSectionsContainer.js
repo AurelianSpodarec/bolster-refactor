@@ -1,20 +1,10 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import PinSection from '../presentational/PinSection';
 
-class PinSectionsContainer extends Component {
-    render() {
-        const { templateVersionID, templateSections, pinHistory } = this.props;
-
-        const relevantSections = templateSections.filter(
-            template => template.templateVersionID === templateVersionID
-        );
-
-        return (
-            <PinSection sections={relevantSections} pinHistory={pinHistory} />
-        );
-    }
-}
+const PinSectionsContainer = ({ relevantSections, pinHistory }) => (
+    <PinSection sections={relevantSections} pinHistory={pinHistory} />
+);
 
 const mapStateToProps = ({
     companyAdmin: {
@@ -22,11 +12,12 @@ const mapStateToProps = ({
         templateSectionsReducer: { sections }
     }
 }) => {
-    const history = histories[selectedHistoryId];
-
+    const history = histories[selectedHistoryId] || {};
+    const { templateVersionID } = history;
     return {
-        templateVersionID: history.templateVersionID,
-        templateSections: Object.values(sections)
+        relevantSections: Object.values(sections).filter(
+            section => section.templateVersionID === templateVersionID
+        )
     };
 };
 

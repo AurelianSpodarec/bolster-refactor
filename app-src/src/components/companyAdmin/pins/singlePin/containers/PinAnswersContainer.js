@@ -1,55 +1,49 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PinAnswer from '../presentational/PinAnswer';
 
-class PinAnswersContainer extends Component {
-    render() {
-        const { questionType, questions, pinAnswers, pinHistory } = this.props;
+const PinAnswersContainer = ({
+    questionType,
+    questions,
+    pinAnswers,
+    pinHistory,
+    status,
+    relevantAnswer
+}) => (
+    <PinAnswer
+        answers={pinAnswers}
+        trimmedAnswer={relevantAnswer}
+        questions={questions}
+        type={questionType}
+        pinHistory={pinHistory}
+        status={status}
+    />
+);
 
-        return (
-            <PinAnswer
-                answers={pinAnswers}
-                trimmedAnswer={this._getRelevantAnswer()}
-                questions={questions}
-                type={questionType}
-                pinHistory={pinHistory}
-            />
-        );
-    }
-
-    _getRelevantAnswer = () => {
-        const { questionID, pinAnswers, pinHistory } = this.props;
-
-        const relevantAnswer = pinAnswers.filter(
-            answer =>
-                answer.templateQuestionID === questionID &&
-                answer.pinHistoryID === pinHistory.id
-        );
-
-        if (!!relevantAnswer.length){
-            const answer = {
-                id: relevantAnswer[0].id,
-                answer: relevantAnswer[0].answer
-            };
-
-            return answer;
-        }else{
-            return {};
+const mapStateToProps = (
+    {
+        companyAdmin: {
+            pinAnswersReducer: { answers },
+            pinHistoriesReducer: { histories, selectedHistoryId },
+            templateQuestionsReducer: { questions }
         }
-
-    };
-}
-
-const mapStateToProps = ({
-    companyAdmin: {
-        pinAnswersReducer: { answers },
-        templateQuestionsReducer: { questions }
-    }
-}) => {
+    },
+    { questionID, pinHistory }
+) => {
+    const history = histories[selectedHistoryId] || {};
+    const pinAnswers = Object.values(answers);
     return {
-        pinAnswers: Object.values(answers),
-        questions: Object.values(questions)
+        status: history.status,
+        pinAnswers,
+        questions: Object.values(questions),
+        relevantAnswer:
+            pinAnswers.find(
+                answer =>
+                    answer.templateQuestionID === questionID &&
+                    answer.pinHistoryID === pinHistory.id
+            ) || {}
     };
 };
 
-export default connect(mapStateToProps)(PinAnswersContainer);
+export default withRouter(connect(mapStateToProps)(PinAnswersContainer));
