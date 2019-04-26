@@ -70,7 +70,7 @@ export class PinFiltersFormContainer extends Component {
             showModal(SUCCESS_MODAL, {
                 hideModal: () => {
                     hideModal();
-                    history.push('/company/tools/generation-queue');
+                    history.push('/company/tools/company-reports');
                 },
                 message: '##Your report is now being generated##'
             });

@@ -1,16 +1,16 @@
 import React from 'react';
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import GenerationQueueTableContainer from '../containers/GenerationQueueTableContainer';
+import CompanyReportsTableContainer from '../containers/CompanyReportsTableContainer';
 
-const GenerationQueue = () => (
+const CompanyReports = () => (
     <>
         <PageHeading title="Reports" withBackButton />
 
         <BlockContainer>
-            <GenerationQueueTableContainer />
+            <CompanyReportsTableContainer />
         </BlockContainer>
     </>
 );
 
-export default GenerationQueue;
+export default CompanyReports;

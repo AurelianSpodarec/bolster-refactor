@@ -1,7 +1,7 @@
 import React from 'react';
 import Dropdown from 'components/shared/generic/form/presentational/Dropdown';
 
-const GenerationQueueFilters = ({
+const CompanyReportsFilters = ({
     sortOptions,
     handleChange,
     selectedOption
@@ -19,4 +19,4 @@ const GenerationQueueFilters = ({
     </form>
 );
 
-export default GenerationQueueFilters;
+export default CompanyReportsFilters;

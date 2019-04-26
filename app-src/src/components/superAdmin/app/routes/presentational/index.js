@@ -7,7 +7,7 @@ import ServicesRoutes from './ServicesRoutes';
 import UsersRoutes from './UsersRoutes.js';
 import EnquiriesRoutes from './EnquiriesRouter';
 import CompaniesRoutes from './CompaniesRoutes';
-import GenerationQueueRoutes from './GenerationQueueRoutes';
+import CompanyReportsRoutes from './CompanyReportsRoutes';
 import ProfilesRoutes from './ProfilesRoutes';
 import InvoicesRoutes from './InvoicesRoutes';
 
@@ -19,8 +19,8 @@ const AdminRoutes = ({ base = '/admin' }) => (
         <Route path={`${base}/users`} component={UsersRoutes} />
         <Route path={`${base}/profile`} component={ProfilesRoutes} />
         <Route
-            path={`${base}/generation-queue`}
-            component={GenerationQueueRoutes}
+            path={`${base}/companyReports`}
+            component={CompanyReportsRoutes}
         />
         <Route path={`${base}/invoices`} component={InvoicesRoutes} />
 

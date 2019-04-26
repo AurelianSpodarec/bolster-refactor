@@ -40,8 +40,8 @@ const HeaderProfile = ({
                 Credits Log <i className="icon fas fa-chevron-right" />
             </Link>
 
-            <Link to="/company/tools/generation-queue" className="item">
-                Generation Queue
+            <Link to="/company/tools/company-reports" className="item">
+                Company Reports
                 <i className="icon fas fa-chevron-right" />
             </Link>
             <Link to="/company/subscription" className="item">

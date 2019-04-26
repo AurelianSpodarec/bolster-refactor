@@ -48,9 +48,9 @@ const HeaderNotifications = ({
             <div className="item">
                 <ButtonContainer
                     onClick={togglePopup}
-                    to="/company/tools/generation-queue"
+                    to="/company/tools/company-reports"
                 >
-                    View generation queue
+                    View Company Reports
                 </ButtonContainer>
             </div>
         </div>
