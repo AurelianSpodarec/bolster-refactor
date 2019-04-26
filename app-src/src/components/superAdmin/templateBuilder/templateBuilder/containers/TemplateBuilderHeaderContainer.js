@@ -33,7 +33,7 @@ const TemplateBuilderHeaderContainer = ({
     function showTemplateForm() {
         !template.uuid
             ? showAddTemplateForm(uuid, companyID)
-            : showEditTemplateForm(template);
+            : showEditTemplateForm(template, companyID);
     }
 };
 
@@ -64,8 +64,8 @@ const mapDispatchToProps = dispatch => ({
     showAddTemplateForm: (uuid, companyID) => {
         dispatch(showModal(ADD_TEMPLATE, { uuid, companyID }));
     },
-    showEditTemplateForm: template => {
-        dispatch(showModal(EDIT_TEMPLATE, { template }));
+    showEditTemplateForm: (template, companyID) => {
+        dispatch(showModal(EDIT_TEMPLATE, { template, companyID }));
     }
 });
 
