@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+
 import Form from 'components/shared/generic/form/containers/Form';
 import Field from 'components/shared/generic/form/presentational/Field';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
@@ -7,6 +7,7 @@ import { VAT_TYPES } from 'constants/companyAdmin/enums';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import NewSelect from 'components/shared/generic/form/presentational/NewSelect';
+import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 
 const AddHeadquartersCompanyForm = ({
     'User.email': email,
@@ -199,9 +200,9 @@ const AddHeadquartersCompanyForm = ({
             <button className="button green" type="submit">
                 Submit
             </button>
-            <Link className="button" to="/company/headquarters/companies">
+            <ButtonContainer to="/company/headquarters/companies">
                 Cancel
-            </Link>
+            </ButtonContainer>
         </BlockButtonWrapper>
     </Form>
 );

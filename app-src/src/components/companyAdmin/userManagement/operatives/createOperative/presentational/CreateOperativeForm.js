@@ -4,6 +4,7 @@ import Form from 'components/shared/generic/form/containers/Form';
 import Field from 'components/shared/generic/form/presentational/Field';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
+import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 
 const CreateOperativeForm = ({
     handleSubmit,
@@ -93,9 +94,9 @@ const CreateOperativeForm = ({
             <button className="button green">
                 <i className="fa fa-plus" /> Invite Operative
             </button>
-            <Link to="/company/users-management/operatives" className="button">
+            <ButtonContainer to="/company/users-management/operatives">
                 Cancel
-            </Link>
+            </ButtonContainer>
         </BlockButtonWrapper>
     </Form>
 );

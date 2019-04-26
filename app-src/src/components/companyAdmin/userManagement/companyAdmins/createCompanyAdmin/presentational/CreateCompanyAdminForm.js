@@ -3,6 +3,7 @@ import Form from 'components/shared/generic/form/containers/Form';
 import Field from 'components/shared/generic/form/presentational/Field';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
+import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 
 const CreateCompanyAdminForm = ({
     handleSubmit,
@@ -95,12 +96,9 @@ const CreateCompanyAdminForm = ({
             <button className="button green">
                 <i className="fa fa-plus" /> Create Company Admin
             </button>
-            <a
-                className="button"
-                href="/company/users-management/company-admins"
-            >
+            <ButtonContainer to="/company/users-management/company-admins">
                 Cancel
-            </a>
+            </ButtonContainer>
         </BlockButtonWrapper>
     </Form>
 );

@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
 import CheckboxListContainer from 'components/shared/generic/form/containers/CheckboxListContainer';
 import Loading from 'components/shared/generic/misc/presentational/Loading';
@@ -8,6 +7,7 @@ import PageHeading from 'components/shared/generic/pageHeading/presentational/Pa
 import Form from 'components/shared/generic/form/containers/Form';
 import Field from 'components/shared/generic/form/presentational/Field';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
+import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 
 const EditDrawingOperative = ({
     operative,
@@ -43,9 +43,7 @@ const EditDrawingOperative = ({
                             <i className="fa fa-plus" />
                             Confirm Changes
                         </button>
-                        <Link to={backUrl} className="button">
-                            Cancel
-                        </Link>
+                        <ButtonContainer to={backUrl}>Cancel</ButtonContainer>
                     </BlockButtonWrapper>
                 </BlockContainer>
             </>
