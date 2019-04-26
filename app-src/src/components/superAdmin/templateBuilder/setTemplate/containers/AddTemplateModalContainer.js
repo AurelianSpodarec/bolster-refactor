@@ -12,6 +12,8 @@ import { convertArrToObj, convertEnumToDropdownOptions } from 'helpers/generic';
 import { LABEL_TYPES } from 'constants/companyAdmin/enums';
 import setSection from 'actions/superAdmin/templateBuilder/sync/setSection';
 import fetchCompanySubscription from 'actions/superAdmin/companies/async/fetchCompanySubscription';
+import setQuestion from 'actions/superAdmin/templateBuilder/sync/setQuestion';
+import { QUESTION_TYPE_NUMBERS } from 'constants/shared/templateBuilder';
 
 class TemplateFormModalContainer extends React.Component {
     state = {
@@ -72,13 +74,20 @@ class TemplateFormModalContainer extends React.Component {
             uuid,
             name
         };
-
+        const sectionUUID = generateUuid();
         const section1 = {
-            uuid: generateUuid(),
+            uuid: sectionUUID,
             templateUUID: uuid,
             name: 'Section 1',
             sort: 1
         };
+        setQuestion({
+            // STATUS
+            uuid: generateUuid(),
+            fields: {},
+            name: 'Status',
+            questionType: QUESTION_TYPE_NUMBERS.STATUS
+        });
 
         setTemplate(template, section1);
     };
@@ -122,6 +131,8 @@ const mapDispatchToProps = (dispatch, { companyID }) => ({
         dispatch(setSection(section1));
         dispatch(hideModal());
     },
+    setQuestion: question => dispatch(setQuestion(question)),
+
     fetchData: () => {
         dispatch(fetchAllServices());
         dispatch(fetchCompanySubscription(companyID));
