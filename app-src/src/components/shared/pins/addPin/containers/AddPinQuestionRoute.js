@@ -27,7 +27,8 @@ const {
     CHECKBOX,
     SIGNATURE,
     SINGLE_PHOTO,
-    MULTI_PHOTO
+    MULTI_PHOTO,
+    STATUS
 } = QUESTION_TYPE_VALUES;
 
 const SingleLine = ({
@@ -175,6 +176,8 @@ const Signature = ({ question: { isRequired, id }, handleSignatureChange }) => (
     />
 );
 
+const Status = () => <div />;
+
 class AddPinQuestionRoute extends Component {
     state = {
         sigPad: {}
@@ -193,7 +196,8 @@ class AddPinQuestionRoute extends Component {
             [RADIO]: Radio,
             [SINGLE_PHOTO]: SinglePhoto,
             [MULTI_PHOTO]: MultiPhoto,
-            [SIGNATURE]: Signature
+            [SIGNATURE]: Signature,
+            [STATUS]: Status
         };
 
         const SpecificField = fieldTypes[question.type + ''] || SingleLine;

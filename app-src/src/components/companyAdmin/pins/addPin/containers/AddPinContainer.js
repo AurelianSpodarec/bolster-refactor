@@ -6,16 +6,12 @@ import AddPinFormContainer from 'components/shared/pins/addPin/containers/AddPin
 import fetchDrawingTemplates from 'actions/companyAdmin/drawings/async/fetchDrawingTemplates';
 
 class AddPinContainer extends Component {
-    render() {
-        const { drawingID } = this.props;
-
-        return (
-            <AddPinFormContainer
-                hierarchyType="drawing"
-                drawingID={drawingID}
-            />
-        );
-    }
+    render = () => (
+        <AddPinFormContainer
+            hierarchyType="drawing"
+            drawingID={this.props.drawingID}
+        />
+    );
 
     componentDidMount = () => {
         const { drawingID, fetchDrawingTemplates } = this.props;
