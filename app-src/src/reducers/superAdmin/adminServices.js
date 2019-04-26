@@ -17,7 +17,7 @@ export default combineReducers({
     error: errorReducer,
     updatedServiceID: updatedServiceIDReducer,
     isFetching: isFetchingReducer,
-    services: servicesReducer
+    adminServices: adminServicesReducer
 });
 
 function isFetchingReducer(state = false, action) {
@@ -73,7 +73,7 @@ function updatedServiceIDReducer(state = 0, action) {
     }
 }
 
-function servicesReducer(state = {}, action) {
+function adminServicesReducer(state = {}, action) {
     switch (action.type) {
         case ADMIN_FETCH_ALL_SERVICES_SUCCESS:
             return convertArrToObj(action.payload);
