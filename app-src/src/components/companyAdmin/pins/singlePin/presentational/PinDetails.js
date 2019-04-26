@@ -6,19 +6,11 @@ import { Link } from 'react-router-dom';
 import FieldOutput from 'components/shared/generic/fieldOutput/presentational/FieldOutput';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 
-import { PIN_STATUS_TYPES as STATUS } from 'constants/companyAdmin/enums';
+// import { PIN_STATUS_TYPES as STATUS } from 'constants/companyAdmin/enums';
 import PinSectionsContainer from '../containers/PinSectionsContainer';
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 
-const PinDetails = ({
-    pinHistory,
-    pin,
-    historyCount,
-    historyVersion,
-    user,
-    services,
-    handleDelete
-}) => (
+const PinDetails = ({ pinHistory, user, services, handleDelete }) => (
     <>
         <div className="size-lg-12">
             <FieldOutput
@@ -45,12 +37,12 @@ const PinDetails = ({
                 sizeClass="size-lg-6"
             />
 
-            <FieldOutput
+            {/* <FieldOutput
                 title="Status"
                 description={STATUS[pinHistory.status]}
                 fieldClass="no-h-padding"
                 sizeClass="size-lg-6"
-            />
+            /> */}
         </div>
 
         <PinSectionsContainer pinHistory={pinHistory} />

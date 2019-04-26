@@ -5,6 +5,7 @@ import BlockHeading from 'components/shared/generic/blockHeading/presentational/
 import Form from 'components/shared/generic/form/containers/Form';
 import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
+import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 
 const PayInvoiceModal = ({
     handleSubmit,
@@ -32,18 +33,17 @@ const PayInvoiceModal = ({
                 />
             </div>
             <BlockButtonWrapper>
-                <button className="button" type="submit">
+                <button className="button green" type="submit">
                     Pay invoice
                 </button>
-                <button
-                    className="button"
-                    onClick={e => {
+                <ButtonContainer
+                    handleClick={e => {
                         e.preventDefault();
                         hideModal();
                     }}
                 >
                     Cancel
-                </button>
+                </ButtonContainer>
             </BlockButtonWrapper>
         </Form>
     </ModalOuterContainer>

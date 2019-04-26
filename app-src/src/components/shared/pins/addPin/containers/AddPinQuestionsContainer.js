@@ -1,20 +1,11 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 
 import AddPinQuestions from '../presentational/AddPinQuestions';
 
-class AddPinQuestionsContainer extends Component {
-    render() {
-        const { sections, questions } = this.props;
-
-        return (
-            <AddPinQuestions
-                sections={Object.values(sections)}
-                questions={questions}
-            />
-        );
-    }
-}
+const AddPinQuestionsContainer = ({ sections, questions }) => (
+    <AddPinQuestions sections={Object.values(sections)} questions={questions} />
+);
 
 const mapStateToProps = ({
     companyAdmin: {

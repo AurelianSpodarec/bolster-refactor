@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
 import Form from 'components/shared/generic/form/containers/Form';
 import Field from 'components/shared/generic/form/presentational/Field';
@@ -7,6 +6,7 @@ import TextInputContainer from 'components/shared/generic/form/containers/TextIn
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
+import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 
 const ChangeOwnershipForm = ({
     companyCode,
@@ -34,12 +34,9 @@ const ChangeOwnershipForm = ({
                     <button className="button green" onClick={handleSubmit}>
                         Confirm
                     </button>
-                    <Link
-                        className="button"
-                        to={url.replace('/change-ownership', '')}
-                    >
+                    <ButtonContainer to={url.replace('/change-ownership', '')}>
                         Cancel
-                    </Link>
+                    </ButtonContainer>
                 </BlockButtonWrapper>
             </Form>
         </BlockContainer>

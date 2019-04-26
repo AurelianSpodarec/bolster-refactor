@@ -1,10 +1,11 @@
 import React from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 import Field from 'components/shared/generic/form/presentational/Field';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import Form from 'components/shared/generic/form/containers/Form';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
+import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 
 const EditCompanyUserPassword = ({
     handleSubmit,
@@ -42,15 +43,14 @@ const EditCompanyUserPassword = ({
             </div>
             <BlockButtonWrapper>
                 <button className="button green">Confirm</button>
-                <Link
+                <ButtonContainer
                     to={location.pathname.replace(
                         `${match.params.id}/edit-password`,
                         ''
                     )}
-                    className="button"
                 >
                     Cancel
-                </Link>
+                </ButtonContainer>
             </BlockButtonWrapper>
         </div>
     </Form>

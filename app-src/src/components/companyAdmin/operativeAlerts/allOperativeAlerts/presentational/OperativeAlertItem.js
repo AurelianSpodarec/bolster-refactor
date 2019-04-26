@@ -1,6 +1,7 @@
 import React from 'react';
 
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
+import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 
 const OperativeAlertItem = ({
     alert: { createdByUserFirstName, createdByUserLastName, createdOn, message }
@@ -15,7 +16,7 @@ const OperativeAlertItem = ({
         <td>##60%##</td>
         <td>##40%##</td>
         <td>
-            <button className="button">##Show Metrics##</button>
+            <ButtonContainer>##Show Metrics##</ButtonContainer>
         </td>
     </tr>
 );
