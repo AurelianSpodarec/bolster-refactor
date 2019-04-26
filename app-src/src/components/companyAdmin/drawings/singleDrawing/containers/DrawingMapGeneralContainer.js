@@ -153,12 +153,19 @@ class DrawingMapGeneralContainer extends Component {
     };
 
     _getServicesOptions = () => {
-        const { services } = this.props;
+        const { services, pins } = this.props;
 
-        const options = services.map(({ id, name }) => ({
-            value: id,
-            text: name
-        }));
+        const servicesOnDrawing = pins.reduce((acc, { latestServiceID }) => {
+            if (!acc.includes(latestServiceID)) acc.push(latestServiceID);
+            return acc;
+        }, []);
+
+        const options = services.reduce((acc, { id, name }) => {
+            if (servicesOnDrawing.includes(id)) {
+                acc.push({ value: id, text: name });
+            }
+            return acc;
+        }, []);
 
         return convertArrToObj(options, 'value');
     };

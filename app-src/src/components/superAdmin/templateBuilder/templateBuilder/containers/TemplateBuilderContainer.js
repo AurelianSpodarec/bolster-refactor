@@ -13,6 +13,7 @@ import resetSaveRequired from 'actions/superAdmin/templateBuilder/sync/resetSave
 import TemplateBuilder from '../presentational/TemplateBuilder';
 import fetchTemplate from 'actions/superAdmin/templateBuilder/async/fetchTemplate';
 import fetchAllServices from 'actions/superAdmin/services/async/fetchAllServices';
+import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 
 class TemplateBuilderContainer extends Component {
     render() {
@@ -23,13 +24,11 @@ class TemplateBuilderContainer extends Component {
             isExisting
         } = this.props;
         return (
-            <>
-                <TemplateBuilder
-                    isExisting={isExisting}
-                    saveRequired={saveRequired}
-                    showAddSectionModal={() => showAddSectionModal(uuid)}
-                />
-            </>
+            <TemplateBuilder
+                isExisting={isExisting}
+                saveRequired={saveRequired}
+                showAddSectionModal={() => showAddSectionModal(uuid)}
+            />
         );
     }
 
@@ -48,11 +47,12 @@ class TemplateBuilderContainer extends Component {
             curUrl,
             templateUUID,
             updatedTemplateUUID,
-            history
+            history,
+            hideModal
         } = this.props;
         if (!prevPostSuccess && postSuccess) {
             const message = 'Template saved successfully.';
-            showModal(SUCCESS_MODAL, { message });
+            showModal(SUCCESS_MODAL, { message, hideModal });
 
             if (templateUUID !== updatedTemplateUUID) {
                 const redirectUrl = curUrl.replace(
@@ -85,15 +85,15 @@ const mapStateToProps = (
 });
 
 const mapDispatchToProps = dispatch => ({
-    showAddSectionModal: templateUUID => {
-        dispatch(showModal(ADD_TEMPLATE_SECTION, { templateUUID }));
-    },
-    resetSaveRequired: () => {
-        dispatch(resetSaveRequired());
-    },
-    showModal: (modalType, modalProps) => {
-        dispatch(showModal(modalType, modalProps));
-    },
+    showAddSectionModal: templateUUID =>
+        dispatch(showModal(ADD_TEMPLATE_SECTION, { templateUUID })),
+
+    resetSaveRequired: () => dispatch(resetSaveRequired()),
+
+    showModal: (type, props) => dispatch(showModal(type, props)),
+
+    hideModal: () => dispatch(hideModal()),
+
     fetchPageData: templateUUID => {
         dispatch(fetchTemplate(templateUUID));
         dispatch(fetchAllServices());

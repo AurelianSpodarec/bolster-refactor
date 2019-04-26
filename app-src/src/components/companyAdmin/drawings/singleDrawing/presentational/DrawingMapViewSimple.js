@@ -9,7 +9,7 @@ import fileDownload from 'js-file-download';
 import MapPin from 'components/shared/pins/map/presentational/MapPin';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import CustomPin from 'components/shared/pins/map/presentational/CustomPin';
-import LoadingIcon from 'components/shared/generic/misc/presentational/LoadingIcon';
+// import LoadingIcon from 'components/shared/generic/misc/presentational/LoadingIcon';
 import Loading from 'components/shared/generic/misc/presentational/Loading';
 import { RAW_S3_STORAGE_URL } from 'config';
 import { EDIT_FLOOR_PLAN } from 'constants/shared/modalTypes';
