@@ -1,32 +1,18 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import PinQuestion from '../presentational/PinQuestion';
 
-class PinQuestionsContainer extends Component {
-    render() {
-        const { sectionID, templateQuestions, pinHistory } = this.props;
+const PinQuestionsContainer = ({ relevantQuestions, pinHistory }) => (
+    <PinQuestion questions={relevantQuestions} pinHistory={pinHistory} />
+);
 
-        const relevantQuestions = templateQuestions.filter(
-            question => question.templateSectionID === sectionID
-        );
-
-        return (
-            <PinQuestion
-                questions={relevantQuestions}
-                pinHistory={pinHistory}
-            />
-        );
-    }
-}
-
-const mapStateToProps = ({
-    companyAdmin: {
-        templateQuestionsReducer: { questions }
-    }
-}) => {
-    return {
-        templateQuestions: Object.values(questions)
-    };
-};
+const mapStateToProps = (
+    { companyAdmin: { templateQuestionsReducer } },
+    { sectionID }
+) => ({
+    relevantQuestions: Object.values(templateQuestionsReducer.questions).filter(
+        ({ templateSectionID }) => templateSectionID === sectionID
+    )
+});
 
 export default connect(mapStateToProps)(PinQuestionsContainer);

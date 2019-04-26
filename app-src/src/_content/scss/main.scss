@@ -906,7 +906,20 @@ input {
     float: left;
     width: 100%;
     font-size: 12px;
-
+    @include ubuntu;
+    .dropdown-heading {
+        height: 29px !important;
+        border-radius: 2.5px !important;
+        border: 1px solid #e1e1e1 !important;
+    }
+    .dropdown-heading-value {
+        line-height: 26px !important;
+    }
+    .dropdown-heading-dropdown-arrow {
+        span {
+            top: 2px;
+        }
+    }
     .dropdown-content {
         z-index: 1;
     }
@@ -1316,7 +1329,7 @@ input {
         right: 10px;
         @include vertical-center;
         color: #999;
-        font-size: 180%;
+        font-size: 150%;
     }
 
     select {
