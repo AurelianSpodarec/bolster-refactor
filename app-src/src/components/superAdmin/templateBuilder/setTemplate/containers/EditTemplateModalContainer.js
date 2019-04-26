@@ -52,8 +52,8 @@ class EditTemplateFormContainer extends React.Component {
         this.setState({ name, serviceID, labelType });
     };
 
-    handleChange = e => {
-        this.setState({ [e.target.name]: e.target.value });
+    handleChange = ({ target: { name, value } }) => {
+        this.setState({ [name]: value });
     };
 
     handleCancel = e => {
@@ -97,7 +97,6 @@ const mapStateToProps = (
     { companyID }
 ) => {
     const subscription = subscriptions[companyID] || {};
-    console.log(subscriptions, subscription);
     const { serviceIDs = [] } = subscription;
     return {
         services: Object.values(services).filter(({ id }) =>
@@ -107,13 +106,13 @@ const mapStateToProps = (
 };
 
 const mapDispatchToProps = (dispatch, { companyID }) => ({
-    hideModal: () => {
-        dispatch(hideModal());
-    },
+    hideModal: () => dispatch(hideModal()),
+
     setTemplate: template => {
         dispatch(setTemplate(template));
         dispatch(hideModal());
     },
+
     fetchData: () => {
         dispatch(fetchAllServices());
         dispatch(fetchCompanySubscription(companyID));

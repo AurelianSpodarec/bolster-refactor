@@ -50,8 +50,8 @@ class TemplateFormModalContainer extends React.Component {
         fetchData();
     };
 
-    handleChange = e => {
-        this.setState({ [e.target.name]: e.target.value });
+    handleChange = ({ target: { name, value } }) => {
+        this.setState({ [name]: value });
     };
 
     handleCancel = e => {
