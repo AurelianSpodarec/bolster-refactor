@@ -8,7 +8,7 @@ const FurtherFiltration = ({
     furtherFiltrationOptions,
     handleChange
 }) => (
-    <Field name="Further Filtration" sizeClasses="size-lg-12">
+    <Field name=" " sizeClasses="size-lg-12">
         <DropdownContainer
             placeholder="None"
             name="filterOption"
