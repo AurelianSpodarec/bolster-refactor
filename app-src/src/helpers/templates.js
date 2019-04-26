@@ -97,7 +97,10 @@ function setDynamicFieldsSingle({
         case VALS.DROPDOWN:
         case VALS.MULTI_DROPDOWN:
         case VALS.RADIO:
-            dynamicFields = { options, canCompanyEdit };
+            dynamicFields = {
+                options: Object.values(options).map(opt => opt.text),
+                canCompanyEdit
+            };
             break;
         case VALS.MULTI_PHOTO:
             dynamicFields = { maxPhotos };
