@@ -11,8 +11,8 @@ const ServiceTableContainer = ({ isFetching, error, services }) => (
     />
 );
 
-export default connect(({ servicesReducer }) => ({
-    isFetching: servicesReducer.isFetching,
-    error: servicesReducer.error,
-    services: servicesReducer.services
+export default connect(({ superAdmin: { adminServicesReducer } }) => ({
+    isFetching: adminServicesReducer.isFetching,
+    error: adminServicesReducer.error,
+    services: adminServicesReducer.adminServices
 }))(ServiceTableContainer);

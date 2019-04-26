@@ -24,7 +24,7 @@ class ServicesFilterContainer extends Component {
     }
 
     handleChange = ({ target: { value, name } }) => {
-        const { updateReportFilter, postFilters} = this.props;
+        const { updateReportFilter, postFilters } = this.props;
 
         updateReportFilter(name, value).then(postFilters);
     };
@@ -55,7 +55,7 @@ const mapStateToProps = ({
 
 const mapDispatchToProps = dispatch => ({
     updateReportFilter: (name, val) => {
-       return dispatch(updateReportFilter(name, val));
+        return dispatch(updateReportFilter(name, val));
     }
 });
 
@@ -63,6 +63,5 @@ const WithRedux = connect(
     mapStateToProps,
     mapDispatchToProps
 )(ServicesFilterContainer);
-
 
 export default withUpdateOnChange(WithRedux);

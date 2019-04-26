@@ -30,35 +30,39 @@ class LevelsFilterContainer extends Component {
 
         return (
             <div className="levels-filter size-lg-12">
-                <LevelsSitesFilters
-                    classes="active"
-                    sitesOptions={Object.values(sitesOptions)}
-                    selectedSite={selectedSite}
-                    handleChange={this.handleChange}
-                />
+                <div className="generic-form">
+                    <LevelsSitesFilters
+                        classes="active"
+                        sitesOptions={Object.values(sitesOptions)}
+                        selectedSite={selectedSite}
+                        handleChange={this.handleChange}
+                    />
 
-                <LevelsBuildingsFilters
-                    classes={selectedSite ? 'active' : ''}
-                    buildingOptions={Object.values(buildingOptions)}
-                    handleChange={this.handleChange}
-                    selectedBuilding={selectedBuilding}
-                />
+                    <LevelsBuildingsFilters
+                        classes={selectedSite ? 'active' : ''}
+                        buildingOptions={Object.values(buildingOptions)}
+                        handleChange={this.handleChange}
+                        selectedBuilding={selectedBuilding}
+                    />
 
-                <LevelsFloorsFilters
-                    classes={selectedBuilding ? 'active' : ''}
-                    floorOptions={Object.values(floorOptions)}
-                    handleChange={this.handleChange}
-                    selectedFloor={selectedFloor}
-                />
+                    <LevelsFloorsFilters
+                        classes={selectedBuilding ? 'active' : ''}
+                        floorOptions={Object.values(floorOptions)}
+                        handleChange={this.handleChange}
+                        selectedFloor={selectedFloor}
+                    />
 
-                <LevelsDrawingsFilters
-                    classes={
-                        !!selectedFloor && !!selectedBuilding ? 'active' : ''
-                    }
-                    drawingOptions={Object.values(drawingOptions)}
-                    handleChange={this.handleChange}
-                    selectedDrawing={selectedDrawing}
-                />
+                    <LevelsDrawingsFilters
+                        classes={
+                            !!selectedFloor && !!selectedBuilding
+                                ? 'active'
+                                : ''
+                        }
+                        drawingOptions={Object.values(drawingOptions)}
+                        handleChange={this.handleChange}
+                        selectedDrawing={selectedDrawing}
+                    />
+                </div>
             </div>
         );
     }

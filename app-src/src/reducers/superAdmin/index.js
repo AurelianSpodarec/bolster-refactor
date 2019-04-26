@@ -4,7 +4,7 @@ import companiesReducer from './companies';
 import enquiriesReducer from './enquiries';
 import companyReportsReducer from './companyReports';
 import invoicesReducer from './invoices';
-import servicesReducer from './services';
+import adminServicesReducer from './adminServices';
 import templateQuestionFormReducer from './templateQuestionForm';
 import templateQuestionsReducer from './templateQuestions';
 import templatesReducer from './templates';
@@ -17,7 +17,7 @@ export default combineReducers({
     enquiriesReducer,
     companyReportsReducer,
     invoicesReducer,
-    servicesReducer,
+    adminServicesReducer,
     templatesReducer,
     templateSectionsReducer,
     templateQuestionsReducer,

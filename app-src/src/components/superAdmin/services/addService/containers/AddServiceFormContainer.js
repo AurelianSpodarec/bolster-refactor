@@ -21,7 +21,7 @@ class AddServiceFormContainer extends Component {
     componentDidUpdate = prevProps => {
         const { postSuccess, history } = this.props;
         if (!prevProps.postSuccess && postSuccess) {
-            return history.push('/services');
+            return history.push('/admin/services');
         }
     };
 
@@ -41,8 +41,8 @@ class AddServiceFormContainer extends Component {
     };
 }
 
-const mapStateToProps = ({ servicesReducer }) => ({
-    postSuccess: servicesReducer.postSuccess
+const mapStateToProps = ({ superAdmin: { adminServicesReducer } }) => ({
+    postSuccess: adminServicesReducer.postSuccess
 });
 
 const mapDispatchToProps = dispatch => ({

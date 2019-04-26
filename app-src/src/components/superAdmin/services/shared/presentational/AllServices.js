@@ -7,9 +7,8 @@ import ServiceTableContainer from '../containers/ServiceTableContainer';
 
 const AllServices = () => (
     <>
-        <Breadcrumb breadcrumbs={[{ text: 'Services' }]} />
         <PageHeading title="Services" withBackButton>
-            <Link to="/services/create" className="button green">
+            <Link to="/admin/services/create" className="button green">
                 <i className="fa fa-plus" />
                 Add service
             </Link>

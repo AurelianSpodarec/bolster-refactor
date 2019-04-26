@@ -6,7 +6,7 @@ import Field from 'components/shared/generic/form/presentational/Field';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 
-const AddServiceForm = ({ handleSubmit, handleInputChange, name }) => (
+const EditServiceForm = ({ handleSubmit, handleInputChange, name }) => (
     <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
         <div className="size-lg-6">
             <Field name="Service Name">
@@ -21,7 +21,7 @@ const AddServiceForm = ({ handleSubmit, handleInputChange, name }) => (
         <BlockButtonWrapper>
             <button className="button green">
                 <i className="fa fa-plus" />
-                Add Service
+                Confirm Changes
             </button>
             <Link className="button" to="/admin/services">
                 Cancel
@@ -30,4 +30,4 @@ const AddServiceForm = ({ handleSubmit, handleInputChange, name }) => (
     </Form>
 );
 
-export default AddServiceForm;
+export default EditServiceForm;
