@@ -15,7 +15,7 @@ class HeaderProfileContainer extends Component {
             isImpersonating,
             companyName,
             profile,
-            generationQueueLength
+            companyReportsLength
         } = this.props;
         return (
             <HeaderProfile
@@ -24,7 +24,7 @@ class HeaderProfileContainer extends Component {
                 }}
                 logout={this.logout}
                 profile={profile}
-                generationQueueLength={generationQueueLength}
+                companyReportsLength={companyReportsLength}
                 popupVisible={this.state.popupVisible}
                 handleClick={this.handleClick}
                 isImpersonating={isImpersonating}
@@ -75,7 +75,7 @@ const mapStateToProps = ({
             companySettings: { name }
         }
     },
-    superAdmin: { generationQueueReducer },
+    superAdmin: { companyReportsReducer },
     shared: {
         profileReducer,
         decodeJWTReducer: {
@@ -89,8 +89,8 @@ const mapStateToProps = ({
         companyID !== headquartersCompanyID,
     companyName: name,
     profile: profileReducer.profile || {},
-    generationQueueLength: Object.values(
-        generationQueueReducer.generationQueue
+    companyReportsLength: Object.values(
+        companyReportsReducer.companyReports
     ).filter(item => item.state === GENERATION_STATE_VAL.WAITING).length
 });
 

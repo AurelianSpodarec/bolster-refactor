@@ -2,7 +2,7 @@ import { combineReducers } from 'redux';
 
 import companiesReducer from './companies';
 import enquiriesReducer from './enquiries';
-import generationQueueReducer from './generationQueue';
+import companyReportsReducer from './companyReports';
 import invoicesReducer from './invoices';
 import servicesReducer from './services';
 import templateQuestionFormReducer from './templateQuestionForm';
@@ -15,7 +15,7 @@ import companySubscriptionReducer from './companySubscription';
 export default combineReducers({
     companiesReducer,
     enquiriesReducer,
-    generationQueueReducer,
+    companyReportsReducer,
     invoicesReducer,
     servicesReducer,
     templatesReducer,

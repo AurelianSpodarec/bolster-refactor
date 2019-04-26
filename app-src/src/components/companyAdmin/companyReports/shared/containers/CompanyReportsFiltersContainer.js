@@ -1,10 +1,10 @@
 import React from 'react';
-import GenerationQueueFilters from '../presentational/GenerationQueueFilters';
-import updateGenerationQueueSort from 'actions/companyAdmin/generationQueue/sync/updateGenerationQueueSort';
+import CompanyReportsFilters from '../presentational/CompanyReportsFilters';
+import updateCompanyReportsSort from 'actions/companyAdmin/companyReports/sync/updateCompanyReportsSort';
 import { connect } from 'react-redux';
 
-const GenerationQueueFiltersContainer = ({
-    updateGenerationQueueSort,
+const CompanyReportsFiltersContainer = ({
+    updateCompanyReportsSort,
     sortString
 }) => {
     const sortOptions = {
@@ -18,7 +18,7 @@ const GenerationQueueFiltersContainer = ({
         }
     };
     return (
-        <GenerationQueueFilters
+        <CompanyReportsFilters
             sortOptions={Object.values(sortOptions)}
             selectedOption={sortOptions[sortString]}
             handleChange={handleChange}
@@ -27,21 +27,21 @@ const GenerationQueueFiltersContainer = ({
 
     function handleChange(e) {
         const sortString = e.target.value;
-        updateGenerationQueueSort(sortString);
+        updateCompanyReportsSort(sortString);
     }
 };
 
 const mapDispatchToProps = dispatch => ({
-    updateGenerationQueueSort: sortString => {
-        dispatch(updateGenerationQueueSort(sortString));
+    updateCompanyReportsSort: sortString => {
+        dispatch(updateCompanyReportsSort(sortString));
     }
 });
 
-const mapStateToProps = ({ superAdmin: { generationQueueReducer } }) => ({
-    sortString: generationQueueReducer.sort.sortString
+const mapStateToProps = ({ superAdmin: { companyReportsReducer } }) => ({
+    sortString: companyReportsReducer.sort.sortString
 });
 
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(GenerationQueueFiltersContainer);
+)(CompanyReportsFiltersContainer);

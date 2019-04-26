@@ -10,7 +10,7 @@ import {
     REPORT_FORMATS
 } from 'constants/companyAdmin/enums';
 
-const GenerationQueueListItem = ({ queueItem }) => (
+const CompanyReportsListItem = ({ queueItem }) => (
     <tr>
         <td>{queueItem.friendlyName}</td>
         <td>{REPORT_FORMATS[queueItem.type]}</td>
@@ -36,4 +36,4 @@ const GenerationQueueListItem = ({ queueItem }) => (
     </tr>
 );
 
-export default GenerationQueueListItem;
+export default CompanyReportsListItem;

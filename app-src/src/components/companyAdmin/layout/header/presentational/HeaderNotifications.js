@@ -50,7 +50,7 @@ const HeaderNotifications = ({
                     onClick={togglePopup}
                     to="/company/tools/generation-queue"
                 >
-                    View generation queue
+                    View Company Reports
                 </ButtonContainer>
             </div>
         </div>

@@ -41,7 +41,7 @@ const HeaderProfile = ({
             </Link>
 
             <Link to="/company/tools/generation-queue" className="item">
-                Generation Queue
+                Company Reports
                 <i className="icon fas fa-chevron-right" />
             </Link>
             <Link to="/company/subscription" className="item">

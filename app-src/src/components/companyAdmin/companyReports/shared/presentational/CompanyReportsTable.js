@@ -1,18 +1,18 @@
 import React from 'react';
 import Table from 'components/shared/generic/tables/presentational/Table';
-import GenerationQueueList from '../presentational/GenerationQueueList';
-import GenerationQueueFiltersContainer from '../containers/GenerationQueueFiltersContainer';
+import CompanyReportsList from './CompanyReportsList';
+import CompanyReportsFiltersContainer from '../containers/CompanyReportsFiltersContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 
-const GenerationQueueTable = ({
-    generationQueue,
+const CompanyReportsTable = ({
+    CompanyReports,
     headers,
     isFetching,
     error
 }) => (
     <>
         <BlockHeading title="Reports Table">
-            <GenerationQueueFiltersContainer />
+            <CompanyReportsFiltersContainer />
         </BlockHeading>
 
         <Table
@@ -20,12 +20,12 @@ const GenerationQueueTable = ({
             headers={headers}
             isFetching={isFetching}
             error={error}
-            noData={!generationQueue.length}
-            noDataMessage="Generation queue is empty"
+            noData={!CompanyReports.length}
+            noDataMessage="Company Reports is empty"
         >
-            <GenerationQueueList generationQueue={generationQueue} />
+            <CompanyReportsList CompanyReports={CompanyReports} />
         </Table>
     </>
 );
 
-export default GenerationQueueTable;
+export default CompanyReportsTable;

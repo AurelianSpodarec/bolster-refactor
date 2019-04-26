@@ -14,7 +14,7 @@ const SuperAdminMenu = ({ logout }) => (
             </MenuItemContainer>
 
             <MenuItemContainer link="/admin/generation-queue">
-                <i className="far fa-file-export icon" /> Generation Queue
+                <i className="far fa-file-export icon" /> Company Reports
             </MenuItemContainer>
 
             <MenuItemContainer link="/admin/invoices">

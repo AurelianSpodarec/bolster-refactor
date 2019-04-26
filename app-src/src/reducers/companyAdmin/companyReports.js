@@ -2,23 +2,23 @@ import { combineReducers } from 'redux';
 
 import { convertArrToObj } from 'helpers/generic';
 import {
-    FETCH_GENERATION_QUEUE_REQUEST,
-    FETCH_GENERATION_QUEUE_SUCCESS,
-    FETCH_GENERATION_QUEUE_FAILURE
-} from 'constants/actionTypes/generationQueue';
+    FETCH_COMPANY_REPORTS_REQUEST,
+    FETCH_COMPANY_REPORTS_SUCCESS,
+    FETCH_COMPANY_REPORTS_FAILURE
+} from 'constants/actionTypes/companyReports';
 
 export default combineReducers({
-    generationQueue: generationQueueReducer,
+    companyReports: companyReportsReducer,
     isFetching: isFetchingReducer,
     error: errorReducer
 });
 
 function isFetchingReducer(state = false, action) {
     switch (action.type) {
-        case FETCH_GENERATION_QUEUE_REQUEST:
+        case FETCH_COMPANY_REPORTS_REQUEST:
             return true;
-        case FETCH_GENERATION_QUEUE_SUCCESS:
-        case FETCH_GENERATION_QUEUE_FAILURE:
+        case FETCH_COMPANY_REPORTS_SUCCESS:
+        case FETCH_COMPANY_REPORTS_FAILURE:
             return false;
         default:
             return state;
@@ -27,18 +27,18 @@ function isFetchingReducer(state = false, action) {
 
 function errorReducer(state = null, action) {
     switch (action.type) {
-        case FETCH_GENERATION_QUEUE_REQUEST:
+        case FETCH_COMPANY_REPORTS_REQUEST:
             return null;
-        case FETCH_GENERATION_QUEUE_FAILURE:
+        case FETCH_COMPANY_REPORTS_FAILURE:
             return action.error;
         default:
             return state;
     }
 }
 
-function generationQueueReducer(state = {}, action) {
+function companyReportsReducer(state = {}, action) {
     switch (action.type) {
-        case FETCH_GENERATION_QUEUE_SUCCESS:
+        case FETCH_COMPANY_REPORTS_SUCCESS:
             return convertArrToObj(action.payload);
         default:
             return state;

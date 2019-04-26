@@ -14,7 +14,7 @@ import dashboardReducer from './dashboard';
 import documentsReducer from './documents';
 import drawingsReducer from './drawings';
 import floorsReducer from './floors';
-import generationQueueReducer from './generationQueue';
+import companyReportsReducer from './companyReports';
 import headquartersReducer from './headquarters';
 import inspectionLogsReducer from './inspectionLogs';
 import invoiceItemsReducer from './invoiceItems';
@@ -57,7 +57,7 @@ export default combineReducers({
     inspectionLogsReducer,
     invoicesReducer,
     invoiceItemsReducer,
-    generationQueueReducer,
+    companyReportsReducer,
     messagesReducer,
     operativeAlertsReducer,
     operativesReducer,

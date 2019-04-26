@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import fetchProfile from 'actions/shared/profile/async/fetchProfile';
 import fetchSingleCompany from 'actions/companyAdmin/companySettings/async/fetchCompanySettings';
 import fetchMessages from 'actions/companyAdmin/messages/async/fetchMessages';
-import fetchGenerationQueue from 'actions/companyAdmin/generationQueue/async/fetchGenerationQueue';
+import fetchCompanyReports from 'actions/companyAdmin/companyReports/async/fetchCompanyReports';
 import decodeJWT from 'actions/shared/jwt/async/decodeJWT';
 import fetchAllSubscriptions from 'actions/companyAdmin/subscriptions/async/fetchAllSubscriptions';
 import companyFetchAllServices from 'actions/companyAdmin/services/async/fetchAllServices';
@@ -39,7 +39,7 @@ const mapDispatchToProps = dispatch => ({
         dispatch(fetchProfile());
         dispatch(fetchSingleCompany());
         dispatch(fetchMessages());
-        dispatch(fetchGenerationQueue());
+        dispatch(fetchCompanyReports());
         dispatch(decodeJWT());
         dispatch(companyFetchAllServices());
         dispatch(fetchAllSubscriptions());
