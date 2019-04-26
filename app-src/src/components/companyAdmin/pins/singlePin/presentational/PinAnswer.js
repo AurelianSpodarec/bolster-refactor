@@ -1,8 +1,9 @@
 import React from 'react';
 import { QUESTION_TYPE_NUMBERS as TYPES } from 'constants/shared/templateBuilder';
 import { FILE_STORAGE_URL } from 'config';
+import { PIN_STATUS_TYPES } from 'constants/companyAdmin/enums';
 
-const PinAnswer = ({ trimmedAnswer, type, questions, answers }) => {
+const PinAnswer = ({ trimmedAnswer, type, questions, answers, status }) => {
     let contentDisplay = '';
     let relevantQuestion;
     let relevantOption;
@@ -27,14 +28,14 @@ const PinAnswer = ({ trimmedAnswer, type, questions, answers }) => {
             relevantQuestion = questions.filter(
                 item => +item.id === +curAnswer.templateQuestionID
             )[0];
-            if(!relevantQuestion){
+            if (!relevantQuestion) {
                 return notFoundResponse;
             }
 
             relevantOption = relevantQuestion.options.filter(
                 option => option.id === curAnswer.answer
             )[0];
-            if(!relevantOption){
+            if (!relevantOption) {
                 return notFoundResponse;
             }
 
@@ -80,7 +81,8 @@ const PinAnswer = ({ trimmedAnswer, type, questions, answers }) => {
                     />
                 );
             });
-
+        case TYPES.STATUS:
+            return <p>{PIN_STATUS_TYPES[status]}</p>;
         default:
             contentDisplay = curAnswer.answer;
     }

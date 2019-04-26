@@ -65,19 +65,24 @@ class TemplateFormModalContainer extends React.Component {
 
     handleSubmit = e => {
         e.preventDefault();
-        const { companyID, uuid, setTemplate, setQuestion } = this.props;
+        const {
+            companyID,
+            uuid: templateUUID,
+            setTemplate,
+            setQuestion
+        } = this.props;
         const { name, serviceID, labelType } = this.state;
         const template = {
             companyID,
             serviceID,
             labelType,
-            uuid,
+            uuid: templateUUID,
             name
         };
         const sectionUUID = generateUuid();
         const section1 = {
             uuid: sectionUUID,
-            templateUUID: uuid,
+            templateUUID,
             name: 'Section 1',
             sort: 1
         };
@@ -89,7 +94,9 @@ class TemplateFormModalContainer extends React.Component {
             fields: {},
             name: 'Status',
             questionType: QUESTION_TYPE_NUMBERS.STATUS,
-            sectionUUID
+            sectionUUID,
+            templateUUID,
+            sort: 1
         });
     };
 
