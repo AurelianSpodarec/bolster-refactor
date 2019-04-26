@@ -1,12 +1,13 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
-const ServiceListItem = ({ service, handleShowModal }) => (
+const ServiceListItem = ({ service }) => (
     <tr>
         <td>{service.name}</td>
         <td>
-            <button onClick={() => handleShowModal(service)} className="button">
+            <Link to={`/admin/services/${service.id}/edit`} className="button">
                 edit
-            </button>
+            </Link>
         </td>
     </tr>
 );

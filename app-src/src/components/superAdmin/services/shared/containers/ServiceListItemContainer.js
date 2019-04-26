@@ -1,7 +1,5 @@
 import React from 'react';
 import ServiceListItem from '../presentational/ServiceListItem';
-import { showModal } from 'actions/shared/generic/modals/sync/showModal';
-import { connect } from 'react-redux';
 import { ADMIN_EDIT_SERVICE } from 'constants/shared/modalTypes';
 
 const ServiceListItemContainer = ({ service, colCount, showModal }) => (
@@ -12,13 +10,4 @@ const ServiceListItemContainer = ({ service, colCount, showModal }) => (
     />
 );
 
-const mapDispatchToProps = dispatch => ({
-    showModal: (modalType, modalProps) => {
-        dispatch(showModal(modalType, modalProps));
-    }
-});
-
-export default connect(
-    null,
-    mapDispatchToProps
-)(ServiceListItemContainer);
+export default ServiceListItemContainer;
