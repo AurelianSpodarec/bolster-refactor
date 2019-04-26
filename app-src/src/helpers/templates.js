@@ -9,7 +9,7 @@ const formatQuestion = ({ type, dynamicFields, ...otherFields }) => {
         ...dynamicFields
     };
 
-    if (dynamicFields.options)
+    if (dynamicFields && dynamicFields.options)
         question.options = dynamicFields.options.map(opt => ({
             id: opt,
             text: opt
