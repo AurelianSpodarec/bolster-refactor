@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import moment from 'moment';
 
@@ -27,16 +28,25 @@ class SubscriptionStatusContainer extends Component {
         moment(start).isBefore(Date.now()) && moment(end).isAfter(Date.now());
 }
 
-const mapStateToProps = ({
-    superAdmin: {
-        companySubscriptionReducer: { isFetching, subscription },
-        servicesReducer: { services, isFetching: fetchingServices }
+const mapStateToProps = (
+    {
+        superAdmin: {
+            companySubscriptionReducer: { isFetching, subscriptions },
+            servicesReducer: { services, isFetching: fetchingServices }
+        }
+    },
+    {
+        match: {
+            params: { id }
+        }
     }
-}) => ({
-    subscription,
+) => ({
+    subscription: subscriptions[id] || {},
     isFetching,
     services,
     fetchingServices
 });
 
-export default connect(mapStateToProps)(SubscriptionStatusContainer);
+export default withRouter(
+    connect(mapStateToProps)(SubscriptionStatusContainer)
+);

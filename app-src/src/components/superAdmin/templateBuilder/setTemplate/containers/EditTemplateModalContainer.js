@@ -9,6 +9,7 @@ import { convertEnumToDropdownOptions, convertArrToObj } from 'helpers/generic';
 import { LABEL_TYPES } from 'constants/companyAdmin/enums';
 
 import TemplateFormModal from '../presentational/TemplateFormModal';
+import fetchCompanySubscription from 'actions/superAdmin/companies/async/fetchCompanySubscription';
 
 class EditTemplateFormContainer extends React.Component {
     state = {
@@ -86,13 +87,26 @@ class EditTemplateFormContainer extends React.Component {
     };
 }
 
-const mapStateToProps = ({
-    superAdmin: {
-        servicesReducer: { services }
-    }
-}) => ({ services: Object.values(services) });
+const mapStateToProps = (
+    {
+        superAdmin: {
+            servicesReducer: { services },
+            companySubscriptionReducer: { subscriptions }
+        }
+    },
+    { companyID }
+) => {
+    const subscription = subscriptions[companyID] || {};
+    console.log(subscriptions, subscription);
+    const { serviceIDs = [] } = subscription;
+    return {
+        services: Object.values(services).filter(({ id }) =>
+            serviceIDs.includes(id)
+        )
+    };
+};
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch, { companyID }) => ({
     hideModal: () => {
         dispatch(hideModal());
     },
@@ -102,6 +116,7 @@ const mapDispatchToProps = dispatch => ({
     },
     fetchData: () => {
         dispatch(fetchAllServices());
+        dispatch(fetchCompanySubscription(companyID));
     }
 });
 

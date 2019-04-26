@@ -13,7 +13,8 @@ const Header = ({
     company,
     unreadMessageCount,
     totalCredits,
-    totalRequests
+    totalRequests,
+    showModal
 }) => (
     <header
         id="page-header"
@@ -45,12 +46,12 @@ const Header = ({
             <div className="account-area">
                 {/*** notifications ***/}
                 <div className="notifications">
-                    <Link to="/company/tools/credit-logs" className="item main">
+                    <button className="item main" onClick={showModal}>
                         {company.parentalType === PARENTAL_TYPES.NONE && (
                             <span className="number green">{totalCredits}</span>
                         )}
                         <i className="far fa-money-bill-alt fa-fw" />
-                    </Link>
+                    </button>
                     <HeaderNotificationsContainer />
                     <Link to="/company/message-centre" className="item main">
                         {!!unreadMessageCount && (

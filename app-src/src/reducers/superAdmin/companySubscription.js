@@ -4,11 +4,12 @@ import {
     SA_FETCH_COMPANY_SUBSCRIPTION_SUCCESS,
     SA_FETCH_COMPANY_SUBSCRIPTION_FAILURE
 } from 'constants/actionTypes/superAdminSubscriptions';
+import { updateObj } from 'helpers/generic';
 
 export default combineReducers({
     isFetching: isFetchingReducer,
     error: errorReducer,
-    subscription: subscriptionReducer
+    subscriptions: subscriptionReducer
 });
 
 function isFetchingReducer(state = false, action) {
@@ -37,7 +38,7 @@ function errorReducer(state = null, action) {
 function subscriptionReducer(state = {}, action) {
     switch (action.type) {
         case SA_FETCH_COMPANY_SUBSCRIPTION_SUCCESS:
-            return action.payload;
+            return updateObj(state, action.payload.id, action.payload);
         default:
             return state;
     }

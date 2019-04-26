@@ -26,6 +26,8 @@ export default id => dispatch => {
 
     axios
         .get(`${ADMIN_API_URL}/companies/${id}/subscription`, getHeaders())
-        .then(res => dispatch(saFetchCompanySubscriptionSuccess(res.data)))
+        .then(res =>
+            dispatch(saFetchCompanySubscriptionSuccess({ ...res.data, id }))
+        )
         .catch(err => dispatch(saFetchCompanySubscriptionFailure(err.message)));
 };
