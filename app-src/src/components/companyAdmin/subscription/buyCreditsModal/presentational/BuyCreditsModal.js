@@ -9,6 +9,7 @@ import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/pr
 import Field from 'components/shared/generic/form/presentational/Field';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import { formatNumber } from 'helpers/generic';
+import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 
 const BuyCreditsModal = ({
     hideModal,
@@ -90,9 +91,9 @@ const BuyCreditsModal = ({
                     <button className="button green" type="submit">
                         Buy
                     </button>
-                    <button className="button" onClick={hideModal}>
+                    <ButtonContainer handleClick={hideModal}>
                         Cancel
-                    </button>
+                    </ButtonContainer>
                 </BlockButtonWrapper>
             </Form>
         </ModalOuterContainer>

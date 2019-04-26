@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
 import Field from 'components/shared/generic/form/presentational/Field';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
@@ -8,6 +7,7 @@ import FileUploadContainer from 'components/shared/generic/form/containers/FileU
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
 import TooltipContainer from 'components/shared/generic/tooltip/containers/TooltipContainer';
+import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 
 const AddDrawingForm = ({
     handleSubmit,
@@ -87,9 +87,9 @@ const AddDrawingForm = ({
                     </button>
                 </TooltipContainer>
             )}
-            <Link className="button" to={`/company/floors/${floorID}`}>
+            <ButtonContainer to={`/company/floors/${floorID}`}>
                 Cancel
-            </Link>
+            </ButtonContainer>
         </BlockButtonWrapper>
     </Form>
 );

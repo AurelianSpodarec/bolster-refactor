@@ -1,5 +1,6 @@
 import React from 'react';
 import { QUESTION_TYPES } from 'constants/shared/templateBuilder';
+import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 
 const TemplateSectionQuestion = ({
     question: { id, name, isRequired, type, canCompanyEdit },
@@ -10,7 +11,7 @@ const TemplateSectionQuestion = ({
         <td>{QUESTION_TYPES[type]}</td>
         <td>{isRequired ? 'Required' : 'Not required'}</td>
         <td>
-            <button className="button" onClick={() => selectQuestion(id)}>
+            <ButtonContainer handleClick={() => selectQuestion(id)}>
                 {canCompanyEdit ? (
                     <span>
                         <i className="fal fa-pencil" />
@@ -19,7 +20,7 @@ const TemplateSectionQuestion = ({
                 ) : (
                     <span>Info</span>
                 )}
-            </button>
+            </ButtonContainer>
         </td>
     </tr>
 );

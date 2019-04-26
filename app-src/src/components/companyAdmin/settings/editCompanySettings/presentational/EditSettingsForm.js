@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { HuePicker } from 'react-color';
 import Select from 'react-select';
 
@@ -10,6 +10,7 @@ import TextInputContainer from 'components/shared/generic/form/containers/TextIn
 import FileUploadContainer from 'components/shared/generic/form/containers/FileUploadContainer';
 import Checkbox from 'components/shared/generic/form/presentational/Checkbox';
 import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
+import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 
 const EditSettingsForm = ({
     handleInputChange,
@@ -225,12 +226,11 @@ const EditSettingsForm = ({
                 >
                     {filesUploading ? 'Please wait...' : <>{'Confirm'}</>}
                 </button>
-                <Link
+                <ButtonContainer
                     to={location.pathname.replace('/edit-settings', '')}
-                    className="button"
                 >
                     Cancel
-                </Link>
+                </ButtonContainer>
             </BlockButtonWrapper>
         </Form>
     </>
