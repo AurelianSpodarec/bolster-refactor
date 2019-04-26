@@ -5,7 +5,7 @@ import CompanyReportsFiltersContainer from '../containers/CompanyReportsFiltersC
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 
 const CompanyReportsTable = ({
-    CompanyReports,
+    companyReports,
     headers,
     isFetching,
     error
@@ -20,10 +20,10 @@ const CompanyReportsTable = ({
             headers={headers}
             isFetching={isFetching}
             error={error}
-            noData={!CompanyReports.length}
+            noData={!companyReports.length}
             noDataMessage="Company Reports is empty"
         >
-            <CompanyReportsList CompanyReports={CompanyReports} />
+            <CompanyReportsList companyReports={companyReports} />
         </Table>
     </>
 );
