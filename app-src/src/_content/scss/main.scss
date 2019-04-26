@@ -1420,6 +1420,11 @@ input {
                 background-color: #62636a;
             }
         }
+        &:hover {
+            a {
+                background-color: #62636a;
+            }
+        }
         &.open {
             .sub-menu {
                 display: block;
@@ -1443,16 +1448,21 @@ input {
             .item {
                 &.active {
                     a {
-                        background-color: #75767c;
+                        background-color: #65666d;
                     }
+                }
+                &:last-child {
+                    border-bottom: none;
                 }
             }
 
             a {
-                background-color: #62636a;
+                font-size: 13px;
+                background-color: #43444a;
+                @include ubuntu;
 
                 &:hover {
-                    background-color: #75767c;
+                    background-color: #65666d;
                 }
             }
         }
