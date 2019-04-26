@@ -25,7 +25,7 @@ const ToolsRoutes = ({ base = '/company/tools' }) => (
         <Route exact path={`${base}/support`} component={Support} />
         <Route
             exact
-            path={`${base}/generation-queue`}
+            path={`${base}/company-reports`}
             component={CompanyReportsContainer}
         />
         <Route

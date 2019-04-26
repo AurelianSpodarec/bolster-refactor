@@ -13,7 +13,7 @@ const SuperAdminMenu = ({ logout }) => (
                 <i className="fa fa-home icon" /> Dashboard
             </MenuItemContainer>
 
-            <MenuItemContainer link="/admin/generation-queue">
+            <MenuItemContainer link="/admin/company-reports">
                 <i className="far fa-file-export icon" /> Company Reports
             </MenuItemContainer>
 
