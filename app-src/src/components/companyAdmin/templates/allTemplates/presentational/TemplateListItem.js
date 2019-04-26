@@ -1,14 +1,14 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 
 const TemplateListItem = ({ template: { name, serviceName, id } }) => (
     <tr>
         <td>{name}</td>
         <td>{serviceName}</td>
         <td>
-            <Link to={`/company/tools/templates/${id}`} className="button">
+            <ButtonContainer to={`/company/tools/templates/${id}`}>
                 View
-            </Link>
+            </ButtonContainer>
         </td>
     </tr>
 );
