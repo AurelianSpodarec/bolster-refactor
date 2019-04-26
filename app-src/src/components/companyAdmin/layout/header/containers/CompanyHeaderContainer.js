@@ -2,6 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import CompanyHeader from '../presentational/CompanyHeader';
+
+import { showModal } from 'actions/shared/generic/modals/sync/showModal';
+import { BUY_CREDITS } from 'constants/shared/modalTypes';
 import { MESSAGE_TYPES } from 'constants/companyAdmin/enums';
 
 const CompanyHeaderContainer = ({
@@ -10,22 +13,30 @@ const CompanyHeaderContainer = ({
     unreadMessageCount,
     totalCredits,
     totalRequests,
-    isImpersonating
+    isImpersonating,
+    costOfCredits,
+    showModal
 }) => (
     <CompanyHeader
+        costOfCredits={costOfCredits}
         profile={profile}
         company={companySettings}
         unreadMessageCount={unreadMessageCount}
         totalCredits={totalCredits}
         totalRequests={totalRequests}
         isImpersonating={isImpersonating}
+        showModal={e => {
+            e.preventDefault();
+            showModal(BUY_CREDITS);
+        }}
     />
 );
+
 const mapStateToProps = ({
     companyAdmin: {
         companySettingsReducer: { companySettings },
         messagesReducer: { messages },
-        creditsReducer: { credits },
+        creditsReducer: { credits, isFetching, costOfCredits },
         transferRequestsReducer: { incomingTransferRequests },
         pendingInvitesReducer: { pendingInvites }
     },
@@ -55,7 +66,17 @@ const mapStateToProps = ({
         unreadMessageCount,
         totalCredits,
         totalRequests,
-        isImpersonating
+        isImpersonating,
+        isFetching,
+        costOfCredits
     };
 };
-export default connect(mapStateToProps)(CompanyHeaderContainer);
+
+const mapDispatchToProps = dispatch => ({
+    showModal: (type, props) => dispatch(showModal(type, props))
+});
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(CompanyHeaderContainer);
