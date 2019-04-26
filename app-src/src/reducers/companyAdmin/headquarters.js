@@ -8,6 +8,10 @@ import {
     CREATE_HEADQUARTERS_COMPANY_SUCCESS
 } from 'constants/actionTypes/headquarters';
 import { convertArrToObj, updateObj } from 'helpers/generic';
+import {
+    REISSUE_TOKEN_REQUEST,
+    REISSUE_TOKEN_SUCCESS
+} from 'constants/actionTypes/auth';
 
 export default combineReducers({
     error: errorReducer,
@@ -44,8 +48,10 @@ function errorReducer(state = null, action) {
 function postSuccessReducer(state = false, action) {
     switch (action.type) {
         case CREATE_HEADQUARTERS_COMPANY_REQUEST:
+        case REISSUE_TOKEN_REQUEST:
             return false;
         case CREATE_HEADQUARTERS_COMPANY_SUCCESS:
+        case REISSUE_TOKEN_SUCCESS:
             return true;
         default:
             return state;

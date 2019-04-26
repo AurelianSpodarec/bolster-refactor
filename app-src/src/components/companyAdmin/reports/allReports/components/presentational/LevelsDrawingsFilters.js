@@ -9,17 +9,15 @@ const LevelsDrawingsFilters = ({
     handleChange,
     classes = ''
 }) => (
-    <>
-        <Field name="Drawing" classes={classes}>
-            <DropdownContainer
-                placeholder="-- select --"
-                name="drawingID"
-                options={drawingOptions}
-                selectedOption={selectedDrawing}
-                handleChange={handleChange}
-            />
-        </Field>
-    </>
+    <Field name="Drawing" classes={classes}>
+        <DropdownContainer
+            placeholder="All Drawings"
+            name="drawingID"
+            options={drawingOptions}
+            selectedOption={selectedDrawing}
+            handleChange={handleChange}
+        />
+    </Field>
 );
 
 export default LevelsDrawingsFilters;

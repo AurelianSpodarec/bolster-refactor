@@ -9,7 +9,9 @@ const HeaderProfile = ({
     popupVisible,
     handleClick,
     logout,
-    updateNode
+    updateNode,
+    isImpersonating,
+    companyName
 }) => (
     <div className="profile" ref={updateNode}>
         <div className="user" onClick={handleClick}>
@@ -24,7 +26,11 @@ const HeaderProfile = ({
             {/* {todo: need to put FILE_STORAGE_URL on no profile pic and every image, when live. } */}
             <div className="text">
                 <p>{`${profile.firstName} ${profile.lastName}`}</p>
-                <span className="email">{profile.email}</span>
+                <span className="email">
+                    {profile.email}{' '}
+                    {/* todo: ##  impersonation needs stling ## */}
+                    {isImpersonating ? `(impersonating ${companyName})` : ''}
+                </span>
             </div>
             <i className="arrow fas fa-chevron-right" />
         </div>

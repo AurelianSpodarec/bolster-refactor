@@ -3,13 +3,14 @@ import React from 'react';
 import AddFloorFormContainer from '../containers/AddFloorFormContainer';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
-import BackButtonContainer from 'components/shared/generic/backButton/containers/BackButtonContainer';
 
 const AddFloor = () => (
     <>
-        <PageHeading leftChildren={true} title={'Create Floor'}>
-            <BackButtonContainer />
-        </PageHeading>
+        <PageHeading
+            leftChildren={true}
+            title={'Create Floor'}
+            withBackButton
+        />
         <BlockContainer>
             <AddFloorFormContainer />
         </BlockContainer>

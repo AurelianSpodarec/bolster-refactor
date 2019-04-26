@@ -1,19 +1,19 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
+import ButtonNoClickContainer from 'components/shared/generic/button/containers/ButtonNoClickContainer';
 
 const SinglePinHeader = ({ pin, location }) => (
     <PageHeading leftChildren={true} title={`Pin ${pin.pinCode || ''}`}>
-        <Link
+        <ButtonNoClickContainer
+            className="back"
             to={location.pathname.replace(
                 location.pathname,
                 `/company/drawings/${pin.drawingID}`
             )}
-            className="button back"
         >
             <i className="fa fa-chevron-double-left" /> Back
-        </Link>
+        </ButtonNoClickContainer>
     </PageHeading>
 );
 

@@ -11,18 +11,24 @@ class HeaderProfileContainer extends Component {
     };
 
     render() {
-        const { state, props, handleClick } = this;
-
+        const {
+            isImpersonating,
+            companyName,
+            profile,
+            generationQueueLength
+        } = this.props;
         return (
             <HeaderProfile
                 updateNode={node => {
                     this.node = node;
                 }}
                 logout={this.logout}
-                profile={props.profile}
-                generationQueueLength={props.generationQueueLength}
-                popupVisible={state.popupVisible}
-                handleClick={handleClick}
+                profile={profile}
+                generationQueueLength={generationQueueLength}
+                popupVisible={this.state.popupVisible}
+                handleClick={this.handleClick}
+                isImpersonating={isImpersonating}
+                companyName={companyName}
             />
         );
     }
@@ -64,9 +70,24 @@ class HeaderProfileContainer extends Component {
 }
 
 const mapStateToProps = ({
+    companyAdmin: {
+        companySettingsReducer: {
+            companySettings: { name }
+        }
+    },
     superAdmin: { generationQueueReducer },
-    shared: { profileReducer }
+    shared: {
+        profileReducer,
+        decodeJWTReducer: {
+            jwtData: { companyID, headquartersCompanyID }
+        }
+    }
 }) => ({
+    isImpersonating:
+        companyID &&
+        headquartersCompanyID &&
+        companyID !== headquartersCompanyID,
+    companyName: name,
     profile: profileReducer.profile || {},
     generationQueueLength: Object.values(
         generationQueueReducer.generationQueue

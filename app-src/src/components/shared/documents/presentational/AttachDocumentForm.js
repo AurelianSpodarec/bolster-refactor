@@ -116,6 +116,7 @@ const AttachDocumentForm = ({
                         handleChange={handleMultiselectChange}
                         options={services}
                         selectedOptions={serviceIDs}
+                        requiredMessage="Please select at least one service."
                     />
                 </Field>
             </div>

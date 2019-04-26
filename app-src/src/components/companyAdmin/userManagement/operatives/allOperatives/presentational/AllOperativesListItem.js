@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
+import ButtonNoClickContainer from 'components/shared/generic/button/containers/ButtonNoClickContainer';
 
 const AllOperativesListItem = ({ user, showDeleteModal }) => (
     <tr key={user.id}>
@@ -22,14 +23,13 @@ const AllOperativesListItem = ({ user, showDeleteModal }) => (
                 >
                     <i className="far fa-pencil" /> Edit
                 </Link>
-                <Link
-                    className="button"
+                <ButtonNoClickContainer
                     to={`/company/users-management/operatives/${
                         user.id
                     }/edit-password`}
                 >
                     Change Password
-                </Link>
+                </ButtonNoClickContainer>
             </BlockButtonWrapper>
         </td>
     </tr>

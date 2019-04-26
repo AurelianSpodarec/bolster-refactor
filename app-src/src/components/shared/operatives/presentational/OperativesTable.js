@@ -1,9 +1,10 @@
 import React from 'react';
-import { withRouter, Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 import Table from 'components/shared/generic/tables/presentational/Table';
 import OperativesList from './OperativesList';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
+import ButtonNoClickContainer from 'components/shared/generic/button/containers/ButtonNoClickContainer';
 
 const OperativesTable = ({
     location,
@@ -18,9 +19,9 @@ const OperativesTable = ({
     return (
         <div className="size-lg-12">
             <BlockHeading title="Operative Access">
-                <Link
-                    className={`button pull-right ${
-                        isAddOperativeDisabled ? 'disabled' : ''
+                <ButtonNoClickContainer
+                    className={`pull-right ${
+                        isAddOperativeDisabled ? 'disabled' : 'green'
                     }`}
                     to={
                         isAddOperativeDisabled
@@ -30,7 +31,7 @@ const OperativesTable = ({
                 >
                     <i className="fa fa-plus" />{' '}
                     {isAddOperativeDisabled ? 'Full' : 'Invite'}
-                </Link>
+                </ButtonNoClickContainer>
             </BlockHeading>
             <Table
                 headers={['Name', 'Actions']}

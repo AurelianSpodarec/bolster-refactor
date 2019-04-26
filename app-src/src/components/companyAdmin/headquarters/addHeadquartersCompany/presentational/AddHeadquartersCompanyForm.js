@@ -30,6 +30,7 @@ const AddHeadquartersCompanyForm = ({
     handleChange,
     handleSubmit,
     handleDropDown,
+    validatePassword,
     validateConfirmPassword
 }) => (
     <Form
@@ -177,6 +178,7 @@ const AddHeadquartersCompanyForm = ({
                             value={password}
                             handleChange={handleChange}
                             type="password"
+                            validate={validatePassword}
                         />
                     </Field>
                 </div>

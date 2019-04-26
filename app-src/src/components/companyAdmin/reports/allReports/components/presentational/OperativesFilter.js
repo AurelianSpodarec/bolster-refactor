@@ -1,25 +1,21 @@
 import React from 'react';
-import Select from 'react-select';
 import Field from 'components/shared/generic/form/presentational/Field';
+import NewSelect from 'components/shared/generic/form/presentational/NewSelect';
 
 const OperativesFilter = ({
-    operatives,
+    operativeOptions,
     handleChange,
-    selectedOperatives,
-    required
-}) => {
-    return (
-        <Field name="Operatives">
-            <Select
-                options={operatives}
-                isMulti
-                name="selectedOperatives"
-                onChange={handleChange}
-                value={selectedOperatives}
-                required={required}
-            />
-        </Field>
-    );
-};
+    selectedOperatives
+}) => (
+    <Field name="Operatives">
+        <NewSelect
+            options={operativeOptions}
+            name="operativeIDs"
+            onChange={handleChange}
+            placeholder
+            value={selectedOperatives}
+        />
+    </Field>
+);
 
 export default OperativesFilter;

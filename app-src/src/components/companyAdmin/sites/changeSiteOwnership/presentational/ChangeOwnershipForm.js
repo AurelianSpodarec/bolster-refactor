@@ -6,7 +6,6 @@ import Field from 'components/shared/generic/form/presentational/Field';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
-import BackButtonContainer from 'components/shared/generic/backButton/containers/BackButtonContainer';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 
 const ChangeOwnershipForm = ({
@@ -16,9 +15,11 @@ const ChangeOwnershipForm = ({
     url
 }) => (
     <>
-        <PageHeading leftChildren={true} title="Change Ownership">
-            <BackButtonContainer />
-        </PageHeading>
+        <PageHeading
+            leftChildren={true}
+            title="Change Ownership"
+            withBackButton
+        />
         <BlockContainer>
             <Form className="generic-form" onSubmit={handleSubmit}>
                 <Field name="Company code" sizeClasses="size-lg-6">

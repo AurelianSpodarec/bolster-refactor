@@ -9,17 +9,19 @@ import PageHeading from 'components/shared/generic/pageHeading/presentational/Pa
 
 const Subscription = () => (
     <>
-        <PageHeading title="My Subscription" />
+        <PageHeading title="My Subscription" withBackButton />
 
         <div className="size-lg-8">
             <SubscriptionStatusContainer />
             <ActiveServicesContainer />
-            <PendingInvoicesContainer />
             <CardManagement />
         </div>
         <div className="size-lg-4">
             <SubscriptionAutoRenewalContainer />
             <SubscriptionCreditsContainer />
+        </div>
+        <div className="size-lg-12">
+            <PendingInvoicesContainer />
         </div>
     </>
 );

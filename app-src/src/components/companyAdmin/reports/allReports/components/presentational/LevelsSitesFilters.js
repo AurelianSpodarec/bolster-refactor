@@ -7,22 +7,18 @@ const LevelsSitesFilters = ({
     sitesOptions,
     selectedSite,
     handleChange,
-    classes = '',
-    required
+    classes = ''
 }) => (
-    <>
-        <Field name="Site" reqiured={true} classes={classes}>
-            <DropdownContainer
-                placeholder="-- select --"
-                name="siteID"
-                classes={classes}
-                options={sitesOptions}
-                selectedOption={selectedSite}
-                handleChange={handleChange}
-                required={required}
-            />
-        </Field>
-    </>
+    <Field name="Site" reqiured={true} classes={classes}>
+        <DropdownContainer
+            placeholder="-- select --"
+            name="siteID"
+            classes={classes}
+            options={sitesOptions}
+            selectedOption={selectedSite}
+            handleChange={handleChange}
+        />
+    </Field>
 );
 
 export default LevelsSitesFilters;

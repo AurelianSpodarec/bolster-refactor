@@ -1,7 +1,7 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
 import DrawingTableContainer from 'components/companyAdmin/drawings/shared/containers/DrawingTableContainer';
+import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 
 const FloorListItem = ({
     floor,
@@ -25,13 +25,13 @@ const FloorListItem = ({
             </td>
             <td>{permissions}</td>
             <td>
-                <Link
+                <ButtonContainer
                     className="button light-blue"
                     to={`/company/floors/${floor.id}`}
-                    onClick={e => e.stopPropagation()}
+                    handleClick={e => e.stopPropagation()}
                 >
                     View
-                </Link>
+                </ButtonContainer>
             </td>
         </tr>
         {isExpanded && (

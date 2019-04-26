@@ -9,17 +9,15 @@ const LevelsFloorsFilters = ({
     handleChange,
     classes = ''
 }) => (
-    <>
-        <Field name="Floor" classes={classes}>
-            <DropdownContainer
-                placeholder="-- select --"
-                name="floorID"
-                options={floorOptions}
-                selectedOption={selectedFloor}
-                handleChange={handleChange}
-            />
-        </Field>
-    </>
+    <Field name="Floor" classes={classes}>
+        <DropdownContainer
+            placeholder="All Floors"
+            name="floorID"
+            options={floorOptions}
+            selectedOption={selectedFloor}
+            handleChange={handleChange}
+        />
+    </Field>
 );
 
 export default LevelsFloorsFilters;

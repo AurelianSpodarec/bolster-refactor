@@ -5,6 +5,7 @@ import Field from 'components/shared/generic/form/presentational/Field';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
+import { formatNumber } from 'helpers/generic';
 
 const SubscriptionCredits = ({
     creditsToBuy,
@@ -33,7 +34,8 @@ const SubscriptionCredits = ({
             </Field>
         </Form>
         <p className="align-right size-lg-12">
-            {creditsToBuy && `Total: £${costOfCredits * creditsToBuy}`}
+            {creditsToBuy &&
+                `Total: £${formatNumber(costOfCredits * creditsToBuy)}`}
         </p>
         <BlockButtonWrapper>
             <button className="button green" onClick={showModal}>

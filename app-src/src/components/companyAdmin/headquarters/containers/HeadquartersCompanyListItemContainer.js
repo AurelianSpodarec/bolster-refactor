@@ -3,13 +3,16 @@ import { connect } from 'react-redux';
 
 import HeadquartersCompanyListItem from '../presentational/HeadquartersCompanyListItem';
 import reissueToken from 'actions/shared/auth/async/reissueToken';
+import decodeJWT from 'actions/shared/jwt/async/decodeJWT';
+import fetchCompanySettings from 'actions/companyAdmin/companySettings/async/fetchCompanySettings';
 
 class HeadquartersCompanyListItemContainer extends Component {
     render() {
-        const { company } = this.props;
+        const { company, impersonatedCompanyID } = this.props;
         return (
             <HeadquartersCompanyListItem
                 company={company}
+                impersonatedCompanyID={impersonatedCompanyID}
                 handleImpersonate={this.handleImpersonate}
             />
         );
@@ -24,11 +27,25 @@ class HeadquartersCompanyListItemContainer extends Component {
     };
 }
 
+const mapStateToProps = ({
+    shared: {
+        decodeJWTReducer: {
+            jwtData: { companyID, headquartersCompanyID }
+        }
+    }
+}) => ({
+    impersonatedCompanyID: companyID,
+    headquartersCompanyID
+});
+
 const mapDispatchToProps = dispatch => ({
-    reissueToken: companyID => dispatch(reissueToken(companyID))
+    reissueToken: companyID =>
+        dispatch(reissueToken(companyID))
+            .then(() => dispatch(decodeJWT()))
+            .then(() => dispatch(fetchCompanySettings()))
 });
 
 export default connect(
-    null,
+    mapStateToProps,
     mapDispatchToProps
 )(HeadquartersCompanyListItemContainer);

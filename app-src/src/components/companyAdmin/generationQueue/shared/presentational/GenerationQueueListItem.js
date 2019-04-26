@@ -22,7 +22,7 @@ const GenerationQueueListItem = ({ queueItem }) => (
         <td>
             {queueItem.state === GENERATION_STATE_VAL.COMPLETE ? (
                 <a
-                    className="button geen"
+                    className="button green"
                     target="_blank"
                     rel="noopener noreferrer"
                     href={`${RAW_S3_STORAGE_URL_REPORTS}/${queueItem.s3Key}`}

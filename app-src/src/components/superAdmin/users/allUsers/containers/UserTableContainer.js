@@ -25,15 +25,25 @@ const UserTableContainer = ({ isFetching, error, users, filters }) => {
         return users.filter(
             user =>
                 (!role ||
-                    user.roles.find(({ type }) => String(type) === role)) &&
+                    (user.roles &&
+                        user.roles.find(
+                            ({ type }) => String(type) === role
+                        ))) &&
+                user.email &&
                 user.email.toLowerCase().includes(email)
         );
     }
 };
 
-export default connect(({ superAdmin: { usersReducer } }) => ({
-    isFetching: usersReducer.isFetching,
-    error: usersReducer.error,
-    users: Object.values(usersReducer.users),
-    filters: usersReducer.filters
-}))(UserTableContainer);
+const mapStateToProps = ({
+    superAdmin: {
+        usersReducer: { isFetching, error, users, filters }
+    }
+}) => ({
+    isFetching,
+    error,
+    users: Object.values(users),
+    filters
+});
+
+export default connect(mapStateToProps)(UserTableContainer);

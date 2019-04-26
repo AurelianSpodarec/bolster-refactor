@@ -37,12 +37,21 @@ class ActiveServicesContainer extends Component {
     };
 
     componentDidUpdate = prevProps => {
-        const { isFetching, postSuccess, fetchAllSubscriptions } = this.props;
+        const {
+            isFetching,
+            postSuccess,
+            fetchAllSubscriptions,
+            invoicePaid
+        } = this.props;
         if (!isFetching && prevProps.isFetching)
             this.setState({
                 subscriptions: this.getActiveSubscriptions()
             });
-        if (postSuccess && !prevProps.postSuccess) fetchAllSubscriptions();
+        if (
+            (postSuccess && !prevProps.postSuccess) ||
+            (invoicePaid && !prevProps.invoicePaid)
+        )
+            fetchAllSubscriptions();
     };
 
     getActiveSubscriptions = () => {
@@ -82,14 +91,16 @@ const mapStateToProps = ({
             subscriptions,
             postSuccess
         },
-        servicesReducer: { services, isFetching: fetchingServices }
+        servicesReducer: { services, isFetching: fetchingServices },
+        invoicesReducer: { postSuccess: invoicePaid }
     }
 }) => ({
     subscriptions,
     services,
     error,
     postSuccess,
-    isFetching: fetchingSubscriptions || fetchingServices
+    isFetching: fetchingSubscriptions || fetchingServices,
+    invoicePaid
 });
 
 const mapDispatchToProps = dispatch => ({

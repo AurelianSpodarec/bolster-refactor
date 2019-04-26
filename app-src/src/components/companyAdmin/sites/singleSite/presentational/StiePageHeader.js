@@ -8,6 +8,7 @@ const SitePageHeader = ({ site }) => (
         title={`Site: ${site.name || ''} ${
             site.isArchived ? '(ARCHIVED)' : ''
         }`}
+        withBackButton
     >
         <Breadcrumb
             breadcrumbs={[

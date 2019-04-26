@@ -1,15 +1,13 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
+
+import withUpdateOnChange from '../hocs/withUpdateOnChange';
 
 import LevelsSitesFilters from '../presentational/LevelsSitesFilters';
 import { convertArrToObj } from 'helpers/generic';
-import updateReportFilter from 'actions/companyAdmin/reports/sync/updateReportFilter';
-import postCustomFilters from 'actions/companyAdmin/reports/async/postCustomFilters';
 
 import LevelsBuildingsFilters from '../presentational/LevelsBuildingsFilters';
 import LevelsFloorsFilters from '../presentational/LevelsFloorsFilters';
 import LevelsDrawingsFilters from '../presentational/LevelsDrawingsFilters';
-import { HIERARCHY_IDS } from 'constants/companyAdmin/enums';
 
 class LevelsFilterContainer extends Component {
     render() {
@@ -37,7 +35,6 @@ class LevelsFilterContainer extends Component {
                     sitesOptions={Object.values(sitesOptions)}
                     selectedSite={selectedSite}
                     handleChange={this.handleChange}
-                    // required={!isOperativeSelected}
                 />
 
                 <LevelsBuildingsFilters
@@ -67,43 +64,13 @@ class LevelsFilterContainer extends Component {
     }
 
     handleChange = ({ target: { value: hierarchyID, name } }) => {
-        const {
-            updateReportFilter,
-            postCustomFilters,
-            filters: { operativeIDs }
-        } = this.props;
+        const { handleChange, postFilters } = this.props;
 
-        updateReportFilter(name, hierarchyID);
-        updateReportFilter('hierarchyID', hierarchyID);
-
-        if (name === 'siteID' && !hierarchyID) return;
-
-        const filters = { hierarchyID, operativeIDs };
-
-        switch (name) {
-            case 'siteID':
-                return postCustomFilters({
-                    ...filters,
-                    hierarchyType: HIERARCHY_IDS.SITE
-                });
-            case 'buildingID':
-                return postCustomFilters({
-                    ...filters,
-                    hierarchyType: HIERARCHY_IDS.BUILDING
-                });
-            case 'floorID':
-                return postCustomFilters({
-                    ...filters,
-                    hierarchyType: HIERARCHY_IDS.FLOOR
-                });
-            case 'drawingID':
-                return postCustomFilters({
-                    ...filters,
-                    hierarchyType: HIERARCHY_IDS.DRAWING
-                });
-            default:
-                break;
-        }
+        return handleChange(name, hierarchyID).then(() =>
+            handleChange('hierarchyID', hierarchyID).then(
+                () => !(name === 'siteID' && !hierarchyID) && postFilters()
+            )
+        );
     };
 
     _formatArrForDropdown = arr => {
@@ -116,43 +83,4 @@ class LevelsFilterContainer extends Component {
     };
 }
 
-const mapStateToProps = ({
-    companyAdmin: {
-        sitesReducer,
-        buildingsReducer,
-        floorsReducer,
-        drawingsReducer,
-        reportsReducer: { filters }
-    }
-}) => {
-    const selectedSite = sitesReducer.sites[filters.siteID] || {};
-    const buildingIDs = selectedSite.buildingIDs || [];
-    const buildings = buildingIDs.map(id => buildingsReducer.buildings[id]);
-
-    const selectedBuilding =
-        buildingsReducer.buildings[filters.buildingID] || {};
-    const floorIDs = selectedBuilding.floorIDs || [];
-    const floors = floorIDs.map(id => floorsReducer.floors[id]);
-
-    const selectedFloor = floorsReducer.floors[filters.floorID] || {};
-    const drawingIDs = selectedFloor.drawingIDs || [];
-    const drawings = drawingIDs.map(id => drawingsReducer.drawings[id]);
-
-    return {
-        sites: Object.values(sitesReducer.sites),
-        buildings,
-        floors,
-        drawings,
-        filters
-    };
-};
-
-const mapDispatchToProps = dispatch => ({
-    updateReportFilter: (name, val) => dispatch(updateReportFilter(name, val)),
-    postCustomFilters: postBody => dispatch(postCustomFilters(postBody))
-});
-
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(LevelsFilterContainer);
+export default withUpdateOnChange(LevelsFilterContainer);

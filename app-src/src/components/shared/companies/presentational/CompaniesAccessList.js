@@ -24,7 +24,7 @@ const CompaniesAccessList = ({ companies, parentId, handleRemovePermission }) =>
                                 to={`${parentId}/add-permissions/${
                                     company.companyID
                                 }`}
-                                className="button icon-only"
+                                className="button icon-only green"
                             >
                                 <i className="far fa-plus fa-fw" />
                             </Link>

@@ -5,6 +5,8 @@ import { withRouter } from 'react-router-dom';
 import CreateCompanyAdminForm from '../presentational/CreateCompanyAdminForm';
 import { COMPANY_USER_ROLE_TYPES } from 'constants/companyAdmin/enums';
 import createCompanyUser from 'actions/companyAdmin/userManagement/async/createCompanyUser';
+import addFieldError from 'actions/shared/generic/fieldErrors/sync/addFieldError';
+import removeFieldError from 'actions/shared/generic/fieldErrors/sync/removeFieldError';
 
 class CreateCompanyAdminFormContainer extends Component {
     state = {
@@ -22,6 +24,7 @@ class CreateCompanyAdminFormContainer extends Component {
                 {...this.state}
                 handleInputChange={this.handleInputChange}
                 handleSubmit={this.handleSubmit}
+                validatePassword={this.validatePassword}
                 validateConfirmPassword={this.validateConfirmPassword}
             />
         );
@@ -56,6 +59,17 @@ class CreateCompanyAdminFormContainer extends Component {
         }
     };
 
+    validatePassword = password => {
+        const { confirmPassword } = this.state;
+        const { addFieldError, removeFieldError } = this.props;
+        if (password !== confirmPassword) {
+            addFieldError('confirmPassword', 'Passwords do not match');
+        } else {
+            removeFieldError('confirmPassword');
+        }
+        return null;
+    };
+
     validateConfirmPassword = confirmPassword =>
         this.state.password !== confirmPassword
             ? 'Passwords do not match'
@@ -69,7 +83,9 @@ const mapStateToProps = ({ companyAdmin: { companyUsersReducer } }) => ({
 const mapDispatchToProps = dispatch => ({
     createCompanyUser: postBody => {
         dispatch(createCompanyUser(postBody));
-    }
+    },
+    addFieldError: (field, err) => dispatch(addFieldError(field, err)),
+    removeFieldError: field => dispatch(removeFieldError(field))
 });
 
 export default withRouter(

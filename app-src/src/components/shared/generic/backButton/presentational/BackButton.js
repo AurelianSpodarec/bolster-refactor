@@ -1,9 +1,10 @@
 import React from 'react';
+import ButtonContainer from '../../button/containers/ButtonContainer';
 
 const BackButton = ({ handleClick }) => (
-    <button className="button back" onClick={handleClick}>
+    <ButtonContainer className="button back" handleClick={handleClick}>
         <i className="fa fa-chevron-double-left" /> Back
-    </button>
+    </ButtonContainer>
 );
 
 export default BackButton;

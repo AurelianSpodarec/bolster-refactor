@@ -54,11 +54,12 @@ class CheckboxListContainer extends Component {
             required,
             addFieldError,
             removeFieldError,
-            selectedOptions
+            selectedOptions,
+            requiredMessage
         } = this.props;
 
         if (required && !selectedOptions.length) {
-            addFieldError(name, 'This is a required field.');
+            addFieldError(name, requiredMessage || 'This is a required field.');
         } else if (error) {
             removeFieldError(name);
         }

@@ -5,9 +5,10 @@ const CompaniesListItemContainer = ({
     company: { addressLine1, addressLine2, town, postcode, ...company },
     colCount
 }) => {
-    const address = [addressLine1, addressLine2, town, postcode]
-        .filter(line => line)
-        .join(', ');
+    const address =
+        [addressLine1, addressLine2, town, postcode]
+            .filter(line => line)
+            .join(', ') || '-';
     return (
         <CompaniesListItem
             company={{ ...company, address }}

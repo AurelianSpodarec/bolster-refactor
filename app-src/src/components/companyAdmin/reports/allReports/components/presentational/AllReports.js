@@ -5,7 +5,7 @@ import PinFiltersContainer from '../containers/PinFiltersContainer';
 
 const AllReports = () => (
     <>
-        <PageHeading title="Reports" />
+        <PageHeading title="Reports" withBackButton />
 
         <PinFiltersContainer />
     </>

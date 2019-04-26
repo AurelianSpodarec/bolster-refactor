@@ -11,7 +11,8 @@ const EditCompanyUserPassword = ({
     handleInputChange,
     password,
     confirmPassword,
-    validate,
+    validatePassword,
+    validateConfirmPassword,
     location,
     match
 }) => (
@@ -25,6 +26,7 @@ const EditCompanyUserPassword = ({
                         handleChange={handleInputChange}
                         type="password"
                         required
+                        validate={validatePassword}
                     />
                 </Field>
                 <Field name="Confirm Password">
@@ -34,7 +36,7 @@ const EditCompanyUserPassword = ({
                         handleChange={handleInputChange}
                         type="password"
                         required
-                        validate={validate}
+                        validate={validateConfirmPassword}
                     />
                 </Field>
             </div>

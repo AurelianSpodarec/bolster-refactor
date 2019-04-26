@@ -6,7 +6,7 @@ import Error from 'components/shared/generic/misc/presentational/Error';
 const SearchResults = ({ results, error, handleLinkClick }) =>
     error ? (
         <Error>{error}</Error>
-    ) : (
+    ) : results && results.length ? (
         results.map(result => (
             <Link
                 to={`/company/${result.type}/${result.hierarchyID}`}
@@ -16,6 +16,8 @@ const SearchResults = ({ results, error, handleLinkClick }) =>
                 {result.searchText}
             </Link>
         ))
+    ) : (
+        <Link to="#">No results found</Link>
     );
 
 export default SearchResults;

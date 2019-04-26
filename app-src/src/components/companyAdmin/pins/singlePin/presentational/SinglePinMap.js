@@ -67,7 +67,7 @@ const SinglePinMap = ({
                     }/{z}/{x}/{y}.jpg`}
                     noWrap={true}
                 />
-                <MapPin key={pin.id} pin={pin} />
+                <MapPin key={pin.id} pin={pin} pinHistory={pinHistory} />
 
                 {moveMode && <Marker position={editPinLocationPosition} />}
             </Map>

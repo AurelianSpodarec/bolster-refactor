@@ -9,7 +9,6 @@ import {
     POST_CUSTOM_FILTERS_FAILURE,
     UPDATE_REPORT_FILTER,
     UPDATE_FILTER_QUESTION_FIELD,
-    UPDATE_OPERATIVE_FILTER,
     REMOVE_FILTER_QUESTION,
     ADD_FILTER_QUESTION,
     REMOVE_FILTER_QUESTIONS,
@@ -58,8 +57,6 @@ function filtersReducer(
     switch (action.type) {
         case UPDATE_REPORT_FILTER:
             return updateObj(state, action.name, action.value);
-        case UPDATE_OPERATIVE_FILTER:
-            return updateObj(state, 'operativeIDs', action.value);
         default:
             return state;
     }
@@ -101,7 +98,7 @@ function postSuccessReducer(state = false, action) {
     }
 }
 
-function customFiltersReducer(state = {}, action) {
+function customFiltersReducer(state = { operatives: [] }, action) {
     switch (action.type) {
         case POST_CUSTOM_FILTERS_SUCCESS:
             return action.payload;

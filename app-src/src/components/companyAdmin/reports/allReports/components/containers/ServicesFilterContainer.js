@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { convertArrToObj } from 'helpers/generic';
+import withUpdateOnChange from '../hocs/withUpdateOnChange';
 import updateReportFilter from 'actions/companyAdmin/reports/sync/updateReportFilter';
 import ServicesFilters from '../presentational/ServicesFilters';
 
@@ -23,9 +24,9 @@ class ServicesFilterContainer extends Component {
     }
 
     handleChange = ({ target: { value, name } }) => {
-        const { updateReportFilter } = this.props;
+        const { updateReportFilter, postFilters} = this.props;
 
-        updateReportFilter(name, value);
+        updateReportFilter(name, value).then(postFilters);
     };
 
     _getServicesOptions = () => {
@@ -54,11 +55,14 @@ const mapStateToProps = ({
 
 const mapDispatchToProps = dispatch => ({
     updateReportFilter: (name, val) => {
-        dispatch(updateReportFilter(name, val));
+       return dispatch(updateReportFilter(name, val));
     }
 });
 
-export default connect(
+const WithRedux = connect(
     mapStateToProps,
     mapDispatchToProps
 )(ServicesFilterContainer);
+
+
+export default withUpdateOnChange(WithRedux);

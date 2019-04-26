@@ -6,7 +6,7 @@ import EditCompanyUserFormContainer from 'components/companyAdmin/userManagement
 import BackButtonContainer from 'components/shared/generic/backButton/containers/BackButtonContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 
-const EditOperative = ({ operativeName }) => (
+const EditOperative = () => (
     <>
         <PageHeading leftChildren={true} title={'Edit Operative'}>
             <BackButtonContainer />

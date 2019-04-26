@@ -3,15 +3,12 @@ import PendingInvoicesContainer from 'components/companyAdmin/invoices/pendingIn
 import PaidInvoicesContainer from '../../paidInvoices/containers/PaidInvoicesContainer';
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
 
-const Invoices = () => {
-    return (
-        <>
-            <PageHeading title="My Invoices" />
-
-            <PendingInvoicesContainer />
-            <PaidInvoicesContainer />
-        </>
-    );
-};
+const Invoices = () => (
+    <>
+        <PageHeading title="My Invoices" withBackButton />
+        <PendingInvoicesContainer />
+        <PaidInvoicesContainer />
+    </>
+);
 
 export default Invoices;

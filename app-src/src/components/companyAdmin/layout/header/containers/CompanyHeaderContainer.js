@@ -9,7 +9,8 @@ const CompanyHeaderContainer = ({
     companySettings,
     unreadMessageCount,
     totalCredits,
-    totalRequests
+    totalRequests,
+    isImpersonating
 }) => (
     <CompanyHeader
         profile={profile}
@@ -17,24 +18,30 @@ const CompanyHeaderContainer = ({
         unreadMessageCount={unreadMessageCount}
         totalCredits={totalCredits}
         totalRequests={totalRequests}
+        isImpersonating={isImpersonating}
     />
 );
 const mapStateToProps = ({
     companyAdmin: {
         companySettingsReducer: { companySettings },
         messagesReducer: { messages },
-        creditLogsReducer: { creditLogs },
+        creditsReducer: { credits },
         transferRequestsReducer: { incomingTransferRequests },
         pendingInvitesReducer: { pendingInvites }
     },
     shared: {
-        profileReducer: { profile }
+        profileReducer: { profile },
+        decodeJWTReducer: {
+            jwtData: { headquartersCompanyID, companyID }
+        }
     }
 }) => {
+    const isImpersonating = headquartersCompanyID !== companyID;
+
     const unreadMessageCount = Object.values(messages).filter(
         ({ type, isRead }) => type === MESSAGE_TYPES.SYSTEM && !isRead
     ).length;
-    const totalCredits = Object.values(creditLogs).reduce(
+    const totalCredits = Object.values(credits).reduce(
         (a, b) => a + b.quantity,
         0
     );
@@ -47,7 +54,8 @@ const mapStateToProps = ({
         companySettings,
         unreadMessageCount,
         totalCredits,
-        totalRequests
+        totalRequests,
+        isImpersonating
     };
 };
 export default connect(mapStateToProps)(CompanyHeaderContainer);

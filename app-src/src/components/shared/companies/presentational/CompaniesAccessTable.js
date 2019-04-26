@@ -1,9 +1,10 @@
 import React from 'react';
-import { withRouter, Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 import Table from 'components/shared/generic/tables/presentational/Table';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import CompaniesAccessListContainer from '../containers/CompaniesAccessListContainer';
+import ButtonNoClickContainer from 'components/shared/generic/button/containers/ButtonNoClickContainer';
 
 const CompaniesAccessTable = ({
     location,
@@ -15,12 +16,12 @@ const CompaniesAccessTable = ({
 }) => (
     <div className="size-lg-12">
         <BlockHeading title="Company Access">
-            <Link
-                className="button pull-right"
+            <ButtonNoClickContainer
+                className="pull-right green"
                 to={`${location.pathname}/invite-company`}
             >
                 <i className="fa fa-plus" /> Invite
-            </Link>
+            </ButtonNoClickContainer>
         </BlockHeading>
         <Table
             headers={smallPod ? ['Name', 'Actions'] : ['Name', '', 'Actions']}

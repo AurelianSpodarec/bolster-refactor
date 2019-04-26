@@ -1,8 +1,8 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
 import { CREDIT_LOG_TYPES } from 'constants/companyAdmin/enums';
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
+import ButtonNoClickContainer from 'components/shared/generic/button/containers/ButtonNoClickContainer';
 
 const CreditLogsListItem = ({
     item: { createdOn, quantity, invoiceID, type, drawingID }
@@ -15,13 +15,13 @@ const CreditLogsListItem = ({
         <td>{quantity}</td>
         <td>
             {invoiceID ? (
-                <Link className="button" to={`/company/invoices/${invoiceID}`}>
+                <ButtonNoClickContainer to={`/company/invoices/${invoiceID}`}>
                     View Invoice
-                </Link>
+                </ButtonNoClickContainer>
             ) : (
-                <Link className="button" to={`/company/drawings/${drawingID}`}>
+                <ButtonNoClickContainer to={`/company/drawings/${drawingID}`}>
                     View Drawing
-                </Link>
+                </ButtonNoClickContainer>
             )}
         </td>
     </tr>
