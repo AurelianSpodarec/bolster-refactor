@@ -1,12 +1,22 @@
 import { QUESTION_TYPES } from 'constants/shared/templateBuilder';
 import { QUESTION_TYPE_VALUES as VALS } from 'constants/shared/templateBuilder';
 
-const formatQuestion = ({ type, dynamicFields, ...otherFields }) => ({
-    questionType: QUESTION_TYPES[type + ''],
-    type,
-    ...otherFields,
-    ...dynamicFields
-});
+const formatQuestion = ({ type, dynamicFields, ...otherFields }) => {
+    const question = {
+        questionType: QUESTION_TYPES[type + ''],
+        type,
+        ...otherFields,
+        ...dynamicFields
+    };
+
+    if (dynamicFields.options)
+        question.options = dynamicFields.options.map(opt => ({
+            id: opt,
+            text: opt
+        }));
+
+    return question;
+};
 
 export const formatQuestions = questions =>
     questions.map(ques => formatQuestion(ques));
@@ -98,7 +108,9 @@ function setDynamicFieldsSingle({
         case VALS.MULTI_DROPDOWN:
         case VALS.RADIO:
             dynamicFields = {
-                options: Object.values(options).map(opt => opt.text),
+                options: [
+                    ...new Set(Object.values(options).map(opt => opt.text))
+                ],
                 canCompanyEdit
             };
             break;
