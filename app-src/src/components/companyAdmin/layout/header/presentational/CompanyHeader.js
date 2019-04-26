@@ -14,9 +14,7 @@ const Header = ({
     unreadMessageCount,
     totalCredits,
     totalRequests,
-    showModal,
-    costOfCredits,
-    handleInputChange
+    showModal
 }) => (
     <header
         id="page-header"

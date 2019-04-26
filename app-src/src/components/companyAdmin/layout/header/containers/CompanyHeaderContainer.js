@@ -14,11 +14,9 @@ const CompanyHeaderContainer = ({
     totalCredits,
     totalRequests,
     isImpersonating,
-    costOfCredits,
     showModal
 }) => (
     <CompanyHeader
-        costOfCredits={costOfCredits}
         profile={profile}
         company={companySettings}
         unreadMessageCount={unreadMessageCount}
