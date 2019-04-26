@@ -65,7 +65,7 @@ class TemplateFormModalContainer extends React.Component {
 
     handleSubmit = e => {
         e.preventDefault();
-        const { companyID, uuid, setTemplate } = this.props;
+        const { companyID, uuid, setTemplate, setQuestion } = this.props;
         const { name, serviceID, labelType } = this.state;
         const template = {
             companyID,
@@ -81,15 +81,16 @@ class TemplateFormModalContainer extends React.Component {
             name: 'Section 1',
             sort: 1
         };
+
+        setTemplate(template, section1);
         setQuestion({
             // STATUS
             uuid: generateUuid(),
             fields: {},
             name: 'Status',
-            questionType: QUESTION_TYPE_NUMBERS.STATUS
+            questionType: QUESTION_TYPE_NUMBERS.STATUS,
+            sectionUUID
         });
-
-        setTemplate(template, section1);
     };
 
     _getSeviceOptions = () => {
@@ -123,9 +124,8 @@ const mapStateToProps = (
 };
 
 const mapDispatchToProps = (dispatch, { companyID }) => ({
-    hideModal: () => {
-        dispatch(hideModal());
-    },
+    hideModal: () => dispatch(hideModal()),
+
     setTemplate: (template, section1) => {
         dispatch(setTemplate(template));
         dispatch(setSection(section1));

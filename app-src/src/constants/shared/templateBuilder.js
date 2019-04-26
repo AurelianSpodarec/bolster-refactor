@@ -8,7 +8,8 @@ export const QUESTION_TYPES = {
     '7': 'Checkbox',
     '8': 'Signature',
     '9': 'Single photo',
-    '10': 'Multi photo'
+    '10': 'Multi photo',
+    '11': 'Status'
 };
 
 export const QUESTION_TYPE_VALUES = {
@@ -21,7 +22,8 @@ export const QUESTION_TYPE_VALUES = {
     CHECKBOX: '7',
     SIGNATURE: '8',
     SINGLE_PHOTO: '9',
-    MULTI_PHOTO: '10'
+    MULTI_PHOTO: '10',
+    STATUS: '11'
 };
 
 export const QUESTION_TYPE_NUMBERS = {
@@ -34,7 +36,8 @@ export const QUESTION_TYPE_NUMBERS = {
     CHECKBOX: 7,
     SIGNATURE: 8,
     SINGLE_PHOTO: 9,
-    MULTI_PHOTO: 10
+    MULTI_PHOTO: 10,
+    STATUS: 11
 };
 
 const { DROPDOWN, MULTI_DROPDOWN, RADIO, CHECKBOX } = QUESTION_TYPE_VALUES;
