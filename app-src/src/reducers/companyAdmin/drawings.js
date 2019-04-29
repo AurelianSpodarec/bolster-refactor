@@ -16,7 +16,10 @@ import {
     DELETE_DRAWING_FAILURE,
     ARCHIVE_DRAWING_REQUEST,
     ARCHIVE_DRAWING_SUCCESS,
-    ARCHIVE_DRAWING_FAILURE
+    ARCHIVE_DRAWING_FAILURE,
+    UPDATE_FLOOR_PLAN_REQUEST,
+    UPDATE_FLOOR_PLAN_SUCCESS,
+    UPDATE_FLOOR_PLAN_FAILURE
 } from 'constants/actionTypes/drawings';
 
 export default combineReducers({
@@ -62,12 +65,14 @@ function errorReducer(state = null, action) {
         case CREATE_DRAWING_REQUEST:
         case DELETE_DRAWING_REQUEST:
         case ARCHIVE_DRAWING_REQUEST:
+        case UPDATE_FLOOR_PLAN_REQUEST:
             return null;
         case FETCH_ALL_DRAWINGS_FAILURE:
         case FETCH_SINGLE_DRAWING_FAILURE:
         case CREATE_DRAWING_FAILURE:
         case DELETE_DRAWING_FAILURE:
         case ARCHIVE_DRAWING_FAILURE:
+        case UPDATE_FLOOR_PLAN_FAILURE:
             return action.error;
         default:
             return state;
@@ -78,9 +83,11 @@ function postSuccessReducer(state = false, action) {
     switch (action.type) {
         case DELETE_DRAWING_REQUEST:
         case ARCHIVE_DRAWING_REQUEST:
+        case UPDATE_FLOOR_PLAN_REQUEST:
             return false;
         case DELETE_DRAWING_SUCCESS:
         case ARCHIVE_DRAWING_SUCCESS:
+        case UPDATE_FLOOR_PLAN_SUCCESS:
             return true;
         default:
             return state;

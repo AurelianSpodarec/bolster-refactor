@@ -6,19 +6,38 @@ import DashboardPinFeed from '../presentational/DashboardPinFeed';
 
 class DashboardPinFeedContainer extends Component {
     render() {
-        // const { pins } = this.props;
+        const { pins, isFetching, error } = this.props;
 
-        return <DashboardPinFeed />;
+        return (
+            <DashboardPinFeed
+                pins={pins}
+                isFetching={isFetching}
+                error={error}
+            />
+        );
     }
 
     componentDidMount = () => {
-        // const { fetchPinFeed } = this.props;
-        //fetchPinFeed();
+        const { fetchPinFeed, lastUpdatedOn } = this.props;
+        fetchPinFeed();
+
+        this.interval = setInterval(() => fetchPinFeed(lastUpdatedOn), 10000);
+    };
+
+    componentWillUnmount = () => {
+        clearInterval(this.interval);
     };
 }
 
-const mapStateToProps = ({ companyAdmin: { pinsReducer: pins } }) => ({
-    pins
+const mapStateToProps = ({
+    companyAdmin: {
+        latestPinFeedReducer: { pins, isFetching, error, lastUpdatedOn }
+    }
+}) => ({
+    pins,
+    isFetching,
+    error,
+    lastUpdatedOn
 });
 
 const mapDispatchToProps = dispatch => ({

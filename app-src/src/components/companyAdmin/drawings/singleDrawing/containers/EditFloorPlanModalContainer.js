@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
+import { ERROR_MODAL } from 'constants/shared/modalTypes';
+import hideModal from 'actions/shared/generic/modals/sync/hideModal';
+import { showModal } from 'actions/shared/generic/modals/sync/showModal';
+import updateFloorPlan from 'actions/companyAdmin/drawings/async/updateFloorPlan';
 import EditFloorPlanModal from '../presentational/EditFloorPlanModal';
 
 class EditFloorPlanModalContainer extends Component {
     state = {
-        floorPlan: ''
+        file: ''
     };
 
     render() {
@@ -22,9 +25,30 @@ class EditFloorPlanModalContainer extends Component {
         );
     }
 
+    componentDidUpdate = prevProps => {
+        const { postSuccess, error, hideModal } = this.props;
+
+        if (!prevProps.postSuccess && postSuccess) {
+            return hideModal();
+        }
+
+        if (!prevProps.error && error) {
+            return this.showErrorModal();
+        }
+    };
+
     handleChange = (name, val) => {
         const { [name]: curVal } = this.state;
         this.setState({ [name]: val === curVal ? '' : val });
+    };
+
+    handleSubmit = e => {
+        e.preventDefault();
+
+        const { file } = this.state;
+        const { updateFloorPlan, drawing } = this.props;
+
+        updateFloorPlan(drawing.id, { file });
     };
 
     hideModal = e => {
@@ -34,18 +58,27 @@ class EditFloorPlanModalContainer extends Component {
         hideModal();
     };
 
-    handleSubmit = e => {
-        e.preventDefault();
-
-        console.log('submitting...');
+    showErrorModal = () => {
+        const { showModal } = this.props;
+        showModal(ERROR_MODAL);
     };
 }
 
-const mapStateToProps = () => ({});
+const mapStateToProps = ({
+    companyAdmin: {
+        drawingsReducer: { error, postSuccess }
+    }
+}) => ({ error, postSuccess });
 
 const mapDispatchToProps = dispatch => ({
     hideModal: () => {
         dispatch(hideModal());
+    },
+    showModal: (modalType, modalProps) => {
+        dispatch(showModal(modalType, modalProps));
+    },
+    updateFloorPlan: (drawingID, postBody) => {
+        dispatch(updateFloorPlan(drawingID, postBody));
     }
 });
 
