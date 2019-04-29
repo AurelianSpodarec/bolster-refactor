@@ -8,7 +8,7 @@ import { formatNumber } from 'helpers/generic';
 const SubscriptionStatus = ({ subscriptions, active, endOn }) => (
     <div className="size-lg-12">
         <BlockHeading
-            title={`Subscription status: ${active ? 'Active' : 'Inactive'}`}
+            title={`Account Status: ${active ? 'Active' : 'Inactive'}`}
         >
             <StatusIcon
                 classes={active ? 'check' : 'none'}
