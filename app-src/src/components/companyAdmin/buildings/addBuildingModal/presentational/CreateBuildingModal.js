@@ -1,14 +1,14 @@
 import React from 'react';
 
 import ModalOuterContainer from 'components/shared/generic/modals/containers/ModalOuterContainer';
+import CreateBuildingFormContainer from '../containers/CreateBuildingFormContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
-import AddSiteFormContainer from '../containers/AddSiteFormContainer';
 
-const AddSiteModal = () => (
+const CreateBuildingModal = () => (
     <ModalOuterContainer>
-        <BlockHeading title={'Add Site'} />
-        <AddSiteFormContainer />
+        <BlockHeading title={'Create Building'} />
+        <CreateBuildingFormContainer />
     </ModalOuterContainer>
 );
 
-export default AddSiteModal;
+export default CreateBuildingModal;

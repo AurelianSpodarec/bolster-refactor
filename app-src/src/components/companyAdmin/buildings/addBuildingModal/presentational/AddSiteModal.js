@@ -4,7 +4,11 @@ import ModalOuterContainer from 'components/shared/generic/modals/containers/Mod
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import AddSiteFormContainer from '../containers/AddSiteFormContainer';
 
-const AddSiteModal = () => (
+const AddSiteModal = ({
+    handleEditPin,
+    hideModal,
+    message = 'Are you sure you want to edit this pin?'
+}) => (
     <ModalOuterContainer>
         <BlockHeading title={'Add Site'} />
         <AddSiteFormContainer />
