@@ -67,13 +67,42 @@ class LevelsFilterContainer extends Component {
         );
     }
 
-    handleChange = ({ target: { value: hierarchyID, name } }) => {
-        const { handleChange, postFilters } = this.props;
+    updateDrawing = (value = null) => {
+        const { handleChange } = this.props;
 
-        return handleChange(name, hierarchyID).then(() =>
-            handleChange('hierarchyID', hierarchyID).then(
-                () => !(name === 'siteID' && !hierarchyID) && postFilters()
-            )
+        return handleChange('drawingID', value);
+    };
+
+    updateFloor = (value = null) => {
+        const { handleChange } = this.props;
+
+        return this.updateDrawing().then(() => handleChange('floorID', value));
+    };
+
+    updateBuilding = (value = null) => {
+        const { handleChange } = this.props;
+
+        return this.updateFloor().then(() => handleChange('buildingID', value));
+    };
+
+    updateSite = (value = null) => {
+        const { handleChange } = this.props;
+
+        return this.updateBuilding().then(() => handleChange('siteID', value));
+    };
+
+    handleChange = ({ target: { value, name } }) => {
+        const { postFilters } = this.props;
+
+        const updateMethods = {
+            drawingID: this.updateDrawing,
+            floorID: this.updateFloor,
+            buildingID: this.updateBuilding,
+            siteID: this.updateSite
+        };
+        const update = updateMethods[name];
+        return update(value).then(
+            () => !(name === 'siteID' && !value) && postFilters()
         );
     };
 

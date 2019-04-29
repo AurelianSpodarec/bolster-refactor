@@ -3,15 +3,26 @@ import { connect } from 'react-redux';
 
 import updateReportFilter from 'actions/companyAdmin/reports/sync/updateReportFilter';
 import postCustomFilters from 'actions/companyAdmin/reports/async/postCustomFilters';
+import addFieldError from 'actions/shared/generic/fieldErrors/sync/addFieldError';
+import removeFieldError from 'actions/shared/generic/fieldErrors/sync/removeFieldError';
 
 export default function(ProtectedComponent) {
     class WithUpdateOnChange extends React.Component {
+        state = {
+            showError: false
+        };
         render() {
+            const { showError } = this.state;
+            const { fieldError, ...props } = this.props;
+
             return (
                 <ProtectedComponent
-                    {...this.props}
+                    {...props}
+                    fieldError={showError ? fieldError : null}
                     postFilters={this.postFilters}
                     formatArrForDropdown={this.formatArrForDropdown}
+                    validate={this.validate}
+                    showFieldError={this.showFieldError}
                 />
             );
         }
@@ -21,6 +32,29 @@ export default function(ProtectedComponent) {
                 value: id,
                 label: name
             }));
+        };
+
+        validate = errorMessage => {
+            const {
+                addFieldError,
+                removeFieldError,
+                blockName,
+                fieldError
+            } = this.props;
+
+            if (errorMessage) {
+                addFieldError(blockName, errorMessage);
+            } else if (fieldError) {
+                removeFieldError(blockName);
+            }
+        };
+
+        showFieldError = () => {
+            const { showError } = this.state;
+
+            if (!showError) {
+                this.setState({ showError: true });
+            }
         };
 
         postFilters = () => {
@@ -88,22 +122,28 @@ export default function(ProtectedComponent) {
         };
     }
 
-    const mapStateToProps = ({
-        companyAdmin: {
-            sitesReducer,
-            buildingsReducer,
-            floorsReducer,
-            drawingsReducer,
-            reportsReducer: {
-                filters,
-                fields,
-                options,
-                postSuccess,
-                error,
-                customFilters
+    const mapStateToProps = (
+        {
+            shared: {
+                fieldErrorsReducer: { fieldErrors, errorsVisible }
+            },
+            companyAdmin: {
+                sitesReducer,
+                buildingsReducer,
+                floorsReducer,
+                drawingsReducer,
+                reportsReducer: {
+                    filters,
+                    fields,
+                    options,
+                    postSuccess,
+                    error,
+                    customFilters
+                }
             }
-        }
-    }) => {
+        },
+        { blockName }
+    ) => {
         const selectedSite = sitesReducer.sites[filters.siteID] || {};
         const buildingIDs = selectedSite.buildingIDs || [];
         const buildings = buildingIDs.map(id => buildingsReducer.buildings[id]);
@@ -118,6 +158,8 @@ export default function(ProtectedComponent) {
         const drawings = drawingIDs.map(id => drawingsReducer.drawings[id]);
 
         return {
+            fieldError: fieldErrors[blockName],
+            errorsVisible,
             filters,
             customFilters,
             options,
@@ -133,7 +175,13 @@ export default function(ProtectedComponent) {
 
     const mapDispatchToProps = dispatch => ({
         handleChange: (name, val) => dispatch(updateReportFilter(name, val)),
-        postCustomFilters: postBody => dispatch(postCustomFilters(postBody))
+        postCustomFilters: postBody => dispatch(postCustomFilters(postBody)),
+        addFieldError: (name, val) => {
+            dispatch(addFieldError(name, val));
+        },
+        removeFieldError: name => {
+            dispatch(removeFieldError(name));
+        }
     });
 
     return connect(
