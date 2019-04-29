@@ -27,7 +27,9 @@ export default lastUpdated => dispatch => {
 
     return axios
         .get(
-            `${API_URL}/pins/historyfeed?lastUpdateDate=${lastUpdated}`,
+            `${API_URL}/pins/historyfeed${
+                lastUpdated ? `?lastUpdateDate=${lastUpdated}` : ''
+            }`,
             getHeaders()
         )
         .then(res => dispatch(fetchPinFeedSuccess(res.data)))

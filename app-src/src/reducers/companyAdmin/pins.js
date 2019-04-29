@@ -19,10 +19,7 @@ import {
     EDIT_PIN_HISTORY_FAILURE,
     DELETE_PIN_HISTORY_REQUEST,
     DELETE_PIN_HISTORY_FAILURE,
-    DELETE_PIN_HISTORY_SUCCESS,
-    FETCH_PIN_FEED_REQUEST,
-    FETCH_PIN_FEED_SUCCESS,
-    FETCH_PIN_FEED_FAILURE
+    DELETE_PIN_HISTORY_SUCCESS
 } from 'constants/actionTypes/pins';
 
 export default combineReducers({
@@ -36,14 +33,11 @@ function isFetchingReducer(state = false, action) {
     switch (action.type) {
         case FETCH_SINGLE_PIN_REQUEST:
         case FETCH_PINS_REQUEST:
-        case FETCH_PIN_FEED_REQUEST:
             return true;
         case FETCH_SINGLE_PIN_SUCCESS:
         case FETCH_SINGLE_PIN_FAILURE:
         case FETCH_PINS_SUCCESS:
         case FETCH_PINS_FAILURE:
-        case FETCH_PIN_FEED_SUCCESS:
-        case FETCH_PIN_FEED_FAILURE:
             return false;
         default:
             return state;
@@ -58,7 +52,6 @@ function errorReducer(state = null, action) {
         case EDIT_PIN_LOCATION_REQUEST:
         case EDIT_PIN_HISTORY_REQUEST:
         case DELETE_PIN_HISTORY_REQUEST:
-        case FETCH_PIN_FEED_REQUEST:
             return null;
         case FETCH_SINGLE_PIN_FAILURE:
         case FETCH_PINS_FAILURE:
@@ -66,7 +59,6 @@ function errorReducer(state = null, action) {
         case EDIT_PIN_LOCATION_FAILURE:
         case EDIT_PIN_HISTORY_FAILURE:
         case DELETE_PIN_HISTORY_FAILURE:
-        case FETCH_PIN_FEED_FAILURE:
             return action.error;
         default:
             return state;
@@ -78,7 +70,6 @@ function pinsReducer(state = {}, action) {
         case FETCH_SINGLE_PIN_SUCCESS:
         case CREATE_PIN_SUCCESS:
         case EDIT_PIN_LOCATION_SUCCESS:
-        case FETCH_PIN_FEED_SUCCESS:
             return updateObj(state, action.payload.pin.id, action.payload.pin);
         case EDIT_PIN_HISTORY_SUCCESS:
             return updateObj(state, action.payload.id, action.payload);

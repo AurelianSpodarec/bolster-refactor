@@ -19,6 +19,7 @@ import headquartersReducer from './headquarters';
 import inspectionLogsReducer from './inspectionLogs';
 import invoiceItemsReducer from './invoiceItems';
 import invoicesReducer from './invoices';
+import latestPinFeedReducer from './latestPinFeed';
 import messagesReducer from './messages';
 import operativeAlertsReducer from './operativeAlerts';
 import operativesReducer from './operatives';
@@ -57,6 +58,7 @@ export default combineReducers({
     inspectionLogsReducer,
     invoicesReducer,
     invoiceItemsReducer,
+    latestPinFeedReducer,
     companyReportsReducer,
     messagesReducer,
     operativeAlertsReducer,
