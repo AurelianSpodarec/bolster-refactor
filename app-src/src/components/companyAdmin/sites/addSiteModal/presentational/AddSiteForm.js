@@ -9,6 +9,7 @@ import ButtonContainer from 'components/shared/generic/button/containers/ButtonC
 const AddSiteForm = ({
     handleSubmit,
     handleInputChange,
+    hideModal,
     name,
     client,
     addressLine1,
@@ -80,7 +81,10 @@ const AddSiteForm = ({
             <button className="button green">
                 <i className="fa fa-plus" /> Add Site
             </button>
-            <ButtonContainer to="/company/sites">Cancel</ButtonContainer>
+            <button className="button red" onClick={hideModal}>
+                <i className="fa fa-times" />
+                Cancel
+            </button>
         </BlockButtonWrapper>
     </Form>
 );
