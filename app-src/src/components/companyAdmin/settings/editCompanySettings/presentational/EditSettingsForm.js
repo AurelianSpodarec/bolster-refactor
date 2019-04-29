@@ -46,7 +46,7 @@ const EditSettingsForm = ({
     <>
         <Form className="generic-form ize-lg-12" onSubmit={handleSubmit}>
             {/* <p>##Company Details##</p> */}
-            <Field name="Company Name" sizeClasses="size-lg-6">
+            <Field name="Company Name" sizeClasses="size-lg-6" required>
                 <TextInputContainer
                     value={name}
                     name="name"
@@ -56,7 +56,7 @@ const EditSettingsForm = ({
                     placeholder="company name..."
                 />
             </Field>
-            <Field name="Address Line 1" sizeClasses="size-lg-6">
+            <Field name="Address Line 1" sizeClasses="size-lg-6" required>
                 <TextInputContainer
                     value={addressLine1}
                     name="addressLine1"
@@ -75,7 +75,7 @@ const EditSettingsForm = ({
                     placeholder="address line 2..."
                 />
             </Field>
-            <Field name="Town" sizeClasses="size-lg-6">
+            <Field name="Town" sizeClasses="size-lg-6" required>
                 <TextInputContainer
                     value={town}
                     name="town"
@@ -85,7 +85,7 @@ const EditSettingsForm = ({
                     required
                 />
             </Field>
-            <Field name="County" sizeClasses="size-lg-6">
+            <Field name="County" sizeClasses="size-lg-6" required>
                 <TextInputContainer
                     value={county}
                     name="county"
@@ -95,7 +95,7 @@ const EditSettingsForm = ({
                     required
                 />
             </Field>
-            <Field name="Postcode" sizeClasses="size-lg-6">
+            <Field name="Postcode" sizeClasses="size-lg-6" required>
                 <TextInputContainer
                     value={postcode}
                     name="postcode"
@@ -105,7 +105,7 @@ const EditSettingsForm = ({
                     required
                 />
             </Field>
-            <Field name="Telephone No." sizeClasses="size-lg-6">
+            <Field name="Telephone No." sizeClasses="size-lg-6" required>
                 <TextInputContainer
                     value={telephone}
                     name="telephone"
@@ -115,7 +115,7 @@ const EditSettingsForm = ({
                     required
                 />
             </Field>
-            <Field name="Fax No." sizeClasses="size-lg-6">
+            <Field name="Fax No." sizeClasses="size-lg-6" required>
                 <TextInputContainer
                     value={fax}
                     name="fax"
@@ -127,7 +127,7 @@ const EditSettingsForm = ({
             </Field>
             <div>
                 {/* <p>##Display Settings##</p> */}
-                <Field name="Change Company Logo (optional)">
+                <Field name="Change Company Logo">
                     <FileUploadContainer
                         name="logoFile"
                         value={logoFile}
@@ -153,7 +153,11 @@ const EditSettingsForm = ({
             </div>
             <div>
                 {/* <p>##Label Settings##</p> */}
-                <Field name="Label Company Name" sizeClasses="size-lg-6">
+                <Field
+                    name="Label Company Name"
+                    sizeClasses="size-lg-6"
+                    required
+                >
                     <TextInputContainer
                         value={labelCompanyName}
                         name="labelCompanyName"
@@ -163,7 +167,11 @@ const EditSettingsForm = ({
                         required
                     />
                 </Field>
-                <Field name="Label Telephone No." sizeClasses="size-lg-6">
+                <Field
+                    name="Label Telephone No."
+                    sizeClasses="size-lg-6"
+                    required
+                >
                     <TextInputContainer
                         value={labelTelNumber}
                         name="labelTelNumber"
@@ -179,6 +187,7 @@ const EditSettingsForm = ({
                 <Field
                     name="Default Template Usage Rule"
                     sizeClasses="size-lg-12"
+                    required
                 >
                     <DropdownContainer
                         placeholder="-- select rule --"

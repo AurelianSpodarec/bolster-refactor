@@ -41,7 +41,7 @@ const RegisterForm = ({
     <BlockContainer error={error}>
         <BlockHeading title="Register for bolster systems" />
         <Form className="generic-form size-lg-12" onSubmit={handleSubmit}>
-            <Field name="First name" reqiured={true} sizeClasses="size-lg-4">
+            <Field name="First name" sizeClasses="size-lg-4" required>
                 <TextInputContainer
                     value={firstName}
                     name={'User.firstName'}
@@ -49,7 +49,7 @@ const RegisterForm = ({
                     handleChange={handleInputChange}
                 />
             </Field>
-            <Field name="Last Name" reqiured={true} sizeClasses="size-lg-4">
+            <Field name="Last Name" sizeClasses="size-lg-4" required>
                 <TextInputContainer
                     value={lastName}
                     name="User.lastName"
@@ -59,7 +59,7 @@ const RegisterForm = ({
                 />
             </Field>
 
-            <Field name="Email" reqiured={true} sizeClasses="size-lg-4">
+            <Field name="Email" sizeClasses="size-lg-4" required>
                 <TextInputContainer
                     value={email}
                     name="User.email"
@@ -69,7 +69,7 @@ const RegisterForm = ({
                     handleChange={handleInputChange}
                 />
             </Field>
-            <Field name="Password" reqiured={true} sizeClasses="size-lg-4">
+            <Field name="Password" sizeClasses="size-lg-4" required>
                 <TextInputContainer
                     value={password}
                     name="User.password"
@@ -81,11 +81,7 @@ const RegisterForm = ({
                 />
             </Field>
 
-            <Field
-                name="Confirm password"
-                required={true}
-                sizeClasses="size-lg-4"
-            >
+            <Field name="Confirm password" sizeClasses="size-lg-4" required>
                 <TextInputContainer
                     name="confirmPassword"
                     value={confirmPassword}
@@ -97,7 +93,7 @@ const RegisterForm = ({
                 />
             </Field>
 
-            <Field name="Telephone" reqiured={true} sizeClasses="size-lg-4">
+            <Field name="Telephone" sizeClasses="size-lg-4" required>
                 <TextInputContainer
                     value={phoneNumber}
                     name="Company.phoneNumber"
@@ -106,7 +102,7 @@ const RegisterForm = ({
                     required
                 />
             </Field>
-            <Field name="Business name" reqiured={true} sizeClasses="size-lg-4">
+            <Field name="Business name" sizeClasses="size-lg-4" required>
                 <TextInputContainer
                     value={name}
                     name="Company.name"
@@ -117,8 +113,8 @@ const RegisterForm = ({
             </Field>
             <Field
                 name="First Line of Address"
-                reqiured={true}
                 sizeClasses="size-lg-4"
+                required
             >
                 <TextInputContainer
                     value={addressLine1}
@@ -128,7 +124,7 @@ const RegisterForm = ({
                     required
                 />
             </Field>
-            <Field name="Town/City" reqiured={true} sizeClasses="size-lg-4">
+            <Field name="Town/City" sizeClasses="size-lg-4" required>
                 <TextInputContainer
                     value={town}
                     name="Company.town"
@@ -137,7 +133,7 @@ const RegisterForm = ({
                     required
                 />
             </Field>
-            <Field name="Postcode" reqiured={true} sizeClasses="size-lg-4">
+            <Field name="Postcode" sizeClasses="size-lg-4" required>
                 <TextInputContainer
                     value={postcode}
                     name="Company.postcode"
@@ -147,16 +143,17 @@ const RegisterForm = ({
                 />
             </Field>
 
-            <Field name="Timezone" reqiured={true}>
+            <Field name="Timezone" required>
                 <NewSelect
                     options={timezoneOptions}
                     value={timezone}
                     onChange={handleDropDown}
                     name="Company.timezone"
                     singleSelect
+                    required
                 />
             </Field>
-            <Field name="Date format" reqiured={true}>
+            <Field name="Date format" required>
                 <NewSelect
                     options={dateFormats}
                     value={dateFormatID}
@@ -167,7 +164,7 @@ const RegisterForm = ({
                 />
             </Field>
 
-            <Field name="VAT Type" reqiured={true}>
+            <Field name="VAT Type" required>
                 <NewSelect
                     options={vatOptions}
                     value={vatType}
@@ -178,7 +175,10 @@ const RegisterForm = ({
                 />
             </Field>
             {vatType !== VAT_TYPES.OUTSIDEEU && (
-                <Field name="VAT Code" reqiured={true}>
+                <Field
+                    name="VAT Code"
+                    required={vatType !== VAT_TYPES.OUTSIDEEU}
+                >
                     <TextInputContainer
                         name="Company.vatCode"
                         value={vatCode}
@@ -187,7 +187,7 @@ const RegisterForm = ({
                     />
                 </Field>
             )}
-            <Field name="Terms and Conditions" reqiured={true}>
+            <Field name="Terms and Conditions" required>
                 <p className="generic-text size-lg-12">
                     To register, please agree to our Terms and Conditions.
                 </p>
@@ -195,6 +195,7 @@ const RegisterForm = ({
                     checked={terms}
                     handleChange={handleInputChange}
                     name="terms"
+                    required
                 />
             </Field>
             <div className="button-area size-lg-12">

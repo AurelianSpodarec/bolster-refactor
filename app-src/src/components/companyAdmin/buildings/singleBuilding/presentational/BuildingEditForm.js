@@ -18,7 +18,7 @@ const BuildingEditForm = ({
     <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
         <div className="size-lg-12">
             <div className="size-lg-6">
-                <Field name="Building name">
+                <Field name="Building name" required>
                     <TextInputContainer
                         name="name"
                         value={name}
@@ -28,7 +28,7 @@ const BuildingEditForm = ({
                 </Field>
             </div>
             <div className="size-lg-6">
-                <Field name="Address line 1">
+                <Field name="Address line 1" required>
                     <TextInputContainer
                         value={addressLine1}
                         name="addressLine1"
@@ -50,7 +50,7 @@ const BuildingEditForm = ({
                 </Field>
             </div>
             <div className="size-lg-6">
-                <Field name="Postcode">
+                <Field name="Postcode" required>
                     <TextInputContainer
                         value={postcode}
                         name="postcode"

@@ -17,7 +17,7 @@ const EditClientForm = ({
     }
 }) => (
     <Form className="generic-form size-lg-12" onSubmit={handleSubmit}>
-        <Field name="Service types" sizeClasses="size-lg-12">
+        <Field name="Service types" sizeClasses="size-lg-12" required>
             <CheckboxListContainer
                 required
                 name="serviceIDs"

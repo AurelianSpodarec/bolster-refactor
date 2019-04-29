@@ -19,7 +19,7 @@ const EditCompanyUserForm = ({
     <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
         <div className="size-lg-12">
             <div className="size-lg-6">
-                <Field name="First Name">
+                <Field name="First Name" required>
                     <TextInputContainer
                         name="firstName"
                         value={firstName}
@@ -30,7 +30,7 @@ const EditCompanyUserForm = ({
             </div>
 
             <div className="size-lg-6">
-                <Field name="Last Name">
+                <Field name="Last Name" required>
                     <TextInputContainer
                         value={lastName}
                         name="lastName"
@@ -43,17 +43,18 @@ const EditCompanyUserForm = ({
 
         <div className="size-lg-12">
             <div className="size-lg-6">
-                <Field name="Email Address">
+                <Field name="Email Address" required>
                     <TextInputContainer
                         value={email}
                         name="email"
                         type="email"
                         handleChange={handleInputChange}
+                        required
                     />
                 </Field>
             </div>
             <div className="size-lg-6">
-                <Field name="Phone Number">
+                <Field name="Phone Number" required>
                     <TextInputContainer
                         value={phoneNumber}
                         name="phoneNumber"

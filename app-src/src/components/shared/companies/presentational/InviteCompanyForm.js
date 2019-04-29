@@ -26,7 +26,11 @@ const InviteCompanyForm = ({
             <br /> until they accept this new invitation.
         </p>
         <Form className="generic-form size-lg-12" onSubmit={handleSubmit}>
-            <Field name="Enter the company code" sizeClasses="size-lg-6">
+            <Field
+                name="Enter the company code"
+                sizeClasses="size-lg-6"
+                required
+            >
                 <TextInputContainer
                     name="companyCode"
                     value={companyCode}
@@ -35,7 +39,7 @@ const InviteCompanyForm = ({
                 />
             </Field>
 
-            <Field name="Service types" sizeClasses="size-lg-12">
+            <Field name="Service types" sizeClasses="size-lg-12" required>
                 <CheckboxListContainer
                     required
                     name="serviceIDs"

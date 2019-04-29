@@ -51,7 +51,7 @@ const AddTemplateQuestionFormModal = ({
                 </Field>
             )}
             {!!selectedPrereq && (
-                <Field name="Prerequisite value">
+                <Field name="Prerequisite value" required>
                     <TextInputContainer
                         name="prereqVal"
                         value={prereqVal}
@@ -60,7 +60,7 @@ const AddTemplateQuestionFormModal = ({
                     />
                 </Field>
             )}
-            <Field name="Field name">
+            <Field name="Field name" required>
                 <TextInputContainer
                     name="name"
                     value={name}

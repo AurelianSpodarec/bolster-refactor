@@ -19,7 +19,7 @@ const EditPinForm = ({
     selectedHistory
 }) => (
     <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
-        <Field name="Select a status" sizeClasses="size-lg-6">
+        <Field name="Select a status" sizeClasses="size-lg-6" required>
             <DropdownContainer
                 placeholder="-- select --"
                 name="status"

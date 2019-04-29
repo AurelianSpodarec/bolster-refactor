@@ -23,7 +23,7 @@ const TemplateformModal = ({
         <BlockHeading title={`${action} template`} />
         <Form className="generic-form" onSubmit={handleSubmit}>
             <div className="size-lg-6">
-                <Field name="name">
+                <Field name="name" required>
                     <TextInputContainer
                         name="name"
                         handleChange={handleChange}
@@ -31,7 +31,7 @@ const TemplateformModal = ({
                         required
                     />
                 </Field>
-                <Field name="Service">
+                <Field name="Service" required>
                     <DropdownContainer
                         name="serviceID"
                         placeholder="-- select a service --"
@@ -41,7 +41,7 @@ const TemplateformModal = ({
                         required
                     />
                 </Field>
-                <Field name="Label type">
+                <Field name="Label type" required>
                     <DropdownContainer
                         name="labelType"
                         placeholder="-- select a label type --"

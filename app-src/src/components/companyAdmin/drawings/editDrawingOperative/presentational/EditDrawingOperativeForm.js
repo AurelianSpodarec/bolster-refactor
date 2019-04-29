@@ -29,12 +29,13 @@ const EditDrawingOperative = ({
                 />
                 <BlockContainer>
                     <Form onSubmit={handleSubmit}>
-                        <Field name="Services">
+                        <Field name="Services" required>
                             <CheckboxListContainer
                                 options={Object.values(services)}
                                 selectedOptions={serviceIDs}
                                 handleChange={handleMultiSelect}
                                 name="serviceIDs"
+                                required
                             />
                         </Field>
                     </Form>

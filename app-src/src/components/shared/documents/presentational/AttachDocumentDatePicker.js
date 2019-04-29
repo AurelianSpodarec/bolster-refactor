@@ -10,7 +10,12 @@ const AttachDocumentDatePicker = ({
     endErrorMessage,
     onChange
 }) => (
-    <Field classes="w-dates" sizeClasses="size-lg-12" name="Dates available">
+    <Field
+        classes="w-dates"
+        sizeClasses="size-lg-12"
+        name="Dates available"
+        required
+    >
         <div className="size-lg-4">
             <DatePicker
                 name="startOn"

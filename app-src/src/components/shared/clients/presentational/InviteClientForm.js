@@ -31,7 +31,7 @@ const InviteClientForm = ({
         </p>
         <Form className="generic-form size-lg-12" onSubmit={handleSubmit}>
             <div className="size-lg-12">
-                <Field name="Email address" sizeClasses="size-lg-6">
+                <Field name="Email address" sizeClasses="size-lg-6" required>
                     <TextInputContainer
                         name="email"
                         value={email}
@@ -41,7 +41,7 @@ const InviteClientForm = ({
                 </Field>
             </div>
 
-            <Field name="First name" sizeClasses="size-lg-4">
+            <Field name="First name" sizeClasses="size-lg-4" required>
                 <TextInputContainer
                     name="firstName"
                     value={firstName}
@@ -50,7 +50,7 @@ const InviteClientForm = ({
                 />
             </Field>
 
-            <Field name="Last name" sizeClasses="size-lg-4">
+            <Field name="Last name" sizeClasses="size-lg-4" required>
                 <TextInputContainer
                     name="lastName"
                     value={lastName}
@@ -59,7 +59,7 @@ const InviteClientForm = ({
                 />
             </Field>
 
-            <Field name="Phone number" sizeClasses="size-lg-4">
+            <Field name="Phone number" sizeClasses="size-lg-4" required>
                 <TextInputContainer
                     name="phoneNumber"
                     value={phoneNumber}
@@ -68,7 +68,7 @@ const InviteClientForm = ({
                 />
             </Field>
 
-            <Field name="Company name" sizeClasses="size-lg-4">
+            <Field name="Company name" sizeClasses="size-lg-4" required>
                 <TextInputContainer
                     name="companyName"
                     value={companyName}
@@ -77,7 +77,7 @@ const InviteClientForm = ({
                 />
             </Field>
 
-            <Field name="Service types" sizeClasses="size-lg-12">
+            <Field name="Service types" sizeClasses="size-lg-12" required>
                 <p className="generic-text size-lg-12">
                     Select the services the client should have access to:
                 </p>

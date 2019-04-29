@@ -58,7 +58,11 @@ const AddServiceToSubscriptionModal = ({
                 </div>
             </Field>
             {+paymentType === PAYMENT_IDS.CARD && noCards && (
-                <Field name="Select Card" sizeClasses="size-lg-12">
+                <Field
+                    name="Select Card"
+                    sizeClasses="size-lg-12"
+                    required={+paymentType === PAYMENT_IDS.CARD}
+                >
                     <DropdownContainer
                         disabled={+paymentType !== PAYMENT_IDS.CARD}
                         required={+paymentType === PAYMENT_IDS.CARD}

@@ -18,7 +18,7 @@ const AddSiteForm = ({
     <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
         <div className="size-lg-12">
             <div className="size-lg-6">
-                <Field name="Site name">
+                <Field name="Site name" required>
                     <TextInputContainer
                         name="name"
                         value={name}
@@ -29,7 +29,7 @@ const AddSiteForm = ({
             </div>
 
             <div className="size-lg-6">
-                <Field name="Client name">
+                <Field name="Client name" required>
                     <TextInputContainer
                         value={client}
                         name="client"
@@ -42,7 +42,7 @@ const AddSiteForm = ({
 
         <div className="size-lg-12">
             <div className="size-lg-6">
-                <Field name="Address line 1">
+                <Field name="Address line 1" required>
                     <TextInputContainer
                         value={addressLine1}
                         name="addressLine1"
@@ -65,7 +65,7 @@ const AddSiteForm = ({
 
         <div className="size-lg-12">
             <div className="size-lg-6">
-                <Field name="Postcode">
+                <Field name="Postcode" required>
                     <TextInputContainer
                         value={postcode}
                         name="postcode"

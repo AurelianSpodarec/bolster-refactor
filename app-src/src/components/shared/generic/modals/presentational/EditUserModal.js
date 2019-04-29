@@ -20,7 +20,7 @@ const EditUserModal = ({
             <BlockHeading title="Edit User Details" />
             <Form className="generic-form" onSubmit={handleSubmit}>
                 <div className="size-lg-12">
-                    <Field name="First name">
+                    <Field name="First name" required>
                         <TextInputContainer
                             handleChange={handleChange}
                             name={'firstName'}
@@ -31,7 +31,7 @@ const EditUserModal = ({
                     </Field>
                 </div>
                 <div className="size-lg-12">
-                    <Field name="Last name">
+                    <Field name="Last name" required>
                         <TextInputContainer
                             handleChange={handleChange}
                             name={'lastName'}
@@ -42,7 +42,7 @@ const EditUserModal = ({
                     </Field>
                 </div>
                 <div className="size-lg-12">
-                    <Field name="Email address">
+                    <Field name="Email address" required>
                         <TextInputContainer
                             handleChange={handleChange}
                             name={'email'}
@@ -53,7 +53,7 @@ const EditUserModal = ({
                     </Field>
                 </div>
                 <div className="size-lg-12">
-                    <Field name="Phone number">
+                    <Field name="Phone number" required>
                         <TextInputContainer
                             handleChange={handleChange}
                             name={'phoneNumber'}
