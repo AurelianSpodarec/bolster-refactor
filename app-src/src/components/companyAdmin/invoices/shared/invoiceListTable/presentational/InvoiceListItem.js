@@ -11,7 +11,15 @@ import { formatCurrency } from 'helpers/generic';
 import StatusIcon from 'components/shared/generic/statusIcon/presentationl/StatusIcon';
 
 const InvoiceListItem = ({
-    invoice: { createdOn, isPaid, total, id, paymentType },
+    invoice: {
+        createdOn,
+        isPaid,
+        total,
+        id,
+        paymentType,
+        userFirstName,
+        userLastName
+    },
     showModal
 }) => (
     <tr>
@@ -41,6 +49,7 @@ const InvoiceListItem = ({
                 />
             )}
         </td>
+        <td>{`${userFirstName} ${userLastName}`}</td>
         <td>
             <BlockButtonWrapper>
                 <ButtonNoClickContainer to={`/company/invoices/${id}`}>

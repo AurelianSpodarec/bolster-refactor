@@ -10,9 +10,16 @@ import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/pr
 import PinSectionsContainer from '../containers/PinSectionsContainer';
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 
-const PinDetails = ({ pinHistory, user, services, handleDelete }) => (
+const PinDetails = ({ pin, pinHistory, user, services, handleDelete }) => (
     <>
         <div className="size-lg-12">
+            <FieldOutput
+                title="Pin number"
+                description={pin.pinCode}
+                fieldClass="no-h-padding"
+                sizeClass="size-lg-6"
+            />
+
             <FieldOutput
                 title="Date created"
                 fieldClass="no-h-padding"

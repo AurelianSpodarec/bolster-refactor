@@ -47,7 +47,7 @@ const HeaderNotifications = ({
             {}
             <div className="item">
                 <ButtonContainer
-                    onClick={togglePopup}
+                    handleClick={togglePopup}
                     to="/company/tools/company-reports"
                 >
                     View Company Reports
