@@ -22,29 +22,32 @@ const SinglePinMap = ({
 }) => {
     return (
         <>
-            {moveMode ? (
-                <BlockHeading title={`Pin ${pin.pinCode}`}>
-                    <h4 className="small-text">
-                        (History {historyVersion} of {historyCount})
-                    </h4>
-                    <button
-                        onClick={handleeditPinLocation}
-                        className="button green pull-right"
-                    >
-                        <i className="fa fa-check" /> Confirm position
-                    </button>
-                    <button
-                        className="button red pull-right"
-                        onClick={toggleMoveMode}
-                    >
-                        Stop
-                    </button>
-                </BlockHeading>
-            ) : (
-                <BlockHeading title={`Pin ${pin.pinCode}`}>
-                    <h4 className="small-text">
-                        (History {historyVersion} of {historyCount})
-                    </h4>
+            <BlockHeading title={`Pin ${pin.pinCode}`}>
+                <h4 className="small-text">
+                    (History {historyVersion} of {historyCount}{' '}
+                    {historyVersion === historyCount
+                        ? ' - Latest'
+                        : historyVersion == 1
+                        ? ' - Earliest'
+                        : ''}
+                    )
+                </h4>
+                {moveMode ? (
+                    <>
+                        <button
+                            onClick={handleeditPinLocation}
+                            className="button green pull-right"
+                        >
+                            <i className="fa fa-check" /> Confirm position
+                        </button>
+                        <button
+                            className="button red pull-right"
+                            onClick={toggleMoveMode}
+                        >
+                            Stop
+                        </button>
+                    </>
+                ) : (
                     <button
                         className="button pull-right"
                         onClick={toggleMoveMode}
@@ -52,8 +55,8 @@ const SinglePinMap = ({
                         <i className="fa fa-arrows-alt" />
                         Move Pin
                     </button>
-                </BlockHeading>
-            )}
+                )}
+            </BlockHeading>
 
             <Map
                 center={[pin.location.latY, pin.location.lngX]}
