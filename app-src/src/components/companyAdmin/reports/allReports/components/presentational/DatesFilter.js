@@ -9,7 +9,7 @@ const DateFilters = ({ startDateSelected, endDateSelected, handleChange }) => (
             <DatePicker
                 name="startDate"
                 selected={startDateSelected}
-                onChange={e => handleChange(e, 'startDate')}
+                onChange={value => handleChange('startDate', value)}
                 placeholderText="Date"
             />
         </div>
@@ -18,7 +18,7 @@ const DateFilters = ({ startDateSelected, endDateSelected, handleChange }) => (
             <DatePicker
                 name="endDate"
                 selected={endDateSelected}
-                onChange={e => handleChange(e, 'endDate')}
+                onChange={value => handleChange('endDate', value)}
                 placeholderText="Date"
             />
         </div>

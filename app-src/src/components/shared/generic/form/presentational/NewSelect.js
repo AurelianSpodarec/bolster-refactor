@@ -30,6 +30,7 @@ const NewSelect = ({ options, value, onChange, name, singleSelect }) => {
         if (!options.length) {
             return <span>No items available</span>;
         }
+
         if (!(selected && selected.length)) {
             if (singleSelect) {
                 return <span>--- Select an Option ---</span>;

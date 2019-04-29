@@ -5,6 +5,7 @@ import updateReportFilter from 'actions/companyAdmin/reports/sync/updateReportFi
 import postCustomFilters from 'actions/companyAdmin/reports/async/postCustomFilters';
 import addFieldError from 'actions/shared/generic/fieldErrors/sync/addFieldError';
 import removeFieldError from 'actions/shared/generic/fieldErrors/sync/removeFieldError';
+import { convertArrToObj } from 'helpers/generic';
 
 export default function(ProtectedComponent) {
     class WithUpdateOnChange extends React.Component {
@@ -27,11 +28,14 @@ export default function(ProtectedComponent) {
             );
         }
 
-        formatArrForDropdown = arr => {
-            return arr.map(({ id, name }) => ({
+        formatArrForDropdown = (arr, asObj) => {
+            const options = arr.map(({ id, name }) => ({
                 value: id,
-                label: name
+                label: name,
+                text: name
             }));
+
+            return asObj ? convertArrToObj(options, 'value') : options;
         };
 
         validate = errorMessage => {
@@ -116,7 +120,7 @@ export default function(ProtectedComponent) {
                 fromDateInclusive: startDate,
                 ToDateInclusive: endDate,
                 companyUserIDs: operativeIDs,
-                serviceID,
+                serviceID: serviceID || null,
                 status: statusID || null,
                 questionFilters,
                 showHidden,
@@ -134,6 +138,7 @@ export default function(ProtectedComponent) {
                 fieldErrorsReducer: { fieldErrors, errorsVisible }
             },
             companyAdmin: {
+                servicesReducer,
                 sitesReducer,
                 buildingsReducer,
                 floorsReducer,
@@ -171,6 +176,7 @@ export default function(ProtectedComponent) {
             options,
             postSuccess,
             error,
+            services: Object.values(servicesReducer.services),
             sites: Object.values(sitesReducer.sites),
             buildings,
             floors,

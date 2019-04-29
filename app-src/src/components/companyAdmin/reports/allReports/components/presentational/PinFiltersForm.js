@@ -1,10 +1,6 @@
 import React from 'react';
 
 import Form from 'components/shared/generic/form/containers/Form';
-// import LevelsFilterContainer from '../containers/LevelsFilterContainer';
-import StatusTypeFilterContainer from '../containers/StatusTypeFilterContainer';
-import ServicesFilterContainer from '../containers/ServicesFilterContainer';
-import DatesFilterContainer from '../containers/DatesFilterContainer';
 // import ReportOptionsContainer from '../containers/ReportOptionsContainer';
 // import PinSelectorContainer from 'components/shared/pinSelector/container/PinSelectorContainer';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
@@ -20,6 +16,7 @@ import FilterMapContainer from '../containers/FilterMapContainer';
 
 import Block1FiltersContainer from '../containers/Block1FiltersContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
+import BasicFiltersContainer from '../containers/BasicFiltersContainer';
 
 const PinFiltersForm = ({
     furtherFiltrationOptions,
@@ -32,16 +29,7 @@ const PinFiltersForm = ({
         <FilterMapContainer />
         <div className="flex-container size-lg-12">
             <Block1FiltersContainer blockName="block1" />
-            <div className="flex-item size-lg-6">
-                <BlockContainer>
-                    <div className="size-lg-12">
-                        <BlockHeading title="Basic Filtration" />
-                        <ServicesFilterContainer />
-                        <StatusTypeFilterContainer />
-                        <DatesFilterContainer />
-                    </div>
-                </BlockContainer>
-            </div>
+            <BasicFiltersContainer />
         </div>
 
         <div className="size-lg-12">
