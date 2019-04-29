@@ -4,20 +4,18 @@ import withUpdateOnChange from '../hocs/withUpdateOnChange';
 import OperativesFilter from '../presentational/OperativesFilter';
 
 class OperativesFilterContainer extends Component {
-    state = {
-        selectedOperatives: []
-    };
     render() {
         const {
             handleChange,
             formatArrForDropdown,
-            customFilters: { operatives }
+            customFilters: { operatives },
+            filters: { operativeIDs }
         } = this.props;
 
         return (
             <OperativesFilter
                 operativeOptions={formatArrForDropdown(operatives)}
-                selectedOperatives={this.state.selectedOperatives}
+                selectedOperatives={operativeIDs}
                 handleChange={handleChange}
             />
         );
