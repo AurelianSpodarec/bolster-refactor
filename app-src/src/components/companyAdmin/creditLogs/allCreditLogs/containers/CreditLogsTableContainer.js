@@ -20,7 +20,7 @@ const mapStateToProps = ({
     credits: Object.values(credits) || null,
     isFetching,
     error,
-    headers: ['Date', 'Type', 'Quantity', 'Drawing Heirarchy', '']
+    headers: ['Date', 'Type', 'Quantity', 'Drawing Heirarchy', 'Created By', '']
 });
 
 export default connect(mapStateToProps)(CreditLogsTableContainer);

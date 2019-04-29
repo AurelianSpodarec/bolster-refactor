@@ -14,7 +14,9 @@ const CreditLogsListItem = ({
         siteName,
         buildingName,
         floorName,
-        drawingName
+        drawingName,
+        userFirstName,
+        userLastName
     }
 }) => {
     const drawingDetails = drawingID
@@ -28,6 +30,7 @@ const CreditLogsListItem = ({
             <td>{CREDIT_LOG_TYPES[type]}</td>
             <td>{quantity}</td>
             <td>{drawingDetails}</td>
+            <td>{`${userFirstName} ${userLastName}`}</td>
             <td>
                 {invoiceID ? (
                     <ButtonNoClickContainer
