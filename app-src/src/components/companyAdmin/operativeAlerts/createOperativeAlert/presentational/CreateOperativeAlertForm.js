@@ -14,7 +14,7 @@ const CreateOperativeAlertForm = ({
     <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
         <div className="size-lg-12">
             <div className="size-lg-6">
-                <Field name="Message">
+                <Field name="Message" required>
                     <TextAreaContainer
                         name="message"
                         value={message}

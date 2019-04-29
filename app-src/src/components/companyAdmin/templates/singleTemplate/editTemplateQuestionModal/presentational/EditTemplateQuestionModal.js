@@ -21,7 +21,7 @@ const EditTemplateQuestionModal = ({
         <Form className="generic-form size-lg-12" onSubmit={handleSubmit}>
             <div className="dropdown-create size-lg-12">
                 {options.map(([id, text], i) => (
-                    <Field key={id} name={`Option ${i + 1}`}>
+                    <Field key={id} name={`Option ${i + 1}`} required>
                         <TextInputContainer
                             name={id}
                             value={text}

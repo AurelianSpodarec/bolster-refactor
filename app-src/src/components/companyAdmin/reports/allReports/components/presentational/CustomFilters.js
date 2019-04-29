@@ -36,6 +36,7 @@ const CustomFilter = ({
                         name={`Option ${i + 1}`}
                         key={option.id}
                         classes="option-item"
+                        required
                     >
                         {questionValues.length > 1 && (
                             <button

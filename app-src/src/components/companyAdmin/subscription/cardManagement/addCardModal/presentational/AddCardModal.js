@@ -25,7 +25,7 @@ const AddCardModal = ({
             <BlockHeading title="Add card" />
             <Form className="generic-form" onSubmit={handleSubmit}>
                 <div className="size-lg-6">
-                    <Field name="Card Nickname">
+                    <Field name="Card Nickname" required>
                         <TextInputContainer
                             handleChange={handleChange}
                             name={'nickname'}
@@ -37,7 +37,7 @@ const AddCardModal = ({
                     </Field>
                 </div>
                 <div className="size-lg-6">
-                    <Field name="Name on card">
+                    <Field name="Name on card" required>
                         <TextInputContainer
                             handleChange={handleChange}
                             name={'name'}
@@ -49,7 +49,7 @@ const AddCardModal = ({
                     </Field>
                 </div>
                 <div className="size-lg-12">
-                    <Field name="Card Number">
+                    <Field name="Card Number" required>
                         <TextInputContainer
                             handleChange={handleChange}
                             name={'cardNumber'}
@@ -61,7 +61,7 @@ const AddCardModal = ({
                     </Field>
                 </div>
                 <div className="size-lg-4">
-                    <Field name="Expiry Month">
+                    <Field name="Expiry Month" required>
                         <TextInputContainer
                             handleChange={handleChange}
                             name={'expiryMonth'}
@@ -74,7 +74,7 @@ const AddCardModal = ({
                     </Field>
                 </div>
                 <div className="size-lg-4">
-                    <Field name="Expiry Year">
+                    <Field name="Expiry Year" required>
                         <TextInputContainer
                             handleChange={handleChange}
                             name={'expiryYear'}
@@ -87,7 +87,7 @@ const AddCardModal = ({
                     </Field>
                 </div>
                 <div className="size-lg-4">
-                    <Field name="CV2">
+                    <Field name="CV2" required>
                         <TextInputContainer
                             handleChange={handleChange}
                             name={'CV2'}

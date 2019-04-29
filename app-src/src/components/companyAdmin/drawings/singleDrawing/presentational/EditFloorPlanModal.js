@@ -17,7 +17,7 @@ const EditFloorPlanModal = ({
     <ModalOuterContainer>
         <BlockHeading title="Upload a new floor plan." />
         <Form className="generic-form" onSubmit={handleSubmit}>
-            <Field name="Upload file">
+            <Field name="Upload file" required>
                 <FileUploadContainer
                     name="file"
                     value={file}

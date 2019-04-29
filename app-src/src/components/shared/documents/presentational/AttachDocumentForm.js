@@ -76,7 +76,7 @@ const AttachDocumentForm = ({
                 />
             </Field>
 
-            <Field name="Name of document" sizeClasses="size-lg-4">
+            <Field name="Name of document" sizeClasses="size-lg-4" required>
                 <TextInputContainer
                     value={name}
                     name="name"
@@ -89,7 +89,7 @@ const AttachDocumentForm = ({
 
             <div className="size-lg-12">
                 <div className="size-lg-6">
-                    <Field name="Upload PDF or image">
+                    <Field name="Upload PDF or image" required>
                         <FileUploadContainer
                             name="file"
                             acceptedTypes={['application/pdf', 'image/*']}
@@ -110,7 +110,7 @@ const AttachDocumentForm = ({
                 />
             </div>
             <div className="size-lg-12">
-                <Field name="Service types">
+                <Field name="Service types" required>
                     <CheckboxListContainer
                         required
                         name="serviceIDs"

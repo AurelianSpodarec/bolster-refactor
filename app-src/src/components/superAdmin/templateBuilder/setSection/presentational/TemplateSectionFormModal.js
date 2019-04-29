@@ -19,7 +19,7 @@ const TemplateSectionFormModal = ({
 
         <Form className="generic-form" onSubmit={handleSubmit}>
             <div className="size-lg-12">
-                <Field name="Section name">
+                <Field name="Section name" required>
                     <TextInputContainer
                         handleChange={handleChange}
                         name="name"

@@ -21,7 +21,7 @@ const AttachOperativeForm = ({
     <>
         <BlockHeading title="Operative details" />
         <Form className="generic-form size-lg-12" onSubmit={handleSubmit}>
-            <Field name="Select an operative" sizeClasses="size-lg-6">
+            <Field name="Select an operative" sizeClasses="size-lg-6" required>
                 <DropdownContainer
                     placeholder="-- select operative --"
                     name="companyUserID"
@@ -32,7 +32,7 @@ const AttachOperativeForm = ({
                 />
             </Field>
 
-            <Field name="Service types" sizeClasses="size-lg-12">
+            <Field name="Service types" sizeClasses="size-lg-12" required>
                 <CheckboxListContainer
                     required
                     name="serviceIDs"
