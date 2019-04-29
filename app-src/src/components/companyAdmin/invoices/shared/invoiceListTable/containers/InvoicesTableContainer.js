@@ -16,6 +16,7 @@ class InvoicesTableContainer extends Component {
                     'Type',
                     'Status',
                     '',
+                    'Ordered By',
                     'Action'
                 ]}
                 error={error}
