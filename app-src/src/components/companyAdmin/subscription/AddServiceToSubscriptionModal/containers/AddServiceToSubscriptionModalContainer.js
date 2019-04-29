@@ -78,10 +78,10 @@ class AddServiceToSubscriptionModalContainer extends Component {
             // success modal
             fetchAllSubscriptions();
             showModal(PAYMENT_SUCCESS, {
-                message: `Your order has been placed successfully and your new service ${
-                    paymentType === PAYMENT_IDS.CARD
-                        ? 'has been added for you to use immediately.'
-                        : 'will be available for use once the invoice has been paid.'
+                message: `Your order has been placed successfully. ${
+                    +paymentType === PAYMENT_IDS.CARD
+                        ? 'You can now use this service. If you would like a custom pin template, please call us on +44(0)161 873 7679.'
+                        : 'Your new service will be available for use once the invoice has been paid.'
                 }`
             });
         }
@@ -113,7 +113,7 @@ class AddServiceToSubscriptionModalContainer extends Component {
         const postBody = {
             paymentType,
             stripeCardID:
-                paymentType === PAYMENT_IDS.CARD ? stripeCardID : null,
+                +paymentType === PAYMENT_IDS.CARD ? stripeCardID : null,
             serviceIDs: [id]
         };
         addServiceToSubscription(postBody);
