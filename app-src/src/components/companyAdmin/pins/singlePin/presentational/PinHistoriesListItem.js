@@ -23,7 +23,13 @@ const PinHistoriesListItem = ({
 
         <FieldOutput
             title="History"
-            description={`${version} of ${historyCount}`}
+            description={`${version} of ${historyCount} ${
+                version === historyCount
+                    ? '(Latest)'
+                    : version == 1
+                    ? '(Earliest)'
+                    : ''
+            }`}
             sizeClass="size-lg-6"
         />
         <FieldOutput
