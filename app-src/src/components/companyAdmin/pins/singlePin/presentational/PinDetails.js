@@ -1,16 +1,19 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
-// import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-// import PinImagesContainer from '../containers/PinImagesContainer';
 import FieldOutput from 'components/shared/generic/fieldOutput/presentational/FieldOutput';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 
-// import { PIN_STATUS_TYPES as STATUS } from 'constants/companyAdmin/enums';
 import PinSectionsContainer from '../containers/PinSectionsContainer';
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 
-const PinDetails = ({ pin, pinHistory, user, services, handleDelete }) => (
+const PinDetails = ({
+    pin,
+    pinHistory,
+    user,
+    services,
+    handleDelete,
+    handleEdit
+}) => (
     <>
         <div className="size-lg-12">
             <FieldOutput
@@ -63,14 +66,9 @@ const PinDetails = ({ pin, pinHistory, user, services, handleDelete }) => (
             <button className="button red" onClick={handleDelete}>
                 <i className="icon fa fa-trash-alt" /> Delete history
             </button>
-            <Link
-                className="button yellow"
-                to={`/company/pins/${pinHistory.pinID}/edit-history/${
-                    pinHistory.id
-                }`}
-            >
+            <button className="button yellow" onClick={handleEdit}>
                 <i className="far fa-pencil" /> Edit history
-            </Link>
+            </button>
         </BlockButtonWrapper>
     </>
 );

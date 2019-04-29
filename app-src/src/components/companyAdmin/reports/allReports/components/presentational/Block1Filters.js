@@ -5,7 +5,7 @@ import LevelsFilterContainer from '../containers/LevelsFilterContainer';
 import OperativesFilterContainer from '../containers/OperativesFilterContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 
-const Block1Filters = ({ error, showErr }) => (
+const Block1Filters = ({ fieldError }) => (
     <div className="flex-item size-lg-6">
         <BlockContainer>
             <div className="size-lg-12">
@@ -13,12 +13,14 @@ const Block1Filters = ({ error, showErr }) => (
 
                 <LevelsFilterContainer />
                 <OperativesFilterContainer />
-                {showErr && !!error && (
+                {!!fieldError && (
                     <div
                         className="form-field size-lg-12"
                         style={{ minHeight: 0 }}
                     >
-                        <p className="error red-text text-accent-4">{error}</p>
+                        <p className="error red-text text-accent-4">
+                            {fieldError}
+                        </p>
                     </div>
                 )}
             </div>

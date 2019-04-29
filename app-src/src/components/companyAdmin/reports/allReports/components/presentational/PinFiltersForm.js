@@ -31,7 +31,7 @@ const PinFiltersForm = ({
     <Form className="size-lg-12" onSubmit={handleSubmit}>
         <FilterMapContainer />
         <div className="flex-container size-lg-12">
-            <Block1FiltersContainer />
+            <Block1FiltersContainer blockName="block1" />
             <div className="flex-item size-lg-6">
                 <BlockContainer>
                     <div className="size-lg-12">
