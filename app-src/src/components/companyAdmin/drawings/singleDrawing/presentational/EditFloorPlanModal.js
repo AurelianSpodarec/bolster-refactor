@@ -9,26 +9,20 @@ import FileUploadContainer from 'components/shared/generic/form/containers/FileU
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 
 const EditFloorPlanModal = ({
-    floorPlan,
+    file,
     handleChange,
     hideModal,
     handleSubmit
 }) => (
     <ModalOuterContainer>
         <BlockHeading title="Upload a new floor plan." />
-        <p className="generic-text intro-text size-lg-12">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat.
-        </p>
-
         <Form className="generic-form" onSubmit={handleSubmit}>
             <Field name="Upload file">
                 <FileUploadContainer
-                    name="floorPlan"
-                    value={floorPlan}
+                    name="file"
+                    value={file}
                     handleChange={handleChange}
+                    required
                 />
             </Field>
             <BlockButtonWrapper>

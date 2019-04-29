@@ -13,6 +13,7 @@ const CreditLogsTable = ({ creditLogs, isFetching, headers, error }) => (
             </Link>
         </BlockHeading>
         <Table
+            withActions
             headers={headers}
             isFetching={isFetching}
             error={error}

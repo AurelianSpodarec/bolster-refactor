@@ -35,7 +35,7 @@ class OperativesFilterContainer extends Component {
         } = this.props;
         if (operatives.length !== prevOps.length) {
             // remove operative if they're no longer available after filter update
-            const opIDs = operativeIDs.operativeIDs.filter(opID =>
+            const opIDs = operativeIDs.filter(opID =>
                 operatives.some(op => opID === op.id)
             );
 
