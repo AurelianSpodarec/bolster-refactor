@@ -77,20 +77,26 @@ export default function(ProtectedComponent) {
                 options: { showHidden, layout, sortBy },
                 postCustomFilters
             } = this.props;
-            const hierarchyType = drawingID
-                ? 'drawing'
-                : floorID
-                ? 'floor'
-                : buildingID
-                ? 'building'
-                : 'site';
-            const hierarchyID = drawingID
-                ? drawingID
-                : floorID
-                ? floorID
-                : buildingID
-                ? buildingID
-                : siteID;
+
+            let hierarchyType;
+            let hierarchyID;
+
+            if (siteID) {
+                hierarchyType = 'site';
+                hierarchyID = siteID;
+            }
+            if (buildingID) {
+                hierarchyID = 'building';
+                hierarchyID = buildingID;
+            }
+            if (floorID) {
+                hierarchyID = 'floor';
+                hierarchyID = floorID;
+            }
+            if (drawingID) {
+                hierarchyID = 'drawing';
+                hierarchyID = drawingID;
+            }
 
             const questionFilters = fields.map(
                 ({ selectedQuestions, questionValues }) => ({
