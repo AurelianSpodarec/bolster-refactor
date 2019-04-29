@@ -11,7 +11,7 @@ import BlockHeading from 'components/shared/generic/blockHeading/presentational/
 import deletePinHistory from 'actions/companyAdmin/pins/async/deletePinHistory';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
-import { CONFIRM_DELETE } from 'constants/shared/modalTypes';
+import { CONFIRM_DELETE, CONFIRM_EDIT_PIN } from 'constants/shared/modalTypes';
 import fetchSinglePin from 'actions/companyAdmin/pins/async/fetchSinglePin';
 import { isObjEmpty } from 'helpers/generic';
 
@@ -53,6 +53,7 @@ class PinDetailsContainer extends Component {
                     services={services}
                     pin={pin}
                     handleDelete={this.handleDeleteModal}
+                    handleEdit={this.handleEditModal}
                 />
             </BlockContainer>
         );
@@ -95,6 +96,14 @@ class PinDetailsContainer extends Component {
         if (!isObjEmpty(prevProps.pin) && isObjEmpty(pin)) {
             history.push(`/company/drawings/${drawingID}`);
         }
+    };
+
+    handleEditModal = () => {
+        const { showModal, selectedHistory } = this.props;
+        const editURL = `/company/pins/${selectedHistory.pinID}/edit-history/${
+            selectedHistory.id
+        }`;
+        showModal(CONFIRM_EDIT_PIN, { editURL });
     };
 
     handleDeleteModal = () => {

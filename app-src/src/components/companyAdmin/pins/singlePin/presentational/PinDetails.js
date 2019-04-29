@@ -10,7 +10,14 @@ import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/pr
 import PinSectionsContainer from '../containers/PinSectionsContainer';
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 
-const PinDetails = ({ pin, pinHistory, user, services, handleDelete }) => (
+const PinDetails = ({
+    pin,
+    pinHistory,
+    user,
+    services,
+    handleDelete,
+    handleEdit
+}) => (
     <>
         <div className="size-lg-12">
             <FieldOutput
@@ -63,14 +70,9 @@ const PinDetails = ({ pin, pinHistory, user, services, handleDelete }) => (
             <button className="button red" onClick={handleDelete}>
                 <i className="icon fa fa-trash-alt" /> Delete history
             </button>
-            <Link
-                className="button yellow"
-                to={`/company/pins/${pinHistory.pinID}/edit-history/${
-                    pinHistory.id
-                }`}
-            >
+            <button className="button yellow" onClick={handleEdit}>
                 <i className="far fa-pencil" /> Edit history
-            </Link>
+            </button>
         </BlockButtonWrapper>
     </>
 );
