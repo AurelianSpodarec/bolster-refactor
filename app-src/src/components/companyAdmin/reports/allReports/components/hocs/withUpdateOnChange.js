@@ -86,15 +86,15 @@ export default function(ProtectedComponent) {
                 hierarchyID = siteID;
             }
             if (buildingID) {
-                hierarchyID = 'building';
+                hierarchyType = 'building';
                 hierarchyID = buildingID;
             }
             if (floorID) {
-                hierarchyID = 'floor';
+                hierarchyType = 'floor';
                 hierarchyID = floorID;
             }
             if (drawingID) {
-                hierarchyID = 'drawing';
+                hierarchyType = 'drawing';
                 hierarchyID = drawingID;
             }
 

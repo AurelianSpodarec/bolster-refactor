@@ -1,13 +1,9 @@
 import React, { Component } from 'react';
 
-import withUpdateOnChange from '../hocs/withUpdateOnChange';
-
-import LevelsSitesFilters from '../presentational/LevelsSitesFilters';
 import { convertArrToObj } from 'helpers/generic';
 
-import LevelsBuildingsFilters from '../presentational/LevelsBuildingsFilters';
-import LevelsFloorsFilters from '../presentational/LevelsFloorsFilters';
-import LevelsDrawingsFilters from '../presentational/LevelsDrawingsFilters';
+import withUpdateOnChange from '../hocs/withUpdateOnChange';
+import LevelFilters from '../presentational/LevelFilters';
 
 class LevelsFilterContainer extends Component {
     render() {
@@ -20,50 +16,22 @@ class LevelsFilterContainer extends Component {
         } = this.props;
 
         const sitesOptions = this._formatArrForDropdown(sites);
-        const selectedSite = sitesOptions[siteID];
         const buildingOptions = this._formatArrForDropdown(buildings);
-        const selectedBuilding = buildingOptions[buildingID];
         const floorOptions = this._formatArrForDropdown(floors);
-        const selectedFloor = floorOptions[floorID];
         const drawingOptions = this._formatArrForDropdown(drawings);
-        const selectedDrawing = drawingOptions[drawingID];
 
         return (
-            <div className="levels-filter size-lg-12">
-                <div className="generic-form">
-                    <LevelsSitesFilters
-                        classes="active"
-                        sitesOptions={Object.values(sitesOptions)}
-                        selectedSite={selectedSite}
-                        handleChange={this.handleChange}
-                    />
-
-                    <LevelsBuildingsFilters
-                        classes={selectedSite ? 'active' : ''}
-                        buildingOptions={Object.values(buildingOptions)}
-                        handleChange={this.handleChange}
-                        selectedBuilding={selectedBuilding}
-                    />
-
-                    <LevelsFloorsFilters
-                        classes={selectedBuilding ? 'active' : ''}
-                        floorOptions={Object.values(floorOptions)}
-                        handleChange={this.handleChange}
-                        selectedFloor={selectedFloor}
-                    />
-
-                    <LevelsDrawingsFilters
-                        classes={
-                            !!selectedFloor && !!selectedBuilding
-                                ? 'active'
-                                : ''
-                        }
-                        drawingOptions={Object.values(drawingOptions)}
-                        handleChange={this.handleChange}
-                        selectedDrawing={selectedDrawing}
-                    />
-                </div>
-            </div>
+            <LevelFilters
+                handleChange={this.handleChange}
+                siteOptions={Object.values(sitesOptions)}
+                selectedSite={sitesOptions[siteID]}
+                buildingOptions={Object.values(buildingOptions)}
+                selectedBuilding={buildingOptions[buildingID]}
+                floorOptions={Object.values(floorOptions)}
+                selectedFloor={floorOptions[floorID]}
+                drawingOptions={Object.values(drawingOptions)}
+                selectedDrawing={drawingOptions[drawingID]}
+            />
         );
     }
 
