@@ -3,7 +3,6 @@ import { Route } from 'react-router-dom';
 
 import SwitchWith404 from 'components/appRoute/routes/presentational/SwitchWith404';
 import AllSitesContainer from 'components/companyAdmin/sites/allSites/containers/AllSitesContainer';
-import AddSite from 'components/companyAdmin/sites/addSite/presentational/AddSite';
 import SingleSiteContainer from 'components/companyAdmin/sites/singleSite/containers/SingleSiteContainer';
 import ChangeSiteOwnership from 'components/companyAdmin/sites/changeSiteOwnership/presentational/ChangeSiteOwnership';
 import AttachSiteOperative from 'components/companyAdmin/sites/attachSiteOperative/presentational/AttachSiteOperative';
@@ -18,7 +17,6 @@ import AddCompanyPermissionsToSite from 'components/companyAdmin/sites/addCompan
 const SitesRoutes = ({ base = '/company/sites' }) => (
     <SwitchWith404>
         <Route exact path={`${base}`} component={AllSitesContainer} />
-        <Route exact path={`${base}/create`} component={AddSite} />
         <Route exact path={`${base}/:id`} component={SingleSiteContainer} />
         <Route exact path={`${base}/:id/edit`} component={SiteEditContainer} />
         <Route
