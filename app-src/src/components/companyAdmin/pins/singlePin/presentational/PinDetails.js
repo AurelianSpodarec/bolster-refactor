@@ -1,12 +1,8 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
-// import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-// import PinImagesContainer from '../containers/PinImagesContainer';
 import FieldOutput from 'components/shared/generic/fieldOutput/presentational/FieldOutput';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 
-// import { PIN_STATUS_TYPES as STATUS } from 'constants/companyAdmin/enums';
 import PinSectionsContainer from '../containers/PinSectionsContainer';
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 
