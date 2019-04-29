@@ -4,17 +4,16 @@ import Field from 'components/shared/generic/form/presentational/Field';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import Form from 'components/shared/generic/form/containers/Form';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
-import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 
-const SiteEditForm = ({
+const AddSiteForm = ({
     handleSubmit,
     handleInputChange,
+    hideModal,
     name,
     client,
     addressLine1,
     addressLine2,
-    postcode,
-    siteID
+    postcode
 }) => (
     <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
         <div className="size-lg-12">
@@ -78,12 +77,14 @@ const SiteEditForm = ({
         </div>
 
         <BlockButtonWrapper>
-            <button className="button green">Confirm</button>
-            <ButtonContainer to={`/company/sites/${siteID}`}>
+            <button className="button green">
+                <i className="fa fa-plus" /> Add Site
+            </button>
+            <button className="button red" onClick={hideModal}>
+                <i className="fa fa-times" />
                 Cancel
-            </ButtonContainer>
+            </button>
         </BlockButtonWrapper>
     </Form>
 );
-
-export default SiteEditForm;
+export default AddSiteForm;

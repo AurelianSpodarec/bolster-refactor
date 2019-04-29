@@ -4,7 +4,7 @@ import TextInputContainer from 'components/shared/generic/form/containers/TextIn
 
 const TextInputForm = ({ handleInputChange, charLimit }) => (
     <>
-        <Field name="Character limit">
+        <Field name="Character limit" required>
             <TextInputContainer
                 name="charLimit"
                 value={charLimit}

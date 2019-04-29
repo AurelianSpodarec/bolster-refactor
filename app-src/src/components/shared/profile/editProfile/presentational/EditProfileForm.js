@@ -26,7 +26,7 @@ const EditProfileForm = ({
         <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
             <div className="size-lg-12">
                 <div className="size-lg-6">
-                    <Field name="First Name">
+                    <Field name="First Name" required>
                         <TextInputContainer
                             name="firstName"
                             value={firstName}
@@ -36,11 +36,12 @@ const EditProfileForm = ({
                     </Field>
                 </div>
                 <div className="size-lg-6">
-                    <Field name="Email">
+                    <Field name="Email" required>
                         <TextInputContainer
                             value={email}
                             name="email"
                             handleChange={handleInputChange}
+                            required
                         />
                     </Field>
                 </div>
@@ -48,7 +49,7 @@ const EditProfileForm = ({
 
             <div className="size-lg-12">
                 <div className="size-lg-6">
-                    <Field name="Last Name">
+                    <Field name="Last Name" required>
                         <TextInputContainer
                             value={lastName}
                             name="lastName"
@@ -59,7 +60,7 @@ const EditProfileForm = ({
                 </div>
 
                 <div className="size-lg-6">
-                    <Field name="Phone Number">
+                    <Field name="Phone Number" required>
                         <TextInputContainer
                             value={phoneNumber}
                             name="phoneNumber"
@@ -69,7 +70,7 @@ const EditProfileForm = ({
                     </Field>
                 </div>
                 <div className="size-lg-6">
-                    <Field name="Upload New Profile Image (optional)">
+                    <Field name="Upload New Profile Image">
                         <FileUploadContainer
                             name="profileImageS3Key"
                             value={profileImageS3Key}

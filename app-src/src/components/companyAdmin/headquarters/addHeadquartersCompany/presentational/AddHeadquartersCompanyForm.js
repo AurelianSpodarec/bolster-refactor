@@ -42,7 +42,7 @@ const AddHeadquartersCompanyForm = ({
         <BlockHeading title="Company information" />
         <div className="size-lg-12">
             <div className="size-lg-6">
-                <Field reqiured={true} name="Company name">
+                <Field name="Company name" required>
                     <TextInputContainer
                         name="Company.name"
                         value={name}
@@ -54,7 +54,7 @@ const AddHeadquartersCompanyForm = ({
         </div>
         <div className="size-lg-12">
             <div className="size-lg-6">
-                <Field reqiured={true} name="Address">
+                <Field name="Address" required>
                     <TextInputContainer
                         name="Company.addressLine1"
                         value={addressLine1}
@@ -64,7 +64,7 @@ const AddHeadquartersCompanyForm = ({
                 </Field>
             </div>
             <div className="size-lg-6">
-                <Field reqiured={true} name="Town">
+                <Field name="Town" required>
                     <TextInputContainer
                         name="Company.town"
                         value={town}
@@ -74,7 +74,7 @@ const AddHeadquartersCompanyForm = ({
                 </Field>
             </div>
             <div className="size-lg-6">
-                <Field reqiured={true} name="Postcode">
+                <Field name="Postcode" required>
                     <TextInputContainer
                         name="Company.postcode"
                         value={postcode}
@@ -86,7 +86,7 @@ const AddHeadquartersCompanyForm = ({
         </div>
         <div className="size-lg-12">
             <div className="size-lg-6">
-                <Field reqiured={true} name="VAT Type">
+                <Field name="VAT Type" required>
                     <NewSelect
                         options={vatOptions}
                         value={vatType}
@@ -99,7 +99,10 @@ const AddHeadquartersCompanyForm = ({
             </div>
             <div className="size-lg-6">
                 {vatType !== VAT_TYPES.OUTSIDEEU && (
-                    <Field reqiured={true} name="VAT Code">
+                    <Field
+                        name="VAT Code"
+                        required={vatType !== VAT_TYPES.OUTSIDEEU}
+                    >
                         <TextInputContainer
                             name="Company.vatCode"
                             value={vatCode}
@@ -110,16 +113,17 @@ const AddHeadquartersCompanyForm = ({
                 )}
             </div>
             <div className="size-lg-12">
-                <Field reqiured={true} name="Timezone">
+                <Field name="Timezone" required>
                     <NewSelect
                         options={timezoneOptions}
                         value={timezone}
                         onChange={handleDropDown}
                         name="Company.timezone"
                         singleSelect
+                        required
                     />
                 </Field>
-                <Field reqiured={true} name="Date format">
+                <Field name="Date format" required>
                     <NewSelect
                         options={dateFormats}
                         value={dateFormatID}
@@ -135,62 +139,68 @@ const AddHeadquartersCompanyForm = ({
         <BlockHeading title="Company user information" />
         <div className="size-lg-12">
             <div className="size-lg-6">
-                <Field reqiured={true} name="First name">
+                <Field name="First name" required>
                     <TextInputContainer
                         name="User.firstName"
                         value={firstName}
                         handleChange={handleChange}
+                        required
                     />
                 </Field>
             </div>
             <div className="size-lg-6">
-                <Field reqiured={true} name="Last name">
+                <Field name="Last name" required>
                     <TextInputContainer
                         name="User.lastName"
                         value={lastName}
                         handleChange={handleChange}
+                        required
                     />
                 </Field>
             </div>
             <div className="size-lg-6">
-                <Field reqiured={true} name="E-mail Address">
+                <Field name="Email Address" required>
                     <TextInputContainer
                         name="User.email"
                         value={email}
                         handleChange={handleChange}
                         type="email"
+                        required
                     />
                 </Field>
             </div>
             <div className="size-lg-6">
-                <Field reqiured={true} name="Phone number">
+                <Field name="Phone number" required>
                     <TextInputContainer
                         name="Company.phoneNumber"
                         value={phoneNumber}
                         handleChange={handleChange}
+                        required
                     />
                 </Field>
             </div>
             <div className="size-lg-12">
                 <div className="size-lg-6">
-                    <Field reqiured={true} name="Password">
+                    <Field name="Password" required>
                         <TextInputContainer
                             name="User.password"
                             value={password}
                             handleChange={handleChange}
                             type="password"
                             validate={validatePassword}
+                            required
                         />
                     </Field>
                 </div>
                 <div className="size-lg-6">
-                    <Field reqiured={true} name="Confirm password">
+                    <Field name="Confirm password" required>
                         <TextInputContainer
                             name="confirmPassword"
                             value={confirmPassword}
                             handleChange={handleChange}
                             type="password"
                             validate={validateConfirmPassword}
+                            required
                         />
                     </Field>
                 </div>

@@ -22,7 +22,7 @@ const ChangeOwnershipForm = ({
         />
         <BlockContainer>
             <Form className="generic-form" onSubmit={handleSubmit}>
-                <Field name="Company code" sizeClasses="size-lg-6">
+                <Field name="Company code" sizeClasses="size-lg-6" required>
                     <TextInputContainer
                         value={companyCode}
                         name="companyCode"

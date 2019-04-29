@@ -25,24 +25,25 @@ const DrawingInspectionLogsTable = ({
                     />
                 </div>
             </BlockHeading>
-            <Table
-                headers={['Pin ID', 'Status', 'Actions']}
-                isFetching={isFetching}
-                error={error}
-                noData={!pins.length}
-                noDataMessage="No inspection logs to display"
-                withActions
-            >
-                {[...pins]
-                    .sort((a, b) => moment(b.updated) - moment(a.updated))
-                    .slice(0, 2)
-                    .map(pin => (
-                        <DrawingInspectionLogsListItem
-                            key={pin.id}
-                            pin={pin}
-                        />
-                    ))}
-            </Table>
+            <div className="inspection-log-table">
+                <Table
+                    headers={['Pin ID', 'Status', 'Actions']}
+                    isFetching={isFetching}
+                    error={error}
+                    noData={!pins.length}
+                    noDataMessage="No inspection logs to display"
+                    withActions
+                >
+                    {[...pins]
+                        .sort((a, b) => moment(b.updated) - moment(a.updated))
+                        .map(pin => (
+                            <DrawingInspectionLogsListItem
+                                key={pin.id}
+                                pin={pin}
+                            />
+                        ))}
+                </Table>
+            </div>
         </div>
     </BlockContainer>
 );

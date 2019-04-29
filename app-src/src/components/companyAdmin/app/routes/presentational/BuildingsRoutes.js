@@ -6,7 +6,6 @@ import SingleBuildingContainer from 'components/companyAdmin/buildings/singleBui
 import AttachBuildingOperative from 'components/companyAdmin/buildings/attachBuildingOperative/presentational/AttachBuildingOperative';
 import InviteClientToBuilding from 'components/companyAdmin/buildings/inviteClientToBuilding/presentational/InviteClientToBuilding';
 import InviteCompanyToBuilding from 'components/companyAdmin/buildings/inviteCompanyToBuilding/presentational/InviteCompanyToBuilding';
-import CreateBuilding from 'components/companyAdmin/buildings/createBuilding/presentational/CreateBuilding';
 import BuildingClientAccessContainer from 'components/companyAdmin/buildings/singleBuilding/containers/BuildingClientAccessContainer';
 import BuildingEditContainer from 'components/companyAdmin/buildings/singleBuilding/containers/BuildingEditContainer';
 import AttachBuildingDocument from 'components/companyAdmin/buildings/attachBuildingDocument/presentational/AttachBuildingDocument';
@@ -17,7 +16,6 @@ import AddCompanyPermissionsToBuilding from 'components/companyAdmin/buildings/a
 const BuildingRoutes = ({ base = '/company/buildings' }) => (
     <SwitchWith404>
         <Route exact path={`${base}/:id`} component={SingleBuildingContainer} />
-        <Route exact path={`${base}/create/:id`} component={CreateBuilding} />
         <Route
             exact
             path={`${base}/:id/edit`}

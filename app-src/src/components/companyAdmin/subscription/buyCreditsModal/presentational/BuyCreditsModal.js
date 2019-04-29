@@ -50,7 +50,7 @@ const BuyCreditsModal = ({
                     />
                 </Field>
                 {+paymentType === PAYMENT_IDS.CARD && !noCards && (
-                    <Field sizeClasses="size-lg-12" name="Select Card">
+                    <Field sizeClasses="size-lg-12" name="Select Card" required>
                         <DropdownContainer
                             required
                             name="stripeCardID"
@@ -66,7 +66,7 @@ const BuyCreditsModal = ({
                         />
                     </Field>
                 )}
-                <Field name="Credits to buy" sizeClasses="size-lg-12">
+                <Field name="Credits to buy" sizeClasses="size-lg-12" required>
                     <TextInputContainer
                         name="creditsToBuy"
                         value={creditsToBuy}

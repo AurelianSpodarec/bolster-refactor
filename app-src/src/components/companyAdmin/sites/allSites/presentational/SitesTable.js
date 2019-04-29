@@ -1,18 +1,17 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
 import Table from 'components/shared/generic/tables/presentational/Table';
 import SitesList from './SitesList';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 
-const SitesTable = ({ headers, sites, isFetching, error }) => {
+const SitesTable = ({ headers, sites, isFetching, error, handleAddSite }) => {
     return (
         <BlockContainer>
             <BlockHeading title="Sites" classes="w-table">
-                <Link to="/company/sites/create" className="button green">
+                <button onClick={handleAddSite} className="button green">
                     <i className="fa fa-plus" /> Add site
-                </Link>
+                </button>
             </BlockHeading>
 
             <Table

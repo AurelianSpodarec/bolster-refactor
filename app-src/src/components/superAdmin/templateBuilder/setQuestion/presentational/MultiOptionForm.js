@@ -15,7 +15,7 @@ const MultiOptionForm = ({
     <div className="dropdown-create size-lg-12">
         {options.map((option, i) => {
             return (
-                <Field key={option.id} name={`Option ${i + 1}`}>
+                <Field key={option.id} name={`Option ${i + 1}`} required>
                     {options.length > 1 && (
                         <button
                             className="button red icon-only delete-question"

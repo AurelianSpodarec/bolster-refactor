@@ -12,7 +12,7 @@ const EditServiceModal = ({ name, handleChange, handleSubmit, hideModal }) => (
 
         <Form className="generic-form" onSubmit={handleSubmit}>
             <div className="size-lg-6">
-                <Field name="Service name">
+                <Field name="Service name" required>
                     <TextInputContainer
                         handleChange={handleChange}
                         name="name"

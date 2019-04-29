@@ -20,7 +20,7 @@ const EditCompanyUserPassword = ({
     <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
         <div className="size-lg-12">
             <div className="size-lg-6">
-                <Field name="Enter Password">
+                <Field name="Enter Password" required>
                     <TextInputContainer
                         value={password}
                         name="password"
@@ -30,7 +30,7 @@ const EditCompanyUserPassword = ({
                         validate={validatePassword}
                     />
                 </Field>
-                <Field name="Confirm Password">
+                <Field name="Confirm Password" required>
                     <TextInputContainer
                         value={confirmPassword}
                         name="confirmPassword"

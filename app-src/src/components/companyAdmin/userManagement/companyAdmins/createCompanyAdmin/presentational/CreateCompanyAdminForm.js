@@ -20,7 +20,7 @@ const CreateCompanyAdminForm = ({
     <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
         <div className="size-lg-12">
             <div className="size-lg-6">
-                <Field name="First name">
+                <Field name="First name" required>
                     <TextInputContainer
                         name="firstName"
                         value={firstName}
@@ -30,7 +30,7 @@ const CreateCompanyAdminForm = ({
                 </Field>
             </div>
 
-            <div className="size-lg-6">
+            <div className="size-lg-6" required>
                 <Field name="Last name">
                     <TextInputContainer
                         value={lastName}
@@ -44,7 +44,7 @@ const CreateCompanyAdminForm = ({
 
         <div className="size-lg-12">
             <div className="size-lg-6">
-                <Field name="E-mail address">
+                <Field name="Email address" required>
                     <TextInputContainer
                         value={email}
                         name="email"
@@ -55,7 +55,7 @@ const CreateCompanyAdminForm = ({
             </div>
 
             <div className="size-lg-6">
-                <Field name="Phone number">
+                <Field name="Phone number" required>
                     <TextInputContainer
                         value={phoneNumber}
                         name="phoneNumber"
@@ -66,7 +66,7 @@ const CreateCompanyAdminForm = ({
             </div>
 
             <div className="size-lg-6">
-                <Field name="Password">
+                <Field name="Password" required>
                     <TextInputContainer
                         value={password}
                         name="password"
@@ -79,7 +79,7 @@ const CreateCompanyAdminForm = ({
             </div>
 
             <div className="size-lg-6">
-                <Field name="Confirm Password">
+                <Field name="Confirm Password" required>
                     <TextInputContainer
                         value={confirmPassword}
                         name="confirmPassword"

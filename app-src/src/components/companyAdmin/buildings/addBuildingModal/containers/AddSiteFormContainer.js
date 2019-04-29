@@ -4,6 +4,7 @@ import { withRouter } from 'react-router-dom';
 
 import AddSiteForm from '../presentational/AddSiteForm';
 import createSite from 'actions/companyAdmin/sites/async/createSite';
+import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 
 class AddSiteFormContainer extends Component {
     state = {
@@ -20,6 +21,7 @@ class AddSiteFormContainer extends Component {
                 {...this.state}
                 handleInputChange={this.handleInputChange}
                 handleSubmit={this.handleSubmit}
+                hideModal={this.props.hideModal}
             />
         );
     }
@@ -42,12 +44,14 @@ class AddSiteFormContainer extends Component {
 
     handleSubmit = e => {
         e.preventDefault();
+        const { hideModal, createSite } = this.props;
 
         const postBody = {
             ...this.state
         };
 
-        this.props.createSite(postBody);
+        createSite(postBody);
+        hideModal();
     };
 }
 
@@ -60,6 +64,9 @@ const mapStateToProps = ({ companyAdmin: { sitesReducer } }) => ({
 const mapDispatchToProps = dispatch => ({
     createSite: postBody => {
         dispatch(createSite(postBody));
+    },
+    hideModal: () => {
+        dispatch(hideModal());
     }
 });
 

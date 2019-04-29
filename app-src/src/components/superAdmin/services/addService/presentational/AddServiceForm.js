@@ -9,7 +9,7 @@ import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/pr
 const AddServiceForm = ({ handleSubmit, handleInputChange, name }) => (
     <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
         <div className="size-lg-6">
-            <Field name="Service Name">
+            <Field name="Service Name" required>
                 <TextInputContainer
                     name="name"
                     value={name}

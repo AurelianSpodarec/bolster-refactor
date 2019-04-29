@@ -291,6 +291,7 @@ class AddPinQuestionRoute extends Component {
                     key={question.id}
                     name={question.name}
                     sizeClasses="size-lg-6"
+                    required={question.isRequired}
                 >
                     <SpecificField
                         question={question}

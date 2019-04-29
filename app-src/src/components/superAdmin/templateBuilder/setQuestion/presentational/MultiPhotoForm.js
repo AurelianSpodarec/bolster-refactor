@@ -4,7 +4,7 @@ import Field from 'components/shared/generic/form/presentational/Field';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 
 const MultiPhotoForm = ({ handleInputChange, maxPhotos }) => (
-    <Field name="Maximum files">
+    <Field name="Maximum files" required>
         <TextInputContainer
             name="maxPhotos"
             value={maxPhotos}

@@ -9,7 +9,7 @@ const TestFileUploadForm = ({ handleSubmit, handleChange, file }) => (
     <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
         <div className="size-lg-12">
             <div className="size-lg-6">
-                <Field name="Upload">
+                <Field name="Upload" required>
                     <TestFileUploadContainer
                         required
                         name="file"
