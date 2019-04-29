@@ -120,7 +120,9 @@ const EditDocumentForm = ({
                                     handleChange={handleFileChange}
                                     required
                                 />
-                                <ButtonContainer onClick={handleCancelUpload}>
+                                <ButtonContainer
+                                    handleClick={handleCancelUpload}
+                                >
                                     Cancel File Replace
                                 </ButtonContainer>
                             </Field>

@@ -29,7 +29,9 @@ const EditFloorPlanModal = ({
                 <button className="button green" type="submit">
                     Update
                 </button>
-                <ButtonContainer onClick={hideModal}>Cancel</ButtonContainer>
+                <ButtonContainer handleClick={hideModal}>
+                    Cancel
+                </ButtonContainer>
             </BlockButtonWrapper>
         </Form>
     </ModalOuterContainer>
