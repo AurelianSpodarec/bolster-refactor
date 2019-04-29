@@ -45,7 +45,7 @@ const HeaderProfile = ({
                 <i className="icon fas fa-chevron-right" />
             </Link>
             <Link to="/company/subscription" className="item">
-                Manage Subscription
+                Account Overview
                 <i className="icon fas fa-chevron-right" />
             </Link>
             <Link to="/company/invoices" className="item">
