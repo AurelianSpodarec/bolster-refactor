@@ -92,19 +92,19 @@ const DrawingMapViewSimple = ({
                                     }
                                 >
                                     <i className="fa fa-download" /> Download
-                                    Floor Plan
+                                    original drawing
                                 </button>
-                                <button
-                                    className="button yellow"
-                                    onClick={() =>
-                                        showModal(EDIT_FLOOR_PLAN, { drawing })
-                                    }
-                                >
-                                    <i className="far fa-pencil fa-fw" /> Edit
-                                    Floor Plan
-                                </button>{' '}
                             </>
                         )}
+
+                        <button
+                            className="button yellow"
+                            onClick={() =>
+                                showModal(EDIT_FLOOR_PLAN, { drawing })
+                            }
+                        >
+                            <i className="far fa-pencil fa-fw" /> Edit drawing
+                        </button>
                     </BlockHeading>
                     <Map
                         center={position}
