@@ -6,9 +6,6 @@ const NewSelect = ({ options, value, onChange, name, singleSelect }) => {
     return (
         <div className={singleSelect ? 'single-select' : ''}>
             <MultiSelect
-                overrideStrings={{
-                    selectAll: singleSelect ? '--- select single ---' : ''
-                }}
                 name
                 options={options}
                 selected={singleSelect ? [value] : value}
@@ -32,6 +29,13 @@ const NewSelect = ({ options, value, onChange, name, singleSelect }) => {
     function renderSelected(selected, options) {
         if (!options.length) {
             return <span>No items available</span>;
+        }
+        if (!(selected && selected.length)) {
+            if (singleSelect) {
+                return <span>--- Select an Option ---</span>;
+            }
+
+            return <span>--- Select Options ---</span>;
         }
     }
 };
