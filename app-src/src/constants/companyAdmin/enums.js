@@ -149,9 +149,9 @@ export const FURTHER_FILTRATION = {
 };
 
 export const NUMBER_OF_HISTORIES = {
+    3: 'All',
     1: 'Latest',
-    2: 'Earliest',
-    3: 'All'
+    2: 'Earliest'
 };
 
 export const SORT_BY = {
