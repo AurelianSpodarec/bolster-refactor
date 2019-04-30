@@ -32,7 +32,8 @@ import {
     CONFIRM_SUBMIT,
     EDIT_FLOOR_PLAN,
     CONFIRM_EDIT_PIN,
-    ADD_SITE
+    ADD_SITE,
+    ADD_BUILDING
 } from 'constants/shared/modalTypes';
 
 import AddCardModalContainer from 'components/companyAdmin/subscription/cardManagement/addCardModal/containers/AddCardModalContainer';
@@ -66,6 +67,7 @@ import PaymentSuccessModalContainer from './PaymentSuccessModalContainer';
 import EditFloorPlanModalContainer from 'components/companyAdmin/drawings/singleDrawing/containers/EditFloorPlanModalContainer';
 import ConfirmEditPinModalContainer from 'components/companyAdmin/pins/confirmEditPinModal/containers/ConfirmEditPinModalContainer';
 import AddSiteModal from 'components/companyAdmin/sites/addSiteModal/presentational/AddSiteModal';
+import CreateBuildingModal from 'components/companyAdmin/buildings/addBuildingModal/presentational/CreateBuildingModal';
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModalContainer,
@@ -98,7 +100,8 @@ const MODAL_COMPONENTS = {
     [SUCCESS_MODAL]: SuccessModalContainer.WrappedComponent,
     [EDIT_FLOOR_PLAN]: EditFloorPlanModalContainer,
     [CONFIRM_EDIT_PIN]: ConfirmEditPinModalContainer,
-    [ADD_SITE]: AddSiteModal
+    [ADD_SITE]: AddSiteModal,
+    [ADD_BUILDING]: CreateBuildingModal
 };
 
 const ModalRoot = ({ modalType, modalProps }) => {

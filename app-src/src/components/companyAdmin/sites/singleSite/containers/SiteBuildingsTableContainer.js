@@ -17,7 +17,7 @@ class SiteBuildingsTableContainer extends Component {
                 <BlockHeading title="Buildings" classes="w-table">
                     <button
                         className="button green"
-                        to={`/company/buildings/create/${site.id}`}
+                        onClick={this.handleAddBuildingModal}
                     >
                         <i className="fa fa-plus" /> Add building
                     </button>
@@ -29,10 +29,10 @@ class SiteBuildingsTableContainer extends Component {
 
     handleAddBuildingModal = () => {
         const {
-            showModal,
-            site: { id }
+            showModal
+            // site: { id }
         } = this.props;
-        showModal(ADD_BUILDING, { id });
+        showModal(ADD_BUILDING);
     };
 }
 
