@@ -53,7 +53,18 @@ class PinSelectorContainer extends Component {
         handleChange('pinID', pinIDs);
     };
 
-    handleAddExcluded = () => {};
+    handleAddExcluded = () => {
+        const { selectedPinOptions, pinOptions } = this.state;
+        const { handleChange } = this.props;
+        const pinIDs = pinOptions.reduce(
+            (acc, { included, value }) =>
+                included && !selectedPinOptions.includes(value)
+                    ? [...acc, value]
+                    : acc,
+            []
+        );
+        handleChange('pinID', pinIDs);
+    };
 
     handleSubmit = () => {
         const { selectedPinOptions, pinOptions } = this.state;

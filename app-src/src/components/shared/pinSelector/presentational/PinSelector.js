@@ -3,6 +3,7 @@ import BlockHeading from 'components/shared/generic/blockHeading/presentational/
 import Field from 'components/shared/generic/form/presentational/Field';
 import ExcludedBox from './ExcludedBox';
 import IncludedBox from './IncludedBox';
+import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 
 const PinSelector = ({
     excludedPins,
@@ -27,6 +28,12 @@ const PinSelector = ({
                         handlePinClick={handlePinClick}
                     />
                 </Field>
+            </div>
+            {/* ##needs css## */}
+            <div className="size-lg-2">
+                <ButtonContainer>
+                    <i className="fa fa-arrow-left" />
+                </ButtonContainer>
             </div>
             <div className="size-lg-4">
                 <Field name="Included">
