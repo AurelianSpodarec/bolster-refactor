@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import PinSelector from '../presentational/PinSelector';
-import withUpdateOnChange from 'components/companyAdmin/reports/allReports/components/hocs/withUpdateOnChange';
+import withUpdateOnChange from 'components/companyAdmin/reports/createReport/components/hocs/withUpdateOnChange';
 
 class PinSelectorContainer extends Component {
     state = {
@@ -25,6 +25,8 @@ class PinSelectorContainer extends Component {
                 handlePinClick={this.handlePinClick}
                 handleSubmit={this.handleSubmit}
                 selectedPinOptions={this.state.selectedPinOptions}
+                handleAddExcluded={this.handleAddExcluded}
+                handleAddIncluded={this.handleAddIncluded}
             />
         );
     }
@@ -40,15 +42,52 @@ class PinSelectorContainer extends Component {
         });
     };
 
-    handleAddIncluded = () => {};
+    handleAddIncluded = () => {
+        const { selectedPinOptions, pinOptions: oldOptions } = this.state;
+        const { handleChange } = this.props;
+        const pinOptions = Object.values(oldOptions).map(option => ({
+            ...option,
+            included:
+                option.included || selectedPinOptions.includes(option.value)
+        }));
+        const pinIDs = pinOptions.reduce(
+            (acc, { included, value }) => (included ? [...acc, value] : acc),
+            []
+        );
+        this.setState({
+            pinOptions,
+            selectedPinOptions: selectedPinOptions.filter(
+                id => !pinIDs.includes(id)
+            )
+        });
 
-    handleAddExcluded = () => {};
+        handleChange('pinIDs', pinIDs);
+    };
+
+    handleAddExcluded = () => {
+        const { selectedPinOptions, pinOptions: oldOptions } = this.state;
+        const { handleChange } = this.props;
+        const pinOptions = Object.values(oldOptions).map(option => ({
+            ...option,
+            included:
+                option.included && !selectedPinOptions.includes(option.value)
+        }));
+        const pinIDs = pinOptions.reduce(
+            (acc, { included, value }) => (included ? [...acc, value] : acc),
+            []
+        );
+        this.setState({
+            pinOptions,
+            selectedPinOptions: selectedPinOptions.filter(id =>
+                pinIDs.includes(id)
+            )
+        });
+        handleChange('pinIDs', pinIDs);
+    };
 
     handleSubmit = () => {
         const { selectedPinOptions, pinOptions } = this.state;
-        const { handleChange } = this.props;
-
-        const setPinInclude = Object.values(pinOptions).map(
+        const setIncludes = Object.values(pinOptions).map(
             ({ included, ...pin }) => ({
                 ...pin,
                 included: selectedPinOptions.includes(pin.value)
@@ -56,11 +95,13 @@ class PinSelectorContainer extends Component {
                     : included
             })
         );
-        const selectedPinIDs = setPinInclude
-            .filter(({ included }) => included)
-            .map(({ value }) => value);
-        handleChange('pinIDs', selectedPinIDs);
-        this.setState({ pinOptions: setPinInclude, selectedPinOptions: [] });
+        const pinIDs = setIncludes.reduce(
+            (acc, { included, value }) => (included ? [...acc, value] : acc),
+            []
+        );
+
+        this.props.handleChange('pinIDs', pinIDs);
+        this.setState({ pinOptions: setIncludes, selectedPinOptions: [] });
     };
 
     componentDidMount = () => {
@@ -90,8 +131,7 @@ class PinSelectorContainer extends Component {
     };
 
     _setPinOptions = () => {
-        const { customFilters } = this.props;
-        const pinOptions = customFilters.pins.reduce(
+        const pinOptions = this.props.customFilters.pins.reduce(
             (acc, { id: value, pinCode: text, status }) => ({
                 ...acc,
                 [value]: { value, text, status, included: true }

@@ -11,6 +11,8 @@ import addFilterQuestion from 'actions/companyAdmin/reports/sync/addFilterQuesti
 import removeFilterQuestion from 'actions/companyAdmin/reports/sync/removeFilterQuestion';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import { FURTHER_FILTRATION } from 'constants/companyAdmin/enums';
+import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import removeFilterQuestions from 'actions/companyAdmin/reports/sync/removeFilterQuestions';
 
 class FurtherFiltrationContainer extends Component {
     state = { filterOption: 0 };
@@ -29,7 +31,7 @@ class FurtherFiltrationContainer extends Component {
         );
         const selected = filtrationOptions[filterOption];
         return (
-            <>
+            <BlockContainer heading="Further Filtration">
                 <FurtherFiltration
                     furtherFiltrationOptions={filtrationOptionsArr}
                     selected={selected}
@@ -63,9 +65,27 @@ class FurtherFiltrationContainer extends Component {
                         </BlockButtonWrapper>
                     </div>
                 ) : null}
-            </>
+            </BlockContainer>
         );
     }
+    componentDidUpdate = prevProps => {
+        const {
+            filters: { siteID, buildingID, floorID, drawingID },
+            removeFilterQuestions
+        } = this.props;
+
+        // reset further filters if site info changes
+        if (
+            siteID !== prevProps.filters.siteID ||
+            buildingID !== prevProps.filters.buildingID ||
+            floorID !== prevProps.filters.floorID ||
+            drawingID !== prevProps.filters.drawingID
+        ) {
+            this.setState({ filterOption: 0 });
+            removeFilterQuestions();
+        }
+    };
+
     addCustomField = () => this.props.addFilterQuestion(uuid());
 
     removeCustomField = id => this.props.removeFilterQuestion(id);
@@ -101,7 +121,8 @@ const mapStateToProps = ({
 const mapDispatchToProps = dispatch => ({
     updateReportFilter: (name, val) => dispatch(updateReportFilter(name, val)),
     addFilterQuestion: id => dispatch(addFilterQuestion(id)),
-    removeFilterQuestion: id => dispatch(removeFilterQuestion(id))
+    removeFilterQuestion: id => dispatch(removeFilterQuestion(id)),
+    removeFilterQuestions: () => dispatch(removeFilterQuestions())
 });
 
 export default connect(
