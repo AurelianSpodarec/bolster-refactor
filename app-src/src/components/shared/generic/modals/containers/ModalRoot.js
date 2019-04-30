@@ -36,7 +36,8 @@ import {
     ADD_BUILDING,
     ADD_FLOOR,
     ADD_DRAWING,
-    EDIT_SITE
+    EDIT_SITE,
+    EDIT_BUILDING
 } from 'constants/shared/modalTypes';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
@@ -76,6 +77,7 @@ import CreateBuildingModal from 'components/companyAdmin/buildings/addBuildingMo
 import AddFloorModal from 'components/companyAdmin/floors/addFloorModal/presentational/AddFloorModal';
 import AddDrawingModal from 'components/companyAdmin/drawings/addDrawingModal/presentational/AddDrawingModal';
 import EditSiteModal from 'components/companyAdmin/sites/editSiteModal/presentational/EditSiteModal';
+import EditBuildingModal from 'components/companyAdmin/buildings/editBuildingModal/presentational/EditBuildingModal';
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModalContainer,
@@ -112,7 +114,8 @@ const MODAL_COMPONENTS = {
     [ADD_BUILDING]: CreateBuildingModal,
     [ADD_FLOOR]: AddFloorModal,
     [ADD_DRAWING]: AddDrawingModal,
-    [EDIT_SITE]: EditSiteModal
+    [EDIT_SITE]: EditSiteModal,
+    [EDIT_BUILDING]: EditBuildingModal
 };
 
 const ModalRoot = ({ modalType, modalProps, ...otherProps }) => {

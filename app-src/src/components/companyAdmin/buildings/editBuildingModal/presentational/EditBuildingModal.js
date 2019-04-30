@@ -4,10 +4,10 @@ import ModalOuterContainer from 'components/shared/generic/modals/containers/Mod
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import EditBuildingFormContainer from '../containers/EditBuildingFormContainer';
 
-const EditBuildingModal = ({ site }) => (
+const EditBuildingModal = ({ building }) => (
     <ModalOuterContainer>
-        <BlockHeading title={`Edit Site - ${site.name}`} />
-        <EditBuildingFormContainer site={site} />
+        <BlockHeading title={`Edit Building - ${building.name}`} />
+        <EditBuildingFormContainer building={building} />
     </ModalOuterContainer>
 );
 

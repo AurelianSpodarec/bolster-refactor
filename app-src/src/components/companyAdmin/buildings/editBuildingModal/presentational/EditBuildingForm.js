@@ -9,11 +9,11 @@ import ButtonContainer from 'components/shared/generic/button/containers/ButtonC
 const BuildingEditForm = ({
     handleSubmit,
     handleInputChange,
+    hideModal,
     name,
     addressLine1,
     addressLine2,
-    postcode,
-    buildingID
+    postcode
 }) => (
     <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
         <div className="size-lg-12">
@@ -63,9 +63,7 @@ const BuildingEditForm = ({
 
         <BlockButtonWrapper>
             <button className="button green">Confirm</button>
-            <ButtonContainer to={`/company/buildings/${buildingID}`}>
-                Cancel
-            </ButtonContainer>
+            <ButtonContainer handleClick={hideModal}>Cancel</ButtonContainer>
         </BlockButtonWrapper>
     </Form>
 );

@@ -112,6 +112,7 @@ const mapStateToProps = (
     {
         companyAdmin: {
             buildingsReducer: {
+                postSuccess,
                 deleteSuccess,
                 buildings,
                 error,
@@ -127,6 +128,7 @@ const mapStateToProps = (
     isFetching: fetchingBuildings || fetchingStats,
     error,
     stats,
+    postSuccess,
     id: match.params.id,
     deleteSuccess,
     postFailure

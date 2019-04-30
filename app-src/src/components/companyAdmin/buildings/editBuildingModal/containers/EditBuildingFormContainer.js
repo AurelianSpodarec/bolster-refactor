@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+
+import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 
 import BuildingEditForm from '../presentational/EditBuildingForm';
-import editbuilding from 'actions/companyAdmin/buildings/async/editBuilding';
+import editBuilding from 'actions/companyAdmin/buildings/async/editBuilding';
 
 class BuildingEditFormContainer extends Component {
     state = {
@@ -17,9 +18,10 @@ class BuildingEditFormContainer extends Component {
         return (
             <BuildingEditForm
                 {...this.state}
-                buildingID={this.props.buildingID}
                 handleInputChange={this.handleInputChange}
                 handleSubmit={this.handleSubmit}
+                buildingID={this.props.buildingID}
+                hideModal={this.props.hideModal}
             />
         );
     }
@@ -50,13 +52,15 @@ class BuildingEditFormContainer extends Component {
 
     //_ <-- used because this helper function is only for this class - not shared or used within the children
     _setFormDetails = () => {
-        const { building } = this.props;
+        const {
+            building: { name, addressLine1, addressLine2, postcode }
+        } = this.props;
 
         this.setState({
-            name: building.name,
-            addressLine1: building.addressLine1,
-            addressLine2: building.addressLine2,
-            postcode: building.postcode
+            name,
+            addressLine1,
+            addressLine2,
+            postcode
         });
     };
 
@@ -65,35 +69,24 @@ class BuildingEditFormContainer extends Component {
 
     handleSubmit = e => {
         e.preventDefault();
-        const { building } = this.props;
-        const { name, addressLine1, addressLine2, postcode } = this.state;
+        const { building, editBuilding, hideModal } = this.props;
 
         const postBody = {
-            name: name,
-            addressLine1: addressLine1,
-            addressLine2: addressLine2,
-            postcode: postcode
+            ...this.state
         };
-        this.props.editbuilding(building.id, postBody);
+        editBuilding(building.id, postBody);
+        hideModal();
     };
 }
 
-const mapStateToProps = ({ companyAdmin: { buildingsReducer } }, ownProps) => ({
-    postSuccess: buildingsReducer.postSuccess,
-    error: buildingsReducer.error,
-    buildingID: ownProps.match.params.id,
-    building: buildingsReducer.buildings[ownProps.match.params.id] || {}
-});
-
 const mapDispatchToProps = dispatch => ({
-    editbuilding: (buildingID, postBody) => {
-        dispatch(editbuilding(buildingID, postBody));
-    }
+    editBuilding: (buildingID, postBody) => {
+        dispatch(editBuilding(buildingID, postBody));
+    },
+    hideModal: () => dispatch(hideModal())
 });
 
-export default withRouter(
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(BuildingEditFormContainer)
-);
+export default connect(
+    null,
+    mapDispatchToProps
+)(BuildingEditFormContainer);
