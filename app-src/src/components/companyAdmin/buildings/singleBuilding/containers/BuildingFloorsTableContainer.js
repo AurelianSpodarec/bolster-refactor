@@ -3,11 +3,11 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
+import { ADD_FLOOR } from 'constants/shared/modalTypes';
 
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import FloorTableContainer from 'components/companyAdmin/floors/shared/containers/FloorTableContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
-import { ADD_FLOOR } from 'constants/shared/modalTypes';
 
 class BuildingsFloorsTableContainer extends Component {
     render() {
@@ -48,13 +48,13 @@ const mapStateToProps = (
             floorsReducer: { postSuccess, updatedFloorID }
         }
     },
-    ownProps
+    { match }
 ) => ({
     postSuccess,
     updatedFloorID,
-    building: buildingsReducer.buildings[ownProps.match.params.id] || {},
+    building: buildingsReducer.buildings[match.params.id] || {},
     isFetching: buildingsReducer.isFetching,
-    buildingID: ownProps.match.params.id
+    buildingID: match.params.id
 });
 
 const mapDispatchToProps = dispatch => ({
