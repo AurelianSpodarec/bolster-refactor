@@ -34,7 +34,7 @@ class BuildingsFloorsTableContainer extends Component {
     }
 
     componentDidUpdate = prevProps => {
-        const { postSuccess, error, showModal } = this.props;
+        const { postSuccess, error, showModal, hideModal } = this.props;
 
         if (!prevProps.postSuccess && postSuccess) {
             showModal(SUCCESS_MODAL, {
