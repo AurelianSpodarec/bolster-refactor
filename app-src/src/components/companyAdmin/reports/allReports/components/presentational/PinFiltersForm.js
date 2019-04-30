@@ -2,7 +2,6 @@ import React from 'react';
 
 import Form from 'components/shared/generic/form/containers/Form';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
-import NumberOfHistoriesContainer from '../containers/NumberOfHistoriesContainer';
 import ReportFormatsContainer from '../containers/ReportFormatsContainer';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import FurtherFiltrationContainer from '../containers/FurtherFiltrationContainer';
