@@ -10,19 +10,19 @@ import { SUCCESS_MODAL, ERROR_MODAL } from 'constants/shared/modalTypes';
 
 import OutputSettings from '../presentational/OutputSettings';
 import showFieldErrors from 'actions/shared/generic/fieldErrors/sync/showFieldErrors';
-import { isEmpty, convertEnumToDropdownOptions } from 'helpers/generic';
+import { isEmpty } from 'helpers/generic';
 import withUpdateOnChange from '../hocs/withUpdateOnChange';
-import { REPORT_FORMATS } from 'constants/companyAdmin/enums';
+// import { REPORT_FORMATS } from 'constants/companyAdmin/enums';
 
 class OutputSettingsContainer extends Component {
     render() {
-        const {
-            filters: { includePinLocation, fileType }
-        } = this.props;
+        // const {
+        //     filters: { includePinLocation, fileType }
+        // } = this.props;
 
-        const reportFormatOptions = convertEnumToDropdownOptions(
-            REPORT_FORMATS
-        );
+        // const reportFormatOptions = convertEnumToDropdownOptions(
+        //     REPORT_FORMATS
+        // );
 
         return (
             <OutputSettings
