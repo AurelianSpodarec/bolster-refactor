@@ -10,7 +10,9 @@ const PinSelector = ({
     includedPins,
     handlePinClick,
     handleSubmit,
-    selectedPinOptions
+    selectedPinOptions,
+    handleAddIncluded,
+    handleAddExcluded
 }) => (
     <>
         <BlockHeading title="Pin Selector" />
@@ -30,9 +32,18 @@ const PinSelector = ({
                 </Field>
             </div>
             {/* ##needs css## */}
-            <div className="size-lg-2">
-                <ButtonContainer>
+            <div className="size-lg-1">
+                <ButtonContainer
+                    className="icon-only"
+                    handleClick={handleAddExcluded}
+                >
                     <i className="fa fa-arrow-left" />
+                </ButtonContainer>
+                <ButtonContainer
+                    className="icon-only"
+                    handleClick={handleAddIncluded}
+                >
+                    <i className="fa fa-arrow-right" />
                 </ButtonContainer>
             </div>
             <div className="size-lg-4">
