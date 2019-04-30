@@ -69,9 +69,7 @@ class LevelsFilterContainer extends Component {
             siteID: this.updateSite
         };
         const update = updateMethods[name];
-        return update(value).then(
-            () => !(name === 'siteID' && !value) && postFilters()
-        );
+        return update(value).then(postFilters);
     };
 
     _formatArrForDropdown = arr => {

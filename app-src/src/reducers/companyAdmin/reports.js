@@ -24,7 +24,6 @@ export default combineReducers({
     fields: fieldsReducer,
     filters: filtersReducer,
     options: optionsReducer,
-    postFailure: postFailureReducer,
     postSuccess: postSuccessReducer,
     pinResults: pinResultsReducer,
     selectedPins: selectedPinsReducer
@@ -45,14 +44,14 @@ function filtersReducer(
         serviceID: '',
         hierarchyType: '',
         hierarchyID: '',
-        statusID: '',
-        numberOfHistoriesID: 1,
+        status: '',
+        reportHistories: 1,
         sortByID: '',
-        reportFormatID: 1,
-        includeLocationDrawing: false,
-        startDate: undefined,
-        endDate: undefined,
-        operativeIDs: [],
+        fileType: 1,
+        includePinLocation: false,
+        fromDateInclusive: undefined,
+        toDateInclusive: undefined,
+        companyUserIDs: [],
         pinIDs: []
     },
     action
@@ -152,18 +151,6 @@ function errorReducer(state = null, action) {
         case POST_CUSTOM_FILTERS_FAILURE:
         case POST_REPORT_FAILURE:
             return action.error;
-        default:
-            return state;
-    }
-}
-
-function postFailureReducer(state = false, action) {
-    switch (action.type) {
-        case POST_REPORT_REQUEST:
-            return false;
-        case POST_CUSTOM_FILTERS_FAILURE:
-        case POST_REPORT_FAILURE:
-            return true;
         default:
             return state;
     }

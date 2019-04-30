@@ -7,7 +7,7 @@ import Checkbox from 'components/shared/generic/form/presentational/Checkbox';
 const ReportFormats = ({
     reportFormatOptions,
     selectedReportFormat,
-    includeLocationDrawing,
+    includePinLocation,
     handleChange
 }) => (
     <>
@@ -22,9 +22,9 @@ const ReportFormats = ({
         </Field>
         <Field name="Include location drawing">
             <Checkbox
-                checked={includeLocationDrawing}
+                checked={includePinLocation}
                 handleChange={handleChange}
-                name="includeLocationDrawing"
+                name="includePinLocation"
             />
         </Field>
     </>

@@ -23,10 +23,10 @@ class BasicFiltersContainer extends Component {
             services,
             filters: {
                 serviceID,
-                statusID,
-                startDate,
-                endDate,
-                numberOfHistoriesID
+                status,
+                fromDateInclusive,
+                toDateInclusive,
+                reportHistories
             }
         } = this.props;
 
@@ -38,17 +38,17 @@ class BasicFiltersContainer extends Component {
 
         return (
             <BasicFilters
-                dateError={fieldErrors['startDate']}
+                dateError={fieldErrors['fromDateInclusive']}
                 handleChange={this.handleChange}
                 handleDateChange={this.handleDateChange}
                 serviceOptions={Object.values(serviceOptions)}
                 selectedService={serviceOptions[serviceID]}
                 statusOptions={Object.values(statusOptions)}
-                selectedStatus={statusOptions[statusID]}
-                startDate={startDate}
-                endDate={endDate}
+                selectedStatus={statusOptions[status]}
+                fromDateInclusive={fromDateInclusive}
+                toDateInclusive={toDateInclusive}
                 historyNumsOptions={Object.values(historyNumsOptions)}
-                selectedHistoryNum={historyNumsOptions[numberOfHistoriesID]}
+                selectedHistoryNum={historyNumsOptions[reportHistories]}
                 fieldError={fieldError}
                 handleDateBlur={this.handleDateBlur}
             />
@@ -71,20 +71,22 @@ class BasicFiltersContainer extends Component {
 
     validateDates = () => {
         const {
-            filters: { startDate, endDate },
+            filters: { fromDateInclusive, toDateInclusive },
             addFieldError,
             removeFieldError
         } = this.props;
 
-        if ((startDate && !endDate) || (!startDate && endDate)) {
-            return addFieldError('startDate', 'Both dates must be filled.');
-        } else if (startDate > endDate) {
+        if (
+            fromDateInclusive &&
+            toDateInclusive &&
+            fromDateInclusive > toDateInclusive
+        ) {
             return addFieldError(
-                'startDate',
+                'fromDateInclusive',
                 'Start date must be before end date.'
             );
         } else {
-            return removeFieldError('startDate');
+            return removeFieldError('fromDateInclusive');
         }
     };
 

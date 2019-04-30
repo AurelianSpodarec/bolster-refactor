@@ -15,8 +15,8 @@ const BasicFilters = ({
     selectedService,
     statusOptions,
     selectedStatus,
-    startDate,
-    endDate,
+    fromDateInclusive,
+    toDateInclusive,
     historyNumsOptions,
     selectedHistoryNum
 }) => (
@@ -36,7 +36,7 @@ const BasicFilters = ({
                 <Field name="Status">
                     <DropdownContainer
                         placeholder="All Statuses"
-                        name="statusID"
+                        name="status"
                         options={statusOptions}
                         selectedOption={selectedStatus}
                         handleChange={handleChange}
@@ -45,9 +45,11 @@ const BasicFilters = ({
                 <Field name="Date range" sizeClasses="w-dates size-lg-12">
                     <div className="size-lg-5">
                         <DatePicker
-                            name="startDate"
-                            selected={startDate}
-                            onChange={val => handleDateChange('startDate', val)}
+                            name="fromDateInclusive"
+                            selected={fromDateInclusive}
+                            onChange={val =>
+                                handleDateChange('fromDateInclusive', val)
+                            }
                             placeholderText="Date"
                             onBlur={() => handleDateBlur(true)}
                         />
@@ -55,9 +57,11 @@ const BasicFilters = ({
                     <p className="size-lg-2">to</p>
                     <div className="size-lg-5">
                         <DatePicker
-                            name="endDate"
-                            selected={endDate}
-                            onChange={val => handleDateChange('endDate', val)}
+                            name="toDateInclusive"
+                            selected={toDateInclusive}
+                            onChange={val =>
+                                handleDateChange('toDateInclusive', val)
+                            }
                             placeholderText="Date"
                             onBlur={() => handleDateBlur()}
                         />
@@ -71,7 +75,7 @@ const BasicFilters = ({
                 <Field name="Number of Histories" reqiured={true}>
                     <DropdownContainer
                         singleSelect
-                        name="numberOfHistoriesID"
+                        name="reportHistories"
                         options={historyNumsOptions}
                         selectedOption={selectedHistoryNum}
                         handleChange={handleChange}
