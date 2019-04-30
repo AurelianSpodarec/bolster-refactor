@@ -10,6 +10,7 @@ import ButtonContainer from 'components/shared/generic/button/containers/ButtonC
 
 const EditFloorPlanModal = ({
     file,
+    filesUploading,
     handleChange,
     hideModal,
     handleSubmit
@@ -22,12 +23,20 @@ const EditFloorPlanModal = ({
                     name="file"
                     value={file}
                     handleChange={handleChange}
+                    acceptedTypes={['application/pdf', 'image/*']}
                     required
                 />
             </Field>
             <BlockButtonWrapper>
                 <button className="button green" type="submit">
-                    Update
+                    {filesUploading ? (
+                        'Please wait...'
+                    ) : (
+                        <>
+                            <i className="fa fa-plus" />
+                            Update
+                        </>
+                    )}
                 </button>
                 <ButtonContainer handleClick={hideModal}>
                     Cancel

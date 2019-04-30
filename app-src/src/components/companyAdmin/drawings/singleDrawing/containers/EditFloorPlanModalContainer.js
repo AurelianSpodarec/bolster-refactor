@@ -13,7 +13,7 @@ class EditFloorPlanModalContainer extends Component {
     };
 
     render() {
-        const { drawing } = this.props;
+        const { drawing, filesUploading } = this.props;
         return (
             <EditFloorPlanModal
                 {...this.state}
@@ -21,6 +21,7 @@ class EditFloorPlanModalContainer extends Component {
                 handleChange={this.handleChange}
                 hideModal={this.hideModal}
                 handleSubmit={this.handleSubmit}
+                filesUploading={filesUploading}
             />
         );
     }
@@ -46,9 +47,11 @@ class EditFloorPlanModalContainer extends Component {
         e.preventDefault();
 
         const { file } = this.state;
-        const { updateFloorPlan, drawing } = this.props;
+        const { updateFloorPlan, drawing, filesUploading } = this.props;
 
-        updateFloorPlan(drawing.id, { file });
+        if (!filesUploading) {
+            updateFloorPlan(drawing.id, { file });
+        }
     };
 
     hideModal = e => {
@@ -67,8 +70,11 @@ class EditFloorPlanModalContainer extends Component {
 const mapStateToProps = ({
     companyAdmin: {
         drawingsReducer: { error, postSuccess }
+    },
+    shared: {
+        filesUploadingReducer: { filesUploading }
     }
-}) => ({ error, postSuccess });
+}) => ({ error, postSuccess, filesUploading });
 
 const mapDispatchToProps = dispatch => ({
     hideModal: () => {
