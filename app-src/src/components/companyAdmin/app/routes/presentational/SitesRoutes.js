@@ -9,7 +9,6 @@ import AttachSiteOperative from 'components/companyAdmin/sites/attachSiteOperati
 import InviteClientToSiteContainer from 'components/companyAdmin/sites/inviteClientToSite/containers/InviteClientToSiteContainer';
 import InviteCompanyToSiteContainer from 'components/companyAdmin/sites/inviteCompanyToSite/containers/InviteCompanyToSiteContainer';
 import AttachSiteDocument from 'components/companyAdmin/sites/attachSiteDocument/presentational/AttachSiteDocument';
-import SiteEditContainer from 'components/companyAdmin/sites/singleSite/containers/SiteEditContainer';
 import EditSiteDocument from 'components/companyAdmin/sites/editSiteDocument/presentational/EditSiteDocument';
 import EditCompanyPermissionsOnSiteFormContainer from 'components/companyAdmin/sites/editCompanyOnSite/containers/EditCompanyPermissionsOnSiteFormContainer';
 import AddCompanyPermissionsToSite from 'components/companyAdmin/sites/addCompanyPermissionsToSite/presentational/AddCompanyPermissionsToSite';
@@ -18,7 +17,6 @@ const SitesRoutes = ({ base = '/company/sites' }) => (
     <SwitchWith404>
         <Route exact path={`${base}`} component={AllSitesContainer} />
         <Route exact path={`${base}/:id`} component={SingleSiteContainer} />
-        <Route exact path={`${base}/:id/edit`} component={SiteEditContainer} />
         <Route
             exact
             path={`${base}/:id/change-ownership`}

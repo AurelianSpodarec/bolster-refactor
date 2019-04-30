@@ -80,7 +80,7 @@ const EditSiteForm = ({
         <BlockButtonWrapper>
             <button className="button green">
                 {' '}
-                <i className="fa fa-times" /> Confirm
+                <i className="fa fa-plus" /> Confirm
             </button>
             <ButtonNoClickContainer handleClick={hideModal}>
                 Cancel

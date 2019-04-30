@@ -8,8 +8,10 @@ import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import {
     CONFIRM_DELETE,
+    SUCCESS_MODAL,
     ERROR_MODAL,
-    CONFIRM_ARCHIVE
+    CONFIRM_ARCHIVE,
+    EDIT_BUILDING
 } from 'constants/shared/modalTypes';
 import deleteBuilding from 'actions/companyAdmin/buildings/async/deleteBuilding';
 import archiveBuilding from 'actions/companyAdmin/buildings/async/archiveBuilding';
@@ -29,6 +31,7 @@ class BuildingDetailsContainer extends Component {
                     stats={stats}
                     handleDelete={this.handleDeleteModal}
                     handleArchive={this.handleArchiveModal}
+                    handleEditBuildingModal={this.handleEditBuildingModal}
                 />
             </BlockContainer>
         );
@@ -36,6 +39,8 @@ class BuildingDetailsContainer extends Component {
 
     componentDidUpdate = prevProps => {
         const {
+            error,
+            postSuccess,
             deleteSuccess,
             postFailure,
             history,
@@ -47,7 +52,28 @@ class BuildingDetailsContainer extends Component {
             hideModal();
             history.push(`/company/sites/${building.siteID}`);
         }
-        if (postFailure && !prevProps.postFailure) showModal(ERROR_MODAL);
+
+        if (postSuccess && !prevProps.postSuccess) {
+            showModal(SUCCESS_MODAL, {
+                hideModal,
+                message: 'Building edited successfully.'
+            });
+        }
+
+        if (postFailure && !prevProps.postFailure) {
+            showModal(ERROR_MODAL, {
+                hideModal,
+                title: 'Error',
+                message:
+                    error.message ||
+                    '##There was an error processing your request, please try again later.##'
+            });
+        }
+    };
+
+    handleEditBuildingModal = () => {
+        const { showModal, building } = this.props;
+        showModal(EDIT_BUILDING, { building });
     };
 
     handleDeleteModal = () => {

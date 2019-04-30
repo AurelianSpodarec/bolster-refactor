@@ -1,0 +1,99 @@
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+
+import BuildingEditForm from '../presentational/EditBuildingForm';
+import editbuilding from 'actions/companyAdmin/buildings/async/editBuilding';
+
+class BuildingEditFormContainer extends Component {
+    state = {
+        name: '',
+        addressLine1: '',
+        addressLine2: '',
+        postcode: ''
+    };
+
+    render() {
+        return (
+            <BuildingEditForm
+                {...this.state}
+                buildingID={this.props.buildingID}
+                handleInputChange={this.handleInputChange}
+                handleSubmit={this.handleSubmit}
+            />
+        );
+    }
+
+    componentDidUpdate = prevProps => {
+        const { building } = this.props;
+
+        if (!prevProps.building.id && !!building.id) {
+            this._setFormDetails();
+        }
+    };
+
+    componentDidMount = () => {
+        const { building } = this.props;
+
+        if (building.id > 0) {
+            this._setFormDetails();
+        }
+    };
+
+    handleInputChange = e => {
+        e.preventDefault();
+
+        this.setState({
+            [e.target.name]: e.target.value
+        });
+    };
+
+    //_ <-- used because this helper function is only for this class - not shared or used within the children
+    _setFormDetails = () => {
+        const { building } = this.props;
+
+        this.setState({
+            name: building.name,
+            addressLine1: building.addressLine1,
+            addressLine2: building.addressLine2,
+            postcode: building.postcode
+        });
+    };
+
+    //write a "helper" function that will update state with building details.
+    //if !building.id is empty/unidentified (!building.id is equal to unidentified, which is a falsey) and now no longer empty
+
+    handleSubmit = e => {
+        e.preventDefault();
+        const { building } = this.props;
+        const { name, addressLine1, addressLine2, postcode } = this.state;
+
+        const postBody = {
+            name: name,
+            addressLine1: addressLine1,
+            addressLine2: addressLine2,
+            postcode: postcode
+        };
+        this.props.editbuilding(building.id, postBody);
+    };
+}
+
+const mapStateToProps = ({ companyAdmin: { buildingsReducer } }, ownProps) => ({
+    postSuccess: buildingsReducer.postSuccess,
+    error: buildingsReducer.error,
+    buildingID: ownProps.match.params.id,
+    building: buildingsReducer.buildings[ownProps.match.params.id] || {}
+});
+
+const mapDispatchToProps = dispatch => ({
+    editbuilding: (buildingID, postBody) => {
+        dispatch(editbuilding(buildingID, postBody));
+    }
+});
+
+export default withRouter(
+    connect(
+        mapStateToProps,
+        mapDispatchToProps
+    )(BuildingEditFormContainer)
+);

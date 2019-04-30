@@ -6,20 +6,19 @@ import Form from 'components/shared/generic/form/containers/Form';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 
-const SiteEditForm = ({
+const BuildingEditForm = ({
     handleSubmit,
     handleInputChange,
     name,
-    client,
     addressLine1,
     addressLine2,
     postcode,
-    siteID
+    buildingID
 }) => (
     <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
         <div className="size-lg-12">
             <div className="size-lg-6">
-                <Field name="Site name" required>
+                <Field name="Building name" required>
                     <TextInputContainer
                         name="name"
                         value={name}
@@ -28,20 +27,6 @@ const SiteEditForm = ({
                     />
                 </Field>
             </div>
-
-            <div className="size-lg-6">
-                <Field name="Client name" required>
-                    <TextInputContainer
-                        value={client}
-                        name="client"
-                        required
-                        handleChange={handleInputChange}
-                    />
-                </Field>
-            </div>
-        </div>
-
-        <div className="size-lg-12">
             <div className="size-lg-6">
                 <Field name="Address line 1" required>
                     <TextInputContainer
@@ -52,7 +37,9 @@ const SiteEditForm = ({
                     />
                 </Field>
             </div>
+        </div>
 
+        <div className="size-lg-12">
             <div className="size-lg-6">
                 <Field name="Address line 2">
                     <TextInputContainer
@@ -62,9 +49,6 @@ const SiteEditForm = ({
                     />
                 </Field>
             </div>
-        </div>
-
-        <div className="size-lg-12">
             <div className="size-lg-6">
                 <Field name="Postcode" required>
                     <TextInputContainer
@@ -79,11 +63,11 @@ const SiteEditForm = ({
 
         <BlockButtonWrapper>
             <button className="button green">Confirm</button>
-            <ButtonContainer to={`/company/sites/${siteID}`}>
+            <ButtonContainer to={`/company/buildings/${buildingID}`}>
                 Cancel
             </ButtonContainer>
         </BlockButtonWrapper>
     </Form>
 );
 
-export default SiteEditForm;
+export default BuildingEditForm;
