@@ -3,7 +3,7 @@ import {
     PIN_STATUS_TYPES,
     NUMBER_OF_HISTORIES
 } from 'constants/companyAdmin/enums';
-import { convertEnumToDropdownOptions, enumFormat } from 'helpers/generic';
+import { convertEnumToDropdownOptions } from 'helpers/generic';
 
 import withUpdateOnChange from '../hocs/withUpdateOnChange';
 import BasicFilters from '../presentational/BasicFilters';

@@ -46,7 +46,7 @@ function filtersReducer(
         hierarchyType: '',
         hierarchyID: '',
         statusID: '',
-        numberOfHistoriesID: 3,
+        numberOfHistoriesID: 1,
         sortByID: '',
         reportFormatID: 1,
         includeLocationDrawing: false,
