@@ -51,3 +51,5 @@ export const ADD_SITE = 'ADD_SITE';
 export const ADD_BUILDING = 'ADD_BUILDING';
 export const ADD_FLOOR = 'ADD_FLOOR';
 export const ADD_DRAWING = 'ADD_DRAWING';
+
+export const EDIT_SITE = 'EDIT_SITE';

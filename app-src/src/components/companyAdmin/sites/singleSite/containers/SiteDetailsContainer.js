@@ -7,8 +7,10 @@ import BlockContainer from 'components/shared/generic/block/containers/BlockCont
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import {
     CONFIRM_DELETE,
+    SUCCESS_MODAL,
     ERROR_MODAL,
-    CONFIRM_ARCHIVE
+    CONFIRM_ARCHIVE,
+    EDIT_SITE
 } from 'constants/shared/modalTypes';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import deleteSite from 'actions/companyAdmin/sites/async/deleteSite';
@@ -29,6 +31,7 @@ class SiteDetailsContainer extends Component {
                     stats={stats}
                     handleDelete={this.handleDeleteModal}
                     handleArchive={this.handleArchiveModal}
+                    handleEditSiteModal={this.handleEditSiteModal}
                 />
             </BlockContainer>
         );
@@ -36,7 +39,9 @@ class SiteDetailsContainer extends Component {
 
     componentDidUpdate = prevProps => {
         const {
+            error,
             deleteSuccess,
+            postSuccess,
             postFailure,
             history,
             showModal,
@@ -46,7 +51,28 @@ class SiteDetailsContainer extends Component {
             hideModal();
             history.push('/company/sites');
         }
-        if (postFailure && !prevProps.postFailure) showModal(ERROR_MODAL);
+
+        if (postSuccess && !prevProps.postSuccess) {
+            showModal(SUCCESS_MODAL, {
+                hideModal,
+                message: 'Site edited successfully.'
+            });
+        }
+
+        if (postFailure && !prevProps.postFailure) {
+            showModal(ERROR_MODAL, {
+                hideModal,
+                title: 'Error',
+                message:
+                    error.message ||
+                    '##There was an error processing your request, please try again later.##'
+            });
+        }
+    };
+
+    handleEditSiteModal = () => {
+        const { showModal, site } = this.props;
+        showModal(EDIT_SITE, { site });
     };
 
     handleDeleteModal = () => {
@@ -74,6 +100,7 @@ const mapStateToProps = (
         companyAdmin: {
             sitesReducer: {
                 sites,
+                postSuccess,
                 isFetching,
                 error,
                 deleteSuccess,
@@ -84,6 +111,7 @@ const mapStateToProps = (
     },
     { match }
 ) => ({
+    postSuccess,
     site: sites[match.params.id] || {},
     isFetching: isFetching || fetchingStats,
     error,

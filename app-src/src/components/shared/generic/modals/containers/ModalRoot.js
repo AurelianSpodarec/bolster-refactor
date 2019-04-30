@@ -35,7 +35,8 @@ import {
     ADD_SITE,
     ADD_BUILDING,
     ADD_FLOOR,
-    ADD_DRAWING
+    ADD_DRAWING,
+    EDIT_SITE
 } from 'constants/shared/modalTypes';
 
 import AddCardModalContainer from 'components/companyAdmin/subscription/cardManagement/addCardModal/containers/AddCardModalContainer';
@@ -72,6 +73,7 @@ import AddSiteModal from 'components/companyAdmin/sites/addSiteModal/presentatio
 import CreateBuildingModal from 'components/companyAdmin/buildings/addBuildingModal/presentational/CreateBuildingModal';
 import AddFloorModal from 'components/companyAdmin/floors/addFloorModal/presentational/AddFloorModal';
 import AddDrawingModal from 'components/companyAdmin/drawings/addDrawingModal/presentational/AddDrawingModal';
+import EditSiteModal from 'components/companyAdmin/sites/editSiteModal/presentational/EditSiteModal';
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModalContainer,
@@ -107,7 +109,8 @@ const MODAL_COMPONENTS = {
     [ADD_SITE]: AddSiteModal,
     [ADD_BUILDING]: CreateBuildingModal,
     [ADD_FLOOR]: AddFloorModal,
-    [ADD_DRAWING]: AddDrawingModal
+    [ADD_DRAWING]: AddDrawingModal,
+    [EDIT_SITE]: EditSiteModal
 };
 
 const ModalRoot = ({ modalType, modalProps }) => {
