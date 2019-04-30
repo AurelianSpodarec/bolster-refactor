@@ -3,13 +3,16 @@ import BlockHeading from 'components/shared/generic/blockHeading/presentational/
 import Field from 'components/shared/generic/form/presentational/Field';
 import ExcludedBox from './ExcludedBox';
 import IncludedBox from './IncludedBox';
+import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 
 const PinSelector = ({
     excludedPins,
     includedPins,
     handlePinClick,
     handleSubmit,
-    selectedPinOptions
+    selectedPinOptions,
+    handleAddIncluded,
+    handleAddExcluded
 }) => (
     <>
         <BlockHeading title="Pin Selector" />
@@ -27,6 +30,21 @@ const PinSelector = ({
                         handlePinClick={handlePinClick}
                     />
                 </Field>
+            </div>
+            {/* ##needs css## */}
+            <div className="size-lg-1">
+                <ButtonContainer
+                    className="icon-only"
+                    handleClick={handleAddExcluded}
+                >
+                    <i className="fa fa-arrow-left" />
+                </ButtonContainer>
+                <ButtonContainer
+                    className="icon-only"
+                    handleClick={handleAddIncluded}
+                >
+                    <i className="fa fa-arrow-right" />
+                </ButtonContainer>
             </div>
             <div className="size-lg-4">
                 <Field name="Included">

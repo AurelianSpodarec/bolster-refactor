@@ -142,6 +142,7 @@ function sitesReducer(state = {}, action) {
         case FETCH_SINGLE_SITE_SUCCESS:
         case CREATE_SITE_SUCCESS:
         case ARCHIVE_SITE_SUCCESS:
+        case EDIT_SITE_SUCCESS:
             return updateObj(state, action.payload.id, action.payload);
         case CREATE_BUILDING_SUCCESS:
             return updateObj(state, [action.payload.siteID], {

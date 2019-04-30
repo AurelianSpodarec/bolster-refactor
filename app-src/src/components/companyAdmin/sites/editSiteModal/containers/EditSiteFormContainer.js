@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
 
-import SiteEditForm from '../presentational/SiteEditForm';
+import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
+
+import EditSiteForm from '../presentational/EditSiteForm';
 import editSite from 'actions/companyAdmin/sites/async/editSite';
 
-class SiteEditFormContainer extends Component {
+class EditSiteFormContainer extends Component {
     state = {
         name: '',
         client: '',
@@ -16,20 +17,18 @@ class SiteEditFormContainer extends Component {
 
     render() {
         return (
-            <SiteEditForm
+            <EditSiteForm
                 {...this.state}
                 handleInputChange={this.handleInputChange}
                 handleSubmit={this.handleSubmit}
                 siteID={this.props.siteID}
+                hideModal={this.props.hideModal}
             />
         );
     }
     componentDidUpdate = prevProps => {
-        const { postSuccess, history, siteID, site } = this.props;
+        const { site } = this.props;
 
-        if (postSuccess && !prevProps.postSuccess) {
-            history.push(`/company/sites/${siteID}`);
-        }
         if (!prevProps.site.id && !!site.id) {
             this._setFormDetails();
         }
@@ -53,14 +52,16 @@ class SiteEditFormContainer extends Component {
 
     //_ <-- used because this helper function is only for this class - not shared or used within the children
     _setFormDetails = () => {
-        const { site } = this.props;
+        const {
+            site: { name, client, addressLine1, addressLine2, postcode }
+        } = this.props;
 
         this.setState({
-            name: site.name,
-            client: site.client,
-            addressLine1: site.addressLine1,
-            addressLine2: site.addressLine2,
-            postcode: site.postcode
+            name,
+            client,
+            addressLine1,
+            addressLine2,
+            postcode
         });
     };
 
@@ -69,43 +70,28 @@ class SiteEditFormContainer extends Component {
 
     handleSubmit = e => {
         e.preventDefault();
-        const { site } = this.props;
         const {
-            name,
-            client,
-            addressLine1,
-            addressLine2,
-            postcode
-        } = this.state;
+            site: { id },
+            editSite,
+            hideModal
+        } = this.props;
 
         const postBody = {
-            name: name,
-            client: client,
-            addressLine1: addressLine1,
-            addressLine2: addressLine2,
-            postcode: postcode
+            ...this.state
         };
-
-        this.props.editSite(site.id, postBody);
+        editSite(id, postBody);
+        hideModal();
     };
 }
-
-const mapStateToProps = ({ companyAdmin: { sitesReducer } }, ownProps) => ({
-    postSuccess: sitesReducer.postSuccess,
-    error: sitesReducer.error,
-    siteID: ownProps.match.params.id,
-    site: sitesReducer.sites[ownProps.match.params.id] || {}
-});
 
 const mapDispatchToProps = dispatch => ({
     editSite: (siteID, postBody) => {
         dispatch(editSite(siteID, postBody));
-    }
+    },
+    hideModal: () => dispatch(hideModal())
 });
 
-export default withRouter(
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(SiteEditFormContainer)
-);
+export default connect(
+    null,
+    mapDispatchToProps
+)(EditSiteFormContainer);

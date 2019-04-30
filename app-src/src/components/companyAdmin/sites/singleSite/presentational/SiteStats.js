@@ -1,10 +1,15 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
 import PieChart from 'components/shared/stats/presentational/PieChart';
 import SiteDetails from './SiteDetails';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
-const SiteStats = ({ site, stats, handleDelete, handleArchive }) => (
+const SiteStats = ({
+    site,
+    stats,
+    handleDelete,
+    handleArchive,
+    handleEditSiteModal
+}) => (
     <div className="stats size-lg-12">
         <div className="flex-item size-lg-12">
             <SiteDetails site={site} stats={stats} />
@@ -15,12 +20,9 @@ const SiteStats = ({ site, stats, handleDelete, handleArchive }) => (
             <button className="button red" onClick={handleDelete} type="button">
                 <i className="far fa-trash-alt fa-fw" /> Delete
             </button>
-            <Link
-                className="button yellow"
-                to={`/company/sites/${site.id}/edit`}
-            >
+            <button className="button yellow" onClick={handleEditSiteModal}>
                 <i className="far fa-pencil fa-fw" /> Edit
-            </Link>
+            </button>
 
             <button
                 className="button blue"
