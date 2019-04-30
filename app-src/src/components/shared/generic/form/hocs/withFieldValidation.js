@@ -70,11 +70,11 @@ export default function withFieldValidation(WrappedComponent) {
             const customError = validate(value);
 
             if (required && isEmpty(value)) {
-                addFieldError(name, 'This is a required field.');
+                return addFieldError(name, 'This is a required field.');
             } else if (customError && customError.length) {
-                addFieldError(name, customError);
+                return addFieldError(name, customError);
             } else if (error) {
-                removeFieldError(name);
+                return removeFieldError(name);
             }
         };
     }

@@ -6,6 +6,7 @@ const NewSelect = ({ options, value, onChange, name, singleSelect }) => {
     return (
         <div className={singleSelect ? 'single-select' : ''}>
             <MultiSelect
+                overrideStrings={getOverrides()}
                 name
                 options={options}
                 selected={singleSelect ? [value] : value}
@@ -26,14 +27,30 @@ const NewSelect = ({ options, value, onChange, name, singleSelect }) => {
         onChange(name, val);
     }
 
+    function getOverrides() {
+        let selectAll;
+        if (singleSelect) {
+            selectAll = value ? '-- Deselect --' : '-- Select an item --';
+        } else {
+            selectAll =
+                value.length === options.length
+                    ? '-- Deselect All --'
+                    : '-- Select All --';
+        }
+
+        return {
+            selectAll
+        };
+    }
+
     function renderSelected(selected, options) {
         if (!options.length) {
             return <span>No items available</span>;
         }
 
-        if (!(selected && selected.length)) {
+        if (!selected[0]) {
             if (singleSelect) {
-                return <span>--- Select an Option ---</span>;
+                return <span>--- Select Option ---</span>;
             }
 
             return <span>--- Select Options ---</span>;

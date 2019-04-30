@@ -10,6 +10,7 @@ export class Block1FiltersContainer extends Component {
     };
     render() {
         const { fieldError } = this.props;
+
         return <Block1Filters fieldError={fieldError} />;
     }
 

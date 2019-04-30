@@ -11,13 +11,12 @@ const NumberOfHistoriesContainer = ({
     updateReportFilter
 }) => {
     const numberOfHistoriesOptions = enumFormat(NUMBER_OF_HISTORIES);
-    return (
-        <NumberOfHistories
-            numberOfHistoriesOptions={Object.values(numberOfHistoriesOptions)}
-            selectedHistory={String(numberOfHistoriesID)}
-            handleChange={handleChange}
-        />
-    );
+    return null;
+    // <NumberOfHistories
+    //     numberOfHistoriesOptions={Object.values(numberOfHistoriesOptions)}
+    //     selectedHistory={String(numberOfHistoriesID)}
+    //     handleChange={handleChange}
+    // />
     function handleChange(name, value) {
         updateReportFilter(name, value);
     }

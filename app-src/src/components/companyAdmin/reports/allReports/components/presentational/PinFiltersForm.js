@@ -1,15 +1,10 @@
 import React from 'react';
 
 import Form from 'components/shared/generic/form/containers/Form';
-// import ReportOptionsContainer from '../containers/ReportOptionsContainer';
-// import PinSelectorContainer from 'components/shared/pinSelector/container/PinSelectorContainer';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
-import NumberOfHistoriesContainer from '../containers/NumberOfHistoriesContainer';
-// import SortByContainer from '../containers/SortByContainer';
 import ReportFormatsContainer from '../containers/ReportFormatsContainer';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 // import CustomFiltersContainer from '../containers/CustomFiltersContainer';
-// import OperativesFilterContainer from '../containers/OperativesFilterContainer';
 import FurtherFiltrationContainer from '../containers/FurtherFiltrationContainer';
 import OtherOptionsContainer from '../containers/OtherOptionsContainer';
 import FilterMapContainer from '../containers/FilterMapContainer';
@@ -28,8 +23,8 @@ const PinFiltersForm = ({
     <Form className="size-lg-12" onSubmit={handleSubmit}>
         <FilterMapContainer />
         <div className="flex-container size-lg-12">
-            <Block1FiltersContainer blockName="block1" />
-            <BasicFiltersContainer />
+            <Block1FiltersContainer blockName="hierarchyFilters" />
+            <BasicFiltersContainer blockName="basicFilters" />
         </div>
 
         <div className="size-lg-12">
@@ -54,7 +49,6 @@ const PinFiltersForm = ({
                     <BlockHeading title="Output Settings" />
                     <div className="generic-form">
                         <div className="size-lg-6">
-                            <NumberOfHistoriesContainer />
                             <ReportFormatsContainer />
                         </div>
                         <div className="size-lg-6">
@@ -70,11 +64,6 @@ const PinFiltersForm = ({
                 </div>
             </BlockContainer>
         </div>
-        {/* <div className="size-lg-6">
-            <SortByContainer />
-        </div> */}
-
-        {/* <PinSelectorContainer /> */}
     </Form>
 );
 

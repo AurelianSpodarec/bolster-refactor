@@ -7,8 +7,11 @@ import DatePicker from 'components/shared/generic/form/presentational/DatePicker
 import NewSelect from 'components/shared/generic/form/presentational/NewSelect';
 
 const BasicFilters = ({
+    dateError,
+    fieldError,
     handleChange,
     handleDateChange,
+    handleDateBlur,
     handleHistoryNumChange,
     serviceOptions,
     selectedService,
@@ -23,14 +26,13 @@ const BasicFilters = ({
         <BlockContainer>
             <div className="size-lg-12">
                 <BlockHeading title="Basic Filtration" />
-                <Field name="Services" required={true}>
+                <Field name="Services">
                     <DropdownContainer
                         placeholder="Select Service"
                         name="serviceID"
                         options={serviceOptions}
                         selectedOption={selectedService}
                         handleChange={handleChange}
-                        required
                     />
                 </Field>
                 <Field name="Status">
@@ -49,6 +51,7 @@ const BasicFilters = ({
                             selected={startDate}
                             onChange={val => handleDateChange('startDate', val)}
                             placeholderText="Date"
+                            onBlur={() => handleDateBlur(true)}
                         />
                     </div>
                     <p className="size-lg-2">to</p>
@@ -58,7 +61,13 @@ const BasicFilters = ({
                             selected={endDate}
                             onChange={val => handleDateChange('endDate', val)}
                             placeholderText="Date"
+                            onBlur={() => handleDateBlur()}
                         />
+                    </div>
+                    <div className="size-lg-12">
+                        <p className="error red-text text-accent-4">
+                            {dateError}
+                        </p>
                     </div>
                 </Field>
                 <Field name="Number of Histories" reqiured={true}>
@@ -71,6 +80,10 @@ const BasicFilters = ({
                         onChange={handleHistoryNumChange}
                     />
                 </Field>
+
+                {!!fieldError && (
+                    <p className="error red-text text-accent-4">{fieldError}</p>
+                )}
             </div>
         </BlockContainer>
     </div>

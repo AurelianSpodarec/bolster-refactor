@@ -8,7 +8,8 @@ const DatePickerPresentational = ({
     onChange,
     name,
     placeholderText = `Please select ${name}`,
-    required = true
+    required = true,
+    onBlur = () => {}
 }) => (
     <div className="size-lg-12">
         <DatePicker
@@ -18,6 +19,7 @@ const DatePickerPresentational = ({
             dateFormat="dd/MM/YYYY"
             placeholderText={placeholderText}
             required={required}
+            onBlur={onBlur}
         />
         <i className="far fa-calendar" />
     </div>
