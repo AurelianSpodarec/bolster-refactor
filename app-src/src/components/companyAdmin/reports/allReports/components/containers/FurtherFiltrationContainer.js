@@ -11,6 +11,7 @@ import addFilterQuestion from 'actions/companyAdmin/reports/sync/addFilterQuesti
 import removeFilterQuestion from 'actions/companyAdmin/reports/sync/removeFilterQuestion';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import { FURTHER_FILTRATION } from 'constants/companyAdmin/enums';
+import removeFilterQuestions from 'actions/companyAdmin/reports/sync/removeFilterQuestions';
 
 class FurtherFiltrationContainer extends Component {
     state = { filterOption: 0 };
@@ -119,7 +120,8 @@ const mapStateToProps = ({
 const mapDispatchToProps = dispatch => ({
     updateReportFilter: (name, val) => dispatch(updateReportFilter(name, val)),
     addFilterQuestion: id => dispatch(addFilterQuestion(id)),
-    removeFilterQuestion: id => dispatch(removeFilterQuestion(id))
+    removeFilterQuestion: id => dispatch(removeFilterQuestion(id)),
+    removeFilterQuestions: () => dispatch(removeFilterQuestions())
 });
 
 export default connect(

@@ -40,15 +40,24 @@ class PinSelectorContainer extends Component {
         });
     };
 
-    handleAddIncluded = () => {};
+    handleAddIncluded = () => {
+        const { selectedPinOptions, pinOptions } = this.state;
+        const { handleChange } = this.props;
+        const pinIDs = pinOptions.reduce(
+            (acc, { included, value }) =>
+                included || selectedPinOptions.includes(value)
+                    ? [...acc, value]
+                    : acc,
+            []
+        );
+        handleChange('pinID', pinIDs);
+    };
 
     handleAddExcluded = () => {};
 
     handleSubmit = () => {
         const { selectedPinOptions, pinOptions } = this.state;
-        const { handleChange } = this.props;
-
-        const setPinInclude = Object.values(pinOptions).map(
+        const setIncludes = Object.values(pinOptions).map(
             ({ included, ...pin }) => ({
                 ...pin,
                 included: selectedPinOptions.includes(pin.value)
@@ -56,11 +65,12 @@ class PinSelectorContainer extends Component {
                     : included
             })
         );
-        const selectedPinIDs = setPinInclude
-            .filter(({ included }) => included)
-            .map(({ value }) => value);
-        handleChange('pinIDs', selectedPinIDs);
-        this.setState({ pinOptions: setPinInclude, selectedPinOptions: [] });
+        const pinIDs = setIncludes.reduce((acc, { included, value }) =>
+            included ? [...acc, value] : acc
+        );
+
+        this.props.handleChange('pinIDs', pinIDs);
+        this.setState({ pinOptions: setIncludes, selectedPinOptions: [] });
     };
 
     componentDidMount = () => {
@@ -90,8 +100,7 @@ class PinSelectorContainer extends Component {
     };
 
     _setPinOptions = () => {
-        const { customFilters } = this.props;
-        const pinOptions = customFilters.pins.reduce(
+        const pinOptions = this.props.customFilters.pins.reduce(
             (acc, { id: value, pinCode: text, status }) => ({
                 ...acc,
                 [value]: { value, text, status, included: true }
