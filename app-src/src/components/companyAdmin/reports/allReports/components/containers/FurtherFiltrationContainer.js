@@ -6,7 +6,7 @@ import FurtherFiltration from '../presentational/FurtherFiltration';
 import PinSelectorContainer from 'components/shared/pinSelector/container/PinSelectorContainer';
 import CustomFiltersContainer from './CustomFiltersContainer';
 import updateReportFilter from 'actions/companyAdmin/reports/sync/updateReportFilter';
-import { convertArrToObj, convertEnumToDropdownOptions } from 'helpers/generic';
+import { convertEnumToDropdownOptions } from 'helpers/generic';
 import addFilterQuestion from 'actions/companyAdmin/reports/sync/addFilterQuestion';
 import removeFilterQuestion from 'actions/companyAdmin/reports/sync/removeFilterQuestion';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
@@ -16,23 +16,23 @@ class FurtherFiltrationContainer extends Component {
     state = { filterOption: 0 };
 
     render() {
-        const { drawingID } = this.props.filters;
+        const { filterOption } = this.state;
+        const {
+            fields,
+            filters: { drawingID }
+        } = this.props;
         const filtrationOptions = convertEnumToDropdownOptions(
             FURTHER_FILTRATION
         );
         const filtrationOptionsArr = Object.values(filtrationOptions).filter(
             ({ text }) => drawingID || text !== 'Pin Selection'
         );
-
-        const questionOptions = this._getQuestionsOptions();
-        const { filterOption } = this.state;
-        const selectedFurtherFiltration = filtrationOptions[filterOption];
-        const { fields } = this.props;
+        const selected = filtrationOptions[filterOption];
         return (
             <>
                 <FurtherFiltration
                     furtherFiltrationOptions={filtrationOptionsArr}
-                    selectedfurtherFiltration={selectedFurtherFiltration}
+                    selected={selected}
                     handleChange={this.handleChange}
                 />
                 {filterOption === '1' ? (
@@ -47,7 +47,7 @@ class FurtherFiltrationContainer extends Component {
                                     removeField={() =>
                                         this.removeCustomField(id)
                                     }
-                                    questionOptions={questionOptions}
+                                    questionOptions={this._getQuestionsOptions()}
                                 />
                             ))}
                         </div>
@@ -70,15 +70,15 @@ class FurtherFiltrationContainer extends Component {
 
     removeCustomField = id => this.props.removeFilterQuestion(id);
 
-    _getQuestionsOptions() {
-        const options = this.props.customQuestions.map(
-            ({ id: value, name: text }) => ({
-                value,
-                text
-            })
+    _getQuestionsOptions = () => {
+        return this.props.customQuestions.reduce(
+            (acc, curr) => ({
+                ...acc,
+                [curr.id]: { value: curr.id, text: curr.name }
+            }),
+            {}
         );
-        return convertArrToObj(options, 'value');
-    }
+    };
 
     handleChange = ({ target: { value, name } }) =>
         this.setState({ [name]: value });
