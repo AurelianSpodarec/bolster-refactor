@@ -11,6 +11,7 @@ import addFilterQuestion from 'actions/companyAdmin/reports/sync/addFilterQuesti
 import removeFilterQuestion from 'actions/companyAdmin/reports/sync/removeFilterQuestion';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import { FURTHER_FILTRATION } from 'constants/companyAdmin/enums';
+import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 
 class FurtherFiltrationContainer extends Component {
     state = { filterOption: 0 };
@@ -29,7 +30,7 @@ class FurtherFiltrationContainer extends Component {
         );
         const selected = filtrationOptions[filterOption];
         return (
-            <>
+            <BlockContainer heading="Further Filtration">
                 <FurtherFiltration
                     furtherFiltrationOptions={filtrationOptionsArr}
                     selected={selected}
@@ -63,7 +64,7 @@ class FurtherFiltrationContainer extends Component {
                         </BlockButtonWrapper>
                     </div>
                 ) : null}
-            </>
+            </BlockContainer>
         );
     }
     componentDidUpdate = prevProps => {

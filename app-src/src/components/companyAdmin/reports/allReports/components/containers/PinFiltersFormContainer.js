@@ -16,29 +16,7 @@ export class PinFiltersFormContainer extends Component {
     };
 
     render() {
-        const { filterOption } = this.state;
-        const { drawingID } = this.props.filters;
-
-        const furtherFiltrationOptions = convertEnumToDropdownOptions(
-            FURTHER_FILTRATION
-        );
-
-        const furtherFiltrationOptionsArr = Object.values(
-            furtherFiltrationOptions
-        ).filter(({ text }) => drawingID || text !== 'Pin Selection');
-
-        return (
-            <PinFiltersForm
-                furtherFiltrationOptions={furtherFiltrationOptionsArr}
-                selectedfurtherFiltration={
-                    furtherFiltrationOptions[filterOption]
-                }
-                handleFurtherFiltrationChange={
-                    this.handleFurtherFiltrationChange
-                }
-                filterOption={filterOption}
-            />
-        );
+        return <PinFiltersForm />;
     }
 }
 
