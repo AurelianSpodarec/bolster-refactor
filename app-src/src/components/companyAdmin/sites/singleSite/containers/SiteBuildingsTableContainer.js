@@ -3,7 +3,13 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
-import { ADD_BUILDING } from 'constants/shared/modalTypes';
+import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
+
+import {
+    ADD_BUILDING,
+    SUCCESS_MODAL,
+    ERROR_MODAL
+} from 'constants/shared/modalTypes';
 
 import BuildingsTableContainer from 'components/companyAdmin/buildings/shared/containers/BuildingsTableContainer';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
@@ -28,10 +34,23 @@ class SiteBuildingsTableContainer extends Component {
     }
 
     componentDidUpdate = prevProps => {
-        const { postSuccess, history, updatedBuildingID } = this.props;
+        const { postSuccess, showModal, error, hideModal } = this.props;
 
         if (postSuccess && !prevProps.postSuccess) {
-            history.push(`/company/buildings/${updatedBuildingID}`);
+            showModal(SUCCESS_MODAL, {
+                hideModal,
+                message: 'Building added successfully.'
+            });
+        }
+
+        if (error && !prevProps.error) {
+            showModal(ERROR_MODAL, {
+                hideModal,
+                title: 'Error',
+                message:
+                    error.message ||
+                    '##There was an error processing your request, please try again later.##'
+            });
         }
     };
 
@@ -45,11 +64,12 @@ const mapStateToProps = (
     {
         companyAdmin: {
             sitesReducer,
-            buildingsReducer: { postSuccess, updatedBuildingID }
+            buildingsReducer: { postSuccess, updatedBuildingID, error }
         }
     },
     { match }
 ) => ({
+    error,
     postSuccess,
     updatedBuildingID,
     site: sitesReducer.sites[match.params.id] || {},
@@ -60,6 +80,9 @@ const mapStateToProps = (
 const mapDispatchToProps = dispatch => ({
     showModal: (type, props) => {
         dispatch(showModal(type, props));
+    },
+    hideModal: () => {
+        dispatch(hideModal());
     }
 });
 

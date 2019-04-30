@@ -3,7 +3,13 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
-import { ADD_DRAWING } from 'constants/shared/modalTypes';
+import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
+
+import {
+    ADD_DRAWING,
+    SUCCESS_MODAL,
+    ERROR_MODAL
+} from 'constants/shared/modalTypes';
 
 import DrawingTableContainer from 'components/companyAdmin/drawings/shared/containers/DrawingTableContainer';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
@@ -28,10 +34,23 @@ class FloorDrawingsTableContainer extends Component {
     }
 
     componentDidUpdate = prevProps => {
-        const { postSuccess, updatedID, history } = this.props;
+        const { postSuccess, error, showModal, hideModal } = this.props;
 
         if (!prevProps.postSuccess && postSuccess) {
-            return history.push(`/company/drawings/${updatedID}`);
+            showModal(SUCCESS_MODAL, {
+                hideModal,
+                message: 'Drawing added successfully.'
+            });
+        }
+
+        if (error && !prevProps.error) {
+            showModal(ERROR_MODAL, {
+                hideModal,
+                title: 'Error',
+                message:
+                    error.message ||
+                    '##There was an error processing your request, please try again later.##'
+            });
         }
     };
 
@@ -45,11 +64,12 @@ const mapStateToProps = (
     {
         companyAdmin: {
             floorsReducer,
-            drawingsReducer: { postSuccess, updatedID }
+            drawingsReducer: { postSuccess, updatedID, error }
         }
     },
     { match }
 ) => ({
+    error,
     postSuccess,
     updatedID,
     floor: floorsReducer.floors[match.params.id] || {},
@@ -60,6 +80,9 @@ const mapStateToProps = (
 const mapDispatchToProps = dispatch => ({
     showModal: (type, props) => {
         dispatch(showModal(type, props));
+    },
+    hideModal: () => {
+        dispatch(hideModal());
     }
 });
 

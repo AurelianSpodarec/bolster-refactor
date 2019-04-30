@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import uuid from 'uuid/v1';
 
@@ -6,84 +6,96 @@ import FurtherFiltration from '../presentational/FurtherFiltration';
 import PinSelectorContainer from 'components/shared/pinSelector/container/PinSelectorContainer';
 import CustomFiltersContainer from './CustomFiltersContainer';
 import updateReportFilter from 'actions/companyAdmin/reports/sync/updateReportFilter';
-import { convertArrToObj } from 'helpers/generic';
+import { convertEnumToDropdownOptions } from 'helpers/generic';
 import addFilterQuestion from 'actions/companyAdmin/reports/sync/addFilterQuestion';
 import removeFilterQuestion from 'actions/companyAdmin/reports/sync/removeFilterQuestion';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
+import { FURTHER_FILTRATION } from 'constants/companyAdmin/enums';
 
-const FurtherFiltrationContainer = ({
-    furtherFiltrationOptions,
-    selectedfurtherFiltration,
-    handleChange,
-    filterOption,
-    fields,
-    removeFilterQuestion,
-    addFilterQuestion,
-    customQuestions
-}) => {
-    const questionOptions = _getQuestionsOptions();
-    return (
-        <>
-            <FurtherFiltration
-                furtherFiltrationOptions={furtherFiltrationOptions}
-                selectedfurtherFiltration={selectedfurtherFiltration}
-                handleChange={handleChange}
-            />
-            {filterOption === '1' ? (
-                <PinSelectorContainer />
-            ) : filterOption === '2' ? (
-                <div className="custom-filters-block ignore-padding">
-                    <div className="size-lg-12">
-                        {fields.map(field => (
-                            <CustomFiltersContainer
-                                key={field.id}
-                                id={field.id}
-                                removeField={() => removeCustomField(field.id)}
-                                questionOptions={questionOptions}
-                            />
-                        ))}
+class FurtherFiltrationContainer extends Component {
+    state = { filterOption: 0 };
+
+    render() {
+        const { filterOption } = this.state;
+        const {
+            fields,
+            filters: { drawingID }
+        } = this.props;
+        const filtrationOptions = convertEnumToDropdownOptions(
+            FURTHER_FILTRATION
+        );
+        const filtrationOptionsArr = Object.values(filtrationOptions).filter(
+            ({ text }) => drawingID || text !== 'Pin Selection'
+        );
+        const selected = filtrationOptions[filterOption];
+        return (
+            <>
+                <FurtherFiltration
+                    furtherFiltrationOptions={filtrationOptionsArr}
+                    selected={selected}
+                    handleChange={this.handleChange}
+                />
+                {filterOption === '1' ? (
+                    <PinSelectorContainer />
+                ) : filterOption === '2' ? (
+                    <div className="custom-filters-block ignore-padding">
+                        <div className="size-lg-12">
+                            {fields.map(({ id }) => (
+                                <CustomFiltersContainer
+                                    key={id}
+                                    id={id}
+                                    removeField={() =>
+                                        this.removeCustomField(id)
+                                    }
+                                    questionOptions={this._getQuestionsOptions()}
+                                />
+                            ))}
+                        </div>
+
+                        <BlockButtonWrapper>
+                            <button
+                                onClick={this.addCustomField}
+                                type="button"
+                                className="button green"
+                            >
+                                <i className="fa fa-plus" /> Add field
+                            </button>
+                        </BlockButtonWrapper>
                     </div>
-
-                    <BlockButtonWrapper>
-                        <button
-                            onClick={addCustomField}
-                            type="button"
-                            className="button green"
-                        >
-                            <i className="fa fa-plus" /> Add field
-                        </button>
-                    </BlockButtonWrapper>
-                </div>
-            ) : null}
-        </>
-    );
-    function addCustomField() {
-        addFilterQuestion(uuid());
+                ) : null}
+            </>
+        );
     }
+    addCustomField = () => this.props.addFilterQuestion(uuid());
 
-    function removeCustomField(id) {
-        removeFilterQuestion(id);
-    }
+    removeCustomField = id => this.props.removeFilterQuestion(id);
 
-    function _getQuestionsOptions() {
-        const options = customQuestions.map(({ id: value, name: text }) => ({
-            value,
-            text
-        }));
-        return convertArrToObj(options, 'value');
-    }
-};
+    _getQuestionsOptions = () => {
+        return this.props.customQuestions.reduce(
+            (acc, curr) => ({
+                ...acc,
+                [curr.id]: { value: curr.id, text: curr.name }
+            }),
+            {}
+        );
+    };
+
+    handleChange = ({ target: { value, name } }) =>
+        this.setState({ [name]: value });
+}
 
 const mapStateToProps = ({
     companyAdmin: {
         reportsReducer: {
             customFilters: { questions },
-            fields
+            fields,
+            filters
         }
     }
 }) => ({
     customQuestions: questions || [],
-    fields: Object.values(fields)
+    fields: Object.values(fields),
+    filters
 });
 
 const mapDispatchToProps = dispatch => ({

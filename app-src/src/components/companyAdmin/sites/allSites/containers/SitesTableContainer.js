@@ -3,7 +3,13 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
-import { ADD_SITE } from 'constants/shared/modalTypes';
+import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
+
+import {
+    ADD_SITE,
+    SUCCESS_MODAL,
+    ERROR_MODAL
+} from 'constants/shared/modalTypes';
 
 import SitesTable from '../presentational/SitesTable';
 
@@ -22,9 +28,22 @@ class SitesTableContainer extends Component {
     }
 
     componentDidUpdate = prevProps => {
-        const { history, postSuccess, updatedSiteID } = this.props;
+        const { postSuccess, showModal, hideModal, error } = this.props;
         if (postSuccess && !prevProps.postSuccess) {
-            history.push(`/company/sites/${updatedSiteID}`);
+            showModal(SUCCESS_MODAL, {
+                hideModal,
+                message: 'Site added successfully.'
+            });
+        }
+
+        if (error && !prevProps.error) {
+            showModal(ERROR_MODAL, {
+                hideModal,
+                title: 'Error',
+                message:
+                    error.message ||
+                    '##There was an error processing your request, please try again later.##'
+            });
         }
     };
 
@@ -69,6 +88,9 @@ const mapStateToProps = ({
 const mapDispatchToProps = dispatch => ({
     showModal: (type, props) => {
         dispatch(showModal(type, props));
+    },
+    hideModal: () => {
+        dispatch(hideModal());
     }
 });
 

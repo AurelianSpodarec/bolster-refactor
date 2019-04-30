@@ -3,7 +3,6 @@ import { Route } from 'react-router-dom';
 
 import SwitchWith404 from 'components/appRoute/routes/presentational/SwitchWith404';
 import SingleDrawingContainer from 'components/companyAdmin/drawings/singleDrawing/containers/SingleDrawingContainer';
-import AddDrawing from 'components/companyAdmin/drawings/addDrawing/presentational/AddDrawing';
 import AttachDrawingOperative from 'components/companyAdmin/drawings/attachDrawingOperative/presentational/AttachDrawingOperative';
 import InviteClientToDrawing from 'components/companyAdmin/drawings/inviteClientToDrawing/presentational/InviteClientToDrawing';
 import ClientEditContainer from 'components/shared/clients/containers/ClientEditContainer';
@@ -20,7 +19,6 @@ import AddCompanyPermissionsToDrawing from 'components/companyAdmin/drawings/add
 const DrawingsRoutes = ({ base = '/company/drawings' }) => (
     <SwitchWith404>
         <Route exact path={`${base}/:id`} component={SingleDrawingContainer} />
-        <Route exact path={`${base}/create/:id`} component={AddDrawing} />
         <Route
             exact
             path={`${base}/:id/add-operative`}

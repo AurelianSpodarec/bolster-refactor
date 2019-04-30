@@ -25,6 +25,7 @@ import {
     CREATE_TRANSFER_SITE_SUCCESS,
     CREATE_TRANSFER_SITE_FAILURE
 } from 'constants/actionTypes/sites';
+import { CREATE_BUILDING_SUCCESS } from 'constants/actionTypes/buildings';
 
 export default combineReducers({
     sites: sitesReducer,
@@ -142,6 +143,14 @@ function sitesReducer(state = {}, action) {
         case CREATE_SITE_SUCCESS:
         case ARCHIVE_SITE_SUCCESS:
             return updateObj(state, action.payload.id, action.payload);
+        case CREATE_BUILDING_SUCCESS:
+            return updateObj(state, [action.payload.siteID], {
+                ...state[action.payload.siteID],
+                buildingIDs: [
+                    ...state[action.payload.siteID].buildingIDs,
+                    action.payload.id
+                ]
+            });
         default:
             return state;
     }

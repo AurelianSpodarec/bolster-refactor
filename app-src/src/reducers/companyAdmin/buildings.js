@@ -23,6 +23,7 @@ import {
     ARCHIVE_BUILDING_SUCCESS,
     ARCHIVE_BUILDING_FAILURE
 } from 'constants/actionTypes/buildings';
+import { CREATE_FLOOR_SUCCESS } from 'constants/actionTypes/floors';
 
 export default combineReducers({
     buildings: buildingsReducer,
@@ -136,6 +137,14 @@ function buildingsReducer(state = {}, action) {
         case EDIT_BUILDING_SUCCESS:
         case ARCHIVE_BUILDING_SUCCESS:
             return updateObj(state, action.payload.id, action.payload);
+        case CREATE_FLOOR_SUCCESS:
+            return updateObj(state, [action.payload.buildingID], {
+                ...state[action.payload.buildingID],
+                floorIDs: [
+                    ...state[action.payload.buildingID].floorIDs,
+                    action.payload.id
+                ]
+            });
         default:
             return state;
     }

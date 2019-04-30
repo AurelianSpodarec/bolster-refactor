@@ -3,7 +3,13 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
-import { ADD_FLOOR } from 'constants/shared/modalTypes';
+import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
+
+import {
+    ADD_FLOOR,
+    SUCCESS_MODAL,
+    ERROR_MODAL
+} from 'constants/shared/modalTypes';
 
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import FloorTableContainer from 'components/companyAdmin/floors/shared/containers/FloorTableContainer';
@@ -28,10 +34,23 @@ class BuildingsFloorsTableContainer extends Component {
     }
 
     componentDidUpdate = prevProps => {
-        const { postSuccess, updatedFloorID, history } = this.props;
+        const { postSuccess, error, showModal, hideModal } = this.props;
 
         if (!prevProps.postSuccess && postSuccess) {
-            return history.push(`/company/floors/${updatedFloorID}`);
+            showModal(SUCCESS_MODAL, {
+                hideModal,
+                message: 'Floor added successfully.'
+            });
+        }
+
+        if (error && !prevProps.error) {
+            showModal(ERROR_MODAL, {
+                hideModal,
+                title: 'Error',
+                message:
+                    error.message ||
+                    '##There was an error processing your request, please try again later.##'
+            });
         }
     };
 
@@ -45,11 +64,12 @@ const mapStateToProps = (
     {
         companyAdmin: {
             buildingsReducer,
-            floorsReducer: { postSuccess, updatedFloorID }
+            floorsReducer: { postSuccess, updatedFloorID, error }
         }
     },
     { match }
 ) => ({
+    error,
     postSuccess,
     updatedFloorID,
     building: buildingsReducer.buildings[match.params.id] || {},
@@ -60,6 +80,9 @@ const mapStateToProps = (
 const mapDispatchToProps = dispatch => ({
     showModal: (type, props) => {
         dispatch(showModal(type, props));
+    },
+    hideModal: () => {
+        dispatch(hideModal());
     }
 });
 
