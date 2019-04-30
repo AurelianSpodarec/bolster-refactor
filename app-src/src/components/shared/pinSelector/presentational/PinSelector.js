@@ -8,7 +8,8 @@ const PinSelector = ({
     excludedPins,
     includedPins,
     handlePinClick,
-    handleSubmit
+    handleSubmit,
+    selectedPinOptions
 }) => (
     <>
         <BlockHeading title="Pin Selector" />
@@ -21,6 +22,7 @@ const PinSelector = ({
             <div className="size-lg-4">
                 <Field name="Excluded">
                     <ExcludedBox
+                        selectedPinOptions={selectedPinOptions}
                         excludedPins={excludedPins}
                         handlePinClick={handlePinClick}
                     />
@@ -29,6 +31,7 @@ const PinSelector = ({
             <div className="size-lg-4">
                 <Field name="Included">
                     <IncludedBox
+                        selectedPinOptions={selectedPinOptions}
                         includedPins={includedPins}
                         handlePinClick={handlePinClick}
                     />
@@ -39,40 +42,6 @@ const PinSelector = ({
                 Submit
             </button>
         </div>
-
-        {/* <Field title="Included">
-            <IncludedBox />
-        </Field> */}
-
-        {/* <div className="pin-selection-box">
-            <h3>Excluded</h3>
-            <div className="content">
-                <p>0023:01</p>
-                <p className="selected">0023:02</p>
-                <p>0023:03</p>
-            </div>
-        </div>
-
-        <div className="pin-selection-buttons">
-            <button className="exclude" type="button">
-                <i className="far fa-long-arrow-left" />
-            </button>
-
-            <button className="include" type="button">
-                <i className="far fa-long-arrow-right" />
-            </button>
-        </div>
-
-        <div className="pin-selection-box">
-            <h3>Included</h3>
-            <div className="content">
-                <p>0023:04</p>
-                <p>0023:05</p>
-                <p>0023:06</p>
-                <p>0023:07</p>
-                <p>0023:08</p>
-            </div>
-        </div> */}
     </>
 );
 

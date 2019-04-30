@@ -9,14 +9,10 @@ import fetchAllDrawings from 'actions/companyAdmin/drawings/async/fetchAllDrawin
 import PinFilters from '../presentational/PinFilters';
 
 export class PinFiltersContainer extends Component {
-    render() {
-        return <PinFilters />;
-    }
+    render = () => <PinFilters />;
 
     componentDidMount = () => {
-        const { fetchAllLevels } = this.props;
-
-        fetchAllLevels();
+        this.props.fetchAllLevels();
     };
 }
 
