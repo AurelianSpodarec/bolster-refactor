@@ -6,7 +6,12 @@ import Form from 'components/shared/generic/form/containers/Form';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 
-const FloorEditForm = ({ handleSubmit, handleInputChange, name, floorID }) => (
+const FloorEditForm = ({
+    handleSubmit,
+    handleInputChange,
+    hideModal,
+    name
+}) => (
     <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
         <div className="size-lg-12">
             <div className="size-lg-6">
@@ -23,9 +28,7 @@ const FloorEditForm = ({ handleSubmit, handleInputChange, name, floorID }) => (
 
         <BlockButtonWrapper>
             <button className="button green">Confirm</button>
-            <ButtonContainer to={`/company/floors/${floorID}`}>
-                Cancel
-            </ButtonContainer>
+            <ButtonContainer handleClick={hideModal}>Cancel</ButtonContainer>
         </BlockButtonWrapper>
     </Form>
 );

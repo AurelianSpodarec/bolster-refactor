@@ -1,10 +1,15 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
 import PieChart from 'components/shared/stats/presentational/PieChart';
 import FloorDetails from './FloorDetails';
 
-const FloorStats = ({ floor, stats, handleDelete, handleArchive }) => (
+const FloorStats = ({
+    floor,
+    stats,
+    handleDelete,
+    handleArchive,
+    handleEditFloorModal
+}) => (
     <div className="stats size-lg-12">
         <FloorDetails stats={stats} floor={floor} />
         <PieChart stats={stats} hierarchyType="floor" />
@@ -12,12 +17,9 @@ const FloorStats = ({ floor, stats, handleDelete, handleArchive }) => (
             <button className="button red" type="button" onClick={handleDelete}>
                 <i className="far fa-trash-alt fa-fw" /> Delete
             </button>
-            <Link
-                className="button yellow"
-                to={`/company/floors/${floor.id}/edit`}
-            >
+            <button className="button yellow" onClick={handleEditFloorModal}>
                 <i className="far fa-pencil fa-fw" /> Edit
-            </Link>
+            </button>
 
             <button
                 className="button blue"
