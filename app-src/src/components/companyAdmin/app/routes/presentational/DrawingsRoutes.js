@@ -20,7 +20,6 @@ import AddCompanyPermissionsToDrawing from 'components/companyAdmin/drawings/add
 const DrawingsRoutes = ({ base = '/company/drawings' }) => (
     <SwitchWith404>
         <Route exact path={`${base}/:id`} component={SingleDrawingContainer} />
-        <Route exact path={`${base}/create/:id`} component={AddDrawing} />
         <Route
             exact
             path={`${base}/:id/add-operative`}
