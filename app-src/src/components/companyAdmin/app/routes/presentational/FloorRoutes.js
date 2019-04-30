@@ -6,7 +6,6 @@ import SingleFloorContainer from 'components/companyAdmin/floors/singleFloor/con
 import AttachFloorOperative from 'components/companyAdmin/floors/attachFloorOperative/presentational/AttachFloorOperative';
 import InviteClientToFloor from 'components/companyAdmin/floors/inviteClientToFloor/presentational/InviteClientToFloor';
 import InviteCompanyToFloor from 'components/companyAdmin/floors/inviteCompanyToFloor/presentational/InviteCompanyToFloor';
-import AddFloor from 'components/companyAdmin/floors/addFloor/presentational/AddFloor';
 import FloorInviteClientContainer from 'components/companyAdmin/floors/singleFloor/containers/FloorInviteClientContainer';
 import FloorEditContainer from 'components/companyAdmin/floors/singleFloor/containers/FloorEditContainer';
 import AttachFloorDocument from 'components/companyAdmin/floors/attachFloorDocument/presentational/AttachFloorDocument';
@@ -17,7 +16,6 @@ import AddCompanyPermissionsToFloor from 'components/companyAdmin/floors/addComp
 const FloorRoutes = ({ base = '/company/floors' }) => (
     <SwitchWith404>
         <Route exact path={`${base}/:id`} component={SingleFloorContainer} />
-        <Route exact path={`${base}/create/:id`} component={AddFloor} />
         <Route exact path={`${base}/:id/edit`} component={FloorEditContainer} />
         <Route
             exact

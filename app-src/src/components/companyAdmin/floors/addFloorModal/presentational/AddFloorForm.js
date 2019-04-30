@@ -6,12 +6,7 @@ import Form from 'components/shared/generic/form/containers/Form';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 
-const AddFloorForm = ({
-    handleSubmit,
-    handleInputChange,
-    name,
-    buildingID
-}) => (
+const AddFloorForm = ({ handleSubmit, hideModal, handleInputChange, name }) => (
     <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
         <div className="size-lg-6">
             <Field name="Floor name" required>
@@ -27,9 +22,7 @@ const AddFloorForm = ({
             <button className="button green">
                 <i className="fa fa-plus" /> Add Floor
             </button>
-            <ButtonContainer to={`/company/buildings/${buildingID}`}>
-                Cancel
-            </ButtonContainer>
+            <ButtonContainer handleClick={hideModal}>Cancel</ButtonContainer>
         </BlockButtonWrapper>
     </Form>
 );

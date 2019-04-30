@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 import createFloor from 'actions/companyAdmin/floors/async/createFloor';
+import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 
 import AddFloorForm from '../presentational/AddFloorForm';
 
@@ -17,17 +18,10 @@ class AddFloorFormContainer extends Component {
                 buildingID={this.props.buildingID}
                 handleInputChange={this.handleInputChange}
                 handleSubmit={this.handleSubmit}
+                hideModal={this.props.hideModal}
             />
         );
     }
-
-    componentDidUpdate = prevProps => {
-        const { postSuccess, updatedFloorID, history } = this.props;
-
-        if (!prevProps.postSuccess && postSuccess) {
-            return history.push(`/company/floors/${updatedFloorID}`);
-        }
-    };
 
     handleInputChange = e => {
         e.preventDefault();
@@ -40,30 +34,28 @@ class AddFloorFormContainer extends Component {
     handleSubmit = e => {
         e.preventDefault();
 
-        const { createFloor, buildingID } = this.props;
+        const { createFloor, buildingID, hideModal } = this.props;
 
         createFloor({
             ...this.state,
             buildingID
         });
+        hideModal();
     };
 }
-
-const mapStateToProps = ({ companyAdmin: { floorsReducer } }, { match }) => ({
-    postSuccess: floorsReducer.postSuccess,
-    updatedFloorID: floorsReducer.updatedFloorID,
-    buildingID: match.params.id
-});
 
 const mapDispatchToProps = dispatch => ({
     createFloor: postBody => {
         dispatch(createFloor(postBody));
+    },
+    hideModal: () => {
+        dispatch(hideModal());
     }
 });
 
 export default withRouter(
     connect(
-        mapStateToProps,
+        null,
         mapDispatchToProps
     )(AddFloorFormContainer)
 );

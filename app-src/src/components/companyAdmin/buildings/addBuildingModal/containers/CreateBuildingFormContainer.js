@@ -20,6 +20,7 @@ class CreateBuildingFormContainer extends Component {
             handleInputChange={this.handleInputChange}
             handleSubmit={this.handleSubmit}
             siteID={this.props.siteID}
+            hideModal={this.props.hideModal}
         />
     );
 
