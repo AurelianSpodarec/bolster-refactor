@@ -18,6 +18,7 @@ class AddFloorFormContainer extends Component {
                 buildingID={this.props.buildingID}
                 handleInputChange={this.handleInputChange}
                 handleSubmit={this.handleSubmit}
+                hideModal={this.props.hideModal}
             />
         );
     }
