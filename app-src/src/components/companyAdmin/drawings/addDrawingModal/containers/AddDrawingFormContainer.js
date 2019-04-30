@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
 
 import createDrawing from 'actions/companyAdmin/drawings/async/createDrawing';
+import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
+
 import AddDrawingForm from '../presentational/AddDrawingForm';
 
 class AddDrawingFormContainer extends Component {
@@ -35,6 +36,7 @@ class AddDrawingFormContainer extends Component {
                 handleInputChange={this.handleInputChange}
                 handleFileChange={this.handleFileChange}
                 handleSubmit={this.handleSubmit}
+                hideModal={this.props.hideModal}
                 filesUploading={filesUploading}
                 credits={credits}
             />
@@ -58,45 +60,47 @@ class AddDrawingFormContainer extends Component {
     };
 
     handleSubmit = () => {
-        const { createDrawing, floorID, filesUploading } = this.props;
+        const {
+            createDrawing,
+            floorID,
+            filesUploading,
+            hideModal
+        } = this.props;
         // eslint-disable-next-line no-unused-vars
         const { templateUsageRuleOptions, ...restState } = this.state;
         if (!filesUploading) {
             createDrawing({ ...restState, floorID });
+            hideModal();
         }
     };
 }
 
-const mapStateToProps = (
-    {
-        companyAdmin: {
-            drawingsReducer: { updatedID },
-            creditsReducer: { credits }
-        },
-
-        shared: {
-            filesUploadingReducer: { filesUploading }
-        }
+const mapStateToProps = ({
+    companyAdmin: {
+        creditsReducer: { credits }
     },
-    { match }
-) => ({
+
+    shared: {
+        filesUploadingReducer: { filesUploading }
+    }
+}) => ({
     filesUploading,
-    floorID: match.params.id,
-    updatedID,
     credits: Object.values(credits).reduce(
         (acc, curr) => acc + curr.quantity,
         0
     )
 });
+
 const mapDispatchToProps = dispatch => ({
     createDrawing: drawing => {
         dispatch(createDrawing(drawing));
+    },
+    hideModal: () => {
+        dispatch(hideModal());
     }
 });
 
-const WithRedux = connect(
+export default connect(
     mapStateToProps,
     mapDispatchToProps
 )(AddDrawingFormContainer);
-
-export default withRouter(WithRedux);

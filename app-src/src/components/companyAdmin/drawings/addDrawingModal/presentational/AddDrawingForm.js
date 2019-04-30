@@ -13,8 +13,8 @@ const AddDrawingForm = ({
     handleSubmit,
     handleInputChange,
     handleFileChange,
+    hideModal,
     filesUploading,
-    floorID,
     name,
     file,
     templateUsageRules,
@@ -87,9 +87,7 @@ const AddDrawingForm = ({
                     </button>
                 </TooltipContainer>
             )}
-            <ButtonContainer to={`/company/floors/${floorID}`}>
-                Cancel
-            </ButtonContainer>
+            <ButtonContainer handleClick={hideModal}>Cancel</ButtonContainer>
         </BlockButtonWrapper>
     </Form>
 );

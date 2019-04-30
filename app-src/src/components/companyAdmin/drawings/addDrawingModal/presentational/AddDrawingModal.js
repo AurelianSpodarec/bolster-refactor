@@ -1,20 +1,16 @@
 import React from 'react';
 
 import AddDrawingFormContainer from '../containers/AddDrawingFormContainer';
-import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
+import ModalOuterContainer from 'components/shared/generic/modals/containers/ModalOuterContainer';
 
-const AddDrawing = () => (
+const AddDrawingModal = ({ floorID }) => (
     <>
-        <PageHeading
-            leftChildren={true}
-            title={'Create Drawing'}
-            withBackButton
-        />
-        <BlockContainer>
-            <AddDrawingFormContainer />
-        </BlockContainer>
+        <ModalOuterContainer>
+            <BlockHeading title={'Create Drawing'} />
+            <AddDrawingFormContainer floorID={floorID} />
+        </ModalOuterContainer>
     </>
 );
 
-export default AddDrawing;
+export default AddDrawingModal;

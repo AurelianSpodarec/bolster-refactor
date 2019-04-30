@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { Link } from 'react-router-dom';
 
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { ADD_DRAWING } from 'constants/shared/modalTypes';
@@ -16,12 +15,12 @@ class FloorDrawingsTableContainer extends Component {
         return (
             <BlockContainer>
                 <BlockHeading title="Drawings" classes="w-table">
-                    <Link
+                    <button
                         className="button green"
-                        to={`/company/drawings/create/${floor.id}`}
+                        onClick={this.handleAddDrawingModal}
                     >
                         <i className="fa fa-plus" /> Add Drawing
-                    </Link>
+                    </button>
                 </BlockHeading>
                 <DrawingTableContainer ids={floor.drawingIDs || []} />
             </BlockContainer>
@@ -29,10 +28,10 @@ class FloorDrawingsTableContainer extends Component {
     }
 
     componentDidUpdate = prevProps => {
-        const { postSuccess, updatedDrawingID, history } = this.props;
+        const { postSuccess, updatedID, history } = this.props;
 
         if (!prevProps.postSuccess && postSuccess) {
-            return history.push(`/company/drawings/${updatedDrawingID}`);
+            return history.push(`/company/drawings/${updatedID}`);
         }
     };
 
@@ -46,13 +45,13 @@ const mapStateToProps = (
     {
         companyAdmin: {
             floorsReducer,
-            drawingsReducer: { postSuccess, updatedDrawingID }
+            drawingsReducer: { postSuccess, updatedID }
         }
     },
     { match }
 ) => ({
     postSuccess,
-    updatedDrawingID,
+    updatedID,
     floor: floorsReducer.floors[match.params.id] || {},
     isFetching: floorsReducer.isFetching,
     floorID: match.params.id
