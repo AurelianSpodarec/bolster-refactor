@@ -6,10 +6,10 @@ import fetchAllBuildings from 'actions/companyAdmin/buildings/async/fetchAllBuil
 import fetchAllFloors from 'actions/companyAdmin/floors/async/fetchAllFloors';
 import fetchAllDrawings from 'actions/companyAdmin/drawings/async/fetchAllDrawings';
 
-import PinFilters from '../presentational/PinFilters';
+import CreateReport from '../presentational/CreateReport';
 
-export class PinFiltersContainer extends Component {
-    render = () => <PinFilters />;
+export class CreateReportContainer extends Component {
+    render = () => <CreateReport />;
 
     componentDidMount = () => {
         this.props.fetchAllLevels();
@@ -28,4 +28,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
     null,
     mapDispatchToProps
-)(PinFiltersContainer);
+)(CreateReportContainer);
