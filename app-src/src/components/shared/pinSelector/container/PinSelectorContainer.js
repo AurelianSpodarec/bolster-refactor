@@ -60,7 +60,6 @@ class PinSelectorContainer extends Component {
             .filter(({ included }) => included)
             .map(({ value }) => value);
         handleChange('pinIDs', selectedPinIDs);
-
         this.setState({ pinOptions: setPinInclude, selectedPinOptions: [] });
     };
 
@@ -91,13 +90,11 @@ class PinSelectorContainer extends Component {
     };
 
     _setPinOptions = () => {
-        const {
-            customFilters: { pins }
-        } = this.props;
-        const pinOptions = pins.reduce(
-            (acc, { id, pinCode, status }) => ({
+        const { customFilters } = this.props;
+        const pinOptions = customFilters.pins.reduce(
+            (acc, { id: value, pinCode: text, status }) => ({
                 ...acc,
-                [id]: { value: id, text: pinCode, status, included: true }
+                [value]: { value, text, status, included: true }
             }),
             {}
         );
