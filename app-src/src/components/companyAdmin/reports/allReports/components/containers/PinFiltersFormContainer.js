@@ -10,7 +10,6 @@ import postReport from 'actions/companyAdmin/reports/async/postReport';
 import postCustomFilters from 'actions/companyAdmin/reports/async/postCustomFilters';
 import removeFilterQuestions from 'actions/companyAdmin/reports/sync/removeFilterQuestions';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
-import { SUCCESS_MODAL, ERROR_MODAL } from 'constants/shared/modalTypes';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 
 export class PinFiltersFormContainer extends Component {
@@ -44,115 +43,6 @@ export class PinFiltersFormContainer extends Component {
             />
         );
     }
-
-    componentDidUpdate = prevProps => {
-        const {
-            filters: { siteID, buildingID, floorID, drawingID },
-            removeFilterQuestions,
-            postSuccess,
-            error,
-            showModal,
-            hideModal,
-            history
-        } = this.props;
-
-        // reset further filters if site info changes
-        if (
-            siteID !== prevProps.filters.siteID ||
-            buildingID !== prevProps.filters.buildingID ||
-            floorID !== prevProps.filters.floorID ||
-            drawingID !== prevProps.filters.drawingID
-        ) {
-            this.setState({ filterOption: 0 });
-            removeFilterQuestions();
-        }
-
-        if (postSuccess && !prevProps.postSuccess) {
-            showModal(SUCCESS_MODAL, {
-                hideModal: () => {
-                    hideModal();
-                    history.push('/company/tools/company-reports');
-                },
-                message: '##Your report is now being generated##'
-            });
-            if (error && !prevProps.error) {
-                showModal(ERROR_MODAL, {
-                    hideModal,
-                    title: 'Error',
-                    message:
-                        error.message ||
-                        '##There was an error processing your request, please try again later.##'
-                });
-            }
-        }
-    };
-
-    handleFurtherFiltrationChange = ({ target: { value, name } }) => {
-        this.setState({ [name]: value });
-    };
-
-    handleSubmit = () => {
-        const {
-            filters: {
-                siteID,
-                buildingID,
-                floorID,
-                drawingID,
-                serviceID,
-                statusID,
-                numberOfHistoriesID,
-                reportFormatID,
-                includeLocationDrawing,
-                startDate,
-                endDate,
-                operativeIDs
-            },
-            fields,
-            selectedPins,
-            options: { showHidden, layout, sortBy },
-            postReport
-        } = this.props;
-        const hierarchyType = drawingID
-            ? 'drawing'
-            : floorID
-            ? 'floor'
-            : buildingID
-            ? 'building'
-            : 'site';
-        const hierarchyID = drawingID
-            ? drawingID
-            : floorID
-            ? floorID
-            : buildingID
-            ? buildingID
-            : siteID;
-
-        const questionFilters = fields.map(
-            ({ selectedQuestions, questionValues }) => ({
-                questionGroupKeys: selectedQuestions,
-                values: Object.values(questionValues).map(({ value }) => value)
-            })
-        );
-
-        const postBody = {
-            hierarchyType,
-            hierarchyID,
-            reportHistories: numberOfHistoriesID,
-            fileType: reportFormatID,
-            includePinLocation: includeLocationDrawing,
-            fromDateInclusive: startDate,
-            ToDateInclusive: endDate,
-            companyUserIDs: operativeIDs,
-            serviceID,
-            status: statusID || null,
-            questionFilters,
-            showHidden,
-            layout,
-            sortBy,
-            pinIDs: selectedPins
-        };
-        postReport(postBody);
-    };
 }
 
 const mapStateToProps = ({
