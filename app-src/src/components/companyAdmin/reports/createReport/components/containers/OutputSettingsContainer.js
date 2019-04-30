@@ -10,11 +10,26 @@ import { SUCCESS_MODAL, ERROR_MODAL } from 'constants/shared/modalTypes';
 
 import OutputSettings from '../presentational/OutputSettings';
 import showFieldErrors from 'actions/shared/generic/fieldErrors/sync/showFieldErrors';
-import { isEmpty } from 'helpers/generic';
+import { isEmpty, convertEnumToDropdownOptions } from 'helpers/generic';
+import withUpdateOnChange from '../hocs/withUpdateOnChange';
+import { REPORT_FORMATS } from 'constants/companyAdmin/enums';
 
 class OutputSettingsContainer extends Component {
     render() {
-        return <OutputSettings handleSubmit={this.handleSubmit} />;
+        const {
+            filters: { includePinLocation, fileType }
+        } = this.props;
+
+        const reportFormatOptions = convertEnumToDropdownOptions(
+            REPORT_FORMATS
+        );
+
+        return (
+            <OutputSettings
+                handleChange={this.handleChange}
+                handleSubmit={this.handleSubmit}
+            />
+        );
     }
 
     componentDidUpdate = prevProps => {
@@ -35,25 +50,15 @@ class OutputSettingsContainer extends Component {
         }
     };
 
+    handleChange = ({ target: { value, name, checked, type } }) => {
+        const { handleChange } = this.props;
+
+        handleChange(name, type === 'checkbox' ? checked : value);
+    };
+
     handleSubmit = () => {
         const {
-            filters: {
-                siteID,
-                buildingID,
-                floorID,
-                drawingID,
-                serviceID,
-                status,
-                reportHistories,
-                fileType,
-                includePinLocation,
-                fromDateInclusive,
-                toDateInclusive,
-                companyUserIDs,
-                pinIDs
-            },
-            fields,
-            options: { showHidden, layout, sortBy },
+            getPostBody,
             postReport,
             fieldErrors,
             showFieldErrors
@@ -64,52 +69,7 @@ class OutputSettingsContainer extends Component {
             return;
         }
 
-        let hierarchyType;
-        let hierarchyID;
-
-        if (siteID) {
-            hierarchyType = 'site';
-            hierarchyID = siteID;
-        }
-        if (buildingID) {
-            hierarchyType = 'building';
-            hierarchyID = buildingID;
-        }
-        if (floorID) {
-            hierarchyType = 'floor';
-            hierarchyID = floorID;
-        }
-        if (drawingID) {
-            hierarchyType = 'drawing';
-            hierarchyID = drawingID;
-        }
-
-        const questionFilters = fields.map(
-            ({ selectedQuestions, questionValues }) => ({
-                questionGroupKeys: selectedQuestions,
-                values: Object.values(questionValues).map(({ value }) => value)
-            })
-        );
-
-        const postBody = {
-            hierarchyType,
-            hierarchyID,
-            reportHistories,
-            fileType,
-            includePinLocation,
-            fromDateInclusive,
-            toDateInclusive,
-            companyUserIDs,
-            serviceID,
-            status: status || null,
-            questionFilters,
-            showHidden,
-            layout,
-            sortBy,
-            pinIDs
-        };
-
-        postReport(postBody);
+        postReport(getPostBody());
     };
 }
 
@@ -143,4 +103,6 @@ const WithConnect = connect(
     mapDispatchToProps
 )(OutputSettingsContainer);
 
-export default withRouter(WithConnect);
+const WithUpdateOnChange = withUpdateOnChange(WithConnect);
+
+export default withRouter(WithUpdateOnChange);

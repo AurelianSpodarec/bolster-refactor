@@ -25,6 +25,7 @@ export default function(ProtectedComponent) {
                     formatArrForDropdown={this.formatArrForDropdown}
                     validate={this.validate}
                     showFieldError={this.showFieldError}
+                    getPostBody={this._getPostBody}
                 />
             );
         }
@@ -62,7 +63,7 @@ export default function(ProtectedComponent) {
             }
         };
 
-        postFilters = () => {
+        _getPostBody = () => {
             const {
                 filters: {
                     siteID,
@@ -79,16 +80,8 @@ export default function(ProtectedComponent) {
                     companyUserIDs
                 },
                 options: { showHidden, layout, sortBy },
-                fields,
-                postCustomFilters,
-                fieldErrors,
-                showFieldErrors
+                fields
             } = this.props;
-
-            if (!isEmpty(fieldErrors)) {
-                showFieldErrors();
-                return;
-            }
 
             let hierarchyType;
             let hierarchyID;
@@ -119,7 +112,7 @@ export default function(ProtectedComponent) {
                 })
             );
 
-            const postBody = {
+            return {
                 hierarchyType,
                 hierarchyID,
                 reportHistories,
@@ -135,8 +128,21 @@ export default function(ProtectedComponent) {
                 layout,
                 sortBy
             };
+        };
 
-            return postCustomFilters(postBody);
+        postFilters = () => {
+            const {
+                postCustomFilters,
+                fieldErrors,
+                showFieldErrors
+            } = this.props;
+
+            if (!isEmpty(fieldErrors)) {
+                showFieldErrors();
+                return;
+            }
+
+            return postCustomFilters(this._getPostBody());
         };
     }
 
