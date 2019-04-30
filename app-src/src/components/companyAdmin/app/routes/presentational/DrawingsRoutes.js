@@ -3,7 +3,6 @@ import { Route } from 'react-router-dom';
 
 import SwitchWith404 from 'components/appRoute/routes/presentational/SwitchWith404';
 import SingleDrawingContainer from 'components/companyAdmin/drawings/singleDrawing/containers/SingleDrawingContainer';
-import AddDrawing from 'components/companyAdmin/drawings/addDrawing/presentational/AddDrawing';
 import AttachDrawingOperative from 'components/companyAdmin/drawings/attachDrawingOperative/presentational/AttachDrawingOperative';
 import InviteClientToDrawing from 'components/companyAdmin/drawings/inviteClientToDrawing/presentational/InviteClientToDrawing';
 import ClientEditContainer from 'components/shared/clients/containers/ClientEditContainer';
