@@ -5,7 +5,8 @@ import updateReportFilter from 'actions/companyAdmin/reports/sync/updateReportFi
 import postCustomFilters from 'actions/companyAdmin/reports/async/postCustomFilters';
 import addFieldError from 'actions/shared/generic/fieldErrors/sync/addFieldError';
 import removeFieldError from 'actions/shared/generic/fieldErrors/sync/removeFieldError';
-import { convertArrToObj } from 'helpers/generic';
+import { convertArrToObj, isEmpty } from 'helpers/generic';
+import showFieldErrors from 'actions/shared/generic/fieldErrors/sync/showFieldErrors';
 
 export default function(ProtectedComponent) {
     class WithUpdateOnChange extends React.Component {
@@ -14,12 +15,12 @@ export default function(ProtectedComponent) {
         };
         render() {
             const { showError } = this.state;
-            const { fieldError, ...props } = this.props;
+            const { errorsVisible, fieldError, ...props } = this.props;
 
             return (
                 <ProtectedComponent
                     {...props}
-                    fieldError={showError ? fieldError : null}
+                    fieldError={showError || errorsVisible ? fieldError : null}
                     postFilters={this.postFilters}
                     formatArrForDropdown={this.formatArrForDropdown}
                     validate={this.validate}
@@ -77,10 +78,17 @@ export default function(ProtectedComponent) {
                     endDate,
                     operativeIDs
                 },
-                fields,
                 options: { showHidden, layout, sortBy },
-                postCustomFilters
+                fields,
+                postCustomFilters,
+                fieldErrors,
+                showFieldErrors
             } = this.props;
+
+            if (!isEmpty(fieldErrors)) {
+                showFieldErrors();
+                return;
+            }
 
             let hierarchyType;
             let hierarchyID;
@@ -169,6 +177,7 @@ export default function(ProtectedComponent) {
         const drawings = drawingIDs.map(id => drawingsReducer.drawings[id]);
 
         return {
+            fieldErrors,
             fieldError: fieldErrors[blockName],
             errorsVisible,
             filters,
@@ -188,12 +197,9 @@ export default function(ProtectedComponent) {
     const mapDispatchToProps = dispatch => ({
         handleChange: (name, val) => dispatch(updateReportFilter(name, val)),
         postCustomFilters: postBody => dispatch(postCustomFilters(postBody)),
-        addFieldError: (name, val) => {
-            dispatch(addFieldError(name, val));
-        },
-        removeFieldError: name => {
-            dispatch(removeFieldError(name));
-        }
+        addFieldError: (name, val) => dispatch(addFieldError(name, val)),
+        removeFieldError: name => dispatch(removeFieldError(name)),
+        showFieldErrors: () => dispatch(showFieldErrors())
     });
 
     return connect(

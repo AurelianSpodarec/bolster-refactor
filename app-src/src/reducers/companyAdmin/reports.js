@@ -52,7 +52,8 @@ function filtersReducer(
         includeLocationDrawing: false,
         startDate: undefined,
         endDate: undefined,
-        operativeIDs: []
+        operativeIDs: [],
+        pinIDs: []
     },
     action
 ) {

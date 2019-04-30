@@ -1,14 +1,15 @@
 import React from 'react';
 
-import SelectorPinItemContainer from '../container/SelectorPinItemContainer';
+import SelectorPinItem from './SelectorPinItem';
 
-const IncludedBox = ({ handlePinClick, includedPins }) => (
+const IncludedBox = ({ handlePinClick, includedPins, selectedPinOptions }) => (
     <div className="selector-box included size-lg-12">
         {includedPins.map(pin => (
-            <SelectorPinItemContainer
+            <SelectorPinItem
                 key={pin.value}
                 pin={pin}
                 handlePinClick={handlePinClick}
+                active={selectedPinOptions.includes(pin.value)}
             />
         ))}
     </div>
