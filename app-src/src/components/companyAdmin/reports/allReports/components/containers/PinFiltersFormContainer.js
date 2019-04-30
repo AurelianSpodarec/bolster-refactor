@@ -192,9 +192,9 @@ const mapDispatchToProps = dispatch => ({
     hideModal: () => dispatch(hideModal())
 });
 
-export default withRouter(
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(PinFiltersFormContainer)
-);
+const WithConnect = connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(PinFiltersFormContainer);
+
+export default withRouter(WithConnect);

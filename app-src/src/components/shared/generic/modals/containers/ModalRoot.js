@@ -37,6 +37,8 @@ import {
     ADD_FLOOR,
     ADD_DRAWING
 } from 'constants/shared/modalTypes';
+import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
+import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 
 import AddCardModalContainer from 'components/companyAdmin/subscription/cardManagement/addCardModal/containers/AddCardModalContainer';
 import AddServiceToSubscriptionModalContainer from 'components/companyAdmin/subscription/AddServiceToSubscriptionModal/containers/AddServiceToSubscriptionModalContainer';
@@ -110,11 +112,18 @@ const MODAL_COMPONENTS = {
     [ADD_DRAWING]: AddDrawingModal
 };
 
-const ModalRoot = ({ modalType, modalProps }) => {
+const ModalRoot = ({ modalType, modalProps, ...otherProps }) => {
     if (!modalType) return null;
 
     const SpecificModel = MODAL_COMPONENTS[modalType];
-    return <SpecificModel {...modalProps} />;
+    return <SpecificModel {...modalProps} {...otherProps} />;
 };
 
-export default connect(({ shared }) => shared.modalReducer)(ModalRoot);
+export default connect(
+    ({ shared }) => shared.modalReducer,
+    dispatch => ({
+        hideModal: () => dispatch(hideModal()),
+        showModal: (modalType, modalProps) =>
+            dispatch(showModal(modalType, modalProps))
+    })
+)(ModalRoot);

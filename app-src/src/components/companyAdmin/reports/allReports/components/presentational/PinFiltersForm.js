@@ -10,6 +10,7 @@ import FilterMapContainer from '../containers/FilterMapContainer';
 import Block1FiltersContainer from '../containers/Block1FiltersContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import BasicFiltersContainer from '../containers/BasicFiltersContainer';
+import OutputSettingsContainer from '../containers/OutputSettingsContainer';
 
 const PinFiltersForm = ({
     furtherFiltrationOptions,
@@ -41,27 +42,7 @@ const PinFiltersForm = ({
                 </BlockContainer>
             </div>
         </div>
-        <div className="size-lg-12">
-            <BlockContainer>
-                <div className="size-lg-12">
-                    <BlockHeading title="Output Settings" />
-                    <div className="generic-form">
-                        <div className="size-lg-6">
-                            <ReportFormatsContainer />
-                        </div>
-                        <div className="size-lg-6">
-                            <OtherOptionsContainer />
-                        </div>
-                        <BlockButtonWrapper>
-                            <button className="button green" type="submit">
-                                <i className="fa fa-file" />
-                                Generate report
-                            </button>
-                        </BlockButtonWrapper>
-                    </div>
-                </div>
-            </BlockContainer>
-        </div>
+        <OutputSettingsContainer />
     </Form>
 );
 
