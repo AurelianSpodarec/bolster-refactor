@@ -25,6 +25,8 @@ import {
     ARCHIVE_BUILDING_FAILURE
 } from 'constants/actionTypes/buildings';
 
+import { CREATE_DRAWING_SUCCESS } from 'constants/actionTypes/drawings';
+
 export default combineReducers({
     floors: floorsReducer,
     isFetching: isFetchingReducer,
@@ -141,6 +143,14 @@ function floorsReducer(state = {}, action) {
         case EDIT_FLOOR_SUCCESS:
         case ARCHIVE_FLOOR_SUCCESS:
             return updateObj(state, action.payload.id, action.payload);
+        case CREATE_DRAWING_SUCCESS:
+            return updateObj(state, [action.payload.floorID], {
+                ...state[action.payload.floorID],
+                drawingIDs: [
+                    ...state[action.payload.floorID].drawingIDs,
+                    action.payload.id
+                ]
+            });
         default:
             return state;
     }
