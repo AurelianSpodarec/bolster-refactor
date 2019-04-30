@@ -54,3 +54,4 @@ export const ADD_DRAWING = 'ADD_DRAWING';
 
 export const EDIT_SITE = 'EDIT_SITE';
 export const EDIT_BUILDING = 'EDIT_BUILDING';
+export const EDIT_FLOOR = 'EDIT_FLOOR';
