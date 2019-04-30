@@ -3,7 +3,7 @@ import {
     PIN_STATUS_TYPES,
     NUMBER_OF_HISTORIES
 } from 'constants/companyAdmin/enums';
-import { convertEnumToDropdownOptions, enumFormat } from 'helpers/generic';
+import { convertEnumToDropdownOptions } from 'helpers/generic';
 
 import withUpdateOnChange from '../hocs/withUpdateOnChange';
 import BasicFilters from '../presentational/BasicFilters';
@@ -32,22 +32,23 @@ class BasicFiltersContainer extends Component {
 
         const serviceOptions = formatArrForDropdown(services, true);
         const statusOptions = convertEnumToDropdownOptions(PIN_STATUS_TYPES);
-        const historyNumsOptions = enumFormat(NUMBER_OF_HISTORIES);
+        const historyNumsOptions = convertEnumToDropdownOptions(
+            NUMBER_OF_HISTORIES
+        );
 
         return (
             <BasicFilters
                 dateError={fieldErrors['startDate']}
                 handleChange={this.handleChange}
                 handleDateChange={this.handleDateChange}
-                handleHistoryNumChange={this.handleHistoriesChange}
                 serviceOptions={Object.values(serviceOptions)}
                 selectedService={serviceOptions[serviceID]}
                 statusOptions={Object.values(statusOptions)}
                 selectedStatus={statusOptions[statusID]}
                 startDate={startDate}
                 endDate={endDate}
-                historyNumsOptions={historyNumsOptions}
-                numberOfHistoriesID={numberOfHistoriesID}
+                historyNumsOptions={Object.values(historyNumsOptions)}
+                selectedHistoryNum={historyNumsOptions[numberOfHistoriesID]}
                 fieldError={fieldError}
                 handleDateBlur={this.handleDateBlur}
             />
@@ -85,11 +86,6 @@ class BasicFiltersContainer extends Component {
         } else {
             return removeFieldError('startDate');
         }
-    };
-
-    handleHistoriesChange = (name, value) => {
-        const { handleChange, postFilters } = this.props;
-        handleChange(name, value).then(postFilters);
     };
 
     handleChange = ({ target: { value, name } }) => {
