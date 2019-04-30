@@ -9,8 +9,6 @@ import PinFiltersForm from '../presentational/PinFiltersForm';
 import postReport from 'actions/companyAdmin/reports/async/postReport';
 import postCustomFilters from 'actions/companyAdmin/reports/async/postCustomFilters';
 import removeFilterQuestions from 'actions/companyAdmin/reports/sync/removeFilterQuestions';
-import { showModal } from 'actions/shared/generic/modals/sync/showModal';
-import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 
 export class PinFiltersFormContainer extends Component {
     state = {
@@ -39,7 +37,6 @@ export class PinFiltersFormContainer extends Component {
                     this.handleFurtherFiltrationChange
                 }
                 filterOption={filterOption}
-                handleSubmit={this.handleSubmit}
             />
         );
     }
@@ -77,9 +74,7 @@ const mapStateToProps = ({
 const mapDispatchToProps = dispatch => ({
     postReport: postBody => dispatch(postReport(postBody)),
     postCustomFilters: postBody => dispatch(postCustomFilters(postBody)),
-    removeFilterQuestions: () => dispatch(removeFilterQuestions()),
-    showModal: (type, props) => dispatch(showModal(type, props)),
-    hideModal: () => dispatch(hideModal())
+    removeFilterQuestions: () => dispatch(removeFilterQuestions())
 });
 
 const WithConnect = connect(
