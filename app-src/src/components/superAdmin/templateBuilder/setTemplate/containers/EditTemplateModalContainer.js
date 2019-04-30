@@ -90,7 +90,7 @@ class EditTemplateFormContainer extends React.Component {
 const mapStateToProps = (
     {
         superAdmin: {
-            servicesReducer: { services },
+            adminServicesReducer: { services },
             companySubscriptionReducer: { subscriptions }
         }
     },

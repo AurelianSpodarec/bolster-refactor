@@ -23,9 +23,7 @@ const mapStateToProps = (_, { match: { params } }) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    fetchSinglePin: id => {
-        dispatch(fetchSinglePin(id));
-    }
+    fetchSinglePin: id => dispatch(fetchSinglePin(id))
 });
 
 const WithRedux = connect(
