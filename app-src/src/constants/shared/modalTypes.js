@@ -49,3 +49,4 @@ export const CONFIRM_EDIT_PIN = 'CONFIRM_EDIT_PIN';
 
 export const ADD_SITE = 'ADD_SITE';
 export const ADD_BUILDING = 'ADD_BUILDING';
+export const ADD_FLOOR = 'ADD_FLOOR';

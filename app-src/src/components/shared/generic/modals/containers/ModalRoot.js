@@ -33,7 +33,8 @@ import {
     EDIT_FLOOR_PLAN,
     CONFIRM_EDIT_PIN,
     ADD_SITE,
-    ADD_BUILDING
+    ADD_BUILDING,
+    ADD_FLOOR
 } from 'constants/shared/modalTypes';
 
 import AddCardModalContainer from 'components/companyAdmin/subscription/cardManagement/addCardModal/containers/AddCardModalContainer';
@@ -68,6 +69,7 @@ import EditFloorPlanModalContainer from 'components/companyAdmin/drawings/single
 import ConfirmEditPinModalContainer from 'components/companyAdmin/pins/confirmEditPinModal/containers/ConfirmEditPinModalContainer';
 import AddSiteModal from 'components/companyAdmin/sites/addSiteModal/presentational/AddSiteModal';
 import CreateBuildingModal from 'components/companyAdmin/buildings/addBuildingModal/presentational/CreateBuildingModal';
+import AddFloorModal from 'components/companyAdmin/floors/addFloorModal/presentational/AddFloorModal';
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModalContainer,
@@ -101,7 +103,8 @@ const MODAL_COMPONENTS = {
     [EDIT_FLOOR_PLAN]: EditFloorPlanModalContainer,
     [CONFIRM_EDIT_PIN]: ConfirmEditPinModalContainer,
     [ADD_SITE]: AddSiteModal,
-    [ADD_BUILDING]: CreateBuildingModal
+    [ADD_BUILDING]: CreateBuildingModal,
+    [ADD_FLOOR]: AddFloorModal
 };
 
 const ModalRoot = ({ modalType, modalProps }) => {
