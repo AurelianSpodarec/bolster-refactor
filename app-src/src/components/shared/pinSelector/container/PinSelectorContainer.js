@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import PinSelector from '../presentational/PinSelector';
-import withUpdateOnChange from 'components/companyAdmin/reports/allReports/components/hocs/withUpdateOnChange';
+import withUpdateOnChange from 'components/companyAdmin/reports/createReport/components/hocs/withUpdateOnChange';
 
 class PinSelectorContainer extends Component {
     state = {

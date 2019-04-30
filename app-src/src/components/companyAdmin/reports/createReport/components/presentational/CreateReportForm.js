@@ -6,7 +6,7 @@ import Block1FiltersContainer from '../containers/Block1FiltersContainer';
 import BasicFiltersContainer from '../containers/BasicFiltersContainer';
 import OutputSettingsContainer from '../containers/OutputSettingsContainer';
 
-const PinFiltersForm = () => (
+const CreateReportForm = () => (
     <>
         <FilterMapContainer />
         <div className="flex-container size-lg-12">
@@ -19,4 +19,4 @@ const PinFiltersForm = () => (
     </>
 );
 
-export default PinFiltersForm;
+export default CreateReportForm;

@@ -13,27 +13,20 @@ class FilterMapContainer extends Component {
         if (!drawing.id) return null;
 
         return (
-            <div className="size-lg-12">
-                <Block>
-                    <Map
-                        center={[51.505, -0.09]}
-                        zoom={1}
-                        minZoom={0}
-                        maxZoom={5}
-                    >
-                        <TileLayer
-                            attribution='&amp;copy <a href="http://app.bolstersystems.com">Bolster Systems Ltd</a>'
-                            url={`${FILE_STORAGE_URL}/${
-                                drawing.tilesetS3Key
-                            }/{z}/{x}/{y}.jpg`}
-                            noWrap={true}
-                        />
-                        {pins.map(pin => (
-                            <MapPin key={pin.id} pin={pin} isReport />
-                        ))}
-                    </Map>
-                </Block>
-            </div>
+            <Block>
+                <Map center={[51.505, -0.09]} zoom={1} minZoom={0} maxZoom={5}>
+                    <TileLayer
+                        attribution='&amp;copy <a href="http://app.bolstersystems.com">Bolster Systems Ltd</a>'
+                        url={`${FILE_STORAGE_URL}/${
+                            drawing.tilesetS3Key
+                        }/{z}/{x}/{y}.jpg`}
+                        noWrap={true}
+                    />
+                    {pins.map(pin => (
+                        <MapPin key={pin.id} pin={pin} isReport />
+                    ))}
+                </Map>
+            </Block>
         );
     }
 }
