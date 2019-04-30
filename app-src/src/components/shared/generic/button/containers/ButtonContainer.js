@@ -14,7 +14,6 @@ class ButtonContainer extends Component {
             colourCode,
             to = '',
             type = 'buttton',
-            color = '',
             handleClick = () => {},
             className
         } = this.props;
@@ -29,7 +28,7 @@ class ButtonContainer extends Component {
                 className={`link-holder ${className}`}
                 onMouseLeave={() => this.handleMouseLeave()}
                 onMouseOver={() => this.handleMouseOver()}
-                style={color && color.length ? color : style}
+                style={style}
                 onClick={handleClick}
             >
                 <Link to={to}>{children}</Link>
@@ -39,7 +38,7 @@ class ButtonContainer extends Component {
                 className={`button ${className}`}
                 onMouseLeave={() => this.handleMouseLeave()}
                 onMouseOver={() => this.handleMouseOver()}
-                style={color && color.length ? color : style}
+                style={style}
                 onClick={handleClick}
                 type={type}
             >

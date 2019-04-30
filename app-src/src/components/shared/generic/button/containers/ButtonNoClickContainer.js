@@ -22,20 +22,20 @@ class ButtonNoClickContainer extends Component {
 
         return to && to.length ? (
             <div
-                className={`link-holder ${className}`}
                 onMouseLeave={() => this.handleMouseLeave()}
                 onMouseOver={() => this.handleMouseOver()}
                 style={style}
+                className={`link-holder ${className}`}
             >
                 <Link to={to}>{children}</Link>
             </div>
         ) : (
             <button
-                className={`button ${className}`}
+                style={style}
                 onMouseLeave={() => this.handleMouseLeave()}
                 onMouseOver={() => this.handleMouseOver()}
-                style={style}
                 type={type}
+                className={`button ${className}`}
             >
                 {children}
             </button>
