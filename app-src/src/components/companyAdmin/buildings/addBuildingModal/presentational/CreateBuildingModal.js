@@ -4,10 +4,10 @@ import ModalOuterContainer from 'components/shared/generic/modals/containers/Mod
 import CreateBuildingFormContainer from '../containers/CreateBuildingFormContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 
-const CreateBuildingModal = () => (
+const CreateBuildingModal = ({ siteID }) => (
     <ModalOuterContainer>
         <BlockHeading title={'Create Building'} />
-        <CreateBuildingFormContainer />
+        <CreateBuildingFormContainer siteID={siteID} />
     </ModalOuterContainer>
 );
 

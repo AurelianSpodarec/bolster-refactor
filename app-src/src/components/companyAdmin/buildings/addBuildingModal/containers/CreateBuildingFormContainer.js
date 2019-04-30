@@ -4,6 +4,7 @@ import { withRouter } from 'react-router-dom';
 
 import CreateBuildingForm from '../presentational/CreateBuildingForm';
 import createBuilding from 'actions/companyAdmin/buildings/async/createBuilding';
+import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 
 class CreateBuildingFormContainer extends Component {
     state = {
@@ -28,39 +29,21 @@ class CreateBuildingFormContainer extends Component {
 
     handleSubmit = e => {
         e.preventDefault();
-        const { siteID, createBuilding } = this.props;
+        const { siteID, createBuilding, hideModal } = this.props;
         const postBody = { ...this.state, siteID };
         createBuilding(postBody);
-    };
-
-    componentDidUpdate = prevProps => {
-        const { postSuccess, history, updatedBuildingID } = this.props;
-
-        if (postSuccess && !prevProps.postSuccess) {
-            history.push(`/company/buildings/${updatedBuildingID}`);
-        }
+        hideModal();
     };
 }
-const mapStateToProps = (
-    {
-        companyAdmin: {
-            buildingsReducer: { postSuccess, error, updatedBuildingID }
-        }
-    },
-    { match: { params } }
-) => ({
-    postSuccess,
-    error,
-    siteID: params.id,
-    updatedBuildingID
-});
 
 const mapDispatchToProps = dispatch => ({
-    createBuilding: postBody => dispatch(createBuilding(postBody))
+    createBuilding: postBody => dispatch(createBuilding(postBody)),
+    hideModal: () => dispatch(hideModal())
 });
+
 export default withRouter(
     connect(
-        mapStateToProps,
+        null,
         mapDispatchToProps
     )(CreateBuildingFormContainer)
 );

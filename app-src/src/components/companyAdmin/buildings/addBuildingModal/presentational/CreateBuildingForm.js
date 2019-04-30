@@ -16,7 +16,6 @@ const CreateBuildingForm = ({
     siteID
 }) => (
     <>
-        <BlockHeading title="Building details" />
         <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
             <div className="size-lg-12">
                 <div className="size-lg-6">
