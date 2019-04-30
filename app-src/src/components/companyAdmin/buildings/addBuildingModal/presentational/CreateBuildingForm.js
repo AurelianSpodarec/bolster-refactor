@@ -3,7 +3,6 @@ import Form from 'components/shared/generic/form/containers/Form';
 import Field from 'components/shared/generic/form/presentational/Field';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
-import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import ButtonNoClickContainer from 'components/shared/generic/button/containers/ButtonNoClickContainer';
 
 const CreateBuildingForm = ({
@@ -16,7 +15,6 @@ const CreateBuildingForm = ({
     siteID
 }) => (
     <>
-        <BlockHeading title="Building details" />
         <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
             <div className="size-lg-12">
                 <div className="size-lg-6">
