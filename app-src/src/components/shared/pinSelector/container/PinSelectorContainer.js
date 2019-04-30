@@ -10,14 +10,10 @@ class PinSelectorContainer extends Component {
     };
 
     render() {
-        const { pinOptions } = this.state;
+        const pinOptions = Object.values(this.state.pinOptions);
 
-        const excludedPins = Object.values(pinOptions).filter(
-            pinOption => !pinOption.included
-        );
-        const includedPins = Object.values(pinOptions).filter(
-            pinOption => pinOption.included
-        );
+        const excludedPins = pinOptions.filter(({ included }) => !included);
+        const includedPins = pinOptions.filter(({ included }) => included);
 
         return (
             <PinSelector
@@ -49,9 +45,8 @@ class PinSelectorContainer extends Component {
 
     handleSubmit = () => {
         const { selectedPinOptions, pinOptions } = this.state;
-
         const setPinInclude = Object.values(pinOptions).map(
-            (pin, { included }) => ({
+            ({ included, ...pin }) => ({
                 ...pin,
                 included: selectedPinOptions.includes(pin.value)
                     ? !included
@@ -91,11 +86,11 @@ class PinSelectorContainer extends Component {
 const mapStateToProps = ({
     companyAdmin: {
         reportsReducer: {
-            customFilters: { pins }
+            customFilters: { pins = {} }
         }
     }
 }) => ({
-    pins: Object.values(pins) || []
+    pins: Object.values(pins)
 });
 
 export default connect(mapStateToProps)(PinSelectorContainer);
