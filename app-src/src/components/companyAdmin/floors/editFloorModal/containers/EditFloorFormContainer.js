@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+
+import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 
 import EditFloorForm from '../presentational/EditFloorForm';
 import editFloor from 'actions/companyAdmin/floors/async/editFloor';
@@ -17,16 +18,14 @@ class EditFloorFormContainer extends Component {
                 floorID={this.props.floorID}
                 handleInputChange={this.handleInputChange}
                 handleSubmit={this.handleSubmit}
+                hideModal={this.props.hideModal}
             />
         );
     }
 
     componentDidUpdate = prevProps => {
-        const { postSuccess, history, floorID, floor } = this.props;
+        const { floor } = this.props;
 
-        if (postSuccess && !prevProps.postSuccess) {
-            history.push(`/company/floors/${floorID}`);
-        }
         if (!prevProps.floor.id && !!floor.id) {
             this._setFormDetails();
         }
@@ -49,42 +48,36 @@ class EditFloorFormContainer extends Component {
     };
 
     _setFormDetails = () => {
-        const { floor } = this.props;
+        const {
+            floor: { name }
+        } = this.props;
 
         this.setState({
-            name: floor.name
+            name
         });
     };
 
     handleSubmit = e => {
         e.preventDefault();
-        const { floor } = this.props;
-        const { name } = this.state;
+        const { floor, editFloor, hideModal } = this.props;
 
         const postBody = {
-            name: name
+            ...this.state
         };
 
-        this.props.editFloor(floor.id, postBody);
+        editFloor(floor.id, postBody);
+        hideModal();
     };
 }
-
-const mapStateToProps = ({ companyAdmin: { floorsReducer } }, ownProps) => ({
-    postSuccess: floorsReducer.postSuccess,
-    error: floorsReducer.error,
-    floorID: ownProps.match.params.id,
-    floor: floorsReducer.floors[ownProps.match.params.id] || {}
-});
 
 const mapDispatchToProps = dispatch => ({
     editFloor: (floorID, postBody) => {
         dispatch(editFloor(floorID, postBody));
-    }
+    },
+    hideModal: () => dispatch(hideModal())
 });
 
-export default withRouter(
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(EditFloorFormContainer)
-);
+export default connect(
+    null,
+    mapDispatchToProps
+)(EditFloorFormContainer);

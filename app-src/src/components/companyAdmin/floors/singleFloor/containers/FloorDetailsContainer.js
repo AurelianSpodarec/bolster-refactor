@@ -10,7 +10,9 @@ import deleteFloor from 'actions/companyAdmin/floors/async/deleteFloor';
 import {
     CONFIRM_DELETE,
     ERROR_MODAL,
-    CONFIRM_ARCHIVE
+    SUCCESS_MODAL,
+    CONFIRM_ARCHIVE,
+    EDIT_FLOOR
 } from 'constants/shared/modalTypes';
 import archiveFloor from 'actions/companyAdmin/floors/async/archiveFloor';
 
@@ -29,6 +31,7 @@ class FloorDetailsContainer extends Component {
                     stats={stats}
                     handleDelete={this.handleDeleteModal}
                     handleArchive={this.handleArchiveModal}
+                    handleEditFloorModal={this.handleEditFloorModal}
                 />
             </BlockContainer>
         );
@@ -36,7 +39,9 @@ class FloorDetailsContainer extends Component {
 
     componentDidUpdate = prevProps => {
         const {
+            error,
             deleteSuccess,
+            postSuccess,
             postFailure,
             history,
             showModal,
@@ -47,7 +52,28 @@ class FloorDetailsContainer extends Component {
             hideModal();
             history.push(`/company/buildings/${floor.buildingID}`);
         }
-        if (postFailure && !prevProps.postFailure) showModal(ERROR_MODAL);
+
+        if (postSuccess && !prevProps.postSuccess) {
+            showModal(SUCCESS_MODAL, {
+                hideModal,
+                message: 'Floor edited successfully.'
+            });
+        }
+
+        if (postFailure && !prevProps.postFailure) {
+            showModal(ERROR_MODAL, {
+                hideModal,
+                title: 'Error',
+                message:
+                    error.message ||
+                    '##There was an error processing your request, please try again later.##'
+            });
+        }
+    };
+
+    handleEditFloorModal = () => {
+        const { showModal, floor } = this.props;
+        showModal(EDIT_FLOOR, { floor });
     };
 
     handleDeleteModal = () => {
@@ -78,7 +104,8 @@ const mapStateToProps = (
                 isFetching: fetchingFloors,
                 error,
                 postError,
-                deleteSuccess
+                deleteSuccess,
+                postSuccess
             },
             statsReducer: { stats, isFetching: fetchingStats }
         }
@@ -87,10 +114,11 @@ const mapStateToProps = (
 ) => ({
     floor: floors[match.params.id] || {},
     isFetching: fetchingFloors || fetchingStats,
-    error: error,
-    stats: stats,
+    error,
+    stats,
     postError,
     deleteSuccess,
+    postSuccess,
     id: match.params.id
 });
 
