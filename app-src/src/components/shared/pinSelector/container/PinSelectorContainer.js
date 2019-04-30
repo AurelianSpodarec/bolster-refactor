@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import PinSelector from '../presentational/PinSelector';
+import updateSelectedPins from 'actions/companyAdmin/reports/sync/updateSelectedPins';
 
 class PinSelectorContainer extends Component {
     state = {
@@ -45,6 +46,7 @@ class PinSelectorContainer extends Component {
 
     handleSubmit = () => {
         const { selectedPinOptions, pinOptions } = this.state;
+        const { updateSelectedPins } = this.props;
         const setPinInclude = Object.values(pinOptions).map(
             ({ included, ...pin }) => ({
                 ...pin,
@@ -53,13 +55,17 @@ class PinSelectorContainer extends Component {
                     : included
             })
         );
+        const selectedPinIDs = setPinInclude.filter(({ included }) => included);
+        updateSelectedPins(selectedPinIDs);
 
         this.setState({ pinOptions: setPinInclude, selectedPinOptions: [] });
     };
 
     componentDidMount = () => {
-        const { pins } = this.props;
+        const { pins, updateSelectedPins } = this.props;
         if (pins.length) this._setPinOptions();
+        const selectedPinIDs = pins.map(({ id }) => id);
+        updateSelectedPins(selectedPinIDs);
     };
 
     componentDidUpdate = prevProps => {
@@ -93,4 +99,11 @@ const mapStateToProps = ({
     pins: Object.values(pins)
 });
 
-export default connect(mapStateToProps)(PinSelectorContainer);
+const mapDispatchToProps = dispatch => ({
+    updateSelectedPins: pins => dispatch(updateSelectedPins(pins))
+});
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(PinSelectorContainer);

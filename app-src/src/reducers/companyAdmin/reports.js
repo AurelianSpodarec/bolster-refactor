@@ -12,7 +12,8 @@ import {
     REMOVE_FILTER_QUESTION,
     ADD_FILTER_QUESTION,
     REMOVE_FILTER_QUESTIONS,
-    UPDATE_FILTER_OPTION
+    UPDATE_FILTER_OPTION,
+    UPDATE_SELECTED_PINS
 } from 'constants/actionTypes/reports';
 import { updateObj, removeObjItem, convertArrToObj } from 'helpers/generic';
 import { SORT_BY_OPTIONS, LAYOUT_OPTIONS } from 'constants/companyAdmin/enums';
@@ -25,7 +26,8 @@ export default combineReducers({
     options: optionsReducer,
     postFailure: postFailureReducer,
     postSuccess: postSuccessReducer,
-    pinResults: pinResultsReducer
+    pinResults: pinResultsReducer,
+    selectedPins: selectedPinsReducer
 });
 
 //send the questionsIDs
@@ -82,6 +84,15 @@ function fieldsReducer(state = {}, action) {
             };
         case REMOVE_FILTER_QUESTIONS:
             return {};
+        default:
+            return state;
+    }
+}
+
+function selectedPinsReducer(state = {}, action) {
+    switch (action.type) {
+        case UPDATE_SELECTED_PINS:
+            return action.pins;
         default:
             return state;
     }
