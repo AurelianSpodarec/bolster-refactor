@@ -50,7 +50,7 @@ const BasicFilters = ({
                             onChange={val =>
                                 handleDateChange('fromDateInclusive', val)
                             }
-                            placeholderText="Date"
+                            placeholderText="From Date"
                             onBlur={() => handleDateBlur(true)}
                         />
                     </div>
@@ -62,7 +62,7 @@ const BasicFilters = ({
                             onChange={val =>
                                 handleDateChange('toDateInclusive', val)
                             }
-                            placeholderText="Date"
+                            placeholderText="To Date"
                             onBlur={() => handleDateBlur()}
                         />
                     </div>
