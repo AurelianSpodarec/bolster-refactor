@@ -23,6 +23,8 @@ const DashboardPinFeedItem = ({ pin }) => {
         case STATUS.OTHER:
             pinColour = require('_content/images/pins-examples/purple-pin.svg');
             break;
+        default:
+            break;
     }
 
     return (

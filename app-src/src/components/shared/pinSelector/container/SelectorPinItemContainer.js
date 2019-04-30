@@ -13,6 +13,7 @@ class SelectorPinItemContainer extends Component {
             <SelectorPinItem
                 handlePinClick={this.handlePinClick}
                 pin={this.props.pin}
+                active={this.state.active}
             />
         );
     }

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import uuid from 'uuid/v1';
 
 import FurtherFiltration from '../presentational/FurtherFiltration';
-// import PinSelectorContainer from 'components/shared/pinSelector/container/PinSelectorContainer';
+import PinSelectorContainer from 'components/shared/pinSelector/container/PinSelectorContainer';
 import CustomFiltersContainer from './CustomFiltersContainer';
 import updateReportFilter from 'actions/companyAdmin/reports/sync/updateReportFilter';
 import { convertArrToObj } from 'helpers/generic';
@@ -29,9 +29,9 @@ const FurtherFiltrationContainer = ({
                 selectedfurtherFiltration={selectedfurtherFiltration}
                 handleChange={handleChange}
             />
-            {/* {filterOption === '1' ? (
-                <PinSelectorContainer /> */
-            filterOption === '2' ? (
+            {filterOption === '1' ? (
+                <PinSelectorContainer />
+            ) : filterOption === '2' ? (
                 <div className="custom-filters-block ignore-padding">
                     <div className="size-lg-12">
                         {fields.map(field => (

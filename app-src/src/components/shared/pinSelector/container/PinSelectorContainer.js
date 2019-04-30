@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import PinSelector from '../presentational/PinSelector';
+import updateSelectedPins from 'actions/companyAdmin/reports/sync/updateSelectedPins';
 
 class PinSelectorContainer extends Component {
     state = {
@@ -10,14 +11,10 @@ class PinSelectorContainer extends Component {
     };
 
     render() {
-        const { pinOptions } = this.state;
+        const pinOptions = Object.values(this.state.pinOptions);
 
-        const excludedPins = Object.values(pinOptions).filter(
-            pinOption => !pinOption.included
-        );
-        const includedPins = Object.values(pinOptions).filter(
-            pinOption => pinOption.included
-        );
+        const excludedPins = pinOptions.filter(({ included }) => !included);
+        const includedPins = pinOptions.filter(({ included }) => included);
 
         return (
             <PinSelector
@@ -49,22 +46,28 @@ class PinSelectorContainer extends Component {
 
     handleSubmit = () => {
         const { selectedPinOptions, pinOptions } = this.state;
-
+        const { updateSelectedPins } = this.props;
         const setPinInclude = Object.values(pinOptions).map(
-            (pin, { included }) => ({
+            ({ included, ...pin }) => ({
                 ...pin,
                 included: selectedPinOptions.includes(pin.value)
                     ? !included
                     : included
             })
         );
+        const selectedPinIDs = setPinInclude
+            .filter(({ included }) => included)
+            .map(({ value }) => value);
+        updateSelectedPins(selectedPinIDs);
 
         this.setState({ pinOptions: setPinInclude, selectedPinOptions: [] });
     };
 
     componentDidMount = () => {
-        const { pins } = this.props;
+        const { pins, updateSelectedPins } = this.props;
         if (pins.length) this._setPinOptions();
+        const selectedPinIDs = pins.map(({ id }) => id);
+        updateSelectedPins(selectedPinIDs);
     };
 
     componentDidUpdate = prevProps => {
@@ -91,11 +94,18 @@ class PinSelectorContainer extends Component {
 const mapStateToProps = ({
     companyAdmin: {
         reportsReducer: {
-            customFilters: { pins }
+            customFilters: { pins = {} }
         }
     }
 }) => ({
-    pins: Object.values(pins) || []
+    pins: Object.values(pins)
 });
 
-export default connect(mapStateToProps)(PinSelectorContainer);
+const mapDispatchToProps = dispatch => ({
+    updateSelectedPins: pins => dispatch(updateSelectedPins(pins))
+});
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(PinSelectorContainer);
