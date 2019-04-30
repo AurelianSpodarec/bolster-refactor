@@ -96,7 +96,7 @@ const mapStateToProps = (
             templatesReducer: { templates },
             templateSectionsReducer: { sections },
             templateQuestionsReducer: { questions },
-            adminServicesReducer: { services }
+            adminServicesReducer: { adminServices: services }
         }
     },
     {
