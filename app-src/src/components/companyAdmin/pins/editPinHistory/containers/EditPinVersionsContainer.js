@@ -1,33 +1,24 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import EditPinVersions from '../presentational/EditPinVersions';
 
-class EditPinVersionsContainer extends Component {
-    render() {
-        const selectedVersion = this._getVersion();
+const EditPinVersionsContainer = ({ selectedVersion }) => (
+    <EditPinVersions selectedVersion={selectedVersion} />
+);
 
-        return <EditPinVersions selectedVersion={selectedVersion} />;
+const mapStateToProps = (
+    {
+        companyAdmin: {
+            templateVersionsReducer: { versions }
+        }
+    },
+    ownProps
+) => ({
+    selectedVersion: {
+        id: Object.values(versions).find(
+            version => version.id === ownProps.templateVersionID
+        ).id
     }
-
-    _getVersion = () => {
-        const { versions, templateVersionID } = this.props;
-
-        const selectedVersion = versions
-            .filter(version => version.id === templateVersionID)
-            .map(({ id }) => ({
-                id: id
-            }));
-
-        return selectedVersion[0];
-    };
-}
-
-const mapStateToProps = ({
-    companyAdmin: {
-        templateVersionsReducer: { versions }
-    }
-}) => ({
-    versions: Object.values(versions)
 });
 
 export default connect(mapStateToProps)(EditPinVersionsContainer);
