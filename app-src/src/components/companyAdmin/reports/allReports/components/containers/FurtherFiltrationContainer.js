@@ -66,6 +66,24 @@ class FurtherFiltrationContainer extends Component {
             </>
         );
     }
+    componentDidUpdate = prevProps => {
+        const {
+            filters: { siteID, buildingID, floorID, drawingID },
+            removeFilterQuestions
+        } = this.props;
+
+        // reset further filters if site info changes
+        if (
+            siteID !== prevProps.filters.siteID ||
+            buildingID !== prevProps.filters.buildingID ||
+            floorID !== prevProps.filters.floorID ||
+            drawingID !== prevProps.filters.drawingID
+        ) {
+            this.setState({ filterOption: 0 });
+            removeFilterQuestions();
+        }
+    };
+
     addCustomField = () => this.props.addFilterQuestion(uuid());
 
     removeCustomField = id => this.props.removeFilterQuestion(id);
