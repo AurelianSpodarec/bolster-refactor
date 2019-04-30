@@ -151,7 +151,6 @@ export class PinFiltersFormContainer extends Component {
             sortBy,
             pinIDs: selectedPins
         };
-        console.log(postBody);
         postReport(postBody);
     };
 }

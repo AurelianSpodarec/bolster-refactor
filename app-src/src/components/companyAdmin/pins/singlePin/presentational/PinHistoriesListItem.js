@@ -26,7 +26,7 @@ const PinHistoriesListItem = ({
             description={`${version} of ${historyCount} ${
                 version === historyCount
                     ? '(Latest)'
-                    : version == 1
+                    : +version === 1
                     ? '(Earliest)'
                     : ''
             }`}
