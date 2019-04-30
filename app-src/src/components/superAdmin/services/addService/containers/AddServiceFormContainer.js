@@ -41,9 +41,11 @@ class AddServiceFormContainer extends Component {
     };
 }
 
-const mapStateToProps = ({ superAdmin: { adminServicesReducer } }) => ({
-    postSuccess: adminServicesReducer.postSuccess
-});
+const mapStateToProps = ({
+    superAdmin: {
+        adminServicesReducer: { postSuccess }
+    }
+}) => ({ postSuccess });
 
 const mapDispatchToProps = dispatch => ({
     createService: postBody => {

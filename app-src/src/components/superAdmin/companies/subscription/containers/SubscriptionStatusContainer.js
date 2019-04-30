@@ -32,7 +32,10 @@ const mapStateToProps = (
     {
         superAdmin: {
             companySubscriptionReducer: { isFetching, subscriptions },
-            adminServicesReducer: { services, isFetching: fetchingServices }
+            adminServicesReducer: {
+                adminServices: services,
+                isFetching: fetchingServices
+            }
         }
     },
     {
