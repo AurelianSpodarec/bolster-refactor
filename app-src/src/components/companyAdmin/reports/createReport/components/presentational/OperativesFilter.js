@@ -10,7 +10,7 @@ const OperativesFilter = ({
     <Field name="Operatives">
         <NewSelect
             options={operativeOptions}
-            name="operativeIDs"
+            name="companyUserIDs"
             onChange={handleChange}
             placeholder
             value={selectedOperatives}

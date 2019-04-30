@@ -9,13 +9,13 @@ class OperativesFilterContainer extends Component {
             handleChange,
             formatArrForDropdown,
             customFilters: { operatives },
-            filters: { operativeIDs }
+            filters: { companyUserIDs }
         } = this.props;
 
         return (
             <OperativesFilter
                 operativeOptions={formatArrForDropdown(operatives)}
-                selectedOperatives={operativeIDs}
+                selectedOperatives={companyUserIDs}
                 handleChange={handleChange}
             />
         );
@@ -29,11 +29,11 @@ class OperativesFilterContainer extends Component {
         const {
             handleChange,
             customFilters: { operatives },
-            filters: { operativeIDs }
+            filters: { companyUserIDs }
         } = this.props;
         if (operatives.length !== prevOps.length) {
             // remove operative if they're no longer available after filter update
-            const opIDs = operativeIDs.filter(opID =>
+            const opIDs = companyUserIDs.filter(opID =>
                 operatives.some(op => opID === op.id)
             );
 

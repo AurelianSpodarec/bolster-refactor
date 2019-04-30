@@ -20,12 +20,12 @@ export class Block1FiltersContainer extends Component {
 
     componentDidUpdate = prev => {
         const {
-            filters: { siteID, operativeIDs },
+            filters: { siteID, companyUserIDs },
             showFieldError
         } = this.props;
         if (
             prev.filters.siteID !== siteID ||
-            prev.filters.operativeIDs.length !== operativeIDs.length
+            prev.filters.companyUserIDs.length !== companyUserIDs.length
         ) {
             this._validate();
             showFieldError();
@@ -34,11 +34,11 @@ export class Block1FiltersContainer extends Component {
 
     _validate = () => {
         const {
-            filters: { siteID, operativeIDs },
+            filters: { siteID, companyUserIDs },
             validate
         } = this.props;
 
-        if (!siteID && !operativeIDs.length) {
+        if (!siteID && !companyUserIDs.length) {
             validate('You must select either a site or an operative.');
         } else {
             validate();

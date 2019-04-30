@@ -9,10 +9,12 @@ import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { SUCCESS_MODAL, ERROR_MODAL } from 'constants/shared/modalTypes';
 
 import OutputSettings from '../presentational/OutputSettings';
+import showFieldErrors from 'actions/shared/generic/fieldErrors/sync/showFieldErrors';
+import { isEmpty } from 'helpers/generic';
 
 class OutputSettingsContainer extends Component {
     render() {
-        return <OutputSettings />;
+        return <OutputSettings handleSubmit={this.handleSubmit} />;
     }
 
     componentDidUpdate = prevProps => {
@@ -41,19 +43,26 @@ class OutputSettingsContainer extends Component {
                 floorID,
                 drawingID,
                 serviceID,
-                statusID,
-                numberOfHistoriesID,
-                reportFormatID,
-                includeLocationDrawing,
-                startDate,
-                endDate,
-                operativeIDs,
+                status,
+                reportHistories,
+                fileType,
+                includePinLocation,
+                fromDateInclusive,
+                toDateInclusive,
+                companyUserIDs,
                 pinIDs
             },
             fields,
             options: { showHidden, layout, sortBy },
-            postReport
+            postReport,
+            fieldErrors,
+            showFieldErrors
         } = this.props;
+
+        if (!isEmpty(fieldErrors)) {
+            showFieldErrors();
+            return;
+        }
 
         let hierarchyType;
         let hierarchyID;
@@ -85,14 +94,14 @@ class OutputSettingsContainer extends Component {
         const postBody = {
             hierarchyType,
             hierarchyID,
-            reportHistories: numberOfHistoriesID,
-            fileType: reportFormatID,
-            includePinLocation: includeLocationDrawing,
-            fromDateInclusive: startDate,
-            toDateInclusive: endDate,
-            companyUserIDs: operativeIDs,
+            reportHistories,
+            fileType,
+            includePinLocation,
+            fromDateInclusive,
+            toDateInclusive,
+            companyUserIDs,
             serviceID,
-            status: statusID || null,
+            status: status || null,
             questionFilters,
             showHidden,
             layout,
@@ -107,8 +116,12 @@ class OutputSettingsContainer extends Component {
 const mapStateToProps = ({
     companyAdmin: {
         reportsReducer: { filters, fields, options, postSuccess, error, pinIDs }
+    },
+    shared: {
+        fieldErrorsReducer: { fieldErrors }
     }
 }) => ({
+    fieldErrors,
     fields: Object.values(fields),
     pinIDs,
     filters,
@@ -121,7 +134,8 @@ const mapDispatchToProps = dispatch => ({
     postReport: postBody => dispatch(postReport(postBody)),
     postCustomFilters: postBody => dispatch(postCustomFilters(postBody)),
     removeFilterQuestions: () => dispatch(removeFilterQuestions()),
-    showModal: (type, props) => dispatch(showModal(type, props))
+    showModal: (type, props) => dispatch(showModal(type, props)),
+    showFieldErrors: () => dispatch(showFieldErrors())
 });
 
 const WithConnect = connect(

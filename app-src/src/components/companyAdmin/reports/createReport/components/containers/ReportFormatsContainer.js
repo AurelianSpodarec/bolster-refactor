@@ -9,7 +9,7 @@ import ReportFormats from '../presentational/ReportFormats';
 class ReportFormatsContainer extends Component {
     render() {
         const {
-            filters: { includeLocationDrawing, reportFormatID }
+            filters: { includePinLocation, fileType }
         } = this.props;
 
         const reportFormatOptions = convertEnumToDropdownOptions(
@@ -19,9 +19,9 @@ class ReportFormatsContainer extends Component {
         return (
             <ReportFormats
                 reportFormatOptions={Object.values(reportFormatOptions)}
-                selectedReportFormat={reportFormatOptions[reportFormatID]}
+                selectedReportFormat={reportFormatOptions[fileType]}
                 handleChange={this.handleChange}
-                includeLocationDrawing={includeLocationDrawing}
+                includePinLocation={includePinLocation}
             />
         );
     }
