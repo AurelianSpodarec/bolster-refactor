@@ -7,12 +7,18 @@ const ServiceTableContainer = ({ isFetching, error, services }) => (
         headers={['Service name', '']}
         isFetching={isFetching}
         error={error}
-        services={Object.values(services)}
+        services={services}
     />
 );
 
-export default connect(({ superAdmin: { adminServicesReducer } }) => ({
-    isFetching: adminServicesReducer.isFetching,
-    error: adminServicesReducer.error,
-    services: adminServicesReducer.adminServices
-}))(ServiceTableContainer);
+export default connect(
+    ({
+        superAdmin: {
+            adminServicesReducer: { isFetching, error, adminServices }
+        }
+    }) => ({
+        isFetching,
+        error,
+        services: Object.values(adminServices)
+    })
+)(ServiceTableContainer);

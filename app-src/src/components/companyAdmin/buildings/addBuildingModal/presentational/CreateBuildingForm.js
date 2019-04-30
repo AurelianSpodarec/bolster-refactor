@@ -3,20 +3,18 @@ import Form from 'components/shared/generic/form/containers/Form';
 import Field from 'components/shared/generic/form/presentational/Field';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
-import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
-import ButtonNoClickContainer from 'components/shared/generic/button/containers/ButtonNoClickContainer';
+import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 
 const CreateBuildingForm = ({
     handleSubmit,
+    hideModal,
     handleInputChange,
     name,
     addressLine1,
     addressLine2,
-    postcode,
-    siteID
+    postcode
 }) => (
     <>
-        <BlockHeading title="Building details" />
         <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
             <div className="size-lg-12">
                 <div className="size-lg-6">
@@ -69,9 +67,9 @@ const CreateBuildingForm = ({
                 <button className="button green">
                     <i className="fa fa-plus" /> Add Building
                 </button>
-                <ButtonNoClickContainer to={`/company/sites/${siteID}`}>
+                <ButtonContainer handleClick={hideModal}>
                     Cancel
-                </ButtonNoClickContainer>
+                </ButtonContainer>
             </BlockButtonWrapper>
         </Form>
     </>

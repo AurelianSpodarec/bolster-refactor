@@ -114,7 +114,7 @@ class TemplateFormModalContainer extends React.Component {
 const mapStateToProps = (
     {
         superAdmin: {
-            servicesReducer: { services },
+            adminServicesReducer: { adminServices: services },
             companySubscriptionReducer: { subscriptions }
         }
     },

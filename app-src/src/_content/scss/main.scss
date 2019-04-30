@@ -313,6 +313,43 @@ input {
     @include ubuntu;
     line-height: 1;
 
+    // overwrite default colouring for ButtonNoClickContainer
+    &:hover,
+    &.active {
+        background-color: #737373;
+    }
+
+    &.red {
+        background-color: $red !important;
+
+        &:hover {
+            background-color: #b51313 !important;
+        }
+    }
+
+    &.yellow {
+        background-color: $yellow !important;
+
+        &:hover {
+            background-color: #da9001 !important;
+        }
+    }
+
+    &.blue {
+        background-color: $blue !important;
+
+        &:hover {
+            background-color: #1083b3 !important;
+        }
+    }
+
+    &.green {
+        background-color: $green !important;
+        &:hover {
+            background-color: #258e48 !important;
+        }
+    }
+
     a {
         display: inline-block;
         padding: 5px 15px;

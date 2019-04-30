@@ -17,7 +17,7 @@ class SiteBuildingsTableContainer extends Component {
                 <BlockHeading title="Buildings" classes="w-table">
                     <button
                         className="button green"
-                        to={`/company/buildings/create/${site.id}`}
+                        onClick={this.handleAddBuildingModal}
                     >
                         <i className="fa fa-plus" /> Add building
                     </button>
@@ -27,18 +27,34 @@ class SiteBuildingsTableContainer extends Component {
         );
     }
 
+    componentDidUpdate = prevProps => {
+        const { postSuccess, history, updatedBuildingID } = this.props;
+
+        if (postSuccess && !prevProps.postSuccess) {
+            history.push(`/company/buildings/${updatedBuildingID}`);
+        }
+    };
+
     handleAddBuildingModal = () => {
-        const {
-            showModal,
-            site: { id }
-        } = this.props;
-        showModal(ADD_BUILDING, { id });
+        const { showModal, siteID } = this.props;
+        showModal(ADD_BUILDING, { siteID });
     };
 }
 
-const mapStateToProps = ({ companyAdmin: { sitesReducer } }, { match }) => ({
+const mapStateToProps = (
+    {
+        companyAdmin: {
+            sitesReducer,
+            buildingsReducer: { postSuccess, updatedBuildingID }
+        }
+    },
+    { match }
+) => ({
+    postSuccess,
+    updatedBuildingID,
     site: sitesReducer.sites[match.params.id] || {},
-    isFetching: sitesReducer.isFetching
+    isFetching: sitesReducer.isFetching,
+    siteID: match.params.id
 });
 
 const mapDispatchToProps = dispatch => ({

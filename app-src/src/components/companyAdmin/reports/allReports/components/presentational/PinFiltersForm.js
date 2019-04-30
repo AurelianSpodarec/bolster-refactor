@@ -2,13 +2,12 @@ import React from 'react';
 
 import Form from 'components/shared/generic/form/containers/Form';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
+import NumberOfHistoriesContainer from '../containers/NumberOfHistoriesContainer';
 import ReportFormatsContainer from '../containers/ReportFormatsContainer';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-// import CustomFiltersContainer from '../containers/CustomFiltersContainer';
 import FurtherFiltrationContainer from '../containers/FurtherFiltrationContainer';
 import OtherOptionsContainer from '../containers/OtherOptionsContainer';
 import FilterMapContainer from '../containers/FilterMapContainer';
-
 import Block1FiltersContainer from '../containers/Block1FiltersContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import BasicFiltersContainer from '../containers/BasicFiltersContainer';
