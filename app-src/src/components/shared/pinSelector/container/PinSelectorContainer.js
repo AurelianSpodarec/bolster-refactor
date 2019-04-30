@@ -55,7 +55,9 @@ class PinSelectorContainer extends Component {
                     : included
             })
         );
-        const selectedPinIDs = setPinInclude.filter(({ included }) => included);
+        const selectedPinIDs = setPinInclude
+            .filter(({ included }) => included)
+            .map(({ value }) => value);
         updateSelectedPins(selectedPinIDs);
 
         this.setState({ pinOptions: setPinInclude, selectedPinOptions: [] });

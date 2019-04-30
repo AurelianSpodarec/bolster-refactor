@@ -52,7 +52,8 @@ export class PinFiltersFormContainer extends Component {
             postSuccess,
             error,
             showModal,
-            match: { history }
+            hideModal,
+            history
         } = this.props;
 
         // reset further filters if site info changes
@@ -107,6 +108,7 @@ export class PinFiltersFormContainer extends Component {
                 operativeIDs
             },
             fields,
+            selectedPins,
             options: { showHidden, layout, sortBy },
             postReport
         } = this.props;
@@ -146,9 +148,10 @@ export class PinFiltersFormContainer extends Component {
             questionFilters,
             showHidden,
             layout,
-            sortBy
+            sortBy,
+            pinIDs: selectedPins
         };
-
+        console.log(postBody);
         postReport(postBody);
     };
 }
@@ -159,7 +162,14 @@ const mapStateToProps = ({
         buildingsReducer,
         floorsReducer,
         drawingsReducer,
-        reportsReducer: { filters, fields, options, postSuccess, error }
+        reportsReducer: {
+            filters,
+            fields,
+            options,
+            postSuccess,
+            error,
+            selectedPins
+        }
     }
 }) => ({
     fields: Object.values(fields),
@@ -168,6 +178,7 @@ const mapStateToProps = ({
     buildings: Object.values(buildingsReducer.buildings),
     floors: Object.values(floorsReducer.floors),
     drawings: Object.values(drawingsReducer),
+    selectedPins,
     filters,
     options,
     postSuccess,
