@@ -2,7 +2,12 @@ import React from 'react';
 import generateUuid from 'uuid/v1';
 
 import TemplateFormModal from '../presentational/TemplateFormModal';
-import { QUESTION_TYPE_NUMBERS } from 'constants/shared/templateBuilder';
+import {
+    QUESTION_TYPE_NUMBERS,
+    STANDARD_LABEL_FIELDS,
+    LABEL_TYPES_NUMS,
+    TRIM_LABEL_FIELDS
+} from 'constants/shared/templateBuilder';
 import withTemplateFormLogic from '../hocs/withTemplateFormLogic';
 
 class TemplateFormModalContainer extends React.Component {
@@ -44,13 +49,14 @@ class TemplateFormModalContainer extends React.Component {
         const {
             companyID,
             uuid: templateUUID,
+            setLabelFields,
             setTemplate,
             setQuestion,
             name,
             serviceID,
             labelType
         } = this.props;
-        console.log(this.props);
+
         const template = {
             companyID,
             serviceID,
@@ -77,6 +83,71 @@ class TemplateFormModalContainer extends React.Component {
             templateUUID,
             sort: 1
         });
+
+        const labelFields =
+            labelType + '' === LABEL_TYPES_NUMS.STANDARD + ''
+                ? this.getStandardLabelFields(templateUUID)
+                : this.getTrimLabelFields(templateUUID);
+
+        setLabelFields(labelFields);
+    };
+
+    getStandardLabelFields = templateUUID => {
+        const { 1: fieldOne, ...otherFields } = STANDARD_LABEL_FIELDS;
+        const { company } = this.props;
+
+        const prefilledFieldOne = {
+            templateUUID,
+            uuid: generateUuid(),
+            key: fieldOne,
+            config: {
+                title: company.name,
+                source: '',
+                staticField: '',
+                questionUUID: ''
+            }
+        };
+        const otherFieldsArr = Object.values({ ...otherFields });
+        return [
+            prefilledFieldOne,
+            ...this.generateLabelFields(otherFieldsArr, templateUUID)
+        ];
+    };
+
+    getTrimLabelFields = templateUUID => {
+        const { 1: fieldOne, ...otherFields } = TRIM_LABEL_FIELDS;
+        const { company } = this.props;
+
+        const prefilledFieldOne = {
+            templateUUID,
+            uuid: generateUuid(),
+            key: fieldOne,
+            config: {
+                title: company.name,
+                source: '',
+                staticField: '',
+                questionUUID: ''
+            }
+        };
+        const otherFieldsArr = Object.values({ ...otherFields });
+        return [
+            prefilledFieldOne,
+            ...this.generateLabelFields(otherFieldsArr, templateUUID)
+        ];
+    };
+
+    generateLabelFields = (fields, templateUUID) => {
+        return fields.map(field => ({
+            templateUUID,
+            uuid: generateUuid(),
+            key: field,
+            config: {
+                title: '',
+                source: '',
+                staticField: '',
+                questionUUID: ''
+            }
+        }));
     };
 }
 

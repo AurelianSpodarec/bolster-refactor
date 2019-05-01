@@ -9,24 +9,37 @@ import { SET_LABEL_FIELDS } from 'constants/shared/modalTypes';
 class TemplateLabelInfoContainer extends Component {
     render() {
         const { template } = this.props;
+
         if (!template) return null;
-        return <TemplateLabelInfo />;
+        return (
+            <TemplateLabelInfo showSetLabelsModal={this.showSetLabelsModal} />
+        );
     }
 
     showSetLabelsModal = () => {
-        const { showModal } = this.props;
-        showModal(SET_LABEL_FIELDS);
+        const { showModal, template } = this.props;
+        showModal(SET_LABEL_FIELDS, { template });
     };
 }
 
 const mapStateToProps = (
-    { superAdmin: { templatesReducer } },
+    {
+        superAdmin: {
+            templatesReducer: { templates },
+            templateLabelFieldsReducer: { labelFields }
+        }
+    },
     {
         match: {
             params: { uuid }
         }
     }
-) => ({ template: templatesReducer[uuid] });
+) => ({
+    template: templates[uuid],
+    labelFields: Object.values(labelFields).filter(
+        ({ templateUUID }) => templateUUID === uuid
+    )
+});
 
 const mapDispatchToProps = dispatch => ({
     showModal: (modalType, modalProps) =>

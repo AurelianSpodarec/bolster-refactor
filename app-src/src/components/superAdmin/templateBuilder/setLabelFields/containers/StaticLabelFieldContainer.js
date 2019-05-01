@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import StaticLabelField from '../presentational/StaticLabelField';
 import { convertEnumToDropdownOptions } from 'helpers/generic';
-import { LABEL_STATIC_FIELDS } from 'constants/companyAdmin/enums';
+import { LABEL_STATIC_FIELDS } from 'constants/shared/templateBuilder';
 
 class StaticLabelFieldContainer extends Component {
     state = {

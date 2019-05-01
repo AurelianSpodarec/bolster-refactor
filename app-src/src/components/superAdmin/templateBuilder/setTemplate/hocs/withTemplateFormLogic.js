@@ -11,6 +11,7 @@ import { LABEL_TYPES } from 'constants/companyAdmin/enums';
 import setSection from 'actions/superAdmin/templateBuilder/sync/setSection';
 import fetchCompanySubscription from 'actions/superAdmin/companies/async/fetchCompanySubscription';
 import setQuestion from 'actions/superAdmin/templateBuilder/sync/setQuestion';
+import setLabelFields from 'actions/superAdmin/templateBuilder/sync/setLabelFields';
 
 export default function(WrappedComponent) {
     class WithTemplateFromLogic extends React.Component {
@@ -73,7 +74,8 @@ export default function(WrappedComponent) {
         {
             superAdmin: {
                 adminServicesReducer: { adminServices: services },
-                companySubscriptionReducer: { subscriptions }
+                companySubscriptionReducer: { subscriptions },
+                companiesReducer: { companies }
             }
         },
         { companyID }
@@ -84,7 +86,8 @@ export default function(WrappedComponent) {
             services: Object.values(services).filter(({ id }) =>
                 serviceIDs.includes(id)
             ),
-            subscription: subscriptions[companyID] || {}
+            subscription: subscriptions[companyID] || {},
+            company: companies[companyID] || {}
         };
     };
 
@@ -101,6 +104,9 @@ export default function(WrappedComponent) {
         fetchData: () => {
             dispatch(fetchAllServices());
             dispatch(fetchCompanySubscription(companyID));
+        },
+        setLabelFields: labelFields => {
+            dispatch(setLabelFields(labelFields));
         }
     });
 

@@ -7,10 +7,10 @@ import {
 } from 'constants/actionTypes/templateBuilder';
 
 export default combineReducers({
-    sections: sectionsReducer
+    labelFields: labelFieldsReducer
 });
 
-function sectionsReducer(state = {}, action) {
+function labelFieldsReducer(state = {}, action) {
     switch (action.type) {
         case FETCH_TEMPLATE_SUCCESS:
         case SET_LABEL_FIELDS:

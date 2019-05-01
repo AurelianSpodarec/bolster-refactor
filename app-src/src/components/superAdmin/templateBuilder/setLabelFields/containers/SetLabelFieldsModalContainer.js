@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import SetLabelFieldModal from '../presentational/StaticLabelField';
+import SetLabelFieldModal from '../presentational/SetLabelFieldModal';
 
 class SetLabelFieldModalContainer extends Component {
     render() {
-        const { hideModal } = this.props;
+        const { hideModal, template } = this.props;
         return (
             <SetLabelFieldModal
+                labelType={template.labelType}
                 hideModal={hideModal}
                 handleSubmit={this.handleSubmit}
             />
