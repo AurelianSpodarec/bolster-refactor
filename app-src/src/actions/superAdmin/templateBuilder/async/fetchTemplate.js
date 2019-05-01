@@ -13,11 +13,17 @@ export const fetchTemplateRequest = () => ({
     type: FETCH_TEMPLATE_REQUEST
 });
 
-export const fetchTemplateSuccess = ({ template, sections, questions }) => ({
+export const fetchTemplateSuccess = ({
+    template,
+    sections,
+    questions,
+    labelFields
+}) => ({
     type: FETCH_TEMPLATE_SUCCESS,
     template,
     sections,
-    questions: formatQuestions(questions)
+    questions: formatQuestions(questions),
+    labelFields
 });
 
 export const fetchTemplateFailure = error => ({

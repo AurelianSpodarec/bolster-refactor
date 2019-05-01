@@ -1,48 +1,33 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
 import generateUuid from 'uuid/v1';
 
-import fetchAllServices from 'actions/superAdmin/services/async/fetchAllServices';
-import setTemplate from 'actions/superAdmin/templateBuilder/sync/setTemplate';
-import hideModal from 'actions/shared/generic/modals/sync/hideModal';
-
 import TemplateFormModal from '../presentational/TemplateFormModal';
-import { convertArrToObj, convertEnumToDropdownOptions } from 'helpers/generic';
-import { LABEL_TYPES } from 'constants/companyAdmin/enums';
-import setSection from 'actions/superAdmin/templateBuilder/sync/setSection';
-import fetchCompanySubscription from 'actions/superAdmin/companies/async/fetchCompanySubscription';
-import setQuestion from 'actions/superAdmin/templateBuilder/sync/setQuestion';
 import { QUESTION_TYPE_NUMBERS } from 'constants/shared/templateBuilder';
+import withTemplateFormLogic from '../hocs/withTemplateFormLogic';
 
 class TemplateFormModalContainer extends React.Component {
-    state = {
-        name: '',
-        serviceID: '',
-        labelType: '',
-        labelTypeOptions: convertEnumToDropdownOptions(LABEL_TYPES)
-    };
-
     render() {
         const {
-            serviceID,
-            labelType,
+            name,
             labelTypeOptions,
-            ...otherFields
-        } = this.state;
-        const serviceOptions = this._getSeviceOptions();
+            serviceOptions,
+            selectedService,
+            selectedLabelType,
+            handleCancel,
+            handleChange
+        } = this.props;
 
         return (
             <TemplateFormModal
-                {...otherFields}
-                selectedLabelType={labelTypeOptions[labelType]}
-                labelTypeOptions={Object.values(labelTypeOptions)}
-                serviceOptions={Object.values(serviceOptions)}
-                selectedService={serviceOptions[serviceID]}
+                name={name}
+                selectedLabelType={selectedLabelType}
+                labelTypeOptions={labelTypeOptions}
+                serviceOptions={serviceOptions}
+                selectedService={selectedService}
                 action="Add"
-                handleChange={this.handleChange}
+                handleChange={handleChange}
+                handleCancel={handleCancel}
                 handleSubmit={this.handleSubmit}
-                handleCancel={this.handleCancel}
             />
         );
     }
@@ -52,26 +37,18 @@ class TemplateFormModalContainer extends React.Component {
         fetchData();
     };
 
-    handleChange = ({ target: { name, value } }) => {
-        this.setState({ [name]: value });
-    };
-
-    handleCancel = e => {
-        e.preventDefault();
-        const { history, hideModal } = this.props;
-        history.goBack();
-        hideModal();
-    };
-
     handleSubmit = e => {
         e.preventDefault();
         const {
             companyID,
             uuid: templateUUID,
             setTemplate,
-            setQuestion
+            setQuestion,
+            name,
+            serviceID,
+            labelType
         } = this.props;
-        const { name, serviceID, labelType } = this.state;
+        console.log(this.props);
         const template = {
             companyID,
             serviceID,
@@ -99,56 +76,6 @@ class TemplateFormModalContainer extends React.Component {
             sort: 1
         });
     };
-
-    _getSeviceOptions = () => {
-        const { services } = this.props;
-        const options = services.map(({ id, name }) => ({
-            value: id,
-            text: name
-        }));
-
-        return convertArrToObj(options, 'value');
-    };
 }
 
-const mapStateToProps = (
-    {
-        superAdmin: {
-            adminServicesReducer: { adminServices: services },
-            companySubscriptionReducer: { subscriptions }
-        }
-    },
-    { companyID }
-) => {
-    const subscription = subscriptions[companyID] || {};
-    const { serviceIDs = [] } = subscription;
-    return {
-        services: Object.values(services).filter(({ id }) =>
-            serviceIDs.includes(id)
-        ),
-        subscription: subscriptions[companyID] || {}
-    };
-};
-
-const mapDispatchToProps = (dispatch, { companyID }) => ({
-    hideModal: () => dispatch(hideModal()),
-
-    setTemplate: (template, section1) => {
-        dispatch(setTemplate(template));
-        dispatch(setSection(section1));
-        dispatch(hideModal());
-    },
-    setQuestion: question => dispatch(setQuestion(question)),
-
-    fetchData: () => {
-        dispatch(fetchAllServices());
-        dispatch(fetchCompanySubscription(companyID));
-    }
-});
-
-const WithConnect = connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(TemplateFormModalContainer);
-
-export default withRouter(WithConnect);
+export default withTemplateFormLogic(TemplateFormModalContainer);
