@@ -13,7 +13,7 @@ class ButtonContainer extends Component {
             children,
             colourCode,
             to = '',
-            type = 'buttton',
+            type = 'button',
             handleClick = () => {},
             className
         } = this.props;
@@ -23,25 +23,24 @@ class ButtonContainer extends Component {
             backgroundColor: hover ? colourCode : '#939393'
         };
 
-        return to && to.length ? (
-            <div
-                className={`link-holder ${className}`}
-                onMouseLeave={() => this.handleMouseLeave()}
-                onMouseOver={() => this.handleMouseOver()}
-                style={style}
-                onClick={handleClick}
-            >
+        const sharedProps = {
+            style,
+            onMouseLeave: this.handleMouseLeave,
+            onMouseOver: this.handleMouseOver,
+
+            className:
+                to && to.length
+                    ? `link-holder ${className}`
+                    : `button ${className}`,
+            onClick: handleClick
+        };
+
+        return to && !!to.length ? (
+            <div {...sharedProps}>
                 <Link to={to}>{children}</Link>
             </div>
         ) : (
-            <button
-                className={`button ${className}`}
-                onMouseLeave={() => this.handleMouseLeave()}
-                onMouseOver={() => this.handleMouseOver()}
-                style={style}
-                onClick={handleClick}
-                type={type}
-            >
+            <button {...sharedProps} type={type}>
                 {children}
             </button>
         );

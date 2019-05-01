@@ -3,6 +3,7 @@ import React from 'react';
 import { CREDIT_LOG_TYPES } from 'constants/companyAdmin/enums';
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 import ButtonNoClickContainer from 'components/shared/generic/button/containers/ButtonNoClickContainer';
+import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 
 const CreditLogsListItem = ({
     item: {
@@ -33,11 +34,9 @@ const CreditLogsListItem = ({
             <td>{`${userFirstName} ${userLastName}`}</td>
             <td>
                 {invoiceID ? (
-                    <ButtonNoClickContainer
-                        to={`/company/invoices/${invoiceID}`}
-                    >
+                    <ButtonContainer to={`/company/invoices/${invoiceID}`}>
                         View Invoice
-                    </ButtonNoClickContainer>
+                    </ButtonContainer>
                 ) : (
                     <ButtonNoClickContainer
                         to={`/company/drawings/${drawingID}`}

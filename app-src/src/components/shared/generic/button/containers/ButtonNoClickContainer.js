@@ -16,27 +16,27 @@ class ButtonNoClickContainer extends Component {
             type = 'buttton',
             className = ''
         } = this.props;
-        const { hover } = this.state;
 
-        const style = { backgroundColor: hover ? colourCode : '#939393' };
+        const style = {
+            backgroundColor: this.state.hover ? colourCode : '#939393'
+        };
 
-        return to && to.length ? (
-            <div
-                onMouseLeave={() => this.handleMouseLeave()}
-                onMouseOver={() => this.handleMouseOver()}
-                style={style}
-                className={`link-holder ${className}`}
-            >
+        const sharedProps = {
+            onMouseLeave: this.handleMouseLeave,
+            onMouseOver: this.handleMouseOver,
+            style,
+            className:
+                to && to.length
+                    ? `link-holder ${className}`
+                    : `button ${className}`
+        };
+
+        return to && !!to.length ? (
+            <div {...sharedProps}>
                 <Link to={to}>{children}</Link>
             </div>
         ) : (
-            <button
-                style={style}
-                onMouseLeave={() => this.handleMouseLeave()}
-                onMouseOver={() => this.handleMouseOver()}
-                type={type}
-                className={`button ${className}`}
-            >
+            <button {...sharedProps} type={type}>
                 {children}
             </button>
         );
