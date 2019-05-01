@@ -3,7 +3,7 @@ import {
     PIN_STATUS_COLOURS as COLOURS,
     PIN_STATUS_TYPES as TYPES
 } from 'constants/companyAdmin/enums';
-import ButtonNoClickContainer from 'components/shared/generic/button/containers/ButtonNoClickContainer';
+import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 
 const DrawingInspectionLogsListItem = ({ pin }) => {
     const pinColour = COLOURS[pin.latestStatus] || 'red';
@@ -18,9 +18,9 @@ const DrawingInspectionLogsListItem = ({ pin }) => {
             </td>
             <td>{TYPES[pin.latestStatus]}</td>
             <td>
-                <ButtonNoClickContainer to={`/company/pins/${pin.id}`}>
+                <ButtonContainer to={`/company/pins/${pin.id}`}>
                     View
-                </ButtonNoClickContainer>
+                </ButtonContainer>
             </td>
         </tr>
     );

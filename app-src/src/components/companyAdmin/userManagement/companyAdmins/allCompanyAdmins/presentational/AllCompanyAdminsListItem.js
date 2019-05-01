@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import { COMPANY_USER_ROLE_TYPES } from 'constants/companyAdmin/enums';
-import ButtonNoClickContainer from 'components/shared/generic/button/containers/ButtonNoClickContainer';
+import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 
 const AllCompanyAdminsListItem = ({ user, showDeleteModal }) => (
     <tr key={user.id}>
@@ -38,13 +38,13 @@ const AllCompanyAdminsListItem = ({ user, showDeleteModal }) => (
                     <i className="far fa-pencil" />
                     Edit
                 </Link>
-                <ButtonNoClickContainer
+                <ButtonContainer
                     to={`/company/users-management/company-admins/${
                         user.id
                     }/edit-password`}
                 >
                     Change password
-                </ButtonNoClickContainer>
+                </ButtonContainer>
             </BlockButtonWrapper>
         </td>
     </tr>

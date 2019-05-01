@@ -6,7 +6,7 @@ import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/pr
 import FieldOutput from 'components/shared/generic/fieldOutput/presentational/FieldOutput';
 import ProfileImageContainer from '../containers/ProfileImageContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
-import ButtonNoClickContainer from 'components/shared/generic/button/containers/ButtonNoClickContainer';
+import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 
 const ProfileDetails = ({ error, isFetching, profile, location }) => {
     const { email, firstName, lastName, phoneNumber } = profile;
@@ -49,11 +49,9 @@ const ProfileDetails = ({ error, isFetching, profile, location }) => {
                 >
                     <i className="far fa-pencil" /> Edit
                 </Link>
-                <ButtonNoClickContainer
-                    to={`${location.pathname}/change-password`}
-                >
+                <ButtonContainer to={`${location.pathname}/change-password`}>
                     Change Password
-                </ButtonNoClickContainer>
+                </ButtonContainer>
             </BlockButtonWrapper>
         </BlockContainer>
     );

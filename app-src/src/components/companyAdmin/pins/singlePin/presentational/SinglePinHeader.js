@@ -1,11 +1,11 @@
 import React from 'react';
 
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
-import ButtonNoClickContainer from 'components/shared/generic/button/containers/ButtonNoClickContainer';
+import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 
 const SinglePinHeader = ({ pin, location }) => (
     <PageHeading leftChildren={true} title={`Pin ${pin.pinCode || ''}`}>
-        <ButtonNoClickContainer
+        <ButtonContainer
             className="back"
             to={location.pathname.replace(
                 location.pathname,
@@ -13,7 +13,7 @@ const SinglePinHeader = ({ pin, location }) => (
             )}
         >
             <i className="fa fa-chevron-double-left" /> Back
-        </ButtonNoClickContainer>
+        </ButtonContainer>
     </PageHeading>
 );
 

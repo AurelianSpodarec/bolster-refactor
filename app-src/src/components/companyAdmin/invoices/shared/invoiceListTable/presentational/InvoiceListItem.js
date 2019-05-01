@@ -6,9 +6,9 @@ import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/pr
 import { PAYMENT_TYPES, DATE_TIME_IDS } from 'constants/companyAdmin/enums';
 import { PAY_INVOICE } from 'constants/shared/modalTypes';
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
-import ButtonNoClickContainer from 'components/shared/generic/button/containers/ButtonNoClickContainer';
 import { formatCurrency } from 'helpers/generic';
 import StatusIcon from 'components/shared/generic/statusIcon/presentationl/StatusIcon';
+import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 
 const InvoiceListItem = ({
     invoice: {
@@ -52,9 +52,9 @@ const InvoiceListItem = ({
         <td>{`${userFirstName} ${userLastName}`}</td>
         <td>
             <BlockButtonWrapper>
-                <ButtonNoClickContainer to={`/company/invoices/${id}`}>
+                <ButtonContainer to={`/company/invoices/${id}`}>
                     View
-                </ButtonNoClickContainer>
+                </ButtonContainer>
 
                 {!isPaid && (
                     <button
