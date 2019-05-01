@@ -6,7 +6,8 @@ import withUpdateOnChange from 'components/companyAdmin/reports/createReport/com
 class PinSelectorContainer extends Component {
     state = {
         pinOptions: {},
-        selectedPinOptions: []
+        selectedPinOptions: [],
+        clicking: false
     };
 
     render() {
@@ -27,6 +28,10 @@ class PinSelectorContainer extends Component {
                 selectedPinOptions={this.state.selectedPinOptions}
                 handleAddExcluded={this.handleAddExcluded}
                 handleAddIncluded={this.handleAddIncluded}
+                handleMouseDown={this.handleMouseDown}
+                handleMouseUp={this.handleMouseUp}
+                handleMouseOut={this.handleMouseOut}
+                clicking={this.state.clicking}
             />
         );
     }
@@ -42,7 +47,36 @@ class PinSelectorContainer extends Component {
         });
     };
 
-    handleAddIncluded = () => {
+    handleMouseDown = () => {
+        this.setState({ clicking: true });
+    };
+    handleMouseUp = () => {
+        this.setState({ clicking: false });
+    };
+
+    handleMouseOut = () => {
+        if (this.state.clicking) this.setState({ clicking: false });
+    };
+
+    // ## currently unused but would be nice
+    handleIncludeAll = () => {
+        const pinOptions = this.state.pinOptions.map(pin => ({
+            ...pin,
+            included: true
+        }));
+        this.setState({ pinOptions });
+    };
+    handleExcludeAll = () => {
+        const pinOptions = this.state.pinOptions.map(pin => ({
+            ...pin,
+            included: false
+        }));
+        this.setState({ pinOptions });
+    };
+    // ^^^^^^^^^^^^^^^^^^^^^^^
+
+    handleAddIncluded = e => {
+        e.preventDefault();
         const { selectedPinOptions, pinOptions: oldOptions } = this.state;
         const { handleChange } = this.props;
         const pinOptions = Object.values(oldOptions).map(option => ({
@@ -64,13 +98,14 @@ class PinSelectorContainer extends Component {
         handleChange('pinIDs', pinIDs);
     };
 
-    handleAddExcluded = () => {
+    handleAddExcluded = e => {
+        e.preventDefault();
         const { selectedPinOptions, pinOptions: oldOptions } = this.state;
         const { handleChange } = this.props;
         const pinOptions = Object.values(oldOptions).map(option => ({
             ...option,
             included:
-                option.included && !selectedPinOptions.includes(option.value)
+                !option.included && selectedPinOptions.includes(option.value)
         }));
         const pinIDs = pinOptions.reduce(
             (acc, { included, value }) => (included ? [...acc, value] : acc),
@@ -78,8 +113,8 @@ class PinSelectorContainer extends Component {
         );
         this.setState({
             pinOptions,
-            selectedPinOptions: selectedPinOptions.filter(id =>
-                pinIDs.includes(id)
+            selectedPinOptions: selectedPinOptions.filter(
+                id => !pinIDs.includes(id)
             )
         });
         handleChange('pinIDs', pinIDs);

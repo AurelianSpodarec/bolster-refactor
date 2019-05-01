@@ -12,7 +12,11 @@ const PinSelector = ({
     handleSubmit,
     selectedPinOptions,
     handleAddIncluded,
-    handleAddExcluded
+    handleAddExcluded,
+    handleMouseDown,
+    handleMouseUp,
+    handleMouseOut,
+    clicking
 }) => (
     <>
         <BlockHeading title="Pin Selector" />
@@ -28,6 +32,10 @@ const PinSelector = ({
                         selectedPinOptions={selectedPinOptions}
                         excludedPins={excludedPins}
                         handlePinClick={handlePinClick}
+                        handleMouseDown={handleMouseDown}
+                        handleMouseUp={handleMouseUp}
+                        handleMouseOut={handleMouseOut}
+                        clicking={clicking}
                     />
                 </Field>
             </div>
@@ -52,13 +60,21 @@ const PinSelector = ({
                         selectedPinOptions={selectedPinOptions}
                         includedPins={includedPins}
                         handlePinClick={handlePinClick}
+                        handleMouseDown={handleMouseDown}
+                        handleMouseUp={handleMouseUp}
+                        handleMouseOut={handleMouseOut}
+                        clicking={clicking}
                     />
                 </Field>
             </div>
 
-            <button className="button" type="button" onClick={handleSubmit}>
+            <ButtonContainer
+                className="button"
+                type="button"
+                handleClick={handleSubmit}
+            >
                 Submit
-            </button>
+            </ButtonContainer>
         </div>
     </>
 );
