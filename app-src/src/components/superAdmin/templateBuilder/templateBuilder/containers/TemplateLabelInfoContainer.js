@@ -8,11 +8,14 @@ import { SET_LABEL_FIELDS } from 'constants/shared/modalTypes';
 
 class TemplateLabelInfoContainer extends Component {
     render() {
-        const { template } = this.props;
+        const { template, labelFields } = this.props;
 
         if (!template) return null;
         return (
-            <TemplateLabelInfo showSetLabelsModal={this.showSetLabelsModal} />
+            <TemplateLabelInfo
+                showSetLabelsModal={this.showSetLabelsModal}
+                labelFields={labelFields}
+            />
         );
     }
 
