@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
+import LabelFieldContainer from './LabelFieldContainer';
 
 class StandardLabelFieldsContainer extends Component {
     render() {
-        return <h1>Standard Label Fields</h1>;
+        return [1, 2, 3, 4, 5].map(num => <LabelFieldContainer key={num} />);
     }
 }
 

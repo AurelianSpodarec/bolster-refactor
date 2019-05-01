@@ -14,6 +14,7 @@ export const PIN_IMAGE = 'PIN_IMAGE';
 //template builder
 export const ADD_TEMPLATE = 'ADD_TEMPLATE';
 export const EDIT_TEMPLATE = 'EDIT_TEMPLATE';
+export const SET_LABEL_FIELDS = 'SET_LABEL_FIELDS';
 
 export const RENAME_TEMPLATE_SECTION = 'RENAME_TEMPLATE_SECTION';
 export const ADD_TEMPLATE_SECTION = 'ADD_TEMPLATE_SECTION';

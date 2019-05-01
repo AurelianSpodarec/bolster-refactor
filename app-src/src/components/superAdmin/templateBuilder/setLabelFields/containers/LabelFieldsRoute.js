@@ -2,6 +2,7 @@ import React from 'react';
 import { LABEL_TYPES_NUMS } from 'constants/companyAdmin/enums';
 import StandardLabelFieldsContainer from './StandardLabelFieldsContainer';
 import TrimLabelFieldsContainer from './TrimLabelFieldsConainer';
+import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 
 const LabelFieldsRoute = ({ labelType, ...otherProps }) => {
     const specificFields = {
@@ -11,7 +12,12 @@ const LabelFieldsRoute = ({ labelType, ...otherProps }) => {
 
     const SpecificComponent = specificFields[labelType];
     if (!SpecificComponent) return null;
-    return <SpecificComponent {...otherProps} />;
+    return (
+        <>
+            <BlockHeading title="Label fields" />
+            <SpecificComponent {...otherProps} />;
+        </>
+    );
 };
 
 export default LabelFieldsRoute;

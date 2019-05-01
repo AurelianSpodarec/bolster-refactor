@@ -7,14 +7,12 @@ import TextInputContainer from 'components/shared/generic/form/containers/TextIn
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
-import LabelFieldsRoute from '../containers/LabelFieldsRoute';
 
 const TemplateformModal = ({
     action,
     name,
     serviceOptions,
     selectedService,
-    labelType,
     labelTypeOptions,
     selectedLabelType,
     handleChange,
@@ -24,37 +22,34 @@ const TemplateformModal = ({
     <ModalOuter hideModal={handleCancel}>
         <BlockHeading title={`${action} template`} />
         <Form className="generic-form" onSubmit={handleSubmit}>
-            <div className="size-lg-6">
-                <Field name="name" required>
-                    <TextInputContainer
-                        name="name"
-                        handleChange={handleChange}
-                        value={name}
-                        required
-                    />
-                </Field>
-                <Field name="Service" required>
-                    <DropdownContainer
-                        name="serviceID"
-                        placeholder="-- select a service --"
-                        handleChange={handleChange}
-                        options={serviceOptions}
-                        selectedOption={selectedService}
-                        required
-                    />
-                </Field>
-                <Field name="Label type" required>
-                    <DropdownContainer
-                        name="labelType"
-                        placeholder="-- select a label type --"
-                        handleChange={handleChange}
-                        options={labelTypeOptions}
-                        selectedOption={selectedLabelType}
-                        required
-                    />
-                </Field>
-                <LabelFieldsRoute labelType={labelType} />
-            </div>
+            <Field name="name" required>
+                <TextInputContainer
+                    name="name"
+                    handleChange={handleChange}
+                    value={name}
+                    required
+                />
+            </Field>
+            <Field name="Service" required>
+                <DropdownContainer
+                    name="serviceID"
+                    placeholder="-- select a service --"
+                    handleChange={handleChange}
+                    options={serviceOptions}
+                    selectedOption={selectedService}
+                    required
+                />
+            </Field>
+            <Field name="Label type" required>
+                <DropdownContainer
+                    name="labelType"
+                    placeholder="-- select a label type --"
+                    handleChange={handleChange}
+                    options={labelTypeOptions}
+                    selectedOption={selectedLabelType}
+                    required
+                />
+            </Field>
             <BlockButtonWrapper>
                 <button className="button green">
                     <i className="fa fa-plus" />

@@ -23,6 +23,7 @@ import {
     PAYMENT_SUCCESS,
     PIN_IMAGE,
     RENAME_TEMPLATE_SECTION,
+    SET_LABEL_FIELDS,
     SUCCESS_MODAL,
     ADD_SERVICE_TO_SUBSCRIPTION,
     PAY_INVOICE,
@@ -46,6 +47,7 @@ import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import AddCardModalContainer from 'components/companyAdmin/subscription/cardManagement/addCardModal/containers/AddCardModalContainer';
 import AddServiceToSubscriptionModalContainer from 'components/companyAdmin/subscription/AddServiceToSubscriptionModal/containers/AddServiceToSubscriptionModalContainer';
 import AddTemplateModalContainer from 'components/superAdmin/templateBuilder/setTemplate/containers/AddTemplateModalContainer';
+import SetLabelFieldsModalContainer from 'components/superAdmin/templateBuilder/setLabelFields/containers/SetLabelFieldsModalContainer';
 import AddTemplateSectionModalContainer from 'components/superAdmin/templateBuilder/setSection/containers/AddTemplateSectionModalContainer';
 import AddTemplateQuestionModalContainer from 'components/superAdmin/templateBuilder/setQuestion/containers/AddTemplateQuestionModalContainer';
 import BuyCreditsModalContainer from 'components/companyAdmin/subscription/buyCreditsModal/containers/BuyCreditsModalContainer';
@@ -87,6 +89,7 @@ const MODAL_COMPONENTS = {
     [ADD_TEMPLATE]: AddTemplateModalContainer,
     [ADD_TEMPLATE_QUESTION]: AddTemplateQuestionModalContainer,
     [ADD_TEMPLATE_SECTION]: AddTemplateSectionModalContainer,
+    [SET_LABEL_FIELDS]: SetLabelFieldsModalContainer,
     [ADMIN_EDIT_SERVICE]: EditServiceModalContainer,
     [BUY_CREDITS]: BuyCreditsModalContainer,
     [COMPANY_EDIT_TEMPLATE_QUESTION]: CompanyEditTemplateQuestionModalContainer,
