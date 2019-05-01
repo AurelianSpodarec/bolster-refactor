@@ -79,6 +79,11 @@ export const LABEL_TYPES = {
     2: 'Trim'
 };
 
+export const LABEL_TYPES_NUMS = {
+    STANDARD: 1,
+    TRIM: 2
+};
+
 export const PIN_STATUS_IDS = {
     INSTALLED: 10,
     INSPECTED: 20,

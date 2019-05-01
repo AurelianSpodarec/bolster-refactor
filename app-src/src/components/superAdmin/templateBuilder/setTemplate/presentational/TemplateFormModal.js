@@ -7,12 +7,14 @@ import TextInputContainer from 'components/shared/generic/form/containers/TextIn
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
+import LabelFieldsRoute from '../containers/LabelFieldsRoute';
 
 const TemplateformModal = ({
     action,
     name,
     serviceOptions,
     selectedService,
+    labelType,
     labelTypeOptions,
     selectedLabelType,
     handleChange,
@@ -51,6 +53,7 @@ const TemplateformModal = ({
                         required
                     />
                 </Field>
+                <LabelFieldsRoute labelType={labelType} />
             </div>
             <BlockButtonWrapper>
                 <button className="button green">

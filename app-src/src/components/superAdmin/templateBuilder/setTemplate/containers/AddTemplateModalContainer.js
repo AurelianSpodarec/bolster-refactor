@@ -9,6 +9,7 @@ class TemplateFormModalContainer extends React.Component {
     render() {
         const {
             name,
+            labelType,
             labelTypeOptions,
             serviceOptions,
             selectedService,
@@ -22,6 +23,7 @@ class TemplateFormModalContainer extends React.Component {
                 name={name}
                 selectedLabelType={selectedLabelType}
                 labelTypeOptions={labelTypeOptions}
+                labelType={labelType}
                 serviceOptions={serviceOptions}
                 selectedService={selectedService}
                 action="Add"

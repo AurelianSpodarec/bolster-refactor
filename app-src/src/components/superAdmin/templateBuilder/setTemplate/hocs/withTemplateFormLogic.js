@@ -18,7 +18,8 @@ export default function(WrappedComponent) {
             name: '',
             serviceID: '',
             labelType: '',
-            labelTypeOptions: convertEnumToDropdownOptions(LABEL_TYPES)
+            labelTypeOptions: convertEnumToDropdownOptions(LABEL_TYPES),
+            labelFields: {}
         };
 
         render() {
