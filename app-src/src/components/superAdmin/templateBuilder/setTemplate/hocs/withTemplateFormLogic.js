@@ -2,12 +2,19 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
+import generateUuid from 'uuid/v1';
+
 import fetchAllServices from 'actions/superAdmin/services/async/fetchAllServices';
 import setTemplate from 'actions/superAdmin/templateBuilder/sync/setTemplate';
 import hideModal from 'actions/shared/generic/modals/sync/hideModal';
 
+import {
+    STANDARD_LABEL_FIELDS,
+    TRIM_LABEL_FIELDS,
+    LABEL_STATIC_FIELDS_NUMS
+} from 'constants/shared/templateBuilder';
 import { convertArrToObj, convertEnumToDropdownOptions } from 'helpers/generic';
-import { LABEL_TYPES } from 'constants/companyAdmin/enums';
+import { LABEL_TYPES, LABEL_TYPES_NUMS } from 'constants/companyAdmin/enums';
 import setSection from 'actions/superAdmin/templateBuilder/sync/setSection';
 import fetchCompanySubscription from 'actions/superAdmin/companies/async/fetchCompanySubscription';
 import setQuestion from 'actions/superAdmin/templateBuilder/sync/setQuestion';
@@ -44,6 +51,7 @@ export default function(WrappedComponent) {
                     selectedService={serviceOptions[serviceID]}
                     handleChange={this.handleChange}
                     handleCancel={this.handleCancel}
+                    generateLabelFields={this.generateLabelFields}
                 />
             );
         }
@@ -68,6 +76,70 @@ export default function(WrappedComponent) {
 
             return convertArrToObj(options, 'value');
         };
+
+        generateLabelFields = (labelType, templateUUID) => {
+            return labelType + '' === LABEL_TYPES_NUMS.STANDARD + ''
+                ? this._getStandardLabelFields(templateUUID)
+                : this._getTrimLabelFields(templateUUID);
+        };
+
+        _getStandardLabelFields = templateUUID => {
+            const { 1: fieldOne, ...otherFields } = STANDARD_LABEL_FIELDS;
+
+            const prefilledFieldOne = {
+                templateUUID,
+                uuid: generateUuid(),
+                key: fieldOne,
+                config: {
+                    title: '',
+                    source:
+                        LABEL_STATIC_FIELDS_NUMS.LOCATION_OWNER_COMPANY_NAME,
+                    staticField: '',
+                    questionUUID: ''
+                }
+            };
+            const otherFieldsArr = Object.values({ ...otherFields });
+            return [
+                prefilledFieldOne,
+                ...this._generateLabelFields(otherFieldsArr, templateUUID)
+            ];
+        };
+
+        _getTrimLabelFields = templateUUID => {
+            const { 1: fieldOne, ...otherFields } = TRIM_LABEL_FIELDS;
+
+            const prefilledFieldOne = {
+                templateUUID,
+                uuid: generateUuid(),
+                key: fieldOne,
+                config: {
+                    title: '',
+                    source:
+                        LABEL_STATIC_FIELDS_NUMS.LOCATION_OWNER_COMPANY_NAME,
+                    staticField: '',
+                    questionUUID: ''
+                }
+            };
+            const otherFieldsArr = Object.values({ ...otherFields });
+            return [
+                prefilledFieldOne,
+                ...this._generateLabelFields(otherFieldsArr, templateUUID)
+            ];
+        };
+
+        _generateLabelFields = (fields, templateUUID) => {
+            return fields.map(field => ({
+                templateUUID,
+                uuid: generateUuid(),
+                key: field,
+                config: {
+                    title: '',
+                    source: '',
+                    staticField: '',
+                    questionUUID: ''
+                }
+            }));
+        };
     }
 
     const mapStateToProps = (
@@ -83,9 +155,6 @@ export default function(WrappedComponent) {
         const subscription = subscriptions[companyID] || {};
         const { serviceIDs = [] } = subscription;
 
-        console.log(companyID);
-        console.log(companyID);
-        console.log(companyID);
         return {
             services: Object.values(services).filter(({ id }) =>
                 serviceIDs.includes(id)

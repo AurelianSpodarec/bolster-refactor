@@ -5,7 +5,6 @@ import TemplateFormModal from '../presentational/TemplateFormModal';
 import {
     QUESTION_TYPE_NUMBERS,
     STANDARD_LABEL_FIELDS,
-    LABEL_TYPES_NUMS,
     TRIM_LABEL_FIELDS
 } from 'constants/shared/templateBuilder';
 import withTemplateFormLogic from '../hocs/withTemplateFormLogic';
@@ -47,6 +46,7 @@ class TemplateFormModalContainer extends React.Component {
     handleSubmit = e => {
         e.preventDefault();
         const {
+            generateLabelFields,
             companyID,
             uuid: templateUUID,
             setLabelFields,
@@ -84,12 +84,9 @@ class TemplateFormModalContainer extends React.Component {
             sort: 1
         });
 
-        const labelFields =
-            labelType + '' === LABEL_TYPES_NUMS.STANDARD + ''
-                ? this.getStandardLabelFields(templateUUID)
-                : this.getTrimLabelFields(templateUUID);
+        const labelFields = generateLabelFields(labelType, template.uuid);
 
-        setLabelFields(labelFields);
+        setLabelFields(labelFields, template.uuid);
     };
 
     getStandardLabelFields = templateUUID => {
