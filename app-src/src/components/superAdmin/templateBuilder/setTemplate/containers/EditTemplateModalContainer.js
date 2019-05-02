@@ -10,8 +10,9 @@ import { LABEL_TYPES } from 'constants/companyAdmin/enums';
 
 import TemplateFormModal from '../presentational/TemplateFormModal';
 import fetchCompanySubscription from 'actions/superAdmin/companies/async/fetchCompanySubscription';
+import withTemplateFormLogic from '../hocs/withTemplateFormLogic';
 
-class EditTemplateFormContainer extends React.Component {
+class EditTemplateModalContainer extends React.Component {
     state = {
         name: '',
         serviceID: '',
@@ -86,42 +87,4 @@ class EditTemplateFormContainer extends React.Component {
         return convertArrToObj(options, 'value');
     };
 }
-
-const mapStateToProps = (
-    {
-        superAdmin: {
-            adminServicesReducer: { adminServices },
-            companySubscriptionReducer: { subscriptions }
-        }
-    },
-    { companyID }
-) => {
-    const subscription = subscriptions[companyID] || {};
-    const { serviceIDs = [] } = subscription;
-    return {
-        services: Object.values(adminServices).filter(({ id }) =>
-            serviceIDs.includes(id)
-        )
-    };
-};
-
-const mapDispatchToProps = (dispatch, { companyID }) => ({
-    hideModal: () => dispatch(hideModal()),
-
-    setTemplate: template => {
-        dispatch(setTemplate(template));
-        dispatch(hideModal());
-    },
-
-    fetchData: () => {
-        dispatch(fetchAllServices());
-        dispatch(fetchCompanySubscription(companyID));
-    }
-});
-
-const WithConnect = connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(EditTemplateFormContainer);
-
-export default withRouter(WithConnect);
+export default withTemplateFormLogic(EditTemplateModalContainer);

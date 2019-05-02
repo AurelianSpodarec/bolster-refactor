@@ -56,6 +56,7 @@ export default function(WrappedComponent) {
                     handleChange={this.handleChange}
                     handleCancel={this.handleCancel}
                     generateLabelFields={this.generateLabelFields}
+                    setState={this.setState}
                 />
             );
         }
@@ -170,21 +171,25 @@ export default function(WrappedComponent) {
     };
 
     const mapDispatchToProps = (dispatch, { companyID }) => ({
-        hideModal: () => dispatch(hideModal()),
-
-        setTemplate: (template, section1) => {
-            dispatch(setTemplate(template));
-            dispatch(setSection(section1));
+        hideModal: () => {
             dispatch(hideModal());
         },
-        setQuestion: question => dispatch(setQuestion(question)),
+        setTemplate: template => {
+            dispatch(setTemplate(template));
+        },
+        setSection: section => {
+            dispatch(setSection(section));
+        },
+        setQuestion: question => {
+            dispatch(setQuestion(question));
+        },
+        setLabelFields: (labelFields, templateUUID) => {
+            dispatch(setLabelFields(labelFields, templateUUID));
+        },
 
         fetchData: () => {
             dispatch(fetchAllServices());
             dispatch(fetchCompanySubscription(companyID));
-        },
-        setLabelFields: (labelFields, templateUUID) => {
-            dispatch(setLabelFields(labelFields, templateUUID));
         }
     });
 

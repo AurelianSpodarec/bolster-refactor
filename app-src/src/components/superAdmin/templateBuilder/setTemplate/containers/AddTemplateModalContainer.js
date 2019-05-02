@@ -49,8 +49,10 @@ class TemplateFormModalContainer extends React.Component {
             generateLabelFields,
             companyID,
             uuid: templateUUID,
+            hideModal,
             setLabelFields,
             setTemplate,
+            setSection,
             setQuestion,
             name,
             serviceID,
@@ -72,8 +74,7 @@ class TemplateFormModalContainer extends React.Component {
             sort: 1
         };
 
-        setTemplate(template, section1);
-        setQuestion({
+        const statusQuestion = {
             // STATUS
             uuid: generateUuid(),
             fields: {},
@@ -82,69 +83,15 @@ class TemplateFormModalContainer extends React.Component {
             sectionUUID,
             templateUUID,
             sort: 1
-        });
+        };
 
         const labelFields = generateLabelFields(labelType, templateUUID);
 
+        setTemplate(template, section1);
+        setSection(section1);
+        setQuestion(statusQuestion);
         setLabelFields(labelFields, templateUUID);
-    };
-
-    getStandardLabelFields = templateUUID => {
-        const { 1: fieldOne, ...otherFields } = STANDARD_LABEL_FIELDS;
-        const { company } = this.props;
-
-        const prefilledFieldOne = {
-            templateUUID,
-            uuid: generateUuid(),
-            key: fieldOne,
-            config: {
-                title: company.name,
-                source: '',
-                staticField: '',
-                questionUUID: ''
-            }
-        };
-        const otherFieldsArr = Object.values({ ...otherFields });
-        return [
-            prefilledFieldOne,
-            ...this.generateLabelFields(otherFieldsArr, templateUUID)
-        ];
-    };
-
-    getTrimLabelFields = templateUUID => {
-        const { 1: fieldOne, ...otherFields } = TRIM_LABEL_FIELDS;
-        const { company } = this.props;
-
-        const prefilledFieldOne = {
-            templateUUID,
-            uuid: generateUuid(),
-            key: fieldOne,
-            config: {
-                title: company.name,
-                source: '',
-                staticField: '',
-                questionUUID: ''
-            }
-        };
-        const otherFieldsArr = Object.values({ ...otherFields });
-        return [
-            prefilledFieldOne,
-            ...this.generateLabelFields(otherFieldsArr, templateUUID)
-        ];
-    };
-
-    generateLabelFields = (fields, templateUUID) => {
-        return fields.map(field => ({
-            templateUUID,
-            uuid: generateUuid(),
-            key: field,
-            config: {
-                title: '',
-                source: '',
-                staticField: '',
-                questionUUID: ''
-            }
-        }));
+        hideModal();
     };
 }
 
