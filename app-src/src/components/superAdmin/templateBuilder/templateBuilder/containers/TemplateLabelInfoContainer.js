@@ -10,11 +10,15 @@ class TemplateLabelInfoContainer extends Component {
     render() {
         const { template, labelFields } = this.props;
 
+        console.log(labelFields);
+        console.log(labelFields);
+        console.log(labelFields);
+        console.log(labelFields);
         if (!template) return null;
         return (
             <TemplateLabelInfo
                 showSetLabelsModal={this.showSetLabelsModal}
-                labelFields={labelFields}
+                fields={labelFields}
             />
         );
     }

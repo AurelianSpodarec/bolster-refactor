@@ -2498,6 +2498,32 @@ input {
             padding: 5px 10px 2.5px 10px;
         }
     }
+
+    .label-field-list {
+        width: calc(100% + 30px);
+        margin-left: -15px;
+        text-align: left;
+    }
+
+    .label-field-item {
+        border-top: 1px solid $light-grey;
+        padding: 10px 15px;
+        background-color: white;
+        transition: background-color 0.25s ease-in-out;
+
+        p {
+            font-size: 120%;
+        }
+    }
+
+    .label-field-header {
+        padding: 0 5px;
+        margin-bottom: 5px;
+        p {
+            @include ubuntu-medium;
+            padding: 5px 10px 2.5px 10px;
+        }
+    }
 }
 
 .dropdown-create {

@@ -46,9 +46,9 @@ class SaveTemplateButtonContainer extends Component {
         );
         const labelFields = allLabelFields
             .filter(({ templateUUID }) => templateUUID === template.uuid)
-            .map(field => ({
-                ...field,
-                config: { ...field.config, source: field.source.config || null }
+            .map(({ config, ...rest }) => ({
+                ...rest,
+                config: { ...config, source: config.source || null }
             }));
 
         const newTemplateData = {
