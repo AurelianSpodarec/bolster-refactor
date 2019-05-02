@@ -10,10 +10,6 @@ class TemplateLabelInfoContainer extends Component {
     render() {
         const { template, labelFields } = this.props;
 
-        console.log(labelFields);
-        console.log(labelFields);
-        console.log(labelFields);
-        console.log(labelFields);
         if (!template) return null;
         return (
             <TemplateLabelInfo
@@ -24,8 +20,8 @@ class TemplateLabelInfoContainer extends Component {
     }
 
     showSetLabelsModal = () => {
-        const { showModal, template } = this.props;
-        showModal(SET_LABEL_FIELDS, { template });
+        const { showModal, template, companyID } = this.props;
+        showModal(SET_LABEL_FIELDS, { template, companyID });
     };
 }
 
@@ -38,10 +34,11 @@ const mapStateToProps = (
     },
     {
         match: {
-            params: { uuid }
+            params: { uuid, companyID }
         }
     }
 ) => ({
+    companyID,
     template: templates[uuid],
     labelFields: Object.values(labelFields).filter(
         ({ templateUUID }) => templateUUID === uuid

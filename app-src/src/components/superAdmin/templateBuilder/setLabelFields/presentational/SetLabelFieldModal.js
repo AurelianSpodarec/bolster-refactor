@@ -4,13 +4,25 @@ import ModalOuter from 'components/shared/generic/modals/presentational/ModalOut
 import Form from 'components/shared/generic/form/containers/Form';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
-import LabelFieldsRoute from '../containers/LabelFieldsRoute';
+import LabelFields from './LabelFields';
 
-const TemplateformModal = ({ handleSubmit, hideModal, labelType }) => (
+const SetLabelModal = ({
+    handleSubmit,
+    handleChange,
+    hideModal,
+    labelType,
+    fields,
+    sourceOptions
+}) => (
     <ModalOuter hideModal={hideModal}>
         <BlockHeading title="Update Label Fields" />
         <Form className="generic-form" onSubmit={handleSubmit}>
-            <LabelFieldsRoute labelType={labelType} />
+            <LabelFields
+                labelType={labelType}
+                fields={fields}
+                handleChange={handleChange}
+                sourceOptions={sourceOptions}
+            />
             <BlockButtonWrapper>
                 <button className="button green">
                     <i className="fa fa-plus" />
@@ -24,4 +36,4 @@ const TemplateformModal = ({ handleSubmit, hideModal, labelType }) => (
     </ModalOuter>
 );
 
-export default TemplateformModal;
+export default SetLabelModal;
