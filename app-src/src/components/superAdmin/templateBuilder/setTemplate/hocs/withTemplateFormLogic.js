@@ -56,10 +56,14 @@ export default function(WrappedComponent) {
                     handleChange={this.handleChange}
                     handleCancel={this.handleCancel}
                     generateLabelFields={this.generateLabelFields}
-                    setState={this.setState}
+                    updateState={this.updateState}
                 />
             );
         }
+
+        updateState = values => {
+            this.setState(values);
+        };
 
         handleChange = ({ target: { name, value } }) => {
             this.setState({ [name]: value });
