@@ -14,7 +14,11 @@ import {
     LABEL_STATIC_FIELDS_NUMS
 } from 'constants/shared/templateBuilder';
 import { convertArrToObj, convertEnumToDropdownOptions } from 'helpers/generic';
-import { LABEL_TYPES, LABEL_TYPES_NUMS } from 'constants/companyAdmin/enums';
+import {
+    LABEL_TYPES,
+    LABEL_TYPES_NUMS,
+    LABEL_QUES_TYPES_NUMS
+} from 'constants/companyAdmin/enums';
 import setSection from 'actions/superAdmin/templateBuilder/sync/setSection';
 import fetchCompanySubscription from 'actions/superAdmin/companies/async/fetchCompanySubscription';
 import setQuestion from 'actions/superAdmin/templateBuilder/sync/setQuestion';
@@ -85,6 +89,8 @@ export default function(WrappedComponent) {
 
         _getStandardLabelFields = templateUUID => {
             const { 1: fieldOne, ...otherFields } = STANDARD_LABEL_FIELDS;
+            const { STATIC } = LABEL_QUES_TYPES_NUMS;
+            const { LOCATION_OWNER_COMPANY_NAME } = LABEL_STATIC_FIELDS_NUMS;
 
             const prefilledFieldOne = {
                 templateUUID,
@@ -92,9 +98,8 @@ export default function(WrappedComponent) {
                 key: fieldOne,
                 config: {
                     title: '',
-                    source:
-                        LABEL_STATIC_FIELDS_NUMS.LOCATION_OWNER_COMPANY_NAME,
-                    staticField: '',
+                    source: STATIC,
+                    staticField: LOCATION_OWNER_COMPANY_NAME,
                     questionUUID: ''
                 }
             };
@@ -178,8 +183,8 @@ export default function(WrappedComponent) {
             dispatch(fetchAllServices());
             dispatch(fetchCompanySubscription(companyID));
         },
-        setLabelFields: labelFields => {
-            dispatch(setLabelFields(labelFields));
+        setLabelFields: (labelFields, templateUUID) => {
+            dispatch(setLabelFields(labelFields, templateUUID));
         }
     });
 

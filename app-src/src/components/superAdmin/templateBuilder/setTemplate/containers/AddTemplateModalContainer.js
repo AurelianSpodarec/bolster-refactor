@@ -84,9 +84,9 @@ class TemplateFormModalContainer extends React.Component {
             sort: 1
         });
 
-        const labelFields = generateLabelFields(labelType, template.uuid);
+        const labelFields = generateLabelFields(labelType, templateUUID);
 
-        setLabelFields(labelFields, template.uuid);
+        setLabelFields(labelFields, templateUUID);
     };
 
     getStandardLabelFields = templateUUID => {

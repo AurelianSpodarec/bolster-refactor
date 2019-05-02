@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {
     LABEL_QUES_TYPES,
-    LABEL_QUES_TYPES_NUMS
+    LABEL_QUES_TYPES_NUMS,
+    LABEL_STATIC_FIELDS
 } from 'constants/shared/templateBuilder';
 import LabelFieldItem from '../presentational/LabelFieldItem';
 
-class LabelFieldContainer extends Component {
+class LabelFieldItemContainer extends Component {
     render() {
         const { field, question } = this.props;
         const { title, source, staticField } = field.config;
@@ -17,7 +18,7 @@ class LabelFieldContainer extends Component {
 
         return (
             <LabelFieldItem
-                source={LABEL_QUES_TYPES[source]}
+                source={LABEL_STATIC_FIELDS[source]}
                 title={title}
                 content={content}
             />
@@ -32,4 +33,4 @@ const mapStateToProps = (
     question: questions[config.questionUUID]
 });
 
-export default connect(mapStateToProps)(LabelFieldContainer);
+export default connect(mapStateToProps)(LabelFieldItemContainer);

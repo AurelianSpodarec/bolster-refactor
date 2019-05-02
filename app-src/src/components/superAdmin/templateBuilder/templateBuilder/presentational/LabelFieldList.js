@@ -1,5 +1,5 @@
 import React from 'react';
-import LabelFieldItem from './LabelFieldItem';
+import LabelFieldItemContainer from '../containers/LabelFieldItemContainer';
 
 const LabelFieldList = ({ fields }) => (
     <div className="label-field-list">
@@ -10,7 +10,7 @@ const LabelFieldList = ({ fields }) => (
         </div>
 
         {fields.map(field => (
-            <LabelFieldItem key={field.uuid} field={field} />
+            <LabelFieldItemContainer key={field.uuid} field={field} />
         ))}
     </div>
 );
