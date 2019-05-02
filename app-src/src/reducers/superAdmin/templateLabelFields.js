@@ -18,7 +18,7 @@ function labelFieldsReducer(state = {}, action) {
                 field => field.templateUUID !== action.templateUUID
             );
             return {
-                ...newList,
+                ...convertArrToObj(newList, 'uuid'),
                 ...convertArrToObj(action.labelFields, 'uuid')
             };
         }

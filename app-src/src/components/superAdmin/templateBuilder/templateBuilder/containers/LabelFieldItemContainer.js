@@ -13,12 +13,13 @@ class LabelFieldItemContainer extends Component {
         const { title, source, staticField } = field.config;
         const { STATIC, DYNAMIC } = LABEL_QUES_TYPES_NUMS;
         let content;
-        if (source === STATIC) content = LABEL_QUES_TYPES[staticField];
-        if (source === DYNAMIC && question) content = question.name;
+        if (source + '' === STATIC + '')
+            content = LABEL_STATIC_FIELDS[staticField];
+        if (source + '' === DYNAMIC + '' && question) content = question.name;
 
         return (
             <LabelFieldItem
-                source={LABEL_STATIC_FIELDS[source]}
+                source={LABEL_QUES_TYPES[source]}
                 title={title}
                 content={content}
             />
@@ -27,7 +28,11 @@ class LabelFieldItemContainer extends Component {
 }
 
 const mapStateToProps = (
-    { superAdmin: { templateQuestionsReducer: questions } },
+    {
+        superAdmin: {
+            templateQuestionsReducer: { questions }
+        }
+    },
     { field: { config } }
 ) => ({
     question: questions[config.questionUUID]

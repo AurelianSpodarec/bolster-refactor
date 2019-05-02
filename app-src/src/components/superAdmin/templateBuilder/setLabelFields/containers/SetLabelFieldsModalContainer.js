@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import SetLabelFieldModal from '../presentational/SetLabelFieldModal';
 import { convertArrToObj } from 'helpers/generic';
 import setLabelFields from 'actions/superAdmin/templateBuilder/sync/setLabelFields';
+import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 
 class SetLabelFieldModalContainer extends Component {
     render() {
@@ -89,6 +90,7 @@ const mapStateToProps = (
 const mapDispatchToProps = (dispatch, { template }) => ({
     setLabelFields: fields => {
         dispatch(setLabelFields(fields, template.uuid));
+        dispatch(hideModal());
     }
 });
 
