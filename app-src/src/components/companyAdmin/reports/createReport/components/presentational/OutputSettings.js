@@ -10,13 +10,14 @@ const OutputSettings = ({
     handleSubmit,
     handleFilterChange,
     handleOptionChange,
-    fileTypeOptions,
-    selectedFiletype,
     includePinLocation,
     sortByOptions,
     selectSortBy,
     layoutOptions,
     selectedLayout,
+    isPDFGeneration,
+    isCSVGeneration,
+    isFloorplanGeneration,
     showHidden
 }) => (
     <div className="size-lg-12">
@@ -26,22 +27,52 @@ const OutputSettings = ({
                 <div className="generic-form">
                     <div className="size-lg-6">
                         <Field name="Report formats">
-                            <DropdownContainer
-                                placeholder="Please select"
-                                name="fileType"
-                                options={fileTypeOptions}
-                                selectedOption={selectedFiletype}
-                                handleChange={handleFilterChange}
-                                withoutPlaceholder
-                            />
+                            <div className="checkbox-list size-lg-12">
+                                <Checkbox
+                                    checked={isPDFGeneration}
+                                    handleChange={handleFilterChange}
+                                    name="isPDFGeneration"
+                                    text="PDF"
+                                />
+                                <Checkbox
+                                    checked={isCSVGeneration}
+                                    handleChange={handleFilterChange}
+                                    name="isCSVGeneration"
+                                    text="CSV"
+                                />
+                                <Checkbox
+                                    checked={isFloorplanGeneration}
+                                    handleChange={handleFilterChange}
+                                    name="isFloorplanGeneration"
+                                    text="Floor plan"
+                                />
+                            </div>
                         </Field>
-                        <Field name="Include location drawing">
-                            <Checkbox
-                                checked={includePinLocation}
-                                handleChange={handleFilterChange}
-                                name="includePinLocation"
-                            />
-                        </Field>
+                        {isPDFGeneration && (
+                            <>
+                                <Field name="Include location drawing">
+                                    <Checkbox
+                                        checked={
+                                            isPDFGeneration
+                                                ? includePinLocation
+                                                : isPDFGeneration
+                                        }
+                                        handleChange={handleFilterChange}
+                                        name="includePinLocation"
+                                    />
+                                </Field>
+                                <Field name="Layout">
+                                    <DropdownContainer
+                                        name="layout"
+                                        options={layoutOptions}
+                                        singleSelect={true}
+                                        handleChange={handleOptionChange}
+                                        selectedOption={selectedLayout}
+                                        withoutPlaceholder
+                                    />
+                                </Field>
+                            </>
+                        )}
                     </div>
                     <div className="size-lg-6">
                         <Field name="Sort by">
@@ -54,16 +85,7 @@ const OutputSettings = ({
                                 withoutPlaceholder
                             />
                         </Field>
-                        <Field name="Layout">
-                            <DropdownContainer
-                                name="layout"
-                                options={layoutOptions}
-                                singleSelect={true}
-                                handleChange={handleOptionChange}
-                                selectedOption={selectedLayout}
-                                withoutPlaceholder
-                            />
-                        </Field>
+
                         <Field name="Show hidden?">
                             <Checkbox
                                 checked={showHidden}

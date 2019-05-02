@@ -203,17 +203,13 @@ export const SORT_BY_OPTIONS_TEXT = {
 };
 
 export const LAYOUT_OPTIONS = {
-    ONE_COLUMN: 10,
-    ONE_COLUMN_WITH_LOCATION: 11,
-    TWO_COLUMN: 20,
-    TWO_COLUMN_WITH_LOCATION: 20
+    ONE_COLUMN: 1,
+    TWO_COLUMN: 2
 };
 
 export const LAYOUT_OPTIONS_TEXT = {
-    10: 'One column',
-    11: 'One column with location',
-    20: 'Two columns',
-    21: 'Two columns with location'
+    1: 'One column',
+    2: 'Two columns'
 };
 
 export const PARENTAL_TYPES = {

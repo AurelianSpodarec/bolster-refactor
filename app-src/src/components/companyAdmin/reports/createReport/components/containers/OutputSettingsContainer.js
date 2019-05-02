@@ -12,7 +12,6 @@ import showFieldErrors from 'actions/shared/generic/fieldErrors/sync/showFieldEr
 import { isEmpty, convertEnumToDropdownOptions } from 'helpers/generic';
 import withUpdateOnChange from '../hocs/withUpdateOnChange';
 import {
-    REPORT_FORMATS,
     SORT_BY_OPTIONS_TEXT,
     LAYOUT_OPTIONS_TEXT
 } from 'constants/companyAdmin/enums';
@@ -22,11 +21,15 @@ import OutputSettings from '../presentational/OutputSettings';
 class OutputSettingsContainer extends Component {
     render() {
         const {
-            filters: { includePinLocation, fileType },
+            filters: {
+                includePinLocation,
+                isPDFGeneration,
+                isCSVGeneration,
+                isFloorplanGeneration
+            },
             options: { showHidden, sortBy, layout }
         } = this.props;
 
-        const fileTypeOptions = convertEnumToDropdownOptions(REPORT_FORMATS);
         const sortByOptions = convertEnumToDropdownOptions(
             SORT_BY_OPTIONS_TEXT
         );
@@ -34,9 +37,10 @@ class OutputSettingsContainer extends Component {
 
         return (
             <OutputSettings
-                fileTypeOptions={Object.values(fileTypeOptions)}
-                selectedFiletype={fileTypeOptions[fileType]}
                 includePinLocation={includePinLocation}
+                isCSVGeneration={isCSVGeneration}
+                isFloorplanGeneration={isFloorplanGeneration}
+                isPDFGeneration={isPDFGeneration}
                 sortByOptions={Object.values(sortByOptions)}
                 selectSortBy={sortByOptions[sortBy]}
                 layoutOptions={Object.values(layoutOptions)}
@@ -65,12 +69,6 @@ class OutputSettingsContainer extends Component {
                 message: error.message
             });
         }
-    };
-
-    handleFilterChange = ({ target: { value, name, checked, type } }) => {
-        const { handleChange } = this.props;
-
-        handleChange(name, type === 'checkbox' ? checked : value);
     };
 
     handleFilterChange = ({ target: { value, name, checked, type } }) => {
