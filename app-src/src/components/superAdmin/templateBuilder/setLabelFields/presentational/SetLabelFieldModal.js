@@ -12,7 +12,7 @@ const SetLabelModal = ({
     hideModal,
     labelType,
     fields,
-    sourceOptions
+    questionOptions
 }) => (
     <ModalOuter hideModal={hideModal}>
         <BlockHeading title="Update Label Fields" />
@@ -21,7 +21,7 @@ const SetLabelModal = ({
                 labelType={labelType}
                 fields={fields}
                 handleChange={handleChange}
-                sourceOptions={sourceOptions}
+                questionOptions={questionOptions}
             />
             <BlockButtonWrapper>
                 <button className="button green">

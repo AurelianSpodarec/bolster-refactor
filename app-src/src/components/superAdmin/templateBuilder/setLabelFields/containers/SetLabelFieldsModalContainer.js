@@ -2,10 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import SetLabelFieldModal from '../presentational/SetLabelFieldModal';
-import { convertArrToObj, convertEnumToDropdownOptions } from 'helpers/generic';
-import { LABEL_QUES_TYPES } from 'constants/companyAdmin/enums';
+import { convertArrToObj } from 'helpers/generic';
 
-const sourceOptions = convertEnumToDropdownOptions(LABEL_QUES_TYPES);
 class SetLabelFieldModalContainer extends Component {
     render() {
         const { hideModal, template } = this.props;
@@ -13,15 +11,27 @@ class SetLabelFieldModalContainer extends Component {
 
         return (
             <SetLabelFieldModal
+                questionOptions={this._getQuestionOptions()}
                 fields={Object.values(fields)}
                 labelType={template.labelType}
                 hideModal={hideModal}
                 handleChange={this.handleChange}
                 handleSubmit={this.handleSubmit}
-                sourceOptions={sourceOptions}
             />
         );
     }
+
+    _getQuestionOptions = () => {
+        const { questions } = this.props;
+
+        return questions.reduce(
+            (acc, { uuid, name }) => ({
+                ...acc,
+                [uuid]: { value: uuid, text: name }
+            }),
+            {}
+        );
+    };
 
     componentDidMount() {
         const { labelFields } = this.props;
@@ -40,10 +50,6 @@ class SetLabelFieldModalContainer extends Component {
                 [name]: value
             }
         };
-        console.log(uuid);
-        console.log(name);
-        console.log(value);
-        console.log(updatedField);
 
         this.setState({ [uuid]: updatedField });
     };
@@ -56,6 +62,7 @@ class SetLabelFieldModalContainer extends Component {
 const mapStateToProps = (
     {
         superAdmin: {
+            templateQuestionsReducer: { questions },
             templateLabelFieldsReducer: { labelFields },
             companiesReducer: { companies }
         }
@@ -63,6 +70,9 @@ const mapStateToProps = (
     { template, companyID }
 ) => ({
     labelFields: Object.values(labelFields).filter(
+        ({ templateUUID }) => templateUUID + '' === template.uuid + ''
+    ),
+    questions: Object.values(questions).filter(
         ({ templateUUID }) => templateUUID + '' === template.uuid + ''
     ),
     company: companies[companyID] || {}
