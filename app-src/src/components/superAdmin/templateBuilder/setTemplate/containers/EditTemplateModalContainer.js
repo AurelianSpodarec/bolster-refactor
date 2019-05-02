@@ -12,7 +12,7 @@ class EditTemplateModalContainer extends React.Component {
             serviceOptions,
             selectedService,
             selectedLabelType,
-            handleCancel,
+            hideModal,
             handleChange
         } = this.props;
         return (
@@ -25,7 +25,7 @@ class EditTemplateModalContainer extends React.Component {
                 serviceOptions={serviceOptions}
                 selectedService={selectedService}
                 handleChange={handleChange}
-                handleCancel={handleCancel}
+                handleCancel={hideModal}
                 handleSubmit={this.handleSubmit}
             />
         );

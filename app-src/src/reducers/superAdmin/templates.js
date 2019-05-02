@@ -18,7 +18,8 @@ import {
     FETCH_TEMPLATES_FAILURE,
     FETCH_TEMPLATE_REQUEST,
     FETCH_TEMPLATE_SUCCESS,
-    FETCH_TEMPLATE_FAILURE
+    FETCH_TEMPLATE_FAILURE,
+    SET_LABEL_FIELDS
 } from 'constants/actionTypes/templateBuilder';
 
 export default combineReducers({
@@ -124,6 +125,7 @@ function saveRequiredReducer(state = false, action) {
         case DELETE_QUESTION:
         case CHANGE_QUESTION_SECTION:
         case SWAP_QUESTION_SORTS:
+        case SET_LABEL_FIELDS:
             return true;
         case RESET_SAVE_REQUIRED:
         case POST_TEMPLATE_SUCCESS:
