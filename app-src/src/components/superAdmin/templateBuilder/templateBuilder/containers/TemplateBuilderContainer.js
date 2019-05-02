@@ -7,13 +7,14 @@ import {
     SUCCESS_MODAL,
     ERROR_MODAL
 } from 'constants/shared/modalTypes';
+import fetchTemplate from 'actions/superAdmin/templateBuilder/async/fetchTemplate';
+import fetchAllServices from 'actions/superAdmin/services/async/fetchAllServices';
+import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
+import fetchSingleCompany from 'actions/superAdmin/companies/async/fetchSingleCompany';
 import showModal from 'actions/shared/generic/modals/sync/showModal';
 import resetSaveRequired from 'actions/superAdmin/templateBuilder/sync/resetSaveRequired';
 
 import TemplateBuilder from '../presentational/TemplateBuilder';
-import fetchTemplate from 'actions/superAdmin/templateBuilder/async/fetchTemplate';
-import fetchAllServices from 'actions/superAdmin/services/async/fetchAllServices';
-import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 
 class TemplateBuilderContainer extends Component {
     render() {
@@ -74,6 +75,7 @@ const mapStateToProps = (
     { match: { params, url } }
 ) => ({
     curUrl: url,
+    companyID: params.companyID,
     templateUUID: params.uuid,
     postSuccess: templatesReducer.postSuccess,
     isPosting: templatesReducer.isPosting,
@@ -84,9 +86,16 @@ const mapStateToProps = (
     isExisting: !!templatesReducer.templates[params.uuid]
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (
+    dispatch,
+    {
+        match: {
+            params: { companyID }
+        }
+    }
+) => ({
     showAddSectionModal: templateUUID =>
-        dispatch(showModal(ADD_TEMPLATE_SECTION, { templateUUID })),
+        dispatch(showModal(ADD_TEMPLATE_SECTION, { templateUUID, companyID })),
 
     resetSaveRequired: () => dispatch(resetSaveRequired()),
 
@@ -97,6 +106,7 @@ const mapDispatchToProps = dispatch => ({
     fetchPageData: templateUUID => {
         dispatch(fetchTemplate(templateUUID));
         dispatch(fetchAllServices());
+        dispatch(fetchSingleCompany(companyID));
     }
 });
 

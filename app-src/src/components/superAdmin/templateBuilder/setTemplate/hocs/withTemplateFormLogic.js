@@ -82,6 +82,10 @@ export default function(WrappedComponent) {
     ) => {
         const subscription = subscriptions[companyID] || {};
         const { serviceIDs = [] } = subscription;
+
+        console.log(companyID);
+        console.log(companyID);
+        console.log(companyID);
         return {
             services: Object.values(services).filter(({ id }) =>
                 serviceIDs.includes(id)

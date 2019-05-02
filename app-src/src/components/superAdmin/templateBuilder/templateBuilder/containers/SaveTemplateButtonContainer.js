@@ -35,6 +35,7 @@ class SaveTemplateButtonContainer extends Component {
             template,
             allSections,
             allQuestions,
+            allLabelFields,
             postTemplate
         } = this.props;
         const sections = allSections.filter(
@@ -43,10 +44,18 @@ class SaveTemplateButtonContainer extends Component {
         const questions = allQuestions.filter(
             ({ templateUUID }) => templateUUID === template.uuid
         );
+        const labelFields = allLabelFields
+            .filter(({ templateUUID }) => templateUUID === template.uuid)
+            .map(field => ({
+                ...field,
+                config: { ...field.config, source: field.source.config || null }
+            }));
+
         const newTemplateData = {
             template,
             sections,
-            questions: setDynamicFields(questions)
+            questions: setDynamicFields(questions),
+            labelFields
         };
 
         postTemplate(newTemplateData);
@@ -58,7 +67,8 @@ const mapStateToProps = (
         superAdmin: {
             templatesReducer: { templates },
             templateSectionsReducer: { sections },
-            templateQuestionsReducer: { questions }
+            templateQuestionsReducer: { questions },
+            templateLabelFieldsReducer: { labelFields }
         }
     },
     {
@@ -69,7 +79,8 @@ const mapStateToProps = (
 ) => ({
     template: templates[uuid],
     allSections: Object.values(sections),
-    allQuestions: Object.values(questions)
+    allQuestions: Object.values(questions),
+    allLabelFields: Object.values(labelFields)
 });
 
 const mapDispatchToProps = dispatch => ({
