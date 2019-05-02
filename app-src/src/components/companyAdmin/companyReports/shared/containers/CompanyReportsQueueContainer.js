@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import fetchCompanyReports from 'actions/companyAdmin/companyReports/async/fetchCompanyReports';
 import CompanyReports from '../presentational/CompanyReports';
 
-class CompanyReportsContainer extends Component {
+class CompanyReportsQueueContainer extends Component {
     render = () => <CompanyReports />;
 
     componentDidMount() {
@@ -22,4 +22,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
     null,
     mapDispatchToProps
-)(CompanyReportsContainer);
+)(CompanyReportsQueueContainer);
