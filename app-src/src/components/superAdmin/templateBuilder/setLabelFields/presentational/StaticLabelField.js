@@ -12,7 +12,6 @@ const StaticLabelField = ({ labelField, handleChange }) => (
             options={Object.values(staticFieldOptions)}
             selectedOption={staticFieldOptions[labelField.config.staticField]}
             handleChange={handleChange}
-            required
         />
     </Field>
 );

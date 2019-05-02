@@ -13,8 +13,15 @@ export default combineReducers({
 function labelFieldsReducer(state = {}, action) {
     switch (action.type) {
         case FETCH_TEMPLATE_SUCCESS:
-        case SET_LABEL_FIELDS:
-            return { ...state, ...convertArrToObj(action.labelFields, 'uuid') };
+        case SET_LABEL_FIELDS: {
+            const newList = Object.values(state).filter(
+                field => field.templateUUID !== action.templateUUID
+            );
+            return {
+                ...newList,
+                ...convertArrToObj(action.labelFields, 'uuid')
+            };
+        }
         default:
             return state;
     }

@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 import SetLabelFieldModal from '../presentational/SetLabelFieldModal';
 import { convertArrToObj } from 'helpers/generic';
+import setLabelFields from 'actions/superAdmin/templateBuilder/sync/setLabelFields';
 
 class SetLabelFieldModalContainer extends Component {
     render() {
@@ -51,11 +52,20 @@ class SetLabelFieldModalContainer extends Component {
             }
         };
 
+        if (name === 'source') {
+            updatedField.config.staticField = '';
+            updatedField.config.questionUUID = '';
+            updatedField.config.title = '';
+        }
+
         this.setState({ [uuid]: updatedField });
     };
 
     handleSubmit = () => {
-        console.log('submitting...');
+        const { ...fields } = this.state;
+        const { setLabelFields } = this.props;
+
+        setLabelFields(Object.values(fields));
     };
 }
 
@@ -63,22 +73,24 @@ const mapStateToProps = (
     {
         superAdmin: {
             templateQuestionsReducer: { questions },
-            templateLabelFieldsReducer: { labelFields },
-            companiesReducer: { companies }
+            templateLabelFieldsReducer: { labelFields }
         }
     },
-    { template, companyID }
+    { template }
 ) => ({
     labelFields: Object.values(labelFields).filter(
         ({ templateUUID }) => templateUUID + '' === template.uuid + ''
     ),
     questions: Object.values(questions).filter(
         ({ templateUUID }) => templateUUID + '' === template.uuid + ''
-    ),
-    company: companies[companyID] || {}
+    )
 });
 
-const mapDispatchToProps = () => ({});
+const mapDispatchToProps = (dispatch, { template }) => ({
+    setLabelFields: fields => {
+        dispatch(setLabelFields(fields, template.uuid));
+    }
+});
 
 export default connect(
     mapStateToProps,

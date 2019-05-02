@@ -1,7 +1,8 @@
 import { SET_LABEL_FIELDS } from 'constants/actionTypes/templateBuilder';
 
-export default labelFields => dispatch =>
+export default (labelFields, templateUUID) => dispatch =>
     dispatch({
         type: SET_LABEL_FIELDS,
-        labelFields
+        labelFields,
+        templateUUID
     });

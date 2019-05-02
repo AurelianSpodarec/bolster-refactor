@@ -19,15 +19,13 @@ const LabelFieldRoute = ({
 
     const SpecificComponent = specificField[source];
     if (!SpecificComponent) return null;
-
     return (
         <>
-            <Field name="Tile" sizeClasses="size-lg-6">
+            <Field name="Title" sizeClasses="size-lg-6">
                 <TextInputContainer
                     name="title"
                     value={labelField.config.title}
                     handleChange={handleChange}
-                    required
                 />
             </Field>
             <SpecificComponent
