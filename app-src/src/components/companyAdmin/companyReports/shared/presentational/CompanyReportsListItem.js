@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { RAW_S3_STORAGE_URL_REPORTS } from 'config';
+import { RAW_S3_STORAGE_URL } from 'config';
 
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 
@@ -25,7 +25,7 @@ const CompanyReportsListItem = ({ queueItem }) => (
                     className="button green"
                     target="_blank"
                     rel="noopener noreferrer"
-                    href={`${RAW_S3_STORAGE_URL_REPORTS}/${queueItem.s3Key}`}
+                    href={`${RAW_S3_STORAGE_URL}/${queueItem.s3Key}`}
                 >
                     <i className="fa fa-download" /> Download File
                 </a>
