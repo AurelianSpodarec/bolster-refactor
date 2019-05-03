@@ -39,7 +39,8 @@ import {
     ADD_DRAWING,
     EDIT_SITE,
     EDIT_BUILDING,
-    EDIT_FLOOR
+    EDIT_FLOOR,
+    ADD_DROPDOWN_OPTION
 } from 'constants/shared/modalTypes';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
@@ -82,6 +83,7 @@ import AddDrawingModal from 'components/companyAdmin/drawings/addDrawingModal/pr
 import EditSiteModal from 'components/companyAdmin/sites/editSiteModal/presentational/EditSiteModal';
 import EditBuildingModal from 'components/companyAdmin/buildings/editBuildingModal/presentational/EditBuildingModal';
 import EditFloorModal from 'components/companyAdmin/floors/editFloorModal/presentational/EditFloorModal';
+import AddDropdownOptionModal from 'components/companyAdmin/dropdownOptions/addDropdownOptionModal/presentational/AddDropdownOptionModal.js';
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModalContainer,
@@ -121,7 +123,8 @@ const MODAL_COMPONENTS = {
     [ADD_DRAWING]: AddDrawingModal,
     [EDIT_SITE]: EditSiteModal,
     [EDIT_BUILDING]: EditBuildingModal,
-    [EDIT_FLOOR]: EditFloorModal
+    [EDIT_FLOOR]: EditFloorModal,
+    [ADD_DROPDOWN_OPTION]: AddDropdownOptionModal
 };
 
 const ModalRoot = ({ modalType, modalProps, ...otherProps }) => {

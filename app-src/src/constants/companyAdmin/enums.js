@@ -217,3 +217,13 @@ export const PARENTAL_TYPES = {
     HEADQUARTERS: 2,
     CHILD_COMPANY: 3
 };
+
+export const DROPDOWN_OPTIONS = {
+    1: { name: 'Item Types', link: 'item-types' },
+    2: { name: 'Installation Types', link: 'installation-types' }
+};
+
+export const DROPDOWN_OPTION_LOOKUP = {
+    'item-types': 1,
+    'installation-types': 2
+};

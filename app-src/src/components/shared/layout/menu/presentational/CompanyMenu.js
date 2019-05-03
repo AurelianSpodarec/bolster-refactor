@@ -2,6 +2,7 @@ import React from 'react';
 
 import MenuItemContainer from '../containers/MenuItemContainer';
 import DropdownMenuItemContainer from '../containers/DropdownMenuItemContainer';
+import DropdownMenuItems from './DropdownMenuItems';
 
 const CompanyMenu = ({ isFromHeadquarters }) => (
     <>
@@ -73,6 +74,7 @@ const CompanyMenu = ({ isFromHeadquarters }) => (
                     Pending Requests
                 </MenuItemContainer>
             </DropdownMenuItemContainer>
+            <DropdownMenuItems />
         </div>
     </>
 );

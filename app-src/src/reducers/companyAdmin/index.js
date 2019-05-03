@@ -38,6 +38,7 @@ import templateSectionsReducer from './templateSections';
 import templateVersionsReducer from './templateVersions';
 import templateQuestionsReducer from './templateQuestions';
 import transferRequestsReducer from './transferRequests';
+import dropdownOptionsReducer from './dropdownOptions';
 
 export default combineReducers({
     addPinCoordinatesReducer,
@@ -53,6 +54,7 @@ export default combineReducers({
     dashboardReducer,
     documentsReducer,
     drawingsReducer,
+    dropdownOptionsReducer,
     floorsReducer,
     headquartersReducer,
     inspectionLogsReducer,
