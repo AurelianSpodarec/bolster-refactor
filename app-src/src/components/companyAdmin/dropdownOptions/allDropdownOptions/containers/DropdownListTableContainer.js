@@ -31,7 +31,7 @@ class DropdownListTableContainer extends Component {
         if (postSuccess && !prevProps.postSuccess) {
             showModal(SUCCESS_MODAL, {
                 hideModal,
-                message: 'Dropdown option added successfully'
+                message: 'Dropdown options updated successfully'
             });
         }
         if (error && !prevProps.error) {

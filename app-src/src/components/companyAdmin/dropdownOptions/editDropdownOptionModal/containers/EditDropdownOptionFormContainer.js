@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
-import createDropdownOption from 'actions/companyAdmin/dropdownOptions/async/createDropdownOption';
+import editDropdownOption from 'actions/companyAdmin/dropdownOptions/async/editDropdownOption';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import EditDropdownOptionForm from '../presentational/EditDropdownOptionForm';
 
@@ -53,29 +53,25 @@ class EditDropdownOptionContainer extends Component {
 
     handleSubmit = e => {
         e.preventDefault();
-        const { hideModal, createDropdownOption, type } = this.props;
+        const {
+            hideModal,
+            editDropdownOption,
+            type,
+            option: { id }
+        } = this.props;
 
         const postBody = {
             ...this.state
         };
 
-        createDropdownOption(type, postBody);
+        editDropdownOption(id, type, postBody);
         hideModal();
     };
 }
 
-const mapStateToProps = ({
-    companyAdmin: {
-        dropdownOptionsReducer: { postSuccess, error }
-    }
-}) => ({
-    postSuccess,
-    error
-});
-
 const mapDispatchToProps = dispatch => ({
-    createDropdownOption: (type, postBody) => {
-        dispatch(createDropdownOption(type, postBody));
+    editDropdownOption: (type, postBody) => {
+        dispatch(editDropdownOption(type, postBody));
     },
     hideModal: () => {
         dispatch(hideModal());
@@ -84,7 +80,7 @@ const mapDispatchToProps = dispatch => ({
 
 export default withRouter(
     connect(
-        mapStateToProps,
+        null,
         mapDispatchToProps
     )(EditDropdownOptionContainer)
 );
