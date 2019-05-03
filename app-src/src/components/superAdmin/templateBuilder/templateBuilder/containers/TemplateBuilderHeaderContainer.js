@@ -26,25 +26,10 @@ const TemplateBuilderHeaderContainer = ({
             showTemplateForm={showTemplateForm}
             name={template.name}
             serviceName={serviceName}
-        >
-            {isExisting && (
-                <>
-                    <button
-                        onClick={addTemplateFromExisting}
-                        className="button green"
-                    >
-                        <i className="fa fa-plus" /> Create new from this
-                        template
-                    </button>
-                    <button
-                        onClick={showAddSectionModal}
-                        className="button blue"
-                    >
-                        <i className="fa fa-plus" /> Add Section
-                    </button>
-                </>
-            )}
-        </TemplateBuilderHeader>
+            addTemplateFromExisting={addTemplateFromExisting}
+            showAddSectionModal={showAddSectionModal}
+            isExisting={isExisting}
+        />
     );
 
     function showTemplateForm() {
