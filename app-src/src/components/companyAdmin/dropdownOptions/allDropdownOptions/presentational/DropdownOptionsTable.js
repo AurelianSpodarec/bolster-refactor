@@ -30,7 +30,7 @@ const DropdownOptionsTable = ({
                 isFetching={isFetching}
                 error={error}
                 noData={!dropdownOptions.length}
-                noDataMessage="No dropdown options to display"
+                noDataMessage={`No ${DROPDOWN_OPTIONS[type].name} To Display.`}
                 extraClasses="large"
             >
                 <DropdownOptionsList
