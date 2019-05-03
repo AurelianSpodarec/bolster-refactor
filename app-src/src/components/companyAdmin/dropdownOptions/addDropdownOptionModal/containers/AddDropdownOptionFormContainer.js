@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
-import createSite from 'actions/companyAdmin/sites/async/createSite';
+import createDropdownOption from 'actions/companyAdmin/dropdownOptions/async/createDropdownOption';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import AddDropdownOptionForm from '../presentational/AddDropdownOptionForm';
 
@@ -40,13 +40,13 @@ class AddDropdownOptionFormContainer extends Component {
 
     handleSubmit = e => {
         e.preventDefault();
-        const { hideModal, createSite } = this.props;
+        const { hideModal, createDropdownOption, type } = this.props;
 
         const postBody = {
             ...this.state
         };
 
-        createSite(postBody);
+        createDropdownOption(type, postBody);
         hideModal();
     };
 }
@@ -61,8 +61,8 @@ const mapStateToProps = ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    createSite: postBody => {
-        dispatch(createSite(postBody));
+    createDropdownOption: (type, postBody) => {
+        dispatch(createDropdownOption(type, postBody));
     },
     hideModal: () => {
         dispatch(hideModal());

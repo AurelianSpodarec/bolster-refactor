@@ -4,10 +4,10 @@ import ModalOuterContainer from 'components/shared/generic/modals/containers/Mod
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import AddDropdownOptionFormContainer from '../containers/AddDropdownOptionFormContainer';
 
-const AddDropdownOptionModal = () => (
+const AddDropdownOptionModal = ({ type }) => (
     <ModalOuterContainer>
         <BlockHeading title={'Add Dropdown Option'} />
-        <AddDropdownOptionFormContainer />
+        <AddDropdownOptionFormContainer type={type} />
     </ModalOuterContainer>
 );
 

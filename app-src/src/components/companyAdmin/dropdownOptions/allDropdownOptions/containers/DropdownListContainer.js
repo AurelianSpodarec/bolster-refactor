@@ -13,7 +13,7 @@ class DropdownListContainer extends Component {
     render() {
         const { type } = this.props;
         const { name } = DROPDOWN_OPTIONS[DROPDOWN_OPTION_LOOKUP[type]];
-        return <DropdownList name={name} type={type} />;
+        return <DropdownList name={name} type={DROPDOWN_OPTION_LOOKUP[type]} />;
     }
 
     componentDidMount = () => {

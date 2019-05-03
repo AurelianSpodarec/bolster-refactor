@@ -1,16 +1,20 @@
 import { combineReducers } from 'redux';
 
-import { convertArrToObj } from 'helpers/generic';
+import { convertArrToObj, updateObj } from 'helpers/generic';
 import {
     FETCH_ALL_DROPDOWN_OPTIONS_REQUEST,
     FETCH_ALL_DROPDOWN_OPTIONS_SUCCESS,
-    FETCH_ALL_DROPDOWN_OPTIONS_FAILURE
+    FETCH_ALL_DROPDOWN_OPTIONS_FAILURE,
+    CREATE_DROPDOWN_OPTION_REQUEST,
+    CREATE_DROPDOWN_OPTION_SUCCESS,
+    CREATE_DROPDOWN_OPTION_FAILURE
 } from 'constants/actionTypes/dropdownOptions';
 
 export default combineReducers({
     dropdownOptions: dropdownOptionsReducer,
     isFetching: isFetchingReducer,
-    error: errorReducer
+    error: errorReducer,
+    postSuccess: postSuccessReducer
 });
 
 function isFetchingReducer(state = false, action) {
@@ -25,39 +29,16 @@ function isFetchingReducer(state = false, action) {
     }
 }
 
-// function postSuccessReducer(state = false, action) {
-//     switch (action.type) {
-//         case CREATE_BUILDING_REQUEST:
-//         case EDIT_BUILDING_REQUEST:
-//         case DELETE_BUILDING_REQUEST:
-//         case ARCHIVE_BUILDING_REQUEST:
-//             return false;
-//         case CREATE_BUILDING_SUCCESS:
-//         case EDIT_BUILDING_SUCCESS:
-//         case DELETE_BUILDING_SUCCESS:
-//         case ARCHIVE_BUILDING_SUCCESS:
-//             return true;
-//         default:
-//             return state;
-//     }
-// }
-
-// function postFailureReducer(state = false, action) {
-//     switch (action.type) {
-//         case CREATE_BUILDING_REQUEST:
-//         case EDIT_BUILDING_REQUEST:
-//         case DELETE_BUILDING_REQUEST:
-//         case ARCHIVE_BUILDING_REQUEST:
-//             return false;
-//         case CREATE_BUILDING_FAILURE:
-//         case EDIT_BUILDING_FAILURE:
-//         case DELETE_BUILDING_FAILURE:
-//         case ARCHIVE_BUILDING_FAILURE:
-//             return true;
-//         default:
-//             return state;
-//     }
-// }
+function postSuccessReducer(state = false, action) {
+    switch (action.type) {
+        case CREATE_DROPDOWN_OPTION_REQUEST:
+            return false;
+        case CREATE_DROPDOWN_OPTION_SUCCESS:
+            return true;
+        default:
+            return state;
+    }
+}
 
 // function deleteSuccessReducer(state = false, action) {
 //     switch (action.type) {
@@ -83,8 +64,10 @@ function isFetchingReducer(state = false, action) {
 function errorReducer(state = null, action) {
     switch (action.type) {
         case FETCH_ALL_DROPDOWN_OPTIONS_REQUEST:
+        case CREATE_DROPDOWN_OPTION_REQUEST:
             return null;
         case FETCH_ALL_DROPDOWN_OPTIONS_FAILURE:
+        case CREATE_DROPDOWN_OPTION_FAILURE:
             return action.error;
         default:
             return state;
@@ -95,6 +78,8 @@ function dropdownOptionsReducer(state = {}, action) {
     switch (action.type) {
         case FETCH_ALL_DROPDOWN_OPTIONS_SUCCESS:
             return convertArrToObj(action.payload);
+        case CREATE_DROPDOWN_OPTION_SUCCESS:
+            return updateObj(state, action.payload.id, action.payload);
         default:
             return state;
     }
