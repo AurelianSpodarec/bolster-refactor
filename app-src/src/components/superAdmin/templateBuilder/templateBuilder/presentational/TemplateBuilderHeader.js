@@ -1,7 +1,6 @@
 import React from 'react';
 
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
-import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 import BackButtonContainer from 'components/shared/generic/backButton/containers/BackButtonContainer';
 
 const TemplateBuilderHeader = ({

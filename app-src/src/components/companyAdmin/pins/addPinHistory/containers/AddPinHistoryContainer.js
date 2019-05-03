@@ -7,17 +7,14 @@ import AddPinFormContainer from 'components/shared/pins/addPin/containers/AddPin
 import fetchDrawingTemplates from 'actions/companyAdmin/drawings/async/fetchDrawingTemplates';
 
 class AddPinHistoryContainer extends Component {
-    render() {
-        const { pinID } = this.props;
+    render = () => (
+        <AddPinFormContainer hierarchyType="pin" pinID={this.props.pinID} />
+    );
 
-        return <AddPinFormContainer hierarchyType="pin" pinID={pinID} />;
-    }
-
-    componentDidMount = () => {
+    componentDidMount = async () => {
         const { pinID, fetchSinglePin, fetchDrawingTemplates } = this.props;
-        fetchSinglePin(pinID).then(({ payload: { pin } }) =>
-            fetchDrawingTemplates(pin.drawingID)
-        );
+        const { payload } = await fetchSinglePin(pinID);
+        fetchDrawingTemplates(payload.pin.drawingID);
     };
 }
 
@@ -26,12 +23,9 @@ const mapStateToProps = (_, { match: { params } }) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    fetchSinglePin: id => {
-        return dispatch(fetchSinglePin(id));
-    },
-    fetchDrawingTemplates: drawingID => {
-        return dispatch(fetchDrawingTemplates(drawingID));
-    }
+    fetchSinglePin: pinID => dispatch(fetchSinglePin(pinID)),
+    fetchDrawingTemplates: drawingID =>
+        dispatch(fetchDrawingTemplates(drawingID))
 });
 
 const WithRedux = connect(

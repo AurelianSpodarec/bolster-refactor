@@ -25,16 +25,14 @@ const CompanyReportsFiltersContainer = ({
         />
     );
 
-    function handleChange(e) {
-        const sortString = e.target.value;
+    function handleChange({ target: { value: sortString } }) {
         updateCompanyReportsSort(sortString);
     }
 };
 
 const mapDispatchToProps = dispatch => ({
-    updateCompanyReportsSort: sortString => {
-        dispatch(updateCompanyReportsSort(sortString));
-    }
+    updateCompanyReportsSort: sortString =>
+        dispatch(updateCompanyReportsSort(sortString))
 });
 
 const mapStateToProps = ({ superAdmin: { companyReportsReducer } }) => ({
