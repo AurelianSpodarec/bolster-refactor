@@ -56,8 +56,7 @@ class EditDropdownOptionContainer extends Component {
         const {
             hideModal,
             editDropdownOption,
-            type,
-            option: { id }
+            option: { id, type }
         } = this.props;
 
         const postBody = {
@@ -70,8 +69,8 @@ class EditDropdownOptionContainer extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-    editDropdownOption: (type, postBody) => {
-        dispatch(editDropdownOption(type, postBody));
+    editDropdownOption: (id, type, postBody) => {
+        dispatch(editDropdownOption(id, type, postBody));
     },
     hideModal: () => {
         dispatch(hideModal());

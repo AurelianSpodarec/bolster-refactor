@@ -41,7 +41,8 @@ import {
     EDIT_BUILDING,
     EDIT_FLOOR,
     ADD_DROPDOWN_OPTION,
-    EDIT_DROPDOWN_OPTION
+    EDIT_DROPDOWN_OPTION,
+    DELETE_DROPDOWN_OPTION
 } from 'constants/shared/modalTypes';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
@@ -86,6 +87,7 @@ import EditBuildingModal from 'components/companyAdmin/buildings/editBuildingMod
 import EditFloorModal from 'components/companyAdmin/floors/editFloorModal/presentational/EditFloorModal';
 import AddDropdownOptionModal from 'components/companyAdmin/dropdownOptions/addDropdownOptionModal/presentational/AddDropdownOptionModal';
 import EditDropdownOptionModal from 'components/companyAdmin/dropdownOptions/editDropdownOptionModal/presentational/EditDropdownOptionModal';
+import DeleteDropdownOptionModalContainer from 'components/companyAdmin/dropdownOptions/deleteDropdownOptionModal/containers/DeleteDropdownOptionModalContainer';
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModalContainer,
@@ -127,7 +129,8 @@ const MODAL_COMPONENTS = {
     [EDIT_BUILDING]: EditBuildingModal,
     [EDIT_FLOOR]: EditFloorModal,
     [ADD_DROPDOWN_OPTION]: AddDropdownOptionModal,
-    [EDIT_DROPDOWN_OPTION]: EditDropdownOptionModal
+    [EDIT_DROPDOWN_OPTION]: EditDropdownOptionModal,
+    [DELETE_DROPDOWN_OPTION]: DeleteDropdownOptionModalContainer
 };
 
 const ModalRoot = ({ modalType, modalProps, ...otherProps }) => {

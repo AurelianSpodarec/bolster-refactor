@@ -27,19 +27,19 @@ class DropdownListTableContainer extends Component {
     }
 
     componentDidUpdate = prevProps => {
-        const { postSuccess, showModal, hideModal, error } = this.props;
+        const { postSuccess, showModal, hideModal, postError } = this.props;
         if (postSuccess && !prevProps.postSuccess) {
             showModal(SUCCESS_MODAL, {
                 hideModal,
                 message: 'Dropdown options updated successfully'
             });
         }
-        if (error && !prevProps.error) {
+        if (postError && !prevProps.postError) {
             showModal(ERROR_MODAL, {
                 hideModal,
                 title: 'Error',
                 message:
-                    error.message ||
+                    postError.message ||
                     '##There was an error processing your request, please try again later.##'
             });
         }
@@ -57,10 +57,12 @@ const mapStateToProps = ({
             dropdownOptions,
             isFetching,
             error,
-            postSuccess
+            postSuccess,
+            postError
         }
     }
 }) => ({
+    postError,
     postSuccess,
     isFetching,
     error,

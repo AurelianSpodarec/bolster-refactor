@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 
-import { convertArrToObj, updateObj } from 'helpers/generic';
+import { convertArrToObj, updateObj, removeObjItem } from 'helpers/generic';
 import {
     FETCH_ALL_DROPDOWN_OPTIONS_REQUEST,
     FETCH_ALL_DROPDOWN_OPTIONS_SUCCESS,
@@ -10,14 +10,18 @@ import {
     CREATE_DROPDOWN_OPTION_FAILURE,
     EDIT_DROPDOWN_OPTION_REQUEST,
     EDIT_DROPDOWN_OPTION_SUCCESS,
-    EDIT_DROPDOWN_OPTION_FAILURE
+    EDIT_DROPDOWN_OPTION_FAILURE,
+    DELETE_DROPDOWN_OPTION_REQUEST,
+    DELETE_DROPDOWN_OPTION_SUCCESS,
+    DELETE_DROPDOWN_OPTION_FAILURE
 } from 'constants/actionTypes/dropdownOptions';
 
 export default combineReducers({
     dropdownOptions: dropdownOptionsReducer,
     isFetching: isFetchingReducer,
     error: errorReducer,
-    postSuccess: postSuccessReducer
+    postSuccess: postSuccessReducer,
+    postError: postErrorReducer
 });
 
 function isFetchingReducer(state = false, action) {
@@ -36,45 +40,37 @@ function postSuccessReducer(state = false, action) {
     switch (action.type) {
         case CREATE_DROPDOWN_OPTION_REQUEST:
         case EDIT_DROPDOWN_OPTION_REQUEST:
+        case DELETE_DROPDOWN_OPTION_REQUEST:
             return false;
         case CREATE_DROPDOWN_OPTION_SUCCESS:
         case EDIT_DROPDOWN_OPTION_SUCCESS:
+        case DELETE_DROPDOWN_OPTION_SUCCESS:
             return true;
         default:
             return state;
     }
 }
 
-// function deleteSuccessReducer(state = false, action) {
-//     switch (action.type) {
-//         case DELETE_BUILDING_REQUEST:
-//             return false;
-//         case DELETE_BUILDING_SUCCESS:
-//             return true;
-//         default:
-//             return state;
-//     }
-// }
-
-// function updatedBuildingReducer(state = 0, action) {
-//     switch (action.type) {
-//         case CREATE_BUILDING_SUCCESS:
-//         case EDIT_BUILDING_SUCCESS:
-//             return action.payload.id;
-//         default:
-//             return state;
-//     }
-// }
+function postErrorReducer(state = null, action) {
+    switch (action.type) {
+        case CREATE_DROPDOWN_OPTION_REQUEST:
+        case EDIT_DROPDOWN_OPTION_REQUEST:
+        case DELETE_DROPDOWN_OPTION_REQUEST:
+            return null;
+        case CREATE_DROPDOWN_OPTION_FAILURE:
+        case EDIT_DROPDOWN_OPTION_FAILURE:
+        case DELETE_DROPDOWN_OPTION_FAILURE:
+            return action.error;
+        default:
+            return state;
+    }
+}
 
 function errorReducer(state = null, action) {
     switch (action.type) {
         case FETCH_ALL_DROPDOWN_OPTIONS_REQUEST:
-        case CREATE_DROPDOWN_OPTION_REQUEST:
-        case EDIT_DROPDOWN_OPTION_REQUEST:
             return null;
         case FETCH_ALL_DROPDOWN_OPTIONS_FAILURE:
-        case CREATE_DROPDOWN_OPTION_FAILURE:
-        case EDIT_DROPDOWN_OPTION_FAILURE:
             return action.error;
         default:
             return state;
@@ -88,25 +84,9 @@ function dropdownOptionsReducer(state = {}, action) {
         case CREATE_DROPDOWN_OPTION_SUCCESS:
         case EDIT_DROPDOWN_OPTION_SUCCESS:
             return updateObj(state, action.payload.id, action.payload);
+        case DELETE_DROPDOWN_OPTION_SUCCESS:
+            return removeObjItem(state, action.payload.id);
         default:
             return state;
     }
 }
-
-// function nameFilterReducer(state = '', action) {
-//     switch (action.type) {
-//         case UPDATE_BUILDINGS_SEARCH_TERM:
-//             return action.searchTerm;
-//         default:
-//             return state;
-//     }
-// }
-
-// function statusFilterReducer(state = '', action) {
-//     switch (action.type) {
-//         case SET_BUILDINGS_FILTER_STATUS:
-//             return action.searchTerm;
-//         default:
-//             return state;
-//     }
-// }

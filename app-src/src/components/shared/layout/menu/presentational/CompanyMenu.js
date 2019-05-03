@@ -74,7 +74,7 @@ const CompanyMenu = ({ isFromHeadquarters }) => (
                     Pending Requests
                 </MenuItemContainer>
             </DropdownMenuItemContainer>
-            <DropdownMenuItems />
+            {/* <DropdownMenuItems /> */}
         </div>
     </>
 );
