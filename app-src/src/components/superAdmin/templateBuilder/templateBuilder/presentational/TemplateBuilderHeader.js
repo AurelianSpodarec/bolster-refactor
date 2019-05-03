@@ -2,6 +2,7 @@ import React from 'react';
 
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
+import BackButtonContainer from 'components/shared/generic/backButton/containers/BackButtonContainer';
 
 const TemplateBuilderHeader = ({
     name = '',
@@ -15,9 +16,9 @@ const TemplateBuilderHeader = ({
         title={`Template builder : ${name} ${
             serviceName ? `(${serviceName})` : ''
         }`}
-        withBackButton
     >
         <div className="button-holder">
+            <BackButtonContainer />
             <button className="button yellow" onClick={showTemplateForm}>
                 <i className="far fa-pencil" /> {name.length ? 'Edit' : 'Add'}{' '}
                 template
@@ -25,7 +26,7 @@ const TemplateBuilderHeader = ({
             {isExisting && (
                 <>
                     <button
-                        onClick={addTemplateFromExisting()}
+                        onClick={addTemplateFromExisting}
                         className="button green"
                     >
                         <i className="fa fa-plus" /> Copy Template
