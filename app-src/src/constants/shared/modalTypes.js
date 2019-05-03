@@ -56,3 +56,6 @@ export const ADD_DRAWING = 'ADD_DRAWING';
 export const EDIT_SITE = 'EDIT_SITE';
 export const EDIT_BUILDING = 'EDIT_BUILDING';
 export const EDIT_FLOOR = 'EDIT_FLOOR';
+
+export const ADD_DROPDOWN_OPTION = 'ADD_DROPDOWN_OPTION';
+export const EDIT_DROPDOWN_OPTION = 'EDIT_DROPDOWN_OPTION';

@@ -1,10 +1,9 @@
 import React from 'react';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 
-const AllCompanyAdminsListItem = ({ option }) => (
+const AllCompanyAdminsListItem = ({ option, showModal }) => (
     <tr>
         <td>{option.name}</td>
-        <td>{option.isDeleted ? 'Yes' : 'No'}</td>
         <td>
             <BlockButtonWrapper>
                 <button className="button red">

@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
 import Table from 'components/shared/generic/tables/presentational/Table';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
@@ -7,6 +6,7 @@ import BlockHeading from 'components/shared/generic/blockHeading/presentational/
 import DropdownOptionsList from './DropdownOptionsList';
 
 const DropdownOptionsTable = ({
+    handleAddOptionModal,
     headers,
     dropdownOptions,
     isFetching,
@@ -16,12 +16,9 @@ const DropdownOptionsTable = ({
     return (
         <BlockContainer>
             <BlockHeading title={title}>
-                <Link
-                    className="button green"
-                    to="/company/users-management/company-admins/create"
-                >
+                <button className="button green" onClick={handleAddOptionModal}>
                     <i className="fa fa-plus" /> {`Add ${title}`}
-                </Link>
+                </button>
             </BlockHeading>
             <Table
                 withActions

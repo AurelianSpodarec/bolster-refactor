@@ -4,8 +4,12 @@ import { connect } from 'react-redux';
 import DropdownOptionsListItem from '../presentational/DropdownOptionsListItem';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 
-const DropdownOptionsListItemContainer = ({ option, colCount }) => (
-    <DropdownOptionsListItem option={option} colCount={colCount} />
+const DropdownOptionsListItemContainer = ({ option, colCount, showModal }) => (
+    <DropdownOptionsListItem
+        option={option}
+        colCount={colCount}
+        showModal={showModal}
+    />
 );
 
 const mapDispatchToProps = dispatch => ({
