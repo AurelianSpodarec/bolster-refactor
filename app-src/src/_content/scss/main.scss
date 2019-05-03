@@ -2124,7 +2124,7 @@ input {
             height: auto;
             .generic-form {
                 max-height: 600px;
-                overflow-y: scroll;
+                overflow-y: auto;
                 float: left;
 
                 &.labels-form {
@@ -2141,7 +2141,8 @@ input {
         }
 
         .label-field {
-            padding-top: 8px;
+            padding-top: 10px;
+            padding-bottom: 8px;
             .form-field {
                 padding-left: 15px;
                 padding-right: 15px;

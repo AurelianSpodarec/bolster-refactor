@@ -123,7 +123,7 @@ const DrawingMapViewSimple = ({
                             noWrap={true}
                         />
                         {pins.map(pin => (
-                            <MapPin key={pin.id} pin={pin} />
+                            <MapPin key={pin.id} pin={pin} isReport={true} />
                         ))}
                         {addMode && (
                             <Marker
