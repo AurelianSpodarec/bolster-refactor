@@ -46,7 +46,7 @@ const EditPinForm = ({
                     'Please wait...'
                 ) : (
                     <>
-                        <i className="fa fa-plus" />
+                        <i className="far fa-pencil fa-fw" />
                         Edit pin
                     </>
                 )}
