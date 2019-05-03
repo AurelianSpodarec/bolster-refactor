@@ -1,7 +1,7 @@
 import React from 'react';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 
-const AllCompanyAdminsListItem = ({ option, showModal }) => (
+const AllCompanyAdminsListItem = ({ option, handleEditOptionModal }) => (
     <tr>
         <td>{option.name}</td>
         <td>
@@ -10,7 +10,10 @@ const AllCompanyAdminsListItem = ({ option, showModal }) => (
                     <i className="far fa-trash-alt" />
                     Delete
                 </button>
-                <button className="button yellow">
+                <button
+                    onClick={() => handleEditOptionModal(option)}
+                    className="button yellow"
+                >
                     <i className="far fa-pencil" />
                     Edit
                 </button>
