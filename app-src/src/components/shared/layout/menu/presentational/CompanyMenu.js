@@ -73,6 +73,16 @@ const CompanyMenu = ({ isFromHeadquarters }) => (
                     Pending Requests
                 </MenuItemContainer>
             </DropdownMenuItemContainer>
+            <DropdownMenuItemContainer
+                title={'Dropdown Options'}
+                icon="filter"
+                baseUrl="/company"
+            >
+                <MenuItemContainer link="#">Item Types</MenuItemContainer>
+                <MenuItemContainer link="#">
+                    Installation Types
+                </MenuItemContainer>
+            </DropdownMenuItemContainer>
         </div>
     </>
 );

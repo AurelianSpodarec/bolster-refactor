@@ -43,6 +43,7 @@ class BuildingDetailsContainer extends Component {
             postSuccess,
             deleteSuccess,
             postFailure,
+            updatedBuildingID,
             history,
             showModal,
             hideModal,
@@ -56,7 +57,9 @@ class BuildingDetailsContainer extends Component {
         if (postSuccess && !prevProps.postSuccess) {
             showModal(SUCCESS_MODAL, {
                 hideModal,
-                message: 'Building edited successfully.'
+                message: 'Building edited successfully.',
+                link: `/company/buildings/${updatedBuildingID}`,
+                linkMessage: 'Go to building'
             });
         }
 
@@ -112,6 +115,7 @@ const mapStateToProps = (
     {
         companyAdmin: {
             buildingsReducer: {
+                updatedBuildingID,
                 postSuccess,
                 deleteSuccess,
                 buildings,
@@ -124,6 +128,7 @@ const mapStateToProps = (
     },
     { match }
 ) => ({
+    updatedBuildingID,
     building: buildings[match.params.id] || {},
     isFetching: fetchingBuildings || fetchingStats,
     error,
