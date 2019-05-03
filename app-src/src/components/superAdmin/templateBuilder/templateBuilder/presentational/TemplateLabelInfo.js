@@ -6,7 +6,7 @@ import LabelFieldList from './LabelFieldList';
 const TemplateLabelInfo = ({ showSetLabelsModal, fields }) => (
     <div className="template-block size-lg-12">
         <BlockContainer>
-            <BlockHeading classes="w-table" title="Label Fields">
+            <BlockHeading title="Label Fields">
                 <button className="button blue" onClick={showSetLabelsModal}>
                     Update
                 </button>

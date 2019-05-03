@@ -18,6 +18,7 @@ const TemplateBuilderHeaderContainer = ({
     showAddSectionModal,
     serviceName,
     templateSections,
+    labelFields,
     templateSectionQuestions,
     postTemplate
 }) => {
@@ -26,25 +27,10 @@ const TemplateBuilderHeaderContainer = ({
             showTemplateForm={showTemplateForm}
             name={template.name}
             serviceName={serviceName}
-        >
-            {isExisting && (
-                <>
-                    <button
-                        onClick={addTemplateFromExisting}
-                        className="button green"
-                    >
-                        <i className="fa fa-plus" /> Create new from this
-                        template
-                    </button>
-                    <button
-                        onClick={showAddSectionModal}
-                        className="button blue"
-                    >
-                        <i className="fa fa-plus" /> Add Section
-                    </button>
-                </>
-            )}
-        </TemplateBuilderHeader>
+            addTemplateFromExisting={addTemplateFromExisting}
+            showAddSectionModal={showAddSectionModal}
+            isExisting={isExisting}
+        />
     );
 
     function showTemplateForm() {
@@ -81,10 +67,17 @@ const TemplateBuilderHeaderContainer = ({
                 }
             });
         });
+        const newLabelFields = labelFields.map(lField => ({
+            ...lField,
+            templateUUID: newTemplateUUID,
+            uuid: newUUID()
+        }));
+
         const postBody = {
             template: newTemplate,
             sections: newSections,
-            questions: newQuestions
+            questions: newQuestions,
+            labelFields: newLabelFields
         };
         postTemplate(postBody);
     }
@@ -96,6 +89,7 @@ const mapStateToProps = (
             templatesReducer: { templates },
             templateSectionsReducer: { sections },
             templateQuestionsReducer: { questions },
+            templateLabelFieldsReducer: { labelFields },
             adminServicesReducer: { adminServices: services }
         }
     },
@@ -113,11 +107,15 @@ const mapStateToProps = (
     const templateSectionQuestions = Object.values(questions).filter(
         ({ sectionUUID }) => sectionIDs.includes(sectionUUID)
     );
+    const templatelabelFields = Object.values(labelFields).filter(
+        ({ templateUUID }) => templateUUID === uuid
+    );
     const service = services[template.serviceID] || {};
     return {
         template,
         templateSections,
         templateSectionQuestions,
+        labelFields: templatelabelFields,
         uuid,
         companyID,
         serviceName: services && template ? service.name : ''
