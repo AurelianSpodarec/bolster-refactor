@@ -2,6 +2,7 @@ import React from 'react';
 
 import MenuItemContainer from '../containers/MenuItemContainer';
 import DropdownMenuItemContainer from '../containers/DropdownMenuItemContainer';
+import DropdownMenuItems from './DropdownMenuItems';
 
 const CompanyMenu = ({ isFromHeadquarters }) => (
     <>
@@ -73,18 +74,7 @@ const CompanyMenu = ({ isFromHeadquarters }) => (
                     Pending Requests
                 </MenuItemContainer>
             </DropdownMenuItemContainer>
-            <DropdownMenuItemContainer
-                title={'Dropdown Options'}
-                icon="filter"
-                baseUrl="/company/dropdown-options"
-            >
-                <MenuItemContainer link="/company/dropdown-options/item-types">
-                    Item Types
-                </MenuItemContainer>
-                <MenuItemContainer link="/company/dropdown-options/installation-types">
-                    Installation Types
-                </MenuItemContainer>
-            </DropdownMenuItemContainer>
+            <DropdownMenuItems />
         </div>
     </>
 );

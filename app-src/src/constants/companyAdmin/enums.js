@@ -219,6 +219,6 @@ export const PARENTAL_TYPES = {
 };
 
 export const DROPDOWN_OPTIONS = {
-    1: 'ItemTypes',
-    2: 'InstallationTypes'
+    1: { name: 'Item Types', link: 'item-types' },
+    2: { name: 'Installation Types', link: 'installation-types' }
 };

@@ -19,6 +19,7 @@ import InvoicesRoutes from './InvoicesRoutes.js';
 import ProfilesRoutes from './ProfilesRoutes';
 import SettingsRoutes from './SettingsRoutes';
 // import TransferRequestsRoutes from './TransferRequestsRoutes';
+import DropdownOptionsRoutes from './DropdownOptionsRoutes';
 import HeadquartersRoutes from './HeadquartersRoutes';
 
 const CompanyRoutes = ({ base = '/company' }) => (
@@ -76,6 +77,10 @@ const CompanyRoutes = ({ base = '/company' }) => (
         <Route
             path={`${base}/users-management`}
             component={UserManagementRoutes}
+        />
+        <Route
+            path={`${base}/dropdown-options`}
+            component={withSubscriptionAuth(DropdownOptionsRoutes)}
         />
     </SwitchWith404>
 );
