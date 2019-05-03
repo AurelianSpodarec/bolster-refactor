@@ -2518,12 +2518,13 @@ input {
 
     .label-field-item {
         border-top: 1px solid $light-grey;
-        padding: 10px 15px;
+        padding: 0 15px;
         background-color: white;
         transition: background-color 0.25s ease-in-out;
 
         p {
             font-size: 120%;
+            padding: 10px 0 2.5px 10px;
         }
     }
 
