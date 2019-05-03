@@ -222,3 +222,8 @@ export const DROPDOWN_OPTIONS = {
     1: { name: 'Item Types', link: 'item-types' },
     2: { name: 'Installation Types', link: 'installation-types' }
 };
+
+export const DROPDOWN_OPTION_LOOKUP = {
+    'item-types': 1,
+    'installation-types': 2
+};

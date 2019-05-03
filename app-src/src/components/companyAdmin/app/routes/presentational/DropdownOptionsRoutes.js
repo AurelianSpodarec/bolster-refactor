@@ -6,11 +6,7 @@ import DropdownListContainer from 'components/companyAdmin/dropdownOptions/conta
 
 const DropdownOptionsRoutes = ({ base = '/company/dropdown-options' }) => (
     <SwitchWith404>
-        <Route
-            exact
-            path={`${base}/:dropdownType`}
-            component={DropdownListContainer}
-        />
+        <Route exact path={`${base}/:type`} component={DropdownListContainer} />
     </SwitchWith404>
 );
 

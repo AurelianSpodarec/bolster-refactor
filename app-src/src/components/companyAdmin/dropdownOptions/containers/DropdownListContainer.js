@@ -1,16 +1,50 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+import {
+    DROPDOWN_OPTION_LOOKUP,
+    DROPDOWN_OPTIONS
+} from 'constants/companyAdmin/enums';
+import fetchAllDropdownOptions from 'actions/companyAdmin/dropdownOptions/async/fetchAllDropdownOptions';
+
+import DropdownList from '../presentational/DropdownList';
+
 class DropdownListContainer extends Component {
     render() {
-        return <div>hello</div>;
+        const { type } = this.props;
+        const { name } = DROPDOWN_OPTIONS[DROPDOWN_OPTION_LOOKUP[type]];
+        return <DropdownList name={name} />;
     }
+
+    componentDidMount = () => {
+        const {
+            fetchAllDropdownOptions,
+            match: {
+                params: { type }
+            }
+        } = this.props;
+        fetchAllDropdownOptions(DROPDOWN_OPTION_LOOKUP[type]);
+    };
 }
 
-// const mapDispatchToProps = dispatch => ({
-//     fetchAllDropdownOptions: (type) => {
-//         dispatch(fetchAllDropdownOptions(type))
-//     }
-// })
+const mapStateToProps = (
+    _,
+    {
+        match: {
+            params: { type }
+        }
+    }
+) => ({
+    type
+});
 
-export default connect()(DropdownListContainer);
+const mapDispatchToProps = dispatch => ({
+    fetchAllDropdownOptions: type => {
+        dispatch(fetchAllDropdownOptions(type));
+    }
+});
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(DropdownListContainer);
