@@ -2126,12 +2126,35 @@ input {
                 max-height: 600px;
                 overflow-y: scroll;
                 float: left;
+
+                &.labels-form {
+                    width: calc(100% + 30px);
+                    margin-left: -15px;
+                }
             }
         }
 
         .block-heading {
             .heading {
                 max-width: 100%;
+            }
+        }
+
+        .label-field {
+            padding-top: 12px;
+            .form-field {
+                padding-left: 15px;
+                padding-right: 15px;
+            }
+            &:nth-child(even) {
+                background-color: $background-grey;
+                .generic-input {
+                    background-color: white;
+                }
+            }
+
+            &:first-child {
+                padding-top: 0;
             }
         }
     }
@@ -2518,7 +2541,7 @@ input {
 
     .label-field-item {
         border-top: 1px solid $light-grey;
-        padding: 0 15px;
+        padding: 0 5px;
         background-color: white;
         transition: background-color 0.25s ease-in-out;
 
