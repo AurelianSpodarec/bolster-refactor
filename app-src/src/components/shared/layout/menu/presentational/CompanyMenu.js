@@ -76,10 +76,12 @@ const CompanyMenu = ({ isFromHeadquarters }) => (
             <DropdownMenuItemContainer
                 title={'Dropdown Options'}
                 icon="filter"
-                baseUrl="/company"
+                baseUrl="/company/dropdown-options"
             >
-                <MenuItemContainer link="#">Item Types</MenuItemContainer>
-                <MenuItemContainer link="#">
+                <MenuItemContainer link="/company/dropdown-options/item-types">
+                    Item Types
+                </MenuItemContainer>
+                <MenuItemContainer link="/company/dropdown-options/installation-types">
                     Installation Types
                 </MenuItemContainer>
             </DropdownMenuItemContainer>

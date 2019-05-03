@@ -217,3 +217,8 @@ export const PARENTAL_TYPES = {
     HEADQUARTERS: 2,
     CHILD_COMPANY: 3
 };
+
+export const DROPDOWN_OPTIONS = {
+    1: 'ItemTypes',
+    2: 'InstallationTypes'
+};
