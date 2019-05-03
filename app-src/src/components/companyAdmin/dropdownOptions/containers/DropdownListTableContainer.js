@@ -1,7 +1,32 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
-const DropdownListTableContainer = () => {
-    return <div>hello</div>;
-};
+import DropdownOptionsTable from '../presentational/DropdownOptionsTable';
 
-export default DropdownListTableContainer;
+class DropdownListTableContainer extends Component {
+    render() {
+        const { isFetching, error, dropdownOptions, title } = this.props;
+
+        return (
+            <DropdownOptionsTable
+                headers={['Name', 'Is Deleted?', '']}
+                dropdownOptions={dropdownOptions}
+                isFetching={isFetching}
+                error={error}
+                title={title}
+            />
+        );
+    }
+}
+
+const mapStateToProps = ({
+    companyAdmin: {
+        dropdownOptionsReducer: { dropdownOptions, isFetching, error }
+    }
+}) => ({
+    dropdownOptions: Object.values(dropdownOptions) || [],
+    isFetching: isFetching,
+    error: error
+});
+
+export default connect(mapStateToProps)(DropdownListTableContainer);

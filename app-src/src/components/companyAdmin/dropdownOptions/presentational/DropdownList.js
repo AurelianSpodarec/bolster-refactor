@@ -6,7 +6,7 @@ import DropdownListTableContainer from '../containers/DropdownListTableContainer
 const DropdownList = ({ name }) => (
     <>
         <PageHeading title={name} withBackButton />
-        <DropdownListTableContainer />
+        <DropdownListTableContainer title={name} />
     </>
 );
 
