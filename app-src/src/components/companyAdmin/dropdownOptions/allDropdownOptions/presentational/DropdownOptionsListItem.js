@@ -7,6 +7,10 @@ const AllCompanyAdminsListItem = ({ option }) => (
         <td>{option.isDeleted ? 'Yes' : 'No'}</td>
         <td>
             <BlockButtonWrapper>
+                <button className="button red">
+                    <i className="far fa-trash-alt" />
+                    Delete
+                </button>
                 <button className="button yellow">
                     <i className="far fa-pencil" />
                     Edit
