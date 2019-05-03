@@ -64,12 +64,20 @@ const PinAnswer = ({ trimmedAnswer, type, questions, answers, status }) => {
         case TYPES.SINGLE_PHOTO:
             contentDisplay = curAnswer.answer;
             return (
-                <img alt="" src={FILE_STORAGE_URL + '/' + curAnswer.answer} />
+                <img
+                    alt=""
+                    src={
+                        FILE_STORAGE_URL + '/' + curAnswer.answer + '?width=100'
+                    }
+                />
             );
         case TYPES.MULTI_PHOTO:
             curAnswer.answer.forEach(x => {
                 contentDisplay = (
-                    <img alt="" src={FILE_STORAGE_URL + '/' + x} />
+                    <img
+                        alt="test"
+                        src={FILE_STORAGE_URL + '/' + x + '?width=100'}
+                    />
                 );
             });
             return curAnswer.answer.map(item => {
@@ -77,7 +85,7 @@ const PinAnswer = ({ trimmedAnswer, type, questions, answers, status }) => {
                     <img
                         alt=""
                         key={item}
-                        src={FILE_STORAGE_URL + '/' + item}
+                        src={FILE_STORAGE_URL + '/' + item + '?width=100'}
                     />
                 );
             });
