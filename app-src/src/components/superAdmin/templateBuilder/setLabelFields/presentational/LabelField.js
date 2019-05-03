@@ -10,9 +10,9 @@ const LabelField = ({
     handleChange,
     labelField
 }) => (
-    <div className="size-lg-12">
+    <div className="label-field size-lg-12">
         <div className="size-lg-12">
-            <Field name="Field type" sizeClasses="size-lg-6">
+            <Field name="Field type" sizeClasses="size-lg-12">
                 <DropdownContainer
                     placeholder="Empty"
                     name="source"

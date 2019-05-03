@@ -14,9 +14,9 @@ const SetLabelModal = ({
     fields,
     questionOptions
 }) => (
-    <ModalOuter hideModal={hideModal}>
+    <ModalOuter extraClasses="wide w-form" hideModal={hideModal}>
         <BlockHeading title="Update Label Fields" />
-        <Form className="generic-form" onSubmit={handleSubmit}>
+        <Form className="generic-form labels-form" onSubmit={handleSubmit}>
             <LabelFields
                 labelType={labelType}
                 fields={fields}
