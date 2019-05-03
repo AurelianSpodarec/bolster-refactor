@@ -224,7 +224,7 @@ export const DROPDOWN_OPTIONS = {
     2: {
         name: 'Installation Types',
         link: 'installation-types',
-        singular: 'Item Type'
+        singular: 'Installation Type'
     }
 };
 

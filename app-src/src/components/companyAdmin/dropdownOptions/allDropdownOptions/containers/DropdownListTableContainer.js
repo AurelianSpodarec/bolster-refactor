@@ -12,7 +12,7 @@ import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 
 class DropdownListTableContainer extends Component {
     render() {
-        const { isFetching, error, dropdownOptions, title } = this.props;
+        const { isFetching, error, dropdownOptions, title, type } = this.props;
 
         return (
             <DropdownOptionsTable
@@ -22,6 +22,7 @@ class DropdownListTableContainer extends Component {
                 error={error}
                 title={title}
                 handleAddOptionModal={this.handleAddOptionModal}
+                type={type}
             />
         );
     }
