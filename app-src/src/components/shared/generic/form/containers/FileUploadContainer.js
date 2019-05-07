@@ -44,7 +44,9 @@ class FileUploadContainer extends Component {
 
     componentDidMount = () => {
         const { value } = this.props;
-        if (value && value.length) this._setFiles(value);
+        if (value && value.length) {
+            this._setFiles(value);
+        }
         this._validate();
     };
 
@@ -70,13 +72,14 @@ class FileUploadContainer extends Component {
     };
 
     _setFiles = value => {
+        console.log(value);
         const formatFile = value => ({
             source: `${RAW_S3_STORAGE_URL}/${value}`,
             options: { type: 'local' }
         });
         const files = Array.isArray(value)
             ? value.map(formatFile)
-            : formatFile(value);
+            : [formatFile(value)];
         this.setState({ files });
     };
 
