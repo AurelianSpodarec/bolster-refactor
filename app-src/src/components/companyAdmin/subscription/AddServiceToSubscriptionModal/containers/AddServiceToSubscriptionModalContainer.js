@@ -93,7 +93,7 @@ class AddServiceToSubscriptionModalContainer extends Component {
                 message:
                     'There was an error while purchasing your subscription. Please try again.',
                 resubmit: hideModal,
-                error
+                error: error.replace('office', 'invoice')
             });
         }
     };
@@ -122,7 +122,7 @@ class AddServiceToSubscriptionModalContainer extends Component {
 
 const mapStateToProps = ({
     companyAdmin: {
-        cardsReducer: { cards, isFetching: fetchingCards },
+        cardsReducer: { cards = {}, isFetching: fetchingCards },
         subscriptionsReducer: {
             isFetching: fetchingSubs,
             proRataCost,
@@ -132,7 +132,7 @@ const mapStateToProps = ({
         }
     }
 }) => ({
-    cards: Object.values(cards) || [],
+    cards: Object.values(cards),
     isFetching: fetchingCards || fetchingSubs,
     proRataCost,
     postSuccess,
