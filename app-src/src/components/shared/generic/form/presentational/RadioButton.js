@@ -16,7 +16,7 @@ const RadioButton = ({
             name={name}
             value={value}
             checked={checked}
-            onChange={handleInputChange}
+            onChange={() => handleInputChange(name, value)}
             disabled={disabled}
         />
         <div className={'holder'}>
