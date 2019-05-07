@@ -44,13 +44,7 @@ class MultiSelectDropdown extends Component {
         if (error) removeFieldError(name);
     };
 
-    handleChange = ({ target: { name, value } }) => {
-        const { value: selectedOptions, handleChange } = this.props;
-        const updatedValues = selectedOptions.includes(value)
-            ? selectedOptions.filter(val => value !== val)
-            : [...selectedOptions, value];
-        handleChange(name, updatedValues);
-    };
+    handleChange = updatedValues => this.props.handleChange(updatedValues);
 
     _validate = value => {
         const {

@@ -44,9 +44,8 @@ class FileUploadContainer extends Component {
 
     componentDidMount = () => {
         const { value } = this.props;
-        if (value && value.length) {
-            this._setFiles(value);
-        }
+        if (value && value.length) this._setFiles(value);
+
         this._validate();
     };
 
@@ -62,13 +61,9 @@ class FileUploadContainer extends Component {
         const hasStringChanged =
             typeof value === 'string' && value !== prevValue;
 
-        if (hasArrChanged || hasStringChanged) {
-            this._validate(value);
-        }
+        if (hasArrChanged || hasStringChanged) this._validate(value);
 
-        if (!prevValue && value) {
-            this._setFiles(value);
-        }
+        if (!prevValue && value) this._setFiles(value);
     };
 
     _setFiles = value => {
