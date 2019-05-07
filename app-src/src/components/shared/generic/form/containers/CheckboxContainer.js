@@ -12,25 +12,29 @@ class CheckboxContainer extends Component {
     render() {
         const { showFieldError } = this.state;
         const {
-            item,
             checked,
             name,
             errorsVisible,
             disabled,
             error,
-            id
+            id,
+            text,
+            value,
+            classes
         } = this.props;
         const errorMessage = showFieldError || errorsVisible ? error : null;
 
         return (
             <Checkbox
-                item={item}
                 checked={checked}
                 handleChange={this.handleChange}
                 name={name}
                 id={id}
                 error={errorMessage}
                 disabled={disabled}
+                text={text}
+                value={value}
+                classes={classes}
             />
         );
     }
