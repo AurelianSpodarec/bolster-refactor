@@ -27,8 +27,7 @@ class DropdownContainer extends Component {
             classes = ''
         } = this.props;
 
-        let errorMessage;
-        if (showFieldError || errorsVisible) errorMessage = error;
+        const errorMessage = showFieldError || errorsVisible ? error : null;
 
         return (
             <Dropdown
@@ -70,13 +69,10 @@ class DropdownContainer extends Component {
         this._showFieldError();
     };
 
-    handleBlur = () => {
-        this._showFieldError();
-    };
+    handleBlur = () => this._showFieldError();
 
     _showFieldError = () => {
-        const { showFieldError } = this.state;
-        if (!showFieldError) this.setState({ showFieldError: true });
+        if (!this.state.showFieldError) this.setState({ showFieldError: true });
     };
 
     _validate = value => {

@@ -75,12 +75,8 @@ const mapStateToProps = ({ shared: { fieldErrorsReducer } }, ownProps) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    addFieldError: (fieldName, error) => {
-        dispatch(addFieldError(fieldName, error));
-    },
-    removeFieldError: fieldName => {
-        dispatch(removeFieldError(fieldName));
-    }
+    addFieldError: (name, error) => dispatch(addFieldError(name, error)),
+    removeFieldError: name => dispatch(removeFieldError(name))
 });
 
 export default connect(
