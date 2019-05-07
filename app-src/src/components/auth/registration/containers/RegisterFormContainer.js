@@ -24,7 +24,7 @@ class RegisterFormContainer extends Component {
         'Company.phoneNumber': '',
         'Company.addressLine1': '',
         'Company.town': '',
-        'Company.postCode ': '',
+        'Company.postcode ': '',
         'Company.vatCode': '',
         'Company.timezone': 0,
         'Company.dateFormatID': 0,

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Checkbox from './Checkbox';
+import CheckboxContainer from '../containers/CheckboxContainer';
 
 const CheckboxList = ({
     options,
@@ -12,7 +12,7 @@ const CheckboxList = ({
     <div className="checkbox-list size-lg-12">
         {options &&
             options.map(({ text, value, disabled }) => (
-                <Checkbox
+                <CheckboxContainer
                     key={`${text}${value}`}
                     value={value}
                     name={name}

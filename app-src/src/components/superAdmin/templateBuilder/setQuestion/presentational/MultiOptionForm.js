@@ -2,7 +2,7 @@ import React from 'react';
 
 import Field from 'components/shared/generic/form/presentational/Field';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
-import Checkbox from 'components/shared/generic/form/presentational/Checkbox';
+import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
 
 const MultiOptionForm = ({
     addOption,
@@ -49,7 +49,7 @@ const MultiOptionForm = ({
             </div>
         </div>
         <Field name="Can company edit?">
-            <Checkbox
+            <CheckboxContainer
                 handleChange={handleInputChange}
                 checked={canCompanyEdit}
                 name="canCompanyEdit"

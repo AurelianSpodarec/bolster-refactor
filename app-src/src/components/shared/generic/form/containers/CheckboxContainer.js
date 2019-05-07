@@ -14,7 +14,6 @@ class CheckboxContainer extends Component {
         const {
             item,
             checked,
-            handleChange,
             name,
             errorsVisible,
             disabled,
@@ -27,7 +26,7 @@ class CheckboxContainer extends Component {
             <Checkbox
                 item={item}
                 checked={checked}
-                handleChange={handleChange}
+                handleChange={this.handleChange}
                 name={name}
                 id={id}
                 error={errorMessage}
@@ -48,8 +47,8 @@ class CheckboxContainer extends Component {
         if (error) removeFieldError(name);
     };
 
-    handleChange = (name, value) => {
-        this.props.handleChange(name, value);
+    handleChange = ({ target: { name, checked } }) => {
+        this.props.handleChange(name, checked);
     };
 
     _validate() {

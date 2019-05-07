@@ -1,10 +1,10 @@
 import React from 'react';
 import Form from 'components/shared/generic/form/containers/Form';
 import Field from 'components/shared/generic/form/presentational/Field';
-import Checkbox from 'components/shared/generic/form/presentational/Checkbox';
 import { SUBSCRIPTION_RENEWAL_IDS } from 'constants/companyAdmin/enums';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import RadioButton from 'components/shared/generic/form/presentational/RadioButton';
+import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
 
 const SubscriptionAutoRenewal = ({
     isAutoRenew,
@@ -15,7 +15,7 @@ const SubscriptionAutoRenewal = ({
 }) => (
     <Form className="size-lg-12">
         <BlockHeading title="Auto-Renewal">
-            <Checkbox
+            <CheckboxContainer
                 name={'isAutoRenew'}
                 value={isAutoRenew}
                 handleChange={handleAutoRenewChange}

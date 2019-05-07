@@ -13,10 +13,10 @@ import { DOCUMENT_TYPE } from 'constants/companyAdmin/enums';
 import CheckboxListContainer from 'components/shared/generic/form/containers/CheckboxListContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import Checkbox from 'components/shared/generic/form/presentational/Checkbox';
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
 import BackButtonContainer from 'components/shared/generic/backButton/containers/BackButtonContainer';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
+import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
 
 const EditDocumentForm = ({
     handleInputChange,
@@ -152,25 +152,25 @@ const EditDocumentForm = ({
                     <>
                         <Field name="Options">
                             <div className="checkbox-list size-lg-12">
-                                <Checkbox
+                                <CheckboxContainer
                                     name="isPhotoRequired"
                                     text="Requires photo"
                                     checked={isPhotoRequired}
                                     handleChange={handleCheckboxChange}
                                 />
-                                <Checkbox
+                                <CheckboxContainer
                                     name="isFileViewRequired"
                                     text="Requires file view"
                                     checked={isFileViewRequired}
                                     handleChange={handleCheckboxChange}
                                 />
-                                <Checkbox
+                                <CheckboxContainer
                                     name="isSignatureRequired"
                                     text="Requires signature"
                                     checked={isSignatureRequired}
                                     handleChange={handleCheckboxChange}
                                 />
-                                <Checkbox
+                                <CheckboxContainer
                                     name="isUpsyncForced"
                                     text="Force upsync to continue"
                                     checked={isUpsyncForced}

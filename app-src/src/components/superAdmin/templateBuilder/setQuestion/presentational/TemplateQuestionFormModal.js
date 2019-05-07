@@ -10,7 +10,7 @@ import Field from 'components/shared/generic/form/presentational/Field';
 import BlockButtonWrapper from '../../../../shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import SpecificFieldsRoute from '../containers/SpecificFieldsRoute';
-import Checkbox from 'components/shared/generic/form/presentational/Checkbox';
+import CheckboxListContainer from 'components/shared/generic/form/containers/CheckboxListContainer';
 
 const AddTemplateQuestionFormModal = ({
     questionTypeOptions,
@@ -74,21 +74,21 @@ const AddTemplateQuestionFormModal = ({
                 {...otherFields}
             />
             <Field name="Required?">
-                <Checkbox
+                <CheckboxListContainer
                     name="isRequired"
                     checked={isRequired}
                     handleChange={handleInputChange}
                 />
             </Field>
             <Field name="Hidden?">
-                <Checkbox
+                <CheckboxListContainer
                     name="isHidden"
                     checked={isHidden}
                     handleChange={handleInputChange}
                 />
             </Field>
             <Field name="Prefill on create?">
-                <Checkbox
+                <CheckboxListContainer
                     name="isPrefill"
                     checked={isPrefill}
                     handleChange={handleInputChange}

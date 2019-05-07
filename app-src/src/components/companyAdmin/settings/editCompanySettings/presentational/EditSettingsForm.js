@@ -8,9 +8,9 @@ import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/pr
 import Field from 'components/shared/generic/form/presentational/Field';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import FileUploadContainer from 'components/shared/generic/form/containers/FileUploadContainer';
-import Checkbox from 'components/shared/generic/form/presentational/Checkbox';
 import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
+import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
 
 const EditSettingsForm = ({
     handleInputChange,
@@ -144,7 +144,7 @@ const EditSettingsForm = ({
                     </div>
                 </Field>
                 <Field name="Dark Mode">
-                    <Checkbox
+                    <CheckboxContainer
                         checked={isBolsterLogoDark}
                         handleChange={handleCheckboxChange}
                         name="isBolsterLogoDark"
@@ -202,7 +202,7 @@ const EditSettingsForm = ({
             <div>
                 {/* <p>##Bolster Client List##</p> */}
                 <Field name="Hide On Client List" sizeClasses="size-lg-6">
-                    <Checkbox
+                    <CheckboxContainer
                         checked={hideOnClientList}
                         handleChange={handleCheckboxChange}
                         name="hideOnClientList"

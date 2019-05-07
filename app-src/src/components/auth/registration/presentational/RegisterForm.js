@@ -5,10 +5,10 @@ import { VAT_TYPES } from 'constants/companyAdmin/enums';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import Form from 'components/shared/generic/form/containers/Form';
 import Field from 'components/shared/generic/form/presentational/Field';
-import Checkbox from 'components/shared/generic/form/presentational/Checkbox';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import NewSelect from 'components/shared/generic/form/presentational/NewSelect';
+import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
 
 const RegisterForm = ({
     handleSubmit,
@@ -191,7 +191,7 @@ const RegisterForm = ({
                 <p className="generic-text size-lg-12">
                     To register, please agree to our Terms and Conditions.
                 </p>
-                <Checkbox
+                <CheckboxContainer
                     checked={terms}
                     handleChange={handleInputChange}
                     name="terms"

@@ -4,7 +4,7 @@ import BlockHeading from 'components/shared/generic/blockHeading/presentational/
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import Field from 'components/shared/generic/form/presentational/Field';
 import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
-import Checkbox from 'components/shared/generic/form/presentational/Checkbox';
+import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
 
 const OutputSettings = ({
     handleSubmit,
@@ -28,19 +28,19 @@ const OutputSettings = ({
                     <div className="size-lg-6">
                         <Field name="Report formats">
                             <div className="checkbox-list size-lg-12">
-                                <Checkbox
+                                <CheckboxContainer
                                     checked={isPDFGeneration}
                                     handleChange={handleFilterChange}
                                     name="isPDFGeneration"
                                     text="PDF"
                                 />
-                                <Checkbox
+                                <CheckboxContainer
                                     checked={isCSVGeneration}
                                     handleChange={handleFilterChange}
                                     name="isCSVGeneration"
                                     text="CSV"
                                 />
-                                <Checkbox
+                                <CheckboxContainer
                                     checked={isFloorplanGeneration}
                                     handleChange={handleFilterChange}
                                     name="isFloorplanGeneration"
@@ -51,7 +51,7 @@ const OutputSettings = ({
                         {isPDFGeneration && (
                             <>
                                 <Field name="Include location drawing">
-                                    <Checkbox
+                                    <CheckboxContainer
                                         checked={
                                             isPDFGeneration
                                                 ? includePinLocation
@@ -87,7 +87,7 @@ const OutputSettings = ({
                         </Field>
 
                         <Field name="Show hidden?">
-                            <Checkbox
+                            <CheckboxContainer
                                 checked={showHidden}
                                 handleChange={handleOptionChange}
                                 name="showHidden"

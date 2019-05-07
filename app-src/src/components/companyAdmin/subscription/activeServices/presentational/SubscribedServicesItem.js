@@ -1,7 +1,7 @@
 import React from 'react';
 
-import Checkbox from 'components/shared/generic/form/presentational/Checkbox';
 import StatusIcon from 'components/shared/generic/statusIcon/presentationl/StatusIcon';
+import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
 
 const SubscribedServicesItem = ({ key, subscription, handleChange }) => (
     <div key={`subscription-${key}`} className="subscription-item size-lg-6">
@@ -11,7 +11,7 @@ const SubscribedServicesItem = ({ key, subscription, handleChange }) => (
                 {subscription.name}
             </label>
         </div>
-        <Checkbox
+        <CheckboxContainer
             classes="small-text"
             checked={subscription.isAutoRenew}
             name={subscription.name}
