@@ -45,27 +45,25 @@ class EditSettingsFormContainer extends Component {
         } = this.state;
 
         return (
-            <>
-                <EditSettingsForm
-                    {...this.state}
-                    filesUploading={filesUploading}
-                    handleInputChange={this.handleInputChange}
-                    handleSubmit={this.handleSubmit}
-                    handleFileChange={this.handleFileChange}
-                    handleColourSelect={this.handleColourSelect}
-                    handleCheckboxChange={this.handleCheckboxChange}
-                    templateUsageRules={Object.values(templateUsageRuleOptions)}
-                    selectedRule={
-                        templateUsageRuleOptions[defaultTemplateUsageRule]
-                    }
-                    timeZones={this.formatTimezones()}
-                    timezone={timezone}
-                    handleTimezoneChange={this.handleTimezoneChange}
-                    dateFormats={this.formatDateFormats()}
-                    dateFormat={dateFormat}
-                    handleDateFormatChange={this.handleDateFormatChange}
-                />
-            </>
+            <EditSettingsForm
+                {...this.state}
+                filesUploading={filesUploading}
+                handleInputChange={this.handleInputChange}
+                handleSubmit={this.handleSubmit}
+                handleFileChange={this.handleFileChange}
+                handleColourSelect={this.handleColourSelect}
+                handleCheckboxChange={this.handleCheckboxChange}
+                templateUsageRules={Object.values(templateUsageRuleOptions)}
+                selectedRule={
+                    templateUsageRuleOptions[defaultTemplateUsageRule]
+                }
+                timeZones={this.formatTimezones()}
+                timezone={timezone}
+                handleTimezoneChange={this.handleTimezoneChange}
+                dateFormats={this.formatDateFormats()}
+                dateFormat={dateFormat}
+                handleDateFormatChange={this.handleDateFormatChange}
+            />
         );
     }
 
@@ -82,14 +80,15 @@ class EditSettingsFormContainer extends Component {
                 logoFile,
                 timeZone,
                 dateFormat,
+                colourCode,
                 ...restSettings
             }
         } = this.props;
         this.setState({
             ...restSettings,
-            colourCode: restSettings.colourCode || '#fff',
             initialFile: logoFile,
             logoFile,
+            colourCode: colourCode || '#FFF',
             timezone: {
                 label: `${timeZone.name} - ${timeZone.offset}`,
                 value: timeZone.id
@@ -115,9 +114,7 @@ class EditSettingsFormContainer extends Component {
     };
 
     handleColourSelect = colour => {
-        this.setState({
-            colourCode: colour.hex
-        });
+        this.setState({ colourCode: colour.hex });
     };
 
     handleFileChange = (name, file) => {
@@ -133,13 +130,6 @@ class EditSettingsFormContainer extends Component {
     handleTimezoneChange = timezone => this.setState({ timezone });
 
     handleDateFormatChange = dateFormat => this.setState({ dateFormat });
-
-    handleCheckboxChange = e => {
-        const { name } = e.target;
-        this.setState(prevState => ({
-            [name]: !prevState[name]
-        }));
-    };
 
     handleSubmit = e => {
         e.preventDefault();

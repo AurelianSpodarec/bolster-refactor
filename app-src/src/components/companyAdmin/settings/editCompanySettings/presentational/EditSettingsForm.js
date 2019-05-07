@@ -135,18 +135,38 @@ const EditSettingsForm = ({
                         handleChange={handleFileChange}
                     />
                 </Field>
-                <Field name="Change Colour Scheme">
-                    <div className="size-lg-12">
-                        <HuePicker
-                            color={colourCode}
-                            onChangeComplete={handleColourSelect}
+                <div className="size-lg-6">
+                    <Field name="Change Colour Scheme">
+                        <div className="size-lg-12">
+                            <HuePicker
+                                color={colourCode}
+                                onChangeComplete={handleColourSelect}
+                            />
+                        </div>
+                    </Field>
+                </div>
+                <div className="size-lg-6">
+                    <Field name="Colour scheme (hex code)">
+                        <div
+                            style={{
+                                width: '2em',
+                                height: '2em',
+                                float: 'left',
+                                margin: '0.5em',
+                                backgroundColor: colourCode
+                            }}
                         />
-                    </div>
-                </Field>
+                        <TextInputContainer
+                            value={colourCode}
+                            name="colourCode"
+                            handleChange={handleInputChange}
+                        />
+                    </Field>
+                </div>
                 <Field name="Dark Mode">
                     <CheckboxContainer
                         checked={isBolsterLogoDark}
-                        handleChange={handleCheckboxChange}
+                        handleChange={handleInputChange}
                         name="isBolsterLogoDark"
                     />
                 </Field>
@@ -204,7 +224,7 @@ const EditSettingsForm = ({
                 <Field name="Hide On Client List" sizeClasses="size-lg-6">
                     <CheckboxContainer
                         checked={hideOnClientList}
-                        handleChange={handleCheckboxChange}
+                        handleChange={handleInputChange}
                         name="hideOnClientList"
                     />
                 </Field>
