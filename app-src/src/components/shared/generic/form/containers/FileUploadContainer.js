@@ -72,7 +72,6 @@ class FileUploadContainer extends Component {
     };
 
     _setFiles = value => {
-        console.log(value);
         const formatFile = value => ({
             source: `${RAW_S3_STORAGE_URL}/${value}`,
             options: { type: 'local' }
