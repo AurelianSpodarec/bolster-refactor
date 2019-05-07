@@ -25,14 +25,11 @@ export default class SwitchContainer extends Component {
     }
 
     handleBlur = () => {
-        this.setState({
-            ...this.state,
-            showFieldError: true
-        });
+        this.setState({ showFieldError: true });
     };
 
-    handleChange = e => {
-        this.props.handleChange(e);
+    handleChange = ({ target: { name, value } }) => {
+        this.props.handleChange(name, value);
         // this._validate(e.target.value);
     };
 }

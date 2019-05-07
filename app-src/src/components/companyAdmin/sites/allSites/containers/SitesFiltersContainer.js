@@ -30,12 +30,9 @@ class SitesFiltersContainer extends Component {
         );
     }
 
-    handleChange = e => {
-        e.preventDefault();
-
+    handleChange = (name, value) => {
         const { dispatch } = this.props;
-
-        dispatch(updateSitesFilters(e.target.name, e.target.value));
+        dispatch(updateSitesFilters(name, value));
     };
 }
 

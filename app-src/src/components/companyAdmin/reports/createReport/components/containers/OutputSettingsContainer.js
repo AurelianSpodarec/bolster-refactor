@@ -71,16 +71,16 @@ class OutputSettingsContainer extends Component {
         }
     };
 
-    handleFilterChange = ({ target: { value, name, checked, type } }) => {
+    handleFilterChange = (name, value) => {
         const { handleChange } = this.props;
 
-        handleChange(name, type === 'checkbox' ? checked : value);
+        handleChange(name, value);
     };
 
-    handleOptionChange = ({ target: { value, name, checked, type } }) => {
+    handleOptionChange = (name, value) => {
         const { updateFilterOption } = this.props;
 
-        updateFilterOption(name, type === 'checkbox' ? checked : value);
+        updateFilterOption(name, value);
     };
 
     handleSubmit = () => {

@@ -36,7 +36,7 @@ class SubscriptionCreditsContainer extends Component {
         );
     };
 
-    handleInputChange = ({ target: { name, value } }) => {
+    handleInputChange = (name, value) => {
         this.setState({ [name]: value });
     };
 }

@@ -59,7 +59,7 @@ class LevelsFilterContainer extends Component {
         return this.updateBuilding().then(() => handleChange('siteID', value));
     };
 
-    handleChange = ({ target: { value, name } }) => {
+    handleChange = (name, value) => {
         const { postFilters } = this.props;
 
         const updateMethods = {

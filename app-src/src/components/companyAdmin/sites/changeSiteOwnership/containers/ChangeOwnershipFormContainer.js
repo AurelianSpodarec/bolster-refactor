@@ -29,8 +29,7 @@ class ChangeOwnershipFormContainer extends Component {
         }
     };
 
-    handleChange = ({ target: { name, value } }) =>
-        this.setState({ [name]: value });
+    handleChange = (name, value) => this.setState({ [name]: value });
 
     handleSubmitModal = e => {
         e.preventDefault();

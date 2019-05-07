@@ -31,12 +31,8 @@ class CreateOperativeFormContainer extends Component {
         );
     }
 
-    handleInputChange = e => {
-        e.preventDefault();
-
-        this.setState({
-            [e.target.name]: e.target.value
-        });
+    handleInputChange = (name, value) => {
+        this.setState({ [name]: value });
     };
 
     validatePassword = password => {

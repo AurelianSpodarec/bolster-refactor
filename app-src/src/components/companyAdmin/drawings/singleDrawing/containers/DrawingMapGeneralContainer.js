@@ -110,8 +110,8 @@ class DrawingMapGeneralContainer extends Component {
         }
     };
 
-    handleChange = ({ target: { type, value, name, checked } }) => {
-        this.setState({ [name]: type === 'checkbox' ? checked : value });
+    handleChange = (name, value) => {
+        this.setState({ [name]: value });
     };
 
     handleDateChange = (date, name) => {

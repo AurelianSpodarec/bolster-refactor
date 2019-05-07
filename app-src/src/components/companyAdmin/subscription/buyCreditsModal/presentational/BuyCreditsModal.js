@@ -21,83 +21,78 @@ const BuyCreditsModal = ({
     selectedCard,
     costOfCredits,
     noCards
-}) => {
-    return (
-        <ModalOuterContainer>
-            <BlockHeading title="Buy Credits" />
-            <Form
-                className="generic-form no-min-heights"
-                onSubmit={handleSubmit}
-            >
-                <Field sizeClasses="size-lg-6">
-                    <RadioButton
-                        name={'paymentType'}
-                        value={PAYMENT_IDS.CARD}
-                        text="Pay by card"
-                        handleInputChange={handleChange}
-                        checked={+paymentType === PAYMENT_IDS.CARD}
-                        extraDetails={noCards ? 'No cards available' : ''}
-                        disabled={noCards}
-                    />
-                </Field>
-                <Field sizeClasses="size-lg-6">
-                    <RadioButton
-                        name={'paymentType'}
-                        value={PAYMENT_IDS.INVOICE}
-                        text="Pay by invoice"
-                        handleInputChange={handleChange}
-                        checked={+paymentType === PAYMENT_IDS.INVOICE}
-                    />
-                </Field>
-                {+paymentType === PAYMENT_IDS.CARD && !noCards && (
-                    <Field sizeClasses="size-lg-12" name="Select Card" required>
-                        <DropdownContainer
-                            required
-                            name="stripeCardID"
-                            options={cards}
-                            withoutPlaceholder
-                            placeholder={
-                                !cards.length
-                                    ? 'Please add a card to use card payments.'
-                                    : 'Loading cards...'
-                            }
-                            selectedOption={selectedCard}
-                            handleChange={handleChange}
-                        />
-                    </Field>
-                )}
-                <Field name="Credits to buy" sizeClasses="size-lg-12" required>
-                    <TextInputContainer
-                        name="creditsToBuy"
-                        value={creditsToBuy}
-                        handleChange={handleChange}
-                        placeholder="Number of credits..."
+}) => (
+    <ModalOuterContainer>
+        <BlockHeading title="Buy Credits" />
+        <Form className="generic-form no-min-heights" onSubmit={handleSubmit}>
+            <Field sizeClasses="size-lg-6">
+                <RadioButton
+                    name={'paymentType'}
+                    value={PAYMENT_IDS.CARD}
+                    text="Pay by card"
+                    handleInputChange={handleChange}
+                    checked={+paymentType === PAYMENT_IDS.CARD}
+                    extraDetails={noCards ? 'No cards available' : ''}
+                    disabled={noCards}
+                />
+            </Field>
+            <Field sizeClasses="size-lg-6">
+                <RadioButton
+                    name={'paymentType'}
+                    value={PAYMENT_IDS.INVOICE}
+                    text="Pay by invoice"
+                    handleInputChange={handleChange}
+                    checked={+paymentType === PAYMENT_IDS.INVOICE}
+                />
+            </Field>
+            {+paymentType === PAYMENT_IDS.CARD && !noCards && (
+                <Field sizeClasses="size-lg-12" name="Select Card" required>
+                    <DropdownContainer
                         required
-                        type="number"
-                        validate={value =>
-                            value <= 0 || value % 1
-                                ? 'Please enter a positive integer.'
-                                : ''
+                        name="stripeCardID"
+                        options={cards}
+                        withoutPlaceholder
+                        placeholder={
+                            !cards.length
+                                ? 'Please add a card to use card payments.'
+                                : 'Loading cards...'
                         }
-                        classes="large"
+                        selectedOption={selectedCard}
+                        handleChange={handleChange}
                     />
                 </Field>
-                {creditsToBuy && (
-                    <p className="generic-text total-text align-right size-lg-12">
-                        Total: £{formatNumber(costOfCredits * creditsToBuy)}
-                    </p>
-                )}
-                <BlockButtonWrapper>
-                    <button className="button green" type="submit">
-                        Buy
-                    </button>
-                    <ButtonContainer handleClick={hideModal}>
-                        Cancel
-                    </ButtonContainer>
-                </BlockButtonWrapper>
-            </Form>
-        </ModalOuterContainer>
-    );
-};
+            )}
+            <Field name="Credits to buy" sizeClasses="size-lg-12" required>
+                <TextInputContainer
+                    name="creditsToBuy"
+                    value={creditsToBuy}
+                    handleChange={handleChange}
+                    placeholder="Number of credits..."
+                    required
+                    type="number"
+                    validate={value =>
+                        value <= 0 || value % 1
+                            ? 'Please enter a positive integer.'
+                            : ''
+                    }
+                    classes="large"
+                />
+            </Field>
+            {creditsToBuy && (
+                <p className="generic-text total-text align-right size-lg-12">
+                    Total: £{formatNumber(costOfCredits * creditsToBuy)}
+                </p>
+            )}
+            <BlockButtonWrapper>
+                <button className="button green" type="submit">
+                    Buy
+                </button>
+                <ButtonContainer handleClick={hideModal}>
+                    Cancel
+                </ButtonContainer>
+            </BlockButtonWrapper>
+        </Form>
+    </ModalOuterContainer>
+);
 
 export default BuyCreditsModal;

@@ -321,11 +321,9 @@ class AddPinQuestionRoute extends Component {
         );
     }
 
-    handleChange = ({ target: { type, value, checked } }) => {
+    handleChange = (_, value) => {
         const { updateAddPinAnswer, question } = this.props;
-        const val = type === 'checkbox' ? checked : value;
-
-        updateAddPinAnswer(question.id, val);
+        updateAddPinAnswer(question.id, value);
     };
 
     handleMultiDropdownChange = e => {

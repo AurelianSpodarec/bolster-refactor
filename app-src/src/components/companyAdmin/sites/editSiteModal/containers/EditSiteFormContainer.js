@@ -42,12 +42,8 @@ class EditSiteFormContainer extends Component {
         }
     };
 
-    handleInputChange = e => {
-        e.preventDefault();
-
-        this.setState({
-            [e.target.name]: e.target.value
-        });
+    handleInputChange = (name, value) => {
+        this.setState({ [name]: value });
     };
 
     //_ <-- used because this helper function is only for this class - not shared or used within the children

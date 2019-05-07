@@ -54,7 +54,7 @@ const CustomFilterContainer = ({
         updateFilterQuestionField(field.id, updated);
     }
 
-    function updateOption({ target: { name, value } }) {
+    function updateOption(name, value) {
         const updated = updateObj(field.questionValues, name, {
             id: name,
             value

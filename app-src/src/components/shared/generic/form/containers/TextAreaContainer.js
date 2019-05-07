@@ -52,8 +52,8 @@ class TextAreaContainer extends Component {
         if (error) removeFieldError(name);
     };
 
-    handleChange = e => {
-        this.props.handleChange(e);
+    handleChange = ({ target: { name, value } }) => {
+        this.props.handleChange(name, value);
     };
 
     handleBlur = () => {

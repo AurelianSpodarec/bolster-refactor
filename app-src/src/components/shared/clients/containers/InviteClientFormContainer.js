@@ -51,17 +51,12 @@ class InviteClientFormContainer extends Component {
         }));
     };
 
-    handleMultiselectChange = ({ target: { name, value } }) => {
-        const checkedValues = this.state[name];
-        const newValues = checkedValues.includes(value)
-            ? checkedValues.filter(val => val !== value)
-            : [...checkedValues, value];
-
-        this.setState({ [name]: newValues });
+    handleMultiselect = (name, value) => {
+        this.setState({ [name]: value });
     };
 
-    handleChange = ({ target: { type, value, name, checked } }) => {
-        this.setState({ [name]: type === 'checkbox' ? checked : value });
+    handleChange = (name, value) => {
+        this.setState({ [name]: value });
     };
 
     handleSubmit = () => {

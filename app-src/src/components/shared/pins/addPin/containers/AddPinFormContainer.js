@@ -114,8 +114,8 @@ class AddPinFormContainer extends Component {
         return convertArrToObj(templateOptions, 'value');
     };
 
-    handleChange = ({ target: { type, value, name, checked } }) => {
-        this.setState({ [name]: type === 'checkbox' ? checked : value });
+    handleChange = (name, value) => {
+        this.setState({ [name]: value });
     };
 
     handleSubmit = e => {

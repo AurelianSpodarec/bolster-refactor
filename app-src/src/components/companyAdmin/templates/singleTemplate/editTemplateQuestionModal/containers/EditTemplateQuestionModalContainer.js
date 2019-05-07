@@ -40,7 +40,7 @@ class EditTemplateQuestionModalContainer extends Component {
         if (postFailure && !prevProps.postFailure) showModal(ERROR_MODAL);
     };
 
-    handleChange = ({ target: { value, name } }) => {
+    handleChange = (value, name) => {
         this.setState({
             options: { ...this.state.options, [name]: value }
         });

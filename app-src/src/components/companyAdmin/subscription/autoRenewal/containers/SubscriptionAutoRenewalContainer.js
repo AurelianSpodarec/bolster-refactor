@@ -31,7 +31,7 @@ class SubscriptionAutoRenewalContainer extends Component {
         });
     };
 
-    handleRadioChange = ({ target: { value } }) => {
+    handleRadioChange = (_, value) => {
         const {
             editSubscriptionRenewalStatus,
             isAutoRenew: renewalStatus

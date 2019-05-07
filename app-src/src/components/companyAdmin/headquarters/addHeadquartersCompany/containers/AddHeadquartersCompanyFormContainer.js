@@ -70,19 +70,16 @@ class AddHeadquartersCompanyFormContainer extends Component {
             history.push('/company/headquarters/companies');
         }
     };
-    handleChange = ({ target: { type, value, checked, name } }) => {
-        const val = type === 'checkbox' ? checked : value;
-        this.setState({
-            [name]: val
-        });
+    handleChange = (name, value) => {
+        this.setState({ [name]: value });
     };
     // change handlers
-    handleUserChange = ({ target: { name, value } }) => {
+    handleUserChange = (name, value) => {
         const { user } = this.state;
         this.setState({ user: { ...user, [name]: value } });
     };
 
-    handleCompanyChange = ({ target: { name, value } }) => {
+    handleCompanyChange = (name, value) => {
         const { company } = this.state;
         this.setState({ company: { ...company, [name]: value } });
     };

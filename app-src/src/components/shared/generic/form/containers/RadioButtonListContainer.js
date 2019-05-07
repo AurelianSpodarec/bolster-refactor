@@ -14,7 +14,6 @@ class RadioButtonListContainer extends Component {
         const { showFieldError } = this.state;
         const {
             options,
-            handleChange,
             error,
             errorsVisible,
             selectedOption,
@@ -27,12 +26,17 @@ class RadioButtonListContainer extends Component {
             <RadioButtonList
                 selectedOption={selectedOption}
                 options={options}
-                handleInputChange={handleChange}
+                handleInputChange={this.handleChange}
                 error={errorMessage}
                 name={name}
             />
         );
     }
+
+    handleChange = ({ target: { name, value } }) => {
+        const { handleChange } = this.props;
+        handleChange(name, value);
+    };
 
     componentDidMount = () => {
         this._validate();
@@ -56,8 +60,6 @@ class RadioButtonListContainer extends Component {
             removeFieldError,
             selectedOption
         } = this.props;
-
-        console.log(selectedOption);
 
         if (!selectedOption) {
             addFieldError(name, 'This is a required field.');

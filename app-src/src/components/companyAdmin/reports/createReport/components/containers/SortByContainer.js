@@ -23,7 +23,7 @@ class SortByContainer extends Component {
         );
     }
 
-    handleChange = ({ target: { value, name } }) => {
+    handleChange = (name, value) => {
         const { updateReportFilter } = this.props;
 
         updateReportFilter(name, value);

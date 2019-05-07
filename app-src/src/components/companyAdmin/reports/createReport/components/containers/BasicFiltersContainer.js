@@ -90,7 +90,7 @@ class BasicFiltersContainer extends Component {
         }
     };
 
-    handleChange = ({ target: { value, name } }) => {
+    handleChange = (name, value) => {
         const { handleChange, postFilters } = this.props;
 
         handleChange(name, value).then(postFilters);

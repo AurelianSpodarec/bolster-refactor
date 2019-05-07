@@ -65,7 +65,7 @@ class ActiveServicesContainer extends Component {
             : [];
     };
 
-    handleChange = ({ target: { value } }) => {
+    handleChange = (_, value) => {
         const { editServiceRenewalStatus } = this.props;
         const updatedServices = this.state.subscriptions.reduce((acc, curr) => {
             if (curr.serviceID === +value) {

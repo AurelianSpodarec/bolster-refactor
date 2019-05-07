@@ -47,6 +47,14 @@ class CheckboxListContainer extends Component {
         }
     };
 
+    handleChange = ({ target: { name, value } }) => {
+        const { selectedOptions, handleChange } = this.props;
+        const updatedValues = selectedOptions.includes(value)
+            ? selectedOptions.filter(val => value !== val)
+            : [...selectedOptions, value];
+        handleChange(name, updatedValues);
+    };
+
     _validate = () => {
         const {
             name,

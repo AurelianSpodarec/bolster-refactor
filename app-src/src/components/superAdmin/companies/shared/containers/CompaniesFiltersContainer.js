@@ -9,9 +9,8 @@ import CompaniesFilters from '../presentational/CompaniesFilters';
 // TODO: add filters
 
 const CompaniesFiltersContainer = ({ filters: { name }, dispatch }) => {
-    const handleChange = e => {
-        e.preventDefault();
-        dispatch(updateCompaniesFilters(e.target.name, e.target.value));
+    const handleChange = (name, value) => {
+        dispatch(updateCompaniesFilters(name, value));
     };
 
     return <CompaniesFilters handleChange={handleChange} name={name} />;

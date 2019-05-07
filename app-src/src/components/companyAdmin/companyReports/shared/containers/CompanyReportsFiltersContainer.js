@@ -25,8 +25,8 @@ const CompanyReportsFiltersContainer = ({
         />
     );
 
-    function handleChange({ target: { value: sortString } }) {
-        updateCompanyReportsSort(sortString);
+    function handleChange(_, value) {
+        updateCompanyReportsSort(value);
     }
 };
 

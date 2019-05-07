@@ -70,7 +70,7 @@ class PayInvoiceModalContainer extends Component {
         }
     };
 
-    handleChange = ({ target: { name, value } }) => {
+    handleChange = (name, value) => {
         this.setState({ [name]: value });
     };
 

@@ -129,10 +129,8 @@ class EditDocumentFormContainer extends Component {
         this.setState({ [name]: value });
     };
 
-    handleInputChange = e => {
-        this.setState({
-            [e.target.name]: e.target.value
-        });
+    handleInputChange = (name, value) => {
+        this.setState({ [name]: value });
     };
 
     handleFileChange = (name, file) => {
@@ -145,13 +143,8 @@ class EditDocumentFormContainer extends Component {
         });
     };
 
-    handleMultiselectChange = ({ target: { name, value } }) => {
-        const checkedValues = this.state[name];
-        const newValues = checkedValues.includes(value)
-            ? checkedValues.filter(val => val !== value)
-            : [...checkedValues, value];
-
-        this.setState({ [name]: newValues });
+    handleMultiselect = (name, value) => {
+        this.setState({ [name]: value });
     };
 
     handleCheckboxChange = e => {

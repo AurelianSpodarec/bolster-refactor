@@ -61,11 +61,8 @@ class RegisterFormContainer extends Component {
         );
     }
 
-    handleChange = ({ target: { type, value, checked, name } }) => {
-        const val = type === 'checkbox' ? checked : value;
-        this.setState({
-            [name]: val
-        });
+    handleChange = (name, value) => {
+        this.setState({ [name]: value });
     };
 
     _handleTimezoneChange = timezone => this.setState({ timezone });

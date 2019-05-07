@@ -59,13 +59,8 @@ class EditClientFormContainer extends Component {
         }));
     };
 
-    handleMultiselectChange = ({ target: { name, value } }) => {
-        const checkedValues = this.state[name];
-        const newValues = checkedValues.includes(value)
-            ? checkedValues.filter(val => val !== value)
-            : [...checkedValues, value];
-
-        this.setState({ [name]: newValues });
+    handleMultiselect = (name, value) => {
+        this.setState({ [name]: value });
     };
 
     handleSubmit = () => {

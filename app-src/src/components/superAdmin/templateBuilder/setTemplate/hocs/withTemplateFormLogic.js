@@ -65,7 +65,7 @@ export default function(WrappedComponent) {
             this.setState(values);
         };
 
-        handleChange = ({ target: { name, value } }) => {
+        handleChange = (name, value) => {
             this.setState({ [name]: value });
         };
 

@@ -73,7 +73,7 @@ class SearchContainer extends Component {
         return resultMap;
     }
 
-    handleChange = ({ target: { value, name } }) => {
+    handleChange = (name, value) => {
         const { fetchSearchResults } = this.props;
         const resultsVisible = !!value.length;
         this.setState({ resultsVisible, [name]: value });

@@ -50,8 +50,8 @@ class AddDrawingFormContainer extends Component {
         }
     };
 
-    handleInputChange = e => {
-        this.setState({ [e.target.name]: e.target.value });
+    handleInputChange = (name, value) => {
+        this.setState({ [name]: value });
     };
 
     handleFileChange = (name, s3Key) => {

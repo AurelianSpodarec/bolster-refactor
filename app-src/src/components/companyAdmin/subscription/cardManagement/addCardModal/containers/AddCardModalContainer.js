@@ -34,10 +34,8 @@ class AddCardModalContainer extends Component {
         if (postSuccess && !prevProps.postSuccess) hideModal();
     };
 
-    handleChange = e => {
-        this.setState({
-            [e.target.name]: e.target.value
-        });
+    handleChange = (name, value) => {
+        this.setState({ [name]: value });
     };
     handleSubmit = e => {
         e.preventDefault();

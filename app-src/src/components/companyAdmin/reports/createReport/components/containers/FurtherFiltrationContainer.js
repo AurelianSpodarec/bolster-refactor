@@ -100,8 +100,7 @@ class FurtherFiltrationContainer extends Component {
         );
     };
 
-    handleChange = ({ target: { value, name } }) =>
-        this.setState({ [name]: value });
+    handleChange = (name, value) => this.setState({ [name]: value });
 }
 
 const mapStateToProps = ({

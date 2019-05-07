@@ -30,10 +30,9 @@ export default function(WrappedComponent) {
             resetQuestionFields();
         };
 
-        handleInputChange = e => {
-            const { type, value, name, checked } = e.target;
+        handleInputChange = (name, value) => {
             const { updateQuestionField } = this.props;
-            updateQuestionField(name, type === 'checkbox' ? checked : value);
+            updateQuestionField(name, value);
         };
 
         _getPrereqOptions = () => {

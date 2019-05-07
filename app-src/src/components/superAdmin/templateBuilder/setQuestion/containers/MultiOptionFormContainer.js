@@ -28,12 +28,10 @@ class MultiOptionFormContainer extends Component {
         updateQuestionField('options', options.filter(op => op.id !== id));
     };
 
-    updateOption = e => {
-        e.preventDefault();
-        const { name: id, value } = e.target;
+    updateOption = (name, value) => {
         const { options, updateQuestionField } = this.props;
         const updated = options.map(opt =>
-            opt.id === id ? { ...opt, text: value } : opt
+            opt.id === name ? { ...opt, text: value } : opt
         );
 
         updateQuestionField('options', updated);

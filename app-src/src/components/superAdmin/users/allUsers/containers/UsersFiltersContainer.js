@@ -19,9 +19,8 @@ const UsersFiltersContainer = ({ filters: { email, role }, dispatch }) => {
         />
     );
 
-    function handleChange(e) {
-        e.preventDefault();
-        dispatch(updateUsersFilters(e.target.name, e.target.value));
+    function handleChange(name, value) {
+        dispatch(updateUsersFilters(name, value));
     }
 };
 

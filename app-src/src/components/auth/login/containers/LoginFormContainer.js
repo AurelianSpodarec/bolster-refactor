@@ -22,12 +22,8 @@ class LoginFormContainer extends Component {
         );
     }
 
-    handleInputChange = e => {
-        e.preventDefault();
-
-        this.setState({
-            [e.target.name]: e.target.value
-        });
+    handleInputChange = (name, value) => {
+        this.setState({ [name]: value });
     };
 
     handleSubmit = e => {
