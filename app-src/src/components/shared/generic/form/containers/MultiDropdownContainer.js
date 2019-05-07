@@ -15,18 +15,12 @@ class MultiSelectDropdown extends Component {
         const { showFieldError } = this.state;
         const { options, error, errorsVisible, value = [] } = this.props;
 
-        let errorMessage;
-        if (showFieldError || errorsVisible) errorMessage = error;
+        const errorMessage = showFieldError || errorsVisible ? error : null;
 
-        let defaultDropDown = [];
-
-        value.forEach(curValue => {
-            const val = curValue;
-            const selectedOpton = options.find(x => x.value === curValue);
-            const text = selectedOpton.label;
-
-            defaultDropDown.push({ label: text, value: val });
-        });
+        const defaultDropDown = value.map(curValue => ({
+            label: options.find(opt => opt.value === curValue).label,
+            value: curValue
+        }));
 
         return (
             <MultiDropdown
@@ -38,9 +32,7 @@ class MultiSelectDropdown extends Component {
         );
     }
 
-    componentDidMount = () => {
-        this._validate(this.props.value);
-    };
+    componentDidMount = () => this._validate(this.props.value);
 
     componentDidUpdate = ({ value: prevValue }) => {
         const { value } = this.props;
@@ -75,9 +67,7 @@ class MultiSelectDropdown extends Component {
             addFieldError(name, 'This is a required field.');
         } else if (validateError && validateError.length) {
             addFieldError(name, validateError);
-        } else if (error) {
-            removeFieldError(name);
-        }
+        } else if (error) removeFieldError(name);
     };
 }
 
@@ -87,12 +77,8 @@ const mapStateToProps = ({ shared: { fieldErrorsReducer } }, ownProps) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    addFieldError: (fieldName, error) => {
-        dispatch(addFieldError(fieldName, error));
-    },
-    removeFieldError: fieldName => {
-        dispatch(removeFieldError(fieldName));
-    }
+    addFieldError: (name, error) => dispatch(addFieldError(name, error)),
+    removeFieldError: name => dispatch(removeFieldError(name))
 });
 
 export default connect(

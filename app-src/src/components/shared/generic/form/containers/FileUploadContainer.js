@@ -24,8 +24,7 @@ class FileUploadContainer extends Component {
     render() {
         const { showFieldError } = this.state;
         const { errorsVisible, error, maxFiles, acceptedTypes } = this.props;
-        let errorMessage;
-        if (showFieldError || errorsVisible) errorMessage = error;
+        const errorMessage = showFieldError || errorsVisible ? error : null;
 
         return (
             <FileUpload
@@ -45,10 +44,7 @@ class FileUploadContainer extends Component {
 
     componentDidMount = () => {
         const { value } = this.props;
-        if (value && value.length) {
-            this._setFiles(value);
-        }
-
+        if (value && value.length) this._setFiles(value);
         this._validate();
     };
 
@@ -74,33 +70,14 @@ class FileUploadContainer extends Component {
     };
 
     _setFiles = value => {
-        var retFiles = [];
-
-        if (Array.isArray(value)) {
-            //Multi File
-            value.forEach(item => {
-                var newFile = {};
-
-                newFile.source = RAW_S3_STORAGE_URL + '/' + item;
-                newFile.options = {
-                    type: 'local'
-                };
-
-                retFiles.push(newFile);
-            });
-        } else {
-            var newFile = {};
-
-            newFile.source = RAW_S3_STORAGE_URL + '/' + value;
-            newFile.options = {
-                type: 'local'
-            };
-
-            retFiles.push(newFile);
-        }
-
-        this.setState({ files: retFiles });
-        //this.setState({ files: value });
+        const formatFile = value => ({
+            source: `${RAW_S3_STORAGE_URL}/${value}`,
+            options: { type: 'local' }
+        });
+        const files = Array.isArray(value)
+            ? value.map(formatFile)
+            : formatFile(value);
+        this.setState({ files });
     };
 
     _validate = () => {
@@ -113,24 +90,20 @@ class FileUploadContainer extends Component {
             value
         } = this.props;
 
-        if (required && !(value && value.length)) {
+        if (required && !(value && value.length))
             addFieldError(name, 'This is a required field.');
-        } else if (error) {
-            removeFieldError(name);
-        }
+        else if (error) removeFieldError(name);
     };
 
-    _getServerOptions = () => {
-        return {
-            url: FILE_API_URL,
-            process: this._handleUpload,
-            revert: this._handleRevert,
-            load: this._handleFileLoad,
-            remove: this._handleRemove,
-            restore: null,
-            fetch: null
-        };
-    };
+    _getServerOptions = () => ({
+        url: FILE_API_URL,
+        process: this._handleUpload,
+        revert: this._handleRevert,
+        load: this._handleFileLoad,
+        remove: this._handleRemove,
+        restore: null,
+        fetch: null
+    });
 
     _handleRemove = (source = '', load, error) => {
         try {
@@ -143,9 +116,7 @@ class FileUploadContainer extends Component {
         }
     };
 
-    handleFileUploadStart = () => {
-        this.props.fileUploadStart();
-    };
+    handleFileUploadStart = () => this.props.fileUploadStart();
 
     handleFileUploadFinish = () => {
         this._validate();
@@ -179,7 +150,7 @@ class FileUploadContainer extends Component {
         const formData = new FormData();
         formData.append(fieldName, file, file.name);
 
-        const CancelToken = axios.CancelToken;
+        const { CancelToken } = axios;
         const source = CancelToken.source();
         const headers = {
             ...getAuthHeader(),
@@ -210,11 +181,7 @@ class FileUploadContainer extends Component {
     };
 
     handleUpdateFiles = fileItems => {
-        // console.log(fileItems);
-        // console.log(fileItems.map(f => f.getMetadata()));
-        this.setState({
-            files: fileItems.map(fileItem => fileItem.file)
-        });
+        this.setState({ files: fileItems.map(({ file }) => file) });
     };
 
     _handleRevert = (s3Key, load) => {
@@ -230,18 +197,10 @@ const mapStateToProps = ({ shared: { fieldErrorsReducer } }, ownProps) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    addFieldError: (fieldName, error) => {
-        dispatch(addFieldError(fieldName, error));
-    },
-    removeFieldError: fieldName => {
-        dispatch(removeFieldError(fieldName));
-    },
-    fileUploadStart: () => {
-        dispatch(fileUploadStart());
-    },
-    fileUploadFinish: () => {
-        dispatch(fileUploadFinish());
-    }
+    addFieldError: (name, error) => dispatch(addFieldError(name, error)),
+    removeFieldError: name => dispatch(removeFieldError(name)),
+    fileUploadStart: () => dispatch(fileUploadStart()),
+    fileUploadFinish: () => dispatch(fileUploadFinish())
 });
 
 export default connect(

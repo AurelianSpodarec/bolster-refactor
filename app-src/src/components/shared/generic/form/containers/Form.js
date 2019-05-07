@@ -13,8 +13,7 @@ class Form extends Component {
     render() {
         const { className, children } = this.props;
 
-        if (!this.state.isFieldErrorsCleared) return null;
-        return (
+        return !this.state.isFieldErrorsCleared ? null : (
             <form noValidate className={className} onSubmit={this.handleSubmit}>
                 {children}
             </form>
@@ -52,15 +51,9 @@ class Form extends Component {
             }
             return;
         }
-        if (disabled) {
-            return;
-        }
+        if (disabled) return;
 
-        this.setState({
-            ...this.state,
-            disabled: true
-        });
-
+        this.setState({ disabled: true });
         onSubmit(e);
     };
 }
@@ -70,8 +63,8 @@ const mapStateToProps = ({
         fieldErrorsReducer: { fieldErrors, errorsVisible }
     }
 }) => ({
-    fieldErrors: fieldErrors,
-    errorsVisible: errorsVisible
+    fieldErrors,
+    errorsVisible
 });
 
 const mapDispatchToProps = dispatch => ({
