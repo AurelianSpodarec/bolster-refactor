@@ -4,7 +4,7 @@ import CheckboxContainer from '../containers/CheckboxContainer';
 
 const CheckboxList = ({
     options,
-    selectedOptions,
+    selectedOptions = [],
     handleChange,
     name,
     error

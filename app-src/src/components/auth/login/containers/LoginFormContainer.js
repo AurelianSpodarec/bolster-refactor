@@ -5,6 +5,9 @@ import { withRouter } from 'react-router-dom';
 import postLogin from 'actions/shared/auth/async/postLogin';
 import LoginForm from '../presentational/LoginForm';
 import { authenticate } from 'helpers/api';
+import { COMPANY_USER_ROLE_TYPES } from 'constants/companyAdmin/enums';
+import addFieldError from 'actions/shared/generic/fieldErrors/sync/addFieldError';
+import showFieldErrors from 'actions/shared/generic/fieldErrors/sync/showFieldErrors';
 
 class LoginFormContainer extends Component {
     state = {
@@ -12,33 +15,41 @@ class LoginFormContainer extends Component {
         password: ''
     };
 
-    render() {
-        return (
-            <LoginForm
-                {...this.state}
-                handleInputChange={this.handleInputChange}
-                handleSubmit={this.handleSubmit}
-            />
-        );
-    }
+    render = () => (
+        <LoginForm
+            {...this.state}
+            handleInputChange={this.handleInputChange}
+            handleSubmit={this.handleSubmit}
+        />
+    );
 
-    handleInputChange = (name, value) => {
-        this.setState({ [name]: value });
-    };
+    handleInputChange = (name, value) => this.setState({ [name]: value });
 
     handleSubmit = e => {
         e.preventDefault();
-
+        const { postLogin } = this.props;
         const { email, password } = this.state;
-        this.props.postLogin(email, password);
+        postLogin(email, password);
     };
 
     componentDidUpdate = prevProps => {
-        const { postSuccess, history } = this.props;
+        const {
+            postSuccess,
+            history,
+            addFieldError,
+            showFieldErrors
+        } = this.props;
 
         if (postSuccess && !prevProps.postSuccess) {
-            authenticate().then(({ isSuperAdmin }) => {
-                history.push(isSuperAdmin ? '/admin' : '/company');
+            authenticate().then(({ isSuperAdmin, companyUserType }) => {
+                if (+companyUserType === COMPANY_USER_ROLE_TYPES.OPERATIVE) {
+                    localStorage.removeItem('token');
+                    addFieldError(
+                        'password',
+                        'Operatives logins are not permitted to use the desktop site.'
+                    );
+                    showFieldErrors();
+                } else history.push(isSuperAdmin ? '/admin' : '/company');
             });
         }
     };
@@ -46,9 +57,9 @@ class LoginFormContainer extends Component {
 const mapStateToProps = ({ shared: { loginReducer } }) => loginReducer;
 
 const mapDispatchToProps = dispatch => ({
-    postLogin: (email, password) => {
-        dispatch(postLogin(email, password));
-    }
+    postLogin: (email, password) => dispatch(postLogin(email, password)),
+    addFieldError: (field, error) => dispatch(addFieldError(field, error)),
+    showFieldErrors: () => dispatch(showFieldErrors())
 });
 
 export default withRouter(

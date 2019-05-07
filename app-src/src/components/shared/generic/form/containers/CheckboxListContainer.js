@@ -14,7 +14,6 @@ class CheckboxListContainer extends Component {
         const { showFieldError } = this.state;
         const {
             options,
-            handleChange,
             error,
             errorsVisible,
             selectedOptions,
@@ -22,12 +21,11 @@ class CheckboxListContainer extends Component {
         } = this.props;
 
         const errorMessage = showFieldError || errorsVisible ? error : null;
-
         return (
             <CheckboxList
                 selectedOptions={selectedOptions}
                 options={options}
-                handleChange={handleChange}
+                handleChange={this.handleChange}
                 error={errorMessage}
                 name={name}
             />
@@ -46,7 +44,7 @@ class CheckboxListContainer extends Component {
         }
     };
 
-    handleChange = ({ target: { name, value } }) => {
+    handleChange = (name, _, value) => {
         const { selectedOptions, handleChange } = this.props;
         const updatedValues = selectedOptions.includes(value)
             ? selectedOptions.filter(val => value !== val)

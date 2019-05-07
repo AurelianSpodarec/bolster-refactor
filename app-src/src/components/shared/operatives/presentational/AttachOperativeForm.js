@@ -15,8 +15,7 @@ const AttachOperativeForm = ({
     selectedUser,
     serviceOptions,
     checkedServices,
-    handleChange,
-    handleMultiselectChange
+    handleChange
 }) => (
     <>
         <BlockHeading title="Operative details" />
@@ -36,7 +35,7 @@ const AttachOperativeForm = ({
                 <CheckboxListContainer
                     required
                     name="serviceIDs"
-                    handleChange={handleMultiselectChange}
+                    handleChange={handleChange}
                     options={serviceOptions}
                     selectedOptions={checkedServices}
                 />

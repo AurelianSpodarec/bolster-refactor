@@ -28,7 +28,6 @@ export function authenticate() {
         const decoded = jwtDecode(token);
         const isExpired = decoded.exp < new Date().valueOf() / 1000;
         if (isExpired) reject('Expired token.');
-
         resolve(formatJWTData(decoded));
     });
 }
