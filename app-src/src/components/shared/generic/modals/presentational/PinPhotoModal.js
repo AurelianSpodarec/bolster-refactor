@@ -1,8 +1,7 @@
 import React from 'react';
-import image from '_content/images/examples/pipe.jpg';
 import ModalOuterContainer from '../containers/ModalOuterContainer';
 
-const PinPhotoModal = () => (
+const PinPhotoModal = ({ image }) => (
     <ModalOuterContainer>
         <img alt="pin" src={image} />
     </ModalOuterContainer>
