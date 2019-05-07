@@ -12,9 +12,7 @@ class SignatureContainer extends Component {
     render() {
         const { showFieldError } = this.state;
         const { name, error, errorsVisible, canvasProps } = this.props;
-
-        let errorMessage;
-        if (showFieldError || errorsVisible) errorMessage = error;
+        const errorMessage = showFieldError || errorsVisible ? error : null;
 
         return (
             <Signature
@@ -28,9 +26,7 @@ class SignatureContainer extends Component {
         );
     }
 
-    componentDidMount = () => {
-        this._validate('');
-    };
+    componentDidMount = () => this._validate('');
 
     componentDidUpdate = () => {
         const { value } = this.props;
@@ -80,12 +76,8 @@ const mapStateToProps = ({ shared: { fieldErrorsReducer } }, ownProps) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    addFieldError: (fieldName, error) => {
-        dispatch(addFieldError(fieldName, error));
-    },
-    removeFieldError: fieldName => {
-        dispatch(removeFieldError(fieldName));
-    }
+    addFieldError: (name, error) => dispatch(addFieldError(name, error)),
+    removeFieldError: name => dispatch(removeFieldError(name))
 });
 
 export default connect(

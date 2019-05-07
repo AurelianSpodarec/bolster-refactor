@@ -24,10 +24,7 @@ class Form extends Component {
     componentDidMount = () => {
         this.props.clearFieldErrors();
 
-        this.setState({
-            ...this.state,
-            isFieldErrorsCleared: true
-        });
+        this.setState({ isFieldErrorsCleared: true });
     };
 
     componentDidUpdate = () => {
@@ -68,18 +65,18 @@ class Form extends Component {
     };
 }
 
-const mapStateToProps = ({ shared: { fieldErrorsReducer } }) => ({
-    fieldErrors: fieldErrorsReducer.fieldErrors,
-    errorsVisible: fieldErrorsReducer.errorsVisible
+const mapStateToProps = ({
+    shared: {
+        fieldErrorsReducer: { fieldErrors, errorsVisible }
+    }
+}) => ({
+    fieldErrors: fieldErrors,
+    errorsVisible: errorsVisible
 });
 
 const mapDispatchToProps = dispatch => ({
-    clearFieldErrors: () => {
-        dispatch(clearFieldErrors());
-    },
-    showFieldErrors: () => {
-        dispatch(showFieldErrors());
-    }
+    clearFieldErrors: () => dispatch(clearFieldErrors()),
+    showFieldErrors: () => dispatch(showFieldErrors())
 });
 
 export default connect(

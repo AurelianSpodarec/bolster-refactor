@@ -33,14 +33,10 @@ class RadioButtonListContainer extends Component {
         );
     }
 
-    handleChange = ({ target: { name, value } }) => {
-        const { handleChange } = this.props;
-        handleChange(name, value);
-    };
+    handleChange = ({ target: { name, value } }) =>
+        this.props.handleChange(name, value);
 
-    componentDidMount = () => {
-        this._validate();
-    };
+    componentDidMount = () => this._validate();
 
     componentDidUpdate = ({ selectedOption: prevCheckedValue }) => {
         const { selectedOption } = this.props;
@@ -69,18 +65,21 @@ class RadioButtonListContainer extends Component {
     };
 }
 
-const mapStateToProps = ({ shared: { fieldErrorsReducer } }, ownProps) => ({
-    error: fieldErrorsReducer.fieldErrors[ownProps.name],
-    errorsVisible: fieldErrorsReducer.errorsVisible
+const mapStateToProps = (
+    {
+        shared: {
+            fieldErrorsReducer: { fieldErrors, errorsVisible }
+        }
+    },
+    { name }
+) => ({
+    error: fieldErrors[name],
+    errorsVisible: errorsVisible
 });
 
 const mapDispatchToProps = dispatch => ({
-    addFieldError: (fieldName, error) => {
-        dispatch(addFieldError(fieldName, error));
-    },
-    removeFieldError: fieldName => {
-        dispatch(removeFieldError(fieldName));
-    }
+    addFieldError: (name, error) => dispatch(addFieldError(name, error)),
+    removeFieldError: name => dispatch(removeFieldError(name))
 });
 
 export default connect(

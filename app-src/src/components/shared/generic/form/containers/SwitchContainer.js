@@ -1,35 +1,29 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Switch from '../presentational/Switch';
 
-export default class SwitchContainer extends Component {
-    render() {
-        const {
-            checked,
-            disabled = false,
-            handleChange,
-            value,
-            name,
-            text
-        } = this.props;
-        return (
-            <Switch
-                checked={checked}
-                disabled={disabled}
-                handleChange={handleChange}
-                handleBlur={this.handleBlur}
-                name={name}
-                text={text}
-                value={value}
-            />
-        );
+const SwitchContainer = ({
+    checked,
+    disabled = false,
+    handleChange,
+    value,
+    name,
+    text
+}) => {
+    return (
+        <Switch
+            checked={checked}
+            disabled={disabled}
+            handleChange={handleSwitchChange}
+            handleBlur={this.handleBlur}
+            name={name}
+            text={text}
+            value={value}
+        />
+    );
+
+    function handleSwitchChange({ target: { name, value } }) {
+        handleChange(name, value);
     }
+};
 
-    handleBlur = () => {
-        this.setState({ showFieldError: true });
-    };
-
-    handleChange = ({ target: { name, value } }) => {
-        this.props.handleChange(name, value);
-        // this._validate(e.target.value);
-    };
-}
+export default SwitchContainer;

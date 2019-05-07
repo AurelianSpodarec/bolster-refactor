@@ -20,8 +20,9 @@ class CheckboxListContainer extends Component {
             selectedOptions,
             name
         } = this.props;
-        let errorMessage;
-        if (showFieldError || errorsVisible) errorMessage = error;
+
+        const errorMessage = showFieldError || errorsVisible ? error : null;
+
         return (
             <CheckboxList
                 selectedOptions={selectedOptions}
@@ -33,9 +34,7 @@ class CheckboxListContainer extends Component {
         );
     }
 
-    componentDidMount = () => {
-        this._validate();
-    };
+    componentDidMount = () => this._validate();
 
     componentDidUpdate = ({ selectedOptions: prevCheckedValues }) => {
         const { selectedOptions } = this.props;
@@ -68,24 +67,25 @@ class CheckboxListContainer extends Component {
 
         if (required && !selectedOptions.length) {
             addFieldError(name, requiredMessage || 'This is a required field.');
-        } else if (error) {
-            removeFieldError(name);
-        }
+        } else if (error) removeFieldError(name);
     };
 }
 
-const mapStateToProps = ({ shared: { fieldErrorsReducer } }, ownProps) => ({
-    error: fieldErrorsReducer.fieldErrors[ownProps.name],
-    errorsVisible: fieldErrorsReducer.errorsVisible
+const mapStateToProps = (
+    {
+        shared: {
+            fieldErrorsReducer: { fieldErrors, errorsVisible }
+        }
+    },
+    ownProps
+) => ({
+    error: fieldErrors[ownProps.name],
+    errorsVisible
 });
 
 const mapDispatchToProps = dispatch => ({
-    addFieldError: (fieldName, error) => {
-        dispatch(addFieldError(fieldName, error));
-    },
-    removeFieldError: fieldName => {
-        dispatch(removeFieldError(fieldName));
-    }
+    addFieldError: (name, error) => dispatch(addFieldError(name, error)),
+    removeFieldError: name => dispatch(removeFieldError(name))
 });
 
 export default connect(

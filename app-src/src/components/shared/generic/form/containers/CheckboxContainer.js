@@ -38,9 +38,7 @@ class CheckboxContainer extends Component {
             />
         );
     }
-    componentDidMount = () => {
-        this._validate();
-    };
+    componentDidMount = () => this._validate();
 
     componentDidUpdate = ({ checked: prevChecked }) => {
         if (this.props.checked !== prevChecked) this._validate();
@@ -51,9 +49,8 @@ class CheckboxContainer extends Component {
         if (error) removeFieldError(name);
     };
 
-    handleChange = ({ target: { name, checked } }) => {
+    handleChange = ({ target: { name, checked } }) =>
         this.props.handleChange(name, checked);
-    };
 
     _validate() {
         const {

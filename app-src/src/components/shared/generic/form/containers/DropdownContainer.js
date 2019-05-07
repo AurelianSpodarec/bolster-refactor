@@ -5,6 +5,7 @@ import addFieldError from 'actions/shared/generic/fieldErrors/sync/addFieldError
 import removeFieldError from 'actions/shared/generic/fieldErrors/sync/removeFieldError';
 
 import Dropdown from '../presentational/Dropdown';
+import { EMAIL_REGEX } from 'helpers/regex';
 
 class DropdownContainer extends Component {
     state = {
@@ -97,12 +98,7 @@ class DropdownContainer extends Component {
         }
     };
 
-    _valdateEmail = value => {
-        //eslint-disable-next-line
-        var regEx = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
-
-        return regEx.test(value);
-    };
+    _valdateEmail = value => EMAIL_REGEX.test(value);
 }
 
 const mapStateToProps = ({ shared: { fieldErrorsReducer } }, ownProps) => ({
@@ -111,12 +107,8 @@ const mapStateToProps = ({ shared: { fieldErrorsReducer } }, ownProps) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    addFieldError: (fieldName, error) => {
-        dispatch(addFieldError(fieldName, error));
-    },
-    removeFieldError: fieldName => {
-        dispatch(removeFieldError(fieldName));
-    }
+    addFieldError: (name, error) => dispatch(addFieldError(name, error)),
+    removeFieldError: name => dispatch(removeFieldError(name))
 });
 
 export default connect(

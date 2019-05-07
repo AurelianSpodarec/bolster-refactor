@@ -21,9 +21,7 @@ class TextAreaContainer extends Component {
             errorsVisible,
             charLimit
         } = this.props;
-
-        let errorMessage;
-        if (showFieldError || errorsVisible) errorMessage = error;
+        const errorMessage = showFieldError || errorsVisible ? error : null;
 
         return (
             <TextArea
@@ -38,9 +36,7 @@ class TextAreaContainer extends Component {
         );
     }
 
-    componentDidMount = () => {
-        this._validate(this.props.value);
-    };
+    componentDidMount = () => this._validate(this.props.value);
 
     componentDidUpdate = ({ value: prevValue }) => {
         const { value } = this.props;
@@ -52,15 +48,10 @@ class TextAreaContainer extends Component {
         if (error) removeFieldError(name);
     };
 
-    handleChange = ({ target: { name, value } }) => {
+    handleChange = ({ target: { name, value } }) =>
         this.props.handleChange(name, value);
-    };
 
-    handleBlur = () => {
-        this.setState({
-            showFieldError: true
-        });
-    };
+    handleBlur = () => this.setState({ showFieldError: true });
 
     _validate = value => {
         const {
@@ -89,12 +80,8 @@ const mapStateToProps = ({ shared: { fieldErrorsReducer } }, ownProps) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    addFieldError: (fieldName, error) => {
-        dispatch(addFieldError(fieldName, error));
-    },
-    removeFieldError: fieldName => {
-        dispatch(removeFieldError(fieldName));
-    }
+    addFieldError: (name, error) => dispatch(addFieldError(name, error)),
+    removeFieldError: name => dispatch(removeFieldError(name))
 });
 
 export default connect(

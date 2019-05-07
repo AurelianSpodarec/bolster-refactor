@@ -5,6 +5,7 @@ import addFieldError from 'actions/shared/generic/fieldErrors/sync/addFieldError
 import removeFieldError from 'actions/shared/generic/fieldErrors/sync/removeFieldError';
 
 import TextInput from '../presentational/TextInput';
+import { EMAIL_REGEX } from 'helpers/regex';
 
 class TextInputContainer extends Component {
     state = {
@@ -92,12 +93,7 @@ class TextInputContainer extends Component {
         }
     };
 
-    _valdateEmail = value => {
-        //eslint-disable-next-line
-        const regEx = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
-
-        return regEx.test(value);
-    };
+    _valdateEmail = value => EMAIL_REGEX.test(value);
 }
 
 const mapStateToProps = ({ shared: { fieldErrorsReducer } }, ownProps) => ({
