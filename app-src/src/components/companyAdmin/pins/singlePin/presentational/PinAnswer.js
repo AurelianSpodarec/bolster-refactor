@@ -45,7 +45,7 @@ const PinAnswer = ({
             relevantOptions = options.filter(({ id }) =>
                 curAnswer.answer.includes(id)
             );
-            return relevantOptions.map(({ text }) => text).join(', ');
+            return <p>{relevantOptions.map(({ text }) => text).join(', ')}</p>;
         case TYPES.CHECKBOX:
             return <p>{curAnswer.answer ? 'Yes' : 'No'}</p>;
         case TYPES.SIGNATURE:
