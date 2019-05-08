@@ -50,8 +50,9 @@ class FileUploadContainer extends Component {
     };
 
     componentWillUnmount = () => {
-        const { name, removeFieldError } = this.props;
+        const { name, removeFieldError, fileUploadFinish } = this.props;
         removeFieldError(name);
+        fileUploadFinish();
     };
 
     componentDidUpdate = ({ value: prevValue }) => {

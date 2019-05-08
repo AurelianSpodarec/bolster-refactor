@@ -25,8 +25,8 @@ const FileUpload = ({
             allowMultiple
             maxFiles={maxFiles}
             server={serverOptions}
-            onaddfilestart={file => handleFileUploadStart(file)}
-            onprocessfile={file => handleFileUploadFinish(file)}
+            onaddfilestart={handleFileUploadStart}
+            onprocessfile={handleFileUploadFinish}
             ref={updateRef}
         />
         {!!(error && error.length) && (
