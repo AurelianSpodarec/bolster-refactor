@@ -14,56 +14,50 @@ const PinAnswer = ({
     status,
     dispatch
 }) => {
-    let contentDisplay = '';
     let relevantQuestion;
     let relevantOption;
     let relevantOptions;
-    const tmpAnswer = answers.filter(item => +item.id === +trimmedAnswer.id);
+    let curAnswer = answers.find(item => +item.id === +trimmedAnswer.id);
     const notFoundResponse = <p>Not Found</p>;
-
-    if (!tmpAnswer || !tmpAnswer.length) return notFoundResponse;
-
-    const curAnswer = tmpAnswer[0];
 
     switch (type) {
         case TYPES.SINGLE_LINE:
         case TYPES.MULTI_LINE:
         case TYPES.NUMBER:
-            contentDisplay = curAnswer.answer;
-            return <p>{contentDisplay}</p>;
+            return <p>{curAnswer.answer}</p>;
         case TYPES.DROPDOWN:
         case TYPES.RADIO:
-            relevantQuestion = questions.filter(
-                item => +item.id === +curAnswer.templateQuestionID
-            )[0];
+            relevantQuestion = questions.find(
+                ({ id }) => +id === +curAnswer.templateQuestionID
+            );
             if (!relevantQuestion) return notFoundResponse;
 
-            relevantOption = relevantQuestion.options.filter(
-                option => option.id === curAnswer.answer
-            )[0];
+            relevantOption = relevantQuestion.options.find(
+                ({ id }) => id === curAnswer.answer
+            );
             if (!relevantOption) return notFoundResponse;
 
-            contentDisplay = relevantOption.text;
-            return <p>{contentDisplay}</p>;
+            return <p>{relevantOption.text}</p>;
         case TYPES.MULTI_DROPDOWN:
-            relevantQuestion = questions.filter(
+            var { options } = questions.find(
                 item => +item.id === curAnswer.templateQuestionID
-            )[0];
-
-            relevantOptions = relevantQuestion.options.filter(({ id }) =>
+            );
+            relevantOptions = options.filter(({ id }) =>
                 curAnswer.answer.includes(id)
             );
-            contentDisplay = relevantOptions.join(', ');
-            return <p>{contentDisplay}</p>;
+            return <p>{relevantOptions.map(({ text }) => text).join(', ')}</p>;
         case TYPES.CHECKBOX:
-            contentDisplay = curAnswer.answer ? 'Yes' : 'No';
-            return <p>{contentDisplay}</p>;
+            return <p>{curAnswer.answer ? 'Yes' : 'No'}</p>;
         case TYPES.SIGNATURE:
-            contentDisplay = <img alt="signature" src={curAnswer.answer} />;
-            return <p>{contentDisplay}</p>;
+            return (
+                <img
+                    className="signature"
+                    alt=""
+                    src={`data: image/jpeg;base64, ${curAnswer.answer}`}
+                />
+            );
         case TYPES.SINGLE_PHOTO:
-            contentDisplay = curAnswer.answer;
-            var URL = `${FILE_STORAGE_URL}/${contentDisplay}`;
+            var URL = `${FILE_STORAGE_URL}/${curAnswer.answer}`;
             return (
                 <img
                     alt=""
@@ -90,10 +84,8 @@ const PinAnswer = ({
         case TYPES.STATUS:
             return <p>{PIN_STATUS_TYPES[status]}</p>;
         default:
-            contentDisplay = curAnswer.answer;
+            return notFoundResponse;
     }
-
-    return notFoundResponse;
 };
 
 export default connect()(PinAnswer);

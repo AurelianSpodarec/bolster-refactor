@@ -644,17 +644,21 @@ input {
             float: left;
             width: 100%;
             max-height: 61px;
-            padding: 10px 50px 10px 15px;
+            padding: 5px 50px 5px 15px;
             cursor: pointer;
 
             img {
                 float: left;
-                width: 41px;
+                width: 50px;
+                height: 50px;
+                overflow: hidden;
                 margin-right: 15px;
+                border: 1px solid black;
                 @include rounded-all(50%);
             }
 
             .text {
+                margin: 5px 0;
                 float: left;
 
                 p {
@@ -1313,14 +1317,27 @@ input {
     }
 
     img {
-        max-width: 50px;
+        max-width: 75px;
         margin: 0 5px;
+        border: 1px solid black;
+
+        &.signature {
+            width: 25em;
+            height: 15em;
+            max-width: 500px;
+            margin: 1em 0;
+            padding: 0.5em;
+            border-radius: 0.5em;
+        }
     }
 
     .profile-pic-field {
         img {
+            width: 75px;
+            height: 75px;
+            overflow: hidden;
             border-radius: 50%;
-            width: 41px;
+            width: 10em;
             margin-top: 5px;
         }
     }

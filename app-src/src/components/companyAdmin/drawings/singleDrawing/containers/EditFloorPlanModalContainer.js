@@ -13,13 +13,13 @@ class EditFloorPlanModalContainer extends Component {
     };
 
     render() {
-        const { drawing, filesUploading } = this.props;
+        const { drawing, filesUploading, hideModal } = this.props;
         return (
             <EditFloorPlanModal
                 {...this.state}
                 drawing={drawing}
                 handleChange={this.handleChange}
-                hideModal={this.hideModal}
+                hideModal={hideModal}
                 handleSubmit={this.handleSubmit}
                 filesUploading={filesUploading}
             />
@@ -29,13 +29,8 @@ class EditFloorPlanModalContainer extends Component {
     componentDidUpdate = prevProps => {
         const { postSuccess, error, hideModal } = this.props;
 
-        if (!prevProps.postSuccess && postSuccess) {
-            return hideModal();
-        }
-
-        if (!prevProps.error && error) {
-            return this.showErrorModal();
-        }
+        if (!prevProps.postSuccess && postSuccess) return hideModal();
+        else if (!prevProps.error && error) return this.showErrorModal();
     };
 
     handleChange = (name, val) => {
@@ -48,23 +43,10 @@ class EditFloorPlanModalContainer extends Component {
 
         const { file } = this.state;
         const { updateFloorPlan, drawing, filesUploading } = this.props;
-
-        if (!filesUploading) {
-            updateFloorPlan(drawing.id, { file });
-        }
+        if (!filesUploading) updateFloorPlan(drawing.id, { file });
     };
 
-    hideModal = e => {
-        e.preventDefault();
-
-        const { hideModal } = this.props;
-        hideModal();
-    };
-
-    showErrorModal = () => {
-        const { showModal } = this.props;
-        showModal(ERROR_MODAL);
-    };
+    showErrorModal = () => this.props.showModal(ERROR_MODAL);
 }
 
 const mapStateToProps = ({
@@ -77,15 +59,9 @@ const mapStateToProps = ({
 }) => ({ error, postSuccess, filesUploading });
 
 const mapDispatchToProps = dispatch => ({
-    hideModal: () => {
-        dispatch(hideModal());
-    },
-    showModal: (modalType, modalProps) => {
-        dispatch(showModal(modalType, modalProps));
-    },
-    updateFloorPlan: (drawingID, postBody) => {
-        dispatch(updateFloorPlan(drawingID, postBody));
-    }
+    hideModal: () => dispatch(hideModal()),
+    showModal: (type, props) => dispatch(showModal(type, props)),
+    updateFloorPlan: (id, body) => dispatch(updateFloorPlan(id, body))
 });
 
 export default connect(
