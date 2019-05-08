@@ -10,6 +10,7 @@ const AddDropdownOptionForm = ({
     handleSubmit,
     handleInputChange,
     hideModal,
+    buttonText,
     name
 }) => (
     <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
@@ -28,7 +29,7 @@ const AddDropdownOptionForm = ({
 
         <BlockButtonWrapper>
             <button className="button green">
-                <i className="fa fa-plus" /> Add Dropdown Option
+                <i className="fa fa-plus" /> {buttonText}
             </button>
             <ButtonContainer handleClick={hideModal}>Cancel</ButtonContainer>
         </BlockButtonWrapper>

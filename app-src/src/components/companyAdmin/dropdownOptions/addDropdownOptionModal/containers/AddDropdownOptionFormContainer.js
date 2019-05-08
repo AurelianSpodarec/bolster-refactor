@@ -18,6 +18,7 @@ class AddDropdownOptionFormContainer extends Component {
                 handleInputChange={this.handleInputChange}
                 handleSubmit={this.handleSubmit}
                 hideModal={this.props.hideModal}
+                buttonText={this.props.buttonText}
             />
         );
     }

@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { DROPDOWN_OPTIONS } from 'constants/companyAdmin/enums';
+
 import Table from 'components/shared/generic/tables/presentational/Table';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
@@ -11,13 +13,15 @@ const DropdownOptionsTable = ({
     dropdownOptions,
     isFetching,
     error,
-    title
+    title,
+    type
 }) => {
     return (
         <BlockContainer>
             <BlockHeading title={title}>
                 <button className="button green" onClick={handleAddOptionModal}>
-                    <i className="fa fa-plus" /> {`Add ${title}`}
+                    <i className="fa fa-plus" />{' '}
+                    {`Add ${DROPDOWN_OPTIONS[type].singular}`}
                 </button>
             </BlockHeading>
             <Table
@@ -26,7 +30,7 @@ const DropdownOptionsTable = ({
                 isFetching={isFetching}
                 error={error}
                 noData={!dropdownOptions.length}
-                noDataMessage="No dropdown options to display"
+                noDataMessage={`No ${DROPDOWN_OPTIONS[type].name} To Display.`}
                 extraClasses="large"
             >
                 <DropdownOptionsList
