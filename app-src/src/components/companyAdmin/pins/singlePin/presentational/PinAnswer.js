@@ -20,6 +20,7 @@ const PinAnswer = ({
     let curAnswer = answers.find(item => +item.id === +trimmedAnswer.id);
     const notFoundResponse = <p>Not Found</p>;
 
+    if (!curAnswer) return notFoundResponse;
     switch (type) {
         case TYPES.SINGLE_LINE:
         case TYPES.MULTI_LINE:
@@ -52,7 +53,7 @@ const PinAnswer = ({
             return (
                 <img
                     className="signature"
-                    alt=""
+                    alt="signature"
                     src={`data: image/jpeg;base64, ${curAnswer.answer}`}
                 />
             );
@@ -68,11 +69,11 @@ const PinAnswer = ({
                 />
             );
         case TYPES.MULTI_PHOTO:
-            return curAnswer.answer.map(item => {
+            return curAnswer.answer.map((item, i) => {
                 var URL = `${FILE_STORAGE_URL}/${item}`;
                 return (
                     <img
-                        alt=""
+                        alt={`${i + 1} of ${curAnswer.answer.length}`}
                         key={item}
                         src={URL + '?width=100'}
                         onClick={() =>
