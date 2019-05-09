@@ -45,10 +45,7 @@ class AttachOperativesFormContainer extends Component {
         );
     }
 
-    componentDidMount() {
-        const { fetchCompanyUsers } = this.props;
-        fetchCompanyUsers();
-    }
+    componentDidMount = () => this.props.fetchCompanyUsers();
 
     componentDidUpdate = prevProps => {
         const { postSuccess, history, redirectUrl } = this.props;
@@ -77,13 +74,7 @@ class AttachOperativesFormContainer extends Component {
         }));
     };
 
-    handleChange = (name, value) => {
-        this.setState({ [name]: value });
-    };
-
-    handleMultiselect = (name, value) => {
-        this.setState({ [name]: value });
-    };
+    handleChange = (name, value) => this.setState({ [name]: value });
 
     handleSubmit = () => {
         const { companyUserID, serviceIDs } = this.state;
@@ -126,7 +117,7 @@ const mapStateToProps = (
     error: error || opsError,
     postSuccess,
     drawingUserIDs: Object.values(operatives).map(
-        operative => operative.companyUserID
+        ({ companyUserID }) => companyUserID
     )
 });
 
@@ -136,9 +127,7 @@ const mapDispatchToProps = dispatch => ({
             addOperative(HIERARCHY_TYPES[hierarchyType], hierarchyID, postBody)
         );
     },
-    fetchCompanyUsers: () => {
-        dispatch(fetchCompanyUsers());
-    }
+    fetchCompanyUsers: () => dispatch(fetchCompanyUsers())
 });
 
 export default withRouter(

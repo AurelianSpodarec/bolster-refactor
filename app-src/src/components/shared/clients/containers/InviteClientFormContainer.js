@@ -23,7 +23,7 @@ class InviteClientFormContainer extends Component {
             <BlockContainer>
                 <InviteClientForm
                     {...this.state}
-                    serviceOptions={this._getServiceOptions()}
+                    serviceOptions={this._getServicesOptions()}
                     checkedServices={serviceIDs}
                     handleChange={this.handleChange}
                     handleSubmit={this.handleSubmit}
