@@ -7,6 +7,7 @@ import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import editTemplateQuestion from 'actions/companyAdmin/templates/async/editTemplateQuestion';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { ERROR_MODAL } from 'constants/shared/modalTypes';
+import { removeObjItem, updateObj } from 'helpers/generic';
 
 class EditTemplateQuestionModalContainer extends Component {
     state = {
@@ -40,23 +41,16 @@ class EditTemplateQuestionModalContainer extends Component {
         if (postFailure && !prevProps.postFailure) showModal(ERROR_MODAL);
     };
 
-    handleChange = (value, name) => {
-        this.setState({
-            options: { ...this.state.options, [name]: value }
-        });
+    handleChange = (name, value) => {
+        this.setState({ options: updateObj(this.state.options, name, value) });
     };
 
-    handleRemoveOption = ({ target: { value } }) => {
-        const {
-            // eslint-disable-next-line no-unused-vars
-            options: { [value]: removed, ...options }
-        } = this.state;
-        this.setState({ options });
+    handleRemoveOption = key => {
+        this.setState({ options: removeObjItem(this.state.options, key) });
     };
 
     handleAddOption = () => {
-        const options = { ...this.state.options, [uuid()]: '' };
-        this.setState({ options });
+        this.setState({ options: updateObj(this.state.options, uuid(), '') });
     };
 
     handleSubmit = e => {
