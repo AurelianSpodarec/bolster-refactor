@@ -75,8 +75,7 @@ const mapStateToProps = ({
 const mapDispatchToProps = dispatch => ({
     hideModal: () => dispatch(hideModal()),
     showModal: (type, props) => dispatch(showModal(type, props)),
-    editTemplateQuestion: (id, postBody) =>
-        dispatch(editTemplateQuestion(id, postBody))
+    editTemplateQuestion: (id, body) => dispatch(editTemplateQuestion(id, body))
 });
 
 export default connect(

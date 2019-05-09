@@ -9,20 +9,17 @@ const SuccessModalContainer = ({
     message,
     link = '',
     linkMessage = ''
-}) =>
-    console.log(hideModal, message, linkMessage, link) || (
-        <SuccessModal
-            hideModal={hideModal}
-            message={message}
-            link={link}
-            linkMessage={linkMessage}
-        />
-    );
+}) => (
+    <SuccessModal
+        hideModal={hideModal}
+        message={message}
+        link={link}
+        linkMessage={linkMessage}
+    />
+);
 
 const mapDispatchToProps = dispatch => ({
-    hideModal: () => {
-        dispatch(hideModal());
-    }
+    hideModal: () => dispatch(hideModal())
 });
 
 export default connect(
