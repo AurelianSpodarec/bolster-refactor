@@ -63,10 +63,13 @@ class TemplateQuestionModalContainer extends Component {
         } = this.props;
 
         const options = questions
-            .filter(q => q.templateUUID === templateUUID)
-            .filter(q => PREREQ_TYPES.includes(q.questionType + ''))
-            .filter(q => q.uuid !== uuid)
-            .filter(q => q.prereqUUID !== uuid)
+            .filter(
+                q =>
+                    q.templateUUID === templateUUID &&
+                    PREREQ_TYPES.includes(q.questionType + '') &&
+                    q.uuid !== uuid &&
+                    q.prereqUUID !== uuid
+            )
             .map(q => ({ value: q.uuid, text: q.name }));
 
         return convertArrToObj(options, 'value');
