@@ -18,16 +18,14 @@ class InviteClientFormContainer extends Component {
 
     render() {
         const { serviceIDs } = this.state;
-        const serviceOptions = this._getServicesOptions();
 
         return (
             <BlockContainer>
                 <InviteClientForm
                     {...this.state}
-                    serviceOptions={serviceOptions}
+                    serviceOptions={this._getServiceOptions()}
                     checkedServices={serviceIDs}
                     handleChange={this.handleChange}
-                    handleMultiselectChange={this.handleMultiselectChange}
                     handleSubmit={this.handleSubmit}
                 />
             </BlockContainer>
@@ -51,13 +49,7 @@ class InviteClientFormContainer extends Component {
         }));
     };
 
-    handleMultiselect = (name, value) => {
-        this.setState({ [name]: value });
-    };
-
-    handleChange = (name, value) => {
-        this.setState({ [name]: value });
-    };
+    handleChange = (name, value) => this.setState({ [name]: value });
 
     handleSubmit = () => {
         const {
@@ -94,9 +86,8 @@ const mapStateToProps = (
 });
 
 const mapDispatchToProps = dispatch => ({
-    addClient: (hierarchyType, hierarchyID, postBody) => {
-        dispatch(addClient(hierarchyType, hierarchyID, postBody));
-    }
+    addClient: (hierarchyType, hierarchyID, postBody) =>
+        dispatch(addClient(hierarchyType, hierarchyID, postBody))
 });
 
 export default withRouter(

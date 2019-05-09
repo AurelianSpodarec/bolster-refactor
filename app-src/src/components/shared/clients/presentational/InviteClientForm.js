@@ -15,7 +15,6 @@ const InviteClientForm = ({
     serviceOptions,
     checkedServices,
     handleChange,
-    handleMultiselectChange,
     firstName,
     lastName,
     email,
@@ -84,7 +83,7 @@ const InviteClientForm = ({
                 <CheckboxListContainer
                     required
                     name="serviceIDs"
-                    handleChange={handleMultiselectChange}
+                    handleChange={handleChange}
                     options={serviceOptions}
                     selectedOptions={checkedServices}
                 />

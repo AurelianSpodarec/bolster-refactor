@@ -20,10 +20,6 @@ import CheckboxContainer from 'components/shared/generic/form/containers/Checkbo
 
 const EditDocumentForm = ({
     handleInputChange,
-    handleFileChange,
-    handleRadioChange,
-    handleCheckboxChange,
-    handleMultiselectChange,
     handleSubmit,
     handleDateChange,
     handleHide,
@@ -69,7 +65,7 @@ const EditDocumentForm = ({
                         checked={type === '1' ? true : false}
                         text={DOCUMENT_TYPE[1]}
                         value="1"
-                        handleInputChange={handleRadioChange}
+                        handleInputChange={handleInputChange}
                     />
 
                     <RadioButton
@@ -77,7 +73,7 @@ const EditDocumentForm = ({
                         checked={type === '2' ? true : false}
                         text={DOCUMENT_TYPE[2]}
                         value="2"
-                        handleInputChange={handleRadioChange}
+                        handleInputChange={handleInputChange}
                     />
 
                     <RadioButton
@@ -85,7 +81,7 @@ const EditDocumentForm = ({
                         checked={type === '3' ? true : false}
                         text={DOCUMENT_TYPE[3]}
                         value="3"
-                        handleInputChange={handleRadioChange}
+                        handleInputChange={handleInputChange}
                     />
                 </Field>
                 <Field name="Name of document" sizeClasses="size-lg-4" required>
@@ -117,7 +113,7 @@ const EditDocumentForm = ({
                                         'application/pdf',
                                         'image/*'
                                     ]}
-                                    handleChange={handleFileChange}
+                                    handleChange={handleInputChange}
                                     required
                                 />
                                 <ButtonContainer
@@ -141,7 +137,7 @@ const EditDocumentForm = ({
                         <CheckboxListContainer
                             required
                             name="serviceIDs"
-                            handleChange={handleMultiselectChange}
+                            handleChange={handleInputChange}
                             options={services}
                             selectedOptions={serviceIDs}
                             requiredMessage="Please select at least one service."
@@ -156,25 +152,25 @@ const EditDocumentForm = ({
                                     name="isPhotoRequired"
                                     text="Requires photo"
                                     checked={isPhotoRequired}
-                                    handleChange={handleCheckboxChange}
+                                    handleChange={handleInputChange}
                                 />
                                 <CheckboxContainer
                                     name="isFileViewRequired"
                                     text="Requires file view"
                                     checked={isFileViewRequired}
-                                    handleChange={handleCheckboxChange}
+                                    handleChange={handleInputChange}
                                 />
                                 <CheckboxContainer
                                     name="isSignatureRequired"
                                     text="Requires signature"
                                     checked={isSignatureRequired}
-                                    handleChange={handleCheckboxChange}
+                                    handleChange={handleInputChange}
                                 />
                                 <CheckboxContainer
                                     name="isUpsyncForced"
                                     text="Force upsync to continue"
                                     checked={isUpsyncForced}
-                                    handleChange={handleCheckboxChange}
+                                    handleChange={handleInputChange}
                                 />
                             </div>
                         </Field>

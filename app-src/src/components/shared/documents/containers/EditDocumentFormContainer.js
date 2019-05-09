@@ -39,11 +39,7 @@ class EditDocumentFormContainer extends Component {
                 services={serviceOptions}
                 handleInputChange={this.handleInputChange}
                 handleSubmit={this.handleSubmit}
-                handleRadioChange={this.handleRadioChange}
-                handleCheckboxChange={this.handleCheckboxChange}
                 handleCancelUpload={this.handleCancelUpload}
-                handleMultiselectChange={this.handleMultiselectChange}
-                handleFileChange={this.handleFileChange}
                 handleDateChange={this.handleDateChange}
                 handleHide={this.handleHide}
                 validateDatePicker={this.validateDatePicker}
@@ -124,34 +120,13 @@ class EditDocumentFormContainer extends Component {
             isFileViewHidden: false
         });
     };
-    handleRadioChange = e => {
-        const { name, value } = e.target;
-        this.setState({ [name]: value });
-    };
 
-    handleInputChange = (name, value) => {
-        this.setState({ [name]: value });
-    };
-
-    handleFileChange = (name, file) => {
-        this.setState({ [name]: file });
-    };
+    handleInputChange = (name, value) => this.setState({ [name]: value });
 
     handleDateChange = (date, name) => {
         this.setState({
             [name]: date
         });
-    };
-
-    handleMultiselect = (name, value) => {
-        this.setState({ [name]: value });
-    };
-
-    handleCheckboxChange = e => {
-        const { name } = e.target;
-        this.setState(prevState => ({
-            [name]: !prevState[name]
-        }));
     };
 
     handleSubmit = e => {
@@ -212,12 +187,8 @@ const mapStateToProps = (
 });
 
 const mapDispatchToProps = dispatch => ({
-    fetchSingleDocument: ID => {
-        dispatch(fetchSingleDocument(ID));
-    },
-    editDocument: (documentID, postBody) => {
-        dispatch(editDocument(documentID, postBody));
-    }
+    fetchSingleDocument: ID => dispatch(fetchSingleDocument(ID)),
+    editDocument: (id, postBody) => dispatch(editDocument(id, postBody))
 });
 
 export default withRouter(

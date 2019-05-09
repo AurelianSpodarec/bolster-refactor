@@ -64,33 +64,20 @@ class AttachDocumentFormContainer extends Component {
         }));
     };
 
-    handleMultiselect = (name, value) => {
-        this.setState({ [name]: value });
-    };
-
     handleCheckboxChange = name => {
         this.setState(prevState => ({
             [name]: !prevState[name]
         }));
     };
 
-    handleInputChange = (name, value) => {
-        this.setState({ [name]: value });
-    };
+    handleInputChange = (name, value) => this.setState({ [name]: value });
 
     handleFileChange = (name, s3Key) => {
         const { [name]: file } = this.state;
         this.setState({ [name]: file === s3Key ? '' : s3Key });
     };
 
-    handleDateChange = (date, name) => {
-        this.setState({ [name]: date });
-    };
-
-    handleRadioChange = e => {
-        const { name, value } = e.target;
-        this.setState({ [name]: value });
-    };
+    handleDateChange = (date, name) => this.setState({ [name]: date });
 
     handleSubmit = e => {
         e.preventDefault();

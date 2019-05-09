@@ -18,9 +18,7 @@ import CheckboxContainer from 'components/shared/generic/form/containers/Checkbo
 const AttachDocumentForm = ({
     handleInputChange,
     handleFileChange,
-    handleRadioChange,
     handleCheckboxChange,
-    handleMultiselectChange,
     handleSubmit,
     handleDateChange,
     filesUploading,
@@ -56,7 +54,7 @@ const AttachDocumentForm = ({
                     checked={type === '1' ? true : false}
                     text={DOCUMENT_TYPE[1]}
                     value="1"
-                    handleInputChange={handleRadioChange}
+                    handleInputChange={handleInputChange}
                 />
 
                 <RadioButton
@@ -64,7 +62,7 @@ const AttachDocumentForm = ({
                     checked={type === '2' ? true : false}
                     text={DOCUMENT_TYPE[2]}
                     value="2"
-                    handleInputChange={handleRadioChange}
+                    handleInputChange={handleInputChange}
                 />
 
                 <RadioButton
@@ -72,7 +70,7 @@ const AttachDocumentForm = ({
                     checked={type === '3' ? true : false}
                     text={DOCUMENT_TYPE[3]}
                     value="3"
-                    handleInputChange={handleRadioChange}
+                    handleInputChange={handleInputChange}
                 />
             </Field>
 
@@ -114,7 +112,7 @@ const AttachDocumentForm = ({
                     <CheckboxListContainer
                         required
                         name="serviceIDs"
-                        handleChange={handleMultiselectChange}
+                        handleChange={handleInputChange}
                         options={services}
                         selectedOptions={serviceIDs}
                         requiredMessage="Please select at least one service."
