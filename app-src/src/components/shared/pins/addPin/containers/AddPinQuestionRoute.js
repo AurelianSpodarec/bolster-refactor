@@ -181,11 +181,17 @@ const Signature = ({ question: { isRequired, id }, handleSignatureChange }) => (
 const Status = () => <div />;
 
 const DropdownOptions = ({
-    question: { id, isRequired, options },
+    question: { id, isRequired, optionType },
+    dropdownOptions,
     answers,
     handleChange
 }) => {
-    const formattedOpts = options.map(({ id, text }) => ({ value: id, text }));
+    const formattedOpts = dropdownOptions
+        .filter(option => option.type === optionType)
+        .map(({ value }) => ({
+            value,
+            text: value
+        }));
     const convertedOpts = convertArrToObj(formattedOpts, 'value');
     const answerID = answers[id];
 
@@ -202,14 +208,17 @@ const DropdownOptions = ({
 };
 
 const MultiDropdownOptions = ({
-    question: { id, options, isRequired },
+    question: { id, isRequired, optionType },
+    dropdownOptions,
     answers,
     handleMultiDropdownChange
 }) => {
-    const formattedOpts = options.map(({ id, text }) => ({
-        value: id,
-        label: text
-    }));
+    const formattedOpts = dropdownOptions
+        .filter(option => option.type === optionType)
+        .map(({ value }) => ({
+            value,
+            label: value
+        }));
 
     return (
         <MultiDropdownContainer
@@ -228,7 +237,7 @@ class AddPinQuestionRoute extends Component {
     };
 
     render() {
-        const { question, answers, questions } = this.props;
+        const { question, answers, questions, dropdownOptions } = this.props;
 
         const fieldTypes = {
             [SINGLE_LINE]: SingleLine,
@@ -343,6 +352,7 @@ class AddPinQuestionRoute extends Component {
                     <SpecificField
                         question={question}
                         answers={answers}
+                        dropdownOptions={dropdownOptions}
                         handleChange={this.handleChange}
                         handleFileChange={this.handleFileChange}
                         handleSignatureChange={this.handleSignatureChange}
@@ -439,10 +449,12 @@ class AddPinQuestionRoute extends Component {
 
 const mapStateToProps = ({
     companyAdmin: {
+        addPinDropdownOptions: { dropdownOptions },
         addPinFormReducer: { answers },
         templateQuestionsReducer: { questions }
     }
 }) => ({
+    dropdownOptions,
     answers,
     questions
 });

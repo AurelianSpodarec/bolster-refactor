@@ -7,7 +7,6 @@ import {
     FETCH_DRAWING_DROPDOWN_OPTIONS_SUCCESS,
     FETCH_DRAWING_DROPDOWN_OPTIONS_FAILURE
 } from 'constants/actionTypes/drawings';
-import { DROPDOWN_OPTION_VALS } from 'constants/companyAdmin/enums';
 
 export default combineReducers({
     dropdownOptions: dropdownOptionsReducer,
