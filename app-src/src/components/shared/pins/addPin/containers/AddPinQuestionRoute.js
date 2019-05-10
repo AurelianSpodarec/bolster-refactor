@@ -28,7 +28,9 @@ const {
     SIGNATURE,
     SINGLE_PHOTO,
     MULTI_PHOTO,
-    STATUS
+    STATUS,
+    DROPDOWN_OPTIONS,
+    MULTI_DROPDOWN_OPTIONS
 } = QUESTION_TYPE_VALUES;
 
 const SingleLine = ({
@@ -178,6 +180,48 @@ const Signature = ({ question: { isRequired, id }, handleSignatureChange }) => (
 
 const Status = () => <div />;
 
+const DropdownOptions = ({
+    question: { id, isRequired, options },
+    answers,
+    handleChange
+}) => {
+    const formattedOpts = options.map(({ id, text }) => ({ value: id, text }));
+    const convertedOpts = convertArrToObj(formattedOpts, 'value');
+    const answerID = answers[id];
+
+    return (
+        <DropdownContainer
+            placeholder="-- select --"
+            name={`answer-${id}`}
+            options={formattedOpts}
+            selectedOption={convertedOpts[answerID]}
+            handleChange={handleChange}
+            required={isRequired}
+        />
+    );
+};
+
+const MultiDropdownOptions = ({
+    question: { id, options, isRequired },
+    answers,
+    handleMultiDropdownChange
+}) => {
+    const formattedOpts = options.map(({ id, text }) => ({
+        value: id,
+        label: text
+    }));
+
+    return (
+        <MultiDropdownContainer
+            required={isRequired}
+            options={formattedOpts}
+            value={answers[id]}
+            name={`answer-${id}`}
+            handleChange={handleMultiDropdownChange}
+        />
+    );
+};
+
 class AddPinQuestionRoute extends Component {
     state = {
         sigPad: {}
@@ -197,7 +241,9 @@ class AddPinQuestionRoute extends Component {
             [SINGLE_PHOTO]: SinglePhoto,
             [MULTI_PHOTO]: MultiPhoto,
             [SIGNATURE]: Signature,
-            [STATUS]: Status
+            [STATUS]: Status,
+            [DROPDOWN_OPTIONS]: DropdownOptions,
+            [MULTI_DROPDOWN_OPTIONS]: MultiDropdownOptions
         };
 
         const SpecificField = fieldTypes[question.type + ''] || SingleLine;
@@ -377,9 +423,11 @@ class AddPinQuestionRoute extends Component {
             case DROPDOWN:
             case RADIO:
             case SINGLE_PHOTO:
+            case DROPDOWN_OPTIONS:
                 return '';
             case MULTI_PHOTO:
             case MULTI_DROPDOWN:
+            case MULTI_DROPDOWN_OPTIONS:
                 return [];
             case CHECKBOX:
                 return false;
