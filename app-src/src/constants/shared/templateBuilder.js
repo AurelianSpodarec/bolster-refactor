@@ -9,7 +9,9 @@ export const QUESTION_TYPES = {
     '8': 'Signature',
     '9': 'Single photo',
     '10': 'Multi photo',
-    '11': 'Status'
+    '11': 'Status',
+    '12': 'Dropdown options',
+    '13': 'Multi dropdown options'
 };
 
 export const QUESTION_TYPE_VALUES = {
@@ -23,7 +25,9 @@ export const QUESTION_TYPE_VALUES = {
     SIGNATURE: '8',
     SINGLE_PHOTO: '9',
     MULTI_PHOTO: '10',
-    STATUS: '11'
+    STATUS: '11',
+    DROPDOWN_OPTIONS: '12',
+    MULTI_DROPDOWN_OPTIONS: '13'
 };
 
 export const QUESTION_TYPE_NUMBERS = {
@@ -37,7 +41,9 @@ export const QUESTION_TYPE_NUMBERS = {
     SIGNATURE: 8,
     SINGLE_PHOTO: 9,
     MULTI_PHOTO: 10,
-    STATUS: 11
+    STATUS: 11,
+    DROPDOWN_OPTIONS: 12,
+    MULTI_DROPDOWN_OPTIONS: 13
 };
 
 export const STANDARD_LABEL_FIELDS = {
