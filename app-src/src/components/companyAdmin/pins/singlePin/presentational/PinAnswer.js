@@ -61,6 +61,7 @@ const PinAnswer = ({
             var URL = `${FILE_STORAGE_URL}/${curAnswer.answer}`;
             return (
                 <img
+                    style={{ cursor: 'zoom-in' }}
                     alt=""
                     src={URL + '?width=100'}
                     onClick={() =>
@@ -73,6 +74,7 @@ const PinAnswer = ({
                 var URL = `${FILE_STORAGE_URL}/${item}`;
                 return (
                     <img
+                        style={{ cursor: 'zoom-in' }}
                         alt={`${i + 1} of ${curAnswer.answer.length}`}
                         key={item}
                         src={URL + '?width=100'}
