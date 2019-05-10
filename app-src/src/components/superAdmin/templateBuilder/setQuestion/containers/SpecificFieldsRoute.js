@@ -5,6 +5,7 @@ import TextInputForm from '../presentational/TextInputForm';
 import NumberInputForm from '../presentational/NumberInputForm';
 import MultiOptionFormContainer from './MultiOptionFormContainer';
 import MultiPhotoForm from '../presentational/MultiPhotoForm';
+import OptionTypeFrom from '../presentational/OptionTypeForm';
 
 const {
     SINGLE_LINE,
@@ -16,7 +17,9 @@ const {
     CHECKBOX,
     SIGNATURE,
     SINGLE_PHOTO,
-    MULTI_PHOTO
+    MULTI_PHOTO,
+    DROPDOWN_OPTIONS,
+    MULTI_DROPDOWN_OPTIONS
 } = QUESTION_TYPE_VALUES;
 
 const NoFields = () => null;
@@ -31,7 +34,9 @@ const SpecificFieldsRoute = ({ questionType, ...otherProps }) => {
         [CHECKBOX]: NoFields,
         [SIGNATURE]: NoFields,
         [SINGLE_PHOTO]: NoFields,
-        [MULTI_PHOTO]: MultiPhotoForm
+        [MULTI_PHOTO]: MultiPhotoForm,
+        [DROPDOWN_OPTIONS]: OptionTypeFrom,
+        [MULTI_DROPDOWN_OPTIONS]: OptionTypeFrom
     };
 
     const SpecificForm = questionForms[questionType] || NoFields;
