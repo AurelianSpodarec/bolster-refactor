@@ -85,7 +85,7 @@ function dropdownOptionsReducer(state = {}, action) {
         case EDIT_DROPDOWN_OPTION_SUCCESS:
             return updateObj(state, action.payload.id, action.payload);
         case DELETE_DROPDOWN_OPTION_SUCCESS:
-            return removeObjItem(state, action.payload.id);
+            return removeObjItem(state, action.id);
         default:
             return state;
     }
