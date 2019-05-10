@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
 
+import addPinDropdownOptions from './addPinDropdownOptions';
 import addPinFormReducer from './addPinForm';
 import addPinCoordinatesReducer from './addPinCoordinates';
 import buildingsReducer from './buildings';
@@ -41,6 +42,7 @@ import transferRequestsReducer from './transferRequests';
 import dropdownOptionsReducer from './dropdownOptions';
 
 export default combineReducers({
+    addPinDropdownOptions,
     addPinCoordinatesReducer,
     addPinFormReducer,
     buildingsReducer,

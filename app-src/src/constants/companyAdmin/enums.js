@@ -237,3 +237,7 @@ export const DROPDOWN_OPTION_ENUM = {
     1: 'Item Types',
     2: 'Installation Types'
 };
+export const DROPDOWN_OPTION_VALS = {
+    itemTypes: 1,
+    installationTypes: 2
+};

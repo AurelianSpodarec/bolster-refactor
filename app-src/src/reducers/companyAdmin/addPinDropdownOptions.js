@@ -1,10 +1,13 @@
 import { combineReducers } from 'redux';
 
-import { convertArrToObj, updateObj, removeObjItem } from 'helpers/generic';
-import {} from 'constants/actionTypes/dropdownOptions';
+import { convertArrToObj } from 'helpers/generic';
 
-import {} from 'constants/actionTypes/drawings';
-import { DROPDOWN_OPTIONS } from 'constants/companyAdmin/enums';
+import {
+    FETCH_DRAWING_DROPDOWN_OPTIONS_REQUEST,
+    FETCH_DRAWING_DROPDOWN_OPTIONS_SUCCESS,
+    FETCH_DRAWING_DROPDOWN_OPTIONS_FAILURE
+} from 'constants/actionTypes/drawings';
+import { DROPDOWN_OPTION_VALS } from 'constants/companyAdmin/enums';
 
 export default combineReducers({
     dropdownOptions: dropdownOptionsReducer,
@@ -14,6 +17,11 @@ export default combineReducers({
 
 function isFetchingReducer(state = false, action) {
     switch (action.type) {
+        case FETCH_DRAWING_DROPDOWN_OPTIONS_REQUEST:
+            return true;
+        case FETCH_DRAWING_DROPDOWN_OPTIONS_FAILURE:
+        case FETCH_DRAWING_DROPDOWN_OPTIONS_SUCCESS:
+            return false;
         default:
             return state;
     }
@@ -21,6 +29,10 @@ function isFetchingReducer(state = false, action) {
 
 function errorReducer(state = null, action) {
     switch (action.type) {
+        case FETCH_DRAWING_DROPDOWN_OPTIONS_FAILURE:
+            return action.error;
+        case FETCH_DRAWING_DROPDOWN_OPTIONS_REQUEST:
+            return null;
         default:
             return state;
     }
@@ -28,6 +40,11 @@ function errorReducer(state = null, action) {
 
 function dropdownOptionsReducer(state = [], action) {
     switch (action.type) {
+        case FETCH_DRAWING_DROPDOWN_OPTIONS_SUCCESS:
+            return [
+                { value: 'string value', type: 1 },
+                { value: 'something', type: 2 }
+            ];
         default:
             return state;
     }
