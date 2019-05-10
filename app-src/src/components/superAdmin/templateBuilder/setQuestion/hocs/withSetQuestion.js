@@ -82,7 +82,8 @@ export default function(WrappedComponent) {
                 options,
                 maxPhotos,
                 questionType,
-                canCompanyEdit
+                canCompanyEdit,
+                optionType
             } = this.props.fields;
 
             switch (questionType + '') {
@@ -97,6 +98,9 @@ export default function(WrappedComponent) {
                     return { options, canCompanyEdit };
                 case VALS.MULTI_PHOTO:
                     return { maxPhotos };
+                case VALS.DROPDOWN_OPTIONS:
+                case VALS.MULTI_DROPDOWN_OPTIONS:
+                    return { optionType };
                 default:
                     return {};
             }
