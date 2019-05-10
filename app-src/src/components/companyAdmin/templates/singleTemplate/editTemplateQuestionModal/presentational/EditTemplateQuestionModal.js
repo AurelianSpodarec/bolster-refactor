@@ -30,8 +30,7 @@ const EditTemplateQuestionModal = ({
                         />
                         <button
                             className="button red delete-question icon-only"
-                            value={id}
-                            onClick={handleRemoveOption}
+                            onClick={() => handleRemoveOption(id)}
                         >
                             <i className="far fa-trash-alt" />
                         </button>

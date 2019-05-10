@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { ERROR_MODAL } from 'constants/shared/modalTypes';
+import { ERROR_MODAL, SUCCESS_MODAL } from 'constants/shared/modalTypes';
 import hideModal from 'actions/shared/generic/modals/sync/hideModal';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import updateFloorPlan from 'actions/companyAdmin/drawings/async/updateFloorPlan';
@@ -27,10 +27,14 @@ class EditFloorPlanModalContainer extends Component {
     }
 
     componentDidUpdate = prevProps => {
-        const { postSuccess, error, hideModal } = this.props;
+        const { postSuccess, error, showModal } = this.props;
 
-        if (!prevProps.postSuccess && postSuccess) return hideModal();
-        else if (!prevProps.error && error) return this.showErrorModal();
+        if (!prevProps.postSuccess && postSuccess) {
+            showModal(SUCCESS_MODAL, {
+                message:
+                    'New floor plan successfully uploaded. It may take a few minutes before the updated floor plan is available to view, please check back later'
+            });
+        } else if (!prevProps.error && error) showModal(ERROR_MODAL);
     };
 
     handleChange = (name, val) => {
