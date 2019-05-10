@@ -1,10 +1,23 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PinSection from '../presentational/PinSection';
+import fetchDrawingDropdownOptions from 'actions/companyAdmin/drawings/async/fetchDrawingDropdownOptions';
 
-const PinSectionsContainer = ({ relevantSections, pinHistory }) => (
-    <PinSection sections={relevantSections} pinHistory={pinHistory} />
-);
+class PinSectionsContainer extends Component {
+    render() {
+        const { relevantSections, pinHistory } = this.props;
+
+        return (
+            <PinSection sections={relevantSections} pinHistory={pinHistory} />
+        );
+    }
+
+    componentDidMount = () => {
+        const { fetchDrawingDropdownOptions, drawingID } = this.props;
+
+        fetchDrawingDropdownOptions(drawingID);
+    };
+}
 
 const mapStateToProps = ({
     companyAdmin: {
@@ -21,4 +34,13 @@ const mapStateToProps = ({
     };
 };
 
-export default connect(mapStateToProps)(PinSectionsContainer);
+const mapDispatchToProps = dispatch => ({
+    fetchDrawingDropdownOptions: drawingID => {
+        dispatch(fetchDrawingDropdownOptions(drawingID));
+    }
+});
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(PinSectionsContainer);

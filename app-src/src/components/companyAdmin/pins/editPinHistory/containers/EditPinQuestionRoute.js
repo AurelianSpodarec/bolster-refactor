@@ -27,7 +27,9 @@ const {
     CHECKBOX,
     SIGNATURE,
     SINGLE_PHOTO,
-    MULTI_PHOTO
+    MULTI_PHOTO,
+    DROPDOWN_OPTIONS,
+    MULTI_DROPDOWN_OPTIONS
 } = QUESTION_TYPE_VALUES;
 
 const SingleLine = ({
@@ -178,13 +180,61 @@ const Signature = ({
     />
 );
 
+const DropdownOptions = ({
+    question: { id, isRequired, optionType },
+    dropdownOptions,
+    answers,
+    handleChange
+}) => {
+    const formattedOpts = dropdownOptions
+        .filter(option => option.type === optionType)
+        .map(({ name }) => ({ value: name, text: name }));
+    const convertedOpts = convertArrToObj(formattedOpts, 'value');
+    const answerID = answers[id];
+
+    return (
+        <DropdownContainer
+            placeholder="-- select --"
+            name={`answer-${id}`}
+            options={formattedOpts}
+            selectedOption={convertedOpts[answerID]}
+            handleChange={handleChange}
+            required={isRequired}
+        />
+    );
+};
+
+const MultiDropdownOptions = ({
+    question: { id, isRequired, optionType },
+    dropdownOptions,
+    answers,
+    handleMultiDropdownChange
+}) => {
+    const formattedOpts = dropdownOptions
+        .filter(option => option.type === optionType)
+        .map(({ name }) => ({
+            value: name,
+            label: name
+        }));
+
+    return (
+        <MultiDropdownContainer
+            required={isRequired}
+            options={formattedOpts}
+            value={answers[id]}
+            name={`answer-${id}`}
+            handleChange={handleMultiDropdownChange}
+        />
+    );
+};
+
 class AddPinQuestionRoute extends Component {
     state = {
         sigPad: {}
     };
 
     render() {
-        const { question, answers, questions } = this.props;
+        const { question, answers, questions, dropdownOptions } = this.props;
 
         const fieldTypes = {
             [SINGLE_LINE]: SingleLine,
@@ -196,7 +246,9 @@ class AddPinQuestionRoute extends Component {
             [RADIO]: Radio,
             [SINGLE_PHOTO]: SinglePhoto,
             [MULTI_PHOTO]: MultiPhoto,
-            [SIGNATURE]: Signature
+            [SIGNATURE]: Signature,
+            [DROPDOWN_OPTIONS]: DropdownOptions,
+            [MULTI_DROPDOWN_OPTIONS]: MultiDropdownOptions
         };
 
         const SpecificField = fieldTypes[question.type + ''] || SingleLine;
@@ -296,6 +348,7 @@ class AddPinQuestionRoute extends Component {
                     <SpecificField
                         question={question}
                         answers={answers}
+                        dropdownOptions={dropdownOptions}
                         handleChange={this.handleChange}
                         handleFileChange={this.handleFileChange}
                         handleSignatureChange={this.handleSignatureChange}
@@ -378,9 +431,11 @@ class AddPinQuestionRoute extends Component {
             case DROPDOWN:
             case RADIO:
             case SINGLE_PHOTO:
+            case DROPDOWN_OPTIONS:
                 return '';
             case MULTI_PHOTO:
             case MULTI_DROPDOWN:
+            case MULTI_DROPDOWN_OPTIONS:
                 return [];
             case CHECKBOX:
                 return false;
@@ -392,11 +447,13 @@ class AddPinQuestionRoute extends Component {
 
 const mapStateToProps = ({
     companyAdmin: {
+        addPinDropdownOptions: { dropdownOptions },
         addPinFormReducer: { answers },
         templateQuestionsReducer: { questions },
         pinAnswersReducer: { answers: oldAnswers }
     }
 }) => ({
+    dropdownOptions,
     answers,
     questions,
     oldAnswers

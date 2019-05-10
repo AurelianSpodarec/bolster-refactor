@@ -12,7 +12,8 @@ const PinDetails = ({
     user,
     services,
     handleDelete,
-    handleEdit
+    handleEdit,
+    drawingID
 }) => (
     <>
         <div className="size-lg-12">
@@ -55,7 +56,7 @@ const PinDetails = ({
             /> */}
         </div>
 
-        <PinSectionsContainer pinHistory={pinHistory} />
+        <PinSectionsContainer pinHistory={pinHistory} drawingID={drawingID} />
 
         {/* <div className="field-output no-h-padding size-lg-12">
                 <label className="title">Photo(s)</label>

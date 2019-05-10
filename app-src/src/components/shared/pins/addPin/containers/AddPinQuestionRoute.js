@@ -188,9 +188,9 @@ const DropdownOptions = ({
 }) => {
     const formattedOpts = dropdownOptions
         .filter(option => option.type === optionType)
-        .map(({ value }) => ({
-            value,
-            text: value
+        .map(({ name }) => ({
+            value: name,
+            text: name
         }));
     const convertedOpts = convertArrToObj(formattedOpts, 'value');
     const answerID = answers[id];
@@ -215,9 +215,9 @@ const MultiDropdownOptions = ({
 }) => {
     const formattedOpts = dropdownOptions
         .filter(option => option.type === optionType)
-        .map(({ value }) => ({
-            value,
-            label: value
+        .map(({ name }) => ({
+            value: name,
+            label: name
         }));
 
     return (

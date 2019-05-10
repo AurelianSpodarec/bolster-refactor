@@ -52,6 +52,7 @@ class PinDetailsContainer extends Component {
                     user={user}
                     services={services}
                     pin={pin}
+                    drawingID={pin.drawingID}
                     handleDelete={this.handleDeleteModal}
                     handleEdit={this.handleEditModal}
                 />

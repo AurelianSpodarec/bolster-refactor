@@ -40,10 +40,7 @@ function errorReducer(state = null, action) {
 function dropdownOptionsReducer(state = [], action) {
     switch (action.type) {
         case FETCH_DRAWING_DROPDOWN_OPTIONS_SUCCESS:
-            return [
-                { value: 'string value', type: 1 },
-                { value: 'something', type: 2 }
-            ];
+            return action.payload;
         default:
             return state;
     }

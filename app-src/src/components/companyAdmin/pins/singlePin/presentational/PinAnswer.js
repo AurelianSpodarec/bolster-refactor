@@ -12,7 +12,8 @@ const PinAnswer = ({
     questions,
     answers,
     status,
-    dispatch
+    dispatch,
+    dropdownOptions
 }) => {
     let relevantQuestion;
     let relevantOption;
@@ -25,7 +26,10 @@ const PinAnswer = ({
         case TYPES.SINGLE_LINE:
         case TYPES.MULTI_LINE:
         case TYPES.NUMBER:
+        case TYPES.DROPDOWN_OPTIONS:
             return <p>{curAnswer.answer}</p>;
+        case TYPES.MULTI_DROPDOWN_OPTIONS:
+            return <p>{curAnswer.answer.join(', ')}</p>;
         case TYPES.DROPDOWN:
         case TYPES.RADIO:
             relevantQuestion = questions.find(
@@ -91,4 +95,12 @@ const PinAnswer = ({
     }
 };
 
-export default connect()(PinAnswer);
+const mapStateToProps = ({
+    companyAdmin: {
+        addPinDropdownOptions: { dropdownOptions }
+    }
+}) => ({
+    dropdownOptions
+});
+
+export default connect(mapStateToProps)(PinAnswer);
