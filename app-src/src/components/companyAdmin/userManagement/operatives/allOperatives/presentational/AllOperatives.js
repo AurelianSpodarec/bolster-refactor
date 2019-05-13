@@ -6,7 +6,6 @@ import PageHeading from 'components/shared/generic/pageHeading/presentational/Pa
 const AllOperatives = () => (
     <>
         <PageHeading title="All Operatives" withBackButton />
-
         <AllOperativesTableContainer />
     </>
 );

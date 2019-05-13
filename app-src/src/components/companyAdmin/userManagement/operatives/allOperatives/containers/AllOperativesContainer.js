@@ -5,23 +5,13 @@ import fetchCompanyUsers from 'actions/companyAdmin/userManagement/async/fetchCo
 import AllOperatives from '../presentational/AllOperatives';
 
 export class AllOperativesContainer extends Component {
-    render() {
-        return <AllOperatives />;
-    }
+    render = () => <AllOperatives />;
 
-    componentDidMount = () => {
-        const { fetchAllCompanyUsers } = this.props;
-
-        fetchAllCompanyUsers();
-    };
+    componentDidMount = () => this.props.fetchAllCompanyUsers();
 }
 
-// const mapStateToProps = state => ({});
-
 const mapDispatchToProps = dispatch => ({
-    fetchAllCompanyUsers: () => {
-        dispatch(fetchCompanyUsers());
-    }
+    fetchAllCompanyUsers: () => dispatch(fetchCompanyUsers())
 });
 
 export default connect(
