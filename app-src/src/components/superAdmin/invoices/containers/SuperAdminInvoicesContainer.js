@@ -7,6 +7,10 @@ class SuperAdminInvoicesContainer extends Component {
     render() {
         return <SuperAdminInvoices />;
     }
+
+    componentDidMount = () => {
+        // fetch invoices
+    };
 }
 
 // const mapStateToProps = state => ({});
