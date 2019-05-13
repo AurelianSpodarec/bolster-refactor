@@ -17,7 +17,9 @@ class AttachDocumentDatePickerContainer extends Component {
             endOn,
             startError,
             endError,
-            errorsVisible
+            errorsVisible,
+            startRequired,
+            endRequired
         } = this.props;
         const startErrorMessage =
             showFieldError || errorsVisible ? startError : null;
@@ -30,6 +32,8 @@ class AttachDocumentDatePickerContainer extends Component {
                 startErrorMessage={startErrorMessage}
                 endErrorMessage={endErrorMessage}
                 onChange={onChange}
+                startRequired={startRequired}
+                endRequired={endRequired}
             />
         );
     }

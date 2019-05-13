@@ -130,6 +130,7 @@ const EditDocumentForm = ({
                         startOn={startOn}
                         endOn={endOn}
                         onChange={handleDateChange}
+                        startRequired
                     />
                 </div>
                 <div className="size-lg-12">

@@ -104,7 +104,7 @@ const AttachDocumentForm = ({
                     endOn={endOn}
                     onChange={handleDateChange}
                     name="Date Picker"
-                    required
+                    startRequired
                 />
             </div>
             <div className="size-lg-12">
