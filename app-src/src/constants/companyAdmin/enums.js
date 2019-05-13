@@ -220,8 +220,9 @@ export const PARENTAL_TYPES = {
 
 // adding new dropdown options to these two enum objects will dynamically add a new page for that option. The singular name is for the buttons
 export const DROPDOWN_OPTIONS = {
-    1: { name: 'Item Types', link: 'item-types', singular: 'Item Type' },
-    2: {
+    1: { name: 'FR Ratings', link: 'fr-ratings', singular: 'FR Rating' },
+    2: { name: 'Item Types', link: 'item-types', singular: 'Item Type' },
+    3: {
         name: 'Installation Types',
         link: 'installation-types',
         singular: 'Installation Type'
@@ -229,15 +230,18 @@ export const DROPDOWN_OPTIONS = {
 };
 
 export const DROPDOWN_OPTION_LOOKUP = {
-    'item-types': 1,
-    'installation-types': 2
+    'fr-ratings': 1,
+    'item-types': 2,
+    'installation-types': 3
 };
 
 export const DROPDOWN_OPTION_ENUM = {
-    1: 'Item Types',
-    2: 'Installation Types'
+    1: 'FR Ratings',
+    2: 'Item Types',
+    3: 'Installation Types'
 };
 export const DROPDOWN_OPTION_VALS = {
-    itemTypes: 1,
-    installationTypes: 2
+    frRatings: 1,
+    itemTypes: 2,
+    installationTypes: 3
 };
