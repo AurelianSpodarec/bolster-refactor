@@ -1,15 +1,14 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 
-// import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
-
 import { PAYMENT_TYPES, DATE_TIME_IDS } from 'constants/companyAdmin/enums';
-import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 import { formatCurrency } from 'helpers/generic';
-// import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
+import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
+import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
+import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 
 const SuperAdminListItem = ({
-    invoice: { createdOn, isPaid, total, id, paymentType }
+    invoice: { createdOn, isPaid, total, id, paymentType, companyID }
 }) => (
     <tr>
         <td>
@@ -20,11 +19,11 @@ const SuperAdminListItem = ({
         <td>{PAYMENT_TYPES[paymentType]}</td>
         <td>{isPaid ? 'Paid' : 'Awaiting Payment'}</td>
         <td>
-            {/* <BlockButtonWrapper>
-                <ButtonContainer to={`/admin/invoices/${id}`}>
+            <BlockButtonWrapper>
+                <ButtonContainer to={`/admin/invoices/${companyID}/${id}`}>
                     View
                 </ButtonContainer>
-            </BlockButtonWrapper> */}
+            </BlockButtonWrapper>
         </td>
     </tr>
 );
