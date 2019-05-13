@@ -4,7 +4,16 @@ import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeCon
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 
 const OperativeAlertItem = ({
-    alert: { createdByUserFirstName, createdByUserLastName, createdOn, message }
+    alert: {
+        createdByUserFirstName,
+        createdByUserLastName,
+        createdOn,
+        message,
+        sentCount,
+        deliveredCount,
+        readCount,
+        id
+    }
 }) => (
     <tr>
         <td>{`${createdByUserFirstName} ${createdByUserLastName}`}</td>
@@ -12,11 +21,15 @@ const OperativeAlertItem = ({
         <td>
             <DateTimeContainer date={createdOn} />
         </td>
-        <td>##100%##</td>
-        <td>##60%##</td>
-        <td>##40%##</td>
+        <td>{sentCount}</td>
+        <td>{(deliveredCount / sentCount) * 100}%</td>
+        <td>{(readCount / sentCount) * 100}%</td>
         <td>
-            <ButtonContainer>##Show Metrics##</ButtonContainer>
+            <ButtonContainer
+                to={`/company/tools/operative-alerts/${id}/metrics`}
+            >
+                ##Show Metrics##
+            </ButtonContainer>
         </td>
     </tr>
 );

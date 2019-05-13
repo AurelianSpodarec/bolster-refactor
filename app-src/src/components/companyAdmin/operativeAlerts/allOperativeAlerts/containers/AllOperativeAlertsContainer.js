@@ -4,19 +4,13 @@ import fetchAllOperativeAlerts from 'actions/companyAdmin/operativeAlerts/async/
 import AllOperativeAlerts from '../presentational/AllOperativeAlerts';
 
 class AllOperativeAlertsContainer extends Component {
-    render() {
-        return <AllOperativeAlerts />;
-    }
+    render = () => <AllOperativeAlerts />;
 
-    componentDidMount = () => {
-        this.props.fetchAllOperativeAlerts();
-    };
+    componentDidMount = () => this.props.fetchOperativeAlertsData();
 }
 
 const mapDispatchToProps = dispatch => ({
-    fetchAllOperativeAlerts: () => {
-        dispatch(fetchAllOperativeAlerts());
-    }
+    fetchOperativeAlertsData: () => dispatch(fetchAllOperativeAlerts())
 });
 
 export default connect(

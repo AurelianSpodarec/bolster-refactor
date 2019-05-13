@@ -20,9 +20,9 @@ const OperativeAlertsTable = ({ isFetching, operativeAlerts }) => (
                 'Created By',
                 'Message',
                 'Sent On',
-                '##Sent %##',
-                '##Delivered %##',
-                '##Read %##',
+                'Sent',
+                'Delivered %',
+                'Read %',
                 ''
             ]}
             withActions
