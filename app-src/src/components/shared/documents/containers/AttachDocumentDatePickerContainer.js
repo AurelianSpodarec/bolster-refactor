@@ -56,11 +56,26 @@ class AttachDocumentDatePickerContainer extends Component {
     }
 
     _validate = (startOn, endOn) => {
-        const { endError, addFieldError, removeFieldError } = this.props;
-
-        if (startOn && endOn && startOn.getTime() >= endOn.getTime())
+        const {
+            endError,
+            addFieldError,
+            removeFieldError,
+            startRequired,
+            endRequired,
+            startError
+        } = this.props;
+        if (startRequired && !startOn) {
+            addFieldError('startOn', 'This is a required field');
+        } else if (startError) {
+            removeFieldError('startOn');
+        }
+        if (startOn && endOn && startOn.getTime() >= endOn.getTime()) {
             addFieldError('endOn', 'End date must be after start date.');
-        else if (endError) removeFieldError('endOn');
+        } else if (endRequired && !endOn) {
+            addFieldError('endOn', 'This is a required field');
+        } else if (endError) {
+            removeFieldError('endOn');
+        }
     };
 }
 
@@ -71,12 +86,8 @@ const mapStateToProps = ({ shared: { fieldErrorsReducer } }) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    addFieldError: (fieldName, error) => {
-        dispatch(addFieldError(fieldName, error));
-    },
-    removeFieldError: fieldName => {
-        dispatch(removeFieldError(fieldName));
-    }
+    addFieldError: (field, error) => dispatch(addFieldError(field, error)),
+    removeFieldError: field => dispatch(removeFieldError(field))
 });
 
 export default connect(

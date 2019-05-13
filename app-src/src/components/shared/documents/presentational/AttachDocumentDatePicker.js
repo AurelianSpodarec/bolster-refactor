@@ -23,7 +23,9 @@ const AttachDocumentDatePicker = ({
                 name="startOn"
                 selected={startOn}
                 onChange={e => onChange(e, 'startOn')}
-                placeholderText="Start date (optional)"
+                placeholderText={`Start date ${
+                    !startRequired ? '(optional)' : ''
+                }`}
                 required={startRequired}
             />
 
@@ -37,7 +39,7 @@ const AttachDocumentDatePicker = ({
                 name="endOn"
                 selected={endOn}
                 onChange={e => onChange(e, 'endOn')}
-                placeholderText="End date (optional)"
+                placeholderText={`End date ${!endRequired ? '(optional)' : ''}`}
                 required={endRequired}
             />
             {endErrorMessage && endErrorMessage.length && (

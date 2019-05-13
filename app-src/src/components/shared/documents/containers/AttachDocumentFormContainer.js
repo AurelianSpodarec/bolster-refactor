@@ -21,7 +21,7 @@ class AttachDocumentFormContainer extends Component {
         serviceIDs: [],
         agreeanceEveryXDays: 0,
         // date selector
-        startOn: new Date(),
+        startOn: undefined,
         endOn: undefined
     };
 
