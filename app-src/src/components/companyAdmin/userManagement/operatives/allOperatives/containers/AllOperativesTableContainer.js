@@ -25,6 +25,9 @@ class AllOperativesTableContainer extends Component {
             />
         );
     };
+
+    componentDidMount = () => this.props.fetchCompanyUsers();
+
     componentDidUpdate = prevProps => {
         const { postSuccess, hideModal, fetchCompanyUsers } = this.props;
         if (postSuccess && !prevProps.postSuccess) {

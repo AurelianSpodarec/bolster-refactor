@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 
 import Table from 'components/shared/generic/tables/presentational/Table';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import AllOperativesList from './AllOperativesList';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
+import AllOperativesListItemContainer from '../containers/AllOperativesListItemContainer';
 
 const AllOperativesTable = ({ headers, users, isFetching, error }) => (
     <BlockContainer>
@@ -24,7 +24,9 @@ const AllOperativesTable = ({ headers, users, isFetching, error }) => (
             noData={!users.length}
             noDataMessage="No admins to display"
         >
-            <AllOperativesList colCount={headers.length} users={users} />
+            {users.map(user => (
+                <AllOperativesListItemContainer key={user.id} user={user} />
+            ))}
         </Table>
     </BlockContainer>
 );

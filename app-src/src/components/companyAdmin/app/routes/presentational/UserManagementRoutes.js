@@ -3,14 +3,14 @@ import { Route } from 'react-router-dom';
 
 import SwitchWith404 from 'components/appRoute/routes/presentational/SwitchWith404';
 import AllCompanyAdminsContainer from 'components/companyAdmin/userManagement/companyAdmins/allCompanyAdmins/containers/AllCompanyAdminsContainer';
-import AllOperativesContainer from 'components/companyAdmin/userManagement/operatives/allOperatives/containers/AllOperativesContainer';
+import AllOperatives from 'components/companyAdmin/userManagement/operatives/allOperatives/presentational/AllOperatives';
+import ClientsAccessContainer from 'components/shared/clients/containers/ClientsAccessContainer';
 import CreateOperative from 'components/companyAdmin/userManagement/operatives/createOperative/presentational/CreateOperative';
 import CreateCompanyAdmin from 'components/companyAdmin/userManagement/companyAdmins/createCompanyAdmin/presentational/CreateCompanyAdmin';
 import EditCompanyAdminContainer from 'components/companyAdmin/userManagement/companyAdmins/editCompanyAdmin/containers/EditCompanyAdminContainer';
 import EditOperativeContainer from 'components/companyAdmin/userManagement/operatives/editOperative/containers/EditOperativeContainer';
 import EditCompanyAdminPasswordContainer from 'components/companyAdmin/userManagement/companyAdmins/editCompanyAdminPassword/containers/EditCompanyAdminPasswordContainer';
 import EditOperativePasswordContainer from 'components/companyAdmin/userManagement/operatives/editOperativePassword/containers/EditOperativePasswordContainer';
-import ClientsAccessContainer from 'components/shared/clients/containers/ClientsAccessContainer';
 
 const UserManagementRoutes = ({ base = '/company/users-management' }) => (
     <SwitchWith404>
@@ -19,11 +19,7 @@ const UserManagementRoutes = ({ base = '/company/users-management' }) => (
             path={`${base}/company-admins`}
             component={AllCompanyAdminsContainer}
         />
-        <Route
-            exact
-            path={`${base}/operatives`}
-            component={AllOperativesContainer}
-        />
+        <Route exact path={`${base}/operatives`} component={AllOperatives} />
         <Route
             exact
             path={`${base}/company-admins/create`}
