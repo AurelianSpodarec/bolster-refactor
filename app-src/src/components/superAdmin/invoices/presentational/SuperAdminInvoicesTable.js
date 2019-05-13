@@ -10,6 +10,7 @@ const SuperAdminInvoicesTable = ({
     headers
 }) => (
     <Table
+        withActions
         headers={headers}
         isFetching={isFetching}
         error={error}

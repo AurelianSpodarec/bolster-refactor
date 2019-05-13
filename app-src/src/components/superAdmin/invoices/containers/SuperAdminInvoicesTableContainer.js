@@ -10,16 +10,7 @@ const SuperAdminInvoicesTableContainer = ({ error, isFetching, invoices }) => (
     <BlockContainer>
         <BlockHeading title="All Invoices" />
         <SuperAdminInvoicesTable
-            headers={[
-                'Date',
-                'Order ID',
-                'Total',
-                'Type',
-                'Status',
-                '',
-                'Ordered By',
-                'Action'
-            ]}
+            headers={['Date', 'Order ID', 'Total', 'Type', 'Status', '']}
             error={error}
             isFetching={isFetching}
             invoices={invoices}
@@ -32,7 +23,7 @@ const mapStateToProps = ({
         invoicesReducer: { error, isFetching, invoices }
     }
 }) => ({
-    invoices,
+    invoices: Object.values(invoices),
     error,
     isFetching
 });
