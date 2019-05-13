@@ -1,39 +1,55 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { COMPANY_USER_ROLE_TYPES } from 'constants/companyAdmin/enums';
 import AllOperativesTable from '../presentational/AllOperativesTable';
+import { COMPANY_USER_ROLE_TYPES } from 'constants/companyAdmin/enums';
+import fetchCompanyUsers from 'actions/companyAdmin/userManagement/async/fetchCompanyUsers';
+import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
+const { OPERATIVE } = COMPANY_USER_ROLE_TYPES;
 
 class AllOperativesTableContainer extends Component {
-    render() {
-        const { isFetching, error } = this.props;
-
+    render = () => {
+        const { users, isFetching, error } = this.props;
         return (
             <AllOperativesTable
-                headers={['Name', 'Email', 'Phone Number', '']}
-                users={this._filterUsersForOperatives()}
+                headers={[
+                    'Name',
+                    'Email',
+                    'Phone Number',
+                    'Has linked device?',
+                    ''
+                ]}
+                users={users}
                 isFetching={isFetching}
                 error={error}
             />
         );
-    }
-
-    _filterUsersForOperatives = () => {
-        const { users } = this.props;
-
-        const ret = users.filter(
-            user => user.type === COMPANY_USER_ROLE_TYPES.OPERATIVE
-        );
-
-        return ret;
+    };
+    componentDidUpdate = prevProps => {
+        const { postSuccess, hideModal, fetchCompanyUsers } = this.props;
+        if (postSuccess && !prevProps.postSuccess) {
+            fetchCompanyUsers();
+            hideModal();
+        }
     };
 }
 
-const mapStateToProps = ({ companyAdmin: { companyUsersReducer } }) => ({
-    users: Object.values(companyUsersReducer.users) || [],
-    isFetching: companyUsersReducer.isFetching,
-    error: companyUsersReducer.error,
-    filters: {}
+const mapStateToProps = ({
+    companyAdmin: {
+        companyUsersReducer: { isFetching, error, users, postSuccess }
+    }
+}) => ({
+    users: Object.values(users).filter(({ type }) => type === OPERATIVE),
+    isFetching,
+    error,
+    postSuccess
 });
 
-export default connect(mapStateToProps)(AllOperativesTableContainer);
+const mapDispatchToProps = dispatch => ({
+    fetchCompanyUsers: () => dispatch(fetchCompanyUsers()),
+    hideModal: () => dispatch(hideModal())
+});
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(AllOperativesTableContainer);

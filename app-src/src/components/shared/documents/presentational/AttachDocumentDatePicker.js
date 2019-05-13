@@ -8,7 +8,9 @@ const AttachDocumentDatePicker = ({
     endOn,
     startErrorMessage,
     endErrorMessage,
-    onChange
+    onChange,
+    startRequired = false,
+    endRequired = false
 }) => (
     <Field
         classes="w-dates"
@@ -21,8 +23,10 @@ const AttachDocumentDatePicker = ({
                 name="startOn"
                 selected={startOn}
                 onChange={e => onChange(e, 'startOn')}
-                placeholderText="Start date (optional)"
-                required={false}
+                placeholderText={`Start date ${
+                    !startRequired ? '(optional)' : ''
+                }`}
+                required={startRequired}
             />
 
             {startErrorMessage && startErrorMessage.length && (
@@ -35,8 +39,8 @@ const AttachDocumentDatePicker = ({
                 name="endOn"
                 selected={endOn}
                 onChange={e => onChange(e, 'endOn')}
-                placeholderText="End date (optional)"
-                required={false}
+                placeholderText={`End date ${!endRequired ? '(optional)' : ''}`}
+                required={endRequired}
             />
             {endErrorMessage && endErrorMessage.length && (
                 <p className="error size-lg-12">{endErrorMessage}</p>

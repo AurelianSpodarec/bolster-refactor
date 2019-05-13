@@ -1,7 +1,5 @@
 import { combineReducers } from 'redux';
 
-import { convertArrToObj } from 'helpers/generic';
-
 import {
     FETCH_DRAWING_DROPDOWN_OPTIONS_REQUEST,
     FETCH_DRAWING_DROPDOWN_OPTIONS_SUCCESS,

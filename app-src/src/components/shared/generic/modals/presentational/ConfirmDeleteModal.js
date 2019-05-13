@@ -7,7 +7,9 @@ const ConfirmDeleteModal = ({
     handleDelete,
     hideModal,
     message = 'Are you sure you want to delete this?',
-    isIncoming = false
+    isIncoming = false,
+    deleteButtonText = 'Delete',
+    icon = 'trash-alt'
 }) => (
     <ModalOuterContainer>
         <BlockHeading title={'Confirmation'} />
@@ -21,8 +23,8 @@ const ConfirmDeleteModal = ({
                     </>
                 ) : (
                     <>
-                        <i className="far fa-trash-alt fa-fw" />
-                        Delete
+                        <i className={`far fa-${icon} fa-fw`} />
+                        {deleteButtonText}
                     </>
                 )}
             </button>

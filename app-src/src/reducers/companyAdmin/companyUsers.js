@@ -19,7 +19,10 @@ import {
     DELETE_COMPANY_USER_FAILURE,
     FETCH_SINGLE_COMPANY_USER_REQUEST,
     FETCH_SINGLE_COMPANY_USER_SUCCESS,
-    FETCH_SINGLE_COMPANY_USER_FAILURE
+    FETCH_SINGLE_COMPANY_USER_FAILURE,
+    UNLINK_OPERATIVE_DEVICE_FAILURE,
+    UNLINK_OPERATIVE_DEVICE_SUCCESS,
+    UNLINK_OPERATIVE_DEVICE_REQUEST
 } from 'constants/actionTypes/usersManagement';
 
 export default combineReducers({
@@ -49,9 +52,12 @@ function isFetchingReducer(state = false, action) {
 function isPostingReducer(state = false, action) {
     switch (action.type) {
         case CREATE_COMPANY_USER_REQUEST:
+        case UNLINK_OPERATIVE_DEVICE_REQUEST:
             return true;
         case CREATE_COMPANY_USER_SUCCESS:
         case CREATE_COMPANY_USER_FAILURE:
+        case UNLINK_OPERATIVE_DEVICE_FAILURE:
+        case UNLINK_OPERATIVE_DEVICE_SUCCESS:
             return false;
         default:
             return state;
@@ -63,10 +69,12 @@ function postSuccessReducer(state = false, action) {
         case CREATE_COMPANY_USER_REQUEST:
         case EDIT_COMPANY_USER_REQUEST:
         case EDIT_COMPANY_USER_PASSWORD_REQUEST:
+        case UNLINK_OPERATIVE_DEVICE_REQUEST:
             return false;
         case CREATE_COMPANY_USER_SUCCESS:
         case EDIT_COMPANY_USER_SUCCESS:
         case EDIT_COMPANY_USER_PASSWORD_SUCCESS:
+        case UNLINK_OPERATIVE_DEVICE_SUCCESS:
             return true;
         default:
             return state;
@@ -81,6 +89,7 @@ function errorReducer(state = null, action) {
         case CREATE_COMPANY_USER_REQUEST:
         case DELETE_COMPANY_USER_REQUEST:
         case FETCH_SINGLE_COMPANY_USER_REQUEST:
+        case UNLINK_OPERATIVE_DEVICE_REQUEST:
             return null;
         case FETCH_COMPANY_USERS_FAILURE:
         case DELETE_COMPANY_USER_FAILURE:
@@ -88,6 +97,7 @@ function errorReducer(state = null, action) {
         case EDIT_COMPANY_USER_PASSWORD_FAILURE:
         case CREATE_COMPANY_USER_FAILURE:
         case FETCH_SINGLE_COMPANY_USER_FAILURE:
+        case UNLINK_OPERATIVE_DEVICE_FAILURE:
             return action.error;
         default:
             return state;
