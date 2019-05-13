@@ -42,6 +42,7 @@ class AddPinFormContainer extends Component {
                 </PageHeading>
                 <BlockContainer
                     isEmpty={!Object.values(templates).length}
+                    noDataMessage="You have no pin templates."
                     isFetching={isFetching}
                     error={error}
                 >
