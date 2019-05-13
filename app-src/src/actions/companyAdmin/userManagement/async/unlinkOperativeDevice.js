@@ -22,11 +22,11 @@ export const editCompanyUserFailure = error => ({
     error
 });
 
-export default (userID, postBody) => dispatch => {
+export default userID => dispatch => {
     dispatch(editCompanyUserRequest());
 
     return axios
-        .post(`${API_URL}/users/${userID}/unlink`, postBody, getHeaders())
+        .post(`${API_URL}/users/${userID}/unlink`, {}, getHeaders())
         .then(({ data }) => dispatch(editCompanyUserSuccess(data)))
         .catch(error => dispatch(editCompanyUserFailure(error)));
 };
