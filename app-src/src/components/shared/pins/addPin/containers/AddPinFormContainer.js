@@ -32,7 +32,7 @@ class AddPinFormContainer extends Component {
             confirmLeave
         } = this.props;
 
-        const templateOptions = this._getTemplates();
+        const templateOptions = this._getTemplates(templates);
         const statusOptions = convertEnumToDropdownOptions(PIN_STATUS_TYPES);
 
         return (
@@ -41,7 +41,7 @@ class AddPinFormContainer extends Component {
                     <BackButtonContainer />
                 </PageHeading>
                 <BlockContainer
-                    isEmpty={!Object.values(templates).length}
+                    isEmpty={!templates.length}
                     noDataMessage="You have no pin templates."
                     isFetching={isFetching}
                     error={error}
@@ -105,8 +105,7 @@ class AddPinFormContainer extends Component {
         }
     };
 
-    _getTemplates = () => {
-        const { templates } = this.props;
+    _getTemplates = templates => {
         const templateOptions = templates.map(({ id, name }) => ({
             value: id,
             text: name
@@ -115,15 +114,12 @@ class AddPinFormContainer extends Component {
         return convertArrToObj(templateOptions, 'value');
     };
 
-    handleChange = (name, value) => {
-        this.setState({ [name]: value });
-    };
+    handleChange = (name, value) => this.setState({ [name]: value });
 
     handleSubmit = e => {
         e.preventDefault();
 
         const { templateID } = this.state;
-
         const {
             templates,
             answers,
@@ -135,16 +131,13 @@ class AddPinFormContainer extends Component {
             pinID
         } = this.props;
 
-        const curTemplates = templates.filter(({ id }) => +id === +templateID);
-        let curTemplate;
+        const curTemplate =
+            templates.find(({ id }) => +id === +templateID) || {};
 
-        if (curTemplates) {
-            curTemplate = curTemplates[0];
-        }
-
-        const formattedAnswers = Object.keys(answers).map(function(key) {
-            return { templateQuestionID: key, answer: answers[key] };
-        });
+        const formattedAnswers = Object.keys(answers).map(key => ({
+            templateQuestionID: key,
+            answer: answers[key]
+        }));
 
         const postBody = {
             history: {
@@ -162,13 +155,9 @@ class AddPinFormContainer extends Component {
             postBody.pin.location.latY = coordinates.lat;
         }
 
-        if (hierarchyType === 'pin') {
-            postBody.pinID = pinID;
-        }
+        if (hierarchyType === 'pin') postBody.pinID = pinID;
 
-        if (!filesUploading) {
-            createPin(postBody);
-        }
+        if (!filesUploading) createPin(postBody);
     };
 }
 
@@ -195,12 +184,8 @@ const mapStateToProps = ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    createPin: postBody => {
-        dispatch(createPin(postBody));
-    },
-    resetPinAnswers: () => {
-        dispatch(resetPinAnswers());
-    }
+    createPin: postBody => dispatch(createPin(postBody)),
+    resetPinAnswers: () => dispatch(resetPinAnswers())
 });
 
 export default withRouter(
