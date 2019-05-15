@@ -7,36 +7,22 @@ import fetchCompanyUsers from 'actions/companyAdmin/userManagement/async/fetchCo
 import SinglePin from '../presentational/SinglePin';
 
 class SinglePinContainer extends Component {
-    render() {
-        return <SinglePin />;
-    }
+    render = () => <SinglePin />;
 
     componentDidMount = () => {
-        const {
-            pinId,
-            fetchSinglePin,
-            fetchPinTemplates,
-            fetchAllCompanyUsers
-        } = this.props;
-
-        fetchSinglePin(pinId);
-        fetchPinTemplates(pinId);
-        fetchAllCompanyUsers();
+        const { pinId, fetchSinglePinData } = this.props;
+        fetchSinglePinData(pinId);
     };
 }
 
-const mapStateToProps = (_, { match }) => ({
-    pinId: match.params['id']
+const mapStateToProps = (_, { match: { params } }) => ({
+    pinId: params.id
 });
 
 const mapDispatchToProps = dispatch => ({
-    fetchSinglePin: id => {
+    fetchSinglePinData: id => {
         dispatch(fetchSinglePin(id));
-    },
-    fetchPinTemplates: id => {
         dispatch(fetchPinTemplates(id));
-    },
-    fetchAllCompanyUsers: () => {
         dispatch(fetchCompanyUsers());
     }
 });
