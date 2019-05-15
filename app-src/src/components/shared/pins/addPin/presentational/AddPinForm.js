@@ -13,8 +13,6 @@ const AddPinForm = ({
     handleSubmit,
     templates,
     selectedTemplate,
-    statuses,
-    selectedStatus,
     filesUploading,
     confirmLeave
 }) => (
@@ -33,22 +31,9 @@ const AddPinForm = ({
         </div>
 
         {selectedTemplate && (
-            <>
-                <Field name="Select a status" sizeClasses="size-lg-6" required>
-                    <DropdownContainer
-                        placeholder="-- select --"
-                        name="pinStatus"
-                        options={statuses}
-                        selectedOption={selectedStatus}
-                        handleChange={handleChange}
-                        required
-                    />
-                </Field>
-
-                <AddPinVersionsContainer
-                    selectedTemplateID={selectedTemplate.value}
-                />
-            </>
+            <AddPinVersionsContainer
+                selectedTemplateID={selectedTemplate.value}
+            />
         )}
 
         <BlockButtonWrapper>
