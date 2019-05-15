@@ -10,6 +10,7 @@ import { PAYMENT_ERROR, PAYMENT_SUCCESS } from 'constants/shared/modalTypes';
 import { PAYMENT_IDS } from 'constants/companyAdmin/enums';
 import fetchAllInvoices from 'actions/companyAdmin/invoices/async/fetchAllInvoices';
 import fetchAllCards from 'actions/companyAdmin/cards/async/fetchAllCards';
+import fetchCostOfCredits from 'actions/companyAdmin/credits/fetchCostOfCredits';
 
 class BuyCreditsModalContainer extends Component {
     state = {
@@ -29,15 +30,13 @@ class BuyCreditsModalContainer extends Component {
                 value === this.state.stripeCardID || isPrimary
         );
 
-        const noCards = !cards.length;
-
         return (
             <BuyCreditsModal
                 {...this.state}
                 handleChange={this.handleChange}
                 handleSubmit={this.handleSubmit}
                 cards={cardOptions}
-                noCards={noCards}
+                noCards={!cards.length}
                 costOfCredits={costOfCredits}
                 selectedCard={selectedCard}
                 hideModal={e => {
@@ -49,7 +48,9 @@ class BuyCreditsModalContainer extends Component {
     };
 
     componentDidMount = () => {
-        this.props.fetchAllCards();
+        const { fetchAllCards, fetchCostOfCredits } = this.props;
+        fetchAllCards();
+        fetchCostOfCredits();
     };
 
     componentDidUpdate = prevProps => {
@@ -126,6 +127,7 @@ const mapStateToProps = ({
 const mapDispatchToProps = dispatch => ({
     createCredits: body => dispatch(createCredits(body)),
     fetchAllCards: () => dispatch(fetchAllCards()),
+    fetchCostOfCredits: () => dispatch(fetchCostOfCredits()),
     fetchAllCredits: () => dispatch(fetchAllCredits()),
     fetchAllInvoices: () => dispatch(fetchAllInvoices()),
     showModal: (type, props) => dispatch(showModal(type, props)),

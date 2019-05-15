@@ -47,13 +47,6 @@ const PinDetails = ({
                 fieldClass="no-h-padding"
                 sizeClass="size-lg-6"
             />
-
-            {/* <FieldOutput
-                title="Status"
-                description={STATUS[pinHistory.status]}
-                fieldClass="no-h-padding"
-                sizeClass="size-lg-6"
-            /> */}
         </div>
 
         <PinSectionsContainer pinHistory={pinHistory} drawingID={drawingID} />

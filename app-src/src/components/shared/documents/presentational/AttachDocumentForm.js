@@ -14,6 +14,7 @@ import BlockHeading from 'components/shared/generic/blockHeading/presentational/
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
+import SubmitContainer from 'components/shared/generic/form/containers/SubmitContainer';
 
 const AttachDocumentForm = ({
     handleInputChange,
@@ -166,16 +167,7 @@ const AttachDocumentForm = ({
                 </>
             )}
             <BlockButtonWrapper>
-                <button disabled={filesUploading} className="button green">
-                    {filesUploading ? (
-                        'Please wait...'
-                    ) : (
-                        <>
-                            <i className="fa fa-plus" />
-                            Attach Document
-                        </>
-                    )}
-                </button>
+                <SubmitContainer text="Attach Document" withPlus />
                 <ButtonContainer
                     to={location.pathname.replace('/attach-document', '')}
                 >

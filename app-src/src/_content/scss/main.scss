@@ -16,9 +16,11 @@
 }
 
 //layouts
+html,
 body {
-    min-height: 100%;
+    min-height: 100vh;
     font-size: 10px;
+    margin-bottom: 20px;
     -webkit-font-smoothing: antialiased;
     @include ubuntu;
     background-color: #212228;
@@ -899,7 +901,7 @@ input {
         font-size: 140%;
         line-height: 21px;
     }
-
+    .link-holder,
     .button,
     button {
         float: right;
@@ -1835,6 +1837,8 @@ input {
 //footer
 #page-footer {
     width: 100%;
+    bottom: 0;
+    position: fixed;
     padding: 10px 0;
     float: left;
     p {

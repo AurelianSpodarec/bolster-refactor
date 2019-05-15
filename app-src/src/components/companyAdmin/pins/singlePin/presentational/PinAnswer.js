@@ -12,16 +12,11 @@ const PinAnswer = ({
     questions,
     answers,
     status,
-    dispatch,
-    dropdownOptions
+    dispatch
 }) => {
-    let relevantQuestion;
-    let relevantOption;
-    let relevantOptions;
-    let curAnswer = answers.find(item => +item.id === +trimmedAnswer.id);
+    const curAnswer = answers.find(item => +item.id === +trimmedAnswer.id);
     const notFoundResponse = <p>Not Found</p>;
-
-    if (!curAnswer) return notFoundResponse;
+    if (!curAnswer && type !== TYPES.STATUS) return notFoundResponse;
     switch (type) {
         case TYPES.SINGLE_LINE:
         case TYPES.MULTI_LINE:
@@ -32,12 +27,12 @@ const PinAnswer = ({
             return <p>{curAnswer.answer.join(', ')}</p>;
         case TYPES.DROPDOWN:
         case TYPES.RADIO:
-            relevantQuestion = questions.find(
+            var relevantQuestion = questions.find(
                 ({ id }) => +id === +curAnswer.templateQuestionID
             );
             if (!relevantQuestion) return notFoundResponse;
 
-            relevantOption = relevantQuestion.options.find(
+            var relevantOption = relevantQuestion.options.find(
                 ({ id }) => id === curAnswer.answer
             );
             if (!relevantOption) return notFoundResponse;
@@ -47,7 +42,7 @@ const PinAnswer = ({
             var { options } = questions.find(
                 item => +item.id === curAnswer.templateQuestionID
             );
-            relevantOptions = options.filter(({ id }) =>
+            var relevantOptions = options.filter(({ id }) =>
                 curAnswer.answer.includes(id)
             );
             return <p>{relevantOptions.map(({ text }) => text).join(', ')}</p>;
@@ -95,12 +90,4 @@ const PinAnswer = ({
     }
 };
 
-const mapStateToProps = ({
-    companyAdmin: {
-        addPinDropdownOptions: { dropdownOptions }
-    }
-}) => ({
-    dropdownOptions
-});
-
-export default connect(mapStateToProps)(PinAnswer);
+export default connect()(PinAnswer);

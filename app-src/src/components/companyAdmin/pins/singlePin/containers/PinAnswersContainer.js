@@ -10,16 +10,24 @@ const PinAnswersContainer = ({
     pinHistory,
     status,
     relevantAnswer
-}) => (
-    <PinAnswer
-        answers={pinAnswers}
-        trimmedAnswer={relevantAnswer}
-        questions={questions}
-        type={questionType}
-        pinHistory={pinHistory}
-        status={status}
-    />
-);
+}) =>
+    console.log({
+        questionType,
+        questions,
+        pinAnswers,
+        pinHistory,
+        status,
+        relevantAnswer
+    }) || (
+        <PinAnswer
+            answers={pinAnswers}
+            trimmedAnswer={relevantAnswer}
+            questions={questions}
+            type={questionType}
+            pinHistory={pinHistory}
+            status={status}
+        />
+    );
 
 const mapStateToProps = (
     {

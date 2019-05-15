@@ -41,9 +41,7 @@ const mapStateToProps = ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    fetchPinFeed: () => {
-        dispatch(fetchPinFeed());
-    }
+    fetchPinFeed: () => dispatch(fetchPinFeed())
 });
 
 export default connect(

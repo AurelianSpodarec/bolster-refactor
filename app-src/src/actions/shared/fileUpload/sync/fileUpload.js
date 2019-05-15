@@ -7,6 +7,7 @@ export const fileUploadStart = () => ({
     type: FILE_UPLOAD_START
 });
 
-export const fileUploadFinish = () => ({
-    type: FILE_UPLOAD_FINISH
+export const fileUploadFinish = close => ({
+    type: FILE_UPLOAD_FINISH,
+    close
 });

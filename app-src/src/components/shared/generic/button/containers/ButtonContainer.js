@@ -17,10 +17,9 @@ class ButtonContainer extends Component {
             handleClick = () => {},
             className
         } = this.props;
-        const { hover } = this.state;
 
         const style = {
-            backgroundColor: hover ? colourCode : '#939393'
+            backgroundColor: this.state.hover ? colourCode : '#939393'
         };
 
         const sharedProps = {
@@ -46,17 +45,9 @@ class ButtonContainer extends Component {
         );
     }
 
-    handleMouseOver = () => {
-        this.setState({
-            hover: true
-        });
-    };
+    handleMouseOver = () => this.setState({ hover: true });
 
-    handleMouseLeave = () => {
-        this.setState({
-            hover: false
-        });
-    };
+    handleMouseLeave = () => this.setState({ hover: false });
 }
 
 const mapStateToProps = ({
