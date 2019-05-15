@@ -16,7 +16,7 @@ const BuyCreditsModal = ({
     handleChange,
     handleSubmit,
     paymentType,
-    creditsToBuy,
+    creditsToBuy = 0,
     cards,
     selectedCard,
     costOfCredits,
