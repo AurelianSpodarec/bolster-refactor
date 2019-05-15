@@ -14,7 +14,7 @@ function filesUploadingReducer(state = 0, action) {
         case FILE_UPLOAD_START:
             return ++state;
         case FILE_UPLOAD_FINISH:
-            return --state;
+            return action.close ? 0 : --state;
         default:
             return state;
     }

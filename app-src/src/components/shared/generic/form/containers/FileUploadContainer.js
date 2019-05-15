@@ -52,7 +52,8 @@ class FileUploadContainer extends Component {
     componentWillUnmount = () => {
         const { name, removeFieldError, fileUploadFinish } = this.props;
         removeFieldError(name);
-        fileUploadFinish();
+        // ensures the file upload is set to 0 if the page is navigated away from before files have finished uploading
+        fileUploadFinish('close');
     };
 
     componentDidUpdate = ({ value: prevValue }) => {
@@ -123,12 +124,10 @@ class FileUploadContainer extends Component {
 
     _handleFileLoad = (source = '', load, error) => {
         var myRequest = new Request(source);
-        const that = this;
         fetch(myRequest)
             .then(function(response) {
                 response.blob().then(function(myBlob) {
                     load(myBlob);
-                    that.handleFileUploadFinish();
                 });
             })
             .catch(function() {
@@ -145,6 +144,7 @@ class FileUploadContainer extends Component {
         progress,
         abort
     ) => {
+        this.handleFileUploadStart();
         const formData = new FormData();
         formData.append(fieldName, file, file.name);
 
@@ -167,8 +167,12 @@ class FileUploadContainer extends Component {
                 const { name, handleChange } = this.props;
                 handleChange(name, s3Key);
                 load(s3Key);
+                this.handleFileUploadFinish();
             })
-            .catch(() => error('Something went wrong'));
+            .catch(() => {
+                this.handleFileUploadFinish();
+                return error('Something went wrong');
+            });
 
         return {
             abort: () => {
@@ -198,7 +202,7 @@ const mapDispatchToProps = dispatch => ({
     addFieldError: (name, error) => dispatch(addFieldError(name, error)),
     removeFieldError: name => dispatch(removeFieldError(name)),
     fileUploadStart: () => dispatch(fileUploadStart()),
-    fileUploadFinish: () => dispatch(fileUploadFinish())
+    fileUploadFinish: close => dispatch(fileUploadFinish(close))
 });
 
 export default connect(
