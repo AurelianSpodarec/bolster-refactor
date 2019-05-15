@@ -19,7 +19,9 @@ const {
     SINGLE_PHOTO,
     MULTI_PHOTO,
     DROPDOWN_OPTIONS,
-    MULTI_DROPDOWN_OPTIONS
+    MULTI_DROPDOWN_OPTIONS,
+    MULTI_MULTI_DROPDOWN,
+    MULTI_MULTI_DROPDOWN_OPTIONS
 } = QUESTION_TYPE_VALUES;
 
 const NoFields = () => null;
@@ -36,7 +38,9 @@ const SpecificFieldsRoute = ({ questionType, ...otherProps }) => {
         [SINGLE_PHOTO]: NoFields,
         [MULTI_PHOTO]: MultiPhotoForm,
         [DROPDOWN_OPTIONS]: OptionTypeFrom,
-        [MULTI_DROPDOWN_OPTIONS]: OptionTypeFrom
+        [MULTI_DROPDOWN_OPTIONS]: OptionTypeFrom,
+        [MULTI_MULTI_DROPDOWN]: MultiOptionFormContainer,
+        [MULTI_MULTI_DROPDOWN_OPTIONS]: OptionTypeFrom
     };
 
     const SpecificForm = questionForms[questionType] || NoFields;
