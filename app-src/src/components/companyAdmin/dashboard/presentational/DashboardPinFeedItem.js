@@ -27,8 +27,6 @@ const DashboardPinFeedItem = ({ pin }) => {
             break;
     }
 
-    console.log(pin);
-
     return (
         <tr key={pin.createdOn}>
             <td>

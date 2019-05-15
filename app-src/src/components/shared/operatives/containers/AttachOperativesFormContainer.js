@@ -3,10 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { convertArrToObj } from 'helpers/generic';
 
-import {
-    COMPANY_USER_ROLE_TYPES,
-    HIERARCHY_TYPES
-} from 'constants/companyAdmin/enums';
+import { HIERARCHY_TYPES } from 'constants/companyAdmin/enums';
 import addOperative from 'actions/companyAdmin/operatives/async/addOperative';
 import fetchCompanyUsers from 'actions/companyAdmin/userManagement/async/fetchCompanyUsers';
 
@@ -89,7 +86,6 @@ class AttachOperativesFormContainer extends Component {
     };
 }
 
-const { OPERATIVE } = COMPANY_USER_ROLE_TYPES;
 const mapStateToProps = (
     {
         companyAdmin: {
@@ -108,9 +104,7 @@ const mapStateToProps = (
 ) => ({
     redirectUrl: url.replace('/add-operative', ''),
     hierarchyID: params.id,
-    operativeUsers:
-        operativeUsers ||
-        Object.values(users).filter(({ type }) => type === OPERATIVE),
+    operativeUsers: operativeUsers || Object.values(users),
     services: Object.values(services),
     subscriptions: subscriptions.serviceIDs || [],
     isFetching: isFetching || fetchingOps,
