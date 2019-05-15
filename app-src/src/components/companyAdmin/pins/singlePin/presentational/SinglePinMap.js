@@ -58,8 +58,7 @@ const SinglePinMap = ({
                     className="pull-right"
                     to={`/company/pins/${pin.nextPinID}`}
                 >
-                    Next
-                    <i className="fa fa-arrow-right" />
+                    Next <i className="fa fa-arrow-right" />
                 </ButtonContainer>
             )}
             {pin.prevPinID && (
