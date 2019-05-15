@@ -46,7 +46,6 @@ class MultiSelectDropdown extends Component {
 
     handleChange = updatedValues => {
         this.props.handleChange(updatedValues);
-        console.log(updatedValues);
     };
 
     _validate = value => {
