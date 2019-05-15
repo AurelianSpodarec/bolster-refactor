@@ -71,6 +71,9 @@ export const getQuestionDetails = question => {
             return { ...options, 'Max number': question.maxNum || 'N/A' };
         case VALS.DROPDOWN:
         case VALS.MULTI_DROPDOWN:
+        case VALS.MULTI_MULTI_DROPDOWN:
+        case VALS.DROPDOWN_OPTIONS:
+        case VALS.MULTI_MULTI_DROPDOWN_OPTIONS:
         case VALS.RADIO:
             return {
                 ...options,
@@ -107,6 +110,7 @@ function setDynamicFieldsSingle({
             break;
         case VALS.DROPDOWN:
         case VALS.MULTI_DROPDOWN:
+        case VALS.MULTI_MULTI_DROPDOWN:
         case VALS.RADIO:
             dynamicFields = {
                 options: [
@@ -120,6 +124,7 @@ function setDynamicFieldsSingle({
             break;
         case VALS.DROPDOWN_OPTIONS:
         case VALS.MULTI_DROPDOWN_OPTIONS:
+        case VALS.MULTI_MULTI_DROPDOWN_OPTIONS:
             dynamicFields = { optionType };
             break;
         default:

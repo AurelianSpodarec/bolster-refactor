@@ -10,6 +10,7 @@ import FileUploadContainer from 'components/shared/generic/form/containers/FileU
 import RadioButtonListContainer from 'components/shared/generic/form/containers/RadioButtonListContainer';
 import SignatureContainer from 'components/shared/generic/form/containers/SignatureContainer';
 import MultiDropdownContainer from 'components/shared/generic/form/containers/MultiDropdownContainer';
+import MultiMultiDropdownContainer from 'components/shared/generic/form/containers/MultiMultiDropdownContainer';
 
 import updateAddPinAnswer from 'actions/companyAdmin/drawings/sync/updateAddPinAnswer';
 import resetPinAnswers from 'actions/companyAdmin/drawings/sync/resetPinAnswers';
@@ -32,7 +33,9 @@ const {
     MULTI_PHOTO,
     STATUS,
     DROPDOWN_OPTIONS,
-    MULTI_DROPDOWN_OPTIONS
+    MULTI_DROPDOWN_OPTIONS,
+    MULTI_MULTI_DROPDOWN,
+    MULTI_MULTI_DROPDOWN_OPTIONS
 } = QUESTION_TYPE_VALUES;
 
 const SingleLine = ({
@@ -244,6 +247,51 @@ const MultiDropdownOptions = ({
     );
 };
 
+const MultiMultiDropdown = ({
+    question: { id, options, isRequired },
+    answers,
+    handleMultiDropdownChange
+}) => {
+    const formattedOpts = options.map(({ id, text }) => ({
+        value: id,
+        label: text
+    }));
+
+    return (
+        <MultiMultiDropdownContainer
+            required={isRequired}
+            options={formattedOpts}
+            value={answers[id]}
+            name={`answer-${id}`}
+            handleChange={handleMultiDropdownChange}
+        />
+    );
+};
+
+const MultiMultiDropdownOptions = ({
+    question: { id, isRequired, optionType },
+    dropdownOptions,
+    answers,
+    handleMultiDropdownChange
+}) => {
+    const formattedOpts = dropdownOptions
+        .filter(option => option.type === optionType)
+        .map(({ name }) => ({
+            value: name,
+            label: name
+        }));
+
+    return (
+        <MultiMultiDropdownContainer
+            required={isRequired}
+            options={formattedOpts}
+            value={answers[id]}
+            name={`answer-${id}`}
+            handleChange={handleMultiDropdownChange}
+        />
+    );
+};
+
 class AddPinQuestionRoute extends Component {
     state = {
         sigPad: {}
@@ -271,7 +319,9 @@ class AddPinQuestionRoute extends Component {
             [SIGNATURE]: Signature,
             [STATUS]: Status,
             [DROPDOWN_OPTIONS]: DropdownOptions,
-            [MULTI_DROPDOWN_OPTIONS]: MultiDropdownOptions
+            [MULTI_DROPDOWN_OPTIONS]: MultiDropdownOptions,
+            [MULTI_MULTI_DROPDOWN]: MultiMultiDropdown,
+            [MULTI_MULTI_DROPDOWN_OPTIONS]: MultiMultiDropdownOptions
         };
 
         const SpecificField = fieldTypes[question.type + ''] || SingleLine;
@@ -464,6 +514,8 @@ class AddPinQuestionRoute extends Component {
             case MULTI_PHOTO:
             case MULTI_DROPDOWN:
             case MULTI_DROPDOWN_OPTIONS:
+            case MULTI_MULTI_DROPDOWN:
+            case MULTI_MULTI_DROPDOWN_OPTIONS:
                 return [];
             case CHECKBOX:
                 return false;
