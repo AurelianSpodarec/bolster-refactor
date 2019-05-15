@@ -19,7 +19,7 @@ class PinHistoriesListItemContainer extends Component {
 
         const { active } = this.state;
 
-        const user = users[history.createdByCompanyUserID];
+        const user = users[history.createdByCompanyUserID] || {};
 
         const historyVersion =
             [...allHistories]
@@ -42,9 +42,7 @@ class PinHistoriesListItemContainer extends Component {
     componentDidMount = () => {
         const { selectedHistoryId, history } = this.props;
         if (selectedHistoryId === history.id) {
-            this.setState({
-                active: !this.state.active
-            });
+            this.setState({ active: !this.state.active });
         }
     };
 
@@ -85,15 +83,13 @@ const mapStateToProps = ({
         pinHistoriesReducer: { histories }
     }
 }) => ({
-    users: users,
-    services: services,
+    users,
+    services,
     allHistories: Object.values(histories)
 });
 
 const mapDispatchToProps = dispatch => ({
-    selectPinHistory: historyID => {
-        dispatch(selectPinHistory(historyID));
-    }
+    selectPinHistory: historyID => dispatch(selectPinHistory(historyID))
 });
 
 export default connect(
