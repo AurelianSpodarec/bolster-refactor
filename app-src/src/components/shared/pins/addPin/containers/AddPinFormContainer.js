@@ -8,21 +8,16 @@ import resetPinAnswers from 'actions/companyAdmin/drawings/sync/resetPinAnswers'
 
 import AddPinForm from '../presentational/AddPinForm';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-
-import { PIN_STATUS_TYPES } from 'constants/companyAdmin/enums';
-import { convertEnumToDropdownOptions } from 'helpers/generic';
-
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
 import BackButtonContainer from 'components/shared/generic/backButton/containers/BackButtonContainer';
 
 class AddPinFormContainer extends Component {
     state = {
-        templateID: '',
-        pinStatus: ''
+        templateID: ''
     };
 
     render() {
-        const { templateID, pinStatus } = this.state;
+        const { templateID } = this.state;
         const {
             location,
             isFetching,
@@ -33,7 +28,6 @@ class AddPinFormContainer extends Component {
         } = this.props;
 
         const templateOptions = this._getTemplates(templates);
-        const statusOptions = convertEnumToDropdownOptions(PIN_STATUS_TYPES);
 
         return (
             <>
@@ -49,8 +43,6 @@ class AddPinFormContainer extends Component {
                     <AddPinForm
                         templates={Object.values(templateOptions)}
                         selectedTemplate={templateOptions[templateID]}
-                        statuses={Object.values(statusOptions)}
-                        selectedStatus={statusOptions[pinStatus]}
                         location={location}
                         handleChange={this.handleChange}
                         handleSubmit={this.handleSubmit}
@@ -128,7 +120,8 @@ class AddPinFormContainer extends Component {
             coordinates,
             filesUploading,
             hierarchyType,
-            pinID
+            pinID,
+            status
         } = this.props;
 
         const curTemplate =
@@ -142,21 +135,19 @@ class AddPinFormContainer extends Component {
         const postBody = {
             history: {
                 templateVersionID: curTemplate.latestVersionID,
-                pinStatus: this.state.pinStatus
+                pinStatus: status
             },
             answers: formattedAnswers
         };
 
         if (hierarchyType === 'drawing') {
-            postBody.pin = {};
-            postBody.pin.drawingID = parseInt(drawingID);
-            postBody.pin.location = {};
-            postBody.pin.location.lngX = coordinates.lng;
-            postBody.pin.location.latY = coordinates.lat;
+            postBody.pin = {
+                drawingID: parseInt(drawingID),
+                location: { lngX: coordinates.lng, latY: coordinates.lat }
+            };
         }
 
         if (hierarchyType === 'pin') postBody.pinID = pinID;
-
         if (!filesUploading) createPin(postBody);
     };
 }
@@ -164,7 +155,7 @@ class AddPinFormContainer extends Component {
 const mapStateToProps = ({
     companyAdmin: {
         templatesReducer: { templates, isFetching, error },
-        addPinFormReducer: { answers },
+        addPinFormReducer: { answers, status },
         addPinCoordinatesReducer: { coordinates },
         pinsReducer: { postSuccess }
     },
@@ -180,7 +171,8 @@ const mapStateToProps = ({
     error,
     postSuccess,
     filesUploading,
-    confirmLeave
+    confirmLeave,
+    status
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -65,10 +65,10 @@ class ActiveServicesContainer extends Component {
             : [];
     };
 
-    handleChange = (_, value) => {
+    handleChange = name => {
         const { editServiceRenewalStatus } = this.props;
         const updatedServices = this.state.subscriptions.reduce((acc, curr) => {
-            if (curr.serviceID === +value) {
+            if (curr.name === name) {
                 acc.push({ ...curr, isAutoRenew: !curr.isAutoRenew });
                 const postBody = {
                     companySubscriptionServiceID: curr.id,
@@ -78,7 +78,6 @@ class ActiveServicesContainer extends Component {
             } else acc.push(curr);
             return acc;
         }, []);
-
         this.setState({ subscriptions: updatedServices });
     };
 }
