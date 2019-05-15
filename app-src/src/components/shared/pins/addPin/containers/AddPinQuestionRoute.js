@@ -10,12 +10,15 @@ import FileUploadContainer from 'components/shared/generic/form/containers/FileU
 import RadioButtonListContainer from 'components/shared/generic/form/containers/RadioButtonListContainer';
 import SignatureContainer from 'components/shared/generic/form/containers/SignatureContainer';
 import MultiDropdownContainer from 'components/shared/generic/form/containers/MultiDropdownContainer';
+import MultiMultiDropdownContainer from 'components/shared/generic/form/containers/MultiMultiDropdownContainer';
 
 import updateAddPinAnswer from 'actions/companyAdmin/drawings/sync/updateAddPinAnswer';
 import resetPinAnswers from 'actions/companyAdmin/drawings/sync/resetPinAnswers';
 
-import { convertArrToObj } from 'helpers/generic';
+import { convertArrToObj, convertEnumToDropdownOptions } from 'helpers/generic';
 import Field from 'components/shared/generic/form/presentational/Field';
+import { PIN_STATUS_TYPES } from 'constants/companyAdmin/enums';
+import updateAddPinStatus from 'actions/companyAdmin/drawings/sync/updateAddPinStatus';
 
 const {
     SINGLE_LINE,
@@ -30,7 +33,9 @@ const {
     MULTI_PHOTO,
     STATUS,
     DROPDOWN_OPTIONS,
-    MULTI_DROPDOWN_OPTIONS
+    MULTI_DROPDOWN_OPTIONS,
+    MULTI_MULTI_DROPDOWN,
+    MULTI_MULTI_DROPDOWN_OPTIONS
 } = QUESTION_TYPE_VALUES;
 
 const SingleLine = ({
@@ -178,8 +183,19 @@ const Signature = ({ question: { isRequired, id }, handleSignatureChange }) => (
     />
 );
 
-const Status = () => <div />;
-
+const Status = ({ status, handleStatusChange }) => {
+    const statusesObj = convertEnumToDropdownOptions(PIN_STATUS_TYPES);
+    return (
+        <DropdownContainer
+            placeholder="-- select --"
+            name="pinStatus"
+            options={Object.values(statusesObj)}
+            selectedOption={statusesObj[status]}
+            handleChange={handleStatusChange}
+            required
+        />
+    );
+};
 const DropdownOptions = ({
     question: { id, isRequired, optionType },
     dropdownOptions,
@@ -231,13 +247,64 @@ const MultiDropdownOptions = ({
     );
 };
 
+const MultiMultiDropdown = ({
+    question: { id, options, isRequired },
+    answers,
+    handleMultiDropdownChange
+}) => {
+    const formattedOpts = options.map(({ id, text }) => ({
+        value: id,
+        label: text
+    }));
+
+    return (
+        <MultiMultiDropdownContainer
+            required={isRequired}
+            options={formattedOpts}
+            value={answers[id]}
+            name={`answer-${id}`}
+            handleChange={handleMultiDropdownChange}
+        />
+    );
+};
+
+const MultiMultiDropdownOptions = ({
+    question: { id, isRequired, optionType },
+    dropdownOptions,
+    answers,
+    handleMultiDropdownChange
+}) => {
+    const formattedOpts = dropdownOptions
+        .filter(option => option.type === optionType)
+        .map(({ name }) => ({
+            value: name,
+            label: name
+        }));
+
+    return (
+        <MultiMultiDropdownContainer
+            required={isRequired}
+            options={formattedOpts}
+            value={answers[id]}
+            name={`answer-${id}`}
+            handleChange={handleMultiDropdownChange}
+        />
+    );
+};
+
 class AddPinQuestionRoute extends Component {
     state = {
         sigPad: {}
     };
 
     render() {
-        const { question, answers, questions, dropdownOptions } = this.props;
+        const {
+            question,
+            answers,
+            questions,
+            dropdownOptions,
+            status
+        } = this.props;
 
         const fieldTypes = {
             [SINGLE_LINE]: SingleLine,
@@ -252,7 +319,9 @@ class AddPinQuestionRoute extends Component {
             [SIGNATURE]: Signature,
             [STATUS]: Status,
             [DROPDOWN_OPTIONS]: DropdownOptions,
-            [MULTI_DROPDOWN_OPTIONS]: MultiDropdownOptions
+            [MULTI_DROPDOWN_OPTIONS]: MultiDropdownOptions,
+            [MULTI_MULTI_DROPDOWN]: MultiMultiDropdown,
+            [MULTI_MULTI_DROPDOWN_OPTIONS]: MultiMultiDropdownOptions
         };
 
         const SpecificField = fieldTypes[question.type + ''] || SingleLine;
@@ -352,8 +421,10 @@ class AddPinQuestionRoute extends Component {
                     <SpecificField
                         question={question}
                         answers={answers}
+                        status={status}
                         dropdownOptions={dropdownOptions}
                         handleChange={this.handleChange}
+                        handleStatusChange={this.handleStatusChange}
                         handleFileChange={this.handleFileChange}
                         handleSignatureChange={this.handleSignatureChange}
                         handleMultiDropdownChange={
@@ -390,6 +461,11 @@ class AddPinQuestionRoute extends Component {
     handleSignatureChange = d => {
         const { updateAddPinAnswer, question } = this.props;
         updateAddPinAnswer(question.id, d);
+    };
+
+    handleStatusChange = (_, val) => {
+        const { updateAddPinStatus } = this.props;
+        updateAddPinStatus(val);
     };
 
     handleFileChange = (name, s3Key) => {
@@ -438,6 +514,8 @@ class AddPinQuestionRoute extends Component {
             case MULTI_PHOTO:
             case MULTI_DROPDOWN:
             case MULTI_DROPDOWN_OPTIONS:
+            case MULTI_MULTI_DROPDOWN:
+            case MULTI_MULTI_DROPDOWN_OPTIONS:
                 return [];
             case CHECKBOX:
                 return false;
@@ -450,22 +528,21 @@ class AddPinQuestionRoute extends Component {
 const mapStateToProps = ({
     companyAdmin: {
         addPinDropdownOptions: { dropdownOptions },
-        addPinFormReducer: { answers },
+        addPinFormReducer: { answers, status },
         templateQuestionsReducer: { questions }
     }
 }) => ({
     dropdownOptions,
     answers,
+    status,
     questions
 });
 
 const mapDispatchToProps = dispatch => ({
-    updateAddPinAnswer: (key, value) => {
-        dispatch(updateAddPinAnswer(key, value));
-    },
-    resetPinAnswers: () => {
-        dispatch(resetPinAnswers());
-    }
+    updateAddPinAnswer: (key, value) =>
+        dispatch(updateAddPinAnswer(key, value)),
+    resetPinAnswers: () => dispatch(resetPinAnswers()),
+    updateAddPinStatus: val => dispatch(updateAddPinStatus(val))
 });
 
 export default connect(

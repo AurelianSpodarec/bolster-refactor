@@ -27,6 +27,8 @@ const DashboardPinFeedItem = ({ pin }) => {
             break;
     }
 
+    console.log(pin);
+
     return (
         <tr key={pin.createdOn}>
             <td>
@@ -46,7 +48,7 @@ const DashboardPinFeedItem = ({ pin }) => {
             <td>{moment(pin.createdOn).format('DD-MM-YYYY HH:mm')}</td>
             <td>{moment(pin.syncedOn).format('DD-MM-YYYY HH:mm')}</td>
             <td>
-                <ButtonContainer to={`/company/pins/${pin.id}`}>
+                <ButtonContainer to={`/company/pins/${pin.pinID}`}>
                     View
                 </ButtonContainer>
             </td>

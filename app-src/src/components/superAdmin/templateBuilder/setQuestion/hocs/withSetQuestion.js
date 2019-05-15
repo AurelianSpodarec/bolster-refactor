@@ -94,12 +94,14 @@ export default function(WrappedComponent) {
                     return { maxNum };
                 case VALS.DROPDOWN:
                 case VALS.MULTI_DROPDOWN:
+                case VALS.MULTI_MULTI_DROPDOWN:
                 case VALS.RADIO:
                     return { options, canCompanyEdit };
                 case VALS.MULTI_PHOTO:
                     return { maxPhotos };
                 case VALS.DROPDOWN_OPTIONS:
                 case VALS.MULTI_DROPDOWN_OPTIONS:
+                case VALS.MULTI_MULTI_DROPDOWN_OPTIONS:
                     return { optionType };
                 default:
                     return {};
