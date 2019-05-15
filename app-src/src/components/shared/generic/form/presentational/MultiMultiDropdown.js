@@ -1,60 +1,133 @@
-import React from 'react';
-import Select from 'react-select';
+import React, { useState, useRef, useEffect } from 'react';
+import withFieldValidation from '../hocs/withFieldValidation';
 
 const MultiMultiDropdown = ({
-    options,
     name,
-    error,
-    handleChange,
-    value,
-    showDropdown = false
-}) => (
-    <>
-        <div className="multi-multi-dropdown size-lg-12">
-            <div className="selected-box">
-                <div className="option">
-                    <p>Option 1</p>
-                    <i className="close fal fa-times" />
-                </div>
+    value = [],
+    options = [],
+    onChange,
+    showError,
+    placeholder = '-- select options --'
+}) => {
+    const [isOpen, setIsOpen] = useState(false);
+    const [searchTerm, setSearch] = useState('');
+    const node = useRef();
 
-                <div className="option">
-                    <p>Option 2</p>
-                    <i className="close fal fa-times" />
-                </div>
+    useEffect(() => {
+        document.addEventListener('mousedown', handleClick);
+
+        return () => {
+            document.removeEventListener('mousedown', handleClick);
+        };
+    }, []);
+
+    return (
+        <div className="multi-multi-dropdown size-lg-12" ref={node}>
+            <div className="selected-box" onClick={toggle}>
+                {!getSelected().length && <p>{placeholder}</p>}
+                {getSelected().map(opt => (
+                    <div
+                        key={opt.value}
+                        className="option"
+                        onClick={() => isOpen && setIsOpen(false)}
+                    >
+                        <p>{opt.label}</p>
+                        <i
+                            className="close fal fa-times"
+                            onClick={e => handleDeselect(e, opt.value)}
+                        />
+                    </div>
+                ))}
 
                 <i className="arrow fal fa-angle-down" />
             </div>
 
-            {showDropdown && (
+            {isOpen && (
                 <div className="option-selection">
                     <div className="search-box">
-                        <input type="text" placeholder="Search..." />
+                        <input
+                            type="text"
+                            placeholder="Search..."
+                            value={searchTerm}
+                            onChange={handleSearchChange}
+                        />
                     </div>
 
                     <div className="option-container">
-                        {options.map(option => (
-                            <p key={option.value} className="option">
-                                {option.label}
+                        {getFilteredOptions().map(opt => (
+                            <p
+                                key={opt.value}
+                                className={`option ${
+                                    value.includes(opt.value) ? 'active' : ''
+                                }`}
+                                onClick={e => handleSelect(e, opt.value)}
+                            >
+                                {opt.label}
                             </p>
                         ))}
                     </div>
                 </div>
             )}
         </div>
+    );
 
-        {!!(error && error.length) && (
-            <p className="error red-text text-accent-4">{error}</p>
-        )}
-        {/* <Select
-            options={options}
-            isMulti
-            name={name}
-            onChange={handleChange}
-            value={value}
-            hideSelectedOptions={false}
-        />
-         */}
-    </>
-);
+    function handleClick(e) {
+        if (node.current.contains(e.target)) {
+            // inside click
+            return;
+        }
+        // outside click
+        setIsOpen(false);
+        showError();
+    }
 
-export default MultiMultiDropdown;
+    function getSelected() {
+        return options
+            .filter(opt => value.includes(opt.value))
+            .map(opt => {
+                let label = opt.label;
+                const count = value.filter(item => item === opt.value).length;
+                if (count > 1) label = `${label} (${count})`;
+
+                return { ...opt, label };
+            });
+    }
+
+    function getFilteredOptions() {
+        return options.filter(opt =>
+            opt.label
+                .replace(/\s/g, '')
+                .toLowerCase()
+                .includes(searchTerm.replace(/\s/g, '').toLowerCase())
+        );
+    }
+
+    function handleSearchChange(e) {
+        e.preventDefault();
+
+        setSearch(e.target.value);
+    }
+
+    function handleDeselect(e, clicked) {
+        e.preventDefault();
+        e.stopPropagation();
+        const index = value.findIndex(item => item === clicked);
+        const newVal = [...value.slice(0, index), ...value.slice(index + 1)];
+
+        onChange(name, newVal);
+    }
+
+    function handleSelect(e, clicked) {
+        e.preventDefault();
+
+        onChange(name, [...value, clicked]);
+    }
+
+    function toggle() {
+        if (isOpen) showError();
+
+        setIsOpen(!isOpen);
+    }
+};
+
+export default withFieldValidation(MultiMultiDropdown);

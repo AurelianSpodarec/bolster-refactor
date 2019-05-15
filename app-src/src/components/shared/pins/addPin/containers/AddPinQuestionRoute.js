@@ -19,6 +19,7 @@ import { convertArrToObj, convertEnumToDropdownOptions } from 'helpers/generic';
 import Field from 'components/shared/generic/form/presentational/Field';
 import { PIN_STATUS_TYPES } from 'constants/companyAdmin/enums';
 import updateAddPinStatus from 'actions/companyAdmin/drawings/sync/updateAddPinStatus';
+import MultiMultiDropdown from 'components/shared/generic/form/presentational/MultiMultiDropdown';
 
 const {
     SINGLE_LINE,
@@ -247,10 +248,10 @@ const MultiDropdownOptions = ({
     );
 };
 
-const MultiMultiDropdown = ({
+const MultiMulti = ({
     question: { id, options, isRequired },
     answers,
-    handleMultiDropdownChange
+    handleMultiMultiChange
 }) => {
     const formattedOpts = options.map(({ id, text }) => ({
         value: id,
@@ -258,12 +259,12 @@ const MultiMultiDropdown = ({
     }));
 
     return (
-        <MultiMultiDropdownContainer
+        <MultiMultiDropdown
             required={isRequired}
             options={formattedOpts}
             value={answers[id]}
             name={`answer-${id}`}
-            handleChange={handleMultiDropdownChange}
+            onChange={handleMultiMultiChange}
         />
     );
 };
@@ -272,7 +273,7 @@ const MultiMultiDropdownOptions = ({
     question: { id, isRequired, optionType },
     dropdownOptions,
     answers,
-    handleMultiDropdownChange
+    handleMultiMultiChange
 }) => {
     const formattedOpts = dropdownOptions
         .filter(option => option.type === optionType)
@@ -282,12 +283,12 @@ const MultiMultiDropdownOptions = ({
         }));
 
     return (
-        <MultiMultiDropdownContainer
+        <MultiMultiDropdown
             required={isRequired}
             options={formattedOpts}
             value={answers[id]}
             name={`answer-${id}`}
-            handleChange={handleMultiDropdownChange}
+            onChange={handleMultiMultiChange}
         />
     );
 };
@@ -320,7 +321,7 @@ class AddPinQuestionRoute extends Component {
             [STATUS]: Status,
             [DROPDOWN_OPTIONS]: DropdownOptions,
             [MULTI_DROPDOWN_OPTIONS]: MultiDropdownOptions,
-            [MULTI_MULTI_DROPDOWN]: MultiMultiDropdown,
+            [MULTI_MULTI_DROPDOWN]: MultiMulti,
             [MULTI_MULTI_DROPDOWN_OPTIONS]: MultiMultiDropdownOptions
         };
 
@@ -431,6 +432,7 @@ class AddPinQuestionRoute extends Component {
                             this.handleMultiDropdownChange
                         }
                         sigPad={this.state.sigPad}
+                        handleMultiMultiChange={this.handleMultiMultiChange}
                     />
                 </Field>
             );
@@ -452,10 +454,14 @@ class AddPinQuestionRoute extends Component {
 
     handleMultiDropdownChange = e => {
         const { updateAddPinAnswer, question } = this.props;
+        const result = e.map(a => a.value);
+        updateAddPinAnswer(question.id, result);
+    };
 
-        const results = e.map(a => a.value);
+    handleMultiMultiChange = (_, value) => {
+        const { updateAddPinAnswer, question } = this.props;
 
-        updateAddPinAnswer(question.id, results);
+        updateAddPinAnswer(question.id, value);
     };
 
     handleSignatureChange = d => {

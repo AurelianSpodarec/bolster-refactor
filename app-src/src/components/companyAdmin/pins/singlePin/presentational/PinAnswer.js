@@ -25,6 +25,9 @@ const PinAnswer = ({
             return <p>{curAnswer.answer}</p>;
         case TYPES.MULTI_DROPDOWN_OPTIONS:
             return <p>{curAnswer.answer.join(', ')}</p>;
+        case TYPES.MULTI_MULTI_DROPDOWN:
+        case TYPES.MULTI_MULTI_DROPDOWN_OPTIONS:
+            return <p>{curAnswer.answer.join(', ')}</p>;
         case TYPES.DROPDOWN:
         case TYPES.RADIO:
             var relevantQuestion = questions.find(
