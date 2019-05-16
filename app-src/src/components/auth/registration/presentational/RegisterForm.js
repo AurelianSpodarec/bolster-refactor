@@ -7,9 +7,8 @@ import Form from 'components/shared/generic/form/containers/Form';
 import Field from 'components/shared/generic/form/presentational/Field';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
-import NewSelect from 'components/shared/generic/form/presentational/NewSelect';
+import Select from 'react-select';
 import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
-import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
 
 const RegisterForm = ({
     handleSubmit,
@@ -35,7 +34,8 @@ const RegisterForm = ({
     terms,
     error,
     validatePassword,
-    validateConfirmPassword
+    validateConfirmPassword,
+    handleDropDown
 }) => (
     <BlockContainer error={error}>
         <BlockHeading title="Register for bolster systems" />
@@ -143,29 +143,32 @@ const RegisterForm = ({
             </Field>
 
             <Field name="Timezone" required>
-                <DropdownContainer
+                <Select
                     options={timezoneOptions}
                     value={timezone}
-                    handleChange={handleInputChange}
+                    isSearchable
+                    onChange={handleDropDown}
                     name="Company.timezone"
                     required
                 />
             </Field>
             <Field name="Date format" required>
-                <DropdownContainer
+                <Select
                     options={dateFormats}
                     value={dateFormatID}
-                    handleChange={handleInputChange}
+                    isSearchable
+                    onChange={handleDropDown}
                     name="Company.dateFormatID"
                     required
                 />
             </Field>
 
             <Field name="VAT Type" required>
-                <DropdownContainer
+                <Select
                     options={vatOptions}
                     value={vatType}
-                    handleChange={handleInputChange}
+                    isSearchable
+                    onChange={handleDropDown}
                     name="Company.vatType"
                     required
                 />

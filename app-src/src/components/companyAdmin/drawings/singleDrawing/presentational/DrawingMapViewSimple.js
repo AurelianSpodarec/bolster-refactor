@@ -6,13 +6,13 @@ import { FILE_STORAGE_URL } from 'config';
 import L from 'leaflet';
 import fileDownload from 'js-file-download';
 
-import MapPin from 'components/shared/pins/map/presentational/MapPin';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import CustomPin from 'components/shared/pins/map/presentational/CustomPin';
 // import LoadingIcon from 'components/shared/generic/misc/presentational/LoadingIcon';
 import Loading from 'components/shared/generic/misc/presentational/Loading';
 import { RAW_S3_STORAGE_URL } from 'config';
 import { EDIT_FLOOR_PLAN } from 'constants/shared/modalTypes';
+import MapPinContainer from 'components/shared/pins/map/containers/MapPinContainer';
 
 const getDataUrl = src => `${FILE_STORAGE_URL}/${src}/{z}/{x}/{y}.jpg`;
 const getFileName = src => src.match('[^/]*$')[0];
@@ -123,7 +123,12 @@ const DrawingMapViewSimple = ({
                             noWrap={true}
                         />
                         {pins.map(pin => (
-                            <MapPin key={pin.id} pin={pin} isReport={true} />
+                            <MapPinContainer
+                                key={pin.id}
+                                pin={pin}
+                                isReport={true}
+                                withTooltip={true}
+                            />
                         ))}
                         {addMode && (
                             <Marker

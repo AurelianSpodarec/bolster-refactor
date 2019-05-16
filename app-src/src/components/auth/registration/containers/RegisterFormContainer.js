@@ -47,6 +47,7 @@ class RegisterFormContainer extends Component {
                 {...this.state}
                 error={this.props.error}
                 handleInputChange={this.handleChange}
+                handleDropDown={this.handleDropDown}
                 timezoneOptions={timezoneOptions}
                 dateFormats={dateFormats}
                 vatOptions={vatOptions}
@@ -57,7 +58,22 @@ class RegisterFormContainer extends Component {
         );
     }
 
-    handleChange = (name, value) => this.setState({ [name]: value });
+    handleChange = (name, value) => {
+        this.setState({ [name]: value });
+    };
+
+    _handleTimezoneChange = timezone => this.setState({ timezone });
+
+    _handleDateFormatChange = (name, val) => {
+        this.setState({ [name]: val });
+    };
+
+    handleDropDown = (val, { name }) => {
+        console.log(val, name);
+        this.setState({ [name]: val });
+    };
+
+    _handleVatTypeChange = vatType => this.setState({ vatType });
 
     handleSubmit = e => {
         e.preventDefault();
@@ -92,10 +108,10 @@ class RegisterFormContainer extends Component {
                 addressLine1: addressLine1,
                 town: town,
                 postcode: postcode,
-                vatType: vatType,
+                vatType: vatType.value,
                 vatCode: vatCode,
-                dateFormatID: dateFormatID,
-                timezone: timezone
+                dateFormatID: dateFormatID.value,
+                timezone: timezone.value
             }
         };
 

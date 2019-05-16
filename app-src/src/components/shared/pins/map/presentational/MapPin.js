@@ -1,19 +1,16 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 
-import moment from 'moment';
 import L from 'leaflet';
 import { Marker, Tooltip } from 'react-leaflet';
 import {
     PIN_STATUS_COLOURS as COLOURS,
-    PIN_STATUS_TYPES,
-    DATE_TIME_DEFAULTS,
-    DATE_TIME_IDS
+    PIN_STATUS_TYPES
 } from 'constants/companyAdmin/enums';
 import CustomPin from './CustomPin';
 import ReactDOMServer from 'react-dom/server';
-import TooltipContainer from 'components/shared/generic/tooltip/containers/TooltipContainer';
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
+import { formatDate } from 'helpers/generic';
 
 const DrawingMapPin = ({
     pin: {
@@ -22,19 +19,22 @@ const DrawingMapPin = ({
         pinCode,
         latestStatus = '',
         createdOn,
-        latestCreatedOn,
-        ...rest
+        latestCreatedOn
     },
     pinHistory = {},
     history,
-    isReport
+    isReport,
+    user,
+    service,
+    withTooltip
 }) => {
     const { latY = 1, lngX = 1 } = location;
-    console.log(createdOn, latestCreatedOn);
-    console.log(rest);
-    const pinColour = COLOURS[pinHistory.status || latestStatus] || 'red';
-    const dateTime = time =>
-        moment(time).format(DATE_TIME_DEFAULTS[DATE_TIME_IDS.DATETIME]);
+    const status = pinHistory.status || latestStatus;
+    const pinColour = COLOURS[status] || 'red';
+    const updated =
+        formatDate(latestCreatedOn) !== formatDate(createdOn)
+            ? latestCreatedOn
+            : null;
     const divIcon = L.divIcon({
         className: '',
         html: ReactDOMServer.renderToString(
@@ -51,28 +51,36 @@ const DrawingMapPin = ({
     });
 
     return (
-        <TooltipContainer text="hello">
-            <Marker
-                key={id}
-                position={[latY, lngX]}
-                icon={divIcon}
-                onClick={() => isReport && history.push('/company/pins/' + id)}
-            >
+        <Marker
+            key={id}
+            position={[latY, lngX]}
+            icon={divIcon}
+            onClick={() => isReport && history.push('/company/pins/' + id)}
+        >
+            {withTooltip && (
                 <Tooltip>
-                    {`${pinCode}`} <br /> Created:{' '}
-                    <DateTimeContainer date={createdOn} />
-                    <br />
-                    {dateTime(latestCreatedOn) !== dateTime(createdOn) && (
+                    {`Pin code: ${pinCode}`} <br />
+                    {`Status: ${PIN_STATUS_TYPES[status]}`} <br />
+                    Created: <DateTimeContainer date={createdOn} /> <br />
+                    {updated && (
                         <>
-                            Updated:{' '}
-                            <DateTimeContainer date={latestCreatedOn} /> <br />
+                            Updated: <DateTimeContainer date={updated} /> <br />
                         </>
                     )}
-                    Status:{' '}
-                    {PIN_STATUS_TYPES[pinHistory.status || latestStatus]}
+                    {user && (
+                        <>
+                            Created by: {user.userFirstName} {user.userLastName}{' '}
+                            <br />
+                        </>
+                    )}
+                    {service && (
+                        <>
+                            Latest Service: {service.name} <br />{' '}
+                        </>
+                    )}
                 </Tooltip>
-            </Marker>
-        </TooltipContainer>
+            )}
+        </Marker>
     );
 };
 
