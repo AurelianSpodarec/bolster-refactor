@@ -49,7 +49,7 @@ export default function(WrappedComponent) {
                     {...otherFields}
                     labelType={labelType}
                     serviceID={serviceID}
-                    selectedLabelType={labelTypeOptions[labelType]}
+                    selectedLabelType={labelType}
                     labelTypeOptions={Object.values(labelTypeOptions)}
                     serviceOptions={Object.values(serviceOptions)}
                     selectedService={serviceOptions[serviceID]}

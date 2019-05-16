@@ -7,6 +7,7 @@ import TextInputContainer from 'components/shared/generic/form/containers/TextIn
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
+import LabelTypeRadioButtonsContainer from '../containers/LabelTypeRadioButtonsContainer';
 
 const TemplateformModal = ({
     action,
@@ -41,13 +42,11 @@ const TemplateformModal = ({
                 />
             </Field>
             <Field name="Label type" required>
-                <DropdownContainer
+                <LabelTypeRadioButtonsContainer
                     name="labelType"
-                    placeholder="-- select a label type --"
-                    handleChange={handleChange}
                     options={labelTypeOptions}
-                    selectedOption={selectedLabelType}
-                    required
+                    value={selectedLabelType}
+                    handleChange={handleChange}
                 />
             </Field>
             <BlockButtonWrapper>
