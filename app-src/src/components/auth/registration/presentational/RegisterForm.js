@@ -8,6 +8,7 @@ import Field from 'components/shared/generic/form/presentational/Field';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import NewSelect from 'components/shared/generic/form/presentational/NewSelect';
+import Select from 'react-select';
 import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
 
 const RegisterForm = ({
@@ -144,33 +145,33 @@ const RegisterForm = ({
             </Field>
 
             <Field name="Timezone" required>
-                <NewSelect
+                <Select
                     options={timezoneOptions}
                     value={timezone}
+                    isSearchable
                     onChange={handleDropDown}
                     name="Company.timezone"
-                    singleSelect
                     required
                 />
             </Field>
             <Field name="Date format" required>
-                <NewSelect
+                <Select
                     options={dateFormats}
                     value={dateFormatID}
-                    onChange={handleDateFormatChange}
+                    isSearchable
+                    onChange={handleDropDown}
                     name="Company.dateFormatID"
-                    singleSelect
                     required
                 />
             </Field>
 
             <Field name="VAT Type" required>
-                <NewSelect
+                <Select
                     options={vatOptions}
                     value={vatType}
+                    isSearchable
                     onChange={handleDropDown}
                     name="Company.vatType"
-                    singleSelect
                     required
                 />
             </Field>

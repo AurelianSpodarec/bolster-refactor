@@ -71,7 +71,7 @@ class RegisterFormContainer extends Component {
         this.setState({ [name]: val });
     };
 
-    handleDropDown = (name, val) => {
+    handleDropDown = (val, { name }) => {
         this.setState({ [name]: val });
     };
 
@@ -110,10 +110,10 @@ class RegisterFormContainer extends Component {
                 addressLine1: addressLine1,
                 town: town,
                 postcode: postcode,
-                vatType: vatType,
+                vatType: vatType.value,
                 vatCode: vatCode,
-                dateFormatID: dateFormatID,
-                timezone: timezone
+                dateFormatID: dateFormatID.value,
+                timezone: timezone.value
             }
         };
 
