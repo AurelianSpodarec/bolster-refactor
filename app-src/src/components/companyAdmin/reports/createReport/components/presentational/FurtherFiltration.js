@@ -14,6 +14,7 @@ const FurtherFiltration = ({
             name="filterOption"
             options={furtherFiltrationOptions}
             value={selected}
+            selectedOption={selected}
             handleChange={handleChange}
         />
     </Field>

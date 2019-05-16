@@ -101,6 +101,7 @@ const DrawingMapFiltersAdvanced = ({
                         name="statusSelectedID"
                         options={statusOptions}
                         value={selectedStatus}
+                        selectedOption={selectedStatus}
                         handleChange={handleChange}
                     />
                 </Field>
@@ -134,6 +135,7 @@ const DrawingMapFiltersAdvanced = ({
                         name="operativeSelectedID"
                         options={operativeOptions}
                         value={selectedOperative}
+                        selectedOption={selectedOperative}
                         handleChange={handleChange}
                     />
                 </Field>

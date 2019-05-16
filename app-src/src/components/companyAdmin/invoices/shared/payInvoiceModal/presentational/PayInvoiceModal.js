@@ -29,6 +29,7 @@ const PayInvoiceModal = ({
                             : 'Loading cards...'
                     }
                     value={selectedCard}
+                    selectedOption={selectedCard}
                     handleChange={handleChange}
                 />
             </div>

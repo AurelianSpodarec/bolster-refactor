@@ -55,13 +55,17 @@ class DrawingMapGeneralContainer extends Component {
                         <BlockContainer error={error}>
                             <DrawingMapFiltersAdvanced
                                 serviceOptions={Object.values(serviceOptions)}
-                                selectedService={serviceSelectedID}
+                                selectedService={
+                                    serviceOptions[serviceSelectedID]
+                                }
                                 statusOptions={Object.values(statusOptions)}
-                                selectedStatus={statusSelectedID}
+                                selectedStatus={statusOptions[statusSelectedID]}
                                 operativeOptions={Object.values(
                                     operativeOptions
                                 )}
-                                selectedOperative={operativeSelectedID}
+                                selectedOperative={
+                                    operativeOptions[operativeSelectedID]
+                                }
                                 startDateSelected={startDateSelected}
                                 endDateSelected={endDateSelected}
                                 pins={pins}
