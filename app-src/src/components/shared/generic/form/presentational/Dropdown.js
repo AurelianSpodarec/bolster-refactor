@@ -19,14 +19,18 @@ const Dropdown = ({
             className={`custom-dropdown ${disabled &&
                 'disabled'} ${classes} size-lg-12`}
         >
-            <input type="text" value={selectedOption.text} readOnly />
+            <input
+                type="text"
+                value={selectedOption.text || placeholder}
+                readOnly
+            />
             <i className="arrow fas fa-caret-down" />
             {!!(error && error.length) && (
                 <p className="error red-text text-accent-4">{error}</p>
             )}
             <select
                 name={name}
-                onChange={handleChange}
+                onChange={({ target }) => handleChange(name, target.value)}
                 onFocus={handleFocus}
                 onBlur={handleBlur}
                 value={selectedOption.value || ''}

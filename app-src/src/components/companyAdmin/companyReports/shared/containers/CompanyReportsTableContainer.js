@@ -7,7 +7,7 @@ const CompanyReportsTableContainer = ({
     isFetching,
     error,
     companyReports,
-    sortString
+    sortString = ''
 }) => {
     return (
         <CompanyReportsTable
