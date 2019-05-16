@@ -9,11 +9,11 @@ import BlockContainer from 'components/shared/generic/block/containers/BlockCont
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import NewSelect from 'components/shared/generic/form/presentational/NewSelect';
 import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
+import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
 
 const RegisterForm = ({
     handleSubmit,
     handleInputChange,
-    handleDateFormatChange,
     timezoneOptions,
     'User.email': email,
     'User.password': password,
@@ -33,7 +33,6 @@ const RegisterForm = ({
     'Company.dateFormatID': dateFormatID,
     'Company.timezone': timezone,
     terms,
-    handleDropDown,
     error,
     validatePassword,
     validateConfirmPassword
@@ -144,33 +143,30 @@ const RegisterForm = ({
             </Field>
 
             <Field name="Timezone" required>
-                <NewSelect
+                <DropdownContainer
                     options={timezoneOptions}
                     value={timezone}
-                    onChange={handleDropDown}
+                    handleChange={handleInputChange}
                     name="Company.timezone"
-                    singleSelect
                     required
                 />
             </Field>
             <Field name="Date format" required>
-                <NewSelect
+                <DropdownContainer
                     options={dateFormats}
                     value={dateFormatID}
-                    onChange={handleDateFormatChange}
+                    handleChange={handleInputChange}
                     name="Company.dateFormatID"
-                    singleSelect
                     required
                 />
             </Field>
 
             <Field name="VAT Type" required>
-                <NewSelect
+                <DropdownContainer
                     options={vatOptions}
                     value={vatType}
-                    onChange={handleDropDown}
+                    handleChange={handleInputChange}
                     name="Company.vatType"
-                    singleSelect
                     required
                 />
             </Field>

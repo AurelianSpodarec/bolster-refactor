@@ -55,17 +55,13 @@ class DrawingMapGeneralContainer extends Component {
                         <BlockContainer error={error}>
                             <DrawingMapFiltersAdvanced
                                 serviceOptions={Object.values(serviceOptions)}
-                                selectedService={
-                                    serviceOptions[serviceSelectedID]
-                                }
+                                selectedService={serviceSelectedID}
                                 statusOptions={Object.values(statusOptions)}
-                                selectedStatus={statusOptions[statusSelectedID]}
+                                selectedStatus={statusSelectedID}
                                 operativeOptions={Object.values(
                                     operativeOptions
                                 )}
-                                selectedOperative={
-                                    operativeOptions[operativeSelectedID]
-                                }
+                                selectedOperative={operativeSelectedID}
                                 startDateSelected={startDateSelected}
                                 endDateSelected={endDateSelected}
                                 pins={pins}
@@ -110,20 +106,12 @@ class DrawingMapGeneralContainer extends Component {
         }
     };
 
-    handleChange = (name, value) => {
-        this.setState({ [name]: value });
-    };
+    handleChange = (name, value) => this.setState({ [name]: value });
 
-    handleDateChange = (date, name) => {
-        this.setState({
-            [name]: date
-        });
-    };
+    handleDateChange = (date, name) => this.setState({ [name]: date });
 
     toggleAddMode = () => {
-        this.setState({
-            addMode: !this.state.addMode
-        });
+        this.setState({ addMode: !this.state.addMode });
 
         this._resetCoordinates();
     };
@@ -242,24 +230,19 @@ const mapStateToProps = (
     { match }
 ) => ({
     drawing: drawings[match.params.id],
-    coordinates: coordinates,
+    coordinates,
     pins: Object.values(pins),
     users: Object.values(users),
     services: Object.values(services),
-    isFetching: isFetching,
-    error: error
+    isFetching,
+    error
 });
 
 const mapDispatchToProps = dispatch => ({
-    fetchCompanyUsers: () => {
-        dispatch(fetchCompanyUsers());
-    },
-    updatePinCoordinates: (name, value) => {
-        dispatch(updatePinCoordinates(name, value));
-    },
-    showModal: (modalType, modalProps) => {
-        dispatch(showModal(modalType, modalProps));
-    }
+    fetchCompanyUsers: () => dispatch(fetchCompanyUsers()),
+    updatePinCoordinates: (name, value) =>
+        dispatch(updatePinCoordinates(name, value)),
+    showModal: (type, props) => dispatch(showModal(type, props))
 });
 
 export default withRouter(

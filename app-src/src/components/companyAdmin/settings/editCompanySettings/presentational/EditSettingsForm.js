@@ -17,7 +17,6 @@ const EditSettingsForm = ({
     handleSubmit,
     handleFileChange,
     handleColourSelect,
-    handleCheckboxChange,
     templateUsageRules,
     filesUploading,
     location,
@@ -213,7 +212,7 @@ const EditSettingsForm = ({
                         placeholder="-- select rule --"
                         name="defaultTemplateUsageRule"
                         options={templateUsageRules}
-                        selectedOption={selectedRule}
+                        value={selectedRule}
                         handleChange={handleInputChange}
                         required
                     />

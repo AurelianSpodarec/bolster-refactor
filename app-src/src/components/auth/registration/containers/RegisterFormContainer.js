@@ -48,34 +48,16 @@ class RegisterFormContainer extends Component {
                 error={this.props.error}
                 handleInputChange={this.handleChange}
                 timezoneOptions={timezoneOptions}
-                handleTimezoneChange={this._handleTimezoneChange}
-                handleDateFormatChange={this._handleDateFormatChange}
-                handleVatTypeChange={this._handleVatTypeChange}
                 dateFormats={dateFormats}
                 vatOptions={vatOptions}
                 handleSubmit={this.handleSubmit}
-                handleDropDown={this.handleDropDown}
                 validatePassword={this.validatePassword}
                 validateConfirmPassword={this.validateConfirmPassword}
             />
         );
     }
 
-    handleChange = (name, value) => {
-        this.setState({ [name]: value });
-    };
-
-    _handleTimezoneChange = timezone => this.setState({ timezone });
-
-    _handleDateFormatChange = (name, val) => {
-        this.setState({ [name]: val });
-    };
-
-    handleDropDown = (name, val) => {
-        this.setState({ [name]: val });
-    };
-
-    _handleVatTypeChange = vatType => this.setState({ vatType });
+    handleChange = (name, value) => this.setState({ [name]: value });
 
     handleSubmit = e => {
         e.preventDefault();

@@ -21,7 +21,7 @@ const LevelFilters = ({
                     placeholder="All Sites"
                     name="siteID"
                     options={siteOptions}
-                    selectedOption={selectedSite}
+                    value={selectedSite}
                     handleChange={handleChange}
                 />
             </Field>
@@ -31,7 +31,7 @@ const LevelFilters = ({
                     placeholder="All Buildings"
                     name="buildingID"
                     options={buildingOptions}
-                    selectedOption={selectedBuilding}
+                    value={selectedBuilding}
                     handleChange={handleChange}
                 />
             </Field>
@@ -41,7 +41,7 @@ const LevelFilters = ({
                     placeholder="All Floors"
                     name="floorID"
                     options={floorOptions}
-                    selectedOption={selectedFloor}
+                    value={selectedFloor}
                     handleChange={handleChange}
                 />
             </Field>
@@ -51,7 +51,7 @@ const LevelFilters = ({
                     placeholder="All Drawings"
                     name="drawingID"
                     options={drawingOptions}
-                    selectedOption={selectedDrawing}
+                    value={selectedDrawing}
                     handleChange={handleChange}
                 />
             </Field>

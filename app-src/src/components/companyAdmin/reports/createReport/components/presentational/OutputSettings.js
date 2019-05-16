@@ -67,7 +67,7 @@ const OutputSettings = ({
                                         options={layoutOptions}
                                         singleSelect={true}
                                         handleChange={handleOptionChange}
-                                        selectedOption={selectedLayout}
+                                        value={selectedLayout}
                                         withoutPlaceholder
                                     />
                                 </Field>
@@ -81,7 +81,7 @@ const OutputSettings = ({
                                 options={sortByOptions}
                                 singleSelect={true}
                                 handleChange={handleOptionChange}
-                                selectedOption={selectSortBy}
+                                value={selectSortBy}
                                 withoutPlaceholder
                             />
                         </Field>
