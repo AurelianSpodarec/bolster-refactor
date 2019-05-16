@@ -6,56 +6,46 @@ import removeFieldError from 'actions/shared/generic/fieldErrors/sync/removeFiel
 
 import Dropdown from '../presentational/Dropdown';
 import { EMAIL_REGEX } from 'helpers/regex';
+import { isObjEmpty } from 'helpers/generic';
 
 class DropdownContainer extends Component {
-    state = {
-        showFieldError: false
-    };
-
     render() {
-        const { showFieldError } = this.state;
         const {
-            placeholder,
             name,
             options,
-            selectedOption,
-            withoutPlaceholder,
             error,
-            errorsVisible,
             disabled = false,
             required = false,
-            classes = ''
+            classes = '',
+            value
         } = this.props;
-
-        const errorMessage = showFieldError || errorsVisible ? error : null;
 
         return (
             <Dropdown
-                required={required}
-                placeholder={placeholder}
                 name={name}
                 options={options}
-                selectedOption={selectedOption}
-                withoutPlaceholder={withoutPlaceholder}
+                selectedOption={value}
                 handleChange={this.handleChange}
                 handleFocus={this.handleFocus}
                 handleBlur={this.handleBlur}
-                error={errorMessage}
+                error={error}
                 disabled={disabled}
+                required={required}
                 classes={classes}
             />
         );
     }
 
     componentDidMount = () => {
-        const { selectedOption = {} } = this.props;
-        this._validate(selectedOption.value);
+        const { value = {} } = this.props;
+        this._validate(value);
     };
 
-    componentDidUpdate = ({ selectedOption: prevOpt = {} }) => {
-        const { selectedOption = {} } = this.props;
-        if (selectedOption.value !== prevOpt.value) {
-            this._validate(selectedOption.value);
+    componentDidUpdate = ({ value: prevValue = {} }) => {
+        const { value = {} } = this.props;
+        console.log(value);
+        if (value.value !== prevValue.value) {
+            this._validate(value);
         }
     };
 
@@ -64,9 +54,8 @@ class DropdownContainer extends Component {
         if (error) removeFieldError(name);
     };
 
-    handleChange = ({ target: { name, value } }) => {
+    handleChange = (value, { name }) => {
         this.props.handleChange(name, value);
-        this._showFieldError();
     };
 
     handleBlur = () => this._showFieldError();
@@ -76,6 +65,7 @@ class DropdownContainer extends Component {
     };
 
     _validate = value => {
+        console.log(value);
         const {
             name,
             error,
@@ -85,7 +75,10 @@ class DropdownContainer extends Component {
             removeFieldError
         } = this.props;
         const validateError = validate(value);
-        if (required && !(value && (value.length || value > 0))) {
+        if (
+            required &&
+            !(value && (value.length || value > 0 || !isObjEmpty(value)))
+        ) {
             addFieldError(name, 'This is a required field.');
         } else if (validateError && validateError.length) {
             addFieldError(name, validateError);
