@@ -47,6 +47,7 @@ class RegisterFormContainer extends Component {
                 {...this.state}
                 error={this.props.error}
                 handleInputChange={this.handleChange}
+                handleDropDown={this.handleDropDown}
                 timezoneOptions={timezoneOptions}
                 dateFormats={dateFormats}
                 vatOptions={vatOptions}
@@ -68,6 +69,7 @@ class RegisterFormContainer extends Component {
     };
 
     handleDropDown = (val, { name }) => {
+        console.log(val, name);
         this.setState({ [name]: val });
     };
 
