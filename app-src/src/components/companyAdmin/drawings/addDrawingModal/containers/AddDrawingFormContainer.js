@@ -31,7 +31,7 @@ class AddDrawingFormContainer extends Component {
                 name={name}
                 file={file}
                 templateUsageRules={Object.values(templateUsageRuleOptions)}
-                selectedRule={templateUsageRule}
+                selectedRule={templateUsageRuleOptions[templateUsageRule]}
                 floorID={floorID}
                 handleInputChange={this.handleInputChange}
                 handleFileChange={this.handleFileChange}

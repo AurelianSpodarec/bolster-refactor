@@ -24,6 +24,7 @@ const AddPinForm = ({
                     name="templateID"
                     options={templates}
                     value={selectedTemplate}
+                    selectedOption={selectedTemplate}
                     handleChange={handleChange}
                     required
                 />

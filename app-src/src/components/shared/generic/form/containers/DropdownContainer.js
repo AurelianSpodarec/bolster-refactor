@@ -59,7 +59,7 @@ class DropdownContainer extends Component {
         if (error) removeFieldError(name);
     };
 
-    handleChange = (value, { name }) => {
+    handleChange = (name, value) => {
         this.props.handleChange(name, value);
     };
 

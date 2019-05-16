@@ -75,6 +75,7 @@ const AddServiceToSubscriptionModal = ({
                         name="stripeCardID"
                         options={cards}
                         value={selectedCard}
+                        selectedOption={selectedCard}
                         handleChange={handleChange}
                     />
                 </Field>

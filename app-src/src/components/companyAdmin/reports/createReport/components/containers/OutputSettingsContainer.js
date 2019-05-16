@@ -42,9 +42,9 @@ class OutputSettingsContainer extends Component {
                 isFloorplanGeneration={isFloorplanGeneration}
                 isPDFGeneration={isPDFGeneration}
                 sortByOptions={Object.values(sortByOptions)}
-                selectSortBy={sortBy}
+                selectSortBy={sortByOptions[sortBy]}
                 layoutOptions={Object.values(layoutOptions)}
-                selectedLayout={layout}
+                selectedLayout={layoutOptions[layout]}
                 showHidden={showHidden}
                 handleFilterChange={this.handleFilterChange}
                 handleOptionChange={this.handleOptionChange}

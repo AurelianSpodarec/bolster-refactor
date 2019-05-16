@@ -27,7 +27,7 @@ class BuyCreditsModalContainer extends Component {
         }));
         const selectedCard = cardOptions.find(
             ({ isPrimary, value }) =>
-                value === (this.state.stripeCardID || {}).value || isPrimary
+                value === this.state.stripeCardID || isPrimary
         );
 
         return (
@@ -91,9 +91,7 @@ class BuyCreditsModalContainer extends Component {
         }
     };
 
-    handleChange = (name, value) => {
-        this.setState({ [name]: value });
-    };
+    handleChange = (name, value) => this.setState({ [name]: value });
 
     handleSubmit = e => {
         e.preventDefault();
@@ -104,9 +102,7 @@ class BuyCreditsModalContainer extends Component {
             paymentType,
             credits,
             stripeCardID:
-                +paymentType === PAYMENT_IDS.CARD
-                    ? stripeCardID.value || {}
-                    : null
+                +paymentType === PAYMENT_IDS.CARD ? stripeCardID : null
         };
 
         createCredits(postBody);

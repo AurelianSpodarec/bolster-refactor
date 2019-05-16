@@ -29,11 +29,13 @@ class FurtherFiltrationContainer extends Component {
         const filtrationOptionsArr = Object.values(filtrationOptions).filter(
             ({ text }) => drawingID || text !== 'Pin Selection'
         );
+        const selected = filtrationOptions[filterOption];
+
         return (
             <BlockContainer heading="Further Filtration">
                 <FurtherFiltration
                     furtherFiltrationOptions={filtrationOptionsArr}
-                    selected={filterOption}
+                    selected={selected}
                     handleChange={this.handleChange}
                 />
                 {filterOption === '1' ? (

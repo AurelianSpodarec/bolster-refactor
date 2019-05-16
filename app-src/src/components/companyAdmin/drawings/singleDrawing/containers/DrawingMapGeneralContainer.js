@@ -31,9 +31,6 @@ class DrawingMapGeneralContainer extends Component {
     };
 
     render() {
-        const position = [this.state.addPinLat, this.state.addPinLng];
-        const addPinPosition = [this.state.addPinLat, this.state.addPinLng];
-
         const {
             serviceSelectedID,
             statusSelectedID,
@@ -41,9 +38,15 @@ class DrawingMapGeneralContainer extends Component {
             startDateSelected,
             endDateSelected,
             mapZoom,
-            addMode
+            addMode,
+            addPinLat,
+            addPinLng
         } = this.state;
-        const { error, pins, drawing } = this.props;
+        const position = [addPinLat, addPinLng];
+        const addPinPosition = [addPinLat, addPinLng];
+
+        const { error, pins, drawing = {} } = this.props;
+        const { doesRequireCreditToReplaceFloorplan } = drawing;
         const serviceOptions = this._getServicesOptions();
         const statusOptions = convertEnumToDropdownOptions(PIN_STATUS_TYPES);
         const operativeOptions = this._getOperativeOptions();
@@ -55,13 +58,17 @@ class DrawingMapGeneralContainer extends Component {
                         <BlockContainer error={error}>
                             <DrawingMapFiltersAdvanced
                                 serviceOptions={Object.values(serviceOptions)}
-                                selectedService={serviceSelectedID}
+                                selectedService={
+                                    serviceOptions[serviceSelectedID]
+                                }
                                 statusOptions={Object.values(statusOptions)}
-                                selectedStatus={statusSelectedID}
+                                selectedStatus={statusOptions[statusSelectedID]}
                                 operativeOptions={Object.values(
                                     operativeOptions
                                 )}
-                                selectedOperative={operativeSelectedID}
+                                selectedOperative={
+                                    operativeOptions[operativeSelectedID]
+                                }
                                 startDateSelected={startDateSelected}
                                 endDateSelected={endDateSelected}
                                 pins={pins}
@@ -101,9 +108,7 @@ class DrawingMapGeneralContainer extends Component {
     handleClick = e => {
         const { lat, lng } = e.latlng;
 
-        if (this.state.addMode) {
-            this._updateCoordinates(lat, lng);
-        }
+        if (this.state.addMode) this._updateCoordinates(lat, lng);
     };
 
     handleChange = (name, value) => this.setState({ [name]: value });

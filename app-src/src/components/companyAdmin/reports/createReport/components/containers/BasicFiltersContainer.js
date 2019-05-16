@@ -42,13 +42,13 @@ class BasicFiltersContainer extends Component {
                 handleChange={this.handleChange}
                 handleDateChange={this.handleDateChange}
                 serviceOptions={Object.values(serviceOptions)}
-                selectedService={serviceID}
+                selectedService={serviceOptions[serviceID]}
                 statusOptions={Object.values(statusOptions)}
-                selectedStatus={status}
+                selectedStatus={statusOptions[status]}
                 fromDateInclusive={fromDateInclusive}
                 toDateInclusive={toDateInclusive}
                 historyNumsOptions={Object.values(historyNumsOptions)}
-                selectedHistoryNum={reportHistories}
+                selectedHistoryNum={historyNumsOptions[reportHistories]}
                 fieldError={fieldError}
                 handleDateBlur={this.handleDateBlur}
             />

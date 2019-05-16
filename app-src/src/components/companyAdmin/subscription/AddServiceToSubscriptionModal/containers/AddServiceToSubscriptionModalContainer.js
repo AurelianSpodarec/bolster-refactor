@@ -31,12 +31,14 @@ class AddServiceToSubscriptionModalContainer extends Component {
             <AddServiceToSubscriptionModal
                 paymentType={paymentType}
                 proRataCost={proRataCost}
-                stripeCardID={(stripeCardID || {}).value}
+                stripeCardID={stripeCardID}
                 handleChange={this.handleChange}
                 handleSubmit={this.handleSubmit}
                 cards={cardOptions}
                 noCards={noCards}
-                selectedCard={stripeCardID}
+                selectedCard={cardOptions.find(
+                    ({ value }) => value === stripeCardID
+                )}
                 hideModal={e => {
                     e.preventDefault();
                     hideModal();
@@ -111,7 +113,7 @@ class AddServiceToSubscriptionModalContainer extends Component {
         const postBody = {
             paymentType,
             stripeCardID:
-                +paymentType === PAYMENT_IDS.CARD ? stripeCardID.value : null,
+                +paymentType === PAYMENT_IDS.CARD ? stripeCardID : null,
             serviceIDs: [id]
         };
         addServiceToSubscription(postBody);
