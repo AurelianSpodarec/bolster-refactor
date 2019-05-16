@@ -28,7 +28,7 @@ const OperativeAlertItem = ({
             <ButtonContainer
                 to={`/company/tools/operative-alerts/${id}/metrics`}
             >
-                ##Show Metrics##
+                Show Metrics
             </ButtonContainer>
         </td>
     </tr>

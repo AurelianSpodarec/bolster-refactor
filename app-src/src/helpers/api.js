@@ -3,7 +3,7 @@ import setAPIFieldErrors from 'actions/shared/generic/fieldErrors/sync/setAPIFie
 
 // getAuthHeader  returns an authorization header with jwt token.
 export function getAuthHeader() {
-    let token = localStorage.getItem('token');
+    const token = localStorage.getItem('token');
 
     if (token && token.length) {
         return { Authorization: `Bearer ${token}` };
