@@ -27,7 +27,7 @@ const PinAnswer = ({
             return <p>{curAnswer.answer.join(', ')}</p>;
         case TYPES.MULTI_MULTI_DROPDOWN:
         case TYPES.MULTI_MULTI_DROPDOWN_OPTIONS:
-            return <p>{curAnswer.answer.join(', ')}</p>;
+            return <p>{formatMultiMulti(curAnswer.answer)}</p>;
         case TYPES.DROPDOWN:
         case TYPES.RADIO:
             var relevantQuestion = questions.find(
@@ -94,3 +94,12 @@ const PinAnswer = ({
 };
 
 export default connect()(PinAnswer);
+
+function formatMultiMulti(answer) {
+    const formatted = answer.map(item => {
+        const count = answer.filter(x => item === x).length;
+        return count > 1 ? `${item} (${count})` : item;
+    });
+
+    return [...new Set(formatted)].join(', ');
+}

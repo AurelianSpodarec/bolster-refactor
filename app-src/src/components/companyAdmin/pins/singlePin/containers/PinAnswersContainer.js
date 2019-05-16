@@ -11,14 +11,7 @@ const PinAnswersContainer = ({
     status,
     relevantAnswer
 }) =>
-    console.log({
-        questionType,
-        questions,
-        pinAnswers,
-        pinHistory,
-        status,
-        relevantAnswer
-    }) || (
+     (
         <PinAnswer
             answers={pinAnswers}
             trimmedAnswer={relevantAnswer}
