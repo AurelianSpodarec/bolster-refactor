@@ -23,7 +23,7 @@ const AddPinForm = ({
                     placeholder="-- select --"
                     name="templateID"
                     options={templates}
-                    selectedOption={selectedTemplate}
+                    value={selectedTemplate}
                     handleChange={handleChange}
                     required
                 />

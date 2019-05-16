@@ -24,7 +24,9 @@ const MultiMultiDropdown = ({
     return (
         <div className="multi-multi-dropdown size-lg-12" ref={node}>
             <div className="selected-box" onClick={toggle}>
-                {!getSelected().length && <p>{placeholder}</p>}
+                {!getSelected().length && (
+                    <p className="placeholder">{placeholder}</p>
+                )}
                 {getSelected().map(opt => (
                     <div
                         key={opt.value}

@@ -48,7 +48,7 @@ class EditPinFormContainer extends Component {
                     <BlockHeading title="Pin history Details" />
                     <EditPinForm
                         statuses={Object.values(statusOptions)}
-                        selectedStatus={statusOptions[status]}
+                        selectedStatus={status}
                         location={location}
                         handleChange={this.handleChange}
                         handleSubmit={this.handleSubmit}

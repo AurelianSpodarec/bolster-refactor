@@ -29,7 +29,7 @@ const BasicFilters = ({
                         placeholder="Select Service"
                         name="serviceID"
                         options={serviceOptions}
-                        selectedOption={selectedService}
+                        value={selectedService}
                         handleChange={handleChange}
                     />
                 </Field>
@@ -38,7 +38,7 @@ const BasicFilters = ({
                         placeholder="All Statuses"
                         name="status"
                         options={statusOptions}
-                        selectedOption={selectedStatus}
+                        value={selectedStatus}
                         handleChange={handleChange}
                     />
                 </Field>
@@ -77,7 +77,7 @@ const BasicFilters = ({
                         singleSelect
                         name="reportHistories"
                         options={historyNumsOptions}
-                        selectedOption={selectedHistoryNum}
+                        value={selectedHistoryNum}
                         handleChange={handleChange}
                         withoutPlaceholder
                     />

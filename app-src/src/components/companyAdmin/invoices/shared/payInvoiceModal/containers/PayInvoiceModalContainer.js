@@ -20,13 +20,10 @@ class PayInvoiceModalContainer extends Component {
             text: `${card.nickname || card.name} - ${card.lastFour}`,
             value: card.id
         }));
-        const selectedCard = cardOptions.find(
-            ({ value }) => value === stripeCardID
-        );
         return (
             <PayInvoiceModal
                 cards={cardOptions}
-                selectedCard={selectedCard}
+                selectedCard={stripeCardID}
                 handleChange={this.handleChange}
                 handleSubmit={this.handleSubmit}
                 hideModal={hideModal}
@@ -77,7 +74,9 @@ class PayInvoiceModalContainer extends Component {
     handleSubmit = e => {
         e.preventDefault();
         const { payInvoice, invoiceID } = this.props;
-        const { stripeCardID } = this.state;
+        const {
+            stripeCardID: { value: stripeCardID }
+        } = this.state;
         payInvoice(invoiceID, stripeCardID);
     };
 }

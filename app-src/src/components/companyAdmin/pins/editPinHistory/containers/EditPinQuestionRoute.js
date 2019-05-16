@@ -88,7 +88,6 @@ const SingleDropdown = ({
     handleChange
 }) => {
     const formattedOpts = options.map(({ id, text }) => ({ value: id, text }));
-    const convertedOpts = convertArrToObj(formattedOpts, 'value');
     const answerID = answers[id];
 
     return (
@@ -96,7 +95,7 @@ const SingleDropdown = ({
             placeholder="-- select --"
             name={`answer-${id}`}
             options={formattedOpts}
-            selectedOption={convertedOpts[answerID]}
+            value={answerID}
             handleChange={handleChange}
             required={isRequired}
         />

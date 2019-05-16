@@ -13,7 +13,7 @@ const FurtherFiltration = ({
             placeholder="None"
             name="filterOption"
             options={furtherFiltrationOptions}
-            selectedOption={selected}
+            value={selected}
             handleChange={handleChange}
         />
     </Field>

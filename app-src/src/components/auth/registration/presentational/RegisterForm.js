@@ -10,11 +10,11 @@ import BlockHeading from 'components/shared/generic/blockHeading/presentational/
 import NewSelect from 'components/shared/generic/form/presentational/NewSelect';
 import Select from 'react-select';
 import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
+import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
 
 const RegisterForm = ({
     handleSubmit,
     handleInputChange,
-    handleDateFormatChange,
     timezoneOptions,
     'User.email': email,
     'User.password': password,
@@ -34,10 +34,10 @@ const RegisterForm = ({
     'Company.dateFormatID': dateFormatID,
     'Company.timezone': timezone,
     terms,
-    handleDropDown,
     error,
     validatePassword,
-    validateConfirmPassword
+    validateConfirmPassword,
+    handleDropDown
 }) => (
     <BlockContainer error={error}>
         <BlockHeading title="Register for bolster systems" />

@@ -48,13 +48,9 @@ class RegisterFormContainer extends Component {
                 error={this.props.error}
                 handleInputChange={this.handleChange}
                 timezoneOptions={timezoneOptions}
-                handleTimezoneChange={this._handleTimezoneChange}
-                handleDateFormatChange={this._handleDateFormatChange}
-                handleVatTypeChange={this._handleVatTypeChange}
                 dateFormats={dateFormats}
                 vatOptions={vatOptions}
                 handleSubmit={this.handleSubmit}
-                handleDropDown={this.handleDropDown}
                 validatePassword={this.validatePassword}
                 validateConfirmPassword={this.validateConfirmPassword}
             />

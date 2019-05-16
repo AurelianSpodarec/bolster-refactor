@@ -24,13 +24,13 @@ class LevelsFilterContainer extends Component {
             <LevelFilters
                 handleChange={this.handleChange}
                 siteOptions={Object.values(sitesOptions)}
-                selectedSite={sitesOptions[siteID]}
+                selectedSite={siteID}
                 buildingOptions={Object.values(buildingOptions)}
-                selectedBuilding={buildingOptions[buildingID]}
+                selectedBuilding={buildingID}
                 floorOptions={Object.values(floorOptions)}
-                selectedFloor={floorOptions[floorID]}
+                selectedFloor={floorID}
                 drawingOptions={Object.values(drawingOptions)}
-                selectedDrawing={drawingOptions[drawingID]}
+                selectedDrawing={drawingID}
             />
         );
     }

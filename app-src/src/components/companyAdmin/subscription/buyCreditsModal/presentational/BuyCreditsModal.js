@@ -57,7 +57,7 @@ const BuyCreditsModal = ({
                                 ? 'Please add a card to use card payments.'
                                 : 'Loading cards...'
                         }
-                        selectedOption={selectedCard}
+                        value={selectedCard}
                         handleChange={handleChange}
                     />
                 </Field>

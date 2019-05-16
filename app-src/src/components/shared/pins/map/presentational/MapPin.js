@@ -1,6 +1,7 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 
+import moment from 'moment';
 import L from 'leaflet';
 import { Marker, Tooltip } from 'react-leaflet';
 import {
