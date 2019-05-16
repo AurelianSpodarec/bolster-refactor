@@ -24,7 +24,7 @@ const EditPinForm = ({
                 placeholder="-- select --"
                 name="status"
                 options={statuses}
-                selectedOption={selectedStatus}
+                value={selectedStatus}
                 handleChange={handleChange}
                 required
             />

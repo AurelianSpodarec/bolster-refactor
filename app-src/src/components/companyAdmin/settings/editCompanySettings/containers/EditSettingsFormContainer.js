@@ -108,13 +108,9 @@ class EditSettingsFormContainer extends Component {
         }
     };
 
-    handleInputChange = (name, value) => {
-        this.setState({ [name]: value });
-    };
+    handleInputChange = (name, value) => this.setState({ [name]: value });
 
-    handleColourSelect = colour => {
-        this.setState({ colourCode: colour.hex });
-    };
+    handleColourSelect = ({ hex }) => this.setState({ colourCode: hex });
 
     handleFileChange = (name, file) => {
         this.setState(prevState => {

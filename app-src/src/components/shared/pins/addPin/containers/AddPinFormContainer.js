@@ -42,7 +42,7 @@ class AddPinFormContainer extends Component {
                 >
                     <AddPinForm
                         templates={Object.values(templateOptions)}
-                        selectedTemplate={templateOptions[templateID]}
+                        selectedTemplate={templateID}
                         location={location}
                         handleChange={this.handleChange}
                         handleSubmit={this.handleSubmit}
@@ -100,13 +100,16 @@ class AddPinFormContainer extends Component {
     _getTemplates = templates => {
         const templateOptions = templates.map(({ id, name }) => ({
             value: id,
-            text: name
+            label: name
         }));
 
         return convertArrToObj(templateOptions, 'value');
     };
 
-    handleChange = (name, value) => this.setState({ [name]: value });
+    handleChange = (name, value) => {
+        console.log(name, value);
+        this.setState({ [name]: value });
+    };
 
     handleSubmit = e => {
         e.preventDefault();

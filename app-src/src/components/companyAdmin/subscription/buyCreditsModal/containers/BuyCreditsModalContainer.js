@@ -27,7 +27,7 @@ class BuyCreditsModalContainer extends Component {
         }));
         const selectedCard = cardOptions.find(
             ({ isPrimary, value }) =>
-                value === this.state.stripeCardID || isPrimary
+                value === (this.state.stripeCardID || {}).value || isPrimary
         );
 
         return (
@@ -104,7 +104,9 @@ class BuyCreditsModalContainer extends Component {
             paymentType,
             credits,
             stripeCardID:
-                +paymentType === PAYMENT_IDS.CARD ? stripeCardID : null
+                +paymentType === PAYMENT_IDS.CARD
+                    ? stripeCardID.value || {}
+                    : null
         };
 
         createCredits(postBody);

@@ -21,7 +21,6 @@ class MultiSelectDropdown extends Component {
             label: options.find(opt => opt.value === curValue).label,
             value: curValue
         }));
-        console.log(options);
         return (
             <MultiDropdown
                 options={options}

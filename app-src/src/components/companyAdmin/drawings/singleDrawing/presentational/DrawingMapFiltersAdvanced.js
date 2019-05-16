@@ -91,7 +91,7 @@ const DrawingMapFiltersAdvanced = ({
                         placeholder="All services"
                         name="serviceSelectedID"
                         options={serviceOptions}
-                        selectedOption={selectedService}
+                        value={selectedService}
                         handleChange={handleChange}
                     />
                 </Field>
@@ -100,7 +100,7 @@ const DrawingMapFiltersAdvanced = ({
                         placeholder="All Statuses"
                         name="statusSelectedID"
                         options={statusOptions}
-                        selectedOption={selectedStatus}
+                        value={selectedStatus}
                         handleChange={handleChange}
                     />
                 </Field>
@@ -133,7 +133,7 @@ const DrawingMapFiltersAdvanced = ({
                         placeholder="Select operative"
                         name="operativeSelectedID"
                         options={operativeOptions}
-                        selectedOption={selectedOperative}
+                        value={selectedOperative}
                         handleChange={handleChange}
                     />
                 </Field>

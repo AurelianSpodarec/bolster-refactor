@@ -14,9 +14,7 @@ import fetchOperativesForDrawing from 'actions/companyAdmin/operatives/async/fet
 import fetchCompanyUsers from 'actions/companyAdmin/userManagement/async/fetchCompanyUsers';
 
 class SingleDrawingContainer extends Component {
-    render() {
-        return <SingleDrawing />;
-    }
+    render = () => <SingleDrawing />;
 
     componentDidMount = () => {
         const { drawingID, setTabs, fetchDrawingData } = this.props;
@@ -26,10 +24,7 @@ class SingleDrawingContainer extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-    setTabs: (tabs, selectedTab) => {
-        dispatch(setTabs(tabs, selectedTab));
-    },
-
+    setTabs: (tabs, selectedTab) => dispatch(setTabs(tabs, selectedTab)),
     fetchDrawingData: drawingID => {
         dispatch(fetchSingleDrawing(drawingID));
         dispatch(fetchDocuments('drawing', drawingID));
@@ -41,6 +36,6 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default connect(
-    (_, { match }) => ({ drawingID: match.params['id'] }),
+    (_, { match }) => ({ drawingID: match.params.id }),
     mapDispatchToProps
 )(SingleDrawingContainer);

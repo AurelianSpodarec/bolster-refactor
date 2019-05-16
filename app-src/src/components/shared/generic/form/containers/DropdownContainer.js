@@ -9,6 +9,7 @@ import { EMAIL_REGEX } from 'helpers/regex';
 import { isObjEmpty } from 'helpers/generic';
 
 class DropdownContainer extends Component {
+    state = { showFieldError: false };
     render() {
         const {
             name,
@@ -17,18 +18,23 @@ class DropdownContainer extends Component {
             disabled = false,
             required = false,
             classes = '',
-            value
+            value,
+            selectedOption
         } = this.props;
+
+        const { showFieldError } = this.state;
 
         return (
             <Dropdown
                 name={name}
                 options={options}
-                selectedOption={value}
+                selectedOption={
+                    value ? value : selectedOption ? selectedOption : {}
+                }
                 handleChange={this.handleChange}
                 handleFocus={this.handleFocus}
                 handleBlur={this.handleBlur}
-                error={error}
+                error={showFieldError ? error : null}
                 disabled={disabled}
                 required={required}
                 classes={classes}
@@ -43,7 +49,6 @@ class DropdownContainer extends Component {
 
     componentDidUpdate = ({ value: prevValue = {} }) => {
         const { value = {} } = this.props;
-        console.log(value);
         if (value.value !== prevValue.value) {
             this._validate(value);
         }
@@ -65,7 +70,6 @@ class DropdownContainer extends Component {
     };
 
     _validate = value => {
-        console.log(value);
         const {
             name,
             error,
