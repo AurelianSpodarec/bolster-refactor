@@ -40,9 +40,9 @@ class EditSettingsFormContainer extends Component {
         const { defaultTemplateUsageRule, timezone, dateFormat } = this.state;
 
         const templateUsageRuleOptions = {
-            '1': { label: 'Use Only Owner Company', value: 1 },
-            '2': { label: 'Use Only Own', value: 2 },
-            '3': { label: 'Use Any', value: 3 }
+            '1': { text: 'Use Only Owner Company', value: 1 },
+            '2': { text: 'Use Only Own', value: 2 },
+            '3': { text: 'Use Any', value: 3 }
         };
 
         return (
@@ -55,7 +55,9 @@ class EditSettingsFormContainer extends Component {
                 handleColourSelect={this.handleColourSelect}
                 handleCheckboxChange={this.handleCheckboxChange}
                 templateUsageRules={Object.values(templateUsageRuleOptions)}
-                selectedRule={defaultTemplateUsageRule}
+                selectedRule={
+                    templateUsageRuleOptions[defaultTemplateUsageRule]
+                }
                 timeZones={this.formatTimezones()}
                 timezone={timezone}
                 handleTimezoneChange={this.handleTimezoneChange}
