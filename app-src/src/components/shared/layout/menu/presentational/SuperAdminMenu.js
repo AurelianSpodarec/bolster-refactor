@@ -28,7 +28,7 @@ const SuperAdminMenu = ({ logout }) => (
                 <i className="fa fa-user icon" /> Users
             </MenuItemContainer>
             <MenuItemContainer link="/admin/services">
-                ## Services ##
+                <i className="fa fa-folder-open icon" /> Services
             </MenuItemContainer>
             <Link className="item" to="#" link="/admin/users" onClick={logout}>
                 <i className="icon fas fa-sign-out" />

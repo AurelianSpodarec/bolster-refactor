@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 import { QUESTION_TYPE_VALUES } from 'constants/shared/templateBuilder';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
@@ -14,8 +15,11 @@ import MultiDropdownContainer from 'components/shared/generic/form/containers/Mu
 import updateAddPinAnswer from 'actions/companyAdmin/drawings/sync/updateAddPinAnswer';
 import resetPinAnswers from 'actions/companyAdmin/drawings/sync/resetPinAnswers';
 
-import { convertArrToObj } from 'helpers/generic';
+import { convertArrToObj, convertEnumToDropdownOptions } from 'helpers/generic';
 import Field from 'components/shared/generic/form/presentational/Field';
+import MultiMultiDropdown from 'components/shared/generic/form/presentational/MultiMultiDropdown';
+import { PIN_STATUS_TYPES } from 'constants/companyAdmin/enums';
+import updateAddPinStatus from 'actions/companyAdmin/drawings/sync/updateAddPinStatus';
 
 const {
     SINGLE_LINE,
@@ -29,7 +33,10 @@ const {
     SINGLE_PHOTO,
     MULTI_PHOTO,
     DROPDOWN_OPTIONS,
-    MULTI_DROPDOWN_OPTIONS
+    MULTI_DROPDOWN_OPTIONS,
+    MULTI_MULTI_DROPDOWN,
+    MULTI_MULTI_DROPDOWN_OPTIONS,
+    STATUS
 } = QUESTION_TYPE_VALUES;
 
 const SingleLine = ({
@@ -228,13 +235,78 @@ const MultiDropdownOptions = ({
     );
 };
 
+const MultiMulti = ({
+    question: { id, options, isRequired },
+    answers,
+    handleMultiMultiChange
+}) => {
+    const formattedOpts = options.map(({ id, text }) => ({
+        value: id,
+        label: text
+    }));
+
+    return (
+        <MultiMultiDropdown
+            required={isRequired}
+            options={formattedOpts}
+            value={answers[id]}
+            name={`answer-${id}`}
+            onChange={handleMultiMultiChange}
+        />
+    );
+};
+
+const MultiMultiDropdownOptions = ({
+    question: { id, isRequired, optionType },
+    dropdownOptions,
+    answers,
+    handleMultiMultiChange
+}) => {
+    const formattedOpts = dropdownOptions
+        .filter(option => option.type === optionType)
+        .map(({ name }) => ({
+            value: name,
+            label: name
+        }));
+
+    return (
+        <MultiMultiDropdown
+            required={isRequired}
+            options={formattedOpts}
+            value={answers[id]}
+            name={`answer-${id}`}
+            onChange={handleMultiMultiChange}
+        />
+    );
+};
+
+const Status = ({ status, handleStatusChange }) => {
+    const statusesObj = convertEnumToDropdownOptions(PIN_STATUS_TYPES);
+    return (
+        <DropdownContainer
+            placeholder="-- select --"
+            name="pinStatus"
+            options={Object.values(statusesObj)}
+            selectedOption={statusesObj[status]}
+            handleChange={handleStatusChange}
+            required
+        />
+    );
+};
+
 class AddPinQuestionRoute extends Component {
     state = {
         sigPad: {}
     };
 
     render() {
-        const { question, answers, questions, dropdownOptions } = this.props;
+        const {
+            question,
+            answers,
+            questions,
+            dropdownOptions,
+            status
+        } = this.props;
 
         const fieldTypes = {
             [SINGLE_LINE]: SingleLine,
@@ -248,7 +320,10 @@ class AddPinQuestionRoute extends Component {
             [MULTI_PHOTO]: MultiPhoto,
             [SIGNATURE]: Signature,
             [DROPDOWN_OPTIONS]: DropdownOptions,
-            [MULTI_DROPDOWN_OPTIONS]: MultiDropdownOptions
+            [MULTI_DROPDOWN_OPTIONS]: MultiDropdownOptions,
+            [MULTI_MULTI_DROPDOWN]: MultiMulti,
+            [MULTI_MULTI_DROPDOWN_OPTIONS]: MultiMultiDropdownOptions,
+            [STATUS]: Status
         };
 
         const SpecificField = fieldTypes[question.type + ''] || SingleLine;
@@ -355,7 +430,9 @@ class AddPinQuestionRoute extends Component {
                         handleMultiDropdownChange={
                             this.handleMultiDropdownChange
                         }
+                        handleMultiMultiChange={this.handleMultiMultiChange}
                         sigPad={this.state.sigPad}
+                        status={status}
                     />
                 </Field>
             );
@@ -365,14 +442,31 @@ class AddPinQuestionRoute extends Component {
     }
 
     componentDidMount() {
-        const { oldAnswers, updateAddPinAnswer } = this.props;
+        const {
+            oldAnswers,
+            updateAddPinAnswer,
+            updateAddPinStatus,
+            history
+        } = this.props;
 
         const oldAnswersArray = Object.values(oldAnswers);
 
         oldAnswersArray.map(answer =>
             updateAddPinAnswer(answer.templateQuestionID, answer.answer)
         );
+        updateAddPinStatus(history.status);
     }
+
+    handleStatusChange = (_, val) => {
+        const { updateAddPinStatus } = this.props;
+        updateAddPinStatus(val);
+    };
+
+    handleMultiMultiChange = (_, value) => {
+        const { updateAddPinAnswer, question } = this.props;
+
+        updateAddPinAnswer(question.id, value);
+    };
 
     handleChange = (_, value) => {
         const { updateAddPinAnswer, question } = this.props;
@@ -436,6 +530,8 @@ class AddPinQuestionRoute extends Component {
             case MULTI_PHOTO:
             case MULTI_DROPDOWN:
             case MULTI_DROPDOWN_OPTIONS:
+            case MULTI_MULTI_DROPDOWN:
+            case MULTI_MULTI_DROPDOWN_OPTIONS:
                 return [];
             case CHECKBOX:
                 return false;
@@ -445,18 +541,28 @@ class AddPinQuestionRoute extends Component {
     };
 }
 
-const mapStateToProps = ({
-    companyAdmin: {
-        addPinDropdownOptions: { dropdownOptions },
-        addPinFormReducer: { answers },
-        templateQuestionsReducer: { questions },
-        pinAnswersReducer: { answers: oldAnswers }
+const mapStateToProps = (
+    {
+        companyAdmin: {
+            addPinDropdownOptions: { dropdownOptions },
+            addPinFormReducer: { answers, status },
+            templateQuestionsReducer: { questions },
+            pinAnswersReducer: { answers: oldAnswers },
+            pinHistoriesReducer: { histories }
+        }
+    },
+    {
+        match: {
+            params: { historyID }
+        }
     }
-}) => ({
+) => ({
     dropdownOptions,
     answers,
     questions,
-    oldAnswers
+    oldAnswers,
+    status,
+    history: histories[historyID] || {}
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -465,10 +571,13 @@ const mapDispatchToProps = dispatch => ({
     },
     resetPinAnswers: () => {
         dispatch(resetPinAnswers());
-    }
+    },
+    updateAddPinStatus: val => dispatch(updateAddPinStatus(val))
 });
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(AddPinQuestionRoute);
+export default withRouter(
+    connect(
+        mapStateToProps,
+        mapDispatchToProps
+    )(AddPinQuestionRoute)
+);

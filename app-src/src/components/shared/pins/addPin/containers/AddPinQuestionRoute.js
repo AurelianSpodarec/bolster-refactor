@@ -10,7 +10,6 @@ import FileUploadContainer from 'components/shared/generic/form/containers/FileU
 import RadioButtonListContainer from 'components/shared/generic/form/containers/RadioButtonListContainer';
 import SignatureContainer from 'components/shared/generic/form/containers/SignatureContainer';
 import MultiDropdownContainer from 'components/shared/generic/form/containers/MultiDropdownContainer';
-import MultiMultiDropdownContainer from 'components/shared/generic/form/containers/MultiMultiDropdownContainer';
 
 import updateAddPinAnswer from 'actions/companyAdmin/drawings/sync/updateAddPinAnswer';
 import resetPinAnswers from 'actions/companyAdmin/drawings/sync/resetPinAnswers';
