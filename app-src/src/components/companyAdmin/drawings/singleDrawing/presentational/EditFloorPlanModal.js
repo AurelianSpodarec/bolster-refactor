@@ -7,16 +7,24 @@ import Field from 'components/shared/generic/form/presentational/Field';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import FileUploadContainer from 'components/shared/generic/form/containers/FileUploadContainer';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
+import FieldOutput from 'components/shared/generic/fieldOutput/presentational/FieldOutput';
 
 const EditFloorPlanModal = ({
     file,
     filesUploading,
     handleChange,
     hideModal,
-    handleSubmit
+    handleSubmit,
+    drawing: { doesRequireCreditToReplaceFloorplan }
 }) => (
     <ModalOuterContainer>
         <BlockHeading title="Upload a new floor plan." />
+        {doesRequireCreditToReplaceFloorplan && (
+            <FieldOutput>
+                Note: updating the floorplan for this drawing will cost a
+                credit.
+            </FieldOutput>
+        )}
         <Form className="generic-form" onSubmit={handleSubmit}>
             <Field name="Upload file" required>
                 <FileUploadContainer

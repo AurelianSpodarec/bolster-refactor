@@ -69,7 +69,6 @@ class RegisterFormContainer extends Component {
     };
 
     handleDropDown = (val, { name }) => {
-        console.log(val, name);
         this.setState({ [name]: val });
     };
 
