@@ -43,13 +43,18 @@ class DropdownContainer extends Component {
     }
 
     componentDidMount = () => {
-        const { value = {} } = this.props;
-        this._validate(value);
+        const { selectedOption } = this.props;
+        this._validate(selectedOption);
     };
 
-    componentDidUpdate = ({ value: prevValue = {} }) => {
-        const { value = {} } = this.props;
-        if (value.value !== prevValue.value) {
+    componentDidUpdate = ({
+        selectedOption: prevselectedOption = {},
+        value: prevValue = {}
+    }) => {
+        const { selectedOption = {}, value = {} } = this.props;
+        if (selectedOption.value !== prevselectedOption.value) {
+            this._validate(selectedOption);
+        } else if (value.value !== prevValue.value) {
             this._validate(value);
         }
     };
@@ -70,6 +75,7 @@ class DropdownContainer extends Component {
     };
 
     _validate = value => {
+        console.log(value);
         const {
             name,
             error,
