@@ -13,6 +13,7 @@ import Loading from 'components/shared/generic/misc/presentational/Loading';
 import { RAW_S3_STORAGE_URL } from 'config';
 import { EDIT_FLOOR_PLAN } from 'constants/shared/modalTypes';
 import MapPinContainer from 'components/shared/pins/map/containers/MapPinContainer';
+import LoadingIcon from 'components/shared/generic/misc/presentational/LoadingIcon';
 
 const getDataUrl = src => `${FILE_STORAGE_URL}/${src}/{z}/{x}/{y}.jpg`;
 const getFileName = src => src.match('[^/]*$')[0];
@@ -27,7 +28,8 @@ const DrawingMapViewSimple = ({
     addMode,
     toggleAddMode,
     history,
-    showModal
+    showModal,
+    updating
 }) => {
     const newPinIcon = L.divIcon({
         className: '',
@@ -105,6 +107,11 @@ const DrawingMapViewSimple = ({
                         >
                             <i className="far fa-pencil fa-fw" /> Edit drawing
                         </button>
+                        {updating && (
+                            <p>
+                                Updating floorplan... <LoadingIcon />
+                            </p>
+                        )}
                     </BlockHeading>
                     <Map
                         center={position}

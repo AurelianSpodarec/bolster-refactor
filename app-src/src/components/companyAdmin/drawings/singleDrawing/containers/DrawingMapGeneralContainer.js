@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import moment from 'moment';
 
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import fetchCompanyUsers from 'actions/companyAdmin/userManagement/async/fetchCompanyUsers';
@@ -14,6 +15,7 @@ import {
     PIN_STATUS_TYPES,
     COMPANY_USER_ROLE_TYPES as USER_ROLE
 } from 'constants/companyAdmin/enums';
+import fetchSingleDrawing from 'actions/companyAdmin/drawings/async/fetchSingleDrawing';
 
 class DrawingMapGeneralContainer extends Component {
     state = {
@@ -27,7 +29,8 @@ class DrawingMapGeneralContainer extends Component {
         mapZoom: 3,
         addMode: false,
         addPinLat: 51.505,
-        addPinLng: -0.09
+        addPinLng: -0.09,
+        updating: false
     };
 
     render() {
@@ -46,7 +49,6 @@ class DrawingMapGeneralContainer extends Component {
         const addPinPosition = [addPinLat, addPinLng];
 
         const { error, pins, drawing = {} } = this.props;
-        const { doesRequireCreditToReplaceFloorplan } = drawing;
         const serviceOptions = this._getServicesOptions();
         const statusOptions = convertEnumToDropdownOptions(PIN_STATUS_TYPES);
         const operativeOptions = this._getOperativeOptions();
@@ -92,6 +94,7 @@ class DrawingMapGeneralContainer extends Component {
                         addMode={addMode}
                         toggleAddMode={this.toggleAddMode}
                         history={this.props.history}
+                        updating={this.state.updating}
                     />
                 </BlockContainer>
             </>
@@ -99,10 +102,23 @@ class DrawingMapGeneralContainer extends Component {
     }
 
     componentDidMount = () => {
-        const { fetchCompanyUsers } = this.props;
-
-        fetchCompanyUsers();
+        this.props.fetchCompanyUsers();
         this._resetCoordinates();
+    };
+
+    componentDidUpdate = ({ drawing: prevDrawing = {}, ...prevProps }) => {
+        const { postSuccess, drawing = {}, fetchDrawing } = this.props;
+        if (postSuccess && !prevProps.postSuccess) {
+            // drawing successfully updated
+            this.setState({ updating: true });
+            this._floorplanInterval = setInterval(() => {
+                fetchDrawing(drawing.id);
+            }, 5000);
+        }
+        if (drawing.tilesetS3Key !== prevDrawing.tilesetS3Key) {
+            clearInterval(this._floorplanInterval);
+            this.setState({ updating: false });
+        }
     };
 
     handleClick = e => {
@@ -172,7 +188,6 @@ class DrawingMapGeneralContainer extends Component {
                 value: id,
                 text: `${userFirstName} ${userLastName} <${userEmail}>`
             }));
-
         return convertArrToObj(options, 'value');
     };
 
@@ -186,39 +201,38 @@ class DrawingMapGeneralContainer extends Component {
             endDateSelected
         } = this.state;
 
-        let filteredPins = pins;
+        const filterPins = pins.filter(pin => {
+            if (
+                serviceSelectedID &&
+                +pin.latestServiceID !== +serviceSelectedID
+            ) {
+                return false;
+            }
+            if (statusSelectedID && +pin.latestStatus !== +statusSelectedID) {
+                return false;
+            }
+            if (
+                operativeSelectedID &&
+                +pin.latestCreatedByCompanyUserID !== +operativeSelectedID
+            ) {
+                return false;
+            }
+            if (
+                startDateSelected &&
+                moment(pin.latestCreatedOn) < moment(startDateSelected)
+            ) {
+                return false;
+            }
+            if (
+                endDateSelected &&
+                moment(pin.latestCreatedOn) > moment(endDateSelected)
+            ) {
+                return false;
+            }
+            return true;
+        });
 
-        if (serviceSelectedID) {
-            filteredPins = filteredPins.filter(
-                pin => pin.latestServiceID === parseInt(serviceSelectedID)
-            );
-        }
-
-        if (statusSelectedID) {
-            filteredPins = filteredPins.filter(
-                pin => pin.latestStatus === parseInt(statusSelectedID)
-            );
-        }
-
-        if (operativeSelectedID) {
-            filteredPins = filteredPins.filter(
-                pin =>
-                    pin.latestCreatedByCompanyUserID ===
-                    parseInt(operativeSelectedID)
-            );
-        }
-
-        if (startDateSelected && endDateSelected) {
-            filteredPins = filteredPins.filter(
-                pin =>
-                    new Date(pin.latestCreatedOn).getTime() >=
-                        startDateSelected.getTime() &&
-                    new Date(pin.latestCreatedOn).getTime() <=
-                        endDateSelected.getTime()
-            );
-        }
-
-        return filteredPins;
+        return filterPins;
     };
 }
 
@@ -228,7 +242,7 @@ const mapStateToProps = (
             pinsReducer: { pins, isFetching, error },
             servicesReducer: { services },
             companyUsersReducer: { users },
-            drawingsReducer: { drawings },
+            drawingsReducer: { drawings, postSuccess },
             addPinCoordinatesReducer: { coordinates }
         }
     },
@@ -240,11 +254,13 @@ const mapStateToProps = (
     users: Object.values(users),
     services: Object.values(services),
     isFetching,
-    error
+    error,
+    postSuccess
 });
 
 const mapDispatchToProps = dispatch => ({
     fetchCompanyUsers: () => dispatch(fetchCompanyUsers()),
+    fetchDrawing: id => dispatch(fetchSingleDrawing(id)),
     updatePinCoordinates: (name, value) =>
         dispatch(updatePinCoordinates(name, value)),
     showModal: (type, props) => dispatch(showModal(type, props))
