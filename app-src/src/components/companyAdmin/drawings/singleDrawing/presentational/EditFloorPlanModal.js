@@ -20,10 +20,10 @@ const EditFloorPlanModal = ({
     <ModalOuterContainer>
         <BlockHeading title="Upload a new floor plan." />
         {doesRequireCreditToReplaceFloorplan && (
-            <FieldOutput>
+            <p className="generic-text">
                 Note: updating the floorplan for this drawing will cost a
                 credit.
-            </FieldOutput>
+            </p>
         )}
         <Form className="generic-form" onSubmit={handleSubmit}>
             <Field name="Upload file" required>

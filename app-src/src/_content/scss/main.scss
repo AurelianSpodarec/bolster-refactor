@@ -2136,13 +2136,13 @@ input {
     }
 
     .modal-block {
-        max-height: 70%;
+        max-height: 90%;
         transform: translateX(-50%) translateY(-50%);
         position: absolute;
         top: 50%;
         left: 50%;
-        min-width: 30%;
-        max-width: 30%;
+        width: 600px;
+        overflow: auto;
 
         &.w-form {
             width: 30%;
