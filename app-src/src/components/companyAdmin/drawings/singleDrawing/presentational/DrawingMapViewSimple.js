@@ -13,6 +13,7 @@ import CustomPin from 'components/shared/pins/map/presentational/CustomPin';
 import Loading from 'components/shared/generic/misc/presentational/Loading';
 import { RAW_S3_STORAGE_URL } from 'config';
 import { EDIT_FLOOR_PLAN } from 'constants/shared/modalTypes';
+import MapPinContainer from 'components/shared/pins/map/containers/MapPinContainer';
 
 const getDataUrl = src => `${FILE_STORAGE_URL}/${src}/{z}/{x}/{y}.jpg`;
 const getFileName = src => src.match('[^/]*$')[0];
@@ -123,7 +124,12 @@ const DrawingMapViewSimple = ({
                             noWrap={true}
                         />
                         {pins.map(pin => (
-                            <MapPin key={pin.id} pin={pin} isReport={true} />
+                            <MapPinContainer
+                                key={pin.id}
+                                pin={pin}
+                                isReport={true}
+                                withTooltip={true}
+                            />
                         ))}
                         {addMode && (
                             <Marker

@@ -1,3 +1,6 @@
+import moment from 'moment';
+import { DATE_TIME_DEFAULTS } from 'constants/companyAdmin/enums';
+
 export function convertArrToObj(arr, field = 'id') {
     return arr.reduce((acc, item) => {
         acc[item[field]] = item;
@@ -105,3 +108,6 @@ const sortByOffset = (a, b) => getOffsetValue(a) - getOffsetValue(b);
 
 export const sortTimezones = timezonesArr =>
     [...timezonesArr].sort(sortByOffset);
+
+export const formatDate = date =>
+    moment(date).format(DATE_TIME_DEFAULTS.DATETIME);

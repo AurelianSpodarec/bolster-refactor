@@ -2,21 +2,39 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 
 import L from 'leaflet';
-import { Marker } from 'react-leaflet';
-import { PIN_STATUS_COLOURS as COLOURS } from 'constants/companyAdmin/enums';
+import { Marker, Tooltip } from 'react-leaflet';
+import {
+    PIN_STATUS_COLOURS as COLOURS,
+    PIN_STATUS_TYPES
+} from 'constants/companyAdmin/enums';
 import CustomPin from './CustomPin';
 import ReactDOMServer from 'react-dom/server';
+import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
+import { formatDate } from 'helpers/generic';
 
 const DrawingMapPin = ({
-    pin: { id, location = {}, pinCode, latestStatus = '' },
+    pin: {
+        id,
+        location = {},
+        pinCode,
+        latestStatus = '',
+        createdOn,
+        latestCreatedOn
+    },
     pinHistory = {},
     history,
-    isReport
+    isReport,
+    user,
+    service,
+    withTooltip
 }) => {
     const { latY = 1, lngX = 1 } = location;
-
-    const pinColour = COLOURS[pinHistory.status || latestStatus] || 'red';
-
+    const status = pinHistory.status || latestStatus;
+    const pinColour = COLOURS[status] || 'red';
+    const updated =
+        formatDate(latestCreatedOn) !== formatDate(createdOn)
+            ? latestCreatedOn
+            : null;
     const divIcon = L.divIcon({
         className: '',
         html: ReactDOMServer.renderToString(
@@ -38,7 +56,31 @@ const DrawingMapPin = ({
             position={[latY, lngX]}
             icon={divIcon}
             onClick={() => isReport && history.push('/company/pins/' + id)}
-        />
+        >
+            {withTooltip && (
+                <Tooltip>
+                    {`Pin code: ${pinCode}`} <br />
+                    {`Status: ${PIN_STATUS_TYPES[status]}`} <br />
+                    Created: <DateTimeContainer date={createdOn} /> <br />
+                    {updated && (
+                        <>
+                            Updated: <DateTimeContainer date={updated} /> <br />
+                        </>
+                    )}
+                    {user && (
+                        <>
+                            Created by: {user.userFirstName} {user.userLastName}{' '}
+                            <br />
+                        </>
+                    )}
+                    {service && (
+                        <>
+                            Latest Service: {service.name} <br />{' '}
+                        </>
+                    )}
+                </Tooltip>
+            )}
+        </Marker>
     );
 };
 
