@@ -84,6 +84,11 @@ export const LABEL_TYPES_NUMS = {
     TRIM: 2
 };
 
+export const LABEL_TYPES_IMAGES = {
+    1: '_content/images/labels/standard.png',
+    2: '_content/images/labels/trim.png'
+};
+
 export const LABEL_QUES_TYPES = {
     1: 'Static',
     2: 'Dynamic'

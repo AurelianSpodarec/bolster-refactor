@@ -1040,6 +1040,10 @@ input {
             width: 33.33%;
             margin-top: 20px;
             margin-bottom: 0;
+
+            &.label-example {
+                width: 50%;
+            }
         }
         .error {
             left: 0;
@@ -1188,7 +1192,7 @@ input {
 
 .radio-button {
     float: left;
-    padding-right: 60px;
+    padding-right: 30px;
     cursor: pointer;
     input {
         position: absolute;
@@ -1257,6 +1261,22 @@ input {
         @include ubuntu;
         strong {
             @include ubuntu-medium;
+        }
+    }
+
+    &.label-example {
+        input {
+            cursor: pointer;
+        }
+
+        .radio-image {
+            float: left;
+            width: 100%;
+            margin-top: 10px;
+
+            img {
+                width: 100%;
+            }
         }
     }
 }
