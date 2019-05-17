@@ -36,9 +36,9 @@ const DrawingMapViewSimple = ({
         html: ReactDOMServer.renderToString(
             <CustomPin pinColour="red" history={history} />
         ),
-        iconSize: [24, 40],
-        iconAnchor: [12, 40],
-        popupAnchor: [0, -40]
+        iconSize: [30, 50],
+        iconAnchor: [15, 50],
+        popupAnchor: [0, -50]
     });
 
     return (
