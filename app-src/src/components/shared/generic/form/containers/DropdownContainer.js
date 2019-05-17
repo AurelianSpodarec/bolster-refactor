@@ -5,8 +5,6 @@ import addFieldError from 'actions/shared/generic/fieldErrors/sync/addFieldError
 import removeFieldError from 'actions/shared/generic/fieldErrors/sync/removeFieldError';
 
 import Dropdown from '../presentational/Dropdown';
-import { EMAIL_REGEX } from 'helpers/regex';
-import { isObjEmpty } from 'helpers/generic';
 
 class DropdownContainer extends Component {
     state = { showFieldError: false };
@@ -43,14 +41,14 @@ class DropdownContainer extends Component {
     }
 
     componentDidMount = () => {
-        const { value = {} } = this.props;
-        this._validate(value);
+        const { selectedOption } = this.props;
+        this._validate(selectedOption);
     };
 
-    componentDidUpdate = ({ value: prevValue = {} }) => {
-        const { value = {} } = this.props;
-        if (value.value !== prevValue.value) {
-            this._validate(value);
+    componentDidUpdate = ({ selectedOption: prevValue }) => {
+        const { selectedOption } = this.props;
+        if (selectedOption !== prevValue) {
+            this._validate(selectedOption);
         }
     };
 
@@ -61,6 +59,7 @@ class DropdownContainer extends Component {
 
     handleChange = (name, value) => {
         this.props.handleChange(name, value);
+        this._showFieldError();
     };
 
     handleBlur = () => this._showFieldError();
@@ -79,10 +78,7 @@ class DropdownContainer extends Component {
             removeFieldError
         } = this.props;
         const validateError = validate(value);
-        if (
-            required &&
-            !(value && (value.length || value > 0 || !isObjEmpty(value)))
-        ) {
+        if (required && !value) {
             addFieldError(name, 'This is a required field.');
         } else if (validateError && validateError.length) {
             addFieldError(name, validateError);
@@ -90,8 +86,6 @@ class DropdownContainer extends Component {
             removeFieldError(name);
         }
     };
-
-    _valdateEmail = value => EMAIL_REGEX.test(value);
 }
 
 const mapStateToProps = ({ shared: { fieldErrorsReducer } }, ownProps) => ({

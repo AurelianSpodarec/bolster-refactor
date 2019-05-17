@@ -213,6 +213,7 @@ const EditSettingsForm = ({
                         name="defaultTemplateUsageRule"
                         options={templateUsageRules}
                         value={selectedRule}
+                        selectedOption={selectedRule}
                         handleChange={handleInputChange}
                         required
                     />
