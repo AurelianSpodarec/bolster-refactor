@@ -9,11 +9,12 @@ import DrawingPinOptionsContainer from '../containers/DrawingPinOptionsContainer
 
 const AdvancedReport = () => (
     <div className="size-lg-12">
-        <div className="size-lg-8">
+        <div className="size-lg-12">
             <Block>
                 <DrawingMapAdvancedContainer />
             </Block>
-
+        </div>
+        <div className="size-lg-8">
             <Block>
                 <DrawingPinSelectorContainer />
             </Block>
