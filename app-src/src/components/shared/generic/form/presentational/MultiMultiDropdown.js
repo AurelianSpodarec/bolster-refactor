@@ -21,6 +21,10 @@ const MultiMultiDropdown = ({
         };
     }, []);
 
+    useEffect(() => {
+        if (!isOpen) showError();
+    }, [isOpen]);
+
     return (
         <div className="multi-multi-dropdown size-lg-12" ref={node}>
             <div className="selected-box" onClick={toggle}>
@@ -80,7 +84,6 @@ const MultiMultiDropdown = ({
         }
         // outside click
         setIsOpen(false);
-        showError();
     }
 
     function getSelected() {
