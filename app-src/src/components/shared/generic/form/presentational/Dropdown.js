@@ -30,7 +30,10 @@ const Dropdown = ({
             )}
             <select
                 name={name}
-                onChange={({ target }) => handleChange(name, target.value)}
+                onChange={e => {
+                    e.preventDefault();
+                    handleChange(name, e.target.value);
+                }}
                 onFocus={handleFocus}
                 onBlur={handleBlur}
                 value={selectedOption.value || ''}
