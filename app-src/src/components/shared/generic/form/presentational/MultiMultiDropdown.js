@@ -11,6 +11,7 @@ const MultiMultiDropdown = ({
 }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [searchTerm, setSearch] = useState('');
+    const isInitialMount = useRef(true);
     const node = useRef();
 
     useEffect(() => {
@@ -22,7 +23,11 @@ const MultiMultiDropdown = ({
     }, []);
 
     useEffect(() => {
-        if (!isOpen) showError();
+        if (isInitialMount.current) {
+            isInitialMount.current = false;
+        } else {
+            if (!isOpen) showError();
+        }
     }, [isOpen]);
 
     return (
