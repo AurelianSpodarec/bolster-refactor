@@ -15,7 +15,7 @@ const LabelTypeRadioButton = ({
 }) => {
     let image = StandardLabelImage;
 
-    if (value == LABEL_TYPE.TRIM) {
+    if (value + '' === LABEL_TYPE.TRIM + '') {
         image = TrimLabelImage;
     }
 
