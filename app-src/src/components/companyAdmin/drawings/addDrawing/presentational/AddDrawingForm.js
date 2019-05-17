@@ -55,6 +55,7 @@ const AddDrawingForm = ({
                         name="templateUsageRule"
                         options={templateUsageRules}
                         value={selectedRule}
+                        selectedOption={selectedRule}
                         handleChange={handleInputChange}
                         required
                     />

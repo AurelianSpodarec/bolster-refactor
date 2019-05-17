@@ -92,6 +92,7 @@ const DrawingMapFiltersAdvanced = ({
                         name="serviceSelectedID"
                         options={serviceOptions}
                         value={selectedService}
+                        selectedOption={selectedService}
                         handleChange={handleChange}
                     />
                 </Field>
