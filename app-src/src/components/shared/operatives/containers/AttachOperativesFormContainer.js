@@ -53,7 +53,6 @@ class AttachOperativesFormContainer extends Component {
     _getUserOptions = () => {
         const { operativeUsers } = this.props;
 
-        console.log(operativeUsers);
         const options = operativeUsers.map(
             ({ id, userFirstName, userLastName, userEmail }) => ({
                 value: id,
