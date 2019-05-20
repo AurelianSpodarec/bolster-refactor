@@ -19,7 +19,7 @@ const OperativeAlertsChart = ({ alerts, alert }) => {
             position: 'left',
             labels: {
                 fontFamily: 'Ubuntu',
-                fontSize: 14
+                fontSize: 12
             },
             padding: 20,
             usePointStyle: true,
