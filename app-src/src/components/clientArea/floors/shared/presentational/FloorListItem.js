@@ -1,12 +1,13 @@
 import React from 'react';
 
-import FloorTableContainer from 'components/clientArea/floors/shared/containers/FloorTableContainer';
+import DrawingTableContainer from 'components/clientArea/drawings/shared/containers/DrawingTableContainer';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
-const BuldingsListItem = ({
-    building,
-    toggleExpanded,
+
+const FloorListItem = ({
+    floor,
     isExpanded,
     colCount,
+    toggleExpanded,
     permissions
 }) => (
     <>
@@ -15,18 +16,17 @@ const BuldingsListItem = ({
             className={`expandable ${isExpanded ? 'open' : ''}`}
         >
             <td>
-                {' '}
                 {isExpanded ? (
                     <i className="fa fa-chevron-down" />
                 ) : (
                     <i className="fa fa-chevron-right" />
                 )}{' '}
-                {building.name}
+                {floor.name}
             </td>
             <td>{permissions}</td>
             <td>
                 <ButtonContainer
-                    to={`/client/buildings/${building.id}`}
+                    to={`/client/floors/${floor.id}`}
                     handleClick={e => e.stopPropagation()}
                 >
                     View
@@ -34,16 +34,13 @@ const BuldingsListItem = ({
             </td>
         </tr>
         {isExpanded && (
-            <tr className="expanded-row ">
-                <td colSpan={colCount} className="table-container">
-                    <FloorTableContainer
-                        className="with-actions"
-                        ids={building.floorIDs}
-                    />
+            <tr>
+                <td colSpan={colCount} className="table-container drawing">
+                    <DrawingTableContainer ids={floor.drawingIDs} />
                 </td>
             </tr>
         )}
     </>
 );
 
-export default BuldingsListItem;
+export default FloorListItem;
