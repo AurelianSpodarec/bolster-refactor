@@ -1,8 +1,8 @@
-import React from 'components/clientArea/app/routes/node_modules/react';
-import { Route } from 'components/clientArea/app/routes/node_modules/react-router-dom';
+import React from 'react';
+import { Route } from 'react-router-dom';
 
-import SwitchWith404 from 'components/clientArea/app/routes/node_modules/components/appRoute/routes/presentational/SwitchWith404';
-import Dashboard from 'components/clientArea/app/routes/node_modules/components/companyAdmin/dashboard/presentational/Dashboard';
+import Dashboard from 'components/clientArea/dashboard/presentational/Dashboard';
+import SwitchWith404 from 'components/appRoute/routes/presentational/SwitchWith404';
 
 import SitesRoutes from './SitesRoutes';
 import BuildingsRoutes from './BuildingsRoutes';

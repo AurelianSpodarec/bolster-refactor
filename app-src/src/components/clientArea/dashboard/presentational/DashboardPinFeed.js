@@ -1,0 +1,19 @@
+import React from 'react';
+
+import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
+import DashboardPinFeedTable from './DashboardPinFeedTable';
+
+const DashboardPinFeed = ({ pins, isFetching, error }) => (
+    <BlockContainer>
+        <BlockHeading title="Live Pin Feed" />
+        <DashboardPinFeedTable
+            pins={pins}
+            isFetching={isFetching}
+            error={error}
+            headers={['Pin ID', 'Location', 'Added', 'Synced', 'Actions']}
+        />
+    </BlockContainer>
+);
+
+export default DashboardPinFeed;
