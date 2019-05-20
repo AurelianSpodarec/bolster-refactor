@@ -22,7 +22,10 @@ function tabsReducer(state = [], action) {
             return state;
     }
 }
-function menuTabsReducer(state = ['Super Admin', 'Company Admin'], action) {
+function menuTabsReducer(
+    state = ['Super Admin', 'Company Admin', 'Client'],
+    action
+) {
     switch (action.type) {
         case SET_MENU_TABS:
             return action.menuTabs;

@@ -5,5 +5,6 @@ export const DRAWING_TABS = {
 
 export const MENU_TABS = {
     SUPER_ADMIN: 'Super Admin',
-    COMPANY_USER: 'Company Admin'
+    COMPANY_USER: 'Company Admin',
+    CLIENT: 'Client'
 };
