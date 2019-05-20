@@ -2,7 +2,7 @@ import React from 'react';
 import { Route } from 'react-router-dom';
 
 import SwitchWith404 from 'components/appRoute/routes/presentational/SwitchWith404';
-import SingleFloorContainer from 'components/companyAdmin/floors/singleFloor/containers/SingleFloorContainer';
+import SingleFloorContainer from 'components/clientArea/floors/singleFloor/containers/SingleFloorContainer';
 
 const FloorRoutes = ({ base = '/client/floors' }) => (
     <SwitchWith404>
