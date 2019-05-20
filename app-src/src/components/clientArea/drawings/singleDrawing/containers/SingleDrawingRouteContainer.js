@@ -4,10 +4,10 @@ import { connect } from 'react-redux';
 import { DRAWING_TABS as TABS } from 'constants/shared/tabNames';
 
 import AdvancedReport from '../presentational/AdvancedReport';
-import GeneralOverviewContainer from './GeneralOverviewContainer';
+import DrawingMapGeneralContainer from './DrawingMapGeneralContainer';
 
 const contentOptions = {
-    [TABS.GENERAL_OVERVIEW]: GeneralOverviewContainer,
+    [TABS.GENERAL_OVERVIEW]: DrawingMapGeneralContainer,
     [TABS.ADVANCED_REPORT]: AdvancedReport
 };
 

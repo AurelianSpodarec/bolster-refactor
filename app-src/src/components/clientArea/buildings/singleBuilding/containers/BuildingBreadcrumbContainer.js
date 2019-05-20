@@ -16,11 +16,11 @@ class BuildingBreadcrumbContainer extends Component {
         const breadcrumbsArray = [
             {
                 text: 'Sites',
-                link: '/company/sites/'
+                link: '/client/sites/'
             },
             {
                 text: this.state.siteName,
-                link: `/company/sites/${this.state.siteID}`
+                link: `/client/sites/${this.state.siteID}`
             },
             { text: this.props.building.name }
         ];

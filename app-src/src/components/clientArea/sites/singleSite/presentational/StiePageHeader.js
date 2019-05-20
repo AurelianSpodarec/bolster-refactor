@@ -12,7 +12,7 @@ const SitePageHeader = ({ site }) => (
     >
         <Breadcrumb
             breadcrumbs={[
-                { text: 'Sites', link: '/company/sites' },
+                { text: 'Sites', link: '/client/sites' },
                 { text: site.name }
             ]}
         />
