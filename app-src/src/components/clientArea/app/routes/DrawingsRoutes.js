@@ -2,7 +2,7 @@ import React from 'react';
 import { Route } from 'react-router-dom';
 
 import SwitchWith404 from 'components/appRoute/routes/presentational/SwitchWith404';
-import SingleDrawingContainer from 'components/companyAdmin/drawings/singleDrawing/containers/SingleDrawingContainer';
+import SingleDrawingContainer from 'components/clientArea/drawings/singleDrawing/containers/SingleDrawingContainer';
 
 const DrawingsRoutes = ({ base = '/client/drawings' }) => (
     <SwitchWith404>
