@@ -9,9 +9,10 @@ import AuthApp from 'components/auth/app/app/presentational/AuthApp';
 import TestApp from 'components/test/app/app/presentational/TestApp';
 import AdminAppContainer from 'components/superAdmin/app/app/containers/AdminAppContainer';
 import CompanyAppContainer from 'components/companyAdmin/app/app/containers/CompanyAppContainer';
+import ClientAppContainer from 'components/clientArea/app/app/containers/ClientAppContainer';
 
 import { AUTH_TYPES } from 'constants/shared/auth';
-const { SUPER_ADMIN, COMPANY } = AUTH_TYPES;
+const { SUPER_ADMIN, COMPANY, CLIENT } = AUTH_TYPES;
 const Routes = () => (
     <SwitchWith404>
         <Redirect exact path="/" to="/company" />
@@ -25,6 +26,10 @@ const Routes = () => (
         <Route
             path="/company"
             component={withAuth(CompanyAppContainer, COMPANY)}
+        />
+        <Route
+            path="/client"
+            component={withAuth(ClientAppContainer, CLIENT)}
         />
     </SwitchWith404>
 );

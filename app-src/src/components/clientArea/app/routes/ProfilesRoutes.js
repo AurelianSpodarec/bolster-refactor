@@ -6,7 +6,7 @@ import ProfileContainer from 'components/shared/profile/profilePage/containers/P
 import EditProfileContainer from 'components/shared/profile/editProfile/containers/EditProfileContainer';
 import EditProfilePasswordContainer from 'components/shared/profile/editProfilePassword/containers/EditProfilePasswordContainer';
 
-const ProfilesRoutes = ({ base = '/company/profile' }) => (
+const ProfilesRoutes = ({ base = '/client/profile' }) => (
     <SwitchWith404>
         <Route exact path={base} component={ProfileContainer} />
         <Route exact path={`${base}/edit`} component={EditProfileContainer} />
