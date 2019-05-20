@@ -12,7 +12,8 @@ import CompanyAppContainer from 'components/companyAdmin/app/app/containers/Comp
 
 import { AUTH_TYPES } from 'constants/shared/auth';
 import ClientAppContainer from 'components/clientArea/app/app/containers/ClientAppContainer';
-const { SUPER_ADMIN, COMPANY, CLIENT } = AUTH_TYPES;
+// ! uncomment this when client log in is sorted
+const { SUPER_ADMIN, COMPANY /*CLIENT*/ } = AUTH_TYPES;
 const Routes = () => (
     <SwitchWith404>
         <Redirect exact path="/" to="/company" />
@@ -30,7 +31,7 @@ const Routes = () => (
         <Route
             path="/client"
             component={ClientAppContainer}
-            // ! put withAuth back in once the log in is sorted
+            // ! put withAuth back in once the client log in is sorted
             // component={withAuth(ClientAppContainer, CLIENT)}
         />
     </SwitchWith404>
