@@ -2,8 +2,8 @@ import React from 'react';
 import { Route } from 'react-router-dom';
 
 import SwitchWith404 from 'components/appRoute/routes/presentational/SwitchWith404';
-import AllSitesContainer from 'components/companyAdmin/sites/allSites/containers/AllSitesContainer';
-import SingleSiteContainer from 'components/companyAdmin/sites/singleSite/containers/SingleSiteContainer';
+import AllSitesContainer from 'components/clientArea/sites/allSites/containers/AllSitesContainer';
+import SingleSiteContainer from 'components/clientArea/sites/singleSite/containers/SingleSiteContainer';
 
 const SitesRoutes = ({ base = '/client/sites' }) => (
     <SwitchWith404>
