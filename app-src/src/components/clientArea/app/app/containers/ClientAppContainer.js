@@ -27,9 +27,9 @@ class ClientAppContainer extends Component {
     }
 
     componentDidMount = () => {
-        const { fetchHomeData, selectCompanyMenuTab } = this.props;
+        const { fetchHomeData, selectClientMenuTab } = this.props;
         fetchHomeData();
-        selectCompanyMenuTab();
+        selectClientMenuTab();
     };
 }
 
@@ -50,8 +50,8 @@ const mapDispatchToProps = dispatch => ({
         dispatch(fetchPendingInvites());
         dispatch(fetchOutgoingInvites());
     },
-    selectCompanyMenuTab: () => {
-        dispatch(selectMenuTab(MENU_TABS.COMPANY_USER));
+    selectClientMenuTab: () => {
+        dispatch(selectMenuTab(MENU_TABS.CLIENT));
     }
 });
 

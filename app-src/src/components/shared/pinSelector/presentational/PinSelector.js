@@ -1,6 +1,5 @@
 import React from 'react';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
-import Field from 'components/shared/generic/form/presentational/Field';
 import ExcludedBox from './ExcludedBox';
 import IncludedBox from './IncludedBox';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
