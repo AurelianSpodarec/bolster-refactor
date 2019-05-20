@@ -2008,6 +2008,7 @@ input {
         height: 146px;
         border: 1px solid #e1e1e1;
         @include rounded-all(3px);
+        overflow-y: scroll;
 
         p,
         .selector-pin {
