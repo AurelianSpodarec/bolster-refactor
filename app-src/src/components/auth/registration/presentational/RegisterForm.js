@@ -173,7 +173,7 @@ const RegisterForm = ({
                     required
                 />
             </Field>
-            {vatType !== VAT_TYPES.OUTSIDEEU && (
+            {vatType.value !== VAT_TYPES.OUTSIDEEU && (
                 <Field
                     name="VAT Code"
                     required={vatType !== VAT_TYPES.OUTSIDEEU}
@@ -182,7 +182,7 @@ const RegisterForm = ({
                         name="Company.vatCode"
                         value={vatCode}
                         handleChange={handleInputChange}
-                        required={vatType !== VAT_TYPES.OUTSIDEEU}
+                        required={vatType.value !== VAT_TYPES.OUTSIDEEU}
                     />
                 </Field>
             )}
