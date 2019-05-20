@@ -14,19 +14,19 @@ class DrawingBreadcrumbContainer extends Component {
         const breadcrumbsArray = [
             {
                 text: 'Sites',
-                link: '/company/sites/'
+                link: '/client/sites/'
             },
             {
                 text: site.name,
-                link: `/company/sites/${site.id}`
+                link: `/client/sites/${site.id}`
             },
             {
                 text: building.name,
-                link: `/company/buildings/${building.id}`
+                link: `/client/buildings/${building.id}`
             },
             {
                 text: floor.name,
-                link: `/company/floors/${floor.id}`
+                link: `/client/floors/${floor.id}`
             },
             { text: drawing.name }
         ];

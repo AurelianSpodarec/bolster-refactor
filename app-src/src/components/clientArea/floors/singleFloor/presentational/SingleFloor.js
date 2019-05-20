@@ -21,15 +21,3 @@ const Floor = () => (
 );
 
 export default Floor;
-
-{
-    /* <div className="flex-container size-lg-12">
-<div className=" flex-item size-lg-4">
-    <FloorDetailsContainer />
-</div>
-
-<div className="size-lg-8">
-    <FloorDrawingsTableContainer />
-</div>
-</div> */
-}
