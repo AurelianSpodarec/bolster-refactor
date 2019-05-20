@@ -50,10 +50,10 @@ const NewSelect = ({ options, value, onChange, name, singleSelect }) => {
 
         if (!selected[0]) {
             if (singleSelect) {
-                return <span>--- Select Option ---</span>;
+                return <span>--- Select an option ---</span>;
             }
 
-            return <span>--- Select Options ---</span>;
+            return <span>--- Select options ---</span>;
         }
     }
 };

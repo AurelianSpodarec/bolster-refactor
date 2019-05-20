@@ -8,16 +8,18 @@ const FurtherFiltration = ({
     furtherFiltrationOptions,
     handleChange
 }) => (
-    <Field name=" " sizeClasses="size-lg-12">
-        <DropdownContainer
-            placeholder="None"
-            name="filterOption"
-            options={furtherFiltrationOptions}
-            value={selected}
-            selectedOption={selected}
-            handleChange={handleChange}
-        />
-    </Field>
+    <div className="generic-form">
+        <Field name=" " sizeClasses="size-lg-12">
+            <DropdownContainer
+                placeholder="None"
+                name="filterOption"
+                options={furtherFiltrationOptions}
+                value={selected}
+                selectedOption={selected}
+                handleChange={handleChange}
+            />
+        </Field>
+    </div>
 );
 
 export default FurtherFiltration;
