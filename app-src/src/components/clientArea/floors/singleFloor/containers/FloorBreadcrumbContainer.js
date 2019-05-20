@@ -19,15 +19,15 @@ class FloorBreadcrumbContainer extends Component {
         const breadcrumbsArray = [
             {
                 text: 'Sites',
-                link: '/company/sites/'
+                link: '/client/sites/'
             },
             {
                 text: this.state.siteName,
-                link: `/company/sites/${this.state.siteID}`
+                link: `/client/sites/${this.state.siteID}`
             },
             {
                 text: this.state.buildingName,
-                link: `/company/buildings/${this.state.buildingID}`
+                link: `/client/buildings/${this.state.buildingID}`
             },
             { text: this.props.floor.name }
         ];
