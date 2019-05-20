@@ -5,6 +5,7 @@ import GreenPin from '_content/images/pins-examples/green-pin.svg';
 import BluePin from '_content/images/pins-examples/blue-pin.svg';
 import YellowPin from '_content/images/pins-examples/yellow-pin.svg';
 import PurplePin from '_content/images/pins-examples/purple-pin.svg';
+import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 
 const DrawingMapFiltersSimple = ({
     installed,
@@ -13,7 +14,7 @@ const DrawingMapFiltersSimple = ({
     action,
     other
 }) => (
-    <div className="">
+    <BlockHeading>
         <div className="map-filters size-lg-12">
             <div className="pin-amounts size-lg-12">
                 <div className="pin pull-left">
@@ -38,7 +39,8 @@ const DrawingMapFiltersSimple = ({
                 </div>
             </div>
         </div>
-    </div>
+    </BlockHeading>
+
 );
 
 export default DrawingMapFiltersSimple;
