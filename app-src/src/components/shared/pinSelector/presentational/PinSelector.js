@@ -4,6 +4,7 @@ import Field from 'components/shared/generic/form/presentational/Field';
 import ExcludedBox from './ExcludedBox';
 import IncludedBox from './IncludedBox';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
+import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 
 const PinSelector = ({
     excludedPins,
@@ -26,55 +27,54 @@ const PinSelector = ({
             you would like to be included in your report.
         </p>
         <div className="pin-selector size-lg-12">
-            <div className="size-lg-4">
-                <Field name="Excluded">
-                    <ExcludedBox
-                        selectedPinOptions={selectedPinOptions}
-                        excludedPins={excludedPins}
-                        handlePinClick={handlePinClick}
-                        handleMouseDown={handleMouseDown}
-                        handleMouseUp={handleMouseUp}
-                        handleMouseOut={handleMouseOut}
-                        clicking={clicking}
-                    />
-                </Field>
+            <div className="pin-selection-box">
+                <h3>Excluded</h3>
+                <ExcludedBox
+                    selectedPinOptions={selectedPinOptions}
+                    excludedPins={excludedPins}
+                    handlePinClick={handlePinClick}
+                    handleMouseDown={handleMouseDown}
+                    handleMouseUp={handleMouseUp}
+                    handleMouseOut={handleMouseOut}
+                    clicking={clicking}
+                />
             </div>
             {/* ##needs css## */}
-            <div className="size-lg-1">
+            <div className="pin-selection-buttons">
                 <ButtonContainer
-                    className="icon-only"
+                    className="exclude icon-only"
                     handleClick={handleAddExcluded}
                 >
-                    <i className="fa fa-arrow-left" />
+                    <i className="far fa-long-arrow-left" />
                 </ButtonContainer>
                 <ButtonContainer
-                    className="icon-only"
+                    className="include icon-only"
                     handleClick={handleAddIncluded}
                 >
-                    <i className="fa fa-arrow-right" />
+                    <i className="far fa-long-arrow-right" />
                 </ButtonContainer>
             </div>
-            <div className="size-lg-4">
-                <Field name="Included">
-                    <IncludedBox
-                        selectedPinOptions={selectedPinOptions}
-                        includedPins={includedPins}
-                        handlePinClick={handlePinClick}
-                        handleMouseDown={handleMouseDown}
-                        handleMouseUp={handleMouseUp}
-                        handleMouseOut={handleMouseOut}
-                        clicking={clicking}
-                    />
-                </Field>
+            <div className="pin-selection-box">
+                <h3>Included</h3>
+                <IncludedBox
+                    selectedPinOptions={selectedPinOptions}
+                    includedPins={includedPins}
+                    handlePinClick={handlePinClick}
+                    handleMouseDown={handleMouseDown}
+                    handleMouseUp={handleMouseUp}
+                    handleMouseOut={handleMouseOut}
+                    clicking={clicking}
+                />
             </div>
-
-            <ButtonContainer
-                className="button"
-                type="button"
-                handleClick={handleSubmit}
-            >
-                Submit
-            </ButtonContainer>
+            <BlockButtonWrapper>
+                <ButtonContainer
+                    className="button"
+                    type="button"
+                    handleClick={handleSubmit}
+                >
+                    Submit
+                </ButtonContainer>
+            </BlockButtonWrapper>
         </div>
     </>
 );

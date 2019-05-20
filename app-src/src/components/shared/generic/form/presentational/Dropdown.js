@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Dropdown = ({
-    placeholder = '--- select an option ---',
+    placeholder = '--- Select an option ---',
     name,
     handleChange,
     handleFocus = () => {},

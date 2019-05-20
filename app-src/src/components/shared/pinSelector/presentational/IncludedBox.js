@@ -11,10 +11,7 @@ const IncludedBox = ({
     handleMouseOut,
     clicking
 }) => (
-    <div
-        className="selector-box included size-lg-12"
-        onMouseLeave={handleMouseOut}
-    >
+    <div className="content included size-lg-12" onMouseLeave={handleMouseOut}>
         {includedPins.map(pin => (
             <SelectorPinItem
                 key={pin.value}
