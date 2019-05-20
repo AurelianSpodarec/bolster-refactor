@@ -76,6 +76,11 @@ body {
             flex: none;
         }
 
+        .field-output {
+            flex: none;
+            display: block;
+        }
+
         .generic-table {
             min-height: 165px;
             tbody {
@@ -2810,4 +2815,8 @@ input {
             }
         }
     }
+}
+
+.chartjs-render-monitor {
+    left: -9px;
 }

@@ -9,43 +9,47 @@ import OperativeAlertsChart from './OperativeAlertsChart';
 const OperativeAlertMetrics = ({ alerts, isFetching, error, users, alert }) => (
     <>
         <PageHeading title="Operative alerts" withBackButton />
-        <BlockContainer>
-            <FieldOutput title="Message" description={alert.message} />
-            <div className="size-lg-12">
-                <FieldOutput title="Created on" sizeClass="size-lg-4">
-                    <p>
-                        <DateTimeContainer date={alert.createdOn} />
-                    </p>
-                </FieldOutput>
-                <FieldOutput
-                    title="Sent by"
-                    sizeClass="size-lg-4"
-                    description={`${alert.createdByUserFirstName} ${
-                        alert.createdByUserLastName
-                    }`}
-                />
-                <div className="size-lg-4">
-                    <OperativeAlertsChart alerts={alerts} alert={alert} />
+        <div className="flex-container size-lg-12">
+            <BlockContainer containerClass="size-lg-8 flex-item">
+                <div className="size-lg-12">
+                    <FieldOutput title="Message" description={alert.message} />
+
+                    <FieldOutput title="Created on" sizeClass="size-lg-4">
+                        <p>
+                            <DateTimeContainer date={alert.createdOn} />
+                        </p>
+                    </FieldOutput>
+                    <FieldOutput
+                        title="Sent by"
+                        sizeClass="size-lg-4"
+                        description={`${alert.createdByUserFirstName} ${
+                            alert.createdByUserLastName
+                        }`}
+                    />
+
+                    <FieldOutput
+                        sizeClass="size-lg-4"
+                        title="Sent Count"
+                        description={String(alert.sentCount)}
+                    />
+                    <FieldOutput
+                        sizeClass="size-lg-4"
+                        title="Delivered Count"
+                        description={String(alert.deliveredCount)}
+                    />
+                    <FieldOutput
+                        sizeClass="size-lg-4"
+                        title="Read Count"
+                        description={String(alert.readCount)}
+                    />
                 </div>
-            </div>
-            <div className="size-lg-12">
-                <FieldOutput
-                    sizeClass="size-lg-4"
-                    title="Sent Count"
-                    description={String(alert.sentCount)}
-                />
-                <FieldOutput
-                    sizeClass="size-lg-4"
-                    title="Delivered Count"
-                    description={String(alert.deliveredCount)}
-                />
-                <FieldOutput
-                    sizeClass="size-lg-4"
-                    title="Read Count"
-                    description={String(alert.readCount)}
-                />
-            </div>
-        </BlockContainer>
+            </BlockContainer>
+
+            <BlockContainer containerClass="size-lg-4 flex-item">
+                <OperativeAlertsChart alerts={alerts} alert={alert} />
+            </BlockContainer>
+        </div>
+
         <BlockContainer>
             <OperativeAlertMetricsTable
                 alerts={alerts}
