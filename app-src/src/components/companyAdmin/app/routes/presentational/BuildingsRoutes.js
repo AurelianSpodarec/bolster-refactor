@@ -1,0 +1,62 @@
+import React from 'react';
+import { Route } from 'react-router-dom';
+
+import SwitchWith404 from 'components/appRoute/routes/presentational/SwitchWith404';
+import SingleBuildingContainer from 'components/companyAdmin/buildings/singleBuilding/containers/SingleBuildingContainer';
+import AttachBuildingOperative from 'components/companyAdmin/buildings/attachBuildingOperative/presentational/AttachBuildingOperative';
+import InviteClientToBuilding from 'components/companyAdmin/buildings/inviteClientToBuilding/presentational/InviteClientToBuilding';
+import InviteCompanyToBuilding from 'components/companyAdmin/buildings/inviteCompanyToBuilding/presentational/InviteCompanyToBuilding';
+import BuildingClientAccessContainer from 'components/companyAdmin/buildings/singleBuilding/containers/BuildingClientAccessContainer';
+import AttachBuildingDocument from 'components/companyAdmin/buildings/attachBuildingDocument/presentational/AttachBuildingDocument';
+import EditBuildingDocument from 'components/companyAdmin/buildings/editBuildingDocument/presentational/EditBuildingDocument';
+import EditCompanyPermissionsOnBuildingFormContainer from 'components/companyAdmin/buildings/editCompanyOnBuilding/containers/EditCompanyPermissionsOnBuildingFormContainer';
+import AddCompanyPermissionsToBuilding from 'components/companyAdmin/buildings/addCompanyPermissionsToBuilding.js/presentational/AddCompanyPermissionsToBuilding';
+
+const BuildingRoutes = ({ base = '/company/buildings' }) => (
+    <SwitchWith404>
+        <Route exact path={`${base}/:id`} component={SingleBuildingContainer} />
+        <Route
+            exact
+            path={`${base}/:id/add-operative`}
+            component={AttachBuildingOperative}
+        />
+        <Route
+            exact
+            path={`${base}/:id/invite-client`}
+            component={InviteClientToBuilding}
+        />
+
+        <Route
+            exact
+            path={`${base}/:id/client-access`}
+            component={BuildingClientAccessContainer}
+        />
+        <Route
+            exact
+            path={`${base}/:id/attach-document`}
+            component={AttachBuildingDocument}
+        />
+        <Route
+            exact
+            path={`${base}/:id/edit-document/:documentID`}
+            component={EditBuildingDocument}
+        />
+        <Route
+            exact
+            path={`${base}/:id/invite-company`}
+            component={InviteCompanyToBuilding}
+        />
+        <Route
+            exact
+            path={`${base}/:id/add-permissions/:companyID`}
+            component={AddCompanyPermissionsToBuilding}
+        />
+        <Route
+            exact
+            path={`${base}/:id/edit-company/:companyID`}
+            component={EditCompanyPermissionsOnBuildingFormContainer}
+        />
+    </SwitchWith404>
+);
+
+export default BuildingRoutes;
