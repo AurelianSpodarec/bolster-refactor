@@ -131,6 +131,7 @@ const DrawingMapViewSimple = ({
                         />
                         {pins.map(pin => (
                             <MapPinContainer
+                                urlStart="company"
                                 key={pin.id}
                                 pin={pin}
                                 isReport={true}

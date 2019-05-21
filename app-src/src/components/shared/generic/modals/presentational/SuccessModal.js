@@ -15,12 +15,20 @@ const SuccessModal = ({
         <BlockHeading title={title} />
         <BlockButtonWrapper>
             <p className="generic-text">{message}</p>
+
+            {link && linkMessage && (
+                <ButtonContainer
+                    setColour="#2eac58"
+                    setColourHoverCode="#258e48"
+                    to={link}
+                    handleClick={hideModal}
+                >
+                    {linkMessage}
+                </ButtonContainer>
+            )}
             <button className="button" onClick={hideModal}>
                 <i className="fa fa-times" /> Close
             </button>
-            {link && linkMessage && (
-                <ButtonContainer to={link}>{linkMessage}</ButtonContainer>
-            )}
         </BlockButtonWrapper>
     </ModalOuterContainer>
 );

@@ -53,7 +53,7 @@ class FloorDetailsContainer extends Component {
             history.push(`/company/buildings/${floor.buildingID}`);
         }
 
-        if (postSuccess && !prevProps.postSuccess) {
+        if (postSuccess && !prevProps.postSuccess && !deleteSuccess) {
             showModal(SUCCESS_MODAL, {
                 hideModal,
                 message: 'Floor edited successfully.'

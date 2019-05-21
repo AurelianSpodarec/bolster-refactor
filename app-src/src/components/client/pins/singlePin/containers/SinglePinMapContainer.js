@@ -1,0 +1,113 @@
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import moment from 'moment';
+
+import SinglePinMap from '../presentational/SinglePinMap';
+import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+
+import fetchSingleDrawing from 'actions/companyAdmin/drawings/async/fetchSingleDrawing';
+import editPinLocation from 'actions/companyAdmin/pins/async/editPinLocation';
+import updatePinCoordinates from 'actions/companyAdmin/drawings/sync/updatePinCoordinates';
+
+class SinglePinMapContainer extends Component {
+    render() {
+        const {
+            pin,
+            user,
+            error,
+            isFetching,
+            drawing,
+            selectedHistory,
+            histories
+        } = this.props;
+
+        const historyVersion =
+            [...histories]
+                .sort((a, b) => moment(a.createdAt) - moment(b.createdAt))
+                .findIndex(item => item.id === selectedHistory.id) + 1;
+        return (
+            <BlockContainer
+                isEmpty={!pin.id || !drawing.id}
+                isFetching={isFetching}
+                error={error}
+            >
+                <SinglePinMap
+                    zoom={3}
+                    pin={pin}
+                    user={user}
+                    drawing={drawing}
+                    pinHistory={selectedHistory}
+                    historyVersion={historyVersion}
+                    historyCount={histories.length}
+                />
+            </BlockContainer>
+        );
+    }
+
+    componentDidUpdate = prevProps => {
+        const { pin, fetchDrawing } = this.props;
+        if (!prevProps.pin.id && pin.id) {
+            const lat = pin.location.latY;
+            const lng = pin.location.lngX;
+
+            this._setMapCentre(lat, lng);
+
+            fetchDrawing(pin.drawingID);
+        }
+    };
+
+    // _updateCoordinates = (lat, lng) => {
+    //     const { pin } = this.props;
+    // };
+
+    _setMapCentre = (lat, lng) => {
+        this.setState({
+            ...this.state,
+            mapCentre: [lat, lng]
+        });
+    };
+}
+
+const mapStateToProps = (
+    {
+        companyAdmin: {
+            pinsReducer: { pins, error, isFetching, postSuccess },
+            pinHistoriesReducer: { selectedHistoryId, histories },
+            companyUsersReducer: { users },
+            drawingsReducer: { drawings }
+        }
+    },
+    { match: { params } }
+) => {
+    const pin = pins[params.id] || {};
+
+    return {
+        pin,
+        user: users[pin.latestCreatedByCompanyUserID] || {},
+        histories: Object.values(histories),
+        selectedHistory: histories[selectedHistoryId] || {},
+        error,
+        isFetching,
+        postSuccess,
+        drawing: drawings[pin.drawingID] || {}
+    };
+};
+
+const mapDispatchToProps = dispatch => ({
+    editPinLocation: (id, lat, lng) =>
+        dispatch(editPinLocation(id, { location: { lngX: lng, latY: lat } })),
+    updatePinCoordinates: (name, value) => {
+        dispatch(updatePinCoordinates(name, value));
+    },
+    fetchDrawing: drawingID => {
+        dispatch(fetchSingleDrawing(drawingID));
+    }
+});
+
+export default withRouter(
+    connect(
+        mapStateToProps,
+        mapDispatchToProps
+    )(SinglePinMapContainer)
+);
