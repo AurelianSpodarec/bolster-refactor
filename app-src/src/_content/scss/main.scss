@@ -1787,6 +1787,15 @@ input {
             word-break: break-all;
         }
 
+        .link {
+            color: $red;
+            text-decoration: underline;
+
+            &:hover {
+                text-decoration: none;
+            }
+        }
+
         .button-block-container {
             margin-top: 0;
             padding: 0;
