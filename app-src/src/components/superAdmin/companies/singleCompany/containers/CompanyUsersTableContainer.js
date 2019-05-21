@@ -32,8 +32,7 @@ const mapStateToProps = (
         'Phone #',
         'User Type',
         'Operative Code',
-        'Linked Device?',
-        ''
+        'Linked Device?'
     ]
 });
 
