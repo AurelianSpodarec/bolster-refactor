@@ -34,12 +34,20 @@ class BuildingsFloorsTableContainer extends Component {
     }
 
     componentDidUpdate = prevProps => {
-        const { postSuccess, error, showModal, hideModal } = this.props;
+        const {
+            postSuccess,
+            error,
+            showModal,
+            hideModal,
+            updatedFloorID
+        } = this.props;
 
         if (!prevProps.postSuccess && postSuccess) {
             showModal(SUCCESS_MODAL, {
                 hideModal,
-                message: 'Floor added successfully.'
+                message: 'Floor added successfully.',
+                link: `/company/floors/${updatedFloorID}`,
+                linkMessage: 'View'
             });
         }
 

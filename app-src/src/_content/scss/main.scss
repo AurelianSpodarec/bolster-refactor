@@ -812,6 +812,10 @@ input {
         float: right;
         margin-top: 0.5px;
         margin-left: 5px;
+
+        &.back {
+            margin-left: 0;
+        }
     }
 
     .button-holder {
@@ -1878,6 +1882,8 @@ input {
     position: fixed;
     padding: 10px 0;
     float: left;
+    z-index: 1000;
+
     p {
         float: left;
         font-size: 120%;

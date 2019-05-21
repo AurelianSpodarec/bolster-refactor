@@ -52,7 +52,7 @@ class SiteDetailsContainer extends Component {
             history.push('/company/sites');
         }
 
-        if (postSuccess && !prevProps.postSuccess) {
+        if (postSuccess && !prevProps.postSuccess && !deleteSuccess) {
             showModal(SUCCESS_MODAL, {
                 hideModal,
                 message: 'Site edited successfully.'

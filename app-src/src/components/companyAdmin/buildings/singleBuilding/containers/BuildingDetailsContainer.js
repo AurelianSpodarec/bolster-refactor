@@ -54,7 +54,7 @@ class BuildingDetailsContainer extends Component {
             history.push(`/company/sites/${building.siteID}`);
         }
 
-        if (postSuccess && !prevProps.postSuccess) {
+        if (postSuccess && !prevProps.postSuccess && !deleteSuccess) {
             showModal(SUCCESS_MODAL, {
                 hideModal,
                 message: 'Building edited successfully.',
