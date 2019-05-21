@@ -1,7 +1,7 @@
 import React from 'react';
 import NewSelect from 'components/shared/generic/form/presentational/NewSelect';
 import DatePickerPresentational from 'components/shared/generic/form/presentational/DatePicker';
-import MultiSelect from 'components/shared/generic/form/presentational/MultiSelect';
+// import MultiSelect from 'components/shared/generic/form/presentational/MultiSelect';
 
 import RedPin from '_content/images/pins-examples/red-pin.svg';
 import GreenPin from '_content/images/pins-examples/green-pin.svg';
@@ -19,11 +19,11 @@ const DashboardStatsOptions = ({
     handleChangeSetting
 }) => (
     <>
-        <div className="size-lg-6">
+        {/* <div className="size-lg-6">
             <Field name="Multi">
                 <MultiSelect />
             </Field>
-        </div>
+        </div> */}
         <div className="map-filters size-lg-12">
             <BlockHeading title="Pin data filters">
                 <div className="pin-amounts">
