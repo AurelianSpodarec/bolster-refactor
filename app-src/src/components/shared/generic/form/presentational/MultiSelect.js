@@ -1,8 +1,9 @@
 import React, { useState, useRef, useEffect } from 'react';
 import withFieldValidation from '../hocs/withFieldValidation';
 
-const MultiMultiDropdown = ({
+const MultiSelect = ({
     name,
+    search = false,
     value = [],
     options = [],
     onChange,
@@ -12,6 +13,7 @@ const MultiMultiDropdown = ({
     const [isOpen, setIsOpen] = useState(false);
     const [searchTerm, setSearch] = useState('');
     const node = useRef();
+    const filteredOptions = getFilteredOptions();
 
     useEffect(() => {
         document.addEventListener('mousedown', handleClick);
@@ -23,7 +25,7 @@ const MultiMultiDropdown = ({
 
     return (
         <div className="multi-multi-dropdown size-lg-12" ref={node}>
-            <div className="selected-box" onClick={toggle}>
+            <div className="selected-box" onClick={() => updateIsOpen(!isOpen)}>
                 {!getSelected().length && (
                     <p className="placeholder">{placeholder}</p>
                 )}
@@ -31,7 +33,7 @@ const MultiMultiDropdown = ({
                     <div
                         key={opt.value}
                         className="option"
-                        onClick={() => isOpen && setIsOpen(false)}
+                        onClick={() => isOpen && updateIsOpen(false)}
                     >
                         <p>{opt.label}</p>
                         <i
@@ -46,17 +48,21 @@ const MultiMultiDropdown = ({
 
             {isOpen && (
                 <div className="option-selection">
-                    <div className="search-box">
-                        <input
-                            type="text"
-                            placeholder="Search..."
-                            value={searchTerm}
-                            onChange={handleSearchChange}
-                        />
-                    </div>
-
+                    {search && (
+                        <div className="search-box">
+                            <input
+                                type="text"
+                                placeholder="Search..."
+                                value={searchTerm}
+                                onChange={handleSearchChange}
+                            />
+                        </div>
+                    )}
                     <div className="option-container">
-                        {getFilteredOptions().map(opt => (
+                        {!filteredOptions && (
+                            <p>There are no options to display</p>
+                        )}
+                        {filteredOptions.map(opt => (
                             <p
                                 key={opt.value}
                                 className={`option ${
@@ -73,14 +79,18 @@ const MultiMultiDropdown = ({
         </div>
     );
 
+    function updateIsOpen(value) {
+        if (!value) showError();
+        setIsOpen(value);
+    }
+
     function handleClick(e) {
         if (node.current.contains(e.target)) {
             // inside click
             return;
         }
         // outside click
-        setIsOpen(false);
-        showError();
+        updateIsOpen(false);
     }
 
     function getSelected() {
@@ -105,26 +115,19 @@ const MultiMultiDropdown = ({
     function handleDeselect(e, clicked) {
         e.preventDefault();
         e.stopPropagation();
-        const index = value.findIndex(item => item === clicked);
-        const newVal = [...value.slice(0, index), ...value.slice(index + 1)];
 
-        onChange(name, newVal);
+        onChange(name, value.filter(item => item !== clicked));
     }
 
     function handleSelect(e, clicked) {
         e.preventDefault();
 
+        if (value.includes(clicked)) return;
         onChange(name, [...value, clicked]);
-    }
-
-    function toggle() {
-        if (isOpen) showError();
-
-        setIsOpen(!isOpen);
     }
 };
 
-const Select = withFieldValidation(MultiMultiDropdown);
+const Select = withFieldValidation(MultiSelect);
 
 const options = [
     { label: 'Option 1', value: 1 },
@@ -142,6 +145,7 @@ const Test = () => {
             name="test"
             onChange={(_, val) => setVal(val)}
             required
+            search
         />
     );
 };

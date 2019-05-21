@@ -1,12 +1,14 @@
 import React from 'react';
 import NewSelect from 'components/shared/generic/form/presentational/NewSelect';
 import DatePickerPresentational from 'components/shared/generic/form/presentational/DatePicker';
+import MultiSelect from 'components/shared/generic/form/presentational/MultiSelect';
 
 import RedPin from '_content/images/pins-examples/red-pin.svg';
 import GreenPin from '_content/images/pins-examples/green-pin.svg';
 import BluePin from '_content/images/pins-examples/blue-pin.svg';
 import YellowPin from '_content/images/pins-examples/yellow-pin.svg';
 import PurplePin from '_content/images/pins-examples/purple-pin.svg';
+import Field from 'components/shared/generic/form/presentational/Field';
 
 const DashboardStatsOptions = ({
     services,
@@ -16,6 +18,11 @@ const DashboardStatsOptions = ({
     handleChangeSetting
 }) => (
     <>
+        <div className="size-lg-6">
+            <Field name="Multi">
+                <MultiSelect />
+            </Field>
+        </div>
         <div className="size-lg-7">
             <p className="generic-text">##Service Type##</p>
             <NewSelect
