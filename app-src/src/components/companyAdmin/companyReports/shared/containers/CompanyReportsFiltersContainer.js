@@ -35,7 +35,7 @@ const mapDispatchToProps = dispatch => ({
         dispatch(updateCompanyReportsSort(sortString))
 });
 
-const mapStateToProps = ({ superAdmin: { companyReportsReducer } }) => ({
+const mapStateToProps = ({ companyAdmin: { companyReportsReducer } }) => ({
     sortString: companyReportsReducer.sort.sortString
 });
 

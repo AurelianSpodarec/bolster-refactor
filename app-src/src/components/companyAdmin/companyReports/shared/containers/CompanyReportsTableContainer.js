@@ -24,7 +24,7 @@ const CompanyReportsTableContainer = ({
     }
 };
 
-const mapStateToProps = ({ superAdmin: { companyReportsReducer } }) => ({
+const mapStateToProps = ({ companyAdmin: { companyReportsReducer } }) => ({
     companyReports: Object.values(companyReportsReducer.companyReports),
     error: companyReportsReducer.error,
     isFetching: companyReportsReducer.isFetching,
