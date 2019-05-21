@@ -7,6 +7,7 @@ import GreenPin from '_content/images/pins-examples/green-pin.svg';
 import BluePin from '_content/images/pins-examples/blue-pin.svg';
 import YellowPin from '_content/images/pins-examples/yellow-pin.svg';
 import PurplePin from '_content/images/pins-examples/purple-pin.svg';
+import Field from 'components/shared/generic/form/presentational/Field';
 
 const DashboardStatsOptions = ({
     services,
@@ -17,35 +18,42 @@ const DashboardStatsOptions = ({
 }) => (
     <>
         <div className="size-lg-7">
-            <p className="generic-text">##Service Type##</p>
-            <NewSelect
-                name="serviceType"
-                options={services}
-                onChange={handleChangeSetting}
-                value={selectedService}
-            />
-            <p className="generic-text">##Live time period##</p>
-            <NewSelect
-                name="liveTimePeriod"
-                onChange={handleChangeSetting}
-                options={[{ label: 'Last 24hrs', value: 1 }]}
-                value={1}
-                singleSelect
-            />
-            <p className="generic-text">Date</p>
-            <DatePickerPresentational
-                name="startDate"
-                selected={startDate}
-                onChange={handleChangeSetting}
-                placeholderText="Date"
-            />
-            <p className="generic-text">To</p>
-            <DatePickerPresentational
-                name="endDate"
-                selected={endDate}
-                onChange={handleChangeSetting}
-                placeholderText="Date"
-            />
+            <Field name="Service Types">
+                <NewSelect
+                    name="serviceType"
+                    options={services}
+                    onChange={handleChangeSetting}
+                    value={selectedService}
+                />
+            </Field>
+            <Field name="##Live time period##">
+                <NewSelect
+                    name="liveTimePeriod"
+                    onChange={handleChangeSetting}
+                    options={[{ label: 'Last 24hrs', value: 1 }]}
+                    value={1}
+                    singleSelect
+                />
+            </Field>
+            <Field name="Date range" sizeClasses="w-dates">
+                <div className="size-lg-5">
+                    <DatePickerPresentational
+                        name="startDate"
+                        selected={startDate}
+                        onChange={handleChangeSetting}
+                        placeholderText="Date"
+                    />
+                </div>
+                <p className="size-lg-2">To</p>
+                <div className="size-lg-5">
+                    <DatePickerPresentational
+                        name="endDate"
+                        selected={endDate}
+                        onChange={handleChangeSetting}
+                        placeholderText="Date"
+                    />
+                </div>
+            </Field>
         </div>
         <div className="map-filters size-lg-5">
             <div className="pin-amounts">
