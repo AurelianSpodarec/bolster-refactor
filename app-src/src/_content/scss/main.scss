@@ -120,6 +120,22 @@ body {
     }
 }
 
+.info-message {
+    float: left;
+    width: 100%;
+    padding: 5px 10px;
+    background-color: #d0e5fb;
+    border-radius: 5px;
+
+    &.warning {
+        background-color: #fbf0d0;
+    }
+
+    &.error {
+        background-color: #fbd0d0;
+    }
+}
+
 .content-container {
     padding: 0 5px;
 
