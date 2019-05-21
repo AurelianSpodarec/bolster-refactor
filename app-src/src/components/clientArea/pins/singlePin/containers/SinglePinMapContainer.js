@@ -44,15 +44,12 @@ class SinglePinMapContainer extends Component {
                 error={error}
             >
                 <SinglePinMap
+                    mapCenter={}
                     zoom={3}
                     editPinLocationPosition={editPinLocationPosition}
                     pin={pin}
-                    handleClick={this.handleMapClick}
                     user={user}
                     drawing={drawing}
-                    toggleMoveMode={this.toggleMoveMode}
-                    moveMode={this.state.moveMode}
-                    handleeditPinLocation={this.handleeditPinLocation}
                     pinHistory={selectedHistory}
                     historyVersion={historyVersion}
                     historyCount={histories.length}
