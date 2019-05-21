@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import fetchSingleBuilding from 'actions/companyAdmin/buildings/async/fetchSingleBuilding';
-import fetchDocuments from 'actions/documents/async/fetchDocuments';
 import fetchAllFloors from 'actions/companyAdmin/floors/async/fetchAllFloors';
 import fetchAllDrawings from 'actions/companyAdmin/drawings/async/fetchAllDrawings';
 import fetchPinStatsForLevel from 'actions/companyAdmin/stats/async/fetchPinStatsForLevel';
@@ -19,7 +18,6 @@ class SingleBuildingContainer extends Component {
             fetchSingleBuilding,
             fetchAllDrawings,
             fetchAllFloors,
-            fetchDocuments,
             buildingID,
             fetchPinStatsForLevel
         } = this.props;
@@ -28,7 +26,6 @@ class SingleBuildingContainer extends Component {
             fetchPinStatsForLevel('building', buildingID);
             fetchAllDrawings();
             fetchAllFloors();
-            fetchDocuments('building', buildingID);
         });
     };
 }
@@ -42,9 +39,6 @@ const mapDispatchToProps = dispatch => ({
     },
     fetchAllFloors: () => {
         dispatch(fetchAllFloors());
-    },
-    fetchDocuments: (HierarchyType, buildingID) => {
-        dispatch(fetchDocuments(HierarchyType, buildingID));
     },
     fetchPinStatsForLevel: (hierarchyType, levelID) => {
         dispatch(fetchPinStatsForLevel(hierarchyType, levelID));
