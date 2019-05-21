@@ -56,7 +56,7 @@ const EditCompanyPermissionsForm = ({
                                 onClick={handleSubmit}
                                 className="button green"
                             >
-                                <i className="fa fa-plus" />
+                                <i className="fa fa-check" />
                                 Confirm Changes
                             </button>
 
