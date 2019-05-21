@@ -23,7 +23,6 @@ class ButtonContainer extends Component {
         };
 
         const sharedProps = {
-            style,
             onMouseLeave: this.handleMouseLeave,
             onMouseOver: this.handleMouseOver,
 
@@ -31,7 +30,8 @@ class ButtonContainer extends Component {
                 to && to.length
                     ? `link-holder ${className}`
                     : `button ${className}`,
-            onClick: handleClick
+            onClick: handleClick,
+            style
         };
 
         return to && !!to.length ? (

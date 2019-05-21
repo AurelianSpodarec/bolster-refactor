@@ -27,6 +27,6 @@ export default id => dispatch => {
 
     axios
         .get(`${API_URL}/drawings/${id}`, getHeaders())
-        .then(res => dispatch(fetchDrawingSuccess(res.data)))
+        .then(({ data }) => dispatch(fetchDrawingSuccess(data)))
         .catch(err => dispatch(fetchDrawingFailure(err.message)));
 };

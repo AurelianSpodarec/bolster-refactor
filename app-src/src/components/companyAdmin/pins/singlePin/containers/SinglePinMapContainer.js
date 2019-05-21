@@ -76,7 +76,6 @@ class SinglePinMapContainer extends Component {
                 editPinLocationLat: pin.location.latY,
                 editPinLocationLng: pin.location.lngX
             });
-
             fetchDrawing(pin.drawingID);
         }
     };
@@ -151,9 +150,7 @@ const mapDispatchToProps = dispatch => ({
     updatePinCoordinates: (name, value) => {
         dispatch(updatePinCoordinates(name, value));
     },
-    fetchDrawing: drawingID => {
-        dispatch(fetchSingleDrawing(drawingID));
-    }
+    fetchDrawing: drawingID => dispatch(fetchSingleDrawing(drawingID))
 });
 
 export default withRouter(

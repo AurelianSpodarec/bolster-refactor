@@ -4,6 +4,8 @@ import { withRouter } from 'react-router-dom';
 
 import createDrawing from 'actions/companyAdmin/drawings/async/createDrawing';
 import AddDrawingForm from '../presentational/AddDrawingForm';
+import { showModal } from 'actions/shared/generic/modals/sync/showModal';
+import { BUY_CREDITS } from 'constants/shared/modalTypes';
 
 class AddDrawingFormContainer extends Component {
     state = {
@@ -37,6 +39,7 @@ class AddDrawingFormContainer extends Component {
                 handleSubmit={this.handleSubmit}
                 filesUploading={filesUploading}
                 credits={credits}
+                handleBuyCreditsModal={this.handleBuyCreditsModal}
             />
         );
     }
@@ -65,6 +68,11 @@ class AddDrawingFormContainer extends Component {
             createDrawing({ ...restState, floorID });
         }
     };
+
+    handleBuyCreditsModal = () => {
+        const { showModal } = this.props;
+        showModal(BUY_CREDITS, { creditsToBuy: 1 });
+    };
 }
 
 const mapStateToProps = (
@@ -89,9 +97,8 @@ const mapStateToProps = (
     )
 });
 const mapDispatchToProps = dispatch => ({
-    createDrawing: drawing => {
-        dispatch(createDrawing(drawing));
-    }
+    createDrawing: drawing => dispatch(createDrawing(drawing)),
+    showModal: (type, props) => dispatch(showModal(type, props))
 });
 
 const WithRedux = connect(
