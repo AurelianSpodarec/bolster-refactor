@@ -45,6 +45,7 @@ const DrawingMapViewSimple = ({
                         />
                         {pins.map(pin => (
                             <MapPinContainer
+                                urlStart="client"
                                 key={pin.id}
                                 pin={pin}
                                 isReport={true}

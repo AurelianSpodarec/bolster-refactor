@@ -7,13 +7,15 @@ const MapPinContainer = ({
     isReport,
     users,
     services,
-    withTooltip = false
+    withTooltip = false,
+    urlStart
 }) => {
     const { createdByCompanyUserID, latestServiceID } = pin;
     const user = users[createdByCompanyUserID];
     const service = services[latestServiceID];
     return (
         <MapPin
+            urlStart={urlStart}
             pin={pin}
             isReport={isReport}
             user={user}
