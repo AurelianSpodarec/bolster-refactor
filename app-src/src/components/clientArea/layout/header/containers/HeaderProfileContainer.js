@@ -7,16 +7,11 @@ import HeaderProfile from '../presentational/HeaderProfile';
 
 class HeaderProfileContainer extends Component {
     state = {
-        popupVisible: false
+        dropdownVisible: false
     };
 
     render() {
-        const {
-            isImpersonating,
-            companyName,
-            profile,
-            companyReportsLength
-        } = this.props;
+        const { companyName, profile, companyReportsLength } = this.props;
         return (
             <HeaderProfile
                 updateNode={node => {
@@ -25,16 +20,15 @@ class HeaderProfileContainer extends Component {
                 logout={this.logout}
                 profile={profile}
                 companyReportsLength={companyReportsLength}
-                popupVisible={this.state.popupVisible}
+                dropdownVisible={this.state.dropdownVisible}
                 handleClick={this.handleClick}
-                isImpersonating={isImpersonating}
                 companyName={companyName}
             />
         );
     }
 
     handleClick = () => {
-        if (!this.state.popupVisible) {
+        if (!this.state.dropdownVisible) {
             // attach/remove event handler
             document.addEventListener('click', this.handleOutsideClick, false);
         } else {
@@ -46,7 +40,7 @@ class HeaderProfileContainer extends Component {
         }
 
         this.setState(prevState => ({
-            popupVisible: !prevState.popupVisible
+            dropdownVisible: !prevState.dropdownVisible
         }));
     };
 
@@ -77,16 +71,12 @@ const mapStateToProps = ({
     },
     superAdmin: { companyReportsReducer },
     shared: {
-        profileReducer,
-        decodeJWTReducer: {
-            jwtData: { companyID, headquartersCompanyID }
-        }
+        profileReducer
+        // decodeJWTReducer: {
+        //     jwtData: {}
+        // }
     }
 }) => ({
-    isImpersonating:
-        companyID &&
-        headquartersCompanyID &&
-        companyID !== headquartersCompanyID,
     companyName: name,
     profile: profileReducer.profile || {},
     companyReportsLength: Object.values(
