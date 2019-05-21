@@ -28,10 +28,6 @@ export default () => dispatch => {
     dispatch(fetchCompanyReportsRequest());
     axios
         .get(`${ADMIN_API_URL}/reports`, getHeaders())
-        .then(
-            res =>
-                console.log(res) ||
-                dispatch(fetchCompanyReportsSuccess(res.data))
-        )
+        .then(({ data }) => dispatch(fetchCompanyReportsSuccess(data)))
         .catch(err => dispatch(fetchCompanyReportsFailure(err.message)));
 };

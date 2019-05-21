@@ -11,7 +11,7 @@ const CompanyReportsTableContainer = ({
         companyReports={companyReports}
         error={error}
         isFetching={isFetching}
-        headers={['Name', 'Type', 'Details', 'Status', 'Created On', '']}
+        headers={['Name', 'Status', 'Created On', '']}
     />
 );
 
