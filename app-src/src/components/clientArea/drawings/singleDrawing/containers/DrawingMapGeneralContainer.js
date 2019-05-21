@@ -3,14 +3,13 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import moment from 'moment';
 
-import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import fetchCompanyUsers from 'actions/companyAdmin/userManagement/async/fetchCompanyUsers';
 import updatePinCoordinates from 'actions/companyAdmin/drawings/sync/updatePinCoordinates';
 import DrawingMapFiltersAdvanced from '../presentational/DrawingMapFiltersAdvanced';
 import DrawingMapViewSimple from '../presentational/DrawingMapViewSimple';
 import DrawingInspectionLogContainer from './DrawingInspectionLogContainer';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import { convertArrToObj, convertEnumToDropdownOptions } from 'helpers/generic';
+import { convertEnumToDropdownOptions } from 'helpers/generic';
 import {
     PIN_STATUS_TYPES,
     COMPANY_USER_ROLE_TYPES as USER_ROLE
@@ -24,13 +23,13 @@ class DrawingMapGeneralContainer extends Component {
         operativeSelectedID: '',
         startDateSelected: undefined,
         endDateSelected: undefined,
-        pinLat: 51.505,
-        pinLng: -0.09,
+        position: [51.505, -0.09],
         mapZoom: 3,
-        addMode: false,
-        addPinLat: 51.505,
-        addPinLng: -0.09,
-        updating: false
+        updating: false,
+        // in state instead of in render method, recalculating each time
+        serviceOptions: {},
+        operativeOptions: {},
+        statusOptions: convertEnumToDropdownOptions(PIN_STATUS_TYPES)
     };
 
     render() {
@@ -41,17 +40,14 @@ class DrawingMapGeneralContainer extends Component {
             startDateSelected,
             endDateSelected,
             mapZoom,
-            addMode,
-            addPinLat,
-            addPinLng
+            position,
+            updating,
+            serviceOptions,
+            operativeOptions,
+            statusOptions
         } = this.state;
-        const position = [addPinLat, addPinLng];
-        const addPinPosition = [addPinLat, addPinLng];
 
         const { error, pins, drawing = {} } = this.props;
-        const serviceOptions = this._getServicesOptions();
-        const statusOptions = convertEnumToDropdownOptions(PIN_STATUS_TYPES);
-        const operativeOptions = this._getOperativeOptions();
 
         return (
             <>
@@ -84,17 +80,11 @@ class DrawingMapGeneralContainer extends Component {
                 </div>
                 <BlockContainer error={error} isEmpty={!drawing}>
                     <DrawingMapViewSimple
-                        showModal={this.props.showModal}
                         position={position}
-                        addPinPosition={addPinPosition}
                         zoom={mapZoom}
-                        pins={this._getFilteredPins()}
-                        handleClick={this.handleClick}
                         drawing={drawing}
-                        addMode={addMode}
-                        toggleAddMode={this.toggleAddMode}
-                        history={this.props.history}
-                        updating={this.state.updating}
+                        pins={this._getFilteredPins()}
+                        updating={updating}
                     />
                 </BlockContainer>
             </>
@@ -103,17 +93,19 @@ class DrawingMapGeneralContainer extends Component {
 
     componentDidMount = () => {
         this.props.fetchCompanyUsers();
-        this._resetCoordinates();
+        // this._resetCoordinates();
     };
 
-    componentDidUpdate = ({ drawing: prevDrawing = {}, ...prevProps }) => {
-        const { postSuccess, drawing = {}, fetchDrawing } = this.props;
-        if (postSuccess && !prevProps.postSuccess) {
-            // drawing successfully updated
-            this.setState({ updating: true });
-            this._floorplanInterval = setInterval(() => {
-                fetchDrawing(drawing.id);
-            }, 5000);
+    componentDidUpdate = ({
+        drawing: prevDrawing = {},
+        isFetching: prevIsFetching
+    }) => {
+        const { drawing = {}, isFetching } = this.props;
+        // when the component has finished fetching all the options, run get services options once instead of in every render
+        if (!isFetching && prevIsFetching) {
+            const serviceOptions = this._getServicesOptions();
+            const operativeOptions = this._getOperativeOptions();
+            this.setState({ serviceOptions, operativeOptions });
         }
         if (drawing.tilesetS3Key !== prevDrawing.tilesetS3Key) {
             clearInterval(this._floorplanInterval);
@@ -121,45 +113,9 @@ class DrawingMapGeneralContainer extends Component {
         }
     };
 
-    handleClick = e => {
-        const { lat, lng } = e.latlng;
-
-        if (this.state.addMode) this._updateCoordinates(lat, lng);
-    };
-
     handleChange = (name, value) => this.setState({ [name]: value });
 
     handleDateChange = (date, name) => this.setState({ [name]: date });
-
-    toggleAddMode = () => {
-        this.setState({ addMode: !this.state.addMode });
-
-        this._resetCoordinates();
-    };
-
-    _resetCoordinates = () => {
-        const { updatePinCoordinates } = this.props;
-
-        updatePinCoordinates('lat', 51.505);
-        updatePinCoordinates('lng', -0.09);
-
-        this.setState({
-            addPinLat: 51.505,
-            addPinLng: -0.09
-        });
-    };
-
-    _updateCoordinates = (lat, lng) => {
-        const { updatePinCoordinates } = this.props;
-
-        updatePinCoordinates('lat', lat);
-        updatePinCoordinates('lng', lng);
-
-        this.setState({
-            addPinLat: lat,
-            addPinLng: lng
-        });
-    };
 
     _getServicesOptions = () => {
         const { services, pins } = this.props;
@@ -169,26 +125,28 @@ class DrawingMapGeneralContainer extends Component {
             return acc;
         }, []);
 
-        const options = services.reduce((acc, { id, name }) => {
-            if (servicesOnDrawing.includes(id)) {
-                acc.push({ value: id, text: name });
-            }
-            return acc;
-        }, []);
+        return services.reduce((acc, { id, name }) => {
+            if (servicesOnDrawing.includes(id))
+                acc[id] = { value: id, text: name };
 
-        return convertArrToObj(options, 'value');
+            return acc;
+        }, {});
     };
 
     _getOperativeOptions = () => {
         const { users } = this.props;
 
-        const options = users
-            .filter(user => user.type >= USER_ROLE.OPERATIVE)
-            .map(({ id, userFirstName, userLastName, userEmail }) => ({
-                value: id,
-                text: `${userFirstName} ${userLastName} <${userEmail}>`
-            }));
-        return convertArrToObj(options, 'value');
+        return users.reduce(
+            (acc, { id, userFirstName, userLastName, userEmail, type }) => {
+                if (type === USER_ROLE.OPERATIVE)
+                    acc[id] = {
+                        value: id,
+                        text: `${userFirstName} ${userLastName} <${userEmail}`
+                    };
+                return acc;
+            },
+            {}
+        );
     };
 
     _getFilteredPins = () => {
@@ -239,10 +197,10 @@ class DrawingMapGeneralContainer extends Component {
 const mapStateToProps = (
     {
         companyAdmin: {
-            pinsReducer: { pins, isFetching, error },
-            servicesReducer: { services },
-            companyUsersReducer: { users },
-            drawingsReducer: { drawings, postSuccess },
+            pinsReducer: { pins, isFetching: fetchingPins, error },
+            servicesReducer: { services, isFetching: fetchingServices },
+            companyUsersReducer: { users, isFetching: fetchingUsers },
+            drawingsReducer: { drawings },
             addPinCoordinatesReducer: { coordinates }
         }
     },
@@ -253,17 +211,15 @@ const mapStateToProps = (
     pins: Object.values(pins),
     users: Object.values(users),
     services: Object.values(services),
-    isFetching,
-    error,
-    postSuccess
+    isFetching: fetchingPins || fetchingServices || fetchingUsers,
+    error
 });
 
 const mapDispatchToProps = dispatch => ({
     fetchCompanyUsers: () => dispatch(fetchCompanyUsers()),
     fetchDrawing: id => dispatch(fetchSingleDrawing(id)),
     updatePinCoordinates: (name, value) =>
-        dispatch(updatePinCoordinates(name, value)),
-    showModal: (type, props) => dispatch(showModal(type, props))
+        dispatch(updatePinCoordinates(name, value))
 });
 
 export default withRouter(
