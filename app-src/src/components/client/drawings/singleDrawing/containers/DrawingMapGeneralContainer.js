@@ -4,7 +4,6 @@ import { withRouter } from 'react-router-dom';
 import moment from 'moment';
 
 import fetchCompanyUsers from 'actions/companyAdmin/userManagement/async/fetchCompanyUsers';
-import updatePinCoordinates from 'actions/companyAdmin/drawings/sync/updatePinCoordinates';
 import DrawingMapFiltersAdvanced from '../presentational/DrawingMapFiltersAdvanced';
 import DrawingMapViewSimple from '../presentational/DrawingMapViewSimple';
 import DrawingInspectionLogContainer from './DrawingInspectionLogContainer';
@@ -200,14 +199,12 @@ const mapStateToProps = (
             pinsReducer: { pins, isFetching: fetchingPins, error },
             servicesReducer: { services, isFetching: fetchingServices },
             companyUsersReducer: { users, isFetching: fetchingUsers },
-            drawingsReducer: { drawings },
-            addPinCoordinatesReducer: { coordinates }
+            drawingsReducer: { drawings }
         }
     },
     { match }
 ) => ({
     drawing: drawings[match.params.id],
-    coordinates,
     pins: Object.values(pins),
     users: Object.values(users),
     services: Object.values(services),
@@ -217,9 +214,7 @@ const mapStateToProps = (
 
 const mapDispatchToProps = dispatch => ({
     fetchCompanyUsers: () => dispatch(fetchCompanyUsers()),
-    fetchDrawing: id => dispatch(fetchSingleDrawing(id)),
-    updatePinCoordinates: (name, value) =>
-        dispatch(updatePinCoordinates(name, value))
+    fetchDrawing: id => dispatch(fetchSingleDrawing(id))
 });
 
 export default withRouter(
