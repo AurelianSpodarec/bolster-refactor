@@ -18,7 +18,7 @@ const DrawingInspectionLogsListItem = ({ pin }) => {
             </td>
             <td>{TYPES[pin.latestStatus]}</td>
             <td>
-                <ButtonContainer to={`/company/pins/${pin.id}`}>
+                <ButtonContainer to={`/client/pins/${pin.id}`}>
                     View
                 </ButtonContainer>
             </td>
