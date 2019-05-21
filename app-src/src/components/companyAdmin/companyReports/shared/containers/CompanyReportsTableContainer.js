@@ -35,9 +35,9 @@ const mapStateToProps = ({
     }
 }) => ({
     companyReports: Object.values(companyReports),
-    error: error,
-    isFetching: isFetching,
-    sortString: sortString
+    error,
+    isFetching,
+    sortString
 });
 
 export default connect(mapStateToProps)(CompanyReportsTableContainer);
