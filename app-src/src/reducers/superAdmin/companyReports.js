@@ -1,16 +1,18 @@
 import { combineReducers } from 'redux';
 
-import { convertArrToObj } from 'helpers/generic';
+import { convertArrToObj, updateObj } from 'helpers/generic';
 import {
     ADMIN_FETCH_COMPANY_REPORTS_REQUEST,
     ADMIN_FETCH_COMPANY_REPORTS_SUCCESS,
-    ADMIN_FETCH_COMPANY_REPORTS_FAILURE
+    ADMIN_FETCH_COMPANY_REPORTS_FAILURE,
+    ADMIN_UPDATE_COMPANY_REPORTS_SORT
 } from 'constants/actionTypes/companyReports';
 
 export default combineReducers({
     companyReports: companyReportsReducer,
     isFetching: isFetchingReducer,
-    error: errorReducer
+    error: errorReducer,
+    sort: sortReducer
 });
 
 function isFetchingReducer(state = false, action) {
@@ -40,6 +42,15 @@ function companyReportsReducer(state = {}, action) {
     switch (action.type) {
         case ADMIN_FETCH_COMPANY_REPORTS_SUCCESS:
             return convertArrToObj(action.payload);
+        default:
+            return state;
+    }
+}
+
+function sortReducer(state = { sortString: 'createdOn desc' }, action) {
+    switch (action.type) {
+        case ADMIN_UPDATE_COMPANY_REPORTS_SORT:
+            return updateObj(state, 'sortString', action.sortString);
         default:
             return state;
     }

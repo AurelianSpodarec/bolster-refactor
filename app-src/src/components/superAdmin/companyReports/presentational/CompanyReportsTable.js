@@ -3,6 +3,7 @@ import Table from 'components/shared/generic/tables/presentational/Table';
 import CompanyReportsListItem from './CompanyReportsListItem';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
+import CompanyReportsFiltersContainer from '../containers/CompanyReportsFiltersContainer';
 
 const CompanyReportsTable = ({
     isFetching,
@@ -19,6 +20,7 @@ const CompanyReportsTable = ({
                 error={error}
                 isEmpty={!!(!companyReports || !companyReports.length)}
             >
+                <CompanyReportsFiltersContainer />
                 <Table
                     withActions
                     headers={headers}

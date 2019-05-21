@@ -7,8 +7,6 @@ import SinglePinMap from '../presentational/SinglePinMap';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 
 import fetchSingleDrawing from 'actions/companyAdmin/drawings/async/fetchSingleDrawing';
-import editPinLocation from 'actions/companyAdmin/pins/async/editPinLocation';
-import updatePinCoordinates from 'actions/companyAdmin/drawings/sync/updatePinCoordinates';
 
 class SinglePinMapContainer extends Component {
     render() {
@@ -72,7 +70,7 @@ class SinglePinMapContainer extends Component {
 const mapStateToProps = (
     {
         companyAdmin: {
-            pinsReducer: { pins, error, isFetching, postSuccess },
+            pinsReducer: { pins, error, isFetching },
             pinHistoriesReducer: { selectedHistoryId, histories },
             companyUsersReducer: { users },
             drawingsReducer: { drawings }
@@ -89,17 +87,11 @@ const mapStateToProps = (
         selectedHistory: histories[selectedHistoryId] || {},
         error,
         isFetching,
-        postSuccess,
         drawing: drawings[pin.drawingID] || {}
     };
 };
 
 const mapDispatchToProps = dispatch => ({
-    editPinLocation: (id, lat, lng) =>
-        dispatch(editPinLocation(id, { location: { lngX: lng, latY: lat } })),
-    updatePinCoordinates: (name, value) => {
-        dispatch(updatePinCoordinates(name, value));
-    },
     fetchDrawing: drawingID => {
         dispatch(fetchSingleDrawing(drawingID));
     }

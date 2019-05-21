@@ -24,11 +24,20 @@ const CompanyReportsTableContainer = ({
     }
 };
 
-const mapStateToProps = ({ companyAdmin: { companyReportsReducer } }) => ({
-    companyReports: Object.values(companyReportsReducer.companyReports),
-    error: companyReportsReducer.error,
-    isFetching: companyReportsReducer.isFetching,
-    sortString: companyReportsReducer.sort.sortString
+const mapStateToProps = ({
+    companyAdmin: {
+        companyReportsReducer: {
+            companyReports,
+            error,
+            isFetching,
+            sort: { sortString }
+        }
+    }
+}) => ({
+    companyReports: Object.values(companyReports),
+    error,
+    isFetching,
+    sortString
 });
 
 export default connect(mapStateToProps)(CompanyReportsTableContainer);

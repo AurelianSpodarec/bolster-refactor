@@ -1,25 +1,19 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import fetchCompanyReportsQueue from 'actions/superAdmin/companyReports/fetchCompanyReportsQueue';
+import fetchCompanyReportsQueue from 'actions/superAdmin/companyReports/async/fetchCompanyReportsQueue';
 import CompanyReportsQueue from '../presentational/CompanyReportsQueue';
 
 class CompanyReportsQueueContainer extends Component {
-    render() {
-        return <CompanyReportsQueue />;
-    }
+    render = () => <CompanyReportsQueue />;
 
-    componentDidMount = () => {
-        this.props.fetchCompanyReportsQueue();
-    };
+    componentDidMount = () => this.props.fetchCompanyReportsQueue();
 }
-
-const mapStateToProps = ({ superAdmin }) => ({});
 
 const mapDispatchToProps = dispatch => ({
     fetchCompanyReportsQueue: () => dispatch(fetchCompanyReportsQueue())
 });
 
 export default connect(
-    mapStateToProps,
+    null,
     mapDispatchToProps
 )(CompanyReportsQueueContainer);
