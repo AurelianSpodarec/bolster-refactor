@@ -1094,6 +1094,13 @@ input {
         background-color: $background-grey;
         border-radius: 5px;
     }
+
+    .field-info {
+        float: left;
+        width: 100%;
+        margin: -5px 0 12.5px;
+        color: #666;
+    }
 }
 
 .checkbox {
