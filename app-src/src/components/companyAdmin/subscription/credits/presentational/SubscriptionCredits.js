@@ -33,10 +33,13 @@ const SubscriptionCredits = ({
                 />
             </Field>
         </Form>
-        <p className="align-right size-lg-12">
-            {creditsToBuy &&
-                `Total: £${formatNumber(costOfCredits * creditsToBuy)}`}
-        </p>
+
+        {creditsToBuy && (
+            <p className="generic-text align-right total-text size-lg-12">
+                Total: £{formatNumber(costOfCredits * creditsToBuy)}
+            </p>
+        )}
+
         <BlockButtonWrapper>
             <button className="button green" onClick={showModal}>
                 Buy

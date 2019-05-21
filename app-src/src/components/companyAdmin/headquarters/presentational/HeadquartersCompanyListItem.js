@@ -15,10 +15,6 @@ const HeadquartersCompanyListItem = ({
         </td>
         <td>
             <BlockButtonWrapper>
-                <button type="button" onClick={() => {}} className="button">
-                    <i className="far fa-edit" />
-                    ##Edit##
-                </button>
                 {impersonatedCompanyID !== company.id && (
                     <button
                         type="button"
@@ -29,6 +25,10 @@ const HeadquartersCompanyListItem = ({
                         Impersonate
                     </button>
                 )}
+                <button type="button" onClick={() => {}} className="button">
+                    <i className="far fa-edit" />
+                    ##Edit##
+                </button>
             </BlockButtonWrapper>
         </td>
     </tr>
