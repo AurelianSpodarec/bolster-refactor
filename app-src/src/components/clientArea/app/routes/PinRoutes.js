@@ -2,7 +2,7 @@ import React from 'react';
 import { Route } from 'react-router-dom';
 
 import SwitchWith404 from 'components/appRoute/routes/presentational/SwitchWith404';
-import SinglePinContainer from 'components/companyAdmin/pins/singlePin/containers/SinglePinContainer';
+import SinglePinContainer from 'components/clientArea/pins/singlePin/containers/SinglePinContainer';
 
 const PinRoutes = ({ base = '/client/pins' }) => (
     <SwitchWith404>
