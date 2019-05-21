@@ -809,6 +809,10 @@ input {
         float: right;
         margin-top: 0.5px;
         margin-left: 5px;
+
+        &.back {
+            margin-left: 0;
+        }
     }
 
     .button-holder {
