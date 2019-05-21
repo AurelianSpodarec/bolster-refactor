@@ -6,18 +6,20 @@ import BlockHeading from 'components/shared/generic/blockHeading/presentational/
 import DashboardStatsOptionsContainer from '../containers/DashboardStatsOptionsContainer';
 
 const DashboardStats = ({ data, options }) => (
-    <BlockContainer>
-        <div className="size-lg-12">
+    <>
+        <BlockContainer containerClass="size-lg-12">
             <DashboardStatsOptionsContainer />
-        </div>
-        <div className="size-lg-6">
-            <BlockHeading title="Pins added by operatives" />
-            <Bar data={data} options={options} />
-        </div>
-        <div className="size-lg-6">
-            <BlockHeading title="Data by active operatives" />
-        </div>
-    </BlockContainer>
+        </BlockContainer>
+        <BlockContainer>
+            <div className="size-lg-6">
+                <BlockHeading title="Pins added by operatives" />
+                <Bar data={data} options={options} />
+            </div>
+            <div className="size-lg-6">
+                <BlockHeading title="Data by active operatives" />
+            </div>
+        </BlockContainer>
+    </>
 );
 
 export default DashboardStats;
