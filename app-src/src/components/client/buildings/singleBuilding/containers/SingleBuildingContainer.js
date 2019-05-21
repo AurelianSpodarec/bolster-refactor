@@ -19,7 +19,6 @@ class SingleBuildingContainer extends Component {
             fetchSingleBuilding,
             fetchAllDrawings,
             fetchAllFloors,
-            fetchDocuments,
             buildingID,
             fetchPinStatsForLevel
         } = this.props;
@@ -28,7 +27,6 @@ class SingleBuildingContainer extends Component {
             fetchPinStatsForLevel('building', buildingID);
             fetchAllDrawings();
             fetchAllFloors();
-            fetchDocuments('building', buildingID);
         });
     };
 }
@@ -42,9 +40,6 @@ const mapDispatchToProps = dispatch => ({
     },
     fetchAllFloors: () => {
         dispatch(fetchAllFloors());
-    },
-    fetchDocuments: (HierarchyType, buildingID) => {
-        dispatch(fetchDocuments(HierarchyType, buildingID));
     },
     fetchPinStatsForLevel: (hierarchyType, levelID) => {
         dispatch(fetchPinStatsForLevel(hierarchyType, levelID));
