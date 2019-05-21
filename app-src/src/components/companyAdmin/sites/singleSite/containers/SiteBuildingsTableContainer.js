@@ -34,12 +34,20 @@ class SiteBuildingsTableContainer extends Component {
     }
 
     componentDidUpdate = prevProps => {
-        const { postSuccess, showModal, error, hideModal } = this.props;
+        const {
+            postSuccess,
+            showModal,
+            error,
+            hideModal,
+            updatedBuildingID
+        } = this.props;
 
         if (postSuccess && !prevProps.postSuccess) {
             showModal(SUCCESS_MODAL, {
                 hideModal,
-                message: 'Building added successfully.'
+                message: 'Building added successfully.',
+                link: `/company/buildings/${updatedBuildingID}`,
+                linkMessage: 'View'
             });
         }
 

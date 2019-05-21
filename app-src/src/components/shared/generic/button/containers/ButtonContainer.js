@@ -12,15 +12,27 @@ class ButtonContainer extends Component {
         const {
             children,
             colourCode,
+            setColour,
+            setColourHoverCode,
             to = '',
             type = 'button',
             handleClick = () => {},
             className
         } = this.props;
 
-        const style = {
-            backgroundColor: this.state.hover ? colourCode : '#939393'
-        };
+        let style = {};
+
+        if (setColour && setColour.length) {
+            style = {
+                backgroundColor: this.state.hover
+                    ? setColourHoverCode
+                    : setColour
+            };
+        } else {
+            style = {
+                backgroundColor: this.state.hover ? colourCode : '#939393'
+            };
+        }
 
         const sharedProps = {
             onMouseLeave: this.handleMouseLeave,

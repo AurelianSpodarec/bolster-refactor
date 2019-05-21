@@ -22,6 +22,13 @@ const PendingInvitesListItem = ({
         <td>{invite.companyName}</td>
         <td>
             <BlockButtonWrapper>
+                <button
+                    type="button"
+                    className="button red icon-only"
+                    onClick={handleDecline}
+                >
+                    <i className="far fa-ban" />
+                </button>
                 {isIncoming && (
                     <button
                         type="button"
@@ -31,13 +38,6 @@ const PendingInvitesListItem = ({
                         <i className="far fa-check" />
                     </button>
                 )}
-                <button
-                    type="button"
-                    className="button red icon-only"
-                    onClick={handleDecline}
-                >
-                    <i className="far fa-ban" />
-                </button>
             </BlockButtonWrapper>
         </td>
     </tr>

@@ -79,8 +79,7 @@ const EditSiteForm = ({
 
         <BlockButtonWrapper>
             <button className="button green">
-                {' '}
-                <i className="fa fa-plus" /> Confirm
+                <i className="fa fa-check" /> Confirm
             </button>
             <ButtonContainer handleClick={hideModal}>Cancel</ButtonContainer>
         </BlockButtonWrapper>

@@ -28,11 +28,19 @@ class SitesTableContainer extends Component {
     }
 
     componentDidUpdate = prevProps => {
-        const { postSuccess, showModal, hideModal, error } = this.props;
+        const {
+            postSuccess,
+            showModal,
+            hideModal,
+            error,
+            updatedSiteID
+        } = this.props;
         if (postSuccess && !prevProps.postSuccess) {
             showModal(SUCCESS_MODAL, {
                 hideModal,
-                message: 'Site added successfully.'
+                message: 'Site added successfully.',
+                link: `/company/sites/${updatedSiteID}`,
+                linkMessage: 'View'
             });
         }
 

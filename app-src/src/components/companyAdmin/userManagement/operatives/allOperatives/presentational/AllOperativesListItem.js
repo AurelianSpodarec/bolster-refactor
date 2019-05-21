@@ -12,16 +12,12 @@ const AllOperativesListItem = ({ user, showDeleteModal, showUnlinkModal }) => (
         <td>{user.linkedDeviceID ? 'Yes' : 'No'}</td>
         <td>
             <BlockButtonWrapper>
-                <button className="button red" onClick={showDeleteModal}>
-                    <i className="far fa-trash-alt" />
-                    Delete
-                </button>
-                <Link
-                    className="button yellow"
-                    to={`/company/users-management/operatives/${user.id}/edit`}
-                >
-                    <i className="far fa-pencil" /> Edit
-                </Link>
+                {user.linkedDeviceID && (
+                    <button className="button red" onClick={showUnlinkModal}>
+                        <i className="far fa-unlink" />
+                        Unlink Device
+                    </button>
+                )}
                 <ButtonContainer
                     to={`/company/users-management/operatives/${
                         user.id
@@ -29,12 +25,16 @@ const AllOperativesListItem = ({ user, showDeleteModal, showUnlinkModal }) => (
                 >
                     Change Password
                 </ButtonContainer>
-                {user.linkedDeviceID && (
-                    <button className="button red" onClick={showUnlinkModal}>
-                        <i className="far fa-unlink" />
-                        Unlink Device
-                    </button>
-                )}
+                <Link
+                    className="button yellow"
+                    to={`/company/users-management/operatives/${user.id}/edit`}
+                >
+                    <i className="far fa-pencil" /> Edit
+                </Link>
+                <button className="button red" onClick={showDeleteModal}>
+                    <i className="far fa-trash-alt" />
+                    Delete
+                </button>
             </BlockButtonWrapper>
         </td>
     </tr>

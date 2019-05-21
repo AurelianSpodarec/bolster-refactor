@@ -120,6 +120,22 @@ body {
     }
 }
 
+.info-message {
+    float: left;
+    width: 100%;
+    padding: 5px 10px;
+    background-color: #d0e5fb;
+    border-radius: 5px;
+
+    &.warning {
+        background-color: #fbf0d0;
+    }
+
+    &.error {
+        background-color: #fbd0d0;
+    }
+}
+
 .content-container {
     padding: 0 5px;
 
@@ -595,6 +611,9 @@ input {
                         background-color: #2eac58;
                     }
                 }
+                &.large {
+                    width: 120px;
+                }
             }
         }
 
@@ -809,6 +828,10 @@ input {
         float: right;
         margin-top: 0.5px;
         margin-left: 5px;
+
+        &.back {
+            margin-left: 0;
+        }
     }
 
     .button-holder {
@@ -1093,6 +1116,13 @@ input {
     .filepond--drop-label {
         background-color: $background-grey;
         border-radius: 5px;
+    }
+
+    .field-info {
+        float: left;
+        width: 100%;
+        margin: -5px 0 12.5px;
+        color: #666;
     }
 }
 
@@ -1752,9 +1782,11 @@ input {
         .button-block-container {
             margin-top: 0;
             padding: 0;
+            float: none;
 
             .link-holder,
             .button {
+                float: none;
                 margin-left: 2.5px;
                 margin-bottom: 1px;
             }
@@ -1875,6 +1907,8 @@ input {
     position: fixed;
     padding: 10px 0;
     float: left;
+    z-index: 1000;
+
     p {
         float: left;
         font-size: 120%;
