@@ -595,6 +595,9 @@ input {
                         background-color: #2eac58;
                     }
                 }
+                &.large {
+                    width: 120px;
+                }
             }
         }
 
@@ -809,6 +812,10 @@ input {
         float: right;
         margin-top: 0.5px;
         margin-left: 5px;
+
+        &.back {
+            margin-left: 0;
+        }
     }
 
     .button-holder {
@@ -1093,6 +1100,13 @@ input {
     .filepond--drop-label {
         background-color: $background-grey;
         border-radius: 5px;
+    }
+
+    .field-info {
+        float: left;
+        width: 100%;
+        margin: -5px 0 12.5px;
+        color: #666;
     }
 }
 
@@ -1875,6 +1889,8 @@ input {
     position: fixed;
     padding: 10px 0;
     float: left;
+    z-index: 1000;
+
     p {
         float: left;
         font-size: 120%;

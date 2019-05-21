@@ -20,7 +20,7 @@ const EditServiceForm = ({ handleSubmit, handleInputChange, name }) => (
         </div>
         <BlockButtonWrapper>
             <button className="button green">
-                <i className="fa fa-plus" />
+                <i className="fa fa-check" />
                 Confirm Changes
             </button>
             <Link className="button" to="/admin/services">

@@ -28,7 +28,7 @@ const EditDropdownOptionForm = ({
 
         <BlockButtonWrapper>
             <button className="button green">
-                <i className="fa fa-plus" /> Confirm Edit
+                <i className="fa fa-check" /> Confirm Edit
             </button>
             <ButtonContainer handleClick={hideModal}>Cancel</ButtonContainer>
         </BlockButtonWrapper>
