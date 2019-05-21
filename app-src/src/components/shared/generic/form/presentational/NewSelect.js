@@ -4,7 +4,7 @@ import withFieldValidation from '../hocs/withFieldValidation';
 
 const NewSelect = ({ options, value, onChange, name, singleSelect }) => {
     return (
-        <div className={singleSelect ? 'single-select' : ''}>
+        <div className={singleSelect ? 'single-select size-lg-12' : 'size-lg-12'}>
             <MultiSelect
                 overrideStrings={getOverrides()}
                 name
