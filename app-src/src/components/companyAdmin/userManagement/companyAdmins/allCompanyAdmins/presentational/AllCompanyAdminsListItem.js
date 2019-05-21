@@ -18,6 +18,22 @@ const AllCompanyAdminsListItem = ({ user, showDeleteModal }) => (
         <td>{user.userPhoneNumber}</td>
         <td>
             <BlockButtonWrapper>
+                <ButtonContainer
+                    to={`/company/users-management/company-admins/${
+                        user.id
+                    }/edit-password`}
+                >
+                    Change password
+                </ButtonContainer>
+                <Link
+                    className="button yellow "
+                    to={`/company/users-management/company-admins/${
+                        user.id
+                    }/edit`}
+                >
+                    <i className="far fa-pencil" />
+                    Edit
+                </Link>
                 {+user.type !== +COMPANY_USER_ROLE_TYPES.OWNER ? (
                     <button
                         className="button red"
@@ -29,22 +45,6 @@ const AllCompanyAdminsListItem = ({ user, showDeleteModal }) => (
                 ) : (
                     <></>
                 )}
-                <Link
-                    className="button yellow "
-                    to={`/company/users-management/company-admins/${
-                        user.id
-                    }/edit`}
-                >
-                    <i className="far fa-pencil" />
-                    Edit
-                </Link>
-                <ButtonContainer
-                    to={`/company/users-management/company-admins/${
-                        user.id
-                    }/edit-password`}
-                >
-                    Change password
-                </ButtonContainer>
             </BlockButtonWrapper>
         </td>
     </tr>

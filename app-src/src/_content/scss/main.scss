@@ -1759,9 +1759,11 @@ input {
         .button-block-container {
             margin-top: 0;
             padding: 0;
+            float: none;
 
             .link-holder,
             .button {
+                float: none;
                 margin-left: 2.5px;
                 margin-bottom: 1px;
             }
