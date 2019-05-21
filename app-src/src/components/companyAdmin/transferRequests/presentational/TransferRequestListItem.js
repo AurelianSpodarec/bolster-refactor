@@ -21,6 +21,13 @@ const TransferRequestListItem = ({
         <td>{request.inviteToCompanyName}</td>
         <td>
             <BlockButtonWrapper>
+                <button
+                    type="button"
+                    className="button"
+                    onClick={handleDecline}
+                >
+                    <i className="far fa-ban" />
+                </button>
                 {companyID === request.inviteToCompanyID && (
                     <button
                         type="button"
@@ -30,13 +37,6 @@ const TransferRequestListItem = ({
                         <i className="far fa-check" />
                     </button>
                 )}
-                <button
-                    type="button"
-                    className="button"
-                    onClick={handleDecline}
-                >
-                    <i className="far fa-ban" />
-                </button>
             </BlockButtonWrapper>
         </td>
     </tr>

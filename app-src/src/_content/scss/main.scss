@@ -120,6 +120,22 @@ body {
     }
 }
 
+.info-message {
+    float: left;
+    width: 100%;
+    padding: 5px 10px;
+    background-color: #d0e5fb;
+    border-radius: 5px;
+
+    &.warning {
+        background-color: #fbf0d0;
+    }
+
+    &.error {
+        background-color: #fbd0d0;
+    }
+}
+
 .content-container {
     padding: 0 5px;
 
@@ -1101,6 +1117,13 @@ input {
         background-color: $background-grey;
         border-radius: 5px;
     }
+
+    .field-info {
+        float: left;
+        width: 100%;
+        margin: -5px 0 12.5px;
+        color: #666;
+    }
 }
 
 .checkbox {
@@ -1756,12 +1779,31 @@ input {
             text-align: right;
         }
 
+        &.left-align {
+            text-align: left;
+        }
+
+        &.email-field {
+            word-break: break-all;
+        }
+
+        .link {
+            color: $red;
+            text-decoration: underline;
+
+            &:hover {
+                text-decoration: none;
+            }
+        }
+
         .button-block-container {
             margin-top: 0;
             padding: 0;
+            float: none;
 
             .link-holder,
             .button {
+                float: none;
                 margin-left: 2.5px;
                 margin-bottom: 1px;
             }

@@ -52,10 +52,6 @@ const InvoiceListItem = ({
         <td>{`${userFirstName} ${userLastName}`}</td>
         <td>
             <BlockButtonWrapper>
-                <ButtonContainer to={`/company/invoices/${id}`}>
-                    View
-                </ButtonContainer>
-
                 {!isPaid && (
                     <button
                         className="button green"
@@ -66,6 +62,9 @@ const InvoiceListItem = ({
                         Pay
                     </button>
                 )}
+                <ButtonContainer to={`/company/invoices/${id}`}>
+                    View
+                </ButtonContainer>
             </BlockButtonWrapper>
         </td>
     </tr>

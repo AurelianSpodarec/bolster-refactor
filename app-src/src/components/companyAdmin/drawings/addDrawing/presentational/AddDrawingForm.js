@@ -19,7 +19,8 @@ const AddDrawingForm = ({
     file,
     templateUsageRules,
     selectedRule,
-    credits
+    credits,
+    handleBuyCreditsModal
 }) => (
     <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
         <div className="size-lg-12">
@@ -83,9 +84,12 @@ const AddDrawingForm = ({
                     side="top"
                     text="You must have credits to add a drawing."
                 >
-                    <button disabled className="button red">
+                    <ButtonContainer
+                        handleClick={handleBuyCreditsModal}
+                        className="button red"
+                    >
                         No credits available
-                    </button>
+                    </ButtonContainer>
                 </TooltipContainer>
             )}
             <ButtonContainer to={`/company/floors/${floorID}`}>

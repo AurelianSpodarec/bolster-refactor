@@ -1,6 +1,6 @@
 import React from 'react';
 import CompanyReportsFilters from '../presentational/CompanyReportsFilters';
-import updateCompanyReportsSort from 'actions/companyAdmin/companyReports/sync/updateCompanyReportsSort';
+import updateCompanyReportsSort from 'actions/superAdmin/companyReports/sync/updateCompanyReportsSort';
 import { connect } from 'react-redux';
 
 const CompanyReportsFiltersContainer = ({
@@ -35,7 +35,7 @@ const mapDispatchToProps = dispatch => ({
         dispatch(updateCompanyReportsSort(sortString))
 });
 
-const mapStateToProps = ({ companyAdmin: { companyReportsReducer } }) => ({
+const mapStateToProps = ({ superAdmin: { companyReportsReducer } }) => ({
     sortString: companyReportsReducer.sort.sortString
 });
 

@@ -64,6 +64,9 @@ const BuyCreditsModal = ({
                 </Field>
             )}
             <Field name="Credits to buy" sizeClasses="size-lg-12" required>
+                <p className="field-info">
+                    For every 10 credits you buy, you get one free!
+                </p>
                 <TextInputContainer
                     name="creditsToBuy"
                     value={creditsToBuy}

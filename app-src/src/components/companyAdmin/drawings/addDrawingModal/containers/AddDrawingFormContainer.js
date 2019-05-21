@@ -5,6 +5,8 @@ import createDrawing from 'actions/companyAdmin/drawings/async/createDrawing';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 
 import AddDrawingForm from '../presentational/AddDrawingForm';
+import { BUY_CREDITS } from 'constants/shared/modalTypes';
+import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 
 class AddDrawingFormContainer extends Component {
     state = {
@@ -39,6 +41,7 @@ class AddDrawingFormContainer extends Component {
                 hideModal={this.props.hideModal}
                 filesUploading={filesUploading}
                 credits={credits}
+                handleBuyCreditsModal={this.handleBuyCreditsModal}
             />
         );
     }
@@ -50,9 +53,7 @@ class AddDrawingFormContainer extends Component {
         }
     };
 
-    handleInputChange = (name, value) => {
-        this.setState({ [name]: value });
-    };
+    handleInputChange = (name, value) => this.setState({ [name]: value });
 
     handleFileChange = (name, s3Key) => {
         const { [name]: file } = this.state;
@@ -73,6 +74,11 @@ class AddDrawingFormContainer extends Component {
             hideModal();
         }
     };
+
+    handleBuyCreditsModal = () => {
+        const { showModal } = this.props;
+        showModal(BUY_CREDITS, { creditsToBuy: 1 });
+    };
 }
 
 const mapStateToProps = ({
@@ -92,12 +98,9 @@ const mapStateToProps = ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    createDrawing: drawing => {
-        dispatch(createDrawing(drawing));
-    },
-    hideModal: () => {
-        dispatch(hideModal());
-    }
+    createDrawing: drawing => dispatch(createDrawing(drawing)),
+    hideModal: () => dispatch(hideModal()),
+    showModal: (type, props) => dispatch(showModal(type, props))
 });
 
 export default connect(

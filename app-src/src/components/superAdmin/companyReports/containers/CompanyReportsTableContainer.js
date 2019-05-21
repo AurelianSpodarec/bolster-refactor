@@ -4,28 +4,26 @@ import CompanyReportsTable from '../presentational/CompanyReportsTable';
 import { sortArrayByKeyAndOrder } from 'helpers/generic';
 
 const CompanyReportsTableContainer = ({
-    isFetching,
-    error,
     companyReports,
-    sortString = ''
+    error,
+    isFetching,
+    sortString
 }) => {
     return (
         <CompanyReportsTable
-            headers={['Name', 'Type', 'Details', 'Status', 'Created On', '']}
-            isFetching={isFetching}
-            error={error}
             companyReports={_getSortedQueue()}
+            error={error}
+            isFetching={isFetching}
+            headers={['Name', 'Status', 'Created On', '']}
         />
     );
-
     function _getSortedQueue() {
         const [fieldName, sortOrder] = sortString.split(' ');
         return sortArrayByKeyAndOrder(companyReports, fieldName, sortOrder);
     }
 };
-
 const mapStateToProps = ({
-    companyAdmin: {
+    superAdmin: {
         companyReportsReducer: {
             companyReports,
             error,
@@ -35,9 +33,9 @@ const mapStateToProps = ({
     }
 }) => ({
     companyReports: Object.values(companyReports),
-    error: error,
-    isFetching: isFetching,
-    sortString: sortString
+    error,
+    isFetching,
+    sortString
 });
 
 export default connect(mapStateToProps)(CompanyReportsTableContainer);

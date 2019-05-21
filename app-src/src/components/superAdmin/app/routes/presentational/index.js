@@ -19,7 +19,7 @@ const AdminRoutes = ({ base = '/admin' }) => (
         <Route path={`${base}/users`} component={UsersRoutes} />
         <Route path={`${base}/profile`} component={ProfilesRoutes} />
         <Route
-            path={`${base}/companyReports`}
+            path={`${base}/company-reports`}
             component={CompanyReportsRoutes}
         />
         <Route path={`${base}/invoices`} component={InvoicesRoutes} />
