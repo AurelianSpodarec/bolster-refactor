@@ -11,12 +11,6 @@ import editPinLocation from 'actions/companyAdmin/pins/async/editPinLocation';
 import updatePinCoordinates from 'actions/companyAdmin/drawings/sync/updatePinCoordinates';
 
 class SinglePinMapContainer extends Component {
-    state = {
-        moveMode: false,
-        editPinLocationLat: 0,
-        editPinLocationLng: 0
-    };
-
     render() {
         const {
             pin,
@@ -27,11 +21,6 @@ class SinglePinMapContainer extends Component {
             selectedHistory,
             histories
         } = this.props;
-
-        const editPinLocationPosition = [
-            this.state.editPinLocationLat,
-            this.state.editPinLocationLng
-        ];
 
         const historyVersion =
             [...histories]
@@ -44,9 +33,7 @@ class SinglePinMapContainer extends Component {
                 error={error}
             >
                 <SinglePinMap
-                    mapCenter={}
                     zoom={3}
-                    editPinLocationPosition={editPinLocationPosition}
                     pin={pin}
                     user={user}
                     drawing={drawing}
@@ -59,37 +46,14 @@ class SinglePinMapContainer extends Component {
     }
 
     componentDidUpdate = prevProps => {
-        const { pin, fetchDrawing, updatePinCoordinates } = this.props;
+        const { pin, fetchDrawing } = this.props;
         if (!prevProps.pin.id && pin.id) {
             const lat = pin.location.latY;
             const lng = pin.location.lngX;
 
             this._setMapCentre(lat, lng);
 
-            updatePinCoordinates('lat', lat);
-            updatePinCoordinates('lng', lng);
-
-            this.setState({
-                editPinLocationLat: pin.location.latY,
-                editPinLocationLng: pin.location.lngX
-            });
-
             fetchDrawing(pin.drawingID);
-        }
-    };
-
-    toggleMoveMode = () => {
-        this.setState({
-            moveMode: !this.state.moveMode
-        });
-    };
-
-    handleMapClick = ({ latlng: { lat, lng } }) => {
-        if (this.state.moveMode) {
-            this.setState({
-                editPinLocationLat: lat,
-                editPinLocationLng: lng
-            });
         }
     };
 
@@ -101,18 +65,6 @@ class SinglePinMapContainer extends Component {
         this.setState({
             ...this.state,
             mapCentre: [lat, lng]
-        });
-    };
-
-    handleeditPinLocation = () => {
-        const { editPinLocationLat, editPinLocationLng } = this.state;
-        const {
-            editPinLocation,
-            pin: { id }
-        } = this.props;
-        editPinLocation(id, editPinLocationLat, editPinLocationLng);
-        this.setState({
-            moveMode: false
         });
     };
 }

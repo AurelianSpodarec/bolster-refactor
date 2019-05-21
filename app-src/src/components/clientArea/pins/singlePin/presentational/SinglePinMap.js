@@ -1,5 +1,5 @@
 import React from 'react';
-import { Map, Marker, TileLayer } from 'react-leaflet';
+import { Map, TileLayer } from 'react-leaflet';
 
 import MapPin from 'components/shared/pins/map/presentational/MapPin';
 import { FILE_STORAGE_URL } from 'config';
@@ -10,13 +10,8 @@ import ButtonContainer from 'components/shared/generic/button/containers/ButtonC
 const SinglePinMap = ({
     pin,
     zoom,
-    handleClick,
     user,
     drawing = {},
-    moveMode,
-    toggleMoveMode,
-    editPinLocationPosition,
-    handleeditPinLocation,
     pinHistory,
     historyVersion,
     historyCount
@@ -32,31 +27,10 @@ const SinglePinMap = ({
                     : ''}
                 )
             </h4>
-            {moveMode ? (
-                <>
-                    <button
-                        onClick={handleeditPinLocation}
-                        className="button green pull-right"
-                    >
-                        <i className="fa fa-check" /> Confirm position
-                    </button>
-                    <button
-                        className="button red pull-right"
-                        onClick={toggleMoveMode}
-                    >
-                        Stop
-                    </button>
-                </>
-            ) : (
-                <button className="button pull-right" onClick={toggleMoveMode}>
-                    <i className="fa fa-arrows-alt" />
-                    Move Pin
-                </button>
-            )}
             {pin.nextPinID && (
                 <ButtonContainer
                     className="pull-right"
-                    to={`/company/pins/${pin.nextPinID}`}
+                    to={`/client/pins/${pin.nextPinID}`}
                 >
                     Next <i className="fa fa-arrow-right" />
                 </ButtonContainer>
@@ -64,7 +38,7 @@ const SinglePinMap = ({
             {pin.prevPinID && (
                 <ButtonContainer
                     className="pull-right"
-                    to={`/company/pins/${pin.prevPinID}`}
+                    to={`/client/pins/${pin.prevPinID}`}
                 >
                     <i className="fa fa-arrow-left" />
                     Previous
@@ -72,11 +46,7 @@ const SinglePinMap = ({
             )}
         </BlockHeading>
 
-        <Map
-            center={[pin.location.latY, pin.location.lngX]}
-            zoom={zoom}
-            onClick={handleClick}
-        >
+        <Map center={[pin.location.latY, pin.location.lngX]} zoom={zoom}>
             <TileLayer
                 attribution='&amp;copy <a href="http://app.bolstersystems.com">Bolster Systems Ltd</a>'
                 url={`${FILE_STORAGE_URL}/${
@@ -85,8 +55,6 @@ const SinglePinMap = ({
                 noWrap={true}
             />
             <MapPin key={pin.id} pin={pin} pinHistory={pinHistory} />
-
-            {moveMode && <Marker position={editPinLocationPosition} />}
         </Map>
         <p className="map-details">
             Last updated by: {`${user.userFirstName} ${user.userLastName} `}
