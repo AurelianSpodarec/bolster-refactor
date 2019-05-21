@@ -13,7 +13,7 @@ const ConfirmEditPinModal = ({
         <p className="generic-text intro-text size-lg-12">{message}</p>
         <BlockButtonWrapper>
             <button className="button yellow" onClick={handleEditPin}>
-                <i className="far fa-pencil" /> Confirm
+                <i className="far fa-check" /> Confirm
             </button>
             <button className="button" onClick={hideModal}>
                 Cancel
