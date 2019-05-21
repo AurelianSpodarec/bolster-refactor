@@ -1779,6 +1779,14 @@ input {
             text-align: right;
         }
 
+        &.left-align {
+            text-align: left;
+        }
+
+        &.email-field {
+            word-break: break-all;
+        }
+
         .button-block-container {
             margin-top: 0;
             padding: 0;
