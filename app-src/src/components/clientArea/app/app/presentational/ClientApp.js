@@ -1,13 +1,13 @@
 import React from 'react';
 
-import CompanyHeaderContainer from 'components/companyAdmin/layout/header/containers/CompanyHeaderContainer';
+import ClientHeaderContainer from 'components/clientArea/layout/header/containers/ClientHeaderContainer';
 import FooterContainer from 'components/shared/layout/footer/containers/FooterContainer';
 import MenuContainer from 'components/shared/layout/menu/containers/MenuContainer';
 import Routes from 'components/clientArea/app/routes';
 
 const ClientApp = () => (
     <>
-        <CompanyHeaderContainer />
+        <ClientHeaderContainer />
         <div className="full-container container">
             <MenuContainer />
             <div id="page-area">
