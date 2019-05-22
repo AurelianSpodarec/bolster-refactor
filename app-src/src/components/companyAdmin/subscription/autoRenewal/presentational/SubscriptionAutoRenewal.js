@@ -20,6 +20,7 @@ const SubscriptionAutoRenewal = ({
                 value={isAutoRenew}
                 handleChange={handleAutoRenewChange}
                 checked={!!isAutoRenew}
+                disabled={!isAutoRenew}
             />
         </BlockHeading>
         <div className="generic-form no-min-heights size-lg-12">
