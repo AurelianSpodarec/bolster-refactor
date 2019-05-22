@@ -31,8 +31,7 @@ const TransferRequestListItemContainer = ({
                 respondToTransferRequest(request.id, { isAccepting: true });
                 hideModal();
             };
-            const message =
-                '##Are you sure you want to accept this transfer ownership request?##';
+            const message = 'Are you sure you want to accept this request?';
             showModal(CONFIRM_SUBMIT, { hideModal, handleSubmit, message });
         }
     }
@@ -43,16 +42,14 @@ const TransferRequestListItemContainer = ({
                 respondToTransferRequest(request.id, { isAccepting: true });
                 hideModal();
             };
-            const message =
-                '##Are you sure you want to decline this transfer ownership request?##';
+            const message = 'Are you sure you want to decline this request?';
             showModal(CONFIRM_SUBMIT, { hideModal, handleSubmit, message });
         } else {
             const handleDelete = () => {
                 deleteTransferRequest(request.id);
                 hideModal();
             };
-            const message =
-                '##Are you sure you want to delete this transfer ownership request?##';
+            const message = 'Are you sure you want to delete this request?';
             showModal(CONFIRM_DELETE, { hideModal, handleDelete, message });
         }
     }

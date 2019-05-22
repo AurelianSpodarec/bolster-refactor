@@ -22,7 +22,7 @@ const DocumentsTable = ({ location, documents, isFetching }) => {
                     headers={['Name', 'Actions']}
                     isFetching={isFetching}
                     noData={!documents.length}
-                    noDataMessage="No documents to display"
+                    noDataMessage="No documents to display."
                     withActions
                 >
                     <DocumentsList location={location} documents={documents} />

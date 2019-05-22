@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import { VAT_TYPES } from 'constants/companyAdmin/enums';
 
@@ -188,7 +189,8 @@ const RegisterForm = ({
             )}
             <Field name="Terms and Conditions" required>
                 <p className="generic-text size-lg-12">
-                    To register, please agree to our Terms and Conditions.
+                    To register, please agree to our{' '}
+                    <Link to="/auth/terms">Terms and Conditions</Link>.
                 </p>
                 <CheckboxContainer
                     checked={terms}
