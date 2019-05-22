@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import withFieldValidation from '../hocs/withFieldValidation';
 
-// MultiSelect is a multi select
+// MultiSelect is a multi select dropdown
 // pass 'required' prop if it's required
 // pass 'search' prop if you want to enable the search
 // field errors will be output below automatically

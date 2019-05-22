@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import withFieldValidation from '../hocs/withFieldValidation';
 
-// Boundless select is a mult select with the ability to click the same option multiple times
+// Boundless select is a mult select dropdown with the ability to click the same option multiple times
 // pass 'required' prop if it's required
 // pass 'search' prop if you want to enable the search
 // field errors will be output below automatically
