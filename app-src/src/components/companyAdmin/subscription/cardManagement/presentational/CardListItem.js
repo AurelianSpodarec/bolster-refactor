@@ -7,30 +7,36 @@ const CardListItem = ({
     card: { expMonth, expYear, isPrimary, lastFour, name, id },
     setPrimaryCard,
     deleteCard
-}) => (
-    <tr>
-        <td>{name}</td>
-        <td>{`XXXX-XXXX-XXXX-${lastFour}`}</td>
-        <td>{`${expMonth}/${expYear}`}</td>
-        <td>{<i className={isPrimary ? 'fa fa-check' : 'fa fa-times'} />}</td>
-        <td>
-            <BlockButtonWrapper>
-                <button
-                    className="button icon-only red"
-                    onClick={() => {
-                        deleteCard(id);
-                    }}
-                >
-                    <i className="far fa-trash-alt" />
-                </button>
-                {!isPrimary && (
-                    <ButtonContainer handleClick={setPrimaryCard}>
-                        Make Primary
-                    </ButtonContainer>
-                )}
-            </BlockButtonWrapper>
-        </td>
-    </tr>
-);
+}) => {
+    const expMonthString = expMonth + '';
+
+    return (
+        <tr>
+            <td>{name}</td>
+            <td>{`XXXX-XXXX-XXXX-${lastFour}`}</td>
+            <td>{`${expMonthString.padStart(2, '0')}/${expYear}`}</td>
+            <td>
+                {<i className={isPrimary ? 'fa fa-check' : 'fa fa-times'} />}
+            </td>
+            <td>
+                <BlockButtonWrapper>
+                    <button
+                        className="button icon-only red"
+                        onClick={() => {
+                            deleteCard(id);
+                        }}
+                    >
+                        <i className="far fa-trash-alt" />
+                    </button>
+                    {!isPrimary && (
+                        <ButtonContainer handleClick={setPrimaryCard}>
+                            Make Primary
+                        </ButtonContainer>
+                    )}
+                </BlockButtonWrapper>
+            </td>
+        </tr>
+    );
+};
 
 export default withRouter(CardListItem);
