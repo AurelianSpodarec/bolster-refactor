@@ -2,8 +2,10 @@ import React, { useState, useRef, useEffect } from 'react';
 import withFieldValidation from '../hocs/withFieldValidation';
 
 // Select is a single select dropdown
-// pass 'required' prop if it's required
-// pass 'search' prop if you want to enable the search
+// pass 'required' flag if it's required
+// pass 'search' flag if you want to enable the search
+// pass 'disabled' flag if you want to disable the dropdown
+// pass a 'placeholder' string if you want to customize the placeholder
 // field errors will be output below automatically
 // options should be in this form '[{ value: 1, label: "opt 1" }, { value: 2, label: "opt 2" }]'
 // value should be the selected 'value' not option(the number not the object)
@@ -11,6 +13,7 @@ import withFieldValidation from '../hocs/withFieldValidation';
 const Select = ({
     name,
     search = false,
+    disabled = false,
     value = null,
     options = [],
     onChange,
@@ -39,9 +42,11 @@ const Select = ({
 
     return (
         <div
-            className="multi-multi-dropdown size-lg-12"
+            className={`multi-multi-dropdown size-lg-12 ${
+                disabled ? 'disabled' : ''
+            }`}
             ref={node}
-            onClick={() => setIsOpen(!isOpen)}
+            onClick={() => !disabled && setIsOpen(!isOpen)}
         >
             <div className="selected-box">
                 {!selected ? (
