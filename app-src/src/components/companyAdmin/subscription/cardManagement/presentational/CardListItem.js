@@ -20,6 +20,11 @@ const CardListItem = ({
             </td>
             <td>
                 <BlockButtonWrapper>
+                    {!isPrimary && (
+                        <ButtonContainer handleClick={setPrimaryCard}>
+                            Make Primary
+                        </ButtonContainer>
+                    )}
                     <button
                         className="button icon-only red"
                         onClick={() => {
@@ -28,11 +33,6 @@ const CardListItem = ({
                     >
                         <i className="far fa-trash-alt" />
                     </button>
-                    {!isPrimary && (
-                        <ButtonContainer handleClick={setPrimaryCard}>
-                            Make Primary
-                        </ButtonContainer>
-                    )}
                 </BlockButtonWrapper>
             </td>
         </tr>
