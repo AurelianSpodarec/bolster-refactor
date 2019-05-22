@@ -26,6 +26,7 @@ export default () => dispatch => {
     dispatch(clientFetchAllSitesRequest());
 
     axios
+        // ! change the url
         .get(`${API_URL}/sites `, getHeaders())
         .then(res => dispatch(clientFetchAllSitesSuccess(res.data)))
         .catch(err => dispatch(clientFetchAllSitesFailure(err.message)));

@@ -26,6 +26,7 @@ export default () => dispatch => {
     dispatch(clientFetchHistoryFeedRequest());
 
     axios
+        // ! change the url
         .get(`${API_URL}/pins/historyfeed`, getHeaders())
         .then(res => dispatch(clientFetchHistoryFeedSuccess(res.data)))
         .catch(err => dispatch(clientFetchHistoryFeedFailure(err.message)));

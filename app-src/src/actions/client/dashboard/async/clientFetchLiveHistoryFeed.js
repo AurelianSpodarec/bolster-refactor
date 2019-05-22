@@ -25,8 +25,13 @@ export const clientFetchLiveHistoriesFailure = error => ({
 export default lastUpdate => dispatch => {
     dispatch(clientFetchLiveHistoriesRequest());
 
-    return axios
-        .get(`${API_URL}/pins/historyfeed${lastUpdate}`, getHeaders())
-        .then(res => dispatch(clientFetchLiveHistoriesSuccess(res.data)))
-        .catch(err => dispatch(clientFetchLiveHistoriesFailure(err.message)));
+    return (
+        axios
+            // ! change the url
+            .get(`${API_URL}/pins/historyfeed${lastUpdate}`, getHeaders())
+            .then(res => dispatch(clientFetchLiveHistoriesSuccess(res.data)))
+            .catch(err =>
+                dispatch(clientFetchLiveHistoriesFailure(err.message))
+            )
+    );
 };
