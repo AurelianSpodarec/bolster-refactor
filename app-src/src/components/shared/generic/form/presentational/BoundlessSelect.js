@@ -125,7 +125,7 @@ const BoundlessSelect = ({
     }
 
     function getFilteredOptions() {
-        if (search || !searchTerm) return options;
+        if (!search || !searchTerm) return options;
         return options.filter(opt =>
             opt.label
                 .replace(/\s/g, '')
