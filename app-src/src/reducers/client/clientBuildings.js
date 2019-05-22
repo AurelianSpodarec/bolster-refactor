@@ -7,7 +7,7 @@ import {
     CLIENT_FETCH_SINGLE_BUILDING_SUCCESS,
     CLIENT_FETCH_SINGLE_BUILDING_FAILURE
 } from 'constants/client/actionTypes/clientBuildings';
-import { convertArrToObj, updateObj } from '/helpers/generic';
+import { convertArrToObj, updateObj } from 'helpers/generic';
 
 export default combineReducers({
     isFetching: isFetchingReducer,

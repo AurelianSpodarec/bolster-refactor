@@ -142,7 +142,7 @@ class RegisterFormContainer extends Component {
         const { postSuccess, history } = this.props;
 
         if (postSuccess && !prevProps.postSuccess) {
-            history.push('/auth/login');
+            history.push('/company');
         }
     };
     validatePassword = password => {
