@@ -114,11 +114,4 @@ const mapStateToProps = ({
     error
 });
 
-const mapDispatchToProps = dispatch => ({
-    // fetchPins: () => dispatch(fetchPins(1, 1))
-});
-
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(DashboardStatsContainer);
+export default connect(mapStateToProps)(DashboardStatsContainer);

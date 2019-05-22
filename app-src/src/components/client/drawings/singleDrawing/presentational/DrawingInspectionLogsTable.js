@@ -31,7 +31,7 @@ const DrawingInspectionLogsTable = ({
                     isFetching={isFetching}
                     error={error}
                     noData={!pins.length}
-                    noDataMessage="No inspection logs to display"
+                    noDataMessage="No inspection logs to display."
                     withActions
                 >
                     {[...pins]

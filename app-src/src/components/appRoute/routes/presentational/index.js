@@ -11,7 +11,8 @@ import AdminAppContainer from 'components/superAdmin/app/app/containers/AdminApp
 import CompanyAppContainer from 'components/companyAdmin/app/app/containers/CompanyAppContainer';
 
 import { AUTH_TYPES } from 'constants/shared/auth';
-import ClientAppContainer from 'components/client/app/app/containers/ClientAppContainer';
+// import ClientAppContainer from 'components/client/app/app/containers/ClientAppContainer';
+import CompanySelection from 'components/client/companySelection/companySelectionPage/presentational/CompanySelection';
 // ! uncomment this when client log in is sorted
 const { SUPER_ADMIN, COMPANY /*CLIENT*/ } = AUTH_TYPES;
 const Routes = () => (
@@ -30,7 +31,7 @@ const Routes = () => (
         />
         <Route
             path="/client"
-            component={ClientAppContainer}
+            component={CompanySelection}
             // ! put withAuth back in once the client log in is sorted
             // component={withAuth(ClientAppContainer, CLIENT)}
         />

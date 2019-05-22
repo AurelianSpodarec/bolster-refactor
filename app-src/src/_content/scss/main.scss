@@ -796,6 +796,51 @@ input {
     }
 }
 
+.wysiwyg {
+    * {
+        margin-bottom: 10px;
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+    ol {
+        width: 100%;
+        @include ubuntu;
+        list-style: decimal outside;
+        padding-left: 19px;
+        @include ubuntu-medium;
+        font-size: 14px;
+        ol {
+            list-style: lower-alpha outside;
+            font-size: 12px;
+            @include ubuntu;
+        }
+
+        h4 {
+            font-size: 14px;
+            width: 100%;
+            @include ubuntu-medium;
+            margin-bottom: 5px;
+        }
+    }
+    p {
+        width: 100%;
+        @include ubuntu;
+
+        font-size: 12px;
+        strong {
+            @include ubuntu-medium;
+        }
+    }
+    a {
+        color: $red !important;
+        text-decoration: underline;
+        &:hover {
+            text-decoration: none;
+        }
+    }
+}
+
 .page-heading {
     margin-bottom: 10px;
 
@@ -1323,7 +1368,23 @@ input {
         }
     }
 }
-
+.filepond--drop-label {
+    label {
+        top: 1px;
+        font-size: 120% !important;
+    }
+}
+.filepond--root {
+    font-size: 1.25rem;
+}
+.filepond--file-info {
+    .filepond--file-info-main {
+        font-size: 140% !important;
+    }
+    .filepond--file-info-sub {
+        font-size: 120% !important;
+    }
+}
 //uploaded file on edit doc
 .file-view {
     img {

@@ -9,6 +9,7 @@ const MessageTable = ({ isFetching, messages }) => (
         withActions
         isFetching={isFetching}
         noData={!messages.length}
+        noDataMessage='There are no system messages to display.'
     >
         <MessageList messages={messages} />
     </Table>
