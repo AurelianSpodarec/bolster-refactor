@@ -1,7 +1,1 @@
-export const CLIENT_FETCH_PROFILE_REQUEST = 'CLIENT_FETCH_PROFILE_REQUEST';
-export const CLIENT_FETCH_PROFILE_SUCCESS = 'CLIENT_FETCH_PROFILE_SUCCESS';
-export const CLIENT_FETCH_PROFILE_FAILURE = 'CLIENT_FETCH_PROFILE_FAILURE';
-
-export const CLIENT_EDIT_PROFILE_REQUEST = 'CLIENT_EDIT_PROFILE_REQUEST';
-export const CLIENT_EDIT_PROFILE_SUCCESS = 'CLIENT_EDIT_PROFILE_SUCCESS';
-export const CLIENT_EDIT_PROFILE_FAILURE = 'CLIENT_EDIT_PROFILE_FAILURE';
+// ! profile comes from shared auth_api so doesn't require an action type. Leaving this here as a reminder that it still needs to be fetched in the client area.
