@@ -8,8 +8,6 @@ import AllCompanyAdminsTable from '../presentational/AllCompanyAdminsTable';
 import { COMPANY_USER_ROLE_TYPES } from 'constants/companyAdmin/enums';
 import {
     CREATE_COMPANY_ADMIN,
-    EDIT_COMPANY_ADMIN,
-    COMPANY_ADMIN_CHANGE_PASSWORD,
     ERROR_MODAL,
     SUCCESS_MODAL
 } from 'constants/shared/modalTypes';

@@ -9,7 +9,7 @@ const InvoicesTable = ({ invoices, headers, isFetching, error, showModal }) => (
         isFetching={isFetching}
         error={error}
         noData={!invoices.length}
-        noDataMessage="No invoices to display"
+        noDataMessage="No invoices to display."
     >
         <InvoicesList invoices={invoices} showModal={showModal} />
     </Table>
