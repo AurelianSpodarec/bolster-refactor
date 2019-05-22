@@ -16,7 +16,6 @@ class PinHistoriesListItemContainer extends Component {
             services,
             allHistories
         } = this.props;
-
         const { active } = this.state;
 
         const user = users[history.createdByCompanyUserID] || {};
