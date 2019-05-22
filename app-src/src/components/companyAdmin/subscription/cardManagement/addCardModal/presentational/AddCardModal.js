@@ -92,7 +92,7 @@ const AddCardModal = ({
                             type="number"
                             required
                             placeholder="000"
-                            validate={value => validateMaxLength(3)(value)}
+                            validate={validateMaxLength(3)}
                         />
                     </Field>
                 </div>

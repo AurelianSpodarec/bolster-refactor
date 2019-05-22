@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-
+import moment from 'moment';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import addCard from 'actions/companyAdmin/cards/async/addCard';
 import AddCardModal from '../presentational/AddCardModal';
+import addFieldError from 'actions/shared/generic/fieldErrors/sync/addFieldError';
+import removeFieldError from 'actions/shared/generic/fieldErrors/sync/removeFieldError';
 
 class AddCardModalContainer extends Component {
     state = {
@@ -26,17 +28,36 @@ class AddCardModalContainer extends Component {
                 this.props.hideModal();
             }}
             validateMaxLength={this.validateMaxLength}
+            validateDate={this.validateDate}
         />
     );
 
-    componentDidUpdate = prevProps => {
-        const { hideModal, postSuccess } = this.props;
+    componentDidUpdate = (prevProps, prevState) => {
+        const { hideModal, postSuccess, addFieldError } = this.props;
         if (postSuccess && !prevProps.postSuccess) hideModal();
+        const { expiryMonth, expiryYear } = this.state;
+        if (
+            expiryMonth !== prevState.expiryMonth ||
+            expiryYear !== prevState.expiryYear
+        ) {
+            const [thisMonth, thisYear] = moment(Date.now())
+                .format('MM YYYY')
+                .split(' ');
+            if (
+                +expiryYear < +thisYear ||
+                (+expiryYear === +thisYear && +expiryMonth < +thisMonth)
+            ) {
+                addFieldError('expiryYear', 'This expiry date has passed.');
+            } else {
+                removeFieldError('expiryYear');
+            }
+        }
     };
 
     handleChange = (name, value) => {
         this.setState({ [name]: value });
     };
+
     handleSubmit = e => {
         e.preventDefault();
         const {
@@ -55,6 +76,7 @@ class AddCardModalContainer extends Component {
             expiryYear,
             CV2
         };
+
         const { addCard } = this.props;
         addCard(postBody);
     };
@@ -72,11 +94,7 @@ const mapStateToProps = ({
     postSuccess
 });
 
-const mapDispatchToProps = dispatch => ({
-    showModal: (type, props) => dispatch(showModal(type, props)),
-    hideModal: () => dispatch(hideModal()),
-    addCard: body => dispatch(addCard(body))
-});
+const mapDispatchToProps = { showModal, hideModal, addCard, addFieldError };
 
 export default connect(
     mapStateToProps,
