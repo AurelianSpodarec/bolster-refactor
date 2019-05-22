@@ -37,7 +37,7 @@ const AllCompanyAdminsTable = ({
                 isFetching={isFetching}
                 error={error}
                 noData={!users.length}
-                noDataMessage="No admins to display"
+                noDataMessage="No company admins to display."
                 extraClasses="large"
             >
                 <AllCompanyAdminsList

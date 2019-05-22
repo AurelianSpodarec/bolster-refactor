@@ -7,7 +7,7 @@ const TemplatesTable = ({ headers, templates, isFetching, error }) => (
     <Table
         headers={headers}
         noData={!templates.length}
-        noDataMessage="No templates to display"
+        noDataMessage="No templates to display."
         isFetching={isFetching}
         error={error}
     >

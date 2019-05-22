@@ -60,7 +60,6 @@ class BuyCreditsModalContainer extends Component {
             postError,
             postSuccess,
             fetchAllCredits,
-            fetchAllInvoices,
             showModal
         } = this.props;
         const { paymentType } = this.state;
@@ -71,8 +70,6 @@ class BuyCreditsModalContainer extends Component {
             });
         }
         if (postSuccess && !prevProps.postSuccess) {
-            fetchAllCredits();
-            fetchAllInvoices();
             showModal(PAYMENT_SUCCESS, {
                 message: `Your order has been successfully placed and your new credits ${
                     +paymentType === PAYMENT_IDS.CARD
