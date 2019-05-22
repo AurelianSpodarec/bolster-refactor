@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import withFieldValidation from '../hocs/withFieldValidation';
 
+// Select options an unlimited amount
 const BoundlessSelect = ({
     name,
     search = false,
