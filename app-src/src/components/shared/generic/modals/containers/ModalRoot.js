@@ -42,7 +42,10 @@ import {
     EDIT_FLOOR,
     ADD_DROPDOWN_OPTION,
     EDIT_DROPDOWN_OPTION,
-    DELETE_DROPDOWN_OPTION
+    DELETE_DROPDOWN_OPTION,
+    CREATE_COMPANY_ADMIN,
+    EDIT_COMPANY_ADMIN,
+    COMPANY_ADMIN_CHANGE_PASSWORD
 } from 'constants/shared/modalTypes';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
@@ -88,6 +91,7 @@ import EditFloorModal from 'components/companyAdmin/floors/editFloorModal/presen
 import AddDropdownOptionModal from 'components/companyAdmin/dropdownOptions/addDropdownOptionModal/presentational/AddDropdownOptionModal';
 import EditDropdownOptionModal from 'components/companyAdmin/dropdownOptions/editDropdownOptionModal/presentational/EditDropdownOptionModal';
 import DeleteDropdownOptionModalContainer from 'components/companyAdmin/dropdownOptions/deleteDropdownOptionModal/containers/DeleteDropdownOptionModalContainer';
+import CreateCompanyAdminModal from 'components/companyAdmin/userManagement/companyAdmins/createCompanyAdmin/presentational/CreateCompanyAdminModal';
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModalContainer,
@@ -130,7 +134,8 @@ const MODAL_COMPONENTS = {
     [EDIT_FLOOR]: EditFloorModal,
     [ADD_DROPDOWN_OPTION]: AddDropdownOptionModal,
     [EDIT_DROPDOWN_OPTION]: EditDropdownOptionModal,
-    [DELETE_DROPDOWN_OPTION]: DeleteDropdownOptionModalContainer
+    [DELETE_DROPDOWN_OPTION]: DeleteDropdownOptionModalContainer,
+    [CREATE_COMPANY_ADMIN]: CreateCompanyAdminModal
 };
 
 const ModalRoot = ({ modalType, modalProps, ...otherProps }) => {
