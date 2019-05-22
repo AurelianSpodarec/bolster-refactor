@@ -1,10 +1,10 @@
 import React, { useState, useRef, useEffect } from 'react';
 import withFieldValidation from '../hocs/withFieldValidation';
 
-const MultiSelect = ({
+const Select = ({
     name,
     search = false,
-    value = [],
+    value = null,
     options = [],
     onChange,
     showError,
@@ -15,6 +15,7 @@ const MultiSelect = ({
     const [searchTerm, setSearch] = useState('');
     const node = useRef();
     const filteredOptions = getFilteredOptions();
+    const selected = getSelected();
 
     useEffect(() => {
         document.addEventListener('mousedown', handleClick);
@@ -30,24 +31,17 @@ const MultiSelect = ({
     }, [isOpen]);
 
     return (
-        <div className="multi-multi-dropdown size-lg-12" ref={node}>
-            <div className="selected-box" onClick={() => setIsOpen(!isOpen)}>
-                {!getSelected().length && (
+        <div
+            className="multi-multi-dropdown size-lg-12"
+            ref={node}
+            onClick={() => setIsOpen(!isOpen)}
+        >
+            <div className="selected-box">
+                {!selected ? (
                     <p className="placeholder">{placeholder}</p>
+                ) : (
+                    <p className="placeholder">{selected.label}</p>
                 )}
-                {getSelected().map(opt => (
-                    <div
-                        key={opt.value}
-                        className="option"
-                        onClick={() => isOpen && setIsOpen(false)}
-                    >
-                        <p>{opt.label}</p>
-                        <i
-                            className="close fal fa-times"
-                            onClick={e => handleDeselect(e, opt.value)}
-                        />
-                    </div>
-                ))}
 
                 <i className="arrow fal fa-angle-down" />
             </div>
@@ -55,7 +49,10 @@ const MultiSelect = ({
             {isOpen && (
                 <div className="option-selection">
                     {search && !!options.length && (
-                        <div className="search-box">
+                        <div
+                            className="search-box"
+                            onClick={e => e.stopPropagation()}
+                        >
                             <input
                                 type="text"
                                 placeholder="Search..."
@@ -65,14 +62,22 @@ const MultiSelect = ({
                         </div>
                     )}
                     <div className="option-container">
-                        {!filteredOptions.length && (
+                        {filteredOptions.length ? (
+                            <p
+                                className={`option ${!value ? 'active' : ''}`}
+                                onClick={e => handleSelect(e, null)}
+                            >
+                                {placeholder}
+                            </p>
+                        ) : (
                             <p>There are no options to display</p>
                         )}
+
                         {filteredOptions.map(opt => (
                             <p
                                 key={opt.value}
                                 className={`option ${
-                                    value.includes(opt.value) ? 'active' : ''
+                                    value === opt.value ? 'active' : ''
                                 }`}
                                 onClick={e => handleSelect(e, opt.value)}
                             >
@@ -86,16 +91,17 @@ const MultiSelect = ({
     );
 
     function handleClick(e) {
+        // inside click
         if (node.current.contains(e.target)) {
-            // inside click
             return;
         }
+
         // outside click
         setIsOpen(false);
     }
 
     function getSelected() {
-        return options.filter(opt => value.includes(opt.value));
+        return options.find(item => item.value === value);
     }
 
     function getFilteredOptions() {
@@ -113,19 +119,35 @@ const MultiSelect = ({
         setSearch(e.target.value);
     }
 
-    function handleDeselect(e, clicked) {
-        e.preventDefault();
-        e.stopPropagation();
-
-        onChange(name, value.filter(item => item !== clicked));
-    }
-
     function handleSelect(e, clicked) {
         e.preventDefault();
 
-        if (value.includes(clicked)) return;
-        onChange(name, [...value, clicked]);
+        if (value === clicked) return;
+        onChange(name, clicked);
     }
 };
 
-export default withFieldValidation(MultiSelect);
+const TestSelect = withFieldValidation(Select);
+
+const options = [
+    { label: 'Option 1', value: 1 },
+    { label: 'Option 2', value: 2 },
+    { label: 'Option 3', value: 3 },
+    { label: 'Option 4', value: 4 }
+];
+
+const Test = () => {
+    const [value, setVal] = useState(null);
+    return (
+        <TestSelect
+            options={options}
+            value={value}
+            name="single"
+            onChange={(_, val) => setVal(val)}
+            required
+            // search
+        />
+    );
+};
+
+export default Test;

@@ -1,7 +1,8 @@
 import React from 'react';
 import NewSelect from 'components/shared/generic/form/presentational/NewSelect';
 import DatePickerPresentational from 'components/shared/generic/form/presentational/DatePicker';
-// import MultiSelect from 'components/shared/generic/form/presentational/MultiSelect';
+import Select from 'components/shared/generic/form/presentational/Select';
+import MultiSelect from 'components/shared/generic/form/presentational/MultiSelect';
 
 import RedPin from '_content/images/pins-examples/red-pin.svg';
 import GreenPin from '_content/images/pins-examples/green-pin.svg';
@@ -10,6 +11,7 @@ import YellowPin from '_content/images/pins-examples/yellow-pin.svg';
 import PurplePin from '_content/images/pins-examples/purple-pin.svg';
 import Field from 'components/shared/generic/form/presentational/Field';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
+import BoundlessSelect from 'components/shared/generic/form/presentational/BoundlessSelect';
 
 const DashboardStatsOptions = ({
     services,
@@ -19,11 +21,21 @@ const DashboardStatsOptions = ({
     handleChangeSetting
 }) => (
     <>
-        {/* <div className="size-lg-6">
-            <Field name="Multi">
+        <div className="size-lg-6">
+            <Field name="Multi Select">
                 <MultiSelect />
             </Field>
-        </div> */}
+        </div>
+        <div className="size-lg-6">
+            <Field name="Select">
+                <Select />
+            </Field>
+        </div>
+        <div className="size-lg-6">
+            <Field name="Boundless">
+                <BoundlessSelect />
+            </Field>
+        </div>
         <div className="map-filters size-lg-12">
             <BlockHeading title="Pin data filters">
                 <div className="pin-amounts">

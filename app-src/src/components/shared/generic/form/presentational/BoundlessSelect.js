@@ -1,8 +1,9 @@
 import React, { useState, useRef, useEffect } from 'react';
 import withFieldValidation from '../hocs/withFieldValidation';
 
-const MultiMultiDropdown = ({
+const BoundlessSelect = ({
     name,
+    search = false,
     value = [],
     options = [],
     onChange,
@@ -10,9 +11,10 @@ const MultiMultiDropdown = ({
     placeholder = '-- select options --'
 }) => {
     const [isOpen, setIsOpen] = useState(false);
+    const [hasOpened, setHasOpened] = useState(false);
     const [searchTerm, setSearch] = useState('');
-    const isInitialMount = useRef(true);
     const node = useRef();
+    const filteredOptions = getFilteredOptions();
 
     useEffect(() => {
         document.addEventListener('mousedown', handleClick);
@@ -23,16 +25,13 @@ const MultiMultiDropdown = ({
     }, []);
 
     useEffect(() => {
-        if (isInitialMount.current) {
-            isInitialMount.current = false;
-        } else {
-            if (!isOpen) showError();
-        }
+        if (isOpen && !hasOpened) setHasOpened(true);
+        else if (!isOpen && hasOpened) showError();
     }, [isOpen]);
 
     return (
         <div className="multi-multi-dropdown size-lg-12" ref={node}>
-            <div className="selected-box" onClick={toggle}>
+            <div className="selected-box" onClick={() => setIsOpen(!isOpen)}>
                 {!getSelected().length && (
                     <p className="placeholder">{placeholder}</p>
                 )}
@@ -55,17 +54,21 @@ const MultiMultiDropdown = ({
 
             {isOpen && (
                 <div className="option-selection">
-                    <div className="search-box">
-                        <input
-                            type="text"
-                            placeholder="Search..."
-                            value={searchTerm}
-                            onChange={handleSearchChange}
-                        />
-                    </div>
-
+                    {search && !!options.length && (
+                        <div className="search-box">
+                            <input
+                                type="text"
+                                placeholder="Search..."
+                                value={searchTerm}
+                                onChange={handleSearchChange}
+                            />
+                        </div>
+                    )}
                     <div className="option-container">
-                        {getFilteredOptions().map(opt => (
+                        {!filteredOptions.length && (
+                            <p>There are no options to display</p>
+                        )}
+                        {filteredOptions.map(opt => (
                             <p
                                 key={opt.value}
                                 className={`option ${
@@ -132,12 +135,6 @@ const MultiMultiDropdown = ({
 
         onChange(name, [...value, clicked]);
     }
-
-    function toggle() {
-        if (isOpen) showError();
-
-        setIsOpen(!isOpen);
-    }
 };
 
-export default withFieldValidation(MultiMultiDropdown);
+export default withFieldValidation(BoundlessSelect);
