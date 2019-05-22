@@ -14,7 +14,7 @@ const PendingInvitesTable = ({
         headers={headers}
         isFetching={isFetching}
         noData={!pendingInvites.length && !outgoingInvites.length}
-        noDataMessage="You have no pending invites."
+        noDataMessage="There are no pending invites to display."
         error={error}
     >
         {!!pendingInvites.length && (
