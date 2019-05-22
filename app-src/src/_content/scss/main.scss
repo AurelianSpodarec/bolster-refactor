@@ -2474,9 +2474,6 @@ input {
 
     &.question {
         background-color: $blue;
-        i {
-            left: -0.5px;
-        }
     }
 
     &.add {
@@ -2560,6 +2557,19 @@ input {
 
         .checkbox {
             float: right;
+        }
+
+        &:nth-child(even) {
+            .status-icon {
+                &.add {
+                    i {
+                        left: -0.5px;
+                    }
+                }
+                i {
+                    left: -0.5px;
+                }
+            }
         }
     }
 }
