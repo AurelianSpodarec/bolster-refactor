@@ -8,25 +8,25 @@ import {
     CLIENT_FETCH_HISTORY_FEED_FAILURE
 } from 'constants/client/actionTypes/clientDashboard';
 
-export const fetchHistoryFeedRequest = () => ({
+export const clientFetchHistoryFeedRequest = () => ({
     type: CLIENT_FETCH_HISTORY_FEED_REQUEST
 });
 
-export const fetchHistoryFeedSuccess = payload => ({
+export const clientFetchHistoryFeedSuccess = payload => ({
     type: CLIENT_FETCH_HISTORY_FEED_SUCCESS,
     payload
 });
 
-export const fetchHistoryFeedFailure = error => ({
+export const clientFetchHistoryFeedFailure = error => ({
     type: CLIENT_FETCH_HISTORY_FEED_FAILURE,
     error
 });
 
 export default () => dispatch => {
-    dispatch(fetchHistoryFeedRequest());
+    dispatch(clientFetchHistoryFeedRequest());
 
     axios
         .get(`${API_URL}/pins/historyfeed`, getHeaders())
-        .then(res => dispatch(fetchHistoryFeedSuccess(res.data)))
-        .catch(err => dispatch(fetchHistoryFeedFailure(err.message)));
+        .then(res => dispatch(clientFetchHistoryFeedSuccess(res.data)))
+        .catch(err => dispatch(clientFetchHistoryFeedFailure(err.message)));
 };
