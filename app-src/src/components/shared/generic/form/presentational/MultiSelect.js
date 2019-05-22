@@ -7,6 +7,7 @@ import withFieldValidation from '../hocs/withFieldValidation';
 // field errors will be output below automatically
 // options should be in this form '[{ value: 1, label: "opt 1" }, { value: 2, label: "opt 2" }]'
 // value should be an array of selected values i.e '[1, 2]'
+// pass an empty array as the default value
 const MultiSelect = ({
     name,
     search = false,
