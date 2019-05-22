@@ -140,27 +140,4 @@ const Select = ({
     }
 };
 
-const TestSelect = withFieldValidation(Select);
-
-const options = [
-    { label: 'Option 1', value: 1 },
-    { label: 'Option 2', value: 2 },
-    { label: 'Option 3', value: 3 },
-    { label: 'Option 4', value: 4 }
-];
-
-const Test = () => {
-    const [value, setVal] = useState(null);
-    return (
-        <TestSelect
-            options={options}
-            value={value}
-            name="single"
-            onChange={(_, val) => setVal(val)}
-            required
-            // search
-        />
-    );
-};
-
-export default Test;
+export default withFieldValidation(Select);
