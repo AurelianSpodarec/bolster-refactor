@@ -25,10 +25,10 @@ const CardListItem = ({
                 )}
             </td>
             <td>
-                <BlockButtonWrapper>
+                <BlockButtonWrapper addtionalClasses="card-buttons">
                     {!isPrimary && (
                         <ButtonContainer handleClick={setPrimaryCard}>
-                            Make Primary
+                            Set Primary
                         </ButtonContainer>
                     )}
                     <button

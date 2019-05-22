@@ -179,6 +179,10 @@ body {
         float: right;
         margin-left: 7.5px;
     }
+
+    &.card-buttons {
+        width: 120px;
+    }
 }
 
 .content-area {
@@ -2520,7 +2524,7 @@ input {
         position: absolute;
         top: 50%;
         transform: translateY(-50%);
-        left: 0;
+        left: 0.25px;
         text-align: center;
         width: 100%;
         font-size: 10px;
