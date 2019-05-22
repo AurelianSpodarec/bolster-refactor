@@ -1,15 +1,19 @@
 import React, { useState, useRef, useEffect } from 'react';
 import withFieldValidation from '../hocs/withFieldValidation';
 
-// MultiSelect is a multi select
+// MultiSelect is a multi select dropdown
 // pass 'required' prop if it's required
 // pass 'search' prop if you want to enable the search
+// pass 'disabled' flag if you want to disable the dropdown
+// pass a 'placeholder' string if you want to customize the placeholder
 // field errors will be output below automatically
 // options should be in this form '[{ value: 1, label: "opt 1" }, { value: 2, label: "opt 2" }]'
 // value should be an array of selected values i.e '[1, 2]'
+// pass an empty array as the default value
 const MultiSelect = ({
     name,
     search = false,
+    disabled = false,
     value = [],
     options = [],
     onChange,
@@ -36,8 +40,16 @@ const MultiSelect = ({
     }, [isOpen]);
 
     return (
-        <div className="multi-multi-dropdown size-lg-12" ref={node}>
-            <div className="selected-box" onClick={() => setIsOpen(!isOpen)}>
+        <div
+            className={`multi-multi-dropdown size-lg-12 ${
+                disabled ? 'disabled' : ''
+            }`}
+            ref={node}
+        >
+            <div
+                className="selected-box"
+                onClick={() => !disabled && setIsOpen(!isOpen)}
+            >
                 {!getSelected().length && (
                     <p className="placeholder">{placeholder}</p>
                 )}

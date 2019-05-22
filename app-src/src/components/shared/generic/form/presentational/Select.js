@@ -1,15 +1,19 @@
 import React, { useState, useRef, useEffect } from 'react';
 import withFieldValidation from '../hocs/withFieldValidation';
 
-// Select is a single select
-// pass 'required' prop if it's required
-// pass 'search' prop if you want to enable the search
+// Select is a single select dropdown
+// pass 'required' flag if it's required
+// pass 'search' flag if you want to enable the search
+// pass 'disabled' flag if you want to disable the dropdown
+// pass a 'placeholder' string if you want to customize the placeholder
 // field errors will be output below automatically
 // options should be in this form '[{ value: 1, label: "opt 1" }, { value: 2, label: "opt 2" }]'
 // value should be the selected 'value' not option(the number not the object)
+// pass `null` as the default value
 const Select = ({
     name,
     search = false,
+    disabled = false,
     value = null,
     options = [],
     onChange,
@@ -38,9 +42,11 @@ const Select = ({
 
     return (
         <div
-            className="multi-multi-dropdown size-lg-12"
+            className={`multi-multi-dropdown size-lg-12 ${
+                disabled ? 'disabled' : ''
+            }`}
             ref={node}
-            onClick={() => setIsOpen(!isOpen)}
+            onClick={() => !disabled && setIsOpen(!isOpen)}
         >
             <div className="selected-box">
                 {!selected ? (
@@ -134,27 +140,4 @@ const Select = ({
     }
 };
 
-const TestSelect = withFieldValidation(Select);
-
-const options = [
-    { label: 'Option 1', value: 1 },
-    { label: 'Option 2', value: 2 },
-    { label: 'Option 3', value: 3 },
-    { label: 'Option 4', value: 4 }
-];
-
-const Test = () => {
-    const [value, setVal] = useState(null);
-    return (
-        <TestSelect
-            options={options}
-            value={value}
-            name="single"
-            onChange={(_, val) => setVal(val)}
-            required
-            // search
-        />
-    );
-};
-
-export default Test;
+export default withFieldValidation(Select);
