@@ -6,7 +6,7 @@ import {
     CLIENT_FETCH_SINGLE_BUILDING_REQUEST,
     CLIENT_FETCH_SINGLE_BUILDING_SUCCESS,
     CLIENT_FETCH_SINGLE_BUILDING_FAILURE
-} from 'constants/actionTypes/buildings';
+} from 'constants/client/actionTypes/clientBuildings';
 
 export const clientFetchBuildingRequest = () => ({
     type: CLIENT_FETCH_SINGLE_BUILDING_REQUEST

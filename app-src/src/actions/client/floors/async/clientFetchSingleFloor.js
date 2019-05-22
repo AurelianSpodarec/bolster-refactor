@@ -6,7 +6,7 @@ import {
     CLIENT_FETCH_SINGLE_FLOOR_REQUEST,
     CLIENT_FETCH_SINGLE_FLOOR_SUCCESS,
     CLIENT_FETCH_SINGLE_FLOOR_FAILURE
-} from 'constants/actionTypes/floors';
+} from 'constants/client/actionTypes/clientFloors';
 
 export const clientFetchSingleFloorRequest = () => ({
     type: CLIENT_FETCH_SINGLE_FLOOR_REQUEST

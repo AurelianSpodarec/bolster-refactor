@@ -6,7 +6,7 @@ import {
     CLIENT_FETCH_LIVE_HISTORIES_REQUEST,
     CLIENT_FETCH_LIVE_HISTORIES_SUCCESS,
     CLIENT_FETCH_LIVE_HISTORIES_FAILURE
-} from 'constants/actionTypes/dashboard';
+} from 'constants/client/actionTypes/clientDashboard';
 
 export const clientFetchLiveHistoriesRequest = () => ({
     type: CLIENT_FETCH_LIVE_HISTORIES_REQUEST
