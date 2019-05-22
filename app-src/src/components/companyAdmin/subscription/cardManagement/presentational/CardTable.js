@@ -18,7 +18,7 @@ const CardTable = ({
             headers={headers}
             isFetching={isFetching}
             error={error}
-            noData={!cards.length}
+            noData={isFetching}
             noDataMessage="You have no cards set up."
         >
             <CardsList
