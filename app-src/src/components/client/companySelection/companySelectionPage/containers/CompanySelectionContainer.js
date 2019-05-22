@@ -33,25 +33,27 @@ class CompanySelectionContainer extends Component {
 
     // componentDidUpdate = prevProps => {
     //     const {
-    //         postSuccess,
-    //         history,
-    //         addFieldError,
-    //         showFieldErrors
+    // companyOptions
+    //         selectedCompany,
+    //         history
     //     } = this.props;
 
-    //     // if (postSuccess && !prevProps.postSuccess) {
-    //     //     authenticate().then(({ isSuperAdmin, companyUserType }) => {
-    //     //         if (+companyUserType === COMPANY_USER_ROLE_TYPES.OPERATIVE) {
-    //     //             localStorage.removeItem('token');
-    //     //             addFieldError(
-    //     //                 'password',
-    //     //                 'Operatives logins are not permitted to use the desktop site.'
-    //     //             );
-    //     //             showFieldErrors();
-    //     //         } else history.push(isSuperAdmin ? '/admin' : '/company');
-    //     //     });
-    //     // }
-    // };
+    // if(isFetching && prevProps.isFetching && companyOptions.length) {
+    //     this.setState({companyOptions: companyOptions})
+    // }
+
+    // if(selectedCompany && selectedCompany !== prevProps.selectedCompany) {
+    //     history.push('client company site')
+    //     // navigate to company area for that client
+    // }
 }
+
+// todo include once the api is set up
+// companies, selected company
+// const mapStateToProps = ({}) => ({});
+
+// todo fetch the companies list that the client has access to
+// todo select the company by it's id
+// const mapDispatchToProps = dispatch => ({});
 
 export default withRouter(connect()(CompanySelectionContainer));
