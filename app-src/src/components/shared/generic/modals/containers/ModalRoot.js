@@ -43,9 +43,7 @@ import {
     ADD_DROPDOWN_OPTION,
     EDIT_DROPDOWN_OPTION,
     DELETE_DROPDOWN_OPTION,
-    CREATE_COMPANY_ADMIN,
-    EDIT_COMPANY_ADMIN,
-    COMPANY_ADMIN_CHANGE_PASSWORD
+    CREATE_COMPANY_ADMIN
 } from 'constants/shared/modalTypes';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';

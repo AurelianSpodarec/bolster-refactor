@@ -1,3 +1,3 @@
-import { combineReducers } from 'redux';
+import { combineReducers } from 'react-redux';
 
 export default combineReducers({});
