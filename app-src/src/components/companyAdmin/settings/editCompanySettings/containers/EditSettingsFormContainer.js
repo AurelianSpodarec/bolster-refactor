@@ -22,7 +22,7 @@ class EditSettingsFormContainer extends Component {
         county: '',
         postcode: '',
         logoFile: null,
-        colourCode: '#fff',
+        colourCode: null,
         isBolsterLogoDark: false,
         telephone: null,
         fax: null,
@@ -89,7 +89,7 @@ class EditSettingsFormContainer extends Component {
             ...restSettings,
             initialFile: logoFile,
             logoFile,
-            colourCode: colourCode || '#FFF',
+            colourCode: colourCode,
             timezone: {
                 label: `${timeZone.name} - ${timeZone.offset}`,
                 value: timeZone.id
