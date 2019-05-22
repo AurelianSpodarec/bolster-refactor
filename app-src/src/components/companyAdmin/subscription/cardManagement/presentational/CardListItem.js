@@ -2,6 +2,7 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
+import StatusIcon from 'components/shared/generic/statusIcon/presentationl/StatusIcon';
 
 const CardListItem = ({
     card: { expMonth, expYear, isPrimary, lastFour, name, id },
@@ -15,8 +16,12 @@ const CardListItem = ({
             <td>{name}</td>
             <td>{`XXXX-XXXX-XXXX-${lastFour}`}</td>
             <td>{`${expMonthString.padStart(2, '0')}/${expYear}`}</td>
-            <td>
-                {<i className={isPrimary ? 'fa fa-check' : 'fa fa-times'} />}
+            <td className="center-align">
+                {isPrimary ? (
+                    <StatusIcon />
+                ) : (
+                    <StatusIcon classes="times" iconClass="fa fa-times" />
+                )}
             </td>
             <td>
                 <BlockButtonWrapper>
