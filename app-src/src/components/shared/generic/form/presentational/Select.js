@@ -1,6 +1,12 @@
 import React, { useState, useRef, useEffect } from 'react';
 import withFieldValidation from '../hocs/withFieldValidation';
 
+// Select is a single select
+// pass 'required' prop if it's required
+// pass 'search' prop if you want to enable the search
+// field errors will be output below automatically
+// options should be in this form '[{ value: 1, label: "opt 1" }, { value: 2, label: "opt 2" }]'
+// value should be the selected 'value' not option(the number not the object)
 const Select = ({
     name,
     search = false,
@@ -105,6 +111,7 @@ const Select = ({
     }
 
     function getFilteredOptions() {
+        if (search || !searchTerm) return options;
         return options.filter(opt =>
             opt.label
                 .replace(/\s/g, '')

@@ -1,7 +1,12 @@
 import React, { useState, useRef, useEffect } from 'react';
 import withFieldValidation from '../hocs/withFieldValidation';
 
-// Select options an unlimited amount
+// Boundless select is a mult select with the ability to click the same option multiple times
+// pass 'required' prop if it's required
+// pass 'search' prop if you want to enable the search
+// field errors will be output below automatically
+// options should be in this form '[{ value: 1, label: "opt 1" }, { value: 2, label: "opt 2" }]'
+// value should be an array of selected values i.e '[1, 2, 2, 2, 1]'
 const BoundlessSelect = ({
     name,
     search = false,
@@ -108,6 +113,7 @@ const BoundlessSelect = ({
     }
 
     function getFilteredOptions() {
+        if (search || !searchTerm) return options;
         return options.filter(opt =>
             opt.label
                 .replace(/\s/g, '')
