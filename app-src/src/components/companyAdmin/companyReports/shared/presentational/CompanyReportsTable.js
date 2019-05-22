@@ -21,7 +21,7 @@ const CompanyReportsTable = ({
             isFetching={isFetching}
             error={error}
             noData={!companyReports.length}
-            noDataMessage="Company Reports is empty"
+            noDataMessage="No company reports to display."
         >
             <CompanyReportsList companyReports={companyReports} />
         </Table>

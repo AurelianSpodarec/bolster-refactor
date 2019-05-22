@@ -6,7 +6,7 @@ import {
     CLIENT_FETCH_ALL_SITES_REQUEST,
     CLIENT_FETCH_ALL_SITES_SUCCESS,
     CLIENT_FETCH_ALL_SITES_FAILURE
-} from 'constants/actionTypes/sites';
+} from 'constants/client/actionTypes/clientSites';
 
 export const clientFetchAllSitesRequest = () => ({
     type: CLIENT_FETCH_ALL_SITES_REQUEST

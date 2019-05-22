@@ -17,7 +17,7 @@ class CardTableContainer extends Component {
         const { isFetching, error, showModal, deleteCard, cards } = this.props;
         const headers = [
             'Name',
-            'Card No',
+            'Card No.',
             'Expiry',
             'Primary Card',
             'Options'

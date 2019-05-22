@@ -6,7 +6,7 @@ import {
     CLIENT_FETCH_ALL_FLOORS_REQUEST,
     CLIENT_FETCH_ALL_FLOORS_SUCCESS,
     CLIENT_FETCH_ALL_FLOORS_FAILURE
-} from 'constants/actionTypes/floors';
+} from 'constants/client/actionTypes/clientFloors';
 
 export const clientFetchAllFloorsRequest = () => ({
     type: CLIENT_FETCH_ALL_FLOORS_REQUEST

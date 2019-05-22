@@ -41,6 +41,19 @@ const SubscriptionStatus = ({ subscriptions, active, endOn, noCards }) => (
                                 set up a card or switch to invoice.
                             </p>
                         )}
+                    {subscriptions.renewalType !==
+                        SUBSCRIPTION_RENEWAL_IDS.CARD &&
+                        subscriptions.renewalType !==
+                            SUBSCRIPTION_RENEWAL_IDS.INVOICE && (
+                            <p
+                                className="info-message error"
+                                style={{ marginTop: '15px' }}
+                            >
+                                You have auto-renewal turned on, however have
+                                not selected a payment method. Please select a
+                                payment method.
+                            </p>
+                        )}
                 </>
             ) : (
                 <p className="size-lg-12">

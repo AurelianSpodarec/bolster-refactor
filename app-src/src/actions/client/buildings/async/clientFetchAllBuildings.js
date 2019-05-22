@@ -6,7 +6,7 @@ import {
     CLIENT_FETCH_ALL_BUILDINGS_REQUEST,
     CLIENT_FETCH_ALL_BUILDINGS_SUCCESS,
     CLIENT_FETCH_ALL_BUILDINGS_FAILURE
-} from 'constants/actionTypes/buildings';
+} from 'constants/client/actionTypes/clientBuildings';
 
 export const clientFetchAllBuildingsRequest = () => ({
     type: CLIENT_FETCH_ALL_BUILDINGS_REQUEST
