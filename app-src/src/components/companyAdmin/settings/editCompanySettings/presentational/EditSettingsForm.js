@@ -130,7 +130,7 @@ const EditSettingsForm = ({
                     <Field name="Change Colour Scheme">
                         <div className="size-lg-12">
                             <HuePicker
-                                color={colourCode}
+                                color={colourCode || '#FFF'}
                                 onChangeComplete={handleColourSelect}
                             />
                         </div>
