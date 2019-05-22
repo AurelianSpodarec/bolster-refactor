@@ -17,7 +17,7 @@ import resetPinAnswers from 'actions/companyAdmin/drawings/sync/resetPinAnswers'
 
 import { convertArrToObj, convertEnumToDropdownOptions } from 'helpers/generic';
 import Field from 'components/shared/generic/form/presentational/Field';
-import MultiMultiDropdown from 'components/shared/generic/form/presentational/MultiMultiDropdown';
+import BoundlessSelect from 'components/shared/generic/form/presentational/BoundlessSelect';
 import { PIN_STATUS_TYPES } from 'constants/companyAdmin/enums';
 import updateAddPinStatus from 'actions/companyAdmin/drawings/sync/updateAddPinStatus';
 
@@ -247,12 +247,13 @@ const MultiMulti = ({
     }));
 
     return (
-        <MultiMultiDropdown
+        <BoundlessSelect
             required={isRequired}
             options={formattedOpts}
             value={answers[id]}
             name={`answer-${id}`}
             onChange={handleMultiMultiChange}
+            search
         />
     );
 };
@@ -271,12 +272,13 @@ const MultiMultiDropdownOptions = ({
         }));
 
     return (
-        <MultiMultiDropdown
+        <BoundlessSelect
             required={isRequired}
             options={formattedOpts}
             value={answers[id]}
             name={`answer-${id}`}
             onChange={handleMultiMultiChange}
+            search
         />
     );
 };
