@@ -6,7 +6,7 @@ import {
     CLIENT_FETCH_SINGLE_SITE_REQUEST,
     CLIENT_FETCH_SINGLE_SITE_SUCCESS,
     CLIENT_FETCH_SINGLE_SITE_FAILURE
-} from 'constants/actionTypes/sites';
+} from 'constants/client/actionTypes/clientSites';
 
 export const clientFetchSiteRequest = () => ({
     type: CLIENT_FETCH_SINGLE_SITE_REQUEST
