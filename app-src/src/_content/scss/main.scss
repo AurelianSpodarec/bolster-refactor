@@ -1796,6 +1796,12 @@ input {
             }
         }
 
+        .status-icon {
+            &.warning {
+                height: 12px;
+            }
+        }
+
         .button-block-container {
             margin-top: 0;
             padding: 0;
