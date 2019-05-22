@@ -22,7 +22,7 @@ const AllOperativesTable = ({ headers, users, isFetching, error }) => (
             isFetching={isFetching}
             error={error}
             noData={!users.length}
-            noDataMessage="No operatives to display"
+            noDataMessage="No operatives to display."
         >
             {users.map(user => (
                 <AllOperativesListItemContainer key={user.id} user={user} />

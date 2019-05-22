@@ -1,8 +1,19 @@
 import React, { useState, useRef, useEffect } from 'react';
 import withFieldValidation from '../hocs/withFieldValidation';
 
-const MultiMultiDropdown = ({
+// Boundless select is a mult select dropdown with the ability to click the same option multiple times
+// pass 'required' prop if it's required
+// pass 'search' prop if you want to enable the search
+// pass 'disabled' flag if you want to disable the dropdown
+// pass a ''placeholder'' string if you want to customize the placeholder
+// field errors will be output below automatically
+// options should be in this form '[{ value: 1, label: "opt 1" }, { value: 2, label: "opt 2" }]'
+// value should be an array of selected values i.e '[1, 2, 2, 2, 1]'
+// pass an empty array as the default value
+const BoundlessSelect = ({
     name,
+    search = false,
+    disabled = false,
     value = [],
     options = [],
     onChange,
@@ -10,9 +21,10 @@ const MultiMultiDropdown = ({
     placeholder = '-- select options --'
 }) => {
     const [isOpen, setIsOpen] = useState(false);
+    const [hasOpened, setHasOpened] = useState(false);
     const [searchTerm, setSearch] = useState('');
-    const isInitialMount = useRef(true);
     const node = useRef();
+    const filteredOptions = getFilteredOptions();
 
     useEffect(() => {
         document.addEventListener('mousedown', handleClick);
@@ -23,16 +35,21 @@ const MultiMultiDropdown = ({
     }, []);
 
     useEffect(() => {
-        if (isInitialMount.current) {
-            isInitialMount.current = false;
-        } else {
-            if (!isOpen) showError();
-        }
+        if (isOpen && !hasOpened) setHasOpened(true);
+        else if (!isOpen && hasOpened) showError();
     }, [isOpen]);
 
     return (
-        <div className="multi-multi-dropdown size-lg-12" ref={node}>
-            <div className="selected-box" onClick={toggle}>
+        <div
+            className={`multi-multi-dropdown size-lg-12 ${
+                disabled ? 'disabled' : ''
+            }`}
+            ref={node}
+        >
+            <div
+                className="selected-box"
+                onClick={() => !disabled && setIsOpen(!isOpen)}
+            >
                 {!getSelected().length && (
                     <p className="placeholder">{placeholder}</p>
                 )}
@@ -55,17 +72,21 @@ const MultiMultiDropdown = ({
 
             {isOpen && (
                 <div className="option-selection">
-                    <div className="search-box">
-                        <input
-                            type="text"
-                            placeholder="Search..."
-                            value={searchTerm}
-                            onChange={handleSearchChange}
-                        />
-                    </div>
-
+                    {search && !!options.length && (
+                        <div className="search-box">
+                            <input
+                                type="text"
+                                placeholder="Search..."
+                                value={searchTerm}
+                                onChange={handleSearchChange}
+                            />
+                        </div>
+                    )}
                     <div className="option-container">
-                        {getFilteredOptions().map(opt => (
+                        {!filteredOptions.length && (
+                            <p>There are no options to display</p>
+                        )}
+                        {filteredOptions.map(opt => (
                             <p
                                 key={opt.value}
                                 className={`option ${
@@ -104,6 +125,7 @@ const MultiMultiDropdown = ({
     }
 
     function getFilteredOptions() {
+        if (search || !searchTerm) return options;
         return options.filter(opt =>
             opt.label
                 .replace(/\s/g, '')
@@ -132,12 +154,6 @@ const MultiMultiDropdown = ({
 
         onChange(name, [...value, clicked]);
     }
-
-    function toggle() {
-        if (isOpen) showError();
-
-        setIsOpen(!isOpen);
-    }
 };
 
-export default withFieldValidation(MultiMultiDropdown);
+export default withFieldValidation(BoundlessSelect);

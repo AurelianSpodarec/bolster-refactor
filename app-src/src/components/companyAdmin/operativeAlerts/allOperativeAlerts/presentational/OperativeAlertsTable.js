@@ -28,6 +28,7 @@ const OperativeAlertsTable = ({ isFetching, operativeAlerts }) => (
             withActions
             isFetching={isFetching}
             noData={!operativeAlerts.length}
+            noDataMessage="There are no operative alerts to display."
         >
             <AllOperativeAlertsList operativeAlerts={operativeAlerts} />
         </Table>

@@ -1,20 +1,20 @@
 import React, { useState, useRef, useEffect } from 'react';
 import withFieldValidation from '../hocs/withFieldValidation';
 
-// MultiSelect is a multi select dropdown
-// pass 'required' prop if it's required
-// pass 'search' prop if you want to enable the search
+// Select is a single select dropdown
+// pass 'required' flag if it's required
+// pass 'search' flag if you want to enable the search
 // pass 'disabled' flag if you want to disable the dropdown
 // pass a 'placeholder' string if you want to customize the placeholder
 // field errors will be output below automatically
 // options should be in this form '[{ value: 1, label: "opt 1" }, { value: 2, label: "opt 2" }]'
-// value should be an array of selected values i.e '[1, 2]'
-// pass an empty array as the default value
-const MultiSelect = ({
+// value should be the selected 'value' not option(the number not the object)
+// pass `null` as the default value
+const Select = ({
     name,
     search = false,
     disabled = false,
-    value = [],
+    value = null,
     options = [],
     onChange,
     showError,
@@ -25,6 +25,7 @@ const MultiSelect = ({
     const [searchTerm, setSearch] = useState('');
     const node = useRef();
     const filteredOptions = getFilteredOptions();
+    const selected = getSelected();
 
     useEffect(() => {
         document.addEventListener('mousedown', handleClick);
@@ -45,27 +46,14 @@ const MultiSelect = ({
                 disabled ? 'disabled' : ''
             }`}
             ref={node}
+            onClick={() => !disabled && setIsOpen(!isOpen)}
         >
-            <div
-                className="selected-box"
-                onClick={() => !disabled && setIsOpen(!isOpen)}
-            >
-                {!getSelected().length && (
+            <div className="selected-box">
+                {!selected ? (
                     <p className="placeholder">{placeholder}</p>
+                ) : (
+                    <p className="placeholder">{selected.label}</p>
                 )}
-                {getSelected().map(opt => (
-                    <div
-                        key={opt.value}
-                        className="option"
-                        onClick={() => isOpen && setIsOpen(false)}
-                    >
-                        <p>{opt.label}</p>
-                        <i
-                            className="close fal fa-times"
-                            onClick={e => handleDeselect(e, opt.value)}
-                        />
-                    </div>
-                ))}
 
                 <i className="arrow fal fa-angle-down" />
             </div>
@@ -73,7 +61,10 @@ const MultiSelect = ({
             {isOpen && (
                 <div className="option-selection">
                     {search && !!options.length && (
-                        <div className="search-box">
+                        <div
+                            className="search-box"
+                            onClick={e => e.stopPropagation()}
+                        >
                             <input
                                 type="text"
                                 placeholder="Search..."
@@ -83,14 +74,22 @@ const MultiSelect = ({
                         </div>
                     )}
                     <div className="option-container">
-                        {!filteredOptions.length && (
+                        {filteredOptions.length ? (
+                            <p
+                                className={`option ${!value ? 'active' : ''}`}
+                                onClick={e => handleSelect(e, null)}
+                            >
+                                {placeholder}
+                            </p>
+                        ) : (
                             <p>There are no options to display</p>
                         )}
+
                         {filteredOptions.map(opt => (
                             <p
                                 key={opt.value}
                                 className={`option ${
-                                    value.includes(opt.value) ? 'active' : ''
+                                    value === opt.value ? 'active' : ''
                                 }`}
                                 onClick={e => handleSelect(e, opt.value)}
                             >
@@ -104,16 +103,17 @@ const MultiSelect = ({
     );
 
     function handleClick(e) {
+        // inside click
         if (node.current.contains(e.target)) {
-            // inside click
             return;
         }
+
         // outside click
         setIsOpen(false);
     }
 
     function getSelected() {
-        return options.filter(opt => value.includes(opt.value));
+        return options.find(item => item.value === value);
     }
 
     function getFilteredOptions() {
@@ -132,19 +132,12 @@ const MultiSelect = ({
         setSearch(e.target.value);
     }
 
-    function handleDeselect(e, clicked) {
-        e.preventDefault();
-        e.stopPropagation();
-
-        onChange(name, value.filter(item => item !== clicked));
-    }
-
     function handleSelect(e, clicked) {
         e.preventDefault();
 
-        if (value.includes(clicked)) return;
-        onChange(name, [...value, clicked]);
+        if (value === clicked) return;
+        onChange(name, clicked);
     }
 };
 
-export default withFieldValidation(MultiSelect);
+export default withFieldValidation(Select);
