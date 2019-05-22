@@ -40,9 +40,7 @@ class SetLabelFieldModalContainer extends Component {
         this.setState({ ...convertArrToObj(labelFields, 'uuid') });
     }
 
-    handleChange = (e, uuid) => {
-        e.preventDefault();
-        const { name, value } = e.target;
+    handleChange = (name, value, uuid) => {
         const { [uuid]: field } = this.state;
 
         const updatedField = {
