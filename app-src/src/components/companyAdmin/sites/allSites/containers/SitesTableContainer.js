@@ -50,7 +50,7 @@ class SitesTableContainer extends Component {
                 title: 'Error',
                 message:
                     error.message ||
-                    '##There was an error processing your request, please try again later.##'
+                    'There was an error processing your request, please try again later.'
             });
         }
     };

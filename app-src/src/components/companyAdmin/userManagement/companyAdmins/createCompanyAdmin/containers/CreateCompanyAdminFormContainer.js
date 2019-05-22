@@ -7,6 +7,7 @@ import { COMPANY_USER_ROLE_TYPES } from 'constants/companyAdmin/enums';
 import createCompanyUser from 'actions/companyAdmin/userManagement/async/createCompanyUser';
 import addFieldError from 'actions/shared/generic/fieldErrors/sync/addFieldError';
 import removeFieldError from 'actions/shared/generic/fieldErrors/sync/removeFieldError';
+import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 
 class CreateCompanyAdminFormContainer extends Component {
     state = {
@@ -48,10 +49,10 @@ class CreateCompanyAdminFormContainer extends Component {
     };
 
     componentDidUpdate = prevProps => {
-        const { postSuccess, history } = this.props;
+        const { postSuccess, hideModal } = this.props;
 
         if (postSuccess && !prevProps.postSuccess) {
-            history.push('/company/users-management/company-admins');
+            hideModal();
         }
     };
 
@@ -81,7 +82,10 @@ const mapDispatchToProps = dispatch => ({
         dispatch(createCompanyUser(postBody));
     },
     addFieldError: (field, err) => dispatch(addFieldError(field, err)),
-    removeFieldError: field => dispatch(removeFieldError(field))
+    removeFieldError: field => dispatch(removeFieldError(field)),
+    hideModal: () => {
+        dispatch(hideModal());
+    }
 });
 
 export default withRouter(
