@@ -15,7 +15,7 @@ const SuperAdminInvoicesTable = ({
         isFetching={isFetching}
         error={error}
         noData={!invoices.length}
-        noDataMessage="No invoices to display"
+        noDataMessage="No invoices to display."
     >
         <SuperAdminInvoicesList invoices={invoices} showModal={showModal} />
     </Table>

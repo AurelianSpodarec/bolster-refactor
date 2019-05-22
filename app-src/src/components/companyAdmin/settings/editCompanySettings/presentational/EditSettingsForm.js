@@ -52,7 +52,6 @@ const EditSettingsForm = ({
                     type="text"
                     handleChange={handleInputChange}
                     required
-                    placeholder="company name..."
                 />
             </Field>
             <Field name="Address Line 1" sizeClasses="size-lg-6" required>
@@ -62,7 +61,6 @@ const EditSettingsForm = ({
                     type="text"
                     handleChange={handleInputChange}
                     required
-                    placeholder="address line 1..."
                 />
             </Field>
             <Field name="Address Line 2" sizeClasses="size-lg-6">
@@ -71,7 +69,6 @@ const EditSettingsForm = ({
                     name="addressLine2"
                     type="text"
                     handleChange={handleInputChange}
-                    placeholder="address line 2..."
                 />
             </Field>
             <Field name="Town" sizeClasses="size-lg-6" required>
@@ -80,7 +77,6 @@ const EditSettingsForm = ({
                     name="town"
                     type="text"
                     handleChange={handleInputChange}
-                    placeholder="town..."
                     required
                 />
             </Field>
@@ -90,7 +86,6 @@ const EditSettingsForm = ({
                     name="county"
                     type="text"
                     handleChange={handleInputChange}
-                    placeholder="town..."
                     required
                 />
             </Field>
@@ -100,7 +95,6 @@ const EditSettingsForm = ({
                     name="postcode"
                     type="text"
                     handleChange={handleInputChange}
-                    placeholder="postcode..."
                     required
                 />
             </Field>
@@ -110,7 +104,6 @@ const EditSettingsForm = ({
                     name="telephone"
                     type="text"
                     handleChange={handleInputChange}
-                    placeholder="telephone..."
                     required
                 />
             </Field>
@@ -120,7 +113,6 @@ const EditSettingsForm = ({
                     name="fax"
                     type="text"
                     handleChange={handleInputChange}
-                    placeholder="fax..."
                     required
                 />
             </Field>
@@ -182,7 +174,6 @@ const EditSettingsForm = ({
                         name="labelCompanyName"
                         type="text"
                         handleChange={handleInputChange}
-                        placeholder="Label company name..."
                         required
                     />
                 </Field>
@@ -196,7 +187,6 @@ const EditSettingsForm = ({
                         name="labelTelNumber"
                         type="text"
                         handleChange={handleInputChange}
-                        placeholder="Label telephone no..."
                         required
                     />
                 </Field>
