@@ -27,7 +27,7 @@ const ClientsTable = ({
             isFetching={isFetching}
             error={error}
             noData={!clients.length}
-            noDataMessage="No clients to display"
+            noDataMessage="No clients to display."
         >
             <ClientsList
                 handleDeleteClientModal={handleDeleteClientModal}
