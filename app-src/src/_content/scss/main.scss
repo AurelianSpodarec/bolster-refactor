@@ -120,6 +120,22 @@ body {
     }
 }
 
+.info-message {
+    float: left;
+    width: 100%;
+    padding: 5px 10px;
+    background-color: #d0e5fb;
+    border-radius: 5px;
+
+    &.warning {
+        background-color: #fbf0d0;
+    }
+
+    &.error {
+        background-color: #fbd0d0;
+    }
+}
+
 .content-container {
     padding: 0 5px;
 
@@ -141,7 +157,9 @@ body {
 .align-right {
     text-align: right;
 }
-
+.center-align {
+    text-align: center;
+}
 //for button under content blocks/areas
 .button-block-container {
     padding: 0 5px;
@@ -1305,7 +1323,23 @@ input {
         }
     }
 }
-
+.filepond--drop-label {
+    label {
+        top: 1px;
+        font-size: 120% !important;
+    }
+}
+.filepond--root {
+    font-size: 1.25rem;
+}
+.filepond--file-info {
+    .filepond--file-info-main {
+        font-size: 140% !important;
+    }
+    .filepond--file-info-sub {
+        font-size: 120% !important;
+    }
+}
 //uploaded file on edit doc
 .file-view {
     img {
@@ -1763,14 +1797,40 @@ input {
             text-align: right;
         }
 
+        &.left-align {
+            text-align: left;
+        }
+
+        &.email-field {
+            word-break: break-all;
+        }
+
+        .link {
+            color: $red;
+            text-decoration: underline;
+
+            &:hover {
+                text-decoration: none;
+            }
+        }
+
+        .status-icon {
+            &.warning {
+                height: 12px;
+            }
+            left: -15px;
+        }
+
         .button-block-container {
             margin-top: 0;
             padding: 0;
+            float: none;
 
             .link-holder,
             .button {
+                float: none;
                 margin-left: 2.5px;
-                margin-bottom: 1px;
+                margin-bottom: 2px;
             }
         }
     }
@@ -1803,6 +1863,7 @@ input {
 
     .status-icon {
         margin: 0;
+        top: 2px;
         i {
             margin-right: 0;
         }
@@ -2409,7 +2470,6 @@ input {
     width: 18px;
     height: 18px;
     border-radius: 50%;
-    color: white;
 
     i {
         position: absolute;
@@ -2419,6 +2479,7 @@ input {
         text-align: center;
         width: 100%;
         font-size: 10px;
+        color: white;
     }
 
     &.pull-left {
@@ -2439,9 +2500,6 @@ input {
 
     &.question {
         background-color: $blue;
-        i {
-            left: -0.5px;
-        }
     }
 
     &.add {
@@ -2463,9 +2521,10 @@ input {
         }
     }
 
-    &.none {
+    &.times {
         background-color: $red;
         i {
+            color: white;
             font-size: 14px;
         }
     }
@@ -2525,6 +2584,19 @@ input {
 
         .checkbox {
             float: right;
+        }
+
+        &:nth-child(even) {
+            .status-icon {
+                &.add {
+                    i {
+                        left: -0.5px;
+                    }
+                }
+                i {
+                    left: -0.5px;
+                }
+            }
         }
     }
 }

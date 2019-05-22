@@ -14,7 +14,9 @@ const LabelFields = ({ fields, handleChange, questionOptions }) => (
                 labelField={labelField}
                 sourceOptions={Object.values(sourceOptions)}
                 selectedSource={sourceOptions[labelField.config.source]}
-                handleChange={e => handleChange(e, labelField.uuid)}
+                handleChange={(name, value) =>
+                    handleChange(name, value, labelField.uuid)
+                }
             />
         ))}
     </div>

@@ -2,35 +2,46 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
+import StatusIcon from 'components/shared/generic/statusIcon/presentationl/StatusIcon';
 
 const CardListItem = ({
     card: { expMonth, expYear, isPrimary, lastFour, name, id },
     setPrimaryCard,
     deleteCard
-}) => (
-    <tr>
-        <td>{name}</td>
-        <td>{`XXXX-XXXX-XXXX-${lastFour}`}</td>
-        <td>{`${expMonth}/${expYear}`}</td>
-        <td>{<i className={isPrimary ? 'fa fa-check' : 'fa fa-times'} />}</td>
-        <td>
-            <BlockButtonWrapper>
-                <button
-                    className="button icon-only red"
-                    onClick={() => {
-                        deleteCard(id);
-                    }}
-                >
-                    <i className="far fa-trash-alt" />
-                </button>
-                {!isPrimary && (
-                    <ButtonContainer handleClick={setPrimaryCard}>
-                        Make Primary
-                    </ButtonContainer>
+}) => {
+    const expMonthString = expMonth + '';
+
+    return (
+        <tr>
+            <td>{name}</td>
+            <td>{`XXXX-XXXX-XXXX-${lastFour}`}</td>
+            <td>{`${expMonthString.padStart(2, '0')}/${expYear}`}</td>
+            <td className="center-align">
+                {isPrimary ? (
+                    <StatusIcon />
+                ) : (
+                    <StatusIcon classes="times" iconClass="fa fa-times" />
                 )}
-            </BlockButtonWrapper>
-        </td>
-    </tr>
-);
+            </td>
+            <td>
+                <BlockButtonWrapper>
+                    {!isPrimary && (
+                        <ButtonContainer handleClick={setPrimaryCard}>
+                            Make Primary
+                        </ButtonContainer>
+                    )}
+                    <button
+                        className="button icon-only red"
+                        onClick={() => {
+                            deleteCard(id);
+                        }}
+                    >
+                        <i className="far fa-trash-alt" />
+                    </button>
+                </BlockButtonWrapper>
+            </td>
+        </tr>
+    );
+};
 
 export default withRouter(CardListItem);

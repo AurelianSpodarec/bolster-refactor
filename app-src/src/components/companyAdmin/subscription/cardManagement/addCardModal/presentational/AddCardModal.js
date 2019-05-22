@@ -32,7 +32,6 @@ const AddCardModal = ({
                             value={nickname}
                             type="text"
                             required
-                            placeholder="Expenses..."
                         />
                     </Field>
                 </div>
@@ -44,7 +43,6 @@ const AddCardModal = ({
                             value={name}
                             type="text"
                             required
-                            placeholder="Name On Card"
                         />
                     </Field>
                 </div>
@@ -56,7 +54,6 @@ const AddCardModal = ({
                             value={cardNumber}
                             type="text"
                             required
-                            placeholder="0123-4567-8901-2345"
                         />
                     </Field>
                 </div>
@@ -68,7 +65,7 @@ const AddCardModal = ({
                             value={expiryMonth}
                             type="number"
                             required
-                            placeholder="00"
+                            placeholder="MM"
                             validate={validateMaxLength(2)}
                         />
                     </Field>
@@ -81,7 +78,7 @@ const AddCardModal = ({
                             value={expiryYear}
                             type="number"
                             required
-                            placeholder="00"
+                            placeholder="YY"
                             validate={validateMaxLength(4)}
                         />
                     </Field>

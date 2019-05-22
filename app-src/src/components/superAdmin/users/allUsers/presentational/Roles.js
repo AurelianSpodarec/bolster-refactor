@@ -6,12 +6,16 @@ const Roles = ({ roles }) => {
     const rolesToRender = roles.length ? (
         roles.map((role, i) => (
             <span key={i}>
-                {COMPANY_USER_ROLE_IDS[role.type]}
+                {COMPANY_USER_ROLE_IDS[role.type]}&nbsp;
                 <span>
                     (
-                    <Link to={`/admin/companies/${role.companyID}`}>
-                        {role.companyName})
+                    <Link
+                        className="link"
+                        to={`/admin/companies/${role.companyID}`}
+                    >
+                        {role.companyName}
                     </Link>
+                    )
                 </span>
             </span>
         ))

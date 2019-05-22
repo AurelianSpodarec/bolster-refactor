@@ -1,27 +1,35 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
 import Table from 'components/shared/generic/tables/presentational/Table';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import AllCompanyAdminsList from './AllCompanyAdminsList';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
+import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
+import { GREEN, GREEN_HOVER } from 'constants/shared/colorCodes';
 
 const AllCompanyAdminsTable = ({
     headers,
     users,
     isFetching,
     error,
-    showDeleteModal
+    showDeleteModal,
+    handleCreateCompanyAdmin
 }) => {
     return (
         <BlockContainer>
             <BlockHeading title="Company Admins">
-                <Link
+                <ButtonContainer
+                    handleClick={handleCreateCompanyAdmin}
+                    setColour={GREEN}
+                    setColourHoverCode={GREEN_HOVER}
+                >
+                    <i className="fa fa-plus" /> Add Company Admin
+                </ButtonContainer>
+                {/* <Link
                     className="button green"
                     to="/company/users-management/company-admins/create"
                 >
-                    <i className="fa fa-plus" /> Add Company Admin
-                </Link>
+                </Link> */}
             </BlockHeading>
             <Table
                 withActions
@@ -29,7 +37,7 @@ const AllCompanyAdminsTable = ({
                 isFetching={isFetching}
                 error={error}
                 noData={!users.length}
-                noDataMessage="No admins to display"
+                noDataMessage="No company admins to display."
                 extraClasses="large"
             >
                 <AllCompanyAdminsList

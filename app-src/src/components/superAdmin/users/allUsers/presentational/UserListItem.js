@@ -3,6 +3,7 @@ import React from 'react';
 import Roles from './Roles';
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 import { DATE_TIME_IDS } from 'constants/companyAdmin/enums';
+import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 
 const UserListItem = ({
     user,
@@ -21,18 +22,20 @@ const UserListItem = ({
             />
         </td>
         <td>
-            <button
-                className="button yellow"
-                onClick={() => handleShowEditUserModal(user)}
-            >
-                <i className="far fa-pencil" /> edit
-            </button>
-            <button
-                onClick={() => handleShowEditUserPasswordModal(user)}
-                className="button"
-            >
-                change password
-            </button>
+            <BlockButtonWrapper>
+                <button
+                    className="button yellow"
+                    onClick={() => handleShowEditUserModal(user)}
+                >
+                    <i className="far fa-pencil" /> edit
+                </button>
+                <button
+                    onClick={() => handleShowEditUserPasswordModal(user)}
+                    className="button"
+                >
+                    change password
+                </button>
+            </BlockButtonWrapper>
         </td>
     </tr>
 );

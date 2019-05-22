@@ -16,7 +16,29 @@ class SubscriptionContainer extends Component {
     componentDidMount = () => {
         this.props.fetchSubscriptionData();
     };
+
+    componentDidUpdate = prevProps => {
+        const { postSuccess, fetchSubscriptionData } = this.props;
+        if (postSuccess && !prevProps.postSuccess) {
+            fetchSubscriptionData();
+        }
+    };
 }
+
+const mapStateToProps = ({
+    companyAdmin: {
+        invoicesReducer,
+        servicesReducer,
+        cardsReducer,
+        creditsReducer
+    }
+}) => ({
+    postSuccess:
+        invoicesReducer.postSuccess ||
+        servicesReducer.postSuccess ||
+        cardsReducer.postSuccess ||
+        creditsReducer.postSuccess
+});
 
 const mapDispatchToProps = dispatch => ({
     fetchSubscriptionData: () => {
@@ -31,7 +53,7 @@ const mapDispatchToProps = dispatch => ({
 
 export default withRouter(
     connect(
-        null,
+        mapStateToProps,
         mapDispatchToProps
     )(SubscriptionContainer)
 );

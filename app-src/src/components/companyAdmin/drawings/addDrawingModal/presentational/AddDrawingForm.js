@@ -19,7 +19,8 @@ const AddDrawingForm = ({
     file,
     templateUsageRules,
     selectedRule,
-    credits
+    credits,
+    handleBuyCreditsModal
 }) => (
     <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
         <div className="size-lg-12">
@@ -81,9 +82,13 @@ const AddDrawingForm = ({
             ) : (
                 <TooltipContainer
                     side="top"
-                    text="You must have credits to add a drawing."
+                    text="You must have credits to add a drawing. Click to buy credits."
                 >
-                    <button disabled className="button red">
+                    <button
+                        onClick={handleBuyCreditsModal}
+                        className="button red"
+                        type="button"
+                    >
                         No credits available
                     </button>
                 </TooltipContainer>
