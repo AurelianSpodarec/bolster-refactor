@@ -18,7 +18,7 @@ const CreditLogsTable = ({ creditLogs, isFetching, headers, error }) => (
             isFetching={isFetching}
             error={error}
             noData={!creditLogs.length}
-            noDataMessage="No credit logs to display"
+            noDataMessage="No credit logs to display."
         >
             <CreditLogsList creditLogs={creditLogs} />
         </Table>

@@ -27,7 +27,7 @@ const CompanyReportsTable = ({
                     isFetching={isFetching}
                     error={error}
                     noData={!companyReports.length}
-                    noDataMessage="Company Reports is empty"
+                    noDataMessage="No company reports to display."
                 >
                     {companyReports.map(queueItem => (
                         <CompanyReportsListItem
