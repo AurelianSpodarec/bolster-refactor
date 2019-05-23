@@ -33,8 +33,7 @@ class RadioButtonListContainer extends Component {
         );
     }
 
-    handleChange = ({ target: { name, value } }) =>
-        this.props.handleChange(name, value);
+    handleChange = (name, value) => this.props.handleChange(name, value);
 
     componentDidMount = () => this._validate();
 
