@@ -545,12 +545,11 @@ const mapStateToProps = ({
     questions
 });
 
-const mapDispatchToProps = dispatch => ({
-    updateAddPinAnswer: (key, value) =>
-        dispatch(updateAddPinAnswer(key, value)),
-    resetPinAnswers: () => dispatch(resetPinAnswers()),
-    updateAddPinStatus: val => dispatch(updateAddPinStatus(val))
-});
+const mapDispatchToProps = {
+    updateAddPinAnswer,
+    resetPinAnswers,
+    updateAddPinStatus
+};
 
 export default connect(
     mapStateToProps,
