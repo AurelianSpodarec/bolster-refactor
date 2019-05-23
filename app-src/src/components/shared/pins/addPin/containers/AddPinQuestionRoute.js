@@ -416,12 +416,20 @@ class AddPinQuestionRoute extends Component {
             questions
         );
 
+        const maxValueMessage = question.charLimit
+            ? ` (max ${question.charLimit} characters)`
+            : question.maxNum
+            ? ` (max ${question.maxNum})`
+            : '';
+
+        const name = `${question.name}${maxValueMessage}`;
+
         if (showPreReq) {
             return (
                 <Field
                     key={question.id}
-                    name={question.name}
-                    sizeClasses="size-lg-6"
+                    name={name}
+                    sizeClasses="size-lg-6 flex-row-item"
                     required={question.isRequired}
                 >
                     <SpecificField

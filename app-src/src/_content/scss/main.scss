@@ -2957,3 +2957,33 @@ input {
 .chartjs-render-monitor {
     left: -9px;
 }
+
+//datepicker
+.react-datepicker {
+    font-size: 120%;
+}
+
+.react-datepicker__day-name,
+.react-datepicker__day,
+.react-datepicker__time-name {
+    margin: 4px;
+    padding: 2px 4px;
+    box-sizing: content-box;
+}
+
+.react-datepicker__current-month,
+.react-datepicker-time__header,
+.react-datepicker-year-header {
+    font-size: 100%;
+}
+
+//flex row
+.flex-row {
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+
+    .flex-row-item {
+        float: none;
+    }
+}
