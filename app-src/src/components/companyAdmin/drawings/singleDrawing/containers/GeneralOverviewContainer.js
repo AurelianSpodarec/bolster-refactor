@@ -65,7 +65,12 @@ class GeneralOverviewContainer extends Component {
         const message = `Are you sure you want to ${
             drawing.isArchived ? 'un-' : ''
         }archive ${drawing.name}?`;
-        showModal(CONFIRM_ARCHIVE, { hideModal, handleArchive, message });
+        showModal(CONFIRM_ARCHIVE, {
+            hideModal,
+            handleArchive,
+            message,
+            archive: !drawing.isArchived
+        });
     };
 }
 

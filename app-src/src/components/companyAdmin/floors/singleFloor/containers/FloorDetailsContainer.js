@@ -92,7 +92,12 @@ class FloorDetailsContainer extends Component {
         const message = `Are you sure you want to ${
             floor.isArchived ? 'un-' : ''
         }archive ${floor.name}?`;
-        showModal(CONFIRM_ARCHIVE, { hideModal, handleArchive, message });
+        showModal(CONFIRM_ARCHIVE, {
+            hideModal,
+            handleArchive,
+            message,
+            archive: !floor.isArchived
+        });
     };
 }
 

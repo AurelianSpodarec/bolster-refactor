@@ -125,7 +125,12 @@ class BuildingDetailsContainer extends Component {
         const message = `Are you sure you want to ${
             building.isArchived ? 'un-' : ''
         }archive ${building.name}?`;
-        showModal(CONFIRM_ARCHIVE, { hideModal, handleArchive, message });
+        showModal(CONFIRM_ARCHIVE, {
+            hideModal,
+            handleArchive,
+            message,
+            archive: !building.isArchived
+        });
     };
 }
 
