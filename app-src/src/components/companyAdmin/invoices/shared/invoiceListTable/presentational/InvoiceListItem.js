@@ -24,7 +24,7 @@ const InvoiceListItem = ({
 }) => (
     <tr>
         <td>
-            <DateTimeContainer date={createdOn} datetime={DATE_TIME_IDS.DATE} />
+            <DateTimeContainer date={createdOn} datetime={DATE_TIME_IDS.DATETIME} />
         </td>
         <td>{id}</td>
         <td>{`£${formatCurrency(total)}`}</td>
