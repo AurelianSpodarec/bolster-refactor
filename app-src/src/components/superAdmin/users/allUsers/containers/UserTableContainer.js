@@ -20,8 +20,7 @@ const UserTableContainer = ({ isFetching, error, users, filters }) => {
     );
 
     function _getFilteredUsers() {
-        const { role } = filters;
-        const email = filters.email.toLowerCase();
+        const { role, email } = filters;
         return users.filter(
             user =>
                 (!role ||
@@ -30,7 +29,7 @@ const UserTableContainer = ({ isFetching, error, users, filters }) => {
                             ({ type }) => String(type) === role
                         ))) &&
                 user.email &&
-                user.email.toLowerCase().includes(email)
+                user.email.toLowerCase().includes(email.toLowerCase())
         );
     }
 };
