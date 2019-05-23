@@ -133,12 +133,17 @@ const CheckBox = ({ question: { id, isRequired }, answers, handleChange }) => (
     />
 );
 
-const Radio = ({ question: { id, options }, answers, handleChange }) => (
+const Radio = ({
+    question: { id, options, isRequired },
+    answers,
+    handleChange
+}) => (
     <RadioButtonListContainer
         name={`answer-${id}`}
         options={options}
         selectedOption={answers[id]}
         handleChange={handleChange}
+        required={isRequired}
     />
 );
 
@@ -545,12 +550,11 @@ const mapStateToProps = ({
     questions
 });
 
-const mapDispatchToProps = dispatch => ({
-    updateAddPinAnswer: (key, value) =>
-        dispatch(updateAddPinAnswer(key, value)),
-    resetPinAnswers: () => dispatch(resetPinAnswers()),
-    updateAddPinStatus: val => dispatch(updateAddPinStatus(val))
-});
+const mapDispatchToProps = {
+    updateAddPinAnswer,
+    resetPinAnswers,
+    updateAddPinStatus
+};
 
 export default connect(
     mapStateToProps,

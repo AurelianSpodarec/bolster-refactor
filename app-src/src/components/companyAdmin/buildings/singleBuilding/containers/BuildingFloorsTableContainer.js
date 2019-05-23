@@ -39,10 +39,15 @@ class BuildingsFloorsTableContainer extends Component {
             error,
             showModal,
             hideModal,
-            updatedFloorID
+            updatedFloorID,
+            floors
         } = this.props;
 
-        if (!prevProps.postSuccess && postSuccess) {
+        if (
+            !prevProps.postSuccess &&
+            postSuccess &&
+            floors.length > prevProps.floors.length
+        ) {
             showModal(SUCCESS_MODAL, {
                 hideModal,
                 message: 'Floor added successfully.',
@@ -71,28 +76,22 @@ class BuildingsFloorsTableContainer extends Component {
 const mapStateToProps = (
     {
         companyAdmin: {
-            buildingsReducer,
-            floorsReducer: { postSuccess, updatedFloorID, error }
+            buildingsReducer: { buildings, isFetching },
+            floorsReducer: { postSuccess, updatedFloorID, error, floors }
         }
     },
-    { match }
+    { match: { params } }
 ) => ({
     error,
     postSuccess,
     updatedFloorID,
-    building: buildingsReducer.buildings[match.params.id] || {},
-    isFetching: buildingsReducer.isFetching,
-    buildingID: match.params.id
+    building: buildings[params.id] || {},
+    isFetching: isFetching,
+    buildingID: params.id,
+    floors
 });
 
-const mapDispatchToProps = dispatch => ({
-    showModal: (type, props) => {
-        dispatch(showModal(type, props));
-    },
-    hideModal: () => {
-        dispatch(hideModal());
-    }
-});
+const mapDispatchToProps = { showModal, hideModal };
 
 export default withRouter(
     connect(

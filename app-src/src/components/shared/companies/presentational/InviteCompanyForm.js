@@ -15,8 +15,7 @@ const InviteCompanyForm = ({
     serviceOptions,
     checkedServices,
     hierarchyType,
-    handleChange,
-    handleMultiselectChange
+    handleChange
 }) => (
     <>
         <BlockHeading title="Company details" />
@@ -43,7 +42,7 @@ const InviteCompanyForm = ({
                 <CheckboxListContainer
                     required
                     name="serviceIDs"
-                    handleChange={handleMultiselectChange}
+                    handleChange={handleChange}
                     options={serviceOptions}
                     selectedOptions={checkedServices}
                 />

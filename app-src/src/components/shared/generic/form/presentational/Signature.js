@@ -1,5 +1,6 @@
 import React from 'react';
 import SignatureCanvas from 'react-signature-canvas';
+import ButtonContainer from '../../button/containers/ButtonContainer';
 
 const Signature = ({
     penColor,
@@ -7,7 +8,8 @@ const Signature = ({
     name,
     canvasProps,
     onEnd,
-   updateRef
+    updateRef,
+    handleClear
 }) => (
     <>
         <SignatureCanvas
@@ -20,6 +22,7 @@ const Signature = ({
         {!!(error && error.length) && (
             <p className="error red-text text-accent-4">{error}</p>
         )}
+        <ButtonContainer handleClick={handleClear}>Clear</ButtonContainer>
     </>
 );
 
