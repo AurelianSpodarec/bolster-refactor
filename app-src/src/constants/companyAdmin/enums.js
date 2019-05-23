@@ -74,6 +74,12 @@ export const PERMISSION_STATES = {
     REJECTED: 2
 };
 
+export const SITES_FILTER_TYPES = {
+    active: 'Active',
+    readonly: 'Read only',
+    archived: 'Archived'
+};
+
 export const LABEL_TYPES = {
     1: 'Standard',
     2: 'Trim'
