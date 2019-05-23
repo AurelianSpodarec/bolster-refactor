@@ -17,6 +17,7 @@ const TransferRequestsTable = ({
         }
         noDataMessage="There are no pending owner requests to display."
         error={error}
+        withActions={true}
     >
         {!!incomingTransferRequests.length && (
             <TransferRequestsList requests={incomingTransferRequests} />
