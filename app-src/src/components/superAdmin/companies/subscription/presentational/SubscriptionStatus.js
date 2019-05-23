@@ -58,7 +58,7 @@ const SubscriptionStatus = ({ subscription, active, endOn, services }) => (
             </>
         ) : (
             <p className="size-lg-12">
-                You have no subscription, please add a service to subscribe.
+                Company currently has no active subscriptions.
             </p>
         )}
     </div>
