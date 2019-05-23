@@ -32,7 +32,9 @@ class AddPinFormContainer extends Component {
         return (
             <>
                 <PageHeading leftChildren={true} title="Add Pin">
-                    <BackButtonContainer />
+                    <BackButtonContainer
+                        backFromForm={{ urlToReplace: '/add-pin', with: '' }}
+                    />
                 </PageHeading>
                 <BlockContainer
                     isEmpty={!templates.length}
