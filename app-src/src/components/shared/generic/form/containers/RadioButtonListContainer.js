@@ -53,10 +53,11 @@ class RadioButtonListContainer extends Component {
             error,
             addFieldError,
             removeFieldError,
-            selectedOption
+            selectedOption,
+            required
         } = this.props;
 
-        if (!selectedOption) {
+        if (!selectedOption && required) {
             addFieldError(name, 'This is a required field.');
         } else if (error) {
             removeFieldError(name);
