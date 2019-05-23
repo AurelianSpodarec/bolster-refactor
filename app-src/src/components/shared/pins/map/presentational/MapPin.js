@@ -59,7 +59,7 @@ const DrawingMapPin = ({
             onClick={() => isReport && history.push(`/${urlStart}/pins/` + id)}
         >
             {withTooltip && (
-                <Tooltip offset={L.point(latY - 22.5, lngX)}>
+                <Tooltip sticky={true}>
                     {`Pin code: ${pinCode}`} <br />
                     {`Status: ${PIN_STATUS_TYPES[status]}`} <br />
                     Created: <DateTimeContainer date={createdOn} /> <br />
