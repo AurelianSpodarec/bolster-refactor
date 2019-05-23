@@ -137,7 +137,6 @@ class RegisterFormContainer extends Component {
         fetchTimeZones();
         fetchDateFormats();
     };
-
     componentDidUpdate = prevProps => {
         const { postSuccess, history } = this.props;
 
@@ -145,6 +144,7 @@ class RegisterFormContainer extends Component {
             history.push('/company');
         }
     };
+
     validatePassword = password => {
         const { confirmPassword } = this.state;
         const { addFieldError, removeFieldError } = this.props;
@@ -155,6 +155,7 @@ class RegisterFormContainer extends Component {
         }
         return null;
     };
+
     validateConfirmPassword = confirmPassword => {
         const { 'User.password': password } = this.state;
         const { removeFieldError } = this.props;

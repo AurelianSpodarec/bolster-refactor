@@ -11,7 +11,8 @@ const SubscriptionAutoRenewal = ({
     renewalType,
     handleAutoRenewChange,
     handleRadioChange,
-    noCards
+    noCards,
+    active
 }) => (
     <Form className="size-lg-12">
         <BlockHeading title="Auto-Renewal">
@@ -20,6 +21,7 @@ const SubscriptionAutoRenewal = ({
                 value={isAutoRenew}
                 handleChange={handleAutoRenewChange}
                 checked={!!isAutoRenew}
+                disabled={!active}
             />
         </BlockHeading>
         <div className="generic-form no-min-heights size-lg-12">
