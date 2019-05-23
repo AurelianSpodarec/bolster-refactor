@@ -5,6 +5,8 @@ import { withRouter } from 'react-router-dom';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 
+import { ACCESS_TYPES_VALUES } from 'constants/companyAdmin/enums';
+
 import {
     ADD_SITE,
     SUCCESS_MODAL,
@@ -60,12 +62,25 @@ class SitesTableContainer extends Component {
         const { status } = filters;
         const name = filters.name.toLowerCase();
 
-        return sites
-            .filter(site => site.name.toLowerCase().includes(name))
-            .filter(
-                ({ accessType }) =>
-                    !status.length || status + '' === accessType + ''
+        let sitesSearched = sites.filter(site =>
+            site.name.toLowerCase().includes(name)
+        );
+
+        if (status === 'active') {
+            return sitesSearched.filter(site => !site.isArchived);
+        }
+
+        if (status === 'read only') {
+            return sitesSearched.filter(
+                site => site.accessType === ACCESS_TYPES_VALUES.READONLY
             );
+        }
+
+        if (status === 'archived') {
+            return sitesSearched.filter(site => site.isArchived);
+        }
+
+        return sitesSearched;
     };
 
     handleAddSite = () => {

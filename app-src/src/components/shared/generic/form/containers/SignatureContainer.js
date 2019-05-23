@@ -5,9 +5,7 @@ import removeFieldError from 'actions/shared/generic/fieldErrors/sync/removeFiel
 import Signature from '../presentational/Signature';
 
 class SignatureContainer extends Component {
-    state = {
-        showFieldError: false
-    };
+    state = { showFieldError: false };
 
     render() {
         const { showFieldError } = this.state;
@@ -18,6 +16,7 @@ class SignatureContainer extends Component {
             <Signature
                 updateRef={ref => (this.sigPad = ref)}
                 onEnd={this.handleChange}
+                handleClear={this.handleClear}
                 penColor={'black'}
                 canvasProps={canvasProps}
                 name={name}
@@ -43,10 +42,11 @@ class SignatureContainer extends Component {
     };
 
     handleChange = () => {
-        const { onChange } = this.props;
         this._validate();
-        onChange(this.sigPad.toDataURL('image/jpg'));
+        this.props.onChange(this.sigPad.toDataURL('image/jpg'));
     };
+
+    handleClear = () => this.sigPad.clear();
 
     _validate = value => {
         const {
@@ -70,15 +70,19 @@ class SignatureContainer extends Component {
     };
 }
 
-const mapStateToProps = ({ shared: { fieldErrorsReducer } }, ownProps) => ({
-    error: fieldErrorsReducer.fieldErrors[ownProps.name],
-    errorsVisible: fieldErrorsReducer.errorsVisible
+const mapStateToProps = (
+    {
+        shared: {
+            fieldErrorsReducer: { fieldErrors, errorsVisible }
+        }
+    },
+    { name }
+) => ({
+    error: fieldErrors[name],
+    errorsVisible
 });
 
-const mapDispatchToProps = dispatch => ({
-    addFieldError: (name, error) => dispatch(addFieldError(name, error)),
-    removeFieldError: name => dispatch(removeFieldError(name))
-});
+const mapDispatchToProps = { addFieldError, removeFieldError };
 
 export default connect(
     mapStateToProps,
