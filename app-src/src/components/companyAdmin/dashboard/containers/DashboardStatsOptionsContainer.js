@@ -44,11 +44,7 @@ const mapStateToProps = ({
     settings
 });
 
-const mapDispatchToProps = dispatch => ({
-    fetchAllServices: () => dispatch(fetchAllServices()),
-    updateDashboardSetting: (key, val) =>
-        dispatch(updateDashboardSetting(key, val))
-});
+const mapDispatchToProps = { fetchAllServices, updateDashboardSetting };
 
 export default connect(
     mapStateToProps,
