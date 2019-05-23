@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 import PieChart from 'components/shared/stats/presentational/PieChart';
 import SiteDetails from './SiteDetails';
-import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
+
 const SiteStats = ({
     site,
     stats,
