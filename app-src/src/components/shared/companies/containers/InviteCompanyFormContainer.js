@@ -24,7 +24,6 @@ class InviteCompanyFormContainer extends Component {
                     serviceOptions={serviceOptions}
                     checkedServices={serviceIDs}
                     handleChange={this.handleChange}
-                    handleMultiselectChange={this.handleMultiselectChange}
                     handleSubmit={this.handleSubmit}
                     hierarchyType={hierarchyType}
                 />
@@ -46,13 +45,7 @@ class InviteCompanyFormContainer extends Component {
         }));
     };
 
-    handleChange = (name, value) => {
-        this.setState({ [name]: value });
-    };
-
-    handleMultiselect = (name, value) => {
-        this.setState({ [name]: value });
-    };
+    handleChange = (name, value) => this.setState({ [name]: value });
 
     handleSubmit = () => {
         const { companyCode, serviceIDs } = this.state;
@@ -84,11 +77,7 @@ const mapStateToProps = (
     error
 });
 
-const mapDispatchToProps = dispatch => ({
-    addCompany: (hierarchyType, hierarchyID, postBody) => {
-        dispatch(addCompany(hierarchyType, hierarchyID, postBody));
-    }
-});
+const mapDispatchToProps = { addCompany };
 
 export default withRouter(
     connect(

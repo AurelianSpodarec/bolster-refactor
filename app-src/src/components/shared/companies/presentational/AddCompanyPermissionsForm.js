@@ -13,7 +13,7 @@ const AddCompanyPermissionsForm = ({
     handleSubmit,
     serviceOptions,
     checkedServices,
-    handleMultiselectChange,
+    handleChange,
     companyID
 }) => (
     <>
@@ -23,7 +23,7 @@ const AddCompanyPermissionsForm = ({
                 <CheckboxListContainer
                     required
                     name="serviceIDs"
-                    handleChange={handleMultiselectChange}
+                    handleChange={handleChange}
                     options={serviceOptions}
                     selectedOptions={checkedServices}
                 />
