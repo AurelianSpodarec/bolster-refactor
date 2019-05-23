@@ -6,7 +6,10 @@ import {
     FETCH_PROFILE_FAILURE,
     EDIT_PROFILE_REQUEST,
     EDIT_PROFILE_SUCCESS,
-    EDIT_PROFILE_FAILURE
+    EDIT_PROFILE_FAILURE,
+    CHANGE_PROFILE_PASSWORD_REQUEST,
+    CHANGE_PROFILE_PASSWORD_SUCCESS,
+    CHANGE_PROFILE_PASSWORD_FAILURE
 } from 'constants/actionTypes/profile';
 import { updateObj } from 'helpers/generic';
 
@@ -46,9 +49,12 @@ function errorReducer(state = null, action) {
 function isPostingReducer(state = false, action) {
     switch (action.type) {
         case EDIT_PROFILE_REQUEST:
+        case CHANGE_PROFILE_PASSWORD_REQUEST:
             return true;
         case EDIT_PROFILE_SUCCESS:
         case EDIT_PROFILE_FAILURE:
+        case CHANGE_PROFILE_PASSWORD_SUCCESS:
+        case CHANGE_PROFILE_PASSWORD_FAILURE:
             return false;
         default:
             return state;
@@ -58,9 +64,12 @@ function isPostingReducer(state = false, action) {
 function postSuccessReducer(state = false, action) {
     switch (action.type) {
         case EDIT_PROFILE_SUCCESS:
+        case CHANGE_PROFILE_PASSWORD_SUCCESS:
             return true;
         case EDIT_PROFILE_REQUEST:
         case EDIT_PROFILE_FAILURE:
+        case CHANGE_PROFILE_PASSWORD_REQUEST:
+        case CHANGE_PROFILE_PASSWORD_FAILURE:
             return false;
         default:
             return state;
