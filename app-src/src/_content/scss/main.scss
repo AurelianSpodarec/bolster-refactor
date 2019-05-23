@@ -2976,3 +2976,14 @@ input {
 .react-datepicker-year-header {
     font-size: 100%;
 }
+
+//flex row
+.flex-row {
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+
+    .flex-row-item {
+        float: none;
+    }
+}

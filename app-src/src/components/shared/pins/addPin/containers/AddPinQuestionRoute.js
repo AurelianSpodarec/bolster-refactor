@@ -429,7 +429,7 @@ class AddPinQuestionRoute extends Component {
                 <Field
                     key={question.id}
                     name={name}
-                    sizeClasses="size-lg-6"
+                    sizeClasses="size-lg-6 flex-row-item"
                     required={question.isRequired}
                 >
                     <SpecificField

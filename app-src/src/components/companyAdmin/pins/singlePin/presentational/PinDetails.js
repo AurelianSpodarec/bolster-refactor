@@ -16,18 +16,18 @@ const PinDetails = ({
     drawingID
 }) => (
     <>
-        <div className="size-lg-12">
+        <div className="size-lg-12 flex-row">
             <FieldOutput
                 title="Pin number"
                 description={pin.pinCode}
                 fieldClass="no-h-padding"
-                sizeClass="size-lg-6"
+                sizeClass="size-lg-6 flex-row-item"
             />
 
             <FieldOutput
                 title="Date created"
                 fieldClass="no-h-padding"
-                sizeClass="size-lg-6"
+                sizeClass="size-lg-6 flex-row-item"
             >
                 <p>
                     <DateTimeContainer date={pinHistory.createdOn} />
@@ -38,14 +38,14 @@ const PinDetails = ({
                 title="Type"
                 description={services[pinHistory.serviceID].name}
                 fieldClass="no-h-padding"
-                sizeClass="size-lg-6"
+                sizeClass="size-lg-6 flex-row-item"
             />
 
             <FieldOutput
                 title="Added by"
                 description={`${user.userFirstName} ${user.userLastName}`}
                 fieldClass="no-h-padding"
-                sizeClass="size-lg-6"
+                sizeClass="size-lg-6 flex-row-item"
             />
         </div>
 
