@@ -19,7 +19,8 @@ import {
     ARCHIVE_DRAWING_FAILURE,
     UPDATE_FLOOR_PLAN_REQUEST,
     UPDATE_FLOOR_PLAN_SUCCESS,
-    UPDATE_FLOOR_PLAN_FAILURE
+    UPDATE_FLOOR_PLAN_FAILURE,
+    UPDATE_FLOOR_PLAN_CONFIRMED
 } from 'constants/actionTypes/drawings';
 
 export default combineReducers({
@@ -29,7 +30,8 @@ export default combineReducers({
     error: errorReducer,
     postSuccess: postSuccessReducer,
     postFailure: postFailureReducer,
-    deleteSuccess: deleteSuccessReducer
+    deleteSuccess: deleteSuccessReducer,
+    updatingFloorPlan: updatingFloorPlanReducer
 });
 
 function isFetchingReducer(state = false, action) {
@@ -128,6 +130,17 @@ function drawingsReducer(state = {}, action) {
         case CREATE_DRAWING_SUCCESS:
         case ARCHIVE_DRAWING_SUCCESS:
             return updateObj(state, action.payload.id, action.payload);
+        default:
+            return state;
+    }
+}
+
+function updatingFloorPlanReducer(state = false, action) {
+    switch (action.type) {
+        case UPDATE_FLOOR_PLAN_REQUEST:
+            return true;
+        case UPDATE_FLOOR_PLAN_CONFIRMED:
+            return false;
         default:
             return state;
     }
