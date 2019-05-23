@@ -16,6 +16,7 @@ import {
     COMPANY_USER_ROLE_TYPES as USER_ROLE
 } from 'constants/companyAdmin/enums';
 import fetchSingleDrawing from 'actions/companyAdmin/drawings/async/fetchSingleDrawing';
+import updateFloorPlanConfirmed from 'actions/companyAdmin/drawings/sync/updateFloorPlanConfirmed';
 
 class DrawingMapGeneralContainer extends Component {
     state = {
@@ -29,8 +30,7 @@ class DrawingMapGeneralContainer extends Component {
         mapZoom: 3,
         addMode: false,
         addPinLat: 51.505,
-        addPinLng: -0.09,
-        updating: false
+        addPinLng: -0.09
     };
 
     render() {
@@ -48,7 +48,7 @@ class DrawingMapGeneralContainer extends Component {
         const position = [addPinLat, addPinLng];
         const addPinPosition = [addPinLat, addPinLng];
 
-        const { error, pins, drawing = {} } = this.props;
+        const { error, pins, drawing = {}, updatingFloorPlan } = this.props;
         const serviceOptions = this._getServicesOptions();
         const statusOptions = convertEnumToDropdownOptions(PIN_STATUS_TYPES);
         const operativeOptions = this._getOperativeOptions();
@@ -94,7 +94,7 @@ class DrawingMapGeneralContainer extends Component {
                         addMode={addMode}
                         toggleAddMode={this.toggleAddMode}
                         history={this.props.history}
-                        updating={this.state.updating}
+                        updating={updatingFloorPlan}
                     />
                 </BlockContainer>
             </>
@@ -107,18 +107,26 @@ class DrawingMapGeneralContainer extends Component {
     };
 
     componentDidUpdate = ({ drawing: prevDrawing = {}, ...prevProps }) => {
-        const { postSuccess, drawing = {}, fetchDrawing } = this.props;
-        if (postSuccess && !prevProps.postSuccess) {
+        const {
+            updatingFloorPlan,
+            drawing = {},
+            fetchSingleDrawing,
+            updateFloorPlanConfirmed
+        } = this.props;
+        if (updatingFloorPlan && !prevProps.updatingFloorPlan) {
             // drawing successfully updated
-            this.setState({ updating: true });
             this._floorplanInterval = setInterval(() => {
-                fetchDrawing(drawing.id);
+                fetchSingleDrawing(drawing.id);
             }, 5000);
         }
         if (drawing.tilesetS3Key !== prevDrawing.tilesetS3Key) {
             clearInterval(this._floorplanInterval);
-            this.setState({ updating: false });
+            updateFloorPlanConfirmed();
         }
+    };
+
+    componentWillUnmount = () => {
+        clearInterval(this._floorplanInterval);
     };
 
     handleClick = e => {
@@ -242,7 +250,7 @@ const mapStateToProps = (
             pinsReducer: { pins, isFetching, error },
             servicesReducer: { services },
             companyUsersReducer: { users },
-            drawingsReducer: { drawings, postSuccess },
+            drawingsReducer: { drawings, updatingFloorPlan },
             addPinCoordinatesReducer: { coordinates }
         }
     },
@@ -255,16 +263,16 @@ const mapStateToProps = (
     services: Object.values(services),
     isFetching,
     error,
-    postSuccess
+    updatingFloorPlan
 });
 
-const mapDispatchToProps = dispatch => ({
-    fetchCompanyUsers: () => dispatch(fetchCompanyUsers()),
-    fetchDrawing: id => dispatch(fetchSingleDrawing(id)),
-    updatePinCoordinates: (name, value) =>
-        dispatch(updatePinCoordinates(name, value)),
-    showModal: (type, props) => dispatch(showModal(type, props))
-});
+const mapDispatchToProps = {
+    fetchCompanyUsers,
+    fetchSingleDrawing,
+    updatePinCoordinates,
+    showModal,
+    updateFloorPlanConfirmed
+};
 
 export default withRouter(
     connect(

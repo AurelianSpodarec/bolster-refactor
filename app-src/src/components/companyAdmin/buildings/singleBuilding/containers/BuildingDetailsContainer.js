@@ -15,6 +15,7 @@ import {
 } from 'constants/shared/modalTypes';
 import deleteBuilding from 'actions/companyAdmin/buildings/async/deleteBuilding';
 import archiveBuilding from 'actions/companyAdmin/buildings/async/archiveBuilding';
+import { isObjEmpty } from 'helpers/generic';
 
 class BuildingDetailsContainer extends Component {
     render() {
@@ -54,12 +55,29 @@ class BuildingDetailsContainer extends Component {
             history.push(`/company/sites/${building.siteID}`);
         }
 
-        if (postSuccess && !prevProps.postSuccess && !deleteSuccess) {
+        if (
+            postSuccess &&
+            !prevProps.postSuccess &&
+            !deleteSuccess &&
+            updatedBuildingID !== 0
+        ) {
             showModal(SUCCESS_MODAL, {
                 hideModal,
                 message: 'Building edited successfully.',
                 link: `/company/buildings/${updatedBuildingID}`,
                 linkMessage: 'Go to building'
+            });
+        }
+
+        if (
+            building.isArchived !== prevProps.building.isArchived &&
+            !isObjEmpty(prevProps.building)
+        ) {
+            showModal(SUCCESS_MODAL, {
+                hideModal,
+                message: `Building successfully ${
+                    !building.isArchived ? 'un' : ''
+                }archived.`
             });
         }
 
@@ -139,12 +157,12 @@ const mapStateToProps = (
     postFailure
 });
 
-const mapDispatchToProps = dispatch => ({
-    showModal: (type, props) => dispatch(showModal(type, props)),
-    hideModal: () => dispatch(hideModal()),
-    deleteBuilding: id => dispatch(deleteBuilding(id)),
-    archiveBuilding: (id, undo) => dispatch(archiveBuilding(id, undo))
-});
+const mapDispatchToProps = {
+    showModal,
+    hideModal,
+    deleteBuilding,
+    archiveBuilding
+};
 
 export default withRouter(
     connect(
