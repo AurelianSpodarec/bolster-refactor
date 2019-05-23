@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import PieChart from 'components/shared/stats/presentational/PieChart';
 import SiteDetails from './SiteDetails';
@@ -32,9 +33,12 @@ const SiteStats = ({
                 <i className="fa fa-archive" />
                 {site.isArchived ? 'Un-Archive' : 'Archive'}
             </button>
-            <ButtonContainer to={`/company/sites/${site.id}/change-ownership`}>
+            <Link
+                className="button"
+                to={`/company/sites/${site.id}/change-ownership`}
+            >
                 <i className="fa fa-exchange" /> Change Ownership
-            </ButtonContainer>
+            </Link>
         </div>
     </div>
 );

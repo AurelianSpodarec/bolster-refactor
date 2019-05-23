@@ -4,7 +4,10 @@ import { connect } from 'react-redux';
 import UsersFilters from '../presentational/UsersFilters';
 import { COMPANY_USER_ROLE_IDS } from 'constants/companyAdmin/enums';
 
-const UsersFiltersContainer = ({ filters: { email, role }, dispatch }) => {
+const UsersFiltersContainer = ({
+    filters: { email, role },
+    updateUsersFilters
+}) => {
     const roleTypes = Object.entries(COMPANY_USER_ROLE_IDS).map(
         ([roleEnum, role]) => ({
             text: role,
@@ -22,10 +25,17 @@ const UsersFiltersContainer = ({ filters: { email, role }, dispatch }) => {
     );
 
     function handleChange(name, value) {
-        dispatch(updateUsersFilters(name, value));
+        updateUsersFilters(name, value);
     }
 };
+const mapStateToProps = ({
+    superAdmin: {
+        usersReducer: { filters }
+    }
+}) => ({ filters });
+const mapDispatchToProps = { updateUsersFilters };
 
-export default connect(({ superAdmin: { usersReducer: { filters } } }) => ({
-    filters
-}))(UsersFiltersContainer);
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(UsersFiltersContainer);
