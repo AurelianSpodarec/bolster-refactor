@@ -10,7 +10,6 @@ import AddPinForm from '../presentational/AddPinForm';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
 import BackButtonContainer from 'components/shared/generic/backButton/containers/BackButtonContainer';
-import warnAboutUnsavedForm from './warnAboutUnsavedForm';
 
 class AddPinFormContainer extends Component {
     state = {
@@ -188,7 +187,7 @@ const mapDispatchToProps = dispatch => ({
     resetPinAnswers: () => dispatch(resetPinAnswers())
 });
 
-export default warnAboutUnsavedForm(
+export default withRouter(
     connect(
         mapStateToProps,
         mapDispatchToProps
