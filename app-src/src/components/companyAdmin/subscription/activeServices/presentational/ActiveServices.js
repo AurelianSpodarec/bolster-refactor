@@ -12,7 +12,8 @@ const ActiveServices = ({
     subscriptions,
     handleChange,
     services,
-    showModal
+    showModal,
+    isAutoRenew
 }) => {
     return (
         <BlockContainer>
@@ -22,6 +23,7 @@ const ActiveServices = ({
                 <CompanyServicesList
                     subscriptions={subscriptions}
                     handleChange={handleChange}
+                    isAutoRenew={isAutoRenew}
                 >
                     {services.map(service => (
                         <AddServiceItem
