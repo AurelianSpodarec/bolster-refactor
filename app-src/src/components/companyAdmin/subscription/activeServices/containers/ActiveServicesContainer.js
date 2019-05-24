@@ -13,17 +13,19 @@ class ActiveServicesContainer extends Component {
     };
 
     render = () => {
-        const { services, subscriptions, showModal } = this.props;
+        const { services, subscriptions, showModal, isAutoRenew } = this.props;
         const { serviceIDs = [] } = subscriptions;
         const unsubscribedServices = Object.values(services).filter(
             service => !serviceIDs.includes(service.id)
         );
+
         return (
             <ActiveServices
                 subscriptions={this.state.subscriptions}
                 services={unsubscribedServices}
                 handleChange={this.handleChange}
                 showModal={showModal}
+                isAutoRenew={isAutoRenew}
             />
         );
     };
@@ -99,7 +101,8 @@ const mapStateToProps = ({
     error,
     postSuccess,
     isFetching: fetchingSubscriptions || fetchingServices,
-    invoicePaid
+    invoicePaid,
+    isAutoRenew: subscriptions.isAutoRenew
 });
 
 const mapDispatchToProps = dispatch => ({
