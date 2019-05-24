@@ -6,17 +6,16 @@ import ActiveServices from 'components/companyAdmin/subscription/activeServices/
 import editServiceRenewalStatus from 'actions/companyAdmin/subscriptions/async/editServiceRenewalStatus';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import fetchAllSubscriptions from 'actions/companyAdmin/subscriptions/async/fetchAllSubscriptions';
+import editSubscriptionRenewalStatus from 'actions/companyAdmin/subscriptions/async/editSubscriptionRenewalStatus';
 
 class ActiveServicesContainer extends Component {
-    state = {
-        subscriptions: []
-    };
+    state = { subscriptions: [] };
 
     render = () => {
         const { services, subscriptions, showModal } = this.props;
         const { serviceIDs = [] } = subscriptions;
         const unsubscribedServices = Object.values(services).filter(
-            service => !serviceIDs.includes(service.id)
+            ({ id }) => !serviceIDs.includes(id)
         );
         return (
             <ActiveServices
@@ -28,13 +27,7 @@ class ActiveServicesContainer extends Component {
         );
     };
 
-    componentDidMount = () => {
-        const { fetchAllSubscriptions, subscriptions } = this.props;
-
-        if (!Object.values(subscriptions).length) {
-            fetchAllSubscriptions();
-        }
-    };
+    componentDidMount = () => this.props.fetchAllSubscriptions();
 
     componentDidUpdate = prevProps => {
         const {
@@ -43,41 +36,46 @@ class ActiveServicesContainer extends Component {
             fetchAllSubscriptions,
             invoicePaid
         } = this.props;
-        if (!isFetching && prevProps.isFetching)
-            this.setState({
-                subscriptions: this.getActiveSubscriptions()
-            });
+        const subscriptions = this.getActiveSubscriptions();
+        if (!isFetching && prevProps.isFetching) {
+            this.setState({ subscriptions });
+        }
         if (
             (postSuccess && !prevProps.postSuccess) ||
             (invoicePaid && !prevProps.invoicePaid)
-        )
+        ) {
             fetchAllSubscriptions();
+        }
     };
 
     getActiveSubscriptions = () => {
         const { subscriptions, services } = this.props;
-
-        return subscriptions.services && !isObjEmpty(services)
-            ? subscriptions.services.map(service => ({
-                  ...service,
-                  name: services[service.serviceID].name
-              }))
-            : [];
+        if (subscriptions.services && !isObjEmpty(services)) {
+            return subscriptions.services.map(service => ({
+                ...service,
+                name: services[service.serviceID].name
+            }));
+        } else return [];
     };
 
     handleChange = name => {
-        const { editServiceRenewalStatus } = this.props;
+        const {
+            editServiceRenewalStatus,
+            editSubscriptionRenewalStatus
+        } = this.props;
         const updatedServices = this.state.subscriptions.reduce((acc, curr) => {
             if (curr.name === name) {
-                acc.push({ ...curr, isAutoRenew: !curr.isAutoRenew });
                 const postBody = {
                     companySubscriptionServiceID: curr.id,
                     renewalStatus: !curr.isAutoRenew
                 };
                 editServiceRenewalStatus(postBody);
-            } else acc.push(curr);
-            return acc;
+                return [...acc, { ...curr, isAutoRenew: !curr.isAutoRenew }];
+            } else return [...acc, curr];
         }, []);
+        if (updatedServices.every(({ isAutoRenew }) => !isAutoRenew)) {
+            editSubscriptionRenewalStatus({ renewalStatus: false });
+        }
         this.setState({ subscriptions: updatedServices });
     };
 }
@@ -102,12 +100,12 @@ const mapStateToProps = ({
     invoicePaid
 });
 
-const mapDispatchToProps = dispatch => ({
-    fetchAllSubscriptions: () => dispatch(fetchAllSubscriptions()),
-    editServiceRenewalStatus: postBody =>
-        dispatch(editServiceRenewalStatus(postBody)),
-    showModal: (type, props) => dispatch(showModal(type, props))
-});
+const mapDispatchToProps = {
+    fetchAllSubscriptions,
+    editServiceRenewalStatus,
+    showModal,
+    editSubscriptionRenewalStatus
+};
 
 export default connect(
     mapStateToProps,
