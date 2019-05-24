@@ -27,9 +27,9 @@ class RegisterFormContainer extends Component {
         'Company.town': '',
         'Company.postcode ': '',
         'Company.vatCode': '',
-        'Company.timezone': 0,
-        'Company.dateFormatID': 0,
-        'Company.vatType': 0,
+        'Company.timezone': null,
+        'Company.dateFormatID': null,
+        'Company.vatType': null,
         terms: false
     };
 
@@ -47,7 +47,7 @@ class RegisterFormContainer extends Component {
             <RegisterForm
                 {...this.state}
                 error={this.props.error}
-                handleInputChange={this.handleChange}
+                handleChange={this.handleChange}
                 handleDropDown={this.handleDropDown}
                 timezoneOptions={timezoneOptions}
                 dateFormats={dateFormats}
@@ -69,7 +69,7 @@ class RegisterFormContainer extends Component {
         this.setState({ [name]: val });
     };
 
-    handleDropDown = (val, { name }) => {
+    handleDropDown = (name, val) => {
         this.setState({ [name]: val });
     };
 
