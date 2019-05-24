@@ -108,10 +108,10 @@ class RegisterFormContainer extends Component {
                 addressLine1: addressLine1,
                 town: town,
                 postcode: postcode,
-                vatType: vatType.value,
+                vatType: vatType,
                 vatCode: vatCode,
-                dateFormatID: dateFormatID.value,
-                timezone: timezone.value
+                dateFormatID: dateFormatID,
+                timezone: timezone
             }
         };
 
