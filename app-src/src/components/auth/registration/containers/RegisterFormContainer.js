@@ -7,6 +7,7 @@ import { VAT_TYPES } from 'constants/companyAdmin/enums';
 import fetchTimeZones from 'actions/shared/time/async/fetchTimezones';
 import fetchDateFormats from 'actions/shared/time/async/fetchDateFormats';
 import postRegister from 'actions/shared/register/async/postRegister';
+import postLogin from 'actions/shared/auth/async/postLogin';
 import RegisterForm from '../presentational/RegisterForm';
 import { sortTimezones } from 'helpers/generic';
 import addFieldError from 'actions/shared/generic/fieldErrors/sync/addFieldError';
@@ -138,9 +139,14 @@ class RegisterFormContainer extends Component {
         fetchDateFormats();
     };
     componentDidUpdate = prevProps => {
-        const { postSuccess, history } = this.props;
+        const { 'User.email': email, 'User.password': password } = this.state;
+        const { postSuccess, loginSuccess, history, postLogin } = this.props;
 
         if (postSuccess && !prevProps.postSuccess) {
+            postLogin(email, password);
+        }
+
+        if (loginSuccess && !prevProps.loginSuccess) {
             history.push('/company');
         }
     };
@@ -169,19 +175,22 @@ class RegisterFormContainer extends Component {
 const mapStateToProps = ({
     shared: {
         timeReducer: { timeZones, dateFormats },
-        registerReducer: { error, postSuccess }
+        registerReducer: { error, postSuccess },
+        loginReducer: { postSuccess: loginSuccess }
     }
 }) => ({
     timezones: Object.values(timeZones) || [],
     dateFormats: Object.values(dateFormats) || [],
     error,
-    postSuccess
+    postSuccess,
+    loginSuccess
 });
 
 const mapDispatchToProps = dispatch => ({
     fetchTimeZones: () => dispatch(fetchTimeZones()),
     fetchDateFormats: () => dispatch(fetchDateFormats()),
     postRegister: postBody => dispatch(postRegister(postBody)),
+    postLogin: (email, password) => dispatch(postLogin(email, password)),
     addFieldError: (field, err) => dispatch(addFieldError(field, err)),
     removeFieldError: field => dispatch(removeFieldError(field))
 });
