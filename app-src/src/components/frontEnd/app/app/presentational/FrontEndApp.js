@@ -6,7 +6,7 @@ import FrontEndHeader from 'components/frontEnd/layout/header/presentational/Fro
 import FrontEndRoutes from '../../routes/presentational';
 
 const FrontEndApp = () => (
-    <>
+    <div id="frontend-site">
         <FrontEndHeader />
         <div className="full-container container">
             <MenuContainer />
@@ -15,7 +15,7 @@ const FrontEndApp = () => (
             </div>
         </div>
         <AdminFooter />
-    </>
+    </div>
 );
 
 export default FrontEndApp;
