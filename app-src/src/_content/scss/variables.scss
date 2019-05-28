@@ -26,6 +26,24 @@ $input-border-grey: #cccccc;
     }
 }
 
+@mixin neosans-medium() {
+    font: {
+        family: "Neo Sans W01 Medium", sans-serif;
+    }
+}
+
+@mixin neosans-bold() {
+    font: {
+        family: "Neo Sans W01 Bold", sans-serif;
+    }
+}
+
+@mixin neosans() {
+    font: {
+        family: "Neo Sans W01", sans-serif;
+    }
+}
+
 //vertical centered content
 @mixin vertical-center() {
     top: 50%;
