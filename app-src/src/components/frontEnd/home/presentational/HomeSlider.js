@@ -12,6 +12,7 @@ import appSlide3 from '_content/images/frontend/app-slider/floorplan-sl3-large.p
 import appSlide4 from '_content/images/frontend/app-slider/pinlist-large.jpg';
 
 import blackTick from '_content/images/frontend//black-tick.png';
+import redTick from '_content/images/frontend/red-tick.png';
 
 const HomeSlider = ({ sliderSettings }) => (
     <Slider {...sliderSettings}>
@@ -68,7 +69,7 @@ const HomeSlider = ({ sliderSettings }) => (
                     <li style={listTickStyle}>
                         <h3>Manage</h3>
                     </li>
-                    <li style={listTickStyle}>
+                    <li style={listRedTickStyle}>
                         <h3>
                             <span>Job done</span>
                         </h3>
@@ -81,9 +82,49 @@ const HomeSlider = ({ sliderSettings }) => (
                     <img src="/_Content/images/screenshots/mobile/floor-plan-mobile.jpg" className="mobile-ver"/> */}
             </div>
         </div>
+        <div className="slide-3">
+            <div className="left">
+                <h3>
+                    <span>
+                        The complete building inspection & surveying system:
+                    </span>
+                </h3>
+                <ul>
+                    <li style={listTickStyle}>
+                        <h3>Inspect</h3>
+                    </li>
+                    <li style={listTickStyle}>
+                        <h3>Locate, capture, tag</h3>
+                    </li>
+                    <li style={listTickStyle}>
+                        <h3>Document</h3>
+                    </li>
+                    <li style={listTickStyle}>
+                        <h3>Manage</h3>
+                    </li>
+                    <li style={listRedTickStyle}>
+                        <h3>
+                            <span>Job done</span>
+                        </h3>
+                    </li>
+                </ul>
+            </div>
+            <div className="right">
+                <iframe
+                    width="560"
+                    height="400"
+                    src="https://www.youtube.com/embed/p1mH03uKa08?rel=0"
+                    frameBorder="0"
+                    allowFullScreen
+                />
+            </div>
+        </div>
     </Slider>
 );
 const listTickStyle = {
     backgroundImage: `url(${blackTick})`
+};
+const listRedTickStyle = {
+    backgroundImage: `url(${redTick})`
 };
 export default HomeSlider;

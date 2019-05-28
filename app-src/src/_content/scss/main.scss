@@ -3189,8 +3189,7 @@ input {
 .slider-container {
     float: left;
     width: 100%;
-    background: url(/app-src/src/_content/images/frontend/gradient-slider.png)
-        repeat-y;
+    background-repeat: repeat-y;
     background-size: 100% 100%;
     max-height: 490px;
     overflow: hidden;
@@ -3205,18 +3204,26 @@ input {
 
     .slick-dots {
         position: absolute;
-        right: 80px;
-        bottom: 20px;
+        right: 0;
+        bottom: 60px;
+        width: 100%;
 
         li {
+            float: right;
+            &.slick-active {
+                button {
+                    background-color: $red-alt;
+                }
+            }
+
             button {
                 float: left;
                 width: 17px;
                 height: 17px;
                 margin-right: 10px;
-                background: url(/app-src/src/_content/images/frontend/buttons/slider-nav-button.png)
-                    no-repeat;
+                background-color: #4d4d4d;
                 background-position: 0 -17px;
+                transition: background-color ease-in-out 0.25s;
                 color: #4d4d4d;
                 text-indent: -9999px;
             }
@@ -3307,8 +3314,7 @@ input {
                 float: left;
                 width: 100%;
                 padding-left: 40px;
-                background: url(/app-src/src/_content/images/frontend/black-tick.png)
-                    no-repeat;
+                background: no-repeat;
                 background-position: left;
 
                 h3 {
