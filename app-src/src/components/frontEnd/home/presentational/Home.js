@@ -1,10 +1,15 @@
 import React from 'react';
 
 import HomeSliderContainer from '../containers/HomeSliderContainer';
+import sliderBackground from '_content/images/frontend/gradient-slider.png';
 
 export default function Home() {
+    const sliderStyle = {
+        backgroundImage: `url(${sliderBackground})`
+    };
+
     return (
-        <div className="slider-container">
+        <div className="slider-container" style={sliderStyle}>
             <div className="container">
                 <HomeSliderContainer />
             </div>

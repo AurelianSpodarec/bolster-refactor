@@ -10,11 +10,8 @@ const FrontEndApp = () => (
         <FrontEndHeader />
         <FrontEndMenu />
 
-        <div className="full-container container">
-            <div id="page-area">
-                <FrontEndRoutes />
-            </div>
-        </div>
+        <FrontEndRoutes />
+
         <AdminFooter />
     </div>
 );
