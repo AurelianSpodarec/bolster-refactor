@@ -50,8 +50,8 @@ const ActiveServices = ({
                     The Bolster System can support a wide range of additional
                     services, template and workflows
                     <br />
-                    <Link to="#">so get in touch </Link> and we can talk through
-                    your custom requirements
+                    <Link to="/company/tools/support">so get in touch</Link> and
+                    we can talk through your custom requirements
                 </p>
             </div>
         </BlockContainer>

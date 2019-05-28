@@ -11,8 +11,7 @@ class FrontEndAppContainer extends Component {
     }
 
     componentDidMount() {
-        const { selectAdminMenuTab, decodeJWT, fetchHomeData } = this.props;
-        selectAdminMenuTab();
+        const { decodeJWT, fetchHomeData } = this.props;
         decodeJWT();
         fetchHomeData();
     }
