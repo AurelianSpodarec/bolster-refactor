@@ -3,11 +3,12 @@ import { Link } from 'react-router-dom';
 
 import appleStoreButton from '_content/images/frontend/buttons/apple-store.svg';
 import googleButton from '_content/images/frontend/buttons/google-play-badge.png';
+import FrontEndButton from 'components/frontEnd/shared/buttons/presentational/FrontEndButton';
 const bolsterLogo =
     'https://app.bolstersystems.com/_Content/images/original/logo.png';
 
 const FrontEndHeader = () => (
-    <header id="page-header" className="frontend-header size-lg-12">
+    <header className="frontend-header size-lg-12">
         <div className="top">
             <div className="left">
                 <div className="logo">
@@ -21,12 +22,12 @@ const FrontEndHeader = () => (
             </div>
             <div className="right">
                 <div className="links">
-                    {/* <a href="/auth/Login" className="button desktop-ver">
-                        Client login
-                    </a>
-                    <a href="/Company/Register" className="button register desktop-ver">
+                    <FrontEndButton classes="desktop-ver" to="/auth/Login">
+                        Client Login
+                    </FrontEndButton>
+                    <FrontEndButton classes="black" to="/auth/register">
                         Register
-                    </a> */}
+                    </FrontEndButton>
 
                     <a
                         className="app-btn"

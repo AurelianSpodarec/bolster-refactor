@@ -2993,7 +2993,11 @@ input {
 }
 
 //FRONT END SITE
+#frontend-site {
+}
+
 .frontend-header {
+    background-color: #fff;
     .top {
         float: left;
         width: 100%;
@@ -3050,6 +3054,15 @@ input {
         float: right;
         width: 100%;
         padding: 20px 10px 0 10px;
+        a {
+            float: right;
+            margin-right: 10px;
+            margin-bottom: 10px;
+
+            &:first-child {
+                margin-right: 0;
+            }
+        }
     }
     .app-btn {
         float: right;
@@ -3083,5 +3096,24 @@ input {
                 opacity: 0.8;
             }
         }
+    }
+}
+
+//buttons
+.frontend-button {
+    float: left;
+    padding: 10px 20px;
+    color: #fff;
+    font-family: "Neo Sans W01 Medium", Arial, sans-serif;
+    font-size: 180%;
+    background-color: gray;
+    border: none;
+    text-decoration: none;
+
+    &.red {
+        background-color: $red;
+    }
+    &.black {
+        background-color: $black-alt;
     }
 }
