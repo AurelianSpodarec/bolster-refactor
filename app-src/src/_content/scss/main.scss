@@ -3140,3 +3140,43 @@ input {
         background-color: $black-alt;
     }
 }
+
+.frontend-menu {
+    float: left;
+    width: 100%;
+    background-color: #e20613;
+    line-height: 1.25;
+
+    ul {
+        float: left;
+        width: 100%;
+        li {
+            float: left;
+            border-right: 3px solid #eb515a;
+            &.home {
+                width: 10%;
+                a {
+                    padding: 12px 0;
+                }
+            }
+            &.active,
+            &:hover {
+                a {
+                    background: $black-alt;
+                }
+            }
+            a {
+                float: left;
+                width: 100%;
+                padding: 20px;
+                @include neosans-medium;
+                font-size: 180%;
+                color: white;
+                text-align: center;
+                background-color: #e20613;
+                text-decoration: none;
+                transition: background-color ease-in-out 0.25s;
+            }
+        }
+    }
+}
