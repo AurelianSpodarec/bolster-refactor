@@ -2994,6 +2994,9 @@ input {
 
 //FRONT END SITE
 #frontend-site {
+    float: left;
+    width: 100%;
+    background-color: white;
     .container {
         width: 100%;
         max-width: 1300px;
@@ -3017,14 +3020,42 @@ input {
 
     .heading {
         color: $red-alt;
+        margin-bottom: 30px;
 
         &.secondary {
             float: left;
-            margin-bottom: 30px;
             padding-bottom: 10px;
             border-bottom: 2px solid black;
             font-size: 300%;
             @include neosans-bold;
+        }
+
+        &.section {
+            float: left;
+            width: 100%;
+            font-size: 260%;
+            @include neosans;
+        }
+    }
+
+    .info-section {
+        float: left;
+        width: 100%;
+        padding: 20px 0;
+        border-bottom: 1px solid #999;
+
+        .text {
+            float: left;
+            width: 60%;
+            padding-right: 35px;
+            padding-top: 10px;
+        }
+        .half {
+            padding-right: 20px;
+            &:last-child {
+                padding-left: 20px;
+                padding-right: 0;
+            }
         }
     }
 }
