@@ -52,7 +52,7 @@ class SinglePinMapContainer extends Component {
                     drawing={drawing}
                     toggleMoveMode={this.toggleMoveMode}
                     moveMode={this.state.moveMode}
-                    handleeditPinLocation={this.handleeditPinLocation}
+                    handleEditPinLocation={this.handleEditPinLocation}
                     pinHistory={selectedHistory}
                     historyVersion={historyVersion}
                     historyCount={histories.length}
@@ -106,12 +106,13 @@ class SinglePinMapContainer extends Component {
         });
     };
 
-    handleeditPinLocation = () => {
+    handleEditPinLocation = () => {
         const { editPinLocationLat, editPinLocationLng } = this.state;
         const {
             editPinLocation,
             pin: { id }
         } = this.props;
+
         editPinLocation(id, editPinLocationLat, editPinLocationLng);
         this.setState({
             moveMode: false

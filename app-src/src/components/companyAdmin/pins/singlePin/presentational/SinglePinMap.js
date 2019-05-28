@@ -16,7 +16,7 @@ const SinglePinMap = ({
     moveMode,
     toggleMoveMode,
     editPinLocationPosition,
-    handleeditPinLocation,
+    handleEditPinLocation,
     pinHistory,
     historyVersion,
     historyCount
@@ -35,7 +35,7 @@ const SinglePinMap = ({
             {moveMode ? (
                 <>
                     <button
-                        onClick={handleeditPinLocation}
+                        onClick={handleEditPinLocation}
                         className="button green pull-right"
                     >
                         <i className="fa fa-check" /> Confirm position
