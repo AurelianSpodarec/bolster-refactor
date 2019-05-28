@@ -2994,6 +2994,21 @@ input {
 
 //FRONT END SITE
 #frontend-site {
+    .container {
+        width: 100%;
+        max-width: 1300px;
+        margin: 0 auto;
+        padding: 0;
+    }
+
+    p {
+        font-size: 180%;
+        color: $grey-alt;
+        a {
+            color: #e20613;
+            text-decoration: none;
+        }
+    }
 }
 
 .frontend-header {
@@ -3038,7 +3053,7 @@ input {
                 width: 100%;
                 @include neosans-medium;
                 font-size: 200%;
-                color: $red;
+                color: #e20613;
                 margin-top: 12px;
                 margin-bottom: 0;
             }
@@ -3096,6 +3111,14 @@ input {
                 opacity: 0.8;
             }
         }
+    }
+
+    .phone-number {
+        float: left;
+        width: 100%;
+        padding: 5px 10px 0;
+        text-align: right;
+        @include neosans-medium;
     }
 }
 

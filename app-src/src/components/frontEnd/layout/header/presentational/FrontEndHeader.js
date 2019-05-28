@@ -9,51 +9,56 @@ const bolsterLogo =
 
 const FrontEndHeader = () => (
     <header className="frontend-header size-lg-12">
-        <div className="top">
-            <div className="left">
-                <div className="logo">
-                    <Link to="/">
-                        <img alt="logo of Bolster Systems" src={bolsterLogo} />
-                    </Link>
+        <div className="container">
+            <div className="top">
+                <div className="left">
+                    <div className="logo">
+                        <Link to="/">
+                            <img
+                                alt="logo of Bolster Systems"
+                                src={bolsterLogo}
+                            />
+                        </Link>
+                    </div>
+                    <div className="quote">
+                        <h3>The complete surveying and management system</h3>
+                    </div>
                 </div>
-                <div className="quote">
-                    <h3>The complete surveying and management system</h3>
-                </div>
-            </div>
-            <div className="right">
-                <div className="links">
-                    <FrontEndButton classes="desktop-ver" to="/auth/Login">
-                        Client Login
-                    </FrontEndButton>
-                    <FrontEndButton classes="black" to="/auth/register">
-                        Register
-                    </FrontEndButton>
+                <div className="right">
+                    <div className="links">
+                        <FrontEndButton classes="desktop-ver" to="/auth/Login">
+                            Client Login
+                        </FrontEndButton>
+                        <FrontEndButton classes="black" to="/auth/register">
+                            Register
+                        </FrontEndButton>
 
-                    <a
-                        className="app-btn"
-                        href="https://itunes.apple.com/gb/app/bolster-app/id1090118561?mt=8"
-                        target="_blank"
-                    >
-                        <img
-                            alt="available on the apple store"
-                            src={appleStoreButton}
-                        />
-                    </a>
-                    <a
-                        className="google-btn"
-                        href="https://play.google.com/store/apps/details?id=com.bolster.app"
-                        target="_blank"
-                    >
-                        <img
-                            alt="available on the google play store"
-                            src={googleButton}
-                        />
-                    </a>
-                </div>
+                        <a
+                            className="app-btn"
+                            href="https://itunes.apple.com/gb/app/bolster-app/id1090118561?mt=8"
+                            target="_blank"
+                        >
+                            <img
+                                alt="available on the apple store"
+                                src={appleStoreButton}
+                            />
+                        </a>
+                        <a
+                            className="google-btn"
+                            href="https://play.google.com/store/apps/details?id=com.bolster.app"
+                            target="_blank"
+                        >
+                            <img
+                                alt="available on the google play store"
+                                src={googleButton}
+                            />
+                        </a>
+                    </div>
 
-                <p className="phone-number">
-                    Tel: <a href="tel:01618737679">0161 873 7679</a>
-                </p>
+                    <p className="phone-number">
+                        Tel: <a href="tel:01618737679">0161 873 7679</a>
+                    </p>
+                </div>
             </div>
         </div>
     </header>
