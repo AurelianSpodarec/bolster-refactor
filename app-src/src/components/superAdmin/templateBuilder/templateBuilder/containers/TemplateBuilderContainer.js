@@ -35,21 +35,9 @@ class TemplateBuilderContainer extends Component {
 
     componentDidMount() {
         const { resetSaveRequired, fetchPageData, templateUUID } = this.props;
-        console.error(!/-/.test(templateUUID));
-        console.error(!/-/.test(templateUUID));
-        console.error(!/-/.test(templateUUID));
-        console.error(!/-/.test(templateUUID));
-        console.error(!/-/.test(templateUUID));
         if (!/-/.test(templateUUID)) {
-            console.error(templateUUID);
-            console.error(templateUUID);
-            console.error(templateUUID);
-            console.error(templateUUID);
-            console.error(templateUUID);
-
             resetSaveRequired();
         }
-
         fetchPageData(templateUUID);
     }
 
