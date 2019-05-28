@@ -3014,6 +3014,19 @@ input {
         background-color: white;
         width: 100%;
     }
+
+    .heading {
+        color: $red-alt;
+
+        &.secondary {
+            float: left;
+            margin-bottom: 30px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid black;
+            font-size: 300%;
+            @include neosans-bold;
+        }
+    }
 }
 
 .frontend-header {
@@ -3195,7 +3208,7 @@ input {
     overflow: hidden;
 
     .container {
-        padding: 0 60px;
+        padding: 0 60px !important;
     }
 
     .slider {
@@ -3463,5 +3476,48 @@ input {
 
     100% {
         transform: translateX(-100%);
+    }
+}
+
+//how it works
+.how-it-works {
+    float: left;
+    width: 100%;
+    background-color: $light-grey-alt;
+    border-bottom: 7px solid $red-alt;
+
+    .container {
+        padding: 20px 60px 25px !important;
+    }
+
+    .item-container {
+        float: left;
+        width: 100%;
+    }
+
+    .item {
+        float: left;
+        width: 17.5%;
+        text-align: center;
+
+        .lower-ver {
+            display: none;
+        }
+
+        img {
+            display: inline-block;
+            max-width: 90%;
+        }
+    }
+
+    .arrow {
+        float: left;
+        width: 10%;
+        padding: 65px 20px 0;
+
+        img {
+            float: left;
+            width: 100%;
+        }
     }
 }
