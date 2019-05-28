@@ -92,6 +92,7 @@ class DrawingMapGeneralContainer extends Component {
                         handleClick={this.handleClick}
                         drawing={drawing}
                         addMode={addMode}
+                        handleClearPinCache={this.handleClearPinCache}
                         toggleAddMode={this.toggleAddMode}
                         history={this.props.history}
                         updating={updatingFloorPlan}
@@ -133,6 +134,13 @@ class DrawingMapGeneralContainer extends Component {
         const { lat, lng } = e.latlng;
 
         if (this.state.addMode) this._updateCoordinates(lat, lng);
+    };
+
+    handleClearPinCache = () => {
+        const {
+            drawing: { id }
+        } = this.props;
+        localStorage.removeItem(`pinCache/${id}`);
     };
 
     handleChange = (name, value) => this.setState({ [name]: value });
