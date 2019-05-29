@@ -9,6 +9,7 @@ import changeProfilePassword from 'actions/shared/profile/async/changeProfilePas
 
 class EditProfilePasswordFormContainer extends Component {
     state = {
+        oldPassword: '',
         password: '',
         confirmPassword: ''
     };
@@ -36,9 +37,10 @@ class EditProfilePasswordFormContainer extends Component {
 
     handleSubmit = e => {
         e.preventDefault();
-        const { password } = this.state;
+        const { password, oldPassword } = this.state;
         const postBody = {
-            password: password
+            oldPassword,
+            password
         };
 
         this.props.changeProfilePassword(postBody);

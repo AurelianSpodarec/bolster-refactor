@@ -84,7 +84,8 @@ const BuyCreditsModal = ({
             </Field>
             {creditsToBuy && (
                 <p className="generic-text total-text align-right size-lg-12">
-                    Total: £{formatNumber(costOfCredits * creditsToBuy)}
+                    Total: £{formatNumber(costOfCredits * creditsToBuy)} (ex.
+                    VAT)
                 </p>
             )}
             <BlockButtonWrapper>

@@ -10,7 +10,7 @@ const InvoiceItemsListSingleItem = ({
         <td>{quantity}</td>
         <td>{`£${formatCurrency(itemPrice)}`}</td>
         <td>{`£${formatCurrency(itemVAT)}`}</td>
-        <td>{`£${formatCurrency(total)}`}</td>
+        <td>{`£${formatCurrency(total * quantity)}`}</td>
     </tr>
 );
 
