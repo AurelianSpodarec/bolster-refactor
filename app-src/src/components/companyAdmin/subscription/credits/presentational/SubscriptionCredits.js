@@ -36,7 +36,7 @@ const SubscriptionCredits = ({
 
         {creditsToBuy && (
             <p className="generic-text align-right total-text size-lg-12">
-                Total: £{formatNumber(costOfCredits * creditsToBuy)}
+                Total: £{formatNumber(costOfCredits * creditsToBuy)} (ex. VAT)
             </p>
         )}
 
