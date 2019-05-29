@@ -1,5 +1,5 @@
 import React from 'react';
-import WhiteLogo from '_content/images/footer/logo-white.png';
+import WhiteLogo from '_content/images/frontend/footer-logo.png';
 
 const AdminFooter = () => (
     <footer id="page-footer" className="basic">
@@ -9,7 +9,12 @@ const AdminFooter = () => (
                 Wales.
             </p>
 
-            <img alt="logo of Bolster Systems" src={WhiteLogo} />
+            <img
+                alt="logo of Bolster Systems"
+                src={WhiteLogo}
+                width="93"
+                height="40"
+            />
 
             <div className="clear" />
         </div>
