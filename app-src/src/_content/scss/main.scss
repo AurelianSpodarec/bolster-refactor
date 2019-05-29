@@ -3175,6 +3175,130 @@ input {
             }
         }
     }
+    .request-container {
+        float: left;
+        width: 100%;
+        padding-top: 35px;
+
+        .container {
+            padding: 0 60px;
+        }
+
+        .generic-form {
+            width: 60%;
+            padding-right: 100px;
+        }
+
+        .try-area {
+            float: right;
+            width: 40%;
+            margin-top: 35px;
+            padding: 25px 25px 0;
+            background-color: $red-alt;
+
+            h3 {
+                margin-bottom: 20px;
+                color: white;
+            }
+
+            p {
+                margin-bottom: 30px;
+                color: white;
+            }
+
+            img {
+                display: block;
+                margin: 0 auto;
+                width: 100%;
+                max-width: 278px;
+            }
+        }
+    }
+    h3 {
+        float: left;
+        width: 100%;
+        margin-bottom: 30px;
+        color: #e20613;
+        font-size: 260%;
+        @include neosans;
+    }
+    //FORM
+    .generic-form {
+        float: left;
+        width: 100%;
+        margin-bottom: 20px;
+        width: 100%;
+        margin-left: 0;
+
+        .form-field {
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+        }
+
+        p {
+            float: left;
+            width: 100%;
+            font-size: 160%;
+            margin-bottom: 20px;
+        }
+
+        .row {
+            width: calc(100% + 15px);
+            margin-left: -7.5px;
+        }
+
+        label {
+            float: left;
+            width: 100%;
+            margin-bottom: 3px;
+            color: black;
+            @include neosans-medium;
+            font-size: 160%;
+
+            sub {
+                color: $red-alt;
+            }
+        }
+
+        input[type="text"] {
+            float: left;
+            width: 100%;
+            padding: 5px 8px;
+            font-size: 160%;
+            // .Roboto;
+            color: black;
+            border-radius: 0;
+
+            &.input-validation-error {
+                border-color: $red-alt;
+            }
+        }
+
+        .error {
+            float: left;
+            width: 100%;
+            margin-top: 5px;
+            font-size: 150%;
+            color: $red-alt;
+            margin-bottom: 0;
+        }
+
+        .required {
+            float: left;
+            color: $red-alt;
+            padding-top: 5px;
+            font-size: 140%;
+        }
+
+        .button,
+        .frontend-button {
+            float: right;
+            margin-left: 10px;
+        }
+    }
 }
 
 .frontend-header {
@@ -3303,12 +3427,21 @@ input {
     background-color: gray;
     border: none;
     text-decoration: none;
+    transition: opacity background-color 0.25s ease-in-out;
 
+    &:hover {
+        opacity: 0.9;
+    }
     &.red {
         background-color: $red;
     }
     &.black {
         background-color: $black-alt;
+
+        &:hover {
+            opacity: 1;
+            background-color: #4a4a4a;
+        }
     }
 }
 

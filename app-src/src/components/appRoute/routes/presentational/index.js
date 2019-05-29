@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Redirect } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 
 import withAuth from 'components/shared/auth/auth/hocs/withAuth';
 import NotFound from 'components/shared/notFound/presentational/NotFound';

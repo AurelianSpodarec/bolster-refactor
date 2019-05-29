@@ -21,7 +21,7 @@ const FrontEndMenu = () => (
                     <Link to="/About">About</Link>
                 </li>
                 <li>
-                    <Link to="/Request">About</Link>
+                    <Link to="/Request">Request demo</Link>
                 </li>
                 <li>
                     <Link to="/Contact">Contact</Link>
