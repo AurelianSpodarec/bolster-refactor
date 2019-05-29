@@ -1,8 +1,8 @@
 import React from 'react';
 
-const HeadingSecondary = ({ children }) => (
+const HeadingSecondary = ({ title }) => (
     <h2 className="heading secondary">
-        <span>{children}</span>
+        <span>{title}</span>
     </h2>
 );
 

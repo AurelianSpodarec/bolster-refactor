@@ -3160,6 +3160,20 @@ input {
                 border-bottom: none;
             }
         }
+        &.full-list {
+            .text {
+                width: 100%;
+                padding-right: 0;
+
+                ul {
+                    width: 50%;
+
+                    &:first-child {
+                        padding-right: 10px;
+                    }
+                }
+            }
+        }
     }
 }
 
@@ -3730,5 +3744,38 @@ input {
 
     p {
         width: 75%;
+    }
+}
+//ABOUT PAGE
+#about {
+    float: left;
+    width: 100%;
+
+    .info-section {
+        .content {
+            border-bottom: none;
+
+            h2 {
+                width: 100%;
+                border-bottom: none;
+                margin-bottom: 0;
+
+                span {
+                    border-bottom: 2px solid black;
+                }
+            }
+
+            &:last-child {
+                border-top: 1px solid #999;
+            }
+        }
+
+        &.top-sec {
+            .image {
+                img {
+                    margin-top: 20px;
+                }
+            }
+        }
     }
 }

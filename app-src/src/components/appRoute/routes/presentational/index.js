@@ -18,7 +18,6 @@ import FrontEndAppContainer from 'components/frontEnd/app/app/containers/FrontEn
 const { SUPER_ADMIN, COMPANY /*CLIENT*/ } = AUTH_TYPES;
 const Routes = () => (
     <SwitchWith404>
-        <Redirect exact path="/" to="/company" />
         <Route exact path="/404" component={NotFound} />
         <Route path="/auth" component={AuthApp} />
         <Route path="/test" component={withAuth(TestApp, COMPANY)} />
@@ -36,7 +35,7 @@ const Routes = () => (
             // ! put withAuth back in once the client log in is sorted
             // component={withAuth(ClientAppContainer, CLIENT)}
         />
-        <Route path="/home" component={withAuth(FrontEndAppContainer)} />
+        <Route path="/" component={withAuth(FrontEndAppContainer)} />
     </SwitchWith404>
 );
 

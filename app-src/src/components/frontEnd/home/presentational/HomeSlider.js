@@ -58,7 +58,11 @@ const HomeSlider = ({ sliderSettings }) => (
                         />
                     </div>
                 </div>
-                <img src={desktopIphoneHand} className="desktop-ver" />
+                <img
+                    alt="Iphone with app examples"
+                    src={desktopIphoneHand}
+                    className="desktop-ver"
+                />
 
                 {/* <img src="/_Content/images/screenshots/desktop/slider-img-one.png" className="desktop-ver"/>
                     <img src="/_Content/images/screenshots/mobile/slider-one-mobile-new.png" className="mobile-ver" />
