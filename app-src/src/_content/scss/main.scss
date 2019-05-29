@@ -2997,11 +2997,12 @@ input {
     float: left;
     width: 100%;
     background-color: white;
+    line-height: 1.25;
+
     .container {
         width: 100%;
         max-width: 1300px;
         margin: 0 auto;
-        padding: 0;
     }
 
     p {
@@ -3154,11 +3155,21 @@ input {
                 }
             }
         }
+        &.no-border {
+            .content {
+                border-bottom: none;
+            }
+        }
     }
 }
 
 .frontend-header {
     background-color: #fff;
+
+    .container {
+        padding: 0;
+    }
+
     .top {
         float: left;
         width: 100%;
@@ -3689,4 +3700,35 @@ input {
 
 #footer-alt {
     margin-top: 20px;
+}
+
+//intro banner
+.intro-banner {
+    float: left;
+    width: 100%;
+
+    .container {
+        padding: 50px 60px 30px;
+        background-position: right top;
+        background-repeat: no-repeat;
+        background-size: contain;
+    }
+
+    .text {
+        float: left;
+        width: 45%;
+    }
+
+    h1 {
+        float: left;
+        width: 100%;
+        margin-bottom: 20px;
+        font-size: 380%;
+        @include neosans;
+        color: black;
+    }
+
+    p {
+        width: 75%;
+    }
 }

@@ -2,12 +2,12 @@ import React from 'react';
 
 import HomeSliderContainer from '../containers/HomeSliderContainer';
 import sliderBackground from '_content/images/frontend/gradient-slider.png';
-import HowItWorks from '../presentational/HowItWorks';
 import HeadingSection from 'components/frontEnd/shared/headings/presentational/HeadingSection';
 import ContentSection from 'components/frontEnd/shared/contentSection/presentational/ContentSection';
 import ListArrowRed from '_content/images/frontend/list-arrow-red.png';
 import functionalityPhones from '_content/images/frontend/example-images/app-two-phones.png';
 import workingWithBolster from '_content/images/frontend/example-images/four-ilustrations.jpg';
+import HowItWorks from 'components/frontEnd/shared/HowItWorks/presentational/HowItWorks';
 
 export default function Home() {
     const sliderStyle = {
@@ -67,7 +67,7 @@ export default function Home() {
                     </div>
                 </div>
                 <div className="image">
-                    <img src={functionalityPhones} />
+                    <img alt="Phone app examples" src={functionalityPhones} />
                 </div>
             </ContentSection>
             <ContentSection>
@@ -111,7 +111,10 @@ export default function Home() {
                 </div>
 
                 <div className="image four-icons">
-                    <img src={workingWithBolster} />
+                    <img
+                        alt="Working with bolster ilustrations"
+                        src={workingWithBolster}
+                    />
                 </div>
             </ContentSection>
         </div>
