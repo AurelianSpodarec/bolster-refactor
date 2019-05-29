@@ -2997,11 +2997,12 @@ input {
     float: left;
     width: 100%;
     background-color: white;
+    line-height: 1.25;
+
     .container {
         width: 100%;
         max-width: 1300px;
         margin: 0 auto;
-        padding: 0;
     }
 
     p {
@@ -3154,11 +3155,35 @@ input {
                 }
             }
         }
+        &.no-border {
+            .content {
+                border-bottom: none;
+            }
+        }
+        &.full-list {
+            .text {
+                width: 100%;
+                padding-right: 0;
+
+                ul {
+                    width: 50%;
+
+                    &:first-child {
+                        padding-right: 10px;
+                    }
+                }
+            }
+        }
     }
 }
 
 .frontend-header {
     background-color: #fff;
+
+    .container {
+        padding: 0;
+    }
+
     .top {
         float: left;
         width: 100%;
@@ -3689,4 +3714,68 @@ input {
 
 #footer-alt {
     margin-top: 20px;
+}
+
+//intro banner
+.intro-banner {
+    float: left;
+    width: 100%;
+
+    .container {
+        padding: 50px 60px 30px;
+        background-position: right top;
+        background-repeat: no-repeat;
+        background-size: contain;
+    }
+
+    .text {
+        float: left;
+        width: 45%;
+    }
+
+    h1 {
+        float: left;
+        width: 100%;
+        margin-bottom: 20px;
+        font-size: 380%;
+        @include neosans;
+        color: black;
+    }
+
+    p {
+        width: 75%;
+    }
+}
+//ABOUT PAGE
+#about {
+    float: left;
+    width: 100%;
+
+    .info-section {
+        .content {
+            border-bottom: none;
+
+            h2 {
+                width: 100%;
+                border-bottom: none;
+                margin-bottom: 0;
+
+                span {
+                    border-bottom: 2px solid black;
+                }
+            }
+
+            &:last-child {
+                border-top: 1px solid #999;
+            }
+        }
+
+        &.top-sec {
+            .image {
+                img {
+                    margin-top: 20px;
+                }
+            }
+        }
+    }
 }

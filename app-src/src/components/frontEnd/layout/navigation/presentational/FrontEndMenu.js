@@ -9,7 +9,7 @@ const FrontEndMenu = () => (
             <ul>
                 <li className="home active">
                     <Link to="/home">
-                        <img src={HomeIcon} />
+                        <img alt="Home Icon" src={HomeIcon} />
                     </Link>
                 </li>
 

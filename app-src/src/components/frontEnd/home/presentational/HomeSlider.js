@@ -36,13 +36,33 @@ const HomeSlider = ({ sliderSettings }) => (
             <div className="right">
                 <div className="app-slider js-app-slider">
                     <div className="holder">
-                        <img className="slide1" src={appSlide1} />
-                        <img className="slide2" src={appSlide2} />
-                        <img className="slide3" src={appSlide3} />
-                        <img className="slide4" src={appSlide4} />
+                        <img
+                            className="slide1"
+                            alt="Phone slide 1"
+                            src={appSlide1}
+                        />
+                        <img
+                            className="slide2"
+                            alt="Phone slide 2"
+                            src={appSlide2}
+                        />
+                        <img
+                            className="slide3"
+                            alt="Phone slide 3"
+                            src={appSlide3}
+                        />
+                        <img
+                            className="slide4"
+                            alt="Phone slide 4"
+                            src={appSlide4}
+                        />
                     </div>
                 </div>
-                <img src={desktopIphoneHand} className="desktop-ver" />
+                <img
+                    alt="Iphone with app examples"
+                    src={desktopIphoneHand}
+                    className="desktop-ver"
+                />
 
                 {/* <img src="/_Content/images/screenshots/desktop/slider-img-one.png" className="desktop-ver"/>
                     <img src="/_Content/images/screenshots/mobile/slider-one-mobile-new.png" className="mobile-ver" />
@@ -77,7 +97,11 @@ const HomeSlider = ({ sliderSettings }) => (
                 </ul>
             </div>
             <div className="right">
-                <img src={MacFloorPlan} className="desktop-ver" />
+                <img
+                    alt="Mac floor plan"
+                    src={MacFloorPlan}
+                    className="desktop-ver"
+                />
                 {/* <img src="/_Content/images/screenshots/mobile/floor-plan-mobile.jpg" className="lower-img mobile-ver"/>
                     <img src="/_Content/images/screenshots/mobile/floor-plan-mobile.jpg" className="mobile-ver"/> */}
             </div>
@@ -116,6 +140,7 @@ const HomeSlider = ({ sliderSettings }) => (
                     src="https://www.youtube.com/embed/p1mH03uKa08?rel=0"
                     frameBorder="0"
                     allowFullScreen
+                    title="Bolster Systems Video"
                 />
             </div>
         </div>

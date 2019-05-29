@@ -1,7 +1,7 @@
 import React from 'react';
 
-const ContentSection = ({ classes = '', children }) => (
-    <div className={`info-section ${classes}`}>
+const ContentSection = ({ classes = '', id = '', children }) => (
+    <div id={id} className={`info-section ${classes}`}>
         <div className="container">
             <div className="content">{children}</div>
         </div>

@@ -12,7 +12,7 @@ import HeadingSecondary from 'components/frontEnd/shared/headings/presentational
 const HowItWorks = () => (
     <div className="how-it-works">
         <div className="container">
-            <HeadingSecondary>How it works</HeadingSecondary>
+            <HeadingSecondary title="How it works" />
             <div className="item-container">
                 <Link to="/How#inspect" className="item">
                     <sub className="lower-ver">1</sub>
