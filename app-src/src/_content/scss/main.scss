@@ -3006,6 +3006,8 @@ input {
     }
 
     p {
+        float:left;
+        width:100%;
         font-size: 180%;
         color: $grey-alt;
         a {
@@ -3910,5 +3912,201 @@ input {
                 }
             }
         }
+    }
+}
+//CONTACT PAGE
+#contact {
+    float: left;
+    width: 100%;
+
+    .intro-banner {
+        p {
+            width: 55%;
+        }
+    }
+
+    .top {
+        float: left;
+        width: 100%;
+        padding: 45px 0;
+        background-repeat: no-repeat;
+        background-position: left 0;
+        background-size: 100%;
+
+        h3 {
+            color: black;
+            font-size: 380%;
+        }
+
+        p {
+            width: 25%;
+        }
+    }
+
+    .bottom {
+        float: left;
+        width: 100%;
+        padding-top: 20px;
+
+        .container {
+            padding: 0 60px;
+        }
+
+        .info {
+            float: left;
+            width: 70%;
+
+            .address {
+                float: left;
+                width: 50%;
+                padding-right: 80px;
+
+                ul {
+                    float: left;
+                    width: 100%;
+                    margin-bottom: 25px;
+
+                    li {
+                        float: left;
+                        width: 100%;
+                        font-size: 180%;
+                        @include neosans;
+                        padding-bottom: 2px;
+                        color: $dark-grey-alt;
+
+                        span {
+                            @include neosans-bold;
+                            color: $red-alt;
+                        }
+
+                        &:nth-child(7) {
+                            margin-top: 25px;
+                        }
+
+                        &:nth-child(8) {
+                            margin-top: 10px;
+                        }
+                    }
+                }
+
+                .map {
+                    float: left;
+                    width: 100%;
+                    margin-top: 35px;
+
+                    iframe {
+                        float: left;
+                        width: 100%;
+                        height: 250px;
+                    }
+                }
+            }
+
+            .form {
+                float: left;
+                width: 50%;
+                padding-right: 10px;
+
+                p {
+                    margin-bottom: 25px;
+                }
+
+                .row {
+                    float: left;
+                    width: 100%;
+                    padding-bottom: 10px;
+
+                    label {
+                        float: left;
+                        width: 100%;
+                        font-size: 140%;
+                        @include neosans;
+                        color: $dark-grey-alt;
+                        padding-bottom: 5px;
+
+                        span {
+                            color: $red-alt;
+                        }
+                    }
+
+                    input {
+                        float: left;
+                        width: 100%;
+                        padding: 10px;
+                        @include neosans;
+                        font-size: 160%;
+                    }
+
+                    textarea {
+                        float: left;
+                        width: 100%;
+                        padding: 7px 10px;
+                        height: 130px;
+                        resize: none;
+                        @include neosans;
+                        font-size: 160%;
+                    }
+
+                    &:last-child {
+                        input {
+                            width: 40%;
+                        }
+
+                        button {
+                            float: right;
+                            width: 40%;
+                            text-align: center;
+                            padding: 8.5px 20px;
+                        }
+                    }
+                }
+
+                .field-validation-error {
+                    float: left;
+                    width: 100%;
+                    margin-top: 5px;
+                    color: $red-alt;
+                    font-size: 130%;
+                }
+
+                .button {
+                    float: right;
+                    margin-bottom: 10px;
+                }
+            }
+        }
+
+        .banner {
+            float: left;
+            width: 30%;
+            padding-left: 50px;
+
+            .wrap {
+                float: left;
+                width: 100%;
+                background-color: #e6e6e6;
+                padding: 25px 30px;
+            }
+
+            span {
+                color: $red-alt;
+                @include neosans-bold;
+            }
+
+            a {
+                margin: 30px 0;
+            }
+
+            img {
+                float: left;
+                max-width: 100%;
+                margin: 10px 0 0;
+            }
+        }
+    }
+
+    .LBD_CaptchaDiv {
+        float: left;
+        margin: 0 0 10px !important;
     }
 }
