@@ -10,12 +10,11 @@ const AllCompanyAdminsListItem = ({ user, showDeleteModal }) => (
             {`${user.userFirstName} ${user.userLastName}`}{' '}
             {user.type === COMPANY_USER_ROLE_TYPES.OWNER ? (
                 <span>(OWNER)</span>
-            ) : (
-                <></>
-            )}{' '}
+            ) : null}
         </td>
         <td>{user.userEmail}</td>
         <td>{user.userPhoneNumber}</td>
+        <td>{user.formattedOperativeCode}</td>
         <td>
             <BlockButtonWrapper>
                 <ButtonContainer
