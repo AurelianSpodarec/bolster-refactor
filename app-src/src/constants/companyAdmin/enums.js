@@ -256,3 +256,11 @@ export const DROPDOWN_OPTION_VALS = {
     itemTypes: 2,
     installationTypes: 3
 };
+
+export const FLOORPLAN_STATES = {
+    FAILEDCANCELLED: -100,
+    FAILEDRETRYING: -1,
+    WAITING: 0,
+    RUNNING: 1,
+    COMPLETE: 100
+};

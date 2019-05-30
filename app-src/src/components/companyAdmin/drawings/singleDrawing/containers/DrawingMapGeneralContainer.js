@@ -48,7 +48,7 @@ class DrawingMapGeneralContainer extends Component {
         const position = [addPinLat, addPinLng];
         const addPinPosition = [addPinLat, addPinLng];
 
-        const { error, pins, drawing = {}, updatingFloorPlan } = this.props;
+        const { error, pins, drawing = {} } = this.props;
         const serviceOptions = this._getServicesOptions();
         const statusOptions = convertEnumToDropdownOptions(PIN_STATUS_TYPES);
         const operativeOptions = this._getOperativeOptions();
@@ -94,7 +94,7 @@ class DrawingMapGeneralContainer extends Component {
                         addMode={addMode}
                         toggleAddMode={this.toggleAddMode}
                         history={this.props.history}
-                        updating={updatingFloorPlan}
+                        updating={drawing.isFloorplanUpdating}
                     />
                 </BlockContainer>
             </>
@@ -104,24 +104,31 @@ class DrawingMapGeneralContainer extends Component {
     componentDidMount = () => {
         this.props.fetchCompanyUsers();
         this._resetCoordinates();
-    };
-
-    componentDidUpdate = ({ drawing: prevDrawing = {}, ...prevProps }) => {
-        const {
-            updatingFloorPlan,
-            drawing = {},
-            fetchSingleDrawing,
-            updateFloorPlanConfirmed
-        } = this.props;
-        if (updatingFloorPlan && !prevProps.updatingFloorPlan) {
-            // drawing successfully updated
+        const { drawing = {} } = this.props;
+        if (drawing.isFloorplanUpdating) {
             this._floorplanInterval = setInterval(() => {
                 fetchSingleDrawing(drawing.id);
             }, 5000);
         }
-        if (drawing.tilesetS3Key !== prevDrawing.tilesetS3Key) {
+    };
+
+    componentDidUpdate = ({
+        postSuccess: prevSuccess,
+        drawing: prevDrawing = {}
+    }) => {
+        const { drawing = {}, fetchSingleDrawing, postSuccess } = this.props;
+        // re-fetch drawing every 5 seconds until the updated floorplan is retrieved
+        if (postSuccess && !prevSuccess) {
+            fetchSingleDrawing(drawing.id);
+        }
+        if (drawing.isFloorplanUpdating && !prevDrawing.isFloorplanUpdating) {
+            this._floorplanInterval = setInterval(
+                () => fetchSingleDrawing(drawing.id),
+                5000
+            );
+        }
+        if (!drawing.isFloorplanUpdating && prevDrawing.isFloorplanUpdating) {
             clearInterval(this._floorplanInterval);
-            updateFloorPlanConfirmed();
         }
     };
 
@@ -250,7 +257,7 @@ const mapStateToProps = (
             pinsReducer: { pins, isFetching, error },
             servicesReducer: { services },
             companyUsersReducer: { users },
-            drawingsReducer: { drawings, updatingFloorPlan },
+            drawingsReducer: { drawings, postSuccess },
             addPinCoordinatesReducer: { coordinates }
         }
     },
@@ -263,7 +270,7 @@ const mapStateToProps = (
     services: Object.values(services),
     isFetching,
     error,
-    updatingFloorPlan
+    postSuccess
 });
 
 const mapDispatchToProps = {
