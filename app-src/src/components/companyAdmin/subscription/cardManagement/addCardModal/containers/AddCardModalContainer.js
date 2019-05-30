@@ -33,9 +33,15 @@ class AddCardModalContainer extends Component {
     );
 
     componentDidUpdate = (prevProps, prevState) => {
-        const { hideModal, postSuccess, addFieldError } = this.props;
+        const {
+            hideModal,
+            postSuccess,
+            addFieldError,
+            removeFieldError
+        } = this.props;
         if (postSuccess && !prevProps.postSuccess) hideModal();
         const { expiryMonth, expiryYear } = this.state;
+
         if (
             expiryMonth !== prevState.expiryMonth ||
             expiryYear !== prevState.expiryYear
@@ -43,6 +49,7 @@ class AddCardModalContainer extends Component {
             const [thisMonth, thisYear] = moment(Date.now())
                 .format('MM YYYY')
                 .split(' ');
+
             if (
                 +expiryYear < +thisYear ||
                 (+expiryYear === +thisYear && +expiryMonth < +thisMonth)
@@ -94,7 +101,13 @@ const mapStateToProps = ({
     postSuccess
 });
 
-const mapDispatchToProps = { showModal, hideModal, addCard, addFieldError };
+const mapDispatchToProps = {
+    showModal,
+    hideModal,
+    addCard,
+    addFieldError,
+    removeFieldError
+};
 
 export default connect(
     mapStateToProps,

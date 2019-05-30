@@ -2991,3 +2991,1122 @@ input {
         float: none;
     }
 }
+
+//FRONT END SITE
+#frontend-site {
+    float: left;
+    width: 100%;
+    background-color: white;
+    line-height: 1.25;
+
+    .container {
+        width: 100%;
+        max-width: 1300px;
+        margin: 0 auto;
+    }
+
+    p {
+        float:left;
+        width:100%;
+        font-size: 180%;
+        color: $grey-alt;
+        a {
+            color: #e20613;
+            text-decoration: none;
+        }
+    }
+
+    #page-area {
+        background-color: white;
+        width: 100%;
+    }
+
+    .heading {
+        color: $red-alt;
+        margin-bottom: 30px;
+
+        &.secondary {
+            float: left;
+            padding-bottom: 10px;
+            border-bottom: 2px solid black;
+            font-size: 300%;
+            @include neosans-bold;
+        }
+
+        &.section {
+            float: left;
+            width: 100%;
+            font-size: 260%;
+            @include neosans;
+        }
+    }
+
+    .info-section {
+        float: left;
+        width: 100%;
+        color: $grey-alt;
+
+        .text {
+            float: left;
+            width: 60%;
+            padding-right: 35px;
+            padding-top: 10px;
+        }
+
+        .content {
+            float: left;
+            width: 100%;
+            padding: 20px 0;
+            border-bottom: 1px solid #999;
+        }
+
+        &:last-child {
+            .content {
+                border-bottom: none;
+            }
+        }
+
+        .half {
+            padding-right: 20px;
+            &:last-child {
+                padding-left: 20px;
+                padding-right: 0;
+                ul {
+                    padding-left: 20px;
+                }
+            }
+        }
+
+        ul {
+            float: left;
+            width: 100%;
+            li {
+                float: left;
+                width: 100%;
+                margin-bottom: 15px;
+                padding-left: 15px;
+                font-size: 180%;
+                background-position: left center;
+                background-repeat: no-repeat;
+            }
+        }
+        .image {
+            float: right;
+            width: 40%;
+
+            img {
+                float: left;
+                max-width: 100%;
+            }
+
+            &.mac-screen {
+                padding-top: 15px;
+                text-align: center;
+
+                img {
+                    max-width: 75%;
+                    float: none;
+                }
+            }
+
+            &.phone {
+                position: absolute;
+                right: 0;
+                bottom: 25px;
+            }
+
+            &.four-icons {
+                margin-top: 40px;
+            }
+        }
+        &.inverted {
+            .text {
+                float: right;
+                padding-left: 35px;
+                padding-right: 0;
+            }
+
+            .image {
+                float: left;
+            }
+        }
+        &.full-list {
+            .text {
+                width: 100%;
+                padding-right: 0;
+
+                ul {
+                    width: 50%;
+
+                    &:first-child {
+                        padding-right: 10px;
+                    }
+                }
+            }
+        }
+        //main page - top conent section
+        &.top-sec {
+            .image {
+                float: right;
+                width: 40%;
+
+                img {
+                    float: left;
+                    max-width: 100%;
+                    margin-top: 65px;
+                }
+            }
+        }
+        &.no-border {
+            .content {
+                border-bottom: none;
+            }
+        }
+        &.full-list {
+            .text {
+                width: 100%;
+                padding-right: 0;
+
+                ul {
+                    width: 50%;
+
+                    &:first-child {
+                        padding-right: 10px;
+                    }
+                }
+            }
+        }
+    }
+    .request-container {
+        float: left;
+        width: 100%;
+        padding-top: 35px;
+
+        .container {
+            padding: 0 60px;
+        }
+
+        .generic-form {
+            width: 60%;
+            padding-right: 100px;
+        }
+
+        .try-area {
+            float: right;
+            width: 40%;
+            margin-top: 35px;
+            padding: 25px 25px 0;
+            background-color: $red-alt;
+
+            h3 {
+                margin-bottom: 20px;
+                color: white;
+            }
+
+            p {
+                margin-bottom: 30px;
+                color: white;
+            }
+
+            img {
+                display: block;
+                margin: 0 auto;
+                width: 100%;
+                max-width: 278px;
+            }
+        }
+    }
+    h3 {
+        float: left;
+        width: 100%;
+        margin-bottom: 30px;
+        color: #e20613;
+        font-size: 260%;
+        @include neosans;
+    }
+    //FORM
+    .generic-form {
+        float: left;
+        width: 100%;
+        margin-bottom: 20px;
+        width: 100%;
+        margin-left: 0;
+
+        .form-field {
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+        }
+
+        p {
+            float: left;
+            width: 100%;
+            font-size: 160%;
+            margin-bottom: 20px;
+        }
+
+        .row {
+            width: calc(100% + 15px);
+            margin-left: -7.5px;
+        }
+
+        label {
+            float: left;
+            width: 100%;
+            margin-bottom: 3px;
+            color: black;
+            @include neosans-medium;
+            font-size: 160%;
+
+            sub {
+                color: $red-alt;
+            }
+        }
+
+        input[type="text"] {
+            float: left;
+            width: 100%;
+            padding: 5px 8px;
+            font-size: 160%;
+            // .Roboto;
+            color: black;
+            border-radius: 0;
+
+            &.input-validation-error {
+                border-color: $red-alt;
+            }
+        }
+
+        .error {
+            float: left;
+            width: 100%;
+            margin-top: 5px;
+            font-size: 150%;
+            color: $red-alt;
+            margin-bottom: 0;
+        }
+
+        .required {
+            float: left;
+            color: $red-alt;
+            padding-top: 5px;
+            font-size: 140%;
+        }
+
+        .button,
+        .frontend-button {
+            float: right;
+            margin-left: 10px;
+        }
+    }
+}
+
+.frontend-header {
+    background-color: #fff;
+
+    .container {
+        padding: 0;
+    }
+
+    .top {
+        float: left;
+        width: 100%;
+        margin-bottom: 10px;
+    }
+    .left {
+        float: left;
+        width: 55%;
+
+        .logo {
+            float: left;
+            width: 37%;
+            padding: 5px;
+
+            img {
+                float: left;
+                width: 100%;
+            }
+        }
+
+        .quote {
+            float: left;
+            width: 52%;
+            padding: 30px 10px 25px 35px;
+
+            p {
+                margin-top: 10px;
+                @include neosans;
+
+                span {
+                    color: $red;
+                    @include neosans-medium;
+                }
+            }
+
+            h3 {
+                float: left;
+                width: 100%;
+                @include neosans-medium;
+                font-size: 200%;
+                color: #e20613;
+                margin-top: 12px;
+                margin-bottom: 0;
+            }
+        }
+    }
+
+    //right side
+    .right {
+        float: right;
+        width: 45%;
+    }
+    .links {
+        float: right;
+        width: 100%;
+        padding: 20px 10px 0 10px;
+        a {
+            float: right;
+            margin-right: 10px;
+            margin-bottom: 10px;
+
+            &:first-child {
+                margin-right: 0;
+            }
+        }
+    }
+    .app-btn {
+        float: right;
+        width: auto;
+        margin-bottom: 0;
+        margin-right: 10px;
+
+        &:hover {
+            opacity: 0.8;
+        }
+
+        img {
+            float: left;
+            width: auto;
+            max-height: 42px;
+        }
+    }
+
+    .google-btn {
+        float: right;
+        width: 25%;
+        margin-right: 8px;
+        margin-bottom: 0;
+        max-height: 42px;
+
+        img {
+            width: 100%;
+            max-height: 42px;
+
+            &:hover {
+                opacity: 0.8;
+            }
+        }
+    }
+
+    .phone-number {
+        float: left;
+        width: 100%;
+        padding: 5px 10px 0;
+        text-align: right;
+        @include neosans-medium;
+    }
+}
+
+//buttons
+.frontend-button {
+    float: left;
+    padding: 10px 20px;
+    color: #fff;
+    font-family: "Neo Sans W01 Medium", Arial, sans-serif;
+    font-size: 180%;
+    background-color: gray;
+    border: none;
+    text-decoration: none;
+    transition: opacity background-color 0.25s ease-in-out;
+
+    &:hover {
+        opacity: 0.9;
+    }
+    &.red {
+        background-color: $red;
+    }
+    &.black {
+        background-color: $black-alt;
+
+        &:hover {
+            opacity: 1;
+            background-color: #4a4a4a;
+        }
+    }
+}
+
+.frontend-menu {
+    float: left;
+    width: 100%;
+    background-color: #e20613;
+    line-height: 1.25;
+
+    ul {
+        float: left;
+        width: 100%;
+        li {
+            float: left;
+            border-right: 3px solid #eb515a;
+
+            &.home {
+                width: 10%;
+                a {
+                    padding: 12px 0;
+                }
+            }
+            &.active,
+            &:hover {
+                a {
+                    background: $black-alt;
+                }
+            }
+            a {
+                float: left;
+                width: 100%;
+                padding: 20px;
+                @include neosans-medium;
+                font-size: 180%;
+                color: white;
+                text-align: center;
+                background-color: #e20613;
+                text-decoration: none;
+                transition: background-color ease-in-out 0.25s;
+            }
+        }
+    }
+}
+
+.slider-container {
+    float: left;
+    width: 100%;
+    background-repeat: repeat-y;
+    background-size: 100% 100%;
+    max-height: 490px;
+    overflow: hidden;
+
+    .container {
+        padding: 0 60px !important;
+    }
+
+    .slider {
+        touch-action: pan-y;
+    }
+
+    .slick-dots {
+        position: absolute;
+        right: 0;
+        bottom: 60px;
+        width: 100%;
+
+        li {
+            float: right;
+            &.slick-active {
+                button {
+                    background-color: $red-alt;
+                }
+            }
+
+            button {
+                float: left;
+                width: 17px;
+                height: 17px;
+                margin-right: 10px;
+                background-color: #4d4d4d;
+                background-position: 0 -17px;
+                transition: background-color ease-in-out 0.25s;
+                color: #4d4d4d;
+                text-indent: -9999px;
+            }
+        }
+    }
+
+    .slide-1 {
+        float: left;
+        width: 100%;
+        padding-top: 30px;
+    }
+
+    .slide-2 {
+        float: left;
+        width: 100%;
+        padding-top: 30px;
+
+        .right {
+            text-align: center;
+            padding-top: 5px;
+
+            img {
+                float: none;
+                max-width: 99.3%;
+                max-height: 394px;
+                display: inline-block;
+
+                &.mobile-ver {
+                    display: none;
+                }
+
+                &.lower-img {
+                    display: none;
+                }
+            }
+        }
+    }
+
+    .slide-3 {
+        float: left;
+        width: 100%;
+        padding-top: 30px;
+
+        .right {
+            padding-top: 5px;
+        }
+    }
+
+    .slider-4 {
+        float: left;
+        width: 100%;
+        padding-top: 30px;
+    }
+
+    .left {
+        float: left;
+        width: 35%;
+
+        h3 {
+            float: left;
+            width: 100%;
+            font-size: 340%;
+            @include neosans-bold;
+            margin-bottom: 25px;
+            margin-top: 10px;
+            color: black;
+
+            span {
+                color: $red-alt;
+            }
+        }
+
+        p {
+            float: left;
+            width: 70%;
+            // .Roboto;
+            font-size: 180%;
+            color: $dark-grey-alt;
+            margin-right: 20px;
+            margin-bottom: 25px;
+        }
+
+        ul {
+            float: left;
+            width: 100%;
+
+            li {
+                float: left;
+                width: 100%;
+                padding-left: 40px;
+                background: no-repeat;
+                background-position: left;
+
+                h3 {
+                    margin-top: 0;
+                    margin-bottom: 0;
+                    font-size: 290%;
+                }
+            }
+        }
+    }
+
+    .right {
+        float: left;
+        width: 65%;
+        color: red;
+
+        img {
+            float: left;
+            max-width: 100%;
+        }
+
+        iframe {
+            float: left;
+            width: 100%;
+            height: 394px !important;
+        }
+    }
+}
+
+.app-slider {
+    position: absolute;
+    top: 12.2%;
+    left: 12.3%;
+    /*width: 160px;*/
+    width: 21.4%;
+    overflow: hidden;
+
+    .as-nav {
+        display: none;
+    }
+
+    .holder {
+        float: left;
+        width: 300%;
+    }
+
+    img {
+        float: left;
+        width: 33.33%;
+    }
+    //login
+    //menu
+    .slide2 {
+        animation: app-slider2 10s infinite;
+
+        &.stop-animation {
+            animation-delay: 3s;
+            animation-play-state: paused;
+        }
+    }
+    //floorplan
+    .slide3 {
+        animation: app-slider3 10s infinite;
+
+        &.stop-animation {
+            animation-delay: 3s;
+            animation-play-state: paused;
+        }
+    }
+
+    .slide4 {
+        position: absolute;
+        right: 0;
+        top: 0;
+        animation: app-slider4 10s infinite;
+
+        &.stop-animation {
+            animation-delay: 3s;
+            animation-play-state: paused;
+        }
+    }
+}
+@keyframes app-slider2 {
+    0% {
+        transform: translateX(0);
+    }
+    15% {
+        transform: translateX(0);
+    }
+    20% {
+        transform: translateX(-100%);
+    }
+    50% {
+        transform: translateX(-100%);
+    }
+    75% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
+
+@keyframes app-slider3 {
+    0% {
+        transform: translateX(0);
+    }
+    45% {
+        transform: translateX(-100%);
+    }
+    50% {
+        transform: translateX(-200%);
+    }
+    60% {
+        transform: translateX(-200%);
+    }
+
+    95% {
+        transform: translateX(-200%);
+    }
+
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+@keyframes app-slider4 {
+    0% {
+        transform: translateX(0);
+    }
+
+    55% {
+        transform: translateX(-100%);
+    }
+
+    70% {
+        transform: translateX(-100%);
+    }
+
+    75% {
+        transform: translateX(-200%);
+    }
+    95% {
+        transform: translateX(-200%);
+    }
+
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+//how it works
+.how-it-works {
+    float: left;
+    width: 100%;
+    background-color: $light-grey-alt;
+    border-bottom: 7px solid $red-alt;
+
+    .container {
+        padding: 20px 60px 25px !important;
+    }
+
+    .item-container {
+        float: left;
+        width: 100%;
+    }
+
+    .item {
+        float: left;
+        width: 17.5%;
+        text-align: center;
+
+        .lower-ver {
+            display: none;
+        }
+
+        img {
+            display: inline-block;
+            max-width: 90%;
+        }
+    }
+
+    .arrow {
+        float: left;
+        width: 10%;
+        padding: 65px 20px 0;
+
+        img {
+            float: left;
+            width: 100%;
+        }
+    }
+}
+
+#footer-alt {
+    float: left;
+    width: 100%;
+    text-align: center;
+    background-color: $red;
+    padding-bottom: 10px;
+    //logo
+    .logo {
+        float: none;
+        width: 93px;
+        margin: 0 auto;
+
+        span {
+            float: left;
+            color: white;
+            font-size: 90%;
+            width: 100%;
+            top: 9px;
+            text-align: right;
+            font-style: italic;
+            @include neosans;
+        }
+
+        img {
+            float: left;
+            width: 100%;
+        }
+
+        &.dark {
+            span {
+                color: black;
+            }
+        }
+    }
+}
+
+#footer-alt {
+    margin-top: 20px;
+}
+
+//intro banner
+.intro-banner {
+    float: left;
+    width: 100%;
+
+    .container {
+        padding: 50px 60px 30px;
+        background-position: right top;
+        background-repeat: no-repeat;
+        background-size: contain;
+    }
+
+    .text {
+        float: left;
+        width: 45%;
+    }
+
+    h1 {
+        float: left;
+        width: 100%;
+        margin-bottom: 20px;
+        font-size: 380%;
+        @include neosans;
+        color: black;
+    }
+
+    p {
+        width: 75%;
+    }
+}
+//ABOUT PAGE
+#about {
+    float: left;
+    width: 100%;
+
+    .info-section {
+        .content {
+            border-bottom: none;
+
+            h2 {
+                width: 100%;
+                border-bottom: none;
+                margin-bottom: 0;
+
+                span {
+                    border-bottom: 2px solid black;
+                }
+            }
+
+            &:last-child {
+                border-top: 1px solid #999;
+            }
+        }
+
+        &.top-sec {
+            .image {
+                img {
+                    margin-top: 20px;
+                }
+            }
+        }
+    }
+}
+//CONTACT PAGE
+#contact {
+    float: left;
+    width: 100%;
+
+    .intro-banner {
+        p {
+            width: 55%;
+        }
+    }
+
+    .top {
+        float: left;
+        width: 100%;
+        padding: 45px 0;
+        background-repeat: no-repeat;
+        background-position: left 0;
+        background-size: 100%;
+
+        h3 {
+            color: black;
+            font-size: 380%;
+        }
+
+        p {
+            width: 25%;
+        }
+    }
+
+    .bottom {
+        float: left;
+        width: 100%;
+        padding-top: 20px;
+
+        .container {
+            padding: 0 60px;
+        }
+
+        .info {
+            float: left;
+            width: 70%;
+
+            .address {
+                float: left;
+                width: 50%;
+                padding-right: 80px;
+
+                ul {
+                    float: left;
+                    width: 100%;
+                    margin-bottom: 25px;
+
+                    li {
+                        float: left;
+                        width: 100%;
+                        font-size: 180%;
+                        @include neosans;
+                        padding-bottom: 2px;
+                        color: $dark-grey-alt;
+
+                        span {
+                            @include neosans-bold;
+                            color: $red-alt;
+                        }
+
+                        &:nth-child(7) {
+                            margin-top: 25px;
+                        }
+
+                        &:nth-child(8) {
+                            margin-top: 10px;
+                        }
+                    }
+                }
+
+                .map {
+                    float: left;
+                    width: 100%;
+                    margin-top: 35px;
+
+                    iframe {
+                        float: left;
+                        width: 100%;
+                        height: 250px;
+                    }
+                }
+            }
+
+            .form {
+                float: left;
+                width: 50%;
+                padding-right: 10px;
+
+                p {
+                    margin-bottom: 25px;
+                }
+
+                .row {
+                    float: left;
+                    width: 100%;
+                    padding-bottom: 10px;
+
+                    label {
+                        float: left;
+                        width: 100%;
+                        font-size: 140%;
+                        @include neosans;
+                        color: $dark-grey-alt;
+                        padding-bottom: 5px;
+
+                        span {
+                            color: $red-alt;
+                        }
+                    }
+
+                    input {
+                        float: left;
+                        width: 100%;
+                        padding: 10px;
+                        @include neosans;
+                        font-size: 160%;
+                    }
+
+                    textarea {
+                        float: left;
+                        width: 100%;
+                        padding: 7px 10px;
+                        height: 130px;
+                        resize: none;
+                        @include neosans;
+                        font-size: 160%;
+                    }
+
+                    &:last-child {
+                        input {
+                            width: 40%;
+                        }
+
+                        button {
+                            float: right;
+                            width: 40%;
+                            text-align: center;
+                            padding: 8.5px 20px;
+                        }
+                    }
+                }
+
+                .field-validation-error {
+                    float: left;
+                    width: 100%;
+                    margin-top: 5px;
+                    color: $red-alt;
+                    font-size: 130%;
+                }
+
+                .button {
+                    float: right;
+                    margin-bottom: 10px;
+                }
+            }
+        }
+
+        .banner {
+            float: left;
+            width: 30%;
+            padding-left: 50px;
+
+            .wrap {
+                float: left;
+                width: 100%;
+                background-color: #e6e6e6;
+                padding: 25px 30px;
+            }
+
+            span {
+                color: $red-alt;
+                @include neosans-bold;
+            }
+
+            a {
+                margin: 30px 0;
+            }
+
+            img {
+                float: left;
+                max-width: 100%;
+                margin: 10px 0 0;
+            }
+        }
+    }
+
+    .LBD_CaptchaDiv {
+        float: left;
+        margin: 0 0 10px !important;
+    }
+}

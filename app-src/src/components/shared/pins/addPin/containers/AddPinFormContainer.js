@@ -5,6 +5,8 @@ import { convertArrToObj } from 'helpers/generic';
 
 import createPin from 'actions/companyAdmin/pins/async/createPin';
 import resetPinAnswers from 'actions/companyAdmin/drawings/sync/resetPinAnswers';
+import updateAddPinStatus from 'actions/companyAdmin/drawings/sync/updateAddPinStatus';
+import updateAddPinAnswer from 'actions/companyAdmin/drawings/sync/updateAddPinAnswer';
 
 import AddPinForm from '../presentational/AddPinForm';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
@@ -57,7 +59,14 @@ class AddPinFormContainer extends Component {
     }
 
     componentDidMount = () => {
-        const { drawingID, coordinates, history, hierarchyType } = this.props;
+        const {
+            drawingID,
+            coordinates,
+            history,
+            hierarchyType,
+            updateAddPinStatus,
+            updateAddPinAnswer
+        } = this.props;
 
         if (!coordinates.lat || !coordinates.lng) {
             if (hierarchyType === 'drawing') {
@@ -66,14 +75,34 @@ class AddPinFormContainer extends Component {
         }
 
         window.addEventListener('beforeunload', this.handleBeforeUnload);
-    };
-
-    componentDidUpdate = () => {
-        window.onbeforeunload = () => true;
+        const pinCache = JSON.parse(
+            localStorage.getItem(`pinCache/${drawingID}`)
+        );
+        if (pinCache) {
+            this.setState({ templateID: pinCache.templateID }, () => {
+                updateAddPinStatus(pinCache.status);
+                Object.entries(pinCache.answers).forEach(answer => {
+                    updateAddPinAnswer(answer[0], answer[1]);
+                });
+            });
+        }
     };
 
     componentWillUnmount() {
         window.removeEventListener('beforeunload', this.handleBeforeUnload);
+        const { answers, status, drawingID } = this.props;
+        const { templateID } = this.state;
+
+        const saveState = {
+            answers,
+            status,
+            templateID
+        };
+
+        localStorage.setItem(
+            `pinCache/${drawingID}`,
+            JSON.stringify(saveState)
+        );
     }
 
     handleBeforeUnload = e => {
@@ -184,7 +213,11 @@ const mapStateToProps = ({
 
 const mapDispatchToProps = dispatch => ({
     createPin: postBody => dispatch(createPin(postBody)),
-    resetPinAnswers: () => dispatch(resetPinAnswers())
+    resetPinAnswers: () => dispatch(resetPinAnswers()),
+    updateAddPinStatus: val => dispatch(updateAddPinStatus(val)),
+    updateAddPinAnswer: (key, value) => {
+        dispatch(updateAddPinAnswer(key, value));
+    }
 });
 
 export default withRouter(

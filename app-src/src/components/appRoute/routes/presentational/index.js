@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Redirect } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 
 import withAuth from 'components/shared/auth/auth/hocs/withAuth';
 import NotFound from 'components/shared/notFound/presentational/NotFound';
@@ -12,12 +12,12 @@ import CompanyAppContainer from 'components/companyAdmin/app/app/containers/Comp
 
 import { AUTH_TYPES } from 'constants/shared/auth';
 import ClientAppContainer from 'components/client/app/app/containers/ClientAppContainer';
+import FrontEndAppContainer from 'components/frontEnd/app/app/containers/FrontEndAppContainer';
 
 // ! uncomment this when client log in is sorted
 const { SUPER_ADMIN, COMPANY /*CLIENT*/ } = AUTH_TYPES;
 const Routes = () => (
     <SwitchWith404>
-        <Redirect exact path="/" to="/company" />
         <Route exact path="/404" component={NotFound} />
         <Route path="/auth" component={AuthApp} />
         <Route path="/test" component={withAuth(TestApp, COMPANY)} />
@@ -35,6 +35,7 @@ const Routes = () => (
             // ! put withAuth back in once the client log in is sorted
             // component={withAuth(ClientAppContainer, CLIENT)}
         />
+        <Route path="/" component={withAuth(FrontEndAppContainer)} />
     </SwitchWith404>
 );
 

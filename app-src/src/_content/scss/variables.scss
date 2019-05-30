@@ -10,6 +10,12 @@ $blue: #16a6e2;
 $yellow: #e89901;
 $green: #2eac58;
 $input-border-grey: #cccccc;
+//frontend colours
+$black-alt: #1d1d1b;
+$grey-alt: #888;
+$light-grey-alt: #e6e6e6;
+$red-alt: #e20613;
+$dark-grey-alt: #808080;
 
 //fonts
 @mixin ubuntu() {
@@ -23,6 +29,25 @@ $input-border-grey: #cccccc;
     font: {
         family: "Ubuntu", sans-serif;
         weight: 500;
+    }
+}
+
+//frontend fonts
+@mixin neosans-medium() {
+    font: {
+        family: "Neo Sans W01 Medium", sans-serif;
+    }
+}
+
+@mixin neosans-bold() {
+    font: {
+        family: "Neo Sans W01 Bold", sans-serif;
+    }
+}
+
+@mixin neosans() {
+    font: {
+        family: "Neo Sans W01", sans-serif;
     }
 }
 

@@ -24,6 +24,7 @@ const DrawingMapViewSimple = ({
     zoom,
     pins,
     handleClick,
+    handleClearPinCache,
     drawing = {},
     addMode,
     toggleAddMode,
@@ -49,6 +50,7 @@ const DrawingMapViewSimple = ({
                         {addMode ? (
                             <>
                                 <Link
+                                    onClick={handleClearPinCache}
                                     to={`${drawing.id}/add-pin`}
                                     className="button green pull-right"
                                 >
