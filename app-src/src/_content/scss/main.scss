@@ -2998,6 +2998,7 @@ input {
     width: 100%;
     background-color: white;
     line-height: 1.25;
+    margin-bottom: -60px;
 
     .container {
         width: 100%;
@@ -3524,12 +3525,12 @@ input {
 
     .slick-dots {
         position: absolute;
-        right: 0;
-        bottom: 60px;
-        width: 100%;
+        right: 20px;
+        bottom: 20px;
+        width: auto;
 
         li {
-            float: right;
+            float: left;
             &.slick-active {
                 button {
                     background-color: $red-alt;
@@ -3586,6 +3587,9 @@ input {
         float: left;
         width: 100%;
         padding-top: 30px;
+        padding: {
+            right: 10px;
+        }
 
         .right {
             padding-top: 5px;

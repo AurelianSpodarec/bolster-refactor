@@ -19,7 +19,7 @@ const HomeSlider = ({ sliderSettings }) => (
         <div className="slide-1">
             <div className="left">
                 <h3>
-                    The innovative new inspection system
+                    The innovative new inspection system{' '}
                     <span>
                         changing the face of the building surveying industry
                     </span>

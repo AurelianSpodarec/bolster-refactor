@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
 import HomeIcon from '_content/images/frontend/buttons/home-icon.png';
 import FrontEndMenuItemContainer from '../containers/FrontEndMenuItemContainer';
