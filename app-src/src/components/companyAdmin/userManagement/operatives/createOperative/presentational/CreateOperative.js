@@ -13,7 +13,7 @@ const CreateOperative = () => (
         </PageHeading>
 
         <BlockContainer>
-            <BlockHeading title="Operatvie Details" />
+            <BlockHeading title="Operative Details" />
             <CreateOperativeFormContainer />
         </BlockContainer>
     </>
