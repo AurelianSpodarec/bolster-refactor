@@ -256,3 +256,20 @@ export const DROPDOWN_OPTION_VALS = {
     itemTypes: 2,
     installationTypes: 3
 };
+
+export const FLOORPLAN_STATES = {
+    FAILEDCANCELLED: -100,
+    FAILEDRETRYING: -1,
+    WAITING: 0,
+    RUNNING: 1,
+    COMPLETE: 100
+};
+
+export const FLOORPLAN_STATE_MESSAGES = {
+    '-100':
+        'An error occurred while updating your floorplan, please try again.',
+    '-1': 'Update failed. Retrying...',
+    0: 'Preparing update...',
+    1: 'Updating floorplan...',
+    100: ''
+};

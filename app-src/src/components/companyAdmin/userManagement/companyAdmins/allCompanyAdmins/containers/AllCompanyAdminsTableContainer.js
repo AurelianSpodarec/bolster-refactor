@@ -18,7 +18,13 @@ class AllCompanyAdminTableContainer extends Component {
 
         return (
             <AllCompanyAdminsTable
-                headers={['Name', 'Email', 'Phone Number', '']}
+                headers={[
+                    'Name',
+                    'Email',
+                    'Phone Number',
+                    'Operative Code',
+                    ''
+                ]}
                 users={this._filterUsersForAdmins()}
                 isFetching={isFetching}
                 error={error}

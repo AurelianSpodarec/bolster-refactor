@@ -66,7 +66,8 @@ const SubscriptionStatus = ({ subscriptions, active, endOn, noCards }) => (
             )
         ) : (
             <p className="size-lg-12">
-                You have no subscription, please add a service to subscribe.
+                You have no subscription, please add a service to subscribe and
+                gain access to the site.
             </p>
         )}
     </div>
