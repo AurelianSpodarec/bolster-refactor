@@ -10,6 +10,7 @@ const AllOperativesListItem = ({ user, showDeleteModal, showUnlinkModal }) => (
         <td>{user.userEmail}</td>
         <td>{user.userPhoneNumber}</td>
         <td>{user.linkedDeviceID ? 'Yes' : 'No'}</td>
+        <td>{user.formattedOperativeCode}</td>
         <td>
             <BlockButtonWrapper>
                 {user.linkedDeviceID && (
