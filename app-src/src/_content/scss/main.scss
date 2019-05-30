@@ -3006,8 +3006,8 @@ input {
     }
 
     p {
-        float:left;
-        width:100%;
+        float: left;
+        width: 100%;
         font-size: 180%;
         color: $grey-alt;
         a {
@@ -3219,7 +3219,6 @@ input {
     h3 {
         float: left;
         width: 100%;
-        margin-bottom: 30px;
         color: #e20613;
         font-size: 260%;
         @include neosans;
