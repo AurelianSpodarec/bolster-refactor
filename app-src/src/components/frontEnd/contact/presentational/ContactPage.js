@@ -6,6 +6,7 @@ import ContactPageFormContainer from '../containers/ContactPageFormContainer';
 
 import backgroundImage from '_content/images/frontend/banners/contact-phone-img-fade.jpg';
 import twitterIcon from '_content/images/frontend/twitter-icon.png';
+import HeadingSection from 'components/frontEnd/shared/headings/presentational/HeadingSection';
 
 const ContactPage = () => (
     <div className="size-lg-12" id="contact">
@@ -18,7 +19,7 @@ const ContactPage = () => (
             <div className="container">
                 <div className="info">
                     <div className="address">
-                        <h3>How to find us</h3>
+                        <HeadingSection title="How to find us" />
                         <ul>
                             <li>Bolster Systems</li>
                             <li>7 The Schoolhouse</li>
@@ -30,7 +31,7 @@ const ContactPage = () => (
                                 Tel: <span>0161 873 7679</span>
                             </li>
                             <li>
-                                Email:
+                                Email:{' '}
                                 <span>
                                     <a href="mailto:info@bolstersystems.com">
                                         info@bolstersystems.com
@@ -69,7 +70,7 @@ const ContactPage = () => (
                 </div>
                 <div className="banner">
                     <div className="wrap">
-                        <h3>Request your demo</h3>
+                        <HeadingSection title="Request your demo" />
                         <p>
                             The best way to experience bolster is to try it for
                             yourself. We have a demo available for you to
