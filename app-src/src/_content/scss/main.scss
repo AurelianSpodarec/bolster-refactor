@@ -3219,6 +3219,7 @@ input {
     h3 {
         float: left;
         width: 100%;
+        margin-bottom: 30px;
         color: #e20613;
         font-size: 260%;
         @include neosans;
@@ -4012,8 +4013,9 @@ input {
 
                 .row {
                     float: left;
-                    width: 100%;
                     padding-bottom: 10px;
+                    width: calc(100% + 15px);
+                    margin-left: -7.5px;
 
                     label {
                         float: left;
@@ -4068,7 +4070,7 @@ input {
                     font-size: 130%;
                 }
 
-                .button {
+                .frontend-button {
                     float: right;
                     margin-bottom: 10px;
                 }
