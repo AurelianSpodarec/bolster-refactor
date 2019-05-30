@@ -4042,9 +4042,18 @@ input {
                 .row {
                     float: left;
                     padding-bottom: 10px;
-                    width: calc(100% + 15px);
-                    margin-left: -7.5px;
-
+                    width: 100%;
+                    .form-field {
+                        width: calc(100% + 15px);
+                        margin-left: -7.5px;
+                        margin-bottom: 0;
+                        .title {
+                            text-transform: none;
+                            &:first-letter {
+                                text-transform: capitalize;
+                            }
+                        }
+                    }
                     label {
                         float: left;
                         width: 100%;
@@ -4091,12 +4100,13 @@ input {
                     }
                 }
 
-                .field-validation-error {
+                .error {
                     float: left;
                     width: 100%;
                     margin-top: 5px;
-                    color: $red-alt;
-                    font-size: 130%;
+                    font-size: 150%;
+                    color: #e20613;
+                    margin-bottom: 0;
                 }
 
                 .frontend-button {
