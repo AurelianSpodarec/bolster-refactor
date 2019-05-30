@@ -9,7 +9,7 @@ const AttachBuildingOperative = () => (
     <>
         <PageHeading
             leftChildren={true}
-            title="Invite operative"
+            title="Attach operative"
             withBackButton
         />
         <AttachOperativesFormContainer hierarchyType={HIERARCHY_IDS.BUILDING} />
