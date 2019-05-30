@@ -6,8 +6,9 @@ class HomeSliderContainer extends Component {
         let sliderSettings = {
             dots: true,
             infinite: true,
-            speed: 500,
-            autoplay: true
+            speed: 1500,
+            autoplay: true,
+            arrows: false
         };
 
         return <HomeSlider sliderSettings={sliderSettings} />;

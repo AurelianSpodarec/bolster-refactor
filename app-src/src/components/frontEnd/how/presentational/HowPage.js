@@ -24,7 +24,7 @@ const HowPage = () => (
 
         <ContentSection>
             <div className="text">
-                <HeadingSection title="Inspect" />
+                <HeadingSection id="#inspect" title="Inspect" />
                 <p>
                     Bolster Systems offer an electronic management application
                     designed to integrate the installation, documenting and
@@ -45,7 +45,7 @@ const HowPage = () => (
                 <img alt="Phone app examples" src={inspectPhones} />
             </div>
         </ContentSection>
-        <ContentSection classes="inverted">
+        <ContentSection id="locate" classes="inverted">
             <div className="text">
                 <HeadingSection title="Locate, capture & tag" />
 
@@ -81,44 +81,8 @@ const HowPage = () => (
                 <img alt="Locate and capture app shots" src={locateScreens} />
             </div>
         </ContentSection>
-        <ContentSection classes="inverted" id="locate">
-            <div className="text">
-                <HeadingSection title="Locate, capture & tag" />
 
-                <p>
-                    There is currently no standard for the surveying of passive
-                    fire protection, Bolster Systems provides the standard and
-                    uniformity of reporting, allowing multiple surveyors and
-                    installers to work on the same system. Progress can be
-                    monitored by back office staff and clients.
-                    <br />
-                    <br />
-                    Surveying times are greatly reduced and reports available
-                    instantly, with survey photographs uploaded and scheduled
-                    along with a location drawing in a matter of minutes.
-                    <br /> <br />
-                    The detailed reports can be used for tendering remedial
-                    works by the building managers, whilst maintaining a robust
-                    record of the completed works in compliance with the
-                    Regulatory Reform (Fire Safety) Order 2005.
-                    <br />
-                    <br />
-                    Layout drawings are easily uploaded and drop pins used to
-                    identify the location of works required and completed
-                    remedial works. The drop pin has its own unique reference
-                    with a photographic historical record (before and after).
-                    Clients have real time access to survey works and remedial
-                    works, giving all parties peace of mind that budgets are
-                    being utilised correctly.
-                </p>
-            </div>
-
-            <div className="image">
-                <img alt="Locate and capture app shots" src={locateScreens} />
-            </div>
-        </ContentSection>
-
-        <ContentSection classes="no-border">
+        <ContentSection id="#document" classes="no-border">
             <div className="text">
                 <HeadingSection title="Document & Survey" />
 
