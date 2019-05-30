@@ -76,7 +76,7 @@ const CompanyRoutes = ({ base = '/company' }) => (
         />
         <Route
             path={`${base}/users-management`}
-            component={UserManagementRoutes}
+            component={withSubscriptionAuth(UserManagementRoutes)}
         />
         <Route
             path={`${base}/dropdown-options`}
