@@ -64,14 +64,17 @@ const CompanyMenu = ({ isFromHeadquarters }) => (
                 <MenuItemContainer link="/company/tools/templates">
                     My Templates
                 </MenuItemContainer>
-                <MenuItemContainer link="/company/tools/support">
-                    Support
-                </MenuItemContainer>
                 <MenuItemContainer link="/company/tools/create-report">
                     Create Report
                 </MenuItemContainer>
                 <MenuItemContainer link="/company/tools/transfer-requests">
                     Pending Requests
+                </MenuItemContainer>
+                <MenuItemContainer link="/company/tools/support">
+                    Support
+                </MenuItemContainer>
+                <MenuItemContainer link="/company/approved-companies">
+                    Bolster Approved Companies
                 </MenuItemContainer>
             </DropdownMenuItemContainer>
             <DropdownMenuItems />
