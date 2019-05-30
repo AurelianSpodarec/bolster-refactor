@@ -2,15 +2,15 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import ContactPage from '../presentational/ContactPage';
+import ContactPageForm from '../presentational/ContactPageForm';
 
-export class ContactPageContainer extends Component {
+export class ContactPageFormContainer extends Component {
     static propTypes = {
         prop: PropTypes
     };
 
     render() {
-        return <ContactPage />;
+        return <ContactPageForm />;
     }
 }
 
@@ -21,4 +21,4 @@ const mapDispatchToProps = {};
 export default connect(
     null,
     null
-)(ContactPageContainer);
+)(ContactPageFormContainer);

@@ -3013,6 +3013,20 @@ input {
         a {
             color: #e20613;
             text-decoration: none;
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+    ul {
+        li {
+            a {
+                color: #e20613;
+                text-decoration: none;
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
         }
     }
 
@@ -3216,13 +3230,7 @@ input {
             }
         }
     }
-    h3 {
-        float: left;
-        width: 100%;
-        color: #e20613;
-        font-size: 260%;
-        @include neosans;
-    }
+
     //FORM
     .generic-form {
         float: left;
@@ -3232,7 +3240,15 @@ input {
         margin-left: 0;
 
         .form-field {
-            margin-bottom: 20px;
+            width: calc(100% + 15px);
+            margin-left: -7.5px;
+            margin-bottom: 0;
+            .title {
+                text-transform: none;
+                &:first-letter {
+                    text-transform: capitalize;
+                }
+            }
         }
 
         h2 {
@@ -3247,8 +3263,9 @@ input {
         }
 
         .row {
-            width: calc(100% + 15px);
-            margin-left: -7.5px;
+            float: left;
+            width: 100%;
+            margin-bottom: 20px;
         }
 
         label {
@@ -3301,7 +3318,34 @@ input {
         }
     }
 }
+//buttons
+.frontend-button {
+    float: left;
+    padding: 10px 20px;
+    color: #fff;
+    font-family: "Neo Sans W01 Medium", Arial, sans-serif;
+    font-size: 180%;
+    background-color: gray;
+    border: none;
+    text-decoration: none;
+    transition: opacity 0.25s ease-in-out;
+    cursor: pointer;
+    &:hover {
+        opacity: 0.9;
+        text-decoration: none;
+    }
+    &.red {
+        background-color: $red;
+    }
+    &.black {
+        background-color: $black-alt;
 
+        &:hover {
+            opacity: 1;
+            background-color: #4a4a4a;
+        }
+    }
+}
 .frontend-header {
     background-color: #fff;
 
@@ -3365,7 +3409,7 @@ input {
         float: right;
         width: 100%;
         padding: 20px 10px 0 10px;
-        a {
+        .frontend-button {
             float: right;
             margin-right: 10px;
             margin-bottom: 10px;
@@ -3418,34 +3462,6 @@ input {
     }
 }
 
-//buttons
-.frontend-button {
-    float: left;
-    padding: 10px 20px;
-    color: #fff;
-    font-family: "Neo Sans W01 Medium", Arial, sans-serif;
-    font-size: 180%;
-    background-color: gray;
-    border: none;
-    text-decoration: none;
-    transition: opacity background-color 0.25s ease-in-out;
-
-    &:hover {
-        opacity: 0.9;
-    }
-    &.red {
-        background-color: $red;
-    }
-    &.black {
-        background-color: $black-alt;
-
-        &:hover {
-            opacity: 1;
-            background-color: #4a4a4a;
-        }
-    }
-}
-
 .frontend-menu {
     float: left;
     width: 100%;
@@ -3477,11 +3493,14 @@ input {
                 padding: 20px;
                 @include neosans-medium;
                 font-size: 180%;
-                color: white;
+                color: white !important;
                 text-align: center;
                 background-color: #e20613;
                 text-decoration: none;
                 transition: background-color ease-in-out 0.25s;
+                &:hover {
+                    text-transform: none !important;
+                }
             }
         }
     }
@@ -3809,7 +3828,17 @@ input {
         }
     }
 }
+//REQUEST PAGE
+#request-page {
+    float: left;
+    width: 100%;
 
+    .intro-banner {
+        p {
+            width: 55%;
+        }
+    }
+}
 #footer-alt {
     float: left;
     width: 100%;
@@ -4012,9 +4041,19 @@ input {
 
                 .row {
                     float: left;
-                    width: 100%;
                     padding-bottom: 10px;
-
+                    width: 100%;
+                    .form-field {
+                        width: calc(100% + 15px);
+                        margin-left: -7.5px;
+                        margin-bottom: 0;
+                        .title {
+                            text-transform: none;
+                            &:first-letter {
+                                text-transform: capitalize;
+                            }
+                        }
+                    }
                     label {
                         float: left;
                         width: 100%;
@@ -4022,6 +4061,7 @@ input {
                         @include neosans;
                         color: $dark-grey-alt;
                         padding-bottom: 5px;
+                        margin-bottom: 0;
 
                         span {
                             color: $red-alt;
@@ -4060,15 +4100,16 @@ input {
                     }
                 }
 
-                .field-validation-error {
+                .error {
                     float: left;
                     width: 100%;
                     margin-top: 5px;
-                    color: $red-alt;
-                    font-size: 130%;
+                    font-size: 150%;
+                    color: #e20613;
+                    margin-bottom: 0;
                 }
 
-                .button {
+                .frontend-button {
                     float: right;
                     margin-bottom: 10px;
                 }
