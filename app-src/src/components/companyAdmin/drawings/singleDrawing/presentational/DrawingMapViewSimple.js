@@ -30,7 +30,8 @@ const DrawingMapViewSimple = ({
     toggleAddMode,
     history,
     showModal,
-    updating
+    updating,
+    updateMessage
 }) => {
     const newPinIcon = L.divIcon({
         className: '',
@@ -111,7 +112,7 @@ const DrawingMapViewSimple = ({
                         </button>
                         {updating && (
                             <p>
-                                Updating floorplan... <LoadingIcon />
+                                {updateMessage} <LoadingIcon />
                             </p>
                         )}
                     </BlockHeading>

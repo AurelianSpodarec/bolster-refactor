@@ -264,3 +264,12 @@ export const FLOORPLAN_STATES = {
     RUNNING: 1,
     COMPLETE: 100
 };
+
+export const FLOORPLAN_STATE_MESSAGES = {
+    '-100':
+        'An error occurred while updating your floorplan, please try again.',
+    '-1': 'Update failed. Retrying...',
+    0: 'Preparing update...',
+    1: 'Updating floorplan...',
+    100: ''
+};

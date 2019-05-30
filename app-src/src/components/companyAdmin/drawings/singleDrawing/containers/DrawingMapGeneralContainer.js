@@ -13,7 +13,8 @@ import BlockContainer from 'components/shared/generic/block/containers/BlockCont
 import { convertArrToObj, convertEnumToDropdownOptions } from 'helpers/generic';
 import {
     PIN_STATUS_TYPES,
-    COMPANY_USER_ROLE_TYPES as USER_ROLE
+    COMPANY_USER_ROLE_TYPES as USER_ROLE,
+    FLOORPLAN_STATE_MESSAGES
 } from 'constants/companyAdmin/enums';
 import fetchSingleDrawing from 'actions/companyAdmin/drawings/async/fetchSingleDrawing';
 import updateFloorPlanConfirmed from 'actions/companyAdmin/drawings/sync/updateFloorPlanConfirmed';
@@ -52,7 +53,8 @@ class DrawingMapGeneralContainer extends Component {
         const serviceOptions = this._getServicesOptions();
         const statusOptions = convertEnumToDropdownOptions(PIN_STATUS_TYPES);
         const operativeOptions = this._getOperativeOptions();
-
+        const updateMessage =
+            FLOORPLAN_STATE_MESSAGES[drawing.latestFloorplanState];
         return (
             <>
                 <div className="flex-container size-lg-12">
@@ -96,6 +98,7 @@ class DrawingMapGeneralContainer extends Component {
                         toggleAddMode={this.toggleAddMode}
                         history={this.props.history}
                         updating={drawing.isFloorplanUpdating}
+                        updateMessage={updateMessage}
                     />
                 </BlockContainer>
             </>
