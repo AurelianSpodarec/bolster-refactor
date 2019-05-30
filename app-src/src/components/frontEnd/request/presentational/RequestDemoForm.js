@@ -4,7 +4,14 @@ import Field from 'components/shared/generic/form/presentational/Field';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import FrontEndButton from 'components/frontEnd/shared/buttons/presentational/FrontEndButton';
 
-const RequestDemoForm = () => (
+const RequestDemoForm = ({
+    name,
+    email,
+    number,
+    companyName,
+    handleChange,
+    handleSubmit
+}) => (
     <div className="generic-form">
         <HeadingSecondary title="Enter your details" />
         <p>
@@ -14,7 +21,8 @@ const RequestDemoForm = () => (
         <div className="row">
             <Field name="Your name" required>
                 <TextInputContainer
-                    name="Name"
+                    name="name"
+                    value={name}
                     handleChange={() => {}}
                     required
                 />
@@ -23,8 +31,9 @@ const RequestDemoForm = () => (
         <div className="row">
             <Field name="Your email address" required>
                 <TextInputContainer
-                    name="Email"
+                    name="email"
                     handleChange={() => {}}
+                    value={email}
                     required
                 />
             </Field>
@@ -32,8 +41,9 @@ const RequestDemoForm = () => (
         <div className="row">
             <Field name="Your phone number">
                 <TextInputContainer
-                    name="PhoneNumber"
-                    handleChange={() => {}}
+                    name="number"
+                    handleChange={handleChange}
+                    value={number}
                 />
             </Field>
         </div>
@@ -41,14 +51,19 @@ const RequestDemoForm = () => (
             <Field name="Company name">
                 <TextInputContainer
                     name="CompanyName"
-                    handleChange={() => {}}
+                    handleChange={handleChange}
+                    value={companyName}
                 />
             </Field>
         </div>
         <br />
         <br />
         <span className="required">* required fields</span>
-        <FrontEndButton type="submit" classes="black">
+        <FrontEndButton
+            handleSubmit={handleSubmit}
+            type="submit"
+            classes="black"
+        >
             Submit
         </FrontEndButton>
     </div>

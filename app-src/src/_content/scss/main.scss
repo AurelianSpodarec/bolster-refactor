@@ -3014,6 +3014,7 @@ input {
         float: left;
         width: 100%;
         font-size: 180%;
+        @include roboto;
         color: $grey-alt;
         a {
             color: #e20613;
@@ -3291,7 +3292,7 @@ input {
             width: 100%;
             padding: 5px 8px;
             font-size: 160%;
-            // .Roboto;
+            @include roboto;
             color: black;
             border-radius: 0;
 
@@ -3463,7 +3464,7 @@ input {
         width: 100%;
         padding: 5px 10px 0;
         text-align: right;
-        @include neosans-medium;
+        font-family: "Neo Sans W01 Medium", sans-serif !important;
     }
 }
 
@@ -3627,7 +3628,7 @@ input {
         p {
             float: left;
             width: 70%;
-            // .Roboto;
+            @include roboto;
             font-size: 180%;
             color: $dark-grey-alt;
             margin-right: 20px;

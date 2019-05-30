@@ -5,7 +5,15 @@ import TextInputContainer from 'components/shared/generic/form/containers/TextIn
 import TextAreaContainer from 'components/shared/generic/form/containers/TextAreaContainer';
 import FrontEndButton from 'components/frontEnd/shared/buttons/presentational/FrontEndButton';
 
-const ContactPageForm = () => (
+const ContactPageForm = ({
+    name,
+    email,
+    number,
+    companyName,
+    message,
+    handleChange,
+    handleSubmit
+}) => (
     <div id="contact-form-content">
         <form className="form">
             <HeadingSection title="Contact Form" />
@@ -15,30 +23,59 @@ const ContactPageForm = () => (
             </p>
             <div className="row">
                 <Field name="Your name" required>
-                    <TextInputContainer name="name" required />
+                    <TextInputContainer
+                        name="name"
+                        required
+                        value={name}
+                        handleChange={handleChange}
+                    />
                 </Field>
             </div>
             <div className="row">
                 <Field name="Your email address" required>
-                    <TextInputContainer name="email" required />
+                    <TextInputContainer
+                        name="email"
+                        required
+                        value={email}
+                        handleChange={handleChange}
+                    />
                 </Field>
             </div>
             <div className="row">
                 <Field name="Your contact number" required>
-                    <TextInputContainer name="contactNumber" required />
+                    <TextInputContainer
+                        name="number"
+                        required
+                        value={number}
+                        handleChange={handleChange}
+                    />
                 </Field>
             </div>
             <div className="row">
-                <Field name="Company name" required>
-                    <TextInputContainer name="companyName" required />
+                <Field name="Company name">
+                    <TextInputContainer
+                        name="companyName"
+                        required
+                        value={companyName}
+                        handleChange={handleChange}
+                    />
                 </Field>
             </div>
             <div className="row">
                 <Field name="Your enquiry / message" required>
-                    <TextAreaContainer name="message" required />
+                    <TextAreaContainer
+                        name="message"
+                        required
+                        value={message}
+                        handleChange={handleChange}
+                    />
                 </Field>
             </div>
-            <FrontEndButton type="submit" classes="red">
+            <FrontEndButton
+                type="submit"
+                classes="red"
+                handleSubmit={handleSubmit}
+            >
                 Submit
             </FrontEndButton>
         </form>

@@ -6,6 +6,7 @@ import RequestDemoFormContainer from '../containers/RequestDemoFormContainer';
 import bannerBackground from '_content/images/frontend/banners/request-demo.png';
 import ListArrowRed from '_content/images/frontend/list-arrow-red.png';
 import appShots from '_content/images/frontend/example-images/app-two-phones-3.png';
+import HeadingSection from 'components/frontEnd/shared/headings/presentational/HeadingSection';
 
 const RequestPage = () => (
     <div className="size-lg-12" id="request-page">
@@ -19,7 +20,7 @@ const RequestPage = () => (
                 <form className="generic-form" />
                 <RequestDemoFormContainer />
                 <div className="try-area">
-                    <h3>Try Bolster for yourself</h3>
+                    <HeadingSection title="Try Bolster for yourself" />
                     <p>
                         The best way to experience bolster is to try it for
                         yourself. We have a demo available for you to roadtest.

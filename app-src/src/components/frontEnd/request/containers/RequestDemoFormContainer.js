@@ -1,24 +1,54 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+
+import postRequestDemo from 'actions/frontEnd/requestDemo/async/postRequestDemo';
 
 import RequestDemoForm from '../presentational/RequestDemoForm';
 
-export class RequestDemoFormContainer extends Component {
-    static propTypes = {
-        prop: PropTypes
+class RequestDemoFormContainer extends Component {
+    state = {
+        name: '',
+        email: '',
+        number: '',
+        companyName: ''
+    };
+    render() {
+        return <RequestDemoForm {...this.state} />;
+    }
+
+    handleChange = (name, value) => {
+        this.setState({ [name]: value });
     };
 
-    render() {
-        return <RequestDemoForm />;
-    }
+    handleSubmit = e => {
+        e.preventDefault();
+
+        const { name, email, number, companyName } = this.state;
+
+        const postBody = {
+            name: name,
+            email: email,
+            number: number,
+            companyName: companyName
+        };
+
+        this.props.postRequestDemo(postBody);
+    };
 }
 
-const mapStateToProps = state => ({});
+const mapStateToProps = ({
+    frontEnd: {
+        requestDemoReducer: { error, postSuccess }
+    }
+}) => ({
+    error: error,
+    postSuccess: postSuccess
+});
 
-const mapDispatchToProps = {};
-
+const mapDispatchToProps = dispatch => ({
+    postRequestDemo: postBody => dispatch(postRequestDemo(postBody))
+});
 export default connect(
-    null,
-    null
+    mapStateToProps,
+    mapDispatchToProps
 )(RequestDemoFormContainer);

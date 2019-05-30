@@ -1,9 +1,19 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const FrontEndButton = ({ to, children, classes = '', type = '' }) =>
+const FrontEndButton = ({
+    to,
+    children,
+    classes = '',
+    type = '',
+    handleSubmit = () => {}
+}) =>
     !!type && type.length ? (
-        <button type={type} className={`frontend-button ${classes}`}>
+        <button
+            type={type}
+            className={`frontend-button ${classes}`}
+            onClick={e => handleSubmit(e)}
+        >
             {children}
         </button>
     ) : (

@@ -1,24 +1,64 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+
+import postContactForm from 'actions/frontEnd/contact/async/postContactForm';
 
 import ContactPageForm from '../presentational/ContactPageForm';
 
-export class ContactPageFormContainer extends Component {
-    static propTypes = {
-        prop: PropTypes
+class ContactPageFormContainer extends Component {
+    state = {
+        name: '',
+        email: '',
+        number: '',
+        companyName: '',
+        message: ''
     };
 
     render() {
-        return <ContactPageForm />;
+        return (
+            <ContactPageForm
+                {...this.state}
+                handleChange={this.handleChange}
+                handleSubmit={this.handleSubmit}
+            />
+        );
     }
+
+    handleChange = (name, value) => {
+        this.setState({ [name]: value });
+    };
+
+    handleSubmit = e => {
+        e.preventDefault();
+
+        const { name, email, number, companyName, message } = this.state;
+
+        const postBody = {
+            name: name,
+            email: email,
+            number: number,
+            companyName: companyName,
+            message: message
+        };
+
+        this.props.postContactForm(postBody);
+    };
 }
 
-const mapStateToProps = state => ({});
+const mapStateToProps = ({
+    frontEnd: {
+        contactReducer: { error, postSuccess }
+    }
+}) => ({
+    error: error,
+    postSuccess: postSuccess
+});
 
-const mapDispatchToProps = {};
+const mapDispatchToProps = dispatch => ({
+    postContactForm: postBody => dispatch(postContactForm(postBody))
+});
 
 export default connect(
-    null,
-    null
+    mapStateToProps,
+    mapDispatchToProps
 )(ContactPageFormContainer);
