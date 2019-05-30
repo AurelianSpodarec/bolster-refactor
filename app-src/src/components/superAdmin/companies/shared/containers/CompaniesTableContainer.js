@@ -25,8 +25,10 @@ const CompaniesTableContainer = ({
 
     function _getFilteredCompanies() {
         const name = filters.name.toLowerCase();
-        return companies.filter(company =>
-            company.name.toLowerCase().includes(name)
+        return companies.filter(
+            company =>
+                company.name.toLowerCase().includes(name) ||
+                company.code.includes(+name)
         );
     }
 };

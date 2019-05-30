@@ -1654,7 +1654,11 @@ input {
                 }
             }
         }
-
+        &.always {
+            a {
+                background-color: #53545c;
+            }
+        }
         .sub-menu {
             float: left;
             width: 100%;
