@@ -2,30 +2,31 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import HomeIcon from '_content/images/frontend/buttons/home-icon.png';
+import FrontEndMenuItemContainer from '../containers/FrontEndMenuItemContainer';
 
 const FrontEndMenu = () => (
     <div className="frontend-menu">
         <div className="container">
             <ul>
-                <li className="home active">
-                    <Link to="/home">
-                        <img alt="Home Icon" src={HomeIcon} />
-                    </Link>
-                </li>
+                <FrontEndMenuItemContainer link="/" classes="home">
+                    <img alt="Home Icon" src={HomeIcon} />
+                </FrontEndMenuItemContainer>
 
-                <li>
-                    <Link to="/How">How it works</Link>
-                </li>
+                <FrontEndMenuItemContainer link="/How">
+                    How it works
+                </FrontEndMenuItemContainer>
 
-                <li>
-                    <Link to="/About">About</Link>
-                </li>
-                <li>
-                    <Link to="/Request">Request demo</Link>
-                </li>
-                <li>
-                    <Link to="/Contact">Contact</Link>
-                </li>
+                <FrontEndMenuItemContainer link="/About">
+                    About
+                </FrontEndMenuItemContainer>
+
+                <FrontEndMenuItemContainer link="/Request">
+                    Request demo
+                </FrontEndMenuItemContainer>
+
+                <FrontEndMenuItemContainer link="/Contact">
+                    Contact
+                </FrontEndMenuItemContainer>
             </ul>
         </div>
     </div>

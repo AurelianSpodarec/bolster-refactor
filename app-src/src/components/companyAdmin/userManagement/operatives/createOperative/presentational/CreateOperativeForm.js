@@ -93,7 +93,7 @@ const CreateOperativeForm = ({
 
         <BlockButtonWrapper>
             <button className="button green">
-                <i className="fa fa-plus" /> Invite Operative
+                <i className="fa fa-plus" /> Attach Operative
             </button>
             <ButtonContainer to="/company/users-management/operatives">
                 Cancel

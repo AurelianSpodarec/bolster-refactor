@@ -13,7 +13,7 @@ const AllOperativesTable = ({ headers, users, isFetching, error }) => (
                 className="button green"
                 to="/company/users-management/operatives/create"
             >
-                <i className="fa fa-plus" /> Invite Operative
+                <i className="fa fa-plus" /> Attach Operative
             </Link>
         </BlockHeading>
         <Table

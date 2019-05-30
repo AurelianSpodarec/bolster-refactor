@@ -7,7 +7,7 @@ const AttachDrawingOperative = () => (
     <>
         <PageHeading
             leftChildren={true}
-            title="Invite operative"
+            title="Attach operative"
             withBackButton
         />
         <AttachDrawingOperativecontainer />
