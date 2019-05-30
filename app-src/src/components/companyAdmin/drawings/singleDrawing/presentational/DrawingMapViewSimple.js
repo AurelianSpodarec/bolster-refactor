@@ -96,7 +96,7 @@ const DrawingMapViewSimple = ({
                                     }
                                 >
                                     <i className="fa fa-download" /> Download
-                                    original drawing
+                                    floorplan
                                 </button>
                             </>
                         )}
