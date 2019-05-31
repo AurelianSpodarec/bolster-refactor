@@ -73,11 +73,7 @@ const CompanyMenu = ({
                 <i className="far fa-money-check fa-fw fa-fw icon" />
                 <span className="menu-text large">Subscription & Credits</span>
             </MenuItemContainer>
-            <MenuItemContainer link="/company/tools/credit-logs">
-                <span className="number green">{totalCredits}</span>
-                <i className="far fa-scroll fa-fw fa-fw icon" />
-                <span className="menu-text large"> Drawing Credit Log</span>
-            </MenuItemContainer>
+
             <MenuHeader title="Reports" />
 
             <MenuItemContainer
@@ -88,8 +84,12 @@ const CompanyMenu = ({
                 {!!unreadCount && <span className="number">{unreadCount}</span>}
                 <i className="far fa-file-chart-pie fa-fw icon" />
                 <span className={`menu-text ${unreadCount ? 'large' : ''}`}>
-                    Reports
+                    My Company Reports
                 </span>
+            </MenuItemContainer>
+            <MenuItemContainer link="/company/tools/create-report">
+                <i className="far fa-file-edit fa-fw icon" />
+                <span className="menu-text">Create Report</span>
             </MenuItemContainer>
             <MenuHeader title="Settings & Tools" />
             <MenuItemContainer link="/company/profile">
