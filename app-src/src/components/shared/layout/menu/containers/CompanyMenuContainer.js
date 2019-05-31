@@ -27,7 +27,7 @@ const CompanyMenuContainer = ({
             totalRequests={totalRequests}
             isFromHeadquarters={isFromHeadquarters}
             unreadCount={unreadCount}
-            dismissMessages={dismissMessages}
+            dismissMessages={dismissNotifications}
         />
     );
 };
