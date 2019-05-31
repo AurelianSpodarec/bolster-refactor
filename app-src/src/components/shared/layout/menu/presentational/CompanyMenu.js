@@ -53,7 +53,7 @@ const CompanyMenu = ({ isFromHeadquarters }) => (
                 <i className="far fa-receipt icon" />
                 Orders
             </MenuItemContainer>
-            <MenuItemContainer link="/company/subscriptions">
+            <MenuItemContainer link="/company/subscription">
                 <i className="far fa-money-check icon" />
                 Subscriptions & Drawing Credits
             </MenuItemContainer>

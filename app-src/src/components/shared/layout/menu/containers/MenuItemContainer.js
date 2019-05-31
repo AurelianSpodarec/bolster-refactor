@@ -4,7 +4,13 @@ import { Link } from 'react-router-dom';
 
 class MenuItemContainer extends Component {
     render() {
-        const { location, link, children, external = false } = this.props;
+        const {
+            location,
+            link,
+            children,
+            external = false,
+            logout = false
+        } = this.props;
         const route = location.pathname.toLowerCase();
         const isActive = link.toLowerCase() === route;
 
@@ -12,10 +18,12 @@ class MenuItemContainer extends Component {
             <div className={`item ${isActive ? 'active' : ''}`}>
                 {external ? (
                     <a href={link}>{children}</a>
-                ) : (
+                ) : logout ? (
                     <Link onClick={this.logout} to={link}>
                         {children}
                     </Link>
+                ) : (
+                    <Link to={link}>{children}</Link>
                 )}
             </div>
         );
