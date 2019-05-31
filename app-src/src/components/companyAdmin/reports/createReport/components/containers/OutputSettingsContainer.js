@@ -17,6 +17,8 @@ import {
 } from 'constants/companyAdmin/enums';
 import updateFilterOption from 'actions/companyAdmin/reports/sync/updateFilterOption';
 import OutputSettings from '../presentational/OutputSettings';
+import addFieldError from 'actions/shared/generic/fieldErrors/sync/addFieldError';
+import removeFieldError from 'actions/shared/generic/fieldErrors/sync/removeFieldError';
 
 class OutputSettingsContainer extends Component {
     render() {
@@ -88,15 +90,32 @@ class OutputSettingsContainer extends Component {
             getPostBody,
             postReport,
             fieldErrors,
-            showFieldErrors
+            showFieldErrors,
+            addFieldError,
+            removeFieldError
         } = this.props;
 
-        if (!isEmpty(fieldErrors)) {
+        const body = getPostBody();
+        const {
+            isPDFGeneration,
+            isCSVGeneration,
+            isFloorplanGeneration
+        } = body;
+        if (!isPDFGeneration && !isCSVGeneration && !isFloorplanGeneration) {
+            addFieldError(
+                'isFloorplanGeneration',
+                'Must select at least one option'
+            );
             showFieldErrors();
             return;
+        } else {
+            removeFieldError('isFloorplanGeneration');
         }
-
-        postReport(getPostBody());
+        if (!isEmpty(fieldErrors)) {
+            showFieldErrors();
+        } else {
+            postReport(getPostBody());
+        }
     };
 }
 
@@ -124,7 +143,9 @@ const mapDispatchToProps = dispatch => ({
     postCustomFilters: postBody => dispatch(postCustomFilters(postBody)),
     removeFilterQuestions: () => dispatch(removeFilterQuestions()),
     showModal: (type, props) => dispatch(showModal(type, props)),
-    showFieldErrors: () => dispatch(showFieldErrors())
+    showFieldErrors: () => dispatch(showFieldErrors()),
+    addFieldError: (name, err) => dispatch(addFieldError(name, err)),
+    removeFieldError: name => dispatch(removeFieldError(name))
 });
 
 const WithConnect = connect(

@@ -32,6 +32,7 @@ const BasicFilters = ({
                         selectedOption={selectedService}
                         value={selectedService}
                         handleChange={handleChange}
+                        required
                     />
                 </Field>
                 <Field name="Status">
