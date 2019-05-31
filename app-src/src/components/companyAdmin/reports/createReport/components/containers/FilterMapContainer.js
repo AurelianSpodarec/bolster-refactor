@@ -37,9 +37,12 @@ const mapStateToProps = ({
         drawingsReducer: { drawings }
     }
 }) => {
+    console.info(filters);
     return {
         drawing: drawings[filters.drawingID] || {},
-        pins: Object.values(pinResults)
+        pins: Object.values(pinResults).filter(({ id }) =>
+            filters.pinIDs.includes(id)
+        )
     };
 };
 
