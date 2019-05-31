@@ -84,6 +84,7 @@ const BasicFilters = ({
                         selectedOption={selectedHistoryNum}
                         handleChange={handleChange}
                         withoutPlaceholder
+                        required
                     />
                 </Field>
 
