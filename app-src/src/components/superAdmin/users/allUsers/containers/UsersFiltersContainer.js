@@ -2,13 +2,18 @@ import React from 'react';
 import updateUsersFilters from 'actions/superAdmin/users/sync/updateUsersFilter';
 import { connect } from 'react-redux';
 import UsersFilters from '../presentational/UsersFilters';
-import { ROLE_TYPES } from 'constants/companyAdmin/enums';
+import { COMPANY_USER_ROLE_IDS } from 'constants/companyAdmin/enums';
 
-const UsersFiltersContainer = ({ filters: { email, role }, dispatch }) => {
-    const roleTypes = Object.entries(ROLE_TYPES).map(([roleEnum, role]) => ({
-        text: role,
-        value: roleEnum
-    }));
+const UsersFiltersContainer = ({
+    filters: { email, role },
+    updateUsersFilters
+}) => {
+    const roleTypes = Object.entries(COMPANY_USER_ROLE_IDS).map(
+        ([roleEnum, role]) => ({
+            text: role,
+            value: roleEnum
+        })
+    );
 
     return (
         <UsersFilters
@@ -20,10 +25,17 @@ const UsersFiltersContainer = ({ filters: { email, role }, dispatch }) => {
     );
 
     function handleChange(name, value) {
-        dispatch(updateUsersFilters(name, value));
+        updateUsersFilters(name, value);
     }
 };
+const mapStateToProps = ({
+    superAdmin: {
+        usersReducer: { filters }
+    }
+}) => ({ filters });
+const mapDispatchToProps = { updateUsersFilters };
 
-export default connect(({ superAdmin: { usersReducer } }) => ({
-    filters: usersReducer.filters
-}))(UsersFiltersContainer);
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(UsersFiltersContainer);

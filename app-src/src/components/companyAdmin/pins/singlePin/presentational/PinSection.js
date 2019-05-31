@@ -6,7 +6,9 @@ const PinSection = ({ sections, pinHistory }) =>
     sections.map(({ id, name }) => (
         <div className="pin-details-section size-lg-12" key={id}>
             <BlockHeading classes="sub-heading" title={name} />
-            <PinQuestionsContainer sectionID={id} pinHistory={pinHistory} />
+            <div className="flex-row">
+                <PinQuestionsContainer sectionID={id} pinHistory={pinHistory} />
+            </div>
         </div>
     ));
 

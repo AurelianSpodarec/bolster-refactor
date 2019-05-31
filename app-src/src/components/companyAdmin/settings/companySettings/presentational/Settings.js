@@ -12,6 +12,7 @@ import FieldOutput from 'components/shared/generic/fieldOutput/presentational/Fi
 
 const Settings = ({ isFetching, error, companySettings: company }) => {
     const { timeZone = {}, dateFormat = {} } = company;
+    const notProvided = 'Not Provided';
     return (
         <>
             <PageHeading title="Company Settings" withBackButton>
@@ -53,12 +54,14 @@ const Settings = ({ isFetching, error, companySettings: company }) => {
                     <div className="size-lg-4">
                         <FieldOutput
                             title="Fax"
-                            description={company.fax}
+                            description={company.fax || notProvided}
                             fieldClass="no-h-padding"
                         />
                         <FieldOutput
                             title="Company Reg. Number"
-                            description={company.companyRegistrationNumber}
+                            description={
+                                company.companyRegistrationNumber || notProvided
+                            }
                             fieldClass="no-h-padding"
                         />
                     </div>
@@ -73,13 +76,13 @@ const Settings = ({ isFetching, error, companySettings: company }) => {
                     <BlockHeading title="Label Settings" />
                     <FieldOutput
                         title="Telephone Number"
-                        description={company.labelTelNumber}
+                        description={company.labelTelNumber || notProvided}
                         fieldClass="no-h-padding"
                         sizeClass="size-lg-12"
                     />
                     <FieldOutput
                         title="Company Name"
-                        description={company.labelCompanyName}
+                        description={company.labelCompanyName || notProvided}
                         fieldClass="no-h-padding"
                         sizeClass="size-lg-12"
                     />
@@ -137,7 +140,6 @@ const Settings = ({ isFetching, error, companySettings: company }) => {
                 error={error}
                 isEmpty={!company.name}
             >
-                {' '}
                 <BlockHeading title="Display Settings" />
                 <FieldOutput
                     title="Company Logo"
@@ -155,7 +157,7 @@ const Settings = ({ isFetching, error, companySettings: company }) => {
                 </FieldOutput>
                 <FieldOutput
                     title="Colour Code"
-                    description={company.colourCode}
+                    description={company.colourCode || 'Not yet set'}
                     fieldClass="no-h-padding"
                     sizeClass="size-lg-4"
                 />

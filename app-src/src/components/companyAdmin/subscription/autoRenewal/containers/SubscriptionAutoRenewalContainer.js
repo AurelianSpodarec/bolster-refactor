@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import moment from 'moment';
 
 import SubscriptionAutoRenewal from '../presentational/SubscriptionAutoRenewal';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
@@ -7,7 +8,12 @@ import editSubscriptionRenewalStatus from 'actions/companyAdmin/subscriptions/as
 
 class SubscriptionAutoRenewalContainer extends Component {
     render() {
-        const { isFetching, isAutoRenew, renewalType } = this.props;
+        const {
+            isFetching,
+            isAutoRenew,
+            renewalType,
+            subscriptions
+        } = this.props;
         const noCards = !Object.values(this.props.cards).length;
 
         return (
@@ -18,6 +24,10 @@ class SubscriptionAutoRenewalContainer extends Component {
                     handleRadioChange={this.handleRadioChange}
                     renewalType={renewalType}
                     noCards={noCards}
+                    active={this.checkSubActive(
+                        subscriptions.startOn,
+                        subscriptions.endOn
+                    )}
                 />
             </BlockContainer>
         );
@@ -46,20 +56,20 @@ class SubscriptionAutoRenewalContainer extends Component {
             renewPaymentType: value
         });
     };
+    checkSubActive = (start, end) =>
+        moment(start).isBefore(Date.now()) && moment(end).isAfter(Date.now());
 }
 
 const mapStateToProps = ({
     companyAdmin: {
-        subscriptionsReducer: {
-            isFetching,
-            subscriptions: { isAutoRenew, renewalType }
-        },
+        subscriptionsReducer: { isFetching, subscriptions },
         cardsReducer: { cards }
     }
 }) => ({
     isFetching,
-    isAutoRenew,
-    renewalType,
+    isAutoRenew: subscriptions.isAutoRenew,
+    renewalType: subscriptions.renewalType,
+    subscriptions,
     cards: cards || {}
 });
 

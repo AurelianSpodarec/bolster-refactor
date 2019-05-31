@@ -17,6 +17,7 @@ class AllOperativesTableContainer extends Component {
                     'Email',
                     'Phone Number',
                     'Has linked device?',
+                    'Operative Code',
                     ''
                 ]}
                 users={users}

@@ -2,6 +2,12 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { QUESTION_TYPE_VALUES } from 'constants/shared/templateBuilder';
+import updateAddPinAnswer from 'actions/companyAdmin/drawings/sync/updateAddPinAnswer';
+import resetPinAnswers from 'actions/companyAdmin/drawings/sync/resetPinAnswers';
+import { PIN_STATUS_TYPES } from 'constants/companyAdmin/enums';
+import { convertArrToObj, convertEnumToDropdownOptions } from 'helpers/generic';
+import updateAddPinStatus from 'actions/companyAdmin/drawings/sync/updateAddPinStatus';
+
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import TextAreaContainer from 'components/shared/generic/form/containers/TextAreaContainer';
 import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
@@ -10,15 +16,9 @@ import FileUploadContainer from 'components/shared/generic/form/containers/FileU
 import RadioButtonListContainer from 'components/shared/generic/form/containers/RadioButtonListContainer';
 import SignatureContainer from 'components/shared/generic/form/containers/SignatureContainer';
 import MultiDropdownContainer from 'components/shared/generic/form/containers/MultiDropdownContainer';
-
-import updateAddPinAnswer from 'actions/companyAdmin/drawings/sync/updateAddPinAnswer';
-import resetPinAnswers from 'actions/companyAdmin/drawings/sync/resetPinAnswers';
-
-import { convertArrToObj, convertEnumToDropdownOptions } from 'helpers/generic';
 import Field from 'components/shared/generic/form/presentational/Field';
-import { PIN_STATUS_TYPES } from 'constants/companyAdmin/enums';
-import updateAddPinStatus from 'actions/companyAdmin/drawings/sync/updateAddPinStatus';
 import BoundlessSelect from 'components/shared/generic/form/presentational/BoundlessSelect';
+import NumberInputContainer from 'components/shared/generic/form/containers/NumberInputContainer';
 
 const {
     SINGLE_LINE,
@@ -71,9 +71,8 @@ const NumberInput = ({
     answers,
     handleChange
 }) => (
-    <TextInputContainer
+    <NumberInputContainer
         required={isRequired}
-        type="number"
         name={`answer-${id}`}
         value={answers[id]}
         maxNum={maxNum}
@@ -133,12 +132,17 @@ const CheckBox = ({ question: { id, isRequired }, answers, handleChange }) => (
     />
 );
 
-const Radio = ({ question: { id, options }, answers, handleChange }) => (
+const Radio = ({
+    question: { id, options, isRequired },
+    answers,
+    handleChange
+}) => (
     <RadioButtonListContainer
         name={`answer-${id}`}
         options={options}
         selectedOption={answers[id]}
         handleChange={handleChange}
+        required={isRequired}
     />
 );
 
@@ -412,12 +416,20 @@ class AddPinQuestionRoute extends Component {
             questions
         );
 
+        const maxValueMessage = question.charLimit
+            ? ` (max ${question.charLimit} characters)`
+            : question.maxNum
+            ? ` (max ${question.maxNum})`
+            : '';
+
+        const name = `${question.name}${maxValueMessage}`;
+
         if (showPreReq) {
             return (
                 <Field
                     key={question.id}
-                    name={question.name}
-                    sizeClasses="size-lg-6"
+                    name={name}
+                    sizeClasses="size-lg-6 flex-row-item"
                     required={question.isRequired}
                 >
                     <SpecificField
@@ -545,12 +557,11 @@ const mapStateToProps = ({
     questions
 });
 
-const mapDispatchToProps = dispatch => ({
-    updateAddPinAnswer: (key, value) =>
-        dispatch(updateAddPinAnswer(key, value)),
-    resetPinAnswers: () => dispatch(resetPinAnswers()),
-    updateAddPinStatus: val => dispatch(updateAddPinStatus(val))
-});
+const mapDispatchToProps = {
+    updateAddPinAnswer,
+    resetPinAnswers,
+    updateAddPinStatus
+};
 
 export default connect(
     mapStateToProps,

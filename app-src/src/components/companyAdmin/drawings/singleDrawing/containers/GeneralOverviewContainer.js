@@ -8,10 +8,12 @@ import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import {
     CONFIRM_DELETE,
     ERROR_MODAL,
-    CONFIRM_ARCHIVE
+    CONFIRM_ARCHIVE,
+    SUCCESS_MODAL
 } from 'constants/shared/modalTypes';
 import deleteDrawing from 'actions/companyAdmin/drawings/async/deleteDrawing';
 import archiveDrawing from 'actions/companyAdmin/drawings/async/archiveDrawing';
+import { isObjEmpty } from 'helpers/generic';
 
 class GeneralOverviewContainer extends Component {
     render = () => (
@@ -36,6 +38,18 @@ class GeneralOverviewContainer extends Component {
             history.push(`/company/floors/${drawing.floorID}`);
         }
         if (postFailure && !prevProps.postFailure) showModal(ERROR_MODAL);
+
+        if (
+            drawing.isArchived !== prevProps.drawing.isArchived &&
+            !isObjEmpty(prevProps.drawing)
+        ) {
+            showModal(SUCCESS_MODAL, {
+                title: 'Archive success',
+                message: `Drawing successfully ${
+                    !drawing.isArchived ? 'un' : ''
+                }archived.`
+            });
+        }
     };
 
     handleDeleteModal = () => {
@@ -65,7 +79,12 @@ class GeneralOverviewContainer extends Component {
         const message = `Are you sure you want to ${
             drawing.isArchived ? 'un-' : ''
         }archive ${drawing.name}?`;
-        showModal(CONFIRM_ARCHIVE, { hideModal, handleArchive, message });
+        showModal(CONFIRM_ARCHIVE, {
+            hideModal,
+            handleArchive,
+            message,
+            archive: !drawing.isArchived
+        });
     };
 }
 

@@ -75,15 +75,6 @@ function pinsReducer(state = {}, action) {
             return updateObj(state, action.payload.id, action.payload);
         case FETCH_PINS_SUCCESS:
             return convertArrToObj(action.payload);
-        case EDIT_PIN_LOCATION_REQUEST:
-            return {
-                ...state,
-                [action.id]: {
-                    ...state[action.id],
-                    latitude: action.lat,
-                    longitude: action.lng
-                }
-            };
         default:
             return state;
     }

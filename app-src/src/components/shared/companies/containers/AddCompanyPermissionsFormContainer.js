@@ -23,7 +23,6 @@ class AddCompanyPermissionsFormContainer extends Component {
                     serviceOptions={serviceOptions}
                     checkedServices={serviceIDs}
                     handleChange={this.handleChange}
-                    handleMultiselectChange={this.handleMultiselectChange}
                     handleSubmit={this.handleSubmit}
                     companyID={companyID}
                 />
@@ -45,13 +44,7 @@ class AddCompanyPermissionsFormContainer extends Component {
         }));
     };
 
-    handleChange = (name, value) => {
-        this.setState({ [name]: value });
-    };
-
-    handleMultiselect = (name, value) => {
-        this.setState({ [name]: value });
-    };
+    handleChange = (name, value) => this.setState({ [name]: value });
 
     handleSubmit = () => {
         const { serviceIDs } = this.state;
@@ -89,11 +82,7 @@ const mapStateToProps = (
     redirectUrl: url.replace(`/add-permissions/${params.companyID}`, '')
 });
 
-const mapDispatchToProps = dispatch => ({
-    addCompany: (hierarchyType, hierarchyID, postBody) => {
-        dispatch(addCompany(hierarchyType, hierarchyID, postBody));
-    }
-});
+const mapDispatchToProps = { addCompany };
 
 export default withRouter(
     connect(

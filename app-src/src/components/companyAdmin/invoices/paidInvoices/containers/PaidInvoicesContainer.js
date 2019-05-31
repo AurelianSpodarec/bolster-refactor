@@ -10,7 +10,7 @@ class PaidInvoicesContainer extends Component {
         const { error, isFetching, paidInvoices } = this.props;
         return (
             <BlockContainer>
-                <BlockHeading title="Paid Invoices" />
+                <BlockHeading title="Payments" />
                 <InvoicesTableContainer
                     error={error}
                     isFetching={isFetching}

@@ -32,6 +32,7 @@ const BasicFilters = ({
                         selectedOption={selectedService}
                         value={selectedService}
                         handleChange={handleChange}
+                        required
                     />
                 </Field>
                 <Field name="Status">
@@ -83,6 +84,7 @@ const BasicFilters = ({
                         selectedOption={selectedHistoryNum}
                         handleChange={handleChange}
                         withoutPlaceholder
+                        required
                     />
                 </Field>
 

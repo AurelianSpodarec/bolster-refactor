@@ -6,7 +6,7 @@ import ButtonContainer from 'components/shared/generic/button/containers/ButtonC
 
 const OperativesAdd = ({ type, location }) => (
     <div className="size-lg-12">
-        <BlockHeading title="Invite Operative">
+        <BlockHeading title="Attach Operative">
             <ButtonContainer
                 className="pull-right green"
                 to={`${location.pathname}/add-operative`}
@@ -15,7 +15,7 @@ const OperativesAdd = ({ type, location }) => (
             </ButtonContainer>
         </BlockHeading>
         <p className="generic-text size-lg-12">
-            If you invite an operative to this {type}, they will be given access
+            If you attach an operative to this {type}, they will be given access
             to each drawing it contains. To remove the operative you will need
             to remove them from each drawing individually.
         </p>

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import { VAT_TYPES } from 'constants/companyAdmin/enums';
 
@@ -7,12 +8,13 @@ import Form from 'components/shared/generic/form/containers/Form';
 import Field from 'components/shared/generic/form/presentational/Field';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
-import Select from 'react-select';
+// import Select from 'react-select';
 import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
+import Select from 'components/shared/generic/form/presentational/Select';
 
 const RegisterForm = ({
     handleSubmit,
-    handleInputChange,
+    handleChange,
     timezoneOptions,
     'User.email': email,
     'User.password': password,
@@ -34,8 +36,7 @@ const RegisterForm = ({
     terms,
     error,
     validatePassword,
-    validateConfirmPassword,
-    handleDropDown
+    validateConfirmPassword
 }) => (
     <BlockContainer error={error}>
         <BlockHeading title="Register for bolster systems" />
@@ -45,7 +46,7 @@ const RegisterForm = ({
                     value={firstName}
                     name={'User.firstName'}
                     placeholder="Please enter your first name"
-                    handleChange={handleInputChange}
+                    handleChange={handleChange}
                 />
             </Field>
             <Field name="Last Name" sizeClasses="size-lg-4" required>
@@ -54,7 +55,7 @@ const RegisterForm = ({
                     name="User.lastName"
                     placeholder="Please enter your last name"
                     required
-                    handleChange={handleInputChange}
+                    handleChange={handleChange}
                 />
             </Field>
 
@@ -65,7 +66,7 @@ const RegisterForm = ({
                     type="email"
                     placeholder="Please enter your email"
                     required
-                    handleChange={handleInputChange}
+                    handleChange={handleChange}
                 />
             </Field>
             <Field name="Password" sizeClasses="size-lg-4" required>
@@ -74,7 +75,7 @@ const RegisterForm = ({
                     name="User.password"
                     type="password"
                     placeholder="Please enter your password"
-                    handleChange={handleInputChange}
+                    handleChange={handleChange}
                     validate={validatePassword}
                     required
                 />
@@ -84,7 +85,7 @@ const RegisterForm = ({
                 <TextInputContainer
                     name="confirmPassword"
                     value={confirmPassword}
-                    handleChange={handleInputChange}
+                    handleChange={handleChange}
                     placeholder="Please confirm your password"
                     type="password"
                     validate={validateConfirmPassword}
@@ -97,7 +98,7 @@ const RegisterForm = ({
                     value={phoneNumber}
                     name="Company.phoneNumber"
                     placeholder="Please enter your telephone number"
-                    handleChange={handleInputChange}
+                    handleChange={handleChange}
                     required
                 />
             </Field>
@@ -106,7 +107,7 @@ const RegisterForm = ({
                     value={name}
                     name="Company.name"
                     placeholder="Please enter your Business name"
-                    handleChange={handleInputChange}
+                    handleChange={handleChange}
                     required
                 />
             </Field>
@@ -119,7 +120,7 @@ const RegisterForm = ({
                     value={addressLine1}
                     name="Company.addressLine1"
                     placeholder="Address line 1"
-                    handleChange={handleInputChange}
+                    handleChange={handleChange}
                     required
                 />
             </Field>
@@ -128,7 +129,7 @@ const RegisterForm = ({
                     value={town}
                     name="Company.town"
                     placeholder="Town or City"
-                    handleChange={handleInputChange}
+                    handleChange={handleChange}
                     required
                 />
             </Field>
@@ -137,43 +138,43 @@ const RegisterForm = ({
                     value={postcode}
                     name="Company.postcode"
                     placeholder="Postcode"
-                    handleChange={handleInputChange}
+                    handleChange={handleChange}
                     required
                 />
             </Field>
 
             <Field name="Timezone" required>
                 <Select
+                    name="Company.timezone"
                     options={timezoneOptions}
                     value={timezone}
-                    isSearchable
-                    onChange={handleDropDown}
-                    name="Company.timezone"
+                    search={true}
+                    onChange={handleChange}
                     required
                 />
             </Field>
             <Field name="Date format" required>
                 <Select
+                    name="Company.dateFormatID"
                     options={dateFormats}
                     value={dateFormatID}
-                    isSearchable
-                    onChange={handleDropDown}
-                    name="Company.dateFormatID"
+                    search={true}
+                    onChange={handleChange}
                     required
                 />
             </Field>
 
             <Field name="VAT Type" required>
                 <Select
+                    name="Company.vatType"
                     options={vatOptions}
                     value={vatType}
-                    isSearchable
-                    onChange={handleDropDown}
-                    name="Company.vatType"
+                    search={true}
+                    onChange={handleChange}
                     required
                 />
             </Field>
-            {vatType.value !== VAT_TYPES.OUTSIDEEU && (
+            {vatType !== VAT_TYPES.OUTSIDEEU && (
                 <Field
                     name="VAT Code"
                     required={vatType !== VAT_TYPES.OUTSIDEEU}
@@ -181,18 +182,19 @@ const RegisterForm = ({
                     <TextInputContainer
                         name="Company.vatCode"
                         value={vatCode}
-                        handleChange={handleInputChange}
-                        required={vatType.value !== VAT_TYPES.OUTSIDEEU}
+                        handleChange={handleChange}
+                        required={vatType !== VAT_TYPES.OUTSIDEEU}
                     />
                 </Field>
             )}
             <Field name="Terms and Conditions" required>
                 <p className="generic-text size-lg-12">
-                    To register, please agree to our Terms and Conditions.
+                    To register, please agree to our{' '}
+                    <Link to="/auth/terms">Terms and Conditions</Link>.
                 </p>
                 <CheckboxContainer
                     checked={terms}
-                    handleChange={handleInputChange}
+                    handleChange={handleChange}
                     name="terms"
                     required
                 />

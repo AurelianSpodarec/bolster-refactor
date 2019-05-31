@@ -15,7 +15,9 @@ const Search = ({
             name={name}
             placeholder={placeholder}
             value={value}
-            onChange={handleChange}
+            onChange={({ target: { name, value } }) =>
+                handleChange(name, value)
+            }
         />
     </div>
 );

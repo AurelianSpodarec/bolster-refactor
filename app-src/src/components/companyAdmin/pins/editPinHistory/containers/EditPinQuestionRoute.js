@@ -135,12 +135,17 @@ const CheckBox = ({ question: { id, isRequired }, answers, handleChange }) => (
     />
 );
 
-const Radio = ({ question: { id, options }, answers, handleChange }) => (
+const Radio = ({
+    question: { id, options, isRequired },
+    answers,
+    handleChange
+}) => (
     <RadioButtonListContainer
         name={`answer-${id}`}
         options={options}
         selectedOption={answers[id]}
         handleChange={handleChange}
+        required={isRequired}
     />
 );
 
@@ -420,7 +425,7 @@ class AddPinQuestionRoute extends Component {
                 <Field
                     key={question.id}
                     name={question.name}
-                    sizeClasses="size-lg-6"
+                    sizeClasses="size-lg-6 flex-row-item"
                     required={question.isRequired}
                 >
                     <SpecificField

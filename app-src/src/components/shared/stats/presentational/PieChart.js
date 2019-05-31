@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactPieChart from 'react-minimal-pie-chart';
 
-import greenPin from '_content/images/pins-examples/green-pin.svg';
-import redPin from '_content/images/pins-examples/red-pin.svg';
-import bluePin from '_content/images/pins-examples/blue-pin.svg';
-import yellowPin from '_content/images/pins-examples/yellow-pin.svg';
-import purplePin from '_content/images/pins-examples/purple-pin.svg';
+import greenPin from '_content/images/map-markers/green-pin2x.png';
+import redPin from '_content/images/map-markers/red-pin2x.png';
+import bluePin from '_content/images/map-markers/blue-pin2x.png';
+import yellowPin from '_content/images/map-markers/yellow-pin2x.png';
+import purplePin from '_content/images/map-markers/purple-pin2x.png';
 // import { FILE_STORAGE_URL } from 'config';
 //todo: reference images with FILE_STORAGE_URL
 

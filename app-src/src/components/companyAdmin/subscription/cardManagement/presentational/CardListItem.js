@@ -5,7 +5,7 @@ import ButtonContainer from 'components/shared/generic/button/containers/ButtonC
 import StatusIcon from 'components/shared/generic/statusIcon/presentationl/StatusIcon';
 
 const CardListItem = ({
-    card: { expMonth, expYear, isPrimary, lastFour, name, id },
+    card: { expMonth, expYear, isPrimary, lastFour, name, id, nickname },
     setPrimaryCard,
     deleteCard
 }) => {
@@ -14,6 +14,7 @@ const CardListItem = ({
     return (
         <tr>
             <td>{name}</td>
+            <td>{nickname}</td>
             <td>{`XXXX-XXXX-XXXX-${lastFour}`}</td>
             <td>{`${expMonthString.padStart(2, '0')}/${expYear}`}</td>
             <td className="center-align">
@@ -24,10 +25,10 @@ const CardListItem = ({
                 )}
             </td>
             <td>
-                <BlockButtonWrapper>
+                <BlockButtonWrapper addtionalClasses="card-buttons">
                     {!isPrimary && (
                         <ButtonContainer handleClick={setPrimaryCard}>
-                            Make Primary
+                            Set Primary
                         </ButtonContainer>
                     )}
                     <button

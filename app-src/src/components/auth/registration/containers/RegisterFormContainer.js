@@ -7,6 +7,7 @@ import { VAT_TYPES } from 'constants/companyAdmin/enums';
 import fetchTimeZones from 'actions/shared/time/async/fetchTimezones';
 import fetchDateFormats from 'actions/shared/time/async/fetchDateFormats';
 import postRegister from 'actions/shared/register/async/postRegister';
+import postLogin from 'actions/shared/auth/async/postLogin';
 import RegisterForm from '../presentational/RegisterForm';
 import { sortTimezones } from 'helpers/generic';
 import addFieldError from 'actions/shared/generic/fieldErrors/sync/addFieldError';
@@ -26,9 +27,9 @@ class RegisterFormContainer extends Component {
         'Company.town': '',
         'Company.postcode ': '',
         'Company.vatCode': '',
-        'Company.timezone': 0,
-        'Company.dateFormatID': 0,
-        'Company.vatType': 0,
+        'Company.timezone': null,
+        'Company.dateFormatID': null,
+        'Company.vatType': null,
         terms: false
     };
 
@@ -46,7 +47,7 @@ class RegisterFormContainer extends Component {
             <RegisterForm
                 {...this.state}
                 error={this.props.error}
-                handleInputChange={this.handleChange}
+                handleChange={this.handleChange}
                 handleDropDown={this.handleDropDown}
                 timezoneOptions={timezoneOptions}
                 dateFormats={dateFormats}
@@ -68,7 +69,7 @@ class RegisterFormContainer extends Component {
         this.setState({ [name]: val });
     };
 
-    handleDropDown = (val, { name }) => {
+    handleDropDown = (name, val) => {
         this.setState({ [name]: val });
     };
 
@@ -107,10 +108,10 @@ class RegisterFormContainer extends Component {
                 addressLine1: addressLine1,
                 town: town,
                 postcode: postcode,
-                vatType: vatType.value,
+                vatType: vatType,
                 vatCode: vatCode,
-                dateFormatID: dateFormatID.value,
-                timezone: timezone.value
+                dateFormatID: dateFormatID,
+                timezone: timezone
             }
         };
 
@@ -137,14 +138,19 @@ class RegisterFormContainer extends Component {
         fetchTimeZones();
         fetchDateFormats();
     };
-
     componentDidUpdate = prevProps => {
-        const { postSuccess, history } = this.props;
+        const { 'User.email': email, 'User.password': password } = this.state;
+        const { postSuccess, loginSuccess, history, postLogin } = this.props;
 
         if (postSuccess && !prevProps.postSuccess) {
-            history.push('/auth/login');
+            postLogin(email, password);
+        }
+
+        if (loginSuccess && !prevProps.loginSuccess) {
+            history.push('/company');
         }
     };
+
     validatePassword = password => {
         const { confirmPassword } = this.state;
         const { addFieldError, removeFieldError } = this.props;
@@ -155,6 +161,7 @@ class RegisterFormContainer extends Component {
         }
         return null;
     };
+
     validateConfirmPassword = confirmPassword => {
         const { 'User.password': password } = this.state;
         const { removeFieldError } = this.props;
@@ -168,19 +175,22 @@ class RegisterFormContainer extends Component {
 const mapStateToProps = ({
     shared: {
         timeReducer: { timeZones, dateFormats },
-        registerReducer: { error, postSuccess }
+        registerReducer: { error, postSuccess },
+        loginReducer: { postSuccess: loginSuccess }
     }
 }) => ({
     timezones: Object.values(timeZones) || [],
     dateFormats: Object.values(dateFormats) || [],
     error,
-    postSuccess
+    postSuccess,
+    loginSuccess
 });
 
 const mapDispatchToProps = dispatch => ({
     fetchTimeZones: () => dispatch(fetchTimeZones()),
     fetchDateFormats: () => dispatch(fetchDateFormats()),
     postRegister: postBody => dispatch(postRegister(postBody)),
+    postLogin: (email, password) => dispatch(postLogin(email, password)),
     addFieldError: (field, err) => dispatch(addFieldError(field, err)),
     removeFieldError: field => dispatch(removeFieldError(field))
 });

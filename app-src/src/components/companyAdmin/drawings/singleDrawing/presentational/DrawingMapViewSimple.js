@@ -8,7 +8,6 @@ import fileDownload from 'js-file-download';
 
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import CustomPin from 'components/shared/pins/map/presentational/CustomPin';
-// import LoadingIcon from 'components/shared/generic/misc/presentational/LoadingIcon';
 import Loading from 'components/shared/generic/misc/presentational/Loading';
 import { RAW_S3_STORAGE_URL } from 'config';
 import { EDIT_FLOOR_PLAN } from 'constants/shared/modalTypes';
@@ -24,12 +23,14 @@ const DrawingMapViewSimple = ({
     zoom,
     pins,
     handleClick,
+    handleClearPinCache,
     drawing = {},
     addMode,
     toggleAddMode,
     history,
     showModal,
-    updating
+    updating,
+    updateMessage
 }) => {
     const newPinIcon = L.divIcon({
         className: '',
@@ -49,6 +50,7 @@ const DrawingMapViewSimple = ({
                         {addMode ? (
                             <>
                                 <Link
+                                    onClick={handleClearPinCache}
                                     to={`${drawing.id}/add-pin`}
                                     className="button green pull-right"
                                 >
@@ -94,7 +96,7 @@ const DrawingMapViewSimple = ({
                                     }
                                 >
                                     <i className="fa fa-download" /> Download
-                                    original drawing
+                                    floorplan
                                 </button>
                             </>
                         )}
@@ -109,7 +111,7 @@ const DrawingMapViewSimple = ({
                         </button>
                         {updating && (
                             <p>
-                                Updating floorplan... <LoadingIcon />
+                                {updateMessage} <LoadingIcon />
                             </p>
                         )}
                     </BlockHeading>

@@ -5,9 +5,11 @@ import { connect } from 'react-redux';
 import EditProfilePasswordForm from 'components/shared/profile/editProfilePassword/presentational/EditProfilePasswordForm';
 import addFieldError from 'actions/shared/generic/fieldErrors/sync/addFieldError';
 import removeFieldError from 'actions/shared/generic/fieldErrors/sync/removeFieldError';
+import changeProfilePassword from 'actions/shared/profile/async/changeProfilePassword';
 
 class EditProfilePasswordFormContainer extends Component {
     state = {
+        oldPassword: '',
         password: '',
         confirmPassword: ''
     };
@@ -25,7 +27,7 @@ class EditProfilePasswordFormContainer extends Component {
     componentDidUpdate(prevProps) {
         const { postSuccess, history, location } = this.props;
         if (postSuccess && !prevProps.postSuccess) {
-            history.push(location.pathname.replace('/edit-password', ''));
+            history.push(location.pathname.replace('/change-password', ''));
         }
     }
 
@@ -35,9 +37,13 @@ class EditProfilePasswordFormContainer extends Component {
 
     handleSubmit = e => {
         e.preventDefault();
-        const { password } = this.state;
-        const { id } = this.props.match.params;
-        this.props.editProfilePassword(id, { password });
+        const { password, oldPassword } = this.state;
+        const postBody = {
+            oldPassword,
+            password
+        };
+
+        this.props.changeProfilePassword(postBody);
     };
 
     validatePassword = password => {
@@ -65,10 +71,10 @@ const mapStateToProps = ({ shared: { profileReducer } }) => ({
 
 const mapDispatchToProps = dispatch => ({
     addFieldError: (field, err) => dispatch(addFieldError(field, err)),
-    removeFieldError: field => dispatch(removeFieldError(field))
-    // editProfilePassword: (id, password) => {
-    //     dispatch(editProfilePassword(id, password));
-    // }
+    removeFieldError: field => dispatch(removeFieldError(field)),
+    changeProfilePassword: (id, password) => {
+        dispatch(changeProfilePassword(id, password));
+    }
 });
 
 export default withRouter(

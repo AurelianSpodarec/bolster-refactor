@@ -7,7 +7,7 @@ const PinQuestion = ({ questions, pinHistory }) =>
         <FieldOutput
             title={question.name}
             key={question.id}
-            sizeClass="size-lg-6"
+            sizeClass="size-lg-6 flex-row-item"
         >
             <PinAnswersContainer
                 questionID={question.id}

@@ -8,7 +8,7 @@ import ButtonContainer from 'components/shared/generic/button/containers/ButtonC
 const DrawingInspectionLogsListItem = ({ pin }) => {
     const pinColour = COLOURS[pin.latestStatus] || 'red';
 
-    const pinIcon = require(`_content/images/pins-examples/${pinColour}-pin.svg`);
+    const pinIcon = require(`_content/images/map-markers/${pinColour}-pin2x.png`);
 
     return (
         <tr key={pin.id}>

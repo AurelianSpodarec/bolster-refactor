@@ -13,9 +13,11 @@ import BlockContainer from 'components/shared/generic/block/containers/BlockCont
 import { convertArrToObj, convertEnumToDropdownOptions } from 'helpers/generic';
 import {
     PIN_STATUS_TYPES,
-    COMPANY_USER_ROLE_TYPES as USER_ROLE
+    COMPANY_USER_ROLE_TYPES as USER_ROLE,
+    FLOORPLAN_STATE_MESSAGES
 } from 'constants/companyAdmin/enums';
 import fetchSingleDrawing from 'actions/companyAdmin/drawings/async/fetchSingleDrawing';
+import updateFloorPlanConfirmed from 'actions/companyAdmin/drawings/sync/updateFloorPlanConfirmed';
 
 class DrawingMapGeneralContainer extends Component {
     state = {
@@ -29,8 +31,7 @@ class DrawingMapGeneralContainer extends Component {
         mapZoom: 3,
         addMode: false,
         addPinLat: 51.505,
-        addPinLng: -0.09,
-        updating: false
+        addPinLng: -0.09
     };
 
     render() {
@@ -52,7 +53,8 @@ class DrawingMapGeneralContainer extends Component {
         const serviceOptions = this._getServicesOptions();
         const statusOptions = convertEnumToDropdownOptions(PIN_STATUS_TYPES);
         const operativeOptions = this._getOperativeOptions();
-
+        const updateMessage =
+            FLOORPLAN_STATE_MESSAGES[drawing.latestFloorplanState];
         return (
             <>
                 <div className="flex-container size-lg-12">
@@ -92,9 +94,11 @@ class DrawingMapGeneralContainer extends Component {
                         handleClick={this.handleClick}
                         drawing={drawing}
                         addMode={addMode}
+                        handleClearPinCache={this.handleClearPinCache}
                         toggleAddMode={this.toggleAddMode}
                         history={this.props.history}
-                        updating={this.state.updating}
+                        updating={drawing.isFloorplanUpdating}
+                        updateMessage={updateMessage}
                     />
                 </BlockContainer>
             </>
@@ -104,27 +108,49 @@ class DrawingMapGeneralContainer extends Component {
     componentDidMount = () => {
         this.props.fetchCompanyUsers();
         this._resetCoordinates();
-    };
-
-    componentDidUpdate = ({ drawing: prevDrawing = {}, ...prevProps }) => {
-        const { postSuccess, drawing = {}, fetchDrawing } = this.props;
-        if (postSuccess && !prevProps.postSuccess) {
-            // drawing successfully updated
-            this.setState({ updating: true });
+        const { drawing = {} } = this.props;
+        if (drawing.isFloorplanUpdating) {
             this._floorplanInterval = setInterval(() => {
-                fetchDrawing(drawing.id);
+                fetchSingleDrawing(drawing.id);
             }, 5000);
         }
-        if (drawing.tilesetS3Key !== prevDrawing.tilesetS3Key) {
-            clearInterval(this._floorplanInterval);
-            this.setState({ updating: false });
+    };
+
+    componentDidUpdate = ({
+        postSuccess: prevSuccess,
+        drawing: prevDrawing = {}
+    }) => {
+        const { drawing = {}, fetchSingleDrawing, postSuccess } = this.props;
+        // re-fetch drawing every 5 seconds until the updated floorplan is retrieved
+        if (postSuccess && !prevSuccess) {
+            fetchSingleDrawing(drawing.id);
         }
+        if (drawing.isFloorplanUpdating && !prevDrawing.isFloorplanUpdating) {
+            this._floorplanInterval = setInterval(
+                () => fetchSingleDrawing(drawing.id),
+                5000
+            );
+        }
+        if (!drawing.isFloorplanUpdating && prevDrawing.isFloorplanUpdating) {
+            clearInterval(this._floorplanInterval);
+        }
+    };
+
+    componentWillUnmount = () => {
+        clearInterval(this._floorplanInterval);
     };
 
     handleClick = e => {
         const { lat, lng } = e.latlng;
 
         if (this.state.addMode) this._updateCoordinates(lat, lng);
+    };
+
+    handleClearPinCache = () => {
+        const {
+            drawing: { id }
+        } = this.props;
+        localStorage.removeItem(`pinCache/${id}`);
     };
 
     handleChange = (name, value) => this.setState({ [name]: value });
@@ -258,13 +284,13 @@ const mapStateToProps = (
     postSuccess
 });
 
-const mapDispatchToProps = dispatch => ({
-    fetchCompanyUsers: () => dispatch(fetchCompanyUsers()),
-    fetchDrawing: id => dispatch(fetchSingleDrawing(id)),
-    updatePinCoordinates: (name, value) =>
-        dispatch(updatePinCoordinates(name, value)),
-    showModal: (type, props) => dispatch(showModal(type, props))
-});
+const mapDispatchToProps = {
+    fetchCompanyUsers,
+    fetchSingleDrawing,
+    updatePinCoordinates,
+    showModal,
+    updateFloorPlanConfirmed
+};
 
 export default withRouter(
     connect(

@@ -19,8 +19,7 @@ class DropdownContainer extends Component {
             value,
             selectedOption
         } = this.props;
-
-        const { showFieldError } = this.state;
+        const { errorsVisible } = this.props;
 
         return (
             <Dropdown
@@ -32,7 +31,7 @@ class DropdownContainer extends Component {
                 handleChange={this.handleChange}
                 handleFocus={this.handleFocus}
                 handleBlur={this.handleBlur}
-                error={showFieldError ? error : null}
+                error={errorsVisible ? error : null}
                 disabled={disabled}
                 required={required}
                 classes={classes}

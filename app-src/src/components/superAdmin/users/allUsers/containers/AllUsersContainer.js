@@ -10,9 +10,8 @@ class AllUsersContainer extends Component {
     componentDidMount = () => this.props.fetchAllUsers();
 }
 
-const mapDispatchToProps = () => dispatch => ({
-    fetchAllUsers: () => dispatch(fetchAllUsers())
-});
+const mapDispatchToProps = { fetchAllUsers };
+
 export default connect(
     null,
     mapDispatchToProps

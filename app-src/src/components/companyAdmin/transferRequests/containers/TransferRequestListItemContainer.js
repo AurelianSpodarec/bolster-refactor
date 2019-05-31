@@ -39,7 +39,7 @@ const TransferRequestListItemContainer = ({
     function handleDeclineModal() {
         if (id === request.inviteToCompanyID) {
             const handleSubmit = () => {
-                respondToTransferRequest(request.id, { isAccepting: true });
+                respondToTransferRequest(request.id, { isAccepting: false });
                 hideModal();
             };
             const message = 'Are you sure you want to decline this request?';

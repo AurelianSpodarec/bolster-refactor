@@ -6,7 +6,8 @@ import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/pr
 const ConfirmArchiveModal = ({
     handleArchive,
     hideModal,
-    message = 'Are you sure you want to archive this?'
+    message = 'Are you sure you want to archive this?',
+    archive = true
 }) => (
     <ModalOuterContainer>
         <BlockHeading title="Archive Confirmation" />
@@ -14,7 +15,7 @@ const ConfirmArchiveModal = ({
         <BlockButtonWrapper>
             <button className="button blue" onClick={handleArchive}>
                 <i className="fa fa-archive" />
-                Archive
+                {archive ? 'Archive' : 'Un-Archive'}
             </button>
             <button className="button" onClick={hideModal}>
                 Cancel

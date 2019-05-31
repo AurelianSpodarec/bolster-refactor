@@ -9,8 +9,8 @@ const DropdownHeaders = Object.values(DROPDOWN_OPTIONS);
 
 const DropdownMenuItems = () => (
     <DropdownMenuItemContainer
-        title={'Dropdown Options'}
-        icon="filter"
+        icon="map-marker-alt"
+        title={'Pin Options'}
         baseUrl="/company/dropdown-options"
     >
         {DropdownHeaders.map(({ name, link }) => (

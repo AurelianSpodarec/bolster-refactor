@@ -11,10 +11,12 @@ const Breadcrumb = ({
             <p>
                 {breadcrumbs.map((item, i) =>
                     item.link ? (
-                        <Link key={item.link + i} to={item.link}>
-                            <sub>{item.text}</sub>{' '}
+                        <>
+                            <Link key={item.link + i} to={item.link}>
+                                <sub>{item.text}</sub>
+                            </Link>
                             {i < breadcrumbs.length - 1 ? ' / ' : ''}
-                        </Link>
+                        </>
                     ) : (
                         <span key={item.text + i}>
                             {item.text}

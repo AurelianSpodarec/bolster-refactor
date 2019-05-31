@@ -117,7 +117,7 @@ export default function(ProtectedComponent) {
             return {
                 hierarchyType,
                 hierarchyID,
-                reportHistories,
+                reportHistories: reportHistories || null,
                 includePinLocation,
                 isPDFGeneration,
                 isCSVGeneration,

@@ -44,7 +44,7 @@ const AttachOperativeForm = ({
             <BlockButtonWrapper>
                 <button className="button green">
                     <i className="fa fa-plus" />
-                    Invite Operative
+                    Attach Operative
                 </button>
                 <Link
                     to={location.pathname.replace('/add-operative', '')}

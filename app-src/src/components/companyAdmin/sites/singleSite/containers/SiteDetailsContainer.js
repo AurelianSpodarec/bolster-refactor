@@ -91,7 +91,12 @@ class SiteDetailsContainer extends Component {
         const message = `Are you sure you want to ${
             site.isArchived ? 'un-' : ''
         }archive ${site.name}?`;
-        showModal(CONFIRM_ARCHIVE, { hideModal, handleArchive, message });
+        showModal(CONFIRM_ARCHIVE, {
+            hideModal,
+            handleArchive,
+            message,
+            archive: !site.isArchived
+        });
     };
 }
 

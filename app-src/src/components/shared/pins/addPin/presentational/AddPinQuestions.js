@@ -10,17 +10,20 @@ const AddPinQuestions = ({ sections, questions }) =>
             <div key={section.value} className="size-lg-12">
                 <BlockHeading classes="sub-heading" title={section.text} />
 
-                {[...questions]
-                    .filter(
-                        question => question.templateSectionID === section.value
-                    )
-                    .sort((a, b) => a.sort - b.sort)
-                    .map(question => (
-                        <AddPinQuestionRoute
-                            key={question.id}
-                            question={question}
-                        />
-                    ))}
+                <div className="flex-row">
+                    {[...questions]
+                        .filter(
+                            question =>
+                                question.templateSectionID === section.value
+                        )
+                        .sort((a, b) => a.sort - b.sort)
+                        .map(question => (
+                            <AddPinQuestionRoute
+                                key={question.id}
+                                question={question}
+                            />
+                        ))}
+                </div>
             </div>
         ));
 

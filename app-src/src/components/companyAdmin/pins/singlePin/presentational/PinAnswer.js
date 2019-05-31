@@ -52,12 +52,14 @@ const PinAnswer = ({
         case TYPES.CHECKBOX:
             return <p>{curAnswer.answer ? 'Yes' : 'No'}</p>;
         case TYPES.SIGNATURE:
+            var answerString = curAnswer.answer;
+
+            if (!answerString.startsWith('data:')) {
+                answerString = `data: image/jpeg;base64${answerString}`;
+            }
+
             return (
-                <img
-                    className="signature"
-                    alt="signature"
-                    src={`data: image/jpeg;base64, ${curAnswer.answer}`}
-                />
+                <img className="signature" alt="signature" src={answerString} />
             );
         case TYPES.SINGLE_PHOTO:
             var URL = `${FILE_STORAGE_URL}/${curAnswer.answer}`;

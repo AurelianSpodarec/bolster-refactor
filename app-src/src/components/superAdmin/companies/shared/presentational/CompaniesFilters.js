@@ -6,7 +6,7 @@ const UsersFilters = ({ handleChange, name }) => (
         <Search
             value={name}
             name="name"
-            placeholder="Search by company name..."
+            placeholder="Search by company name or code..."
             handleChange={handleChange}
         />
     </>
