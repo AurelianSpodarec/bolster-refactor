@@ -13,7 +13,7 @@ class DropdownMenuItemContainer extends Component {
         return (
             <div className={`item ${isOpen ? 'open' : ''}`}>
                 <a href="#/" onClick={this.toggleExpand}>
-                    {!!icon && <i className={`fa fa-${icon} icon`} />}
+                    {!!icon && <i className={`far fa-${icon} icon`} />}
                     {title}
                     <i
                         className={`fa fa-chevron-${

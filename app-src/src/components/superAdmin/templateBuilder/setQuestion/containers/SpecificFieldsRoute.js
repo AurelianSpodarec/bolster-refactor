@@ -6,6 +6,7 @@ import NumberInputForm from '../presentational/NumberInputForm';
 import MultiOptionFormContainer from './MultiOptionFormContainer';
 import MultiPhotoForm from '../presentational/MultiPhotoForm';
 import OptionTypeFrom from '../presentational/OptionTypeForm';
+import StatusForm from '../presentational/StatusForm';
 
 const {
     SINGLE_LINE,
@@ -21,7 +22,8 @@ const {
     DROPDOWN_OPTIONS,
     MULTI_DROPDOWN_OPTIONS,
     MULTI_MULTI_DROPDOWN,
-    MULTI_MULTI_DROPDOWN_OPTIONS
+    MULTI_MULTI_DROPDOWN_OPTIONS,
+    STATUS
 } = QUESTION_TYPE_VALUES;
 
 const NoFields = () => null;
@@ -40,7 +42,8 @@ const SpecificFieldsRoute = ({ questionType, ...otherProps }) => {
         [DROPDOWN_OPTIONS]: OptionTypeFrom,
         [MULTI_DROPDOWN_OPTIONS]: OptionTypeFrom,
         [MULTI_MULTI_DROPDOWN]: MultiOptionFormContainer,
-        [MULTI_MULTI_DROPDOWN_OPTIONS]: OptionTypeFrom
+        [MULTI_MULTI_DROPDOWN_OPTIONS]: OptionTypeFrom,
+        [STATUS]: StatusForm
     };
 
     const SpecificForm = questionForms[questionType] || NoFields;
