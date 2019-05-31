@@ -11,14 +11,13 @@ class PinSelectorContainer extends Component {
     };
 
     render() {
-        const pinOptions = Object.values(this.state.pinOptions);
-        const { includedPins, excludedPins } = pinOptions.reduce(
-            (acc, curr) => {
-                acc[curr.included ? 'includedPins' : 'excludedPins'].push(curr);
-                return acc;
-            },
-            { includedPins: [], excludedPins: [] }
-        );
+        const includedPins = [];
+        const excludedPins = [];
+        const { pinOptions } = this.state;
+        for (const key in pinOptions) {
+            if (pinOptions[key].included) includedPins.push(pinOptions[key]);
+            else excludedPins.push(pinOptions[key]);
+        }
         return (
             <PinSelector
                 excludedPins={excludedPins}
@@ -35,16 +34,24 @@ class PinSelectorContainer extends Component {
             />
         );
     }
+
     handlePinClick = (e, pinID) => {
         e.preventDefault();
-        const { selectedPinOptions } = this.state;
-        const newCheckedPins = selectedPinOptions.includes(pinID)
-            ? selectedPinOptions.filter(val => val !== pinID)
-            : [...selectedPinOptions, pinID];
+        if (e.shiftKey) {
+            // shift
+        }
+        if (e.ctrlKey) {
+            // ctrl
+        } else {
+            const { selectedPinOptions } = this.state;
+            const newCheckedPins = selectedPinOptions.includes(pinID)
+                ? selectedPinOptions.filter(val => val !== pinID)
+                : [...selectedPinOptions, pinID];
 
-        this.setState({
-            selectedPinOptions: newCheckedPins
-        });
+            this.setState({
+                selectedPinOptions: newCheckedPins
+            });
+        }
     };
 
     handleMouseDown = () => {
@@ -143,7 +150,7 @@ class PinSelectorContainer extends Component {
             customFilters: { pins },
             handleChange
         } = this.props;
-        if (pins.length) {
+        if (pins && pins.length) {
             this._setPinOptions();
             const selectedPinIDs = pins.map(({ id }) => id);
             handleChange('pinIDs', selectedPinIDs);
