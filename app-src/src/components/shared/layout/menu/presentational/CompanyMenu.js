@@ -102,7 +102,7 @@ const CompanyMenu = ({ isFromHeadquarters }) => (
                 User Guides
             </MenuItemContainer>
 
-            <MenuItemContainer link="#" external logout={true}>
+            <MenuItemContainer link="#" logout={true}>
                 <i className="far fa-sign-out-alt icon" />
                 Logout
             </MenuItemContainer>
