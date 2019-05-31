@@ -84,13 +84,13 @@ class PinSelectorContainer extends Component {
             included:
                 option.included || selectedPinOptions.includes(option.value)
         }));
-        const pinIDs = oldOptions
-            .filter(({ included }) => !included)
+        const pinIDs = Object.values(pinOptions)
+            .filter(({ included }) => included)
             .map(({ value }) => value);
         this.setState({
             pinOptions,
-            selectedPinOptions: selectedPinOptions.filter(
-                id => !pinIDs.includes(id)
+            selectedPinOptions: selectedPinOptions.filter(id =>
+                pinIDs.includes(id)
             )
         });
 
@@ -107,7 +107,7 @@ class PinSelectorContainer extends Component {
             included:
                 option.included && !selectedPinOptions.includes(option.value)
         }));
-        const pinIDs = oldOptions
+        const pinIDs = pinOptions
             .filter(({ included }) => included)
             .map(({ value }) => value);
         this.setState({
@@ -152,15 +152,11 @@ class PinSelectorContainer extends Component {
 
     componentDidUpdate = prevProps => {
         const {
-            customFilters: { pins },
-            filters: { pinIDs: oldPinIDs },
-            handleChange
+            customFilters: { pins }
         } = this.props;
+
         if (prevProps.customFilters.pins.length !== pins.length) {
             this._setPinOptions();
-            const pinIDs = pins.map(({ id }) => id);
-            const newSelectedPins = oldPinIDs.filter(id => pinIDs.includes(id));
-            handleChange('pinIDs', newSelectedPins);
         }
     };
 
@@ -172,7 +168,9 @@ class PinSelectorContainer extends Component {
             }),
             {}
         );
+        const pinIDs = Object.values(pinOptions).map(({ value }) => value);
         this.setState({ pinOptions });
+        this.props.handleChange('pinIDs', pinIDs);
     };
 }
 
