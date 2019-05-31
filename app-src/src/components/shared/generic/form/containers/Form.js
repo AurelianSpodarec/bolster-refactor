@@ -11,10 +11,15 @@ class Form extends Component {
         disabled: false
     };
     render() {
-        const { className, children } = this.props;
+        const { className, children, style = {} } = this.props;
 
         return !this.state.isFieldErrorsCleared ? null : (
-            <form noValidate className={className} onSubmit={this.handleSubmit}>
+            <form
+                noValidate
+                className={className}
+                onSubmit={this.handleSubmit}
+                style={{ ...style }}
+            >
                 {children}
             </form>
         );
