@@ -8,7 +8,24 @@ import TooltipContainer from 'components/shared/generic/tooltip/containers/Toolt
 
 const style = {};
 
-const Question = ({
+const StausQuestion = ({ isDragging, question, showEditQuesModel }) => (
+    <div
+        className="question-item size-lg-12"
+        style={{ ...style, opacity: isDragging ? 0 : 1 }}
+    >
+        <p className="size-lg-3">{question.name}</p>
+        <div className="size-lg-2">
+            <button
+                className="button yellow icon-only"
+                onClick={showEditQuesModel}
+            >
+                <i className="far fa-pencil" />
+            </button>
+        </div>
+    </div>
+);
+
+const GenericQuestion = ({
     isDragging,
     question,
     showEditQuesModel,
@@ -41,31 +58,41 @@ const Question = ({
                         checked={question.isHidden}
                     />
                 </p>
-                <div className="size-lg-2">
-                    {isPrereq ? (
-                        <TooltipContainer text="This item is a prerequisite, you must first remove it's dependents.">
-                            <button disabled className="button red icon-only">
-                                <i className="far fa-trash-alt" />
-                            </button>
-                        </TooltipContainer>
-                    ) : (
-                        <button
-                            className="button red icon-only"
-                            onClick={deleteQuestion}
-                        >
-                            <i className="far fa-trash-alt" />
-                        </button>
-                    )}
-                    <button
-                        className="button yellow icon-only"
-                        onClick={showEditQuesModel}
-                    >
-                        <i className="far fa-pencil" />
-                    </button>
-                </div>
             </>
         )}
+
+        <div className="size-lg-2">
+            {question.questionType !== QUESTION_TYPE_NUMBERS.STATUS &&
+                (isPrereq ? (
+                    <TooltipContainer text="This item is a prerequisite, you must first remove it's dependents.">
+                        <button disabled className="button red icon-only">
+                            <i className="far fa-trash-alt" />
+                        </button>
+                    </TooltipContainer>
+                ) : (
+                    <button
+                        className="button red icon-only"
+                        onClick={deleteQuestion}
+                    >
+                        <i className="far fa-trash-alt" />
+                    </button>
+                ))}
+
+            <button
+                className="button yellow icon-only"
+                onClick={showEditQuesModel}
+            >
+                <i className="far fa-pencil" />
+            </button>
+        </div>
     </div>
 );
+
+const Question = props => {
+    if (props.question.questionType === QUESTION_TYPE_NUMBERS.STATUS)
+        return <StausQuestion {...props} />;
+
+    return <GenericQuestion {...props} />;
+};
 
 export default Question;
