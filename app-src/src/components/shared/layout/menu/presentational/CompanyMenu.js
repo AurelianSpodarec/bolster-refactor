@@ -5,7 +5,12 @@ import DropdownMenuItemContainer from '../containers/DropdownMenuItemContainer';
 import DropdownMenuItems from './DropdownMenuItems';
 import MenuHeader from './MenuHeader';
 
-const CompanyMenu = ({ isFromHeadquarters }) => (
+const CompanyMenu = ({
+    isFromHeadquarters,
+    unreadMessageCount,
+    totalCredits,
+    totalRequests
+}) => (
     <>
         <div className="menu-bg" />
         <div className="menu">
@@ -45,6 +50,9 @@ const CompanyMenu = ({ isFromHeadquarters }) => (
 
             <DropdownMenuItems />
             <MenuItemContainer link="/company/tools/transfer-requests">
+                {!!totalRequests && (
+                    <span className="number">{totalRequests}</span>
+                )}
                 <i className="far fa-exchange-alt icon" />
                 Requests & Invites
             </MenuItemContainer>
@@ -76,6 +84,9 @@ const CompanyMenu = ({ isFromHeadquarters }) => (
             </MenuItemContainer>
 
             <MenuItemContainer link="/company/message-centre">
+                {!!unreadMessageCount && (
+                    <span className="number">{unreadMessageCount}</span>
+                )}
                 <i className="far fa-envelope icon" />
                 Message Centre
             </MenuItemContainer>
