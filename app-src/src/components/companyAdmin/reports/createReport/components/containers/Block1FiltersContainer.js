@@ -9,9 +9,9 @@ export class Block1FiltersContainer extends Component {
         showError: false
     };
     render() {
-        const { fieldError } = this.props;
+        const { fieldError, advanced } = this.props;
 
-        return <Block1Filters fieldError={fieldError} />;
+        return <Block1Filters fieldError={fieldError} advanced={advanced} />;
     }
 
     componentDidMount = () => {

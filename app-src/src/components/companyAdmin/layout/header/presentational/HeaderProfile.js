@@ -37,32 +37,47 @@ const HeaderProfile = ({
 
         <div className={`options ${popupVisible ? 'visible' : ''}`}>
             <Link to="/company/profile" className="item">
-                My Profile
-                <i className="icon fas fa-chevron-right" />
+                <i className="far fa-user fa-fw icon" />
+                <span className="item-text">My Profile</span>
+
+                <i className="icon fas fa-chevron-right right" />
             </Link>
             <Link to="/company/settings" className="item">
-                Company Settings
-                <i className="icon fas fa-chevron-right" />
+                <i className="far fa-cogs fa-fw icon" />
+                <span className="item-text">Company Settings</span>
+
+                <i className="icon fas fa-chevron-right right" />
             </Link>
             <Link to="/company/subscription" className="item">
-                Subscriptions & Drawing Credits
-                <i className="icon fas fa-chevron-right" />
+                <i className="far fa-money-check fa-fw fa-fw icon" />
+                <span className="item-text">Subscription & Credits</span>
+
+                <i className="icon fas fa-chevron-right right" />
             </Link>
             <Link to="/company/tools/credit-logs" className="item">
-                Drawing Credit Log <i className="icon fas fa-chevron-right" />
+                <i className="far fa-scroll fa-fw icon" />
+
+                <span className="item-text">Drawing Credit Log </span>
+
+                <i className="icon fas fa-chevron-right right" />
             </Link>
 
             <Link to="/company/invoices" className="item">
-                Orders
-                <i className="icon fas fa-chevron-right" />
+                <i className="far fa-receipt fa-fw fa-fw icon" />
+                <span className="item-text">Orders</span>
+
+                <i className="icon fas fa-chevron-right right" />
             </Link>
             <Link to="/company/tools/company-reports" className="item">
-                Reports
-                <i className="icon fas fa-chevron-right" />
+                <i className="far fa-file-chart-pie fa-fw icon" />
+                <span className="item-text">Reports</span>
+
+                <i className="icon fas fa-chevron-right right" />
             </Link>
             <Link onClick={logout} to="#" className="item">
-                Logout
-                <i className="icon fas fa-sign-out" />
+                <i className="icon far fa-sign-out fa-fw" />
+                <span className="item-text">Logout</span>
+                <i className="icon fas fa-chevron-right right" />
             </Link>
         </div>
     </div>

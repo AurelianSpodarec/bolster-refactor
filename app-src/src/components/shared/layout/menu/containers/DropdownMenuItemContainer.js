@@ -14,12 +14,14 @@ class DropdownMenuItemContainer extends Component {
             <div className={`item ${isOpen ? 'open' : ''}`}>
                 <a href="#/" onClick={this.toggleExpand}>
                     {!!icon && <i className={`far fa-${icon} icon`} />}
-                    {title}
-                    <i
-                        className={`fa fa-chevron-${
-                            isOpen ? 'down' : 'right'
-                        } arrow`}
-                    />
+                    <span className="menu-text">
+                        {title}{' '}
+                        <i
+                            className={`fa fa-chevron-${
+                                isOpen ? 'down' : 'right'
+                            } arrow`}
+                        />
+                    </span>
                 </a>
                 <div className="sub-menu">{children}</div>
             </div>
