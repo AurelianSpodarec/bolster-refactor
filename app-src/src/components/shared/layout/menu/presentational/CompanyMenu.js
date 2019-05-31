@@ -9,7 +9,8 @@ const CompanyMenu = ({
     isFromHeadquarters,
     unreadMessageCount,
     totalCredits,
-    totalRequests
+    totalRequests,
+    unreadCount
 }) => (
     <>
         <div className="menu-bg" />
@@ -56,7 +57,7 @@ const CompanyMenu = ({
                 <i className="far fa-exchange-alt icon" />
                 Requests & Invites
             </MenuItemContainer>
-            <MenuHeader title="Orders & Subsctiptions" />
+            <MenuHeader title="Orders & Subscriptions" />
             <MenuItemContainer link="/company/invoices">
                 <i className="far fa-receipt icon" />
                 Orders
@@ -66,6 +67,7 @@ const CompanyMenu = ({
                 Subscriptions & Drawing Credits
             </MenuItemContainer>
             <MenuItemContainer link="/company/tools/credit-logs">
+                <span className="number green">{totalCredits}</span>
                 <i className="far fa-scroll icon" />
                 Drawing Credit Log
             </MenuItemContainer>
@@ -73,6 +75,7 @@ const CompanyMenu = ({
 
             <MenuItemContainer link="/company/reports">
                 {/* <MenuItemContainer link="/company/reports"> */}
+                {!!unreadCount && <span className="number">{unreadCount}</span>}
                 <i className="far fa-file-chart-pie icon" /> Reports
             </MenuItemContainer>
             <MenuHeader title="Settings & Tools" />
@@ -106,7 +109,7 @@ const CompanyMenu = ({
             </MenuItemContainer>
             <MenuItemContainer link="/company/approved-companies">
                 <i className="far fa-check-circle icon" />
-                Bolster Approved Companies
+                <span>Bolster Approved Companies</span>
             </MenuItemContainer>
             <MenuItemContainer link="https://vimeo.com/bolstersystems" external>
                 <i className="far fa-video icon" />
