@@ -1,10 +1,10 @@
 import React from 'react';
 
-import RedPin from '_content/images/pins-examples/red-pin.svg';
-import GreenPin from '_content/images/pins-examples/green-pin.svg';
-import BluePin from '_content/images/pins-examples/blue-pin.svg';
-import YellowPin from '_content/images/pins-examples/yellow-pin.svg';
-import PurplePin from '_content/images/pins-examples/purple-pin.svg';
+import RedPin from '_content/images/map-markers/red-pin2x.png';
+import GreenPin from '_content/images/map-markers/green-pin2x.png';
+import BluePin from '_content/images/map-markers/blue-pin2x.png';
+import YellowPin from '_content/images/map-markers/yellow-pin2x.png';
+import PurplePin from '_content/images/map-markers/purple-pin2x.png';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 
 const DrawingMapFiltersSimple = ({
@@ -40,7 +40,6 @@ const DrawingMapFiltersSimple = ({
             </div>
         </div>
     </BlockHeading>
-
 );
 
 export default DrawingMapFiltersSimple;

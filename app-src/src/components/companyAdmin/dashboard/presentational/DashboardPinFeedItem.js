@@ -5,23 +5,23 @@ import ButtonContainer from 'components/shared/generic/button/containers/ButtonC
 import { PIN_STATUS_IDS as STATUS } from 'constants/companyAdmin/enums';
 
 const DashboardPinFeedItem = ({ pin }) => {
-    let pinColour = require('_content/images/pins-examples/red-pin.svg');
+    let pinColour = require('_content/images/map-markers/red-pin2x.png');
 
     switch (pin.status) {
         case STATUS.INSTALLED:
-            pinColour = require('_content/images/pins-examples/green-pin.svg');
+            pinColour = require('_content/images/map-markers/green-pin2x.png');
             break;
         case STATUS.INSPECTED:
-            pinColour = require('_content/images/pins-examples/blue-pin.svg');
+            pinColour = require('_content/images/map-markers/blue-pin2x.png');
             break;
         case STATUS.NO_ACTION:
-            pinColour = require('_content/images/pins-examples/yellow-pin.svg');
+            pinColour = require('_content/images/map-markers/yellow-pin2x.png');
             break;
         case STATUS.ACTION_REQUIRED:
-            pinColour = require('_content/images/pins-examples/red-pin.svg');
+            pinColour = require('_content/images/map-markers/red-pin2x.png');
             break;
         case STATUS.OTHER:
-            pinColour = require('_content/images/pins-examples/purple-pin.svg');
+            pinColour = require('_content/images/map-markers/purple-pin2x.png');
             break;
         default:
             break;
