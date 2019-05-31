@@ -20,9 +20,7 @@ const CompanyMenuContainer = ({
             totalCredits={totalCredits}
             totalRequests={totalRequests}
             isFromHeadquarters={isFromHeadquarters}
-            notifications={
-                unreadCount > 10 ? unread : notifications.slice(0, 10)
-            }
+            unreadCount={unreadCount}
         />
     );
 };
