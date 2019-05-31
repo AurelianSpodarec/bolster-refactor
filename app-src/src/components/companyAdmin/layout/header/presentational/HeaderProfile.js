@@ -36,28 +36,28 @@ const HeaderProfile = ({
         </div>
 
         <div className={`options ${popupVisible ? 'visible' : ''}`}>
-            <Link to="/company/tools/credit-logs" className="item">
-                Credits Log <i className="icon fas fa-chevron-right" />
-            </Link>
-
-            <Link to="/company/tools/company-reports" className="item">
-                Company Reports
-                <i className="icon fas fa-chevron-right" />
-            </Link>
-            <Link to="/company/subscription" className="item">
-                Account Overview
-                <i className="icon fas fa-chevron-right" />
-            </Link>
-            <Link to="/company/invoices" className="item">
-                My Invoices
-                <i className="icon fas fa-chevron-right" />
-            </Link>
             <Link to="/company/profile" className="item">
                 My Profile
                 <i className="icon fas fa-chevron-right" />
             </Link>
             <Link to="/company/settings" className="item">
                 Company Settings
+                <i className="icon fas fa-chevron-right" />
+            </Link>
+            <Link to="/company/subscription" className="item">
+                Subscriptions & Drawing Credits
+                <i className="icon fas fa-chevron-right" />
+            </Link>
+            <Link to="/company/tools/credit-logs" className="item">
+                Drawing Credit Log <i className="icon fas fa-chevron-right" />
+            </Link>
+
+            <Link to="/company/invoices" className="item">
+                Orders
+                <i className="icon fas fa-chevron-right" />
+            </Link>
+            <Link to="/company/tools/company-reports" className="item">
+                Reports
                 <i className="icon fas fa-chevron-right" />
             </Link>
             <Link onClick={logout} to="#" className="item">

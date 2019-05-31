@@ -1626,7 +1626,7 @@ input {
     .item {
         float: left;
         width: 100%;
-        border-bottom: 1px solid #494a52;
+        border-bottom: 1px solid #494c55;
         &:first-child {
             border-top: 1px solid #494a52;
         }
@@ -1686,22 +1686,31 @@ input {
             }
         }
     }
+
+    .sub-header {
+        color: white;
+        float: left;
+        width: 100%;
+        padding: 15px 10px;
+        text-align: left;
+        font-size: 12px;
+        background-color: #666;
+        border-bottom: 1px solid #494a52;
+        @include ubuntu-medium;
+    }
     a {
         float: left;
         width: 100%;
         padding: 15px 10px;
-        text-align: right;
-        font-size: 14px;
+        text-align: left;
+        font-size: 12px;
         color: white;
         text-decoration: none;
-        background-color: #53545c;
+        background-color: #212228;
         @include ubuntu-medium;
         transition: background-color 0.25s ease-in-out;
 
         .icon {
-            position: absolute;
-            top: 50%;
-            left: 10px;
             transform: translateY(-50%);
             font-size: 22px;
         }
