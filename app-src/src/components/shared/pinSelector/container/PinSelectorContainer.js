@@ -152,16 +152,11 @@ class PinSelectorContainer extends Component {
 
     componentDidUpdate = prevProps => {
         const {
-            customFilters: { pins },
-            filters: { pinIDs: oldPinIDs },
-            handleChange
+            customFilters: { pins }
         } = this.props;
 
         if (prevProps.customFilters.pins.length !== pins.length) {
             this._setPinOptions();
-            const pinIDs = pins.map(({ id }) => id);
-            const newSelectedPins = oldPinIDs.filter(id => pinIDs.includes(id));
-            // handleChange('pinIDs', newSelectedPins);
         }
     };
 
