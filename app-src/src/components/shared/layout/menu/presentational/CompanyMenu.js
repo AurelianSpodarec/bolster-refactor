@@ -10,13 +10,15 @@ const CompanyMenu = ({
     unreadMessageCount,
     totalCredits,
     totalRequests,
-    unreadCount
+    unreadCount,
+    dismissMessages
 }) => (
     <>
         <div className="menu-bg" />
         <div className="menu">
             <MenuItemContainer link="/company">
-                <i className="far fa-home icon" />{' '}
+                <i className="far fa-home icon" />
+
                 <span className="menu-text">Dashboard</span>
             </MenuItemContainer>
             {isFromHeadquarters && (
@@ -56,44 +58,45 @@ const CompanyMenu = ({
                 {!!totalRequests && (
                     <span className="number">{totalRequests}</span>
                 )}
-                <i className="far fa-exchange-alt icon" />
+                <i className="far fa-exchange-alt fa-fw icon" />
                 <span className={`menu-text ${totalCredits ? 'large' : ''}`}>
                     Requests & Invites
                 </span>
             </MenuItemContainer>
             <MenuHeader title="Orders & Subscriptions" />
             <MenuItemContainer link="/company/invoices">
-                <i className="far fa-receipt fa-fw icon" />
+                <i className="far fa-receipt fa-fw fa-fw icon" />
                 <span className="menu-text"> Orders</span>
             </MenuItemContainer>
             <MenuItemContainer link="/company/subscription">
-                <i className="far fa-money-check fa-fw icon" />
-                <span className="menu-text large">
-                    Subscriptions & Drawing Credits
-                </span>
+                <i className="far fa-money-check fa-fw fa-fw icon" />
+                <span className="menu-text large">Subscription & Credits</span>
             </MenuItemContainer>
             <MenuItemContainer link="/company/tools/credit-logs">
                 <span className="number green">{totalCredits}</span>
-                <i className="far fa-scroll fa-fw icon" />
+                <i className="far fa-scroll fa-fw fa-fw icon" />
                 <span className="menu-text large"> Drawing Credit Log</span>
             </MenuItemContainer>
             <MenuHeader title="Reports" />
 
-            <MenuItemContainer link="/company/reports">
+            <MenuItemContainer
+                onClick={dismissMessages}
+                link="/company/reports"
+            >
                 {/* <MenuItemContainer link="/company/reports"> */}
                 {!!unreadCount && <span className="number">{unreadCount}</span>}
-                <i className="far fa-file-chart-pie icon" />
+                <i className="far fa-file-chart-pie fa-fw icon" />
                 <span className={`menu-text ${unreadCount ? 'large' : ''}`}>
                     Reports
                 </span>
             </MenuItemContainer>
             <MenuHeader title="Settings & Tools" />
             <MenuItemContainer link="/company/profile">
-                <i className="far fa-user icon" />
+                <i className="far fa-user fa-fw icon" />
                 <span className="menu-text"> My Profile</span>
             </MenuItemContainer>
             <MenuItemContainer link="/company/settings">
-                <i className="far fa-cogs icon" />
+                <i className="far fa-cogs fa-fw icon" />
                 <span className="menu-text"> Company Settings</span>
             </MenuItemContainer>
 
@@ -101,7 +104,7 @@ const CompanyMenu = ({
                 {!!unreadMessageCount && (
                     <span className="number">{unreadMessageCount}</span>
                 )}
-                <i className="far fa-envelope icon" />
+                <i className="far fa-envelope fa-fw icon" />
                 <span
                     className={`menu-text ${unreadMessageCount ? 'large' : ''}`}
                 >
@@ -109,30 +112,30 @@ const CompanyMenu = ({
                 </span>
             </MenuItemContainer>
             <MenuItemContainer link="/company/tools/operative-alerts">
-                <i className="far fa-bells icon" />
+                <i className="far fa-bells fa-fw icon" />
                 <span className="menu-text">Operative Alerts</span>
             </MenuItemContainer>
 
             <MenuItemContainer link="/company/tools/templates">
-                <i className="far fa-folders icon" />
+                <i className="far fa-folders fa-fw icon" />
                 <span className="menu-text">My Templates</span>
             </MenuItemContainer>
 
             <MenuItemContainer link="/company/tools/support">
-                <i className="far fa-info-circle icon" />
+                <i className="far fa-info-circle fa-fw icon" />
                 <span className="menu-text">Support</span>
             </MenuItemContainer>
             <MenuItemContainer link="/company/approved-companies">
-                <i className="far fa-check-circle icon" />
+                <i className="far fa-check-circle fa-fw icon" />
                 <span className="menu-text">Bolster Approved Companies</span>
             </MenuItemContainer>
             <MenuItemContainer link="https://vimeo.com/bolstersystems" external>
-                <i className="far fa-video icon" />
+                <i className="far fa-video fa-fw icon" />
                 <span className="menu-text">User Guides</span>
             </MenuItemContainer>
 
             <MenuItemContainer link="#" logout={true}>
-                <i className="far fa-sign-out-alt icon" />
+                <i className="far fa-sign-out-alt fa-fw icon" />
                 <span className="menu-text">Logout</span>
             </MenuItemContainer>
         </div>

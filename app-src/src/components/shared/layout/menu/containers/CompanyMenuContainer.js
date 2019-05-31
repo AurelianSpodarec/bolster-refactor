@@ -4,16 +4,22 @@ import moment from 'moment';
 
 import CompanyMenu from '../presentational/CompanyMenu';
 import { MESSAGE_TYPES } from 'constants/companyAdmin/enums';
+import dismissMessages from 'actions/companyAdmin/messages/async/dismissMessages';
 
 const CompanyMenuContainer = ({
     isFromHeadquarters,
     unreadMessageCount,
     totalCredits,
     totalRequests,
-    notifications
+    notifications,
+    dismissMessages
 }) => {
     const unread = notifications.filter(({ isRead }) => !isRead);
     const unreadCount = unread.length;
+    const dismissNotifications = () => {
+        dismissMessages(MESSAGE_TYPES.NOTIFICATION);
+    };
+
     return (
         <CompanyMenu
             unreadMessageCount={unreadMessageCount}
@@ -21,6 +27,7 @@ const CompanyMenuContainer = ({
             totalRequests={totalRequests}
             isFromHeadquarters={isFromHeadquarters}
             unreadCount={unreadCount}
+            dismissMessages={dismissMessages}
         />
     );
 };
@@ -59,4 +66,13 @@ const mapStateToProps = ({
     };
 };
 
-export default connect(mapStateToProps)(CompanyMenuContainer);
+const mapDispatchToProps = dispatch => ({
+    dismissMessages: messageType => {
+        dispatch(dismissMessages(messageType));
+    }
+});
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(CompanyMenuContainer);

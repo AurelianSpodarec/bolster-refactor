@@ -9,7 +9,8 @@ class MenuItemContainer extends Component {
             link,
             children,
             external = false,
-            logout = false
+            logout = false,
+            onClick = () => {}
         } = this.props;
         const route = location.pathname.toLowerCase();
         const isActive = link.toLowerCase() === route;
@@ -23,7 +24,9 @@ class MenuItemContainer extends Component {
                         {children}
                     </Link>
                 ) : (
-                    <Link to={link}>{children}</Link>
+                    <Link onClick={onClick} to={link}>
+                        {children}
+                    </Link>
                 )}
             </div>
         );
