@@ -11,14 +11,20 @@ class PinSelectorContainer extends Component {
     };
 
     render() {
-        const pinOptions = Object.values(this.state.pinOptions);
-        const { includedPins, excludedPins } = pinOptions.reduce(
-            (acc, curr) => {
-                acc[curr.included ? 'includedPins' : 'excludedPins'].push(curr);
-                return acc;
-            },
-            { includedPins: [], excludedPins: [] }
-        );
+        const options = Object.values(this.state.pinOptions);
+        const includedPins = [];
+        const excludedPins = [];
+        for (let i = 0; i < options.length; i++) {
+            if (options[i].included) includedPins.push(options[i]);
+            else excludedPins.push(options[i]);
+        }
+        // const { includedPins, excludedPins } = pinOptions.reduce(
+        //     (acc, curr) => {
+        //         acc[curr.included ? 'includedPins' : 'excludedPins'].push(curr);
+        //         return acc;
+        //     },
+        //     { includedPins: [], excludedPins: [] }
+        // );
         return (
             <PinSelector
                 excludedPins={excludedPins}
