@@ -13,23 +13,11 @@ class MenuItemContainer extends Component {
                 {external ? (
                     <a href={link}>{children}</a>
                 ) : (
-                    <Link onClick={this.logout} to={link}>
-                        {children}
-                    </Link>
+                    <Link to={link}>{children}</Link>
                 )}
             </div>
         );
     }
-
-    logout = e => {
-        const { history, logout } = this.props;
-        e.preventDefault();
-        if (logout) {
-            console.error('logging out');
-            // localStorage.setItem('token', '');
-            // history.replace('/auth/login');
-        }
-    };
 }
 
 export default withRouter(MenuItemContainer);

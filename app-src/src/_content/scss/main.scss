@@ -1626,7 +1626,7 @@ input {
     .item {
         float: left;
         width: 100%;
-        border-bottom: 1px solid #494a52;
+        border-bottom: 1px solid #494c55;
         &:first-child {
             border-top: 1px solid #494a52;
         }
@@ -1693,7 +1693,7 @@ input {
         width: 100%;
         padding: 15px 10px;
         text-align: left;
-        font-size: 14px;
+        font-size: 12px;
         background-color: #666;
         border-bottom: 1px solid #494a52;
         @include ubuntu-medium;
@@ -1703,10 +1703,10 @@ input {
         width: 100%;
         padding: 15px 10px;
         text-align: left;
-        font-size: 14px;
+        font-size: 12px;
         color: white;
         text-decoration: none;
-        background-color: #53545c;
+        background-color: #212228;
         @include ubuntu-medium;
         transition: background-color 0.25s ease-in-out;
 

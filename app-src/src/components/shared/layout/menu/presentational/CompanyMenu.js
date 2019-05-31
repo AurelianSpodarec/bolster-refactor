@@ -103,7 +103,7 @@ const CompanyMenu = ({ isFromHeadquarters }) => (
             </MenuItemContainer>
 
             <MenuItemContainer link="#" external logout={true}>
-                <i className="far fa-video icon" />
+                <i className="far fa-sign-out-alt icon" />
                 Logout
             </MenuItemContainer>
         </div>
