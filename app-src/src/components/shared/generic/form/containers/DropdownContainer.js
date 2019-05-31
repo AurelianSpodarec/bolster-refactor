@@ -20,7 +20,7 @@ class DropdownContainer extends Component {
             selectedOption
         } = this.props;
         const { errorsVisible } = this.props;
-        console.log(error, errorsVisible);
+
         return (
             <Dropdown
                 name={name}
