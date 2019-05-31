@@ -741,10 +741,17 @@ input {
                 font-size: 140%;
                 border-top: 1px solid #c6c6c6;
 
+                .item-text {
+                    padding-left: 30px;
+                }
+
                 .icon {
                     position: absolute;
-                    right: 15px;
+
                     @include vertical-center;
+                    &.right {
+                        right: 15px;
+                    }
                 }
             }
         }
