@@ -13,6 +13,7 @@ import reducer from 'reducers';
 import App from 'components/appRoute/app/presentational/App';
 import '_content/scss/font-awesome.css';
 import '_content/scss/main.scss';
+import '_content/scss/mobile.scss';
 import 'filepond/dist/filepond.min.css';
 import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css';
 
