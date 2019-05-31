@@ -23,7 +23,7 @@ const RequestDemoForm = ({
                 <TextInputContainer
                     name="name"
                     value={name}
-                    handleChange={() => {}}
+                    handleChange={handleChange}
                     required
                 />
             </Field>
@@ -32,7 +32,7 @@ const RequestDemoForm = ({
             <Field name="Your email address" required>
                 <TextInputContainer
                     name="email"
-                    handleChange={() => {}}
+                    handleChange={handleChange}
                     value={email}
                     required
                 />
@@ -50,7 +50,7 @@ const RequestDemoForm = ({
         <div className="row">
             <Field name="Company name">
                 <TextInputContainer
-                    name="CompanyName"
+                    name="companyName"
                     handleChange={handleChange}
                     value={companyName}
                 />

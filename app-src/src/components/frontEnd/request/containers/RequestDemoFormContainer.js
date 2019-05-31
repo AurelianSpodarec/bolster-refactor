@@ -13,7 +13,13 @@ class RequestDemoFormContainer extends Component {
         companyName: ''
     };
     render() {
-        return <RequestDemoForm {...this.state} />;
+        return (
+            <RequestDemoForm
+                {...this.state}
+                handleChange={this.handleChange}
+                handleSubmit={this.handleSubmit}
+            />
+        );
     }
 
     handleChange = (name, value) => {
