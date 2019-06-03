@@ -32,33 +32,11 @@ const DrawingMapFiltersAdvanced = ({
             <BlockHeading title="Pin Filters">
                 <div className="pin-amounts">
                     <div className="pin">
-                        <img alt="red pin" src={RedPin} />
+                        <img alt="purple pin" src={PurplePin} />
                         <p>
                             {
                                 pins.filter(
-                                    pin =>
-                                        pin.latestStatus ===
-                                        STATUS.ACTION_REQUIRED
-                                ).length
-                            }
-                        </p>
-                    </div>
-                    <div className="pin">
-                        <img alt="green pin" src={GreenPin} />
-                        <p>
-                            {
-                                pins.filter(
-                                    pin => pin.latestStatus === STATUS.INSTALLED
-                                ).length
-                            }
-                        </p>
-                    </div>
-                    <div className="pin">
-                        <img alt="blue pin" src={BluePin} />
-                        <p>
-                            {
-                                pins.filter(
-                                    pin => pin.latestStatus === STATUS.INSPECTED
+                                    pin => pin.latestStatus === STATUS.OTHER
                                 ).length
                             }
                         </p>
@@ -74,11 +52,33 @@ const DrawingMapFiltersAdvanced = ({
                         </p>
                     </div>
                     <div className="pin">
-                        <img alt="purple pin" src={PurplePin} />
+                        <img alt="blue pin" src={BluePin} />
                         <p>
                             {
                                 pins.filter(
-                                    pin => pin.latestStatus === STATUS.OTHER
+                                    pin => pin.latestStatus === STATUS.INSPECTED
+                                ).length
+                            }
+                        </p>
+                    </div>
+                    <div className="pin">
+                        <img alt="green pin" src={GreenPin} />
+                        <p>
+                            {
+                                pins.filter(
+                                    pin => pin.latestStatus === STATUS.INSTALLED
+                                ).length
+                            }
+                        </p>
+                    </div>
+                    <div className="pin">
+                        <img alt="red pin" src={RedPin} />
+                        <p>
+                            {
+                                pins.filter(
+                                    pin =>
+                                        pin.latestStatus ===
+                                        STATUS.ACTION_REQUIRED
                                 ).length
                             }
                         </p>
