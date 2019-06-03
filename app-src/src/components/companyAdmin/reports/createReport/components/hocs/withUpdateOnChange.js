@@ -142,9 +142,9 @@ export default function(ProtectedComponent) {
                 showFieldErrors
             } = this.props;
 
-            // if (!isEmpty(fieldErrors)) {
-            //     showFieldErrors();
-            // }
+            if (!isEmpty(fieldErrors)) {
+                showFieldErrors();
+            }
             return postCustomFilters(this._getPostBody());
         };
     }
