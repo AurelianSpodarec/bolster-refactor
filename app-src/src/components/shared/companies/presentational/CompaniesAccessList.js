@@ -35,7 +35,7 @@ const CompaniesAccessList = ({ companies, parentId, handleRemovePermission }) =>
             {company.services.map(
                 (service, i) =>
                     !!service && (
-                        <tr key={service.serviceID + company.id + i}>
+                        <tr key={service.serviceID + company.companyID + i}>
                             <td>
                                 {service.state ===
                                     PERMISSION_STATES.PENDING && (
