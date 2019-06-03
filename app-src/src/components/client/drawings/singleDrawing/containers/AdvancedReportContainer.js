@@ -13,7 +13,7 @@ class AdvancedReportContainer extends Component {
 
     componentDidMount = () => {
         const { isFetching, showModal } = this.props;
-        if (isFetching) showModal(LOADING_DATA, { message: 'Loading pins...' });
+        if (isFetching) showModal(LOADING_DATA, { message: 'Loading data...' });
     };
 
     componentDidUpdate = prevProps => {
