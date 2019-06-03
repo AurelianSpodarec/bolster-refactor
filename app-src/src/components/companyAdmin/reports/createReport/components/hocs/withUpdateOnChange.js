@@ -135,15 +135,8 @@ export default function(ProtectedComponent) {
         };
 
         postFilters = () => {
-            const {
-                postCustomFilters,
-                fieldErrors,
-                showFieldErrors
-            } = this.props;
+            const { postCustomFilters } = this.props;
 
-            if (!isEmpty(fieldErrors)) {
-                showFieldErrors();
-            }
             return postCustomFilters(this._getPostBody());
         };
     }
