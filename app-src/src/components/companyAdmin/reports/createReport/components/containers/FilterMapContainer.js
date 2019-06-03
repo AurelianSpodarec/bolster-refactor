@@ -36,21 +36,14 @@ const mapStateToProps = ({
         reportsReducer: { filters, pinResults },
         drawingsReducer: { drawings }
     }
-}) => {
-    console.info(filters);
-    return {
-        drawing: drawings[filters.drawingID] || {},
-        pins: Object.values(pinResults).filter(({ id }) =>
-            filters.pinIDs.includes(id)
-        )
-    };
-};
-
-const mapDispatchToProps = dispatch => ({
-    updateReportFilter: (name, val) => {
-        dispatch(updateReportFilter(name, val));
-    }
+}) => ({
+    drawing: drawings[filters.drawingID] || {},
+    pins: Object.values(pinResults).filter(({ id }) =>
+        filters.pinIDs.includes(id)
+    )
 });
+
+const mapDispatchToProps = { updateReportFilter };
 
 export default connect(
     mapStateToProps,

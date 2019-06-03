@@ -53,8 +53,13 @@ class AdvancedReportLevelsContainer extends Component {
             fetchSingleFloor,
             floors,
             buildings,
-            sites
+            sites,
+            pins,
+            handleChange
         } = this.props;
+        if (drawing.id) {
+            this.handleChange('drawingID', drawing.id);
+        }
         if (floors[drawing.floorID]) {
             const floor = floors[drawing.floorID];
             if (buildings[floor.buildingID]) {
@@ -62,15 +67,16 @@ class AdvancedReportLevelsContainer extends Component {
                 if (sites[building.siteID]) {
                     const site = sites[building.siteID];
                     this.setState({ fetched: true });
-                    const { updateReportFilter } = this.props;
-                    updateReportFilter('drawingID', drawing.id);
-                    updateReportFilter('floorID', floor.id);
-                    updateReportFilter('buildingID', building.id);
-                    updateReportFilter('siteID', site.id);
+                    handleChange('floorID', floor.id);
+                    handleChange('buildingID', building.id);
+                    handleChange('siteID', site.id);
                 }
             }
         }
         fetchSingleFloor(drawing.floorID);
+        if (pins && pins.length && drawing.id) {
+            handleChange('pinIDs', pins.map(({ id }) => id));
+        }
     };
 
     componentDidUpdate = (prevProps, prevState) => {
@@ -80,8 +86,14 @@ class AdvancedReportLevelsContainer extends Component {
             buildings,
             sites,
             fetchSingleBuilding,
-            fetchSingleSite
+            fetchSingleSite,
+            handleChange,
+            pins
         } = this.props;
+        if (drawing.id && !prevProps.drawing.id) {
+            updateReportFilter('drawingID', drawing.id);
+            this.handleChange('drawingID', drawing.id);
+        }
         const floor = floors[drawing.floorID] || {};
         if (!isObjEmpty(floor) && !prevProps.floors[drawing.floorID]) {
             fetchSingleBuilding(floor.buildingID);
@@ -92,20 +104,26 @@ class AdvancedReportLevelsContainer extends Component {
                 this.setState({ fetched: true })
             );
         }
+        const site = sites[building.siteID] || {};
         if (!isObjEmpty(site) && !prevProps.sites[building.siteID]) {
             this.setState({ fetched: true });
         }
-        const site = sites[building.siteID] || {};
         if (this.state.fetched && !prevState.fetched) {
-            const { updateReportFilter } = this.props;
-            updateReportFilter('drawingID', drawing.id);
-            updateReportFilter('floorID', floor.id);
-            updateReportFilter('buildingID', building.id);
-            updateReportFilter('siteID', site.id);
+            handleChange('floorID', floor.id);
+            handleChange('buildingID', building.id);
+            handleChange('siteID', site.id);
+        }
+        if (
+            pins &&
+            pins.length &&
+            (!prevProps.pins || !prevProps.pins.length) &&
+            drawing.id
+        ) {
+            handleChange('pinIDs', pins.map(({ id }) => id));
         }
     };
 
-    updateDrawing = (value = null) => {
+    updateDrawing = async (value = null) => {
         const { handleChange } = this.props;
 
         return handleChange('drawingID', value);
@@ -158,7 +176,10 @@ const mapStateToProps = (
             sitesReducer: { sites },
             buildingsReducer: { buildings },
             floorsReducer: { floors },
-            drawingsReducer: { drawings }
+            drawingsReducer: { drawings },
+            reportsReducer: {
+                customFilters: { pins }
+            }
         }
     },
     { match: { params } }
@@ -167,7 +188,8 @@ const mapStateToProps = (
     drawings,
     floors,
     buildings,
-    sites
+    sites,
+    pins
 });
 
 const mapDispatchToProps = {

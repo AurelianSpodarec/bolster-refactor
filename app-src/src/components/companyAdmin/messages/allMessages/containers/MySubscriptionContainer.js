@@ -39,10 +39,6 @@ class MySubscriptionContainer extends Component {
             service => service.disabled === false
         );
     };
-
-    componentDidUpdate = () => {
-        // console.log(this._servicesAvailable());
-    };
 }
 const mapStateToProps = ({
     companyAdmin: { servicesReducer, subscriptionsReducer }

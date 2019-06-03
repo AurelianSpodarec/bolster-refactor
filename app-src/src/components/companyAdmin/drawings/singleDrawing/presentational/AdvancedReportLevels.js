@@ -51,7 +51,7 @@ const AdvancedReportLevels = ({
             </Field>
             <Field name="Drawings" classes={selectedFloor ? 'active' : ''}>
                 <DropdownContainer
-                    disabled
+                    // disabled
                     placeholder="All Drawings"
                     name="drawingID"
                     options={drawingOptions}

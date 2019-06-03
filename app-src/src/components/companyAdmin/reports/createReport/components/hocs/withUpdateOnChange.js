@@ -113,8 +113,7 @@ export default function(ProtectedComponent) {
                     )
                 })
             );
-
-            return {
+            const body = {
                 hierarchyType,
                 hierarchyID,
                 reportHistories: reportHistories || null,
@@ -132,6 +131,7 @@ export default function(ProtectedComponent) {
                 layout,
                 sortBy
             };
+            return body;
         };
 
         postFilters = () => {
@@ -143,9 +143,7 @@ export default function(ProtectedComponent) {
 
             if (!isEmpty(fieldErrors)) {
                 showFieldErrors();
-                return;
             }
-
             return postCustomFilters(this._getPostBody());
         };
     }
