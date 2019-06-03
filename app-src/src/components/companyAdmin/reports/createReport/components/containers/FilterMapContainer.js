@@ -6,14 +6,16 @@ import { FILE_STORAGE_URL } from 'config';
 import updateReportFilter from 'actions/companyAdmin/reports/sync/updateReportFilter';
 import MapPin from 'components/shared/pins/map/presentational/MapPin';
 import Block from 'components/shared/generic/block/presentational/Block';
+import Loading from 'components/shared/generic/misc/presentational/Loading';
 
 class FilterMapContainer extends Component {
     render() {
-        const { drawing, pins } = this.props;
+        const { drawing, pins, isFetching } = this.props;
         if (!drawing.id) return null;
 
         return (
             <Block>
+                {isFetching && <Loading message="Loading pins..." />}
                 <Map center={[51.505, -0.09]} zoom={1} minZoom={0} maxZoom={5}>
                     <TileLayer
                         attribution='&amp;copy <a href="http://app.bolstersystems.com">Bolster Systems Ltd</a>'
@@ -33,14 +35,15 @@ class FilterMapContainer extends Component {
 
 const mapStateToProps = ({
     companyAdmin: {
-        reportsReducer: { filters, pinResults },
+        reportsReducer: { filters, pinResults, isFetching },
         drawingsReducer: { drawings }
     }
 }) => ({
     drawing: drawings[filters.drawingID] || {},
     pins: Object.values(pinResults).filter(({ id }) =>
         filters.pinIDs.includes(id)
-    )
+    ),
+    isFetching
 });
 
 const mapDispatchToProps = { updateReportFilter };

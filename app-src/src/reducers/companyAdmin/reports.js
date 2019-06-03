@@ -27,7 +27,8 @@ export default combineReducers({
     options: optionsReducer,
     postSuccess: postSuccessReducer,
     pinResults: pinResultsReducer,
-    selectedPins: selectedPinsReducer
+    selectedPins: selectedPinsReducer,
+    isFetching: isFetchingReducer
 });
 
 //send the questionsIDs
@@ -132,6 +133,18 @@ function postSuccessReducer(state = false, action) {
             return false;
         case POST_REPORT_SUCCESS:
             return true;
+        default:
+            return state;
+    }
+}
+
+function isFetchingReducer(state = false, action) {
+    switch (action.type) {
+        case POST_CUSTOM_FILTERS_REQUEST:
+            return true;
+        case POST_CUSTOM_FILTERS_SUCCESS:
+        case POST_CUSTOM_FILTERS_FAILURE:
+            return false;
         default:
             return state;
     }
