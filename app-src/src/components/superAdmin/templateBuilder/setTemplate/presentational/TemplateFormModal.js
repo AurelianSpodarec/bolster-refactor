@@ -8,6 +8,7 @@ import BlockHeading from 'components/shared/generic/blockHeading/presentational/
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
 import LabelTypeRadioButtonsContainer from '../containers/LabelTypeRadioButtonsContainer';
+import MultiSelect from 'components/shared/generic/form/presentational/MultiSelect';
 
 const TemplateformModal = ({
     action,
@@ -15,7 +16,9 @@ const TemplateformModal = ({
     serviceOptions,
     selectedService,
     labelTypeOptions,
-    selectedLabelType,
+    labelType,
+    statusDropdownOptions,
+    statusOptions,
     handleChange,
     handleSubmit,
     handleCancel
@@ -41,11 +44,21 @@ const TemplateformModal = ({
                     required
                 />
             </Field>
+            <Field name="Status options" required>
+                <MultiSelect
+                    name="statusOptions"
+                    placeholder="-- select status options --"
+                    onChange={handleChange}
+                    options={statusDropdownOptions}
+                    value={statusOptions}
+                    required
+                />
+            </Field>
             <Field name="Label type" required>
                 <LabelTypeRadioButtonsContainer
                     name="labelType"
                     options={labelTypeOptions}
-                    value={selectedLabelType}
+                    value={labelType}
                     handleChange={handleChange}
                 />
             </Field>

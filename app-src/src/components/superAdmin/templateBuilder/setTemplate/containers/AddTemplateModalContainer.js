@@ -13,20 +13,22 @@ class TemplateFormModalContainer extends React.Component {
             labelTypeOptions,
             serviceOptions,
             selectedService,
-            selectedLabelType,
             handleCancel,
-            handleChange
+            handleChange,
+            statusDropdownOptions,
+            statusOptions
         } = this.props;
 
         return (
             <TemplateFormModal
                 action="Add"
                 name={name}
-                selectedLabelType={selectedLabelType}
                 labelTypeOptions={labelTypeOptions}
                 labelType={labelType}
                 serviceOptions={serviceOptions}
                 selectedService={selectedService}
+                statusDropdownOptions={statusDropdownOptions}
+                statusOptions={statusOptions}
                 handleChange={handleChange}
                 handleCancel={handleCancel}
                 handleSubmit={this.handleSubmit}
@@ -52,7 +54,8 @@ class TemplateFormModalContainer extends React.Component {
             setLabelFields,
             name,
             serviceID,
-            labelType
+            labelType,
+            statusOptions
         } = this.props;
 
         const template = {
@@ -60,7 +63,8 @@ class TemplateFormModalContainer extends React.Component {
             serviceID,
             labelType,
             uuid: templateUUID,
-            name
+            name,
+            statusOptions
         };
         const sectionUUID = generateUuid();
         const section1 = {

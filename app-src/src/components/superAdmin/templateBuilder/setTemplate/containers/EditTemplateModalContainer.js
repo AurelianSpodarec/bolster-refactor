@@ -11,19 +11,22 @@ class EditTemplateModalContainer extends React.Component {
             labelTypeOptions,
             serviceOptions,
             selectedService,
-            selectedLabelType,
+            statusDropdownOptions,
+            statusOptions,
             hideModal,
             handleChange
         } = this.props;
+
         return (
             <TemplateFormModal
                 action="Edit"
                 name={name}
-                selectedLabelType={selectedLabelType}
-                labelTypeOptions={labelTypeOptions}
                 labelType={labelType}
+                labelTypeOptions={labelTypeOptions}
                 serviceOptions={serviceOptions}
                 selectedService={selectedService}
+                statusDropdownOptions={statusDropdownOptions}
+                statusOptions={statusOptions}
                 handleChange={handleChange}
                 handleCancel={hideModal}
                 handleSubmit={this.handleSubmit}
@@ -34,11 +37,11 @@ class EditTemplateModalContainer extends React.Component {
     componentDidMount = () => {
         const {
             updateState,
-            template: { name, serviceID, labelType },
+            template: { name, serviceID, labelType, statusOptions },
             fetchData
         } = this.props;
         fetchData();
-        updateState({ name, serviceID, labelType });
+        updateState({ name, serviceID, labelType, statusOptions });
     };
 
     handleSubmit = e => {
@@ -51,14 +54,16 @@ class EditTemplateModalContainer extends React.Component {
             template,
             name,
             serviceID,
-            labelType
+            labelType,
+            statusOptions
         } = this.props;
 
         const updatedTemplate = {
             ...template,
             name,
             serviceID,
-            labelType
+            labelType,
+            statusOptions
         };
 
         setTemplate(updatedTemplate);
@@ -74,4 +79,5 @@ class EditTemplateModalContainer extends React.Component {
         hideModal();
     };
 }
+
 export default withTemplateFormLogic(EditTemplateModalContainer);

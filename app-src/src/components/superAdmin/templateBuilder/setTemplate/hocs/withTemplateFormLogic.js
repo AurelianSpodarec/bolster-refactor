@@ -17,12 +17,25 @@ import { convertArrToObj, convertEnumToDropdownOptions } from 'helpers/generic';
 import {
     LABEL_TYPES,
     LABEL_TYPES_NUMS,
-    LABEL_QUES_TYPES_NUMS
+    LABEL_QUES_TYPES_NUMS,
+    PIN_STATUS_TYPES
 } from 'constants/companyAdmin/enums';
 import setSection from 'actions/superAdmin/templateBuilder/sync/setSection';
 import fetchCompanySubscription from 'actions/superAdmin/companies/async/fetchCompanySubscription';
 import setQuestion from 'actions/superAdmin/templateBuilder/sync/setQuestion';
 import setLabelFields from 'actions/superAdmin/templateBuilder/sync/setLabelFields';
+
+const statusDropdownOptions = Object.entries(PIN_STATUS_TYPES).map(
+    ([value, label]) => ({
+        value: +value,
+        label
+    })
+);
+
+const labelTypeOptions = Object.entries(LABEL_TYPES).map(([value, label]) => ({
+    value: +value,
+    label
+}));
 
 export default function(WrappedComponent) {
     class WithTemplateFromLogic extends React.Component {
@@ -30,17 +43,11 @@ export default function(WrappedComponent) {
             name: '',
             serviceID: '',
             labelType: '',
-            labelTypeOptions: convertEnumToDropdownOptions(LABEL_TYPES),
-            labelFields: {}
+            statusOptions: []
         };
 
         render() {
-            const {
-                serviceID,
-                labelType,
-                labelTypeOptions,
-                ...otherFields
-            } = this.state;
+            const { serviceID, labelType, ...otherFields } = this.state;
             const serviceOptions = this._getSeviceOptions();
 
             return (
@@ -49,13 +56,13 @@ export default function(WrappedComponent) {
                     {...otherFields}
                     labelType={labelType}
                     serviceID={serviceID}
-                    selectedLabelType={labelType}
-                    labelTypeOptions={Object.values(labelTypeOptions)}
+                    labelTypeOptions={labelTypeOptions}
                     serviceOptions={Object.values(serviceOptions)}
                     selectedService={serviceOptions[serviceID]}
                     handleChange={this.handleChange}
                     handleCancel={this.handleCancel}
                     generateLabelFields={this.generateLabelFields}
+                    statusDropdownOptions={statusDropdownOptions}
                     updateState={this.updateState}
                 />
             );
