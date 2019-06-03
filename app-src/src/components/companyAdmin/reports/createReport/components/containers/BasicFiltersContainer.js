@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+
 import {
     PIN_STATUS_TYPES,
     NUMBER_OF_HISTORIES
@@ -7,6 +9,7 @@ import { convertEnumToDropdownOptions } from 'helpers/generic';
 
 import withUpdateOnChange from '../hocs/withUpdateOnChange';
 import BasicFilters from '../presentational/BasicFilters';
+import resetFilterOptions from 'actions/companyAdmin/reports/sync/resetFilterOptions';
 
 class BasicFiltersContainer extends Component {
     state = {
@@ -90,6 +93,10 @@ class BasicFiltersContainer extends Component {
         }
     };
 
+    componentWillUnmount = () => {
+        this.props.resetFilterOptions();
+    };
+
     handleChange = (name, value) => {
         const { handleChange, postFilters } = this.props;
 
@@ -97,4 +104,11 @@ class BasicFiltersContainer extends Component {
     };
 }
 
-export default withUpdateOnChange(BasicFiltersContainer);
+const mapDispatchToProps = { resetFilterOptions };
+
+export default withUpdateOnChange(
+    connect(
+        null,
+        mapDispatchToProps
+    )(BasicFiltersContainer)
+);

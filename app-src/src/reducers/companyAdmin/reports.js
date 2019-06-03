@@ -13,7 +13,8 @@ import {
     ADD_FILTER_QUESTION,
     REMOVE_FILTER_QUESTIONS,
     UPDATE_FILTER_OPTION,
-    UPDATE_SELECTED_PINS
+    UPDATE_SELECTED_PINS,
+    RESET_FILTER_OPTIONS
 } from 'constants/actionTypes/reports';
 import { updateObj, removeObjItem, convertArrToObj } from 'helpers/generic';
 import { SORT_BY_OPTIONS, LAYOUT_OPTIONS } from 'constants/companyAdmin/enums';
@@ -61,6 +62,28 @@ function filtersReducer(
     switch (action.type) {
         case UPDATE_REPORT_FILTER:
             return updateObj(state, action.name, action.value);
+        case RESET_FILTER_OPTIONS:
+            // reset to base state
+            return {
+                siteID: '',
+                buildingID: '',
+                floorID: '',
+                drawingID: '',
+                serviceID: '',
+                hierarchyType: '',
+                hierarchyID: '',
+                status: '',
+                reportHistories: 1,
+                sortByID: '',
+                includePinLocation: false,
+                isPDFGeneration: false,
+                isCSVGeneration: false,
+                isFloorplanGeneration: false,
+                fromDateInclusive: undefined,
+                toDateInclusive: undefined,
+                companyUserIDs: [],
+                pinIDs: []
+            };
         default:
             return state;
     }
@@ -85,6 +108,7 @@ function fieldsReducer(state = {}, action) {
                 }
             };
         case REMOVE_FILTER_QUESTIONS:
+        case RESET_FILTER_OPTIONS:
             return {};
         default:
             return state;
@@ -95,6 +119,8 @@ function selectedPinsReducer(state = {}, action) {
     switch (action.type) {
         case UPDATE_SELECTED_PINS:
             return action.pins;
+        case RESET_FILTER_OPTIONS:
+            return {};
         default:
             return state;
     }
