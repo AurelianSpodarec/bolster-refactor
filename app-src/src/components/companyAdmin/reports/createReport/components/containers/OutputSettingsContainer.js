@@ -86,6 +86,8 @@ class OutputSettingsContainer extends Component {
             addFieldError,
             removeFieldError
         } = this.props;
+
+        // error handling for report type
         const modeSelected = !!(
             isPDFGeneration ||
             isCSVGeneration ||
@@ -121,15 +123,11 @@ class OutputSettingsContainer extends Component {
     };
 
     handleFilterChange = (name, value) => {
-        const { handleChange } = this.props;
-
-        handleChange(name, value);
+        this.props.handleChange(name, value);
     };
 
     handleOptionChange = (name, value) => {
-        const { updateFilterOption } = this.props;
-
-        updateFilterOption(name, value);
+        this.props.updateFilterOption(name, value);
     };
 
     handleSubmit = () => {
@@ -140,11 +138,8 @@ class OutputSettingsContainer extends Component {
             showFieldErrors
         } = this.props;
 
-        if (!isEmpty(fieldErrors)) {
-            showFieldErrors();
-        } else {
-            postReport(getPostBody());
-        }
+        if (!isEmpty(fieldErrors)) showFieldErrors();
+        else postReport(getPostBody());
     };
 }
 
@@ -165,17 +160,16 @@ const mapStateToProps = ({
     error
 });
 
-const mapDispatchToProps = dispatch => ({
-    updateFilterOption: (key, value) =>
-        dispatch(updateFilterOption(key, value)),
-    postReport: postBody => dispatch(postReport(postBody)),
-    postCustomFilters: postBody => dispatch(postCustomFilters(postBody)),
-    removeFilterQuestions: () => dispatch(removeFilterQuestions()),
-    showModal: (type, props) => dispatch(showModal(type, props)),
-    showFieldErrors: () => dispatch(showFieldErrors()),
-    addFieldError: (name, err) => dispatch(addFieldError(name, err)),
-    removeFieldError: name => dispatch(removeFieldError(name))
-});
+const mapDispatchToProps = {
+    updateFilterOption,
+    postReport,
+    postCustomFilters,
+    removeFilterQuestions,
+    showModal,
+    showFieldErrors,
+    addFieldError,
+    removeFieldError
+};
 
 const WithConnect = connect(
     mapStateToProps,
