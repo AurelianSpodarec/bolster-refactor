@@ -13,7 +13,7 @@ const CompaniesAccessListSmall = ({
     handleRemovePermission
 }) =>
     companies.map(company => (
-        <React.Fragment key={company.companyID + parentId}>
+        <React.Fragment key={`${company.companyID} - ${parentId}`}>
             <tr>
                 <td>
                     {company.companyName} <br />

@@ -22,24 +22,24 @@ const DashboardStatsOptions = ({
             <BlockHeading title="Pin data filters">
                 <div className="pin-amounts">
                     <div className="pin">
-                        <img alt="red pin" src={RedPin} />
-                        <p>1</p>
-                    </div>
-                    <div className="pin">
-                        <img alt="green pin" src={GreenPin} />
-                        <p>2</p>
-                    </div>
-                    <div className="pin">
-                        <img alt="blue pin" src={BluePin} />
-                        <p>3</p>
+                        <img alt="purple pin" src={PurplePin} />
+                        <p>5</p>
                     </div>
                     <div className="pin">
                         <img alt="yellow pin" src={YellowPin} />
                         <p>4</p>
                     </div>
                     <div className="pin">
-                        <img alt="purple pin" src={PurplePin} />
-                        <p>5</p>
+                        <img alt="blue pin" src={BluePin} />
+                        <p>3</p>
+                    </div>
+                    <div className="pin">
+                        <img alt="green pin" src={GreenPin} />
+                        <p>2</p>
+                    </div>
+                    <div className="pin">
+                        <img alt="red pin" src={RedPin} />
+                        <p>1</p>
                     </div>
                 </div>
             </BlockHeading>

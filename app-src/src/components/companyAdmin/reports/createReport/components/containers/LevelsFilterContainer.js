@@ -80,6 +80,24 @@ class LevelsFilterContainer extends Component {
 
         return convertArrToObj(options, 'value');
     };
+
+    componentDidMount = () => {
+        const {
+            customFilters: { pins = [] },
+            handleChange
+        } = this.props;
+        if (pins.length) handleChange('pinIDs', pins.map(({ id }) => id));
+    };
+
+    componentDidUpdate = ({ customFilters: { pins: prevPins = [] } }) => {
+        const {
+            customFilters: { pins = [] },
+            handleChange
+        } = this.props;
+        if (pins.length !== prevPins.length) {
+            handleChange('pinIDs', pins.map(({ id }) => id));
+        }
+    };
 }
 
 export default withUpdateOnChange(LevelsFilterContainer);
