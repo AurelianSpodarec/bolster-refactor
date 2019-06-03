@@ -5,6 +5,7 @@ import LevelsFilterContainer from '../containers/LevelsFilterContainer';
 import OperativesFilterContainer from '../containers/OperativesFilterContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import AdvancedReportLevelsContainer from 'components/companyAdmin/drawings/singleDrawing/containers/AdvancedReportLevelsContainer';
+import AdvancedReportOperativesFilterContainer from 'components/companyAdmin/drawings/singleDrawing/containers/AdvancedReportOperativesFilterContainer';
 
 const Block1Filters = ({ fieldError, advanced }) => (
     <div className="flex-item size-lg-6">
@@ -12,11 +13,16 @@ const Block1Filters = ({ fieldError, advanced }) => (
             <div className="size-lg-12">
                 <BlockHeading title="Heirarchy Selection" />
                 {advanced ? (
-                    <AdvancedReportLevelsContainer />
+                    <>
+                        <AdvancedReportLevelsContainer />
+                        <AdvancedReportOperativesFilterContainer />
+                    </>
                 ) : (
-                    <LevelsFilterContainer advanced={advanced} />
+                    <>
+                        <LevelsFilterContainer advanced={advanced} />
+                        <OperativesFilterContainer />
+                    </>
                 )}
-                <OperativesFilterContainer />
                 {!!fieldError && (
                     <div
                         className="form-field size-lg-12"
