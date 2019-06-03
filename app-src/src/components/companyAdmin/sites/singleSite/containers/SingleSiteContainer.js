@@ -9,12 +9,15 @@ import fetchDocuments from 'actions/documents/async/fetchDocuments';
 import fetchPinStatsForLevel from 'actions/companyAdmin/stats/async/fetchPinStatsForLevel';
 
 import SingleSite from '../presentational/SingleSite';
+import setTabs from 'actions/shared/generic/tabs/sync/setTabs';
+import { SITE_TABS } from 'constants/shared/tabNames';
 
 class SingleSiteContainer extends Component {
     render = () => <SingleSite />;
 
     componentDidMount = () => {
-        const { siteID, fetchSiteData } = this.props;
+        const { siteID, fetchSiteData, setTabs } = this.props;
+        setTabs(Object.values(SITE_TABS), SITE_TABS.GENERAL_OVERVIEW);
         fetchSiteData(siteID);
     };
 }
@@ -29,7 +32,8 @@ const mapDispatchToProps = dispatch => ({
         dispatch(fetchAllFloors());
         dispatch(fetchDocuments(hierarchyType, siteID));
         dispatch(fetchPinStatsForLevel(hierarchyType, siteID));
-    }
+    },
+    setTabs: (tabs, selectedTab) => dispatch(setTabs(tabs, selectedTab))
 });
 
 export default connect(
