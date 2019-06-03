@@ -30,7 +30,7 @@ const CompanyReportsListItem = ({ queueItem }) => (
                     <i className="fa fa-download" /> Download File
                 </a>
             ) : (
-                <button className="button disabled">Unavailable</button>
+                <button className="button disabled">Generating...</button>
             )}
         </td>
     </tr>

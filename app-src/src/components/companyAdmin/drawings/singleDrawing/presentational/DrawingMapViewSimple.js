@@ -136,7 +136,7 @@ const DrawingMapViewSimple = ({
                                 urlStart="company"
                                 key={pin.id}
                                 pin={pin}
-                                isReport={true}
+                                withLink={true}
                                 withTooltip={true}
                             />
                         ))}

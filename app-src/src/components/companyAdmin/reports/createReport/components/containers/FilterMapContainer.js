@@ -23,7 +23,7 @@ class FilterMapContainer extends Component {
                         noWrap={true}
                     />
                     {pins.map(pin => (
-                        <MapPin key={pin.id} pin={pin} isReport />
+                        <MapPin key={pin.id} pin={pin} />
                     ))}
                 </Map>
             </Block>

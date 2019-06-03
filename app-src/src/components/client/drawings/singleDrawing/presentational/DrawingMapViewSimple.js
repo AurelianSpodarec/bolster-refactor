@@ -48,7 +48,7 @@ const DrawingMapViewSimple = ({
                                 urlStart="client"
                                 key={pin.id}
                                 pin={pin}
-                                isReport={true}
+                                withLink={true}
                                 withTooltip={true}
                             />
                         ))}

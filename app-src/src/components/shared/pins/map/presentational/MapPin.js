@@ -23,7 +23,7 @@ const DrawingMapPin = ({
     },
     pinHistory = {},
     history,
-    isReport,
+    withLink,
     user,
     service,
     withTooltip,
@@ -56,7 +56,7 @@ const DrawingMapPin = ({
             key={id}
             position={[latY, lngX]}
             icon={divIcon}
-            onClick={() => isReport && history.push(`/${urlStart}/pins/` + id)}
+            onClick={() => withLink && history.push(`/${urlStart}/pins/` + id)}
         >
             {withTooltip && (
                 <Tooltip sticky={true}>
