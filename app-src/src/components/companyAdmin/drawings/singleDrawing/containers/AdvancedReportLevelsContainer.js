@@ -48,7 +48,28 @@ class AdvancedReportLevelsContainer extends Component {
     }
 
     componentDidMount = () => {
-        const { drawing, fetchSingleFloor } = this.props;
+        const {
+            drawing,
+            fetchSingleFloor,
+            floors,
+            buildings,
+            sites
+        } = this.props;
+        if (floors[drawing.floorID]) {
+            const floor = floors[drawing.floorID];
+            if (buildings[floor.buildingID]) {
+                const building = buildings[floor.buildingID];
+                if (sites[building.siteID]) {
+                    const site = sites[building.siteID];
+                    this.setState({ fetched: true });
+                    const { updateReportFilter } = this.props;
+                    updateReportFilter('drawingID', drawing.id);
+                    updateReportFilter('floorID', floor.id);
+                    updateReportFilter('buildingID', building.id);
+                    updateReportFilter('siteID', site.id);
+                }
+            }
+        }
         fetchSingleFloor(drawing.floorID);
     };
 
@@ -64,13 +85,15 @@ class AdvancedReportLevelsContainer extends Component {
         const floor = floors[drawing.floorID] || {};
         if (!isObjEmpty(floor) && !prevProps.floors[drawing.floorID]) {
             fetchSingleBuilding(floor.buildingID);
-            return;
         }
         const building = buildings[floor.buildingID] || {};
         if (!isObjEmpty(building) && !prevProps.buildings[floor.buildingID]) {
             fetchSingleSite(building.siteID).then(() =>
                 this.setState({ fetched: true })
             );
+        }
+        if (!isObjEmpty(site) && !prevProps.sites[building.siteID]) {
+            this.setState({ fetched: true });
         }
         const site = sites[building.siteID] || {};
         if (this.state.fetched && !prevState.fetched) {
