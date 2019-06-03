@@ -148,7 +148,6 @@ class AdvancedReportLevelsContainer extends Component {
     };
 
     handleChange = (name, value) => {
-        console.error('HI HANDLING CHANGE PLS');
         const { postFilters } = this.props;
 
         const updateMethods = {

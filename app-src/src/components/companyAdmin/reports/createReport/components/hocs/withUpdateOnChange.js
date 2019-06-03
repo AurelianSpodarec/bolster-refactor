@@ -131,7 +131,6 @@ export default function(ProtectedComponent) {
                 layout,
                 sortBy
             };
-            console.error('filters to post', body);
             return body;
         };
 

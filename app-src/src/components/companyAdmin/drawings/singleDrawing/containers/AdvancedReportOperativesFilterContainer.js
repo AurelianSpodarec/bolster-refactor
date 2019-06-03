@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import OperativesFilter from 'components/companyAdmin/reports/createReport/components/presentational/OperativesFilter';
 import withUpdateOnChange from 'components/companyAdmin/reports/createReport/components/hocs/withUpdateOnChange';
 
+// same as one in create report but with componentdidmount removed to prevent double posting filters on mount
+
 class OperativesFilterContainer extends Component {
     render() {
         const {
