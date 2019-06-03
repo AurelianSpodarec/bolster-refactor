@@ -8,6 +8,8 @@ import fetchAllDrawings from 'actions/companyAdmin/drawings/async/fetchAllDrawin
 import fetchPinStatsForLevel from 'actions/companyAdmin/stats/async/fetchPinStatsForLevel';
 
 import SingleBuilding from '../presentational/SingleBuilding';
+import setTabs from 'actions/shared/generic/tabs/sync/setTabs';
+import { BUILDING_TABS } from 'constants/shared/tabNames';
 
 class SingleBuildingContainer extends Component {
     render() {
@@ -21,9 +23,11 @@ class SingleBuildingContainer extends Component {
             fetchAllFloors,
             fetchDocuments,
             buildingID,
-            fetchPinStatsForLevel
+            fetchPinStatsForLevel,
+            setTabs
         } = this.props;
 
+        setTabs(Object.values(BUILDING_TABS), BUILDING_TABS.GENERAL_OVERVIEW);
         fetchSingleBuilding(buildingID).then(() => {
             fetchPinStatsForLevel('building', buildingID);
             fetchAllDrawings();
@@ -33,23 +37,14 @@ class SingleBuildingContainer extends Component {
     };
 }
 
-const mapDispatchToProps = dispatch => ({
-    fetchSingleBuilding: buildingID => {
-        return dispatch(fetchSingleBuilding(buildingID));
-    },
-    fetchAllDrawings: () => {
-        dispatch(fetchAllDrawings());
-    },
-    fetchAllFloors: () => {
-        dispatch(fetchAllFloors());
-    },
-    fetchDocuments: (HierarchyType, buildingID) => {
-        dispatch(fetchDocuments(HierarchyType, buildingID));
-    },
-    fetchPinStatsForLevel: (hierarchyType, levelID) => {
-        dispatch(fetchPinStatsForLevel(hierarchyType, levelID));
-    }
-});
+const mapDispatchToProps = {
+    fetchSingleBuilding,
+    fetchAllDrawings,
+    fetchAllFloors,
+    fetchDocuments,
+    fetchPinStatsForLevel,
+    setTabs
+};
 
 export default connect(
     (_, { match }) => ({ buildingID: match.params['id'] }),

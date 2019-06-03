@@ -1,7 +1,6 @@
 import React from 'react';
 
 import SingleFloorHeaderContainer from '../containers/SingleFloorHeaderContainer';
-import FloorGeneralOverview from './FloorGeneralOverview';
 import SingleFloorRouteContainer from '../containers/SingleFloorRouteContainer';
 
 const Floor = () => (

@@ -24,7 +24,11 @@ class BuildingBreadcrumbContainer extends Component {
             },
             { text: this.props.building.name }
         ];
-        return <Breadcrumb breadcrumbs={breadcrumbsArray} />;
+        return (
+            <Breadcrumb breadcrumbs={breadcrumbsArray}>
+                {this.props.children}
+            </Breadcrumb>
+        );
     }
 
     _setSiteDetails = siteID => {
