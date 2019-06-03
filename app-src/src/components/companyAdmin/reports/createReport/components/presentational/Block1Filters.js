@@ -5,12 +5,15 @@ import LevelsFilterContainer from '../containers/LevelsFilterContainer';
 import OperativesFilterContainer from '../containers/OperativesFilterContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 
-const Block1Filters = ({ fieldError, advanced }) => (
+const Block1Filters = ({ fieldError, advanced, isFetching }) => (
     <div className="flex-item size-lg-6">
         <BlockContainer>
             <div className="size-lg-12">
                 <BlockHeading title="Heirarchy Selection" />
-                <LevelsFilterContainer advanced={advanced} />
+                <LevelsFilterContainer
+                    advanced={advanced}
+                    isFetching={isFetching}
+                />
                 <OperativesFilterContainer advanced={advanced} />
                 {!!fieldError && (
                     <div

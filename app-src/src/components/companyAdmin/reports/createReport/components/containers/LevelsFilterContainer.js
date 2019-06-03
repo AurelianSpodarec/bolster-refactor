@@ -20,7 +20,8 @@ class LevelsFilterContainer extends Component {
             buildings,
             floors,
             drawings,
-            hierarchy
+            hierarchy,
+            isFetching
         } = this.props;
 
         const sitesOptions = this._formatArrForDropdown(sites);
@@ -39,6 +40,7 @@ class LevelsFilterContainer extends Component {
                 drawingOptions={Object.values(drawingOptions)}
                 selectedDrawing={drawingOptions[drawingID]}
                 hierarchy={hierarchy}
+                isFetching={isFetching}
             />
         );
     }
@@ -157,7 +159,17 @@ class LevelsFilterContainer extends Component {
     };
 }
 
-const mapStateToProps = (_, { match: { params, path } }) => {
+const mapStateToProps = (
+    {
+        companyAdmin: {
+            sitesReducer,
+            buildingsReducer,
+            floorsReducer,
+            drawingsReducer
+        }
+    },
+    { match: { params, path } }
+) => {
     const hierarchy = path.includes('drawing')
         ? HIERARCHY_IDS.DRAWING
         : path.includes('floor')
@@ -168,7 +180,15 @@ const mapStateToProps = (_, { match: { params, path } }) => {
         ? HIERARCHY_IDS.SITE
         : '';
     const hierarchyID = params.id;
-    return { hierarchy, hierarchyID };
+    return {
+        hierarchy,
+        hierarchyID,
+        isFetching:
+            sitesReducer.isFetching ||
+            buildingsReducer.isFetching ||
+            floorsReducer.isFetching ||
+            drawingsReducer.isFetching
+    };
 };
 
 const mapDispatchToProps = {

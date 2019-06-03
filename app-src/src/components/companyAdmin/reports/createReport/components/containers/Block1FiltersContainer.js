@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-// import { connect } from 'react-redux';
 
 import Block1Filters from '../presentational/Block1Filters';
 import withUpdateOnChange from '../hocs/withUpdateOnChange';
@@ -12,9 +11,15 @@ export class Block1FiltersContainer extends Component {
         showError: false
     };
     render() {
-        const { fieldError, advanced } = this.props;
+        const { fieldError, advanced, isFetching } = this.props;
 
-        return <Block1Filters fieldError={fieldError} advanced={advanced} />;
+        return (
+            <Block1Filters
+                fieldError={fieldError}
+                advanced={advanced}
+                isFetching={isFetching}
+            />
+        );
     }
 
     componentDidMount = () => {
