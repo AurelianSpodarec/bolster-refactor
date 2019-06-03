@@ -31,7 +31,11 @@ class FloorBreadcrumbContainer extends Component {
             },
             { text: this.props.floor.name }
         ];
-        return <Breadcrumb breadcrumbs={breadcrumbsArray} />;
+        return (
+            <Breadcrumb breadcrumbs={breadcrumbsArray}>
+                {this.props.children}
+            </Breadcrumb>
+        );
     }
 
     _setFloorDetails = () => {

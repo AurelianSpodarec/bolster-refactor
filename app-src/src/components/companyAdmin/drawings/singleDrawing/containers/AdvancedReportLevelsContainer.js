@@ -183,15 +183,16 @@ const mapStateToProps = (
         }
     },
     { match: { params } }
-) => ({
-    drawing: drawings[params.id] || {},
-    drawings,
-    floors,
-    buildings,
-    sites,
-    pins
-});
-
+) => {
+    return {
+        drawing: drawings[params.id] || {},
+        drawings,
+        floors,
+        buildings,
+        sites,
+        pins
+    };
+};
 const mapDispatchToProps = {
     fetchSingleBuilding,
     fetchSingleFloor,

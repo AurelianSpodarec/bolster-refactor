@@ -7,6 +7,8 @@ import fetchDocuments from 'actions/documents/async/fetchDocuments';
 import fetchPinStatsForLevel from 'actions/companyAdmin/stats/async/fetchPinStatsForLevel';
 
 import SingleFloor from '../presentational/SingleFloor';
+import setTabs from 'actions/shared/generic/tabs/sync/setTabs';
+import { FLOOR_TABS } from 'constants/shared/tabNames';
 
 class SingleFloorContainer extends Component {
     render() {
@@ -20,9 +22,10 @@ class SingleFloorContainer extends Component {
             fetchAllDrawings,
             fetchDocuments,
             // fetchClients,
-            fetchPinStatsForLevel
+            fetchPinStatsForLevel,
+            setTabs
         } = this.props;
-
+        setTabs(Object.values(FLOOR_TABS), FLOOR_TABS.GENERAL_OVERVIEW);
         fetchSingleFloor(floorID);
         fetchAllDrawings();
         fetchDocuments('floor', floorID);
@@ -35,20 +38,13 @@ const mapStateToProps = (_, { match }) => ({
     floorID: match.params['id']
 });
 
-const mapDispatchToProps = dispatch => ({
-    fetchSingleFloor: id => {
-        dispatch(fetchSingleFloor(id));
-    },
-    fetchAllDrawings: () => {
-        dispatch(fetchAllDrawings());
-    },
-    fetchDocuments: (HierarchyType, floorID) => {
-        dispatch(fetchDocuments(HierarchyType, floorID));
-    },
-    fetchPinStatsForLevel: (hierarchyType, levelID) => {
-        dispatch(fetchPinStatsForLevel(hierarchyType, levelID));
-    }
-});
+const mapDispatchToProps = {
+    fetchSingleFloor,
+    fetchAllDrawings,
+    fetchDocuments,
+    fetchPinStatsForLevel,
+    setTabs
+};
 
 export default connect(
     mapStateToProps,

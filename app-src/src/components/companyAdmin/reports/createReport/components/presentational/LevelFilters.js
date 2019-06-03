@@ -2,6 +2,7 @@ import React from 'react';
 
 import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
 import Field from 'components/shared/generic/form/presentational/Field';
+import { HIERARCHY_IDS } from 'constants/companyAdmin/enums';
 
 const LevelFilters = ({
     handleChange,
@@ -12,7 +13,8 @@ const LevelFilters = ({
     floorOptions,
     selectedFloor,
     drawingOptions,
-    selectedDrawing
+    selectedDrawing,
+    hierarchy
 }) => (
     <div className="levels-filter size-lg-12">
         <div className="generic-form">
@@ -24,11 +26,12 @@ const LevelFilters = ({
                     value={selectedSite}
                     selectedOption={selectedSite}
                     handleChange={handleChange}
+                    disabled={!!hierarchy}
                 />
             </Field>
             <Field name="Buildings" classes={selectedSite ? 'active' : ''}>
                 <DropdownContainer
-                    disabled={!selectedSite}
+                    disabled={!selectedSite || hierarchy > HIERARCHY_IDS.SITE}
                     placeholder="All Buildings"
                     name="buildingID"
                     options={buildingOptions}
@@ -39,7 +42,9 @@ const LevelFilters = ({
             </Field>
             <Field name="Floors" classes={selectedBuilding ? 'active' : ''}>
                 <DropdownContainer
-                    disabled={!selectedBuilding}
+                    disabled={
+                        !selectedBuilding || hierarchy > HIERARCHY_IDS.BUILDING
+                    }
                     placeholder="All Floors"
                     name="floorID"
                     options={floorOptions}
@@ -50,7 +55,7 @@ const LevelFilters = ({
             </Field>
             <Field name="Drawings" classes={selectedFloor ? 'active' : ''}>
                 <DropdownContainer
-                    disabled={!selectedFloor}
+                    disabled={!selectedFloor || hierarchy > HIERARCHY_IDS.FLOOR}
                     placeholder="All Drawings"
                     name="drawingID"
                     options={drawingOptions}
