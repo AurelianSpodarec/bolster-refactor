@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import uuid from 'uuid/v1';
+import { isObjEmpty } from 'helpers/generic';
+import showModal from 'actions/shared/generic/modals/sync/showModal';
+import hideModal from 'actions/shared/generic/modals/sync/hideModal';
+import { CONFIRM_SUBMIT } from 'constants/shared/modalTypes';
 
 import FurtherFiltration from '../presentational/FurtherFiltration';
 import PinSelectorContainer from 'components/shared/pinSelector/container/PinSelectorContainer';
@@ -101,7 +105,21 @@ class FurtherFiltrationContainer extends Component {
         );
     };
 
-    handleChange = (name, value) => this.setState({ [name]: value });
+    handleChange = (name, value) => {
+        const { shouldConfirm, showModal, hideModal } = this.props;
+        if (shouldConfirm) {
+            const handleSubmit = () => {
+                this.setState({ [name]: value });
+                hideModal();
+            };
+            const message =
+                'Changing this will reset your further filtration options, continue?';
+            // * confirm and then do this:
+            showModal(CONFIRM_SUBMIT, { handleSubmit, message, hideModal });
+        } else {
+            this.setState({ [name]: value });
+        }
+    };
 }
 
 const mapStateToProps = ({
@@ -109,21 +127,25 @@ const mapStateToProps = ({
         reportsReducer: {
             customFilters: { questions },
             fields,
+            selectedPins,
             filters
         }
     }
 }) => ({
     customQuestions: questions || [],
     fields: Object.values(fields),
-    filters
+    filters,
+    shouldConfirm: !isObjEmpty(fields) || !isObjEmpty(selectedPins)
 });
 
-const mapDispatchToProps = dispatch => ({
-    updateReportFilter: (name, val) => dispatch(updateReportFilter(name, val)),
-    addFilterQuestion: id => dispatch(addFilterQuestion(id)),
-    removeFilterQuestion: id => dispatch(removeFilterQuestion(id)),
-    removeFilterQuestions: () => dispatch(removeFilterQuestions())
-});
+const mapDispatchToProps = {
+    updateReportFilter,
+    addFilterQuestion,
+    removeFilterQuestion,
+    removeFilterQuestions,
+    showModal,
+    hideModal
+};
 
 export default connect(
     mapStateToProps,

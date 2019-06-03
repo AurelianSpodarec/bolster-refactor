@@ -2,7 +2,10 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import { convertArrToObj } from 'helpers/generic';
+import { convertArrToObj, isObjEmpty } from 'helpers/generic';
+import { CONFIRM_SUBMIT } from 'constants/shared/modalTypes';
+import showModal from 'actions/shared/generic/modals/sync/showModal';
+import hideModal from 'actions/shared/generic/modals/sync/hideModal';
 
 import withUpdateOnChange from '../hocs/withUpdateOnChange';
 import LevelFilters from '../presentational/LevelFilters';
@@ -70,8 +73,7 @@ class LevelsFilterContainer extends Component {
     };
 
     handleChange = (name, value) => {
-        const { postFilters } = this.props;
-
+        const { postFilters, shouldConfirm, showModal, hideModal } = this.props;
         const updateMethods = {
             drawingID: this.updateDrawing,
             floorID: this.updateFloor,
@@ -79,7 +81,18 @@ class LevelsFilterContainer extends Component {
             siteID: this.updateSite
         };
         const update = updateMethods[name];
-        return update(value).then(postFilters);
+        if (shouldConfirm) {
+            const handleSubmit = () => {
+                hideModal();
+                return update(value).then(postFilters);
+            };
+            const message =
+                'Changing this will reset your further filtration options, continue?';
+            // * confirm and then do this:
+            showModal(CONFIRM_SUBMIT, { handleSubmit, message, hideModal });
+        } else {
+            return update(value).then(postFilters);
+        }
     };
 
     _formatArrForDropdown = arr => {
@@ -165,7 +178,8 @@ const mapStateToProps = (
             sitesReducer,
             buildingsReducer,
             floorsReducer,
-            drawingsReducer
+            drawingsReducer,
+            reportsReducer: { fields, selectedPins }
         }
     },
     { match: { params, path } }
@@ -187,7 +201,8 @@ const mapStateToProps = (
             sitesReducer.isFetching ||
             buildingsReducer.isFetching ||
             floorsReducer.isFetching ||
-            drawingsReducer.isFetching
+            drawingsReducer.isFetching,
+        shouldConfirm: !isObjEmpty(fields) || !isObjEmpty(selectedPins)
     };
 };
 
@@ -195,7 +210,9 @@ const mapDispatchToProps = {
     fetchSingleDrawing,
     fetchSingleFloor,
     fetchSingleBuilding,
-    fetchSingleSite
+    fetchSingleSite,
+    showModal,
+    hideModal
 };
 
 export default withUpdateOnChange(
