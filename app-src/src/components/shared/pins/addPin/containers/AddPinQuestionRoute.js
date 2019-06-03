@@ -19,6 +19,7 @@ import MultiDropdownContainer from 'components/shared/generic/form/containers/Mu
 import Field from 'components/shared/generic/form/presentational/Field';
 import BoundlessSelect from 'components/shared/generic/form/presentational/BoundlessSelect';
 import NumberInputContainer from 'components/shared/generic/form/containers/NumberInputContainer';
+import Select from 'components/shared/generic/form/presentational/Select';
 
 const {
     SINGLE_LINE,
@@ -187,14 +188,17 @@ const Signature = ({ question: { isRequired, id }, handleSignatureChange }) => (
     />
 );
 
-const Status = ({ status, handleStatusChange }) => {
-    const statusesObj = convertEnumToDropdownOptions(PIN_STATUS_TYPES);
+const Status = ({ status, handleStatusChange, statusOptions = [] }) => {
+    const options = Object.entries(PIN_STATUS_TYPES)
+        .filter(([key]) => statusOptions.includes(Number(key)))
+        .map(([value, label]) => ({ value, label }));
+
     return (
-        <DropdownContainer
+        <Select
             placeholder="-- select --"
             name="pinStatus"
-            options={Object.values(statusesObj)}
-            selectedOption={statusesObj[status]}
+            options={options}
+            selectedOption={status}
             handleChange={handleStatusChange}
             required
         />
@@ -309,7 +313,8 @@ class AddPinQuestionRoute extends Component {
             answers,
             questions,
             dropdownOptions,
-            status
+            status,
+            selectedVersion
         } = this.props;
 
         const fieldTypes = {
@@ -433,6 +438,7 @@ class AddPinQuestionRoute extends Component {
                     required={question.isRequired}
                 >
                     <SpecificField
+                        statusOptions={selectedVersion.statusOptions}
                         question={question}
                         answers={answers}
                         status={status}

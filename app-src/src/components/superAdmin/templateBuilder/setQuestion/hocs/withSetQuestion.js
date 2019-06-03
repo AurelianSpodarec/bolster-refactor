@@ -3,8 +3,7 @@ import { connect } from 'react-redux';
 
 import {
     PREREQ_TYPES,
-    QUESTION_TYPE_VALUES,
-    QUESTION_TYPE_NUMBERS
+    QUESTION_TYPE_VALUES
 } from 'constants/shared/templateBuilder';
 import updateQuestionField from 'actions/superAdmin/templateBuilder/sync/updateQuestionField';
 import setQuestion from 'actions/superAdmin/templateBuilder/sync/setQuestion';
