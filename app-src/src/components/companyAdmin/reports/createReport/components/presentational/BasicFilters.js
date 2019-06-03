@@ -24,6 +24,10 @@ const BasicFilters = ({
         <BlockContainer>
             <div className="size-lg-12">
                 <BlockHeading title="Basic Filtration" />
+                <p className="generic-text small">
+                    ##Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    Fusce maximus mi id tempor scelerisque.##
+                </p>
                 <Field name="Services">
                     <DropdownContainer
                         placeholder="Select Service"

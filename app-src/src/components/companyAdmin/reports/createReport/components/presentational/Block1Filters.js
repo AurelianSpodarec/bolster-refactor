@@ -10,6 +10,10 @@ const Block1Filters = ({ fieldError, advanced, isFetching }) => (
         <BlockContainer>
             <div className="size-lg-12">
                 <BlockHeading title="Heirarchy Selection" />
+                <p className="generic-text small">
+                    ##Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    Fusce maximus mi id tempor scelerisque.##
+                </p>
                 <LevelsFilterContainer
                     advanced={advanced}
                     isFetching={isFetching}
