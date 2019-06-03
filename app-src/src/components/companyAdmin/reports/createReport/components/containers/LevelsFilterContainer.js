@@ -122,7 +122,7 @@ class LevelsFilterContainer extends Component {
             customFilters: { pins = [] },
             handleChange
         } = this.props;
-        if (pins.length !== prevPins.length) {
+        if (pins.length && !prevPins.length) {
             handleChange('pinIDs', pins.map(({ id }) => id));
         }
     };

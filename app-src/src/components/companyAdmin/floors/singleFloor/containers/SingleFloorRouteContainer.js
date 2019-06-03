@@ -2,12 +2,12 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { FLOOR_TABS } from 'constants/shared/tabNames';
 import FloorGeneralOverview from '../presentational/FloorGeneralOverview';
-import SingleFloorAdvancedReport from '../presentational/SingleFloorAdvancedReport';
+import HierarchyAdvancedReport from 'components/companyAdmin/reports/createReport/components/presentational/HierarchyAdvancedReport';
 
 const FloorRouteContainer = ({ selectedTab }) => {
     const contentOptions = {
         [FLOOR_TABS.GENERAL_OVERVIEW]: FloorGeneralOverview,
-        [FLOOR_TABS.ADVANCED_REPORT]: SingleFloorAdvancedReport
+        [FLOOR_TABS.ADVANCED_REPORT]: HierarchyAdvancedReport
     };
 
     const SpecificContent =

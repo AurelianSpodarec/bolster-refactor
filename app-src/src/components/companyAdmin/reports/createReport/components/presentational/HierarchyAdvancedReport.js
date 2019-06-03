@@ -5,7 +5,7 @@ import BasicFiltersContainer from 'components/companyAdmin/reports/createReport/
 import FurtherFiltrationContainer from 'components/companyAdmin/reports/createReport/components/containers/FurtherFiltrationContainer';
 import OutputSettingsContainer from 'components/companyAdmin/reports/createReport/components/containers/OutputSettingsContainer';
 
-const SingleBuildingAdvancedReport = () => (
+const HierarchyAdvancedReport = () => (
     <>
         <FilterMapContainer />
         <div className="flex-container size-lg-12">
@@ -18,4 +18,4 @@ const SingleBuildingAdvancedReport = () => (
     </>
 );
 
-export default SingleBuildingAdvancedReport;
+export default HierarchyAdvancedReport;

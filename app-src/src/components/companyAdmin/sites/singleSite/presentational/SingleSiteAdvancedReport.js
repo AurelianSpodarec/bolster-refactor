@@ -9,7 +9,7 @@ const SingleSiteAdvancedReport = () => (
     <>
         <FilterMapContainer />
         <div className="flex-container size-lg-12">
-            <Block1FiltersContainer blockName="hierarchyFilters" />
+            <Block1FiltersContainer blockName="hierarchyFilters" advanced />
             <BasicFiltersContainer blockName="basicFilters" />
         </div>
 

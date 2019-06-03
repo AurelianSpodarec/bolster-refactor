@@ -18,7 +18,6 @@ export class Block1FiltersContainer extends Component {
     }
 
     componentDidMount = () => {
-        console.error(this.props);
         this._validate();
     };
 
