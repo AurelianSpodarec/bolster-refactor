@@ -11,8 +11,6 @@ class EditTemplateModalContainer extends React.Component {
             labelTypeOptions,
             serviceOptions,
             selectedService,
-            statusDropdownOptions,
-            statusOptions,
             hideModal,
             handleChange
         } = this.props;
@@ -25,8 +23,6 @@ class EditTemplateModalContainer extends React.Component {
                 labelTypeOptions={labelTypeOptions}
                 serviceOptions={serviceOptions}
                 selectedService={selectedService}
-                statusDropdownOptions={statusDropdownOptions}
-                statusOptions={statusOptions}
                 handleChange={handleChange}
                 handleCancel={hideModal}
                 handleSubmit={this.handleSubmit}
@@ -54,16 +50,14 @@ class EditTemplateModalContainer extends React.Component {
             template,
             name,
             serviceID,
-            labelType,
-            statusOptions
+            labelType
         } = this.props;
 
         const updatedTemplate = {
             ...template,
             name,
             serviceID,
-            labelType,
-            statusOptions
+            labelType
         };
 
         setTemplate(updatedTemplate);

@@ -84,8 +84,7 @@ export default function(WrappedComponent) {
                 maxPhotos,
                 questionType,
                 canCompanyEdit,
-                optionType,
-                statusOptions
+                optionType
             } = this.props.fields;
 
             switch (questionType + '') {
@@ -105,8 +104,6 @@ export default function(WrappedComponent) {
                 case VALS.MULTI_DROPDOWN_OPTIONS:
                 case VALS.MULTI_MULTI_DROPDOWN_OPTIONS:
                     return { optionType };
-                case VALS.STATUS:
-                    return { statusOptions };
                 default:
                     return {};
             }
@@ -130,12 +127,7 @@ export default function(WrappedComponent) {
         updateQuestionFields: fields => {
             dispatch(updateQuestionFields(fields));
         },
-        setQuestion: q => {
-            const question = { ...q };
-            if (question.questionType === QUESTION_TYPE_NUMBERS.STATUS) {
-                question.isRequired = true;
-            }
-
+        setQuestion: question => {
             dispatch(setQuestion(question));
             dispatch(hideModal());
         },

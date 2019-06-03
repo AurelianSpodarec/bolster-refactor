@@ -13,7 +13,7 @@ import {
     TRIM_LABEL_FIELDS,
     LABEL_STATIC_FIELDS_NUMS
 } from 'constants/shared/templateBuilder';
-import { convertArrToObj, convertEnumToDropdownOptions } from 'helpers/generic';
+import { convertArrToObj } from 'helpers/generic';
 import {
     LABEL_TYPES,
     LABEL_TYPES_NUMS,
