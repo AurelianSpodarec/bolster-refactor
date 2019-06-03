@@ -12,6 +12,7 @@ import BlockHeading from 'components/shared/generic/blockHeading/presentational/
 import SpecificFieldsRoute from '../containers/SpecificFieldsRoute';
 import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
 import { QUESTION_TYPE_NUMBERS } from 'constants/shared/templateBuilder';
+import StatusForm from './StatusForm';
 
 const TemplateQuestionFormModal = ({
     questionTypeOptions,
@@ -27,6 +28,7 @@ const TemplateQuestionFormModal = ({
     hideModal,
     handleSubmit,
     action,
+    statusOptions,
     ...otherFields
 }) => {
     if (questionType.value === QUESTION_TYPE_NUMBERS.STATUS + '')
@@ -38,11 +40,18 @@ const TemplateQuestionFormModal = ({
                     onSubmit={handleSubmit}
                     className="generic-form"
                 >
-                    <SpecificFieldsRoute
-                        questionType={questionType.value}
+                    <StatusForm
                         handleInputChange={handleInputChange}
-                        {...otherFields}
+                        statusOptions={statusOptions}
                     />
+                    <BlockButtonWrapper>
+                        <button className="button green">
+                            <i className="fa fa-plus" /> Add Question
+                        </button>
+                        <button className="button" onClick={hideModal}>
+                            Cancel
+                        </button>
+                    </BlockButtonWrapper>
                 </Form>
             </ModalOuterContainer>
         );

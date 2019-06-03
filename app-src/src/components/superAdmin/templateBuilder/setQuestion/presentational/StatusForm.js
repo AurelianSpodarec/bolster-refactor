@@ -8,15 +8,16 @@ const options = Object.entries(PIN_STATUS_TYPES).map(([value, label]) => ({
     label
 }));
 
-const StatusForm = ({ value, handleInputChange, question }) => {
-    console.log(question);
+const StatusForm = ({ statusOptions, handleInputChange }) => {
+    console.log(statusOptions);
     return (
         <Field name="Status">
             <MultiSelect
-                name="status"
-                value={[]}
+                name="statusOptions"
+                value={statusOptions}
                 options={options}
                 onChange={handleInputChange}
+                required
             />
         </Field>
     );

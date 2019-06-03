@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 
 import {
     PREREQ_TYPES,
-    QUESTION_TYPE_VALUES
+    QUESTION_TYPE_VALUES,
+    QUESTION_TYPE_NUMBERS
 } from 'constants/shared/templateBuilder';
 import updateQuestionField from 'actions/superAdmin/templateBuilder/sync/updateQuestionField';
 import setQuestion from 'actions/superAdmin/templateBuilder/sync/setQuestion';
@@ -83,7 +84,8 @@ export default function(WrappedComponent) {
                 maxPhotos,
                 questionType,
                 canCompanyEdit,
-                optionType
+                optionType,
+                statusOptions
             } = this.props.fields;
 
             switch (questionType + '') {
@@ -103,6 +105,8 @@ export default function(WrappedComponent) {
                 case VALS.MULTI_DROPDOWN_OPTIONS:
                 case VALS.MULTI_MULTI_DROPDOWN_OPTIONS:
                     return { optionType };
+                case VALS.STATUS:
+                    return { statusOptions };
                 default:
                     return {};
             }
@@ -126,7 +130,12 @@ export default function(WrappedComponent) {
         updateQuestionFields: fields => {
             dispatch(updateQuestionFields(fields));
         },
-        setQuestion: question => {
+        setQuestion: q => {
+            const question = { ...q };
+            if (question.questionType === QUESTION_TYPE_NUMBERS.STATUS) {
+                question.isRequired = true;
+            }
+
             dispatch(setQuestion(question));
             dispatch(hideModal());
         },
