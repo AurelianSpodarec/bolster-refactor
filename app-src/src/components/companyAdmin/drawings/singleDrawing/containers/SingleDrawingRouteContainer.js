@@ -4,12 +4,12 @@ import { connect } from 'react-redux';
 import { DRAWING_TABS as TABS } from 'constants/shared/tabNames';
 
 import GeneralOverviewContainer from './GeneralOverviewContainer';
-import HierarchyAdvancedReport from 'components/companyAdmin/reports/createReport/components/presentational/HierarchyAdvancedReport';
+import AdvancedReportContainer from 'components/client/drawings/singleDrawing/containers/AdvancedReportContainer';
 
 const DrawingRouteContainer = ({ selectedTab }) => {
     const contentOptions = {
         [TABS.GENERAL_OVERVIEW]: GeneralOverviewContainer,
-        [TABS.ADVANCED_REPORT]: HierarchyAdvancedReport
+        [TABS.ADVANCED_REPORT]: AdvancedReportContainer
     };
 
     const SpecificContent =

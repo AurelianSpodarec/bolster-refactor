@@ -43,7 +43,8 @@ import {
     ADD_DROPDOWN_OPTION,
     EDIT_DROPDOWN_OPTION,
     DELETE_DROPDOWN_OPTION,
-    CREATE_COMPANY_ADMIN
+    CREATE_COMPANY_ADMIN,
+    LOADING_DATA
 } from 'constants/shared/modalTypes';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
@@ -90,6 +91,7 @@ import AddDropdownOptionModal from 'components/companyAdmin/dropdownOptions/addD
 import EditDropdownOptionModal from 'components/companyAdmin/dropdownOptions/editDropdownOptionModal/presentational/EditDropdownOptionModal';
 import DeleteDropdownOptionModalContainer from 'components/companyAdmin/dropdownOptions/deleteDropdownOptionModal/containers/DeleteDropdownOptionModalContainer';
 import CreateCompanyAdminModal from 'components/companyAdmin/userManagement/companyAdmins/createCompanyAdmin/presentational/CreateCompanyAdminModal';
+import LoadingDataModal from '../presentational/LoadingDataModal';
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModalContainer,
@@ -133,7 +135,8 @@ const MODAL_COMPONENTS = {
     [ADD_DROPDOWN_OPTION]: AddDropdownOptionModal,
     [EDIT_DROPDOWN_OPTION]: EditDropdownOptionModal,
     [DELETE_DROPDOWN_OPTION]: DeleteDropdownOptionModalContainer,
-    [CREATE_COMPANY_ADMIN]: CreateCompanyAdminModal
+    [CREATE_COMPANY_ADMIN]: CreateCompanyAdminModal,
+    [LOADING_DATA]: LoadingDataModal
 };
 
 const ModalRoot = ({ modalType, modalProps, ...otherProps }) => {

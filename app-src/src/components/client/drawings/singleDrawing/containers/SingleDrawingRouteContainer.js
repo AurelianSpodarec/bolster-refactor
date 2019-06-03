@@ -3,12 +3,12 @@ import { connect } from 'react-redux';
 
 import { DRAWING_TABS as TABS } from 'constants/shared/tabNames';
 
-import AdvancedReport from '../presentational/AdvancedReport';
 import DrawingMapGeneralContainer from './DrawingMapGeneralContainer';
+import AdvancedReportContainer from './AdvancedReportContainer';
 
 const contentOptions = {
     [TABS.GENERAL_OVERVIEW]: DrawingMapGeneralContainer,
-    [TABS.ADVANCED_REPORT]: AdvancedReport
+    [TABS.ADVANCED_REPORT]: AdvancedReportContainer
 };
 
 const DrawingRouteContainer = ({ selectedTab }) => {
