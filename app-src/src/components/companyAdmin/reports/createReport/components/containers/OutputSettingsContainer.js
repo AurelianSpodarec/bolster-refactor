@@ -55,8 +55,55 @@ class OutputSettingsContainer extends Component {
         );
     }
 
+    componentDidMount = () => {
+        const {
+            filters: {
+                isPDFGeneration,
+                isCSVGeneration,
+                isFloorplanGeneration
+            },
+            addFieldError
+        } = this.props;
+        if (!isPDFGeneration && !isCSVGeneration && !isFloorplanGeneration) {
+            addFieldError(
+                'isFloorplanGeneration',
+                'Must select at least one option'
+            );
+        }
+    };
+
     componentDidUpdate = prevProps => {
-        const { postSuccess, error, showModal, history } = this.props;
+        const {
+            postSuccess,
+            error,
+            showModal,
+            history,
+            filters: {
+                isPDFGeneration,
+                isCSVGeneration,
+                isFloorplanGeneration
+            },
+            addFieldError,
+            removeFieldError
+        } = this.props;
+        const modeSelected = !!(
+            isPDFGeneration ||
+            isCSVGeneration ||
+            isFloorplanGeneration
+        );
+        const prevModeSelected = !!(
+            prevProps.filters.isPDFGeneration ||
+            prevProps.filters.isCSVGeneration ||
+            prevProps.filters.isFloorplanGeneration
+        );
+        if (!modeSelected && prevModeSelected) {
+            addFieldError(
+                'isFloorplanGeneration',
+                'Must select at least one option'
+            );
+        } else if (modeSelected && !prevModeSelected) {
+            removeFieldError('isFloorplanGeneration');
+        }
 
         if (postSuccess && !prevProps.postSuccess) {
             showModal(SUCCESS_MODAL, {
@@ -90,27 +137,9 @@ class OutputSettingsContainer extends Component {
             getPostBody,
             postReport,
             fieldErrors,
-            showFieldErrors,
-            addFieldError,
-            removeFieldError
+            showFieldErrors
         } = this.props;
 
-        const body = getPostBody();
-        const {
-            isPDFGeneration,
-            isCSVGeneration,
-            isFloorplanGeneration
-        } = body;
-        if (!isPDFGeneration && !isCSVGeneration && !isFloorplanGeneration) {
-            addFieldError(
-                'isFloorplanGeneration',
-                'Must select at least one option'
-            );
-            showFieldErrors();
-            return;
-        } else {
-            removeFieldError('isFloorplanGeneration');
-        }
         if (!isEmpty(fieldErrors)) {
             showFieldErrors();
         } else {
