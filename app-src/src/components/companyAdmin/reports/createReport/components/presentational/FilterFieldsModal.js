@@ -5,7 +5,6 @@ import Field from 'components/shared/generic/form/presentational/Field';
 import CheckboxListContainer from 'components/shared/generic/form/containers/CheckboxListContainer';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
-import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 
 const FilterFieldsModal = ({
     questionOptions,
@@ -15,7 +14,8 @@ const FilterFieldsModal = ({
     removeOption,
     updateOption,
     questionValues,
-    saveField
+    saveField,
+    hideModal
 }) => (
     <ModalOuterContainer>
         <BlockHeading title="Add Field" />
@@ -23,14 +23,16 @@ const FilterFieldsModal = ({
         {/* multi checkboxes for field name */}
         <div className="size-lg-12">
             <div className="size-lg-6">
-                <BlockHeading title="Questions" />
-                <CheckboxListContainer
-                    options={questionOptions}
-                    selectedOptions={selectedQuestions}
-                    name={'Options'}
-                    handleChange={handleChange}
-                    required
-                />
+                <Field name="Questions" required>
+                    <CheckboxListContainer
+                        classes="full-width"
+                        options={questionOptions}
+                        selectedOptions={selectedQuestions}
+                        name={'Options'}
+                        handleChange={handleChange}
+                        required
+                    />
+                </Field>
             </div>
             <div className="size-lg-6">
                 <Field name="Valid values">
@@ -39,7 +41,6 @@ const FilterFieldsModal = ({
                             name={`Option ${i + 1}`}
                             key={option.id}
                             classes="option-item"
-                            required
                         >
                             {questionValues.length > 1 && (
                                 <button
@@ -54,16 +55,16 @@ const FilterFieldsModal = ({
                                 name={option.id}
                                 value={option.value}
                                 handleChange={updateOption}
-                                required
                             />
                         </Field>
                     ))}
                     <BlockButtonWrapper>
                         <button
-                            className="button"
+                            className="button green"
                             type="button"
                             onClick={addOption}
                         >
+                            <i className="fa fa-plus fa-fw" />
                             add option
                         </button>
                     </BlockButtonWrapper>
@@ -71,13 +72,14 @@ const FilterFieldsModal = ({
             </div>
         </div>
         <BlockButtonWrapper>
-            <ButtonContainer
-                className="green"
-                type="submit"
-                handleClick={saveField}
-            >
+            <button className="button green" type="submit" onClick={saveField}>
+                <i className="fa fa-save fa-fw" />
                 Save
-            </ButtonContainer>
+            </button>
+            <button className="button red" type="button" onClick={hideModal}>
+                <i className="fa fa-times fa-fw" />
+                Cancel
+            </button>
         </BlockButtonWrapper>
     </ModalOuterContainer>
 );

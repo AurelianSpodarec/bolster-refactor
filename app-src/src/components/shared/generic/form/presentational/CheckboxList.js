@@ -7,28 +7,29 @@ const CheckboxList = ({
     selectedOptions = [],
     handleChange,
     name,
-    error
-}) =>
-    console.info(options, selectedOptions) || (
-        <div className="checkbox-list size-lg-12">
-            {options &&
-                options.map(({ text, value, disabled }) => (
-                    <CheckboxContainer
-                        key={`${text}${value}`}
-                        value={value}
-                        name={name}
-                        text={text}
-                        disabled={disabled}
-                        checked={
-                            selectedOptions.includes(String(value)) && !disabled
-                        }
-                        handleChange={handleChange}
-                    />
-                ))}
-            {error && error.length && (
-                <p className="error red-text text-accent-4">{error}</p>
-            )}
-        </div>
-    );
+    error,
+    classes
+}) => (
+    <div className={'checkbox-list size-lg-12'}>
+        {options &&
+            options.map(({ text, value, disabled }) => (
+                <CheckboxContainer
+                    key={`${text}${value}`}
+                    value={value}
+                    name={name}
+                    text={text}
+                    disabled={disabled}
+                    checked={
+                        selectedOptions.includes(String(value)) && !disabled
+                    }
+                    handleChange={handleChange}
+                    classes={classes}
+                />
+            ))}
+        {error && error.length && (
+            <p className="error red-text text-accent-4">{error}</p>
+        )}
+    </div>
+);
 
 export default CheckboxList;

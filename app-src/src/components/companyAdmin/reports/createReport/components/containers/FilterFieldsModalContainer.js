@@ -18,7 +18,8 @@ class FilterFieldsModalContainer extends Component {
     render() {
         const {
             customQuestions,
-            field: { selectedQuestions, questionValues }
+            field: { selectedQuestions, questionValues },
+            hideModal
         } = this.props;
         const uniqueOptions = removeDuplicates(customQuestions, true);
         const formattedOptions = uniqueOptions.map(
@@ -38,6 +39,7 @@ class FilterFieldsModalContainer extends Component {
                 updateOption={this.updateOption}
                 questionValues={Object.values(questionValues)}
                 saveField={this.saveField}
+                hideModal={hideModal}
             />
         );
     }
