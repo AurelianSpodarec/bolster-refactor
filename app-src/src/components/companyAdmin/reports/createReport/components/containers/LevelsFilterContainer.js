@@ -72,7 +72,7 @@ class LevelsFilterContainer extends Component {
         return this.updateBuilding().then(() => handleChange('siteID', value));
     };
 
-    handleChange = (name, value) => {
+    handleChange = (name, value, mount = false) => {
         const { postFilters, shouldConfirm, showModal, hideModal } = this.props;
         const updateMethods = {
             drawingID: this.updateDrawing,
@@ -81,7 +81,7 @@ class LevelsFilterContainer extends Component {
             siteID: this.updateSite
         };
         const update = updateMethods[name];
-        if (shouldConfirm) {
+        if (shouldConfirm && !mount) {
             const handleSubmit = () => {
                 hideModal();
                 return update(value).then(postFilters);
@@ -116,16 +116,16 @@ class LevelsFilterContainer extends Component {
 
         // prefill on hierarchy single page advanced reports
         if (hierarchy === HIERARCHY_IDS.SITE) {
-            this.handleChange('siteID', hierarchyID);
+            this.handleChange('siteID', hierarchyID, true);
             this.handlePrefillSite(hierarchyID);
         } else if (hierarchy === HIERARCHY_IDS.BUILDING) {
-            this.handleChange('buildingID', hierarchyID);
+            this.handleChange('buildingID', hierarchyID, true);
             this.handlePrefillBuilding(hierarchyID);
         } else if (hierarchy === HIERARCHY_IDS.FLOOR) {
-            this.handleChange('floorID', hierarchyID);
+            this.handleChange('floorID', hierarchyID, true);
             this.handlePrefillFloor(hierarchyID);
         } else if (hierarchy === HIERARCHY_IDS.DRAWING) {
-            this.handleChange('drawingID', hierarchyID);
+            this.handleChange('drawingID', hierarchyID, true);
             this.handlePrefillDrawing(hierarchyID);
         }
 

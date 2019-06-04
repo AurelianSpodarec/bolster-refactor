@@ -11,7 +11,7 @@ class OperativesFilterContainer extends Component {
             customFilters: { operatives },
             filters: { companyUserIDs }
         } = this.props;
-
+        console.log({ companyUserIDs, operatives });
         return (
             <OperativesFilter
                 operativeOptions={formatArrForDropdown(operatives)}
@@ -39,7 +39,7 @@ class OperativesFilterContainer extends Component {
                 operatives.some(op => opID === op.id)
             );
 
-            handleChange('operatveIDs', opIDs);
+            handleChange('companyUserIDs', opIDs);
         }
     };
 

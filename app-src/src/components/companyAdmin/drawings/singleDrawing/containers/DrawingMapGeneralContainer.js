@@ -18,6 +18,7 @@ import {
 } from 'constants/companyAdmin/enums';
 import fetchSingleDrawing from 'actions/companyAdmin/drawings/async/fetchSingleDrawing';
 import updateFloorPlanConfirmed from 'actions/companyAdmin/drawings/sync/updateFloorPlanConfirmed';
+import updateReportFilter from 'actions/companyAdmin/reports/sync/updateReportFilter';
 
 class DrawingMapGeneralContainer extends Component {
     state = {
@@ -62,7 +63,7 @@ class DrawingMapGeneralContainer extends Component {
                     <div className="flex-item size-lg-8">
                         <BlockContainer error={error}>
                             <DrawingMapFiltersAdvanced
-                                serviceOptions={Object.values(statusOptions)}
+                                serviceOptions={Object.values(serviceOptions)}
                                 selectedService={
                                     serviceOptions[serviceSelectedID]
                                 }
@@ -117,10 +118,10 @@ class DrawingMapGeneralContainer extends Component {
         }
     };
 
-    componentDidUpdate = ({
-        postSuccess: prevSuccess,
-        drawing: prevDrawing = {}
-    }) => {
+    componentDidUpdate = (
+        { postSuccess: prevSuccess, drawing: prevDrawing = {} },
+        prevState
+    ) => {
         const { drawing = {}, fetchSingleDrawing, postSuccess } = this.props;
         // re-fetch drawing every 5 seconds until the updated floorplan is retrieved
         if (postSuccess && !prevSuccess) {
@@ -134,6 +135,33 @@ class DrawingMapGeneralContainer extends Component {
         }
         if (!drawing.isFloorplanUpdating && prevDrawing.isFloorplanUpdating) {
             clearInterval(this._floorplanInterval);
+        }
+
+        // pass selected filters through to advanced report?
+
+        const {
+            serviceSelectedID,
+            statusSelectedID,
+            operativeSelectedID,
+            startDateSelected,
+            endDateSelected
+        } = this.state;
+        const { updateReportFilter } = this.props;
+        // set in redux
+        if (serviceSelectedID !== prevState.serviceSelectedID) {
+            updateReportFilter('serviceID', serviceSelectedID);
+        }
+        if (statusSelectedID !== prevState.statusSelectedID) {
+            updateReportFilter('status', statusSelectedID);
+        }
+        if (operativeSelectedID !== prevState.operativeSelectedID) {
+            updateReportFilter('companyUserIDs', [operativeSelectedID]);
+        }
+        if (startDateSelected !== prevState.startDateSelected) {
+            updateReportFilter('fromDateInclusive', startDateSelected);
+        }
+        if (endDateSelected !== prevState.endDateSelected) {
+            updateReportFilter('toDateInclusive', endDateSelected);
         }
     };
 
@@ -290,7 +318,8 @@ const mapDispatchToProps = {
     fetchSingleDrawing,
     updatePinCoordinates,
     showModal,
-    updateFloorPlanConfirmed
+    updateFloorPlanConfirmed,
+    updateReportFilter
 };
 
 export default withRouter(

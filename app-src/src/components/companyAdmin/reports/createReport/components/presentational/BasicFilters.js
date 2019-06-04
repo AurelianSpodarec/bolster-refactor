@@ -27,7 +27,7 @@ const BasicFilters = ({
                 <p className="generic-text small">
                     Your high level filtration options can be found below.
                 </p>
-                <Field name="Services">
+                <Field name="Services" required>
                     <DropdownContainer
                         placeholder="Select Service"
                         name="serviceID"
