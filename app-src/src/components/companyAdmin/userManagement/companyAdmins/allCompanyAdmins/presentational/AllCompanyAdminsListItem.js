@@ -4,7 +4,11 @@ import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/pr
 import { COMPANY_USER_ROLE_TYPES } from 'constants/companyAdmin/enums';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 
-const AllCompanyAdminsListItem = ({ user, showDeleteModal }) => (
+const AllCompanyAdminsListItem = ({
+    user,
+    showDeleteModal,
+    showUnlinkModal
+}) => (
     <tr key={user.id}>
         <td>
             {`${user.userFirstName} ${user.userLastName}`}{' '}
@@ -14,9 +18,16 @@ const AllCompanyAdminsListItem = ({ user, showDeleteModal }) => (
         </td>
         <td>{user.userEmail}</td>
         <td>{user.userPhoneNumber}</td>
+        <td>{user.linkedDeviceID ? 'Yes' : 'No'}</td>
         <td>{user.formattedOperativeCode}</td>
         <td>
             <BlockButtonWrapper>
+                {user.linkedDeviceID && (
+                    <button className="button red" onClick={showUnlinkModal}>
+                        <i className="far fa-unlink" />
+                        Unlink Device
+                    </button>
+                )}
                 <ButtonContainer
                     to={`/company/users-management/company-admins/${
                         user.id

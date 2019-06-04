@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
+import { ERROR_MODAL, SUCCESS_MODAL } from 'constants/shared/modalTypes';
+
+import { showModal } from 'actions/shared/generic/modals/sync/showModal';
+
 import CreateCompanyAdminForm from '../presentational/CreateCompanyAdminForm';
 import { COMPANY_USER_ROLE_TYPES } from 'constants/companyAdmin/enums';
 import createCompanyUser from 'actions/companyAdmin/userManagement/async/createCompanyUser';
@@ -31,6 +35,25 @@ class CreateCompanyAdminFormContainer extends Component {
         );
     }
 
+    componentDidUpdate = prevProps => {
+        const { postSuccess, showModal, hideModal, error } = this.props;
+        if (postSuccess && !prevProps.postSuccess) {
+            showModal(SUCCESS_MODAL, {
+                hideModal,
+                message: 'Company Admin added successfully.'
+            });
+        }
+        if (error && !prevProps.error) {
+            showModal(ERROR_MODAL, {
+                hideModal,
+                title: 'Error',
+                message:
+                    error.message ||
+                    'There was an error processing your request, please try again later.'
+            });
+        }
+    };
+
     handleInputChange = (name, value) => {
         this.setState({ [name]: value });
     };
@@ -46,14 +69,6 @@ class CreateCompanyAdminFormContainer extends Component {
             type: COMPANY_USER_ROLE_TYPES.ADMIN
         };
         this.props.createCompanyUser(postBody);
-    };
-
-    componentDidUpdate = prevProps => {
-        const { postSuccess, hideModal } = this.props;
-
-        if (postSuccess && !prevProps.postSuccess) {
-            hideModal();
-        }
     };
 
     validatePassword = password => {
@@ -85,6 +100,9 @@ const mapDispatchToProps = dispatch => ({
     removeFieldError: field => dispatch(removeFieldError(field)),
     hideModal: () => {
         dispatch(hideModal());
+    },
+    showModal: (type, props) => {
+        dispatch(showModal(type, props));
     }
 });
 

@@ -5,40 +5,41 @@ import AllOperativesListItem from '../presentational/AllOperativesListItem';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import {
     DELETE_COMPANY_USER,
-    CONFIRM_DELETE
+    UNLINK_DEVICE
 } from 'constants/shared/modalTypes';
-import unlinkOperativeDevice from 'actions/companyAdmin/userManagement/async/unlinkOperativeDevice';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 
 const AllOperativesListItemContainer = ({
     user,
     colCount,
     showModal,
-    unlinkDevice,
     hideModal
-}) => (
-    <AllOperativesListItem
-        user={user}
-        colCount={colCount}
-        showDeleteModal={() => showModal(DELETE_COMPANY_USER, { id: user.id })}
-        showUnlinkModal={() =>
-            showModal(CONFIRM_DELETE, {
-                hideModal,
-                handleDelete: () => unlinkDevice(user.id),
-                message: `Are you sure you want to unlink ${
-                    user.userFirstName
-                } ${user.userLastName}'s device?`,
-                deleteButtonText: 'Unlink',
-                icon: 'unlink'
-            })
-        }
-    />
-);
+}) => {
+    return (
+        <AllOperativesListItem
+            user={user}
+            colCount={colCount}
+            showDeleteModal={() =>
+                showModal(DELETE_COMPANY_USER, { id: user.id })
+            }
+            showUnlinkModal={unlinkModal}
+        />
+    );
+
+    function unlinkModal() {
+        showModal(UNLINK_DEVICE, {
+            hideModal,
+            user,
+            message: `Are you sure you want to unlink ${user.userFirstName} ${
+                user.userLastName
+            }'s device?`
+        });
+    }
+};
 
 const mapDispatchToProps = dispatch => ({
     showModal: (type, props) => dispatch(showModal(type, props)),
-    hideModal: () => dispatch(hideModal()),
-    unlinkDevice: id => dispatch(unlinkOperativeDevice(id))
+    hideModal: () => dispatch(hideModal())
 });
 
 export default connect(
