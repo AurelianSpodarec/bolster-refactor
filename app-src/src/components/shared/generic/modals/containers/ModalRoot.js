@@ -45,7 +45,8 @@ import {
     RENAME_TEMPLATE_SECTION,
     SET_LABEL_FIELDS,
     SUCCESS_MODAL,
-    FILTER_FIELDS
+    FILTER_FIELDS,
+    UNLINK_DEVICE
 } from 'constants/shared/modalTypes';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
@@ -94,6 +95,7 @@ import EditDropdownOptionModal from 'components/companyAdmin/dropdownOptions/edi
 import DeleteDropdownOptionModalContainer from 'components/companyAdmin/dropdownOptions/deleteDropdownOptionModal/containers/DeleteDropdownOptionModalContainer';
 import CreateCompanyAdminModal from 'components/companyAdmin/userManagement/companyAdmins/createCompanyAdmin/presentational/CreateCompanyAdminModal';
 import LoadingDataModal from '../presentational/LoadingDataModal';
+import UnlinkDeviceModalContainer from './UnlinkDeviceModalContainer';
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModalContainer,
@@ -139,7 +141,8 @@ const MODAL_COMPONENTS = {
     [EDIT_DROPDOWN_OPTION]: EditDropdownOptionModal,
     [DELETE_DROPDOWN_OPTION]: DeleteDropdownOptionModalContainer,
     [CREATE_COMPANY_ADMIN]: CreateCompanyAdminModal,
-    [LOADING_DATA]: LoadingDataModal
+    [LOADING_DATA]: LoadingDataModal,
+    [UNLINK_DEVICE]: UnlinkDeviceModalContainer
 };
 
 const ModalRoot = ({ modalType, modalProps, ...otherProps }) => {
