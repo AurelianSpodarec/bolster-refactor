@@ -116,7 +116,7 @@ class OutputSettingsContainer extends Component {
         }
         if (error && !prevProps.error) {
             showModal(ERROR_MODAL, {
-                title: 'Error',
+                title: error.title || 'Error',
                 message: error.message
             });
         }

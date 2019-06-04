@@ -142,7 +142,7 @@ class LevelsFilterContainer extends Component {
         }
     };
 
-    // for advanced reports on hierarchy single pages vvvvvv
+    // for advanced reports on hierarchy single pages
 
     handlePrefillSite = siteID => {
         const { handleChange } = this.props;
@@ -179,7 +179,11 @@ const mapStateToProps = (
             buildingsReducer,
             floorsReducer,
             drawingsReducer,
-            reportsReducer: { fields, selectedPins }
+            reportsReducer: {
+                fields,
+                filters: { pinIDs = [] },
+                customFilters: { pins = [] }
+            }
         }
     },
     { match: { params, path } }
@@ -202,7 +206,7 @@ const mapStateToProps = (
             buildingsReducer.isFetching ||
             floorsReducer.isFetching ||
             drawingsReducer.isFetching,
-        shouldConfirm: !isObjEmpty(fields) || !isObjEmpty(selectedPins)
+        shouldConfirm: !isObjEmpty(fields) || pins.length !== pinIDs.length
     };
 };
 

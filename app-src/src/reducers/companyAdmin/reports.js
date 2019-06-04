@@ -14,7 +14,8 @@ import {
     REMOVE_FILTER_QUESTIONS,
     UPDATE_FILTER_OPTION,
     UPDATE_SELECTED_PINS,
-    RESET_FILTER_OPTIONS
+    RESET_FILTER_OPTIONS,
+    POST_REPORT_NO_PINS
 } from 'constants/actionTypes/reports';
 import { updateObj, removeObjItem, convertArrToObj } from 'helpers/generic';
 import { SORT_BY_OPTIONS, LAYOUT_OPTIONS } from 'constants/companyAdmin/enums';
@@ -189,6 +190,8 @@ function errorReducer(state = null, action) {
         case POST_CUSTOM_FILTERS_REQUEST:
         case POST_REPORT_REQUEST:
             return null;
+        case POST_REPORT_NO_PINS:
+            return action.payload;
         case POST_CUSTOM_FILTERS_FAILURE:
         case POST_REPORT_FAILURE:
             return action.error;

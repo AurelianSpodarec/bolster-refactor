@@ -125,9 +125,8 @@ class FurtherFiltrationContainer extends Component {
 const mapStateToProps = ({
     companyAdmin: {
         reportsReducer: {
-            customFilters: { questions },
+            customFilters: { questions, pins = [] },
             fields,
-            selectedPins,
             filters
         }
     }
@@ -135,7 +134,7 @@ const mapStateToProps = ({
     customQuestions: questions || [],
     fields: Object.values(fields),
     filters,
-    shouldConfirm: !isObjEmpty(fields) || !isObjEmpty(selectedPins)
+    shouldConfirm: !isObjEmpty(fields) || pins.length !== filters.pinIDs.length
 });
 
 const mapDispatchToProps = {
