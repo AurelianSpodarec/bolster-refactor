@@ -5,10 +5,11 @@ import MultiSelect from 'components/shared/generic/form/presentational/MultiSele
 const OperativesFilter = ({
     operativeOptions,
     handleChange,
-    selectedOperatives
+    selectedOperatives,
+    sizeClasses
 }) => (
     <div className="generic-form">
-        <Field name="Operatives">
+        <Field name="Operatives" sizeClasses={sizeClasses}>
             <MultiSelect
                 options={operativeOptions}
                 name="companyUserIDs"

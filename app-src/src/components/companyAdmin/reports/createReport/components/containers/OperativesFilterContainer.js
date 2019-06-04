@@ -9,14 +9,15 @@ class OperativesFilterContainer extends Component {
             handleChange,
             formatArrForDropdown,
             customFilters: { operatives },
-            filters: { companyUserIDs }
+            filters: { companyUserIDs },
+            sizeClasses
         } = this.props;
-        console.log({ companyUserIDs, operatives });
         return (
             <OperativesFilter
                 operativeOptions={formatArrForDropdown(operatives)}
                 selectedOperatives={companyUserIDs}
                 handleChange={handleChange}
+                sizeClasses={sizeClasses}
             />
         );
     }
