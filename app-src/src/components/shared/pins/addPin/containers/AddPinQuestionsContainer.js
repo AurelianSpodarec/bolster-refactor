@@ -3,8 +3,12 @@ import { connect } from 'react-redux';
 
 import AddPinQuestions from '../presentational/AddPinQuestions';
 
-const AddPinQuestionsContainer = ({ sections, questions }) => (
-    <AddPinQuestions sections={Object.values(sections)} questions={questions} />
+const AddPinQuestionsContainer = ({ sections, questions, selectedVersion }) => (
+    <AddPinQuestions
+        sections={Object.values(sections)}
+        questions={questions}
+        selectedVersion={selectedVersion}
+    />
 );
 
 const mapStateToProps = ({

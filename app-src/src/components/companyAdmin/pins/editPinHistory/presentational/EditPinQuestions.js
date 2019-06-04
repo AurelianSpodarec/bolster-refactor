@@ -1,9 +1,9 @@
 import React from 'react';
 
-import EditPinQuestionRoute from '../containers/EditPinQuestionRoute';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
+import AddPinQuestionRoute from 'components/shared/pins/addPin/containers/AddPinQuestionRoute';
 
-const EditPinQuestions = ({ sections, questions }) =>
+const EditPinQuestions = ({ sections, questions, selectedVersion }) =>
     [...sections]
         .sort((a, b) => a.sort - b.sort)
         .map(section => (
@@ -18,9 +18,10 @@ const EditPinQuestions = ({ sections, questions }) =>
                         )
                         .sort((a, b) => a.sort - b.sort)
                         .map(question => (
-                            <EditPinQuestionRoute
+                            <AddPinQuestionRoute
                                 key={question.id}
                                 question={question}
+                                selectedVersion={selectedVersion}
                             />
                         ))}
                 </div>

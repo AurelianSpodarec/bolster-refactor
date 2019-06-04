@@ -5,17 +5,16 @@ import AddPinVersions from '../presentational/AddPinVersions';
 const AddPinVersionsContainer = ({ selectedVersion }) => (
     <AddPinVersions selectedVersion={selectedVersion} />
 );
+
 const mapStateToProps = (
     {
         companyAdmin: {
             templateVersionsReducer: { versions }
         }
     },
-    { selectedTemplateID }
+    ownProps
 ) => ({
-    selectedVersion: Object.values(versions).find(
-        version => version.templateID === selectedTemplateID
-    )
+    selectedVersion: versions[ownProps.templateVersionID]
 });
 
 export default connect(mapStateToProps)(AddPinVersionsContainer);

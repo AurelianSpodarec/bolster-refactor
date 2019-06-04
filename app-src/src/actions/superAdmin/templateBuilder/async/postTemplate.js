@@ -14,7 +14,7 @@ export const postTemplateRequest = () => ({
 });
 
 export const postTemplateSuccess = (
-    { template, sections, questions, labelFields },
+    { template, sections, questions, labelFields, statusOptions },
     oldUUID
 ) => ({
     type: POST_TEMPLATE_SUCCESS,
@@ -22,6 +22,7 @@ export const postTemplateSuccess = (
     sections,
     questions: formatQuestions(questions),
     labelFields,
+    statusOptions,
     oldUUID
 });
 

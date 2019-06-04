@@ -11,7 +11,6 @@ import BlockButtonWrapper from '../../../../shared/generic/blockButtonWrappers/p
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import SpecificFieldsRoute from '../containers/SpecificFieldsRoute';
 import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
-import { QUESTION_TYPE_NUMBERS } from 'constants/shared/templateBuilder';
 
 const TemplateQuestionFormModal = ({
     questionTypeOptions,
@@ -29,24 +28,6 @@ const TemplateQuestionFormModal = ({
     action,
     ...otherFields
 }) => {
-    if (questionType.value === QUESTION_TYPE_NUMBERS.STATUS + '')
-        return (
-            <ModalOuterContainer extraClasses="w-form">
-                <BlockHeading title={`${action} question`} />
-                <Form
-                    style={{ minHeight: '155px' }}
-                    onSubmit={handleSubmit}
-                    className="generic-form"
-                >
-                    <SpecificFieldsRoute
-                        questionType={questionType.value}
-                        handleInputChange={handleInputChange}
-                        {...otherFields}
-                    />
-                </Form>
-            </ModalOuterContainer>
-        );
-
     return (
         <ModalOuterContainer extraClasses="w-form">
             <BlockHeading title={`${action} question`} />

@@ -8,7 +8,13 @@ class EditPinSectionsContainer extends Component {
     render() {
         const relevantSections = this._getSections();
 
-        return <EditPinSections sections={relevantSections} />;
+        const { selectedVersion } = this.props;
+        return (
+            <EditPinSections
+                sections={relevantSections}
+                selectedVersion={selectedVersion}
+            />
+        );
     }
 
     _getSections = () => {

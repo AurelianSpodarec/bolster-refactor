@@ -8,7 +8,13 @@ class AddPinSectionsContainer extends Component {
     render() {
         const relevantSections = this._getSections();
 
-        return <AddPinSections sections={relevantSections} />;
+        const { selectedVersion } = this.props;
+        return (
+            <AddPinSections
+                sections={relevantSections}
+                selectedVersion={selectedVersion}
+            />
+        );
     }
 
     _getSections = () => {

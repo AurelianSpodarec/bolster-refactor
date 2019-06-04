@@ -32,7 +32,8 @@ const initialQuestionFields = {
     options: [{ text: '', id: uuid() }],
     maxPhotos: '',
     canCompanyEdit: false,
-    optionType: ''
+    optionType: '',
+    statusOptions: []
 };
 
 export default combineReducers({
