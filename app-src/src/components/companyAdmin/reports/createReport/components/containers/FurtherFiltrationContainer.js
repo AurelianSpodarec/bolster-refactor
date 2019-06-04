@@ -18,6 +18,7 @@ import BlockContainer from 'components/shared/generic/block/containers/BlockCont
 import removeFilterQuestions from 'actions/companyAdmin/reports/sync/removeFilterQuestions';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import FilterField from '../presentational/FilterField';
+import resetFilterOptions from 'actions/companyAdmin/reports/sync/resetFilterOptions';
 
 class FurtherFiltrationContainer extends Component {
     state = { filterOption: 0 };
@@ -161,7 +162,8 @@ const mapDispatchToProps = {
     removeFilterQuestion,
     removeFilterQuestions,
     showModal,
-    hideModal
+    hideModal,
+    resetFilterOptions
 };
 
 export default connect(

@@ -97,7 +97,7 @@ class BasicFiltersContainer extends Component {
     };
 
     componentWillUnmount = () => {
-        // this.props.resetFilterOptions();
+        this.props.resetFilterOptions();
     };
 
     handleChange = (name, value) => {
@@ -135,7 +135,11 @@ const mapStateToProps = ({
     shouldConfirm: !isObjEmpty(fields) || pins.length !== pinIDs.length
 });
 
-const mapDispatchToProps = { resetFilterOptions, hideModal, showModal };
+const mapDispatchToProps = {
+    resetFilterOptions,
+    hideModal,
+    showModal
+};
 
 export default withUpdateOnChange(
     connect(

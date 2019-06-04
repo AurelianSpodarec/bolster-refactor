@@ -29,6 +29,7 @@ const FilterFieldsModal = ({
                     selectedOptions={selectedQuestions}
                     name={'Options'}
                     handleChange={handleChange}
+                    required
                 />
             </div>
             <div className="size-lg-6">
@@ -70,7 +71,11 @@ const FilterFieldsModal = ({
             </div>
         </div>
         <BlockButtonWrapper>
-            <ButtonContainer className="green" handleClick={saveField}>
+            <ButtonContainer
+                className="green"
+                type="submit"
+                handleClick={saveField}
+            >
                 Save
             </ButtonContainer>
         </BlockButtonWrapper>

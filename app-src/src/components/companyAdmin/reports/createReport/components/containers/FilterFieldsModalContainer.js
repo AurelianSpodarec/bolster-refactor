@@ -93,7 +93,8 @@ class FilterFieldsModalContainer extends Component {
         questionValues
     });
 
-    saveField = () => {
+    saveField = e => {
+        e.preventDefault();
         const { hideModal, removeFilterQuestion, field } = this.props;
         // remove if nothing selected
         if (
