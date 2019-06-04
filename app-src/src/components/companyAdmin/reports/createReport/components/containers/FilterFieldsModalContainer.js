@@ -18,8 +18,7 @@ class FilterFieldsModalContainer extends Component {
     render() {
         const {
             customQuestions,
-            field: { selectedQuestions, questionValues },
-            hideModal
+            field: { selectedQuestions, questionValues }
         } = this.props;
         const uniqueOptions = removeDuplicates(customQuestions, true);
         const formattedOptions = uniqueOptions.map(
@@ -39,7 +38,7 @@ class FilterFieldsModalContainer extends Component {
                 updateOption={this.updateOption}
                 questionValues={Object.values(questionValues)}
                 saveField={this.saveField}
-                hideModal={hideModal}
+                hideModal={this.handleCancel}
             />
         );
     }
@@ -105,6 +104,13 @@ class FilterFieldsModalContainer extends Component {
         ) {
             removeFilterQuestion(field.id);
         }
+        hideModal();
+    };
+
+    handleCancel = () => {
+        const { hideModal, removeFilterQuestion, field } = this.props;
+        // remove if nothing selected
+        removeFilterQuestion(field.id);
         hideModal();
     };
 }
