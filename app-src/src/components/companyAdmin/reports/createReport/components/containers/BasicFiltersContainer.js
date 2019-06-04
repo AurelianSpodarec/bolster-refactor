@@ -97,7 +97,7 @@ class BasicFiltersContainer extends Component {
     };
 
     componentWillUnmount = () => {
-        this.props.resetFilterOptions();
+        // this.props.resetFilterOptions();
     };
 
     handleChange = (name, value) => {

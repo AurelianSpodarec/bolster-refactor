@@ -53,13 +53,13 @@ class FilterFieldsModalContainer extends Component {
         const id = uuid();
         const updated = updateObj(field.questionValues, id, { id, value: '' });
         updateFilterQuestionField(
-            field,
-            this.formatField(id, field.selectedQuestions, updated)
+            field.id,
+            this.formatField(field.id, field.selectedQuestions, updated)
         );
     };
 
     removeOption = id => {
-        const { field } = this.props;
+        const { field, updateFilterQuestionField } = this.props;
         const updated = {
             ...field,
             questionValues: removeObjItem(field.questionValues, id)
@@ -67,8 +67,8 @@ class FilterFieldsModalContainer extends Component {
         updateFilterQuestionField(field.id, updated);
     };
 
-    updateOption(name, value) {
-        const { field, id } = this.props;
+    updateOption = (name, value) => {
+        const { field, id, updateFilterQuestionField } = this.props;
         const updated = updateObj(field.questionValues, name, {
             id: name,
             value
@@ -77,7 +77,7 @@ class FilterFieldsModalContainer extends Component {
             id,
             this.formatField(id, field.selectedQuestions, updated)
         );
-    }
+    };
 
     formatField = (id, selectedQuestions, questionValues) => ({
         id,
