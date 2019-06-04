@@ -2,9 +2,12 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import { COMPANY_USER_ROLE_TYPES } from 'constants/companyAdmin/enums';
-import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 
-const AllCompanyAdminsListItem = ({ user, showDeleteModal }) => (
+const AllCompanyAdminsListItem = ({
+    user,
+    showDeleteModal,
+    showUnlinkModal
+}) => (
     <tr key={user.id}>
         <td>
             {`${user.userFirstName} ${user.userLastName}`}{' '}
@@ -14,16 +17,27 @@ const AllCompanyAdminsListItem = ({ user, showDeleteModal }) => (
         </td>
         <td>{user.userEmail}</td>
         <td>{user.userPhoneNumber}</td>
+        <td>
+            {user.linkedDeviceID ? 'Yes' : 'No'}{' '}
+            {user.linkedDeviceID && (
+                <button className="button blue" onClick={showUnlinkModal}>
+                    <i className="far fa-unlink" />
+                    Unlink Device
+                </button>
+            )}
+        </td>
         <td>{user.formattedOperativeCode}</td>
         <td>
-            <BlockButtonWrapper>
-                <ButtonContainer
+            <BlockButtonWrapper additionalClasses="stacked">
+                <Link
+                    className="button green"
                     to={`/company/users-management/company-admins/${
                         user.id
                     }/edit-password`}
                 >
+                    <i className="far fa-lock-alt fa-fw" />
                     Change password
-                </ButtonContainer>
+                </Link>
                 <Link
                     className="button yellow "
                     to={`/company/users-management/company-admins/${

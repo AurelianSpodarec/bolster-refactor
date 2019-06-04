@@ -6,14 +6,15 @@ import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/pr
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 
 const CreateCompanyAdminForm = ({
+    confirmPassword,
+    email,
+    firstName,
     handleSubmit,
     handleInputChange,
-    firstName,
+    hideModal,
     lastName,
-    email,
     phoneNumber,
     password,
-    confirmPassword,
     validatePassword,
     validateConfirmPassword
 }) => (
@@ -96,9 +97,7 @@ const CreateCompanyAdminForm = ({
             <button className="button green">
                 <i className="fa fa-plus" /> Create Company Admin
             </button>
-            <ButtonContainer to="/company/users-management/company-admins">
-                Cancel
-            </ButtonContainer>
+            <ButtonContainer handleClick={hideModal}>Cancel</ButtonContainer>
         </BlockButtonWrapper>
     </Form>
 );

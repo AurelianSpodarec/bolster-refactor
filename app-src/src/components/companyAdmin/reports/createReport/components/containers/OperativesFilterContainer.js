@@ -9,24 +9,23 @@ class OperativesFilterContainer extends Component {
             handleChange,
             formatArrForDropdown,
             customFilters: { operatives },
-            filters: { companyUserIDs }
+            filters: { companyUserIDs },
+            sizeClasses
         } = this.props;
-
         return (
             <OperativesFilter
                 operativeOptions={formatArrForDropdown(operatives)}
                 selectedOperatives={companyUserIDs}
                 handleChange={handleChange}
+                sizeClasses={sizeClasses}
             />
         );
     }
 
     componentDidMount = () => {
         const { advanced, postFilters } = this.props;
-        if (!advanced) {
-            // not required on hierarchy reports
-            postFilters();
-        }
+        // not required on hierarchy reports
+        if (!advanced) postFilters();
     };
 
     componentDidUpdate = ({ customFilters: { operatives: prevOps } }) => {
@@ -41,7 +40,7 @@ class OperativesFilterContainer extends Component {
                 operatives.some(op => opID === op.id)
             );
 
-            handleChange('operatveIDs', opIDs);
+            handleChange('companyUserIDs', opIDs);
         }
     };
 

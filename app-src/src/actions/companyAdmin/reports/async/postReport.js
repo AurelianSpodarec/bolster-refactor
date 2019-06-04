@@ -5,6 +5,7 @@ import { getHeaders, handleErrors } from 'helpers/api';
 import {
     POST_REPORT_REQUEST,
     POST_REPORT_SUCCESS,
+    POST_REPORT_NO_PINS,
     POST_REPORT_FAILURE
 } from 'constants/actionTypes/reports';
 
@@ -14,6 +15,10 @@ export const postReportRequest = () => ({
 
 export const postReportSuccess = payload => ({
     type: POST_REPORT_SUCCESS,
+    payload
+});
+export const postReportNoPind = payload => ({
+    type: POST_REPORT_NO_PINS,
     payload
 });
 
@@ -27,7 +32,15 @@ export default postBody => dispatch => {
 
     return axios
         .post(`${API_URL}/reports`, postBody, getHeaders())
-        .then(res => dispatch(postReportSuccess(res.data)))
+        .then(({ status, data }) => {
+            if (status === 202) {
+                // no pins returned, display modal
+                dispatch(postReportFailure({ status, ...data }));
+            } else {
+                // actual success
+                dispatch(postReportSuccess(data));
+            }
+        })
         .catch(err => {
             dispatch(handleErrors(postReportFailure)(err));
         });

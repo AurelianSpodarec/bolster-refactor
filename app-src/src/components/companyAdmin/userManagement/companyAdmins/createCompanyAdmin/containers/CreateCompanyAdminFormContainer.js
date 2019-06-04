@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
+import { ERROR_MODAL, SUCCESS_MODAL } from 'constants/shared/modalTypes';
+
+import { showModal } from 'actions/shared/generic/modals/sync/showModal';
+
 import CreateCompanyAdminForm from '../presentational/CreateCompanyAdminForm';
 import { COMPANY_USER_ROLE_TYPES } from 'constants/companyAdmin/enums';
 import createCompanyUser from 'actions/companyAdmin/userManagement/async/createCompanyUser';
@@ -23,6 +27,7 @@ class CreateCompanyAdminFormContainer extends Component {
         return (
             <CreateCompanyAdminForm
                 {...this.state}
+                hideModal={this.props.hideModal}
                 handleInputChange={this.handleInputChange}
                 handleSubmit={this.handleSubmit}
                 validatePassword={this.validatePassword}
@@ -30,6 +35,25 @@ class CreateCompanyAdminFormContainer extends Component {
             />
         );
     }
+
+    componentDidUpdate = prevProps => {
+        const { postSuccess, showModal, hideModal, error } = this.props;
+        if (postSuccess && !prevProps.postSuccess) {
+            showModal(SUCCESS_MODAL, {
+                hideModal,
+                message: 'Company Admin added successfully.'
+            });
+        }
+        if (error && !prevProps.error) {
+            showModal(ERROR_MODAL, {
+                hideModal,
+                title: 'Error',
+                message:
+                    error.message ||
+                    'There was an error processing your request, please try again later.'
+            });
+        }
+    };
 
     handleInputChange = (name, value) => {
         this.setState({ [name]: value });
@@ -48,14 +72,6 @@ class CreateCompanyAdminFormContainer extends Component {
         this.props.createCompanyUser(postBody);
     };
 
-    componentDidUpdate = prevProps => {
-        const { postSuccess, hideModal } = this.props;
-
-        if (postSuccess && !prevProps.postSuccess) {
-            hideModal();
-        }
-    };
-
     validatePassword = password => {
         const { confirmPassword } = this.state;
         const { addFieldError, removeFieldError } = this.props;
@@ -72,21 +88,23 @@ class CreateCompanyAdminFormContainer extends Component {
             ? 'Passwords do not match'
             : null;
 }
-const mapStateToProps = ({ companyAdmin: { companyUsersReducer } }) => ({
-    postSuccess: companyUsersReducer.postSuccess,
-    error: companyUsersReducer.error
+
+const mapStateToProps = ({
+    companyAdmin: {
+        companyUsersReducer: { postSuccess, error }
+    }
+}) => ({
+    postSuccess,
+    error
 });
 
-const mapDispatchToProps = dispatch => ({
-    createCompanyUser: postBody => {
-        dispatch(createCompanyUser(postBody));
-    },
-    addFieldError: (field, err) => dispatch(addFieldError(field, err)),
-    removeFieldError: field => dispatch(removeFieldError(field)),
-    hideModal: () => {
-        dispatch(hideModal());
-    }
-});
+const mapDispatchToProps = {
+    createCompanyUser,
+    addFieldError,
+    removeFieldError,
+    hideModal,
+    showModal
+};
 
 export default withRouter(
     connect(

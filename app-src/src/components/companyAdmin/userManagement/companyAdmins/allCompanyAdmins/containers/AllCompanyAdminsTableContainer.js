@@ -6,11 +6,8 @@ import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 
 import AllCompanyAdminsTable from '../presentational/AllCompanyAdminsTable';
 import { COMPANY_USER_ROLE_TYPES } from 'constants/companyAdmin/enums';
-import {
-    CREATE_COMPANY_ADMIN,
-    ERROR_MODAL,
-    SUCCESS_MODAL
-} from 'constants/shared/modalTypes';
+import { CREATE_COMPANY_ADMIN } from 'constants/shared/modalTypes';
+import CompanySelectionForm from 'components/client/companySelection/companySelectionPage/presentational/CompanySelectionForm';
 
 class AllCompanyAdminTableContainer extends Component {
     render() {
@@ -22,6 +19,7 @@ class AllCompanyAdminTableContainer extends Component {
                     'Name',
                     'Email',
                     'Phone Number',
+                    'Has linked device?',
                     'Operative Code',
                     ''
                 ]}
@@ -33,25 +31,6 @@ class AllCompanyAdminTableContainer extends Component {
         );
     }
 
-    componentDidUpdate = prevProps => {
-        const { postSuccess, showModal, hideModal, error } = this.props;
-        if (postSuccess && !prevProps.postSuccess) {
-            showModal(SUCCESS_MODAL, {
-                hideModal,
-                message: 'Company Admin added successfully.'
-            });
-        }
-
-        if (error && !prevProps.error) {
-            showModal(ERROR_MODAL, {
-                hideModal,
-                title: 'Error',
-                message:
-                    error.message ||
-                    'There was an error processing your request, please try again later.'
-            });
-        }
-    };
     _filterUsersForAdmins = () => {
         const { users } = this.props;
 
@@ -67,10 +46,15 @@ class AllCompanyAdminTableContainer extends Component {
     };
 }
 
-const mapStateToProps = ({ companyAdmin: { companyUsersReducer } }) => ({
-    users: Object.values(companyUsersReducer.users) || [],
-    isFetching: companyUsersReducer.isFetching,
-    error: companyUsersReducer.error
+const mapStateToProps = ({
+    companyAdmin: {
+        companyUsersReducer: { users, isFetching, error, postSuccess }
+    }
+}) => ({
+    isFetching,
+    error,
+    postSuccess,
+    users: Object.values(users) || []
 });
 
 const mapDispatchToProps = dispatch => ({

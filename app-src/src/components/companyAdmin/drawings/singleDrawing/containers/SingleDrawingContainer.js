@@ -12,6 +12,7 @@ import fetchPins from 'actions/companyAdmin/pins/async/fetchPins';
 import fetchClientsForDrawing from 'actions/companyAdmin/clients/async/fetchClientsForDrawing';
 import fetchOperativesForDrawing from 'actions/companyAdmin/operatives/async/fetchOperativesForDrawing';
 import fetchCompanyUsers from 'actions/companyAdmin/userManagement/async/fetchCompanyUsers';
+import resetFilterOptions from 'actions/companyAdmin/reports/sync/resetFilterOptions';
 
 class SingleDrawingContainer extends Component {
     render = () => <SingleDrawing />;
@@ -21,6 +22,10 @@ class SingleDrawingContainer extends Component {
         setTabs(Object.values(DRAWING_TABS), DRAWING_TABS.GENERAL_OVERVIEW);
         fetchDrawingData(drawingID);
     };
+
+    // removes filters from redux store from selecting on single drawing page to pass through to advanced report
+    // if you leave the single drawing screen without going through advanced report
+    componentWillUnmount = () => this.props.resetFilterOptions();
 }
 
 const mapDispatchToProps = dispatch => ({
@@ -32,7 +37,8 @@ const mapDispatchToProps = dispatch => ({
         dispatch(fetchOperativesForDrawing(drawingID));
         dispatch(fetchPins('drawing', drawingID));
         dispatch(fetchCompanyUsers());
-    }
+    },
+    resetFilterOptions: () => dispatch(resetFilterOptions())
 });
 
 export default connect(

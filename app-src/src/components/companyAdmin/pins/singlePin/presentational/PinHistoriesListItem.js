@@ -56,7 +56,7 @@ const PinHistoriesListItem = ({
             sizeClass="size-lg-6"
         />
         <BlockButtonWrapper
-            addtionalClasses="item-button-container"
+            additionalClasses="item-button-container"
             sizeClasses="size-lg-6"
         >
             {active ? (

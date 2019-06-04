@@ -2,11 +2,11 @@ import React from 'react';
 
 const BlockButtonWrapper = ({
     children,
-    addtionalClasses = '',
+    additionalClasses = '',
     sizeClasses = 'size-lg-12'
 }) => (
     <div
-        className={`button-block-container ${addtionalClasses} ${sizeClasses}`}
+        className={`button-block-container ${additionalClasses} ${sizeClasses}`}
     >
         {children}
     </div>

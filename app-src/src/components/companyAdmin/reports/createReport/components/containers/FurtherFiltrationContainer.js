@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import uuid from 'uuid/v1';
-import { isObjEmpty } from 'helpers/generic';
 import showModal from 'actions/shared/generic/modals/sync/showModal';
 import hideModal from 'actions/shared/generic/modals/sync/hideModal';
-import { CONFIRM_SUBMIT } from 'constants/shared/modalTypes';
+import { FILTER_FIELDS } from 'constants/shared/modalTypes';
 
 import FurtherFiltration from '../presentational/FurtherFiltration';
 import PinSelectorContainer from 'components/shared/pinSelector/container/PinSelectorContainer';
-import CustomFiltersContainer from './CustomFiltersContainer';
 import updateReportFilter from 'actions/companyAdmin/reports/sync/updateReportFilter';
 import { convertEnumToDropdownOptions } from 'helpers/generic';
 import addFilterQuestion from 'actions/companyAdmin/reports/sync/addFilterQuestion';
@@ -18,6 +16,8 @@ import { FURTHER_FILTRATION } from 'constants/companyAdmin/enums';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import removeFilterQuestions from 'actions/companyAdmin/reports/sync/removeFilterQuestions';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
+import FilterField from '../presentational/FilterField';
+import resetFilterOptions from 'actions/companyAdmin/reports/sync/resetFilterOptions';
 
 class FurtherFiltrationContainer extends Component {
     state = { filterOption: 0 };
@@ -40,9 +40,8 @@ class FurtherFiltrationContainer extends Component {
             <BlockContainer>
                 <BlockHeading title="Further Filtration" />
                 <p className="generic-text small">
-                    ##Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Fusce maximus mi id tempor scelerisque. Lorem ipsum dolor
-                    sit amet, consectetur adipiscing elit.##
+                    Here you can make create much more specific filters on your
+                    data set.
                 </p>
                 <FurtherFiltration
                     furtherFiltrationOptions={filtrationOptionsArr}
@@ -52,16 +51,17 @@ class FurtherFiltrationContainer extends Component {
                 {filterOption === '1' ? (
                     <PinSelectorContainer />
                 ) : filterOption === '2' ? (
-                    <div className="custom-filters-block ignore-padding">
+                    <div className="custom-filters-block">
                         <div className="size-lg-12">
-                            {fields.map(({ id }) => (
-                                <CustomFiltersContainer
-                                    key={id}
-                                    id={id}
-                                    removeField={() =>
-                                        this.removeCustomField(id)
+                            {fields.map(field => (
+                                <FilterField
+                                    key={field.id}
+                                    field={field}
+                                    questions={this._getQuestionsOptions()}
+                                    handleShowCustomFieldModal={
+                                        this.handleShowCustomFieldModal
                                     }
-                                    questionOptions={this._getQuestionsOptions()}
+                                    removeCustomField={this.removeCustomField}
                                 />
                             ))}
                         </div>
@@ -72,7 +72,7 @@ class FurtherFiltrationContainer extends Component {
                                 type="button"
                                 className="button green"
                             >
-                                <i className="fa fa-plus" /> Add field
+                                <i className="fa fa-plus fa-fw" /> Add filter
                             </button>
                         </BlockButtonWrapper>
                     </div>
@@ -98,7 +98,17 @@ class FurtherFiltrationContainer extends Component {
         }
     };
 
-    addCustomField = () => this.props.addFilterQuestion(uuid());
+    addCustomField = () => {
+        const { addFilterQuestion, showModal, customQuestions } = this.props;
+        const id = uuid();
+        addFilterQuestion(id);
+        showModal(FILTER_FIELDS, { id, customQuestions });
+    };
+
+    handleShowCustomFieldModal = id => {
+        const { showModal, customQuestions } = this.props;
+        showModal(FILTER_FIELDS, { customQuestions, id });
+    };
 
     removeCustomField = id => this.props.removeFilterQuestion(id);
 
@@ -112,21 +122,7 @@ class FurtherFiltrationContainer extends Component {
         );
     };
 
-    handleChange = (name, value) => {
-        const { shouldConfirm, showModal, hideModal } = this.props;
-        if (shouldConfirm) {
-            const handleSubmit = () => {
-                this.setState({ [name]: value });
-                hideModal();
-            };
-            const message =
-                'Changing this will reset your further filtration options, continue?';
-            // * confirm and then do this:
-            showModal(CONFIRM_SUBMIT, { handleSubmit, message, hideModal });
-        } else {
-            this.setState({ [name]: value });
-        }
-    };
+    handleChange = (name, value) => this.setState({ [name]: value });
 }
 
 const mapStateToProps = ({
@@ -134,15 +130,13 @@ const mapStateToProps = ({
         reportsReducer: {
             customFilters: { questions },
             fields,
-            selectedPins,
             filters
         }
     }
 }) => ({
     customQuestions: questions || [],
     fields: Object.values(fields),
-    filters,
-    shouldConfirm: !isObjEmpty(fields) || !isObjEmpty(selectedPins)
+    filters
 });
 
 const mapDispatchToProps = {
@@ -151,7 +145,8 @@ const mapDispatchToProps = {
     removeFilterQuestion,
     removeFilterQuestions,
     showModal,
-    hideModal
+    hideModal,
+    resetFilterOptions
 };
 
 export default connect(

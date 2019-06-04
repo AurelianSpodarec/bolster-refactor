@@ -7,9 +7,10 @@ const CheckboxList = ({
     selectedOptions = [],
     handleChange,
     name,
-    error
+    error,
+    classes
 }) => (
-    <div className="checkbox-list size-lg-12">
+    <div className={'checkbox-list size-lg-12'}>
         {options &&
             options.map(({ text, value, disabled }) => (
                 <CheckboxContainer
@@ -18,8 +19,11 @@ const CheckboxList = ({
                     name={name}
                     text={text}
                     disabled={disabled}
-                    checked={selectedOptions.includes(value + '') && !disabled}
+                    checked={
+                        selectedOptions.includes(String(value)) && !disabled
+                    }
                     handleChange={handleChange}
+                    classes={classes}
                 />
             ))}
         {error && error.length && (

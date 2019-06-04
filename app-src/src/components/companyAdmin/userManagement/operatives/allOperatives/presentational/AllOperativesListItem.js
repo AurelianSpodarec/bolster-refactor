@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
-import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 
 const AllOperativesListItem = ({ user, showDeleteModal, showUnlinkModal }) => (
     <tr key={user.id}>
@@ -12,20 +11,22 @@ const AllOperativesListItem = ({ user, showDeleteModal, showUnlinkModal }) => (
         <td>{user.linkedDeviceID ? 'Yes' : 'No'}</td>
         <td>{user.formattedOperativeCode}</td>
         <td>
-            <BlockButtonWrapper>
+            <BlockButtonWrapper additionalClasses="stacked">
                 {user.linkedDeviceID && (
-                    <button className="button red" onClick={showUnlinkModal}>
+                    <button className="button blue" onClick={showUnlinkModal}>
                         <i className="far fa-unlink" />
                         Unlink Device
                     </button>
                 )}
-                <ButtonContainer
+                <Link
+                    className="button green"
                     to={`/company/users-management/operatives/${
                         user.id
                     }/edit-password`}
                 >
+                    <i className="far fa-lock-alt fa-fw" />
                     Change Password
-                </ButtonContainer>
+                </Link>
                 <Link
                     className="button yellow"
                     to={`/company/users-management/operatives/${user.id}/edit`}
