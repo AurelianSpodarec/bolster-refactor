@@ -27,6 +27,7 @@ class CreateCompanyAdminFormContainer extends Component {
         return (
             <CreateCompanyAdminForm
                 {...this.state}
+                hideModal={this.props.hideModal}
                 handleInputChange={this.handleInputChange}
                 handleSubmit={this.handleSubmit}
                 validatePassword={this.validatePassword}
@@ -87,24 +88,23 @@ class CreateCompanyAdminFormContainer extends Component {
             ? 'Passwords do not match'
             : null;
 }
-const mapStateToProps = ({ companyAdmin: { companyUsersReducer } }) => ({
-    postSuccess: companyUsersReducer.postSuccess,
-    error: companyUsersReducer.error
+
+const mapStateToProps = ({
+    companyAdmin: {
+        companyUsersReducer: { postSuccess, error }
+    }
+}) => ({
+    postSuccess,
+    error
 });
 
-const mapDispatchToProps = dispatch => ({
-    createCompanyUser: postBody => {
-        dispatch(createCompanyUser(postBody));
-    },
-    addFieldError: (field, err) => dispatch(addFieldError(field, err)),
-    removeFieldError: field => dispatch(removeFieldError(field)),
-    hideModal: () => {
-        dispatch(hideModal());
-    },
-    showModal: (type, props) => {
-        dispatch(showModal(type, props));
-    }
-});
+const mapDispatchToProps = {
+    createCompanyUser,
+    addFieldError,
+    removeFieldError,
+    hideModal,
+    showModal
+};
 
 export default withRouter(
     connect(

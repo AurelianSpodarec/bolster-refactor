@@ -13,17 +13,16 @@ import { PIN_STATUS_IDS as STATUS } from 'constants/companyAdmin/enums';
 import Form from 'components/shared/generic/form/containers/Form';
 import Field from 'components/shared/generic/form/presentational/Field';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
+import OperativesFilterContainer from 'components/companyAdmin/reports/createReport/components/containers/OperativesFilterContainer';
 
 const DrawingMapFiltersAdvanced = ({
     serviceOptions,
     selectedService,
     statusOptions,
     selectedStatus,
-    operativeOptions,
-    selectedOperative,
-    startDateSelected,
-    endDateSelected,
-    handleChange,
+    fromDateInclusive,
+    toDateInclusive,
+    handleChangeFilter,
     handleDateChange,
     pins
 }) => (
@@ -89,30 +88,30 @@ const DrawingMapFiltersAdvanced = ({
                 <Field name="Service type" sizeClasses="size-lg-6">
                     <DropdownContainer
                         placeholder="All services"
-                        name="serviceSelectedID"
+                        name="serviceID"
                         options={serviceOptions}
                         value={selectedService}
                         selectedOption={selectedService}
-                        handleChange={handleChange}
+                        handleChange={handleChangeFilter}
                     />
                 </Field>
                 <Field name="Status" sizeClasses="size-lg-6">
                     <DropdownContainer
                         placeholder="All Statuses"
-                        name="statusSelectedID"
+                        name="status"
                         options={statusOptions}
                         value={selectedStatus}
                         selectedOption={selectedStatus}
-                        handleChange={handleChange}
+                        handleChange={handleChangeFilter}
                     />
                 </Field>
                 <Field name="Date range" sizeClasses="w-dates size-lg-6">
                     <div className="size-lg-5">
                         <DatePicker
-                            name="startDateSelected"
-                            selected={startDateSelected}
+                            name="fromDateInclusive"
+                            selected={fromDateInclusive}
                             onChange={e =>
-                                handleDateChange(e, 'startDateSelected')
+                                handleDateChange(e, 'fromDateInclusive')
                             }
                             placeholderText="Start Date"
                         />
@@ -120,26 +119,16 @@ const DrawingMapFiltersAdvanced = ({
                     <p className="size-lg-2">to</p>
                     <div className="size-lg-5">
                         <DatePicker
-                            name="endDateSelected"
-                            selected={endDateSelected}
+                            name="toDateInclusive"
+                            selected={toDateInclusive}
                             onChange={e =>
-                                handleDateChange(e, 'endDateSelected')
+                                handleDateChange(e, 'toDateInclusive')
                             }
                             placeholderText="End Date"
                         />
                     </div>
                 </Field>
-
-                <Field name="Operative" sizeClasses="size-lg-6">
-                    <DropdownContainer
-                        placeholder="Select operative"
-                        name="operativeSelectedID"
-                        options={operativeOptions}
-                        value={selectedOperative}
-                        selectedOption={selectedOperative}
-                        handleChange={handleChange}
-                    />
-                </Field>
+                <OperativesFilterContainer sizeClasses="size-lg-6" />
             </Form>
         </div>
     </div>
