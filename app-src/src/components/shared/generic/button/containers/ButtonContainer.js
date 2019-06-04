@@ -10,6 +10,7 @@ class ButtonContainer extends Component {
 
     render() {
         const {
+            linkClass,
             children,
             colourCode,
             setColour,
@@ -48,7 +49,9 @@ class ButtonContainer extends Component {
 
         return to && !!to.length ? (
             <div {...sharedProps}>
-                <Link to={to}>{children}</Link>
+                <Link className={linkClass} to={to}>
+                    {children}
+                </Link>
             </div>
         ) : (
             <button {...sharedProps} type={type}>

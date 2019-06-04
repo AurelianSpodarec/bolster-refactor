@@ -49,9 +49,13 @@ const ProfileDetails = ({ error, isFetching, profile, location }) => {
                 >
                     <i className="far fa-pencil" /> Edit
                 </Link>
-                <ButtonContainer to={`${location.pathname}/change-password`}>
+                <Link
+                    className="button green"
+                    to={`${location.pathname}/change-password`}
+                >
+                    <i className="far fa-lock-alt fa-fw" />
                     Change Password
-                </ButtonContainer>
+                </Link>
             </BlockButtonWrapper>
         </BlockContainer>
     );

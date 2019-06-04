@@ -173,15 +173,24 @@ body {
         }
     }
 
+    &.card-buttons {
+        width: 120px;
+    }
+    &.stacked {
+        display: flex;
+        flex-direction: column;
+    }
+    a {
+        &.button {
+            text-align: center;
+        }
+    }
+
     .button,
     button,
     .link-holder {
         float: right;
         margin-left: 7.5px;
-    }
-
-    &.card-buttons {
-        width: 120px;
     }
 }
 
