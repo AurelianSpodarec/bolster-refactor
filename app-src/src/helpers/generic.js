@@ -111,3 +111,11 @@ export const sortTimezones = timezonesArr =>
 
 export const formatDate = date =>
     moment(date).format(DATE_TIME_DEFAULTS.DATETIME);
+
+// boolean byID for if using an array of objects with IDs
+export const removeDuplicates = (arr, byID) =>
+    arr.filter((item, index, arr) => {
+        if (byID) {
+            return arr.findIndex(({ id }) => id === item.id) === index;
+        } else return arr.indexOf(item) === index;
+    });

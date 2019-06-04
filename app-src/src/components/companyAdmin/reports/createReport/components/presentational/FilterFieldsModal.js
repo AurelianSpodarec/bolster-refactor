@@ -5,6 +5,7 @@ import Field from 'components/shared/generic/form/presentational/Field';
 import CheckboxListContainer from 'components/shared/generic/form/containers/CheckboxListContainer';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
+import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 
 const FilterFieldsModal = ({
     questionOptions,
@@ -13,7 +14,8 @@ const FilterFieldsModal = ({
     addOption,
     removeOption,
     updateOption,
-    questionValues
+    questionValues,
+    hideModal
 }) => {
     return (
         <ModalOuterContainer>
@@ -63,7 +65,11 @@ const FilterFieldsModal = ({
                     </button>
                 </BlockButtonWrapper>
             </Field>
-            {/* textboxes for field value options */}
+            <BlockButtonWrapper>
+                <ButtonContainer className="green" handleClick={hideModal}>
+                    Save
+                </ButtonContainer>
+            </BlockButtonWrapper>
         </ModalOuterContainer>
     );
 };

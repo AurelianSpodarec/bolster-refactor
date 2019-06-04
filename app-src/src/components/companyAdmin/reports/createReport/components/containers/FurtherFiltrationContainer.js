@@ -54,19 +54,16 @@ class FurtherFiltrationContainer extends Component {
                 ) : filterOption === '2' ? (
                     <div className="custom-filters-block ignore-padding">
                         <div className="size-lg-12">
-                            {fields.map(
-                                ({ id }) =>
-                                    console.warn(fields) || (
-                                        <CustomFiltersContainer
-                                            key={id}
-                                            id={id}
-                                            removeField={() =>
-                                                this.removeCustomField(id)
-                                            }
-                                            questionOptions={this._getQuestionsOptions()}
-                                        />
-                                    )
-                            )}
+                            {fields.map(({ id }) => (
+                                <CustomFiltersContainer
+                                    key={id}
+                                    id={id}
+                                    removeField={() =>
+                                        this.removeCustomField(id)
+                                    }
+                                    questionOptions={this._getQuestionsOptions()}
+                                />
+                            ))}
                         </div>
 
                         <BlockButtonWrapper>

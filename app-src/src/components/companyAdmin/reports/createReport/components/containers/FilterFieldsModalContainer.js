@@ -6,27 +6,28 @@ import FilterFieldsModal from '../presentational/FilterFieldsModal';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import updateReportFilter from 'actions/companyAdmin/reports/sync/updateReportFilter';
 import updateFilterQuestionField from 'actions/companyAdmin/reports/sync/updateFilterQuestionField';
-import { updateObj, removeObjItem, convertArrToObj } from 'helpers/generic';
+import {
+    updateObj,
+    removeObjItem,
+    convertArrToObj,
+    removeDuplicates
+} from 'helpers/generic';
 
 class FilterFieldsModalContainer extends Component {
     render() {
         const {
             customQuestions,
-            field: { selectedQuestions, questionValues }
+            field: { selectedQuestions, questionValues },
+            hideModal
         } = this.props;
-        const formattedOptions = customQuestions
-            // remove duplicates
-            .filter(
-                ({ id }, index) =>
-                    customQuestions.findIndex(
-                        ({ id: checkID }) => id === checkID
-                    ) === index
-            )
-            .map(({ id: value, name: text }) => ({
+        const uniqueOptions = removeDuplicates(customQuestions, true);
+        const formattedOptions = uniqueOptions.map(
+            ({ id: value, name: text }) => ({
                 value,
                 text,
                 name: value
-            }));
+            })
+        );
         return (
             <FilterFieldsModal
                 questionOptions={formattedOptions}
@@ -36,6 +37,7 @@ class FilterFieldsModalContainer extends Component {
                 removeOption={this.removeOption}
                 updateOption={this.updateOption}
                 questionValues={Object.values(questionValues)}
+                hideModal={hideModal}
             />
         );
     }
@@ -46,6 +48,12 @@ class FilterFieldsModalContainer extends Component {
             field.id,
             updateObj(field, 'selectedQuestions', options)
         );
+    };
+
+    componentDidMount = () => {
+        const { field } = this.props;
+        // add an option if none exist, makes modal reusable for edit
+        if (!field.questionValues.length) this.addOption();
     };
 
     addOption = () => {
