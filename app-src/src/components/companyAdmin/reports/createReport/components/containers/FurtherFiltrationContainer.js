@@ -4,7 +4,7 @@ import uuid from 'uuid/v1';
 import { isObjEmpty } from 'helpers/generic';
 import showModal from 'actions/shared/generic/modals/sync/showModal';
 import hideModal from 'actions/shared/generic/modals/sync/hideModal';
-import { CONFIRM_SUBMIT } from 'constants/shared/modalTypes';
+import { CONFIRM_SUBMIT, FILTER_FIELDS } from 'constants/shared/modalTypes';
 
 import FurtherFiltration from '../presentational/FurtherFiltration';
 import PinSelectorContainer from 'components/shared/pinSelector/container/PinSelectorContainer';
@@ -98,7 +98,12 @@ class FurtherFiltrationContainer extends Component {
         }
     };
 
-    addCustomField = () => this.props.addFilterQuestion(uuid());
+    addCustomField = () => {
+        const { addFilterQuestion, showModal, customQuestions } = this.props;
+        const id = uuid();
+        addFilterQuestion(id);
+        showModal(FILTER_FIELDS, { id, customQuestions });
+    };
 
     removeCustomField = id => this.props.removeFilterQuestion(id);
 

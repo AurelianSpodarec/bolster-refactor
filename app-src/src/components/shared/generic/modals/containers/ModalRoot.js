@@ -2,49 +2,50 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import {
+    ADD_BUILDING,
     ADD_CARD,
+    ADD_DRAWING,
+    ADD_DROPDOWN_OPTION,
+    ADD_FLOOR,
+    ADD_SERVICE_TO_SUBSCRIPTION,
+    ADD_SITE,
     ADD_TEMPLATE,
     ADD_TEMPLATE_SECTION,
     ADD_TEMPLATE_QUESTION,
     ADMIN_EDIT_SERVICE,
     BUY_CREDITS,
+    CONFIRM_ARCHIVE,
+    CONFIRM_DELETE,
+    CONFIRM_EDIT_PIN,
+    COMPANY_EDIT_TEMPLATE_QUESTION,
+    CONFIRM_SUBMIT,
+    CREATE_COMPANY_ADMIN,
+    DELETE_DROPDOWN_OPTION,
     DELETE_ENQUIRY,
     DELETE_COMPANY_USER,
     DELETE_DOCUMENT,
     DELETE_CLIENT_FROM_DRAWING,
     DELETE_COMPANY_PERMISSIONS,
     DELETE_OPERATIVE,
+    EDIT_BUILDING,
+    EDIT_DROPDOWN_OPTION,
+    EDIT_FLOOR,
+    EDIT_FLOOR_PLAN,
+    EDIT_SITE,
     EDIT_TEMPLATE,
     EDIT_TEMPLATE_QUESTION,
     EDIT_USER,
     EDIT_USER_PASSWORD,
     ERROR_MODAL,
+    LOADING_DATA,
+    PAY_INVOICE,
     PAYMENT_ERROR,
     PAYMENT_SUCCESS,
     PIN_IMAGE,
     RENAME_TEMPLATE_SECTION,
     SET_LABEL_FIELDS,
     SUCCESS_MODAL,
-    ADD_SERVICE_TO_SUBSCRIPTION,
-    PAY_INVOICE,
-    COMPANY_EDIT_TEMPLATE_QUESTION,
-    CONFIRM_DELETE,
-    CONFIRM_ARCHIVE,
-    CONFIRM_SUBMIT,
-    EDIT_FLOOR_PLAN,
-    CONFIRM_EDIT_PIN,
-    ADD_SITE,
-    ADD_BUILDING,
-    ADD_FLOOR,
-    ADD_DRAWING,
-    EDIT_SITE,
-    EDIT_BUILDING,
-    EDIT_FLOOR,
-    ADD_DROPDOWN_OPTION,
-    EDIT_DROPDOWN_OPTION,
-    DELETE_DROPDOWN_OPTION,
-    CREATE_COMPANY_ADMIN,
-    LOADING_DATA
+    FILTER_FIELDS
 } from 'constants/shared/modalTypes';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
@@ -69,6 +70,7 @@ import EditTemplateQuestionModalContainer from 'components/superAdmin/templateBu
 import EditUserPasswordModalContainer from './EditUserPasswordModalContainer';
 import EditUserModalContainer from './EditUserModalContainer';
 import ErrorModal from '../presentational/ErrorModal';
+import FilterFieldsModalContainer from 'components/companyAdmin/reports/createReport/components/containers/FilterFieldsModalContainer';
 import PayInvoiceModalContainer from 'components/companyAdmin/invoices/shared/payInvoiceModal/containers/PayInvoiceModalContainer';
 import PaymentErrorModalContainer from './PaymentErrorModalContainer';
 import PinPhotoModal from '../presentational/PinPhotoModal';
@@ -117,6 +119,7 @@ const MODAL_COMPONENTS = {
     [EDIT_TEMPLATE_QUESTION]: EditTemplateQuestionModalContainer,
     [EDIT_USER]: EditUserModalContainer,
     [EDIT_USER_PASSWORD]: EditUserPasswordModalContainer,
+    [FILTER_FIELDS]: FilterFieldsModalContainer,
     [PAY_INVOICE]: PayInvoiceModalContainer,
     [PAYMENT_ERROR]: PaymentErrorModalContainer,
     [PAYMENT_SUCCESS]: PaymentSuccessModalContainer,

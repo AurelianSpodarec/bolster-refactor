@@ -10,6 +10,8 @@ export const CONFIRM_SUBMIT = 'CONFIRM_SUBMIT_MODAL';
 // company
 export const PIN_IMAGE = 'PIN_IMAGE';
 
+export const FILTER_FIELDS = 'FILTER_FIELDS';
+
 //ADMIN
 //template builder
 export const ADD_TEMPLATE = 'ADD_TEMPLATE';

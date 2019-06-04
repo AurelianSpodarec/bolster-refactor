@@ -2,7 +2,7 @@ import React from 'react';
 
 import RadioButton from './RadioButton';
 
-const CheckboxList = ({
+const RadioButtonList = ({
     options,
     selectedOption,
     handleInputChange,
@@ -28,4 +28,4 @@ const CheckboxList = ({
     </div>
 );
 
-export default CheckboxList;
+export default RadioButtonList;
