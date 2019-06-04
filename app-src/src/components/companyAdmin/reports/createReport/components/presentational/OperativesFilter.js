@@ -1,6 +1,6 @@
 import React from 'react';
 import Field from 'components/shared/generic/form/presentational/Field';
-import NewSelect from 'components/shared/generic/form/presentational/NewSelect';
+import MultiSelect from 'components/shared/generic/form/presentational/MultiSelect';
 
 const OperativesFilter = ({
     operativeOptions,
@@ -9,11 +9,13 @@ const OperativesFilter = ({
 }) => (
     <div className="generic-form">
         <Field name="Operatives">
-            <NewSelect
+            <MultiSelect
                 options={operativeOptions}
                 name="companyUserIDs"
                 onChange={handleChange}
                 value={selectedOperatives}
+                search
+                placeholder="-- Select Operatives --"
             />
         </Field>
     </div>
