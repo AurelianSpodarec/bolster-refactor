@@ -18,7 +18,7 @@ const Select = ({
     options = [],
     onChange,
     showError,
-    placeholder = '-- select options --'
+    placeholder = '-- select option --'
 }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [hasOpened, setHasOpened] = useState(false);

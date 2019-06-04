@@ -31,7 +31,7 @@ const AddPinForm = ({
             </Field>
         </div>
 
-        {selectedTemplate && (
+        {!!selectedTemplate && (
             <AddPinVersionsContainer
                 selectedTemplateID={selectedTemplate.value}
             />
