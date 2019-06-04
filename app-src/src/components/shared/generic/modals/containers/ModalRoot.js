@@ -20,6 +20,7 @@ import {
     COMPANY_EDIT_TEMPLATE_QUESTION,
     CONFIRM_SUBMIT,
     CREATE_COMPANY_ADMIN,
+    CREATE_OPERATIVE,
     DELETE_DROPDOWN_OPTION,
     DELETE_ENQUIRY,
     DELETE_COMPANY_USER,
@@ -96,6 +97,7 @@ import DeleteDropdownOptionModalContainer from 'components/companyAdmin/dropdown
 import CreateCompanyAdminModal from 'components/companyAdmin/userManagement/companyAdmins/createCompanyAdmin/presentational/CreateCompanyAdminModal';
 import LoadingDataModal from '../presentational/LoadingDataModal';
 import UnlinkDeviceModalContainer from './UnlinkDeviceModalContainer';
+import CreateOperativeModal from 'components/companyAdmin/userManagement/operatives/createOperative/presentational/CreateOperativeModal';
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModalContainer,
@@ -141,6 +143,7 @@ const MODAL_COMPONENTS = {
     [EDIT_DROPDOWN_OPTION]: EditDropdownOptionModal,
     [DELETE_DROPDOWN_OPTION]: DeleteDropdownOptionModalContainer,
     [CREATE_COMPANY_ADMIN]: CreateCompanyAdminModal,
+    [CREATE_OPERATIVE]: CreateOperativeModal,
     [LOADING_DATA]: LoadingDataModal,
     [UNLINK_DEVICE]: UnlinkDeviceModalContainer
 };

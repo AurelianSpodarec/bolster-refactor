@@ -8,6 +8,8 @@ import CreateOperativeForm from '../presentational/CreateOperativeForm';
 import { COMPANY_USER_ROLE_TYPES } from 'constants/companyAdmin/enums';
 import addFieldError from 'actions/shared/generic/fieldErrors/sync/addFieldError';
 import removeFieldError from 'actions/shared/generic/fieldErrors/sync/removeFieldError';
+import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
+import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 
 class CreateOperativeFormContainer extends Component {
     state = {
@@ -19,21 +21,18 @@ class CreateOperativeFormContainer extends Component {
         confirmPassword: ''
     };
 
-    render() {
-        return (
-            <CreateOperativeForm
-                {...this.state}
-                handleInputChange={this.handleInputChange}
-                handleSubmit={this.handleSubmit}
-                validatePassword={this.validatePassword}
-                validateConfirmPassword={this.validateConfirmPassword}
-            />
-        );
-    }
+    render = () => (
+        <CreateOperativeForm
+            {...this.state}
+            hideModal={this.props.hideModal}
+            handleInputChange={this.handleInputChange}
+            handleSubmit={this.handleSubmit}
+            validatePassword={this.validatePassword}
+            validateConfirmPassword={this.validateConfirmPassword}
+        />
+    );
 
-    handleInputChange = (name, value) => {
-        this.setState({ [name]: value });
-    };
+    handleInputChange = (name, value) => this.setState({ [name]: value });
 
     validatePassword = password => {
         const { confirmPassword } = this.state;
@@ -78,13 +77,13 @@ const mapStateToProps = ({ companyAdmin: { companyUsersReducer } }) => ({
     error: companyUsersReducer.error
 });
 
-const mapDispatchToProps = dispatch => ({
-    createCompanyUser: postBody => {
-        dispatch(createCompanyUser(postBody));
-    },
-    addFieldError: (field, err) => dispatch(addFieldError(field, err)),
-    removeFieldError: field => dispatch(removeFieldError(field))
-});
+const mapDispatchToProps = {
+    createCompanyUser,
+    addFieldError,
+    removeFieldError,
+    hideModal,
+    showModal
+};
 
 export default withRouter(
     connect(
