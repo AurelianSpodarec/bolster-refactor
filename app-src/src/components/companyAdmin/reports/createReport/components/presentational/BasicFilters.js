@@ -29,7 +29,7 @@ const BasicFilters = ({
                     Fusce maximus mi id tempor scelerisque. Lorem ipsum dolor
                     sit amet, consectetur adipiscing elit.##
                 </p>
-                <Field name="Services">
+                <Field name="Services" required>
                     <DropdownContainer
                         placeholder="Select Service"
                         name="serviceID"
