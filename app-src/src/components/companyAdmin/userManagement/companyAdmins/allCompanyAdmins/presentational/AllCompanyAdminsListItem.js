@@ -17,16 +17,18 @@ const AllCompanyAdminsListItem = ({
         </td>
         <td>{user.userEmail}</td>
         <td>{user.userPhoneNumber}</td>
-        <td>{user.linkedDeviceID ? 'Yes' : 'No'}</td>
+        <td>
+            {user.linkedDeviceID ? 'Yes' : 'No'}{' '}
+            {user.linkedDeviceID && (
+                <button className="button blue" onClick={showUnlinkModal}>
+                    <i className="far fa-unlink" />
+                    Unlink Device
+                </button>
+            )}
+        </td>
         <td>{user.formattedOperativeCode}</td>
         <td>
             <BlockButtonWrapper additionalClasses="stacked">
-                {user.linkedDeviceID && (
-                    <button className="button blue" onClick={showUnlinkModal}>
-                        <i className="far fa-unlink" />
-                        Unlink Device
-                    </button>
-                )}
                 <Link
                     className="button green"
                     to={`/company/users-management/company-admins/${
