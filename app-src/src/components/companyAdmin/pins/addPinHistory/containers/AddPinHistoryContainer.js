@@ -5,6 +5,7 @@ import { withRouter } from 'react-router-dom';
 import fetchSinglePin from 'actions/companyAdmin/pins/async/fetchSinglePin';
 import AddPinFormContainer from 'components/shared/pins/addPin/containers/AddPinFormContainer';
 import fetchDrawingTemplates from 'actions/companyAdmin/drawings/async/fetchDrawingTemplates';
+import fetchDrawingDropdownOptions from 'actions/companyAdmin/drawings/async/fetchDrawingDropdownOptions';
 
 class AddPinHistoryContainer extends Component {
     render = () => (
@@ -28,8 +29,10 @@ const mapStateToProps = (_, { match: { params } }) => ({
 
 const mapDispatchToProps = dispatch => ({
     fetchSinglePin: pinID => dispatch(fetchSinglePin(pinID)),
-    fetchDrawingTemplates: drawingID =>
-        dispatch(fetchDrawingTemplates(drawingID))
+    fetchDrawingTemplates: drawingID => {
+        dispatch(fetchDrawingTemplates(drawingID));
+        dispatch(fetchDrawingDropdownOptions(drawingID));
+    }
 });
 
 const WithRedux = connect(
