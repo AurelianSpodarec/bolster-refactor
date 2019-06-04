@@ -17,6 +17,7 @@ import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/pr
 import { FURTHER_FILTRATION } from 'constants/companyAdmin/enums';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import removeFilterQuestions from 'actions/companyAdmin/reports/sync/removeFilterQuestions';
+import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 
 class FurtherFiltrationContainer extends Component {
     state = { filterOption: 0 };
@@ -36,7 +37,12 @@ class FurtherFiltrationContainer extends Component {
         const selected = filtrationOptions[filterOption];
 
         return (
-            <BlockContainer heading="Further Filtration">
+            <BlockContainer>
+                <BlockHeading title="Further Filtration" />
+                <p className="generic-text small">
+                    ##Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    Fusce maximus mi id tempor scelerisque.##
+                </p>
                 <FurtherFiltration
                     furtherFiltrationOptions={filtrationOptionsArr}
                     selected={selected}
