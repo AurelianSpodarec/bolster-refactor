@@ -1,7 +1,6 @@
 import React from 'react';
 import FieldOutput from 'components/shared/generic/fieldOutput/presentational/FieldOutput';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
-import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 
 const FilterField = ({
     field,
