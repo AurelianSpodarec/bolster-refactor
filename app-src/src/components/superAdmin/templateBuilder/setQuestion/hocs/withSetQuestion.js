@@ -11,6 +11,7 @@ import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { convertArrToObj } from 'helpers/generic';
 import resetQuestionFields from 'actions/superAdmin/templateBuilder/sync/resetQuestionFields';
 import updateQuestionFields from 'actions/superAdmin/templateBuilder/sync/updateQuestionFields';
+import { PIN_STATUS_TYPES } from 'constants/companyAdmin/enums';
 
 export default function(WrappedComponent) {
     class WithSetQuestion extends React.Component {
@@ -21,6 +22,7 @@ export default function(WrappedComponent) {
                     prereqOptions={this._getPrereqOptions()}
                     handleInputChange={this.handleInputChange}
                     getQuestionData={this.getQuestionData}
+                    statusOptions={this._getStatusOptions()}
                 />
             );
         }
@@ -40,9 +42,23 @@ export default function(WrappedComponent) {
             const options = questions
                 .filter(q => q.templateUUID === temUuid)
                 .filter(q => PREREQ_TYPES.includes(q.questionType + ''))
-                .map(({ uuid, name }) => ({ value: uuid, text: name }));
+                .map(({ uuid, name, questionType }) => ({
+                    value: uuid,
+                    text: name,
+                    isStatus: questionType + '' === QUESTION_TYPE_VALUES.STATUS
+                }));
 
             return convertArrToObj(options, 'value');
+        };
+
+        _getStatusOptions = () => {
+            const {
+                template: { statusOptions = [] }
+            } = this.props;
+            return statusOptions.map(value => ({
+                label: PIN_STATUS_TYPES[value + ''],
+                value: value + ''
+            }));
         };
 
         getQuestionData = () => {
@@ -109,15 +125,22 @@ export default function(WrappedComponent) {
         };
     }
 
-    const mapStateToProps = ({
-        superAdmin: {
-            templateQuestionFormReducer: { fields },
-            templateQuestionsReducer: { questions }
-        }
-    }) => ({
-        fields,
-        questions: Object.values(questions)
-    });
+    const mapStateToProps = (
+        {
+            superAdmin: {
+                templateQuestionFormReducer: { fields },
+                templateQuestionsReducer: { questions },
+                templatesReducer: { templates }
+            }
+        },
+        { templateUUID }
+    ) => {
+        return {
+            fields,
+            questions: Object.values(questions),
+            template: templates[templateUUID] || {}
+        };
+    };
 
     const mapDispatchToProps = dispatch => ({
         updateQuestionField: (name, value) => {

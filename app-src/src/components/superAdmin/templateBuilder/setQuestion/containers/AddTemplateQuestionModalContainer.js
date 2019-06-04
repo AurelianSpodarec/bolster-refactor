@@ -14,7 +14,8 @@ const AddTemplateQuestionModalContainer = ({
     sectionUUID,
     templateUUID,
     getQuestionData,
-    questions
+    questions,
+    statusOptions
 }) => {
     const questionOptions = Object.values(questionTypeOptions).filter(
         ({ value }) => +value !== QUESTION_TYPE_NUMBERS.STATUS
@@ -22,6 +23,7 @@ const AddTemplateQuestionModalContainer = ({
     return (
         <TemplateQuestionFormModal
             {...fields}
+            statusOptions={statusOptions}
             prereqOptions={Object.values(prereqOptions)}
             selectedPrereq={prereqOptions[prereqUUID]}
             questionType={questionTypeOptions[questionType]}
@@ -32,6 +34,7 @@ const AddTemplateQuestionModalContainer = ({
             action="Add"
         />
     );
+
     function handleSubmit(e) {
         e.preventDefault();
         const newQuestion = {

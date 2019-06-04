@@ -120,9 +120,17 @@ const mapStateToProps = ({ superAdmin: { templateQuestionsReducer } }) => ({
     questions: Object.values(templateQuestionsReducer.questions)
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch, ownProps) => ({
     showEditQuesModel: question => {
-        dispatch(showModal(EDIT_TEMPLATE_QUESTION, { question }));
+        const {
+            match: { params }
+        } = ownProps;
+        dispatch(
+            showModal(EDIT_TEMPLATE_QUESTION, {
+                question,
+                templateUUID: params.uuid
+            })
+        );
     },
     deleteQuestion: uuid => {
         dispatch(deleteQuestion(uuid));

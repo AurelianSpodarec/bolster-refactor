@@ -4,7 +4,8 @@ import withSetQuestion from '../hocs/withSetQuestion';
 import { convertArrToObj } from 'helpers/generic';
 import {
     PREREQ_TYPES,
-    QUESTION_TYPE_NUMBERS
+    QUESTION_TYPE_NUMBERS,
+    QUESTION_TYPE_VALUES
 } from 'constants/shared/templateBuilder';
 import TemplateQuestionFormModal from '../presentational/TemplateQuestionFormModal';
 
@@ -25,9 +26,11 @@ class TemplateQuestionModalContainer extends Component {
         const questionOptions = Object.values(questionTypeOptions).filter(
             ({ value }) => +value !== QUESTION_TYPE_NUMBERS.STATUS
         );
+        const { statusOptions } = this.props;
         return (
             <TemplateQuestionFormModal
                 {...fields}
+                statusOptions={statusOptions}
                 prereqOptions={Object.values(prereqOptions)}
                 selectedPrereq={prereqOptions[prereqUUID]}
                 questionType={questionTypeOptions[questionType]}
@@ -70,7 +73,11 @@ class TemplateQuestionModalContainer extends Component {
                     q.uuid !== uuid &&
                     q.prereqUUID !== uuid
             )
-            .map(q => ({ value: q.uuid, text: q.name }));
+            .map(({ uuid, name, questionType }) => ({
+                value: uuid,
+                text: name,
+                isStatus: questionType + '' === QUESTION_TYPE_VALUES.STATUS
+            }));
 
         return convertArrToObj(options, 'value');
     };
