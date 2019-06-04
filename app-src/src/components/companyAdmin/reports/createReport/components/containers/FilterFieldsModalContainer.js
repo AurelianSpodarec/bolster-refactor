@@ -12,13 +12,13 @@ import {
     convertArrToObj,
     removeDuplicates
 } from 'helpers/generic';
+import removeFilterQuestion from 'actions/companyAdmin/reports/sync/removeFilterQuestion';
 
 class FilterFieldsModalContainer extends Component {
     render() {
         const {
             customQuestions,
-            field: { selectedQuestions, questionValues },
-            hideModal
+            field: { selectedQuestions, questionValues }
         } = this.props;
         const uniqueOptions = removeDuplicates(customQuestions, true);
         const formattedOptions = uniqueOptions.map(
@@ -37,7 +37,7 @@ class FilterFieldsModalContainer extends Component {
                 removeOption={this.removeOption}
                 updateOption={this.updateOption}
                 questionValues={Object.values(questionValues)}
-                hideModal={hideModal}
+                saveField={this.saveField}
             />
         );
     }
@@ -51,9 +51,9 @@ class FilterFieldsModalContainer extends Component {
     };
 
     componentDidMount = () => {
-        const { field } = this.props;
+        const questionValues = Object.values(this.props.field.questionValues);
         // add an option if none exist, makes modal reusable for edit
-        if (!field.questionValues.length) this.addOption();
+        if (!questionValues.length) this.addOption();
     };
 
     addOption = () => {
@@ -92,6 +92,18 @@ class FilterFieldsModalContainer extends Component {
         selectedQuestions,
         questionValues
     });
+
+    saveField = () => {
+        const { hideModal, removeFilterQuestion, field } = this.props;
+        // remove if nothing selected
+        if (
+            !field.selectedQuestions.length &&
+            Object.values(field.questionValues).every(({ value }) => !value)
+        ) {
+            removeFilterQuestion(field.id);
+        }
+        hideModal();
+    };
 }
 
 const mapStateToProps = (
@@ -109,7 +121,8 @@ const mapStateToProps = (
 const mapDispatchToProps = {
     hideModal,
     updateReportFilter,
-    updateFilterQuestionField
+    updateFilterQuestionField,
+    removeFilterQuestion
 };
 
 export default connect(

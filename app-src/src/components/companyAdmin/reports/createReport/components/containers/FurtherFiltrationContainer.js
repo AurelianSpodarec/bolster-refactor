@@ -8,7 +8,6 @@ import { CONFIRM_SUBMIT, FILTER_FIELDS } from 'constants/shared/modalTypes';
 
 import FurtherFiltration from '../presentational/FurtherFiltration';
 import PinSelectorContainer from 'components/shared/pinSelector/container/PinSelectorContainer';
-import CustomFiltersContainer from './CustomFiltersContainer';
 import updateReportFilter from 'actions/companyAdmin/reports/sync/updateReportFilter';
 import { convertEnumToDropdownOptions } from 'helpers/generic';
 import addFilterQuestion from 'actions/companyAdmin/reports/sync/addFilterQuestion';
@@ -18,6 +17,7 @@ import { FURTHER_FILTRATION } from 'constants/companyAdmin/enums';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import removeFilterQuestions from 'actions/companyAdmin/reports/sync/removeFilterQuestions';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
+import FilterField from '../presentational/FilterField';
 
 class FurtherFiltrationContainer extends Component {
     state = { filterOption: 0 };
@@ -54,14 +54,15 @@ class FurtherFiltrationContainer extends Component {
                 ) : filterOption === '2' ? (
                     <div className="custom-filters-block ignore-padding">
                         <div className="size-lg-12">
-                            {fields.map(({ id }) => (
-                                <CustomFiltersContainer
-                                    key={id}
-                                    id={id}
-                                    removeField={() =>
-                                        this.removeCustomField(id)
+                            {fields.map(field => (
+                                <FilterField
+                                    key={field.id}
+                                    field={field}
+                                    questions={this._getQuestionsOptions()}
+                                    handleShowCustomFieldModal={
+                                        this.handleShowCustomFieldModal
                                     }
-                                    questionOptions={this._getQuestionsOptions()}
+                                    removeCustomField={this.removeCustomField}
                                 />
                             ))}
                         </div>
@@ -103,6 +104,11 @@ class FurtherFiltrationContainer extends Component {
         const id = uuid();
         addFilterQuestion(id);
         showModal(FILTER_FIELDS, { id, customQuestions });
+    };
+
+    handleShowCustomFieldModal = id => {
+        const { showModal, customQuestions } = this.props;
+        showModal(FILTER_FIELDS, { customQuestions, id });
     };
 
     removeCustomField = id => this.props.removeFilterQuestion(id);
