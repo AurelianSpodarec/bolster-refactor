@@ -97,7 +97,7 @@ const CreateCompanyAdminForm = ({
             <button className="button green">
                 <i className="fa fa-plus" /> Create Company Admin
             </button>
-            <ButtonContainer onClick={hideModal}>Cancel</ButtonContainer>
+            <ButtonContainer handleClick={hideModal}>Cancel</ButtonContainer>
         </BlockButtonWrapper>
     </Form>
 );
