@@ -52,7 +52,7 @@ const PieChart = ({ stats, hierarchyType }) => {
                         </div>
                         <div className="pin">
                             <img src={yellowPin} alt="pin" />
-                            <p>No Action Required</p>
+                            <p>No Action</p>
                         </div>
                         <div className="pin">
                             <img src={purplePin} alt="pin" />

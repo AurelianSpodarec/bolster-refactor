@@ -30,7 +30,7 @@ const PaymentSuccessModal = ({
         </div>
         <BlockHeading title={title} />
         <p>{message}</p>
-        {/* <BlockButtonWrapper addtionalClasses="center-align">
+        {/* <BlockButtonWrapper additionalClasses="center-align">
             <button onClick={() => handleClose()} className="button green">
                 Confirm
             </button>

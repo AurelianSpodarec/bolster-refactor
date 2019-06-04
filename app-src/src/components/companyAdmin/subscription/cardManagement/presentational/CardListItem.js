@@ -25,7 +25,7 @@ const CardListItem = ({
                 )}
             </td>
             <td>
-                <BlockButtonWrapper addtionalClasses="card-buttons">
+                <BlockButtonWrapper additionalClasses="card-buttons">
                     {!isPrimary && (
                         <ButtonContainer handleClick={setPrimaryCard}>
                             Set Primary
