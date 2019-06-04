@@ -12,19 +12,22 @@ const FilterField = ({
     const answers = Object.values(field.questionValues).map(
         ({ value }) => value
     );
-    const joinedAnswers = answers.join(', ');
+    const joinedAnswers = answers.join(' OR ');
     const chosenQuestions = field.selectedQuestions.map(
         id => questions[id].text
     );
-    const joinedQuestions = chosenQuestions.join(', ');
+    const joinedQuestions = chosenQuestions.join(' OR ');
 
     return (
         <FieldOutput fieldClass="filters">
-            <div>
-                <p>The questions: {joinedQuestions}</p>
-                <p>Must have answers: {joinedAnswers}</p>
+            <div className="filters-calc">
+                <p className="centered">({joinedQuestions})</p>
+                <div className="centered">
+                    <i className="far fa-equals fa-fw" />
+                </div>
+                <p className="centered">({joinedAnswers})</p>
             </div>
-            <BlockButtonWrapper>
+            <BlockButtonWrapper sizeClasses="size-lg-5">
                 <button
                     className="button yellow"
                     onClick={() => handleShowCustomFieldModal(field.id)}
