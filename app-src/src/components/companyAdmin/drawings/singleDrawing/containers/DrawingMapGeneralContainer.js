@@ -52,6 +52,7 @@ class DrawingMapGeneralContainer extends Component {
         const { error, pins, drawing = {} } = this.props;
         const serviceOptions = this._getServicesOptions();
         const statusOptions = convertEnumToDropdownOptions(PIN_STATUS_TYPES);
+
         const operativeOptions = this._getOperativeOptions();
         const updateMessage =
             FLOORPLAN_STATE_MESSAGES[drawing.latestFloorplanState];
@@ -61,7 +62,7 @@ class DrawingMapGeneralContainer extends Component {
                     <div className="flex-item size-lg-8">
                         <BlockContainer error={error}>
                             <DrawingMapFiltersAdvanced
-                                serviceOptions={Object.values(serviceOptions)}
+                                serviceOptions={Object.values(statusOptions)}
                                 selectedService={
                                     serviceOptions[serviceSelectedID]
                                 }

@@ -95,9 +95,10 @@
 }
 
 @media only screen and (min-width: 769px) and (max-width: 1024px) {
-    body {
-        color: green;
-    }
+    // ! commented out for the moment
+    // body {
+    //     color: green;
+    // }
     #frontend-site {
         .heading {
             &.secondary {
