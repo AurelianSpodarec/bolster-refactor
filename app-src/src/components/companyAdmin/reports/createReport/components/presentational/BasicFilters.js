@@ -26,7 +26,8 @@ const BasicFilters = ({
                 <BlockHeading title="Basic Filtration" />
                 <p className="generic-text small">
                     ##Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Fusce maximus mi id tempor scelerisque.##
+                    Fusce maximus mi id tempor scelerisque. Lorem ipsum dolor
+                    sit amet, consectetur adipiscing elit.##
                 </p>
                 <Field name="Services">
                     <DropdownContainer

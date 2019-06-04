@@ -41,7 +41,8 @@ class FurtherFiltrationContainer extends Component {
                 <BlockHeading title="Further Filtration" />
                 <p className="generic-text small">
                     ##Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Fusce maximus mi id tempor scelerisque.##
+                    Fusce maximus mi id tempor scelerisque. Lorem ipsum dolor
+                    sit amet, consectetur adipiscing elit.##
                 </p>
                 <FurtherFiltration
                     furtherFiltrationOptions={filtrationOptionsArr}

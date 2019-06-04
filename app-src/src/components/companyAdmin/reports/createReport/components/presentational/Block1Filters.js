@@ -12,7 +12,8 @@ const Block1Filters = ({ fieldError, advanced, isFetching }) => (
                 <BlockHeading title="Heirarchy Selection" />
                 <p className="generic-text small">
                     ##Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Fusce maximus mi id tempor scelerisque.##
+                    Fusce maximus mi id tempor scelerisque. Lorem ipsum dolor
+                    sit amet, consectetur adipiscing elit.##
                 </p>
                 <LevelsFilterContainer
                     advanced={advanced}
