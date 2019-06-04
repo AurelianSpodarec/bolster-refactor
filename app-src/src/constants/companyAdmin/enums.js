@@ -117,7 +117,7 @@ export const PIN_STATUS_TYPES = {
     10: 'Action Required',
     20: 'Installed',
     30: 'Inspected',
-    40: 'No Action Required',
+    40: 'No Action',
     50: 'Other'
 };
 
