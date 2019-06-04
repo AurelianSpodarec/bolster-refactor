@@ -6,6 +6,7 @@ import updateAddPinAnswer from 'actions/companyAdmin/drawings/sync/updateAddPinA
 import resetPinAnswers from 'actions/companyAdmin/drawings/sync/resetPinAnswers';
 import { PIN_STATUS_TYPES } from 'constants/companyAdmin/enums';
 import updateAddPinStatus from 'actions/companyAdmin/drawings/sync/updateAddPinStatus';
+import { withRouter } from 'react-router-dom';
 
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import TextAreaContainer from 'components/shared/generic/form/containers/TextAreaContainer';
@@ -192,7 +193,7 @@ const Status = ({ status, handleStatusChange, statusOptions = [] }) => {
             placeholder="-- select --"
             name="pinStatus"
             options={options}
-            value={status}
+            value={status + ''}
             onChange={handleStatusChange}
             required
         />
@@ -443,9 +444,24 @@ class AddPinQuestionRoute extends Component {
     }
 
     componentDidMount() {
-        const { resetPinAnswers } = this.props;
+        const {
+            oldAnswers,
+            updateAddPinAnswer,
+            updateAddPinStatus,
+            history,
+            resetPinAnswers
+        } = this.props;
 
-        resetPinAnswers();
+        if (history.id && oldAnswers) {
+            const oldAnswersArray = Object.values(oldAnswers);
+
+            oldAnswersArray.map(answer =>
+                updateAddPinAnswer(answer.templateQuestionID, answer.answer)
+            );
+            updateAddPinStatus(history.status);
+        } else {
+            resetPinAnswers();
+        }
     }
 
     handleChange = (_, value) => {
@@ -520,18 +536,27 @@ class AddPinQuestionRoute extends Component {
     };
 }
 
-const mapStateToProps = ({
-    companyAdmin: {
-        addPinDropdownOptions: { dropdownOptions },
-        addPinFormReducer: { answers, status },
-        templateQuestionsReducer: { questions }
-    }
-}) => ({
-    dropdownOptions,
-    answers,
-    status,
-    questions
-});
+const mapStateToProps = (
+    {
+        companyAdmin: {
+            addPinDropdownOptions: { dropdownOptions },
+            addPinFormReducer: { answers, status },
+            templateQuestionsReducer: { questions },
+            pinAnswersReducer: { answers: oldAnswers },
+            pinHistoriesReducer: { histories }
+        }
+    },
+    { match: { params } }
+) => {
+    return {
+        dropdownOptions,
+        answers,
+        questions,
+        oldAnswers,
+        status,
+        history: histories[params.historyID] || {}
+    };
+};
 
 const mapDispatchToProps = {
     updateAddPinAnswer,
@@ -539,7 +564,9 @@ const mapDispatchToProps = {
     updateAddPinStatus
 };
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(AddPinQuestionRoute);
+export default withRouter(
+    connect(
+        mapStateToProps,
+        mapDispatchToProps
+    )(AddPinQuestionRoute)
+);
