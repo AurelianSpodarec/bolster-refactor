@@ -52,7 +52,7 @@ class FurtherFiltrationContainer extends Component {
                 {filterOption === '1' ? (
                     <PinSelectorContainer />
                 ) : filterOption === '2' ? (
-                    <div className="custom-filters-block ignore-padding">
+                    <div className="custom-filters-block">
                         <div className="size-lg-12">
                             {fields.map(field => (
                                 <FilterField

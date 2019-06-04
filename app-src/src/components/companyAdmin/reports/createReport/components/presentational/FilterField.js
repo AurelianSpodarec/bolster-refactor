@@ -20,20 +20,26 @@ const FilterField = ({
     const joinedQuestions = chosenQuestions.join(', ');
 
     return (
-        <FieldOutput>
-            <p>The questions: {joinedQuestions}</p>
-            <p>Must have answers: {joinedAnswers}</p>
+        <FieldOutput fieldClass="filters">
+            <div>
+                <p>The questions: {joinedQuestions}</p>
+                <p>Must have answers: {joinedAnswers}</p>
+            </div>
             <BlockButtonWrapper>
-                <ButtonContainer
-                    handleClick={() => handleShowCustomFieldModal(field.id)}
+                <button
+                    className="button yellow"
+                    onClick={() => handleShowCustomFieldModal(field.id)}
                 >
+                    <i className="far fa-edit fa-fw" />
                     Edit
-                </ButtonContainer>
-                <ButtonContainer
-                    handleClick={() => removeCustomField(field.id)}
+                </button>
+                <button
+                    className="button red"
+                    onClick={() => removeCustomField(field.id)}
                 >
+                    <i className="fa fa-times fa-fw" />
                     Remove
-                </ButtonContainer>
+                </button>
             </BlockButtonWrapper>
         </FieldOutput>
     );
