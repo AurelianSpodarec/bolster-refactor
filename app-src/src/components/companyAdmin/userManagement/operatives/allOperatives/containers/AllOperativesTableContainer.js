@@ -5,6 +5,8 @@ import AllOperativesTable from '../presentational/AllOperativesTable';
 import { COMPANY_USER_ROLE_TYPES } from 'constants/companyAdmin/enums';
 import fetchCompanyUsers from 'actions/companyAdmin/userManagement/async/fetchCompanyUsers';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
+import { showModal } from 'actions/shared/generic/modals/sync/showModal';
+import { CREATE_OPERATIVE } from 'constants/shared/modalTypes';
 const { OPERATIVE } = COMPANY_USER_ROLE_TYPES;
 
 class AllOperativesTableContainer extends Component {
@@ -23,6 +25,7 @@ class AllOperativesTableContainer extends Component {
                 users={users}
                 isFetching={isFetching}
                 error={error}
+                handleShowModal={this.handleShowModal}
             />
         );
     };
@@ -36,6 +39,7 @@ class AllOperativesTableContainer extends Component {
             hideModal();
         }
     };
+    handleShowModal = () => this.props.showModal(CREATE_OPERATIVE);
 }
 
 const mapStateToProps = ({
@@ -49,10 +53,8 @@ const mapStateToProps = ({
     postSuccess
 });
 
-const mapDispatchToProps = dispatch => ({
-    fetchCompanyUsers: () => dispatch(fetchCompanyUsers()),
-    hideModal: () => dispatch(hideModal())
-});
+const mapDispatchToProps = { fetchCompanyUsers, hideModal, showModal };
+
 export default connect(
     mapStateToProps,
     mapDispatchToProps

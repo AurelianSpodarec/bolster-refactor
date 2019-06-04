@@ -206,7 +206,7 @@ const DropdownOptions = ({
     handleChange
 }) => {
     const formattedOpts = dropdownOptions
-        .filter(option => option.type === optionType)
+        .filter(option => option.type + '' === optionType + '')
         .map(({ name }) => ({ value: name, label: name }));
 
     return (
@@ -228,7 +228,7 @@ const MultiDropdownOptions = ({
     handleChange
 }) => {
     const opts = dropdownOptions
-        .filter(option => option.type === optionType)
+        .filter(option => option.type + '' === optionType + '')
         .map(({ name }) => ({ value: name, label: name }));
 
     return (
@@ -271,7 +271,7 @@ const MultiMultiDropdownOptions = ({
     handleChange
 }) => {
     const formattedOpts = dropdownOptions
-        .filter(option => option.type === optionType)
+        .filter(option => option.type + '' === optionType + '')
         .map(({ name }) => ({
             value: name,
             label: name
@@ -339,7 +339,9 @@ class AddPinQuestionRoute extends Component {
                 return true;
             }
 
-            /*eslint-disable */
+            if (preReqQuestion.type + '' === STATUS + '') {
+                return question.prerequisiteQuestionValue + '' === status + '';
+            }
 
             if (preReqQuestion.type == QUESTION_TYPE_VALUES.CHECKBOX) {
                 //Convert true to 'true'
@@ -400,6 +402,7 @@ class AddPinQuestionRoute extends Component {
 
             return false;
         };
+        console.log(dropdownOptions);
 
         const showPreReq = checkIfShouldShowByPreReq(
             question.id,
@@ -415,7 +418,6 @@ class AddPinQuestionRoute extends Component {
             : '';
 
         const name = `${question.name}${maxValueMessage}`;
-
         if (showPreReq) {
             return (
                 <Field

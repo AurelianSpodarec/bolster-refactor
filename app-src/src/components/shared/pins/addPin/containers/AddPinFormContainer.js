@@ -148,7 +148,9 @@ class AddPinFormContainer extends Component {
         return convertArrToObj(templateOptions, 'value');
     };
 
-    handleChange = (name, value) => this.setState({ [name]: value });
+    handleChange = (name, value) => {
+        this.setState({ [name]: value });
+    };
 
     handleSubmit = e => {
         e.preventDefault();

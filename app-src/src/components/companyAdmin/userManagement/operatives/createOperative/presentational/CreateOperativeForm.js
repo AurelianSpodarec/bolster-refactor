@@ -9,6 +9,7 @@ import ButtonContainer from 'components/shared/generic/button/containers/ButtonC
 const CreateOperativeForm = ({
     handleSubmit,
     handleInputChange,
+    hideModal,
     validatePassword,
     firstName,
     lastName,
@@ -95,9 +96,7 @@ const CreateOperativeForm = ({
             <button className="button green">
                 <i className="fa fa-plus" /> Attach Operative
             </button>
-            <ButtonContainer to="/company/users-management/operatives">
-                Cancel
-            </ButtonContainer>
+            <ButtonContainer handleClick={hideModal}>Cancel</ButtonContainer>
         </BlockButtonWrapper>
     </Form>
 );

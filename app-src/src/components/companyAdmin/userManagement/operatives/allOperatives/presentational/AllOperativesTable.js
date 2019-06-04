@@ -1,20 +1,22 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
 import Table from 'components/shared/generic/tables/presentational/Table';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import AllOperativesListItemContainer from '../containers/AllOperativesListItemContainer';
 
-const AllOperativesTable = ({ headers, users, isFetching, error }) => (
+const AllOperativesTable = ({
+    headers,
+    users,
+    isFetching,
+    error,
+    handleShowModal
+}) => (
     <BlockContainer>
         <BlockHeading title="Operatives">
-            <Link
-                className="button green"
-                to="/company/users-management/operatives/create"
-            >
+            <button className="button green" onClick={handleShowModal}>
                 <i className="fa fa-plus" /> Attach Operative
-            </Link>
+            </button>
         </BlockHeading>
         <Table
             withActions

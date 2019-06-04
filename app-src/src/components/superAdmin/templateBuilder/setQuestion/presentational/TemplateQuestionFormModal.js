@@ -11,6 +11,7 @@ import BlockButtonWrapper from '../../../../shared/generic/blockButtonWrappers/p
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import SpecificFieldsRoute from '../containers/SpecificFieldsRoute';
 import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
+import Select from 'components/shared/generic/form/presentational/Select';
 
 const TemplateQuestionFormModal = ({
     questionTypeOptions,
@@ -26,6 +27,7 @@ const TemplateQuestionFormModal = ({
     hideModal,
     handleSubmit,
     action,
+    statusOptions,
     ...otherFields
 }) => {
     return (
@@ -53,12 +55,22 @@ const TemplateQuestionFormModal = ({
                 )}
                 {!!selectedPrereq && (
                     <Field name="Prerequisite value" required>
-                        <TextInputContainer
-                            name="prereqVal"
-                            value={prereqVal}
-                            handleChange={handleInputChange}
-                            required
-                        />
+                        {selectedPrereq.isStatus ? (
+                            <Select
+                                name="prereqVal"
+                                value={prereqVal}
+                                options={statusOptions}
+                                onChange={handleInputChange}
+                                required
+                            />
+                        ) : (
+                            <TextInputContainer
+                                name="prereqVal"
+                                value={prereqVal}
+                                handleChange={handleInputChange}
+                                required
+                            />
+                        )}
                     </Field>
                 )}
                 <Field name="Field name" required>
