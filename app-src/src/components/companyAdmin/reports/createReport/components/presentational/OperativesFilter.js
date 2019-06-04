@@ -15,7 +15,7 @@ const OperativesFilter = ({
                 onChange={handleChange}
                 value={selectedOperatives}
                 search
-                placeholder="-- Select Operatives --"
+                placeholder="All Operatives"
             />
         </Field>
     </div>
