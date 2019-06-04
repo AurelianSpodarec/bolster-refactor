@@ -17,7 +17,8 @@ class DropdownContainer extends Component {
             required = false,
             classes = '',
             value,
-            selectedOption
+            selectedOption,
+            placeholder
         } = this.props;
         const { errorsVisible } = this.props;
 
@@ -35,6 +36,7 @@ class DropdownContainer extends Component {
                 disabled={disabled}
                 required={required}
                 classes={classes}
+                placeholder={placeholder}
             />
         );
     }
