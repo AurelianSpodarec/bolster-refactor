@@ -25,9 +25,7 @@ const OutputSettings = ({
             <div className="size-lg-12">
                 <BlockHeading title="Output Settings" />
                 <p className="generic-text small">
-                    ##Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Fusce maximus mi id tempor scelerisque. Lorem ipsum dolor
-                    sit amet, consectetur adipiscing elit.##
+                    Below you can choose formatting options for your report.
                 </p>
                 <div className="generic-form">
                     <div className="size-lg-6">
@@ -71,9 +69,7 @@ const OutputSettings = ({
                                                 }
                                                 name="includePinLocation"
                                             />
-                                            <p className="sub-text">
-                                                - ##checkbox explanation##
-                                            </p>
+                                            <p className="sub-text" />
                                         </Field>
                                         <Field name="Layout">
                                             <DropdownContainer
@@ -114,7 +110,8 @@ const OutputSettings = ({
                                 name="showHidden"
                             />
                             <p className="sub-text">
-                                - ##checkbox explanation##
+                                - Check to include questions that are hidden on
+                                the templates?
                             </p>
                         </Field>
                     </div>

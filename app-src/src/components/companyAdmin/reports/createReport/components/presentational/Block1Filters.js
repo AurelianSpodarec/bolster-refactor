@@ -11,9 +11,9 @@ const Block1Filters = ({ fieldError, advanced, isFetching }) => (
             <div className="size-lg-12">
                 <BlockHeading title="Heirarchy Selection" />
                 <p className="generic-text small">
-                    ##Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Fusce maximus mi id tempor scelerisque. Lorem ipsum dolor
-                    sit amet, consectetur adipiscing elit.##
+                    First you need to select what level of report you wish to
+                    generate, you can report at any level or drill down to a
+                    specific drawing.
                 </p>
                 <LevelsFilterContainer
                     advanced={advanced}
