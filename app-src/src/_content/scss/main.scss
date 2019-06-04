@@ -1288,7 +1288,7 @@ input {
         border-top: 2px solid #9d9d9e;
     }
     &.with-subtext {
-        width: 10%;
+        width: 50px;
         padding-left: 10px;
     }
 }
@@ -3387,12 +3387,16 @@ input {
 
 .options-container {
     border: 2px solid #2dac58;
+    margin-left: 10px;
     border-radius: 5px;
-    padding: 10px;
+    padding: 5px;
 }
 
 .sub-text {
     display: inline-block;
+    color: $dark-grey;
+    padding-left: 5px;
+    font-size: 8px;
 }
 //buttons
 .frontend-button {
