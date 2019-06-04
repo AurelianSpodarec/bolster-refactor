@@ -17,7 +17,8 @@ class CheckboxListContainer extends Component {
             error,
             errorsVisible,
             selectedOptions,
-            name
+            name,
+            classes
         } = this.props;
 
         const errorMessage = showFieldError || errorsVisible ? error : null;
@@ -28,6 +29,7 @@ class CheckboxListContainer extends Component {
                 handleChange={this.handleChange}
                 error={errorMessage}
                 name={name}
+                classes={classes}
             />
         );
     }
