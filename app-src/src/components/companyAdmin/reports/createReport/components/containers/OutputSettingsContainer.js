@@ -55,8 +55,57 @@ class OutputSettingsContainer extends Component {
         );
     }
 
+    componentDidMount = () => {
+        const {
+            filters: {
+                isPDFGeneration,
+                isCSVGeneration,
+                isFloorplanGeneration
+            },
+            addFieldError
+        } = this.props;
+        if (!isPDFGeneration && !isCSVGeneration && !isFloorplanGeneration) {
+            addFieldError(
+                'isFloorplanGeneration',
+                'Must select at least one option'
+            );
+        }
+    };
+
     componentDidUpdate = prevProps => {
-        const { postSuccess, error, showModal, history } = this.props;
+        const {
+            postSuccess,
+            error,
+            showModal,
+            history,
+            filters: {
+                isPDFGeneration,
+                isCSVGeneration,
+                isFloorplanGeneration
+            },
+            addFieldError,
+            removeFieldError
+        } = this.props;
+
+        // error handling for report type
+        const modeSelected = !!(
+            isPDFGeneration ||
+            isCSVGeneration ||
+            isFloorplanGeneration
+        );
+        const prevModeSelected = !!(
+            prevProps.filters.isPDFGeneration ||
+            prevProps.filters.isCSVGeneration ||
+            prevProps.filters.isFloorplanGeneration
+        );
+        if (!modeSelected && prevModeSelected) {
+            addFieldError(
+                'isFloorplanGeneration',
+                'Must select at least one option'
+            );
+        } else if (modeSelected && !prevModeSelected) {
+            removeFieldError('isFloorplanGeneration');
+        }
 
         if (postSuccess && !prevProps.postSuccess) {
             showModal(SUCCESS_MODAL, {
@@ -74,15 +123,11 @@ class OutputSettingsContainer extends Component {
     };
 
     handleFilterChange = (name, value) => {
-        const { handleChange } = this.props;
-
-        handleChange(name, value);
+        this.props.handleChange(name, value);
     };
 
     handleOptionChange = (name, value) => {
-        const { updateFilterOption } = this.props;
-
-        updateFilterOption(name, value);
+        this.props.updateFilterOption(name, value);
     };
 
     handleSubmit = () => {
@@ -90,32 +135,11 @@ class OutputSettingsContainer extends Component {
             getPostBody,
             postReport,
             fieldErrors,
-            showFieldErrors,
-            addFieldError,
-            removeFieldError
+            showFieldErrors
         } = this.props;
 
-        const body = getPostBody();
-        const {
-            isPDFGeneration,
-            isCSVGeneration,
-            isFloorplanGeneration
-        } = body;
-        if (!isPDFGeneration && !isCSVGeneration && !isFloorplanGeneration) {
-            addFieldError(
-                'isFloorplanGeneration',
-                'Must select at least one option'
-            );
-            showFieldErrors();
-            return;
-        } else {
-            removeFieldError('isFloorplanGeneration');
-        }
-        if (!isEmpty(fieldErrors)) {
-            showFieldErrors();
-        } else {
-            postReport(getPostBody());
-        }
+        if (!isEmpty(fieldErrors)) showFieldErrors();
+        else postReport(getPostBody());
     };
 }
 
@@ -136,17 +160,16 @@ const mapStateToProps = ({
     error
 });
 
-const mapDispatchToProps = dispatch => ({
-    updateFilterOption: (key, value) =>
-        dispatch(updateFilterOption(key, value)),
-    postReport: postBody => dispatch(postReport(postBody)),
-    postCustomFilters: postBody => dispatch(postCustomFilters(postBody)),
-    removeFilterQuestions: () => dispatch(removeFilterQuestions()),
-    showModal: (type, props) => dispatch(showModal(type, props)),
-    showFieldErrors: () => dispatch(showFieldErrors()),
-    addFieldError: (name, err) => dispatch(addFieldError(name, err)),
-    removeFieldError: name => dispatch(removeFieldError(name))
-});
+const mapDispatchToProps = {
+    updateFilterOption,
+    postReport,
+    postCustomFilters,
+    removeFilterQuestions,
+    showModal,
+    showFieldErrors,
+    addFieldError,
+    removeFieldError
+};
 
 const WithConnect = connect(
     mapStateToProps,

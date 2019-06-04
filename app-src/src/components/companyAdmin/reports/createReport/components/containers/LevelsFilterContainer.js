@@ -1,9 +1,19 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 
-import { convertArrToObj } from 'helpers/generic';
+import { convertArrToObj, isObjEmpty } from 'helpers/generic';
+import { CONFIRM_SUBMIT } from 'constants/shared/modalTypes';
+import showModal from 'actions/shared/generic/modals/sync/showModal';
+import hideModal from 'actions/shared/generic/modals/sync/hideModal';
 
 import withUpdateOnChange from '../hocs/withUpdateOnChange';
 import LevelFilters from '../presentational/LevelFilters';
+import { HIERARCHY_IDS } from 'constants/companyAdmin/enums';
+import fetchSingleFloor from 'actions/companyAdmin/floors/async/fetchSingleFloor';
+import fetchSingleBuilding from 'actions/companyAdmin/buildings/async/fetchSingleBuilding';
+import fetchSingleSite from 'actions/companyAdmin/sites/async/fetchSingleSite';
+import fetchSingleDrawing from 'actions/companyAdmin/drawings/async/fetchSingleDrawing';
 
 class LevelsFilterContainer extends Component {
     render() {
@@ -12,14 +22,15 @@ class LevelsFilterContainer extends Component {
             sites,
             buildings,
             floors,
-            drawings
+            drawings,
+            hierarchy,
+            isFetching
         } = this.props;
 
         const sitesOptions = this._formatArrForDropdown(sites);
         const buildingOptions = this._formatArrForDropdown(buildings);
         const floorOptions = this._formatArrForDropdown(floors);
         const drawingOptions = this._formatArrForDropdown(drawings);
-
         return (
             <LevelFilters
                 handleChange={this.handleChange}
@@ -31,6 +42,8 @@ class LevelsFilterContainer extends Component {
                 selectedFloor={floorOptions[floorID]}
                 drawingOptions={Object.values(drawingOptions)}
                 selectedDrawing={drawingOptions[drawingID]}
+                hierarchy={hierarchy}
+                isFetching={isFetching}
             />
         );
     }
@@ -60,8 +73,7 @@ class LevelsFilterContainer extends Component {
     };
 
     handleChange = (name, value) => {
-        const { postFilters } = this.props;
-
+        const { postFilters, shouldConfirm, showModal, hideModal } = this.props;
         const updateMethods = {
             drawingID: this.updateDrawing,
             floorID: this.updateFloor,
@@ -69,14 +81,27 @@ class LevelsFilterContainer extends Component {
             siteID: this.updateSite
         };
         const update = updateMethods[name];
-        return update(value).then(postFilters);
+        if (shouldConfirm) {
+            const handleSubmit = () => {
+                hideModal();
+                return update(value).then(postFilters);
+            };
+            const message =
+                'Changing this will reset your further filtration options, continue?';
+            // * confirm and then do this:
+            showModal(CONFIRM_SUBMIT, { handleSubmit, message, hideModal });
+        } else {
+            return update(value).then(postFilters);
+        }
     };
 
     _formatArrForDropdown = arr => {
-        const options = arr.map(({ name, id }) => ({
-            value: id,
-            text: name
-        }));
+        const options = arr
+            .filter(val => val)
+            .map(({ name, id }) => ({
+                value: id,
+                text: name
+            }));
 
         return convertArrToObj(options, 'value');
     };
@@ -84,8 +109,26 @@ class LevelsFilterContainer extends Component {
     componentDidMount = () => {
         const {
             customFilters: { pins = [] },
-            handleChange
+            handleChange,
+            hierarchy,
+            hierarchyID
         } = this.props;
+
+        // prefill on hierarchy single page advanced reports
+        if (hierarchy === HIERARCHY_IDS.SITE) {
+            this.handleChange('siteID', hierarchyID);
+            this.handlePrefillSite(hierarchyID);
+        } else if (hierarchy === HIERARCHY_IDS.BUILDING) {
+            this.handleChange('buildingID', hierarchyID);
+            this.handlePrefillBuilding(hierarchyID);
+        } else if (hierarchy === HIERARCHY_IDS.FLOOR) {
+            this.handleChange('floorID', hierarchyID);
+            this.handlePrefillFloor(hierarchyID);
+        } else if (hierarchy === HIERARCHY_IDS.DRAWING) {
+            this.handleChange('drawingID', hierarchyID);
+            this.handlePrefillDrawing(hierarchyID);
+        }
+
         if (pins.length) handleChange('pinIDs', pins.map(({ id }) => id));
     };
 
@@ -94,10 +137,89 @@ class LevelsFilterContainer extends Component {
             customFilters: { pins = [] },
             handleChange
         } = this.props;
-        if (pins.length !== prevPins.length) {
+        if (pins.length && !prevPins.length) {
             handleChange('pinIDs', pins.map(({ id }) => id));
         }
     };
+
+    // for advanced reports on hierarchy single pages vvvvvv
+
+    handlePrefillSite = siteID => {
+        const { handleChange } = this.props;
+        handleChange('siteID', siteID);
+        fetchSingleSite(siteID);
+    };
+    handlePrefillBuilding = buildingID => {
+        const { handleChange, fetchSingleBuilding } = this.props;
+        handleChange('buildingID', buildingID);
+        fetchSingleBuilding(buildingID).then(({ payload: { siteID } }) =>
+            this.handlePrefillSite(siteID)
+        );
+    };
+    handlePrefillFloor = floorID => {
+        const { handleChange, fetchSingleFloor } = this.props;
+        handleChange('floorID', floorID);
+        fetchSingleFloor(floorID).then(({ payload: { buildingID } }) =>
+            this.handlePrefillBuilding(buildingID)
+        );
+    };
+    handlePrefillDrawing = drawingID => {
+        const { handleChange, fetchSingleDrawing } = this.props;
+        handleChange('drawingID', drawingID);
+        fetchSingleDrawing(drawingID).then(({ payload: { floorID } }) =>
+            this.handlePrefillFloor(floorID)
+        );
+    };
 }
 
-export default withUpdateOnChange(LevelsFilterContainer);
+const mapStateToProps = (
+    {
+        companyAdmin: {
+            sitesReducer,
+            buildingsReducer,
+            floorsReducer,
+            drawingsReducer,
+            reportsReducer: { fields, selectedPins }
+        }
+    },
+    { match: { params, path } }
+) => {
+    const hierarchy = path.includes('drawing')
+        ? HIERARCHY_IDS.DRAWING
+        : path.includes('floor')
+        ? HIERARCHY_IDS.FLOOR
+        : path.includes('building')
+        ? HIERARCHY_IDS.BUILDING
+        : path.includes('site')
+        ? HIERARCHY_IDS.SITE
+        : '';
+    const hierarchyID = params.id;
+    return {
+        hierarchy,
+        hierarchyID,
+        isFetching:
+            sitesReducer.isFetching ||
+            buildingsReducer.isFetching ||
+            floorsReducer.isFetching ||
+            drawingsReducer.isFetching,
+        shouldConfirm: !isObjEmpty(fields) || !isObjEmpty(selectedPins)
+    };
+};
+
+const mapDispatchToProps = {
+    fetchSingleDrawing,
+    fetchSingleFloor,
+    fetchSingleBuilding,
+    fetchSingleSite,
+    showModal,
+    hideModal
+};
+
+export default withUpdateOnChange(
+    withRouter(
+        connect(
+            mapStateToProps,
+            mapDispatchToProps
+        )(LevelsFilterContainer)
+    )
+);

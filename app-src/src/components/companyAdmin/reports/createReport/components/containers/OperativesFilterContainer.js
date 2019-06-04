@@ -22,7 +22,11 @@ class OperativesFilterContainer extends Component {
     }
 
     componentDidMount = () => {
-        this.props.postFilters();
+        const { advanced, postFilters } = this.props;
+        if (!advanced) {
+            // not required on hierarchy reports
+            postFilters();
+        }
     };
 
     componentDidUpdate = ({ customFilters: { operatives: prevOps } }) => {

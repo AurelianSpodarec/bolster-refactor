@@ -24,6 +24,11 @@ const OutputSettings = ({
         <BlockContainer>
             <div className="size-lg-12">
                 <BlockHeading title="Output Settings" />
+                <p className="generic-text small">
+                    ##Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    Fusce maximus mi id tempor scelerisque. Lorem ipsum dolor
+                    sit amet, consectetur adipiscing elit.##
+                </p>
                 <div className="generic-form">
                     <div className="size-lg-6">
                         <Field name="Report formats">
@@ -50,28 +55,41 @@ const OutputSettings = ({
                         </Field>
                         {isPDFGeneration && (
                             <>
-                                <Field name="Include location drawing">
-                                    <CheckboxContainer
-                                        checked={
-                                            isPDFGeneration
-                                                ? includePinLocation
-                                                : isPDFGeneration
-                                        }
-                                        handleChange={handleFilterChange}
-                                        name="includePinLocation"
-                                    />
-                                </Field>
-                                <Field name="Layout">
-                                    <DropdownContainer
-                                        name="layout"
-                                        options={layoutOptions}
-                                        singleSelect={true}
-                                        handleChange={handleOptionChange}
-                                        value={selectedLayout}
-                                        selectedOption={selectedLayout}
-                                        withoutPlaceholder
-                                    />
-                                </Field>
+                                <div className="size-lg-12 ">
+                                    <div className="size-lg-10 options-container">
+                                        <BlockHeading title="Additional PDF Settings" />
+                                        <Field name="Include location drawing">
+                                            <CheckboxContainer
+                                                classes="with-subtext"
+                                                checked={
+                                                    isPDFGeneration
+                                                        ? includePinLocation
+                                                        : isPDFGeneration
+                                                }
+                                                handleChange={
+                                                    handleFilterChange
+                                                }
+                                                name="includePinLocation"
+                                            />
+                                            <p className="sub-text">
+                                                - ##checkbox explanation##
+                                            </p>
+                                        </Field>
+                                        <Field name="Layout">
+                                            <DropdownContainer
+                                                name="layout"
+                                                options={layoutOptions}
+                                                singleSelect={true}
+                                                handleChange={
+                                                    handleOptionChange
+                                                }
+                                                value={selectedLayout}
+                                                selectedOption={selectedLayout}
+                                                withoutPlaceholder
+                                            />
+                                        </Field>
+                                    </div>
+                                </div>
                             </>
                         )}
                     </div>
@@ -90,10 +108,14 @@ const OutputSettings = ({
 
                         <Field name="Show hidden?">
                             <CheckboxContainer
+                                classes="with-subtext"
                                 checked={showHidden}
                                 handleChange={handleOptionChange}
                                 name="showHidden"
                             />
+                            <p className="sub-text">
+                                - ##checkbox explanation##
+                            </p>
                         </Field>
                     </div>
                     <BlockButtonWrapper>

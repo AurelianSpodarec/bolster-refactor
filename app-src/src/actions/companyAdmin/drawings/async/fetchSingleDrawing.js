@@ -25,7 +25,7 @@ export const fetchDrawingFailure = error => ({
 export default id => dispatch => {
     dispatch(fetchDrawingRequest());
 
-    axios
+    return axios
         .get(`${API_URL}/drawings/${id}`, getHeaders())
         .then(({ data }) => dispatch(fetchDrawingSuccess(data)))
         .catch(err => dispatch(fetchDrawingFailure(err.message)));

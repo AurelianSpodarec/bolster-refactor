@@ -4,25 +4,22 @@ import BlockContainer from 'components/shared/generic/block/containers/BlockCont
 import LevelsFilterContainer from '../containers/LevelsFilterContainer';
 import OperativesFilterContainer from '../containers/OperativesFilterContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
-import AdvancedReportLevelsContainer from 'components/companyAdmin/drawings/singleDrawing/containers/AdvancedReportLevelsContainer';
-import AdvancedReportOperativesFilterContainer from 'components/companyAdmin/drawings/singleDrawing/containers/AdvancedReportOperativesFilterContainer';
 
-const Block1Filters = ({ fieldError, advanced }) => (
+const Block1Filters = ({ fieldError, advanced, isFetching }) => (
     <div className="flex-item size-lg-6">
         <BlockContainer>
             <div className="size-lg-12">
                 <BlockHeading title="Heirarchy Selection" />
-                {advanced ? (
-                    <>
-                        <AdvancedReportLevelsContainer />
-                        <AdvancedReportOperativesFilterContainer />
-                    </>
-                ) : (
-                    <>
-                        <LevelsFilterContainer advanced={advanced} />
-                        <OperativesFilterContainer />
-                    </>
-                )}
+                <p className="generic-text small">
+                    ##Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    Fusce maximus mi id tempor scelerisque. Lorem ipsum dolor
+                    sit amet, consectetur adipiscing elit.##
+                </p>
+                <LevelsFilterContainer
+                    advanced={advanced}
+                    isFetching={isFetching}
+                />
+                <OperativesFilterContainer advanced={advanced} />
                 {!!fieldError && (
                     <div
                         className="form-field size-lg-12"

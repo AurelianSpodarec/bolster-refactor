@@ -28,5 +28,7 @@ export default postBody => dispatch => {
     return axios
         .post(`${API_URL}/reports`, postBody, getHeaders())
         .then(res => dispatch(postReportSuccess(res.data)))
-        .catch(err => dispatch(handleErrors(postReportFailure)(err)));
+        .catch(err => {
+            dispatch(handleErrors(postReportFailure)(err));
+        });
 };

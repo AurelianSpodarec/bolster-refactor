@@ -4,7 +4,7 @@ import MapPin from '../presentational/MapPin';
 
 const MapPinContainer = ({
     pin,
-    isReport,
+    withLink,
     users,
     services,
     withTooltip = false,
@@ -17,7 +17,7 @@ const MapPinContainer = ({
         <MapPin
             urlStart={urlStart}
             pin={pin}
-            isReport={isReport}
+            withLink={withLink}
             user={user}
             service={service}
             withTooltip={withTooltip}
