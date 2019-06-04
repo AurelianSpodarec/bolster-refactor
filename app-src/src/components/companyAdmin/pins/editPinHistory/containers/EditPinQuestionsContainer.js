@@ -3,11 +3,17 @@ import { connect } from 'react-redux';
 
 import EditPinQuestions from '../presentational/EditPinQuestions';
 
-const EditPinQuestionsContainer = ({ sections, questions, answers }) => (
+const EditPinQuestionsContainer = ({
+    sections,
+    questions,
+    answers,
+    selectedVersion
+}) => (
     <EditPinQuestions
         sections={Object.values(sections)}
         questions={questions}
         answers={answers}
+        selectedVersion={selectedVersion}
     />
 );
 

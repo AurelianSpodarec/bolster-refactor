@@ -26,7 +26,8 @@ class AddPinFormContainer extends Component {
             error,
             templates,
             filesUploading,
-            confirmLeave
+            confirmLeave,
+            isHistory
         } = this.props;
 
         const templateOptions = this._getTemplates(templates);
@@ -35,7 +36,12 @@ class AddPinFormContainer extends Component {
             <>
                 <PageHeading leftChildren={true} title="Add Pin">
                     <BackButtonContainer
-                        backFromForm={{ urlToReplace: '/add-pin', with: '' }}
+                        backFromForm={{
+                            urlToReplace: isHistory
+                                ? '/add-history'
+                                : '/add-pin',
+                            with: ''
+                        }}
                     />
                 </PageHeading>
                 <BlockContainer

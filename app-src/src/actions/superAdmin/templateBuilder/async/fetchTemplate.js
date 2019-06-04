@@ -17,13 +17,15 @@ export const fetchTemplateSuccess = ({
     template,
     sections,
     questions,
-    labelFields
+    labelFields,
+    statusOptions
 }) => ({
     type: FETCH_TEMPLATE_SUCCESS,
     template,
     sections,
     questions: formatQuestions(questions),
-    labelFields
+    labelFields,
+    statusOptions
 });
 
 export const fetchTemplateFailure = error => ({

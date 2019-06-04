@@ -14,11 +14,7 @@ const mapStateToProps = (
     },
     ownProps
 ) => ({
-    selectedVersion: {
-        id: Object.values(versions).find(
-            version => version.id === ownProps.templateVersionID
-        ).id
-    }
+    selectedVersion: versions[ownProps.templateVersionID]
 });
 
 export default connect(mapStateToProps)(EditPinVersionsContainer);

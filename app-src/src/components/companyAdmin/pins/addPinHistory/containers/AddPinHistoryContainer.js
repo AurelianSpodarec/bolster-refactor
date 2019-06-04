@@ -8,7 +8,11 @@ import fetchDrawingTemplates from 'actions/companyAdmin/drawings/async/fetchDraw
 
 class AddPinHistoryContainer extends Component {
     render = () => (
-        <AddPinFormContainer hierarchyType="pin" pinID={this.props.pinID} />
+        <AddPinFormContainer
+            hierarchyType="pin"
+            pinID={this.props.pinID}
+            isHistory
+        />
     );
 
     componentDidMount = async () => {
