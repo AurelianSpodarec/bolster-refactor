@@ -1435,6 +1435,17 @@ input {
         right: 0;
         bottom: 15px;
     }
+    &.filters {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        padding: 5px 7.5px;
+        margin-bottom: 15px;
+        border-bottom: 1px solid $input-border-grey;
+        &:last-child {
+            padding-bottom: 5px;
+        }
+    }
 
     //no horizontal padding
     &.no-h-padding {

@@ -18,7 +18,7 @@ const FilterFieldsModal = ({
     hideModal
 }) => (
     <ModalOuterContainer>
-        <BlockHeading title="Add Field" />
+        <BlockHeading title="Add Filter" />
         {/* ? multiple fields in modal? */}
         {/* multi checkboxes for field name */}
         <div className="size-lg-12">

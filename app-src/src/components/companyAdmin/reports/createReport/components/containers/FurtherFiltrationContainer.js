@@ -41,7 +41,8 @@ class FurtherFiltrationContainer extends Component {
             <BlockContainer>
                 <BlockHeading title="Further Filtration" />
                 <p className="generic-text small">
-                    Here you can make create much more specific filters on your data set.
+                    Here you can make create much more specific filters on your
+                    data set.
                 </p>
                 <FurtherFiltration
                     furtherFiltrationOptions={filtrationOptionsArr}
@@ -51,7 +52,7 @@ class FurtherFiltrationContainer extends Component {
                 {filterOption === '1' ? (
                     <PinSelectorContainer />
                 ) : filterOption === '2' ? (
-                    <div className="custom-filters-block ignore-padding">
+                    <div className="custom-filters-block">
                         <div className="size-lg-12">
                             {fields.map(field => (
                                 <FilterField
@@ -72,7 +73,7 @@ class FurtherFiltrationContainer extends Component {
                                 type="button"
                                 className="button green"
                             >
-                                <i className="fa fa-plus" /> Add field
+                                <i className="fa fa-plus fa-fw" /> Add filter
                             </button>
                         </BlockButtonWrapper>
                     </div>
