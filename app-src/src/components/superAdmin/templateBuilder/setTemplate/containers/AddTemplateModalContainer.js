@@ -52,7 +52,6 @@ class TemplateFormModalContainer extends React.Component {
             setSection,
             setQuestion,
             setLabelFields,
-            setStatusOptions,
             name,
             serviceID,
             labelType,
@@ -64,7 +63,8 @@ class TemplateFormModalContainer extends React.Component {
             serviceID,
             labelType,
             uuid: templateUUID,
-            name
+            name,
+            statusOptions
         };
         const sectionUUID = generateUuid();
         const section1 = {
@@ -87,7 +87,6 @@ class TemplateFormModalContainer extends React.Component {
 
         const labelFields = generateLabelFields(labelType, templateUUID);
 
-        setStatusOptions(statusOptions);
         setTemplate(template, section1);
         setSection(section1);
         setQuestion(statusQuestion);

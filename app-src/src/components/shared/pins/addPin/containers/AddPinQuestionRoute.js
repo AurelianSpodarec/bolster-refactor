@@ -5,21 +5,19 @@ import { QUESTION_TYPE_VALUES } from 'constants/shared/templateBuilder';
 import updateAddPinAnswer from 'actions/companyAdmin/drawings/sync/updateAddPinAnswer';
 import resetPinAnswers from 'actions/companyAdmin/drawings/sync/resetPinAnswers';
 import { PIN_STATUS_TYPES } from 'constants/companyAdmin/enums';
-import { convertArrToObj, convertEnumToDropdownOptions } from 'helpers/generic';
 import updateAddPinStatus from 'actions/companyAdmin/drawings/sync/updateAddPinStatus';
 
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import TextAreaContainer from 'components/shared/generic/form/containers/TextAreaContainer';
-import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
 import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
 import FileUploadContainer from 'components/shared/generic/form/containers/FileUploadContainer';
 import RadioButtonListContainer from 'components/shared/generic/form/containers/RadioButtonListContainer';
 import SignatureContainer from 'components/shared/generic/form/containers/SignatureContainer';
-import MultiDropdownContainer from 'components/shared/generic/form/containers/MultiDropdownContainer';
 import Field from 'components/shared/generic/form/presentational/Field';
 import BoundlessSelect from 'components/shared/generic/form/presentational/BoundlessSelect';
 import NumberInputContainer from 'components/shared/generic/form/containers/NumberInputContainer';
 import Select from 'components/shared/generic/form/presentational/Select';
+import MultiSelect from 'components/shared/generic/form/presentational/MultiSelect';
 
 const {
     SINGLE_LINE,
@@ -86,17 +84,15 @@ const SingleDropdown = ({
     answers,
     handleChange
 }) => {
-    const formattedOpts = options.map(({ id, text }) => ({ value: id, text }));
-    const convertedOpts = convertArrToObj(formattedOpts, 'value');
-    const answerID = answers[id];
+    const opts = options.map(({ id, text }) => ({ value: id, label: text }));
 
     return (
-        <DropdownContainer
+        <Select
             placeholder="-- select --"
             name={`answer-${id}`}
-            options={formattedOpts}
-            selectedOption={convertedOpts[answerID]}
-            handleChange={handleChange}
+            options={opts}
+            value={answers[id]}
+            onChange={handleChange}
             required={isRequired}
         />
     );
@@ -105,20 +101,18 @@ const SingleDropdown = ({
 const MultiDropdown = ({
     question: { id, options, isRequired },
     answers,
-    handleMultiDropdownChange
+    handleChange
 }) => {
-    const formattedOpts = options.map(({ id, text }) => ({
-        value: id,
-        label: text
-    }));
+    const opts = options.map(({ id, text }) => ({ value: id, label: text }));
 
     return (
-        <MultiDropdownContainer
-            required={isRequired}
-            options={formattedOpts}
+        <MultiSelect
+            placeholder="-- select --"
+            options={opts}
             value={answers[id]}
             name={`answer-${id}`}
-            handleChange={handleMultiDropdownChange}
+            onChange={handleChange}
+            required={isRequired}
         />
     );
 };
@@ -198,8 +192,8 @@ const Status = ({ status, handleStatusChange, statusOptions = [] }) => {
             placeholder="-- select --"
             name="pinStatus"
             options={options}
-            selectedOption={status}
-            handleChange={handleStatusChange}
+            value={status}
+            onChange={handleStatusChange}
             required
         />
     );
@@ -212,20 +206,15 @@ const DropdownOptions = ({
 }) => {
     const formattedOpts = dropdownOptions
         .filter(option => option.type === optionType)
-        .map(({ name }) => ({
-            value: name,
-            text: name
-        }));
-    const convertedOpts = convertArrToObj(formattedOpts, 'value');
-    const answerID = answers[id];
+        .map(({ name }) => ({ value: name, label: name }));
 
     return (
-        <DropdownContainer
+        <Select
             placeholder="-- select --"
             name={`answer-${id}`}
             options={formattedOpts}
-            selectedOption={convertedOpts[answerID]}
-            handleChange={handleChange}
+            selectedOption={answers[id]}
+            onChange={handleChange}
             required={isRequired}
         />
     );
@@ -235,22 +224,19 @@ const MultiDropdownOptions = ({
     question: { id, isRequired, optionType },
     dropdownOptions,
     answers,
-    handleMultiDropdownChange
+    handleChange
 }) => {
-    const formattedOpts = dropdownOptions
+    const opts = dropdownOptions
         .filter(option => option.type === optionType)
-        .map(({ name }) => ({
-            value: name,
-            label: name
-        }));
+        .map(({ name }) => ({ value: name, label: name }));
 
     return (
-        <MultiDropdownContainer
+        <MultiSelect
             required={isRequired}
-            options={formattedOpts}
+            options={opts}
             value={answers[id]}
             name={`answer-${id}`}
-            handleChange={handleMultiDropdownChange}
+            onChange={handleChange}
         />
     );
 };
@@ -258,7 +244,7 @@ const MultiDropdownOptions = ({
 const MultiMulti = ({
     question: { id, options, isRequired },
     answers,
-    handleMultiMultiChange
+    handleChange
 }) => {
     const formattedOpts = options.map(({ id, text }) => ({
         value: id,
@@ -271,7 +257,7 @@ const MultiMulti = ({
             options={formattedOpts}
             value={answers[id]}
             name={`answer-${id}`}
-            onChange={handleMultiMultiChange}
+            onChange={handleChange}
             search
         />
     );
@@ -281,7 +267,7 @@ const MultiMultiDropdownOptions = ({
     question: { id, isRequired, optionType },
     dropdownOptions,
     answers,
-    handleMultiMultiChange
+    handleChange
 }) => {
     const formattedOpts = dropdownOptions
         .filter(option => option.type === optionType)
@@ -296,7 +282,7 @@ const MultiMultiDropdownOptions = ({
             options={formattedOpts}
             value={answers[id]}
             name={`answer-${id}`}
-            onChange={handleMultiMultiChange}
+            onChange={handleChange}
             search
         />
     );
@@ -447,11 +433,7 @@ class AddPinQuestionRoute extends Component {
                         handleStatusChange={this.handleStatusChange}
                         handleFileChange={this.handleFileChange}
                         handleSignatureChange={this.handleSignatureChange}
-                        handleMultiDropdownChange={
-                            this.handleMultiDropdownChange
-                        }
                         sigPad={this.state.sigPad}
-                        handleMultiMultiChange={this.handleMultiMultiChange}
                     />
                 </Field>
             );
@@ -468,18 +450,6 @@ class AddPinQuestionRoute extends Component {
 
     handleChange = (_, value) => {
         const { updateAddPinAnswer, question } = this.props;
-        updateAddPinAnswer(question.id, value);
-    };
-
-    handleMultiDropdownChange = e => {
-        const { updateAddPinAnswer, question } = this.props;
-        const result = e.map(a => a.value);
-        updateAddPinAnswer(question.id, result);
-    };
-
-    handleMultiMultiChange = (_, value) => {
-        const { updateAddPinAnswer, question } = this.props;
-
         updateAddPinAnswer(question.id, value);
     };
 

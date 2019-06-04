@@ -24,7 +24,6 @@ import setSection from 'actions/superAdmin/templateBuilder/sync/setSection';
 import fetchCompanySubscription from 'actions/superAdmin/companies/async/fetchCompanySubscription';
 import setQuestion from 'actions/superAdmin/templateBuilder/sync/setQuestion';
 import setLabelFields from 'actions/superAdmin/templateBuilder/sync/setLabelFields';
-import setStatusOptions from 'actions/superAdmin/templateBuilder/sync/setStatusOptions';
 
 const statusDropdownOptions = Object.entries(PIN_STATUS_TYPES).map(
     ([value, label]) => ({
@@ -198,10 +197,6 @@ export default function(WrappedComponent) {
         setLabelFields: (labelFields, templateUUID) => {
             dispatch(setLabelFields(labelFields, templateUUID));
         },
-        setStatusOptions: (statusOptions, templateUUID) => {
-            dispatch(setStatusOptions(statusOptions, templateUUID));
-        },
-
         fetchData: () => {
             dispatch(fetchAllServices());
             dispatch(fetchCompanySubscription(companyID));
