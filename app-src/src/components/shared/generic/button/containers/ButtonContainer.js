@@ -29,7 +29,7 @@ class ButtonContainer extends Component {
                     ? setColourHoverCode
                     : setColour
             };
-        } else {
+        } else if (this.state.hover) {
             style = {
                 backgroundColor: this.state.hover ? colourCode : '#939393'
             };
