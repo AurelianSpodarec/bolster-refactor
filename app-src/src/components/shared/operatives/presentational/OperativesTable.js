@@ -33,20 +33,23 @@ const OperativesTable = ({
                     {isAddOperativeDisabled ? 'Full' : 'Invite'}
                 </ButtonContainer>
             </BlockHeading>
-            <Table
-                headers={['Name', 'Actions']}
-                isFetching={isFetching}
-                error={error}
-                noData={!operatives.length}
-                noDataMessage="No operatives to display."
-                withActions
-            >
-                <OperativesList
-                    operatives={operatives}
-                    handleDeleteOperativeModal={handleDeleteOperativeModal}
-                    documentID={id}
-                />
-            </Table>
+            <div className="hide-overflow size-lg-12">
+                <Table
+                    headers={['Name', 'Actions']}
+                    isFetching={isFetching}
+                    error={error}
+                    noData={!operatives.length}
+                    noDataMessage="No operatives to display."
+                    withActions
+                    extraClasses="with-scrollbar"
+                >
+                    <OperativesList
+                        operatives={operatives}
+                        handleDeleteOperativeModal={handleDeleteOperativeModal}
+                        documentID={id}
+                    />
+                </Table>
+            </div>
         </div>
     );
 };

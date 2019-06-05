@@ -17,13 +17,14 @@ const DocumentsTable = ({ location, documents, isFetching }) => {
                     <i className="fa fa-plus" /> Add
                 </ButtonContainer>
             </BlockHeading>
-            <div className="table-container size-lg-12">
+            <div className="hide-overflow size-lg-12">
                 <Table
                     headers={['Name', 'Actions']}
                     isFetching={isFetching}
                     noData={!documents.length}
                     noDataMessage="No documents to display."
                     withActions
+                    extraClasses="with-scrollbar"
                 >
                     <DocumentsList location={location} documents={documents} />
                 </Table>

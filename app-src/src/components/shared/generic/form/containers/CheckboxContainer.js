@@ -38,7 +38,9 @@ class CheckboxContainer extends Component {
             />
         );
     }
-    componentDidMount = () => this._validate();
+    componentDidMount = () => {
+        this._validate();
+    };
 
     componentDidUpdate = ({ checked: prevChecked }) => {
         if (this.props.checked !== prevChecked) this._validate();

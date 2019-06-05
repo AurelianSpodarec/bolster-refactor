@@ -1,7 +1,7 @@
 import React from 'react';
 
-import WhiteLogo from '_content/images/footer/logo-white.png';
-import BlackLogo from '_content/images/footer/logo-black.png';
+import WhiteLogo from '_content/images/footer/powered-by-bolster-white.svg';
+import BlackLogo from '_content/images/footer/powered-by-bolster-black.svg';
 import defaultStyles from 'constants/defaultStyles';
 
 const logos = {
@@ -23,8 +23,9 @@ const Footer = ({ company }) => (
             </p>
 
             <img
-                alt="logo of Bolster Systems"
                 src={company.isBolsterLogoDark ? logos.black : logos.white}
+                className="footer-logo"
+                alt="powered by bolster systems logo"
             />
 
             <div className="clear" />
@@ -33,3 +34,4 @@ const Footer = ({ company }) => (
 );
 
 export default Footer;
+// company.isBolsterLogoDark ? logos.black : logos.white

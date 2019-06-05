@@ -19,6 +19,7 @@ import BoundlessSelect from 'components/shared/generic/form/presentational/Bound
 import NumberInputContainer from 'components/shared/generic/form/containers/NumberInputContainer';
 import Select from 'components/shared/generic/form/presentational/Select';
 import MultiSelect from 'components/shared/generic/form/presentational/MultiSelect';
+import { RAW_S3_STORAGE_URL } from 'config';
 
 const {
     SINGLE_LINE,
@@ -145,24 +146,44 @@ const Radio = ({
 const SinglePhoto = ({
     question: { isRequired, id },
     answers,
-    handleFileChange
-}) => (
-    <FileUploadContainer
-        name={`answer-${id}`}
-        required={isRequired}
-        acceptedTypes={['image/*']}
-        maxFiles={1}
-        handleChange={handleFileChange}
-        value={answers[id]}
-    />
-);
+    handleFileChange,
+    edit
+}) =>
+    edit ? (
+        <img
+            alt=""
+            src={`${RAW_S3_STORAGE_URL}/${answers[id]}`}
+            style={{ maxWidth: '100%' }}
+        />
+    ) : (
+        <FileUploadContainer
+            name={`answer-${id}`}
+            required={isRequired}
+            acceptedTypes={['image/*']}
+            maxFiles={1}
+            handleChange={handleFileChange}
+            value={answers[id]}
+        />
+    );
 
 const MultiPhoto = ({
     question: { isRequired, maxPhotos, id },
     answers,
-    handleFileChange
-}) => {
-    return (
+    handleFileChange,
+    edit
+}) =>
+    edit ? (
+        <div>
+            {answers[id].map(src => (
+                <img
+                    key={src}
+                    alt=""
+                    src={`${RAW_S3_STORAGE_URL}/${src}`}
+                    style={{ maxWidth: '100%' }}
+                />
+            ))}
+        </div>
+    ) : (
         <FileUploadContainer
             name={`answer-${id}`}
             required={isRequired}
@@ -172,7 +193,6 @@ const MultiPhoto = ({
             value={answers[id]}
         />
     );
-};
 
 const Signature = ({ question: { isRequired, id }, handleSignatureChange }) => (
     <SignatureContainer
@@ -301,7 +321,8 @@ class AddPinQuestionRoute extends Component {
             questions,
             dropdownOptions,
             status,
-            selectedVersion
+            selectedVersion,
+            edit
         } = this.props;
 
         const fieldTypes = {
@@ -402,7 +423,6 @@ class AddPinQuestionRoute extends Component {
 
             return false;
         };
-        console.log(dropdownOptions);
 
         const showPreReq = checkIfShouldShowByPreReq(
             question.id,
@@ -437,6 +457,7 @@ class AddPinQuestionRoute extends Component {
                         handleFileChange={this.handleFileChange}
                         handleSignatureChange={this.handleSignatureChange}
                         sigPad={this.state.sigPad}
+                        edit={edit}
                     />
                 </Field>
             );

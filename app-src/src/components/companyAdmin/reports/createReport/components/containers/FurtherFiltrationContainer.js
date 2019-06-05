@@ -8,7 +8,10 @@ import { FILTER_FIELDS } from 'constants/shared/modalTypes';
 import FurtherFiltration from '../presentational/FurtherFiltration';
 import PinSelectorContainer from 'components/shared/pinSelector/container/PinSelectorContainer';
 import updateReportFilter from 'actions/companyAdmin/reports/sync/updateReportFilter';
-import { convertEnumToDropdownOptions } from 'helpers/generic';
+import {
+    convertEnumToDropdownOptions,
+    removeDuplicates
+} from 'helpers/generic';
 import addFilterQuestion from 'actions/companyAdmin/reports/sync/addFilterQuestion';
 import removeFilterQuestion from 'actions/companyAdmin/reports/sync/removeFilterQuestion';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
@@ -113,13 +116,16 @@ class FurtherFiltrationContainer extends Component {
     removeCustomField = id => this.props.removeFilterQuestion(id);
 
     _getQuestionsOptions = () => {
-        return this.props.customQuestions.reduce(
+        const { customQuestions } = this.props;
+        const uniques = removeDuplicates(customQuestions, true);
+        const options = uniques.reduce(
             (acc, curr) => ({
                 ...acc,
                 [curr.id]: { value: curr.id, text: curr.name }
             }),
             {}
         );
+        return options;
     };
 
     handleChange = (name, value) => this.setState({ [name]: value });

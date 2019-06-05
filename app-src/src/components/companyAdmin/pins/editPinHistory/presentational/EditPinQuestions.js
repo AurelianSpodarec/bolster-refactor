@@ -22,6 +22,7 @@ const EditPinQuestions = ({ sections, questions, selectedVersion }) =>
                                 key={question.id}
                                 question={question}
                                 selectedVersion={selectedVersion}
+                                edit
                             />
                         ))}
                 </div>
