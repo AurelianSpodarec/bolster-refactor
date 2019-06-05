@@ -15,6 +15,7 @@ import {
     POST_TEMPLATE_SUCCESS,
     FETCH_TEMPLATE_SUCCESS
 } from 'constants/actionTypes/templateBuilder';
+import { formatQuestions } from 'helpers/templates';
 
 export default combineReducers({
     questions: questionsReducer
@@ -23,7 +24,10 @@ export default combineReducers({
 function questionsReducer(state = {}, action) {
     switch (action.type) {
         case FETCH_TEMPLATE_SUCCESS:
-            return { ...state, ...convertArrToObj(action.questions, 'uuid') };
+            return {
+                ...state,
+                ...convertArrToObj(formatQuestions(action.questions), 'uuid')
+            };
         case SET_QUESTION:
             return updateObj(state, action.question.uuid, action.question);
         case CHANGE_QUESTION_SECTION:

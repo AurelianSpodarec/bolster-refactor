@@ -56,6 +56,7 @@ const TemplateBuilderHeaderContainer = ({
                 uuid: newSectionUUID,
                 newTemplateUUID
             });
+
             templateSectionQuestions.forEach(({ sectionUUID, ...question }) => {
                 if (sectionUUID === template.uuid) {
                     const newQuestionUUID = newUUID();
@@ -67,6 +68,7 @@ const TemplateBuilderHeaderContainer = ({
                 }
             });
         });
+
         const newLabelFields = labelFields.map(lField => ({
             ...lField,
             templateUUID: newTemplateUUID,
