@@ -22,19 +22,22 @@ const ClientsTable = ({
                 <i className="fa fa-plus" /> Invite
             </ButtonContainer>
         </BlockHeading>
-        <Table
-            headers={['Name', 'Actions']}
-            isFetching={isFetching}
-            error={error}
-            noData={!clients.length}
-            noDataMessage="No clients to display."
-        >
-            <ClientsList
-                handleDeleteClientModal={handleDeleteClientModal}
-                location={location}
-                clients={clients}
-            />
-        </Table>
+        <div className="hide-overflow size-lg-12">
+            <Table
+                headers={['Name', 'Actions']}
+                isFetching={isFetching}
+                error={error}
+                noData={!clients.length}
+                noDataMessage="No clients to display."
+                extraClasses="with-scrollbar"
+            >
+                <ClientsList
+                    handleDeleteClientModal={handleDeleteClientModal}
+                    location={location}
+                    clients={clients}
+                />
+            </Table>
+        </div>
     </div>
 );
 
