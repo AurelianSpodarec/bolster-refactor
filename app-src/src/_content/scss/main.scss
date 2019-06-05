@@ -80,7 +80,12 @@ body {
             flex: none;
             display: block;
         }
-
+        // .hide-overflow {
+        //     min-height: 130px;
+        //     max-height: 130px;
+        //     overflow-y: scroll;
+        //     overflow-x: hidden;
+        // }
         .generic-table {
             min-height: 165px;
             tbody {
@@ -2171,7 +2176,7 @@ input {
 //leaflet map
 .leaflet-container {
     width: 100%;
-    height: 388px;
+    height: 465px;
 }
 
 .map-details {
