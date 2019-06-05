@@ -47,7 +47,8 @@ import {
     SET_LABEL_FIELDS,
     SUCCESS_MODAL,
     FILTER_FIELDS,
-    UNLINK_DEVICE
+    UNLINK_DEVICE,
+    COPY_TEMPLATE
 } from 'constants/shared/modalTypes';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
@@ -98,6 +99,7 @@ import CreateCompanyAdminModal from 'components/companyAdmin/userManagement/comp
 import LoadingDataModal from '../presentational/LoadingDataModal';
 import UnlinkDeviceModalContainer from './UnlinkDeviceModalContainer';
 import CreateOperativeModal from 'components/companyAdmin/userManagement/operatives/createOperative/presentational/CreateOperativeModal';
+import CopyTemplateModalContainer from 'components/superAdmin/templateBuilder/copyTemplate/containers/CopyTemplateModalContainer';
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModalContainer,
@@ -129,6 +131,7 @@ const MODAL_COMPONENTS = {
     [PAYMENT_SUCCESS]: PaymentSuccessModalContainer,
     [PIN_IMAGE]: PinPhotoModal,
     [RENAME_TEMPLATE_SECTION]: RenameTemplateSectionModalContainer,
+    [COPY_TEMPLATE]: CopyTemplateModalContainer,
     [SUCCESS_MODAL]: SuccessModalContainer.WrappedComponent,
     [EDIT_FLOOR_PLAN]: EditFloorPlanModalContainer,
     [CONFIRM_EDIT_PIN]: ConfirmEditPinModalContainer,

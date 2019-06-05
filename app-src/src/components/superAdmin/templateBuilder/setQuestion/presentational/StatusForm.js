@@ -9,7 +9,6 @@ const options = Object.entries(PIN_STATUS_TYPES).map(([value, label]) => ({
 }));
 
 const StatusForm = ({ statusOptions, handleInputChange }) => {
-    console.log(statusOptions);
     return (
         <Field name="Status">
             <MultiSelect
