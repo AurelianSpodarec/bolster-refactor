@@ -12,8 +12,7 @@ const AdminFooter = () => (
             <img
                 alt="logo of Bolster Systems"
                 src={WhiteLogo}
-                width="93"
-                height="40"
+                className="footer-logo"
             />
 
             <div className="clear" />
