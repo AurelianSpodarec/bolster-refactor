@@ -81,18 +81,18 @@ class LevelsFilterContainer extends Component {
             siteID: this.updateSite
         };
         const update = updateMethods[name];
-        // if (shouldConfirm && !mount) {
-        //     const handleSubmit = () => {
-        //         hideModal();
-        //         return update(value).then(postFilters);
-        //     };
-        //     const message =
-        //         'Changing this will reset your further filtration options, continue?';
-        //     // * confirm and then do this:
-        //     showModal(CONFIRM_SUBMIT, { handleSubmit, message, hideModal });
-        // } else {
-        return update(value).then(postFilters);
-        // }
+        if (shouldConfirm && !mount) {
+            const handleSubmit = () => {
+                hideModal();
+                return update(value).then(postFilters);
+            };
+            const message =
+                'Changing this will reset your further filtration options, continue?';
+            // * confirm and then do this:
+            showModal(CONFIRM_SUBMIT, { handleSubmit, message, hideModal });
+        } else {
+            return update(value).then(postFilters);
+        }
     };
 
     _formatArrForDropdown = arr => {
@@ -137,7 +137,7 @@ class LevelsFilterContainer extends Component {
             customFilters: { pins = [] },
             handleChange
         } = this.props;
-        if (pins.length && !prevPins.length) {
+        if (pins.length !== prevPins.length) {
             handleChange('pinIDs', pins.map(({ id }) => id));
         }
     };
