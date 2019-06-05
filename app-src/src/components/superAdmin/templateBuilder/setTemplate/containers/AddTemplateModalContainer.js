@@ -71,7 +71,8 @@ class TemplateFormModalContainer extends React.Component {
             uuid: sectionUUID,
             templateUUID,
             name: 'Section 1',
-            sort: 1
+            sort: 1,
+            isAfterLabel: false
         };
 
         const statusQuestion = {

@@ -6,13 +6,15 @@ import Field from 'components/shared/generic/form/presentational/Field';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
+import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
 
 const TemplateSectionFormModal = ({
     name,
     handleChange,
     handleSubmit,
     hideModal,
-    action
+    action,
+    isAfterLabel
 }) => (
     <ModalOuterContainer>
         <BlockHeading title={`${action} section`} />
@@ -25,6 +27,13 @@ const TemplateSectionFormModal = ({
                         name="name"
                         value={name}
                         required
+                    />
+                </Field>
+                <Field name="After label?" required>
+                    <CheckboxContainer
+                        handleChange={handleChange}
+                        name="isAfterLabel"
+                        checked={isAfterLabel}
                     />
                 </Field>
             </div>
