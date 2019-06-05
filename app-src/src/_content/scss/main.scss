@@ -2133,8 +2133,6 @@ input {
     bottom: 0;
     position: fixed;
     padding: 7px 0;
-    float: left;
-    z-index: 1000;
 
     p {
         float: left;
@@ -2145,8 +2143,12 @@ input {
         }
     }
 
-    img {
-        float: right;
+    .container {
+        height: 42px;
+        img {
+            position: absolute;
+            @include content-center;
+        }
     }
 
     &.basic {
