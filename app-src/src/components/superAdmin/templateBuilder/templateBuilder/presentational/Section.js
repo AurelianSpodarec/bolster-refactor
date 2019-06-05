@@ -18,12 +18,17 @@ const Section = ({
 }) => (
     <div className="template-block size-lg-12">
         <BlockContainer contentClass={isActive && 'active'}>
-            <BlockHeading classes="w-table" title={section.name}>
+            <BlockHeading
+                classes="w-table"
+                title={`${section.name} - ${
+                    section.isAfterLabel ? '' : 'not '
+                } after label`}
+            >
                 <button className="button icon-only">
                     <i className="fa fa-eye" />
                 </button>
                 <button className="button blue" onClick={showRenameSectModal}>
-                    Rename
+                    Update
                 </button>
             </BlockHeading>
 
