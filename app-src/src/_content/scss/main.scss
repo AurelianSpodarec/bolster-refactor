@@ -33,7 +33,7 @@ body {
 
 .container {
     width: 100%;
-    max-width: 1400px;
+    max-width: 1700px;
     padding: 0 15px;
     margin: 0 auto;
     height: calc(100% - 69px);
@@ -80,12 +80,13 @@ body {
             flex: none;
             display: block;
         }
-        // .hide-overflow {
-        //     min-height: 130px;
-        //     max-height: 130px;
-        //     overflow-y: scroll;
-        //     overflow-x: hidden;
-        // }
+        .hide-overflow {
+            min-height: 130px;
+            max-height: 130px;
+            overflow-y: scroll;
+            width: calc(100% + 30px);
+            margin-left: -15px;
+        }
         .generic-table {
             min-height: 165px;
             tbody {
@@ -1858,6 +1859,10 @@ input {
                 text-align: right;
             }
         }
+    }
+    &.with-scrollbar {
+        width: 100%;
+        margin-left: 0;
     }
 
     tr {
