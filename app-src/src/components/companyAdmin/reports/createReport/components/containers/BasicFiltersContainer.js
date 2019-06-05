@@ -109,17 +109,17 @@ class BasicFiltersContainer extends Component {
             shouldConfirm
         } = this.props;
 
-        // if (shouldConfirm) {
-        //     const handleSubmit = () => {
-        //         hideModal();
-        //         handleChange(name, value).then(postFilters);
-        //     };
-        //     const message =
-        //         'Changing this will reset your further filtration options, continue?';
-        //     showModal(CONFIRM_SUBMIT, { handleSubmit, message, hideModal });
-        // } else {
-        handleChange(name, value).then(postFilters);
-        // }
+        if (shouldConfirm) {
+            const handleSubmit = () => {
+                hideModal();
+                handleChange(name, value).then(postFilters);
+            };
+            const message =
+                'Changing this will reset your further filtration options, continue?';
+            showModal(CONFIRM_SUBMIT, { handleSubmit, message, hideModal });
+        } else {
+            handleChange(name, value).then(postFilters);
+        }
     };
 }
 

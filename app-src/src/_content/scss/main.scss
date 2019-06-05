@@ -81,8 +81,8 @@ body {
             display: block;
         }
         .hide-overflow {
-            min-height: 130px;
-            max-height: 130px;
+            min-height: 140px;
+            max-height: 140px;
             overflow-y: scroll;
             width: calc(100% + 30px);
             margin-left: -15px;
@@ -113,8 +113,19 @@ body {
         tr {
             td {
                 font-size: 11px;
-                padding: 7px 15px;
+                padding: 6px 15px;
                 vertical-align: top;
+            }
+        }
+    }
+    &.two-line {
+        .generic-table {
+            tr {
+                td {
+                    font-size: 11px;
+                    padding: 3px 15px;
+                    vertical-align: top;
+                }
             }
         }
     }
