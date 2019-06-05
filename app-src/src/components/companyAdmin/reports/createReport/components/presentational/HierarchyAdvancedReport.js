@@ -13,7 +13,7 @@ const HierarchyAdvancedReport = () => (
             <BasicFiltersContainer blockName="basicFilters" />
         </div>
 
-        {/*<FurtherFiltrationContainer />*/}
+        <FurtherFiltrationContainer />
         <OutputSettingsContainer />
     </>
 );
