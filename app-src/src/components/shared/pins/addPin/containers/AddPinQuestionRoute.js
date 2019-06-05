@@ -20,6 +20,7 @@ import NumberInputContainer from 'components/shared/generic/form/containers/Numb
 import Select from 'components/shared/generic/form/presentational/Select';
 import MultiSelect from 'components/shared/generic/form/presentational/MultiSelect';
 import { RAW_S3_STORAGE_URL } from 'config';
+import resetPinAnswer from 'actions/companyAdmin/drawings/sync/resetPinAnswer';
 
 const {
     SINGLE_LINE,
@@ -43,43 +44,48 @@ const SingleLine = ({
     question: { id, isRequired, charLimit },
     answers,
     handleChange
-}) => (
-    <TextInputContainer
-        required={isRequired}
-        name={`answer-${id}`}
-        value={answers[id]}
-        handleChange={handleChange}
-        charLimit={charLimit}
-    />
-);
+}) => {
+    return (
+        <TextInputContainer
+            required={isRequired}
+            name={`answer-${id}`}
+            value={answers[id]}
+            handleChange={handleChange}
+            charLimit={charLimit}
+        />
+    );
+};
 
 const MultiLine = ({
     question: { id, isRequired, charLimit },
     answers,
     handleChange
-}) => (
-    <TextAreaContainer
-        required={isRequired}
-        name={`answer-${id}`}
-        value={answers[id]}
-        handleChange={handleChange}
-        charLimit={charLimit}
-    />
-);
-
+}) => {
+    return (
+        <TextAreaContainer
+            required={isRequired}
+            name={`answer-${id}`}
+            value={answers[id]}
+            handleChange={handleChange}
+            charLimit={charLimit}
+        />
+    );
+};
 const NumberInput = ({
     question: { id, isRequired, maxNum },
     answers,
     handleChange
-}) => (
-    <NumberInputContainer
-        required={isRequired}
-        name={`answer-${id}`}
-        value={answers[id]}
-        maxNum={maxNum}
-        handleChange={handleChange}
-    />
-);
+}) => {
+    return (
+        <NumberInputContainer
+            required={isRequired}
+            name={`answer-${id}`}
+            value={answers[id]}
+            maxNum={maxNum}
+            handleChange={handleChange}
+        />
+    );
+};
 
 const SingleDropdown = ({
     question: { id, isRequired, options },
@@ -119,37 +125,41 @@ const MultiDropdown = ({
     );
 };
 
-const CheckBox = ({ question: { id, isRequired }, answers, handleChange }) => (
-    <CheckboxContainer
-        required={isRequired}
-        checked={answers[id] || false}
-        name={`answer-${id}`}
-        text=""
-        handleChange={handleChange}
-    />
-);
+const CheckBox = ({ question: { id, isRequired }, answers, handleChange }) => {
+    return (
+        <CheckboxContainer
+            required={isRequired}
+            checked={answers[id] || false}
+            name={`answer-${id}`}
+            text=""
+            handleChange={handleChange}
+        />
+    );
+};
 
 const Radio = ({
     question: { id, options, isRequired },
     answers,
     handleChange
-}) => (
-    <RadioButtonListContainer
-        name={`answer-${id}`}
-        options={options}
-        selectedOption={answers[id]}
-        handleChange={handleChange}
-        required={isRequired}
-    />
-);
+}) => {
+    return (
+        <RadioButtonListContainer
+            name={`answer-${id}`}
+            options={options}
+            selectedOption={answers[id]}
+            handleChange={handleChange}
+            required={isRequired}
+        />
+    );
+};
 
 const SinglePhoto = ({
     question: { isRequired, id },
     answers,
     handleFileChange,
     edit
-}) =>
-    edit ? (
+}) => {
+    return edit ? (
         <img
             alt=""
             src={`${RAW_S3_STORAGE_URL}/${answers[id]}`}
@@ -165,14 +175,15 @@ const SinglePhoto = ({
             value={answers[id]}
         />
     );
+};
 
 const MultiPhoto = ({
     question: { isRequired, maxPhotos, id },
     answers,
     handleFileChange,
     edit
-}) =>
-    edit ? (
+}) => {
+    return edit ? (
         <div>
             {answers[id].map(src => (
                 <img
@@ -193,15 +204,18 @@ const MultiPhoto = ({
             value={answers[id]}
         />
     );
+};
 
-const Signature = ({ question: { isRequired, id }, handleSignatureChange }) => (
-    <SignatureContainer
-        name={`answer-${id}`}
-        canvasProps={{ width: 500, height: 200, className: 'sigCanvas' }}
-        required={isRequired}
-        onChange={handleSignatureChange}
-    />
-);
+const Signature = ({ question: { isRequired, id }, handleSignatureChange }) => {
+    return (
+        <SignatureContainer
+            name={`answer-${id}`}
+            canvasProps={{ width: 500, height: 200, className: 'sigCanvas' }}
+            required={isRequired}
+            onChange={handleSignatureChange}
+        />
+    );
+};
 
 const Status = ({ status, handleStatusChange, statusOptions = [] }) => {
     const options = Object.entries(PIN_STATUS_TYPES)
@@ -234,7 +248,7 @@ const DropdownOptions = ({
             placeholder="-- select --"
             name={`answer-${id}`}
             options={formattedOpts}
-            selectedOption={answers[id]}
+            value={answers[id]}
             onChange={handleChange}
             required={isRequired}
         />
@@ -322,7 +336,8 @@ class AddPinQuestionRoute extends Component {
             dropdownOptions,
             status,
             selectedVersion,
-            edit
+            edit,
+            resetPinAnswer
         } = this.props;
 
         const fieldTypes = {
@@ -343,88 +358,7 @@ class AddPinQuestionRoute extends Component {
             [MULTI_MULTI_DROPDOWN_OPTIONS]: MultiMultiDropdownOptions
         };
 
-        const SpecificField = fieldTypes[question.type + ''] || SingleLine;
-
-        const checkIfShouldShowByPreReq = (
-            currentQuestionID,
-            prerequisiteQuestionID,
-            answers,
-            questions
-        ) => {
-            const preReqQuestion = questions[prerequisiteQuestionID];
-            let preReqAnswer = answers[prerequisiteQuestionID];
-            const curQuestion = questions[currentQuestionID];
-
-            if (!preReqQuestion) {
-                //No Pre Req Question So Show
-                return true;
-            }
-
-            if (preReqQuestion.type + '' === STATUS + '') {
-                return question.prerequisiteQuestionValue + '' === status + '';
-            }
-
-            if (preReqQuestion.type == QUESTION_TYPE_VALUES.CHECKBOX) {
-                //Convert true to 'true'
-                preReqAnswer = preReqAnswer + '';
-            }
-
-            if (
-                preReqQuestion.type == QUESTION_TYPE_VALUES.DROPDOWN ||
-                preReqQuestion.type == QUESTION_TYPE_VALUES.RADIO
-            ) {
-                //For a drop down we have to convert the GUID to the questin option.
-                const selectedOption = preReqQuestion.options.filter(
-                    option => option.id == preReqAnswer
-                );
-
-                if (selectedOption && selectedOption.length > 0) {
-                    preReqAnswer = selectedOption[0].text;
-                } else {
-                    return false;
-                }
-            }
-
-            if (preReqQuestion.type == QUESTION_TYPE_VALUES.MULTI_DROPDOWN) {
-                const retArray = [];
-
-                if (!preReqAnswer) {
-                    return false;
-                }
-
-                preReqAnswer.forEach(curAnswer => {
-                    const selectedOption = preReqQuestion.options.filter(
-                        option => option.id == curAnswer
-                    );
-
-                    if (selectedOption && selectedOption.length > 0) {
-                        retArray.push(selectedOption[0].text);
-                    }
-                });
-
-                preReqAnswer = retArray;
-            }
-
-            /*eslint-enable */
-
-            if (Array.isArray(preReqAnswer)) {
-                //TODO maybe so case in-sensitive check
-                if (
-                    preReqAnswer.includes(curQuestion.prerequisiteQuestionValue)
-                ) {
-                    return true;
-                }
-            } else {
-                if (curQuestion.prerequisiteQuestionValue === preReqAnswer) {
-                    //Exactly matches value
-                    return true;
-                }
-            }
-
-            return false;
-        };
-
-        const showPreReq = checkIfShouldShowByPreReq(
+        const showPreReq = this.checkIfShouldShowByPreReq(
             question.id,
             question.prerequisiteQuestionID,
             answers,
@@ -439,6 +373,8 @@ class AddPinQuestionRoute extends Component {
 
         const name = `${question.name}${maxValueMessage}`;
         if (showPreReq) {
+            const SpecificField = fieldTypes[question.type + ''] || SingleLine;
+
             return (
                 <Field
                     key={question.id}
@@ -458,12 +394,13 @@ class AddPinQuestionRoute extends Component {
                         handleSignatureChange={this.handleSignatureChange}
                         sigPad={this.state.sigPad}
                         edit={edit}
+                        resetPinAnswer={resetPinAnswer}
                     />
                 </Field>
             );
         }
 
-        return <></>;
+        return null;
     }
 
     componentDidMount() {
@@ -486,6 +423,105 @@ class AddPinQuestionRoute extends Component {
             resetPinAnswers();
         }
     }
+    checkIfShouldShowByPreReq = (
+        currentQuestionID,
+        prerequisiteQuestionID,
+        answers,
+        questions
+    ) => {
+        const { question, status } = this.props;
+        const preReqQuestion = questions[prerequisiteQuestionID];
+        let preReqAnswer = answers[prerequisiteQuestionID];
+        const curQuestion = questions[currentQuestionID];
+
+        if (!preReqQuestion) {
+            //No Pre Req Question So Show
+            return true;
+        }
+
+        if (preReqQuestion.type + '' === STATUS + '') {
+            return question.prerequisiteQuestionValue + '' === status + '';
+        }
+
+        if (preReqQuestion.type == QUESTION_TYPE_VALUES.CHECKBOX) {
+            //Convert true to 'true'
+            preReqAnswer = preReqAnswer + '';
+        }
+
+        if (
+            preReqQuestion.type == QUESTION_TYPE_VALUES.DROPDOWN ||
+            preReqQuestion.type == QUESTION_TYPE_VALUES.RADIO
+        ) {
+            //For a drop down we have to convert the GUID to the questin option.
+            const selectedOption = preReqQuestion.options.filter(
+                option => option.id == preReqAnswer
+            );
+
+            if (selectedOption && selectedOption.length > 0) {
+                preReqAnswer = selectedOption[0].text;
+            } else {
+                return false;
+            }
+        }
+
+        if (preReqQuestion.type == QUESTION_TYPE_VALUES.MULTI_DROPDOWN) {
+            const retArray = [];
+
+            if (!preReqAnswer) {
+                return false;
+            }
+
+            preReqAnswer.forEach(curAnswer => {
+                const selectedOption = preReqQuestion.options.filter(
+                    option => option.id == curAnswer
+                );
+
+                if (selectedOption && selectedOption.length > 0) {
+                    retArray.push(selectedOption[0].text);
+                }
+            });
+
+            preReqAnswer = retArray;
+
+            /*eslint-enable */
+
+            if (Array.isArray(preReqAnswer)) {
+                //TODO maybe so case in-sensitive check
+                if (
+                    preReqAnswer.includes(curQuestion.prerequisiteQuestionValue)
+                ) {
+                    return true;
+                }
+            } else {
+                if (curQuestion.prerequisiteQuestionValue === preReqAnswer) {
+                    //Exactly matches value
+                    return true;
+                }
+            }
+
+            return false;
+        }
+    };
+    // componentWillUnmount = () => {
+    //     console.error('HELLO I AM UNMOUNTING');
+    //     // remove from reducer when prereq no longer met
+    //     const {
+    //         resetPinAnswer,
+    //         question: { id }
+    //     } = this.props;
+    //     resetPinAnswer(id);
+    // };
+
+    componentDidUpdate = () => {
+        const { question, answers, questions, resetPinAnswer } = this.props;
+        const prereq = this.checkIfShouldShowByPreReq(
+            question.id,
+            question.prerequisiteQuestionID,
+            answers,
+            questions
+        );
+        if (!prereq && answers[question.id]) resetPinAnswer(question.id);
+    };
 
     handleChange = (_, value) => {
         const { updateAddPinAnswer, question } = this.props;
@@ -584,6 +620,7 @@ const mapStateToProps = (
 const mapDispatchToProps = {
     updateAddPinAnswer,
     resetPinAnswers,
+    resetPinAnswer,
     updateAddPinStatus
 };
 

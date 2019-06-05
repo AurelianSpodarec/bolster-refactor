@@ -15,7 +15,7 @@ const AllOperativesTable = ({
     <BlockContainer>
         <BlockHeading title="Operatives">
             <button className="button green" onClick={handleShowModal}>
-                <i className="fa fa-plus" /> Attach Operative
+                <i className="fa fa-plus" /> Create Operative
             </button>
         </BlockHeading>
         <Table
