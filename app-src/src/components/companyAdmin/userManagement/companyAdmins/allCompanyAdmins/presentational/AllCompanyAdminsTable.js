@@ -23,7 +23,7 @@ const AllCompanyAdminsTable = ({
                     setColour={GREEN}
                     setColourHoverCode={GREEN_HOVER}
                 >
-                    <i className="fa fa-plus" /> Add Company Admin
+                    <i className="fa fa-plus" /> Create Company Admin
                 </ButtonContainer>
                 {/* <Link
                     className="button green"
