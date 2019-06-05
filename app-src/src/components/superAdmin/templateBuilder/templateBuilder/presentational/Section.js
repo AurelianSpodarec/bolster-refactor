@@ -20,9 +20,8 @@ const Section = ({
         <BlockContainer contentClass={isActive && 'active'}>
             <BlockHeading
                 classes="w-table"
-                title={`${section.name} - ${
-                    section.isAfterLabel ? '' : 'not '
-                } after label`}
+                title={`${section.name}`}
+                subTitle={section.isAfterLabel ? '' : '- not after label'}
             >
                 <button className="button icon-only">
                     <i className="fa fa-eye" />

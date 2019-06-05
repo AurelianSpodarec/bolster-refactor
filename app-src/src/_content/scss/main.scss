@@ -1004,10 +1004,20 @@ input {
             max-width: 100%;
         }
     }
+    &.w-subtitle {
+        margin-bottom: 10px;
+    }
     .heading {
         float: left;
         max-width: 70%;
         text-transform: capitalize;
+    }
+
+    p {
+        &.sub-title {
+            color: $text-grey;
+            display: block;
+        }
     }
 
     .small-text {
