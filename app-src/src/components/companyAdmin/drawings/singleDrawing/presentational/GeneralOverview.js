@@ -23,7 +23,7 @@ const GeneralOverview = ({ handleDelete, handleArchive, drawing }) => (
                 <DrawingCompaniesAccessContainer />
             </div>
 
-            <div className="flex-item size-lg-3">
+            <div className="flex-item small-text-table size-lg-3">
                 <DrawingDocumentsContainer />
             </div>
 
