@@ -30,21 +30,13 @@ class SectionContainer extends Component {
             connectDropTarget,
             deleteSection,
             showAddQuestModal,
-            showRenameSectModal,
-            sections
+            showRenameSectModal
         } = this.props;
-
-        let tooltipMessage;
-        if (sections.length <= 1)
-            tooltipMessage = 'You must have at least one section.';
-        else if (!this._isDeletable())
-            tooltipMessage =
-                'This section has prerequisites with dependants in other sections.';
 
         return connectDropTarget(
             <div className="size-lg-12">
                 <Section
-                    tooltipMessage={tooltipMessage}
+                    tooltipMessage={this._getTooltip()}
                     isActive={canDrop && isOver}
                     section={section}
                     questions={questions}
@@ -59,6 +51,24 @@ class SectionContainer extends Component {
             </div>
         );
     }
+
+    _getTooltip = () => {
+        const { sections, questions } = this.props;
+        const includesStatus = !!questions.filter(
+            s => s.questionType + '' === QUESTION_TYPE_VALUES.STATUS + ''
+        ).length;
+
+        let tooltipMessage;
+        if (sections.length <= 1)
+            tooltipMessage = 'You must have at least one section.';
+        else if (!this._isDeletable())
+            tooltipMessage =
+                'This section has prerequisites with dependants in other sections.';
+        else if (includesStatus)
+            tooltipMessage = 'This section contains the \'Status\' question ';
+
+        return tooltipMessage;
+    };
 
     _isDeletable = () => {
         const {
@@ -106,7 +116,10 @@ class SectionContainer extends Component {
         };
 
         questions.forEach(question => {
-            if (question.type + '' !== QUESTION_TYPE_VALUES.STATUS + '') {
+            if (
+                question.questionType + '' !==
+                QUESTION_TYPE_VALUES.STATUS + ''
+            ) {
                 setQuestion({
                     ...question,
                     questionType: question.questionType,
