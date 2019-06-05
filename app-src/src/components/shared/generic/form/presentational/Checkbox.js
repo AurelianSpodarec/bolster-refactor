@@ -1,8 +1,8 @@
 import React from 'react';
 
 const Checkbox = ({
-    value,
-    checked,
+    value = false,
+    checked = false,
     handleChange,
     name,
     text = '',

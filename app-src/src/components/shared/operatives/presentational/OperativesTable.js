@@ -41,7 +41,7 @@ const OperativesTable = ({
                     noData={!operatives.length}
                     noDataMessage="No operatives to display."
                     withActions
-                    extraClasses="fix-height"
+                    extraClasses="with-scrollbar"
                 >
                     <OperativesList
                         operatives={operatives}
