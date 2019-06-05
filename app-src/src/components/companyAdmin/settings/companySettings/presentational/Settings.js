@@ -53,15 +53,13 @@ const Settings = ({ isFetching, error, companySettings: company }) => {
 
                     <div className="size-lg-4">
                         <FieldOutput
-                            title="Fax"
-                            description={company.fax || notProvided}
+                            title="Telephone"
+                            description={company.telephone || notProvided}
                             fieldClass="no-h-padding"
                         />
                         <FieldOutput
-                            title="Company Reg. Number"
-                            description={
-                                company.companyRegistrationNumber || notProvided
-                            }
+                            title="Fax"
+                            description={company.fax || notProvided}
                             fieldClass="no-h-padding"
                         />
                     </div>

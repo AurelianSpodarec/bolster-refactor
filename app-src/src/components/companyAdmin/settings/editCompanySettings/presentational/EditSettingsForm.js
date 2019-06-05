@@ -107,13 +107,12 @@ const EditSettingsForm = ({
                     required
                 />
             </Field>
-            <Field name="Fax No." sizeClasses="size-lg-6" required>
+            <Field name="Fax No." sizeClasses="size-lg-6">
                 <TextInputContainer
                     value={fax}
                     name="fax"
                     type="text"
                     handleChange={handleInputChange}
-                    required
                 />
             </Field>
             <div>
@@ -167,27 +166,23 @@ const EditSettingsForm = ({
                 <Field
                     name="Label Company Name"
                     sizeClasses="size-lg-6"
-                    required
                 >
                     <TextInputContainer
                         value={labelCompanyName}
                         name="labelCompanyName"
                         type="text"
                         handleChange={handleInputChange}
-                        required
                     />
                 </Field>
                 <Field
                     name="Label Telephone No."
                     sizeClasses="size-lg-6"
-                    required
                 >
                     <TextInputContainer
                         value={labelTelNumber}
                         name="labelTelNumber"
                         type="text"
                         handleChange={handleInputChange}
-                        required
                     />
                 </Field>
             </div>
