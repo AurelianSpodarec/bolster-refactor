@@ -12,7 +12,7 @@ const DateTimeContainer = ({ date, timeZone, dateFormat, className = '' }) => (
     <Moment
         tz={timeZone}
         format={dateFormat}
-        date={date}
+        date={date + '+00:00'}
         className={className}
     />
 );

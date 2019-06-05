@@ -23,20 +23,25 @@ const CompaniesAccessTable = ({
                 <i className="fa fa-plus" /> Invite
             </ButtonContainer>
         </BlockHeading>
-        <Table
-            headers={smallPod ? ['Name', 'Actions'] : ['Name', '', 'Actions']}
-            isFetching={isFetching}
-            noData={!companies.length}
-            noDataMessage="No companies to display"
-            withActions
-        >
-            <CompaniesAccessListContainer
-                handleShowModal={handleShowModal}
-                companies={companies}
-                parentId={parentId}
-                smallPod={smallPod}
-            />
-        </Table>
+        <div className="hide-overflow size-lg-12">
+            <Table
+                headers={
+                    smallPod ? ['Name', 'Actions'] : ['Name', '', 'Actions']
+                }
+                isFetching={isFetching}
+                noData={!companies.length}
+                noDataMessage="No companies to display"
+                withActions
+                extraClasses="with-scrollbar"
+            >
+                <CompaniesAccessListContainer
+                    handleShowModal={handleShowModal}
+                    companies={companies}
+                    parentId={parentId}
+                    smallPod={smallPod}
+                />
+            </Table>
+        </div>
     </div>
 );
 
