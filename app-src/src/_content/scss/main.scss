@@ -2140,6 +2140,9 @@ input {
         float: left;
         font-size: 120%;
         padding-top: 13px;
+        sup {
+            vertical-align: super;
+        }
     }
 
     img {
