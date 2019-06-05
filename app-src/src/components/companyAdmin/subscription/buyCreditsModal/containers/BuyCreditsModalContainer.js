@@ -70,6 +70,7 @@ class BuyCreditsModalContainer extends Component {
             });
         }
         if (postSuccess && !prevProps.postSuccess) {
+            fetchAllCredits();
             showModal(PAYMENT_SUCCESS, {
                 message: `Your order has been successfully placed and your new credits ${
                     +paymentType === PAYMENT_IDS.CARD
@@ -112,22 +113,22 @@ const mapStateToProps = ({
         cardsReducer: { cards, isFetching }
     }
 }) => ({
-    cards: Object.values(cards) || [],
+    cards: Object.values(cards || {}),
     costOfCredits,
     postSuccess,
     postError,
     isFetching
 });
 
-const mapDispatchToProps = dispatch => ({
-    createCredits: body => dispatch(createCredits(body)),
-    fetchAllCards: () => dispatch(fetchAllCards()),
-    fetchCostOfCredits: () => dispatch(fetchCostOfCredits()),
-    fetchAllCredits: () => dispatch(fetchAllCredits()),
-    fetchAllInvoices: () => dispatch(fetchAllInvoices()),
-    showModal: (type, props) => dispatch(showModal(type, props)),
-    hideModal: () => dispatch(hideModal())
-});
+const mapDispatchToProps = {
+    createCredits,
+    fetchAllCards,
+    fetchCostOfCredits,
+    fetchAllCredits,
+    fetchAllInvoices,
+    showModal,
+    hideModal
+};
 
 export default connect(
     mapStateToProps,
