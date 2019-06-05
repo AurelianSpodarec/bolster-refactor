@@ -9,7 +9,9 @@ const TemplatesTable = ({ headers, isFetching, error, templates }) => (
         isFetching={isFetching}
         error={error}
         noData={!templates.length}
-        noDataMessage={'No templates to display.'}
+        noDataMessage={
+            'No templates to display. Please contact Bolster Systems to get a new template set up.'
+        }
     >
         <TemplatesList templates={templates} />
     </Table>

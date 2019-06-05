@@ -14,7 +14,7 @@ const CreateReportForm = () => (
             <BasicFiltersContainer blockName="basicFilters" />
         </div>
 
-        {/* <FurtherFiltrationContainer /> */}
+         <FurtherFiltrationContainer />
         <OutputSettingsContainer />
     </>
 );
