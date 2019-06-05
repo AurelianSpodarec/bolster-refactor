@@ -2,9 +2,10 @@ import { combineReducers } from 'redux';
 import {
     UPDATE_ADD_PIN_ANSWER,
     RESET_PIN_ANSWERS,
-    UPDATE_ADD_PIN_STATUS
+    UPDATE_ADD_PIN_STATUS,
+    RESET_PIN_ANSWER
 } from 'constants/actionTypes/drawings';
-import { updateObj } from 'helpers/generic';
+import { updateObj, removeObjItem } from 'helpers/generic';
 
 export default combineReducers({
     answers: answersReducer,
@@ -17,6 +18,8 @@ function answersReducer(state = {}, action) {
             return updateObj(state, action.key, action.value);
         case RESET_PIN_ANSWERS:
             return {};
+        case RESET_PIN_ANSWER:
+            return removeObjItem(state, action.id);
         default:
             return state;
     }
