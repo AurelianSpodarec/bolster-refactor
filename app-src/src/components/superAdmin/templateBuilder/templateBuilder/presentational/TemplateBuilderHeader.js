@@ -8,8 +8,7 @@ const TemplateBuilderHeader = ({
     showTemplateForm,
     serviceName,
     isExisting,
-    showAddSectionModal,
-    addTemplateFromExisting
+    showAddSectionModal
 }) => (
     <PageHeading
         title={`Template builder : ${name} ${
@@ -24,12 +23,6 @@ const TemplateBuilderHeader = ({
             </button>
             {isExisting && (
                 <>
-                    <button
-                        onClick={addTemplateFromExisting}
-                        className="button green"
-                    >
-                        <i className="fa fa-plus" /> Copy Template
-                    </button>
                     <button
                         onClick={showAddSectionModal}
                         className="button blue"

@@ -1,5 +1,4 @@
 import React from 'react';
-import newUUID from 'uuid/v1';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
@@ -16,18 +15,13 @@ const TemplateBuilderHeaderContainer = ({
     template,
     isExisting,
     showAddSectionModal,
-    serviceName,
-    templateSections,
-    labelFields,
-    templateSectionQuestions,
-    postTemplate
+    serviceName
 }) => {
     return (
         <TemplateBuilderHeader
             showTemplateForm={showTemplateForm}
             name={template.name}
             serviceName={serviceName}
-            addTemplateFromExisting={addTemplateFromExisting}
             showAddSectionModal={showAddSectionModal}
             isExisting={isExisting}
         />
@@ -38,60 +32,12 @@ const TemplateBuilderHeaderContainer = ({
             ? showAddTemplateForm(uuid, companyID)
             : showEditTemplateForm(template, companyID);
     }
-
-    function addTemplateFromExisting() {
-        const newTemplateUUID = newUUID();
-        const newTemplate = {
-            ...template,
-            name: `${template.name}(copy)`,
-            uuid: newTemplateUUID
-        };
-        const newSections = [];
-        const newQuestions = [];
-
-        templateSections.forEach(template => {
-            const newSectionUUID = newUUID();
-            newSections.push({
-                ...template,
-                uuid: newSectionUUID,
-                newTemplateUUID
-            });
-
-            templateSectionQuestions.forEach(({ sectionUUID, ...question }) => {
-                if (sectionUUID === template.uuid) {
-                    const newQuestionUUID = newUUID();
-                    newQuestions.push({
-                        ...question,
-                        sectionUUID: newSectionUUID,
-                        uuid: newQuestionUUID
-                    });
-                }
-            });
-        });
-
-        const newLabelFields = labelFields.map(lField => ({
-            ...lField,
-            templateUUID: newTemplateUUID,
-            uuid: newUUID()
-        }));
-
-        const postBody = {
-            template: newTemplate,
-            sections: newSections,
-            questions: newQuestions,
-            labelFields: newLabelFields
-        };
-        postTemplate(postBody);
-    }
 };
 
 const mapStateToProps = (
     {
         superAdmin: {
             templatesReducer: { templates },
-            templateSectionsReducer: { sections },
-            templateQuestionsReducer: { questions },
-            templateLabelFieldsReducer: { labelFields },
             adminServicesReducer: { adminServices: services }
         }
     },
@@ -102,22 +48,9 @@ const mapStateToProps = (
     }
 ) => {
     const template = templates[uuid] || { serviceID: '' };
-    const templateSections = Object.values(sections).filter(
-        ({ templateUUID }) => templateUUID === uuid
-    );
-    const sectionIDs = templateSections.map(({ uuid }) => uuid);
-    const templateSectionQuestions = Object.values(questions).filter(
-        ({ sectionUUID }) => sectionIDs.includes(sectionUUID)
-    );
-    const templatelabelFields = Object.values(labelFields).filter(
-        ({ templateUUID }) => templateUUID === uuid
-    );
     const service = services[template.serviceID] || {};
     return {
-        template,
-        templateSections,
-        templateSectionQuestions,
-        labelFields: templatelabelFields,
+        template: templates[uuid] || { serviceID: '' },
         uuid,
         companyID,
         serviceName: services && template ? service.name : ''
