@@ -8,13 +8,15 @@ import TemplateSectionFormModal from '../presentational/TemplateSectionFormModal
 
 class EditTemplateSectionModalContainer extends React.Component {
     state = {
-        name: ''
+        name: '',
+        isAfterLabel: false
     };
     render() {
         return (
             <TemplateSectionFormModal
                 action="Edit"
                 name={this.state.name}
+                isAfterLabel={this.state.isAfterLabel}
                 handleChange={this.handleChange}
                 handleSubmit={this.handleSubmit}
                 hideModal={e => {
@@ -25,8 +27,10 @@ class EditTemplateSectionModalContainer extends React.Component {
         );
     }
     componentDidMount = () => {
+        const { name, isAfterLabel } = this.props.section;
         this.setState({
-            name: this.props.section.name
+            name,
+            isAfterLabel
         });
     };
 
@@ -37,8 +41,8 @@ class EditTemplateSectionModalContainer extends React.Component {
     handleSubmit = e => {
         e.preventDefault();
         const { section } = this.props;
-        const { name } = this.state;
-        this.props.setSection({ ...section, name });
+        const { name, isAfterLabel } = this.state;
+        this.props.setSection({ ...section, name, isAfterLabel });
     };
 }
 
