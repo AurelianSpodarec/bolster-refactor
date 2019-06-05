@@ -122,10 +122,10 @@ export const PIN_STATUS_TYPES = {
 };
 
 export const PIN_STATUS_COLOURS = {
-    10: 'green',
-    20: 'blue',
-    30: 'yellow',
-    40: 'red',
+    10: 'red',
+    20: 'green',
+    30: 'blue',
+    40: 'yellow',
     50: 'purple'
 };
 

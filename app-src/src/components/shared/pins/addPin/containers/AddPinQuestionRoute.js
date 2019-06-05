@@ -248,7 +248,7 @@ const DropdownOptions = ({
             placeholder="-- select --"
             name={`answer-${id}`}
             options={formattedOpts}
-            selectedOption={answers[id]}
+            value={answers[id]}
             onChange={handleChange}
             required={isRequired}
         />
