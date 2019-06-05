@@ -18,6 +18,7 @@ import setSection from 'actions/superAdmin/templateBuilder/sync/setSection';
 import deleteSection from 'actions/superAdmin/templateBuilder/sync/deleteSection';
 import setQuestion from 'actions/superAdmin/templateBuilder/sync/setQuestion';
 import deleteQuestion from 'actions/superAdmin/templateBuilder/sync/deleteQuestion';
+import { QUESTION_TYPE_VALUES } from 'constants/shared/templateBuilder';
 
 class SectionContainer extends Component {
     render() {
@@ -105,12 +106,14 @@ class SectionContainer extends Component {
         };
 
         questions.forEach(question => {
-            setQuestion({
-                ...question,
-                questionType: question.questionType,
-                sectionUUID: newUuid,
-                uuid: uuid()
-            });
+            if (question.type + '' !== QUESTION_TYPE_VALUES.STATUS + '') {
+                setQuestion({
+                    ...question,
+                    questionType: question.questionType,
+                    sectionUUID: newUuid,
+                    uuid: uuid()
+                });
+            }
         });
         setSection(newSection);
     };
