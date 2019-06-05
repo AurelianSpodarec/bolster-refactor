@@ -6,7 +6,7 @@ import uuid from 'uuid/v1';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import TemplatesTable from '../presentational/TemplatesTable';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
-import { ADD_TEMPLATE } from 'constants/shared/modalTypes';
+import { ADD_TEMPLATE, COPY_TEMPLATE } from 'constants/shared/modalTypes';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 
 class TemplatesTableContainer extends Component {
@@ -21,6 +21,12 @@ class TemplatesTableContainer extends Component {
                         onClick={this.showAddTemplateModal}
                     >
                         <i className="fa fa-plus" /> Add template
+                    </button>
+                    <button
+                        className="button green"
+                        onClick={this.showCloneTemplateModal}
+                    >
+                        <i className="fa fa-plus" /> Clone template
                     </button>
                 </BlockHeading>
                 <TemplatesTable
@@ -44,6 +50,12 @@ class TemplatesTableContainer extends Component {
 
         showModal(ADD_TEMPLATE, { companyID, uuid: newUuid });
         history.push(`${pathname}/template/${newUuid}`);
+    };
+
+    showCloneTemplateModal = () => {
+        const { showModal, companyID } = this.props;
+
+        showModal(COPY_TEMPLATE, { companyID });
     };
 }
 

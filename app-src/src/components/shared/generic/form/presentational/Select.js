@@ -120,9 +120,9 @@ const Select = ({
         if (!search || !searchTerm) return options;
         return options.filter(opt =>
             opt.label
-                .replace(/\s/g, '')
+                .replace(/[^A-Z0-9]/gi, '')
                 .toLowerCase()
-                .includes(searchTerm.replace(/\s/g, '').toLowerCase())
+                .includes(searchTerm.replace(/[^A-Z0-9]/gi, '').toLowerCase())
         );
     }
 
