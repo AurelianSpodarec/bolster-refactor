@@ -94,7 +94,7 @@ const CreateOperativeForm = ({
 
         <BlockButtonWrapper>
             <button className="button green">
-                <i className="fa fa-plus" /> Attach Operative
+                <i className="fa fa-plus" /> Submit
             </button>
             <ButtonContainer handleClick={hideModal}>Cancel</ButtonContainer>
         </BlockButtonWrapper>
