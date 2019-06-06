@@ -8,6 +8,7 @@ import TemplatesTable from '../presentational/TemplatesTable';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import { ADD_TEMPLATE, COPY_TEMPLATE } from 'constants/shared/modalTypes';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
+import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 
 class TemplatesTableContainer extends Component {
     render() {
@@ -15,20 +16,28 @@ class TemplatesTableContainer extends Component {
 
         return (
             <BlockContainer>
-                <BlockHeading title="Templates">
+                <div className="size-lg-6">
+                    <BlockHeading title="Templates" />
+                </div>
+
+                <BlockButtonWrapper
+                    additionalClasses="no-margin"
+                    sizeClasses="size-lg-6"
+                >
                     <button
                         className="button green"
                         onClick={this.showAddTemplateModal}
                     >
-                        <i className="fa fa-plus" /> Add template
+                        <i className="fa fa-plus" /> Add
                     </button>
                     <button
                         className="button green"
                         onClick={this.showCloneTemplateModal}
                     >
-                        <i className="fa fa-plus" /> Clone template
+                        <i className="fas fa-clone" /> Clone
                     </button>
-                </BlockHeading>
+                </BlockButtonWrapper>
+
                 <TemplatesTable
                     headers={['Name', '']}
                     templates={templates}
