@@ -29,7 +29,7 @@ const CopyTemplateModal = ({
             </Field>
             <BlockButtonWrapper>
                 <button className="button green">
-                    <i className="fa fa-plus" /> Add Question
+                    <i className="fa fa-plus" /> Clone template
                 </button>
                 <button className="button" type="button" onClick={hideModal}>
                     Cancel
