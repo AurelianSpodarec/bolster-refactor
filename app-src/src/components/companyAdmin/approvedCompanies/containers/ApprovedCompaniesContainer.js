@@ -1,10 +1,10 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 
 import ApprovedCompanies from '../presentational/ApprovedCompanies';
 
 const ApprovedCompaniesContainer = () => {
-    // useEffect(() => {
+    // React.useEffect(() => {
     //     fetchApprovedCompanies();
     // }, []);
     return <ApprovedCompanies />;

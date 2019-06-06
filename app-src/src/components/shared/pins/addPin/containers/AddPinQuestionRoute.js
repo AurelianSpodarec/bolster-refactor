@@ -433,18 +433,18 @@ class AddPinQuestionRoute extends Component {
             return question.prerequisiteQuestionValue + '' === status + '';
         }
 
-        if (preReqQuestion.type == QUESTION_TYPE_VALUES.CHECKBOX) {
+        if (preReqQuestion.type === QUESTION_TYPE_VALUES.CHECKBOX) {
             //Convert true to 'true'
             preReqAnswer = preReqAnswer + '';
         }
 
         if (
-            preReqQuestion.type == QUESTION_TYPE_VALUES.DROPDOWN ||
-            preReqQuestion.type == QUESTION_TYPE_VALUES.RADIO
+            preReqQuestion.type === QUESTION_TYPE_VALUES.DROPDOWN ||
+            preReqQuestion.type === QUESTION_TYPE_VALUES.RADIO
         ) {
             //For a drop down we have to convert the GUID to the questin option.
             const selectedOption = preReqQuestion.options.filter(
-                option => option.id == preReqAnswer
+                option => option.id === preReqAnswer
             );
 
             if (selectedOption && selectedOption.length > 0) {
@@ -454,7 +454,7 @@ class AddPinQuestionRoute extends Component {
             }
         }
 
-        if (preReqQuestion.type == QUESTION_TYPE_VALUES.MULTI_DROPDOWN) {
+        if (preReqQuestion.type === QUESTION_TYPE_VALUES.MULTI_DROPDOWN) {
             const retArray = [];
 
             if (!preReqAnswer) {
@@ -463,7 +463,7 @@ class AddPinQuestionRoute extends Component {
 
             preReqAnswer.forEach(curAnswer => {
                 const selectedOption = preReqQuestion.options.filter(
-                    option => option.id == curAnswer
+                    option => option.id === curAnswer
                 );
 
                 if (selectedOption && selectedOption.length > 0) {

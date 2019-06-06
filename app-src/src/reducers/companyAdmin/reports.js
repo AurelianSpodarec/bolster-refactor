@@ -18,7 +18,7 @@ import {
     POST_REPORT_NO_PINS
 } from 'constants/actionTypes/reports';
 import { updateObj, removeObjItem, convertArrToObj } from 'helpers/generic';
-import { SORT_BY_OPTIONS, LAYOUT_OPTIONS } from 'constants/companyAdmin/enums';
+import { SORT_BY_OPTIONS } from 'constants/companyAdmin/enums';
 
 export default combineReducers({
     customFilters: customFiltersReducer,
