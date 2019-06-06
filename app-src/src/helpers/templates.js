@@ -42,7 +42,7 @@ export const getSectionQuestions = (sections, questions) =>
         {}
     );
 
-export const getQuestionDetails = question => {
+export const getQuestionDetails = (question, dropdownOptions) => {
     const {
         name,
         questionType,
@@ -72,13 +72,20 @@ export const getQuestionDetails = question => {
         case VALS.DROPDOWN:
         case VALS.MULTI_DROPDOWN:
         case VALS.MULTI_MULTI_DROPDOWN:
-        case VALS.DROPDOWN_OPTIONS:
-        case VALS.MULTI_MULTI_DROPDOWN_OPTIONS:
         case VALS.RADIO:
             return {
                 ...options,
                 'Question options': question.options
                     .map(({ text }) => `"${text}"`)
+                    .join(', ')
+            };
+        case VALS.MULTI_DROPDOWN_OPTIONS:
+        case VALS.MULTI_MULTI_DROPDOWN_OPTIONS:
+        case VALS.DROPDOWN_OPTIONS:
+            return {
+                ...options,
+                'Question options': dropdownOptions
+                    .map(({ name }) => name)
                     .join(', ')
             };
 

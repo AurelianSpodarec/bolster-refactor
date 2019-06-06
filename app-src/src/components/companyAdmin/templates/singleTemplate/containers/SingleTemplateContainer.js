@@ -30,8 +30,9 @@ class SingleTemplateContainer extends Component {
     };
 
     componentDidMount = () => {
-        this.props.selectQuestion(0);
-        this.props.fetchAllTemplates();
+        const { selectQuestion, fetchAllTemplates } = this.props;
+        selectQuestion(0);
+        fetchAllTemplates();
     };
 }
 
@@ -41,7 +42,8 @@ const mapStateToProps = (
             templatesReducer: { templates, isFetching, error },
             templateSectionsReducer: { sections },
             templateVersionsReducer: { versions },
-            templateQuestionsReducer: { questions }
+            templateQuestionsReducer: { questions },
+            dropdownOptionsReducer: { isFetching: fetchingOptions }
         }
     },
     ownProps
@@ -50,16 +52,12 @@ const mapStateToProps = (
     versions: Object.values(versions),
     sections: Object.values(sections),
     questions: Object.values(questions),
-    isFetching,
+    isFetching: !!(isFetching || fetchingOptions),
     error,
     id: ownProps.match.params.id
 });
 
-const mapDispatchToProps = dispatch => ({
-    fetchAllTemplates: () => dispatch(fetchAllTemplates()),
-    selectQuestion: id => dispatch(selectQuestion(id))
-});
-
+const mapDispatchToProps = { fetchAllTemplates, selectQuestion };
 export default withRouter(
     connect(
         mapStateToProps,
