@@ -102,6 +102,13 @@ body {
         }
     }
 }
+//underline text
+.underline {
+    text-decoration: underline;
+}
+.underline-full {
+    border-bottom: 2px solid $grey-alt;
+}
 
 .small-text-table {
     .block-heading {
@@ -1060,6 +1067,9 @@ input {
         &.small {
             line-height: 21px;
         }
+    }
+    &.half-margin {
+        margin: 5px 0;
     }
 }
 
@@ -3839,6 +3849,22 @@ input {
     }
 }
 
+//company logo
+.company-logo {
+    border: 1px solid $grey-alt;
+    padding: 5px;
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    @include rounded-all;
+    img {
+        width: 100%;
+        max-width: 300px;
+        height: auto;
+    }
+}
+
 .app-slider {
     position: absolute;
     top: 12.2%;
@@ -4117,6 +4143,7 @@ input {
         }
     }
 }
+
 //CONTACT PAGE
 #contact {
     float: left;
