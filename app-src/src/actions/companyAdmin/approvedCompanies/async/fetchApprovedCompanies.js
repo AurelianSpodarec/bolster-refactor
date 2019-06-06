@@ -23,7 +23,6 @@ export const fetchAllApprovedCompaniesFailure = error => ({
 });
 
 export default () => dispatch => {
-    console.error('hey');
     dispatch(fetchAllApprovedCompaniesRequest());
 
     return axios

@@ -40,11 +40,13 @@ import templateVersionsReducer from './templateVersions';
 import templateQuestionsReducer from './templateQuestions';
 import transferRequestsReducer from './transferRequests';
 import dropdownOptionsReducer from './dropdownOptions';
+import approvedCompaniesReducer from './approvedCompanies';
 
 export default combineReducers({
     addPinDropdownOptions,
     addPinCoordinatesReducer,
     addPinFormReducer,
+    approvedCompaniesReducer,
     buildingsReducer,
     cardsReducer,
     clientsReducer,

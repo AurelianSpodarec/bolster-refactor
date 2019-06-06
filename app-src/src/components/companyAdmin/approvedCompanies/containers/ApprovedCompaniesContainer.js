@@ -5,7 +5,7 @@ import fetchApprovedCompanies from 'actions/companyAdmin/approvedCompanies/async
 
 import ApprovedCompanies from '../presentational/ApprovedCompanies';
 
-const ApprovedCompaniesContainer = () => {
+const ApprovedCompaniesContainer = ({ fetchApprovedCompanies }) => {
     useEffect(() => {
         fetchApprovedCompanies();
     }, []);
