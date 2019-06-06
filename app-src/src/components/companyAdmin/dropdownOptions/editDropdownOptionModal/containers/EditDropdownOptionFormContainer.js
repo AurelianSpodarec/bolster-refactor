@@ -50,7 +50,6 @@ class EditDropdownOptionContainer extends Component {
     handleSubmit = e => {
         e.preventDefault();
         const {
-            hideModal,
             editDropdownOption,
             option: { id, type }
         } = this.props;
@@ -60,7 +59,6 @@ class EditDropdownOptionContainer extends Component {
         };
 
         editDropdownOption(id, type, postBody);
-        hideModal();
     };
 }
 

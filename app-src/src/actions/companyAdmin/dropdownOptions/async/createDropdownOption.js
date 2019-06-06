@@ -26,12 +26,13 @@ export const createDropdownOptionFailure = error => ({
 export default (type, postBody) => dispatch => {
     dispatch(createDropdownOptionRequest());
 
-    axios
+    return axios
         .post(`${API_URL}/dropdownoptions/${type}`, postBody, getHeaders())
         .then(result => dispatch(createDropdownOptionSuccess(result.data)))
         .catch(error => {
-            dispatch(createDropdownOptionFailure(error));
             if (error.response.status === 400)
                 dispatch(setAPIFieldErrors(error.response.data.errors));
+
+            return dispatch(createDropdownOptionFailure(error));
         });
 };

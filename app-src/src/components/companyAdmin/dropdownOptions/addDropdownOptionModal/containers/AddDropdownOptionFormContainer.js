@@ -23,28 +23,19 @@ class AddDropdownOptionFormContainer extends Component {
         );
     }
 
-    // componentDidUpdate = prevProps => {
-    //     const { postSuccess, history, updatedSiteID } = this.props;
-
-    //     if (postSuccess && !prevProps.postSuccess) {
-    //         history.push(`/company/sites/${updatedSiteID}`);
-    //     }
-    // };
-
     handleInputChange = (name, value) => {
         this.setState({ [name]: value });
     };
 
     handleSubmit = e => {
         e.preventDefault();
-        const { hideModal, createDropdownOption, type } = this.props;
+        const { createDropdownOption, type } = this.props;
 
         const postBody = {
             ...this.state
         };
 
         createDropdownOption(type, postBody);
-        hideModal();
     };
 }
 
@@ -57,14 +48,10 @@ const mapStateToProps = ({
     error
 });
 
-const mapDispatchToProps = dispatch => ({
-    createDropdownOption: (type, postBody) => {
-        dispatch(createDropdownOption(type, postBody));
-    },
-    hideModal: () => {
-        dispatch(hideModal());
-    }
-});
+const mapDispatchToProps = {
+    createDropdownOption,
+    hideModal
+};
 
 export default withRouter(
     connect(

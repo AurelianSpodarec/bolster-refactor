@@ -34,8 +34,9 @@ export default (id, type, postBody) => dispatch => {
         )
         .then(result => dispatch(editDropdownOptionSuccess(result.data)))
         .catch(error => {
-            dispatch(editDropdownOptionFailure(error));
             if (error.response.status === 400)
                 dispatch(setAPIFieldErrors(error.response.data.errors));
+
+            return dispatch(editDropdownOptionFailure(error));
         });
 };
