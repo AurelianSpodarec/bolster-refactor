@@ -5,7 +5,6 @@ import { withRouter } from 'react-router-dom';
 import AddPinFormContainer from 'components/shared/pins/addPin/containers/AddPinFormContainer';
 import fetchDrawingTemplates from 'actions/companyAdmin/drawings/async/fetchDrawingTemplates';
 import fetchDrawingDropdownOptions from 'actions/companyAdmin/drawings/async/fetchDrawingDropdownOptions';
-import fetchAllDropdownOptions from 'actions/companyAdmin/dropdownOptions/async/fetchAllDropdownOptions';
 
 class AddPinContainer extends Component {
     render = () => (
