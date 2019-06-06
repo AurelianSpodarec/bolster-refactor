@@ -160,11 +160,7 @@ const SinglePhoto = ({
     edit
 }) => {
     return edit ? (
-        <img
-            alt=""
-            src={`${RAW_S3_STORAGE_URL}/${answers[id]}`}
-            style={{ maxWidth: '100%' }}
-        />
+        <img alt="" src={`${RAW_S3_STORAGE_URL}/${answers[id]}`} />
     ) : (
         <FileUploadContainer
             name={`answer-${id}`}
@@ -185,13 +181,8 @@ const MultiPhoto = ({
 }) => {
     return edit ? (
         <div>
-            {answers[id].map(src => (
-                <img
-                    key={src}
-                    alt=""
-                    src={`${RAW_S3_STORAGE_URL}/${src}`}
-                    style={{ maxWidth: '100%' }}
-                />
+            {(answers[id] || []).map(src => (
+                <img key={src} alt="" src={`${RAW_S3_STORAGE_URL}/${src}`} />
             ))}
         </div>
     ) : (
@@ -368,11 +359,17 @@ class AddPinQuestionRoute extends Component {
         if (showPreReq) {
             const SpecificField = fieldTypes[question.type + ''] || SingleLine;
 
+            const extraImageClasses =
+                (edit && question.type + '' === MULTI_PHOTO) ||
+                question.type + '' === SINGLE_PHOTO
+                    ? 'photo-view'
+                    : '';
+
             return (
                 <Field
                     key={question.id}
                     name={question.name}
-                    sizeClasses="size-lg-6 flex-row-item"
+                    sizeClasses={`size-lg-6 flex-row-item ${extraImageClasses}`}
                     required={question.isRequired}
                 >
                     <SpecificField
