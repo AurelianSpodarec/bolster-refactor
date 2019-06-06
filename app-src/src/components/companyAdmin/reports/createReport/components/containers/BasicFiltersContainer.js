@@ -35,6 +35,7 @@ class BasicFiltersContainer extends Component {
                 reportHistories
             }
         } = this.props;
+        console.log(this.props.shouldConfirm);
 
         const serviceOptions = formatArrForDropdown(services, true);
         const statusOptions = convertEnumToDropdownOptions(PIN_STATUS_TYPES);

@@ -83,12 +83,16 @@ class FurtherFiltrationContainer extends Component {
             </BlockContainer>
         );
     }
-    componentDidUpdate = prevProps => {
+    componentDidUpdate = (prevProps, prevState) => {
         const {
             filters: { siteID, buildingID, floorID, drawingID },
             removeFilterQuestions
         } = this.props;
-
+        // reset filter fields if changing the filter
+        const { filterOption } = this.state;
+        if (prevState.filterOption !== filterOption) {
+            removeFilterQuestions();
+        }
         // reset further filters if site info changes
         if (
             siteID !== prevProps.filters.siteID ||
