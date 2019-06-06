@@ -14,7 +14,9 @@ class EditTemplateModalContainer extends React.Component {
             hideModal,
             handleChange,
             statusDropdownOptions,
-            statusOptions
+            statusOptions,
+            reportLayout,
+            reportLayoutOptions
         } = this.props;
 
         return (
@@ -27,6 +29,8 @@ class EditTemplateModalContainer extends React.Component {
                 selectedService={selectedService}
                 statusDropdownOptions={statusDropdownOptions}
                 statusOptions={statusOptions}
+                reportLayout={reportLayout}
+                reportLayoutOptions={reportLayoutOptions}
                 handleChange={handleChange}
                 handleCancel={hideModal}
                 handleSubmit={this.handleSubmit}
@@ -37,11 +41,23 @@ class EditTemplateModalContainer extends React.Component {
     componentDidMount = () => {
         const {
             updateState,
-            template: { name, serviceID, labelType, statusOptions },
+            template: {
+                name,
+                serviceID,
+                labelType,
+                statusOptions,
+                reportLayout
+            },
             fetchData
         } = this.props;
         fetchData();
-        updateState({ name, serviceID, labelType, statusOptions });
+        updateState({
+            name,
+            serviceID,
+            labelType,
+            statusOptions,
+            reportLayout
+        });
     };
 
     handleSubmit = e => {
@@ -55,7 +71,8 @@ class EditTemplateModalContainer extends React.Component {
             name,
             serviceID,
             labelType,
-            statusOptions
+            statusOptions,
+            reportLayout
         } = this.props;
 
         const updatedTemplate = {
@@ -63,7 +80,8 @@ class EditTemplateModalContainer extends React.Component {
             name,
             serviceID,
             labelType,
-            statusOptions
+            statusOptions,
+            reportLayout
         };
 
         setTemplate(updatedTemplate);

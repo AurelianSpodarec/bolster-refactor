@@ -9,6 +9,7 @@ import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/pr
 import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
 import LabelTypeRadioButtonsContainer from '../containers/LabelTypeRadioButtonsContainer';
 import MultiSelect from 'components/shared/generic/form/presentational/MultiSelect';
+import Select from 'components/shared/generic/form/presentational/Select';
 
 const TemplateformModal = ({
     action,
@@ -19,6 +20,8 @@ const TemplateformModal = ({
     labelType,
     statusDropdownOptions,
     statusOptions,
+    reportLayout,
+    reportLayoutOptions,
     handleChange,
     handleSubmit,
     handleCancel
@@ -51,6 +54,16 @@ const TemplateformModal = ({
                     onChange={handleChange}
                     options={statusDropdownOptions}
                     value={statusOptions}
+                    required
+                />
+            </Field>
+            <Field name="Report layout" required>
+                <Select
+                    name="reportLayout"
+                    placeholder="-- select layout option --"
+                    onChange={handleChange}
+                    options={reportLayoutOptions}
+                    value={reportLayout}
                     required
                 />
             </Field>

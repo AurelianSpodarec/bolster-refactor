@@ -98,7 +98,8 @@ class CopyTemplateModalContainer extends Component {
                         return {
                             ...q,
                             uuid: newQuestionUUID,
-                            sectionUUID: newSectionUUID
+                            sectionUUID: newSectionUUID,
+                            templateUUID: newTemplateUUID
                         };
                     });
 

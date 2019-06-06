@@ -18,7 +18,8 @@ import {
     LABEL_TYPES,
     LABEL_TYPES_NUMS,
     LABEL_QUES_TYPES_NUMS,
-    PIN_STATUS_TYPES
+    PIN_STATUS_TYPES,
+    LAYOUT_OPTIONS_TEXT
 } from 'constants/companyAdmin/enums';
 import setSection from 'actions/superAdmin/templateBuilder/sync/setSection';
 import fetchCompanySubscription from 'actions/superAdmin/companies/async/fetchCompanySubscription';
@@ -37,13 +38,21 @@ const labelTypeOptions = Object.entries(LABEL_TYPES).map(([value, label]) => ({
     label
 }));
 
+const reportLayoutOptions = Object.entries(LAYOUT_OPTIONS_TEXT).map(
+    ([value, label]) => ({
+        value: +value,
+        label
+    })
+);
+
 export default function(WrappedComponent) {
     class WithTemplateFromLogic extends React.Component {
         state = {
             name: '',
             serviceID: '',
             labelType: '',
-            statusOptions: []
+            statusOptions: [],
+            reportLayout: false
         };
 
         render() {
@@ -59,6 +68,7 @@ export default function(WrappedComponent) {
                     labelTypeOptions={labelTypeOptions}
                     serviceOptions={Object.values(serviceOptions)}
                     selectedService={serviceOptions[serviceID]}
+                    reportLayoutOptions={reportLayoutOptions}
                     handleChange={this.handleChange}
                     handleCancel={this.handleCancel}
                     generateLabelFields={this.generateLabelFields}
