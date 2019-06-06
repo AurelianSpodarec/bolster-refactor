@@ -81,7 +81,7 @@ export default function(ProtectedComponent) {
                     toDateInclusive,
                     companyUserIDs
                 },
-                options: { showHidden, layout, sortBy },
+                options: { showHidden, sortBy },
                 fields
             } = this.props;
 
@@ -128,7 +128,6 @@ export default function(ProtectedComponent) {
                 status: status || null,
                 questionFilters,
                 showHidden,
-                layout,
                 sortBy
             };
             return body;

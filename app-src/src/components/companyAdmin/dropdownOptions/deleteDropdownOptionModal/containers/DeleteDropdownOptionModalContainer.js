@@ -24,7 +24,6 @@ const mapDispatchToProps = dispatch => ({
     },
     handleDelete: (id, type) => {
         dispatch(deleteDropdownOption(id, type));
-        dispatch(hideModal());
     }
 });
 

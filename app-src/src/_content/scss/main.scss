@@ -49,7 +49,7 @@ body {
 
 #page-area {
     float: right;
-    width: calc(100% - 220px);
+    width: calc(100% - 250px);
     padding: 10px 5px;
     height: 100%;
     background-color: #212228;
@@ -187,6 +187,12 @@ body {
 
         .button {
             display: inline-block;
+        }
+    }
+    &.no-margin {
+        margin: 0;
+        button {
+            margin-bottom: 3px;
         }
     }
 
@@ -1138,6 +1144,13 @@ input {
             color: #767676;
         }
     }
+    &.photo-view {
+        img {
+            max-width: 150px;
+            margin: 0 5px;
+            border: 1px solid black;
+        }
+    }
 
     .title {
         float: left;
@@ -1649,8 +1662,9 @@ input {
 }
 .menu-wrapper {
     float: left;
-    width: 200px;
+    width: 220px;
     height: 100%;
+    margin-right: 30px;
     .tab-container {
         float: left;
         width: 100%;

@@ -10,7 +10,8 @@ const EditDropdownOptionForm = ({
     handleSubmit,
     handleInputChange,
     hideModal,
-    name
+    name,
+    validateName
 }) => (
     <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
         <div className="size-lg-12">
@@ -20,6 +21,7 @@ const EditDropdownOptionForm = ({
                         name="name"
                         value={name}
                         handleChange={handleInputChange}
+                        validate={validateName}
                         required
                     />
                 </Field>

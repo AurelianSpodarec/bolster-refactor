@@ -9,6 +9,7 @@ import {
 
 import DropdownOptionsTable from '../presentational/DropdownOptionsTable';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
+import { isObjEmpty } from 'helpers/generic';
 
 class DropdownListTableContainer extends Component {
     render() {
@@ -28,14 +29,20 @@ class DropdownListTableContainer extends Component {
     }
 
     componentDidUpdate = prevProps => {
-        const { postSuccess, showModal, hideModal, postError } = this.props;
+        const {
+            postSuccess,
+            showModal,
+            hideModal,
+            postError,
+            fieldErrors
+        } = this.props;
         if (postSuccess && !prevProps.postSuccess) {
             showModal(SUCCESS_MODAL, {
                 hideModal,
                 message: 'Dropdown options updated successfully'
             });
         }
-        if (postError && !prevProps.postError) {
+        if (postError && !prevProps.postError && isObjEmpty(fieldErrors)) {
             showModal(ERROR_MODAL, {
                 hideModal,
                 title: 'Error',
@@ -61,13 +68,17 @@ const mapStateToProps = ({
             postSuccess,
             postError
         }
+    },
+    shared: {
+        fieldErrorsReducer: { fieldErrors }
     }
 }) => ({
     postError,
     postSuccess,
     isFetching,
     error,
-    dropdownOptions: Object.values(dropdownOptions) || []
+    dropdownOptions: Object.values(dropdownOptions) || [],
+    fieldErrors
 });
 
 const mapDispatchToProps = dispatch => ({

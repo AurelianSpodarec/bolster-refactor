@@ -13,10 +13,12 @@ class TemplateFormModalContainer extends React.Component {
             labelTypeOptions,
             serviceOptions,
             selectedService,
+            reportLayout,
             handleCancel,
             handleChange,
             statusDropdownOptions,
-            statusOptions
+            statusOptions,
+            reportLayoutOptions
         } = this.props;
 
         return (
@@ -28,7 +30,9 @@ class TemplateFormModalContainer extends React.Component {
                 serviceOptions={serviceOptions}
                 selectedService={selectedService}
                 statusDropdownOptions={statusDropdownOptions}
+                reportLayout={reportLayout}
                 statusOptions={statusOptions}
+                reportLayoutOptions={reportLayoutOptions}
                 handleChange={handleChange}
                 handleCancel={handleCancel}
                 handleSubmit={this.handleSubmit}
@@ -55,7 +59,8 @@ class TemplateFormModalContainer extends React.Component {
             name,
             serviceID,
             labelType,
-            statusOptions
+            statusOptions,
+            reportLayout
         } = this.props;
 
         const template = {
@@ -64,7 +69,8 @@ class TemplateFormModalContainer extends React.Component {
             labelType,
             uuid: templateUUID,
             name,
-            statusOptions
+            statusOptions,
+            reportLayout
         };
         const sectionUUID = generateUuid();
         const section1 = {
