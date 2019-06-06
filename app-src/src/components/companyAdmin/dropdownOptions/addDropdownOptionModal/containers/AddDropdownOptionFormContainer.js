@@ -19,52 +19,51 @@ class AddDropdownOptionFormContainer extends Component {
                 handleSubmit={this.handleSubmit}
                 hideModal={this.props.hideModal}
                 buttonText={this.props.buttonText}
+                validateName={this.validateName}
             />
         );
     }
-
-    // componentDidUpdate = prevProps => {
-    //     const { postSuccess, history, updatedSiteID } = this.props;
-
-    //     if (postSuccess && !prevProps.postSuccess) {
-    //         history.push(`/company/sites/${updatedSiteID}`);
-    //     }
-    // };
 
     handleInputChange = (name, value) => {
         this.setState({ [name]: value });
     };
 
+    validateName = value => {
+        const { dropdownOptions } = this.props;
+        const existingNames = dropdownOptions.map(({ name }) => name);
+        if (existingNames.includes(value))
+            return 'Please choose a unique name.';
+    };
+
     handleSubmit = e => {
         e.preventDefault();
-        const { hideModal, createDropdownOption, type } = this.props;
+        const { createDropdownOption, type } = this.props;
 
         const postBody = {
             ...this.state
         };
 
         createDropdownOption(type, postBody);
-        hideModal();
     };
 }
 
-const mapStateToProps = ({
-    companyAdmin: {
-        dropdownOptionsReducer: { postSuccess, error }
-    }
-}) => ({
-    postSuccess,
-    error
+const mapStateToProps = (
+    {
+        companyAdmin: {
+            dropdownOptionsReducer: { dropdownOptions }
+        }
+    },
+    { type }
+) => ({
+    dropdownOptions: Object.values(dropdownOptions).filter(
+        op => op.type === type
+    )
 });
 
-const mapDispatchToProps = dispatch => ({
-    createDropdownOption: (type, postBody) => {
-        dispatch(createDropdownOption(type, postBody));
-    },
-    hideModal: () => {
-        dispatch(hideModal());
-    }
-});
+const mapDispatchToProps = {
+    createDropdownOption,
+    hideModal
+};
 
 export default withRouter(
     connect(

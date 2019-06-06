@@ -172,8 +172,7 @@ function pinResultsReducer(state = {}, action) {
 function optionsReducer(
     state = {
         showHidden: false,
-        sortBy: String(SORT_BY_OPTIONS.CREATED_ON_DESC),
-        layout: String(LAYOUT_OPTIONS.ONE_COLUMN)
+        sortBy: String(SORT_BY_OPTIONS.CREATED_ON_DESC)
     },
     action
 ) {
