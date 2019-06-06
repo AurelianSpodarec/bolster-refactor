@@ -22,7 +22,6 @@ class TooltipContainer extends Component {
 
     handleMouseOver = () => {
         this.setState({ show: true });
-        console.log(this.props.side);
     };
 
     handleMouseOut = () => {

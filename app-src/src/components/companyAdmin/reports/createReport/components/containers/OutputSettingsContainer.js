@@ -11,10 +11,7 @@ import { SUCCESS_MODAL, ERROR_MODAL } from 'constants/shared/modalTypes';
 import showFieldErrors from 'actions/shared/generic/fieldErrors/sync/showFieldErrors';
 import { isEmpty, convertEnumToDropdownOptions } from 'helpers/generic';
 import withUpdateOnChange from '../hocs/withUpdateOnChange';
-import {
-    SORT_BY_OPTIONS_TEXT,
-    LAYOUT_OPTIONS_TEXT
-} from 'constants/companyAdmin/enums';
+import { SORT_BY_OPTIONS_TEXT } from 'constants/companyAdmin/enums';
 import updateFilterOption from 'actions/companyAdmin/reports/sync/updateFilterOption';
 import OutputSettings from '../presentational/OutputSettings';
 import addFieldError from 'actions/shared/generic/fieldErrors/sync/addFieldError';
@@ -29,13 +26,12 @@ class OutputSettingsContainer extends Component {
                 isCSVGeneration,
                 isFloorplanGeneration
             },
-            options: { showHidden, sortBy, layout }
+            options: { showHidden, sortBy }
         } = this.props;
 
         const sortByOptions = convertEnumToDropdownOptions(
             SORT_BY_OPTIONS_TEXT
         );
-        const layoutOptions = convertEnumToDropdownOptions(LAYOUT_OPTIONS_TEXT);
 
         return (
             <OutputSettings
@@ -45,8 +41,6 @@ class OutputSettingsContainer extends Component {
                 isPDFGeneration={isPDFGeneration}
                 sortByOptions={Object.values(sortByOptions)}
                 selectSortBy={sortByOptions[sortBy]}
-                layoutOptions={Object.values(layoutOptions)}
-                selectedLayout={layoutOptions[layout]}
                 showHidden={showHidden}
                 handleFilterChange={this.handleFilterChange}
                 handleOptionChange={this.handleOptionChange}

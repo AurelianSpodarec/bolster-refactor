@@ -13,8 +13,6 @@ const OutputSettings = ({
     includePinLocation,
     sortByOptions,
     selectSortBy,
-    layoutOptions,
-    selectedLayout,
     isPDFGeneration,
     isCSVGeneration,
     isFloorplanGeneration,
@@ -70,19 +68,6 @@ const OutputSettings = ({
                                                 name="includePinLocation"
                                             />
                                             <p className="sub-text" />
-                                        </Field>
-                                        <Field name="Layout">
-                                            <DropdownContainer
-                                                name="layout"
-                                                options={layoutOptions}
-                                                singleSelect={true}
-                                                handleChange={
-                                                    handleOptionChange
-                                                }
-                                                value={selectedLayout}
-                                                selectedOption={selectedLayout}
-                                                withoutPlaceholder
-                                            />
                                         </Field>
                                     </div>
                                 </div>
