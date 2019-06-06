@@ -5,7 +5,6 @@ import { withRouter } from 'react-router-dom';
 import AddPinFormContainer from 'components/shared/pins/addPin/containers/AddPinFormContainer';
 import fetchDrawingTemplates from 'actions/companyAdmin/drawings/async/fetchDrawingTemplates';
 import fetchDrawingDropdownOptions from 'actions/companyAdmin/drawings/async/fetchDrawingDropdownOptions';
-import fetchAllDropdownOptions from 'actions/companyAdmin/dropdownOptions/async/fetchAllDropdownOptions';
 
 class AddPinContainer extends Component {
     render = () => (
@@ -31,14 +30,10 @@ const mapStateToProps = (_, { match }) => ({
     drawingID: match.params.id
 });
 
-const mapDispatchToProps = dispatch => ({
-    fetchDrawingTemplates: drawingID => {
-        dispatch(fetchDrawingTemplates(drawingID));
-    },
-    fetchDrawingDropdownOptions: drawingID => {
-        dispatch(fetchDrawingDropdownOptions(drawingID));
-    }
-});
+const mapDispatchToProps = {
+    fetchDrawingTemplates,
+    fetchDrawingDropdownOptions
+};
 
 export default withRouter(
     connect(

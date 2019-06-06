@@ -33,7 +33,7 @@ class CopyTemplateModalContainer extends Component {
         return templates
             .map(({ name, uuid, companyID }) => {
                 const company = companies[companyID];
-                if (!company) return;
+                if (!company) return null;
 
                 return {
                     label: `${company.name} - ${name}`,

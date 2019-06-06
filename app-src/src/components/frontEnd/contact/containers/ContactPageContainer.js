@@ -14,11 +14,4 @@ export class ContactPageContainer extends Component {
     }
 }
 
-const mapStateToProps = state => ({});
-
-const mapDispatchToProps = {};
-
-export default connect(
-    null,
-    null
-)(ContactPageContainer);
+export default connect()(ContactPageContainer);

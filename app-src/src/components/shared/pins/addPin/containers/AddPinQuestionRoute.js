@@ -160,11 +160,7 @@ const SinglePhoto = ({
     edit
 }) => {
     return edit ? (
-        <img
-            alt=""
-            src={`${RAW_S3_STORAGE_URL}/${answers[id]}`}
-            style={{ maxWidth: '100%' }}
-        />
+        <img alt="" src={`${RAW_S3_STORAGE_URL}/${answers[id]}`} />
     ) : (
         <FileUploadContainer
             name={`answer-${id}`}
@@ -185,13 +181,8 @@ const MultiPhoto = ({
 }) => {
     return edit ? (
         <div>
-            {answers[id].map(src => (
-                <img
-                    key={src}
-                    alt=""
-                    src={`${RAW_S3_STORAGE_URL}/${src}`}
-                    style={{ maxWidth: '100%' }}
-                />
+            {(answers[id] || []).map(src => (
+                <img key={src} alt="" src={`${RAW_S3_STORAGE_URL}/${src}`} />
             ))}
         </div>
     ) : (
@@ -368,11 +359,17 @@ class AddPinQuestionRoute extends Component {
         if (showPreReq) {
             const SpecificField = fieldTypes[question.type + ''] || SingleLine;
 
+            const extraImageClasses =
+                (edit && question.type + '' === MULTI_PHOTO) ||
+                question.type + '' === SINGLE_PHOTO
+                    ? 'photo-view'
+                    : '';
+
             return (
                 <Field
                     key={question.id}
                     name={question.name}
-                    sizeClasses="size-lg-6 flex-row-item"
+                    sizeClasses={`size-lg-6 flex-row-item ${extraImageClasses}`}
                     required={question.isRequired}
                 >
                     <SpecificField
@@ -432,22 +429,24 @@ class AddPinQuestionRoute extends Component {
             return true;
         }
 
-        if (preReqQuestion.type + '' === STATUS + '') {
-            return question.prerequisiteQuestionValue + '' === status + '';
+        if (String(preReqQuestion.type) === STATUS) {
+            return (
+                String(question.prerequisiteQuestionValue) === String(status)
+            );
         }
 
-        if (preReqQuestion.type == QUESTION_TYPE_VALUES.CHECKBOX) {
+        if (String(preReqQuestion.type) === QUESTION_TYPE_VALUES.CHECKBOX) {
             //Convert true to 'true'
-            preReqAnswer = preReqAnswer + '';
+            preReqAnswer = String(preReqAnswer);
         }
 
         if (
-            preReqQuestion.type == QUESTION_TYPE_VALUES.DROPDOWN ||
-            preReqQuestion.type == QUESTION_TYPE_VALUES.RADIO
+            String(preReqQuestion.type) === QUESTION_TYPE_VALUES.DROPDOWN ||
+            String(preReqQuestion.type) === QUESTION_TYPE_VALUES.RADIO
         ) {
             //For a drop down we have to convert the GUID to the questin option.
             const selectedOption = preReqQuestion.options.filter(
-                option => option.id == preReqAnswer
+                option => option.id === preReqAnswer
             );
 
             if (selectedOption && selectedOption.length > 0) {
@@ -457,7 +456,9 @@ class AddPinQuestionRoute extends Component {
             }
         }
 
-        if (preReqQuestion.type == QUESTION_TYPE_VALUES.MULTI_DROPDOWN) {
+        if (
+            String(preReqQuestion.type) === QUESTION_TYPE_VALUES.MULTI_DROPDOWN
+        ) {
             const retArray = [];
 
             if (!preReqAnswer) {
@@ -466,7 +467,7 @@ class AddPinQuestionRoute extends Component {
 
             preReqAnswer.forEach(curAnswer => {
                 const selectedOption = preReqQuestion.options.filter(
-                    option => option.id == curAnswer
+                    option => option.id === curAnswer
                 );
 
                 if (selectedOption && selectedOption.length > 0) {

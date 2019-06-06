@@ -189,6 +189,12 @@ body {
             display: inline-block;
         }
     }
+    &.no-margin {
+        margin: 0;
+        button {
+            margin-bottom: 3px;
+        }
+    }
 
     &.card-buttons {
         width: 120px;
@@ -1136,6 +1142,13 @@ input {
             transform: translateY(-50%);
             right: 8px;
             color: #767676;
+        }
+    }
+    &.photo-view {
+        img {
+            max-width: 150px;
+            margin: 0 5px;
+            border: 1px solid black;
         }
     }
 

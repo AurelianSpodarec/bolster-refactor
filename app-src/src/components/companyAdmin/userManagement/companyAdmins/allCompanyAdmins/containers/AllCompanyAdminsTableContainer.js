@@ -7,7 +7,6 @@ import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import AllCompanyAdminsTable from '../presentational/AllCompanyAdminsTable';
 import { COMPANY_USER_ROLE_TYPES } from 'constants/companyAdmin/enums';
 import { CREATE_COMPANY_ADMIN } from 'constants/shared/modalTypes';
-import CompanySelectionForm from 'components/client/companySelection/companySelectionPage/presentational/CompanySelectionForm';
 
 class AllCompanyAdminTableContainer extends Component {
     render() {

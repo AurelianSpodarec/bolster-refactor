@@ -6,32 +6,66 @@ import BlockContainer from 'components/shared/generic/block/containers/BlockCont
 import { formatQuestions, getQuestionDetails } from 'helpers/templates';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { COMPANY_EDIT_TEMPLATE_QUESTION } from 'constants/shared/modalTypes';
+import { QUESTION_TYPE_NUMBERS as TYPES } from 'constants/shared/templateBuilder';
+import fetchAllDropdownOptions from 'actions/companyAdmin/dropdownOptions/async/fetchAllDropdownOptions';
 
-const TemplateSectionQuestionDetailsContainer = ({ question, showModal }) => (
-    <BlockContainer>
-        <TemplateSectionQuestionDetails
-            question={question}
-            details={question && getQuestionDetails(question)}
-            showModal={() =>
-                showModal(COMPANY_EDIT_TEMPLATE_QUESTION, { question })
-            }
-        />
-    </BlockContainer>
-);
+class TemplateSectionQuestionDetailsContainer extends React.Component {
+    render = () => {
+        const { question, options } = this.props;
+
+        return (
+            <BlockContainer>
+                <TemplateSectionQuestionDetails
+                    question={question}
+                    details={question && getQuestionDetails(question, options)}
+                    showModal={() =>
+                        showModal(COMPANY_EDIT_TEMPLATE_QUESTION, { question })
+                    }
+                />
+            </BlockContainer>
+        );
+    };
+    componentDidUpdate = prevProps => {
+        const {
+            shouldFetchOptions,
+            fetchAllDropdownOptions,
+            question
+        } = this.props;
+        if (
+            shouldFetchOptions &&
+            question.optionType !== prevProps.question.optionType
+        ) {
+            fetchAllDropdownOptions(question.optionType);
+        }
+    };
+}
 
 const mapStateToProps = ({
     companyAdmin: {
-        templateQuestionsReducer: { selectedQuestionID, questions }
+        templateQuestionsReducer: { selectedQuestionID, questions },
+        dropdownOptionsReducer: { dropdownOptions }
     }
-}) => ({
-    question: formatQuestions(Object.values(questions)).find(
+}) => {
+    const question = formatQuestions(Object.values(questions)).find(
         ({ id }) => id === selectedQuestionID
-    )
-});
+    );
+    const optionsTypes = [
+        TYPES.DROPDOWN_OPTIONS,
+        TYPES.MULTI_DROPDOWN_OPTIONS,
+        TYPES.MULTI_MULTI_DROPDOWN_OPTIONS
+    ];
+    const shouldFetchOptions = question && optionsTypes.includes(question.type);
+    const options = Object.values(dropdownOptions).filter(
+        ({ type }) => type === question.optionType
+    );
+    return {
+        question,
+        options,
+        shouldFetchOptions
+    };
+};
 
-const mapDispatchToProps = dispatch => ({
-    showModal: (type, props) => dispatch(showModal(type, props))
-});
+const mapDispatchToProps = { showModal, fetchAllDropdownOptions };
 
 export default connect(
     mapStateToProps,
