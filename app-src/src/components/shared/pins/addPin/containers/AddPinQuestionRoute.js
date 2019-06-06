@@ -429,22 +429,24 @@ class AddPinQuestionRoute extends Component {
             return true;
         }
 
-        if (preReqQuestion.type + '' === STATUS + '') {
-            return question.prerequisiteQuestionValue + '' === status + '';
+        if (String(preReqQuestion.type) === STATUS) {
+            return (
+                String(question.prerequisiteQuestionValue) === String(status)
+            );
         }
 
-        if (preReqQuestion.type == QUESTION_TYPE_VALUES.CHECKBOX) {
+        if (String(preReqQuestion.type) === QUESTION_TYPE_VALUES.CHECKBOX) {
             //Convert true to 'true'
-            preReqAnswer = preReqAnswer + '';
+            preReqAnswer = String(preReqAnswer);
         }
 
         if (
-            preReqQuestion.type == QUESTION_TYPE_VALUES.DROPDOWN ||
-            preReqQuestion.type == QUESTION_TYPE_VALUES.RADIO
+            String(preReqQuestion.type) === QUESTION_TYPE_VALUES.DROPDOWN ||
+            String(preReqQuestion.type) === QUESTION_TYPE_VALUES.RADIO
         ) {
             //For a drop down we have to convert the GUID to the questin option.
             const selectedOption = preReqQuestion.options.filter(
-                option => option.id == preReqAnswer
+                option => option.id === preReqAnswer
             );
 
             if (selectedOption && selectedOption.length > 0) {
@@ -454,7 +456,9 @@ class AddPinQuestionRoute extends Component {
             }
         }
 
-        if (preReqQuestion.type == QUESTION_TYPE_VALUES.MULTI_DROPDOWN) {
+        if (
+            String(preReqQuestion.type) === QUESTION_TYPE_VALUES.MULTI_DROPDOWN
+        ) {
             const retArray = [];
 
             if (!preReqAnswer) {
@@ -463,7 +467,7 @@ class AddPinQuestionRoute extends Component {
 
             preReqAnswer.forEach(curAnswer => {
                 const selectedOption = preReqQuestion.options.filter(
-                    option => option.id == curAnswer
+                    option => option.id === curAnswer
                 );
 
                 if (selectedOption && selectedOption.length > 0) {

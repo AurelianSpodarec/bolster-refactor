@@ -3,7 +3,7 @@ import React from 'react';
 import Slider from 'react-slick';
 import FrontEndButton from 'components/frontEnd/shared/buttons/presentational/FrontEndButton';
 
-import MacFloorPlan from '_content/images/frontend/mac-floorplan.png';
+// import MacFloorPlan from '_content/images/frontend/mac-floorplan.png';
 import desktopIphoneHand from '_content/images/frontend/home-iphone-hand.png';
 
 import appSlide1 from '_content/images/frontend/app-slider/login-sl1-large.png';
@@ -11,8 +11,8 @@ import appSlide2 from '_content/images/frontend/app-slider/menu-sl2-large.png';
 import appSlide3 from '_content/images/frontend/app-slider/floorplan-sl3-large.png';
 import appSlide4 from '_content/images/frontend/app-slider/pinlist-large.jpg';
 
-import blackTick from '_content/images/frontend//black-tick.png';
-import redTick from '_content/images/frontend/red-tick.png';
+// import blackTick from '_content/images/frontend//black-tick.png';
+// import redTick from '_content/images/frontend/red-tick.png';
 
 const HomeSlider = ({ sliderSettings }) => (
     <Slider {...sliderSettings}>
@@ -71,10 +71,10 @@ const HomeSlider = ({ sliderSettings }) => (
         </div>
     </Slider>
 );
-const listTickStyle = {
-    backgroundImage: `url(${blackTick})`
-};
-const listRedTickStyle = {
-    backgroundImage: `url(${redTick})`
-};
+// const listTickStyle = {
+//     backgroundImage: `url(${blackTick})`
+// };
+// const listRedTickStyle = {
+//     backgroundImage: `url(${redTick})`
+// };
 export default HomeSlider;

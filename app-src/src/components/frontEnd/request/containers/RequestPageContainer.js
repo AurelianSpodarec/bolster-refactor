@@ -14,11 +14,4 @@ export class RequestPageContainer extends Component {
     }
 }
 
-// const mapStateToProps = state => ({});
-
-// const mapDispatchToProps = {};
-
-export default connect(
-    null,
-    null
-)(RequestPageContainer);
+export default connect()(RequestPageContainer);

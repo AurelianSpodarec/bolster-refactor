@@ -37,6 +37,7 @@ const FrontEndHeader = () => (
                             className="app-btn"
                             href="https://itunes.apple.com/gb/app/bolster-app/id1090118561?mt=8"
                             target="_blank"
+                            rel="noopener noreferrer"
                         >
                             <img
                                 alt="available on the apple store"
@@ -47,6 +48,7 @@ const FrontEndHeader = () => (
                             className="google-btn"
                             href="https://play.google.com/store/apps/details?id=com.bolster.app"
                             target="_blank"
+                            rel="noopener noreferrer"
                         >
                             <img
                                 alt="available on the google play store"

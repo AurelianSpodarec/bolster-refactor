@@ -4,7 +4,7 @@ import FrontEndPageHeading from 'components/frontEnd/shared/headings/presentatio
 import RequestDemoFormContainer from '../containers/RequestDemoFormContainer';
 
 import bannerBackground from '_content/images/frontend/banners/request-demo.png';
-import ListArrowRed from '_content/images/frontend/list-arrow-red.png';
+// import ListArrowRed from '_content/images/frontend/list-arrow-red.png';
 import appShots from '_content/images/frontend/example-images/app-two-phones-3.png';
 import HeadingSection from 'components/frontEnd/shared/headings/presentational/HeadingSection';
 
@@ -37,8 +37,8 @@ const RequestPage = () => (
     </div>
 );
 
-const listArrowBackground = {
-    backgroundImage: `url(${ListArrowRed})`
-};
+// const listArrowBackground = {
+//     backgroundImage: `url(${ListArrowRed})`
+// };
 
 export default RequestPage;

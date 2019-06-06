@@ -30,14 +30,10 @@ const mapStateToProps = (_, { match }) => ({
     drawingID: match.params.id
 });
 
-const mapDispatchToProps = dispatch => ({
-    fetchDrawingTemplates: drawingID => {
-        dispatch(fetchDrawingTemplates(drawingID));
-    },
-    fetchDrawingDropdownOptions: drawingID => {
-        dispatch(fetchDrawingDropdownOptions(drawingID));
-    }
-});
+const mapDispatchToProps = {
+    fetchDrawingTemplates,
+    fetchDrawingDropdownOptions
+};
 
 export default withRouter(
     connect(
