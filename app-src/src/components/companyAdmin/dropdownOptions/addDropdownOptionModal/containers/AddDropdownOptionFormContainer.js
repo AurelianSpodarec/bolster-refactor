@@ -19,12 +19,20 @@ class AddDropdownOptionFormContainer extends Component {
                 handleSubmit={this.handleSubmit}
                 hideModal={this.props.hideModal}
                 buttonText={this.props.buttonText}
+                validateName={this.validateName}
             />
         );
     }
 
     handleInputChange = (name, value) => {
         this.setState({ [name]: value });
+    };
+
+    validateName = value => {
+        const { dropdownOptions } = this.props;
+        const existingNames = dropdownOptions.map(({ name }) => name);
+        if (existingNames.includes(value))
+            return 'Please choose a unique name.';
     };
 
     handleSubmit = e => {
@@ -39,13 +47,17 @@ class AddDropdownOptionFormContainer extends Component {
     };
 }
 
-const mapStateToProps = ({
-    companyAdmin: {
-        dropdownOptionsReducer: { postSuccess, error }
-    }
-}) => ({
-    postSuccess,
-    error
+const mapStateToProps = (
+    {
+        companyAdmin: {
+            dropdownOptionsReducer: { dropdownOptions }
+        }
+    },
+    { type }
+) => ({
+    dropdownOptions: Object.values(dropdownOptions).filter(
+        op => op.type === type
+    )
 });
 
 const mapDispatchToProps = {

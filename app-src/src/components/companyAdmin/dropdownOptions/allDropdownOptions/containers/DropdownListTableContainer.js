@@ -42,8 +42,6 @@ class DropdownListTableContainer extends Component {
                 message: 'Dropdown options updated successfully'
             });
         }
-        console.log('fieldErrors');
-        console.log(fieldErrors);
         if (postError && !prevProps.postError && isObjEmpty(fieldErrors)) {
             showModal(ERROR_MODAL, {
                 hideModal,

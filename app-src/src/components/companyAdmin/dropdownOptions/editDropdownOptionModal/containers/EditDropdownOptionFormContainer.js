@@ -18,6 +18,7 @@ class EditDropdownOptionContainer extends Component {
                 handleInputChange={this.handleInputChange}
                 handleSubmit={this.handleSubmit}
                 hideModal={this.props.hideModal}
+                validateName={this.validateName}
             />
         );
     }
@@ -47,6 +48,20 @@ class EditDropdownOptionContainer extends Component {
         this.setState({ [name]: value });
     };
 
+    validateName = value => {
+        const {
+            dropdownOptions,
+            option: { id }
+        } = this.props;
+
+        const existingNames = dropdownOptions
+            .filter(op => op.id !== id)
+            .map(({ name }) => name);
+
+        if (existingNames.includes(value))
+            return 'Please choose a unique name.';
+    };
+
     handleSubmit = e => {
         e.preventDefault();
         const {
@@ -62,6 +77,19 @@ class EditDropdownOptionContainer extends Component {
     };
 }
 
+const mapStateToProps = (
+    {
+        companyAdmin: {
+            dropdownOptionsReducer: { dropdownOptions }
+        }
+    },
+    { option: { type } }
+) => ({
+    dropdownOptions: Object.values(dropdownOptions).filter(
+        op => op.type === type
+    )
+});
+
 const mapDispatchToProps = dispatch => ({
     editDropdownOption: (id, type, postBody) => {
         dispatch(editDropdownOption(id, type, postBody));
@@ -73,7 +101,7 @@ const mapDispatchToProps = dispatch => ({
 
 export default withRouter(
     connect(
-        null,
+        mapStateToProps,
         mapDispatchToProps
     )(EditDropdownOptionContainer)
 );
