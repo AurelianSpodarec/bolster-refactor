@@ -2228,6 +2228,10 @@ input {
 
             p {
                 padding-top: 3px;
+                &.no-pin {
+                    margin-left: 36px;
+                    @include ubuntu-medium;
+                }
             }
         }
     }
