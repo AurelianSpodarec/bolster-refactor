@@ -4,6 +4,7 @@ import Table from 'components/shared/generic/tables/presentational/Table';
 import List from './List';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
+import withDropZone from '../hocs/withDropZone';
 
 const headers = ['Value 1', 'Value 2', 'Value 3', 'Value 4'];
 const DropTable = () => {
@@ -18,4 +19,4 @@ const DropTable = () => {
     );
 };
 
-export default DropTable;
+export default withDropZone(DropTable);
