@@ -99,3 +99,6 @@ $dark-grey-alt: #808080;
 @mixin rounded-bottom($radius: 5px) {
     border-radius: 0 0 $radius $radius;
 }
+
+// z-indexes
+$leaflet-z-index: 400;

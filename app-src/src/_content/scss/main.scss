@@ -2147,6 +2147,8 @@ input {
     bottom: 0;
     position: fixed;
     padding: 7px 0;
+    // display above leaflet map
+    z-index: $leaflet-z-index + 1;
 
     p {
         float: left;
