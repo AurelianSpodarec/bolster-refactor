@@ -45,7 +45,7 @@ const PieChart = ({ stats, hierarchyType }) => {
                         <div className="pin">
                             <img src={redPin} alt="pin" />
                             <p>
-                                Action Required -{' '}
+                                Action Required:{' '}
                                 <span>{`${
                                     stats.statuses['ActionRequired']
                                 }`}</span>
@@ -54,34 +54,34 @@ const PieChart = ({ stats, hierarchyType }) => {
                         <div className="pin">
                             <img src={greenPin} alt="pin" />
                             <p>
-                                Installed -{' '}
+                                Installed:{' '}
                                 <span>{`${stats.statuses['Installed']}`}</span>
                             </p>
                         </div>
                         <div className="pin">
                             <img src={bluePin} alt="pin" />
                             <p>
-                                Inspected -{' '}
+                                Inspected:{' '}
                                 <span>{`${stats.statuses['Inspected']}`}</span>
                             </p>
                         </div>
                         <div className="pin">
                             <img src={yellowPin} alt="pin" />
                             <p>
-                                No Action -{' '}
+                                No Action:{' '}
                                 <span>{`${stats.statuses['NoAction']}`}</span>
                             </p>
                         </div>
                         <div className="pin">
                             <img src={purplePin} alt="pin" />
                             <p>
-                                Other -{' '}
+                                Other:{' '}
                                 <span>{`${stats.statuses['Other']}`}</span>
                             </p>
                         </div>
                         <div className="pin">
                             <p className="no-pin">
-                                Total - <span>{`${total}`}</span>
+                                Total: <span>{`${total}`}</span>
                             </p>
                         </div>
                     </div>
