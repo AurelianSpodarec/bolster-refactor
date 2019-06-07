@@ -2229,8 +2229,9 @@ input {
             p {
                 padding-top: 3px;
                 &.no-pin {
-                    margin-left: 36px;
+                    padding-left: 36px;
                     @include ubuntu-medium;
+                    border-top: 1px solid $grey-alt;
                 }
             }
         }
