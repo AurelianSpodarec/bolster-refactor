@@ -16,6 +16,10 @@ const PieChart = ({ stats, hierarchyType }) => {
         stat => stat === 0
     );
 
+    const total = Object.values(stats.statuses).reduce((acc, val) => {
+        return acc + val;
+    }, 0);
+
     const pieStats = !isStatsEmpty
         ? Object.entries(stats.statuses).map(([title, value]) => {
               return {
@@ -40,23 +44,45 @@ const PieChart = ({ stats, hierarchyType }) => {
                     <div className="pin-key size-lg-6">
                         <div className="pin">
                             <img src={redPin} alt="pin" />
-                            <p>Action Required</p>
+                            <p>
+                                Action Required:{' '}
+                                <span>{`${
+                                    stats.statuses['ActionRequired']
+                                }`}</span>
+                            </p>
                         </div>
                         <div className="pin">
                             <img src={greenPin} alt="pin" />
-                            <p>Installed</p>
+                            <p>
+                                Installed:{' '}
+                                <span>{`${stats.statuses['Installed']}`}</span>
+                            </p>
                         </div>
                         <div className="pin">
                             <img src={bluePin} alt="pin" />
-                            <p>Inspected</p>
+                            <p>
+                                Inspected:{' '}
+                                <span>{`${stats.statuses['Inspected']}`}</span>
+                            </p>
                         </div>
                         <div className="pin">
                             <img src={yellowPin} alt="pin" />
-                            <p>No Action</p>
+                            <p>
+                                No Action:{' '}
+                                <span>{`${stats.statuses['NoAction']}`}</span>
+                            </p>
                         </div>
                         <div className="pin">
                             <img src={purplePin} alt="pin" />
-                            <p>Other</p>
+                            <p>
+                                Other:{' '}
+                                <span>{`${stats.statuses['Other']}`}</span>
+                            </p>
+                        </div>
+                        <div className="pin">
+                            <p className="no-pin">
+                                Total: <span>{`${total}`}</span>
+                            </p>
                         </div>
                     </div>
                     <ReactPieChart

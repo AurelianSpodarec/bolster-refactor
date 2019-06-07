@@ -3,69 +3,88 @@ import { connect } from 'react-redux';
 import ApprovedCompaniesListItem from '../presentational/ApprovedCompaniesListItem';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 
-const companies = {
-    bolster: {
-        name: 'bolster',
-        addressLine1: 'bolster cove',
-        addressLine2: '1 bolster street',
-        town: 'bolster town',
-        postcode: 'sgvdi',
-        code: 565876,
-        s3code: 'sahvscdcsdavcdsaukvcds'
-    },
-    bolster2: {
-        name: 'bolster',
-        addressLine1: 'bolster cove',
-        addressLine2: '1 bolster street',
-        town: 'bolster town',
-        postcode: 'sgvdi',
-        code: 565876,
-        s3code: 'sahvscdcsdavcdsaukvcds'
-    },
-    bolster3: {
-        name: 'bolster',
-        addressLine1: 'bolster cove',
-        addressLine2: '1 bolster street',
-        town: 'bolster town',
-        postcode: 'sgvdi',
-        code: 565876,
-        s3code: 'sahvscdcsdavcdsaukvcds'
-    },
-    bolster4: {
-        name: 'bolster',
-        addressLine1: 'bolster cove',
-        addressLine2: '1 bolster street',
-        town: 'bolster town',
-        postcode: 'sgvdi',
-        code: 565876,
-        s3code: 'sahvscdcsdavcdsaukvcds'
-    },
-    bolster5: {
-        name: 'bolster',
-        addressLine1: 'bolster cove',
-        addressLine2: '1 bolster street',
-        town: 'bolster town',
-        postcode: 'sgvdi',
-        code: 565876,
-        s3code: 'sahvscdcsdavcdsaukvcds'
-    },
-    bolster6: {
-        name: 'bolster',
-        addressLine1: 'bolster cove',
-        addressLine2: '1 bolster street',
-        town: 'bolster town',
-        postcode: 'sgvdi',
-        code: 565876,
-        s3code: 'sahvscdcsdavcdsaukvcds'
+const ApprovedCompaniesListContainer = ({
+    companies,
+    isFetching,
+    error,
+    filters,
+    sort
+}) => {
+    const filteredCompanies = _getFilteredCompanies();
+    return filteredCompanies.length ? (
+        <div className="flex-row size-lg-12">
+            {filteredCompanies.map(company => (
+                <BlockContainer
+                    containerClass="flex-row-item size-lg-6"
+                    isFetching={isFetching}
+                    error={error}
+                    noData={!companies.length}
+                    key={company.id}
+                >
+                    <ApprovedCompaniesListItem company={company} />
+                </BlockContainer>
+            ))}
+        </div>
+    ) : (
+        <BlockContainer
+            isFetching={isFetching}
+            isEmpty={!filteredCompanies.length}
+            noDataMessage="There are no companies currently on this list."
+            error={error}
+        />
+    );
+
+    function _getFilteredCompanies() {
+        const name = filters.name.toLowerCase();
+
+        let filteredCompanies = companies.filter(
+            company =>
+                company.name.toLowerCase().includes(name) ||
+                company.code.includes(+name)
+        );
+
+        if (sort === 'A - Z') {
+            filteredCompanies = filteredCompanies.sort((a, b) => {
+                if (a.name < b.name) {
+                    return -1;
+                }
+                if (a.name > b.name) {
+                    return 1;
+                }
+                return 0;
+            });
+        } else {
+            filteredCompanies = filteredCompanies.sort((a, b) => {
+                if (a.name > b.name) {
+                    return -1;
+                }
+                if (a.name < b.name) {
+                    return 1;
+                }
+                return 0;
+            });
+        }
+
+        return filteredCompanies;
     }
 };
 
-const ApprovedCompaniesListContainer = () => {
-    return Object.values(companies).map(company => (
-        <BlockContainer key={company}>
-            <ApprovedCompaniesListItem company={company} />
-        </BlockContainer>
-    ));
-};
+const mapStateToProps = ({
+    companyAdmin: {
+        approvedCompaniesReducer: {
+            isFetching,
+            error,
+            approvedCompanies,
+            filters,
+            sort
+        }
+    }
+}) => ({
+    companies: Object.values(approvedCompanies),
+    isFetching,
+    error,
+    filters,
+    sort
+});
 
-export default connect()(ApprovedCompaniesListContainer);
+export default connect(mapStateToProps)(ApprovedCompaniesListContainer);

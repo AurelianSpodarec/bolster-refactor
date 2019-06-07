@@ -1,7 +1,7 @@
 import React from 'react';
 import Search from 'components/shared/generic/form/presentational/Search';
 
-const UsersFilters = ({ handleChange, name }) => (
+const CompaniesFilters = ({ handleChange, name }) => (
     <>
         <Search
             value={name}
@@ -12,4 +12,4 @@ const UsersFilters = ({ handleChange, name }) => (
     </>
 );
 
-export default UsersFilters;
+export default CompaniesFilters;

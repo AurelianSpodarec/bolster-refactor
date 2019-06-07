@@ -7,7 +7,7 @@ import DashboardPinFeedContainer from '../containers/DashboardPinFeedContainer';
 const Dashboard = () => (
     <>
         <PageHeading title="Dashboard" />
-        {/*<DashboardStatsContainer />*/}
+        {/* <DashboardStatsContainer /> */}
         <DashboardPinFeedContainer />
     </>
 );
