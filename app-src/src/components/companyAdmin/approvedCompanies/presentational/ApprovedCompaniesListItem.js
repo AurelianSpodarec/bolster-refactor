@@ -44,14 +44,7 @@ const ApprovedCompaniesListItem = ({
                 <p>{code}</p>
             </div>
 
-            <div
-                style={
-                    colourCode && logoFile
-                        ? { border: `3px solid ${colourCode}` }
-                        : null
-                }
-                className={`size-lg-6 ${logoFile ? 'company-logo' : ''}`}
-            >
+            <div className={`size-lg-6 ${logoFile ? 'company-logo' : ''}`}>
                 {logoFile && (
                     <img
                         alt={`logo of ${name}`}
