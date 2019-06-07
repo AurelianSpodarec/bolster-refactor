@@ -151,7 +151,7 @@ export const DATE_TIME_IDS = {
 };
 
 export const DATE_TIME_DEFAULTS = {
-    1: 'DD/MM/YYYY HH:mm',
+    1: 'DD/MM/YYYY - HH:mm',
     2: 'DD/MM/YYYY',
     3: 'HH:mm'
 };
