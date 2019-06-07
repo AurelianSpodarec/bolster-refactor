@@ -25,7 +25,7 @@ export const fetchAllApprovedCompaniesFailure = error => ({
 export default () => dispatch => {
     dispatch(fetchAllApprovedCompaniesRequest());
 
-    axios
+    return axios
         .get(`${API_URL}/companies/approved`, getHeaders())
         .then(res => dispatch(fetchAllApprovedCompaniesSuccess(res.data)))
         .catch(err => dispatch(fetchAllApprovedCompaniesFailure(err.message)));
