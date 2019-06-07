@@ -6,7 +6,7 @@ import {
     POST_TEMPLATE_FAILURE
 } from 'constants/actionTypes/templateBuilder';
 import { ADMIN_API_URL } from 'config';
-import { getHeaders, handleErrors } from 'helpers/api';
+import { getHeaders } from 'helpers/api';
 import { formatQuestions } from 'helpers/templates';
 
 export const postTemplateRequest = () => ({
