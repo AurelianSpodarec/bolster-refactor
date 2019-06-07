@@ -56,6 +56,7 @@ function errorReducer(state = null, action) {
         case POST_TEMPLATE_FAILURE:
         case FETCH_TEMPLATES_FAILURE:
         case FETCH_TEMPLATE_FAILURE:
+            console.error(action.error);
             return action.error;
         default:
             return state;

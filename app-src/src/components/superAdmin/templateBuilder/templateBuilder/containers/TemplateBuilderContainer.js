@@ -41,7 +41,10 @@ class TemplateBuilderContainer extends Component {
         fetchPageData(templateUUID);
     }
 
-    componentDidUpdate({ postSuccess: prevPostSuccess, prevIsPosting }) {
+    componentDidUpdate({
+        postSuccess: prevPostSuccess,
+        isPosting: prevIsPosting
+    }) {
         const {
             postSuccess,
             isPosting,
@@ -67,7 +70,9 @@ class TemplateBuilderContainer extends Component {
             }
         }
         if (prevIsPosting && !isPosting && error) {
-            showModal(ERROR_MODAL);
+            const message = `An error occurred while saving your template. ${error ||
+                'Please try again.'}`;
+            showModal(ERROR_MODAL, { message });
         }
     }
 }

@@ -39,5 +39,9 @@ export default templateData => dispatch => {
         .then(res =>
             dispatch(postTemplateSuccess(res.data, templateData.template.uuid))
         )
-        .catch(err => dispatch(handleErrors(postTemplateFailure)(err)));
+        .catch(({ response }) => {
+            const { data: { errors } = {} } = response;
+            const message = Object.values(errors).join(', \n');
+            return dispatch(postTemplateFailure(message));
+        });
 };
