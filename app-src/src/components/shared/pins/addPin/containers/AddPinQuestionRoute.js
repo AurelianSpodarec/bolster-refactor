@@ -444,13 +444,14 @@ class AddPinQuestionRoute extends Component {
             String(preReqQuestion.type) === QUESTION_TYPE_VALUES.DROPDOWN ||
             String(preReqQuestion.type) === QUESTION_TYPE_VALUES.RADIO
         ) {
-            //For a drop down we have to convert the GUID to the questin option.
-            const selectedOption = preReqQuestion.options.filter(
+            //For a drop down we have to convert the GUID to the question option.
+            const selectedOption = preReqQuestion.options.find(
                 option => option.id === preReqAnswer
             );
 
-            if (selectedOption && selectedOption.length > 0) {
-                preReqAnswer = selectedOption[0].text;
+            // specifying not undefined in case pre-req answers are falsy ie. 0, ''
+            if (selectedOption !== undefined) {
+                preReqAnswer = selectedOption.text;
             } else {
                 return false;
             }
@@ -466,45 +467,38 @@ class AddPinQuestionRoute extends Component {
             }
 
             preReqAnswer.forEach(curAnswer => {
-                const selectedOption = preReqQuestion.options.filter(
+                const selectedOption = preReqQuestion.options.find(
                     option => option.id === curAnswer
                 );
 
-                if (selectedOption && selectedOption.length > 0) {
-                    retArray.push(selectedOption[0].text);
+                if (selectedOption !== undefined) {
+                    retArray.push(selectedOption.text);
                 }
             });
 
             preReqAnswer = retArray;
-
-            /*eslint-enable */
-
-            if (Array.isArray(preReqAnswer)) {
-                //TODO maybe so case in-sensitive check
-                if (
-                    preReqAnswer.includes(curQuestion.prerequisiteQuestionValue)
-                ) {
-                    return true;
-                }
-            } else {
-                if (curQuestion.prerequisiteQuestionValue === preReqAnswer) {
-                    //Exactly matches value
-                    return true;
-                }
-            }
-
-            return false;
         }
+
+        if (Array.isArray(preReqAnswer)) {
+            //TODO maybe so case in-sensitive check
+            const lowerCaseAnswers = preReqAnswer.map(answer =>
+                String(answer).toLowerCase()
+            );
+            if (
+                lowerCaseAnswers.includes(
+                    String(curQuestion.prerequisiteQuestionValue).toLowerCase()
+                )
+            ) {
+                return true;
+            }
+        } else {
+            if (curQuestion.prerequisiteQuestionValue === preReqAnswer) {
+                //Exactly matches value
+                return true;
+            }
+        }
+        return false;
     };
-    // componentWillUnmount = () => {
-    //     console.error('HELLO I AM UNMOUNTING');
-    //     // remove from reducer when prereq no longer met
-    //     const {
-    //         resetPinAnswer,
-    //         question: { id }
-    //     } = this.props;
-    //     resetPinAnswer(id);
-    // };
 
     componentDidUpdate = () => {
         const { question, answers, questions, resetPinAnswer } = this.props;
@@ -532,7 +526,7 @@ class AddPinQuestionRoute extends Component {
         updateAddPinStatus(val);
     };
 
-    handleFileChange = (name, s3Key) => {
+    handleFileChange = (_, s3Key) => {
         const { updateAddPinAnswer, question, answers } = this.props;
         let curAnswer = answers[question.id];
 
@@ -542,7 +536,7 @@ class AddPinQuestionRoute extends Component {
             }
 
             //Multi File
-            var existing = curAnswer.includes(s3Key);
+            const existing = curAnswer.includes(s3Key);
 
             if (existing) {
                 //Delete
@@ -556,16 +550,13 @@ class AddPinQuestionRoute extends Component {
                 updateAddPinAnswer(question.id, curAnswer);
             }
         } else {
-            if (answers[question.id] === s3Key) {
-                s3Key = '';
-            }
-
-            updateAddPinAnswer(question.id, s3Key);
+            const shouldDeleteFile = answers[question.id] === s3Key;
+            updateAddPinAnswer(question.id, shouldDeleteFile ? '' : s3Key);
         }
     };
 
     _getDefaultValue = () => {
-        const type = this.props.question.type + '';
+        const type = String(this.props.question.type);
         switch (type) {
             case SINGLE_LINE:
             case MULTI_LINE:
@@ -600,16 +591,14 @@ const mapStateToProps = (
         }
     },
     { match: { params } }
-) => {
-    return {
-        dropdownOptions,
-        answers,
-        questions,
-        oldAnswers,
-        status,
-        history: histories[params.historyID] || {}
-    };
-};
+) => ({
+    dropdownOptions,
+    answers,
+    questions,
+    oldAnswers,
+    status,
+    history: histories[params.historyID] || {}
+});
 
 const mapDispatchToProps = {
     updateAddPinAnswer,

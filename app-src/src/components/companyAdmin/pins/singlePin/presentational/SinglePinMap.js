@@ -50,7 +50,7 @@ const SinglePinMap = ({
             ) : (
                 <button className="button pull-right" onClick={toggleMoveMode}>
                     <i className="fa fa-arrows-alt" />
-                    Move Pin
+                    Edit pin location
                 </button>
             )}
             {pin.nextPinID && (

@@ -87,6 +87,7 @@ class RegisterFormContainer extends Component {
             'Company.name': name,
             'Company.phoneNumber': phoneNumber,
             'Company.addressLine1': addressLine1,
+            'Company.addressLine2': addressLine2,
             'Company.town': town,
             'Company.postcode': postcode,
             'Company.vatCode': vatCode,
@@ -104,14 +105,15 @@ class RegisterFormContainer extends Component {
                 password: password
             },
             company: {
-                name: name,
-                addressLine1: addressLine1,
-                town: town,
-                postcode: postcode,
-                vatType: vatType,
-                vatCode: vatCode,
-                dateFormatID: dateFormatID,
-                timezone: timezone
+                name,
+                addressLine1,
+                addressLine2,
+                town,
+                postcode,
+                vatType,
+                vatCode,
+                dateFormatID,
+                timezone
             }
         };
 
