@@ -5,31 +5,55 @@ import updateApprovedCompaniesFilters from 'actions/companyAdmin/approvedCompani
 import { connect } from 'react-redux';
 
 import ApprovedCompaniesFilters from '../presentational/ApprovedCompaniesFilters';
+import updateApprovedCompaniesSort from 'actions/companyAdmin/approvedCompanies/sync/updateApprovedCompaniesSort';
 
 // TODO: add filters
 
 const ApprovedCompaniesFiltersContainer = ({
     filters: { name },
-    updateApprovedCompaniesFilters
+    sort,
+    updateApprovedCompaniesFilters,
+    updateApprovedCompaniesSort
 }) => {
     const handleChange = (name, value) => {
         updateApprovedCompaniesFilters(name, value);
     };
 
-    return <ApprovedCompaniesFilters handleChange={handleChange} name={name} />;
+    const handleSortChange = (_, value) => {
+        updateApprovedCompaniesSort(value);
+    };
+
+    const sortOptions = {
+        'A - Z': { value: 'A - Z', text: 'A - Z' },
+        'Z - A': { value: 'Z - A', text: 'Z - A' }
+    };
+
+    return (
+        <ApprovedCompaniesFilters
+            handleChange={handleChange}
+            handleSortChange={handleSortChange}
+            name={name}
+            sortOptions={Object.values(sortOptions)}
+            selectedOption={sortOptions[sort]}
+        />
+    );
 };
 
 const mapStateToProps = ({
     companyAdmin: {
-        approvedCompaniesReducer: { filters }
+        approvedCompaniesReducer: { filters, sort }
     }
 }) => ({
-    filters
+    filters,
+    sort
 });
 
 const mapDispatchToProps = dispatch => ({
     updateApprovedCompaniesFilters: (name, value) => {
         dispatch(updateApprovedCompaniesFilters(name, value));
+    },
+    updateApprovedCompaniesSort: sort => {
+        dispatch(updateApprovedCompaniesSort(sort));
     }
 });
 

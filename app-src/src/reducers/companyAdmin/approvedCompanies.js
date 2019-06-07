@@ -4,7 +4,8 @@ import {
     FETCH_ALL_APPROVED_COMPANIES_REQUEST,
     FETCH_ALL_APPROVED_COMPANIES_SUCCESS,
     FETCH_ALL_APPROVED_COMPANIES_FAILURE,
-    UPDATE_APPROVED_COMPANIES_FILTERS
+    UPDATE_APPROVED_COMPANIES_FILTERS,
+    UPDATE_APPROVED_COMPANIES_SORT
 } from 'constants/actionTypes/approvedCompanies';
 import { updateObj } from 'helpers/generic';
 
@@ -12,7 +13,8 @@ export default combineReducers({
     approvedCompanies: approvedCompaniesReducer,
     isFetching: isFetchingReducer,
     error: errorReducer,
-    filters: filtersReducer
+    filters: filtersReducer,
+    sort: sortReducer
 });
 
 function isFetchingReducer(state = false, action) {
@@ -42,6 +44,15 @@ function filtersReducer(state = { name: '' }, action) {
     switch (action.type) {
         case UPDATE_APPROVED_COMPANIES_FILTERS:
             return updateObj(state, action.fieldName, action.searchTerm);
+        default:
+            return state;
+    }
+}
+
+function sortReducer(state = 'A - Z', action) {
+    switch (action.type) {
+        case UPDATE_APPROVED_COMPANIES_SORT:
+            return action.sort;
         default:
             return state;
     }

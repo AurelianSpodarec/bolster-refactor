@@ -7,7 +7,8 @@ const ApprovedCompaniesListContainer = ({
     companies,
     isFetching,
     error,
-    filters
+    filters,
+    sort
 }) => {
     const filteredCompanies = _getFilteredCompanies();
     return filteredCompanies.length ? (
@@ -27,7 +28,7 @@ const ApprovedCompaniesListContainer = ({
     ) : (
         <BlockContainer
             isFetching={isFetching}
-            noData={!companies.length}
+            isEmpty={!filteredCompanies.length}
             noDataMessage="There are no companies currently on this list."
             error={error}
         />
@@ -35,11 +36,36 @@ const ApprovedCompaniesListContainer = ({
 
     function _getFilteredCompanies() {
         const name = filters.name.toLowerCase();
-        return companies.filter(
+
+        let filteredCompanies = companies.filter(
             company =>
                 company.name.toLowerCase().includes(name) ||
                 company.code.includes(+name)
         );
+
+        if (sort === 'A - Z') {
+            filteredCompanies = filteredCompanies.sort((a, b) => {
+                if (a.name < b.name) {
+                    return -1;
+                }
+                if (a.name > b.name) {
+                    return 1;
+                }
+                return 0;
+            });
+        } else {
+            filteredCompanies = filteredCompanies.sort((a, b) => {
+                if (a.name > b.name) {
+                    return -1;
+                }
+                if (a.name < b.name) {
+                    return 1;
+                }
+                return 0;
+            });
+        }
+
+        return filteredCompanies;
     }
 };
 
@@ -49,14 +75,16 @@ const mapStateToProps = ({
             isFetching,
             error,
             approvedCompanies,
-            filters
+            filters,
+            sort
         }
     }
 }) => ({
     companies: Object.values(approvedCompanies),
     isFetching,
     error,
-    filters
+    filters,
+    sort
 });
 
 export default connect(mapStateToProps)(ApprovedCompaniesListContainer);
