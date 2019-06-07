@@ -55,11 +55,12 @@ class CreateOperativeFormContainer extends Component {
     handleSubmit = e => {
         e.preventDefault();
         // eslint-disable-next-line no-unused-vars
-        const { confirmPassword, ...restForm } = this.state;
+        const { confirmPassword, phoneNumber, ...restForm } = this.state;
         const postBody = {
             ...restForm,
             type: COMPANY_USER_ROLE_TYPES.OPERATIVE
         };
+        if (phoneNumber) postBody.phoneNumber = phoneNumber;
 
         this.props.createCompanyUser(postBody);
     };
