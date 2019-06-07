@@ -74,11 +74,7 @@ const mapStateToProps = ({
     postFailure
 });
 
-const mapDispatchToProps = dispatch => ({
-    hideModal: () => dispatch(hideModal()),
-    showModal: (type, props) => dispatch(showModal(type, props)),
-    editTemplateQuestion: (id, body) => dispatch(editTemplateQuestion(id, body))
-});
+const mapDispatchToProps = { hideModal, showModal, editTemplateQuestion };
 
 export default connect(
     mapStateToProps,
