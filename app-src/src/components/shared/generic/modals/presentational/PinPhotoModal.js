@@ -1,18 +1,13 @@
 import React, { Component } from 'react';
 import ModalOuterContainer from '../containers/ModalOuterContainer';
 import loading from '../../../../../_content/images/layout/loading.gif';
+import Loading from '../../misc/presentational/Loading';
 
 class PinPhotoModal extends Component {
     state = { isLoading: true };
     render = () => (
         <ModalOuterContainer>
-            {this.state.isLoading && (
-                <img
-                    alt="loading"
-                    src={loading}
-                    style={{ width: '10em', height: '10em' }}
-                />
-            )}
+            {this.state.isLoading && <Loading message="Loading photo..." />}
             <img
                 alt="pin"
                 src={this.props.image}
