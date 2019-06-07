@@ -93,15 +93,17 @@ class CopyTemplateModalContainer extends Component {
                         templateUUID: newTemplateUUID
                     };
 
-                    const newSectionQuestions = questions.map(q => {
-                        const newQuestionUUID = newUUID();
-                        return {
-                            ...q,
-                            uuid: newQuestionUUID,
-                            sectionUUID: newSectionUUID,
-                            templateUUID: newTemplateUUID
-                        };
-                    });
+                    const newSectionQuestions = questions
+                        .filter(q => q.sectionUUID === sec.uuid)
+                        .map(q => {
+                            const newQuestionUUID = newUUID();
+                            return {
+                                ...q,
+                                uuid: newQuestionUUID,
+                                sectionUUID: newSectionUUID,
+                                templateUUID: newTemplateUUID
+                            };
+                        });
 
                     acc.newSections.push(newSection);
                     acc.newQuestions = acc.newQuestions.concat(
