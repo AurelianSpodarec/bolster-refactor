@@ -11,7 +11,7 @@ import fetchAllDropdownOptions from 'actions/companyAdmin/dropdownOptions/async/
 
 class TemplateSectionQuestionDetailsContainer extends React.Component {
     render = () => {
-        const { question, options } = this.props;
+        const { question, options, showModal } = this.props;
 
         return (
             <BlockContainer>
@@ -46,9 +46,10 @@ const mapStateToProps = ({
         dropdownOptionsReducer: { dropdownOptions }
     }
 }) => {
-    const question = formatQuestions(Object.values(questions)).find(
-        ({ id }) => id === selectedQuestionID
-    );
+    const question =
+        formatQuestions(Object.values(questions)).find(
+            ({ id }) => id === selectedQuestionID
+        ) || {};
     const optionsTypes = [
         TYPES.DROPDOWN_OPTIONS,
         TYPES.MULTI_DROPDOWN_OPTIONS,
