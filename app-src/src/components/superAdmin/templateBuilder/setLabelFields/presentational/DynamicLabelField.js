@@ -1,15 +1,16 @@
 import React from 'react';
 
 import Field from 'components/shared/generic/form/presentational/Field';
-import Dropdown from 'components/shared/generic/form/presentational/Dropdown';
+import Select from 'components/shared/generic/form/presentational/Select';
 
 const DynamicLabelField = ({ labelField, handleChange, questionOptions }) => (
-    <Field name="Dynamic fields" sizeClasses="size-lg-6">
-        <Dropdown
+    <Field name="Dynamic fields" sizeClasses="size-lg-6" required>
+        <Select
             name="questionUUID"
             options={Object.values(questionOptions)}
-            selectedOption={questionOptions[labelField.config.questionUUID]}
-            handleChange={handleChange}
+            value={labelField.config.questionUUID}
+            onChange={handleChange}
+            required
         />
     </Field>
 );
