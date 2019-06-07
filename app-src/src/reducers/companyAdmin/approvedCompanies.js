@@ -3,13 +3,16 @@ import { combineReducers } from 'redux';
 import {
     FETCH_ALL_APPROVED_COMPANIES_REQUEST,
     FETCH_ALL_APPROVED_COMPANIES_SUCCESS,
-    FETCH_ALL_APPROVED_COMPANIES_FAILURE
+    FETCH_ALL_APPROVED_COMPANIES_FAILURE,
+    UPDATE_APPROVED_COMPANIES_FILTERS
 } from 'constants/actionTypes/approvedCompanies';
+import { updateObj } from 'helpers/generic';
 
 export default combineReducers({
     approvedCompanies: approvedCompaniesReducer,
     isFetching: isFetchingReducer,
-    error: errorReducer
+    error: errorReducer,
+    filters: filtersReducer
 });
 
 function isFetchingReducer(state = false, action) {
@@ -30,6 +33,15 @@ function errorReducer(state = null, action) {
             return null;
         case FETCH_ALL_APPROVED_COMPANIES_FAILURE:
             return action.error;
+        default:
+            return state;
+    }
+}
+
+function filtersReducer(state = { name: '' }, action) {
+    switch (action.type) {
+        case UPDATE_APPROVED_COMPANIES_FILTERS:
+            return updateObj(state, action.fieldName, action.searchTerm);
         default:
             return state;
     }

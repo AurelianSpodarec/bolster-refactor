@@ -3152,6 +3152,9 @@ input {
 
     .flex-row-item {
         float: none;
+        .content-area {
+            min-height: calc(100% - 10px);
+        }
     }
 }
 
