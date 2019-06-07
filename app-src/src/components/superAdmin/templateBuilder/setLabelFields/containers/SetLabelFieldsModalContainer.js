@@ -26,13 +26,10 @@ class SetLabelFieldModalContainer extends Component {
     _getQuestionOptions = () => {
         const { questions } = this.props;
 
-        return questions.reduce(
-            (acc, { uuid, name }) => ({
-                ...acc,
-                [uuid]: { value: uuid, text: name }
-            }),
-            {}
-        );
+        return questions.map(({ uuid, name }) => ({
+            value: uuid,
+            label: name
+        }));
     };
 
     componentDidMount() {
