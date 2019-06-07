@@ -134,6 +134,8 @@ export default function(WrappedComponent) {
 
         _getTrimLabelFields = templateUUID => {
             const { 1: fieldOne, ...otherFields } = TRIM_LABEL_FIELDS;
+            const { STATIC } = LABEL_QUES_TYPES_NUMS;
+            const { LOCATION_OWNER_COMPANY_NAME } = LABEL_STATIC_FIELDS_NUMS;
 
             const prefilledFieldOne = {
                 templateUUID,
@@ -141,9 +143,8 @@ export default function(WrappedComponent) {
                 key: fieldOne,
                 config: {
                     title: '',
-                    source:
-                        LABEL_STATIC_FIELDS_NUMS.LOCATION_OWNER_COMPANY_NAME,
-                    staticField: '',
+                    source: STATIC,
+                    staticField: LOCATION_OWNER_COMPANY_NAME,
                     questionUUID: ''
                 }
             };
