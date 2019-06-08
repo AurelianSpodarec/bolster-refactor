@@ -11,9 +11,14 @@ const SitesListItemContainer = ({
     expandedSiteIds,
     site,
     site: { accessType, permissions },
-    colCount
+    colCount,
+    index,
+    moveItem
 }) => (
     <SitesListItem
+        index={index}
+        id={site.id}
+        moveItem={moveItem}
         site={site}
         isExpanded={expandedSiteIds.includes(site.id)}
         colCount={colCount}

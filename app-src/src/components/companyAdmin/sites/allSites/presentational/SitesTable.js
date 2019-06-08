@@ -5,7 +5,14 @@ import SitesList from './SitesList';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 
-const SitesTable = ({ headers, sites, isFetching, error, handleAddSite }) => {
+const SitesTable = ({
+    headers,
+    sites,
+    isFetching,
+    error,
+    handleAddSite,
+    sortSites
+}) => {
     return (
         <BlockContainer>
             <BlockHeading title="Sites" classes="w-table">
@@ -21,8 +28,13 @@ const SitesTable = ({ headers, sites, isFetching, error, handleAddSite }) => {
                 error={error}
                 noData={!sites.length}
                 noDataMessage="No sites to display"
+                withoutTBody
             >
-                <SitesList colCount={headers.length} sites={sites} />
+                <SitesList
+                    colCount={headers.length}
+                    items={sites}
+                    onMove={sortSites}
+                />
             </Table>
         </BlockContainer>
     );

@@ -24,11 +24,11 @@ export default function(WrappedComponent, type = 'CARD') {
     const dropZoneTarget = {
         canDrop: () => false,
         hover(props, monitor) {
-            const { originalIndex, id } = monitor.getItem();
+            const { index } = monitor.getItem();
             const { index: overIndex } = props;
-            if (originalIndex !== overIndex) {
-                props.moveItem(id, overIndex);
-            }
+            if (index === overIndex) return;
+            props.moveItem(index, overIndex);
+            monitor.getItem().index = overIndex;
         }
     };
 
@@ -39,14 +39,15 @@ export default function(WrappedComponent, type = 'CARD') {
     const dragItemTarget = {
         beginDrag: props => ({
             id: props.id,
-            originalIndex: props.index
+            originalIndex: props.index,
+            index: props.index
         }),
         endDrag(props, monitor) {
-            const { id: droppedId, originalIndex } = monitor.getItem();
-            const didDrop = monitor.didDrop();
-            if (!didDrop) {
-                props.moveItem(droppedId, originalIndex);
-            }
+            // const { id: droppedId, originalIndex } = monitor.getItem();
+            // const didDrop = monitor.didDrop();
+            // if (!didDrop) {
+            //     props.moveItem(droppedId, originalIndex);
+            // }
         }
     };
 

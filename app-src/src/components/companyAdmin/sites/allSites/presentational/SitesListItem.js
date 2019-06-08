@@ -1,9 +1,9 @@
 import React from 'react';
 
+import withDrag from 'components/shared/dragDrop/hocs/withDrag';
 import withToggleExpand from 'components/shared/generic/tables/hocs/withToggleExpand';
 import BuildingsTableContainer from 'components/companyAdmin/buildings/shared/containers/BuildingsTableContainer';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
-import withDragRow from 'components/shared/dragDrop/hocs/withDragRow';
 
 let SitesListItem = ({
     toggleExpanded,
@@ -17,7 +17,6 @@ let SitesListItem = ({
         <>
             <tr
                 ref={forwardRef}
-                key={site.id}
                 onClick={toggleExpanded}
                 className={`expandable ${isExpanded ? 'open' : ''}`}
             >
@@ -52,4 +51,4 @@ let SitesListItem = ({
 };
 
 SitesListItem = withToggleExpand(SitesListItem);
-export default withDragRow(SitesListItem);
+export default withDrag(SitesListItem);
