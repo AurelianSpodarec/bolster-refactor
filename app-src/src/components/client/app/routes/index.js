@@ -4,6 +4,7 @@ import { Route } from 'react-router-dom';
 import Dashboard from 'components/client/dashboard/presentational/Dashboard';
 import SwitchWith404 from 'components/appRoute/routes/presentational/SwitchWith404';
 
+import CompaniesRoutes from './CompaniesRoutes';
 import SitesRoutes from './SitesRoutes';
 import BuildingsRoutes from './BuildingsRoutes';
 import FloorRoutes from './FloorRoutes';
@@ -17,6 +18,7 @@ import ProfilesRoutes from './ProfilesRoutes';
 const ClientAreaRoutes = ({ base = '/client' }) => (
     <SwitchWith404>
         <Route exact path={base} component={Dashboard} />
+        <Route exact path={`${base}/companies`} component={CompaniesRoutes} />
         <Route path={`${base}/sites`} component={SitesRoutes} />
         <Route path={`${base}/floors`} component={FloorRoutes} />
         <Route path={`${base}/buildings`} component={BuildingsRoutes} />

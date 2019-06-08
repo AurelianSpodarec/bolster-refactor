@@ -222,6 +222,16 @@ body {
         float: right;
         margin-left: 7.5px;
     }
+
+    &.left-align {
+        .button,
+        button,
+        .link-holder {
+            float: left;
+            margin-left: 0;
+            margin-right: 7.5px;
+        }
+    }
 }
 
 .content-area {

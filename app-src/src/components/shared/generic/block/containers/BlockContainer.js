@@ -12,6 +12,7 @@ const BlockContainer = ({
     isEmpty,
     noDataMessage = 'There is no data to display',
     heading,
+    noWhiteBackground = false,
     children
 }) => {
     if (error && error.length)
@@ -36,6 +37,8 @@ const BlockContainer = ({
                 <p className="no-data">{noDataMessage}</p>
             </Block>
         );
+
+    if (noWhiteBackground) return children;
 
     return (
         <Block containerClass={containerClass} contentClass={contentClass}>
