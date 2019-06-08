@@ -9,7 +9,8 @@ const TableBody = ({
     isFetching,
     noData,
     noDataMessage,
-    children
+    children,
+    withoutTBody = false
 }) => {
     if (error && error.length)
         return (

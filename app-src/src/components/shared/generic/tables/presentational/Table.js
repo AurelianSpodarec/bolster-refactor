@@ -18,12 +18,14 @@ const Table = ({
                 withActions ? 'with-actions' : ''
             } ${extraClasses}`}
         >
-            <tbody>
+            <thead>
                 <tr>
                     {headers.map((header, i) => (
                         <th key={header + i}>{header}</th>
                     ))}
                 </tr>
+            </thead>
+            <tbody>
                 <TableBody
                     colCount={headers.length}
                     error={error}

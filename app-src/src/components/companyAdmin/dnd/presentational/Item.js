@@ -1,10 +1,6 @@
 import React, { useRef } from 'react';
 import { DragSource, DropTarget } from 'react-dnd';
 const style = {
-    border: '1px dashed gray',
-    padding: '0.5rem 1rem',
-    marginBottom: '.5rem',
-    backgroundColor: 'white',
     cursor: 'move'
 };
 
@@ -14,9 +10,10 @@ const Item = ({ text, isDragging, connectDragSource, connectDropTarget }) => {
     connectDragSource(ref);
     connectDropTarget(ref);
     return (
-        <div ref={ref} style={Object.assign({}, style, { opacity })}>
-            {text}
-        </div>
+        <tr ref={ref} style={Object.assign({}, style, { opacity })}>
+            <td>{text}</td>
+            <td />
+        </tr>
     );
 };
 
