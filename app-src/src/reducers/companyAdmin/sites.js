@@ -23,7 +23,8 @@ import {
     ARCHIVE_SITE_FAILURE,
     CREATE_TRANSFER_SITE_REQUEST,
     CREATE_TRANSFER_SITE_SUCCESS,
-    CREATE_TRANSFER_SITE_FAILURE
+    CREATE_TRANSFER_SITE_FAILURE,
+    SORT_SITES
 } from 'constants/actionTypes/sites';
 import { CREATE_BUILDING_SUCCESS } from 'constants/actionTypes/buildings';
 
@@ -152,6 +153,11 @@ function sitesReducer(state = {}, action) {
                     action.payload.id
                 ]
             });
+        case SORT_SITES:
+            return {
+                ...state,
+                ...convertArrToObj(action.sites)
+            };
         default:
             return state;
     }

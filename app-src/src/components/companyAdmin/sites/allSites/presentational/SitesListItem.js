@@ -3,8 +3,9 @@ import React from 'react';
 import withToggleExpand from 'components/shared/generic/tables/hocs/withToggleExpand';
 import BuildingsTableContainer from 'components/companyAdmin/buildings/shared/containers/BuildingsTableContainer';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
+import DragRow from 'components/companyAdmin/dnd/hocs/withDragRow';
 
-const SitesListItem = ({
+let SitesListItem = ({
     toggleExpanded,
     isExpanded,
     site,

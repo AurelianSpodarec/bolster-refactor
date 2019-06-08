@@ -1,12 +1,12 @@
 import React from 'react';
 import withDragRow from '../hocs/withDragRow';
 
-const Item = ({ text }) => {
+const Item = ({ forwardRef, text, click }) => {
     return (
-        <>
+        <tr onClick={click} ref={forwardRef} style={{ cursor: 'move' }}>
             <td>{text}</td>
             <td />
-        </>
+        </tr>
     );
 };
 

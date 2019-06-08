@@ -1,5 +1,7 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import { DragSource, DropTarget } from 'react-dnd';
+
+// const ref = React.createRef();
 
 export default function(WrappedComponent) {
     let Item = ({
@@ -8,14 +10,16 @@ export default function(WrappedComponent) {
         connectDropTarget,
         ...rest
     }) => {
-        let ref = useRef(null);
+        const ref = React.createRef();
         connectDragSource(ref);
         connectDropTarget(ref);
 
         return (
-            <tr ref={ref} style={{ cursor: 'move' }}>
-                <WrappedComponent {...rest} isDragging={isDragging} />
-            </tr>
+            <WrappedComponent
+                forwardRef={ref}
+                {...rest}
+                isDragging={isDragging}
+            />
         );
     };
 
@@ -57,5 +61,6 @@ export default function(WrappedComponent) {
         DragSource('CARD', dragItemTarget, dragItemCollect)(Item)
     );
 
+    // eslint-disable-next-line react/display-name
     return Item;
 }
