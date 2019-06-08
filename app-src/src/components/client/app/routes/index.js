@@ -3,6 +3,7 @@ import { Route } from 'react-router-dom';
 
 import Dashboard from 'components/client/dashboard/presentational/Dashboard';
 import SwitchWith404 from 'components/appRoute/routes/presentational/SwitchWith404';
+import withSelectedCompanyAuth from '../../app/hocs/withSelectedCompanyAuth';
 
 import CompaniesRoutes from './CompaniesRoutes';
 import SitesRoutes from './SitesRoutes';
@@ -17,15 +18,37 @@ import ProfilesRoutes from './ProfilesRoutes';
 
 const ClientAreaRoutes = ({ base = '/client' }) => (
     <SwitchWith404>
-        <Route exact path={base} component={Dashboard} />
+        <Route
+            exact
+            path={base}
+            component={withSelectedCompanyAuth(Dashboard)}
+        />
         <Route exact path={`${base}/companies`} component={CompaniesRoutes} />
-        <Route path={`${base}/sites`} component={SitesRoutes} />
-        <Route path={`${base}/floors`} component={FloorRoutes} />
-        <Route path={`${base}/buildings`} component={BuildingsRoutes} />
-        <Route path={`${base}/drawings`} component={DrawingsRoutes} />
+        <Route
+            path={`${base}/sites`}
+            component={withSelectedCompanyAuth(SitesRoutes)}
+        />
+        <Route
+            path={`${base}/floors`}
+            component={withSelectedCompanyAuth(FloorRoutes)}
+        />
+        <Route
+            path={`${base}/buildings`}
+            component={withSelectedCompanyAuth(BuildingsRoutes)}
+        />
+        <Route
+            path={`${base}/drawings`}
+            component={withSelectedCompanyAuth(DrawingsRoutes)}
+        />
 
-        <Route path={`${base}/pins`} component={PinRoutes} />
-        <Route path={`${base}/profile`} component={ProfilesRoutes} />
+        <Route
+            path={`${base}/pins`}
+            component={withSelectedCompanyAuth(PinRoutes)}
+        />
+        <Route
+            path={`${base}/profile`}
+            component={withSelectedCompanyAuth(ProfilesRoutes)}
+        />
 
         {/* ? should clients have the option to generate reports  */}
         {/* <Route
