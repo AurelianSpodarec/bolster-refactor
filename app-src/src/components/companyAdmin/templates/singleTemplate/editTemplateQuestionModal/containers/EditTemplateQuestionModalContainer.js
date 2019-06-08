@@ -56,10 +56,12 @@ class EditTemplateQuestionModalContainer extends Component {
     handleSubmit = e => {
         e.preventDefault();
         const { editTemplateQuestion, question } = this.props;
-        const options = Object.entries(this.state.options).map(
-            ([id, text]) => ({ id, text })
-        );
-        editTemplateQuestion(question.id, { options });
+
+        const body = {
+            questionID: question.id,
+            options: Object.values(this.state.options)
+        };
+        editTemplateQuestion(question.id, body);
     };
 }
 
@@ -72,11 +74,7 @@ const mapStateToProps = ({
     postFailure
 });
 
-const mapDispatchToProps = dispatch => ({
-    hideModal: () => dispatch(hideModal()),
-    showModal: (type, props) => dispatch(showModal(type, props)),
-    editTemplateQuestion: (id, body) => dispatch(editTemplateQuestion(id, body))
-});
+const mapDispatchToProps = { hideModal, showModal, editTemplateQuestion };
 
 export default connect(
     mapStateToProps,
