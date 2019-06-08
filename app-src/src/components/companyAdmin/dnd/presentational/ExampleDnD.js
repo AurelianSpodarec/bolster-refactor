@@ -50,20 +50,22 @@ const initialList = [
     }
 ];
 
-let Body = ({ items, moveItem }) => (
-    <TableBody colCount={2}>
-        {[...items]
-            .sort((a, b) => a.sort - b.sort)
-            .map((item, i) => (
-                <Item
-                    key={item.id}
-                    id={item.id}
-                    text={item.text}
-                    moveItem={moveItem}
-                    index={i}
-                />
-            ))}
-    </TableBody>
+let Body = ({ items, moveItem, forwardRef }) => (
+    <tbody ref={forwardRef}>
+        <TableBody colCount={2}>
+            {[...items]
+                .sort((a, b) => a.sort - b.sort)
+                .map((item, i) => (
+                    <Item
+                        key={item.id}
+                        id={item.id}
+                        text={item.text}
+                        moveItem={moveItem}
+                        index={i}
+                    />
+                ))}
+        </TableBody>
+    </tbody>
 );
 
 Body = withDropTable(Body);

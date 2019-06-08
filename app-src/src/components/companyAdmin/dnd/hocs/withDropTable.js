@@ -1,15 +1,15 @@
-import React, { useRef, useCallback } from 'react';
+import React, { useCallback } from 'react';
 import { DropTarget } from 'react-dnd';
 import update from 'immutability-helper';
 
-export default function(WrappedComponent) {
-    const Container = ({
+export default function(WrappedComponent, type = 'CARD') {
+    const WithDrop = ({
         connectDropTarget,
         onMove = () => null,
         items,
         ...rest
     }) => {
-        const ref = useRef(null);
+        const ref = React.createRef();
 
         const moveItem = useCallback(
             (id, atIndex) => {
@@ -36,13 +36,16 @@ export default function(WrappedComponent) {
 
         connectDropTarget(ref);
         return (
-            <tbody ref={ref}>
-                <WrappedComponent {...rest} items={items} moveItem={moveItem} />
-            </tbody>
+            <WrappedComponent
+                {...rest}
+                items={items}
+                moveItem={moveItem}
+                forwardRef={ref}
+            />
         );
     };
 
-    return DropTarget('CARD', {}, connect => ({
+    return DropTarget(type, {}, connect => ({
         connectDropTarget: connect.dropTarget()
-    }))(Container);
+    }))(WithDrop);
 }

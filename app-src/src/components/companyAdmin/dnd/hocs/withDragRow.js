@@ -1,10 +1,8 @@
 import React from 'react';
 import { DragSource, DropTarget } from 'react-dnd';
 
-// const ref = React.createRef();
-
-export default function(WrappedComponent) {
-    let Item = ({
+export default function(WrappedComponent, type = 'CARD') {
+    let WithDrag = ({
         isDragging,
         connectDragSource,
         connectDropTarget,
@@ -57,10 +55,9 @@ export default function(WrappedComponent) {
         isDragging: monitor.isDragging()
     });
 
-    Item = DropTarget('CARD', dropZoneTarget, dropZoneCollect)(
-        DragSource('CARD', dragItemTarget, dragItemCollect)(Item)
+    WithDrag = DropTarget(type, dropZoneTarget, dropZoneCollect)(
+        DragSource(type, dragItemTarget, dragItemCollect)(WithDrag)
     );
 
-    // eslint-disable-next-line react/display-name
-    return Item;
+    return WithDrag;
 }
