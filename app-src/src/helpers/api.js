@@ -43,6 +43,7 @@ export function getDecodedJWT() {
 
 export function formatJWTData({
     IsSuperAdmin,
+    IsClientAccess,
     ID,
     CompanyID,
     CompanyUserID,
@@ -55,6 +56,7 @@ export function formatJWTData({
     return {
         id: JSON.parse(ID),
         isSuperAdmin: JSON.parse(IsSuperAdmin),
+        isClientAccess: JSON.parse(IsClientAccess),
         companyID: JSON.parse(CompanyID),
         companyUserID: JSON.parse(CompanyUserID),
         companyUserType: JSON.parse(CompanyUserType),
