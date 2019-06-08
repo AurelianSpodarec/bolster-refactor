@@ -8,7 +8,7 @@ const style = {
     cursor: 'move'
 };
 
-const Card = ({ text, isDragging, connectDragSource, connectDropTarget }) => {
+const Item = ({ text, isDragging, connectDragSource, connectDropTarget }) => {
     const opacity = isDragging ? 0 : 1;
     const ref = useRef(null);
     connectDragSource(ref);
@@ -23,10 +23,10 @@ const Card = ({ text, isDragging, connectDragSource, connectDropTarget }) => {
 const dropZoneTarget = {
     canDrop: () => false,
     hover(props, monitor) {
-        const { index, id } = monitor.getItem();
+        const { originalIndex, id } = monitor.getItem();
         const { index: overIndex } = props;
-        if (index !== overIndex) {
-            props.moveCard(id, overIndex);
+        if (originalIndex !== overIndex) {
+            props.moveItem(id, overIndex);
         }
     }
 };
@@ -44,7 +44,7 @@ const dragItemTarget = {
         const { id: droppedId, originalIndex } = monitor.getItem();
         const didDrop = monitor.didDrop();
         if (!didDrop) {
-            props.moveCard(droppedId, originalIndex);
+            props.moveItem(droppedId, originalIndex);
         }
     }
 };
@@ -55,5 +55,5 @@ const dragItemCollect = (connect, monitor) => ({
 });
 
 export default DropTarget('CARD', dropZoneTarget, dropZoneCollect)(
-    DragSource('CARD', dragItemTarget, dragItemCollect)(Card)
+    DragSource('CARD', dragItemTarget, dragItemCollect)(Item)
 );
