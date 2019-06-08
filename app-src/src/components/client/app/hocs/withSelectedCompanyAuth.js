@@ -26,7 +26,7 @@ export default function(ProtectedComponent) {
             if (error)
                 return (
                     <Block>
-                        <Error />
+                        <Error>{this.props.error}</Error>
                     </Block>
                 );
 
@@ -36,17 +36,16 @@ export default function(ProtectedComponent) {
         componentDidMount = () => {
             const {
                 companies,
+                selectedCompanyID,
                 clientFetchCompaniesRequest,
                 history
             } = this.props;
-            const selectedCompany = localStorage.getItem('selectedCompany');
-
-            if (!selectedCompany) history.push('/client/companies');
+            if (!selectedCompanyID) history.push('/client/companies');
 
             if (companies.length) {
                 if (
                     companies.filter(
-                        company => company.id === parseInt(selectedCompany)
+                        company => company.id === selectedCompanyID
                     ).length
                 ) {
                     this.setState({
@@ -61,14 +60,17 @@ export default function(ProtectedComponent) {
         };
 
         componentDidUpdate = prevProps => {
-            const { companies, isFetching, error } = this.props;
+            const {
+                companies,
+                isFetching,
+                error,
+                selectedCompanyID
+            } = this.props;
 
             if (!isFetching && prevProps.isFetching && companies.length) {
-                const selectedCompany = localStorage.getItem('selectedCompany');
-
                 if (
                     companies.filter(
-                        company => company.id === parseInt(selectedCompany)
+                        company => company.id === selectedCompanyID
                     ).length
                 ) {
                     this.setState({
@@ -83,12 +85,18 @@ export default function(ProtectedComponent) {
 
     const mapStateToProps = ({
         client: {
-            companiesReducer: { companies, isFetching, error }
+            companiesReducer: {
+                companies,
+                isFetching,
+                error,
+                selectedCompanyID
+            }
         }
     }) => ({
         companies: Object.values(companies),
         isFetching,
-        error
+        error,
+        selectedCompanyID
     });
 
     const mapDispatchToProps = dispatch => ({
