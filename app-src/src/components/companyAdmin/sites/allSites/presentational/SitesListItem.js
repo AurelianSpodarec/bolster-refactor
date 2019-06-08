@@ -3,18 +3,20 @@ import React from 'react';
 import withToggleExpand from 'components/shared/generic/tables/hocs/withToggleExpand';
 import BuildingsTableContainer from 'components/companyAdmin/buildings/shared/containers/BuildingsTableContainer';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
-import DragRow from 'components/companyAdmin/dnd/hocs/withDragRow';
+import withDragRow from 'components/shared/dragDrop/hocs/withDragRow';
 
 let SitesListItem = ({
     toggleExpanded,
     isExpanded,
     site,
     colCount,
-    permissions
+    permissions,
+    forwardRef
 }) => {
     return (
         <>
             <tr
+                ref={forwardRef}
                 key={site.id}
                 onClick={toggleExpanded}
                 className={`expandable ${isExpanded ? 'open' : ''}`}
@@ -49,4 +51,5 @@ let SitesListItem = ({
     );
 };
 
-export default withToggleExpand(SitesListItem);
+SitesListItem = withToggleExpand(SitesListItem);
+export default withDragRow(SitesListItem);

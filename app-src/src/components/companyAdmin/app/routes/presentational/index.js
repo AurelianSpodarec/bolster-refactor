@@ -22,12 +22,10 @@ import SettingsRoutes from './SettingsRoutes';
 import DropdownOptionsRoutes from './DropdownOptionsRoutes';
 import HeadquartersRoutes from './HeadquartersRoutes';
 import ApprovedCompaniesRoutes from './ApprovedCompaniesRoutes';
-import ExampleDnD from 'components/companyAdmin/dnd/presentational/ExampleDnD';
 
 const CompanyRoutes = ({ base = '/company' }) => (
     <SwitchWith404>
         <Route exact path={base} component={withSubscriptionAuth(Dashboard)} />
-        <Route exact path="/company/dnd" component={ExampleDnD} />
         <Route
             path={`${base}/buildings`}
             component={withSubscriptionAuth(BuildingsRoutes)}
