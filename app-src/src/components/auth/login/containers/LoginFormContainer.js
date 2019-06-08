@@ -41,16 +41,27 @@ class LoginFormContainer extends Component {
         } = this.props;
 
         if (postSuccess && !prevProps.postSuccess) {
-            authenticate().then(({ isSuperAdmin, companyUserType }) => {
-                if (+companyUserType === COMPANY_USER_ROLE_TYPES.OPERATIVE) {
-                    localStorage.removeItem('token');
-                    addFieldError(
-                        'password',
-                        'Operatives logins are not permitted to use the desktop site.'
-                    );
-                    showFieldErrors();
-                } else history.push(isSuperAdmin ? '/admin' : '/company');
-            });
+            authenticate().then(
+                ({ isSuperAdmin, isClientAccess, companyUserType }) => {
+                    if (
+                        +companyUserType === COMPANY_USER_ROLE_TYPES.OPERATIVE
+                    ) {
+                        localStorage.removeItem('token');
+                        addFieldError(
+                            'password',
+                            'Operatives logins are not permitted to use the desktop site.'
+                        );
+                        showFieldErrors();
+                    } else
+                        history.push(
+                            isSuperAdmin
+                                ? '/admin'
+                                : isClientAccess
+                                ? '/client'
+                                : '/company'
+                        );
+                }
+            );
         }
     };
 }
