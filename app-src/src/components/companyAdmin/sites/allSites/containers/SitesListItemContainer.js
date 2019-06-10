@@ -6,6 +6,7 @@ import { ACCESS_TYPES } from 'constants/companyAdmin/enums';
 
 import SitesListItem from '../presentational/SitesListItem';
 import reorderSite from 'actions/companyAdmin/sites/sync/reorderSite';
+import postSitesSort from 'actions/companyAdmin/sites/async/postSitesSort';
 
 const SitesListItemContainer = ({
     expandedSiteIds,
@@ -14,14 +15,16 @@ const SitesListItemContainer = ({
     colCount,
     index,
     reorderSite,
-    toggleSiteExpanded
+    toggleSiteExpanded,
+    postSitesSort,
+    sites
 }) => {
     return (
         <SitesListItem
             index={index}
             id={site.id}
             onMove={reorderSite}
-            onDrop={() => console.log('drop')}
+            onDrop={() => postSitesSort(sites)}
             site={site}
             isExpanded={expandedSiteIds.includes(site.id)}
             colCount={colCount}
@@ -44,12 +47,16 @@ const SitesListItemContainer = ({
 const mapStateToProps = ({
     shared: {
         tablesReducer: { expandedSiteIds }
+    },
+    companyAdmin: {
+        sitesReducer: { sites }
     }
 }) => ({
-    expandedSiteIds
+    expandedSiteIds,
+    sites: Object.values(sites)
 });
 
-const mapDispatchToProps = { reorderSite, toggleSiteExpanded };
+const mapDispatchToProps = { reorderSite, toggleSiteExpanded, postSitesSort };
 
 export default connect(
     mapStateToProps,
