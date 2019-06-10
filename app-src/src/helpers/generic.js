@@ -135,6 +135,10 @@ export function moveItem(arr, id, index) {
     return sortedItems.map((item, i) => ({ ...item, sort: i + 1 }));
 }
 
+export const hierarchySort = (a, b) => a.sort - b.sort;
+
+// lifecycle hook tests
+
 // ? pass in a function to call on mount
 export function componentDidMount(cb) {
     useEffect(() => {
