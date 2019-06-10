@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { API_URL } from 'config';
+import { CLIENT_API_URL } from 'config';
 import { getHeaders } from 'helpers/api';
 import {
     CLIENT_FETCH_SINGLE_BUILDING_REQUEST,
@@ -22,13 +22,13 @@ export const clientFetchBuildingFailure = error => ({
     error
 });
 
-export default id => dispatch => {
+export default (companyID, buildingID) => dispatch => {
     dispatch(clientFetchBuildingRequest());
-    return (
-        axios
-            // ! change the url
-            .get(`${API_URL}/buildings/${id}`, getHeaders())
-            .then(res => dispatch(clientFetchBuildingSuccess(res.data)))
-            .catch(err => dispatch(clientFetchBuildingFailure(err.message)))
-    );
+    return axios
+        .get(
+            `${CLIENT_API_URL}/buildings/${companyID}/${buildingID}`,
+            getHeaders()
+        )
+        .then(res => dispatch(clientFetchBuildingSuccess(res.data)))
+        .catch(err => dispatch(clientFetchBuildingFailure(err.message)));
 };

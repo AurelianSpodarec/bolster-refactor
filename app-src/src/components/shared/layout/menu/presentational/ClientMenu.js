@@ -6,7 +6,7 @@ const ClientMenu = () => (
     <>
         <div className="menu-bg" />
         <div className="menu">
-            <MenuItemContainer link="/client">
+            <MenuItemContainer link="/client" base>
                 <i className="fa fa-home icon" /> Dashboard
             </MenuItemContainer>
 

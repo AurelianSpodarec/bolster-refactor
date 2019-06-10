@@ -17,7 +17,7 @@ const CompanyMenu = ({
         <div className="menu-bg" />
         <div className="menu">
             <MenuHeader title="Dashboard" />
-            <MenuItemContainer link="/company">
+            <MenuItemContainer link="/company" base>
                 <i className="far fa-home icon" />
 
                 <span className="menu-text">Dashboard</span>

@@ -9,14 +9,14 @@ import fetchClientPinStatsForLevel from 'actions/client/stats/async/fetchClientP
 
 import SingleSite from '../presentational/SingleSite';
 
+import { getSelectedCompanyForClient } from 'helpers/generic';
+
 class SingleSiteContainer extends Component {
     render = () => <SingleSite />;
 
     componentDidMount = () => {
         const { siteID, fetchSiteData } = this.props;
-        const selectedCompanyID = parseInt(
-            localStorage.getItem('selectedCompany')
-        );
+        const selectedCompanyID = getSelectedCompanyForClient();
 
         fetchSiteData(selectedCompanyID, siteID);
     };

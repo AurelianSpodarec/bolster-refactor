@@ -10,7 +10,8 @@ const Table = ({
     noDataMessage = 'There is no data to display',
     withActions = false,
     children,
-    extraClasses = ''
+    extraClasses = '',
+    withoutTBody
 }) => {
     return (
         <table
@@ -18,22 +19,24 @@ const Table = ({
                 withActions ? 'with-actions' : ''
             } ${extraClasses}`}
         >
-            <tbody>
+            <thead>
                 <tr>
                     {headers.map((header, i) => (
                         <th key={header + i}>{header}</th>
                     ))}
                 </tr>
-                <TableBody
-                    colCount={headers.length}
-                    error={error}
-                    isFetching={isFetching}
-                    noData={noData}
-                    noDataMessage={noDataMessage}
-                >
-                    {children}
-                </TableBody>
-            </tbody>
+            </thead>
+
+            <TableBody
+                colCount={headers.length}
+                error={error}
+                isFetching={isFetching}
+                noData={noData}
+                noDataMessage={noDataMessage}
+                withoutTBody={withoutTBody}
+            >
+                {children}
+            </TableBody>
         </table>
     );
 };
