@@ -15,6 +15,7 @@ import EditCompanyPermissionsOnDrawingFormContainer from 'components/companyAdmi
 
 import AddPin from 'components/companyAdmin/pins/addPin/presentational/AddPin';
 import AddCompanyPermissionsToDrawing from 'components/companyAdmin/drawings/addCompanyPermissionsToDrawing/presentational/AddCompanyPermissionsToDrawing';
+import DocumentResponsesContainer from 'components/shared/documents/containers/DocumentResponsesContainer';
 
 const DrawingsRoutes = ({ base = '/company/drawings' }) => (
     <SwitchWith404>
@@ -48,6 +49,11 @@ const DrawingsRoutes = ({ base = '/company/drawings' }) => (
             exact
             path={`${base}/:id/edit-document/:documentID`}
             component={EditDrawingDocument}
+        />
+        <Route
+            exact
+            path={`${base}/:id/document-responses/:documentID`}
+            component={DocumentResponsesContainer}
         />
         <Route
             exact

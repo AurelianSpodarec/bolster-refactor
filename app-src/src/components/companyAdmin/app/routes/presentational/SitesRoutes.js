@@ -12,6 +12,7 @@ import AttachSiteDocument from 'components/companyAdmin/sites/attachSiteDocument
 import EditSiteDocument from 'components/companyAdmin/sites/editSiteDocument/presentational/EditSiteDocument';
 import EditCompanyPermissionsOnSiteFormContainer from 'components/companyAdmin/sites/editCompanyOnSite/containers/EditCompanyPermissionsOnSiteFormContainer';
 import AddCompanyPermissionsToSite from 'components/companyAdmin/sites/addCompanyPermissionsToSite/presentational/AddCompanyPermissionsToSite';
+import DocumentResponsesContainer from 'components/shared/documents/containers/DocumentResponsesContainer';
 
 const SitesRoutes = ({ base = '/company/sites' }) => (
     <SwitchWith404>
@@ -43,6 +44,12 @@ const SitesRoutes = ({ base = '/company/sites' }) => (
             exact
             path={`${base}/:id/edit-document/:documentID`}
             component={EditSiteDocument}
+        />
+
+        <Route
+            exact
+            path={`${base}/:id/document-responses/:documentID`}
+            component={DocumentResponsesContainer}
         />
 
         <Route

@@ -1,5 +1,6 @@
 import moment from 'moment';
 import { DATE_TIME_DEFAULTS } from 'constants/companyAdmin/enums';
+import { useEffect } from 'react';
 
 export function convertArrToObj(arr, field = 'id') {
     return arr.reduce((acc, item) => {
@@ -132,4 +133,31 @@ export function moveItem(arr, id, index) {
 
     sortedItems.splice(index, 0, item);
     return sortedItems.map((item, i) => ({ ...item, sort: i + 1 }));
+}
+
+// call this as the argument to a .sort() on an array
+export const hierarchySort = (a, b) => a.sort - b.sort;
+
+// lifecycle hook tests
+
+// ? pass in a function to call on mount
+export function componentDidMount(cb) {
+    useEffect(() => {
+        cb();
+    }, []);
+}
+
+// ? pass in a function to call before unmount
+export function componentWillUnmount(cb) {
+    useEffect(() => {
+        return () => cb();
+    }, []);
+}
+
+// ? pass a function, dependencies - if the dependencies have specific values these should be specified and checked in the cb function
+// ie. checking for an error, pass [error] as dependency and in the cb check if (error) {doTheThing()}
+export function componentDidUpdate(cb, dependencies = []) {
+    useEffect(() => {
+        cb();
+    }, dependencies);
 }
