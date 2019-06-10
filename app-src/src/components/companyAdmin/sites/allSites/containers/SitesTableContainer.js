@@ -14,6 +14,7 @@ import {
 } from 'constants/shared/modalTypes';
 
 import SitesTable from '../presentational/SitesTable';
+import { hierarchySort } from 'helpers/generic';
 
 class SitesTableContainer extends Component {
     render() {
@@ -96,7 +97,7 @@ const mapStateToProps = ({
         sitesFilterReducer: { filters }
     }
 }) => ({
-    sites: Object.values(sites),
+    sites: Object.values(sites).sort(hierarchySort),
     isFetching,
     error,
     filters,

@@ -10,6 +10,14 @@ const DocumentsList = ({ documents, location }) =>
             </td>
             <td>
                 <Link
+                    to={`${location.pathname}/document-responses/${
+                        document.id
+                    }`}
+                    className="button blue icon-only"
+                >
+                    <i className="far fa-pencil fa-fw" /> View responses
+                </Link>
+                <Link
                     to={`${location.pathname}/edit-document/${document.id}`}
                     className="button yellow icon-only"
                 >

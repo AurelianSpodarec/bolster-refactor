@@ -2593,6 +2593,7 @@ input {
     overflow-y: auto;
     ::-webkit-scrollbar {
         -webkit-appearance: none;
+        -moz-appearance: none;
         width: 7px;
     }
     ::-webkit-scrollbar-thumb {
@@ -4405,6 +4406,7 @@ input {
     overflow-y: auto;
     ::-webkit-scrollbar {
         -webkit-appearance: none;
+        -moz-appearance: none;
         width: 7px;
     }
     ::-webkit-scrollbar-thumb {

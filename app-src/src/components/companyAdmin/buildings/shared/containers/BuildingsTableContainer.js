@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import BuildingsTable from '../presentational/BuildingsTable';
+import { hierarchySort } from 'helpers/generic';
 
 const BuildingsTableContainer = ({ isFetching, error, buildings }) => {
     return (
@@ -20,5 +21,5 @@ export default connect(({ companyAdmin: { buildingsReducer } }, ownProps) => ({
     buildings: ownProps.ids
         .map(id => buildingsReducer.buildings[id])
         .filter(item => item)
-        .sort((a, b) => a.sort - b.sort)
+        .sort(hierarchySort)
 }))(BuildingsTableContainer);

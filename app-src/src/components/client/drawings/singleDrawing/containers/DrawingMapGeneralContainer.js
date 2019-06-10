@@ -12,6 +12,7 @@ import {
     PIN_STATUS_TYPES,
     COMPANY_USER_ROLE_TYPES as USER_ROLE
 } from 'constants/companyAdmin/enums';
+import DrawingDocumentsContainer from './DrawingDocumentsContainer';
 
 class DrawingMapGeneralContainer extends Component {
     state = {
@@ -84,6 +85,11 @@ class DrawingMapGeneralContainer extends Component {
                         updating={updating}
                     />
                 </BlockContainer>
+                <div className="flex-container size-lg-12">
+                    <div className="flex-item small-text-table size-lg-3">
+                        <DrawingDocumentsContainer />
+                    </div>
+                </div>
             </>
         );
     }

@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import FloorTable from '../presentational/FloorTable';
+import { hierarchySort } from 'helpers/generic';
 
 const FloorTableContainer = ({ isFetching, error, floors }) => {
     return (
@@ -20,4 +21,5 @@ export default connect(({ client: { floorsReducer } }, ownProps) => ({
     floors: ownProps.ids
         .map(id => floorsReducer.floors[id])
         .filter(item => item)
+        .sort(hierarchySort)
 }))(FloorTableContainer);

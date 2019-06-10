@@ -11,6 +11,7 @@ import AttachFloorDocument from 'components/companyAdmin/floors/attachFloorDocum
 import EditFloorDocument from 'components/companyAdmin/floors/editFloorDocument/presentational/EditFloorDocument';
 import EditCompanyPermissionsOnFloorFormContainer from 'components/companyAdmin/floors/editCompanyOnFloor/containers/EditCompanyPermissionsOnFloorFormContainer';
 import AddCompanyPermissionsToFloor from 'components/companyAdmin/floors/addCompanyPermissionsToFloor/presentational/AddCompanyPermissionsToFloor';
+import DocumentResponsesContainer from 'components/shared/documents/containers/DocumentResponsesContainer';
 
 const FloorRoutes = ({ base = '/company/floors' }) => (
     <SwitchWith404>
@@ -34,6 +35,11 @@ const FloorRoutes = ({ base = '/company/floors' }) => (
             exact
             path={`${base}/:id/edit-document/:documentID`}
             component={EditFloorDocument}
+        />
+        <Route
+            exact
+            path={`${base}/:id/document-responses/:documentID`}
+            component={DocumentResponsesContainer}
         />
         <Route
             exact

@@ -15,7 +15,7 @@ const FloorDrawingsTableContainer = ({ floor }) => (
 
 const mapStateToProps = (
     {
-        companyAdmin: {
+        client: {
             floorsReducer,
             drawingsReducer: { error }
         }
