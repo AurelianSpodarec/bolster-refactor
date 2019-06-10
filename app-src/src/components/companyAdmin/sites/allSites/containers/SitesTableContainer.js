@@ -14,7 +14,6 @@ import {
 } from 'constants/shared/modalTypes';
 
 import SitesTable from '../presentational/SitesTable';
-import { sortSites } from 'actions/companyAdmin/sites/async/sortSites';
 
 class SitesTableContainer extends Component {
     render() {
@@ -84,11 +83,6 @@ class SitesTableContainer extends Component {
         return sitesSearched;
     };
 
-    sortSites = sites => {
-        const { sortSites } = this.props;
-        sortSites(sites);
-    };
-
     handleAddSite = () => {
         this.props.showModal(ADD_SITE);
     };
@@ -120,9 +114,6 @@ const mapDispatchToProps = dispatch => ({
     },
     hideModal: () => {
         dispatch(hideModal());
-    },
-    sortSites: sites => {
-        dispatch(sortSites(sites));
     }
 });
 

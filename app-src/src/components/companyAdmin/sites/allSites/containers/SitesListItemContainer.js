@@ -5,7 +5,7 @@ import toggleSiteExpanded from 'actions/shared/generic/tables/sync/toggleSiteExp
 import { ACCESS_TYPES } from 'constants/companyAdmin/enums';
 
 import SitesListItem from '../presentational/SitesListItem';
-import { sortSites } from 'actions/companyAdmin/sites/async/sortSites';
+import reorderSite from 'actions/companyAdmin/sites/sync/reorderSite';
 
 const SitesListItemContainer = ({
     dispatch,
@@ -14,13 +14,14 @@ const SitesListItemContainer = ({
     site: { accessType, permissions },
     colCount,
     index,
-    sortSites
+    reorderSite
 }) => {
     return (
         <SitesListItem
             index={index}
             id={site.id}
-            moveItem={sortSites}
+            onMove={reorderSite}
+            onDrop={() => console.log('drop')}
             site={site}
             isExpanded={expandedSiteIds.includes(site.id)}
             colCount={colCount}
@@ -48,7 +49,7 @@ const mapStateToProps = ({
     expandedSiteIds
 });
 
-const mapDispatchToProps = { sortSites };
+const mapDispatchToProps = { reorderSite };
 
 export default connect(
     mapStateToProps,

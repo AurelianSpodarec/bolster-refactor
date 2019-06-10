@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 
-import { convertArrToObj, updateObj } from 'helpers/generic';
+import { convertArrToObj, updateObj, moveItem } from 'helpers/generic';
 import {
     FETCH_ALL_SITES_REQUEST,
     FETCH_ALL_SITES_SUCCESS,
@@ -24,7 +24,7 @@ import {
     CREATE_TRANSFER_SITE_REQUEST,
     CREATE_TRANSFER_SITE_SUCCESS,
     CREATE_TRANSFER_SITE_FAILURE,
-    SORT_SITES
+    REORDER_SITE
 } from 'constants/actionTypes/sites';
 import { CREATE_BUILDING_SUCCESS } from 'constants/actionTypes/buildings';
 
@@ -153,7 +153,7 @@ function sitesReducer(state = {}, action) {
                     action.payload.id
                 ]
             });
-        case SORT_SITES: {
+        case REORDER_SITE: {
             const sorted = moveItem(
                 Object.values(state),
                 action.id,
@@ -165,16 +165,6 @@ function sitesReducer(state = {}, action) {
         default:
             return state;
     }
-}
-
-function moveItem(arr, id, index) {
-    const sortedItems = arr
-        .filter(item => item.id !== id)
-        .sort((a, b) => a.sort - b.sort);
-    const item = arr.find(item => item.id === id);
-
-    sortedItems.splice(index, 0, item);
-    return sortedItems.map((item, i) => ({ ...item, sort: i + 1 }));
 }
 
 function filtersReducer(state = { name: '', status: '' }, action) {

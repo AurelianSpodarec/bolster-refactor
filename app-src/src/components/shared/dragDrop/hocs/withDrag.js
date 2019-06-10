@@ -7,8 +7,6 @@ export default function(WrappedComponent, type = 'CARD') {
         isDragging,
         connectDragSource,
         connectDropTarget,
-        onDrop = () => {},
-        onMove = () => {},
         ...rest
     }) => {
         const ref = React.createRef();
@@ -30,11 +28,10 @@ export default function(WrappedComponent, type = 'CARD') {
             const { index, id } = monitor.getItem();
             const { index: overIndex } = props;
             if (index === overIndex) return;
-            props.moveItem(id, overIndex);
+            props.onMove(id, overIndex);
             monitor.getItem().index = overIndex;
         }
     };
-
     const collectTarget = connect => ({
         connectDropTarget: connect.dropTarget()
     });
@@ -45,15 +42,17 @@ export default function(WrappedComponent, type = 'CARD') {
             originalIndex: props.index,
             index: props.index
         }),
-        endDrag(props, monitor) {
+        endDrag({ onMove, onDrop }, monitor) {
             const { id: droppedId, originalIndex } = monitor.getItem();
             const didDrop = monitor.didDrop();
-            return;
-            // console.log(didDrop);
-            // else props.moveItem(droppedId, originalIndex);
+            if (!didDrop) {
+                onMove(droppedId, originalIndex);
+                return;
+            }
+
+            onDrop();
         }
     };
-
     const collectSource = (connect, monitor) => ({
         connectDragSource: connect.dragSource(),
         isDragging: monitor.isDragging()
