@@ -10,7 +10,7 @@ class DrawingDocumentsTableContainer extends Component {
         const { error, isFetching } = this.props;
 
         return (
-            <BlockContainer error={error}>
+            <BlockContainer error={error} containerClass="always-scrollbar">
                 <DocumentsTable
                     documents={this._getFilteredDocuments()}
                     isFetching={isFetching}
