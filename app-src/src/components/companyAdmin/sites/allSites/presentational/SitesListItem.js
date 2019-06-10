@@ -53,4 +53,4 @@ let SitesListItem = ({
 };
 
 SitesListItem = withToggleExpand(SitesListItem);
-export default withDrag(SitesListItem);
+export default withDrag(SitesListItem, 'SITE');
