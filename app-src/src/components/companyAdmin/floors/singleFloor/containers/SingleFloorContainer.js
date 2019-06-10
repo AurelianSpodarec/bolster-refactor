@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import fetchSingleFloor from 'actions/companyAdmin/floors/async/fetchSingleFloor';
+import fetchSingleFloor from 'actions/client/floors/async/clientFetchSingleFloor';
 import fetchAllDrawings from 'actions/companyAdmin/drawings/async/fetchAllDrawings';
 import fetchDocuments from 'actions/documents/async/fetchDocuments';
 import fetchPinStatsForLevel from 'actions/companyAdmin/stats/async/fetchPinStatsForLevel';
@@ -21,7 +21,6 @@ class SingleFloorContainer extends Component {
             fetchSingleFloor,
             fetchAllDrawings,
             fetchDocuments,
-            // fetchClients,
             fetchPinStatsForLevel,
             setTabs
         } = this.props;
@@ -30,7 +29,6 @@ class SingleFloorContainer extends Component {
         fetchAllDrawings();
         fetchDocuments('floor', floorID);
         fetchPinStatsForLevel('floor', floorID);
-        // fetch Clients hooked up to mock data
     };
 }
 
