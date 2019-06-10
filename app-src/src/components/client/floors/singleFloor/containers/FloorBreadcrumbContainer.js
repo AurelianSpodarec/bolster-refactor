@@ -70,7 +70,7 @@ class FloorBreadcrumbContainer extends Component {
     componentDidMount = () => {
         const { sites, buildings, floor } = this.props;
         if (Object.values(sites).length) {
-            this._setSiteDetails(floor.siteID);
+            this._setSiteDetails(buildings[floor.buildingID].siteID);
         }
         if (Object.values(buildings).length) {
             this._setBuildingDetails(floor.buildingID);
@@ -99,7 +99,6 @@ class FloorBreadcrumbContainer extends Component {
             Object.values(buildings).length
         ) {
             const selectedCompanyID = getSelectedCompanyForClient();
-
             fetchSingleClientSite(
                 selectedCompanyID,
                 buildings[floor.buildingID].siteID
