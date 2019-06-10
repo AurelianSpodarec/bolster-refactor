@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import fetchAllSites from 'actions/companyAdmin/sites/async/fetchAllSites';
-import fetchAllBuildings from 'actions/companyAdmin/buildings/async/fetchAllBuildings';
-import fetchAllFloors from 'actions/companyAdmin/floors/async/fetchAllFloors';
-import fetchAllDrawings from 'actions/companyAdmin/drawings/async/fetchAllDrawings';
+import fetchAllClientSites from 'actions/client/sites/async/clientFetchAllSites';
+import fetchAllClientBuildings from 'actions/client/buildings/async/clientFetchAllBuildings';
+import fetchAllClientFloors from 'actions/client/floors/async/clientFetchAllFloors';
+import fetchAllClientDrawings from 'actions/client/drawings/async/clientFetchAllDrawings';
 
 import AllSites from '../presentational/AllSites';
 
@@ -15,32 +15,37 @@ class AllSitesContainer extends Component {
 
     componentDidMount = () => {
         const {
-            fetchAllSites,
-            fetchAllBuildings,
-            fetchAllFloors,
-            fetchAllDrawings
+            fetchAllClientSites,
+            fetchAllClientBuildings,
+            fetchAllClientFloors,
+            fetchAllClientDrawings
         } = this.props;
-        fetchAllSites();
-        fetchAllBuildings();
-        fetchAllFloors();
-        fetchAllDrawings();
+
+        const selectedCompanyID = parseInt(
+            localStorage.getItem('selectedCompany')
+        );
+
+        fetchAllClientSites(selectedCompanyID);
+        fetchAllClientBuildings(selectedCompanyID);
+        fetchAllClientFloors(selectedCompanyID);
+        fetchAllClientDrawings(selectedCompanyID);
     };
 }
 
 export default connect(
     null,
     dispatch => ({
-        fetchAllSites: () => {
-            dispatch(fetchAllSites());
+        fetchAllClientSites: companyID => {
+            dispatch(fetchAllClientSites(companyID));
         },
-        fetchAllBuildings: () => {
-            dispatch(fetchAllBuildings());
+        fetchAllClientBuildings: companyID => {
+            dispatch(fetchAllClientBuildings(companyID));
         },
-        fetchAllFloors: () => {
-            dispatch(fetchAllFloors());
+        fetchAllClientFloors: companyID => {
+            dispatch(fetchAllClientFloors(companyID));
         },
-        fetchAllDrawings: () => {
-            dispatch(fetchAllDrawings());
+        fetchAllClientDrawings: companyID => {
+            dispatch(fetchAllClientDrawings(companyID));
         }
     })
 )(AllSitesContainer);

@@ -25,12 +25,19 @@ class SitesFiltersContainer extends Component {
         );
     }
 
+    componentDidMount = () => {
+        const { dispatch } = this.props;
+
+        dispatch(updateSitesFilters('name', ''));
+        dispatch(updateSitesFilters('status', ''));
+    };
+
     handleChange = (name, value) => {
         const { dispatch } = this.props;
         dispatch(updateSitesFilters(name, value));
     };
 }
 
-export default connect(({ companyAdmin: { sitesReducer } }) => ({
-    filters: sitesReducer.filters
+export default connect(({ shared: { sitesFilterReducer } }) => ({
+    filters: sitesFilterReducer.filters
 }))(SitesFiltersContainer);

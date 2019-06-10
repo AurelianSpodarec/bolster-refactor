@@ -6,13 +6,7 @@ import DrawingTable from '../presentational/DrawingTable';
 const DrawingTableContainer = ({ isFetching, error, drawings }) => {
     return (
         <DrawingTable
-            headers={[
-                'Drawing name',
-                'Last updated',
-                'Expires',
-                'Permissions',
-                'Action'
-            ]}
+            headers={['Drawing name', 'Last updated', 'Expires', 'Action']}
             isFetching={isFetching}
             error={error}
             drawings={drawings}
@@ -20,7 +14,7 @@ const DrawingTableContainer = ({ isFetching, error, drawings }) => {
     );
 };
 
-export default connect(({ companyAdmin: { drawingsReducer } }, ownProps) => ({
+export default connect(({ client: { drawingsReducer } }, ownProps) => ({
     isFetching: drawingsReducer.isFetching,
     error: drawingsReducer.error,
     drawings: ownProps.ids

@@ -3,7 +3,7 @@ import React from 'react';
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 
-const DrawingListItem = ({ drawing, permissions }) => (
+const DrawingListItem = ({ drawing }) => (
     <tr>
         <td>{drawing.name}</td>
         <td>
@@ -12,7 +12,6 @@ const DrawingListItem = ({ drawing, permissions }) => (
         <td>
             <DateTimeContainer date={drawing.expiresOn} />
         </td>
-        <td>{permissions}</td>
         <td>
             <ButtonContainer to={`/client/drawings/${drawing.id}`}>
                 View

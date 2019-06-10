@@ -6,7 +6,7 @@ import BuildingsTable from '../presentational/BuildingsTable';
 const BuildingsTableContainer = ({ isFetching, error, buildings }) => {
     return (
         <BuildingsTable
-            headers={['Building name', 'Permissions', 'Action']}
+            headers={['Building name', 'Action']}
             isFetching={isFetching}
             error={error}
             buildings={buildings}
@@ -14,7 +14,7 @@ const BuildingsTableContainer = ({ isFetching, error, buildings }) => {
     );
 };
 
-export default connect(({ companyAdmin: { buildingsReducer } }, ownProps) => ({
+export default connect(({ client: { buildingsReducer } }, ownProps) => ({
     isFetching: buildingsReducer.isFetching,
     error: buildingsReducer.error,
     buildings: ownProps.ids

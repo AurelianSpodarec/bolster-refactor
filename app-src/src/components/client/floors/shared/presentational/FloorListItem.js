@@ -3,13 +3,7 @@ import React from 'react';
 import DrawingTableContainer from 'components/client/drawings/shared/containers/DrawingTableContainer';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 
-const FloorListItem = ({
-    floor,
-    isExpanded,
-    colCount,
-    toggleExpanded,
-    permissions
-}) => (
+const FloorListItem = ({ floor, isExpanded, colCount, toggleExpanded }) => (
     <>
         <tr
             onClick={toggleExpanded}
@@ -23,7 +17,6 @@ const FloorListItem = ({
                 )}{' '}
                 {floor.name}
             </td>
-            <td>{permissions}</td>
             <td>
                 <ButtonContainer
                     to={`/client/floors/${floor.id}`}

@@ -22,12 +22,11 @@ export const clientFetchAllSitesFailure = error => ({
     error
 });
 
-export default () => dispatch => {
+export default companyID => dispatch => {
     dispatch(clientFetchAllSitesRequest());
 
     axios
-        // ! change the url
-        .get(`${CLIENT_API_URL}/sites `, getHeaders())
+        .get(`${CLIENT_API_URL}/sites/${companyID}`, getHeaders())
         .then(res => dispatch(clientFetchAllSitesSuccess(res.data)))
         .catch(err => dispatch(clientFetchAllSitesFailure(err.message)));
 };
