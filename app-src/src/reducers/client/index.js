@@ -12,10 +12,12 @@ import statsReducer from './clientStats';
 import servicesReducer from './clientServices';
 import sitesReducer from './clientSites';
 import templatesReducer from './clientTemplates';
+import documentsReducer from './documents';
 
 export default combineReducers({
     buildingsReducer,
     companiesReducer,
+    documentsReducer,
     drawingOperativesReducer,
     drawingsReducer,
     floorsReducer,
