@@ -40,7 +40,11 @@ const FloorListItem = ({
         </tr>
         {isExpanded && (
             <tr>
-                <td colSpan={colCount} className="table-container drawing">
+                <td
+                    colSpan={colCount}
+                    className="table-container drawing"
+                    style={{ display: isDragging ? 'none' : '' }}
+                >
                     <DrawingTableContainer ids={floor.drawingIDs} />
                 </td>
             </tr>

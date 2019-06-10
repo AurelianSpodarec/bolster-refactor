@@ -18,29 +18,32 @@ const FloorListItemContainer = ({
     toggleFloorExpanded,
     postFloorsSort,
     reorderFloor
-}) => (
-    <FloorListItem
-        index={index}
-        id={floor.id}
-        floor={floor}
-        isExpanded={expandedFloorIds.includes(floor.id)}
-        colCount={colCount}
-        toggleExpanded={() => toggleFloorExpanded(floor.id)}
-        permissions={
-            (!permissions && ACCESS_TYPES[accessType]) ||
-            permissions
-                .map(
-                    permission =>
-                        `${permission.companyName} (${
-                            ACCESS_TYPES[permission.accessType]
-                        })`
-                )
-                .join(', ')
-        }
-        onDrop={() => postFloorsSort(floors)}
-        onMove={reorderFloor}
-    />
-);
+}) => {
+    const isExpanded = expandedFloorIds.includes(floor.id);
+    return (
+        <FloorListItem
+            index={index}
+            id={floor.id}
+            floor={floor}
+            isExpanded={isExpanded}
+            colCount={colCount}
+            toggleExpanded={() => toggleFloorExpanded(floor.id)}
+            permissions={
+                (!permissions && ACCESS_TYPES[accessType]) ||
+                permissions
+                    .map(
+                        permission =>
+                            `${permission.companyName} (${
+                                ACCESS_TYPES[permission.accessType]
+                            })`
+                    )
+                    .join(', ')
+            }
+            onDrop={() => postFloorsSort(floors)}
+            onMove={reorderFloor}
+        />
+    );
+};
 
 const mapStateToProps = ({
     shared: {

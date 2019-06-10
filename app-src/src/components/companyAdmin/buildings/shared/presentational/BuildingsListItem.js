@@ -40,7 +40,11 @@ const BuldingsListItem = ({
         </tr>
         {isExpanded && (
             <tr className="expanded-row ">
-                <td colSpan={colCount} className="table-container">
+                <td
+                    colSpan={colCount}
+                    className="table-container"
+                    style={{ display: isDragging ? 'none' : '' }}
+                >
                     <FloorTableContainer
                         className="with-actions"
                         ids={building.floorIDs}
