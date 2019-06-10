@@ -10,10 +10,13 @@ class MenuItemContainer extends Component {
             children,
             external = false,
             logout = false,
-            onClick = () => {}
+            onClick = () => {},
+            base = false
         } = this.props;
         const route = location.pathname.toLowerCase();
-        const isActive = link.toLowerCase() === route;
+        const isActive = base
+            ? link.toLowerCase() === route
+            : route.toLowerCase().includes(link.toLowerCase());
 
         return (
             <div className={`item ${isActive ? 'active' : ''}`}>
