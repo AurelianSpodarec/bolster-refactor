@@ -13,6 +13,7 @@ import {
     COMPANY_USER_ROLE_TYPES as USER_ROLE
 } from 'constants/companyAdmin/enums';
 import DrawingDocumentsContainer from './DrawingDocumentsContainer';
+import DrawingCompaniesAccessContainer from './DrawingCompaniesAccessContainer';
 
 class DrawingMapGeneralContainer extends Component {
     state = {
@@ -88,6 +89,10 @@ class DrawingMapGeneralContainer extends Component {
                 <div className="flex-container size-lg-12">
                     <div className="flex-item small-text-table size-lg-3">
                         <DrawingDocumentsContainer />
+                    </div>
+
+                    <div className="flex-item small-text-table two-line size-lg-3">
+                        <DrawingCompaniesAccessContainer />
                     </div>
                 </div>
             </>

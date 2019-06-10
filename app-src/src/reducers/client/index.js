@@ -17,9 +17,11 @@ import templateVersionsReducer from './clientTemplateVersions';
 import templateSectionsReducer from './clientTemplateSections';
 import templateQuestionsReducer from './clientTemplateQuestions';
 import documentsReducer from './documents';
+import clientCompaniesPermissionsReducer from './clientCompaniesPermissions';
 
 export default combineReducers({
     buildingsReducer,
+    clientCompaniesPermissionsReducer,
     companiesReducer,
     documentsReducer,
     drawingOperativesReducer,
