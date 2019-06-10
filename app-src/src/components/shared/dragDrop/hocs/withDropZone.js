@@ -2,10 +2,10 @@ import React from 'react';
 import { DropTarget } from 'react-dnd';
 
 export default function(WrappedComponent, type = 'CARD') {
-    const WithDrop = ({ connectDropTarget, ...rest }) => {
+    const WithDrop = ({ connectDropTarget, isOver, ...rest }) => {
         const ref = React.createRef();
         connectDropTarget(ref);
-        return <WrappedComponent {...rest} forwardRef={ref} />;
+        return <WrappedComponent {...rest} forwardRef={ref} isOver={isOver} />;
     };
 
     const collecttarget = (connect, monitor) => ({
