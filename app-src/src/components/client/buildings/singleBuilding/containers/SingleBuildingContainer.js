@@ -8,6 +8,8 @@ import fetchClientPinStatsForLevel from 'actions/client/stats/async/fetchClientP
 
 import SingleBuilding from '../presentational/SingleBuilding';
 
+import { getSelectedCompanyForClient } from 'helpers/generic';
+
 class SingleBuildingContainer extends Component {
     render() {
         return <SingleBuilding />;
@@ -22,9 +24,7 @@ class SingleBuildingContainer extends Component {
             fetchClientPinStatsForLevel
         } = this.props;
 
-        const selectedCompanyID = parseInt(
-            localStorage.getItem('selectedCompany')
-        );
+        const selectedCompanyID = getSelectedCompanyForClient();
 
         fetchSingleClientBuilding(selectedCompanyID, buildingID).then(() => {
             fetchClientPinStatsForLevel(

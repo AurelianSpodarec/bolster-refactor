@@ -8,6 +8,8 @@ import fetchAllClientDrawings from 'actions/client/drawings/async/clientFetchAll
 
 import AllSites from '../presentational/AllSites';
 
+import { getSelectedCompanyForClient } from 'helpers/generic';
+
 class AllSitesContainer extends Component {
     render() {
         return <AllSites />;
@@ -21,9 +23,7 @@ class AllSitesContainer extends Component {
             fetchAllClientDrawings
         } = this.props;
 
-        const selectedCompanyID = parseInt(
-            localStorage.getItem('selectedCompany')
-        );
+        const selectedCompanyID = getSelectedCompanyForClient();
 
         fetchAllClientSites(selectedCompanyID);
         fetchAllClientBuildings(selectedCompanyID);

@@ -6,6 +6,8 @@ import fetchSingleClientSite from 'actions/client/sites/async/clientFetchSingleS
 
 import Breadcrumb from 'components/shared/generic/breadcrumb/presentational/Breadcrumb';
 
+import { getSelectedCompanyForClient } from 'helpers/generic';
+
 class BuildingBreadcrumbContainer extends Component {
     state = {
         siteName: '',
@@ -50,9 +52,7 @@ class BuildingBreadcrumbContainer extends Component {
         const { building, fetchSingleClientSite } = this.props;
 
         if (!prevProps.building.id && !!building.id) {
-            const selectedCompanyID = parseInt(
-                localStorage.getItem('selectedCompany')
-            );
+            const selectedCompanyID = getSelectedCompanyForClient();
 
             fetchSingleClientSite(selectedCompanyID, building.siteID).then(
                 () => {
