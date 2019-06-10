@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import fetchProfile from 'actions/shared/profile/async/fetchProfile';
 import fetchSingleCompany from 'actions/companyAdmin/companySettings/async/fetchCompanySettings';
 import decodeJWT from 'actions/shared/jwt/async/decodeJWT';
-import companyFetchAllServices from 'actions/companyAdmin/services/async/fetchAllServices';
+import clientFetchAllServices from 'actions/client/services/async/clientFetchAllServices';
 import fetchCompanySettings from 'actions/companyAdmin/companySettings/async/fetchCompanySettings';
 import selectMenuTab from 'actions/shared/generic/tabs/sync/selectMenuTab';
 import ClientApp from '../presentational/ClientApp';
@@ -30,7 +30,7 @@ const mapDispatchToProps = dispatch => ({
         dispatch(fetchSingleCompany());
         // dispatch(fetchCompanyReports());
         dispatch(decodeJWT());
-        dispatch(companyFetchAllServices());
+        dispatch(clientFetchAllServices());
     },
     selectClientMenuTab: () => {
         dispatch(selectMenuTab(MENU_TABS.CLIENT));

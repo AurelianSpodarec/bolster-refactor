@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { API_URL } from 'config';
+import { CLIENT_API_URL } from 'config/index';
 import { getHeaders } from 'helpers/api';
 import {
     CLIENT_FETCH_ALL_SERVICES_REQUEST,
@@ -27,7 +27,7 @@ export default () => dispatch => {
     return (
         axios
             // ! change this url
-            .get(`${API_URL}/services`, getHeaders())
+            .get(`${CLIENT_API_URL}/services`, getHeaders())
             .then(res => dispatch(clientFetchAllServicesSuccess(res.data)))
             .catch(err => dispatch(clientFetchAllServicesFailure(err.message)))
     );
