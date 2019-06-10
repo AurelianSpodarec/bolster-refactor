@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { API_URL } from 'config';
+import { CLIENT_API_URL } from 'config/index';
 import { getHeaders } from 'helpers/api';
 import {
     CLIENT_FETCH_ALL_SITES_REQUEST,
@@ -27,7 +27,7 @@ export default () => dispatch => {
 
     axios
         // ! change the url
-        .get(`${API_URL}/sites `, getHeaders())
+        .get(`${CLIENT_API_URL}/sites `, getHeaders())
         .then(res => dispatch(clientFetchAllSitesSuccess(res.data)))
         .catch(err => dispatch(clientFetchAllSitesFailure(err.message)));
 };

@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 import CompaniesList from '../presentational/CompaniesList';
-import clientSelectCompany from 'actions/client/companies/sync/clientSelectCompany';
 
 class CompanySelectionContainer extends Component {
     render = () => {
@@ -18,9 +17,9 @@ class CompanySelectionContainer extends Component {
     };
 
     selectCompany = companyID => {
-        const { history, clientSelectCompany } = this.props;
+        const { history } = this.props;
 
-        clientSelectCompany(companyID);
+        localStorage.setItem('selectedCompany', companyID);
         history.push('/client');
     };
 }
@@ -33,15 +32,4 @@ const mapStateToProps = ({
     companies: Object.values(companies)
 });
 
-const mapDispatchToProps = dispatch => ({
-    clientSelectCompany: id => {
-        dispatch(clientSelectCompany(id));
-    }
-});
-
-export default withRouter(
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(CompanySelectionContainer)
-);
+export default withRouter(connect(mapStateToProps)(CompanySelectionContainer));
