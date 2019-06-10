@@ -61,13 +61,13 @@ class DrawingBreadcrumbContainer extends Component {
 
         const selectedCompanyID = getSelectedCompanyForClient();
 
-        // fetchSingleClientFloor(selectedCompanyID, drawing.floorID)
-        //     .then(({ payload }) =>
-        //         fetchSingleClientBuilding(selectedCompanyID, payload.buildingID)
-        //     )
-        //     .then(({ payload }) =>
-        //         fetchSingleClientSite(selectedCompanyID, payload.siteID)
-        //     );
+        fetchSingleClientFloor(selectedCompanyID, drawing.floorID)
+            .then(({ payload }) =>
+                fetchSingleClientBuilding(selectedCompanyID, payload.buildingID)
+            )
+            .then(({ payload }) =>
+                fetchSingleClientSite(selectedCompanyID, payload.siteID)
+            );
     };
 }
 

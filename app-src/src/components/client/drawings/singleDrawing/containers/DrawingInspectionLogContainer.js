@@ -32,21 +32,13 @@ class DrawingInspectionLogContainer extends Component {
 }
 
 const mapStateToProps = ({
-    companyAdmin: {
-        pinsReducer: { pins, isFetching, error },
-        inspectionLogsReducer: {
-            inspectionLogs,
-            isFetching: fetchingLogs,
-            error: inspectionError
-        }
+    client: {
+        pinsReducer: { pins, isFetching, error }
     }
 }) => ({
     pins: Object.values(pins),
     isFetching: isFetching,
-    error: error,
-    inspectionLogs: Object.values(inspectionLogs),
-    fetchingLogs,
-    inspectionError
+    error: error
 });
 
 export default connect(mapStateToProps)(DrawingInspectionLogContainer);

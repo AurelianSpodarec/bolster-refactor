@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import moment from 'moment';
 
-import fetchCompanyUsers from 'actions/companyAdmin/userManagement/async/fetchCompanyUsers';
 import DrawingMapFiltersAdvanced from '../presentational/DrawingMapFiltersAdvanced';
 import DrawingMapViewSimple from '../presentational/DrawingMapViewSimple';
 import DrawingInspectionLogContainer from './DrawingInspectionLogContainer';
@@ -13,7 +12,6 @@ import {
     PIN_STATUS_TYPES,
     COMPANY_USER_ROLE_TYPES as USER_ROLE
 } from 'constants/companyAdmin/enums';
-import fetchSingleDrawing from 'actions/companyAdmin/drawings/async/fetchSingleDrawing';
 
 class DrawingMapGeneralContainer extends Component {
     state = {
@@ -90,11 +88,6 @@ class DrawingMapGeneralContainer extends Component {
         );
     }
 
-    componentDidMount = () => {
-        this.props.fetchCompanyUsers();
-        // this._resetCoordinates();
-    };
-
     componentDidUpdate = ({
         drawing: prevDrawing = {},
         isFetching: prevIsFetching
@@ -133,15 +126,14 @@ class DrawingMapGeneralContainer extends Component {
     };
 
     _getOperativeOptions = () => {
-        const { users } = this.props;
+        const { operatives } = this.props;
 
-        return users.reduce(
-            (acc, { id, userFirstName, userLastName, userEmail, type }) => {
-                if (type === USER_ROLE.OPERATIVE)
-                    acc[id] = {
-                        value: id,
-                        text: `${userFirstName} ${userLastName} <${userEmail}`
-                    };
+        return operatives.reduce(
+            (acc, { id, userFirstName, userLastName, userEmail }) => {
+                acc[id] = {
+                    value: id,
+                    text: `${userFirstName} ${userLastName} <${userEmail}>`
+                };
                 return acc;
             },
             {}
@@ -195,10 +187,10 @@ class DrawingMapGeneralContainer extends Component {
 
 const mapStateToProps = (
     {
-        companyAdmin: {
+        client: {
             pinsReducer: { pins, isFetching: fetchingPins, error },
             servicesReducer: { services, isFetching: fetchingServices },
-            companyUsersReducer: { users, isFetching: fetchingUsers },
+            drawingOperativesReducer: { users, isFetching: fetchingUsers },
             drawingsReducer: { drawings }
         }
     },
@@ -206,20 +198,10 @@ const mapStateToProps = (
 ) => ({
     drawing: drawings[match.params.id],
     pins: Object.values(pins),
-    users: Object.values(users),
+    operatives: Object.values(users),
     services: Object.values(services),
     isFetching: fetchingPins || fetchingServices || fetchingUsers,
     error
 });
 
-const mapDispatchToProps = dispatch => ({
-    fetchCompanyUsers: () => dispatch(fetchCompanyUsers()),
-    fetchDrawing: id => dispatch(fetchSingleDrawing(id))
-});
-
-export default withRouter(
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(DrawingMapGeneralContainer)
-);
+export default withRouter(connect(mapStateToProps)(DrawingMapGeneralContainer));
