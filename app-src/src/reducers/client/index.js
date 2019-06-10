@@ -7,11 +7,15 @@ import drawingsReducer from './clientDrawings';
 import floorsReducer from './clientFloors';
 import latestPinFeedReducer from './clientLatestPinFeed';
 import pinHistoriesReducer from './clientPinHistories';
+import pinAnswersReducer from './clientPinAnswers';
 import pinsReducer from './clientPins';
 import statsReducer from './clientStats';
 import servicesReducer from './clientServices';
 import sitesReducer from './clientSites';
 import templatesReducer from './clientTemplates';
+import templateVersionsReducer from './clientTemplateVersions';
+import templateSectionsReducer from './clientTemplateSections';
+import templateQuestionsReducer from './clientTemplateQuestions';
 import documentsReducer from './documents';
 
 export default combineReducers({
@@ -23,9 +27,13 @@ export default combineReducers({
     floorsReducer,
     latestPinFeedReducer,
     pinHistoriesReducer,
+    pinAnswersReducer,
     pinsReducer,
     statsReducer,
     servicesReducer,
     sitesReducer,
-    templatesReducer
+    templatesReducer,
+    templateVersionsReducer,
+    templateSectionsReducer,
+    templateQuestionsReducer
 });

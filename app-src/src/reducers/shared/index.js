@@ -12,6 +12,7 @@ import modalReducer from './modal';
 import filesUploadingReducer from './fileUpload';
 import timeReducer from './time';
 import sitesFilterReducer from './sitesFilter';
+import selectedHistoryReducer from './selectedHistory';
 
 export default combineReducers({
     confirmLeaveReducer,
@@ -25,5 +26,6 @@ export default combineReducers({
     registerReducer,
     tablesReducer,
     filesUploadingReducer,
-    sitesFilterReducer
+    sitesFilterReducer,
+    selectedHistoryReducer
 });

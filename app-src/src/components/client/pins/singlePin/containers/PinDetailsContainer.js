@@ -4,7 +4,6 @@ import { withRouter } from 'react-router-dom';
 import moment from 'moment';
 
 import selectPinHistory from 'actions/companyAdmin/pins/sync/selectPinHistory';
-import fetchSinglePin from 'actions/companyAdmin/pins/async/fetchSinglePin';
 import { isObjEmpty } from 'helpers/generic';
 
 import PinDetails from '../presentational/PinDetails';
@@ -85,16 +84,18 @@ class PinDetailsContainer extends Component {
 
 const mapStateToProps = (
     {
-        companyAdmin: {
+        client: {
             pinsReducer: { isFetching: fetchingPins, pins },
             pinHistoriesReducer: {
-                selectedHistoryId,
                 histories,
                 isFetching: fetchingHistories,
                 error
             },
-            companyUsersReducer: { users, isFetching: fetchingUsers },
+            drawingOperativesReducer: { users, isFetching: fetchingUsers },
             servicesReducer: { services }
+        },
+        shared: {
+            selectedHistoryReducer: { selectedHistoryId }
         }
     },
     { match }
@@ -113,7 +114,6 @@ const mapStateToProps = (
 };
 
 const mapDispatchToProps = dispatch => ({
-    fetchSinglePin: id => dispatch(fetchSinglePin(id)),
     selectPinHistory: historyID => dispatch(selectPinHistory(historyID))
 });
 

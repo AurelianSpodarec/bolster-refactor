@@ -10,24 +10,26 @@ const PinAnswersContainer = ({
     pinHistory,
     status,
     relevantAnswer
-}) =>
-     (
-        <PinAnswer
-            answers={pinAnswers}
-            trimmedAnswer={relevantAnswer}
-            questions={questions}
-            type={questionType}
-            pinHistory={pinHistory}
-            status={status}
-        />
-    );
+}) => (
+    <PinAnswer
+        answers={pinAnswers}
+        trimmedAnswer={relevantAnswer}
+        questions={questions}
+        type={questionType}
+        pinHistory={pinHistory}
+        status={status}
+    />
+);
 
 const mapStateToProps = (
     {
         companyAdmin: {
             pinAnswersReducer: { answers },
-            pinHistoriesReducer: { histories, selectedHistoryId },
+            pinHistoriesReducer: { histories },
             templateQuestionsReducer: { questions }
+        },
+        shared: {
+            selectedHistoryReducer: { selectedHistoryId }
         }
     },
     { questionID, pinHistory }

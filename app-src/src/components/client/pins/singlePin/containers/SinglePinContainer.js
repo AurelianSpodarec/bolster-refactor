@@ -1,29 +1,53 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import fetchSinglePin from 'actions/companyAdmin/pins/async/fetchSinglePin';
-import fetchPinTemplates from 'actions/companyAdmin/pins/async/fetchPinTemplates';
-import fetchCompanyUsers from 'actions/companyAdmin/userManagement/async/fetchCompanyUsers';
+import fetchClientSinglePin from 'actions/client/pins/async/clientFetchSinglePin';
+import fetchClientPinTemplates from 'actions/client/pins/async/clientFetchPinTemplates';
+import fetchDrawingOperatives from 'actions/client/drawings/async/clientFetchDrawingOperatives';
 import SinglePin from '../presentational/SinglePin';
+import { getSelectedCompanyForClient, isEmpty } from 'helpers/generic';
 
 class SinglePinContainer extends Component {
     render = () => <SinglePin />;
 
     componentDidMount = () => {
-        const { pinId, fetchSinglePinData } = this.props;
-        fetchSinglePinData(pinId);
+        const { pinID, fetchClientSinglePin } = this.props;
+        const selectedCompanyID = getSelectedCompanyForClient();
+
+        fetchClientSinglePin(selectedCompanyID, pinID);
+    };
+
+    componentDidUpdate = prevProps => {
+        const { pinID, pins, fetchingPins, fetchExtraPinData } = this.props;
+        const selectedCompanyID = getSelectedCompanyForClient();
+
+        if (!fetchingPins && prevProps.fetchingPins && !isEmpty(pins)) {
+            fetchExtraPinData(selectedCompanyID, pins[pinID].drawingID);
+        }
     };
 }
 
-const mapStateToProps = (_, { match: { params } }) => ({
-    pinId: params.id
+const mapStateToProps = (
+    {
+        client: {
+            pinsReducer: { pins, isFetching: fetchingPins, error }
+        }
+    },
+    { match: { params } }
+) => ({
+    pinID: params.id,
+    pins,
+    fetchingPins,
+    error
 });
 
 const mapDispatchToProps = dispatch => ({
-    fetchSinglePinData: id => {
-        dispatch(fetchSinglePin(id));
-        dispatch(fetchPinTemplates(id));
-        dispatch(fetchCompanyUsers());
+    fetchClientSinglePin: (companyID, pinID) => {
+        dispatch(fetchClientSinglePin(companyID, pinID));
+    },
+    fetchExtraPinData: (companyID, drawingID) => {
+        dispatch(fetchClientPinTemplates(companyID, drawingID));
+        dispatch(fetchDrawingOperatives(companyID, drawingID));
     }
 });
 

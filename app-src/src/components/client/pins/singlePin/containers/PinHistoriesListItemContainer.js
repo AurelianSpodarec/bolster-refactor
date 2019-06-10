@@ -77,8 +77,8 @@ class PinHistoriesListItemContainer extends Component {
 }
 
 const mapStateToProps = ({
-    companyAdmin: {
-        companyUsersReducer: { users },
+    client: {
+        drawingOperativesReducer: { users },
         servicesReducer: { services },
         pinHistoriesReducer: { histories }
     }

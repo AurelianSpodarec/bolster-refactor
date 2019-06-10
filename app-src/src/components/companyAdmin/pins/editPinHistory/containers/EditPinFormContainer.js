@@ -173,14 +173,15 @@ class EditPinFormContainer extends Component {
 const mapStateToProps = ({
     companyAdmin: {
         templatesReducer: { templates, isFetching, error },
-        pinHistoriesReducer: { histories, selectedHistoryId },
+        pinHistoriesReducer: { histories },
         addPinFormReducer: { answers },
         addPinCoordinatesReducer: { coordinates },
         pinsReducer: { pins, postSuccess }
     },
     shared: {
         filesUploadingReducer: { filesUploading },
-        confirmLeaveReducer: { confirmLeave }
+        confirmLeaveReducer: { confirmLeave },
+        selectedHistoryReducer: { selectedHistoryId }
     }
 }) => ({
     pins,

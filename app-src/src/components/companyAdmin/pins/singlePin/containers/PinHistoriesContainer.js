@@ -44,7 +44,10 @@ const mapStateToProps = (
             pinsReducer: { pins, isFetching, error },
             companyUsersReducer: { users },
             servicesReducer: { services },
-            pinHistoriesReducer: { histories, selectedHistoryId }
+            pinHistoriesReducer: { histories }
+        },
+        shared: {
+            selectedHistoryReducer: { selectedHistoryId }
         }
     },
     { match }
