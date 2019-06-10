@@ -3,17 +3,18 @@ import React from 'react';
 import SitesListItemContainer from '../containers/SitesListItemContainer';
 import withDropZone from 'components/shared/dragDrop/hocs/withDropZone';
 
-const SitesList = ({ items: sites, colCount, forwardref, moveItem }) => (
+const SitesList = ({ items: sites, colCount, forwardref }) => (
     <tbody ref={forwardref}>
-        {sites.map((site, i) => (
-            <SitesListItemContainer
-                key={site.id}
-                site={site}
-                colCount={colCount}
-                index={i}
-                moveItem={moveItem}
-            />
-        ))}
+        {[...sites]
+            .sort((a, b) => a.sort - b.sort)
+            .map((site, i) => (
+                <SitesListItemContainer
+                    key={site.id}
+                    site={site}
+                    colCount={colCount}
+                    index={i}
+                />
+            ))}
     </tbody>
 );
 

@@ -26,7 +26,6 @@ class SitesTableContainer extends Component {
                 isFetching={isFetching}
                 error={error}
                 handleAddSite={this.handleAddSite}
-                sortSites={this.sortSites}
             />
         );
     }

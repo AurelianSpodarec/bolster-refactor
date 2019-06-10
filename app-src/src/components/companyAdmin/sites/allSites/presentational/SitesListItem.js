@@ -11,7 +11,8 @@ let SitesListItem = ({
     site,
     colCount,
     permissions,
-    forwardRef
+    forwardRef,
+    isDragging
 }) => {
     return (
         <>
@@ -19,6 +20,7 @@ let SitesListItem = ({
                 ref={forwardRef}
                 onClick={toggleExpanded}
                 className={`expandable ${isExpanded ? 'open' : ''}`}
+                style={{ opacity: isDragging ? 0 : 1 }}
             >
                 <td>
                     <i

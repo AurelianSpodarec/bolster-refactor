@@ -153,14 +153,28 @@ function sitesReducer(state = {}, action) {
                     action.payload.id
                 ]
             });
-        case SORT_SITES:
-            return {
-                ...state,
-                ...convertArrToObj(action.sites)
-            };
+        case SORT_SITES: {
+            const sorted = moveItem(
+                Object.values(state),
+                action.id,
+                action.hoverIndex
+            );
+            return convertArrToObj(sorted);
+        }
+
         default:
             return state;
     }
+}
+
+function moveItem(arr, id, index) {
+    const sortedItems = arr
+        .filter(item => item.id !== id)
+        .sort((a, b) => a.sort - b.sort);
+    const item = arr.find(item => item.id === id);
+
+    sortedItems.splice(index, 0, item);
+    return sortedItems.map((item, i) => ({ ...item, sort: i + 1 }));
 }
 
 function filtersReducer(state = { name: '', status: '' }, action) {

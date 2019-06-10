@@ -1,11 +1,14 @@
 import React from 'react';
 import { DragSource, DropTarget } from 'react-dnd';
+import flow from 'lodash/flow';
 
 export default function(WrappedComponent, type = 'CARD') {
     let WithDrag = ({
         isDragging,
         connectDragSource,
         connectDropTarget,
+        onDrop = () => {},
+        onMove = () => {},
         ...rest
     }) => {
         const ref = React.createRef();
@@ -21,44 +24,47 @@ export default function(WrappedComponent, type = 'CARD') {
         );
     };
 
-    const dropZoneTarget = {
+    const specTarget = {
         canDrop: () => false,
         hover(props, monitor) {
-            const { index } = monitor.getItem();
+            const { index, id } = monitor.getItem();
             const { index: overIndex } = props;
             if (index === overIndex) return;
-            props.moveItem(index, overIndex);
+            props.moveItem(id, overIndex);
             monitor.getItem().index = overIndex;
         }
     };
 
-    const dropZoneCollect = connect => ({
+    const collectTarget = connect => ({
         connectDropTarget: connect.dropTarget()
     });
 
-    const dragItemTarget = {
+    const specSource = {
         beginDrag: props => ({
             id: props.id,
             originalIndex: props.index,
             index: props.index
         }),
         endDrag(props, monitor) {
-            // const { id: droppedId, originalIndex } = monitor.getItem();
-            // const didDrop = monitor.didDrop();
-            // if (!didDrop) {
-            //     props.moveItem(droppedId, originalIndex);
-            // }
+            const { id: droppedId, originalIndex } = monitor.getItem();
+            const didDrop = monitor.didDrop();
+            return;
+            // console.log(didDrop);
+            // else props.moveItem(droppedId, originalIndex);
         }
     };
 
-    const dragItemCollect = (connect, monitor) => ({
+    const collectSource = (connect, monitor) => ({
         connectDragSource: connect.dragSource(),
         isDragging: monitor.isDragging()
     });
 
-    WithDrag = DropTarget(type, dropZoneTarget, dropZoneCollect)(
-        DragSource(type, dragItemTarget, dragItemCollect)(WithDrag)
+    WithDrag = DropTarget(type, specTarget, collectTarget)(
+        DragSource(type, specSource, collectSource)(WithDrag)
     );
 
-    return WithDrag;
+    return flow(
+        DropTarget(type, specTarget, collectTarget),
+        DragSource(type, specSource, collectSource)
+    )(WithDrag);
 }

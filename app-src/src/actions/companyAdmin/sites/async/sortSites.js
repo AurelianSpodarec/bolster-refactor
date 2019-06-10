@@ -5,13 +5,14 @@ import { getHeaders } from 'helpers/api';
 import { SORT_SITES } from 'constants/actionTypes/sites';
 import fetchAllSites from './fetchAllSites';
 
-export const sortSites = sites => ({
+export const sortSites = (id, hoverIndex) => ({
     type: SORT_SITES,
-    sites
+    id,
+    hoverIndex
 });
 
-export default sites => dispatch => {
-    dispatch(sortSites(sites));
+export default (id, hoverIndex) => dispatch => {
+    dispatch(sortSites(id, hoverIndex));
 
     axios
         .get(`${API_URL}/sites `, getHeaders())
