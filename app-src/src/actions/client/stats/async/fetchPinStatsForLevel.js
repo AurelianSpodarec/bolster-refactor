@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { API_URL } from 'config';
+import { CLIENT_API_URL } from 'config/index';
 import { getHeaders } from 'helpers/api';
 import {
     FETCH_PIN_STATS_REQUEST,
@@ -26,7 +26,7 @@ export default (hierarchicyType, hierarchicalID) => dispatch => {
 
     axios
         .get(
-            `${API_URL}/stats/${hierarchicyType}/${hierarchicalID}`,
+            `${CLIENT_API_URL}/stats/${hierarchicyType}/${hierarchicalID}`,
             getHeaders()
         )
         .then(res => dispatch(fetchPinStatsForLevelSuccess(res.data)))
