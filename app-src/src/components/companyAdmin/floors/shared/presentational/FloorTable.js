@@ -12,6 +12,7 @@ const FloorTable = ({ floors, headers, isFetching, error }) => {
             error={error}
             noData={!floors.length}
             noDataMessage="No floors to display"
+            withoutTBody
         >
             <FloorList colCount={headers.length} floors={floors} />
         </Table>

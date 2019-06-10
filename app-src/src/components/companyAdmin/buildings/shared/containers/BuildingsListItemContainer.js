@@ -5,19 +5,27 @@ import toggleBuildingExpanded from 'actions/shared/generic/tables/sync/toggleBui
 import { ACCESS_TYPES } from 'constants/companyAdmin/enums';
 
 import BuildingsListItem from '../presentational/BuildingsListItem';
+import reorderBuilding from 'actions/companyAdmin/buildings/sync/reorderBuilding';
+import postBuildingsSort from 'actions/companyAdmin/buildings/async/postBuildingsSort';
 
 const BuildingsListItemContainer = ({
-    dispatch,
     expandedBuildingIds,
     building,
     building: { accessType, permissions },
-    colCount
+    colCount,
+    toggleBuildingExpanded,
+    reorderBuilding,
+    postBuildingsSort,
+    buildings,
+    index
 }) => (
     <BuildingsListItem
+        index={index}
+        id={building.id}
         building={building}
         isExpanded={expandedBuildingIds.includes(building.id)}
         colCount={colCount}
-        toggleExpanded={() => dispatch(toggleBuildingExpanded(building.id))}
+        toggleExpanded={() => toggleBuildingExpanded(building.id)}
         permissions={
             (!permissions && ACCESS_TYPES[accessType]) ||
             permissions
@@ -29,15 +37,26 @@ const BuildingsListItemContainer = ({
                 )
                 .join(', ')
         }
+        onMove={reorderBuilding}
+        onDrop={() => postBuildingsSort(buildings)}
     />
 );
 
+const mapStateToProps = ({
+    shared: {
+        tablesReducer: { expandedBuildingIds }
+    }
+}) => ({
+    expandedBuildingIds
+});
+
+const mapDispatchToProps = {
+    reorderBuilding,
+    postBuildingsSort,
+    toggleBuildingExpanded
+};
+
 export default connect(
-    ({
-        shared: {
-            tablesReducer: { expandedBuildingIds }
-        }
-    }) => ({
-        expandedBuildingIds
-    })
+    mapStateToProps,
+    mapDispatchToProps
 )(BuildingsListItemContainer);

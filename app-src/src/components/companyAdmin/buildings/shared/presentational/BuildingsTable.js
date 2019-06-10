@@ -13,6 +13,7 @@ const BuildingsTable = ({ buildings, headers, isFetching, error }) => {
                 error={error}
                 noData={!buildings.length}
                 noDataMessage="There are no buildings to display."
+                withoutTBody
             >
                 <BuildingsList
                     colCount={headers.length}
