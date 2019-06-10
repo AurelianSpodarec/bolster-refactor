@@ -6,6 +6,8 @@ import Error from 'components/shared/generic/misc/presentational/Error';
 import Loading from 'components/shared/generic/misc/presentational/Loading';
 import Block from 'components/shared/generic/block/presentational/Block';
 
+import { getSelectedCompanyForClient } from 'helpers/generic';
+
 export default function(ProtectedComponent) {
     class withSelectedCompanyAuth extends React.Component {
         state = {
@@ -39,15 +41,14 @@ export default function(ProtectedComponent) {
                 clientFetchCompaniesRequest,
                 history
             } = this.props;
-            const selectedCompany = localStorage.getItem('selectedCompany');
+            const selectedCompany = getSelectedCompanyForClient();
 
             if (!selectedCompany) history.push('/client/companies');
 
             if (companies.length) {
                 if (
-                    companies.filter(
-                        company => company.id === parseInt(selectedCompany)
-                    ).length
+                    companies.filter(company => company.id === selectedCompany)
+                        .length
                 ) {
                     this.setState({
                         companiesFetched: true
@@ -64,12 +65,11 @@ export default function(ProtectedComponent) {
             const { companies, isFetching, error } = this.props;
 
             if (!isFetching && prevProps.isFetching && companies.length) {
-                const selectedCompany = localStorage.getItem('selectedCompany');
+                const selectedCompany = getSelectedCompanyForClient();
 
                 if (
-                    companies.filter(
-                        company => company.id === parseInt(selectedCompany)
-                    ).length
+                    companies.filter(company => company.id === selectedCompany)
+                        .length
                 ) {
                     this.setState({
                         companiesFetched: true

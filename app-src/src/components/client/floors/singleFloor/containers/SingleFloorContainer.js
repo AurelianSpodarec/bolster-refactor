@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import fetchSingleFloor from 'actions/companyAdmin/floors/async/fetchSingleFloor';
+import fetchSingleFloor from 'actions/client/floors/async/clientFetchSingleFloor';
 import fetchAllDrawings from 'actions/companyAdmin/drawings/async/fetchAllDrawings';
 import fetchPinStatsForLevel from 'actions/companyAdmin/stats/async/fetchPinStatsForLevel';
 
 import SingleFloor from '../presentational/SingleFloor';
+import { getSelectedCompanyForClient } from 'helpers/generic';
 
 class SingleFloorContainer extends Component {
     render() {
@@ -17,14 +18,13 @@ class SingleFloorContainer extends Component {
             floorID,
             fetchSingleFloor,
             fetchAllDrawings,
-            // fetchClients,
             fetchPinStatsForLevel
         } = this.props;
+        const selectedCompanyID = getSelectedCompanyForClient();
 
-        fetchSingleFloor(floorID);
+        fetchSingleFloor(selectedCompanyID, floorID);
         fetchAllDrawings();
         fetchPinStatsForLevel('floor', floorID);
-        // fetch Clients hooked up to mock data
     };
 }
 
@@ -39,7 +39,6 @@ const mapDispatchToProps = dispatch => ({
     fetchAllDrawings: () => {
         dispatch(fetchAllDrawings());
     },
-
     fetchPinStatsForLevel: (hierarchyType, levelID) => {
         dispatch(fetchPinStatsForLevel(hierarchyType, levelID));
     }
