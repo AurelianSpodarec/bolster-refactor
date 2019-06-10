@@ -15,7 +15,7 @@ const SingleDrawingHeaderContainer = ({ drawing }) => (
 );
 
 export default withRouter(
-    connect(({ companyAdmin: { drawingsReducer } }, ownProps) => ({
+    connect(({ client: { drawingsReducer } }, ownProps) => ({
         drawing: drawingsReducer.drawings[ownProps.match.params.id] || {}
     }))(SingleDrawingHeaderContainer)
 );

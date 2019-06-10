@@ -2579,6 +2579,18 @@ input {
 //inspection log
 .inspection-log {
     background-color: $body-text;
+    // always show scroll bar (chrome / webkit browsers)
+    overflow-y: auto;
+    ::-webkit-scrollbar {
+        -webkit-appearance: none;
+        width: 7px;
+    }
+    ::-webkit-scrollbar-thumb {
+        border-radius: 4px;
+        background-color: rgba(0, 0, 0, 0.5);
+        box-shadow: 0 0 1px rgba(255, 255, 255, 0.5);
+        -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, 0.5);
+    }
 
     .pin {
         position: absolute;
@@ -3513,12 +3525,12 @@ input {
 
 //additional options
 
-.options-container {
-    //border: 2px solid #2dac58;
-    //margin-left: 10px;
-    //border-radius: 5px;
-    //padding: 5px;
-}
+// .options-container {
+// border: 2px solid #2dac58;
+// margin-left: 10px;
+// border-radius: 5px;
+// padding: 5px;
+// }
 
 .sub-text {
     display: inline-block;
@@ -4376,5 +4388,19 @@ input {
     .LBD_CaptchaDiv {
         float: left;
         margin: 0 0 10px !important;
+    }
+}
+// force scrollbar visible on chrome
+.always-scrollbar {
+    overflow-y: auto;
+    ::-webkit-scrollbar {
+        -webkit-appearance: none;
+        width: 7px;
+    }
+    ::-webkit-scrollbar-thumb {
+        border-radius: 4px;
+        background-color: rgba(0, 0, 0, 0.5);
+        box-shadow: 0 0 1px rgba(255, 255, 255, 0.5);
+        -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, 0.5);
     }
 }
