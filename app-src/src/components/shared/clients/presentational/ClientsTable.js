@@ -22,7 +22,7 @@ const ClientsTable = ({
                 <i className="fa fa-plus" /> Invite
             </ButtonContainer>
         </BlockHeading>
-        <div className="hide-overflow size-lg-12">
+        <div className="hide-overflow size-lg-12 always-scrollbar">
             <Table
                 headers={['Name', 'Actions']}
                 isFetching={isFetching}
