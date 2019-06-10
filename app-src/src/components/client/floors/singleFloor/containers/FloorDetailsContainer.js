@@ -17,7 +17,7 @@ const FloorDetailsContainer = ({ floor, stats, error, isFetching }) => (
 
 const mapStateToProps = (
     {
-        companyAdmin: {
+        client: {
             floorsReducer: { floors, isFetching: fetchingFloors, error },
             statsReducer: { stats, isFetching: fetchingStats }
         }
