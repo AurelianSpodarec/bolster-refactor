@@ -135,6 +135,7 @@ export function moveItem(arr, id, index) {
     return sortedItems.map((item, i) => ({ ...item, sort: i + 1 }));
 }
 
+// call this as the argument to a .sort() on an array
 export const hierarchySort = (a, b) => a.sort - b.sort;
 
 // lifecycle hook tests
