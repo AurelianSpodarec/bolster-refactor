@@ -5,13 +5,7 @@ import withToggleExpand from 'components/shared/generic/tables/hocs/withToggleEx
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 import BuildingsTableContainer from 'components/client/buildings/shared/containers/BuildingsTableContainer';
 
-const SitesListItem = ({
-    toggleExpanded,
-    isExpanded,
-    site,
-    colCount,
-    permissions
-}) => {
+const SitesListItem = ({ toggleExpanded, isExpanded, site, colCount }) => {
     return (
         <>
             <tr
@@ -28,7 +22,6 @@ const SitesListItem = ({
                     {site.name}
                 </td>
                 <td>{site.ownerCompanyName}</td>
-                <td>{permissions}</td>
                 <td>
                     <ButtonContainer
                         to={`/client/sites/${site.id}`}

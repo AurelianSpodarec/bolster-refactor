@@ -17,7 +17,7 @@ const SiteDetailsContainer = ({ site, error, isFetching, stats }) => (
 
 const mapStateToProps = (
     {
-        companyAdmin: {
+        client: {
             sitesReducer: { sites, isFetching, error },
             statsReducer: { stats, isFetching: fetchingStats }
         }

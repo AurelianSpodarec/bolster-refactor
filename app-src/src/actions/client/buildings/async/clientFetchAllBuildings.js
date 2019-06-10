@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { API_URL } from 'config';
+import { CLIENT_API_URL } from 'config/index';
 import { getHeaders } from 'helpers/api';
 
 import {
@@ -22,12 +22,11 @@ export const clientFetchAllBuildingsFailure = error => ({
     error
 });
 
-export default () => dispatch => {
+export default companyID => dispatch => {
     dispatch(clientFetchAllBuildingsRequest());
 
     axios
-        // ! change the url
-        .get(`${API_URL}/buildings`, getHeaders())
+        .get(`${CLIENT_API_URL}/buildings/${companyID}`, getHeaders())
         .then(res => dispatch(clientFetchAllBuildingsSuccess(res.data)))
         .catch(err => dispatch(clientFetchAllBuildingsFailure(err.message)));
 };

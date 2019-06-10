@@ -5,16 +5,14 @@ import {
     CLIENT_FETCH_ALL_SITES_FAILURE,
     CLIENT_FETCH_ALL_SITES_SUCCESS,
     CLIENT_FETCH_SINGLE_SITE_FAILURE,
-    CLIENT_FETCH_SINGLE_SITE_SUCCESS,
-    CLIENT_UPDATE_SITES_FILTERS
+    CLIENT_FETCH_SINGLE_SITE_SUCCESS
 } from 'constants/client/actionTypes/clientSites';
 import { convertArrToObj, updateObj } from 'helpers/generic';
 
 export default combineReducers({
     isFetching: isFetchingReducer,
     error: errorReducer,
-    sites: sitesReducer,
-    filters: filtersReducer
+    sites: sitesReducer
 });
 
 function isFetchingReducer(state = false, action) {
@@ -51,15 +49,6 @@ function sitesReducer(state = {}, action) {
             return convertArrToObj(action.payload);
         case CLIENT_FETCH_SINGLE_SITE_SUCCESS:
             return updateObj(state, action.payload.id, action.payload);
-        default:
-            return state;
-    }
-}
-
-function filtersReducer(state = { name: '', status: '' }, action) {
-    switch (action.type) {
-        case CLIENT_UPDATE_SITES_FILTERS:
-            return updateObj(state, action.fieldName, action.searchTerm);
         default:
             return state;
     }

@@ -15,7 +15,7 @@ const SiteBuildingsTableContainer = ({ site }) => (
 
 const mapStateToProps = (
     {
-        companyAdmin: {
+        client: {
             sitesReducer,
             buildingsReducer: { error }
         }

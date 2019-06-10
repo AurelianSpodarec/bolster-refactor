@@ -2288,7 +2288,7 @@ input {
         float: right;
         .pin {
             float: right;
-            width: 70px;
+            width: 65px;
 
             img,
             p {
@@ -2297,6 +2297,11 @@ input {
 
             img {
                 width: 22px;
+
+                &.all-pins {
+                    width: auto;
+                    height: 36px;
+                }
             }
 
             p {

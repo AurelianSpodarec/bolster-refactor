@@ -9,11 +9,10 @@ class SitesTableContainer extends Component {
         const { isFetching, error } = this.props;
         return (
             <SitesTable
-                headers={['Site name', 'Owned by', 'Permissions', 'Action']}
+                headers={['Site name', 'Owned by', 'Action']}
                 sites={this._getFilteredSites()}
                 isFetching={isFetching}
                 error={error}
-                handleAddSite={this.handleAddSite}
             />
         );
     }
@@ -23,18 +22,24 @@ class SitesTableContainer extends Component {
         const { status } = filters;
         const name = filters.name.toLowerCase();
 
-        return sites
-            .filter(site => site.name.toLowerCase().includes(name))
-            .filter(
-                ({ accessType }) =>
-                    !status.length || status + '' === accessType + ''
-            );
+        let sitesSearched = sites.filter(site =>
+            site.name.toLowerCase().includes(name)
+        );
+
+        if (status === 'archived') {
+            return sitesSearched.filter(site => site.isArchived);
+        }
+
+        return sitesSearched.filter(site => !site.isArchived);
     };
 }
 
 const mapStateToProps = ({
-    companyAdmin: {
-        sitesReducer: { sites, isFetching, error, filters }
+    client: {
+        sitesReducer: { sites, isFetching, error }
+    },
+    shared: {
+        sitesFilterReducer: { filters }
     }
 }) => ({
     sites: Object.values(sites),
