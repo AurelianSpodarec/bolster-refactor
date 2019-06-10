@@ -11,6 +11,7 @@ import AttachBuildingDocument from 'components/companyAdmin/buildings/attachBuil
 import EditBuildingDocument from 'components/companyAdmin/buildings/editBuildingDocument/presentational/EditBuildingDocument';
 import EditCompanyPermissionsOnBuildingFormContainer from 'components/companyAdmin/buildings/editCompanyOnBuilding/containers/EditCompanyPermissionsOnBuildingFormContainer';
 import AddCompanyPermissionsToBuilding from 'components/companyAdmin/buildings/addCompanyPermissionsToBuilding.js/presentational/AddCompanyPermissionsToBuilding';
+import DocumentResponsesContainer from 'components/shared/documents/containers/DocumentResponsesContainer';
 
 const BuildingRoutes = ({ base = '/company/buildings' }) => (
     <SwitchWith404>
@@ -40,6 +41,11 @@ const BuildingRoutes = ({ base = '/company/buildings' }) => (
             exact
             path={`${base}/:id/edit-document/:documentID`}
             component={EditBuildingDocument}
+        />
+        <Route
+            exact
+            path={`${base}/:id/document-responses/:documentID`}
+            component={DocumentResponsesContainer}
         />
         <Route
             exact
