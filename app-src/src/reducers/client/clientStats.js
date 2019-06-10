@@ -3,7 +3,7 @@ import {
     CLIENT_FETCH_PIN_STATS_REQUEST,
     CLIENT_FETCH_PIN_STATS_SUCCESS,
     CLIENT_FETCH_PIN_STATS_FAILURE
-} from 'constants/client/actionTypes/clientPins';
+} from 'constants/client/actionTypes/clientStats';
 
 export default combineReducers({
     error: errorReducer,

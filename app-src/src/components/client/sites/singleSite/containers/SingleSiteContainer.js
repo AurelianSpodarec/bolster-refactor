@@ -5,8 +5,7 @@ import fetchAllClientBuildings from 'actions/client/buildings/async/clientFetchA
 import fetchAllClientFloors from 'actions/client/floors/async/clientFetchAllFloors';
 import fetchAllClientDrawings from 'actions/client/drawings/async/clientFetchAllDrawings';
 import fetchSingleClientSite from 'actions/client/sites/async/clientFetchSingleSite';
-import fetchDocuments from 'actions/documents/async/fetchDocuments';
-import fetchPinStatsForLevel from 'actions/companyAdmin/stats/async/fetchPinStatsForLevel';
+import fetchClientPinStatsForLevel from 'actions/client/stats/async/fetchClientPinStatsForLevel';
 
 import SingleSite from '../presentational/SingleSite';
 
@@ -31,7 +30,13 @@ const mapDispatchToProps = dispatch => ({
         dispatch(fetchAllClientBuildings(selectedCompanyID));
         dispatch(fetchAllClientDrawings(selectedCompanyID));
         dispatch(fetchAllClientFloors(selectedCompanyID));
-        dispatch(fetchPinStatsForLevel(hierarchyType, siteID));
+        dispatch(
+            fetchClientPinStatsForLevel(
+                selectedCompanyID,
+                hierarchyType,
+                siteID
+            )
+        );
     }
 });
 
