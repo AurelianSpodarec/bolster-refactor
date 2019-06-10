@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import fetchSingleFloor from 'actions/client/floors/async/clientFetchSingleFloor';
+import fetchSingleFloor from 'actions/client/floors/async/fetchSingleFloor';
 import fetchAllDrawings from 'actions/companyAdmin/drawings/async/fetchAllDrawings';
 import fetchDocuments from 'actions/documents/async/fetchDocuments';
 import fetchPinStatsForLevel from 'actions/companyAdmin/stats/async/fetchPinStatsForLevel';
