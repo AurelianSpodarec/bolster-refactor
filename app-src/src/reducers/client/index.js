@@ -13,6 +13,9 @@ import statsReducer from './clientStats';
 import servicesReducer from './clientServices';
 import sitesReducer from './clientSites';
 import templatesReducer from './clientTemplates';
+import templateVersionsReducer from './clientTemplateVersions';
+import templateSectionsReducer from './clientTemplateSections';
+import templateQuestionsReducer from './clientTemplateQuestions';
 import documentsReducer from './documents';
 
 export default combineReducers({
@@ -29,5 +32,8 @@ export default combineReducers({
     statsReducer,
     servicesReducer,
     sitesReducer,
-    templatesReducer
+    templatesReducer,
+    templateVersionsReducer,
+    templateSectionsReducer,
+    templateQuestionsReducer
 });
