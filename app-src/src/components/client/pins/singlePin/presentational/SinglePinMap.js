@@ -19,7 +19,7 @@ const SinglePinMap = ({
     <>
         <BlockHeading title={`Pin ${pin.pinCode}`}>
             <h4 className="small-text">
-                (History {historyVersion} of {historyCount}{' '}
+                (History {historyVersion} of {historyCount}
                 {historyVersion === historyCount
                     ? ' - Latest'
                     : +historyVersion === 1

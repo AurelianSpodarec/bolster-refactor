@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { API_URL } from 'config';
+import { CLIENT_API_URL } from 'config';
 import { getHeaders } from 'helpers/api';
 import {
     CLIENT_FETCH_PIN_TEMPLATES_REQUEST,
@@ -22,12 +22,14 @@ export const clientFetchPinTemplatesFailure = error => ({
     error
 });
 
-export default id => dispatch => {
+export default (companyID, drawingID) => dispatch => {
     dispatch(clientFetchPinTemplatesRequest());
 
     axios
-        //! change this url
-        .get(`${API_URL}/pins/${id}/templates`, getHeaders())
+        .get(
+            `${CLIENT_API_URL}/pins/${companyID}/${drawingID}/templates`,
+            getHeaders()
+        )
         .then(res => dispatch(clientFetchPinTemplatesSuccess(res.data)))
         .catch(err => dispatch(clientFetchPinTemplatesFailure(err.message)));
 };

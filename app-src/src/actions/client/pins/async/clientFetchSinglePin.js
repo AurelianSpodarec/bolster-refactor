@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { API_URL } from 'config';
+import { CLIENT_API_URL } from 'config/index';
 import { getHeaders } from 'helpers/api';
 import {
     CLIENT_FETCH_SINGLE_PIN_REQUEST,
@@ -22,14 +22,14 @@ export const clientFetchSinglePinFailure = error => ({
     error
 });
 
-export default id => dispatch => {
+export default (companyID, pinID) => dispatch => {
     dispatch(clientFetchSinglePinRequest());
 
     return (
         axios
 
             // ! change this url
-            .get(`${API_URL}/pins/${id}`, getHeaders())
+            .get(`${CLIENT_API_URL}/pins/${companyID}/${pinID}`, getHeaders())
             .then(res => dispatch(clientFetchSinglePinSuccess(res.data)))
             .catch(err => dispatch(clientFetchSinglePinFailure(err.message)))
     );
