@@ -8,7 +8,8 @@ const Checkbox = ({
     text = '',
     error,
     classes = '',
-    disabled = false
+    disabled = false,
+    fromList
 }) => (
     <div className={`checkbox ${disabled ? 'left grey-out' : ''} ${classes}`}>
         <input
@@ -30,7 +31,7 @@ const Checkbox = ({
                 <span className="inner" />
             </span>
         </label>
-        {error && error.length && (
+        {!!(error && error.length && !fromList) && (
             <p className="error red-text text-accent-4">{error}</p>
         )}
     </div>

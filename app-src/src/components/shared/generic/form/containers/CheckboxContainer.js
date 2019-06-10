@@ -20,7 +20,9 @@ class CheckboxContainer extends Component {
             id,
             text,
             value,
-            classes
+            classes,
+            // fromList prop prevents errors from displaying on the individual checkbox when the list itself will be displaying the error
+            fromList
         } = this.props;
         const errorMessage = showFieldError || errorsVisible ? error : null;
 
@@ -35,6 +37,7 @@ class CheckboxContainer extends Component {
                 text={text}
                 value={value}
                 classes={classes}
+                fromList={fromList}
             />
         );
     }
