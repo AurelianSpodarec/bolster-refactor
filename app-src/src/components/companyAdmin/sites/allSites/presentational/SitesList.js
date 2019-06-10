@@ -18,4 +18,4 @@ const SitesList = ({ items: sites, colCount, forwardRef }) => (
     </tbody>
 );
 
-export default withDropZone(SitesList);
+export default withDropZone(SitesList, 'SITE');

@@ -8,13 +8,13 @@ import SitesListItem from '../presentational/SitesListItem';
 import reorderSite from 'actions/companyAdmin/sites/sync/reorderSite';
 
 const SitesListItemContainer = ({
-    dispatch,
     expandedSiteIds,
     site,
     site: { accessType, permissions },
     colCount,
     index,
-    reorderSite
+    reorderSite,
+    toggleSiteExpanded
 }) => {
     return (
         <SitesListItem
@@ -25,7 +25,7 @@ const SitesListItemContainer = ({
             site={site}
             isExpanded={expandedSiteIds.includes(site.id)}
             colCount={colCount}
-            toggleExpanded={() => dispatch(toggleSiteExpanded(site.id))}
+            toggleExpanded={() => toggleSiteExpanded(site.id)}
             permissions={
                 (!permissions && ACCESS_TYPES[accessType]) ||
                 permissions
@@ -49,7 +49,7 @@ const mapStateToProps = ({
     expandedSiteIds
 });
 
-const mapDispatchToProps = { reorderSite };
+const mapDispatchToProps = { reorderSite, toggleSiteExpanded };
 
 export default connect(
     mapStateToProps,
