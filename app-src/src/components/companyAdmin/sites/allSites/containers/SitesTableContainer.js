@@ -80,7 +80,7 @@ class SitesTableContainer extends Component {
             return sitesSearched.filter(site => site.isArchived);
         }
 
-        return sitesSearched;
+        return sitesSearched.filter(site => !site.isArchived);
     };
 
     handleAddSite = () => {
@@ -90,14 +90,10 @@ class SitesTableContainer extends Component {
 
 const mapStateToProps = ({
     companyAdmin: {
-        sitesReducer: {
-            sites,
-            isFetching,
-            error,
-            filters,
-            postSuccess,
-            updatedSiteID
-        }
+        sitesReducer: { sites, isFetching, error, postSuccess, updatedSiteID }
+    },
+    shared: {
+        sitesFilterReducer: { filters }
     }
 }) => ({
     sites: Object.values(sites),

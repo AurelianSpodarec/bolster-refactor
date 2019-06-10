@@ -11,6 +11,7 @@ import decodeJWTReducer from './decodeJWT';
 import modalReducer from './modal';
 import filesUploadingReducer from './fileUpload';
 import timeReducer from './time';
+import sitesFilterReducer from './sitesFilter';
 
 export default combineReducers({
     confirmLeaveReducer,
@@ -23,5 +24,6 @@ export default combineReducers({
     timeReducer,
     registerReducer,
     tablesReducer,
-    filesUploadingReducer
+    filesUploadingReducer,
+    sitesFilterReducer
 });

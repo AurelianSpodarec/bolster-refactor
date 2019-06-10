@@ -12,7 +12,7 @@ export default combineReducers({
     companies: companiesReducer,
     isFetching: isFetchingReducer,
     error: errorReducer,
-    selectedCompany: selectedCompanyReducer
+    selectedCompanyID: selectedCompanyIDReducer
 });
 
 function isFetchingReducer(state = false, action) {
@@ -47,7 +47,7 @@ function companiesReducer(state = {}, action) {
     }
 }
 
-function selectedCompanyReducer(state = {}, action) {
+function selectedCompanyIDReducer(state = null, action) {
     switch (action.type) {
         case CLIENT_SELECT_COMPANY:
             return action.id;

@@ -26,7 +26,7 @@ export default function(ProtectedComponent) {
             if (error)
                 return (
                     <Block>
-                        <Error />
+                        <Error>{this.props.error}</Error>
                     </Block>
                 );
 

@@ -8,7 +8,7 @@ import floorsReducer from './clientFloors';
 import latestPinFeedReducer from './clientLatestPinFeed';
 import pinHistoriesReducer from './clientPinHistories';
 import pinsReducer from './clientPins';
-import pinStatsReducer from './clientPinStats';
+import statsReducer from './clientStats';
 import servicesReducer from './clientServices';
 import sitesReducer from './clientSites';
 import templatesReducer from './clientTemplates';
@@ -22,7 +22,7 @@ export default combineReducers({
     latestPinFeedReducer,
     pinHistoriesReducer,
     pinsReducer,
-    pinStatsReducer,
+    statsReducer,
     servicesReducer,
     sitesReducer,
     templatesReducer

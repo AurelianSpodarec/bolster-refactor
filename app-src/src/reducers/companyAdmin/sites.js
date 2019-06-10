@@ -35,8 +35,7 @@ export default combineReducers({
     postSuccess: postSuccessReducer,
     postFailure: postFailureReducer,
     deleteSuccess: deleteSuccessReducer,
-    error: errorReducer,
-    filters: filtersReducer
+    error: errorReducer
 });
 
 function isFetchingReducer(state = false, action) {
@@ -162,15 +161,6 @@ function sitesReducer(state = {}, action) {
             return convertArrToObj(sorted);
         }
 
-        default:
-            return state;
-    }
-}
-
-function filtersReducer(state = { name: '', status: '' }, action) {
-    switch (action.type) {
-        case UPDATE_SITES_FILTERS:
-            return updateObj(state, action.fieldName, action.searchTerm);
         default:
             return state;
     }

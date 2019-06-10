@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { API_URL } from 'config';
+import { CLIENT_API_URL } from 'config/index';
 import { getHeaders } from 'helpers/api';
 import {
     CLIENT_FETCH_ALL_FLOORS_REQUEST,
@@ -22,12 +22,11 @@ export const clientFetchAllFloorsFailure = error => ({
     error
 });
 
-export default () => dispatch => {
+export default companyID => dispatch => {
     dispatch(clientFetchAllFloorsRequest());
 
     axios
-        // ! change this url
-        .get(`${API_URL}/floors`, getHeaders())
+        .get(`${CLIENT_API_URL}/floors/${companyID}`, getHeaders())
         .then(res => dispatch(clientFetchAllFloorsSuccess(res.data)))
         .catch(err => dispatch(clientFetchAllFloorsFailure(err.message)));
 };
