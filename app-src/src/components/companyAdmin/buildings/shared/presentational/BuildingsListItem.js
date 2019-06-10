@@ -2,17 +2,22 @@ import React from 'react';
 
 import FloorTableContainer from 'components/companyAdmin/floors/shared/containers/FloorTableContainer';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
+import withDrag from 'components/shared/dragDrop/hocs/withDrag';
 const BuldingsListItem = ({
     building,
     toggleExpanded,
     isExpanded,
     colCount,
-    permissions
+    permissions,
+    forwardRef,
+    isDragging
 }) => (
     <>
         <tr
+            ref={forwardRef}
             onClick={toggleExpanded}
             className={`expandable ${isExpanded ? 'open' : ''}`}
+            style={{ opacity: isDragging ? 0 : 1 }}
         >
             <td>
                 {' '}
@@ -46,4 +51,4 @@ const BuldingsListItem = ({
     </>
 );
 
-export default BuldingsListItem;
+export default withDrag(BuldingsListItem, 'BUILDING');
