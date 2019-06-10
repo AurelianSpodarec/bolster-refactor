@@ -17,7 +17,7 @@ const DocumentsTable = ({ location, documents, isFetching }) => {
                     <i className="fa fa-plus" /> Add
                 </ButtonContainer>
             </BlockHeading>
-            <div className="hide-overflow size-lg-12">
+            <div className="hide-overflow size-lg-12 always-scrollbar">
                 <Table
                     headers={['Name', 'Actions']}
                     isFetching={isFetching}

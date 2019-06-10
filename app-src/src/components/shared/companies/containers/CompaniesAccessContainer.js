@@ -21,7 +21,7 @@ class CompaniesAccessContainer extends Component {
         } = this.props;
 
         return (
-            <BlockContainer error={error}>
+            <BlockContainer error={error} containerClass="always-scrollbar">
                 <CompaniesAccessTable
                     companies={companiesWithPermissions}
                     parentId={hierarchyID}
@@ -61,14 +61,7 @@ const mapStateToProps = (
     )
 });
 
-const mapDispatchToProps = dispatch => ({
-    fetchCompaniesPermissions: (hierarchyType, hierarchyID) => {
-        dispatch(fetchCompaniesPermissions(hierarchyType, hierarchyID));
-    },
-    showModal: (type, props) => {
-        dispatch(showModal(type, props));
-    }
-});
+const mapDispatchToProps = { fetchCompaniesPermissions, showModal };
 
 export default withRouter(
     connect(

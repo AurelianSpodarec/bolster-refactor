@@ -21,7 +21,6 @@ class SingleFloorContainer extends Component {
             fetchSingleFloor,
             fetchAllDrawings,
             fetchDocuments,
-            // fetchClients,
             fetchPinStatsForLevel,
             setTabs
         } = this.props;
@@ -30,7 +29,6 @@ class SingleFloorContainer extends Component {
         fetchAllDrawings();
         fetchDocuments('floor', floorID);
         fetchPinStatsForLevel('floor', floorID);
-        // fetch Clients hooked up to mock data
     };
 }
 
