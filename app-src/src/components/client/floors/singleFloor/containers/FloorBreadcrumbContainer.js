@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
-import fetchSingleSite from 'actions/companyAdmin/sites/async/fetchSingleSite';
-import fetchSingleBuilding from 'actions/companyAdmin/buildings/async/fetchSingleBuilding';
+import fetchSingleClientSite from 'actions/client/sites/async/clientFetchSingleSite';
+import fetchSingleClientBuilding from 'actions/client/buildings/async/clientFetchSingleBuilding';
+
+import { getSelectedCompanyForClient } from 'helpers/generic';
 
 import Breadcrumb from 'components/shared/generic/breadcrumb/presentational/Breadcrumb';
 
@@ -44,12 +46,34 @@ class FloorBreadcrumbContainer extends Component {
             buildingID: floor.buildingID
         });
     };
+    _setSiteDetails = siteID => {
+        const { sites } = this.props;
+
+        const site = sites[siteID];
+
+        this.setState({
+            siteName: site.name,
+            siteID: siteID
+        });
+    };
+    _setBuildingDetails = buildingID => {
+        const { buildings } = this.props;
+
+        const building = buildings[buildingID];
+
+        this.setState({
+            buildingName: building.name,
+            buildingID: buildingID
+        });
+    };
 
     componentDidMount = () => {
-        const { sites, buildings } = this.props;
-
-        if (Object.values(sites).length && Object.values(buildings).length) {
-            this._setFloorDetails();
+        const { sites, buildings, floor } = this.props;
+        if (Object.values(sites).length) {
+            this._setSiteDetails(floor.siteID);
+        }
+        if (Object.values(buildings).length) {
+            this._setBuildingDetails(floor.buildingID);
         }
     };
 
@@ -57,33 +81,38 @@ class FloorBreadcrumbContainer extends Component {
         const {
             floor,
             buildings,
-            fetchSingleSite,
-            fetchSingleBuilding,
-            sites
+            fetchSingleClientSite,
+            fetchSingleClientBuilding
         } = this.props;
 
         if (!prevProps.floor.id && !!floor.id) {
-            fetchSingleBuilding(floor.buildingID);
-        }
+            const selectedCompanyID = getSelectedCompanyForClient();
 
+            fetchSingleClientBuilding(selectedCompanyID, floor.buildingID).then(
+                () => {
+                    this._setBuildingDetails(floor.buildingID);
+                }
+            );
+        }
         if (
             !Object.values(prevProps.buildings).length &&
             Object.values(buildings).length
         ) {
-            fetchSingleSite(buildings[floor.buildingID].siteID);
-        }
-        if (
-            !Object.values(prevProps.sites).length &&
-            Object.values(sites).length
-        ) {
-            this._setFloorDetails();
+            const selectedCompanyID = getSelectedCompanyForClient();
+
+            fetchSingleClientSite(
+                selectedCompanyID,
+                buildings[floor.buildingID].siteID
+            ).then(() => {
+                this._setSiteDetails(buildings[floor.buildingID].siteID);
+            });
         }
     };
 }
 
 const mapStateToProps = (
     {
-        companyAdmin: {
+        client: {
             floorsReducer: { floors },
             buildingsReducer: { buildings },
             sitesReducer: { sites }
@@ -97,11 +126,11 @@ const mapStateToProps = (
 });
 
 const mapDispatchToProps = dispatch => ({
-    fetchSingleBuilding: buildingID => {
-        return dispatch(fetchSingleBuilding(buildingID));
+    fetchSingleClientSite: (companyID, siteID) => {
+        return dispatch(fetchSingleClientSite(companyID, siteID));
     },
-    fetchSingleSite: siteID => {
-        return dispatch(fetchSingleSite(siteID));
+    fetchSingleClientBuilding: (companyID, buildingID) => {
+        return dispatch(fetchSingleClientBuilding(companyID, buildingID));
     }
 });
 
