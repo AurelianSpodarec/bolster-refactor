@@ -8,6 +8,10 @@ export function convertArrToObj(arr, field = 'id') {
     }, {});
 }
 
+export function getSelectedCompanyForClient() {
+    return parseInt(localStorage.getItem('selectedCompany'));
+}
+
 export function isObjEmpty(obj) {
     for (var key in obj) {
         if (obj.hasOwnProperty(key)) return false;
