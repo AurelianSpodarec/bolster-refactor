@@ -9,40 +9,49 @@ const TableBody = ({
     isFetching,
     noData,
     noDataMessage,
-    children
+    children,
+    withoutTBody = false
 }) => {
     if (error && error.length)
         return (
-            <tr>
-                <td colSpan={colCount} className="no-data-td">
-                    <Error>{error}</Error>
-                </td>
-            </tr>
+            <tbody>
+                <tr>
+                    <td colSpan={colCount} className="no-data-td">
+                        <Error>{error}</Error>
+                    </td>
+                </tr>
+            </tbody>
         );
 
     if (isFetching && noData)
         return (
-            <tr>
-                <td colSpan={colCount} className="no-data-td">
-                    <Loading />
-                </td>
-            </tr>
+            <tbody>
+                <tr>
+                    <td colSpan={colCount} className="no-data-td">
+                        <Loading />
+                    </td>
+                </tr>
+            </tbody>
         );
 
     if (noData)
         return (
-            <tr>
-                <td
-                    className="no-data-td"
-                    colSpan={colCount}
-                    style={{ textAlign: 'center' }}
-                >
-                    <p>{noDataMessage}</p>
-                </td>
-            </tr>
+            <tbody>
+                <tr>
+                    <td
+                        className="no-data-td"
+                        colSpan={colCount}
+                        style={{ textAlign: 'center' }}
+                    >
+                        <p>{noDataMessage}</p>
+                    </td>
+                </tr>
+            </tbody>
         );
 
-    return children;
+    if (withoutTBody) return children;
+
+    return <tbody>{children}</tbody>;
 };
 
 export default TableBody;

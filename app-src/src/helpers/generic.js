@@ -119,3 +119,13 @@ export const removeDuplicates = (arr, byID) =>
             return arr.findIndex(({ id }) => id === item.id) === index;
         } else return arr.indexOf(item) === index;
     });
+
+export function moveItem(arr, id, index) {
+    const sortedItems = arr
+        .filter(item => item.id !== id)
+        .sort((a, b) => a.sort - b.sort);
+    const item = arr.find(item => item.id === id);
+
+    sortedItems.splice(index, 0, item);
+    return sortedItems.map((item, i) => ({ ...item, sort: i + 1 }));
+}

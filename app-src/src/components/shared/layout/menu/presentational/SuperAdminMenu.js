@@ -9,7 +9,7 @@ const SuperAdminMenu = ({ logout }) => (
         <div className="menu-bg" />
 
         <div className="menu">
-            <MenuItemContainer link="/admin">
+            <MenuItemContainer link="/admin" base>
                 <i className="fa fa-home icon" />{' '}
                 <span className="menu-text">Dashboard</span>
             </MenuItemContainer>
