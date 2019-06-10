@@ -2,7 +2,7 @@ import { combineReducers } from 'redux';
 
 import buildingsReducer from './clientBuildings';
 import companiesReducer from './clientCompanies';
-import companyUsers from './clientCompanyUsers';
+import drawingOperativesReducer from './clientDrawingOperatives';
 import drawingsReducer from './clientDrawings';
 import floorsReducer from './clientFloors';
 import latestPinFeedReducer from './clientLatestPinFeed';
@@ -16,7 +16,7 @@ import templatesReducer from './clientTemplates';
 export default combineReducers({
     buildingsReducer,
     companiesReducer,
-    companyUsers,
+    drawingOperativesReducer,
     drawingsReducer,
     floorsReducer,
     latestPinFeedReducer,
