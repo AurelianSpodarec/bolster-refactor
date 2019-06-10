@@ -2,16 +2,21 @@ import React from 'react';
 
 import DrawingTableContainer from 'components/companyAdmin/drawings/shared/containers/DrawingTableContainer';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
+import withDrag from 'components/shared/dragDrop/hocs/withDrag';
 
 const FloorListItem = ({
     floor,
     isExpanded,
     colCount,
     toggleExpanded,
-    permissions
+    permissions,
+    forwardRef,
+    isDragging
 }) => (
     <>
         <tr
+            ref={forwardRef}
+            style={{ opacity: isDragging ? 0 : 1 }}
             onClick={toggleExpanded}
             className={`expandable ${isExpanded ? 'open' : ''}`}
         >
@@ -43,4 +48,4 @@ const FloorListItem = ({
     </>
 );
 
-export default FloorListItem;
+export default withDrag(FloorListItem, 'FLOOR');

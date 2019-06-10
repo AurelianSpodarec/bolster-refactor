@@ -3,7 +3,7 @@ import axios from 'axios';
 import { POST_DRAWINGS_SORT } from 'constants/actionTypes/floors';
 import { API_URL } from 'config/index';
 import { getHeaders } from 'helpers/api';
-import fetchAllBuildings from './fetchAllBuildings';
+import fetchAllDrawings from './fetchAllDrawings';
 
 export default floors => dispatch => {
     dispatch({ type: POST_DRAWINGS_SORT });
@@ -14,5 +14,5 @@ export default floors => dispatch => {
             { items: floors.map(({ id, sort }) => ({ id, sort })) },
             getHeaders()
         )
-        .catch(() => dispatch(fetchAllBuildings()));
+        .catch(() => dispatch([fetchAllDrawings]()));
 };
