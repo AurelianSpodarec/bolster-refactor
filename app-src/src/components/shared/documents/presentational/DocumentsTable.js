@@ -10,12 +10,12 @@ const DocumentsTable = ({
     location,
     documents,
     isFetching,
-    noControls = false
+    clientControls = false
 }) => {
     return (
         <div className="size-lg-12">
             <BlockHeading title="Documents" classes="w-table">
-                {!noControls && (
+                {!clientControls && (
                     <ButtonContainer
                         className="pull-right green"
                         to={`${location.pathname}/attach-document`}
@@ -33,7 +33,11 @@ const DocumentsTable = ({
                     withActions
                     extraClasses="with-scrollbar"
                 >
-                    <DocumentsList location={location} documents={documents} />
+                    <DocumentsList
+                        location={location}
+                        documents={documents}
+                        clientControls={clientControls}
+                    />
                 </Table>
             </div>
         </div>

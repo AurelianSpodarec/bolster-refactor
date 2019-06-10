@@ -12,14 +12,16 @@ class DrawingDocumentsTableContainer extends Component {
         return (
             <BlockContainer error={error} containerClass="always-scrollbar">
                 <DocumentsTable
-                    documents={this._getFilteredDocuments()}
+                    // documents={this._getFilteredDocuments()}
+                    documents={this.props.documents}
                     isFetching={isFetching}
-                    noControls={true}
+                    clientControls={true}
                 />
             </BlockContainer>
         );
     }
 
+    //api change needed her eto finish
     _getFilteredDocuments = () => {
         const { documents, parent } = this.props;
         return documents.filter(document =>
