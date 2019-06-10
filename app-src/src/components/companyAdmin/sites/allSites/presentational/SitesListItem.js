@@ -42,7 +42,10 @@ let SitesListItem = ({
                 </td>
             </tr>
             {isExpanded && (
-                <tr className="expanded-row buildings-row">
+                <tr
+                    className="expanded-row buildings-row"
+                    style={{ display: isDragging ? 'none' : '' }}
+                >
                     <td colSpan={colCount}>
                         <BuildingsTableContainer ids={site.buildingIDs} />
                     </td>

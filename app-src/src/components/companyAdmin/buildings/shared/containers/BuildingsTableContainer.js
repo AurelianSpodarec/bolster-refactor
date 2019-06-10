@@ -20,4 +20,5 @@ export default connect(({ companyAdmin: { buildingsReducer } }, ownProps) => ({
     buildings: ownProps.ids
         .map(id => buildingsReducer.buildings[id])
         .filter(item => item)
+        .sort((a, b) => a.sort - b.sort)
 }))(BuildingsTableContainer);
