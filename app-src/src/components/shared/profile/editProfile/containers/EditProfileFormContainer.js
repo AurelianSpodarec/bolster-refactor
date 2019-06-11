@@ -35,9 +35,9 @@ class EditProfileFormContainer extends Component {
     };
 
     componentDidUpdate = prevProps => {
-        const { postSuccess, history } = this.props;
+        const { postSuccess, history, location } = this.props;
         if (postSuccess && !prevProps.postSuccess) {
-            history.push('/company/profile');
+            history.push(location.pathname.replace('/edit', ''));
         }
     };
 
