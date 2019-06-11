@@ -32,12 +32,7 @@ const DrawingMapFiltersAdvanced = ({
             <BlockHeading title="Pin Filters">
                 <div className="pin-amounts">
                     <div className="pin">
-                        <img
-                            className="all-pins"
-                            alt="all pins"
-                            src={AllPins}
-                        />
-                        <p>{pins.length}</p>
+                        <p>Total: {pins.length}</p>
                     </div>
                     <div className="pin">
                         <img alt="purple pin" src={PurplePin} />
