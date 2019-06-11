@@ -23,18 +23,18 @@ const ApprovedCompaniesFiltersContainer = ({
         updateApprovedCompaniesSort(value);
     };
 
-    const sortOptions = {
-        'A - Z': { value: 'A - Z', text: 'A - Z' },
-        'Z - A': { value: 'Z - A', text: 'Z - A' }
-    };
+    const sortOptions = [
+        { label: 'A - Z', value: 'A - Z' },
+        { label: 'Z - A', value: 'Z - A' }
+    ];
 
     return (
         <ApprovedCompaniesFilters
             handleChange={handleChange}
             handleSortChange={handleSortChange}
             name={name}
-            sortOptions={Object.values(sortOptions)}
-            selectedOption={sortOptions[sort]}
+            sortOptions={sortOptions}
+            selectedOption={sort}
         />
     );
 };

@@ -1,6 +1,6 @@
 import React from 'react';
 import Search from 'components/shared/generic/form/presentational/Search';
-import Dropdown from 'components/shared/generic/form/presentational/Dropdown';
+import Select from 'components/shared/generic/form/presentational/Select';
 
 const ApprovedCompaniesFilters = ({
     handleChange,
@@ -18,12 +18,12 @@ const ApprovedCompaniesFilters = ({
                 handleChange={handleChange}
             />
             <div className="table-filter">
-                <Dropdown
-                    placeholder="--- Sort A-Z ---"
+                <Select
                     name="sort"
                     options={sortOptions}
-                    selectedOption={selectedOption}
-                    handleChange={handleSortChange}
+                    value={selectedOption}
+                    onChange={handleSortChange}
+                    omitPlaceholder
                 />
                 <p>Sort A-Z:</p>
             </div>
