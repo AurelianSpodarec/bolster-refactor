@@ -6,7 +6,7 @@ import DocumentResponsesTableItemContainer from '../containers/DocumentResponses
 const DocumentResponsesTable = ({ responses, users, isFetching }) => (
     <BlockContainer>
         <Table
-            headers={['1', '2', '3']}
+            headers={['Agreed By', 'Agreed On', 'Upsynced On']}
             isFetching={isFetching}
             noData={!responses.length}
             noDataMessage="No responses to display for this document."
