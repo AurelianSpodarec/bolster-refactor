@@ -8,15 +8,34 @@ import Tabs from '../presentational/Tabs';
 
 class MenuTabsContainer extends Component {
     render() {
-        const { menuTabs, selectedMenuTab } = this.props;
+        const {
+            menuTabs,
+            selectedMenuTab,
+            isSuperAdmin,
+            isCompanyAdmin,
+            isClientAccess
+        } = this.props;
+
+        let filteredTabs = menuTabs;
+
+        if (!isSuperAdmin)
+            filteredTabs = menuTabs.filter(tab => tab !== 'Super Admin');
+        if (!isCompanyAdmin)
+            filteredTabs = menuTabs.filter(tab => tab !== 'Company Admin');
+        if (!isClientAccess)
+            filteredTabs = menuTabs.filter(tab => tab !== 'Client Access');
+
         return (
             <Tabs
-                tabs={menuTabs}
+                tabs={filteredTabs}
                 selectedTab={selectedMenuTab}
                 selectTab={(e, tab) => {
                     e.preventDefault();
                     this.props.selectMenuTab(tab);
                 }}
+                isSuperAdmin={isSuperAdmin}
+                isCompanyAdmin={isCompanyAdmin}
+                isClientAccess={isClientAccess}
             />
         );
     }
@@ -41,10 +60,17 @@ const mapDispatchToProps = dispatch => ({
     }
 });
 
-const mapStateToProps = ({ shared: { tabsReducer, decodeJWTReducer } }) => ({
+const mapStateToProps = ({
+    shared: {
+        tabsReducer,
+        decodeJWTReducer: { jwtData }
+    }
+}) => ({
     menuTabs: tabsReducer.menuTabs,
     selectedMenuTab: tabsReducer.selectedMenuTab,
-    isSuperadmin: decodeJWTReducer.jwtData.IsSuperAdmin
+    isSuperAdmin: jwtData.isSuperAdmin,
+    isCompanyAdmin: !!jwtData.companyID,
+    isClientAccess: jwtData.isClientAccess
 });
 
 export default connect(

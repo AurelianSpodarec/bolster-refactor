@@ -18,10 +18,13 @@ import templateSectionsReducer from './clientTemplateSections';
 import templateQuestionsReducer from './clientTemplateQuestions';
 import documentsReducer from './documents';
 import clientCompaniesPermissionsReducer from './clientCompaniesPermissions';
+import searchReducer from './clientSearch';
+import companyReportsReducer from './clientCompanyReports';
 
 export default combineReducers({
     buildingsReducer,
     clientCompaniesPermissionsReducer,
+    companyReportsReducer,
     companiesReducer,
     documentsReducer,
     drawingOperativesReducer,
@@ -32,6 +35,7 @@ export default combineReducers({
     pinAnswersReducer,
     pinsReducer,
     statsReducer,
+    searchReducer,
     servicesReducer,
     sitesReducer,
     templatesReducer,
