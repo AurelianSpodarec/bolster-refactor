@@ -3710,6 +3710,10 @@ input {
     background-color: #e20613;
     line-height: 1.25;
 
+    &.mobile-menu {
+        display: none;
+    }
+
     ul {
         float: left;
         width: 100%;
@@ -3796,6 +3800,11 @@ input {
         float: left;
         width: 100%;
         padding-top: 30px;
+        img {
+            &.mobile-ver {
+                display: none;
+            }
+        }
     }
 
     .slide-2 {

@@ -28,6 +28,7 @@ import {
     DELETE_CLIENT_FROM_DRAWING,
     DELETE_COMPANY_PERMISSIONS,
     DELETE_OPERATIVE,
+    DOCUMENT_RESPONSE_AGREEANCE,
     EDIT_BUILDING,
     EDIT_DROPDOWN_OPTION,
     EDIT_FLOOR,
@@ -102,6 +103,7 @@ import LoadingDataModal from '../presentational/LoadingDataModal';
 import UnlinkDeviceModalContainer from './UnlinkDeviceModalContainer';
 import CreateOperativeModal from 'components/companyAdmin/userManagement/operatives/createOperative/presentational/CreateOperativeModal';
 import CopyTemplateModalContainer from 'components/superAdmin/templateBuilder/copyTemplate/containers/CopyTemplateModalContainer';
+import DocumentResponseAgreeanceModalContainer from 'components/shared/documents/containers/DocumentResponseAgreeanceModalContainer';
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModalContainer,
@@ -151,7 +153,8 @@ const MODAL_COMPONENTS = {
     [CREATE_COMPANY_ADMIN]: CreateCompanyAdminModal,
     [CREATE_OPERATIVE]: CreateOperativeModal,
     [LOADING_DATA]: LoadingDataModal,
-    [UNLINK_DEVICE]: UnlinkDeviceModalContainer
+    [UNLINK_DEVICE]: UnlinkDeviceModalContainer,
+    [DOCUMENT_RESPONSE_AGREEANCE]: DocumentResponseAgreeanceModalContainer
 };
 
 const ModalRoot = ({ modalType, modalProps, ...otherProps }) => {
