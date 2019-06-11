@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import ModalOuterContainer from '../containers/ModalOuterContainer';
-import loading from '../../../../../_content/images/layout/loading.gif';
 import Loading from '../../misc/presentational/Loading';
 
 class PinPhotoModal extends Component {

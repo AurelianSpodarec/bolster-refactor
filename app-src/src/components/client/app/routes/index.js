@@ -24,12 +24,6 @@ const ClientAreaRoutes = ({ base = '/client' }) => (
 
         <Route path={`${base}/pins`} component={PinRoutes} />
         <Route path={`${base}/profile`} component={ProfilesRoutes} />
-
-        {/* ? should clients have the option to generate reports  */}
-        {/* <Route
-            path={`${base}/reports`}
-            component={ReportsRoutes}
-        /> */}
     </SwitchWith404>
 );
 
