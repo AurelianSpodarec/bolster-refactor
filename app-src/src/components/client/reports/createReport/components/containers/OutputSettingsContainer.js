@@ -110,7 +110,7 @@ class OutputSettingsContainer extends Component {
                 message: 'Your report is now being generated'
             });
 
-            return history.push('/company/tools/company-reports');
+            return history.push('/client/reports');
         }
         if (error && !prevProps.error) {
             showModal(ERROR_MODAL, {

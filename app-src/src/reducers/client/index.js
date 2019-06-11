@@ -21,6 +21,7 @@ import clientCompaniesPermissionsReducer from './clientCompaniesPermissions';
 import searchReducer from './clientSearch';
 import companyReportsReducer from './clientCompanyReports';
 import reportsReducer from './clientReports';
+import messagesReducer from './clientMessages';
 
 export default combineReducers({
     buildingsReducer,
@@ -32,6 +33,7 @@ export default combineReducers({
     drawingsReducer,
     floorsReducer,
     latestPinFeedReducer,
+    messagesReducer,
     pinHistoriesReducer,
     pinAnswersReducer,
     pinsReducer,
