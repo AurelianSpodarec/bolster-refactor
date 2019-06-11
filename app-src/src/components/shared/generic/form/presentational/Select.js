@@ -18,7 +18,8 @@ const Select = ({
     options = [],
     onChange,
     showError,
-    placeholder = '-- select option --'
+    placeholder = '-- select option --',
+    omitPlaceholder = false
 }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [hasOpened, setHasOpened] = useState(false);
@@ -74,14 +75,15 @@ const Select = ({
                         </div>
                     )}
                     <div className="option-container">
-                        {filteredOptions.length ? (
+                        {!omitPlaceholder && !!filteredOptions.length && (
                             <p
                                 className={`option ${!value ? 'active' : ''}`}
                                 onClick={e => handleSelect(e, null)}
                             >
                                 {placeholder}
                             </p>
-                        ) : (
+                        )}
+                        {!filteredOptions.length && (
                             <p>There are no options to display</p>
                         )}
 

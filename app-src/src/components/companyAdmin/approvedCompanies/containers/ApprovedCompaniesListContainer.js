@@ -36,36 +36,23 @@ const ApprovedCompaniesListContainer = ({
 
     function _getFilteredCompanies() {
         const name = filters.name.toLowerCase();
-
-        let filteredCompanies = companies.filter(
-            company =>
-                company.name.toLowerCase().includes(name) ||
-                company.code.includes(+name)
-        );
-
-        if (sort === 'A - Z') {
-            filteredCompanies = filteredCompanies.sort((a, b) => {
-                if (a.name < b.name) {
-                    return -1;
-                }
-                if (a.name > b.name) {
-                    return 1;
-                }
-                return 0;
-            });
-        } else {
-            filteredCompanies = filteredCompanies.sort((a, b) => {
-                if (a.name > b.name) {
-                    return -1;
-                }
-                if (a.name < b.name) {
-                    return 1;
-                }
-                return 0;
-            });
-        }
-
-        return filteredCompanies;
+        const { serviceIDs } = filters;
+        return companies
+            .filter(
+                company =>
+                    company.name.toLowerCase().includes(name) ||
+                    company.code.includes(+name)
+            )
+            .filter(
+                company =>
+                    !serviceIDs.length ||
+                    serviceIDs.every(id => company.serviceIDs.includes(id))
+            )
+            .sort((a, b) =>
+                sort === 'A - Z'
+                    ? a.name.localeCompare(b.name)
+                    : b.name.localeCompare(a.name)
+            );
     }
 };
 

@@ -91,13 +91,17 @@ class PinSelectorContainer extends Component {
             included:
                 option.included || selectedPinOptions.includes(option.value)
         }));
+        const oldIDs = Object.values(oldOptions)
+            .filter(({ included }) => included)
+            .map(({ value }) => value);
+
         const pinIDs = Object.values(pinOptions)
             .filter(({ included }) => included)
             .map(({ value }) => value);
         this.setState({
             pinOptions,
             selectedPinOptions: selectedPinOptions.filter(id =>
-                pinIDs.includes(id)
+                oldIDs.includes(id)
             )
         });
 
@@ -114,13 +118,17 @@ class PinSelectorContainer extends Component {
             included:
                 option.included && !selectedPinOptions.includes(option.value)
         }));
+        const oldIDs = Object.values(oldOptions)
+            .filter(({ included }) => included)
+            .map(({ value }) => value);
+
         const pinIDs = pinOptions
             .filter(({ included }) => included)
             .map(({ value }) => value);
         this.setState({
             pinOptions,
             selectedPinOptions: selectedPinOptions.filter(
-                id => !pinIDs.includes(id)
+                id => !oldIDs.includes(id)
             )
         });
         handleChange('pinIDs', pinIDs);

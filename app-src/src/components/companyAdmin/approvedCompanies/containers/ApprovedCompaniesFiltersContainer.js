@@ -10,10 +10,11 @@ import updateApprovedCompaniesSort from 'actions/companyAdmin/approvedCompanies/
 // TODO: add filters
 
 const ApprovedCompaniesFiltersContainer = ({
-    filters: { name },
+    filters: { name, serviceIDs },
     sort,
     updateApprovedCompaniesFilters,
-    updateApprovedCompaniesSort
+    updateApprovedCompaniesSort,
+    services
 }) => {
     const handleChange = (name, value) => {
         updateApprovedCompaniesFilters(name, value);
@@ -23,29 +24,38 @@ const ApprovedCompaniesFiltersContainer = ({
         updateApprovedCompaniesSort(value);
     };
 
-    const sortOptions = {
-        'A - Z': { value: 'A - Z', text: 'A - Z' },
-        'Z - A': { value: 'Z - A', text: 'Z - A' }
-    };
+    const sortOptions = [
+        { label: 'A - Z', value: 'A - Z' },
+        { label: 'Z - A', value: 'Z - A' }
+    ];
+
+    const serviceOpts = services.map(({ id, name }) => ({
+        value: id,
+        label: name
+    }));
 
     return (
         <ApprovedCompaniesFilters
             handleChange={handleChange}
             handleSortChange={handleSortChange}
             name={name}
-            sortOptions={Object.values(sortOptions)}
-            selectedOption={sortOptions[sort]}
+            sortOptions={sortOptions}
+            selectedOption={sort}
+            serviceOptions={serviceOpts}
+            serviceIDs={serviceIDs}
         />
     );
 };
 
 const mapStateToProps = ({
     companyAdmin: {
-        approvedCompaniesReducer: { filters, sort }
+        approvedCompaniesReducer: { filters, sort },
+        servicesReducer: { services }
     }
 }) => ({
     filters,
-    sort
+    sort,
+    services: Object.values(services)
 });
 
 const mapDispatchToProps = dispatch => ({
