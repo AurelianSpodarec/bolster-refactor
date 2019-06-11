@@ -8,7 +8,7 @@ import AdvancedReportContainer from './AdvancedReportContainer';
 
 const contentOptions = {
     [TABS.GENERAL_OVERVIEW]: DrawingMapGeneralContainer,
-    [TABS.ADVANCED_REPORT]: AdvancedReportContainer
+    [TABS.GENERATE_REPORT]: AdvancedReportContainer
 };
 
 const DrawingRouteContainer = ({ selectedTab }) => {

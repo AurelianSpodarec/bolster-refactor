@@ -1,17 +1,17 @@
 export const DRAWING_TABS = {
-    ADVANCED_REPORT: 'Advanced Report',
+    GENERATE_REPORT: 'Generate Report',
     GENERAL_OVERVIEW: 'General Overview'
 };
 export const FLOOR_TABS = {
-    ADVANCED_REPORT: 'Advanced Report',
+    GENERATE_REPORT: 'Generate Report',
     GENERAL_OVERVIEW: 'General Overview'
 };
 export const BUILDING_TABS = {
-    ADVANCED_REPORT: 'Advanced Report',
+    GENERATE_REPORT: 'Generate Report',
     GENERAL_OVERVIEW: 'General Overview'
 };
 export const SITE_TABS = {
-    ADVANCED_REPORT: 'Advanced Report',
+    GENERATE_REPORT: 'Generate Report',
     GENERAL_OVERVIEW: 'General Overview'
 };
 
