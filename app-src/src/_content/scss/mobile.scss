@@ -769,7 +769,7 @@
 //768px width
 @media only screen and (max-width: 813px) {
     //HEADER
-    #header {
+    .frontend-header {
         .nav {
             ul {
                 width: 100%;
@@ -1098,7 +1098,7 @@
     }
 
     //HEADER
-    #header {
+    .frontend-header {
         .left {
             width: 40%;
 
@@ -1118,35 +1118,46 @@
             top: 0;
             right: 0;
             transform: none;
+
             .links {
                 width: 100%;
                 padding: 0;
-
+                margin-top: 10px;
                 a {
+                    font-size: 120%;
+
                     &:nth-child(3) {
                         padding: 0;
                         margin-right: 0;
                         border: none;
                     }
                 }
-
                 .app-btn {
-                    width: 40%;
+                    width: 50%;
+                    max-width: 128px;
+                    margin-left: 5px;
+                    margin-bottom: 2.5px;
+                    img {
+                        width: 100%;
+                    }
                 }
 
                 .google-btn {
-                    max-width: 132px;
-                    width: 40%;
+                    width: 50%;
+                    margin-right: 0;
+                    img {
+                        width: 100%;
+                        float: left;
+                    }
                 }
-
-                .button {
+                .frontend-button {
                     border: 1px solid black;
                     margin-left: 80px;
                 }
             }
 
             .phone-number {
-                margin-top: 10px;
+                margin-top: 5px;
             }
         }
     }
@@ -1233,23 +1244,113 @@
     .button {
         font-size: 140%;
     }
+    #frontend-site {
+        p {
+            font-size: 140%;
+        }
+        //INFO SECTION
+        .info-section {
+            .container {
+                padding: 0 10px;
+            }
+            &.top-sec {
+                .image {
+                    width: 100%;
+                    img {
+                        float: none;
+                        display: block;
+                        margin-top: 0;
+                    }
+                }
+            }
+            &.inverted {
+                .text {
+                    padding-left: 0;
+                }
+            }
 
-    //TITLES & TEXT
-    h2 {
-        font-size: 220%;
-        padding-bottom: 5px;
-        margin-bottom: 20px;
+            .half {
+                width: 100%;
+                padding-right: 0;
+                &:last-child {
+                    padding-left: 0;
+                    margin-top: 15px;
+                    ul {
+                        padding-left: 0;
+                    }
+                }
+            }
+            .text {
+                width: 100%;
+                padding-right: 0;
+                padding-top: 0;
+            }
+
+            .image {
+                margin-top: 20px;
+                width: 100%;
+
+                img {
+                    float: none;
+                    display: block;
+                    margin: 0 auto;
+                }
+            }
+
+            ul {
+                li {
+                    font-size: 160%;
+                }
+            }
+
+            .pod {
+                padding: 0;
+
+                &:first-child {
+                    padding-right: 15px;
+                }
+
+                &:last-child {
+                    padding-left: 15px;
+                }
+            }
+
+            &.full-list {
+                .text {
+                    ul {
+                        width: 100%;
+                        &:last-child {
+                            li {
+                                &:last-child {
+                                    margin-bottom: 0;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        //REQUEST DEMO
+        .request-container {
+            .container {
+                padding: 0 10px;
+            }
+
+            .generic-form {
+                width: 100%;
+                padding-right: 0;
+            }
+
+            .try-area {
+                width: 100%;
+                margin-top: 0;
+
+                h3 {
+                    font-size: 200%;
+                }
+            }
+        }
     }
-
-    h3 {
-        font-size: 220%;
-        margin-bottom: 20px;
-    }
-
-    p {
-        font-size: 160%;
-    }
-
     .app-slider {
         display: none;
     }
@@ -1360,74 +1461,6 @@
         }
     }
 
-    //INFO SECTION
-    .info-section {
-        .container {
-            padding: 0 10px;
-        }
-        &.top-sec {
-            .image {
-                width: 100%;
-                img {
-                    float: none;
-                    display: block;
-                    margin-top: 0;
-                }
-            }
-        }
-        &.inverted {
-            .text {
-                padding-left: 0;
-            }
-        }
-
-        .half {
-            width: 100%;
-            padding-right: 0;
-            &:last-child {
-                padding-left: 0;
-                margin-top: 15px;
-                ul {
-                    padding-left: 0;
-                }
-            }
-        }
-        .text {
-            width: 100%;
-            padding-right: 0;
-            padding-top: 0;
-        }
-
-        .image {
-            margin-top: 20px;
-            width: 100%;
-
-            img {
-                float: none;
-                display: block;
-                margin: 0 auto;
-            }
-        }
-
-        ul {
-            li {
-                font-size: 160%;
-            }
-        }
-
-        .pod {
-            padding: 0;
-
-            &:first-child {
-                padding-right: 15px;
-            }
-
-            &:last-child {
-                padding-left: 15px;
-            }
-        }
-    }
-
     //INTRO BANNER
     .intro-banner {
         .container {
@@ -1438,6 +1471,9 @@
 
         h1 {
             font-size: 260%;
+        }
+        p {
+            font-size: 140%;
         }
     }
 
@@ -1467,26 +1503,6 @@
     #login {
         .container {
             padding: 0 10px;
-        }
-    }
-
-    //REQUEST DEMO
-    .request-container {
-        .container {
-            padding: 0 10px;
-        }
-
-        .generic-form {
-            width: 55%;
-            padding-right: 20px;
-        }
-
-        .try-area {
-            width: 45%;
-
-            h3 {
-                font-size: 200%;
-            }
         }
     }
 
