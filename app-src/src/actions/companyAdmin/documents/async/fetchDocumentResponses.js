@@ -27,7 +27,7 @@ export default documentID => dispatch => {
     dispatch(fetchDocumentResponsesRequest());
     // TODO change url
     axios
-        .get(`${API_URL}/document-responses/${documentID}`, getHeaders())
+        .get(`${API_URL}/documents/${documentID}/responses`, getHeaders())
         .then(({ data }) =>
             dispatch(fetchDocumentResponsesSuccess(data, documentID))
         )
