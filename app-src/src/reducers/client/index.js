@@ -19,10 +19,12 @@ import templateQuestionsReducer from './clientTemplateQuestions';
 import documentsReducer from './documents';
 import clientCompaniesPermissionsReducer from './clientCompaniesPermissions';
 import searchReducer from './clientSearch';
+import companyReportsReducer from './clientCompanyReports';
 
 export default combineReducers({
     buildingsReducer,
     clientCompaniesPermissionsReducer,
+    companyReportsReducer,
     companiesReducer,
     documentsReducer,
     drawingOperativesReducer,
