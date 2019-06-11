@@ -54,12 +54,11 @@ const EditCompanyUserForm = ({
                 </Field>
             </div>
             <div className="size-lg-6">
-                <Field name="Phone Number" required>
+                <Field name="Phone Number">
                     <TextInputContainer
                         value={phoneNumber}
                         name="phoneNumber"
                         handleChange={handleInputChange}
-                        required
                     />
                 </Field>
             </div>

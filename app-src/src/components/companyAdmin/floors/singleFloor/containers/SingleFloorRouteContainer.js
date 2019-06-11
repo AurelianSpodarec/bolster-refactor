@@ -7,7 +7,7 @@ import HierarchyAdvancedReport from 'components/companyAdmin/reports/createRepor
 const FloorRouteContainer = ({ selectedTab }) => {
     const contentOptions = {
         [FLOOR_TABS.GENERAL_OVERVIEW]: FloorGeneralOverview,
-        [FLOOR_TABS.ADVANCED_REPORT]: HierarchyAdvancedReport
+        [FLOOR_TABS.GENERATE_REPORT]: HierarchyAdvancedReport
     };
 
     const SpecificContent =

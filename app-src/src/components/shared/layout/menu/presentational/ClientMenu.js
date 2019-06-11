@@ -28,7 +28,7 @@ const ClientMenu = ({ dismissMessages, unreadCount }) => (
                     My Company Reports
                 </span>
             </MenuItemContainer>
-            <MenuItemContainer link="/client/create-report">
+            <MenuItemContainer link="/client/reports/create">
                 <i className="far fa-file-edit fa-fw icon" />
                 <span className="menu-text">Create Report</span>
             </MenuItemContainer>

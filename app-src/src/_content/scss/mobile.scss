@@ -348,12 +348,6 @@
     }
 
     #header {
-        .nav {
-            ul {
-                width: 85%;
-            }
-        }
-
         .left {
             width: 55%;
 
@@ -471,38 +465,6 @@
 }
 @media only screen and (min-width: 641px) and (max-width: 768px) {
     //HEADER
-    #header {
-        /*.left {
-    .quote {
-        width: 100%!important;
-        padding: 10px!important;
-
-
-        h3 {
-            margin-top: 0!important;
-            font-size: 140%!important;
-        }
-    }
-}*/
-        .nav {
-            ul {
-                width: 100%;
-
-                li {
-                    a {
-                        padding: 19px 20px 18px;
-                        font-size: 160%;
-                    }
-
-                    &.home {
-                        img {
-                            width: 30px;
-                        }
-                    }
-                }
-            }
-        }
-    }
 
     //BUTTONS
     .button {
@@ -1083,6 +1045,27 @@
             font-size: 140%;
         }
     }
+
+    .frontend-menu {
+        &.mobile-menu {
+            ul {
+                width: 85%;
+
+                li {
+                    a {
+                        padding: 19px 20px 18px;
+                        font-size: 160%;
+                    }
+
+                    &.home {
+                        img {
+                            width: 30px;
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
 
 @media only screen and (max-width: 640px) {
@@ -1164,14 +1147,13 @@
 
     .frontend-menu {
         display: none;
-        &.mobile {
-            display: block;
-        }
-        .mobile-menu {
+
+        &.mobile-menu {
             float: left;
             width: 100%;
             color: white;
             cursor: pointer;
+            display: block;
 
             .container {
                 padding: 10px 20px;
@@ -1191,7 +1173,7 @@
             }
 
             ul {
-                display: none;
+                display: block;
                 position: absolute;
                 top: 100%;
                 left: 0;

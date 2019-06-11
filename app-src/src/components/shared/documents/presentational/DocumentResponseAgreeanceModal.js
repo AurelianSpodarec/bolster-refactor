@@ -4,6 +4,7 @@ import FieldOutput from 'components/shared/generic/fieldOutput/presentational/Fi
 import { FILE_STORAGE_URL } from 'config';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
+import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 
 const DocumentResponseAgreeanceModal = ({ user, response, hideModal }) => (
     <ModalOuterContainer>
@@ -14,11 +15,11 @@ const DocumentResponseAgreeanceModal = ({ user, response, hideModal }) => (
             />
             <FieldOutput
                 title="Response created"
-                description={response.createdOn}
+                description={<DateTimeContainer date={response.createdOn} />}
             />
             <FieldOutput
                 title="Response synced"
-                description={response.syncedOn}
+                description={<DateTimeContainer date={response.syncedOn} />}
             />
             {response.signatureS3Key && (
                 <FieldOutput title="Signature">
