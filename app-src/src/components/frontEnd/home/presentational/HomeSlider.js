@@ -12,7 +12,6 @@ import appSlide3 from '_content/images/frontend/app-slider/floorplan-sl3-large.p
 import appSlide4 from '_content/images/frontend/app-slider/pinlist-large.jpg';
 
 import slideOneMobileVer from '_content/images/frontend/app-slider/slide-one-mobile-large.png';
-import slideOneMobileSmallVer from '_content/images/frontend/app-slider/slide-one-mobile-small.png';
 
 import blackTick from '_content/images/frontend//black-tick.png';
 import redTick from '_content/images/frontend/red-tick.png';
