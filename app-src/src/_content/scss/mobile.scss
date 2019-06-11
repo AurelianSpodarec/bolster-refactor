@@ -1244,9 +1244,76 @@
     .button {
         font-size: 140%;
     }
-    .frontend-site {
+    #frontend-site {
         p {
             font-size: 140%;
+        }
+        //INFO SECTION
+        .info-section {
+            .container {
+                padding: 0 10px;
+            }
+            &.top-sec {
+                .image {
+                    width: 100%;
+                    img {
+                        float: none;
+                        display: block;
+                        margin-top: 0;
+                    }
+                }
+            }
+            &.inverted {
+                .text {
+                    padding-left: 0;
+                }
+            }
+
+            .half {
+                width: 100%;
+                padding-right: 0;
+                &:last-child {
+                    padding-left: 0;
+                    margin-top: 15px;
+                    ul {
+                        padding-left: 0;
+                    }
+                }
+            }
+            .text {
+                width: 100%;
+                padding-right: 0;
+                padding-top: 0;
+            }
+
+            .image {
+                margin-top: 20px;
+                width: 100%;
+
+                img {
+                    float: none;
+                    display: block;
+                    margin: 0 auto;
+                }
+            }
+
+            ul {
+                li {
+                    font-size: 160%;
+                }
+            }
+
+            .pod {
+                padding: 0;
+
+                &:first-child {
+                    padding-right: 15px;
+                }
+
+                &:last-child {
+                    padding-left: 15px;
+                }
+            }
         }
     }
     .app-slider {
@@ -1356,74 +1423,6 @@
 
         .arrow {
             display: none;
-        }
-    }
-
-    //INFO SECTION
-    .info-section {
-        .container {
-            padding: 0 10px;
-        }
-        &.top-sec {
-            .image {
-                width: 100%;
-                img {
-                    float: none;
-                    display: block;
-                    margin-top: 0;
-                }
-            }
-        }
-        &.inverted {
-            .text {
-                padding-left: 0;
-            }
-        }
-
-        .half {
-            width: 100%;
-            padding-right: 0;
-            &:last-child {
-                padding-left: 0;
-                margin-top: 15px;
-                ul {
-                    padding-left: 0;
-                }
-            }
-        }
-        .text {
-            width: 100%;
-            padding-right: 0;
-            padding-top: 0;
-        }
-
-        .image {
-            margin-top: 20px;
-            width: 100%;
-
-            img {
-                float: none;
-                display: block;
-                margin: 0 auto;
-            }
-        }
-
-        ul {
-            li {
-                font-size: 160%;
-            }
-        }
-
-        .pod {
-            padding: 0;
-
-            &:first-child {
-                padding-right: 15px;
-            }
-
-            &:last-child {
-                padding-left: 15px;
-            }
         }
     }
 
