@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 
-import { convertArrToObj, updateObj } from 'helpers/generic';
+import { convertArrToObj, updateObj, moveItem } from 'helpers/generic';
 import {
     FETCH_ALL_SITES_REQUEST,
     FETCH_ALL_SITES_SUCCESS,
@@ -23,7 +23,8 @@ import {
     ARCHIVE_SITE_FAILURE,
     CREATE_TRANSFER_SITE_REQUEST,
     CREATE_TRANSFER_SITE_SUCCESS,
-    CREATE_TRANSFER_SITE_FAILURE
+    CREATE_TRANSFER_SITE_FAILURE,
+    REORDER_SITE
 } from 'constants/actionTypes/sites';
 import { CREATE_BUILDING_SUCCESS } from 'constants/actionTypes/buildings';
 
@@ -34,8 +35,7 @@ export default combineReducers({
     postSuccess: postSuccessReducer,
     postFailure: postFailureReducer,
     deleteSuccess: deleteSuccessReducer,
-    error: errorReducer,
-    filters: filtersReducer
+    error: errorReducer
 });
 
 function isFetchingReducer(state = false, action) {
@@ -152,15 +152,15 @@ function sitesReducer(state = {}, action) {
                     action.payload.id
                 ]
             });
-        default:
-            return state;
-    }
-}
+        case REORDER_SITE: {
+            const sorted = moveItem(
+                Object.values(state),
+                action.id,
+                action.hoverIndex
+            );
+            return convertArrToObj(sorted);
+        }
 
-function filtersReducer(state = { name: '', status: '' }, action) {
-    switch (action.type) {
-        case UPDATE_SITES_FILTERS:
-            return updateObj(state, action.fieldName, action.searchTerm);
         default:
             return state;
     }

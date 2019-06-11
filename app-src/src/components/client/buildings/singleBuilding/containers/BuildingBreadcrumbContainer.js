@@ -2,9 +2,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
-import fetchSingleSite from 'actions/companyAdmin/sites/async/fetchSingleSite';
+import fetchSingleClientSite from 'actions/client/sites/async/clientFetchSingleSite';
 
 import Breadcrumb from 'components/shared/generic/breadcrumb/presentational/Breadcrumb';
+
+import { getSelectedCompanyForClient } from 'helpers/generic';
 
 class BuildingBreadcrumbContainer extends Component {
     state = {
@@ -47,19 +49,23 @@ class BuildingBreadcrumbContainer extends Component {
     };
 
     componentDidUpdate = prevProps => {
-        const { building, fetchSingleSite } = this.props;
+        const { building, fetchSingleClientSite } = this.props;
 
         if (!prevProps.building.id && !!building.id) {
-            fetchSingleSite(building.siteID).then(() => {
-                this._setSiteDetails(building.siteID);
-            });
+            const selectedCompanyID = getSelectedCompanyForClient();
+
+            fetchSingleClientSite(selectedCompanyID, building.siteID).then(
+                () => {
+                    this._setSiteDetails(building.siteID);
+                }
+            );
         }
     };
 }
 
 const mapStateToProps = (
     {
-        companyAdmin: {
+        client: {
             buildingsReducer: { buildings },
             sitesReducer: { sites }
         }
@@ -71,8 +77,8 @@ const mapStateToProps = (
 });
 
 const mapDispatchToProps = dispatch => ({
-    fetchSingleSite: siteID => {
-        return dispatch(fetchSingleSite(siteID));
+    fetchSingleClientSite: (companyID, siteID) => {
+        return dispatch(fetchSingleClientSite(companyID, siteID));
     }
 });
 

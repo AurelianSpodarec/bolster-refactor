@@ -21,8 +21,11 @@ class PinSectionsContainer extends Component {
 
 const mapStateToProps = ({
     companyAdmin: {
-        pinHistoriesReducer: { histories, selectedHistoryId },
+        pinHistoriesReducer: { histories },
         templateSectionsReducer: { sections }
+    },
+    shared: {
+        selectedHistoryReducer: { selectedHistoryId }
     }
 }) => {
     const history = histories[selectedHistoryId] || {};

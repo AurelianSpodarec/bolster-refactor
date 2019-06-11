@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import fetchSearchResults from 'actions/companyAdmin/search/async/fetchSearchResults';
+import fetchClientSearchResults from 'actions/client/search/async/clientFetchSearchResults';
 import SearchBar from '../presentational/SearchBar';
+import { getSelectedCompanyForClient } from 'helpers/generic';
 
 class SearchContainer extends Component {
     state = {
@@ -74,12 +75,14 @@ class SearchContainer extends Component {
     }
 
     handleChange = (name, value) => {
-        const { fetchSearchResults } = this.props;
+        const { fetchClientSearchResults } = this.props;
         const resultsVisible = !!value.length;
+        const selectedCompanyID = getSelectedCompanyForClient();
+
         this.setState({ resultsVisible, [name]: value });
         if (resultsVisible) {
             document.addEventListener('click', this.handleOutsideClick, false);
-            fetchSearchResults(value);
+            fetchClientSearchResults(selectedCompanyID, value);
         } else {
             document.removeEventListener(
                 'click',
@@ -106,7 +109,7 @@ class SearchContainer extends Component {
 }
 
 const mapStateToProps = ({
-    companyAdmin: {
+    client: {
         searchReducer: { results, isFetching, error }
     }
 }) => ({
@@ -116,8 +119,8 @@ const mapStateToProps = ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    fetchSearchResults: searchTerm => {
-        dispatch(fetchSearchResults(searchTerm));
+    fetchClientSearchResults: (companyID, searchTerm) => {
+        dispatch(fetchClientSearchResults(companyID, searchTerm));
     }
 });
 

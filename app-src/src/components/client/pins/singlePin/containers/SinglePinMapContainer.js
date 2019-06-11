@@ -6,7 +6,8 @@ import moment from 'moment';
 import SinglePinMap from '../presentational/SinglePinMap';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 
-import fetchSingleDrawing from 'actions/companyAdmin/drawings/async/fetchSingleDrawing';
+import fetchClientSingleDrawing from 'actions/client/drawings/async/clientFetchSingleDrawing';
+import { getSelectedCompanyForClient } from 'helpers/generic';
 
 class SinglePinMapContainer extends Component {
     render() {
@@ -46,12 +47,14 @@ class SinglePinMapContainer extends Component {
     componentDidUpdate = prevProps => {
         const { pin, fetchDrawing } = this.props;
         if (!prevProps.pin.id && pin.id) {
+            const selectedCompanyID = getSelectedCompanyForClient();
+
             const lat = pin.location.latY;
             const lng = pin.location.lngX;
 
             this._setMapCentre(lat, lng);
 
-            fetchDrawing(pin.drawingID);
+            fetchDrawing(selectedCompanyID, pin.drawingID);
         }
     };
 
@@ -69,11 +72,14 @@ class SinglePinMapContainer extends Component {
 
 const mapStateToProps = (
     {
-        companyAdmin: {
+        client: {
             pinsReducer: { pins, error, isFetching },
-            pinHistoriesReducer: { selectedHistoryId, histories },
-            companyUsersReducer: { users },
+            pinHistoriesReducer: { histories },
+            drawingOperativesReducer: { users },
             drawingsReducer: { drawings }
+        },
+        shared: {
+            selectedHistoryReducer: { selectedHistoryId }
         }
     },
     { match: { params } }
@@ -92,8 +98,8 @@ const mapStateToProps = (
 };
 
 const mapDispatchToProps = dispatch => ({
-    fetchDrawing: drawingID => {
-        dispatch(fetchSingleDrawing(drawingID));
+    fetchDrawing: (companyID, drawingID) => {
+        dispatch(fetchClientSingleDrawing(companyID, drawingID));
     }
 });
 

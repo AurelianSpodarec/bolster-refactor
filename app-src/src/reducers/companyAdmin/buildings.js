@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 
-import { convertArrToObj, updateObj } from 'helpers/generic';
+import { convertArrToObj, updateObj, moveItem } from 'helpers/generic';
 import {
     FETCH_ALL_BUILDINGS_REQUEST,
     FETCH_ALL_BUILDINGS_SUCCESS,
@@ -21,7 +21,8 @@ import {
     DELETE_BUILDING_FAILURE,
     ARCHIVE_BUILDING_REQUEST,
     ARCHIVE_BUILDING_SUCCESS,
-    ARCHIVE_BUILDING_FAILURE
+    ARCHIVE_BUILDING_FAILURE,
+    REORDER_BUILDING
 } from 'constants/actionTypes/buildings';
 import { CREATE_FLOOR_SUCCESS } from 'constants/actionTypes/floors';
 
@@ -147,6 +148,14 @@ function buildingsReducer(state = {}, action) {
                     action.payload.id
                 ]
             });
+        case REORDER_BUILDING: {
+            const sorted = moveItem(
+                Object.values(state),
+                action.id,
+                action.hoverIndex
+            );
+            return convertArrToObj(sorted);
+        }
         default:
             return state;
     }

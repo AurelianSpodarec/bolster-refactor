@@ -45,13 +45,13 @@ export default function(ProtectedComponent, authType = COMPANY) {
         _authenticate = () => {
             return new Promise((resolve, reject) => {
                 authenticate()
-                    .then(({ companyID, isSuperAdmin, isClient }) => {
+                    .then(({ companyID, isSuperAdmin, isClientAccess }) => {
                         if (authType === COMPANY)
                             return companyID ? resolve() : reject();
                         if (authType === SUPER_ADMIN)
                             return isSuperAdmin ? resolve() : reject();
                         if (authType === CLIENT)
-                            return isClient ? resolve() : reject();
+                            return isClientAccess ? resolve() : reject();
 
                         return reject();
                     })

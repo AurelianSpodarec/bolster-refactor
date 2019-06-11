@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { API_URL } from 'config';
+import { CLIENT_API_URL } from 'config/index';
 import { getHeaders } from 'helpers/api';
 import {
     CLIENT_FETCH_ALL_DRAWINGS_REQUEST,
@@ -22,12 +22,11 @@ export const clientFetchAllDrawingsFailure = error => ({
     error
 });
 
-export default () => dispatch => {
+export default companyID => dispatch => {
     dispatch(clientFetchAllDrawingsRequest());
 
     axios
-        // ! change the url
-        .get(`${API_URL}/drawings`, getHeaders())
+        .get(`${CLIENT_API_URL}/drawings/${companyID}`, getHeaders())
         .then(res => dispatch(clientFetchAllDrawingsSuccess(res.data)))
         .catch(err => dispatch(clientFetchAllDrawingsFailure(err.message)));
 };

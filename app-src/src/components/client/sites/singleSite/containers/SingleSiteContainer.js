@@ -1,34 +1,42 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import fetchAllBuildings from 'actions/companyAdmin/buildings/async/fetchAllBuildings';
-import fetchAllFloors from 'actions/companyAdmin/floors/async/fetchAllFloors';
-import fetchAllDrawings from 'actions/companyAdmin/drawings/async/fetchAllDrawings';
-import fetchSingleSite from 'actions/companyAdmin/sites/async/fetchSingleSite';
-import fetchDocuments from 'actions/documents/async/fetchDocuments';
-import fetchPinStatsForLevel from 'actions/companyAdmin/stats/async/fetchPinStatsForLevel';
+import fetchAllClientBuildings from 'actions/client/buildings/async/clientFetchAllBuildings';
+import fetchAllClientFloors from 'actions/client/floors/async/clientFetchAllFloors';
+import fetchAllClientDrawings from 'actions/client/drawings/async/clientFetchAllDrawings';
+import fetchSingleClientSite from 'actions/client/sites/async/clientFetchSingleSite';
+import fetchClientPinStatsForLevel from 'actions/client/stats/async/fetchClientPinStatsForLevel';
 
 import SingleSite from '../presentational/SingleSite';
+
+import { getSelectedCompanyForClient } from 'helpers/generic';
 
 class SingleSiteContainer extends Component {
     render = () => <SingleSite />;
 
     componentDidMount = () => {
         const { siteID, fetchSiteData } = this.props;
-        fetchSiteData(siteID);
+        const selectedCompanyID = getSelectedCompanyForClient();
+
+        fetchSiteData(selectedCompanyID, siteID);
     };
 }
 
 //make all fetches needed and this will update our redux store.
 const mapDispatchToProps = dispatch => ({
-    fetchSiteData: siteID => {
+    fetchSiteData: (selectedCompanyID, siteID) => {
         const hierarchyType = 'site';
-        dispatch(fetchSingleSite(siteID));
-        dispatch(fetchAllBuildings());
-        dispatch(fetchAllDrawings());
-        dispatch(fetchAllFloors());
-        dispatch(fetchDocuments(hierarchyType, siteID));
-        dispatch(fetchPinStatsForLevel(hierarchyType, siteID));
+        dispatch(fetchSingleClientSite(selectedCompanyID, siteID));
+        dispatch(fetchAllClientBuildings(selectedCompanyID));
+        dispatch(fetchAllClientDrawings(selectedCompanyID));
+        dispatch(fetchAllClientFloors(selectedCompanyID));
+        dispatch(
+            fetchClientPinStatsForLevel(
+                selectedCompanyID,
+                hierarchyType,
+                siteID
+            )
+        );
     }
 });
 

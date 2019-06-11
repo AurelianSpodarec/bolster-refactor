@@ -2,17 +2,12 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import DrawingTable from '../presentational/DrawingTable';
+import { hierarchySort } from 'helpers/generic';
 
 const DrawingTableContainer = ({ isFetching, error, drawings }) => {
     return (
         <DrawingTable
-            headers={[
-                'Drawing name',
-                'Last updated',
-                'Expires',
-                'Permissions',
-                'Action'
-            ]}
+            headers={['Drawing name', 'Last updated', 'Expires', 'Action']}
             isFetching={isFetching}
             error={error}
             drawings={drawings}
@@ -20,10 +15,11 @@ const DrawingTableContainer = ({ isFetching, error, drawings }) => {
     );
 };
 
-export default connect(({ companyAdmin: { drawingsReducer } }, ownProps) => ({
+export default connect(({ client: { drawingsReducer } }, ownProps) => ({
     isFetching: drawingsReducer.isFetching,
     error: drawingsReducer.error,
     drawings: ownProps.ids
         .map(id => drawingsReducer.drawings[id])
         .filter(item => item)
+        .sort(hierarchySort)
 }))(DrawingTableContainer);

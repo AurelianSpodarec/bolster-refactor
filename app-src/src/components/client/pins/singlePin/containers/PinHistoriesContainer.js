@@ -21,14 +21,7 @@ const PinHistoriesContainer = ({
         isEmpty={!id || !users.length || !services.length}
         contentClass="pin-single-history no-horizontal-padding"
     >
-        <BlockHeading title={`Pin ${pinCode}`}>
-            <Link
-                className="button green"
-                to={`/company/pins/${id}/add-history`}
-            >
-                <i className="fa fa-plus" /> Add history
-            </Link>
-        </BlockHeading>
+        <BlockHeading title={`Pin ${pinCode}`} />
 
         <PinHistoriesList
             histories={histories}
@@ -40,11 +33,14 @@ const PinHistoriesContainer = ({
 
 const mapStateToProps = (
     {
-        companyAdmin: {
+        client: {
             pinsReducer: { pins, isFetching, error },
-            companyUsersReducer: { users },
+            drawingOperativesReducer: { users },
             servicesReducer: { services },
-            pinHistoriesReducer: { histories, selectedHistoryId }
+            pinHistoriesReducer: { histories }
+        },
+        shared: {
+            selectedHistoryReducer: { selectedHistoryId }
         }
     },
     { match }

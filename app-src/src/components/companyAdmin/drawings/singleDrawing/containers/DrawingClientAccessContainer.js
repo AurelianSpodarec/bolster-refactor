@@ -13,14 +13,14 @@ import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 
 class DrawingClientAccessContainer extends Component {
     render() {
-        const { props } = this;
+        const { clients, isFetching, error } = this.props;
 
         return (
-            <BlockContainer>
+            <BlockContainer containerClass="always-scrollbar">
                 <ClientsTable
-                    clients={props.clients}
-                    isFetching={props.isFetching}
-                    error={props.error}
+                    clients={clients}
+                    isFetching={isFetching}
+                    error={error}
                     handleDeleteClientModal={this.handleDeleteClientModal}
                 />
             </BlockContainer>
@@ -51,11 +51,7 @@ const mapStateToProps = ({ companyAdmin: { clientsReducer } }) => ({
     deletionError: clientsReducer.deletionError
 });
 
-const mapDispatchToProps = dispatch => ({
-    showModal: (modalType, modalProps) => {
-        dispatch(showModal(modalType, modalProps));
-    }
-});
+const mapDispatchToProps = { showModal };
 export default withRouter(
     connect(
         mapStateToProps,

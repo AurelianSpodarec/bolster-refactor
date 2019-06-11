@@ -12,7 +12,7 @@ class DrawingOperativesAccessContainer extends Component {
         const { operatives, isFetching, error } = this.props;
 
         return (
-            <BlockContainer>
+            <BlockContainer containerClass="always-scrollbar">
                 <OperativesTable
                     operatives={operatives}
                     handleDeleteOperativeModal={this.handleDeleteOperativeModal}

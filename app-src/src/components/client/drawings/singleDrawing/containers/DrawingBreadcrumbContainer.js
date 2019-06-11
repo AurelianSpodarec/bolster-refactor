@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
-import fetchSingleSite from 'actions/companyAdmin/sites/async/fetchSingleSite';
-import fetchSingleBuilding from 'actions/companyAdmin/buildings/async/fetchSingleBuilding';
-import fetchSingleFloor from 'actions/companyAdmin/floors/async/fetchSingleFloor';
+import fetchSingleClientSite from 'actions/client/sites/async/clientFetchSingleSite';
+import fetchSingleClientBuilding from 'actions/client/buildings/async/clientFetchSingleBuilding';
+import fetchSingleClientFloor from 'actions/client/floors/async/clientFetchSingleFloor';
 
 import Breadcrumb from 'components/shared/generic/breadcrumb/presentational/Breadcrumb';
+import { getSelectedCompanyForClient } from 'helpers/generic';
 
 class DrawingBreadcrumbContainer extends Component {
     render() {
@@ -53,20 +54,26 @@ class DrawingBreadcrumbContainer extends Component {
     fetchData = () => {
         const {
             drawing,
-            fetchSingleFloor,
-            fetchSingleBuilding,
-            fetchSingleSite
+            fetchSingleClientFloor,
+            fetchSingleClientBuilding,
+            fetchSingleClientSite
         } = this.props;
 
-        fetchSingleFloor(drawing.floorID)
-            .then(({ payload }) => fetchSingleBuilding(payload.buildingID))
-            .then(({ payload }) => fetchSingleSite(payload.siteID));
+        const selectedCompanyID = getSelectedCompanyForClient();
+
+        fetchSingleClientFloor(selectedCompanyID, drawing.floorID)
+            .then(({ payload }) =>
+                fetchSingleClientBuilding(selectedCompanyID, payload.buildingID)
+            )
+            .then(({ payload }) =>
+                fetchSingleClientSite(selectedCompanyID, payload.siteID)
+            );
     };
 }
 
 const mapStateToProps = (
     {
-        companyAdmin: {
+        client: {
             drawingsReducer: { drawings, isFetching: fetchingDrawings },
             floorsReducer: { floors, isFetching: fetchingFloors },
             buildingsReducer: { buildings, isFetching: fetchingBuildings },
@@ -93,14 +100,14 @@ const mapStateToProps = (
 };
 
 const mapDispatchToProps = dispatch => ({
-    fetchSingleBuilding: buildingID => {
-        return dispatch(fetchSingleBuilding(buildingID));
+    fetchSingleClientBuilding: (companyID, buildingID) => {
+        return dispatch(fetchSingleClientBuilding(companyID, buildingID));
     },
-    fetchSingleSite: siteID => {
-        return dispatch(fetchSingleSite(siteID));
+    fetchSingleClientSite: (companyID, siteID) => {
+        return dispatch(fetchSingleClientSite(companyID, siteID));
     },
-    fetchSingleFloor: floorID => {
-        return dispatch(fetchSingleFloor(floorID));
+    fetchSingleClientFloor: (companyID, floorID) => {
+        return dispatch(fetchSingleClientFloor(companyID, floorID));
     }
 });
 

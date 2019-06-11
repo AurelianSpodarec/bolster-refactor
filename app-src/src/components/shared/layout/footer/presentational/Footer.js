@@ -1,7 +1,7 @@
 import React from 'react';
 
-import WhiteLogo from '_content/images/footer/powered-by-bolster-white.svg';
-import BlackLogo from '_content/images/footer/powered-by-bolster-black.svg';
+import WhiteLogo from '_content/images/footer/logo-footer-white.png';
+import BlackLogo from '_content/images/footer/logo-footer-black.png';
 import defaultStyles from 'constants/defaultStyles';
 
 const logos = {

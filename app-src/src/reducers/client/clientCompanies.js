@@ -9,10 +9,10 @@ import {
 } from 'constants/client/actionTypes/clientSelectCompany';
 
 export default combineReducers({
-    users: companyUsersReducer,
+    companies: companiesReducer,
     isFetching: isFetchingReducer,
     error: errorReducer,
-    selectedCompany: selectedCompanyReducer
+    selectedCompanyID: selectedCompanyIDReducer
 });
 
 function isFetchingReducer(state = false, action) {
@@ -38,7 +38,7 @@ function errorReducer(state = null, action) {
     }
 }
 
-function companyUsersReducer(state = {}, action) {
+function companiesReducer(state = {}, action) {
     switch (action.type) {
         case CLIENT_FETCH_COMPANIES_SUCCESS:
             return convertArrToObj(action.payload);
@@ -47,7 +47,7 @@ function companyUsersReducer(state = {}, action) {
     }
 }
 
-function selectedCompanyReducer(state = {}, action) {
+function selectedCompanyIDReducer(state = null, action) {
     switch (action.type) {
         case CLIENT_SELECT_COMPANY:
             return action.id;

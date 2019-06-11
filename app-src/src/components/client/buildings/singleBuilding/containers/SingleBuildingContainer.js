@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import fetchSingleBuilding from 'actions/companyAdmin/buildings/async/fetchSingleBuilding';
-import fetchAllFloors from 'actions/companyAdmin/floors/async/fetchAllFloors';
-import fetchAllDrawings from 'actions/companyAdmin/drawings/async/fetchAllDrawings';
-import fetchPinStatsForLevel from 'actions/companyAdmin/stats/async/fetchPinStatsForLevel';
+import fetchSingleClientBuilding from 'actions/client/buildings/async/clientFetchSingleBuilding';
+import fetchAllClientFloors from 'actions/client/floors/async/clientFetchAllFloors';
+import fetchAllClientDrawings from 'actions/client/drawings/async/clientFetchAllDrawings';
+import fetchClientPinStatsForLevel from 'actions/client/stats/async/fetchClientPinStatsForLevel';
 
 import SingleBuilding from '../presentational/SingleBuilding';
+
+import { getSelectedCompanyForClient } from 'helpers/generic';
 
 class SingleBuildingContainer extends Component {
     render() {
@@ -15,33 +17,41 @@ class SingleBuildingContainer extends Component {
 
     componentDidMount = () => {
         const {
-            fetchSingleBuilding,
-            fetchAllDrawings,
-            fetchAllFloors,
+            fetchSingleClientBuilding,
+            fetchAllClientDrawings,
+            fetchAllClientFloors,
             buildingID,
-            fetchPinStatsForLevel
+            fetchClientPinStatsForLevel
         } = this.props;
 
-        fetchSingleBuilding(buildingID).then(() => {
-            fetchPinStatsForLevel('building', buildingID);
-            fetchAllDrawings();
-            fetchAllFloors();
+        const selectedCompanyID = getSelectedCompanyForClient();
+
+        fetchSingleClientBuilding(selectedCompanyID, buildingID).then(() => {
+            fetchClientPinStatsForLevel(
+                selectedCompanyID,
+                'building',
+                buildingID
+            );
+            fetchAllClientDrawings(selectedCompanyID);
+            fetchAllClientFloors(selectedCompanyID);
         });
     };
 }
 
 const mapDispatchToProps = dispatch => ({
-    fetchSingleBuilding: buildingID => {
-        return dispatch(fetchSingleBuilding(buildingID));
+    fetchSingleClientBuilding: (companyID, buildingID) => {
+        return dispatch(fetchSingleClientBuilding(companyID, buildingID));
     },
-    fetchAllDrawings: () => {
-        dispatch(fetchAllDrawings());
+    fetchAllClientDrawings: companyID => {
+        dispatch(fetchAllClientDrawings(companyID));
     },
-    fetchAllFloors: () => {
-        dispatch(fetchAllFloors());
+    fetchAllClientFloors: companyID => {
+        dispatch(fetchAllClientFloors(companyID));
     },
-    fetchPinStatsForLevel: (hierarchyType, levelID) => {
-        dispatch(fetchPinStatsForLevel(hierarchyType, levelID));
+    fetchClientPinStatsForLevel: (companyID, hierarchyType, levelID) => {
+        dispatch(
+            fetchClientPinStatsForLevel(companyID, hierarchyType, levelID)
+        );
     }
 });
 

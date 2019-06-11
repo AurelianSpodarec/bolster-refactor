@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 
-import { convertArrToObj, updateObj } from 'helpers/generic';
+import { convertArrToObj, updateObj, moveItem } from 'helpers/generic';
 import {
     FETCH_ALL_DRAWINGS_REQUEST,
     FETCH_ALL_DRAWINGS_SUCCESS,
@@ -20,7 +20,8 @@ import {
     UPDATE_FLOOR_PLAN_REQUEST,
     UPDATE_FLOOR_PLAN_SUCCESS,
     UPDATE_FLOOR_PLAN_FAILURE,
-    UPDATE_FLOOR_PLAN_CONFIRMED
+    UPDATE_FLOOR_PLAN_CONFIRMED,
+    REORDER_DRAWING
 } from 'constants/actionTypes/drawings';
 
 export default combineReducers({
@@ -130,6 +131,14 @@ function drawingsReducer(state = {}, action) {
         case CREATE_DRAWING_SUCCESS:
         case ARCHIVE_DRAWING_SUCCESS:
             return updateObj(state, action.payload.id, action.payload);
+        case REORDER_DRAWING: {
+            const sorted = moveItem(
+                Object.values(state),
+                action.id,
+                action.hoverIndex
+            );
+            return convertArrToObj(sorted);
+        }
         default:
             return state;
     }

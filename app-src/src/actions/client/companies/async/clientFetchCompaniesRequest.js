@@ -1,24 +1,24 @@
 import axios from 'axios';
 
 import {
-    CLIENT_FETCH_COMPANY_SETTINGS_REQUEST,
-    CLIENT_FETCH_COMPANY_SETTINGS_SUCCESS,
-    CLIENT_FETCH_COMPANY_SETTINGS_FAILURE
+    CLIENT_FETCH_COMPANIES_REQUEST,
+    CLIENT_FETCH_COMPANIES_SUCCESS,
+    CLIENT_FETCH_COMPANIES_FAILURE
 } from 'constants/client/actionTypes/clientSelectCompany';
-import { API_URL } from 'config';
+import { CLIENT_API_URL } from 'config/index';
 import { getHeaders } from 'helpers/api';
 
 export const clientFetchCompaniesRequest = () => ({
-    type: CLIENT_FETCH_COMPANY_SETTINGS_REQUEST
+    type: CLIENT_FETCH_COMPANIES_REQUEST
 });
 
 export const clientFetchCompaniesSuccess = payload => ({
-    type: CLIENT_FETCH_COMPANY_SETTINGS_SUCCESS,
+    type: CLIENT_FETCH_COMPANIES_SUCCESS,
     payload
 });
 
 export const clientFetchCompaniesFailure = error => ({
-    type: CLIENT_FETCH_COMPANY_SETTINGS_FAILURE,
+    type: CLIENT_FETCH_COMPANIES_FAILURE,
     error
 });
 
@@ -27,7 +27,7 @@ export default () => dispatch => {
 
     axios
         // ! change this url
-        .get(`${API_URL}/settings`, getHeaders())
+        .get(`${CLIENT_API_URL}/companies`, getHeaders())
         .then(res => dispatch(clientFetchCompaniesSuccess(res.data)))
         .catch(err => dispatch(clientFetchCompaniesFailure(err.message)));
 };

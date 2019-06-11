@@ -17,7 +17,7 @@ const BuildingDetailsContainer = ({ building, stats, isFetching, error }) => (
 
 const mapStateToProps = (
     {
-        companyAdmin: {
+        client: {
             buildingsReducer: {
                 buildings,
                 error,

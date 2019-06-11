@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import fetchSingleFloor from 'actions/companyAdmin/floors/async/fetchSingleFloor';
-import fetchAllDrawings from 'actions/companyAdmin/drawings/async/fetchAllDrawings';
-import fetchPinStatsForLevel from 'actions/companyAdmin/stats/async/fetchPinStatsForLevel';
+import fetchSingleFloor from 'actions/client/floors/async/clientFetchSingleFloor';
+import fetchAllDrawings from 'actions/client/drawings/async/clientFetchAllDrawings';
+import fetchClientPinStatsForLevel from 'actions/client/stats/async/fetchClientPinStatsForLevel';
 
 import SingleFloor from '../presentational/SingleFloor';
+import { getSelectedCompanyForClient } from 'helpers/generic';
 
 class SingleFloorContainer extends Component {
     render() {
@@ -17,14 +18,13 @@ class SingleFloorContainer extends Component {
             floorID,
             fetchSingleFloor,
             fetchAllDrawings,
-            // fetchClients,
-            fetchPinStatsForLevel
+            fetchClientPinStatsForLevel
         } = this.props;
+        const selectedCompanyID = getSelectedCompanyForClient();
 
-        fetchSingleFloor(floorID);
-        fetchAllDrawings();
-        fetchPinStatsForLevel('floor', floorID);
-        // fetch Clients hooked up to mock data
+        fetchSingleFloor(selectedCompanyID, floorID);
+        fetchAllDrawings(selectedCompanyID);
+        fetchClientPinStatsForLevel(selectedCompanyID, 'floor', floorID);
     };
 }
 
@@ -33,15 +33,20 @@ const mapStateToProps = (_, { match }) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    fetchSingleFloor: id => {
-        dispatch(fetchSingleFloor(id));
+    fetchSingleFloor: (companyID, floorId) => {
+        dispatch(fetchSingleFloor(companyID, floorId));
     },
-    fetchAllDrawings: () => {
-        dispatch(fetchAllDrawings());
+    fetchAllDrawings: companyID => {
+        dispatch(fetchAllDrawings(companyID));
     },
-
-    fetchPinStatsForLevel: (hierarchyType, levelID) => {
-        dispatch(fetchPinStatsForLevel(hierarchyType, levelID));
+    fetchClientPinStatsForLevel: (selectedCompanyID, hierarchyType, siteID) => {
+        dispatch(
+            fetchClientPinStatsForLevel(
+                selectedCompanyID,
+                hierarchyType,
+                siteID
+            )
+        );
     }
 });
 

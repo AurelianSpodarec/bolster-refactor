@@ -3,11 +3,14 @@ import { connect } from 'react-redux';
 
 import { DRAWING_TABS } from 'constants/shared/tabNames';
 import setTabs from 'actions/shared/generic/tabs/sync/setTabs';
-import fetchSingleDrawing from 'actions/companyAdmin/drawings/async/fetchSingleDrawing';
-import fetchPins from 'actions/companyAdmin/pins/async/fetchPins';
-import fetchCompanyUsers from 'actions/companyAdmin/userManagement/async/fetchCompanyUsers';
+
+import fetchSingleClientDrawing from 'actions/client/drawings/async/clientFetchSingleDrawing';
+import fetchClientPins from 'actions/client/pins/async/clientFetchPins';
+import fetchClientDrawingOperatives from 'actions/client/drawings/async/clientFetchDrawingOperatives';
+import clientFetchDocuments from 'actions/client/documents/async/clientFetchDocuments';
 
 import SingleDrawing from '../presentational/SingleDrawing';
+import { getSelectedCompanyForClient } from 'helpers/generic';
 
 class SingleDrawingContainer extends Component {
     render = () => <SingleDrawing />;
@@ -15,16 +18,19 @@ class SingleDrawingContainer extends Component {
     componentDidMount = () => {
         const { drawingID, setTabs, fetchDrawingData } = this.props;
         setTabs(Object.values(DRAWING_TABS), DRAWING_TABS.GENERAL_OVERVIEW);
-        fetchDrawingData(drawingID);
+        const selectedCompanyID = getSelectedCompanyForClient();
+
+        fetchDrawingData(selectedCompanyID, drawingID);
     };
 }
 
 const mapDispatchToProps = dispatch => ({
     setTabs: (tabs, selectedTab) => dispatch(setTabs(tabs, selectedTab)),
-    fetchDrawingData: drawingID => {
-        dispatch(fetchSingleDrawing(drawingID));
-        dispatch(fetchPins('drawing', drawingID));
-        dispatch(fetchCompanyUsers());
+    fetchDrawingData: (companyID, drawingID) => {
+        dispatch(fetchSingleClientDrawing(companyID, drawingID));
+        dispatch(fetchClientPins(companyID, drawingID));
+        dispatch(fetchClientDrawingOperatives(companyID, drawingID));
+        dispatch(clientFetchDocuments(companyID, 'drawing', drawingID));
     }
 });
 

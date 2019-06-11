@@ -129,13 +129,15 @@ const mapStateToProps = (
         companyAdmin: {
             pinsReducer: { isFetching: fetchingPins, postSuccess, pins },
             pinHistoriesReducer: {
-                selectedHistoryId,
                 histories,
                 isFetching: fetchingHistories,
                 error
             },
             companyUsersReducer: { users, isFetching: fetchingUsers },
             servicesReducer: { services }
+        },
+        shared: {
+            selectedHistoryReducer: { selectedHistoryId }
         }
     },
     { match }

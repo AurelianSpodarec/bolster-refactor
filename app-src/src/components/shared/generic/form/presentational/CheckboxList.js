@@ -24,6 +24,7 @@ const CheckboxList = ({
                     }
                     handleChange={handleChange}
                     classes={classes}
+                    fromList
                 />
             ))}
         {error && error.length && (

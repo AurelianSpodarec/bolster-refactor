@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 
-import { convertArrToObj, updateObj } from 'helpers/generic';
+import { convertArrToObj, updateObj, moveItem } from 'helpers/generic';
 import {
     FETCH_ALL_FLOORS_REQUEST,
     FETCH_ALL_FLOORS_SUCCESS,
@@ -19,7 +19,8 @@ import {
     DELETE_FLOOR_FAILURE,
     ARCHIVE_FLOOR_REQUEST,
     ARCHIVE_FLOOR_SUCCESS,
-    ARCHIVE_FLOOR_FAILURE
+    ARCHIVE_FLOOR_FAILURE,
+    REORDER_FLOORS
 } from 'constants/actionTypes/floors';
 
 import { CREATE_DRAWING_SUCCESS } from 'constants/actionTypes/drawings';
@@ -148,6 +149,14 @@ function floorsReducer(state = {}, action) {
                     action.payload.id
                 ]
             });
+        case REORDER_FLOORS: {
+            const sorted = moveItem(
+                Object.values(state),
+                action.id,
+                action.hoverIndex
+            );
+            return convertArrToObj(sorted);
+        }
         default:
             return state;
     }

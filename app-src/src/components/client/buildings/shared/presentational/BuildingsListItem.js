@@ -6,8 +6,7 @@ const BuldingsListItem = ({
     building,
     toggleExpanded,
     isExpanded,
-    colCount,
-    permissions
+    colCount
 }) => (
     <>
         <tr
@@ -23,7 +22,6 @@ const BuldingsListItem = ({
                 )}{' '}
                 {building.name}
             </td>
-            <td>{permissions}</td>
             <td>
                 <ButtonContainer
                     to={`/client/buildings/${building.id}`}

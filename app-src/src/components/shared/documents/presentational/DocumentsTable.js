@@ -6,18 +6,25 @@ import DocumentsList from './DocumentsList';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 
-const DocumentsTable = ({ location, documents, isFetching }) => {
+const DocumentsTable = ({
+    location,
+    documents,
+    isFetching,
+    clientControls = false
+}) => {
     return (
         <div className="size-lg-12">
             <BlockHeading title="Documents" classes="w-table">
-                <ButtonContainer
-                    className="pull-right green"
-                    to={`${location.pathname}/attach-document`}
-                >
-                    <i className="fa fa-plus" /> Add
-                </ButtonContainer>
+                {!clientControls && (
+                    <ButtonContainer
+                        className="pull-right green"
+                        to={`${location.pathname}/attach-document`}
+                    >
+                        <i className="fa fa-plus" /> Add
+                    </ButtonContainer>
+                )}
             </BlockHeading>
-            <div className="hide-overflow size-lg-12">
+            <div className="hide-overflow size-lg-12 always-scrollbar">
                 <Table
                     headers={['Name', 'Actions']}
                     isFetching={isFetching}
@@ -26,7 +33,11 @@ const DocumentsTable = ({ location, documents, isFetching }) => {
                     withActions
                     extraClasses="with-scrollbar"
                 >
-                    <DocumentsList location={location} documents={documents} />
+                    <DocumentsList
+                        location={location}
+                        documents={documents}
+                        clientControls={clientControls}
+                    />
                 </Table>
             </div>
         </div>

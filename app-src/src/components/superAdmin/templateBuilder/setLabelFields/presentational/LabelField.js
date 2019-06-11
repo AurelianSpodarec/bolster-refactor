@@ -1,7 +1,7 @@
 import React from 'react';
 import LabelFieldRoute from '../containers/LabelFieldRoute';
-import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
 import Field from 'components/shared/generic/form/presentational/Field';
+import Select from 'components/shared/generic/form/presentational/Select';
 
 const LabelField = ({
     questionOptions,
@@ -13,18 +13,18 @@ const LabelField = ({
     <div className="label-field size-lg-12">
         <div className="size-lg-12">
             <Field name="Field type" sizeClasses="size-lg-12">
-                <DropdownContainer
+                <Select
                     placeholder="Empty"
                     name="source"
                     options={sourceOptions}
-                    selectedOption={selectedSource}
-                    handleChange={handleChange}
+                    value={selectedSource}
+                    onChange={handleChange}
                 />
             </Field>
         </div>
         <LabelFieldRoute
             questionOptions={questionOptions}
-            source={!!selectedSource && selectedSource.value}
+            source={!!selectedSource && selectedSource}
             labelField={labelField}
             handleChange={handleChange}
         />

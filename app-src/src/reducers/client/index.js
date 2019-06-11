@@ -2,28 +2,44 @@ import { combineReducers } from 'redux';
 
 import buildingsReducer from './clientBuildings';
 import companiesReducer from './clientCompanies';
-import companyUsers from './clientCompanyUsers';
+import drawingOperativesReducer from './clientDrawingOperatives';
 import drawingsReducer from './clientDrawings';
 import floorsReducer from './clientFloors';
 import latestPinFeedReducer from './clientLatestPinFeed';
 import pinHistoriesReducer from './clientPinHistories';
+import pinAnswersReducer from './clientPinAnswers';
 import pinsReducer from './clientPins';
-import pinStatsReducer from './clientPinStats';
+import statsReducer from './clientStats';
 import servicesReducer from './clientServices';
 import sitesReducer from './clientSites';
 import templatesReducer from './clientTemplates';
+import templateVersionsReducer from './clientTemplateVersions';
+import templateSectionsReducer from './clientTemplateSections';
+import templateQuestionsReducer from './clientTemplateQuestions';
+import documentsReducer from './documents';
+import clientCompaniesPermissionsReducer from './clientCompaniesPermissions';
+import searchReducer from './clientSearch';
+import companyReportsReducer from './clientCompanyReports';
 
 export default combineReducers({
     buildingsReducer,
+    clientCompaniesPermissionsReducer,
+    companyReportsReducer,
     companiesReducer,
-    companyUsers,
+    documentsReducer,
+    drawingOperativesReducer,
     drawingsReducer,
     floorsReducer,
     latestPinFeedReducer,
     pinHistoriesReducer,
+    pinAnswersReducer,
     pinsReducer,
-    pinStatsReducer,
+    statsReducer,
+    searchReducer,
     servicesReducer,
     sitesReducer,
-    templatesReducer
+    templatesReducer,
+    templateVersionsReducer,
+    templateSectionsReducer,
+    templateQuestionsReducer
 });

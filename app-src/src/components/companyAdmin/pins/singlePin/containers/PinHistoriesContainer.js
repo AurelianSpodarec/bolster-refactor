@@ -26,7 +26,7 @@ const PinHistoriesContainer = ({
                 className="button green"
                 to={`/company/pins/${id}/add-history`}
             >
-                <i className="fa fa-plus" /> Add history
+                <i className="fa fa-plus" /> Add Pin History
             </Link>
         </BlockHeading>
 
@@ -44,7 +44,10 @@ const mapStateToProps = (
             pinsReducer: { pins, isFetching, error },
             companyUsersReducer: { users },
             servicesReducer: { services },
-            pinHistoriesReducer: { histories, selectedHistoryId }
+            pinHistoriesReducer: { histories }
+        },
+        shared: {
+            selectedHistoryReducer: { selectedHistoryId }
         }
     },
     { match }
