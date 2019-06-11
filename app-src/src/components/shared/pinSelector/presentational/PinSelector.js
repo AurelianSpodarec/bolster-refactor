@@ -65,15 +65,6 @@ const PinSelector = ({
                     clicking={clicking}
                 />
             </div>
-            <BlockButtonWrapper>
-                <ButtonContainer
-                    className="button"
-                    type="button"
-                    handleClick={handleSubmit}
-                >
-                    Submit
-                </ButtonContainer>
-            </BlockButtonWrapper>
         </div>
     </>
 );
