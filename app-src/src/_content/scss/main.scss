@@ -90,7 +90,7 @@ body {
         .generic-table {
             min-height: 165px;
             tbody {
-                display: table-header-group;
+                display: table-footer-group;
             }
         }
 
@@ -2246,6 +2246,14 @@ input {
 }
 
 .stats {
+    &.client-stats {
+        .history {
+            margin-top: 20px;
+        }
+        .pin-key {
+            margin-bottom: 0;
+        }
+    }
     p {
         font-size: 140%;
         line-height: 1.5;

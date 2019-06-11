@@ -10,11 +10,11 @@ const Floor = () => (
             <SingleFloorHeaderContainer />
         </div>
 
-        <div className=" flex-item size-lg-12">
+        <div className="size-lg-4">
             <FloorDetailsContainer />
         </div>
 
-        <div className="size-lg-12">
+        <div className="size-lg-8">
             <FloorDrawingsTableContainer />
         </div>
     </div>
