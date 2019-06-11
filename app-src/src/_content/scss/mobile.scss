@@ -769,7 +769,7 @@
 //768px width
 @media only screen and (max-width: 813px) {
     //HEADER
-    #header {
+    .frontend-header {
         .nav {
             ul {
                 width: 100%;
@@ -1098,7 +1098,7 @@
     }
 
     //HEADER
-    #header {
+    .frontend-header {
         .left {
             width: 40%;
 
@@ -1118,35 +1118,46 @@
             top: 0;
             right: 0;
             transform: none;
+
             .links {
                 width: 100%;
                 padding: 0;
-
+                margin-top: 10px;
                 a {
+                    font-size: 120%;
+
                     &:nth-child(3) {
                         padding: 0;
                         margin-right: 0;
                         border: none;
                     }
                 }
-
                 .app-btn {
-                    width: 40%;
+                    width: 50%;
+                    max-width: 128px;
+                    margin-left: 5px;
+                    margin-bottom: 2.5px;
+                    img {
+                        width: 100%;
+                    }
                 }
 
                 .google-btn {
-                    max-width: 132px;
-                    width: 40%;
+                    width: 50%;
+                    margin-right: 0;
+                    img {
+                        width: 100%;
+                        float: left;
+                    }
                 }
-
-                .button {
+                .frontend-button {
                     border: 1px solid black;
                     margin-left: 80px;
                 }
             }
 
             .phone-number {
-                margin-top: 10px;
+                margin-top: 5px;
             }
         }
     }
@@ -1233,23 +1244,11 @@
     .button {
         font-size: 140%;
     }
-
-    //TITLES & TEXT
-    h2 {
-        font-size: 220%;
-        padding-bottom: 5px;
-        margin-bottom: 20px;
+    .frontend-site {
+        p {
+            font-size: 140%;
+        }
     }
-
-    h3 {
-        font-size: 220%;
-        margin-bottom: 20px;
-    }
-
-    p {
-        font-size: 160%;
-    }
-
     .app-slider {
         display: none;
     }
