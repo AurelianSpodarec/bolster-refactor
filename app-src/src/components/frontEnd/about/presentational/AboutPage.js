@@ -8,7 +8,7 @@ import HeadingSecondary from 'components/frontEnd/shared/headings/presentational
 
 const AboutPage = () => (
     <div className="size-lg-12" id="about">
-        <ContentSection>
+        <ContentSection classes="top-sec">
             <HeadingSecondary title="About us" />
             <div className="text">
                 <p>
@@ -38,7 +38,7 @@ const AboutPage = () => (
                     download data to create user-generated surveys.
                 </p>
             </div>
-            <div className="image">
+            <div className="image ">
                 <img
                     alt="Phone, Mac examples of Bolster Systems"
                     src={deviceCollage}

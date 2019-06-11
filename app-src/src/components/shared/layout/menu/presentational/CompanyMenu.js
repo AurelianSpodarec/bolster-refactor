@@ -18,7 +18,7 @@ const CompanyMenu = ({
         <div className="menu">
             <MenuHeader title="Dashboard" />
             <MenuItemContainer link="/company" base>
-                <i className="far fa-home icon" />
+                <i className="far fa-home icon fa-fw" />
 
                 <span className="menu-text">Dashboard</span>
             </MenuItemContainer>
@@ -37,7 +37,7 @@ const CompanyMenu = ({
             <MenuHeader title="Site Management" />
 
             <MenuItemContainer link="/company/sites">
-                <i className="far fa-building icon" />
+                <i className="far fa-building icon fa-fw" />
                 <span className="menu-text"> Sites</span>
             </MenuItemContainer>
 
@@ -61,17 +61,19 @@ const CompanyMenu = ({
                 )}
                 <i className="far fa-exchange-alt fa-fw icon" />
                 <span className={`menu-text ${totalCredits ? 'large' : ''}`}>
-                    Requests & Invites
+                    Requests &amp; Invites
                 </span>
             </MenuItemContainer>
-            <MenuHeader title="Orders & Subscriptions" />
+            <MenuHeader title="Orders &amp; Subscriptions" />
             <MenuItemContainer link="/company/invoices">
-                <i className="far fa-receipt fa-fw fa-fw icon" />
+                <i className="far fa-receipt fa-fw icon" />
                 <span className="menu-text"> Orders</span>
             </MenuItemContainer>
             <MenuItemContainer link="/company/subscription">
-                <i className="far fa-money-check fa-fw fa-fw icon" />
-                <span className="menu-text large">Subscription & Credits</span>
+                <i className="far fa-money-check fa-fw icon" />
+                <span className="menu-text large">
+                    Subscription &amp; Credits
+                </span>
             </MenuItemContainer>
 
             <MenuHeader title="Reports" />
@@ -91,7 +93,7 @@ const CompanyMenu = ({
                 <i className="far fa-file-edit fa-fw icon" />
                 <span className="menu-text">Create Report</span>
             </MenuItemContainer>
-            <MenuHeader title="Settings & Tools" />
+            <MenuHeader title="Settings &amp; Tools" />
             <MenuItemContainer link="/company/profile">
                 <i className="far fa-user fa-fw icon" />
                 <span className="menu-text"> My Profile</span>
