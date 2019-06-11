@@ -9,7 +9,7 @@ const SearchResults = ({ results, error, handleLinkClick }) =>
     ) : results && results.length ? (
         results.map(result => (
             <Link
-                to={`/company/${result.type}/${result.hierarchyID}`}
+                to={`/client/${result.type}/${result.hierarchyID}`}
                 key={result.id}
                 onClick={handleLinkClick}
             >
