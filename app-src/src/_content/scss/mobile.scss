@@ -1314,6 +1314,41 @@
                     padding-left: 15px;
                 }
             }
+
+            &.full-list {
+                .text {
+                    ul {
+                        width: 100%;
+                        &:last-child {
+                            li {
+                                &:last-child {
+                                    margin-bottom: 0;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        //REQUEST DEMO
+        .request-container {
+            .container {
+                padding: 0 10px;
+            }
+
+            .generic-form {
+                width: 100%;
+                padding-right: 0;
+            }
+
+            .try-area {
+                width: 100%;
+                margin-top: 0;
+
+                h3 {
+                    font-size: 200%;
+                }
+            }
         }
     }
     .app-slider {
@@ -1437,6 +1472,9 @@
         h1 {
             font-size: 260%;
         }
+        p {
+            font-size: 140%;
+        }
     }
 
     //SIGN UP BOX
@@ -1465,26 +1503,6 @@
     #login {
         .container {
             padding: 0 10px;
-        }
-    }
-
-    //REQUEST DEMO
-    .request-container {
-        .container {
-            padding: 0 10px;
-        }
-
-        .generic-form {
-            width: 55%;
-            padding-right: 20px;
-        }
-
-        .try-area {
-            width: 45%;
-
-            h3 {
-                font-size: 200%;
-            }
         }
     }
 

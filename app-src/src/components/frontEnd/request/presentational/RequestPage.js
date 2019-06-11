@@ -17,7 +17,6 @@ const RequestPage = () => (
         />
         <div className="request-container">
             <div className="container">
-                <form className="generic-form" />
                 <RequestDemoFormContainer />
                 <div className="try-area">
                     <HeadingSection title="Try Bolster for yourself" />
