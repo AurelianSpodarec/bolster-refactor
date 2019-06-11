@@ -2142,6 +2142,10 @@ input {
         width: 27%;
         margin-top: 2px;
 
+        &.auto {
+            width: auto;
+            margin-left: 10px;
+        }
         p {
             float: right;
             padding-right: 10px;
@@ -2152,6 +2156,30 @@ input {
         .custom-dropdown {
             float: right;
             width: 42%;
+        }
+        .multi-multi-dropdown {
+            float: right;
+            width: 250px;
+            p {
+                line-height: 14px;
+            }
+            .option-selection {
+                .option {
+                    width: 100%;
+                }
+            }
+            .selected-box {
+                min-height: 0;
+
+                .placeholder {
+                    line-height: 25px;
+
+                    padding: {
+                        top: 0;
+                        bottom: 0;
+                    }
+                }
+            }
         }
     }
 }
