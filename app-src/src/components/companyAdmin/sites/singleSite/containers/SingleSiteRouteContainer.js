@@ -7,7 +7,7 @@ import HierarchyAdvancedReport from 'components/companyAdmin/reports/createRepor
 const SiteRouteContainer = ({ selectedTab }) => {
     const contentOptions = {
         [SITE_TABS.GENERAL_OVERVIEW]: SingleSiteGeneralOverview,
-        [SITE_TABS.ADVANCED_REPORT]: HierarchyAdvancedReport
+        [SITE_TABS.GENERATE_REPORT]: HierarchyAdvancedReport
     };
 
     const SpecificContent =
