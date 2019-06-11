@@ -142,7 +142,11 @@ const MultiSelect = ({
     function handleSelect(e, clicked) {
         e.preventDefault();
 
-        if (value.includes(clicked)) return;
+        if (value.includes(clicked)) {
+            onChange(name, value.filter(item => item !== clicked));
+            return;
+        }
+
         onChange(name, [...value, clicked]);
     }
 };

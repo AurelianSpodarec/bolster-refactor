@@ -1,0 +1,242 @@
+import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+
+import {
+    convertArrToObj,
+    isObjEmpty,
+    getSelectedCompanyForClient
+} from 'helpers/generic';
+import { CONFIRM_SUBMIT } from 'constants/shared/modalTypes';
+import showModal from 'actions/shared/generic/modals/sync/showModal';
+import hideModal from 'actions/shared/generic/modals/sync/hideModal';
+
+import withUpdateOnChange from '../hocs/withUpdateOnChange';
+import LevelFilters from '../presentational/LevelFilters';
+import { HIERARCHY_IDS } from 'constants/companyAdmin/enums';
+import fetchSingleFloor from 'actions/client/floors/async/clientFetchSingleFloor';
+import fetchSingleBuilding from 'actions/client/buildings/async/clientFetchSingleBuilding';
+import fetchSingleSite from 'actions/client/sites/async/clientFetchSingleSite';
+import fetchSingleDrawing from 'actions/client/drawings/async/clientFetchSingleDrawing';
+
+class LevelsFilterContainer extends Component {
+    render() {
+        const {
+            filters: { siteID, buildingID, floorID, drawingID },
+            sites,
+            buildings,
+            floors,
+            drawings,
+            hierarchy,
+            isFetching
+        } = this.props;
+
+        const sitesOptions = this._formatArrForDropdown(sites);
+        const buildingOptions = this._formatArrForDropdown(buildings);
+        const floorOptions = this._formatArrForDropdown(floors);
+        const drawingOptions = this._formatArrForDropdown(drawings);
+        return (
+            <LevelFilters
+                handleChange={this.handleChange}
+                siteOptions={Object.values(sitesOptions)}
+                selectedSite={sitesOptions[siteID]}
+                buildingOptions={Object.values(buildingOptions)}
+                selectedBuilding={buildingOptions[buildingID]}
+                floorOptions={Object.values(floorOptions)}
+                selectedFloor={floorOptions[floorID]}
+                drawingOptions={Object.values(drawingOptions)}
+                selectedDrawing={drawingOptions[drawingID]}
+                hierarchy={hierarchy}
+                isFetching={isFetching}
+            />
+        );
+    }
+
+    updateDrawing = (value = null) => {
+        const { handleChange } = this.props;
+
+        return handleChange('drawingID', value);
+    };
+
+    updateFloor = (value = null) => {
+        const { handleChange } = this.props;
+
+        return this.updateDrawing().then(() => handleChange('floorID', value));
+    };
+
+    updateBuilding = (value = null) => {
+        const { handleChange } = this.props;
+
+        return this.updateFloor().then(() => handleChange('buildingID', value));
+    };
+
+    updateSite = (value = null) => {
+        const { handleChange } = this.props;
+
+        return this.updateBuilding().then(() => handleChange('siteID', value));
+    };
+
+    handleChange = (name, value, mount = false) => {
+        const { postFilters, shouldConfirm, showModal, hideModal } = this.props;
+        const updateMethods = {
+            drawingID: this.updateDrawing,
+            floorID: this.updateFloor,
+            buildingID: this.updateBuilding,
+            siteID: this.updateSite
+        };
+        const update = updateMethods[name];
+        if (shouldConfirm && !mount) {
+            const handleSubmit = () => {
+                hideModal();
+                return update(value).then(postFilters);
+            };
+            const message =
+                'Changing this will reset your further filtration options, continue?';
+            // * confirm and then do this:
+            showModal(CONFIRM_SUBMIT, { handleSubmit, message, hideModal });
+        } else {
+            return update(value).then(postFilters);
+        }
+    };
+
+    _formatArrForDropdown = arr => {
+        const options = arr
+            .filter(val => val)
+            .map(({ name, id }) => ({
+                value: id,
+                text: name
+            }));
+
+        return convertArrToObj(options, 'value');
+    };
+
+    componentDidMount = () => {
+        const {
+            customFilters: { pins = [] },
+            handleChange,
+            hierarchy,
+            hierarchyID
+        } = this.props;
+
+        // prefill on hierarchy single page advanced reports
+        if (hierarchy === HIERARCHY_IDS.SITE) {
+            this.handleChange('siteID', hierarchyID, true);
+            this.handlePrefillSite(hierarchyID);
+        } else if (hierarchy === HIERARCHY_IDS.BUILDING) {
+            this.handleChange('buildingID', hierarchyID, true);
+            this.handlePrefillBuilding(hierarchyID);
+        } else if (hierarchy === HIERARCHY_IDS.FLOOR) {
+            this.handleChange('floorID', hierarchyID, true);
+            this.handlePrefillFloor(hierarchyID);
+        } else if (hierarchy === HIERARCHY_IDS.DRAWING) {
+            this.handleChange('drawingID', hierarchyID, true);
+            this.handlePrefillDrawing(hierarchyID);
+        }
+
+        if (pins.length) handleChange('pinIDs', pins.map(({ id }) => id));
+    };
+
+    componentDidUpdate = ({ customFilters: { pins: prevPins = [] } }) => {
+        const {
+            customFilters: { pins = [] },
+            handleChange
+        } = this.props;
+        if (pins.length !== prevPins.length) {
+            handleChange('pinIDs', pins.map(({ id }) => id));
+        }
+    };
+
+    // for advanced reports on hierarchy single pages
+
+    handlePrefillSite = siteID => {
+        const { handleChange } = this.props;
+        const selectedCompanyID = getSelectedCompanyForClient();
+
+        handleChange('siteID', siteID);
+        fetchSingleSite(selectedCompanyID, siteID);
+    };
+    handlePrefillBuilding = buildingID => {
+        const { handleChange, fetchSingleBuilding } = this.props;
+        const selectedCompanyID = getSelectedCompanyForClient();
+
+        handleChange('buildingID', buildingID);
+        fetchSingleBuilding(selectedCompanyID, buildingID).then(
+            ({ payload: { siteID } }) => this.handlePrefillSite(siteID)
+        );
+    };
+    handlePrefillFloor = floorID => {
+        const { handleChange, fetchSingleFloor } = this.props;
+        const selectedCompanyID = getSelectedCompanyForClient();
+
+        handleChange('floorID', floorID);
+        fetchSingleFloor(selectedCompanyID, floorID).then(
+            ({ payload: { buildingID } }) =>
+                this.handlePrefillBuilding(buildingID)
+        );
+    };
+    handlePrefillDrawing = drawingID => {
+        const { handleChange, fetchSingleDrawing } = this.props;
+        const selectedCompanyID = getSelectedCompanyForClient();
+
+        handleChange('drawingID', drawingID);
+        fetchSingleDrawing(selectedCompanyID, drawingID).then(
+            ({ payload: { floorID } }) => this.handlePrefillFloor(floorID)
+        );
+    };
+}
+
+const mapStateToProps = (
+    {
+        client: {
+            sitesReducer,
+            buildingsReducer,
+            floorsReducer,
+            drawingsReducer,
+            reportsReducer: {
+                fields,
+                filters: { pinIDs = [] },
+                customFilters: { pins = [] }
+            }
+        }
+    },
+    { match: { params, path } }
+) => {
+    const hierarchy = path.includes('drawing')
+        ? HIERARCHY_IDS.DRAWING
+        : path.includes('floor')
+        ? HIERARCHY_IDS.FLOOR
+        : path.includes('building')
+        ? HIERARCHY_IDS.BUILDING
+        : path.includes('site')
+        ? HIERARCHY_IDS.SITE
+        : '';
+    const hierarchyID = params.id;
+    return {
+        hierarchy,
+        hierarchyID,
+        isFetching:
+            sitesReducer.isFetching ||
+            buildingsReducer.isFetching ||
+            floorsReducer.isFetching ||
+            drawingsReducer.isFetching,
+        shouldConfirm: !isObjEmpty(fields) || pins.length !== pinIDs.length
+    };
+};
+
+const mapDispatchToProps = {
+    fetchSingleDrawing,
+    fetchSingleFloor,
+    fetchSingleBuilding,
+    fetchSingleSite,
+    showModal,
+    hideModal
+};
+
+export default withUpdateOnChange(
+    withRouter(
+        connect(
+            mapStateToProps,
+            mapDispatchToProps
+        )(LevelsFilterContainer)
+    )
+);
