@@ -8,7 +8,8 @@ const ApprovedCompaniesListContainer = ({
     isFetching,
     error,
     filters,
-    sort
+    sort,
+    services
 }) => {
     const filteredCompanies = _getFilteredCompanies();
     return filteredCompanies.length ? (
@@ -21,7 +22,10 @@ const ApprovedCompaniesListContainer = ({
                     noData={!companies.length}
                     key={company.id}
                 >
-                    <ApprovedCompaniesListItem company={company} />
+                    <ApprovedCompaniesListItem
+                        company={company}
+                        serviceNames={getServiceNames(company)}
+                    />
                 </BlockContainer>
             ))}
         </div>
@@ -33,6 +37,13 @@ const ApprovedCompaniesListContainer = ({
             error={error}
         />
     );
+
+    function getServiceNames({ serviceIDs = [] }) {
+        return serviceIDs
+            .map(id => services[id].name)
+            .sort((a, b) => a.localeCompare(b))
+            .join(', ');
+    }
 
     function _getFilteredCompanies() {
         const name = filters.name.toLowerCase();
@@ -64,14 +75,16 @@ const mapStateToProps = ({
             approvedCompanies,
             filters,
             sort
-        }
+        },
+        servicesReducer: { services }
     }
 }) => ({
     companies: Object.values(approvedCompanies),
     isFetching,
     error,
     filters,
-    sort
+    sort,
+    services
 });
 
 export default connect(mapStateToProps)(ApprovedCompaniesListContainer);
