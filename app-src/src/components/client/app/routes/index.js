@@ -12,6 +12,7 @@ import FloorRoutes from './FloorRoutes';
 import DrawingsRoutes from './DrawingsRoutes';
 import PinRoutes from './PinRoutes';
 import ProfilesRoutes from './ProfilesRoutes';
+import ReportsRoutes from './ReportsRoutes';
 
 // ? Should a client have access to report generation features?
 // import ReportsRoutes from './ReportsRoutes';
@@ -50,11 +51,10 @@ const ClientAreaRoutes = ({ base = '/client' }) => (
             component={withSelectedCompanyAuth(ProfilesRoutes)}
         />
 
-        {/* ? should clients have the option to generate reports  */}
-        {/* <Route
+        <Route
             path={`${base}/reports`}
-            component={ReportsRoutes}
-        /> */}
+            component={withSelectedCompanyAuth(ReportsRoutes)}
+        />
     </SwitchWith404>
 );
 
