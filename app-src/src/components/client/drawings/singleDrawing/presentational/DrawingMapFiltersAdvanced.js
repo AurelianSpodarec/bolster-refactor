@@ -29,7 +29,7 @@ const DrawingMapFiltersAdvanced = ({
 }) => (
     <div className="map-filters size-lg-12">
         <div className="size-lg-12">
-            <BlockHeading title="Pin Filters">
+            <BlockHeading title="General Filters">
                 <div className="pin-amounts">
                     <div className="pin">
                         <img alt="red pin" src={RedPin} />
