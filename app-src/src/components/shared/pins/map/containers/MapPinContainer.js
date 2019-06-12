@@ -17,7 +17,6 @@ class MapPinContainer extends Component {
         const { createdByCompanyUserID, latestServiceID } = pin;
         const user = users[createdByCompanyUserID];
         const service = services[latestServiceID];
-        // const { loadingHover } = this.state;
         const pinImages = this._getPinImages();
 
         return (
@@ -30,7 +29,6 @@ class MapPinContainer extends Component {
                 withTooltip={withTooltip}
                 handleFetchPin={this.handleFetchPin}
                 handleCancelFetchPin={this.handleCancelFetchPin}
-                // loadingHover={loadingHover}
                 pinImages={pinImages}
             />
         );
@@ -50,15 +48,12 @@ class MapPinContainer extends Component {
         this._waitForHover = setTimeout(() => {
             if (!historyIDs.includes(pin.latestHistoryID + '')) {
                 fetchSinglePin(id, true);
-            } else {
-                // this.setState({ loadingHover: false });
             }
-        }, 500);
+        }, 200);
     };
 
     handleCancelFetchPin = () => {
         clearTimeout(this._waitForHover);
-        // this.setState({ loadingHover: true });
     };
 
     _getPinImages = () => {
