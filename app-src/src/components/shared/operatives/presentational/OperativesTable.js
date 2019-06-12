@@ -18,7 +18,7 @@ const OperativesTable = ({
     const { id } = match.params;
     return (
         <div className="size-lg-12">
-            <BlockHeading title="Operative Access">
+            <BlockHeading title="Attach Operative">
                 <ButtonContainer
                     className={`pull-right ${
                         isAddOperativeDisabled ? 'disabled' : 'green'
@@ -30,7 +30,7 @@ const OperativesTable = ({
                     }
                 >
                     <i className="fa fa-plus" />{' '}
-                    {isAddOperativeDisabled ? 'Full' : 'Invite'}
+                    {isAddOperativeDisabled ? 'Full' : 'Attach'}
                 </ButtonContainer>
             </BlockHeading>
             <div className="hide-overflow size-lg-12">
