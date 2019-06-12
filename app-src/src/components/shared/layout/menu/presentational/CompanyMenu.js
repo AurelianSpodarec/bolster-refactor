@@ -114,10 +114,10 @@ const CompanyMenu = ({
                     Message Centre
                 </span>
             </MenuItemContainer>
-            <MenuItemContainer link="/company/tools/operative-alerts">
+            {/* OLD LINK <MenuItemContainer link="/company/tools/operative-alerts">
                 <i className="far fa-bells fa-fw icon" />
                 <span className="menu-text">Operative Alerts</span>
-            </MenuItemContainer>
+            </MenuItemContainer> */}
 
             <MenuItemContainer link="/company/tools/templates">
                 <i className="far fa-folders fa-fw icon" />

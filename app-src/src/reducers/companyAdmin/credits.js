@@ -19,7 +19,8 @@ export default combineReducers({
     postSuccess: postSuccessReducer,
     postError: postErrorReducer,
     error: errorReducer,
-    costOfCredits: costOfCreditsReducer
+    costOfCredits: costOfCreditsReducer,
+    vatCostOfCredits: vatCostOfCreditsReducer
 });
 
 function isFetchingReducer(state = false, action) {
@@ -85,6 +86,14 @@ function costOfCreditsReducer(state = {}, action) {
     switch (action.type) {
         case FETCH_COST_OF_CREDITS_SUCCESS:
             return action.payload.cost;
+        default:
+            return state;
+    }
+}
+function vatCostOfCreditsReducer(state = {}, action) {
+    switch (action.type) {
+        case FETCH_COST_OF_CREDITS_SUCCESS:
+            return action.payload.vatCost;
         default:
             return state;
     }

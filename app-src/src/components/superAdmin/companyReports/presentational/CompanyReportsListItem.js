@@ -12,6 +12,7 @@ import {
 const CompanyReportsListItem = ({ queueItem }) => (
     <tr>
         <td>{queueItem.friendlyName}</td>
+
         <td>{GENERATION_STATE_TEXT[queueItem.state]}</td>
         <td>
             <DateTimeContainer date={queueItem.createdOn} />

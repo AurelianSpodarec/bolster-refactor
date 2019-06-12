@@ -26,7 +26,7 @@ const OperativeAlertItem = ({
         <td>{(readCount / sentCount) * 100}%</td>
         <td>
             <ButtonContainer
-                to={`/company/tools/operative-alerts/${id}/metrics`}
+                to={`/company/message-centre/operative-alerts/${id}/metrics`}
             >
                 Show Metrics
             </ButtonContainer>

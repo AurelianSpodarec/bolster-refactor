@@ -14,6 +14,7 @@ const InvoiceListItem = ({
     invoice: {
         createdOn,
         isPaid,
+        subTotal,
         total,
         id,
         paymentType,
@@ -24,9 +25,13 @@ const InvoiceListItem = ({
 }) => (
     <tr>
         <td>
-            <DateTimeContainer date={createdOn} datetime={DATE_TIME_IDS.DATETIME} />
+            <DateTimeContainer
+                date={createdOn}
+                datetime={DATE_TIME_IDS.DATETIME}
+            />
         </td>
         <td>{id}</td>
+        <td>{`£${formatCurrency(subTotal)}`}</td>
         <td>{`£${formatCurrency(total)}`}</td>
         <td>{PAYMENT_TYPES[paymentType]}</td>
         <td>{isPaid ? 'Paid' : 'Awaiting Payment'}</td>

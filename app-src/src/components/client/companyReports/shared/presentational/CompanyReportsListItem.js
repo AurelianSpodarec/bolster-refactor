@@ -6,14 +6,25 @@ import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeCon
 
 import {
     GENERATION_STATE_TEXT,
-    GENERATION_STATE_VAL,
-    REPORT_FORMATS
+    GENERATION_STATE_VAL
 } from 'constants/companyAdmin/enums';
 
 const CompanyReportsListItem = ({ queueItem }) => (
     <tr>
         <td>{queueItem.friendlyName}</td>
-        <td>{REPORT_FORMATS[queueItem.type]}</td>
+        <td>
+            {queueItem.isCSVGeneration && 'CSV'}
+            {queueItem.isCSVGeneration &&
+                queueItem.isFloorplanGeneration &&
+                ', '}
+            {queueItem.isCSVGeneration && queueItem.isPDFGeneration && ', '}
+            {queueItem.isFloorplanGeneration && 'Floor plan'}
+            {queueItem.isFloorplanGeneration &&
+                queueItem.isPDFGeneration &&
+                ', '}
+
+            {queueItem.isPDFGeneration && 'PDF'}
+        </td>{' '}
         <td>{!!queueItem.stateMessage && queueItem.stateMessage}</td>
         <td>{GENERATION_STATE_TEXT[queueItem.state]}</td>
         <td>

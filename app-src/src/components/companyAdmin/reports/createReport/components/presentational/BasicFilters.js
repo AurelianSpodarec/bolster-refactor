@@ -4,6 +4,7 @@ import BlockHeading from 'components/shared/generic/blockHeading/presentational/
 import Field from 'components/shared/generic/form/presentational/Field';
 import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
 import DatePicker from 'components/shared/generic/form/presentational/DatePicker';
+import OperativesFilterContainer from '../containers/OperativesFilterContainer';
 
 const BasicFilters = ({
     dateError,
@@ -18,12 +19,13 @@ const BasicFilters = ({
     fromDateInclusive,
     toDateInclusive,
     historyNumsOptions,
-    selectedHistoryNum
+    selectedHistoryNum,
+    isDrawingPage
 }) => (
-    <div className="flex-item size-lg-6">
+    <div className={`flex-item size-lg-${isDrawingPage ? '12' : '6'}`}>
         <BlockContainer>
             <div className="size-lg-12">
-                <BlockHeading title="Basic Filtration" />
+                <BlockHeading title="General Filters" />
                 <p className="generic-text small">
                     Your high level filtration options can be found below.
                 </p>
@@ -90,6 +92,7 @@ const BasicFilters = ({
                         required
                     />
                 </Field>
+                {isDrawingPage && <OperativesFilterContainer advanced />}
 
                 {!!fieldError && (
                     <p className="error red-text text-accent-4">{fieldError}</p>

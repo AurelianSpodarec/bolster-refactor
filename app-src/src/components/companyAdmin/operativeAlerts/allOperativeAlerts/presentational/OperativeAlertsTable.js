@@ -9,7 +9,7 @@ const OperativeAlertsTable = ({ isFetching, operativeAlerts }) => (
     <>
         <BlockHeading title="Operative Alerts">
             <Link
-                to="/company/tools/operative-alerts/create"
+                to="/company/message-centre/operative-alerts/create"
                 className="button green"
             >
                 <i className="fa fa-plus" /> Create Alert
