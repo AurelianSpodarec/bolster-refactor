@@ -4,20 +4,24 @@ import { connect } from 'react-redux';
 import DashboardStats from '../presentational/DashboardStats';
 import fetchPinStats from 'actions/companyAdmin/dashboard/async/fetchPinStats';
 
+import redBarImage from '_content/images/graph-bars/red.jpg';
+
 class DashboardStatsContainer extends Component {
     state = {
         labels: [],
         datasets: []
     };
 
-    render = () => (
-        <DashboardStats
-            data={this.state}
-            options={this._getChartOptions()}
-            isFetching={this.props.isFetching}
-            pieStats={this.props.dashAllPinsStats}
-        />
-    );
+    render() {
+        return (
+            <DashboardStats
+                data={this.state}
+                options={this._getChartOptions()}
+                isFetching={this.props.isFetching}
+                pieStats={this.props.dashAllPinsStats}
+            />
+        );
+    }
 
     _getChartOptions() {
         return {
