@@ -43,8 +43,8 @@ const DashboardPinFeedItem = ({ pin }) => {
                 {pin.pinCode}
             </td>
             <td>{pin.location}</td>
-            <td>{moment(pin.createdOn).format('DD-MM-yyyy HH:mm')}</td>
-            <td>{moment(pin.syncedOn).format('DD-MM-yyyy HH:mm')}</td>
+            <td>{moment(pin.createdOn).format('DD-MM-YYYY HH:mm')}</td>
+            <td>{moment(pin.syncedOn).format('DD-MM-YYYY HH:mm')}</td>
             <td>
                 <ButtonContainer to={`/company/pins/${pin.pinID}`}>
                     View

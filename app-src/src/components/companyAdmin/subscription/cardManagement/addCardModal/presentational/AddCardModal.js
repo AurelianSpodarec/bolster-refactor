@@ -78,7 +78,7 @@ const AddCardModal = ({
                             value={expiryYear}
                             type="number"
                             required
-                            placeholder="yyyy"
+                            placeholder="YYYY"
                             validate={validateMaxLength(4)}
                         />
                     </Field>
