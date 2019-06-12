@@ -16,7 +16,7 @@ const DocumentsList = ({ documents, location }) =>
                     }`}
                     className="button blue icon-only"
                 >
-                    <i className="far fa-pencil fa-fw" /> View responses
+                    <i className="far fa-eye fa-fw" /> View responses
                 </Link>
                 <Link
                     to={`${location.pathname}/edit-document/${document.id}`}

@@ -1924,6 +1924,10 @@ input {
         td {
             &:last-child {
                 text-align: right;
+
+                .button {
+                    margin-left: 3px;
+                }
             }
         }
         th {
