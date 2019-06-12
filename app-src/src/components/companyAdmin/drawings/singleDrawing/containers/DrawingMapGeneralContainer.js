@@ -19,6 +19,7 @@ import fetchSingleDrawing from 'actions/companyAdmin/drawings/async/fetchSingleD
 import updateFloorPlanConfirmed from 'actions/companyAdmin/drawings/sync/updateFloorPlanConfirmed';
 import updateReportFilter from 'actions/companyAdmin/reports/sync/updateReportFilter';
 import withUpdateOnChange from 'components/companyAdmin/reports/createReport/components/hocs/withUpdateOnChange';
+import DrawingDetailsContainer from './DrawingDetailsContainer';
 
 class DrawingMapGeneralContainer extends Component {
     state = {
@@ -63,7 +64,7 @@ class DrawingMapGeneralContainer extends Component {
         return (
             <>
                 <div className="flex-container size-lg-12">
-                    <div className="flex-item size-lg-8">
+                    <div className="flex-item size-lg-4">
                         <BlockContainer error={error}>
                             <DrawingMapFiltersAdvanced
                                 serviceOptions={Object.values(serviceOptions)}
@@ -79,6 +80,9 @@ class DrawingMapGeneralContainer extends Component {
                                 handleDateChange={this.handleDateChange}
                             />
                         </BlockContainer>
+                    </div>
+                    <div className="flex-item size-lg-4">
+                        <DrawingDetailsContainer />
                     </div>
 
                     <DrawingInspectionLogContainer />

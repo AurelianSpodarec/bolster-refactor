@@ -5,9 +5,6 @@ import MapPin from '../presentational/MapPin';
 import fetchSinglePin from 'actions/companyAdmin/pins/async/fetchSinglePin';
 
 class MapPinContainer extends Component {
-    state = {
-        loadingHover: true
-    };
     render() {
         const {
             pin,
@@ -20,7 +17,7 @@ class MapPinContainer extends Component {
         const { createdByCompanyUserID, latestServiceID } = pin;
         const user = users[createdByCompanyUserID];
         const service = services[latestServiceID];
-        const { loadingHover } = this.state;
+        const pinImages = this._getPinImages();
 
         return (
             <MapPin
@@ -32,42 +29,69 @@ class MapPinContainer extends Component {
                 withTooltip={withTooltip}
                 handleFetchPin={this.handleFetchPin}
                 handleCancelFetchPin={this.handleCancelFetchPin}
-                loadingHover={loadingHover}
+                pinImages={pinImages}
             />
         );
     }
 
+    componentDidUpdate = prevProps => {
+        if (prevProps.isFetching && !this.props.isFetching) {
+            this.setState({ loadingHover: false });
+        }
+    };
     componentWillUnmount = () => {
         clearTimeout(this._waitForHover);
     };
 
     handleFetchPin = id => {
-        const { fetchSinglePin } = this.props;
+        const { fetchSinglePin, historyIDs, pin } = this.props;
         this._waitForHover = setTimeout(() => {
-            fetchSinglePin(id);
-        }, 500);
+            if (!historyIDs.includes(pin.latestHistoryID + '')) {
+                fetchSinglePin(id, true);
+            }
+        }, 200);
     };
 
     handleCancelFetchPin = () => {
         clearTimeout(this._waitForHover);
+    };
+
+    _getPinImages = () => {
+        const {
+            pin: { latestHistoryID },
+            answers
+        } = this.props;
+        return answers.reduce((acc, answer) => {
+            if (
+                answer.pinHistoryID === latestHistoryID &&
+                /(.jpg|.png)$/.test(answer.answer)
+            ) {
+                return acc.concat(answer.answer);
+            }
+            return acc;
+        }, []);
     };
 }
 
 const mapStateToProps = ({
     companyAdmin: {
         companyUsersReducer: { users },
+        pinsReducer: { isFetching },
         servicesReducer: { services },
-        pinHistoriesReducer: { histories }
+        pinHistoriesReducer: { histories },
+        pinAnswersReducer: { answers }
     }
 }) => ({
+    isFetching,
     users,
     services,
-    historyIDs: Object.keys(histories)
+    historyIDs: Object.keys(histories),
+    answers: Object.values(answers)
 });
 
 const mapDispatchToProps = dispatch => ({
-    fetchSinglePin: id => {
-        dispatch(fetchSinglePin(id));
+    fetchSinglePin: (id, isForDrawing) => {
+        dispatch(fetchSinglePin(id, isForDrawing));
     }
 });
 
