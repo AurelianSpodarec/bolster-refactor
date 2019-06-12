@@ -80,6 +80,8 @@ const SinglePinMap = ({
         <Map
             center={[pin.location.latY, pin.location.lngX]}
             zoom={zoom}
+            minZoom={0}
+            maxZoom={5}
             onClick={handleClick}
         >
             <TileLayer
