@@ -19,7 +19,7 @@ const Tabs = ({ tabs, selectedTab, selectTab }) => {
                     className={
                         tab === selectedTab
                             ? `active ${extraClass}`
-                            : extraClass
+                            : `inActive ${extraClass}`
                     }
                     onClick={e => selectTab(e, tab)}
                 >
@@ -30,7 +30,7 @@ const Tabs = ({ tabs, selectedTab, selectTab }) => {
                         <img src={CompanyAdminIcon} alt="Company admin icon" />
                     )}
                     {tab === 'Client Access' && (
-                        <img src={ClientAccessIcon} alt="Client access icon" />
+                        <img src={ClientAccessIcon} alt="Client Invites icon" />
                     )}
                     <span>{tab}</span>
                 </button>

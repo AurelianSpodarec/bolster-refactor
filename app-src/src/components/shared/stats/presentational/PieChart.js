@@ -11,7 +11,12 @@ import purplePin from '_content/images/map-markers/purple-pin2x.png';
 
 import statsPieChartColours from 'constants/companyAdmin/statsPieColours';
 
-const PieChart = ({ stats, hierarchyType }) => {
+const PieChart = ({
+    stats,
+    hierarchyType,
+    sizeClasses = 'size-lg-6',
+    wTitle = true
+}) => {
     const isStatsEmpty = Object.values(stats.statuses).every(
         stat => stat === 0
     );
@@ -30,10 +35,12 @@ const PieChart = ({ stats, hierarchyType }) => {
           })
         : [{ title: 'Empty', value: 100, color: '#cecece' }];
     return (
-        <div className="history size-lg-6">
-            <h4 className="heading heading-3 size-lg-12">
-                Latest Pin Histories
-            </h4>
+        <div className={`history ${sizeClasses}`}>
+            {wTitle && (
+                <h4 className="heading heading-3 size-lg-12">
+                    Latest Pin Histories
+                </h4>
+            )}
 
             {isStatsEmpty ? (
                 <p className="no-data size-lg-12">

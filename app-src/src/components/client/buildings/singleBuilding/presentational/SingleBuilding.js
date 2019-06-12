@@ -10,11 +10,11 @@ const SingleBuilding = () => (
             <BuildingPageHeaderContainer />
         </div>
 
-        <div className=" size-lg-12">
+        <div className="size-lg-4">
             <BuildingDetailsContainer />
         </div>
 
-        <div className="size-lg-12">
+        <div className="size-lg-8">
             <BuildingFloorsTableContainer />
         </div>
     </>

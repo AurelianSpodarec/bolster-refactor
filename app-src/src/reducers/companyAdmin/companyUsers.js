@@ -22,7 +22,10 @@ import {
     FETCH_SINGLE_COMPANY_USER_FAILURE,
     UNLINK_OPERATIVE_DEVICE_FAILURE,
     UNLINK_OPERATIVE_DEVICE_SUCCESS,
-    UNLINK_OPERATIVE_DEVICE_REQUEST
+    UNLINK_OPERATIVE_DEVICE_REQUEST,
+    EDIT_COMPANY_USER_TYPE_REQUEST,
+    EDIT_COMPANY_USER_TYPE_SUCCESS,
+    EDIT_COMPANY_USER_TYPE_FAILURE
 } from 'constants/actionTypes/usersManagement';
 
 export default combineReducers({
@@ -69,11 +72,13 @@ function postSuccessReducer(state = false, action) {
         case CREATE_COMPANY_USER_REQUEST:
         case EDIT_COMPANY_USER_REQUEST:
         case EDIT_COMPANY_USER_PASSWORD_REQUEST:
+        case EDIT_COMPANY_USER_TYPE_REQUEST:
         case UNLINK_OPERATIVE_DEVICE_REQUEST:
             return false;
         case CREATE_COMPANY_USER_SUCCESS:
         case EDIT_COMPANY_USER_SUCCESS:
         case EDIT_COMPANY_USER_PASSWORD_SUCCESS:
+        case EDIT_COMPANY_USER_TYPE_SUCCESS:
         case UNLINK_OPERATIVE_DEVICE_SUCCESS:
             return true;
         default:
@@ -86,6 +91,7 @@ function errorReducer(state = null, action) {
         case FETCH_COMPANY_USERS_REQUEST:
         case EDIT_COMPANY_USER_REQUEST:
         case EDIT_COMPANY_USER_PASSWORD_REQUEST:
+        case EDIT_COMPANY_USER_TYPE_REQUEST:
         case CREATE_COMPANY_USER_REQUEST:
         case DELETE_COMPANY_USER_REQUEST:
         case FETCH_SINGLE_COMPANY_USER_REQUEST:
@@ -95,6 +101,7 @@ function errorReducer(state = null, action) {
         case DELETE_COMPANY_USER_FAILURE:
         case EDIT_COMPANY_USER_FAILURE:
         case EDIT_COMPANY_USER_PASSWORD_FAILURE:
+        case EDIT_COMPANY_USER_TYPE_FAILURE:
         case CREATE_COMPANY_USER_FAILURE:
         case FETCH_SINGLE_COMPANY_USER_FAILURE:
         case UNLINK_OPERATIVE_DEVICE_FAILURE:

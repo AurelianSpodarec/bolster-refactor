@@ -1135,7 +1135,13 @@
                 }
                 .frontend-button {
                     border: 1px solid black;
-                    margin-left: 80px;
+                    margin-bottom: 5px;
+                    &:nth-child(2) {
+                        margin-left: 0;
+                        margin-right: 0;
+                        margin-bottom: 0;
+                        background-color: black;
+                    }
                 }
             }
 
@@ -1610,13 +1616,13 @@
 
 @media only screen and (max-width: 480px) {
     //HEADER
-    #header {
+    .frontend-header {
         .left {
             width: 45%;
 
             .logo {
                 width: 100%;
-                margin-top: 20px;
+                margin-top: 10px;
             }
         }
 
@@ -1628,9 +1634,9 @@
                 padding-bottom: 0;
                 padding-left: 10px;
                 text-align: center;
-
+                margin-top: 30px;
                 a {
-                    float: none;
+                    float: right;
                     margin: 0 10px;
                     display: inline-block;
 
@@ -1746,7 +1752,7 @@
             }
         }
         p {
-            font-size: 160%;
+            font-size: 140%;
         }
     }
 
@@ -2099,8 +2105,16 @@
         }
     }
 
-    #header {
+    .frontend-header {
+        .left {
+            width: 45%;
+
+            .logo {
+                margin-top: 20px;
+            }
+        }
         .right {
+            width: 55%;
             &.logged-in {
                 .links {
                     a {
@@ -2111,6 +2125,9 @@
                         margin-left: 0;
                     }
                 }
+            }
+            p {
+                font-size: 140%;
             }
         }
     }
@@ -2180,13 +2197,7 @@
         width: 41px;
     }
 
-    #header {
-        .left {
-            .logo {
-                margin-top: 20px;
-            }
-        }
-
+    .frontend-header {
         .right {
             .links {
                 .app-btn {

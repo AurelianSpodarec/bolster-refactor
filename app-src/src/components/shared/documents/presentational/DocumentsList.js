@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { FILE_STORAGE_URL } from 'config';
 
 import DeleteDocumentContainer from '../containers/DeleteDocumentContainer';
 
@@ -7,7 +8,14 @@ const DocumentsList = ({ documents, location }) =>
     documents.map(document => (
         <tr key={document.id}>
             <td>
-                <i className="table-icon far fa-file-alt" /> {document.name}
+                <a
+                    href={`${FILE_STORAGE_URL}/${document.fileS3Key}`}
+                    rel="noopener norefferrer"
+                    target="_blank"
+                    className="text-link"
+                >
+                    <i className="table-icon far fa-file-alt" /> {document.name}
+                </a>
             </td>
             <td>
                 <Link
@@ -16,7 +24,7 @@ const DocumentsList = ({ documents, location }) =>
                     }`}
                     className="button blue icon-only"
                 >
-                    <i className="far fa-pencil fa-fw" /> View responses
+                    <i className="far fa-eye fa-fw" /> View responses
                 </Link>
                 <Link
                     to={`${location.pathname}/edit-document/${document.id}`}

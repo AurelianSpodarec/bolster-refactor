@@ -20,7 +20,7 @@ const Subscription = () => (
             <SubscriptionAutoRenewalContainer />
             <SubscriptionCreditsContainer />
         </div>
-        <div className="size-lg-12">
+        <div className="size-lg-8">
             <PendingInvoicesContainer />
         </div>
     </>

@@ -25,7 +25,7 @@ const BasicFilters = ({
     <div className={`flex-item size-lg-${isDrawingPage ? '12' : '6'}`}>
         <BlockContainer>
             <div className="size-lg-12">
-                <BlockHeading title="Basic Filtration" />
+                <BlockHeading title="General Filters" />
                 <p className="generic-text small">
                     Your high level filtration options can be found below.
                 </p>

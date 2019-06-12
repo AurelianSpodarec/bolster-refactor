@@ -44,7 +44,7 @@ const DrawingMapViewSimple = ({
 
     return (
         <>
-            {drawing.tilesetS3Key ? (
+            {drawing.tilesetS3Key && !updating ? (
                 <>
                     <BlockHeading>
                         {addMode ? (
@@ -61,7 +61,7 @@ const DrawingMapViewSimple = ({
                                     className="button red pull-right"
                                     onClick={toggleAddMode}
                                 >
-                                    Stop
+                                    Cancel
                                 </button>
                             </>
                         ) : (
@@ -109,11 +109,6 @@ const DrawingMapViewSimple = ({
                         >
                             <i className="far fa-pencil fa-fw" /> Edit drawing
                         </button>
-                        {updating && (
-                            <p>
-                                {updateMessage} <LoadingIcon />
-                            </p>
-                        )}
                     </BlockHeading>
                     <Map
                         center={position}
@@ -149,7 +144,13 @@ const DrawingMapViewSimple = ({
                     </Map>
                 </>
             ) : (
-                <Loading message="Please wait for your tileset to load" />
+                <Loading
+                    message={
+                        updating
+                            ? updateMessage
+                            : 'Please wait for your tileset to load'
+                    }
+                />
             )}
         </>
     );

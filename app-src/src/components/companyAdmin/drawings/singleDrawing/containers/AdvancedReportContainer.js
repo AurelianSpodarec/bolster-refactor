@@ -4,11 +4,11 @@ import { connect } from 'react-redux';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { LOADING_DATA } from 'constants/shared/modalTypes';
-import HierarchyAdvancedReport from 'components/client/reports/createReport/components/presentational/HierarchyAdvancedReport';
+import HierarchyAdvancedReport from 'components/companyAdmin/reports/createReport/components/presentational/HierarchyAdvancedReport';
 
 class AdvancedReportContainer extends Component {
     render() {
-        return <HierarchyAdvancedReport isDrawingPage />;
+        return <HierarchyAdvancedReport />;
     }
 
     componentDidMount = () => {
@@ -26,7 +26,7 @@ class AdvancedReportContainer extends Component {
 }
 
 const mapStateToProps = ({
-    client: {
+    companyAdmin: {
         reportsReducer: { isFetching }
     }
 }) => ({

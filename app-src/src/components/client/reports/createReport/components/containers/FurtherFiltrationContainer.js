@@ -41,7 +41,7 @@ class FurtherFiltrationContainer extends Component {
 
         return (
             <BlockContainer>
-                <BlockHeading title="Further Filtration" />
+                <BlockHeading title="Advanced Filters" />
                 <p className="generic-text small">
                     Here you can make create much more specific filters on your
                     data set.

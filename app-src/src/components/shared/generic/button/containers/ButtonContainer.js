@@ -18,7 +18,8 @@ class ButtonContainer extends Component {
             to = '',
             type = 'button',
             handleClick = () => {},
-            className
+            className,
+            isAnchor = false
         } = this.props;
 
         let style = {};
@@ -47,11 +48,17 @@ class ButtonContainer extends Component {
             style
         };
 
-        return to && !!to.length ? (
+        return to && !!to.length && !isAnchor ? (
             <div {...sharedProps}>
                 <Link className={linkClass} to={to}>
                     {children}
                 </Link>
+            </div>
+        ) : to && !!to.length && isAnchor ? (
+            <div className="link-holder">
+                <a {...sharedProps} href={to}>
+                    {children}
+                </a>
             </div>
         ) : (
             <button {...sharedProps} type={type}>

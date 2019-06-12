@@ -9,6 +9,7 @@ import fetchPinStatsForLevel from 'actions/companyAdmin/stats/async/fetchPinStat
 import SingleFloor from '../presentational/SingleFloor';
 import setTabs from 'actions/shared/generic/tabs/sync/setTabs';
 import { FLOOR_TABS } from 'constants/shared/tabNames';
+import resetFilterOptions from 'actions/companyAdmin/reports/sync/resetFilterOptions';
 
 class SingleFloorContainer extends Component {
     render() {
@@ -30,6 +31,8 @@ class SingleFloorContainer extends Component {
         fetchDocuments('floor', floorID);
         fetchPinStatsForLevel('floor', floorID);
     };
+
+    componentWillUnmount = () => this.props.resetFilterOptions();
 }
 
 const mapStateToProps = (_, { match }) => ({
@@ -41,7 +44,8 @@ const mapDispatchToProps = {
     fetchAllDrawings,
     fetchDocuments,
     fetchPinStatsForLevel,
-    setTabs
+    setTabs,
+    resetFilterOptions
 };
 
 export default connect(

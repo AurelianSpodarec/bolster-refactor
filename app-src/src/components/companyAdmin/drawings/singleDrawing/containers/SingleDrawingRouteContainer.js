@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { DRAWING_TABS as TABS } from 'constants/shared/tabNames';
 
 import GeneralOverviewContainer from './GeneralOverviewContainer';
-import AdvancedReportContainer from 'components/client/drawings/singleDrawing/containers/AdvancedReportContainer';
+import AdvancedReportContainer from './AdvancedReportContainer';
 
 const DrawingRouteContainer = ({ selectedTab }) => {
     const contentOptions = {

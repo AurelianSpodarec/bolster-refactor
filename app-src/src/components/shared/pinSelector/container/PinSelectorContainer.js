@@ -165,6 +165,15 @@ class PinSelectorContainer extends Component {
         }
     };
 
+    componentWillUnmount = () => {
+        const {
+            customFilters: { pins },
+            handleChange
+        } = this.props;
+        const selectedPinIDs = pins.map(({ id }) => id);
+        handleChange('pinIDs', selectedPinIDs);
+    };
+
     componentDidUpdate = prevProps => {
         const {
             customFilters: { pins }

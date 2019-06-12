@@ -5,7 +5,6 @@ import GreenPin from '_content/images/map-markers/green-pin2x.png';
 import BluePin from '_content/images/map-markers/blue-pin2x.png';
 import YellowPin from '_content/images/map-markers/yellow-pin2x.png';
 import PurplePin from '_content/images/map-markers/purple-pin2x.png';
-import AllPins from '_content/images/map-markers/all-pins2x.png';
 
 import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
 import DatePicker from 'components/shared/generic/form/presentational/DatePicker';
@@ -29,7 +28,7 @@ const DrawingMapFiltersAdvanced = ({
 }) => (
     <div className="map-filters size-lg-12">
         <div className="size-lg-12">
-            <BlockHeading title="Pin Filters">
+            <BlockHeading title="General Filters">
                 <div className="pin-amounts">
                     <div className="pin">
                         <p>Total: {pins.length}</p>
