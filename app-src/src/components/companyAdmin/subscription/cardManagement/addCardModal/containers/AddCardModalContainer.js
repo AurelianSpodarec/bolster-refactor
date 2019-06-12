@@ -47,7 +47,7 @@ class AddCardModalContainer extends Component {
             expiryYear !== prevState.expiryYear
         ) {
             const [thisMonth, thisYear] = moment(Date.now())
-                .format('MM YYYY')
+                .format('MM yyyy')
                 .split(' ');
 
             if (

@@ -19,7 +19,7 @@ const Tabs = ({ tabs, selectedTab, selectTab }) => {
                     className={
                         tab === selectedTab
                             ? `active ${extraClass}`
-                            : extraClass
+                            : `inActive ${extraClass}`
                     }
                     onClick={e => selectTab(e, tab)}
                 >
