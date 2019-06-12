@@ -9,6 +9,7 @@ class MenuItemContainer extends Component {
     };
 
     render() {
+        const { hover } = this.state;
         const {
             location,
             link,
@@ -16,15 +17,32 @@ class MenuItemContainer extends Component {
             external = false,
             logout = false,
             onClick = () => {},
-            base = false
+            base = false,
+            colourCode,
+            isBolsterLogoDark
         } = this.props;
         const route = location.pathname.toLowerCase();
         const isActive = base
             ? link.toLowerCase() === route
             : route.toLowerCase().includes(link.toLowerCase());
 
+        let textColor = 'white';
+
+        if (isBolsterLogoDark) textColor = 'black';
+
         return (
-            <div className={`item ${isActive ? 'active' : ''}`}>
+            <div
+                onMouseEnter={this.handleMouseEnter}
+                onMouseLeave={this.handleMouseLeave}
+                className={`item ${isActive ? 'active' : ''} custom-hover`}
+                style={
+                    isActive
+                        ? { backgroundColor: colourCode, color: textColor }
+                        : hover
+                        ? { backgroundColor: colourCode, color: textColor }
+                        : {}
+                }
+            >
                 {external ? (
                     <a href={link}>{children}</a>
                 ) : logout ? (
@@ -50,7 +68,7 @@ class MenuItemContainer extends Component {
         }
     };
 
-    handleMouseOver = () => console.log('yeboi');
+    handleMouseEnter = () => this.setState({ hover: true });
 
     handleMouseLeave = () => this.setState({ hover: false });
 }
@@ -58,11 +76,12 @@ class MenuItemContainer extends Component {
 const mapStateToProps = ({
     companyAdmin: {
         companySettingsReducer: {
-            companySettings: { colourCode }
+            companySettings: { colourCode, isBolsterLogoDark }
         }
     }
 }) => ({
-    colourCode: colourCode || '#e10512'
+    colourCode: colourCode || '#e10512',
+    isBolsterLogoDark
 });
 
 export default withRouter(connect(mapStateToProps)(MenuItemContainer));

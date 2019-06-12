@@ -1815,6 +1815,31 @@ input {
                 }
             }
         }
+
+        //custom hover
+        &.custom-hover {
+            background-color: #212228;
+            transition: background-color 0.25s ease-in-out;
+            color: white;
+
+            > a {
+                background-color: transparent;
+                color: inherit;
+
+                .icon {
+                    color: inherit;
+                }
+            }
+
+            &:hover,
+            &.active {
+                background-color: #62636a;
+
+                > a {
+                    background-color: transparent;
+                }
+            }
+        }
     }
 
     .sub-header {
