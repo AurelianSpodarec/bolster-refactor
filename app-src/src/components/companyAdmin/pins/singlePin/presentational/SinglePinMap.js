@@ -48,7 +48,7 @@ const SinglePinMap = ({
                         className="button red pull-right"
                         onClick={toggleMoveMode}
                     >
-                        Stop
+                        Cancel
                     </button>
                 </>
             ) : (
@@ -80,6 +80,8 @@ const SinglePinMap = ({
         <Map
             center={[pin.location.latY, pin.location.lngX]}
             zoom={zoom}
+            minZoom={0}
+            maxZoom={5}
             onClick={handleClick}
         >
             <TileLayer

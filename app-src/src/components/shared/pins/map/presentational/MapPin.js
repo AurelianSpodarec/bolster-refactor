@@ -11,6 +11,8 @@ import CustomPin from './CustomPin';
 import ReactDOMServer from 'react-dom/server';
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 import { formatDate } from 'helpers/generic';
+import PinDetailsContainer from 'components/companyAdmin/pins/singlePin/containers/PinDetailsContainer';
+import Loading from 'components/shared/generic/misc/presentational/Loading';
 
 const DrawingMapPin = ({
     pin: {
@@ -27,7 +29,10 @@ const DrawingMapPin = ({
     user,
     service,
     withTooltip,
-    urlStart
+    urlStart,
+    handleFetchPin,
+    handleCancelFetchPin,
+    loadingHover
 }) => {
     const { latY = 1, lngX = 1 } = location;
     const status = pinHistory.status || latestStatus;
@@ -59,7 +64,11 @@ const DrawingMapPin = ({
             onClick={() => withLink && history.push(`/${urlStart}/pins/` + id)}
         >
             {withTooltip && (
-                <Tooltip sticky={true}>
+                <Tooltip
+                    onOpen={() => handleFetchPin(id)}
+                    onClose={handleCancelFetchPin}
+                    sticky={true}
+                >
                     {`Pin code: ${pinCode}`} <br />
                     {`Status: ${PIN_STATUS_TYPES[status]}`} <br />
                     Created: <DateTimeContainer date={createdOn} /> <br />
@@ -79,6 +88,7 @@ const DrawingMapPin = ({
                             Latest Service: {service.name} <br />{' '}
                         </>
                     )}
+                    {/* <p>pin photos</p> */}
                 </Tooltip>
             )}
         </Marker>

@@ -4,11 +4,12 @@ import { withRouter } from 'react-router-dom';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 
-const ClientsInvite = ({ type, location }) => (
+const ClientsInvite = ({ type, location, unavailable }) => (
     <div className="size-lg-12">
         <BlockHeading title="Invite Client">
             <ButtonContainer
-                className="pull-right green"
+                disabled={unavailable}
+                className={`pull-right ${unavailable ? 'disabled' : 'green'}`}
                 to={`${location.pathname}/invite-client`}
             >
                 <i className="fa fa-plus" /> Invite

@@ -2,8 +2,14 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
+import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 
-const AllOperativesListItem = ({ user, showDeleteModal, showUnlinkModal }) => (
+const AllOperativesListItem = ({
+    user,
+    showDeleteModal,
+    showUnlinkModal,
+    showMakeAdminModal
+}) => (
     <tr key={user.id}>
         <td>{`${user.userFirstName} ${user.userLastName}`}</td>
         <td>{user.userEmail}</td>
@@ -27,6 +33,12 @@ const AllOperativesListItem = ({ user, showDeleteModal, showUnlinkModal }) => (
                     <i className="far fa-lock-alt fa-fw" />
                     Change Password
                 </Link>
+                <ButtonContainer
+                    className="button yellow"
+                    handleClick={showMakeAdminModal}
+                >
+                    <i className="far fa-user" /> Make Company Admin
+                </ButtonContainer>
                 <Link
                     className="button yellow"
                     to={`/company/users-management/operatives/${user.id}/edit`}

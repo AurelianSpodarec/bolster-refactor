@@ -1,16 +1,26 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import OperativesAdd from 'components/shared/operatives/presentational/OperativesAdd';
 
-class OperativeAddContainer extends Component {
-    render() {
-        return (
-            <BlockContainer>
-                <OperativesAdd type="floor" />
-            </BlockContainer>
-        );
-    }
-}
+let OperativeAddContainer = ({ floor: { drawingIDs } }) => (
+    <BlockContainer>
+        <OperativesAdd
+            type="floor"
+            unavailable={!(drawingIDs && drawingIDs.length)}
+        />
+    </BlockContainer>
+);
 
-export default OperativeAddContainer;
+const mapStateToProps = (
+    {
+        companyAdmin: {
+            floorsReducer: { floors }
+        }
+    },
+    { match: { params } }
+) => ({ floor: floors[params.id] || {} });
+
+export default withRouter(connect(mapStateToProps)(OperativeAddContainer));

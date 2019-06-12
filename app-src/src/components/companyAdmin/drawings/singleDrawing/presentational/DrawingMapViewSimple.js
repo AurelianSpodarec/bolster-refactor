@@ -61,7 +61,7 @@ const DrawingMapViewSimple = ({
                                     className="button red pull-right"
                                     onClick={toggleAddMode}
                                 >
-                                    Stop
+                                    Cancel
                                 </button>
                             </>
                         ) : (
