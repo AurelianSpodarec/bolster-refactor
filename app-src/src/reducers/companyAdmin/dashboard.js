@@ -19,7 +19,8 @@ export default combineReducers({
     isInitialFetching: isInitialFetchingReducer,
     isLiveFetching: isLiveFetchingReducer,
     liveHistories: liveHistoriesReducer,
-    dashPinsStats: dashPinsStatsReducer,
+    dashRecentPinsStats: dashRecentPinsStatsReducer,
+    dashAllPinsStats: dashAllPinsStatsReducer,
     settings: settingsReducer
 });
 
@@ -74,7 +75,7 @@ function errorReducer(state = null, action) {
     }
 }
 
-function dashPinsStatsReducer(state = {}, action) {
+function dashRecentPinsStatsReducer(state = {}, action) {
     switch (action.type) {
         case FETCH_DASH_STATS_SUCCESS:
             return action.payload.historyTimeline;
@@ -83,6 +84,14 @@ function dashPinsStatsReducer(state = {}, action) {
     }
 }
 
+function dashAllPinsStatsReducer(state = {}, action) {
+    switch (action.type) {
+        case FETCH_DASH_STATS_SUCCESS:
+            return action.payload.allHistoryStats;
+        default:
+            return state;
+    }
+}
 function liveHistoriesReducer(state = {}, action) {
     switch (action.type) {
         case FETCH_HISTORY_FEED_SUCCESS:
