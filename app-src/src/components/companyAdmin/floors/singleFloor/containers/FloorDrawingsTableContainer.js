@@ -5,15 +5,12 @@ import { withRouter } from 'react-router-dom';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 
-import {
-    ADD_DRAWING,
-    SUCCESS_MODAL,
-    ERROR_MODAL
-} from 'constants/shared/modalTypes';
+import { ADD_DRAWING, ERROR_MODAL } from 'constants/shared/modalTypes';
 
 import DrawingTableContainer from 'components/companyAdmin/drawings/shared/containers/DrawingTableContainer';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
+import updateHierarchyAddState from 'actions/companyAdmin/hierarchy/sync/updateHierarchyAddState';
 
 class FloorDrawingsTableContainer extends Component {
     render() {
@@ -33,22 +30,25 @@ class FloorDrawingsTableContainer extends Component {
         );
     }
 
+    componentDidMount = () => {
+        const { showModal, floorID, isAdding } = this.props;
+
+        if (isAdding) showModal(ADD_DRAWING, { floorID });
+    };
+
     componentDidUpdate = prevProps => {
         const {
             postSuccess,
             error,
             showModal,
             hideModal,
-            updatedID
+            updatedID,
+            history,
+            updateHierarchyAddState
         } = this.props;
 
         if (!prevProps.postSuccess && postSuccess) {
-            showModal(SUCCESS_MODAL, {
-                hideModal,
-                message: 'Drawing added successfully.',
-                link: `/company/drawings/${updatedID}`,
-                linkMessage: 'View'
-            });
+            history.push(`/company/drawings/${updatedID}`);
         }
 
         if (error && !prevProps.error) {
@@ -59,6 +59,7 @@ class FloorDrawingsTableContainer extends Component {
                     error.message ||
                     '##There was an error processing your request, please try again later.##'
             });
+            updateHierarchyAddState(false);
         }
     };
 
@@ -72,7 +73,8 @@ const mapStateToProps = (
     {
         companyAdmin: {
             floorsReducer,
-            drawingsReducer: { postSuccess, updatedID, error }
+            drawingsReducer: { postSuccess, updatedID, error },
+            hierarchyReducer: { isAdding }
         }
     },
     { match }
@@ -82,7 +84,8 @@ const mapStateToProps = (
     updatedID,
     floor: floorsReducer.floors[match.params.id] || {},
     isFetching: floorsReducer.isFetching,
-    floorID: match.params.id
+    floorID: match.params.id,
+    isAdding
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -91,6 +94,9 @@ const mapDispatchToProps = dispatch => ({
     },
     hideModal: () => {
         dispatch(hideModal());
+    },
+    updateHierarchyAddState: value => {
+        dispatch(updateHierarchyAddState(value));
     }
 });
 

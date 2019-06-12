@@ -7,6 +7,7 @@ import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import AddDrawingForm from '../presentational/AddDrawingForm';
 import { BUY_CREDITS } from 'constants/shared/modalTypes';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
+import updateHierarchyAddState from 'actions/companyAdmin/hierarchy/sync/updateHierarchyAddState';
 
 class AddDrawingFormContainer extends Component {
     state = {
@@ -38,10 +39,10 @@ class AddDrawingFormContainer extends Component {
                 handleInputChange={this.handleInputChange}
                 handleFileChange={this.handleFileChange}
                 handleSubmit={this.handleSubmit}
-                hideModal={this.props.hideModal}
                 filesUploading={filesUploading}
                 credits={credits}
                 handleBuyCreditsModal={this.handleBuyCreditsModal}
+                handleClose={this.handleClose}
             />
         );
     }
@@ -75,6 +76,13 @@ class AddDrawingFormContainer extends Component {
         }
     };
 
+    handleClose = () => {
+        const { hideModal, updateHierarchyAddState } = this.props;
+
+        hideModal();
+        updateHierarchyAddState(false);
+    };
+
     handleBuyCreditsModal = () => {
         const { showModal } = this.props;
         showModal(BUY_CREDITS, { creditsToBuy: 1 });
@@ -100,7 +108,10 @@ const mapStateToProps = ({
 const mapDispatchToProps = dispatch => ({
     createDrawing: drawing => dispatch(createDrawing(drawing)),
     hideModal: () => dispatch(hideModal()),
-    showModal: (type, props) => dispatch(showModal(type, props))
+    showModal: (type, props) => dispatch(showModal(type, props)),
+    updateHierarchyAddState: value => {
+        dispatch(updateHierarchyAddState(value));
+    }
 });
 
 export default connect(

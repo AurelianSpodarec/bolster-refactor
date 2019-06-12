@@ -41,19 +41,6 @@ const CompanyMenu = ({
                 <span className="menu-text"> Sites</span>
             </MenuItemContainer>
 
-            <DropdownMenuItemContainer
-                icon="users"
-                title={'User Management'}
-                baseUrl="/company/users-management"
-            >
-                <MenuItemContainer link="/company/users-management/company-admins">
-                    Company Admins
-                </MenuItemContainer>
-                <MenuItemContainer link="/company/users-management/operatives">
-                    Operatives
-                </MenuItemContainer>
-            </DropdownMenuItemContainer>
-
             <DropdownMenuItems />
             <MenuItemContainer link="/company/tools/transfer-requests">
                 {!!totalRequests && (
@@ -63,6 +50,13 @@ const CompanyMenu = ({
                 <span className={`menu-text ${totalCredits ? 'large' : ''}`}>
                     Requests &amp; Invites
                 </span>
+            </MenuItemContainer>
+            <MenuHeader title="User Management" />
+            <MenuItemContainer link="/company/users-management/company-admins">
+                Company Admins
+            </MenuItemContainer>
+            <MenuItemContainer link="/company/users-management/operatives">
+                Operatives
             </MenuItemContainer>
             <MenuHeader title="Orders &amp; Subscriptions" />
             <MenuItemContainer link="/company/invoices">

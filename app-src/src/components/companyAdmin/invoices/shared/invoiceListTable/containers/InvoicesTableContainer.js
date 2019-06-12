@@ -12,7 +12,8 @@ class InvoicesTableContainer extends Component {
                 headers={[
                     'Date',
                     'Order ID',
-                    'Total',
+                    'Total (exc VAT)',
+                    'Total (inc VAT)',
                     'Type',
                     'Status',
                     '',

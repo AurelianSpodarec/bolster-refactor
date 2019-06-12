@@ -73,34 +73,6 @@ const DrawingMapViewSimple = ({
                             </button>
                         )}
 
-                        {!!drawing.tilesetS3KeyOrig && (
-                            <>
-                                {' '}
-                                <button
-                                    className="button"
-                                    onClick={() =>
-                                        fetch(
-                                            `${RAW_S3_STORAGE_URL}/${
-                                                drawing.tilesetS3KeyOrig
-                                            }`
-                                        ).then(res => {
-                                            res.blob().then(blob =>
-                                                fileDownload(
-                                                    blob,
-                                                    getFileName(
-                                                        drawing.tilesetS3KeyOrig
-                                                    )
-                                                )
-                                            );
-                                        })
-                                    }
-                                >
-                                    <i className="fa fa-download" /> Download
-                                    floorplan
-                                </button>
-                            </>
-                        )}
-
                         <button
                             className="button yellow"
                             onClick={() =>
