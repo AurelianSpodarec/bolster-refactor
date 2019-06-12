@@ -11,6 +11,7 @@ import fetchPinStatsForLevel from 'actions/companyAdmin/stats/async/fetchPinStat
 import SingleSite from '../presentational/SingleSite';
 import setTabs from 'actions/shared/generic/tabs/sync/setTabs';
 import { SITE_TABS } from 'constants/shared/tabNames';
+import resetFilterOptions from 'actions/companyAdmin/reports/sync/resetFilterOptions';
 
 class SingleSiteContainer extends Component {
     render = () => <SingleSite />;
@@ -20,6 +21,8 @@ class SingleSiteContainer extends Component {
         setTabs(Object.values(SITE_TABS), SITE_TABS.GENERAL_OVERVIEW);
         fetchSiteData(siteID);
     };
+
+    componentWillUnmount = () => this.props.resetFilterOptions();
 }
 
 //make all fetches needed and this will update our redux store.
@@ -33,7 +36,8 @@ const mapDispatchToProps = dispatch => ({
         dispatch(fetchDocuments(hierarchyType, siteID));
         dispatch(fetchPinStatsForLevel(hierarchyType, siteID));
     },
-    setTabs: (tabs, selectedTab) => dispatch(setTabs(tabs, selectedTab))
+    setTabs: (tabs, selectedTab) => dispatch(setTabs(tabs, selectedTab)),
+    resetFilterOptions: () => dispatch(resetFilterOptions())
 });
 
 export default connect(

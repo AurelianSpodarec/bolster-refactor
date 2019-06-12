@@ -9,6 +9,7 @@ import fetchClientPinStatsForLevel from 'actions/client/stats/async/fetchClientP
 import SingleBuilding from '../presentational/SingleBuilding';
 
 import { getSelectedCompanyForClient } from 'helpers/generic';
+import resetFilterOptions from 'actions/companyAdmin/reports/sync/resetFilterOptions';
 
 class SingleBuildingContainer extends Component {
     render() {
@@ -36,24 +37,17 @@ class SingleBuildingContainer extends Component {
             fetchAllClientFloors(selectedCompanyID);
         });
     };
+
+    componentWillUnmount = () => this.props.resetFilterOptions();
 }
 
-const mapDispatchToProps = dispatch => ({
-    fetchSingleClientBuilding: (companyID, buildingID) => {
-        return dispatch(fetchSingleClientBuilding(companyID, buildingID));
-    },
-    fetchAllClientDrawings: companyID => {
-        dispatch(fetchAllClientDrawings(companyID));
-    },
-    fetchAllClientFloors: companyID => {
-        dispatch(fetchAllClientFloors(companyID));
-    },
-    fetchClientPinStatsForLevel: (companyID, hierarchyType, levelID) => {
-        dispatch(
-            fetchClientPinStatsForLevel(companyID, hierarchyType, levelID)
-        );
-    }
-});
+const mapDispatchToProps = {
+    fetchSingleClientBuilding,
+    fetchAllClientDrawings,
+    fetchAllClientFloors,
+    fetchClientPinStatsForLevel,
+    resetFilterOptions
+};
 
 export default connect(
     (_, { match }) => ({ buildingID: match.params['id'] }),

@@ -1003,6 +1003,9 @@ input {
         &.active {
             opacity: 1;
         }
+        &.inActive {
+            background: $green;
+        }
         &:first-child {
             border-radius: 0 5px 5px 0;
         }
