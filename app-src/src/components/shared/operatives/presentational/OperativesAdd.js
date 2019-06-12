@@ -4,11 +4,12 @@ import { withRouter } from 'react-router-dom';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 
-const OperativesAdd = ({ type, location }) => (
+const OperativesAdd = ({ type, location, unavailable }) => (
     <div className="size-lg-12">
         <BlockHeading title="Attach Operative">
             <ButtonContainer
-                className="pull-right green"
+                disabled={unavailable}
+                className={`pull-right ${unavailable ? 'disabled' : 'green'}`}
                 to={`${location.pathname}/add-operative`}
             >
                 <i className="fa fa-plus" /> Invite
