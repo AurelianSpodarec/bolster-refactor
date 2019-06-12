@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { CLIENT_API_URL } from 'config';
+import { CLIENT_API_URL } from 'config/index';
 import { getHeaders } from 'helpers/api';
 import {
     CLIENT_FETCH_SINGLE_DRAWING_REQUEST,
