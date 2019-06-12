@@ -2,7 +2,7 @@ import React from 'react';
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 
 const DrawingDetails = ({ stats: { lastUpdatedOn } }) => (
-    <p className="size-lg-12">
+    <p style={{ height: '100%' }} className="size-lg-12">
         Last Updated:{' '}
         {lastUpdatedOn ? (
             <span>

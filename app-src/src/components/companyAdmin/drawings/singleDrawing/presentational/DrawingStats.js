@@ -4,7 +4,7 @@ import PieChart from 'components/shared/stats/presentational/PieChart';
 import DrawingDetails from './DrawingDetails';
 
 const DrawingStats = ({ drawing, stats }) => (
-    <div className="stats size-lg-12">
+    <div className="stats drawing-stats size-lg-12">
         <PieChart
             sizeClasses="size-lg-12"
             stats={stats}

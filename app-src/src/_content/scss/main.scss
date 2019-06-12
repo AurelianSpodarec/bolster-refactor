@@ -2273,6 +2273,11 @@ input {
             margin-bottom: 0;
         }
     }
+    &.drawing-stats {
+        .pin-key {
+            margin-bottom: 25px;
+        }
+    }
     &.dashbaord {
         .pin-key {
             .pin {
@@ -3142,7 +3147,7 @@ input {
     float: left;
     width: calc(100% + 30px);
     margin-left: -15px;
-    max-height: 160px;
+    max-height: 300px;
     overflow: auto;
 
     .generic-table {
