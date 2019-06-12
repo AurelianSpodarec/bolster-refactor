@@ -5,15 +5,12 @@ import { withRouter } from 'react-router-dom';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 
-import {
-    ADD_FLOOR,
-    SUCCESS_MODAL,
-    ERROR_MODAL
-} from 'constants/shared/modalTypes';
+import { ADD_FLOOR, ERROR_MODAL } from 'constants/shared/modalTypes';
 
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import FloorTableContainer from 'components/companyAdmin/floors/shared/containers/FloorTableContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
+import updateHierarchyAddState from 'actions/companyAdmin/hierarchy/sync/updateHierarchyAddState';
 
 class BuildingsFloorsTableContainer extends Component {
     render() {
@@ -33,6 +30,12 @@ class BuildingsFloorsTableContainer extends Component {
         );
     }
 
+    componentDidMount = () => {
+        const { showModal, buildingID, isAdding } = this.props;
+
+        if (isAdding) showModal(ADD_FLOOR, { buildingID });
+    };
+
     componentDidUpdate = prevProps => {
         const {
             postSuccess,
@@ -40,20 +43,13 @@ class BuildingsFloorsTableContainer extends Component {
             showModal,
             hideModal,
             updatedFloorID,
-            floors
+            history,
+            updateHierarchyAddState
         } = this.props;
 
-        if (
-            !prevProps.postSuccess &&
-            postSuccess &&
-            floors.length > prevProps.floors.length
-        ) {
-            showModal(SUCCESS_MODAL, {
-                hideModal,
-                message: 'Floor added successfully.',
-                link: `/company/floors/${updatedFloorID}`,
-                linkMessage: 'View'
-            });
+        if (!prevProps.postSuccess && postSuccess) {
+            history.push(`/company/floors/${updatedFloorID}`);
+            updateHierarchyAddState(true);
         }
 
         if (error && !prevProps.error) {
@@ -64,6 +60,7 @@ class BuildingsFloorsTableContainer extends Component {
                     error.message ||
                     '##There was an error processing your request, please try again later.##'
             });
+            updateHierarchyAddState(false);
         }
     };
 
@@ -77,7 +74,8 @@ const mapStateToProps = (
     {
         companyAdmin: {
             buildingsReducer: { buildings, isFetching },
-            floorsReducer: { postSuccess, updatedFloorID, error, floors }
+            floorsReducer: { postSuccess, updatedFloorID, error, floors },
+            hierarchyReducer: { isAdding }
         }
     },
     { match: { params } }
@@ -88,10 +86,11 @@ const mapStateToProps = (
     building: buildings[params.id] || {},
     isFetching: isFetching,
     buildingID: params.id,
-    floors
+    floors,
+    isAdding
 });
 
-const mapDispatchToProps = { showModal, hideModal };
+const mapDispatchToProps = { showModal, hideModal, updateHierarchyAddState };
 
 export default withRouter(
     connect(

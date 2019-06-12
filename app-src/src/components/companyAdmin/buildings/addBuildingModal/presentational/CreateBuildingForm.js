@@ -7,12 +7,12 @@ import ButtonContainer from 'components/shared/generic/button/containers/ButtonC
 
 const CreateBuildingForm = ({
     handleSubmit,
-    hideModal,
     handleInputChange,
     name,
     addressLine1,
     addressLine2,
-    postcode
+    postcode,
+    handleClose
 }) => (
     <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
         <div className="size-lg-12">
@@ -66,7 +66,7 @@ const CreateBuildingForm = ({
             <button className="button green">
                 <i className="fa fa-plus" /> Add Building
             </button>
-            <ButtonContainer handleClick={hideModal}>Cancel</ButtonContainer>
+            <ButtonContainer handleClick={handleClose}>Cancel</ButtonContainer>
         </BlockButtonWrapper>
     </Form>
 );

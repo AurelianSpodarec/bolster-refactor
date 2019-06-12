@@ -41,6 +41,7 @@ import templateQuestionsReducer from './templateQuestions';
 import transferRequestsReducer from './transferRequests';
 import dropdownOptionsReducer from './dropdownOptions';
 import approvedCompaniesReducer from './approvedCompanies';
+import hierarchyReducer from './hierarchy';
 
 export default combineReducers({
     addPinDropdownOptions,
@@ -61,6 +62,7 @@ export default combineReducers({
     dropdownOptionsReducer,
     floorsReducer,
     headquartersReducer,
+    hierarchyReducer,
     inspectionLogsReducer,
     invoicesReducer,
     invoiceItemsReducer,

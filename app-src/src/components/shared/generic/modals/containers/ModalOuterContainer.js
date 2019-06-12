@@ -1,19 +1,39 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import hideModal from 'actions/shared/generic/modals/sync/hideModal';
 
 import ModalOuter from '../presentational/ModalOuter';
+import updateHierarchyAddState from 'actions/companyAdmin/hierarchy/sync/updateHierarchyAddState';
 
-const ModalOuterContainer = ({ extraClasses, hideModal, children }) => (
-    <ModalOuter hideModal={hideModal} extraClasses={extraClasses}>
-        {children}
-    </ModalOuter>
-);
+class ModalOuterContainer extends Component {
+    render() {
+        const { extraClasses, children } = this.props;
+
+        return (
+            <ModalOuter
+                handleClose={this.handleClose}
+                extraClasses={extraClasses}
+            >
+                {children}
+            </ModalOuter>
+        );
+    }
+
+    handleClose = () => {
+        const { hideModal, updateHierarchyAddState } = this.props;
+
+        hideModal();
+        updateHierarchyAddState(false);
+    };
+}
 
 const mapDispatchToProps = dispatch => ({
     hideModal: () => {
         dispatch(hideModal());
+    },
+    updateHierarchyAddState: value => {
+        dispatch(updateHierarchyAddState(value));
     }
 });
 
