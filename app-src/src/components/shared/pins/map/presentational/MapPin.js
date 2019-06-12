@@ -13,6 +13,7 @@ import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeCon
 import { formatDate } from 'helpers/generic';
 import PinDetailsContainer from 'components/companyAdmin/pins/singlePin/containers/PinDetailsContainer';
 import Loading from 'components/shared/generic/misc/presentational/Loading';
+import { RAW_S3_STORAGE_URL } from 'config';
 
 const DrawingMapPin = ({
     pin: {
@@ -32,7 +33,7 @@ const DrawingMapPin = ({
     urlStart,
     handleFetchPin,
     handleCancelFetchPin,
-    loadingHover
+    pinImages = []
 }) => {
     const { latY = 1, lngX = 1 } = location;
     const status = pinHistory.status || latestStatus;
@@ -69,26 +70,43 @@ const DrawingMapPin = ({
                     onClose={handleCancelFetchPin}
                     sticky={true}
                 >
-                    {`Pin code: ${pinCode}`} <br />
-                    {`Status: ${PIN_STATUS_TYPES[status]}`} <br />
-                    Created: <DateTimeContainer date={createdOn} /> <br />
-                    {updated && (
-                        <>
-                            Updated: <DateTimeContainer date={updated} /> <br />
-                        </>
-                    )}
-                    {user && (
-                        <>
-                            Created by: {user.userFirstName} {user.userLastName}{' '}
-                            <br />
-                        </>
-                    )}
-                    {service && (
-                        <>
-                            Latest Service: {service.name} <br />{' '}
-                        </>
-                    )}
-                    {/* <p>pin photos</p> */}
+                    <div>
+                        {`Pin code: ${pinCode}`} <br />
+                        {`Status: ${PIN_STATUS_TYPES[status]}`} <br />
+                        Created: <DateTimeContainer date={createdOn} /> <br />
+                        {updated && (
+                            <>
+                                Updated: <DateTimeContainer date={updated} />{' '}
+                                <br />
+                            </>
+                        )}
+                        {user && (
+                            <>
+                                Created by: {user.userFirstName}{' '}
+                                {user.userLastName} <br />
+                            </>
+                        )}
+                        {service && (
+                            <>
+                                Latest Service: {service.name} <br />{' '}
+                            </>
+                        )}
+                        {!!pinImages.length && (
+                            <>
+                                Latest History Images: <br />
+                                <div className="flex-tooltip-images">
+                                    {pinImages.map(src => (
+                                        <img
+                                            className="tooltip-item"
+                                            key={src}
+                                            alt=""
+                                            src={`${RAW_S3_STORAGE_URL}/${src}`}
+                                        />
+                                    ))}
+                                </div>
+                            </>
+                        )}
+                    </div>
                 </Tooltip>
             )}
         </Marker>

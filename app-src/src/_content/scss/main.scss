@@ -3273,9 +3273,22 @@ input {
 
     .flex-row-item {
         float: none;
+
         .content-area {
             min-height: calc(100% - 10px);
         }
+    }
+}
+
+.flex-tooltip-images {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: center;
+    .tooltip-item {
+        width: 33%;
+        height: auto;
+        padding: 0 5px;
     }
 }
 
