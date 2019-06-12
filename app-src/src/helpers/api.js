@@ -34,10 +34,14 @@ export function authenticate() {
 
 // returns a decoded jwt object or an error.
 export function getDecodedJWT() {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('token') || '';
     return new Promise(resolve => {
-        const decoded = jwtDecode(token);
-        resolve(formatJWTData(decoded));
+        try {
+            const decoded = jwtDecode(token);
+            resolve(formatJWTData(decoded));
+        } catch {
+            resolve({});
+        }
     });
 }
 

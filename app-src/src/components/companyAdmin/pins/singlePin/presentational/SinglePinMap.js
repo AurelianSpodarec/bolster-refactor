@@ -19,7 +19,8 @@ const SinglePinMap = ({
     handleEditPinLocation,
     pinHistory,
     historyVersion,
-    historyCount
+    historyCount,
+    handleEditHistoryModal
 }) => (
     <>
         <BlockHeading title={`Pin ${pin.pinCode}`}>
@@ -32,6 +33,9 @@ const SinglePinMap = ({
                     : ''}
                 )
             </h4>
+            <button className="button yellow" onClick={handleEditHistoryModal}>
+                <i className="far fa-pencil" /> Edit history
+            </button>
             {moveMode ? (
                 <>
                     <button
@@ -53,6 +57,7 @@ const SinglePinMap = ({
                     Edit pin location
                 </button>
             )}
+
             {pin.nextPinID && (
                 <ButtonContainer
                     className="pull-right"

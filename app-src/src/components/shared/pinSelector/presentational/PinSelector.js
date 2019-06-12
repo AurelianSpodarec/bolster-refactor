@@ -3,13 +3,11 @@ import BlockHeading from 'components/shared/generic/blockHeading/presentational/
 import ExcludedBox from './ExcludedBox';
 import IncludedBox from './IncludedBox';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
-import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 
 const PinSelector = ({
     excludedPins,
     includedPins,
     handlePinClick,
-    handleSubmit,
     selectedPinOptions,
     handleAddIncluded,
     handleAddExcluded,
@@ -38,7 +36,6 @@ const PinSelector = ({
                     clicking={clicking}
                 />
             </div>
-            {/* ##needs css## */}
             <div className="pin-selection-buttons">
                 <ButtonContainer
                     className="exclude icon-only"
@@ -65,15 +62,6 @@ const PinSelector = ({
                     clicking={clicking}
                 />
             </div>
-            <BlockButtonWrapper>
-                <ButtonContainer
-                    className="button"
-                    type="button"
-                    handleClick={handleSubmit}
-                >
-                    Submit
-                </ButtonContainer>
-            </BlockButtonWrapper>
         </div>
     </>
 );

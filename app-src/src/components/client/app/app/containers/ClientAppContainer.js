@@ -2,14 +2,14 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import fetchProfile from 'actions/shared/profile/async/fetchProfile';
-import fetchSingleCompany from 'actions/companyAdmin/companySettings/async/fetchCompanySettings';
 import decodeJWT from 'actions/shared/jwt/async/decodeJWT';
 import clientFetchAllServices from 'actions/client/services/async/clientFetchAllServices';
-import fetchCompanySettings from 'actions/companyAdmin/companySettings/async/fetchCompanySettings';
+import fetchClientCompanyReports from 'actions/client/reports/queue/async/fetchClientCompanyReports';
 import selectMenuTab from 'actions/shared/generic/tabs/sync/selectMenuTab';
 import ClientApp from '../presentational/ClientApp';
 
 import { MENU_TABS } from 'constants/shared/tabNames';
+import { getSelectedCompanyForClient } from 'helpers/generic';
 
 class ClientAppContainer extends Component {
     render() {
@@ -18,17 +18,17 @@ class ClientAppContainer extends Component {
 
     componentDidMount = () => {
         const { fetchHomeData, selectClientMenuTab } = this.props;
-        fetchHomeData();
+        const selectedCompanyID = getSelectedCompanyForClient();
+
+        fetchHomeData(selectedCompanyID);
         selectClientMenuTab();
     };
 }
 
 const mapDispatchToProps = dispatch => ({
-    fetchHomeData: () => {
-        dispatch(fetchCompanySettings());
+    fetchHomeData: companyID => {
         dispatch(fetchProfile());
-        dispatch(fetchSingleCompany());
-        // dispatch(fetchCompanyReports());
+        dispatch(fetchClientCompanyReports(companyID));
         dispatch(decodeJWT());
         dispatch(clientFetchAllServices());
     },

@@ -1,13 +1,16 @@
 import React from 'react';
 import Search from 'components/shared/generic/form/presentational/Search';
-import Dropdown from 'components/shared/generic/form/presentational/Dropdown';
+import Select from 'components/shared/generic/form/presentational/Select';
+import MultiSelect from 'components/shared/generic/form/presentational/MultiSelect';
 
 const ApprovedCompaniesFilters = ({
     handleChange,
     handleSortChange,
     name,
     sortOptions,
-    selectedOption
+    selectedOption,
+    serviceOptions,
+    serviceIDs
 }) => (
     <>
         <form className="table-search size-lg-12">
@@ -17,15 +20,26 @@ const ApprovedCompaniesFilters = ({
                 placeholder="Search by company name or code..."
                 handleChange={handleChange}
             />
-            <div className="table-filter">
-                <Dropdown
-                    placeholder="--- Sort A-Z ---"
+
+            <div className="table-filter auto">
+                <Select
                     name="sort"
                     options={sortOptions}
-                    selectedOption={selectedOption}
-                    handleChange={handleSortChange}
+                    value={selectedOption}
+                    onChange={handleSortChange}
+                    omitPlaceholder
                 />
                 <p>Sort A-Z:</p>
+            </div>
+            <div className="table-filter auto">
+                <MultiSelect
+                    name="serviceIDs"
+                    options={serviceOptions}
+                    value={serviceIDs}
+                    onChange={handleChange}
+                    placeholder="-- filter by services --"
+                />
+                <p>Filter by service:</p>
             </div>
         </form>
     </>

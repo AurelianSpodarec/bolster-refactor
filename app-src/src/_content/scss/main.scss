@@ -90,7 +90,7 @@ body {
         .generic-table {
             min-height: 165px;
             tbody {
-                display: table-header-group;
+                display: table-footer-group;
             }
         }
 
@@ -2142,6 +2142,10 @@ input {
         width: 27%;
         margin-top: 2px;
 
+        &.auto {
+            width: auto;
+            margin-left: 10px;
+        }
         p {
             float: right;
             padding-right: 10px;
@@ -2152,6 +2156,30 @@ input {
         .custom-dropdown {
             float: right;
             width: 42%;
+        }
+        .multi-multi-dropdown {
+            float: right;
+            width: 250px;
+            p {
+                line-height: 14px;
+            }
+            .option-selection {
+                .option {
+                    width: 100%;
+                }
+            }
+            .selected-box {
+                min-height: 0;
+
+                .placeholder {
+                    line-height: 25px;
+
+                    padding: {
+                        top: 0;
+                        bottom: 0;
+                    }
+                }
+            }
         }
     }
 }
@@ -2218,6 +2246,14 @@ input {
 }
 
 .stats {
+    &.client-stats {
+        .history {
+            margin-top: 20px;
+        }
+        .pin-key {
+            margin-bottom: 0;
+        }
+    }
     p {
         font-size: 140%;
         line-height: 1.5;
@@ -3920,7 +3956,7 @@ input {
 
 //company logo
 .company-logo {
-    border: 1px solid $grey-alt;
+    // border: 1px solid $grey-alt;
     padding: 5px;
     margin-top: 10px;
     display: flex;

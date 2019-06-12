@@ -348,12 +348,6 @@
     }
 
     #header {
-        .nav {
-            ul {
-                width: 85%;
-            }
-        }
-
         .left {
             width: 55%;
 
@@ -471,38 +465,6 @@
 }
 @media only screen and (min-width: 641px) and (max-width: 768px) {
     //HEADER
-    #header {
-        /*.left {
-    .quote {
-        width: 100%!important;
-        padding: 10px!important;
-
-
-        h3 {
-            margin-top: 0!important;
-            font-size: 140%!important;
-        }
-    }
-}*/
-        .nav {
-            ul {
-                width: 100%;
-
-                li {
-                    a {
-                        padding: 19px 20px 18px;
-                        font-size: 160%;
-                    }
-
-                    &.home {
-                        img {
-                            width: 30px;
-                        }
-                    }
-                }
-            }
-        }
-    }
 
     //BUTTONS
     .button {
@@ -769,7 +731,7 @@
 //768px width
 @media only screen and (max-width: 813px) {
     //HEADER
-    #header {
+    .frontend-header {
         .nav {
             ul {
                 width: 100%;
@@ -1083,6 +1045,27 @@
             font-size: 140%;
         }
     }
+
+    .frontend-menu {
+        &.mobile-menu {
+            ul {
+                width: 85%;
+
+                li {
+                    a {
+                        padding: 19px 20px 18px;
+                        font-size: 160%;
+                    }
+
+                    &.home {
+                        img {
+                            width: 30px;
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
 
 @media only screen and (max-width: 640px) {
@@ -1098,7 +1081,7 @@
     }
 
     //HEADER
-    #header {
+    .frontend-header {
         .left {
             width: 40%;
 
@@ -1118,49 +1101,65 @@
             top: 0;
             right: 0;
             transform: none;
+
             .links {
                 width: 100%;
                 padding: 0;
-
+                margin-top: 10px;
                 a {
+                    font-size: 120%;
+
                     &:nth-child(3) {
                         padding: 0;
                         margin-right: 0;
                         border: none;
                     }
                 }
-
                 .app-btn {
-                    width: 40%;
+                    width: 50%;
+                    max-width: 128px;
+                    margin-left: 5px;
+                    margin-bottom: 2.5px;
+                    img {
+                        width: 100%;
+                    }
                 }
 
                 .google-btn {
-                    max-width: 132px;
-                    width: 40%;
+                    width: 50%;
+                    margin-right: 0;
+                    img {
+                        width: 100%;
+                        float: left;
+                    }
                 }
-
-                .button {
+                .frontend-button {
                     border: 1px solid black;
-                    margin-left: 80px;
+                    margin-bottom: 5px;
+                    &:nth-child(2) {
+                        margin-left: 0;
+                        margin-right: 0;
+                        margin-bottom: 0;
+                        background-color: black;
+                    }
                 }
             }
 
             .phone-number {
-                margin-top: 10px;
+                margin-top: 5px;
             }
         }
     }
 
     .frontend-menu {
         display: none;
-        &.mobile {
-            display: block;
-        }
-        .mobile-menu {
+
+        &.mobile-menu {
             float: left;
             width: 100%;
             color: white;
             cursor: pointer;
+            display: block;
 
             .container {
                 padding: 10px 20px;
@@ -1180,7 +1179,7 @@
             }
 
             ul {
-                display: none;
+                display: block;
                 position: absolute;
                 top: 100%;
                 left: 0;
@@ -1233,23 +1232,113 @@
     .button {
         font-size: 140%;
     }
+    #frontend-site {
+        p {
+            font-size: 140%;
+        }
+        //INFO SECTION
+        .info-section {
+            .container {
+                padding: 0 10px;
+            }
+            &.top-sec {
+                .image {
+                    width: 100%;
+                    img {
+                        float: none;
+                        display: block;
+                        margin-top: 0;
+                    }
+                }
+            }
+            &.inverted {
+                .text {
+                    padding-left: 0;
+                }
+            }
 
-    //TITLES & TEXT
-    h2 {
-        font-size: 220%;
-        padding-bottom: 5px;
-        margin-bottom: 20px;
+            .half {
+                width: 100%;
+                padding-right: 0;
+                &:last-child {
+                    padding-left: 0;
+                    margin-top: 15px;
+                    ul {
+                        padding-left: 0;
+                    }
+                }
+            }
+            .text {
+                width: 100%;
+                padding-right: 0;
+                padding-top: 0;
+            }
+
+            .image {
+                margin-top: 20px;
+                width: 100%;
+
+                img {
+                    float: none;
+                    display: block;
+                    margin: 0 auto;
+                }
+            }
+
+            ul {
+                li {
+                    font-size: 160%;
+                }
+            }
+
+            .pod {
+                padding: 0;
+
+                &:first-child {
+                    padding-right: 15px;
+                }
+
+                &:last-child {
+                    padding-left: 15px;
+                }
+            }
+
+            &.full-list {
+                .text {
+                    ul {
+                        width: 100%;
+                        &:last-child {
+                            li {
+                                &:last-child {
+                                    margin-bottom: 0;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        //REQUEST DEMO
+        .request-container {
+            .container {
+                padding: 0 10px;
+            }
+
+            .generic-form {
+                width: 100%;
+                padding-right: 0;
+            }
+
+            .try-area {
+                width: 100%;
+                margin-top: 0;
+
+                h3 {
+                    font-size: 200%;
+                }
+            }
+        }
     }
-
-    h3 {
-        font-size: 220%;
-        margin-bottom: 20px;
-    }
-
-    p {
-        font-size: 160%;
-    }
-
     .app-slider {
         display: none;
     }
@@ -1360,74 +1449,6 @@
         }
     }
 
-    //INFO SECTION
-    .info-section {
-        .container {
-            padding: 0 10px;
-        }
-        &.top-sec {
-            .image {
-                width: 100%;
-                img {
-                    float: none;
-                    display: block;
-                    margin-top: 0;
-                }
-            }
-        }
-        &.inverted {
-            .text {
-                padding-left: 0;
-            }
-        }
-
-        .half {
-            width: 100%;
-            padding-right: 0;
-            &:last-child {
-                padding-left: 0;
-                margin-top: 15px;
-                ul {
-                    padding-left: 0;
-                }
-            }
-        }
-        .text {
-            width: 100%;
-            padding-right: 0;
-            padding-top: 0;
-        }
-
-        .image {
-            margin-top: 20px;
-            width: 100%;
-
-            img {
-                float: none;
-                display: block;
-                margin: 0 auto;
-            }
-        }
-
-        ul {
-            li {
-                font-size: 160%;
-            }
-        }
-
-        .pod {
-            padding: 0;
-
-            &:first-child {
-                padding-right: 15px;
-            }
-
-            &:last-child {
-                padding-left: 15px;
-            }
-        }
-    }
-
     //INTRO BANNER
     .intro-banner {
         .container {
@@ -1438,6 +1459,9 @@
 
         h1 {
             font-size: 260%;
+        }
+        p {
+            font-size: 140%;
         }
     }
 
@@ -1467,26 +1491,6 @@
     #login {
         .container {
             padding: 0 10px;
-        }
-    }
-
-    //REQUEST DEMO
-    .request-container {
-        .container {
-            padding: 0 10px;
-        }
-
-        .generic-form {
-            width: 55%;
-            padding-right: 20px;
-        }
-
-        .try-area {
-            width: 45%;
-
-            h3 {
-                font-size: 200%;
-            }
         }
     }
 
@@ -1612,13 +1616,13 @@
 
 @media only screen and (max-width: 480px) {
     //HEADER
-    #header {
+    .frontend-header {
         .left {
             width: 45%;
 
             .logo {
                 width: 100%;
-                margin-top: 20px;
+                margin-top: 10px;
             }
         }
 
@@ -1630,9 +1634,9 @@
                 padding-bottom: 0;
                 padding-left: 10px;
                 text-align: center;
-
+                margin-top: 30px;
                 a {
-                    float: none;
+                    float: right;
                     margin: 0 10px;
                     display: inline-block;
 
@@ -1748,7 +1752,7 @@
             }
         }
         p {
-            font-size: 160%;
+            font-size: 140%;
         }
     }
 
@@ -2101,8 +2105,16 @@
         }
     }
 
-    #header {
+    .frontend-header {
+        .left {
+            width: 45%;
+
+            .logo {
+                margin-top: 20px;
+            }
+        }
         .right {
+            width: 55%;
             &.logged-in {
                 .links {
                     a {
@@ -2113,6 +2125,9 @@
                         margin-left: 0;
                     }
                 }
+            }
+            p {
+                font-size: 140%;
             }
         }
     }
@@ -2182,13 +2197,7 @@
         width: 41px;
     }
 
-    #header {
-        .left {
-            .logo {
-                margin-top: 20px;
-            }
-        }
-
+    .frontend-header {
         .right {
             .links {
                 .app-btn {

@@ -1,10 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import { FILE_STORAGE_URL } from 'config';
 import DeleteDocumentContainer from '../containers/DeleteDocumentContainer';
 
-const DocumentsList = ({ documents, clientControls, location }) =>
+const DocumentsList = ({ documents, location }) =>
     documents.map(document => (
         <tr key={document.id}>
             <td>

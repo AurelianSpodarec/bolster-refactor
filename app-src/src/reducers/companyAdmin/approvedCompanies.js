@@ -40,7 +40,7 @@ function errorReducer(state = null, action) {
     }
 }
 
-function filtersReducer(state = { name: '' }, action) {
+function filtersReducer(state = { name: '', serviceIDs: [] }, action) {
     switch (action.type) {
         case UPDATE_APPROVED_COMPANIES_FILTERS:
             return updateObj(state, action.fieldName, action.searchTerm);

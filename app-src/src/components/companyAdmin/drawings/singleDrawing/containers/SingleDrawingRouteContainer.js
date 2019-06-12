@@ -9,7 +9,7 @@ import AdvancedReportContainer from 'components/client/drawings/singleDrawing/co
 const DrawingRouteContainer = ({ selectedTab }) => {
     const contentOptions = {
         [TABS.GENERAL_OVERVIEW]: GeneralOverviewContainer,
-        [TABS.ADVANCED_REPORT]: AdvancedReportContainer
+        [TABS.GENERATE_REPORT]: AdvancedReportContainer
     };
 
     const SpecificContent =

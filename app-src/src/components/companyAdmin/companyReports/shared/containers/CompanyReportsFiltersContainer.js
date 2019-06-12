@@ -30,10 +30,7 @@ const CompanyReportsFiltersContainer = ({
     }
 };
 
-const mapDispatchToProps = dispatch => ({
-    updateCompanyReportsSort: sortString =>
-        dispatch(updateCompanyReportsSort(sortString))
-});
+const mapDispatchToProps = { updateCompanyReportsSort };
 
 const mapStateToProps = ({ companyAdmin: { companyReportsReducer } }) => ({
     sortString: companyReportsReducer.sort.sortString
