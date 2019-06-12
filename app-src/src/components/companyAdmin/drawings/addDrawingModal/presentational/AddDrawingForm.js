@@ -45,6 +45,10 @@ const AddDrawingForm = ({
                         acceptedTypes={['application/pdf', 'image/*']}
                         handleChange={handleFileChange}
                     />
+                    <p>
+                        This can be changed free of charge for 24 hours after
+                        creation.
+                    </p>
                 </Field>
             </div>
         </div>
