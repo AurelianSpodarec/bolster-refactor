@@ -11,7 +11,8 @@ const SubscriptionCredits = ({
     creditsToBuy,
     totalCredits,
     showModal,
-    costOfCredits,
+    costWithoutVAT,
+    costWithVAT,
     handleCreditsChange
 }) => (
     <div className="credits size-lg-12">
@@ -36,7 +37,8 @@ const SubscriptionCredits = ({
 
         {!!creditsToBuy && (
             <p className="generic-text align-right total-text size-lg-12">
-                Total: £{formatNumber(costOfCredits * creditsToBuy)} (ex. VAT)
+                Total: £{formatNumber(costWithoutVAT)} (£
+                {formatNumber(costWithVAT)} inc. VAT)
             </p>
         )}
 

@@ -17,13 +17,19 @@ class SubscriptionCreditsContainer extends Component {
             isFetching,
             totalCredits,
             showModal,
-            costOfCredits
+            costOfCredits,
+            vatCostOfCredits
         } = this.props;
+        const costWithoutVAT = creditsToBuy * costOfCredits;
+        const costOfVAT = creditsToBuy * vatCostOfCredits;
+        const costWithVAT = costWithoutVAT + costOfVAT;
         return (
             <BlockContainer isFetching={isFetching}>
                 <SubscriptionCredits
                     creditsToBuy={creditsToBuy}
                     costOfCredits={costOfCredits}
+                    costWithoutVAT={costWithoutVAT}
+                    costWithVAT={costWithVAT}
                     totalCredits={totalCredits}
                     showModal={e => {
                         e.preventDefault();
@@ -45,7 +51,7 @@ class SubscriptionCreditsContainer extends Component {
 
 const mapStateToProps = ({
     companyAdmin: {
-        creditsReducer: { credits, isFetching, costOfCredits }
+        creditsReducer: { credits, isFetching, costOfCredits, vatCostOfCredits }
     }
 }) => ({
     totalCredits: Object.values(credits).reduce(
@@ -53,12 +59,11 @@ const mapStateToProps = ({
         0
     ),
     isFetching,
-    costOfCredits
+    costOfCredits,
+    vatCostOfCredits
 });
 
-const mapDispatchToProps = dispatch => ({
-    showModal: (type, props) => dispatch(showModal(type, props))
-});
+const mapDispatchToProps = { showModal };
 
 export default connect(
     mapStateToProps,
