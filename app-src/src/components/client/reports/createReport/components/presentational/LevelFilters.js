@@ -35,56 +35,57 @@ const LevelFilters = ({
                             disabled={!!hierarchy}
                         />
                     </Field>
-                    <Field
-                        name="Buildings"
-                        classes={selectedSite ? 'active' : ''}
-                    >
-                        <DropdownContainer
-                            disabled={
-                                !selectedSite || hierarchy > HIERARCHY_IDS.SITE
-                            }
-                            placeholder="All Buildings"
-                            name="buildingID"
-                            options={buildingOptions}
-                            value={selectedBuilding}
-                            selectedOption={selectedBuilding}
-                            handleChange={handleChange}
-                        />
-                    </Field>
-                    <Field
-                        name="Floors"
-                        classes={selectedBuilding ? 'active' : ''}
-                    >
-                        <DropdownContainer
-                            disabled={
-                                !selectedBuilding ||
-                                hierarchy > HIERARCHY_IDS.BUILDING
-                            }
-                            placeholder="All Floors"
-                            name="floorID"
-                            options={floorOptions}
-                            value={selectedFloor}
-                            selectedOption={selectedFloor}
-                            handleChange={handleChange}
-                        />
-                    </Field>
-                    <Field
-                        name="Drawings"
-                        classes={selectedFloor ? 'active' : ''}
-                    >
-                        <DropdownContainer
-                            disabled={
-                                !selectedFloor ||
-                                hierarchy > HIERARCHY_IDS.FLOOR
-                            }
-                            placeholder="All Drawings"
-                            name="drawingID"
-                            options={drawingOptions}
-                            value={selectedDrawing}
-                            selectedOption={selectedDrawing}
-                            handleChange={handleChange}
-                        />
-                    </Field>
+                    {!selectedSite || hierarchy > HIERARCHY_IDS.SITE ? (
+                        ''
+                    ) : (
+                        <Field
+                            name="Buildings"
+                            classes={selectedSite ? 'active' : ''}
+                        >
+                            <DropdownContainer
+                                placeholder="All Buildings"
+                                name="buildingID"
+                                options={buildingOptions}
+                                value={selectedBuilding}
+                                selectedOption={selectedBuilding}
+                                handleChange={handleChange}
+                            />
+                        </Field>
+                    )}
+                    {!selectedBuilding || hierarchy > HIERARCHY_IDS.BUILDING ? (
+                        ''
+                    ) : (
+                        <Field
+                            name="Floors"
+                            classes={selectedBuilding ? 'active' : ''}
+                        >
+                            <DropdownContainer
+                                placeholder="All Floors"
+                                name="floorID"
+                                options={floorOptions}
+                                value={selectedFloor}
+                                selectedOption={selectedFloor}
+                                handleChange={handleChange}
+                            />
+                        </Field>
+                    )}
+                    {!selectedFloor || hierarchy > HIERARCHY_IDS.FLOOR ? (
+                        ''
+                    ) : (
+                        <Field
+                            name="Drawings"
+                            classes={selectedFloor ? 'active' : ''}
+                        >
+                            <DropdownContainer
+                                placeholder="All Drawings"
+                                name="drawingID"
+                                options={drawingOptions}
+                                value={selectedDrawing}
+                                selectedOption={selectedDrawing}
+                                handleChange={handleChange}
+                            />
+                        </Field>
+                    )}
                 </>
             )}
         </div>

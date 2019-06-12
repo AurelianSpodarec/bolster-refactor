@@ -20,6 +20,7 @@ const BuyCreditsModal = ({
     cards,
     credits,
     selectedCard,
+    handleCreditsChange,
     costWithVAT,
     costWithoutVAT,
     noCards
@@ -76,7 +77,7 @@ const BuyCreditsModal = ({
                 <TextInputContainer
                     name="creditsToBuy"
                     value={creditsToBuy}
-                    handleChange={handleChange}
+                    handleChange={handleCreditsChange}
                     placeholder="Number of credits..."
                     required
                     type="number"

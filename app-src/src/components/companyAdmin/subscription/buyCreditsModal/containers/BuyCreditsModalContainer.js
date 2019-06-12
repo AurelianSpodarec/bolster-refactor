@@ -58,6 +58,7 @@ class BuyCreditsModalContainer extends Component {
                     e.preventDefault();
                     hideModal();
                 }}
+                handleCreditsChange={this.handleCreditsChange}
             />
         );
     };
@@ -105,6 +106,12 @@ class BuyCreditsModalContainer extends Component {
     };
 
     handleChange = (name, value) => this.setState({ [name]: value });
+
+    handleCreditsChange = (name, value) => {
+        let num = value;
+        if (Number(value) <= 0) num = 0;
+        this.setState({ [name]: num });
+    };
 
     handleSubmit = e => {
         e.preventDefault();
