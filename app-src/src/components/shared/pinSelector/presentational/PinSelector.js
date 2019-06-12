@@ -36,7 +36,6 @@ const PinSelector = ({
                     clicking={clicking}
                 />
             </div>
-            {/* ##needs css## */}
             <div className="pin-selection-buttons">
                 <ButtonContainer
                     className="exclude icon-only"
