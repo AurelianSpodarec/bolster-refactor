@@ -2053,7 +2053,14 @@ input {
         &.email-field {
             word-break: break-all;
         }
+        .text-link {
+            text-decoration: none;
+            color: $body-text;
 
+            &:hover {
+                text-decoration: underline;
+            }
+        }
         .link {
             color: $red;
             text-decoration: underline;
