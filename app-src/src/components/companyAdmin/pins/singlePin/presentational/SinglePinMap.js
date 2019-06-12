@@ -3,6 +3,8 @@ import { Map, Marker, TileLayer } from 'react-leaflet';
 
 import MapPin from 'components/shared/pins/map/presentational/MapPin';
 import { FILE_STORAGE_URL } from 'config';
+import { Link } from 'react-router-dom';
+
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
@@ -17,25 +19,16 @@ const SinglePinMap = ({
     toggleMoveMode,
     editPinLocationPosition,
     handleEditPinLocation,
-    pinHistory,
-    historyVersion,
-    historyCount,
-    handleEditHistoryModal
+    pinHistory
 }) => (
     <>
         <BlockHeading title={`Pin ${pin.pinCode}`}>
-            <h4 className="small-text">
-                (History {historyVersion} of {historyCount}{' '}
-                {historyVersion === historyCount
-                    ? ' - Latest'
-                    : +historyVersion === 1
-                    ? ' - Earliest'
-                    : ''}
-                )
-            </h4>
-            <button className="button yellow" onClick={handleEditHistoryModal}>
-                <i className="far fa-pencil" /> Edit history
-            </button>
+            <Link
+                className="button green"
+                to={`/company/pins/${pin.id}/add-history`}
+            >
+                <i className="fa fa-plus" /> Add Pin History
+            </Link>
             {moveMode ? (
                 <>
                     <button
