@@ -20,7 +20,19 @@ class BuyCreditsModalContainer extends Component {
     };
 
     render = () => {
-        const { cards, hideModal, costOfCredits } = this.props;
+        const {
+            cards,
+            hideModal,
+            costOfCredits,
+            vatCostOfCredits,
+            credits
+        } = this.props;
+        const { creditsToBuy } = this.state;
+
+        const costWithoutVAT = costOfCredits * creditsToBuy;
+        const costOfVAT = vatCostOfCredits * creditsToBuy;
+        const costWithVAT = costWithoutVAT + costOfVAT;
+
         const cardOptions = cards.map(card => ({
             text: `${card.nickname || card.name} - ${card.lastFour}`,
             value: card.id
@@ -35,6 +47,9 @@ class BuyCreditsModalContainer extends Component {
                 {...this.state}
                 handleChange={this.handleChange}
                 handleSubmit={this.handleSubmit}
+                costWithVAT={costWithVAT}
+                costWithoutVAT={costWithoutVAT}
+                credits={credits}
                 cards={cardOptions}
                 noCards={!cards.length}
                 costOfCredits={costOfCredits}
@@ -43,6 +58,7 @@ class BuyCreditsModalContainer extends Component {
                     e.preventDefault();
                     hideModal();
                 }}
+                handleCreditsChange={this.handleCreditsChange}
             />
         );
     };
@@ -91,6 +107,12 @@ class BuyCreditsModalContainer extends Component {
 
     handleChange = (name, value) => this.setState({ [name]: value });
 
+    handleCreditsChange = (name, value) => {
+        let num = value;
+        if (Number(value) <= 0) num = 0;
+        this.setState({ [name]: num });
+    };
+
     handleSubmit = e => {
         e.preventDefault();
         const { paymentType, creditsToBuy: credits, stripeCardID } = this.state;
@@ -109,12 +131,23 @@ class BuyCreditsModalContainer extends Component {
 
 const mapStateToProps = ({
     companyAdmin: {
-        creditsReducer: { postSuccess, postError, costOfCredits },
+        creditsReducer: {
+            postSuccess,
+            postError,
+            costOfCredits,
+            vatCostOfCredits,
+            credits
+        },
         cardsReducer: { cards, isFetching }
     }
 }) => ({
     cards: Object.values(cards || {}),
+    credits: Object.values(credits).reduce(
+        (total, log) => total + log.quantity,
+        0
+    ),
     costOfCredits,
+    vatCostOfCredits,
     postSuccess,
     postError,
     isFetching

@@ -205,12 +205,16 @@ export const GENERATION_STATE_VAL = {
 
 export const SORT_BY_OPTIONS = {
     CREATED_ON_ASC: 1,
-    CREATED_ON_DESC: 2
+    CREATED_ON_DESC: 2,
+    PIN_NO_ASC: 3,
+    PIN_NO_DESC: 4
 };
 
 export const SORT_BY_OPTIONS_TEXT = {
-    1: 'Created on (ascending)',
-    2: 'Created on (descending)'
+    1: 'Date Created (ascending)',
+    2: 'Date Created (descending)',
+    3: 'Pin Number (ascending)',
+    4: 'Pin Number (descending)'
 };
 
 export const LAYOUT_OPTIONS = {

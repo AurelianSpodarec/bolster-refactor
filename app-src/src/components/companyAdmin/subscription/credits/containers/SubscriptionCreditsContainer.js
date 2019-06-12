@@ -17,33 +17,41 @@ class SubscriptionCreditsContainer extends Component {
             isFetching,
             totalCredits,
             showModal,
-            costOfCredits
+            costOfCredits,
+            vatCostOfCredits
         } = this.props;
+        const costWithoutVAT = creditsToBuy * costOfCredits;
+        const costOfVAT = creditsToBuy * vatCostOfCredits;
+        const costWithVAT = costWithoutVAT + costOfVAT;
         return (
             <BlockContainer isFetching={isFetching}>
                 <SubscriptionCredits
                     creditsToBuy={creditsToBuy}
                     costOfCredits={costOfCredits}
-                    handleInputChange={this.handleInputChange}
+                    costWithoutVAT={costWithoutVAT}
+                    costWithVAT={costWithVAT}
                     totalCredits={totalCredits}
                     showModal={e => {
                         e.preventDefault();
                         showModal(BUY_CREDITS, { creditsToBuy });
                         this.setState({ creditsToBuy: '' });
                     }}
+                    handleCreditsChange={this.handleCreditsChange}
                 />
             </BlockContainer>
         );
     };
 
-    handleInputChange = (name, value) => {
-        this.setState({ [name]: value });
+    handleCreditsChange = (name, value) => {
+        let num = value;
+        if (Number(value) <= 0) num = 0;
+        this.setState({ [name]: num });
     };
 }
 
 const mapStateToProps = ({
     companyAdmin: {
-        creditsReducer: { credits, isFetching, costOfCredits }
+        creditsReducer: { credits, isFetching, costOfCredits, vatCostOfCredits }
     }
 }) => ({
     totalCredits: Object.values(credits).reduce(
@@ -51,12 +59,11 @@ const mapStateToProps = ({
         0
     ),
     isFetching,
-    costOfCredits
+    costOfCredits,
+    vatCostOfCredits
 });
 
-const mapDispatchToProps = dispatch => ({
-    showModal: (type, props) => dispatch(showModal(type, props))
-});
+const mapDispatchToProps = { showModal };
 
 export default connect(
     mapStateToProps,

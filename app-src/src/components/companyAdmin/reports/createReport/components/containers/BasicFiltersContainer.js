@@ -23,6 +23,7 @@ class BasicFiltersContainer extends Component {
 
     render() {
         const {
+            isDrawingPage,
             fieldErrors,
             fieldError,
             formatArrForDropdown,
@@ -44,6 +45,7 @@ class BasicFiltersContainer extends Component {
 
         return (
             <BasicFilters
+                isDrawingPage={isDrawingPage}
                 dateError={fieldErrors['fromDateInclusive']}
                 handleChange={this.handleChange}
                 handleDateChange={this.handleDateChange}
@@ -111,7 +113,7 @@ class BasicFiltersContainer extends Component {
                 handleChange(name, value).then(postFilters);
             };
             const message =
-                'Changing this will reset your further filtration options, continue?';
+                'Changing this will reset your advanced filters options, continue?';
             showModal(CONFIRM_SUBMIT, { handleSubmit, message, hideModal });
         } else {
             handleChange(name, value).then(postFilters);

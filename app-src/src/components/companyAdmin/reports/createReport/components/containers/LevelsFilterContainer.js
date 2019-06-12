@@ -87,7 +87,7 @@ class LevelsFilterContainer extends Component {
                 return update(value).then(postFilters);
             };
             const message =
-                'Changing this will reset your further filtration options, continue?';
+                'Changing this will reset your advanced filters options, continue?';
             // * confirm and then do this:
             showModal(CONFIRM_SUBMIT, { handleSubmit, message, hideModal });
         } else {
