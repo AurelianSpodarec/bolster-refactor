@@ -48,7 +48,7 @@ const SinglePinMap = ({
                         className="button red pull-right"
                         onClick={toggleMoveMode}
                     >
-                        Stop
+                        Cancel
                     </button>
                 </>
             ) : (
