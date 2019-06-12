@@ -139,7 +139,13 @@ class AddPinFormContainer extends Component {
     };
 
     _getTemplates = templates => {
-        const templateOptions = templates.map(({ id, name }) => ({
+        const { serviceIDs } = this.props;
+
+        // only show template if they have an active subscription
+        const filteredTemplates = templates.filter(({ serviceID }) =>
+            serviceIDs.includes(serviceID)
+        );
+        const templateOptions = filteredTemplates.map(({ id, name }) => ({
             value: id,
             label: name,
             text: name
@@ -201,7 +207,10 @@ const mapStateToProps = ({
         templatesReducer: { templates, isFetching, error },
         addPinFormReducer: { answers, status },
         addPinCoordinatesReducer: { coordinates },
-        pinsReducer: { postSuccess }
+        pinsReducer: { postSuccess },
+        subscriptionsReducer: {
+            subscriptions: { serviceIDs }
+        }
     },
     shared: {
         filesUploadingReducer: { filesUploading },
@@ -216,7 +225,8 @@ const mapStateToProps = ({
     postSuccess,
     filesUploading,
     confirmLeave,
-    status
+    status,
+    serviceIDs
 });
 
 const mapDispatchToProps = dispatch => ({

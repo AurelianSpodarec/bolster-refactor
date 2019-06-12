@@ -26,7 +26,6 @@ const CompanyReportsListItem = ({ queueItem }) => (
 
             {queueItem.isPDFGeneration && 'PDF'}
         </td>
-        <td>{!!queueItem.stateMessage && queueItem.stateMessage}</td>
         <td>{GENERATION_STATE_TEXT[queueItem.state]}</td>
         <td>
             <DateTimeContainer date={queueItem.createdOn} />

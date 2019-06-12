@@ -1815,6 +1815,31 @@ input {
                 }
             }
         }
+
+        //custom hover
+        &.custom-hover {
+            background-color: #212228;
+            transition: background-color 0.25s ease-in-out;
+            color: white;
+
+            > a {
+                background-color: transparent;
+                color: inherit;
+
+                .icon {
+                    color: inherit;
+                }
+            }
+
+            &:hover,
+            &.active {
+                background-color: #62636a;
+
+                > a {
+                    background-color: transparent;
+                }
+            }
+        }
     }
 
     .sub-header {
@@ -2271,6 +2296,11 @@ input {
         }
         .pin-key {
             margin-bottom: 0;
+        }
+    }
+    &.drawing-stats {
+        .pin-key {
+            margin-bottom: 25px;
         }
     }
     &.dashbaord {
@@ -3142,7 +3172,7 @@ input {
     float: left;
     width: calc(100% + 30px);
     margin-left: -15px;
-    max-height: 160px;
+    max-height: 300px;
     overflow: auto;
 
     .generic-table {
@@ -3275,9 +3305,22 @@ input {
 
     .flex-row-item {
         float: none;
+
         .content-area {
             min-height: calc(100% - 10px);
         }
+    }
+}
+
+.flex-tooltip-images {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: center;
+    .tooltip-item {
+        width: 33%;
+        height: auto;
+        padding: 0 5px;
     }
 }
 
