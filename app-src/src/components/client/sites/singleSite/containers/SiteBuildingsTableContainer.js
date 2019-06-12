@@ -8,8 +8,10 @@ import BlockHeading from 'components/shared/generic/blockHeading/presentational/
 
 const SiteBuildingsTableContainer = ({ site }) => (
     <BlockContainer>
-        <BlockHeading title="Buildings" classes="w-table" />
-        <BuildingsTableContainer ids={site.buildingIDs || []} />
+        <div className="size-lg-12">
+            <BlockHeading title="Buildings" classes="w-table" />
+            <BuildingsTableContainer ids={site.buildingIDs || []} />
+        </div>
     </BlockContainer>
 );
 

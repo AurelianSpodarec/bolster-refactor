@@ -90,7 +90,7 @@ body {
         .generic-table {
             min-height: 165px;
             tbody {
-                display: table-header-group;
+                display: table-footer-group;
             }
         }
 
@@ -678,14 +678,17 @@ input {
             top: 100%;
             right: 0;
             width: 335px;
-            background-color: #f4f3f3;
+            border: 1px solid $background-grey;
+            border-top: 0;
+            box-shadow: $box-shadow;
+            background-color: white;
             @include dropdown-popup();
 
             .item {
                 float: left;
                 width: 100%;
                 padding: 15px;
-                border-bottom: 1px solid #a6a6a6;
+                border-bottom: 1px solid $background-grey;
 
                 &:last-child {
                     border-bottom: none;
@@ -695,7 +698,7 @@ input {
             p {
                 float: left;
                 width: calc(100% - 75px);
-                color: #939393;
+                color: $body-text;
                 font-size: 120%;
             }
 
@@ -999,6 +1002,9 @@ input {
 
         &.active {
             opacity: 1;
+        }
+        &.inActive {
+            background: $green;
         }
         &:first-child {
             border-radius: 0 5px 5px 0;
@@ -2142,6 +2148,10 @@ input {
         width: 27%;
         margin-top: 2px;
 
+        &.auto {
+            width: auto;
+            margin-left: 10px;
+        }
         p {
             float: right;
             padding-right: 10px;
@@ -2152,6 +2162,30 @@ input {
         .custom-dropdown {
             float: right;
             width: 42%;
+        }
+        .multi-multi-dropdown {
+            float: right;
+            width: 250px;
+            p {
+                line-height: 14px;
+            }
+            .option-selection {
+                .option {
+                    width: 100%;
+                }
+            }
+            .selected-box {
+                min-height: 0;
+
+                .placeholder {
+                    line-height: 25px;
+
+                    padding: {
+                        top: 0;
+                        bottom: 0;
+                    }
+                }
+            }
         }
     }
 }
@@ -2218,6 +2252,14 @@ input {
 }
 
 .stats {
+    &.client-stats {
+        .history {
+            margin-top: 20px;
+        }
+        .pin-key {
+            margin-bottom: 0;
+        }
+    }
     p {
         font-size: 140%;
         line-height: 1.5;
@@ -3920,7 +3962,7 @@ input {
 
 //company logo
 .company-logo {
-    border: 1px solid $grey-alt;
+    // border: 1px solid $grey-alt;
     padding: 5px;
     margin-top: 10px;
     display: flex;

@@ -9,6 +9,7 @@ import {
     GENERATION_STATE_VAL,
     REPORT_FORMATS
 } from 'constants/companyAdmin/enums';
+import LoadingIcon from 'components/shared/generic/misc/presentational/LoadingIcon';
 
 const CompanyReportsListItem = ({ queueItem }) => (
     <tr>
@@ -30,7 +31,10 @@ const CompanyReportsListItem = ({ queueItem }) => (
                     <i className="fa fa-download" /> Download File
                 </a>
             ) : (
-                <button className="button disabled">Generating...</button>
+                <button className="button disabled">
+                    <LoadingIcon />
+                    Generating...
+                </button>
             )}
         </td>
     </tr>

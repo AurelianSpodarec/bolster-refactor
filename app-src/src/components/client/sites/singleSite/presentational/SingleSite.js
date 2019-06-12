@@ -9,10 +9,11 @@ const SingleSite = () => (
         <div className="size-lg-12">
             <SitePageHeaderContainer />
         </div>
-        <div className="size-lg-12">
+
+        <div className="size-lg-4">
             <SiteDetailsContainer />
         </div>
-        <div className="size-lg-12">
+        <div className="size-lg-8">
             <SiteBuildingsTableContainer />
         </div>
     </>

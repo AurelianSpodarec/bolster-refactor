@@ -9,6 +9,8 @@ import BlockContainer from 'components/shared/generic/block/containers/BlockCont
 import fetchSingleDrawing from 'actions/companyAdmin/drawings/async/fetchSingleDrawing';
 import editPinLocation from 'actions/companyAdmin/pins/async/editPinLocation';
 import updatePinCoordinates from 'actions/companyAdmin/drawings/sync/updatePinCoordinates';
+import { CONFIRM_EDIT_PIN } from 'constants/shared/modalTypes';
+import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 
 class SinglePinMapContainer extends Component {
     state = {
@@ -56,6 +58,7 @@ class SinglePinMapContainer extends Component {
                     pinHistory={selectedHistory}
                     historyVersion={historyVersion}
                     historyCount={histories.length}
+                    handleEditHistoryModal={this.handleEditHistoryModal}
                 />
             </BlockContainer>
         );
@@ -84,6 +87,14 @@ class SinglePinMapContainer extends Component {
         this.setState({
             moveMode: !this.state.moveMode
         });
+    };
+
+    handleEditHistoryModal = () => {
+        const { showModal, selectedHistory } = this.props;
+        const editURL = `/company/pins/${selectedHistory.pinID}/edit-history/${
+            selectedHistory.id
+        }`;
+        showModal(CONFIRM_EDIT_PIN, { editURL });
     };
 
     handleMapClick = ({ latlng: { lat, lng } }) => {
@@ -154,7 +165,8 @@ const mapDispatchToProps = dispatch => ({
     updatePinCoordinates: (name, value) => {
         dispatch(updatePinCoordinates(name, value));
     },
-    fetchDrawing: drawingID => dispatch(fetchSingleDrawing(drawingID))
+    fetchDrawing: drawingID => dispatch(fetchSingleDrawing(drawingID)),
+    showModal: (type, props) => dispatch(showModal(type, props))
 });
 
 export default withRouter(

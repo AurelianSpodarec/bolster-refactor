@@ -20,17 +20,8 @@ const ApprovedCompaniesFilters = ({
                 placeholder="Search by company name or code..."
                 handleChange={handleChange}
             />
-            <div className="size-lg-12">
-                <MultiSelect
-                    name="serviceIDs"
-                    options={serviceOptions}
-                    value={serviceIDs}
-                    onChange={handleChange}
-                    placeholder="-- filter by services --"
-                />
-            </div>
-            <div className="size-lg-12">
-                <p>Sort A-Z:</p>
+
+            <div className="table-filter auto">
                 <Select
                     name="sort"
                     options={sortOptions}
@@ -38,6 +29,17 @@ const ApprovedCompaniesFilters = ({
                     onChange={handleSortChange}
                     omitPlaceholder
                 />
+                <p>Sort A-Z:</p>
+            </div>
+            <div className="table-filter auto">
+                <MultiSelect
+                    name="serviceIDs"
+                    options={serviceOptions}
+                    value={serviceIDs}
+                    onChange={handleChange}
+                    placeholder="-- filter by services --"
+                />
+                <p>Filter by service:</p>
             </div>
         </form>
     </>

@@ -4,9 +4,13 @@ import PieChart from 'components/shared/stats/presentational/PieChart';
 import FloorDetails from './FloorDetails';
 
 const FloorStats = ({ floor, stats }) => (
-    <div className="stats size-lg-12">
+    <div className="stats client-stats size-lg-12">
         <FloorDetails stats={stats} floor={floor} />
-        <PieChart stats={stats} hierarchyType="floor" />
+        <PieChart
+            stats={stats}
+            hierarchyType="floor"
+            sizeClasses="size-lg-12"
+        />
     </div>
 );
 

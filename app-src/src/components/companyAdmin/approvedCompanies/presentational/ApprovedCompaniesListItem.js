@@ -11,9 +11,10 @@ const ApprovedCompaniesListItem = ({
         postcode,
         code,
         telephone,
-        colourCode,
+        // colourCode,
         logoFile
-    }
+    },
+    serviceNames
 }) => {
     return (
         <div>
@@ -42,6 +43,10 @@ const ApprovedCompaniesListItem = ({
                     Code
                 </BlockHeading>
                 <p>{code}</p>
+                <BlockHeading classes="heading heading-3 half-margin">
+                    Services
+                </BlockHeading>
+                <p>{serviceNames || '-'}</p>
             </div>
 
             <div className={`size-lg-6 ${logoFile ? 'company-logo' : ''}`}>

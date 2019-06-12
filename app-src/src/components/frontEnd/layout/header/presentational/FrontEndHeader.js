@@ -7,7 +7,12 @@ import FrontEndButton from 'components/frontEnd/shared/buttons/presentational/Fr
 const bolsterLogo =
     'https://app.bolstersystems.com/_Content/images/original/logo.png';
 
-const FrontEndHeader = () => (
+const FrontEndHeader = ({
+    isSuperAdmin,
+    isCompanyAdmin,
+    isClientAccess,
+    logout
+}) => (
     <header className="frontend-header size-lg-12">
         <div className="container">
             <div className="top">
@@ -26,40 +31,72 @@ const FrontEndHeader = () => (
                 </div>
                 <div className="right">
                     <div className="links">
+                        {isSuperAdmin || isCompanyAdmin ? (
+                            <FrontEndButton to="/Company">
+                                Dashboard
+                            </FrontEndButton>
+                        ) : (
+                            ''
+                        )}
+                        {isClientAccess && (
+                            <FrontEndButton to="/Client" classes="black">
+                                Dashboard
+                            </FrontEndButton>
+                        )}
+                        {isSuperAdmin || isClientAccess || isCompanyAdmin ? (
+                            <FrontEndButton to="#" handleClick={logout}>
+                                Logout
+                            </FrontEndButton>
+                        ) : (
+                            <FrontEndButton
+                                classes="desktop-ver"
+                                to="/auth/Login"
+                            >
+                                Client login
+                            </FrontEndButton>
+                        )}
                         <FrontEndButton classes="desktop-ver" to="/auth/Login">
                             Client Login
                         </FrontEndButton>
-                        <FrontEndButton classes="black" to="/auth/register">
+                        <FrontEndButton
+                            classes="black desktop-ver"
+                            to="/auth/register"
+                        >
                             Register
                         </FrontEndButton>
-
-                        <a
-                            className="app-btn"
-                            href="https://itunes.apple.com/gb/app/bolster-app/id1090118561?mt=8"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            <img
-                                alt="available on the apple store"
-                                src={appleStoreButton}
-                            />
-                        </a>
-                        <a
-                            className="google-btn"
-                            href="https://play.google.com/store/apps/details?id=com.bolster.app"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            <img
-                                alt="available on the google play store"
-                                src={googleButton}
-                            />
-                        </a>
+                        {isSuperAdmin || isClientAccess || isCompanyAdmin ? (
+                            ''
+                        ) : (
+                            <>
+                                <a
+                                    className="app-btn"
+                                    href="https://itunes.apple.com/gb/app/bolster-app/id1090118561?mt=8"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                    <img
+                                        alt="available on the apple store"
+                                        src={appleStoreButton}
+                                    />
+                                </a>
+                                <a
+                                    className="google-btn"
+                                    href="https://play.google.com/store/apps/details?id=com.bolster.app"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                    <img
+                                        alt="available on the google play store"
+                                        src={googleButton}
+                                    />
+                                </a>
+                                <p className="phone-number">
+                                    Tel:
+                                    <a href="tel:01618737679">0161 873 7679</a>
+                                </p>
+                            </>
+                        )}
                     </div>
-
-                    <p className="phone-number">
-                        Tel: <a href="tel:01618737679">0161 873 7679</a>
-                    </p>
                 </div>
             </div>
         </div>

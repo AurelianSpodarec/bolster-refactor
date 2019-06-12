@@ -33,7 +33,7 @@ const Routes = () => (
             path="/client"
             component={withAuth(ClientAppContainer, CLIENT)}
         />
-        <Route path="/" component={withAuth(FrontEndAppContainer)} />
+        <Route path="/" component={FrontEndAppContainer} />
     </SwitchWith404>
 );
 

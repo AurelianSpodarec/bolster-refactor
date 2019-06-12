@@ -60,9 +60,6 @@ const PinDetails = ({
             <button className="button red" onClick={handleDelete}>
                 <i className="icon fa fa-trash-alt" /> Delete history
             </button>
-            <button className="button yellow" onClick={handleEdit}>
-                <i className="far fa-pencil" /> Edit history
-            </button>
         </BlockButtonWrapper>
     </>
 );
