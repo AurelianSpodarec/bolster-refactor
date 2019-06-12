@@ -24,7 +24,7 @@ class CreateOperativeAlertContainer extends Component {
         const { postSuccess, history } = this.props;
 
         if (postSuccess && !prevProps.postSuccess) {
-            history.push('/company/tools/operative-alerts');
+            history.push('/company/message-centre');
         }
     };
 
