@@ -25,11 +25,20 @@ class DrawingMapGeneralContainer extends Component {
         mapZoom: 3,
         addMode: false,
         addPinLat: 51.505,
-        addPinLng: -0.09
+        addPinLng: -0.09,
+        centerLat: 51.505,
+        centerLng: -0.09
     };
 
     render() {
-        const { mapZoom, addMode, addPinLat, addPinLng } = this.state;
+        const {
+            mapZoom,
+            addMode,
+            addPinLat,
+            addPinLng,
+            centerLat,
+            centerLng
+        } = this.state;
         const {
             filters: {
                 serviceID,
@@ -43,7 +52,7 @@ class DrawingMapGeneralContainer extends Component {
             pins,
             drawing
         } = this.props;
-        const position = [addPinLat, addPinLng];
+        const position = [centerLat, centerLng];
         const addPinPosition = [addPinLat, addPinLng];
 
         const serviceOptions = this._getServicesOptions();
