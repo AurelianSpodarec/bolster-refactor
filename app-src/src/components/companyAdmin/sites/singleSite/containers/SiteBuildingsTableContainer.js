@@ -5,15 +5,12 @@ import { withRouter } from 'react-router-dom';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 
-import {
-    ADD_BUILDING,
-    SUCCESS_MODAL,
-    ERROR_MODAL
-} from 'constants/shared/modalTypes';
+import { ADD_BUILDING, ERROR_MODAL } from 'constants/shared/modalTypes';
 
 import BuildingsTableContainer from 'components/companyAdmin/buildings/shared/containers/BuildingsTableContainer';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
+import updateHierarchyAddState from 'actions/companyAdmin/hierarchy/sync/updateHierarchyAddState';
 
 class SiteBuildingsTableContainer extends Component {
     render() {
@@ -33,22 +30,26 @@ class SiteBuildingsTableContainer extends Component {
         );
     }
 
+    componentDidMount = () => {
+        const { showModal, siteID, isAdding } = this.props;
+
+        if (isAdding) showModal(ADD_BUILDING, { siteID });
+    };
+
     componentDidUpdate = prevProps => {
         const {
             postSuccess,
             showModal,
             error,
             hideModal,
-            updatedBuildingID
+            updatedBuildingID,
+            history,
+            updateHierarchyAddState
         } = this.props;
 
         if (postSuccess && !prevProps.postSuccess) {
-            showModal(SUCCESS_MODAL, {
-                hideModal,
-                message: 'Building added successfully.',
-                link: `/company/buildings/${updatedBuildingID}`,
-                linkMessage: 'View'
-            });
+            history.push(`/company/buildings/${updatedBuildingID}`);
+            updateHierarchyAddState(true);
         }
 
         if (error && !prevProps.error) {
@@ -59,6 +60,7 @@ class SiteBuildingsTableContainer extends Component {
                     error.message ||
                     '##There was an error processing your request, please try again later.##'
             });
+            updateHierarchyAddState(false);
         }
     };
 
@@ -72,7 +74,8 @@ const mapStateToProps = (
     {
         companyAdmin: {
             sitesReducer,
-            buildingsReducer: { postSuccess, updatedBuildingID, error }
+            buildingsReducer: { postSuccess, updatedBuildingID, error },
+            hierarchyReducer: { isAdding }
         }
     },
     { match }
@@ -82,7 +85,8 @@ const mapStateToProps = (
     updatedBuildingID,
     site: sitesReducer.sites[match.params.id] || {},
     isFetching: sitesReducer.isFetching,
-    siteID: match.params.id
+    siteID: match.params.id,
+    isAdding
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -91,6 +95,9 @@ const mapDispatchToProps = dispatch => ({
     },
     hideModal: () => {
         dispatch(hideModal());
+    },
+    updateHierarchyAddState: value => {
+        dispatch(updateHierarchyAddState(value));
     }
 });
 
