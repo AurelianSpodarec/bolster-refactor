@@ -2,14 +2,16 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import DashboardStats from '../presentational/DashboardStats';
-// import fetchPins from 'actions/companyAdmin/pins/async/fetchPins';
+import fetchPinStats from 'actions/companyAdmin/dashboard/async/fetchPinStats';
 
 class DashboardStatsContainer extends Component {
+    state = {
+        labels: [],
+        datasets: []
+    };
+
     render = () => (
-        <DashboardStats
-            data={this._getChartData()}
-            options={this._getChartOptions()}
-        />
+        <DashboardStats data={this.state} options={this._getChartOptions()} />
     );
 
     _getChartOptions() {
@@ -27,37 +29,16 @@ class DashboardStatsContainer extends Component {
         // data needed on pins - pin type/colour, time, pin service ID
         // pin colour key
         // fill empty with a grey stack?
-        const labels = [
-            '00:00',
-            '02:00',
-            '04:00',
-            '06:00',
-            '08:00',
-            '10:00',
-            '12:00',
-            '14:00',
-            '16:00',
-            '18:00',
-            '20:00',
-            '22:00'
-        ];
+        const { datasets, labels } = this.props;
 
-        const datasets = [
+        const myDataSets = [
             {
                 label: 'Action required',
                 borderColor: 'black',
                 backgroundColor: 'red',
                 stack: 'pins',
                 borderWidth: 1,
-                data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
-            },
-            {
-                label: 'Installed',
-                borderColor: 'black',
-                backgroundColor: 'green',
-                stack: 'pins',
-                borderWidth: 1,
-                data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+                data: datasets.ActionRequired
             },
             {
                 label: 'Inspected',
@@ -65,7 +46,15 @@ class DashboardStatsContainer extends Component {
                 backgroundColor: 'blue',
                 stack: 'pins',
                 borderWidth: 1,
-                data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+                data: datasets.Inspected
+            },
+            {
+                label: 'Installed',
+                borderColor: 'black',
+                backgroundColor: 'green',
+                stack: 'pins',
+                borderWidth: 1,
+                data: datasets.Installed
             },
             {
                 label: 'No action required',
@@ -73,7 +62,7 @@ class DashboardStatsContainer extends Component {
                 backgroundColor: 'yellow',
                 stack: 'pins',
                 borderWidth: 1,
-                data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+                data: datasets.NoAction
             },
             {
                 label: 'Other',
@@ -81,9 +70,10 @@ class DashboardStatsContainer extends Component {
                 backgroundColor: 'purple',
                 stack: 'pins',
                 borderWidth: 1,
-                data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+                data: datasets.Other
             }
         ];
+
         // const columnHeights = datasets.reduce(
         //     (acc, { data }) => acc.map((num, i) => num + data[i]),
         //     Array(12).fill(0)
@@ -96,22 +86,44 @@ class DashboardStatsContainer extends Component {
         //     data: columnHeights.map(col => max - col)
         // };
         return {
-            labels,
-            datasets: [...datasets]
+            labels: labels,
+            datasets: [...myDataSets]
         };
     }
 
-    componentDidMount() {}
+    componentDidMount = () => this.props.fetchPinStats();
+
+    componentDidUpdate = prevProps => {
+        const { datasets } = this.props;
+        if (
+            Object.values(datasets).length >
+            Object.values(prevProps.datasets).length
+        ) {
+            this.setState(this._getChartData());
+        }
+    };
 }
+
+const mapDispatchToProps = dispatch => ({
+    fetchPinStats: () => dispatch(fetchPinStats())
+});
 
 const mapStateToProps = ({
     companyAdmin: {
-        pinsReducer: { pins, isFetching, error }
+        dashboardReducer: {
+            dashPinsStats: { datasets, labels },
+            isFetchingDashPinsStats,
+            error
+        }
     }
 }) => ({
-    pins: Object.values(pins),
-    isFetching,
-    error
+    datasets: datasets || {},
+    labels: labels || {},
+    isFetching: isFetchingDashPinsStats,
+    error: error
 });
 
-export default connect(mapStateToProps)(DashboardStatsContainer);
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(DashboardStatsContainer);
