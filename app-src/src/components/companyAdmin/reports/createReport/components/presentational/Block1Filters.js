@@ -35,22 +35,4 @@ const Block1Filters = ({ fieldError, advanced, isFetching }) => (
     </div>
 );
 
-                    <OperativesFilterContainer advanced={advanced} isblock1 />
-
-                    {!!fieldError && (
-                        <div
-                            className="form-field size-lg-12"
-                            style={{ minHeight: 0 }}
-                        >
-                            <p className="error red-text text-accent-4">
-                                {fieldError}
-                            </p>
-                        </div>
-                    )}
-                </div>
-            </BlockContainer>
-        </div>
-    );
-};
-
 export default Block1Filters;
