@@ -88,7 +88,7 @@ const DrawingMapPin = ({
                             Latest Service: {service.name} <br />{' '}
                         </>
                     )}
-                    <p>pin photos</p>
+                    {/* <p>pin photos</p> */}
                 </Tooltip>
             )}
         </Marker>
