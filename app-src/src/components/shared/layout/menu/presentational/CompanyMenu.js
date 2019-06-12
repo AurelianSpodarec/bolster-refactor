@@ -41,19 +41,6 @@ const CompanyMenu = ({
                 <span className="menu-text"> Sites</span>
             </MenuItemContainer>
 
-            <DropdownMenuItemContainer
-                icon="users"
-                title={'User Management'}
-                baseUrl="/company/users-management"
-            >
-                <MenuItemContainer link="/company/users-management/company-admins">
-                    Company Admins
-                </MenuItemContainer>
-                <MenuItemContainer link="/company/users-management/operatives">
-                    Operatives
-                </MenuItemContainer>
-            </DropdownMenuItemContainer>
-
             <DropdownMenuItems />
             <MenuItemContainer link="/company/tools/transfer-requests">
                 {!!totalRequests && (
@@ -63,6 +50,13 @@ const CompanyMenu = ({
                 <span className={`menu-text ${totalCredits ? 'large' : ''}`}>
                     Requests &amp; Invites
                 </span>
+            </MenuItemContainer>
+            <MenuHeader title="User Management" />
+            <MenuItemContainer link="/company/users-management/company-admins">
+                Company Admins
+            </MenuItemContainer>
+            <MenuItemContainer link="/company/users-management/operatives">
+                Operatives
             </MenuItemContainer>
             <MenuHeader title="Orders &amp; Subscriptions" />
             <MenuItemContainer link="/company/invoices">
@@ -114,10 +108,10 @@ const CompanyMenu = ({
                     Message Centre
                 </span>
             </MenuItemContainer>
-            <MenuItemContainer link="/company/tools/operative-alerts">
+            {/* OLD LINK <MenuItemContainer link="/company/tools/operative-alerts">
                 <i className="far fa-bells fa-fw icon" />
                 <span className="menu-text">Operative Alerts</span>
-            </MenuItemContainer>
+            </MenuItemContainer> */}
 
             <MenuItemContainer link="/company/tools/templates">
                 <i className="far fa-folders fa-fw icon" />

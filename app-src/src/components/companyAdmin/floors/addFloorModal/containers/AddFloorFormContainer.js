@@ -6,6 +6,7 @@ import createFloor from 'actions/companyAdmin/floors/async/createFloor';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 
 import AddFloorForm from '../presentational/AddFloorForm';
+import updateHierarchyAddState from 'actions/companyAdmin/hierarchy/sync/updateHierarchyAddState';
 
 class AddFloorFormContainer extends Component {
     state = {
@@ -19,6 +20,7 @@ class AddFloorFormContainer extends Component {
                 handleInputChange={this.handleInputChange}
                 handleSubmit={this.handleSubmit}
                 hideModal={this.props.hideModal}
+                handleClose={this.handleClose}
             />
         );
     }
@@ -38,6 +40,13 @@ class AddFloorFormContainer extends Component {
         });
         hideModal();
     };
+
+    handleClose = () => {
+        const { hideModal, updateHierarchyAddState } = this.props;
+
+        hideModal();
+        updateHierarchyAddState(false);
+    };
 }
 
 const mapDispatchToProps = dispatch => ({
@@ -46,6 +55,9 @@ const mapDispatchToProps = dispatch => ({
     },
     hideModal: () => {
         dispatch(hideModal());
+    },
+    updateHierarchyAddState: value => {
+        dispatch(updateHierarchyAddState(value));
     }
 });
 

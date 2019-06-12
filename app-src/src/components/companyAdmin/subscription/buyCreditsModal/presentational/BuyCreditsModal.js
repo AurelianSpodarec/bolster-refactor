@@ -18,12 +18,18 @@ const BuyCreditsModal = ({
     paymentType,
     creditsToBuy = 0,
     cards,
+    credits,
     selectedCard,
-    costOfCredits,
+    handleCreditsChange,
+    costWithVAT,
+    costWithoutVAT,
     noCards
 }) => (
     <ModalOuterContainer>
-        <BlockHeading title="Buy Credits" />
+        <BlockHeading
+            title="Buy Credits"
+            subTitle={`You have ${credits} credits available.`}
+        />
         <Form className="generic-form no-min-heights" onSubmit={handleSubmit}>
             <Field sizeClasses="size-lg-6">
                 <RadioButton
@@ -65,12 +71,13 @@ const BuyCreditsModal = ({
             )}
             <Field name="Credits to buy" sizeClasses="size-lg-12" required>
                 <p className="field-info">
-                    For every 10 credits you buy, you get one free!
+                    If you buy credits in blocks of 10 you will receive 1 free
+                    credit.
                 </p>
                 <TextInputContainer
                     name="creditsToBuy"
                     value={creditsToBuy}
-                    handleChange={handleChange}
+                    handleChange={handleCreditsChange}
                     placeholder="Number of credits..."
                     required
                     type="number"
@@ -84,8 +91,8 @@ const BuyCreditsModal = ({
             </Field>
             {creditsToBuy && (
                 <p className="generic-text total-text align-right size-lg-12">
-                    Total: £{formatNumber(costOfCredits * creditsToBuy)} (ex.
-                    VAT)
+                    Total: £{formatNumber(costWithoutVAT)} (£
+                    {formatNumber(costWithVAT)} inc. VAT)
                 </p>
             )}
             <BlockButtonWrapper>

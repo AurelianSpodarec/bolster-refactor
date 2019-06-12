@@ -1567,7 +1567,9 @@ input {
     img {
         max-width: 75px;
         margin: 0 5px;
-        border: 1px solid black;
+        &:not(.settings-logo) {
+            border: 1px solid black;
+        }
 
         &.signature {
             width: 25em;

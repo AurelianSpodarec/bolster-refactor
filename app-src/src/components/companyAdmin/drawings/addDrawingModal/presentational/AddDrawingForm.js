@@ -13,14 +13,14 @@ const AddDrawingForm = ({
     handleSubmit,
     handleInputChange,
     handleFileChange,
-    hideModal,
     filesUploading,
     name,
     file,
     templateUsageRules,
     selectedRule,
     credits,
-    handleBuyCreditsModal
+    handleBuyCreditsModal,
+    handleClose
 }) => (
     <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
         <div className="size-lg-12">
@@ -97,7 +97,7 @@ const AddDrawingForm = ({
                     </button>
                 </TooltipContainer>
             )}
-            <ButtonContainer handleClick={hideModal}>Cancel</ButtonContainer>
+            <ButtonContainer handleClick={handleClose}>Cancel</ButtonContainer>
         </BlockButtonWrapper>
     </Form>
 );

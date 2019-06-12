@@ -11,7 +11,7 @@ const CompanyReportsTableContainer = ({
 }) => {
     return (
         <CompanyReportsTable
-            headers={['Name', 'Type', 'Details', 'Status', 'Created On', '']}
+            headers={['Name', 'Type', 'Status', 'Created On', '']}
             isFetching={isFetching}
             error={error}
             companyReports={_getSortedQueue()}
