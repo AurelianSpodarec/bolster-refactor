@@ -11,7 +11,12 @@ class DashboardStatsContainer extends Component {
     };
 
     render = () => (
-        <DashboardStats data={this.state} options={this._getChartOptions()} />
+        <DashboardStats
+            data={this.state}
+            options={this._getChartOptions()}
+            isFetching={this.props.isFetching}
+            pieStats={this.props.dashAllPinsStats}
+        />
     );
 
     _getChartOptions() {
@@ -111,7 +116,8 @@ const mapDispatchToProps = dispatch => ({
 const mapStateToProps = ({
     companyAdmin: {
         dashboardReducer: {
-            dashPinsStats: { datasets, labels },
+            dashRecentPinsStats: { datasets, labels },
+            dashAllPinsStats,
             isFetchingDashPinsStats,
             error
         }
@@ -119,6 +125,7 @@ const mapStateToProps = ({
 }) => ({
     datasets: datasets || {},
     labels: labels || {},
+    dashAllPinsStats,
     isFetching: isFetchingDashPinsStats,
     error: error
 });
