@@ -12,7 +12,7 @@ const OperativesAdd = ({ type, location, unavailable }) => (
                 className={`pull-right ${unavailable ? 'disabled' : 'green'}`}
                 to={`${location.pathname}/add-operative`}
             >
-                <i className="fa fa-plus" /> Invite
+                <i className="fa fa-plus" /> Attach
             </ButtonContainer>
         </BlockHeading>
         <p className="generic-text size-lg-12">

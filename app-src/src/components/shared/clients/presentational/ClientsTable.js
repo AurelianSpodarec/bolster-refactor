@@ -14,7 +14,7 @@ const ClientsTable = ({
     handleDeleteClientModal
 }) => (
     <div className="size-lg-12">
-        <BlockHeading title="Client access">
+        <BlockHeading title="Invite Client">
             <ButtonContainer
                 className="pull-right green"
                 to={`${location.pathname}/invite-client`}

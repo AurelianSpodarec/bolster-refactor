@@ -30,11 +30,10 @@ const AddSiteForm = ({
             </div>
 
             <div className="size-lg-6">
-                <Field name="Client name" required>
+                <Field name="Client name">
                     <TextInputContainer
                         value={client}
                         name="client"
-                        required
                         handleChange={handleInputChange}
                     />
                 </Field>
@@ -43,12 +42,11 @@ const AddSiteForm = ({
 
         <div className="size-lg-12">
             <div className="size-lg-6">
-                <Field name="Address line 1" required>
+                <Field name="Address line 1">
                     <TextInputContainer
                         value={addressLine1}
                         name="addressLine1"
                         handleChange={handleInputChange}
-                        required
                     />
                 </Field>
             </div>
@@ -66,12 +64,11 @@ const AddSiteForm = ({
 
         <div className="size-lg-12">
             <div className="size-lg-6">
-                <Field name="Postcode" required>
+                <Field name="Postcode">
                     <TextInputContainer
                         value={postcode}
                         name="postcode"
                         handleChange={handleInputChange}
-                        required
                     />
                 </Field>
             </div>

@@ -15,7 +15,7 @@ const CompaniesAccessTable = ({
     smallPod
 }) => (
     <div className="size-lg-12">
-        <BlockHeading title="Company Access">
+        <BlockHeading title="Company Permissions">
             <ButtonContainer
                 className="pull-right green"
                 to={`${location.pathname}/invite-company`}

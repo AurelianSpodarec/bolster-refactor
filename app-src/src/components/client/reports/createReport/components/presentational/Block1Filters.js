@@ -9,7 +9,7 @@ const Block1Filters = ({ fieldError, advanced, isFetching }) => (
     <div className="flex-item size-lg-6">
         <BlockContainer>
             <div className="size-lg-12">
-                <BlockHeading title="Heirarchy Selection" />
+                <BlockHeading title="Location" />
                 <p className="generic-text small">
                     First you need to select what level of report you wish to
                     generate, you can report at any level or drill down to a
