@@ -20,7 +20,8 @@ const BuyCreditsModal = ({
     cards,
     selectedCard,
     costOfCredits,
-    noCards
+    noCards,
+    handleCreditsChange
 }) => (
     <ModalOuterContainer>
         <BlockHeading title="Buy Credits" />
@@ -70,7 +71,7 @@ const BuyCreditsModal = ({
                 <TextInputContainer
                     name="creditsToBuy"
                     value={creditsToBuy}
-                    handleChange={handleChange}
+                    handleChange={handleCreditsChange}
                     placeholder="Number of credits..."
                     required
                     type="number"

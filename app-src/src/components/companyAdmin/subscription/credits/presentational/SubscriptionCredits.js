@@ -9,10 +9,10 @@ import { formatNumber } from 'helpers/generic';
 
 const SubscriptionCredits = ({
     creditsToBuy,
-    handleInputChange,
     totalCredits,
     showModal,
-    costOfCredits
+    costOfCredits,
+    handleCreditsChange
 }) => (
     <div className="credits size-lg-12">
         <BlockHeading title="Credits" />
@@ -29,12 +29,12 @@ const SubscriptionCredits = ({
                     classes="large"
                     placeholder="Enter number of credits..."
                     value={creditsToBuy}
-                    handleChange={handleInputChange}
+                    handleChange={handleCreditsChange}
                 />
             </Field>
         </Form>
 
-        {creditsToBuy && (
+        {!!creditsToBuy && (
             <p className="generic-text align-right total-text size-lg-12">
                 Total: £{formatNumber(costOfCredits * creditsToBuy)} (ex. VAT)
             </p>

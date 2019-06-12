@@ -24,20 +24,22 @@ class SubscriptionCreditsContainer extends Component {
                 <SubscriptionCredits
                     creditsToBuy={creditsToBuy}
                     costOfCredits={costOfCredits}
-                    handleInputChange={this.handleInputChange}
                     totalCredits={totalCredits}
                     showModal={e => {
                         e.preventDefault();
                         showModal(BUY_CREDITS, { creditsToBuy });
                         this.setState({ creditsToBuy: '' });
                     }}
+                    handleCreditsChange={this.handleCreditsChange}
                 />
             </BlockContainer>
         );
     };
 
-    handleInputChange = (name, value) => {
-        this.setState({ [name]: value });
+    handleCreditsChange = (name, value) => {
+        let num = value;
+        if (Number(value) <= 0) num = 0;
+        this.setState({ [name]: num });
     };
 }
 
