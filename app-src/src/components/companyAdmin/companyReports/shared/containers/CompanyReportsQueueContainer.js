@@ -13,9 +13,7 @@ class CompanyReportsQueueContainer extends Component {
     componentWillUnmount = () => clearInterval(this._interval);
 }
 
-const mapDispatchToProps = dispatch => ({
-    fetchCompanyReports: () => dispatch(fetchCompanyReports())
-});
+const mapDispatchToProps = { fetchCompanyReports };
 
 export default connect(
     null,

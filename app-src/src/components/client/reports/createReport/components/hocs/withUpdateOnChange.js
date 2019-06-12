@@ -79,7 +79,8 @@ export default function(ProtectedComponent) {
                     isFloorplanGeneration,
                     fromDateInclusive,
                     toDateInclusive,
-                    companyUserIDs
+                    companyUserIDs,
+                    pinIDs
                 },
                 options: { showHidden, sortBy },
                 fields
@@ -124,12 +125,14 @@ export default function(ProtectedComponent) {
                 fromDateInclusive,
                 toDateInclusive,
                 companyUserIDs,
+                pinIDs: pinIDs.length ? pinIDs : null,
                 serviceID: serviceID || null,
                 status: status || null,
                 questionFilters,
                 showHidden,
                 sortBy
             };
+
             return body;
         };
 

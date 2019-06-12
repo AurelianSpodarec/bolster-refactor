@@ -25,17 +25,16 @@ const HeaderNotifications = ({
                         <p>{message}</p>
 
                         {link.toLowerCase().includes('http') ? (
-                            <a className="button" href={link}>
+                            <ButtonContainer to={link} isAnchor>
                                 View
-                            </a>
+                            </ButtonContainer>
                         ) : (
-                            <Link
-                                onClick={togglePopup}
+                            <ButtonContainer
+                                handleClick={togglePopup}
                                 to={link}
-                                className="button"
                             >
                                 View
-                            </Link>
+                            </ButtonContainer>
                         )}
                     </div>
                 ))

@@ -72,6 +72,7 @@ export default function(ProtectedComponent) {
                     drawingID,
                     serviceID,
                     status,
+                    pinIDs,
                     reportHistories,
                     includePinLocation,
                     isPDFGeneration,
@@ -126,6 +127,7 @@ export default function(ProtectedComponent) {
                 companyUserIDs,
                 serviceID: serviceID || null,
                 status: status || null,
+                pinIDs: pinIDs.length ? pinIDs : null,
                 questionFilters,
                 showHidden,
                 sortBy
