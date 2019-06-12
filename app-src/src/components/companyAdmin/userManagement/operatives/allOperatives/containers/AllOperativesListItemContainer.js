@@ -5,15 +5,18 @@ import AllOperativesListItem from '../presentational/AllOperativesListItem';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import {
     DELETE_COMPANY_USER,
-    UNLINK_DEVICE
+    UNLINK_DEVICE,
+    CONFIRM_SUBMIT
 } from 'constants/shared/modalTypes';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
+import editCompanyUserType from 'actions/companyAdmin/userManagement/async/editCompanyUserType';
 
 const AllOperativesListItemContainer = ({
     user,
     colCount,
     showModal,
-    hideModal
+    hideModal,
+    editCompanyUserType
 }) => {
     return (
         <AllOperativesListItem
@@ -23,6 +26,7 @@ const AllOperativesListItemContainer = ({
                 showModal(DELETE_COMPANY_USER, { id: user.id })
             }
             showUnlinkModal={unlinkModal}
+            showMakeAdminModal={makeAdminModal}
         />
     );
 
@@ -35,12 +39,24 @@ const AllOperativesListItemContainer = ({
             }'s device?`
         });
     }
+
+    function makeAdminModal() {
+        const handleSubmit = () => {
+            editCompanyUserType(user.id, { type: 'Admin' });
+            hideModal();
+        };
+        showModal(CONFIRM_SUBMIT, {
+            hideModal,
+            user,
+            message: `Are you sure you want to make ${user.userFirstName} ${
+                user.userLastName
+            } an admin?`,
+            handleSubmit
+        });
+    }
 };
 
-const mapDispatchToProps = dispatch => ({
-    showModal: (type, props) => dispatch(showModal(type, props)),
-    hideModal: () => dispatch(hideModal())
-});
+const mapDispatchToProps = { showModal, hideModal, editCompanyUserType };
 
 export default connect(
     null,
