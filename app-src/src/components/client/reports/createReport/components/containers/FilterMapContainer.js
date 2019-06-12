@@ -14,7 +14,7 @@ class FilterMapContainer extends Component {
 
         return (
             <Block>
-                <Map center={[51.505, -0.09]} zoom={1} minZoom={0} maxZoom={5}>
+                <Map center={[51.505, -0.09]} zoom={3} minZoom={0} maxZoom={5}>
                     <TileLayer
                         attribution='&amp;copy <a href="http://app.bolstersystems.com">Bolster Systems Ltd</a>'
                         url={`${FILE_STORAGE_URL}/${
