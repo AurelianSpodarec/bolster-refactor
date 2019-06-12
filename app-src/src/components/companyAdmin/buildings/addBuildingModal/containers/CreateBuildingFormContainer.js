@@ -5,6 +5,7 @@ import { withRouter } from 'react-router-dom';
 import CreateBuildingForm from '../presentational/CreateBuildingForm';
 import createBuilding from 'actions/companyAdmin/buildings/async/createBuilding';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
+import updateHierarchyAddState from 'actions/companyAdmin/hierarchy/sync/updateHierarchyAddState';
 
 class CreateBuildingFormContainer extends Component {
     state = {
@@ -21,6 +22,7 @@ class CreateBuildingFormContainer extends Component {
             handleSubmit={this.handleSubmit}
             siteID={this.props.siteID}
             hideModal={this.props.hideModal}
+            handleClose={this.handleClose}
         />
     );
 
@@ -35,11 +37,21 @@ class CreateBuildingFormContainer extends Component {
         createBuilding(postBody);
         hideModal();
     };
+
+    handleClose = () => {
+        const { hideModal, updateHierarchyAddState } = this.props;
+
+        hideModal();
+        updateHierarchyAddState(false);
+    };
 }
 
 const mapDispatchToProps = dispatch => ({
     createBuilding: postBody => dispatch(createBuilding(postBody)),
-    hideModal: () => dispatch(hideModal())
+    hideModal: () => dispatch(hideModal()),
+    updateHierarchyAddState: value => {
+        dispatch(updateHierarchyAddState(value));
+    }
 });
 
 export default withRouter(

@@ -15,6 +15,7 @@ import {
 
 import SitesTable from '../presentational/SitesTable';
 import { hierarchySort } from 'helpers/generic';
+import updateHierarchyAddState from 'actions/companyAdmin/hierarchy/sync/updateHierarchyAddState';
 
 class SitesTableContainer extends Component {
     render() {
@@ -36,15 +37,13 @@ class SitesTableContainer extends Component {
             showModal,
             hideModal,
             error,
-            updatedSiteID
+            updatedSiteID,
+            history,
+            updateHierarchyAddState
         } = this.props;
         if (postSuccess && !prevProps.postSuccess) {
-            showModal(SUCCESS_MODAL, {
-                hideModal,
-                message: 'Site added successfully.',
-                link: `/company/sites/${updatedSiteID}`,
-                linkMessage: 'View'
-            });
+            history.push(`/company/sites/${updatedSiteID}`);
+            updateHierarchyAddState(true);
         }
 
         if (error && !prevProps.error) {
@@ -111,6 +110,9 @@ const mapDispatchToProps = dispatch => ({
     },
     hideModal: () => {
         dispatch(hideModal());
+    },
+    updateHierarchyAddState: value => {
+        dispatch(updateHierarchyAddState(value));
     }
 });
 
