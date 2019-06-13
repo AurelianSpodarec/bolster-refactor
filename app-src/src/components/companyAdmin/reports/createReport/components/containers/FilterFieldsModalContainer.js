@@ -18,7 +18,8 @@ class FilterFieldsModalContainer extends Component {
     render() {
         const {
             customQuestions,
-            field: { selectedQuestions, questionValues }
+            field: { selectedQuestions, questionValues },
+            questionOptions
         } = this.props;
         const uniqueOptions = removeDuplicates(customQuestions, true);
         const formattedOptions = uniqueOptions.map(
@@ -28,6 +29,8 @@ class FilterFieldsModalContainer extends Component {
                 name: value
             })
         );
+
+        console.log(this.getCurrentOptions());
         return (
             <FilterFieldsModal
                 questionOptions={formattedOptions}
@@ -39,6 +42,7 @@ class FilterFieldsModalContainer extends Component {
                 questionValues={Object.values(questionValues)}
                 saveField={this.saveField}
                 hideModal={this.handleCancel}
+                customOptions={questionOptions}
             />
         );
     }
@@ -113,18 +117,35 @@ class FilterFieldsModalContainer extends Component {
         removeFilterQuestion(field.id);
         hideModal();
     };
+
+    getCurrentOptions = () => {
+        const {
+            questionOptions,
+            field: { selectedQuestions }
+        } = this.props;
+        const options = selectedQuestions.reduce((acc, id) => {
+            const queOps = questionOptions[id];
+            if (queOps) acc.push(queOps.options);
+            return acc;
+        }, []);
+        return options;
+    };
 }
 
 const mapStateToProps = (
     {
         companyAdmin: {
-            reportsReducer: { fields }
+            reportsReducer: {
+                fields,
+                customFilters: { questionOptions = [] }
+            }
         }
     },
     { id, customQuestions }
 ) => ({
     field: fields[id] || {},
-    questionsObj: convertArrToObj(customQuestions)
+    questionsObj: convertArrToObj(customQuestions),
+    questionOptions: convertArrToObj(questionOptions)
 });
 
 const mapDispatchToProps = {

@@ -6,7 +6,8 @@ import {
 } from 'constants/actionTypes/fileUpload';
 
 export default combineReducers({
-    filesUploading: filesUploadingReducer
+    filesUploading: filesUploadingReducer,
+    filesUploaded: filesUploadedReducer
 });
 
 function filesUploadingReducer(state = 0, action) {
@@ -15,6 +16,17 @@ function filesUploadingReducer(state = 0, action) {
             return ++state;
         case FILE_UPLOAD_FINISH:
             return action.close ? 0 : --state;
+        default:
+            return state;
+    }
+}
+
+function filesUploadedReducer(state = false, action) {
+    switch (action.type) {
+        case FILE_UPLOAD_START:
+            return false;
+        case FILE_UPLOAD_FINISH:
+            return true;
         default:
             return state;
     }

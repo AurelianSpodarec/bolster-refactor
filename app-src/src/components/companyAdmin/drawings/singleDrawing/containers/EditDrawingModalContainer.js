@@ -7,6 +7,7 @@ import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import editDrawing from 'actions/companyAdmin/drawings/async/editDrawing';
 import EditDrawingModal from '../presentational/EditDrawingModal';
 import addFieldError from 'actions/shared/generic/fieldErrors/sync/addFieldError';
+import showFieldErrors from 'actions/shared/generic/fieldErrors/sync/showFieldErrors';
 
 class EditDrawingModalContainer extends Component {
     state = {
@@ -38,14 +39,20 @@ class EditDrawingModalContainer extends Component {
     };
 
     componentDidUpdate = prevProps => {
-        const { postSuccess, error, showModal } = this.props;
+        const { postSuccess, error, showModal, filesUploaded } = this.props;
 
-        if (!prevProps.postSuccess && postSuccess) {
+        if (!prevProps.postSuccess && postSuccess && filesUploaded) {
             showModal(SUCCESS_MODAL, {
                 message:
-                    'New floor plan successfully uploaded. It may take a few minutes before the updated floor plan is available to view, please check back later'
+                    'New floor plan successfully changed. It may take a few minutes before the updated floor plan is available to view, please check back later'
             });
-        } else if (!prevProps.error && error) showModal(ERROR_MODAL);
+        } else if (!prevProps.error && error) {
+            showModal(ERROR_MODAL);
+        } else if (!prevProps.postSuccess && postSuccess && !filesUploaded) {
+            showModal(SUCCESS_MODAL, {
+                message: 'Drawing name successfully changed'
+            });
+        }
     };
 
     handleChange = (name, val) => {
@@ -61,7 +68,10 @@ class EditDrawingModalContainer extends Component {
             editDrawing,
             drawing,
             filesUploading,
-            totalCredits
+            filesUploaded,
+            totalCredits,
+            addFieldError,
+            showFieldErrors
         } = this.props;
 
         const postBody = {
@@ -69,7 +79,10 @@ class EditDrawingModalContainer extends Component {
             file
         };
 
-        if (!filesUploading) editDrawing(drawing.id, postBody);
+        if (!filesUploading && filesUploaded && totalCredits < 1) {
+            addFieldError('file', 'Not enough drawing credits');
+            showFieldErrors();
+        } else if (!filesUploading) editDrawing(drawing.id, postBody);
     };
 
     showErrorModal = () => this.props.showModal(ERROR_MODAL);
@@ -81,7 +94,7 @@ const mapStateToProps = ({
         creditsReducer: { credits }
     },
     shared: {
-        filesUploadingReducer: { filesUploading }
+        filesUploadingReducer: { filesUploading, filesUploaded }
     }
 }) => {
     const totalCredits = Object.values(credits).reduce(
@@ -93,6 +106,7 @@ const mapStateToProps = ({
         error,
         postSuccess,
         filesUploading,
+        filesUploaded,
         totalCredits
     };
 };
@@ -100,7 +114,9 @@ const mapStateToProps = ({
 const mapDispatchToProps = dispatch => ({
     hideModal: () => dispatch(hideModal()),
     showModal: (type, props) => dispatch(showModal(type, props)),
-    editDrawing: (id, body) => dispatch(editDrawing(id, body))
+    editDrawing: (id, body) => dispatch(editDrawing(id, body)),
+    addFieldError: (field, err) => dispatch(addFieldError(field, err)),
+    showFieldErrors: () => dispatch(showFieldErrors())
 });
 
 export default connect(

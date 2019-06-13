@@ -8,10 +8,7 @@ import BackButtonContainer from 'components/shared/generic/backButton/containers
 
 const EditCompanyAdminPassword = () => (
     <>
-        <PageHeading
-            leftChildren={true}
-            title={'Change Company Admin password'}
-        >
+        <PageHeading leftChildren={true} title={'Change Admin password'}>
             <BackButtonContainer />
         </PageHeading>
 

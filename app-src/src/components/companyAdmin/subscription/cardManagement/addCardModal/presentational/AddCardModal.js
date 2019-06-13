@@ -8,7 +8,6 @@ import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/pr
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 
 const AddCardModal = ({
-    hideModal,
     handleChange,
     handleSubmit,
     nickname,
@@ -18,10 +17,11 @@ const AddCardModal = ({
     expiryYear,
     CV2,
     validateMaxLength,
-    postError
+    postError,
+    close
 }) => {
     return (
-        <ModalOuterContainer>
+        <ModalOuterContainer close={close}>
             <BlockHeading title="Add card" />
             <Form className="generic-form" onSubmit={handleSubmit}>
                 <div className="size-lg-6">
@@ -101,7 +101,12 @@ const AddCardModal = ({
                     <button className="button green" type="submit">
                         <i className="fa fa-plus" /> Add Card
                     </button>
-                    <ButtonContainer handleClick={hideModal}>
+                    <ButtonContainer
+                        handleClick={e => {
+                            e.preventDefault();
+                            close();
+                        }}
+                    >
                         Cancel
                     </ButtonContainer>
                 </BlockButtonWrapper>
