@@ -15,7 +15,8 @@ import {
     UPDATE_FILTER_OPTION,
     UPDATE_SELECTED_PINS,
     RESET_FILTER_OPTIONS,
-    POST_REPORT_NO_PINS
+    POST_REPORT_NO_PINS,
+    UPDATE_FILTER_QUESTION_VALS
 } from 'constants/actionTypes/reports';
 import { updateObj, removeObjItem, convertArrToObj } from 'helpers/generic';
 import { SORT_BY_OPTIONS } from 'constants/companyAdmin/enums';
@@ -106,7 +107,16 @@ function fieldsReducer(state = {}, action) {
                 [action.id]: {
                     id: action.id,
                     selectedQuestions: [],
-                    questionValues: {}
+                    questionValues: {},
+                    selectedValues: []
+                }
+            };
+        case UPDATE_FILTER_QUESTION_VALS:
+            return {
+                ...state,
+                [action.id]: {
+                    ...state[action.id],
+                    selectedValues: action.selected
                 }
             };
         case REMOVE_FILTER_QUESTIONS:
