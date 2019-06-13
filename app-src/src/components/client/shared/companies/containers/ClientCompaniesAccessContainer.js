@@ -8,9 +8,9 @@ import BlockContainer from 'components/shared/generic/block/containers/BlockCont
 import { DELETE_COMPANY_PERMISSIONS } from 'constants/shared/modalTypes';
 
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
-import clientFetchCompanyPermissions from 'actions/client/companiesPermissions/async/clientFetchCompanyPermissions';
+import fetchCompaniesPermissions from 'actions/companyAdmin/companiesPermissions/async/fetchCompanyPermissions';
 
-class ClientCompaniesAccessContainer extends Component {
+class CompaniesAccessContainer extends Component {
     render() {
         const {
             companiesWithPermissions,
@@ -35,12 +35,12 @@ class ClientCompaniesAccessContainer extends Component {
 
     componentDidMount = () => {
         const {
-            clientFetchCompanyPermissions,
+            fetchCompaniesPermissions,
             hierarchyType,
             hierarchyID
         } = this.props;
 
-        clientFetchCompanyPermissions(hierarchyType, hierarchyID);
+        fetchCompaniesPermissions(hierarchyType, hierarchyID);
     };
 
     handleShowModal = companyPermissionID => {
@@ -61,11 +61,11 @@ const mapStateToProps = (
     )
 });
 
-const mapDispatchToProps = { clientFetchCompanyPermissions, showModal };
+const mapDispatchToProps = { fetchCompaniesPermissions, showModal };
 
 export default withRouter(
     connect(
         mapStateToProps,
         mapDispatchToProps
-    )(ClientCompaniesAccessContainer)
+    )(CompaniesAccessContainer)
 );
