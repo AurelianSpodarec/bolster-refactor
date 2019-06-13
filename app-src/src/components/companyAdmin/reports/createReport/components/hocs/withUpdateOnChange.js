@@ -107,12 +107,20 @@ export default function(ProtectedComponent) {
             }
 
             const questionFilters = fields.map(
-                ({ selectedQuestions, questionValues }) => ({
-                    questionGroupKeys: selectedQuestions,
-                    values: Object.values(questionValues).map(
+                ({
+                    selectedQuestions,
+                    questionValues,
+                    selectedValues = []
+                }) => {
+                    let values = Object.values(questionValues).map(
                         ({ value }) => value
-                    )
-                })
+                    );
+                    if (!values.length) values = selectedValues;
+                    return {
+                        questionGroupKeys: selectedQuestions,
+                        values
+                    };
+                }
             );
             const body = {
                 hierarchyType,

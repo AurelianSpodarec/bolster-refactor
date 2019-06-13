@@ -8,6 +8,7 @@ import updateReportFilter from 'actions/companyAdmin/reports/sync/updateReportFi
 import updateFilterQuestionField from 'actions/companyAdmin/reports/sync/updateFilterQuestionField';
 import { updateObj, removeObjItem, convertArrToObj } from 'helpers/generic';
 import removeFilterQuestion from 'actions/companyAdmin/reports/sync/removeFilterQuestion';
+import updateFilterQuestionVals from 'actions/companyAdmin/reports/sync/updateFilterQuestionVals';
 
 class FilterFieldsModalContainer extends Component {
     state = {
@@ -15,10 +16,11 @@ class FilterFieldsModalContainer extends Component {
     };
     render() {
         const {
-            field: { selectedQuestions, questionValues },
+            field: { selectedQuestions, questionValues, selectedValues },
             questionOptions
         } = this.props;
 
+        console.log(questionOptions);
         return (
             <FilterFieldsModal
                 toggleShowFreeForm={this.toggleShowFreeForm}
@@ -35,6 +37,8 @@ class FilterFieldsModalContainer extends Component {
                 saveField={this.saveField}
                 hideModal={this.handleCancel}
                 customOptions={questionOptions}
+                updateSelectedValues={this.updateSelectedValues}
+                selectedValues={selectedValues}
             />
         );
     }
@@ -46,7 +50,8 @@ class FilterFieldsModalContainer extends Component {
     };
 
     toggleShowFreeForm = () => {
-        this.setState({ showFreeForm: !this.state.showFreeForm });
+        const showFreeForm = !this.state.showFreeForm;
+        this.setState({ showFreeForm });
     };
 
     _getShowFreeFormOptions = () => {
@@ -96,11 +101,17 @@ class FilterFieldsModalContainer extends Component {
 
     addOption = () => {
         const { field, updateFilterQuestionField } = this.props;
+
         const id = uuid();
         const updated = updateObj(field.questionValues, id, { id, value: '' });
         updateFilterQuestionField(
             field.id,
-            this.formatField(field.id, field.selectedQuestions, updated)
+            this.formatField(
+                field.id,
+                field.selectedQuestions,
+                updated,
+                field.selectedValues
+            )
         );
     };
 
@@ -113,6 +124,12 @@ class FilterFieldsModalContainer extends Component {
         updateFilterQuestionField(field.id, updated);
     };
 
+    updateSelectedValues = (_, value) => {
+        const { field, updateFilterQuestionVals } = this.props;
+
+        updateFilterQuestionVals(field.id, value);
+    };
+
     updateOption = (name, value) => {
         const { field, id, updateFilterQuestionField } = this.props;
         const updated = updateObj(field.questionValues, name, {
@@ -121,26 +138,41 @@ class FilterFieldsModalContainer extends Component {
         });
         updateFilterQuestionField(
             id,
-            this.formatField(id, field.selectedQuestions, updated)
+            this.formatField(
+                id,
+                field.selectedQuestions,
+                updated,
+                field.selectedValues
+            )
         );
     };
 
-    formatField = (id, selectedQuestions, questionValues) => ({
+    formatField = (id, selectedQuestions, questionValues, selectedValues) => ({
         id,
         selectedQuestions,
-        questionValues
+        questionValues,
+        selectedValues
     });
 
     saveField = e => {
         e.preventDefault();
         const { hideModal, removeFilterQuestion, field } = this.props;
         // remove if nothing selected
+        if (!this.state.showFreeForm) {
+            Object.keys(field.questionValues).forEach(key =>
+                this.removeOption(key)
+            );
+        } else {
+            this.updateSelectedValues([]);
+        }
+
         if (
             !field.selectedQuestions.length &&
             Object.values(field.questionValues).every(({ value }) => !value)
         ) {
             removeFilterQuestion(field.id);
         }
+
         hideModal();
     };
 
@@ -149,19 +181,6 @@ class FilterFieldsModalContainer extends Component {
         // remove if nothing selected
         removeFilterQuestion(field.id);
         hideModal();
-    };
-
-    getCurrentOptions = () => {
-        const {
-            questionOptions,
-            field: { selectedQuestions }
-        } = this.props;
-        const options = selectedQuestions.reduce((acc, id) => {
-            const queOps = questionOptions[id];
-            if (queOps) acc.push(queOps.options);
-            return acc;
-        }, []);
-        return options;
     };
 }
 
@@ -185,7 +204,8 @@ const mapDispatchToProps = {
     hideModal,
     updateReportFilter,
     updateFilterQuestionField,
-    removeFilterQuestion
+    removeFilterQuestion,
+    updateFilterQuestionVals
 };
 
 export default connect(

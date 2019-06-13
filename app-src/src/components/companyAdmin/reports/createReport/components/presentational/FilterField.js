@@ -9,9 +9,11 @@ const FilterField = ({
     removeCustomField
 }) => {
     // todo: styling here
-    const answers = Object.values(field.questionValues).map(
-        ({ value }) => value
-    );
+    let answers = field.selectedValues;
+    if (!answers || !answers.length) {
+        answers = Object.values(field.questionValues).map(({ value }) => value);
+    }
+
     const joinedAnswers = answers.join(' OR ');
     const chosenQuestions = field.selectedQuestions.map(
         id => questions[id].text
