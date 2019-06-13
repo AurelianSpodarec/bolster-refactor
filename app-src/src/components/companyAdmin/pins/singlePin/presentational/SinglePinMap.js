@@ -11,6 +11,7 @@ import BlockHeading from 'components/shared/generic/blockHeading/presentational/
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 import CustomPin from 'components/shared/pins/map/presentational/CustomPin';
+import SinglePinGenerateReportContainer from '../containers/SinglePinGenerateReportContainer';
 
 const SinglePinMap = ({
     pin,
@@ -39,6 +40,7 @@ const SinglePinMap = ({
     return (
         <>
             <BlockHeading title={`Pin ${pin.pinCode}`}>
+                <SinglePinGenerateReportContainer pinID={pin.id} />
                 <Link
                     className="button green"
                     to={`/company/pins/${pin.id}/add-history`}
