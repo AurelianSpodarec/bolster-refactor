@@ -54,7 +54,7 @@ const OutputSettings = ({
                                 <div className="size-lg-12 ">
                                     <div className="size-lg-10 options-container">
                                         <BlockHeading title="Additional PDF Settings" />
-                                        <Field name="Include location drawing">
+                                        <Field name="Include Pin Location?">
                                             <CheckboxContainer
                                                 classes="with-subtext"
                                                 checked={
@@ -66,6 +66,24 @@ const OutputSettings = ({
                                                     handleFilterChange
                                                 }
                                                 name="includePinLocation"
+                                            />
+                                            <p className="sub-text" />
+                                        </Field>
+                                        <Field
+                                            sizeClasses="size-lg-6"
+                                            name="Include Floorplan?"
+                                        >
+                                            <CheckboxContainer
+                                                classes="with-subtext"
+                                                checked={
+                                                    isPDFGeneration
+                                                        ? includePinLocation
+                                                        : isPDFGeneration
+                                                }
+                                                handleChange={
+                                                    handleFilterChange
+                                                }
+                                                name="includeFloorplan"
                                             />
                                             <p className="sub-text" />
                                         </Field>
