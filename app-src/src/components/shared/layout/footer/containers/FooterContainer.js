@@ -8,7 +8,7 @@ class FooterContainer extends Component {
     render() {
         const { companySettings } = this.props;
         const companyColour = getCompanyColour(companySettings.companyColour);
-        console.log(companyColour);
+
         return (
             <Footer company={companySettings} companyColour={companyColour} />
         );
