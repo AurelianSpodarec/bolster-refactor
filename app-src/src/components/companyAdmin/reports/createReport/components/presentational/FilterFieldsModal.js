@@ -20,7 +20,9 @@ const FilterFieldsModal = ({
     showFreeForm,
     showFreeFormOptions,
     toggleShowFreeForm,
-    validValueOptions = []
+    validValueOptions = [],
+    updateSelectedValues,
+    selectedValues
 }) => (
     <ModalOuterContainer>
         <BlockHeading title="Add Filter" />
@@ -95,9 +97,9 @@ const FilterFieldsModal = ({
                 >
                     <MultiSelect
                         search
-                        value={[]}
+                        value={selectedValues}
                         options={validValueOptions}
-                        onChange={handleChange}
+                        onChange={updateSelectedValues}
                     />
                 </Field>
             )}
