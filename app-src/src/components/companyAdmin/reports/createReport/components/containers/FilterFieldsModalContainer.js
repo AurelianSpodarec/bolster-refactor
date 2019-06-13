@@ -6,12 +6,7 @@ import FilterFieldsModal from '../presentational/FilterFieldsModal';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import updateReportFilter from 'actions/companyAdmin/reports/sync/updateReportFilter';
 import updateFilterQuestionField from 'actions/companyAdmin/reports/sync/updateFilterQuestionField';
-import {
-    updateObj,
-    removeObjItem,
-    convertArrToObj,
-    removeDuplicates
-} from 'helpers/generic';
+import { updateObj, removeObjItem, convertArrToObj } from 'helpers/generic';
 import removeFilterQuestion from 'actions/companyAdmin/reports/sync/removeFilterQuestion';
 
 class FilterFieldsModalContainer extends Component {
@@ -30,6 +25,7 @@ class FilterFieldsModalContainer extends Component {
                 showFreeFormOptions={this._getShowFreeFormOptions()}
                 showFreeForm={this.state.showFreeForm}
                 questionOptions={this._getQuestionOptions()}
+                validValueOptions={this._getValidValueOptions()}
                 selectedQuestions={selectedQuestions}
                 handleChange={this.handleChange}
                 addOption={this.addOption}
@@ -56,7 +52,7 @@ class FilterFieldsModalContainer extends Component {
     _getShowFreeFormOptions = () => {
         return [
             { label: 'Free Form', value: 1 },
-            { label: 'Static', value: 2 }
+            { label: 'Option oriented', value: 2 }
         ];
     };
 
@@ -70,11 +66,23 @@ class FilterFieldsModalContainer extends Component {
             .filter(({ options }) => (showFreeForm ? !options : !!options));
     };
 
+    _getValidValueOptions = () => {
+        const { field, customQuestions } = this.props;
+        const questionsObj = convertArrToObj(customQuestions);
+
+        const options = field.selectedQuestions
+            .map(id => questionsObj[id])
+            .filter(q => q && q.options)
+            .reduce((a, b) => a.concat(b.options), []);
+
+        return [...new Set(options)].map(op => ({ label: op, value: op }));
+    };
+
     _getQuestionOptions = () => {
         return this._getFilteredQuestions().map(q => ({
             value: q.id,
             name: q.id,
-            text: q.name
+            label: q.name
         }));
     };
 
