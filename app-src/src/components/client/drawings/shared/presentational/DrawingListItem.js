@@ -4,7 +4,7 @@ import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeCon
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 
 const DrawingListItem = ({ drawing }) => (
-    <tr>
+    <tr className="draggable">
         <td>{drawing.name}</td>
         <td>
             <DateTimeContainer date={drawing.pinsLastUpdatedOn} />

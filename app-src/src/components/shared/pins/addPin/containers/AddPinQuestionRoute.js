@@ -437,10 +437,11 @@ class AddPinQuestionRoute extends Component {
 
     _getIsRequired = () => {
         const {
-            question: { isRequired, isRequiredVal },
+            question: { isRequired, isRequiredVal, type },
             status
         } = this.props;
 
+        if (type === STATUS) return true;
         if (isRequired) return true;
         if (isRequiredVal) return isRequiredVal + '' === status + '';
 

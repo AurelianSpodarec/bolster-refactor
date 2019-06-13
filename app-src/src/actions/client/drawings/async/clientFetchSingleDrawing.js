@@ -25,7 +25,7 @@ export const clientFetchDrawingFailure = error => ({
 export default (companyID, drawingID) => dispatch => {
     dispatch(clientFetchDrawingRequest());
 
-    axios
+    return axios
         .get(
             `${CLIENT_API_URL}/drawings/${companyID}/${drawingID}`,
             getHeaders()
