@@ -23,6 +23,7 @@ class BasicFiltersContainer extends Component {
 
     render() {
         const {
+            isDrawingPage,
             fieldErrors,
             fieldError,
             formatArrForDropdown,
@@ -44,6 +45,7 @@ class BasicFiltersContainer extends Component {
 
         return (
             <BasicFilters
+                isDrawingPage={isDrawingPage}
                 dateError={fieldErrors['fromDateInclusive']}
                 handleChange={this.handleChange}
                 handleDateChange={this.handleDateChange}

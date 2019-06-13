@@ -29,7 +29,7 @@ const DrawingMapFiltersAdvanced = ({
     <div className="map-filters size-lg-12">
         <div className="size-lg-12">
             <BlockHeading title="General Filters">
-                <div className="pin-amounts">
+                {/* <div className="pin-amounts">
                     <div className="pin">
                         <p>Total: {pins.length}</p>
                     </div>
@@ -85,10 +85,10 @@ const DrawingMapFiltersAdvanced = ({
                             }
                         </p>
                     </div>
-                </div>
+                </div> */}
             </BlockHeading>
             <Form className="generic-form">
-                <Field name="Service type" sizeClasses="size-lg-6">
+                <Field name="Service type" sizeClasses="size-lg-12">
                     <DropdownContainer
                         placeholder="All services"
                         name="serviceID"
@@ -98,7 +98,7 @@ const DrawingMapFiltersAdvanced = ({
                         handleChange={handleChangeFilter}
                     />
                 </Field>
-                <Field name="Status" sizeClasses="size-lg-6">
+                <Field name="Status" sizeClasses="size-lg-12">
                     <DropdownContainer
                         placeholder="All Statuses"
                         name="status"
@@ -108,7 +108,7 @@ const DrawingMapFiltersAdvanced = ({
                         handleChange={handleChangeFilter}
                     />
                 </Field>
-                <Field name="Date range" sizeClasses="w-dates size-lg-6">
+                <Field name="Date range" sizeClasses="w-dates size-lg-12">
                     <div className="size-lg-5">
                         <DatePicker
                             name="fromDateInclusive"
@@ -131,7 +131,7 @@ const DrawingMapFiltersAdvanced = ({
                         />
                     </div>
                 </Field>
-                <OperativesFilterContainer sizeClasses="size-lg-6" />
+                <OperativesFilterContainer sizeClasses="size-lg-12" />
             </Form>
         </div>
     </div>

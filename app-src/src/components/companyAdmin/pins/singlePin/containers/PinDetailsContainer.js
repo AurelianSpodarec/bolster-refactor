@@ -44,11 +44,22 @@ class PinDetailsContainer extends Component {
                 isFetching={isFetching}
                 error={error}
             >
-                <BlockHeading title="Pin Options" />
+                <BlockHeading title={`Pin ${pin.pinCode}`}>
+                    <h4 className="small-text">
+                        (History {historyVersion} of {histories.length}{' '}
+                        {historyVersion === histories.length
+                            ? ' - Latest'
+                            : +historyVersion === 1
+                            ? ' - Earliest'
+                            : ''}
+                        )
+                    </h4>
+                </BlockHeading>
                 <PinDetails
                     pinHistory={selectedHistory}
                     historyCount={histories.length}
                     historyVersion={historyVersion}
+                    histories={histories}
                     user={user}
                     services={services}
                     pin={pin}

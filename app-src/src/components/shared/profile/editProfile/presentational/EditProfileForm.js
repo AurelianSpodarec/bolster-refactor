@@ -40,6 +40,7 @@ const EditProfileForm = ({
                         <TextInputContainer
                             value={email}
                             name="email"
+                            type="email"
                             handleChange={handleInputChange}
                             required
                         />

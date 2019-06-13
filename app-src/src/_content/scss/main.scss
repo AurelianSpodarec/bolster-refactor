@@ -1567,7 +1567,9 @@ input {
     img {
         max-width: 75px;
         margin: 0 5px;
-        border: 1px solid black;
+        &:not(.settings-logo) {
+            border: 1px solid black;
+        }
 
         &.signature {
             width: 25em;
@@ -1810,6 +1812,31 @@ input {
 
                 &:hover {
                     background-color: #65666d;
+                }
+            }
+        }
+
+        //custom hover
+        &.custom-hover {
+            background-color: #212228;
+            transition: background-color 0.25s ease-in-out;
+            color: white;
+
+            > a {
+                background-color: transparent;
+                color: inherit;
+
+                .icon {
+                    color: inherit;
+                }
+            }
+
+            &:hover,
+            &.active {
+                background-color: #62636a;
+
+                > a {
+                    background-color: transparent;
                 }
             }
         }
@@ -2269,6 +2296,11 @@ input {
         }
         .pin-key {
             margin-bottom: 0;
+        }
+    }
+    &.drawing-stats {
+        .pin-key {
+            margin-bottom: 25px;
         }
     }
     &.dashbaord {
@@ -3140,7 +3172,7 @@ input {
     float: left;
     width: calc(100% + 30px);
     margin-left: -15px;
-    max-height: 160px;
+    max-height: 300px;
     overflow: auto;
 
     .generic-table {
@@ -3273,9 +3305,22 @@ input {
 
     .flex-row-item {
         float: none;
+
         .content-area {
             min-height: calc(100% - 10px);
         }
+    }
+}
+
+.flex-tooltip-images {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: center;
+    .tooltip-item {
+        width: 33%;
+        height: auto;
+        padding: 0 5px;
     }
 }
 
@@ -4485,6 +4530,20 @@ input {
         margin: 0 0 10px !important;
     }
 }
+// helpscout-beacon
+.BeaconFabButtonFrame {
+    position: fixed !important;
+    bottom: 11px !important;
+    right: 40px !important;
+    z-index: 1000 !important;
+}
+.BeaconContainer {
+    position: fixed !important;
+    bottom: 50px !important;
+    right: 40px !important;
+    z-index: 1000 !important;
+}
+
 // force scrollbar visible on chrome
 .always-scrollbar {
     overflow-y: auto;

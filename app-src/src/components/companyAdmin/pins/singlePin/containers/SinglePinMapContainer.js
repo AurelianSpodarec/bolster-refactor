@@ -26,8 +26,7 @@ class SinglePinMapContainer extends Component {
             error,
             isFetching,
             drawing,
-            selectedHistory,
-            histories
+            selectedHistory
         } = this.props;
 
         const editPinLocationPosition = [
@@ -35,10 +34,6 @@ class SinglePinMapContainer extends Component {
             this.state.editPinLocationLng
         ];
 
-        const historyVersion =
-            [...histories]
-                .sort((a, b) => moment(a.createdAt) - moment(b.createdAt))
-                .findIndex(item => item.id === selectedHistory.id) + 1;
         return (
             <BlockContainer
                 isEmpty={!pin.id || !drawing.id}
@@ -56,8 +51,6 @@ class SinglePinMapContainer extends Component {
                     moveMode={this.state.moveMode}
                     handleEditPinLocation={this.handleEditPinLocation}
                     pinHistory={selectedHistory}
-                    historyVersion={historyVersion}
-                    historyCount={histories.length}
                     handleEditHistoryModal={this.handleEditHistoryModal}
                 />
             </BlockContainer>

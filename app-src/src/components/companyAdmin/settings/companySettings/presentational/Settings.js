@@ -146,6 +146,7 @@ const Settings = ({ isFetching, error, companySettings: company }) => {
                 >
                     {company.logoFile ? (
                         <img
+                            className="settings-logo"
                             alt={`company logo for ${company.name}`}
                             src={`${FILE_STORAGE_URL}/${company.logoFile}`}
                         />

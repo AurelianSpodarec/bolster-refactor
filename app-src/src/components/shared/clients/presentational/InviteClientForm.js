@@ -34,6 +34,7 @@ const InviteClientForm = ({
                     <TextInputContainer
                         name="email"
                         value={email}
+                        type="email"
                         handleChange={handleChange}
                         required
                     />

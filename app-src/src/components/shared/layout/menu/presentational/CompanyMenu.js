@@ -1,8 +1,8 @@
 import React from 'react';
 
-import MenuItemContainer from '../containers/MenuItemContainer';
+import CompanyMenuItemContainer from '../containers/CompanyMenuItemContainer';
 import DropdownMenuItemContainer from '../containers/DropdownMenuItemContainer';
-import DropdownMenuItems from './DropdownMenuItems';
+import CompanyDropdownMenuItems from './CompanyDropdownMenuItems';
 import MenuHeader from './MenuHeader';
 
 const CompanyMenu = ({
@@ -17,45 +17,32 @@ const CompanyMenu = ({
         <div className="menu-bg" />
         <div className="menu">
             <MenuHeader title="Dashboard" />
-            <MenuItemContainer link="/company" base>
+            <CompanyMenuItemContainer link="/company" base>
                 <i className="far fa-home icon fa-fw" />
 
                 <span className="menu-text">Dashboard</span>
-            </MenuItemContainer>
+            </CompanyMenuItemContainer>
             {isFromHeadquarters && (
                 <DropdownMenuItemContainer
                     icon="city"
                     title={'Headquarters'}
                     baseUrl="/company/headquarters"
                 >
-                    <MenuItemContainer link="/company/headquarters">
+                    <CompanyMenuItemContainer link="/company/headquarters">
                         <span className="menu-text">Companies</span>
-                    </MenuItemContainer>
+                    </CompanyMenuItemContainer>
                 </DropdownMenuItemContainer>
             )}
 
             <MenuHeader title="Site Management" />
 
-            <MenuItemContainer link="/company/sites">
+            <CompanyMenuItemContainer link="/company/sites">
                 <i className="far fa-building icon fa-fw" />
                 <span className="menu-text"> Sites</span>
-            </MenuItemContainer>
+            </CompanyMenuItemContainer>
 
-            <DropdownMenuItemContainer
-                icon="users"
-                title={'User Management'}
-                baseUrl="/company/users-management"
-            >
-                <MenuItemContainer link="/company/users-management/company-admins">
-                    Company Admins
-                </MenuItemContainer>
-                <MenuItemContainer link="/company/users-management/operatives">
-                    Operatives
-                </MenuItemContainer>
-            </DropdownMenuItemContainer>
-
-            <DropdownMenuItems />
-            <MenuItemContainer link="/company/tools/transfer-requests">
+            <CompanyDropdownMenuItems />
+            <CompanyMenuItemContainer link="/company/tools/transfer-requests">
                 {!!totalRequests && (
                     <span className="number">{totalRequests}</span>
                 )}
@@ -63,47 +50,54 @@ const CompanyMenu = ({
                 <span className={`menu-text ${totalCredits ? 'large' : ''}`}>
                     Requests &amp; Invites
                 </span>
-            </MenuItemContainer>
+            </CompanyMenuItemContainer>
+            <MenuHeader title="User Management" />
+            <CompanyMenuItemContainer link="/company/users-management/company-admins">
+                Company Admins
+            </CompanyMenuItemContainer>
+            <CompanyMenuItemContainer link="/company/users-management/operatives">
+                Operatives
+            </CompanyMenuItemContainer>
             <MenuHeader title="Orders &amp; Subscriptions" />
-            <MenuItemContainer link="/company/invoices">
+            <CompanyMenuItemContainer link="/company/invoices">
                 <i className="far fa-receipt fa-fw icon" />
                 <span className="menu-text"> Orders</span>
-            </MenuItemContainer>
-            <MenuItemContainer link="/company/subscription">
+            </CompanyMenuItemContainer>
+            <CompanyMenuItemContainer link="/company/subscription">
                 <i className="far fa-money-check fa-fw icon" />
                 <span className="menu-text large">
                     Subscription &amp; Credits
                 </span>
-            </MenuItemContainer>
+            </CompanyMenuItemContainer>
 
             <MenuHeader title="Reports" />
 
-            <MenuItemContainer
+            <CompanyMenuItemContainer
                 onClick={dismissMessages}
                 link="/company/reports"
             >
-                {/* <MenuItemContainer link="/company/reports"> */}
+                {/* <CompanyMenuItemContainer link="/company/reports"> */}
                 {!!unreadCount && <span className="number">{unreadCount}</span>}
                 <i className="far fa-file-chart-pie fa-fw icon" />
                 <span className={`menu-text ${unreadCount ? 'large' : ''}`}>
                     My Company Reports
                 </span>
-            </MenuItemContainer>
-            <MenuItemContainer link="/company/tools/create-report">
+            </CompanyMenuItemContainer>
+            <CompanyMenuItemContainer link="/company/tools/create-report">
                 <i className="far fa-file-edit fa-fw icon" />
                 <span className="menu-text">Create Report</span>
-            </MenuItemContainer>
+            </CompanyMenuItemContainer>
             <MenuHeader title="Settings &amp; Tools" />
-            <MenuItemContainer link="/company/profile">
+            <CompanyMenuItemContainer link="/company/profile">
                 <i className="far fa-user fa-fw icon" />
                 <span className="menu-text"> My Profile</span>
-            </MenuItemContainer>
-            <MenuItemContainer link="/company/settings">
+            </CompanyMenuItemContainer>
+            <CompanyMenuItemContainer link="/company/settings">
                 <i className="far fa-cogs fa-fw icon" />
                 <span className="menu-text"> Company Settings</span>
-            </MenuItemContainer>
+            </CompanyMenuItemContainer>
 
-            <MenuItemContainer link="/company/message-centre">
+            <CompanyMenuItemContainer link="/company/message-centre">
                 {!!unreadMessageCount && (
                     <span className="number">{unreadMessageCount}</span>
                 )}
@@ -113,34 +107,37 @@ const CompanyMenu = ({
                 >
                     Message Centre
                 </span>
-            </MenuItemContainer>
-            <MenuItemContainer link="/company/tools/operative-alerts">
+            </CompanyMenuItemContainer>
+            {/* OLD LINK <MenuItemContainer link="/company/tools/operative-alerts">
                 <i className="far fa-bells fa-fw icon" />
                 <span className="menu-text">Operative Alerts</span>
-            </MenuItemContainer>
+            </MenuItemContainer> */}
 
-            <MenuItemContainer link="/company/tools/templates">
+            <CompanyMenuItemContainer link="/company/tools/templates">
                 <i className="far fa-folders fa-fw icon" />
                 <span className="menu-text">My Templates</span>
-            </MenuItemContainer>
+            </CompanyMenuItemContainer>
 
-            <MenuItemContainer link="/company/tools/support">
+            <CompanyMenuItemContainer link="/company/tools/support">
                 <i className="far fa-info-circle fa-fw icon" />
                 <span className="menu-text">Support</span>
-            </MenuItemContainer>
-            <MenuItemContainer link="/company/approved-companies">
+            </CompanyMenuItemContainer>
+            <CompanyMenuItemContainer link="/company/approved-companies">
                 <i className="far fa-check-circle fa-fw icon" />
                 <span className="menu-text">Bolster Approved Companies</span>
-            </MenuItemContainer>
-            <MenuItemContainer link="https://vimeo.com/bolstersystems" external>
+            </CompanyMenuItemContainer>
+            <CompanyMenuItemContainer
+                link="https://vimeo.com/bolstersystems"
+                external
+            >
                 <i className="far fa-video fa-fw icon" />
                 <span className="menu-text">User Guides</span>
-            </MenuItemContainer>
+            </CompanyMenuItemContainer>
 
-            <MenuItemContainer link="#" logout={true}>
+            <CompanyMenuItemContainer link="#" logout={true}>
                 <i className="far fa-sign-out-alt fa-fw icon" />
                 <span className="menu-text">Logout</span>
-            </MenuItemContainer>
+            </CompanyMenuItemContainer>
         </div>
     </>
 );

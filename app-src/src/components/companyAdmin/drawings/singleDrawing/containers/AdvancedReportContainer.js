@@ -8,7 +8,7 @@ import HierarchyAdvancedReport from 'components/companyAdmin/reports/createRepor
 
 class AdvancedReportContainer extends Component {
     render() {
-        return <HierarchyAdvancedReport />;
+        return <HierarchyAdvancedReport isDrawingPage />;
     }
 
     componentDidMount = () => {

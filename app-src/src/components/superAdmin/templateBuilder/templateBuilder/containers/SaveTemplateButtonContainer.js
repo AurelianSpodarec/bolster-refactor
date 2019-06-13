@@ -58,6 +58,8 @@ class SaveTemplateButtonContainer extends Component {
             labelFields
         };
 
+        console.log(allQuestions);
+        console.log(newTemplateData.questions);
         postTemplate(newTemplateData);
     };
 }

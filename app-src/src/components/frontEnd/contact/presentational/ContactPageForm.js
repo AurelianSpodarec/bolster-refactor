@@ -37,6 +37,7 @@ const ContactPageForm = ({
                         name="email"
                         required
                         value={email}
+                        type="email"
                         handleChange={handleChange}
                     />
                 </Field>
