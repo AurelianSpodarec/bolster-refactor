@@ -5,7 +5,7 @@ import { withRouter } from 'react-router-dom';
 import postLogin from 'actions/shared/auth/async/postLogin';
 import LoginForm from '../presentational/LoginForm';
 import { authenticate } from 'helpers/api';
-import { COMPANY_USER_ROLE_TYPES } from 'constants/companyAdmin/enums';
+import { COMPANY_USER_ROLE_TYPES as ROLES } from 'constants/companyAdmin/enums';
 import addFieldError from 'actions/shared/generic/fieldErrors/sync/addFieldError';
 import showFieldErrors from 'actions/shared/generic/fieldErrors/sync/showFieldErrors';
 import fetchCompanySettings from 'actions/companyAdmin/companySettings/async/fetchCompanySettings';
@@ -33,7 +33,7 @@ class LoginFormContainer extends Component {
         postLogin(email, password);
     };
 
-    componentDidUpdate = prevProps => {
+    componentDidUpdate = async prevProps => {
         const {
             postSuccess,
             history,
@@ -43,46 +43,29 @@ class LoginFormContainer extends Component {
         } = this.props;
 
         if (postSuccess && !prevProps.postSuccess) {
-            authenticate().then(
-                ({ isSuperAdmin, isClientAccess, companyUserType }) => {
-                    if (
-                        +companyUserType === COMPANY_USER_ROLE_TYPES.OPERATIVE
-                    ) {
-                        localStorage.removeItem('token');
-                        addFieldError(
-                            'password',
-                            'Operatives logins are not permitted to use the desktop site.'
-                        );
-                        showFieldErrors();
-                    } else if (
-                        +companyUserType === COMPANY_USER_ROLE_TYPES.OWNER
-                    ) {
-                        fetchCompanySettings()
-                            .then(payload => {
-                                localStorage.setItem(
-                                    'colourCode',
-                                    payload.payload.colourCode
-                                );
-                            })
-                            .then(() =>
-                                history.push(
-                                    isSuperAdmin
-                                        ? '/admin'
-                                        : isClientAccess
-                                        ? '/client'
-                                        : '/company'
-                                )
-                            );
-                    } else
-                        history.push(
-                            isSuperAdmin
-                                ? '/admin'
-                                : isClientAccess
-                                ? '/client'
-                                : '/company'
-                        );
-                }
-            );
+            const {
+                isSuperAdmin,
+                companyUserType,
+                companyID
+            } = await authenticate();
+            if (+companyUserType === ROLES.OPERATIVE) {
+                localStorage.removeItem('token');
+                addFieldError(
+                    'password',
+                    'Operatives logins are not permitted to use the desktop site.'
+                );
+                showFieldErrors();
+                return;
+            }
+            if (+companyUserType === ROLES.OWNER) {
+                const { payload } = await fetchCompanySettings();
+                localStorage.setItem('colourCode', payload.colourCode);
+            }
+
+            let url = '/client';
+            if (companyID) url = '/company';
+            if (isSuperAdmin) url = '/admin';
+            history.push(url);
         }
     };
 }
