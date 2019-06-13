@@ -22,8 +22,11 @@ import MultiSelect from 'components/shared/generic/form/presentational/MultiSele
 import { RAW_S3_STORAGE_URL } from 'config';
 import resetPinAnswer from 'actions/companyAdmin/drawings/sync/resetPinAnswer';
 import { componentDidMount, isEmpty } from 'helpers/generic';
+<<<<<<< HEAD
+=======
 import addFieldError from 'actions/shared/generic/fieldErrors/sync/addFieldError';
 import removeFieldError from 'actions/shared/generic/fieldErrors/sync/removeFieldError';
+>>>>>>> 16761c91367d439cbd8c5d676088b93a59150bb3
 
 const {
     SINGLE_LINE,
@@ -529,15 +532,18 @@ class AddPinQuestionRoute extends Component {
             answers,
             questions,
             resetPinAnswer,
+<<<<<<< HEAD
             oldAnswers,
             updateAddPinAnswer,
             updateAddPinStatus,
             history,
-            status,
             pins,
-            isFetchingPins,
+            isFetchingPins
+=======
+            status,
             addFieldError,
             removeFieldError
+>>>>>>> 16761c91367d439cbd8c5d676088b93a59150bb3
         } = this.props;
         const prereq = this.checkIfShouldShowByPreReq(
             question.id,
@@ -545,15 +551,7 @@ class AddPinQuestionRoute extends Component {
             answers,
             questions
         );
-        const answer = answers[question.id];
-
-        if (!prereq && answer) resetPinAnswer(question.id);
-        if (`${question.type}` !== `${STATUS}` && prevProps.status !== status) {
-            const answerName = `answer-${question.id}`;
-            this._getIsRequired() && isEmpty(answer)
-                ? addFieldError(answerName, 'This is a required field.')
-                : removeFieldError(answerName);
-        }
+<<<<<<< HEAD
 
         const isDoneFetchingPins =
             prevProps.isFetchingPins && !isFetchingPins && !isEmpty(pins);
@@ -567,6 +565,18 @@ class AddPinQuestionRoute extends Component {
             updateAddPinStatus(history.status);
         }
 
+        if (!prereq && answers[question.id]) resetPinAnswer(question.id);
+=======
+        const answer = answers[question.id];
+
+        if (!prereq && answer) resetPinAnswer(question.id);
+        if (`${question.type}` !== `${STATUS}` && prevProps.status !== status) {
+            const answerName = `answer-${question.id}`;
+            this._getIsRequired() && isEmpty(answer)
+                ? addFieldError(answerName, 'This is a required field.')
+                : removeFieldError(answerName);
+        }
+>>>>>>> 16761c91367d439cbd8c5d676088b93a59150bb3
     };
 
     handleChange = (_, value) => {

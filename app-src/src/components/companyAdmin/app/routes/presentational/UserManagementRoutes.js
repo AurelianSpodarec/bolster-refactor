@@ -4,6 +4,7 @@ import { Route } from 'react-router-dom';
 import SwitchWith404 from 'components/appRoute/routes/presentational/SwitchWith404';
 import AllCompanyAdminsContainer from 'components/companyAdmin/userManagement/companyAdmins/allCompanyAdmins/containers/AllCompanyAdminsContainer';
 import AllOperatives from 'components/companyAdmin/userManagement/operatives/allOperatives/presentational/AllOperatives';
+import AllClientsContainer from 'components/companyAdmin/userManagement/clients/allClients/containers/AllClientsContainer';
 import ClientsAccessContainer from 'components/shared/clients/containers/ClientsAccessContainer';
 import CreateOperative from 'components/companyAdmin/userManagement/operatives/createOperative/presentational/CreateOperative';
 import CreateCompanyAdmin from 'components/companyAdmin/userManagement/companyAdmins/createCompanyAdmin/presentational/CreateCompanyAdmin';
@@ -20,6 +21,7 @@ const UserManagementRoutes = ({ base = '/company/users-management' }) => (
             component={AllCompanyAdminsContainer}
         />
         <Route exact path={`${base}/operatives`} component={AllOperatives} />
+        <Route exact path={`${base}/clients`} component={AllClientsContainer} />
         <Route
             exact
             path={`${base}/company-admins/create`}
