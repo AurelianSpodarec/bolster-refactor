@@ -4,8 +4,6 @@ import { connect } from 'react-redux';
 import DashboardStats from '../presentational/DashboardStats';
 import fetchPinStats from 'actions/companyAdmin/dashboard/async/fetchPinStats';
 
-import redBarImage from '_content/images/graph-bars/red.jpg';
-
 class DashboardStatsContainer extends Component {
     state = {
         labels: [],
@@ -16,6 +14,8 @@ class DashboardStatsContainer extends Component {
         return (
             <DashboardStats
                 data={this.state}
+                datasets={this.props.datasets}
+                labels={this.props.labels}
                 options={this._getChartOptions()}
                 isFetching={this.props.isFetching}
                 pieStats={this.props.dashAllPinsStats}
@@ -94,6 +94,7 @@ class DashboardStatsContainer extends Component {
         //     stack: 'pins',
         //     data: columnHeights.map(col => max - col)
         // };
+
         return {
             labels: labels,
             datasets: [...myDataSets]
@@ -128,7 +129,7 @@ const mapStateToProps = ({
     }
 }) => ({
     datasets: datasets || {},
-    labels: labels || {},
+    labels: labels || [],
     dashAllPinsStats,
     isFetching: isFetchingDashPinsStats,
     error: error
