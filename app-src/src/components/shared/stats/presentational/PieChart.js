@@ -15,7 +15,8 @@ const PieChart = ({
     stats,
     hierarchyType,
     sizeClasses = 'size-lg-6',
-    wTitle = true
+    wTitle = true,
+    style
 }) => {
     const isStatsEmpty = Object.values(stats.statuses).every(
         stat => stat === 0
@@ -30,10 +31,14 @@ const PieChart = ({
               return {
                   title,
                   value,
-                  color: statsPieChartColours[title]
+                  color: statsPieChartColours[title],
+                  style: {
+                      ['backgroundColor']: '#000'
+                  }
               };
           })
         : [{ title: 'Empty', value: 100, color: '#cecece' }];
+
     return (
         <div className={`history ${sizeClasses}`}>
             {wTitle && (
@@ -95,7 +100,9 @@ const PieChart = ({
                     <ReactPieChart
                         className="size-lg-5"
                         data={pieStats}
-                        segmentsStyle={{ transition: 'stroke .3s' }}
+                        segmentsStyle={{
+                            transition: 'stroke .3s'
+                        }}
                         animate
                     />
                 </div>

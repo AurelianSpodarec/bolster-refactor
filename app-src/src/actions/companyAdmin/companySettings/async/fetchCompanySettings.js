@@ -25,7 +25,7 @@ export const fetchCompanySettingsFailure = error => ({
 export default () => dispatch => {
     dispatch(fetchCompanySettingsRequest());
 
-    axios
+    return axios
         .get(`${API_URL}/settings`, getHeaders())
         .then(res => dispatch(fetchCompanySettingsSuccess(res.data)))
         .catch(err => dispatch(fetchCompanySettingsFailure(err.message)));
