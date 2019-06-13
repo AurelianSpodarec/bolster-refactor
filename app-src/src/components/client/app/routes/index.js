@@ -19,11 +19,6 @@ import ReportsRoutes from './ReportsRoutes';
 
 const ClientAreaRoutes = ({ base = '/client' }) => (
     <SwitchWith404>
-        <Route
-            exact
-            path={base}
-            component={withSelectedCompanyAuth(Dashboard)}
-        />
         <Route exact path={`${base}/companies`} component={CompaniesRoutes} />
         <Route
             path={`${base}/sites`}

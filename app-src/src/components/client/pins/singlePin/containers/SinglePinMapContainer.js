@@ -73,9 +73,13 @@ class SinglePinMapContainer extends Component {
 const mapStateToProps = (
     {
         client: {
-            pinsReducer: { pins, error, isFetching },
+            pinsReducer: { pins, error: pinsError, isFetching: fetchingPins },
             pinHistoriesReducer: { histories },
-            drawingOperativesReducer: { users },
+            pinOperativesReducer: {
+                users,
+                isFetching: fetchingOperatives,
+                error: operativesError
+            },
             drawingsReducer: { drawings }
         },
         shared: {
@@ -91,8 +95,8 @@ const mapStateToProps = (
         user: users[pin.latestCreatedByCompanyUserID] || {},
         histories: Object.values(histories),
         selectedHistory: histories[selectedHistoryId] || {},
-        error,
-        isFetching,
+        error: pinsError || operativesError,
+        isFetching: fetchingPins || fetchingOperatives,
         drawing: drawings[pin.drawingID] || {}
     };
 };

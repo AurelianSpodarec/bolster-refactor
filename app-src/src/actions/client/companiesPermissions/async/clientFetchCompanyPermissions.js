@@ -5,7 +5,7 @@ import {
     CLIENT_FETCH_COMPANY_PERMISSIONS_SUCCESS,
     CLIENT_FETCH_COMPANY_PERMISSIONS_FAILURE
 } from 'constants/actionTypes/companiesWithPermissions';
-import { CLIENT_API_URL } from 'config/index';
+import { CLIENT_API_URL } from 'config';
 import { getHeaders } from 'helpers/api';
 
 export const fetchCompanyPermissionsRequest = () => ({
@@ -22,11 +22,11 @@ export const fetchCompanyPermissionsFailure = error => ({
     error
 });
 
-export default (hierarchyType, hierarchyID) => dispatch => {
+export default (id, hierarchyType, hierarchyID) => dispatch => {
     dispatch(fetchCompanyPermissionsRequest());
     return axios
         .get(
-            `${CLIENT_API_URL}/companypermissions/${hierarchyType}/${hierarchyID}`,
+            `${CLIENT_API_URL}/companypermissions/${id}/${hierarchyType}/${hierarchyID}`,
             getHeaders()
         )
         .then(res => dispatch(fetchCompanyPermissionsSuccess(res.data)))

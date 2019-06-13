@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import fetchClientSinglePin from 'actions/client/pins/async/clientFetchSinglePin';
 import fetchClientPinTemplates from 'actions/client/pins/async/clientFetchPinTemplates';
-import fetchDrawingOperatives from 'actions/client/drawings/async/clientFetchDrawingOperatives';
+import clientFetchPinOperatives from 'actions/client/drawings/async/clientFetchPinOperatives';
 import SinglePin from '../presentational/SinglePin';
 import { getSelectedCompanyForClient, isEmpty } from 'helpers/generic';
 
@@ -13,10 +13,15 @@ class SinglePinContainer extends Component {
     }
 
     componentDidMount = () => {
-        const { pinID, fetchClientSinglePin } = this.props;
+        const {
+            pinID,
+            clientFetchPinOperatives,
+            fetchClientSinglePin
+        } = this.props;
         const selectedCompanyID = getSelectedCompanyForClient();
 
         fetchClientSinglePin(selectedCompanyID, pinID);
+        clientFetchPinOperatives(selectedCompanyID, pinID);
     };
 
     componentDidUpdate = prevProps => {
@@ -49,7 +54,10 @@ const mapDispatchToProps = dispatch => ({
     },
     fetchExtraPinData: (companyID, drawingID) => {
         dispatch(fetchClientPinTemplates(companyID, drawingID));
-        dispatch(fetchDrawingOperatives(companyID, drawingID));
+        dispatch(clientFetchPinOperatives(companyID, drawingID));
+    },
+    clientFetchPinOperatives: (companyID, pinID) => {
+        dispatch(clientFetchPinOperatives(companyID, pinID));
     }
 });
 

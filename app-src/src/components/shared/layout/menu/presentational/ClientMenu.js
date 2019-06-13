@@ -7,12 +7,6 @@ const ClientMenu = ({ dismissMessages, unreadCount }) => (
     <>
         <div className="menu-bg" />
         <div className="menu">
-            <MenuHeader title="Dashboard" />
-            <MenuItemContainer link="/client" base>
-                <i className="far fa-home icon fa-fw" />{' '}
-                <span className="menu-text">Dashboard</span>
-            </MenuItemContainer>
-
             <MenuHeader title="My Access" />
             <MenuItemContainer link="/client/sites">
                 <i className="far fa-building icon fa-fw" />{' '}

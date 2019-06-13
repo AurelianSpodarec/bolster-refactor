@@ -20,7 +20,7 @@ class CompanySelectionContainer extends Component {
         const { history } = this.props;
 
         localStorage.setItem('selectedCompany', companyID);
-        history.push('/client');
+        history.push('/client/sites');
     };
 }
 

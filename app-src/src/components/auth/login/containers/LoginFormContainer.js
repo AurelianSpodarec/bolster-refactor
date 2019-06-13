@@ -62,7 +62,7 @@ class LoginFormContainer extends Component {
                 localStorage.setItem('colourCode', payload.colourCode);
             }
 
-            let url = '/client';
+            let url = '/client/companies';
             if (companyID) url = '/company';
             if (isSuperAdmin) url = '/admin';
             history.push(url);
