@@ -59,25 +59,10 @@ class PinDetailsContainer extends Component {
     };
 
     componentDidUpdate = prevProps => {
-        const { latestHistoryId, selectPinHistory, pin, history } = this.props;
-
-        // update selected pin after a history is deleted
-        // if (
-        //     (!prevProps.latestHistoryId && latestHistoryId) ||
-        //     prevProps.latestHistoryId !== latestHistoryId
-        // ) {
-        //     selectPinHistory(latestHistoryId);
-        // }
+        const { latestHistoryId, selectPinHistory } = this.props;
 
         if (prevProps.latestHistoryId !== latestHistoryId) {
             selectPinHistory(latestHistoryId);
-        }
-
-        // redirect to drawing if deleting pin history has deleted pin
-        const { drawingID } = prevProps.pin;
-
-        if (!isObjEmpty(prevProps.pin) && isObjEmpty(pin)) {
-            history.push(`/client/drawings/${drawingID}`);
         }
     };
 }
