@@ -147,10 +147,13 @@ const Radio = ({
     isRequired,
     question: { id, options, defaultValue },
     answers,
-    handleChange
+    handleChange,
+    edit
 }) => {
     componentDidMount(() => {
-        if (!answers[id] && defaultValue) handleChange(null, defaultValue);
+        if (!answers[id] && !edit && defaultValue) {
+            handleChange(null, defaultValue);
+        }
     });
 
     return (
