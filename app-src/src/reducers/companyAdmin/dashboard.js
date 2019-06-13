@@ -13,6 +13,7 @@ import {
     UPDATE_DASH_STATS_FILTERS
 } from 'constants/actionTypes/dashboard';
 import { updateObj } from 'helpers/generic';
+import moment from 'moment';
 
 export default combineReducers({
     error: errorReducer,
@@ -133,7 +134,7 @@ function filtersReducer(
     state = {
         serviceID: '',
         daysToReturn: '31',
-        timePeriodStartDate: '2019-06-07T13:12:05Z'
+        timePeriodStartDate: moment().toDate()
     },
     action
 ) {
