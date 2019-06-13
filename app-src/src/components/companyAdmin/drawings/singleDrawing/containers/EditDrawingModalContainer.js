@@ -4,18 +4,21 @@ import { connect } from 'react-redux';
 import { ERROR_MODAL, SUCCESS_MODAL } from 'constants/shared/modalTypes';
 import hideModal from 'actions/shared/generic/modals/sync/hideModal';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
-import updateFloorPlan from 'actions/companyAdmin/drawings/async/updateFloorPlan';
-import EditFloorPlanModal from '../presentational/EditFloorPlanModal';
+import editDrawing from 'actions/companyAdmin/drawings/async/editDrawing';
+import EditDrawingModal from '../presentational/EditDrawingModal';
+import addFieldError from 'actions/shared/generic/fieldErrors/sync/addFieldError';
 
-class EditFloorPlanModalContainer extends Component {
+class EditDrawingModalContainer extends Component {
     state = {
-        file: ''
+        name: '',
+        file: '',
+        isCreditsAvailable: true
     };
 
     render() {
         const { drawing, filesUploading, hideModal } = this.props;
         return (
-            <EditFloorPlanModal
+            <EditDrawingModal
                 {...this.state}
                 drawing={drawing}
                 handleChange={this.handleChange}
@@ -25,6 +28,14 @@ class EditFloorPlanModalContainer extends Component {
             />
         );
     }
+
+    componentDidMount = () => {
+        const { drawing } = this.props;
+
+        this.setState({
+            name: drawing.name
+        });
+    };
 
     componentDidUpdate = prevProps => {
         const { postSuccess, error, showModal } = this.props;
@@ -45,9 +56,20 @@ class EditFloorPlanModalContainer extends Component {
     handleSubmit = e => {
         e.preventDefault();
 
-        const { file } = this.state;
-        const { updateFloorPlan, drawing, filesUploading } = this.props;
-        if (!filesUploading) updateFloorPlan(drawing.id, { file });
+        const { name, file } = this.state;
+        const {
+            editDrawing,
+            drawing,
+            filesUploading,
+            totalCredits
+        } = this.props;
+
+        const postBody = {
+            name,
+            file
+        };
+
+        if (!filesUploading) editDrawing(drawing.id, postBody);
     };
 
     showErrorModal = () => this.props.showModal(ERROR_MODAL);
@@ -55,20 +77,33 @@ class EditFloorPlanModalContainer extends Component {
 
 const mapStateToProps = ({
     companyAdmin: {
-        drawingsReducer: { error, postSuccess }
+        drawingsReducer: { error, postSuccess },
+        creditsReducer: { credits }
     },
     shared: {
         filesUploadingReducer: { filesUploading }
     }
-}) => ({ error, postSuccess, filesUploading });
+}) => {
+    const totalCredits = Object.values(credits).reduce(
+        (a, b) => a + b.quantity,
+        0
+    );
+
+    return {
+        error,
+        postSuccess,
+        filesUploading,
+        totalCredits
+    };
+};
 
 const mapDispatchToProps = dispatch => ({
     hideModal: () => dispatch(hideModal()),
     showModal: (type, props) => dispatch(showModal(type, props)),
-    updateFloorPlan: (id, body) => dispatch(updateFloorPlan(id, body))
+    editDrawing: (id, body) => dispatch(editDrawing(id, body))
 });
 
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(EditFloorPlanModalContainer);
+)(EditDrawingModalContainer);

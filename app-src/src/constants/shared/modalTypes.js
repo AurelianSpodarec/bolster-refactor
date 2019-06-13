@@ -1,5 +1,5 @@
 //drawing
-export const EDIT_FLOOR_PLAN = 'EDIT_FLOOR_PLAN';
+export const EDIT_DRAWING = 'EDIT_DRAWING';
 
 //generic
 export const SUCCESS_MODAL = 'SUCCESS_MODAL';

@@ -23,6 +23,7 @@ const TemplateQuestionFormModal = ({
     isRequired,
     isHidden,
     isPrefill,
+    isRequiredVal,
     handleInputChange,
     hideModal,
     handleSubmit,
@@ -86,11 +87,25 @@ const TemplateQuestionFormModal = ({
                     handleInputChange={handleInputChange}
                     {...otherFields}
                 />
-                <Field name="Required?">
+                <Field name="Required based on status?">
+                    <Select
+                        name="isRequiredVal"
+                        value={isRequiredVal}
+                        options={statusOptions}
+                        onChange={(name, val) => {
+                            handleInputChange(name, val);
+                            handleInputChange('isRequired', false);
+                        }}
+                    />
+                </Field>
+                <Field name="Always Required?">
                     <CheckboxContainer
                         name="isRequired"
                         checked={isRequired}
-                        handleChange={handleInputChange}
+                        handleChange={(name, val) => {
+                            handleInputChange(name, val);
+                            handleInputChange('isRequiredVal', null);
+                        }}
                     />
                 </Field>
                 <Field name="Hidden?">

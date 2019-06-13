@@ -17,9 +17,9 @@ import {
     ARCHIVE_DRAWING_REQUEST,
     ARCHIVE_DRAWING_SUCCESS,
     ARCHIVE_DRAWING_FAILURE,
-    UPDATE_FLOOR_PLAN_REQUEST,
-    UPDATE_FLOOR_PLAN_SUCCESS,
-    UPDATE_FLOOR_PLAN_FAILURE,
+    EDIT_DRAWING_REQUEST,
+    EDIT_DRAWING_SUCCESS,
+    EDIT_DRAWING_FAILURE,
     UPDATE_FLOOR_PLAN_CONFIRMED,
     REORDER_DRAWING
 } from 'constants/actionTypes/drawings';
@@ -68,14 +68,14 @@ function errorReducer(state = null, action) {
         case CREATE_DRAWING_REQUEST:
         case DELETE_DRAWING_REQUEST:
         case ARCHIVE_DRAWING_REQUEST:
-        case UPDATE_FLOOR_PLAN_REQUEST:
+        case EDIT_DRAWING_REQUEST:
             return null;
         case FETCH_ALL_DRAWINGS_FAILURE:
         case FETCH_SINGLE_DRAWING_FAILURE:
         case CREATE_DRAWING_FAILURE:
         case DELETE_DRAWING_FAILURE:
         case ARCHIVE_DRAWING_FAILURE:
-        case UPDATE_FLOOR_PLAN_FAILURE:
+        case EDIT_DRAWING_FAILURE:
             return action.error;
         default:
             return state;
@@ -87,12 +87,12 @@ function postSuccessReducer(state = false, action) {
         case CREATE_DRAWING_REQUEST:
         case DELETE_DRAWING_REQUEST:
         case ARCHIVE_DRAWING_REQUEST:
-        case UPDATE_FLOOR_PLAN_REQUEST:
+        case EDIT_DRAWING_REQUEST:
             return false;
         case CREATE_DRAWING_SUCCESS:
         case DELETE_DRAWING_SUCCESS:
         case ARCHIVE_DRAWING_SUCCESS:
-        case UPDATE_FLOOR_PLAN_SUCCESS:
+        case EDIT_DRAWING_SUCCESS:
             return true;
         default:
             return state;
@@ -146,7 +146,7 @@ function drawingsReducer(state = {}, action) {
 
 function updatingFloorPlanReducer(state = false, action) {
     switch (action.type) {
-        case UPDATE_FLOOR_PLAN_REQUEST:
+        case EDIT_DRAWING_REQUEST:
             return true;
         case UPDATE_FLOOR_PLAN_CONFIRMED:
             return false;
