@@ -141,10 +141,13 @@ const CheckBox = ({ question: { id, isRequired }, answers, handleChange }) => {
 const Radio = ({
     question: { id, options, isRequired, defaultValue },
     answers,
-    handleChange
+    handleChange,
+    edit
 }) => {
     componentDidMount(() => {
-        if (!answers[id] && defaultValue) handleChange(null, defaultValue);
+        if (!answers[id] && !edit && defaultValue) {
+            handleChange(null, defaultValue);
+        }
     });
 
     return (
