@@ -47,13 +47,11 @@ class PinSingleBreadCrumbContainer extends Component {
         const { pin } = this.props;
         if (pin.drawingID) {
             this.fetchData();
-            console.log(pin);
         }
     }
     componentDidUpdate(prevProps) {
         const { pin } = this.props;
         if (pin.drawingID && !prevProps.pin.drawingID) {
-            console.log(pin);
             this.fetchData();
         }
     }
