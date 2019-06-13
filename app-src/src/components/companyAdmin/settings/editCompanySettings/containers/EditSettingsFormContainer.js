@@ -138,6 +138,9 @@ class EditSettingsFormContainer extends Component {
                 dateFormat,
                 ...postBody
             } = this.state;
+
+            localStorage.setItem('colourCode', postBody.colourCode);
+
             editCompanySettings({
                 ...postBody,
                 timezone: timezone.value,
