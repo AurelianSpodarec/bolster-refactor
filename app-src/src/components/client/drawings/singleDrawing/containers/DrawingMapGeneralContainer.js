@@ -83,7 +83,7 @@ class DrawingMapGeneralContainer extends Component {
                         updating={updating}
                     />
                 </BlockContainer>
-                <div className="flex-container size-lg-12">
+                {/* <div className="flex-container size-lg-12">
                     <div className="flex-item small-text-table size-lg-3">
                         <DrawingDocumentsContainer />
                     </div>
@@ -91,7 +91,7 @@ class DrawingMapGeneralContainer extends Component {
                     <div className="flex-item small-text-table two-line size-lg-3">
                         <DrawingCompaniesAccessContainer />
                     </div>
-                </div>
+                </div> */}
             </>
         );
     }

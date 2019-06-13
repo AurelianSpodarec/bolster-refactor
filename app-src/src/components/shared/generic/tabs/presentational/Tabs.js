@@ -28,7 +28,7 @@ const Tabs = ({ tabs, selectedTab, selectTab }) => (
                         ? 'Super Admin'
                         : tab === 'Client Access'
                         ? 'Client Access'
-                        : 'Super Admin'}
+                        : tab}
                 </span>
             </button>
         ))}
