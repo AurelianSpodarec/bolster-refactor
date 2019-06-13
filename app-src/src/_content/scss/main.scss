@@ -1710,6 +1710,7 @@ input {
                 bottom: 8px;
                 left: 10px;
             }
+            min-height: 48px;
 
             &.active,
             &:hover {
@@ -1736,6 +1737,7 @@ input {
 
             &.full {
                 width: 100%;
+                min-height: 0;
 
                 span {
                     padding-left: 15px;
