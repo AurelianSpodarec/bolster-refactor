@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom';
 import moment from 'moment';
 
 import selectPinHistory from 'actions/companyAdmin/pins/sync/selectPinHistory';
-import { isObjEmpty } from 'helpers/generic';
+// import { isObjEmpty } from 'helpers/generic';
 
 import PinDetails from '../presentational/PinDetails';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
