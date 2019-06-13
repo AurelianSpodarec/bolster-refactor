@@ -4530,6 +4530,20 @@ input {
         margin: 0 0 10px !important;
     }
 }
+// helpscout-beacon
+.BeaconFabButtonFrame {
+    position: fixed !important;
+    bottom: 11px !important;
+    right: 40px !important;
+    z-index: 1000 !important;
+}
+.BeaconContainer {
+    position: fixed !important;
+    bottom: 50px !important;
+    right: 40px !important;
+    z-index: 1000 !important;
+}
+
 // force scrollbar visible on chrome
 .always-scrollbar {
     overflow-y: auto;
