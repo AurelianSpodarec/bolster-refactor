@@ -16,6 +16,8 @@ class BuyCreditsModalContainer extends Component {
     state = {
         paymentType: 2,
         stripeCardID: null,
+        termsAgreed: false,
+        addCardVisible: false,
         creditsToBuy: this.props.creditsToBuy || ''
     };
 
@@ -34,13 +36,13 @@ class BuyCreditsModalContainer extends Component {
         const costWithVAT = costWithoutVAT + costOfVAT;
 
         const cardOptions = cards.map(card => ({
-            text: `${card.nickname || card.name} - ${card.lastFour}`,
+            label: `${card.nickname || card.name} - ${card.lastFour}`,
             value: card.id
         }));
-        const selectedCard = cardOptions.find(
-            ({ isPrimary, value }) =>
-                value === this.state.stripeCardID || isPrimary
-        );
+        // const selectedCard = cardOptions.find(
+        //     ({ isPrimary, value }) =>
+        //         value === this.state.stripeCardID || isPrimary
+        // );
 
         return (
             <BuyCreditsModal
@@ -53,12 +55,15 @@ class BuyCreditsModalContainer extends Component {
                 cards={cardOptions}
                 noCards={!cards.length}
                 costOfCredits={costOfCredits}
-                selectedCard={selectedCard}
+                selectedCard={this.state.stripeCardID}
                 hideModal={e => {
                     e.preventDefault();
                     hideModal();
                 }}
                 handleCreditsChange={this.handleCreditsChange}
+                showAddCard={this.showAddCard}
+                hideAddCard={this.hideAddCard}
+                handleAddCardSuccess={this.handleAddCardSuccess}
             />
         );
     };
@@ -103,6 +108,16 @@ class BuyCreditsModalContainer extends Component {
                 resubmit: hideModal
             });
         }
+    };
+
+    handleAddCardSuccess = card => {
+        this.setState({ stripeCardID: card.id, addCardVisible: false });
+    };
+    showAddCard = () => {
+        this.setState({ addCardVisible: true });
+    };
+    hideAddCard = () => {
+        this.setState({ addCardVisible: false });
     };
 
     handleChange = (name, value) => this.setState({ [name]: value });
