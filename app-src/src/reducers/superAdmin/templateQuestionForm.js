@@ -34,7 +34,7 @@ const initialQuestionFields = {
     canCompanyEdit: false,
     optionType: '',
     statusOptions: [],
-    requiredFromStatusVal: []
+    isRequiredVal: null
 };
 
 export default combineReducers({

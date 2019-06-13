@@ -42,7 +42,8 @@ const {
 } = QUESTION_TYPE_VALUES;
 
 const SingleLine = ({
-    question: { id, isRequired, charLimit },
+    isRequired,
+    question: { id, charLimit },
     answers,
     handleChange
 }) => {
@@ -58,7 +59,8 @@ const SingleLine = ({
 };
 
 const MultiLine = ({
-    question: { id, isRequired, charLimit },
+    isRequired,
+    question: { id, charLimit },
     answers,
     handleChange
 }) => {
@@ -73,7 +75,8 @@ const MultiLine = ({
     );
 };
 const NumberInput = ({
-    question: { id, isRequired, maxNum },
+    isRequired,
+    question: { id, maxNum },
     answers,
     handleChange
 }) => {
@@ -89,7 +92,8 @@ const NumberInput = ({
 };
 
 const SingleDropdown = ({
-    question: { id, isRequired, options },
+    isRequired,
+    question: { id, options },
     answers,
     handleChange
 }) => {
@@ -108,7 +112,8 @@ const SingleDropdown = ({
 };
 
 const MultiDropdown = ({
-    question: { id, options, isRequired },
+    isRequired,
+    question: { id, options },
     answers,
     handleChange
 }) => {
@@ -126,7 +131,7 @@ const MultiDropdown = ({
     );
 };
 
-const CheckBox = ({ question: { id, isRequired }, answers, handleChange }) => {
+const CheckBox = ({ isRequired, question: { id }, answers, handleChange }) => {
     return (
         <CheckboxContainer
             required={isRequired}
@@ -139,7 +144,8 @@ const CheckBox = ({ question: { id, isRequired }, answers, handleChange }) => {
 };
 
 const Radio = ({
-    question: { id, options, isRequired, defaultValue },
+    isRequired,
+    question: { id, options, defaultValue },
     answers,
     handleChange
 }) => {
@@ -159,7 +165,8 @@ const Radio = ({
 };
 
 const SinglePhoto = ({
-    question: { isRequired, id },
+    isRequired,
+    question: { id },
     answers,
     handleFileChange,
     edit
@@ -179,7 +186,8 @@ const SinglePhoto = ({
 };
 
 const MultiPhoto = ({
-    question: { isRequired, maxPhotos, id },
+    isRequired,
+    question: { maxPhotos, id },
     answers,
     handleFileChange,
     edit
@@ -202,7 +210,7 @@ const MultiPhoto = ({
     );
 };
 
-const Signature = ({ question: { isRequired, id }, handleSignatureChange }) => {
+const Signature = ({ isRequired, question: { id }, handleSignatureChange }) => {
     return (
         <SignatureContainer
             name={`answer-${id}`}
@@ -230,7 +238,8 @@ const Status = ({ status, handleStatusChange, statusOptions = [] }) => {
     );
 };
 const DropdownOptions = ({
-    question: { id, isRequired, optionType },
+    isRequired,
+    question: { id, optionType },
     dropdownOptions,
     answers,
     handleChange
@@ -252,7 +261,8 @@ const DropdownOptions = ({
 };
 
 const MultiDropdownOptions = ({
-    question: { id, isRequired, optionType },
+    isRequired,
+    question: { id, optionType },
     dropdownOptions,
     answers,
     handleChange
@@ -273,7 +283,8 @@ const MultiDropdownOptions = ({
 };
 
 const MultiMulti = ({
-    question: { id, options, isRequired },
+    isRequired,
+    question: { id, options },
     answers,
     handleChange
 }) => {
@@ -295,7 +306,8 @@ const MultiMulti = ({
 };
 
 const MultiMultiDropdownOptions = ({
-    question: { id, isRequired, optionType },
+    isRequired,
+    question: { id, optionType },
     dropdownOptions,
     answers,
     handleChange
@@ -378,6 +390,7 @@ class AddPinQuestionRoute extends Component {
                     required={question.isRequired}
                 >
                     <SpecificField
+                        isRequired={this._getIsRequired()}
                         statusOptions={selectedVersion.statusOptions}
                         question={question}
                         answers={answers}
@@ -418,6 +431,19 @@ class AddPinQuestionRoute extends Component {
             resetPinAnswers();
         }
     }
+
+    _getIsRequired = () => {
+        const {
+            question: { isRequired, isRequiredVal },
+            status
+        } = this.props;
+
+        if (isRequired) return true;
+        if (isRequiredVal) return isRequiredVal + '' === status + '';
+
+        return false;
+    };
+
     checkIfShouldShowByPreReq = (
         currentQuestionID,
         prerequisiteQuestionID,
