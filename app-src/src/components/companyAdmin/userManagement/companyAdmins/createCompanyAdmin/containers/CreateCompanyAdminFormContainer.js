@@ -41,7 +41,7 @@ class CreateCompanyAdminFormContainer extends Component {
         if (postSuccess && !prevProps.postSuccess) {
             showModal(SUCCESS_MODAL, {
                 hideModal,
-                message: 'Company Admin added successfully.'
+                message: 'Admin added successfully.'
             });
         }
         if (error && !prevProps.error) {

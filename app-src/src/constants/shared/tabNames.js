@@ -17,6 +17,6 @@ export const SITE_TABS = {
 
 export const MENU_TABS = {
     SUPER_ADMIN: 'Super Admin',
-    COMPANY_USER: 'Company Admin',
+    COMPANY_USER: 'Admin',
     CLIENT: 'Client Access'
 };

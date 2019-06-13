@@ -17,13 +17,13 @@ const AllCompanyAdminsTable = ({
 }) => {
     return (
         <BlockContainer>
-            <BlockHeading title="Company Admins">
+            <BlockHeading title="Admins">
                 <ButtonContainer
                     handleClick={handleCreateCompanyAdmin}
                     setColour={GREEN}
                     setColourHoverCode={GREEN_HOVER}
                 >
-                    <i className="fa fa-plus" /> Create Company Admin
+                    <i className="fa fa-plus" /> Create Admin
                 </ButtonContainer>
                 {/* <Link
                     className="button green"
@@ -37,7 +37,7 @@ const AllCompanyAdminsTable = ({
                 isFetching={isFetching}
                 error={error}
                 noData={!users.length}
-                noDataMessage="No company admins to display."
+                noDataMessage="No admins to display."
                 extraClasses="large"
             >
                 <AllCompanyAdminsList

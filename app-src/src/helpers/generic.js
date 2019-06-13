@@ -168,6 +168,7 @@ export function getCompanyColour(colourCode) {
     if (colourCode) {
         return colourCode;
     } else if (localColour) {
+        console.log('oioi');
         return localColour;
     } else {
         return '#E10512';
