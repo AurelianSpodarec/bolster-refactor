@@ -3711,12 +3711,11 @@ input {
 
 //additional options
 
-// .options-container {
-// border: 2px solid #2dac58;
-// margin-left: 10px;
-// border-radius: 5px;
-// padding: 5px;
-// }
+.options-container {
+    padding: 10px;
+    background: lightgreen;
+    border-radius: 5px;
+}
 
 .sub-text {
     display: inline-block;
