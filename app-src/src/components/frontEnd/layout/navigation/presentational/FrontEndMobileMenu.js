@@ -66,10 +66,10 @@ const FrontEndMobileMenu = ({
                 )}
                 {isClientAccess && (
                     <FrontEndMobileMenuItemContainer
-                        link="/Client "
+                        link="/Client/companies "
                         handleClick={handleLinkClick}
                     >
-                        Dashboard
+                        Client
                     </FrontEndMobileMenuItemContainer>
                 )}
                 {isSuperAdmin || isClientAccess || isCompanyAdmin ? (
