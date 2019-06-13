@@ -69,8 +69,8 @@ class ActiveServicesContainer extends Component {
 
     handleChange = name => {
         const {
-            editServiceRenewalStatus,
-            editSubscriptionRenewalStatus
+            editServiceRenewalStatus
+            // editSubscriptionRenewalStatus
         } = this.props;
         const updatedServices = this.state.subscriptions.reduce((acc, curr) => {
             if (curr.name === name) {
@@ -82,9 +82,9 @@ class ActiveServicesContainer extends Component {
                 return [...acc, { ...curr, isAutoRenew: !curr.isAutoRenew }];
             } else return [...acc, curr];
         }, []);
-        if (updatedServices.every(({ isAutoRenew }) => !isAutoRenew)) {
-            editSubscriptionRenewalStatus({ renewalStatus: false });
-        }
+        // if (updatedServices.every(({ isAutoRenew }) => !isAutoRenew)) {
+        //     editSubscriptionRenewalStatus({ renewalStatus: false });
+        // }
         this.setState({ subscriptions: updatedServices });
     };
 }
