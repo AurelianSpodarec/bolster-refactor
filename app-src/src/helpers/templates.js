@@ -104,6 +104,7 @@ function setDynamicFieldsSingle({
     canCompanyEdit,
     maxPhotos,
     optionType,
+    defaultValue,
     ...otherFields
 }) {
     let dynamicFields = {};
@@ -123,7 +124,8 @@ function setDynamicFieldsSingle({
                 options: [
                     ...new Set(Object.values(options).map(opt => opt.text))
                 ],
-                canCompanyEdit
+                canCompanyEdit,
+                defaultValue
             };
             break;
         case VALS.MULTI_PHOTO:

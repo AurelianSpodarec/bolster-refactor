@@ -1,48 +1,55 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import uuid from 'uuid/v1';
 import MultiOptionForm from '../presentational/MultiOptionForm';
 import updateQuestionField from 'actions/superAdmin/templateBuilder/sync/updateQuestionField';
+import { QUESTION_TYPE_VALUES } from 'constants/shared/templateBuilder';
 
-class MultiOptionFormContainer extends Component {
-    render() {
-        return (
-            <MultiOptionForm
-                {...this.props}
-                addOption={this.addOption}
-                removeOption={this.removeOption}
-                updateOption={this.updateOption}
-            />
-        );
+const MultiOptionFormContainer = ({
+    options,
+    updateQuestionField,
+    questionType,
+    ...props
+}) => {
+    const radio = questionType === QUESTION_TYPE_VALUES.RADIO;
+    return (
+        <MultiOptionForm
+            {...props}
+            options={options}
+            optionsForSelect={optionsForSelect()}
+            updateQuestionField={updateQuestionField}
+            addOption={addOption}
+            removeOption={removeOption}
+            updateOption={updateOption}
+            radio={radio}
+        />
+    );
+
+    function optionsForSelect() {
+        return options.map(opt => ({ label: opt.text, value: opt.id }));
     }
 
-    addOption = e => {
-        e.preventDefault();
-        const { options, updateQuestionField } = this.props;
-        updateQuestionField('options', [...options, { text: '', id: uuid() }]);
-    };
+    function addOption() {
+        const id = uuid();
+        const newOption = { text: '', id };
+        updateQuestionField('options', [...options, newOption]);
+    }
 
-    removeOption = (e, id) => {
-        e.preventDefault();
-        const { options, updateQuestionField } = this.props;
+    function removeOption(id) {
         updateQuestionField('options', options.filter(op => op.id !== id));
-    };
+    }
 
-    updateOption = (name, value) => {
-        const { options, updateQuestionField } = this.props;
+    function updateOption(name, text) {
         const updated = options.map(opt =>
-            opt.id === name ? { ...opt, text: value } : opt
+            opt.id === name ? { ...opt, text } : opt
         );
 
         updateQuestionField('options', updated);
-    };
-}
-
-const mapDispatchToProps = dispatch => ({
-    updateQuestionField: (name, value) => {
-        dispatch(updateQuestionField(name, value));
     }
-});
+};
+
+const mapDispatchToProps = { updateQuestionField };
+
 export default connect(
     null,
     mapDispatchToProps

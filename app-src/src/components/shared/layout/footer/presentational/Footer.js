@@ -18,8 +18,8 @@ const Footer = ({ company }) => (
     >
         <div className="container">
             <p style={{ color: company.isBolsterLogoDark ? '#000' : '#fff' }}>
-                Bolster Systems Ltd<sup>®</sup> is a company registered in
-                England and Wales.
+                {/* Bolster Systems Ltd<sup>®</sup> is a company registered in
+                England and Wales. */}
             </p>
 
             <img
