@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 
 const HeaderNotifications = ({
@@ -26,7 +25,7 @@ const HeaderNotifications = ({
 
                         {link.toLowerCase().includes('http') ? (
                             <ButtonContainer to={link} isAnchor>
-                                View
+                                Download
                             </ButtonContainer>
                         ) : (
                             <ButtonContainer
