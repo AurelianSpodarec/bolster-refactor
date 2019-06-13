@@ -5,6 +5,7 @@ import Field from 'components/shared/generic/form/presentational/Field';
 import CheckboxListContainer from 'components/shared/generic/form/containers/CheckboxListContainer';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
+import Select from 'components/shared/generic/form/presentational/Select';
 
 const FilterFieldsModal = ({
     questionOptions,
@@ -15,13 +16,28 @@ const FilterFieldsModal = ({
     updateOption,
     questionValues,
     saveField,
-    hideModal
+    hideModal,
+    showFreeForm,
+    showFreeFormOptions,
+    toggleShowFreeForm
 }) => (
     <ModalOuterContainer>
         <BlockHeading title="Add Filter" />
         {/* ? multiple fields in modal? */}
         {/* multi checkboxes for field name */}
         <div className="size-lg-12">
+            <div className="size-lg-12">
+                <Field name="Question types">
+                    <Select
+                        classes="full-width"
+                        options={showFreeFormOptions}
+                        value={showFreeForm ? 1 : 2}
+                        name={'Options'}
+                        onChange={toggleShowFreeForm}
+                        omitPlaceholder
+                    />
+                </Field>
+            </div>
             <div className="size-lg-6">
                 <Field name="Questions" required>
                     <CheckboxListContainer

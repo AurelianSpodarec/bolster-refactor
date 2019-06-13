@@ -15,25 +15,21 @@ import {
 import removeFilterQuestion from 'actions/companyAdmin/reports/sync/removeFilterQuestion';
 
 class FilterFieldsModalContainer extends Component {
+    state = {
+        showFreeForm: true
+    };
     render() {
         const {
-            customQuestions,
             field: { selectedQuestions, questionValues },
             questionOptions
         } = this.props;
-        const uniqueOptions = removeDuplicates(customQuestions, true);
-        const formattedOptions = uniqueOptions.map(
-            ({ id: value, name: text }) => ({
-                value,
-                text,
-                name: value
-            })
-        );
 
-        console.log(this.getCurrentOptions());
         return (
             <FilterFieldsModal
-                questionOptions={formattedOptions}
+                toggleShowFreeForm={this.toggleShowFreeForm}
+                showFreeFormOptions={this._getShowFreeFormOptions()}
+                showFreeForm={this.state.showFreeForm}
+                questionOptions={this._getQuestionOptions()}
                 selectedQuestions={selectedQuestions}
                 handleChange={this.handleChange}
                 addOption={this.addOption}
@@ -47,18 +43,47 @@ class FilterFieldsModalContainer extends Component {
         );
     }
 
+    componentDidMount = () => {
+        const questionValues = Object.values(this.props.field.questionValues);
+        // add an option if none exist, makes modal reusable for edit
+        if (!questionValues.length) this.addOption();
+    };
+
+    toggleShowFreeForm = () => {
+        this.setState({ showFreeForm: !this.state.showFreeForm });
+    };
+
+    _getShowFreeFormOptions = () => {
+        return [
+            { label: 'Free Form', value: 1 },
+            { label: 'Static', value: 2 }
+        ];
+    };
+
+    _getFilteredQuestions = () => {
+        const { customQuestions } = this.props;
+        const { showFreeForm } = this.state;
+        const questionsObj = convertArrToObj(customQuestions);
+
+        return [...new Set(customQuestions.map(q => q.id))]
+            .map(id => questionsObj[id])
+            .filter(({ options }) => (showFreeForm ? !options : !!options));
+    };
+
+    _getQuestionOptions = () => {
+        return this._getFilteredQuestions().map(q => ({
+            value: q.id,
+            name: q.id,
+            text: q.name
+        }));
+    };
+
     handleChange = (_, options) => {
         const { updateFilterQuestionField, field } = this.props;
         updateFilterQuestionField(
             field.id,
             updateObj(field, 'selectedQuestions', options)
         );
-    };
-
-    componentDidMount = () => {
-        const questionValues = Object.values(this.props.field.questionValues);
-        // add an option if none exist, makes modal reusable for edit
-        if (!questionValues.length) this.addOption();
     };
 
     addOption = () => {
