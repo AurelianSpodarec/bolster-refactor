@@ -6,6 +6,7 @@ import { FILE_STORAGE_URL } from 'config';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
+import SinglePinGenerateReportContainer from '../containers/SinglePinGenerateReportContainer';
 
 const SinglePinMap = ({
     pin,
@@ -27,6 +28,7 @@ const SinglePinMap = ({
                     : ''}
                 )
             </h4>
+            <SinglePinGenerateReportContainer pinID={pin.id} />
             {pin.nextPinID && (
                 <ButtonContainer
                     className="pull-right"
