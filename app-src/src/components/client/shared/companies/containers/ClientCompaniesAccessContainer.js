@@ -8,7 +8,7 @@ import BlockContainer from 'components/shared/generic/block/containers/BlockCont
 import { DELETE_COMPANY_PERMISSIONS } from 'constants/shared/modalTypes';
 
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
-import fetchCompaniesPermissions from 'actions/companyAdmin/companiesPermissions/async/fetchCompanyPermissions';
+import clientFetchCompanyPermissions from 'actions/client/companiesPermissions/async/clientFetchCompanyPermissions.js';
 
 class CompaniesAccessContainer extends Component {
     render() {
@@ -35,12 +35,13 @@ class CompaniesAccessContainer extends Component {
 
     componentDidMount = () => {
         const {
-            fetchCompaniesPermissions,
+            clientFetchCompanyPermissions,
             hierarchyType,
             hierarchyID
         } = this.props;
 
-        fetchCompaniesPermissions(hierarchyType, hierarchyID);
+        const id = localStorage.getItem('selectedCompany');
+        clientFetchCompanyPermissions(id, hierarchyType, hierarchyID);
     };
 
     handleShowModal = companyPermissionID => {
@@ -50,18 +51,24 @@ class CompaniesAccessContainer extends Component {
 }
 
 const mapStateToProps = (
-    { companyAdmin: { companiesPermissionsReducer } },
+    {
+        client: {
+            clientCompaniesPermissionsReducer: {
+                isFetching,
+                error,
+                companiesPermissions
+            }
+        }
+    },
     { match }
 ) => ({
     hierarchyID: match.params.id,
-    isFetching: companiesPermissionsReducer.isFetching,
-    error: companiesPermissionsReducer.error,
-    companiesWithPermissions: Object.values(
-        companiesPermissionsReducer.companiesPermissions
-    )
+    isFetching,
+    error,
+    companiesWithPermissions: Object.values(companiesPermissions)
 });
 
-const mapDispatchToProps = { fetchCompaniesPermissions, showModal };
+const mapDispatchToProps = { clientFetchCompanyPermissions, showModal };
 
 export default withRouter(
     connect(
