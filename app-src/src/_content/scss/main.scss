@@ -82,7 +82,7 @@ body {
         }
         .hide-overflow {
             min-height: 140px;
-            max-height: 140px;
+            max-height: 280px;
             overflow-y: scroll;
             width: calc(100% + 30px);
             margin-left: -15px;
@@ -4533,15 +4533,24 @@ input {
 // helpscout-beacon
 .BeaconFabButtonFrame {
     position: fixed !important;
-    bottom: 11px !important;
+    bottom: 9px !important;
     right: 40px !important;
     z-index: 1000 !important;
+    box-shadow: none !important;
+    width: 60px !important;
+
+    iframe {
+        -ms-transform: scale(0.75) translate(+25%, +25%);
+        -moz-transform: scale(0.75) translate(+25%, +25%);
+        -o-transform: scale(0.75) translate(+25%, +25%);
+        -webkit-transform: scale(0.75) translate(+25%, +25%);
+        transform: scale(0.75) translate(+25%, +25%);
+    }
 }
 .BeaconContainer {
     position: fixed !important;
-    bottom: 50px !important;
+    bottom: 55px !important;
     right: 40px !important;
-    z-index: 1000 !important;
 }
 
 // force scrollbar visible on chrome
