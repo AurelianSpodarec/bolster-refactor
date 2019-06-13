@@ -34,9 +34,9 @@ class CompanyAppContainer extends Component {
         } = this.props;
 
         fetchHomeData();
-        fetchCompanySettings().then(payload =>
-            localStorage.setItem('colourCode', payload.colourCode)
-        );
+        fetchCompanySettings().then(payload => {
+            localStorage.setItem('colourCode', payload.payload.colourCode);
+        });
 
         selectCompanyMenuTab();
     };
