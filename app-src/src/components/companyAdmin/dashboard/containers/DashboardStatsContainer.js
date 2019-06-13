@@ -10,14 +10,18 @@ class DashboardStatsContainer extends Component {
         datasets: []
     };
 
-    render = () => (
-        <DashboardStats
-            data={this.state}
-            options={this._getChartOptions()}
-            isFetching={this.props.isFetching}
-            pieStats={this.props.dashAllPinsStats}
-        />
-    );
+    render() {
+        return (
+            <DashboardStats
+                data={this.state}
+                datasets={this.props.datasets}
+                labels={this.props.labels}
+                options={this._getChartOptions()}
+                isFetching={this.props.isFetching}
+                pieStats={this.props.dashAllPinsStats}
+            />
+        );
+    }
 
     _getChartOptions() {
         return {
@@ -90,6 +94,7 @@ class DashboardStatsContainer extends Component {
         //     stack: 'pins',
         //     data: columnHeights.map(col => max - col)
         // };
+
         return {
             labels: labels,
             datasets: [...myDataSets]
@@ -124,7 +129,7 @@ const mapStateToProps = ({
     }
 }) => ({
     datasets: datasets || {},
-    labels: labels || {},
+    labels: labels || [],
     dashAllPinsStats,
     isFetching: isFetchingDashPinsStats,
     error: error

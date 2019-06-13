@@ -30,8 +30,10 @@ export default postBody => dispatch => {
         .post(`${API_URL}/users`, postBody, getHeaders())
         .then(result => dispatch(createCompanyUserSuccess(result.data)))
         .catch(error => {
-            dispatch(createCompanyUserFailure(error));
-            if (error.response.status === 400)
+            if (error.response.status === 400) {
                 dispatch(setAPIFieldErrors(error.response.data.errors));
+            } else {
+                dispatch(createCompanyUserFailure(error));
+            }
         });
 };

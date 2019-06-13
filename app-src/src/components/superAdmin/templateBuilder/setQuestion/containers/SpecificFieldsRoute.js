@@ -44,7 +44,7 @@ const SpecificFieldsRoute = ({ questionType, ...otherProps }) => {
     };
 
     const SpecificForm = questionForms[questionType] || NoFields;
-    return <SpecificForm {...otherProps} />;
+    return <SpecificForm {...otherProps} questionType={questionType} />;
 };
 
 export default SpecificFieldsRoute;
