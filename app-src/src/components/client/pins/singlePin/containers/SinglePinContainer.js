@@ -13,7 +13,11 @@ class SinglePinContainer extends Component {
     }
 
     componentDidMount = () => {
-        const { pinID, clientFetchPinOperatives } = this.props;
+        const {
+            pinID,
+            clientFetchPinOperatives,
+            fetchClientSinglePin
+        } = this.props;
         const selectedCompanyID = getSelectedCompanyForClient();
 
         fetchClientSinglePin(selectedCompanyID, pinID);
@@ -51,6 +55,9 @@ const mapDispatchToProps = dispatch => ({
     fetchExtraPinData: (companyID, drawingID) => {
         dispatch(fetchClientPinTemplates(companyID, drawingID));
         dispatch(clientFetchPinOperatives(companyID, drawingID));
+    },
+    clientFetchPinOperatives: (companyID, pinID) => {
+        dispatch(clientFetchPinOperatives(companyID, pinID));
     }
 });
 

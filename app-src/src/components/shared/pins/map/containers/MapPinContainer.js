@@ -44,10 +44,10 @@ class MapPinContainer extends Component {
     };
 
     handleFetchPin = id => {
-        const { fetchSinglePin, historyIDs, pin } = this.props;
+        const { fetchSinglePin, historyIDs, pin, urlStart } = this.props;
         this._waitForHover = setTimeout(() => {
             if (!historyIDs.includes(pin.latestHistoryID + '')) {
-                fetchSinglePin(id, true);
+                if (urlStart !== 'client') fetchSinglePin(id, true);
             }
         }, 200);
     };
