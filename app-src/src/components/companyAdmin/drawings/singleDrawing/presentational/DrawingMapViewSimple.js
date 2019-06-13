@@ -10,7 +10,7 @@ import BlockHeading from 'components/shared/generic/blockHeading/presentational/
 import CustomPin from 'components/shared/pins/map/presentational/CustomPin';
 import Loading from 'components/shared/generic/misc/presentational/Loading';
 import { RAW_S3_STORAGE_URL } from 'config';
-import { EDIT_FLOOR_PLAN } from 'constants/shared/modalTypes';
+import { EDIT_DRAWING } from 'constants/shared/modalTypes';
 import MapPinContainer from 'components/shared/pins/map/containers/MapPinContainer';
 import LoadingIcon from 'components/shared/generic/misc/presentational/LoadingIcon';
 
@@ -75,9 +75,7 @@ const DrawingMapViewSimple = ({
 
                         <button
                             className="button yellow"
-                            onClick={() =>
-                                showModal(EDIT_FLOOR_PLAN, { drawing })
-                            }
+                            onClick={() => showModal(EDIT_DRAWING, { drawing })}
                         >
                             <i className="far fa-pencil fa-fw" /> Edit drawing
                         </button>

@@ -32,7 +32,7 @@ import {
     EDIT_BUILDING,
     EDIT_DROPDOWN_OPTION,
     EDIT_FLOOR,
-    EDIT_FLOOR_PLAN,
+    EDIT_DRAWING,
     EDIT_SITE,
     EDIT_TEMPLATE,
     EDIT_TEMPLATE_QUESTION,
@@ -86,7 +86,7 @@ import ConfirmDeleteModal from '../presentational/ConfirmDeleteModal';
 import ConfirmArchiveModal from '../presentational/ConfirmArchiveModal';
 import ConfirmSubmitModal from '../presentational/ConfirmSubmitModal';
 import PaymentSuccessModalContainer from './PaymentSuccessModalContainer';
-import EditFloorPlanModalContainer from 'components/companyAdmin/drawings/singleDrawing/containers/EditFloorPlanModalContainer';
+import EditDrawingModalContainer from 'components/companyAdmin/drawings/singleDrawing/containers/EditDrawingModalContainer';
 import ConfirmEditPinModalContainer from 'components/companyAdmin/pins/confirmEditPinModal/containers/ConfirmEditPinModalContainer';
 import AddSiteModal from 'components/companyAdmin/sites/addSiteModal/presentational/AddSiteModal';
 import CreateBuildingModal from 'components/companyAdmin/buildings/addBuildingModal/presentational/CreateBuildingModal';
@@ -138,7 +138,7 @@ const MODAL_COMPONENTS = {
     [RENAME_TEMPLATE_SECTION]: RenameTemplateSectionModalContainer,
     [COPY_TEMPLATE]: CopyTemplateModalContainer,
     [SUCCESS_MODAL]: SuccessModalContainer.WrappedComponent,
-    [EDIT_FLOOR_PLAN]: EditFloorPlanModalContainer,
+    [EDIT_DRAWING]: EditDrawingModalContainer,
     [CONFIRM_EDIT_PIN]: ConfirmEditPinModalContainer,
     [ADD_SITE]: AddSiteModal,
     [ADD_BUILDING]: CreateBuildingModal,
