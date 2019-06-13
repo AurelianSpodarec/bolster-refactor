@@ -16,8 +16,9 @@ class BuyCreditsModalContainer extends Component {
     state = {
         paymentType: 2,
         stripeCardID: null,
-        creditsToBuy: this.props.creditsToBuy || '',
-        addCardVisible: false
+        termsAgreed: false,
+        addCardVisible: false,
+        creditsToBuy: this.props.creditsToBuy || ''
     };
 
     render = () => {

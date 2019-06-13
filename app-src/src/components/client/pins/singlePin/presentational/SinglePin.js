@@ -8,13 +8,13 @@ import SinglePinHeaderContainer from '../containers/SinglePinHeaderContainer';
 const SinglePin = () => (
     <>
         <SinglePinHeaderContainer />
-        <div className="size-lg-8">
+        <div className="size-lg-12">
             <SinglePinMapContainer />
             <PinDetailsContainer />
         </div>
-        <div className="size-lg-4">
+        {/* <div className="size-lg-4">
             <PinHistoriesContainer />
-        </div>
+        </div> */}
     </>
 );
 

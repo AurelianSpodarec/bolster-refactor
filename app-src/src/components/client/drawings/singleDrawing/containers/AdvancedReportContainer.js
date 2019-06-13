@@ -44,7 +44,7 @@ const mapStateToProps = ({
     client: {
         reportsReducer: {
             isFetching,
-            customFilters: { pins }
+            customFilters: { pins = [] }
         }
     }
 }) => ({

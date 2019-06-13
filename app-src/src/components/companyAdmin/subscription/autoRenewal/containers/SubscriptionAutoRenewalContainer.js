@@ -12,9 +12,10 @@ class SubscriptionAutoRenewalContainer extends Component {
             isFetching,
             isAutoRenew,
             renewalType,
-            subscriptions
+            subscriptions,
+            cards
         } = this.props;
-        const noCards = !Object.values(this.props.cards).length;
+        const noCards = !cards.length;
 
         return (
             <BlockContainer isFetching={isFetching}>
@@ -70,7 +71,7 @@ const mapStateToProps = ({
     isAutoRenew: subscriptions.isAutoRenew,
     renewalType: subscriptions.renewalType,
     subscriptions,
-    cards: cards || {}
+    cards: Object.values(cards)
 });
 
 const mapDispatchToProps = dispatch => ({

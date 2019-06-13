@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import ModalOuterContainer from 'components/shared/generic/modals/containers/ModalOuterContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import Form from 'components/shared/generic/form/containers/Form';
@@ -10,6 +11,7 @@ import Field from 'components/shared/generic/form/presentational/Field';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import { formatNumber } from 'helpers/generic';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
+import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
 import AddCardFormContainer from '../../cardManagement/addCardModal/containers/AddCardFormContainer';
 import Select from 'components/shared/generic/form/presentational/Select';
 
@@ -29,7 +31,8 @@ const BuyCreditsModal = ({
     addCardVisible,
     showAddCard,
     hideAddCard,
-    handleAddCardSuccess
+    handleAddCardSuccess,
+    termsAgreed
 }) => {
     if (addCardVisible)
         return (
@@ -111,6 +114,7 @@ const BuyCreditsModal = ({
                         value={creditsToBuy}
                         handleChange={handleCreditsChange}
                         placeholder="Number of credits..."
+                        termsAgreed
                         required
                         type="number"
                         validate={value =>
@@ -135,6 +139,21 @@ const BuyCreditsModal = ({
                         Cancel
                     </ButtonContainer>
                 </BlockButtonWrapper>
+                <div className="size-lg-6">
+                    <Field name="Agree to terms" required>
+                        <p>
+                            Please check that you agree with the{' '}
+                            <Link to="/auth/terms ">sales terms</Link> to
+                            proceed with payment.
+                        </p>
+                        <CheckboxContainer
+                            checked={termsAgreed}
+                            handleChange={handleChange}
+                            name={'termsAgreed'}
+                            required
+                        />
+                    </Field>
+                </div>{' '}
             </Form>
         </ModalOuterContainer>
     );

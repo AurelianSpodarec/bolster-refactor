@@ -14,12 +14,13 @@ import fetchAllSubscriptions from 'actions/companyAdmin/subscriptions/async/fetc
 class AddServiceToSubscriptionModalContainer extends Component {
     state = {
         paymentType: 2,
-        stripeCardID: null
+        stripeCardID: null,
+        termsAgreed: false
     };
 
     render() {
         const { cards, hideModal, service, proRataCost } = this.props;
-        const { paymentType, stripeCardID } = this.state;
+        const { paymentType, stripeCardID, termsAgreed } = this.state;
         const cardOptions = cards.map(card => ({
             text: `${card.nickname || card.name} - ${card.lastFour}`,
             value: card.id
@@ -44,6 +45,7 @@ class AddServiceToSubscriptionModalContainer extends Component {
                     hideModal();
                 }}
                 service={service}
+                termsAgreed={termsAgreed}
             />
         );
     }
