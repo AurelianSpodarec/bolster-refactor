@@ -1,32 +1,67 @@
 import React, { Component } from 'react';
-
 import { Bar } from 'react-chartjs-2';
 
+import redBarImage from '_content/images/graph-bars/red.jpg';
+
 class DashboardBarContainer extends Component {
+    state = {
+        labels: [],
+        datasets: []
+    };
+
     _data = canvas => {
+        const { datasets, labels } = this.props;
+
         const ctx = canvas.getContext('2d');
-        const gradient = ctx.createLinearGradient(0, 10, 1000, 20);
-        gradient.addColorStop(0, 'pink');
-        gradient.addColorStop(1, 'orange');
+        const img = new Image();
+
+        img.src = redBarImage;
+
+        const gradient = ctx.createPattern(img, 'repeat-y');
+        // gradient.addColorStop(0, 'pink');
+        // gradient.addColorStop(1, 'orange');
         return {
-            labels: [
-                'January',
-                'February',
-                'March',
-                'April',
-                'May',
-                'June',
-                'July'
-            ],
+            labels: labels || [],
             datasets: [
                 {
-                    label: 'My First dataset',
-                    backgroundColor: gradient,
-                    borderColor: 'rgba(255,99,132,1)',
+                    label: 'Action required',
+                    borderColor: 'black',
+                    backgroundColor: 'red',
+                    stack: 'pins',
                     borderWidth: 1,
-                    hoverBackgroundColor: 'rgba(255,99,132,0.4)',
-                    hoverBorderColor: 'rgba(255,99,132,1)',
-                    data: [65, 59, 80, 81, 56, 55, 40]
+                    data: datasets.ActionRequired
+                },
+                {
+                    label: 'Inspected',
+                    borderColor: 'black',
+                    backgroundColor: 'blue',
+                    stack: 'pins',
+                    borderWidth: 1,
+                    data: datasets.Inspected
+                },
+                {
+                    label: 'Installed',
+                    borderColor: 'black',
+                    backgroundColor: 'green',
+                    stack: 'pins',
+                    borderWidth: 1,
+                    data: datasets.Installed
+                },
+                {
+                    label: 'No action required',
+                    borderColor: 'black',
+                    backgroundColor: 'yellow',
+                    stack: 'pins',
+                    borderWidth: 1,
+                    data: datasets.NoAction
+                },
+                {
+                    label: 'Other',
+                    borderColor: 'black',
+                    backgroundColor: 'purple',
+                    stack: 'pins',
+                    borderWidth: 1,
+                    data: datasets.Other
                 }
             ]
         };
