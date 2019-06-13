@@ -12,8 +12,7 @@ class DrawingDocumentsTableContainer extends Component {
         return (
             <BlockContainer error={error} containerClass="always-scrollbar">
                 <DocumentsTable
-                    // documents={this._getFilteredDocuments()}
-                    documents={this.props.documents}
+                    documents={this._getFilteredDocuments()}
                     isFetching={isFetching}
                     clientControls={true}
                 />

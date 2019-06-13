@@ -9,9 +9,10 @@ const DatePickerPresentational = ({
     name,
     placeholderText = `Please select ${name}`,
     required = true,
-    onBlur = () => {}
+    onBlur = () => {},
+    sizeClasses = 'size-lg-12'
 }) => (
-    <div className="size-lg-12">
+    <div className={sizeClasses}>
         <DatePicker
             id={name}
             selected={selected}

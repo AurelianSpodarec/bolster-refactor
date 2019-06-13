@@ -9,11 +9,8 @@ import HeaderProfileContainer from '../containers/HeaderProfileContainer';
 // import HeaderNotificationsContainer from '../containers/HeaderNotificationsContainer';
 // import { PARENTAL_TYPES } from 'constants/companyAdmin/enums';
 
-const ClientHeader = ({ company }) => (
-    <header
-        id="page-header"
-        style={{ borderColor: company.colourCode || defaultStyles.colourCode }}
-    >
+const ClientHeader = ({ company, companyColour }) => (
+    <header id="page-header" style={{ borderColor: companyColour }}>
         <div className="container">
             {/*** company logo ***/}
             <div className="logo">

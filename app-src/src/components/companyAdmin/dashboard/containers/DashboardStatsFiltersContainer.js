@@ -27,6 +27,8 @@ class DashboardStatsFiltersContainer extends Component {
                 selectedService={serviceOptions[filters.serviceID]}
                 daysToReturn={Object.values(daysToReturn)}
                 selectedPeriod={daysToReturn[filters.daysToReturn]}
+                timePeriodStartDate={filters.timePeriodStartDate}
+                handleDateChange={this.handleDateChange}
                 handleChange={this.handleChange}
             />
         );
@@ -35,6 +37,10 @@ class DashboardStatsFiltersContainer extends Component {
     handleChange = (name, value) => {
         const { updateDashboardFilters } = this.props;
         updateDashboardFilters(name, value);
+    };
+    handleDateChange = (name, date) => {
+        const { updateDashboardFilters } = this.props;
+        updateDashboardFilters(name, date);
     };
 
     componentDidMount = () => {
@@ -52,7 +58,6 @@ class DashboardStatsFiltersContainer extends Component {
     componentDidUpdate = prevProps => {
         const { filters, fetchPinStats } = this.props;
         if (!_.isEqual(prevProps.filters, filters)) {
-            console.error(filters);
             fetchPinStats(filters);
         }
     };

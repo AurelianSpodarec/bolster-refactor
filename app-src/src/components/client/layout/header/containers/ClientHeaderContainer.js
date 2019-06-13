@@ -1,20 +1,24 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+import { getCompanyColour } from 'helpers/generic';
 import ClientHeader from '../presentational/ClientHeader';
 
-const ClientHeaderContainer = ({
-    profile,
-    companySettings,
+class ClientHeaderContainer extends Component {
+    render() {
+        const { profile, companySettings, isImpersonating } = this.props;
+        const companyColour = getCompanyColour(companySettings.companyColour);
 
-    isImpersonating
-}) => (
-    <ClientHeader
-        profile={profile}
-        company={companySettings}
-        isImpersonating={isImpersonating}
-    />
-);
+        return (
+            <ClientHeader
+                profile={profile}
+                company={companySettings}
+                isImpersonating={isImpersonating}
+                companyColour={companyColour}
+            />
+        );
+    }
+}
 
 const mapStateToProps = ({
     companyAdmin: {
