@@ -22,11 +22,11 @@ export const fetchDashStatsFailure = error => ({
     error
 });
 
-export default () => dispatch => {
+export default filterBody => dispatch => {
     dispatch(fetchDashStatsRequest());
 
     return axios
-        .get(`${API_URL}/stats/dashboard`, getHeaders())
+        .post(`${API_URL}/stats/dashboard`, filterBody, getHeaders())
         .then(res => dispatch(fetchDashStatsSuccess(res.data)))
         .catch(err => dispatch(fetchDashStatsFailure(err.message)));
 };

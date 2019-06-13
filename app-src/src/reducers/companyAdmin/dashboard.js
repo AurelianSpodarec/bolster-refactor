@@ -9,7 +9,8 @@ import {
     UPDATE_DASHBOARD_SETTING,
     FETCH_DASH_STATS_REQUEST,
     FETCH_DASH_STATS_SUCCESS,
-    FETCH_DASH_STATS_FAILURE
+    FETCH_DASH_STATS_FAILURE,
+    UPDATE_DASH_STATS_FILTERS
 } from 'constants/actionTypes/dashboard';
 import { updateObj } from 'helpers/generic';
 
@@ -21,7 +22,8 @@ export default combineReducers({
     liveHistories: liveHistoriesReducer,
     dashRecentPinsStats: dashRecentPinsStatsReducer,
     dashAllPinsStats: dashAllPinsStatsReducer,
-    settings: settingsReducer
+    settings: settingsReducer,
+    filters: filtersReducer
 });
 
 function isFetchingDashPinsStatsReducer(state = false, action) {
@@ -122,6 +124,22 @@ function settingsReducer(
     switch (action.type) {
         case UPDATE_DASHBOARD_SETTING:
             return updateObj(state, action.key, action.value);
+        default:
+            return state;
+    }
+}
+
+function filtersReducer(
+    state = {
+        serviceID: '',
+        daysToReturn: '31',
+        timePeriodStartDate: '2019-06-07T13:12:05Z'
+    },
+    action
+) {
+    switch (action.type) {
+        case UPDATE_DASH_STATS_FILTERS:
+            return updateObj(state, action.fieldName, action.searchTerm);
         default:
             return state;
     }
