@@ -2,18 +2,17 @@ import React from 'react';
 
 import WhiteLogo from '_content/images/footer/logo-footer-white.png';
 import BlackLogo from '_content/images/footer/logo-footer-black.png';
-import defaultStyles from 'constants/defaultStyles';
 
 const logos = {
     white: WhiteLogo,
     black: BlackLogo
 };
 
-const Footer = ({ company }) => (
+const Footer = ({ company, companyColour }) => (
     <footer
         id="page-footer"
         style={{
-            backgroundColor: company.colourCode || defaultStyles.colourCode
+            backgroundColor: companyColour
         }}
     >
         <div className="container">

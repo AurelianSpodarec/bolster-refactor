@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
+import { getCompanyColour } from 'helpers/generic';
+
 class MenuItemContainer extends Component {
     state = {
         hover: false
@@ -27,7 +29,7 @@ class MenuItemContainer extends Component {
             : route.toLowerCase().includes(link.toLowerCase());
 
         let textColor = 'white';
-
+        const companyColour = getCompanyColour(colourCode);
         if (isBolsterLogoDark) textColor = 'black';
 
         return (
@@ -37,9 +39,9 @@ class MenuItemContainer extends Component {
                 className={`item ${isActive ? 'active' : ''} custom-hover`}
                 style={
                     isActive
-                        ? { backgroundColor: colourCode, color: textColor }
+                        ? { backgroundColor: companyColour, color: textColor }
                         : hover
-                        ? { backgroundColor: colourCode, color: textColor }
+                        ? { backgroundColor: companyColour, color: textColor }
                         : {}
                 }
             >
@@ -80,7 +82,7 @@ const mapStateToProps = ({
         }
     }
 }) => ({
-    colourCode: colourCode || '#e10512',
+    colourCode: colourCode || '',
     isBolsterLogoDark
 });
 
