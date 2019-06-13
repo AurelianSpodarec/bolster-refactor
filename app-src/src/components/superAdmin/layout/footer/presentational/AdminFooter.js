@@ -5,8 +5,8 @@ const AdminFooter = () => (
     <footer id="page-footer" className="basic">
         <div className="container">
             <p>
-                Bolster Systems Ltd<sup>®</sup> is a company registered in
-                England and Wales.
+                {/* Bolster Systems Ltd<sup>®</sup> is a company registered in
+                England and Wales. */}
             </p>
 
             <img

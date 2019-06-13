@@ -5,6 +5,7 @@ import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { LOADING_DATA } from 'constants/shared/modalTypes';
 import HierarchyAdvancedReport from 'components/client/reports/createReport/components/presentational/HierarchyAdvancedReport';
+import withUpdateOnChange from 'components/client/reports/createReport/components/hocs/withUpdateOnChange';
 
 class AdvancedReportContainer extends Component {
     render() {
@@ -12,13 +13,27 @@ class AdvancedReportContainer extends Component {
     }
 
     componentDidMount = () => {
-        const { isFetching, showModal } = this.props;
+        const { isFetching, showModal, pins, handleChange } = this.props;
+        if (pins && pins.length)
+            handleChange('pinIDs', pins.map(({ id }) => id));
         if (isFetching) showModal(LOADING_DATA, { message: 'Loading data...' });
     };
 
     componentDidUpdate = prevProps => {
-        const { isFetching, showModal, hideModal } = this.props;
-        if (isFetching) showModal(LOADING_DATA, { message: 'Loading pins...' });
+        const {
+            isFetching,
+            showModal,
+            hideModal,
+            pins,
+            handleChange
+        } = this.props;
+
+        if (pins.length !== prevProps.pins.length) {
+            handleChange('pinIds', pins.map(({ id }) => id));
+        }
+        if (isFetching && !prevProps.isFetching) {
+            showModal(LOADING_DATA, { message: 'Loading pins...' });
+        }
         if (!isFetching && prevProps.isFetching) {
             hideModal();
         }
@@ -27,10 +42,14 @@ class AdvancedReportContainer extends Component {
 
 const mapStateToProps = ({
     client: {
-        reportsReducer: { isFetching }
+        reportsReducer: {
+            isFetching,
+            customFilters: { pins }
+        }
     }
 }) => ({
-    isFetching
+    isFetching,
+    pins
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -41,4 +60,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(AdvancedReportContainer);
+)(withUpdateOnChange(AdvancedReportContainer));

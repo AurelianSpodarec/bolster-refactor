@@ -75,7 +75,7 @@ const ContactPageForm = ({
             <FrontEndButton
                 type="submit"
                 classes="red"
-                handleSubmit={handleSubmit}
+                handleClick={handleSubmit}
             >
                 Submit
             </FrontEndButton>

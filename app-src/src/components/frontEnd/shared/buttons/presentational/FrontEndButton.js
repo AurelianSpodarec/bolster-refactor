@@ -6,13 +6,13 @@ const FrontEndButton = ({
     children,
     classes = '',
     type = '',
-    handleSubmit = () => {}
+    handleClick = () => {}
 }) =>
     !!type && type.length ? (
         <button
             type={type}
             className={`frontend-button ${classes}`}
-            onClick={e => handleSubmit(e)}
+            onClick={e => handleClick(e)}
         >
             {children}
         </button>

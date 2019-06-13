@@ -75,7 +75,7 @@ class CopyTemplateModalContainer extends Component {
                 companyID
             };
 
-            const newLabelFields = labelFields.map(lf => {
+            let newLabelFields = labelFields.map(lf => {
                 const lfUUID = newUUID();
                 return {
                     ...lf,
@@ -96,7 +96,14 @@ class CopyTemplateModalContainer extends Component {
                     const newSectionQuestions = questions
                         .filter(q => q.sectionUUID === sec.uuid)
                         .map(q => {
+                            const qOldUUID = q.uuid;
                             const newQuestionUUID = newUUID();
+                            newLabelFields = labelFields.map(lf => {
+                                if (lf.config.questionUUID === qOldUUID) {
+                                    lf.config.questionUUID = newQuestionUUID;
+                                }
+                                return lf;
+                            });
                             return {
                                 ...q,
                                 uuid: newQuestionUUID,

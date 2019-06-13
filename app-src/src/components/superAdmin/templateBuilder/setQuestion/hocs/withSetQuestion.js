@@ -76,7 +76,8 @@ export default function(WrappedComponent) {
                 prereqVal,
                 isRequired,
                 isHidden,
-                isPrefill
+                isPrefill,
+                isRequiredVal
             } = this.props.fields;
 
             return {
@@ -86,7 +87,8 @@ export default function(WrappedComponent) {
                 prereqVal,
                 isRequired,
                 isHidden,
-                isPrefill
+                isPrefill,
+                isRequiredVal
             };
         };
 
@@ -99,6 +101,7 @@ export default function(WrappedComponent) {
                 maxPhotos,
                 questionType,
                 canCompanyEdit,
+                defaultValue,
                 optionType
             } = this.props.fields;
 
@@ -112,7 +115,7 @@ export default function(WrappedComponent) {
                 case VALS.MULTI_DROPDOWN:
                 case VALS.MULTI_MULTI_DROPDOWN:
                 case VALS.RADIO:
-                    return { options, canCompanyEdit };
+                    return { options, canCompanyEdit, defaultValue };
                 case VALS.MULTI_PHOTO:
                     return { maxPhotos };
                 case VALS.DROPDOWN_OPTIONS:
