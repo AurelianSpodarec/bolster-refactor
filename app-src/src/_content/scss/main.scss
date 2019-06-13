@@ -1595,9 +1595,6 @@ input {
     img {
         max-width: 75px;
         margin: 0 5px;
-        &:not(.settings-logo) {
-            border: 1px solid black;
-        }
 
         &.signature {
             width: 25em;
@@ -1606,6 +1603,12 @@ input {
             margin: 1em 0;
             padding: 0.5em;
             border-radius: 0.5em;
+        }
+
+        &.settings-logo {
+            width: 100%;
+            max-width: 100%;
+            margin: 0;
         }
     }
 
