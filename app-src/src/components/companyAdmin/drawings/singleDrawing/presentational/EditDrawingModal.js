@@ -10,9 +10,11 @@ import FileUploadContainer from 'components/shared/generic/form/containers/FileU
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 import { RAW_S3_STORAGE_URL } from 'config';
 import Block from 'components/shared/generic/block/presentational/Block';
+import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 
 const getFileName = src => src.match('[^/]*$')[0];
-const EditFloorPlanModal = ({
+const EditDrawingModal = ({
+    name,
     file,
     filesUploading,
     handleChange,
@@ -22,7 +24,7 @@ const EditFloorPlanModal = ({
 }) => (
     <ModalOuterContainer>
         <Block>
-            <BlockHeading title="Upload a new floor plan.">
+            <BlockHeading title="Edit drawing">
                 <button
                     className="button"
                     onClick={() =>
@@ -49,13 +51,20 @@ const EditFloorPlanModal = ({
             )}
 
             <Form className="generic-form" onSubmit={handleSubmit}>
-                <Field name="Upload file" required>
+                <Field name="Drawing name" required>
+                    <TextInputContainer
+                        name="name"
+                        value={name}
+                        handleChange={handleChange}
+                        required
+                    />
+                </Field>
+                <Field name="Change floorplan">
                     <FileUploadContainer
                         name="file"
                         value={file}
                         handleChange={handleChange}
                         acceptedTypes={['application/pdf', 'image/*']}
-                        required
                     />
                 </Field>
                 <BlockButtonWrapper>
@@ -78,4 +87,4 @@ const EditFloorPlanModal = ({
     </ModalOuterContainer>
 );
 
-export default EditFloorPlanModal;
+export default EditDrawingModal;

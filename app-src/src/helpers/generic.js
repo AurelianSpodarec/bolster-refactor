@@ -161,3 +161,15 @@ export function componentDidUpdate(cb, dependencies = []) {
         cb();
     }, dependencies);
 }
+
+export function getCompanyColour(colourCode) {
+    const localColour = localStorage.getItem('colourCode');
+
+    if (colourCode) {
+        return colourCode;
+    } else if (localColour) {
+        return localColour;
+    } else {
+        return '#E10512';
+    }
+}

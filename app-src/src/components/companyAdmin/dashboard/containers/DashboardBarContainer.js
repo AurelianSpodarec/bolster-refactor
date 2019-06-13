@@ -21,7 +21,7 @@ class DashboardBarContainer extends Component {
         // gradient.addColorStop(0, 'pink');
         // gradient.addColorStop(1, 'orange');
         return {
-            labels: labels || [],
+            labels: labels,
             datasets: [
                 {
                     label: 'Action required',

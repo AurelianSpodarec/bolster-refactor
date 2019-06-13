@@ -2,6 +2,7 @@ import {
     DECODE_JWT_REQUEST,
     DECODE_JWT_SUCCESS
 } from 'constants/actionTypes/decodeJWT';
+import { LOGOUT } from 'constants/actionTypes/auth';
 
 import { combineReducers } from 'redux';
 
@@ -14,6 +15,7 @@ function jwtDataReducer(state = {}, action) {
         case DECODE_JWT_REQUEST:
             return {};
         case DECODE_JWT_SUCCESS:
+        case LOGOUT:
             return action.payload;
         default:
             return state;

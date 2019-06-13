@@ -11,7 +11,7 @@ const SitesListItem = ({ toggleExpanded, isExpanded, site, colCount }) => {
             <tr
                 key={site.id}
                 onClick={toggleExpanded}
-                className={`expandable ${isExpanded ? 'open' : ''}`}
+                className={`draggable expandable ${isExpanded ? 'open' : ''}`}
             >
                 <td>
                     <i

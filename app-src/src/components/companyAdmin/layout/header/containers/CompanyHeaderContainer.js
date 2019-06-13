@@ -1,34 +1,44 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import CompanyHeader from '../presentational/CompanyHeader';
 
+import { getCompanyColour } from 'helpers/generic';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { BUY_CREDITS } from 'constants/shared/modalTypes';
 import { MESSAGE_TYPES } from 'constants/companyAdmin/enums';
 
-const CompanyHeaderContainer = ({
-    profile,
-    companySettings,
-    unreadMessageCount,
-    totalCredits,
-    totalRequests,
-    isImpersonating,
-    showModal
-}) => (
-    <CompanyHeader
-        profile={profile}
-        company={companySettings}
-        unreadMessageCount={unreadMessageCount}
-        totalCredits={totalCredits}
-        totalRequests={totalRequests}
-        isImpersonating={isImpersonating}
-        showModal={e => {
-            e.preventDefault();
-            showModal(BUY_CREDITS);
-        }}
-    />
-);
+class CompanyHeaderContainer extends Component {
+    render() {
+        const {
+            profile,
+            companySettings,
+            unreadMessageCount,
+            totalCredits,
+            totalRequests,
+            isImpersonating,
+            showModal
+        } = this.props;
+
+        const companyColour = getCompanyColour(companySettings.companyColour);
+
+        return (
+            <CompanyHeader
+                profile={profile}
+                company={companySettings}
+                companyColour={companyColour}
+                unreadMessageCount={unreadMessageCount}
+                totalCredits={totalCredits}
+                totalRequests={totalRequests}
+                isImpersonating={isImpersonating}
+                showModal={e => {
+                    e.preventDefault();
+                    showModal(BUY_CREDITS);
+                }}
+            />
+        );
+    }
+}
 
 const mapStateToProps = ({
     companyAdmin: {

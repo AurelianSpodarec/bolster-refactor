@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 import FrontEndHeader from '../presentational/FrontEndHeader';
+import { logout } from 'actions/shared/auth/sync/logout';
 
 class FrontEndHeaderContainer extends Component {
     render() {
@@ -13,13 +14,16 @@ class FrontEndHeaderContainer extends Component {
                 isSuperAdmin={isSuperAdmin}
                 isCompanyAdmin={isCompanyAdmin}
                 isClientAccess={isClientAccess}
-                logout={this._logout}
+                logout={this.logout}
             />
         );
     }
-    _logout = e => {
-        e.preventDefault();
+
+    logout = () => {
+        const { history, logout } = this.props;
         localStorage.setItem('token', '');
+        logout();
+        history.push('/');
     };
 }
 
@@ -33,9 +37,15 @@ const mapStateToProps = ({
     isClientAccess: jwtData.isClientAccess
 });
 
+const mapDispatchToProps = dispatch => ({
+    logout: () => {
+        dispatch(logout());
+    }
+});
+
 export default withRouter(
     connect(
         mapStateToProps,
-        null
+        mapDispatchToProps
     )(FrontEndHeaderContainer)
 );

@@ -19,7 +19,7 @@ let SitesListItem = ({
             <tr
                 ref={forwardRef}
                 onClick={toggleExpanded}
-                className={`expandable ${isExpanded ? 'open' : ''}`}
+                className={`draggable expandable ${isExpanded ? 'open' : ''}`}
                 style={{ opacity: isDragging ? 0 : 1 }}
             >
                 <td>

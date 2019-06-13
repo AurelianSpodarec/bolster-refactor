@@ -11,15 +11,13 @@ import { PARENTAL_TYPES } from 'constants/companyAdmin/enums';
 
 const Header = ({
     company,
+    companyColour,
     unreadMessageCount,
     totalCredits,
     totalRequests,
     showModal
 }) => (
-    <header
-        id="page-header"
-        style={{ borderColor: company.colourCode || defaultStyles.colourCode }}
-    >
+    <header id="page-header" style={{ borderColor: companyColour }}>
         <div className="container">
             {/*** company logo ***/}
             <div className="logo">

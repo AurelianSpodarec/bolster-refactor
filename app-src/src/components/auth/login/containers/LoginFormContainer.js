@@ -8,6 +8,7 @@ import { authenticate } from 'helpers/api';
 import { COMPANY_USER_ROLE_TYPES } from 'constants/companyAdmin/enums';
 import addFieldError from 'actions/shared/generic/fieldErrors/sync/addFieldError';
 import showFieldErrors from 'actions/shared/generic/fieldErrors/sync/showFieldErrors';
+import fetchCompanySettings from 'actions/companyAdmin/companySettings/async/fetchCompanySettings';
 
 class LoginFormContainer extends Component {
     state = {
@@ -37,7 +38,8 @@ class LoginFormContainer extends Component {
             postSuccess,
             history,
             addFieldError,
-            showFieldErrors
+            showFieldErrors,
+            fetchCompanySettings
         } = this.props;
 
         if (postSuccess && !prevProps.postSuccess) {
@@ -52,6 +54,25 @@ class LoginFormContainer extends Component {
                             'Operatives logins are not permitted to use the desktop site.'
                         );
                         showFieldErrors();
+                    } else if (
+                        +companyUserType === COMPANY_USER_ROLE_TYPES.OWNER
+                    ) {
+                        fetchCompanySettings()
+                            .then(payload => {
+                                localStorage.setItem(
+                                    'colourCode',
+                                    payload.payload.colourCode
+                                );
+                            })
+                            .then(() =>
+                                history.push(
+                                    isSuperAdmin
+                                        ? '/admin'
+                                        : isClientAccess
+                                        ? '/client'
+                                        : '/company'
+                                )
+                            );
                     } else
                         history.push(
                             isSuperAdmin
@@ -70,7 +91,8 @@ const mapStateToProps = ({ shared: { loginReducer } }) => loginReducer;
 const mapDispatchToProps = dispatch => ({
     postLogin: (email, password) => dispatch(postLogin(email, password)),
     addFieldError: (field, error) => dispatch(addFieldError(field, error)),
-    showFieldErrors: () => dispatch(showFieldErrors())
+    showFieldErrors: () => dispatch(showFieldErrors()),
+    fetchCompanySettings: () => dispatch(fetchCompanySettings())
 });
 
 export default withRouter(

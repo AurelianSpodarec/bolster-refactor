@@ -11,7 +11,7 @@ const BuldingsListItem = ({
     <>
         <tr
             onClick={toggleExpanded}
-            className={`expandable ${isExpanded ? 'open' : ''}`}
+            className={`draggable expandable ${isExpanded ? 'open' : ''}`}
         >
             <td>
                 {' '}
