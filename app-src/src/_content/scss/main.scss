@@ -1607,9 +1607,24 @@ input {
 
         &.settings-logo {
             width: 100%;
-            max-width: 100%;
+            max-width: 90%;
             margin: 0;
         }
+    }
+
+    &.w-colour-box {
+        p {
+            padding-left: 25px;
+        }
+    }
+
+    .colour-box {
+        position: absolute;
+        bottom: 15px;
+        left: 0;
+        width: 20px;
+        height: 20px;
+        border: 1px solid #bbb;
     }
 
     .profile-pic-field {

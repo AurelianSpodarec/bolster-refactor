@@ -109,9 +109,18 @@ const Settings = ({ isFetching, error, companySettings: company }) => {
                         <FieldOutput
                             title="Colour Code"
                             description={company.colourCode || 'Not yet set'}
-                            fieldClass="no-h-padding"
+                            fieldClass="w-colour-box"
                             sizeClass="size-lg-4"
-                        />
+                        >
+                            {company.colourCode && (
+                                <div
+                                    className="colour-box"
+                                    style={{
+                                        backgroundColor: company.colourCode
+                                    }}
+                                />
+                            )}
+                        </FieldOutput>
                         <FieldOutput
                             title="Dark Mode"
                             description={
