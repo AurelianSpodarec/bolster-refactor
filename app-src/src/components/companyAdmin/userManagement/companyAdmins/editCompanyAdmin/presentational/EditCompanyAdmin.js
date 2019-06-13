@@ -8,11 +8,11 @@ import BackButtonContainer from 'components/shared/generic/backButton/containers
 
 const EditCompanyAdmin = () => (
     <>
-        <PageHeading leftChildren={true} title={'Edit company admin'}>
+        <PageHeading leftChildren={true} title={'Edit admin'}>
             <BackButtonContainer />
         </PageHeading>
         <BlockContainer>
-            <BlockHeading title="Company Admin Details" />
+            <BlockHeading title="Admin Details" />
             <EditCompanyUserFormContainer />
         </BlockContainer>
     </>

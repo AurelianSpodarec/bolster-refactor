@@ -21,7 +21,7 @@ class MenuTabsContainer extends Component {
         if (!isSuperAdmin)
             filteredTabs = menuTabs.filter(tab => tab !== 'Super Admin');
         if (!isCompanyAdmin)
-            filteredTabs = menuTabs.filter(tab => tab !== 'Company Admin');
+            filteredTabs = menuTabs.filter(tab => tab !== 'Admin');
         if (!isClientAccess)
             filteredTabs = menuTabs.filter(tab => tab !== 'Client Access');
 
@@ -46,7 +46,7 @@ class MenuTabsContainer extends Component {
     //     if (isSuperadmin) {
     //         setMenuTab('Super Admin');
     //     } else {
-    //         setMenuTab('Company Admin');
+    //         setMenuTab('Admin');
     //     }
     // };
 }

@@ -7,7 +7,7 @@ const CompanyAdmins = () => (
     <div>
         <Breadcrumb breadcrumbs={[{ text: 'item 1' }, { text: 'item 2' }]} />
         <Block>
-            <h3 className="heading heading-3">Company Admins</h3>
+            <h3 className="heading heading-3">Admins</h3>
         </Block>
     </div>
 );

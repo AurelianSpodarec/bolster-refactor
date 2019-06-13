@@ -53,7 +53,7 @@ const CompanyMenu = ({
             </CompanyMenuItemContainer>
             <MenuHeader title="User Management" />
             <CompanyMenuItemContainer link="/company/users-management/company-admins">
-                Company Admins
+                Admins
             </CompanyMenuItemContainer>
             <CompanyMenuItemContainer link="/company/users-management/operatives">
                 Operatives

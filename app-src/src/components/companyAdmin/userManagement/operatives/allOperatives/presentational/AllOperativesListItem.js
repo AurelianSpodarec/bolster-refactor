@@ -37,7 +37,7 @@ const AllOperativesListItem = ({
                     className="button yellow"
                     handleClick={showMakeAdminModal}
                 >
-                    <i className="far fa-user" /> Make Company Admin
+                    <i className="far fa-user" /> Make Admin
                 </ButtonContainer>
                 <Link
                     className="button yellow"
