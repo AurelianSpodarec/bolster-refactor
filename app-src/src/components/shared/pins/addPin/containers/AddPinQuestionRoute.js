@@ -21,6 +21,7 @@ import Select from 'components/shared/generic/form/presentational/Select';
 import MultiSelect from 'components/shared/generic/form/presentational/MultiSelect';
 import { RAW_S3_STORAGE_URL } from 'config';
 import resetPinAnswer from 'actions/companyAdmin/drawings/sync/resetPinAnswer';
+import { componentDidMount } from 'helpers/generic';
 
 const {
     SINGLE_LINE,
@@ -138,10 +139,14 @@ const CheckBox = ({ question: { id, isRequired }, answers, handleChange }) => {
 };
 
 const Radio = ({
-    question: { id, options, isRequired },
+    question: { id, options, isRequired, defaultValue },
     answers,
     handleChange
 }) => {
+    componentDidMount(() => {
+        if (!answers[id] && defaultValue) handleChange(null, defaultValue);
+    });
+
     return (
         <RadioButtonListContainer
             name={`answer-${id}`}
