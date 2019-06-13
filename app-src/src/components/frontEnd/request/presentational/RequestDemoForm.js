@@ -33,6 +33,7 @@ const RequestDemoForm = ({
                 <TextInputContainer
                     name="email"
                     handleChange={handleChange}
+                    type="email"
                     value={email}
                     required
                 />
