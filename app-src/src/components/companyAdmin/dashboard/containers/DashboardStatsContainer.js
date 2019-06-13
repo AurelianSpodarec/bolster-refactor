@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 import DashboardStats from '../presentational/DashboardStats';
 import fetchPinStats from 'actions/companyAdmin/dashboard/async/fetchPinStats';
+import moment from 'moment';
 
 class DashboardStatsContainer extends Component {
     state = {
@@ -101,7 +102,17 @@ class DashboardStatsContainer extends Component {
         };
     }
 
-    componentDidMount = () => this.props.fetchPinStats();
+    componentDidMount = () => {
+        const startDate = moment()
+            .subtract(7, 'days')
+            .format();
+
+        this.props.fetchPinStats({
+            ServiceID: '',
+            DaysToReturn: '7',
+            TimePeriodStartDate: startDate
+        });
+    };
 
     componentDidUpdate = prevProps => {
         const { datasets } = this.props;
@@ -115,7 +126,7 @@ class DashboardStatsContainer extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-    fetchPinStats: () => dispatch(fetchPinStats())
+    fetchPinStats: filterBody => dispatch(fetchPinStats(filterBody))
 });
 
 const mapStateToProps = ({
