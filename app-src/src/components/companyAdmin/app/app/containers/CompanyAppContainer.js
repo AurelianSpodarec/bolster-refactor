@@ -27,15 +27,24 @@ class CompanyAppContainer extends Component {
     }
 
     componentDidMount = () => {
-        const { fetchHomeData, selectCompanyMenuTab } = this.props;
+        const {
+            fetchHomeData,
+            fetchCompanySettings,
+            selectCompanyMenuTab
+        } = this.props;
+
         fetchHomeData();
+        fetchCompanySettings().then(payload =>
+            localStorage.setItem('colourCode', payload.colourCode)
+        );
+
         selectCompanyMenuTab();
     };
+    componentDidUpdate = () => {};
 }
 
 const mapDispatchToProps = dispatch => ({
     fetchHomeData: () => {
-        dispatch(fetchCompanySettings());
         dispatch(fetchProfile());
         dispatch(fetchSingleCompany());
         dispatch(fetchMessages());
@@ -49,6 +58,9 @@ const mapDispatchToProps = dispatch => ({
         dispatch(fetchOutgoingTransferRequests());
         dispatch(fetchPendingInvites());
         dispatch(fetchOutgoingInvites());
+    },
+    fetchCompanySettings: () => {
+        return dispatch(fetchCompanySettings());
     },
     selectCompanyMenuTab: () => {
         dispatch(selectMenuTab(MENU_TABS.COMPANY_USER));
