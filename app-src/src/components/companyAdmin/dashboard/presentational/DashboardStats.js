@@ -7,14 +7,7 @@ import PieChart from 'components/shared/stats/presentational/PieChart';
 import DashboardBarContainer from '../containers/DashboardBarContainer';
 import Loading from 'components/shared/generic/misc/presentational/Loading';
 
-const DashboardStats = ({
-    data,
-    options,
-    pieStats,
-    isFetching,
-    datasets,
-    labels
-}) => (
+const DashboardStats = ({ pieStats, isFetching, datasets, labels }) => (
     <BlockContainer>
         {isFetching ? (
             <Loading message="Loading stats..." />
@@ -22,8 +15,11 @@ const DashboardStats = ({
             <>
                 <div className="size-lg-6">
                     <BlockHeading title="Pins added by operatives" />
-                    <Bar data={data} options={options} />
-                    {/* <DashboardBarContainer datasets={datasets} labels={labels} /> */}
+                    {/* <Bar data={data} options={options} /> */}
+                    <DashboardBarContainer
+                        datasets={datasets}
+                        labels={labels}
+                    />
                 </div>
                 <div className="size-lg-6">
                     <BlockHeading title="All Pin Histories" />

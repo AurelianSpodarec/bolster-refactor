@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Bar } from 'react-chartjs-2';
 
-import redBarImage from '_content/images/graph-bars/red.jpg';
+// import redBarImage from '_content/images/graph-bars/red.jpg';
 
 class DashboardBarContainer extends Component {
     state = {
@@ -9,59 +9,59 @@ class DashboardBarContainer extends Component {
         datasets: []
     };
 
-    _data = canvas => {
+    _data = () => {
         const { datasets, labels } = this.props;
 
-        const ctx = canvas.getContext('2d');
-        const img = new Image();
+        // const ctx = canvas.getContext('2d');
+        // const img = new Image();
 
-        img.src = redBarImage;
+        // img.src = redBarImage;
 
-        const gradient = ctx.createPattern(img, 'repeat-y');
-        // gradient.addColorStop(0, 'pink');
-        // gradient.addColorStop(1, 'orange');
+        // const gradient = ctx.createLinearGradient(0.0, 100.0, 300.0, 100.0);
+
+        // // Add colors
+        // gradient.addColorStop(0.0, 'rgba(215, 26, 27, 1.000)');
+        // // gradient.addColorStop(0.151, 'rgba(215, 26, 27, 1.000)');
+        // // gradient.addColorStop(0.151, 'rgba(215, 59, 57, 1.000)');
+        // // gradient.addColorStop(0.411, 'rgba(215, 59, 57, 1.000)');
+        // // gradient.addColorStop(0.414, 'rgba(223, 61, 61, 1.000)');
+        // gradient.addColorStop(1, 'rgba(250, 60, 250, 1.000)');
         return {
             labels: labels,
             datasets: [
                 {
                     label: 'Action required',
-                    borderColor: 'black',
-                    backgroundColor: 'red',
+                    backgroundColor: '#d61b1a',
                     stack: 'pins',
-                    borderWidth: 1,
-                    data: [1, 1, 1, 1, 1, 1]
+                    data: datasets.ActionRequired
                 },
                 {
                     label: 'Inspected',
-                    borderColor: 'black',
-                    backgroundColor: 'blue',
+                    backgroundColor: '#3363dd',
+                    // backgroundColor: 'blue',
                     stack: 'pins',
-                    borderWidth: 1,
-                    data: [1, 0, 1, 1, 0, 1]
+                    data: datasets.Inspected
                 },
                 {
                     label: 'Installed',
-                    borderColor: 'black',
-                    backgroundColor: 'green',
+                    backgroundColor: '#2cab56',
+                    // backgroundColor: 'green',
                     stack: 'pins',
-                    borderWidth: 1,
-                    data: [1, 1, 1, 1, 0, 1]
+                    data: datasets.Installed
                 },
                 {
                     label: 'No action required',
-                    borderColor: 'black',
-                    backgroundColor: 'yellow',
+                    backgroundColor: '#efc209',
+                    // backgroundColor: 'yellow',
                     stack: 'pins',
-                    borderWidth: 1,
-                    data: [1, 1, 1, 1, 0, 1]
+                    data: datasets.NoAction
                 },
                 {
                     label: 'Other',
-                    borderColor: 'black',
-                    backgroundColor: 'purple',
+                    backgroundColor: '#800180',
+                    // backgroundColor: 'purple',
                     stack: 'pins',
-                    borderWidth: 1,
-                    data: [0, 1, 1, 0, 1, 1]
+                    data: datasets.Other
                 }
             ]
         };
