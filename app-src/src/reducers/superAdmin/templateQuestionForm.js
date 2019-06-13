@@ -33,7 +33,8 @@ const initialQuestionFields = {
     maxPhotos: '',
     canCompanyEdit: false,
     optionType: '',
-    statusOptions: []
+    statusOptions: [],
+    requiredFromStatusVal: []
 };
 
 export default combineReducers({

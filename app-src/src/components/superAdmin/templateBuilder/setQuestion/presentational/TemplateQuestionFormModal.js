@@ -12,6 +12,7 @@ import BlockHeading from 'components/shared/generic/blockHeading/presentational/
 import SpecificFieldsRoute from '../containers/SpecificFieldsRoute';
 import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
 import Select from 'components/shared/generic/form/presentational/Select';
+import MultiSelect from 'components/shared/generic/form/presentational/MultiSelect';
 
 const TemplateQuestionFormModal = ({
     questionTypeOptions,
@@ -23,6 +24,7 @@ const TemplateQuestionFormModal = ({
     isRequired,
     isHidden,
     isPrefill,
+    requiredFromStatusVal,
     handleInputChange,
     hideModal,
     handleSubmit,
@@ -86,11 +88,25 @@ const TemplateQuestionFormModal = ({
                     handleInputChange={handleInputChange}
                     {...otherFields}
                 />
-                <Field name="Required?">
+                <Field name="Required based on status?">
+                    <MultiSelect
+                        name="requiredFromStatusVal"
+                        value={requiredFromStatusVal}
+                        options={statusOptions}
+                        onChange={(name, val) => {
+                            handleInputChange(name, val);
+                            handleInputChange('isRequired', false);
+                        }}
+                    />
+                </Field>
+                <Field name="Always Required?">
                     <CheckboxContainer
                         name="isRequired"
                         checked={isRequired}
-                        handleChange={handleInputChange}
+                        handleChange={(name, val) => {
+                            handleInputChange(name, val);
+                            handleInputChange('requiredFromStatusVal', []);
+                        }}
                     />
                 </Field>
                 <Field name="Hidden?">

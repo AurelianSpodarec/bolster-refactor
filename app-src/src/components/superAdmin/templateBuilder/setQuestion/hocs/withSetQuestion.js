@@ -76,7 +76,8 @@ export default function(WrappedComponent) {
                 prereqVal,
                 isRequired,
                 isHidden,
-                isPrefill
+                isPrefill,
+                requiredFromStatusVal
             } = this.props.fields;
 
             return {
@@ -86,7 +87,8 @@ export default function(WrappedComponent) {
                 prereqVal,
                 isRequired,
                 isHidden,
-                isPrefill
+                isPrefill,
+                requiredFromStatusVal
             };
         };
 
