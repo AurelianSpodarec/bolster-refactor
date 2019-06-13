@@ -66,8 +66,11 @@ const FrontEndHeader = ({
                             </FrontEndButton>
                         )}
                         {isClientAccess && (
-                            <FrontEndButton to="/Client" classes="black">
-                                Dashboard
+                            <FrontEndButton
+                                to="/Client/companies"
+                                classes="black"
+                            >
+                                Client
                             </FrontEndButton>
                         )}
                         {isSuperAdmin || isClientAccess || isCompanyAdmin ? (

@@ -42,6 +42,7 @@ import transferRequestsReducer from './transferRequests';
 import dropdownOptionsReducer from './dropdownOptions';
 import approvedCompaniesReducer from './approvedCompanies';
 import hierarchyReducer from './hierarchy';
+import generatePinReportReducer from './generatePinReport';
 
 export default combineReducers({
     addPinDropdownOptions,
@@ -61,6 +62,7 @@ export default combineReducers({
     drawingsReducer,
     dropdownOptionsReducer,
     floorsReducer,
+    generatePinReportReducer,
     headquartersReducer,
     hierarchyReducer,
     inspectionLogsReducer,

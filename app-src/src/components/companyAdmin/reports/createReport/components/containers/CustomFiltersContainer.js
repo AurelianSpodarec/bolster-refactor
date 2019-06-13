@@ -18,6 +18,7 @@ const CustomFilterContainer = ({
     const formattedOptions = Object.values(questionOptions).map(
         ({ value, text }) => ({ value, label: text })
     );
+
     return (
         <CustomFilter
             questionOptions={formattedOptions}
