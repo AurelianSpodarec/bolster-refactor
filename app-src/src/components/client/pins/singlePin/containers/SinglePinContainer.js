@@ -8,7 +8,9 @@ import SinglePin from '../presentational/SinglePin';
 import { getSelectedCompanyForClient, isEmpty } from 'helpers/generic';
 
 class SinglePinContainer extends Component {
-    render = () => <SinglePin />;
+    render() {
+        return <SinglePin />;
+    }
 
     componentDidMount = () => {
         const { pinID, fetchClientSinglePin } = this.props;
