@@ -31,39 +31,45 @@ const FrontEndHeader = ({
                 </div>
                 <div className="right">
                     <div className="links">
-                        {isSuperAdmin || isCompanyAdmin ? (
-                            <FrontEndButton to="/Company">
-                                Dashboard
+                        {' '}
+                        {isSuperAdmin || isClientAccess || isCompanyAdmin ? (
+                            <FrontEndButton type="button" handleClick={logout}>
+                                Logout
                             </FrontEndButton>
                         ) : (
-                            ''
+                            <>
+                                <FrontEndButton
+                                    classes="desktop-ver"
+                                    to="/auth/Login"
+                                >
+                                    Login
+                                </FrontEndButton>
+                                <FrontEndButton
+                                    classes="black desktop-ver"
+                                    to="/auth/register"
+                                >
+                                    Register
+                                </FrontEndButton>
+                            </>
+                        )}
+                        {isCompanyAdmin && (
+                            <FrontEndButton
+                                to="/Company"
+                                classes="black desktop-ver"
+                            >
+                                Dashboard
+                            </FrontEndButton>
+                        )}
+                        {isSuperAdmin && (
+                            <FrontEndButton to="/Admin" classes="black">
+                                Dashboard
+                            </FrontEndButton>
                         )}
                         {isClientAccess && (
                             <FrontEndButton to="/Client" classes="black">
                                 Dashboard
                             </FrontEndButton>
                         )}
-                        {isSuperAdmin || isClientAccess || isCompanyAdmin ? (
-                            <FrontEndButton to="#" handleClick={logout}>
-                                Logout
-                            </FrontEndButton>
-                        ) : (
-                            <FrontEndButton
-                                classes="desktop-ver"
-                                to="/auth/Login"
-                            >
-                                Client login
-                            </FrontEndButton>
-                        )}
-                        <FrontEndButton classes="desktop-ver" to="/auth/Login">
-                            Client Login
-                        </FrontEndButton>
-                        <FrontEndButton
-                            classes="black desktop-ver"
-                            to="/auth/register"
-                        >
-                            Register
-                        </FrontEndButton>
                         {isSuperAdmin || isClientAccess || isCompanyAdmin ? (
                             ''
                         ) : (
@@ -92,7 +98,7 @@ const FrontEndHeader = ({
                                 </a>
                                 <p className="phone-number">
                                     Tel:
-                                    <a href="tel:01618737679">0161 873 7679</a>
+                                    <a href="tel:01618737679"> 0161 873 7679</a>
                                 </p>
                             </>
                         )}

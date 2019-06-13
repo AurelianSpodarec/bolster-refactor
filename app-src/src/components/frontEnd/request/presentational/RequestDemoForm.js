@@ -61,7 +61,7 @@ const RequestDemoForm = ({
         <br />
         <span className="required">* required fields</span>
         <FrontEndButton
-            handleSubmit={handleSubmit}
+            handleClick={handleSubmit}
             type="submit"
             classes="black"
         >
