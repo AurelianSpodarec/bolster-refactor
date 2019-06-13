@@ -18,7 +18,7 @@ const FloorListItem = ({
             ref={forwardRef}
             style={{ opacity: isDragging ? 0 : 1 }}
             onClick={toggleExpanded}
-            className={`expandable ${isExpanded ? 'open' : ''}`}
+            className={`draggable expandable ${isExpanded ? 'open' : ''}`}
         >
             <td>
                 {isExpanded ? (

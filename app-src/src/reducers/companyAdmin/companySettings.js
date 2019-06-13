@@ -53,7 +53,7 @@ function postSuccessReducer(state = false, action) {
     }
 }
 
-function companySettingsReducer(state = {}, action) {
+function companySettingsReducer(state = { colorCode: 'white' }, action) {
     switch (action.type) {
         case FETCH_COMPANY_SETTINGS_SUCCESS:
             return action.payload;

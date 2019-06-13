@@ -5,12 +5,21 @@ import BasicFiltersContainer from '../containers/BasicFiltersContainer';
 import FurtherFiltrationContainer from '../containers/FurtherFiltrationContainer';
 import OutputSettingsContainer from '../containers/OutputSettingsContainer';
 
-const HierarchyAdvancedReport = () => (
+const HierarchyAdvancedReport = ({ isDrawingPage }) => (
     <>
         <FilterMapContainer />
         <div className="flex-container size-lg-12">
-            <Block1FiltersContainer blockName="hierarchyFilters" advanced />
-            <BasicFiltersContainer blockName="basicFilters" />
+            {!isDrawingPage && (
+                <Block1FiltersContainer
+                    blockName="hierarchyFilters"
+                    advanced
+                    isDrawingPage={isDrawingPage}
+                />
+            )}
+            <BasicFiltersContainer
+                blockName="basicFilters"
+                isDrawingPage={isDrawingPage}
+            />
         </div>
 
         <FurtherFiltrationContainer />
