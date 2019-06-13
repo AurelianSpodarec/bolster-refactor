@@ -21,9 +21,13 @@ class ModalOuterContainer extends Component {
     }
 
     handleClose = () => {
-        const { hideModal, updateHierarchyAddState } = this.props;
+        const {
+            hideModal,
+            updateHierarchyAddState,
+            close = hideModal
+        } = this.props;
 
-        hideModal();
+        close();
         updateHierarchyAddState(false);
     };
 }
