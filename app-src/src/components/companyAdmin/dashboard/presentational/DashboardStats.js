@@ -18,7 +18,7 @@ const DashboardStats = ({
         <div className="size-lg-6">
             <BlockHeading title="Pins added by operatives" />
             <Bar data={data} options={options} />
-            {/* <DashboardBarContainer datasets={datasets} labels={labels} /> */}
+            <DashboardBarContainer datasets={datasets} labels={labels} />
         </div>
         <div className="size-lg-6">
             <BlockHeading title="All Pin Histories" />

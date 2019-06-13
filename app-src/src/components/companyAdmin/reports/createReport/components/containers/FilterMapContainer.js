@@ -11,7 +11,6 @@ class FilterMapContainer extends Component {
     render() {
         const { drawing, pins } = this.props;
         if (!drawing.id) return null;
-        console.error(pins, drawing);
         return (
             <Block>
                 <Map center={[51.505, -0.09]} zoom={3} minZoom={0} maxZoom={5}>

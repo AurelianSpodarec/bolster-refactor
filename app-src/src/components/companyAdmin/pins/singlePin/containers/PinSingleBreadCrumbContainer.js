@@ -29,7 +29,7 @@ class PinSingleBreadCrumbContainer extends Component {
                 text: floor.name,
                 link: `/company/floors/${floor.id}`
             },
-            { text: drawing.name, link: `/company/drawing/${drawing.id}` },
+            { text: drawing.name, link: `/company/drawings/${pin.drawingID}` },
             { text: `Pin ${pin.pinCode}` }
         ];
         return (

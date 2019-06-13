@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import moment from 'moment';
+import ReactDOMServer from 'react-dom/server';
+import L from 'leaflet';
 
 import SinglePinMap from '../presentational/SinglePinMap';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
@@ -51,6 +52,7 @@ class SinglePinMapContainer extends Component {
                     moveMode={this.state.moveMode}
                     handleEditPinLocation={this.handleEditPinLocation}
                     pinHistory={selectedHistory}
+                    history={this.props.history}
                     handleEditHistoryModal={this.handleEditHistoryModal}
                 />
             </BlockContainer>

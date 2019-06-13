@@ -11,8 +11,8 @@ import CustomPin from './CustomPin';
 import ReactDOMServer from 'react-dom/server';
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 import { formatDate } from 'helpers/generic';
-import PinDetailsContainer from 'components/companyAdmin/pins/singlePin/containers/PinDetailsContainer';
-import Loading from 'components/shared/generic/misc/presentational/Loading';
+// import PinDetailsContainer from 'components/companyAdmin/pins/singlePin/containers/PinDetailsContainer';
+// import Loading from 'components/shared/generic/misc/presentational/Loading';
 import { RAW_S3_STORAGE_URL } from 'config';
 
 const DrawingMapPin = ({
