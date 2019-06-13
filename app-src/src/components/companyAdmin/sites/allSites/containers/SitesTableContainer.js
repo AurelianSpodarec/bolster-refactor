@@ -7,11 +7,7 @@ import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 
 import { ACCESS_TYPES_VALUES } from 'constants/companyAdmin/enums';
 
-import {
-    ADD_SITE,
-    SUCCESS_MODAL,
-    ERROR_MODAL
-} from 'constants/shared/modalTypes';
+import { ADD_SITE, ERROR_MODAL } from 'constants/shared/modalTypes';
 
 import SitesTable from '../presentational/SitesTable';
 import { hierarchySort } from 'helpers/generic';
