@@ -4,18 +4,18 @@ import { Map, TileLayer, Marker } from 'react-leaflet';
 import ReactDOMServer from 'react-dom/server';
 import { FILE_STORAGE_URL } from 'config';
 import L from 'leaflet';
-import fileDownload from 'js-file-download';
+// import fileDownload from 'js-file-download';
 
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import CustomPin from 'components/shared/pins/map/presentational/CustomPin';
 import Loading from 'components/shared/generic/misc/presentational/Loading';
-import { RAW_S3_STORAGE_URL } from 'config';
+// import { RAW_S3_STORAGE_URL } from 'config';
 import { EDIT_DRAWING } from 'constants/shared/modalTypes';
 import MapPinContainer from 'components/shared/pins/map/containers/MapPinContainer';
-import LoadingIcon from 'components/shared/generic/misc/presentational/LoadingIcon';
+// import LoadingIcon from 'components/shared/generic/misc/presentational/LoadingIcon';
 
 const getDataUrl = src => `${FILE_STORAGE_URL}/${src}/{z}/{x}/{y}.jpg`;
-const getFileName = src => src.match('[^/]*$')[0];
+// const getFileName = src => src.match('[^/]*$')[0];
 
 const DrawingMapViewSimple = ({
     position,

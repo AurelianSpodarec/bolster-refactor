@@ -29,7 +29,7 @@ class DashboardBarContainer extends Component {
                     backgroundColor: 'red',
                     stack: 'pins',
                     borderWidth: 1,
-                    data: datasets.ActionRequired
+                    data: [1, 1, 1, 1, 1, 1]
                 },
                 {
                     label: 'Inspected',
@@ -37,7 +37,7 @@ class DashboardBarContainer extends Component {
                     backgroundColor: 'blue',
                     stack: 'pins',
                     borderWidth: 1,
-                    data: datasets.Inspected
+                    data: [1, 0, 1, 1, 0, 1]
                 },
                 {
                     label: 'Installed',
@@ -45,7 +45,7 @@ class DashboardBarContainer extends Component {
                     backgroundColor: 'green',
                     stack: 'pins',
                     borderWidth: 1,
-                    data: datasets.Installed
+                    data: [1, 1, 1, 1, 0, 1]
                 },
                 {
                     label: 'No action required',
@@ -53,7 +53,7 @@ class DashboardBarContainer extends Component {
                     backgroundColor: 'yellow',
                     stack: 'pins',
                     borderWidth: 1,
-                    data: datasets.NoAction
+                    data: [1, 1, 1, 1, 0, 1]
                 },
                 {
                     label: 'Other',
@@ -61,7 +61,7 @@ class DashboardBarContainer extends Component {
                     backgroundColor: 'purple',
                     stack: 'pins',
                     borderWidth: 1,
-                    data: datasets.Other
+                    data: [0, 1, 1, 0, 1, 1]
                 }
             ]
         };
