@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { FILE_STORAGE_URL } from 'config';
+import { RAW_S3_STORAGE_URL } from 'config';
 
 import DeleteDocumentContainer from '../containers/DeleteDocumentContainer';
 
@@ -9,7 +9,7 @@ const DocumentsList = ({ documents, location }) =>
         <tr key={document.id}>
             <td>
                 <a
-                    href={`${FILE_STORAGE_URL}/${document.fileS3Key}`}
+                    href={`${RAW_S3_STORAGE_URL}/${document.fileS3Key}`}
                     rel="noopener norefferrer"
                     target="_blank"
                     className="text-link"
