@@ -56,12 +56,11 @@ const CreateCompanyAdminForm = ({
             </div>
 
             <div className="size-lg-6">
-                <Field name="Phone number" required>
+                <Field name="Phone number">
                     <TextInputContainer
                         value={phoneNumber}
                         name="phoneNumber"
                         handleChange={handleInputChange}
-                        required
                     />
                 </Field>
             </div>
