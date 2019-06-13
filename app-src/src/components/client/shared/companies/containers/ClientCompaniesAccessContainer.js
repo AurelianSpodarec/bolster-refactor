@@ -8,9 +8,9 @@ import BlockContainer from 'components/shared/generic/block/containers/BlockCont
 import { DELETE_COMPANY_PERMISSIONS } from 'constants/shared/modalTypes';
 
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
-import clientFetchCompanyPermissions from 'actions/client/companiesPermissions/async/clientFetchCompanyPermissions';
+import clientFetchCompanyPermissions from 'actions/client/companiesPermissions/async/clientFetchCompanyPermissions.js';
 
-class ClientCompaniesAccessContainer extends Component {
+class CompaniesAccessContainer extends Component {
     render() {
         const {
             companiesWithPermissions,
@@ -40,7 +40,8 @@ class ClientCompaniesAccessContainer extends Component {
             hierarchyID
         } = this.props;
 
-        clientFetchCompanyPermissions(hierarchyType, hierarchyID);
+        const id = localStorage.getItem('selectedCompany');
+        clientFetchCompanyPermissions(id, hierarchyType, hierarchyID);
     };
 
     handleShowModal = companyPermissionID => {
@@ -50,15 +51,21 @@ class ClientCompaniesAccessContainer extends Component {
 }
 
 const mapStateToProps = (
-    { companyAdmin: { companiesPermissionsReducer } },
+    {
+        client: {
+            clientCompaniesPermissionsReducer: {
+                isFetching,
+                error,
+                companiesPermissions
+            }
+        }
+    },
     { match }
 ) => ({
     hierarchyID: match.params.id,
-    isFetching: companiesPermissionsReducer.isFetching,
-    error: companiesPermissionsReducer.error,
-    companiesWithPermissions: Object.values(
-        companiesPermissionsReducer.companiesPermissions
-    )
+    isFetching,
+    error,
+    companiesWithPermissions: Object.values(companiesPermissions)
 });
 
 const mapDispatchToProps = { clientFetchCompanyPermissions, showModal };
@@ -67,5 +74,5 @@ export default withRouter(
     connect(
         mapStateToProps,
         mapDispatchToProps
-    )(ClientCompaniesAccessContainer)
+    )(CompaniesAccessContainer)
 );
