@@ -10,12 +10,13 @@ import { PAYMENT_SUCCESS, PAYMENT_ERROR } from 'constants/shared/modalTypes';
 
 class PayInvoiceModalContainer extends Component {
     state = {
-        stripeCardID: null
+        stripeCardID: null,
+        termsAgreed: false
     };
 
     render() {
         const { cards, hideModal } = this.props;
-        const { stripeCardID } = this.state;
+        const { stripeCardID, termsAgreed } = this.state;
         const cardOptions = cards.map(card => ({
             text: `${card.nickname || card.name} - ${card.lastFour}`,
             value: card.id
@@ -24,7 +25,6 @@ class PayInvoiceModalContainer extends Component {
         const selectedCard = cardOptions.find(
             ({ value }) => value === stripeCardID
         );
-
         return (
             <PayInvoiceModal
                 cards={cardOptions}
@@ -32,6 +32,7 @@ class PayInvoiceModalContainer extends Component {
                 handleChange={this.handleChange}
                 handleSubmit={this.handleSubmit}
                 hideModal={hideModal}
+                termsAgreed={termsAgreed}
             />
         );
     }
@@ -72,9 +73,7 @@ class PayInvoiceModalContainer extends Component {
         }
     };
 
-    handleChange = (name, value) => {
-        this.setState({ [name]: value });
-    };
+    handleChange = (name, value) => this.setState({ [name]: value });
 
     handleSubmit = e => {
         e.preventDefault();
@@ -96,13 +95,7 @@ const mapStateToProps = ({
     postFailure
 });
 
-const mapDispatchToProps = dispatch => ({
-    fetchAllCards: () => dispatch(fetchAllCards()),
-    payInvoice: (invoiceID, stripeCardID) =>
-        dispatch(payInvoice(invoiceID, stripeCardID)),
-    hideModal: () => dispatch(hideModal()),
-    showModal: (type, props) => dispatch(showModal(type, props))
-});
+const mapDispatchToProps = { fetchAllCards, payInvoice, hideModal, showModal };
 
 export default connect(
     mapStateToProps,
