@@ -5,7 +5,11 @@ import ButtonContainer from 'components/shared/generic/button/containers/ButtonC
 import withDrag from 'components/shared/dragDrop/hocs/withDrag';
 
 const DrawingListItem = ({ drawing, permissions, forwardRef, isDragging }) => (
-    <tr ref={forwardRef} style={{ opacity: isDragging ? 0 : 1 }}>
+    <tr
+        ref={forwardRef}
+        style={{ opacity: isDragging ? 0 : 1 }}
+        className="draggable"
+    >
         <td>{drawing.name}</td>
         <td>
             <DateTimeContainer date={drawing.pinsLastUpdatedOn} />
