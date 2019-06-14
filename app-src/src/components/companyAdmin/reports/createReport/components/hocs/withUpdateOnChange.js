@@ -135,7 +135,7 @@ export default function(ProtectedComponent) {
                 companyUserIDs,
                 serviceID: serviceID || null,
                 status: status || null,
-                pinIDs: pinIDs || null,
+                pinIDs: pinIDs.length ? pinIDs : null,
                 questionFilters,
                 showHidden,
                 sortBy
