@@ -10,9 +10,7 @@ import updateHierarchyAddState from 'actions/companyAdmin/hierarchy/sync/updateH
 class CreateBuildingFormContainer extends Component {
     state = {
         name: '',
-        addressLine1: '',
-        addressLine2: '',
-        postcode: ''
+        location: ''
     };
 
     render = () => (

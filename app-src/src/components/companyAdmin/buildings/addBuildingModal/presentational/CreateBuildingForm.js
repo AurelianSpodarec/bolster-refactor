@@ -9,9 +9,7 @@ const CreateBuildingForm = ({
     handleSubmit,
     handleInputChange,
     name,
-    addressLine1,
-    addressLine2,
-    postcode,
+    location,
     handleClose
 }) => (
     <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
@@ -26,42 +24,16 @@ const CreateBuildingForm = ({
                     />
                 </Field>
             </div>
-
             <div className="size-lg-6">
-                <Field name="Address Line 1" required>
+                <Field name="Location">
                     <TextInputContainer
-                        value={addressLine1}
-                        name="addressLine1"
+                        value={location}
+                        name="location"
                         handleChange={handleInputChange}
-                        required
                     />
                 </Field>
             </div>
         </div>
-
-        <div className="size-lg-12">
-            <div className="size-lg-6">
-                <Field name="Address Line 2">
-                    <TextInputContainer
-                        value={addressLine2}
-                        name="addressLine2"
-                        handleChange={handleInputChange}
-                    />
-                </Field>
-            </div>
-
-            <div className="size-lg-6">
-                <Field name="Postcode" required>
-                    <TextInputContainer
-                        value={postcode}
-                        name="postcode"
-                        handleChange={handleInputChange}
-                        required
-                    />
-                </Field>
-            </div>
-        </div>
-
         <BlockButtonWrapper>
             <button className="button green">
                 <i className="fa fa-plus" /> Add Building
