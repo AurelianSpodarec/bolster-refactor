@@ -103,8 +103,8 @@ class AddPinFormContainer extends Component {
         this.setState({ templateID: latestTemplateUsed.id }, () => {
             pinAnswers
                 .filter(answer => latestPinHistory.id === answer.pinHistoryID)
-                .forEach(answer =>
-                    updateAddPinAnswer(answer.templateQuestionID, answer.answer)
+                .forEach(({ answer, templateQuestionID }) =>
+                    updateAddPinAnswer(templateQuestionID, answer)
                 );
 
             updateAddPinStatus(latestPinHistory.status);
