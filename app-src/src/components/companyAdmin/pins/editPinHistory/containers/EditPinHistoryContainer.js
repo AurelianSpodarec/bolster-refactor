@@ -7,9 +7,15 @@ import EditPinFormContainer from './EditPinFormContainer';
 
 class EditPinHistoryContainer extends Component {
     render() {
-        const { pinID } = this.props;
+        const { pinID, historyID } = this.props;
 
-        return <EditPinFormContainer hierarchyType="pin" pinID={pinID} />;
+        return (
+            <EditPinFormContainer
+                hierarchyType="pin"
+                pinID={pinID}
+                historyID={historyID}
+            />
+        );
     }
 
     componentDidMount = () => {
@@ -19,7 +25,8 @@ class EditPinHistoryContainer extends Component {
 }
 
 const mapStateToProps = (_, { match: { params } }) => ({
-    pinID: params.id
+    pinID: params.id,
+    historyID: params.historyID
 });
 
 const mapDispatchToProps = dispatch => ({
