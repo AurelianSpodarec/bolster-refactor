@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PinSection from '../presentational/PinSection';
-import fetchDrawingDropdownOptions from 'actions/companyAdmin/drawings/async/fetchDrawingDropdownOptions';
 
 class PinSectionsContainer extends Component {
     render() {
@@ -11,12 +10,6 @@ class PinSectionsContainer extends Component {
             <PinSection sections={relevantSections} pinHistory={pinHistory} />
         );
     }
-
-    componentDidMount = () => {
-        const { fetchDrawingDropdownOptions, drawingID } = this.props;
-
-        fetchDrawingDropdownOptions(drawingID);
-    };
 }
 
 const mapStateToProps = (
@@ -35,13 +28,4 @@ const mapStateToProps = (
     };
 };
 
-const mapDispatchToProps = dispatch => ({
-    fetchDrawingDropdownOptions: drawingID => {
-        dispatch(fetchDrawingDropdownOptions(drawingID));
-    }
-});
-
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(PinSectionsContainer);
+export default connect(mapStateToProps)(PinSectionsContainer);
