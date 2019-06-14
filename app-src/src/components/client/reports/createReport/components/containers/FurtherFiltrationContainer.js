@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import uuid from 'uuid/v1';
 import showModal from 'actions/shared/generic/modals/sync/showModal';
 import hideModal from 'actions/shared/generic/modals/sync/hideModal';
 import { CLIENT_FILTER_FIELDS } from 'constants/shared/modalTypes';
@@ -106,10 +105,8 @@ class FurtherFiltrationContainer extends Component {
     };
 
     addCustomField = () => {
-        const { addFilterQuestion, showModal, customQuestions } = this.props;
-        const id = uuid();
-        addFilterQuestion(id);
-        showModal(CLIENT_FILTER_FIELDS, { id, customQuestions });
+        const { showModal, customQuestions } = this.props;
+        showModal(CLIENT_FILTER_FIELDS, { customQuestions });
     };
 
     handleShowCustomFieldModal = id => {
