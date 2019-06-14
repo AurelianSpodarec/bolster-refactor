@@ -52,7 +52,7 @@ class FurtherFiltrationContainer extends Component {
                     handleChange={this.handleChange}
                 />
                 {filterOption === '1' ? (
-                    <ClientPinSelectorContainer />
+                    <ClientPinSelectorContainer blockName="pinSelector" />
                 ) : filterOption === '2' ? (
                     <div className="custom-filters-block">
                         <div className="size-lg-12">

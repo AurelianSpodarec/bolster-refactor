@@ -2,13 +2,19 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PinSection from '../presentational/PinSection';
 import fetchDrawingDropdownOptions from 'actions/companyAdmin/drawings/async/fetchDrawingDropdownOptions';
+import CompaniesListContainer from 'components/client/companies/containers/CompaniesListContainer';
 
 class PinSectionsContainer extends Component {
     render() {
         const { relevantSections, pinHistory } = this.props;
 
         return (
-            <PinSection sections={relevantSections} pinHistory={pinHistory} />
+            console.error(relevantSections, pinHistory) || (
+                <PinSection
+                    sections={relevantSections}
+                    pinHistory={pinHistory}
+                />
+            )
         );
     }
 
@@ -19,17 +25,16 @@ class PinSectionsContainer extends Component {
     };
 }
 
-const mapStateToProps = ({
-    client: {
-        pinHistoriesReducer: { histories },
-        templateSectionsReducer: { sections }
+const mapStateToProps = (
+    {
+        client: {
+            templateSectionsReducer: { sections }
+        }
     },
-    shared: {
-        selectedHistoryReducer: { selectedHistoryId }
-    }
-}) => {
-    const history = histories[selectedHistoryId] || {};
-    const { templateVersionID } = history;
+    ownProps
+) => {
+    const { templateVersionID } = ownProps.pinHistory;
+    console.error(templateVersionID);
     return {
         relevantSections: Object.values(sections).filter(
             section => section.templateVersionID === templateVersionID

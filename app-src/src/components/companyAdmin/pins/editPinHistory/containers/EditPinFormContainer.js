@@ -130,6 +130,10 @@ class EditPinFormContainer extends Component {
         }
     };
 
+    componentWillUnmount = () => {
+        this.props.resetPinAnswers();
+    };
+
     _getTemplates = () => {
         const { templates } = this.props;
         const templateOptions = templates.map(({ id, name }) => ({
@@ -151,9 +155,9 @@ class EditPinFormContainer extends Component {
             editPinHistory,
             answers,
             filesUploading,
-            selectedHistory
+            selectedHistory,
+            status
         } = this.props;
-        const { status } = this.state;
 
         const formattedAnswers = Object.keys(answers).map(function(key) {
             return { questionID: key, answer: answers[key] };
@@ -170,20 +174,22 @@ class EditPinFormContainer extends Component {
     };
 }
 
-const mapStateToProps = ({
-    companyAdmin: {
-        templatesReducer: { templates, isFetching, error },
-        pinHistoriesReducer: { histories },
-        addPinFormReducer: { answers },
-        addPinCoordinatesReducer: { coordinates },
-        pinsReducer: { pins, postSuccess }
+const mapStateToProps = (
+    {
+        companyAdmin: {
+            templatesReducer: { templates, isFetching, error },
+            pinHistoriesReducer: { histories },
+            addPinFormReducer: { answers, status },
+            addPinCoordinatesReducer: { coordinates },
+            pinsReducer: { pins, postSuccess }
+        },
+        shared: {
+            filesUploadingReducer: { filesUploading },
+            confirmLeaveReducer: { confirmLeave }
+        }
     },
-    shared: {
-        filesUploadingReducer: { filesUploading },
-        confirmLeaveReducer: { confirmLeave },
-        selectedHistoryReducer: { selectedHistoryId }
-    }
-}) => ({
+    { historyID }
+) => ({
     pins,
     templates: Object.values(templates),
     answers,
@@ -193,17 +199,11 @@ const mapStateToProps = ({
     postSuccess,
     filesUploading,
     confirmLeave,
-    selectedHistory: histories[selectedHistoryId]
+    selectedHistory: histories[historyID] || {},
+    status
 });
 
-const mapDispatchToProps = dispatch => ({
-    editPinHistory: (pinHistoryID, postBody) => {
-        dispatch(editPinHistory(pinHistoryID, postBody));
-    },
-    resetPinAnswers: () => {
-        dispatch(resetPinAnswers());
-    }
-});
+const mapDispatchToProps = { editPinHistory, resetPinAnswers };
 
 export default withRouter(
     connect(

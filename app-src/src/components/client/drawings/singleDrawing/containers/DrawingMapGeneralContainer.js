@@ -9,8 +9,6 @@ import DrawingInspectionLogContainer from './DrawingInspectionLogContainer';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import { convertEnumToDropdownOptions } from 'helpers/generic';
 import { PIN_STATUS_TYPES } from 'constants/companyAdmin/enums';
-import DrawingDocumentsContainer from './DrawingDocumentsContainer';
-import DrawingCompaniesAccessContainer from './DrawingCompaniesAccessContainer';
 
 class DrawingMapGeneralContainer extends Component {
     state = {

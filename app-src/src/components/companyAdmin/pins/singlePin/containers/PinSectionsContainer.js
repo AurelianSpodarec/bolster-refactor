@@ -19,17 +19,16 @@ class PinSectionsContainer extends Component {
     };
 }
 
-const mapStateToProps = ({
-    companyAdmin: {
-        pinHistoriesReducer: { histories },
-        templateSectionsReducer: { sections }
+const mapStateToProps = (
+    {
+        companyAdmin: {
+            templateSectionsReducer: { sections }
+        }
     },
-    shared: {
-        selectedHistoryReducer: { selectedHistoryId }
-    }
-}) => {
-    const history = histories[selectedHistoryId] || {};
-    const { templateVersionID } = history;
+    ownProps
+) => {
+    // const history = histories[selectedHistoryId] || {};
+    const { templateVersionID } = ownProps.pinHistory;
     return {
         relevantSections: Object.values(sections).filter(
             section => section.templateVersionID === templateVersionID
