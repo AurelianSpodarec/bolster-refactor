@@ -101,9 +101,6 @@ const PinAnswer = ({
                 );
             });
             break;
-        case TYPES.STATUS:
-            inner = <p>{PIN_STATUS_TYPES[status]}</p>;
-            break;
         default:
             return notFoundResponse;
     }

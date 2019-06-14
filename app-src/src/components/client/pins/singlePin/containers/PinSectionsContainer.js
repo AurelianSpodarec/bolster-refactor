@@ -19,17 +19,15 @@ class PinSectionsContainer extends Component {
     };
 }
 
-const mapStateToProps = ({
-    client: {
-        pinHistoriesReducer: { histories },
-        templateSectionsReducer: { sections }
+const mapStateToProps = (
+    {
+        client: {
+            templateSectionsReducer: { sections }
+        }
     },
-    shared: {
-        selectedHistoryReducer: { selectedHistoryId }
-    }
-}) => {
-    const history = histories[selectedHistoryId] || {};
-    const { templateVersionID } = history;
+    ownProps
+) => {
+    const { templateVersionID } = ownProps.pinHistory;
     return {
         relevantSections: Object.values(sections).filter(
             section => section.templateVersionID === templateVersionID

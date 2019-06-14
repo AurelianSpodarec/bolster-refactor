@@ -12,7 +12,6 @@ import { isObjEmpty } from 'helpers/generic';
 class PinDetailsContainer extends Component {
     render() {
         const {
-            // selectedHistory,
             histories,
             users,
             services,
@@ -20,12 +19,6 @@ class PinDetailsContainer extends Component {
             isFetching,
             pin
         } = this.props;
-
-        // const historyVersion =
-
-        //         .findIndex(item => item.id === selectedHistory.id) + 1;
-
-        // const user = users[selectedHistory.createdByCompanyUserID];
 
         const sortedHistories = [...histories].sort(
             (a, b) => moment(b.createdOn) - moment(a.createdOn)
