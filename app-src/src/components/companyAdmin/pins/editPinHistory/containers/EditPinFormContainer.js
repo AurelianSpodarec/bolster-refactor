@@ -197,7 +197,7 @@ const mapStateToProps = ({
     postSuccess,
     filesUploading,
     confirmLeave,
-    selectedHistory: histories[selectedHistoryId],
+    selectedHistory: histories[selectedHistoryId] || {},
     status
 });
 
