@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PinSection from '../presentational/PinSection';
-import fetchDrawingDropdownOptions from 'actions/companyAdmin/drawings/async/fetchDrawingDropdownOptions';
 
 class PinSectionsContainer extends Component {
     render() {
@@ -11,25 +10,17 @@ class PinSectionsContainer extends Component {
             <PinSection sections={relevantSections} pinHistory={pinHistory} />
         );
     }
-
-    componentDidMount = () => {
-        const { fetchDrawingDropdownOptions, drawingID } = this.props;
-
-        fetchDrawingDropdownOptions(drawingID);
-    };
 }
 
-const mapStateToProps = ({
-    client: {
-        pinHistoriesReducer: { histories },
-        templateSectionsReducer: { sections }
+const mapStateToProps = (
+    {
+        client: {
+            templateSectionsReducer: { sections }
+        }
     },
-    shared: {
-        selectedHistoryReducer: { selectedHistoryId }
-    }
-}) => {
-    const history = histories[selectedHistoryId] || {};
-    const { templateVersionID } = history;
+    ownProps
+) => {
+    const { templateVersionID } = ownProps.pinHistory;
     return {
         relevantSections: Object.values(sections).filter(
             section => section.templateVersionID === templateVersionID
@@ -37,13 +28,4 @@ const mapStateToProps = ({
     };
 };
 
-const mapDispatchToProps = dispatch => ({
-    fetchDrawingDropdownOptions: drawingID => {
-        dispatch(fetchDrawingDropdownOptions(drawingID));
-    }
-});
-
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(PinSectionsContainer);
+export default connect(mapStateToProps)(PinSectionsContainer);

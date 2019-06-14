@@ -36,7 +36,7 @@ const DocumentResponseAgreeanceModal = ({ user, response, hideModal }) => (
                 <FieldOutput title="Image">
                     <img
                         className="image"
-                        alt="image"
+                        alt="document response"
                         src={`${FILE_STORAGE_URL}/${response.imageS3Key}`}
                     />
                 </FieldOutput>

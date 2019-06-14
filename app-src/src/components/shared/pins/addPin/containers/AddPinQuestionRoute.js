@@ -371,7 +371,8 @@ class AddPinQuestionRoute extends Component {
             status,
             selectedVersion,
             edit,
-            resetPinAnswer
+            resetPinAnswer,
+            isHistory
         } = this.props;
 
         const fieldTypes = {
@@ -431,6 +432,7 @@ class AddPinQuestionRoute extends Component {
                         sigPad={this.state.sigPad}
                         edit={edit}
                         resetPinAnswer={resetPinAnswer}
+                        isHistory={isHistory}
                     />
                 </Field>
             );
@@ -440,9 +442,8 @@ class AddPinQuestionRoute extends Component {
     }
 
     componentDidMount() {
-        const { resetPinAnswers } = this.props;
-
-        resetPinAnswers();
+        // const { resetPinAnswers } = this.props;
+        // resetPinAnswers();
     }
 
     _getIsRequired = () => {
@@ -559,7 +560,8 @@ class AddPinQuestionRoute extends Component {
             pins,
             isFetchingPins,
             addFieldError,
-            removeFieldError
+            removeFieldError,
+            fieldErrors
         } = this.props;
         const prereq = this.checkIfShouldShowByPreReq(
             question.id,
@@ -570,11 +572,15 @@ class AddPinQuestionRoute extends Component {
         const answer = answers[question.id];
 
         if (!prereq && answer) resetPinAnswer(question.id);
+        const answerName = `answer-${question.id}`;
         if (`${question.type}` !== `${STATUS}` && prevProps.status !== status) {
-            const answerName = `answer-${question.id}`;
             this._getIsRequired() && isEmpty(answer) && prereq
                 ? addFieldError(answerName, 'This is a required field.')
                 : removeFieldError(answerName);
+        }
+        const error = fieldErrors[answerName];
+        if (error && !prereq) {
+            removeFieldError(answerName);
         }
 
         const isDoneFetchingPins =
@@ -673,6 +679,9 @@ const mapStateToProps = (
             pinAnswersReducer: { answers: oldAnswers },
             pinHistoriesReducer: { histories },
             pinsReducer: { pins, isFetching: isFetchingPins }
+        },
+        shared: {
+            fieldErrorsReducer: { fieldErrors }
         }
     },
     { match: { params } }
@@ -684,7 +693,8 @@ const mapStateToProps = (
     status,
     history: histories[params.historyID] || {},
     pins,
-    isFetchingPins
+    isFetchingPins,
+    fieldErrors
 });
 
 const mapDispatchToProps = {

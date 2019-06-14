@@ -8,9 +8,10 @@ class AddPinSectionsContainer extends Component {
     render() {
         const relevantSections = this._getSections();
 
-        const { selectedVersion } = this.props;
+        const { selectedVersion, isHistory } = this.props;
         return (
             <AddPinSections
+                isHistory={isHistory}
                 sections={relevantSections}
                 selectedVersion={selectedVersion}
             />

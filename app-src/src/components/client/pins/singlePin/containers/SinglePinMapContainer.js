@@ -1,15 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import moment from 'moment';
 
 import SinglePinMap from '../presentational/SinglePinMap';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 
 import fetchClientSingleDrawing from 'actions/client/drawings/async/clientFetchSingleDrawing';
 import { getSelectedCompanyForClient } from 'helpers/generic';
-import CompaniesListContainer from 'components/client/companies/containers/CompaniesListContainer';
-
 class SinglePinMapContainer extends Component {
     render() {
         const {

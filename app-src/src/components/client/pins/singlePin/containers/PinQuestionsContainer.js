@@ -7,7 +7,7 @@ const PinQuestionsContainer = ({ relevantQuestions, pinHistory }) => (
 );
 
 const mapStateToProps = (
-    { companyAdmin: { templateQuestionsReducer } },
+    { client: { templateQuestionsReducer } },
     { sectionID }
 ) => ({
     relevantQuestions: Object.values(templateQuestionsReducer.questions).filter(

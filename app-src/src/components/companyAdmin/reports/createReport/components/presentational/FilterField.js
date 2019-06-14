@@ -3,21 +3,15 @@ import FieldOutput from 'components/shared/generic/fieldOutput/presentational/Fi
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 
 const FilterField = ({
-    field,
+    field: { selectedValues = [], questionValues = [], selectedQuestions, id },
     questions,
     handleShowCustomFieldModal,
     removeCustomField
 }) => {
     // todo: styling here
-    let answers = field.selectedValues;
-    if (!answers || !answers.length) {
-        answers = Object.values(field.questionValues).map(({ value }) => value);
-    }
-
+    const answers = selectedValues.length ? selectedValues : questionValues;
     const joinedAnswers = answers.join(' OR ');
-    const chosenQuestions = field.selectedQuestions.map(
-        id => questions[id].text
-    );
+    const chosenQuestions = selectedQuestions.map(id => questions[id].text);
     const joinedQuestions = chosenQuestions.join(' OR ');
 
     return (
@@ -32,14 +26,14 @@ const FilterField = ({
             <BlockButtonWrapper sizeClasses="size-lg-5">
                 <button
                     className="button yellow"
-                    onClick={() => handleShowCustomFieldModal(field.id)}
+                    onClick={() => handleShowCustomFieldModal(id)}
                 >
                     <i className="far fa-edit fa-fw" />
                     Edit
                 </button>
                 <button
                     className="button red"
-                    onClick={() => removeCustomField(field.id)}
+                    onClick={() => removeCustomField(id)}
                 >
                     <i className="fa fa-times fa-fw" />
                     Remove

@@ -1,19 +1,11 @@
 import React from 'react';
 
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
-import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
+import PinSingleBreadCrumbContainer from '../containers/PinSingleBreadCrumbContainer';
 
-const SinglePinHeader = ({ pin, location }) => (
-    <PageHeading leftChildren={true} title={`Pin ${pin.pinCode || ''}`}>
-        <ButtonContainer
-            className="back"
-            to={location.pathname.replace(
-                location.pathname,
-                `/client/drawings/${pin.drawingID}`
-            )}
-        >
-            <i className="fa fa-chevron-double-left" /> Back
-        </ButtonContainer>
+const SinglePinHeader = ({ pin }) => (
+    <PageHeading withBackButton title={`Pin ${pin.pinCode || ''}`}>
+        <PinSingleBreadCrumbContainer pin={pin} />
     </PageHeading>
 );
 

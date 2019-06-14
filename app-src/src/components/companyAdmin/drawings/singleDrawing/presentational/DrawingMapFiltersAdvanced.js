@@ -1,15 +1,15 @@
 import React from 'react';
 
-import RedPin from '_content/images/map-markers/red-pin2x.png';
-import GreenPin from '_content/images/map-markers/green-pin2x.png';
-import BluePin from '_content/images/map-markers/blue-pin2x.png';
-import YellowPin from '_content/images/map-markers/yellow-pin2x.png';
-import PurplePin from '_content/images/map-markers/purple-pin2x.png';
+// import RedPin from '_content/images/map-markers/red-pin2x.png';
+// import GreenPin from '_content/images/map-markers/green-pin2x.png';
+// import BluePin from '_content/images/map-markers/blue-pin2x.png';
+// import YellowPin from '_content/images/map-markers/yellow-pin2x.png';
+// import PurplePin from '_content/images/map-markers/purple-pin2x.png';
 
 import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
 import DatePicker from 'components/shared/generic/form/presentational/DatePicker';
 
-import { PIN_STATUS_IDS as STATUS } from 'constants/companyAdmin/enums';
+// import { PIN_STATUS_IDS as STATUS } from 'constants/companyAdmin/enums';
 import Form from 'components/shared/generic/form/containers/Form';
 import Field from 'components/shared/generic/form/presentational/Field';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
@@ -23,8 +23,8 @@ const DrawingMapFiltersAdvanced = ({
     fromDateInclusive,
     toDateInclusive,
     handleChangeFilter,
-    handleDateChange,
-    pins
+    handleDateChange
+    // pins
 }) => (
     <div className="map-filters size-lg-12">
         <div className="size-lg-12">

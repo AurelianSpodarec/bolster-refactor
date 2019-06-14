@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import SingleDrawingHeader from '../presentational/SinglePinHeader';
+import SinglePinHeader from '../presentational/SinglePinHeader';
 
 class SinglePinHeaderContainer extends Component {
     render() {
         const { pin, location } = this.props;
 
-        return <SingleDrawingHeader pin={pin} location={location} />;
+        return <SinglePinHeader pin={pin} location={location} />;
     }
 }
 
