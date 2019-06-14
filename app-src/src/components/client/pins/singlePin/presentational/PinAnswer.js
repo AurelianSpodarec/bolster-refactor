@@ -5,6 +5,7 @@ import { PIN_STATUS_TYPES } from 'constants/companyAdmin/enums';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { PIN_IMAGE } from 'constants/shared/modalTypes';
 import { connect } from 'react-redux';
+import FieldOutput from 'components/shared/generic/fieldOutput/presentational/FieldOutput';
 
 const PinAnswer = ({
     trimmedAnswer,
@@ -12,22 +13,27 @@ const PinAnswer = ({
     questions,
     answers,
     status,
-    dispatch
+    dispatch,
+    question
 }) => {
     const curAnswer = answers.find(item => +item.id === +trimmedAnswer.id);
-    const notFoundResponse = <p>Not Found</p>;
+    const notFoundResponse = null;
+    let inner;
     if (!curAnswer && type !== TYPES.STATUS) return notFoundResponse;
     switch (type) {
         case TYPES.SINGLE_LINE:
         case TYPES.MULTI_LINE:
         case TYPES.NUMBER:
         case TYPES.DROPDOWN_OPTIONS:
-            return <p>{curAnswer.answer}</p>;
+            inner = <p>{curAnswer.answer}</p>;
+            break;
         case TYPES.MULTI_DROPDOWN_OPTIONS:
-            return <p>{curAnswer.answer.join(', ')}</p>;
+            inner = <p>{curAnswer.answer.join(', ')}</p>;
+            break;
         case TYPES.MULTI_MULTI_DROPDOWN:
         case TYPES.MULTI_MULTI_DROPDOWN_OPTIONS:
-            return <p>{formatMultiMulti(curAnswer.answer)}</p>;
+            inner = <p>{formatMultiMulti(curAnswer.answer)}</p>;
+            break;
         case TYPES.DROPDOWN:
         case TYPES.RADIO:
             var relevantQuestion = questions.find(
@@ -40,7 +46,8 @@ const PinAnswer = ({
             );
             if (!relevantOption) return notFoundResponse;
 
-            return <p>{relevantOption.text}</p>;
+            inner = <p>{relevantOption.text}</p>;
+            break;
         case TYPES.MULTI_DROPDOWN:
             var { options } = questions.find(
                 item => +item.id === curAnswer.templateQuestionID
@@ -48,20 +55,26 @@ const PinAnswer = ({
             var relevantOptions = options.filter(({ id }) =>
                 curAnswer.answer.includes(id)
             );
-            return <p>{relevantOptions.map(({ text }) => text).join(', ')}</p>;
+            inner = <p>{relevantOptions.map(({ text }) => text).join(', ')}</p>;
+            break;
         case TYPES.CHECKBOX:
-            return <p>{curAnswer.answer ? 'Yes' : 'No'}</p>;
+            inner = <p>{curAnswer.answer ? 'Yes' : 'No'}</p>;
+            break;
         case TYPES.SIGNATURE:
-            return (
-                <img
-                    className="signature"
-                    alt="signature"
-                    src={`data: image/jpeg;base64, ${curAnswer.answer}`}
-                />
+            var answerString = curAnswer.answer;
+
+            if (!answerString.startsWith('data:')) {
+                answerString = `data: image/jpeg;base64${answerString}`;
+            }
+
+            inner = (
+                <img className="signature" alt="signature" src={answerString} />
             );
+
+            break;
         case TYPES.SINGLE_PHOTO:
             var URL = `${FILE_STORAGE_URL}/${curAnswer.answer}`;
-            return (
+            inner = (
                 <img
                     style={{ cursor: 'zoom-in' }}
                     alt=""
@@ -71,8 +84,9 @@ const PinAnswer = ({
                     }
                 />
             );
+            break;
         case TYPES.MULTI_PHOTO:
-            return curAnswer.answer.map((item, i) => {
+            inner = curAnswer.answer.map((item, i) => {
                 var URL = `${FILE_STORAGE_URL}/${item}`;
                 return (
                     <img
@@ -86,11 +100,19 @@ const PinAnswer = ({
                     />
                 );
             });
-        case TYPES.STATUS:
-            return <p>{PIN_STATUS_TYPES[status]}</p>;
+            break;
         default:
             return notFoundResponse;
     }
+    return (
+        <FieldOutput
+            title={question.name}
+            key={question.id}
+            sizeClass="size-lg-4 flex-row-item"
+        >
+            {inner}
+        </FieldOutput>
+    );
 };
 
 export default connect()(PinAnswer);
