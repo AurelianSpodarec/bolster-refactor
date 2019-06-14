@@ -18,6 +18,13 @@ const CompanyReportsListItem = ({ queueItem }) => (
             <DateTimeContainer date={queueItem.createdOn} />
         </td>
         <td>
+            {queueItem.completedOn ? (
+                <DateTimeContainer date={queueItem.completedOn} />
+            ) : (
+                'N/A'
+            )}
+        </td>
+        <td>
             {queueItem.state === GENERATION_STATE_VAL.COMPLETE ? (
                 <a
                     className="button green"
