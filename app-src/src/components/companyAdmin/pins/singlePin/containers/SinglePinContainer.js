@@ -5,12 +5,6 @@ import fetchSinglePin from 'actions/companyAdmin/pins/async/fetchSinglePin';
 import fetchPinTemplates from 'actions/companyAdmin/pins/async/fetchPinTemplates';
 import fetchCompanyUsers from 'actions/companyAdmin/userManagement/async/fetchCompanyUsers';
 import SinglePin from '../presentational/SinglePin';
-import { showModal } from 'actions/shared/generic/modals/sync/showModal';
-import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
-import {
-    ERROR_MODAL,
-    SINGLE_PIN_GENERATE_REPORT_SUCCESS
-} from 'constants/shared/modalTypes';
 
 class SinglePinContainer extends Component {
     render = () => <SinglePin />;
@@ -19,48 +13,12 @@ class SinglePinContainer extends Component {
         const { pinId, fetchSinglePinData } = this.props;
         fetchSinglePinData(pinId);
     };
-
-    componentDidUpdate = prevProps => {
-        const {
-            isFetchingReport,
-            isReportSuccess,
-            isReportError,
-            showModal
-        } = this.props;
-
-        if (
-            prevProps.isFetchingReport &&
-            !isFetchingReport &&
-            isReportSuccess
-        ) {
-            showModal(SINGLE_PIN_GENERATE_REPORT_SUCCESS, {});
-        }
-
-        if (prevProps.isFetchingReport && !isFetchingReport && isReportError) {
-            showModal(ERROR_MODAL, {
-                title: 'Error',
-                message: isReportError
-            });
-        }
-    };
 }
 
-const mapStateToProps = (
-    {
-        companyAdmin: {
-            generatePinReportReducer: {
-                isFetching: isFetchingReport,
-                success: isReportSuccess,
-                error: isReportError
-            }
-        }
-    },
+const mapStateToProps = (_,
     { match: { params } }
 ) => ({
-    pinId: params.id,
-    isFetchingReport,
-    isReportSuccess,
-    isReportError
+    pinId: params.id
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -68,9 +26,7 @@ const mapDispatchToProps = dispatch => ({
         dispatch(fetchSinglePin(id));
         dispatch(fetchPinTemplates(id));
         dispatch(fetchCompanyUsers());
-    },
-    showModal: (type, props) => dispatch(showModal(type, props)),
-    hideModal: type => dispatch(hideModal(type))
+    }
 });
 
 export default connect(
