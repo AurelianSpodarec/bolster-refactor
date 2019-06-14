@@ -22,6 +22,7 @@ class PinHistoryDetailsItemContainer extends Component {
                 handleEditHistoryModal={this.handleEditHistoryModal}
                 handleDeleteHistoryModal={this.handleDeleteHistoryModal}
                 drawingID={drawingID}
+                showDeleteButton={histories.length > 1}
             />
         );
     }
@@ -35,15 +36,10 @@ class PinHistoryDetailsItemContainer extends Component {
     };
 
     handleDeleteHistoryModal = () => {
-        const {
-            hideModal,
-            showModal,
-            selectedHistory,
-            deletePinHistory
-        } = this.props;
+        const { hideModal, showModal, history, deletePinHistory } = this.props;
 
         const handleDelete = () => {
-            deletePinHistory(selectedHistory.id);
+            deletePinHistory(history.id);
             hideModal();
         };
         const message = 'Are you sure you wish to delete this pin history?';
@@ -54,11 +50,13 @@ class PinHistoryDetailsItemContainer extends Component {
 const mapStateToProps = ({
     companyAdmin: {
         companyUsersReducer: { users },
-        servicesReducer: { services }
+        servicesReducer: { services },
+        pinHistoriesReducer: { histories }
     }
 }) => ({
     users,
-    services
+    services,
+    histories: Object.values(histories)
 });
 const mapDispatchToProps = dispatch => ({
     showModal: (type, props) => dispatch(showModal(type, props)),
