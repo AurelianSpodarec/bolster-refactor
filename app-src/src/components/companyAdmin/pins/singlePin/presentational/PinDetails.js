@@ -3,13 +3,11 @@ import moment from 'moment-timezone';
 
 import PinHistoryDetailsItemContainer from '../containers/PinHistoryDetailsItemContainer';
 
-const PinDetails = ({ history, drawingID, historyCount, historyVersion }) => (
+const PinDetails = ({ history, drawingID }) => (
     <PinHistoryDetailsItemContainer
         key={history.id}
         history={history}
-        historyCount={historyCount}
         drawingID={drawingID}
-        historyVersion={historyVersion}
     />
 );
 

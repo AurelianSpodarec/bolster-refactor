@@ -8,24 +8,12 @@ import PinSectionsContainer from '../containers/PinSectionsContainer';
 
 const PinHistoryDetailsItem = ({
     history,
-    historyCount,
-    version,
     createdBy,
     services,
     handleEditHistoryModal,
     drawingID
 }) => (
     <div className="item">
-        <FieldOutput
-            title={`History ${version} of ${historyCount} ${
-                version === historyCount
-                    ? '(Latest)'
-                    : +version === 1
-                    ? '(Earliest)'
-                    : ''
-            }`}
-            sizeClass="size-lg-12"
-        />
         <FieldOutput
             title="Type"
             description={services[history.serviceID].name}

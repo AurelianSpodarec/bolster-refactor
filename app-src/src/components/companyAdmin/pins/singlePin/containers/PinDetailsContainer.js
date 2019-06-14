@@ -60,8 +60,6 @@ class PinDetailsContainer extends Component {
                     </BlockHeading>
                     <PinDetails
                         pinHistory={histories.length - i}
-                        historyCount={histories.length}
-                        historyVersion={histories.length - i}
                         history={history}
                         users={users}
                         services={services}
@@ -73,20 +71,8 @@ class PinDetailsContainer extends Component {
         });
     }
 
-    componentDidMount = () => {
-        const { latestHistoryId, selectPinHistory } = this.props;
-        if (latestHistoryId) selectPinHistory(latestHistoryId);
-    };
-
     componentDidUpdate = prevProps => {
-        const {
-            latestHistoryId,
-            selectPinHistory,
-            postSuccess,
-            fetchSinglePin,
-            pin,
-            history
-        } = this.props;
+        const { postSuccess, fetchSinglePin, pin, history } = this.props;
 
         // update selected pin after a history is deleted
         // if (
@@ -95,10 +81,6 @@ class PinDetailsContainer extends Component {
         // ) {
         //     selectPinHistory(latestHistoryId);
         // }
-
-        if (prevProps.latestHistoryId !== latestHistoryId) {
-            selectPinHistory(latestHistoryId);
-        }
 
         // redirect to drawing if deleting pin history has deleted pin
         const { drawingID } = prevProps.pin;
@@ -124,9 +106,6 @@ const mapStateToProps = (
             },
             companyUsersReducer: { users, isFetching: fetchingUsers },
             servicesReducer: { services }
-        },
-        shared: {
-            selectedHistoryReducer: { selectedHistoryId }
         }
     },
     { match }
@@ -136,7 +115,6 @@ const mapStateToProps = (
         isFetching: fetchingPins || fetchingHistories || fetchingUsers,
         error,
         latestHistoryId: pin.latestHistoryID,
-        selectedHistory: histories[selectedHistoryId] || {},
         histories: Object.values(histories),
         users: users || {},
         services: services || {},
@@ -146,8 +124,7 @@ const mapStateToProps = (
 };
 
 const mapDispatchToProps = dispatch => ({
-    fetchSinglePin: id => dispatch(fetchSinglePin(id)),
-    selectPinHistory: historyID => dispatch(selectPinHistory(historyID))
+    fetchSinglePin: id => dispatch(fetchSinglePin(id))
 });
 
 export default withRouter(
