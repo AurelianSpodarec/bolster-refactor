@@ -20,3 +20,8 @@ export const MENU_TABS = {
     COMPANY_USER: 'Admin',
     CLIENT: 'Client Access'
 };
+
+export const APPROVED_COMPANIES_TABS = {
+    LIST: 'List',
+    MAP: 'Map'
+};
