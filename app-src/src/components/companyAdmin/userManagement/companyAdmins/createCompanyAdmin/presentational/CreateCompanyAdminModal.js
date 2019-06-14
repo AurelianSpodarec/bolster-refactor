@@ -6,7 +6,7 @@ import CreateCompanyAdminFormContainer from '../containers/CreateCompanyAdminFor
 
 const CreateCompanyAdminModal = () => (
     <ModalOuterContainer>
-        <BlockHeading title={'Create Company Admin'} />
+        <BlockHeading title={'Create Admin'} />
         <CreateCompanyAdminFormContainer />
     </ModalOuterContainer>
 );

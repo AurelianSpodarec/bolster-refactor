@@ -23,7 +23,7 @@ function tabsReducer(state = [], action) {
     }
 }
 function menuTabsReducer(
-    state = ['Super Admin', 'Company Admin', 'Client Access'],
+    state = ['Super Admin', 'Admin', 'Client Access'],
     action
 ) {
     switch (action.type) {
@@ -34,7 +34,7 @@ function menuTabsReducer(
     }
 }
 
-function selectedMenuTabReducer(state = 'Company Admin', action) {
+function selectedMenuTabReducer(state = 'Admin', action) {
     switch (action.type) {
         case SET_MENU_TABS:
         case SELECT_MENU_TAB:

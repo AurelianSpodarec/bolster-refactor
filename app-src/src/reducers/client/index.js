@@ -2,7 +2,7 @@ import { combineReducers } from 'redux';
 
 import buildingsReducer from './clientBuildings';
 import companiesReducer from './clientCompanies';
-import drawingOperativesReducer from './clientDrawingOperatives';
+import pinOperativesReducer from './clientPinOperatives';
 import drawingsReducer from './clientDrawings';
 import floorsReducer from './clientFloors';
 import latestPinFeedReducer from './clientLatestPinFeed';
@@ -22,6 +22,7 @@ import searchReducer from './clientSearch';
 import companyReportsReducer from './clientCompanyReports';
 import reportsReducer from './clientReports';
 import messagesReducer from './clientMessages';
+import generatePinReportReducer from './clientGeneratePinReport';
 
 export default combineReducers({
     buildingsReducer,
@@ -29,9 +30,10 @@ export default combineReducers({
     companyReportsReducer,
     companiesReducer,
     documentsReducer,
-    drawingOperativesReducer,
+    pinOperativesReducer,
     drawingsReducer,
     floorsReducer,
+    generatePinReportReducer,
     latestPinFeedReducer,
     messagesReducer,
     pinHistoriesReducer,

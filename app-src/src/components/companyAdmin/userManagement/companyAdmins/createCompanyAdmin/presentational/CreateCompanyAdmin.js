@@ -8,11 +8,11 @@ import BlockHeading from 'components/shared/generic/blockHeading/presentational/
 
 const CreateCompanyAdmin = () => (
     <>
-        <PageHeading leftChildren={true} title="Create Company Admin">
+        <PageHeading leftChildren={true} title="Create Admin">
             <BackButtonContainer />
         </PageHeading>
         <BlockContainer>
-            <BlockHeading title="Company Admin Details" />
+            <BlockHeading title="Admin Details" />
             <CreateCompanyAdminFormContainer />
         </BlockContainer>
     </>

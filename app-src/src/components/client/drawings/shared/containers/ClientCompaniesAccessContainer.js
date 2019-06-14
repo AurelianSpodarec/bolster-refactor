@@ -8,7 +8,7 @@ import BlockContainer from 'components/shared/generic/block/containers/BlockCont
 import { DELETE_COMPANY_PERMISSIONS } from 'constants/shared/modalTypes';
 
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
-import clientFetchCompanyPermissions from 'actions/client/companiesPersmissions/async/clientFetchCompanyPermissions';
+import clientFetchCompanyPermissions from 'actions/client/companiesPermissions/async/clientFetchCompanyPermissions';
 
 class ClientCompaniesAccessContainer extends Component {
     render() {

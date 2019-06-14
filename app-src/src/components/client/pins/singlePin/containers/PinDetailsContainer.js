@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom';
 import moment from 'moment';
 
 import selectPinHistory from 'actions/companyAdmin/pins/sync/selectPinHistory';
-import { isObjEmpty } from 'helpers/generic';
+// import { isObjEmpty } from 'helpers/generic';
 
 import PinDetails from '../presentational/PinDetails';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
@@ -12,34 +12,35 @@ import BlockHeading from 'components/shared/generic/blockHeading/presentational/
 
 class PinDetailsContainer extends Component {
     render() {
-        const {
-            selectedHistory,
-            histories,
-            users,
-            services,
-            error,
-            isFetching,
-            pin
-        } = this.props;
+        // const {
+        //     selectedHistory,
+        //     histories,
+        //     users,
+        //     services,
+        //     error,
+        //     isFetching,
+        //     pin
+        // } = this.props;
 
-        const historyVersion =
-            [...histories]
-                .sort((a, b) => moment(a.createdAt) - moment(b.createdAt))
-                .findIndex(item => item.id === selectedHistory.id) + 1;
+        // const historyVersion =
+        //     [...histories]
+        //         .sort((a, b) => moment(a.createdAt) - moment(b.createdAt))
+        //         .findIndex(item => item.id === selectedHistory.id) + 1;
 
-        const user = users[selectedHistory.createdByCompanyUserID];
+        // const user = users[selectedHistory.createdByCompanyUserID];
 
         return (
             <BlockContainer
-                isEmpty={
-                    !user ||
-                    !Object.values(services).length ||
-                    !histories.length
-                }
-                isFetching={isFetching}
-                error={error}
+            // isEmpty={
+            //     !user ||
+            //     !Object.values(services).length ||
+            //     !histories.length
+            // }
+            // isFetching={isFetching}
+            // error={error}
             >
-                <BlockHeading title="Pin Options" />
+                <div>plug this back in when the histories reducer is fixed</div>
+                {/* <BlockHeading title="Pin Options" />
                 <PinDetails
                     pinHistory={selectedHistory}
                     historyCount={histories.length}
@@ -48,7 +49,7 @@ class PinDetailsContainer extends Component {
                     services={services}
                     pin={pin}
                     drawingID={pin.drawingID}
-                />
+                /> */}
             </BlockContainer>
         );
     }
@@ -76,7 +77,7 @@ const mapStateToProps = (
                 isFetching: fetchingHistories,
                 error
             },
-            drawingOperativesReducer: { users, isFetching: fetchingUsers },
+            pinOperativesReducer: { users, isFetching: fetchingUsers },
             servicesReducer: { services }
         },
         shared: {

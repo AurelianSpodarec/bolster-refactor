@@ -50,7 +50,9 @@ import {
     FILTER_FIELDS,
     CLIENT_FILTER_FIELDS,
     UNLINK_DEVICE,
-    COPY_TEMPLATE
+    COPY_TEMPLATE,
+    SINGLE_PIN_GENERATE_REPORT_SUCCESS,
+    CLIENT_SINGLE_PIN_GENERATE_REPORT_SUCCESS
 } from 'constants/shared/modalTypes';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
@@ -104,6 +106,8 @@ import UnlinkDeviceModalContainer from './UnlinkDeviceModalContainer';
 import CreateOperativeModal from 'components/companyAdmin/userManagement/operatives/createOperative/presentational/CreateOperativeModal';
 import CopyTemplateModalContainer from 'components/superAdmin/templateBuilder/copyTemplate/containers/CopyTemplateModalContainer';
 import DocumentResponseAgreeanceModalContainer from 'components/shared/documents/containers/DocumentResponseAgreeanceModalContainer';
+import SinglePinGenerateReportSuccessModalContainer from 'components/companyAdmin/pins/singlePin/containers/SinglePinGenerateReportSuccessModalContainer';
+import ClientSinglePinGenerateReportSuccessModalContainer from 'components/client/pins/singlePin/containers/SinglePinGenerateReportSuccessModalContainer';
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModalContainer,
@@ -154,7 +158,9 @@ const MODAL_COMPONENTS = {
     [CREATE_OPERATIVE]: CreateOperativeModal,
     [LOADING_DATA]: LoadingDataModal,
     [UNLINK_DEVICE]: UnlinkDeviceModalContainer,
-    [DOCUMENT_RESPONSE_AGREEANCE]: DocumentResponseAgreeanceModalContainer
+    [DOCUMENT_RESPONSE_AGREEANCE]: DocumentResponseAgreeanceModalContainer,
+    [SINGLE_PIN_GENERATE_REPORT_SUCCESS]: SinglePinGenerateReportSuccessModalContainer,
+    [CLIENT_SINGLE_PIN_GENERATE_REPORT_SUCCESS]: ClientSinglePinGenerateReportSuccessModalContainer
 };
 
 const ModalRoot = ({ modalType, modalProps, ...otherProps }) => {

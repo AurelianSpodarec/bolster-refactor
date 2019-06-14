@@ -130,7 +130,7 @@ const DrawingMapFiltersAdvanced = ({
                     </div>
                 </Field>
 
-                <Field name="Operative" sizeClasses="size-lg-6">
+                {/* <Field name="Operative" sizeClasses="size-lg-6">
                     <DropdownContainer
                         placeholder="Select operative"
                         name="operativeSelectedID"
@@ -139,7 +139,7 @@ const DrawingMapFiltersAdvanced = ({
                         selectedOption={selectedOperative}
                         handleChange={handleChange}
                     />
-                </Field>
+                </Field> */}
             </Form>
         </div>
     </div>

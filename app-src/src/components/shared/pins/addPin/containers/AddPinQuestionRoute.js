@@ -21,7 +21,9 @@ import Select from 'components/shared/generic/form/presentational/Select';
 import MultiSelect from 'components/shared/generic/form/presentational/MultiSelect';
 import { RAW_S3_STORAGE_URL } from 'config';
 import resetPinAnswer from 'actions/companyAdmin/drawings/sync/resetPinAnswer';
-import { componentDidMount } from 'helpers/generic';
+import { componentDidMount, isEmpty } from 'helpers/generic';
+import addFieldError from 'actions/shared/generic/fieldErrors/sync/addFieldError';
+import removeFieldError from 'actions/shared/generic/fieldErrors/sync/removeFieldError';
 
 const {
     SINGLE_LINE,
@@ -385,15 +387,16 @@ class AddPinQuestionRoute extends Component {
                     ? 'photo-view'
                     : '';
 
+            const isRequired = this._getIsRequired();
             return (
                 <Field
                     key={question.id}
                     name={question.name}
                     sizeClasses={`size-lg-6 flex-row-item ${extraImageClasses}`}
-                    required={question.isRequired}
+                    required={isRequired}
                 >
                     <SpecificField
-                        isRequired={this._getIsRequired()}
+                        isRequired={isRequired}
                         statusOptions={selectedVersion.statusOptions}
                         question={question}
                         answers={answers}
@@ -415,24 +418,9 @@ class AddPinQuestionRoute extends Component {
     }
 
     componentDidMount() {
-        const {
-            oldAnswers,
-            updateAddPinAnswer,
-            updateAddPinStatus,
-            history,
-            resetPinAnswers
-        } = this.props;
+        const { resetPinAnswers } = this.props;
 
-        if (history.id && oldAnswers) {
-            const oldAnswersArray = Object.values(oldAnswers);
-
-            oldAnswersArray.map(answer =>
-                updateAddPinAnswer(answer.templateQuestionID, answer.answer)
-            );
-            updateAddPinStatus(history.status);
-        } else {
-            resetPinAnswers();
-        }
+        resetPinAnswers();
     }
 
     _getIsRequired = () => {
@@ -441,7 +429,7 @@ class AddPinQuestionRoute extends Component {
             status
         } = this.props;
 
-        if (type === STATUS) return true;
+        if (`${type}` === `${STATUS}`) return true;
         if (isRequired) return true;
         if (isRequiredVal) return isRequiredVal + '' === status + '';
 
@@ -535,15 +523,50 @@ class AddPinQuestionRoute extends Component {
         return false;
     };
 
-    componentDidUpdate = () => {
-        const { question, answers, questions, resetPinAnswer } = this.props;
+    componentDidUpdate = prevProps => {
+        const {
+            question,
+            answers,
+            questions,
+            resetPinAnswer,
+            oldAnswers,
+            updateAddPinAnswer,
+            updateAddPinStatus,
+            history,
+            status,
+            pins,
+            isFetchingPins,
+            addFieldError,
+            removeFieldError
+        } = this.props;
         const prereq = this.checkIfShouldShowByPreReq(
             question.id,
             question.prerequisiteQuestionID,
             answers,
             questions
         );
-        if (!prereq && answers[question.id]) resetPinAnswer(question.id);
+        const answer = answers[question.id];
+
+        if (!prereq && answer) resetPinAnswer(question.id);
+        if (`${question.type}` !== `${STATUS}` && prevProps.status !== status) {
+            const answerName = `answer-${question.id}`;
+            this._getIsRequired() && isEmpty(answer)
+                ? addFieldError(answerName, 'This is a required field.')
+                : removeFieldError(answerName);
+        }
+
+        const isDoneFetchingPins =
+            prevProps.isFetchingPins && !isFetchingPins && !isEmpty(pins);
+
+        if (isDoneFetchingPins && (history.id && oldAnswers)) {
+            const oldAnswersArray = Object.values(oldAnswers);
+
+            oldAnswersArray.map(answer =>
+                updateAddPinAnswer(answer.templateQuestionID, answer.answer)
+            );
+            updateAddPinStatus(history.status);
+        }
+
     };
 
     handleChange = (_, value) => {
@@ -622,7 +645,8 @@ const mapStateToProps = (
             addPinFormReducer: { answers, status },
             templateQuestionsReducer: { questions },
             pinAnswersReducer: { answers: oldAnswers },
-            pinHistoriesReducer: { histories }
+            pinHistoriesReducer: { histories },
+            pinsReducer: { pins, isFetching: isFetchingPins }
         }
     },
     { match: { params } }
@@ -632,14 +656,18 @@ const mapStateToProps = (
     questions,
     oldAnswers,
     status,
-    history: histories[params.historyID] || {}
+    history: histories[params.historyID] || {},
+    pins,
+    isFetchingPins
 });
 
 const mapDispatchToProps = {
     updateAddPinAnswer,
     resetPinAnswers,
     resetPinAnswer,
-    updateAddPinStatus
+    updateAddPinStatus,
+    addFieldError,
+    removeFieldError
 };
 
 export default withRouter(

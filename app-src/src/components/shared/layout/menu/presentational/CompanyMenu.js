@@ -16,7 +16,6 @@ const CompanyMenu = ({
     <>
         <div className="menu-bg" />
         <div className="menu">
-            <MenuHeader title="Dashboard" />
             <CompanyMenuItemContainer link="/company" base>
                 <i className="far fa-home icon fa-fw" />
 
@@ -53,11 +52,14 @@ const CompanyMenu = ({
             </CompanyMenuItemContainer>
             <MenuHeader title="User Management" />
             <CompanyMenuItemContainer link="/company/users-management/company-admins">
-                Company Admins
+                Admins
             </CompanyMenuItemContainer>
             <CompanyMenuItemContainer link="/company/users-management/operatives">
                 Operatives
             </CompanyMenuItemContainer>
+            {/* <CompanyMenuItemContainer link="/company/users-management/clients">
+                Clients
+            </CompanyMenuItemContainer> */}
             <MenuHeader title="Orders &amp; Subscriptions" />
             <CompanyMenuItemContainer link="/company/invoices">
                 <i className="far fa-receipt fa-fw icon" />
