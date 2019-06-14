@@ -68,7 +68,21 @@ class DashboardBarContainer extends Component {
     };
 
     render() {
-        return <Bar data={this._data} labels={this.labels} />;
+        return (
+            <Bar
+                data={this._data}
+                options={{
+                    scales: {
+                        yAxes: [{
+                            display: true,
+                            ticks: {
+                                suggestedMax: 10,
+                                beginAtZero: true
+                            }
+                        }]
+                    }
+                }}
+            />);
     }
 }
 export default DashboardBarContainer;
