@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
@@ -13,10 +14,18 @@ class AdvancedReportContainer extends Component {
     }
 
     componentDidMount = () => {
-        const { isFetching, showModal, pins, handleChange } = this.props;
+        const {
+            isFetching,
+            showModal,
+            pins,
+            handleChange,
+            drawingID
+        } = this.props;
         if (pins && pins.length)
             handleChange('pinIDs', pins.map(({ id }) => id));
         if (isFetching) showModal(LOADING_DATA, { message: 'Loading data...' });
+
+        handleChange('drawingID', drawingID);
     };
 
     componentDidUpdate = prevProps => {
@@ -40,21 +49,27 @@ class AdvancedReportContainer extends Component {
     };
 }
 
-const mapStateToProps = ({
-    companyAdmin: {
-        reportsReducer: {
-            isFetching,
-            customFilters: { pins }
+const mapStateToProps = (
+    {
+        companyAdmin: {
+            reportsReducer: {
+                isFetching,
+                customFilters: { pins }
+            }
         }
-    }
-}) => ({
+    },
+    { match: { params } }
+) => ({
     isFetching,
-    pins
+    pins,
+    drawingID: params.id
 });
 
 const mapDispatchToProps = { showModal, hideModal };
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(withUpdateOnChange(AdvancedReportContainer));
+export default withRouter(
+    connect(
+        mapStateToProps,
+        mapDispatchToProps
+    )(withUpdateOnChange(AdvancedReportContainer))
+);
