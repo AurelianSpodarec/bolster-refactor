@@ -51,6 +51,7 @@ class AddPinFormContainer extends Component {
                     error={error}
                 >
                     <AddPinForm
+                        isHistory={isHistory}
                         templates={Object.values(templateOptions)}
                         selectedTemplate={templateOptions[templateID]}
                         location={location}
@@ -70,10 +71,19 @@ class AddPinFormContainer extends Component {
             coordinates,
             history,
             hierarchyType,
+            isHistory,
             updateAddPinStatus,
-            updateAddPinAnswer
+            updateAddPinAnswer,
+            pinID,
+            pins,
+            histories
         } = this.props;
 
+        if (isHistory) {
+            const pin = pins[pinID] || {};
+            // if adding a pin history, this is the previous history to perfill from
+            const history = histories[pin.latestHistoryID];
+        }
         if (!coordinates.lat || !coordinates.lng) {
             if (hierarchyType === 'drawing') {
                 history.push(`/company/drawings/${drawingID}`);
@@ -85,18 +95,18 @@ class AddPinFormContainer extends Component {
             localStorage.getItem(`pinCache/${drawingID}`)
         );
         if (pinCache) {
-            this.setState({ templateID: pinCache.templateID }, () => {
-                updateAddPinStatus(pinCache.status);
-                Object.entries(pinCache.answers).forEach(answer => {
-                    updateAddPinAnswer(answer[0], answer[1]);
-                });
-            });
+            // this.setState({ templateID: pinCache.templateID }, () => {
+            //     updateAddPinStatus(pinCache.status);
+            //     Object.entries(pinCache.answers).forEach(answer => {
+            //         updateAddPinAnswer(answer[0], answer[1]);
+            //     });
+            // });
         }
     };
 
     componentWillUnmount() {
         window.removeEventListener('beforeunload', this.handleBeforeUnload);
-        const { answers, status, drawingID } = this.props;
+        const { answers, status, drawingID, resetPinAnswers } = this.props;
         const { templateID } = this.state;
 
         const saveState = {
@@ -109,6 +119,7 @@ class AddPinFormContainer extends Component {
             `pinCache/${drawingID}`,
             JSON.stringify(saveState)
         );
+        resetPinAnswers();
     }
 
     handleBeforeUnload = e => {
@@ -196,18 +207,22 @@ class AddPinFormContainer extends Component {
     };
 }
 
-const mapStateToProps = ({
-    companyAdmin: {
-        templatesReducer: { templates, isFetching, error },
-        addPinFormReducer: { answers, status },
-        addPinCoordinatesReducer: { coordinates },
-        pinsReducer: { postSuccess }
+const mapStateToProps = (
+    {
+        companyAdmin: {
+            templatesReducer: { templates, isFetching, error },
+            addPinFormReducer: { answers, status },
+            addPinCoordinatesReducer: { coordinates },
+            pinsReducer: { postSuccess, pins },
+            pinHistoriesReducer: { histories }
+        },
+        shared: {
+            filesUploadingReducer: { filesUploading },
+            confirmLeaveReducer: { confirmLeave }
+        }
     },
-    shared: {
-        filesUploadingReducer: { filesUploading },
-        confirmLeaveReducer: { confirmLeave }
-    }
-}) => ({
+    { match: { params } }
+) => ({
     templates: Object.values(templates),
     answers,
     coordinates,
@@ -216,7 +231,10 @@ const mapStateToProps = ({
     postSuccess,
     filesUploading,
     confirmLeave,
-    status
+    status,
+    pinID: params.id,
+    pins,
+    histories
 });
 
 const mapDispatchToProps = dispatch => ({

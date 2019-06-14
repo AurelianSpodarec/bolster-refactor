@@ -130,6 +130,10 @@ class EditPinFormContainer extends Component {
         }
     };
 
+    componentWillUnmount = () => {
+        this.props.resetPinAnswers();
+    };
+
     _getTemplates = () => {
         const { templates } = this.props;
         const templateOptions = templates.map(({ id, name }) => ({
@@ -151,9 +155,9 @@ class EditPinFormContainer extends Component {
             editPinHistory,
             answers,
             filesUploading,
-            selectedHistory
+            selectedHistory,
+            status
         } = this.props;
-        const { status } = this.state;
 
         const formattedAnswers = Object.keys(answers).map(function(key) {
             return { questionID: key, answer: answers[key] };
@@ -174,7 +178,7 @@ const mapStateToProps = ({
     companyAdmin: {
         templatesReducer: { templates, isFetching, error },
         pinHistoriesReducer: { histories },
-        addPinFormReducer: { answers },
+        addPinFormReducer: { answers, status },
         addPinCoordinatesReducer: { coordinates },
         pinsReducer: { pins, postSuccess }
     },
@@ -193,17 +197,11 @@ const mapStateToProps = ({
     postSuccess,
     filesUploading,
     confirmLeave,
-    selectedHistory: histories[selectedHistoryId]
+    selectedHistory: histories[selectedHistoryId] || {},
+    status
 });
 
-const mapDispatchToProps = dispatch => ({
-    editPinHistory: (pinHistoryID, postBody) => {
-        dispatch(editPinHistory(pinHistoryID, postBody));
-    },
-    resetPinAnswers: () => {
-        dispatch(resetPinAnswers());
-    }
-});
+const mapDispatchToProps = { editPinHistory, resetPinAnswers };
 
 export default withRouter(
     connect(
