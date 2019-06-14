@@ -34,11 +34,9 @@ class CompanyAppContainer extends Component {
         } = this.props;
 
         fetchHomeData();
-        fetchCompanySettings().then(payload => {
-            if (payload.payload.colourCode === null) {
-                console.log();
-            } else if (payload.payload.colourCode.length > 0) {
-                localStorage.setItem('colourCode', payload.payload.colourCode);
+        fetchCompanySettings().then(({ payload = {} }) => {
+            if (payload.colourCode) {
+                localStorage.setItem('colourCode', payload.colourCode);
             }
         });
 
