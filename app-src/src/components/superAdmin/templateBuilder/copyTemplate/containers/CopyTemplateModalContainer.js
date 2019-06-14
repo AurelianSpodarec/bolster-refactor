@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import newUUID from 'uuid/v1';
+import newUUID from 'uuid/v4';
 
 import CopyTemplateModal from '../presentational/CopyTemplateModal';
 import fetchTemplate from 'actions/superAdmin/templateBuilder/async/fetchTemplate';
 import postTemplate from 'actions/superAdmin/templateBuilder/async/postTemplate';
 import { ERROR_MODAL } from 'constants/shared/modalTypes';
+import { convertArrToObj } from 'helpers/generic';
 
 class CopyTemplateModalContainer extends Component {
     state = {
@@ -70,57 +71,55 @@ class CopyTemplateModalContainer extends Component {
             const newTemplateUUID = newUUID();
             const newTemplate = {
                 ...template,
-                uuid: newUUID(),
+                uuid: newTemplateUUID,
                 name: this.getNewTemplateName(companyTemplates, template.name),
                 companyID
             };
 
-            let newLabelFields = labelFields.map(lf => {
-                const lfUUID = newUUID();
-                return {
-                    ...lf,
-                    uuid: lfUUID,
-                    templateUUID: newTemplateUUID
-                };
-            });
+            const newSectionUUIDs = sections.reduce((acc, section) => {
+                const newID = newUUID();
+                acc[section.uuid] = newID;
 
-            const { newSections, newQuestions } = sections.reduce(
-                (acc, sec) => {
-                    const newSectionUUID = newUUID();
-                    const newSection = {
-                        ...sec,
-                        uuid: newSectionUUID,
-                        templateUUID: newTemplateUUID
-                    };
+                return acc;
+            }, {});
 
-                    const newSectionQuestions = questions
-                        .filter(q => q.sectionUUID === sec.uuid)
-                        .map(q => {
-                            const qOldUUID = q.uuid;
-                            const newQuestionUUID = newUUID();
-                            newLabelFields = labelFields.map(lf => {
-                                if (lf.config.questionUUID === qOldUUID) {
-                                    lf.config.questionUUID = newQuestionUUID;
-                                }
-                                return lf;
-                            });
-                            return {
-                                ...q,
-                                uuid: newQuestionUUID,
-                                sectionUUID: newSectionUUID,
-                                templateUUID: newTemplateUUID
-                            };
-                        });
+            const newQuestionUUIDs = questions.reduce((acc, question) => {
+                const newID = newUUID();
+                acc[question.uuid] = newID;
 
-                    acc.newSections.push(newSection);
-                    acc.newQuestions = acc.newQuestions.concat(
-                        newSectionQuestions
-                    );
+                return acc;
+            }, {});
 
-                    return acc;
-                },
-                { newSections: [], newQuestions: [] }
-            );
+            const newLabelFieldUUIDs = labelFields.reduce((acc, lf) => {
+                const newID = newUUID();
+                acc[lf.uuid] = newID;
+
+                return acc;
+            }, {});
+
+            const newSections = sections.map(section => ({
+                ...section,
+                uuid: newSectionUUIDs[section.uuid],
+                templateUUID: newTemplateUUID
+            }));
+
+            const newQuestions = questions.map(q => ({
+                ...q,
+                uuid: newQuestionUUIDs[q.uuid],
+                templateUUID: newTemplateUUID,
+                sectionUUID: newSectionUUIDs[q.sectionUUID],
+                prereqUUID: newQuestionUUIDs[q.prereqUUID]
+            }));
+
+            const newLabelFields = labelFields.map(lf => ({
+                ...lf,
+                uuid: newLabelFieldUUIDs[lf.uuid],
+                templateUUID: newTemplateUUID,
+                config: {
+                    ...lf.config,
+                    questionUUID: newQuestionUUIDs[lf.config.questionUUID]
+                }
+            }));
 
             const templateData = {
                 template: newTemplate,
