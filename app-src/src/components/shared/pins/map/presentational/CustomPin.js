@@ -10,7 +10,7 @@ const CustomPin = ({ pinColour = 'red', pinCode = '' }) => {
             <img alt={`${pinColour} pin`} src={imageLocation} />
             <div className="code">
                 <p className="code-half">{topCode}</p>
-                <p className="code-half">{bottomCode}</p>
+                <p className="code-half">:{bottomCode}</p>
             </div>
         </div>
     );
