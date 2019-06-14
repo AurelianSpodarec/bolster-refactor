@@ -130,6 +130,10 @@ class EditPinFormContainer extends Component {
         }
     };
 
+    componentWillUnmount = () => {
+        this.props.resetPinAnswers();
+    };
+
     _getTemplates = () => {
         const { templates } = this.props;
         const templateOptions = templates.map(({ id, name }) => ({
@@ -197,14 +201,7 @@ const mapStateToProps = ({
     status
 });
 
-const mapDispatchToProps = dispatch => ({
-    editPinHistory: (pinHistoryID, postBody) => {
-        dispatch(editPinHistory(pinHistoryID, postBody));
-    },
-    resetPinAnswers: () => {
-        dispatch(resetPinAnswers());
-    }
-});
+const mapDispatchToProps = { editPinHistory, resetPinAnswers };
 
 export default withRouter(
     connect(
