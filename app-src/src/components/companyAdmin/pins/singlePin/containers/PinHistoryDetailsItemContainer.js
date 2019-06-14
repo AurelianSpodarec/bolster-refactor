@@ -3,8 +3,10 @@ import { connect } from 'react-redux';
 import moment from 'moment';
 
 import PinHistoryDetailsItem from '../presentational/PinHistoryDetailsItem';
-import { CONFIRM_EDIT_PIN } from 'constants/shared/modalTypes';
+import deletePinHistory from 'actions/companyAdmin/pins/async/deletePinHistory';
+import { CONFIRM_DELETE, CONFIRM_EDIT_PIN } from 'constants/shared/modalTypes';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
+import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 
 class PinHistoryDetailsItemContainer extends Component {
     render() {
@@ -13,13 +15,10 @@ class PinHistoryDetailsItemContainer extends Component {
             historyCount,
             users,
             services,
-            allHistories,
-            drawingID
+            drawingID,
+            historyVersion,
+            histories
         } = this.props;
-        const historyVersion =
-            [...allHistories]
-                .sort((a, b) => moment(a.createdAt) - moment(b.createdAt))
-                .findIndex(item => item.id === history.id) + 1;
 
         const user = users[history.createdByCompanyUserID] || {};
 
@@ -31,7 +30,9 @@ class PinHistoryDetailsItemContainer extends Component {
                 createdBy={user}
                 services={services}
                 handleEditHistoryModal={this.handleEditHistoryModal}
+                handleDeleteHistoryModal={this.handleDeleteHistoryModal}
                 drawingID={drawingID}
+                showDeleteButton={histories.length > 1}
             />
         );
     }
@@ -42,6 +43,17 @@ class PinHistoryDetailsItemContainer extends Component {
             history.id
         }`;
         showModal(CONFIRM_EDIT_PIN, { editURL });
+    };
+
+    handleDeleteHistoryModal = () => {
+        const { hideModal, showModal, history, deletePinHistory } = this.props;
+
+        const handleDelete = () => {
+            deletePinHistory(history.id);
+            hideModal();
+        };
+        const message = 'Are you sure you wish to delete this pin history?';
+        showModal(CONFIRM_DELETE, { hideModal, handleDelete, message });
     };
 }
 
@@ -54,10 +66,12 @@ const mapStateToProps = ({
 }) => ({
     users,
     services,
-    allHistories: Object.values(histories)
+    histories: Object.values(histories)
 });
 const mapDispatchToProps = dispatch => ({
-    showModal: (type, props) => dispatch(showModal(type, props))
+    showModal: (type, props) => dispatch(showModal(type, props)),
+    hideModal: type => dispatch(hideModal(type)),
+    deletePinHistory: historyID => dispatch(deletePinHistory(historyID))
 });
 export default connect(
     mapStateToProps,

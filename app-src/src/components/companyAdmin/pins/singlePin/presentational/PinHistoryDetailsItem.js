@@ -13,7 +13,9 @@ const PinHistoryDetailsItem = ({
     createdBy,
     services,
     handleEditHistoryModal,
-    drawingID
+    handleDeleteHistoryModal,
+    drawingID,
+    showDeleteButton
 }) => (
     <div className="item">
         <FieldOutput
@@ -50,6 +52,15 @@ const PinHistoryDetailsItem = ({
             additionalClasses="item-button-container"
             sizeClasses="size-lg-12"
         >
+            {showDeleteButton && (
+                <button
+                    className="button red"
+                    onClick={handleDeleteHistoryModal}
+                >
+                    <i className="far fa-times" /> Delete history
+                </button>
+            )}
+
             <button className="button yellow" onClick={handleEditHistoryModal}>
                 <i className="far fa-pencil" /> Edit history
             </button>
