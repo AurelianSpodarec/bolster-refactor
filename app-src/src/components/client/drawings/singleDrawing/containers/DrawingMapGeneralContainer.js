@@ -32,14 +32,14 @@ class DrawingMapGeneralContainer extends Component {
         const {
             serviceSelectedID,
             statusSelectedID,
-            operativeSelectedID,
+            // operativeSelectedID,
             startDateSelected,
             endDateSelected,
             mapZoom,
             position,
             updating,
             serviceOptions,
-            operativeOptions,
+            // operativeOptions,
             statusOptions
         } = this.state;
 
@@ -57,12 +57,12 @@ class DrawingMapGeneralContainer extends Component {
                                 }
                                 statusOptions={Object.values(statusOptions)}
                                 selectedStatus={statusOptions[statusSelectedID]}
-                                operativeOptions={Object.values(
-                                    operativeOptions
-                                )}
-                                selectedOperative={
-                                    operativeOptions[operativeSelectedID]
-                                }
+                                // operativeOptions={Object.values(
+                                //     operativeOptions
+                                // )}
+                                // selectedOperative={
+                                //     operativeOptions[operativeSelectedID]
+                                // }
                                 startDateSelected={startDateSelected}
                                 endDateSelected={endDateSelected}
                                 pins={pins}
@@ -83,7 +83,7 @@ class DrawingMapGeneralContainer extends Component {
                         updating={updating}
                     />
                 </BlockContainer>
-                <div className="flex-container size-lg-12">
+                {/* <div className="flex-container size-lg-12">
                     <div className="flex-item small-text-table size-lg-3">
                         <DrawingDocumentsContainer />
                     </div>
@@ -91,7 +91,7 @@ class DrawingMapGeneralContainer extends Component {
                     <div className="flex-item small-text-table two-line size-lg-3">
                         <DrawingCompaniesAccessContainer />
                     </div>
-                </div>
+                </div> */}
             </>
         );
     }
@@ -104,8 +104,8 @@ class DrawingMapGeneralContainer extends Component {
         // when the component has finished fetching all the options, run get services options once instead of in every render
         if (!isFetching && prevIsFetching) {
             const serviceOptions = this._getServicesOptions();
-            const operativeOptions = this._getOperativeOptions();
-            this.setState({ serviceOptions, operativeOptions });
+            // const operativeOptions = this._getOperativeOptions();
+            this.setState({ serviceOptions });
         }
         if (drawing.tilesetS3Key !== prevDrawing.tilesetS3Key) {
             clearInterval(this._floorplanInterval);
@@ -133,20 +133,21 @@ class DrawingMapGeneralContainer extends Component {
         }, {});
     };
 
-    _getOperativeOptions = () => {
-        const { operatives } = this.props;
+    //  !operative information not available at drawing level yet
+    // _getOperativeOptions = () => {
+    //     const { operatives } = this.props;
 
-        return operatives.reduce(
-            (acc, { id, userFirstName, userLastName, userEmail }) => {
-                acc[id] = {
-                    value: id,
-                    text: `${userFirstName} ${userLastName} <${userEmail}>`
-                };
-                return acc;
-            },
-            {}
-        );
-    };
+    //     return operatives.reduce(
+    //         (acc, { id, userFirstName, userLastName, userEmail }) => {
+    //             acc[id] = {
+    //                 value: id,
+    //                 text: `${userFirstName} ${userLastName} <${userEmail}>`
+    //             };
+    //             return acc;
+    //         },
+    //         {}
+    //     );
+    // };
 
     _getFilteredPins = () => {
         const { pins } = this.props;
@@ -198,7 +199,7 @@ const mapStateToProps = (
         client: {
             pinsReducer: { pins, isFetching: fetchingPins, error },
             servicesReducer: { services, isFetching: fetchingServices },
-            drawingOperativesReducer: { users, isFetching: fetchingUsers },
+            // drawingOperativesReducer: { users, isFetching: fetchingUsers },
             drawingsReducer: { drawings }
         }
     },
@@ -206,9 +207,9 @@ const mapStateToProps = (
 ) => ({
     drawing: drawings[match.params.id],
     pins: Object.values(pins),
-    operatives: Object.values(users),
+    // operatives: Object.values(users),
     services: Object.values(services),
-    isFetching: fetchingPins || fetchingServices || fetchingUsers,
+    isFetching: fetchingPins || fetchingServices,
     error
 });
 

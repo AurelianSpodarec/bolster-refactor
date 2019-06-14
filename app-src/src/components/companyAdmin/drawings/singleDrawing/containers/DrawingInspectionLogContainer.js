@@ -10,7 +10,7 @@ class DrawingInspectionLogContainer extends Component {
 
     render() {
         const { pins, isFetching, error } = this.props;
-        const filterPins = pins.filter(({ pinCode }) =>
+        const filterPins = pins.filter(({ pinCode = '' }) =>
             pinCode.includes(this.state.filterValue)
         );
 

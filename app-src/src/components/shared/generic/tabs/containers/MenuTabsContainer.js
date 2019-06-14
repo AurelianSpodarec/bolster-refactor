@@ -24,7 +24,7 @@ class MenuTabsContainer extends Component {
             filteredTabs = menuTabs.filter(tab => tab !== 'Admin');
         if (!isClientAccess)
             filteredTabs = menuTabs.filter(tab => tab !== 'Client Access');
-
+        console.warn(isSuperAdmin);
         return (
             <Tabs
                 tabs={filteredTabs}

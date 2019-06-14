@@ -8,6 +8,7 @@ import BlockContainer from 'components/shared/generic/block/containers/BlockCont
 
 import fetchClientSingleDrawing from 'actions/client/drawings/async/clientFetchSingleDrawing';
 import { getSelectedCompanyForClient } from 'helpers/generic';
+import CompaniesListContainer from 'components/client/companies/containers/CompaniesListContainer';
 
 class SinglePinMapContainer extends Component {
     render() {
@@ -21,10 +22,6 @@ class SinglePinMapContainer extends Component {
             histories
         } = this.props;
 
-        const historyVersion =
-            [...histories]
-                .sort((a, b) => moment(a.createdAt) - moment(b.createdAt))
-                .findIndex(item => item.id === selectedHistory.id) + 1;
         return (
             <BlockContainer
                 isEmpty={!pin.id || !drawing.id}
@@ -37,7 +34,6 @@ class SinglePinMapContainer extends Component {
                     user={user}
                     drawing={drawing}
                     pinHistory={selectedHistory}
-                    historyVersion={historyVersion}
                     historyCount={histories.length}
                 />
             </BlockContainer>
@@ -73,9 +69,13 @@ class SinglePinMapContainer extends Component {
 const mapStateToProps = (
     {
         client: {
-            pinsReducer: { pins, error, isFetching },
+            pinsReducer: { pins, error: pinsError, isFetching: fetchingPins },
             pinHistoriesReducer: { histories },
-            drawingOperativesReducer: { users },
+            pinOperativesReducer: {
+                users,
+                isFetching: fetchingOperatives,
+                error: operativesError
+            },
             drawingsReducer: { drawings }
         },
         shared: {
@@ -91,8 +91,8 @@ const mapStateToProps = (
         user: users[pin.latestCreatedByCompanyUserID] || {},
         histories: Object.values(histories),
         selectedHistory: histories[selectedHistoryId] || {},
-        error,
-        isFetching,
+        error: pinsError || operativesError,
+        isFetching: fetchingPins || fetchingOperatives,
         drawing: drawings[pin.drawingID] || {}
     };
 };

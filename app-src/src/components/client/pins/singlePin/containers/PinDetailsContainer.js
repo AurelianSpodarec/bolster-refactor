@@ -9,6 +9,7 @@ import selectPinHistory from 'actions/companyAdmin/pins/sync/selectPinHistory';
 import PinDetails from '../presentational/PinDetails';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
+import CompaniesListContainer from 'components/client/companies/containers/CompaniesListContainer';
 
 class PinDetailsContainer extends Component {
     render() {
@@ -22,65 +23,63 @@ class PinDetailsContainer extends Component {
             pin
         } = this.props;
 
-        const historyVersion =
-            [...histories]
-                .sort((a, b) => moment(a.createdAt) - moment(b.createdAt))
-                .findIndex(item => item.id === selectedHistory.id) + 1;
-
-        const user = users[selectedHistory.createdByCompanyUserID];
-
-        return (
-            <BlockContainer
-                isEmpty={
-                    !user ||
-                    !Object.values(services).length ||
-                    !histories.length
-                }
-                isFetching={isFetching}
-                error={error}
-            >
-                <BlockHeading title="Pin Options" />
-                <PinDetails
-                    pinHistory={selectedHistory}
-                    historyCount={histories.length}
-                    historyVersion={historyVersion}
-                    user={user}
-                    services={services}
-                    pin={pin}
-                    drawingID={pin.drawingID}
-                />
-            </BlockContainer>
+        const sortedHistories = [...histories].sort(
+            (a, b) => moment(b.createdOn) - moment(a.createdOn)
         );
+
+        return sortedHistories.map((history, i) => {
+            return (
+                <BlockContainer
+                    key={history.id}
+                    isEmpty={
+                        !users[history.createdByCompanyUserID] ||
+                        !Object.values(services).length ||
+                        !histories.length
+                    }
+                    isFetching={isFetching}
+                    error={error}
+                >
+                    <BlockHeading title={`Pin ${pin.pinCode}`}>
+                        <h4 className="small-text">
+                            (History {histories.length - i} of{' '}
+                            {histories.length}{' '}
+                            {histories.length - i === histories.length
+                                ? ' - Latest'
+                                : histories.length - i === 1
+                                ? ' - Earliest'
+                                : ''}
+                            )
+                        </h4>
+                    </BlockHeading>
+                    <PinDetails
+                        pinHistory={histories.length - i}
+                        history={history}
+                        users={users}
+                        services={services}
+                        pin={pin}
+                        drawingID={pin.drawingID}
+                    />
+                </BlockContainer>
+            );
+        });
     }
-
-    componentDidMount = () => {
-        const { latestHistoryId, selectPinHistory } = this.props;
-        if (latestHistoryId) selectPinHistory(latestHistoryId);
-    };
-
-    componentDidUpdate = prevProps => {
-        const { latestHistoryId, selectPinHistory } = this.props;
-
-        if (prevProps.latestHistoryId !== latestHistoryId) {
-            selectPinHistory(latestHistoryId);
-        }
-    };
 }
 
 const mapStateToProps = (
     {
         client: {
-            pinsReducer: { isFetching: fetchingPins, pins },
+            pinsReducer: { isFetching: fetchingPins, pins, error: pinsError },
             pinHistoriesReducer: {
                 histories,
                 isFetching: fetchingHistories,
-                error
+                error: pinHistoriesError
             },
-            drawingOperativesReducer: { users, isFetching: fetchingUsers },
+            pinOperativesReducer: {
+                users,
+                isFetching: fetchingUsers,
+                error: operativesError
+            },
             servicesReducer: { services }
-        },
-        shared: {
-            selectedHistoryReducer: { selectedHistoryId }
         }
     },
     { match }
@@ -88,9 +87,8 @@ const mapStateToProps = (
     const pin = pins[match.params.id] || {};
     return {
         isFetching: fetchingPins || fetchingHistories || fetchingUsers,
-        error,
+        error: pinsError || pinHistoriesError || operativesError,
         latestHistoryId: pin.latestHistoryID,
-        selectedHistory: histories[selectedHistoryId] || {},
         histories: Object.values(histories),
         users: users || {},
         services: services || {},
@@ -98,13 +96,4 @@ const mapStateToProps = (
     };
 };
 
-const mapDispatchToProps = dispatch => ({
-    selectPinHistory: historyID => dispatch(selectPinHistory(historyID))
-});
-
-export default withRouter(
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(PinDetailsContainer)
-);
+export default withRouter(connect(mapStateToProps)(PinDetailsContainer));

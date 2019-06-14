@@ -38,13 +38,10 @@ class SearchContainer extends Component {
         const { results } = this.props;
         const resultMap = results.map(result => {
             // get type and ID
-            const typeData = result.siteID
-                ? { type: 'sites', hierarchyID: result.siteID }
-                : result.buildingID
-                ? { type: 'buildings', hierarchyID: result.buildingID }
-                : result.floorID
-                ? { type: 'floors', hierarchyID: result.floorID }
-                : { type: 'drawings', hierarchyID: result.drawingID };
+            const typeData = {
+                type: 'drawings',
+                hierarchyID: result.drawingID
+            };
             // split search terms to highlight multiple words split by / or space
             const multiSearchTerms = searchTerm
                 .split(/\/|\s/gi)

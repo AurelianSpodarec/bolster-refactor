@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { FILE_STORAGE_URL } from 'config';
 
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import Block from 'components/shared/generic/block/presentational/Block';
 import { TEMPLATE_USAGE_RULES } from 'constants/companyAdmin/enums';
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
@@ -29,96 +30,150 @@ const Settings = ({ isFetching, error, companySettings: company }) => {
                 isFetching={isFetching}
                 error={error}
                 isEmpty={!company.name}
+                noWhiteBackground
             >
-                {/* address, need block heading  */}
-                <BlockHeading title="Company Details" />
-                <div className="field-group size-lg-12">
-                    <div className=" size-lg-4">
+                <div className="size-lg-8">
+                    <Block>
+                        {/* address, need block heading  */}
+                        <BlockHeading title="Company Details" />
+                        <div className="field-group size-lg-12">
+                            <div className=" size-lg-4">
+                                <FieldOutput
+                                    title="Company Name"
+                                    description={company.name}
+                                    fieldClass="no-h-padding"
+                                />
+                                <FieldOutput
+                                    title="Address"
+                                    description={company.addressLine1}
+                                    fieldClass="address no-h-padding"
+                                >
+                                    <p>{company.addressLine2}</p>
+                                    <p>{company.town}</p>
+                                    <p>{company.county}</p>
+                                    <p>{company.postcode}</p>
+                                </FieldOutput>
+                            </div>
+
+                            <div className="size-lg-4">
+                                <FieldOutput
+                                    title="Telephone"
+                                    description={
+                                        company.telephone || notProvided
+                                    }
+                                    fieldClass="no-h-padding"
+                                />
+                                <FieldOutput
+                                    title="Fax"
+                                    description={company.fax || notProvided}
+                                    fieldClass="no-h-padding"
+                                />
+                            </div>
+
+                            <div className="size-lg-4">
+                                <FieldOutput
+                                    title="Code"
+                                    description={company.code}
+                                    fieldClass="no-h-padding"
+                                    sizeClass="size-lg-12"
+                                />
+                                <FieldOutput
+                                    title="Short Code"
+                                    description={company.shortCode}
+                                    fieldClass="no-h-padding"
+                                    sizeClass="size-lg-12"
+                                />
+                            </div>
+                        </div>
+                    </Block>
+
+                    <Block>
+                        <BlockHeading title="Display Settings" />
+                        <FieldOutput
+                            title="Company Logo"
+                            fieldClass="no-h-padding"
+                            sizeClass="size-lg-4"
+                        >
+                            {company.logoFile ? (
+                                <img
+                                    className="settings-logo"
+                                    alt={`company logo for ${company.name}`}
+                                    src={`${FILE_STORAGE_URL}/${
+                                        company.logoFile
+                                    }`}
+                                />
+                            ) : (
+                                <p className="no-data size-lg-12">No logo</p>
+                            )}
+                        </FieldOutput>
+                        <FieldOutput
+                            title="Colour Code"
+                            description={company.colourCode || 'Not yet set'}
+                            fieldClass="w-colour-box"
+                            sizeClass="size-lg-4"
+                        >
+                            {company.colourCode && (
+                                <div
+                                    className="colour-box"
+                                    style={{
+                                        backgroundColor: company.colourCode
+                                    }}
+                                />
+                            )}
+                        </FieldOutput>
+                        <FieldOutput
+                            title="Dark Mode"
+                            description={
+                                company.isBolsterLogoDark ? 'On' : 'Off'
+                            }
+                            fieldClass="no-h-padding"
+                            sizeClass="size-lg-4"
+                        />
+                        <FieldOutput
+                            title="Timezone"
+                            description={`${timeZone.name} - ${
+                                timeZone.offset
+                            }`}
+                        />
+                        <FieldOutput
+                            title="Date Format"
+                            description={dateFormat.momentDateTimeFormat}
+                        />
+                    </Block>
+                </div>
+
+                <div className="size-lg-4">
+                    <Block>
+                        <BlockHeading title="Label Settings" />
+                        <FieldOutput
+                            title="Telephone Number"
+                            description={company.labelTelNumber || notProvided}
+                            fieldClass="no-h-padding"
+                            sizeClass="size-lg-12"
+                        />
                         <FieldOutput
                             title="Company Name"
-                            description={company.name}
-                            fieldClass="no-h-padding"
-                        />
-                        <FieldOutput
-                            title="Address"
-                            description={company.addressLine1}
-                            fieldClass="address no-h-padding"
-                        >
-                            <p>{company.addressLine2}</p>
-                            <p>{company.town}</p>
-                            <p>{company.county}</p>
-                            <p>{company.postcode}</p>
-                        </FieldOutput>
-                    </div>
-
-                    <div className="size-lg-4">
-                        <FieldOutput
-                            title="Telephone"
-                            description={company.telephone || notProvided}
-                            fieldClass="no-h-padding"
-                        />
-                        <FieldOutput
-                            title="Fax"
-                            description={company.fax || notProvided}
-                            fieldClass="no-h-padding"
-                        />
-                    </div>
-                </div>
-            </BlockContainer>
-            <BlockContainer
-                isFetching={isFetching}
-                error={error}
-                isEmpty={!company.name}
-            >
-                <div className="size-lg-4">
-                    <BlockHeading title="Label Settings" />
-                    <FieldOutput
-                        title="Telephone Number"
-                        description={company.labelTelNumber || notProvided}
-                        fieldClass="no-h-padding"
-                        sizeClass="size-lg-12"
-                    />
-                    <FieldOutput
-                        title="Company Name"
-                        description={company.labelCompanyName || notProvided}
-                        fieldClass="no-h-padding"
-                        sizeClass="size-lg-12"
-                    />
-                </div>
-
-                <div className="size-lg-8">
-                    <BlockHeading title="Bolster Client List" />
-                    <FieldOutput
-                        title="Hidden on client list?"
-                        description={company.hideOnClientList ? 'Yes' : 'No'}
-                        fieldClass="no-h-padding"
-                        sizeClass="size-lg-12"
-                    />
-                </div>
-            </BlockContainer>
-            <BlockContainer
-                isFetching={isFetching}
-                error={error}
-                isEmpty={!company.name}
-            >
-                <div className="size-lg-12">
-                    <div className="size-lg-4">
-                        <BlockHeading title="Company Code" />
-
-                        <FieldOutput
-                            title="Code"
-                            description={company.code}
+                            description={
+                                company.labelCompanyName || notProvided
+                            }
                             fieldClass="no-h-padding"
                             sizeClass="size-lg-12"
                         />
+                    </Block>
+
+                    <Block>
+                        <BlockHeading title="Bolster Client List" />
                         <FieldOutput
-                            title="Short Code"
-                            description={company.shortCode}
+                            title="Hidden on client list?"
+                            description={
+                                company.hideOnClientList ? 'Yes' : 'No'
+                            }
                             fieldClass="no-h-padding"
                             sizeClass="size-lg-12"
                         />
-                    </div>
-                    <div className="size-lg-8">
+                    </Block>
+
+                    <Block>
                         <BlockHeading title="Template Settings" />
                         <FieldOutput
                             title="Default Template Usage Rule"
@@ -128,52 +183,10 @@ const Settings = ({ isFetching, error, companySettings: company }) => {
                                 ]
                             }
                             fieldClass="no-h-padding"
-                            sizeClass="size-lg-4"
+                            sizeClass="size-lg-12"
                         />
-                    </div>
+                    </Block>
                 </div>
-            </BlockContainer>
-            <BlockContainer
-                isFetching={isFetching}
-                error={error}
-                isEmpty={!company.name}
-            >
-                <BlockHeading title="Display Settings" />
-                <FieldOutput
-                    title="Company Logo"
-                    fieldClass="no-h-padding"
-                    sizeClass="size-lg-4"
-                >
-                    {company.logoFile ? (
-                        <img
-                            className="settings-logo"
-                            alt={`company logo for ${company.name}`}
-                            src={`${FILE_STORAGE_URL}/${company.logoFile}`}
-                        />
-                    ) : (
-                        <p className="no-data size-lg-12">No logo</p>
-                    )}
-                </FieldOutput>
-                <FieldOutput
-                    title="Colour Code"
-                    description={company.colourCode || 'Not yet set'}
-                    fieldClass="no-h-padding"
-                    sizeClass="size-lg-4"
-                />
-                <FieldOutput
-                    title="Dark Mode"
-                    description={company.isBolsterLogoDark ? 'On' : 'Off'}
-                    fieldClass="no-h-padding"
-                    sizeClass="size-lg-4"
-                />
-                <FieldOutput
-                    title="Timezone"
-                    description={`${timeZone.name} - ${timeZone.offset}`}
-                />
-                <FieldOutput
-                    title="Date Format"
-                    description={dateFormat.momentDateTimeFormat}
-                />
             </BlockContainer>
         </>
     );

@@ -8,36 +8,21 @@ import PinSectionsContainer from '../containers/PinSectionsContainer';
 
 const PinHistoryDetailsItem = ({
     history,
-    historyCount,
-    version,
     createdBy,
     services,
     handleEditHistoryModal,
-    drawingID
+    handleDeleteHistoryModal,
+    drawingID,
+    showDeleteButton
 }) => (
     <div className="item">
-        {/* <div
-            className="image-holder"
-            style={{ backgroundImage: `url(${image})` }}
-        /> */}
-
-        <FieldOutput
-            title={`History ${version} of ${historyCount} ${
-                version === historyCount
-                    ? '(Latest)'
-                    : +version === 1
-                    ? '(Earliest)'
-                    : ''
-            }`}
-            sizeClass="size-lg-12"
-        />
         <FieldOutput
             title="Type"
             description={services[history.serviceID].name}
-            sizeClass="size-lg-6"
+            sizeClass="size-lg-4"
         />
 
-        <FieldOutput title="Date added" sizeClass="size-lg-6">
+        <FieldOutput title="Date added" sizeClass="size-lg-4">
             <p>
                 <DateTimeContainer date={history.createdOn} />
             </p>
@@ -46,7 +31,7 @@ const PinHistoryDetailsItem = ({
         <FieldOutput
             title="Added by"
             description={`${createdBy.userFirstName} ${createdBy.userLastName}`}
-            sizeClass="size-lg-6"
+            sizeClass="size-lg-4"
         />
 
         <PinSectionsContainer pinHistory={history} drawingID={drawingID} />
@@ -55,6 +40,15 @@ const PinHistoryDetailsItem = ({
             additionalClasses="item-button-container"
             sizeClasses="size-lg-12"
         >
+            {showDeleteButton && (
+                <button
+                    className="button red"
+                    onClick={handleDeleteHistoryModal}
+                >
+                    <i className="far fa-times" /> Delete history
+                </button>
+            )}
+
             <button className="button yellow" onClick={handleEditHistoryModal}>
                 <i className="far fa-pencil" /> Edit history
             </button>

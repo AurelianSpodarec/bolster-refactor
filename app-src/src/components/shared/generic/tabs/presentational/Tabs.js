@@ -23,7 +23,13 @@ const Tabs = ({ tabs, selectedTab, selectTab }) => (
                 {tab === 'Client Access' && (
                     <img src={ClientAccessIcon} alt="Client Invites icon" />
                 )}
-                <span>{tab}</span>
+                <span>
+                    {tab === 'Admin'
+                        ? 'Company Admin'
+                        : tab === 'Client Access'
+                        ? 'Client Access'
+                        : tab}
+                </span>
             </button>
         ))}
     </div>
