@@ -27,19 +27,14 @@ const mapStateToProps = (
     {
         companyAdmin: {
             pinAnswersReducer: { answers },
-            pinHistoriesReducer: { histories },
             templateQuestionsReducer: { questions }
-        },
-        shared: {
-            selectedHistoryReducer: { selectedHistoryId }
         }
     },
     { questionID, pinHistory }
 ) => {
-    const history = histories[selectedHistoryId] || {};
     const pinAnswers = Object.values(answers);
     return {
-        status: history.status,
+        status: pinHistory.status,
         pinAnswers,
         questions: Object.values(questions),
         relevantAnswer:

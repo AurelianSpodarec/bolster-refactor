@@ -34,7 +34,6 @@ const mapStateToProps = (
     ownProps
 ) => {
     const { templateVersionID } = ownProps.pinHistory;
-    console.error(templateVersionID);
     return {
         relevantSections: Object.values(sections).filter(
             section => section.templateVersionID === templateVersionID
