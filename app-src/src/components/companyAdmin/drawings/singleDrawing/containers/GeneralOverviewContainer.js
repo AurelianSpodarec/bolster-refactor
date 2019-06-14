@@ -94,20 +94,20 @@ const mapStateToProps = (
             drawingsReducer: { deleteSuccess, postFailure, drawings }
         }
     },
-    { match }
+    { match: { params } }
 ) => ({
-    drawing: drawings[match.params.id] || {},
+    drawing: drawings[params.id] || {},
     deleteSuccess,
     postFailure,
-    id: match.params.id
+    id: params.id
 });
 
-const mapDispatchToProps = dispatch => ({
-    hideModal: () => dispatch(hideModal()),
-    showModal: (type, props) => dispatch(showModal(type, props)),
-    deleteDrawing: id => dispatch(deleteDrawing(id)),
-    archiveDrawing: (id, undo) => dispatch(archiveDrawing(id, undo))
-});
+const mapDispatchToProps = {
+    hideModal,
+    showModal,
+    deleteDrawing,
+    archiveDrawing
+};
 
 export default withRouter(
     connect(

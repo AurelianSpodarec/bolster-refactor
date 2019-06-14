@@ -78,6 +78,7 @@ export default function(ProtectedComponent) {
                     isPDFGeneration,
                     isCSVGeneration,
                     isFloorplanGeneration,
+                    includeFloorplan,
                     fromDateInclusive,
                     toDateInclusive,
                     companyUserIDs
@@ -130,6 +131,7 @@ export default function(ProtectedComponent) {
                 isPDFGeneration,
                 isCSVGeneration,
                 isFloorplanGeneration,
+                includeFloorplan,
                 fromDateInclusive,
                 toDateInclusive,
                 companyUserIDs,
