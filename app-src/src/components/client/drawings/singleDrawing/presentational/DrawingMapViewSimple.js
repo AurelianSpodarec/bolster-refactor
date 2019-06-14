@@ -16,49 +16,35 @@ const DrawingMapViewSimple = ({
     pins,
     drawing = {},
     updating
-}) => {
-    return (
+}) =>
+    drawing.tilesetS3Key ? (
         <>
-            {drawing.tilesetS3Key ? (
-                <>
-                    <BlockHeading>
-                        {updating && (
-                            <p>
-                                Updating floorplan... <LoadingIcon />
-                            </p>
-                        )}
-                    </BlockHeading>
-                    <Map
-                        center={position}
-                        zoom={zoom}
-                        minZoom={0}
-                        maxZoom={5}
-
-                        // Sets boundary to prevent scrolling into nothing, maxboundsviscosity prevents a snapback effect and disables scrolling out of bounds altogether
-                        // maxBounds={[[-1000, -1000], [1000, 1000]]}
-                        // maxBoundsViscosity={1}
-                    >
-                        <TileLayer
-                            attribution='&amp;copy <a href="http://app.bolstersystems.com">Bolster Systems Ltd</a>'
-                            url={getDataUrl(drawing.tilesetS3Key)}
-                            noWrap={true}
-                        />
-                        {pins.map(pin => (
-                            <MapPinContainer
-                                urlStart="client"
-                                key={pin.id}
-                                pin={pin}
-                                withLink={true}
-                                withTooltip={true}
-                            />
-                        ))}
-                    </Map>
-                </>
-            ) : (
-                <Loading message="Please wait for your tileset to load" />
-            )}
+            <BlockHeading>
+                {updating && (
+                    <p>
+                        Uploading Drawing... <LoadingIcon />
+                    </p>
+                )}
+            </BlockHeading>
+            <Map center={position} zoom={zoom} minZoom={0} maxZoom={5}>
+                <TileLayer
+                    attribution='&amp;copy <a href="http://app.bolstersystems.com">Bolster Systems Ltd</a>'
+                    url={getDataUrl(drawing.tilesetS3Key)}
+                    noWrap={true}
+                />
+                {pins.map(pin => (
+                    <MapPinContainer
+                        urlStart="client"
+                        key={pin.id}
+                        pin={pin}
+                        withLink={true}
+                        withTooltip={true}
+                    />
+                ))}
+            </Map>
         </>
+    ) : (
+        <Loading message="Please wait for your tileset to load" />
     );
-};
 
 export default DrawingMapViewSimple;

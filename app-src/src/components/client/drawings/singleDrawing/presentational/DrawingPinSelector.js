@@ -3,7 +3,7 @@ import BlockHeading from 'components/shared/generic/blockHeading/presentational/
 
 const DrawingPinSelector = () => (
     <>
-        <BlockHeading title="Pin Selector" />
+        <BlockHeading title="Individual Pins" />
 
         <p className="generic-text intro-text size-lg-12">
             Using either of the boxes below or the pin map, select which pins

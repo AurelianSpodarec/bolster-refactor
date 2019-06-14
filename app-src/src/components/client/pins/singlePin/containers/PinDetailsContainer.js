@@ -3,18 +3,15 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import moment from 'moment';
 
-import selectPinHistory from 'actions/companyAdmin/pins/sync/selectPinHistory';
 // import { isObjEmpty } from 'helpers/generic';
 
 import PinDetails from '../presentational/PinDetails';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
-import CompaniesListContainer from 'components/client/companies/containers/CompaniesListContainer';
 
 class PinDetailsContainer extends Component {
     render() {
         const {
-            selectedHistory,
             histories,
             users,
             services,

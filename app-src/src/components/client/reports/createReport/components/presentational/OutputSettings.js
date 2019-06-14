@@ -16,6 +16,7 @@ const OutputSettings = ({
     isPDFGeneration,
     isCSVGeneration,
     isFloorplanGeneration,
+    includeFloorplan,
     showHidden
 }) => (
     <div className="size-lg-12">
@@ -77,7 +78,7 @@ const OutputSettings = ({
                                                 classes="with-subtext"
                                                 checked={
                                                     isPDFGeneration
-                                                        ? includePinLocation
+                                                        ? includeFloorplan
                                                         : isPDFGeneration
                                                 }
                                                 handleChange={

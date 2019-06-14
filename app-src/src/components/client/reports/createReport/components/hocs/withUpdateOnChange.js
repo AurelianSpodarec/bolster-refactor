@@ -77,6 +77,7 @@ export default function(ProtectedComponent) {
                     isPDFGeneration,
                     isCSVGeneration,
                     isFloorplanGeneration,
+                    includeFloorplan,
                     fromDateInclusive,
                     toDateInclusive,
                     companyUserIDs,
@@ -107,12 +108,20 @@ export default function(ProtectedComponent) {
             }
 
             const questionFilters = fields.map(
-                ({ selectedQuestions, questionValues }) => ({
-                    questionGroupKeys: selectedQuestions,
-                    values: Object.values(questionValues).map(
-                        ({ value }) => value
-                    )
-                })
+                ({
+                    selectedQuestions,
+                    questionValues = [],
+                    selectedValues = []
+                }) => {
+                    let values = questionValues.length
+                        ? questionValues
+                        : selectedValues;
+
+                    return {
+                        questionGroupKeys: selectedQuestions,
+                        values
+                    };
+                }
             );
             const body = {
                 hierarchyType,
@@ -122,6 +131,7 @@ export default function(ProtectedComponent) {
                 isPDFGeneration,
                 isCSVGeneration,
                 isFloorplanGeneration,
+                includeFloorplan,
                 fromDateInclusive,
                 toDateInclusive,
                 companyUserIDs,

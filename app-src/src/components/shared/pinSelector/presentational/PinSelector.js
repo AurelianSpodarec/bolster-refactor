@@ -14,16 +14,17 @@ const PinSelector = ({
     handleMouseDown,
     handleMouseUp,
     handleMouseOut,
-    clicking
+    clicking,
+    error
 }) => (
     <>
-        <BlockHeading title="Pin Selector" />
+        <BlockHeading title="Individual Pins" />
 
         <p className="generic-text intro-text size-lg-12">
             Using either of the boxes below or the pin map, select which pins
             you would like to be included in your report.
         </p>
-        <div className="pin-selector size-lg-12">
+        <div className="pin-selector size-lg-12 form-field">
             <div className="pin-selection-box">
                 <h3>Excluded</h3>
                 <ExcludedBox
@@ -62,6 +63,11 @@ const PinSelector = ({
                     clicking={clicking}
                 />
             </div>
+            {error && (
+                <div className="size-lg-12">
+                    <p className="error red-text text-accent-4">{error}</p>
+                </div>
+            )}
         </div>
     </>
 );

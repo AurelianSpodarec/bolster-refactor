@@ -52,7 +52,7 @@ class FurtherFiltrationContainer extends Component {
                     handleChange={this.handleChange}
                 />
                 {filterOption === '1' ? (
-                    <PinSelectorContainer />
+                    <PinSelectorContainer blockName="pinSelector" />
                 ) : filterOption === '2' ? (
                     <div className="custom-filters-block">
                         <div className="size-lg-12">
@@ -106,10 +106,8 @@ class FurtherFiltrationContainer extends Component {
     };
 
     addCustomField = () => {
-        const { addFilterQuestion, showModal, customQuestions } = this.props;
-        const id = uuid();
-        addFilterQuestion(id);
-        showModal(FILTER_FIELDS, { id, customQuestions });
+        const { showModal, customQuestions } = this.props;
+        showModal(FILTER_FIELDS, { customQuestions });
     };
 
     handleShowCustomFieldModal = id => {

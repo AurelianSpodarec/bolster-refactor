@@ -78,6 +78,7 @@ export default function(ProtectedComponent) {
                     isPDFGeneration,
                     isCSVGeneration,
                     isFloorplanGeneration,
+                    includeFloorplan,
                     fromDateInclusive,
                     toDateInclusive,
                     companyUserIDs
@@ -109,13 +110,13 @@ export default function(ProtectedComponent) {
             const questionFilters = fields.map(
                 ({
                     selectedQuestions,
-                    questionValues,
+                    questionValues = [],
                     selectedValues = []
                 }) => {
-                    let values = Object.values(questionValues).map(
-                        ({ value }) => value
-                    );
-                    if (!values.length) values = selectedValues;
+                    let values = questionValues.length
+                        ? questionValues
+                        : selectedValues;
+
                     return {
                         questionGroupKeys: selectedQuestions,
                         values
@@ -130,12 +131,13 @@ export default function(ProtectedComponent) {
                 isPDFGeneration,
                 isCSVGeneration,
                 isFloorplanGeneration,
+                includeFloorplan,
                 fromDateInclusive,
                 toDateInclusive,
                 companyUserIDs,
                 serviceID: serviceID || null,
                 status: status || null,
-                pinIDs: pinIDs.length ? pinIDs : null,
+                pinIDs: pinIDs || null,
                 questionFilters,
                 showHidden,
                 sortBy

@@ -5,6 +5,7 @@ import FieldOutput from 'components/shared/generic/fieldOutput/presentational/Fi
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 import PinSectionsContainer from '../containers/PinSectionsContainer';
+import { PIN_STATUS_TYPES } from 'constants/companyAdmin/enums';
 
 const PinHistoryDetailsItem = ({
     history,
@@ -13,16 +14,16 @@ const PinHistoryDetailsItem = ({
     handleEditHistoryModal,
     handleDeleteHistoryModal,
     drawingID,
-    showDeleteButton
+    isDeleteHistory
 }) => (
     <div className="item">
         <FieldOutput
             title="Type"
             description={services[history.serviceID].name}
-            sizeClass="size-lg-4"
+            sizeClass="size-lg-3"
         />
 
-        <FieldOutput title="Date added" sizeClass="size-lg-4">
+        <FieldOutput title="Date added" sizeClass="size-lg-3">
             <p>
                 <DateTimeContainer date={history.createdOn} />
             </p>
@@ -31,7 +32,12 @@ const PinHistoryDetailsItem = ({
         <FieldOutput
             title="Added by"
             description={`${createdBy.userFirstName} ${createdBy.userLastName}`}
-            sizeClass="size-lg-4"
+            sizeClass="size-lg-3"
+        />
+        <FieldOutput
+            title="Status"
+            description={`${PIN_STATUS_TYPES[history.status]}`}
+            sizeClass="size-lg-3"
         />
 
         <PinSectionsContainer pinHistory={history} drawingID={drawingID} />
@@ -40,14 +46,10 @@ const PinHistoryDetailsItem = ({
             additionalClasses="item-button-container"
             sizeClasses="size-lg-12"
         >
-            {showDeleteButton && (
-                <button
-                    className="button red"
-                    onClick={handleDeleteHistoryModal}
-                >
-                    <i className="far fa-times" /> Delete history
-                </button>
-            )}
+            <button className="button red" onClick={handleDeleteHistoryModal}>
+                <i className="far fa-times" /> Delete{' '}
+                {isDeleteHistory > 1 ? 'History' : 'Pin'}
+            </button>
 
             <button className="button yellow" onClick={handleEditHistoryModal}>
                 <i className="far fa-pencil" /> Edit history

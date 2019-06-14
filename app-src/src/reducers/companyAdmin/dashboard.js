@@ -10,7 +10,8 @@ import {
     FETCH_DASH_STATS_REQUEST,
     FETCH_DASH_STATS_SUCCESS,
     FETCH_DASH_STATS_FAILURE,
-    UPDATE_DASH_STATS_FILTERS
+    UPDATE_DASH_STATS_FILTERS,
+    FETCH_DASH_PIN_STATUS_STATS_SUCCESS
 } from 'constants/actionTypes/dashboard';
 import { updateObj } from 'helpers/generic';
 import moment from 'moment';
@@ -24,7 +25,8 @@ export default combineReducers({
     dashRecentPinsStats: dashRecentPinsStatsReducer,
     dashAllPinsStats: dashAllPinsStatsReducer,
     settings: settingsReducer,
-    filters: filtersReducer
+    filters: filtersReducer,
+    statusStats: statusStatsReducer
 });
 
 function isFetchingDashPinsStatsReducer(state = false, action) {
@@ -90,7 +92,7 @@ function dashRecentPinsStatsReducer(state = {}, action) {
 function dashAllPinsStatsReducer(state = {}, action) {
     switch (action.type) {
         case FETCH_DASH_STATS_SUCCESS:
-            return action.payload.allHistoryStats;
+            return action.payload.historyTimeline;
         default:
             return state;
     }
@@ -130,11 +132,23 @@ function settingsReducer(
     }
 }
 
+function statusStatsReducer(state = {}, action) {
+    switch (action.type) {
+        case FETCH_DASH_PIN_STATUS_STATS_SUCCESS:
+            return action.payload;
+        default:
+            return state;
+    }
+}
+
 function filtersReducer(
     state = {
         serviceID: '',
-        daysToReturn: '31',
-        timePeriodStartDate: moment().toDate()
+        status: '',
+        startDate: moment()
+            .subtract(7, 'days')
+            .format(),
+        endDate: moment().format()
     },
     action
 ) {

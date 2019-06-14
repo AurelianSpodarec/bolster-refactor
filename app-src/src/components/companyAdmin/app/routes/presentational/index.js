@@ -2,7 +2,7 @@ import React from 'react';
 import { Route } from 'react-router-dom';
 
 import SwitchWith404 from 'components/appRoute/routes/presentational/SwitchWith404';
-import Dashboard from 'components/companyAdmin/dashboard/presentational/Dashboard';
+import DashboardContainer from 'components/companyAdmin/dashboard/containers/DashboardContainer';
 
 import withSubscriptionAuth from '../../hocs/withSubscriptionAuth';
 import SitesRoutes from './SitesRoutes';
@@ -25,7 +25,11 @@ import ApprovedCompaniesRoutes from './ApprovedCompaniesRoutes';
 
 const CompanyRoutes = ({ base = '/company' }) => (
     <SwitchWith404>
-        <Route exact path={base} component={withSubscriptionAuth(Dashboard)} />
+        <Route
+            exact
+            path={base}
+            component={withSubscriptionAuth(DashboardContainer)}
+        />
         <Route
             path={`${base}/buildings`}
             component={withSubscriptionAuth(BuildingsRoutes)}

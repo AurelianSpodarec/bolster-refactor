@@ -29,7 +29,7 @@ class SinglePinContainer extends Component {
         const selectedCompanyID = getSelectedCompanyForClient();
 
         if (!fetchingPins && prevProps.fetchingPins && !isEmpty(pins)) {
-            fetchExtraPinData(selectedCompanyID, pins[pinID].drawingID);
+            fetchExtraPinData(selectedCompanyID, pinID);
         }
     };
 }

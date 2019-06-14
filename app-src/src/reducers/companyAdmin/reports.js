@@ -52,6 +52,7 @@ function filtersReducer(
         reportHistories: 1,
         sortByID: '',
         includePinLocation: false,
+        includeFloorplan: false,
         isPDFGeneration: false,
         isCSVGeneration: false,
         isFloorplanGeneration: false,
@@ -79,6 +80,7 @@ function filtersReducer(
                 reportHistories: 1,
                 sortByID: '',
                 includePinLocation: false,
+                includeFloorplan: false,
                 isPDFGeneration: false,
                 isCSVGeneration: false,
                 isFloorplanGeneration: false,
@@ -107,7 +109,7 @@ function fieldsReducer(state = {}, action) {
                 [action.id]: {
                     id: action.id,
                     selectedQuestions: [],
-                    questionValues: {},
+                    questionValues: [],
                     selectedValues: []
                 }
             };

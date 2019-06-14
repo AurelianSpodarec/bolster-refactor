@@ -6,125 +6,194 @@ import FilterFieldsModal from '../presentational/FilterFieldsModal';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import updateReportFilter from 'actions/client/reports/create/sync/clientUpdateReportFilter';
 import updateFilterQuestionField from 'actions/client/reports/create/sync/clientUpdateFilterQuestionField';
-import {
-    updateObj,
-    removeObjItem,
-    convertArrToObj,
-    removeDuplicates
-} from 'helpers/generic';
+import { convertArrToObj } from 'helpers/generic';
 import removeFilterQuestion from 'actions/client/reports/create/sync/clientRemoveFilterQuestion';
 
+const questionTypeOptions = [
+    { label: 'Free Form', value: 1 },
+    { label: 'Option oriented', value: 2 }
+];
+
 class FilterFieldsModalContainer extends Component {
+    state = {
+        showFreeForm: true,
+        selectedQuestions: [],
+        freeFormValues: [],
+        optionOrientedVals: []
+    };
     render() {
+        const { hideModal } = this.props;
+
         const {
-            customQuestions,
-            field: { selectedQuestions, questionValues }
-        } = this.props;
-        const uniqueOptions = removeDuplicates(customQuestions, true);
-        const formattedOptions = uniqueOptions.map(
-            ({ id: value, name: text }) => ({
-                value,
-                text,
-                name: value
-            })
-        );
+            showFreeForm,
+            freeFormValues,
+            optionOrientedVals,
+            selectedQuestions
+        } = this.state;
+
         return (
             <FilterFieldsModal
-                questionOptions={formattedOptions}
+                showFreeForm={showFreeForm}
+                questionTypeOptions={questionTypeOptions}
                 selectedQuestions={selectedQuestions}
+                questionOptions={this._getQuestionOptions()}
+                freeFormValues={freeFormValues}
+                optionOrientedOptions={this._getValidValueOptions()}
+                optionOrientedVals={optionOrientedVals}
+                break="   vars above - functions below        "
+                toggleShowFreeForm={this.toggleShowFreeForm}
                 handleChange={this.handleChange}
-                addOption={this.addOption}
-                removeOption={this.removeOption}
-                updateOption={this.updateOption}
-                questionValues={Object.values(questionValues)}
-                saveField={this.saveField}
-                hideModal={this.handleCancel}
+                handleFreeFormValChange={this.handleFreeFormValChange}
+                addFreeFormVal={this.addFreeFormVal}
+                removeFreeFormVal={this.removeFreeFormVal}
+                hideModal={hideModal}
+                handleSubmit={this.handleSubmit}
             />
         );
     }
 
-    handleChange = (_, options) => {
-        const { updateFilterQuestionField, field } = this.props;
-        updateFilterQuestionField(
-            field.id,
-            updateObj(field, 'selectedQuestions', options)
-        );
-    };
-
     componentDidMount = () => {
-        const questionValues = Object.values(this.props.field.questionValues);
+        const { field, id } = this.props;
+        console.log(field);
+        console.log(id);
         // add an option if none exist, makes modal reusable for edit
-        if (!questionValues.length) this.addOption();
-    };
-
-    addOption = () => {
-        const { field, updateFilterQuestionField } = this.props;
-        const id = uuid();
-        const updated = updateObj(field.questionValues, id, { id, value: '' });
-        updateFilterQuestionField(
-            field.id,
-            this.formatField(field.id, field.selectedQuestions, updated)
-        );
-    };
-
-    removeOption = id => {
-        const { field, updateFilterQuestionField } = this.props;
-        const updated = {
-            ...field,
-            questionValues: removeObjItem(field.questionValues, id)
-        };
-        updateFilterQuestionField(field.id, updated);
-    };
-
-    updateOption = (name, value) => {
-        const { field, id, updateFilterQuestionField } = this.props;
-        const updated = updateObj(field.questionValues, name, {
-            id: name,
-            value
-        });
-        updateFilterQuestionField(
-            id,
-            this.formatField(id, field.selectedQuestions, updated)
-        );
-    };
-
-    formatField = (id, selectedQuestions, questionValues) => ({
-        id,
-        selectedQuestions,
-        questionValues
-    });
-
-    saveField = e => {
-        e.preventDefault();
-        const { hideModal, removeFilterQuestion, field } = this.props;
-        // remove if nothing selected
-        if (
-            !field.selectedQuestions.length &&
-            Object.values(field.questionValues).every(({ value }) => !value)
-        ) {
-            removeFilterQuestion(field.id);
+        if (field) {
+            const { selectedQuestions, questionValues, selectedValues } = field;
+            this.setState({
+                selectedQuestions,
+                freeFormValues: questionValues,
+                optionOrientedVals: selectedValues,
+                showFreeForm: !selectedValues.length
+            });
+        } else {
+            this.addFreeFormVal();
         }
+    };
+
+    toggleShowFreeForm = () => {
+        const showFreeForm = !this.state.showFreeForm;
+        this.setState({ showFreeForm });
+    };
+
+    handleChange = (name, value) => {
+        this.setState({ [name]: value });
+    };
+
+    handleFreeFormValChange = (index, value) => {
+        const vals = [...this.state.freeFormValues];
+        vals[index] = value;
+
+        this.setState({
+            freeFormValues: vals
+        });
+    };
+
+    addFreeFormVal = () => {
+        const { freeFormValues } = this.state;
+
+        this.setState({
+            freeFormValues: [...freeFormValues, '']
+        });
+    };
+
+    removeFreeFormVal = index => {
+        const { freeFormValues } = this.state;
+        const vals = [
+            ...freeFormValues.slice(0, index),
+            ...freeFormValues.slice(index + 1)
+        ];
+        this.setState({
+            freeFormValues: vals
+        });
+    };
+
+    handleSubmit = () => {
+        const {
+            showFreeForm,
+            selectedQuestions,
+            freeFormValues,
+            optionOrientedVals
+        } = this.state;
+        const {
+            field,
+            updateFilterQuestionField,
+            hideModal,
+            removeFilterQuestion
+        } = this.props;
+
+        const newID = uuid();
+        const id = field ? field.id : newID;
+
+        const validQuestionIDs = this._getFilteredQuestions().map(
+            ({ id }) => id
+        );
+        const validSelectedQs = selectedQuestions.filter(id =>
+            validQuestionIDs.includes(id)
+        );
+
+        if (!validSelectedQs.length) {
+            if (field) removeFilterQuestion(field.id);
+            hideModal();
+            return;
+        }
+
+        let filterItem = {
+            id,
+            selectedQuestions: validSelectedQs,
+            questionValues: showFreeForm ? freeFormValues : [],
+            selectedValues: showFreeForm ? [] : optionOrientedVals
+        };
+
+        updateFilterQuestionField(id, filterItem);
         hideModal();
     };
 
-    handleCancel = () => {
-        const { hideModal, removeFilterQuestion, field } = this.props;
-        // remove if nothing selected
-        removeFilterQuestion(field.id);
-        hideModal();
+    _getFilteredQuestions = () => {
+        const { customQuestions } = this.props;
+        const { showFreeForm } = this.state;
+        const questionsObj = convertArrToObj(customQuestions);
+
+        return [...new Set(customQuestions.map(q => q.id))]
+            .map(id => questionsObj[id])
+            .filter(({ options }) => (showFreeForm ? !options : !!options));
+    };
+
+    _getValidValueOptions = () => {
+        const { selectedQuestions } = this.state;
+        const { customQuestions } = this.props;
+        const questionsObj = convertArrToObj(customQuestions);
+
+        const options = selectedQuestions
+            .map(id => questionsObj[id])
+            .filter(q => q && q.options)
+            .reduce((a, b) => a.concat(b.options), []);
+
+        return [...new Set(options)].map(op => ({ label: op, value: op }));
+    };
+
+    _getQuestionOptions = () => {
+        return this._getFilteredQuestions().map(q => ({
+            value: q.id,
+            name: q.id,
+            label: q.name
+        }));
     };
 }
 
 const mapStateToProps = (
     {
         client: {
-            reportsReducer: { fields }
+            reportsReducer: {
+                fields,
+                customFilters: { questionOptions = [] }
+            }
         }
     },
     { id, customQuestions }
 ) => ({
-    field: fields[id] || {},
-    questionsObj: convertArrToObj(customQuestions)
+    field: fields[id],
+    questionsObj: convertArrToObj(customQuestions),
+    questionOptions: convertArrToObj(questionOptions)
 });
 
 const mapDispatchToProps = {

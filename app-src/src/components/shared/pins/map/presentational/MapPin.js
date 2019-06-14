@@ -14,6 +14,7 @@ import { formatDate } from 'helpers/generic';
 // import PinDetailsContainer from 'components/companyAdmin/pins/singlePin/containers/PinDetailsContainer';
 // import Loading from 'components/shared/generic/misc/presentational/Loading';
 import { RAW_S3_STORAGE_URL } from 'config';
+import MapPinPhotoSlider from './MapPinPhotoSlider';
 
 const DrawingMapPin = ({
     pin: {
@@ -94,16 +95,24 @@ const DrawingMapPin = ({
                         {!!pinImages.length && (
                             <>
                                 Latest History Images: <br />
-                                <div className="flex-tooltip-images">
-                                    {pinImages.map(src => (
-                                        <img
-                                            className="tooltip-item"
-                                            key={src}
-                                            alt=""
-                                            src={`${RAW_S3_STORAGE_URL}/${src}`}
+                                {pinImages.length >= 2 ? (
+                                    <div style={{ width: '300px' }}>
+                                        <MapPinPhotoSlider
+                                            pinImages={pinImages}
                                         />
-                                    ))}
-                                </div>
+                                    </div>
+                                ) : (
+                                    <div style={{ width: '300px' }}>
+                                        <img
+                                            style={{ width: '300px' }}
+                                            key={pinImages[0]}
+                                            alt=""
+                                            src={`${RAW_S3_STORAGE_URL}/${
+                                                pinImages[0]
+                                            }`}
+                                        />
+                                    </div>
+                                )}
                             </>
                         )}
                     </div>
