@@ -448,10 +448,26 @@ class AddPinQuestionRoute extends Component {
 
     _getIsRequired = () => {
         const {
-            question: { isRequired, isRequiredVal, type },
+            question: {
+                isRequired,
+                isRequiredVal,
+                type,
+                id,
+                prerequisiteQuestionID
+            },
+            answers,
+            questions,
             status
         } = this.props;
 
+        const showPreReq = this.checkIfShouldShowByPreReq(
+            id,
+            prerequisiteQuestionID,
+            answers,
+            questions
+        );
+
+        if (!showPreReq) return false;
         if (`${type}` === `${STATUS}`) return true;
         if (isRequired) return true;
         if (isRequiredVal) return isRequiredVal + '' === status + '';
