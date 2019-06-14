@@ -6,9 +6,8 @@ import FilterFieldsModal from '../presentational/FilterFieldsModal';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import updateReportFilter from 'actions/companyAdmin/reports/sync/updateReportFilter';
 import updateFilterQuestionField from 'actions/companyAdmin/reports/sync/updateFilterQuestionField';
-import { updateObj, removeObjItem, convertArrToObj } from 'helpers/generic';
+import { convertArrToObj } from 'helpers/generic';
 import removeFilterQuestion from 'actions/companyAdmin/reports/sync/removeFilterQuestion';
-import updateFilterQuestionVals from 'actions/companyAdmin/reports/sync/updateFilterQuestionVals';
 
 const questionTypeOptions = [
     { label: 'Free Form', value: 1 },
@@ -23,7 +22,7 @@ class FilterFieldsModalContainer extends Component {
         optionOrientedVals: []
     };
     render() {
-        const { field, hideModal } = this.props;
+        const { hideModal } = this.props;
 
         const {
             showFreeForm,
@@ -39,6 +38,7 @@ class FilterFieldsModalContainer extends Component {
                 selectedQuestions={selectedQuestions}
                 questionOptions={this._getQuestionOptions()}
                 freeFormValues={freeFormValues}
+                optionOrientedOptions={this._getValidValueOptions()}
                 optionOrientedVals={optionOrientedVals}
                 break="   vars above - functions below        "
                 toggleShowFreeForm={this.toggleShowFreeForm}
@@ -53,9 +53,19 @@ class FilterFieldsModalContainer extends Component {
     }
 
     componentDidMount = () => {
-        const questionValues = Object.values(this.props.field.questionValues);
+        const { field } = this.props;
         // add an option if none exist, makes modal reusable for edit
-        if (!questionValues.length) this.addOption();
+        if (field) {
+            const { selectedQuestions, questionValues, selectedValues } = field;
+            this.setState({
+                selectedQuestions,
+                freeFormValues: questionValues,
+                optionOrientedVals: selectedValues,
+                showFreeForm: !selectedValues.length
+            });
+        } else {
+            this.addFreeFormVal();
+        }
     };
 
     toggleShowFreeForm = () => {
@@ -96,7 +106,44 @@ class FilterFieldsModalContainer extends Component {
     };
 
     handleSubmit = () => {
-        console.log('submitting...');
+        const {
+            showFreeForm,
+            selectedQuestions,
+            freeFormValues,
+            optionOrientedVals
+        } = this.state;
+        const {
+            field,
+            updateFilterQuestionField,
+            hideModal,
+            removeFilterQuestion
+        } = this.props;
+
+        const newID = uuid();
+        const id = field ? field.id : newID;
+
+        const validQuestionIDs = this._getFilteredQuestions().map(
+            ({ id }) => id
+        );
+        const validSelectedQs = selectedQuestions.filter(id =>
+            validQuestionIDs.includes(id)
+        );
+
+        if (!validSelectedQs.length) {
+            if (field) removeFilterQuestion(field.id);
+            hideModal();
+            return;
+        }
+
+        let filterItem = {
+            id,
+            selectedQuestions: validSelectedQs,
+            questionValues: showFreeForm ? freeFormValues : [],
+            selectedValues: showFreeForm ? [] : optionOrientedVals
+        };
+
+        updateFilterQuestionField(id, filterItem);
+        hideModal();
     };
 
     _getFilteredQuestions = () => {
@@ -110,10 +157,11 @@ class FilterFieldsModalContainer extends Component {
     };
 
     _getValidValueOptions = () => {
-        const { field, customQuestions } = this.props;
+        const { selectedQuestions } = this.state;
+        const { customQuestions } = this.props;
         const questionsObj = convertArrToObj(customQuestions);
 
-        const options = field.selectedQuestions
+        const options = selectedQuestions
             .map(id => questionsObj[id])
             .filter(q => q && q.options)
             .reduce((a, b) => a.concat(b.options), []);
@@ -141,7 +189,7 @@ const mapStateToProps = (
     },
     { id, customQuestions }
 ) => ({
-    field: fields[id] || {},
+    field: fields[id],
     questionsObj: convertArrToObj(customQuestions),
     questionOptions: convertArrToObj(questionOptions)
 });
