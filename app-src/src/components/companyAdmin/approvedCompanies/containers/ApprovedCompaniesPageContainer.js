@@ -6,14 +6,14 @@ import fetchAllDrawings from 'actions/companyAdmin/drawings/async/fetchAllDrawin
 import fetchDocuments from 'actions/documents/async/fetchDocuments';
 import fetchPinStatsForLevel from 'actions/companyAdmin/stats/async/fetchPinStatsForLevel';
 
-import SingleFloor from '../presentational/SingleFloor';
+// import ApprovedCompaniesContainer from './ApprovedCompaniesContainer';
 import setTabs from 'actions/shared/generic/tabs/sync/setTabs';
 import { APPROVED_COMPANIES_TABS } from 'constants/shared/tabNames';
 import resetFilterOptions from 'actions/companyAdmin/reports/sync/resetFilterOptions';
 
 class SingleFloorContainer extends Component {
     render() {
-        return <SingleFloor />;
+        return null;
     }
 
     componentDidMount = () => {
