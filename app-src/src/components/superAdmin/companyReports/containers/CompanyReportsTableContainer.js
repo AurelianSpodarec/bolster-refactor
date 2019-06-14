@@ -14,7 +14,7 @@ const CompanyReportsTableContainer = ({
             companyReports={_getSortedQueue()}
             error={error}
             isFetching={isFetching}
-            headers={['Name', 'Status', 'Created On', '']}
+            headers={['Name', 'Status', 'Created On', 'Completed on', '']}
         />
     );
     function _getSortedQueue() {
