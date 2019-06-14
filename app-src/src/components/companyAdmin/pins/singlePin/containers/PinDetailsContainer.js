@@ -3,19 +3,15 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import moment from 'moment';
 
-import selectPinHistory from 'actions/companyAdmin/pins/sync/selectPinHistory';
-
 import PinDetails from '../presentational/PinDetails';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import fetchSinglePin from 'actions/companyAdmin/pins/async/fetchSinglePin';
 import { isObjEmpty } from 'helpers/generic';
-import CompaniesListContainer from 'components/client/companies/containers/CompaniesListContainer';
 
 class PinDetailsContainer extends Component {
     render() {
         const {
-            // selectedHistory,
             histories,
             users,
             services,
@@ -23,12 +19,6 @@ class PinDetailsContainer extends Component {
             isFetching,
             pin
         } = this.props;
-
-        // const historyVersion =
-
-        //         .findIndex(item => item.id === selectedHistory.id) + 1;
-
-        // const user = users[selectedHistory.createdByCompanyUserID];
 
         const sortedHistories = [...histories].sort(
             (a, b) => moment(b.createdOn) - moment(a.createdOn)

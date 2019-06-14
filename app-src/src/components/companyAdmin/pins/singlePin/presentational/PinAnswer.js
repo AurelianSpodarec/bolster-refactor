@@ -101,9 +101,6 @@ const PinAnswer = ({
                 );
             });
             break;
-        case TYPES.STATUS:
-            inner = <p>{PIN_STATUS_TYPES[status]}</p>;
-            break;
         default:
             return notFoundResponse;
     }
@@ -111,7 +108,7 @@ const PinAnswer = ({
         <FieldOutput
             title={question.name}
             key={question.id}
-            sizeClass="size-lg-6 flex-row-item"
+            sizeClass="size-lg-4 flex-row-item"
         >
             {inner}
         </FieldOutput>

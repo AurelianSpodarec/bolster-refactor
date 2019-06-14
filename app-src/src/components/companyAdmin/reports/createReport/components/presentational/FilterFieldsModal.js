@@ -8,21 +8,18 @@ import Select from 'components/shared/generic/form/presentational/Select';
 import MultiSelect from 'components/shared/generic/form/presentational/MultiSelect';
 
 const FilterFieldsModal = ({
-    questionOptions,
-    selectedQuestions,
-    handleChange,
-    addOption,
-    removeOption,
-    updateOption,
-    questionValues,
-    saveField,
-    hideModal,
     showFreeForm,
-    showFreeFormOptions,
+    questionTypeOptions,
+    questionOptions,
+    freeFormValues,
+    optionOrientedVals,
+    selectedQuestions,
     toggleShowFreeForm,
-    validValueOptions = [],
-    updateSelectedValues,
-    selectedValues
+    handleChange,
+    handleFreeFormValChange,
+    addFreeFormVal,
+    removeFreeFormVal,
+    hideModal
 }) => (
     <ModalOuterContainer>
         <BlockHeading title="Add Filter" />
@@ -32,7 +29,7 @@ const FilterFieldsModal = ({
             <Field name="Question types" sizeClasses="size-lg-6" required>
                 <Select
                     classes="full-width"
-                    options={showFreeFormOptions}
+                    options={questionTypeOptions}
                     value={showFreeForm ? 1 : 2}
                     onChange={toggleShowFreeForm}
                     omitPlaceholder
@@ -40,11 +37,10 @@ const FilterFieldsModal = ({
             </Field>
             <Field name="Questions" sizeClasses="size-lg-6" required>
                 <MultiSelect
-                    classes="full-width"
                     search
                     options={questionOptions}
                     value={selectedQuestions}
-                    name={'Options'}
+                    name={'selectedQuestions'}
                     onChange={handleChange}
                     required
                 />
@@ -54,26 +50,26 @@ const FilterFieldsModal = ({
             {showFreeForm ? (
                 <>
                     <Field name="Valid values" sizeClasses="size-lg-12">
-                        {questionValues.map((option, i) => (
+                        {freeFormValues.map((value, i) => (
                             <Field
                                 name={`Option ${i + 1}`}
-                                key={option.id}
+                                key={value + i}
                                 classes="option-item"
                                 sizeClasses="size-lg-6"
                             >
-                                {questionValues.length > 1 && (
+                                {freeFormValues.length > 1 && (
                                     <button
                                         className="button red icon-only delete-question"
                                         type="button"
-                                        onClick={() => removeOption(option.id)}
+                                        onClick={() => removeFreeFormVal(i)}
                                     >
                                         <i className="far fa-trash-alt" />
                                     </button>
                                 )}
                                 <TextInputContainer
-                                    name={option.id}
-                                    value={option.value}
-                                    handleChange={updateOption}
+                                    name={i}
+                                    value={value}
+                                    handleChange={handleFreeFormValChange}
                                 />
                             </Field>
                         ))}
@@ -82,7 +78,7 @@ const FilterFieldsModal = ({
                         <button
                             className="button green"
                             type="button"
-                            onClick={addOption}
+                            onClick={addFreeFormVal}
                         >
                             <i className="fa fa-plus fa-fw" />
                             add option
@@ -97,18 +93,18 @@ const FilterFieldsModal = ({
                 >
                     <MultiSelect
                         search
-                        value={selectedValues}
-                        options={validValueOptions}
-                        onChange={updateSelectedValues}
+                        value={optionOrientedVals}
+                        options={questionOptions}
+                        onChange={handleChange}
                     />
                 </Field>
             )}
         </div>
         <BlockButtonWrapper>
-            <button className="button green" type="submit" onClick={saveField}>
+            {/* <button className="button green" type="submit" onClick={saveField}>
                 <i className="fa fa-save fa-fw" />
                 Save
-            </button>
+            </button> */}
             <button className="button red" type="button" onClick={hideModal}>
                 <i className="fa fa-times fa-fw" />
                 Cancel
