@@ -3,13 +3,13 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 import fetchSinglePin from 'actions/companyAdmin/pins/async/fetchSinglePin';
-import AddPinFormContainer from 'components/shared/pins/addPin/containers/AddPinFormContainer';
+import AddPinHistoryFormContainer from './AddPinHistoryFormContainer';
 import fetchDrawingTemplates from 'actions/companyAdmin/drawings/async/fetchDrawingTemplates';
 import fetchDrawingDropdownOptions from 'actions/companyAdmin/drawings/async/fetchDrawingDropdownOptions';
 
 class AddPinHistoryContainer extends Component {
     render = () => (
-        <AddPinFormContainer
+        <AddPinHistoryFormContainer
             hierarchyType="pin"
             pinID={this.props.pinID}
             isHistory

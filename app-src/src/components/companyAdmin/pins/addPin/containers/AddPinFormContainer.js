@@ -8,7 +8,7 @@ import resetPinAnswers from 'actions/companyAdmin/drawings/sync/resetPinAnswers'
 import updateAddPinStatus from 'actions/companyAdmin/drawings/sync/updateAddPinStatus';
 import updateAddPinAnswer from 'actions/companyAdmin/drawings/sync/updateAddPinAnswer';
 
-import AddPinForm from '../presentational/AddPinForm';
+import AddPinForm from 'components/shared/pins/addPin/presentational/AddPinForm';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
 import BackButtonContainer from 'components/shared/generic/backButton/containers/BackButtonContainer';
