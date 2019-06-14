@@ -10,11 +10,12 @@ import BlockContainer from 'components/shared/generic/block/containers/BlockCont
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import fetchSinglePin from 'actions/companyAdmin/pins/async/fetchSinglePin';
 import { isObjEmpty } from 'helpers/generic';
+import CompaniesListContainer from 'components/client/companies/containers/CompaniesListContainer';
 
 class PinDetailsContainer extends Component {
     render() {
         const {
-            selectedHistory,
+            // selectedHistory,
             histories,
             users,
             services,
@@ -23,46 +24,53 @@ class PinDetailsContainer extends Component {
             pin
         } = this.props;
 
-        const historyVersion =
-            [...histories]
-                .sort((a, b) => moment(a.createdAt) - moment(b.createdAt))
-                .findIndex(item => item.id === selectedHistory.id) + 1;
+        // const historyVersion =
 
-        const user = users[selectedHistory.createdByCompanyUserID];
+        //         .findIndex(item => item.id === selectedHistory.id) + 1;
 
-        return (
-            <BlockContainer
-                isEmpty={
-                    !user ||
-                    !Object.values(services).length ||
-                    !histories.length
-                }
-                isFetching={isFetching}
-                error={error}
-            >
-                <BlockHeading title={`Pin ${pin.pinCode}`}>
-                    <h4 className="small-text">
-                        (History {historyVersion} of {histories.length}{' '}
-                        {historyVersion === histories.length
-                            ? ' - Latest'
-                            : +historyVersion === 1
-                            ? ' - Earliest'
-                            : ''}
-                        )
-                    </h4>
-                </BlockHeading>
-                <PinDetails
-                    pinHistory={selectedHistory}
-                    historyCount={histories.length}
-                    historyVersion={historyVersion}
-                    histories={histories}
-                    user={user}
-                    services={services}
-                    pin={pin}
-                    drawingID={pin.drawingID}
-                />
-            </BlockContainer>
+        // const user = users[selectedHistory.createdByCompanyUserID];
+
+        const sortedHistories = [...histories].sort(
+            (a, b) => moment(b.createdOn) - moment(a.createdOn)
         );
+
+        return sortedHistories.map((history, i) => {
+            return (
+                <BlockContainer
+                    key={history.id}
+                    isEmpty={
+                        !users[history.createdByCompanyUserID] ||
+                        !Object.values(services).length ||
+                        !histories.length
+                    }
+                    isFetching={isFetching}
+                    error={error}
+                >
+                    <BlockHeading title={`Pin ${pin.pinCode}`}>
+                        <h4 className="small-text">
+                            (History {histories.length - i} of{' '}
+                            {histories.length}{' '}
+                            {histories.length - i === histories.length
+                                ? ' - Latest'
+                                : histories.length - i === 1
+                                ? ' - Earliest'
+                                : ''}
+                            )
+                        </h4>
+                    </BlockHeading>
+                    <PinDetails
+                        pinHistory={histories.length - i}
+                        historyCount={histories.length}
+                        historyVersion={histories.length - i}
+                        history={history}
+                        users={users}
+                        services={services}
+                        pin={pin}
+                        drawingID={pin.drawingID}
+                    />
+                </BlockContainer>
+            );
+        });
     }
 
     componentDidMount = () => {

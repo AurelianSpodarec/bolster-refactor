@@ -15,13 +15,9 @@ class PinHistoryDetailsItemContainer extends Component {
             historyCount,
             users,
             services,
-            allHistories,
-            drawingID
+            drawingID,
+            historyVersion
         } = this.props;
-        const historyVersion =
-            [...allHistories]
-                .sort((a, b) => moment(a.createdAt) - moment(b.createdAt))
-                .findIndex(item => item.id === history.id) + 1;
 
         const user = users[history.createdByCompanyUserID] || {};
 
@@ -67,13 +63,11 @@ class PinHistoryDetailsItemContainer extends Component {
 const mapStateToProps = ({
     companyAdmin: {
         companyUsersReducer: { users },
-        servicesReducer: { services },
-        pinHistoriesReducer: { histories }
+        servicesReducer: { services }
     }
 }) => ({
     users,
-    services,
-    allHistories: Object.values(histories)
+    services
 });
 const mapDispatchToProps = dispatch => ({
     showModal: (type, props) => dispatch(showModal(type, props)),
