@@ -65,6 +65,7 @@ class PinDetailsContainer extends Component {
                         services={services}
                         pin={pin}
                         drawingID={pin.drawingID}
+                        historyCount={histories.length}
                     />
                 </BlockContainer>
             );
