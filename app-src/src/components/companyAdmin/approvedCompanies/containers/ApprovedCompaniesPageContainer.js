@@ -6,7 +6,7 @@ import fetchAllDrawings from 'actions/companyAdmin/drawings/async/fetchAllDrawin
 import fetchDocuments from 'actions/documents/async/fetchDocuments';
 import fetchPinStatsForLevel from 'actions/companyAdmin/stats/async/fetchPinStatsForLevel';
 
-// import ApprovedCompaniesContainer from './ApprovedCompaniesContainer';
+// import SingleFloor from '../presentational/SingleFloor';
 import setTabs from 'actions/shared/generic/tabs/sync/setTabs';
 import { APPROVED_COMPANIES_TABS } from 'constants/shared/tabNames';
 import resetFilterOptions from 'actions/companyAdmin/reports/sync/resetFilterOptions';
