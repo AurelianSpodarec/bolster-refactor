@@ -35,7 +35,10 @@ class AddPinFormContainer extends Component {
 
         return (
             <>
-                <PageHeading leftChildren={true} title="Add Pin">
+                <PageHeading
+                    leftChildren={true}
+                    title={`Add Pin ${isHistory ? 'History' : ''}`}
+                >
                     <BackButtonContainer
                         backFromForm={{
                             urlToReplace: isHistory
