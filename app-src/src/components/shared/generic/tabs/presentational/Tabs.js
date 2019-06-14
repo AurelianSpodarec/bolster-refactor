@@ -25,7 +25,7 @@ const Tabs = ({ tabs, selectedTab, selectTab }) => (
                 )}
                 <span>
                     {tab === 'Admin'
-                        ? 'Super Admin'
+                        ? 'Company Admin'
                         : tab === 'Client Access'
                         ? 'Client Access'
                         : tab}
