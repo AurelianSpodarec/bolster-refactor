@@ -77,7 +77,8 @@ class AddPinFormContainer extends Component {
             histories,
             pinID,
             pinAnswers,
-            templates
+            templates,
+            versions
         } = this.props;
 
         if (!coordinates.lat || !coordinates.lng) {
@@ -90,11 +91,14 @@ class AddPinFormContainer extends Component {
             history.push(`/company/pins/${pinID}`);
             return;
         }
-
-        const latestTemplateUsed = templates.filter(
-            template =>
-                latestPinHistory.templateVersionID === template.latestVersionID
-        )[0];
+        const templateVersion =
+            versions.find(
+                version => latestPinHistory.templateVersionID === version.id
+            ) || {};
+        const latestTemplateUsed =
+            templates.find(
+                template => templateVersion.templateID === template.id
+            ) || {};
 
         this.setState({ templateID: latestTemplateUsed.id }, () => {
             pinAnswers
@@ -195,6 +199,7 @@ class AddPinFormContainer extends Component {
 const mapStateToProps = ({
     companyAdmin: {
         templatesReducer: { templates, isFetching, error },
+        templateVersionsReducer: { versions },
         addPinFormReducer: { answers, status },
         addPinCoordinatesReducer: { coordinates },
         pinsReducer: { postSuccess },
@@ -215,6 +220,7 @@ const mapStateToProps = ({
     filesUploading,
     confirmLeave,
     status,
+    versions: Object.values(versions),
     pinAnswers: Object.values(pinAnswers),
     histories,
     latestPinHistory: [...Object.values(histories)].sort(
