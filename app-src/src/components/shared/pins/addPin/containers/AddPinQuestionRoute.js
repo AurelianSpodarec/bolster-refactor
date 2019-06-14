@@ -572,7 +572,7 @@ class AddPinQuestionRoute extends Component {
         if (!prereq && answer) resetPinAnswer(question.id);
         if (`${question.type}` !== `${STATUS}` && prevProps.status !== status) {
             const answerName = `answer-${question.id}`;
-            this._getIsRequired() && isEmpty(answer)
+            this._getIsRequired() && isEmpty(answer) && prereq
                 ? addFieldError(answerName, 'This is a required field.')
                 : removeFieldError(answerName);
         }
