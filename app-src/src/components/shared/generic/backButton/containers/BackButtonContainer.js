@@ -6,7 +6,6 @@ const BackButtonContainer = ({
     history: { goBack },
     classes,
     backFromForm = '',
-    backURL = '',
     location
 }) => (
     <BackButton
@@ -14,7 +13,6 @@ const BackButtonContainer = ({
         handleClick={goBack}
         backFromForm={backFromForm}
         location={location}
-        backURL={backURL}
     />
 );
 

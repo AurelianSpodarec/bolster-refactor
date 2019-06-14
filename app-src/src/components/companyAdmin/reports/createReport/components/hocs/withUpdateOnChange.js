@@ -109,13 +109,13 @@ export default function(ProtectedComponent) {
             const questionFilters = fields.map(
                 ({
                     selectedQuestions,
-                    questionValues,
+                    questionValues = [],
                     selectedValues = []
                 }) => {
-                    let values = Object.values(questionValues).map(
-                        ({ value }) => value
-                    );
-                    if (!values.length) values = selectedValues;
+                    let values = questionValues.length
+                        ? questionValues
+                        : selectedValues;
+
                     return {
                         questionGroupKeys: selectedQuestions,
                         values

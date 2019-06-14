@@ -4,11 +4,7 @@ import PageHeading from 'components/shared/generic/pageHeading/presentational/Pa
 import PinSingleBreadCrumbContainer from '../containers/PinSingleBreadCrumbContainer';
 
 const SinglePinHeader = ({ pin }) => (
-    <PageHeading
-        withBackButton
-        backURL={`/company/drawings/${pin.drawingID}`}
-        title={`Pin ${pin.pinCode || ''}`}
-    >
+    <PageHeading withBackButton title={`Pin ${pin.pinCode || ''}`}>
         <PinSingleBreadCrumbContainer pin={pin} />
     </PageHeading>
 );
