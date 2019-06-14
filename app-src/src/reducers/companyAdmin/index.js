@@ -6,6 +6,7 @@ import addPinCoordinatesReducer from './addPinCoordinates';
 import buildingsReducer from './buildings';
 import cardsReducer from './cards';
 import clientsReducer from './clients';
+import companyAddressesGeocodeReducer from './companyAddressesGeocode';
 import companiesPermissionsReducer from './companiesPermissions';
 import companySettingsReducer from './companySettings';
 import companyUsersReducer from '../companyAdmin/companyUsers';
@@ -52,6 +53,7 @@ export default combineReducers({
     buildingsReducer,
     cardsReducer,
     clientsReducer,
+    companyAddressesGeocodeReducer,
     companiesPermissionsReducer,
     companySettingsReducer,
     companyUsersReducer,
