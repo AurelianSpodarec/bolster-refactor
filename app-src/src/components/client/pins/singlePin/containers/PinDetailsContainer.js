@@ -23,62 +23,46 @@ class PinDetailsContainer extends Component {
             pin
         } = this.props;
 
-        const historyVersion =
-            [...histories]
-                .sort((a, b) => moment(a.createdAt) - moment(b.createdAt))
-                .findIndex(item => item.id === selectedHistory.id) + 1;
-
-        const user = users[selectedHistory.createdByCompanyUserID];
-
-        console.error(user, historyVersion);
-
-        return (
-            <BlockContainer
-                isEmpty={
-                    !user ||
-                    !Object.values(services).length ||
-                    !histories.length
-                }
-                isFetching={isFetching}
-                error={error}
-            >
-                <BlockHeading title={`Pin ${pin.pinCode}`}>
-                    <h4 className="small-text">
-                        (History {historyVersion} of {histories.length}{' '}
-                        {historyVersion === histories.length
-                            ? ' - Latest'
-                            : +historyVersion === 1
-                            ? ' - Earliest'
-                            : ''}
-                        )
-                    </h4>
-                </BlockHeading>
-                <PinDetails
-                    pinHistory={selectedHistory}
-                    historyCount={histories.length}
-                    historyVersion={historyVersion}
-                    histories={histories}
-                    user={user}
-                    services={services}
-                    pin={pin}
-                    drawingID={pin.drawingID}
-                />
-            </BlockContainer>
+        const sortedHistories = [...histories].sort(
+            (a, b) => moment(b.createdOn) - moment(a.createdOn)
         );
+
+        return sortedHistories.map((history, i) => {
+            return (
+                <BlockContainer
+                    key={history.id}
+                    isEmpty={
+                        !users[history.createdByCompanyUserID] ||
+                        !Object.values(services).length ||
+                        !histories.length
+                    }
+                    isFetching={isFetching}
+                    error={error}
+                >
+                    <BlockHeading title={`Pin ${pin.pinCode}`}>
+                        <h4 className="small-text">
+                            (History {histories.length - i} of{' '}
+                            {histories.length}{' '}
+                            {histories.length - i === histories.length
+                                ? ' - Latest'
+                                : histories.length - i === 1
+                                ? ' - Earliest'
+                                : ''}
+                            )
+                        </h4>
+                    </BlockHeading>
+                    <PinDetails
+                        pinHistory={histories.length - i}
+                        history={history}
+                        users={users}
+                        services={services}
+                        pin={pin}
+                        drawingID={pin.drawingID}
+                    />
+                </BlockContainer>
+            );
+        });
     }
-
-    componentDidMount = () => {
-        const { latestHistoryId, selectPinHistory } = this.props;
-        if (latestHistoryId) selectPinHistory(latestHistoryId);
-    };
-
-    componentDidUpdate = prevProps => {
-        const { latestHistoryId, selectPinHistory } = this.props;
-
-        if (prevProps.latestHistoryId !== latestHistoryId) {
-            selectPinHistory(latestHistoryId);
-        }
-    };
 }
 
 const mapStateToProps = (
@@ -96,9 +80,6 @@ const mapStateToProps = (
                 error: operativesError
             },
             servicesReducer: { services }
-        },
-        shared: {
-            selectedHistoryReducer: { selectedHistoryId }
         }
     },
     { match }
@@ -108,7 +89,6 @@ const mapStateToProps = (
         isFetching: fetchingPins || fetchingHistories || fetchingUsers,
         error: pinsError || pinHistoriesError || operativesError,
         latestHistoryId: pin.latestHistoryID,
-        selectedHistory: histories[selectedHistoryId] || {},
         histories: Object.values(histories),
         users: users || {},
         services: services || {},
@@ -116,13 +96,4 @@ const mapStateToProps = (
     };
 };
 
-const mapDispatchToProps = dispatch => ({
-    selectPinHistory: historyID => dispatch(selectPinHistory(historyID))
-});
-
-export default withRouter(
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(PinDetailsContainer)
-);
+export default withRouter(connect(mapStateToProps)(PinDetailsContainer));

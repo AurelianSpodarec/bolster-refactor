@@ -8,8 +8,6 @@ import PinSectionsContainer from '../containers/PinSectionsContainer';
 
 const PinHistoryDetailsItem = ({
     history,
-    historyCount,
-    version,
     createdBy,
     services,
     handleEditHistoryModal,
@@ -19,22 +17,12 @@ const PinHistoryDetailsItem = ({
 }) => (
     <div className="item">
         <FieldOutput
-            title={`History ${version} of ${historyCount} ${
-                version === historyCount
-                    ? '(Latest)'
-                    : +version === 1
-                    ? '(Earliest)'
-                    : ''
-            }`}
-            sizeClass="size-lg-12"
-        />
-        <FieldOutput
             title="Type"
             description={services[history.serviceID].name}
-            sizeClass="size-lg-6"
+            sizeClass="size-lg-4"
         />
 
-        <FieldOutput title="Date added" sizeClass="size-lg-6">
+        <FieldOutput title="Date added" sizeClass="size-lg-4">
             <p>
                 <DateTimeContainer date={history.createdOn} />
             </p>
@@ -43,7 +31,7 @@ const PinHistoryDetailsItem = ({
         <FieldOutput
             title="Added by"
             description={`${createdBy.userFirstName} ${createdBy.userLastName}`}
-            sizeClass="size-lg-6"
+            sizeClass="size-lg-4"
         />
 
         <PinSectionsContainer pinHistory={history} drawingID={drawingID} />

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import moment from 'moment';
 
 import PinHistoryDetailsItem from '../presentational/PinHistoryDetailsItem';
 import deletePinHistory from 'actions/companyAdmin/pins/async/deletePinHistory';
@@ -12,12 +11,10 @@ class PinHistoryDetailsItemContainer extends Component {
     render() {
         const {
             history,
-            historyCount,
             users,
             services,
             drawingID,
-            historyVersion,
-            histories
+            historyCount
         } = this.props;
 
         const user = users[history.createdByCompanyUserID] || {};
@@ -25,14 +22,12 @@ class PinHistoryDetailsItemContainer extends Component {
         return (
             <PinHistoryDetailsItem
                 history={history}
-                historyCount={historyCount}
-                version={historyVersion}
                 createdBy={user}
                 services={services}
                 handleEditHistoryModal={this.handleEditHistoryModal}
                 handleDeleteHistoryModal={this.handleDeleteHistoryModal}
                 drawingID={drawingID}
-                showDeleteButton={histories.length > 1}
+                showDeleteButton={historyCount > 1}
             />
         );
     }
