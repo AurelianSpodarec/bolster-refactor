@@ -20,7 +20,7 @@ class PinSectionsContainer extends Component {
 }
 
 const mapStateToProps = ({
-    companyAdmin: {
+    client: {
         pinHistoriesReducer: { histories },
         templateSectionsReducer: { sections }
     },

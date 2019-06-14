@@ -16,11 +16,6 @@ const PinHistoryDetailsItem = ({
     drawingID
 }) => (
     <div className="item">
-        {/* <div
-            className="image-holder"
-            style={{ backgroundImage: `url(${image})` }}
-        /> */}
-
         <FieldOutput
             title={`History ${version} of ${historyCount} ${
                 version === historyCount

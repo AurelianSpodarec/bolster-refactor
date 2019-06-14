@@ -16,11 +16,6 @@ const PinHistoryDetailsItem = ({
     drawingID
 }) => (
     <div className="item">
-        {/* <div
-            className="image-holder"
-            style={{ backgroundImage: `url(${image})` }}
-        /> */}
-
         <FieldOutput
             title={`History ${version} of ${historyCount} ${
                 version === historyCount
@@ -50,15 +45,6 @@ const PinHistoryDetailsItem = ({
         />
 
         <PinSectionsContainer pinHistory={history} drawingID={drawingID} />
-
-        <BlockButtonWrapper
-            additionalClasses="item-button-container"
-            sizeClasses="size-lg-12"
-        >
-            <button className="button yellow" onClick={handleEditHistoryModal}>
-                <i className="far fa-pencil" /> Edit history
-            </button>
-        </BlockButtonWrapper>
     </div>
 );
 
