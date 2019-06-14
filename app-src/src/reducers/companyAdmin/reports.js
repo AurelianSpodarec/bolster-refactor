@@ -107,7 +107,7 @@ function fieldsReducer(state = {}, action) {
                 [action.id]: {
                     id: action.id,
                     selectedQuestions: [],
-                    questionValues: {},
+                    questionValues: [],
                     selectedValues: []
                 }
             };
