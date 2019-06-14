@@ -22,7 +22,6 @@ class SinglePinMapContainer extends Component {
             histories
         } = this.props;
 
-        console.error(user, 'container');
         return (
             <BlockContainer
                 isEmpty={!pin.id || !drawing.id}
