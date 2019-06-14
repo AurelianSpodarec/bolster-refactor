@@ -35,7 +35,10 @@ class AddPinFormContainer extends Component {
 
         return (
             <>
-                <PageHeading leftChildren={true} title="Add Pin">
+                <PageHeading
+                    leftChildren={true}
+                    title={`Add Pin ${isHistory ? 'History' : ''}`}
+                >
                     <BackButtonContainer
                         backFromForm={{
                             urlToReplace: isHistory
@@ -77,7 +80,8 @@ class AddPinFormContainer extends Component {
             histories,
             pinID,
             pinAnswers,
-            templates
+            templates,
+            versions
         } = this.props;
 
         if (!coordinates.lat || !coordinates.lng) {
@@ -90,17 +94,20 @@ class AddPinFormContainer extends Component {
             history.push(`/company/pins/${pinID}`);
             return;
         }
-
-        const latestTemplateUsed = templates.filter(
-            template =>
-                latestPinHistory.templateVersionID === template.latestVersionID
-        )[0];
+        const templateVersion =
+            versions.find(
+                version => latestPinHistory.templateVersionID === version.id
+            ) || {};
+        const latestTemplateUsed =
+            templates.find(
+                template => templateVersion.templateID === template.id
+            ) || {};
 
         this.setState({ templateID: latestTemplateUsed.id }, () => {
             pinAnswers
                 .filter(answer => latestPinHistory.id === answer.pinHistoryID)
-                .forEach(answer =>
-                    updateAddPinAnswer(answer.templateQuestionID, answer.answer)
+                .forEach(({ answer, templateQuestionID }) =>
+                    updateAddPinAnswer(templateQuestionID, answer)
                 );
 
             updateAddPinStatus(latestPinHistory.status);
@@ -195,6 +202,7 @@ class AddPinFormContainer extends Component {
 const mapStateToProps = ({
     companyAdmin: {
         templatesReducer: { templates, isFetching, error },
+        templateVersionsReducer: { versions },
         addPinFormReducer: { answers, status },
         addPinCoordinatesReducer: { coordinates },
         pinsReducer: { postSuccess },
@@ -215,6 +223,7 @@ const mapStateToProps = ({
     filesUploading,
     confirmLeave,
     status,
+    versions: Object.values(versions),
     pinAnswers: Object.values(pinAnswers),
     histories,
     latestPinHistory: [...Object.values(histories)].sort(

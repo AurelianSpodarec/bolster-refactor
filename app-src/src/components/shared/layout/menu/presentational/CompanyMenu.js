@@ -40,7 +40,6 @@ const CompanyMenu = ({
                 <span className="menu-text"> Sites</span>
             </CompanyMenuItemContainer>
 
-            <CompanyDropdownMenuItems />
             <CompanyMenuItemContainer link="/company/tools/transfer-requests">
                 {!!totalRequests && (
                     <span className="number">{totalRequests}</span>
@@ -57,6 +56,8 @@ const CompanyMenu = ({
             <CompanyMenuItemContainer link="/company/users-management/operatives">
                 Operatives
             </CompanyMenuItemContainer>
+
+            <CompanyDropdownMenuItems />
             {/* <CompanyMenuItemContainer link="/company/users-management/clients">
                 Clients
             </CompanyMenuItemContainer> */}
