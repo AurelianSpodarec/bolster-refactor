@@ -2,19 +2,13 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PinSection from '../presentational/PinSection';
 import fetchDrawingDropdownOptions from 'actions/companyAdmin/drawings/async/fetchDrawingDropdownOptions';
-import CompaniesListContainer from 'components/client/companies/containers/CompaniesListContainer';
 
 class PinSectionsContainer extends Component {
     render() {
         const { relevantSections, pinHistory } = this.props;
 
         return (
-            console.error(relevantSections, pinHistory) || (
-                <PinSection
-                    sections={relevantSections}
-                    pinHistory={pinHistory}
-                />
-            )
+            <PinSection sections={relevantSections} pinHistory={pinHistory} />
         );
     }
 
