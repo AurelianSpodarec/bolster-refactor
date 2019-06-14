@@ -24,6 +24,8 @@ import resetPinAnswer from 'actions/companyAdmin/drawings/sync/resetPinAnswer';
 import { componentDidMount, isEmpty } from 'helpers/generic';
 import addFieldError from 'actions/shared/generic/fieldErrors/sync/addFieldError';
 import removeFieldError from 'actions/shared/generic/fieldErrors/sync/removeFieldError';
+import { showModal } from 'actions/shared/generic/modals/sync/showModal';
+import { PIN_IMAGE } from 'constants/shared/modalTypes';
 
 const {
     SINGLE_LINE,
@@ -174,10 +176,19 @@ const SinglePhoto = ({
     question: { id },
     answers,
     handleFileChange,
+    handleImageClick,
     edit
 }) => {
     return edit ? (
-        <img alt="" src={`${RAW_S3_STORAGE_URL}/${answers[id]}`} />
+        <img
+            alt=""
+            src={`${RAW_S3_STORAGE_URL}/${answers[id]}`}
+            onClick={() =>
+                handleImageClick({
+                    image: `${RAW_S3_STORAGE_URL}/${answers[id]}`
+                })
+            }
+        />
     ) : (
         <FileUploadContainer
             name={`answer-${id}`}
@@ -195,12 +206,22 @@ const MultiPhoto = ({
     question: { maxPhotos, id },
     answers,
     handleFileChange,
+    handleImageClick,
     edit
 }) => {
     return edit ? (
         <div>
             {(answers[id] || []).map(src => (
-                <img key={src} alt="" src={`${RAW_S3_STORAGE_URL}/${src}`} />
+                <img
+                    key={src}
+                    alt=""
+                    src={`${RAW_S3_STORAGE_URL}/${src}`}
+                    onClick={() =>
+                        handleImageClick({
+                            image: `${RAW_S3_STORAGE_URL}/${src}`
+                        })
+                    }
+                />
             ))}
         </div>
     ) : (
@@ -405,6 +426,7 @@ class AddPinQuestionRoute extends Component {
                         handleChange={this.handleChange}
                         handleStatusChange={this.handleStatusChange}
                         handleFileChange={this.handleFileChange}
+                        handleImageClick={this.handleImageClick}
                         handleSignatureChange={this.handleSignatureChange}
                         sigPad={this.state.sigPad}
                         edit={edit}
@@ -612,6 +634,11 @@ class AddPinQuestionRoute extends Component {
         }
     };
 
+    handleImageClick = imgURL => {
+        const { showModal } = this.props;
+        showModal(PIN_IMAGE, imgURL);
+    };
+
     _getDefaultValue = () => {
         const type = String(this.props.question.type);
         switch (type) {
@@ -666,6 +693,7 @@ const mapDispatchToProps = {
     resetPinAnswer,
     updateAddPinStatus,
     addFieldError,
+    showModal,
     removeFieldError
 };
 
