@@ -114,8 +114,10 @@ class DrawingMapGeneralContainer extends Component {
             drawing = {},
             postFilters,
             updateReportFilter,
-            match
+            match,
+            fetchSingleDrawing
         } = this.props;
+
         updateReportFilter('drawingID', match.params.id).then(postFilters);
         if (drawing.isFloorplanUpdating) {
             this._floorplanInterval = setInterval(() => {
@@ -131,7 +133,6 @@ class DrawingMapGeneralContainer extends Component {
         const { drawing = {}, fetchSingleDrawing, postSuccess } = this.props;
         // re-fetch drawing every 5 seconds until the updated floorplan is retrieved
         if (postSuccess && !prevSuccess) fetchSingleDrawing(drawing.id);
-
         if (drawing.isFloorplanUpdating && !prevDrawing.isFloorplanUpdating) {
             this._floorplanInterval = setInterval(
                 () => fetchSingleDrawing(drawing.id),
