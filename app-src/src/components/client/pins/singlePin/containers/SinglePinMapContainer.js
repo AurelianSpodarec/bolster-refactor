@@ -8,6 +8,7 @@ import BlockContainer from 'components/shared/generic/block/containers/BlockCont
 
 import fetchClientSingleDrawing from 'actions/client/drawings/async/clientFetchSingleDrawing';
 import { getSelectedCompanyForClient } from 'helpers/generic';
+import CompaniesListContainer from 'components/client/companies/containers/CompaniesListContainer';
 
 class SinglePinMapContainer extends Component {
     render() {
@@ -21,10 +22,6 @@ class SinglePinMapContainer extends Component {
             histories
         } = this.props;
 
-        const historyVersion =
-            [...histories]
-                .sort((a, b) => moment(a.createdAt) - moment(b.createdAt))
-                .findIndex(item => item.id === selectedHistory.id) + 1;
         return (
             <BlockContainer
                 isEmpty={!pin.id || !drawing.id}
@@ -37,7 +34,6 @@ class SinglePinMapContainer extends Component {
                     user={user}
                     drawing={drawing}
                     pinHistory={selectedHistory}
-                    historyVersion={historyVersion}
                     historyCount={histories.length}
                 />
             </BlockContainer>

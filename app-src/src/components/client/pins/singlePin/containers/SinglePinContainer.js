@@ -6,12 +6,6 @@ import fetchClientPinTemplates from 'actions/client/pins/async/clientFetchPinTem
 import clientFetchPinOperatives from 'actions/client/drawings/async/clientFetchPinOperatives';
 import SinglePin from '../presentational/SinglePin';
 import { getSelectedCompanyForClient, isEmpty } from 'helpers/generic';
-import { showModal } from 'actions/shared/generic/modals/sync/showModal';
-import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
-import {
-    ERROR_MODAL,
-    CLIENT_SINGLE_PIN_GENERATE_REPORT_SUCCESS
-} from 'constants/shared/modalTypes';
 
 class SinglePinContainer extends Component {
     render() {
@@ -31,35 +25,11 @@ class SinglePinContainer extends Component {
     };
 
     componentDidUpdate = prevProps => {
-        const {
-            pinID,
-            pins,
-            fetchingPins,
-            fetchExtraPinData,
-            isFetchingReport,
-            isReportSuccess,
-            isReportError,
-            showModal
-        } = this.props;
+        const { pinID, pins, fetchingPins, fetchExtraPinData } = this.props;
         const selectedCompanyID = getSelectedCompanyForClient();
 
         if (!fetchingPins && prevProps.fetchingPins && !isEmpty(pins)) {
             fetchExtraPinData(selectedCompanyID, pins[pinID].drawingID);
-        }
-
-        if (
-            prevProps.isFetchingReport &&
-            !isFetchingReport &&
-            isReportSuccess
-        ) {
-            showModal(CLIENT_SINGLE_PIN_GENERATE_REPORT_SUCCESS, {});
-        }
-
-        if (prevProps.isFetchingReport && !isFetchingReport && isReportError) {
-            showModal(ERROR_MODAL, {
-                title: 'Error',
-                message: isReportError
-            });
         }
     };
 }
@@ -67,12 +37,7 @@ class SinglePinContainer extends Component {
 const mapStateToProps = (
     {
         client: {
-            pinsReducer: { pins, isFetching: fetchingPins, error },
-            generatePinReportReducer: {
-                isFetching: isFetchingReport,
-                success: isReportSuccess,
-                error: isReportError
-            }
+            pinsReducer: { pins, isFetching: fetchingPins, error }
         }
     },
     { match: { params } }
@@ -80,10 +45,7 @@ const mapStateToProps = (
     pinID: params.id,
     pins,
     fetchingPins,
-    error,
-    isFetchingReport,
-    isReportSuccess,
-    isReportError
+    error
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -92,13 +54,10 @@ const mapDispatchToProps = dispatch => ({
     },
     fetchExtraPinData: (companyID, drawingID) => {
         dispatch(fetchClientPinTemplates(companyID, drawingID));
-        dispatch(clientFetchPinOperatives(companyID, drawingID));
     },
     clientFetchPinOperatives: (companyID, pinID) => {
         dispatch(clientFetchPinOperatives(companyID, pinID));
-    },
-    showModal: (type, props) => dispatch(showModal(type, props)),
-    hideModal: type => dispatch(hideModal(type))
+    }
 });
 
 export default connect(
