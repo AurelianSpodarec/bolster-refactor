@@ -14,7 +14,8 @@ const AddPinForm = ({
     templates,
     selectedTemplate,
     filesUploading,
-    confirmLeave
+    confirmLeave,
+    isHistory
 }) => (
     <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
         <div className="size-lg-12">
@@ -33,6 +34,7 @@ const AddPinForm = ({
 
         {!!selectedTemplate && (
             <AddPinVersionsContainer
+                isHistory={isHistory}
                 selectedTemplateID={selectedTemplate.value}
             />
         )}
@@ -50,7 +52,7 @@ const AddPinForm = ({
                 ) : (
                     <>
                         <i className="fa fa-plus" />
-                        Add pin
+                        Add pin {isHistory ? 'history' : ''}
                     </>
                 )}
             </button>
