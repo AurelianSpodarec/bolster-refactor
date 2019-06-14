@@ -8,8 +8,8 @@ import DatePickerPresentational from 'components/shared/generic/form/presentatio
 const DashboardStatsFilters = ({
     serviceOptions,
     selectedService,
-    daysToReturn,
-    selectedPeriod,
+    statusOptions,
+    selectedStatus,
     timePeriodStartDate,
     handleDateChange,
     handleChange
@@ -29,13 +29,13 @@ const DashboardStatsFilters = ({
                 </div>
             </div>
             <div className="size-lg-4">
-                <p className="size-lg-4">Live time period:</p>
+                <p className="size-lg-4">Status:</p>
                 <div className="size-lg-8">
                     <Dropdown
-                        placeholder="--select period--"
-                        name="daysToReturn"
-                        options={daysToReturn}
-                        selectedOption={selectedPeriod}
+                        placeholder="--select status--"
+                        name="status"
+                        options={statusOptions}
+                        selectedOption={selectedStatus}
                         handleChange={handleChange}
                     />
                 </div>
