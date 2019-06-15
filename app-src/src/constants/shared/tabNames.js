@@ -25,3 +25,8 @@ export const APPROVED_COMPANIES_TABS = {
     LIST: 'List',
     MAP: 'Map'
 };
+
+export const DASHBOARD_TABS = {
+    OPERATIVES: 'Operatives',
+    DRAWINGS: 'Drawings'
+};

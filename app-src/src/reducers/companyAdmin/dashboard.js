@@ -26,7 +26,9 @@ export default combineReducers({
     dashAllPinsStats: dashAllPinsStatsReducer,
     settings: settingsReducer,
     filters: filtersReducer,
-    statusStats: statusStatsReducer
+    statusStats: statusStatsReducer,
+    operativeData: operativeDataReducer,
+    drawingData: drawingDataReducer
 });
 
 function isFetchingDashPinsStatsReducer(state = false, action) {
@@ -84,6 +86,24 @@ function dashRecentPinsStatsReducer(state = {}, action) {
     switch (action.type) {
         case FETCH_DASH_STATS_SUCCESS:
             return action.payload.historyTimeline;
+        default:
+            return state;
+    }
+}
+
+function operativeDataReducer(state = {}, action) {
+    switch (action.type) {
+        case FETCH_DASH_STATS_SUCCESS:
+            return action.payload.operativeData;
+        default:
+            return state;
+    }
+}
+
+function drawingDataReducer(state = {}, action) {
+    switch (action.type) {
+        case FETCH_DASH_STATS_SUCCESS:
+            return action.payload.drawingData;
         default:
             return state;
     }
