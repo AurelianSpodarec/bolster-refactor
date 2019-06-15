@@ -1,6 +1,5 @@
 import React from 'react';
 
-import Search from 'components/shared/generic/form/presentational/Search';
 import Dropdown from 'components/shared/generic/form/presentational/Dropdown';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import DatePickerPresentational from 'components/shared/generic/form/presentational/DatePicker';
@@ -10,15 +9,16 @@ const DashboardStatsFilters = ({
     selectedService,
     statusOptions,
     selectedStatus,
-    timePeriodStartDate,
+    selectedStartDate,
+    selectedEndDate,
     handleDateChange,
     handleChange
 }) => (
     <BlockContainer>
         <form className="multi-filters size-lg-12">
-            <div className="size-lg-4">
+            <div className="flex size-lg-3">
                 <p className="size-lg-4">Selected Service:</p>
-                <div className="size-lg-8">
+                <div className="flex size-lg-8">
                     <Dropdown
                         placeholder="--select service--"
                         name="serviceID"
@@ -28,9 +28,9 @@ const DashboardStatsFilters = ({
                     />
                 </div>
             </div>
-            <div className="size-lg-4">
+            <div className="flex size-lg-3">
                 <p className="size-lg-4">Status:</p>
-                <div className="size-lg-8">
+                <div className="flex size-lg-8">
                     <Dropdown
                         placeholder="--select status--"
                         name="status"
@@ -40,15 +40,25 @@ const DashboardStatsFilters = ({
                     />
                 </div>
             </div>
-            <div className="size-lg-4">
+            <div className="flex size-lg-3">
                 <p className="size-lg-4">Start Date:</p>
-                <div className="size-lg-8">
+                <div className="flex size-lg-8">
                     <DatePickerPresentational
-                        name="timePeriodStartDate"
-                        selected={timePeriodStartDate}
-                        onChange={date =>
-                            handleDateChange('timePeriodStartDate', date)
-                        }
+                        name="startDate"
+                        selected={selectedStartDate}
+                        onChange={date => handleDateChange('startDate', date)}
+                        placeholderText="Date"
+                        sizeClasses=""
+                    />
+                </div>
+            </div>
+            <div className="flex size-lg-3">
+                <p className="size-lg-4">End Date:</p>
+                <div className="flex size-lg-8">
+                    <DatePickerPresentational
+                        name="endDate"
+                        selected={selectedEndDate}
+                        onChange={date => handleDateChange('endDate', date)}
                         placeholderText="Date"
                         sizeClasses=""
                     />

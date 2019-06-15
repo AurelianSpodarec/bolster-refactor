@@ -4,34 +4,15 @@ import { connect } from 'react-redux';
 import DashboardStatsFilters from '../presentational/DashboardStatsFilters';
 import updateDashboardFilters from 'actions/companyAdmin/dashboard/sync/updateDashboardFilters';
 import fetchPinStats from 'actions/companyAdmin/dashboard/async/fetchPinStats';
+import { PIN_STATUS_TYPES } from 'constants/companyAdmin/enums';
 import _ from 'lodash';
 
 class DashboardStatsFiltersContainer extends Component {
     state = {
         serviceOptions: {},
-        statusOptions: {
-            10: {
-                value: 10,
-                text: 'Action Required'
-            },
-            20: {
-                value: 20,
-                text: 'Installed'
-            },
-            30: {
-                value: 30,
-                text: 'Inspected'
-            },
-            40: {
-                value: 40,
-                text: 'No Action'
-            },
-            50: {
-                value: 50,
-                text: 'Other'
-            }
-        }
+        statusOptions: {}
     };
+
     render() {
         const { serviceOptions, statusOptions } = this.state;
         const { filters } = this.props;
@@ -42,7 +23,8 @@ class DashboardStatsFiltersContainer extends Component {
                 statusOptions={Object.values(statusOptions)}
                 selectedService={serviceOptions[filters.serviceID]}
                 selectedStatus={statusOptions[filters.status]}
-                timePeriodStartDate={filters.timePeriodStartDate}
+                selectedStartDate={filters.startDate}
+                selectedEndDate={filters.endDate}
                 handleDateChange={this.handleDateChange}
                 handleChange={this.handleChange}
             />
@@ -68,7 +50,21 @@ class DashboardStatsFiltersContainer extends Component {
             {}
         );
 
-        this.setState({ serviceOptions });
+        const statusOptions = Object.entries(PIN_STATUS_TYPES).map(
+            ([key, value]) => ({
+                text: value,
+                value: key
+            })
+        );
+
+        const statusOptionsUpdated = Object.values(statusOptions).reduce(
+            (acc, { value, text }) => {
+                return { ...acc, [value]: { value, text } };
+            },
+            {}
+        );
+
+        this.setState({ serviceOptions, statusOptions: statusOptionsUpdated });
     };
 
     componentDidUpdate = prevProps => {

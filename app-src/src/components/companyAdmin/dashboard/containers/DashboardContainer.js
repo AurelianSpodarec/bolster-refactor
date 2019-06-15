@@ -20,13 +20,13 @@ class DashboardContainer extends Component {
         } = this.props;
         const startDate = moment()
             .subtract(7, 'days')
-            .format();
+            .toDate();
 
         const startingFilters = {
             serviceID: '',
             status: '',
-            startDate,
-            endDate: moment().format()
+            startDate: startDate,
+            endDate: moment().toDate()
         };
 
         updateDashboardFilters('serviceID', startingFilters.serviceID);

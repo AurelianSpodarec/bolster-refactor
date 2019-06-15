@@ -147,8 +147,8 @@ function filtersReducer(
         status: '',
         startDate: moment()
             .subtract(7, 'days')
-            .format(),
-        endDate: moment().format()
+            .toDate(),
+        endDate: moment().toDate()
     },
     action
 ) {
