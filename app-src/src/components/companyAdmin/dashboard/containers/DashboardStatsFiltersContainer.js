@@ -41,7 +41,7 @@ class DashboardStatsFiltersContainer extends Component {
                 serviceOptions={Object.values(serviceOptions)}
                 statusOptions={Object.values(statusOptions)}
                 selectedService={serviceOptions[filters.serviceID]}
-                selectedStatus={serviceOptions[filters.status]}
+                selectedStatus={statusOptions[filters.status]}
                 timePeriodStartDate={filters.timePeriodStartDate}
                 handleDateChange={this.handleDateChange}
                 handleChange={this.handleChange}

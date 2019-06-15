@@ -4,8 +4,7 @@ import { Link } from 'react-router-dom';
 import appleStoreButton from '_content/images/frontend/buttons/apple-store.svg';
 import googleButton from '_content/images/frontend/buttons/google-play-badge.png';
 import FrontEndButton from 'components/frontEnd/shared/buttons/presentational/FrontEndButton';
-const bolsterLogo =
-    'https://app.bolstersystems.com/_Content/images/original/logo.png';
+import bolsterLogo from '_content/images/bolster_logo.png';
 
 const FrontEndHeader = ({
     isSuperAdmin,
