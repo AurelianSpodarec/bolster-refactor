@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-const bolsterLogo = '_content/images/bolster_logo.png';
+import bolsterLogo from '_content/images/bolster_logo.png';
 
 const AuthHeader = () => (
     <header id="page-header" className="basic">

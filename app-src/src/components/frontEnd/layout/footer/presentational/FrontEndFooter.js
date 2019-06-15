@@ -6,12 +6,7 @@ const FrontEndFooter = () => (
     <div id="footer-alt">
         <div className="container">
             <div className="logo">
-                <img
-                    alt="logo of Bolster Systems"
-                    src={WhiteLogo}
-                    width="107"
-                    height="51"
-                />
+                <img alt="logo of Bolster Systems" src={WhiteLogo} />
             </div>
         </div>
     </div>
