@@ -174,6 +174,12 @@ export const FURTHER_FILTRATION = {
     2: 'Pin Selector',
     3: 'Filters'
 };
+export const FURTHER_FILTRATION_OPTIONS = {
+    NONE: 0,
+    INDIVIDUAL_PINS: 1,
+    PIN_SELECTOR: 2,
+    FILTERS: 3
+};
 
 export const NUMBER_OF_HISTORIES = {
     3: 'All',
@@ -282,5 +288,6 @@ export const FLOORPLAN_STATE_MESSAGES = {
 export const RECTANGLE_MODES = {
     NONE: 0,
     ADD: 1,
-    DELETE: 2
+    DELETE: 2,
+    EXCLUDE: 3
 };

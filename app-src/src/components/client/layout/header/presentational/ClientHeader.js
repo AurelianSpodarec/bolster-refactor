@@ -6,44 +6,44 @@ import defaultStyles from 'constants/defaultStyles';
 
 import SearchContainer from '../containers/SearchContainer';
 import HeaderProfileContainer from '../containers/HeaderProfileContainer';
+import { getBolsterColour } from 'helpers/generic';
 // import HeaderNotificationsContainer from '../containers/HeaderNotificationsContainer';
 // import { PARENTAL_TYPES } from 'constants/companyAdmin/enums';
 
-const ClientHeader = ({ company, companyColour }) => (
-    <header id="page-header" style={{ borderColor: companyColour }}>
+const ClientHeader = ({ company, isCompanySelected }) => (
+    <header
+        id="page-header"
+        style={{ borderColor: company.colourCode || getBolsterColour() }}
+    >
         <div className="container">
-            {/*** company logo ***/}
             <div className="logo">
-                {!!company.id && (
-                    <Link to="/company">
-                        <img
-                            alt={`logo of ${company.name}`}
-                            src={
-                                company.logoFile
-                                    ? `${FILE_STORAGE_URL}/${company.logoFile}`
-                                    : defaultStyles.logoFile
-                            }
-                        />
-                    </Link>
-                )}
+                <Link to="/company">
+                    <img
+                        alt={
+                            isCompanySelected
+                                ? `logo of ${company.name}`
+                                : 'logo of Bolster Systems'
+                        }
+                        src={
+                            isCompanySelected && company.logoFile
+                                ? `${FILE_STORAGE_URL}/${company.logoFile}`
+                                : defaultStyles.logoFile
+                        }
+                    />
+                </Link>
             </div>
 
-            {/*** search box ***/}
             <div className="search-area">
                 <SearchContainer />
             </div>
 
-            {/*** account area ***/}
             <div className="account-area">
-                {/*** notifications ***/}
                 <div className="notifications">
-                    {/* Modal to select a different company */}
-                    <button className="item main large">
+                    {/* <button className="item main large">
                         ##Current Company: Silverchip## ##Change Company##
-                    </button>
+                    </button> */}
                 </div>
 
-                {/*** profile ***/}
                 <HeaderProfileContainer />
             </div>
             <div className="clear" />

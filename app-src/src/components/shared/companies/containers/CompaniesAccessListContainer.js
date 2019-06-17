@@ -10,10 +10,11 @@ import CompaniesAccessListSmall from '../presentational/CompaniesAccessListSmall
 
 class CompaniesAccessListContainer extends Component {
     render() {
-        const { handleShowModal, parentId, smallPod } = this.props;
+        const { handleShowModal, parentId, smallPod, accessType } = this.props;
 
         return smallPod ? (
             <CompaniesAccessListSmall
+                accessType={accessType}
                 handleShowModal={handleShowModal}
                 companies={Object.values(this.formatCompanies())}
                 parentId={parentId}
@@ -21,6 +22,7 @@ class CompaniesAccessListContainer extends Component {
             />
         ) : (
             <CompaniesAccessList
+                accessType={accessType}
                 handleShowModal={handleShowModal}
                 companies={Object.values(this.formatCompanies())}
                 parentId={parentId}

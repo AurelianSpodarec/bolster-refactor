@@ -5,17 +5,19 @@ import Table from 'components/shared/generic/tables/presentational/Table';
 import DocumentsList from './DocumentsList';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
+import { ACCESS_TYPES_VALUES } from 'constants/companyAdmin/enums';
 
 const DocumentsTable = ({
     location,
     documents,
     isFetching,
-    clientControls = false
+    clientControls = false,
+    accessType
 }) => {
     return (
         <div className="size-lg-12">
             <BlockHeading title="Documents" classes="w-table">
-                {!clientControls && (
+                {!clientControls && accessType >= ACCESS_TYPES_VALUES.WRITE && (
                     <ButtonContainer
                         className="pull-right green"
                         to={`${location.pathname}/attach-document`}
@@ -34,6 +36,7 @@ const DocumentsTable = ({
                     extraClasses="with-scrollbar"
                 >
                     <DocumentsList
+                        accessType={accessType}
                         location={location}
                         documents={documents}
                         clientControls={clientControls}

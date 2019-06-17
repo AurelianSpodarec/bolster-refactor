@@ -3,14 +3,16 @@ import { Link } from 'react-router-dom';
 import { RAW_S3_STORAGE_URL } from 'config';
 
 import DeleteDocumentContainer from '../containers/DeleteDocumentContainer';
+import { ACCESS_TYPES_VALUES } from 'constants/companyAdmin/enums';
 
-const DocumentsList = ({ documents, location, clientControls }) =>
+const DocumentsList = ({ documents, location, clientControls, accessType }) =>
     documents.map(document => (
         <tr key={document.id}>
             <td>
                 <a
                     href={`${RAW_S3_STORAGE_URL}/${document.fileS3Key}`}
                     rel="noopener norefferrer"
+                    // eslint-disable-next-line react/jsx-no-target-blank
                     target="_blank"
                     className="text-link"
                 >
@@ -28,15 +30,20 @@ const DocumentsList = ({ documents, location, clientControls }) =>
                         >
                             <i className="far fa-eye fa-fw" /> View responses
                         </Link>
-                        <Link
-                            to={`${location.pathname}/edit-document/${
-                                document.id
-                            }`}
-                            className="button yellow icon-only"
-                        >
-                            <i className="far fa-pencil fa-fw" />
-                        </Link>
-                        <DeleteDocumentContainer document={document} />
+
+                        {accessType >= ACCESS_TYPES_VALUES.WRITE && (
+                            <>
+                                <Link
+                                    to={`${location.pathname}/edit-document/${
+                                        document.id
+                                    }`}
+                                    className="button yellow icon-only"
+                                >
+                                    <i className="far fa-pencil fa-fw" />
+                                </Link>
+                                <DeleteDocumentContainer document={document} />
+                            </>
+                        )}
                     </>
                 )}
                 {/* {clientControls && <a href={`${fileURL}`} target="_blank" className="button blue"></a>} */}

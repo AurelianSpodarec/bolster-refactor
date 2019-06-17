@@ -18,7 +18,11 @@ import {
     POST_REPORT_NO_PINS,
     UPDATE_FILTER_QUESTION_VALS,
     ADD_RECTANGLE,
-    REMOVE_RECTANGLE
+    REMOVE_RECTANGLE,
+    UPDATE_FURTHER_FILTRATION_OPTION,
+    REMOVE_ALL_RECTANGLES,
+    UPDATE_IS_PIN_EXCLUDED,
+    REMOVE_ALL_EXCLUDED_PINS
 } from 'constants/actionTypes/reports';
 import { updateObj, removeObjItem, convertArrToObj } from 'helpers/generic';
 import { SORT_BY_OPTIONS } from 'constants/companyAdmin/enums';
@@ -33,7 +37,9 @@ export default combineReducers({
     pinResults: pinResultsReducer,
     selectedPins: selectedPinsReducer,
     isFetching: isFetchingReducer,
-    rectangles: rectanglesReducer
+    rectangles: rectanglesReducer,
+    furtherFiltrationOption: furtherFiltrationOptionReducer,
+    excludedPinIDs: excludedPinIDsReducer
 });
 
 //send the questionsIDs
@@ -63,6 +69,7 @@ function filtersReducer(
         toDateInclusive: undefined,
         companyUserIDs: [],
         pinIDs: [],
+        excludedPinIDs: [],
         floorplanPinScale: 1
     },
     action
@@ -225,6 +232,30 @@ function rectanglesReducer(state = {}, action) {
             });
         case REMOVE_RECTANGLE:
             return removeObjItem(state, action.id);
+        case REMOVE_ALL_RECTANGLES:
+            return {};
+        default:
+            return state;
+    }
+}
+
+function furtherFiltrationOptionReducer(state = 0, action) {
+    switch (action.type) {
+        case UPDATE_FURTHER_FILTRATION_OPTION:
+            return action.value;
+        default:
+            return state;
+    }
+}
+
+function excludedPinIDsReducer(state = {}, action) {
+    switch (action.type) {
+        case UPDATE_IS_PIN_EXCLUDED:
+            return action.isExcluded
+                ? updateObj(state, action.id, action.id)
+                : removeObjItem(state, action.id);
+        case REMOVE_ALL_EXCLUDED_PINS:
+            return {};
         default:
             return state;
     }

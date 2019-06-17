@@ -4,15 +4,16 @@ import { Map, TileLayer, Marker } from 'react-leaflet';
 import ReactDOMServer from 'react-dom/server';
 import { FILE_STORAGE_URL } from 'config';
 import L from 'leaflet';
-// import fileDownload from 'js-file-download';
 
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import CustomPin from 'components/shared/pins/map/presentational/CustomPin';
 import Loading from 'components/shared/generic/misc/presentational/Loading';
-// import { RAW_S3_STORAGE_URL } from 'config';
+import { ACCESS_TYPES_VALUES } from 'constants/companyAdmin/enums';
 import { EDIT_DRAWING } from 'constants/shared/modalTypes';
 import MapPinContainer from 'components/shared/pins/map/containers/MapPinContainer';
-// import LoadingIcon from 'components/shared/generic/misc/presentational/LoadingIcon';
+import RedX from 'components/shared/pins/map/presentational/RedX';
+import PinSelectorOptions from 'components/shared/pinSelector/presentational/PinSelectorOptions';
+import Rectangle from 'components/shared/pinSelector/presentational/Rectangle';
 
 const getDataUrl = src => `${FILE_STORAGE_URL}/${src}/{z}/{x}/{y}.jpg`;
 // const getFileName = src => src.match('[^/]*$')[0];
@@ -30,7 +31,15 @@ const DrawingMapViewSimple = ({
     history,
     showModal,
     updating,
-    updateMessage
+    updateMessage,
+    shouldShowPinSelectorOptions,
+    setMode,
+    cornerClicked,
+    rectangles,
+    handleDelete,
+    mode,
+    handleCancelPinSelector,
+    isExcluding
 }) => {
     const newPinIcon = L.divIcon({
         className: '',
@@ -42,43 +51,66 @@ const DrawingMapViewSimple = ({
         popupAnchor: [0, -50]
     });
 
+    const cornerClickedIcon = L.divIcon({
+        className: '',
+        html: ReactDOMServer.renderToString(<RedX />),
+        iconSize: [30, 50],
+        iconAnchor: [15, 50],
+        popupAnchor: [0, -50]
+    });
+
     return (
         <>
             {drawing.tilesetS3Key && !updating ? (
                 <>
                     <BlockHeading>
-                        {addMode ? (
-                            <>
-                                <Link
-                                    onClick={handleClearPinCache}
-                                    to={`${drawing.id}/add-pin`}
-                                    className="button green pull-right"
-                                >
-                                    <i className="fa fa-check" /> Confirm
-                                    position
-                                </Link>
-                                <button
-                                    className="button red pull-right"
-                                    onClick={toggleAddMode}
-                                >
-                                    Cancel
-                                </button>
-                            </>
+                        {shouldShowPinSelectorOptions ? (
+                            <PinSelectorOptions
+                                setMode={setMode}
+                                mode={mode}
+                                handleCancel={handleCancelPinSelector}
+                            />
                         ) : (
-                            <button
-                                className="button green pull-right"
-                                onClick={toggleAddMode}
-                            >
-                                <i className="fa fa-plus" /> Add pin
-                            </button>
+                            drawing.accessType ===
+                                ACCESS_TYPES_VALUES.OWNER && (
+                                <>
+                                    {addMode ? (
+                                        <>
+                                            <Link
+                                                onClick={handleClearPinCache}
+                                                to={`${drawing.id}/add-pin`}
+                                                className="button green pull-right"
+                                            >
+                                                <i className="fa fa-check" />{' '}
+                                                Confirm position
+                                            </Link>
+                                            <button
+                                                className="button red pull-right"
+                                                onClick={toggleAddMode}
+                                            >
+                                                Cancel
+                                            </button>
+                                        </>
+                                    ) : (
+                                        <button
+                                            className="button green pull-right"
+                                            onClick={toggleAddMode}
+                                        >
+                                            <i className="fa fa-plus" /> Add pin
+                                        </button>
+                                    )}
+                                    <button
+                                        className="button yellow"
+                                        onClick={() =>
+                                            showModal(EDIT_DRAWING, { drawing })
+                                        }
+                                    >
+                                        <i className="far fa-pencil fa-fw" />{' '}
+                                        Edit drawing
+                                    </button>
+                                </>
+                            )
                         )}
-
-                        <button
-                            className="button yellow"
-                            onClick={() => showModal(EDIT_DRAWING, { drawing })}
-                        >
-                            <i className="far fa-pencil fa-fw" /> Edit drawing
-                        </button>
                     </BlockHeading>
                     <Map
                         center={position}
@@ -86,10 +118,6 @@ const DrawingMapViewSimple = ({
                         minZoom={0}
                         maxZoom={5}
                         onClick={e => handleClick(e)}
-
-                        // Sets boundary to prevent scrolling into nothing, maxboundsviscosity prevents a snapback effect and disables scrolling out of bounds altogether
-                        // maxBounds={[[-1000, -1000], [1000, 1000]]}
-                        // maxBoundsViscosity={1}
                     >
                         <TileLayer
                             attribution='&amp;copy <a href="http://app.bolstersystems.com">Bolster Systems Ltd</a>'
@@ -101,8 +129,9 @@ const DrawingMapViewSimple = ({
                                 urlStart="company"
                                 key={pin.id}
                                 pin={pin}
-                                withLink={true}
-                                withTooltip={true}
+                                withLink={!shouldShowPinSelectorOptions}
+                                withTooltip={!isExcluding}
+                                isExcluding={isExcluding}
                             />
                         ))}
                         {addMode && (
@@ -111,6 +140,19 @@ const DrawingMapViewSimple = ({
                                 icon={newPinIcon}
                             />
                         )}
+                        {cornerClicked && (
+                            <Marker
+                                position={cornerClicked}
+                                icon={cornerClickedIcon}
+                            />
+                        )}
+                        {rectangles.map(rectangle => (
+                            <Rectangle
+                                key={rectangle.id}
+                                rectangle={rectangle}
+                                onClick={() => handleDelete(rectangle.id)}
+                            />
+                        ))}
                     </Map>
                 </>
             ) : (

@@ -3,6 +3,7 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import FrontEndMobileMenu from '../presentational/FrontEndMobileMenu';
+import { logout } from 'actions/shared/auth/sync/logout';
 
 class FrontEndMobileMenuContainer extends Component {
     state = {
@@ -43,7 +44,7 @@ class FrontEndMobileMenuContainer extends Component {
 
     _logout = e => {
         e.preventDefault();
-        localStorage.setItem('token', '');
+        this.props.logout();
     };
 }
 
@@ -60,6 +61,6 @@ const mapStateToProps = ({
 export default withRouter(
     connect(
         mapStateToProps,
-        null
+        { logout }
     )(FrontEndMobileMenuContainer)
 );

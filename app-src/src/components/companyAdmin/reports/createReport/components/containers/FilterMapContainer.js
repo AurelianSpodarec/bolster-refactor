@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import moment from 'moment';
 import { connect } from 'react-redux';
 import uuid from 'uuid/v4';
 
@@ -7,13 +8,21 @@ import updateReportFilter from 'actions/companyAdmin/reports/sync/updateReportFi
 import FilterMap from '../presentational/FilterMap';
 import addRectangle from 'actions/companyAdmin/reports/sync/addRectangle';
 import removeRectangle from 'actions/companyAdmin/reports/sync/removeRectangle';
-import { RECTANGLE_MODES } from 'constants/companyAdmin/enums';
+import {
+    RECTANGLE_MODES,
+    FURTHER_FILTRATION_OPTIONS
+} from 'constants/companyAdmin/enums';
 import withUpdateOnChange from '../hocs/withUpdateOnChange';
-const { ADD, DELETE } = RECTANGLE_MODES;
+import removeAllRectangles from 'actions/companyAdmin/reports/sync/removeAllRectangles';
+import fetchPins from 'actions/companyAdmin/pins/async/fetchPins';
+import { momentComparisonFormat } from 'helpers/generic';
+import updateFurtherFiltrationOption from 'actions/companyAdmin/reports/sync/updateFurtherFiltrationOption';
+import removeAllExcludedPins from 'actions/companyAdmin/reports/sync/removeAllExcludedPins';
+const { ADD, DELETE, EXCLUDE } = RECTANGLE_MODES;
+const { PIN_SELECTOR } = FURTHER_FILTRATION_OPTIONS;
 
 class FilterMapContainer extends Component {
     state = {
-        drawRectangleMode: true,
         mode: ADD,
         // firstCorner sets to [lat, lng]
         firstCorner: null,
@@ -22,36 +31,68 @@ class FilterMapContainer extends Component {
     };
 
     render() {
-        const { drawing, pins, rectangles, removeRectangle } = this.props;
-        const { firstCorner } = this.state;
+        const { drawing, rectangles, furtherFiltrationOption } = this.props;
+        const { firstCorner, mode } = this.state;
         const cornerClicked = firstCorner;
         if (!drawing.id) return null;
+
+        const shouldShowMapOptions = +furtherFiltrationOption === +PIN_SELECTOR;
+        const isExcluding = +mode === EXCLUDE;
+
         return (
             <FilterMap
                 drawing={drawing}
-                pins={pins}
+                pins={this.getFilteredPins()}
                 handleClick={this.handleClick}
                 cornerClicked={cornerClicked}
                 rectangles={rectangles}
-                removeRectangle={removeRectangle}
                 setMode={this.setMode}
                 handleDelete={this.handleDelete}
+                handleCancelPinSelector={this.handleCancelPinSelector}
+                shouldShowMapOptions={shouldShowMapOptions}
+                mode={mode}
+                isExcluding={isExcluding}
             />
         );
     }
 
-    componentDidUpdate = ({ rectangles: prevRectangles }) => {
-        const { rectangles, postFilters } = this.props;
+    componentDidMount = () => {
+        const {
+            fetchPins,
+            filters: { drawingID }
+        } = this.props;
+        if (drawingID) fetchPins('drawing', drawingID);
+    };
+
+    componentDidUpdate = ({
+        rectangles: prevRectangles,
+        furtherFiltrationOption: prevOption,
+        ...prevProps
+    }) => {
+        const {
+            rectangles,
+            postFilters,
+            furtherFiltrationOption,
+            removeAllRectangles,
+            filters: { drawingID },
+            fetchPins
+        } = this.props;
         if (rectangles.length !== prevRectangles.length) {
             postFilters();
         }
+        if (furtherFiltrationOption !== prevOption) {
+            removeAllRectangles();
+        }
+
+        if (drawingID !== prevProps.filters.drawingID)
+            fetchPins('drawing', drawingID);
     };
 
     handleClick = ({ latlng }) => {
-        const { drawRectangleMode, firstCorner, mode } = this.state;
+        const { firstCorner, mode } = this.state;
         const { lat, lng } = latlng;
-        const { addRectangle } = this.props;
-        if (drawRectangleMode && mode === ADD) {
+        const { addRectangle, furtherFiltrationOption } = this.props;
+        if (+furtherFiltrationOption === +PIN_SELECTOR && mode === ADD) {
             if (!firstCorner) {
                 // draw first corner
                 this.setState({ firstCorner: [lat, lng] });
@@ -75,24 +116,59 @@ class FilterMapContainer extends Component {
         if (mode === DELETE) removeRectangle(id);
     };
 
-    getFilteredPins = () => {
-        const { drawRectangleMode } = this.state;
+    handleCancelPinSelector = () => {
         const {
-            pins,
-            filters: { pinIDs }
+            removeAllRectangles,
+            removeAllExcludedPins,
+            updateFurtherFiltrationOption
         } = this.props;
+        updateFurtherFiltrationOption(FURTHER_FILTRATION_OPTIONS.NONE);
+        removeAllExcludedPins();
+        removeAllRectangles();
+    };
+
+    getFilteredPins = () => {
+        const { pins, filters, furtherFiltrationOption } = this.props;
 
         // ? Displays all pins if in rectangle mode, and only the selected pins otherwise.
-        if (drawRectangleMode) {
-            return pins;
+        if (+furtherFiltrationOption === +PIN_SELECTOR) {
+            const {
+                fromDateInclusive,
+                toDateInclusive,
+                status,
+                serviceID
+            } = filters;
+            return pins.filter(pin => {
+                if (
+                    fromDateInclusive &&
+                    moment(pin.createdOn) <
+                        moment(fromDateInclusive, momentComparisonFormat)
+                ) {
+                    return false;
+                }
+                if (
+                    toDateInclusive &&
+                    moment(pin.createdOn) >
+                        moment(toDateInclusive, momentComparisonFormat)
+                ) {
+                    return false;
+                }
+                if (status && +pin.latestStatus !== +status) {
+                    return false;
+                }
+                if (serviceID && +pin.latestServiceID !== +serviceID) {
+                    return false;
+                }
+                return true;
+            });
         }
-        return pins.filter(({ id }) => pinIDs.includes(id));
+        return pins.filter(({ id }) => filters.pinIDs.includes(id));
     };
 }
 
 const mapStateToProps = ({
     companyAdmin: {
-        reportsReducer: { filters, rectangles },
+        reportsReducer: { filters, rectangles, furtherFiltrationOption },
         drawingsReducer: { drawings },
         pinsReducer: { pins }
     }
@@ -102,13 +178,18 @@ const mapStateToProps = ({
     pins: Object.values(pins).filter(
         ({ drawingID }) => +drawingID === +filters.drawingID
     ),
-    rectangles: Object.values(rectangles)
+    rectangles: Object.values(rectangles),
+    furtherFiltrationOption
 });
 
 const mapDispatchToProps = {
     updateReportFilter,
     addRectangle,
-    removeRectangle
+    removeRectangle,
+    removeAllRectangles,
+    removeAllExcludedPins,
+    fetchPins,
+    updateFurtherFiltrationOption
 };
 
 export default withUpdateOnChange(
