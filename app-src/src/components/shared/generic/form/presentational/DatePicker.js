@@ -12,7 +12,7 @@ const DatePickerPresentational = ({
     onBlur = () => {},
     sizeClasses = 'size-lg-12'
 }) => (
-    <div className={sizeClasses}>
+    <div className={`date-picker ${sizeClasses}`}>
         <DatePicker
             id={name}
             selected={selected}
