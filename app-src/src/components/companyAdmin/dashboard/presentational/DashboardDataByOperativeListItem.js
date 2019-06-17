@@ -7,7 +7,7 @@ const DrawingDataByOperativeListItem = ({ operative }) => (
         <td>{moment(operative.lastLogin).format('DD-MM-YYYY HH:mm')}</td>
         <td>{moment(operative.lastSync).format('DD-MM-YYYY HH:mm')}</td>
         <td>{operative.pinsUpdated}</td>
-        <td>Action</td>
+        <td />
     </tr>
 );
 
