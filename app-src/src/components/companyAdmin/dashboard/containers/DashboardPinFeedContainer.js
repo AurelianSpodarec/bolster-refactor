@@ -24,8 +24,24 @@ class DashboardPinFeedContainer extends Component {
         this.interval = setInterval(() => fetchPinFeed(lastUpdatedOn), 10000);
     };
 
+    componentDidUpdate = prevProps => {
+        const { pins } = this.props;
+
+        if (prevProps.pins.length < 1 && !!pins.length) {
+            console.warn('you did it');
+        }
+    };
+
     componentWillUnmount = () => {
         clearInterval(this.interval);
+    };
+
+    _sortPins = () => {
+        const { pins } = this.props;
+
+        const pinsArray = [...pins].sort((a, b) => b.syncedOn - a.syncedOn);
+
+        return pinsArray.length > 6 ? pinsArray.slice(0, 6) : pinsArray;
     };
 }
 
@@ -34,7 +50,7 @@ const mapStateToProps = ({
         latestPinFeedReducer: { pins, isFetching, error, lastUpdatedOn }
     }
 }) => ({
-    pins,
+    pins: pins || [],
     isFetching,
     error,
     lastUpdatedOn
