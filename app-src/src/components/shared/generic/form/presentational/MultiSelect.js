@@ -91,8 +91,10 @@ const MultiSelect = ({
                                 key={opt.value}
                                 className={`option ${
                                     value.includes(opt.value) ? 'active' : ''
-                                }`}
-                                onClick={e => handleSelect(e, opt.value)}
+                                } ${opt.disabled ? 'disabled' : ''}`}
+                                onClick={e =>
+                                    handleSelect(e, opt.value, opt.disabled)
+                                }
                             >
                                 {opt.label}
                             </p>
@@ -139,8 +141,9 @@ const MultiSelect = ({
         onChange(name, value.filter(item => item !== clicked));
     }
 
-    function handleSelect(e, clicked) {
+    function handleSelect(e, clicked, disabled) {
         e.preventDefault();
+        if (disabled) return;
 
         if (value.includes(clicked)) {
             onChange(name, value.filter(item => item !== clicked));

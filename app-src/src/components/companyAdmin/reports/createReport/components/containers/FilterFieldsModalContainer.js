@@ -8,6 +8,7 @@ import updateReportFilter from 'actions/companyAdmin/reports/sync/updateReportFi
 import updateFilterQuestionField from 'actions/companyAdmin/reports/sync/updateFilterQuestionField';
 import { convertArrToObj } from 'helpers/generic';
 import removeFilterQuestion from 'actions/companyAdmin/reports/sync/removeFilterQuestion';
+import withUpdateOnChange from '../hocs/withUpdateOnChange';
 
 const questionTypeOptions = [
     { label: 'Free Form', value: 1 },
@@ -22,9 +23,8 @@ class FilterFieldsModalContainer extends Component {
         optionOrientedVals: []
     };
     render() {
-        const { hideModal } = this.props;
+        const { toggleAddFilter } = this.props;
         const {
-            showFreeForm,
             freeFormValues,
             optionOrientedVals,
             selectedQuestions
@@ -32,7 +32,7 @@ class FilterFieldsModalContainer extends Component {
 
         return (
             <FilterFieldsModal
-                showFreeForm={showFreeForm}
+                showFreeForm={this._showFreeForm()}
                 questionTypeOptions={questionTypeOptions}
                 selectedQuestions={selectedQuestions}
                 questionOptions={this._getQuestionOptions()}
@@ -45,7 +45,7 @@ class FilterFieldsModalContainer extends Component {
                 handleFreeFormValChange={this.handleFreeFormValChange}
                 addFreeFormVal={this.addFreeFormVal}
                 removeFreeFormVal={this.removeFreeFormVal}
-                hideModal={hideModal}
+                toggleAddFilter={toggleAddFilter}
                 handleSubmit={this.handleSubmit}
             />
         );
@@ -65,6 +65,18 @@ class FilterFieldsModalContainer extends Component {
         } else {
             this.addFreeFormVal();
         }
+    };
+
+    _showFreeForm = () => {
+        const { selectedQuestions } = this.state;
+        const { customQuestions } = this.props;
+        const questionsObj = convertArrToObj(customQuestions);
+
+        if (!selectedQuestions.length) return true;
+        return selectedQuestions.some(id => {
+            const q = questionsObj[id] || {};
+            return !q.options;
+        });
     };
 
     toggleShowFreeForm = () => {
@@ -104,9 +116,8 @@ class FilterFieldsModalContainer extends Component {
         });
     };
 
-    handleSubmit = () => {
+    handleSubmit = async () => {
         const {
-            showFreeForm,
             selectedQuestions,
             freeFormValues,
             optionOrientedVals
@@ -114,45 +125,39 @@ class FilterFieldsModalContainer extends Component {
         const {
             field,
             updateFilterQuestionField,
-            hideModal,
-            removeFilterQuestion
+            removeFilterQuestion,
+            toggleAddFilter,
+            customQuestions,
+            postFilters
         } = this.props;
 
         const newID = uuid();
         const id = field ? field.id : newID;
 
-        const validQuestionIDs = this._getFilteredQuestions().map(
-            ({ id }) => id
-        );
-        const validSelectedQs = selectedQuestions.filter(id =>
-            validQuestionIDs.includes(id)
-        );
+        const showFreeForm = this._showFreeForm();
 
-        if (!validSelectedQs.length) {
+        const validQuestionIDs = customQuestions
+            .filter(q => (showFreeForm ? !q.options : q.options))
+            .map(q => q.id)
+            .filter(id => selectedQuestions.includes(id));
+
+        if (!validQuestionIDs.length) {
             if (field) removeFilterQuestion(field.id);
-            hideModal();
+            toggleAddFilter();
             return;
         }
 
         let filterItem = {
             id,
-            selectedQuestions: validSelectedQs,
+            selectedQuestions: validQuestionIDs,
             questionValues: showFreeForm ? freeFormValues : [],
             selectedValues: showFreeForm ? [] : optionOrientedVals
         };
 
-        updateFilterQuestionField(id, filterItem);
-        hideModal();
-    };
+        await updateFilterQuestionField(id, filterItem);
+        toggleAddFilter();
 
-    _getFilteredQuestions = () => {
-        const { customQuestions } = this.props;
-        const { showFreeForm } = this.state;
-        const questionsObj = convertArrToObj(customQuestions);
-
-        return [...new Set(customQuestions.map(q => q.id))]
-            .map(id => questionsObj[id])
-            .filter(({ options }) => (showFreeForm ? !options : !!options));
+        postFilters();
     };
 
     _getValidValueOptions = () => {
@@ -169,11 +174,21 @@ class FilterFieldsModalContainer extends Component {
     };
 
     _getQuestionOptions = () => {
-        return this._getFilteredQuestions().map(q => ({
-            value: q.id,
-            name: q.id,
-            label: q.name
-        }));
+        const showFreeForm = this._showFreeForm();
+        const noOptions = !this.state.selectedQuestions.length;
+        const { customQuestions } = this.props;
+
+        return customQuestions.map(q => {
+            let disabled = !noOptions;
+            if (disabled) disabled = showFreeForm ? !!q.options : !q.options;
+
+            return {
+                value: q.id,
+                name: q.id,
+                label: q.name,
+                disabled
+            };
+        });
     };
 }
 
@@ -200,7 +215,9 @@ const mapDispatchToProps = {
     removeFilterQuestion
 };
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(FilterFieldsModalContainer);
+export default withUpdateOnChange(
+    connect(
+        mapStateToProps,
+        mapDispatchToProps
+    )(FilterFieldsModalContainer)
+);

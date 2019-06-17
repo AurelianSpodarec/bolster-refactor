@@ -22,6 +22,7 @@ class DrawingClientAccessContainer extends Component {
                     isFetching={isFetching}
                     error={error}
                     handleDeleteClientModal={this.handleDeleteClientModal}
+                    smallList={true}
                 />
             </BlockContainer>
         );
