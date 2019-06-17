@@ -23,15 +23,14 @@ import FilterField from '../presentational/FilterField';
 import resetFilterOptions from 'actions/companyAdmin/reports/sync/resetFilterOptions';
 import MapPinSelectorContainer from 'components/shared/pinSelector/container/MapPinSelectorContainer';
 import withUpdateOnChange from '../hocs/withUpdateOnChange';
+import updateFurtherFiltrationOption from 'actions/companyAdmin/reports/sync/updateFurtherFiltrationOption';
 
 class FurtherFiltrationContainer extends Component {
-    state = { filterOption: 0 };
-
     render() {
-        const { filterOption } = this.state;
         const {
             fields,
-            filters: { drawingID, reportHistories }
+            filters: { drawingID, reportHistories },
+            furtherFiltrationOption
         } = this.props;
         const filtrationOptions = convertEnumToDropdownOptions(
             FURTHER_FILTRATION
@@ -39,7 +38,7 @@ class FurtherFiltrationContainer extends Component {
         const filtrationOptionsArr = Object.values(filtrationOptions).filter(
             ({ text }) => drawingID || text !== 'Individual Pins'
         );
-        const selected = filtrationOptions[filterOption];
+        const selected = filtrationOptions[furtherFiltrationOption];
 
         return (
             <BlockContainer>
@@ -55,11 +54,11 @@ class FurtherFiltrationContainer extends Component {
                     handleNumOfHistoriesChange={this.handleNumOfHistoriesChange}
                     selectedHistoryNum={reportHistories}
                 />
-                {filterOption === '1' ? (
+                {furtherFiltrationOption === '1' ? (
                     <PinSelectorContainer blockName="pinSelector" />
-                ) : filterOption === '2' ? (
+                ) : furtherFiltrationOption === '2' ? (
                     <MapPinSelectorContainer blockName="pinSelector" />
-                ) : filterOption === '3' ? (
+                ) : furtherFiltrationOption === '3' ? (
                     <div className="custom-filters-block">
                         <div className="size-lg-12">
                             {fields.map(field => (
@@ -89,14 +88,15 @@ class FurtherFiltrationContainer extends Component {
             </BlockContainer>
         );
     }
-    componentDidUpdate = (prevProps, prevState) => {
+    componentDidUpdate = prevProps => {
         const {
             filters: { siteID, buildingID, floorID, drawingID },
-            removeFilterQuestions
+            removeFilterQuestions,
+            furtherFiltrationOption,
+            updateFurtherFiltrationOption
         } = this.props;
         // reset filter fields if changing the filter
-        const { filterOption } = this.state;
-        if (prevState.filterOption !== filterOption) {
+        if (prevProps.furtherFiltrationOption !== furtherFiltrationOption) {
             removeFilterQuestions();
         }
         // reset further filters if site info changes
@@ -106,7 +106,7 @@ class FurtherFiltrationContainer extends Component {
             floorID !== prevProps.filters.floorID ||
             drawingID !== prevProps.filters.drawingID
         ) {
-            this.setState({ filterOption: 0 });
+            updateFurtherFiltrationOption(0);
             removeFilterQuestions();
         }
     };
@@ -136,7 +136,9 @@ class FurtherFiltrationContainer extends Component {
         return options;
     };
 
-    handleChange = (name, value) => this.setState({ [name]: value });
+    handleChange = (_, value) => {
+        this.props.updateFurtherFiltrationOption(value);
+    };
 
     handleNumOfHistoriesChange = (name, value) => {
         const {
@@ -167,14 +169,16 @@ const mapStateToProps = ({
             customFilters: { pins = [], questions = [] },
             filters: { pinIDs: ids = [] },
             fields,
-            filters
+            filters,
+            furtherFiltrationOption
         }
     }
 }) => ({
     customQuestions: questions,
     fields: Object.values(fields),
     filters,
-    shouldConfirm: !isObjEmpty(fields) || pins.length !== ids.length
+    shouldConfirm: !isObjEmpty(fields) || pins.length !== ids.length,
+    furtherFiltrationOption
 });
 
 const mapDispatchToProps = {
@@ -184,7 +188,8 @@ const mapDispatchToProps = {
     removeFilterQuestions,
     showModal,
     hideModal,
-    resetFilterOptions
+    resetFilterOptions,
+    updateFurtherFiltrationOption
 };
 
 export default withUpdateOnChange(
