@@ -238,7 +238,6 @@ class DrawingMapGeneralContainer extends Component {
     _getFilteredPins = () => {
         const { pins, filters, furtherFiltrationOption } = this.props;
         // ? Displays all pins if in rectangle mode, and only the selected pins otherwise.
-        console.warn(pins);
 
         if (+furtherFiltrationOption === +PIN_SELECTOR) {
             const {
@@ -271,8 +270,8 @@ class DrawingMapGeneralContainer extends Component {
                 return true;
             });
         }
-        // console.log(pins.filter(({ id }) => filters.pinIDs.includes(id)));
-        return pins.filter(({ id }) => !filters.pinIDs.includes(id));
+
+        return pins.filter(({ id }) => filters.pinIDs.includes(id));
     };
 
     setMode = mode => {
