@@ -140,14 +140,21 @@ class OutputSettingsContainer extends Component {
             postReport,
             fieldErrors,
             showFieldErrors,
-            filters: { isFloorplanGeneration, isPDFGeneration },
+            filters: {
+                isFloorplanGeneration,
+                includeFloorplan,
+                isPDFGeneration
+            },
             showModal
         } = this.props;
 
         const selectedCompanyID = getSelectedCompanyForClient();
 
         if (!isEmpty(fieldErrors)) showFieldErrors();
-        else if (isFloorplanGeneration || isPDFGeneration) {
+        else if (
+            isFloorplanGeneration ||
+            (isPDFGeneration && includeFloorplan)
+        ) {
             const drawingForPinScale = this._getDrawingForPinScale();
             showModal(SELECT_PIN_SCALE, {
                 drawing: drawingForPinScale,

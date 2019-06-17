@@ -69,7 +69,6 @@ function filtersReducer(
         toDateInclusive: undefined,
         companyUserIDs: [],
         pinIDs: [],
-        excludedPinIDs: [],
         floorplanPinScale: 1
     },
     action
