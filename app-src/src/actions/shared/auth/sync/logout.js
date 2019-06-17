@@ -1,6 +1,9 @@
 import { LOGOUT } from 'constants/actionTypes/auth';
 
-export const logout = () => ({
-    type: LOGOUT,
-    payload: {}
-});
+export const logout = () => {
+    localStorage.setItem('token', '');
+    return {
+        type: LOGOUT,
+        payload: {}
+    };
+};

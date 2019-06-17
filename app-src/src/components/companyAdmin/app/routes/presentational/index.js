@@ -46,10 +46,7 @@ const CompanyRoutes = ({ base = '/company' }) => (
             path={`${base}/headquarters`}
             component={withSubscriptionAuth(HeadquartersRoutes)}
         />
-        <Route
-            path={`${base}/invoices`}
-            component={withSubscriptionAuth(InvoicesRoutes)}
-        />
+        <Route path={`${base}/invoices`} component={InvoicesRoutes} />
         <Route
             path={`${base}/message-centre`}
             component={withSubscriptionAuth(MessagesRoutes)}
@@ -58,18 +55,12 @@ const CompanyRoutes = ({ base = '/company' }) => (
             path={`${base}/pins`}
             component={withSubscriptionAuth(PinRoutes)}
         />
-        <Route
-            path={`${base}/profile`}
-            component={withSubscriptionAuth(ProfilesRoutes)}
-        />
+        <Route path={`${base}/profile`} component={ProfilesRoutes} />
         <Route
             path={`${base}/reports`}
             component={withSubscriptionAuth(ReportsRoutes)}
         />
-        <Route
-            path={`${base}/settings`}
-            component={withSubscriptionAuth(SettingsRoutes)}
-        />
+        <Route path={`${base}/settings`} component={SettingsRoutes} />
         <Route
             path={`${base}/sites`}
             component={withSubscriptionAuth(SitesRoutes)}

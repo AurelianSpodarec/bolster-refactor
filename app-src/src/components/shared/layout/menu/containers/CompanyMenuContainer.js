@@ -5,6 +5,7 @@ import moment from 'moment';
 import CompanyMenu from '../presentational/CompanyMenu';
 import { MESSAGE_TYPES } from 'constants/companyAdmin/enums';
 import dismissMessages from 'actions/companyAdmin/messages/async/dismissMessages';
+import { isEmpty } from 'helpers/generic';
 
 const CompanyMenuContainer = ({
     isFromHeadquarters,
@@ -12,8 +13,13 @@ const CompanyMenuContainer = ({
     totalCredits,
     totalRequests,
     notifications,
-    dismissMessages
+    dismissMessages,
+    subscriptions,
+    subscriptions: { startOn, endOn },
+    hasInitiallyFetched
 }) => {
+    if (!hasInitiallyFetched) return null;
+
     const unread = notifications.filter(({ isRead }) => !isRead);
     const unreadCount = unread.length;
     const dismissNotifications = () => {
@@ -22,6 +28,7 @@ const CompanyMenuContainer = ({
 
     return (
         <CompanyMenu
+            isSubscribed={_isSubscribed()}
             unreadMessageCount={unreadMessageCount}
             totalCredits={totalCredits}
             totalRequests={totalRequests}
@@ -30,13 +37,23 @@ const CompanyMenuContainer = ({
             dismissMessages={dismissNotifications}
         />
     );
+
+    function _isSubscribed() {
+        if (isEmpty(subscriptions)) return false;
+
+        return (
+            moment(startOn).isBefore(Date.now()) &&
+            moment(endOn).isAfter(Date.now())
+        );
+    }
 };
 const mapStateToProps = ({
     companyAdmin: {
         messagesReducer: { messages },
         creditsReducer: { credits },
         transferRequestsReducer: { incomingTransferRequests },
-        pendingInvitesReducer: { pendingInvites }
+        pendingInvitesReducer: { pendingInvites },
+        subscriptionsReducer: { hasInitiallyFetched, subscriptions }
     },
     shared: {
         decodeJWTReducer: {
@@ -56,6 +73,8 @@ const mapStateToProps = ({
         Object.values(pendingInvites).length;
 
     return {
+        hasInitiallyFetched,
+        subscriptions,
         unreadMessageCount,
         totalCredits,
         totalRequests,

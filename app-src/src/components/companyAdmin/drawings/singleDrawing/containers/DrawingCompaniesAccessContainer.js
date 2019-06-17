@@ -4,7 +4,14 @@ import CompaniesAccessContainer from 'components/shared/companies/containers/Com
 
 class DrawingCompaniesAccessContainer extends Component {
     render() {
-        return <CompaniesAccessContainer smallPod={true} hierarchyType="drawing" />;
+        const { accessType } = this.props;
+        return (
+            <CompaniesAccessContainer
+                smallPod={true}
+                hierarchyType="drawing"
+                accessType={accessType}
+            />
+        );
     }
 }
 

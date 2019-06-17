@@ -30,20 +30,17 @@ const HeaderProfile = ({
         </div>
 
         <div className={`options ${dropdownVisible ? 'visible' : ''}`}>
-            {/* Check if reports needed for client area */}
-            {/* <Link to="/company/tools/company-reports" className="item">
-                Company Reports
-                <i className="icon fas fa-chevron-right" />
-            </Link> */}
-
             <Link to="/client/profile" className="item">
-                My Profile
-                <i className="icon fas fa-chevron-right" />
+                <i className="far fa-user fa-fw icon" />
+                <span className="item-text">My Profile</span>
+
+                <i className="icon fas fa-chevron-right right" />
             </Link>
 
             <Link onClick={logout} to="#" className="item">
-                Logout
-                <i className="icon fas fa-sign-out" />
+                <i className="icon far fa-sign-out fa-fw" />
+                <span className="item-text">Logout</span>
+                <i className="icon fas fa-chevron-right right" />
             </Link>
         </div>
     </div>

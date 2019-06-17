@@ -4,7 +4,13 @@ import CompaniesAccessContainer from 'components/shared/companies/containers/Com
 
 class BuildingCompaniesAccessTableContainer extends Component {
     render() {
-        return <CompaniesAccessContainer hierarchyType="building" />;
+        const { accessType } = this.props;
+        return (
+            <CompaniesAccessContainer
+                hierarchyType="building"
+                accessType={accessType}
+            />
+        );
     }
 }
 

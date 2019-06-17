@@ -5,6 +5,7 @@ import Table from 'components/shared/generic/tables/presentational/Table';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import CompaniesAccessListContainer from '../containers/CompaniesAccessListContainer';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
+import { ACCESS_TYPES_VALUES } from 'constants/companyAdmin/enums';
 
 const CompaniesAccessTable = ({
     location,
@@ -12,16 +13,19 @@ const CompaniesAccessTable = ({
     parentId,
     handleShowModal,
     isFetching,
-    smallPod
+    smallPod,
+    accessType
 }) => (
     <div className="size-lg-12">
         <BlockHeading title="Company Permissions">
-            <ButtonContainer
-                className="pull-right green"
-                to={`${location.pathname}/invite-company`}
-            >
-                <i className="fa fa-plus" /> Invite
-            </ButtonContainer>
+            {accessType === ACCESS_TYPES_VALUES.OWNER && (
+                <ButtonContainer
+                    className="pull-right green"
+                    to={`${location.pathname}/invite-company`}
+                >
+                    <i className="fa fa-plus" /> Invite
+                </ButtonContainer>
+            )}
         </BlockHeading>
         <div className="hide-overflow size-lg-12 always-scrollbar">
             <Table
@@ -31,10 +35,11 @@ const CompaniesAccessTable = ({
                 isFetching={isFetching}
                 noData={!companies.length}
                 noDataMessage="No companies to display"
-                withActions
+                withActions={accessType === ACCESS_TYPES_VALUES.OWNER}
                 extraClasses="with-scrollbar"
             >
                 <CompaniesAccessListContainer
+                    accessType={accessType}
                     handleShowModal={handleShowModal}
                     companies={companies}
                     parentId={parentId}

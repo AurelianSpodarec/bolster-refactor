@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 
 import PieChart from 'components/shared/stats/presentational/PieChart';
 import SiteDetails from './SiteDetails';
+import { ACCESS_TYPES_VALUES } from 'constants/companyAdmin/enums';
 
 const SiteStats = ({
     site,
@@ -17,29 +18,35 @@ const SiteStats = ({
             <PieChart stats={stats} hierarchyType="site" />
         </div>
 
-        <div className="button-container">
-            <button className="button red" onClick={handleDelete} type="button">
-                <i className="far fa-trash-alt fa-fw" /> Delete
-            </button>
-            <button className="button yellow" onClick={handleEditSiteModal}>
-                <i className="far fa-pencil fa-fw" /> Edit
-            </button>
+        {site.accessType === ACCESS_TYPES_VALUES.OWNER && (
+            <div className="button-container">
+                <button
+                    className="button red"
+                    onClick={handleDelete}
+                    type="button"
+                >
+                    <i className="far fa-trash-alt fa-fw" /> Delete
+                </button>
+                <button className="button yellow" onClick={handleEditSiteModal}>
+                    <i className="far fa-pencil fa-fw" /> Edit
+                </button>
 
-            <button
-                className="button blue"
-                onClick={handleArchive}
-                type="button"
-            >
-                <i className="fa fa-archive" />
-                {site.isArchived ? 'Un-Archive' : 'Archive'}
-            </button>
-            <Link
-                className="button"
-                to={`/company/sites/${site.id}/change-ownership`}
-            >
-                <i className="fa fa-exchange" /> Change Ownership
-            </Link>
-        </div>
+                <button
+                    className="button blue"
+                    onClick={handleArchive}
+                    type="button"
+                >
+                    <i className="fa fa-archive" />
+                    {site.isArchived ? 'Un-Archive' : 'Archive'}
+                </button>
+                <Link
+                    className="button"
+                    to={`/company/sites/${site.id}/change-ownership`}
+                >
+                    <i className="fa fa-exchange" /> Change Ownership
+                </Link>
+            </div>
+        )}
     </div>
 );
 

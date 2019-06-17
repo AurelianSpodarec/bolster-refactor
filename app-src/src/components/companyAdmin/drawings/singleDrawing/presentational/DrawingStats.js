@@ -10,7 +10,7 @@ const DrawingStats = ({ drawing, stats }) => (
             stats={stats}
             hierarchyType="drawing"
         />
-        <DrawingDetails stats={stats} floor={drawing} />
+        <DrawingDetails stats={stats} drawing={drawing} />
     </div>
 );
 
