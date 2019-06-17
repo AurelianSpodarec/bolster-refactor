@@ -6,6 +6,7 @@ import selectMenuTab from 'actions/shared/generic/tabs/sync/selectMenuTab';
 import AdminApp from '../presentational/AdminApp';
 import decodeJWT from 'actions/shared/jwt/async/decodeJWT';
 import fetchProfile from 'actions/shared/profile/async/fetchProfile';
+import fetchAllSubscriptions from 'actions/companyAdmin/subscriptions/async/fetchAllSubscriptions';
 
 class AdminAppContainer extends Component {
     render() {
@@ -29,6 +30,7 @@ const mapDispatchToProps = dispatch => ({
     },
     fetchHomeData: () => {
         dispatch(fetchProfile());
+        dispatch(fetchAllSubscriptions());
     }
 });
 
