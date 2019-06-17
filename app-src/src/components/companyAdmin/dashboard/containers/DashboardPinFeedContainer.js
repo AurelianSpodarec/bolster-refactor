@@ -6,11 +6,11 @@ import DashboardPinFeed from '../presentational/DashboardPinFeed';
 
 class DashboardPinFeedContainer extends Component {
     render() {
-        const { pins, isFetching, error } = this.props;
+        const { isFetching, error } = this.props;
 
         return (
             <DashboardPinFeed
-                pins={pins}
+                pins={this._sortPins()}
                 isFetching={isFetching}
                 error={error}
             />
@@ -22,14 +22,6 @@ class DashboardPinFeedContainer extends Component {
         fetchPinFeed();
 
         this.interval = setInterval(() => fetchPinFeed(lastUpdatedOn), 10000);
-    };
-
-    componentDidUpdate = prevProps => {
-        const { pins } = this.props;
-
-        if (prevProps.pins.length < 1 && !!pins.length) {
-            console.warn('you did it');
-        }
     };
 
     componentWillUnmount = () => {
