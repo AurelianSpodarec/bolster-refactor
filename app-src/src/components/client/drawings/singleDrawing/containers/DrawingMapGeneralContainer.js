@@ -117,8 +117,13 @@ class DrawingMapGeneralContainer extends Component {
             postFilters,
             updateReportFilter,
             match,
-            fetchSingleDrawing
+            fetchSingleDrawing,
+            pinsFromAPI = [],
+            handleChange
         } = this.props;
+
+        const pinIDs = pinsFromAPI.map(({ id }) => id);
+        handleChange('pinIDs', pinIDs);
 
         updateReportFilter('drawingID', match.params.id).then(postFilters);
         if (drawing.isFloorplanUpdating) {
@@ -232,8 +237,9 @@ class DrawingMapGeneralContainer extends Component {
 
     _getFilteredPins = () => {
         const { pins, filters, furtherFiltrationOption } = this.props;
-
         // ? Displays all pins if in rectangle mode, and only the selected pins otherwise.
+        console.warn(pins);
+
         if (+furtherFiltrationOption === +PIN_SELECTOR) {
             const {
                 fromDateInclusive,
@@ -265,7 +271,8 @@ class DrawingMapGeneralContainer extends Component {
                 return true;
             });
         }
-        return pins.filter(({ id }) => filters.pinIDs.includes(id));
+        // console.log(pins.filter(({ id }) => filters.pinIDs.includes(id)));
+        return pins.filter(({ id }) => !filters.pinIDs.includes(id));
     };
 
     setMode = mode => {

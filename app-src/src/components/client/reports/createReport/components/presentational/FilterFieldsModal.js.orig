@@ -24,12 +24,38 @@ const FilterFieldsModal = ({
     return (
         <BlockContainer noWhiteBackground={true}>
             <BlockHeading title="Add Filter" />
+<<<<<<< HEAD
+            {/* ? multiple fields in modal? */}
+            {/* multi checkboxes for field name */}
+            <div className="size-lg-12">
+                <Field name="Question types" sizeClasses="size-lg-6" required>
+                    <Select
+                        classes="full-width"
+                        options={questionTypeOptions}
+                        value={showFreeForm ? 1 : 2}
+                        onChange={toggleShowFreeForm}
+                        omitPlaceholder
+                    />
+                </Field>
                 <Field
                     name="Question(s)"
                     classes="no-caps"
                     sizeClasses="size-lg-6"
                     required
                 >
+                    <MultiSelect
+                        search
+                        options={questionOptions}
+                        value={selectedQuestions}
+                        name={'selectedQuestions'}
+                        onChange={handleChange}
+                        required
+                    />
+                </Field>
+            </div>
+            <div className="size-lg-12">
+=======
+            <Field name="Questions" sizeClasses="size-lg-6" required>
                 <MultiSelect
                     search
                     options={questionOptions}
@@ -40,6 +66,7 @@ const FilterFieldsModal = ({
                 />
             </Field>
             <div className="size-lg-6">
+>>>>>>> 22ab556fcd620f1c26a7347620f65da7ec22570f
                 {showFreeForm ? (
                     <>
                         <Field
@@ -61,9 +88,16 @@ const FilterFieldsModal = ({
                         </BlockButtonWrapper> */}
                     </>
                 ) : (
-                    <Field name="Valid values" sizeClasses="size-lg-12">
+<<<<<<< HEAD
+                    <Field
                         name="Answer(s)"
+                        sizeClasses="size-lg-12"
                         classes="fields-inside no-caps"
+                        styles={{ minHeight: '200px' }}
+                    >
+=======
+                    <Field name="Valid values" sizeClasses="size-lg-12">
+>>>>>>> 22ab556fcd620f1c26a7347620f65da7ec22570f
                         <MultiSelect
                             search
                             name="optionOrientedVals"
@@ -97,7 +131,16 @@ const FilterFieldsModal = ({
 
     function renderOption(value, i) {
         return (
+<<<<<<< HEAD
             <Field key={i} classes="option-item" sizeClasses="size-lg-6">
+=======
+            <Field
+                name={`Option ${i + 1}`}
+                key={i}
+                classes="option-item"
+                sizeClasses="size-lg-12"
+            >
+>>>>>>> 22ab556fcd620f1c26a7347620f65da7ec22570f
                 {freeFormValues.length > 1 && (
                     <button
                         className="button red icon-only delete-question"

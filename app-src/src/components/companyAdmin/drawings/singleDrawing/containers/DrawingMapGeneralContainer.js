@@ -156,8 +156,7 @@ class DrawingMapGeneralContainer extends Component {
         toDateInclusive,
         fieldErrors,
         rectangles: prevRectangles,
-        furtherFiltrationOption: prevOption,
-        isFetchingReports: prevIsFetchingReports
+        furtherFiltrationOption: prevOption
     }) => {
         const {
             drawing = {},
@@ -168,8 +167,7 @@ class DrawingMapGeneralContainer extends Component {
             rectangles,
             postFilters,
             furtherFiltrationOption,
-            removeAllRectangles,
-            isFetchingReports
+            removeAllRectangles
         } = this.props;
         // re-fetch drawing every 5 seconds until the updated floorplan is retrieved
         if (postSuccess && !prevSuccess) fetchSingleDrawing(drawing.id);
@@ -190,12 +188,7 @@ class DrawingMapGeneralContainer extends Component {
             clearInterval(this._floorplanInterval);
         }
 
-        if (
-            // prevIsFetchingReports &&
-            // !isFetchingReports &&
-            // !isEmpty(pinsFromAPI)
-            pinsFromAPI.length !== prevPinsFromAPI.length
-        ) {
+        if (pinsFromAPI.length !== prevPinsFromAPI.length) {
             const pinIDs = pinsFromAPI.map(({ id }) => id);
             handleChange('pinIDs', pinIDs);
         }

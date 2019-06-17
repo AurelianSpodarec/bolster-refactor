@@ -22,8 +22,8 @@ export const MENU_TABS = {
 };
 
 export const APPROVED_COMPANIES_TABS = {
-    LIST: 'List',
-    MAP: 'Map'
+    MAP: 'Map',
+    LIST: 'List'
 };
 
 export const DASHBOARD_TABS = {

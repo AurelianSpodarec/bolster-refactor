@@ -70,12 +70,18 @@ class FurtherFiltrationContainer extends Component {
                 />
                 {+furtherFiltrationOption === +INDIVIDUAL_PINS ? (
                     <ClientPinSelectorContainer blockName="pinSelector" />
-                ) : +furtherFiltrationOption === +PIN_SELECTOR ? (
+<<<<<<< HEAD
+                ) : furtherFiltrationOption === PIN_SELECTOR ? (
                     <MapPinSelectorContainer
                         handleClick={this._scrollToMap}
                         blockName="pinSelector"
                     />
+                ) : furtherFiltrationOption === FILTERS ? (
+=======
+                ) : +furtherFiltrationOption === +PIN_SELECTOR ? (
+                    <MapPinSelectorContainer blockName="pinSelector" />
                 ) : +furtherFiltrationOption === +FILTERS ? (
+>>>>>>> 22ab556fcd620f1c26a7347620f65da7ec22570f
                     this.state.addFilter ? (
                         <FilterFieldsModalContainer
                             id={this.state.filterToEditID}
@@ -138,15 +144,16 @@ class FurtherFiltrationContainer extends Component {
         }
     };
 
+<<<<<<< HEAD
     _scrollToMap = () => {
         window.scrollTo({ top: '300', behavior: 'smooth' });
-    };
-
+=======
     toggleAddFilter = () => {
         this.setState({
             addFilter: !this.state.addFilter,
             filterToEditID: null
         });
+>>>>>>> 22ab556fcd620f1c26a7347620f65da7ec22570f
     };
 
     addCustomField = () => {
@@ -166,12 +173,17 @@ class FurtherFiltrationContainer extends Component {
             filterToEditID: null
         });
     };
+<<<<<<< HEAD
+    removeCustomField = id => this.props.removeFilterQuestion(id);
+=======
+
     removeCustomField = async id => {
         await this.props.removeFilterQuestion(id);
 
         const { postFilters } = this.props;
         postFilters();
     };
+>>>>>>> 22ab556fcd620f1c26a7347620f65da7ec22570f
 
     _getQuestionsOptions = () => {
         const { customQuestions } = this.props;

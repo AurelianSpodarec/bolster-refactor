@@ -13,7 +13,7 @@ const ApprovedCompaniesFilters = ({
     serviceIDs
 }) => (
     <>
-        <form className="table-search size-lg-12">
+        <form className="table-search larger-search size-lg-12">
             <Search
                 value={name}
                 name="name"

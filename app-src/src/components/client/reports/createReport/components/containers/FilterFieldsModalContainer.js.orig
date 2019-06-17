@@ -23,7 +23,12 @@ class FilterFieldsModalContainer extends Component {
         optionOrientedVals: []
     };
     render() {
+<<<<<<< HEAD
+        const { hideModal, toggleAddFilter } = this.props;
+
+=======
         const { toggleAddFilter } = this.props;
+>>>>>>> 22ab556fcd620f1c26a7347620f65da7ec22570f
         const {
             freeFormValues,
             optionOrientedVals,
@@ -47,6 +52,7 @@ class FilterFieldsModalContainer extends Component {
                 removeFreeFormVal={this.removeFreeFormVal}
                 toggleAddFilter={toggleAddFilter}
                 handleSubmit={this.handleSubmit}
+                toggleAddFilter={toggleAddFilter}
             />
         );
     }
@@ -124,10 +130,15 @@ class FilterFieldsModalContainer extends Component {
         const {
             field,
             updateFilterQuestionField,
+<<<<<<< HEAD
+            toggleAddFilter,
+            removeFilterQuestion
+=======
             removeFilterQuestion,
             toggleAddFilter,
             customQuestions,
             postFilters
+>>>>>>> 22ab556fcd620f1c26a7347620f65da7ec22570f
         } = this.props;
 
         const newID = uuid();
@@ -153,8 +164,14 @@ class FilterFieldsModalContainer extends Component {
             selectedValues: showFreeForm ? [] : optionOrientedVals
         };
 
+<<<<<<< HEAD
+        updateFilterQuestionField(id, filterItem);
+        toggleAddFilter();
+    };
+=======
         await updateFilterQuestionField(id, filterItem);
         toggleAddFilter();
+>>>>>>> 22ab556fcd620f1c26a7347620f65da7ec22570f
 
         postFilters();
     };
@@ -203,6 +220,10 @@ const mapStateToProps = (
     { id }
 ) => ({
     field: fields[id],
+<<<<<<< HEAD
+    questionsObj: convertArrToObj(questionOptions) || {},
+=======
+>>>>>>> 22ab556fcd620f1c26a7347620f65da7ec22570f
     questionOptions: convertArrToObj(questionOptions),
     customQuestions: questions
 });
