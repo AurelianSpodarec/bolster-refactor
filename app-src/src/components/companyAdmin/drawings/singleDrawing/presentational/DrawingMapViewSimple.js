@@ -62,7 +62,7 @@ const DrawingMapViewSimple = ({
     return (
         <>
             {drawing.tilesetS3Key && !updating ? (
-                <>
+                <div className="size-lg-12" id="map">
                     <BlockHeading>
                         {shouldShowPinSelectorOptions ? (
                             <PinSelectorOptions
@@ -154,7 +154,7 @@ const DrawingMapViewSimple = ({
                             />
                         ))}
                     </Map>
-                </>
+                </div>
             ) : (
                 <Loading
                     message={

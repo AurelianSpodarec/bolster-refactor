@@ -30,9 +30,14 @@ import resetFilterOptions from 'actions/client/reports/create/sync/clientResetFi
 import withUpdateOnChange from '../hocs/withUpdateOnChange';
 import MapPinSelectorContainer from 'components/shared/pinSelector/container/MapPinSelectorContainer';
 import updateFurtherFiltrationOption from 'actions/client/reports/create/sync/clientUpdateFurtherFiltrationOption';
+import FilterFieldsModalContainer from './FilterFieldsModalContainer';
 const { PIN_SELECTOR, INDIVIDUAL_PINS, FILTERS } = FURTHER_FILTRATION_OPTIONS;
 
 class FurtherFiltrationContainer extends Component {
+    state = {
+        addFilter: true,
+        filterToEditID: null
+    };
     render() {
         const {
             fields,
@@ -66,33 +71,46 @@ class FurtherFiltrationContainer extends Component {
                 {furtherFiltrationOption === INDIVIDUAL_PINS ? (
                     <ClientPinSelectorContainer blockName="pinSelector" />
                 ) : furtherFiltrationOption === PIN_SELECTOR ? (
-                    <MapPinSelectorContainer blockName="pinSelector" />
+                    <MapPinSelectorContainer
+                        handleClick={this._scrollToMap}
+                        blockName="pinSelector"
+                    />
                 ) : furtherFiltrationOption === FILTERS ? (
-                    <div className="custom-filters-block">
-                        <div className="size-lg-12">
-                            {fields.map(field => (
-                                <FilterField
-                                    key={field.id}
-                                    field={field}
-                                    questions={this._getQuestionsOptions()}
-                                    handleShowCustomFieldModal={
-                                        this.handleShowCustomFieldModal
-                                    }
-                                    removeCustomField={this.removeCustomField}
-                                />
-                            ))}
-                        </div>
+                    this.state.addFilter ? (
+                        <FilterFieldsModalContainer
+                            id={this.state.filterToEditID}
+                            toggleAddFilter={this.toggleAddFilter}
+                        />
+                    ) : (
+                        <div className="custom-filters-block">
+                            <div className="size-lg-12">
+                                {fields.map(field => (
+                                    <FilterField
+                                        key={field.id}
+                                        field={field}
+                                        questions={this._getQuestionsOptions()}
+                                        handleShowCustomFieldModal={
+                                            this.handleShowCustomFieldModal
+                                        }
+                                        removeCustomField={
+                                            this.removeCustomField
+                                        }
+                                    />
+                                ))}
+                            </div>
 
-                        <BlockButtonWrapper>
-                            <button
-                                onClick={this.addCustomField}
-                                type="button"
-                                className="button green"
-                            >
-                                <i className="fa fa-plus fa-fw" /> Add filter
-                            </button>
-                        </BlockButtonWrapper>
-                    </div>
+                            <BlockButtonWrapper>
+                                <button
+                                    onClick={this.toggleAddFilter}
+                                    type="button"
+                                    className="button green"
+                                >
+                                    <i className="fa fa-plus fa-fw" /> Add
+                                    filter
+                                </button>
+                            </BlockButtonWrapper>
+                        </div>
+                    )
                 ) : null}
             </BlockContainer>
         );
@@ -120,16 +138,27 @@ class FurtherFiltrationContainer extends Component {
         }
     };
 
+    _scrollToMap = () => {
+        window.scrollTo({ top: '300', behavior: 'smooth' });
+    };
+
     addCustomField = () => {
         const { showModal, customQuestions } = this.props;
         showModal(CLIENT_FILTER_FIELDS, { customQuestions });
     };
 
     handleShowCustomFieldModal = id => {
-        const { showModal } = this.props;
-        showModal(CLIENT_FILTER_FIELDS, { id });
+        this.setState({
+            addFilter: !this.state.addFilter,
+            filterToEditID: id
+        });
     };
-
+    toggleAddFilter = () => {
+        this.setState({
+            addFilter: !this.state.addFilter,
+            filterToEditID: null
+        });
+    };
     removeCustomField = id => this.props.removeFilterQuestion(id);
 
     _getQuestionsOptions = () => {

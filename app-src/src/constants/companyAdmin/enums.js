@@ -172,7 +172,7 @@ export const VAT_TYPES = {
 export const FURTHER_FILTRATION = {
     1: 'Individual Pins',
     2: 'Pin Selector',
-    3: 'Filters'
+    3: 'Advanced'
 };
 export const FURTHER_FILTRATION_OPTIONS = {
     NONE: 0,

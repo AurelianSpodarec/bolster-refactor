@@ -32,7 +32,7 @@ const { PIN_SELECTOR, INDIVIDUAL_PINS, FILTERS } = FURTHER_FILTRATION_OPTIONS;
 
 class FurtherFiltrationContainer extends Component {
     state = {
-        addFilter: false,
+        addFilter: true,
         filterToEditID: null
     };
     render() {
@@ -66,7 +66,10 @@ class FurtherFiltrationContainer extends Component {
                 {+furtherFiltrationOption === +INDIVIDUAL_PINS ? (
                     <PinSelectorContainer blockName="pinSelector" />
                 ) : +furtherFiltrationOption === +PIN_SELECTOR ? (
-                    <MapPinSelectorContainer blockName="pinSelector" />
+                    <MapPinSelectorContainer
+                        handleClick={this._scrollToMap}
+                        blockName="pinSelector"
+                    />
                 ) : +furtherFiltrationOption === +FILTERS ? (
                     this.state.addFilter ? (
                         <FilterFieldsModalContainer
@@ -128,6 +131,9 @@ class FurtherFiltrationContainer extends Component {
             updateFurtherFiltrationOption(0);
             removeFilterQuestions();
         }
+    };
+    _scrollToMap = () => {
+        window.scrollTo({ top: '300', behavior: 'smooth' });
     };
 
     toggleAddFilter = () => {

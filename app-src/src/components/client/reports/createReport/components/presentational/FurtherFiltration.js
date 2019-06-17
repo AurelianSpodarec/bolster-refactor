@@ -26,7 +26,7 @@ const FurtherFiltration = ({
                 required
             />
         </Field>
-        <Field name="Extra Filters" sizeClasses="size-lg-12">
+        <Field name="Filter Method" sizeClasses="size-lg-12">
             <DropdownContainer
                 placeholder="None"
                 name="filterOption"

@@ -6,11 +6,11 @@ import { isObjEmpty } from 'helpers/generic';
 
 class MapPinSelectorContainer extends Component {
     render() {
-        const { pins, rectangles, excludedPinIDs } = this.props;
+        const { pins, rectangles, excludedPinIDs, handleClick } = this.props;
         const filteredPins = !isObjEmpty(rectangles)
             ? pins.filter(({ id }) => !excludedPinIDs.includes(id))
             : [];
-        return <MapPinSelector pins={filteredPins} />;
+        return <MapPinSelector handleClick={handleClick} pins={filteredPins} />;
     }
 }
 

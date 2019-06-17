@@ -6,6 +6,7 @@ import TextInputContainer from 'components/shared/generic/form/containers/TextIn
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import Select from 'components/shared/generic/form/presentational/Select';
 import MultiSelect from 'components/shared/generic/form/presentational/MultiSelect';
+import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 
 const FilterFieldsModal = ({
     showFreeForm,
@@ -18,13 +19,12 @@ const FilterFieldsModal = ({
     toggleShowFreeForm,
     handleChange,
     handleFreeFormValChange,
-    addFreeFormVal,
     removeFreeFormVal,
     hideModal,
     handleSubmit
 }) => {
     return (
-        <ModalOuterContainer>
+        <BlockContainer noWhiteBackground={true}>
             <BlockHeading title="Add Filter" />
             {/* ? multiple fields in modal? */}
             {/* multi checkboxes for field name */}
@@ -38,7 +38,12 @@ const FilterFieldsModal = ({
                         omitPlaceholder
                     />
                 </Field>
-                <Field name="Questions" sizeClasses="size-lg-6" required>
+                <Field
+                    name="Question(s)"
+                    classes="no-caps"
+                    sizeClasses="size-lg-6"
+                    required
+                >
                     <MultiSelect
                         search
                         options={questionOptions}
@@ -52,10 +57,14 @@ const FilterFieldsModal = ({
             <div className="size-lg-12">
                 {showFreeForm ? (
                     <>
-                        <Field name="Valid values" sizeClasses="size-lg-12">
+                        <Field
+                            name="Answer"
+                            classes="fields-inside"
+                            sizeClasses="size-lg-12"
+                        >
                             {freeFormValues.map(renderOption)}
                         </Field>
-                        <BlockButtonWrapper>
+                        {/* <BlockButtonWrapper>
                             <button
                                 className="button green"
                                 type="button"
@@ -64,12 +73,13 @@ const FilterFieldsModal = ({
                                 <i className="fa fa-plus fa-fw" />
                                 add option
                             </button>
-                        </BlockButtonWrapper>
+                        </BlockButtonWrapper> */}
                     </>
                 ) : (
                     <Field
-                        name="Valid values"
+                        name="Answer(s)"
                         sizeClasses="size-lg-12"
+                        classes="fields-inside no-caps"
                         styles={{ minHeight: '200px' }}
                     >
                         <MultiSelect
@@ -100,17 +110,12 @@ const FilterFieldsModal = ({
                     Cancel
                 </button>
             </BlockButtonWrapper>
-        </ModalOuterContainer>
+        </BlockContainer>
     );
 
     function renderOption(value, i) {
         return (
-            <Field
-                name={`Option ${i + 1}`}
-                key={i}
-                classes="option-item"
-                sizeClasses="size-lg-6"
-            >
+            <Field key={i} classes="option-item" sizeClasses="size-lg-6">
                 {freeFormValues.length > 1 && (
                     <button
                         className="button red icon-only delete-question"

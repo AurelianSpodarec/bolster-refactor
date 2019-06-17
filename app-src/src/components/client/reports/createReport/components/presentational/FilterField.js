@@ -17,11 +17,13 @@ const FilterField = ({
     return (
         <FieldOutput fieldClass="filters">
             <div className="filters-calc">
-                <p className="centered">({joinedQuestions})</p>
-                <div className="centered">
-                    <i className="far fa-equals fa-fw" />
-                </div>
-                <p className="centered">({joinedAnswers})</p>
+                <p className="centered">
+                    <strong>Question(s)</strong>: {joinedQuestions}
+                </p>
+
+                <p className="centered">
+                    <strong>Answer</strong>: {joinedAnswers}
+                </p>
             </div>
             <BlockButtonWrapper sizeClasses="size-lg-5">
                 <button

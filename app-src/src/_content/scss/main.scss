@@ -1245,6 +1245,12 @@ input {
         }
     }
 
+    &.no-caps {
+        .title {
+            text-transform: none;
+        }
+    }
+
     .title {
         float: left;
         width: 100%;
@@ -1586,18 +1592,19 @@ input {
         }
         .filters-calc {
             // justify-self: stretch;
-            display: flex;
-            justify-content: space-between;
+            display: block;
+            width: 100%;
             .centered {
-                text-align: center;
-                &:nth-child(2) {
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    font-size: 3em;
-                    color: $text-grey;
-                    width: 100%;
-                }
+                width: 50%;
+
+                // &:nth-child(2) {
+                //     display: flex;
+                //     align-items: center;
+                //     justify-content: center;
+                //     font-size: 3em;
+                //     color: $text-grey;
+                //     width: 100%;
+                // }
             }
         }
     }
@@ -3224,10 +3231,14 @@ input {
 }
 
 .custom-filters-block {
+    float: left;
+    width: 100%;
+
     .button-block-container {
         padding: 0 25px;
         margin-top: 0;
     }
+
     .item {
         padding-left: 15px;
         padding-right: 15px;

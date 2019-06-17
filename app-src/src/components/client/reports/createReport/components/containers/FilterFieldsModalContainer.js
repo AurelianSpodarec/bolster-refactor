@@ -22,7 +22,7 @@ class FilterFieldsModalContainer extends Component {
         optionOrientedVals: []
     };
     render() {
-        const { hideModal } = this.props;
+        const { hideModal, toggleAddFilter } = this.props;
 
         const {
             showFreeForm,
@@ -48,6 +48,7 @@ class FilterFieldsModalContainer extends Component {
                 removeFreeFormVal={this.removeFreeFormVal}
                 hideModal={hideModal}
                 handleSubmit={this.handleSubmit}
+                toggleAddFilter={toggleAddFilter}
             />
         );
     }
@@ -115,7 +116,7 @@ class FilterFieldsModalContainer extends Component {
         const {
             field,
             updateFilterQuestionField,
-            hideModal,
+            toggleAddFilter,
             removeFilterQuestion
         } = this.props;
 
@@ -131,7 +132,7 @@ class FilterFieldsModalContainer extends Component {
 
         if (!validSelectedQs.length) {
             if (field) removeFilterQuestion(field.id);
-            hideModal();
+            toggleAddFilter();
             return;
         }
 
@@ -143,7 +144,7 @@ class FilterFieldsModalContainer extends Component {
         };
 
         updateFilterQuestionField(id, filterItem);
-        hideModal();
+        toggleAddFilter();
     };
 
     _getFilteredQuestions = () => {
@@ -190,7 +191,7 @@ const mapStateToProps = (
     { id, customQuestions }
 ) => ({
     field: fields[id],
-    questionsObj: convertArrToObj(customQuestions),
+    questionsObj: convertArrToObj(questionOptions) || {},
     questionOptions: convertArrToObj(questionOptions),
     customQuestions: questions
 });
