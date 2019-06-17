@@ -5,6 +5,7 @@ import DrawingDocumentsContainer from '../containers/DrawingDocumentsContainer';
 import DrawingClientAccessContainer from '../containers/DrawingClientAccessContainer';
 import DrawingCompaniesAccessContainer from '../containers/DrawingCompaniesAccessContainer';
 import DrawingOperativesAccessContainer from '../containers/DrawingOperativesAccessContainer';
+import { ACCESS_TYPES_VALUES } from 'constants/companyAdmin/enums';
 
 const GeneralOverview = ({ handleDelete, handleArchive, drawing }) => (
     <>
@@ -31,27 +32,29 @@ const GeneralOverview = ({ handleDelete, handleArchive, drawing }) => (
                 <DrawingOperativesAccessContainer />
             </div>
         </div>
-        <div className="size-lg-12">
-            <div className="content-container size-lg-12">
-                <div className="button-container outside-block">
-                    <button
-                        type="button"
-                        className="button red"
-                        onClick={handleDelete}
-                    >
-                        <i className="far fa-trash-alt" /> Delete drawing
-                    </button>
-                    <button
-                        className="button blue"
-                        onClick={handleArchive}
-                        type="button"
-                    >
-                        <i className="fa fa-archive" />
-                        {drawing.isArchived ? 'Un-Archive' : 'Archive'}
-                    </button>
+        {drawing.accessType === ACCESS_TYPES_VALUES.OWNER && (
+            <div className="size-lg-12">
+                <div className="content-container size-lg-12">
+                    <div className="button-container outside-block">
+                        <button
+                            type="button"
+                            className="button red"
+                            onClick={handleDelete}
+                        >
+                            <i className="far fa-trash-alt" /> Delete drawing
+                        </button>
+                        <button
+                            className="button blue"
+                            onClick={handleArchive}
+                            type="button"
+                        >
+                            <i className="fa fa-archive" />
+                            {drawing.isArchived ? 'Un-Archive' : 'Archive'}
+                        </button>
+                    </div>
                 </div>
             </div>
-        </div>
+        )}
     </>
 );
 

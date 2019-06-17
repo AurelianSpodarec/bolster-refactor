@@ -7,11 +7,12 @@ import DocumentsTable from 'components/shared/documents/presentational/Documents
 
 class FloorDocumentsTableContainer extends Component {
     render() {
-        const { error, isFetching } = this.props;
+        const { error, isFetching, parent } = this.props;
 
         return (
             <BlockContainer error={error}>
                 <DocumentsTable
+                    accessType={parent.accessType}
                     documents={this._getFilteredDocuments()}
                     isFetching={isFetching}
                 />

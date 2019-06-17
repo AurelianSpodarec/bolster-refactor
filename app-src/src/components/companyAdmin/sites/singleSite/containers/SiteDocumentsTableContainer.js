@@ -7,11 +7,12 @@ import BlockContainer from 'components/shared/generic/block/containers/BlockCont
 
 class SiteDocumentsTableContainer extends Component {
     render() {
-        const { error, isFetching } = this.props;
+        const { error, isFetching, parent } = this.props;
 
         return (
             <BlockContainer error={error}>
                 <DocumentsTable
+                    accessType={parent.accessType}
                     documents={this._getFilteredDocuments()}
                     isFetching={isFetching}
                 />
