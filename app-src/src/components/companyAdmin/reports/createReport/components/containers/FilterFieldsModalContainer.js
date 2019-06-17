@@ -22,7 +22,7 @@ class FilterFieldsModalContainer extends Component {
         optionOrientedVals: []
     };
     render() {
-        const { hideModal, customQuestions } = this.props;
+        const { hideModal } = this.props;
         const {
             showFreeForm,
             freeFormValues,

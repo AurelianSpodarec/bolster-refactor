@@ -60,7 +60,7 @@ class DashboardStatsContainer extends Component {
                 data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
             },
             {
-                label: 'No action required',
+                label: 'No action',
                 borderColor: 'black',
                 backgroundColor: 'yellow',
                 stack: 'pins',

@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import DrawingListItem from '../presentational/DrawingListItem';
-import { ACCESS_TYPES } from 'constants/companyAdmin/enums';
 import reorderDrawing from 'actions/companyAdmin/drawings/sync/reorderDrawing';
 import postDrawingsSort from 'actions/companyAdmin/drawings/async/postDrawingsSort';
+import { formatPermissions } from 'components/companyAdmin/sites/allSites/containers/SitesListItemContainer';
 
 const DrawingListItemContainer = ({
     index,
@@ -19,17 +19,7 @@ const DrawingListItemContainer = ({
         index={index}
         id={id}
         drawing={drawing}
-        permissions={
-            (!permissions && ACCESS_TYPES[accessType]) ||
-            permissions
-                .map(
-                    permission =>
-                        `${permission.companyName} (${
-                            ACCESS_TYPES[permission.accessType]
-                        })`
-                )
-                .join(', ')
-        }
+        permissions={formatPermissions(permissions, accessType)}
         onMove={reorderDrawing}
         onDrop={() => postDrawingsSort(drawings)}
     />

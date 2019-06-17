@@ -3273,6 +3273,14 @@ input {
     }
 }
 
+.pin-feed-wrapper {
+    float: left;
+    width: 100%;
+    max-height: 386px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
 //multi multi dropdown
 .multi-multi-dropdown {
     .selected-box {
