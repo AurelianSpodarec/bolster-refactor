@@ -2,7 +2,10 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import toggleSiteExpanded from 'actions/shared/generic/tables/sync/toggleSiteExpanded';
-import { ACCESS_TYPES } from 'constants/companyAdmin/enums';
+import {
+    ACCESS_TYPES,
+    ACCESS_TYPES_VALUES
+} from 'constants/companyAdmin/enums';
 
 import SitesListItem from '../presentational/SitesListItem';
 import reorderSite from 'actions/companyAdmin/sites/sync/reorderSite';
@@ -29,17 +32,7 @@ const SitesListItemContainer = ({
             isExpanded={expandedSiteIds.includes(site.id)}
             colCount={colCount}
             toggleExpanded={() => toggleSiteExpanded(site.id)}
-            permissions={
-                (!permissions && ACCESS_TYPES[accessType]) ||
-                permissions
-                    .map(
-                        permission =>
-                            `${permission.companyName} (${
-                                ACCESS_TYPES[permission.accessType]
-                            })`
-                    )
-                    .join(', ')
-            }
+            permissions={formatPermissions(permissions, accessType)}
         />
     );
 };
@@ -62,3 +55,13 @@ export default connect(
     mapStateToProps,
     mapDispatchToProps
 )(SitesListItemContainer);
+
+export function formatPermissions(permissions, accessType) {
+    if (!permissions && ACCESS_TYPES[accessType])
+        return ACCESS_TYPES[accessType];
+
+    return permissions
+        .filter(p => p.accessType !== ACCESS_TYPES_VALUES.READ_ONLY)
+        .map(p => `${p.companyName} (${ACCESS_TYPES[p.accessType]})`)
+        .join(', ');
+}
