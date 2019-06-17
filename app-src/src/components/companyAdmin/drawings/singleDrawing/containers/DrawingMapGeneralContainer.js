@@ -5,13 +5,11 @@ import moment from 'moment';
 
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import updatePinCoordinates from 'actions/companyAdmin/drawings/sync/updatePinCoordinates';
-import DrawingMapFiltersAdvanced from '../presentational/DrawingMapFiltersAdvanced';
 import DrawingMapViewSimple from '../presentational/DrawingMapViewSimple';
 import DrawingInspectionLogContainer from './DrawingInspectionLogContainer';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import { convertArrToObj, convertEnumToDropdownOptions } from 'helpers/generic';
+import { convertArrToObj } from 'helpers/generic';
 import {
-    PIN_STATUS_TYPES,
     COMPANY_USER_ROLE_TYPES as USER_ROLE,
     FLOORPLAN_STATE_MESSAGES
 } from 'constants/companyAdmin/enums';
@@ -23,6 +21,7 @@ import withUpdateOnChange from 'components/companyAdmin/reports/createReport/com
 import DrawingDetailsContainer from './DrawingDetailsContainer';
 import FurtherFiltrationContainer from 'components/companyAdmin/reports/createReport/components/containers/FurtherFiltrationContainer';
 import OutputSettingsContainer from 'components/companyAdmin/reports/createReport/components/containers/OutputSettingsContainer';
+import BasicFiltersContainer from 'components/companyAdmin/reports/createReport/components/containers/BasicFiltersContainer';
 
 class DrawingMapGeneralContainer extends Component {
     state = {
@@ -43,52 +42,17 @@ class DrawingMapGeneralContainer extends Component {
             centerLat,
             centerLng
         } = this.state;
-        const {
-            filters: {
-                serviceID,
-                status,
-                fromDateInclusive,
-                toDateInclusive,
-                companyUserIDs
-            },
-            customFilters: { operatives },
-            error,
-            pins,
-            drawing,
-            fieldErrors
-        } = this.props;
+        const { error, drawing } = this.props;
         const position = [centerLat, centerLng];
         const addPinPosition = [addPinLat, addPinLng];
 
-        const serviceOptions = this._getServicesOptions();
-        const statusOptions = convertEnumToDropdownOptions(PIN_STATUS_TYPES);
-
         const updateMessage =
             FLOORPLAN_STATE_MESSAGES[drawing.latestFloorplanState];
-
-        const dateError = fieldErrors['fromDateInclusive']
-            ? 'Start date must not be after end date.'
-            : null;
         return (
             <>
                 <div className="flex-container size-lg-12">
                     <div className="flex-item size-lg-4">
-                        <BlockContainer error={error}>
-                            <DrawingMapFiltersAdvanced
-                                serviceOptions={Object.values(serviceOptions)}
-                                selectedService={serviceOptions[serviceID]}
-                                statusOptions={Object.values(statusOptions)}
-                                selectedStatus={statusOptions[status]}
-                                operativeOptions={operatives}
-                                selectedOperative={companyUserIDs}
-                                fromDateInclusive={fromDateInclusive}
-                                toDateInclusive={toDateInclusive}
-                                pins={pins}
-                                handleChangeFilter={this.handleChangeFilter}
-                                handleDateChange={this.handleDateChange}
-                                dateError={dateError}
-                            />
-                        </BlockContainer>
+                        <BasicFiltersContainer isDrawingPage />
                     </div>
                     <div className="flex-item size-lg-4">
                         <DrawingDetailsContainer />
