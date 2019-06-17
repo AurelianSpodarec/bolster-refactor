@@ -54,7 +54,7 @@ const mapStateToProps = (
         companyAdmin: {
             reportsReducer: {
                 isFetching,
-                customFilters: { pins }
+                customFilters: { pins = [] }
             }
         }
     },
