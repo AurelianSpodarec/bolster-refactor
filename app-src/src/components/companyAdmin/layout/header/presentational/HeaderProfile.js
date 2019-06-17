@@ -50,7 +50,7 @@ const HeaderProfile = ({
             </Link>
             <Link to="/company/subscription" className="item">
                 <i className="far fa-money-check fa-fw fa-fw icon" />
-                <span className="item-text">Subscription & Credits</span>
+                <span className="item-text">Subscription &amp; Credits</span>
 
                 <i className="icon fas fa-chevron-right right" />
             </Link>
