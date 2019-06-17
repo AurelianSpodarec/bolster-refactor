@@ -121,16 +121,6 @@ export default function(ProtectedComponent) {
                 FILTERS
             } = FURTHER_FILTRATION_OPTIONS;
 
-            console.log(furtherFiltrationOption);
-            console.log(furtherFiltrationOption);
-            console.log(furtherFiltrationOption);
-            console.log(furtherFiltrationOption);
-            console.log(furtherFiltrationOption);
-            console.log(furtherFiltrationOption);
-            console.log(furtherFiltrationOption);
-            console.log(furtherFiltrationOption);
-            console.log(furtherFiltrationOption);
-
             switch (+furtherFiltrationOption) {
                 case PIN_SELECTOR:
                 case INDIVIDUAL_PINS: {
