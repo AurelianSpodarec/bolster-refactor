@@ -4,6 +4,7 @@ import { withRouter } from 'react-router-dom';
 import { GENERATION_STATE_VAL } from 'constants/companyAdmin/enums';
 
 import HeaderProfile from '../presentational/HeaderProfile';
+import { logout } from 'actions/shared/auth/sync/logout';
 
 class HeaderProfileContainer extends Component {
     state = {
@@ -61,10 +62,9 @@ class HeaderProfileContainer extends Component {
 
     logout = e => {
         this.handleClick();
-        const { history } = this.props;
+        const { history, logout } = this.props;
         e.preventDefault();
-        localStorage.setItem('token', '');
-
+        logout();
         history.replace('/auth/login');
     };
 }
@@ -94,4 +94,9 @@ const mapStateToProps = ({
     ).filter(item => item.state === GENERATION_STATE_VAL.WAITING).length
 });
 
-export default withRouter(connect(mapStateToProps)(HeaderProfileContainer));
+export default withRouter(
+    connect(
+        mapStateToProps,
+        { logout }
+    )(HeaderProfileContainer)
+);

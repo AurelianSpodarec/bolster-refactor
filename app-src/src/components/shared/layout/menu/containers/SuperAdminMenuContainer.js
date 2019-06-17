@@ -1,14 +1,21 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import SuperAdminMenu from '../presentational/SuperAdminMenu';
+import { logout } from 'actions/shared/auth/sync/logout';
 
-const SuperAdminMenuContainer = ({ history }) => {
-    return <SuperAdminMenu logout={logout} />;
-    function logout(e) {
+let SuperAdminMenuContainer = ({ history, logout }) => {
+    return <SuperAdminMenu logout={handleLogout} />;
+    function handleLogout(e) {
         e.preventDefault();
-        localStorage.setItem('token', '');
+        logout();
         history.replace('/auth/login');
     }
 };
 
-export default withRouter(SuperAdminMenuContainer);
+export default withRouter(
+    connect(
+        null,
+        { logout }
+    )(SuperAdminMenuContainer)
+);
