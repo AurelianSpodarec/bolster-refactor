@@ -117,8 +117,13 @@ class DrawingMapGeneralContainer extends Component {
             postFilters,
             updateReportFilter,
             match,
-            fetchSingleDrawing
+            fetchSingleDrawing,
+            pinsFromAPI = [],
+            handleChange
         } = this.props;
+
+        const pinIDs = pinsFromAPI.map(({ id }) => id);
+        handleChange('pinIDs', pinIDs);
 
         updateReportFilter('drawingID', match.params.id).then(postFilters);
         if (drawing.isFloorplanUpdating) {
