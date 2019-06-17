@@ -15,6 +15,7 @@ class DrawingDocumentsTableContainer extends Component {
                     accessType={parent.accessType}
                     documents={this._getFilteredDocuments()}
                     isFetching={isFetching}
+                    smallList={true}
                 />
             </BlockContainer>
         );

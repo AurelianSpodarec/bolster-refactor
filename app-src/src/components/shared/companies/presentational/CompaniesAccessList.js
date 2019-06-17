@@ -74,5 +74,4 @@ const CompaniesAccessList = ({
             )}
         </React.Fragment>
     ));
-
 export default CompaniesAccessList;

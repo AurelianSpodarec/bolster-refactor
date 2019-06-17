@@ -17,7 +17,7 @@ class CompaniesAccessContainer extends Component {
             hierarchyID,
             isFetching,
             error,
-            smallPod = false,
+            smallList = false,
             accessType
         } = this.props;
 
@@ -28,7 +28,7 @@ class CompaniesAccessContainer extends Component {
                     parentId={hierarchyID}
                     isFetching={isFetching}
                     handleShowModal={this.handleShowModal}
-                    smallPod={smallPod}
+                    smallList={smallList}
                     accessType={accessType}
                 />
             </BlockContainer>

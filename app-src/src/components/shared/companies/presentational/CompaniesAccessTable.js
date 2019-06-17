@@ -13,7 +13,7 @@ const CompaniesAccessTable = ({
     parentId,
     handleShowModal,
     isFetching,
-    smallPod,
+    smallList,
     accessType
 }) => (
     <div className="size-lg-12">
@@ -27,11 +27,13 @@ const CompaniesAccessTable = ({
                 </ButtonContainer>
             )}
         </BlockHeading>
-        <div className="hide-overflow size-lg-12 always-scrollbar">
+        <div
+            className={`size-lg-12 ignore-padding ${
+                smallList && companies.length > 3 ? 'scrollbar-y' : ''
+            }`}
+        >
             <Table
-                headers={
-                    smallPod ? ['Name', 'Actions'] : ['Name', '', 'Actions']
-                }
+                headers={['Name', '', 'Actions']}
                 isFetching={isFetching}
                 noData={!companies.length}
                 noDataMessage="No companies to display"
@@ -43,7 +45,7 @@ const CompaniesAccessTable = ({
                     handleShowModal={handleShowModal}
                     companies={companies}
                     parentId={parentId}
-                    smallPod={smallPod}
+                    smallList={smallList}
                 />
             </Table>
         </div>

@@ -81,7 +81,7 @@ const DrawingMapPin = ({
                 <Tooltip
                     onOpen={() => handleFetchPin(id)}
                     onClose={handleCancelFetchPin}
-                    sticky={true}
+                    sticky={false}
                 >
                     <div>
                         {`Pin code: ${pinCode}`} <br />

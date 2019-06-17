@@ -11,7 +11,8 @@ const ClientsTable = ({
     clients,
     isFetching,
     error,
-    handleDeleteClientModal
+    handleDeleteClientModal,
+    smallList = false
 }) => (
     <div className="size-lg-12">
         <BlockHeading title="Invite Client">
@@ -22,7 +23,11 @@ const ClientsTable = ({
                 <i className="fa fa-plus" /> Invite
             </ButtonContainer>
         </BlockHeading>
-        <div className="hide-overflow size-lg-12 always-scrollbar">
+        <div
+            className={`size-lg-12 ignore-padding ${
+                smallList && clients.length > 3 ? 'scrollbar-y' : ''
+            }`}
+        >
             <Table
                 headers={['Name', 'Actions']}
                 isFetching={isFetching}

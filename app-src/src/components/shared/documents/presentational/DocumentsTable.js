@@ -12,7 +12,8 @@ const DocumentsTable = ({
     documents,
     isFetching,
     clientControls = false,
-    accessType
+    accessType,
+    smallList = false
 }) => {
     return (
         <div className="size-lg-12">
@@ -26,7 +27,11 @@ const DocumentsTable = ({
                     </ButtonContainer>
                 )}
             </BlockHeading>
-            <div className="hide-overflow size-lg-12 always-scrollbar">
+            <div
+                className={`size-lg-12 ignore-padding ${
+                    smallList && documents.length > 3 ? 'scrollbar-y' : ''
+                }`}
+            >
                 <Table
                     headers={['Name', 'Actions']}
                     isFetching={isFetching}
