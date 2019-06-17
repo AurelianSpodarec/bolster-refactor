@@ -44,7 +44,11 @@ class DrawingMapGeneralContainer extends Component {
             statusOptions
         } = this.state;
 
-        const { error, pins, drawing = {} } = this.props;
+        const { error, pins, drawing = {}, fieldErrors } = this.props;
+
+        const dateError = fieldErrors['startDateSelected']
+            ? 'Start date must not be after end date.'
+            : null;
 
         return (
             <>
@@ -69,6 +73,7 @@ class DrawingMapGeneralContainer extends Component {
                                 pins={pins}
                                 handleChange={this.handleChange}
                                 handleDateChange={this.handleDateChange}
+                                dateError={dateError}
                             />
                         </BlockContainer>
                     </div>
@@ -205,6 +210,9 @@ const mapStateToProps = (
             servicesReducer: { services, isFetching: fetchingServices },
             // drawingOperativesReducer: { users, isFetching: fetchingUsers },
             drawingsReducer: { drawings }
+        },
+        shared: {
+            fieldErrorsReducer: { fieldErrors }
         }
     },
     { match }
@@ -214,6 +222,7 @@ const mapStateToProps = (
     // operatives: Object.values(users),
     services: Object.values(services),
     isFetching: fetchingPins || fetchingServices,
+    fieldErrors,
     error
 });
 

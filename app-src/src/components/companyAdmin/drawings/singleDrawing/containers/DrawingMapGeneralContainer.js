@@ -55,7 +55,8 @@ class DrawingMapGeneralContainer extends Component {
             customFilters: { operatives },
             error,
             pins,
-            drawing
+            drawing,
+            fieldErrors
         } = this.props;
         const position = [centerLat, centerLng];
         const addPinPosition = [addPinLat, addPinLng];
@@ -65,6 +66,10 @@ class DrawingMapGeneralContainer extends Component {
 
         const updateMessage =
             FLOORPLAN_STATE_MESSAGES[drawing.latestFloorplanState];
+
+        const dateError = fieldErrors['fromDateInclusive']
+            ? 'Start date must not be after end date.'
+            : null;
         return (
             <>
                 <div className="flex-container size-lg-12">
@@ -82,6 +87,7 @@ class DrawingMapGeneralContainer extends Component {
                                 pins={pins}
                                 handleChangeFilter={this.handleChangeFilter}
                                 handleDateChange={this.handleDateChange}
+                                dateError={dateError}
                             />
                         </BlockContainer>
                     </div>

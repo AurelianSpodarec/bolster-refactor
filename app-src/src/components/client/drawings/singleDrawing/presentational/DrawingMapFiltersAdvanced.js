@@ -25,6 +25,7 @@ const DrawingMapFiltersAdvanced = ({
     endDateSelected,
     handleChange,
     handleDateChange,
+    dateError,
     pins
 }) => (
     <div className="map-filters size-lg-12">
@@ -128,6 +129,11 @@ const DrawingMapFiltersAdvanced = ({
                             placeholderText="End Date"
                         />
                     </div>
+                    {dateError && (
+                        <p className="error red-text text-accent-4">
+                            {dateError}
+                        </p>
+                    )}
                 </Field>
 
                 {/* <Field name="Operative" sizeClasses="size-lg-6">

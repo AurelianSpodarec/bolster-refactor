@@ -23,7 +23,8 @@ const DrawingMapFiltersAdvanced = ({
     fromDateInclusive,
     toDateInclusive,
     handleChangeFilter,
-    handleDateChange
+    handleDateChange,
+    dateError
     // pins
 }) => (
     <div className="map-filters size-lg-12">
@@ -130,6 +131,13 @@ const DrawingMapFiltersAdvanced = ({
                             placeholderText="End Date"
                         />
                     </div>
+                    {dateError && (
+                        <div className="size-lg-12">
+                            <p className="error red-text text-accent-4">
+                                {dateError}
+                            </p>
+                        </div>
+                    )}
                 </Field>
                 <OperativesFilterContainer sizeClasses="size-lg-12" />
             </Form>
