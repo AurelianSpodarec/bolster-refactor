@@ -61,9 +61,9 @@ const SelectPinScaleModal = ({
                     type="range"
                     value={scale}
                     list="tickmarks"
-                    min={0.5}
-                    max={2}
-                    step={0.5}
+                    min={0.4}
+                    max={1.6}
+                    step={0.1}
                     onChange={handleUpdatePinScale}
                 />
                 <img alt="example pin" src={RedPin} className="pin pin-large" />
