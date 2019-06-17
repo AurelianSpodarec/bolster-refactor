@@ -1326,6 +1326,12 @@ input {
         margin: -5px 0 12.5px;
         color: #666;
     }
+
+    &.fields-inside {
+        .form-field {
+            padding: 0;
+        }
+    }
 }
 
 .checkbox {

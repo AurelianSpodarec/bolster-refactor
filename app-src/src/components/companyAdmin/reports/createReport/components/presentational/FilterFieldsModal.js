@@ -5,6 +5,7 @@ import TextInputContainer from 'components/shared/generic/form/containers/TextIn
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import MultiSelect from 'components/shared/generic/form/presentational/MultiSelect';
 import Block from 'components/shared/generic/block/presentational/Block';
+import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 
 const FilterFieldsModal = ({
     showFreeForm,
@@ -21,7 +22,7 @@ const FilterFieldsModal = ({
     handleSubmit
 }) => {
     return (
-        <Block>
+        <BlockContainer noWhiteBackground={true}>
             <BlockHeading title="Add Filter" />
             <Field name="Questions" sizeClasses="size-lg-6" required>
                 <MultiSelect
@@ -80,7 +81,7 @@ const FilterFieldsModal = ({
                     Cancel
                 </button>
             </BlockButtonWrapper>
-        </Block>
+        </BlockContainer>
     );
 
     function renderOption(value, i) {
