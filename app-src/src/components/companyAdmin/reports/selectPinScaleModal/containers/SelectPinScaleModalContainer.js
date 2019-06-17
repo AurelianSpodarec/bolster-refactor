@@ -6,13 +6,14 @@ import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 
 class SelectPinScaleModalContainer extends Component {
     render() {
-        const { drawing, floorplanPinScale } = this.props;
+        const { drawing, floorplanPinScale, hideModal } = this.props;
         return (
             <SelectPinScaleModal
                 drawing={drawing}
                 scale={floorplanPinScale}
                 handleUpdatePinScale={this.handleUpdatePinScale}
                 handleSubmit={this.handleSubmit}
+                hideModal={hideModal}
             />
         );
     }

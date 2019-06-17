@@ -6,6 +6,7 @@ import RedPin from '_content/images/map-markers/red-pin2x.png';
 import ModalOuterContainer from 'components/shared/generic/modals/containers/ModalOuterContainer';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
+import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 
 const SelectPinScaleModal = ({
     drawing: { tailoredTilesetS3Key },
@@ -60,7 +61,7 @@ const SelectPinScaleModal = ({
                     value={scale}
                     list="tickmarks"
                     min={0.5}
-                    max={3}
+                    max={2}
                     step={0.5}
                     onChange={handleUpdatePinScale}
                 />
@@ -69,8 +70,11 @@ const SelectPinScaleModal = ({
         </div>
 
         <BlockButtonWrapper>
-            <button className="button">Close</button>
+            <button onClick={hideModal} className="button">
+                Close
+            </button>
             <button onClick={handleSubmit} className="button green">
+                <i className="fa fa-file" />
                 Generate Report
             </button>
         </BlockButtonWrapper>
