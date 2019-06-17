@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Map, TileLayer, Marker } from 'react-leaflet';
+import { Map, TileLayer, Marker, Rectangle } from 'react-leaflet';
 import ReactDOMServer from 'react-dom/server';
 import { FILE_STORAGE_URL } from 'config';
 import L from 'leaflet';
@@ -12,6 +12,10 @@ import Loading from 'components/shared/generic/misc/presentational/Loading';
 // import { RAW_S3_STORAGE_URL } from 'config';
 import { EDIT_DRAWING } from 'constants/shared/modalTypes';
 import MapPinContainer from 'components/shared/pins/map/containers/MapPinContainer';
+import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
+import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
+import { RECTANGLE_MODES } from 'constants/companyAdmin/enums';
+const { ADD, DELETE, NONE } = RECTANGLE_MODES;
 // import LoadingIcon from 'components/shared/generic/misc/presentational/LoadingIcon';
 
 const getDataUrl = src => `${FILE_STORAGE_URL}/${src}/{z}/{x}/{y}.jpg`;
@@ -30,7 +34,12 @@ const DrawingMapViewSimple = ({
     history,
     showModal,
     updating,
-    updateMessage
+    updateMessage,
+    shouldShowPinSelectorOptions,
+    setMode,
+    cornerClicked,
+    rectangles,
+    handleDelete
 }) => {
     const newPinIcon = L.divIcon({
         className: '',
@@ -41,44 +50,76 @@ const DrawingMapViewSimple = ({
         iconAnchor: [15, 50],
         popupAnchor: [0, -50]
     });
+    // TODO change icon
+    const cornerClickedIcon = L.divIcon({
+        className: '',
+        html: ReactDOMServer.renderToString(<CustomPin pinColour="red" />),
+        iconSize: [30, 50],
+        iconAnchor: [15, 50],
+        popupAnchor: [0, -50]
+    });
 
     return (
         <>
             {drawing.tilesetS3Key && !updating ? (
                 <>
                     <BlockHeading>
-                        {addMode ? (
-                            <>
-                                <Link
-                                    onClick={handleClearPinCache}
-                                    to={`${drawing.id}/add-pin`}
-                                    className="button green pull-right"
+                        {shouldShowPinSelectorOptions ? (
+                            <BlockButtonWrapper>
+                                <ButtonContainer
+                                    handleClick={() => setMode(ADD)}
                                 >
-                                    <i className="fa fa-check" /> Confirm
-                                    position
-                                </Link>
-                                <button
-                                    className="button red pull-right"
-                                    onClick={toggleAddMode}
+                                    Add Mode
+                                </ButtonContainer>
+                                <ButtonContainer
+                                    handleClick={() => setMode(DELETE)}
+                                >
+                                    Delete Mode
+                                </ButtonContainer>
+                                <ButtonContainer
+                                    handleClick={() => setMode(NONE)}
                                 >
                                     Cancel
+                                </ButtonContainer>
+                            </BlockButtonWrapper>
+                        ) : (
+                            <>
+                                {addMode ? (
+                                    <>
+                                        <Link
+                                            onClick={handleClearPinCache}
+                                            to={`${drawing.id}/add-pin`}
+                                            className="button green pull-right"
+                                        >
+                                            <i className="fa fa-check" />{' '}
+                                            Confirm position
+                                        </Link>
+                                        <button
+                                            className="button red pull-right"
+                                            onClick={toggleAddMode}
+                                        >
+                                            Cancel
+                                        </button>
+                                    </>
+                                ) : (
+                                    <button
+                                        className="button green pull-right"
+                                        onClick={toggleAddMode}
+                                    >
+                                        <i className="fa fa-plus" /> Add pin
+                                    </button>
+                                )}
+                                <button
+                                    className="button yellow"
+                                    onClick={() =>
+                                        showModal(EDIT_DRAWING, { drawing })
+                                    }
+                                >
+                                    <i className="far fa-pencil fa-fw" /> Edit
+                                    drawing
                                 </button>
                             </>
-                        ) : (
-                            <button
-                                className="button green pull-right"
-                                onClick={toggleAddMode}
-                            >
-                                <i className="fa fa-plus" /> Add pin
-                            </button>
                         )}
-
-                        <button
-                            className="button yellow"
-                            onClick={() => showModal(EDIT_DRAWING, { drawing })}
-                        >
-                            <i className="far fa-pencil fa-fw" /> Edit drawing
-                        </button>
                     </BlockHeading>
                     <Map
                         center={position}
@@ -101,7 +142,7 @@ const DrawingMapViewSimple = ({
                                 urlStart="company"
                                 key={pin.id}
                                 pin={pin}
-                                withLink={true}
+                                withLink={!shouldShowPinSelectorOptions}
                                 withTooltip={true}
                             />
                         ))}
@@ -111,6 +152,19 @@ const DrawingMapViewSimple = ({
                                 icon={newPinIcon}
                             />
                         )}
+                        {cornerClicked && (
+                            <Marker
+                                position={cornerClicked}
+                                icon={cornerClickedIcon}
+                            />
+                        )}
+                        {rectangles.map(rectangle => (
+                            <Rectangle
+                                key={rectangle.id}
+                                bounds={rectangle.corners}
+                                onClick={() => handleDelete(rectangle.id)}
+                            />
+                        ))}
                     </Map>
                 </>
             ) : (
