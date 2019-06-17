@@ -3,7 +3,6 @@ import moment from 'moment';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
-import DrawingMapFiltersAdvanced from '../presentational/DrawingMapFiltersAdvanced';
 import DrawingMapViewSimple from '../presentational/DrawingMapViewSimple';
 import DrawingInspectionLogContainer from './DrawingInspectionLogContainer';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
@@ -11,6 +10,10 @@ import { convertEnumToDropdownOptions } from 'helpers/generic';
 import { PIN_STATUS_TYPES } from 'constants/companyAdmin/enums';
 import withUpdateOnChange from 'components/client/reports/createReport/components/hocs/withUpdateOnChange';
 import removeFieldError from 'actions/shared/generic/fieldErrors/sync/removeFieldError';
+import BasicFiltersContainer from 'components/client/reports/createReport/components/containers/BasicFiltersContainer';
+import DrawingDetailsContainer from './DrawingDetailsContainer';
+import FurtherFiltrationContainer from 'components/client/reports/createReport/components/containers/FurtherFiltrationContainer';
+import OutputSettingsContainer from 'components/client/reports/createReport/components/containers/OutputSettingsContainer';
 
 class DrawingMapGeneralContainer extends Component {
     state = {
@@ -29,54 +32,20 @@ class DrawingMapGeneralContainer extends Component {
     };
 
     render() {
-        const {
-            serviceSelectedID,
-            statusSelectedID,
-            // operativeSelectedID,
-            fromDateInclusive,
-            toDateInclusive,
-            mapZoom,
-            position,
-            updating,
-            serviceOptions,
-            // operativeOptions,
-            statusOptions
-        } = this.state;
+        const { mapZoom, position, updating } = this.state;
 
-        const { error, pins, drawing = {}, fieldErrors } = this.props;
-
-        const dateError = fieldErrors['fromDateInclusive']
-            ? 'Start date must not be after end date.'
-            : null;
+        const { error, drawing = {} } = this.props;
 
         return (
             <>
                 <div className="flex-container size-lg-12">
-                    <div className="flex-item size-lg-8">
-                        <BlockContainer error={error}>
-                            <DrawingMapFiltersAdvanced
-                                serviceOptions={Object.values(serviceOptions)}
-                                selectedService={
-                                    serviceOptions[serviceSelectedID]
-                                }
-                                statusOptions={Object.values(statusOptions)}
-                                selectedStatus={statusOptions[statusSelectedID]}
-                                // operativeOptions={Object.values(
-                                //     operativeOptions
-                                // )}
-                                // selectedOperative={
-                                //     operativeOptions[operativeSelectedID]
-                                // }
-                                fromDateInclusive={fromDateInclusive}
-                                toDateInclusive={toDateInclusive}
-                                pins={pins}
-                                handleChange={this.handleChange}
-                                handleDateChange={this.handleDateChange}
-                                dateError={dateError}
-                            />
-                        </BlockContainer>
+                    <div className="flex-item size-lg-4">
+                        <BasicFiltersContainer isDrawingPage />
                     </div>
 
+                    <div className="flex-item size-lg-4">
+                        <DrawingDetailsContainer />
+                    </div>
                     <DrawingInspectionLogContainer />
                 </div>
                 <BlockContainer error={error} isEmpty={!drawing}>
@@ -88,6 +57,8 @@ class DrawingMapGeneralContainer extends Component {
                         updating={updating}
                     />
                 </BlockContainer>
+                <FurtherFiltrationContainer />
+                <OutputSettingsContainer />
                 {/* <div className="flex-container size-lg-12">
                     <div className="flex-item small-text-table size-lg-3">
                         <DrawingDocumentsContainer />

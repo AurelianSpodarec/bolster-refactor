@@ -2,14 +2,18 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import showModal from 'actions/shared/generic/modals/sync/showModal';
 import hideModal from 'actions/shared/generic/modals/sync/hideModal';
-import { CLIENT_FILTER_FIELDS } from 'constants/shared/modalTypes';
+import {
+    CLIENT_FILTER_FIELDS,
+    CONFIRM_SUBMIT
+} from 'constants/shared/modalTypes';
 
 import FurtherFiltration from '../presentational/FurtherFiltration';
 import ClientPinSelectorContainer from 'components/shared/pinSelector/container/ClientPinSelectorContainer';
 import updateReportFilter from 'actions/client/reports/create/sync/clientUpdateReportFilter';
 import {
     convertEnumToDropdownOptions,
-    removeDuplicates
+    removeDuplicates,
+    isObjEmpty
 } from 'helpers/generic';
 import addFilterQuestion from 'actions/client/reports/create/sync/clientAddFilterQuestion';
 import removeFilterQuestion from 'actions/client/reports/create/sync/clientRemoveFilterQuestion';
@@ -20,6 +24,7 @@ import removeFilterQuestions from 'actions/client/reports/create/sync/clientRemo
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import FilterField from '../presentational/FilterField';
 import resetFilterOptions from 'actions/client/reports/create/sync/clientResetFilterOptions';
+import withUpdateOnChange from '../hocs/withUpdateOnChange';
 
 class FurtherFiltrationContainer extends Component {
     state = { filterOption: 0 };
@@ -28,7 +33,7 @@ class FurtherFiltrationContainer extends Component {
         const { filterOption } = this.state;
         const {
             fields,
-            filters: { drawingID }
+            filters: { drawingID, reportHistories }
         } = this.props;
         const filtrationOptions = convertEnumToDropdownOptions(
             FURTHER_FILTRATION
@@ -49,10 +54,12 @@ class FurtherFiltrationContainer extends Component {
                     furtherFiltrationOptions={filtrationOptionsArr}
                     selected={selected}
                     handleChange={this.handleChange}
+                    handleNumOfHistoriesChange={this.handleNumOfHistoriesChange}
+                    selectedHistoryNum={reportHistories}
                 />
-                {filterOption === '1' ? (
+                {filterOption === '2' ? (
                     <ClientPinSelectorContainer blockName="pinSelector" />
-                ) : filterOption === '2' ? (
+                ) : filterOption === '3' ? (
                     <div className="custom-filters-block">
                         <div className="size-lg-12">
                             {fields.map(field => (
@@ -110,8 +117,8 @@ class FurtherFiltrationContainer extends Component {
     };
 
     handleShowCustomFieldModal = id => {
-        const { showModal, customQuestions } = this.props;
-        showModal(CLIENT_FILTER_FIELDS, { customQuestions, id });
+        const { showModal } = this.props;
+        showModal(CLIENT_FILTER_FIELDS, { id });
     };
 
     removeCustomField = id => this.props.removeFilterQuestion(id);
@@ -129,18 +136,44 @@ class FurtherFiltrationContainer extends Component {
         return options;
     };
 
-    handleChange = (name, value) => this.setState({ [name]: value });
+    handleChange = (name, value) => {
+        this.setState({ [name]: value });
+    };
+
+    handleNumOfHistoriesChange = (name, value) => {
+        const {
+            handleChange,
+            postFilters,
+            showModal,
+            hideModal,
+            shouldConfirm
+        } = this.props;
+
+        if (shouldConfirm) {
+            const handleSubmit = () => {
+                hideModal();
+                handleChange(name, value).then(postFilters);
+            };
+            const message =
+                'Changing this will reset your advanced filters options, continue?';
+            showModal(CONFIRM_SUBMIT, { handleSubmit, message, hideModal });
+        } else {
+            handleChange(name, value).then(postFilters);
+        }
+    };
 }
 
 const mapStateToProps = ({
     client: {
         reportsReducer: {
-            customFilters: { questions },
+            customFilters: { pins = [], questions = [] },
+            filters: { pinIDs: ids = [] },
             fields,
             filters
         }
     }
 }) => ({
+    shouldConfirm: !isObjEmpty(fields) || pins.length !== ids.length,
     customQuestions: questions || [],
     fields: Object.values(fields),
     filters
@@ -156,7 +189,9 @@ const mapDispatchToProps = {
     resetFilterOptions
 };
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(FurtherFiltrationContainer);
+export default withUpdateOnChange(
+    connect(
+        mapStateToProps,
+        mapDispatchToProps
+    )(FurtherFiltrationContainer)
+);

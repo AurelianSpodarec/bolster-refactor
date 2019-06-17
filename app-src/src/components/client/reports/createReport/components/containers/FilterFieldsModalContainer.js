@@ -53,9 +53,7 @@ class FilterFieldsModalContainer extends Component {
     }
 
     componentDidMount = () => {
-        const { field, id } = this.props;
-        console.log(field);
-        console.log(id);
+        const { field } = this.props;
         // add an option if none exist, makes modal reusable for edit
         if (field) {
             const { selectedQuestions, questionValues, selectedValues } = field;
@@ -185,7 +183,7 @@ const mapStateToProps = (
         client: {
             reportsReducer: {
                 fields,
-                customFilters: { questionOptions = [] }
+                customFilters: { questionOptions = [], questions = [] }
             }
         }
     },
@@ -193,7 +191,8 @@ const mapStateToProps = (
 ) => ({
     field: fields[id],
     questionsObj: convertArrToObj(customQuestions),
-    questionOptions: convertArrToObj(questionOptions)
+    questionOptions: convertArrToObj(questionOptions),
+    customQuestions: questions
 });
 
 const mapDispatchToProps = {
