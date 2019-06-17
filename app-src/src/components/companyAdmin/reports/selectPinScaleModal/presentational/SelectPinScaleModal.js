@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { FILE_STORAGE_URL } from 'config';
+import { RAW_S3_STORAGE_URL } from 'config';
 import RedPin from '_content/images/map-markers/red-pin2x.png';
 
 import ModalOuterContainer from 'components/shared/generic/modals/containers/ModalOuterContainer';
@@ -8,9 +8,10 @@ import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/pr
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 
 const SelectPinScaleModal = ({
-    drawing: { tilesetS3KeyOrig },
+    drawing: { tailoredTilesetS3Key },
     scale,
-    handleUpdatePinScale
+    handleUpdatePinScale,
+    handleSubmit
 }) => (
     <ModalOuterContainer>
         <BlockHeading title="Select Size of Pins" />
@@ -18,7 +19,7 @@ const SelectPinScaleModal = ({
             <img
                 alt="floorplan"
                 style={{ width: '100%' }}
-                src={`${FILE_STORAGE_URL}/${tilesetS3KeyOrig}`}
+                src={`${RAW_S3_STORAGE_URL}/${tailoredTilesetS3Key}`}
             />
             <div className="pins-container">
                 <div style={{ top: '20%', left: '20%' }} className="pin">
@@ -69,7 +70,9 @@ const SelectPinScaleModal = ({
 
         <BlockButtonWrapper>
             <button className="button">Close</button>
-            <button className="button green">Generate Report</button>
+            <button onClick={handleSubmit} className="button green">
+                Generate Report
+            </button>
         </BlockButtonWrapper>
     </ModalOuterContainer>
 );
