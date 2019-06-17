@@ -115,14 +115,9 @@ export default function(ProtectedComponent) {
             let questionFilters = null;
             let selectedPinIDs = null;
 
-            const {
-                INDIVIDUAL_PINS,
-                PIN_SELECTOR,
-                FILTERS
-            } = FURTHER_FILTRATION_OPTIONS;
+            const { INDIVIDUAL_PINS, FILTERS } = FURTHER_FILTRATION_OPTIONS;
 
             switch (+furtherFiltrationOption) {
-                case PIN_SELECTOR:
                 case INDIVIDUAL_PINS: {
                     selectedPinIDs = pinIDs.filter(
                         id => !Object.values(excludedPinIDs).includes(id)

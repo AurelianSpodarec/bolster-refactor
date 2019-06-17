@@ -10,6 +10,7 @@ import ClientApp from '../presentational/ClientApp';
 
 import { MENU_TABS } from 'constants/shared/tabNames';
 import { getSelectedCompanyForClient } from 'helpers/generic';
+import fetchAllSubscriptions from 'actions/companyAdmin/subscriptions/async/fetchAllSubscriptions';
 
 class ClientAppContainer extends Component {
     render() {
@@ -31,6 +32,7 @@ const mapDispatchToProps = dispatch => ({
         dispatch(fetchClientCompanyReports(companyID));
         dispatch(decodeJWT());
         dispatch(clientFetchAllServices());
+        dispatch(fetchAllSubscriptions());
     },
     selectClientMenuTab: () => {
         dispatch(selectMenuTab(MENU_TABS.CLIENT));
