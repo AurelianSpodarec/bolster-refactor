@@ -295,37 +295,37 @@ class DrawingMapGeneralContainer extends Component {
         const { pins, filters, furtherFiltrationOption } = this.props;
 
         // ? Displays all pins if in rectangle mode, and only the selected pins otherwise.
-        if (+furtherFiltrationOption === +PIN_SELECTOR) {
-            const {
-                fromDateInclusive,
-                toDateInclusive,
-                status,
-                serviceID
-            } = filters;
-            return pins.filter(pin => {
-                if (
-                    fromDateInclusive &&
-                    moment(pin.createdOn) <
-                        moment(fromDateInclusive, momentComparisonFormat)
-                ) {
-                    return false;
-                }
-                if (
-                    toDateInclusive &&
-                    moment(pin.createdOn) >
-                        moment(toDateInclusive, momentComparisonFormat)
-                ) {
-                    return false;
-                }
-                if (status && +pin.latestStatus !== +status) {
-                    return false;
-                }
-                if (serviceID && +pin.latestServiceID !== +serviceID) {
-                    return false;
-                }
-                return true;
-            });
-        }
+        // if (+furtherFiltrationOption === +PIN_SELECTOR) {
+        //     const {
+        //         fromDateInclusive,
+        //         toDateInclusive,
+        //         status,
+        //         serviceID
+        //     } = filters;
+        //     return pins.filter(pin => {
+        //         if (
+        //             fromDateInclusive &&
+        //             moment(pin.createdOn) <
+        //                 moment(fromDateInclusive, momentComparisonFormat)
+        //         ) {
+        //             return false;
+        //         }
+        //         if (
+        //             toDateInclusive &&
+        //             moment(pin.createdOn) >
+        //                 moment(toDateInclusive, momentComparisonFormat)
+        //         ) {
+        //             return false;
+        //         }
+        //         if (status && +pin.latestStatus !== +status) {
+        //             return false;
+        //         }
+        //         if (serviceID && +pin.latestServiceID !== +serviceID) {
+        //             return false;
+        //         }
+        //         return true;
+        //     });
+        // }
 
         return pins.filter(({ id }) => filters.pinIDs.includes(id));
     };
