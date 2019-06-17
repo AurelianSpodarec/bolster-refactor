@@ -5,7 +5,6 @@ import uuid from 'uuid/v4';
 
 import updateReportFilter from 'actions/companyAdmin/reports/sync/updateReportFilter';
 
-import FilterMap from '../presentational/FilterMap';
 import addRectangle from 'actions/companyAdmin/reports/sync/addRectangle';
 import removeRectangle from 'actions/companyAdmin/reports/sync/removeRectangle';
 import {
@@ -18,16 +17,14 @@ import fetchPins from 'actions/companyAdmin/pins/async/fetchPins';
 import { momentComparisonFormat } from 'helpers/generic';
 import updateFurtherFiltrationOption from 'actions/companyAdmin/reports/sync/updateFurtherFiltrationOption';
 import removeAllExcludedPins from 'actions/companyAdmin/reports/sync/removeAllExcludedPins';
+import FilterMap from 'components/shared/maps/presentational/FilterMap';
 const { ADD, DELETE, EXCLUDE } = RECTANGLE_MODES;
 const { PIN_SELECTOR } = FURTHER_FILTRATION_OPTIONS;
 
 class FilterMapContainer extends Component {
     state = {
         mode: ADD,
-        // firstCorner sets to [lat, lng]
-        firstCorner: null,
-        firstLat: null,
-        firstLng: null
+        firstCorner: null
     };
 
     render() {

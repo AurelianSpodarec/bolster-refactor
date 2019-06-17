@@ -4,6 +4,7 @@ import MapPin from '../presentational/MapPin';
 
 import fetchSinglePin from 'actions/companyAdmin/pins/async/fetchSinglePin';
 import updateIsPinExcluded from 'actions/companyAdmin/reports/sync/updateIsPinExcluded';
+import clientUpdateIsPinExcluded from 'actions/client/reports/create/sync/clientUpdateIsPinExcluded';
 
 class MapPinContainer extends Component {
     render() {
@@ -16,7 +17,9 @@ class MapPinContainer extends Component {
             urlStart,
             isExcluding,
             updateIsPinExcluded,
-            excludedPinIDs
+            clientUpdateIsPinExcluded,
+            excludedPinIDs,
+            isClient
         } = this.props;
         const { createdByCompanyUserID, latestServiceID } = pin;
         const user = users[createdByCompanyUserID];
@@ -35,7 +38,9 @@ class MapPinContainer extends Component {
                 handleCancelFetchPin={this.handleCancelFetchPin}
                 pinImages={pinImages}
                 isExcluding={isExcluding}
-                updateIsPinExcluded={updateIsPinExcluded}
+                updateIsPinExcluded={
+                    isClient ? clientUpdateIsPinExcluded : updateIsPinExcluded
+                }
                 excludedPinIDs={excludedPinIDs}
             />
         );
@@ -80,25 +85,36 @@ class MapPinContainer extends Component {
     };
 }
 
-const mapStateToProps = ({
-    companyAdmin: {
-        companyUsersReducer: { users },
-        pinsReducer: { isFetching },
-        servicesReducer: { services },
-        pinHistoriesReducer: { histories },
-        pinAnswersReducer: { answers },
-        reportsReducer: { excludedPinIDs }
-    }
-}) => ({
-    isFetching,
-    users,
-    services,
-    historyIDs: Object.keys(histories),
-    answers: Object.values(answers),
-    excludedPinIDs: Object.values(excludedPinIDs)
-});
+const mapStateToProps = (
+    {
+        companyAdmin: {
+            companyUsersReducer: { users },
+            pinsReducer: { isFetching },
+            servicesReducer: { services },
+            pinHistoriesReducer: { histories },
+            pinAnswersReducer: { answers }
+        },
+        companyAdmin,
+        client
+    },
+    { isClient }
+) => {
+    const reducer = isClient ? client : companyAdmin;
+    return {
+        isFetching,
+        users,
+        services,
+        historyIDs: Object.keys(histories),
+        answers: Object.values(answers),
+        excludedPinIDs: Object.values(reducer.reportsReducer.excludedPinIDs)
+    };
+};
 
-const mapDispatchToProps = { fetchSinglePin, updateIsPinExcluded };
+const mapDispatchToProps = {
+    fetchSinglePin,
+    updateIsPinExcluded,
+    clientUpdateIsPinExcluded
+};
 
 export default connect(
     mapStateToProps,

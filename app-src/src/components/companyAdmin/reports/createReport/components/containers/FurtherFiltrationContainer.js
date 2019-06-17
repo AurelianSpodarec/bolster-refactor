@@ -15,7 +15,10 @@ import {
 import addFilterQuestion from 'actions/companyAdmin/reports/sync/addFilterQuestion';
 import removeFilterQuestion from 'actions/companyAdmin/reports/sync/removeFilterQuestion';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
-import { FURTHER_FILTRATION } from 'constants/companyAdmin/enums';
+import {
+    FURTHER_FILTRATION,
+    FURTHER_FILTRATION_OPTIONS
+} from 'constants/companyAdmin/enums';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import removeFilterQuestions from 'actions/companyAdmin/reports/sync/removeFilterQuestions';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
@@ -24,7 +27,7 @@ import resetFilterOptions from 'actions/companyAdmin/reports/sync/resetFilterOpt
 import MapPinSelectorContainer from 'components/shared/pinSelector/container/MapPinSelectorContainer';
 import withUpdateOnChange from '../hocs/withUpdateOnChange';
 import updateFurtherFiltrationOption from 'actions/companyAdmin/reports/sync/updateFurtherFiltrationOption';
-
+const { PIN_SELECTOR, INDIVIDUAL_PINS, FILTERS } = FURTHER_FILTRATION_OPTIONS;
 class FurtherFiltrationContainer extends Component {
     render() {
         const {
@@ -54,11 +57,11 @@ class FurtherFiltrationContainer extends Component {
                     handleNumOfHistoriesChange={this.handleNumOfHistoriesChange}
                     selectedHistoryNum={reportHistories}
                 />
-                {furtherFiltrationOption === '1' ? (
+                {furtherFiltrationOption === INDIVIDUAL_PINS ? (
                     <PinSelectorContainer blockName="pinSelector" />
-                ) : furtherFiltrationOption === '2' ? (
+                ) : furtherFiltrationOption === PIN_SELECTOR ? (
                     <MapPinSelectorContainer blockName="pinSelector" />
-                ) : furtherFiltrationOption === '3' ? (
+                ) : furtherFiltrationOption === FILTERS ? (
                     <div className="custom-filters-block">
                         <div className="size-lg-12">
                             {fields.map(field => (
