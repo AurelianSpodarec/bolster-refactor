@@ -21,6 +21,8 @@ import updateReportFilter from 'actions/companyAdmin/reports/sync/updateReportFi
 import removeFieldError from 'actions/shared/generic/fieldErrors/sync/removeFieldError';
 import withUpdateOnChange from 'components/companyAdmin/reports/createReport/components/hocs/withUpdateOnChange';
 import DrawingDetailsContainer from './DrawingDetailsContainer';
+import FurtherFiltrationContainer from 'components/companyAdmin/reports/createReport/components/containers/FurtherFiltrationContainer';
+import OutputSettingsContainer from 'components/companyAdmin/reports/createReport/components/containers/OutputSettingsContainer';
 
 class DrawingMapGeneralContainer extends Component {
     state = {
@@ -111,6 +113,8 @@ class DrawingMapGeneralContainer extends Component {
                         updateMessage={updateMessage}
                     />
                 </BlockContainer>
+                <FurtherFiltrationContainer />
+                <OutputSettingsContainer />
             </>
         );
     }

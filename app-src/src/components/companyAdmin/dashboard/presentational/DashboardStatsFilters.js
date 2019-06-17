@@ -16,9 +16,9 @@ const DashboardStatsFilters = ({
 }) => (
     <BlockContainer>
         <form className="multi-filters size-lg-12">
-            <div className="flex size-lg-3">
-                <p className="size-lg-4">Selected Service:</p>
-                <div className="flex size-lg-8">
+            <div className="flex item ">
+                <p className="">Selected Service:</p>
+                <div className="flex size-lg-7">
                     <Dropdown
                         placeholder="--select service--"
                         name="serviceID"
@@ -28,9 +28,9 @@ const DashboardStatsFilters = ({
                     />
                 </div>
             </div>
-            <div className="flex size-lg-3">
-                <p className="size-lg-4">Status:</p>
-                <div className="flex size-lg-8">
+            <div className="flex item ">
+                <p className="">Status:</p>
+                <div className="flex size-lg-7">
                     <Dropdown
                         placeholder="--select status--"
                         name="status"
@@ -40,9 +40,9 @@ const DashboardStatsFilters = ({
                     />
                 </div>
             </div>
-            <div className="flex size-lg-3">
-                <p className="size-lg-4">Start Date:</p>
-                <div className="flex size-lg-8">
+            <div className="flex item ">
+                <p className="">Start Date:</p>
+                <div className="flex">
                     <DatePickerPresentational
                         name="startDate"
                         selected={selectedStartDate}
@@ -52,9 +52,9 @@ const DashboardStatsFilters = ({
                     />
                 </div>
             </div>
-            <div className="flex size-lg-3">
-                <p className="size-lg-4">End Date:</p>
-                <div className="flex size-lg-8">
+            <div className="flex item ">
+                <p className="">End Date:</p>
+                <div className="flex">
                     <DatePickerPresentational
                         name="endDate"
                         selected={selectedEndDate}

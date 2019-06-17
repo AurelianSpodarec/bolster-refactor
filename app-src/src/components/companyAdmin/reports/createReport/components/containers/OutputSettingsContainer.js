@@ -6,10 +6,18 @@ import postReport from 'actions/companyAdmin/reports/async/postReport';
 import postCustomFilters from 'actions/companyAdmin/reports/async/postCustomFilters';
 import removeFilterQuestions from 'actions/companyAdmin/reports/sync/removeFilterQuestions';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
-import { SUCCESS_MODAL, ERROR_MODAL } from 'constants/shared/modalTypes';
+import {
+    SUCCESS_MODAL,
+    ERROR_MODAL,
+    CONFIRM_SUBMIT
+} from 'constants/shared/modalTypes';
 
 import showFieldErrors from 'actions/shared/generic/fieldErrors/sync/showFieldErrors';
-import { isEmpty, convertEnumToDropdownOptions } from 'helpers/generic';
+import {
+    isEmpty,
+    convertEnumToDropdownOptions,
+    isObjEmpty
+} from 'helpers/generic';
 import withUpdateOnChange from '../hocs/withUpdateOnChange';
 import { SORT_BY_OPTIONS_TEXT } from 'constants/companyAdmin/enums';
 import updateFilterOption from 'actions/companyAdmin/reports/sync/updateFilterOption';
@@ -25,7 +33,8 @@ class OutputSettingsContainer extends Component {
                 isPDFGeneration,
                 isCSVGeneration,
                 isFloorplanGeneration,
-                includeFloorplan
+                includeFloorplan,
+                reportHistories
             },
             options: { showHidden, sortBy }
         } = this.props;
@@ -36,6 +45,7 @@ class OutputSettingsContainer extends Component {
 
         return (
             <OutputSettings
+                selectedHistoryNum={reportHistories}
                 includePinLocation={includePinLocation}
                 isCSVGeneration={isCSVGeneration}
                 isFloorplanGeneration={isFloorplanGeneration}
@@ -47,6 +57,7 @@ class OutputSettingsContainer extends Component {
                 handleFilterChange={this.handleFilterChange}
                 handleOptionChange={this.handleOptionChange}
                 handleSubmit={this.handleSubmit}
+                handleNumOfHistoriesChange={this.handleNumOfHistoriesChange}
             />
         );
     }
@@ -118,6 +129,28 @@ class OutputSettingsContainer extends Component {
         }
     };
 
+    handleNumOfHistoriesChange = (name, value) => {
+        const {
+            handleChange,
+            postFilters,
+            showModal,
+            hideModal,
+            shouldConfirm
+        } = this.props;
+
+        if (shouldConfirm) {
+            const handleSubmit = () => {
+                hideModal();
+                handleChange(name, value).then(postFilters);
+            };
+            const message =
+                'Changing this will reset your advanced filters options, continue?';
+            showModal(CONFIRM_SUBMIT, { handleSubmit, message, hideModal });
+        } else {
+            handleChange(name, value).then(postFilters);
+        }
+    };
+
     handleFilterChange = (name, value) => {
         this.props.handleChange(name, value);
     };
@@ -141,7 +174,16 @@ class OutputSettingsContainer extends Component {
 
 const mapStateToProps = ({
     companyAdmin: {
-        reportsReducer: { filters, fields, options, postSuccess, error, pinIDs }
+        reportsReducer: {
+            filters,
+            fields,
+            options,
+            postSuccess,
+            error,
+            pinIDs,
+            customFilters: { pins = [] },
+            filters: { pinIDs: ids = [] }
+        }
     },
     shared: {
         fieldErrorsReducer: { fieldErrors }
@@ -153,7 +195,8 @@ const mapStateToProps = ({
     filters,
     options,
     postSuccess,
-    error
+    error,
+    shouldConfirm: !isObjEmpty(fields) || pins.length !== ids.length
 });
 
 const mapDispatchToProps = {

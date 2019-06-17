@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import uuid from 'uuid/v1';
 import showModal from 'actions/shared/generic/modals/sync/showModal';
 import hideModal from 'actions/shared/generic/modals/sync/hideModal';
 import { FILTER_FIELDS } from 'constants/shared/modalTypes';
@@ -21,6 +20,7 @@ import removeFilterQuestions from 'actions/companyAdmin/reports/sync/removeFilte
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import FilterField from '../presentational/FilterField';
 import resetFilterOptions from 'actions/companyAdmin/reports/sync/resetFilterOptions';
+import MapPinSelectorContainer from 'components/shared/pinSelector/container/MapPinSelectorContainer';
 
 class FurtherFiltrationContainer extends Component {
     state = { filterOption: 0 };
@@ -54,6 +54,8 @@ class FurtherFiltrationContainer extends Component {
                 {filterOption === '1' ? (
                     <PinSelectorContainer blockName="pinSelector" />
                 ) : filterOption === '2' ? (
+                    <MapPinSelectorContainer blockName="pinSelector" />
+                ) : filterOption === '3' ? (
                     <div className="custom-filters-block">
                         <div className="size-lg-12">
                             {fields.map(field => (

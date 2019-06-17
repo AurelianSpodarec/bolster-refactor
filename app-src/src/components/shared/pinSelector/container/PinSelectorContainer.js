@@ -213,7 +213,8 @@ class PinSelectorContainer extends Component {
     };
 
     _setPinOptions = () => {
-        const pinOptions = this.props.customFilters.pins.reduce(
+        const { pins = [] } = this.props.customFilters;
+        const pinOptions = pins.reduce(
             (acc, { id: value, pinCode: text, status }) => ({
                 ...acc,
                 [value]: { value, text, status, included: false }

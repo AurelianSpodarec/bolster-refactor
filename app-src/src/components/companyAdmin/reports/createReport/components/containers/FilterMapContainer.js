@@ -1,33 +1,37 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Map, TileLayer } from 'react-leaflet';
 
-import { FILE_STORAGE_URL } from 'config';
 import updateReportFilter from 'actions/companyAdmin/reports/sync/updateReportFilter';
-import MapPin from 'components/shared/pins/map/presentational/MapPin';
-import Block from 'components/shared/generic/block/presentational/Block';
+
+import FilterMap from '../presentational/FilterMap';
 
 class FilterMapContainer extends Component {
+    state = {
+        drawRectangleMode: false,
+        firstLat: null,
+        firstLng: null,
+        secondLat: null,
+        secondLng: null
+    };
     render() {
         const { drawing, pins } = this.props;
         if (!drawing.id) return null;
-        return (
-            <Block>
-                <Map center={[51.505, -0.09]} zoom={3} minZoom={0} maxZoom={5}>
-                    <TileLayer
-                        attribution='&amp;copy <a href="http://app.bolstersystems.com">Bolster Systems Ltd</a>'
-                        url={`${FILE_STORAGE_URL}/${
-                            drawing.tilesetS3Key
-                        }/{z}/{x}/{y}.jpg`}
-                        noWrap={true}
-                    />
-                    {pins.map(pin => (
-                        <MapPin key={pin.id} pin={pin} />
-                    ))}
-                </Map>
-            </Block>
-        );
+        return <FilterMap drawing={drawing} pins={pins} />;
     }
+
+    handleClick = ({ latlng }) => {
+        const { drawRectangleMode, firstLat, firstLng } = this.state;
+        const { lat, lng } = latlng;
+        if (drawRectangleMode) {
+            if (!firstLat && !firstLng) {
+                // draw first corner
+                this.setState({ firstLat: lat, firstLng: lng });
+            } else {
+                // draw second corner
+                this.setState({ secondLat: lat, secondLng: lng });
+            }
+        }
+    };
 }
 
 const mapStateToProps = ({
