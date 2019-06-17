@@ -91,7 +91,7 @@ class BasicFiltersContainer extends Component {
         ) {
             return addFieldError(
                 'fromDateInclusive',
-                'Start date must be before end date.'
+                'Start date must not be after end date.'
             );
         } else {
             return removeFieldError('fromDateInclusive');

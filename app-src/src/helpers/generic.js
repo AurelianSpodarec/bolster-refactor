@@ -173,3 +173,5 @@ export function getCompanyColour(colourCode) {
         return '#E10512';
     }
 }
+
+export const momentComparisonFormat = 'YYYY-MM-DD';

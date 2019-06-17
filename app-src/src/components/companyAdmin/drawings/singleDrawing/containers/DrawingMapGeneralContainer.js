@@ -9,7 +9,11 @@ import DrawingMapFiltersAdvanced from '../presentational/DrawingMapFiltersAdvanc
 import DrawingMapViewSimple from '../presentational/DrawingMapViewSimple';
 import DrawingInspectionLogContainer from './DrawingInspectionLogContainer';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import { convertArrToObj, convertEnumToDropdownOptions } from 'helpers/generic';
+import {
+    convertArrToObj,
+    convertEnumToDropdownOptions,
+    momentComparisonFormat
+} from 'helpers/generic';
 import {
     PIN_STATUS_TYPES,
     COMPANY_USER_ROLE_TYPES as USER_ROLE,
@@ -246,15 +250,18 @@ class DrawingMapGeneralContainer extends Component {
             ) {
                 return false;
             }
+            // * format moment dates to compare date without timestamp
             if (
                 fromDateInclusive &&
-                moment(pin.latestCreatedOn) < moment(fromDateInclusive)
+                moment(pin.latestCreatedOn) <=
+                    moment(fromDateInclusive).format(momentComparisonFormat)
             ) {
                 return false;
             }
             if (
                 toDateInclusive &&
-                moment(pin.latestCreatedOn) > moment(toDateInclusive)
+                moment(pin.latestCreatedOn) >=
+                    moment(toDateInclusive).format(momentComparisonFormat)
             ) {
                 return false;
             }

@@ -7,7 +7,10 @@ import DrawingMapFiltersAdvanced from '../presentational/DrawingMapFiltersAdvanc
 import DrawingMapViewSimple from '../presentational/DrawingMapViewSimple';
 import DrawingInspectionLogContainer from './DrawingInspectionLogContainer';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import { convertEnumToDropdownOptions } from 'helpers/generic';
+import {
+    convertEnumToDropdownOptions,
+    momentComparisonFormat
+} from 'helpers/generic';
 import { PIN_STATUS_TYPES } from 'constants/companyAdmin/enums';
 
 class DrawingMapGeneralContainer extends Component {
@@ -173,15 +176,18 @@ class DrawingMapGeneralContainer extends Component {
             ) {
                 return false;
             }
+            // * format moment dates for comparison to date instead of timestamp - for same day comparison
             if (
                 startDateSelected &&
-                moment(pin.latestCreatedOn) < moment(startDateSelected)
+                moment(pin.latestCreatedOn).format(momentComparisonFormat) <=
+                    moment(startDateSelected)
             ) {
                 return false;
             }
             if (
                 endDateSelected &&
-                moment(pin.latestCreatedOn) > moment(endDateSelected)
+                moment(pin.latestCreatedOn).format(momentComparisonFormat) >=
+                    moment(endDateSelected)
             ) {
                 return false;
             }

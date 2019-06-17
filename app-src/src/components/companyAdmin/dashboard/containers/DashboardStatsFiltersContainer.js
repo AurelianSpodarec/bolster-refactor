@@ -91,14 +91,7 @@ const mapStateToProps = ({
     filters
 });
 
-const mapDispatchToProps = dispatch => ({
-    updateDashboardFilters: (fieldName, searchTerm) => {
-        dispatch(updateDashboardFilters(fieldName, searchTerm));
-    },
-    fetchPinStats: filterBody => {
-        dispatch(fetchPinStats(filterBody));
-    }
-});
+const mapDispatchToProps = { updateDashboardFilters, fetchPinStats };
 
 export default connect(
     mapStateToProps,

@@ -42,7 +42,6 @@ class EditDocumentFormContainer extends Component {
                 handleCancelUpload={this.handleCancelUpload}
                 handleDateChange={this.handleDateChange}
                 handleHide={this.handleHide}
-                validateDatePicker={this.validateDatePicker}
                 backUrl={backUrl}
                 documentID={documentID}
                 filesUploading={filesUploading}
