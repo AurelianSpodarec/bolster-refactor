@@ -4,9 +4,9 @@ import { connect } from 'react-redux';
 import toggleFloorExpanded from 'actions/shared/generic/tables/sync/toggleFloorExpanded';
 
 import FloorListItem from '../presentational/FloorListItem';
-import { ACCESS_TYPES } from 'constants/companyAdmin/enums';
 import reorderFloor from 'actions/companyAdmin/floors/sync/reorderFloor';
 import postFloorsSort from 'actions/companyAdmin/floors/async/postFloorsSort';
+import { formatPermissions } from 'components/companyAdmin/sites/allSites/containers/SitesListItemContainer';
 
 const FloorListItemContainer = ({
     expandedFloorIds,
@@ -28,17 +28,7 @@ const FloorListItemContainer = ({
             isExpanded={isExpanded}
             colCount={colCount}
             toggleExpanded={() => toggleFloorExpanded(floor.id)}
-            permissions={
-                (!permissions && ACCESS_TYPES[accessType]) ||
-                permissions
-                    .map(
-                        permission =>
-                            `${permission.companyName} (${
-                                ACCESS_TYPES[permission.accessType]
-                            })`
-                    )
-                    .join(', ')
-            }
+            permissions={formatPermissions(permissions, accessType)}
             onDrop={() => postFloorsSort(floors)}
             onMove={reorderFloor}
         />
