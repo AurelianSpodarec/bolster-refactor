@@ -270,6 +270,7 @@ class DrawingMapGeneralContainer extends Component {
                 return true;
             });
         }
+
         return pins.filter(({ id }) => filters.pinIDs.includes(id));
     };
 

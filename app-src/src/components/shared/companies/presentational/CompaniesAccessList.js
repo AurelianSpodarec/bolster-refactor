@@ -17,10 +17,7 @@ const CompaniesAccessList = ({
     companies.map(company => (
         <React.Fragment key={company.companyID + parentId}>
             <tr>
-                <td>{company.companyName}</td>
-                <td>
-                    {!!company.allAccess && <i>(access to all services)</i>}
-                </td>
+                <td colSpan={2}>{company.companyName}</td>
                 <td>
                     {company.accessType === COMPANY_USER_ROLE_TYPES.OWNER
                         ? '(Owner)'
@@ -42,15 +39,12 @@ const CompaniesAccessList = ({
                 (service, i) =>
                     !!service && (
                         <tr key={service.serviceID + company.companyID + i}>
-                            <td>
+                            <td colSpan={2}>
+                                {'>'} {service.serviceName}{' '}
                                 {service.state ===
                                     PERMISSION_STATES.PENDING && (
-                                    <i>(Pending)</i>
+                                    <i> (Pending)</i>
                                 )}
-                            </td>
-                            <td>
-                                {service.serviceName}
-                                <i>({ACCESS_TYPES[service.accessType]})</i>
                             </td>
                             <td>
                                 {!service.inherited &&

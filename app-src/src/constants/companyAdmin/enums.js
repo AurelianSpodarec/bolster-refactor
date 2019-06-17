@@ -55,10 +55,10 @@ export const MESSAGE_TYPES = {
 };
 
 export const ACCESS_TYPES = {
-    1: 'Read only',
-    10: 'View only',
-    50: 'Write',
-    100: 'Owner'
+    1: '(Read only)',
+    10: '(View only)',
+    50: '',
+    100: '(Owner)'
 };
 
 export const ACCESS_TYPES_VALUES = {

@@ -62,6 +62,6 @@ export function formatPermissions(permissions, accessType) {
 
     return permissions
         .filter(p => p.accessType !== ACCESS_TYPES_VALUES.READ_ONLY)
-        .map(p => `${p.companyName} (${ACCESS_TYPES[p.accessType]})`)
+        .map(p => `${p.companyName} ${ACCESS_TYPES[p.accessType]}`)
         .join(', ');
 }

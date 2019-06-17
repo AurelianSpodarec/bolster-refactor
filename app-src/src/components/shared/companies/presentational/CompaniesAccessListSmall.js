@@ -51,7 +51,7 @@ const CompaniesAccessListSmall = ({
                                     </i>
                                 )}
                                 {service.serviceName} <br />
-                                <i>({ACCESS_TYPES[service.accessType]})</i>
+                                <i>{ACCESS_TYPES[service.accessType]}</i>
                             </td>
 
                             <td>
