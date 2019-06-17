@@ -21,6 +21,8 @@ const EditProfileForm = ({
 }) => {
     const backURL = location.pathname.includes('admin')
         ? '/admin/profile'
+        : location.pathname.includes('client')
+        ? '/client/profile'
         : '/company/profile';
     return (
         <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
