@@ -13,7 +13,7 @@ class DashboardPieChartContainer extends Component {
                 isFetching={isFetching}
                 error={error}
                 isEmpty={isEmpty(statusStats)}
-                containerClass="size-lg-6"
+                containerClass="flex-row-item size-lg-6"
             >
                 <DashboardPieChart stats={statusStats} />
             </BlockContainer>
