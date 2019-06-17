@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import uuid from 'uuid/v1';
 import showModal from 'actions/shared/generic/modals/sync/showModal';
 import hideModal from 'actions/shared/generic/modals/sync/hideModal';
-import { FILTER_FIELDS } from 'constants/shared/modalTypes';
+import { FILTER_FIELDS, CONFIRM_SUBMIT } from 'constants/shared/modalTypes';
 
 import FurtherFiltration from '../presentational/FurtherFiltration';
 import PinSelectorContainer from 'components/shared/pinSelector/container/PinSelectorContainer';
 import updateReportFilter from 'actions/companyAdmin/reports/sync/updateReportFilter';
 import {
     convertEnumToDropdownOptions,
-    removeDuplicates
+    removeDuplicates,
+    isObjEmpty
 } from 'helpers/generic';
 import addFilterQuestion from 'actions/companyAdmin/reports/sync/addFilterQuestion';
 import removeFilterQuestion from 'actions/companyAdmin/reports/sync/removeFilterQuestion';
@@ -21,6 +21,8 @@ import removeFilterQuestions from 'actions/companyAdmin/reports/sync/removeFilte
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import FilterField from '../presentational/FilterField';
 import resetFilterOptions from 'actions/companyAdmin/reports/sync/resetFilterOptions';
+import MapPinSelectorContainer from 'components/shared/pinSelector/container/MapPinSelectorContainer';
+import withUpdateOnChange from '../hocs/withUpdateOnChange';
 
 class FurtherFiltrationContainer extends Component {
     state = { filterOption: 0 };
@@ -29,7 +31,7 @@ class FurtherFiltrationContainer extends Component {
         const { filterOption } = this.state;
         const {
             fields,
-            filters: { drawingID }
+            filters: { drawingID, reportHistories }
         } = this.props;
         const filtrationOptions = convertEnumToDropdownOptions(
             FURTHER_FILTRATION
@@ -50,10 +52,14 @@ class FurtherFiltrationContainer extends Component {
                     furtherFiltrationOptions={filtrationOptionsArr}
                     selected={selected}
                     handleChange={this.handleChange}
+                    handleNumOfHistoriesChange={this.handleNumOfHistoriesChange}
+                    selectedHistoryNum={reportHistories}
                 />
                 {filterOption === '1' ? (
                     <PinSelectorContainer blockName="pinSelector" />
                 ) : filterOption === '2' ? (
+                    <MapPinSelectorContainer blockName="pinSelector" />
+                ) : filterOption === '3' ? (
                     <div className="custom-filters-block">
                         <div className="size-lg-12">
                             {fields.map(field => (
@@ -131,20 +137,44 @@ class FurtherFiltrationContainer extends Component {
     };
 
     handleChange = (name, value) => this.setState({ [name]: value });
+
+    handleNumOfHistoriesChange = (name, value) => {
+        const {
+            handleChange,
+            postFilters,
+            showModal,
+            hideModal,
+            shouldConfirm
+        } = this.props;
+
+        if (shouldConfirm) {
+            const handleSubmit = () => {
+                hideModal();
+                handleChange(name, value).then(postFilters);
+            };
+            const message =
+                'Changing this will reset your advanced filters options, continue?';
+            showModal(CONFIRM_SUBMIT, { handleSubmit, message, hideModal });
+        } else {
+            handleChange(name, value).then(postFilters);
+        }
+    };
 }
 
 const mapStateToProps = ({
     companyAdmin: {
         reportsReducer: {
-            customFilters: { questions },
+            customFilters: { pins = [], questions = [] },
+            filters: { pinIDs: ids = [] },
             fields,
             filters
         }
     }
 }) => ({
-    customQuestions: questions || [],
+    customQuestions: questions,
     fields: Object.values(fields),
-    filters
+    filters,
+    shouldConfirm: !isObjEmpty(fields) || pins.length !== ids.length
 });
 
 const mapDispatchToProps = {
@@ -157,7 +187,9 @@ const mapDispatchToProps = {
     resetFilterOptions
 };
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(FurtherFiltrationContainer);
+export default withUpdateOnChange(
+    connect(
+        mapStateToProps,
+        mapDispatchToProps
+    )(FurtherFiltrationContainer)
+);

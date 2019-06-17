@@ -165,7 +165,7 @@ function isFetchingReducer(state = false, action) {
     }
 }
 
-function customFiltersReducer(state = { operatives: [] }, action) {
+function customFiltersReducer(state = { operatives: [], pins: [] }, action) {
     switch (action.type) {
         case POST_CUSTOM_FILTERS_SUCCESS:
             return action.payload;

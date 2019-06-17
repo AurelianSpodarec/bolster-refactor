@@ -4,10 +4,18 @@ import moment from 'moment';
 const DrawingDataByOperativeListItem = ({ operative }) => (
     <tr>
         <td>{operative.name}</td>
-        <td>{moment(operative.lastLogin).format('DD-MM-YYYY HH:mm')}</td>
-        <td>{moment(operative.lastSync).format('DD-MM-YYYY HH:mm')}</td>
+        <td>
+            {operative.lastLogin
+                ? moment(operative.lastLogin).format('DD-MM-YYYY HH:mm')
+                : 'Not logged in'}
+        </td>
+        <td>
+            {operative.lastSync
+                ? moment(operative.lastSync).format('DD-MM-YYYY HH:mm')
+                : 'Not synced'}
+        </td>
         <td>{operative.pinsUpdated}</td>
-        <td>Action</td>
+        <td />
     </tr>
 );
 

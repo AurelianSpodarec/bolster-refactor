@@ -26,9 +26,12 @@ const BasicFilters = ({
         <BlockContainer>
             <div className="size-lg-12">
                 <BlockHeading title="General Filters" />
-                <p className="generic-text small">
-                    Your high level filtration options can be found below.
-                </p>
+                {!isDrawingPage && (
+                    <p className="generic-text small">
+                        Your high level filtration options can be found below.
+                    </p>
+                )}
+
                 <Field name="Services" required>
                     <DropdownContainer
                         placeholder="Select Service"

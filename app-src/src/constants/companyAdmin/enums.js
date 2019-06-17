@@ -171,7 +171,8 @@ export const VAT_TYPES = {
 //Report generator
 export const FURTHER_FILTRATION = {
     1: 'Pin Selection',
-    2: 'Filters'
+    2: 'Pin Selector',
+    3: 'Filters'
 };
 
 export const NUMBER_OF_HISTORIES = {
@@ -271,9 +272,9 @@ export const FLOORPLAN_STATES = {
 
 export const FLOORPLAN_STATE_MESSAGES = {
     '-100':
-        'An error occurred while updating your floorplan, please try again.',
+        'An error occurred while uploading your floorplan, please try again.',
     '-1': 'Update failed. Retrying...',
-    0: 'Updating floorplan...',
-    1: 'Updating floorplan...',
+    0: 'Uploading floorplan...',
+    1: 'Uploading floorplan...',
     100: ''
 };

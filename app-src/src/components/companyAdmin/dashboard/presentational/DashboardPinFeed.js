@@ -5,7 +5,7 @@ import BlockHeading from 'components/shared/generic/blockHeading/presentational/
 import DashboardPinFeedTable from './DashboardPinFeedTable';
 
 const DashboardPinFeed = ({ pins, isFetching, error }) => (
-    <BlockContainer containerClass="size-lg-6">
+    <BlockContainer containerClass="flex-row-item size-lg-6">
         <BlockHeading title="Live Pin Feed" />
         <DashboardPinFeedTable
             pins={pins}

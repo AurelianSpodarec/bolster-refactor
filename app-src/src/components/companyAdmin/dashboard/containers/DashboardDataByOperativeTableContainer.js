@@ -21,7 +21,7 @@ class DashboardDataByOperativeTableContainer extends Component {
                         'Last login',
                         'Last sync',
                         'Pins updated',
-                        'Actions'
+                        ''
                     ]}
                     operatives={operatives}
                     isFetching={isFetching}

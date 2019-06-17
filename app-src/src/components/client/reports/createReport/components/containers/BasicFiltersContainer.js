@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import {
-    PIN_STATUS_TYPES,
-    NUMBER_OF_HISTORIES
-} from 'constants/companyAdmin/enums';
+import { PIN_STATUS_TYPES } from 'constants/companyAdmin/enums';
 import { convertEnumToDropdownOptions, isObjEmpty } from 'helpers/generic';
 
 import withUpdateOnChange from '../hocs/withUpdateOnChange';
@@ -28,20 +25,11 @@ class BasicFiltersContainer extends Component {
             fieldError,
             formatArrForDropdown,
             services,
-            filters: {
-                serviceID,
-                status,
-                fromDateInclusive,
-                toDateInclusive,
-                reportHistories
-            }
+            filters: { serviceID, status, fromDateInclusive, toDateInclusive }
         } = this.props;
 
         const serviceOptions = formatArrForDropdown(services, true);
         const statusOptions = convertEnumToDropdownOptions(PIN_STATUS_TYPES);
-        const historyNumsOptions = convertEnumToDropdownOptions(
-            NUMBER_OF_HISTORIES
-        );
 
         return (
             <BasicFilters
@@ -55,8 +43,6 @@ class BasicFiltersContainer extends Component {
                 selectedStatus={statusOptions[status]}
                 fromDateInclusive={fromDateInclusive}
                 toDateInclusive={toDateInclusive}
-                historyNumsOptions={Object.values(historyNumsOptions)}
-                selectedHistoryNum={historyNumsOptions[reportHistories]}
                 fieldError={fieldError}
                 handleDateBlur={this.handleDateBlur}
             />

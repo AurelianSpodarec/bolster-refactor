@@ -11,12 +11,12 @@ const Dashboard = () => (
     <>
         <PageHeading title="Dashboard" />
         <DashboardStatsFiltersContainer />
-        <div className="size-lg-12">
+        <div className="flex-row size-lg-12">
             <DashboardBarChartContainer />
             <DashboardDataByContainer />
         </div>
 
-        <div className="size-lg-12">
+        <div className="flex-row size-lg-12">
             <DashboardPieChartContainer />
             <DashboardPinFeedContainer />
         </div>

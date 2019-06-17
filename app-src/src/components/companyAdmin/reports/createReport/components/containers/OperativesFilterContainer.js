@@ -6,7 +6,6 @@ import OperativesFilter from '../presentational/OperativesFilter';
 class OperativesFilterContainer extends Component {
     render() {
         const {
-            handleChange,
             formatArrForDropdown,
             customFilters: { operatives },
             filters: { companyUserIDs },
@@ -16,7 +15,7 @@ class OperativesFilterContainer extends Component {
             <OperativesFilter
                 operativeOptions={formatArrForDropdown(operatives)}
                 selectedOperatives={companyUserIDs}
-                handleChange={handleChange}
+                handleChange={this.handleChange}
                 sizeClasses={sizeClasses}
             />
         );

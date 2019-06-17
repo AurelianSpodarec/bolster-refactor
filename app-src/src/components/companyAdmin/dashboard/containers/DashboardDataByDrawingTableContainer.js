@@ -1,9 +1,43 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import DashboardDataByDrawingTable from '../presentational/DashboardDataByDrawingTable';
+import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import { isEmpty } from 'helpers/generic';
 
 class DashboardDataByDrawingTableContainer extends Component {
     render() {
-        return <p className="size-lg-12">Drawings</p>;
+        const { drawings, isFetching, error } = this.props;
+
+        return (
+            <BlockContainer
+                isFetching={isFetching}
+                error={error}
+                isEmpty={isEmpty(drawings)}
+                noWhiteBackground
+            >
+                <DashboardDataByDrawingTable
+                    headers={['Name', 'Pins updated', '']}
+                    drawings={drawings}
+                    isFetching={isFetching}
+                    error={error}
+                />
+            </BlockContainer>
+        );
     }
 }
 
-export default DashboardDataByDrawingTableContainer;
+const mapStateToProps = ({
+    companyAdmin: {
+        dashboardReducer: {
+            drawingData,
+            isFetchingDashPinsStats: isFetching,
+            error
+        }
+    }
+}) => ({
+    drawings: drawingData,
+    isFetching,
+    error
+});
+
+export default connect(mapStateToProps)(DashboardDataByDrawingTableContainer);

@@ -15,7 +15,7 @@ class DashboardDataByContainer extends Component {
 
         return (
             <BlockContainer
-                containerClass="size-lg-6"
+                containerClass="flex-row-item size-lg-6"
                 isFetching={isFetching}
                 error={error}
             >
