@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { RAW_S3_STORAGE_URL } from 'config';
+import { FILE_STORAGE_URL } from 'config';
 import RedPin from '_content/images/map-markers/red-pin2x.png';
 
 import ModalOuterContainer from 'components/shared/generic/modals/containers/ModalOuterContainer';
@@ -18,9 +18,10 @@ const SelectPinScaleModal = ({
         <BlockHeading title="Select Size of Pins" />
         <div className="size-lg-12">
             <img
+                className="loading-floorplan"
                 alt="floorplan"
                 style={{ width: '100%' }}
-                src={`${RAW_S3_STORAGE_URL}/${tailoredTilesetS3Key}`}
+                src={`${FILE_STORAGE_URL}/${tailoredTilesetS3Key}?width=570`}
             />
             <div className="pins-container">
                 <div style={{ top: '20%', left: '20%' }} className="pin">
