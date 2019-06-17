@@ -175,10 +175,6 @@ class DrawingMapGeneralContainer extends Component {
             const pinIDs = pinsFromAPI.map(({ id }) => id);
             handleChange('pinIDs', pinIDs);
         }
-
-        if (isFetching && !this.props.isFetching) {
-            this.props.showModal(SELECT_PIN_SCALE, { drawing });
-        }
     };
 
     handleChangeFilter = (name, val) => {

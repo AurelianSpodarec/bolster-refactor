@@ -7,9 +7,13 @@ import ModalOuterContainer from 'components/shared/generic/modals/containers/Mod
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 
-const SelectPinScaleModal = ({ drawing: { tilesetS3KeyOrig } }) => (
+const SelectPinScaleModal = ({
+    drawing: { tilesetS3KeyOrig },
+    scale,
+    handleUpdatePinScale
+}) => (
     <ModalOuterContainer>
-        <BlockHeading title="Select Report Pin Scale" />
+        <BlockHeading title="Select Size of Pins" />
         <div className="size-lg-12">
             <img
                 style={{ width: '100%' }}
@@ -17,22 +21,47 @@ const SelectPinScaleModal = ({ drawing: { tilesetS3KeyOrig } }) => (
             />
             <div className="pins-container">
                 <div style={{ top: '20%', left: '20%' }} className="pin">
-                    <img alt="pin for scale" src={RedPin} />
+                    <img
+                        alt="pin for scale"
+                        src={RedPin}
+                        style={{ height: `${100 * scale}%` }}
+                    />
                 </div>
                 <div style={{ top: '20%', left: '75%' }} className="pin">
-                    <img alt="pin for scale" src={RedPin} />
+                    <img
+                        alt="pin for scale"
+                        src={RedPin}
+                        style={{ height: `${100 * scale}%` }}
+                    />
                 </div>
                 <div style={{ top: '12%', left: '50%' }} className="pin">
-                    <img alt="pin for scale" src={RedPin} />
+                    <img
+                        alt="pin for scale"
+                        src={RedPin}
+                        style={{ height: `${100 * scale}%` }}
+                    />
                 </div>
                 <div style={{ top: '50%', left: '30%' }} className="pin">
-                    <img alt="pin for scale" src={RedPin} />
+                    <img
+                        alt="pin for scale"
+                        src={RedPin}
+                        style={{ height: `${100 * scale}%` }}
+                    />
                 </div>
             </div>
 
             <div className="pinscale-slider">
                 <img alt="example pin" src={RedPin} className="pin pin-small" />
-                <input className="js-pinscale" type="range" min={0} max={10} />
+                <input
+                    className="js-pinscale"
+                    type="range"
+                    value={scale}
+                    list="tickmarks"
+                    min={0.5}
+                    max={3}
+                    step={0.5}
+                    onChange={handleUpdatePinScale}
+                />
                 <img alt="example pin" src={RedPin} className="pin pin-large" />
             </div>
         </div>
