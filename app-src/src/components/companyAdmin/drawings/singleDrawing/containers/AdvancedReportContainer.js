@@ -28,16 +28,16 @@ class AdvancedReportContainer extends Component {
         handleChange('drawingID', drawingID);
     };
 
-    componentDidUpdate = prevProps => {
+    componentDidUpdate = ({ pins: prevPins = [], ...prevProps }) => {
         const {
             isFetching,
             showModal,
             hideModal,
-            pins,
+            pins = [],
             handleChange
         } = this.props;
 
-        if (pins.length !== prevProps.pins.length) {
+        if (pins.length !== prevPins.length) {
             handleChange('pinIDs', pins.map(({ id }) => id));
         }
         if (isFetching && !prevProps.isFetching) {
