@@ -36,7 +36,9 @@ let BuildingGeneralOverview = ({ building }) => (
                 </div>
 
                 <div className="flex-item size-lg-4">
-                    <BuildingCompaniesAccessTableContainer />
+                    <BuildingCompaniesAccessTableContainer
+                        accessType={building.accessType}
+                    />
                 </div>
             </div>
         )}

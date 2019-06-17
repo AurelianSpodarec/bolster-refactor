@@ -36,7 +36,9 @@ let FloorGeneralOverview = ({ floor }) => (
                 </div>
 
                 <div className="flex-item size-lg-4">
-                    <FloorCompaniesAccessTableContainer />
+                    <FloorCompaniesAccessTableContainer
+                        accessType={floor.accessType}
+                    />
                 </div>
             </div>
         )}

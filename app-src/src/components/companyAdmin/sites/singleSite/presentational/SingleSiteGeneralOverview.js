@@ -33,7 +33,9 @@ let SingleSiteGeneralOverview = ({ site }) => (
                     <SiteOperativeAddContainer />
                 </div>
                 <div className="flex-item size-lg-4">
-                    <SiteCompaniesAccessTableContainer />
+                    <SiteCompaniesAccessTableContainer
+                        accessType={site.accessType}
+                    />
                 </div>
             </div>
         )}
