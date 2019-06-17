@@ -6,13 +6,13 @@ import RedPin from '_content/images/map-markers/red-pin2x.png';
 import ModalOuterContainer from 'components/shared/generic/modals/containers/ModalOuterContainer';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
-import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 
 const SelectPinScaleModal = ({
     drawing: { tailoredTilesetS3Key },
     scale,
     handleUpdatePinScale,
-    handleSubmit
+    handleSubmit,
+    handleCancelScale
 }) => (
     <ModalOuterContainer>
         <BlockHeading title="Select Size of Pins" />
@@ -70,7 +70,7 @@ const SelectPinScaleModal = ({
         </div>
 
         <BlockButtonWrapper>
-            <button onClick={hideModal} className="button">
+            <button onClick={handleCancelScale} className="button">
                 Close
             </button>
             <button onClick={handleSubmit} className="button green">

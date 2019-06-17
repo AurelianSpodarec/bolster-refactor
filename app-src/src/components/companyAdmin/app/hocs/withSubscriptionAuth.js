@@ -10,10 +10,6 @@ export default function(ProtectedComponent) {
         render() {
             const { hasInitiallyFetched } = this.props;
 
-            console.warn(hasInitiallyFetched);
-            console.warn(hasInitiallyFetched);
-            console.warn(hasInitiallyFetched);
-            console.warn(hasInitiallyFetched);
             if (!hasInitiallyFetched) return null;
             if (!this._isSubscribed())
                 return <Redirect to="/company/subscription" />;

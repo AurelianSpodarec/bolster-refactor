@@ -11,7 +11,8 @@ const HeaderProfile = ({
     logout,
     updateNode,
     isImpersonating,
-    companyName
+    companyName,
+    isSubscribed
 }) => (
     <div className="profile" ref={updateNode}>
         <div className="user" onClick={handleClick}>
@@ -54,26 +55,32 @@ const HeaderProfile = ({
 
                 <i className="icon fas fa-chevron-right right" />
             </Link>
-            <Link to="/company/tools/credit-logs" className="item">
-                <i className="far fa-scroll fa-fw icon" />
-
-                <span className="item-text">Drawing Credit Log </span>
-
-                <i className="icon fas fa-chevron-right right" />
-            </Link>
-
             <Link to="/company/invoices" className="item">
                 <i className="far fa-receipt fa-fw fa-fw icon" />
                 <span className="item-text">Orders</span>
 
                 <i className="icon fas fa-chevron-right right" />
             </Link>
-            <Link to="/company/tools/company-reports" className="item">
-                <i className="far fa-file-chart-pie fa-fw icon" />
-                <span className="item-text">Reports</span>
 
-                <i className="icon fas fa-chevron-right right" />
-            </Link>
+            {isSubscribed && (
+                <>
+                    <Link to="/company/tools/credit-logs" className="item">
+                        <i className="far fa-scroll fa-fw icon" />
+
+                        <span className="item-text">Drawing Credit Log </span>
+
+                        <i className="icon fas fa-chevron-right right" />
+                    </Link>
+
+                    <Link to="/company/tools/company-reports" className="item">
+                        <i className="far fa-file-chart-pie fa-fw icon" />
+                        <span className="item-text">Reports</span>
+
+                        <i className="icon fas fa-chevron-right right" />
+                    </Link>
+                </>
+            )}
+
             <Link onClick={logout} to="#" className="item">
                 <i className="icon far fa-sign-out fa-fw" />
                 <span className="item-text">Logout</span>

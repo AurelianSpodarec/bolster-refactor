@@ -81,7 +81,8 @@ export default function(ProtectedComponent) {
                     fromDateInclusive,
                     toDateInclusive,
                     companyUserIDs,
-                    pinIDs
+                    pinIDs,
+                    floorplanPinScale
                 },
                 options: { showHidden, sortBy },
                 fields
@@ -140,7 +141,8 @@ export default function(ProtectedComponent) {
                 status: status || null,
                 questionFilters,
                 showHidden,
-                sortBy
+                sortBy,
+                floorplanPinScale
             };
 
             return body;

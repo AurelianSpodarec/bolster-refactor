@@ -164,7 +164,7 @@ class OutputSettingsContainer extends Component {
             filters: { siteID, buildingID, floorID, drawingID }
         } = this.props;
 
-        // uses the url to figure out which hierarchy the report is being generated on and find an appropriate drawing for the pin scale modal
+        // uses the filters to figure out which hierarchy the report is being generated on and find an appropriate drawing for the pin scale modal
         let availableDrawings = Object.values(drawings);
 
         if (siteID) {
