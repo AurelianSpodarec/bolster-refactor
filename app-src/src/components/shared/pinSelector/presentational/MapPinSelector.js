@@ -10,7 +10,10 @@ const MapPinSelector = ({ pins }) => (
             pins to include. Included pins will be display in this box.##
         </p>
         <div className="pin-selector size-lg-12 form-field">
-            <MapPinSelectorBox pins={pins} />
+            <div className="pin-selection-box">
+                <p>Included: </p>
+                <MapPinSelectorBox pins={pins} />
+            </div>
         </div>
     </>
 );

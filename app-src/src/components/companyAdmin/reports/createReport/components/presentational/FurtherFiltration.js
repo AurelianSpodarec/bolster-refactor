@@ -29,7 +29,7 @@ const FurtherFiltration = ({
             />
         </Field>
 
-        <Field name=" " sizeClasses="size-lg-12">
+        <Field name="Extra Filter" sizeClasses="size-lg-12">
             <DropdownContainer
                 placeholder="None"
                 name="filterOption"

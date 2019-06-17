@@ -109,7 +109,7 @@ import CopyTemplateModalContainer from 'components/superAdmin/templateBuilder/co
 import DocumentResponseAgreeanceModalContainer from 'components/shared/documents/containers/DocumentResponseAgreeanceModalContainer';
 import SinglePinGenerateReportSuccessModalContainer from 'components/companyAdmin/pins/singlePin/containers/SinglePinGenerateReportSuccessModalContainer';
 import ClientSinglePinGenerateReportSuccessModalContainer from 'components/client/pins/singlePin/containers/SinglePinGenerateReportSuccessModalContainer';
-import SelectPinScaleModalContainer from 'components/companyAdmin/drawings/selectPinScaleModal/containers/SelectPinScaleModalContainer';
+import SelectPinScaleModalContainer from 'components/shared/generic/modals/containers/SelectPinScaleModalContainer';
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModalContainer,

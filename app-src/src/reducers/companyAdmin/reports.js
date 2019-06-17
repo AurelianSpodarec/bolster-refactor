@@ -18,7 +18,9 @@ import {
     POST_REPORT_NO_PINS,
     UPDATE_FILTER_QUESTION_VALS,
     ADD_RECTANGLE,
-    REMOVE_RECTANGLE
+    REMOVE_RECTANGLE,
+    UPDATE_FURTHER_FILTRATION_OPTION,
+    REMOVE_ALL_RECTANGLES
 } from 'constants/actionTypes/reports';
 import { updateObj, removeObjItem, convertArrToObj } from 'helpers/generic';
 import { SORT_BY_OPTIONS } from 'constants/companyAdmin/enums';
@@ -33,7 +35,8 @@ export default combineReducers({
     pinResults: pinResultsReducer,
     selectedPins: selectedPinsReducer,
     isFetching: isFetchingReducer,
-    rectangles: rectanglesReducer
+    rectangles: rectanglesReducer,
+    furtherFiltrationOption: furtherFiltrationOptionReducer
 });
 
 //send the questionsIDs
@@ -225,6 +228,17 @@ function rectanglesReducer(state = {}, action) {
             });
         case REMOVE_RECTANGLE:
             return removeObjItem(state, action.id);
+        case REMOVE_ALL_RECTANGLES:
+            return {};
+        default:
+            return state;
+    }
+}
+
+function furtherFiltrationOptionReducer(state = 0, action) {
+    switch (action.type) {
+        case UPDATE_FURTHER_FILTRATION_OPTION:
+            return action.value;
         default:
             return state;
     }

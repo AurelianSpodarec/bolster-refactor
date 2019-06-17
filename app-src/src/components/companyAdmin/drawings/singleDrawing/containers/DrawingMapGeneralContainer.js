@@ -2,16 +2,19 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import moment from 'moment';
+import uuid from 'uuid/v4';
 
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import updatePinCoordinates from 'actions/companyAdmin/drawings/sync/updatePinCoordinates';
 import DrawingMapViewSimple from '../presentational/DrawingMapViewSimple';
 import DrawingInspectionLogContainer from './DrawingInspectionLogContainer';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import { convertArrToObj } from 'helpers/generic';
+import { convertArrToObj, momentComparisonFormat } from 'helpers/generic';
 import {
     COMPANY_USER_ROLE_TYPES as USER_ROLE,
-    FLOORPLAN_STATE_MESSAGES
+    FLOORPLAN_STATE_MESSAGES,
+    RECTANGLE_MODES,
+    FURTHER_FILTRATION_OPTIONS
 } from 'constants/companyAdmin/enums';
 import fetchSingleDrawing from 'actions/companyAdmin/drawings/async/fetchSingleDrawing';
 import updateFloorPlanConfirmed from 'actions/companyAdmin/drawings/sync/updateFloorPlanConfirmed';
@@ -22,6 +25,14 @@ import DrawingDetailsContainer from './DrawingDetailsContainer';
 import FurtherFiltrationContainer from 'components/companyAdmin/reports/createReport/components/containers/FurtherFiltrationContainer';
 import OutputSettingsContainer from 'components/companyAdmin/reports/createReport/components/containers/OutputSettingsContainer';
 import BasicFiltersContainer from 'components/companyAdmin/reports/createReport/components/containers/BasicFiltersContainer';
+import addRectangle from 'actions/companyAdmin/reports/sync/addRectangle';
+import removeRectangle from 'actions/companyAdmin/reports/sync/removeRectangle';
+import removeAllRectangles from 'actions/companyAdmin/reports/sync/removeAllRectangles';
+const { ADD, DELETE } = RECTANGLE_MODES;
+const { PIN_SELECTOR } = FURTHER_FILTRATION_OPTIONS;
+
+// ! The pin selector code is repeated in the filtermapcontainer component
+// todo tidy this and maybe make them use the same component or use smaller generic components within
 
 class DrawingMapGeneralContainer extends Component {
     state = {
@@ -30,7 +41,8 @@ class DrawingMapGeneralContainer extends Component {
         addPinLat: 51.505,
         addPinLng: -0.09,
         centerLat: 51.505,
-        centerLng: -0.09
+        centerLng: -0.09,
+        mode: ADD
     };
 
     render() {
@@ -40,14 +52,24 @@ class DrawingMapGeneralContainer extends Component {
             addPinLat,
             addPinLng,
             centerLat,
-            centerLng
+            centerLng,
+            firstCorner
         } = this.state;
-        const { error, drawing } = this.props;
+        const {
+            error,
+            drawing,
+            furtherFiltrationOption,
+            rectangles
+        } = this.props;
         const position = [centerLat, centerLng];
         const addPinPosition = [addPinLat, addPinLng];
+        const cornerClicked = firstCorner;
 
         const updateMessage =
             FLOORPLAN_STATE_MESSAGES[drawing.latestFloorplanState];
+
+        const shouldShowPinSelectorOptions =
+            +furtherFiltrationOption === +PIN_SELECTOR;
         return (
             <>
                 <div className="flex-container size-lg-12">
@@ -68,6 +90,7 @@ class DrawingMapGeneralContainer extends Component {
                         zoom={mapZoom}
                         pins={this._getFilteredPins()}
                         handleClick={this.handleClick}
+                        cornerClicked={cornerClicked}
                         drawing={drawing}
                         addMode={addMode}
                         handleClearPinCache={this.handleClearPinCache}
@@ -75,6 +98,12 @@ class DrawingMapGeneralContainer extends Component {
                         history={this.props.history}
                         updating={drawing.isFloorplanUpdating}
                         updateMessage={updateMessage}
+                        shouldShowPinSelectorOptions={
+                            shouldShowPinSelectorOptions
+                        }
+                        setMode={this.setMode}
+                        rectangles={rectangles}
+                        handleDelete={this.handleDelete}
                     />
                 </BlockContainer>
                 <FurtherFiltrationContainer />
@@ -108,14 +137,20 @@ class DrawingMapGeneralContainer extends Component {
         handleChange,
         fromDateInclusive,
         toDateInclusive,
-        fieldErrors
+        fieldErrors,
+        rectangles: prevRectangles,
+        furtherFiltrationOption: prevOption
     }) => {
         const {
             drawing = {},
             fetchSingleDrawing,
             postSuccess,
             pinsFromAPI = [],
-            removeFieldError
+            removeFieldError,
+            rectangles,
+            postFilters,
+            furtherFiltrationOption,
+            removeAllRectangles
         } = this.props;
         // re-fetch drawing every 5 seconds until the updated floorplan is retrieved
         if (postSuccess && !prevSuccess) fetchSingleDrawing(drawing.id);
@@ -139,6 +174,14 @@ class DrawingMapGeneralContainer extends Component {
             const pinIDs = pinsFromAPI.map(({ id }) => id);
             handleChange('pinIDs', pinIDs);
         }
+
+        // pin selector stuff
+        if (rectangles.length !== prevRectangles.length) {
+            postFilters();
+        }
+        if (furtherFiltrationOption !== prevOption) {
+            removeAllRectangles();
+        }
     };
 
     handleChangeFilter = (name, val) => {
@@ -150,6 +193,18 @@ class DrawingMapGeneralContainer extends Component {
 
     handleClick = e => {
         const { lat, lng } = e.latlng;
+        const { mode, firstCorner } = this.state;
+        const { addRectangle, furtherFiltrationOption } = this.props;
+        if (+furtherFiltrationOption === +PIN_SELECTOR && mode === ADD) {
+            if (!firstCorner) {
+                this.setState({ firstCorner: [lat, lng] });
+            } else {
+                const id = uuid();
+                const secondCorner = [lat, lng];
+                addRectangle(id, firstCorner, secondCorner);
+                this.setState({ firstCorner: null });
+            }
+        }
 
         if (this.state.addMode) this._updateCoordinates(lat, lng);
     };
@@ -219,12 +274,51 @@ class DrawingMapGeneralContainer extends Component {
     };
 
     _getFilteredPins = () => {
-        const {
-            pins,
-            filters: { pinIDs }
-        } = this.props;
-        const filterPins = pins.filter(({ id }) => pinIDs.includes(id));
-        return filterPins;
+        const { pins, filters, furtherFiltrationOption } = this.props;
+
+        // ? Displays all pins if in rectangle mode, and only the selected pins otherwise.
+        if (+furtherFiltrationOption === +PIN_SELECTOR) {
+            const {
+                fromDateInclusive,
+                toDateInclusive,
+                status,
+                serviceID
+            } = filters;
+            return pins.filter(pin => {
+                if (
+                    fromDateInclusive &&
+                    moment(pin.createdOn) <
+                        moment(fromDateInclusive, momentComparisonFormat)
+                ) {
+                    return false;
+                }
+                if (
+                    toDateInclusive &&
+                    moment(pin.createdOn) >
+                        moment(toDateInclusive, momentComparisonFormat)
+                ) {
+                    return false;
+                }
+                if (status && +pin.latestStatus !== +status) {
+                    return false;
+                }
+                if (serviceID && +pin.latestServiceID !== +serviceID) {
+                    return false;
+                }
+                return true;
+            });
+        }
+        return pins.filter(({ id }) => filters.pinIDs.includes(id));
+    };
+
+    setMode = mode => {
+        this.setState({ mode, firstCorner: null });
+    };
+
+    handleDelete = id => {
+        const { mode } = this.state;
+        const { removeRectangle } = this.props;
+        if (mode === DELETE) removeRectangle(id);
     };
 }
 
@@ -238,7 +332,9 @@ const mapStateToProps = (
             addPinCoordinatesReducer: { coordinates },
             reportsReducer: {
                 customFilters: { pins: pinsFromAPI },
-                filters: { pinIDs }
+                filters: { pinIDs },
+                furtherFiltrationOption,
+                rectangles
             }
         }
     },
@@ -253,7 +349,9 @@ const mapStateToProps = (
     services: Object.values(services),
     isFetching,
     error,
-    postSuccess
+    postSuccess,
+    furtherFiltrationOption,
+    rectangles: Object.values(rectangles)
 });
 
 const mapDispatchToProps = {
@@ -262,9 +360,11 @@ const mapDispatchToProps = {
     showModal,
     updateFloorPlanConfirmed,
     updateReportFilter,
-    removeFieldError
+    removeFieldError,
+    addRectangle,
+    removeRectangle,
+    removeAllRectangles
 };
-
 export default withRouter(
     withUpdateOnChange(
         connect(

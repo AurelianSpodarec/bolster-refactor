@@ -19,7 +19,8 @@ const FilterMap = ({
     cornerClicked,
     rectangles,
     handleDelete,
-    setMode
+    setMode,
+    shouldShowMapOptions
 }) => {
     // TODO change icon
     const cornerClickedIcon = L.divIcon({
@@ -31,17 +32,19 @@ const FilterMap = ({
     });
     return (
         <Block>
-            <BlockButtonWrapper>
-                <ButtonContainer handleClick={() => setMode(ADD)}>
-                    Add Mode
-                </ButtonContainer>
-                <ButtonContainer handleClick={() => setMode(DELETE)}>
-                    Delete Mode
-                </ButtonContainer>
-                <ButtonContainer handleClick={() => setMode(NONE)}>
-                    Cancel
-                </ButtonContainer>
-            </BlockButtonWrapper>
+            {shouldShowMapOptions && (
+                <BlockButtonWrapper>
+                    <ButtonContainer handleClick={() => setMode(ADD)}>
+                        Add Mode
+                    </ButtonContainer>
+                    <ButtonContainer handleClick={() => setMode(DELETE)}>
+                        Delete Mode
+                    </ButtonContainer>
+                    <ButtonContainer handleClick={() => setMode(NONE)}>
+                        Cancel
+                    </ButtonContainer>
+                </BlockButtonWrapper>
+            )}
             <Map
                 center={[51.505, -0.09]}
                 zoom={3}

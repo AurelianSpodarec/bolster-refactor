@@ -6,7 +6,11 @@ import postReport from 'actions/companyAdmin/reports/async/postReport';
 import postCustomFilters from 'actions/companyAdmin/reports/async/postCustomFilters';
 import removeFilterQuestions from 'actions/companyAdmin/reports/sync/removeFilterQuestions';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
-import { SUCCESS_MODAL, ERROR_MODAL } from 'constants/shared/modalTypes';
+import {
+    SUCCESS_MODAL,
+    ERROR_MODAL,
+    SELECT_PIN_SCALE
+} from 'constants/shared/modalTypes';
 
 import showFieldErrors from 'actions/shared/generic/fieldErrors/sync/showFieldErrors';
 import { isEmpty, convertEnumToDropdownOptions } from 'helpers/generic';
@@ -131,16 +135,57 @@ class OutputSettingsContainer extends Component {
             getPostBody,
             postReport,
             fieldErrors,
-            showFieldErrors
+            showFieldErrors,
+            filters: { isFloorplanGeneration, isPDFGeneration },
+            showModal
         } = this.props;
 
         if (!isEmpty(fieldErrors)) showFieldErrors();
-        else postReport(getPostBody());
+        else if (isFloorplanGeneration || isPDFGeneration) {
+            const drawingForPinScale = this._getDrawingForPinScale();
+            showModal(SELECT_PIN_SCALE, {
+                drawing: drawingForPinScale,
+                getPostBody,
+                postReport
+            });
+        } else postReport(getPostBody());
+    };
+
+    _getDrawingForPinScale = () => {
+        const {
+            drawings,
+            match: {
+                path,
+                params: { id }
+            }
+        } = this.props;
+
+        // uses the url to figure out which hierarchy the report is being generated on and find an appropriate drawing for the pin scale modal
+        if (/sites/.test(path)) {
+            return Object.values(drawings).filter(
+                drawing => drawing.siteID === +id
+            )[0];
+        } else if (/buildings/.test(path)) {
+            return Object.values(drawings).filter(
+                drawing => drawing.buildingID === +id
+            )[0];
+        } else if (/floors/.test(path)) {
+            return Object.values(drawings).filter(
+                drawing => drawing.floorID === +id
+            )[0];
+        } else {
+            return drawings[id];
+        }
     };
 }
 
 const mapStateToProps = ({
     companyAdmin: {
+        sitesReducer: { sites },
+        buildingsReducer: { buildings },
+        floorsReducer: { floors },
+        drawingsReducer: { drawings },
+
         reportsReducer: { filters, fields, options, postSuccess, error, pinIDs }
     },
     shared: {
@@ -153,6 +198,10 @@ const mapStateToProps = ({
     filters,
     options,
     postSuccess,
+    sites,
+    buildings,
+    floors,
+    drawings,
     error
 });
 
