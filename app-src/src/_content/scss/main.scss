@@ -2269,6 +2269,12 @@ input {
         width: 27%;
     }
 
+    &.larger-search {
+        .generic-search {
+            width: 30%;
+        }
+    }
+
     &.in-table {
         .table-filter {
             margin-top: 0;
@@ -2295,6 +2301,10 @@ input {
             padding-right: 10px;
             font-size: 140%;
             line-height: 28px;
+
+            &.placeholder {
+                float: left;
+            }
         }
 
         .custom-dropdown {
