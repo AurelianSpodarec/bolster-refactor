@@ -11,6 +11,8 @@ const AddPinForm = ({
     location,
     handleChange,
     handleSubmit,
+    services,
+    selectedService,
     templates,
     selectedTemplate,
     filesUploading,
@@ -19,18 +21,37 @@ const AddPinForm = ({
 }) => (
     <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
         <div className="size-lg-12">
-            <Field name="Select a template" sizeClasses="size-lg-6" required>
+            <Field name="Select a service" sizeClasses="size-lg-6" required>
                 <DropdownContainer
                     placeholder="-- select --"
-                    name="templateID"
-                    options={templates}
-                    value={selectedTemplate}
-                    selectedOption={selectedTemplate}
+                    name="serviceID"
+                    options={services}
+                    value={selectedService}
+                    selectedOption={selectedService}
                     handleChange={handleChange}
                     required
                 />
             </Field>
         </div>
+        {!!selectedService && (
+            <div className="size-lg-12">
+                <Field
+                    name="Select a template"
+                    sizeClasses="size-lg-6"
+                    required
+                >
+                    <DropdownContainer
+                        placeholder="-- select --"
+                        name="templateID"
+                        options={templates}
+                        value={selectedTemplate}
+                        selectedOption={selectedTemplate}
+                        handleChange={handleChange}
+                        required
+                    />
+                </Field>
+            </div>
+        )}
 
         {!!selectedTemplate && (
             <AddPinVersionsContainer

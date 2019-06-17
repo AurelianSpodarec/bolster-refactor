@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import moment from 'moment';
 
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import updatePinCoordinates from 'actions/companyAdmin/drawings/sync/updatePinCoordinates';
@@ -17,6 +18,7 @@ import {
 import fetchSingleDrawing from 'actions/companyAdmin/drawings/async/fetchSingleDrawing';
 import updateFloorPlanConfirmed from 'actions/companyAdmin/drawings/sync/updateFloorPlanConfirmed';
 import updateReportFilter from 'actions/companyAdmin/reports/sync/updateReportFilter';
+import removeFieldError from 'actions/shared/generic/fieldErrors/sync/removeFieldError';
 import withUpdateOnChange from 'components/companyAdmin/reports/createReport/components/hocs/withUpdateOnChange';
 import DrawingDetailsContainer from './DrawingDetailsContainer';
 
@@ -135,13 +137,17 @@ class DrawingMapGeneralContainer extends Component {
         postSuccess: prevSuccess,
         drawing: prevDrawing = {},
         pinsFromAPI: prevPinsFromAPI = [],
-        handleChange
+        handleChange,
+        fromDateInclusive,
+        toDateInclusive,
+        fieldErrors
     }) => {
         const {
             drawing = {},
             fetchSingleDrawing,
             postSuccess,
-            pinsFromAPI = []
+            pinsFromAPI = [],
+            removeFieldError
         } = this.props;
         // re-fetch drawing every 5 seconds until the updated floorplan is retrieved
         if (postSuccess && !prevSuccess) fetchSingleDrawing(drawing.id);
@@ -150,6 +156,13 @@ class DrawingMapGeneralContainer extends Component {
                 () => fetchSingleDrawing(drawing.id),
                 5000
             );
+        }
+        if (
+            fieldErrors.fromDateInclusive &&
+            moment(fromDateInclusive) <= moment(toDateInclusive)
+        ) {
+            removeFieldError('fromDateInclusive');
+            removeFieldError('toDateInclusive');
         }
         if (!drawing.isFloorplanUpdating && prevDrawing.isFloorplanUpdating) {
             clearInterval(this._floorplanInterval);
@@ -280,7 +293,8 @@ const mapDispatchToProps = {
     updatePinCoordinates,
     showModal,
     updateFloorPlanConfirmed,
-    updateReportFilter
+    updateReportFilter,
+    removeFieldError
 };
 
 export default withRouter(

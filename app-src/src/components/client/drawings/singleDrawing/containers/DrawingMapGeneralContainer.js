@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import moment from 'moment';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
@@ -9,14 +10,15 @@ import BlockContainer from 'components/shared/generic/block/containers/BlockCont
 import { convertEnumToDropdownOptions } from 'helpers/generic';
 import { PIN_STATUS_TYPES } from 'constants/companyAdmin/enums';
 import withUpdateOnChange from 'components/client/reports/createReport/components/hocs/withUpdateOnChange';
+import removeFieldError from 'actions/shared/generic/fieldErrors/sync/removeFieldError';
 
 class DrawingMapGeneralContainer extends Component {
     state = {
         serviceSelectedID: '',
         statusSelectedID: '',
         operativeSelectedID: '',
-        startDateSelected: undefined,
-        endDateSelected: undefined,
+        fromDateInclusive: undefined,
+        toDateInclusive: undefined,
         position: [51.505, -0.09],
         mapZoom: 3,
         updating: false,
@@ -31,8 +33,8 @@ class DrawingMapGeneralContainer extends Component {
             serviceSelectedID,
             statusSelectedID,
             // operativeSelectedID,
-            startDateSelected,
-            endDateSelected,
+            fromDateInclusive,
+            toDateInclusive,
             mapZoom,
             position,
             updating,
@@ -43,7 +45,7 @@ class DrawingMapGeneralContainer extends Component {
 
         const { error, pins, drawing = {}, fieldErrors } = this.props;
 
-        const dateError = fieldErrors['startDateSelected']
+        const dateError = fieldErrors['fromDateInclusive']
             ? 'Start date must not be after end date.'
             : null;
 
@@ -65,8 +67,8 @@ class DrawingMapGeneralContainer extends Component {
                                 // selectedOperative={
                                 //     operativeOptions[operativeSelectedID]
                                 // }
-                                startDateSelected={startDateSelected}
-                                endDateSelected={endDateSelected}
+                                fromDateInclusive={fromDateInclusive}
+                                toDateInclusive={toDateInclusive}
                                 pins={pins}
                                 handleChange={this.handleChange}
                                 handleDateChange={this.handleDateChange}
@@ -108,7 +110,11 @@ class DrawingMapGeneralContainer extends Component {
             drawing = {},
             isFetching,
             pinsFromAPI = [],
-            handleChange
+            handleChange,
+            fieldErrors,
+            removeFieldError,
+            fromDateInclusive,
+            toDateInclusive
         } = this.props;
         // when the component has finished fetching all the options, run get services options once instead of in every render
         if (!isFetching && prevIsFetching) {
@@ -124,6 +130,14 @@ class DrawingMapGeneralContainer extends Component {
         if (pinsFromAPI.length !== prevPinsFromAPI.length) {
             const pinIDs = pinsFromAPI.map(({ id }) => id);
             handleChange('pinIDs', pinIDs);
+        }
+
+        if (
+            fieldErrors.fromDateInclusive &&
+            moment(fromDateInclusive) <= moment(toDateInclusive)
+        ) {
+            removeFieldError('fromDateInclusive');
+            removeFieldError('toDateInclusive');
         }
     };
 
@@ -210,5 +224,10 @@ const mapStateToProps = (
 });
 
 export default withRouter(
-    withUpdateOnChange(connect(mapStateToProps)(DrawingMapGeneralContainer))
+    withUpdateOnChange(
+        connect(
+            mapStateToProps,
+            { removeFieldError }
+        )(DrawingMapGeneralContainer)
+    )
 );
