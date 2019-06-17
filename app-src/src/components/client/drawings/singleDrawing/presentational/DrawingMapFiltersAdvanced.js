@@ -21,8 +21,8 @@ const DrawingMapFiltersAdvanced = ({
     selectedStatus,
     // operativeOptions,
     // selectedOperative,
-    startDateSelected,
-    endDateSelected,
+    fromDateInclusive,
+    toDateInclusve,
     handleChange,
     handleDateChange,
     dateError,
@@ -110,10 +110,10 @@ const DrawingMapFiltersAdvanced = ({
                 <Field name="Date range" sizeClasses="w-dates size-lg-6">
                     <div className="size-lg-5">
                         <DatePicker
-                            name="startDateSelected"
-                            selected={startDateSelected}
+                            name="fromDateInclusive"
+                            selected={fromDateInclusive}
                             onChange={e =>
-                                handleDateChange(e, 'startDateSelected')
+                                handleDateChange(e, 'fromDateInclusive')
                             }
                             placeholderText="Start Date"
                         />
@@ -121,10 +121,10 @@ const DrawingMapFiltersAdvanced = ({
                     <p className="size-lg-2">to</p>
                     <div className="size-lg-5">
                         <DatePicker
-                            name="endDateSelected"
-                            selected={endDateSelected}
+                            name="toDateInclusve"
+                            selected={toDateInclusve}
                             onChange={e =>
-                                handleDateChange(e, 'endDateSelected')
+                                handleDateChange(e, 'toDateInclusve')
                             }
                             placeholderText="End Date"
                         />

@@ -16,11 +16,12 @@ import BackButtonContainer from 'components/shared/generic/backButton/containers
 
 class AddPinFormContainer extends Component {
     state = {
-        templateID: ''
+        templateID: '',
+        serviceID: ''
     };
 
     render() {
-        const { templateID } = this.state;
+        const { templateID, serviceID } = this.state;
         const {
             location,
             isFetching,
@@ -28,10 +29,12 @@ class AddPinFormContainer extends Component {
             templates,
             filesUploading,
             confirmLeave,
-            isHistory
+            isHistory,
+            services
         } = this.props;
 
-        const templateOptions = this._getTemplates(templates);
+        const serviceOptions = this._getServices(services);
+        const templateOptions = this._getTemplates(templates, serviceID);
 
         return (
             <>
@@ -62,6 +65,8 @@ class AddPinFormContainer extends Component {
                         handleSubmit={this.handleSubmit}
                         filesUploading={filesUploading}
                         confirmLeave={confirmLeave}
+                        services={Object.values(serviceOptions)}
+                        selectedService={serviceOptions[serviceID]}
                     />
                 </BlockContainer>
             </>
@@ -141,14 +146,27 @@ class AddPinFormContainer extends Component {
         }
     };
 
-    _getTemplates = templates => {
-        const templateOptions = templates.map(({ id, name }) => ({
+    _getTemplates = (templates, selectedServiceID) => {
+        const filteredTemplates = templates.filter(
+            ({ serviceID }) => +serviceID === +selectedServiceID
+        );
+        const templateOptions = filteredTemplates.map(({ id, name }) => ({
             value: id,
             label: name,
             text: name
         }));
 
         return convertArrToObj(templateOptions, 'value');
+    };
+
+    _getServices = services => {
+        const serviceOptions = services.map(({ id, name }) => ({
+            value: id,
+            label: name,
+            text: name
+        }));
+
+        return convertArrToObj(serviceOptions, 'value');
     };
 
     handleChange = (name, value) => {
@@ -207,7 +225,8 @@ const mapStateToProps = ({
         addPinCoordinatesReducer: { coordinates },
         pinsReducer: { postSuccess },
         pinHistoriesReducer: { histories },
-        pinAnswersReducer: { answers: pinAnswers }
+        pinAnswersReducer: { answers: pinAnswers },
+        servicesReducer: { services }
     },
     shared: {
         filesUploadingReducer: { filesUploading },
@@ -223,6 +242,7 @@ const mapStateToProps = ({
     filesUploading,
     confirmLeave,
     status,
+    services: Object.values(services),
     versions: Object.values(versions),
     pinAnswers: Object.values(pinAnswers),
     histories,

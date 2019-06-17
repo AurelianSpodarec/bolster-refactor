@@ -1,25 +1,24 @@
 import React, { Component } from 'react';
+import moment from 'moment';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import moment from 'moment';
 
 import DrawingMapFiltersAdvanced from '../presentational/DrawingMapFiltersAdvanced';
 import DrawingMapViewSimple from '../presentational/DrawingMapViewSimple';
 import DrawingInspectionLogContainer from './DrawingInspectionLogContainer';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import {
-    convertEnumToDropdownOptions,
-    momentComparisonFormat
-} from 'helpers/generic';
+import { convertEnumToDropdownOptions } from 'helpers/generic';
 import { PIN_STATUS_TYPES } from 'constants/companyAdmin/enums';
+import withUpdateOnChange from 'components/client/reports/createReport/components/hocs/withUpdateOnChange';
+import removeFieldError from 'actions/shared/generic/fieldErrors/sync/removeFieldError';
 
 class DrawingMapGeneralContainer extends Component {
     state = {
         serviceSelectedID: '',
         statusSelectedID: '',
         operativeSelectedID: '',
-        startDateSelected: undefined,
-        endDateSelected: undefined,
+        fromDateInclusive: undefined,
+        toDateInclusive: undefined,
         position: [51.505, -0.09],
         mapZoom: 3,
         updating: false,
@@ -34,8 +33,8 @@ class DrawingMapGeneralContainer extends Component {
             serviceSelectedID,
             statusSelectedID,
             // operativeSelectedID,
-            startDateSelected,
-            endDateSelected,
+            fromDateInclusive,
+            toDateInclusive,
             mapZoom,
             position,
             updating,
@@ -46,7 +45,7 @@ class DrawingMapGeneralContainer extends Component {
 
         const { error, pins, drawing = {}, fieldErrors } = this.props;
 
-        const dateError = fieldErrors['startDateSelected']
+        const dateError = fieldErrors['fromDateInclusive']
             ? 'Start date must not be after end date.'
             : null;
 
@@ -68,8 +67,8 @@ class DrawingMapGeneralContainer extends Component {
                                 // selectedOperative={
                                 //     operativeOptions[operativeSelectedID]
                                 // }
-                                startDateSelected={startDateSelected}
-                                endDateSelected={endDateSelected}
+                                fromDateInclusive={fromDateInclusive}
+                                toDateInclusive={toDateInclusive}
                                 pins={pins}
                                 handleChange={this.handleChange}
                                 handleDateChange={this.handleDateChange}
@@ -104,9 +103,19 @@ class DrawingMapGeneralContainer extends Component {
 
     componentDidUpdate = ({
         drawing: prevDrawing = {},
-        isFetching: prevIsFetching
+        isFetching: prevIsFetching,
+        pinsFromAPI: prevPinsFromAPI = []
     }) => {
-        const { drawing = {}, isFetching } = this.props;
+        const {
+            drawing = {},
+            isFetching,
+            pinsFromAPI = [],
+            handleChange,
+            fieldErrors,
+            removeFieldError,
+            fromDateInclusive,
+            toDateInclusive
+        } = this.props;
         // when the component has finished fetching all the options, run get services options once instead of in every render
         if (!isFetching && prevIsFetching) {
             const serviceOptions = this._getServicesOptions();
@@ -117,11 +126,32 @@ class DrawingMapGeneralContainer extends Component {
             clearInterval(this._floorplanInterval);
             this.setState({ updating: false });
         }
+
+        if (pinsFromAPI.length !== prevPinsFromAPI.length) {
+            const pinIDs = pinsFromAPI.map(({ id }) => id);
+            handleChange('pinIDs', pinIDs);
+        }
+
+        if (
+            fieldErrors.fromDateInclusive &&
+            moment(fromDateInclusive) <= moment(toDateInclusive)
+        ) {
+            removeFieldError('fromDateInclusive');
+            removeFieldError('toDateInclusive');
+        }
     };
 
-    handleChange = (name, value) => this.setState({ [name]: value });
+    handleChange = (name, value) => {
+        const { handleChange, postFilters } = this.props;
+        this.setState({ [name]: value });
+        handleChange(name, value).then(postFilters);
+    };
 
-    handleDateChange = (date, name) => this.setState({ [name]: date });
+    handleDateChange = (date, name) => {
+        this.setState({ [name]: date });
+        const { handleChange, postFilters } = this.props;
+        handleChange(name, date).then(postFilters);
+    };
 
     _getServicesOptions = () => {
         const { services, pins } = this.props;
@@ -156,48 +186,9 @@ class DrawingMapGeneralContainer extends Component {
     // };
 
     _getFilteredPins = () => {
-        const { pins } = this.props;
-        const {
-            serviceSelectedID,
-            statusSelectedID,
-            operativeSelectedID,
-            startDateSelected,
-            endDateSelected
-        } = this.state;
+        const { pins, pinIDs } = this.props;
 
-        const filterPins = pins.filter(pin => {
-            if (
-                serviceSelectedID &&
-                +pin.latestServiceID !== +serviceSelectedID
-            ) {
-                return false;
-            }
-            if (statusSelectedID && +pin.latestStatus !== +statusSelectedID) {
-                return false;
-            }
-            if (
-                operativeSelectedID &&
-                +pin.latestCreatedByCompanyUserID !== +operativeSelectedID
-            ) {
-                return false;
-            }
-            // * format moment dates for comparison to date instead of timestamp - for same day comparison
-            if (
-                startDateSelected &&
-                moment(pin.latestCreatedOn).format(momentComparisonFormat) <=
-                    moment(startDateSelected)
-            ) {
-                return false;
-            }
-            if (
-                endDateSelected &&
-                moment(pin.latestCreatedOn).format(momentComparisonFormat) >=
-                    moment(endDateSelected)
-            ) {
-                return false;
-            }
-            return true;
-        });
+        const filterPins = pins.filter(({ id }) => pinIDs.includes(id));
 
         return filterPins;
     };
@@ -209,7 +200,11 @@ const mapStateToProps = (
             pinsReducer: { pins, isFetching: fetchingPins, error },
             servicesReducer: { services, isFetching: fetchingServices },
             // drawingOperativesReducer: { users, isFetching: fetchingUsers },
-            drawingsReducer: { drawings }
+            drawingsReducer: { drawings },
+            reportsReducer: {
+                filters: { pinIDs },
+                customFilters: { pins: pinsFromAPI }
+            }
         },
         shared: {
             fieldErrorsReducer: { fieldErrors }
@@ -223,7 +218,16 @@ const mapStateToProps = (
     services: Object.values(services),
     isFetching: fetchingPins || fetchingServices,
     fieldErrors,
-    error
+    error,
+    pinIDs,
+    pinsFromAPI
 });
 
-export default withRouter(connect(mapStateToProps)(DrawingMapGeneralContainer));
+export default withRouter(
+    withUpdateOnChange(
+        connect(
+            mapStateToProps,
+            { removeFieldError }
+        )(DrawingMapGeneralContainer)
+    )
+);
