@@ -121,7 +121,6 @@ export default function(ProtectedComponent) {
             } = FURTHER_FILTRATION_OPTIONS;
 
             switch (+furtherFiltrationOption) {
-                case PIN_SELECTOR:
                 case INDIVIDUAL_PINS: {
                     selectedPinIDs = pinIDs.filter(
                         id => !Object.values(excludedPinIDs).includes(id)
