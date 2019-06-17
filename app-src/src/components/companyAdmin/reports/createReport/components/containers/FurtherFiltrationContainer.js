@@ -28,7 +28,8 @@ import FilterFieldsModalContainer from './FilterFieldsModalContainer';
 
 class FurtherFiltrationContainer extends Component {
     state = {
-        addFilter: false
+        addFilter: false,
+        filterToEditID: null
     };
     render() {
         const {
@@ -65,6 +66,7 @@ class FurtherFiltrationContainer extends Component {
                 ) : furtherFiltrationOption === '3' ? (
                     this.state.addFilter ? (
                         <FilterFieldsModalContainer
+                            id={this.state.filterToEditID}
                             toggleAddFilter={this.toggleAddFilter}
                         />
                     ) : (
@@ -125,19 +127,30 @@ class FurtherFiltrationContainer extends Component {
     };
 
     toggleAddFilter = () => {
-        this.setState({ addFilter: !this.state.addFilter });
+        this.setState({
+            addFilter: !this.state.addFilter,
+            filterToEditID: null
+        });
     };
+
     addCustomField = () => {
         const { showModal, customQuestions } = this.props;
         showModal(FILTER_FIELDS, { customQuestions });
     };
 
     handleShowCustomFieldModal = id => {
-        const { showModal, customQuestions } = this.props;
-        showModal(FILTER_FIELDS, { customQuestions, id });
+        this.setState({
+            addFilter: !this.state.addFilter,
+            filterToEditID: id
+        });
     };
 
-    removeCustomField = id => this.props.removeFilterQuestion(id);
+    removeCustomField = async id => {
+        await this.props.removeFilterQuestion(id);
+
+        const { postFilters } = this.props;
+        postFilters();
+    };
 
     _getQuestionsOptions = () => {
         const { customQuestions } = this.props;
