@@ -14,30 +14,32 @@ const Table = ({
     withoutTBody
 }) => {
     return (
-        <table
-            className={`generic-table ${
-                withActions ? 'with-actions' : ''
-            } ${extraClasses}`}
-        >
-            <thead>
-                <tr>
-                    {headers.map((header, i) => (
-                        <th key={header + i}>{header}</th>
-                    ))}
-                </tr>
-            </thead>
-
-            <TableBody
-                colCount={headers.length}
-                error={error}
-                isFetching={isFetching}
-                noData={noData}
-                noDataMessage={noDataMessage}
-                withoutTBody={withoutTBody}
+        <div className="pinfeed-wrapper">
+            <table
+                className={`generic-table ${
+                    withActions ? 'with-actions' : ''
+                } ${extraClasses}`}
             >
-                {children}
-            </TableBody>
-        </table>
+                <thead>
+                    <tr>
+                        {headers.map((header, i) => (
+                            <th key={header + i}>{header}</th>
+                        ))}
+                    </tr>
+                </thead>
+
+                <TableBody
+                    colCount={headers.length}
+                    error={error}
+                    isFetching={isFetching}
+                    noData={noData}
+                    noDataMessage={noDataMessage}
+                    withoutTBody={withoutTBody}
+                >
+                    {children}
+                </TableBody>
+            </table>
+        </div>
     );
 };
 
