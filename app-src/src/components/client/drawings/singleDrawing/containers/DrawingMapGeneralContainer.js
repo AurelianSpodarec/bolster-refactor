@@ -8,6 +8,7 @@ import DrawingInspectionLogContainer from './DrawingInspectionLogContainer';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import { convertEnumToDropdownOptions } from 'helpers/generic';
 import { PIN_STATUS_TYPES } from 'constants/companyAdmin/enums';
+import withUpdateOnChange from 'components/client/reports/createReport/components/hocs/withUpdateOnChange';
 
 class DrawingMapGeneralContainer extends Component {
     state = {
@@ -126,9 +127,17 @@ class DrawingMapGeneralContainer extends Component {
         }
     };
 
-    handleChange = (name, value) => this.setState({ [name]: value });
+    handleChange = (name, value) => {
+        const { handleChange, postFilters } = this.props;
+        this.setState({ [name]: value });
+        handleChange(name, value).then(postFilters);
+    };
 
-    handleDateChange = (date, name) => this.setState({ [name]: date });
+    handleDateChange = (date, name) => {
+        this.setState({ [name]: date });
+        const { handleChange, postFilters } = this.props;
+        handleChange(name, date).then(postFilters);
+    };
 
     _getServicesOptions = () => {
         const { services, pins } = this.props;
@@ -200,4 +209,6 @@ const mapStateToProps = (
     pinsFromAPI
 });
 
-export default withRouter(connect(mapStateToProps)(DrawingMapGeneralContainer));
+export default withRouter(
+    withUpdateOnChange(connect(mapStateToProps)(DrawingMapGeneralContainer))
+);
