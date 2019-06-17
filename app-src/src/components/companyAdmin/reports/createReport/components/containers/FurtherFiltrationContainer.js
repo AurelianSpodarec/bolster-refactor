@@ -63,11 +63,11 @@ class FurtherFiltrationContainer extends Component {
                     handleNumOfHistoriesChange={this.handleNumOfHistoriesChange}
                     selectedHistoryNum={reportHistories}
                 />
-                {furtherFiltrationOption === INDIVIDUAL_PINS ? (
+                {+furtherFiltrationOption === +INDIVIDUAL_PINS ? (
                     <PinSelectorContainer blockName="pinSelector" />
-                ) : furtherFiltrationOption === PIN_SELECTOR ? (
+                ) : +furtherFiltrationOption === +PIN_SELECTOR ? (
                     <MapPinSelectorContainer blockName="pinSelector" />
-                ) : furtherFiltrationOption === FILTERS ? (
+                ) : +furtherFiltrationOption === +FILTERS ? (
                     this.state.addFilter ? (
                         <FilterFieldsModalContainer
                             id={this.state.filterToEditID}
