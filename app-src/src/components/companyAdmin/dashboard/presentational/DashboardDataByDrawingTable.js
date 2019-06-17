@@ -17,7 +17,7 @@ const DashboardDataByDrawingTable = ({
         noData={!drawings.length}
         noDataMessage="There are no drawings to display."
     >
-        {drawings.map(drawing => (
+        {drawings.slice(0, 8).map(drawing => (
             <DashboardDataByDrawingListItem
                 key={drawing.id}
                 drawing={drawing}
