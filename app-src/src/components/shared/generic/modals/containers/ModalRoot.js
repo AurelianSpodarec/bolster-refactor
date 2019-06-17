@@ -52,7 +52,8 @@ import {
     UNLINK_DEVICE,
     COPY_TEMPLATE,
     SINGLE_PIN_GENERATE_REPORT_SUCCESS,
-    CLIENT_SINGLE_PIN_GENERATE_REPORT_SUCCESS
+    CLIENT_SINGLE_PIN_GENERATE_REPORT_SUCCESS,
+    SELECT_PIN_SCALE
 } from 'constants/shared/modalTypes';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
@@ -108,6 +109,7 @@ import CopyTemplateModalContainer from 'components/superAdmin/templateBuilder/co
 import DocumentResponseAgreeanceModalContainer from 'components/shared/documents/containers/DocumentResponseAgreeanceModalContainer';
 import SinglePinGenerateReportSuccessModalContainer from 'components/companyAdmin/pins/singlePin/containers/SinglePinGenerateReportSuccessModalContainer';
 import ClientSinglePinGenerateReportSuccessModalContainer from 'components/client/pins/singlePin/containers/SinglePinGenerateReportSuccessModalContainer';
+import SelectPinScaleModalContainer from 'components/shared/generic/modals/containers/SelectPinScaleModalContainer';
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModalContainer,
@@ -160,7 +162,8 @@ const MODAL_COMPONENTS = {
     [UNLINK_DEVICE]: UnlinkDeviceModalContainer,
     [DOCUMENT_RESPONSE_AGREEANCE]: DocumentResponseAgreeanceModalContainer,
     [SINGLE_PIN_GENERATE_REPORT_SUCCESS]: SinglePinGenerateReportSuccessModalContainer,
-    [CLIENT_SINGLE_PIN_GENERATE_REPORT_SUCCESS]: ClientSinglePinGenerateReportSuccessModalContainer
+    [CLIENT_SINGLE_PIN_GENERATE_REPORT_SUCCESS]: ClientSinglePinGenerateReportSuccessModalContainer,
+    [SELECT_PIN_SCALE]: SelectPinScaleModalContainer
 };
 
 const ModalRoot = ({ modalType, modalProps, ...otherProps }) => {

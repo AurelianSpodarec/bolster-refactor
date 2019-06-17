@@ -7,6 +7,7 @@ import { ACCESS_TYPES } from 'constants/companyAdmin/enums';
 import BuildingsListItem from '../presentational/BuildingsListItem';
 import reorderBuilding from 'actions/companyAdmin/buildings/sync/reorderBuilding';
 import postBuildingsSort from 'actions/companyAdmin/buildings/async/postBuildingsSort';
+import { formatPermissions } from 'components/companyAdmin/sites/allSites/containers/SitesListItemContainer';
 
 const BuildingsListItemContainer = ({
     expandedBuildingIds,
@@ -26,17 +27,7 @@ const BuildingsListItemContainer = ({
         isExpanded={expandedBuildingIds.includes(building.id)}
         colCount={colCount}
         toggleExpanded={() => toggleBuildingExpanded(building.id)}
-        permissions={
-            (!permissions && ACCESS_TYPES[accessType]) ||
-            permissions
-                .map(
-                    permission =>
-                        `${permission.companyName} (${
-                            ACCESS_TYPES[permission.accessType]
-                        })`
-                )
-                .join(', ')
-        }
+        permissions={formatPermissions(permissions, accessType)}
         onMove={reorderBuilding}
         onDrop={() => postBuildingsSort(buildings)}
     />

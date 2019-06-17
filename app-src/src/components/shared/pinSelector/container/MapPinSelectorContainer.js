@@ -1,8 +1,24 @@
 import React, { Component } from 'react';
-import MapPinSelector from '../presentational/MapPinSelector';
+import { connect } from 'react-redux';
 
-export default class MapPinSelectorContainer extends Component {
+import MapPinSelector from '../presentational/MapPinSelector';
+import { isObjEmpty } from 'helpers/generic';
+
+class MapPinSelectorContainer extends Component {
     render() {
-        return <MapPinSelector />;
+        const { pins, rectangles } = this.props;
+
+        return <MapPinSelector pins={!isObjEmpty(rectangles) ? pins : []} />;
     }
 }
+
+const mapStateToProps = (state, { client }) => {
+    const reducer = state[client ? 'client' : 'companyAdmin'];
+    const { reportsReducer } = reducer;
+    return {
+        pins: reportsReducer.customFilters.pins,
+        rectangles: reportsReducer.rectangles
+    };
+};
+
+export default connect(mapStateToProps)(MapPinSelectorContainer);

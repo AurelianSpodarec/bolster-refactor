@@ -5,12 +5,6 @@ import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/pr
 import Field from 'components/shared/generic/form/presentational/Field';
 import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
 import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
-import Select from 'components/shared/generic/form/presentational/Select';
-import { NUMBER_OF_HISTORIES } from 'constants/companyAdmin/enums';
-
-const historyNumsOptions = Object.entries(NUMBER_OF_HISTORIES).map(
-    ([value, label]) => ({ value: +value, label })
-);
 
 const OutputSettings = ({
     handleSubmit,
@@ -23,9 +17,7 @@ const OutputSettings = ({
     isCSVGeneration,
     isFloorplanGeneration,
     includeFloorplan,
-    showHidden,
-    selectedHistoryNum,
-    handleNumOfHistoriesChange
+    showHidden
 }) => (
     <div className="size-lg-12">
         <BlockContainer>
@@ -36,17 +28,6 @@ const OutputSettings = ({
                 </p>
                 <div className="generic-form">
                     <div className="size-lg-6">
-                        <Field name="Number of Histories" reqiured={true}>
-                            <Select
-                                singleSelect
-                                name="reportHistories"
-                                options={historyNumsOptions}
-                                value={selectedHistoryNum}
-                                onChange={handleNumOfHistoriesChange}
-                                omitPlaceholder
-                                required
-                            />
-                        </Field>
                         <Field name="Report formats">
                             <div className="checkbox-list size-lg-12">
                                 <CheckboxContainer

@@ -23,7 +23,6 @@ class FilterFieldsModalContainer extends Component {
     };
     render() {
         const { hideModal } = this.props;
-
         const {
             showFreeForm,
             freeFormValues,
@@ -183,15 +182,15 @@ const mapStateToProps = (
         companyAdmin: {
             reportsReducer: {
                 fields,
-                customFilters: { questionOptions = [] }
+                customFilters: { questionOptions = [], questions }
             }
         }
     },
-    { id, customQuestions }
+    { id }
 ) => ({
     field: fields[id],
-    questionsObj: convertArrToObj(customQuestions),
-    questionOptions: convertArrToObj(questionOptions)
+    questionOptions: convertArrToObj(questionOptions),
+    customQuestions: questions
 });
 
 const mapDispatchToProps = {

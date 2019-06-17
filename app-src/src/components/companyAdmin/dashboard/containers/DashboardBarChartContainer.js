@@ -54,7 +54,7 @@ class DashboardBarContainer extends Component {
                     data: datasets.Inspected
                 },
                 {
-                    label: 'No action required',
+                    label: 'No action',
                     backgroundColor: '#efc209',
                     stack: 'pins',
                     data: datasets.NoAction

@@ -170,9 +170,14 @@ export const VAT_TYPES = {
 
 //Report generator
 export const FURTHER_FILTRATION = {
-    1: 'Pin Selection',
+    1: 'Individual Pins',
     2: 'Pin Selector',
     3: 'Filters'
+};
+export const FURTHER_FILTRATION_OPTIONS = {
+    INDIVIDUAL_PINS: 1,
+    PIN_SELECTOR: 2,
+    FILTERS: 3
 };
 
 export const NUMBER_OF_HISTORIES = {
@@ -277,4 +282,10 @@ export const FLOORPLAN_STATE_MESSAGES = {
     0: 'Uploading floorplan...',
     1: 'Uploading floorplan...',
     100: ''
+};
+
+export const RECTANGLE_MODES = {
+    NONE: 0,
+    ADD: 1,
+    DELETE: 2
 };

@@ -9,15 +9,11 @@ import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import {
     SUCCESS_MODAL,
     ERROR_MODAL,
-    CONFIRM_SUBMIT
+    SELECT_PIN_SCALE
 } from 'constants/shared/modalTypes';
 
 import showFieldErrors from 'actions/shared/generic/fieldErrors/sync/showFieldErrors';
-import {
-    isEmpty,
-    convertEnumToDropdownOptions,
-    isObjEmpty
-} from 'helpers/generic';
+import { isEmpty, convertEnumToDropdownOptions } from 'helpers/generic';
 import withUpdateOnChange from '../hocs/withUpdateOnChange';
 import { SORT_BY_OPTIONS_TEXT } from 'constants/companyAdmin/enums';
 import updateFilterOption from 'actions/companyAdmin/reports/sync/updateFilterOption';
@@ -33,8 +29,7 @@ class OutputSettingsContainer extends Component {
                 isPDFGeneration,
                 isCSVGeneration,
                 isFloorplanGeneration,
-                includeFloorplan,
-                reportHistories
+                includeFloorplan
             },
             options: { showHidden, sortBy }
         } = this.props;
@@ -45,7 +40,6 @@ class OutputSettingsContainer extends Component {
 
         return (
             <OutputSettings
-                selectedHistoryNum={reportHistories}
                 includePinLocation={includePinLocation}
                 isCSVGeneration={isCSVGeneration}
                 isFloorplanGeneration={isFloorplanGeneration}
@@ -57,7 +51,6 @@ class OutputSettingsContainer extends Component {
                 handleFilterChange={this.handleFilterChange}
                 handleOptionChange={this.handleOptionChange}
                 handleSubmit={this.handleSubmit}
-                handleNumOfHistoriesChange={this.handleNumOfHistoriesChange}
             />
         );
     }
@@ -129,28 +122,6 @@ class OutputSettingsContainer extends Component {
         }
     };
 
-    handleNumOfHistoriesChange = (name, value) => {
-        const {
-            handleChange,
-            postFilters,
-            showModal,
-            hideModal,
-            shouldConfirm
-        } = this.props;
-
-        if (shouldConfirm) {
-            const handleSubmit = () => {
-                hideModal();
-                handleChange(name, value).then(postFilters);
-            };
-            const message =
-                'Changing this will reset your advanced filters options, continue?';
-            showModal(CONFIRM_SUBMIT, { handleSubmit, message, hideModal });
-        } else {
-            handleChange(name, value).then(postFilters);
-        }
-    };
-
     handleFilterChange = (name, value) => {
         this.props.handleChange(name, value);
     };
@@ -164,26 +135,58 @@ class OutputSettingsContainer extends Component {
             getPostBody,
             postReport,
             fieldErrors,
-            showFieldErrors
+            showFieldErrors,
+            filters: { isFloorplanGeneration, isPDFGeneration },
+            showModal
         } = this.props;
 
         if (!isEmpty(fieldErrors)) showFieldErrors();
-        else postReport(getPostBody());
+        else if (isFloorplanGeneration || isPDFGeneration) {
+            const drawingForPinScale = this._getDrawingForPinScale();
+            showModal(SELECT_PIN_SCALE, {
+                drawing: drawingForPinScale,
+                getPostBody,
+                postReport
+            });
+        } else postReport(getPostBody());
+    };
+
+    _getDrawingForPinScale = () => {
+        const {
+            drawings,
+            match: {
+                path,
+                params: { id }
+            }
+        } = this.props;
+
+        // uses the url to figure out which hierarchy the report is being generated on and find an appropriate drawing for the pin scale modal
+        if (/sites/.test(path)) {
+            return Object.values(drawings).filter(
+                drawing => drawing.siteID === +id
+            )[0];
+        } else if (/buildings/.test(path)) {
+            return Object.values(drawings).filter(
+                drawing => drawing.buildingID === +id
+            )[0];
+        } else if (/floors/.test(path)) {
+            return Object.values(drawings).filter(
+                drawing => drawing.floorID === +id
+            )[0];
+        } else {
+            return drawings[id];
+        }
     };
 }
 
 const mapStateToProps = ({
     companyAdmin: {
-        reportsReducer: {
-            filters,
-            fields,
-            options,
-            postSuccess,
-            error,
-            pinIDs,
-            customFilters: { pins = [] },
-            filters: { pinIDs: ids = [] }
-        }
+        sitesReducer: { sites },
+        buildingsReducer: { buildings },
+        floorsReducer: { floors },
+        drawingsReducer: { drawings },
+
+        reportsReducer: { filters, fields, options, postSuccess, error, pinIDs }
     },
     shared: {
         fieldErrorsReducer: { fieldErrors }
@@ -195,8 +198,11 @@ const mapStateToProps = ({
     filters,
     options,
     postSuccess,
-    error,
-    shouldConfirm: !isObjEmpty(fields) || pins.length !== ids.length
+    sites,
+    buildings,
+    floors,
+    drawings,
+    error
 });
 
 const mapDispatchToProps = {

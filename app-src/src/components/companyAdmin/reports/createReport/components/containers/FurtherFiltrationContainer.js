@@ -2,14 +2,15 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import showModal from 'actions/shared/generic/modals/sync/showModal';
 import hideModal from 'actions/shared/generic/modals/sync/hideModal';
-import { FILTER_FIELDS } from 'constants/shared/modalTypes';
+import { FILTER_FIELDS, CONFIRM_SUBMIT } from 'constants/shared/modalTypes';
 
 import FurtherFiltration from '../presentational/FurtherFiltration';
 import PinSelectorContainer from 'components/shared/pinSelector/container/PinSelectorContainer';
 import updateReportFilter from 'actions/companyAdmin/reports/sync/updateReportFilter';
 import {
     convertEnumToDropdownOptions,
-    removeDuplicates
+    removeDuplicates,
+    isObjEmpty
 } from 'helpers/generic';
 import addFilterQuestion from 'actions/companyAdmin/reports/sync/addFilterQuestion';
 import removeFilterQuestion from 'actions/companyAdmin/reports/sync/removeFilterQuestion';
@@ -21,23 +22,23 @@ import BlockHeading from 'components/shared/generic/blockHeading/presentational/
 import FilterField from '../presentational/FilterField';
 import resetFilterOptions from 'actions/companyAdmin/reports/sync/resetFilterOptions';
 import MapPinSelectorContainer from 'components/shared/pinSelector/container/MapPinSelectorContainer';
+import withUpdateOnChange from '../hocs/withUpdateOnChange';
+import updateFurtherFiltrationOption from 'actions/companyAdmin/reports/sync/updateFurtherFiltrationOption';
 
 class FurtherFiltrationContainer extends Component {
-    state = { filterOption: 0 };
-
     render() {
-        const { filterOption } = this.state;
         const {
             fields,
-            filters: { drawingID }
+            filters: { drawingID, reportHistories },
+            furtherFiltrationOption
         } = this.props;
         const filtrationOptions = convertEnumToDropdownOptions(
             FURTHER_FILTRATION
         );
         const filtrationOptionsArr = Object.values(filtrationOptions).filter(
-            ({ text }) => drawingID || text !== 'Pin Selection'
+            ({ text }) => drawingID || text !== 'Individual Pins'
         );
-        const selected = filtrationOptions[filterOption];
+        const selected = filtrationOptions[furtherFiltrationOption];
 
         return (
             <BlockContainer>
@@ -50,12 +51,14 @@ class FurtherFiltrationContainer extends Component {
                     furtherFiltrationOptions={filtrationOptionsArr}
                     selected={selected}
                     handleChange={this.handleChange}
+                    handleNumOfHistoriesChange={this.handleNumOfHistoriesChange}
+                    selectedHistoryNum={reportHistories}
                 />
-                {filterOption === '1' ? (
+                {furtherFiltrationOption === '1' ? (
                     <PinSelectorContainer blockName="pinSelector" />
-                ) : filterOption === '2' ? (
+                ) : furtherFiltrationOption === '2' ? (
                     <MapPinSelectorContainer blockName="pinSelector" />
-                ) : filterOption === '3' ? (
+                ) : furtherFiltrationOption === '3' ? (
                     <div className="custom-filters-block">
                         <div className="size-lg-12">
                             {fields.map(field => (
@@ -85,14 +88,15 @@ class FurtherFiltrationContainer extends Component {
             </BlockContainer>
         );
     }
-    componentDidUpdate = (prevProps, prevState) => {
+    componentDidUpdate = prevProps => {
         const {
             filters: { siteID, buildingID, floorID, drawingID },
-            removeFilterQuestions
+            removeFilterQuestions,
+            furtherFiltrationOption,
+            updateFurtherFiltrationOption
         } = this.props;
         // reset filter fields if changing the filter
-        const { filterOption } = this.state;
-        if (prevState.filterOption !== filterOption) {
+        if (prevProps.furtherFiltrationOption !== furtherFiltrationOption) {
             removeFilterQuestions();
         }
         // reset further filters if site info changes
@@ -102,7 +106,7 @@ class FurtherFiltrationContainer extends Component {
             floorID !== prevProps.filters.floorID ||
             drawingID !== prevProps.filters.drawingID
         ) {
-            this.setState({ filterOption: 0 });
+            updateFurtherFiltrationOption(0);
             removeFilterQuestions();
         }
     };
@@ -132,21 +136,49 @@ class FurtherFiltrationContainer extends Component {
         return options;
     };
 
-    handleChange = (name, value) => this.setState({ [name]: value });
+    handleChange = (_, value) => {
+        this.props.updateFurtherFiltrationOption(value);
+    };
+
+    handleNumOfHistoriesChange = (name, value) => {
+        const {
+            handleChange,
+            postFilters,
+            showModal,
+            hideModal,
+            shouldConfirm
+        } = this.props;
+
+        if (shouldConfirm) {
+            const handleSubmit = () => {
+                hideModal();
+                handleChange(name, value).then(postFilters);
+            };
+            const message =
+                'Changing this will reset your advanced filters options, continue?';
+            showModal(CONFIRM_SUBMIT, { handleSubmit, message, hideModal });
+        } else {
+            handleChange(name, value).then(postFilters);
+        }
+    };
 }
 
 const mapStateToProps = ({
     companyAdmin: {
         reportsReducer: {
-            customFilters: { questions },
+            customFilters: { pins = [], questions = [] },
+            filters: { pinIDs: ids = [] },
             fields,
-            filters
+            filters,
+            furtherFiltrationOption
         }
     }
 }) => ({
-    customQuestions: questions || [],
+    customQuestions: questions,
     fields: Object.values(fields),
-    filters
+    filters,
+    shouldConfirm: !isObjEmpty(fields) || pins.length !== ids.length,
+    furtherFiltrationOption
 });
 
 const mapDispatchToProps = {
@@ -156,10 +188,13 @@ const mapDispatchToProps = {
     removeFilterQuestions,
     showModal,
     hideModal,
-    resetFilterOptions
+    resetFilterOptions,
+    updateFurtherFiltrationOption
 };
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(FurtherFiltrationContainer);
+export default withUpdateOnChange(
+    connect(
+        mapStateToProps,
+        mapDispatchToProps
+    )(FurtherFiltrationContainer)
+);

@@ -18,17 +18,18 @@ const BasicFilters = ({
     selectedStatus,
     fromDateInclusive,
     toDateInclusive,
-    historyNumsOptions,
-    selectedHistoryNum,
     isDrawingPage
 }) => (
     <div className={`flex-item size-lg-${isDrawingPage ? '12' : '6'}`}>
         <BlockContainer>
             <div className="size-lg-12">
                 <BlockHeading title="General Filters" />
-                <p className="generic-text small">
-                    Your high level filtration options can be found below.
-                </p>
+                {!isDrawingPage && (
+                    <p className="generic-text small">
+                        Your high level filtration options can be found below.
+                    </p>
+                )}
+
                 <Field name="Services" required>
                     <DropdownContainer
                         placeholder="Select Service"
@@ -80,18 +81,7 @@ const BasicFilters = ({
                         </p>
                     </div>
                 </Field>
-                <Field name="Number of Histories" reqiured={true}>
-                    <DropdownContainer
-                        singleSelect
-                        name="reportHistories"
-                        options={historyNumsOptions}
-                        value={selectedHistoryNum}
-                        selectedOption={selectedHistoryNum}
-                        handleChange={handleChange}
-                        withoutPlaceholder
-                        required
-                    />
-                </Field>
+
                 {isDrawingPage && <OperativesFilterContainer advanced />}
 
                 {!!fieldError && (
