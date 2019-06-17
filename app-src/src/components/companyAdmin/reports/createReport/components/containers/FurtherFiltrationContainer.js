@@ -35,7 +35,7 @@ class FurtherFiltrationContainer extends Component {
             FURTHER_FILTRATION
         );
         const filtrationOptionsArr = Object.values(filtrationOptions).filter(
-            ({ text }) => drawingID || text !== 'Pin Selection'
+            ({ text }) => drawingID || text !== 'Individual Pins'
         );
         const selected = filtrationOptions[filterOption];
 

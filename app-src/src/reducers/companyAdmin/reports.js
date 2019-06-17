@@ -16,7 +16,9 @@ import {
     UPDATE_SELECTED_PINS,
     RESET_FILTER_OPTIONS,
     POST_REPORT_NO_PINS,
-    UPDATE_FILTER_QUESTION_VALS
+    UPDATE_FILTER_QUESTION_VALS,
+    ADD_RECTANGLE,
+    REMOVE_RECTANGLE
 } from 'constants/actionTypes/reports';
 import { updateObj, removeObjItem, convertArrToObj } from 'helpers/generic';
 import { SORT_BY_OPTIONS } from 'constants/companyAdmin/enums';
@@ -30,7 +32,8 @@ export default combineReducers({
     postSuccess: postSuccessReducer,
     pinResults: pinResultsReducer,
     selectedPins: selectedPinsReducer,
-    isFetching: isFetchingReducer
+    isFetching: isFetchingReducer,
+    rectangles: rectanglesReducer
 });
 
 //send the questionsIDs
@@ -206,6 +209,20 @@ function errorReducer(state = null, action) {
         case POST_CUSTOM_FILTERS_FAILURE:
         case POST_REPORT_FAILURE:
             return action.error;
+        default:
+            return state;
+    }
+}
+
+function rectanglesReducer(state = {}, action) {
+    switch (action.type) {
+        case ADD_RECTANGLE:
+            return updateObj(state, action.id, {
+                id: action.id,
+                corners: [action.topLeft, action.bottomRight]
+            });
+        case REMOVE_RECTANGLE:
+            return removeObjItem(state, action.id);
         default:
             return state;
     }

@@ -83,6 +83,7 @@ export default function(ProtectedComponent) {
                     toDateInclusive,
                     companyUserIDs
                 },
+                rectangles,
                 options: { showHidden, sortBy },
                 fields
             } = this.props;
@@ -123,6 +124,19 @@ export default function(ProtectedComponent) {
                     };
                 }
             );
+
+            const getLatLng = corner => {
+                const [latY, lngX] = corner;
+                return { latY, lngX };
+            };
+
+            const pinBoundingBoxes = Object.values(rectangles).map(
+                ({ corners: [first, second] }) => [
+                    getLatLng(first),
+                    getLatLng(second)
+                ]
+            );
+
             const body = {
                 hierarchyType,
                 hierarchyID,
@@ -140,7 +154,8 @@ export default function(ProtectedComponent) {
                 pinIDs: pinIDs || null,
                 questionFilters,
                 showHidden,
-                sortBy
+                sortBy,
+                pinBoundingBoxes
             };
             return body;
         };
@@ -169,7 +184,8 @@ export default function(ProtectedComponent) {
                     options,
                     postSuccess,
                     error,
-                    customFilters
+                    customFilters,
+                    rectangles
                 }
             }
         },
@@ -193,6 +209,7 @@ export default function(ProtectedComponent) {
             fieldError: fieldErrors[blockName],
             errorsVisible,
             filters,
+            rectangles,
             customFilters,
             options,
             postSuccess,
