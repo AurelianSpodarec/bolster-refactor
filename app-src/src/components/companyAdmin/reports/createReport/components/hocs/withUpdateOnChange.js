@@ -81,7 +81,8 @@ export default function(ProtectedComponent) {
                     includeFloorplan,
                     fromDateInclusive,
                     toDateInclusive,
-                    companyUserIDs
+                    companyUserIDs,
+                    floorplanPinScale
                 },
                 options: { showHidden, sortBy },
                 fields
@@ -140,7 +141,8 @@ export default function(ProtectedComponent) {
                 pinIDs: pinIDs || null,
                 questionFilters,
                 showHidden,
-                sortBy
+                sortBy,
+                floorplanPinScale
             };
             return body;
         };
