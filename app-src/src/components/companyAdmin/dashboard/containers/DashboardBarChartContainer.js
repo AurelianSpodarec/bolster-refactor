@@ -2,21 +2,30 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import DashboardBarChart from '../presentational/DashboardBarChart';
+import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
+
 import { isEmpty } from 'helpers/generic';
+import Block from 'components/shared/generic/block/presentational/Block';
 
 class DashboardBarContainer extends Component {
     render() {
         const { isFetching, error, datasets, labels } = this.props;
 
         return (
-            <BlockContainer
-                isFetching={isFetching}
-                error={error}
-                isEmpty={isEmpty(datasets) || isEmpty(labels)}
-                containerClass="flex-row-item size-lg-6"
-            >
-                <DashboardBarChart data={this._data} />
-            </BlockContainer>
+            <>
+                <Block containerClass="flex-row-item size-lg-6">
+                    <BlockHeading title="Pins added by operatives" />
+                    <BlockContainer
+                        isFetching={isFetching}
+                        error={error}
+                        isEmpty={isEmpty(datasets) || isEmpty(labels)}
+                        containerClass="size-lg-12"
+                        noWhiteBackground
+                    >
+                        <DashboardBarChart data={this._data} />
+                    </BlockContainer>
+                </Block>
+            </>
         );
     }
 
