@@ -24,12 +24,12 @@ const FilterFieldsModal = ({
     return (
         <BlockContainer noWhiteBackground={true}>
             <BlockHeading title="Add Filter" />
-                <Field
-                    name="Question(s)"
-                    classes="no-caps"
-                    sizeClasses="size-lg-6"
-                    required
-                >
+            <Field
+                name="Question(s)"
+                classes="no-caps"
+                sizeClasses="size-lg-6"
+                required
+            >
                 <MultiSelect
                     search
                     options={questionOptions}
@@ -61,9 +61,11 @@ const FilterFieldsModal = ({
                         </BlockButtonWrapper> */}
                     </>
                 ) : (
-                    <Field name="Valid values" sizeClasses="size-lg-12">
+                    <Field
+                        sizeClasses="size-lg-12"
                         name="Answer(s)"
                         classes="fields-inside no-caps"
+                    >
                         <MultiSelect
                             search
                             name="optionOrientedVals"
