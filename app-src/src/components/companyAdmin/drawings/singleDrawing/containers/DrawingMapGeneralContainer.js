@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import moment from 'moment';
 
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import updatePinCoordinates from 'actions/companyAdmin/drawings/sync/updatePinCoordinates';
@@ -9,11 +8,7 @@ import DrawingMapFiltersAdvanced from '../presentational/DrawingMapFiltersAdvanc
 import DrawingMapViewSimple from '../presentational/DrawingMapViewSimple';
 import DrawingInspectionLogContainer from './DrawingInspectionLogContainer';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import {
-    convertArrToObj,
-    convertEnumToDropdownOptions,
-    momentComparisonFormat
-} from 'helpers/generic';
+import { convertArrToObj, convertEnumToDropdownOptions } from 'helpers/generic';
 import {
     PIN_STATUS_TYPES,
     COMPANY_USER_ROLE_TYPES as USER_ROLE,
@@ -138,9 +133,16 @@ class DrawingMapGeneralContainer extends Component {
 
     componentDidUpdate = ({
         postSuccess: prevSuccess,
-        drawing: prevDrawing = {}
+        drawing: prevDrawing = {},
+        pinsFromAPI: prevPinsFromAPI = [],
+        handleChange
     }) => {
-        const { drawing = {}, fetchSingleDrawing, postSuccess } = this.props;
+        const {
+            drawing = {},
+            fetchSingleDrawing,
+            postSuccess,
+            pinsFromAPI = []
+        } = this.props;
         // re-fetch drawing every 5 seconds until the updated floorplan is retrieved
         if (postSuccess && !prevSuccess) fetchSingleDrawing(drawing.id);
         if (drawing.isFloorplanUpdating && !prevDrawing.isFloorplanUpdating) {
@@ -151,6 +153,10 @@ class DrawingMapGeneralContainer extends Component {
         }
         if (!drawing.isFloorplanUpdating && prevDrawing.isFloorplanUpdating) {
             clearInterval(this._floorplanInterval);
+        }
+        if (pinsFromAPI.length !== prevPinsFromAPI.length) {
+            const pinIDs = pinsFromAPI.map(({ id }) => id);
+            handleChange('pinIDs', pinIDs);
         }
     };
 
@@ -234,46 +240,9 @@ class DrawingMapGeneralContainer extends Component {
     _getFilteredPins = () => {
         const {
             pins,
-            filters: {
-                companyUserIDs,
-                serviceID,
-                status,
-                fromDateInclusive,
-                toDateInclusive
-            }
+            filters: { pinIDs }
         } = this.props;
-
-        const filterPins = pins.filter(pin => {
-            if (serviceID && +pin.latestServiceID !== +serviceID) {
-                return false;
-            }
-            if (status && +pin.latestStatus !== +status) {
-                return false;
-            }
-            if (
-                companyUserIDs.length &&
-                companyUserIDs.includes(pin.latestCreatedByCompanyUserID)
-            ) {
-                return false;
-            }
-            // * format moment dates to compare date without timestamp
-            if (
-                fromDateInclusive &&
-                moment(pin.latestCreatedOn) <=
-                    moment(fromDateInclusive).format(momentComparisonFormat)
-            ) {
-                return false;
-            }
-            if (
-                toDateInclusive &&
-                moment(pin.latestCreatedOn) >=
-                    moment(toDateInclusive).format(momentComparisonFormat)
-            ) {
-                return false;
-            }
-            return true;
-        });
-
+        const filterPins = pins.filter(({ id }) => pinIDs.includes(id));
         return filterPins;
     };
 }
@@ -285,7 +254,11 @@ const mapStateToProps = (
             servicesReducer: { services },
             companyUsersReducer: { users },
             drawingsReducer: { drawings, postSuccess },
-            addPinCoordinatesReducer: { coordinates }
+            addPinCoordinatesReducer: { coordinates },
+            reportsReducer: {
+                customFilters: { pins: pinsFromAPI },
+                filters: { pinIDs }
+            }
         }
     },
     { match }
@@ -293,6 +266,8 @@ const mapStateToProps = (
     drawing: drawings[match.params.id] || {},
     coordinates,
     pins: Object.values(pins),
+    pinsFromAPI,
+    pinIDs,
     users: Object.values(users),
     services: Object.values(services),
     isFetching,

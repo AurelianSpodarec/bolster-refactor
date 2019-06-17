@@ -38,7 +38,7 @@ class AdvancedReportContainer extends Component {
         } = this.props;
 
         if (pins.length !== prevProps.pins.length) {
-            handleChange('pinIds', pins.map(({ id }) => id));
+            handleChange('pinIDs', pins.map(({ id }) => id));
         }
         if (isFetching && !prevProps.isFetching) {
             showModal(LOADING_DATA, { message: 'Loading pins...' });
