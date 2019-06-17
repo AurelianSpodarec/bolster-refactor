@@ -84,6 +84,7 @@ export default function(ProtectedComponent) {
                     pinIDs,
                     floorplanPinScale
                 },
+                excludedPinIDs,
                 options: { showHidden, sortBy },
                 fields
             } = this.props;
@@ -136,7 +137,11 @@ export default function(ProtectedComponent) {
                 fromDateInclusive,
                 toDateInclusive,
                 companyUserIDs,
-                pinIDs: pinIDs.length ? pinIDs : null,
+                pinIDs: pinIDs
+                    ? pinIDs.filter(
+                          id => !Object.values(excludedPinIDs).includes(id)
+                      )
+                    : null,
                 serviceID: serviceID || null,
                 status: status || null,
                 questionFilters,
@@ -173,7 +178,8 @@ export default function(ProtectedComponent) {
                     options,
                     postSuccess,
                     error,
-                    customFilters
+                    customFilters,
+                    excludedPinIDs
                 }
             }
         },
@@ -206,7 +212,8 @@ export default function(ProtectedComponent) {
             buildings,
             floors,
             drawings,
-            fields: Object.values(fields)
+            fields: Object.values(fields),
+            excludedPinIDs
         };
     };
 

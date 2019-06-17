@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import MapPin from '../presentational/MapPin';
 
 import fetchSinglePin from 'actions/companyAdmin/pins/async/fetchSinglePin';
+import updateIsPinExcluded from 'actions/companyAdmin/reports/sync/updateIsPinExcluded';
 
 class MapPinContainer extends Component {
     render() {
@@ -12,7 +13,10 @@ class MapPinContainer extends Component {
             users,
             services,
             withTooltip = false,
-            urlStart
+            urlStart,
+            isExcluding,
+            updateIsPinExcluded,
+            excludedPinIDs
         } = this.props;
         const { createdByCompanyUserID, latestServiceID } = pin;
         const user = users[createdByCompanyUserID];
@@ -30,6 +34,9 @@ class MapPinContainer extends Component {
                 handleFetchPin={this.handleFetchPin}
                 handleCancelFetchPin={this.handleCancelFetchPin}
                 pinImages={pinImages}
+                isExcluding={isExcluding}
+                updateIsPinExcluded={updateIsPinExcluded}
+                excludedPinIDs={excludedPinIDs}
             />
         );
     }
@@ -79,21 +86,19 @@ const mapStateToProps = ({
         pinsReducer: { isFetching },
         servicesReducer: { services },
         pinHistoriesReducer: { histories },
-        pinAnswersReducer: { answers }
+        pinAnswersReducer: { answers },
+        reportsReducer: { excludedPinIDs }
     }
 }) => ({
     isFetching,
     users,
     services,
     historyIDs: Object.keys(histories),
-    answers: Object.values(answers)
+    answers: Object.values(answers),
+    excludedPinIDs: Object.values(excludedPinIDs)
 });
 
-const mapDispatchToProps = dispatch => ({
-    fetchSinglePin: (id, isForDrawing) => {
-        dispatch(fetchSinglePin(id, isForDrawing));
-    }
-});
+const mapDispatchToProps = { fetchSinglePin, updateIsPinExcluded };
 
 export default connect(
     mapStateToProps,

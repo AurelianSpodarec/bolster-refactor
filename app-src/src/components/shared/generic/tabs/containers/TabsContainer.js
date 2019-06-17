@@ -5,7 +5,7 @@ import selectTab from 'actions/shared/generic/tabs/sync/selectTab';
 
 import Tabs from '../presentational/Tabs';
 
-const TabsContainer = ({ dispatch, tabs, selectedTab }) => (
+const TabsContainer = ({ dispatch, tabs, selectedTab, classes }) => (
     <Tabs
         tabs={tabs}
         selectedTab={selectedTab}
@@ -13,6 +13,7 @@ const TabsContainer = ({ dispatch, tabs, selectedTab }) => (
             e.preventDefault();
             dispatch(selectTab(tab));
         }}
+        classes={classes}
     />
 );
 

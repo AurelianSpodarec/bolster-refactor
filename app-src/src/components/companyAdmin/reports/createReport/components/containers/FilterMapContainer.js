@@ -17,7 +17,8 @@ import removeAllRectangles from 'actions/companyAdmin/reports/sync/removeAllRect
 import fetchPins from 'actions/companyAdmin/pins/async/fetchPins';
 import { momentComparisonFormat } from 'helpers/generic';
 import updateFurtherFiltrationOption from 'actions/companyAdmin/reports/sync/updateFurtherFiltrationOption';
-const { ADD, DELETE } = RECTANGLE_MODES;
+import removeAllExcludedPins from 'actions/companyAdmin/reports/sync/removeAllExcludedPins';
+const { ADD, DELETE, EXCLUDE } = RECTANGLE_MODES;
 const { PIN_SELECTOR } = FURTHER_FILTRATION_OPTIONS;
 
 class FilterMapContainer extends Component {
@@ -36,6 +37,7 @@ class FilterMapContainer extends Component {
         if (!drawing.id) return null;
 
         const shouldShowMapOptions = +furtherFiltrationOption === +PIN_SELECTOR;
+        const isExcluding = +mode === EXCLUDE;
 
         return (
             <FilterMap
@@ -49,6 +51,7 @@ class FilterMapContainer extends Component {
                 handleCancelPinSelector={this.handleCancelPinSelector}
                 shouldShowMapOptions={shouldShowMapOptions}
                 mode={mode}
+                isExcluding={isExcluding}
             />
         );
     }
@@ -116,9 +119,11 @@ class FilterMapContainer extends Component {
     handleCancelPinSelector = () => {
         const {
             removeAllRectangles,
+            removeAllExcludedPins,
             updateFurtherFiltrationOption
         } = this.props;
         updateFurtherFiltrationOption(FURTHER_FILTRATION_OPTIONS.NONE);
+        removeAllExcludedPins();
         removeAllRectangles();
     };
 
@@ -182,6 +187,7 @@ const mapDispatchToProps = {
     addRectangle,
     removeRectangle,
     removeAllRectangles,
+    removeAllExcludedPins,
     fetchPins,
     updateFurtherFiltrationOption
 };
