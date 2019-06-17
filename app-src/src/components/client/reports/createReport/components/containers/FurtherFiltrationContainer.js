@@ -35,7 +35,7 @@ const { PIN_SELECTOR, INDIVIDUAL_PINS, FILTERS } = FURTHER_FILTRATION_OPTIONS;
 
 class FurtherFiltrationContainer extends Component {
     state = {
-        addFilter: false,
+        addFilter: true,
         filterToEditID: null
     };
     render() {
