@@ -1,16 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import moment from 'moment';
 
 import DrawingMapFiltersAdvanced from '../presentational/DrawingMapFiltersAdvanced';
 import DrawingMapViewSimple from '../presentational/DrawingMapViewSimple';
 import DrawingInspectionLogContainer from './DrawingInspectionLogContainer';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import {
-    convertEnumToDropdownOptions,
-    momentComparisonFormat
-} from 'helpers/generic';
+import { convertEnumToDropdownOptions } from 'helpers/generic';
 import { PIN_STATUS_TYPES } from 'constants/companyAdmin/enums';
 
 class DrawingMapGeneralContainer extends Component {
@@ -104,9 +100,15 @@ class DrawingMapGeneralContainer extends Component {
 
     componentDidUpdate = ({
         drawing: prevDrawing = {},
-        isFetching: prevIsFetching
+        isFetching: prevIsFetching,
+        pinsFromAPI: prevPinsFromAPI = []
     }) => {
-        const { drawing = {}, isFetching } = this.props;
+        const {
+            drawing = {},
+            isFetching,
+            pinsFromAPI = [],
+            handleChange
+        } = this.props;
         // when the component has finished fetching all the options, run get services options once instead of in every render
         if (!isFetching && prevIsFetching) {
             const serviceOptions = this._getServicesOptions();
@@ -116,6 +118,11 @@ class DrawingMapGeneralContainer extends Component {
         if (drawing.tilesetS3Key !== prevDrawing.tilesetS3Key) {
             clearInterval(this._floorplanInterval);
             this.setState({ updating: false });
+        }
+
+        if (pinsFromAPI.length !== prevPinsFromAPI.length) {
+            const pinIDs = pinsFromAPI.map(({ id }) => id);
+            handleChange('pinIDs', pinIDs);
         }
     };
 
@@ -156,48 +163,9 @@ class DrawingMapGeneralContainer extends Component {
     // };
 
     _getFilteredPins = () => {
-        const { pins } = this.props;
-        const {
-            serviceSelectedID,
-            statusSelectedID,
-            operativeSelectedID,
-            startDateSelected,
-            endDateSelected
-        } = this.state;
+        const { pins, pinIDs } = this.props;
 
-        const filterPins = pins.filter(pin => {
-            if (
-                serviceSelectedID &&
-                +pin.latestServiceID !== +serviceSelectedID
-            ) {
-                return false;
-            }
-            if (statusSelectedID && +pin.latestStatus !== +statusSelectedID) {
-                return false;
-            }
-            if (
-                operativeSelectedID &&
-                +pin.latestCreatedByCompanyUserID !== +operativeSelectedID
-            ) {
-                return false;
-            }
-            // * format moment dates for comparison to date instead of timestamp - for same day comparison
-            if (
-                startDateSelected &&
-                moment(pin.latestCreatedOn).format(momentComparisonFormat) <=
-                    moment(startDateSelected)
-            ) {
-                return false;
-            }
-            if (
-                endDateSelected &&
-                moment(pin.latestCreatedOn).format(momentComparisonFormat) >=
-                    moment(endDateSelected)
-            ) {
-                return false;
-            }
-            return true;
-        });
+        const filterPins = pins.filter(({ id }) => pinIDs.includes(id));
 
         return filterPins;
     };
@@ -209,7 +177,11 @@ const mapStateToProps = (
             pinsReducer: { pins, isFetching: fetchingPins, error },
             servicesReducer: { services, isFetching: fetchingServices },
             // drawingOperativesReducer: { users, isFetching: fetchingUsers },
-            drawingsReducer: { drawings }
+            drawingsReducer: { drawings },
+            reportsReducer: {
+                filters: { pinIDs },
+                customFilters: { pins: pinsFromAPI }
+            }
         },
         shared: {
             fieldErrorsReducer: { fieldErrors }
@@ -223,7 +195,9 @@ const mapStateToProps = (
     services: Object.values(services),
     isFetching: fetchingPins || fetchingServices,
     fieldErrors,
-    error
+    error,
+    pinIDs,
+    pinsFromAPI
 });
 
 export default withRouter(connect(mapStateToProps)(DrawingMapGeneralContainer));
