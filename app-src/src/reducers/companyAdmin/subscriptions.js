@@ -16,6 +16,7 @@ import {
     ADD_SERVICE_TO_SUBSCRIPTION_SUCCESS
 } from 'constants/actionTypes/subscriptions';
 import { EDIT_SERVICE_RENEWAL_STATUS_REQUEST } from 'constants/actionTypes/services';
+import { LOGOUT } from 'constants/actionTypes/auth';
 
 export default combineReducers({
     isFetching: isFetchingReducer,
@@ -32,6 +33,8 @@ function hasInitiallyFetchedReducer(state = false, action) {
         case FETCH_ALL_SUBSCRIPTIONS_SUCCESS:
         case FETCH_ALL_SUBSCRIPTIONS_FAILURE:
             return true;
+        case LOGOUT:
+            return false;
         default:
             return state;
     }
@@ -82,6 +85,7 @@ function postSuccessReducer(state = false, action) {
             return state;
     }
 }
+
 function postFailureReducer(state = false, action) {
     switch (action.type) {
         case EDIT_SERVICE_RENEWAL_STATUS_REQUEST:
@@ -102,6 +106,9 @@ function subscriptionsReducer(state = {}, action) {
         case FETCH_ALL_SUBSCRIPTIONS_SUCCESS:
         case EDIT_SUBSCRIPTION_RENEWAL_STATUS_SUCCESS:
             return action.payload;
+        case LOGOUT:
+        case FETCH_ALL_SUBSCRIPTIONS_FAILURE:
+            return {};
         default:
             return state;
     }
