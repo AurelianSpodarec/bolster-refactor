@@ -14,6 +14,7 @@ import BasicFiltersContainer from 'components/client/reports/createReport/compon
 import DrawingDetailsContainer from './DrawingDetailsContainer';
 import FurtherFiltrationContainer from 'components/client/reports/createReport/components/containers/FurtherFiltrationContainer';
 import OutputSettingsContainer from 'components/client/reports/createReport/components/containers/OutputSettingsContainer';
+import updateReportFilter from 'actions/client/reports/create/sync/clientUpdateReportFilter';
 
 class DrawingMapGeneralContainer extends Component {
     state = {
@@ -71,6 +72,22 @@ class DrawingMapGeneralContainer extends Component {
             </>
         );
     }
+    componentDidMount = () => {
+        const {
+            drawing = {},
+            postFilters,
+            updateReportFilter,
+            match,
+            fetchSingleDrawing
+        } = this.props;
+
+        updateReportFilter('drawingID', match.params.id).then(postFilters);
+        if (drawing.isFloorplanUpdating) {
+            this._floorplanInterval = setInterval(() => {
+                fetchSingleDrawing(drawing.id);
+            }, 5000);
+        }
+    };
 
     componentDidUpdate = ({
         drawing: prevDrawing = {},
@@ -194,11 +211,13 @@ const mapStateToProps = (
     pinsFromAPI
 });
 
+const mapDispatchToProps = { removeFieldError, updateReportFilter };
+
 export default withRouter(
     withUpdateOnChange(
         connect(
             mapStateToProps,
-            { removeFieldError }
+            mapDispatchToProps
         )(DrawingMapGeneralContainer)
     )
 );
