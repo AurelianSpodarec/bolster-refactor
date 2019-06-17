@@ -91,6 +91,13 @@ button {
             width: calc(100% + 30px);
             margin-left: -15px;
         }
+
+        .scrollbar-y {
+            min-height: 130px;
+            max-height: 130px;
+            overflow-y: scroll;
+        }
+
         .generic-table {
             min-height: 165px;
             tbody {

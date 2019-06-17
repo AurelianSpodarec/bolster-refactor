@@ -9,6 +9,7 @@ class SiteCompaniesAccessTableContainer extends Component {
             <CompaniesAccessContainer
                 hierarchyType="site"
                 accessType={accessType}
+                smallList={true}
             />
         );
     }

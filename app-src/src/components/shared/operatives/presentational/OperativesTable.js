@@ -13,7 +13,8 @@ const OperativesTable = ({
     isAddOperativeDisabled,
     error,
     handleDeleteOperativeModal,
-    match
+    match,
+    smallList = false
 }) => {
     const { id } = match.params;
     return (
@@ -33,7 +34,11 @@ const OperativesTable = ({
                     {isAddOperativeDisabled ? 'Full' : 'Attach'}
                 </ButtonContainer>
             </BlockHeading>
-            <div className="hide-overflow size-lg-12">
+            <div
+                className={`size-lg-12 ignore-padding ${
+                    smallList && operatives.length > 3 ? 'scrollbar-y' : ''
+                }`}
+            >
                 <Table
                     headers={['Name', 'Actions']}
                     isFetching={isFetching}
