@@ -34,12 +34,11 @@ const DashboardPinFeedItem = ({ pin }) => {
                     alt="pin icon"
                     src={pinColour}
                     style={{
-                        float: 'left',
-                        width: '18px',
-                        marginRight: '10px',
+                        width: '16px',
+                        marginLeft: '11px',
                         marginTop: '-3px'
                     }}
-                />{' '}
+                />
                 {pin.pinCode}
             </td>
             <td>{pin.location}</td>
