@@ -1,55 +1,39 @@
 import React from 'react';
-import ModalOuterContainer from 'components/shared/generic/modals/containers/ModalOuterContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import Field from 'components/shared/generic/form/presentational/Field';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
-import Select from 'components/shared/generic/form/presentational/Select';
 import MultiSelect from 'components/shared/generic/form/presentational/MultiSelect';
+import Block from 'components/shared/generic/block/presentational/Block';
 
 const FilterFieldsModal = ({
     showFreeForm,
-    questionTypeOptions,
     questionOptions,
     freeFormValues,
     optionOrientedOptions,
     optionOrientedVals,
     selectedQuestions,
-    toggleShowFreeForm,
     handleChange,
     handleFreeFormValChange,
     addFreeFormVal,
     removeFreeFormVal,
-    hideModal,
+    toggleAddFilter,
     handleSubmit
 }) => {
     return (
-        <ModalOuterContainer>
+        <Block>
             <BlockHeading title="Add Filter" />
-            {/* ? multiple fields in modal? */}
-            {/* multi checkboxes for field name */}
-            <div className="size-lg-12">
-                <Field name="Question types" sizeClasses="size-lg-6" required>
-                    <Select
-                        classes="full-width"
-                        options={questionTypeOptions}
-                        value={showFreeForm ? 1 : 2}
-                        onChange={toggleShowFreeForm}
-                        omitPlaceholder
-                    />
-                </Field>
-                <Field name="Questions" sizeClasses="size-lg-6" required>
-                    <MultiSelect
-                        search
-                        options={questionOptions}
-                        value={selectedQuestions}
-                        name={'selectedQuestions'}
-                        onChange={handleChange}
-                        required
-                    />
-                </Field>
-            </div>
-            <div className="size-lg-12">
+            <Field name="Questions" sizeClasses="size-lg-6" required>
+                <MultiSelect
+                    search
+                    options={questionOptions}
+                    value={selectedQuestions}
+                    name={'selectedQuestions'}
+                    onChange={handleChange}
+                    required
+                />
+            </Field>
+            <div className="size-lg-6">
                 {showFreeForm ? (
                     <>
                         <Field name="Valid values" sizeClasses="size-lg-12">
@@ -67,11 +51,7 @@ const FilterFieldsModal = ({
                         </BlockButtonWrapper>
                     </>
                 ) : (
-                    <Field
-                        name="Valid values"
-                        sizeClasses="size-lg-12"
-                        styles={{ minHeight: '200px' }}
-                    >
+                    <Field name="Valid values" sizeClasses="size-lg-12">
                         <MultiSelect
                             search
                             name="optionOrientedVals"
@@ -94,13 +74,13 @@ const FilterFieldsModal = ({
                 <button
                     className="button red"
                     type="button"
-                    onClick={hideModal}
+                    onClick={toggleAddFilter}
                 >
                     <i className="fa fa-times fa-fw" />
                     Cancel
                 </button>
             </BlockButtonWrapper>
-        </ModalOuterContainer>
+        </Block>
     );
 
     function renderOption(value, i) {
@@ -109,7 +89,7 @@ const FilterFieldsModal = ({
                 name={`Option ${i + 1}`}
                 key={i}
                 classes="option-item"
-                sizeClasses="size-lg-6"
+                sizeClasses="size-lg-12"
             >
                 {freeFormValues.length > 1 && (
                     <button
