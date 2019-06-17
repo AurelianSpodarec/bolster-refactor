@@ -19,6 +19,7 @@ class DrawingOperativesAccessContainer extends Component {
                     isAddOperativeDisabled={this.checkAvailableOperatives()}
                     isFetching={isFetching}
                     error={error}
+                    smallList={true}
                 />
             </BlockContainer>
         );
