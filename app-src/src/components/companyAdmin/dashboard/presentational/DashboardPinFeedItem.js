@@ -29,17 +29,21 @@ const DashboardPinFeedItem = ({ pin }) => {
 
     return (
         <tr key={pin.createdOn}>
-            <td>
+            <td style={{ paddingTop: '17px' }}>
                 <img
                     alt="pin icon"
                     src={pinColour}
                     style={{
-                        width: '16px',
-                        marginLeft: '11px',
-                        marginTop: '-3px'
+                        width: '18px',
+                        marginLeft: '10px',
+                        marginBottom: '5px',
+                        marginTop: '-12px',
+                        top: '6px'
                     }}
                 />
-                {pin.pinCode}
+                <span style={{ float: 'left', width: '100%' }}>
+                    {pin.pinCode}
+                </span>
             </td>
             <td>{pin.location}</td>
             <td>{moment(pin.createdOn).format('DD-MM-YYYY HH:mm')}</td>
