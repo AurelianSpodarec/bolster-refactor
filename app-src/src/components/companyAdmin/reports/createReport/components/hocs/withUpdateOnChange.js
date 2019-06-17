@@ -84,6 +84,7 @@ export default function(ProtectedComponent) {
                     companyUserIDs,
                     floorplanPinScale
                 },
+                excludedPinIDs,
                 rectangles,
                 options: { showHidden, sortBy },
                 fields
@@ -152,7 +153,11 @@ export default function(ProtectedComponent) {
                 companyUserIDs,
                 serviceID: serviceID || null,
                 status: status || null,
-                pinIDs: pinIDs || null,
+                pinIDs: pinIDs
+                    ? pinIDs.filter(
+                          id => !Object.values(excludedPinIDs).includes(id)
+                      )
+                    : null,
                 questionFilters,
                 showHidden,
                 sortBy,
@@ -187,7 +192,8 @@ export default function(ProtectedComponent) {
                     postSuccess,
                     error,
                     customFilters,
-                    rectangles
+                    rectangles,
+                    excludedPinIDs
                 }
             }
         },
@@ -221,7 +227,8 @@ export default function(ProtectedComponent) {
             buildings,
             floors,
             drawings,
-            fields: Object.values(fields)
+            fields: Object.values(fields),
+            excludedPinIDs
         };
     };
 

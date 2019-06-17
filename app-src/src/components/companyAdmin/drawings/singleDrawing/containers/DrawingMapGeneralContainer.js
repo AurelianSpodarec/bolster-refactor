@@ -29,7 +29,7 @@ import addRectangle from 'actions/companyAdmin/reports/sync/addRectangle';
 import removeRectangle from 'actions/companyAdmin/reports/sync/removeRectangle';
 import removeAllRectangles from 'actions/companyAdmin/reports/sync/removeAllRectangles';
 import updateFurtherFiltrationOption from 'actions/companyAdmin/reports/sync/updateFurtherFiltrationOption';
-const { ADD, DELETE } = RECTANGLE_MODES;
+const { ADD, DELETE, EXCLUDE } = RECTANGLE_MODES;
 const { PIN_SELECTOR } = FURTHER_FILTRATION_OPTIONS;
 
 // ! The pin selector code is repeated in the filtermapcontainer component
@@ -66,6 +66,7 @@ class DrawingMapGeneralContainer extends Component {
         const position = [centerLat, centerLng];
         const addPinPosition = [addPinLat, addPinLng];
         const cornerClicked = firstCorner;
+        const isExcluding = +mode === EXCLUDE;
 
         const updateMessage =
             FLOORPLAN_STATE_MESSAGES[drawing.latestFloorplanState];
@@ -108,6 +109,7 @@ class DrawingMapGeneralContainer extends Component {
                         handleDelete={this.handleDelete}
                         mode={mode}
                         handleCancelPinSelector={this.handleCancelPinSelector}
+                        isExcluding={isExcluding}
                     />
                 </BlockContainer>
                 <FurtherFiltrationContainer />

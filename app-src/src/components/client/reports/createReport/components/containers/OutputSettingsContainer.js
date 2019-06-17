@@ -140,14 +140,21 @@ class OutputSettingsContainer extends Component {
             postReport,
             fieldErrors,
             showFieldErrors,
-            filters: { isFloorplanGeneration, isPDFGeneration },
+            filters: {
+                isFloorplanGeneration,
+                includeFloorplan,
+                isPDFGeneration
+            },
             showModal
         } = this.props;
 
         const selectedCompanyID = getSelectedCompanyForClient();
 
         if (!isEmpty(fieldErrors)) showFieldErrors();
-        else if (isFloorplanGeneration || isPDFGeneration) {
+        else if (
+            isFloorplanGeneration ||
+            (isPDFGeneration && includeFloorplan)
+        ) {
             const drawingForPinScale = this._getDrawingForPinScale();
             showModal(SELECT_PIN_SCALE, {
                 drawing: drawingForPinScale,
@@ -164,7 +171,7 @@ class OutputSettingsContainer extends Component {
             filters: { siteID, buildingID, floorID, drawingID }
         } = this.props;
 
-        // uses the url to figure out which hierarchy the report is being generated on and find an appropriate drawing for the pin scale modal
+        // uses the filters to figure out which hierarchy the report is being generated on and find an appropriate drawing for the pin scale modal
         let availableDrawings = Object.values(drawings);
 
         if (siteID) {

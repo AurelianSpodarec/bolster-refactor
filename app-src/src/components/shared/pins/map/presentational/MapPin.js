@@ -34,7 +34,10 @@ const DrawingMapPin = ({
     urlStart,
     handleFetchPin,
     handleCancelFetchPin,
-    pinImages = []
+    pinImages = [],
+    isExcluding,
+    updateIsPinExcluded,
+    excludedPinIDs
 }) => {
     const { latY = 1, lngX = 1 } = location;
     const status = pinHistory.status || latestStatus;
@@ -57,19 +60,28 @@ const DrawingMapPin = ({
         iconAnchor: [15, 50],
         popupAnchor: [0, -50]
     });
+    const isExcluded = excludedPinIDs.includes(id);
+    const onClick = !isExcluding
+        ? () => {
+              withLink && history.push(`/${urlStart}/pins/` + id);
+          }
+        : () => {
+              updateIsPinExcluded(id, !isExcluded);
+          };
 
     return (
         <Marker
             key={id}
             position={[latY, lngX]}
             icon={divIcon}
-            onClick={() => withLink && history.push(`/${urlStart}/pins/` + id)}
+            onClick={onClick}
+            opacity={isExcluded ? 0.3 : 1}
         >
             {withTooltip && (
                 <Tooltip
                     onOpen={() => handleFetchPin(id)}
                     onClose={handleCancelFetchPin}
-                    sticky={true}
+                    sticky={false}
                 >
                     <div>
                         {`Pin code: ${pinCode}`} <br />

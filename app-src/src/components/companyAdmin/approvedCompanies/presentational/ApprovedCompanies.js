@@ -4,13 +4,13 @@ import PageHeading from 'components/shared/generic/pageHeading/presentational/Pa
 import TabsContainer from 'components/shared/generic/tabs/containers/TabsContainer';
 import ApprovedCompaniesRoutesContainer from '../containers/ApprovedCompaniesRouteContainer';
 
-const ApprovedCompanies = () => (
+const ApprovedCompanies = ({ companies }) => (
     <>
         <PageHeading title="Bolster Approved Companies" withBackButton>
-            <TabsContainer />
+            <TabsContainer classes="no-breadcrumb" />
         </PageHeading>
 
-        <ApprovedCompaniesRoutesContainer />
+        <ApprovedCompaniesRoutesContainer companies={companies} />
     </>
 );
 

@@ -6,9 +6,11 @@ import { isObjEmpty } from 'helpers/generic';
 
 class MapPinSelectorContainer extends Component {
     render() {
-        const { pins, rectangles } = this.props;
-
-        return <MapPinSelector pins={!isObjEmpty(rectangles) ? pins : []} />;
+        const { pins, rectangles, excludedPinIDs } = this.props;
+        const filteredPins = !isObjEmpty(rectangles)
+            ? pins.filter(({ id }) => !excludedPinIDs.includes(id))
+            : [];
+        return <MapPinSelector pins={filteredPins} />;
     }
 }
 
@@ -17,7 +19,8 @@ const mapStateToProps = (state, { client }) => {
     const { reportsReducer } = reducer;
     return {
         pins: reportsReducer.customFilters.pins,
-        rectangles: reportsReducer.rectangles
+        rectangles: reportsReducer.rectangles,
+        excludedPinIDs: Object.values(reportsReducer.excludedPinIDs)
     };
 };
 
