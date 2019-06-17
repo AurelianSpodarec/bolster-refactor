@@ -6,7 +6,11 @@ import postReport from 'actions/client/reports/create/async/clientPostReport';
 import postCustomFilters from 'actions/client/reports/create/async/clientPostCustomFilters';
 import removeFilterQuestions from 'actions/client/reports/create/sync/clientRemoveFilterQuestions';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
-import { SUCCESS_MODAL, ERROR_MODAL } from 'constants/shared/modalTypes';
+import {
+    SUCCESS_MODAL,
+    ERROR_MODAL,
+    SELECT_PIN_SCALE
+} from 'constants/shared/modalTypes';
 
 import showFieldErrors from 'actions/shared/generic/fieldErrors/sync/showFieldErrors';
 import {
@@ -135,18 +139,64 @@ class OutputSettingsContainer extends Component {
             getPostBody,
             postReport,
             fieldErrors,
-            showFieldErrors
+            showFieldErrors,
+            filters: { isFloorplanGeneration, isPDFGeneration },
+            showModal
         } = this.props;
 
         const selectedCompanyID = getSelectedCompanyForClient();
 
         if (!isEmpty(fieldErrors)) showFieldErrors();
-        else postReport(selectedCompanyID, getPostBody());
+        else if (isFloorplanGeneration || isPDFGeneration) {
+            const drawingForPinScale = this._getDrawingForPinScale();
+            showModal(SELECT_PIN_SCALE, {
+                drawing: drawingForPinScale,
+                getPostBody,
+                postReport,
+                selectedCompanyID
+            });
+        } else postReport(selectedCompanyID, getPostBody());
+    };
+
+    _getDrawingForPinScale = () => {
+        const {
+            drawings,
+            filters: { siteID, buildingID, floorID, drawingID }
+        } = this.props;
+
+        // uses the url to figure out which hierarchy the report is being generated on and find an appropriate drawing for the pin scale modal
+        let availableDrawings = Object.values(drawings);
+
+        if (siteID) {
+            availableDrawings = availableDrawings.filter(
+                drawing => +drawing.siteID === +siteID
+            );
+        }
+        if (buildingID) {
+            availableDrawings = availableDrawings.filter(
+                drawing => +drawing.buildingID === +buildingID
+            );
+        }
+        if (floorID) {
+            availableDrawings = availableDrawings.filter(
+                drawing => +drawing.floorID === +floorID
+            );
+        }
+        if (drawingID) {
+            availableDrawings = availableDrawings.filter(
+                drawing => +drawing.id === +drawingID
+            );
+        }
+        return availableDrawings[0];
     };
 }
 
 const mapStateToProps = ({
     client: {
+        sitesReducer: { sites },
+        buildingsReducer: { buildings },
+        floorsReducer: { floors },
+        drawingsReducer: { drawings },
         reportsReducer: { filters, fields, options, postSuccess, error, pinIDs }
     },
     shared: {
@@ -159,6 +209,10 @@ const mapStateToProps = ({
     filters,
     options,
     postSuccess,
+    sites,
+    buildings,
+    floors,
+    drawings,
     error
 });
 

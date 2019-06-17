@@ -25,8 +25,9 @@ class SelectPinScaleModalContainer extends Component {
 
     handleSubmit = e => {
         e.preventDefault();
-        const { postReport, getPostBody } = this.props;
-        postReport(getPostBody());
+        const { postReport, getPostBody, selectedCompanyID } = this.props;
+        if (selectedCompanyID) postReport(selectedCompanyID, getPostBody());
+        else postReport(getPostBody());
         hideModal();
     };
 }
