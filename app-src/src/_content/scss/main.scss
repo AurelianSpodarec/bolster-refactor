@@ -116,15 +116,26 @@ button {
 
 .multi-filters {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
     .flex {
         display: flex;
         align-items: center;
         justify-content: flex-start;
     }
+
+    .item {
+        &:first-child {
+            p {
+                padding-left: 0;
+            }
+        }
+    }
+
     p {
+        text-align: right;
         padding-left: 20px;
+        padding-right: 10px;
     }
     .react-datepicker-wrapper {
         width: 100%;
@@ -3375,6 +3386,14 @@ input {
 .react-datepicker-time__header,
 .react-datepicker-year-header {
     font-size: 100%;
+}
+
+.date-picker {
+    i {
+        position: absolute;
+        right: 7px;
+        @include vertical-center;
+    }
 }
 
 //flex row
