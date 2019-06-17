@@ -1,7 +1,7 @@
 import React from 'react';
 
 import CompanyHeaderContainer from 'components/companyAdmin/layout/header/containers/CompanyHeaderContainer';
-import FooterContainer from 'components/shared/layout/footer/containers/FooterContainer';
+import FooterContainer from 'components/companyAdmin/layout/footer/containers/FooterContainer';
 import MenuContainer from 'components/shared/layout/menu/containers/MenuContainer';
 import Routes from 'components/companyAdmin/app/routes/presentational';
 

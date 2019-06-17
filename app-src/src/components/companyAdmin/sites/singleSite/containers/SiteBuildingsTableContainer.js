@@ -11,6 +11,7 @@ import BuildingsTableContainer from 'components/companyAdmin/buildings/shared/co
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import updateHierarchyAddState from 'actions/companyAdmin/hierarchy/sync/updateHierarchyAddState';
+import { ACCESS_TYPES_VALUES } from 'constants/companyAdmin/enums';
 
 class SiteBuildingsTableContainer extends Component {
     render() {
@@ -18,12 +19,14 @@ class SiteBuildingsTableContainer extends Component {
         return (
             <BlockContainer>
                 <BlockHeading title="Buildings" classes="w-table">
-                    <button
-                        className="button green"
-                        onClick={this.handleAddBuildingModal}
-                    >
-                        <i className="fa fa-plus" /> Add building
-                    </button>
+                    {site.accessType === ACCESS_TYPES_VALUES.OWNER && (
+                        <button
+                            className="button green"
+                            onClick={this.handleAddBuildingModal}
+                        >
+                            <i className="fa fa-plus" /> Add building
+                        </button>
+                    )}
                 </BlockHeading>
                 <BuildingsTableContainer ids={site.buildingIDs || []} />
             </BlockContainer>

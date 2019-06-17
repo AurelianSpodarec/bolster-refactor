@@ -21,7 +21,6 @@ class FrontEndHeaderContainer extends Component {
 
     logout = () => {
         const { history, logout } = this.props;
-        localStorage.setItem('token', '');
         logout();
         history.push('/');
     };

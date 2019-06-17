@@ -1,28 +1,27 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { getCompanyColour } from 'helpers/generic';
+import { getSelectedCompanyForClient, isEmpty } from 'helpers/generic';
 import ClientHeader from '../presentational/ClientHeader';
 
 class ClientHeaderContainer extends Component {
     render() {
-        const { profile, companySettings, isImpersonating } = this.props;
-        const companyColour = getCompanyColour(companySettings.companyColour);
+        const { profile, isImpersonating, selectedCompany } = this.props;
 
         return (
             <ClientHeader
                 profile={profile}
-                company={companySettings}
+                company={selectedCompany}
                 isImpersonating={isImpersonating}
-                companyColour={companyColour}
+                isCompanySelected={!isEmpty(selectedCompany)}
             />
         );
     }
 }
 
 const mapStateToProps = ({
-    companyAdmin: {
-        companySettingsReducer: { companySettings }
+    client: {
+        companiesReducer: { companies }
     },
     shared: {
         profileReducer: { profile },
@@ -32,10 +31,11 @@ const mapStateToProps = ({
     }
 }) => {
     const isImpersonating = headquartersCompanyID !== companyID;
+    const selectedCompanyID = getSelectedCompanyForClient();
 
     return {
         profile: profile,
-        companySettings,
+        selectedCompany: companies[selectedCompanyID] || {},
         isImpersonating
     };
 };
