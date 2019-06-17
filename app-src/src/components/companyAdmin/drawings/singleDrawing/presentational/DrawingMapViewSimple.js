@@ -12,6 +12,7 @@ import Loading from 'components/shared/generic/misc/presentational/Loading';
 // import { RAW_S3_STORAGE_URL } from 'config';
 import { EDIT_DRAWING } from 'constants/shared/modalTypes';
 import MapPinContainer from 'components/shared/pins/map/containers/MapPinContainer';
+import { ACCESS_TYPES_VALUES } from 'constants/companyAdmin/enums';
 // import LoadingIcon from 'components/shared/generic/misc/presentational/LoadingIcon';
 
 const getDataUrl = src => `${FILE_STORAGE_URL}/${src}/{z}/{x}/{y}.jpg`;
@@ -46,40 +47,45 @@ const DrawingMapViewSimple = ({
         <>
             {drawing.tilesetS3Key && !updating ? (
                 <>
-                    <BlockHeading>
-                        {addMode ? (
-                            <>
-                                <Link
-                                    onClick={handleClearPinCache}
-                                    to={`${drawing.id}/add-pin`}
-                                    className="button green pull-right"
-                                >
-                                    <i className="fa fa-check" /> Confirm
-                                    position
-                                </Link>
+                    {drawing.accessType === ACCESS_TYPES_VALUES.OWNER && (
+                        <BlockHeading>
+                            {addMode ? (
+                                <>
+                                    <Link
+                                        onClick={handleClearPinCache}
+                                        to={`${drawing.id}/add-pin`}
+                                        className="button green pull-right"
+                                    >
+                                        <i className="fa fa-check" /> Confirm
+                                        position
+                                    </Link>
+                                    <button
+                                        className="button red pull-right"
+                                        onClick={toggleAddMode}
+                                    >
+                                        Cancel
+                                    </button>
+                                </>
+                            ) : (
                                 <button
-                                    className="button red pull-right"
+                                    className="button green pull-right"
                                     onClick={toggleAddMode}
                                 >
-                                    Cancel
+                                    <i className="fa fa-plus" /> Add pin
                                 </button>
-                            </>
-                        ) : (
-                            <button
-                                className="button green pull-right"
-                                onClick={toggleAddMode}
-                            >
-                                <i className="fa fa-plus" /> Add pin
-                            </button>
-                        )}
+                            )}
 
-                        <button
-                            className="button yellow"
-                            onClick={() => showModal(EDIT_DRAWING, { drawing })}
-                        >
-                            <i className="far fa-pencil fa-fw" /> Edit drawing
-                        </button>
-                    </BlockHeading>
+                            <button
+                                className="button yellow"
+                                onClick={() =>
+                                    showModal(EDIT_DRAWING, { drawing })
+                                }
+                            >
+                                <i className="far fa-pencil fa-fw" /> Edit
+                                drawing
+                            </button>
+                        </BlockHeading>
+                    )}
                     <Map
                         center={position}
                         zoom={zoom}

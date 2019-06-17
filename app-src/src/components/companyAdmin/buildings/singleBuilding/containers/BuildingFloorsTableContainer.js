@@ -11,6 +11,7 @@ import BlockContainer from 'components/shared/generic/block/containers/BlockCont
 import FloorTableContainer from 'components/companyAdmin/floors/shared/containers/FloorTableContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import updateHierarchyAddState from 'actions/companyAdmin/hierarchy/sync/updateHierarchyAddState';
+import { ACCESS_TYPES_VALUES } from 'constants/companyAdmin/enums';
 
 class BuildingsFloorsTableContainer extends Component {
     render() {
@@ -18,12 +19,14 @@ class BuildingsFloorsTableContainer extends Component {
         return (
             <BlockContainer>
                 <BlockHeading title="Floors" classes="w-table">
-                    <button
-                        className="button green"
-                        onClick={this.handleAddFloorModal}
-                    >
-                        <i className="fa fa-plus" /> Add floor
-                    </button>
+                    {building.accessType === ACCESS_TYPES_VALUES.OWNER && (
+                        <button
+                            className="button green"
+                            onClick={this.handleAddFloorModal}
+                        >
+                            <i className="fa fa-plus" /> Add floor
+                        </button>
+                    )}
                 </BlockHeading>
                 <FloorTableContainer ids={building.floorIDs || []} />
             </BlockContainer>
