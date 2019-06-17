@@ -4,8 +4,8 @@ import SuperAdminIcon from '_content/images/icons/super-admin.png';
 import CompanyAdminIcon from '_content/images/icons/company-admin.png';
 import ClientAccessIcon from '_content/images/icons/client-access.png';
 
-const Tabs = ({ tabs, selectedTab, selectTab }) => (
-    <div className="tab-container">
+const Tabs = ({ tabs, selectedTab, selectTab, classes = '' }) => (
+    <div className={`tab-container ${classes}`}>
         {tabs.map(tab => (
             <button
                 key={tab}

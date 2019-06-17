@@ -1068,6 +1068,10 @@ input {
             border-radius: 5px 0px 0px 5px;
         }
     }
+
+    &.no-breadcrumb {
+        margin-top: 0;
+    }
 }
 
 .block-heading {
@@ -3310,8 +3314,8 @@ input {
                 font-size: 120%;
                 width: 100%;
                 text-align: center;
-                line-height: 30px;
-                padding: 0 15px;
+                line-height: 15px;
+                padding: 0px 8px;
                 padding-right: 20px;
             }
 
@@ -4739,5 +4743,26 @@ input {
         background-color: rgba(0, 0, 0, 0.5);
         box-shadow: 0 0 1px rgba(255, 255, 255, 0.5);
         -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, 0.5);
+    }
+}
+
+.google-maps-marker {
+    width: 50px;
+    text-align: center;
+    .holder {
+        float: left;
+        width: 100%;
+        margin-left: -20px;
+        margin-top: -25px;
+    }
+    span {
+        float: left;
+        width: 150%;
+        left: -25%;
+        text-emphasis: center;
+        @include ubuntu-medium;
+        @include rounded-all;
+        background-color: white;
+        padding: 2.5px 2.5px 3.5px 2.5px;
     }
 }
