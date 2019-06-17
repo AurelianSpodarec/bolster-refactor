@@ -38,7 +38,8 @@ const DrawingMapViewSimple = ({
     rectangles,
     handleDelete,
     mode,
-    handleCancelPinSelector
+    handleCancelPinSelector,
+    isExcluding
 }) => {
     const newPinIcon = L.divIcon({
         className: '',
@@ -129,7 +130,8 @@ const DrawingMapViewSimple = ({
                                 key={pin.id}
                                 pin={pin}
                                 withLink={!shouldShowPinSelectorOptions}
-                                withTooltip={true}
+                                withTooltip={!isExcluding}
+                                isExcluding={isExcluding}
                             />
                         ))}
                         {addMode && (

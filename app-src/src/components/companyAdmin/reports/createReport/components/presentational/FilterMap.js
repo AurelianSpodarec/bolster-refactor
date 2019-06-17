@@ -5,11 +5,11 @@ import L from 'leaflet';
 
 import Block from 'components/shared/generic/block/presentational/Block';
 import { FILE_STORAGE_URL } from 'config';
-import MapPin from 'components/shared/pins/map/presentational/MapPin';
 import RedX from 'components/shared/pins/map/presentational/RedX';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import PinSelectorOptions from 'components/shared/pinSelector/presentational/PinSelectorOptions';
 import Rectangle from 'components/shared/pinSelector/presentational/Rectangle';
+import MapPinContainer from 'components/shared/pins/map/containers/MapPinContainer';
 
 const FilterMap = ({
     drawing,
@@ -21,7 +21,8 @@ const FilterMap = ({
     setMode,
     shouldShowMapOptions,
     mode,
-    handleCancelPinSelector
+    handleCancelPinSelector,
+    isExcluding
 }) => {
     // TODO change icon
     const cornerClickedIcon = L.divIcon({
@@ -67,7 +68,11 @@ const FilterMap = ({
                     />
                 ))}
                 {pins.map(pin => (
-                    <MapPin key={pin.id} pin={pin} />
+                    <MapPinContainer
+                        key={pin.id}
+                        pin={pin}
+                        isExcluding={isExcluding}
+                    />
                 ))}
             </Map>
         </Block>
