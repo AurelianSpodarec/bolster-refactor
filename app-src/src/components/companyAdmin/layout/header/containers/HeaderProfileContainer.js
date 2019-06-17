@@ -2,9 +2,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { GENERATION_STATE_VAL } from 'constants/companyAdmin/enums';
+import moment from 'moment';
 
 import HeaderProfile from '../presentational/HeaderProfile';
 import { logout } from 'actions/shared/auth/sync/logout';
+import { isEmpty } from 'helpers/generic';
 
 class HeaderProfileContainer extends Component {
     state = {
@@ -30,9 +32,23 @@ class HeaderProfileContainer extends Component {
                 handleClick={this.handleClick}
                 isImpersonating={isImpersonating}
                 companyName={companyName}
+                isSubscribed={this._isSubscribed()}
             />
         );
     }
+
+    _isSubscribed = () => {
+        const {
+            subscriptions,
+            subscriptions: { startOn, endOn }
+        } = this.props;
+        if (isEmpty(subscriptions)) return false;
+
+        return (
+            moment(startOn).isBefore(Date.now()) &&
+            moment(endOn).isAfter(Date.now())
+        );
+    };
 
     handleClick = () => {
         if (!this.state.popupVisible) {
@@ -73,7 +89,8 @@ const mapStateToProps = ({
     companyAdmin: {
         companySettingsReducer: {
             companySettings: { name }
-        }
+        },
+        subscriptionsReducer: { subscriptions }
     },
     superAdmin: { companyReportsReducer },
     shared: {
@@ -83,6 +100,7 @@ const mapStateToProps = ({
         }
     }
 }) => ({
+    subscriptions,
     isImpersonating:
         companyID &&
         headquartersCompanyID &&
