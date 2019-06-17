@@ -130,8 +130,13 @@ class DrawingMapGeneralContainer extends Component {
             postFilters,
             updateReportFilter,
             match,
-            fetchSingleDrawing
+            fetchSingleDrawing,
+            pinsFromAPI = [],
+            handleChange
         } = this.props;
+
+        const pinIDs = pinsFromAPI.map(({ id }) => id);
+        handleChange('pinIDs', pinIDs);
 
         updateReportFilter('drawingID', match.params.id).then(postFilters);
         if (drawing.isFloorplanUpdating) {
@@ -185,9 +190,10 @@ class DrawingMapGeneralContainer extends Component {
         }
 
         if (
-            prevIsFetchingReports &&
-            !isFetchingReports &&
-            !isEmpty(pinsFromAPI)
+            // prevIsFetchingReports &&
+            // !isFetchingReports &&
+            // !isEmpty(pinsFromAPI)
+            pinsFromAPI.length !== prevPinsFromAPI.length
         ) {
             const pinIDs = pinsFromAPI.map(({ id }) => id);
             handleChange('pinIDs', pinIDs);
