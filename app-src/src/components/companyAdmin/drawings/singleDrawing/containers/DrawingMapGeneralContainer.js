@@ -21,6 +21,7 @@ import updateReportFilter from 'actions/companyAdmin/reports/sync/updateReportFi
 import removeFieldError from 'actions/shared/generic/fieldErrors/sync/removeFieldError';
 import withUpdateOnChange from 'components/companyAdmin/reports/createReport/components/hocs/withUpdateOnChange';
 import DrawingDetailsContainer from './DrawingDetailsContainer';
+import { SELECT_PIN_SCALE } from 'constants/shared/modalTypes';
 
 class DrawingMapGeneralContainer extends Component {
     state = {
@@ -122,7 +123,9 @@ class DrawingMapGeneralContainer extends Component {
             postFilters,
             updateReportFilter,
             match,
-            fetchSingleDrawing
+            fetchSingleDrawing,
+            // remove
+            showModal
         } = this.props;
 
         updateReportFilter('drawingID', match.params.id).then(postFilters);
@@ -140,7 +143,8 @@ class DrawingMapGeneralContainer extends Component {
         handleChange,
         fromDateInclusive,
         toDateInclusive,
-        fieldErrors
+        fieldErrors,
+        isFetching
     }) => {
         const {
             drawing = {},
@@ -170,6 +174,10 @@ class DrawingMapGeneralContainer extends Component {
         if (pinsFromAPI.length !== prevPinsFromAPI.length) {
             const pinIDs = pinsFromAPI.map(({ id }) => id);
             handleChange('pinIDs', pinIDs);
+        }
+
+        if (isFetching && !this.props.isFetching) {
+            this.props.showModal(SELECT_PIN_SCALE, { drawing });
         }
     };
 
