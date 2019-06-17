@@ -18,8 +18,6 @@ const BasicFilters = ({
     selectedStatus,
     fromDateInclusive,
     toDateInclusive,
-    historyNumsOptions,
-    selectedHistoryNum,
     isDrawingPage
 }) => (
     <div className={`flex-item size-lg-${isDrawingPage ? '12' : '6'}`}>
@@ -83,18 +81,7 @@ const BasicFilters = ({
                         </p>
                     </div>
                 </Field>
-                <Field name="Number of Histories" reqiured={true}>
-                    <DropdownContainer
-                        singleSelect
-                        name="reportHistories"
-                        options={historyNumsOptions}
-                        value={selectedHistoryNum}
-                        selectedOption={selectedHistoryNum}
-                        handleChange={handleChange}
-                        withoutPlaceholder
-                        required
-                    />
-                </Field>
+
                 {isDrawingPage && <OperativesFilterContainer advanced />}
 
                 {!!fieldError && (
