@@ -13,7 +13,7 @@ class DashboardBarContainer extends Component {
                 isFetching={isFetching}
                 error={error}
                 isEmpty={isEmpty(datasets) || isEmpty(labels)}
-                containerClass="size-lg-6"
+                containerClass="flex-row-item size-lg-6"
             >
                 <DashboardBarChart data={this._data} />
             </BlockContainer>
