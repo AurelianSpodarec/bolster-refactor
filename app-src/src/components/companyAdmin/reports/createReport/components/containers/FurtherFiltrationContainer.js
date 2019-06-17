@@ -165,8 +165,10 @@ class FurtherFiltrationContainer extends Component {
         return options;
     };
 
-    handleChange = (_, value) => {
-        this.props.updateFurtherFiltrationOption(value);
+    handleChange = async (_, value) => {
+        await this.props.updateFurtherFiltrationOption(value);
+        const { postFilters } = this.props;
+        postFilters();
     };
 
     handleNumOfHistoriesChange = (name, value) => {
