@@ -27,6 +27,6 @@ export const APPROVED_COMPANIES_TABS = {
 };
 
 export const DASHBOARD_TABS = {
-    OPERATIVES: 'Operatives',
-    DRAWINGS: 'Drawings'
+    DRAWINGS: 'Drawings',
+    OPERATIVES: 'Operatives'
 };

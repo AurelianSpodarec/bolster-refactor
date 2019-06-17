@@ -64,7 +64,7 @@ const PinAnswer = ({
             var answerString = curAnswer.answer;
 
             if (!answerString.startsWith('data:')) {
-                answerString = `data: image/jpeg;base64${answerString}`;
+                answerString = `data: image/jpeg;base64,${answerString}`;
             }
 
             inner = (
