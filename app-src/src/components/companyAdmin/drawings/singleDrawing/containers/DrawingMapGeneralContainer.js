@@ -9,7 +9,11 @@ import updatePinCoordinates from 'actions/companyAdmin/drawings/sync/updatePinCo
 import DrawingMapViewSimple from '../presentational/DrawingMapViewSimple';
 import DrawingInspectionLogContainer from './DrawingInspectionLogContainer';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import { convertArrToObj, momentComparisonFormat } from 'helpers/generic';
+import {
+    convertArrToObj,
+    momentComparisonFormat,
+    isEmpty
+} from 'helpers/generic';
 import {
     COMPANY_USER_ROLE_TYPES as USER_ROLE,
     FLOORPLAN_STATE_MESSAGES,
@@ -43,6 +47,7 @@ class DrawingMapGeneralContainer extends Component {
         addPinLng: -0.09,
         centerLat: 51.505,
         centerLng: -0.09,
+        firstCorner: null,
         mode: ADD
     };
 
@@ -73,6 +78,7 @@ class DrawingMapGeneralContainer extends Component {
 
         const shouldShowPinSelectorOptions =
             +furtherFiltrationOption === +PIN_SELECTOR;
+
         return (
             <>
                 <div className="flex-container size-lg-12">
@@ -125,8 +131,13 @@ class DrawingMapGeneralContainer extends Component {
             postFilters,
             updateReportFilter,
             match,
-            fetchSingleDrawing
+            fetchSingleDrawing,
+            pinsFromAPI = [],
+            handleChange
         } = this.props;
+
+        const pinIDs = pinsFromAPI.map(({ id }) => id);
+        handleChange('pinIDs', pinIDs);
 
         updateReportFilter('drawingID', match.params.id).then(postFilters);
         if (drawing.isFloorplanUpdating) {
@@ -145,7 +156,8 @@ class DrawingMapGeneralContainer extends Component {
         toDateInclusive,
         fieldErrors,
         rectangles: prevRectangles,
-        furtherFiltrationOption: prevOption
+        furtherFiltrationOption: prevOption,
+        isFetchingReports: prevIsFetchingReports
     }) => {
         const {
             drawing = {},
@@ -156,7 +168,8 @@ class DrawingMapGeneralContainer extends Component {
             rectangles,
             postFilters,
             furtherFiltrationOption,
-            removeAllRectangles
+            removeAllRectangles,
+            isFetchingReports
         } = this.props;
         // re-fetch drawing every 5 seconds until the updated floorplan is retrieved
         if (postSuccess && !prevSuccess) fetchSingleDrawing(drawing.id);
@@ -176,7 +189,13 @@ class DrawingMapGeneralContainer extends Component {
         if (!drawing.isFloorplanUpdating && prevDrawing.isFloorplanUpdating) {
             clearInterval(this._floorplanInterval);
         }
-        if (pinsFromAPI.length !== prevPinsFromAPI.length) {
+
+        if (
+            // prevIsFetchingReports &&
+            // !isFetchingReports &&
+            // !isEmpty(pinsFromAPI)
+            pinsFromAPI.length !== prevPinsFromAPI.length
+        ) {
             const pinIDs = pinsFromAPI.map(({ id }) => id);
             handleChange('pinIDs', pinIDs);
         }
@@ -314,6 +333,7 @@ class DrawingMapGeneralContainer extends Component {
                 return true;
             });
         }
+
         return pins.filter(({ id }) => filters.pinIDs.includes(id));
     };
 
@@ -349,7 +369,8 @@ const mapStateToProps = (
                 customFilters: { pins: pinsFromAPI },
                 filters: { pinIDs },
                 furtherFiltrationOption,
-                rectangles
+                rectangles,
+                isFetching: isFetchingReports
             }
         }
     },
@@ -363,6 +384,7 @@ const mapStateToProps = (
     users: Object.values(users),
     services: Object.values(services),
     isFetching,
+    isFetchingReports,
     error,
     postSuccess,
     furtherFiltrationOption,

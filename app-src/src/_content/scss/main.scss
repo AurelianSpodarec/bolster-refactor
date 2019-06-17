@@ -1241,6 +1241,7 @@ input {
             max-width: 150px;
             margin: 0 5px;
             border: 1px solid black;
+            cursor: zoom-in;
         }
     }
 
@@ -3455,6 +3456,15 @@ input {
         width: 100%;
         height: auto;
         padding: 0 5px;
+    }
+}
+
+.loading-floorplan {
+    min-height: 300px;
+    background: {
+        image: url(../images/bx_loader.gif);
+        position: center;
+        repeat: no-repeat;
     }
 }
 

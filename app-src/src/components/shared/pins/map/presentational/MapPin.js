@@ -60,7 +60,7 @@ const DrawingMapPin = ({
         iconAnchor: [15, 50],
         popupAnchor: [0, -50]
     });
-    const isExcluded = excludedPinIDs.includes(id);
+    const isExcluded = isExcluding ? excludedPinIDs.includes(id) : false;
     const onClick = !isExcluding
         ? () => {
               withLink && history.push(`/${urlStart}/pins/` + id);

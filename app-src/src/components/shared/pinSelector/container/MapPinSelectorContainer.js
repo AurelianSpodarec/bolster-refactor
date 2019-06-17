@@ -25,3 +25,5 @@ const mapStateToProps = (state, { client }) => {
 };
 
 export default connect(mapStateToProps)(MapPinSelectorContainer);
+
+// finding logged in company id for fetch pins !!!

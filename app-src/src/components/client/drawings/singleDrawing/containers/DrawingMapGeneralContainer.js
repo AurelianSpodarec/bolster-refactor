@@ -1,13 +1,21 @@
 import React, { Component } from 'react';
 import moment from 'moment';
+import uuid from 'uuid/v4';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 import DrawingMapViewSimple from '../presentational/DrawingMapViewSimple';
 import DrawingInspectionLogContainer from './DrawingInspectionLogContainer';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import { convertEnumToDropdownOptions } from 'helpers/generic';
-import { PIN_STATUS_TYPES } from 'constants/companyAdmin/enums';
+import {
+    convertEnumToDropdownOptions,
+    momentComparisonFormat
+} from 'helpers/generic';
+import {
+    PIN_STATUS_TYPES,
+    RECTANGLE_MODES,
+    FURTHER_FILTRATION_OPTIONS
+} from 'constants/companyAdmin/enums';
 import withUpdateOnChange from 'components/client/reports/createReport/components/hocs/withUpdateOnChange';
 import removeFieldError from 'actions/shared/generic/fieldErrors/sync/removeFieldError';
 import BasicFiltersContainer from 'components/client/reports/createReport/components/containers/BasicFiltersContainer';
@@ -15,6 +23,13 @@ import DrawingDetailsContainer from './DrawingDetailsContainer';
 import FurtherFiltrationContainer from 'components/client/reports/createReport/components/containers/FurtherFiltrationContainer';
 import OutputSettingsContainer from 'components/client/reports/createReport/components/containers/OutputSettingsContainer';
 import updateReportFilter from 'actions/client/reports/create/sync/clientUpdateReportFilter';
+import addRectangle from 'actions/client/reports/create/sync/clientAddRectangle';
+import removeRectangle from 'actions/client/reports/create/sync/clientRemoveRectangle';
+import removeAllRectangles from 'actions/client/reports/create/sync/clientRemoveAllRectangles';
+import updateFurtherFiltrationOption from 'actions/client/reports/create/sync/clientUpdateFurtherFiltrationOption';
+
+const { ADD, DELETE, EXCLUDE } = RECTANGLE_MODES;
+const { PIN_SELECTOR } = FURTHER_FILTRATION_OPTIONS;
 
 class DrawingMapGeneralContainer extends Component {
     state = {
@@ -29,13 +44,26 @@ class DrawingMapGeneralContainer extends Component {
         // in state instead of in render method, recalculating each time
         serviceOptions: {},
         operativeOptions: {},
-        statusOptions: convertEnumToDropdownOptions(PIN_STATUS_TYPES)
+        statusOptions: convertEnumToDropdownOptions(PIN_STATUS_TYPES),
+        firstCorner: null,
+        mode: ADD
     };
 
     render() {
-        const { mapZoom, position, updating } = this.state;
+        const { mapZoom, position, updating, firstCorner, mode } = this.state;
 
-        const { error, drawing = {} } = this.props;
+        const {
+            error,
+            drawing = {},
+            furtherFiltrationOption,
+            rectangles
+        } = this.props;
+
+        const cornerClicked = firstCorner;
+        const isExcluding = +mode === EXCLUDE;
+
+        const shouldShowPinSelectorOptions =
+            +furtherFiltrationOption === +PIN_SELECTOR;
 
         return (
             <>
@@ -56,6 +84,17 @@ class DrawingMapGeneralContainer extends Component {
                         drawing={drawing}
                         pins={this._getFilteredPins()}
                         updating={updating}
+                        handleClick={this.handleClick}
+                        cornerClicked={cornerClicked}
+                        shouldShowPinSelectorOptions={
+                            shouldShowPinSelectorOptions
+                        }
+                        setMode={this.setMode}
+                        rectangles={rectangles}
+                        handleDelete={this.handleDelete}
+                        mode={mode}
+                        handleCancelPinSelector={this.handleCancelPinSelector}
+                        isExcluding={isExcluding}
                     />
                 </BlockContainer>
                 <FurtherFiltrationContainer />
@@ -141,6 +180,24 @@ class DrawingMapGeneralContainer extends Component {
         handleChange(name, date).then(postFilters);
     };
 
+    handleClick = e => {
+        const { lat, lng } = e.latlng;
+        const { mode, firstCorner } = this.state;
+        const { addRectangle, furtherFiltrationOption } = this.props;
+        if (+furtherFiltrationOption === +PIN_SELECTOR && mode === ADD) {
+            if (!firstCorner) {
+                this.setState({ firstCorner: [lat, lng] });
+            } else {
+                const id = uuid();
+                const secondCorner = [lat, lng];
+                addRectangle(id, firstCorner, secondCorner);
+                this.setState({ firstCorner: null });
+            }
+        }
+
+        if (this.state.addMode) this._updateCoordinates(lat, lng);
+    };
+
     _getServicesOptions = () => {
         const { services, pins } = this.props;
 
@@ -174,11 +231,60 @@ class DrawingMapGeneralContainer extends Component {
     // };
 
     _getFilteredPins = () => {
-        const { pins, pinIDs } = this.props;
+        const { pins, filters, furtherFiltrationOption } = this.props;
 
-        const filterPins = pins.filter(({ id }) => pinIDs.includes(id));
+        // ? Displays all pins if in rectangle mode, and only the selected pins otherwise.
+        if (+furtherFiltrationOption === +PIN_SELECTOR) {
+            const {
+                fromDateInclusive,
+                toDateInclusive,
+                status,
+                serviceID
+            } = filters;
+            return pins.filter(pin => {
+                if (
+                    fromDateInclusive &&
+                    moment(pin.createdOn) <
+                        moment(fromDateInclusive, momentComparisonFormat)
+                ) {
+                    return false;
+                }
+                if (
+                    toDateInclusive &&
+                    moment(pin.createdOn) >
+                        moment(toDateInclusive, momentComparisonFormat)
+                ) {
+                    return false;
+                }
+                if (status && +pin.latestStatus !== +status) {
+                    return false;
+                }
+                if (serviceID && +pin.latestServiceID !== +serviceID) {
+                    return false;
+                }
+                return true;
+            });
+        }
+        return pins.filter(({ id }) => filters.pinIDs.includes(id));
+    };
 
-        return filterPins;
+    setMode = mode => {
+        this.setState({ mode, firstCorner: null });
+    };
+
+    handleDelete = id => {
+        const { mode } = this.state;
+        const { removeRectangle } = this.props;
+        if (mode === DELETE) removeRectangle(id);
+    };
+
+    handleCancelPinSelector = () => {
+        const {
+            removeAllRectangles,
+            updateFurtherFiltrationOption
+        } = this.props;
+        updateFurtherFiltrationOption(FURTHER_FILTRATION_OPTIONS.NONE);
+        removeAllRectangles();
     };
 }
 
@@ -191,7 +297,9 @@ const mapStateToProps = (
             drawingsReducer: { drawings },
             reportsReducer: {
                 filters: { pinIDs },
-                customFilters: { pins: pinsFromAPI }
+                customFilters: { pins: pinsFromAPI },
+                furtherFiltrationOption,
+                rectangles
             }
         },
         shared: {
@@ -208,10 +316,19 @@ const mapStateToProps = (
     fieldErrors,
     error,
     pinIDs,
-    pinsFromAPI
+    pinsFromAPI,
+    furtherFiltrationOption,
+    rectangles: Object.values(rectangles)
 });
 
-const mapDispatchToProps = { removeFieldError, updateReportFilter };
+const mapDispatchToProps = {
+    removeFieldError,
+    updateReportFilter,
+    addRectangle,
+    removeRectangle,
+    removeAllRectangles,
+    updateFurtherFiltrationOption
+};
 
 export default withRouter(
     withUpdateOnChange(
