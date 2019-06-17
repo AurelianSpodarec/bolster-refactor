@@ -16,6 +16,7 @@ import withUpdateOnChange from '../hocs/withUpdateOnChange';
 import removeAllRectangles from 'actions/companyAdmin/reports/sync/removeAllRectangles';
 import fetchPins from 'actions/companyAdmin/pins/async/fetchPins';
 import { momentComparisonFormat } from 'helpers/generic';
+import updateFurtherFiltrationOption from 'actions/companyAdmin/reports/sync/updateFurtherFiltrationOption';
 const { ADD, DELETE } = RECTANGLE_MODES;
 const { PIN_SELECTOR } = FURTHER_FILTRATION_OPTIONS;
 
@@ -30,7 +31,7 @@ class FilterMapContainer extends Component {
 
     render() {
         const { drawing, rectangles, furtherFiltrationOption } = this.props;
-        const { firstCorner } = this.state;
+        const { firstCorner, mode } = this.state;
         const cornerClicked = firstCorner;
         if (!drawing.id) return null;
 
@@ -45,7 +46,9 @@ class FilterMapContainer extends Component {
                 rectangles={rectangles}
                 setMode={this.setMode}
                 handleDelete={this.handleDelete}
+                handleCancelPinSelector={this.handleCancelPinSelector}
                 shouldShowMapOptions={shouldShowMapOptions}
+                mode={mode}
             />
         );
     }
@@ -110,6 +113,15 @@ class FilterMapContainer extends Component {
         if (mode === DELETE) removeRectangle(id);
     };
 
+    handleCancelPinSelector = () => {
+        const {
+            removeAllRectangles,
+            updateFurtherFiltrationOption
+        } = this.props;
+        updateFurtherFiltrationOption(FURTHER_FILTRATION_OPTIONS.NONE);
+        removeAllRectangles();
+    };
+
     getFilteredPins = () => {
         const { pins, filters, furtherFiltrationOption } = this.props;
 
@@ -170,7 +182,8 @@ const mapDispatchToProps = {
     addRectangle,
     removeRectangle,
     removeAllRectangles,
-    fetchPins
+    fetchPins,
+    updateFurtherFiltrationOption
 };
 
 export default withUpdateOnChange(

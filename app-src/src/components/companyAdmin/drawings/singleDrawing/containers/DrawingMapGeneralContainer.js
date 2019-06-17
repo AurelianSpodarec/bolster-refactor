@@ -28,6 +28,7 @@ import BasicFiltersContainer from 'components/companyAdmin/reports/createReport/
 import addRectangle from 'actions/companyAdmin/reports/sync/addRectangle';
 import removeRectangle from 'actions/companyAdmin/reports/sync/removeRectangle';
 import removeAllRectangles from 'actions/companyAdmin/reports/sync/removeAllRectangles';
+import updateFurtherFiltrationOption from 'actions/companyAdmin/reports/sync/updateFurtherFiltrationOption';
 const { ADD, DELETE } = RECTANGLE_MODES;
 const { PIN_SELECTOR } = FURTHER_FILTRATION_OPTIONS;
 
@@ -53,7 +54,8 @@ class DrawingMapGeneralContainer extends Component {
             addPinLng,
             centerLat,
             centerLng,
-            firstCorner
+            firstCorner,
+            mode
         } = this.state;
         const {
             error,
@@ -104,6 +106,8 @@ class DrawingMapGeneralContainer extends Component {
                         setMode={this.setMode}
                         rectangles={rectangles}
                         handleDelete={this.handleDelete}
+                        mode={mode}
+                        handleCancelPinSelector={this.handleCancelPinSelector}
                     />
                 </BlockContainer>
                 <FurtherFiltrationContainer />
@@ -320,6 +324,15 @@ class DrawingMapGeneralContainer extends Component {
         const { removeRectangle } = this.props;
         if (mode === DELETE) removeRectangle(id);
     };
+
+    handleCancelPinSelector = () => {
+        const {
+            removeAllRectangles,
+            updateFurtherFiltrationOption
+        } = this.props;
+        updateFurtherFiltrationOption(FURTHER_FILTRATION_OPTIONS.NONE);
+        removeAllRectangles();
+    };
 }
 
 const mapStateToProps = (
@@ -363,8 +376,10 @@ const mapDispatchToProps = {
     removeFieldError,
     addRectangle,
     removeRectangle,
-    removeAllRectangles
+    removeAllRectangles,
+    updateFurtherFiltrationOption
 };
+
 export default withRouter(
     withUpdateOnChange(
         connect(
