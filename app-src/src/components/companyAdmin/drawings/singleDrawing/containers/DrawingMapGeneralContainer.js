@@ -47,6 +47,7 @@ class DrawingMapGeneralContainer extends Component {
         addPinLng: -0.09,
         centerLat: 51.505,
         centerLng: -0.09,
+        firstCorner: null,
         mode: ADD
     };
 

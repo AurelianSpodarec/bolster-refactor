@@ -15,7 +15,13 @@ import {
     CLIENT_UPDATE_FILTER_OPTION,
     CLIENT_UPDATE_SELECTED_PINS,
     CLIENT_RESET_FILTER_OPTIONS,
-    CLIENT_POST_REPORT_NO_PINS
+    CLIENT_POST_REPORT_NO_PINS,
+    CLIENT_ADD_RECTANGLE,
+    CLIENT_REMOVE_RECTANGLE,
+    CLIENT_REMOVE_ALL_RECTANGLES,
+    CLIENT_UPDATE_FURTHER_FILTRATION_OPTION,
+    CLIENT_UPDATE_IS_PIN_EXCLUDED,
+    CLIENT_REMOVE_ALL_EXCLUDED_PINS
 } from 'constants/client/actionTypes/clientReports';
 import { updateObj, removeObjItem, convertArrToObj } from 'helpers/generic';
 import { SORT_BY_OPTIONS } from 'constants/companyAdmin/enums';
@@ -29,7 +35,10 @@ export default combineReducers({
     postSuccess: postSuccessReducer,
     pinResults: pinResultsReducer,
     selectedPins: selectedPinsReducer,
-    isFetching: isFetchingReducer
+    isFetching: isFetchingReducer,
+    rectangles: rectanglesReducer,
+    furtherFiltrationOption: furtherFiltrationOptionReducer,
+    excludedPinIDs: excludedPinIDsReducer
 });
 
 //send the questionsIDs
@@ -199,6 +208,44 @@ function errorReducer(state = null, action) {
         case CLIENT_POST_CUSTOM_FILTERS_FAILURE:
         case CLIENT_POST_REPORT_FAILURE:
             return action.error;
+        default:
+            return state;
+    }
+}
+
+function rectanglesReducer(state = {}, action) {
+    switch (action.type) {
+        case CLIENT_ADD_RECTANGLE:
+            return updateObj(state, action.id, {
+                id: action.id,
+                corners: [action.topLeft, action.bottomRight]
+            });
+        case CLIENT_REMOVE_RECTANGLE:
+            return removeObjItem(state, action.id);
+        case CLIENT_REMOVE_ALL_RECTANGLES:
+            return {};
+        default:
+            return state;
+    }
+}
+
+function furtherFiltrationOptionReducer(state = 0, action) {
+    switch (action.type) {
+        case CLIENT_UPDATE_FURTHER_FILTRATION_OPTION:
+            return action.value;
+        default:
+            return state;
+    }
+}
+
+function excludedPinIDsReducer(state = {}, action) {
+    switch (action.type) {
+        case CLIENT_UPDATE_IS_PIN_EXCLUDED:
+            return action.isExcluded
+                ? updateObj(state, action.id, action.id)
+                : removeObjItem(state, action.id);
+        case CLIENT_REMOVE_ALL_EXCLUDED_PINS:
+            return {};
         default:
             return state;
     }

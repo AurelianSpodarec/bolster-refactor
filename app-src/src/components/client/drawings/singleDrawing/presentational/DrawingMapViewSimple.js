@@ -1,12 +1,17 @@
 import React from 'react';
-import { Map, TileLayer } from 'react-leaflet';
+import ReactDOMServer from 'react-dom/server';
+import L from 'leaflet';
+import { Map, TileLayer, Marker } from 'react-leaflet';
 import { FILE_STORAGE_URL } from 'config';
 
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 // import LoadingIcon from 'components/shared/generic/misc/presentational/LoadingIcon';
 import Loading from 'components/shared/generic/misc/presentational/Loading';
 import MapPinContainer from 'components/shared/pins/map/containers/MapPinContainer';
+import RedX from 'components/shared/pins/map/presentational/RedX';
 import LoadingIcon from 'components/shared/generic/misc/presentational/LoadingIcon';
+import PinSelectorOptions from 'components/shared/pinSelector/presentational/PinSelectorOptions';
+import Rectangle from 'components/shared/pinSelector/presentational/Rectangle';
 
 const getDataUrl = src => `${FILE_STORAGE_URL}/${src}/{z}/{x}/{y}.jpg`;
 
@@ -15,9 +20,25 @@ const DrawingMapViewSimple = ({
     zoom,
     pins,
     drawing = {},
-    updating
-}) =>
-    drawing.tilesetS3Key ? (
+    updating,
+    handleClick,
+    cornerClicked,
+    shouldShowPinSelectorOptions,
+    setMode,
+    rectangles,
+    handleDelete,
+    mode,
+    handleCancelPinSelector,
+    isExcluding
+}) => {
+    const cornerClickedIcon = L.divIcon({
+        className: '',
+        html: ReactDOMServer.renderToString(<RedX />),
+        iconSize: [30, 50],
+        iconAnchor: [15, 50],
+        popupAnchor: [0, -50]
+    });
+    return drawing.tilesetS3Key ? (
         <>
             <BlockHeading>
                 {updating && (
@@ -25,8 +46,21 @@ const DrawingMapViewSimple = ({
                         Uploading Drawing... <LoadingIcon />
                     </p>
                 )}
+                {shouldShowPinSelectorOptions && (
+                    <PinSelectorOptions
+                        setMode={setMode}
+                        mode={mode}
+                        handleCancel={handleCancelPinSelector}
+                    />
+                )}
             </BlockHeading>
-            <Map center={position} zoom={zoom} minZoom={0} maxZoom={5}>
+            <Map
+                center={position}
+                zoom={zoom}
+                minZoom={0}
+                maxZoom={5}
+                onClick={handleClick}
+            >
                 <TileLayer
                     attribution='&amp;copy <a href="http://app.bolstersystems.com">Bolster Systems Ltd</a>'
                     url={getDataUrl(drawing.tilesetS3Key)}
@@ -37,8 +71,22 @@ const DrawingMapViewSimple = ({
                         urlStart="client"
                         key={pin.id}
                         pin={pin}
-                        withLink={true}
-                        withTooltip={true}
+                        withLink={!shouldShowPinSelectorOptions}
+                        withTooltip={!isExcluding}
+                        isExcluding={isExcluding}
+                        isClient
+                        client
+                    />
+                ))}
+
+                {cornerClicked && (
+                    <Marker position={cornerClicked} icon={cornerClickedIcon} />
+                )}
+                {rectangles.map(rectangle => (
+                    <Rectangle
+                        key={rectangle.id}
+                        rectangle={rectangle}
+                        onClick={() => handleDelete(rectangle.id)}
                     />
                 ))}
             </Map>
@@ -46,5 +94,6 @@ const DrawingMapViewSimple = ({
     ) : (
         <Loading message="Please wait for your tileset to load" />
     );
+};
 
 export default DrawingMapViewSimple;
