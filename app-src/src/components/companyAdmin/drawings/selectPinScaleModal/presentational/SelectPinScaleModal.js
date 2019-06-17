@@ -16,6 +16,7 @@ const SelectPinScaleModal = ({
         <BlockHeading title="Select Size of Pins" />
         <div className="size-lg-12">
             <img
+                alt="floorplan"
                 style={{ width: '100%' }}
                 src={`${FILE_STORAGE_URL}/${tilesetS3KeyOrig}`}
             />

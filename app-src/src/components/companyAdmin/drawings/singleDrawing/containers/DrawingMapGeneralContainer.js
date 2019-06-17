@@ -19,7 +19,6 @@ import updateReportFilter from 'actions/companyAdmin/reports/sync/updateReportFi
 import removeFieldError from 'actions/shared/generic/fieldErrors/sync/removeFieldError';
 import withUpdateOnChange from 'components/companyAdmin/reports/createReport/components/hocs/withUpdateOnChange';
 import DrawingDetailsContainer from './DrawingDetailsContainer';
-import { SELECT_PIN_SCALE } from 'constants/shared/modalTypes';
 import FurtherFiltrationContainer from 'components/companyAdmin/reports/createReport/components/containers/FurtherFiltrationContainer';
 import OutputSettingsContainer from 'components/companyAdmin/reports/createReport/components/containers/OutputSettingsContainer';
 import BasicFiltersContainer from 'components/companyAdmin/reports/createReport/components/containers/BasicFiltersContainer';
@@ -91,9 +90,7 @@ class DrawingMapGeneralContainer extends Component {
             postFilters,
             updateReportFilter,
             match,
-            fetchSingleDrawing,
-            // remove
-            showModal
+            fetchSingleDrawing
         } = this.props;
 
         updateReportFilter('drawingID', match.params.id).then(postFilters);
@@ -111,8 +108,7 @@ class DrawingMapGeneralContainer extends Component {
         handleChange,
         fromDateInclusive,
         toDateInclusive,
-        fieldErrors,
-        isFetching
+        fieldErrors
     }) => {
         const {
             drawing = {},
