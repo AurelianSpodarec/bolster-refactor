@@ -1,18 +1,15 @@
 import React from 'react';
-import { Map, TileLayer, Marker, Rectangle } from 'react-leaflet';
+import { Map, TileLayer, Marker } from 'react-leaflet';
 import ReactDOMServer from 'react-dom/server';
 import L from 'leaflet';
 
 import Block from 'components/shared/generic/block/presentational/Block';
 import { FILE_STORAGE_URL } from 'config';
 import MapPin from 'components/shared/pins/map/presentational/MapPin';
-import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
-import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
-import { RECTANGLE_MODES } from 'constants/companyAdmin/enums';
 import RedX from 'components/shared/pins/map/presentational/RedX';
-import defaultStyles from 'constants/defaultStyles';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
-const { ADD, DELETE, NONE } = RECTANGLE_MODES;
+import PinSelectorOptions from 'components/shared/pinSelector/presentational/PinSelectorOptions';
+import Rectangle from 'components/shared/pinSelector/presentational/Rectangle';
 
 const FilterMap = ({
     drawing,
@@ -22,7 +19,9 @@ const FilterMap = ({
     rectangles,
     handleDelete,
     setMode,
-    shouldShowMapOptions
+    shouldShowMapOptions,
+    mode,
+    handleCancelPinSelector
 }) => {
     // TODO change icon
     const cornerClickedIcon = L.divIcon({
@@ -36,17 +35,11 @@ const FilterMap = ({
         <Block>
             {shouldShowMapOptions && (
                 <BlockHeading>
-                    <BlockButtonWrapper>
-                        <ButtonContainer handleClick={() => setMode(ADD)}>
-                            Add Mode
-                        </ButtonContainer>
-                        <ButtonContainer handleClick={() => setMode(DELETE)}>
-                            Delete Mode
-                        </ButtonContainer>
-                        <ButtonContainer handleClick={() => setMode(NONE)}>
-                            Cancel
-                        </ButtonContainer>
-                    </BlockButtonWrapper>
+                    <PinSelectorOptions
+                        setMode={setMode}
+                        mode={mode}
+                        handleCancel={handleCancelPinSelector}
+                    />
                 </BlockHeading>
             )}
             <Map
@@ -69,10 +62,8 @@ const FilterMap = ({
                 {rectangles.map(rectangle => (
                     <Rectangle
                         key={rectangle.id}
-                        bounds={rectangle.corners}
+                        rectangle={rectangle}
                         onClick={() => handleDelete(rectangle.id)}
-                        color={defaultStyles.colourCode}
-                        style={{ color: defaultStyles.colourCode }}
                     />
                 ))}
                 {pins.map(pin => (

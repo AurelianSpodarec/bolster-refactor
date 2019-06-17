@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Map, TileLayer, Marker, Rectangle } from 'react-leaflet';
+import { Map, TileLayer, Marker } from 'react-leaflet';
 import ReactDOMServer from 'react-dom/server';
 import { FILE_STORAGE_URL } from 'config';
 import L from 'leaflet';
@@ -12,12 +12,9 @@ import Loading from 'components/shared/generic/misc/presentational/Loading';
 // import { RAW_S3_STORAGE_URL } from 'config';
 import { EDIT_DRAWING } from 'constants/shared/modalTypes';
 import MapPinContainer from 'components/shared/pins/map/containers/MapPinContainer';
-import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
-import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
-import { RECTANGLE_MODES } from 'constants/companyAdmin/enums';
 import RedX from 'components/shared/pins/map/presentational/RedX';
-import defaultStyles from 'constants/defaultStyles';
-const { ADD, DELETE, NONE } = RECTANGLE_MODES;
+import PinSelectorOptions from 'components/shared/pinSelector/presentational/PinSelectorOptions';
+import Rectangle from 'components/shared/pinSelector/presentational/Rectangle';
 // import LoadingIcon from 'components/shared/generic/misc/presentational/LoadingIcon';
 
 const getDataUrl = src => `${FILE_STORAGE_URL}/${src}/{z}/{x}/{y}.jpg`;
@@ -41,7 +38,9 @@ const DrawingMapViewSimple = ({
     setMode,
     cornerClicked,
     rectangles,
-    handleDelete
+    handleDelete,
+    mode,
+    handleCancelPinSelector
 }) => {
     const newPinIcon = L.divIcon({
         className: '',
@@ -52,7 +51,7 @@ const DrawingMapViewSimple = ({
         iconAnchor: [15, 50],
         popupAnchor: [0, -50]
     });
-    // TODO change icon
+
     const cornerClickedIcon = L.divIcon({
         className: '',
         html: ReactDOMServer.renderToString(<RedX />),
@@ -67,23 +66,11 @@ const DrawingMapViewSimple = ({
                 <>
                     <BlockHeading>
                         {shouldShowPinSelectorOptions ? (
-                            <BlockButtonWrapper>
-                                <ButtonContainer
-                                    handleClick={() => setMode(ADD)}
-                                >
-                                    Add Mode
-                                </ButtonContainer>
-                                <ButtonContainer
-                                    handleClick={() => setMode(DELETE)}
-                                >
-                                    Delete Mode
-                                </ButtonContainer>
-                                <ButtonContainer
-                                    handleClick={() => setMode(NONE)}
-                                >
-                                    Cancel
-                                </ButtonContainer>
-                            </BlockButtonWrapper>
+                            <PinSelectorOptions
+                                setMode={setMode}
+                                mode={mode}
+                                handleCancel={handleCancelPinSelector}
+                            />
                         ) : (
                             <>
                                 {addMode ? (
@@ -129,10 +116,6 @@ const DrawingMapViewSimple = ({
                         minZoom={0}
                         maxZoom={5}
                         onClick={e => handleClick(e)}
-
-                        // Sets boundary to prevent scrolling into nothing, maxboundsviscosity prevents a snapback effect and disables scrolling out of bounds altogether
-                        // maxBounds={[[-1000, -1000], [1000, 1000]]}
-                        // maxBoundsViscosity={1}
                     >
                         <TileLayer
                             attribution='&amp;copy <a href="http://app.bolstersystems.com">Bolster Systems Ltd</a>'
@@ -163,10 +146,8 @@ const DrawingMapViewSimple = ({
                         {rectangles.map(rectangle => (
                             <Rectangle
                                 key={rectangle.id}
-                                bounds={rectangle.corners}
+                                rectangle={rectangle}
                                 onClick={() => handleDelete(rectangle.id)}
-                                color={defaultStyles.colourCode}
-                                style={{ color: defaultStyles.colourCode }}
                             />
                         ))}
                     </Map>
