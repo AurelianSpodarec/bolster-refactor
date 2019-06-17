@@ -7,6 +7,7 @@ import addFieldError from 'actions/shared/generic/fieldErrors/sync/addFieldError
 import removeFieldError from 'actions/shared/generic/fieldErrors/sync/removeFieldError';
 import { convertArrToObj, getSelectedCompanyForClient } from 'helpers/generic';
 import showFieldErrors from 'actions/shared/generic/fieldErrors/sync/showFieldErrors';
+import { FURTHER_FILTRATION_OPTIONS } from 'constants/companyAdmin/enums';
 
 export default function(ProtectedComponent) {
     class WithUpdateOnChange extends React.Component {
@@ -84,6 +85,7 @@ export default function(ProtectedComponent) {
                     pinIDs,
                     floorplanPinScale
                 },
+                furtherFiltrationOption,
                 excludedPinIDs,
                 options: { showHidden, sortBy },
                 fields
@@ -109,22 +111,44 @@ export default function(ProtectedComponent) {
                 hierarchyID = drawingID;
             }
 
-            const questionFilters = fields.map(
-                ({
-                    selectedQuestions,
-                    questionValues = [],
-                    selectedValues = []
-                }) => {
-                    let values = questionValues.length
-                        ? questionValues
-                        : selectedValues;
+            let questionFilters = null;
+            let selectedPinIDs = null;
 
-                    return {
-                        questionGroupKeys: selectedQuestions,
-                        values
-                    };
+            const {
+                INDIVIDUAL_PINS,
+                PIN_SELECTOR,
+                FILTERS
+            } = FURTHER_FILTRATION_OPTIONS;
+
+            switch (+furtherFiltrationOption) {
+                case PIN_SELECTOR:
+                case INDIVIDUAL_PINS: {
+                    selectedPinIDs = pinIDs.filter(
+                        id => !Object.values(excludedPinIDs).includes(id)
+                    );
+                    break;
                 }
-            );
+                case FILTERS: {
+                    questionFilters = fields.map(
+                        ({
+                            selectedQuestions,
+                            questionValues = [],
+                            selectedValues = []
+                        }) => {
+                            let values = questionValues.length
+                                ? questionValues
+                                : selectedValues;
+
+                            return {
+                                questionGroupKeys: selectedQuestions,
+                                values
+                            };
+                        }
+                    );
+                    break;
+                }
+            }
+
             const body = {
                 hierarchyType,
                 hierarchyID,
@@ -137,11 +161,7 @@ export default function(ProtectedComponent) {
                 fromDateInclusive,
                 toDateInclusive,
                 companyUserIDs,
-                pinIDs: pinIDs
-                    ? pinIDs.filter(
-                          id => !Object.values(excludedPinIDs).includes(id)
-                      )
-                    : null,
+                pinIDs: selectedPinIDs,
                 serviceID: serviceID || null,
                 status: status || null,
                 questionFilters,
@@ -179,7 +199,8 @@ export default function(ProtectedComponent) {
                     postSuccess,
                     error,
                     customFilters,
-                    excludedPinIDs
+                    excludedPinIDs,
+                    furtherFiltrationOption
                 }
             }
         },
@@ -213,7 +234,8 @@ export default function(ProtectedComponent) {
             floors,
             drawings,
             fields: Object.values(fields),
-            excludedPinIDs
+            excludedPinIDs,
+            furtherFiltrationOption
         };
     };
 
