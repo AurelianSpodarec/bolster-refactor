@@ -15,6 +15,8 @@ import MapPinContainer from 'components/shared/pins/map/containers/MapPinContain
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 import { RECTANGLE_MODES } from 'constants/companyAdmin/enums';
+import RedX from 'components/shared/pins/map/presentational/RedX';
+import defaultStyles from 'constants/defaultStyles';
 const { ADD, DELETE, NONE } = RECTANGLE_MODES;
 // import LoadingIcon from 'components/shared/generic/misc/presentational/LoadingIcon';
 
@@ -53,7 +55,7 @@ const DrawingMapViewSimple = ({
     // TODO change icon
     const cornerClickedIcon = L.divIcon({
         className: '',
-        html: ReactDOMServer.renderToString(<CustomPin pinColour="red" />),
+        html: ReactDOMServer.renderToString(<RedX />),
         iconSize: [30, 50],
         iconAnchor: [15, 50],
         popupAnchor: [0, -50]
@@ -163,6 +165,8 @@ const DrawingMapViewSimple = ({
                                 key={rectangle.id}
                                 bounds={rectangle.corners}
                                 onClick={() => handleDelete(rectangle.id)}
+                                color={defaultStyles.colourCode}
+                                style={{ color: defaultStyles.colourCode }}
                             />
                         ))}
                     </Map>
