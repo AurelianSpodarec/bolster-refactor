@@ -81,7 +81,8 @@ export default function(ProtectedComponent) {
                     includeFloorplan,
                     fromDateInclusive,
                     toDateInclusive,
-                    companyUserIDs
+                    companyUserIDs,
+                    floorplanPinScale
                 },
                 rectangles,
                 options: { showHidden, sortBy },
@@ -155,7 +156,8 @@ export default function(ProtectedComponent) {
                 questionFilters,
                 showHidden,
                 sortBy,
-                pinBoundingBoxes
+                pinBoundingBoxes,
+                floorplanPinScale
             };
             return body;
         };

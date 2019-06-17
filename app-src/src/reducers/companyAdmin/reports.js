@@ -62,7 +62,8 @@ function filtersReducer(
         fromDateInclusive: undefined,
         toDateInclusive: undefined,
         companyUserIDs: [],
-        pinIDs: []
+        pinIDs: [],
+        floorplanPinScale: 1
     },
     action
 ) {
@@ -90,7 +91,8 @@ function filtersReducer(
                 fromDateInclusive: undefined,
                 toDateInclusive: undefined,
                 companyUserIDs: [],
-                pinIDs: []
+                pinIDs: [],
+                floorplanPinScale: 1
             };
         default:
             return state;
