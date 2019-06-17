@@ -174,4 +174,8 @@ export function getCompanyColour(colourCode) {
     }
 }
 
+export function getBolsterColour() {
+    return '#E10512';
+}
+
 export const momentComparisonFormat = 'YYYY-MM-DD';
