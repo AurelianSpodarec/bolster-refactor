@@ -72,6 +72,7 @@ class FurtherFiltrationContainer extends Component {
                     <ClientPinSelectorContainer blockName="pinSelector" />
                 ) : +furtherFiltrationOption === +PIN_SELECTOR ? (
                     <MapPinSelectorContainer
+                        isClient
                         handleClick={this._scrollToMap}
                         blockName="pinSelector"
                     />

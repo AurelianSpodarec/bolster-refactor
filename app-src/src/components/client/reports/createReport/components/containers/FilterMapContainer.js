@@ -45,6 +45,7 @@ class FilterMapContainer extends Component {
                 shouldShowMapOptions={shouldShowMapOptions}
                 mode={mode}
                 isExcluding={isExcluding}
+                isClient
             />
         );
     }

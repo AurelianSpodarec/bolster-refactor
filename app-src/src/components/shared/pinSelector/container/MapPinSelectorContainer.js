@@ -14,8 +14,8 @@ class MapPinSelectorContainer extends Component {
     }
 }
 
-const mapStateToProps = (state, { client }) => {
-    const reducer = state[client ? 'client' : 'companyAdmin'];
+const mapStateToProps = (state, { isClient }) => {
+    const reducer = state[isClient ? 'client' : 'companyAdmin'];
     const { reportsReducer } = reducer;
     return {
         pins: reportsReducer.customFilters.pins,

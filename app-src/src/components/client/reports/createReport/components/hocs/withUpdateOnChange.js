@@ -87,6 +87,7 @@ export default function(ProtectedComponent) {
                 },
                 furtherFiltrationOption,
                 excludedPinIDs,
+                rectangles,
                 options: { showHidden, sortBy },
                 fields
             } = this.props;
@@ -148,6 +149,18 @@ export default function(ProtectedComponent) {
                 }
             }
 
+            const getLatLng = corner => {
+                const [latY, lngX] = corner;
+                return { latY, lngX };
+            };
+
+            const pinBoundingBoxes = Object.values(rectangles).map(
+                ({ corners: [first, second] }) => [
+                    getLatLng(first),
+                    getLatLng(second)
+                ]
+            );
+
             const body = {
                 hierarchyType,
                 hierarchyID,
@@ -166,6 +179,7 @@ export default function(ProtectedComponent) {
                 questionFilters,
                 showHidden,
                 sortBy,
+                pinBoundingBoxes,
                 floorplanPinScale
             };
 
@@ -199,7 +213,8 @@ export default function(ProtectedComponent) {
                     error,
                     customFilters,
                     excludedPinIDs,
-                    furtherFiltrationOption
+                    furtherFiltrationOption,
+                    rectangles
                 }
             }
         },
@@ -234,7 +249,8 @@ export default function(ProtectedComponent) {
             drawings,
             fields: Object.values(fields),
             excludedPinIDs,
-            furtherFiltrationOption
+            furtherFiltrationOption,
+            rectangles
         };
     };
 

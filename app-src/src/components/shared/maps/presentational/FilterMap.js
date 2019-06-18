@@ -22,7 +22,8 @@ const FilterMap = ({
     shouldShowMapOptions,
     mode,
     handleCancelPinSelector,
-    isExcluding
+    isExcluding,
+    isClient
 }) => {
     // TODO change icon
     const cornerClickedIcon = L.divIcon({
@@ -72,6 +73,7 @@ const FilterMap = ({
                         key={pin.id}
                         pin={pin}
                         isExcluding={isExcluding}
+                        isClient={isClient}
                     />
                 ))}
             </Map>
