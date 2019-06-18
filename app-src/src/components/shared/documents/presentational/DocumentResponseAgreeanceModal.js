@@ -23,13 +23,11 @@ const DocumentResponseAgreeanceModal = ({ user, response, hideModal }) => (
             />
             {response.signatureS3Key && (
                 <FieldOutput title="Signature">
-                    (
                     <img
                         className="signature"
                         alt="signature"
-                        src={`${FILE_STORAGE_URL}/${response.signatureS3Key}`}
+                        src={`data:image/png;base64,${response.signatureS3Key}`}
                     />
-                    );
                 </FieldOutput>
             )}
             {response.imageS3Key && (
