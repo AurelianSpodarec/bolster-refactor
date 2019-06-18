@@ -19,7 +19,9 @@ const PinAnswer = ({
     const curAnswer = answers.find(item => +item.id === +trimmedAnswer.id);
     const notFoundResponse = null;
     let inner;
-    if (!curAnswer && type !== TYPES.STATUS) return notFoundResponse;
+    if ((!curAnswer || !curAnswer.answer) && type !== TYPES.STATUS) {
+        return notFoundResponse;
+    }
     switch (type) {
         case TYPES.SINGLE_LINE:
         case TYPES.MULTI_LINE:
@@ -32,6 +34,7 @@ const PinAnswer = ({
             break;
         case TYPES.MULTI_MULTI_DROPDOWN:
         case TYPES.MULTI_MULTI_DROPDOWN_OPTIONS:
+            console.error({ curAnswer });
             inner = <p>{formatMultiMulti(curAnswer.answer)}</p>;
             break;
         case TYPES.DROPDOWN:

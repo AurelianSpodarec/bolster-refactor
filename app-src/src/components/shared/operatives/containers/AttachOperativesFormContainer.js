@@ -1,23 +1,28 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { convertArrToObj } from 'helpers/generic';
 
-import { HIERARCHY_TYPES } from 'constants/companyAdmin/enums';
+import { convertArrToObj } from 'helpers/generic';
 import addOperative from 'actions/companyAdmin/operatives/async/addOperative';
 import fetchCompanyUsers from 'actions/companyAdmin/userManagement/async/fetchCompanyUsers';
 
 import AttachOperativesForm from '../presentational/AttachOperativeForm';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import addOperatives from 'actions/companyAdmin/operatives/async/addOperatives';
 
 class AttachOperativesFormContainer extends Component {
     state = {
-        companyUserID: '',
+        // companyUserID: '',
+        companyUserIDs: [],
         serviceIDs: []
     };
 
     render() {
-        const { companyUserID, serviceIDs } = this.state;
+        const {
+            //  companyUserID,
+            companyUserIDs,
+            serviceIDs
+        } = this.state;
         const userOptions = this._getUserOptions();
         const serviceOptions = this._getServicesOptions();
         const { isFetching, error } = this.props;
@@ -31,12 +36,13 @@ class AttachOperativesFormContainer extends Component {
             >
                 <AttachOperativesForm
                     users={Object.values(userOptions)}
-                    selectedUser={userOptions[companyUserID]}
+                    // selectedUser={userOptions[companyUserID]}
                     serviceOptions={serviceOptions}
                     checkedServices={serviceIDs}
                     handleChange={this.handleChange}
                     handleMultiselectChange={this.handleMultiselectChange}
                     handleSubmit={this.handleSubmit}
+                    companyUserIDs={companyUserIDs}
                 />
             </BlockContainer>
         );
@@ -56,7 +62,8 @@ class AttachOperativesFormContainer extends Component {
         const options = operativeUsers.map(
             ({ id, userFirstName, userLastName, userEmail }) => ({
                 value: id,
-                text: `${userFirstName} ${userLastName} <${userEmail}>`
+                text: `${userFirstName} ${userLastName} <${userEmail}>`,
+                label: `${userFirstName} ${userLastName} <${userEmail}>`
             })
         );
 
@@ -75,15 +82,19 @@ class AttachOperativesFormContainer extends Component {
     handleChange = (name, value) => this.setState({ [name]: value });
 
     handleSubmit = () => {
-        const { companyUserID, serviceIDs } = this.state;
-        const { hierarchyType, hierarchyID, addOperative } = this.props;
+        // const { companyUserID, serviceIDs } = this.state;
+        // const { hierarchyType, hierarchyID, addOperative } = this.props;
 
-        const postBody = {
-            companyUserID,
-            serviceIDs
-        };
-
-        addOperative(hierarchyType, hierarchyID, postBody);
+        // const postBody = {
+        //     companyUserID,
+        //     serviceIDs
+        // };
+        // addOperative(hierarchyType, hierarchyID, postBody);
+        // todo actions, reducers, api for this vvvvv
+        const { companyUserIDs, serviceIDs } = this.state;
+        const { hierarchyType, hierarchyID, addOperatives } = this.props;
+        const postBody = { companyUserIDs, serviceIDs };
+        addOperatives(hierarchyType, hierarchyID, postBody);
     };
 }
 
@@ -116,14 +127,11 @@ const mapStateToProps = (
     )
 });
 
-const mapDispatchToProps = dispatch => ({
-    addOperative: (hierarchyType, hierarchyID, postBody) => {
-        dispatch(
-            addOperative(HIERARCHY_TYPES[hierarchyType], hierarchyID, postBody)
-        );
-    },
-    fetchCompanyUsers: () => dispatch(fetchCompanyUsers())
-});
+const mapDispatchToProps = {
+    addOperative,
+    fetchCompanyUsers,
+    addOperatives
+};
 
 export default withRouter(
     connect(

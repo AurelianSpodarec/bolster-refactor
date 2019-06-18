@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import moment from 'moment';
 
 import updateReportFilter from 'actions/companyAdmin/reports/sync/updateReportFilter';
 import postCustomFilters from 'actions/companyAdmin/reports/async/postCustomFilters';
@@ -159,6 +160,12 @@ export default function(ProtectedComponent) {
                 ]
             );
 
+            const endDate = toDateInclusive
+                ? moment(toDateInclusive)
+                      .endOf('day')
+                      .toDate()
+                : null;
+
             const body = {
                 hierarchyType,
                 hierarchyID,
@@ -169,7 +176,7 @@ export default function(ProtectedComponent) {
                 isFloorplanGeneration,
                 includeFloorplan,
                 fromDateInclusive,
-                toDateInclusive,
+                toDateInclusive: endDate,
                 companyUserIDs,
                 serviceID: serviceID || null,
                 status: status || null,
