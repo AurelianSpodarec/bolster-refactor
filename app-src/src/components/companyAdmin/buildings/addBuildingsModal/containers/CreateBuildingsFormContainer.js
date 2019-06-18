@@ -41,8 +41,8 @@ const CreateBuildingsFormContainer = ({
     );
 
     function handleSubmit() {
-        const postBody = getPostBody();
-        createBuildings({ ...postBody, siteID });
+        const buildings = getPostBody();
+        createBuildings({ buildings, siteID });
         hideModal();
     }
 
