@@ -11,14 +11,14 @@ const EditClientForm = ({
     serviceOptions,
     checkedServices,
     goBack,
-    handleMultiselectChange
+    handleChange
 }) => (
     <Form className="generic-form size-lg-12" onSubmit={handleSubmit}>
         <Field name="Service types" sizeClasses="size-lg-12" required>
             <CheckboxListContainer
                 required
                 name="serviceIDs"
-                handleChange={handleMultiselectChange}
+                handleChange={handleChange}
                 options={serviceOptions}
                 selectedOptions={checkedServices}
             />

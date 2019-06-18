@@ -20,7 +20,7 @@ class EditClientFormContainer extends Component {
                 serviceOptions={serviceOptions}
                 checkedServices={serviceIDs}
                 goBack={this.goBack}
-                handleMultiselectChange={this.handleMultiselectChange}
+                handleChange={this.handleChange}
                 handleSubmit={this.handleSubmit}
             />
         );
@@ -81,9 +81,7 @@ class EditClientFormContainer extends Component {
         }
     };
 
-    handleMultiselect = (name, value) => {
-        this.setState({ [name]: value });
-    };
+    handleChange = (name, value) => this.setState({ [name]: value });
 
     handleSubmit = () => {
         const { serviceIDs } = this.state;
