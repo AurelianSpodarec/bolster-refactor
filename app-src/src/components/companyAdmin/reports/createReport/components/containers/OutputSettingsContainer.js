@@ -11,6 +11,7 @@ import {
     ERROR_MODAL,
     SELECT_PIN_SCALE
 } from 'constants/shared/modalTypes';
+import resetFilterOptions from 'actions/companyAdmin/reports/sync/resetFilterOptions';
 
 import showFieldErrors from 'actions/shared/generic/fieldErrors/sync/showFieldErrors';
 import { isEmpty, convertEnumToDropdownOptions } from 'helpers/generic';
@@ -71,6 +72,7 @@ class OutputSettingsContainer extends Component {
             );
         }
     };
+    componentWillUnmount = () => this.props.resetFilterOptions();
 
     componentDidUpdate = prevProps => {
         const {
@@ -164,25 +166,34 @@ class OutputSettingsContainer extends Component {
             match: {
                 path,
                 params: { id }
-            }
+            },
+            filters: { siteID, buildingID, floorID, drawingID }
         } = this.props;
 
+        let availableDrawings = Object.values(drawings);
+
         // uses the url to figure out which hierarchy the report is being generated on and find an appropriate drawing for the pin scale modal
-        if (/sites/.test(path)) {
-            return Object.values(drawings).filter(
-                drawing => drawing.siteID === +id
-            )[0];
-        } else if (/buildings/.test(path)) {
-            return Object.values(drawings).filter(
-                drawing => drawing.buildingID === +id
-            )[0];
-        } else if (/floors/.test(path)) {
-            return Object.values(drawings).filter(
-                drawing => drawing.floorID === +id
-            )[0];
-        } else {
-            return drawings[id];
+        if (siteID) {
+            availableDrawings = availableDrawings.filter(
+                drawing => +drawing.siteID === +siteID
+            );
         }
+        if (buildingID) {
+            availableDrawings = availableDrawings.filter(
+                drawing => +drawing.buildingID === +buildingID
+            );
+        }
+        if (floorID) {
+            availableDrawings = availableDrawings.filter(
+                drawing => +drawing.floorID === +floorID
+            );
+        }
+        if (drawingID) {
+            availableDrawings = availableDrawings.filter(
+                drawing => +drawing.id === +drawingID
+            );
+        }
+        return availableDrawings[0];
     };
 }
 
@@ -220,7 +231,8 @@ const mapDispatchToProps = {
     showModal,
     showFieldErrors,
     addFieldError,
-    removeFieldError
+    removeFieldError,
+    resetFilterOptions
 };
 
 const WithConnect = connect(
