@@ -64,9 +64,9 @@ const CompanyMenu = ({
                     <CompanyMenuItemContainer link="/company/users-management/operatives">
                         Operatives
                     </CompanyMenuItemContainer>
-                    <CompanyMenuItemContainer link="/company/users-management/clients">
+                    {/* <CompanyMenuItemContainer link="/company/users-management/clients">
                         Client Access
-                    </CompanyMenuItemContainer>
+                    </CompanyMenuItemContainer> */}
 
                     <CompanyDropdownMenuItems />
                 </>
