@@ -7,14 +7,11 @@ import Field from 'components/shared/generic/form/presentational/Field';
 import CheckboxListContainer from 'components/shared/generic/form/containers/CheckboxListContainer';
 
 const EditClientForm = ({
-    location,
     handleSubmit,
     serviceOptions,
     checkedServices,
-    handleMultiselectChange,
-    match: {
-        params: { clientID }
-    }
+    goBack,
+    handleMultiselectChange
 }) => (
     <Form className="generic-form size-lg-12" onSubmit={handleSubmit}>
         <Field name="Service types" sizeClasses="size-lg-12" required>
@@ -31,12 +28,9 @@ const EditClientForm = ({
             <button type="submit" className="button green">
                 Confirm
             </button>
-            <Link
-                to={location.pathname.replace(`/edit-client/${clientID}`, '')}
-                className="button"
-            >
+            <button type="button" className="button" onClick={() => goBack()}>
                 Cancel
-            </Link>
+            </button>
         </BlockButtonWrapper>
     </Form>
 );
