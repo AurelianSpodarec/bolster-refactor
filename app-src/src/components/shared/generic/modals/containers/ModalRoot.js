@@ -55,7 +55,8 @@ import {
     COPY_TEMPLATE,
     SINGLE_PIN_GENERATE_REPORT_SUCCESS,
     CLIENT_SINGLE_PIN_GENERATE_REPORT_SUCCESS,
-    SELECT_PIN_SCALE
+    SELECT_PIN_SCALE,
+    ADD_DRAWINGS
 } from 'constants/shared/modalTypes';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
@@ -114,6 +115,7 @@ import ClientSinglePinGenerateReportSuccessModalContainer from 'components/clien
 import SelectPinScaleModalContainer from 'components/shared/generic/modals/containers/SelectPinScaleModalContainer';
 import CreateBuildingsModal from 'components/companyAdmin/buildings/addBuildingsModal/presentational/CreateBuildingsModal';
 import CreateFloorsModal from 'components/companyAdmin/floors/addFloorsModal/presentational/CreateFloorsModal';
+import AddDrawingsModal from 'components/companyAdmin/drawings/addDrawingsModal/presentational/AddDrawingsModal';
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModalContainer,
@@ -156,6 +158,7 @@ const MODAL_COMPONENTS = {
     [ADD_FLOOR]: AddFloorModal,
     [ADD_FLOORS]: CreateFloorsModal,
     [ADD_DRAWING]: AddDrawingModal,
+    [ADD_DRAWINGS]: AddDrawingsModal,
     [EDIT_SITE]: EditSiteModal,
     [EDIT_BUILDING]: EditBuildingModal,
     [EDIT_FLOOR]: EditFloorModal,
