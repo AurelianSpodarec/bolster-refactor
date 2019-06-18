@@ -4,6 +4,7 @@ import BackButton from '../presentational/BackButton';
 
 const BackButtonContainer = ({
     history: { goBack },
+    history,
     classes,
     backFromForm = '',
     location
@@ -13,6 +14,7 @@ const BackButtonContainer = ({
         handleClick={goBack}
         backFromForm={backFromForm}
         location={location}
+        history={history}
     />
 );
 
