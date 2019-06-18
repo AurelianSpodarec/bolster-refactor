@@ -164,6 +164,12 @@ export default function(ProtectedComponent) {
                 ]
             );
 
+            const endDate = toDateInclusive
+                ? moment(toDateInclusive)
+                      .endOf('day')
+                      .toDate()
+                : null;
+
             const body = {
                 hierarchyType,
                 hierarchyID,
@@ -174,11 +180,7 @@ export default function(ProtectedComponent) {
                 isFloorplanGeneration,
                 includeFloorplan,
                 fromDateInclusive,
-                toDateInclusive: toDateInclusive
-                    ? moment(toDateInclusive)
-                          .endOf('day')
-                          .toDate()
-                    : null,
+                toDateInclusive: endDate,
                 companyUserIDs,
                 pinIDs: selectedPinIDs,
                 serviceID: serviceID || null,
