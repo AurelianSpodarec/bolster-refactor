@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import moment from 'moment';
 
 import clientUpdateReportFilter from 'actions/client/reports/create/sync/clientUpdateReportFilter';
 import clientPostCustomFilters from 'actions/client/reports/create/async/clientPostCustomFilters';
@@ -173,7 +174,11 @@ export default function(ProtectedComponent) {
                 isFloorplanGeneration,
                 includeFloorplan,
                 fromDateInclusive,
-                toDateInclusive,
+                toDateInclusive: toDateInclusive
+                    ? moment(toDateInclusive)
+                          .endOf('day')
+                          .toDate()
+                    : null,
                 companyUserIDs,
                 pinIDs: selectedPinIDs,
                 serviceID: serviceID || null,
