@@ -6,7 +6,7 @@ import CreateBuildingsForm from '../presentational/CreateBuildingsForm';
 import createBuildings from 'actions/companyAdmin/buildings/async/createBuildings';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import updateHierarchyAddState from 'actions/companyAdmin/hierarchy/sync/updateHierarchyAddState';
-import { useMultipleHierarchies } from 'helpers/hook';
+import { useMultipleHierarchies } from 'helpers/hooks';
 
 const CreateBuildingsFormContainer = ({
     siteID,
