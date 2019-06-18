@@ -5,7 +5,11 @@ import { withRouter } from 'react-router-dom';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 
-import { ADD_FLOOR, ERROR_MODAL } from 'constants/shared/modalTypes';
+import {
+    ADD_FLOOR,
+    ADD_FLOORS,
+    ERROR_MODAL
+} from 'constants/shared/modalTypes';
 
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import FloorTableContainer from 'components/companyAdmin/floors/shared/containers/FloorTableContainer';
@@ -20,12 +24,20 @@ class BuildingsFloorsTableContainer extends Component {
             <BlockContainer>
                 <BlockHeading title="Floors" classes="w-table">
                     {building.accessType === ACCESS_TYPES_VALUES.OWNER && (
-                        <button
-                            className="button green"
-                            onClick={this.handleAddFloorModal}
-                        >
-                            <i className="fa fa-plus" /> Add floor
-                        </button>
+                        <>
+                            <button
+                                className="button green"
+                                onClick={this.handleAddFloorModal}
+                            >
+                                <i className="fa fa-plus" /> Add floor
+                            </button>
+                            <button
+                                className="button green"
+                                onClick={this.handleAddFloorsModal}
+                            >
+                                <i className="fa fa-plus" /> Add multiple floors
+                            </button>
+                        </>
                     )}
                 </BlockHeading>
                 <FloorTableContainer ids={building.floorIDs || []} />
@@ -70,6 +82,10 @@ class BuildingsFloorsTableContainer extends Component {
     handleAddFloorModal = () => {
         const { showModal, buildingID } = this.props;
         showModal(ADD_FLOOR, { buildingID });
+    };
+    handleAddFloorsModal = () => {
+        const { showModal, buildingID } = this.props;
+        showModal(ADD_FLOORS, { buildingID });
     };
 }
 
