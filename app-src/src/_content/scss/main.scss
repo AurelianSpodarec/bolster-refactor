@@ -2271,6 +2271,12 @@ input {
     }
 }
 
+//pin feed
+.pinfeed-scroll {
+    overflow-y: auto;
+    max-height: 390px;
+}
+
 .table-search {
     .generic-search {
         width: 27%;
