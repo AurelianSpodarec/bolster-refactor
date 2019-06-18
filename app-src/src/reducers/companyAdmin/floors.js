@@ -20,7 +20,10 @@ import {
     ARCHIVE_FLOOR_REQUEST,
     ARCHIVE_FLOOR_SUCCESS,
     ARCHIVE_FLOOR_FAILURE,
-    REORDER_FLOORS
+    REORDER_FLOORS,
+    CREATE_FLOORS_REQUEST,
+    CREATE_FLOORS_SUCCESS,
+    CREATE_FLOORS_FAILURE
 } from 'constants/actionTypes/floors';
 
 import { CREATE_DRAWING_SUCCESS } from 'constants/actionTypes/drawings';
@@ -56,11 +59,13 @@ function isFetchingReducer(state = false, action) {
 function postSuccessReducer(state = false, action) {
     switch (action.type) {
         case CREATE_FLOOR_REQUEST:
+        case CREATE_FLOORS_REQUEST:
         case EDIT_FLOOR_REQUEST:
         case DELETE_FLOOR_REQUEST:
         case ARCHIVE_FLOOR_REQUEST:
             return false;
         case CREATE_FLOOR_SUCCESS:
+        case CREATE_FLOORS_SUCCESS:
         case EDIT_FLOOR_SUCCESS:
         case DELETE_FLOOR_SUCCESS:
         case ARCHIVE_FLOOR_SUCCESS:
@@ -84,11 +89,13 @@ function deleteSuccessReducer(state = false, action) {
 function postFailureReducer(state = false, action) {
     switch (action.type) {
         case CREATE_FLOOR_REQUEST:
+        case CREATE_FLOORS_REQUEST:
         case EDIT_FLOOR_REQUEST:
         case DELETE_FLOOR_REQUEST:
         case ARCHIVE_FLOOR_REQUEST:
             return false;
         case CREATE_FLOOR_FAILURE:
+        case CREATE_FLOORS_FAILURE:
         case EDIT_FLOOR_FAILURE:
         case DELETE_FLOOR_FAILURE:
         case ARCHIVE_FLOOR_FAILURE:
@@ -103,6 +110,7 @@ function errorReducer(state = null, action) {
         case FETCH_ALL_FLOORS_REQUEST:
         case FETCH_SINGLE_FLOOR_REQUEST:
         case CREATE_FLOOR_REQUEST:
+        case CREATE_FLOORS_REQUEST:
         case EDIT_FLOOR_REQUEST:
         case DELETE_FLOOR_REQUEST:
         case ARCHIVE_FLOOR_REQUEST:
@@ -110,6 +118,7 @@ function errorReducer(state = null, action) {
         case FETCH_ALL_FLOORS_FAILURE:
         case FETCH_SINGLE_FLOOR_FAILURE:
         case CREATE_FLOOR_FAILURE:
+        case CREATE_FLOORS_FAILURE:
         case EDIT_FLOOR_FAILURE:
         case DELETE_FLOOR_FAILURE:
         case ARCHIVE_FLOOR_FAILURE:

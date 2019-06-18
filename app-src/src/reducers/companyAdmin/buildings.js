@@ -22,7 +22,10 @@ import {
     ARCHIVE_BUILDING_REQUEST,
     ARCHIVE_BUILDING_SUCCESS,
     ARCHIVE_BUILDING_FAILURE,
-    REORDER_BUILDING
+    REORDER_BUILDING,
+    CREATE_BUILDINGS_REQUEST,
+    CREATE_BUILDINGS_SUCCESS,
+    CREATE_BUILDINGS_FAILURE
 } from 'constants/actionTypes/buildings';
 import { CREATE_FLOOR_SUCCESS } from 'constants/actionTypes/floors';
 
@@ -56,11 +59,13 @@ function isFetchingReducer(state = false, action) {
 function postSuccessReducer(state = false, action) {
     switch (action.type) {
         case CREATE_BUILDING_REQUEST:
+        case CREATE_BUILDINGS_REQUEST:
         case EDIT_BUILDING_REQUEST:
         case DELETE_BUILDING_REQUEST:
         case ARCHIVE_BUILDING_REQUEST:
             return false;
         case CREATE_BUILDING_SUCCESS:
+        case CREATE_BUILDINGS_SUCCESS:
         case EDIT_BUILDING_SUCCESS:
         case DELETE_BUILDING_SUCCESS:
         case ARCHIVE_BUILDING_SUCCESS:
@@ -73,11 +78,13 @@ function postSuccessReducer(state = false, action) {
 function postFailureReducer(state = false, action) {
     switch (action.type) {
         case CREATE_BUILDING_REQUEST:
+        case CREATE_BUILDINGS_REQUEST:
         case EDIT_BUILDING_REQUEST:
         case DELETE_BUILDING_REQUEST:
         case ARCHIVE_BUILDING_REQUEST:
             return false;
         case CREATE_BUILDING_FAILURE:
+        case CREATE_BUILDINGS_FAILURE:
         case EDIT_BUILDING_FAILURE:
         case DELETE_BUILDING_FAILURE:
         case ARCHIVE_BUILDING_FAILURE:
@@ -114,6 +121,7 @@ function errorReducer(state = null, action) {
     switch (action.type) {
         case FETCH_ALL_BUILDINGS_REQUEST:
         case CREATE_BUILDING_REQUEST:
+        case CREATE_BUILDINGS_REQUEST:
         case FETCH_SINGLE_BUILDING_REQUEST:
         case EDIT_BUILDING_REQUEST:
         case DELETE_BUILDING_REQUEST:
@@ -122,6 +130,7 @@ function errorReducer(state = null, action) {
         case FETCH_ALL_BUILDINGS_FAILURE:
         case FETCH_SINGLE_BUILDING_FAILURE:
         case CREATE_BUILDING_FAILURE:
+        case CREATE_BUILDINGS_FAILURE:
         case EDIT_BUILDING_FAILURE:
         case DELETE_BUILDING_FAILURE:
         case ARCHIVE_BUILDING_FAILURE:

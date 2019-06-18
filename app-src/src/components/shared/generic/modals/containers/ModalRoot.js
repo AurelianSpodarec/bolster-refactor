@@ -3,10 +3,12 @@ import { connect } from 'react-redux';
 
 import {
     ADD_BUILDING,
+    ADD_BUILDINGS,
     ADD_CARD,
     ADD_DRAWING,
     ADD_DROPDOWN_OPTION,
     ADD_FLOOR,
+    ADD_FLOORS,
     ADD_SERVICE_TO_SUBSCRIPTION,
     ADD_SITE,
     ADD_TEMPLATE,
@@ -110,6 +112,8 @@ import DocumentResponseAgreeanceModalContainer from 'components/shared/documents
 import SinglePinGenerateReportSuccessModalContainer from 'components/companyAdmin/pins/singlePin/containers/SinglePinGenerateReportSuccessModalContainer';
 import ClientSinglePinGenerateReportSuccessModalContainer from 'components/client/pins/singlePin/containers/SinglePinGenerateReportSuccessModalContainer';
 import SelectPinScaleModalContainer from 'components/shared/generic/modals/containers/SelectPinScaleModalContainer';
+import CreateBuildingsModal from 'components/companyAdmin/buildings/addBuildingsModal/presentational/CreateBuildingsModal';
+import CreateFloorsModal from 'components/companyAdmin/floors/addFloorsModal/presentational/CreateFloorsModal';
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModalContainer,
@@ -148,7 +152,9 @@ const MODAL_COMPONENTS = {
     [CONFIRM_EDIT_PIN]: ConfirmEditPinModalContainer,
     [ADD_SITE]: AddSiteModal,
     [ADD_BUILDING]: CreateBuildingModal,
+    [ADD_BUILDINGS]: CreateBuildingsModal,
     [ADD_FLOOR]: AddFloorModal,
+    [ADD_FLOORS]: CreateFloorsModal,
     [ADD_DRAWING]: AddDrawingModal,
     [EDIT_SITE]: EditSiteModal,
     [EDIT_BUILDING]: EditBuildingModal,

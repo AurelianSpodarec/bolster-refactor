@@ -19,7 +19,8 @@ class EditClientFormContainer extends Component {
                 {...this.state}
                 serviceOptions={serviceOptions}
                 checkedServices={serviceIDs}
-                handleMultiselectChange={this.handleMultiselectChange}
+                goBack={this.goBack}
+                handleChange={this.handleChange}
                 handleSubmit={this.handleSubmit}
             />
         );
@@ -31,14 +32,22 @@ class EditClientFormContainer extends Component {
             serviceIDs
         });
     };
+
     componentDidUpdate = prevProps => {
-        const { success, history, hierarchyID, client } = this.props;
+        const { success, history, hierarchyID, client, location } = this.props;
         if (!prevProps.client.id && !!client.id) {
             this._setClientDetails();
         }
 
         if (!prevProps.success && success) {
-            history.replace(`/company/drawings/${hierarchyID}`);
+            if (
+                location.state !== undefined &&
+                location.state.isFromClientUserManagement
+            ) {
+                history.goBack();
+            } else {
+                history.replace(`/company/drawings/${hierarchyID}`);
+            }
         }
     };
 
@@ -59,9 +68,20 @@ class EditClientFormContainer extends Component {
         }));
     };
 
-    handleMultiselect = (name, value) => {
-        this.setState({ [name]: value });
+    goBack = () => {
+        const { location, history, hierarchyID } = this.props;
+
+        if (
+            location.state !== undefined &&
+            location.state.isFromClientUserManagement
+        ) {
+            history.goBack();
+        } else {
+            history.replace(`/company/drawings/${hierarchyID}`);
+        }
     };
+
+    handleChange = (name, value) => this.setState({ [name]: value });
 
     handleSubmit = () => {
         const { serviceIDs } = this.state;

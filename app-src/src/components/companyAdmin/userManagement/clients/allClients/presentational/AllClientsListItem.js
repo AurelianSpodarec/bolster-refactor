@@ -1,8 +1,8 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 
-const AllClientsListItem = ({ client, services, removeAccess }) => (
+const AllClientsListItem = ({ client, services, goToEdit, removeAccess }) => (
     <tr key={client.id}>
         <td>{`${client.userFirstName} ${client.userLastName}`}</td>
         <td>{client.companyName}</td>
@@ -10,14 +10,9 @@ const AllClientsListItem = ({ client, services, removeAccess }) => (
         <td>{services.join(', ')}</td>
         <td>
             <BlockButtonWrapper>
-                <Link
-                    className="button yellow"
-                    to={`/company/drawings/${client.drawingID}/edit-client/${
-                        client.id
-                    }`}
-                >
+                <button className="button yellow" onClick={() => goToEdit()}>
                     <i className="fal fa-pencil" /> Edit
-                </Link>
+                </button>
                 <button className="button red" onClick={() => removeAccess()}>
                     <i className="fal fa-times" /> Remove access
                 </button>

@@ -3,32 +3,42 @@ import { withRouter, Link } from 'react-router-dom';
 
 import Form from 'components/shared/generic/form/containers/Form';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
-import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
+// import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
 import Field from 'components/shared/generic/form/presentational/Field';
 import CheckboxListContainer from 'components/shared/generic/form/containers/CheckboxListContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
+import MultiSelect from 'components/shared/generic/form/presentational/MultiSelect';
 
 const AttachOperativeForm = ({
     location,
     handleSubmit,
     users,
-    selectedUser,
+    // selectedUser,
     serviceOptions,
     checkedServices,
+    companyUserIDs,
     handleChange
 }) => (
     <>
         <BlockHeading title="Operative details" />
         <Form className="generic-form size-lg-12" onSubmit={handleSubmit}>
             <Field name="Select an operative" sizeClasses="size-lg-6" required>
-                <DropdownContainer
+                <MultiSelect
+                    name="companyUserIDs"
+                    options={users}
+                    value={companyUserIDs}
+                    onChange={handleChange}
+                    placeholder="-- select operatives --"
+                    required
+                />
+                {/* <DropdownContainer
                     placeholder="-- select operative --"
                     name="companyUserID"
                     options={users}
                     selectedOption={selectedUser}
                     handleChange={handleChange}
                     required
-                />
+                /> */}
             </Field>
 
             <Field name="Service types" sizeClasses="size-lg-12" required>

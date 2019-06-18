@@ -13,7 +13,10 @@ import {
     EDIT_DRAWING_OPERATIVE_FAILURE,
     DELETE_OPERATIVE_REQUEST,
     DELETE_OPERATIVE_SUCCESS,
-    DELETE_OPERATIVE_FAILURE
+    DELETE_OPERATIVE_FAILURE,
+    ADD_OPERATIVES_REQUEST,
+    ADD_OPERATIVES_FAILURE,
+    ADD_OPERATIVES_SUCCESS
 } from 'constants/actionTypes/operatives';
 
 export default combineReducers({
@@ -42,6 +45,7 @@ function isFetchingReducer(state = false, action) {
 function isPostingReducer(state = false, action) {
     switch (action.type) {
         case ADD_OPERATIVE_REQUEST:
+        case ADD_OPERATIVES_REQUEST:
         case EDIT_DRAWING_OPERATIVE_REQUEST:
             return true;
         case EDIT_DRAWING_OPERATIVE_FAILURE:
@@ -56,6 +60,7 @@ function errorReducer(state = null, action) {
     switch (action.type) {
         case FETCH_OPERATIVES_REQUEST:
         case ADD_OPERATIVE_REQUEST:
+        case ADD_OPERATIVES_REQUEST:
         case EDIT_DRAWING_OPERATIVE_REQUEST:
             return null;
         case FETCH_OPERATIVES_FAILURE:
@@ -70,12 +75,15 @@ function errorReducer(state = null, action) {
 function postSuccessReducer(state = false, action) {
     switch (action.type) {
         case ADD_OPERATIVE_REQUEST:
+        case ADD_OPERATIVES_REQUEST:
         case ADD_OPERATIVE_FAILURE:
+        case ADD_OPERATIVES_FAILURE:
         case EDIT_DRAWING_OPERATIVE_REQUEST:
         case EDIT_DRAWING_OPERATIVE_FAILURE:
             return false;
         case EDIT_DRAWING_OPERATIVE_SUCCESS:
         case ADD_OPERATIVE_SUCCESS:
+        case ADD_OPERATIVES_SUCCESS:
             return true;
         default:
             return state;
