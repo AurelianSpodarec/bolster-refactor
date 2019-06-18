@@ -137,11 +137,11 @@ class AddPinFormContainer extends Component {
             resetPinAnswers();
 
             if (hierarchyType === 'drawing') {
-                history.push(`/company/drawings/${drawingID}`);
+                history.replace(`/company/drawings/${drawingID}`);
             }
 
             if (hierarchyType === 'pin') {
-                history.push(`/company/pins/${pinID}`);
+                history.replace(`/company/pins/${pinID}`);
             }
         }
     };

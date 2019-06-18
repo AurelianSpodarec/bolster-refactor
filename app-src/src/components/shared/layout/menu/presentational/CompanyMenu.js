@@ -64,13 +64,13 @@ const CompanyMenu = ({
                     <CompanyMenuItemContainer link="/company/users-management/operatives">
                         Operatives
                     </CompanyMenuItemContainer>
+                    {/* <CompanyMenuItemContainer link="/company/users-management/clients">
+                        Client Access
+                    </CompanyMenuItemContainer> */}
 
                     <CompanyDropdownMenuItems />
                 </>
             )}
-            {/* <CompanyMenuItemContainer link="/company/users-management/clients">
-                Clients
-            </CompanyMenuItemContainer> */}
             <MenuHeader title="Orders &amp; Subscriptions" />
             <CompanyMenuItemContainer link="/company/invoices">
                 <i className="far fa-receipt fa-fw icon" />

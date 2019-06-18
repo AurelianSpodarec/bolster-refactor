@@ -224,8 +224,9 @@ class DrawingMapGeneralContainer extends Component {
     };
 
     handleClearPinCache = () => {
-        const { drawing } = this.props;
+        const { drawing, history, location } = this.props;
         localStorage.removeItem(`pinCache/${drawing.id}`);
+        history.replace(`${location.pathname}/add-pin`);
     };
 
     handleDateChange = (date, name) => {

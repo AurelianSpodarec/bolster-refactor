@@ -99,7 +99,7 @@ const FilterFieldsModal = ({
 
     function renderOption(value, i) {
         return (
-            <Field key={i} classes="option-item" sizeClasses="size-lg-6">
+            <Field key={i} classes="option-item" sizeClasses="size-lg-12">
                 {freeFormValues.length > 1 && (
                     <button
                         className="button red icon-only delete-question"

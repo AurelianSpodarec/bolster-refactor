@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import AllClients from '../presentational/AllClientsAdmins';
-import fetchCompanyUsers from 'actions/companyAdmin/userManagement/async/fetchCompanyUsers';
+import fetchClientUsers from 'actions/companyAdmin/userManagement/async/fetchClientUsers';
 
 export class AllClientsContainer extends Component {
     render() {
@@ -10,17 +10,15 @@ export class AllClientsContainer extends Component {
     }
 
     componentDidMount = () => {
-        const { fetchAllCompanyUsers } = this.props;
+        const { fetchAllClientUsers } = this.props;
 
-        fetchAllCompanyUsers();
+        fetchAllClientUsers();
     };
 }
 
-// const mapStateToProps = state => ({});
-
 const mapDispatchToProps = dispatch => ({
-    fetchAllCompanyUsers: () => {
-        dispatch(fetchCompanyUsers());
+    fetchAllClientUsers: () => {
+        dispatch(fetchClientUsers());
     }
 });
 

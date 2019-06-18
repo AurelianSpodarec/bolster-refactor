@@ -5,7 +5,7 @@ import PageHeading from 'components/shared/generic/pageHeading/presentational/Pa
 
 const AllClients = () => (
     <>
-        <PageHeading title="All Clients" withBackButton />
+        <PageHeading title="All Client Access" withBackButton />
         <AllClientsTableContainer />
     </>
 );

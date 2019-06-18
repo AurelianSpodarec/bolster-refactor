@@ -60,6 +60,7 @@ export function formatPermissions(permissions, accessType) {
     if (!permissions && ACCESS_TYPES[accessType])
         return ACCESS_TYPES[accessType];
 
+    if (!permissions) return '';
     return permissions
         .filter(p => p.accessType !== ACCESS_TYPES_VALUES.READ_ONLY)
         .map(p => `${p.companyName} ${ACCESS_TYPES[p.accessType]}`)
