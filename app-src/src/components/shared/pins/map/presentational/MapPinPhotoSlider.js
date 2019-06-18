@@ -4,7 +4,7 @@ import Slider from 'react-slick';
 import { RAW_S3_STORAGE_URL } from 'config';
 
 let sliderSettings = {
-    dots: true,
+    dots: false,
     infinite: true,
     speed: 1000,
     autoplay: true,
@@ -17,7 +17,7 @@ const MapPinPhotoSlider = ({ pinImages }) => {
             {pinImages.map(src => (
                 <div key={src}>
                     <img
-                        style={{ width: '300px' }}
+                        style={{ width: '230px' }}
                         alt=""
                         src={`${RAW_S3_STORAGE_URL}/${src}`}
                     />

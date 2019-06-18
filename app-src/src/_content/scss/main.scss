@@ -2494,6 +2494,34 @@ input {
     width: 100%;
     height: 465px;
 }
+.leaflet-pane {
+    .leaflet-tooltip-pane {
+        opacity: 0;
+    }
+}
+.pin-tooltip {
+    width: 250px;
+    padding: 10px;
+    background-color: white;
+    @include rounded-all;
+    @include ubuntu;
+    .holder {
+        width: 100%;
+    }
+    strong {
+        @include ubuntu-medium;
+    }
+
+    img {
+        float: left;
+        width: 100%;
+    }
+
+    .photo-slider {
+        float: left;
+        width: 100%;
+    }
+}
 
 .map-details {
     margin-top: 10px;

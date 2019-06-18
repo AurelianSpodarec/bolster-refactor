@@ -2,6 +2,7 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 
 import L from 'leaflet';
+import Control from 'react-leaflet-control';
 import { Marker, Tooltip } from 'react-leaflet';
 import {
     PIN_STATUS_COLOURS as COLOURS,
@@ -32,12 +33,14 @@ const DrawingMapPin = ({
     service,
     withTooltip,
     urlStart,
-    handleFetchPin,
-    handleCancelFetchPin,
+    handleOpenPin,
+    handleCancelPin,
     pinImages = [],
     isExcluding,
     updateIsPinExcluded,
-    excludedPinIDs
+    excludedPinIDs,
+    showPinInfo,
+    tooltipVisible
 }) => {
     const { latY = 1, lngX = 1 } = location;
     const status = pinHistory.status || latestStatus;
@@ -70,67 +73,67 @@ const DrawingMapPin = ({
           };
 
     return (
-        <Marker
-            key={id}
-            position={[latY, lngX]}
-            icon={divIcon}
-            onClick={onClick}
-            opacity={isExcluded ? 0.3 : 1}
-        >
-            {withTooltip && (
-                <Tooltip
-                    onOpen={() => handleFetchPin(id)}
-                    onClose={handleCancelFetchPin}
-                    sticky={false}
-                >
-                    <div>
-                        {`Pin code: ${pinCode}`} <br />
-                        {`Status: ${PIN_STATUS_TYPES[status]}`} <br />
-                        Created: <DateTimeContainer date={createdOn} /> <br />
+        <>
+            <Marker
+                key={id}
+                position={[latY, lngX]}
+                icon={divIcon}
+                onClick={onClick}
+                opacity={isExcluded ? 0.3 : 1}
+                onMouseOver={() => handleOpenPin(id)}
+                onMouseOut={() => handleCancelPin()}
+            />
+
+            {withTooltip && tooltipVisible && (
+                <Control className={'pin-tooltip'} position="topright">
+                    <div className="holder">
+                        <strong>Pin code</strong>: {`${pinCode}`} <br />
+                        <strong>Status</strong>: {`${PIN_STATUS_TYPES[status]}`}{' '}
+                        <br />
+                        <strong>Created</strong>:{' '}
+                        <DateTimeContainer date={createdOn} /> <br />
                         {updated && (
                             <>
-                                Updated: <DateTimeContainer date={updated} />{' '}
-                                <br />
+                                <strong>Updated</strong>:{' '}
+                                <DateTimeContainer date={updated} /> <br />
                             </>
                         )}
                         {user && (
                             <>
-                                Created by: {user.userFirstName}{' '}
-                                {user.userLastName} <br />
+                                <strong>Created by</strong>:{' '}
+                                {user.userFirstName} {user.userLastName} <br />
                             </>
                         )}
                         {service && (
                             <>
-                                Latest Service: {service.name} <br />{' '}
+                                <strong>Latest Service</strong>: {service.name}{' '}
+                                <br />{' '}
                             </>
                         )}
                         {!!pinImages.length && (
                             <>
-                                Latest History Images: <br />
+                                <strong>Latest History Images</strong>: <br />
                                 {pinImages.length >= 2 ? (
-                                    <div style={{ width: '300px' }}>
+                                    <div className="photo-slider">
                                         <MapPinPhotoSlider
                                             pinImages={pinImages}
                                         />
                                     </div>
                                 ) : (
-                                    <div style={{ width: '300px' }}>
-                                        <img
-                                            style={{ width: '300px' }}
-                                            key={pinImages[0]}
-                                            alt=""
-                                            src={`${RAW_S3_STORAGE_URL}/${
-                                                pinImages[0]
-                                            }`}
-                                        />
-                                    </div>
+                                    <img
+                                        key={pinImages[0]}
+                                        alt=""
+                                        src={`${RAW_S3_STORAGE_URL}/${
+                                            pinImages[0]
+                                        }`}
+                                    />
                                 )}
                             </>
                         )}
                     </div>
-                </Tooltip>
+                </Control>
             )}
-        </Marker>
+        </>
     );
 };
 
