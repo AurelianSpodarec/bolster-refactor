@@ -195,13 +195,18 @@ function pinResultsReducer(state = {}, action) {
 function optionsReducer(
     state = {
         showHidden: false,
-        sortBy: String(SORT_BY_OPTIONS.CREATED_ON_DESC)
+        sortBy: String(SORT_BY_OPTIONS.PIN_NO_ASC)
     },
     action
 ) {
     switch (action.type) {
         case UPDATE_FILTER_OPTION:
             return updateObj(state, action.key, action.value);
+        case RESET_FILTER_OPTIONS:
+            return {
+                showHidden: false,
+                sortBy: String(SORT_BY_OPTIONS.PIN_NO_ASC)
+            };
         default:
             return state;
     }
@@ -232,6 +237,7 @@ function rectanglesReducer(state = {}, action) {
         case REMOVE_RECTANGLE:
             return removeObjItem(state, action.id);
         case REMOVE_ALL_RECTANGLES:
+        case RESET_FILTER_OPTIONS:
             return {};
         default:
             return state;
@@ -242,6 +248,8 @@ function furtherFiltrationOptionReducer(state = 0, action) {
     switch (action.type) {
         case UPDATE_FURTHER_FILTRATION_OPTION:
             return action.value;
+        case RESET_FILTER_OPTIONS:
+            return 0;
         default:
             return state;
     }
@@ -254,6 +262,7 @@ function excludedPinIDsReducer(state = {}, action) {
                 ? updateObj(state, action.id, action.id)
                 : removeObjItem(state, action.id);
         case REMOVE_ALL_EXCLUDED_PINS:
+        case RESET_FILTER_OPTIONS:
             return {};
         default:
             return state;
