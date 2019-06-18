@@ -9,12 +9,17 @@ import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 
 class DrawingOperativesAccessContainer extends Component {
     render() {
-        const { operatives, isFetching, error } = this.props;
-
+        const { operatives, isFetching, error, users } = this.props;
+        const operativesWithCodes = operatives.map(operative => {
+            const user =
+                users.find(({ id }) => id === operative.companyUserID) || {};
+            const { formattedOperativeCode } = user;
+            return { ...operative, operativeCode: formattedOperativeCode };
+        });
         return (
             <BlockContainer containerClass="always-scrollbar">
                 <OperativesTable
-                    operatives={operatives}
+                    operatives={operativesWithCodes}
                     handleDeleteOperativeModal={this.handleDeleteOperativeModal}
                     isAddOperativeDisabled={this.checkAvailableOperatives()}
                     isFetching={isFetching}
