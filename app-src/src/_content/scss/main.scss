@@ -66,9 +66,7 @@ button {
 .flex-container {
     display: flex;
     flex-direction: row;
-    .flex-padding {
-        padding: 10px;
-    }
+
     .flex-item {
         display: flex;
 
@@ -122,6 +120,34 @@ button {
 }
 .underline-full {
     border-bottom: 2px solid $grey-alt;
+}
+
+.label-example-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    .label-example {
+        width: 250px;
+        margin: 0 10px;
+        overflow: hidden;
+        .label-content-large {
+            position: absolute;
+            width: 100%;
+            font-size: 300%;
+            font-weight: 600;
+            top: 26%;
+            left: 12%;
+            white-space: nowrap;
+        }
+        .label-content-small {
+            position: absolute;
+            font-size: 98%;
+            width: 100%;
+            top: 42%;
+            left: 6%;
+            white-space: nowrap;
+        }
+    }
 }
 
 .multi-filters {

@@ -82,7 +82,7 @@ const AddSiteForm = ({
                 </Field>
             </div>
         </div>
-        {isUsingBolsterLabels && <BolsterLabelExample name={name} />}
+        {/* {isUsingBolsterLabels && <BolsterLabelExample name={name} />} */}
 
         <BlockButtonWrapper>
             <button className="button green">
