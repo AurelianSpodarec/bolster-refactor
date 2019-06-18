@@ -42,7 +42,6 @@ class DashboardStatsFiltersContainer extends Component {
             updateDashboardFilters,
             filters: { startDate, endDate }
         } = this.props;
-
         if (name === 'startDate') {
             const diffFromEnd = Math.abs(moment(endDate).diff(date, 'days'));
             if (diffFromEnd > 30) {
