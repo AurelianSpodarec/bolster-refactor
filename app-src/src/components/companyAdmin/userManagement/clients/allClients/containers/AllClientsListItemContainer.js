@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 import AllClientsListItem from '../presentational/AllClientsListItem';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
@@ -16,6 +17,7 @@ class AllClientsListItemContainer extends Component {
                 client={client}
                 services={this._getServicesForClient()}
                 colCount={colCount}
+                goToEdit={this.goToEdit}
                 removeAccess={this.removeAccess}
             />
         );
@@ -29,6 +31,19 @@ class AllClientsListItemContainer extends Component {
         );
 
         return filteredServices.map(({ name }) => name);
+    };
+
+    goToEdit = () => {
+        const { history, client } = this.props;
+
+        history.push({
+            pathname: `/company/drawings/${client.drawingID}/edit-client/${
+                client.id
+            }`,
+            state: {
+                isFromClientUserManagement: true
+            }
+        });
     };
 
     removeAccess = () => {
@@ -65,7 +80,9 @@ const mapStateToProps = ({
 
 const mapDispatchToProps = { showModal, hideModal, deleteClientFromDrawing };
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(AllClientsListItemContainer);
+export default withRouter(
+    connect(
+        mapStateToProps,
+        mapDispatchToProps
+    )(AllClientsListItemContainer)
+);
