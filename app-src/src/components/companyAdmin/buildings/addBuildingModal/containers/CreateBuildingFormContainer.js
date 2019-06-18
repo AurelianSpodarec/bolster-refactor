@@ -13,16 +13,21 @@ class CreateBuildingFormContainer extends Component {
         location: ''
     };
 
-    render = () => (
-        <CreateBuildingForm
-            {...this.state}
-            handleInputChange={this.handleInputChange}
-            handleSubmit={this.handleSubmit}
-            siteID={this.props.siteID}
-            hideModal={this.props.hideModal}
-            handleClose={this.handleClose}
-        />
-    );
+    render() {
+        // ! uncomment below and change props when api is done
+        // const { isUsingBolsterLabels } = this.props;
+        return (
+            <CreateBuildingForm
+                {...this.state}
+                handleInputChange={this.handleInputChange}
+                handleSubmit={this.handleSubmit}
+                siteID={this.props.siteID}
+                hideModal={this.props.hideModal}
+                handleClose={this.handleClose}
+                isUsingBolsterLabels={true}
+            />
+        );
+    }
 
     handleInputChange = (name, value) => {
         this.setState({ [name]: value });
@@ -43,6 +48,11 @@ class CreateBuildingFormContainer extends Component {
         updateHierarchyAddState(false);
     };
 }
+
+const mapStateToProps = ({ companyAdmin: { companySettingsReducer } }) => ({
+    // !alter when it's been determined that company is using bolster labels
+    // isUsingBolsterLabels: companySettingsReducer.isUsingBolsterLabels
+});
 
 const mapDispatchToProps = dispatch => ({
     createBuilding: postBody => dispatch(createBuilding(postBody)),

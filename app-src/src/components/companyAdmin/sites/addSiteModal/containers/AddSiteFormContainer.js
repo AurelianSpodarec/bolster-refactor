@@ -16,12 +16,15 @@ class AddSiteFormContainer extends Component {
     };
 
     render() {
+        // ! uncomment below and change props when api is done
+        // const { isUsingBolsterLabels } = this.props;
         return (
             <AddSiteForm
                 {...this.state}
                 handleInputChange={this.handleInputChange}
                 handleSubmit={this.handleSubmit}
                 hideModal={this.props.hideModal}
+                isUsingBolsterLabels={true}
             />
         );
     }
@@ -51,10 +54,14 @@ class AddSiteFormContainer extends Component {
     };
 }
 
-const mapStateToProps = ({ companyAdmin: { sitesReducer } }) => ({
+const mapStateToProps = ({
+    companyAdmin: { sitesReducer, companySettingsReducer }
+}) => ({
     postSuccess: sitesReducer.postSuccess,
     error: sitesReducer.error,
     updatedSiteID: sitesReducer.updatedSiteID
+    // !alter when it's been determined that company is using bolster labels
+    // isUsingBolsterLabels: companySettingsReducer.isUsingBolsterLabels
 });
 
 const mapDispatchToProps = dispatch => ({
