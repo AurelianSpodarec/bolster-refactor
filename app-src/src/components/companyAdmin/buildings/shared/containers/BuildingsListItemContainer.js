@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import toggleBuildingExpanded from 'actions/shared/generic/tables/sync/toggleBuildingExpanded';
-import { ACCESS_TYPES } from 'constants/companyAdmin/enums';
+// import { ACCESS_TYPES } from 'constants/companyAdmin/enums';
 
 import BuildingsListItem from '../presentational/BuildingsListItem';
 import reorderBuilding from 'actions/companyAdmin/buildings/sync/reorderBuilding';

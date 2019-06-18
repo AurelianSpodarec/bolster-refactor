@@ -2,7 +2,6 @@ import React from 'react';
 import { Route } from 'react-router-dom';
 
 import SwitchWith404 from 'components/appRoute/routes/presentational/SwitchWith404';
-import ApprovedCompaniesRouteContainer from 'components/companyAdmin/approvedCompanies/containers/ApprovedCompaniesRouteContainer';
 import ApprovedCompaniesContainer from 'components/companyAdmin/approvedCompanies/containers/ApprovedCompaniesContainer';
 
 const ApprovedCompaniesRoutes = ({ base = '/company/approved-companies' }) => (

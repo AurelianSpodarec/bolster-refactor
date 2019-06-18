@@ -143,6 +143,8 @@ export default function(ProtectedComponent) {
                     );
                     break;
                 }
+                default:
+                    break;
             }
 
             const getLatLng = corner => {

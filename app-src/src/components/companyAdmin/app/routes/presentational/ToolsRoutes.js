@@ -6,8 +6,6 @@ import PinOptions from 'components/companyAdmin/pins/pinOptions/presentational/P
 import Support from 'components/companyAdmin/support/support/presentational/Support';
 import CompanyReportsContainer from 'components/companyAdmin/companyReports/shared/containers/CompanyReportsQueueContainer';
 import AllCreditLogsContainer from 'components/companyAdmin/creditLogs/allCreditLogs/containers/AllCreditLogsContainer';
-import CreateOperativeAlert from 'components/companyAdmin/operativeAlerts/createOperativeAlert/presentational/CreateOperativeAlert';
-import AllOperativeAlertsContainer from 'components/companyAdmin/operativeAlerts/allOperativeAlerts/containers/AllOperativeAlertsContainer';
 import TemplatesContainer from 'components/companyAdmin/templates/allTemplates/containers/TemplatesContainer';
 import SingleTemplateContainer from 'components/companyAdmin/templates/singleTemplate/containers/SingleTemplateContainer';
 import TransferRequests from 'components/companyAdmin/transferRequests/presentational/TransferRequests';

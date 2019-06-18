@@ -1,7 +1,6 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 
-import Dashboard from 'components/client/dashboard/presentational/Dashboard';
 import SwitchWith404 from 'components/appRoute/routes/presentational/SwitchWith404';
 import withSelectedCompanyAuth from '../../app/hocs/withSelectedCompanyAuth';
 

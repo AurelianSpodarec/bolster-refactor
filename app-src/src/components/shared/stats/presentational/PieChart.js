@@ -15,8 +15,8 @@ const PieChart = ({
     stats,
     hierarchyType,
     sizeClasses = 'size-lg-6',
-    wTitle = true,
-    style
+    wTitle = true
+    // style
 }) => {
     const isStatsEmpty = Object.values(stats.statuses).every(
         stat => stat === 0
@@ -33,7 +33,7 @@ const PieChart = ({
                   value,
                   color: statsPieChartColours[title],
                   style: {
-                      ['backgroundColor']: '#000'
+                      backgroundColor: '#000'
                   }
               };
           })

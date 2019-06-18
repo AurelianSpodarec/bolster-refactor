@@ -75,20 +75,11 @@ class AddPinFormContainer extends Component {
             drawingID,
             coordinates,
             history,
-            hierarchyType,
-            isHistory,
-            updateAddPinStatus,
-            updateAddPinAnswer,
-            pinID,
-            pins,
-            histories
+            hierarchyType
+            // updateAddPinStatus,
+            // updateAddPinAnswer,
         } = this.props;
 
-        if (isHistory) {
-            const pin = pins[pinID] || {};
-            // if adding a pin history, this is the previous history to perfill from
-            const history = histories[pin.latestHistoryID];
-        }
         if (!coordinates.lat || !coordinates.lng) {
             if (hierarchyType === 'drawing') {
                 history.push(`/company/drawings/${drawingID}`);

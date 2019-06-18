@@ -19,7 +19,7 @@ const Marker = ({
         onMouseLeave={() => onMouseLeave()}
     >
         <div className="holder">
-            <img style={{ width: '20px' }} src={redPin} />
+            <img alt="Red Pin" style={{ width: '20px' }} src={redPin} />
             {isHoveredOver && <span style={{ zIndex: '10' }}>{children}</span>}
         </div>
     </div>

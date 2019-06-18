@@ -117,7 +117,7 @@ export default function(ProtectedComponent) {
 
             const {
                 INDIVIDUAL_PINS,
-                PIN_SELECTOR,
+                // PIN_SELECTOR,
                 FILTERS
             } = FURTHER_FILTRATION_OPTIONS;
 
@@ -147,6 +147,8 @@ export default function(ProtectedComponent) {
                     );
                     break;
                 }
+                default:
+                    break;
             }
 
             const getLatLng = corner => {

@@ -1,7 +1,7 @@
 import React from 'react';
 import { QUESTION_TYPE_NUMBERS as TYPES } from 'constants/shared/templateBuilder';
 import { FILE_STORAGE_URL } from 'config';
-import { PIN_STATUS_TYPES } from 'constants/companyAdmin/enums';
+// import { PIN_STATUS_TYPES } from 'constants/companyAdmin/enums';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { PIN_IMAGE } from 'constants/shared/modalTypes';
 import { connect } from 'react-redux';
@@ -12,7 +12,7 @@ const PinAnswer = ({
     type,
     questions,
     answers,
-    status,
+    // status,
     dispatch,
     question
 }) => {

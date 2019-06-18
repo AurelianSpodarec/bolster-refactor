@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import {
     COMPANY_USER_ROLE_TYPES,
     PERMISSION_STATES,
-    ACCESS_TYPES,
     ACCESS_TYPES_VALUES
 } from 'constants/companyAdmin/enums';
 

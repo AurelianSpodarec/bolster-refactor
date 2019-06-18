@@ -7,7 +7,6 @@ import CopyTemplateModal from '../presentational/CopyTemplateModal';
 import fetchTemplate from 'actions/superAdmin/templateBuilder/async/fetchTemplate';
 import postTemplate from 'actions/superAdmin/templateBuilder/async/postTemplate';
 import { ERROR_MODAL } from 'constants/shared/modalTypes';
-import { convertArrToObj } from 'helpers/generic';
 
 class CopyTemplateModalContainer extends Component {
     state = {

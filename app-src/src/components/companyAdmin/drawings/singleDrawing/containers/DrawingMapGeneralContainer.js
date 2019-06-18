@@ -9,11 +9,7 @@ import updatePinCoordinates from 'actions/companyAdmin/drawings/sync/updatePinCo
 import DrawingMapViewSimple from '../presentational/DrawingMapViewSimple';
 import DrawingInspectionLogContainer from './DrawingInspectionLogContainer';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import {
-    convertArrToObj,
-    momentComparisonFormat,
-    isEmpty
-} from 'helpers/generic';
+import { convertArrToObj } from 'helpers/generic';
 import {
     COMPANY_USER_ROLE_TYPES as USER_ROLE,
     FLOORPLAN_STATE_MESSAGES,
@@ -292,7 +288,11 @@ class DrawingMapGeneralContainer extends Component {
     };
 
     _getFilteredPins = () => {
-        const { pins, filters, furtherFiltrationOption } = this.props;
+        const {
+            pins,
+            filters
+            //  furtherFiltrationOption
+        } = this.props;
 
         // ? Displays all pins if in rectangle mode, and only the selected pins otherwise.
         // if (+furtherFiltrationOption === +PIN_SELECTOR) {
