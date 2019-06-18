@@ -2,17 +2,31 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import ButtonContainer from '../../button/containers/ButtonContainer';
 
-const BackButton = ({ handleClick, classes = '', backFromForm, location }) =>
+const BackButton = ({
+    handleClick,
+    classes = '',
+    backFromForm,
+    location,
+    history
+}) =>
     backFromForm ? (
-        <Link
+        <button
             to={location.pathname.replace(
                 backFromForm.urlToReplace,
                 backFromForm.with
             )}
+            onClick={() =>
+                history.replace(
+                    location.pathname.replace(
+                        backFromForm.urlToReplace,
+                        backFromForm.with
+                    )
+                )
+            }
             className="button"
         >
             <i className="fa fa-chevron-double-left" /> Back
-        </Link>
+        </button>
     ) : (
         <ButtonContainer
             className={`button back ${classes}`}
