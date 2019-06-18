@@ -34,7 +34,6 @@ const PinAnswer = ({
             break;
         case TYPES.MULTI_MULTI_DROPDOWN:
         case TYPES.MULTI_MULTI_DROPDOWN_OPTIONS:
-            console.error({ curAnswer });
             inner = <p>{formatMultiMulti(curAnswer.answer)}</p>;
             break;
         case TYPES.DROPDOWN:

@@ -5,7 +5,11 @@ import { withRouter } from 'react-router-dom';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 
-import { ADD_BUILDING, ERROR_MODAL } from 'constants/shared/modalTypes';
+import {
+    ADD_BUILDING,
+    ADD_BUILDINGS,
+    ERROR_MODAL
+} from 'constants/shared/modalTypes';
 
 import BuildingsTableContainer from 'components/companyAdmin/buildings/shared/containers/BuildingsTableContainer';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
@@ -25,6 +29,14 @@ class SiteBuildingsTableContainer extends Component {
                             onClick={this.handleAddBuildingModal}
                         >
                             <i className="fa fa-plus" /> Add building
+                        </button>
+                    )}
+                    {site.accessType === ACCESS_TYPES_VALUES.OWNER && (
+                        <button
+                            className="button green"
+                            onClick={this.handleAddBuildingsModal}
+                        >
+                            <i className="fa fa-plus" /> Add multiple buildings
                         </button>
                     )}
                 </BlockHeading>
@@ -70,6 +82,11 @@ class SiteBuildingsTableContainer extends Component {
     handleAddBuildingModal = () => {
         const { showModal, siteID } = this.props;
         showModal(ADD_BUILDING, { siteID });
+    };
+
+    handleAddBuildingsModal = () => {
+        const { showModal, siteID } = this.props;
+        showModal(ADD_BUILDINGS, { siteID });
     };
 }
 

@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 import {
     ADD_BUILDING,
+    ADD_BUILDINGS,
     ADD_CARD,
     ADD_DRAWING,
     ADD_DROPDOWN_OPTION,
@@ -110,6 +111,7 @@ import DocumentResponseAgreeanceModalContainer from 'components/shared/documents
 import SinglePinGenerateReportSuccessModalContainer from 'components/companyAdmin/pins/singlePin/containers/SinglePinGenerateReportSuccessModalContainer';
 import ClientSinglePinGenerateReportSuccessModalContainer from 'components/client/pins/singlePin/containers/SinglePinGenerateReportSuccessModalContainer';
 import SelectPinScaleModalContainer from 'components/shared/generic/modals/containers/SelectPinScaleModalContainer';
+import CreateBuildingsModal from 'components/companyAdmin/buildings/addBuildingsModal/presentational/CreateBuildingsModal';
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModalContainer,
@@ -148,6 +150,7 @@ const MODAL_COMPONENTS = {
     [CONFIRM_EDIT_PIN]: ConfirmEditPinModalContainer,
     [ADD_SITE]: AddSiteModal,
     [ADD_BUILDING]: CreateBuildingModal,
+    [ADD_BUILDINGS]: CreateBuildingsModal,
     [ADD_FLOOR]: AddFloorModal,
     [ADD_DRAWING]: AddDrawingModal,
     [EDIT_SITE]: EditSiteModal,

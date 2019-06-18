@@ -1,0 +1,50 @@
+import { useState } from 'react';
+import uuid from 'uuid/v4';
+
+export const useMultipleHierarchies = hierarchyShape => {
+    // takes an empty version of the hierarchy shape / initial state for a blank hierarchy
+    const firstID = uuid();
+    const [state, setState] = useState({
+        [firstID]: { ...hierarchyShape, id: firstID }
+    });
+
+    function getKeys() {
+        return Object.keys(state);
+    }
+
+    function getPostBody() {
+        return Object.values(state).map(hierarchy => {
+            // eslint-disable-next-line no-unused-vars
+            const { id, ...rest } = hierarchy;
+            return rest;
+        });
+    }
+
+    function addHierarchy() {
+        const newID = uuid();
+        setState({ ...state, [newID]: { ...hierarchyShape, id: newID } });
+    }
+
+    function deleteHierarchy(id) {
+        // eslint-disable-next-line no-unused-vars
+        const { [id]: removed, ...newState } = state;
+        setState(newState);
+    }
+    function updateState(name, value, id) {
+        return setState({ ...state, [id]: { ...state[id], [name]: value } });
+    }
+
+    function getState() {
+        return state;
+    }
+
+    return [
+        state,
+        updateState,
+        addHierarchy,
+        deleteHierarchy,
+        getKeys,
+        getPostBody,
+        getState
+    ];
+};
