@@ -1,0 +1,113 @@
+import React from 'react';
+import Form from 'components/shared/generic/form/containers/Form';
+import Field from 'components/shared/generic/form/presentational/Field';
+import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
+import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
+import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
+import FileUploadContainer from 'components/shared/generic/form/containers/FileUploadContainer';
+import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
+
+const AddDrawingsForm = ({
+    handleSubmit,
+    drawings,
+    updateDrawing,
+    addDrawing,
+    removeDrawing,
+    handleClose,
+    templateUsageRules,
+    templateUsageRuleOptions
+}) => (
+    <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
+        <div className="size-lg-12">
+            {drawings.map((drawing, i) => (
+                <React.Fragment key={drawing.id}>
+                    <div className="size-lg-6" key={drawing.id}>
+                        <Field name="Drawing name" required>
+                            <TextInputContainer
+                                name="name"
+                                value={drawing.name}
+                                handleChange={(name, value) =>
+                                    updateDrawing(name, value, drawing.id)
+                                }
+                                required
+                            />
+                        </Field>
+                    </div>
+                    <div className="size-lg-12">
+                        <div className="size-lg-6">
+                            <Field name="Upload plan" required>
+                                <FileUploadContainer
+                                    value={drawing.file}
+                                    required
+                                    name="file"
+                                    acceptedTypes={[
+                                        'application/pdf',
+                                        'image/*'
+                                    ]}
+                                    handleChange={(name, file) => {
+                                        updateDrawing(
+                                            name,
+                                            drawing.file ? '' : file,
+                                            drawing.id
+                                        );
+                                    }}
+                                />
+                                <p className="size-lg-12">
+                                    This can be changed free of charge for 24
+                                    hours after creation.
+                                </p>
+                            </Field>
+                        </div>
+                    </div>
+                    <div className="size-lg-12">
+                        <div className="size-lg-6">
+                            <Field name="Set Template Usage Rule" required>
+                                <DropdownContainer
+                                    placeholder="-- select rule --"
+                                    name="templateUsageRule"
+                                    options={templateUsageRules}
+                                    value={
+                                        templateUsageRuleOptions[
+                                            drawing.templateUsageRule
+                                        ]
+                                    }
+                                    selectedOption={
+                                        templateUsageRuleOptions[
+                                            drawing.templateUsageRule
+                                        ]
+                                    }
+                                    handleChange={(name, value) =>
+                                        updateDrawing(name, value, drawing.id)
+                                    }
+                                    required
+                                />
+                            </Field>
+                        </div>
+                    </div>
+                    {drawings.length > 1 && (
+                        <BlockButtonWrapper>
+                            <button
+                                className="button red icon-only"
+                                type="button"
+                                onClick={() => removeDrawing(drawing.id)}
+                            >
+                                <i className="fa fa-trash" />
+                            </button>
+                        </BlockButtonWrapper>
+                    )}
+                </React.Fragment>
+            ))}
+        </div>
+        <BlockButtonWrapper>
+            <button className="button green" type="button" onClick={addDrawing}>
+                <i className="fa fa-plus" /> Add another drawing
+            </button>
+            <button className="button green" type="submit">
+                <i className="fa fa-plus" /> Save Drawings
+            </button>
+            <ButtonContainer handleClick={handleClose}>Cancel</ButtonContainer>
+        </BlockButtonWrapper>
+    </Form>
+);
+
+export default AddDrawingsForm;
