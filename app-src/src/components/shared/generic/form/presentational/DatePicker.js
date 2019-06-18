@@ -10,7 +10,9 @@ const DatePickerPresentational = ({
     placeholderText = `Please select ${name}`,
     required = true,
     onBlur = () => {},
-    sizeClasses = 'size-lg-12'
+    sizeClasses = 'size-lg-12',
+    minDate,
+    maxDate
 }) => (
     <div className={`date-picker ${sizeClasses}`}>
         <DatePicker
@@ -21,6 +23,8 @@ const DatePickerPresentational = ({
             placeholderText={placeholderText}
             required={required}
             onBlur={onBlur}
+            minDate={minDate}
+            maxDate={maxDate}
         />
         <i className="far fa-calendar" />
     </div>

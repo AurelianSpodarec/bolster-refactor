@@ -12,7 +12,8 @@ const DashboardStatsFilters = ({
     selectedStartDate,
     selectedEndDate,
     handleDateChange,
-    handleChange
+    handleChange,
+    today
 }) => (
     <BlockContainer>
         <form className="multi-filters size-lg-12">
@@ -49,6 +50,7 @@ const DashboardStatsFilters = ({
                         onChange={date => handleDateChange('startDate', date)}
                         placeholderText="Date"
                         sizeClasses=""
+                        maxDate={today}
                     />
                 </div>
             </div>
@@ -61,6 +63,7 @@ const DashboardStatsFilters = ({
                         onChange={date => handleDateChange('endDate', date)}
                         placeholderText="Date"
                         sizeClasses=""
+                        maxDate={today}
                     />
                 </div>
             </div>
