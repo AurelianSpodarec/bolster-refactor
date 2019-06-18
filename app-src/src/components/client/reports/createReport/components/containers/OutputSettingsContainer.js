@@ -12,6 +12,8 @@ import {
     SELECT_PIN_SCALE
 } from 'constants/shared/modalTypes';
 
+import clientResetFilterOptions from 'actions/client/reports/create/sync/clientResetFilterOptions.js';
+
 import showFieldErrors from 'actions/shared/generic/fieldErrors/sync/showFieldErrors';
 import {
     isEmpty,
@@ -75,6 +77,8 @@ class OutputSettingsContainer extends Component {
             );
         }
     };
+
+    componentWillUnmount = () => this.props.clientResetFilterOptions();
 
     componentDidUpdate = prevProps => {
         const {
@@ -231,7 +235,8 @@ const mapDispatchToProps = {
     showModal,
     showFieldErrors,
     addFieldError,
-    removeFieldError
+    removeFieldError,
+    clientResetFilterOptions
 };
 
 const WithConnect = connect(

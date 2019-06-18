@@ -691,6 +691,7 @@ input {
                 cursor: pointer;
                 color: $body-text;
                 transition: 0.2s background-color;
+                background-color: rgba(0, 0, 0, 0);
 
                 > i {
                     position: absolute;
@@ -2269,6 +2270,12 @@ input {
             }
         }
     }
+}
+
+//pin feed
+.pinfeed-scroll {
+    overflow-y: auto;
+    max-height: 390px;
 }
 
 .table-search {
