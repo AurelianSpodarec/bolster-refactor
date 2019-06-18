@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import AllClientsTable from '../presentational/AllClientsTable';
-import { COMPANY_USER_ROLE_TYPES } from 'constants/companyAdmin/enums';
 
 class AllClientTableContainer extends Component {
     render() {
@@ -10,34 +9,41 @@ class AllClientTableContainer extends Component {
 
         return (
             <AllClientsTable
-                headers={['Name', '']}
-                users={this._filterUsersForAdmins()}
+                headers={['Name', 'Company name', 'Drawing', 'Services', '']}
+                clients={this._sortClientsList()}
                 isFetching={isFetching}
                 error={error}
             />
         );
     }
 
-    _filterUsersForAdmins = () => {
-        const { users } = this.props;
+    _sortClientsList = () => {
+        const { clients } = this.props;
 
-        const ret = users.filter(
-            user => user.type >= COMPANY_USER_ROLE_TYPES.ADMIN
-        );
+        return [...clients].sort(orderByProperty('userID', 'companyName'));
+    };
+}
 
-        return ret;
+function orderByProperty(prop) {
+    const args = Array.prototype.slice.call(arguments, 1);
+    return function(a, b) {
+        const equality = a[prop] - b[prop];
+        if (equality === 0 && arguments.length > 1) {
+            return orderByProperty.apply(null, args)(a, b);
+        }
+        return equality;
     };
 }
 
 const mapStateToProps = ({
     companyAdmin: {
-        companyUsersReducer: { users, isFetching, error, postSuccess }
+        clientsReducer: { clients, isFetching, error, postSuccess }
     }
 }) => ({
     isFetching,
     error,
     postSuccess,
-    users: Object.values(users) || []
+    clients: Object.values(clients) || []
 });
 
 export default connect(mapStateToProps)(AllClientTableContainer);

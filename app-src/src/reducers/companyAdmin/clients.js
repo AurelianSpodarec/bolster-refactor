@@ -19,6 +19,12 @@ import {
     DELETE_CLIENT_FROM_DRAWING_FAILURE
 } from 'constants/actionTypes/clients';
 
+import {
+    FETCH_CLIENT_USERS_REQUEST,
+    FETCH_CLIENT_USERS_SUCCESS,
+    FETCH_CLIENT_USERS_FAILURE
+} from 'constants/actionTypes/usersManagement';
+
 export default combineReducers({
     clients: clientsReducer,
     isFetching: isFetchingReducer,
@@ -31,9 +37,12 @@ export default combineReducers({
 function isFetchingReducer(state = false, action) {
     switch (action.type) {
         case FETCH_CLIENTS_FOR_DRAWING_REQUEST:
+        case FETCH_CLIENT_USERS_REQUEST:
             return true;
         case FETCH_CLIENTS_FOR_DRAWING_SUCCESS:
         case FETCH_CLIENTS_FOR_DRAWING_FAILURE:
+        case FETCH_CLIENT_USERS_SUCCESS:
+        case FETCH_CLIENT_USERS_FAILURE:
             return false;
         default:
             return state;
@@ -72,11 +81,13 @@ function errorReducer(state = null, action) {
         case INVITE_CLIENT_REQUEST:
         case EDIT_CLIENT_FOR_DRAWING_REQUEST:
         case DELETE_CLIENT_FROM_DRAWING_REQUEST:
+        case FETCH_CLIENT_USERS_REQUEST:
             return null;
         case INVITE_CLIENT_FAILURE:
         case FETCH_CLIENTS_FOR_DRAWING_FAILURE:
         case EDIT_CLIENT_FOR_DRAWING_FAILURE:
         case DELETE_CLIENT_FROM_DRAWING_FAILURE:
+        case FETCH_CLIENT_USERS_FAILURE:
             return action.error;
         default:
             return state;
@@ -103,6 +114,8 @@ function postSuccessReducer(state = false, action) {
 
 function clientsReducer(state = {}, action) {
     switch (action.type) {
+        case FETCH_CLIENT_USERS_SUCCESS:
+            return convertArrToObj(action.payload);
         case FETCH_CLIENTS_FOR_DRAWING_SUCCESS:
             return { ...state, ...convertArrToObj(action.payload) };
         case INVITE_CLIENT_SUCCESS:

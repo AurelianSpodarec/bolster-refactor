@@ -5,22 +5,20 @@ import BlockContainer from 'components/shared/generic/block/containers/BlockCont
 import AllClientsList from './AllClientsList';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 
-const AllClientsTable = ({ headers, users, isFetching, error }) => {
-    return (
-        <BlockContainer>
-            <BlockHeading title="Clients" />
-            <Table
-                headers={headers}
-                isFetching={isFetching}
-                error={error}
-                noData={!users.length}
-                noDataMessage="No clients to display."
-                extraClasses="large"
-            >
-                <AllClientsList colCount={headers.length} users={users} />
-            </Table>
-        </BlockContainer>
-    );
-};
+const AllClientsTable = ({ headers, clients, isFetching, error }) => (
+    <BlockContainer>
+        <BlockHeading title="Client Access" />
+        <Table
+            headers={headers}
+            isFetching={isFetching}
+            error={error}
+            noData={!clients.length}
+            noDataMessage="No clients to display."
+            extraClasses="large"
+        >
+            <AllClientsList colCount={headers.length} clients={clients} />
+        </Table>
+    </BlockContainer>
+);
 
 export default AllClientsTable;
