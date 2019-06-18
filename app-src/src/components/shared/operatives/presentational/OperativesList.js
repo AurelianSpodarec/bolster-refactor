@@ -11,12 +11,13 @@ const OperativesList = ({
             id,
             userFirstName: firstName,
             userLastName: lastName,
-            email
+            email,
+            operativeCode
         } = operative;
         return (
             <tr key={id}>
                 <td>
-                    {`${firstName} ${lastName} - ${id}`}
+                    {`${firstName} ${lastName} - ${operativeCode}`}
                     <br />
                     {email}
                 </td>
