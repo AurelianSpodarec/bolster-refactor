@@ -5,11 +5,7 @@ import { withRouter } from 'react-router-dom';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 
-import {
-    ADD_DRAWING,
-    ADD_DRAWINGS,
-    ERROR_MODAL
-} from 'constants/shared/modalTypes';
+import { ADD_DRAWINGS, ERROR_MODAL } from 'constants/shared/modalTypes';
 
 import DrawingTableContainer from 'components/companyAdmin/drawings/shared/containers/DrawingTableContainer';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
@@ -24,21 +20,12 @@ class FloorDrawingsTableContainer extends Component {
             <BlockContainer>
                 <BlockHeading title="Drawings" classes="w-table">
                     {floor.accessType === ACCESS_TYPES_VALUES.OWNER && (
-                        <>
-                            <button
-                                className="button green"
-                                onClick={this.handleAddDrawingModal}
-                            >
-                                <i className="fa fa-plus" /> Add Drawing
-                            </button>
-                            <button
-                                className="button green"
-                                onClick={this.handleAddDrawingsModal}
-                            >
-                                <i className="fa fa-plus" /> Add Multiple
-                                Drawings
-                            </button>
-                        </>
+                        <button
+                            className="button green"
+                            onClick={this.handleAddDrawingsModal}
+                        >
+                            <i className="fa fa-plus" /> Add Drawings
+                        </button>
                     )}
                 </BlockHeading>
                 <DrawingTableContainer ids={floor.drawingIDs || []} />
@@ -48,8 +35,7 @@ class FloorDrawingsTableContainer extends Component {
 
     componentDidMount = () => {
         const { showModal, floorID, isAdding } = this.props;
-
-        if (isAdding) showModal(ADD_DRAWING, { floorID });
+        if (isAdding) showModal(ADD_DRAWINGS, { floorID });
     };
 
     componentDidUpdate = prevProps => {
@@ -77,11 +63,6 @@ class FloorDrawingsTableContainer extends Component {
             });
             updateHierarchyAddState(false);
         }
-    };
-
-    handleAddDrawingModal = () => {
-        const { showModal, floorID } = this.props;
-        showModal(ADD_DRAWING, { floorID });
     };
     handleAddDrawingsModal = () => {
         const { showModal, floorID } = this.props;
