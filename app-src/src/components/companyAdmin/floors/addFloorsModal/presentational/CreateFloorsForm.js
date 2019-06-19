@@ -5,6 +5,8 @@ import TextInputContainer from 'components/shared/generic/form/containers/TextIn
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 
+// * .*. in names is used for splitting up field validations without risking overlap with real names
+
 const CreateFloorsForm = ({
     handleSubmit,
     floors,
@@ -20,7 +22,7 @@ const CreateFloorsForm = ({
                     <div className="size-lg-6" key={floor.id}>
                         <Field name="Floor name" required>
                             <TextInputContainer
-                                name="name"
+                                name={`${floor.id}.*.name`}
                                 value={floor.name}
                                 handleChange={(name, value) =>
                                     updateFloor(name, value, floor.id)

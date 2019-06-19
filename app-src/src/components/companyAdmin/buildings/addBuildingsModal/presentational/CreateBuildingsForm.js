@@ -5,6 +5,8 @@ import TextInputContainer from 'components/shared/generic/form/containers/TextIn
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 
+// * .*. in names is used for splitting up field validations without risking overlap with real names
+
 const CreateBuildingsForm = ({
     handleSubmit,
     buildings,
@@ -20,7 +22,7 @@ const CreateBuildingsForm = ({
                     <div className="size-lg-6" key={building.id}>
                         <Field name="Building name" required>
                             <TextInputContainer
-                                name="name"
+                                name={`${building.id}.*.name`}
                                 value={building.name}
                                 handleChange={(name, value) =>
                                     updateBuilding(name, value, building.id)
@@ -33,7 +35,7 @@ const CreateBuildingsForm = ({
                         <Field name="Location">
                             <TextInputContainer
                                 value={building.location}
-                                name="location"
+                                name={`${building.id}.*.location`}
                                 handleChange={(name, value) =>
                                     updateBuilding(name, value, building.id)
                                 }

@@ -7,6 +7,8 @@ import ButtonContainer from 'components/shared/generic/button/containers/ButtonC
 import FileUploadContainer from 'components/shared/generic/form/containers/FileUploadContainer';
 import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
 
+// * .*. in names is used for splitting up field validations without risking overlap with real names
+
 const AddDrawingsForm = ({
     handleSubmit,
     drawings,
@@ -24,7 +26,7 @@ const AddDrawingsForm = ({
                     <div className="size-lg-6" key={drawing.id}>
                         <Field name="Drawing name" required>
                             <TextInputContainer
-                                name="name"
+                                name={`${drawing.id}.*.name`}
                                 value={drawing.name}
                                 handleChange={(name, value) =>
                                     updateDrawing(name, value, drawing.id)
@@ -39,7 +41,7 @@ const AddDrawingsForm = ({
                                 <FileUploadContainer
                                     value={drawing.file}
                                     required
-                                    name="file"
+                                    name={`${drawing.id}.*.file`}
                                     acceptedTypes={[
                                         'application/pdf',
                                         'image/*'
@@ -64,7 +66,7 @@ const AddDrawingsForm = ({
                             <Field name="Set Template Usage Rule" required>
                                 <DropdownContainer
                                     placeholder="-- select rule --"
-                                    name="templateUsageRule"
+                                    name={`${drawing.id}.*.templateUsageRule`}
                                     options={templateUsageRules}
                                     value={
                                         templateUsageRuleOptions[
