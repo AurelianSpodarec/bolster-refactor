@@ -105,6 +105,7 @@ function setDynamicFieldsSingle({
     maxPhotos,
     optionType,
     defaultValue,
+    file,
     ...otherFields
 }) {
     let dynamicFields = {};
@@ -135,6 +136,9 @@ function setDynamicFieldsSingle({
         case VALS.MULTI_DROPDOWN_OPTIONS:
         case VALS.MULTI_MULTI_DROPDOWN_OPTIONS:
             dynamicFields = { optionType };
+            break;
+        case VALS.STATIC_IMAGE:
+            dynamicFields = { file };
             break;
         default:
             dynamicFields = {};

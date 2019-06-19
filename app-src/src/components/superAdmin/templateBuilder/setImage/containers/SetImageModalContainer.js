@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import uuid from 'uuid/v4';
 
 import SetImageModal from '../presentational/SetImageModal';
-import { QUESTION_TYPE_VALUES } from 'constants/shared/templateBuilder';
+import { QUESTION_TYPE_NUMBERS } from 'constants/shared/templateBuilder';
 import setQuestion from 'actions/superAdmin/templateBuilder/sync/setQuestion';
 
 const SetImageModalContainer = ({
@@ -40,7 +40,7 @@ const SetImageModalContainer = ({
             uuid: uuid(),
             templateUUID,
             sectionUUID,
-            questionType: QUESTION_TYPE_VALUES.STATIC_IMAGE,
+            questionType: QUESTION_TYPE_NUMBERS.STATIC_IMAGE,
             name,
             file,
             sort
