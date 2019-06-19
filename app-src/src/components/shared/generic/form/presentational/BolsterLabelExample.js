@@ -6,7 +6,7 @@ import trimLabel from '_content/images/labels/trim.png';
 import BlockHeading from '../../blockHeading/presentational/BlockHeading';
 
 const BolsterLabelExample = ({ name }) => (
-    <div className="size-lg-12">
+    <div className="size-lg-12 label-example">
         <BlockHeading title="Label example" />
         <div className="label-example-container size-lg-12">
             <div className="label-example size-lg-6">

@@ -11,6 +11,8 @@ import FloorTableContainer from 'components/companyAdmin/floors/shared/container
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import updateHierarchyAddState from 'actions/companyAdmin/hierarchy/sync/updateHierarchyAddState';
 import { ACCESS_TYPES_VALUES } from 'constants/companyAdmin/enums';
+import fetchSingleBuilding from 'actions/companyAdmin/buildings/async/fetchSingleBuilding';
+import fetchAllFloors from 'actions/companyAdmin/floors/async/fetchAllFloors';
 
 class BuildingsFloorsTableContainer extends Component {
     render() {
@@ -45,11 +47,19 @@ class BuildingsFloorsTableContainer extends Component {
             hideModal,
             updatedFloorID,
             history,
-            updateHierarchyAddState
+            updateHierarchyAddState,
+            buildingID,
+            fetchAllFloors,
+            fetchSingleBuilding
         } = this.props;
 
-        if (!prevProps.postSuccess && postSuccess && updatedFloorID) {
-            history.push(`/company/floors/${updatedFloorID}`);
+        if (!prevProps.postSuccess && postSuccess) {
+            if (updatedFloorID) {
+                history.push(`/company/floors/${updatedFloorID}`);
+            } else {
+                fetchAllFloors();
+                fetchSingleBuilding(buildingID);
+            }
         }
 
         if (error && !prevProps.error) {
@@ -89,7 +99,13 @@ const mapStateToProps = (
     isAdding
 });
 
-const mapDispatchToProps = { showModal, hideModal, updateHierarchyAddState };
+const mapDispatchToProps = {
+    showModal,
+    hideModal,
+    updateHierarchyAddState,
+    fetchAllFloors,
+    fetchSingleBuilding
+};
 
 export default withRouter(
     connect(

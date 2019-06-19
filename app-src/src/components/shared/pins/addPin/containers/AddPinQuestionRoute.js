@@ -577,7 +577,8 @@ class AddPinQuestionRoute extends Component {
             isFetchingPins,
             addFieldError,
             removeFieldError,
-            fieldErrors
+            fieldErrors,
+            edit
         } = this.props;
         const prereq = this.checkIfShouldShowByPreReq(
             question.id,
@@ -602,13 +603,18 @@ class AddPinQuestionRoute extends Component {
         const isDoneFetchingPins =
             prevProps.isFetchingPins && !isFetchingPins && !isEmpty(pins);
 
-        if (isDoneFetchingPins && (history.id && oldAnswers)) {
+        if (isDoneFetchingPins && (history.id && oldAnswers && edit)) {
             const oldAnswersArray = Object.values(oldAnswers);
-
-            oldAnswersArray.map(answer =>
-                updateAddPinAnswer(answer.templateQuestionID, answer.answer)
+            const oldAnswer = oldAnswersArray.find(
+                ({ templateQuestionID }) => templateQuestionID === question.id
             );
-            updateAddPinStatus(history.status);
+            if (oldAnswer) {
+                const { templateQuestionID, answer } = oldAnswer;
+                updateAddPinAnswer(templateQuestionID, answer);
+            }
+            if (String(question.type) === STATUS) {
+                updateAddPinStatus(history.status);
+            }
         }
     };
 
