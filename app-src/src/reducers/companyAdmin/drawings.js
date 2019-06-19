@@ -87,12 +87,10 @@ function errorReducer(state = null, action) {
 function postSuccessReducer(state = false, action) {
     switch (action.type) {
         case CREATE_DRAWING_REQUEST:
-        case DELETE_DRAWING_REQUEST:
         case ARCHIVE_DRAWING_REQUEST:
         case EDIT_DRAWING_REQUEST:
             return false;
         case CREATE_DRAWING_SUCCESS:
-        case DELETE_DRAWING_SUCCESS:
         case ARCHIVE_DRAWING_SUCCESS:
         case EDIT_DRAWING_SUCCESS:
             return true;

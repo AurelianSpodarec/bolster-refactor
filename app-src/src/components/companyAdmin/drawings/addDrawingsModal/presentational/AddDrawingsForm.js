@@ -1,5 +1,6 @@
 import React from 'react';
 
+import SubmitContainer from 'components/shared/generic/form/containers/SubmitContainer.js';
 import Form from 'components/shared/generic/form/containers/Form';
 import Field from 'components/shared/generic/form/presentational/Field';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
@@ -20,7 +21,8 @@ const AddDrawingsForm = ({
     handleClose,
     templateUsageRules,
     templateUsageRuleOptions,
-    isUsingBolsterLabels
+    isUsingBolsterLabels,
+    filesUploading
 }) => (
     <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
         <div className="size-lg-12">
@@ -115,10 +117,11 @@ const AddDrawingsForm = ({
             <button className="button green" type="button" onClick={addDrawing}>
                 <i className="fa fa-plus" /> Add another drawing
             </button>
-            <button className="button green" type="submit">
-                <i className="fa fa-plus" /> Save Drawing
-                {drawings.length > 1 ? 's' : ''}
-            </button>
+
+            <SubmitContainer
+                withPlus
+                text={`Save Drawing${drawings.length > 1 ? 's' : ''}`}
+            />
             <ButtonContainer handleClick={handleClose}>Cancel</ButtonContainer>
         </BlockButtonWrapper>
     </Form>
