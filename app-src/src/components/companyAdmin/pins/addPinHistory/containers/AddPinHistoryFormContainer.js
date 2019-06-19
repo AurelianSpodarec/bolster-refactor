@@ -185,6 +185,8 @@ class AddPinFormContainer extends Component {
             coordinates,
             filesUploading,
             hierarchyType,
+            questions,
+            sections,
             pinID,
             status
         } = this.props;
@@ -192,7 +194,15 @@ class AddPinFormContainer extends Component {
         const curTemplate =
             templates.find(({ id }) => +id === +templateID) || {};
 
-        const formattedAnswers = Object.keys(answers).map(key => ({
+        const filteredAnswers = Object.keys(answers).filter(id => {
+            const question = questions[id] || {};
+            const section = sections[question.templateSectionID] || {};
+            if (section.templateVersionID !== curTemplate.latestVersionID)
+                return false;
+            return true;
+        });
+
+        const formattedAnswers = filteredAnswers.map(key => ({
             templateQuestionID: key,
             answer: answers[key]
         }));
@@ -221,6 +231,8 @@ const mapStateToProps = ({
     companyAdmin: {
         templatesReducer: { templates, isFetching, error },
         templateVersionsReducer: { versions },
+        templateSectionsReducer: { sections },
+        templateQuestionsReducer: { questions },
         addPinFormReducer: { answers, status },
         addPinCoordinatesReducer: { coordinates },
         pinsReducer: { postSuccess },
@@ -237,6 +249,8 @@ const mapStateToProps = ({
     answers,
     coordinates,
     isFetching,
+    questions,
+    sections,
     error,
     postSuccess,
     filesUploading,
@@ -251,14 +265,12 @@ const mapStateToProps = ({
     )[0]
 });
 
-const mapDispatchToProps = dispatch => ({
-    createPin: postBody => dispatch(createPin(postBody)),
-    resetPinAnswers: () => dispatch(resetPinAnswers()),
-    updateAddPinStatus: val => dispatch(updateAddPinStatus(val)),
-    updateAddPinAnswer: (key, value) => {
-        dispatch(updateAddPinAnswer(key, value));
-    }
-});
+const mapDispatchToProps = {
+    createPin,
+    resetPinAnswers,
+    updateAddPinStatus,
+    updateAddPinAnswer
+};
 
 export default withRouter(
     connect(
