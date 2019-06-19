@@ -171,6 +171,7 @@ class DrawingMapGeneralContainer extends Component {
         // re-fetch drawing every 5 seconds until the updated floorplan is retrieved
         if (postSuccess && !prevSuccess) fetchSingleDrawing(drawing.id);
         if (drawing.isFloorplanUpdating && !prevDrawing.isFloorplanUpdating) {
+            console.error('updating!!!!!');
             this._floorplanInterval = setInterval(
                 () => fetchSingleDrawing(drawing.id),
                 5000
