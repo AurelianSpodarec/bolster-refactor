@@ -12,6 +12,7 @@ class EditFloorFormContainer extends Component {
     };
 
     render() {
+        const { isUsingBolsterLabels } = this.props;
         return (
             <EditFloorForm
                 {...this.state}
@@ -19,6 +20,7 @@ class EditFloorFormContainer extends Component {
                 handleInputChange={this.handleInputChange}
                 handleSubmit={this.handleSubmit}
                 hideModal={this.props.hideModal}
+                isUsingBolsterLabels={isUsingBolsterLabels}
             />
         );
     }

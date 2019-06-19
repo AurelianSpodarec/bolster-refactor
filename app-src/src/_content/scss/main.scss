@@ -122,34 +122,43 @@ button {
     border-bottom: 2px solid $grey-alt;
 }
 
-.label-example-container {
-    display: flex;
-    justify-content: space-around;
-    align-items: flex-start;
-    .label-example {
-        width: 250px;
-        margin: 0 10px;
-        overflow: hidden;
-        .label-content-large {
-            position: absolute;
-            width: 100%;
-            font-size: 225%;
-            font-weight: 600;
-            top: 26%;
-            left: 10%;
-            white-space: nowrap;
+.label-example {
+    .block-heading {
+        margin-bottom: 12.5px;
+        .heading {
+            font-size: 14px;
         }
-        .label-content-small {
-            position: absolute;
-            font-size: 74%;
-            width: 100%;
-            top: 42%;
-            left: 6%;
-            white-space: nowrap;
-            &.for-trim {
-                top: 54%;
-                left: 3%;
-                font-size: 75%;
+    }
+    .label-example-container {
+        display: flex;
+        justify-content: space-around;
+        align-items: flex-start;
+
+        .label-example {
+            width: 180px;
+            margin: 0 10px;
+            overflow: hidden;
+            .label-content-large {
+                position: absolute;
+                width: 100%;
+                font-size: 220%;
+                font-weight: 600;
+                top: 26%;
+                left: 10%;
+                white-space: nowrap;
+            }
+            .label-content-small {
+                position: absolute;
+                font-size: 72%;
+                width: 100%;
+                top: 42%;
+                left: 6%;
+                white-space: nowrap;
+                &.for-trim {
+                    top: 54%;
+                    left: 3%;
+                    font-size: 70%;
+                }
             }
         }
     }
@@ -1161,6 +1170,9 @@ input {
     button {
         float: right;
         margin-left: 2.5px;
+        &.r-margin {
+            margin-right: 10px;
+        }
     }
 
     .checkbox {
