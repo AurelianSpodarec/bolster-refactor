@@ -4,6 +4,8 @@ import Field from 'components/shared/generic/form/presentational/Field';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 
+// * .*. in names is used for splitting up field validations without risking overlap with real names
+
 const BuildingFormFieldsNoLabel = ({
     buildings,
     updateBuilding,

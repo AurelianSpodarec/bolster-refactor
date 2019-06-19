@@ -5,6 +5,8 @@ import TextInputContainer from 'components/shared/generic/form/containers/TextIn
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import BolsterLabelExample from 'components/shared/generic/form/presentational/BolsterLabelExample';
 
+// * .*. in names is used for splitting up field validations without risking overlap with real names
+
 const BuildingFormFieldsWithLabel = ({
     buildings,
     updateBuilding,
