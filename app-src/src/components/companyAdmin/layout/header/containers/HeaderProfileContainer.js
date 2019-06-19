@@ -6,7 +6,7 @@ import moment from 'moment';
 
 import HeaderProfile from '../presentational/HeaderProfile';
 import { logout } from 'actions/shared/auth/sync/logout';
-import { isEmpty, renderMobile } from 'helpers/generic';
+import { isEmpty } from 'helpers/generic';
 
 class HeaderProfileContainer extends Component {
     state = {
@@ -84,12 +84,6 @@ class HeaderProfileContainer extends Component {
         e.preventDefault();
         logout();
         history.replace('/auth/login');
-    };
-
-    componentDidMount = () => {
-        this.setState({
-            renderMobile: renderMobile()
-        });
     };
 }
 

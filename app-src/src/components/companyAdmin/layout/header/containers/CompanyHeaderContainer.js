@@ -3,15 +3,12 @@ import { connect } from 'react-redux';
 
 import CompanyHeader from '../presentational/CompanyHeader';
 
-import { getCompanyColour, renderMobile } from 'helpers/generic';
+import { getCompanyColour } from 'helpers/generic';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { BUY_CREDITS } from 'constants/shared/modalTypes';
 import { MESSAGE_TYPES } from 'constants/companyAdmin/enums';
 
 class CompanyHeaderContainer extends Component {
-    state = {
-        renderMobile: false
-    };
     render() {
         const {
             profile,
@@ -38,15 +35,9 @@ class CompanyHeaderContainer extends Component {
                     e.preventDefault();
                     showModal(BUY_CREDITS);
                 }}
-                renderMobile={this.state.renderMobile}
             />
         );
     }
-    componentDidMount = () => {
-        this.setState({
-            renderMobile: renderMobile()
-        });
-    };
 }
 
 const mapStateToProps = ({
