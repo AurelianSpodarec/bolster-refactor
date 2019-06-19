@@ -108,14 +108,17 @@ class AddPinFormContainer extends Component {
                 template => templateVersion.templateID === template.id
             ) || {};
 
-        this.setState({ templateID: latestTemplateUsed.id }, () => {
-            pinAnswers
-                .filter(answer => latestPinHistory.id === answer.pinHistoryID)
-                .forEach(({ answer, templateQuestionID }) =>
-                    updateAddPinAnswer(templateQuestionID, answer)
-                );
+        const latestTemplateVersionID = latestTemplateUsed.latestVersionID;
 
+        this.setState({ templateID: latestTemplateUsed.id }, () => {
             updateAddPinStatus(latestPinHistory.status);
+            if (templateVersion.id === latestTemplateVersionID) {
+                pinAnswers
+                    .filter(ans => latestPinHistory.id === ans.pinHistoryID)
+                    .forEach(({ answer, templateQuestionID }) =>
+                        updateAddPinAnswer(templateQuestionID, answer)
+                    );
+            }
         });
     };
 
@@ -185,8 +188,6 @@ class AddPinFormContainer extends Component {
             coordinates,
             filesUploading,
             hierarchyType,
-            questions,
-            sections,
             pinID,
             status
         } = this.props;
@@ -194,15 +195,7 @@ class AddPinFormContainer extends Component {
         const curTemplate =
             templates.find(({ id }) => +id === +templateID) || {};
 
-        const filteredAnswers = Object.keys(answers).filter(id => {
-            const question = questions[id] || {};
-            const section = sections[question.templateSectionID] || {};
-            if (section.templateVersionID !== curTemplate.latestVersionID)
-                return false;
-            return true;
-        });
-
-        const formattedAnswers = filteredAnswers.map(key => ({
+        const formattedAnswers = Object.keys(answers).map(key => ({
             templateQuestionID: key,
             answer: answers[key]
         }));
