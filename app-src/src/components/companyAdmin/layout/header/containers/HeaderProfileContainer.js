@@ -6,11 +6,12 @@ import moment from 'moment';
 
 import HeaderProfile from '../presentational/HeaderProfile';
 import { logout } from 'actions/shared/auth/sync/logout';
-import { isEmpty } from 'helpers/generic';
+import { isEmpty, renderMobile } from 'helpers/generic';
 
 class HeaderProfileContainer extends Component {
     state = {
-        popupVisible: false
+        popupVisible: false,
+        renderMobile: false
     };
 
     render() {
@@ -33,6 +34,7 @@ class HeaderProfileContainer extends Component {
                 isImpersonating={isImpersonating}
                 companyName={companyName}
                 isSubscribed={this._isSubscribed()}
+                renderMobile={this.state.renderMobile}
             />
         );
     }
@@ -82,6 +84,12 @@ class HeaderProfileContainer extends Component {
         e.preventDefault();
         logout();
         history.replace('/auth/login');
+    };
+
+    componentDidMount = () => {
+        this.setState({
+            renderMobile: renderMobile()
+        });
     };
 }
 

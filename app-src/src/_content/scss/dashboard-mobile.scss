@@ -1,0 +1,65 @@
+@media only screen and (max-width: 1024px) {
+    //company admin header
+    #page-header {
+        height: 57px;
+
+        .logo {
+            width: 25%;
+        }
+
+        .profile {
+            float: right;
+            min-width: 0;
+            width: 50%;
+        }
+
+        .container {
+            padding: 0 15px;
+        }
+
+        .mobile-menu {
+            float: left;
+            padding: {
+                top: 15px;
+                bottom: 10px;
+                left: 15px;
+                right: 15px;
+            }
+            font-size: 180%;
+        }
+
+        .account-area {
+            width: 75%;
+        }
+
+        .notifications {
+            .item {
+                &.main {
+                    > i {
+                        font-size: 180%;
+                    }
+                    .number {
+                        width: 25px;
+                        height: 25px;
+                        font-size: 95%;
+                    }
+                }
+            }
+
+            .profile {
+                .user {
+                    .text {
+                        display: none;
+                    }
+                    .arrow {
+                        display: none;
+                    }
+                }
+            }
+        }
+    }
+
+    .mobile-notifications {
+        float: left;
+    }
+}
