@@ -16,6 +16,7 @@ const BolsterLabelExample = ({ name }) => (
             </div>
             <div className="label-example size-lg-6">
                 <img src={trimLabel} />
+                <p className="label-content-small for-trim">{name}</p>
             </div>
         </div>
     </div>
