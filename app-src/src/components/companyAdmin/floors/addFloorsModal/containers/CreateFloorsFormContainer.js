@@ -14,7 +14,8 @@ const CreateFloorsFormContainer = ({
     hideModal,
     createFloor,
     createFloors,
-    updateHierarchyAddState
+    updateHierarchyAddState,
+    isUsingBolsterLabels
 }) => {
     const [
         floors,
@@ -38,6 +39,7 @@ const CreateFloorsFormContainer = ({
             hideModal={hideModal}
             handleClose={handleClose}
             handleSubmit={handleSubmit}
+            isUsingBolsterLabels={isUsingBolsterLabels}
         />
     );
 
