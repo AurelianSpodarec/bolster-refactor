@@ -4,7 +4,6 @@ import { withRouter } from 'react-router-dom';
 
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
-
 import { ADD_BUILDINGS, ERROR_MODAL } from 'constants/shared/modalTypes';
 
 import BuildingsTableContainer from 'components/companyAdmin/buildings/shared/containers/BuildingsTableContainer';
@@ -12,6 +11,8 @@ import BlockContainer from 'components/shared/generic/block/containers/BlockCont
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import updateHierarchyAddState from 'actions/companyAdmin/hierarchy/sync/updateHierarchyAddState';
 import { ACCESS_TYPES_VALUES } from 'constants/companyAdmin/enums';
+import fetchAllBuildings from 'actions/companyAdmin/buildings/async/fetchAllBuildings';
+import fetchSingleSite from 'actions/companyAdmin/sites/async/fetchSingleSite';
 
 class SiteBuildingsTableContainer extends Component {
     render() {
@@ -46,11 +47,21 @@ class SiteBuildingsTableContainer extends Component {
             hideModal,
             updatedBuildingID,
             history,
-            updateHierarchyAddState
+            updateHierarchyAddState,
+            fetchAllBuildings,
+            fetchSingleSite,
+            siteID
         } = this.props;
 
-        if (postSuccess && !prevProps.postSuccess && updatedBuildingID) {
-            history.push(`/company/buildings/${updatedBuildingID}`);
+        if (postSuccess && !prevProps.postSuccess) {
+            if (updatedBuildingID) {
+                history.push(`/company/buildings/${updatedBuildingID}`);
+            } else {
+                // get new buildings
+                fetchAllBuildings();
+                // update site's buildingIDs array
+                fetchSingleSite(siteID);
+            }
         }
 
         if (error && !prevProps.error) {
@@ -89,8 +100,13 @@ const mapStateToProps = (
     isAdding
 });
 
-const mapDispatchToProps = { showModal, hideModal, updateHierarchyAddState };
-
+const mapDispatchToProps = {
+    showModal,
+    hideModal,
+    updateHierarchyAddState,
+    fetchAllBuildings,
+    fetchSingleSite
+};
 export default withRouter(
     connect(
         mapStateToProps,
