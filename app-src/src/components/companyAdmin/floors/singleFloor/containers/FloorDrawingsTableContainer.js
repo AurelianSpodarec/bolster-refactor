@@ -12,6 +12,8 @@ import BlockContainer from 'components/shared/generic/block/containers/BlockCont
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import updateHierarchyAddState from 'actions/companyAdmin/hierarchy/sync/updateHierarchyAddState';
 import { ACCESS_TYPES_VALUES } from 'constants/companyAdmin/enums';
+import fetchSingleFloor from 'actions/companyAdmin/floors/async/fetchSingleFloor';
+import fetchAllDrawings from 'actions/companyAdmin/drawings/async/fetchAllDrawings';
 
 class FloorDrawingsTableContainer extends Component {
     render() {
@@ -46,11 +48,19 @@ class FloorDrawingsTableContainer extends Component {
             hideModal,
             updatedID,
             history,
-            updateHierarchyAddState
+            updateHierarchyAddState,
+            fetchAllDrawings,
+            fetchSingleFloor,
+            floorID
         } = this.props;
 
-        if (!prevProps.postSuccess && postSuccess && updatedID) {
-            history.push(`/company/drawings/${updatedID}`);
+        if (!prevProps.postSuccess && postSuccess) {
+            if (updatedID) {
+                history.push(`/company/drawings/${updatedID}`);
+            } else {
+                fetchAllDrawings();
+                fetchSingleFloor(floorID);
+            }
         }
 
         if (error && !prevProps.error) {
@@ -89,8 +99,13 @@ const mapStateToProps = (
     floorID: params.id
 });
 
-const mapDispatchToProps = { showModal, hideModal, updateHierarchyAddState };
-
+const mapDispatchToProps = {
+    showModal,
+    hideModal,
+    updateHierarchyAddState,
+    fetchSingleFloor,
+    fetchAllDrawings
+};
 export default withRouter(
     connect(
         mapStateToProps,
