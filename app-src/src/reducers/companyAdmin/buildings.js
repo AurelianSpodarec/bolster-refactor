@@ -110,6 +110,8 @@ function updatedBuildingReducer(state = 0, action) {
         case CREATE_BUILDING_SUCCESS:
         case EDIT_BUILDING_SUCCESS:
             return action.payload.id;
+        case CREATE_BUILDINGS_SUCCESS:
+            return 0;
         case ARCHIVE_BUILDING_SUCCESS:
             return 0;
         default:

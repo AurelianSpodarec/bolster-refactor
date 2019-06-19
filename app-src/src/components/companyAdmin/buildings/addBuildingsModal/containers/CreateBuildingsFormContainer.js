@@ -7,10 +7,12 @@ import createBuildings from 'actions/companyAdmin/buildings/async/createBuilding
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import updateHierarchyAddState from 'actions/companyAdmin/hierarchy/sync/updateHierarchyAddState';
 import { useMultipleHierarchies } from 'helpers/hooks';
+import createBuilding from 'actions/companyAdmin/buildings/async/createBuilding';
 
 const CreateBuildingsFormContainer = ({
     siteID,
     hideModal,
+    createBuilding,
     createBuildings,
     updateHierarchyAddState,
     isUsingBolsterLabels
@@ -44,7 +46,14 @@ const CreateBuildingsFormContainer = ({
 
     function handleSubmit() {
         const buildings = getPostBody();
-        createBuildings({ buildings, siteID });
+        if (buildings.length === 1) {
+            const [building] = buildings;
+            const { name, location } = building;
+            createBuilding({ name, location, siteID });
+        }
+        if (buildings.length > 1) {
+            createBuildings({ buildings, siteID });
+        }
         hideModal();
     }
 
@@ -53,8 +62,8 @@ const CreateBuildingsFormContainer = ({
         updateHierarchyAddState(false);
     }
 };
-
 const mapDispatchToProps = {
+    createBuilding,
     createBuildings,
     hideModal,
     updateHierarchyAddState

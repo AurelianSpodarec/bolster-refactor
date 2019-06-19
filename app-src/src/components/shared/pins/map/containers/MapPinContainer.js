@@ -7,7 +7,12 @@ import updateIsPinExcluded from 'actions/companyAdmin/reports/sync/updateIsPinEx
 import clientUpdateIsPinExcluded from 'actions/client/reports/create/sync/clientUpdateIsPinExcluded';
 
 class MapPinContainer extends Component {
+    state = {
+        showPinInfo: false
+    };
+
     render() {
+        const { showPinInfo } = this.state;
         const {
             pin,
             withLink,
@@ -19,7 +24,8 @@ class MapPinContainer extends Component {
             updateIsPinExcluded,
             clientUpdateIsPinExcluded,
             excludedPinIDs,
-            isClient
+            isClient,
+            tooltipVisible
         } = this.props;
         const { createdByCompanyUserID, latestServiceID } = pin;
         const user = users[createdByCompanyUserID];
@@ -28,20 +34,22 @@ class MapPinContainer extends Component {
 
         return (
             <MapPin
+                tooltipVisible={tooltipVisible}
                 urlStart={urlStart}
                 pin={pin}
                 withLink={withLink}
                 user={user}
                 service={service}
                 withTooltip={withTooltip}
-                handleFetchPin={this.handleFetchPin}
-                handleCancelFetchPin={this.handleCancelFetchPin}
+                handleOpenPin={this.handleOpenPin}
+                handleCancelPin={this.handleCancelPin}
                 pinImages={pinImages}
                 isExcluding={isExcluding}
                 updateIsPinExcluded={
                     isClient ? clientUpdateIsPinExcluded : updateIsPinExcluded
                 }
                 excludedPinIDs={excludedPinIDs}
+                showPinInfo={showPinInfo}
             />
         );
     }
@@ -53,19 +61,26 @@ class MapPinContainer extends Component {
     };
     componentWillUnmount = () => {
         clearTimeout(this._waitForHover);
+        this.setState({
+            showPinInfo: false
+        });
     };
 
-    handleFetchPin = id => {
+    handleOpenPin = id => {
+        if (this.props.tooltipVisible) return;
+
         const { fetchSinglePin, historyIDs, pin, urlStart } = this.props;
         this._waitForHover = setTimeout(() => {
             if (!historyIDs.includes(pin.latestHistoryID + '')) {
                 if (urlStart !== 'client') fetchSinglePin(id, true);
             }
-        }, 200);
+            this.props.updateCurTooltip(id);
+        }, 150);
     };
 
-    handleCancelFetchPin = () => {
+    handleCancelPin = () => {
         clearTimeout(this._waitForHover);
+        this.props.updateCurTooltip(null);
     };
 
     _getPinImages = () => {
@@ -75,7 +90,7 @@ class MapPinContainer extends Component {
         } = this.props;
         return answers.reduce((acc, answer) => {
             if (
-                answer.pinHistoryID === latestHistoryID &&
+                answer.pinHistoryID == latestHistoryID &&
                 /(.jpg|.png)$/.test(answer.answer)
             ) {
                 return acc.concat(answer.answer);

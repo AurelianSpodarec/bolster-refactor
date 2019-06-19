@@ -7,10 +7,12 @@ import createFloors from 'actions/companyAdmin/floors/async/createFloors';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import updateHierarchyAddState from 'actions/companyAdmin/hierarchy/sync/updateHierarchyAddState';
 import { useMultipleHierarchies } from 'helpers/hooks';
+import createFloor from 'actions/companyAdmin/floors/async/createFloor';
 
 const CreateFloorsFormContainer = ({
     buildingID,
     hideModal,
+    createFloor,
     createFloors,
     updateHierarchyAddState
 }) => {
@@ -41,7 +43,14 @@ const CreateFloorsFormContainer = ({
 
     function handleSubmit() {
         const floors = getPostBody();
-        createFloors({ floors, buildingID });
+        if (floors.length === 1) {
+            const [floor] = floors;
+            const { name } = floor;
+            createFloor({ name, buildingID });
+        }
+        if (floors.length > 1) {
+            createFloors({ floors, buildingID });
+        }
         hideModal();
     }
 
@@ -52,6 +61,7 @@ const CreateFloorsFormContainer = ({
 };
 
 const mapDispatchToProps = {
+    createFloor,
     createFloors,
     hideModal,
     updateHierarchyAddState

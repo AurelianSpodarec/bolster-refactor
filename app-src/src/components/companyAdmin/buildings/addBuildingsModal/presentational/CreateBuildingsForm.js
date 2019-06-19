@@ -5,6 +5,8 @@ import ButtonContainer from 'components/shared/generic/button/containers/ButtonC
 import BuildingFormFieldsWithLabel from './BuildingFormFieldsWithLabel';
 import BuildingFormFieldsNoLabel from './BuildingFormFieldsNoLabel';
 
+// * .*. in names is used for splitting up field validations without risking overlap with real names
+
 const CreateBuildingsForm = ({
     handleSubmit,
     buildings,

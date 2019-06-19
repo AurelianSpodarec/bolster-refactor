@@ -6,7 +6,7 @@ import ModalOuterContainer from 'components/shared/generic/modals/containers/Mod
 
 const AddDrawingsModal = ({ floorID }) => (
     <ModalOuterContainer>
-        <BlockHeading title={'Create Drawings'} />
+        <BlockHeading title={'Create Drawing(s)'} />
         <AddDrawingsFormContainer floorID={floorID} />
     </ModalOuterContainer>
 );
