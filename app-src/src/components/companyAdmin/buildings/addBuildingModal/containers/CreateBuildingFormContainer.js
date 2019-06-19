@@ -64,7 +64,7 @@ const mapDispatchToProps = dispatch => ({
 
 export default withRouter(
     connect(
-        null,
+        mapStateToProps,
         mapDispatchToProps
     )(CreateBuildingFormContainer)
 );

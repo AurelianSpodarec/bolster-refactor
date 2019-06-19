@@ -8,6 +8,7 @@ import TextInputContainer from 'components/shared/generic/form/containers/TextIn
 import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
 import TooltipContainer from 'components/shared/generic/tooltip/containers/TooltipContainer';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
+// import BolsterLabelExample from 'components/shared/generic/form/presentational/BolsterLabelExample';
 
 const AddDrawingForm = ({
     handleSubmit,
@@ -20,7 +21,8 @@ const AddDrawingForm = ({
     selectedRule,
     credits,
     handleBuyCreditsModal,
-    handleClose
+    handleClose,
+    isUsingBolsterLabels
 }) => (
     <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
         <div className="size-lg-12">
@@ -67,6 +69,7 @@ const AddDrawingForm = ({
                 </Field>
             </div>
         </div>
+        {/* {isUsingBolsterLabels && <BolsterLabelExample name={name} />} */}
 
         <BlockButtonWrapper>
             {credits > 0 ? (
