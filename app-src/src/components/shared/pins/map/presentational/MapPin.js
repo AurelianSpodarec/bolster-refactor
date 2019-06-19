@@ -79,8 +79,12 @@ const DrawingMapPin = ({
                 icon={divIcon}
                 onClick={onClick}
                 opacity={isExcluded ? 0.3 : 1}
-                onMouseOver={() => handleOpenPin(id)}
-                onMouseOut={() => handleCancelPin()}
+                onMouseOver={() => {
+                    if (withTooltip) handleOpenPin(id);
+                }}
+                onMouseOut={() => {
+                    if (withTooltip) handleCancelPin();
+                }}
             />
 
             {withTooltip && tooltipVisible && (
