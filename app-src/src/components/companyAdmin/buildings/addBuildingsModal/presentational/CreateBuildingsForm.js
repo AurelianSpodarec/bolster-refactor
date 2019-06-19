@@ -1,9 +1,9 @@
 import React from 'react';
 import Form from 'components/shared/generic/form/containers/Form';
-import Field from 'components/shared/generic/form/presentational/Field';
-import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
+import BuildingFormFieldsWithLabel from './BuildingFormFieldsWithLabel';
+import BuildingFormFieldsNoLabel from './BuildingFormFieldsNoLabel';
 
 const CreateBuildingsForm = ({
     handleSubmit,
@@ -11,48 +11,24 @@ const CreateBuildingsForm = ({
     updateBuilding,
     addBuilding,
     removeBuilding,
-    handleClose
+    handleClose,
+    isUsingBolsterLabels
 }) => (
     <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
         <div className="size-lg-12">
-            {buildings.map(building => (
-                <>
-                    <div className="size-lg-6" key={building.id}>
-                        <Field name="Building name" required>
-                            <TextInputContainer
-                                name="name"
-                                value={building.name}
-                                handleChange={(name, value) =>
-                                    updateBuilding(name, value, building.id)
-                                }
-                                required
-                            />
-                        </Field>
-                    </div>
-                    <div className="size-lg-6">
-                        <Field name="Location">
-                            <TextInputContainer
-                                value={building.location}
-                                name="location"
-                                handleChange={(name, value) =>
-                                    updateBuilding(name, value, building.id)
-                                }
-                            />
-                        </Field>
-                        {buildings.length > 1 && (
-                            <BlockButtonWrapper>
-                                <button
-                                    className="button red icon-only"
-                                    type="button"
-                                    onClick={() => removeBuilding(building.id)}
-                                >
-                                    <i className="fa fa-trash" />
-                                </button>
-                            </BlockButtonWrapper>
-                        )}
-                    </div>
-                </>
-            ))}
+            {isUsingBolsterLabels ? (
+                <BuildingFormFieldsWithLabel
+                    buildings={buildings}
+                    updateBuilding={updateBuilding}
+                    removeBuilding={removeBuilding}
+                />
+            ) : (
+                <BuildingFormFieldsNoLabel
+                    buildings={buildings}
+                    updateBuilding={updateBuilding}
+                    removeBuilding={removeBuilding}
+                />
+            )}
         </div>
         <BlockButtonWrapper>
             <button

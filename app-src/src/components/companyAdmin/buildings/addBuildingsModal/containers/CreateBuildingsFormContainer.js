@@ -12,7 +12,8 @@ const CreateBuildingsFormContainer = ({
     siteID,
     hideModal,
     createBuildings,
-    updateHierarchyAddState
+    updateHierarchyAddState,
+    isUsingBolsterLabels
 }) => {
     const [
         buildings,
@@ -37,6 +38,7 @@ const CreateBuildingsFormContainer = ({
             hideModal={hideModal}
             handleClose={handleClose}
             handleSubmit={handleSubmit}
+            isUsingBolsterLabels={isUsingBolsterLabels}
         />
     );
 
