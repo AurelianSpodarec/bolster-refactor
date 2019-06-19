@@ -1,10 +1,7 @@
 import { combineReducers } from 'redux';
 
 import { convertArrToObj } from 'helpers/generic';
-import {
-    FETCH_SINGLE_PIN_SUCCESS,
-    FETCH_SINGLE_PIN_REQUEST
-} from 'constants/actionTypes/pins';
+import { FETCH_SINGLE_PIN_SUCCESS } from 'constants/actionTypes/pins';
 
 export default combineReducers({
     answers: answersReducer
@@ -12,10 +9,10 @@ export default combineReducers({
 
 function answersReducer(state = {}, action) {
     switch (action.type) {
-        case FETCH_SINGLE_PIN_REQUEST:
-            return {};
         case FETCH_SINGLE_PIN_SUCCESS:
-            return { ...state, ...convertArrToObj(action.payload.answers) };
+            return action.isForDrawing
+                ? { ...state, ...convertArrToObj(action.payload.answers) }
+                : convertArrToObj(action.payload.answers);
         default:
             return state;
     }

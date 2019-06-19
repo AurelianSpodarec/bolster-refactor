@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 import L from 'leaflet';
 import { Map, TileLayer, Marker } from 'react-leaflet';
+import Control from 'react-leaflet-control';
 import { FILE_STORAGE_URL } from 'config';
 
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
@@ -38,6 +39,7 @@ const DrawingMapViewSimple = ({
         iconAnchor: [15, 50],
         popupAnchor: [0, -50]
     });
+
     return drawing.tilesetS3Key ? (
         <>
             <BlockHeading>
