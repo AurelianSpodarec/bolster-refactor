@@ -5,7 +5,8 @@ import uuid from 'uuid/v1';
 
 import {
     ADD_TEMPLATE_QUESTION,
-    RENAME_TEMPLATE_SECTION
+    RENAME_TEMPLATE_SECTION,
+    SET_TEMPLATE_IMAGE
 } from 'constants/shared/modalTypes';
 import { DRAG_TYPES } from 'constants/superAdmin/dragTypes';
 import swapQuestionSorts from 'actions/superAdmin/templateBuilder/sync/swapQuestionSorts';
@@ -47,6 +48,7 @@ class SectionContainer extends Component {
                     }
                     showRenameSectModal={() => showRenameSectModal(section)}
                     duplicateSection={this.duplicateSection}
+                    showAddImageModal={this.showAddImageModal}
                 />
             </div>
         );
@@ -130,6 +132,17 @@ class SectionContainer extends Component {
         });
         setSection(newSection);
     };
+
+    showAddImageModal = () => {
+        const { showModal, section, questions } = this.props;
+        const maxSort = questions.reduce((max, q) => Math.max(max, q.sort), 0);
+
+        showModal(SET_TEMPLATE_IMAGE, {
+            sectionUUID: section.uuid,
+            templateUUID: section.templateUUID,
+            sort: maxSort + 1
+        });
+    };
 }
 
 const questionTarget = {
@@ -196,6 +209,9 @@ const mapDispatchToProps = dispatch => ({
     },
     deleteQuestion: questionUUID => {
         dispatch(deleteQuestion(questionUUID));
+    },
+    showModal: (type, props) => {
+        dispatch(showModal(type, props));
     }
 });
 
