@@ -63,7 +63,7 @@ class FloorDrawingsTableContainer extends Component {
             updateHierarchyAddState
         } = this.props;
 
-        if (!prevProps.postSuccess && postSuccess) {
+        if (!prevProps.postSuccess && postSuccess && updatedID) {
             history.push(`/company/drawings/${updatedID}`);
         }
 
@@ -92,33 +92,23 @@ class FloorDrawingsTableContainer extends Component {
 const mapStateToProps = (
     {
         companyAdmin: {
-            floorsReducer,
+            floorsReducer: { isFetching, floors },
             drawingsReducer: { postSuccess, updatedID, error },
             hierarchyReducer: { isAdding }
         }
     },
-    { match }
+    { match: { params } }
 ) => ({
     error,
     postSuccess,
     updatedID,
-    floor: floorsReducer.floors[match.params.id] || {},
-    isFetching: floorsReducer.isFetching,
-    floorID: match.params.id,
-    isAdding
+    isFetching,
+    isAdding,
+    floor: floors[params.id] || {},
+    floorID: params.id
 });
 
-const mapDispatchToProps = dispatch => ({
-    showModal: (type, props) => {
-        dispatch(showModal(type, props));
-    },
-    hideModal: () => {
-        dispatch(hideModal());
-    },
-    updateHierarchyAddState: value => {
-        dispatch(updateHierarchyAddState(value));
-    }
-});
+const mapDispatchToProps = { showModal, hideModal, updateHierarchyAddState };
 
 export default withRouter(
     connect(

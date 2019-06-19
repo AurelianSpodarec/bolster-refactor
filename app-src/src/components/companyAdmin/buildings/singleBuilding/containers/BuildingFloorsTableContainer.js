@@ -62,9 +62,8 @@ class BuildingsFloorsTableContainer extends Component {
             updateHierarchyAddState
         } = this.props;
 
-        if (!prevProps.postSuccess && postSuccess) {
+        if (!prevProps.postSuccess && postSuccess && updatedFloorID) {
             history.push(`/company/floors/${updatedFloorID}`);
-            updateHierarchyAddState(true);
         }
 
         if (error && !prevProps.error) {

@@ -62,9 +62,8 @@ class SiteBuildingsTableContainer extends Component {
             updateHierarchyAddState
         } = this.props;
 
-        if (postSuccess && !prevProps.postSuccess) {
+        if (postSuccess && !prevProps.postSuccess && updatedBuildingID) {
             history.push(`/company/buildings/${updatedBuildingID}`);
-            updateHierarchyAddState(true);
         }
 
         if (error && !prevProps.error) {

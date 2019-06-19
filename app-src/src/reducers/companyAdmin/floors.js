@@ -132,6 +132,7 @@ function updatedFloorIDReducer(state = 0, action) {
     switch (action.type) {
         case CREATE_FLOOR_REQUEST:
         case ARCHIVE_FLOOR_REQUEST:
+        case CREATE_FLOORS_SUCCESS:
             return 0;
         case CREATE_FLOOR_SUCCESS:
         case ARCHIVE_FLOOR_SUCCESS:

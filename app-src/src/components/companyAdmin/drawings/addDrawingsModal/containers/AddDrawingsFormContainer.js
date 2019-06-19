@@ -7,10 +7,12 @@ import createDrawings from 'actions/companyAdmin/drawings/async/createDrawings';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import updateHierarchyAddState from 'actions/companyAdmin/hierarchy/sync/updateHierarchyAddState';
 import { useMultipleHierarchies } from 'helpers/hooks';
+import createDrawing from 'actions/companyAdmin/drawings/async/createDrawing';
 
 const AddDrawingsFormContainer = ({
     floorID,
     hideModal,
+    createDrawing,
     createDrawings,
     updateHierarchyAddState
 }) => {
@@ -51,6 +53,11 @@ const AddDrawingsFormContainer = ({
 
     function handleSubmit() {
         const drawings = getPostBody();
+        if (drawings.length === 1) {
+            const [drawing] = drawings;
+            const { name, file, templateUsageRule } = drawing;
+            createDrawing({ name, file, templateUsageRule, floorID });
+        }
         createDrawings({ drawings, floorID });
         hideModal();
     }
@@ -62,11 +69,11 @@ const AddDrawingsFormContainer = ({
 };
 
 const mapDispatchToProps = {
+    createDrawing,
     createDrawings,
     hideModal,
     updateHierarchyAddState
 };
-
 export default withRouter(
     connect(
         null,
