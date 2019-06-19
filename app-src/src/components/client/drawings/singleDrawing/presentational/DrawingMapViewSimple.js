@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 import L from 'leaflet';
 import { Map, TileLayer, Marker } from 'react-leaflet';
-import Control from 'react-leaflet-control';
 import { FILE_STORAGE_URL } from 'config';
 
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
@@ -30,7 +29,9 @@ const DrawingMapViewSimple = ({
     handleDelete,
     mode,
     handleCancelPinSelector,
-    isExcluding
+    updateCurTooltip,
+    isExcluding,
+    currentTooltip
 }) => {
     const cornerClickedIcon = L.divIcon({
         className: '',
@@ -70,12 +71,14 @@ const DrawingMapViewSimple = ({
                 />
                 {pins.map(pin => (
                     <MapPinContainer
+                        updateCurTooltip={updateCurTooltip}
                         urlStart="client"
                         key={pin.id}
                         pin={pin}
                         withLink={!shouldShowPinSelectorOptions}
                         withTooltip={!isExcluding}
                         isExcluding={isExcluding}
+                        tooltipVisible={currentTooltip === pin.id}
                         isClient
                         client
                     />

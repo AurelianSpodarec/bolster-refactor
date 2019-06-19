@@ -46,7 +46,8 @@ class DrawingMapGeneralContainer extends Component {
         operativeOptions: {},
         statusOptions: convertEnumToDropdownOptions(PIN_STATUS_TYPES),
         firstCorner: null,
-        mode: ADD
+        mode: ADD,
+        currentTooltip: null
     };
 
     render() {
@@ -84,6 +85,8 @@ class DrawingMapGeneralContainer extends Component {
                         drawing={drawing}
                         pins={this._getFilteredPins()}
                         updating={updating}
+                        updateCurTooltip={this.updateCurTooltip}
+                        currentTooltip={this.state.currentTooltip}
                         handleClick={this.handleClick}
                         cornerClicked={cornerClicked}
                         shouldShowPinSelectorOptions={
@@ -291,6 +294,9 @@ class DrawingMapGeneralContainer extends Component {
         } = this.props;
         updateFurtherFiltrationOption(FURTHER_FILTRATION_OPTIONS.NONE);
         removeAllRectangles();
+    };
+    updateCurTooltip = id => {
+        this.setState({ currentTooltip: id });
     };
 }
 

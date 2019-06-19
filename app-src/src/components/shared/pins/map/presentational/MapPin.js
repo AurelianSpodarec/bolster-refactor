@@ -39,7 +39,6 @@ const DrawingMapPin = ({
     isExcluding,
     updateIsPinExcluded,
     excludedPinIDs,
-    showPinInfo,
     tooltipVisible
 }) => {
     const { latY = 1, lngX = 1 } = location;
