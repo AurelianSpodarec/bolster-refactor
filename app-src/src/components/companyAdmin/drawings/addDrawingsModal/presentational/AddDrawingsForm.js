@@ -105,7 +105,8 @@ const AddDrawingsForm = ({
                 <i className="fa fa-plus" /> Add another drawing
             </button>
             <button className="button green" type="submit">
-                <i className="fa fa-plus" /> Save Drawings
+                <i className="fa fa-plus" /> Save Drawing
+                {drawings.length > 1 ? 's' : ''}
             </button>
             <ButtonContainer handleClick={handleClose}>Cancel</ButtonContainer>
         </BlockButtonWrapper>

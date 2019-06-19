@@ -6,7 +6,7 @@ import BlockHeading from 'components/shared/generic/blockHeading/presentational/
 
 const CreateFloorsModal = ({ buildingID }) => (
     <ModalOuterContainer>
-        <BlockHeading title={'Create Multiple Floors'} />
+        <BlockHeading title={'Create Floor(s)'} />
         <CreateFloorsFormContainer buildingID={buildingID} />
     </ModalOuterContainer>
 );
