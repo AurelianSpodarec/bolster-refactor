@@ -2,6 +2,7 @@ import React from 'react';
 
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
+import { roundToTwoPlacesMax } from 'helpers/generic';
 
 const OperativeAlertItem = ({
     alert: {
@@ -22,8 +23,8 @@ const OperativeAlertItem = ({
             <DateTimeContainer date={createdOn} />
         </td>
         <td>{sentCount}</td>
-        <td>{(deliveredCount / sentCount) * 100}%</td>
-        <td>{(readCount / sentCount) * 100}%</td>
+        <td>{roundToTwoPlacesMax((deliveredCount / sentCount) * 100)}%</td>
+        <td>{roundToTwoPlacesMax((readCount / sentCount) * 100)}%</td>
         <td>
             <ButtonContainer
                 to={`/company/message-centre/operative-alerts/${id}/metrics`}

@@ -9,7 +9,15 @@ const OperativeAlertsTableContainer = ({
     operativeAlerts
 }) => (
     <OperativeAlertsTable
-        headers={['Site name', 'Owned by', 'Permissions', 'Action']}
+        headers={[
+            'Created By',
+            'Message',
+            'Sent On',
+            'Sent',
+            'Delivered %',
+            'Read %',
+            ''
+        ]}
         operativeAlerts={operativeAlerts}
         isFetching={isFetching}
         error={error}
