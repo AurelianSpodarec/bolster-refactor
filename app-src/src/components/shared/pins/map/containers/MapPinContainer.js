@@ -90,7 +90,7 @@ class MapPinContainer extends Component {
         } = this.props;
         return answers.reduce((acc, answer) => {
             if (
-                answer.pinHistoryID == latestHistoryID &&
+                answer.pinHistoryID === latestHistoryID &&
                 /(.jpg|.png)$/.test(answer.answer)
             ) {
                 return acc.concat(answer.answer);
