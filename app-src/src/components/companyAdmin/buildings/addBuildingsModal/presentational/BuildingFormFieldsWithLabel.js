@@ -16,7 +16,7 @@ const BuildingFormFieldsWithLabel = ({
                 <div className="size-lg-12">
                     <Field name="Building name" required>
                         <TextInputContainer
-                            name="name"
+                            name={`${building.id}.*.name`}
                             value={building.name}
                             handleChange={(name, value) =>
                                 updateBuilding(name, value, building.id)
@@ -29,7 +29,7 @@ const BuildingFormFieldsWithLabel = ({
                     <Field name="Location">
                         <TextInputContainer
                             value={building.location}
-                            name="location"
+                            name={`${building.id}.*.location`}
                             handleChange={(name, value) =>
                                 updateBuilding(name, value, building.id)
                             }
