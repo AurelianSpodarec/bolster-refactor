@@ -18,7 +18,6 @@ const CreateBuildingsModal = ({ siteID, isUsingBolsterLabels }) => (
 );
 
 const mapStateToProps = ({ companyAdmin: { companySettingsReducer } }) => ({
-    // !alter when it's been determined that company is using bolster labels
     isUsingBolsterLabels: companySettingsReducer.isUsingBolsterLabels
 });
 
