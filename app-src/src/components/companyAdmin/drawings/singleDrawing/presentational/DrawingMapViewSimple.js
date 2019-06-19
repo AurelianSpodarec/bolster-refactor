@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { Map, TileLayer, Marker } from 'react-leaflet';
 import ReactDOMServer from 'react-dom/server';
 import { FILE_STORAGE_URL } from 'config';

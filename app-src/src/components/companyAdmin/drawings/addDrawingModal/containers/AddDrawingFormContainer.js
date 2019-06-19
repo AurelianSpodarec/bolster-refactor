@@ -27,6 +27,8 @@ class AddDrawingFormContainer extends Component {
             file,
             templateUsageRuleOptions,
             templateUsageRule
+            // ! uncomment below and change props when api is done
+            // isUsingBolsterLabels
         } = this.state;
         const { floorID, filesUploading, credits } = this.props;
         return (
@@ -43,6 +45,7 @@ class AddDrawingFormContainer extends Component {
                 credits={credits}
                 handleBuyCreditsModal={this.handleBuyCreditsModal}
                 handleClose={this.handleClose}
+                isUsingBolsterLabels={true}
             />
         );
     }
@@ -91,7 +94,8 @@ class AddDrawingFormContainer extends Component {
 
 const mapStateToProps = ({
     companyAdmin: {
-        creditsReducer: { credits }
+        creditsReducer: { credits },
+        companySettingsReducer
     },
 
     shared: {
@@ -103,6 +107,8 @@ const mapStateToProps = ({
         (acc, curr) => acc + curr.quantity,
         0
     )
+    // !alter when it's been determined that company is using bolster labels
+    // isUsingBolsterLabels: companySettingsReducer.isUsingBolsterLabels
 });
 
 const mapDispatchToProps = dispatch => ({

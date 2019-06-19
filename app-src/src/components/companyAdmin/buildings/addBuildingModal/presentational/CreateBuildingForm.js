@@ -5,7 +5,7 @@ import Field from 'components/shared/generic/form/presentational/Field';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
-import BolsterLabelExample from 'components/shared/generic/form/presentational/BolsterLabelExample';
+// import BolsterLabelExample from 'components/shared/generic/form/presentational/BolsterLabelExample';
 
 const CreateBuildingForm = ({
     handleSubmit,

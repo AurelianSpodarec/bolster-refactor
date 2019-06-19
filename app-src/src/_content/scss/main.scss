@@ -146,6 +146,11 @@ button {
             top: 42%;
             left: 6%;
             white-space: nowrap;
+            &.for-trim {
+                top: 54%;
+                left: 3%;
+                font-size: 90%;
+            }
         }
     }
 }

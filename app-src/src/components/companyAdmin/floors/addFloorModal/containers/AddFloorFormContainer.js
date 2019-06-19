@@ -13,6 +13,8 @@ class AddFloorFormContainer extends Component {
         name: ''
     };
     render() {
+        // ! uncomment below and change props when api is done
+        // const { isUsingBolsterLabels } = this.props;
         return (
             <AddFloorForm
                 {...this.state}
@@ -21,6 +23,7 @@ class AddFloorFormContainer extends Component {
                 handleSubmit={this.handleSubmit}
                 hideModal={this.props.hideModal}
                 handleClose={this.handleClose}
+                isUsingBolsterLabels={true}
             />
         );
     }
@@ -49,6 +52,11 @@ class AddFloorFormContainer extends Component {
     };
 }
 
+const mapStateToProps = ({ companyAdmin: { companySettingsReducer } }) => ({
+    // !alter when it's been determined that company is using bolster labels
+    // isUsingBolsterLabels: companySettingsReducer.isUsingBolsterLabels
+});
+
 const mapDispatchToProps = dispatch => ({
     createFloor: postBody => {
         dispatch(createFloor(postBody));
@@ -63,7 +71,7 @@ const mapDispatchToProps = dispatch => ({
 
 export default withRouter(
     connect(
-        null,
+        mapStateToProps,
         mapDispatchToProps
     )(AddFloorFormContainer)
 );
