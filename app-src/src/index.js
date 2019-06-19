@@ -20,7 +20,7 @@ import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css
 let middleWare = [thunk];
 
 if (process.env.NODE_ENV !== 'production') {
-    // middleWare = [...middleWare, logger];
+    middleWare = [...middleWare, logger];
 }
 
 const store = createStore(reducer, applyMiddleware(...middleWare));

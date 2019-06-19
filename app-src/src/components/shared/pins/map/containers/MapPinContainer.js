@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import MapPin from '../presentational/MapPin';
-import _ from 'lodash';
 
 import fetchSinglePin from 'actions/companyAdmin/pins/async/fetchSinglePin';
 import updateIsPinExcluded from 'actions/companyAdmin/reports/sync/updateIsPinExcluded';
@@ -91,7 +90,7 @@ class MapPinContainer extends Component {
         } = this.props;
         return answers.reduce((acc, answer) => {
             if (
-                answer.pinHistoryID === latestHistoryID &&
+                answer.pinHistoryID == latestHistoryID &&
                 /(.jpg|.png)$/.test(answer.answer)
             ) {
                 return acc.concat(answer.answer);

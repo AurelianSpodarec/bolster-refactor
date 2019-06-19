@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom';
 
 import L from 'leaflet';
 import Control from 'react-leaflet-control';
-import { Marker, Tooltip } from 'react-leaflet';
+import { Marker } from 'react-leaflet';
 import {
     PIN_STATUS_COLOURS as COLOURS,
     PIN_STATUS_TYPES
@@ -86,7 +86,7 @@ const DrawingMapPin = ({
 
             {withTooltip && tooltipVisible && (
                 <Control className={'pin-tooltip'} position="topright">
-                    <div className="holder">
+                    <div className="holder" onMouseLeave={handleCancelPin}>
                         <strong>Pin code</strong>: {`${pinCode}`} <br />
                         <strong>Status</strong>: {`${PIN_STATUS_TYPES[status]}`}{' '}
                         <br />
@@ -110,7 +110,7 @@ const DrawingMapPin = ({
                                 <br />{' '}
                             </>
                         )}
-                        {!!pinImages.length && (
+                        {!!pinImages.length && tooltipVisible && (
                             <>
                                 <strong>Latest History Images</strong>: <br />
                                 {pinImages.length >= 2 ? (
