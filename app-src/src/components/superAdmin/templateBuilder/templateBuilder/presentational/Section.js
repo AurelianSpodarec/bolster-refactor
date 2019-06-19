@@ -14,7 +14,8 @@ const Section = ({
     showAddQuestModal,
     showRenameSectModal,
     duplicateSection,
-    tooltipMessage
+    tooltipMessage,
+    showAddImageModal
 }) => (
     <div className="template-block size-lg-12">
         <BlockContainer contentClass={isActive && 'active'}>
@@ -40,6 +41,10 @@ const Section = ({
                 <button className="button green" onClick={showAddQuestModal}>
                     <i className="fa fa-plus" />
                     Add question
+                </button>
+                <button className="button green" onClick={showAddImageModal}>
+                    <i className="fa fa-plus" />
+                    Add image
                 </button>
                 {tooltipMessage ? (
                     <TooltipContainer text={tooltipMessage} side="top">

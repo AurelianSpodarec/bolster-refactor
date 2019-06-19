@@ -26,6 +26,7 @@ export const CLIENT_SINGLE_PIN_GENERATE_REPORT_SUCCESS =
 //template builder
 export const ADD_TEMPLATE = 'ADD_TEMPLATE';
 export const EDIT_TEMPLATE = 'EDIT_TEMPLATE';
+export const SET_TEMPLATE_IMAGE = 'SET_TEMPLATE_IMAGE';
 export const SET_LABEL_FIELDS = 'SET_LABEL_FIELDS';
 export const COPY_TEMPLATE = 'COPY_TEMPLATE';
 
