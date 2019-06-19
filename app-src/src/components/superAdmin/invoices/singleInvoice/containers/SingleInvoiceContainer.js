@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import SingleInvoice from '../presentational/SingleInvoice';
+import fetchSingleCompany from 'actions/superAdmin/companies/async/fetchSingleCompany';
 import fetchCompanyInvoices from 'actions/superAdmin/invoices/async/fetchCompanyInvoices';
 import fetchCompanyInvoiceItems from 'actions/superAdmin/invoices/async/fetchCompanyInvoiceItems';
 
@@ -15,10 +16,18 @@ class SingleInvoiceContainer extends Component {
     };
 }
 
-const mapDispatchToProps = (dispatch, { match: { params } }) => ({
+const mapDispatchToProps = (
+    dispatch,
+    {
+        match: {
+            params: { companyID }
+        }
+    }
+) => ({
     fetchInvoiceData: () => {
-        dispatch(fetchCompanyInvoices(params.companyID));
-        dispatch(fetchCompanyInvoiceItems(params.companyID));
+        dispatch(fetchCompanyInvoices(companyID));
+        dispatch(fetchCompanyInvoiceItems(companyID));
+        dispatch(fetchSingleCompany(companyID));
     }
 });
 

@@ -25,7 +25,7 @@ export const fetchCompanyInvoiceItemsFailure = error => ({
 export default companyID => dispatch => {
     dispatch(fetchCompanyInvoiceItemsRequest());
 
-    axios
+    return axios
         .get(
             `${ADMIN_API_URL}/companies/${companyID}/invoiceItems`,
             getHeaders()

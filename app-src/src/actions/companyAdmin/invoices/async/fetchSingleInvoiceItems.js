@@ -25,7 +25,7 @@ export const fetchSingleInvoiceItemsFailure = error => ({
 export default id => dispatch => {
     dispatch(fetchSingleInvoiceItemsRequest());
 
-    axios
+    return axios
         .get(`${API_URL}/invoices/${id}/items`, getHeaders())
         .then(res => dispatch(fetchSingleInvoiceItemsSuccess(res.data)))
         .catch(err => dispatch(fetchSingleInvoiceItemsFailure(err.message)));

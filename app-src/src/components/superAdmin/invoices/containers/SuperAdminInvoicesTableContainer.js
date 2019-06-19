@@ -10,7 +10,15 @@ const SuperAdminInvoicesTableContainer = ({ error, isFetching, invoices }) => (
     <BlockContainer>
         <BlockHeading title="All Invoices" />
         <SuperAdminInvoicesTable
-            headers={['Date', 'Order ID', 'Total', 'Type', 'Status', '']}
+            headers={[
+                'Date',
+                'Company Name',
+                'Order ID',
+                'Total',
+                'Type',
+                'Status',
+                ''
+            ]}
             error={error}
             isFetching={isFetching}
             invoices={invoices}

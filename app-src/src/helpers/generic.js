@@ -181,3 +181,7 @@ export function getBolsterColour() {
 export const momentComparisonFormat = 'YYYY-MM-DD';
 
 export const roundToTwoPlacesMax = num => Math.round(num * 100) / 100;
+
+export function renderMobile() {
+    return window.innerWidth < 1025 ? true : false;
+}
