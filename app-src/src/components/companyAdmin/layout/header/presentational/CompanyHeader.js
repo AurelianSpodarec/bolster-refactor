@@ -15,30 +15,41 @@ const Header = ({
     unreadMessageCount,
     totalCredits,
     totalRequests,
+    renderMobile,
     showModal
 }) => (
     <header id="page-header" style={{ borderColor: companyColour }}>
         <div className="container">
             {/*** company logo ***/}
-            <div className="logo">
-                {!!company.id && (
-                    <Link to="/company">
-                        <img
-                            alt={`logo of ${company.name}`}
-                            src={
-                                company.logoFile
-                                    ? `${FILE_STORAGE_URL}/${company.logoFile}`
-                                    : defaultStyles.logoFile
-                            }
-                        />
-                    </Link>
-                )}
-            </div>
-
+            {!renderMobile && (
+                <div className="logo">
+                    {!!company.id && (
+                        <Link to="/company">
+                            <img
+                                alt={`logo of ${company.name}`}
+                                src={
+                                    company.logoFile
+                                        ? `${FILE_STORAGE_URL}/${
+                                              company.logoFile
+                                          }`
+                                        : defaultStyles.logoFile
+                                }
+                            />
+                        </Link>
+                    )}
+                </div>
+            )}
+            {renderMobile && (
+                <div className="mobile-menu">
+                    <i className="far fa-bars" />
+                </div>
+            )}
             {/*** search box ***/}
-            <div className="search-area">
-                <SearchContainer />
-            </div>
+            {!renderMobile && (
+                <div className="search-area">
+                    <SearchContainer />
+                </div>
+            )}
 
             {/*** account area ***/}
             <div className="account-area">
@@ -50,22 +61,35 @@ const Header = ({
                         )}
                         <i className="far fa-money-bill-alt fa-fw" />
                     </button>
-                    <HeaderNotificationsContainer />
-                    <Link to="/company/message-centre" className="item main">
-                        {!!unreadMessageCount && (
-                            <span className="number">{unreadMessageCount}</span>
-                        )}
-                        <i className="far fa-envelope fa-fw" />
-                    </Link>
-                    <Link
-                        to="/company/tools/transfer-requests"
-                        className="item main"
-                    >
-                        {!!totalRequests && (
-                            <span className="number">{totalRequests}</span>
-                        )}
-                        <i className="far fa-exchange-alt fa-fw" />
-                    </Link>
+                    {/* Moved into profile container for mobile*/}
+                    {!renderMobile && <HeaderNotificationsContainer />}
+
+                    {!renderMobile && (
+                        <>
+                            <Link
+                                to="/company/message-centre"
+                                className="item main"
+                            >
+                                {!!unreadMessageCount && (
+                                    <span className="number">
+                                        {unreadMessageCount}
+                                    </span>
+                                )}
+                                <i className="far fa-envelope fa-fw" />
+                            </Link>
+                            <Link
+                                to="/company/tools/transfer-requests"
+                                className="item main"
+                            >
+                                {!!totalRequests && (
+                                    <span className="number">
+                                        {totalRequests}
+                                    </span>
+                                )}
+                                <i className="far fa-exchange-alt fa-fw" />
+                            </Link>
+                        </>
+                    )}
                 </div>
 
                 {/*** profile ***/}
