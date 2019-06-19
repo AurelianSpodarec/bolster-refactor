@@ -26,7 +26,11 @@ const AddDrawingsForm = ({
         <div className="size-lg-12">
             {drawings.map((drawing, i) => (
                 <div className="size-lg-12" key={drawing.id}>
-                    <div className="size-lg-6">
+                    <div
+                        className={
+                            isUsingBolsterLabels ? 'size-lg-6' : 'size-lg-12'
+                        }
+                    >
                         <div className="size-lg-12" key={drawing.id}>
                             <Field name="Drawing name" required>
                                 <TextInputContainer

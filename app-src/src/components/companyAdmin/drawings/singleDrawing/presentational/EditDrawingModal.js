@@ -10,7 +10,6 @@ import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/pr
 import FileUploadContainer from 'components/shared/generic/form/containers/FileUploadContainer';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 import { RAW_S3_STORAGE_URL } from 'config';
-import Block from 'components/shared/generic/block/presentational/Block';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import BolsterLabelExample from 'components/shared/generic/form/presentational/BolsterLabelExample';
 
