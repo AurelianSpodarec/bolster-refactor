@@ -9,7 +9,7 @@ const CreateBuildingsModal = ({ siteID, isUsingBolsterLabels }) => (
     <ModalOuterContainer
         extraClasses={`${isUsingBolsterLabels ? 'w-label-example' : ''}`}
     >
-        <BlockHeading title={'Create Multiple Buildings'} />
+        <BlockHeading title={'Create Buildings'} />
         <CreateBuildingsFormContainer
             siteID={siteID}
             isUsingBolsterLabels={isUsingBolsterLabels}
