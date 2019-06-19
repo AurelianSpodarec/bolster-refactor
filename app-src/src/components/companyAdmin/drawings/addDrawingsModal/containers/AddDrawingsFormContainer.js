@@ -14,7 +14,8 @@ const AddDrawingsFormContainer = ({
     hideModal,
     createDrawing,
     createDrawings,
-    updateHierarchyAddState
+    updateHierarchyAddState,
+    isUsingBolsterLabels
 }) => {
     const [
         drawings,
@@ -48,6 +49,7 @@ const AddDrawingsFormContainer = ({
             hideModal={hideModal}
             handleClose={handleClose}
             handleSubmit={handleSubmit}
+            isUsingBolsterLabels={isUsingBolsterLabels}
         />
     );
 

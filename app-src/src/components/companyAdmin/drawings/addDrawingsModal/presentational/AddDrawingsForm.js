@@ -1,4 +1,5 @@
 import React from 'react';
+
 import Form from 'components/shared/generic/form/containers/Form';
 import Field from 'components/shared/generic/form/presentational/Field';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
@@ -6,6 +7,7 @@ import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/pr
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 import FileUploadContainer from 'components/shared/generic/form/containers/FileUploadContainer';
 import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
+import BolsterLabelExample from 'components/shared/generic/form/presentational/BolsterLabelExample';
 
 // * .*. in names is used for splitting up field validations without risking overlap with real names
 
@@ -17,26 +19,27 @@ const AddDrawingsForm = ({
     removeDrawing,
     handleClose,
     templateUsageRules,
-    templateUsageRuleOptions
+    templateUsageRuleOptions,
+    isUsingBolsterLabels
 }) => (
     <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
         <div className="size-lg-12">
             {drawings.map((drawing, i) => (
-                <React.Fragment key={drawing.id}>
-                    <div className="size-lg-6" key={drawing.id}>
-                        <Field name="Drawing name" required>
-                            <TextInputContainer
-                                name={`${drawing.id}.*.name`}
-                                value={drawing.name}
-                                handleChange={(name, value) =>
-                                    updateDrawing(name, value, drawing.id)
-                                }
-                                required
-                            />
-                        </Field>
-                    </div>
-                    <div className="size-lg-12">
-                        <div className="size-lg-6">
+                <div className="size-lg-12" key={drawing.id}>
+                    <div className="size-lg-6">
+                        <div className="size-lg-12" key={drawing.id}>
+                            <Field name="Drawing name" required>
+                                <TextInputContainer
+                                    name={`${drawing.id}.*.name`}
+                                    value={drawing.name}
+                                    handleChange={(name, value) =>
+                                        updateDrawing(name, value, drawing.id)
+                                    }
+                                    required
+                                />
+                            </Field>
+                        </div>
+                        <div className="size-lg-12">
                             <Field name="Upload plan" required>
                                 <FileUploadContainer
                                     value={drawing.file}
@@ -60,9 +63,7 @@ const AddDrawingsForm = ({
                                 </p>
                             </Field>
                         </div>
-                    </div>
-                    <div className="size-lg-12">
-                        <div className="size-lg-6">
+                        <div className="size-lg-12">
                             <Field name="Set Template Usage Rule" required>
                                 <DropdownContainer
                                     placeholder="-- select rule --"
@@ -86,6 +87,12 @@ const AddDrawingsForm = ({
                             </Field>
                         </div>
                     </div>
+                    {isUsingBolsterLabels && (
+                        <div className="size-lg-6">
+                            <BolsterLabelExample name={drawing.name} />
+                        </div>
+                    )}
+
                     {drawings.length > 1 && (
                         <BlockButtonWrapper>
                             <button
@@ -97,7 +104,7 @@ const AddDrawingsForm = ({
                             </button>
                         </BlockButtonWrapper>
                     )}
-                </React.Fragment>
+                </div>
             ))}
         </div>
         <BlockButtonWrapper>
