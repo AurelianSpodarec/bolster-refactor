@@ -5,13 +5,15 @@ import { withRouter } from 'react-router-dom';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 
-import { ADD_DRAWING, ERROR_MODAL } from 'constants/shared/modalTypes';
+import { ADD_DRAWINGS, ERROR_MODAL } from 'constants/shared/modalTypes';
 
 import DrawingTableContainer from 'components/companyAdmin/drawings/shared/containers/DrawingTableContainer';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import updateHierarchyAddState from 'actions/companyAdmin/hierarchy/sync/updateHierarchyAddState';
 import { ACCESS_TYPES_VALUES } from 'constants/companyAdmin/enums';
+import fetchSingleFloor from 'actions/companyAdmin/floors/async/fetchSingleFloor';
+import fetchAllDrawings from 'actions/companyAdmin/drawings/async/fetchAllDrawings';
 
 class FloorDrawingsTableContainer extends Component {
     render() {
@@ -22,9 +24,9 @@ class FloorDrawingsTableContainer extends Component {
                     {floor.accessType === ACCESS_TYPES_VALUES.OWNER && (
                         <button
                             className="button green"
-                            onClick={this.handleAddDrawingModal}
+                            onClick={this.handleAddDrawingsModal}
                         >
-                            <i className="fa fa-plus" /> Add Drawing
+                            <i className="fa fa-plus" /> Add Drawings
                         </button>
                     )}
                 </BlockHeading>
@@ -35,8 +37,7 @@ class FloorDrawingsTableContainer extends Component {
 
     componentDidMount = () => {
         const { showModal, floorID, isAdding } = this.props;
-
-        if (isAdding) showModal(ADD_DRAWING, { floorID });
+        if (isAdding) showModal(ADD_DRAWINGS, { floorID });
     };
 
     componentDidUpdate = prevProps => {
@@ -47,11 +48,19 @@ class FloorDrawingsTableContainer extends Component {
             hideModal,
             updatedID,
             history,
-            updateHierarchyAddState
+            updateHierarchyAddState,
+            fetchAllDrawings,
+            fetchSingleFloor,
+            floorID
         } = this.props;
 
         if (!prevProps.postSuccess && postSuccess) {
-            history.push(`/company/drawings/${updatedID}`);
+            if (updatedID) {
+                history.push(`/company/drawings/${updatedID}`);
+            } else {
+                fetchAllDrawings();
+                fetchSingleFloor(floorID);
+            }
         }
 
         if (error && !prevProps.error) {
@@ -65,44 +74,38 @@ class FloorDrawingsTableContainer extends Component {
             updateHierarchyAddState(false);
         }
     };
-
-    handleAddDrawingModal = () => {
+    handleAddDrawingsModal = () => {
         const { showModal, floorID } = this.props;
-        showModal(ADD_DRAWING, { floorID });
+        showModal(ADD_DRAWINGS, { floorID });
     };
 }
 
 const mapStateToProps = (
     {
         companyAdmin: {
-            floorsReducer,
+            floorsReducer: { isFetching, floors },
             drawingsReducer: { postSuccess, updatedID, error },
             hierarchyReducer: { isAdding }
         }
     },
-    { match }
+    { match: { params } }
 ) => ({
     error,
     postSuccess,
     updatedID,
-    floor: floorsReducer.floors[match.params.id] || {},
-    isFetching: floorsReducer.isFetching,
-    floorID: match.params.id,
-    isAdding
+    isFetching,
+    isAdding,
+    floor: floors[params.id] || {},
+    floorID: params.id
 });
 
-const mapDispatchToProps = dispatch => ({
-    showModal: (type, props) => {
-        dispatch(showModal(type, props));
-    },
-    hideModal: () => {
-        dispatch(hideModal());
-    },
-    updateHierarchyAddState: value => {
-        dispatch(updateHierarchyAddState(value));
-    }
-});
-
+const mapDispatchToProps = {
+    showModal,
+    hideModal,
+    updateHierarchyAddState,
+    fetchSingleFloor,
+    fetchAllDrawings
+};
 export default withRouter(
     connect(
         mapStateToProps,

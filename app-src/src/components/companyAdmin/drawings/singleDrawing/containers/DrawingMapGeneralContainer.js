@@ -44,7 +44,8 @@ class DrawingMapGeneralContainer extends Component {
         centerLat: 51.505,
         centerLng: -0.09,
         firstCorner: null,
-        mode: ADD
+        mode: ADD,
+        currentTooltip: null
     };
 
     render() {
@@ -89,6 +90,8 @@ class DrawingMapGeneralContainer extends Component {
                 </div>
                 <BlockContainer error={error} isEmpty={!drawing}>
                     <DrawingMapViewSimple
+                        currentTooltip={this.state.currentTooltip}
+                        updateCurTooltip={this.updateCurTooltip}
                         showModal={this.props.showModal}
                         position={position}
                         addPinPosition={addPinPosition}
@@ -168,6 +171,7 @@ class DrawingMapGeneralContainer extends Component {
         // re-fetch drawing every 5 seconds until the updated floorplan is retrieved
         if (postSuccess && !prevSuccess) fetchSingleDrawing(drawing.id);
         if (drawing.isFloorplanUpdating && !prevDrawing.isFloorplanUpdating) {
+            console.error('updating!!!!!');
             this._floorplanInterval = setInterval(
                 () => fetchSingleDrawing(drawing.id),
                 5000
@@ -196,6 +200,10 @@ class DrawingMapGeneralContainer extends Component {
         if (furtherFiltrationOption !== prevOption) {
             removeAllRectangles();
         }
+    };
+
+    updateCurTooltip = id => {
+        this.setState({ currentTooltip: id });
     };
 
     handleChangeFilter = (name, val) => {

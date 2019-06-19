@@ -163,10 +163,6 @@ class OutputSettingsContainer extends Component {
     _getDrawingForPinScale = () => {
         const {
             drawings,
-            match: {
-                path,
-                params: { id }
-            },
             filters: { siteID, buildingID, floorID, drawingID }
         } = this.props;
 

@@ -1,24 +1,26 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import ModalOuterContainer from 'components/shared/generic/modals/containers/ModalOuterContainer';
+import AddDrawingsFormContainer from '../containers/AddDrawingsFormContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
-import EditFloorFormContainer from '../containers/EditFloorFormContainer';
+import ModalOuterContainer from 'components/shared/generic/modals/containers/ModalOuterContainer';
 
-const EditFloorModal = ({ floor, isUsingBolsterLabels }) => (
+const AddDrawingsModal = ({ floorID, isUsingBolsterLabels }) => (
     <ModalOuterContainer
         extraClasses={`${isUsingBolsterLabels ? 'w-label-example' : ''}`}
     >
-        <BlockHeading title={`Edit Floor - ${floor.name}`} />
-        <EditFloorFormContainer
-            floor={floor}
+        <BlockHeading title={'Create Drawings'} />
+
+        <AddDrawingsFormContainer
+            floorID={floorID}
             isUsingBolsterLabels={isUsingBolsterLabels}
         />
     </ModalOuterContainer>
 );
 
 const mapStateToProps = ({ companyAdmin: { companySettingsReducer } }) => ({
+    // !alter when it's been determined that company is using bolster labels
     isUsingBolsterLabels: companySettingsReducer.isUsingBolsterLabels
 });
 
-export default connect(mapStateToProps)(EditFloorModal);
+export default connect(mapStateToProps)(AddDrawingsModal);

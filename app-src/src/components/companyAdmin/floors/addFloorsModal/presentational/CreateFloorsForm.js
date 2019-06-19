@@ -4,6 +4,9 @@ import Field from 'components/shared/generic/form/presentational/Field';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
+import BolsterLabelExample from 'components/shared/generic/form/presentational/BolsterLabelExample';
+
+// * .*. in names is used for splitting up field validations without risking overlap with real names
 
 const CreateFloorsForm = ({
     handleSubmit,
@@ -11,7 +14,8 @@ const CreateFloorsForm = ({
     updateFloor,
     addFloor,
     removeFloor,
-    handleClose
+    handleClose,
+    isUsingBolsterLabels
 }) => (
     <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
         <div className="size-lg-12">
@@ -20,7 +24,7 @@ const CreateFloorsForm = ({
                     <div className="size-lg-6" key={floor.id}>
                         <Field name="Floor name" required>
                             <TextInputContainer
-                                name="name"
+                                name={`${floor.id}.*.name`}
                                 value={floor.name}
                                 handleChange={(name, value) =>
                                     updateFloor(name, value, floor.id)
@@ -29,6 +33,11 @@ const CreateFloorsForm = ({
                             />
                         </Field>
                     </div>
+                    {isUsingBolsterLabels && (
+                        <div className="size-lg-6">
+                            <BolsterLabelExample name={floor.name} />
+                        </div>
+                    )}
                     {floors.length > 1 && (
                         <BlockButtonWrapper>
                             <button
@@ -48,7 +57,8 @@ const CreateFloorsForm = ({
                 <i className="fa fa-plus" /> Add another floor
             </button>
             <button className="button green" type="submit">
-                <i className="fa fa-plus" /> Save Floors
+                <i className="fa fa-plus" /> Save Floor
+                {floors.length > 1 ? 's' : ''}
             </button>
             <ButtonContainer handleClick={handleClose}>Cancel</ButtonContainer>
         </BlockButtonWrapper>

@@ -4,18 +4,15 @@ import { withRouter } from 'react-router-dom';
 
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
-
-import {
-    ADD_FLOOR,
-    ADD_FLOORS,
-    ERROR_MODAL
-} from 'constants/shared/modalTypes';
+import { ADD_FLOORS, ERROR_MODAL } from 'constants/shared/modalTypes';
 
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import FloorTableContainer from 'components/companyAdmin/floors/shared/containers/FloorTableContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import updateHierarchyAddState from 'actions/companyAdmin/hierarchy/sync/updateHierarchyAddState';
 import { ACCESS_TYPES_VALUES } from 'constants/companyAdmin/enums';
+import fetchSingleBuilding from 'actions/companyAdmin/buildings/async/fetchSingleBuilding';
+import fetchAllFloors from 'actions/companyAdmin/floors/async/fetchAllFloors';
 
 class BuildingsFloorsTableContainer extends Component {
     render() {
@@ -24,20 +21,12 @@ class BuildingsFloorsTableContainer extends Component {
             <BlockContainer>
                 <BlockHeading title="Floors" classes="w-table">
                     {building.accessType === ACCESS_TYPES_VALUES.OWNER && (
-                        <>
-                            <button
-                                className="button green"
-                                onClick={this.handleAddFloorModal}
-                            >
-                                <i className="fa fa-plus" /> Add floor
-                            </button>
-                            <button
-                                className="button green"
-                                onClick={this.handleAddFloorsModal}
-                            >
-                                <i className="fa fa-plus" /> Add multiple floors
-                            </button>
-                        </>
+                        <button
+                            className="button green"
+                            onClick={this.handleAddFloorsModal}
+                        >
+                            <i className="fa fa-plus" /> Add floors
+                        </button>
                     )}
                 </BlockHeading>
                 <FloorTableContainer ids={building.floorIDs || []} />
@@ -47,8 +36,7 @@ class BuildingsFloorsTableContainer extends Component {
 
     componentDidMount = () => {
         const { showModal, buildingID, isAdding } = this.props;
-
-        if (isAdding) showModal(ADD_FLOOR, { buildingID });
+        if (isAdding) showModal(ADD_FLOORS, { buildingID });
     };
 
     componentDidUpdate = prevProps => {
@@ -59,12 +47,19 @@ class BuildingsFloorsTableContainer extends Component {
             hideModal,
             updatedFloorID,
             history,
-            updateHierarchyAddState
+            updateHierarchyAddState,
+            buildingID,
+            fetchAllFloors,
+            fetchSingleBuilding
         } = this.props;
 
         if (!prevProps.postSuccess && postSuccess) {
-            history.push(`/company/floors/${updatedFloorID}`);
-            updateHierarchyAddState(true);
+            if (updatedFloorID) {
+                history.push(`/company/floors/${updatedFloorID}`);
+            } else {
+                fetchAllFloors();
+                fetchSingleBuilding(buildingID);
+            }
         }
 
         if (error && !prevProps.error) {
@@ -77,11 +72,6 @@ class BuildingsFloorsTableContainer extends Component {
             });
             updateHierarchyAddState(false);
         }
-    };
-
-    handleAddFloorModal = () => {
-        const { showModal, buildingID } = this.props;
-        showModal(ADD_FLOOR, { buildingID });
     };
     handleAddFloorsModal = () => {
         const { showModal, buildingID } = this.props;
@@ -109,7 +99,13 @@ const mapStateToProps = (
     isAdding
 });
 
-const mapDispatchToProps = { showModal, hideModal, updateHierarchyAddState };
+const mapDispatchToProps = {
+    showModal,
+    hideModal,
+    updateHierarchyAddState,
+    fetchAllFloors,
+    fetchSingleBuilding
+};
 
 export default withRouter(
     connect(

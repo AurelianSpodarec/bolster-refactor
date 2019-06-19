@@ -5,7 +5,7 @@ import Table from 'components/shared/generic/tables/presentational/Table';
 import AllOperativeAlertsList from './AllOperativeAlertsList';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 
-const OperativeAlertsTable = ({ isFetching, operativeAlerts }) => (
+const OperativeAlertsTable = ({ isFetching, operativeAlerts, headers }) => (
     <>
         <BlockHeading title="Operative Alerts">
             <Link
@@ -16,15 +16,7 @@ const OperativeAlertsTable = ({ isFetching, operativeAlerts }) => (
             </Link>
         </BlockHeading>
         <Table
-            headers={[
-                'Created By',
-                'Message',
-                'Sent On',
-                'Sent',
-                'Delivered %',
-                'Read %',
-                ''
-            ]}
+            headers={headers}
             withActions
             isFetching={isFetching}
             noData={!operativeAlerts.length}

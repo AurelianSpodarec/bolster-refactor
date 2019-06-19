@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { Map, TileLayer, Marker } from 'react-leaflet';
 import ReactDOMServer from 'react-dom/server';
 import { FILE_STORAGE_URL } from 'config';
@@ -39,7 +38,9 @@ const DrawingMapViewSimple = ({
     handleDelete,
     mode,
     handleCancelPinSelector,
-    isExcluding
+    isExcluding,
+    updateCurTooltip,
+    currentTooltip
 }) => {
     const newPinIcon = L.divIcon({
         className: '',
@@ -126,6 +127,8 @@ const DrawingMapViewSimple = ({
                         />
                         {pins.map(pin => (
                             <MapPinContainer
+                                updateCurTooltip={updateCurTooltip}
+                                tooltipVisible={currentTooltip === pin.id}
                                 urlStart="company"
                                 key={pin.id}
                                 pin={pin}
@@ -146,6 +149,7 @@ const DrawingMapViewSimple = ({
                                 icon={cornerClickedIcon}
                             />
                         )}
+
                         {rectangles.map(rectangle => (
                             <Rectangle
                                 key={rectangle.id}

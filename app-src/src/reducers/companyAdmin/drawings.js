@@ -21,7 +21,10 @@ import {
     EDIT_DRAWING_SUCCESS,
     EDIT_DRAWING_FAILURE,
     UPDATE_FLOOR_PLAN_CONFIRMED,
-    REORDER_DRAWING
+    REORDER_DRAWING,
+    CREATE_DRAWINGS_SUCCESS,
+    CREATE_DRAWINGS_REQUEST,
+    CREATE_DRAWINGS_FAILURE
 } from 'constants/actionTypes/drawings';
 
 export default combineReducers({
@@ -53,6 +56,7 @@ function isFetchingReducer(state = false, action) {
 function updatedIDReducer(state = 0, action) {
     switch (action.type) {
         case CREATE_DRAWING_REQUEST:
+        case CREATE_DRAWINGS_SUCCESS:
             return 0;
         case CREATE_DRAWING_SUCCESS:
             return action.payload.id;
@@ -66,6 +70,7 @@ function errorReducer(state = null, action) {
         case FETCH_ALL_DRAWINGS_REQUEST:
         case FETCH_SINGLE_DRAWING_REQUEST:
         case CREATE_DRAWING_REQUEST:
+        case CREATE_DRAWINGS_REQUEST:
         case DELETE_DRAWING_REQUEST:
         case ARCHIVE_DRAWING_REQUEST:
         case EDIT_DRAWING_REQUEST:
@@ -73,6 +78,7 @@ function errorReducer(state = null, action) {
         case FETCH_ALL_DRAWINGS_FAILURE:
         case FETCH_SINGLE_DRAWING_FAILURE:
         case CREATE_DRAWING_FAILURE:
+        case CREATE_DRAWINGS_FAILURE:
         case DELETE_DRAWING_FAILURE:
         case ARCHIVE_DRAWING_FAILURE:
         case EDIT_DRAWING_FAILURE:
@@ -85,12 +91,12 @@ function errorReducer(state = null, action) {
 function postSuccessReducer(state = false, action) {
     switch (action.type) {
         case CREATE_DRAWING_REQUEST:
-        case DELETE_DRAWING_REQUEST:
+        case CREATE_DRAWINGS_REQUEST:
         case ARCHIVE_DRAWING_REQUEST:
         case EDIT_DRAWING_REQUEST:
             return false;
         case CREATE_DRAWING_SUCCESS:
-        case DELETE_DRAWING_SUCCESS:
+        case CREATE_DRAWINGS_SUCCESS:
         case ARCHIVE_DRAWING_SUCCESS:
         case EDIT_DRAWING_SUCCESS:
             return true;

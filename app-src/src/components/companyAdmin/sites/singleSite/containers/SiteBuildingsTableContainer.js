@@ -4,18 +4,15 @@ import { withRouter } from 'react-router-dom';
 
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
-
-import {
-    ADD_BUILDING,
-    ADD_BUILDINGS,
-    ERROR_MODAL
-} from 'constants/shared/modalTypes';
+import { ADD_BUILDINGS, ERROR_MODAL } from 'constants/shared/modalTypes';
 
 import BuildingsTableContainer from 'components/companyAdmin/buildings/shared/containers/BuildingsTableContainer';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import updateHierarchyAddState from 'actions/companyAdmin/hierarchy/sync/updateHierarchyAddState';
 import { ACCESS_TYPES_VALUES } from 'constants/companyAdmin/enums';
+import fetchAllBuildings from 'actions/companyAdmin/buildings/async/fetchAllBuildings';
+import fetchSingleSite from 'actions/companyAdmin/sites/async/fetchSingleSite';
 
 class SiteBuildingsTableContainer extends Component {
     render() {
@@ -26,17 +23,9 @@ class SiteBuildingsTableContainer extends Component {
                     {site.accessType === ACCESS_TYPES_VALUES.OWNER && (
                         <button
                             className="button green"
-                            onClick={this.handleAddBuildingModal}
-                        >
-                            <i className="fa fa-plus" /> Add building
-                        </button>
-                    )}
-                    {site.accessType === ACCESS_TYPES_VALUES.OWNER && (
-                        <button
-                            className="button green"
                             onClick={this.handleAddBuildingsModal}
                         >
-                            <i className="fa fa-plus" /> Add multiple buildings
+                            <i className="fa fa-plus" /> Add buildings
                         </button>
                     )}
                 </BlockHeading>
@@ -47,8 +36,7 @@ class SiteBuildingsTableContainer extends Component {
 
     componentDidMount = () => {
         const { showModal, siteID, isAdding } = this.props;
-
-        if (isAdding) showModal(ADD_BUILDING, { siteID });
+        if (isAdding) showModal(ADD_BUILDINGS, { siteID });
     };
 
     componentDidUpdate = prevProps => {
@@ -59,12 +47,21 @@ class SiteBuildingsTableContainer extends Component {
             hideModal,
             updatedBuildingID,
             history,
-            updateHierarchyAddState
+            updateHierarchyAddState,
+            fetchAllBuildings,
+            fetchSingleSite,
+            siteID
         } = this.props;
 
         if (postSuccess && !prevProps.postSuccess) {
-            history.push(`/company/buildings/${updatedBuildingID}`);
-            updateHierarchyAddState(true);
+            if (updatedBuildingID) {
+                history.push(`/company/buildings/${updatedBuildingID}`);
+            } else {
+                // get new buildings
+                fetchAllBuildings();
+                // update site's buildingIDs array
+                fetchSingleSite(siteID);
+            }
         }
 
         if (error && !prevProps.error) {
@@ -73,17 +70,11 @@ class SiteBuildingsTableContainer extends Component {
                 title: 'Error',
                 message:
                     error.message ||
-                    '##There was an error processing your request, please try again later.##'
+                    'There was an error processing your request, please try again later.'
             });
             updateHierarchyAddState(false);
         }
     };
-
-    handleAddBuildingModal = () => {
-        const { showModal, siteID } = this.props;
-        showModal(ADD_BUILDING, { siteID });
-    };
-
     handleAddBuildingsModal = () => {
         const { showModal, siteID } = this.props;
         showModal(ADD_BUILDINGS, { siteID });
@@ -93,7 +84,7 @@ class SiteBuildingsTableContainer extends Component {
 const mapStateToProps = (
     {
         companyAdmin: {
-            sitesReducer,
+            sitesReducer: { isFetching, sites },
             buildingsReducer: { postSuccess, updatedBuildingID, error },
             hierarchyReducer: { isAdding }
         }
@@ -103,24 +94,19 @@ const mapStateToProps = (
     error,
     postSuccess,
     updatedBuildingID,
-    site: sitesReducer.sites[match.params.id] || {},
-    isFetching: sitesReducer.isFetching,
+    site: sites[match.params.id] || {},
+    isFetching,
     siteID: match.params.id,
     isAdding
 });
 
-const mapDispatchToProps = dispatch => ({
-    showModal: (type, props) => {
-        dispatch(showModal(type, props));
-    },
-    hideModal: () => {
-        dispatch(hideModal());
-    },
-    updateHierarchyAddState: value => {
-        dispatch(updateHierarchyAddState(value));
-    }
-});
-
+const mapDispatchToProps = {
+    showModal,
+    hideModal,
+    updateHierarchyAddState,
+    fetchAllBuildings,
+    fetchSingleSite
+};
 export default withRouter(
     connect(
         mapStateToProps,
