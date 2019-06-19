@@ -9,7 +9,7 @@ const AddDrawingsModal = ({ floorID, isUsingBolsterLabels }) => (
     <ModalOuterContainer
         extraClasses={`${isUsingBolsterLabels ? 'w-label-example' : ''}`}
     >
-        <BlockHeading title={'Create Drawing(s)'} />
+        <BlockHeading title={'Create Drawings'} />
 
         <AddDrawingsFormContainer
             floorID={floorID}
