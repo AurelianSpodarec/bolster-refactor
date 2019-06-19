@@ -21,7 +21,8 @@ import {
     EDIT_DRAWING_SUCCESS,
     EDIT_DRAWING_FAILURE,
     UPDATE_FLOOR_PLAN_CONFIRMED,
-    REORDER_DRAWING
+    REORDER_DRAWING,
+    CREATE_DRAWINGS_SUCCESS
 } from 'constants/actionTypes/drawings';
 
 export default combineReducers({
@@ -53,6 +54,7 @@ function isFetchingReducer(state = false, action) {
 function updatedIDReducer(state = 0, action) {
     switch (action.type) {
         case CREATE_DRAWING_REQUEST:
+        case CREATE_DRAWINGS_SUCCESS:
             return 0;
         case CREATE_DRAWING_SUCCESS:
             return action.payload.id;

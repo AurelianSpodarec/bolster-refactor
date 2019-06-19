@@ -1,17 +1,15 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import fetchAllOperativeAlerts from 'actions/companyAdmin/operativeAlerts/async/fetchAllOperativeAlerts';
 import AllOperativeAlerts from '../presentational/AllOperativeAlerts';
+import { componentDidMount } from 'helpers/generic';
 
-class AllOperativeAlertsContainer extends Component {
-    render = () => <AllOperativeAlerts />;
+const AllOperativeAlertsContainer = ({ fetchAllOperativeAlerts }) => {
+    componentDidMount(fetchAllOperativeAlerts);
+    return <AllOperativeAlerts />;
+};
 
-    componentDidMount = () => this.props.fetchOperativeAlertsData();
-}
-
-const mapDispatchToProps = dispatch => ({
-    fetchOperativeAlertsData: () => dispatch(fetchAllOperativeAlerts())
-});
+const mapDispatchToProps = { fetchAllOperativeAlerts };
 
 export default connect(
     null,

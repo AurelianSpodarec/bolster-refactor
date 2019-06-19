@@ -10,12 +10,12 @@ const BolsterLabelExample = ({ name }) => (
         <BlockHeading title="Label example" />
         <div className="label-example-container size-lg-12">
             <div className="label-example size-lg-6">
-                <img src={standardLabel} />
+                <img alt="example label standard" src={standardLabel} />
                 <p className="label-content-large">{name}</p>
                 <p className="label-content-small">{name}</p>
             </div>
             <div className="label-example size-lg-6">
-                <img src={trimLabel} />
+                <img alt="example label small" src={trimLabel} />
                 <p className="label-content-small for-trim">{name}</p>
             </div>
         </div>

@@ -29,7 +29,9 @@ const DrawingMapViewSimple = ({
     handleDelete,
     mode,
     handleCancelPinSelector,
-    isExcluding
+    updateCurTooltip,
+    isExcluding,
+    currentTooltip
 }) => {
     const cornerClickedIcon = L.divIcon({
         className: '',
@@ -38,6 +40,7 @@ const DrawingMapViewSimple = ({
         iconAnchor: [15, 50],
         popupAnchor: [0, -50]
     });
+
     return drawing.tilesetS3Key ? (
         <>
             <BlockHeading>
@@ -68,12 +71,14 @@ const DrawingMapViewSimple = ({
                 />
                 {pins.map(pin => (
                     <MapPinContainer
+                        updateCurTooltip={updateCurTooltip}
                         urlStart="client"
                         key={pin.id}
                         pin={pin}
                         withLink={!shouldShowPinSelectorOptions}
                         withTooltip={!isExcluding}
                         isExcluding={isExcluding}
+                        tooltipVisible={currentTooltip === pin.id}
                         isClient
                         client
                     />
