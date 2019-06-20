@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash';
+import { withRouter } from 'react-router-dom';
 
 import App from '../presentational/App';
 
@@ -18,7 +19,7 @@ class AppContainer extends Component {
     //effects onMobile reducer
     checkMobileWidth = _.throttle(() => {
         const { setMobileWidth } = this.props;
-        console.warn('OI YA CUNT');
+
         if (window.innerWidth < 1025) {
             setMobileWidth(true);
         } else {
@@ -31,7 +32,9 @@ const mapDispatchToProps = dispatch => ({
     setMobileWidth: isMobile => dispatch(setMobileWidth(isMobile))
 });
 
-export default connect(
-    null,
-    mapDispatchToProps
-)(AppContainer);
+export default withRouter(
+    connect(
+        null,
+        mapDispatchToProps
+    )(AppContainer)
+);
