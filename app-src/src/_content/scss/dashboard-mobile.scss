@@ -4,7 +4,7 @@
         height: 57px;
 
         .logo {
-            width: 25%;
+            width: 35%;
         }
 
         .profile {
@@ -29,7 +29,7 @@
         }
 
         .account-area {
-            width: 75%;
+            width: 55%;
         }
 
         .notifications {
@@ -61,5 +61,13 @@
 
     .mobile-notifications {
         float: left;
+    }
+
+    .menu {
+        display: none;
+    }
+
+    #page-area {
+        width: 100%;
     }
 }

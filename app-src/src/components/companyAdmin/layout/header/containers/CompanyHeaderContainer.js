@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import CompanyHeader from '../presentational/CompanyHeader';
+import CompanyHeaderMobile from '../presentational/CompanyHeaderMobile';
 
 import { getCompanyColour } from 'helpers/generic';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
@@ -17,13 +18,28 @@ class CompanyHeaderContainer extends Component {
             totalCredits,
             totalRequests,
             isImpersonating,
-            showModal
+            showModal,
+            onMobile
         } = this.props;
 
         const companyColour = getCompanyColour(companySettings.companyColour);
 
-        return (
+        return !onMobile ? (
             <CompanyHeader
+                profile={profile}
+                company={companySettings}
+                companyColour={companyColour}
+                unreadMessageCount={unreadMessageCount}
+                totalCredits={totalCredits}
+                totalRequests={totalRequests}
+                isImpersonating={isImpersonating}
+                showModal={e => {
+                    e.preventDefault();
+                    showModal(BUY_CREDITS);
+                }}
+            />
+        ) : (
+            <CompanyHeaderMobile
                 profile={profile}
                 company={companySettings}
                 companyColour={companyColour}
@@ -52,7 +68,8 @@ const mapStateToProps = ({
         profileReducer: { profile },
         decodeJWTReducer: {
             jwtData: { headquartersCompanyID, companyID }
-        }
+        },
+        onMobileReducer: { onMobile }
     }
 }) => {
     const isImpersonating = headquartersCompanyID !== companyID;
@@ -76,7 +93,8 @@ const mapStateToProps = ({
         totalRequests,
         isImpersonating,
         isFetching,
-        costOfCredits
+        costOfCredits,
+        onMobile
     };
 };
 

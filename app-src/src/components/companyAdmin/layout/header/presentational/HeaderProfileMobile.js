@@ -3,8 +3,9 @@ import { Link } from 'react-router-dom';
 
 import NoProfilePic from '_content/images/layout/blank-profile.png';
 import { FILE_STORAGE_URL } from 'config';
+import AllNotificationsMobile from '../presentational/AllNotificationsMobile';
 
-const HeaderProfile = ({
+const HeaderProfileMobile = ({
     profile,
     popupVisible,
     handleClick,
@@ -12,7 +13,12 @@ const HeaderProfile = ({
     updateNode,
     isImpersonating,
     companyName,
-    isSubscribed
+    isSubscribed,
+    company,
+    unreadMessageCount,
+    totalCredits,
+    totalRequests,
+    showModal
 }) => (
     <div className="profile" ref={updateNode}>
         <div className="user" onClick={handleClick}>
@@ -25,17 +31,26 @@ const HeaderProfile = ({
                 <img src={NoProfilePic} alt="generic profile" />
             )}
             {/* {todo: need to put FILE_STORAGE_URL on no profile pic and every image, when live. } */}
-            <div className="text">
-                <p>{`${profile.firstName} ${profile.lastName}`}</p>
-                <span className="email">
-                    {profile.email}{' '}
-                    {/* todo: ##  impersonation needs stling ## */}
-                    {isImpersonating ? `(impersonating ${companyName})` : ''}
-                </span>
-            </div>
+
             <i className="arrow fas fa-chevron-right" />
         </div>
 
+        <div className="mobile-notifications">
+            <AllNotificationsMobile
+                company={company}
+                unreadMessageCount={unreadMessageCount}
+                totalCredits={totalCredits}
+                totalRequests={totalRequests}
+                showModal={showModal}
+            />
+        </div>
+        <div className="text">
+            <p>{`${profile.firstName} ${profile.lastName}`}</p>
+            <span className="email">
+                {profile.email} {/* todo: ##  impersonation needs stling ## */}
+                {isImpersonating ? `(impersonating ${companyName})` : ''}
+            </span>
+        </div>
         <div className={`options ${popupVisible ? 'visible' : ''}`}>
             <Link to="/company/profile" className="item">
                 <i className="far fa-user fa-fw icon" />
@@ -90,4 +105,4 @@ const HeaderProfile = ({
     </div>
 );
 
-export default HeaderProfile;
+export default HeaderProfileMobile;
