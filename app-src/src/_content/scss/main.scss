@@ -419,6 +419,10 @@ input {
     @include ubuntu;
 }
 
+.hidden {
+    display: none;
+}
+
 .generic-search {
     float: left;
     width: 100%;

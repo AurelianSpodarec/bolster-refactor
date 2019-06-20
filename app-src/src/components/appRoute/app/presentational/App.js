@@ -6,6 +6,7 @@ import Routes from '../../routes/presentational';
 const App = () => (
     <div className="App">
         <Routes />
+        <div className="hidden">hidden</div>
         <div className="clear" />
         <ModalRoute />
     </div>
