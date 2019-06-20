@@ -16,7 +16,6 @@ class AddSiteFormContainer extends Component {
     };
 
     render() {
-        // ! uncomment below and change props when api is done
         const { isUsingBolsterLabels } = this.props;
         return (
             <AddSiteForm
@@ -55,12 +54,17 @@ class AddSiteFormContainer extends Component {
 }
 
 const mapStateToProps = ({
-    companyAdmin: { sitesReducer, companySettingsReducer }
+    companyAdmin: {
+        sitesReducer,
+        companySettingsReducer: {
+            companySettings: { isUsingBolsterLabels }
+        }
+    }
 }) => ({
+    isUsingBolsterLabels,
     postSuccess: sitesReducer.postSuccess,
     error: sitesReducer.error,
-    updatedSiteID: sitesReducer.updatedSiteID,
-    isUsingBolsterLabels: companySettingsReducer.isUsingBolsterLabels
+    updatedSiteID: sitesReducer.updatedSiteID
 });
 
 const mapDispatchToProps = dispatch => ({

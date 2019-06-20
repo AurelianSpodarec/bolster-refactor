@@ -57,6 +57,16 @@ $dark-grey-alt: #808080;
     }
 }
 
+@mixin swiss721-roman() {
+    font: {
+        family: "Swiss_721 W01 Roman", sans-serif;
+    }
+}
+@mixin swiss721-medium() {
+    font: {
+        family: "Swiss_721 W01 Medium", sans-serif;
+    }
+}
 //vertical centered content
 @mixin vertical-center() {
     top: 50%;
