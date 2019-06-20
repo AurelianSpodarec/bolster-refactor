@@ -13,6 +13,8 @@ import resetFilterOptions from 'actions/companyAdmin/reports/sync/resetFilterOpt
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { CONFIRM_SUBMIT } from 'constants/shared/modalTypes';
+import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import fetchAllTemplates from 'actions/companyAdmin/templates/async/fetchAllTemplates';
 
 class BasicFiltersContainer extends Component {
     state = {
@@ -29,12 +31,15 @@ class BasicFiltersContainer extends Component {
             formatArrForDropdown,
             services,
             filters: {
+                templateID,
                 serviceID,
                 status,
                 fromDateInclusive,
                 toDateInclusive,
                 reportHistories
-            }
+            },
+            isFetchingTemplates,
+            templates
         } = this.props;
 
         const serviceOptions = formatArrForDropdown(services, true);
@@ -42,26 +47,39 @@ class BasicFiltersContainer extends Component {
         const historyNumsOptions = convertEnumToDropdownOptions(
             NUMBER_OF_HISTORIES
         );
+        const templateOptions = formatArrForDropdown(templates, true);
 
         return (
-            <BasicFilters
-                isDrawingPage={isDrawingPage}
-                dateError={fieldErrors['fromDateInclusive']}
-                handleChange={this.handleChange}
-                handleDateChange={this.handleDateChange}
-                serviceOptions={Object.values(serviceOptions)}
-                selectedService={serviceOptions[serviceID]}
-                statusOptions={Object.values(statusOptions)}
-                selectedStatus={statusOptions[status]}
-                fromDateInclusive={fromDateInclusive}
-                toDateInclusive={toDateInclusive}
-                historyNumsOptions={Object.values(historyNumsOptions)}
-                selectedHistoryNum={historyNumsOptions[reportHistories]}
-                fieldError={fieldError}
-                handleDateBlur={this.handleDateBlur}
-            />
+            <div className={`flex-item size-lg-${isDrawingPage ? '12' : '6'}`}>
+                <BlockContainer isFetching={isFetchingTemplates}>
+                    <BasicFilters
+                        isDrawingPage={isDrawingPage}
+                        dateError={fieldErrors['fromDateInclusive']}
+                        handleChange={this.handleChange}
+                        handleDateChange={this.handleDateChange}
+                        serviceOptions={Object.values(serviceOptions)}
+                        selectedService={serviceOptions[serviceID]}
+                        templateOptions={Object.values(templateOptions)}
+                        selectedTemplate={templateOptions[templateID]}
+                        statusOptions={Object.values(statusOptions)}
+                        selectedStatus={statusOptions[status]}
+                        fromDateInclusive={fromDateInclusive}
+                        toDateInclusive={toDateInclusive}
+                        historyNumsOptions={Object.values(historyNumsOptions)}
+                        selectedHistoryNum={historyNumsOptions[reportHistories]}
+                        fieldError={fieldError}
+                        handleDateBlur={this.handleDateBlur}
+                    />
+                </BlockContainer>
+            </div>
         );
     }
+
+    componentDidMount = () => {
+        const { fetchAllTemplates } = this.props;
+
+        fetchAllTemplates();
+    };
 
     handleDateBlur = isStart => {
         isStart
@@ -127,16 +145,20 @@ const mapStateToProps = ({
             fields,
             customFilters: { pins = [] },
             filters: { pinIDs = [] }
-        }
+        },
+        templatesReducer: { isFetching: isFetchingTemplates, templates }
     }
 }) => ({
-    shouldConfirm: !isObjEmpty(fields) || pins.length !== pinIDs.length
+    shouldConfirm: !isObjEmpty(fields) || pins.length !== pinIDs.length,
+    isFetchingTemplates,
+    templates: Object.values(templates)
 });
 
 const mapDispatchToProps = {
     resetFilterOptions,
     hideModal,
-    showModal
+    showModal,
+    fetchAllTemplates
 };
 
 export default withUpdateOnChange(
