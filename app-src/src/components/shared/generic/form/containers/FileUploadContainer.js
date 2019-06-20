@@ -161,8 +161,9 @@ class FileUploadContainer extends Component {
                 progress(e.lengthComputable, e.loaded, e.total)
         };
 
+        const { skipTemp = false } = this.props;
         axios
-            .post(FILE_API_URL, formData, config)
+            .post(`${FILE_API_URL}?skipTemp=${skipTemp}`, formData, config)
             .then(({ data: { s3Key } }) => {
                 const { name, handleChange } = this.props;
                 handleChange(name, s3Key);
