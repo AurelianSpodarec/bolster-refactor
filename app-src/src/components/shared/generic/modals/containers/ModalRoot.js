@@ -57,7 +57,9 @@ import {
     CLIENT_SINGLE_PIN_GENERATE_REPORT_SUCCESS,
     SELECT_PIN_SCALE,
     ADD_DRAWINGS,
-    SET_TEMPLATE_IMAGE
+    SET_TEMPLATE_IMAGE,
+    ADMIN_CONFIRM_PAYMENT
+    // ADMIN_CONFIRM_FREE_INVOICE
 } from 'constants/shared/modalTypes';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
@@ -118,6 +120,7 @@ import CreateBuildingsModal from 'components/companyAdmin/buildings/addBuildings
 import CreateFloorsModal from 'components/companyAdmin/floors/addFloorsModal/presentational/CreateFloorsModal';
 import AddDrawingsModal from 'components/companyAdmin/drawings/addDrawingsModal/presentational/AddDrawingsModal';
 import SetImageModalContainer from 'components/superAdmin/templateBuilder/setImage/containers/SetImageModalContainer';
+import RecordPaymentModalContainer from 'components/superAdmin/invoices/recordPaymentModal/containers/RecordPaymentModalContainer';
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModalContainer,
@@ -175,7 +178,8 @@ const MODAL_COMPONENTS = {
     [SINGLE_PIN_GENERATE_REPORT_SUCCESS]: SinglePinGenerateReportSuccessModalContainer,
     [CLIENT_SINGLE_PIN_GENERATE_REPORT_SUCCESS]: ClientSinglePinGenerateReportSuccessModalContainer,
     [SELECT_PIN_SCALE]: SelectPinScaleModalContainer,
-    [SET_TEMPLATE_IMAGE]: SetImageModalContainer
+    [SET_TEMPLATE_IMAGE]: SetImageModalContainer,
+    [ADMIN_CONFIRM_PAYMENT]: RecordPaymentModalContainer
 };
 
 const ModalRoot = ({ modalType, modalProps, ...otherProps }) => {
