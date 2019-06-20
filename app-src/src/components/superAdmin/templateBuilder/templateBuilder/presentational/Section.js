@@ -31,7 +31,6 @@ const Section = ({
                     Update
                 </button>
             </BlockHeading>
-
             <QuestionList
                 sectionUUID={section.uuid}
                 questions={questions}
