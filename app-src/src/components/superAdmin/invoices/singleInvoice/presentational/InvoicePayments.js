@@ -40,7 +40,7 @@ const InvoicePayments = ({
                     <CurrencyInput
                         value={paymentValue}
                         name="paymentValue"
-                        type=""
+                        type="number"
                         placeholder="£00.00"
                         handleChange={handleChange}
                     />

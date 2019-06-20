@@ -1,6 +1,6 @@
 import React from 'react';
 
-const NumberInput = ({
+const CurrencyInput = ({
     type,
     name,
     placeholder,
@@ -24,4 +24,4 @@ const NumberInput = ({
     </>
 );
 
-export default NumberInput;
+export default CurrencyInput;
