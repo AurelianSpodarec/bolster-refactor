@@ -9,12 +9,11 @@ import editBuilding from 'actions/companyAdmin/buildings/async/editBuilding';
 class BuildingEditFormContainer extends Component {
     state = {
         name: '',
-        addressLine1: '',
-        addressLine2: '',
-        postcode: ''
+        location: ''
     };
 
     render() {
+        const { isUsingBolsterLabels } = this.props;
         return (
             <BuildingEditForm
                 {...this.state}
@@ -22,6 +21,7 @@ class BuildingEditFormContainer extends Component {
                 handleSubmit={this.handleSubmit}
                 buildingID={this.props.buildingID}
                 hideModal={this.props.hideModal}
+                isUsingBolsterLabels={isUsingBolsterLabels}
             />
         );
     }
@@ -49,14 +49,12 @@ class BuildingEditFormContainer extends Component {
     //_ <-- used because this helper function is only for this class - not shared or used within the children
     _setFormDetails = () => {
         const {
-            building: { name, addressLine1, addressLine2, postcode }
+            building: { name, location }
         } = this.props;
 
         this.setState({
             name,
-            addressLine1,
-            addressLine2,
-            postcode
+            location
         });
     };
 

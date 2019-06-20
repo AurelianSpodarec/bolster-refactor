@@ -5,12 +5,14 @@ import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/pr
 import Form from 'components/shared/generic/form/containers/Form';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
+import BolsterLabelExample from 'components/shared/generic/form/presentational/BolsterLabelExample';
 
 const FloorEditForm = ({
     handleSubmit,
     handleInputChange,
     hideModal,
-    name
+    name,
+    isUsingBolsterLabels
 }) => (
     <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
         <div className="size-lg-12">
@@ -24,6 +26,11 @@ const FloorEditForm = ({
                     />
                 </Field>
             </div>
+            {isUsingBolsterLabels && (
+                <div className="size-lg-6">
+                    <BolsterLabelExample name={name} />
+                </div>
+            )}
         </div>
 
         <BlockButtonWrapper>

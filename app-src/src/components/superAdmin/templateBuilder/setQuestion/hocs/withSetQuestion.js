@@ -39,13 +39,14 @@ export default function(WrappedComponent) {
 
         _getPrereqOptions = () => {
             const { questions, templateUUID: temUuid } = this.props;
+            const { STATUS } = QUESTION_TYPE_VALUES;
             const options = questions
                 .filter(q => q.templateUUID === temUuid)
                 .filter(q => PREREQ_TYPES.includes(q.questionType + ''))
                 .map(({ uuid, name, questionType }) => ({
                     value: uuid,
                     text: name,
-                    isStatus: questionType + '' === QUESTION_TYPE_VALUES.STATUS
+                    isStatus: questionType + '' === STATUS
                 }));
 
             return convertArrToObj(options, 'value');

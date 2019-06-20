@@ -16,6 +16,7 @@ class EditSiteFormContainer extends Component {
     };
 
     render() {
+        const { isUsingBolsterLabels } = this.props;
         return (
             <EditSiteForm
                 {...this.state}
@@ -23,6 +24,7 @@ class EditSiteFormContainer extends Component {
                 handleSubmit={this.handleSubmit}
                 siteID={this.props.siteID}
                 hideModal={this.props.hideModal}
+                isUsingBolsterLabels={isUsingBolsterLabels}
             />
         );
     }
@@ -80,6 +82,10 @@ class EditSiteFormContainer extends Component {
     };
 }
 
+const mapStateToProps = ({ companyAdmin: { companySettingsReducer } }) => ({
+    isUsingBolsterLabels: companySettingsReducer.isUsingBolsterLabels
+});
+
 const mapDispatchToProps = dispatch => ({
     editSite: (siteID, postBody) => {
         dispatch(editSite(siteID, postBody));
@@ -88,6 +94,6 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default connect(
-    null,
+    mapStateToProps,
     mapDispatchToProps
 )(EditSiteFormContainer);

@@ -17,3 +17,5 @@ export const SET_API_FIELD_ERRORS = 'SET_API_FIELD_ERRORS';
 
 export const SHOW_MODAL = 'SHOW_MODAL';
 export const HIDE_MODAL = 'HIDE_MODAL';
+
+export const SET_MOBILE = 'SET_MOBILE';

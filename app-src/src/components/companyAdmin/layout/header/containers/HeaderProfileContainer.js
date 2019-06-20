@@ -10,7 +10,8 @@ import { isEmpty } from 'helpers/generic';
 
 class HeaderProfileContainer extends Component {
     state = {
-        popupVisible: false
+        popupVisible: false,
+        renderMobile: false
     };
 
     render() {
@@ -33,6 +34,7 @@ class HeaderProfileContainer extends Component {
                 isImpersonating={isImpersonating}
                 companyName={companyName}
                 isSubscribed={this._isSubscribed()}
+                renderMobile={this.state.renderMobile}
             />
         );
     }

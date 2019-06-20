@@ -15,7 +15,8 @@ const AddDrawingsFormContainer = ({
     createDrawing,
     createDrawings,
     updateHierarchyAddState,
-    isUsingBolsterLabels
+    isUsingBolsterLabels,
+    filesUploading
 }) => {
     const [
         drawings,
@@ -50,18 +51,21 @@ const AddDrawingsFormContainer = ({
             handleClose={handleClose}
             handleSubmit={handleSubmit}
             isUsingBolsterLabels={isUsingBolsterLabels}
+            filesUploading={filesUploading}
         />
     );
 
     function handleSubmit() {
         const drawings = getPostBody();
-        if (drawings.length === 1) {
-            const [drawing] = drawings;
-            const { name, file, templateUsageRule } = drawing;
-            createDrawing({ name, file, templateUsageRule, floorID });
+        if (!filesUploading) {
+            if (drawings.length === 1) {
+                const [drawing] = drawings;
+                const { name, file, templateUsageRule } = drawing;
+                createDrawing({ name, file, templateUsageRule, floorID });
+            }
+            createDrawings({ drawings, floorID });
+            hideModal();
         }
-        createDrawings({ drawings, floorID });
-        hideModal();
     }
 
     function handleClose() {
@@ -69,6 +73,14 @@ const AddDrawingsFormContainer = ({
         updateHierarchyAddState(false);
     }
 };
+
+const mapStateToProps = ({
+    shared: {
+        filesUploadingReducer: { filesUploading }
+    }
+}) => ({
+    filesUploading
+});
 
 const mapDispatchToProps = {
     createDrawing,
@@ -78,7 +90,7 @@ const mapDispatchToProps = {
 };
 export default withRouter(
     connect(
-        null,
+        mapStateToProps,
         mapDispatchToProps
     )(AddDrawingsFormContainer)
 );

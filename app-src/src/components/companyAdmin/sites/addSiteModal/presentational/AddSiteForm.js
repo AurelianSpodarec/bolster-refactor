@@ -5,7 +5,7 @@ import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/pr
 import Form from 'components/shared/generic/form/containers/Form';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
-// import BolsterLabelExample from 'components/shared/generic/form/presentational/BolsterLabelExample';
+import BolsterLabelExample from 'components/shared/generic/form/presentational/BolsterLabelExample';
 
 const AddSiteForm = ({
     handleSubmit,
@@ -75,7 +75,7 @@ const AddSiteForm = ({
                 </Field>
             </div>
         </div>
-        {/* {isUsingBolsterLabels && <BolsterLabelExample name={name} />} */}
+        {isUsingBolsterLabels && <BolsterLabelExample name={name} />}
 
         <BlockButtonWrapper>
             <button className="button green">

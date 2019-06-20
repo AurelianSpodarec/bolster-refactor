@@ -56,7 +56,8 @@ import {
     SINGLE_PIN_GENERATE_REPORT_SUCCESS,
     CLIENT_SINGLE_PIN_GENERATE_REPORT_SUCCESS,
     SELECT_PIN_SCALE,
-    ADD_DRAWINGS
+    ADD_DRAWINGS,
+    SET_TEMPLATE_IMAGE
 } from 'constants/shared/modalTypes';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
@@ -116,6 +117,7 @@ import SelectPinScaleModalContainer from 'components/shared/generic/modals/conta
 import CreateBuildingsModal from 'components/companyAdmin/buildings/addBuildingsModal/presentational/CreateBuildingsModal';
 import CreateFloorsModal from 'components/companyAdmin/floors/addFloorsModal/presentational/CreateFloorsModal';
 import AddDrawingsModal from 'components/companyAdmin/drawings/addDrawingsModal/presentational/AddDrawingsModal';
+import SetImageModalContainer from 'components/superAdmin/templateBuilder/setImage/containers/SetImageModalContainer';
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModalContainer,
@@ -172,7 +174,8 @@ const MODAL_COMPONENTS = {
     [DOCUMENT_RESPONSE_AGREEANCE]: DocumentResponseAgreeanceModalContainer,
     [SINGLE_PIN_GENERATE_REPORT_SUCCESS]: SinglePinGenerateReportSuccessModalContainer,
     [CLIENT_SINGLE_PIN_GENERATE_REPORT_SUCCESS]: ClientSinglePinGenerateReportSuccessModalContainer,
-    [SELECT_PIN_SCALE]: SelectPinScaleModalContainer
+    [SELECT_PIN_SCALE]: SelectPinScaleModalContainer,
+    [SET_TEMPLATE_IMAGE]: SetImageModalContainer
 };
 
 const ModalRoot = ({ modalType, modalProps, ...otherProps }) => {

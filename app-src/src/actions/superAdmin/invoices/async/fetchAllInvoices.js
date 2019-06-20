@@ -25,7 +25,7 @@ export const fetchCompanyInvoicesFailure = error => ({
 export default () => dispatch => {
     dispatch(fetchCompanyInvoicesRequest());
 
-    axios
+    return axios
         .get(`${ADMIN_API_URL}/invoices`, getHeaders())
         .then(({ data }) => dispatch(fetchCompanyInvoicesSuccess(data)))
         .catch(err => dispatch(fetchCompanyInvoicesFailure(err.message)));

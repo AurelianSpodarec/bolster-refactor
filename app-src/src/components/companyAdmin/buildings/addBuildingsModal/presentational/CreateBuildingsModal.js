@@ -9,7 +9,7 @@ const CreateBuildingsModal = ({ siteID, isUsingBolsterLabels }) => (
     <ModalOuterContainer
         extraClasses={`${isUsingBolsterLabels ? 'w-label-example' : ''}`}
     >
-        <BlockHeading title={'Create Multiple Buildings'} />
+        <BlockHeading title={'Create Buildings'} />
         <CreateBuildingsFormContainer
             siteID={siteID}
             isUsingBolsterLabels={isUsingBolsterLabels}
@@ -18,7 +18,6 @@ const CreateBuildingsModal = ({ siteID, isUsingBolsterLabels }) => (
 );
 
 const mapStateToProps = ({ companyAdmin: { companySettingsReducer } }) => ({
-    // !alter when it's been determined that company is using bolster labels
     isUsingBolsterLabels: companySettingsReducer.isUsingBolsterLabels
 });
 
