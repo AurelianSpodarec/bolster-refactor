@@ -2,20 +2,49 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
-import InvoicePayments from 'components/superAdmin/invoices/singleInvoice/presentational/InvoicePayments.js';
+import {
+    ADMIN_CONFIRM_PAYMENT,
+    ADMIN_CONFIRM_FREE_INVOICE
+} from 'constants/shared/modalTypes';
 
-const InvoicePaymentsContainer = ({ isFetching, error, invoice, company }) => {
-    const [paymentValue, changePaymentInput] = useState(0);
+import InvoicePayments from 'components/superAdmin/invoices/singleInvoice/presentational/InvoicePayments.js';
+import { showModal } from 'actions/shared/generic/modals/sync/showModal';
+
+const InvoicePaymentsContainer = ({
+    isFetching,
+    error,
+    invoice,
+    company,
+    showModal
+}) => {
+    const [paymentValue, changePaymentInput] = useState(Number(0).toFixed(2));
     return (
         <InvoicePayments
             paymentValue={paymentValue}
-            handleChange={changePaymentInput}
+            handleChange={handleChange}
             isFetching={isFetching}
             error={error}
             invoice={invoice}
             company={company}
+            handleOpenModal={handleOpenModal}
         />
     );
+
+    function handleChange(e) {
+        changePaymentInput(e.target.value);
+    }
+
+    function handleOpenModal(type) {
+        if (type === ADMIN_CONFIRM_FREE_INVOICE) {
+            showModal(ADMIN_CONFIRM_FREE_INVOICE, { id: invoice.id });
+        }
+        if (type === ADMIN_CONFIRM_PAYMENT) {
+            showModal(ADMIN_CONFIRM_PAYMENT, {
+                id: invoice.id,
+                value: paymentValue
+            });
+        }
+    }
 };
 
 const mapStateToProps = (
@@ -41,4 +70,13 @@ const mapStateToProps = (
     company: companies[companyID] || null
 });
 
-export default withRouter(connect(mapStateToProps)(InvoicePaymentsContainer));
+const mapDispatchToProps = dispatch => ({
+    showModal: (type, props) => dispatch(showModal(type, props))
+});
+
+export default withRouter(
+    connect(
+        mapStateToProps,
+        mapDispatchToProps
+    )(InvoicePaymentsContainer)
+);

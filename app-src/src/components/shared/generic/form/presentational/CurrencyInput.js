@@ -9,9 +9,9 @@ const CurrencyInput = ({
     handleChange,
     handleBlur
 }) => (
-    <>
+    <div className="size-lg-12">
         <input
-            className={`generic-input ${classes}`}
+            className={`generic-input currency ${classes}`}
             type={type}
             name={name}
             placeholder={placeholder}
@@ -21,7 +21,7 @@ const CurrencyInput = ({
             onChange={handleChange}
             onBlur={handleBlur}
         />
-    </>
+    </div>
 );
 
 export default CurrencyInput;
