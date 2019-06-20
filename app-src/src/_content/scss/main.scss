@@ -1773,6 +1773,9 @@ input {
         padding: 8px 15px;
         margin-top: 5px;
     }
+    &.currency {
+        width: 90%;
+    }
 }
 
 .custom-dropdown {
