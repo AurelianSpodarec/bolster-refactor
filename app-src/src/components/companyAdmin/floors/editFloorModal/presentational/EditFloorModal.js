@@ -17,8 +17,14 @@ const EditFloorModal = ({ floor, isUsingBolsterLabels }) => (
     </ModalOuterContainer>
 );
 
-const mapStateToProps = ({ companyAdmin: { companySettingsReducer } }) => ({
-    isUsingBolsterLabels: companySettingsReducer.isUsingBolsterLabels
+const mapStateToProps = ({
+    companyAdmin: {
+        companySettingsReducer: {
+            companySettings: { isUsingBolsterLabels }
+        }
+    }
+}) => ({
+    isUsingBolsterLabels
 });
 
 export default connect(mapStateToProps)(EditFloorModal);
