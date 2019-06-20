@@ -17,7 +17,6 @@ import '_content/scss/dashboard-mobile.scss';
 import 'filepond/dist/filepond.min.css';
 import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css';
 import AppContainer from 'components/appRoute/app/containers/AppContainer';
-import App from 'components/appRoute/app/presentational/App';
 
 let middleWare = [thunk];
 
@@ -31,7 +30,7 @@ ReactDOM.render(
     <Router>
         <Provider store={store}>
             <DragDropContextProvider backend={HTML5Backend}>
-                <App />
+                <AppContainer />
             </DragDropContextProvider>
         </Provider>
     </Router>,
