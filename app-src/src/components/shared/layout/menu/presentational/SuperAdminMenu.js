@@ -6,8 +6,6 @@ import MenuItemContainer from '../containers/MenuItemContainer';
 
 const SuperAdminMenu = ({ logout }) => (
     <>
-        <div className="menu-bg" />
-
         <div className="menu">
             <MenuItemContainer link="/admin" base>
                 <i className="fa fa-home icon" />{' '}
