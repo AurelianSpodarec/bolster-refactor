@@ -150,6 +150,10 @@ class AddPinFormContainer extends Component {
     };
 
     handleChange = (name, value) => {
+        const { resetPinAnswers, updateAddPinStatus } = this.props;
+        resetPinAnswers();
+        updateAddPinStatus('');
+
         this.setState({ [name]: value });
     };
 

@@ -32,7 +32,8 @@ class EditSettingsFormContainer extends Component {
         defaultTemplateUsageRule: undefined,
         initialFile: '',
         timezone: { value: '', label: '' },
-        dateFormat: { value: '', label: '' }
+        dateFormat: { value: '', label: '' },
+        isUsingBolsterLabels: false
     };
 
     render() {
