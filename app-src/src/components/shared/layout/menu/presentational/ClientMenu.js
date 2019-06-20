@@ -5,7 +5,6 @@ import MenuHeader from './MenuHeader';
 
 const ClientMenu = ({ dismissMessages, unreadCount }) => (
     <>
-        <div className="menu-bg" />
         <div className="menu">
             <MenuHeader title="My Access" />
             <MenuItemContainer link="/client/sites">

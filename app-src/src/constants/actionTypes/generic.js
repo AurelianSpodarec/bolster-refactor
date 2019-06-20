@@ -19,3 +19,5 @@ export const SHOW_MODAL = 'SHOW_MODAL';
 export const HIDE_MODAL = 'HIDE_MODAL';
 
 export const SET_MOBILE = 'SET_MOBILE';
+
+export const TOGGLE_MOBILE_MENU = 'TOGGLE_MOBILE_MENU';

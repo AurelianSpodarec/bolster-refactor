@@ -33,6 +33,7 @@ const SetImageModal = ({
                     handleChange={handleFileChange}
                     required
                     acceptedTypes={['image/*']}
+                    skipTemp
                 />
             </Field>
             <BlockButtonWrapper>

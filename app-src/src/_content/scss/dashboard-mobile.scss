@@ -1,16 +1,21 @@
+@import "./variables.scss";
+
 @media only screen and (max-width: 1024px) {
     //company admin header
     #page-header {
         height: 57px;
 
         .logo {
-            width: 35%;
-        }
-
-        .profile {
-            float: right;
-            min-width: 0;
-            width: 50%;
+            width: 40%;
+            float: none;
+            display: block;
+            margin: 0 auto;
+            img {
+                height: 40px;
+            }
+            a {
+                padding: 3px 10px;
+            }
         }
 
         .container {
@@ -28,43 +33,114 @@
             font-size: 180%;
         }
 
-        .account-area {
-            width: 55%;
-        }
+        .mobile-profile-menu {
+            position: absolute;
+            display: none;
+            top: 100%;
+            right: 0;
+            background-color: $background-grey;
+            width: 250px;
+            z-index: 5000;
+            &.visible {
+                display: block;
+            }
 
+            .text {
+                float: left;
+                width: 100%;
+                padding: 5px 15px;
+                float: left;
+
+                p {
+                    @include ubuntu-medium;
+                    font-size: 160%;
+                }
+
+                .email {
+                    font-size: 140%;
+                }
+            }
+
+            .account-area {
+                width: 100%;
+                height: 50px;
+            }
+
+            .mobile-notifications {
+                float: left;
+                width: 100%;
+            }
+        }
         .notifications {
+            width: 100%;
+            .item-container {
+                width: 25%;
+                .item {
+                    &.main {
+                        width: 100%;
+                    }
+                }
+            }
             .item {
                 &.main {
+                    width: 25%;
                     > i {
                         font-size: 180%;
+                    }
+
+                    &:first-child {
+                        padding-top: 5px;
                     }
                     .number {
                         width: 25px;
                         height: 25px;
-                        font-size: 95%;
+                        font-size: 100%;
+                        margin-top: -8px;
                     }
                 }
             }
+        }
+        .profile {
+            float: right;
+            min-width: 0;
+            width: auto;
 
-            .profile {
-                .user {
-                    .text {
-                        display: none;
-                    }
-                    .arrow {
-                        display: none;
-                    }
+            .user {
+                padding: 5px 30px 5px 15px;
+
+                img {
+                    width: 40px;
+                    height: 40px;
+                    margin-right: 0;
+                }
+                .text {
+                    display: none;
+                }
+                .arrow {
+                    right: 10px;
                 }
             }
         }
     }
 
-    .mobile-notifications {
-        float: left;
+    .menu-wrapper {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        z-index: 1;
+        transition: transform ease-in-out 0.5s;
+        transform: translateX(-100%);
+        &.mobile-open {
+            transform: translateX(0);
+        }
     }
 
     .menu {
-        display: none;
+        width: 100%;
+        a {
+            padding: 10px 7.5px;
+        }
     }
 
     #page-area {
