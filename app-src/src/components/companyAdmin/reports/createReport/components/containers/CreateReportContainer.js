@@ -12,10 +12,9 @@ export class CreateReportContainer extends Component {
     render = () => <CreateReport />;
 
     componentDidMount = () => {
-        const { fetchAllLevels, fetchAllTemplates } = this.props;
+        const { fetchAllLevels } = this.props;
 
         fetchAllLevels();
-        fetchAllTemplates();
     };
 }
 
