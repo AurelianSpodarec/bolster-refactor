@@ -17,9 +17,14 @@ const CreateFloorsModal = ({ buildingID, isUsingBolsterLabels }) => (
     </ModalOuterContainer>
 );
 
-const mapStateToProps = ({ companyAdmin: { companySettingsReducer } }) => ({
-    // !alter when it's been determined that company is using bolster labels
-    isUsingBolsterLabels: companySettingsReducer.isUsingBolsterLabels
+const mapStateToProps = ({
+    companyAdmin: {
+        companySettingsReducer: {
+            companySettings: { isUsingBolsterLabels }
+        }
+    }
+}) => ({
+    isUsingBolsterLabels
 });
 
 export default connect(mapStateToProps)(CreateFloorsModal);

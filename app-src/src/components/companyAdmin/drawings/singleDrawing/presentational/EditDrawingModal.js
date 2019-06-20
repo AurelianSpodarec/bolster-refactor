@@ -97,8 +97,14 @@ const EditDrawingModal = ({
     </ModalOuterContainer>
 );
 
-const mapStateToProps = ({ companyAdmin: { companySettingsReducer } }) => ({
-    isUsingBolsterLabels: companySettingsReducer.isUsingBolsterLabels
+const mapStateToProps = ({
+    companyAdmin: {
+        companySettingsReducer: {
+            companySettings: { isUsingBolsterLabels }
+        }
+    }
+}) => ({
+    isUsingBolsterLabels
 });
 
 export default connect(mapStateToProps)(EditDrawingModal);

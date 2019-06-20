@@ -143,9 +143,10 @@ button {
                 width: 100%;
                 font-size: 220%;
                 font-weight: 600;
-                top: 26%;
-                left: 10%;
+                top: 28%;
+                left: 9%;
                 white-space: nowrap;
+                @include swiss721-medium;
             }
             .label-content-small {
                 position: absolute;
@@ -154,8 +155,9 @@ button {
                 top: 42%;
                 left: 6%;
                 white-space: nowrap;
+                @include swiss721-roman;
                 &.for-trim {
-                    top: 54%;
+                    top: 55%;
                     left: 3%;
                     font-size: 70%;
                 }
