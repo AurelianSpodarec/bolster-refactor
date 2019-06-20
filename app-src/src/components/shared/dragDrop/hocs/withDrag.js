@@ -3,37 +3,48 @@ import { DragSource, DropTarget } from 'react-dnd';
 import flow from 'lodash/flow';
 
 export default function(WrappedComponent, type = 'CARD') {
-    let WithDrag = ({
-        isDragging,
-        connectDragSource,
-        connectDropTarget,
-        ...rest
-    }) => {
-        const ref = React.createRef();
-        connectDragSource(ref);
-        connectDropTarget(ref);
+    class WithDrag extends React.Component {
+        constructor(props) {
+            super(props);
+            this.ref = React.createRef();
+        }
 
-        return (
-            <WrappedComponent
-                forwardRef={ref}
-                {...rest}
-                isDragging={isDragging}
-            />
-        );
-    };
+        render() {
+            const {
+                isDragging,
+                connectDragSource,
+                connectDropTarget,
+                ...rest
+            } = this.props;
+            const ref = this.ref;
+            connectDragSource(ref);
+            connectDropTarget(ref);
+
+            return (
+                <WrappedComponent
+                    forwardRef={ref}
+                    {...rest}
+                    isDragging={isDragging}
+                />
+            );
+        }
+    }
 
     const specTarget = {
         canDrop: () => false,
         hover(props, monitor) {
-            const { index, id } = monitor.getItem();
+            const { index: dragIndex, id } = monitor.getItem();
             const { index: overIndex } = props;
-            if (index === overIndex) return;
+            if (dragIndex === overIndex) return;
+
             props.onMove(id, overIndex);
             monitor.getItem().index = overIndex;
         }
     };
-    const collectTarget = connect => ({
-        connectDropTarget: connect.dropTarget()
+    const collectTarget = (connect, monitor) => ({
+        connectDropTarget: connect.dropTarget(),
+        isOver: monitor.isOver(),
+        canDrop: monitor.canDrop()
     });
 
     const specSource = {
@@ -57,10 +68,6 @@ export default function(WrappedComponent, type = 'CARD') {
         connectDragSource: connect.dragSource(),
         isDragging: monitor.isDragging()
     });
-
-    WithDrag = DropTarget(type, specTarget, collectTarget)(
-        DragSource(type, specSource, collectSource)(WithDrag)
-    );
 
     return flow(
         DropTarget(type, specTarget, collectTarget),
