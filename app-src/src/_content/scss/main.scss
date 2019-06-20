@@ -2249,6 +2249,10 @@ input {
             &:hover {
                 text-decoration: none;
             }
+
+            &.grey {
+                color: $body-text;
+            }
         }
 
         .status-icon {
