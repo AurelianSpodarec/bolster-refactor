@@ -28,7 +28,8 @@ const SuperAdminInvoicesTableContainer = ({ error, isFetching, invoices }) => (
 
 const mapStateToProps = ({
     superAdmin: {
-        invoicesReducer: { error, isFetching, invoices }
+        invoicesReducer: { error, isFetching, invoices },
+        companiesReducer: { isFetching: isFetchingCompanies }
     }
 }) => ({
     invoices: Object.values(invoices),
