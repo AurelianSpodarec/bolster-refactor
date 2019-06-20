@@ -7,17 +7,22 @@ const SuperAdminInvoicesTable = ({
     isFetching,
     invoices,
     showModal,
-    headers
+    headers,
+    companies
 }) => (
     <Table
         withActions
         headers={headers}
         isFetching={isFetching}
         error={error}
-        noData={!invoices.length}
+        noData={!invoices.length || !Object.values(companies).length}
         noDataMessage="No invoices to display."
     >
-        <SuperAdminInvoicesList invoices={invoices} showModal={showModal} />
+        <SuperAdminInvoicesList
+            invoices={invoices}
+            showModal={showModal}
+            companies={companies}
+        />
     </Table>
 );
 

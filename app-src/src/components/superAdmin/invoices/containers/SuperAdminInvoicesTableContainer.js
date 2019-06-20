@@ -6,7 +6,12 @@ import SuperAdminInvoicesTable from '../presentational/SuperAdminInvoicesTable';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 
-const SuperAdminInvoicesTableContainer = ({ error, isFetching, invoices }) => (
+const SuperAdminInvoicesTableContainer = ({
+    error,
+    isFetching,
+    invoices,
+    companies
+}) => (
     <BlockContainer>
         <BlockHeading title="All Invoices" />
         <SuperAdminInvoicesTable
@@ -22,6 +27,7 @@ const SuperAdminInvoicesTableContainer = ({ error, isFetching, invoices }) => (
             error={error}
             isFetching={isFetching}
             invoices={invoices}
+            companies={companies}
         />
     </BlockContainer>
 );
@@ -29,12 +35,17 @@ const SuperAdminInvoicesTableContainer = ({ error, isFetching, invoices }) => (
 const mapStateToProps = ({
     superAdmin: {
         invoicesReducer: { error, isFetching, invoices },
-        companiesReducer: { isFetching: isFetchingCompanies }
+        companiesReducer: {
+            isFetching: isFetchingCompanies,
+            error: companiesError,
+            companies
+        }
     }
 }) => ({
+    companies: companies || {},
     invoices: Object.values(invoices),
-    error,
-    isFetching
+    error: error || companiesError,
+    isFetching: isFetching || isFetchingCompanies
 });
 
 const mapDispatchToProps = dispatch => ({
