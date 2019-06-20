@@ -15,7 +15,6 @@ const CompanyMenu = ({
     isSubscribed
 }) => (
     <>
-        <div className="menu-bg" />
         <div className="menu">
             {isSubscribed && (
                 <>

@@ -125,7 +125,7 @@ const mapStateToProps = ({
         decodeJWTReducer: {
             jwtData: { companyID, headquartersCompanyID }
         },
-        onMobileReducer: { onMobile }
+        mobileReducer: { onMobile }
     }
 }) => ({
     subscriptions,

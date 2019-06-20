@@ -6,6 +6,8 @@ import CompanyHeaderMobile from '../presentational/CompanyHeaderMobile';
 
 import { getCompanyColour } from 'helpers/generic';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
+import { toggleMobileMenu } from 'actions/shared/mobile/sync/toggleMobileMenu';
+
 import { BUY_CREDITS } from 'constants/shared/modalTypes';
 import { MESSAGE_TYPES } from 'constants/companyAdmin/enums';
 
@@ -19,7 +21,8 @@ class CompanyHeaderContainer extends Component {
             totalRequests,
             isImpersonating,
             showModal,
-            onMobile
+            onMobile,
+            toggleMobileMenu
         } = this.props;
 
         const companyColour = getCompanyColour(companySettings.companyColour);
@@ -51,6 +54,7 @@ class CompanyHeaderContainer extends Component {
                     e.preventDefault();
                     showModal(BUY_CREDITS);
                 }}
+                toggleMobileMenu={toggleMobileMenu}
             />
         );
     }
@@ -69,7 +73,7 @@ const mapStateToProps = ({
         decodeJWTReducer: {
             jwtData: { headquartersCompanyID, companyID }
         },
-        onMobileReducer: { onMobile }
+        mobileReducer: { onMobile }
     }
 }) => {
     const isImpersonating = headquartersCompanyID !== companyID;
@@ -99,7 +103,8 @@ const mapStateToProps = ({
 };
 
 const mapDispatchToProps = dispatch => ({
-    showModal: (type, props) => dispatch(showModal(type, props))
+    showModal: (type, props) => dispatch(showModal(type, props)),
+    toggleMobileMenu: () => dispatch(toggleMobileMenu())
 });
 
 export default connect(

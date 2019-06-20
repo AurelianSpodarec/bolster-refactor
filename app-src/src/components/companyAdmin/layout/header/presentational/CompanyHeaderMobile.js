@@ -12,11 +12,12 @@ const CompanyHeaderMobile = ({
     unreadMessageCount,
     totalCredits,
     totalRequests,
-    showModal
+    showModal,
+    toggleMobileMenu
 }) => (
     <header id="page-header" style={{ borderColor: companyColour }}>
         <div className="container">
-            <div className="mobile-menu">
+            <div className="mobile-menu" onClick={() => toggleMobileMenu()}>
                 <i className="far fa-bars" />
             </div>
             {/*** company logo ***/}
