@@ -22,12 +22,12 @@ export const saMakeInvoiceFreeFailure = error => ({
     error
 });
 
-export default (id, postBody) => dispatch => {
+export default id => dispatch => {
     dispatch(saMakeInvoiceFreeRequest());
 
     // ! change the end point
     return axios
-        .post(`${ADMIN_API_URL}/invoices/${id}/free`, postBody, getHeaders())
+        .post(`${ADMIN_API_URL}/invoices/${id}/free`, getHeaders())
         .then(({ data }) => dispatch(saMakeInvoiceFreeSuccess(data)))
         .catch(err => dispatch(saMakeInvoiceFreeFailure(err.message)));
 };

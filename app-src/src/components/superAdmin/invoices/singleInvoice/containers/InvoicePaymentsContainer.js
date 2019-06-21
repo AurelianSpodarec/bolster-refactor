@@ -2,10 +2,7 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
-import {
-    ADMIN_CONFIRM_PAYMENT,
-    ADMIN_CONFIRM_FREE_INVOICE
-} from 'constants/shared/modalTypes';
+import { ADMIN_CONFIRM_FREE_INVOICE } from 'constants/shared/modalTypes';
 
 import InvoicePayments from 'components/superAdmin/invoices/singleInvoice/presentational/InvoicePayments.js';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
@@ -17,11 +14,8 @@ const InvoicePaymentsContainer = ({
     company,
     showModal
 }) => {
-    const [paymentValue, changePaymentInput] = useState(Number(0).toFixed(2));
     return (
         <InvoicePayments
-            paymentValue={paymentValue}
-            handleChange={handleChange}
             isFetching={isFetching}
             error={error}
             invoice={invoice}
@@ -30,20 +24,8 @@ const InvoicePaymentsContainer = ({
         />
     );
 
-    function handleChange(e) {
-        changePaymentInput(e.target.value);
-    }
-
-    function handleOpenModal(type) {
-        if (type === ADMIN_CONFIRM_FREE_INVOICE) {
-            showModal(ADMIN_CONFIRM_FREE_INVOICE, { id: invoice.id });
-        }
-        if (type === ADMIN_CONFIRM_PAYMENT) {
-            showModal(ADMIN_CONFIRM_PAYMENT, {
-                id: invoice.id,
-                value: paymentValue
-            });
-        }
+    function handleOpenModal() {
+        showModal(ADMIN_CONFIRM_FREE_INVOICE, { id: invoice.id });
     }
 };
 
@@ -51,6 +33,11 @@ const mapStateToProps = (
     {
         superAdmin: {
             invoicesReducer: { invoices, isFetching, error },
+            invoicePaymentsReducer: {
+                invoicePayments,
+                isFetching: isFetchingPayments,
+                error: paymentsError
+            },
             companiesReducer: {
                 companies,
                 isFetching: isFetchingCompanies,
@@ -64,9 +51,10 @@ const mapStateToProps = (
         }
     }
 ) => ({
+    invoicePayments,
     invoice: invoices[id] || null,
-    isFetching: isFetching || isFetchingCompanies,
-    error: error || companiesError,
+    isFetching: isFetching || isFetchingCompanies || isFetchingPayments,
+    error: error || companiesError || paymentsError,
     company: companies[companyID] || null
 });
 

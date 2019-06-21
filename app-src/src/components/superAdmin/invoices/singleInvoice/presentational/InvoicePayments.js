@@ -10,10 +10,14 @@ import CurrencyInput from 'components/shared/generic/form/presentational/Currenc
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import InvoicePaymentsTableContainer from '../containers/InvoicePaymentsTableContainer';
 
-const InvoicePayments = () => {
+const InvoicePayments = ({ handleOpenModal }) => {
     return (
         <BlockContainer containerClass="size-lg-6">
-            <BlockHeading title="Invoice Payments" />
+            <BlockHeading title="Invoice Payments">
+                <button onClick={handleOpenModal} className="button red">
+                    <i className="far fa-money-bill-alt fa-fw" /> Make Free
+                </button>
+            </BlockHeading>
             <InvoicePaymentsTableContainer />
         </BlockContainer>
     );
