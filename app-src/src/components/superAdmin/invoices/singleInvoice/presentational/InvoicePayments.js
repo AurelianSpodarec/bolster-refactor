@@ -6,7 +6,6 @@ import {
 } from 'constants/shared/modalTypes';
 
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
-import CurrencyInput from 'components/shared/generic/form/presentational/CurrencyInput';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import InvoicePaymentsTableContainer from '../containers/InvoicePaymentsTableContainer';
 

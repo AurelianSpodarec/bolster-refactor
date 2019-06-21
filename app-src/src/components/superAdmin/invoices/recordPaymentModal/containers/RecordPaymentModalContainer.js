@@ -29,6 +29,7 @@ const RecordPaymentModalContainer = ({
     );
 
     function handleUpdateValue(e) {
+        console.error(e.target.value);
         updatePaymentValue(e.target.value);
     }
 

@@ -4,12 +4,16 @@ import React from 'react';
 import ModalOuterContainer from 'components/shared/generic/modals/containers/ModalOuterContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
-import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 import Form from 'components/shared/generic/form/containers/Form';
 import CurrencyInput from 'components/shared/generic/form/presentational/CurrencyInput';
 import Field from 'components/shared/generic/form/presentational/Field';
 
-const RecordPaymentModal = ({ hideModal, paymentValue, handleSubmit }) => {
+const RecordPaymentModal = ({
+    hideModal,
+    paymentValue,
+    handleSubmit,
+    handleUpdateValue
+}) => {
     return (
         <ModalOuterContainer>
             <BlockHeading title="Confirm payment" />
@@ -24,6 +28,7 @@ const RecordPaymentModal = ({ hideModal, paymentValue, handleSubmit }) => {
                         name="paymentValue"
                         placeholder="00.00"
                         value={paymentValue}
+                        handleChange={handleUpdateValue}
                         required
                     />
                 </Field>
