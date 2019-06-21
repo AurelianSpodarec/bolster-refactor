@@ -58,7 +58,7 @@ import {
     SELECT_PIN_SCALE,
     ADD_DRAWINGS,
     SET_TEMPLATE_IMAGE,
-    ADMIN_CONFIRM_PAYMENT,
+    ADMIN_RECORD_PAYMENT,
     ADMIN_CONFIRM_FREE_INVOICE
 } from 'constants/shared/modalTypes';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
@@ -180,7 +180,7 @@ const MODAL_COMPONENTS = {
     [CLIENT_SINGLE_PIN_GENERATE_REPORT_SUCCESS]: ClientSinglePinGenerateReportSuccessModalContainer,
     [SELECT_PIN_SCALE]: SelectPinScaleModalContainer,
     [SET_TEMPLATE_IMAGE]: SetImageModalContainer,
-    [ADMIN_CONFIRM_PAYMENT]: RecordPaymentModalContainer,
+    [ADMIN_RECORD_PAYMENT]: RecordPaymentModalContainer,
     [ADMIN_CONFIRM_FREE_INVOICE]: ConfirmFreeInvoiceModalContainer
 };
 

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import {
-    ADMIN_CONFIRM_PAYMENT,
+    ADMIN_RECORD_PAYMENT,
     ADMIN_CONFIRM_FREE_INVOICE
 } from 'constants/shared/modalTypes';
 
@@ -14,8 +14,17 @@ const InvoicePayments = ({ handleOpenModal }) => {
     return (
         <BlockContainer containerClass="size-lg-6">
             <BlockHeading title="Invoice Payments">
-                <button onClick={handleOpenModal} className="button red">
+                <button
+                    onClick={() => handleOpenModal(ADMIN_CONFIRM_FREE_INVOICE)}
+                    className="button red"
+                >
                     <i className="far fa-money-bill-alt fa-fw" /> Make Free
+                </button>
+                <button
+                    onClick={() => handleOpenModal(ADMIN_RECORD_PAYMENT)}
+                    className="button green"
+                >
+                    <i className="far fa-plus fa-fw" /> Record Payment
                 </button>
             </BlockHeading>
             <InvoicePaymentsTableContainer />

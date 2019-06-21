@@ -2,7 +2,10 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
-import { ADMIN_CONFIRM_FREE_INVOICE } from 'constants/shared/modalTypes';
+import {
+    ADMIN_CONFIRM_FREE_INVOICE,
+    ADMIN_RECORD_PAYMENT
+} from 'constants/shared/modalTypes';
 
 import InvoicePayments from 'components/superAdmin/invoices/singleInvoice/presentational/InvoicePayments.js';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
@@ -12,7 +15,8 @@ const InvoicePaymentsContainer = ({
     error,
     invoice,
     company,
-    showModal
+    showModal,
+    invoicePayments
 }) => {
     return (
         <InvoicePayments
@@ -24,8 +28,14 @@ const InvoicePaymentsContainer = ({
         />
     );
 
-    function handleOpenModal() {
-        showModal(ADMIN_CONFIRM_FREE_INVOICE, { id: invoice.id });
+    function handleOpenModal(type) {
+        if (type === ADMIN_CONFIRM_FREE_INVOICE)
+            showModal(ADMIN_CONFIRM_FREE_INVOICE, { id: invoice.id });
+        if (type === ADMIN_RECORD_PAYMENT)
+            showModal(ADMIN_RECORD_PAYMENT, {
+                id: invoice.id,
+                invoicePayments
+            });
     }
 };
 
@@ -51,7 +61,9 @@ const mapStateToProps = (
         }
     }
 ) => ({
-    invoicePayments,
+    invoicePayments: Object.values(invoicePayments).filter(
+        ({ invoiceID }) => invoiceID === id
+    ),
     invoice: invoices[id] || null,
     isFetching: isFetching || isFetchingCompanies || isFetchingPayments,
     error: error || companiesError || paymentsError,
