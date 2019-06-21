@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 
-import RecordPaymentModal from '../presentational/RecordPaymentModal';
+import EditPaymentModal from '../presentational/EditPaymentModal';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import editInvoicePayment from 'actions/superAdmin/invoices/async/editInvoicePayment.js';
 
@@ -17,15 +17,15 @@ const EditPaymentModalContainer = ({
     //     updatePaymentValue(payment.value);
     // }, []);
 
-    const paymentsSum = invoicePayments.reduce((acc, payment) => {
-        return (acc = acc + payment.value);
-    }, 0);
+    // const paymentsSum = invoicePayments.reduce((acc, payment) => {
+    //     return (acc = acc + payment.value);
+    // }, 0);
 
     return (
-        <RecordPaymentModal
+        <EditPaymentModal
             handleSubmit={handleSubmit}
             handleUpdateValue={handleUpdateValue}
-            paymentsSum={paymentsSum}
+            // paymentsSum={paymentsSum}
             paymentValue={paymentValue}
             hideModal={e => {
                 e.preventDefault();

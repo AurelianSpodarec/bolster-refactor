@@ -12,19 +12,21 @@ const InvoiceItemsTableContainer = ({
     isFetching,
     invoiceItems,
     company
-}) => (
-    <InvoiceItemsTable
-        {...{ invoice, error, isFetching, invoiceItems, company }}
-        headers={[
-            'Item',
-            'Customer name',
-            'QTY',
-            'Item Price',
-            'Item VAT',
-            'Total'
-        ]}
-    />
-);
+}) => {
+    return (
+        <InvoiceItemsTable
+            {...{ invoice, error, isFetching, invoiceItems, company }}
+            headers={[
+                'Item',
+                'Customer name',
+                'QTY',
+                'Item Price',
+                'Item VAT',
+                'Total'
+            ]}
+        />
+    );
+};
 
 const mapStateToProps = (
     {

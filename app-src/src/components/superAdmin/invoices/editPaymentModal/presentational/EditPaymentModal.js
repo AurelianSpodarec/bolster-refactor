@@ -16,11 +16,11 @@ const EditPaymentModal = ({
 }) => {
     return (
         <ModalOuterContainer>
-            <BlockHeading title="Confirm payment" />
+            <BlockHeading title="Edit Payment" />
 
             <Form onSubmit={handleSubmit}>
                 <p className="generic-text intro-text size-lg-12">
-                    Please enter the value you wish to deduct from this invoice.
+                    Please enter the value you wish to edit this payment to.
                     This invoice currently has a balance of ##invoice balance##.
                 </p>
                 <Field name="Enter value" required>
@@ -35,7 +35,7 @@ const EditPaymentModal = ({
                 <BlockButtonWrapper>
                     <button className="button green" type="submit">
                         <i className="far fa-check" />
-                        Record Payment
+                        Confirm
                     </button>
                     <button className="button red" onClick={hideModal}>
                         <i className="far fa-times" />
