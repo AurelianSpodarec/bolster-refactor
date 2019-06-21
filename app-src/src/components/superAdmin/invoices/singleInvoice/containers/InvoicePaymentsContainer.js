@@ -33,7 +33,7 @@ const InvoicePaymentsContainer = ({
             showModal(ADMIN_CONFIRM_FREE_INVOICE, { id: invoice.id });
         if (type === ADMIN_RECORD_PAYMENT)
             showModal(ADMIN_RECORD_PAYMENT, {
-                id: invoice.id,
+                invoice,
                 invoicePayments
             });
     }

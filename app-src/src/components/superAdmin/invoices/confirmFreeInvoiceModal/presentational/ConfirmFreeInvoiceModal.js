@@ -21,6 +21,7 @@ const ConfirmFreeInvoiceModal = ({ hideModal, handleSubmit }) => {
                     Confirm
                 </button>
                 <button className="button red" onClick={hideModal}>
+                    <i className="far fa-times" />
                     Cancel
                 </button>
             </BlockButtonWrapper>
