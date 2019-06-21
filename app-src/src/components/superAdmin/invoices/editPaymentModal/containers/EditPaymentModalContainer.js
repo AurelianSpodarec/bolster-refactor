@@ -1,16 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 
 import RecordPaymentModal from '../presentational/RecordPaymentModal';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
-import recordInvoicePayment from 'actions/superAdmin/invoices/async/recordInvoicePayment.js';
+import editInvoicePayment from 'actions/superAdmin/invoices/async/editInvoicePayment.js';
 
-const RecordPaymentModalContainer = ({
+const EditPaymentModalContainer = ({
     hideModal,
     invoice,
-    invoicePayments
+    invoicePayments,
+    payment
 }) => {
     const [paymentValue, updatePaymentValue] = useState(Number(0).toFixed(2));
+
+    // useEffect(() => {
+    //     updatePaymentValue(payment.value);
+    // }, []);
+
     const paymentsSum = invoicePayments.reduce((acc, payment) => {
         return (acc = acc + payment.value);
     }, 0);
@@ -33,16 +39,16 @@ const RecordPaymentModalContainer = ({
     }
 
     function handleSubmit() {
-        recordInvoicePayment(invoice.id, paymentValue);
+        editInvoicePayment(payment.id, paymentValue);
     }
 };
 
 const mapDispatchToProps = {
     hideModal,
-    recordInvoicePayment
+    editInvoicePayment
 };
 
 export default connect(
     null,
     mapDispatchToProps
-)(RecordPaymentModalContainer);
+)(EditPaymentModalContainer);
