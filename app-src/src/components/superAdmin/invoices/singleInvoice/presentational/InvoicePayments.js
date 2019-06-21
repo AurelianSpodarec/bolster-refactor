@@ -24,7 +24,7 @@ const InvoicePayments = ({ handleOpenModal }) => {
                     onClick={() => handleOpenModal(ADMIN_RECORD_PAYMENT)}
                     className="button green"
                 >
-                    <i className="far fa-plus fa-fw" /> Record Payment
+                    <i className="fa fa-plus fa-fw" /> Record Payment
                 </button>
             </BlockHeading>
             <InvoicePaymentsTableContainer />
