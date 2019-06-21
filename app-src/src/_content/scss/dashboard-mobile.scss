@@ -19,7 +19,7 @@
         }
 
         .container {
-            padding: 0 15px;
+            padding: 0;
         }
 
         .mobile-menu {
@@ -27,7 +27,7 @@
             padding: {
                 top: 15px;
                 bottom: 10px;
-                left: 15px;
+                left: 10px;
                 right: 15px;
             }
             font-size: 180%;
@@ -106,7 +106,7 @@
             width: auto;
 
             .user {
-                padding: 5px 30px 5px 15px;
+                padding: 5px 45px 5px 15px;
 
                 img {
                     width: 40px;
@@ -117,7 +117,7 @@
                     display: none;
                 }
                 .arrow {
-                    right: 10px;
+                    right: 15px;
                 }
             }
         }
