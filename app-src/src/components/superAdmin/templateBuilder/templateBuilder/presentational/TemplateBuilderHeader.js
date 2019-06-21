@@ -2,13 +2,16 @@ import React from 'react';
 
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
 import BackButtonContainer from 'components/shared/generic/backButton/containers/BackButtonContainer';
+import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 
 const TemplateBuilderHeader = ({
     name = '',
     showTemplateForm,
     serviceName,
     isExisting,
-    showAddSectionModal
+    showAddSectionModal,
+    templateUUID,
+    companyID
 }) => (
     <PageHeading
         title={`Template builder : ${name} ${
@@ -29,6 +32,9 @@ const TemplateBuilderHeader = ({
                     >
                         <i className="fa fa-plus" /> Add Section
                     </button>
+                    <ButtonContainer
+                        to={`/admin/companies/${companyID}/template/${templateUUID}/labelExample`}
+                    />
                 </>
             )}
         </div>

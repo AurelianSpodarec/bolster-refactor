@@ -22,13 +22,17 @@ class TemplateBuilderContainer extends Component {
             showAddSectionModal,
             uuid,
             saveRequired,
-            isExisting
+            isExisting,
+            templateUUID,
+            companyID
         } = this.props;
         return (
             <TemplateBuilder
                 isExisting={isExisting}
                 saveRequired={saveRequired}
                 showAddSectionModal={() => showAddSectionModal(uuid)}
+                templateUUID={templateUUID}
+                companyID={companyID}
             />
         );
     }
