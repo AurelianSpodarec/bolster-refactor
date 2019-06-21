@@ -75,7 +75,7 @@ function invoicePaymentsReducer(state = {}, action) {
         case SA_RECORD_INVOICE_PAYMENT_SUCCESS:
             return updateObj(state, action.payload.id, action.payload);
         case SA_DELETE_INVOICE_PAYMENT_SUCCESS:
-            return removeObjItem(state, action.payload.id);
+            return removeObjItem(state, action.id);
         default:
             return state;
     }

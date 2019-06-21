@@ -27,7 +27,11 @@ export default (id, postBody) => dispatch => {
 
     //! check the endpoint
     return axios
-        .post(`${ADMIN_API_URL}/invoices/${id}`, postBody, getHeaders())
+        .post(
+            `${ADMIN_API_URL}/invoices/payments/${id}`,
+            postBody,
+            getHeaders()
+        )
         .then(({ data }) => dispatch(saRecordInvoicePaymentSuccess(data)))
         .catch(err => dispatch(saRecordInvoicePaymentFailure(err.message)));
 };
