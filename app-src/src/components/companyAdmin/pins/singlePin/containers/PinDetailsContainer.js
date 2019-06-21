@@ -36,7 +36,10 @@ class PinDetailsContainer extends Component {
                     isFetching={isFetching}
                     error={error}
                 >
-                    <BlockHeading title={`Pin ${pin.pinCode}`}>
+                    <BlockHeading
+                        classes="underline-full"
+                        title={`Pin ${pin.pinCode}`}
+                    >
                         <h4 className="small-text">
                             (History {histories.length - i} of{' '}
                             {histories.length}{' '}
