@@ -110,16 +110,22 @@ class AddPinFormContainer extends Component {
 
         const latestTemplateVersionID = latestTemplateUsed.latestVersionID;
 
-        this.setState({ templateID: latestTemplateUsed.id }, () => {
-            updateAddPinStatus(latestPinHistory.status);
-            if (templateVersion.id === latestTemplateVersionID) {
-                pinAnswers
-                    .filter(ans => latestPinHistory.id === ans.pinHistoryID)
-                    .forEach(({ answer, templateQuestionID }) =>
-                        updateAddPinAnswer(templateQuestionID, answer)
-                    );
+        this.setState(
+            {
+                templateID: latestTemplateUsed.id,
+                serviceID: latestTemplateUsed.serviceID
+            },
+            () => {
+                updateAddPinStatus(latestPinHistory.status);
+                if (templateVersion.id === latestTemplateVersionID) {
+                    pinAnswers
+                        .filter(ans => latestPinHistory.id === ans.pinHistoryID)
+                        .forEach(({ answer, templateQuestionID }) =>
+                            updateAddPinAnswer(templateQuestionID, answer)
+                        );
+                }
             }
-        });
+        );
     };
 
     handleBeforeUnload = e => {
