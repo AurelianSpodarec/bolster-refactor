@@ -162,6 +162,59 @@ button {
                     font-size: 70%;
                 }
             }
+            .field-holder {
+                position: absolute;
+                width: 100%;
+                top: 19%;
+                left: 0;
+                padding: 0 30px;
+            }
+            .label-content-field {
+                font-size: 120%;
+                width: 100%;
+                white-space: nowrap;
+                @include swiss721-roman;
+
+                p {
+                    float: left;
+                    &:first-child {
+                        padding-right: 10px;
+                    }
+                }
+
+                &:first-child {
+                    margin-bottom: 30px;
+                }
+
+                &:nth-child(2) {
+                    font-size: 240%;
+                    @include swiss721-medium;
+                    padding-left: 20px;
+                }
+            }
+        }
+    }
+    &.template-builder-example {
+        .label-example-container {
+            .label-example {
+                margin: 0 auto;
+                width: 95%;
+            }
+            &.small {
+                .field-holder {
+                    top: 38%;
+                    padding: 0 20px;
+                }
+                .label-content-field {
+                    font-size: 110%;
+
+                    &:nth-child(2) {
+                        font-size: 110%;
+                        @include swiss721-roman;
+                        padding-left: 0;
+                    }
+                }
+            }
         }
     }
 }

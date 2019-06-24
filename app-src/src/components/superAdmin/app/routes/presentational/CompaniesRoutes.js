@@ -5,7 +5,7 @@ import SwitchWith404 from 'components/appRoute/routes/presentational/SwitchWith4
 import AllCompaniesContainer from 'components/superAdmin/companies/allCompanies/containers/AllCompaniesContainer';
 import SingleCompanyContainer from 'components/superAdmin/companies/singleCompany/containers/SingleCompanyContainer';
 import TemplateBuilderContainer from 'components/superAdmin/templateBuilder/templateBuilder/containers/TemplateBuilderContainer';
-import LabelExampleContainer from 'components/superAdmin/templateBuilder/templateBuilder/containers/LabelExampleContainer';
+import LabelExamplePageContainer from 'components/superAdmin/templateBuilder/templateBuilder/containers/LabelExamplePageContainer';
 
 const CompaniesRoutes = ({ base = '/admin/companies' }) => (
     <SwitchWith404>
@@ -19,7 +19,7 @@ const CompaniesRoutes = ({ base = '/admin/companies' }) => (
         <Route
             exact
             path={`${base}/:companyID/template/:uuid/label-example`}
-            component={LabelExampleContainer}
+            component={LabelExamplePageContainer}
         />
     </SwitchWith404>
 );

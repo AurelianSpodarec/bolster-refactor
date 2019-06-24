@@ -2,9 +2,13 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
+import BolsterLabelFieldsExample from 'components/shared/generic/form/presentational/BolsterLabelFieldsExample';
+
 class LabelExampleContainer extends Component {
     render() {
-        return <div className="size-lg-12">Test</div>;
+        const { labelFields } = this.props;
+
+        return <BolsterLabelFieldsExample fields={labelFields} />;
     }
 }
 
