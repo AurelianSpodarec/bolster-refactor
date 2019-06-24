@@ -33,8 +33,10 @@ const TemplateBuilderHeader = ({
                         <i className="fa fa-plus" /> Add Section
                     </button>
                     <ButtonContainer
-                        to={`/admin/companies/${companyID}/template/${templateUUID}/labelExample`}
-                    />
+                        to={`/admin/companies/${companyID}/template/${templateUUID}/label-example`}
+                    >
+                        <i className="far fa-sticky-note" /> Label Example
+                    </ButtonContainer>
                 </>
             )}
         </div>
