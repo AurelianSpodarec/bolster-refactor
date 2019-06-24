@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 import L from 'leaflet';
+import { CRS } from 'leaflet';
 import { Map, TileLayer, Marker } from 'react-leaflet';
 import { FILE_STORAGE_URL } from 'config';
 
@@ -63,6 +64,7 @@ const DrawingMapViewSimple = ({
                 minZoom={0}
                 maxZoom={5}
                 onClick={handleClick}
+                crs={CRS.Simple}
             >
                 <TileLayer
                     attribution='&amp;copy <a href="http://app.bolstersystems.com">Bolster Systems Ltd</a>'
