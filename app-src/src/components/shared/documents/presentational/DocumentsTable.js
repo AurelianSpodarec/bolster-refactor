@@ -30,6 +30,10 @@ const DocumentsTable = ({
             <div
                 className={`size-lg-12 ignore-padding ${
                     smallList && documents.length > 3 ? 'scrollbar-y' : ''
+                } ${
+                    !smallList && documents.length > 4
+                        ? 'scrollbar-y large'
+                        : ''
                 }`}
             >
                 <Table
@@ -38,7 +42,7 @@ const DocumentsTable = ({
                     noData={!documents.length}
                     noDataMessage="No documents to display."
                     withActions
-                    extraClasses="with-scrollbar"
+                    extraClasses={'with-scrollbar'}
                 >
                     <DocumentsList
                         accessType={accessType}
