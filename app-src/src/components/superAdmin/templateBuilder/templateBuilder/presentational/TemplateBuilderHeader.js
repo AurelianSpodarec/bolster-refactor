@@ -35,7 +35,7 @@ const TemplateBuilderHeader = ({
                     <ButtonContainer
                         to={`/admin/companies/${companyID}/template/${templateUUID}/label-example`}
                     >
-                        Label Example
+                        <i className="far fa-sticky-note" /> Label Example
                     </ButtonContainer>
                 </>
             )}
