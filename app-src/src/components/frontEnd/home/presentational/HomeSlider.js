@@ -135,6 +135,44 @@ const HomeSlider = ({ sliderSettings }) => (
             </div>
             <div className="right">
                 <iframe
+                    src="https://player.vimeo.com/video/342716227"
+                    width="560"
+                    height="400"
+                    frameBorder="0"
+                    allow="autoplay; fullscreen"
+                    allowFullScreen
+                />
+            </div>
+        </div>
+        <div className="slide-3">
+            <div className="left">
+                <h3>
+                    <span>
+                        The complete building inspection & surveying system:
+                    </span>
+                </h3>
+                <ul>
+                    <li style={listTickStyle}>
+                        <h3>Inspect</h3>
+                    </li>
+                    <li style={listTickStyle}>
+                        <h3>Locate, capture, tag</h3>
+                    </li>
+                    <li style={listTickStyle}>
+                        <h3>Document</h3>
+                    </li>
+                    <li style={listTickStyle}>
+                        <h3>Manage</h3>
+                    </li>
+                    <li style={listRedTickStyle}>
+                        <h3>
+                            <span>Job done</span>
+                        </h3>
+                    </li>
+                </ul>
+            </div>
+            <div className="right">
+                <iframe
                     width="560"
                     height="400"
                     src="https://www.youtube.com/embed/p1mH03uKa08?rel=0"
