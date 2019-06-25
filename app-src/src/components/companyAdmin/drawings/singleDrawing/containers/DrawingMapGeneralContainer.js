@@ -39,10 +39,10 @@ class DrawingMapGeneralContainer extends Component {
     state = {
         mapZoom: 3,
         addMode: false,
-        addPinLat: -128,
-        addPinLng: 128,
-        centerLat: -128,
-        centerLng: 128,
+        addPinLat: 51.505,
+        addPinLng: -0.09,
+        centerLat: 51.505,
+        centerLng: -0.09,
         firstCorner: null,
         mode: ADD,
         currentTooltip: null
