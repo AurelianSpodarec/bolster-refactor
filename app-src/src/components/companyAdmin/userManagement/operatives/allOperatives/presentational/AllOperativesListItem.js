@@ -45,6 +45,15 @@ const AllOperativesListItem = ({
                 >
                     <i className="far fa-pencil" /> Edit
                 </Link>
+                <Link
+                    className="button blue"
+                    to={`/company/users-management/operative/${
+                        user.id
+                    }/drawings`}
+                >
+                    <i className="far fa-key" /> Drawings Access
+                </Link>
+
                 <button className="button red" onClick={showDeleteModal}>
                     <i className="far fa-trash-alt" />
                     Delete

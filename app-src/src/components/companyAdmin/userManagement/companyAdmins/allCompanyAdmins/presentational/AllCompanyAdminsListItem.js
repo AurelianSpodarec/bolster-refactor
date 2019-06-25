@@ -45,6 +45,14 @@ const AllCompanyAdminsListItem = ({
                     <i className="far fa-pencil" />
                     Edit
                 </Link>
+                <Link
+                    className="button blue"
+                    to={`/company/users-management/company-admins/${
+                        user.id
+                    }/drawings`}
+                >
+                    <i className="far fa-key" /> Drawings Access
+                </Link>
                 {+user.type !== +COMPANY_USER_ROLE_TYPES.OWNER ? (
                     <button
                         className="button red"

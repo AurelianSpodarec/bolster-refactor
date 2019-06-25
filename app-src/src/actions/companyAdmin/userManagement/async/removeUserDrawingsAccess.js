@@ -3,30 +3,30 @@ import { API_URL } from 'config';
 import { getHeaders } from 'helpers/api';
 
 import {
-    FETCH_USER_DRAWINGS_REQUEST,
-    FETCH_USER_DRAWINGS_SUCCESS,
-    FETCH_USER_DRAWINGS_FAILURE
+    REMOVE_USER_DRAWINGS_ACCESS_REQUEST,
+    REMOVE_USER_DRAWINGS_ACCESS_SUCCESS,
+    REMOVE_USER_DRAWINGS_ACCESS_FAILURE
 } from 'constants/actionTypes/usersManagement';
 
 export const removeUserDrawingsRequest = () => ({
-    type: FETCH_USER_DRAWINGS_REQUEST
+    type: REMOVE_USER_DRAWINGS_ACCESS_REQUEST
 });
 
 export const removeUserDrawingsSuccess = payload => ({
-    type: FETCH_USER_DRAWINGS_SUCCESS,
+    type: REMOVE_USER_DRAWINGS_ACCESS_SUCCESS,
     payload
 });
 
 export const removeUserDrawingsFailure = error => ({
-    type: FETCH_USER_DRAWINGS_FAILURE,
+    type: REMOVE_USER_DRAWINGS_ACCESS_FAILURE,
     error
 });
 
-export default () => dispatch => {
+export default (drawingIDs, userID) => dispatch => {
     dispatch(removeUserDrawingsRequest());
 
     return axios
-        .get(`${API_URL}/users`, getHeaders())
+        .post(`${API_URL}//users/${userID}/drawings`, drawingIDs, getHeaders())
         .then(res => dispatch(removeUserDrawingsSuccess(res.data)))
         .catch(error => {
             dispatch(removeUserDrawingsFailure(error.message));

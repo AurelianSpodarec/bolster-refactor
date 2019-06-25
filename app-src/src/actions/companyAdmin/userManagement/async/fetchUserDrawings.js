@@ -22,11 +22,11 @@ export const fetchUserDrawingsFailure = error => ({
     error
 });
 
-export default () => dispatch => {
+export default id => dispatch => {
     dispatch(fetchUserDrawingsRequest());
 
     return axios
-        .get(`${API_URL}/users`, getHeaders())
+        .get(`${API_URL}/users/${id}/drawings`, getHeaders())
         .then(res => dispatch(fetchUserDrawingsSuccess(res.data)))
         .catch(error => {
             dispatch(fetchUserDrawingsFailure(error.message));
