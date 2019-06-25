@@ -27,13 +27,13 @@ const UserListItem = ({
                     className="button yellow"
                     onClick={() => handleShowEditUserModal(user)}
                 >
-                    <i className="far fa-pencil" /> edit
+                    <i className="far fa-pencil" /> Edit
                 </button>
                 <button
                     onClick={() => handleShowEditUserPasswordModal(user)}
                     className="button"
                 >
-                    change password
+                    Change password
                 </button>
             </BlockButtonWrapper>
         </td>
