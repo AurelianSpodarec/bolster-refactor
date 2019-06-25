@@ -38,7 +38,7 @@ class DrawingMapGeneralContainer extends Component {
         operativeSelectedID: '',
         fromDateInclusive: undefined,
         toDateInclusive: undefined,
-        position: [51.505, -0.09],
+        position: [-128, 128],
         mapZoom: 3,
         updating: false,
         // in state instead of in render method, recalculating each time
