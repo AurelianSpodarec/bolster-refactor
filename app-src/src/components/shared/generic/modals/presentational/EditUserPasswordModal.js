@@ -43,7 +43,7 @@ const EditUserPasswordModal = ({
                 </Field>
             </div>
             <BlockButtonWrapper>
-                <button className="button" type="submit">
+                <button className="button green" type="submit">
                     Save
                 </button>
                 <button className="button" onClick={hideModal}>

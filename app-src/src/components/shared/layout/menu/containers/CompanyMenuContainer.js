@@ -35,6 +35,7 @@ const CompanyMenuContainer = ({
             isFromHeadquarters={isFromHeadquarters}
             unreadCount={unreadCount}
             dismissMessages={dismissNotifications}
+            openHelpScout={_openHelpScout}
         />
     );
 
@@ -45,6 +46,12 @@ const CompanyMenuContainer = ({
             moment(startOn).isBefore(Date.now()) &&
             moment(endOn).isAfter(Date.now())
         );
+    }
+
+    function _openHelpScout(e) {
+        const helpScoutButton = document.getElementsByClassName('css-19f7klf');
+        e.preventDefault();
+        window.Beacon('toggle');
     }
 };
 const mapStateToProps = ({

@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import editPassword from 'actions/superAdmin/users/async/editPassword';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import EditUserPasswordModal from '../presentational/EditUserPasswordModal';
+import addFieldError from 'actions/shared/generic/fieldErrors/sync/addFieldError';
+import removeFieldError from 'actions/shared/generic/fieldErrors/sync/removeFieldError';
 
 class EditUserPasswordModalContainer extends Component {
     state = {
@@ -62,7 +64,9 @@ const mapDispatchToProps = dispatch => ({
     editPassword: (id, password) => {
         dispatch(editPassword(id, password));
         dispatch(hideModal());
-    }
+    },
+    addFieldError: (field, err) => dispatch(addFieldError(field, err)),
+    removeFieldError: field => dispatch(removeFieldError(field))
 });
 
 export default connect(
