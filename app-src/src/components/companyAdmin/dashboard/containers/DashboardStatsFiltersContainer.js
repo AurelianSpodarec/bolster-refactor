@@ -65,9 +65,22 @@ class DashboardStatsFiltersContainer extends Component {
     };
 
     componentDidMount = () => {
-        const { services } = this.props;
+        const {
+            services,
+            subscriptions: { serviceIDs }
+        } = this.props;
 
-        const serviceOptions = Object.values(services).reduce(
+        const arrServices = Object.values(services);
+
+        const serviceOptions = [];
+
+        serviceIDs.forEach(serviceID => {
+            serviceOptions.push(
+                arrServices.filter(service => service.id === serviceID)[0]
+            );
+        });
+
+        const relevantServiceOptions = serviceOptions.reduce(
             (acc, { id, name }) => {
                 return { ...acc, [id]: { value: id, text: name } };
             },
@@ -88,7 +101,10 @@ class DashboardStatsFiltersContainer extends Component {
             {}
         );
 
-        this.setState({ serviceOptions, statusOptions: statusOptionsUpdated });
+        this.setState({
+            serviceOptions: relevantServiceOptions,
+            statusOptions: statusOptionsUpdated
+        });
     };
 
     componentDidUpdate = prevProps => {
@@ -106,10 +122,12 @@ const mapStateToProps = ({
             isFetching: isFetchingServices,
             error: servicesError
         },
+        subscriptionsReducer: { subscriptions },
         dashboardReducer: { filters }
     }
 }) => ({
     services: services || {},
+    subscriptions: subscriptions || [],
     isFetching: isFetchingServices,
     error: servicesError,
     filters
