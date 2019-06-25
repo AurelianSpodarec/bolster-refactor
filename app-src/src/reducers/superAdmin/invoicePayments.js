@@ -20,7 +20,8 @@ export default combineReducers({
     invoicePayments: invoicePaymentsReducer,
     isFetching: isFetchingReducer,
     error: errorReducer,
-    postSuccess: postSuccessReducer
+    postSuccess: postSuccessReducer,
+    deleteSuccess: deleteSuccessReducer
 });
 
 function isFetchingReducer(state = false, action) {
@@ -29,6 +30,17 @@ function isFetchingReducer(state = false, action) {
             return true;
         case SA_FETCH_PAYMENTS_BY_INVOICE_SUCCESS:
         case SA_FETCH_PAYMENTS_BY_INVOICE_FAILURE:
+            return false;
+        default:
+            return state;
+    }
+}
+
+function deleteSuccessReducer(state = false, action) {
+    switch (action.type) {
+        case SA_DELETE_INVOICE_PAYMENT_SUCCESS:
+            return true;
+        case SA_DELETE_INVOICE_PAYMENT_REQUEST:
             return false;
         default:
             return state;
