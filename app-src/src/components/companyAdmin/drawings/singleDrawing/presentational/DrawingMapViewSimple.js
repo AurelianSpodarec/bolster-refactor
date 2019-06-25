@@ -134,7 +134,9 @@ const DrawingMapViewSimple = ({
                                 urlStart="company"
                                 key={pin.id}
                                 pin={pin}
-                                withLink={!shouldShowPinSelectorOptions}
+                                withLink={
+                                    !shouldShowPinSelectorOptions && !addMode
+                                }
                                 withTooltip={!isExcluding}
                                 isExcluding={isExcluding}
                             />
