@@ -12,7 +12,7 @@ class UserDrawingsContainer extends Component {
             <UserDrawings
                 title={`${this.isOperative() ? 'Operative' : 'Admin'} ${
                     user.userFirstName
-                } ${user.userLastName} Drawings`}
+                } ${user.userLastName}`}
             />
         );
     }

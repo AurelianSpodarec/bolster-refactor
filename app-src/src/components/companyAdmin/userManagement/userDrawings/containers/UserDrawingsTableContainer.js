@@ -14,7 +14,7 @@ class UserDrawingsTableContainer extends Component {
 
     render() {
         const { drawingIDs } = this.state;
-        const { drawings, isFetching, showModal } = this.props;
+        const { drawings, isFetching, showModal, id } = this.props;
 
         return (
             <UserDrawingsTable
@@ -24,6 +24,7 @@ class UserDrawingsTableContainer extends Component {
                 drawings={drawings}
                 isFetching={isFetching}
                 showModal={showModal}
+                userID={id}
             />
         );
     }

@@ -52,6 +52,7 @@ import {
     FILTER_FIELDS,
     CLIENT_FILTER_FIELDS,
     UNLINK_DEVICE,
+    REVOKE_ADMIN_ACCESS,
     COPY_TEMPLATE,
     SINGLE_PIN_GENERATE_REPORT_SUCCESS,
     CLIENT_SINGLE_PIN_GENERATE_REPORT_SUCCESS,
@@ -113,6 +114,7 @@ import DeleteDropdownOptionModalContainer from 'components/companyAdmin/dropdown
 import CreateCompanyAdminModal from 'components/companyAdmin/userManagement/companyAdmins/createCompanyAdmin/presentational/CreateCompanyAdminModal';
 import LoadingDataModal from '../presentational/LoadingDataModal';
 import UnlinkDeviceModalContainer from './UnlinkDeviceModalContainer';
+import RevokeAdminAccessModalContainer from './RevokeAdminAccessModalContainer';
 import CreateOperativeModal from 'components/companyAdmin/userManagement/operatives/createOperative/presentational/CreateOperativeModal';
 import CopyTemplateModalContainer from 'components/superAdmin/templateBuilder/copyTemplate/containers/CopyTemplateModalContainer';
 import DocumentResponseAgreeanceModalContainer from 'components/shared/documents/containers/DocumentResponseAgreeanceModalContainer';
@@ -181,6 +183,7 @@ const MODAL_COMPONENTS = {
     [CREATE_OPERATIVE]: CreateOperativeModal,
     [LOADING_DATA]: LoadingDataModal,
     [UNLINK_DEVICE]: UnlinkDeviceModalContainer,
+    [REVOKE_ADMIN_ACCESS]: RevokeAdminAccessModalContainer,
     [DOCUMENT_RESPONSE_AGREEANCE]: DocumentResponseAgreeanceModalContainer,
     [SINGLE_PIN_GENERATE_REPORT_SUCCESS]: SinglePinGenerateReportSuccessModalContainer,
     [CLIENT_SINGLE_PIN_GENERATE_REPORT_SUCCESS]: ClientSinglePinGenerateReportSuccessModalContainer,
