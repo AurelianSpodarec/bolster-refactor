@@ -28,14 +28,15 @@ const InvoicePaymentsTableContainer = ({
         />
     );
 
-    function handleShowModal(type, id, value, invoiceID) {
+    function handleShowModal(type, id, value, invoiceID, paymentMethod) {
         if (type === ADMIN_EDIT_PAYMENT)
             showModal(ADMIN_EDIT_PAYMENT, {
                 id,
                 invoice,
                 invoicePayments,
                 value,
-                invoiceID
+                invoiceID,
+                paymentMethod
             });
         if (type === ADMIN_DELETE_PAYMENT)
             showModal(ADMIN_DELETE_PAYMENT, { id, value, invoiceID });

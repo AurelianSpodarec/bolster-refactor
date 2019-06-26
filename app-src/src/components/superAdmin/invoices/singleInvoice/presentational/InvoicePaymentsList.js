@@ -28,7 +28,8 @@ const InvoicePaymentsList = ({ invoicePayments, handleShowModal }) =>
                                     ADMIN_EDIT_PAYMENT,
                                     id,
                                     amount,
-                                    invoiceID
+                                    invoiceID,
+                                    paymentMethod
                                 )
                             }
                             className="button yellow"

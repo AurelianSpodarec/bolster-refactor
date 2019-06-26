@@ -56,12 +56,12 @@ class EditPaymentModalContainer extends Component {
     };
 
     handleSubmit = () => {
-        const { id, invoiceID, editInvoicePayment } = this.props;
+        const { id, invoiceID, editInvoicePayment, paymentMethod } = this.props;
         const { paymentValue } = this.state;
         editInvoicePayment(id, invoiceID, {
             invoiceID,
             amount: paymentValue,
-            paymentMethod: 2
+            paymentMethod
         });
     };
 }
