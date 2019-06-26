@@ -11,6 +11,7 @@ const UserDrawingsTable = ({
     error,
     checkedDrawings,
     handleDrawingIDs,
+    userID,
     showModal
 }) => (
     <>
@@ -35,7 +36,8 @@ const UserDrawingsTable = ({
             className="button red pull-right"
             onClick={() =>
                 showModal(REMOVE_DRAWINGS_ACCESS, {
-                    checkedDrawings: checkedDrawings
+                    checkedDrawings: checkedDrawings,
+                    userID: userID
                 })
             }
         >

@@ -22,11 +22,15 @@ export const removeUserDrawingsFailure = error => ({
     error
 });
 
-export default (drawingIDs, userID) => dispatch => {
+export default (userID, postBody) => dispatch => {
     dispatch(removeUserDrawingsRequest());
 
     return axios
-        .post(`${API_URL}//users/${userID}/drawings`, drawingIDs, getHeaders())
+        .post(
+            `${API_URL}/users/${userID}/drawings/remove`,
+            postBody,
+            getHeaders()
+        )
         .then(res => dispatch(removeUserDrawingsSuccess(res.data)))
         .catch(error => {
             dispatch(removeUserDrawingsFailure(error.message));

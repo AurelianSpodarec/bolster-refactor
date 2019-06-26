@@ -7,11 +7,14 @@ import removeUserDrawingsAccess from 'actions/companyAdmin/userManagement/async/
 
 const RemoveUserDrawingsAccessModalContainer = ({
     checkedDrawings,
+    userID,
     removeUserDrawingsAccess,
     hideModal
 }) => (
     <ConfirmDeleteModal
-        handleDelete={() => removeUserDrawingsAccess(checkedDrawings)}
+        handleDelete={() =>
+            removeUserDrawingsAccess(userID, { drawingIDs: checkedDrawings })
+        }
         hideModal={e => {
             e.preventDefault();
             hideModal();
@@ -28,8 +31,8 @@ const mapDispatchToProps = dispatch => ({
     hideModal: () => {
         dispatch(hideModal());
     },
-    removeUserDrawingsAccess: drawingIDs => {
-        dispatch(removeUserDrawingsAccess(drawingIDs));
+    removeUserDrawingsAccess: (userID, postBody) => {
+        dispatch(removeUserDrawingsAccess(userID, postBody));
         dispatch(hideModal());
     }
 });
