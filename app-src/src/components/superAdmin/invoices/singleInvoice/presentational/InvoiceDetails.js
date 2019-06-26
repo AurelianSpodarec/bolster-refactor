@@ -15,7 +15,7 @@ const InvoiceDetails = ({
 }) => {
     return (
         <BlockContainer
-            containerClass="size-lg-12"
+            containerClass="flex-row-item size-lg-6"
             error={error}
             isEmpty={!id}
             isFetching={isFetching}

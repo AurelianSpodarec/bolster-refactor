@@ -22,13 +22,13 @@ export const saEditInvoicePaymentFailure = error => ({
     error
 });
 
-export default (id, postBody) => dispatch => {
+export default (id, invoiceID, postBody) => dispatch => {
     dispatch(saEditInvoicePaymentRequest());
 
     //! check the endpoint
     return axios
         .post(
-            `${ADMIN_API_URL}/invoices/payments/${id}`,
+            `${ADMIN_API_URL}/invoices/${invoiceID}/payments/edit/${id}`,
             postBody,
             getHeaders()
         )

@@ -11,8 +11,11 @@ import InvoicePaymentsContainer from '../containers/InvoicePaymentsContainer';
 const SingleInvoice = ({ id }) => (
     <>
         <PageHeading leftChildren title={`Invoice #${id}`} withBackButton />
-        <InvoiceDetailsContainer />
-        <InvoicePaymentsContainer />
+        <div className="flex-row size-lg-12">
+            <InvoiceDetailsContainer />
+            <InvoicePaymentsContainer />
+        </div>
+
         <BlockContainer>
             <BlockHeading title="Invoice Items" />
             <InvoiceItemsTableContainer />
