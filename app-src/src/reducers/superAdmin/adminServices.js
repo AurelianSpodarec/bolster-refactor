@@ -11,7 +11,13 @@ import {
     ADMIN_EDIT_SERVICE_FAILURE,
     ADMIN_FETCH_SINGLE_SERVICE_REQUEST,
     ADMIN_FETCH_SINGLE_SERVICE_SUCCESS,
-    ADMIN_FETCH_SINGLE_SERVICE_FAILURE
+    ADMIN_FETCH_SINGLE_SERVICE_FAILURE,
+    ADMIN_FETCH_TEMPLATES_FOR_SERVICE_REQUEST,
+    ADMIN_FETCH_TEMPLATES_FOR_SERVICE_SUCCESS,
+    ADMIN_FETCH_TEMPLATES_FOR_SERVICE_FAILURE,
+    ADMIN_POST_TEMPLATES_FOR_SERVICE_REQUEST,
+    ADMIN_POST_TEMPLATES_FOR_SERVICE_SUCCESS,
+    ADMIN_POST_TEMPLATES_FOR_SERVICE_FAILURE
 } from 'constants/actionTypes/services';
 import { updateObj, convertArrToObj } from 'helpers/generic';
 
@@ -20,18 +26,22 @@ export default combineReducers({
     error: errorReducer,
     updatedServiceID: updatedServiceIDReducer,
     isFetching: isFetchingReducer,
-    adminServices: adminServicesReducer
+    adminServices: adminServicesReducer,
+    adminServiceTemplates: adminServiceTemplatesReducer
 });
 
 function isFetchingReducer(state = false, action) {
     switch (action.type) {
         case ADMIN_FETCH_ALL_SERVICES_REQUEST:
         case ADMIN_FETCH_SINGLE_SERVICE_REQUEST:
+        case ADMIN_FETCH_TEMPLATES_FOR_SERVICE_REQUEST:
             return true;
         case ADMIN_FETCH_ALL_SERVICES_SUCCESS:
         case ADMIN_FETCH_ALL_SERVICES_FAILURE:
         case ADMIN_FETCH_SINGLE_SERVICE_SUCCESS:
         case ADMIN_FETCH_SINGLE_SERVICE_FAILURE:
+        case ADMIN_FETCH_TEMPLATES_FOR_SERVICE_SUCCESS:
+        case ADMIN_FETCH_TEMPLATES_FOR_SERVICE_FAILURE:
             return false;
         default:
             return state;
@@ -42,9 +52,11 @@ function postSuccessReducer(state = false, action) {
     switch (action.type) {
         case ADMIN_CREATE_SERVICE_REQUEST:
         case ADMIN_EDIT_SERVICE_REQUEST:
+        case ADMIN_POST_TEMPLATES_FOR_SERVICE_REQUEST:
             return false;
         case ADMIN_CREATE_SERVICE_SUCCESS:
         case ADMIN_EDIT_SERVICE_SUCCESS:
+        case ADMIN_POST_TEMPLATES_FOR_SERVICE_SUCCESS:
             return true;
         default:
             return state;
@@ -57,11 +69,13 @@ function errorReducer(state = null, action) {
         case ADMIN_FETCH_ALL_SERVICES_REQUEST:
         case ADMIN_FETCH_SINGLE_SERVICE_REQUEST:
         case ADMIN_EDIT_SERVICE_REQUEST:
+        case ADMIN_POST_TEMPLATES_FOR_SERVICE_REQUEST:
             return null;
         case ADMIN_CREATE_SERVICE_FAILURE:
         case ADMIN_FETCH_ALL_SERVICES_FAILURE:
         case ADMIN_FETCH_SINGLE_SERVICE_FAILURE:
         case ADMIN_EDIT_SERVICE_FAILURE:
+        case ADMIN_POST_TEMPLATES_FOR_SERVICE_FAILURE:
             return action.error;
         default:
             return state;
@@ -89,6 +103,17 @@ function adminServicesReducer(state = {}, action) {
             return updateObj(state, action.payload.id, action.payload);
         case ADMIN_CREATE_SERVICE_SUCCESS:
         case ADMIN_EDIT_SERVICE_SUCCESS:
+            return updateObj(state, action.payload.id, action.payload);
+        default:
+            return state;
+    }
+}
+
+function adminServiceTemplatesReducer(state = {}, action) {
+    switch (action.type) {
+        case ADMIN_FETCH_TEMPLATES_FOR_SERVICE_SUCCESS:
+            return action.payload;
+        case ADMIN_POST_TEMPLATES_FOR_SERVICE_SUCCESS:
             return updateObj(state, action.payload.id, action.payload);
         default:
             return state;

@@ -5,9 +5,7 @@ import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/pr
 import Form from 'components/shared/generic/form/containers/Form';
 import TextAreaContainer from 'components/shared/generic/form/containers/TextAreaContainer';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
-import MultiDropdownContainer from 'components/shared/generic/form/containers/MultiDropdownContainer';
 import Select from 'components/shared/generic/form/presentational/Select';
-import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
 import MultiSelect from 'components/shared/generic/form/presentational/MultiSelect';
 
 const CreateOperativeAlertForm = ({
