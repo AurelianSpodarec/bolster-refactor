@@ -24,7 +24,12 @@ const InvoicePaymentsList = ({ invoicePayments, handleShowModal }) =>
                     <BlockButtonWrapper>
                         <button
                             onClick={() =>
-                                handleShowModal(ADMIN_EDIT_PAYMENT, id)
+                                handleShowModal(
+                                    ADMIN_EDIT_PAYMENT,
+                                    id,
+                                    amount,
+                                    invoiceID
+                                )
                             }
                             className="button yellow"
                         >

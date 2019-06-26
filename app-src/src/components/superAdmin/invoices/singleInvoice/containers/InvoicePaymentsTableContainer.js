@@ -12,14 +12,13 @@ import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 
 import InvoicePaymentsTable from '../presentational/InvoicePaymentsTable';
 
-// TODO: move InvoiceItemsTable and children to a shared folder, they are already generic to company/superadmin
-
 const InvoicePaymentsTableContainer = ({
     error,
     isFetching,
     company,
     invoicePayments,
-    showModal
+    showModal,
+    invoice
 }) => {
     return (
         <InvoicePaymentsTable
@@ -30,21 +29,33 @@ const InvoicePaymentsTableContainer = ({
     );
 
     function handleShowModal(type, id, value, invoiceID) {
-        if (type === ADMIN_EDIT_PAYMENT) showModal(ADMIN_EDIT_PAYMENT, { id });
+        if (type === ADMIN_EDIT_PAYMENT)
+            showModal(ADMIN_EDIT_PAYMENT, {
+                id,
+                invoice,
+                invoicePayments,
+                value,
+                invoiceID
+            });
         if (type === ADMIN_DELETE_PAYMENT)
             showModal(ADMIN_DELETE_PAYMENT, { id, value, invoiceID });
     }
 };
 
-const mapStateToProps = ({
-    superAdmin: {
-        invoicePaymentsReducer: {
-            invoicePayments,
-            isFetching: fetchingInvoices,
-            error
+const mapStateToProps = (
+    {
+        superAdmin: {
+            invoicesReducer: { invoices },
+            invoicePaymentsReducer: {
+                invoicePayments,
+                isFetching: fetchingInvoices,
+                error
+            }
         }
-    }
-}) => ({
+    },
+    { match }
+) => ({
+    invoice: invoices[match.params.id],
     error: error,
     isFetching: fetchingInvoices,
     invoicePayments: Object.values(invoicePayments) || []
