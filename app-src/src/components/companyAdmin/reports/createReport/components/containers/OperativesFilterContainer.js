@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 import withUpdateOnChange from '../hocs/withUpdateOnChange';
 
 import OperativesFilter from '../presentational/OperativesFilter';
@@ -22,10 +23,23 @@ class OperativesFilterContainer extends Component {
     }
 
     componentDidMount = () => {
-        const { advanced, postFilters } = this.props;
+        const {
+            advanced,
+            postFilters,
+            handleChange,
+            location: { state: locationState }
+        } = this.props;
 
         // not required on hierarchy reports
         if (!advanced) postFilters();
+
+        if (locationState && locationState.operativeID) {
+            const opIDs = [];
+
+            opIDs.push(locationState.operativeID);
+
+            handleChange('companyUserIDs', opIDs);
+        }
     };
 
     componentDidUpdate = ({ customFilters: { operatives: prevOps } }) => {
@@ -50,4 +64,4 @@ class OperativesFilterContainer extends Component {
     };
 }
 
-export default withUpdateOnChange(OperativesFilterContainer);
+export default withRouter(withUpdateOnChange(OperativesFilterContainer));

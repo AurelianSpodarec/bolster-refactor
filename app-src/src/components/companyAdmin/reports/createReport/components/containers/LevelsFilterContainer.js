@@ -111,7 +111,8 @@ class LevelsFilterContainer extends Component {
             customFilters: { pins = [] },
             handleChange,
             hierarchy,
-            hierarchyID
+            hierarchyID,
+            location: { state: locationState }
         } = this.props;
 
         // prefill on hierarchy single page advanced reports
@@ -130,6 +131,20 @@ class LevelsFilterContainer extends Component {
         }
 
         if (pins.length) handleChange('pinIDs', pins.map(({ id }) => id));
+
+        if (locationState && locationState.drawingID) {
+            const { siteID, buildingID, floorID, drawingID } = locationState;
+
+            this.handleChange('siteID', siteID, true);
+            this.handleChange('buildingID', buildingID, true);
+            this.handleChange('floorID', floorID, true);
+            this.handleChange('drawingID', drawingID, true);
+
+            this.handlePrefillSite(siteID);
+            this.handlePrefillBuilding(buildingID);
+            this.handlePrefillFloor(floorID);
+            this.handlePrefillDrawing(drawingID);
+        }
     };
 
     componentDidUpdate = ({ customFilters: { pins: prevPins = [] } }) => {
