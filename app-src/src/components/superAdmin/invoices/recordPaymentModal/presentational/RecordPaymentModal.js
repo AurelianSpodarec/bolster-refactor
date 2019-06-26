@@ -31,7 +31,7 @@ const RecordPaymentModal = ({
                         name="paymentValue"
                         placeholder="00.00"
                         value={paymentValue}
-                        handleChange={handleUpdateValue}
+                        onChange={handleUpdateValue}
                         required
                     />
                 </Field>

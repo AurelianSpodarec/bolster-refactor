@@ -51,8 +51,8 @@ class EditPaymentModalContainer extends Component {
             });
         }
     }
-    handleUpdateValue = e => {
-        this.setState({ paymentValue: e.target.value });
+    handleUpdateValue = (name, value) => {
+        this.setState({ [name]: value });
     };
 
     handleSubmit = () => {

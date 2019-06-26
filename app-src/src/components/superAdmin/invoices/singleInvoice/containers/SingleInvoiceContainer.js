@@ -26,10 +26,11 @@ class SingleInvoiceContainer extends Component {
 
 const mapStateToProps = ({
     superAdmin: {
-        invoicePaymentsReducer: { postSuccess }
+        invoicePaymentsReducer: { postSuccess: paymentsPostSuccess },
+        invoicesReducer: { postSuccess }
     }
 }) => ({
-    postSuccess
+    postSuccess: postSuccess || paymentsPostSuccess
 });
 
 const mapDispatchToProps = (
