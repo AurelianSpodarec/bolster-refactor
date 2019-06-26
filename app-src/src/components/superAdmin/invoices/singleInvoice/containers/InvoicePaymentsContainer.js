@@ -62,9 +62,7 @@ const mapStateToProps = (
         }
     }
 ) => ({
-    invoicePayments: Object.values(invoicePayments).filter(
-        ({ invoiceID }) => invoiceID === id
-    ),
+    invoicePayments: Object.values(invoicePayments),
     invoice: invoices[id] || null,
     isFetching: isFetching || isFetchingCompanies || isFetchingPayments,
     error: error || companiesError || paymentsError,

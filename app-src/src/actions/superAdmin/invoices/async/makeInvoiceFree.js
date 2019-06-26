@@ -27,7 +27,7 @@ export default id => dispatch => {
 
     // ! change the end point
     return axios
-        .post(`${ADMIN_API_URL}/invoices/${id}/free`, getHeaders())
+        .post(`${ADMIN_API_URL}/invoices/${id}/makefree`, {}, getHeaders())
         .then(({ data }) => dispatch(saMakeInvoiceFreeSuccess(data)))
         .catch(err => dispatch(saMakeInvoiceFreeFailure(err.message)));
 };
