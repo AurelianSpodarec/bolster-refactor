@@ -6,14 +6,12 @@ import {
     ADMIN_FETCH_COMPANY_INVOICES_FAILURE,
     ADMIN_FETCH_COMPANY_INVOICE_ITEMS_SUCCESS,
     ADMIN_FETCH_COMPANY_INVOICE_ITEMS_REQUEST,
-    ADMIN_FETCH_COMPANY_INVOICE_ITEMS_FAILURE
-} from 'constants/actionTypes/invoices';
-import { convertArrToObj } from 'helpers/generic';
-import {
+    ADMIN_FETCH_COMPANY_INVOICE_ITEMS_FAILURE,
     SA_MAKE_INVOICE_FREE_REQUEST,
     SA_MAKE_INVOICE_FREE_FAILURE,
     SA_MAKE_INVOICE_FREE_SUCCESS
 } from 'constants/actionTypes/superAdminInvoices';
+import { convertArrToObj } from 'helpers/generic';
 
 export default combineReducers({
     invoices: invoicesReducer,

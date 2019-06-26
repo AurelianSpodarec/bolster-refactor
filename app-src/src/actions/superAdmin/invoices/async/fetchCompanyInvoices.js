@@ -4,7 +4,7 @@ import {
     ADMIN_FETCH_COMPANY_INVOICES_REQUEST,
     ADMIN_FETCH_COMPANY_INVOICES_SUCCESS,
     ADMIN_FETCH_COMPANY_INVOICES_FAILURE
-} from 'constants/actionTypes/invoices';
+} from 'constants/actionTypes/superAdminInvoices';
 import { ADMIN_API_URL } from 'config';
 import { getHeaders } from 'helpers/api';
 
