@@ -11,6 +11,7 @@ import Field from 'components/shared/generic/form/presentational/Field';
 const EditPaymentModal = ({
     hideModal,
     paymentValue,
+    invoiceBalance,
     handleSubmit,
     handleUpdateValue
 }) => {
@@ -20,8 +21,10 @@ const EditPaymentModal = ({
 
             <Form onSubmit={handleSubmit}>
                 <p className="generic-text intro-text size-lg-12">
-                    Please enter the value you wish to edit this payment to.
-                    This invoice currently has a balance of ##invoice balance##.
+                    {` Please enter the value you wish to edit this payment to.
+                    This invoice currently has a balance of £${invoiceBalance.toFixed(
+                        2
+                    )}.`}
                 </p>
                 <Field name="Enter value" required>
                     <CurrencyInput

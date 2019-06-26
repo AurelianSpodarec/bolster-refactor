@@ -7,26 +7,34 @@ import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import AllCompanyAdminsTable from '../presentational/AllCompanyAdminsTable';
 import { COMPANY_USER_ROLE_TYPES } from 'constants/companyAdmin/enums';
 import { CREATE_COMPANY_ADMIN } from 'constants/shared/modalTypes';
+import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import { isEmpty } from 'helpers/generic';
 
 class AllCompanyAdminTableContainer extends Component {
     render() {
-        const { isFetching, error } = this.props;
+        const { isFetching, error, users } = this.props;
 
         return (
-            <AllCompanyAdminsTable
-                headers={[
-                    'Name',
-                    'Email',
-                    'Phone Number',
-                    'Has linked device?',
-                    'Operative Code',
-                    ''
-                ]}
-                users={this._filterUsersForAdmins()}
+            <BlockContainer
                 isFetching={isFetching}
                 error={error}
-                handleCreateCompanyAdmin={this.handleCreateCompanyAdmin}
-            />
+                isEmpty={isEmpty(users)}
+            >
+                <AllCompanyAdminsTable
+                    headers={[
+                        'Name',
+                        'Email',
+                        'Phone Number',
+                        'Has linked device?',
+                        'Operative Code',
+                        ''
+                    ]}
+                    users={this._filterUsersForAdmins()}
+                    isFetching={isFetching}
+                    error={error}
+                    handleCreateCompanyAdmin={this.handleCreateCompanyAdmin}
+                />
+            </BlockContainer>
         );
     }
 

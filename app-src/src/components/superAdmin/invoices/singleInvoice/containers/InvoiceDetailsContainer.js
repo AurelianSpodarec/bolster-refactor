@@ -3,21 +3,36 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import InvoiceDetails from '../presentational/InvoiceDetails';
 
-const InvoiceDetailsContainer = ({ invoice, error, isFetching }) => (
-    <InvoiceDetails invoice={invoice} error={error} isFetching={isFetching} />
-);
+const InvoiceDetailsContainer = ({ invoice, error, isFetching, company }) => {
+    const companyName = company ? company.name : null;
+    return (
+        <InvoiceDetails
+            invoice={invoice}
+            error={error}
+            isFetching={isFetching}
+            companyName={companyName}
+        />
+    );
+};
 
 const mapStateToProps = (
     {
         superAdmin: {
-            invoicesReducer: { invoices, error, isFetching }
+            invoicesReducer: { invoices, error, isFetching },
+            companiesReducer: { companies }
         }
     },
     { match }
-) => ({
-    invoice: invoices[match.params.id] || {},
-    error,
-    isFetching
-});
+) => {
+    const invoice = invoices[match.params.id] || {};
+    const company = companies[invoice.companyID] || null;
+
+    return {
+        company,
+        invoice,
+        error,
+        isFetching
+    };
+};
 
 export default withRouter(connect(mapStateToProps)(InvoiceDetailsContainer));

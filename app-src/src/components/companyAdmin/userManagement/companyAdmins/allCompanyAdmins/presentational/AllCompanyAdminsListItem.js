@@ -6,7 +6,9 @@ import { COMPANY_USER_ROLE_TYPES } from 'constants/companyAdmin/enums';
 const AllCompanyAdminsListItem = ({
     user,
     showDeleteModal,
-    showUnlinkModal
+    showUnlinkModal,
+    showRevokeAdminAccessModal,
+    loggedInUser
 }) => (
     <tr key={user.id}>
         <td>
@@ -53,6 +55,16 @@ const AllCompanyAdminsListItem = ({
                 >
                     <i className="far fa-key" /> Drawings Access
                 </Link>
+                {loggedInUser.type === +COMPANY_USER_ROLE_TYPES.OWNER &&
+                    +user.type !== +COMPANY_USER_ROLE_TYPES.OWNER && (
+                        <button
+                            className="button"
+                            onClick={() => showRevokeAdminAccessModal(user.id)}
+                        >
+                            <i className="far fa-ban" />
+                            Revoke Admin
+                        </button>
+                    )}
                 {+user.type !== +COMPANY_USER_ROLE_TYPES.OWNER ? (
                     <button
                         className="button red"

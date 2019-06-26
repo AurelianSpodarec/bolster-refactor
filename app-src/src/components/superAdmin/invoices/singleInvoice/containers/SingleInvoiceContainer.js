@@ -15,7 +15,22 @@ class SingleInvoiceContainer extends Component {
         const { fetchInvoiceData } = this.props;
         fetchInvoiceData();
     };
+
+    componentDidUpdate = prevProps => {
+        const { postSuccess, fetchInvoiceData } = this.props;
+        if (!prevProps.postSuccess && postSuccess) {
+            fetchInvoiceData();
+        }
+    };
 }
+
+const mapStateToProps = ({
+    superAdmin: {
+        invoicePaymentsReducer: { postSuccess }
+    }
+}) => ({
+    postSuccess
+});
 
 const mapDispatchToProps = (
     dispatch,
@@ -34,6 +49,6 @@ const mapDispatchToProps = (
 });
 
 export default connect(
-    null,
+    mapStateToProps,
     mapDispatchToProps
 )(SingleInvoiceContainer);

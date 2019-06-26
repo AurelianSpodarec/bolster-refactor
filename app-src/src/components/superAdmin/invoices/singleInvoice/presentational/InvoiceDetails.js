@@ -10,12 +10,13 @@ import { formatCurrency } from 'helpers/generic';
 
 const InvoiceDetails = ({
     isFetching,
+    companyName,
     error,
     invoice: { createdOn, id, isPaid, paymentType, total, isRenewal }
 }) => {
     return (
         <BlockContainer
-            containerClass="size-lg-12"
+            containerClass="flex-row-item size-lg-6"
             error={error}
             isEmpty={!id}
             isFetching={isFetching}
@@ -43,6 +44,11 @@ const InvoiceDetails = ({
             <FieldOutput
                 title="Status"
                 description={isPaid ? 'Paid' : 'Not Paid'}
+                sizeClass="size-lg-4"
+            />
+            <FieldOutput
+                title="Company"
+                description={companyName}
                 sizeClass="size-lg-4"
             />
 
