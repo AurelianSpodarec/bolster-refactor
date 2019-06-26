@@ -25,10 +25,9 @@ export const saRecordInvoicePaymentFailure = error => ({
 export default (id, postBody) => dispatch => {
     dispatch(saRecordInvoicePaymentRequest());
 
-    //! check the endpoint
     return axios
         .post(
-            `${ADMIN_API_URL}/invoices/payments/${id}`,
+            `${ADMIN_API_URL}/invoices/${id}/payments/new`,
             postBody,
             getHeaders()
         )
