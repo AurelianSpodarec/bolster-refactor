@@ -23,7 +23,7 @@ const InvoicePaymentsTableContainer = ({
     return (
         <InvoicePaymentsTable
             {...{ invoicePayments, error, isFetching, company }}
-            headers={['Date', 'Value', 'Payment Method', '']}
+            headers={['ID', 'Date', 'Value', 'Payment Method', '']}
             handleShowModal={handleShowModal}
         />
     );

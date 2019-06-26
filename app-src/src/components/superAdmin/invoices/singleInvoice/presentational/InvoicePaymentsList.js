@@ -6,7 +6,6 @@ import {
 } from 'constants/shared/modalTypes';
 
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
-import invoicePayments from 'reducers/superAdmin/invoicePayments';
 import {
     DATE_TIME_DEFAULTS,
     PAYMENT_TYPES
@@ -14,9 +13,14 @@ import {
 import moment from 'moment';
 
 const InvoicePaymentsList = ({ invoicePayments, handleShowModal }) =>
-    invoicePayments.map(
-        ({ id, createdOn, amount, paymentMethod, invoiceID }) => (
+    invoicePayments
+        .sort(
+            (a, b) =>
+                moment(b.createdOn).valueOf() - moment(a.createdOn).valueOf()
+        )
+        .map(({ id, createdOn, amount, paymentMethod, invoiceID }) => (
             <tr key={id}>
+                <td>{id}</td>
                 <td>{moment(createdOn).format(DATE_TIME_DEFAULTS[1])}</td>
                 <td>{amount.toFixed(2)}</td>
                 <td>{PAYMENT_TYPES[paymentMethod]}</td>
@@ -52,7 +56,6 @@ const InvoicePaymentsList = ({ invoicePayments, handleShowModal }) =>
                     </BlockButtonWrapper>
                 </td>
             </tr>
-        )
-    );
+        ));
 
 export default InvoicePaymentsList;
