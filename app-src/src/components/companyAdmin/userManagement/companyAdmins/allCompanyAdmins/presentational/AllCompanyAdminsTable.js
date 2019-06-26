@@ -16,7 +16,7 @@ const AllCompanyAdminsTable = ({
     handleCreateCompanyAdmin
 }) => {
     return (
-        <BlockContainer>
+        <>
             <BlockHeading title="Admins">
                 <ButtonContainer
                     handleClick={handleCreateCompanyAdmin}
@@ -46,7 +46,7 @@ const AllCompanyAdminsTable = ({
                     showDeleteModal={showDeleteModal}
                 />
             </Table>
-        </BlockContainer>
+        </>
     );
 };
 
