@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
-import InvoiceItemsTable from '../presentational/InvoiceItemsTable';
+import InvoiceItemsTable from 'components/shared/invoices/invoiceItemsTable/presentational/InvoiceItemsTable';
 
 class InvoiceItemsTableContainer extends Component {
     render() {
@@ -27,9 +27,16 @@ class InvoiceItemsTableContainer extends Component {
 }
 
 const mapStateToProps = (
-    { companyAdmin: { invoicesReducer, invoiceItemsReducer } },
+    {
+        companyAdmin: {
+            invoicesReducer,
+            invoiceItemsReducer,
+            companySettingsReducer
+        }
+    },
     { match }
 ) => ({
+    company: companySettingsReducer.companySettings.name,
     error: invoicesReducer.error || invoiceItemsReducer.error,
     isFetching: invoicesReducer.isFetching || invoiceItemsReducer.isFetching,
     invoice: invoicesReducer.invoices[match.params.id] || {},
