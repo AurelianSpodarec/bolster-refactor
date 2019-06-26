@@ -8,8 +8,8 @@ import { PIN_STATUS_IDS } from 'constants/companyAdmin/enums';
 
 class DrawingMapAdvancedContainer extends Component {
     state = {
-        pinLat: 51.505,
-        pinLng: -0.09,
+        pinLat: -128,
+        pinLng: 128,
         mapZoom: 3
     };
 

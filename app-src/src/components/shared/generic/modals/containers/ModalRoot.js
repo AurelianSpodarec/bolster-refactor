@@ -62,7 +62,8 @@ import {
     ADMIN_RECORD_PAYMENT,
     ADMIN_CONFIRM_FREE_INVOICE,
     ADMIN_EDIT_PAYMENT,
-    ADMIN_DELETE_PAYMENT
+    ADMIN_DELETE_PAYMENT,
+    REMOVE_DRAWINGS_ACCESS
 } from 'constants/shared/modalTypes';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
@@ -128,6 +129,7 @@ import RecordPaymentModalContainer from 'components/superAdmin/invoices/recordPa
 import ConfirmFreeInvoiceModalContainer from 'components/superAdmin/invoices/confirmFreeInvoiceModal/containers/ConfirmFreeInvoiceModalContainer.js';
 import EditPaymentModalContainer from 'components/superAdmin/invoices/editPaymentModal/containers/EditPaymentModalContainer';
 import DeletePaymentModalContainer from 'components/superAdmin/invoices/confirmDeletePaymentModal/containers/DeletePaymentModalContainer';
+import RemoveUserDrawingsAccessModalContainer from 'components/companyAdmin/userManagement/userDrawings/containers/RemoveUserDrawingsAccessModalContainer';
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModalContainer,
@@ -190,7 +192,8 @@ const MODAL_COMPONENTS = {
     [ADMIN_RECORD_PAYMENT]: RecordPaymentModalContainer,
     [ADMIN_CONFIRM_FREE_INVOICE]: ConfirmFreeInvoiceModalContainer,
     [ADMIN_EDIT_PAYMENT]: EditPaymentModalContainer,
-    [ADMIN_DELETE_PAYMENT]: DeletePaymentModalContainer
+    [ADMIN_DELETE_PAYMENT]: DeletePaymentModalContainer,
+    [REMOVE_DRAWINGS_ACCESS]: RemoveUserDrawingsAccessModalContainer
 };
 
 const ModalRoot = ({ modalType, modalProps, ...otherProps }) => {

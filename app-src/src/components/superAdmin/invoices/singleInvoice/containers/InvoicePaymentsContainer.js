@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
@@ -46,7 +46,8 @@ const mapStateToProps = (
             invoicePaymentsReducer: {
                 invoicePayments,
                 isFetching: isFetchingPayments,
-                error: paymentsError
+                error: paymentsError,
+                deleteSuccess
             },
             companiesReducer: {
                 companies,
@@ -61,13 +62,12 @@ const mapStateToProps = (
         }
     }
 ) => ({
-    invoicePayments: Object.values(invoicePayments).filter(
-        ({ invoiceID }) => invoiceID === id
-    ),
+    invoicePayments: Object.values(invoicePayments),
     invoice: invoices[id] || null,
     isFetching: isFetching || isFetchingCompanies || isFetchingPayments,
     error: error || companiesError || paymentsError,
-    company: companies[companyID] || null
+    company: companies[companyID] || null,
+    deleteSuccess
 });
 
 const mapDispatchToProps = dispatch => ({

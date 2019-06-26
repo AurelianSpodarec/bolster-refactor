@@ -5,6 +5,7 @@ import SingleInvoice from '../presentational/SingleInvoice';
 import fetchSingleCompany from 'actions/superAdmin/companies/async/fetchSingleCompany';
 import fetchCompanyInvoices from 'actions/superAdmin/invoices/async/fetchCompanyInvoices';
 import fetchCompanyInvoiceItems from 'actions/superAdmin/invoices/async/fetchCompanyInvoiceItems';
+import fetchPaymentsByInvoice from 'actions/superAdmin/invoices/async/fetchPaymentsByInvoice';
 
 class SingleInvoiceContainer extends Component {
     render() {
@@ -20,7 +21,7 @@ const mapDispatchToProps = (
     dispatch,
     {
         match: {
-            params: { companyID }
+            params: { companyID, id }
         }
     }
 ) => ({
@@ -28,6 +29,7 @@ const mapDispatchToProps = (
         dispatch(fetchCompanyInvoices(companyID));
         dispatch(fetchCompanyInvoiceItems(companyID));
         dispatch(fetchSingleCompany(companyID));
+        dispatch(fetchPaymentsByInvoice(id));
     }
 });
 

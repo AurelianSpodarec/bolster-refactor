@@ -18,28 +18,27 @@ const InvoicePaymentsTableContainer = ({
     error,
     isFetching,
     company,
-    payments,
+    invoicePayments,
     showModal
 }) => {
     return (
         <InvoicePaymentsTable
-            {...{ payments, error, isFetching, company }}
-            headers={['Date', 'Value', '']}
+            {...{ invoicePayments, error, isFetching, company }}
+            headers={['Date', 'Value', 'Payment Method', '']}
             handleShowModal={handleShowModal}
         />
     );
 
-    function handleShowModal(type, id, value) {
-        console.error('here');
+    function handleShowModal(type, id, value, invoiceID) {
         if (type === ADMIN_EDIT_PAYMENT) showModal(ADMIN_EDIT_PAYMENT, { id });
         if (type === ADMIN_DELETE_PAYMENT)
-            showModal(ADMIN_DELETE_PAYMENT, { id });
+            showModal(ADMIN_DELETE_PAYMENT, { id, value, invoiceID });
     }
 };
 
 const mapStateToProps = ({
     superAdmin: {
-        invoicesReducer: {
+        invoicePaymentsReducer: {
             invoicePayments,
             isFetching: fetchingInvoices,
             error
@@ -48,8 +47,7 @@ const mapStateToProps = ({
 }) => ({
     error: error,
     isFetching: fetchingInvoices,
-    // change this
-    payments: [1, 2, 3]
+    invoicePayments: Object.values(invoicePayments) || []
 });
 
 const mapDispatchToProps = {
