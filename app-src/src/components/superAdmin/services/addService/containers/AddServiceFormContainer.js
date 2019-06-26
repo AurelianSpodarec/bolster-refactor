@@ -2,21 +2,37 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
+import { convertArrToObj } from 'helpers/generic';
 import AddServiceForm from '../presentational/AddServiceForm';
 import createService from 'actions/superAdmin/services/async/createService';
+import fetchTemplates from 'actions/superAdmin/templateBuilder/async/fetchTemplates';
+import postTemplatesForService from 'actions/superAdmin/services/async/postTemplatesForService';
+
+import { ADMIN_CREATE_SERVICE_SUCCESS } from 'constants/actionTypes/services';
 
 class AddServiceFormContainer extends Component {
     state = {
-        name: ''
+        name: '',
+        templateUUIDs: []
     };
 
-    render = () => (
-        <AddServiceForm
-            {...this.state}
-            handleInputChange={this.handleInputChange}
-            handleSubmit={this.handleSubmit}
-        />
-    );
+    render() {
+        const templateOptions = this._getTemplateOptions();
+        return (
+            <AddServiceForm
+                {...this.state}
+                handleInputChange={this.handleInputChange}
+                handleSubmit={this.handleSubmit}
+                templateOptions={Object.values(templateOptions)}
+            />
+        );
+    }
+
+    componentDidMount = () => {
+        const { fetchTemplates } = this.props;
+
+        fetchTemplates();
+    };
 
     componentDidUpdate = prevProps => {
         const { postSuccess, history } = this.props;
@@ -32,22 +48,52 @@ class AddServiceFormContainer extends Component {
     handleSubmit = e => {
         e.preventDefault();
 
-        const { createService } = this.props;
-        const { name } = this.state;
+        const { createService, postTemplatesForService } = this.props;
+        const { name, templateUUIDs } = this.state;
+        createService({ name }).then(action => {
+            if (action.type === ADMIN_CREATE_SERVICE_SUCCESS) {
+                const service = action.payload;
 
-        createService({ name });
+                postTemplatesForService(service.id, {
+                    templateIDs: templateUUIDs
+                });
+            }
+        });
+    };
+
+    _getTemplateOptions = () => {
+        const { templates } = this.props;
+
+        const options = templates
+            .map(({ name, uuid }) => {
+                return {
+                    label: name,
+                    text: name,
+                    value: uuid
+                };
+            })
+            .sort((a, b) => a.label.localeCompare(b.label));
+
+        return convertArrToObj(options, 'value');
     };
 }
 
 const mapStateToProps = ({
     superAdmin: {
-        adminServicesReducer: { postSuccess }
+        adminServicesReducer: { postSuccess },
+        templatesReducer: { templates }
     }
-}) => ({ postSuccess });
+}) => ({ postSuccess, templates: Object.values(templates) });
 
 const mapDispatchToProps = dispatch => ({
     createService: postBody => {
-        dispatch(createService(postBody));
+        return dispatch(createService(postBody));
+    },
+    postTemplatesForService: (serviceID, postBody) => {
+        return dispatch(postTemplatesForService(serviceID, postBody));
+    },
+    fetchTemplates: () => {
+        dispatch(fetchTemplates());
     }
 });
 

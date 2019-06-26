@@ -5,8 +5,15 @@ import Form from 'components/shared/generic/form/containers/Form';
 import Field from 'components/shared/generic/form/presentational/Field';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
+import MultiSelect from 'components/shared/generic/form/presentational/MultiSelect';
 
-const AddServiceForm = ({ handleSubmit, handleInputChange, name }) => (
+const AddServiceForm = ({
+    handleSubmit,
+    handleInputChange,
+    name,
+    templateOptions,
+    templateUUIDs
+}) => (
     <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
         <div className="size-lg-6">
             <Field name="Service Name" required>
@@ -14,6 +21,19 @@ const AddServiceForm = ({ handleSubmit, handleInputChange, name }) => (
                     name="name"
                     value={name}
                     handleChange={handleInputChange}
+                    required
+                />
+            </Field>
+        </div>
+        <div className="size-lg-6">
+            <Field name="Template attached">
+                <MultiSelect
+                    search
+                    name="templateUUIDs"
+                    placeholder="-- select a template --"
+                    options={templateOptions}
+                    value={templateUUIDs}
+                    onChange={handleInputChange}
                     required
                 />
             </Field>
