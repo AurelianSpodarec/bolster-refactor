@@ -12,7 +12,9 @@ class AddSiteFormContainer extends Component {
         client: '',
         addressLine1: '',
         addressLine2: '',
-        postcode: ''
+        postcode: '',
+        isAlertShowing: false,
+        alertMessage: ''
     };
 
     render() {
@@ -43,9 +45,20 @@ class AddSiteFormContainer extends Component {
     handleSubmit = e => {
         e.preventDefault();
         const { hideModal, createSite } = this.props;
+        const {
+            name,
+            client,
+            addressLine1,
+            addressLine2,
+            postcode
+        } = this.state;
 
         const postBody = {
-            ...this.state
+            name,
+            client,
+            addressLine1,
+            addressLine2,
+            postcode
         };
 
         createSite(postBody);
