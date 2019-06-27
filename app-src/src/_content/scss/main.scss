@@ -2896,7 +2896,7 @@ input {
         position: absolute;
         top: 50%;
         left: 50%;
-        width: 600px;
+        width: 750px;
         overflow: auto;
 
         &.w-label-example {
@@ -3286,6 +3286,18 @@ input {
 //datepicker
 .react-datepicker-popper {
     z-index: 10000;
+}
+
+.react-datepicker {
+    font-size: 10px !important;
+}
+
+.react-datepicker__month-container {
+    font-size: 11px;
+}
+
+.react-datepicker__time-list-item {
+    padding: 2px 10px !important;
 }
 
 //ADMIN
