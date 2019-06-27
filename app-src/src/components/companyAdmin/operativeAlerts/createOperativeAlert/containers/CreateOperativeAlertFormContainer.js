@@ -65,13 +65,32 @@ class CreateOperativeAlertContainer extends Component {
     };
 
     handleSubmit = e => {
+        const { message, operativeIDs, siteID, filterOptionsVal } = this.state;
+
         e.preventDefault();
 
-        const postBody = {
-            ...this.state
-        };
+        let postBody = {};
+        if (filterOptionsVal === 0) {
+            //'All operatives'
+            postBody = {
+                message: message
+            };
+        } else if (filterOptionsVal === 1) {
+            //'Operatives within a site'
 
-        this.props.createOperativeAlert(postBody);
+            postBody = {
+                message: message,
+                siteID: siteID
+            };
+        } else {
+            //'Selected operatives'
+            postBody = {
+                message: message,
+                operativeIDs: operativeIDs
+            };
+        }
+
+        this.props.createOperativeAlert(postBody, filterOptionsVal);
     };
 
     _getUserOptions = () => {
@@ -100,8 +119,8 @@ const mapStateToProps = ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    createOperativeAlert: postBody => {
-        dispatch(createOperativeAlert(postBody));
+    createOperativeAlert: (postBody, filterOptionsVal) => {
+        dispatch(createOperativeAlert(postBody, filterOptionsVal));
     },
     fetchAll: () => {
         dispatch(fetchAllSites());

@@ -41,8 +41,9 @@ const mapStateToProps = ({
 
 const mapDispatchToProps = dispatch => ({
     fetchInvoiceData: () => {
-        dispatch(fetchAllInvoices());
-        dispatch(fetchAllCompanies());
+        return dispatch(fetchAllCompanies()).then(() => {
+            dispatch(fetchAllInvoices());
+        });
     }
 });
 

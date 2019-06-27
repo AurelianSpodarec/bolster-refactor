@@ -28,6 +28,7 @@ const CreateOperativeAlertForm = ({
                         value={message}
                         handleChange={handleInputChange}
                         required
+                        classes="set-height"
                     />
                 </Field>
             </div>
