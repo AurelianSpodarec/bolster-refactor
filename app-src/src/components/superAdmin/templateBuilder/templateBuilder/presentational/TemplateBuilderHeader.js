@@ -37,6 +37,13 @@ const TemplateBuilderHeader = ({
                     >
                         <i className="far fa-sticky-note" /> Label Example
                     </ButtonContainer>
+                    <ButtonContainer
+                        setColour={'#6460e0'}
+                        setColourHoverCode={'#4f4bb9'}
+                        to={`/admin/companies/${companyID}/template/${templateUUID}/form-example`}
+                    >
+                        <i className="far fa-edit" /> Form Example
+                    </ButtonContainer>
                 </>
             )}
         </div>
