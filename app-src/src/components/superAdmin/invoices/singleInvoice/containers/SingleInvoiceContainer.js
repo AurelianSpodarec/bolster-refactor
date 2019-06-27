@@ -42,10 +42,11 @@ const mapDispatchToProps = (
     }
 ) => ({
     fetchInvoiceData: () => {
-        dispatch(fetchCompanyInvoices(companyID));
-        dispatch(fetchCompanyInvoiceItems(companyID));
-        dispatch(fetchSingleCompany(companyID));
-        dispatch(fetchPaymentsByInvoice(id));
+        return dispatch(fetchSingleCompany(companyID)).then(() => {
+            dispatch(fetchCompanyInvoices(companyID));
+            dispatch(fetchCompanyInvoiceItems(companyID));
+            dispatch(fetchPaymentsByInvoice(id));
+        });
     }
 });
 

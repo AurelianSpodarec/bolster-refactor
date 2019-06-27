@@ -26,15 +26,15 @@ const DrawingDataByOperativeListItem = ({ operative, history }) => {
         </tr>
     );
 
-    function generateReport() {
-        //NEEDS TO BE UPDATED ONCE API IS
-        history.push({
-            pathname: '/company/tools/create-report',
-            state: {
-                operativeID: 6
-            }
-        });
-    }
+    // function generateReport() {
+    //     //NEEDS TO BE UPDATED ONCE API IS
+    //     history.push({
+    //         pathname: '/company/tools/create-report',
+    //         state: {
+    //             operativeID: 6
+    //         }
+    //     });
+    // }
 };
 
 export default withRouter(DrawingDataByOperativeListItem);

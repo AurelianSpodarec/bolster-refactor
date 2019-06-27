@@ -42,7 +42,7 @@ class RecordPaymentModalContainer extends Component {
 
         if (!prevProps.postSuccess && postSuccess) {
             showModal(SUCCESS_MODAL, {
-                message: 'Payment successfully edited.'
+                message: 'Payment successfully recorded.'
             });
         }
     }
@@ -67,10 +67,10 @@ class RecordPaymentModalContainer extends Component {
 
 const mapStateToProps = ({
     superAdmin: {
-        invoicePaymentsReducer: { postSucess }
+        invoicePaymentsReducer: { postSuccess }
     }
 }) => ({
-    postSucess
+    postSuccess
 });
 
 const mapDispatchToProps = {

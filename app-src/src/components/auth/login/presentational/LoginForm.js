@@ -4,7 +4,13 @@ import TextInputContainer from 'components/shared/generic/form/containers/TextIn
 import Form from 'components/shared/generic/form/containers/Form';
 import Field from 'components/shared/generic/form/presentational/Field';
 
-const LoginForm = ({ handleSubmit, handleInputChange, email, password }) => (
+const LoginForm = ({
+    handleSubmit,
+    handleInputChange,
+    handleForgotPassword,
+    email,
+    password
+}) => (
     <Form className="generic-form size-lg-12" onSubmit={handleSubmit}>
         <Field name="Email" sizeClasses="size-lg-4" required>
             <TextInputContainer
@@ -29,6 +35,14 @@ const LoginForm = ({ handleSubmit, handleInputChange, email, password }) => (
         </Field>
 
         <div className="button-area size-lg-12">
+            {/* ! uncomment when the api is ready */}
+            {/* <button
+                onClick={handleForgotPassword}
+                className="button red"
+                type="button"
+            >
+                Forgot Password
+            </button> */}
             <button className="button green" type="submit">
                 Login
             </button>

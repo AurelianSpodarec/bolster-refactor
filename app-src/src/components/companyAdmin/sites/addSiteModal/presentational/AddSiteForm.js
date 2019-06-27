@@ -6,17 +6,24 @@ import Form from 'components/shared/generic/form/containers/Form';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 import BolsterLabelExample from 'components/shared/generic/form/presentational/BolsterLabelExample';
+import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
+import TextAreaContainer from 'components/shared/generic/form/containers/TextAreaContainer';
+import DatePickerPresentational from 'components/shared/generic/form/presentational/DatePicker';
 
 const AddSiteForm = ({
     handleSubmit,
     handleInputChange,
+    handleDateChange,
     hideModal,
     name,
     client,
     addressLine1,
     addressLine2,
     postcode,
-    isUsingBolsterLabels
+    isUsingBolsterLabels,
+    isAlertShowing,
+    alertMessage,
+    alertDate
 }) => (
     <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
         <div className="size-lg-12">
@@ -76,6 +83,45 @@ const AddSiteForm = ({
             </div>
         </div>
         {isUsingBolsterLabels && <BolsterLabelExample name={name} />}
+
+        <div className="size-lg-12" style={{ display: 'none' }}>
+            <div className="size-lg-6">
+                <Field name="Send an alert?">
+                    <CheckboxContainer
+                        checked={isAlertShowing}
+                        name="isAlertShowing"
+                        text=""
+                        handleChange={handleInputChange}
+                    />
+                </Field>
+            </div>
+        </div>
+
+        {isAlertShowing && (
+            <div className="size-lg-12">
+                <div className="size-lg-6">
+                    <Field name="Alert Message">
+                        <TextAreaContainer
+                            value={alertMessage}
+                            name="alertMessage"
+                            handleChange={handleInputChange}
+                        />
+                    </Field>
+                </div>
+
+                <div className="size-lg-6">
+                    <Field name="Date to send">
+                        <DatePickerPresentational
+                            name="alertDate"
+                            selected={alertDate}
+                            onChange={handleDateChange}
+                            placeholderText="Date"
+                            showTimeSelect
+                        />
+                    </Field>
+                </div>
+            </div>
+        )}
 
         <BlockButtonWrapper>
             <button className="button green">

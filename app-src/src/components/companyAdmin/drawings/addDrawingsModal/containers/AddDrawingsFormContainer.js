@@ -28,7 +28,10 @@ const AddDrawingsFormContainer = ({
     ] = useMultipleHierarchies({
         name: '',
         file: '',
-        templateUsageRule: ''
+        templateUsageRule: '',
+        isAlertShowing: false,
+        alertMessage: '',
+        alertDate: null
     });
 
     const templateUsageRuleOptions = {

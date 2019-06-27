@@ -4,8 +4,6 @@ import { withRouter } from 'react-router-dom';
 
 import InvoiceItemsTable from 'components/shared/invoices/invoiceItemsTable/presentational/InvoiceItemsTable';
 
-// TODO: move InvoiceItemsTable and children to a shared folder, they are already generic to company/superadmin
-
 const InvoiceItemsTableContainer = ({
     invoice,
     error,

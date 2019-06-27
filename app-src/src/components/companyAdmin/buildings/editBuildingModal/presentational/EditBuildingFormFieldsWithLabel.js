@@ -3,10 +3,21 @@ import React from 'react';
 import Field from 'components/shared/generic/form/presentational/Field';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import BolsterLabelExample from 'components/shared/generic/form/presentational/BolsterLabelExample';
+import TextAreaContainer from 'components/shared/generic/form/containers/TextAreaContainer';
+import DatePickerPresentational from 'components/shared/generic/form/presentational/DatePicker';
+import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
 
 // * .*. in names is used for splitting up field validations without risking overlap with real names
 
-const BuildingFormFieldsWithLabel = ({ handleInputChange, name, location }) => (
+const BuildingFormFieldsWithLabel = ({
+    handleInputChange,
+    handleDateChange,
+    name,
+    location,
+    isAlertShowing,
+    alertMessage,
+    alertDate
+}) => (
     <>
         <div className="size-lg-6">
             <div className="size-lg-12">
@@ -28,6 +39,45 @@ const BuildingFormFieldsWithLabel = ({ handleInputChange, name, location }) => (
                     />
                 </Field>
             </div>
+
+            <div className="size-lg-12" style={{ display: 'none' }}>
+                <div className="size-lg-6">
+                    <Field name="Send an alert?">
+                        <CheckboxContainer
+                            checked={isAlertShowing}
+                            name="isAlertShowing"
+                            text=""
+                            handleChange={handleInputChange}
+                        />
+                    </Field>
+                </div>
+            </div>
+
+            {isAlertShowing && (
+                <div className="size-lg-12">
+                    <div className="size-lg-6">
+                        <Field name="Alert Message">
+                            <TextAreaContainer
+                                value={alertMessage}
+                                name="alertMessage"
+                                handleChange={handleInputChange}
+                            />
+                        </Field>
+                    </div>
+
+                    <div className="size-lg-6">
+                        <Field name="Date to send">
+                            <DatePickerPresentational
+                                name="alertDate"
+                                selected={alertDate}
+                                onChange={handleDateChange}
+                                placeholderText="Date"
+                                showTimeSelect
+                            />
+                        </Field>
+                    </div>
+                </div>
+            )}
         </div>
         <div className="size-lg-6">
             <BolsterLabelExample name={name} />

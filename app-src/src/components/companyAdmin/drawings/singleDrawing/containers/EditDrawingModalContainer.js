@@ -13,7 +13,10 @@ class EditDrawingModalContainer extends Component {
     state = {
         name: '',
         file: '',
-        isCreditsAvailable: true
+        isCreditsAvailable: true,
+        isAlertShowing: false,
+        alertMessage: '',
+        alertDate: null
     };
 
     render() {
@@ -23,6 +26,7 @@ class EditDrawingModalContainer extends Component {
                 {...this.state}
                 drawing={drawing}
                 handleChange={this.handleChange}
+                handleDateChange={this.handleDateChange}
                 hideModal={hideModal}
                 handleSubmit={this.handleSubmit}
                 filesUploading={filesUploading}
@@ -58,6 +62,12 @@ class EditDrawingModalContainer extends Component {
     handleChange = (name, val) => {
         const { [name]: curVal } = this.state;
         this.setState({ [name]: val === curVal ? '' : val });
+    };
+
+    handleDateChange = date => {
+        this.setState({
+            alertDate: date
+        });
     };
 
     handleSubmit = e => {

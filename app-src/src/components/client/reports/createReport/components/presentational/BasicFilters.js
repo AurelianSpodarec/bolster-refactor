@@ -14,13 +14,15 @@ const BasicFilters = ({
     handleDateBlur,
     serviceOptions,
     selectedService,
+    templateOptions,
+    selectedTemplate,
     statusOptions,
     selectedStatus,
     fromDateInclusive,
     toDateInclusive,
     isDrawingPage
 }) => (
-    <div className={`flex-item size-lg-${isDrawingPage ? '12' : '6'}`}>
+    <div className="size-lg-12">
         <BlockContainer>
             <div className="size-lg-12">
                 <BlockHeading title="General Filters" />
@@ -36,6 +38,16 @@ const BasicFilters = ({
                         value={selectedService}
                         handleChange={handleChange}
                         required
+                    />
+                </Field>
+                <Field name="Templates">
+                    <DropdownContainer
+                        placeholder="Select Template"
+                        name="templateID"
+                        options={templateOptions}
+                        selectedOption={selectedTemplate}
+                        value={selectedTemplate}
+                        handleChange={handleChange}
                     />
                 </Field>
                 <Field name="Status">

@@ -126,6 +126,8 @@ button {
 }
 
 .label-example {
+    margin-bottom: 15px;
+
     .block-heading {
         margin-bottom: 12.5px;
         .heading {
@@ -373,11 +375,21 @@ button {
         }
     }
 
+    $blockButtonSpacing: 7.5px;
+
     .button,
     button,
     .link-holder {
         float: right;
-        margin-left: 7.5px;
+        margin-left: $blockButtonSpacing;
+
+        &.left {
+            float: left;
+            margin: {
+                left: 0;
+                right: $blockButtonSpacing;
+            }
+        }
     }
 
     &.left-align {
@@ -386,7 +398,7 @@ button {
         .link-holder {
             float: left;
             margin-left: 0;
-            margin-right: 7.5px;
+            margin-right: $blockButtonSpacing;
         }
     }
 }
@@ -2884,7 +2896,7 @@ input {
         position: absolute;
         top: 50%;
         left: 50%;
-        width: 600px;
+        width: 750px;
         overflow: auto;
 
         &.w-label-example {
@@ -3274,6 +3286,18 @@ input {
 //datepicker
 .react-datepicker-popper {
     z-index: 10000;
+}
+
+.react-datepicker {
+    font-size: 10px !important;
+}
+
+.react-datepicker__month-container {
+    font-size: 11px;
+}
+
+.react-datepicker__time-list-item {
+    padding: 2px 10px !important;
 }
 
 //ADMIN

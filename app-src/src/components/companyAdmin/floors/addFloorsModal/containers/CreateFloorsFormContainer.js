@@ -25,7 +25,10 @@ const CreateFloorsFormContainer = ({
         getKeys,
         getPostBody
     ] = useMultipleHierarchies({
-        name: ''
+        name: '',
+        isAlertShowing: false,
+        alertMessage: '',
+        alertDate: null
     });
     return (
         <CreateFloorsForm

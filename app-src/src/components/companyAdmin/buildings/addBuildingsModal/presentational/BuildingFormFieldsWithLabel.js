@@ -4,6 +4,9 @@ import Field from 'components/shared/generic/form/presentational/Field';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import BolsterLabelExample from 'components/shared/generic/form/presentational/BolsterLabelExample';
+import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
+import TextAreaContainer from 'components/shared/generic/form/containers/TextAreaContainer';
+import DatePickerPresentational from 'components/shared/generic/form/presentational/DatePicker';
 
 // * .*. in names is used for splitting up field validations without risking overlap with real names
 
@@ -38,6 +41,55 @@ const BuildingFormFieldsWithLabel = ({
                         />
                     </Field>
                 </div>
+
+                <div className="size-lg-12" style={{ display: 'none' }}>
+                    <div className="size-lg-6">
+                        <Field name="Send an alert?">
+                            <CheckboxContainer
+                                checked={building.isAlertShowing}
+                                name={`${building.id}.*.isAlertShowing`}
+                                text=""
+                                handleChange={(name, value) =>
+                                    updateBuilding(name, value, building.id)
+                                }
+                            />
+                        </Field>
+                    </div>
+                </div>
+
+                {building.isAlertShowing && (
+                    <div className="size-lg-12">
+                        <div className="size-lg-6">
+                            <Field name="Alert Message">
+                                <TextAreaContainer
+                                    value={building.alertMessage}
+                                    name={`${building.id}.*.alertMessage`}
+                                    handleChange={(name, value) =>
+                                        updateBuilding(name, value, building.id)
+                                    }
+                                />
+                            </Field>
+                        </div>
+
+                        <div className="size-lg-6">
+                            <Field name="Date to send">
+                                <DatePickerPresentational
+                                    name={`${building.id}.*.alertDate`}
+                                    selected={building.alertDate}
+                                    onChange={value =>
+                                        updateBuilding(
+                                            `${building.id}.*.alertDate`,
+                                            value,
+                                            building.id
+                                        )
+                                    }
+                                    placeholderText="Date"
+                                    showTimeSelect
+                                />
+                            </Field>
+                        </div>
+                    </div>
+                )}
             </div>
             <div className="size-lg-6">
                 <BolsterLabelExample name={building.name} />

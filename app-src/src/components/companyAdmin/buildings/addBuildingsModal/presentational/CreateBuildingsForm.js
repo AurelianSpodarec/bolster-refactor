@@ -34,7 +34,7 @@ const CreateBuildingsForm = ({
         </div>
         <BlockButtonWrapper>
             <button
-                className="button green"
+                className="button blue left"
                 type="button"
                 onClick={addBuilding}
             >

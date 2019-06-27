@@ -9,6 +9,9 @@ import ButtonContainer from 'components/shared/generic/button/containers/ButtonC
 import FileUploadContainer from 'components/shared/generic/form/containers/FileUploadContainer';
 import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
 import BolsterLabelExample from 'components/shared/generic/form/presentational/BolsterLabelExample';
+import TextAreaContainer from 'components/shared/generic/form/containers/TextAreaContainer';
+import DatePickerPresentational from 'components/shared/generic/form/presentational/DatePicker';
+import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
 
 // * .*. in names is used for splitting up field validations without risking overlap with real names
 
@@ -92,6 +95,65 @@ const AddDrawingsForm = ({
                                 />
                             </Field>
                         </div>
+
+                        <div className="size-lg-12" style={{ display: 'none' }}>
+                            <div className="size-lg-6">
+                                <Field name="Send an alert?">
+                                    <CheckboxContainer
+                                        checked={drawing.isAlertShowing}
+                                        name={`${drawing.id}.*.isAlertShowing`}
+                                        text=""
+                                        handleChange={(name, value) =>
+                                            updateDrawing(
+                                                name,
+                                                value,
+                                                drawing.id
+                                            )
+                                        }
+                                    />
+                                </Field>
+                            </div>
+                        </div>
+
+                        {drawing.isAlertShowing && (
+                            <div className="size-lg-12">
+                                <div className="size-lg-6">
+                                    <Field name="Alert Message">
+                                        <TextAreaContainer
+                                            value={drawing.alertMessage}
+                                            name={`${
+                                                drawing.id
+                                            }.*.alertMessage`}
+                                            handleChange={(name, value) =>
+                                                updateDrawing(
+                                                    name,
+                                                    value,
+                                                    drawing.id
+                                                )
+                                            }
+                                        />
+                                    </Field>
+                                </div>
+
+                                <div className="size-lg-6">
+                                    <Field name="Date to send">
+                                        <DatePickerPresentational
+                                            name={`${drawing.id}.*.alertDate`}
+                                            selected={drawing.alertDate}
+                                            onChange={value =>
+                                                updateDrawing(
+                                                    `${drawing.id}.*.alertDate`,
+                                                    value,
+                                                    drawing.id
+                                                )
+                                            }
+                                            placeholderText="Date"
+                                            showTimeSelect
+                                        />
+                                    </Field>
+                                </div>
+                            </div>
+                        )}
                     </div>
                     {isUsingBolsterLabels && (
                         <div className="size-lg-6">
@@ -114,7 +176,11 @@ const AddDrawingsForm = ({
             ))}
         </div>
         <BlockButtonWrapper>
-            <button className="button green" type="button" onClick={addDrawing}>
+            <button
+                className="button blue left"
+                type="button"
+                onClick={addDrawing}
+            >
                 <i className="fa fa-plus" /> Add another drawing
             </button>
 

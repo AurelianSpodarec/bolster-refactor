@@ -7,6 +7,7 @@ import {
 } from 'constants/actionTypes/superAdminInvoices';
 import { ADMIN_API_URL } from 'config';
 import { getHeaders } from 'helpers/api';
+import setAPIFieldErrors from 'actions/shared/generic/fieldErrors/sync/setAPIFieldErrors';
 
 export const saEditInvoicePaymentRequest = () => ({
     type: SA_EDIT_INVOICE_PAYMENT_REQUEST
@@ -33,5 +34,10 @@ export default (id, invoiceID, postBody) => dispatch => {
             getHeaders()
         )
         .then(({ data }) => dispatch(saEditInvoicePaymentSuccess(data)))
-        .catch(err => dispatch(saEditInvoicePaymentFailure(err.message)));
+        .catch(error => {
+            dispatch(saEditInvoicePaymentFailure(error.message));
+            if (error.response.status === 400)
+                // ! the below has a different structure from other error handling but is correct
+                dispatch(setAPIFieldErrors(error.response.data));
+        });
 };
