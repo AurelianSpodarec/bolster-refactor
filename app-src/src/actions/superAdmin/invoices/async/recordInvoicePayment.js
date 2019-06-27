@@ -36,6 +36,7 @@ export default (id, postBody) => dispatch => {
         .catch(error => {
             dispatch(saRecordInvoicePaymentFailure(error.message));
             if (error.response.status === 400)
+                // ! the below has a different structure from other error handling but is correct
                 dispatch(setAPIFieldErrors(error.response.data));
         });
 };
