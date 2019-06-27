@@ -9,6 +9,8 @@ import { COMPANY_USER_ROLE_TYPES as ROLES } from 'constants/companyAdmin/enums';
 import addFieldError from 'actions/shared/generic/fieldErrors/sync/addFieldError';
 import showFieldErrors from 'actions/shared/generic/fieldErrors/sync/showFieldErrors';
 import fetchCompanySettings from 'actions/companyAdmin/companySettings/async/fetchCompanySettings';
+import { showModal } from 'actions/shared/generic/modals/sync/showModal';
+import { FORGOT_PASSWORD } from 'constants/shared/modalTypes';
 
 class LoginFormContainer extends Component {
     state = {
@@ -21,6 +23,7 @@ class LoginFormContainer extends Component {
             {...this.state}
             handleInputChange={this.handleInputChange}
             handleSubmit={this.handleSubmit}
+            handleForgotPassword={this.handleForgotPassword}
         />
     );
 
@@ -31,6 +34,10 @@ class LoginFormContainer extends Component {
         const { postLogin } = this.props;
         const { email, password } = this.state;
         postLogin(email, password);
+    };
+
+    handleForgotPassword = () => {
+        this.props.showModal(FORGOT_PASSWORD);
     };
 
     componentDidUpdate = async prevProps => {
@@ -75,7 +82,8 @@ const mapDispatchToProps = dispatch => ({
     postLogin: (email, password) => dispatch(postLogin(email, password)),
     addFieldError: (field, error) => dispatch(addFieldError(field, error)),
     showFieldErrors: () => dispatch(showFieldErrors()),
-    fetchCompanySettings: () => dispatch(fetchCompanySettings())
+    fetchCompanySettings: () => dispatch(fetchCompanySettings()),
+    showModal: (type, props) => dispatch(showModal(type, props))
 });
 
 export default withRouter(
