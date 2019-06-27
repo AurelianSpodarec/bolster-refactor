@@ -26,9 +26,9 @@ export default (postBody, filterOptionsVal = 0) => dispatch => {
     dispatch(createOperativeAlertRequest());
 
     const endpoints = {
-        [0]: '',
-        [1]: 'sites',
-        [2]: 'operatives'
+        0: '',
+        1: 'sites',
+        2: 'operatives'
     };
 
     return axios
