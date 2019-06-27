@@ -375,11 +375,21 @@ button {
         }
     }
 
+    $blockButtonSpacing: 7.5px;
+
     .button,
     button,
     .link-holder {
         float: right;
-        margin-left: 7.5px;
+        margin-left: $blockButtonSpacing;
+
+        &.left {
+            float: left;
+            margin: {
+                left: 0;
+                right: $blockButtonSpacing;
+            }
+        }
     }
 
     &.left-align {
@@ -388,7 +398,7 @@ button {
         .link-holder {
             float: left;
             margin-left: 0;
-            margin-right: 7.5px;
+            margin-right: $blockButtonSpacing;
         }
     }
 }

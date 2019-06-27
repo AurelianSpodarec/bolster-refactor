@@ -114,7 +114,11 @@ const CreateFloorsForm = ({
             ))}
         </div>
         <BlockButtonWrapper>
-            <button className="button green" type="button" onClick={addFloor}>
+            <button
+                className="button blue left"
+                type="button"
+                onClick={addFloor}
+            >
                 <i className="fa fa-plus" /> Add another floor
             </button>
             <button className="button green" type="submit">

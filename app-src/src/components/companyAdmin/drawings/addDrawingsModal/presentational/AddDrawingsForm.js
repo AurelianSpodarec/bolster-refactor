@@ -176,7 +176,11 @@ const AddDrawingsForm = ({
             ))}
         </div>
         <BlockButtonWrapper>
-            <button className="button green" type="button" onClick={addDrawing}>
+            <button
+                className="button blue left"
+                type="button"
+                onClick={addDrawing}
+            >
                 <i className="fa fa-plus" /> Add another drawing
             </button>
 
