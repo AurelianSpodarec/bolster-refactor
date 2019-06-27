@@ -17,7 +17,7 @@ class DashboardStatsFiltersContainer extends Component {
     };
 
     render() {
-        const { serviceOptions, statusOptions } = this.state;
+        const { statusOptions } = this.state;
         const {
             filters,
             isFetching,

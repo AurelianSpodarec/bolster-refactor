@@ -1,7 +1,5 @@
 import React from 'react';
 
-import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
-
 const UserDrawingListItem = ({
     drawing,
     checkedDrawings,

@@ -14,18 +14,18 @@ const DrawingDataByDrawingListItem = ({ drawing, history }) => {
         </tr>
     );
 
-    function generateReport() {
-        //NEEDS TO BE UPDATED ONCE API IS
-        history.push({
-            pathname: '/company/tools/create-report',
-            state: {
-                siteID: 4,
-                buildingID: 4,
-                floorID: 4,
-                drawingID: 3
-            }
-        });
-    }
+    // function generateReport() {
+    //     //NEEDS TO BE UPDATED ONCE API IS
+    //     history.push({
+    //         pathname: '/company/tools/create-report',
+    //         state: {
+    //             siteID: 4,
+    //             buildingID: 4,
+    //             floorID: 4,
+    //             drawingID: 3
+    //         }
+    //     });
+    // }
 };
 
 export default withRouter(DrawingDataByDrawingListItem);
