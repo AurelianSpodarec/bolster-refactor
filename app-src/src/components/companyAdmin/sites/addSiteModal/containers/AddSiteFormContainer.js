@@ -14,7 +14,8 @@ class AddSiteFormContainer extends Component {
         addressLine2: '',
         postcode: '',
         isAlertShowing: false,
-        alertMessage: ''
+        alertMessage: '',
+        alertDate: null
     };
 
     render() {
@@ -23,6 +24,7 @@ class AddSiteFormContainer extends Component {
             <AddSiteForm
                 {...this.state}
                 handleInputChange={this.handleInputChange}
+                handleDateChange={this.handleDateChange}
                 handleSubmit={this.handleSubmit}
                 hideModal={this.props.hideModal}
                 isUsingBolsterLabels={isUsingBolsterLabels}
@@ -40,6 +42,12 @@ class AddSiteFormContainer extends Component {
 
     handleInputChange = (name, value) => {
         this.setState({ [name]: value });
+    };
+
+    handleDateChange = date => {
+        this.setState({
+            alertDate: date
+        });
     };
 
     handleSubmit = e => {

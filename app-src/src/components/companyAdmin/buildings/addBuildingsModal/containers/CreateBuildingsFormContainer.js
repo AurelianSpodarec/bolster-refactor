@@ -26,7 +26,10 @@ const CreateBuildingsFormContainer = ({
         getPostBody
     ] = useMultipleHierarchies({
         name: '',
-        location: ''
+        location: '',
+        isAlertShowing: false,
+        alertMessage: '',
+        alertDate: null
     });
     return (
         <CreateBuildingsForm

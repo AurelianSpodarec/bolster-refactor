@@ -8,7 +8,10 @@ import editFloor from 'actions/companyAdmin/floors/async/editFloor';
 
 class EditFloorFormContainer extends Component {
     state = {
-        name: ''
+        name: '',
+        isAlertShowing: false,
+        alertMessage: '',
+        alertDate: null
     };
 
     render() {
@@ -18,6 +21,7 @@ class EditFloorFormContainer extends Component {
                 {...this.state}
                 floorID={this.props.floorID}
                 handleInputChange={this.handleInputChange}
+                handleDateChange={this.handleDateChange}
                 handleSubmit={this.handleSubmit}
                 hideModal={this.props.hideModal}
                 isUsingBolsterLabels={isUsingBolsterLabels}
@@ -45,6 +49,12 @@ class EditFloorFormContainer extends Component {
         this.setState({ [name]: value });
     };
 
+    handleDateChange = date => {
+        this.setState({
+            alertDate: date
+        });
+    };
+
     _setFormDetails = () => {
         const {
             floor: { name }
@@ -59,8 +69,10 @@ class EditFloorFormContainer extends Component {
         e.preventDefault();
         const { floor, editFloor, hideModal } = this.props;
 
+        const { name } = this.state;
+
         const postBody = {
-            ...this.state
+            name
         };
 
         editFloor(floor.id, postBody);
