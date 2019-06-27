@@ -7,11 +7,12 @@ const TextArea = ({
     handleChange,
     handleBlur,
     error,
-    charLimit
+    charLimit,
+    classes
 }) => (
     <>
         <textarea
-            className="generic-input"
+            className={`generic-input ${classes}`}
             name={name}
             placeholder={placeholder}
             value={value}

@@ -1413,6 +1413,10 @@ input {
     textarea {
         min-height: 100px;
         max-width: 100%;
+
+        &.set-height {
+            min-height: 110px;
+        }
     }
     .react-datepicker-wrapper {
         float: left;

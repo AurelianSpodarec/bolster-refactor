@@ -19,7 +19,8 @@ class TextAreaContainer extends Component {
             placeholder,
             error,
             errorsVisible,
-            charLimit
+            charLimit,
+            classes = ''
         } = this.props;
         const errorMessage = showFieldError || errorsVisible ? error : null;
 
@@ -32,6 +33,7 @@ class TextAreaContainer extends Component {
                 handleBlur={this.handleBlur}
                 error={errorMessage}
                 charLimit={charLimit}
+                classes={classes}
             />
         );
     }
