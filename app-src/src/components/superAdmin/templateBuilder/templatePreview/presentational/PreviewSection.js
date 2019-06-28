@@ -4,9 +4,9 @@ import PreviewQuestionRoute from '../containers/PreviewQuestionRoute';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 
 const PreviewSection = ({ section, questions }) => (
-    <div className="size-lg-12">
+    <div className="phone-section size-lg-12">
         <BlockHeading title={section.name} />
-        <div className="generic-form">
+        <div className="size-lg-12">
             {questions.map(question => (
                 <PreviewQuestionRoute key={question.uuid} question={question} />
             ))}

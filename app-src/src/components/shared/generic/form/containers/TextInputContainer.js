@@ -22,6 +22,7 @@ class TextInputContainer extends Component {
             error,
             errorsVisible,
             charLimit,
+            disabled = false,
             maxNum
         } = this.props;
 
@@ -39,6 +40,7 @@ class TextInputContainer extends Component {
                 error={errorMessage}
                 charLimit={charLimit}
                 maxNum={maxNum}
+                disabled={disabled}
             />
         );
     }

@@ -18,6 +18,7 @@ const Select = ({
     options = [],
     onChange,
     showError,
+    iconClass = '',
     placeholder = '-- select option --',
     omitPlaceholder = false
 }) => {
@@ -56,7 +57,11 @@ const Select = ({
                     <p className="placeholder">{selected.label}</p>
                 )}
 
-                <i className="arrow fal fa-angle-down" />
+                <i
+                    className={`arrow ${
+                        iconClass.length ? iconClass : 'fal fa-angle-down'
+                    }`}
+                />
             </div>
 
             {isOpen && (

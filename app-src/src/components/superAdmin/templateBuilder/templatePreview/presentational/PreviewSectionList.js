@@ -2,16 +2,13 @@ import React from 'react';
 
 import PreviewSection from '../presentational/PreviewSection';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
+import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 
-const PreviewSectionList = ({ sections, questionBySection, template }) => (
+const PreviewSectionList = ({ sections, questionBySection }) => (
     <>
-        <PageHeading
-            title={`Preview Template: ${template.name}`}
-            withBackButton
-        />
         <BlockContainer>
-            <div className="size-lg-12">
+            <BlockHeading title="Template Preview" />
+            <div className="template-phone-example ignore-padding size-lg-12">
                 {sections.map(section => (
                     <PreviewSection
                         key={section.uuid}
