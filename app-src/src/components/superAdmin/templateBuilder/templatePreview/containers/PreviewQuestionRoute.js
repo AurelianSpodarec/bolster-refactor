@@ -111,16 +111,14 @@ function MultiDropdown({ question, handleChange }) {
     );
 }
 
-function MultiMultiDropdown({ question }) {
+function MultiMultiDropdown() {
     return (
         <div className="phone-multt-multi size-lg-12">
             <p>Options:</p>
-            {question.options &&
-                question.options.map(option => (
-                    <div key={option.id} className="option">
-                        {option.text}
-                    </div>
-                ))}
+
+            <div className="option">Option 1</div>
+            <div className="option">Option 2</div>
+            <div className="option">Option 3</div>
         </div>
     );
 }

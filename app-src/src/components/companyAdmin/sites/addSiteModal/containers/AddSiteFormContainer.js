@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import moment from 'moment';
 
 import AddSiteForm from '../presentational/AddSiteForm';
 import createSite from 'actions/companyAdmin/sites/async/createSite';
@@ -14,8 +15,8 @@ class AddSiteFormContainer extends Component {
         addressLine2: '',
         postcode: '',
         isAlertShowing: false,
-        alertMessage: '',
-        alertDate: null
+        message: '',
+        dateToSend: ''
     };
 
     render() {
@@ -46,7 +47,7 @@ class AddSiteFormContainer extends Component {
 
     handleDateChange = date => {
         this.setState({
-            alertDate: date
+            dateToSend: date
         });
     };
 
@@ -58,16 +59,31 @@ class AddSiteFormContainer extends Component {
             client,
             addressLine1,
             addressLine2,
-            postcode
+            postcode,
+            message,
+            dateToSend,
+            isAlertShowing
         } = this.state;
-
-        const postBody = {
-            name,
-            client,
-            addressLine1,
-            addressLine2,
-            postcode
-        };
+        let postBody = {};
+        if (isAlertShowing) {
+            postBody = {
+                name,
+                client,
+                addressLine1,
+                addressLine2,
+                postcode,
+                message: message,
+                dateToSend: moment(dateToSend).format()
+            };
+        } else {
+            postBody = {
+                name,
+                client,
+                addressLine1,
+                addressLine2,
+                postcode
+            };
+        }
 
         createSite(postBody);
         hideModal();
