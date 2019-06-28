@@ -27,6 +27,12 @@ import {
     CREATE_DRAWINGS_FAILURE
 } from 'constants/actionTypes/drawings';
 
+import {
+    ADD_CREDITS_TO_DRAWING_REQUEST,
+    ADD_CREDITS_TO_DRAWING_SUCCESS,
+    ADD_CREDITS_TO_DRAWING_FAILURE
+} from 'constants/actionTypes/credits';
+
 export default combineReducers({
     drawings: drawingsReducer,
     isFetching: isFetchingReducer,
@@ -94,11 +100,13 @@ function postSuccessReducer(state = false, action) {
         case CREATE_DRAWINGS_REQUEST:
         case ARCHIVE_DRAWING_REQUEST:
         case EDIT_DRAWING_REQUEST:
+        case ADD_CREDITS_TO_DRAWING_REQUEST:
             return false;
         case CREATE_DRAWING_SUCCESS:
         case CREATE_DRAWINGS_SUCCESS:
         case ARCHIVE_DRAWING_SUCCESS:
         case EDIT_DRAWING_SUCCESS:
+        case ADD_CREDITS_TO_DRAWING_SUCCESS:
             return true;
         default:
             return state;

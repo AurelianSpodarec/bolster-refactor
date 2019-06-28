@@ -14,6 +14,7 @@ import MapPinContainer from 'components/shared/pins/map/containers/MapPinContain
 import RedX from 'components/shared/pins/map/presentational/RedX';
 import PinSelectorOptions from 'components/shared/pinSelector/presentational/PinSelectorOptions';
 import Rectangle from 'components/shared/pinSelector/presentational/Rectangle';
+import AddCreditsToDrawingButtonContainer from '../../addCreditsToDrawing/containers/AddCreditsToDrawingButtonContainer';
 
 const getDataUrl = src => `${FILE_STORAGE_URL}/${src}/{z}/{x}/{y}.jpg`;
 // const getFileName = src => src.match('[^/]*$')[0];
@@ -110,6 +111,10 @@ const DrawingMapViewSimple = ({
                                         <i className="far fa-pencil fa-fw" />{' '}
                                         Edit drawing
                                     </button>
+
+                                    <AddCreditsToDrawingButtonContainer
+                                        drawing={drawing}
+                                    />
                                 </>
                             )
                         )}
