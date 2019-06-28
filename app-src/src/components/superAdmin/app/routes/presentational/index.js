@@ -10,6 +10,7 @@ import CompaniesRoutes from './CompaniesRoutes';
 import CompanyReportsRoutes from './CompanyReportsRoutes';
 import ProfilesRoutes from './ProfilesRoutes';
 import InvoicesRoutes from './InvoicesRoutes';
+import SiteManagementRoutes from './SiteManagementRoutes';
 
 const AdminRoutes = ({ base = '/admin' }) => (
     <SwitchWith404>
@@ -27,6 +28,11 @@ const AdminRoutes = ({ base = '/admin' }) => (
         <Route
             path={`${base}/site-management/user-enquiries`}
             component={EnquiriesRoutes}
+        />
+
+        <Route
+            path={`${base}/site-management`}
+            component={SiteManagementRoutes}
         />
     </SwitchWith404>
 );

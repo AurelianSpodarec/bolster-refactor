@@ -13,6 +13,10 @@ import templateSectionsReducer from './templateSections';
 import templateLabelFieldsReducer from './templateLabelFields';
 import usersReducer from './users';
 import companySubscriptionReducer from './companySubscription';
+import sitesReducer from './sites';
+import buildingsReducer from './buildings';
+import floorsReducer from './floors';
+import drawingsReducer from './drawings';
 
 export default combineReducers({
     companiesReducer,
@@ -27,5 +31,9 @@ export default combineReducers({
     templateQuestionFormReducer,
     templateLabelFieldsReducer,
     usersReducer,
-    companySubscriptionReducer
+    companySubscriptionReducer,
+    sitesReducer,
+    buildingsReducer,
+    floorsReducer,
+    drawingsReducer
 });
