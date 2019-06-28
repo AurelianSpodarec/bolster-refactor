@@ -9,13 +9,15 @@ let PreviewSectionListContainer = ({
     sections,
     questionBySection,
     fetchTemplate,
-    templateUUID
+    templateUUID,
+    template
 }) => {
     useEffect(() => {
         fetchTemplate(templateUUID);
     }, []);
     return (
         <PreviewSectionList
+            template={template}
             sections={sections}
             questionBySection={questionBySection}
         />
@@ -26,7 +28,8 @@ const mapStateToProps = (
     {
         superAdmin: {
             templateSectionsReducer: { sections },
-            templateQuestionsReducer: { questions }
+            templateQuestionsReducer: { questions },
+            templatesReducer: { templates }
         }
     },
     {
@@ -50,7 +53,8 @@ const mapStateToProps = (
     return {
         templateUUID: uuid,
         sections: secs,
-        questionBySection
+        questionBySection,
+        template: templates[uuid] || {}
     };
 };
 

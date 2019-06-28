@@ -9,6 +9,7 @@ import CheckboxContainer from 'components/shared/generic/form/containers/Checkbo
 import RadioButtonListContainer from 'components/shared/generic/form/containers/RadioButtonListContainer';
 import { RAW_S3_STORAGE_URL } from 'config';
 import FileUploadContainer from 'components/shared/generic/form/containers/FileUploadContainer';
+import Field from 'components/shared/generic/form/presentational/Field';
 
 const {
     STATUS,
@@ -51,7 +52,11 @@ const PreviewQuestionRoute = ({ question }) => {
 
     const Nothing = () => null;
     const SpecificForm = questionForms[question.questionType] || Nothing;
-    return <SpecificForm question={question} handleChange={Nothing} />;
+    return (
+        <Field name={question.name} sizeClasses="size-lg-6">
+            <SpecificForm question={question} handleChange={Nothing} />
+        </Field>
+    );
 };
 
 export default PreviewQuestionRoute;
@@ -76,27 +81,27 @@ function MultiLine({ question: { id }, handleChange }) {
     );
 }
 
-function SingleDropdown({ question: { id }, handleChange }) {
+function SingleDropdown({ question: { id, options }, handleChange }) {
     const opts = [];
 
     return (
         <Select
             placeholder="-- select --"
             name={`answer-${id}`}
-            options={opts}
+            options={options}
             value={null}
             onChange={handleChange}
         />
     );
 }
 
-function MultiDropdown({ question: { id }, handleChange }) {
+function MultiDropdown({ question: { id, options }, handleChange }) {
     const opts = [];
 
     return (
         <MultiSelect
             placeholder="-- select --"
-            options={opts}
+            options={options}
             value={[]}
             name={`answer-${id}`}
             onChange={handleChange}
@@ -115,11 +120,11 @@ function CheckBox({ question: { id }, handleChange }) {
     );
 }
 
-function Radio({ question: { id }, handleChange }) {
+function Radio({ question: { id, options }, handleChange }) {
     return (
         <RadioButtonListContainer
             name={`answer-${id}`}
-            options={[]}
+            options={options}
             selectedOption={null}
             handleChange={handleChange}
         />
