@@ -7,25 +7,24 @@ const DrawingDataByDrawingListItem = ({ drawing, history }) => {
             <td>{drawing.name}</td>
             <td>{drawing.pinsUpdated}</td>
             <td>
-                {/* <button className="button blue" onClick={generateReport}>
+                <button className="button blue" onClick={generateReport}>
                     Generate Report
-                </button> */}
+                </button>
             </td>
         </tr>
     );
 
-    // function generateReport() {
-    //     //NEEDS TO BE UPDATED ONCE API IS
-    //     history.push({
-    //         pathname: '/company/tools/create-report',
-    //         state: {
-    //             siteID: 4,
-    //             buildingID: 4,
-    //             floorID: 4,
-    //             drawingID: 3
-    //         }
-    //     });
-    // }
+    function generateReport() {
+        history.push({
+            pathname: '/company/tools/create-report',
+            state: {
+                siteID: drawing.siteID,
+                buildingID: drawing.buildingID,
+                floorID: drawing.floorID,
+                drawingID: drawing.id
+            }
+        });
+    }
 };
 
 export default withRouter(DrawingDataByDrawingListItem);
