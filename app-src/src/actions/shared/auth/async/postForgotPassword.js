@@ -27,7 +27,7 @@ export default postBody => dispatch => {
     return (
         axios
             // ! check this endpoint when this is set up
-            .post(`${AUTH_API_URL}/auth/forgotpassword`, postBody, getHeaders())
+            .post(`${AUTH_API_URL}/auth/forgot-password`, postBody, getHeaders())
             .then(res => dispatch(postForgotPasswordSuccess(res.data)))
             .catch(err =>
                 dispatch(handleErrors(postForgotPasswordFailure)(err))
