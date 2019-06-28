@@ -116,22 +116,11 @@ class DashboardStatsFiltersContainer extends Component {
 
         const arrServices = Object.values(services);
 
-        const serviceOptions = [];
-
-        serviceIDs.forEach(serviceID => {
-            serviceOptions.push(
-                arrServices.filter(service => service.id === serviceID)[0]
-            );
-        });
-
-        const relevantServiceOptions = serviceOptions.reduce(
-            (acc, { id, name }) => {
+        return arrServices
+            .filter(({ id }) => serviceIDs.includes(id))
+            .reduce((acc, { id, name }) => {
                 return { ...acc, [id]: { value: id, text: name } };
-            },
-            {}
-        );
-
-        return relevantServiceOptions;
+            }, {});
     };
 }
 
