@@ -7,7 +7,7 @@ import {
     ADD_CREDITS_TO_DRAWING_REQUEST,
     ADD_CREDITS_TO_DRAWING_SUCCESS,
     ADD_CREDITS_TO_DRAWING_FAILURE
-} from 'constants/actionTypes/drawings';
+} from 'constants/actionTypes/credits';
 
 export const addCreditsToDrawingRequest = () => ({
     type: ADD_CREDITS_TO_DRAWING_REQUEST

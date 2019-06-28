@@ -10,7 +10,10 @@ import {
     CREATE_CREDITS_REQUEST,
     FETCH_COST_OF_CREDITS_REQUEST,
     FETCH_COST_OF_CREDITS_SUCCESS,
-    FETCH_COST_OF_CREDITS_FAILURE
+    FETCH_COST_OF_CREDITS_FAILURE,
+    ADD_CREDITS_TO_DRAWING_REQUEST,
+    ADD_CREDITS_TO_DRAWING_SUCCESS,
+    ADD_CREDITS_TO_DRAWING_FAILURE
 } from 'constants/actionTypes/credits';
 
 export default combineReducers({
@@ -41,8 +44,10 @@ function isFetchingReducer(state = false, action) {
 function postSuccessReducer(state = false, action) {
     switch (action.type) {
         case CREATE_CREDITS_REQUEST:
+        case ADD_CREDITS_TO_DRAWING_REQUEST:
             return false;
         case CREATE_CREDITS_SUCCESS:
+        case ADD_CREDITS_TO_DRAWING_SUCCESS:
             return true;
         default:
             return state;
@@ -51,7 +56,11 @@ function postSuccessReducer(state = false, action) {
 
 function postErrorReducer(state = null, action) {
     switch (action.type) {
+        case CREATE_CREDITS_REQUEST:
+        case ADD_CREDITS_TO_DRAWING_REQUEST:
+            return null;
         case CREATE_CREDITS_FAILURE:
+        case ADD_CREDITS_TO_DRAWING_FAILURE:
             return true;
         default:
             return state;
@@ -63,10 +72,12 @@ function errorReducer(state = null, action) {
         case FETCH_CREDITS_REQUEST:
         case CREATE_CREDITS_REQUEST:
         case FETCH_COST_OF_CREDITS_REQUEST:
+        case ADD_CREDITS_TO_DRAWING_REQUEST:
             return null;
         case FETCH_CREDITS_FAILURE:
         case CREATE_CREDITS_FAILURE:
         case FETCH_COST_OF_CREDITS_FAILURE:
+        case ADD_CREDITS_TO_DRAWING_FAILURE:
             return action.error;
         default:
             return state;
