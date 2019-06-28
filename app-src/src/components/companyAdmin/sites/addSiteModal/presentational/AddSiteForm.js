@@ -22,8 +22,8 @@ const AddSiteForm = ({
     postcode,
     isUsingBolsterLabels,
     isAlertShowing,
-    alertMessage,
-    alertDate
+    message,
+    dateToSend
 }) => (
     <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
         <div className="size-lg-12">
@@ -84,7 +84,7 @@ const AddSiteForm = ({
         </div>
         {isUsingBolsterLabels && <BolsterLabelExample name={name} />}
 
-        <div className="size-lg-12" style={{ display: 'none' }}>
+        <div className="size-lg-12">
             <div className="size-lg-6">
                 <Field name="Send an alert?">
                     <CheckboxContainer
@@ -102,8 +102,8 @@ const AddSiteForm = ({
                 <div className="size-lg-6">
                     <Field name="Alert Message">
                         <TextAreaContainer
-                            value={alertMessage}
-                            name="alertMessage"
+                            value={message}
+                            name="message"
                             handleChange={handleInputChange}
                         />
                     </Field>
@@ -112,8 +112,8 @@ const AddSiteForm = ({
                 <div className="size-lg-6">
                     <Field name="Date to send">
                         <DatePickerPresentational
-                            name="alertDate"
-                            selected={alertDate}
+                            name="dateToSend"
+                            selected={dateToSend}
                             onChange={handleDateChange}
                             placeholderText="Date"
                             showTimeSelect

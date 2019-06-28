@@ -40,7 +40,7 @@ const BuildingFormFieldsNoLabel = ({
             </div>
         </div>
 
-        <div className="size-lg-12" style={{ display: 'none' }}>
+        <div className="size-lg-12">
             <div className="size-lg-6">
                 <Field name="Send an alert?">
                     <CheckboxContainer
