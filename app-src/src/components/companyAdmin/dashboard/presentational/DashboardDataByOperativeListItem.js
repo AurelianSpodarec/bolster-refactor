@@ -19,22 +19,21 @@ const DrawingDataByOperativeListItem = ({ operative, history }) => {
             </td>
             <td>{operative.pinsUpdated}</td>
             <td>
-                {/* <button className="button blue" onClick={generateReport}>
+                <button className="button blue" onClick={generateReport}>
                     Generate Report
-                </button> */}
+                </button>
             </td>
         </tr>
     );
 
-    // function generateReport() {
-    //     //NEEDS TO BE UPDATED ONCE API IS
-    //     history.push({
-    //         pathname: '/company/tools/create-report',
-    //         state: {
-    //             operativeID: 6
-    //         }
-    //     });
-    // }
+    function generateReport() {
+        history.push({
+            pathname: '/company/tools/create-report',
+            state: {
+                operativeID: operative.id
+            }
+        });
+    }
 };
 
 export default withRouter(DrawingDataByOperativeListItem);
