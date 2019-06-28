@@ -15,6 +15,7 @@ import {
     ADD_TEMPLATE_SECTION,
     ADD_TEMPLATE_QUESTION,
     ADMIN_EDIT_SERVICE,
+    ADD_CREDITS_TO_DRAWING,
     BUY_CREDITS,
     CONFIRM_ARCHIVE,
     CONFIRM_DELETE,
@@ -132,6 +133,7 @@ import EditPaymentModalContainer from 'components/superAdmin/invoices/editPaymen
 import DeletePaymentModalContainer from 'components/superAdmin/invoices/confirmDeletePaymentModal/containers/DeletePaymentModalContainer';
 import RemoveUserDrawingsAccessModalContainer from 'components/companyAdmin/userManagement/userDrawings/containers/RemoveUserDrawingsAccessModalContainer';
 import ForgotPasswordModalContainer from 'components/auth/forgotPasswordModal/containers/ForgotPasswordModalContainer';
+import AddCreditsToDrawingModal from 'components/companyAdmin/drawings/addCreditsToDrawing/presentational/AddCreditsToDrawingModal';
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModalContainer,
@@ -196,7 +198,8 @@ const MODAL_COMPONENTS = {
     [ADMIN_EDIT_PAYMENT]: EditPaymentModalContainer,
     [ADMIN_DELETE_PAYMENT]: DeletePaymentModalContainer,
     [REMOVE_DRAWINGS_ACCESS]: RemoveUserDrawingsAccessModalContainer,
-    [FORGOT_PASSWORD]: ForgotPasswordModalContainer
+    [FORGOT_PASSWORD]: ForgotPasswordModalContainer,
+    [ADD_CREDITS_TO_DRAWING]: AddCreditsToDrawingModal
 };
 
 const ModalRoot = ({ modalType, modalProps, ...otherProps }) => {
