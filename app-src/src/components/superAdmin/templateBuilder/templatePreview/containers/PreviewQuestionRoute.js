@@ -9,6 +9,8 @@ import CheckboxContainer from 'components/shared/generic/form/containers/Checkbo
 import RadioButtonListContainer from 'components/shared/generic/form/containers/RadioButtonListContainer';
 import { RAW_S3_STORAGE_URL } from 'config';
 import FileUploadContainer from 'components/shared/generic/form/containers/FileUploadContainer';
+import Field from 'components/shared/generic/form/presentational/Field';
+import MobileSwitch from '_content/images/mobile-switch.png';
 
 const {
     STATUS,
@@ -39,19 +41,23 @@ const PreviewQuestionRoute = ({ question }) => {
         [MULTI_DROPDOWN]: MultiDropdown,
         [RADIO]: Radio,
         [CHECKBOX]: CheckBox,
-        [SIGNATURE]: () => null,
+        [SIGNATURE]: MultiLine,
         [SINGLE_PHOTO]: Photo,
         [MULTI_PHOTO]: Photo,
         [DROPDOWN_OPTIONS]: SingleDropdown,
         [MULTI_DROPDOWN_OPTIONS]: MultiDropdown,
-        [MULTI_MULTI_DROPDOWN]: MultiDropdown,
-        [MULTI_MULTI_DROPDOWN_OPTIONS]: MultiDropdown,
+        [MULTI_MULTI_DROPDOWN]: MultiMultiDropdown,
+        [MULTI_MULTI_DROPDOWN_OPTIONS]: MultiMultiDropdown,
         [STATIC_IMAGE]: StaticImage
     };
 
     const Nothing = () => null;
     const SpecificForm = questionForms[question.questionType] || Nothing;
-    return <SpecificForm question={question} handleChange={Nothing} />;
+    return (
+        <Field name={question.name}>
+            <SpecificForm question={question} handleChange={Nothing} />
+        </Field>
+    );
 };
 
 export default PreviewQuestionRoute;
@@ -62,6 +68,7 @@ function SingleLine({ question: { id }, handleChange }) {
             name={`answer-${id}`}
             value=""
             handleChange={handleChange}
+            disabled
         />
     );
 }
@@ -72,70 +79,68 @@ function MultiLine({ question: { id }, handleChange }) {
             name={`answer-${id}`}
             value=""
             handleChange={handleChange}
+            disabled
         />
     );
 }
 
-function SingleDropdown({ question: { id }, handleChange }) {
-    const opts = [];
-
+function SingleDropdown({ question: { id, options }, handleChange }) {
     return (
         <Select
             placeholder="-- select --"
             name={`answer-${id}`}
-            options={opts}
+            options={options}
             value={null}
             onChange={handleChange}
+            disabled
+            iconClass="fas fa-caret-down"
         />
     );
 }
 
-function MultiDropdown({ question: { id }, handleChange }) {
-    const opts = [];
-
+function MultiDropdown({ question, handleChange }) {
     return (
         <MultiSelect
             placeholder="-- select --"
-            options={opts}
+            options={question.options}
             value={[]}
-            name={`answer-${id}`}
+            name={`answer-${question.id}`}
             onChange={handleChange}
+            iconClass="fas fa-caret-down"
         />
     );
 }
 
-function CheckBox({ question: { id }, handleChange }) {
+function MultiMultiDropdown({ question }) {
     return (
-        <CheckboxContainer
-            checked={false}
-            name={`answer-${id}`}
-            text=""
-            handleChange={handleChange}
-        />
+        <div className="phone-multt-multi size-lg-12">
+            <p>Options:</p>
+            {question.options &&
+                question.options.map(option => (
+                    <div key={option.id} className="option">
+                        {option.text}
+                    </div>
+                ))}
+        </div>
     );
 }
+function CheckBox() {
+    return <img src={MobileSwitch} className="switch" />;
+}
 
-function Radio({ question: { id }, handleChange }) {
+function Radio({ question: { id, options }, handleChange }) {
     return (
         <RadioButtonListContainer
             name={`answer-${id}`}
-            options={[]}
+            options={options}
             selectedOption={null}
             handleChange={handleChange}
         />
     );
 }
 
-function Photo({ isRequired, question: { id }, handleChange }) {
-    return (
-        <FileUploadContainer
-            name={`answer-${id}`}
-            required={isRequired}
-            acceptedTypes={[]}
-            handleChange={handleChange}
-            value={[]}
-        />
-    );
+function Photo() {
+    return <button className="button">Take Photo</button>;
 }
 
 function StaticImage({ question }) {

@@ -8,7 +8,8 @@ const TextArea = ({
     handleBlur,
     error,
     charLimit,
-    classes
+    classes,
+    disabled
 }) => (
     <>
         <textarea
@@ -19,6 +20,7 @@ const TextArea = ({
             onChange={handleChange}
             onBlur={handleBlur}
             maxLength={charLimit}
+            disabled={disabled}
         />
         {!!(error && error.length) && (
             <p className="error red-text text-accent-4">{error}</p>

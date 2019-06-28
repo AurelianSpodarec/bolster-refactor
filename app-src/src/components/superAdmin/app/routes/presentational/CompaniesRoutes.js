@@ -22,11 +22,6 @@ const CompaniesRoutes = ({ base = '/admin/companies' }) => (
             path={`${base}/:companyID/template/:uuid/label-example`}
             component={LabelExamplePageContainer}
         />
-        <Route
-            exact
-            path={`${base}/:companyID/template/:uuid/form-example`}
-            component={PreviewSectionListContainer}
-        />
     </SwitchWith404>
 );
 
