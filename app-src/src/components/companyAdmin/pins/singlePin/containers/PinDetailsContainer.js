@@ -31,9 +31,8 @@ class PinDetailsContainer extends Component {
                 <BlockContainer
                     key={history.id}
                     isEmpty={
-                        !users[history.createdByCompanyUserID] ||
-                        !Object.values(services).length ||
-                        !histories.length
+                        // !users[history.createdByCompanyUserID] ||
+                        !Object.values(services).length || !histories.length
                     }
                     isFetching={isFetching}
                     error={error}
