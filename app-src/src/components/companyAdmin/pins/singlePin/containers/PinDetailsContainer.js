@@ -24,14 +24,15 @@ class PinDetailsContainer extends Component {
             (a, b) => moment(b.createdOn) - moment(a.createdOn)
         );
 
+        console.warn('sorted histories', sortedHistories);
+
         return sortedHistories.map((history, i) => {
             return (
                 <BlockContainer
                     key={history.id}
                     isEmpty={
-                        !users[history.createdByCompanyUserID] ||
-                        !Object.values(services).length ||
-                        !histories.length
+                        // !users[history.createdByCompanyUserID] ||
+                        !Object.values(services).length || !histories.length
                     }
                     isFetching={isFetching}
                     error={error}
