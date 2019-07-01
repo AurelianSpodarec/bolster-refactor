@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import moment from 'moment';
 
 import { ERROR_MODAL, SUCCESS_MODAL } from 'constants/shared/modalTypes';
 import hideModal from 'actions/shared/generic/modals/sync/hideModal';
@@ -15,8 +16,8 @@ class EditDrawingModalContainer extends Component {
         file: '',
         isCreditsAvailable: true,
         isAlertShowing: false,
-        alertMessage: '',
-        alertDate: null
+        mesage: '',
+        dateToSend: null
     };
 
     render() {
@@ -66,14 +67,14 @@ class EditDrawingModalContainer extends Component {
 
     handleDateChange = date => {
         this.setState({
-            alertDate: date
+            dateToSend: date
         });
     };
 
     handleSubmit = e => {
         e.preventDefault();
 
-        const { name, file } = this.state;
+        const { name, file, isAlertShowing, message, dateToSend } = this.state;
         const {
             editDrawing,
             drawing,
@@ -84,11 +85,21 @@ class EditDrawingModalContainer extends Component {
             showFieldErrors
         } = this.props;
 
-        const postBody = {
-            name,
-            file
-        };
+        let postBody = {};
 
+        if (isAlertShowing) {
+            postBody = {
+                name,
+                file,
+                message,
+                dateToSend: moment(dateToSend).format()
+            };
+        } else {
+            postBody = {
+                name,
+                file
+            };
+        }
         if (!filesUploading && filesUploaded && totalCredits < 1) {
             addFieldError('file', 'Not enough drawing credits');
             showFieldErrors();

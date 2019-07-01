@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import moment from 'moment';
 
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 
@@ -10,8 +11,8 @@ class EditFloorFormContainer extends Component {
     state = {
         name: '',
         isAlertShowing: false,
-        alertMessage: '',
-        alertDate: null
+        message: '',
+        dateToSend: ''
     };
 
     render() {
@@ -51,7 +52,7 @@ class EditFloorFormContainer extends Component {
 
     handleDateChange = date => {
         this.setState({
-            alertDate: date
+            dateToSend: date
         });
     };
 
@@ -67,13 +68,30 @@ class EditFloorFormContainer extends Component {
 
     handleSubmit = e => {
         e.preventDefault();
-        const { floor, editFloor, hideModal } = this.props;
+        const {
+            floor,
+            editFloor,
+            hideModal,
+            isAlertShowing,
+            message,
+            dateToSend
+        } = this.props;
 
         const { name } = this.state;
 
-        const postBody = {
-            name
-        };
+        let postBody = {};
+
+        if (isAlertShowing) {
+            postBody = {
+                name,
+                message,
+                dateToSend: moment(dateToSend).format()
+            };
+        } else {
+            postBody = {
+                name
+            };
+        }
 
         editFloor(floor.id, postBody);
         hideModal();
