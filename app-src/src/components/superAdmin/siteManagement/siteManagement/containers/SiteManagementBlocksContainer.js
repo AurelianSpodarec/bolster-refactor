@@ -64,7 +64,7 @@ class SiteManagementBlocksContainer extends Component {
     };
 
     componentDidUpdate = (prevProps, prevState) => {
-        const { moveFromCompany } = this.state;
+        const { moveFromCompany, moveToCompany } = this.state;
         const {
             fetchHierarchiesForCompany,
             isPosting,
@@ -74,6 +74,9 @@ class SiteManagementBlocksContainer extends Component {
 
         if (prevState.moveFromCompany !== moveFromCompany)
             fetchHierarchiesForCompany(moveFromCompany);
+
+        if (prevState.moveToCompany !== moveToCompany)
+            fetchHierarchiesForCompany(moveToCompany);
 
         if (prevProps.isPosting && !isPosting && postSuccess) hideModal();
         showModal(SUCCESS_MODAL, {
