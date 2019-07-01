@@ -24,8 +24,6 @@ class PinDetailsContainer extends Component {
             (a, b) => moment(b.createdOn) - moment(a.createdOn)
         );
 
-        console.warn('sorted histories', sortedHistories);
-
         return sortedHistories.map((history, i) => {
             return (
                 <BlockContainer

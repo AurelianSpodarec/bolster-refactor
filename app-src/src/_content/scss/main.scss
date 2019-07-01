@@ -1347,6 +1347,10 @@ input {
     margin-bottom: 15px;
     min-height: 56px;
 
+    &.full-length {
+        padding: 0;
+    }
+
     &.w-dates {
         p {
             text-align: center;
