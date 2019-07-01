@@ -11,6 +11,9 @@ import fetchFloorsForCompany from 'actions/superAdmin/siteManagement/async/fetch
 import fetchDrawingsForCompany from 'actions/superAdmin/siteManagement/async/fetchDrawingsForCompany';
 import selectHierarchy from 'actions/superAdmin/siteManagement/sync/selectHierarchy';
 import selectOption from 'actions/superAdmin/siteManagement/sync/selectOption';
+import { showModal } from 'actions/shared/generic/modals/sync/showModal';
+import { SUCCESS_MODAL, ERROR_MODAL } from 'constants/shared/modalTypes';
+import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 
 class SiteManagementBlocksContainer extends Component {
     state = {
@@ -62,10 +65,26 @@ class SiteManagementBlocksContainer extends Component {
 
     componentDidUpdate = (prevProps, prevState) => {
         const { moveFromCompany } = this.state;
-        const { fetchHierarchiesForCompany } = this.props;
+        const {
+            fetchHierarchiesForCompany,
+            isPosting,
+            postSuccess,
+            postError
+        } = this.props;
 
         if (prevState.moveFromCompany !== moveFromCompany)
             fetchHierarchiesForCompany(moveFromCompany);
+
+        if (prevProps.isPosting && !isPosting && postSuccess) hideModal();
+        showModal(SUCCESS_MODAL, {
+            message: 'The move was successful!'
+        });
+
+        if (prevProps.isPosting && !isPosting && postError) hideModal();
+        showModal(ERROR_MODAL, {
+            title: 'Error',
+            message: postError
+        });
     };
 
     _getCompaniesList = () => {
@@ -110,13 +129,21 @@ class SiteManagementBlocksContainer extends Component {
 const mapStateToProps = ({
     superAdmin: {
         companiesReducer: { companies, isFetching, error },
-        siteManagementReducer: { selectedHierarchy }
+        siteManagementReducer: {
+            selectedHierarchy,
+            isPosting,
+            postSuccess,
+            error: postError
+        }
     }
 }) => ({
     companies,
     isFetching,
     error,
-    selectedHierarchy
+    selectedHierarchy,
+    isPosting,
+    postSuccess,
+    postError
 });
 
 const mapDispatchToProps = dispatch => ({
