@@ -10,17 +10,20 @@ const EnquiriesListItem = ({ enquiry, handleShowModal }) => {
             <td>{enquiry.email}</td>
             <td>{enquiry.contactNumber}</td>
             <td>
-                <DateTimeContainer date={enquiry.sentOn} />
+                <DateTimeContainer date={enquiry.createdOn} />
             </td>
             <td>
-                <Link className="button" to={`${enquiry.id}`}>
-                    open
+                <Link
+                    className="button green icon-only"
+                    to={`/admin/enquiries/${enquiry.id}`}
+                >
+                    <i className="fa fa-eye" />
                 </Link>
                 <button
-                    className="button red"
+                    className="button red icon-only"
                     onClick={() => handleShowModal(enquiry)}
                 >
-                    <i className="far fa-trash-alt" /> Delete
+                    <i className="far fa-trash-alt" />
                 </button>
             </td>
         </tr>

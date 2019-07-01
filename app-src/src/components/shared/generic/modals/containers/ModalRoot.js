@@ -67,6 +67,7 @@ import {
     REMOVE_DRAWINGS_ACCESS,
     FORGOT_PASSWORD,
     GENERATE_SOS_CODE,
+    DELETE_DEMO_REQUEST,
     CONFIRM_MOVE_HIERARCHY_TO_COMPANY
 } from 'constants/shared/modalTypes';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
@@ -136,7 +137,7 @@ import DeletePaymentModalContainer from 'components/superAdmin/invoices/confirmD
 import RemoveUserDrawingsAccessModalContainer from 'components/companyAdmin/userManagement/userDrawings/containers/RemoveUserDrawingsAccessModalContainer';
 import ForgotPasswordModalContainer from 'components/auth/forgotPasswordModal/containers/ForgotPasswordModalContainer';
 import AddCreditsToDrawingModal from 'components/companyAdmin/drawings/addCreditsToDrawing/presentational/AddCreditsToDrawingModal';
-import { GENERATION_STATE_TEXT } from 'constants/companyAdmin/enums';
+import DeleteDemoRequestModalContainer from 'components/superAdmin/demoRequests/containers/DeleteDemoRequestModalContainer';
 import SOSGenerationModal from 'components/superAdmin/sosManagement/sosGenerationModal/presentational/SOSGenerationModal';
 import SiteManagementConfirmMoveModalContainer from 'components/superAdmin/siteManagement/siteManagement/containers/SiteManagementConfirmMoveModalContainer';
 
@@ -158,6 +159,7 @@ const MODAL_COMPONENTS = {
     [DELETE_COMPANY_USER]: DeleteCompanyUserModalContainer,
     [DELETE_DOCUMENT]: DeleteDocumentModalContainer,
     [DELETE_ENQUIRY]: DeleteEnquiryModalContainer,
+    [DELETE_DEMO_REQUEST]: DeleteDemoRequestModalContainer,
     [DELETE_OPERATIVE]: DeleteOperativeModalContainer,
     [ERROR_MODAL]: ErrorModal,
     [EDIT_TEMPLATE]: EditTemplateModalContainer,

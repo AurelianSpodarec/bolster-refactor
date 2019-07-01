@@ -104,6 +104,7 @@ export const REMOVE_DRAWINGS_ACCESS = 'REMOVE_DRAWINGS_ACCESS';
 
 export const FORGOT_PASSWORD = 'FORGOT_PASSWORD';
 
+export const DELETE_DEMO_REQUEST = 'DELETE_DEMO_REQUEST';
 export const GENERATE_SOS_CODE = 'GENERATE_SOS_CODE';
 
 //site management (super admin)
