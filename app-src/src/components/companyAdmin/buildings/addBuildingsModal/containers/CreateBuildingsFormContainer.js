@@ -52,15 +52,29 @@ const CreateBuildingsFormContainer = ({
 
         if (buildings.length === 1) {
             const [building] = buildings;
-            const { name, location, dateToSend, message } = building;
-
-            createBuilding({
+            const {
                 name,
                 location,
-                siteID,
+                isAlertShowing,
                 dateToSend,
                 message
-            });
+            } = building;
+
+            if (isAlertShowing) {
+                createBuilding({
+                    name,
+                    location,
+                    siteID,
+                    dateToSend,
+                    message
+                });
+            } else {
+                createBuilding({
+                    name,
+                    location,
+                    siteID
+                });
+            }
         }
         if (buildings.length > 1) {
             createBuildings({ buildings, siteID });

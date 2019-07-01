@@ -18,8 +18,8 @@ const FloorEditForm = ({
     name,
     isUsingBolsterLabels,
     isAlertShowing,
-    alertMessage,
-    alertDate
+    message,
+    dateToSend
 }) => (
     <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
         <div className="size-lg-12">
@@ -48,21 +48,29 @@ const FloorEditForm = ({
 
                 {isAlertShowing && (
                     <div className="size-lg-12">
-                        <div className="size-lg-6">
+                        <div
+                            className={`size-lg-${
+                                isUsingBolsterLabels ? '12' : '6'
+                            }`}
+                        >
                             <Field name="Alert Message">
                                 <TextAreaContainer
-                                    value={alertMessage}
-                                    name="alertMessage"
+                                    value={message}
+                                    name="message"
                                     handleChange={handleInputChange}
                                 />
                             </Field>
                         </div>
 
-                        <div className="size-lg-6">
+                        <div
+                            className={`size-lg-${
+                                isUsingBolsterLabels ? '12' : '6'
+                            }`}
+                        >
                             <Field name="Date to send">
                                 <DatePickerPresentational
-                                    name="alertDate"
-                                    selected={alertDate}
+                                    name="dateToSend"
+                                    selected={dateToSend}
                                     onChange={handleDateChange}
                                     placeholderText="Date"
                                     showTimeSelect

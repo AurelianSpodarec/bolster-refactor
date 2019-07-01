@@ -28,8 +28,8 @@ const EditDrawingModal = ({
     drawing: { doesRequireCreditToReplaceFloorplan, tilesetS3KeyOrig },
     isUsingBolsterLabels,
     isAlertShowing,
-    alertMessage,
-    alertDate
+    message,
+    dateToSend
 }) => (
     <ModalOuterContainer
         extraClasses={`${isUsingBolsterLabels ? 'w-label-example' : ''}`}
@@ -84,7 +84,7 @@ const EditDrawingModal = ({
                     />
                 </Field>
 
-                <div className="size-lg-12" style={{ display: 'none' }}>
+                <div className="size-lg-12">
                     <div className="size-lg-6">
                         <Field name="Send an alert?">
                             <CheckboxContainer
@@ -99,21 +99,33 @@ const EditDrawingModal = ({
 
                 {isAlertShowing && (
                     <div className="size-lg-12">
-                        <div className="size-lg-6">
+                        <div
+                            className={
+                                isUsingBolsterLabels
+                                    ? 'size-lg-12'
+                                    : 'size-lg-6'
+                            }
+                        >
                             <Field name="Alert Message">
                                 <TextAreaContainer
-                                    value={alertMessage}
-                                    name="alertMessage"
+                                    value={message}
+                                    name="message"
                                     handleChange={handleChange}
                                 />
                             </Field>
                         </div>
 
-                        <div className="size-lg-6">
+                        <div
+                            className={
+                                isUsingBolsterLabels
+                                    ? 'size-lg-12'
+                                    : 'size-lg-6'
+                            }
+                        >
                             <Field name="Date to send">
                                 <DatePickerPresentational
-                                    name="alertDate"
-                                    selected={alertDate}
+                                    name="dateToSend"
+                                    selected={dateToSend}
                                     onChange={handleDateChange}
                                     placeholderText="Date"
                                     showTimeSelect

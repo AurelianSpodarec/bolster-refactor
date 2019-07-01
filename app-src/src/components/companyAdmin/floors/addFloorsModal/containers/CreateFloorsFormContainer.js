@@ -50,8 +50,10 @@ const CreateFloorsFormContainer = ({
         const floors = getPostBody();
         if (floors.length === 1) {
             const [floor] = floors;
-            const { name, dateToSend, message } = floor;
-            createFloor({ name, buildingID, message, dateToSend });
+            const { name, dateToSend, message, isAlertShowing } = floor;
+            isAlertShowing
+                ? createFloor({ name, buildingID, message, dateToSend })
+                : createFloor({ name, buildingID });
         }
         if (floors.length > 1) {
             createFloors({ floors, buildingID });
