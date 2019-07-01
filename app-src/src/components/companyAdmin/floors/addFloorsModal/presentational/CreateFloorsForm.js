@@ -58,11 +58,11 @@ const CreateFloorsForm = ({
 
                         {floor.isAlertShowing && (
                             <div className="size-lg-12">
-                                <div className="size-lg-6">
+                                <div className="size-lg-12">
                                     <Field name="Alert Message">
                                         <TextAreaContainer
-                                            value={floor.alertMessage}
-                                            name={`${floor.id}.*.alertMessage`}
+                                            value={floor.message}
+                                            name={`${floor.id}.*.message`}
                                             handleChange={(name, value) =>
                                                 updateFloor(
                                                     name,
@@ -74,14 +74,14 @@ const CreateFloorsForm = ({
                                     </Field>
                                 </div>
 
-                                <div className="size-lg-6">
+                                <div className="size-lg-12">
                                     <Field name="Date to send">
                                         <DatePickerPresentational
-                                            name={`${floor.id}.*.alertDate`}
-                                            selected={floor.alertDate}
+                                            name={`${floor.id}.*.dateToSend`}
+                                            selected={floor.dateToSend}
                                             onChange={value =>
                                                 updateFloor(
-                                                    `${floor.id}.*.alertDate`,
+                                                    `${floor.id}.*.dateToSend`,
                                                     value,
                                                     floor.id
                                                 )
