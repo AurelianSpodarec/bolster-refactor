@@ -7,6 +7,7 @@ import SiteManagementMoveFromOptionsRoute from '../containers/SiteManagementMove
 
 const SiteManagementMoveFrom = ({
     handleChange,
+    handleHierarchyChange,
     companies,
     selectedCompany,
     hierarchies,
@@ -32,7 +33,7 @@ const SiteManagementMoveFrom = ({
                     name="moveFromHierarchy"
                     options={hierarchies}
                     value={selectedHierarchy}
-                    onChange={handleChange}
+                    onChange={handleHierarchyChange}
                     placeholder="-- select hierarchy --"
                 />
             </Field>

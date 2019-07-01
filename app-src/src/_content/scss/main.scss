@@ -5110,3 +5110,25 @@ input {
         }
     }
 }
+
+//selection options
+.select-option {
+    padding: 5px 10px;
+    margin-bottom: 5px;
+    border: 1px solid $input-border-grey;
+    border-radius: 3px;
+    cursor: pointer;
+
+    &:hover {
+        background-color: #f2f2f2;
+    }
+
+    &.active {
+        background-color: #c7f3d6;
+        border-color: #a5deb9;
+    }
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+}

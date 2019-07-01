@@ -10,7 +10,7 @@ const Sites = ({ sites }) => {
     return (
         <Field name="Select a site" classes="full-length">
             {sites.map(site => (
-                <p key={site.id} className="size-lg-12">
+                <p key={site.id} className="select-option size-lg-12">
                     {site.name}
                 </p>
             ))}
@@ -20,9 +20,9 @@ const Sites = ({ sites }) => {
 
 const Buildings = ({ buildings }) => {
     return (
-        <Field name="Select a site" classes="full-length">
+        <Field name="Select a building" classes="full-length">
             {buildings.map(building => (
-                <p key={building.id} className="size-lg-12">
+                <p key={building.id} className="select-option size-lg-12">
                     {building.name}
                 </p>
             ))}
@@ -32,9 +32,9 @@ const Buildings = ({ buildings }) => {
 
 const Floors = ({ floors }) => {
     return (
-        <Field name="Select a site" classes="full-length">
+        <Field name="Select a floor" classes="full-length">
             {floors.map(floor => (
-                <p key={floor.id} className="size-lg-12">
+                <p key={floor.id} className="select-option size-lg-12">
                     {floor.name}
                 </p>
             ))}

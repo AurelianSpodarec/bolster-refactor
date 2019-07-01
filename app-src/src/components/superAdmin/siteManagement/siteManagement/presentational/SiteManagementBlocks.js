@@ -7,17 +7,20 @@ const SiteManagementBlocks = ({
     moveFromCompany,
     moveToCompany,
     hierarchies,
-    moveFromHierarchy,
-    handleChange
+    selectedHierarchy,
+    handleChange,
+    handleCompanyOneChange,
+    handleHierarchyChange
 }) => (
     <>
         <div className="size-lg-6">
             <SiteManagementMoveFrom
-                handleChange={handleChange}
+                handleChange={handleCompanyOneChange}
+                handleHierarchyChange={handleHierarchyChange}
                 companies={companies}
                 selectedCompany={moveFromCompany}
                 hierarchies={hierarchies}
-                selectedHierarchy={moveFromHierarchy}
+                selectedHierarchy={selectedHierarchy}
             />
         </div>
         <div className="size-lg-6">
@@ -25,7 +28,7 @@ const SiteManagementBlocks = ({
                 handleChange={handleChange}
                 companies={companies}
                 selectedCompany={moveToCompany}
-                selectedHierarchy={moveFromHierarchy}
+                selectedHierarchy={selectedHierarchy}
             />
         </div>
     </>
