@@ -30,8 +30,8 @@ const AddDrawingsFormContainer = ({
         file: '',
         templateUsageRule: '',
         isAlertShowing: false,
-        alertMessage: '',
-        alertDate: null
+        message: '',
+        dateToSend: ''
     });
 
     const templateUsageRuleOptions = {
@@ -63,8 +63,25 @@ const AddDrawingsFormContainer = ({
         if (!filesUploading) {
             if (drawings.length === 1) {
                 const [drawing] = drawings;
-                const { name, file, templateUsageRule } = drawing;
-                createDrawing({ name, file, templateUsageRule, floorID });
+                const {
+                    name,
+                    file,
+                    isAlertShowing,
+                    message,
+                    dateToSend,
+                    templateUsageRule
+                } = drawing;
+
+                isAlertShowing
+                    ? createDrawing({
+                          name,
+                          file,
+                          templateUsageRule,
+                          message,
+                          dateToSend,
+                          floorID
+                      })
+                    : createDrawing({ name, file, templateUsageRule, floorID });
             }
             createDrawings({ drawings, floorID });
             hideModal();

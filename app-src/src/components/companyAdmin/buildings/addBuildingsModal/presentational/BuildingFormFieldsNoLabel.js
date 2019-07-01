@@ -57,11 +57,11 @@ const BuildingFormFieldsNoLabel = ({
 
             {building.isAlertShowing && (
                 <div className="size-lg-12">
-                    <div className="size-lg-6">
+                    <div className="size-lg-12">
                         <Field name="Alert Message">
                             <TextAreaContainer
                                 value={building.alertMessage}
-                                name={`${building.id}.*.alertMessage`}
+                                name={`${building.id}.*.message`}
                                 handleChange={(name, value) =>
                                     updateBuilding(name, value, building.id)
                                 }
@@ -69,14 +69,14 @@ const BuildingFormFieldsNoLabel = ({
                         </Field>
                     </div>
 
-                    <div className="size-lg-6">
+                    <div className="size-lg-12">
                         <Field name="Date to send">
                             <DatePickerPresentational
-                                name={`${building.id}.*.alertDate`}
+                                name={`${building.id}.*.dateToSend`}
                                 selected={building.alertDate}
                                 onChange={value =>
                                     updateBuilding(
-                                        `${building.id}.*.alertDate`,
+                                        `${building.id}.*.dateToSend`,
                                         value,
                                         building.id
                                     )

@@ -117,13 +117,11 @@ const AddDrawingsForm = ({
 
                         {drawing.isAlertShowing && (
                             <div className="size-lg-12">
-                                <div className="size-lg-6">
+                                <div className="size-lg-12">
                                     <Field name="Alert Message">
                                         <TextAreaContainer
-                                            value={drawing.alertMessage}
-                                            name={`${
-                                                drawing.id
-                                            }.*.alertMessage`}
+                                            value={drawing.message}
+                                            name={`${drawing.id}.*.message`}
                                             handleChange={(name, value) =>
                                                 updateDrawing(
                                                     name,
@@ -135,14 +133,16 @@ const AddDrawingsForm = ({
                                     </Field>
                                 </div>
 
-                                <div className="size-lg-6">
+                                <div className="size-lg-12">
                                     <Field name="Date to send">
                                         <DatePickerPresentational
-                                            name={`${drawing.id}.*.alertDate`}
-                                            selected={drawing.alertDate}
+                                            name={`${drawing.id}.*.dateToSend`}
+                                            selected={drawing.dateToSend}
                                             onChange={value =>
                                                 updateDrawing(
-                                                    `${drawing.id}.*.alertDate`,
+                                                    `${
+                                                        drawing.id
+                                                    }.*.dateToSend`,
                                                     value,
                                                     drawing.id
                                                 )

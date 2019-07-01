@@ -15,8 +15,8 @@ const BuildingEditForm = ({
     location,
     isUsingBolsterLabels,
     isAlertShowing,
-    alertMessage,
-    alertDate
+    message,
+    dateToSend
 }) => (
     <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
         {isUsingBolsterLabels ? (
@@ -26,8 +26,8 @@ const BuildingEditForm = ({
                 name={name}
                 location={location}
                 isAlertShowing={isAlertShowing}
-                alertMessage={alertMessage}
-                alertDate={alertDate}
+                message={message}
+                dateToSend={dateToSend}
             />
         ) : (
             <EditBuildingFormFieldsNoLabel
@@ -36,8 +36,8 @@ const BuildingEditForm = ({
                 name={name}
                 location={location}
                 isAlertShowing={isAlertShowing}
-                alertMessage={alertMessage}
-                alertDate={alertDate}
+                message={message}
+                dateToSend={dateToSend}
             />
         )}
         <BlockButtonWrapper>

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import moment from 'moment';
 
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 
@@ -14,8 +15,8 @@ class EditSiteFormContainer extends Component {
         addressLine2: '',
         postcode: '',
         isAlertShowing: false,
-        alertMessage: '',
-        alertDate: null
+        message: '',
+        dateToSend: ''
     };
 
     render() {
@@ -54,7 +55,7 @@ class EditSiteFormContainer extends Component {
 
     handleDateChange = date => {
         this.setState({
-            alertDate: date
+            dateToSend: date
         });
     };
 
@@ -89,16 +90,31 @@ class EditSiteFormContainer extends Component {
             client,
             addressLine1,
             addressLine2,
-            postcode
+            postcode,
+            message,
+            dateToSend,
+            isAlertShowing
         } = this.state;
-
-        const postBody = {
-            name,
-            client,
-            addressLine1,
-            addressLine2,
-            postcode
-        };
+        let postBody = {};
+        if (isAlertShowing) {
+            postBody = {
+                name,
+                client,
+                addressLine1,
+                addressLine2,
+                postcode,
+                message: message,
+                dateToSend: moment(dateToSend).format()
+            };
+        } else {
+            postBody = {
+                name,
+                client,
+                addressLine1,
+                addressLine2,
+                postcode
+            };
+        }
         editSite(id, postBody);
         hideModal();
     };

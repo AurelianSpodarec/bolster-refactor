@@ -15,8 +15,8 @@ const BuildingFormFieldsWithLabel = ({
     name,
     location,
     isAlertShowing,
-    alertMessage,
-    alertDate
+    message,
+    dateToSend
 }) => (
     <>
         <div className="size-lg-6">
@@ -55,21 +55,21 @@ const BuildingFormFieldsWithLabel = ({
 
             {isAlertShowing && (
                 <div className="size-lg-12">
-                    <div className="size-lg-6">
+                    <div className="size-lg-12">
                         <Field name="Alert Message">
                             <TextAreaContainer
-                                value={alertMessage}
-                                name="alertMessage"
+                                value={message}
+                                name="message"
                                 handleChange={handleInputChange}
                             />
                         </Field>
                     </div>
 
-                    <div className="size-lg-6">
+                    <div className="size-lg-12">
                         <Field name="Date to send">
                             <DatePickerPresentational
-                                name="alertDate"
-                                selected={alertDate}
+                                name="dateToSend"
+                                selected={dateToSend}
                                 onChange={handleDateChange}
                                 placeholderText="Date"
                                 showTimeSelect
