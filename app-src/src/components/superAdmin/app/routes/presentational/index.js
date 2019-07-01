@@ -31,12 +31,17 @@ const AdminRoutes = ({ base = '/admin' }) => (
             path={`${base}/site-management/user-enquiries`}
             component={EnquiriesRoutes}
         />
+        <Route path={`${base}/enquiries`} component={EnquiriesRoutes} />
+
         <Route path={`${base}/demo-requests`} component={DemoRequestsRoutes} />
         <Route
             path={`${base}/site-management`}
             component={SiteManagementRoutes}
         />
-        <Route path={`${base}/sos-management`} component={SOSManagementRoutes} />
+        <Route
+            path={`${base}/sos-management`}
+            component={SOSManagementRoutes}
+        />
     </SwitchWith404>
 );
 

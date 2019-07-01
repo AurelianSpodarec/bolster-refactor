@@ -34,7 +34,7 @@ class EnquiryDetailsContainer extends Component {
             });
         }
         if (postSuccess && !prevProps.postSuccess) {
-            history.push('/admin/site-management/user-enquiries');
+            history.push('/admin/enquiries');
         }
     }
 

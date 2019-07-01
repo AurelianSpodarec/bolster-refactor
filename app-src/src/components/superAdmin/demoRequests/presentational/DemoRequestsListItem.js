@@ -1,7 +1,6 @@
 import React from 'react';
 
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
-import { DATE_TIME_IDS } from 'constants/companyAdmin/enums';
 
 const CompaniesListItem = ({
     demoRequest: { id, name, companyName, contactNumber, email, createdOn },
@@ -12,16 +11,7 @@ const CompaniesListItem = ({
         <td>{companyName || '-'}</td>
         <td>{email || '-'}</td>
         <td>{contactNumber}</td>
-        <td>
-            {createdOn ? (
-                <DateTimeContainer
-                    date={createdOn}
-                    datetime={DATE_TIME_IDS.DATE}
-                />
-            ) : (
-                '-'
-            )}
-        </td>
+        <td>{createdOn ? <DateTimeContainer date={createdOn} /> : '-'}</td>
         <td>
             <button
                 onClick={() => handleShowModal(id)}
