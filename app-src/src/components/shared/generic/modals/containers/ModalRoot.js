@@ -65,7 +65,8 @@ import {
     ADMIN_EDIT_PAYMENT,
     ADMIN_DELETE_PAYMENT,
     REMOVE_DRAWINGS_ACCESS,
-    FORGOT_PASSWORD
+    FORGOT_PASSWORD,
+    DELETE_DEMO_REQUEST
 } from 'constants/shared/modalTypes';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
@@ -134,6 +135,7 @@ import DeletePaymentModalContainer from 'components/superAdmin/invoices/confirmD
 import RemoveUserDrawingsAccessModalContainer from 'components/companyAdmin/userManagement/userDrawings/containers/RemoveUserDrawingsAccessModalContainer';
 import ForgotPasswordModalContainer from 'components/auth/forgotPasswordModal/containers/ForgotPasswordModalContainer';
 import AddCreditsToDrawingModal from 'components/companyAdmin/drawings/addCreditsToDrawing/presentational/AddCreditsToDrawingModal';
+import DeleteDemoRequestModalContainer from 'components/superAdmin/demoRequests/containers/DeleteDemoRequestModalContainer';
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModalContainer,
@@ -153,6 +155,7 @@ const MODAL_COMPONENTS = {
     [DELETE_COMPANY_USER]: DeleteCompanyUserModalContainer,
     [DELETE_DOCUMENT]: DeleteDocumentModalContainer,
     [DELETE_ENQUIRY]: DeleteEnquiryModalContainer,
+    [DELETE_DEMO_REQUEST]: DeleteDemoRequestModalContainer,
     [DELETE_OPERATIVE]: DeleteOperativeModalContainer,
     [ERROR_MODAL]: ErrorModal,
     [EDIT_TEMPLATE]: EditTemplateModalContainer,
