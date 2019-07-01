@@ -28,8 +28,8 @@ const CreateBuildingsFormContainer = ({
         name: '',
         location: '',
         isAlertShowing: false,
-        alertMessage: '',
-        alertDate: null
+        message: '',
+        dateToSend: ''
     });
     return (
         <CreateBuildingsForm
@@ -49,10 +49,18 @@ const CreateBuildingsFormContainer = ({
 
     function handleSubmit() {
         const buildings = getPostBody();
+
         if (buildings.length === 1) {
             const [building] = buildings;
-            const { name, location } = building;
-            createBuilding({ name, location, siteID });
+            const { name, location, dateToSend, message } = building;
+
+            createBuilding({
+                name,
+                location,
+                siteID,
+                dateToSend,
+                message
+            });
         }
         if (buildings.length > 1) {
             createBuildings({ buildings, siteID });
