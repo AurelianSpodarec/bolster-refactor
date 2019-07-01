@@ -5,12 +5,31 @@ import SiteManagementBlocks from '../presentational/SiteManagementBlocks';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import fetchAllCompanies from 'actions/superAdmin/companies/async/fetchAllCompanies';
 import { isEmpty } from 'helpers/generic';
+import fetchSitesForCompany from 'actions/superAdmin/siteManagement/async/fetchSitesForCompany';
+import fetchBuildingsForCompany from 'actions/superAdmin/siteManagement/async/fetchBuildingsForCompany';
+import fetchFloorsForCompany from 'actions/superAdmin/siteManagement/async/fetchFloorsForCompany';
+import fetchDrawingsForCompany from 'actions/superAdmin/siteManagement/async/fetchDrawingsForCompany';
 
 class SiteManagementBlocksContainer extends Component {
     state = {
         moveFromCompany: null,
         moveToCompany: null,
         moveFromHierarchy: null
+    };
+
+    hierarchyOptions = {
+        2: {
+            id: 2,
+            name: 'Buildings'
+        },
+        3: {
+            id: 3,
+            name: 'Floors'
+        },
+        4: {
+            id: 4,
+            name: 'Drawings'
+        }
     };
 
     render() {
@@ -37,6 +56,14 @@ class SiteManagementBlocksContainer extends Component {
         this.props.fetchAllCompanies();
     };
 
+    componentDidUpdate = (prevProps, prevState) => {
+        const { moveFromCompany } = this.state;
+        const { fetchHierarchiesForCompany } = this.props;
+
+        if (prevState.moveFromCompany !== moveFromCompany)
+            fetchHierarchiesForCompany(moveFromCompany);
+    };
+
     _getCompaniesList = () => {
         const { companies } = this.props;
 
@@ -49,22 +76,7 @@ class SiteManagementBlocksContainer extends Component {
     };
 
     _getHierarchyOptions = () => {
-        const hierarchyOptions = {
-            2: {
-                id: 2,
-                name: 'Buildings'
-            },
-            3: {
-                id: 3,
-                name: 'Floors'
-            },
-            4: {
-                id: 4,
-                name: 'Drawings'
-            }
-        };
-
-        return Object.values(hierarchyOptions).map(({ id, name }) => ({
+        return Object.values(this.hierarchyOptions).map(({ id, name }) => ({
             value: id,
             label: name,
             text: name
@@ -91,6 +103,12 @@ const mapStateToProps = ({
 const mapDispatchToProps = dispatch => ({
     fetchAllCompanies: () => {
         dispatch(fetchAllCompanies());
+    },
+    fetchHierarchiesForCompany: companyID => {
+        dispatch(fetchSitesForCompany(companyID));
+        dispatch(fetchBuildingsForCompany(companyID));
+        dispatch(fetchFloorsForCompany(companyID));
+        dispatch(fetchDrawingsForCompany(companyID));
     }
 });
 

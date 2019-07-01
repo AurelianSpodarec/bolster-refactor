@@ -25,6 +25,7 @@ const SiteManagementBlocks = ({
                 handleChange={handleChange}
                 companies={companies}
                 selectedCompany={moveToCompany}
+                selectedHierarchy={moveFromHierarchy}
             />
         </div>
     </>
