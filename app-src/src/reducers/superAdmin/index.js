@@ -18,6 +18,7 @@ import buildingsReducer from './buildings';
 import floorsReducer from './floors';
 import drawingsReducer from './drawings';
 import siteManagementReducer from './siteManagement';
+import sosCodesReducer from './sosCodes';
 
 export default combineReducers({
     companiesReducer,
@@ -37,5 +38,6 @@ export default combineReducers({
     buildingsReducer,
     floorsReducer,
     drawingsReducer,
-    siteManagementReducer
+    siteManagementReducer,
+    sosCodesReducer
 });
