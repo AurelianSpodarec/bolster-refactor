@@ -66,7 +66,8 @@ import {
     ADMIN_DELETE_PAYMENT,
     REMOVE_DRAWINGS_ACCESS,
     FORGOT_PASSWORD,
-    GENERATE_SOS_CODE
+    GENERATE_SOS_CODE,
+    CONFIRM_MOVE_HIERARCHY_TO_COMPANY
 } from 'constants/shared/modalTypes';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
@@ -137,6 +138,7 @@ import ForgotPasswordModalContainer from 'components/auth/forgotPasswordModal/co
 import AddCreditsToDrawingModal from 'components/companyAdmin/drawings/addCreditsToDrawing/presentational/AddCreditsToDrawingModal';
 import { GENERATION_STATE_TEXT } from 'constants/companyAdmin/enums';
 import SOSGenerationModal from 'components/superAdmin/sosManagement/sosGenerationModal/presentational/SOSGenerationModal';
+import SiteManagementConfirmMoveModalContainer from 'components/superAdmin/siteManagement/siteManagement/containers/SiteManagementConfirmMoveModalContainer';
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModalContainer,
@@ -203,7 +205,8 @@ const MODAL_COMPONENTS = {
     [REMOVE_DRAWINGS_ACCESS]: RemoveUserDrawingsAccessModalContainer,
     [FORGOT_PASSWORD]: ForgotPasswordModalContainer,
     [ADD_CREDITS_TO_DRAWING]: AddCreditsToDrawingModal,
-    [GENERATE_SOS_CODE]: SOSGenerationModal
+    [GENERATE_SOS_CODE]: SOSGenerationModal,
+    [CONFIRM_MOVE_HIERARCHY_TO_COMPANY]: SiteManagementConfirmMoveModalContainer
 };
 
 const ModalRoot = ({ modalType, modalProps, ...otherProps }) => {
