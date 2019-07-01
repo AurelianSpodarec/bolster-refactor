@@ -2,11 +2,11 @@ import React from 'react';
 import { Route } from 'react-router-dom';
 
 import SwitchWith404 from 'components/appRoute/routes/presentational/SwitchWith404';
-import sosManagement from 'components/superAdmin/sosManagement/sosManagement/presentational/sosManagement';
+import SOSManagementContainer from 'components/superAdmin/sosManagement/sosManagement/containers/SOSManagementContainer';
 
 const SOSManagementRoutes = ({ base = '/admin/sos-management' }) => (
     <SwitchWith404>
-        <Route exact path={`${base}`} component={sosManagement} />
+        <Route exact path={`${base}`} component={SOSManagementContainer} />
     </SwitchWith404>
 );
 

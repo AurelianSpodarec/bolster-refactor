@@ -65,7 +65,8 @@ import {
     ADMIN_EDIT_PAYMENT,
     ADMIN_DELETE_PAYMENT,
     REMOVE_DRAWINGS_ACCESS,
-    FORGOT_PASSWORD
+    FORGOT_PASSWORD,
+    GENERATE_SOS_CODE
 } from 'constants/shared/modalTypes';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
@@ -134,6 +135,8 @@ import DeletePaymentModalContainer from 'components/superAdmin/invoices/confirmD
 import RemoveUserDrawingsAccessModalContainer from 'components/companyAdmin/userManagement/userDrawings/containers/RemoveUserDrawingsAccessModalContainer';
 import ForgotPasswordModalContainer from 'components/auth/forgotPasswordModal/containers/ForgotPasswordModalContainer';
 import AddCreditsToDrawingModal from 'components/companyAdmin/drawings/addCreditsToDrawing/presentational/AddCreditsToDrawingModal';
+import { GENERATION_STATE_TEXT } from 'constants/companyAdmin/enums';
+import SOSGenerationModal from 'components/superAdmin/sosManagement/sosGenerationModal/presentational/SOSGenerationModal';
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModalContainer,
@@ -199,7 +202,8 @@ const MODAL_COMPONENTS = {
     [ADMIN_DELETE_PAYMENT]: DeletePaymentModalContainer,
     [REMOVE_DRAWINGS_ACCESS]: RemoveUserDrawingsAccessModalContainer,
     [FORGOT_PASSWORD]: ForgotPasswordModalContainer,
-    [ADD_CREDITS_TO_DRAWING]: AddCreditsToDrawingModal
+    [ADD_CREDITS_TO_DRAWING]: AddCreditsToDrawingModal,
+    [GENERATE_SOS_CODE]: SOSGenerationModal
 };
 
 const ModalRoot = ({ modalType, modalProps, ...otherProps }) => {
