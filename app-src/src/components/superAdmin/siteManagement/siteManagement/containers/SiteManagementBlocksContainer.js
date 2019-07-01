@@ -5,16 +5,36 @@ import SiteManagementBlocks from '../presentational/SiteManagementBlocks';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import fetchAllCompanies from 'actions/superAdmin/companies/async/fetchAllCompanies';
 import { isEmpty } from 'helpers/generic';
+import fetchSitesForCompany from 'actions/superAdmin/siteManagement/async/fetchSitesForCompany';
+import fetchBuildingsForCompany from 'actions/superAdmin/siteManagement/async/fetchBuildingsForCompany';
+import fetchFloorsForCompany from 'actions/superAdmin/siteManagement/async/fetchFloorsForCompany';
+import fetchDrawingsForCompany from 'actions/superAdmin/siteManagement/async/fetchDrawingsForCompany';
+import selectHierarchy from 'actions/superAdmin/siteManagement/sync/selectHierarchy';
+import selectOption from 'actions/superAdmin/siteManagement/sync/selectOption';
 
 class SiteManagementBlocksContainer extends Component {
     state = {
         moveFromCompany: null,
-        moveToCompany: null,
-        moveFromHierarchy: null
+        moveToCompany: null
+    };
+
+    hierarchyOptions = {
+        2: {
+            id: 2,
+            name: 'Buildings'
+        },
+        3: {
+            id: 3,
+            name: 'Floors'
+        },
+        4: {
+            id: 4,
+            name: 'Drawings'
+        }
     };
 
     render() {
-        const { companies, isFetching, error } = this.props;
+        const { companies, isFetching, error, selectedHierarchy } = this.props;
 
         return (
             <BlockContainer
@@ -26,8 +46,11 @@ class SiteManagementBlocksContainer extends Component {
                 <SiteManagementBlocks
                     {...this.state}
                     handleChange={this.handleChange}
+                    handleCompanyOneChange={this.handleCompanyOneChange}
+                    handleHierarchyChange={this.handleHierarchyChange}
                     companies={this._getCompaniesList()}
                     hierarchies={this._getHierarchyOptions()}
+                    selectedHierarchy={selectedHierarchy}
                 />
             </BlockContainer>
         );
@@ -35,6 +58,14 @@ class SiteManagementBlocksContainer extends Component {
 
     componentDidMount = () => {
         this.props.fetchAllCompanies();
+    };
+
+    componentDidUpdate = (prevProps, prevState) => {
+        const { moveFromCompany } = this.state;
+        const { fetchHierarchiesForCompany } = this.props;
+
+        if (prevState.moveFromCompany !== moveFromCompany)
+            fetchHierarchiesForCompany(moveFromCompany);
     };
 
     _getCompaniesList = () => {
@@ -49,22 +80,7 @@ class SiteManagementBlocksContainer extends Component {
     };
 
     _getHierarchyOptions = () => {
-        const hierarchyOptions = {
-            2: {
-                id: 2,
-                name: 'Buildings'
-            },
-            3: {
-                id: 3,
-                name: 'Floors'
-            },
-            4: {
-                id: 4,
-                name: 'Drawings'
-            }
-        };
-
-        return Object.values(hierarchyOptions).map(({ id, name }) => ({
+        return Object.values(this.hierarchyOptions).map(({ id, name }) => ({
             value: id,
             label: name,
             text: name
@@ -76,21 +92,48 @@ class SiteManagementBlocksContainer extends Component {
             [name]: value
         });
     };
+
+    handleCompanyOneChange = (name, value) => {
+        this.setState({
+            [name]: value
+        });
+
+        this.props.selectOption(null);
+    };
+
+    handleHierarchyChange = (name, value) => {
+        this.props.selectHierarchy(value);
+        this.props.selectOption(null);
+    };
 }
 
 const mapStateToProps = ({
     superAdmin: {
-        companiesReducer: { companies, isFetching, error }
+        companiesReducer: { companies, isFetching, error },
+        siteManagementReducer: { selectedHierarchy }
     }
 }) => ({
     companies,
     isFetching,
-    error
+    error,
+    selectedHierarchy
 });
 
 const mapDispatchToProps = dispatch => ({
     fetchAllCompanies: () => {
         dispatch(fetchAllCompanies());
+    },
+    fetchHierarchiesForCompany: companyID => {
+        dispatch(fetchSitesForCompany(companyID));
+        dispatch(fetchBuildingsForCompany(companyID));
+        dispatch(fetchFloorsForCompany(companyID));
+        dispatch(fetchDrawingsForCompany(companyID));
+    },
+    selectHierarchy: value => {
+        dispatch(selectHierarchy(value));
+    },
+    selectOption: value => {
+        dispatch(selectOption(value));
     }
 });
 

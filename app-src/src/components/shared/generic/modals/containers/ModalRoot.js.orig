@@ -66,8 +66,11 @@ import {
     ADMIN_DELETE_PAYMENT,
     REMOVE_DRAWINGS_ACCESS,
     FORGOT_PASSWORD,
-    DELETE_DEMO_REQUEST,
+<<<<<<< HEAD
+    DELETE_DEMO_REQUEST
+=======
     GENERATE_SOS_CODE
+>>>>>>> 071a622f0b9d1433a73b52fb2cf309a7da6da2ff
 } from 'constants/shared/modalTypes';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
@@ -136,8 +139,12 @@ import DeletePaymentModalContainer from 'components/superAdmin/invoices/confirmD
 import RemoveUserDrawingsAccessModalContainer from 'components/companyAdmin/userManagement/userDrawings/containers/RemoveUserDrawingsAccessModalContainer';
 import ForgotPasswordModalContainer from 'components/auth/forgotPasswordModal/containers/ForgotPasswordModalContainer';
 import AddCreditsToDrawingModal from 'components/companyAdmin/drawings/addCreditsToDrawing/presentational/AddCreditsToDrawingModal';
+<<<<<<< HEAD
 import DeleteDemoRequestModalContainer from 'components/superAdmin/demoRequests/containers/DeleteDemoRequestModalContainer';
+=======
+import { GENERATION_STATE_TEXT } from 'constants/companyAdmin/enums';
 import SOSGenerationModal from 'components/superAdmin/sosManagement/sosGenerationModal/presentational/SOSGenerationModal';
+>>>>>>> 071a622f0b9d1433a73b52fb2cf309a7da6da2ff
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModalContainer,

@@ -11,8 +11,11 @@ import CompanyReportsRoutes from './CompanyReportsRoutes';
 import ProfilesRoutes from './ProfilesRoutes';
 import InvoicesRoutes from './InvoicesRoutes';
 import SiteManagementRoutes from './SiteManagementRoutes';
+<<<<<<< HEAD
 import DemoRequestsRoutes from './DemoRequestsRoutes';
+=======
 import SOSManagementRoutes from './SOSManagementRoutes';
+>>>>>>> 071a622f0b9d1433a73b52fb2cf309a7da6da2ff
 
 const AdminRoutes = ({ base = '/admin' }) => (
     <SwitchWith404>

@@ -3,9 +3,11 @@ import Block from 'components/shared/generic/block/presentational/Block';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import Select from 'components/shared/generic/form/presentational/Select';
 import Field from 'components/shared/generic/form/presentational/Field';
+import SiteManagementMoveFromOptionsRoute from '../containers/SiteManagementMoveFromOptionsRoute';
 
 const SiteManagementMoveFrom = ({
     handleChange,
+    handleHierarchyChange,
     companies,
     selectedCompany,
     hierarchies,
@@ -31,11 +33,16 @@ const SiteManagementMoveFrom = ({
                     name="moveFromHierarchy"
                     options={hierarchies}
                     value={selectedHierarchy}
-                    onChange={handleChange}
+                    onChange={handleHierarchyChange}
                     placeholder="-- select hierarchy --"
                 />
             </Field>
         )}
+
+        <SiteManagementMoveFromOptionsRoute
+            hierarchyID={selectedHierarchy}
+            companyID={selectedCompany}
+        />
     </Block>
 );
 

@@ -17,9 +17,12 @@ import sitesReducer from './sites';
 import buildingsReducer from './buildings';
 import floorsReducer from './floors';
 import drawingsReducer from './drawings';
+<<<<<<< HEAD
 import demoRequestsReducer from './demoRequests';
+=======
 import siteManagementReducer from './siteManagement';
 import sosCodesReducer from './sosCodes';
+>>>>>>> 071a622f0b9d1433a73b52fb2cf309a7da6da2ff
 
 export default combineReducers({
     companiesReducer,
@@ -39,7 +42,10 @@ export default combineReducers({
     buildingsReducer,
     floorsReducer,
     drawingsReducer,
-    demoRequestsReducer,
+<<<<<<< HEAD
+    demoRequestsReducer
+=======
     siteManagementReducer,
     sosCodesReducer
+>>>>>>> 071a622f0b9d1433a73b52fb2cf309a7da6da2ff
 });
