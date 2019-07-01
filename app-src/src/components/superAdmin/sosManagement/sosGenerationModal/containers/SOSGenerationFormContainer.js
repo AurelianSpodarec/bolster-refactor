@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import SOSGenerationForm from '../presentational/SOSGenerationForm';
+import { SUCCESS_MODAL } from 'constants/shared/modalTypes';
 
 class SOSGenerationFormContainer extends Component {
     state = {
@@ -21,6 +22,15 @@ class SOSGenerationFormContainer extends Component {
         );
     }
 
+    componentDidUpdate(prevProps) {
+        const { postSuccess, showModal } = this.props;
+        if (!prevProps.postSuccess && postSuccess) {
+            showModal(SUCCESS_MODAL, {
+                message: ' SOS Code Successfully Generated'
+            });
+        }
+    }
+
     handleChange = (name, value) => {
         this.setState({
             [name]: value
@@ -34,8 +44,15 @@ class SOSGenerationFormContainer extends Component {
     };
 }
 
+// const mapStateToProps = ({superAdmin: {sosCodesReducer: {
+//     postSuccess
+// }}}) => ({
+//     postSuccess
+// });
+
 // const mapDispatchToProps = {
-//     generateSOSCode
+//     generateSOSCode,
+// showModal
 // };
 
 export default connect(null)(SOSGenerationFormContainer);

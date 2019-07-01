@@ -1,6 +1,5 @@
 import React from 'react';
 
-import SOSGenerationFormContainer from '../../sosGenerationModal/containers/SOSGenerationFormContainer';
 import SOSManagementTableContainer from '../containers/SOSManagementTableContainer';
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
 
