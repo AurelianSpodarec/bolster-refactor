@@ -49,7 +49,6 @@ const CompanyMenuContainer = ({
     }
 
     function _openHelpScout(e) {
-        const helpScoutButton = document.getElementsByClassName('css-19f7klf');
         e.preventDefault();
         window.Beacon('toggle');
     }

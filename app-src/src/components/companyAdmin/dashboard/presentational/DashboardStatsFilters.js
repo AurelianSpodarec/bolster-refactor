@@ -18,7 +18,7 @@ const DashboardStatsFilters = ({
         <form className="multi-filters size-lg-12">
             <div className="flex item ">
                 <p className="">Selected Service:</p>
-                <div className="flex size-lg-7">
+                <div className="flex size-lg-7 size-md-12">
                     <Dropdown
                         placeholder="--select service--"
                         name="serviceID"

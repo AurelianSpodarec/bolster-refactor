@@ -16,7 +16,7 @@ const DashboardPieChartContainer = ({
             isFetching={isFetching}
             error={error}
             isEmpty={isEmpty(stats)}
-            containerClass="flex-row-item size-lg-6"
+            containerClass="flex-row-item size-lg-6 size-md-12"
         >
             <DashboardPieChart stats={stats} />
         </BlockContainer>
