@@ -16,35 +16,21 @@ class AllSitesContainer extends Component {
     }
 
     componentDidMount = () => {
-        const {
-            fetchAllClientSites,
-            fetchAllClientBuildings,
-            fetchAllClientFloors,
-            fetchAllClientDrawings
-        } = this.props;
+        const { fetchAllLevels } = this.props;
 
         const selectedCompanyID = getSelectedCompanyForClient();
 
-        fetchAllClientSites(selectedCompanyID);
-        fetchAllClientBuildings(selectedCompanyID);
-        fetchAllClientFloors(selectedCompanyID);
-        fetchAllClientDrawings(selectedCompanyID);
+        fetchAllLevels(selectedCompanyID);
     };
 }
 
 export default connect(
     null,
     dispatch => ({
-        fetchAllClientSites: companyID => {
+        fetchAllLevels: companyID => {
             dispatch(fetchAllClientSites(companyID));
-        },
-        fetchAllClientBuildings: companyID => {
             dispatch(fetchAllClientBuildings(companyID));
-        },
-        fetchAllClientFloors: companyID => {
             dispatch(fetchAllClientFloors(companyID));
-        },
-        fetchAllClientDrawings: companyID => {
             dispatch(fetchAllClientDrawings(companyID));
         }
     })

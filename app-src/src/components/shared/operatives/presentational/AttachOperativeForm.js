@@ -30,6 +30,7 @@ const AttachOperativeForm = ({
                     onChange={handleChange}
                     placeholder="-- select operatives --"
                     required
+                    search
                 />
                 {/* <DropdownContainer
                     placeholder="-- select operative --"
