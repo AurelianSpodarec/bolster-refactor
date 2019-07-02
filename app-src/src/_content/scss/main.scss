@@ -1038,6 +1038,12 @@ input {
     &.small {
         font-size: 120%;
     }
+
+    &.no-data {
+        padding: 10px 15px;
+        background-color: $background-grey;
+        text-align: center;
+    }
 }
 
 .wysiwyg {

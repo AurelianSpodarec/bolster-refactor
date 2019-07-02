@@ -137,6 +137,11 @@ class DrawingMapGeneralContainer extends Component {
 
         const pinIDs = pinsFromAPI.map(({ id }) => id);
         handleChange('pinIDs', pinIDs);
+        if (drawing.siteID) {
+            handleChange('siteID', String(drawing.siteID));
+            handleChange('buildingID', String(drawing.buildingID));
+            handleChange('floorID', String(drawing.floorID));
+        }
 
         updateReportFilter('drawingID', match.params.id).then(postFilters);
         if (drawing.isFloorplanUpdating) {
@@ -150,7 +155,6 @@ class DrawingMapGeneralContainer extends Component {
         postSuccess: prevSuccess,
         drawing: prevDrawing = {},
         pinsFromAPI: prevPinsFromAPI = [],
-        handleChange,
         fromDateInclusive,
         toDateInclusive,
         fieldErrors,
@@ -159,6 +163,7 @@ class DrawingMapGeneralContainer extends Component {
     }) => {
         const {
             drawing = {},
+            handleChange,
             fetchSingleDrawing,
             postSuccess,
             pinsFromAPI = [],
@@ -171,7 +176,7 @@ class DrawingMapGeneralContainer extends Component {
         // re-fetch drawing every 5 seconds until the updated floorplan is retrieved
         if (postSuccess && !prevSuccess) fetchSingleDrawing(drawing.id);
         if (drawing.isFloorplanUpdating && !prevDrawing.isFloorplanUpdating) {
-            console.error('updating!!!!!');
+            // console.error('updating!!!!!');
             this._floorplanInterval = setInterval(
                 () => fetchSingleDrawing(drawing.id),
                 5000
@@ -199,6 +204,12 @@ class DrawingMapGeneralContainer extends Component {
         }
         if (furtherFiltrationOption !== prevOption) {
             removeAllRectangles();
+        }
+
+        if (drawing.siteID && !prevDrawing.siteID) {
+            handleChange('siteID', String(drawing.siteID));
+            handleChange('buildingID', String(drawing.buildingID));
+            handleChange('floorID', String(drawing.floorID));
         }
     };
 
