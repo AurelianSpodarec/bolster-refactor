@@ -7,11 +7,14 @@ import fetchCompanyUsers from 'actions/companyAdmin/userManagement/async/fetchCo
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { CREATE_OPERATIVE } from 'constants/shared/modalTypes';
+import { nameSort } from 'helpers/generic';
 const { OPERATIVE } = COMPANY_USER_ROLE_TYPES;
 
 class AllOperativesTableContainer extends Component {
     render = () => {
         const { users, isFetching, error } = this.props;
+
+        const sortedUsers = users.sort(nameSort);
         return (
             <AllOperativesTable
                 headers={[
@@ -22,7 +25,7 @@ class AllOperativesTableContainer extends Component {
                     'Operative Code',
                     ''
                 ]}
-                users={users}
+                users={sortedUsers}
                 isFetching={isFetching}
                 error={error}
                 handleShowModal={this.handleShowModal}

@@ -20,6 +20,12 @@ export function isObjEmpty(obj) {
     return true;
 }
 
+export const nameSort = (a, b) => {
+    if (a.userFirstName == b.userFirstName) {
+        return a.userLastName.toLowerCase() > b.userLastName.toLowerCase();
+    } else return a.userFirstName.toLowerCase() > b.userFirstName.toLowerCase();
+};
+
 export function isEmpty(item) {
     if (Array.isArray(item)) return !item.length;
     if (typeof item === 'string') return !item.length;
