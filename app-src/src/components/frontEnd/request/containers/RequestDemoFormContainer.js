@@ -9,7 +9,7 @@ class RequestDemoFormContainer extends Component {
     state = {
         name: '',
         email: '',
-        number: '',
+        contactNumber: '',
         companyName: ''
     };
     render() {
@@ -29,12 +29,12 @@ class RequestDemoFormContainer extends Component {
     handleSubmit = e => {
         e.preventDefault();
 
-        const { name, email, number, companyName } = this.state;
+        const { name, email, contactNumber, companyName } = this.state;
 
         const postBody = {
             name: name,
             email: email,
-            number: number,
+            contactNumber: contactNumber,
             companyName: companyName
         };
 

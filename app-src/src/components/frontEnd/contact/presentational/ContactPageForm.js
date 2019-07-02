@@ -8,7 +8,7 @@ import FrontEndButton from 'components/frontEnd/shared/buttons/presentational/Fr
 const ContactPageForm = ({
     name,
     email,
-    number,
+    contactNumber,
     companyName,
     message,
     handleChange,
@@ -45,9 +45,9 @@ const ContactPageForm = ({
             <div className="row">
                 <Field name="Your contact number" required>
                     <TextInputContainer
-                        name="number"
+                        name="contactNumber"
                         required
-                        value={number}
+                        value={contactNumber}
                         handleChange={handleChange}
                     />
                 </Field>

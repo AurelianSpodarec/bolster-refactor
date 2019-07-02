@@ -7,7 +7,7 @@ import FrontEndButton from 'components/frontEnd/shared/buttons/presentational/Fr
 const RequestDemoForm = ({
     name,
     email,
-    number,
+    contactNumber,
     companyName,
     handleChange,
     handleSubmit
@@ -42,9 +42,9 @@ const RequestDemoForm = ({
         <div className="row">
             <Field name="Your phone number">
                 <TextInputContainer
-                    name="number"
+                    name="contactNumber"
                     handleChange={handleChange}
-                    value={number}
+                    value={contactNumber}
                 />
             </Field>
         </div>

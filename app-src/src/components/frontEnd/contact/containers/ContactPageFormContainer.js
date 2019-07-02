@@ -2,46 +2,42 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import postContactForm from 'actions/frontEnd/contact/async/postContactForm';
-
 import ContactPageForm from '../presentational/ContactPageForm';
 
 class ContactPageFormContainer extends Component {
     state = {
         name: '',
         email: '',
-        number: '',
+        contactNumber: '',
         companyName: '',
         message: ''
     };
 
-    render() {
-        return (
-            <ContactPageForm
-                {...this.state}
-                handleChange={this.handleChange}
-                handleSubmit={this.handleSubmit}
-            />
-        );
-    }
+    render = () => (
+        <ContactPageForm
+            {...this.state}
+            handleChange={this.handleChange}
+            handleSubmit={this.handleSubmit}
+        />
+    );
 
-    handleChange = (name, value) => {
-        this.setState({ [name]: value });
-    };
+    handleChange = (name, value) => this.setState({ [name]: value });
 
     handleSubmit = e => {
         e.preventDefault();
 
-        const { name, email, number, companyName, message } = this.state;
+        const { name, email, contactNumber, companyName, message } = this.state;
+        const { postContactForm } = this.props;
 
         const postBody = {
-            name: name,
-            email: email,
-            number: number,
-            companyName: companyName,
-            message: message
+            name,
+            email,
+            contactNumber,
+            companyName,
+            message
         };
 
-        this.props.postContactForm(postBody);
+        postContactForm(postBody);
     };
 }
 
@@ -50,13 +46,11 @@ const mapStateToProps = ({
         contactReducer: { error, postSuccess }
     }
 }) => ({
-    error: error,
-    postSuccess: postSuccess
+    error,
+    postSuccess
 });
 
-const mapDispatchToProps = dispatch => ({
-    postContactForm: postBody => dispatch(postContactForm(postBody))
-});
+const mapDispatchToProps = { postContactForm };
 
 export default connect(
     mapStateToProps,

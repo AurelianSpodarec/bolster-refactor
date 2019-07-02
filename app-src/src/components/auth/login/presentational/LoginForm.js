@@ -36,13 +36,13 @@ const LoginForm = ({
 
         <div className="button-area size-lg-12">
             {/* ! uncomment when the api is ready */}
-            {/* <button
+            <button
                 onClick={handleForgotPassword}
                 className="button red"
                 type="button"
             >
                 Forgot Password
-            </button> */}
+            </button>
             <button className="button green" type="submit">
                 Login
             </button>
