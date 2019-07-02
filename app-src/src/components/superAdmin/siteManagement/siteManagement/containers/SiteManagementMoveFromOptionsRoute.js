@@ -4,10 +4,18 @@ import { connect } from 'react-redux';
 import { HIERARCHY_IDS } from 'constants/companyAdmin/enums';
 import Field from 'components/shared/generic/form/presentational/Field';
 import selectOption from 'actions/superAdmin/siteManagement/sync/selectOption';
+import Loading from 'components/shared/generic/misc/presentational/Loading';
 
 const { BUILDING, FLOOR, DRAWING } = HIERARCHY_IDS;
 
 const Buildings = ({ buildings, handleSelectOption, selectedOption }) => {
+    if (!buildings.length)
+        return (
+            <p className="generic-text no-data size-lg-12">
+                No buildings were found
+            </p>
+        );
+
     return (
         <Field name="Select a building" classes="full-length">
             {buildings.map(building => (
@@ -26,6 +34,13 @@ const Buildings = ({ buildings, handleSelectOption, selectedOption }) => {
 };
 
 const Floors = ({ floors, handleSelectOption, selectedOption }) => {
+    if (!floors.length)
+        return (
+            <p className="generic-text no-data size-lg-12">
+                No floors were found
+            </p>
+        );
+
     return (
         <Field name="Select a floor" classes="full-length">
             {floors.map(floor => (
@@ -46,6 +61,13 @@ const Floors = ({ floors, handleSelectOption, selectedOption }) => {
 };
 
 const Drawings = ({ drawings, handleSelectOption, selectedOption }) => {
+    if (!drawings.length)
+        return (
+            <p className="generic-text no-data size-lg-12">
+                No drawings were found
+            </p>
+        );
+
     return (
         <Field name="Select a drawing" classes="full-length">
             {drawings.map(drawing => (
@@ -73,7 +95,8 @@ class SiteManagementMoveFromOptionsRoute extends Component {
             floors,
             drawings,
             selectedOption,
-            companyID
+            companyID,
+            isFetching
         } = this.props;
 
         const listTypes = {
@@ -92,6 +115,8 @@ class SiteManagementMoveFromOptionsRoute extends Component {
         const SpecificField = listTypes[hierarchyID + ''] || null;
 
         if (!SpecificField) return null;
+
+        if (isFetching) return <Loading />;
 
         return (
             <SpecificField
@@ -117,16 +142,17 @@ class SiteManagementMoveFromOptionsRoute extends Component {
 
 const mapStateToProps = ({
     superAdmin: {
-        buildingsReducer: { buildings },
-        floorsReducer: { floors },
-        drawingsReducer: { drawings },
+        buildingsReducer: { buildings, isFetching: isFetchingBuildings },
+        floorsReducer: { floors, isFetching: isFetchingFloors },
+        drawingsReducer: { drawings, isFetching: isFetchingDrawings },
         siteManagementReducer: { selectedOption }
     }
 }) => ({
     buildings: Object.values(buildings),
     floors: Object.values(floors),
     drawings: Object.values(drawings),
-    selectedOption
+    selectedOption,
+    isFetching: isFetchingBuildings || isFetchingFloors || isFetchingDrawings
 });
 
 const mapDispatchToProps = dispatch => ({

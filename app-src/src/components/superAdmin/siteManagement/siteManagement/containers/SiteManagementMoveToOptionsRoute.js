@@ -5,10 +5,18 @@ import { HIERARCHY_IDS } from 'constants/companyAdmin/enums';
 import Field from 'components/shared/generic/form/presentational/Field';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { CONFIRM_MOVE_HIERARCHY_TO_COMPANY } from 'constants/shared/modalTypes';
+import Loading from 'components/shared/generic/misc/presentational/Loading';
 
 const { BUILDING, FLOOR, DRAWING } = HIERARCHY_IDS;
 
 const Sites = ({ sites, handleSelectOption }) => {
+    if (!sites.length)
+        return (
+            <p className="generic-text no-data size-lg-12">
+                No sites were found
+            </p>
+        );
+
     return (
         <Field name="Select a site" classes="full-length">
             {sites.map(site => (
@@ -25,6 +33,13 @@ const Sites = ({ sites, handleSelectOption }) => {
 };
 
 const Buildings = ({ buildings, handleSelectOption }) => {
+    if (!buildings.length)
+        return (
+            <p className="generic-text no-data size-lg-12">
+                No buildings were found
+            </p>
+        );
+
     return (
         <Field name="Select a building" classes="full-length">
             {buildings.map(building => (
@@ -46,6 +61,13 @@ const Buildings = ({ buildings, handleSelectOption }) => {
 };
 
 const Floors = ({ floors, handleSelectOption }) => {
+    if (!floors.length)
+        return (
+            <p className="generic-text no-data size-lg-12">
+                No floors were found
+            </p>
+        );
+
     return (
         <Field name="Select a floor" classes="full-length">
             {floors.map(floor => (
@@ -78,7 +100,8 @@ class SiteManagementMoveFromOptionsRoute extends Component {
             buildings,
             floors,
             selectedOption,
-            companyID
+            companyID,
+            isFetching
         } = this.props;
 
         const listTypes = {
@@ -97,6 +120,8 @@ class SiteManagementMoveFromOptionsRoute extends Component {
             );
 
         if (!SpecificField) return null;
+
+        if (isFetching) return <Loading />;
 
         return (
             <SpecificField
@@ -126,16 +151,17 @@ class SiteManagementMoveFromOptionsRoute extends Component {
 
 const mapStateToProps = ({
     superAdmin: {
-        sitesReducer: { sites },
-        buildingsReducer: { buildings },
-        floorsReducer: { floors },
+        sitesReducer: { sites, isFetching: isFetchingSites },
+        buildingsReducer: { buildings, isFetching: isFetchingBuildings },
+        floorsReducer: { floors, isFetching: isFetchingFloors },
         siteManagementReducer: { selectedOption }
     }
 }) => ({
     sites: Object.values(sites),
     buildings: Object.values(buildings),
     floors: Object.values(floors),
-    selectedOption
+    selectedOption,
+    isFetching: isFetchingSites || isFetchingBuildings || isFetchingFloors
 });
 
 const mapDispatchToProps = dispatch => ({
