@@ -3,6 +3,9 @@ export const CLIENT_API_URL = 'https://api.client.bolster-staging.com';
 export const FILE_API_URL = 'https://api.media.bolster-staging.com/files';
 export const ADMIN_API_URL = 'https://api.admin.bolster-staging.com';
 export const AUTH_API_URL = 'https://api.accounts.bolster-staging.com';
+export const FRONTEND_API_URL = 'https://api.front-end.bolster-staging.com';
+export const RENEWALS_API_URL = 'https://api.renewals.bolster-staging.com';
+
 export const FILE_STORAGE_URL = 'https://dizelaxol0ewg.cloudfront.net';
 export const RAW_S3_STORAGE_URL =
     'https://s3-eu-west-1.amazonaws.com/bolster-dynamic-staging-media';
