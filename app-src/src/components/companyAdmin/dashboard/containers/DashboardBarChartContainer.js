@@ -13,7 +13,7 @@ class DashboardBarContainer extends Component {
 
         return (
             <>
-                <Block containerClass="flex-row-item size-lg-6">
+                <Block containerClass="flex-row-item size-lg-6 size-md-12">
                     <BlockHeading title="Pins added by operatives" />
                     <BlockContainer
                         isFetching={isFetching}

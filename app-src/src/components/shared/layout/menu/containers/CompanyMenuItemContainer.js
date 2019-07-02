@@ -4,6 +4,7 @@ import { withRouter } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
 import { getCompanyColour } from 'helpers/generic';
+import { toggleMobileMenu } from 'actions/shared/mobile/sync/toggleMobileMenu';
 
 class MenuItemContainer extends Component {
     state = {
@@ -44,6 +45,7 @@ class MenuItemContainer extends Component {
                         ? { backgroundColor: companyColour, color: textColor }
                         : {}
                 }
+                onClick={() => this._toggleMobileMenu()}
             >
                 {external ? (
                     <a href={link}>{children}</a>
@@ -73,6 +75,15 @@ class MenuItemContainer extends Component {
     handleMouseEnter = () => this.setState({ hover: true });
 
     handleMouseLeave = () => this.setState({ hover: false });
+
+    _toggleMobileMenu = () => {
+        const { onMobile, toggleMobileMenu } = this.props;
+        if (onMobile) {
+            toggleMobileMenu();
+        } else {
+            return;
+        }
+    };
 }
 
 const mapStateToProps = ({
@@ -80,10 +91,22 @@ const mapStateToProps = ({
         companySettingsReducer: {
             companySettings: { colourCode, isBolsterLogoDark }
         }
+    },
+    shared: {
+        mobileReducer: { onMobile }
     }
 }) => ({
     colourCode: colourCode || '',
-    isBolsterLogoDark
+    isBolsterLogoDark,
+    onMobile
 });
 
-export default withRouter(connect(mapStateToProps)(MenuItemContainer));
+const mapDispatchToProps = dispatch => ({
+    toggleMobileMenu: () => dispatch(toggleMobileMenu())
+});
+export default withRouter(
+    connect(
+        mapStateToProps,
+        mapDispatchToProps
+    )(MenuItemContainer)
+);
