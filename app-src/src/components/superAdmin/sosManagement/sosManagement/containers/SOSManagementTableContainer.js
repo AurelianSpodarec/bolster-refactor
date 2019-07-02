@@ -47,6 +47,14 @@ const SOSManagementTableContainer = ({ isFetching, error, showModal }) => {
     }
 };
 
+// const mapStateToProps = ({
+//     superAdmin: {
+//         sosCodesReducer: { isFetching, sosCodes, error }
+//     }
+// }) => ({
+
+// });
+
 const mapDispatchToProps = {
     showModal
 };

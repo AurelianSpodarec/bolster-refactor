@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 
 import SOSGenerationForm from '../presentational/SOSGenerationForm';
 import { SUCCESS_MODAL } from 'constants/shared/modalTypes';
+import createSOSCode from 'actions/superAdmin/sosManagement/async/createSOSCode';
+import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 
 class SOSGenerationFormContainer extends Component {
     state = {
@@ -23,10 +25,10 @@ class SOSGenerationFormContainer extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        const { postSuccess, showModal } = this.props;
+        const { postSuccess, showModal, createdSOSCode } = this.props;
         if (!prevProps.postSuccess && postSuccess) {
             showModal(SUCCESS_MODAL, {
-                message: ' SOS Code Successfully Generated'
+                message: `SOS Code Successfully Generated. Your SOS code is ${createdSOSCode}`
             });
         }
     }
@@ -39,20 +41,26 @@ class SOSGenerationFormContainer extends Component {
 
     handleSubmit = e => {
         e.preventDefault();
-        const { generateSOSCode } = this.props;
-        generateSOSCode({ description: this.state.description });
+        const { createSOSCode } = this.props;
+        createSOSCode({ description: this.state.description });
     };
 }
 
-// const mapStateToProps = ({superAdmin: {sosCodesReducer: {
-//     postSuccess
-// }}}) => ({
-//     postSuccess
-// });
+const mapStateToProps = ({
+    superAdmin: {
+        sosCodesReducer: { postSuccess, createdSOSCode }
+    }
+}) => ({
+    postSuccess,
+    createdSOSCode
+});
 
-// const mapDispatchToProps = {
-//     generateSOSCode,
-// showModal
-// };
+const mapDispatchToProps = {
+    createSOSCode,
+    showModal
+};
 
-export default connect(null)(SOSGenerationFormContainer);
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(SOSGenerationFormContainer);

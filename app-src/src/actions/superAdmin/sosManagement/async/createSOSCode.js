@@ -27,7 +27,7 @@ export default postBody => dispatch => {
     dispatch(createSOSCodeRequest());
 
     axios
-        .post(`${ADMIN_API_URL}/sos/new`, postBody, getHeaders())
+        .post(`${ADMIN_API_URL}/soscodes`, postBody, getHeaders())
         .then(result => dispatch(createSOSCodeSuccess(result.data)))
         .catch(error => {
             dispatch(createSOSCodeFailure(error));
