@@ -5,7 +5,10 @@ import {
     ADMIN_FETCH_DRAWINGS_FOR_COMPANY_SUCCESS,
     ADMIN_FETCH_DRAWINGS_FOR_COMPANY_FAILURE
 } from 'constants/actionTypes/companies';
-import { convertArrToObj } from 'helpers/generic';
+
+import { ADMIN_MOVE_DRAWING_SUCCESS } from 'constants/actionTypes/siteManagement';
+
+import { convertArrToObj, removeObjItem } from 'helpers/generic';
 
 export default combineReducers({
     drawings: drawingsReducer,
@@ -40,6 +43,8 @@ function drawingsReducer(state = {}, action) {
     switch (action.type) {
         case ADMIN_FETCH_DRAWINGS_FOR_COMPANY_SUCCESS:
             return { ...state, ...convertArrToObj(action.payload) };
+        case ADMIN_MOVE_DRAWING_SUCCESS:
+            return removeObjItem(state, action.drawingID);
         default:
             return state;
     }

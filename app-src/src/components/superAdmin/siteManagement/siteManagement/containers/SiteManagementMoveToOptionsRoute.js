@@ -32,10 +32,13 @@ const Buildings = ({ buildings, handleSelectOption }) => {
                     key={building.id}
                     className="select-option size-lg-12"
                     onClick={() =>
-                        handleSelectOption(building.name, building.id)
+                        handleSelectOption(
+                            `${building.siteName} / ${building.name}`,
+                            building.id
+                        )
                     }
                 >
-                    {building.name}
+                    {`${building.siteName} / ${building.name}`}
                 </p>
             ))}
         </Field>
@@ -49,9 +52,18 @@ const Floors = ({ floors, handleSelectOption }) => {
                 <p
                     key={floor.id}
                     className="select-option size-lg-12"
-                    onClick={() => handleSelectOption(floor.name, floor.id)}
+                    onClick={() =>
+                        handleSelectOption(
+                            `${floor.siteName} / ${floor.buildingName} / ${
+                                floor.name
+                            }`,
+                            floor.id
+                        )
+                    }
                 >
-                    {floor.name}
+                    {`${floor.siteName} / ${floor.buildingName} / ${
+                        floor.name
+                    }`}
                 </p>
             ))}
         </Field>
@@ -65,7 +77,8 @@ class SiteManagementMoveFromOptionsRoute extends Component {
             sites,
             buildings,
             floors,
-            selectedOption
+            selectedOption,
+            companyID
         } = this.props;
 
         const listTypes = {
@@ -87,20 +100,26 @@ class SiteManagementMoveFromOptionsRoute extends Component {
 
         return (
             <SpecificField
-                sites={sites}
-                buildings={buildings}
-                floors={floors}
+                sites={sites.filter(site => site.ownerCompanyID === companyID)}
+                buildings={buildings.filter(
+                    building => building.ownerCompanyID === companyID
+                )}
+                floors={floors.filter(
+                    floor => floor.ownerCompanyID === companyID
+                )}
                 handleSelectOption={this.handleSelectOption}
             />
         );
     }
 
     handleSelectOption = (name, value) => {
-        const { showModal } = this.props;
+        const { showModal, companyID, moveFromCompany } = this.props;
 
         showModal(CONFIRM_MOVE_HIERARCHY_TO_COMPANY, {
             moveToName: name,
-            moveToValue: value
+            moveToValue: value,
+            moveFromCompany,
+            moveToCompany: companyID
         });
     };
 }

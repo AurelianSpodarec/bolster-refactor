@@ -5,15 +5,15 @@ import SiteManagementBlocks from '../presentational/SiteManagementBlocks';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import fetchAllCompanies from 'actions/superAdmin/companies/async/fetchAllCompanies';
 import { isEmpty } from 'helpers/generic';
+import { showModal } from 'actions/shared/generic/modals/sync/showModal';
+import { SUCCESS_MODAL, ERROR_MODAL } from 'constants/shared/modalTypes';
+import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import fetchSitesForCompany from 'actions/superAdmin/siteManagement/async/fetchSitesForCompany';
 import fetchBuildingsForCompany from 'actions/superAdmin/siteManagement/async/fetchBuildingsForCompany';
 import fetchFloorsForCompany from 'actions/superAdmin/siteManagement/async/fetchFloorsForCompany';
 import fetchDrawingsForCompany from 'actions/superAdmin/siteManagement/async/fetchDrawingsForCompany';
 import selectHierarchy from 'actions/superAdmin/siteManagement/sync/selectHierarchy';
 import selectOption from 'actions/superAdmin/siteManagement/sync/selectOption';
-import { showModal } from 'actions/shared/generic/modals/sync/showModal';
-import { SUCCESS_MODAL, ERROR_MODAL } from 'constants/shared/modalTypes';
-import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 
 class SiteManagementBlocksContainer extends Component {
     state = {
@@ -69,7 +69,9 @@ class SiteManagementBlocksContainer extends Component {
             fetchHierarchiesForCompany,
             isPosting,
             postSuccess,
-            postError
+            postError,
+            showModal,
+            hideModal
         } = this.props;
 
         if (prevState.moveFromCompany !== moveFromCompany)
@@ -78,16 +80,23 @@ class SiteManagementBlocksContainer extends Component {
         if (prevState.moveToCompany !== moveToCompany)
             fetchHierarchiesForCompany(moveToCompany);
 
-        if (prevProps.isPosting && !isPosting && postSuccess) hideModal();
-        showModal(SUCCESS_MODAL, {
-            message: 'The move was successful!'
-        });
+        if (prevProps.isPosting && !isPosting && postSuccess) {
+            hideModal();
+            showModal(SUCCESS_MODAL, {
+                message: 'The move was successful!'
+            });
+            fetchHierarchiesForCompany(moveFromCompany);
+            fetchHierarchiesForCompany(moveToCompany);
+            this.props.selectOption(null);
+        }
 
-        if (prevProps.isPosting && !isPosting && postError) hideModal();
-        showModal(ERROR_MODAL, {
-            title: 'Error',
-            message: postError
-        });
+        if (prevProps.isPosting && !isPosting && postError) {
+            hideModal();
+            showModal(ERROR_MODAL, {
+                title: 'Error',
+                message: postError
+            });
+        }
     };
 
     _getCompaniesList = () => {
@@ -150,6 +159,10 @@ const mapStateToProps = ({
 });
 
 const mapDispatchToProps = dispatch => ({
+    showModal: (type, props) => dispatch(showModal(type, props)),
+    hideModal: () => {
+        dispatch(hideModal());
+    },
     fetchAllCompanies: () => {
         dispatch(fetchAllCompanies());
     },

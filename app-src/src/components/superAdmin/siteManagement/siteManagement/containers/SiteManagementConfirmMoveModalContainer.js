@@ -35,13 +35,25 @@ class SiteManagementConfirmMoveModalContainer extends Component {
 
         switch (selectedHierarchy + '') {
             case HIERARCHY_IDS.BUILDING:
-                name = buildings[selectedOption].name;
+                var selectedBuilding = buildings[selectedOption];
+
+                name = `${selectedBuilding.siteName} / ${
+                    selectedBuilding.name
+                }`;
                 break;
             case HIERARCHY_IDS.FLOOR:
-                name = floors[selectedOption].name;
+                var selectedFloor = floors[selectedOption];
+
+                name = `${selectedFloor.siteName} / ${
+                    selectedFloor.buildingName
+                } / ${selectedFloor.name}`;
                 break;
             case HIERARCHY_IDS.DRAWING:
-                name = drawings[selectedOption].name;
+                var selectedDrawing = drawings[selectedOption];
+
+                name = `${selectedDrawing.siteName} / ${
+                    selectedDrawing.buildingName
+                } / ${selectedDrawing.floorName} / ${selectedDrawing.name}`;
                 break;
             default:
                 name = '';
@@ -61,20 +73,23 @@ class SiteManagementConfirmMoveModalContainer extends Component {
             moveToValue,
             moveBuilding,
             moveFloor,
-            moveDrawing
+            moveDrawing,
+            hideModal
         } = this.props;
 
-        // switch (selectedHierarchy + '') {
-        //     case HIERARCHY_IDS.BUILDING:
-        //         moveBuilding(selectedOption, moveToValue, null);
-        //         break;
-        //     case HIERARCHY_IDS.FLOOR:
-        //         moveFloor(selectedOption, moveToValue, null);
-        //         break;
-        //     case HIERARCHY_IDS.DRAWING:
-        //         moveDrawing(selectedOption, moveToValue, null);
-        //         break;
-        // }
+        hideModal();
+
+        switch (selectedHierarchy + '') {
+            case HIERARCHY_IDS.BUILDING:
+                moveBuilding(selectedOption, moveToValue, null);
+                break;
+            case HIERARCHY_IDS.FLOOR:
+                moveFloor(selectedOption, moveToValue, null);
+                break;
+            case HIERARCHY_IDS.DRAWING:
+                moveDrawing(selectedOption, moveToValue, null);
+                break;
+        }
     };
 }
 
@@ -84,7 +99,13 @@ const mapStateToProps = ({
         buildingsReducer: { buildings },
         floorsReducer: { floors },
         drawingsReducer: { drawings },
-        siteManagementReducer: { selectedHierarchy, selectedOption }
+        siteManagementReducer: {
+            selectedHierarchy,
+            selectedOption,
+            isPosting,
+            postSuccess,
+            error: postError
+        }
     }
 }) => ({
     sites,
@@ -92,7 +113,10 @@ const mapStateToProps = ({
     floors,
     drawings,
     selectedHierarchy,
-    selectedOption
+    selectedOption,
+    isPosting,
+    postSuccess,
+    postError
 });
 
 const mapDispatchToProps = dispatch => ({

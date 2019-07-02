@@ -9,6 +9,7 @@ const SiteManagementMoveTo = ({
     handleChange,
     companies,
     selectedCompany,
+    moveFromCompany,
     selectedHierarchy
 }) => (
     <Block>
@@ -29,6 +30,7 @@ const SiteManagementMoveTo = ({
             <SiteManagementMoveToOptionsRoute
                 hierarchyID={selectedHierarchy}
                 companyID={selectedCompany}
+                moveFromCompany={moveFromCompany}
             />
         )}
     </Block>

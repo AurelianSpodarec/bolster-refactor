@@ -27,6 +27,7 @@ const SiteManagementBlocks = ({
             <SiteManagementMoveTo
                 handleChange={handleChange}
                 companies={companies}
+                moveFromCompany={moveFromCompany}
                 selectedCompany={moveToCompany}
                 selectedHierarchy={selectedHierarchy}
             />

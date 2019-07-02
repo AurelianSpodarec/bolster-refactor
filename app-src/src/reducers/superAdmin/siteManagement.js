@@ -78,7 +78,7 @@ function errorReducer(state = null, action) {
         case ADMIN_MOVE_BUILDING_REQUEST:
         case ADMIN_MOVE_FLOOR_REQUEST:
         case ADMIN_MOVE_DRAWING_REQUEST:
-            return false;
+            return null;
         case ADMIN_MOVE_BUILDING_FAILURE:
         case ADMIN_MOVE_FLOOR_FAILURE:
         case ADMIN_MOVE_DRAWING_FAILURE:

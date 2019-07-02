@@ -13,9 +13,10 @@ export const adminMoveDrawingRequest = () => ({
     type: ADMIN_MOVE_DRAWING_REQUEST
 });
 
-export const adminMoveDrawingSuccess = payload => ({
+export const adminMoveDrawingSuccess = (payload, drawingID) => ({
     type: ADMIN_MOVE_DRAWING_SUCCESS,
-    payload
+    payload,
+    drawingID
 });
 
 export const adminMoveDrawingFailure = error => ({
@@ -32,7 +33,9 @@ export default (drawingID, floorID, postBody) => dispatch => {
             postBody,
             getHeaders()
         )
-        .then(result => dispatch(adminMoveDrawingSuccess(result.data)))
+        .then(result =>
+            dispatch(adminMoveDrawingSuccess(result.data, drawingID))
+        )
         .catch(error => {
             dispatch(adminMoveDrawingFailure(error));
             if (error.response.status === 400)
