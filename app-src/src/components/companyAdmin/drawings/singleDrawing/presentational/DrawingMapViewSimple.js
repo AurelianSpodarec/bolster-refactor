@@ -42,7 +42,8 @@ const DrawingMapViewSimple = ({
     handleCancelPinSelector,
     isExcluding,
     updateCurTooltip,
-    currentTooltip
+    currentTooltip,
+    isExpired
 }) => {
     const newPinIcon = L.divIcon({
         className: '',
@@ -73,7 +74,7 @@ const DrawingMapViewSimple = ({
                                 mode={mode}
                                 handleCancel={handleCancelPinSelector}
                             />
-                        ) : (
+                        ) : !isExpired ? (
                             drawing.accessType ===
                                 ACCESS_TYPES_VALUES.OWNER && (
                                 <>
@@ -117,6 +118,19 @@ const DrawingMapViewSimple = ({
                                     />
                                 </>
                             )
+                        ) : (
+                            <>
+                                <AddCreditsToDrawingButtonContainer
+                                    drawing={drawing}
+                                />
+                                <button
+                                    onClick={() => {}}
+                                    className="button red pull-right"
+                                >
+                                    <i className="far fa-times" /> Drawing
+                                    expired
+                                </button>
+                            </>
                         )}
                     </BlockHeading>
                     <Map

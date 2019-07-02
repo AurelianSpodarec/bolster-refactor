@@ -19,7 +19,8 @@ const InvoiceListItem = ({
         id,
         paymentType,
         userFirstName,
-        userLastName
+        userLastName,
+        remainingToPay
     },
     showModal
 }) => (
@@ -33,6 +34,7 @@ const InvoiceListItem = ({
         <td>{id}</td>
         <td>{`£${formatCurrency(subTotal)}`}</td>
         <td>{`£${formatCurrency(total)}`}</td>
+        <td>{`£${remainingToPay ? formatCurrency(remainingToPay) : 0}`}</td>
         <td>{PAYMENT_TYPES[paymentType]}</td>
         <td>{isPaid ? 'Paid' : 'Awaiting Payment'}</td>
         <td>

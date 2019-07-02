@@ -76,6 +76,8 @@ class DrawingMapGeneralContainer extends Component {
         const shouldShowPinSelectorOptions =
             +furtherFiltrationOption === +PIN_SELECTOR;
 
+        const isExpired = moment(drawing.expiresOn).isBefore(moment.now());
+
         return (
             <>
                 <div className="flex-container size-lg-12">
@@ -90,6 +92,7 @@ class DrawingMapGeneralContainer extends Component {
                 </div>
                 <BlockContainer error={error} isEmpty={!drawing}>
                     <DrawingMapViewSimple
+                        isExpired={isExpired}
                         currentTooltip={this.state.currentTooltip}
                         updateCurTooltip={this.updateCurTooltip}
                         showModal={this.props.showModal}

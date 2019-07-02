@@ -14,6 +14,7 @@ class InvoicesTableContainer extends Component {
                     'Order ID',
                     'Total (exc VAT)',
                     'Total (inc VAT)',
+                    'Left to pay',
                     'Type',
                     'Status',
                     '',
