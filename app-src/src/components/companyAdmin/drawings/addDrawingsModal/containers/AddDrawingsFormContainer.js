@@ -82,8 +82,9 @@ const AddDrawingsFormContainer = ({
                           floorID
                       })
                     : createDrawing({ name, file, templateUsageRule, floorID });
+            } else {
+                createDrawings({ drawings, floorID });
             }
-            createDrawings({ drawings, floorID });
             hideModal();
         }
     }
