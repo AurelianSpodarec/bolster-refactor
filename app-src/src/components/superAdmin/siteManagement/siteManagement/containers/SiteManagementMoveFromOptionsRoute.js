@@ -82,12 +82,12 @@ class SiteManagementMoveFromOptionsRoute extends Component {
             [DRAWING]: Drawings
         };
 
-        console.warn('selected company', companyID);
-        console.warn('buildings', buildings);
-        console.warn(
-            'buildings filtered',
-            buildings.filter(building => building.ownerCompanyID === companyID)
-        );
+        // console.warn('selected company', companyID);
+        // console.warn('buildings', buildings);
+        // console.warn(
+        //     'buildings filtered',
+        //     buildings.filter(building => building.ownerCompanyID === companyID)
+        // );
 
         const SpecificField = listTypes[hierarchyID + ''] || null;
 

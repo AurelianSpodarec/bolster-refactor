@@ -13,9 +13,10 @@ export const adminMoveFloorRequest = () => ({
     type: ADMIN_MOVE_FLOOR_REQUEST
 });
 
-export const adminMoveFloorSuccess = payload => ({
+export const adminMoveFloorSuccess = (payload, floorID) => ({
     type: ADMIN_MOVE_FLOOR_SUCCESS,
-    payload
+    payload,
+    floorID
 });
 
 export const adminMoveFloorFailure = error => ({
@@ -32,7 +33,7 @@ export default (floorID, buildingID, postBody) => dispatch => {
             postBody,
             getHeaders()
         )
-        .then(result => dispatch(adminMoveFloorSuccess(result.data)))
+        .then(result => dispatch(adminMoveFloorSuccess(result.data, floorID)))
         .catch(error => {
             dispatch(adminMoveFloorFailure(error));
             if (error.response.status === 400)
