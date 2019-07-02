@@ -34,9 +34,11 @@ const mapStateToProps = ({
         dashboardReducer: { isFetchingDashPinsStats: isFetching, error }
     },
     shared: {
-        tabsReducer: { selectedTab }
+        tabsReducer: { selectedTab },
+        mobileReducer: { onMobile }
     }
 }) => ({
+    onMobile,
     isFetching,
     error,
     selectedTab

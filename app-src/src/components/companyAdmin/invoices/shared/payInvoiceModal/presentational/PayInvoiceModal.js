@@ -21,7 +21,7 @@ const PayInvoiceModal = ({
     <ModalOuterContainer>
         <BlockHeading title="Pay invoice" />
         <Form className="generic-form" onSubmit={handleSubmit}>
-            <div className="size-lg-6">
+            <Field>
                 <DropdownContainer
                     required
                     withoutPlaceholder
@@ -36,22 +36,22 @@ const PayInvoiceModal = ({
                     selectedOption={selectedCard}
                     handleChange={handleChange}
                 />
-            </div>
-            <div className="size-lg-6">
-                <Field name="Agree to terms" required>
-                    <p>
-                        Please check that you agree with the{' '}
-                        <Link to="/auth/terms ">sales terms</Link> to proceed
-                        with payment.
-                    </p>
-                    <CheckboxContainer
-                        checked={termsAgreed}
-                        handleChange={handleChange}
-                        name={'termsAgreed'}
-                        required
-                    />
-                </Field>
-            </div>
+            </Field>
+
+            <Field name="Agree to terms" required>
+                <p className="description">
+                    Please check that you agree with the{' '}
+                    <Link to="/auth/terms ">sales terms</Link> to proceed with
+                    payment.
+                </p>
+                <CheckboxContainer
+                    checked={termsAgreed}
+                    handleChange={handleChange}
+                    name={'termsAgreed'}
+                    required
+                />
+            </Field>
+
             <BlockButtonWrapper>
                 <button className="button green" type="submit">
                     Pay invoice
