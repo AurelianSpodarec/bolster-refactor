@@ -18,7 +18,7 @@ const Buildings = ({ buildings, handleSelectOption, selectedOption }) => {
                     }`}
                     onClick={() => handleSelectOption(building.id)}
                 >
-                    {building.name}
+                    {`${building.siteName} / ${building.name}`}
                 </p>
             ))}
         </Field>
@@ -36,7 +36,9 @@ const Floors = ({ floors, handleSelectOption, selectedOption }) => {
                     }`}
                     onClick={() => handleSelectOption(floor.id)}
                 >
-                    {floor.name}
+                    {`${floor.siteName} / ${floor.buildingName} / ${
+                        floor.name
+                    }`}
                 </p>
             ))}
         </Field>
@@ -54,7 +56,9 @@ const Drawings = ({ drawings, handleSelectOption, selectedOption }) => {
                     }`}
                     onClick={() => handleSelectOption(drawing.id)}
                 >
-                    {drawing.name}
+                    {`${drawing.siteName} / ${drawing.buildingName} / ${
+                        drawing.floorName
+                    } / ${drawing.name}`}
                 </p>
             ))}
         </Field>
@@ -68,7 +72,8 @@ class SiteManagementMoveFromOptionsRoute extends Component {
             buildings,
             floors,
             drawings,
-            selectedOption
+            selectedOption,
+            companyID
         } = this.props;
 
         const listTypes = {
@@ -77,15 +82,28 @@ class SiteManagementMoveFromOptionsRoute extends Component {
             [DRAWING]: Drawings
         };
 
+        console.warn('selected company', companyID);
+        console.warn('buildings', buildings);
+        console.warn(
+            'buildings filtered',
+            buildings.filter(building => building.ownerCompanyID === companyID)
+        );
+
         const SpecificField = listTypes[hierarchyID + ''] || null;
 
         if (!SpecificField) return null;
 
         return (
             <SpecificField
-                buildings={buildings}
-                floors={floors}
-                drawings={drawings}
+                buildings={buildings.filter(
+                    building => building.ownerCompanyID === companyID
+                )}
+                floors={floors.filter(
+                    floor => floor.ownerCompanyID === companyID
+                )}
+                drawings={drawings.filter(
+                    drawing => drawing.ownerCompanyID === companyID
+                )}
                 handleSelectOption={this.handleSelectOption}
                 selectedOption={selectedOption}
             />

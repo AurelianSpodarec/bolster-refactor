@@ -3,10 +3,16 @@ import { connect } from 'react-redux';
 
 import SiteManagementConfirmMoveModal from '../presentational/SiteManagementConfirmMoveModal';
 import { HIERARCHY_IDS } from 'constants/companyAdmin/enums';
+import { showModal } from 'actions/shared/generic/modals/sync/showModal';
+import { SUCCESS_MODAL, ERROR_MODAL } from 'constants/shared/modalTypes';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import moveBuilding from 'actions/superAdmin/siteManagement/async/moveBuilding';
 import moveFloor from 'actions/superAdmin/siteManagement/async/moveFloor';
 import moveDrawing from 'actions/superAdmin/siteManagement/async/moveDrawing';
+import fetchSitesForCompany from 'actions/superAdmin/siteManagement/async/fetchSitesForCompany';
+import fetchBuildingsForCompany from 'actions/superAdmin/siteManagement/async/fetchBuildingsForCompany';
+import fetchFloorsForCompany from 'actions/superAdmin/siteManagement/async/fetchFloorsForCompany';
+import fetchDrawingsForCompany from 'actions/superAdmin/siteManagement/async/fetchDrawingsForCompany';
 
 class SiteManagementConfirmMoveModalContainer extends Component {
     render() {
@@ -22,6 +28,36 @@ class SiteManagementConfirmMoveModalContainer extends Component {
         );
     }
 
+    componentDidUpdate = prevProps => {
+        const {
+            fetchHierarchiesForCompany,
+            isPosting,
+            postSuccess,
+            postError,
+            showModal,
+            hideModal,
+            moveFromCompany,
+            moveToCompany
+        } = this.props;
+
+        if (prevProps.isPosting && !isPosting && postSuccess) {
+            hideModal();
+            showModal(SUCCESS_MODAL, {
+                message: 'The move was successful!'
+            });
+            fetchHierarchiesForCompany(moveFromCompany);
+            fetchHierarchiesForCompany(moveToCompany);
+        }
+
+        if (prevProps.isPosting && !isPosting && postError) {
+            hideModal();
+            showModal(ERROR_MODAL, {
+                title: 'Error',
+                message: postError
+            });
+        }
+    };
+
     _getMoveFromName = () => {
         const {
             selectedHierarchy,
@@ -35,13 +71,25 @@ class SiteManagementConfirmMoveModalContainer extends Component {
 
         switch (selectedHierarchy + '') {
             case HIERARCHY_IDS.BUILDING:
-                name = buildings[selectedOption].name;
+                var selectedBuilding = buildings[selectedOption];
+
+                name = `${selectedBuilding.siteName} / ${
+                    selectedBuilding.name
+                }`;
                 break;
             case HIERARCHY_IDS.FLOOR:
-                name = floors[selectedOption].name;
+                var selectedFloor = floors[selectedOption];
+
+                name = `${selectedFloor.siteName} / ${
+                    selectedFloor.buildingName
+                } / ${selectedFloor.name}`;
                 break;
             case HIERARCHY_IDS.DRAWING:
-                name = drawings[selectedOption].name;
+                var selectedDrawing = drawings[selectedOption];
+
+                name = `${selectedDrawing.siteName} / ${
+                    selectedDrawing.buildingName
+                } / ${selectedDrawing.floorName} / ${selectedDrawing.name}`;
                 break;
             default:
                 name = '';
@@ -64,17 +112,17 @@ class SiteManagementConfirmMoveModalContainer extends Component {
             moveDrawing
         } = this.props;
 
-        // switch (selectedHierarchy + '') {
-        //     case HIERARCHY_IDS.BUILDING:
-        //         moveBuilding(selectedOption, moveToValue, null);
-        //         break;
-        //     case HIERARCHY_IDS.FLOOR:
-        //         moveFloor(selectedOption, moveToValue, null);
-        //         break;
-        //     case HIERARCHY_IDS.DRAWING:
-        //         moveDrawing(selectedOption, moveToValue, null);
-        //         break;
-        // }
+        switch (selectedHierarchy + '') {
+            case HIERARCHY_IDS.BUILDING:
+                moveBuilding(selectedOption, moveToValue, null);
+                break;
+            case HIERARCHY_IDS.FLOOR:
+                moveFloor(selectedOption, moveToValue, null);
+                break;
+            case HIERARCHY_IDS.DRAWING:
+                moveDrawing(selectedOption, moveToValue, null);
+                break;
+        }
     };
 }
 
@@ -84,7 +132,13 @@ const mapStateToProps = ({
         buildingsReducer: { buildings },
         floorsReducer: { floors },
         drawingsReducer: { drawings },
-        siteManagementReducer: { selectedHierarchy, selectedOption }
+        siteManagementReducer: {
+            selectedHierarchy,
+            selectedOption,
+            isPosting,
+            postSuccess,
+            error: postError
+        }
     }
 }) => ({
     sites,
@@ -92,10 +146,14 @@ const mapStateToProps = ({
     floors,
     drawings,
     selectedHierarchy,
-    selectedOption
+    selectedOption,
+    isPosting,
+    postSuccess,
+    postError
 });
 
 const mapDispatchToProps = dispatch => ({
+    showModal: (type, props) => dispatch(showModal(type, props)),
     hideModal: () => {
         dispatch(hideModal());
     },
@@ -107,6 +165,12 @@ const mapDispatchToProps = dispatch => ({
     },
     moveDrawing: (drawingID, floorID, postBody) => {
         dispatch(moveDrawing(drawingID, floorID, postBody));
+    },
+    fetchHierarchiesForCompany: companyID => {
+        dispatch(fetchSitesForCompany(companyID));
+        dispatch(fetchBuildingsForCompany(companyID));
+        dispatch(fetchFloorsForCompany(companyID));
+        dispatch(fetchDrawingsForCompany(companyID));
     }
 });
 
