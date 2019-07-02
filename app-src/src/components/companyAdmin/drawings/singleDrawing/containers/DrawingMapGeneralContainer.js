@@ -9,7 +9,7 @@ import updatePinCoordinates from 'actions/companyAdmin/drawings/sync/updatePinCo
 import DrawingMapViewSimple from '../presentational/DrawingMapViewSimple';
 import DrawingInspectionLogContainer from './DrawingInspectionLogContainer';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import { convertArrToObj, isObjEmpty } from 'helpers/generic';
+import { convertArrToObj } from 'helpers/generic';
 import {
     COMPANY_USER_ROLE_TYPES as USER_ROLE,
     FLOORPLAN_STATE_MESSAGES,

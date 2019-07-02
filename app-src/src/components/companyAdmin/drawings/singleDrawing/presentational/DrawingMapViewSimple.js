@@ -170,11 +170,13 @@ const DrawingMapViewSimple = ({
                 </div>
             ) : (
                 <Loading
-                    message={
-                        updating
-                            ? updateMessage
-                            : 'Please wait for your tileset to load'
-                    }
+                    message="Floorplan is generating, please check back later."
+                    // {
+                    //     updating
+                    //         ? updateMessage
+                    //         : 'Please wait for your tileset to load'
+                    // }
+                    withIcon={false}
                 />
             )}
         </>
