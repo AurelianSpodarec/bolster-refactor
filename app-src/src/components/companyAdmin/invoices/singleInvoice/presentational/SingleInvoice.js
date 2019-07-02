@@ -6,6 +6,7 @@ import InvoiceItemsTableContainer from '../containers/InvoiceItemsTableContainer
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
+import InvoicePaymentsTableContainer from '../../invoicePayments/containers/InvoicePaymentsTableContainer';
 
 const SingleInvoice = ({ id }) => (
     <>
@@ -15,9 +16,13 @@ const SingleInvoice = ({ id }) => (
             withBackButton
         />
         <InvoiceDetailsContainer />
-        <BlockContainer>
+        <BlockContainer containerClass="size-lg-8">
             <BlockHeading title="Items" />
             <InvoiceItemsTableContainer />
+        </BlockContainer>
+        <BlockContainer containerClass="size-lg-4">
+            <BlockHeading title="Payments" />
+            <InvoicePaymentsTableContainer />
         </BlockContainer>
     </>
 );

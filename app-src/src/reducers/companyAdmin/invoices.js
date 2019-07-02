@@ -9,7 +9,8 @@ import {
     FETCH_SINGLE_INVOICE_FAILURE,
     PAY_INVOICE_REQUEST,
     PAY_INVOICE_SUCCESS,
-    PAY_INVOICE_FAILURE
+    PAY_INVOICE_FAILURE,
+    FETCH_SINGLE_INVOICE_PAYMENTS_SUCCESS
 } from 'constants/actionTypes/invoices';
 import { convertArrToObj, updateObj, removeObjItem } from 'helpers/generic';
 
@@ -18,6 +19,7 @@ export default combineReducers({
     postSuccess: postSuccessReducer,
     postFailure: postFailureReducer,
     invoices: invoiceReducer,
+    invoicePayments: paymentsReducer,
     error: errorReducer
 });
 
@@ -81,6 +83,15 @@ function invoiceReducer(state = {}, action) {
             return updateObj(state, action.payload.id, action.payload);
         case PAY_INVOICE_SUCCESS:
             return removeObjItem(state, action.payload.id);
+        default:
+            return state;
+    }
+}
+
+function paymentsReducer(state = {}, action) {
+    switch (action.type) {
+        case FETCH_SINGLE_INVOICE_PAYMENTS_SUCCESS:
+            return convertArrToObj(action.payload);
         default:
             return state;
     }
