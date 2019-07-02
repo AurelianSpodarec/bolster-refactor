@@ -10,7 +10,8 @@ class RequestDemoFormContainer extends Component {
         name: '',
         email: '',
         contactNumber: '',
-        companyName: ''
+        companyName: '',
+        sent: false
     };
     render() {
         return (
@@ -39,6 +40,7 @@ class RequestDemoFormContainer extends Component {
         };
 
         this.props.postRequestDemo(postBody);
+        this.setState({ sent: true });
     };
 }
 
