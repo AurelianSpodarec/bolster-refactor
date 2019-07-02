@@ -10,7 +10,8 @@ class ContactPageFormContainer extends Component {
         email: '',
         contactNumber: '',
         companyName: '',
-        message: ''
+        message: '',
+        sent: false
     };
 
     render = () => (
@@ -38,6 +39,7 @@ class ContactPageFormContainer extends Component {
         };
 
         postContactForm(postBody);
+        this.setState({sent: true});
     };
 }
 

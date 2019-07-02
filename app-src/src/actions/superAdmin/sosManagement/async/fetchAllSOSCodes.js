@@ -26,7 +26,7 @@ export default () => dispatch => {
     dispatch(fetchSOSCodesRequest());
 
     return axios
-        .get(`${ADMIN_API_URL}/invoices`, getHeaders())
+        .get(`${ADMIN_API_URL}/soscodes`, getHeaders())
         .then(({ data }) => dispatch(fetchSOSCodesSuccess(data)))
         .catch(err => dispatch(fetchSOSCodesFailure(err.message)));
 };

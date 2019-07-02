@@ -25,7 +25,7 @@ const SOSManagementTable = ({
                 isFetching={isFetching}
                 error={error}
                 noData={!sosCodes.length}
-                noDataMessage="No sosCodes to display"
+                noDataMessage="No SOS codes to display"
             >
                 <SOSCodeList sosCodes={sosCodes} />
             </Table>

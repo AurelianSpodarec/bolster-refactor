@@ -5,33 +5,12 @@ import SOSManagementTable from '../presentational/SOSManagementTable';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { GENERATE_SOS_CODE } from 'constants/shared/modalTypes';
 
-const SOSManagementTableContainer = ({ isFetching, error, showModal }) => {
-    const sosCodes = [
-        {
-            date: '08/17/15',
-            code: 896545,
-            description: 'this is an sos code',
-            isDataSynced: false
-        },
-        {
-            date: '08/17/15',
-            code: 896545,
-            description: 'this is an sos code',
-            isDataSynced: false
-        },
-        {
-            date: '08/17/15',
-            code: 896545,
-            description: 'this is an sos code',
-            isDataSynced: false
-        },
-        {
-            date: '08/17/15',
-            code: 896545,
-            description: 'this is an sos code',
-            isDataSynced: false
-        }
-    ];
+const SOSManagementTableContainer = ({
+    isFetching,
+    error,
+    showModal,
+    sosCodes
+}) => {
     return (
         <SOSManagementTable
             headers={['Date', 'Code', 'Description', 'Data Synced?']}
@@ -47,11 +26,21 @@ const SOSManagementTableContainer = ({ isFetching, error, showModal }) => {
     }
 };
 
+const mapStateToProps = ({
+    superAdmin: {
+        sosCodesReducer: { isFetching, sosCodes, error }
+    }
+}) => ({
+    isFetching,
+    error,
+    sosCodes: Object.values(sosCodes)
+});
+
 const mapDispatchToProps = {
     showModal
 };
 
 export default connect(
-    null,
+    mapStateToProps,
     mapDispatchToProps
 )(SOSManagementTableContainer);

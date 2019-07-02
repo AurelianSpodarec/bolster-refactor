@@ -10,63 +10,72 @@ const RequestDemoForm = ({
     contactNumber,
     companyName,
     handleChange,
-    handleSubmit
+    handleSubmit,
+    sent
 }) => (
     <div className="generic-form">
         <HeadingSecondary title="Enter your details" />
-        <p>
-            Please fill in your details for exclusive access to our full working
-            demo.
-        </p>
-        <div className="row">
-            <Field name="Your name" required>
-                <TextInputContainer
-                    name="name"
-                    value={name}
-                    handleChange={handleChange}
-                    required
-                />
-            </Field>
-        </div>
-        <div className="row">
-            <Field name="Your email address" required>
-                <TextInputContainer
-                    name="email"
-                    handleChange={handleChange}
-                    type="email"
-                    value={email}
-                    required
-                />
-            </Field>
-        </div>
-        <div className="row">
-            <Field name="Your phone number">
-                <TextInputContainer
-                    name="contactNumber"
-                    handleChange={handleChange}
-                    value={contactNumber}
-                />
-            </Field>
-        </div>
-        <div className="row">
-            <Field name="Company name">
-                <TextInputContainer
-                    name="companyName"
-                    handleChange={handleChange}
-                    value={companyName}
-                />
-            </Field>
-        </div>
-        <br />
-        <br />
-        <span className="required">* required fields</span>
-        <FrontEndButton
-            handleClick={handleSubmit}
-            type="submit"
-            classes="black"
-        >
-            Submit
-        </FrontEndButton>
+        <>
+            {sent ? (
+                <p>Thanks! a member of our team will be in touch</p>
+            ) : (
+                <>
+                    <p>
+                        Please fill in your details for exclusive access to our
+                        full working demo.
+                    </p>
+                    <div className="row">
+                        <Field name="Your name" required>
+                            <TextInputContainer
+                                name="name"
+                                value={name}
+                                handleChange={handleChange}
+                                required
+                            />
+                        </Field>
+                    </div>
+                    <div className="row">
+                        <Field name="Your email address" required>
+                            <TextInputContainer
+                                name="email"
+                                handleChange={handleChange}
+                                type="email"
+                                value={email}
+                                required
+                            />
+                        </Field>
+                    </div>
+                    <div className="row">
+                        <Field name="Your phone number">
+                            <TextInputContainer
+                                name="contactNumber"
+                                handleChange={handleChange}
+                                value={contactNumber}
+                            />
+                        </Field>
+                    </div>
+                    <div className="row">
+                        <Field name="Company name">
+                            <TextInputContainer
+                                name="companyName"
+                                handleChange={handleChange}
+                                value={companyName}
+                            />
+                        </Field>
+                    </div>
+                    <br />
+                    <br />
+                    <span className="required">* required fields</span>
+                    <FrontEndButton
+                        handleClick={handleSubmit}
+                        type="submit"
+                        classes="black"
+                    >
+                        Submit
+                    </FrontEndButton>
+                </>
+            )}
+        </>
     </div>
 );
 
