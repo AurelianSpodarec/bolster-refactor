@@ -174,7 +174,12 @@
             font-size: 140%;
         }
     }
-
+    .button-block-container {
+        margin-top: 0;
+        .button {
+            margin-bottom: 5px;
+        }
+    }
     .button {
         font-size: 130%;
         &.icon-only {
@@ -225,6 +230,28 @@
 
     .sub-text {
         width: calc(100% - 50px);
+    }
+
+    .ignore-padding {
+        width: calc(100% + 15px);
+        margin-left: -7.5px;
+    }
+
+    .status-icon {
+        &.add {
+            i {
+                left: -0.5px;
+            }
+        }
+    }
+
+    //text
+    .block-heading {
+        &.w-left-icon {
+            .heading {
+                max-width: 80%;
+            }
+        }
     }
 
     //Filters
@@ -392,5 +419,15 @@
         .button-block-container {
             padding: 0;
         }
+    }
+
+    //Account overview page / subscriptions
+    .subscriptions-list {
+        .subscription-item {
+            padding: 10px;
+        }
+    }
+    .generic-text.total-text {
+        margin-bottom: 10px;
     }
 }
