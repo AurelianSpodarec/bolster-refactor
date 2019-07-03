@@ -10,7 +10,8 @@ class DashboardDataByContainer extends Component {
             error,
             operatives,
             drawings,
-            selectedTab
+            selectedTab,
+            onMobile
         } = this.props;
 
         return (
@@ -23,6 +24,7 @@ class DashboardDataByContainer extends Component {
                     operatives={operatives}
                     drawings={drawings}
                     selectedTab={selectedTab}
+                    onMobile={onMobile}
                 />
             </BlockContainer>
         );

@@ -6,7 +6,7 @@ import { DASHBOARD_TABS as TABS } from 'constants/shared/tabNames';
 import DashboardDataByOperativeTableContainer from './DashboardDataByOperativeTableContainer';
 import DashboardDataByDrawingTableContainer from './DashboardDataByDrawingTableContainer';
 
-const DashboardDataByTableRoute = ({ selectedTab }) => {
+const DashboardDataByTableRoute = ({ selectedTab, onMobile }) => {
     const contentOptions = {
         [TABS.OPERATIVES]: DashboardDataByOperativeTableContainer,
         [TABS.DRAWINGS]: DashboardDataByDrawingTableContainer
@@ -15,7 +15,7 @@ const DashboardDataByTableRoute = ({ selectedTab }) => {
     const SpecificContent =
         contentOptions[selectedTab] || contentOptions[TABS.OPERATIVES];
 
-    return <SpecificContent />;
+    return <SpecificContent onMobile={onMobile} />;
 };
 
 export default connect(({ shared: { tabsReducer: { selectedTab } } }) => ({

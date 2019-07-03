@@ -10,35 +10,7 @@
             }
         }
     }
-    .multi-filters {
-        display: block;
 
-        .flex {
-            display: block;
-            float: left;
-            width: 100%;
-        }
-        .item {
-            margin-bottom: 5px;
-            &:last-child {
-                margin-bottom: 0;
-            }
-        }
-        p {
-            float: left;
-            width: 100%;
-            text-align: left;
-            padding-left: 0;
-        }
-        .react-datepicker-wrapper {
-            input {
-                padding: 7.5px 0;
-            }
-        }
-    }
-    .content-area {
-        padding: 7.5px;
-    }
     #page-header {
         height: 57px;
 
@@ -183,5 +155,78 @@
 
     #page-area {
         width: 100%;
+    }
+    .multi-filters {
+        display: block;
+
+        .flex {
+            display: block;
+            float: left;
+            width: 100%;
+        }
+        .item {
+            margin-bottom: 5px;
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+        p {
+            float: left;
+            width: 100%;
+            text-align: left;
+            padding-left: 0;
+        }
+        .react-datepicker-wrapper {
+            input {
+                padding: 7.5px 5px;
+            }
+            .react-datepicker__input-container {
+                width: 100%;
+            }
+        }
+    }
+    .content-area {
+        padding: 7.5px;
+        .tab-container {
+            position: relative;
+            top: 0;
+            right: 0;
+            margin-top: -10px;
+            margin-bottom: 10px;
+            float: left;
+        }
+    }
+
+    .stats {
+        &.dashboard {
+            .pin-key {
+                .pin {
+                    &:last-child {
+                        margin-top: 0;
+                    }
+                }
+            }
+        }
+        .pin-key {
+            padding-right: 0;
+            margin-bottom: 0;
+            margin-top: 20px;
+            .pin {
+                width: 50%;
+                margin-bottom: 15px;
+
+                &:last-child {
+                    width: 100%;
+                    margin-top: 0;
+                }
+                p {
+                    &.no-pin {
+                        padding-left: 0;
+                        padding-top: 10px;
+                        text-align: center;
+                    }
+                }
+            }
+        }
     }
 }
