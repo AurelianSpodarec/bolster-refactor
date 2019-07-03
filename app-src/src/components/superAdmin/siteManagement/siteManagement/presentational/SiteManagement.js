@@ -4,7 +4,7 @@ import SiteManagementBlocksContainer from '../containers/SiteManagementBlocksCon
 
 const SiteManagement = () => (
     <>
-        <PageHeading title="Site management" />
+        <PageHeading title="Site management" withBackButton />
         <SiteManagementBlocksContainer />
     </>
 );

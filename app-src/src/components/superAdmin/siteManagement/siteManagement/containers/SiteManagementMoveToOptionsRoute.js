@@ -9,7 +9,9 @@ import Loading from 'components/shared/generic/misc/presentational/Loading';
 
 const { BUILDING, FLOOR, DRAWING } = HIERARCHY_IDS;
 
-const Sites = ({ sites, handleSelectOption }) => {
+const Sites = ({ sites, handleSelectOption, isFetching }) => {
+    if (isFetching && !sites.length) return <Loading />;
+
     if (!sites.length)
         return (
             <p className="generic-text no-data size-lg-12">
@@ -32,7 +34,9 @@ const Sites = ({ sites, handleSelectOption }) => {
     );
 };
 
-const Buildings = ({ buildings, handleSelectOption }) => {
+const Buildings = ({ buildings, handleSelectOption, isFetching }) => {
+    if (isFetching && !buildings.length) return <Loading />;
+
     if (!buildings.length)
         return (
             <p className="generic-text no-data size-lg-12">
@@ -60,7 +64,9 @@ const Buildings = ({ buildings, handleSelectOption }) => {
     );
 };
 
-const Floors = ({ floors, handleSelectOption }) => {
+const Floors = ({ floors, handleSelectOption, isFetching }) => {
+    if (isFetching && !floors.length) return <Loading />;
+
     if (!floors.length)
         return (
             <p className="generic-text no-data size-lg-12">
@@ -121,8 +127,6 @@ class SiteManagementMoveFromOptionsRoute extends Component {
 
         if (!SpecificField) return null;
 
-        if (isFetching) return <Loading />;
-
         return (
             <SpecificField
                 sites={sites.filter(site => site.ownerCompanyID === companyID)}
@@ -133,6 +137,7 @@ class SiteManagementMoveFromOptionsRoute extends Component {
                     floor => floor.ownerCompanyID === companyID
                 )}
                 handleSelectOption={this.handleSelectOption}
+                isFetching={isFetching}
             />
         );
     }
