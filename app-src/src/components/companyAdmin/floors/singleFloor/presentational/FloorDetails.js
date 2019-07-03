@@ -2,7 +2,7 @@ import React from 'react';
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 
 const FloorDetails = ({ stats: { lastUpdatedOn } }) => (
-    <div className="size-lg-6">
+    <div className="size-lg-6 size-md-12">
         <h3 className="heading heading-3 size-lg-12">Last Updated</h3>
 
         {lastUpdatedOn ? (
