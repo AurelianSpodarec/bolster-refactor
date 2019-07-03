@@ -195,7 +195,27 @@
         }
     }
 
+    .form-field {
+        .checkbox-list {
+            .checkbox {
+                width: 50%;
+            }
+        }
+    }
+
+    .checkbox {
+        &.with-subtext {
+            padding-left: 0;
+            width: 40px;
+        }
+    }
+
+    .sub-text {
+        width: calc(100% - 50px);
+    }
+
     //Filters
+
     .multi-filters {
         display: block;
 
@@ -212,97 +232,100 @@
         }
         p {
             float: left;
+            text-align: left;
+            padding-left: 0;
+        }
+        .react-datepicker-wrapper {
+            .react-datepicker__input-container {
+                width: 100%;
+            }
+            input {
+                padding: 7.5px 6px;
+            }
+        }
+    }
+
+    .table-search {
+        .generic-search {
             width: 100%;
         }
-        .multi-filters {
-            display: block;
+        .custom-dropdown {
+            width: 32%;
+        }
+        .table-filter {
+            width: 100%;
+            text-align: left;
+            padding-left: 0;
+            margin-top: 10px;
+            margin-bottom: 2.5px;
 
-            .flex {
-                display: block;
-                float: left;
-                width: 100%;
-            }
-            .item {
-                margin-bottom: 5px;
-                &:last-child {
-                    margin-bottom: 0;
-                }
-            }
             p {
                 float: left;
-                text-align: left;
-                padding-left: 0;
-            }
-            .react-datepicker-wrapper {
-                input {
-                    padding: 7.5px 0;
-                }
-            }
-        }
-        .table-search {
-            .generic-search {
-                width: 100%;
             }
             .custom-dropdown {
-                width: 32%;
-            }
-            .table-filter {
-                width: 100%;
-                text-align: left;
-                padding-left: 0;
-            }
-            .react-datepicker-wrapper {
-                input {
-                    padding: 7.5px 5px;
-                }
-                .react-datepicker__input-container {
-                    width: 100%;
-                }
-            }
-        }
-        .content-area {
-            padding: 7.5px;
-            .tab-container {
-                position: relative;
-                top: 0;
-                right: 0;
-                margin-top: -10px;
-                margin-bottom: 10px;
                 float: left;
             }
         }
-
-        .stats {
-            &.dashboard {
-                .pin-key {
-                    .pin {
-                        &:last-child {
-                            margin-top: 0;
-                        }
-                    }
-                }
+        .react-datepicker-wrapper {
+            input {
+                padding: 7.5px 5px;
             }
-            .pin-key {
-                padding-right: 0;
-                margin-bottom: 0;
-                margin-top: 20px;
-                .pin {
-                    width: 50%;
-                    margin-bottom: 15px;
+            .react-datepicker__input-container {
+                width: 100%;
+            }
+        }
+    }
+    .content-area {
+        padding: 7.5px;
+        .tab-container {
+            position: relative;
+            top: 0;
+            right: 0;
+            margin-top: -10px;
+            margin-bottom: 10px;
+            float: left;
+        }
+    }
 
+    .stats {
+        &.dashboard {
+            .pin-key {
+                .pin {
                     &:last-child {
-                        width: 100%;
                         margin-top: 0;
                     }
-                    p {
-                        &.no-pin {
-                            padding-left: 0;
-                            padding-top: 10px;
-                            text-align: center;
-                        }
+                }
+            }
+        }
+        .pin-key {
+            padding-right: 0;
+            margin-bottom: 0;
+            margin-top: 20px;
+            .pin {
+                width: 50%;
+                margin-bottom: 15px;
+
+                &:last-child {
+                    width: 100%;
+                    margin-top: 0;
+                }
+                p {
+                    &.no-pin {
+                        padding-left: 0;
+                        padding-top: 10px;
+                        text-align: center;
                     }
                 }
             }
+        }
+    }
+
+    //generate report
+    .options-container {
+        padding: 10px 0;
+
+        margin-bottom: 10px;
+        .checkbox {
         }
     }
 }
