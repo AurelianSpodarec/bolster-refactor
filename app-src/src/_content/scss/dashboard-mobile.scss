@@ -245,12 +245,26 @@
         }
     }
 
-    //text
+    //TEXT
+    //Headings
     .block-heading {
         &.w-left-icon {
             .heading {
                 max-width: 80%;
             }
+        }
+    }
+
+    .page-heading {
+        .heading {
+            + .button {
+                margin-top: 5px;
+            }
+        }
+        .button {
+            float: left;
+            margin-left: 0;
+            margin-right: 5px;
         }
     }
 
@@ -305,12 +319,25 @@
             .custom-dropdown {
                 float: left;
             }
+
+            &.auto {
+                width: 100%;
+            }
+            .multi-multi-dropdown {
+                width: 220px;
+            }
         }
         .react-datepicker-wrapper {
             input {
                 padding: 7.5px 5px;
             }
             .react-datepicker__input-container {
+                width: 100%;
+            }
+        }
+
+        &.larger-search {
+            .generic-search {
                 width: 100%;
             }
         }
@@ -327,7 +354,9 @@
             float: left;
         }
     }
-
+    .back-button {
+        margin-bottom: 5px;
+    }
     //pie chart
     .stats {
         &.dashboard {

@@ -13,7 +13,7 @@ const SingleTemplate = ({ sections, questions, headers }) => (
         <PageHeading leftChildren={true} title="Template ">
             <BackButtonContainer />
         </PageHeading>
-        <div className="size-lg-8">
+        <div className="size-lg-8 size-md-12">
             {sections.map(({ id, name, ...section }) => (
                 <Block key={id}>
                     <BlockHeading title={`Section: ${name}`} />
@@ -26,7 +26,7 @@ const SingleTemplate = ({ sections, questions, headers }) => (
                 </Block>
             ))}
         </div>
-        <div className="size-lg-4">
+        <div className="size-lg-4 size-md-12">
             <TemplateSectionQuestionDetailsContainer questions={questions} />
         </div>
     </>

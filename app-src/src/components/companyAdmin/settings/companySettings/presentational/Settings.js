@@ -11,7 +11,12 @@ import PageHeading from 'components/shared/generic/pageHeading/presentational/Pa
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import FieldOutput from 'components/shared/generic/fieldOutput/presentational/FieldOutput';
 
-const Settings = ({ isFetching, error, companySettings: company }) => {
+const Settings = ({
+    isFetching,
+    error,
+    companySettings: company,
+    onMobile
+}) => {
     const { timeZone = {}, dateFormat = {} } = company;
     const notProvided = 'Not Provided';
     return (
@@ -32,12 +37,14 @@ const Settings = ({ isFetching, error, companySettings: company }) => {
                 isEmpty={!company.name}
                 noWhiteBackground
             >
-                <div className="size-lg-8">
+                <div className="size-lg-8 size-md-12">
                     <Block>
                         {/* address, need block heading  */}
+
                         <BlockHeading title="Company Details" />
-                        <div className="field-group size-lg-12">
-                            <div className=" size-lg-4">
+                        {onMobile ? (
+                            <>
+                                {' '}
                                 <FieldOutput
                                     title="Company Name"
                                     description={company.name}
@@ -52,10 +59,7 @@ const Settings = ({ isFetching, error, companySettings: company }) => {
                                     <p>{company.town}</p>
                                     <p>{company.county}</p>
                                     <p>{company.postcode}</p>
-                                </FieldOutput>
-                            </div>
-
-                            <div className="size-lg-4">
+                                </FieldOutput>{' '}
                                 <FieldOutput
                                     title="Telephone"
                                     description={
@@ -67,10 +71,7 @@ const Settings = ({ isFetching, error, companySettings: company }) => {
                                     title="Fax"
                                     description={company.fax || notProvided}
                                     fieldClass="no-h-padding"
-                                />
-                            </div>
-
-                            <div className="size-lg-4">
+                                />{' '}
                                 <FieldOutput
                                     title="Code"
                                     description={company.code}
@@ -83,8 +84,58 @@ const Settings = ({ isFetching, error, companySettings: company }) => {
                                     fieldClass="no-h-padding"
                                     sizeClass="size-lg-12"
                                 />
+                            </>
+                        ) : (
+                            <div className="field-group size-lg-12">
+                                <div className="size-lg-4 size-md-12">
+                                    <FieldOutput
+                                        title="Company Name"
+                                        description={company.name}
+                                        fieldClass="no-h-padding"
+                                    />
+                                    <FieldOutput
+                                        title="Address"
+                                        description={company.addressLine1}
+                                        fieldClass="address no-h-padding"
+                                    >
+                                        <p>{company.addressLine2}</p>
+                                        <p>{company.town}</p>
+                                        <p>{company.county}</p>
+                                        <p>{company.postcode}</p>
+                                    </FieldOutput>
+                                </div>
+
+                                <div className="size-lg-4 size-md-12">
+                                    <FieldOutput
+                                        title="Telephone"
+                                        description={
+                                            company.telephone || notProvided
+                                        }
+                                        fieldClass="no-h-padding"
+                                    />
+                                    <FieldOutput
+                                        title="Fax"
+                                        description={company.fax || notProvided}
+                                        fieldClass="no-h-padding"
+                                    />
+                                </div>
+
+                                <div className="size-lg-4 size-md-12">
+                                    <FieldOutput
+                                        title="Code"
+                                        description={company.code}
+                                        fieldClass="no-h-padding"
+                                        sizeClass="size-lg-12"
+                                    />
+                                    <FieldOutput
+                                        title="Short Code"
+                                        description={company.shortCode}
+                                        fieldClass="no-h-padding"
+                                        sizeClass="size-lg-12"
+                                    />
+                                </div>
                             </div>
-                        </div>
+                        )}
                     </Block>
 
                     <Block>
@@ -92,7 +143,7 @@ const Settings = ({ isFetching, error, companySettings: company }) => {
                         <FieldOutput
                             title="Company Logo"
                             fieldClass="no-h-padding"
-                            sizeClass="size-lg-4"
+                            sizeClass="size-lg-4 size-md-12"
                         >
                             {company.logoFile ? (
                                 <img
@@ -110,7 +161,7 @@ const Settings = ({ isFetching, error, companySettings: company }) => {
                             title="Colour Code"
                             description={company.colourCode || 'Not yet set'}
                             fieldClass="w-colour-box"
-                            sizeClass="size-lg-4"
+                            sizeClass="size-lg-4 size-md-12"
                         >
                             {company.colourCode && (
                                 <div
@@ -127,7 +178,7 @@ const Settings = ({ isFetching, error, companySettings: company }) => {
                                 company.isBolsterLogoDark ? 'On' : 'Off'
                             }
                             fieldClass="no-h-padding"
-                            sizeClass="size-lg-4"
+                            sizeClass="size-lg-4 size-md-12"
                         />
                         <FieldOutput
                             title="Timezone"
@@ -142,7 +193,7 @@ const Settings = ({ isFetching, error, companySettings: company }) => {
                     </Block>
                 </div>
 
-                <div className="size-lg-4">
+                <div className="size-lg-4 size-md-12">
                     <Block>
                         <BlockHeading title="Label Settings" />
                         <FieldOutput

@@ -16,7 +16,7 @@ const ApprovedCompaniesListContainer = ({
         <div className="flex-row size-lg-12">
             {filteredCompanies.map(company => (
                 <BlockContainer
-                    containerClass="flex-row-item size-lg-6"
+                    containerClass="flex-row-item size-lg-6 size-md-12"
                     isFetching={isFetching}
                     error={error}
                     noData={!companies.length}
