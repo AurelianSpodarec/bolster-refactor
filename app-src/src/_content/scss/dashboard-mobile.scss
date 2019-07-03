@@ -1,7 +1,7 @@
 @import "./variables.scss";
 
 @media only screen and (max-width: 1024px) {
-    //company admin header
+    //layout structure
     .container {
         &.full-container {
             padding: {
@@ -10,7 +10,11 @@
             }
         }
     }
+    #page-area {
+        width: 100%;
+    }
 
+    //company admin header
     #page-header {
         height: 57px;
 
@@ -153,9 +157,45 @@
         }
     }
 
-    #page-area {
+    //inside page area
+    .breadcrumb {
         width: 100%;
     }
+
+    .tab-container {
+        float: left;
+        margin-top: 6px;
+    }
+
+    //generics
+
+    .generic-search {
+        input {
+            font-size: 140%;
+        }
+    }
+
+    .button {
+        font-size: 130%;
+    }
+
+    .custom-dropdown {
+        input {
+            padding: 6px 10px;
+        }
+    }
+
+    .flex-container {
+        display: block;
+        .flex-item {
+            display: block;
+            .content-container {
+                display: block;
+            }
+        }
+    }
+
+    //Filters
     .multi-filters {
         display: block;
 
@@ -173,57 +213,93 @@
         p {
             float: left;
             width: 100%;
-            text-align: left;
-            padding-left: 0;
         }
-        .react-datepicker-wrapper {
-            input {
-                padding: 7.5px 5px;
-            }
-            .react-datepicker__input-container {
+        .multi-filters {
+            display: block;
+
+            .flex {
+                display: block;
+                float: left;
                 width: 100%;
             }
+            .item {
+                margin-bottom: 5px;
+                &:last-child {
+                    margin-bottom: 0;
+                }
+            }
+            p {
+                float: left;
+                text-align: left;
+                padding-left: 0;
+            }
+            .react-datepicker-wrapper {
+                input {
+                    padding: 7.5px 0;
+                }
+            }
         }
-    }
-    .content-area {
-        padding: 7.5px;
-        .tab-container {
-            position: relative;
-            top: 0;
-            right: 0;
-            margin-top: -10px;
-            margin-bottom: 10px;
-            float: left;
+        .table-search {
+            .generic-search {
+                width: 100%;
+            }
+            .custom-dropdown {
+                width: 32%;
+            }
+            .table-filter {
+                width: 100%;
+                text-align: left;
+                padding-left: 0;
+            }
+            .react-datepicker-wrapper {
+                input {
+                    padding: 7.5px 5px;
+                }
+                .react-datepicker__input-container {
+                    width: 100%;
+                }
+            }
         }
-    }
+        .content-area {
+            padding: 7.5px;
+            .tab-container {
+                position: relative;
+                top: 0;
+                right: 0;
+                margin-top: -10px;
+                margin-bottom: 10px;
+                float: left;
+            }
+        }
 
-    .stats {
-        &.dashboard {
-            .pin-key {
-                .pin {
-                    &:last-child {
-                        margin-top: 0;
+        .stats {
+            &.dashboard {
+                .pin-key {
+                    .pin {
+                        &:last-child {
+                            margin-top: 0;
+                        }
                     }
                 }
             }
-        }
-        .pin-key {
-            padding-right: 0;
-            margin-bottom: 0;
-            margin-top: 20px;
-            .pin {
-                width: 50%;
-                margin-bottom: 15px;
+            .pin-key {
+                padding-right: 0;
+                margin-bottom: 0;
+                margin-top: 20px;
+                .pin {
+                    width: 50%;
+                    margin-bottom: 15px;
 
-                &:last-child {
-                    width: 100%;
-                    margin-top: 0;
-                }
-                p {
-                    &.no-pin {
-                        padding-left: 0;
-                        padding-top: 10px;
-                        text-align: center;
+                    &:last-child {
+                        width: 100%;
+                        margin-top: 0;
+                    }
+                    p {
+                        &.no-pin {
+                            padding-left: 0;
+                            padding-top: 10px;
+                            text-align: center;
+                        }
                     }
                 }
             }

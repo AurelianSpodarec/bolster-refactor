@@ -13,11 +13,11 @@ import { ACCESS_TYPES_VALUES } from 'constants/companyAdmin/enums';
 let BuildingGeneralOverview = ({ building }) => (
     <>
         <div className="flex-container size-lg-12">
-            <div className="flex-item size-lg-8">
+            <div className="flex-item size-lg-8 size-md-12">
                 <BuildingDetailsContainer />
             </div>
 
-            <div className="flex-item size-lg-4">
+            <div className="flex-item size-lg-4 size-md-12">
                 <BuildingDocumentsTableContainer />
             </div>
         </div>
@@ -27,15 +27,15 @@ let BuildingGeneralOverview = ({ building }) => (
 
         {building.accessType >= ACCESS_TYPES_VALUES.WRITE && (
             <div className="flex-container size-lg-12">
-                <div className="flex-item size-lg-4">
+                <div className="flex-item size-lg-4 size-md-12">
                     <BuildingInviteClientContainer />
                 </div>
 
-                <div className="flex-item size-lg-4">
+                <div className="flex-item size-lg-4 size-md-12">
                     <BuildingOperativeAddContainer />
                 </div>
 
-                <div className="flex-item size-lg-4">
+                <div className="flex-item size-lg-4 size-md-12">
                     <BuildingCompaniesAccessTableContainer
                         accessType={building.accessType}
                     />
