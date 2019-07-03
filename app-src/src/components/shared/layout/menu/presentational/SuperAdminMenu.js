@@ -30,6 +30,10 @@ const SuperAdminMenu = ({ logout }) => (
                 <i className="fa fa-user icon" />{' '}
                 <span className="menu-text">Users</span>
             </MenuItemContainer>
+            <MenuItemContainer link="/admin/site-management">
+                <i className="fa fa-layer-group icon" />{' '}
+                <span className="menu-text">Site Management</span>
+            </MenuItemContainer>
             <MenuItemContainer link="/admin/services">
                 <i className="fa fa-folder-open icon" />{' '}
                 <span className="menu-text">Services</span>

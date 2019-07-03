@@ -8,7 +8,14 @@ import Loading from 'components/shared/generic/misc/presentational/Loading';
 
 const { BUILDING, FLOOR, DRAWING } = HIERARCHY_IDS;
 
-const Buildings = ({ buildings, handleSelectOption, selectedOption }) => {
+const Buildings = ({
+    buildings,
+    handleSelectOption,
+    selectedOption,
+    isFetching
+}) => {
+    if (isFetching && !buildings.length) return <Loading />;
+
     if (!buildings.length)
         return (
             <p className="generic-text no-data size-lg-12">
@@ -33,7 +40,9 @@ const Buildings = ({ buildings, handleSelectOption, selectedOption }) => {
     );
 };
 
-const Floors = ({ floors, handleSelectOption, selectedOption }) => {
+const Floors = ({ floors, handleSelectOption, selectedOption, isFetching }) => {
+    if (isFetching && !floors.length) return <Loading />;
+
     if (!floors.length)
         return (
             <p className="generic-text no-data size-lg-12">
@@ -60,7 +69,14 @@ const Floors = ({ floors, handleSelectOption, selectedOption }) => {
     );
 };
 
-const Drawings = ({ drawings, handleSelectOption, selectedOption }) => {
+const Drawings = ({
+    drawings,
+    handleSelectOption,
+    selectedOption,
+    isFetching
+}) => {
+    if (isFetching && !drawings.length) return <Loading />;
+
     if (!drawings.length)
         return (
             <p className="generic-text no-data size-lg-12">
@@ -105,18 +121,9 @@ class SiteManagementMoveFromOptionsRoute extends Component {
             [DRAWING]: Drawings
         };
 
-        // console.warn('selected company', companyID);
-        // console.warn('buildings', buildings);
-        // console.warn(
-        //     'buildings filtered',
-        //     buildings.filter(building => building.ownerCompanyID === companyID)
-        // );
-
         const SpecificField = listTypes[hierarchyID + ''] || null;
 
         if (!SpecificField) return null;
-
-        if (isFetching) return <Loading />;
 
         return (
             <SpecificField
@@ -131,6 +138,7 @@ class SiteManagementMoveFromOptionsRoute extends Component {
                 )}
                 handleSelectOption={this.handleSelectOption}
                 selectedOption={selectedOption}
+                isFetching={isFetching}
             />
         );
     }

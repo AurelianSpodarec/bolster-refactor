@@ -66,7 +66,7 @@ const InvoiceDetails = ({
             <FieldOutput
                 title="Total"
                 description={`${total && formatCurrency(total)} GBP (inc. VAT)`}
-                sizeClass="size-lg-12"
+                sizeClass="size-lg-6"
             />
         </BlockContainer>
     );
