@@ -27,7 +27,7 @@ const EditProfileForm = ({
     return (
         <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
             <div className="size-lg-12">
-                <div className="size-lg-6">
+                <div className="size-lg-6 size-md-12">
                     <Field name="First Name" required>
                         <TextInputContainer
                             name="firstName"
@@ -37,7 +37,7 @@ const EditProfileForm = ({
                         />
                     </Field>
                 </div>
-                <div className="size-lg-6">
+                <div className="size-lg-6 size-md-12">
                     <Field name="Email" required>
                         <TextInputContainer
                             value={email}
@@ -51,7 +51,7 @@ const EditProfileForm = ({
             </div>
 
             <div className="size-lg-12">
-                <div className="size-lg-6">
+                <div className="size-lg-6 size-md-12">
                     <Field name="Last Name" required>
                         <TextInputContainer
                             value={lastName}
@@ -62,7 +62,7 @@ const EditProfileForm = ({
                     </Field>
                 </div>
 
-                <div className="size-lg-6">
+                <div className="size-lg-6 size-md-12">
                     <Field name="Phone Number" required>
                         <TextInputContainer
                             value={phoneNumber}
@@ -72,7 +72,7 @@ const EditProfileForm = ({
                         />
                     </Field>
                 </div>
-                <div className="size-lg-6">
+                <div className="size-lg-6 size-md-12">
                     <Field name="Upload New Profile Image">
                         <FileUploadContainer
                             name="profileImageS3Key"
