@@ -6,7 +6,7 @@ import OperativesFilterContainer from '../containers/OperativesFilterContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 
 const Block1Filters = ({ fieldError, advanced, isFetching }) => (
-    <div className="flex-item size-lg-6">
+    <div className="flex-item size-lg-6 size-md-12">
         <BlockContainer>
             <div className="size-lg-12">
                 <BlockHeading title="Location" />

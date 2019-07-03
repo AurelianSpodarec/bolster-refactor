@@ -50,7 +50,11 @@ class BasicFiltersContainer extends Component {
         const templateOptions = formatArrForDropdown(templates, true);
 
         return (
-            <div className={`flex-item size-lg-${isDrawingPage ? '12' : '6'}`}>
+            <div
+                className={`flex-item size-lg-${
+                    isDrawingPage ? '12' : '6'
+                } size-md-12`}
+            >
                 <BlockContainer isFetching={isFetchingTemplates}>
                     <BasicFilters
                         isDrawingPage={isDrawingPage}

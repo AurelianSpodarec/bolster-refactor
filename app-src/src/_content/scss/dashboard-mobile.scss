@@ -177,6 +177,14 @@
 
     .button {
         font-size: 130%;
+        &.icon-only {
+            padding-left: 8px;
+            padding-right: 8px;
+            padding: {
+                top: 5px;
+                bottom: 5px;
+            }
+        }
     }
 
     .custom-dropdown {
@@ -282,6 +290,7 @@
     }
     .content-area {
         padding: 7.5px;
+
         .tab-container {
             position: relative;
             top: 0;
@@ -350,7 +359,38 @@
     //generate report
     .options-container {
         padding: 10px 0;
-
         margin-bottom: 10px;
+    }
+    .pin-selection-box {
+        width: 100%;
+        .content {
+            .selector-pin {
+                padding: 5px 15px;
+            }
+        }
+    }
+    .pin-selection-buttons {
+        float: left;
+        width: 100%;
+        height: 50px;
+    }
+
+    .field-output.filters {
+        display: block;
+        .filters-calc {
+            margin-bottom: 10px;
+            .centered {
+                width: 100%;
+                &:first-child {
+                    margin-bottom: 10px;
+                }
+            }
+        }
+    }
+
+    .custom-filters-block {
+        .button-block-container {
+            padding: 0;
+        }
     }
 }

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 import PinSelector from '../presentational/PinSelector';
 import withUpdateOnChange from 'components/companyAdmin/reports/createReport/components/hocs/withUpdateOnChange';
@@ -11,7 +12,7 @@ class PinSelectorContainer extends Component {
     };
 
     render() {
-        const { fieldError } = this.props;
+        const { fieldError, onMobile } = this.props;
         const includedPins = [];
         const excludedPins = [];
         const { pinOptions } = this.state;
@@ -33,6 +34,7 @@ class PinSelectorContainer extends Component {
                 handleMouseOut={this.handleMouseOut}
                 clicking={this.state.clicking}
                 error={fieldError}
+                onMobile={onMobile}
             />
         );
     }
@@ -227,5 +229,16 @@ class PinSelectorContainer extends Component {
         this.props.handleChange('pinIDs', pinIDs);
     };
 }
-
-export default withUpdateOnChange(PinSelectorContainer);
+const mapStateToProps = ({
+    shared: {
+        mobileReducer: { onMobile }
+    }
+}) => ({
+    onMobile
+});
+export default withUpdateOnChange(
+    connect(
+        mapStateToProps,
+        null
+    )(PinSelectorContainer)
+);
