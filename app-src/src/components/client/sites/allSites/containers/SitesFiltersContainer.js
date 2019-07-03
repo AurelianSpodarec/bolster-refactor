@@ -19,6 +19,7 @@ class SitesFiltersContainer extends Component {
                 statusOptions={Object.values(statusOptions)}
                 selectedStatus={statusOptions[status]}
                 handleChange={this.handleChange}
+                onMobile={this.props.onMobile}
             />
         );
     }
@@ -36,6 +37,14 @@ class SitesFiltersContainer extends Component {
     };
 }
 
-export default connect(({ shared: { sitesFilterReducer } }) => ({
-    filters: sitesFilterReducer.filters
-}))(SitesFiltersContainer);
+export default connect(
+    ({
+        shared: {
+            sitesFilterReducer,
+            mobileReducer: { onMobile }
+        }
+    }) => ({
+        filters: sitesFilterReducer.filters,
+        onMobile
+    })
+)(SitesFiltersContainer);

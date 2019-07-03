@@ -79,10 +79,10 @@ class DrawingMapGeneralContainer extends Component {
         return (
             <>
                 <div className="flex-container size-lg-12">
-                    <div className="flex-item size-lg-4">
+                    <div className="flex-item size-lg-4 size-md-12">
                         <BasicFiltersContainer isDrawingPage />
                     </div>
-                    <div className="flex-item size-lg-4">
+                    <div className="flex-item size-lg-4 size-md-12">
                         <DrawingDetailsContainer />
                     </div>
 

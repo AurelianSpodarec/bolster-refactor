@@ -13,10 +13,10 @@ import { ACCESS_TYPES_VALUES } from 'constants/companyAdmin/enums';
 let SingleSiteGeneralOverview = ({ site }) => (
     <>
         <div className="flex-container size-lg-12">
-            <div className="flex-item size-lg-8">
+            <div className="flex-item size-lg-8 size-md-12">
                 <SiteDetailsContainer />
             </div>
-            <div className="flex-item size-lg-4">
+            <div className="flex-item size-lg-4 size-md-12">
                 <SiteDocumentsTableContainer />
             </div>
         </div>
@@ -26,13 +26,13 @@ let SingleSiteGeneralOverview = ({ site }) => (
         </div>
         {site.accessType >= ACCESS_TYPES_VALUES.WRITE && (
             <div className="flex-container size-lg-12">
-                <div className="flex-item size-lg-4">
+                <div className="flex-item size-lg-4 size-md-12">
                     <SiteClientInviteContainer />
                 </div>
-                <div className="flex-item size-lg-4">
+                <div className="flex-item size-lg-4 size-md-12">
                     <SiteOperativeAddContainer />
                 </div>
-                <div className="flex-item size-lg-4">
+                <div className="flex-item size-lg-4 size-md-12">
                     <SiteCompaniesAccessTableContainer
                         accessType={site.accessType}
                     />
