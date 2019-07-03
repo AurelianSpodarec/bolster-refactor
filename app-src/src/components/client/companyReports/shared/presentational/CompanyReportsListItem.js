@@ -9,49 +9,43 @@ import {
     GENERATION_STATE_VAL
 } from 'constants/companyAdmin/enums';
 
-const CompanyReportsListItem = ({ queueItem }) => (
-    <tr>
-        <td>{queueItem.friendlyName}</td>
-        <td>
-            {queueItem.isCSVGeneration && 'CSV'}
-            {queueItem.isCSVGeneration &&
-                queueItem.isFloorplanGeneration &&
-                ', '}
-            {queueItem.isCSVGeneration && queueItem.isPDFGeneration && ', '}
-            {queueItem.isFloorplanGeneration && 'Floor plan'}
-            {queueItem.isFloorplanGeneration &&
-                queueItem.isPDFGeneration &&
-                ', '}
-
-            {queueItem.isPDFGeneration && 'PDF'}
-        </td>{' '}
-        <td>{!!queueItem.stateMessage && queueItem.stateMessage}</td>
-        <td>{GENERATION_STATE_TEXT[queueItem.state]}</td>
-        <td>
-            <DateTimeContainer date={queueItem.createdOn} />
-        </td>
-        <td>
-            {queueItem.completedOn ? (
-                <DateTimeContainer date={queueItem.completedOn} />
-            ) : (
-                'N/A'
-            )}
-        </td>
-        <td>
-            {queueItem.state === GENERATION_STATE_VAL.COMPLETE ? (
-                <a
-                    className="button green"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    href={`${RAW_S3_STORAGE_URL}/${queueItem.s3Key}`}
-                >
-                    <i className="fa fa-download" /> Download File
-                </a>
-            ) : (
-                <button className="button disabled">Generating...</button>
-            )}
-        </td>
-    </tr>
-);
+const CompanyReportsListItem = ({ queueItem }) => {
+    const typeArr = [];
+    if (queueItem.isCSVGeneration) typeArr.push('CSV');
+    if (queueItem.isPDFGeneration) typeArr.push('PDF');
+    if (queueItem.isFloorplanGeneration) typeArr.push('Floor plan');
+    return (
+        <tr>
+            <td>{queueItem.friendlyName}</td>
+            <td>{typeArr.join(', ')}</td>
+            <td>{!!queueItem.stateMessage && queueItem.stateMessage}</td>
+            <td>{GENERATION_STATE_TEXT[queueItem.state]}</td>
+            <td>
+                <DateTimeContainer date={queueItem.createdOn} />
+            </td>
+            <td>
+                {queueItem.completedOn ? (
+                    <DateTimeContainer date={queueItem.completedOn} />
+                ) : (
+                    'N/A'
+                )}
+            </td>
+            <td>
+                {queueItem.state === GENERATION_STATE_VAL.COMPLETE ? (
+                    <a
+                        className="button green"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        href={`${RAW_S3_STORAGE_URL}/${queueItem.s3Key}`}
+                    >
+                        <i className="fa fa-download" /> Download File
+                    </a>
+                ) : (
+                    <button className="button disabled">Generating...</button>
+                )}
+            </td>
+        </tr>
+    );
+};
 
 export default CompanyReportsListItem;
