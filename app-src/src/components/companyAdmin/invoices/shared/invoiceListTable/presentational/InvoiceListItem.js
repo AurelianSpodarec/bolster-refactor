@@ -34,7 +34,7 @@ const InvoiceListItem = ({
         <td>{id}</td>
         <td>{`£${formatCurrency(subTotal)}`}</td>
         <td>{`£${formatCurrency(total)}`}</td>
-        <td>{`£${remainingToPay ? formatCurrency(remainingToPay) : 0}`}</td>
+        <td>{`£${remainingToPay && remainingToPay > 0 ? formatCurrency(remainingToPay) : 0}`}</td>
         <td>{PAYMENT_TYPES[paymentType]}</td>
         <td>{isPaid ? 'Paid' : 'Awaiting Payment'}</td>
         <td>
