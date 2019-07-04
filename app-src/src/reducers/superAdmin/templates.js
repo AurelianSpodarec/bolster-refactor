@@ -19,11 +19,13 @@ import {
     FETCH_TEMPLATE_REQUEST,
     FETCH_TEMPLATE_SUCCESS,
     FETCH_TEMPLATE_FAILURE,
-    SET_LABEL_FIELDS,
+    SET_LABEL_FIELDS
+} from 'constants/actionTypes/templateBuilder';
+import {
     FETCH_COMPANY_TEMPLATES_REQUEST,
     FETCH_COMPANY_TEMPLATES_SUCCESS,
     FETCH_COMPANY_TEMPLATES_FAILURE
-} from 'constants/actionTypes/templateBuilder';
+} from 'constants/actionTypes/companies';
 
 export default combineReducers({
     templates: templatesReducer,
