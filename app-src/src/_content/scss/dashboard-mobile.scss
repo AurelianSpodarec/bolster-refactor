@@ -257,6 +257,8 @@
 
     .page-heading {
         .heading {
+            margin-bottom: 7px;
+
             + .button {
                 margin-top: 5px;
             }
@@ -339,6 +341,16 @@
         &.larger-search {
             .generic-search {
                 width: 100%;
+            }
+        }
+        &.in-table {
+            .table-filter {
+                width: auto;
+                width: 52%;
+
+                .custom-dropdown {
+                    width: 63%;
+                }
             }
         }
     }
