@@ -46,7 +46,7 @@ const FilterMap = ({
                 </BlockHeading>
             )}
             <Map
-                center={[51.505, -0.09]}
+                center={[-128, 128]}
                 zoom={3}
                 minZoom={0}
                 maxZoom={5}
