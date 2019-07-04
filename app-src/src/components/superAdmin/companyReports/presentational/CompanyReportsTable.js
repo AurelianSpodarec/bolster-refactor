@@ -9,7 +9,8 @@ const CompanyReportsTable = ({
     isFetching,
     error,
     companyReports,
-    headers
+    headers,
+    onMobile
 }) => {
     return (
         <>
@@ -33,6 +34,8 @@ const CompanyReportsTable = ({
                         <CompanyReportsListItem
                             key={queueItem.id}
                             queueItem={queueItem}
+                            headers={headers}
+                            onMobile={onMobile}
                         />
                     ))}
                 </Table>

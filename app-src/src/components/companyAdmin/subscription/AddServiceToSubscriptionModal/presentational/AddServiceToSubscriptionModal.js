@@ -83,7 +83,7 @@ const AddServiceToSubscriptionModal = ({
                     />
                 </Field>
             )}
-            <div className="size-lg-6">
+            <div className="size-lg-6 size-md-12">
                 <Field name="Agree to terms" required>
                     <p className="generic-text size-lg-12">
                         Please check that you agree with the{' '}

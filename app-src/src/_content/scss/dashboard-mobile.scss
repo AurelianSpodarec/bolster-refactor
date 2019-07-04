@@ -514,6 +514,9 @@
             .status-icon {
                 left: 9px;
             }
+            &:last-child {
+                text-align: left;
+            }
         }
         tr {
             float: left;

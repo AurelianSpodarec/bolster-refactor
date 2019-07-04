@@ -4,16 +4,33 @@ import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/pr
 const HeadquartersCompanyListItem = ({
     company,
     impersonatedCompanyID,
-    handleImpersonate
+    handleImpersonate,
+    onMobile,
+    headers
 }) => (
     <tr>
-        <td>{company.name}</td>
         <td>
-            {company.logoFile && (
+            {' '}
+            {onMobile && (
+                <span className="mobile-table-heading">{headers[0]}</span>
+            )}
+            {company.name}
+        </td>
+        <td>
+            {' '}
+            {onMobile && (
+                <span className="mobile-table-heading">{headers[1]}</span>
+            )}
+            {company.logoFile ? (
                 <img src={company.logoFile} alt={`${company.name}'s logo`} />
+            ) : (
+                'N/A'
             )}
         </td>
         <td>
+            {onMobile && (
+                <span className="mobile-table-heading">{headers[2]}</span>
+            )}
             <BlockButtonWrapper>
                 {impersonatedCompanyID !== company.id && (
                     <button

@@ -9,21 +9,53 @@ import {
     GENERATION_STATE_VAL
 } from 'constants/companyAdmin/enums';
 
-const CompanyReportsListItem = ({ queueItem }) => {
+const CompanyReportsListItem = ({ queueItem, onMobile, headers }) => {
     const typeArr = [];
     if (queueItem.isCSVGeneration) typeArr.push('CSV');
     if (queueItem.isPDFGeneration) typeArr.push('PDF');
     if (queueItem.isFloorplanGeneration) typeArr.push('Floor plan');
     return (
         <tr>
-            <td>{queueItem.friendlyName}</td>
-            <td>{typeArr.join(', ')}</td>
-            <td>{!!queueItem.stateMessage && queueItem.stateMessage}</td>
-            <td>{GENERATION_STATE_TEXT[queueItem.state]}</td>
             <td>
+                {' '}
+                {onMobile && (
+                    <span className="mobile-table-heading">{headers[0]}</span>
+                )}
+                {queueItem.friendlyName}
+            </td>
+            <td>
+                {' '}
+                {onMobile && (
+                    <span className="mobile-table-heading">{headers[1]}</span>
+                )}
+                {typeArr.join(', ')}
+            </td>
+            <td>
+                {' '}
+                {onMobile && (
+                    <span className="mobile-table-heading">{headers[2]}</span>
+                )}
+                {!!queueItem.stateMessage && queueItem.stateMessage}
+            </td>
+            <td>
+                {' '}
+                {onMobile && (
+                    <span className="mobile-table-heading">{headers[3]}</span>
+                )}
+                {GENERATION_STATE_TEXT[queueItem.state]}
+            </td>
+            <td>
+                {' '}
+                {onMobile && (
+                    <span className="mobile-table-heading">{headers[4]}</span>
+                )}
                 <DateTimeContainer date={queueItem.createdOn} />
             </td>
             <td>
+                {' '}
+                {onMobile && (
+                    <span className="mobile-table-heading">{headers[5]}</span>
+                )}
                 {queueItem.completedOn ? (
                     <DateTimeContainer date={queueItem.completedOn} />
                 ) : (

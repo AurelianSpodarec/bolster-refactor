@@ -17,7 +17,10 @@ const HeadquartersCompaniesTable = ({
             isFetching={isFetching}
             headers={headers}
         >
-            <HeadquartersCompaniesList companies={companies} />
+            <HeadquartersCompaniesList
+                companies={companies}
+                headers={headers}
+            />
         </Table>
     );
 };

@@ -8,12 +8,19 @@ import fetchCompanySettings from 'actions/companyAdmin/companySettings/async/fet
 
 class HeadquartersCompanyListItemContainer extends Component {
     render() {
-        const { company, impersonatedCompanyID } = this.props;
+        const {
+            company,
+            impersonatedCompanyID,
+            headers,
+            onMobile
+        } = this.props;
         return (
             <HeadquartersCompanyListItem
                 company={company}
                 impersonatedCompanyID={impersonatedCompanyID}
                 handleImpersonate={this.handleImpersonate}
+                headers={headers}
+                onMobile={onMobile}
             />
         );
     }
@@ -31,11 +38,13 @@ const mapStateToProps = ({
     shared: {
         decodeJWTReducer: {
             jwtData: { companyID, headquartersCompanyID }
-        }
+        },
+        mobileReducer: { onMobile }
     }
 }) => ({
     impersonatedCompanyID: companyID,
-    headquartersCompanyID
+    headquartersCompanyID,
+    onMobile
 });
 
 const mapDispatchToProps = dispatch => ({
