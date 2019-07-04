@@ -3,7 +3,7 @@ import React from 'react';
 import DrawingListItemContainer from '../containers/DrawingListItemContainer';
 import withDropZone from 'components/shared/dragDrop/hocs/withDropZone';
 
-const DrawingList = ({ drawings, forwardRef, isOver }) => (
+const DrawingList = ({ drawings, forwardRef, isOver, headers }) => (
     <tbody ref={forwardRef} className={isOver ? 'dragging' : ''}>
         {[...drawings]
             .sort((a, b) => a.sort - b.sort)
@@ -13,6 +13,7 @@ const DrawingList = ({ drawings, forwardRef, isOver }) => (
                     drawing={drawing}
                     drawings={drawings}
                     index={i}
+                    headers={headers}
                 />
             ))}
     </tbody>

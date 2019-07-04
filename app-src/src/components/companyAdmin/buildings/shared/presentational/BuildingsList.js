@@ -3,7 +3,13 @@ import React from 'react';
 import BuildingsListItemContainer from '../containers/BuildingsListItemContainer';
 import withDropZone from 'components/shared/dragDrop/hocs/withDropZone';
 
-const BuildingsList = ({ colCount, buildings, forwardRef, isOver }) => (
+const BuildingsList = ({
+    colCount,
+    buildings,
+    forwardRef,
+    isOver,
+    headers
+}) => (
     <tbody ref={forwardRef} className={isOver ? 'dragging' : ''}>
         {buildings.map((building, index) => (
             <BuildingsListItemContainer
@@ -12,6 +18,7 @@ const BuildingsList = ({ colCount, buildings, forwardRef, isOver }) => (
                 building={building}
                 index={index}
                 buildings={buildings}
+                headers={headers}
             />
         ))}
     </tbody>

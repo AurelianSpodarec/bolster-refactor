@@ -132,17 +132,10 @@ const BuyCreditsModal = ({
                         )}
                     </p>
                 )}
-                <BlockButtonWrapper>
-                    <button className="button green" type="submit">
-                        Buy
-                    </button>
-                    <ButtonContainer handleClick={hideModal}>
-                        Cancel
-                    </ButtonContainer>
-                </BlockButtonWrapper>
+
                 <div className="size-lg-6 size-md-12">
                     <Field name="Agree to terms" required>
-                        <p>
+                        <p className="generic-text size-lg-12">
                             Please check that you agree with the{' '}
                             <Link to="/auth/terms ">sales terms</Link> to
                             proceed with payment.
@@ -154,7 +147,16 @@ const BuyCreditsModal = ({
                             required
                         />
                     </Field>
-                </div>{' '}
+                </div>
+
+                <BlockButtonWrapper>
+                    <button className="button green" type="submit">
+                        Buy
+                    </button>
+                    <ButtonContainer handleClick={hideModal}>
+                        Cancel
+                    </ButtonContainer>
+                </BlockButtonWrapper>
             </Form>
         </ModalOuterContainer>
     );

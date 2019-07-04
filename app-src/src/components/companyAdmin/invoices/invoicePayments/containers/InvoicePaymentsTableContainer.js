@@ -8,12 +8,17 @@ import InvoicePaymentsTable from '../presentational/InvoicePaymentsTable';
 const InvoicePaymentsTableContainer = ({
     invoicePayments,
     fetchSingleInvoicePayments,
-    invoiceID
+    invoiceID,
+    onMobile
 }) => {
     componentDidMount(() => fetchSingleInvoicePayments(invoiceID));
     const headers = ['Amount', 'Date'];
     return (
-        <InvoicePaymentsTable payments={invoicePayments} headers={headers} />
+        <InvoicePaymentsTable
+            payments={invoicePayments}
+            headers={headers}
+            onMobile={onMobile}
+        />
     );
 };
 
@@ -21,6 +26,9 @@ const mapStateToProps = (
     {
         companyAdmin: {
             invoicesReducer: { invoicePayments }
+        },
+        shared: {
+            mobileReducer: { onMobile }
         }
     },
     { match: { params } }
@@ -28,7 +36,8 @@ const mapStateToProps = (
     invoicePayments: Object.values(invoicePayments).filter(
         payment => +payment.invoiceID === +params.id
     ),
-    invoiceID: params.id
+    invoiceID: params.id,
+    onMobile
 });
 
 const mapDispatchToProps = { fetchSingleInvoicePayments };

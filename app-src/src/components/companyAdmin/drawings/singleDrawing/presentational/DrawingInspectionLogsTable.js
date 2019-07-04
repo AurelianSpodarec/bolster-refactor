@@ -10,7 +10,8 @@ const DrawingInspectionLogsTable = ({
     isFetching,
     error,
     pins,
-    handleFilterChange
+    handleFilterChange,
+    onMobile
 }) => (
     <BlockContainer containerClass="inspection-log flex-item size-lg-4 size-md-12">
         <div className="size-lg-12">
@@ -40,6 +41,8 @@ const DrawingInspectionLogsTable = ({
                             <DrawingInspectionLogsListItem
                                 key={pin.id}
                                 pin={pin}
+                                headers={['Pin ID', 'Status', 'Actions']}
+                                onMobile={onMobile}
                             />
                         ))}
                 </Table>

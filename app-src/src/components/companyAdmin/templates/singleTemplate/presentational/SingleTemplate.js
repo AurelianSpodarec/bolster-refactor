@@ -21,6 +21,7 @@ const SingleTemplate = ({ sections, questions, headers }) => (
                         <TemplateSection
                             section={section}
                             questions={formatQuestions(questions[id])}
+                            headers={headers}
                         />
                     </Table>
                 </Block>

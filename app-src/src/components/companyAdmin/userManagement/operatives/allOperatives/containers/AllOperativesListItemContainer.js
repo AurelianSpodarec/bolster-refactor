@@ -16,7 +16,9 @@ const AllOperativesListItemContainer = ({
     colCount,
     showModal,
     hideModal,
-    editCompanyUserType
+    editCompanyUserType,
+    headers,
+    onMobile
 }) => {
     return (
         <AllOperativesListItem
@@ -27,6 +29,8 @@ const AllOperativesListItemContainer = ({
             }
             showUnlinkModal={unlinkModal}
             showMakeAdminModal={makeAdminModal}
+            headers={headers}
+            onMobile={onMobile}
         />
     );
 

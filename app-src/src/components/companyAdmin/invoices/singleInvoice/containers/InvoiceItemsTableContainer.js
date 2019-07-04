@@ -6,7 +6,13 @@ import InvoiceItemsTable from 'components/shared/invoices/invoiceItemsTable/pres
 
 class InvoiceItemsTableContainer extends Component {
     render() {
-        const { invoice, error, isFetching, invoiceItems } = this.props;
+        const {
+            invoice,
+            error,
+            isFetching,
+            invoiceItems,
+            onMobile
+        } = this.props;
         return (
             <InvoiceItemsTable
                 headers={[
@@ -21,6 +27,7 @@ class InvoiceItemsTableContainer extends Component {
                 isFetching={isFetching}
                 invoice={invoice}
                 invoiceItems={invoiceItems}
+                onMobile={onMobile}
             />
         );
     }
@@ -32,6 +39,9 @@ const mapStateToProps = (
             invoicesReducer,
             invoiceItemsReducer,
             companySettingsReducer
+        },
+        shared: {
+            mobileReducer: { onMobile }
         }
     },
     { match }
@@ -42,7 +52,8 @@ const mapStateToProps = (
     invoice: invoicesReducer.invoices[match.params.id] || {},
     invoiceItems: Object.values(invoiceItemsReducer.invoiceItems).filter(
         item => item.invoiceID === +match.params.id
-    )
+    ),
+    onMobile
 });
 
 export default withRouter(connect(mapStateToProps)(InvoiceItemsTableContainer));

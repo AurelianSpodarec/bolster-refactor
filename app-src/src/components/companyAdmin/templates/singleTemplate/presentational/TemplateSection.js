@@ -1,7 +1,7 @@
 import React from 'react';
 import TemplateSectionQuestionContainer from '../containers/TemplateSectionQuestionContainer';
 
-const TemplateSection = ({ questions = [] }) =>
+const TemplateSection = ({ questions = [], headers }) =>
     !questions.length ? (
         <tr>
             <td>No questions for this section.</td>
@@ -11,6 +11,7 @@ const TemplateSection = ({ questions = [] }) =>
             <TemplateSectionQuestionContainer
                 question={question}
                 key={question.id}
+                headers={headers}
             />
         ))
     );

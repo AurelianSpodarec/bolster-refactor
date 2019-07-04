@@ -10,13 +10,15 @@ import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 
 class DropdownOptionsListItemContainer extends Component {
     render() {
-        const { option, colCount } = this.props;
+        const { option, colCount, headers, onMobile } = this.props;
         return (
             <DropdownOptionsListItem
                 option={option}
                 colCount={colCount}
                 handleEditOptionModal={this.handleEditOptionModal}
                 handleDeleteOptionModal={this.handleDeleteOptionModal}
+                headers={headers}
+                onMobile={onMobile}
             />
         );
     }
@@ -36,6 +38,12 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default connect(
-    null,
+    ({
+        shared: {
+            mobileReducer: { onMobile }
+        }
+    }) => ({
+        onMobile
+    }),
     mapDispatchToProps
 )(DropdownOptionsListItemContainer);

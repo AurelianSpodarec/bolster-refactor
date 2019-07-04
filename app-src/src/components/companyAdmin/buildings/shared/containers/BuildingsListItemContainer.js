@@ -18,7 +18,9 @@ const BuildingsListItemContainer = ({
     reorderBuilding,
     postBuildingsSort,
     buildings,
-    index
+    index,
+    headers,
+    onMobile
 }) => (
     <BuildingsListItem
         index={index}
@@ -30,14 +32,18 @@ const BuildingsListItemContainer = ({
         permissions={formatPermissions(permissions, accessType)}
         onMove={reorderBuilding}
         onDrop={() => postBuildingsSort(buildings)}
+        onMobile={onMobile}
+        headers={headers}
     />
 );
 
 const mapStateToProps = ({
     shared: {
-        tablesReducer: { expandedBuildingIds }
+        tablesReducer: { expandedBuildingIds },
+        mobileReducer: { onMobile }
     }
 }) => ({
+    onMobile,
     expandedBuildingIds
 });
 

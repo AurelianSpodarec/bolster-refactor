@@ -46,6 +46,7 @@ const CompaniesAccessTable = ({
                     companies={companies}
                     parentId={parentId}
                     smallList={smallList}
+                    headers={['Name', '', 'Actions']}
                 />
             </Table>
         </div>

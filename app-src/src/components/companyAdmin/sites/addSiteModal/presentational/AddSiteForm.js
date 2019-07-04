@@ -27,7 +27,7 @@ const AddSiteForm = ({
 }) => (
     <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
         <div className="size-lg-12">
-            <div className="size-lg-6">
+            <div className="size-lg-6 size-md-12">
                 <Field name="Site name" required>
                     <TextInputContainer
                         name="name"
@@ -38,7 +38,7 @@ const AddSiteForm = ({
                 </Field>
             </div>
 
-            <div className="size-lg-6">
+            <div className="size-lg-6 size-md-12">
                 <Field name="Client name">
                     <TextInputContainer
                         value={client}
@@ -50,7 +50,7 @@ const AddSiteForm = ({
         </div>
 
         <div className="size-lg-12">
-            <div className="size-lg-6">
+            <div className="size-lg-6 size-md-12">
                 <Field name="Address line 1">
                     <TextInputContainer
                         value={addressLine1}
@@ -60,7 +60,7 @@ const AddSiteForm = ({
                 </Field>
             </div>
 
-            <div className="size-lg-6">
+            <div className="size-lg-6 size-md-12">
                 <Field name="Address line 2">
                     <TextInputContainer
                         value={addressLine2}
@@ -72,7 +72,7 @@ const AddSiteForm = ({
         </div>
 
         <div className="size-lg-12">
-            <div className="size-lg-6">
+            <div className="size-lg-6 size-md-12">
                 <Field name="Postcode">
                     <TextInputContainer
                         value={postcode}
@@ -87,7 +87,7 @@ const AddSiteForm = ({
         )}
 
         <div className="size-lg-12">
-            <div className="size-lg-6">
+            <div className="size-lg-6 size-md-12">
                 <Field name="Send an alert?">
                     <CheckboxContainer
                         checked={isAlertShowing}
@@ -101,7 +101,7 @@ const AddSiteForm = ({
 
         {isAlertShowing && (
             <div className="size-lg-12">
-                <div className="size-lg-6">
+                <div className="size-lg-6 size-md-12">
                     <Field name="Alert Message">
                         <TextAreaContainer
                             value={message}
@@ -111,7 +111,7 @@ const AddSiteForm = ({
                     </Field>
                 </div>
 
-                <div className="size-lg-6">
+                <div className="size-lg-6 size-md-12">
                     <Field name="Date to send">
                         <DatePickerPresentational
                             name="dateToSend"

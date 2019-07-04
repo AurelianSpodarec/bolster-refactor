@@ -11,13 +11,27 @@ const CompaniesAccessList = ({
     companies,
     parentId,
     handleRemovePermission,
-    accessType
+    accessType,
+    headers,
+    onMobile
 }) =>
     companies.map(company => (
         <React.Fragment key={company.companyID + parentId}>
             <tr>
-                <td colSpan={2}>{company.companyName}</td>
+                <td colSpan={2}>
+                    {onMobile && (
+                        <span className="mobile-table-heading">
+                            {headers[0]}
+                        </span>
+                    )}
+                    {company.companyName}
+                </td>
                 <td>
+                    {onMobile && (
+                        <span className="mobile-table-heading">
+                            {headers[2]}
+                        </span>
+                    )}
                     {company.accessType === COMPANY_USER_ROLE_TYPES.OWNER
                         ? '(Owner)'
                         : accessType === ACCESS_TYPES_VALUES.OWNER && (
@@ -39,6 +53,11 @@ const CompaniesAccessList = ({
                     !!service && (
                         <tr key={service.serviceID + company.companyID + i}>
                             <td colSpan={2}>
+                                {onMobile && (
+                                    <span className="mobile-table-heading">
+                                        {headers[0]}
+                                    </span>
+                                )}{' '}
                                 {'>'} {service.serviceName}{' '}
                                 {service.state ===
                                     PERMISSION_STATES.PENDING && (

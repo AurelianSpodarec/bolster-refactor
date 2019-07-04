@@ -7,7 +7,8 @@ const CompanyReportsTableContainer = ({
     companyReports,
     error,
     isFetching,
-    sortString
+    sortString,
+    onMobile
 }) => {
     return (
         <CompanyReportsTable
@@ -15,6 +16,7 @@ const CompanyReportsTableContainer = ({
             error={error}
             isFetching={isFetching}
             headers={['Name', 'Status', 'Created On', 'Completed on', '']}
+            onMobile={onMobile}
         />
     );
     function _getSortedQueue() {
@@ -30,12 +32,16 @@ const mapStateToProps = ({
             isFetching,
             sort: { sortString }
         }
+    },
+    shared: {
+        mobileReducer: { onMobile }
     }
 }) => ({
     companyReports: Object.values(companyReports),
     error,
     isFetching,
-    sortString
+    sortString,
+    onMobile
 });
 
 export default connect(mapStateToProps)(CompanyReportsTableContainer);

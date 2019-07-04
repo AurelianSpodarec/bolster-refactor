@@ -23,7 +23,11 @@ const SitesTable = ({ headers, sites, isFetching, error, handleAddSite }) => {
                 noDataMessage="No sites to display"
                 withoutTBody
             >
-                <SitesList colCount={headers.length} items={sites} />
+                <SitesList
+                    colCount={headers.length}
+                    items={sites}
+                    headers={headers}
+                />
             </Table>
         </BlockContainer>
     );

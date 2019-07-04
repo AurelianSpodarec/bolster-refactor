@@ -1954,7 +1954,7 @@ input {
             color: white;
             background: #78030a;
             cursor: pointer;
-            font-size: 140%;
+            font-size: 130%;
             padding: {
                 top: 8px;
                 bottom: 8px;
@@ -1976,6 +1976,7 @@ input {
             img {
                 float: left;
                 opacity: 0.7;
+                height: 20px;
             }
             span {
                 float: left;
@@ -1993,7 +1994,7 @@ input {
                     padding-left: 15px;
                     width: auto;
                     max-width: calc(100% - 25px);
-                    top: 5px;
+                    top: 3px;
                 }
             }
         }
@@ -2259,7 +2260,6 @@ input {
             padding: 0;
             > td {
                 padding: {
-                    top: 0;
                     bottom: 0;
                 }
             }
@@ -2267,6 +2267,16 @@ input {
 
         &.expanded-row {
             table {
+                thead {
+                    th {
+                        padding-top: 15px;
+
+                        &:first-child {
+                            padding-left: 60px;
+                        }
+                    }
+                }
+
                 tbody {
                     th {
                         padding-top: 15px;
@@ -3002,6 +3012,11 @@ input {
             }
         }
     }
+
+    .react-datepicker-popper {
+        position: relative !important;
+        margin-top: 0 !important;
+    }
 }
 
 //file upload
@@ -3657,7 +3672,7 @@ input {
     i {
         position: absolute;
         right: 7px;
-        @include vertical-center;
+        top: 8px;
     }
 }
 

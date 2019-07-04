@@ -1,14 +1,22 @@
 import React from 'react';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 
-const AllCompanyAdminsListItem = ({
+const DropdownOptionsListItem = ({
     option,
     handleEditOptionModal,
-    handleDeleteOptionModal
+    handleDeleteOptionModal,
+    onMobile,
+    headers
 }) => (
     <tr>
-        <td>{option.name}</td>
         <td>
+            {onMobile && (
+                <span className="mobile-table-heading">{headers[0]}</span>
+            )}
+            {option.name}
+        </td>
+        <td>
+            {onMobile && <span className="mobile-table-heading">Actions</span>}
             <BlockButtonWrapper>
                 <button
                     onClick={() => handleEditOptionModal(option)}
@@ -29,4 +37,4 @@ const AllCompanyAdminsListItem = ({
     </tr>
 );
 
-export default AllCompanyAdminsListItem;
+export default DropdownOptionsListItem;

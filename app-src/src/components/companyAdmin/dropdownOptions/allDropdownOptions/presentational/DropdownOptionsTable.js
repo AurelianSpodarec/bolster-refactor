@@ -38,6 +38,7 @@ const DropdownOptionsTable = ({
                 <DropdownOptionsList
                     colCount={headers.length}
                     dropdownOptions={dropdownOptions}
+                    headers={headers}
                 />
             </Table>
         </BlockContainer>

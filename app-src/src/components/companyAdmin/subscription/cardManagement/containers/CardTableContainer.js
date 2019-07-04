@@ -14,7 +14,14 @@ class CardTableContainer extends Component {
     };
 
     render = () => {
-        const { isFetching, error, showModal, deleteCard, cards } = this.props;
+        const {
+            isFetching,
+            error,
+            showModal,
+            deleteCard,
+            cards,
+            onMobile
+        } = this.props;
         const headers = [
             'Name on card',
             'Nickname',
@@ -32,6 +39,7 @@ class CardTableContainer extends Component {
                 showModal={showModal}
                 setPrimaryCard={this.setPrimaryCard}
                 deleteCard={deleteCard}
+                onMobile={onMobile}
             />
         );
     };
@@ -44,13 +52,17 @@ class CardTableContainer extends Component {
 const mapStateToProps = ({
     companyAdmin: {
         cardsReducer: { cards, isFetching, error, postError, postSuccess }
+    },
+    shared: {
+        mobileReducer: { onMobile }
     }
 }) => ({
     cards: Object.values(cards),
     isFetching,
     error,
     postError,
-    postSuccess
+    postSuccess,
+    onMobile
 });
 
 const mapDispatchToProps = dispatch => ({

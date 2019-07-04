@@ -10,7 +10,7 @@ import deleteClientFromDrawing from 'actions/companyAdmin/clients/async/deleteCl
 
 class AllClientsListItemContainer extends Component {
     render() {
-        const { client, colCount } = this.props;
+        const { client, colCount, onMobile, headers } = this.props;
 
         return (
             <AllClientsListItem
@@ -19,6 +19,8 @@ class AllClientsListItemContainer extends Component {
                 colCount={colCount}
                 goToEdit={this.goToEdit}
                 removeAccess={this.removeAccess}
+                onMobile={onMobile}
+                headers={headers}
             />
         );
     }
@@ -73,9 +75,13 @@ class AllClientsListItemContainer extends Component {
 const mapStateToProps = ({
     companyAdmin: {
         servicesReducer: { services }
+    },
+    shared: {
+        mobileReducer: { onMobile }
     }
 }) => ({
-    services: Object.values(services) || []
+    services: Object.values(services) || [],
+    onMobile
 });
 
 const mapDispatchToProps = { showModal, hideModal, deleteClientFromDrawing };
