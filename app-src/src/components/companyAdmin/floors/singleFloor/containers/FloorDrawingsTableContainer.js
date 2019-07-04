@@ -26,7 +26,7 @@ class FloorDrawingsTableContainer extends Component {
                             className="button green"
                             onClick={this.handleAddDrawingsModal}
                         >
-                            <i className="fa fa-plus" /> Add Drawings
+                            <i className="fa fa-plus" /> Add Drawing
                         </button>
                     )}
                 </BlockHeading>

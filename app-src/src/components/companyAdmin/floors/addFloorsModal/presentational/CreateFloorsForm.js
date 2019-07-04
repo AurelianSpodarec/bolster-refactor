@@ -125,7 +125,6 @@ const CreateFloorsForm = ({
                 <i className="fa fa-plus" /> Add another floor
             </button>
             <button className="button green" type="submit">
-                <i className="fa fa-plus" />
                 Submit
             </button>
             <ButtonContainer handleClick={handleClose}>Cancel</ButtonContainer>

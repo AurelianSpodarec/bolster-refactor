@@ -28,9 +28,7 @@ const AddFloorForm = ({
         {/* {isUsingBolsterLabels && <BolsterLabelExample name={name} />} */}
 
         <BlockButtonWrapper>
-            <button className="button green">
-                <i className="fa fa-plus" /> Add Floor
-            </button>
+            <button className="button green">Submit</button>
             <ButtonContainer handleClick={handleClose}>Cancel</ButtonContainer>
         </BlockButtonWrapper>
     </Form>

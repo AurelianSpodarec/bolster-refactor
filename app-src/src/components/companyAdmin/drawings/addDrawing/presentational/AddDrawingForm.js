@@ -54,13 +54,7 @@ const AddDrawingForm = ({
                     className="button green"
                     type="submit"
                 >
-                    {filesUploading ? (
-                        'Please wait...'
-                    ) : (
-                        <>
-                            <i className="fa fa-plus" /> Add Drawing
-                        </>
-                    )}
+                    {filesUploading ? 'Please wait...' : <>Submit</>}
                 </button>
             ) : (
                 <TooltipContainer

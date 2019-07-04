@@ -126,9 +126,7 @@ const AddSiteForm = ({
         )}
 
         <BlockButtonWrapper>
-            <button className="button green">
-                <i className="fa fa-plus" /> Add Site
-            </button>
+            <button className="button green">Submit</button>
             <ButtonContainer handleClick={hideModal}>Cancel</ButtonContainer>
         </BlockButtonWrapper>
     </Form>
