@@ -13,7 +13,8 @@ import { ADMIN_CREATE_SERVICE_SUCCESS } from 'constants/actionTypes/services';
 class AddServiceFormContainer extends Component {
     state = {
         name: '',
-        templateUUIDs: []
+        templateUUIDs: [],
+        showOnCompanySite: true
     };
 
     render() {
@@ -49,7 +50,7 @@ class AddServiceFormContainer extends Component {
         e.preventDefault();
 
         const { createService, postTemplatesForService } = this.props;
-        const { name, templateUUIDs } = this.state;
+        const { name, templateUUIDs, showOnCompanySite } = this.state;
         createService({ name }).then(action => {
             if (action.type === ADMIN_CREATE_SERVICE_SUCCESS) {
                 const service = action.payload;

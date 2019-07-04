@@ -13,7 +13,8 @@ import postTemplatesForService from 'actions/superAdmin/services/async/postTempl
 class EditServiceFormContainer extends Component {
     state = {
         name: '',
-        templateUUIDs: []
+        templateUUIDs: [],
+        showOnCompanySite: true
     };
 
     render() {
