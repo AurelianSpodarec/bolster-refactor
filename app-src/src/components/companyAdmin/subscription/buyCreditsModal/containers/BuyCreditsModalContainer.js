@@ -105,7 +105,7 @@ class BuyCreditsModalContainer extends Component {
             showModal(PAYMENT_ERROR, {
                 message:
                     'There was an error while purchasing your credits. Please try again.',
-                resubmit: hideModal
+                resubmit: this.handleSubmit
             });
         }
     };
