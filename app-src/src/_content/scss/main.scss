@@ -3012,6 +3012,11 @@ input {
             }
         }
     }
+
+    .react-datepicker-popper {
+        position: relative !important;
+        margin-top: 0 !important;
+    }
 }
 
 //file upload
@@ -3668,11 +3673,6 @@ input {
         position: absolute;
         right: 7px;
         top: 8px;
-    }
-
-    .react-datepicker-popper {
-        position: relative !important;
-        margin-top: 0 !important;
     }
 }
 
