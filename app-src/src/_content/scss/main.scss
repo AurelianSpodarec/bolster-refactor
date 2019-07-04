@@ -2271,6 +2271,10 @@ input {
                 thead {
                     th {
                         padding-top: 15px;
+
+                        &:first-child {
+                            padding-left: 60px;
+                        }
                     }
                 }
 
