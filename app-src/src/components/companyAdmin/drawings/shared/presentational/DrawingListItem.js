@@ -44,6 +44,9 @@ const DrawingListItem = ({
             {permissions}
         </td>
         <td>
+            {onMobile && (
+                <span className="mobile-table-heading">{headers[4]}</span>
+            )}
             <ButtonContainer to={`/company/drawings/${drawing.id}`}>
                 View
             </ButtonContainer>

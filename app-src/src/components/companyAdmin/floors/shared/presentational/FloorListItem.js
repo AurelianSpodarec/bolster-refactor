@@ -41,6 +41,9 @@ const FloorListItem = ({
                 {permissions}
             </td>
             <td>
+                {onMobile && (
+                    <span className="mobile-table-heading">{headers[2]}</span>
+                )}
                 <ButtonContainer
                     to={`/company/floors/${floor.id}`}
                     handleClick={e => e.stopPropagation()}
