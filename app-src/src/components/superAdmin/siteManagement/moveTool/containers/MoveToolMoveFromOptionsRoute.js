@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import { HIERARCHY_IDS } from 'constants/companyAdmin/enums';
 import Field from 'components/shared/generic/form/presentational/Field';
-import selectOption from 'actions/superAdmin/siteManagement/sync/selectOption';
+import selectOption from 'actions/superAdmin/moveTool/sync/selectOption';
 import Loading from 'components/shared/generic/misc/presentational/Loading';
 
 const { BUILDING, FLOOR, DRAWING } = HIERARCHY_IDS;
@@ -103,7 +103,7 @@ const Drawings = ({
     );
 };
 
-class SiteManagementMoveFromOptionsRoute extends Component {
+class MoveToolMoveFromOptionsRoute extends Component {
     render() {
         const {
             hierarchyID,
@@ -153,7 +153,7 @@ const mapStateToProps = ({
         buildingsReducer: { buildings, isFetching: isFetchingBuildings },
         floorsReducer: { floors, isFetching: isFetchingFloors },
         drawingsReducer: { drawings, isFetching: isFetchingDrawings },
-        siteManagementReducer: { selectedOption }
+        moveToolReducer: { selectedOption }
     }
 }) => ({
     buildings: Object.values(buildings),
@@ -172,4 +172,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(SiteManagementMoveFromOptionsRoute);
+)(MoveToolMoveFromOptionsRoute);

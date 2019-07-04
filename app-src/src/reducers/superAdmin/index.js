@@ -18,7 +18,7 @@ import buildingsReducer from './buildings';
 import floorsReducer from './floors';
 import drawingsReducer from './drawings';
 import demoRequestsReducer from './demoRequests';
-import siteManagementReducer from './siteManagement';
+import moveToolReducer from './moveTool';
 import sosCodesReducer from './sosCodes';
 
 export default combineReducers({
@@ -40,6 +40,6 @@ export default combineReducers({
     floorsReducer,
     drawingsReducer,
     demoRequestsReducer,
-    siteManagementReducer,
+    moveToolReducer,
     sosCodesReducer
 });
