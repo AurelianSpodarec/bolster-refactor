@@ -18,7 +18,7 @@ const EditProfilePassword = ({
 }) => (
     <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
         <div className="size-lg-12">
-            <div className="size-lg-6">
+            <div className="size-lg-6 size-md-12">
                 <Field name="Old Password" required>
                     <TextInputContainer
                         value={oldPassword}
