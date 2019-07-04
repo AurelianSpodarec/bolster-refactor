@@ -18,7 +18,7 @@ import archiveFloor from 'actions/companyAdmin/floors/async/archiveFloor';
 
 class FloorDetailsContainer extends Component {
     render() {
-        const { floor, stats, error, isFetching } = this.props;
+        const { floor, stats, error, isFetching, onMobile } = this.props;
 
         return (
             <BlockContainer
@@ -32,6 +32,7 @@ class FloorDetailsContainer extends Component {
                     handleDelete={this.handleDeleteModal}
                     handleArchive={this.handleArchiveModal}
                     handleEditFloorModal={this.handleEditFloorModal}
+                    onMobile={onMobile}
                 />
             </BlockContainer>
         );
@@ -113,6 +114,9 @@ const mapStateToProps = (
                 postSuccess
             },
             statsReducer: { stats, isFetching: fetchingStats }
+        },
+        shared: {
+            mobileReducer: { onMobile }
         }
     },
     { match }
@@ -124,6 +128,7 @@ const mapStateToProps = (
     postError,
     deleteSuccess,
     postSuccess,
+    onMobile,
     id: match.params.id
 });
 

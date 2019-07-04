@@ -11,7 +11,7 @@ const MySubscribedServicesList = ({ services }) => (
             />
         ))}
         {services.length % 2 !== 0 && (
-            <div className="subscription-item size-lg-6" />
+            <div className="subscription-item size-lg-6 size-md-12" />
         )}
     </div>
 );

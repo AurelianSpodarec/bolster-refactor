@@ -9,8 +9,11 @@ const SubscribedServicesItem = ({
     handleChange,
     isAutoRenew
 }) => (
-    <div key={`subscription-${key}`} className="subscription-item size-lg-6">
-        <div className="field-name size-lg-6">
+    <div
+        key={`subscription-${key}`}
+        className="subscription-item size-lg-6 size-md-12"
+    >
+        <div className="field-name size-lg-6 size-md-8">
             <StatusIcon />
             <label htmlFor={`subscription-id-${subscription.id}`}>
                 {subscription.name}

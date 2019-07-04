@@ -1,7 +1,7 @@
 @import "./variables.scss";
 
 @media only screen and (max-width: 1024px) {
-    //company admin header
+    //layout structure
     .container {
         &.full-container {
             padding: {
@@ -10,7 +10,11 @@
             }
         }
     }
+    #page-area {
+        width: 100%;
+    }
 
+    //company admin header
     #page-header {
         height: 57px;
 
@@ -153,9 +157,121 @@
         }
     }
 
-    #page-area {
+    //inside page area
+    .breadcrumb {
         width: 100%;
     }
+
+    .tab-container {
+        float: left;
+        margin-top: 6px;
+    }
+
+    //generics
+
+    .generic-search {
+        input {
+            font-size: 140%;
+        }
+    }
+    .button-block-container {
+        margin-top: 0;
+        .button {
+            margin-bottom: 5px;
+        }
+    }
+    .button {
+        font-size: 130%;
+        &.icon-only {
+            padding-left: 8px;
+            padding-right: 8px;
+            padding: {
+                top: 5px;
+                bottom: 5px;
+            }
+        }
+    }
+
+    .custom-dropdown {
+        input {
+            padding: 6px 10px;
+        }
+    }
+
+    .flex-container {
+        display: block;
+        .flex-item {
+            display: block;
+            .content-container {
+                display: block;
+            }
+
+            .button-container {
+                position: relative;
+                width: 100%;
+            }
+        }
+    }
+
+    .form-field {
+        .checkbox-list {
+            .checkbox {
+                width: 50%;
+            }
+        }
+    }
+
+    .checkbox {
+        &.with-subtext {
+            padding-left: 0;
+            width: 40px;
+        }
+    }
+
+    .sub-text {
+        width: calc(100% - 50px);
+    }
+
+    .ignore-padding {
+        width: calc(100% + 15px);
+        margin-left: -7.5px;
+    }
+
+    .status-icon {
+        &.add {
+            i {
+                left: -0.5px;
+            }
+        }
+    }
+
+    //TEXT
+    //Headings
+    .block-heading {
+        &.w-left-icon {
+            .heading {
+                max-width: 80%;
+            }
+        }
+    }
+
+    .page-heading {
+        .heading {
+            margin-bottom: 7px;
+
+            + .button {
+                margin-top: 5px;
+            }
+        }
+        .button {
+            float: left;
+            margin-left: 0;
+            margin-right: 5px;
+        }
+    }
+
+    //Filters
+
     .multi-filters {
         display: block;
 
@@ -172,9 +288,46 @@
         }
         p {
             float: left;
+            text-align: left;
+            padding-left: 0;
+        }
+        .react-datepicker-wrapper {
+            .react-datepicker__input-container {
+                width: 100%;
+            }
+            input {
+                padding: 7.5px 6px;
+            }
+        }
+    }
+
+    .table-search {
+        .generic-search {
+            width: 100%;
+        }
+        .custom-dropdown {
+            width: 32%;
+        }
+        .table-filter {
             width: 100%;
             text-align: left;
             padding-left: 0;
+            margin-top: 10px;
+            margin-bottom: 2.5px;
+
+            p {
+                float: left;
+            }
+            .custom-dropdown {
+                float: left;
+            }
+
+            &.auto {
+                width: 100%;
+            }
+            .multi-multi-dropdown {
+                width: 220px;
+            }
         }
         .react-datepicker-wrapper {
             input {
@@ -184,9 +337,26 @@
                 width: 100%;
             }
         }
+
+        &.larger-search {
+            .generic-search {
+                width: 100%;
+            }
+        }
+        &.in-table {
+            .table-filter {
+                width: auto;
+                width: 52%;
+
+                .custom-dropdown {
+                    width: 63%;
+                }
+            }
+        }
     }
     .content-area {
         padding: 7.5px;
+
         .tab-container {
             position: relative;
             top: 0;
@@ -196,7 +366,10 @@
             float: left;
         }
     }
-
+    .back-button {
+        margin-bottom: 5px;
+    }
+    //pie chart
     .stats {
         &.dashboard {
             .pin-key {
@@ -228,5 +401,74 @@
                 }
             }
         }
+        .history {
+            margin-top: 20px;
+        }
+
+        .button-container {
+            .button {
+                &:nth-child(4) {
+                    margin-top: 5px;
+                    margin-right: 0;
+                }
+            }
+        }
+
+        &.drawing-stats {
+            .history {
+                margin-top: 0;
+            }
+            .pin-key {
+                margin-bottom: 0;
+            }
+        }
+    }
+
+    //generate report
+    .options-container {
+        padding: 10px 0;
+        margin-bottom: 10px;
+    }
+    .pin-selection-box {
+        width: 100%;
+        .content {
+            .selector-pin {
+                padding: 5px 15px;
+            }
+        }
+    }
+    .pin-selection-buttons {
+        float: left;
+        width: 100%;
+        height: 50px;
+    }
+
+    .field-output.filters {
+        display: block;
+        .filters-calc {
+            margin-bottom: 10px;
+            .centered {
+                width: 100%;
+                &:first-child {
+                    margin-bottom: 10px;
+                }
+            }
+        }
+    }
+
+    .custom-filters-block {
+        .button-block-container {
+            padding: 0;
+        }
+    }
+
+    //Account overview page / subscriptions
+    .subscriptions-list {
+        .subscription-item {
+            padding: 10px;
+        }
+    }
+    .generic-text.total-text {
+        margin-bottom: 10px;
     }
 }

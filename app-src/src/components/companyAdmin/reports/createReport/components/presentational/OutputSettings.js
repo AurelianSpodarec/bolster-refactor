@@ -27,7 +27,7 @@ const OutputSettings = ({
                     Below you can choose formatting options for your report.
                 </p>
                 <div className="generic-form">
-                    <div className="size-lg-6">
+                    <div className="size-lg-6 size-md-12">
                         <Field name="Report formats">
                             <div className="checkbox-list size-lg-12">
                                 <CheckboxContainer
@@ -53,10 +53,10 @@ const OutputSettings = ({
                         {isPDFGeneration && (
                             <>
                                 <div className="size-lg-12 ">
-                                    <div className="size-lg-10 options-container">
+                                    <div className="size-lg-10 size-md-12 options-container">
                                         <BlockHeading title="Additional PDF Settings" />
                                         <Field
-                                            sizeClasses="size-lg-6"
+                                            sizeClasses="size-lg-6 size-md-12"
                                             name="Include Pin Location?"
                                         >
                                             <CheckboxContainer
@@ -74,7 +74,7 @@ const OutputSettings = ({
                                             <p className="sub-text" />
                                         </Field>
                                         <Field
-                                            sizeClasses="size-lg-6"
+                                            sizeClasses="size-lg-6 size-md-12"
                                             name="Include Floorplan?"
                                         >
                                             <CheckboxContainer
@@ -96,7 +96,7 @@ const OutputSettings = ({
                             </>
                         )}
                     </div>
-                    <div className="size-lg-6">
+                    <div className="size-lg-6 size-md-12">
                         <Field name="Sort by">
                             <DropdownContainer
                                 name="sortBy"

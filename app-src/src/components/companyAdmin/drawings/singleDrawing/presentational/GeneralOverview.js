@@ -18,21 +18,21 @@ const GeneralOverview = ({ handleDelete, handleArchive, drawing }) => (
         <div className="flex-container size-lg-12">
             {drawing.accessType >= ACCESS_TYPES_VALUES.WRITE && (
                 <>
-                    <div className="flex-item small-text-table size-lg-3">
+                    <div className="flex-item small-text-table size-lg-3 size-md-12">
                         <DrawingClientAccessContainer />
                     </div>
 
-                    <div className="flex-item small-text-table size-lg-3">
+                    <div className="flex-item small-text-table size-lg-3 size-md-12">
                         <DrawingOperativesAccessContainer />
                     </div>
-                    <div className="flex-item small-text-table two-line size-lg-3">
+                    <div className="flex-item small-text-table two-line size-lg-3 size-md-12">
                         <DrawingCompaniesAccessContainer
                             accessType={drawing.accessType}
                         />
                     </div>
                 </>
             )}
-            <div className="flex-item small-text-table size-lg-3">
+            <div className="flex-item small-text-table size-lg-3 size-md-12">
                 <DrawingDocumentsContainer />
             </div>
         </div>

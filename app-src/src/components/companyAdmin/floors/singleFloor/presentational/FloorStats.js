@@ -9,11 +9,17 @@ const FloorStats = ({
     stats,
     handleDelete,
     handleArchive,
-    handleEditFloorModal
+    handleEditFloorModal,
+    onMobile
 }) => (
     <div className="stats size-lg-12">
         <FloorDetails stats={stats} floor={floor} />
-        <PieChart stats={stats} hierarchyType="floor" />
+        <PieChart
+            stats={stats}
+            hierarchyType="floor"
+            sizeClasses="size-lg-6 size-md-12"
+            onMobile={onMobile}
+        />
         {floor.accessType === ACCESS_TYPES_VALUES.OWNER && (
             <div className="button-container">
                 <button

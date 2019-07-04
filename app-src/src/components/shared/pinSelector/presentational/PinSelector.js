@@ -15,6 +15,7 @@ const PinSelector = ({
     handleMouseUp,
     handleMouseOut,
     clicking,
+    onMobile,
     error
 }) => (
     <>
@@ -42,13 +43,21 @@ const PinSelector = ({
                     className="exclude icon-only"
                     handleClick={handleAddExcluded}
                 >
-                    <i className="far fa-long-arrow-left" />
+                    {onMobile ? (
+                        <i className="far fa-long-arrow-up" />
+                    ) : (
+                        <i className="far fa-long-arrow-left" />
+                    )}
                 </ButtonContainer>
                 <ButtonContainer
                     className="include icon-only"
                     handleClick={handleAddIncluded}
                 >
-                    <i className="far fa-long-arrow-right" />
+                    {onMobile ? (
+                        <i className="far fa-long-arrow-down" />
+                    ) : (
+                        <i className="far fa-long-arrow-right" />
+                    )}
                 </ButtonContainer>
             </div>
             <div className="pin-selection-box">

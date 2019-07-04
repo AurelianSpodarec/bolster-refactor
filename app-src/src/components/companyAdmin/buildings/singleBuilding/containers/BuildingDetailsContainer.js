@@ -19,7 +19,7 @@ import { isObjEmpty } from 'helpers/generic';
 
 class BuildingDetailsContainer extends Component {
     render() {
-        const { building, stats, isFetching, error } = this.props;
+        const { building, stats, isFetching, error, onMobile } = this.props;
 
         return (
             <BlockContainer
@@ -33,6 +33,7 @@ class BuildingDetailsContainer extends Component {
                     handleDelete={this.handleDeleteModal}
                     handleArchive={this.handleArchiveModal}
                     handleEditBuildingModal={this.handleEditBuildingModal}
+                    onMobile={onMobile}
                 />
             </BlockContainer>
         );
@@ -147,6 +148,9 @@ const mapStateToProps = (
                 postFailure
             },
             statsReducer: { stats, isFetching: fetchingStats }
+        },
+        shared: {
+            mobileReducer: { onMobile }
         }
     },
     { match }
@@ -159,6 +163,7 @@ const mapStateToProps = (
     postSuccess,
     id: match.params.id,
     deleteSuccess,
+    onMobile,
     postFailure
 });
 

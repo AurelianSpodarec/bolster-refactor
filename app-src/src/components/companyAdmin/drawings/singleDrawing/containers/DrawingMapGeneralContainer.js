@@ -81,10 +81,10 @@ class DrawingMapGeneralContainer extends Component {
         return (
             <>
                 <div className="flex-container size-lg-12">
-                    <div className="flex-item size-lg-4">
+                    <div className="flex-item size-lg-4 size-md-12">
                         <BasicFiltersContainer isDrawingPage />
                     </div>
-                    <div className="flex-item size-lg-4">
+                    <div className="flex-item size-lg-4 size-md-12">
                         <DrawingDetailsContainer />
                     </div>
 
@@ -264,12 +264,12 @@ class DrawingMapGeneralContainer extends Component {
     _resetCoordinates = () => {
         const { updatePinCoordinates } = this.props;
 
-        updatePinCoordinates('lat', 51.505);
-        updatePinCoordinates('lng', -0.09);
+        updatePinCoordinates('lat', -128);
+        updatePinCoordinates('lng', 128);
 
         this.setState({
-            addPinLat: 51.505,
-            addPinLng: -0.09
+            addPinLat: -128,
+            addPinLng: 128
         });
     };
 

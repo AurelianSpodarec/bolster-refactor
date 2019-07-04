@@ -8,11 +8,11 @@ import AllOperativeAlertsContainer from 'components/companyAdmin/operativeAlerts
 const AllMessages = () => (
     <>
         <PageHeading title="All messages" withBackButton />
-        <div className="size-lg-8">
+        <div className="size-lg-8 size-md-12">
             <SystemMessageTableContainer />
             <AllOperativeAlertsContainer />
         </div>
-        <div className="size-lg-4">
+        <div className="size-lg-4 size-md-12">
             <MySubscriptionContainer />
         </div>
     </>

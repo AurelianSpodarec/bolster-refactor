@@ -5,7 +5,8 @@ import { connect } from 'react-redux';
 
 const CompanyReportsFiltersContainer = ({
     updateCompanyReportsSort,
-    sortString
+    sortString,
+    onMobile
 }) => {
     const sortOptions = {
         'createdOn asc': {
@@ -22,6 +23,7 @@ const CompanyReportsFiltersContainer = ({
             sortOptions={Object.values(sortOptions)}
             selectedOption={sortOptions[sortString]}
             handleChange={handleChange}
+            onMobile={onMobile}
         />
     );
 
@@ -32,8 +34,14 @@ const CompanyReportsFiltersContainer = ({
 
 const mapDispatchToProps = { updateCompanyReportsSort };
 
-const mapStateToProps = ({ companyAdmin: { companyReportsReducer } }) => ({
-    sortString: companyReportsReducer.sort.sortString
+const mapStateToProps = ({
+    companyAdmin: { companyReportsReducer },
+    shared: {
+        mobileReducer: { onMobile }
+    }
+}) => ({
+    sortString: companyReportsReducer.sort.sortString,
+    onMobile
 });
 
 export default connect(

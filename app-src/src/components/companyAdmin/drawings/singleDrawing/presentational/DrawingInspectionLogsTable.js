@@ -12,7 +12,7 @@ const DrawingInspectionLogsTable = ({
     pins,
     handleFilterChange
 }) => (
-    <BlockContainer containerClass="inspection-log flex-item size-lg-4">
+    <BlockContainer containerClass="inspection-log flex-item size-lg-4 size-md-12">
         <div className="size-lg-12">
             <BlockHeading title="Inspection Log">
                 <div className="area-filter">

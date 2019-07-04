@@ -7,7 +7,7 @@ import DrawingStats from '../presentational/DrawingStats';
 
 class DrawingDetailsContainer extends Component {
     render() {
-        const { drawing, stats, error, isFetching } = this.props;
+        const { drawing, stats, error, isFetching, onMobile } = this.props;
 
         return (
             <BlockContainer
@@ -15,7 +15,11 @@ class DrawingDetailsContainer extends Component {
                 isFetching={isFetching}
                 isEmpty={!drawing.id || !stats.statuses}
             >
-                <DrawingStats drawing={drawing} stats={stats} />
+                <DrawingStats
+                    drawing={drawing}
+                    stats={stats}
+                    onMobile={onMobile}
+                />
             </BlockContainer>
         );
     }
@@ -34,6 +38,9 @@ const mapStateToProps = (
                 isFetching: fetchingStats,
                 error: statsError
             }
+        },
+        shared: {
+            mobileReducer: { onMobile }
         }
     },
     { match }
@@ -42,6 +49,7 @@ const mapStateToProps = (
     isFetching: fetchingDrawings || fetchingStats,
     error: drawingsError || statsError,
     stats,
+    onMobile,
     id: match.params.id
 });
 
