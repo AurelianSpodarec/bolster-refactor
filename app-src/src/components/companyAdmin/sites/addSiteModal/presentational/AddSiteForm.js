@@ -82,7 +82,9 @@ const AddSiteForm = ({
                 </Field>
             </div>
         </div>
-        {isUsingBolsterLabels && <BolsterLabelExample name={name} />}
+        {isUsingBolsterLabels && (
+            <BolsterLabelExample name={name} hierarchy="Site" />
+        )}
 
         <div className="size-lg-12">
             <div className="size-lg-6">

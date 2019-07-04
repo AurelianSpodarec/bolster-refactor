@@ -157,18 +157,17 @@ button {
             }
             .label-content-small {
                 position: absolute;
-                font-size: 72%;
+                font-size: 80%;
                 width: 100%;
-                top: 42%;
-                left: 6%;
+                top: 29%;
+                left: 5%;
                 white-space: nowrap;
                 p {
                     @include swiss721-roman;
                 }
                 &.for-trim {
-                    top: 55%;
-                    left: 3%;
-                    font-size: 70%;
+                    top: 57%;
+                    left: 4%;
                 }
             }
             .field-holder {
@@ -1311,6 +1310,10 @@ input {
         input[type="checkbox"] {
             display: none;
         }
+    }
+    p.padded {
+        padding-left: 7.5px;
+        padding-right: 7.5px;
     }
 }
 .multi-select {
