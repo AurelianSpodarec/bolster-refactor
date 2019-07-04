@@ -19,7 +19,7 @@ const BuildingFormFieldsNoLabel = ({
 }) => (
     <>
         <div className="size-lg-12">
-            <div className="size-lg-6">
+            <div className="size-lg-6 size-md-12">
                 <Field name="Building name" required>
                     <TextInputContainer
                         name="name"
@@ -29,7 +29,7 @@ const BuildingFormFieldsNoLabel = ({
                     />
                 </Field>
             </div>
-            <div className="size-lg-6">
+            <div className="size-lg-6 size-md-12">
                 <Field name="Location">
                     <TextInputContainer
                         value={location}
@@ -41,7 +41,7 @@ const BuildingFormFieldsNoLabel = ({
         </div>
 
         <div className="size-lg-12">
-            <div className="size-lg-6">
+            <div className="size-lg-6 size-md-12">
                 <Field name="Send an alert?">
                     <CheckboxContainer
                         checked={isAlertShowing}

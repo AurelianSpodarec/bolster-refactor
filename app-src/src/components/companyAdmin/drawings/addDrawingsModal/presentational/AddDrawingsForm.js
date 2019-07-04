@@ -31,7 +31,9 @@ const AddDrawingsForm = ({
                 <div className="size-lg-12" key={drawing.id}>
                     <div
                         className={
-                            isUsingBolsterLabels ? 'size-lg-6' : 'size-lg-12'
+                            isUsingBolsterLabels
+                                ? 'size-lg-6 size-md-12'
+                                : 'size-lg-12'
                         }
                     >
                         <div className="size-lg-12" key={drawing.id}>
@@ -72,7 +74,7 @@ const AddDrawingsForm = ({
                         </div>
 
                         <div className="size-lg-12">
-                            <div className="size-lg-6">
+                            <div className="size-lg-6 size-md-12">
                                 <Field name="Send an alert?">
                                     <CheckboxContainer
                                         checked={drawing.isAlertShowing}
@@ -131,7 +133,7 @@ const AddDrawingsForm = ({
                         )}
                     </div>
                     {isUsingBolsterLabels && (
-                        <div className="size-lg-6">
+                        <div className="size-lg-6 size-md-12">
                             <BolsterLabelExample name={drawing.name} />
                         </div>
                     )}

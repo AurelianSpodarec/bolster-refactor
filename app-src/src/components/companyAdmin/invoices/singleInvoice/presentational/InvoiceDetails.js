@@ -29,9 +29,9 @@ const InvoiceDetails = ({
             <FieldOutput
                 title="Invoice no"
                 description={`${id}`}
-                sizeClass="size-lg-4"
+                sizeClass="size-lg-4 size-md-12"
             />
-            <FieldOutput title="Date" sizeClass="size-lg-4">
+            <FieldOutput title="Date" sizeClass="size-lg-4 size-md-12">
                 <p>
                     <DateTimeContainer
                         date={createdOn}
@@ -42,31 +42,31 @@ const InvoiceDetails = ({
             <FieldOutput
                 title="Type"
                 description={isRenewal ? 'Renewal' : 'New Purchase'}
-                sizeClass="size-lg-4"
+                sizeClass="size-lg-4 size-md-12"
             />
             <FieldOutput
                 title="Status"
                 description={isPaid ? 'Paid' : 'Not Paid'}
-                sizeClass="size-lg-4"
+                sizeClass="size-lg-4 size-md-12"
             />
             <FieldOutput
                 title="Ordered By"
                 description={`${userFirstName} ${userLastName}`}
-                sizeClass="size-lg-4"
+                sizeClass="size-lg-4 size-md-12"
             />
 
             {isPaid && (
                 <FieldOutput
                     title="Payment Method"
                     description={PAYMENT_TYPES[paymentType]}
-                    sizeClass="size-lg-4"
+                    sizeClass="size-lg-4 size-md-12"
                 />
             )}
 
             <FieldOutput
                 title="Total"
                 description={`${total && formatCurrency(total)} GBP (inc. VAT)`}
-                sizeClass="size-lg-6"
+                sizeClass="size-lg-6 size-md-12"
             />
         </BlockContainer>
     );

@@ -30,7 +30,7 @@ const InviteCompanyForm = ({
         <Form className="generic-form size-lg-12" onSubmit={handleSubmit}>
             <Field
                 name="Enter the company code"
-                sizeClasses="size-lg-6"
+                sizeClasses="size-lg-6 size-md-12"
                 required
             >
                 <TextInputContainer

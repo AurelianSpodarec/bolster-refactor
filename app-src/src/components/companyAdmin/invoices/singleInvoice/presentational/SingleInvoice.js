@@ -18,7 +18,7 @@ const SingleInvoice = ({ id, showModal, hasPayed }) => (
             withBackButton
         />
         <InvoiceDetailsContainer />
-        <BlockContainer containerClass="size-lg-8">
+        <BlockContainer containerClass="size-lg-8 size-md-12">
             <BlockHeading title="Items" />
             <InvoiceItemsTableContainer />
             {!hasPayed && (
@@ -34,7 +34,7 @@ const SingleInvoice = ({ id, showModal, hasPayed }) => (
                 </BlockButtonWrapper>
             )}
         </BlockContainer>
-        <BlockContainer containerClass="size-lg-4">
+        <BlockContainer containerClass="size-lg-4 size-md-12">
             <BlockHeading title="Payments" />
             <InvoicePaymentsTableContainer />
         </BlockContainer>

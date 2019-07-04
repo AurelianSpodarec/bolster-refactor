@@ -11,7 +11,7 @@ const EditServiceModal = ({ name, handleChange, handleSubmit, hideModal }) => (
         <BlockHeading title="Edit Service" />
 
         <Form className="generic-form" onSubmit={handleSubmit}>
-            <div className="size-lg-6">
+            <div className="size-lg-6 size-md-12">
                 <Field name="Service name" required>
                     <TextInputContainer
                         handleChange={handleChange}

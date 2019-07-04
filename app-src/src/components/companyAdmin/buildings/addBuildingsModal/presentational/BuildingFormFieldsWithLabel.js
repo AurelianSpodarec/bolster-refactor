@@ -17,7 +17,7 @@ const BuildingFormFieldsWithLabel = ({
 }) =>
     buildings.map(building => (
         <div key={building.id} className="size-lg-12">
-            <div className="size-lg-6">
+            <div className="size-lg-6 size-md-12">
                 <div className="size-lg-12">
                     <Field name="Building name" required>
                         <TextInputContainer
@@ -43,7 +43,7 @@ const BuildingFormFieldsWithLabel = ({
                 </div>
 
                 <div className="size-lg-12">
-                    <div className="size-lg-6">
+                    <div className="size-lg-6 size-md-12">
                         <Field name="Send an alert?">
                             <CheckboxContainer
                                 checked={building.isAlertShowing}

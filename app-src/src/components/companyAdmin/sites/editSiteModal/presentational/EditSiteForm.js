@@ -27,7 +27,7 @@ const EditSiteForm = ({
 }) => (
     <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
         <div className="size-lg-12">
-            <div className="size-lg-6">
+            <div className="size-lg-6 size-md-12">
                 <Field name="Site name" required>
                     <TextInputContainer
                         name="name"
@@ -38,7 +38,7 @@ const EditSiteForm = ({
                 </Field>
             </div>
 
-            <div className="size-lg-6">
+            <div className="size-lg-6 size-md-12">
                 <Field name="Client name" required>
                     <TextInputContainer
                         value={client}
@@ -51,7 +51,7 @@ const EditSiteForm = ({
         </div>
 
         <div className="size-lg-12">
-            <div className="size-lg-6">
+            <div className="size-lg-6 size-md-12">
                 <Field name="Address line 1" required>
                     <TextInputContainer
                         value={addressLine1}
@@ -62,7 +62,7 @@ const EditSiteForm = ({
                 </Field>
             </div>
 
-            <div className="size-lg-6">
+            <div className="size-lg-6 size-md-12">
                 <Field name="Address line 2">
                     <TextInputContainer
                         value={addressLine2}
@@ -74,7 +74,7 @@ const EditSiteForm = ({
         </div>
 
         <div className="size-lg-12">
-            <div className="size-lg-6">
+            <div className="size-lg-6 size-md-12">
                 <Field name="Postcode" required>
                     <TextInputContainer
                         value={postcode}
@@ -88,7 +88,7 @@ const EditSiteForm = ({
         {isUsingBolsterLabels && <BolsterLabelExample name={name} />}
 
         <div className="size-lg-12">
-            <div className="size-lg-6">
+            <div className="size-lg-6 size-md-12">
                 <Field name="Send an alert?">
                     <CheckboxContainer
                         checked={isAlertShowing}
@@ -102,7 +102,7 @@ const EditSiteForm = ({
 
         {isAlertShowing && (
             <div className="size-lg-12">
-                <div className="size-lg-6">
+                <div className="size-lg-6 size-md-12">
                     <Field name="Alert Message">
                         <TextAreaContainer
                             value={message}
@@ -112,7 +112,7 @@ const EditSiteForm = ({
                     </Field>
                 </div>
 
-                <div className="size-lg-6">
+                <div className="size-lg-6 size-md-12">
                     <Field name="Date to send">
                         <DatePickerPresentational
                             name="dateToSend"

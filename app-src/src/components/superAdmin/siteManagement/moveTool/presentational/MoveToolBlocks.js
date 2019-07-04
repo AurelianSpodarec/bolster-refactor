@@ -13,7 +13,7 @@ const MoveToolBlocks = ({
     handleHierarchyChange
 }) => (
     <>
-        <div className="size-lg-6">
+        <div className="size-lg-6 size-md-12">
             <MoveToolMoveFrom
                 handleChange={handleCompanyOneChange}
                 handleHierarchyChange={handleHierarchyChange}
@@ -23,7 +23,7 @@ const MoveToolBlocks = ({
                 selectedHierarchy={selectedHierarchy}
             />
         </div>
-        <div className="size-lg-6">
+        <div className="size-lg-6 size-md-12">
             <MoveToolMoveTo
                 handleChange={handleChange}
                 companies={companies}

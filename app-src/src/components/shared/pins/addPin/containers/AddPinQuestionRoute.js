@@ -432,7 +432,7 @@ class AddPinQuestionRoute extends Component {
                 <Field
                     key={question.id}
                     name={questionName}
-                    sizeClasses={`${fieldSize} flex-row-item ${extraImageClasses}`}
+                    sizeClasses={`${fieldSize} flex-row-item ${extraImageClasses} size-md-12`}
                     required={isRequired}
                 >
                     <SpecificField
