@@ -137,7 +137,7 @@ const EditDrawingModal = ({
             </div>
             {isUsingBolsterLabels && (
                 <div className="size-lg-6">
-                    <BolsterLabelExample name={name} />
+                    <BolsterLabelExample name={name} hierarchy="Drawing" />
                 </div>
             )}
 

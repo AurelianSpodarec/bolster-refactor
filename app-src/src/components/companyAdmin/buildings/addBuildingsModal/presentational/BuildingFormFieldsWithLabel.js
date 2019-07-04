@@ -92,7 +92,10 @@ const BuildingFormFieldsWithLabel = ({
                 )}
             </div>
             <div className="size-lg-6">
-                <BolsterLabelExample name={building.name} />
+                <BolsterLabelExample
+                    name={building.name}
+                    hierarchy="Building"
+                />
             </div>
             {buildings.length > 1 && (
                 <BlockButtonWrapper>
