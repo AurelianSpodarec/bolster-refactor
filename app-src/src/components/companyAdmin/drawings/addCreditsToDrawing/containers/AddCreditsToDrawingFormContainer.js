@@ -28,10 +28,8 @@ class AddCreditsToDrawingFormContainer extends Component {
     }
 
     componentDidMount = () => {
-        const { drawing } = this.props;
-
         this.setState({
-            expiryDate: moment(drawing.expiresOn).add(1, 'years')
+            expiryDate: this._getNewExpiryDate(1)
         });
     };
 
@@ -47,6 +45,19 @@ class AddCreditsToDrawingFormContainer extends Component {
             });
             fetchCredits();
         }
+    };
+
+    _getNewExpiryDate = yearsToAdd => {
+        const { drawing } = this.props;
+
+        const curDate = moment().format();
+        const drawingExpiresDate = moment(drawing.expiresOn).format();
+        let dateToUpdate = moment(drawing.expiresOn).add(yearsToAdd, 'years');
+
+        if (curDate > drawingExpiresDate)
+            dateToUpdate = moment().add(yearsToAdd, 'years');
+
+        return dateToUpdate;
     };
 
     handleSubmit = () => {
@@ -65,15 +76,11 @@ class AddCreditsToDrawingFormContainer extends Component {
     };
 
     handleCreditsChange = (name, value) => {
-        const {
-            drawing: { expiresOn }
-        } = this.props;
-
         let num = value;
         if (Number(value) <= 0) num = 0;
         this.setState({
             [name]: num,
-            expiryDate: moment(expiresOn).add(num, 'years')
+            expiryDate: this._getNewExpiryDate(num)
         });
     };
 
