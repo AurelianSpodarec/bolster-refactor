@@ -19,7 +19,11 @@ const ForgotPasswordModal = ({
                 subTitle="Please enter the email that you use to log in."
             />
             <Form className="generic-form size-lg-12" onSubmit={handleSubmit}>
-                <Field name="Email Address" sizeClasses="size-lg-6" required>
+                <Field
+                    name="Email Address"
+                    sizeClasses="size-lg-6 size-md-12"
+                    required
+                >
                     <TextInputContainer
                         value={email}
                         name="email"

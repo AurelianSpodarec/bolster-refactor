@@ -41,7 +41,11 @@ const RegisterForm = ({
     <BlockContainer error={error}>
         <BlockHeading title="Register for bolster systems" />
         <Form className="generic-form size-lg-12" onSubmit={handleSubmit}>
-            <Field name="First name" sizeClasses="size-lg-4" required>
+            <Field
+                name="First name"
+                sizeClasses="size-lg-4 size-md-12"
+                required
+            >
                 <TextInputContainer
                     value={firstName}
                     name={'User.firstName'}
@@ -49,7 +53,7 @@ const RegisterForm = ({
                     handleChange={handleChange}
                 />
             </Field>
-            <Field name="Last Name" sizeClasses="size-lg-4" required>
+            <Field name="Last Name" sizeClasses="size-lg-4 size-md-12" required>
                 <TextInputContainer
                     value={lastName}
                     name="User.lastName"
@@ -59,7 +63,7 @@ const RegisterForm = ({
                 />
             </Field>
 
-            <Field name="Email" sizeClasses="size-lg-4" required>
+            <Field name="Email" sizeClasses="size-lg-4 size-md-12" required>
                 <TextInputContainer
                     value={email}
                     name="User.email"
@@ -69,7 +73,7 @@ const RegisterForm = ({
                     handleChange={handleChange}
                 />
             </Field>
-            <Field name="Password" sizeClasses="size-lg-4" required>
+            <Field name="Password" sizeClasses="size-lg-4 size-md-12" required>
                 <TextInputContainer
                     value={password}
                     name="User.password"
@@ -81,7 +85,11 @@ const RegisterForm = ({
                 />
             </Field>
 
-            <Field name="Confirm password" sizeClasses="size-lg-4" required>
+            <Field
+                name="Confirm password"
+                sizeClasses="size-lg-4 size-md-12"
+                required
+            >
                 <TextInputContainer
                     name="confirmPassword"
                     value={confirmPassword}
@@ -93,7 +101,7 @@ const RegisterForm = ({
                 />
             </Field>
 
-            <Field name="Telephone" sizeClasses="size-lg-4" required>
+            <Field name="Telephone" sizeClasses="size-lg-4 size-md-12" required>
                 <TextInputContainer
                     value={phoneNumber}
                     name="Company.phoneNumber"
@@ -102,7 +110,11 @@ const RegisterForm = ({
                     required
                 />
             </Field>
-            <Field name="Business name" sizeClasses="size-lg-4" required>
+            <Field
+                name="Business name"
+                sizeClasses="size-lg-4 size-md-12"
+                required
+            >
                 <TextInputContainer
                     value={name}
                     name="Company.name"
@@ -113,7 +125,7 @@ const RegisterForm = ({
             </Field>
             <Field
                 name="First Line of Address"
-                sizeClasses="size-lg-4"
+                sizeClasses="size-lg-4 size-md-12"
                 required
             >
                 <TextInputContainer
@@ -124,7 +136,7 @@ const RegisterForm = ({
                     required
                 />
             </Field>
-            <Field name="Town/City" sizeClasses="size-lg-4" required>
+            <Field name="Town/City" sizeClasses="size-lg-4 size-md-12" required>
                 <TextInputContainer
                     value={town}
                     name="Company.town"
@@ -133,7 +145,7 @@ const RegisterForm = ({
                     required
                 />
             </Field>
-            <Field name="Postcode" sizeClasses="size-lg-4" required>
+            <Field name="Postcode" sizeClasses="size-lg-4 size-md-12" required>
                 <TextInputContainer
                     value={postcode}
                     name="Company.postcode"
