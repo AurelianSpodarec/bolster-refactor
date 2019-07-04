@@ -1954,7 +1954,7 @@ input {
             color: white;
             background: #78030a;
             cursor: pointer;
-            font-size: 140%;
+            font-size: 130%;
             padding: {
                 top: 8px;
                 bottom: 8px;
@@ -1976,6 +1976,7 @@ input {
             img {
                 float: left;
                 opacity: 0.7;
+                height: 20px;
             }
             span {
                 float: left;
@@ -1993,7 +1994,7 @@ input {
                     padding-left: 15px;
                     width: auto;
                     max-width: calc(100% - 25px);
-                    top: 5px;
+                    top: 3px;
                 }
             }
         }
