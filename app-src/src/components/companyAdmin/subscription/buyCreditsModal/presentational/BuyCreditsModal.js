@@ -140,7 +140,7 @@ const BuyCreditsModal = ({
                         Cancel
                     </ButtonContainer>
                 </BlockButtonWrapper>
-                <div className="size-lg-6">
+                <div className="size-lg-6 size-md-12">
                     <Field name="Agree to terms" required>
                         <p>
                             Please check that you agree with the{' '}

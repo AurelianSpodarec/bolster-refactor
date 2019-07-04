@@ -18,7 +18,7 @@ const EditUserPasswordModal = ({
     <ModalOuterContainer>
         <BlockHeading title="Change Password" />
         <Form className="generic-form" onSubmit={handleSubmit}>
-            <div className="size-lg-6">
+            <div className="size-lg-6 size-md-12">
                 <Field name="Enter New Password" required>
                     <TextInputContainer
                         handleChange={handleChange}
@@ -30,7 +30,7 @@ const EditUserPasswordModal = ({
                     />
                 </Field>
             </div>
-            <div className="size-lg-6">
+            <div className="size-lg-6 size-md-12">
                 <Field name="Confirm Password" required>
                     <TextInputContainer
                         type="password"

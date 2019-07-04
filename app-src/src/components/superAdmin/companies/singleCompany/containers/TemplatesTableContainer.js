@@ -16,13 +16,13 @@ class TemplatesTableContainer extends Component {
 
         return (
             <BlockContainer>
-                <div className="size-lg-6">
+                <div className="size-lg-6 size-md-12">
                     <BlockHeading title="Templates" />
                 </div>
 
                 <BlockButtonWrapper
                     additionalClasses="no-margin"
-                    sizeClasses="size-lg-6"
+                    sizeClasses="size-lg-6 size-md-12"
                 >
                     <button
                         className="button green"

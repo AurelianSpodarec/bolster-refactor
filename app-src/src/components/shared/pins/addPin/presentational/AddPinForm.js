@@ -21,7 +21,11 @@ const AddPinForm = ({
 }) => (
     <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
         <div className="size-lg-12">
-            <Field name="Select a service" sizeClasses="size-lg-6" required>
+            <Field
+                name="Select a service"
+                sizeClasses="size-lg-6 size-md-12"
+                required
+            >
                 <DropdownContainer
                     placeholder="-- select --"
                     name="serviceID"
@@ -37,7 +41,7 @@ const AddPinForm = ({
             <div className="size-lg-12">
                 <Field
                     name="Select a template"
-                    sizeClasses="size-lg-6"
+                    sizeClasses="size-lg-6 size-md-12"
                     required
                 >
                     <DropdownContainer

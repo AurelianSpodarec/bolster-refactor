@@ -22,7 +22,11 @@ const AttachOperativeForm = ({
     <>
         <BlockHeading title="Operative details" />
         <Form className="generic-form size-lg-12" onSubmit={handleSubmit}>
-            <Field name="Select an operative" sizeClasses="size-lg-6" required>
+            <Field
+                name="Select an operative"
+                sizeClasses="size-lg-6 size-md-12"
+                required
+            >
                 <MultiSelect
                     name="companyUserIDs"
                     options={users}

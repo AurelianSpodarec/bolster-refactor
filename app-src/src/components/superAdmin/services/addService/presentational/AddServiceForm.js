@@ -15,7 +15,7 @@ const AddServiceForm = ({
     templateUUIDs
 }) => (
     <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
-        <div className="size-lg-6">
+        <div className="size-lg-6 size-md-12">
             <Field name="Service Name" required>
                 <TextInputContainer
                     name="name"
@@ -25,7 +25,7 @@ const AddServiceForm = ({
                 />
             </Field>
         </div>
-        <div className="size-lg-6">
+        <div className="size-lg-6 size-md-12">
             <Field name="Template attached">
                 <MultiSelect
                     search

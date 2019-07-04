@@ -23,7 +23,11 @@ const FloorEditForm = ({
 }) => (
     <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
         <div className="size-lg-12">
-            <div className={`size-lg-${isUsingBolsterLabels ? '6' : '12'}`}>
+            <div
+                className={`size-lg-${
+                    isUsingBolsterLabels ? '6' : '12'
+                } size-md-12`}
+            >
                 <Field name="floor name" required>
                     <TextInputContainer
                         name="name"
@@ -34,7 +38,7 @@ const FloorEditForm = ({
                 </Field>
 
                 <div className="size-lg-12">
-                    <div className="size-lg-6">
+                    <div className="size-lg-6 size-md-12">
                         <Field name="Send an alert?">
                             <CheckboxContainer
                                 checked={isAlertShowing}
@@ -81,7 +85,7 @@ const FloorEditForm = ({
                 )}
             </div>
             {isUsingBolsterLabels && (
-                <div className="size-lg-6">
+                <div className="size-lg-6 size-md-12">
                     <BolsterLabelExample name={name} />
                 </div>
             )}

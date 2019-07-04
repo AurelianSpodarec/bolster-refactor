@@ -27,7 +27,7 @@ const CreateFloorsForm = ({
                     <div
                         className={`size-lg-${
                             isUsingBolsterLabels ? '6' : '12'
-                        }`}
+                        } size-md-12`}
                         key={floor.id}
                     >
                         <Field name="Floor name" required>
@@ -42,7 +42,7 @@ const CreateFloorsForm = ({
                         </Field>
 
                         <div className="size-lg-12">
-                            <div className="size-lg-6">
+                            <div className="size-lg-6 size-md-12">
                                 <Field name="Send an alert?">
                                     <CheckboxContainer
                                         checked={floor.isAlertShowing}
@@ -95,7 +95,7 @@ const CreateFloorsForm = ({
                         )}
                     </div>
                     {isUsingBolsterLabels && (
-                        <div className="size-lg-6">
+                        <div className="size-lg-6 size-md-12">
                             <BolsterLabelExample name={floor.name} />
                         </div>
                     )}

@@ -216,9 +216,12 @@
     .form-field {
         .checkbox-list {
             .checkbox {
-                width: 50%;
+                width: 100%;
             }
         }
+    }
+    .radio-button {
+        padding: 10px 30px 10px 0;
     }
 
     .checkbox {
@@ -251,6 +254,17 @@
         &.w-left-icon {
             .heading {
                 max-width: 80%;
+            }
+        }
+        .button,
+        .link-holder {
+            margin-bottom: 5px;
+        }
+
+        &.mobile-buttons {
+            .heading {
+                width: 100%;
+                margin-bottom: 10px;
             }
         }
     }
@@ -356,6 +370,7 @@
     }
     .content-area {
         padding: 7.5px;
+        overflow: hidden;
 
         .tab-container {
             position: relative;
@@ -369,6 +384,29 @@
     .back-button {
         margin-bottom: 5px;
     }
+
+    //modals
+    .modal-container {
+        .modal-block {
+            max-height: 100%;
+            position: absolute;
+            top: 50%;
+            left: 10px;
+            width: calc(100% - 20px);
+            overflow: auto;
+            transform: translateY(-50%);
+            p {
+                + .checkbox {
+                    margin-top: 10px;
+                }
+            }
+
+            &.w-label-example {
+                width: calc(100% - 20px);
+            }
+        }
+    }
+
     //pie chart
     .stats {
         &.dashboard {
@@ -470,5 +508,10 @@
     }
     .generic-text.total-text {
         margin-bottom: 10px;
+    }
+
+    // no label examples on mobile
+    .label-example {
+        display: none;
     }
 }

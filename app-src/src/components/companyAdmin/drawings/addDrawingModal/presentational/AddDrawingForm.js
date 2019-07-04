@@ -26,7 +26,7 @@ const AddDrawingForm = ({
 }) => (
     <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
         <div className="size-lg-12">
-            <div className="size-lg-6">
+            <div className="size-lg-6 size-md-12">
                 <Field name="Drawing Name" required>
                     <TextInputContainer
                         name="name"
@@ -38,7 +38,7 @@ const AddDrawingForm = ({
             </div>
         </div>
         <div className="size-lg-12">
-            <div className="size-lg-6">
+            <div className="size-lg-6 size-md-12">
                 <Field name="Upload plan" required>
                     <FileUploadContainer
                         value={file}
@@ -55,7 +55,7 @@ const AddDrawingForm = ({
             </div>
         </div>
         <div className="size-lg-12">
-            <div className="size-lg-6">
+            <div className="size-lg-6 size-md-12">
                 <Field name="Set Template Usage Rule" required>
                     <DropdownContainer
                         placeholder="-- select rule --"
