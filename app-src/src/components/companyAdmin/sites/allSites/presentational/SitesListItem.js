@@ -12,7 +12,9 @@ let SitesListItem = ({
     colCount,
     permissions,
     forwardRef,
-    isDragging
+    isDragging,
+    onMobile,
+    headers
 }) => {
     return (
         <>
@@ -23,6 +25,11 @@ let SitesListItem = ({
                 style={{ opacity: isDragging ? 0 : 1 }}
             >
                 <td>
+                    {onMobile && (
+                        <span className="mobile-table-heading">
+                            {headers[0]}
+                        </span>
+                    )}
                     <i
                         className={`fa fa-chevron-${
                             isExpanded ? 'down' : 'right'
@@ -30,8 +37,24 @@ let SitesListItem = ({
                     />
                     {site.name}
                 </td>
-                <td>{site.ownerCompanyName}</td>
-                <td>{permissions}</td>
+                <td>
+                    {' '}
+                    {onMobile && (
+                        <span className="mobile-table-heading">
+                            {headers[1]}
+                        </span>
+                    )}
+                    {site.ownerCompanyName}
+                </td>
+                <td>
+                    {' '}
+                    {onMobile && (
+                        <span className="mobile-table-heading">
+                            {headers[2]}
+                        </span>
+                    )}
+                    {permissions}
+                </td>
                 <td>
                     <ButtonContainer
                         to={`/company/sites/${site.id}`}

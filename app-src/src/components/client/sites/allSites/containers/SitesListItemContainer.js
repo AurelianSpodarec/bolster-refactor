@@ -9,22 +9,28 @@ const SitesListItemContainer = ({
     dispatch,
     expandedSiteIds,
     site,
-    colCount
+    colCount,
+    headers,
+    onMobile
 }) => (
     <SitesListItem
         site={site}
         isExpanded={expandedSiteIds.includes(site.id)}
         colCount={colCount}
         toggleExpanded={() => dispatch(toggleSiteExpanded(site.id))}
+        headers={headers}
+        onMobile={onMobile}
     />
 );
 
 export default connect(
     ({
         shared: {
-            tablesReducer: { expandedSiteIds }
+            tablesReducer: { expandedSiteIds },
+            mobileReducer: { onMobile }
         }
     }) => ({
-        expandedSiteIds
+        expandedSiteIds,
+        onMobile
     })
 )(SitesListItemContainer);

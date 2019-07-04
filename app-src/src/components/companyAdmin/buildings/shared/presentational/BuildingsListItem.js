@@ -10,7 +10,9 @@ const BuldingsListItem = ({
     colCount,
     permissions,
     forwardRef,
-    isDragging
+    isDragging,
+    headers,
+    onMobile
 }) => (
     <>
         <tr
@@ -20,7 +22,9 @@ const BuldingsListItem = ({
             style={{ opacity: isDragging ? 0 : 1 }}
         >
             <td>
-                {' '}
+                {onMobile && (
+                    <span className="mobile-table-heading">{headers[0]}</span>
+                )}
                 {isExpanded ? (
                     <i className="fa fa-chevron-down" />
                 ) : (
@@ -28,7 +32,13 @@ const BuldingsListItem = ({
                 )}{' '}
                 {building.name}
             </td>
-            <td>{permissions}</td>
+            <td>
+                {' '}
+                {onMobile && (
+                    <span className="mobile-table-heading">{headers[1]}</span>
+                )}
+                {permissions}
+            </td>
             <td>
                 <ButtonContainer
                     to={`/company/buildings/${building.id}`}
