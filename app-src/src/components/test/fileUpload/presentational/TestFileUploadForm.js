@@ -23,7 +23,7 @@ const TestFileUploadForm = ({ handleSubmit, handleChange, file }) => (
 
         <BlockButtonWrapper>
             <button className="button green" type="submit">
-                <i className="fa fa-plus" /> Submit
+                Submit
             </button>
         </BlockButtonWrapper>
     </Form>

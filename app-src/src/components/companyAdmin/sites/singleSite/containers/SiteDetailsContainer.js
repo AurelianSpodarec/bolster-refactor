@@ -56,7 +56,7 @@ class SiteDetailsContainer extends Component {
         if (postSuccess && !prevProps.postSuccess && !deleteSuccess) {
             showModal(SUCCESS_MODAL, {
                 hideModal,
-                message: 'Site edited successfully.'
+                message: 'Site updated successfully.'
             });
         }
 

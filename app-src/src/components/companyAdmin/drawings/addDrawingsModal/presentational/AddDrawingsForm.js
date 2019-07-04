@@ -134,10 +134,10 @@ const AddDrawingsForm = ({
                     </div>
                     {isUsingBolsterLabels && (
                         <div className="size-lg-6 size-md-12">
-                            <BolsterLabelExample
+                            {/* <BolsterLabelExample
                                 name={drawing.name}
                                 hierarchy="Drawing"
-                            />
+                            /> */}
                         </div>
                     )}
 
@@ -164,10 +164,7 @@ const AddDrawingsForm = ({
                 <i className="fa fa-plus" /> Add another drawing
             </button>
 
-            <SubmitContainer
-                withPlus
-                text={`Save Drawing${drawings.length > 1 ? 's' : ''}`}
-            />
+            <SubmitContainer withPlus text={'Submit'} />
             <ButtonContainer handleClick={handleClose}>Cancel</ButtonContainer>
         </BlockButtonWrapper>
     </Form>

@@ -25,7 +25,7 @@ class BuildingsFloorsTableContainer extends Component {
                             className="button green"
                             onClick={this.handleAddFloorsModal}
                         >
-                            <i className="fa fa-plus" /> Add floors
+                            Submit
                         </button>
                     )}
                 </BlockHeading>

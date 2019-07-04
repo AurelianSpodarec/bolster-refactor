@@ -96,10 +96,10 @@ const CreateFloorsForm = ({
                     </div>
                     {isUsingBolsterLabels && (
                         <div className="size-lg-6 size-md-12">
-                            <BolsterLabelExample
+                            {/* <BolsterLabelExample
                                 name={floor.name}
                                 hierarchy="Floor"
-                            />
+                            /> */}
                         </div>
                     )}
                     {floors.length > 1 && (
@@ -125,8 +125,7 @@ const CreateFloorsForm = ({
                 <i className="fa fa-plus" /> Add another floor
             </button>
             <button className="button green" type="submit">
-                <i className="fa fa-plus" /> Save Floor
-                {floors.length > 1 ? 's' : ''}
+                Submit
             </button>
             <ButtonContainer handleClick={handleClose}>Cancel</ButtonContainer>
         </BlockButtonWrapper>

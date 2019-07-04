@@ -22,7 +22,7 @@ const EditServiceModal = ({ name, handleChange, handleSubmit, hideModal }) => (
                 </Field>
             </div>
             <BlockButtonWrapper>
-                <button className="button">Save</button>
+                <button className="button">Submit</button>
                 <button className="button" onClick={hideModal}>
                     Cancel
                 </button>

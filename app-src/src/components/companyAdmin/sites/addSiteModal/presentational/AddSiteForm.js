@@ -5,7 +5,7 @@ import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/pr
 import Form from 'components/shared/generic/form/containers/Form';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
-import BolsterLabelExample from 'components/shared/generic/form/presentational/BolsterLabelExample';
+// import BolsterLabelExample from 'components/shared/generic/form/presentational/BolsterLabelExample';
 import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
 import TextAreaContainer from 'components/shared/generic/form/containers/TextAreaContainer';
 import DatePickerPresentational from 'components/shared/generic/form/presentational/DatePicker';
@@ -82,9 +82,11 @@ const AddSiteForm = ({
                 </Field>
             </div>
         </div>
-        {isUsingBolsterLabels && (
-            <BolsterLabelExample name={name} hierarchy="Site" />
-        )}
+        {/* {isUsingBolsterLabels &&
+            {
+                 <BolsterLabelExample name={name} hierarchy="Site" /> 
+                
+            }} */}
 
         <div className="size-lg-12">
             <div className="size-lg-6 size-md-12">
@@ -126,9 +128,7 @@ const AddSiteForm = ({
         )}
 
         <BlockButtonWrapper>
-            <button className="button green">
-                <i className="fa fa-plus" /> Add Site
-            </button>
+            <button className="button green">Submit</button>
             <ButtonContainer handleClick={hideModal}>Cancel</ButtonContainer>
         </BlockButtonWrapper>
     </Form>
