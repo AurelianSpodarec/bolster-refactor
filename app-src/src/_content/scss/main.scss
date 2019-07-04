@@ -3668,7 +3668,12 @@ input {
     i {
         position: absolute;
         right: 7px;
-        @include vertical-center;
+        top: 8px;
+    }
+
+    .react-datepicker-popper {
+        position: relative !important;
+        margin-top: 0 !important;
     }
 }
 
