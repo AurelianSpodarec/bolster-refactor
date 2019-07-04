@@ -766,16 +766,21 @@ input {
     .logo {
         float: left;
         width: 194px;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        flex-flow: column;
 
         a {
             float: left;
             width: 100%;
             padding: 5px 10px;
             text-align: center;
+            display: flex;
         }
 
         img {
-            height: 49px;
+            max-height: 49px;
             max-width: 100%;
         }
     }
@@ -2261,6 +2266,7 @@ input {
             > td {
                 padding: {
                     bottom: 0;
+                    top: 0;
                 }
             }
         }
