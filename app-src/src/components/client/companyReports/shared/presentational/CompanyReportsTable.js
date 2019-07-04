@@ -8,7 +8,8 @@ const CompanyReportsTable = ({
     companyReports,
     headers,
     isFetching,
-    error
+    error,
+    onMobile
 }) => (
     <>
         <BlockHeading title="Reports Table">
@@ -23,7 +24,11 @@ const CompanyReportsTable = ({
             noData={!companyReports.length}
             noDataMessage="No company reports to display."
         >
-            <CompanyReportsList companyReports={companyReports} />
+            <CompanyReportsList
+                companyReports={companyReports}
+                onMobile={onMobile}
+                headers={headers}
+            />
         </Table>
     </>
 );

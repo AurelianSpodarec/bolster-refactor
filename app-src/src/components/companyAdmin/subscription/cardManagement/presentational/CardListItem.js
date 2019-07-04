@@ -7,24 +7,69 @@ import StatusIcon from 'components/shared/generic/statusIcon/presentationl/Statu
 const CardListItem = ({
     card: { expMonth, expYear, isPrimary, lastFour, name, id, nickname },
     setPrimaryCard,
+    onMobile,
+    headers,
     deleteCard
 }) => {
     const expMonthString = expMonth + '';
 
     return (
         <tr>
-            <td>{name}</td>
-            <td>{nickname}</td>
-            <td>{`XXXX-XXXX-XXXX-${lastFour}`}</td>
-            <td>{`${expMonthString.padStart(2, '0')}/${expYear}`}</td>
-            <td className="center-align">
-                {isPrimary ? (
-                    <StatusIcon />
-                ) : (
-                    <StatusIcon classes="times" iconClass="fa fa-times" />
+            <td>
+                {' '}
+                {onMobile && (
+                    <span className="mobile-table-heading">{headers[0]}</span>
                 )}
+                {name}
             </td>
             <td>
+                {' '}
+                {onMobile && (
+                    <span className="mobile-table-heading">{headers[1]}</span>
+                )}
+                {nickname}
+            </td>
+            <td>
+                {' '}
+                {onMobile && (
+                    <span className="mobile-table-heading">{headers[2]}</span>
+                )}
+                {`XXXX-XXXX-XXXX-${lastFour}`}
+            </td>
+            <td>
+                {' '}
+                {onMobile && (
+                    <span className="mobile-table-heading">{headers[3]}</span>
+                )}
+                {`${expMonthString.padStart(2, '0')}/${expYear}`}
+            </td>
+            {onMobile ? (
+                <td>
+                    {onMobile && (
+                        <span className="mobile-table-heading">
+                            {headers[4]}
+                        </span>
+                    )}
+                    {isPrimary ? (
+                        <StatusIcon />
+                    ) : (
+                        <StatusIcon classes="times" iconClass="fa fa-times" />
+                    )}
+                </td>
+            ) : (
+                <td className="center-align">
+                    {isPrimary ? (
+                        <StatusIcon />
+                    ) : (
+                        <StatusIcon classes="times" iconClass="fa fa-times" />
+                    )}
+                </td>
+            )}
+
+            <td>
+                {onMobile && (
+                    <span className="mobile-table-heading">{headers[5]}</span>
+                )}
                 <BlockButtonWrapper additionalClasses="card-buttons">
                     {!isPrimary && (
                         <ButtonContainer handleClick={setPrimaryCard}>
