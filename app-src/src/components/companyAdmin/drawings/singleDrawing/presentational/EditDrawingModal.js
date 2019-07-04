@@ -66,7 +66,11 @@ const EditDrawingModal = ({
         )}
 
         <Form className="generic-form" onSubmit={handleSubmit}>
-            <div className={isUsingBolsterLabels ? 'size-lg-6' : 'size-lg-12'}>
+            <div
+                className={
+                    isUsingBolsterLabels ? 'size-lg-6 size-md-12' : 'size-lg-12'
+                }
+            >
                 <Field name="Drawing name" required>
                     <TextInputContainer
                         name="name"
@@ -85,7 +89,7 @@ const EditDrawingModal = ({
                 </Field>
 
                 <div className="size-lg-12">
-                    <div className="size-lg-6">
+                    <div className="size-lg-6 size-md-12">
                         <Field name="Send an alert?">
                             <CheckboxContainer
                                 checked={isAlertShowing}
@@ -103,7 +107,7 @@ const EditDrawingModal = ({
                             className={
                                 isUsingBolsterLabels
                                     ? 'size-lg-12'
-                                    : 'size-lg-6'
+                                    : 'size-lg-6 size-md-12'
                             }
                         >
                             <Field name="Alert Message">
@@ -119,7 +123,7 @@ const EditDrawingModal = ({
                             className={
                                 isUsingBolsterLabels
                                     ? 'size-lg-12'
-                                    : 'size-lg-6'
+                                    : 'size-lg-6 size-md-12'
                             }
                         >
                             <Field name="Date to send">
@@ -136,7 +140,7 @@ const EditDrawingModal = ({
                 )}
             </div>
             {isUsingBolsterLabels && (
-                <div className="size-lg-6">
+                <div className="size-lg-6 size-md-12">
                     <BolsterLabelExample name={name} hierarchy="Drawing" />
                 </div>
             )}

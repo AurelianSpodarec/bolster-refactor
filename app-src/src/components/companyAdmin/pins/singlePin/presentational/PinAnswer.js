@@ -110,7 +110,7 @@ const PinAnswer = ({
         <FieldOutput
             title={question.name}
             key={question.id}
-            sizeClass="size-lg-4 flex-row-item"
+            sizeClass="size-lg-4 size-md-12 flex-row-item"
         >
             {inner}
         </FieldOutput>

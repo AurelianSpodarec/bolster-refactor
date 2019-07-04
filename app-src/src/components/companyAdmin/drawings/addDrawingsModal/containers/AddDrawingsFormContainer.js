@@ -28,23 +28,14 @@ const AddDrawingsFormContainer = ({
     ] = useMultipleHierarchies({
         name: '',
         file: '',
-        templateUsageRule: '',
         isAlertShowing: false,
         message: '',
         dateToSend: ''
     });
 
-    const templateUsageRuleOptions = {
-        '1': { text: 'Use Only Owner Company', value: 1 },
-        '2': { text: 'Use Only Own', value: 2 },
-        '3': { text: 'Use Any', value: 3 }
-    };
-
     return (
         <AddDrawingsForm
             drawings={Object.values(drawings)}
-            templateUsageRuleOptions={templateUsageRuleOptions}
-            templateUsageRules={Object.values(templateUsageRuleOptions)}
             updateDrawing={updateDrawing}
             addDrawing={addDrawing}
             removeDrawing={removeDrawing}
@@ -68,20 +59,18 @@ const AddDrawingsFormContainer = ({
                     file,
                     isAlertShowing,
                     message,
-                    dateToSend,
-                    templateUsageRule
+                    dateToSend
                 } = drawing;
 
                 isAlertShowing
                     ? createDrawing({
                           name,
                           file,
-                          templateUsageRule,
                           message,
                           dateToSend,
                           floorID
                       })
-                    : createDrawing({ name, file, templateUsageRule, floorID });
+                    : createDrawing({ name, file, floorID });
             } else if (drawings.length > 1) {
                 createDrawings({ drawings, floorID });
             }

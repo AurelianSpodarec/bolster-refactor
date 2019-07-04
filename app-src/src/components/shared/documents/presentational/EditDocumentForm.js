@@ -43,9 +43,7 @@ const EditDocumentForm = ({
     file
 }) => (
     <>
-        <PageHeading leftChildren={true} title="Edit Document">
-            <BackButtonContainer />
-        </PageHeading>
+        <PageHeading leftChildren={true} title="Edit Document" withBackButton />
 
         <BlockContainer>
             <BlockHeading title="Document Details" />
@@ -84,7 +82,11 @@ const EditDocumentForm = ({
                         handleInputChange={handleInputChange}
                     />
                 </Field>
-                <Field name="Name of document" sizeClasses="size-lg-4" required>
+                <Field
+                    name="Name of document"
+                    sizeClasses="size-lg-4 size-md-12"
+                    required
+                >
                     <TextInputContainer
                         value={name}
                         name="name"
@@ -96,7 +98,7 @@ const EditDocumentForm = ({
                 </Field>
 
                 <div className="size-lg-12">
-                    <div className="size-lg-6">
+                    <div className="size-lg-6 size-md-12">
                         {!isFileViewHidden ? (
                             <Field name="Attached file">
                                 <FileView
@@ -177,7 +179,7 @@ const EditDocumentForm = ({
                         </Field>
                         {type === '3' && (
                             <div className="size-lg-12">
-                                <div className="size-lg-6">
+                                <div className="size-lg-6 size-md-12">
                                     <Field name="Agreeance frequency (days)">
                                         <TextInputContainer
                                             name="agreeanceEveryXDays"

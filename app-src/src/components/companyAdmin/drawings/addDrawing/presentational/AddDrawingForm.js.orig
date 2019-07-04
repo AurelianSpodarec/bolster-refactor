@@ -8,19 +8,17 @@ import TextInputContainer from 'components/shared/generic/form/containers/TextIn
 import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
 import TooltipContainer from 'components/shared/generic/tooltip/containers/TooltipContainer';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
-// import BolsterLabelExample from 'components/shared/generic/form/presentational/BolsterLabelExample';
 
 const AddDrawingForm = ({
     handleSubmit,
     handleInputChange,
     handleFileChange,
     filesUploading,
+    floorID,
     name,
     file,
     credits,
-    handleBuyCreditsModal,
-    handleClose,
-    isUsingBolsterLabels
+    handleBuyCreditsModal
 }) => (
     <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
         <div className="size-lg-12">
@@ -45,15 +43,27 @@ const AddDrawingForm = ({
                         acceptedTypes={['application/pdf', 'image/*']}
                         handleChange={handleFileChange}
                     />
-                    <p className="size-lg-12">
-                        This can be changed free of charge for 24 hours after
-                        creation.
-                    </p>
                 </Field>
             </div>
         </div>
-
-        {/* {isUsingBolsterLabels && <BolsterLabelExample name={name} />} */}
+<<<<<<< HEAD
+        <div className="size-lg-12">
+            <div className="size-lg-6 size-md-12">
+                <Field name="Set Template Usage Rule" required>
+                    <DropdownContainer
+                        placeholder="-- select rule --"
+                        name="templateUsageRule"
+                        options={templateUsageRules}
+                        value={selectedRule}
+                        selectedOption={selectedRule}
+                        handleChange={handleInputChange}
+                        required
+                    />
+                </Field>
+            </div>
+        </div>
+=======
+>>>>>>> cdfd823aff09e2cf9e0f45c71765e16e548437c4
 
         <BlockButtonWrapper>
             {credits > 0 ? (
@@ -73,18 +83,19 @@ const AddDrawingForm = ({
             ) : (
                 <TooltipContainer
                     side="top"
-                    text="You must have credits to add a drawing. Click to buy credits."
+                    text="You must have credits to add a drawing."
                 >
-                    <button
-                        onClick={handleBuyCreditsModal}
+                    <ButtonContainer
+                        handleClick={handleBuyCreditsModal}
                         className="button red"
-                        type="button"
                     >
                         No credits available
-                    </button>
+                    </ButtonContainer>
                 </TooltipContainer>
             )}
-            <ButtonContainer handleClick={handleClose}>Cancel</ButtonContainer>
+            <ButtonContainer to={`/company/floors/${floorID}`}>
+                Cancel
+            </ButtonContainer>
         </BlockButtonWrapper>
     </Form>
 );

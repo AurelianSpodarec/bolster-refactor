@@ -52,7 +52,24 @@ const AddDrawingForm = ({
                 </Field>
             </div>
         </div>
-
+<<<<<<< HEAD
+        <div className="size-lg-12">
+            <div className="size-lg-6 size-md-12">
+                <Field name="Set Template Usage Rule" required>
+                    <DropdownContainer
+                        placeholder="-- select rule --"
+                        name="templateUsageRule"
+                        options={templateUsageRules}
+                        value={selectedRule}
+                        selectedOption={selectedRule}
+                        handleChange={handleInputChange}
+                        required
+                    />
+                </Field>
+            </div>
+        </div>
+=======
+>>>>>>> cdfd823aff09e2cf9e0f45c71765e16e548437c4
         {/* {isUsingBolsterLabels && <BolsterLabelExample name={name} />} */}
 
         <BlockButtonWrapper>

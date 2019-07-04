@@ -12,7 +12,7 @@ import {
     ADMIN_MOVE_DRAWING_REQUEST,
     ADMIN_MOVE_DRAWING_SUCCESS,
     ADMIN_MOVE_DRAWING_FAILURE
-} from 'constants/actionTypes/siteManagement';
+} from 'constants/actionTypes/moveTool';
 
 export default combineReducers({
     selectedHierarchy: selectedHierarchyReducer,

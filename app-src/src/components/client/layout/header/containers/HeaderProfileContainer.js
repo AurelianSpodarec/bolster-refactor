@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { GENERATION_STATE_VAL } from 'constants/companyAdmin/enums';
 
+import { GENERATION_STATE_VAL } from 'constants/companyAdmin/enums';
 import HeaderProfile from '../presentational/HeaderProfile';
 import { logout } from 'actions/shared/auth/sync/logout';
+import { toggleMobileMenu } from 'actions/shared/mobile/sync/toggleMobileMenu';
 
 class HeaderProfileContainer extends Component {
     state = {
@@ -72,7 +73,8 @@ const mapStateToProps = ({
     },
     superAdmin: { companyReportsReducer },
     shared: {
-        profileReducer
+        profileReducer,
+        mobileReducer: { menuOpen }
         // decodeJWTReducer: {
         //     jwtData: {}
         // }
@@ -82,12 +84,13 @@ const mapStateToProps = ({
     profile: profileReducer.profile || {},
     companyReportsLength: Object.values(
         companyReportsReducer.companyReports
-    ).filter(item => item.state === GENERATION_STATE_VAL.WAITING).length
+    ).filter(item => item.state === GENERATION_STATE_VAL.WAITING).length,
+    menuOpen
 });
 
 export default withRouter(
     connect(
         mapStateToProps,
-        { logout }
+        { logout, toggleMobileMenu }
     )(HeaderProfileContainer)
 );

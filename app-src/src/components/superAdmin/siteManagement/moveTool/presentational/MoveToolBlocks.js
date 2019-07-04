@@ -1,8 +1,8 @@
 import React from 'react';
-import SiteManagementMoveFrom from './SiteManagementMoveFrom';
-import SiteManagementMoveTo from './SiteManagementMoveTo';
+import MoveToolMoveFrom from './MoveToolMoveFrom';
+import MoveToolMoveTo from './MoveToolMoveTo';
 
-const SiteManagementBlocks = ({
+const MoveToolBlocks = ({
     companies,
     moveFromCompany,
     moveToCompany,
@@ -13,8 +13,8 @@ const SiteManagementBlocks = ({
     handleHierarchyChange
 }) => (
     <>
-        <div className="size-lg-6">
-            <SiteManagementMoveFrom
+        <div className="size-lg-6 size-md-12">
+            <MoveToolMoveFrom
                 handleChange={handleCompanyOneChange}
                 handleHierarchyChange={handleHierarchyChange}
                 companies={companies}
@@ -23,8 +23,8 @@ const SiteManagementBlocks = ({
                 selectedHierarchy={selectedHierarchy}
             />
         </div>
-        <div className="size-lg-6">
-            <SiteManagementMoveTo
+        <div className="size-lg-6 size-md-12">
+            <MoveToolMoveTo
                 handleChange={handleChange}
                 companies={companies}
                 moveFromCompany={moveFromCompany}
@@ -35,4 +35,4 @@ const SiteManagementBlocks = ({
     </>
 );
 
-export default SiteManagementBlocks;
+export default MoveToolBlocks;

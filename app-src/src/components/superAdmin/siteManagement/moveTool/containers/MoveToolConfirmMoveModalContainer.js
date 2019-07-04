@@ -1,19 +1,19 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import SiteManagementConfirmMoveModal from '../presentational/SiteManagementConfirmMoveModal';
+import MoveToolConfirmMoveModal from '../presentational/MoveToolConfirmMoveModal';
 import { HIERARCHY_IDS } from 'constants/companyAdmin/enums';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
-import moveBuilding from 'actions/superAdmin/siteManagement/async/moveBuilding';
-import moveFloor from 'actions/superAdmin/siteManagement/async/moveFloor';
-import moveDrawing from 'actions/superAdmin/siteManagement/async/moveDrawing';
+import moveBuilding from 'actions/superAdmin/moveTool/async/moveBuilding';
+import moveFloor from 'actions/superAdmin/moveTool/async/moveFloor';
+import moveDrawing from 'actions/superAdmin/moveTool/async/moveDrawing';
 
-class SiteManagementConfirmMoveModalContainer extends Component {
+class MoveToolConfirmMoveModalContainer extends Component {
     render() {
         const { moveToName } = this.props;
 
         return (
-            <SiteManagementConfirmMoveModal
+            <MoveToolConfirmMoveModal
                 moveFromName={this._getMoveFromName()}
                 moveToName={moveToName}
                 hideModal={this.hideModal}
@@ -99,7 +99,7 @@ const mapStateToProps = ({
         buildingsReducer: { buildings },
         floorsReducer: { floors },
         drawingsReducer: { drawings },
-        siteManagementReducer: {
+        moveToolReducer: {
             selectedHierarchy,
             selectedOption,
             isPosting,
@@ -137,4 +137,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(SiteManagementConfirmMoveModalContainer);
+)(MoveToolConfirmMoveModalContainer);

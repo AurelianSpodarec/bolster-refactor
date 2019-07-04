@@ -4,7 +4,7 @@ import {
     ADMIN_MOVE_FLOOR_REQUEST,
     ADMIN_MOVE_FLOOR_SUCCESS,
     ADMIN_MOVE_FLOOR_FAILURE
-} from 'constants/actionTypes/siteManagement';
+} from 'constants/actionTypes/moveTool';
 import { ADMIN_API_URL } from 'config';
 import setAPIFieldErrors from 'actions/shared/generic/fieldErrors/sync/setAPIFieldErrors';
 import { getHeaders } from 'helpers/api';

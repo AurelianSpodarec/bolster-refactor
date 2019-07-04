@@ -98,7 +98,7 @@ const Floors = ({ floors, handleSelectOption, isFetching }) => {
     );
 };
 
-class SiteManagementMoveFromOptionsRoute extends Component {
+class MoveToolMoveFromOptionsRoute extends Component {
     render() {
         const {
             hierarchyID,
@@ -159,7 +159,7 @@ const mapStateToProps = ({
         sitesReducer: { sites, isFetching: isFetchingSites },
         buildingsReducer: { buildings, isFetching: isFetchingBuildings },
         floorsReducer: { floors, isFetching: isFetchingFloors },
-        siteManagementReducer: { selectedOption }
+        moveToolReducer: { selectedOption }
     }
 }) => ({
     sites: Object.values(sites),
@@ -176,4 +176,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(SiteManagementMoveFromOptionsRoute);
+)(MoveToolMoveFromOptionsRoute);

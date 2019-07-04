@@ -22,8 +22,6 @@ const AddDrawingsForm = ({
     addDrawing,
     removeDrawing,
     handleClose,
-    templateUsageRules,
-    templateUsageRuleOptions,
     isUsingBolsterLabels,
     filesUploading
 }) => (
@@ -33,7 +31,9 @@ const AddDrawingsForm = ({
                 <div className="size-lg-12" key={drawing.id}>
                     <div
                         className={
-                            isUsingBolsterLabels ? 'size-lg-6' : 'size-lg-12'
+                            isUsingBolsterLabels
+                                ? 'size-lg-6 size-md-12'
+                                : 'size-lg-12'
                         }
                     >
                         <div className="size-lg-12" key={drawing.id}>
@@ -72,32 +72,9 @@ const AddDrawingsForm = ({
                                 </p>
                             </Field>
                         </div>
-                        <div className="size-lg-12">
-                            <Field name="Set Template Usage Rule" required>
-                                <DropdownContainer
-                                    placeholder="-- select rule --"
-                                    name={`${drawing.id}.*.templateUsageRule`}
-                                    options={templateUsageRules}
-                                    value={
-                                        templateUsageRuleOptions[
-                                            drawing.templateUsageRule
-                                        ]
-                                    }
-                                    selectedOption={
-                                        templateUsageRuleOptions[
-                                            drawing.templateUsageRule
-                                        ]
-                                    }
-                                    handleChange={(name, value) =>
-                                        updateDrawing(name, value, drawing.id)
-                                    }
-                                    required
-                                />
-                            </Field>
-                        </div>
 
                         <div className="size-lg-12">
-                            <div className="size-lg-6">
+                            <div className="size-lg-6 size-md-12">
                                 <Field name="Send an alert?">
                                     <CheckboxContainer
                                         checked={drawing.isAlertShowing}
@@ -156,7 +133,7 @@ const AddDrawingsForm = ({
                         )}
                     </div>
                     {isUsingBolsterLabels && (
-                        <div className="size-lg-6">
+                        <div className="size-lg-6 size-md-12">
                             <BolsterLabelExample
                                 name={drawing.name}
                                 hierarchy="Drawing"

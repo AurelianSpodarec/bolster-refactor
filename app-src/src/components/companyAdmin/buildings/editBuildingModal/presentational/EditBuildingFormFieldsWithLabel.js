@@ -19,7 +19,7 @@ const BuildingFormFieldsWithLabel = ({
     dateToSend
 }) => (
     <>
-        <div className="size-lg-6">
+        <div className="size-lg-6 size-md-12">
             <div className="size-lg-12">
                 <Field name="Building name" required>
                     <TextInputContainer
@@ -41,7 +41,7 @@ const BuildingFormFieldsWithLabel = ({
             </div>
 
             <div className="size-lg-12">
-                <div className="size-lg-6">
+                <div className="size-lg-6 size-md-12">
                     <Field name="Send an alert?">
                         <CheckboxContainer
                             checked={isAlertShowing}
@@ -79,7 +79,7 @@ const BuildingFormFieldsWithLabel = ({
                 </div>
             )}
         </div>
-        <div className="size-lg-6">
+        <div className="size-lg-6 size-md-12">
             <BolsterLabelExample name={name} hierarchy="Building" />
         </div>
     </>

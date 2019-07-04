@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+
+import { toggleMobileMenu } from 'actions/shared/mobile/sync/toggleMobileMenu';
 
 class MenuItemContainer extends Component {
     render() {
@@ -19,7 +22,10 @@ class MenuItemContainer extends Component {
             : route.toLowerCase().includes(link.toLowerCase());
 
         return (
-            <div className={`item ${isActive ? 'active' : ''}`}>
+            <div
+                className={`item ${isActive ? 'active' : ''}`}
+                onClick={() => this._toggleMobileMenu()}
+            >
                 {external ? (
                     <a href={link}>{children}</a>
                 ) : logout ? (
@@ -44,6 +50,31 @@ class MenuItemContainer extends Component {
             history.replace('/auth/login');
         }
     };
+    _toggleMobileMenu = () => {
+        const { onMobile, toggleMobileMenu } = this.props;
+        if (onMobile) {
+            toggleMobileMenu();
+        } else {
+            return;
+        }
+    };
 }
 
-export default withRouter(MenuItemContainer);
+const mapDispatchToProps = dispatch => ({
+    toggleMobileMenu: () => dispatch(toggleMobileMenu())
+});
+
+const mapStateToProps = ({
+    shared: {
+        mobileReducer: { onMobile }
+    }
+}) => ({
+    onMobile
+});
+
+export default withRouter(
+    connect(
+        mapStateToProps,
+        mapDispatchToProps
+    )(MenuItemContainer)
+);

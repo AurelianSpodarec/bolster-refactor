@@ -21,7 +21,7 @@ const CreateOperativeAlertForm = ({
 }) => (
     <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
         <div className="size-lg-12">
-            <div className="size-lg-6">
+            <div className="size-lg-6 size-md-12">
                 <Field name="Message" required>
                     <TextAreaContainer
                         name="message"
@@ -32,7 +32,7 @@ const CreateOperativeAlertForm = ({
                     />
                 </Field>
             </div>
-            <div className="size-lg-6">
+            <div className="size-lg-6 size-md-12">
                 <Field name="Send to">
                     <Select
                         name="filterOptionsVal"
@@ -42,7 +42,7 @@ const CreateOperativeAlertForm = ({
                     />
                 </Field>
             </div>
-            <div className="size-lg-6">
+            <div className="size-lg-6 size-md-12">
                 {filterOptionsVal === 1 && (
                     <Field name="Choose site">
                         <Select
@@ -72,7 +72,7 @@ const CreateOperativeAlertForm = ({
             <button className="button green">
                 <i className="far fa-bell" /> Send Alert
             </button>
-            <ButtonContainer to="/company/tools/operative-alerts">
+            <ButtonContainer to="/company/message-centre">
                 Cancel
             </ButtonContainer>
         </BlockButtonWrapper>

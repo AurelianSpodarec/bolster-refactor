@@ -41,7 +41,7 @@ const AddHeadquartersCompanyForm = ({
         {/* company information */}
         <BlockHeading title="Company information" />
         <div className="size-lg-12">
-            <div className="size-lg-6">
+            <div className="size-lg-6 size-md-12">
                 <Field name="Company name" required>
                     <TextInputContainer
                         name="Company.name"
@@ -53,7 +53,7 @@ const AddHeadquartersCompanyForm = ({
             </div>
         </div>
         <div className="size-lg-12">
-            <div className="size-lg-6">
+            <div className="size-lg-6 size-md-12">
                 <Field name="Address" required>
                     <TextInputContainer
                         name="Company.addressLine1"
@@ -63,7 +63,7 @@ const AddHeadquartersCompanyForm = ({
                     />
                 </Field>
             </div>
-            <div className="size-lg-6">
+            <div className="size-lg-6 size-md-12">
                 <Field name="Town" required>
                     <TextInputContainer
                         name="Company.town"
@@ -73,7 +73,7 @@ const AddHeadquartersCompanyForm = ({
                     />
                 </Field>
             </div>
-            <div className="size-lg-6">
+            <div className="size-lg-6 size-md-12">
                 <Field name="Postcode" required>
                     <TextInputContainer
                         name="Company.postcode"
@@ -85,7 +85,7 @@ const AddHeadquartersCompanyForm = ({
             </div>
         </div>
         <div className="size-lg-12">
-            <div className="size-lg-6">
+            <div className="size-lg-6 size-md-12">
                 <Field name="VAT Type" required>
                     <NewSelect
                         options={vatOptions}
@@ -97,7 +97,7 @@ const AddHeadquartersCompanyForm = ({
                     />
                 </Field>
             </div>
-            <div className="size-lg-6">
+            <div className="size-lg-6 size-md-12">
                 {vatType !== VAT_TYPES.OUTSIDEEU && (
                     <Field
                         name="VAT Code"
@@ -138,7 +138,7 @@ const AddHeadquartersCompanyForm = ({
         {/* first user information */}
         <BlockHeading title="Company user information" />
         <div className="size-lg-12">
-            <div className="size-lg-6">
+            <div className="size-lg-6 size-md-12">
                 <Field name="First name" required>
                     <TextInputContainer
                         name="User.firstName"
@@ -148,7 +148,7 @@ const AddHeadquartersCompanyForm = ({
                     />
                 </Field>
             </div>
-            <div className="size-lg-6">
+            <div className="size-lg-6 size-md-12">
                 <Field name="Last name" required>
                     <TextInputContainer
                         name="User.lastName"
@@ -158,7 +158,7 @@ const AddHeadquartersCompanyForm = ({
                     />
                 </Field>
             </div>
-            <div className="size-lg-6">
+            <div className="size-lg-6 size-md-12">
                 <Field name="Email Address" required>
                     <TextInputContainer
                         name="User.email"
@@ -169,7 +169,7 @@ const AddHeadquartersCompanyForm = ({
                     />
                 </Field>
             </div>
-            <div className="size-lg-6">
+            <div className="size-lg-6 size-md-12">
                 <Field name="Phone number" required>
                     <TextInputContainer
                         name="Company.phoneNumber"
@@ -180,7 +180,7 @@ const AddHeadquartersCompanyForm = ({
                 </Field>
             </div>
             <div className="size-lg-12">
-                <div className="size-lg-6">
+                <div className="size-lg-6 size-md-12">
                     <Field name="Password" required>
                         <TextInputContainer
                             name="User.password"
@@ -192,7 +192,7 @@ const AddHeadquartersCompanyForm = ({
                         />
                     </Field>
                 </div>
-                <div className="size-lg-6">
+                <div className="size-lg-6 size-md-12">
                     <Field name="Confirm password" required>
                         <TextInputContainer
                             name="confirmPassword"

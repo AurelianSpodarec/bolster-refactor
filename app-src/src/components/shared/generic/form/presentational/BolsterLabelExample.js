@@ -13,13 +13,13 @@ const BolsterLabelExample = ({ name, hierarchy }) => (
             below is how this will look.
         </p>
         <div className="label-example-container size-lg-12">
-            <div className="label-example size-lg-6">
+            <div className="label-example size-lg-6 size-md-12">
                 <img alt="example label standard" src={standardLabel} />
                 <p className="label-content-small">
                     {hierarchy}: {name}
                 </p>
             </div>
-            <div className="label-example size-lg-6">
+            <div className="label-example size-lg-6 size-md-12">
                 <img alt="example label small" src={trimLabel} />
                 <p className="label-content-small for-trim">
                     {hierarchy}: {name}
