@@ -3,9 +3,9 @@ import Block from 'components/shared/generic/block/presentational/Block';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import Select from 'components/shared/generic/form/presentational/Select';
 import Field from 'components/shared/generic/form/presentational/Field';
-import SiteManagementMoveFromOptionsRoute from '../containers/SiteManagementMoveFromOptionsRoute';
+import MoveToolMoveFromOptionsRoute from '../containers/MoveToolMoveFromOptionsRoute';
 
-const SiteManagementMoveFrom = ({
+const MoveToolMoveFrom = ({
     handleChange,
     handleHierarchyChange,
     companies,
@@ -39,11 +39,11 @@ const SiteManagementMoveFrom = ({
             </Field>
         )}
 
-        <SiteManagementMoveFromOptionsRoute
+        <MoveToolMoveFromOptionsRoute
             hierarchyID={selectedHierarchy}
             companyID={selectedCompany}
         />
     </Block>
 );
 
-export default SiteManagementMoveFrom;
+export default MoveToolMoveFrom;

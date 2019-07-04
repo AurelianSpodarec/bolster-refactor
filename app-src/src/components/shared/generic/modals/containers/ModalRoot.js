@@ -139,7 +139,7 @@ import ForgotPasswordModalContainer from 'components/auth/forgotPasswordModal/co
 import AddCreditsToDrawingModal from 'components/companyAdmin/drawings/addCreditsToDrawing/presentational/AddCreditsToDrawingModal';
 import DeleteDemoRequestModalContainer from 'components/superAdmin/demoRequests/containers/DeleteDemoRequestModalContainer';
 import SOSGenerationModal from 'components/superAdmin/sosManagement/sosGenerationModal/presentational/SOSGenerationModal';
-import SiteManagementConfirmMoveModalContainer from 'components/superAdmin/siteManagement/siteManagement/containers/SiteManagementConfirmMoveModalContainer';
+import SiteManagementConfirmMoveModalContainer from 'components/superAdmin/siteManagement/moveTool/containers/MoveToolConfirmMoveModalContainer';
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModalContainer,

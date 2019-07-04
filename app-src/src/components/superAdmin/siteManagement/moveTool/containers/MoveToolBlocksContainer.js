@@ -1,21 +1,21 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import SiteManagementBlocks from '../presentational/SiteManagementBlocks';
+import MoveToolBlocks from '../presentational/MoveToolBlocks';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import fetchAllCompanies from 'actions/superAdmin/companies/async/fetchAllCompanies';
 import { isEmpty } from 'helpers/generic';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { SUCCESS_MODAL, ERROR_MODAL } from 'constants/shared/modalTypes';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
-import fetchSitesForCompany from 'actions/superAdmin/siteManagement/async/fetchSitesForCompany';
-import fetchBuildingsForCompany from 'actions/superAdmin/siteManagement/async/fetchBuildingsForCompany';
-import fetchFloorsForCompany from 'actions/superAdmin/siteManagement/async/fetchFloorsForCompany';
-import fetchDrawingsForCompany from 'actions/superAdmin/siteManagement/async/fetchDrawingsForCompany';
-import selectHierarchy from 'actions/superAdmin/siteManagement/sync/selectHierarchy';
-import selectOption from 'actions/superAdmin/siteManagement/sync/selectOption';
+import fetchSitesForCompany from 'actions/superAdmin/moveTool/async/fetchSitesForCompany';
+import fetchBuildingsForCompany from 'actions/superAdmin/moveTool/async/fetchBuildingsForCompany';
+import fetchFloorsForCompany from 'actions/superAdmin/moveTool/async/fetchFloorsForCompany';
+import fetchDrawingsForCompany from 'actions/superAdmin/moveTool/async/fetchDrawingsForCompany';
+import selectHierarchy from 'actions/superAdmin/moveTool/sync/selectHierarchy';
+import selectOption from 'actions/superAdmin/moveTool/sync/selectOption';
 
-class SiteManagementBlocksContainer extends Component {
+class MoveToolBlocksContainer extends Component {
     state = {
         moveFromCompany: null,
         moveToCompany: null
@@ -46,7 +46,7 @@ class SiteManagementBlocksContainer extends Component {
                 isEmpty={isEmpty(companies)}
                 noWhiteBackground
             >
-                <SiteManagementBlocks
+                <MoveToolBlocks
                     {...this.state}
                     handleChange={this.handleChange}
                     handleCompanyOneChange={this.handleCompanyOneChange}
@@ -141,7 +141,7 @@ class SiteManagementBlocksContainer extends Component {
 const mapStateToProps = ({
     superAdmin: {
         companiesReducer: { companies, isFetching, error },
-        siteManagementReducer: {
+        moveToolReducer: {
             selectedHierarchy,
             isPosting,
             postSuccess,
@@ -183,4 +183,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(SiteManagementBlocksContainer);
+)(MoveToolBlocksContainer);

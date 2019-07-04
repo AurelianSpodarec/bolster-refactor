@@ -6,7 +6,7 @@ import {
     ADMIN_FETCH_BUILDINGS_FOR_COMPANY_FAILURE
 } from 'constants/actionTypes/companies';
 
-import { ADMIN_MOVE_BUILDING_SUCCESS } from 'constants/actionTypes/siteManagement';
+import { ADMIN_MOVE_BUILDING_SUCCESS } from 'constants/actionTypes/moveTool';
 
 import { convertArrToObj, removeObjItem } from 'helpers/generic';
 

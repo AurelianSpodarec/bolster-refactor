@@ -3,7 +3,7 @@ import BlockHeading from 'components/shared/generic/blockHeading/presentational/
 import ModalOuterContainer from 'components/shared/generic/modals/containers/ModalOuterContainer';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 
-const SiteManagementConfirmMoveModal = ({
+const MoveToolConfirmMoveModal = ({
     moveFromName,
     moveToName,
     hideModal,
@@ -27,4 +27,4 @@ const SiteManagementConfirmMoveModal = ({
     </ModalOuterContainer>
 );
 
-export default SiteManagementConfirmMoveModal;
+export default MoveToolConfirmMoveModal;
