@@ -24,6 +24,12 @@ export const TEMPLATE_USAGE_RULES = {
     3: 'Use Any'
 };
 
+export const TEMPLATE_USAGE_RULES_VALUES = {
+    ONLY_OWNER_COMPANY: 1,
+    ONLY_OWN: 2,
+    USE_ANY: 3
+};
+
 export const DOCUMENT_TYPE = {
     '1': 'View only',
     '2': 'Requires agreement (once)',

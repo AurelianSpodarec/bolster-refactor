@@ -17,8 +17,6 @@ const AddDrawingForm = ({
     filesUploading,
     name,
     file,
-    templateUsageRules,
-    selectedRule,
     credits,
     handleBuyCreditsModal,
     handleClose,
@@ -51,21 +49,6 @@ const AddDrawingForm = ({
                         This can be changed free of charge for 24 hours after
                         creation.
                     </p>
-                </Field>
-            </div>
-        </div>
-        <div className="size-lg-12">
-            <div className="size-lg-6">
-                <Field name="Set Template Usage Rule" required>
-                    <DropdownContainer
-                        placeholder="-- select rule --"
-                        name="templateUsageRule"
-                        options={templateUsageRules}
-                        value={selectedRule}
-                        selectedOption={selectedRule}
-                        handleChange={handleInputChange}
-                        required
-                    />
                 </Field>
             </div>
         </div>

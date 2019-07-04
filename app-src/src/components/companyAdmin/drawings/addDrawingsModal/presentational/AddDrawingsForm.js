@@ -22,8 +22,6 @@ const AddDrawingsForm = ({
     addDrawing,
     removeDrawing,
     handleClose,
-    templateUsageRules,
-    templateUsageRuleOptions,
     isUsingBolsterLabels,
     filesUploading
 }) => (
@@ -70,29 +68,6 @@ const AddDrawingsForm = ({
                                     This can be changed free of charge for 24
                                     hours after creation.
                                 </p>
-                            </Field>
-                        </div>
-                        <div className="size-lg-12">
-                            <Field name="Set Template Usage Rule" required>
-                                <DropdownContainer
-                                    placeholder="-- select rule --"
-                                    name={`${drawing.id}.*.templateUsageRule`}
-                                    options={templateUsageRules}
-                                    value={
-                                        templateUsageRuleOptions[
-                                            drawing.templateUsageRule
-                                        ]
-                                    }
-                                    selectedOption={
-                                        templateUsageRuleOptions[
-                                            drawing.templateUsageRule
-                                        ]
-                                    }
-                                    handleChange={(name, value) =>
-                                        updateDrawing(name, value, drawing.id)
-                                    }
-                                    required
-                                />
                             </Field>
                         </div>
 
