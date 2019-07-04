@@ -1,11 +1,11 @@
 import React from 'react';
-import moment from 'moment';
-import { DATE_TIMES } from 'constants/companyAdmin/enums';
+
+import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 
 const SOSCodeList = ({ sosCodes }) =>
     sosCodes.map(code => (
         <tr key={code.id}>
-            <td>{`${moment(code.timestamp).format(DATE_TIMES[1])}`}</td>
+            <td> <DateTimeContainer date={code.timestamp} /></td>
             <td>{code.code}</td>
             <td>{code.description}</td>
             <td>{code.hasUserSynced ? 'Yes' : 'No'}</td>
