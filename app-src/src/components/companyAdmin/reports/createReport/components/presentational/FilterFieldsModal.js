@@ -81,7 +81,7 @@ const FilterFieldsModal = ({
                     onClick={handleSubmit}
                 >
                     <i className="fa fa-save fa-fw" />
-                    Save
+                    Submit
                 </button>
                 <button
                     className="button red"
