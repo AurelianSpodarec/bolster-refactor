@@ -22,42 +22,106 @@ const InvoiceListItem = ({
         userLastName,
         remainingToPay
     },
-    showModal
+    showModal,
+    onMobile,
+    headers
 }) => (
     <tr>
         <td>
+            {onMobile && (
+                <span className="mobile-table-heading">{headers[0]}</span>
+            )}
             <DateTimeContainer
                 date={createdOn}
                 datetime={DATE_TIME_IDS.DATETIME}
             />
         </td>
-        <td>{id}</td>
-        <td>{`£${formatCurrency(subTotal)}`}</td>
-        <td>{`£${formatCurrency(total)}`}</td>
-        <td>{`£${remainingToPay && remainingToPay > 0 ? formatCurrency(remainingToPay) : 0}`}</td>
-        <td>{PAYMENT_TYPES[paymentType]}</td>
-        <td>{isPaid ? 'Paid' : 'Awaiting Payment'}</td>
         <td>
-            {!isPaid && (
-                // <i
-                //     className="fa fa-exclamation-triangle far"
-                //     // TODO ##needs styling##
-                //     style={{
-                //         color: 'yellow',
-                //         fontSize: '2em',
-                //         backgroundColor: 'black',
-                //         borderRadius: '0.1em',
-                //         padding: '0.05em'
-                //     }}
-                // />
+            {' '}
+            {onMobile && (
+                <span className="mobile-table-heading">{headers[1]}</span>
+            )}
+            {id}
+        </td>
+        <td>
+            {' '}
+            {onMobile && (
+                <span className="mobile-table-heading">{headers[2]}</span>
+            )}
+            {`£${formatCurrency(subTotal)}`}
+        </td>
+        <td>
+            {' '}
+            {onMobile && (
+                <span className="mobile-table-heading">{headers[3]}</span>
+            )}
+            {`£${formatCurrency(total)}`}
+        </td>
+        <td>
+            {' '}
+            {onMobile && (
+                <span className="mobile-table-heading">{headers[4]}</span>
+            )}
+            {`£${
+                remainingToPay && remainingToPay > 0
+                    ? formatCurrency(remainingToPay)
+                    : 0
+            }`}
+        </td>
+        <td>
+            {' '}
+            {onMobile && (
+                <span className="mobile-table-heading">{headers[5]}</span>
+            )}
+            {PAYMENT_TYPES[paymentType]}
+        </td>
+        <td>
+            {' '}
+            {onMobile && (
+                <span className="mobile-table-heading">{headers[6]}</span>
+            )}
+            {isPaid ? 'Paid' : 'Awaiting Payment'}{' '}
+            {onMobile && (
                 <StatusIcon
                     classes="warning"
                     iconClass="fa fa-exclamation-triangle far"
                 />
             )}
         </td>
-        <td>{`${userFirstName} ${userLastName}`}</td>
+        {!onMobile && (
+            <td>
+                {!isPaid && (
+                    // <i
+                    //     className="fa fa-exclamation-triangle far"
+                    //     // TODO ##needs styling##
+                    //     style={{
+                    //         color: 'yellow',
+                    //         fontSize: '2em',
+                    //         backgroundColor: 'black',
+                    //         borderRadius: '0.1em',
+                    //         padding: '0.05em'
+                    //     }}
+                    // />
+                    <StatusIcon
+                        classes="warning"
+                        iconClass="fa fa-exclamation-triangle far"
+                    />
+                )}
+            </td>
+        )}
+
         <td>
+            {' '}
+            {onMobile && (
+                <span className="mobile-table-heading">{headers[8]}</span>
+            )}
+            {`${userFirstName} ${userLastName}`}
+        </td>
+        <td>
+            {' '}
+            {onMobile && (
+                <span className="mobile-table-heading">{headers[9]}</span>
+            )}
             <BlockButtonWrapper>
                 {!isPaid && (
                     <button

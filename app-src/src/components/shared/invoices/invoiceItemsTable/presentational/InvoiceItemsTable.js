@@ -9,7 +9,8 @@ const InvoiceItemsTable = ({
     invoice,
     headers,
     isFetching,
-    error
+    error,
+    onMobile
 }) => (
     <Table
         withActions
@@ -22,8 +23,10 @@ const InvoiceItemsTable = ({
         <InvoiceItemsList
             colCount={headers.length}
             invoiceItems={invoiceItems}
+            headers={headers}
+            onMobile={onMobile}
         />
-        <InvoiceItemsTotals invoice={invoice} />
+        <InvoiceItemsTotals invoice={invoice} onMobile={onMobile} />
     </Table>
 );
 

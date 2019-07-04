@@ -217,6 +217,13 @@
                 position: relative;
                 width: 100%;
             }
+            .generic-table {
+                min-height: 85px;
+
+                tbody {
+                    display: block;
+                }
+            }
         }
     }
 
@@ -474,6 +481,15 @@
     .generic-table {
         width: calc(100% + 15px);
         margin-left: -7.5px;
+
+        &.with-actions {
+            td {
+                &:last-child {
+                    text-align: left;
+                }
+            }
+        }
+
         thead tr {
             position: absolute;
             top: -9999px;
@@ -491,10 +507,12 @@
                 /* Top/left values mimic padding */
                 top: 9px;
                 left: 8px;
-                width: 45%;
                 padding-right: 10px;
                 white-space: nowrap;
                 @include ubuntu-medium;
+            }
+            .status-icon {
+                left: 9px;
             }
         }
         tr {
@@ -552,6 +570,11 @@
             .no-data-td {
                 padding-left: 15px !important;
             }
+            &:last-child {
+                .no-data-td {
+                    border-bottom: none;
+                }
+            }
         }
         .expanded-row {
             > td {
@@ -572,6 +595,43 @@
         display: block;
     }
 
+    .small-text-table {
+        &.two-line {
+            .generic-table {
+                tr {
+                    td {
+                        font-size: 12px;
+                        padding: 5px 15px;
+                        padding-left: 30%;
+                        .mobile-table-heading {
+                            top: 5px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .inspection-log-table {
+        width: calc(100% + 15px);
+        margin-left: -7.5px;
+        .generic-table {
+            float: left;
+            width: 100%;
+        }
+    }
+    .inspection-log {
+        tr {
+            td {
+                &:first-child {
+                    padding-left: 37%;
+                }
+            }
+        }
+        .pin {
+            top: 4px;
+            left: 30%;
+        }
+    }
     //generate report
     .options-container {
         padding: 10px 0;
@@ -623,5 +683,9 @@
     // no label examples on mobile
     .label-example {
         display: none;
+    }
+
+    .area-filter {
+        width: 35%;
     }
 }
