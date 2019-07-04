@@ -21,6 +21,11 @@ import {
     FETCH_TEMPLATE_FAILURE,
     SET_LABEL_FIELDS
 } from 'constants/actionTypes/templateBuilder';
+import {
+    FETCH_COMPANY_TEMPLATES_REQUEST,
+    FETCH_COMPANY_TEMPLATES_SUCCESS,
+    FETCH_COMPANY_TEMPLATES_FAILURE
+} from 'constants/actionTypes/companies';
 
 export default combineReducers({
     templates: templatesReducer,
@@ -36,8 +41,10 @@ function isFetchingReducer(state = false, action) {
     switch (action.type) {
         case FETCH_TEMPLATES_REQUEST:
         case FETCH_TEMPLATE_REQUEST:
+        case FETCH_COMPANY_TEMPLATES_REQUEST:
             return true;
         case FETCH_TEMPLATES_SUCCESS:
+        case FETCH_COMPANY_TEMPLATES_SUCCESS:
         case FETCH_TEMPLATE_SUCCESS:
         case FETCH_TEMPLATES_FAILURE:
         case FETCH_TEMPLATE_FAILURE:
@@ -51,10 +58,12 @@ function errorReducer(state = null, action) {
     switch (action.type) {
         case POST_TEMPLATE_REQUEST:
         case FETCH_TEMPLATES_REQUEST:
+        case FETCH_COMPANY_TEMPLATES_REQUEST:
         case FETCH_TEMPLATE_REQUEST:
             return null;
         case POST_TEMPLATE_FAILURE:
         case FETCH_TEMPLATES_FAILURE:
+        case FETCH_COMPANY_TEMPLATES_FAILURE:
         case FETCH_TEMPLATE_FAILURE:
             return action.error;
         default:
@@ -102,6 +111,11 @@ function templatesReducer(state = {}, action) {
             return {
                 ...state,
                 ...convertArrToObj(action.payload, 'uuid')
+            };
+        case FETCH_COMPANY_TEMPLATES_SUCCESS:
+            return {
+                ...state,
+                ...convertArrToObj(action.payload, 'id')
             };
         case FETCH_TEMPLATE_SUCCESS:
         case SET_TEMPLATE:

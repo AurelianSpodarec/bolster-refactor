@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import fetchTemplates from 'actions/superAdmin/templateBuilder/async/fetchTemplates';
+import fetchCompanyTemplates from 'actions/superAdmin/companies/async/fetchCompanyTemplates';
 import fetchSingleCompany from 'actions/superAdmin/companies/async/fetchSingleCompany';
 import SingleCompany from '../presentational/SingleCompany';
 import fetchCompanyInvoices from 'actions/superAdmin/invoices/async/fetchCompanyInvoices';
@@ -27,7 +27,7 @@ const mapDispatchToProps = dispatch => ({
     fetchPageData: id => {
         dispatch(fetchSingleCompany(id));
         dispatch(fetchAllCompanies());
-        dispatch(fetchTemplates());
+        dispatch(fetchCompanyTemplates(id));
         dispatch(fetchCompanyInvoices(id));
         dispatch(fetchCompanySubscription(id));
         dispatch(fetchCompanyUsers(id));
