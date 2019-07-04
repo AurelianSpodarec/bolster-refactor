@@ -12,6 +12,8 @@ const DrawingListItemContainer = ({
     drawing: { permissions, accessType, id },
     reorderDrawing,
     postDrawingsSort,
+    headers,
+    onMobile,
     ...rest
 }) => (
     <DrawingListItem
@@ -22,12 +24,20 @@ const DrawingListItemContainer = ({
         permissions={formatPermissions(permissions, accessType)}
         onMove={reorderDrawing}
         onDrop={() => postDrawingsSort(drawings)}
+        headers={headers}
+        onMobile={onMobile}
     />
 );
 
 const mapDispatchToProps = { reorderDrawing, postDrawingsSort };
 
 export default connect(
-    null,
+    ({
+        shared: {
+            mobileReducer: { onMobile }
+        }
+    }) => ({
+        onMobile
+    }),
     mapDispatchToProps
 )(DrawingListItemContainer);

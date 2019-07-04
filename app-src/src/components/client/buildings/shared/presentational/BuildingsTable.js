@@ -17,6 +17,7 @@ const BuildingsTable = ({ buildings, headers, isFetching, error }) => {
                 <BuildingsList
                     colCount={headers.length}
                     buildings={buildings}
+                    headers={headers}
                 />
             </Table>
         </>

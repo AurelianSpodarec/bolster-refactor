@@ -14,7 +14,11 @@ const DrawingTable = ({ drawings, headers, isFetching, error }) => {
             noDataMessage="No drawings to display"
             withoutTBody
         >
-            <DrawingList colCount={headers.length} drawings={drawings} />
+            <DrawingList
+                colCount={headers.length}
+                drawings={drawings}
+                headers={headers}
+            />
         </Table>
     );
 };

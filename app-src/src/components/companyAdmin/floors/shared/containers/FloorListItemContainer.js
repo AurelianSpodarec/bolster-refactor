@@ -17,7 +17,9 @@ const FloorListItemContainer = ({
     floors,
     toggleFloorExpanded,
     postFloorsSort,
-    reorderFloor
+    reorderFloor,
+    headers,
+    onMobile
 }) => {
     const isExpanded = expandedFloorIds.includes(floor.id);
     return (
@@ -31,16 +33,20 @@ const FloorListItemContainer = ({
             permissions={formatPermissions(permissions, accessType)}
             onDrop={() => postFloorsSort(floors)}
             onMove={reorderFloor}
+            headers={headers}
+            onMobile={onMobile}
         />
     );
 };
 
 const mapStateToProps = ({
     shared: {
-        tablesReducer: { expandedFloorIds }
+        tablesReducer: { expandedFloorIds },
+        mobileReducer: { onMobile }
     }
 }) => ({
-    expandedFloorIds
+    expandedFloorIds,
+    onMobile
 });
 
 const mapDispatchToProps = {

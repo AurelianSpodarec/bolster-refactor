@@ -6,7 +6,9 @@ const BuldingsListItem = ({
     building,
     toggleExpanded,
     isExpanded,
-    colCount
+    colCount,
+    headers,
+    onMobile
 }) => (
     <>
         <tr
@@ -14,12 +16,14 @@ const BuldingsListItem = ({
             className={`draggable expandable ${isExpanded ? 'open' : ''}`}
         >
             <td>
-                {' '}
+                {onMobile && (
+                    <span className="mobile-table-heading">{headers[0]}</span>
+                )}
                 {isExpanded ? (
                     <i className="fa fa-chevron-down" />
                 ) : (
                     <i className="fa fa-chevron-right" />
-                )}{' '}
+                )}
                 {building.name}
             </td>
             <td>

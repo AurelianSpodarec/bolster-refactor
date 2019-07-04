@@ -20,7 +20,9 @@ const SitesListItemContainer = ({
     reorderSite,
     toggleSiteExpanded,
     postSitesSort,
-    sites
+    sites,
+    headers,
+    onMobile
 }) => {
     return (
         <SitesListItem
@@ -33,20 +35,24 @@ const SitesListItemContainer = ({
             colCount={colCount}
             toggleExpanded={() => toggleSiteExpanded(site.id)}
             permissions={formatPermissions(permissions, accessType)}
+            headers={headers}
+            onMobile={onMobile}
         />
     );
 };
 
 const mapStateToProps = ({
     shared: {
-        tablesReducer: { expandedSiteIds }
+        tablesReducer: { expandedSiteIds },
+        mobileReducer: { onMobile }
     },
     companyAdmin: {
         sitesReducer: { sites }
     }
 }) => ({
     expandedSiteIds,
-    sites: Object.values(sites)
+    sites: Object.values(sites),
+    onMobile
 });
 
 const mapDispatchToProps = { reorderSite, toggleSiteExpanded, postSitesSort };
