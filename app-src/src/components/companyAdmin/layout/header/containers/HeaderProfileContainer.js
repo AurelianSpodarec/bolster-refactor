@@ -7,6 +7,7 @@ import moment from 'moment';
 import HeaderProfile from '../presentational/HeaderProfile';
 import HeaderProfileMobile from '../presentational/HeaderProfileMobile';
 
+import { toggleMobileMenu } from 'actions/shared/mobile/sync/toggleMobileMenu';
 import { logout } from 'actions/shared/auth/sync/logout';
 import { isEmpty } from 'helpers/generic';
 
@@ -78,6 +79,7 @@ class HeaderProfileContainer extends Component {
     };
 
     handleClick = () => {
+        const { menuOpen, toggleMobileMenu } = this.props;
         if (!this.state.popupVisible) {
             // attach/remove event handler
             document.addEventListener('click', this.handleOutsideClick, false);
@@ -87,6 +89,9 @@ class HeaderProfileContainer extends Component {
                 this.handleOutsideClick,
                 false
             );
+            if (menuOpen) {
+                toggleMobileMenu();
+            }
         }
 
         this.setState(prevState => ({
@@ -125,7 +130,7 @@ const mapStateToProps = ({
         decodeJWTReducer: {
             jwtData: { companyID, headquartersCompanyID }
         },
-        mobileReducer: { onMobile }
+        mobileReducer: { onMobile, menuOpen }
     }
 }) => ({
     subscriptions,
@@ -138,12 +143,13 @@ const mapStateToProps = ({
     companyReportsLength: Object.values(
         companyReportsReducer.companyReports
     ).filter(item => item.state === GENERATION_STATE_VAL.WAITING).length,
-    onMobile
+    onMobile,
+    menuOpen
 });
 
 export default withRouter(
     connect(
         mapStateToProps,
-        { logout }
+        { logout, toggleMobileMenu }
     )(HeaderProfileContainer)
 );

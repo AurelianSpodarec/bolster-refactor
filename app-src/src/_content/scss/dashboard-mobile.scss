@@ -135,6 +135,12 @@
                 }
             }
         }
+
+        .notifications {
+            .notification-list {
+                width: 120%;
+            }
+        }
     }
 
     .menu-wrapper {
@@ -147,6 +153,7 @@
         transform: translateX(-100%);
         &.mobile-open {
             transform: translateX(0);
+            z-index: 500;
         }
     }
 
