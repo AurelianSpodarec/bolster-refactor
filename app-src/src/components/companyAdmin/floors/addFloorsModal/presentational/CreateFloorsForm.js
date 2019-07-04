@@ -96,10 +96,10 @@ const CreateFloorsForm = ({
                     </div>
                     {isUsingBolsterLabels && (
                         <div className="size-lg-6 size-md-12">
-                            <BolsterLabelExample
+                            {/* <BolsterLabelExample
                                 name={floor.name}
                                 hierarchy="Floor"
-                            />
+                            /> */}
                         </div>
                     )}
                     {floors.length > 1 && (

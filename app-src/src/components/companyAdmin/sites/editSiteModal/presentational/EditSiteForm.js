@@ -85,9 +85,10 @@ const EditSiteForm = ({
                 </Field>
             </div>
         </div>
-        {isUsingBolsterLabels && (
-            <BolsterLabelExample name={name} hierarchy="Site" />
-        )}
+        {isUsingBolsterLabels &&
+            {
+                /* <BolsterLabelExample name={name} hierarchy="Site" /> */
+            }}
 
         <div className="size-lg-12">
             <div className="size-lg-6 size-md-12">

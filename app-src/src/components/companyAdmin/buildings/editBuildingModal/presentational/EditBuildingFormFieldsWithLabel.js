@@ -80,7 +80,7 @@ const BuildingFormFieldsWithLabel = ({
             )}
         </div>
         <div className="size-lg-6 size-md-12">
-            <BolsterLabelExample name={name} hierarchy="Building" />
+            {/* <BolsterLabelExample name={name} hierarchy="Building" /> */}
         </div>
     </>
 );
