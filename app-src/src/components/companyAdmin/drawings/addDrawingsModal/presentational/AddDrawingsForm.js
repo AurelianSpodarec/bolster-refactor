@@ -134,7 +134,10 @@ const AddDrawingsForm = ({
                     </div>
                     {isUsingBolsterLabels && (
                         <div className="size-lg-6 size-md-12">
-                            <BolsterLabelExample name={drawing.name} />
+                            <BolsterLabelExample
+                                name={drawing.name}
+                                hierarchy="Drawing"
+                            />
                         </div>
                     )}
 

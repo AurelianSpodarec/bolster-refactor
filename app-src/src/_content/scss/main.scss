@@ -157,18 +157,17 @@ button {
             }
             .label-content-small {
                 position: absolute;
-                font-size: 72%;
+                font-size: 80%;
                 width: 100%;
-                top: 42%;
-                left: 6%;
+                top: 29%;
+                left: 5%;
                 white-space: nowrap;
                 p {
                     @include swiss721-roman;
                 }
                 &.for-trim {
-                    top: 55%;
-                    left: 3%;
-                    font-size: 70%;
+                    top: 57%;
+                    left: 4%;
                 }
             }
             .field-holder {
@@ -1312,6 +1311,10 @@ input {
             display: none;
         }
     }
+    p.padded {
+        padding-left: 7.5px;
+        padding-right: 7.5px;
+    }
 }
 .multi-select {
     float: left;
@@ -1951,7 +1954,7 @@ input {
             color: white;
             background: #78030a;
             cursor: pointer;
-            font-size: 140%;
+            font-size: 130%;
             padding: {
                 top: 8px;
                 bottom: 8px;
@@ -1973,6 +1976,7 @@ input {
             img {
                 float: left;
                 opacity: 0.7;
+                height: 20px;
             }
             span {
                 float: left;
@@ -1990,7 +1994,7 @@ input {
                     padding-left: 15px;
                     width: auto;
                     max-width: calc(100% - 25px);
-                    top: 5px;
+                    top: 3px;
                 }
             }
         }
@@ -2263,6 +2267,16 @@ input {
 
         &.expanded-row {
             table {
+                thead {
+                    th {
+                        padding-top: 15px;
+
+                        &:first-child {
+                            padding-left: 60px;
+                        }
+                    }
+                }
+
                 tbody {
                     th {
                         padding-top: 15px;
@@ -3653,7 +3667,12 @@ input {
     i {
         position: absolute;
         right: 7px;
-        @include vertical-center;
+        top: 8px;
+    }
+
+    .react-datepicker-popper {
+        position: relative !important;
+        margin-top: 0 !important;
     }
 }
 
