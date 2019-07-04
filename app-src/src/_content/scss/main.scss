@@ -3216,7 +3216,7 @@ input {
         background-color: $button-grey;
         i {
             font-size: 14px;
-            left: 0.5px;
+            left: 0;
         }
     }
 
@@ -3250,6 +3250,11 @@ input {
         top: -10px;
         bottom: 25px;
     }
+    display: flex;
+    margin-bottom: 25px;
+    justify-content: left;
+    flex-basis: left;
+    flex-wrap: wrap;
 
     &.alt {
         margin-bottom: 25px;
@@ -3274,20 +3279,27 @@ input {
         padding: 10px 25px;
 
         .field-name {
-            line-height: 34px;
             label {
                 @include ubuntu-medium;
                 font-size: 140%;
+                padding-left: 42px;
+                line-height: 1;
+                display: flex;
+                justify-content: center;
+                flex-direction: column;
+                height: 31px;
             }
 
             .status-icon {
-                top: 4px;
+                position: absolute;
+                top: 8px;
                 margin-right: 15px;
                 margin-left: 10px;
             }
         }
 
         .button {
+            display: block;
             float: right;
             top: 6px;
         }
