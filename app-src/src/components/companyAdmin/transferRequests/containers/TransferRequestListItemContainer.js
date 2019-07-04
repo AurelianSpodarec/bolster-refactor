@@ -14,7 +14,9 @@ const TransferRequestListItemContainer = ({
     respondToTransferRequest,
     deleteTransferRequest,
     showModal,
-    hideModal
+    hideModal,
+    onMobile,
+    headers
 }) => {
     return (
         <TransferRequestListItem
@@ -22,6 +24,8 @@ const TransferRequestListItemContainer = ({
             companyID={id}
             handleAccept={handleAcceptModal}
             handleDecline={handleDeclineModal}
+            onMobile={onMobile}
+            headers={headers}
         />
     );
 
@@ -60,9 +64,13 @@ const mapStateToProps = ({
         companySettingsReducer: {
             companySettings: { id }
         }
+    },
+    shared: {
+        mobileReducer: { onMobile }
     }
 }) => ({
-    id
+    id,
+    onMobile
 });
 
 const mapDispatchToProps = dispatch => ({

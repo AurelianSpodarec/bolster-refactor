@@ -511,6 +511,9 @@
                 white-space: nowrap;
                 @include ubuntu-medium;
             }
+            .status-icon {
+                left: 9px;
+            }
         }
         tr {
             float: left;

@@ -13,7 +13,7 @@ import AllCompanyAdminsListItem from '../presentational/AllCompanyAdminsListItem
 
 class AllCompanyAdminsListItemContainer extends Component {
     render() {
-        const { user, colCount, loggedInUser } = this.props;
+        const { user, colCount, loggedInUser, headers, onMobile } = this.props;
 
         return (
             <AllCompanyAdminsListItem
@@ -23,6 +23,8 @@ class AllCompanyAdminsListItemContainer extends Component {
                 showUnlinkModal={this.unlinkModal}
                 showRevokeAdminAccessModal={this.revokeAdminAccess}
                 loggedInUser={loggedInUser}
+                headers={headers}
+                onMobile={onMobile}
             />
         );
     }
@@ -63,10 +65,12 @@ const mapStateToProps = ({
         companyUsersReducer: { users }
     },
     shared: {
-        decodeJWTReducer: { jwtData }
+        decodeJWTReducer: { jwtData },
+        mobileReducer: { onMobile }
     }
 }) => ({
     loggedInUser: users[jwtData.companyUserID] || { type: null },
+    onMobile,
     jwtData
 });
 

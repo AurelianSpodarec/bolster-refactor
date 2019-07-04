@@ -8,19 +8,46 @@ const PendingInvitesListItem = ({
     isIncoming,
     handleAccept,
     handleDecline,
-    name
+    name,
+    onMobile,
+    headers
 }) => (
     <tr>
         <td>
+            {onMobile && (
+                <span className="mobile-table-heading">{headers[0]}</span>
+            )}
             <DateTimeContainer
                 date={invite.createdOn}
                 datetime={DATE_TIME_IDS.DATE}
             />
         </td>
-        <td>{name}</td>
-        <td>{invite.ownerCompanyName}</td>
-        <td>{invite.companyName}</td>
         <td>
+            {' '}
+            {onMobile && (
+                <span className="mobile-table-heading">{headers[1]}</span>
+            )}
+            {name}
+        </td>
+        <td>
+            {' '}
+            {onMobile && (
+                <span className="mobile-table-heading">{headers[2]}</span>
+            )}
+            {invite.ownerCompanyName}
+        </td>
+        <td>
+            {' '}
+            {onMobile && (
+                <span className="mobile-table-heading">{headers[3]}</span>
+            )}
+            {invite.companyName}
+        </td>
+        <td>
+            {' '}
+            {onMobile && (
+                <span className="mobile-table-heading">{headers[4]}</span>
+            )}
             <BlockButtonWrapper>
                 <button
                     type="button"

@@ -18,10 +18,10 @@ const PendingInvitesTable = ({
         error={error}
     >
         {!!pendingInvites.length && (
-            <PendingInvitesList invites={pendingInvites} />
+            <PendingInvitesList headers={headers} invites={pendingInvites} />
         )}
         {!!outgoingInvites.length && (
-            <PendingInvitesList invites={outgoingInvites} />
+            <PendingInvitesList invites={outgoingInvites} headers={headers} />
         )}
     </Table>
 );

@@ -7,19 +7,46 @@ const TransferRequestListItem = ({
     request,
     companyID,
     handleAccept,
-    handleDecline
+    handleDecline,
+    onMobile,
+    headers
 }) => (
     <tr>
         <td>
+            {onMobile && (
+                <span className="mobile-table-heading">{headers[0]}</span>
+            )}
             <DateTimeContainer
                 date={request.createdOn}
                 datetime={DATE_TIME_IDS.DATE}
             />
         </td>
-        <td>{request.siteName}</td>
-        <td>{request.inviteFromCompanyName}</td>
-        <td>{request.inviteToCompanyName}</td>
         <td>
+            {' '}
+            {onMobile && (
+                <span className="mobile-table-heading">{headers[1]}</span>
+            )}
+            {request.siteName}
+        </td>
+        <td>
+            {' '}
+            {onMobile && (
+                <span className="mobile-table-heading">{headers[2]}</span>
+            )}
+            {request.inviteFromCompanyName}
+        </td>
+        <td>
+            {' '}
+            {onMobile && (
+                <span className="mobile-table-heading">{headers[3]}</span>
+            )}
+            {request.inviteToCompanyName}
+        </td>
+        <td>
+            {' '}
+            {onMobile && (
+                <span className="mobile-table-heading">{headers[4]}</span>
+            )}
             <BlockButtonWrapper>
                 <button
                     type="button"

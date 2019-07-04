@@ -12,7 +12,7 @@ const { OPERATIVE } = COMPANY_USER_ROLE_TYPES;
 
 class AllOperativesTableContainer extends Component {
     render = () => {
-        const { users, isFetching, error } = this.props;
+        const { users, isFetching, error, onMobile } = this.props;
 
         const sortedUsers = users.sort(nameSort);
         return (
@@ -29,6 +29,7 @@ class AllOperativesTableContainer extends Component {
                 isFetching={isFetching}
                 error={error}
                 handleShowModal={this.handleShowModal}
+                onMobile={onMobile}
             />
         );
     };
@@ -48,11 +49,15 @@ class AllOperativesTableContainer extends Component {
 const mapStateToProps = ({
     companyAdmin: {
         companyUsersReducer: { isFetching, error, users, postSuccess }
+    },
+    shared: {
+        mobileReducer: { onMobile }
     }
 }) => ({
     users: Object.values(users).filter(({ type }) => type === OPERATIVE),
     isFetching,
     error,
+    onMobile,
     postSuccess
 });
 

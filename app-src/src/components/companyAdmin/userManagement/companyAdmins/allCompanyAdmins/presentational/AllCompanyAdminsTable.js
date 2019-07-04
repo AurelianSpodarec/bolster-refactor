@@ -42,6 +42,7 @@ const AllCompanyAdminsTable = ({
                 <AllCompanyAdminsList
                     colCount={headers.length}
                     users={users}
+                    headers={headers}
                     showDeleteModal={showDeleteModal}
                 />
             </Table>
