@@ -22,11 +22,8 @@ const mapStateToProps = ({ companyAdmin: { sitesReducer } }, { match }) => ({
     siteID: match.params.id,
     site: sitesReducer.sites[match.params.id] || {}
 });
-const mapDispatchToProps = dispatch => ({
-    fetchSingleSite: siteID => {
-        dispatch(fetchSingleSite(siteID));
-    }
-});
+
+const mapDispatchToProps = { fetchSingleSite };
 export default withRouter(
     connect(
         mapStateToProps,

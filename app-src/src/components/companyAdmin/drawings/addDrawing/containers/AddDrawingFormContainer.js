@@ -11,24 +11,17 @@ import fetchAllCredits from 'actions/companyAdmin/credits/fetchAllCredits';
 class AddDrawingFormContainer extends Component {
     state = {
         name: '',
-        file: '',
-        templateUsageRule: ''
+        file: ''
     };
 
     render = () => {
-        const { name, file, templateUsageRule } = this.state;
+        const { name, file } = this.state;
         const { floorID, filesUploading, credits } = this.props;
-        const templateUsageRuleOptions = {
-            '1': { text: 'Use Only Owner Company', value: 1 },
-            '2': { text: 'Use Only Own', value: 2 },
-            '3': { text: 'Use Any', value: 3 }
-        };
+
         return (
             <AddDrawingForm
                 name={name}
                 file={file}
-                templateUsageRules={Object.values(templateUsageRuleOptions)}
-                selectedRule={templateUsageRuleOptions[templateUsageRule]}
                 floorID={floorID}
                 handleInputChange={this.handleInputChange}
                 handleFileChange={this.handleFileChange}
