@@ -15,6 +15,9 @@ const CompanyReportsListItem = ({ queueItem, onMobile, headers }) => {
     if (queueItem.isCSVGeneration) typeArr.push('CSV');
     if (queueItem.isPDFGeneration) typeArr.push('PDF');
     if (queueItem.isFloorplanGeneration) typeArr.push('Floor plan');
+
+    const { COMPLETE, FAILED } = GENERATION_STATE_VAL;
+
     return (
         <tr>
             <td>
@@ -61,7 +64,7 @@ const CompanyReportsListItem = ({ queueItem, onMobile, headers }) => {
                 {onMobile && (
                     <span className="mobile-table-heading">{headers[5]}</span>
                 )}
-                {queueItem.state === GENERATION_STATE_VAL.COMPLETE ? (
+                {queueItem.state === COMPLETE ? (
                     <a
                         className="button green"
                         target="_blank"
@@ -70,6 +73,10 @@ const CompanyReportsListItem = ({ queueItem, onMobile, headers }) => {
                     >
                         <i className="fa fa-download" /> Download File
                     </a>
+                ) : queueItem.state === FAILED ? (
+                    <button className="button red disabled">
+                        <i className="fa fa-times" /> Failed
+                    </button>
                 ) : (
                     <button className="button disabled">
                         <LoadingIcon />

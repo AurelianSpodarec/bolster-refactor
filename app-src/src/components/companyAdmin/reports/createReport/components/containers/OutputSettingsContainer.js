@@ -166,6 +166,17 @@ class OutputSettingsContainer extends Component {
             (isPDFGeneration && includeFloorplan)
         ) {
             const drawingForPinScale = this._getDrawingForPinScale();
+
+            if (!drawingForPinScale) {
+                showModal(ERROR_MODAL, {
+                    title: 'No drawings',
+                    message:
+                        'No drawings were found for your selection. Please edit your filters.'
+                });
+
+                return;
+            }
+
             showModal(SELECT_PIN_SCALE, {
                 drawing: drawingForPinScale,
                 getPostBody,
@@ -203,6 +214,7 @@ class OutputSettingsContainer extends Component {
                 drawing => +drawing.id === +drawingID
             );
         }
+
         return availableDrawings[0];
     };
 }
