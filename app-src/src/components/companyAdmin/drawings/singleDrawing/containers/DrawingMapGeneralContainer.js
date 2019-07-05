@@ -324,55 +324,58 @@ class DrawingMapGeneralContainer extends Component {
             companyUserIDs
         } = filters;
         const NO = false;
-        return pins.filter(pin => {
-            // start date
-            if (
-                fromDateInclusive &&
-                moment(pin.createdOn) <
-                    moment(fromDateInclusive, momentComparisonFormat)
-            ) {
-                return NO;
-            }
-            // end date
-            if (
-                toDateInclusive &&
-                moment(pin.createdOn) >
-                    moment(toDateInclusive, momentComparisonFormat)
-            ) {
-                return NO;
-            }
-            // status
-            if (status && +pin.latestStatus !== +status) {
-                return NO;
-            }
-            // services
-            if (serviceID && +pin.latestServiceID !== +serviceID) {
-                return NO;
-            }
-            // templates
-            if (templateID && +templateID !== pin.templateID) {
-                return NO;
-            }
-            // operatives
-            if (
-                companyUserIDs &&
-                companyUserIDs.length &&
-                !companyUserIDs.includes(pin.latestCreatedByCompanyUserID)
-            ) {
-                return NO;
-            }
-            if (
-                +furtherFiltrationOption ===
-                FURTHER_FILTRATION_OPTIONS.INDIVIDUAL_PINS
-            ) {
-                if (!filters.pinIDs.includes(pin.id)) {
-                    return NO;
-                }
-            }
-            return true;
-        });
-
-        // return pins.filter(({ id }) => filters.pinIDs.includes(id));
+        // simple
+        return furtherFiltrationOption <=
+            FURTHER_FILTRATION_OPTIONS.INDIVIDUAL_PINS
+            ? pins.filter(pin => {
+                  // start date
+                  if (
+                      fromDateInclusive &&
+                      moment(pin.createdOn) <
+                          moment(fromDateInclusive, momentComparisonFormat)
+                  ) {
+                      return NO;
+                  }
+                  // end date
+                  if (
+                      toDateInclusive &&
+                      moment(pin.createdOn) >
+                          moment(toDateInclusive, momentComparisonFormat)
+                  ) {
+                      return NO;
+                  }
+                  // status
+                  if (status && +pin.latestStatus !== +status) {
+                      return NO;
+                  }
+                  // services
+                  if (serviceID && +pin.latestServiceID !== +serviceID) {
+                      return NO;
+                  }
+                  // templates
+                  if (templateID && +templateID !== pin.templateID) {
+                      return NO;
+                  }
+                  // operatives
+                  if (
+                      companyUserIDs &&
+                      companyUserIDs.length &&
+                      !companyUserIDs.includes(pin.latestCreatedByCompanyUserID)
+                  ) {
+                      return NO;
+                  }
+                  if (
+                      +furtherFiltrationOption ===
+                      FURTHER_FILTRATION_OPTIONS.INDIVIDUAL_PINS
+                  ) {
+                      if (!filters.pinIDs.includes(pin.id)) {
+                          return NO;
+                      }
+                  }
+                  return true;
+              })
+            : // advanced
+              pins.filter(({ id }) => filters.pinIDs.includes(id));
     };
 
     setMode = mode => {
@@ -427,7 +430,8 @@ const mapStateToProps = (
     error,
     postSuccess,
     furtherFiltrationOption,
-    rectangles: Object.values(rectangles)
+    rectangles: Object.values(rectangles),
+    companyUserIDs
 });
 
 const mapDispatchToProps = {

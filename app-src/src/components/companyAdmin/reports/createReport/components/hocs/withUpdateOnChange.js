@@ -215,6 +215,7 @@ export default function(ProtectedComponent) {
                 buildingsReducer,
                 floorsReducer,
                 drawingsReducer,
+                companyUsersReducer: { users: companyUsers },
                 reportsReducer: {
                     filters,
                     fields,
@@ -225,7 +226,8 @@ export default function(ProtectedComponent) {
                     rectangles,
                     excludedPinIDs,
                     furtherFiltrationOption
-                }
+                },
+                operativesReducer: { operatives }
             }
         },
         { blockName }
@@ -253,6 +255,8 @@ export default function(ProtectedComponent) {
             options,
             postSuccess,
             error,
+            operatives,
+            companyUsers,
             services: Object.values(servicesReducer.services),
             sites: Object.values(sitesReducer.sites),
             buildings,
