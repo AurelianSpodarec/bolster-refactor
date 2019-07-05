@@ -29,5 +29,16 @@ export default postBody => dispatch => {
     return axios
         .post(`${API_URL}/cards`, postBody, getHeaders())
         .then(res => dispatch(addCardSuccess(res.data)))
-        .catch(err => dispatch(handleErrors(addCardFailure)(err)));
+        .catch(err => {
+            // if (
+            //     err.response &&
+            //     err.response.data &&
+            //     err.response.data.message
+            // ) {
+            //     dispatch(handleErrors(addCardFailure))({
+            //         fieldErrors: { expiryYear: [err.response.data.message] }
+            //     });
+            // }
+            dispatch(handleErrors(addCardFailure)(err));
+        });
 };

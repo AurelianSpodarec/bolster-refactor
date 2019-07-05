@@ -1062,6 +1062,10 @@ input {
         background-color: $background-grey;
         text-align: center;
     }
+
+    &.error {
+        color: $red;
+    }
 }
 
 .wysiwyg {
