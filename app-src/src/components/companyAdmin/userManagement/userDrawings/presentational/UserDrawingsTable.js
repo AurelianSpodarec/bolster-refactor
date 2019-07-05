@@ -32,17 +32,19 @@ const UserDrawingsTable = ({
                 />
             ))}
         </Table>
-        <button
-            className="button red pull-right"
-            onClick={() =>
-                showModal(REMOVE_DRAWINGS_ACCESS, {
-                    checkedDrawings: checkedDrawings,
-                    userID: userID
-                })
-            }
-        >
-            <i className="far fa-trash-alt" /> Remove Access
-        </button>
+        {!!checkedDrawings.length && (
+            <button
+                className="button red pull-right"
+                onClick={() =>
+                    showModal(REMOVE_DRAWINGS_ACCESS, {
+                        checkedDrawings: checkedDrawings,
+                        userID: userID
+                    })
+                }
+            >
+                <i className="far fa-trash-alt" /> Remove Access
+            </button>
+        )}
     </>
 );
 
