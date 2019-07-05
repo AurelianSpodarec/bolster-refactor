@@ -138,11 +138,15 @@ button {
         display: flex;
         justify-content: space-around;
         align-items: flex-start;
+        max-width: 400px;
 
         .label-example {
             width: 180px;
             margin: 0 10px;
             overflow: hidden;
+            img {
+                width: 100%;
+            }
             .label-content-large {
                 position: absolute;
                 width: 100%;
@@ -173,9 +177,9 @@ button {
             .field-holder {
                 position: absolute;
                 width: 100%;
-                top: 19%;
+                top: 28%;
                 left: 0;
-                padding: 0 30px;
+                padding: 0 13px;
             }
             .label-content-field {
                 font-size: 120%;
@@ -192,14 +196,20 @@ button {
                 }
 
                 &:first-child {
-                    margin-bottom: 30px;
+                    margin-bottom: 15px;
                 }
 
                 &:nth-child(2) {
                     font-size: 240%;
-                    padding-left: 20px;
+                    padding-left: 25px;
+
                     p {
                         @include swiss721-medium;
+                        font-weight: bold;
+                        display: none;
+                        &:nth-child(2) {
+                            display: block;
+                        }
                     }
                 }
             }
@@ -213,15 +223,19 @@ button {
             }
             &.small {
                 .field-holder {
-                    top: 38%;
-                    padding: 0 20px;
+                    top: 37%;
+                    padding: 0 12px;
                 }
                 .label-content-field {
-                    font-size: 110%;
+                    font-size: 100%;
 
                     &:nth-child(2) {
-                        font-size: 110%;
+                        font-size: 100%;
                         padding-left: 0;
+                        p {
+                            @include swiss721-roman;
+                            font-weight: normal;
+                        }
                     }
                 }
             }

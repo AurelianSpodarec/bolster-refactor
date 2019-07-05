@@ -75,12 +75,13 @@ export const TRIM_LABEL_FIELDS = {
     6: 6,
     7: 7,
     8: 8,
-    9: 9
+    9: 9,
+    10: 10
 };
 
 export const LABEL_STATIC_FIELDS = {
-    1: 'Location Owner Company Name',
-    101: 'Operative Company Name',
+    1: 'Drawing Owner Company',
+    101: 'Operative Company',
     102: 'Operative First Name',
     103: 'Operative Last Name',
     104: 'Operative Full Name',

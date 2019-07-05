@@ -7,8 +7,13 @@ import BolsterLabelFieldsExample from 'components/shared/generic/form/presentati
 class LabelExampleContainer extends Component {
     render() {
         const { labelFields } = this.props;
-
-        return <BolsterLabelFieldsExample fields={labelFields} />;
+        const { template } = this.props;
+        return (
+            <BolsterLabelFieldsExample
+                fields={labelFields}
+                template={template}
+            />
+        );
     }
 }
 
