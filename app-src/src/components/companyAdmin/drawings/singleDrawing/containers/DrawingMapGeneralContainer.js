@@ -9,7 +9,7 @@ import updatePinCoordinates from 'actions/companyAdmin/drawings/sync/updatePinCo
 import DrawingMapViewSimple from '../presentational/DrawingMapViewSimple';
 import DrawingInspectionLogContainer from './DrawingInspectionLogContainer';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import { convertArrToObj } from 'helpers/generic';
+import { convertArrToObj, momentComparisonFormat } from 'helpers/generic';
 import {
     COMPANY_USER_ROLE_TYPES as USER_ROLE,
     FLOORPLAN_STATE_MESSAGES,
@@ -311,46 +311,41 @@ class DrawingMapGeneralContainer extends Component {
     };
 
     _getFilteredPins = () => {
-        const {
-            pins,
-            filters
-            //  furtherFiltrationOption
-        } = this.props;
+        const { pins, filters, furtherFiltrationOption } = this.props;
 
         // ? Displays all pins if in rectangle mode, and only the selected pins otherwise.
-        // if (+furtherFiltrationOption === +PIN_SELECTOR) {
-        //     const {
-        //         fromDateInclusive,
-        //         toDateInclusive,
-        //         status,
-        //         serviceID
-        //     } = filters;
-        //     return pins.filter(pin => {
-        //         if (
-        //             fromDateInclusive &&
-        //             moment(pin.createdOn) <
-        //                 moment(fromDateInclusive, momentComparisonFormat)
-        //         ) {
-        //             return false;
-        //         }
-        //         if (
-        //             toDateInclusive &&
-        //             moment(pin.createdOn) >
-        //                 moment(toDateInclusive, momentComparisonFormat)
-        //         ) {
-        //             return false;
-        //         }
-        //         if (status && +pin.latestStatus !== +status) {
-        //             return false;
-        //         }
-        //         if (serviceID && +pin.latestServiceID !== +serviceID) {
-        //             return false;
-        //         }
-        //         return true;
-        //     });
-        // }
 
-        return pins.filter(({ id }) => filters.pinIDs.includes(id));
+        const {
+            fromDateInclusive,
+            toDateInclusive,
+            status,
+            serviceID
+        } = filters;
+        return pins.filter(pin => {
+            if (
+                fromDateInclusive &&
+                moment(pin.createdOn) <
+                    moment(fromDateInclusive, momentComparisonFormat)
+            ) {
+                return false;
+            }
+            if (
+                toDateInclusive &&
+                moment(pin.createdOn) >
+                    moment(toDateInclusive, momentComparisonFormat)
+            ) {
+                return false;
+            }
+            if (status && +pin.latestStatus !== +status) {
+                return false;
+            }
+            if (serviceID && +pin.latestServiceID !== +serviceID) {
+                return false;
+            }
+            return true;
+        });
+
+        // return pins.filter(({ id }) => filters.pinIDs.includes(id));
     };
 
     setMode = mode => {
