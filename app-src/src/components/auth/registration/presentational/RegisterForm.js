@@ -227,6 +227,9 @@ const RegisterForm = ({
                         Submit
                     </button>
                 )}
+                <Link to="/auth/login" className="button red">
+                    Cancel
+                </Link>
             </div>
         </Form>
     </BlockContainer>

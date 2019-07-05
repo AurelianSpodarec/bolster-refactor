@@ -36,10 +36,10 @@ const LoginForm = ({
         </Field>
 
         <div className="button-area size-lg-12">
-            <Link to="" />
             <button className="button green" type="submit">
                 Login
             </button>
+
             <button
                 onClick={handleForgotPassword}
                 className="button red"
@@ -47,6 +47,9 @@ const LoginForm = ({
             >
                 Forgot Password
             </button>
+            <Link to="/auth/register" className="button yellow">
+                Register
+            </Link>
         </div>
     </Form>
 );
