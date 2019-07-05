@@ -311,11 +311,7 @@ class DrawingMapGeneralContainer extends Component {
     };
 
     _getFilteredPins = () => {
-        const {
-            pins,
-            filters
-            // furtherFiltrationOption ,
-        } = this.props;
+        const { pins, filters, furtherFiltrationOption } = this.props;
 
         // ? Displays all pins if in rectangle mode, and only the selected pins otherwise.
 
@@ -327,6 +323,7 @@ class DrawingMapGeneralContainer extends Component {
             templateID,
             companyUserIDs
         } = filters;
+        const NO = false;
         return pins.filter(pin => {
             // start date
             if (
@@ -334,7 +331,7 @@ class DrawingMapGeneralContainer extends Component {
                 moment(pin.createdOn) <
                     moment(fromDateInclusive, momentComparisonFormat)
             ) {
-                return false;
+                return NO;
             }
             // end date
             if (
@@ -342,19 +339,19 @@ class DrawingMapGeneralContainer extends Component {
                 moment(pin.createdOn) >
                     moment(toDateInclusive, momentComparisonFormat)
             ) {
-                return false;
+                return NO;
             }
             // status
             if (status && +pin.latestStatus !== +status) {
-                return false;
+                return NO;
             }
             // services
             if (serviceID && +pin.latestServiceID !== +serviceID) {
-                return false;
+                return NO;
             }
             // templates
             if (templateID && +templateID !== pin.templateID) {
-                return false;
+                return NO;
             }
             // operatives
             if (
@@ -362,7 +359,15 @@ class DrawingMapGeneralContainer extends Component {
                 companyUserIDs.length &&
                 !companyUserIDs.includes(pin.latestCreatedByCompanyUserID)
             ) {
-                return false;
+                return NO;
+            }
+            if (
+                +furtherFiltrationOption ===
+                FURTHER_FILTRATION_OPTIONS.INDIVIDUAL_PINS
+            ) {
+                if (!filters.pinIDs.includes(pin.id)) {
+                    return NO;
+                }
             }
             return true;
         });
