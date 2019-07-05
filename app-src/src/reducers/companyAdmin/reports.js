@@ -177,7 +177,10 @@ function isFetchingReducer(state = false, action) {
     }
 }
 
-function customFiltersReducer(state = { operatives: [], pins: [] }, action) {
+function customFiltersReducer(
+    state = { operatives: [], pins: [], questions: [] },
+    action
+) {
     switch (action.type) {
         case FETCH_PINS_SUCCESS:
             return { ...state, pins: action.payload };

@@ -9,7 +9,7 @@ import updatePinCoordinates from 'actions/companyAdmin/drawings/sync/updatePinCo
 import DrawingMapViewSimple from '../presentational/DrawingMapViewSimple';
 import DrawingInspectionLogContainer from './DrawingInspectionLogContainer';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import { convertArrToObj } from 'helpers/generic';
+import { convertArrToObj, momentComparisonFormat } from 'helpers/generic';
 import {
     COMPANY_USER_ROLE_TYPES as USER_ROLE,
     FLOORPLAN_STATE_MESSAGES,
@@ -311,46 +311,71 @@ class DrawingMapGeneralContainer extends Component {
     };
 
     _getFilteredPins = () => {
-        const {
-            pins,
-            filters
-            //  furtherFiltrationOption
-        } = this.props;
+        const { pins, filters, furtherFiltrationOption } = this.props;
 
         // ? Displays all pins if in rectangle mode, and only the selected pins otherwise.
-        // if (+furtherFiltrationOption === +PIN_SELECTOR) {
-        //     const {
-        //         fromDateInclusive,
-        //         toDateInclusive,
-        //         status,
-        //         serviceID
-        //     } = filters;
-        //     return pins.filter(pin => {
-        //         if (
-        //             fromDateInclusive &&
-        //             moment(pin.createdOn) <
-        //                 moment(fromDateInclusive, momentComparisonFormat)
-        //         ) {
-        //             return false;
-        //         }
-        //         if (
-        //             toDateInclusive &&
-        //             moment(pin.createdOn) >
-        //                 moment(toDateInclusive, momentComparisonFormat)
-        //         ) {
-        //             return false;
-        //         }
-        //         if (status && +pin.latestStatus !== +status) {
-        //             return false;
-        //         }
-        //         if (serviceID && +pin.latestServiceID !== +serviceID) {
-        //             return false;
-        //         }
-        //         return true;
-        //     });
-        // }
 
-        return pins.filter(({ id }) => filters.pinIDs.includes(id));
+        const {
+            fromDateInclusive,
+            toDateInclusive,
+            status,
+            serviceID,
+            templateID,
+            companyUserIDs
+        } = filters;
+        const NO = false;
+        // simple
+        return furtherFiltrationOption <=
+            FURTHER_FILTRATION_OPTIONS.INDIVIDUAL_PINS
+            ? pins.filter(pin => {
+                  // start date
+                  if (
+                      fromDateInclusive &&
+                      moment(pin.createdOn) <
+                          moment(fromDateInclusive, momentComparisonFormat)
+                  ) {
+                      return NO;
+                  }
+                  // end date
+                  if (
+                      toDateInclusive &&
+                      moment(pin.createdOn) >
+                          moment(toDateInclusive, momentComparisonFormat)
+                  ) {
+                      return NO;
+                  }
+                  // status
+                  if (status && +pin.latestStatus !== +status) {
+                      return NO;
+                  }
+                  // services
+                  if (serviceID && +pin.latestServiceID !== +serviceID) {
+                      return NO;
+                  }
+                  // templates
+                  if (templateID && +templateID !== pin.templateID) {
+                      return NO;
+                  }
+                  // operatives
+                  if (
+                      companyUserIDs &&
+                      companyUserIDs.length &&
+                      !companyUserIDs.includes(pin.latestCreatedByCompanyUserID)
+                  ) {
+                      return NO;
+                  }
+                  if (
+                      +furtherFiltrationOption ===
+                      FURTHER_FILTRATION_OPTIONS.INDIVIDUAL_PINS
+                  ) {
+                      if (!filters.pinIDs.includes(pin.id)) {
+                          return NO;
+                      }
+                  }
+                  return true;
+              })
+            : // advanced
+              pins.filter(({ id }) => filters.pinIDs.includes(id));
     };
 
     setMode = mode => {
@@ -383,7 +408,7 @@ const mapStateToProps = (
             addPinCoordinatesReducer: { coordinates },
             reportsReducer: {
                 customFilters: { pins: pinsFromAPI },
-                filters: { pinIDs },
+                filters: { pinIDs, templateID, companyUserIDs },
                 furtherFiltrationOption,
                 rectangles,
                 isFetching: isFetchingReports
@@ -397,6 +422,7 @@ const mapStateToProps = (
     pins: Object.values(pins),
     pinsFromAPI,
     pinIDs,
+    templateID,
     users: Object.values(users),
     services: Object.values(services),
     isFetching,
@@ -404,7 +430,8 @@ const mapStateToProps = (
     error,
     postSuccess,
     furtherFiltrationOption,
-    rectangles: Object.values(rectangles)
+    rectangles: Object.values(rectangles),
+    companyUserIDs
 });
 
 const mapDispatchToProps = {
