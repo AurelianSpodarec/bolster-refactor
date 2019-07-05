@@ -324,9 +324,11 @@ class DrawingMapGeneralContainer extends Component {
             toDateInclusive,
             status,
             serviceID,
-            templateID
+            templateID,
+            companyUserIDs
         } = filters;
         return pins.filter(pin => {
+            // start date
             if (
                 fromDateInclusive &&
                 moment(pin.createdOn) <
@@ -334,6 +336,7 @@ class DrawingMapGeneralContainer extends Component {
             ) {
                 return false;
             }
+            // end date
             if (
                 toDateInclusive &&
                 moment(pin.createdOn) >
@@ -341,13 +344,24 @@ class DrawingMapGeneralContainer extends Component {
             ) {
                 return false;
             }
+            // status
             if (status && +pin.latestStatus !== +status) {
                 return false;
             }
+            // services
             if (serviceID && +pin.latestServiceID !== +serviceID) {
                 return false;
             }
+            // templates
             if (templateID && +templateID !== pin.templateID) {
+                return false;
+            }
+            // operatives
+            if (
+                companyUserIDs &&
+                companyUserIDs.length &&
+                !companyUserIDs.includes(pin.latestCreatedByCompanyUserID)
+            ) {
                 return false;
             }
             return true;
@@ -386,7 +400,7 @@ const mapStateToProps = (
             addPinCoordinatesReducer: { coordinates },
             reportsReducer: {
                 customFilters: { pins: pinsFromAPI },
-                filters: { pinIDs, templateID },
+                filters: { pinIDs, templateID, companyUserIDs },
                 furtherFiltrationOption,
                 rectangles,
                 isFetching: isFetchingReports
