@@ -33,11 +33,6 @@ const { PIN_SELECTOR } = FURTHER_FILTRATION_OPTIONS;
 
 class DrawingMapGeneralContainer extends Component {
     state = {
-        serviceSelectedID: '',
-        statusSelectedID: '',
-        operativeSelectedID: '',
-        fromDateInclusive: undefined,
-        toDateInclusive: undefined,
         position: [-128, 128],
         mapZoom: 3,
         updating: false,
@@ -242,39 +237,67 @@ class DrawingMapGeneralContainer extends Component {
         const { pins, filters, furtherFiltrationOption } = this.props;
         // ? Displays all pins if in rectangle mode, and only the selected pins otherwise.
 
-        if (+furtherFiltrationOption === +PIN_SELECTOR) {
-            const {
-                fromDateInclusive,
-                toDateInclusive,
-                status,
-                serviceID
-            } = filters;
-            return pins.filter(pin => {
-                if (
-                    fromDateInclusive &&
-                    moment(pin.createdOn) <
-                        moment(fromDateInclusive, momentComparisonFormat)
-                ) {
-                    return false;
-                }
-                if (
-                    toDateInclusive &&
-                    moment(pin.createdOn) >
-                        moment(toDateInclusive, momentComparisonFormat)
-                ) {
-                    return false;
-                }
-                if (status && +pin.latestStatus !== +status) {
-                    return false;
-                }
-                if (serviceID && +pin.latestServiceID !== +serviceID) {
-                    return false;
-                }
-                return true;
-            });
-        }
-
-        return pins.filter(({ id }) => filters.pinIDs.includes(id));
+        const {
+            fromDateInclusive,
+            toDateInclusive,
+            status,
+            serviceID,
+            templateID,
+            companyUserIDs
+        } = filters;
+        const NO = false;
+        // simple
+        return furtherFiltrationOption <=
+            FURTHER_FILTRATION_OPTIONS.INDIVIDUAL_PINS
+            ? pins.filter(pin => {
+                  // start date
+                  if (
+                      fromDateInclusive &&
+                      moment(pin.createdOn) <
+                          moment(fromDateInclusive, momentComparisonFormat)
+                  ) {
+                      return NO;
+                  }
+                  // end date
+                  if (
+                      toDateInclusive &&
+                      moment(pin.createdOn) >
+                          moment(toDateInclusive, momentComparisonFormat)
+                  ) {
+                      return NO;
+                  }
+                  // status
+                  if (status && +pin.latestStatus !== +status) {
+                      return NO;
+                  }
+                  // services
+                  if (serviceID && +pin.latestServiceID !== +serviceID) {
+                      return NO;
+                  }
+                  // templates
+                  if (templateID && +templateID !== pin.templateID) {
+                      return NO;
+                  }
+                  // operatives
+                  if (
+                      companyUserIDs &&
+                      companyUserIDs.length &&
+                      !companyUserIDs.includes(pin.latestCreatedByCompanyUserID)
+                  ) {
+                      return NO;
+                  }
+                  if (
+                      +furtherFiltrationOption ===
+                      FURTHER_FILTRATION_OPTIONS.INDIVIDUAL_PINS
+                  ) {
+                      if (!filters.pinIDs.includes(pin.id)) {
+                          return NO;
+                      }
+                  }
+                  return true;
+              })
+            : // advanced
+              pins.filter(({ id }) => filters.pinIDs.includes(id));
     };
 
     setMode = mode => {
@@ -308,10 +331,11 @@ const mapStateToProps = (
             // drawingOperativesReducer: { users, isFetching: fetchingUsers },
             drawingsReducer: { drawings },
             reportsReducer: {
-                filters: { pinIDs },
+                filters: { pinIDs, templateID, companyUserIDs },
                 customFilters: { pins: pinsFromAPI },
                 furtherFiltrationOption,
-                rectangles
+                rectangles,
+                isFetching: isFetchingReports
             }
         },
         shared: {
@@ -330,6 +354,7 @@ const mapStateToProps = (
     pinIDs,
     pinsFromAPI,
     furtherFiltrationOption,
+    companyUserIDs,
     rectangles: Object.values(rectangles)
 });
 
