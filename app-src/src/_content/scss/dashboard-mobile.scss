@@ -50,13 +50,14 @@
         .mobile-profile-menu {
             position: absolute;
             display: none;
-            top: 100%;
+            top: 98%;
             right: 0;
             background-color: $background-grey;
             width: 250px;
             z-index: 5000;
             &.visible {
                 display: block;
+                z-index: 1001;
             }
 
             .text {
@@ -118,6 +119,9 @@
             float: right;
             min-width: 0;
             width: auto;
+            position: absolute;
+            top: 0;
+            right: 0;
 
             .user {
                 padding: 5px 45px 5px 15px;
@@ -587,6 +591,18 @@
                 border-bottom: none;
             }
         }
+        .link-holder {
+            a {
+                padding: 7px 15px;
+                min-width: 100px;
+                text-align: center;
+            }
+        }
+        .button {
+            padding: 7px 15px;
+            min-width: 100px;
+            text-align: center;
+        }
     }
     .generic-table,
     table,
@@ -597,7 +613,18 @@
     tr {
         display: block;
     }
-
+    .link-holder {
+        a {
+            padding: 7px 15px;
+            min-width: 100px;
+            text-align: center;
+        }
+    }
+    .button {
+        padding: 7px 15px;
+        min-width: 100px;
+        text-align: center;
+    }
     .small-text-table {
         &.two-line {
             .generic-table {
