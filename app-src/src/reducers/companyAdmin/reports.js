@@ -26,6 +26,7 @@ import {
 } from 'constants/actionTypes/reports';
 import { updateObj, removeObjItem, convertArrToObj } from 'helpers/generic';
 import { SORT_BY_OPTIONS } from 'constants/companyAdmin/enums';
+import { FETCH_PINS_SUCCESS } from 'constants/actionTypes/pins';
 
 export default combineReducers({
     customFilters: customFiltersReducer,
@@ -178,6 +179,8 @@ function isFetchingReducer(state = false, action) {
 
 function customFiltersReducer(state = { operatives: [], pins: [] }, action) {
     switch (action.type) {
+        case FETCH_PINS_SUCCESS:
+            return { ...state, pins: action.payload };
         case POST_CUSTOM_FILTERS_SUCCESS:
             return action.payload;
         default:

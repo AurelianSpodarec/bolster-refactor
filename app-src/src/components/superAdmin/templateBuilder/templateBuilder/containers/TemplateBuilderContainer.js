@@ -40,7 +40,7 @@ class TemplateBuilderContainer extends Component {
 
     componentDidMount() {
         const {
-            resetSaveRequired,
+            // resetSaveRequired,
             fetchPageData,
             templateUUID,
             labelFields

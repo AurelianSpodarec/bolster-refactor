@@ -1,7 +1,6 @@
 import moment from 'moment';
 import { DATE_TIME_DEFAULTS } from 'constants/companyAdmin/enums';
 import { useEffect } from 'react';
-import { instanceOf } from 'prop-types';
 
 export function convertArrToObj(arr, field = 'id') {
     return arr.reduce((acc, item) => {
