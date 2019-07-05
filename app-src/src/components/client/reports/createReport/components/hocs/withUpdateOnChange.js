@@ -198,10 +198,17 @@ export default function(ProtectedComponent) {
         };
 
         postFilters = () => {
-            const { postCustomFilters } = this.props;
-            const selectedCompanyID = getSelectedCompanyForClient();
-
-            return postCustomFilters(selectedCompanyID, this._getPostBody());
+            const { postCustomFilters, furtherFiltrationOption } = this.props;
+            if (
+                furtherFiltrationOption >
+                FURTHER_FILTRATION_OPTIONS.INDIVIDUAL_PINS
+            ) {
+                const selectedCompanyID = getSelectedCompanyForClient();
+                return postCustomFilters(
+                    selectedCompanyID,
+                    this._getPostBody()
+                );
+            }
         };
     }
 

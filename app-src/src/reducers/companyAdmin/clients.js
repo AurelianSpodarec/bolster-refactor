@@ -115,9 +115,8 @@ function postSuccessReducer(state = false, action) {
 function clientsReducer(state = {}, action) {
     switch (action.type) {
         case FETCH_CLIENT_USERS_SUCCESS:
-            return convertArrToObj(action.payload);
         case FETCH_CLIENTS_FOR_DRAWING_SUCCESS:
-            return { ...state, ...convertArrToObj(action.payload) };
+            return convertArrToObj(action.payload);
         case INVITE_CLIENT_SUCCESS:
         case EDIT_CLIENT_FOR_DRAWING_SUCCESS:
             return updateObj(state, action.payload.id, action.payload);

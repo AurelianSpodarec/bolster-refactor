@@ -29,6 +29,7 @@ import addRectangle from 'actions/companyAdmin/reports/sync/addRectangle';
 import removeRectangle from 'actions/companyAdmin/reports/sync/removeRectangle';
 import removeAllRectangles from 'actions/companyAdmin/reports/sync/removeAllRectangles';
 import updateFurtherFiltrationOption from 'actions/companyAdmin/reports/sync/updateFurtherFiltrationOption';
+
 const { ADD, DELETE, EXCLUDE } = RECTANGLE_MODES;
 const { PIN_SELECTOR } = FURTHER_FILTRATION_OPTIONS;
 
