@@ -4,6 +4,8 @@ import withUpdateOnChange from '../hocs/withUpdateOnChange';
 
 import OperativesFilter from '../presentational/OperativesFilter';
 import { FURTHER_FILTRATION_OPTIONS } from 'constants/companyAdmin/enums';
+import { COMPANY_USER_ROLE_TYPES } from 'constants/companyAdmin/enums';
+const { OPERATIVE } = COMPANY_USER_ROLE_TYPES;
 
 class OperativesFilterContainer extends Component {
     render() {
@@ -14,12 +16,20 @@ class OperativesFilterContainer extends Component {
             furtherFiltrationOption,
             operatives: basicOperatives,
             companyUsers,
-
-            sizeClasses
+            sizeClasses,
+            getAllOperatives = false
         } = this.props;
+
         const isAdvanced =
             furtherFiltrationOption >
             FURTHER_FILTRATION_OPTIONS.INDIVIDUAL_PINS;
+
+        // const companyOperatives =
+        //     getAllOperatives &&
+        //     Object.values(companyUsers).filter(
+        //         ({ type }) => type === OPERATIVE
+        //     );
+
         const operatives = isAdvanced
             ? advancedOperatives
             : Object.values(basicOperatives)
