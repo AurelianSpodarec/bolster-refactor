@@ -227,15 +227,23 @@ button {
                     padding: 0 12px;
                 }
                 .label-content-field {
-                    font-size: 100%;
+                    font-size: 9px;
 
+                    p {
+                        line-height: 11px;
+
+                        @include swiss721-medium;
+                    }
                     &:nth-child(2) {
-                        font-size: 100%;
+                        font-size: 9px;
                         padding-left: 0;
                         p {
-                            @include swiss721-roman;
                             font-weight: normal;
                         }
+                    }
+                    &:first-child {
+                        margin-top: 2.5px;
+                        margin-bottom: 22px;
                     }
                 }
             }
@@ -3027,15 +3035,15 @@ input {
         max-height: 100%;
     }
 
-    .multi-multi-dropdown {
-        .selected-box {
-            .option {
-                .close {
-                    position: relative;
-                }
-            }
-        }
-    }
+    // .multi-multi-dropdown {
+    //     .selected-box {
+    //         .option {
+    //             .close {
+    //                 position: relative;
+    //             }
+    //         }
+    //     }
+    // }
 
     .react-datepicker-popper {
         position: relative !important;
@@ -3358,9 +3366,6 @@ input {
                     i {
                         left: -0.5px;
                     }
-                }
-                i {
-                    left: -0.5px;
                 }
             }
         }

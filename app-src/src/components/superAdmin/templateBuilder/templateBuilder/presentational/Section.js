@@ -24,9 +24,9 @@ const Section = ({
                 title={`${section.name}`}
                 subTitle={section.isAfterLabel ? '' : '- not after label'}
             >
-                <button className="button icon-only">
+                {/* <button className="button icon-only">
                     <i className="fa fa-eye" />
-                </button>
+                </button> */}
                 <button className="button blue" onClick={showRenameSectModal}>
                     Update
                 </button>
