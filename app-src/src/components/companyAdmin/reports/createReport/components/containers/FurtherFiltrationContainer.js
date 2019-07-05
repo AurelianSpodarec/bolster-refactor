@@ -2,7 +2,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import showModal from 'actions/shared/generic/modals/sync/showModal';
 import hideModal from 'actions/shared/generic/modals/sync/hideModal';
-import { FILTER_FIELDS, CONFIRM_SUBMIT } from 'constants/shared/modalTypes';
+import {
+    FILTER_FIELDS,
+    CONFIRM_SUBMIT,
+    LOADING_DATA
+} from 'constants/shared/modalTypes';
 
 import FurtherFiltration from '../presentational/FurtherFiltration';
 import PinSelectorContainer from 'components/shared/pinSelector/container/PinSelectorContainer';
@@ -117,7 +121,10 @@ class FurtherFiltrationContainer extends Component {
             filters: { siteID, buildingID, floorID, drawingID },
             removeFilterQuestions,
             furtherFiltrationOption,
-            updateFurtherFiltrationOption
+            updateFurtherFiltrationOption,
+            isFetching,
+            showModal,
+            hideModal
         } = this.props;
         // reset filter fields if changing the filter
         if (prevProps.furtherFiltrationOption !== furtherFiltrationOption) {
@@ -132,6 +139,17 @@ class FurtherFiltrationContainer extends Component {
         ) {
             updateFurtherFiltrationOption(0);
             removeFilterQuestions();
+        }
+        // loading filters - slow on live
+        if (isFetching && !prevProps.isFetching) {
+            showModal(LOADING_DATA, {
+                message: 'Filtering Pins, please wait.'
+            });
+        }
+
+        // finished loading filters
+        if (!isFetching && prevProps.isFetching) {
+            hideModal();
         }
     };
     _scrollToMap = () => {
@@ -213,7 +231,8 @@ const mapStateToProps = ({
             filters: { pinIDs: ids = [] },
             fields,
             filters,
-            furtherFiltrationOption
+            furtherFiltrationOption,
+            isFetching
         }
     }
 }) => ({
@@ -221,7 +240,8 @@ const mapStateToProps = ({
     fields: Object.values(fields),
     filters,
     shouldConfirm: !isObjEmpty(fields) || pins.length !== ids.length,
-    furtherFiltrationOption
+    furtherFiltrationOption,
+    isFetching
 });
 
 const mapDispatchToProps = {
