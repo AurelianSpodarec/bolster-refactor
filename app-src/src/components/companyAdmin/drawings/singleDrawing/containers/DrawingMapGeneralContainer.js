@@ -311,7 +311,11 @@ class DrawingMapGeneralContainer extends Component {
     };
 
     _getFilteredPins = () => {
-        const { pins, filters, furtherFiltrationOption } = this.props;
+        const {
+            pins,
+            filters
+            // furtherFiltrationOption ,
+        } = this.props;
 
         // ? Displays all pins if in rectangle mode, and only the selected pins otherwise.
 
@@ -319,7 +323,8 @@ class DrawingMapGeneralContainer extends Component {
             fromDateInclusive,
             toDateInclusive,
             status,
-            serviceID
+            serviceID,
+            templateID
         } = filters;
         return pins.filter(pin => {
             if (
@@ -340,6 +345,9 @@ class DrawingMapGeneralContainer extends Component {
                 return false;
             }
             if (serviceID && +pin.latestServiceID !== +serviceID) {
+                return false;
+            }
+            if (templateID && +templateID !== pin.templateID) {
                 return false;
             }
             return true;
@@ -378,7 +386,7 @@ const mapStateToProps = (
             addPinCoordinatesReducer: { coordinates },
             reportsReducer: {
                 customFilters: { pins: pinsFromAPI },
-                filters: { pinIDs },
+                filters: { pinIDs, templateID },
                 furtherFiltrationOption,
                 rectangles,
                 isFetching: isFetchingReports
@@ -392,6 +400,7 @@ const mapStateToProps = (
     pins: Object.values(pins),
     pinsFromAPI,
     pinIDs,
+    templateID,
     users: Object.values(users),
     services: Object.values(services),
     isFetching,
