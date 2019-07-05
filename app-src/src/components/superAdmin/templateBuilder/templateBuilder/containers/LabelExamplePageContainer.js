@@ -11,7 +11,13 @@ import { isEmpty } from 'helpers/generic';
 
 class LabelExamplePageContainer extends Component {
     render() {
-        return <LabelExamplePage />;
+        return (
+            <LabelExamplePage
+                templates={this.props.templates}
+                isFetching={this.props.isFetching}
+                error={this.props.error}
+            />
+        );
     }
     componentDidMount = () => {
         const { fetchPageData, uuid, labelFields } = this.props;
@@ -22,7 +28,7 @@ class LabelExamplePageContainer extends Component {
 const mapStateToProps = (
     {
         superAdmin: {
-            templatesReducer: { templates },
+            templatesReducer: { templates, isFetching, error },
             templateLabelFieldsReducer: { labelFields }
         }
     },
@@ -34,10 +40,13 @@ const mapStateToProps = (
 ) => ({
     companyID,
     template: templates[uuid],
+    templates,
     uuid,
     labelFields: Object.values(labelFields).filter(
         ({ templateUUID }) => templateUUID === uuid
-    )
+    ),
+    isFetching,
+    error
 });
 const mapDispatchToProps = (
     dispatch,

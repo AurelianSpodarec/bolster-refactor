@@ -115,7 +115,7 @@ function templatesReducer(state = {}, action) {
         case FETCH_COMPANY_TEMPLATES_SUCCESS:
             return {
                 ...state,
-                ...convertArrToObj(action.payload, 'id')
+                ...convertArrToObj(action.payload, 'uuid')
             };
         case FETCH_TEMPLATE_SUCCESS:
         case SET_TEMPLATE:
