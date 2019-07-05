@@ -63,7 +63,6 @@ class AddServiceToSubscriptionModalContainer extends Component {
             postSuccess,
             postFailure,
             showModal,
-            hideModal,
             fetchAllSubscriptions,
             error
         } = this.props;
@@ -75,7 +74,7 @@ class AddServiceToSubscriptionModalContainer extends Component {
                 stripeCardID: primaryCard ? primaryCard.id : null
             });
         }
-
+        // if (postSuccess && !prevProps.postSuccess)
         if (postSuccess && !prevProps.postSuccess) {
             // success modal
             fetchAllSubscriptions();
@@ -87,14 +86,14 @@ class AddServiceToSubscriptionModalContainer extends Component {
                 }`
             });
         }
-
+        // if (postFailure && !prevProps.postFailure)
         if (postFailure && !prevProps.postFailure) {
             // fail modal
             fetchAllSubscriptions();
             showModal(PAYMENT_ERROR, {
                 message:
                     'There was an error while purchasing your subscription. Please try again.',
-                resubmit: hideModal,
+                resubmit: this.handleSubmit,
                 error: error.replace('office', 'invoice')
             });
         }

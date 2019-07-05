@@ -23,10 +23,11 @@ export const editServiceFailure = error => ({
     error
 });
 
+//will need showOnCompanySite here
 export default (id, name) => dispatch => {
     dispatch(editServiceRequest(id, name));
     // ?
-    axios
+    return axios
         .post(
             `${ADMIN_API_URL}/services/${id}`,
             {

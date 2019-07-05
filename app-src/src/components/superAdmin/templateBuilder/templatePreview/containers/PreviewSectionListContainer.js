@@ -4,16 +4,18 @@ import { withRouter } from 'react-router-dom';
 
 import PreviewSectionList from '../presentational/PreviewSectionList';
 import fetchTemplate from 'actions/superAdmin/templateBuilder/async/fetchTemplate';
+import { isEmpty } from 'helpers/generic';
 
 let PreviewSectionListContainer = ({
     sections,
     questionBySection,
     fetchTemplate,
     templateUUID,
-    template
+    template,
+    labelFields
 }) => {
     useEffect(() => {
-        fetchTemplate(templateUUID);
+        if (isEmpty(labelFields)) fetchTemplate(templateUUID);
     }, []);
     return (
         <PreviewSectionList
@@ -29,7 +31,8 @@ const mapStateToProps = (
         superAdmin: {
             templateSectionsReducer: { sections },
             templateQuestionsReducer: { questions },
-            templatesReducer: { templates }
+            templatesReducer: { templates },
+            templateLabelFieldsReducer: { labelFields }
         }
     },
     {
@@ -54,7 +57,10 @@ const mapStateToProps = (
         templateUUID: uuid,
         sections: secs,
         questionBySection,
-        template: templates[uuid] || {}
+        template: templates[uuid] || {},
+        labelFields: Object.values(labelFields).filter(
+            ({ templateUUID }) => String(templateUUID) === uuid
+        )
     };
 };
 

@@ -6,6 +6,7 @@ import FormExamplePage from '../presentational/FormExamplePage';
 import fetchAllServices from 'actions/superAdmin/services/async/fetchAllServices';
 import fetchTemplate from 'actions/superAdmin/templateBuilder/async/fetchTemplate';
 import fetchSingleCompany from 'actions/superAdmin/companies/async/fetchSingleCompany';
+import { isEmpty } from 'helpers/generic';
 
 class FormExamplePageContainer extends Component {
     render() {
@@ -13,11 +14,24 @@ class FormExamplePageContainer extends Component {
     }
 
     componentDidMount = () => {
-        const { temmplateUUID, fetchPageData } = this.props;
+        const { temmplateUUID, fetchPageData, labelFields } = this.props;
 
-        fetchPageData(temmplateUUID);
+        if (isEmpty(labelFields)) fetchPageData(temmplateUUID);
     };
 }
+
+const mapStateToProps = (
+    {
+        superAdmin: {
+            templateLabelFieldsReducer: { labelFields }
+        }
+    },
+    { match: { params } }
+) => ({
+    labelFields: Object.values(labelFields).filter(
+        ({ templateuuid }) => String(templateuuid) === params.uuid
+    )
+});
 
 const mapDispatchToProps = (
     dispatch,
@@ -34,7 +48,7 @@ const mapDispatchToProps = (
     }
 });
 const WithConnect = connect(
-    null,
+    mapStateToProps,
     mapDispatchToProps
 )(FormExamplePageContainer);
 

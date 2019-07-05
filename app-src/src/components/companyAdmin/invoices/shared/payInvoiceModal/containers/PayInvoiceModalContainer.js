@@ -47,7 +47,6 @@ class PayInvoiceModalContainer extends Component {
             cards,
             postSuccess,
             postFailure,
-            hideModal,
             showModal
         } = this.props;
 
@@ -68,7 +67,7 @@ class PayInvoiceModalContainer extends Component {
             showModal(PAYMENT_ERROR, {
                 message:
                     'There was an error while paying this invoice, please try again.',
-                resubmit: hideModal
+                resubmit: this.handleSubmit
             });
         }
     };
