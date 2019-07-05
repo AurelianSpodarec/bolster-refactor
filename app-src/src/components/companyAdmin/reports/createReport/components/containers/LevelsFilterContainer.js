@@ -81,6 +81,7 @@ class LevelsFilterContainer extends Component {
             siteID: this.updateSite
         };
         const update = updateMethods[name];
+
         if (shouldConfirm && !mount) {
             const handleSubmit = () => {
                 hideModal();

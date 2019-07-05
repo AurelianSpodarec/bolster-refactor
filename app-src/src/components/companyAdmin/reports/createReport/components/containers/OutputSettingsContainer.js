@@ -150,17 +150,18 @@ class OutputSettingsContainer extends Component {
         } = this.props;
 
         if (!isEmpty(fieldErrors)) showFieldErrors();
+        // else if (
+        //     Object.values(drawings).filter(
+        //         drawing => +drawing.id === +drawingID
+        //     ).length < 1
+        // ) {
+        //     showModal(ERROR_MODAL, {
+        //         title: 'Error',
+        //         message:
+        //             'No drawings available to report, please add at least one drawing.'
+        //     });
+        // }
         else if (
-            Object.values(drawings).filter(
-                drawing => +drawing.id === +drawingID
-            ).length < 1
-        ) {
-            showModal(ERROR_MODAL, {
-                title: 'Error',
-                message:
-                    'No drawings available to report, please add at least one drawing.'
-            });
-        } else if (
             isFloorplanGeneration ||
             (isPDFGeneration && includeFloorplan)
         ) {
