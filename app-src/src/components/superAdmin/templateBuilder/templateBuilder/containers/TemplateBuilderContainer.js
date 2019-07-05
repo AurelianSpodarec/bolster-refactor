@@ -15,6 +15,7 @@ import showModal from 'actions/shared/generic/modals/sync/showModal';
 import resetSaveRequired from 'actions/superAdmin/templateBuilder/sync/resetSaveRequired';
 
 import TemplateBuilder from '../presentational/TemplateBuilder';
+import { isEmpty } from 'helpers/generic';
 
 class TemplateBuilderContainer extends Component {
     render() {
@@ -38,11 +39,16 @@ class TemplateBuilderContainer extends Component {
     }
 
     componentDidMount() {
-        const { resetSaveRequired, fetchPageData, templateUUID } = this.props;
+        const {
+            resetSaveRequired,
+            fetchPageData,
+            templateUUID,
+            labelFields
+        } = this.props;
         if (!/-/.test(templateUUID)) {
-            resetSaveRequired();
+            // resetSaveRequired();
         }
-        fetchPageData(templateUUID);
+        if (isEmpty(labelFields)) fetchPageData(templateUUID);
     }
 
     componentDidUpdate({
@@ -82,7 +88,7 @@ class TemplateBuilderContainer extends Component {
 }
 
 const mapStateToProps = (
-    { superAdmin: { templatesReducer } },
+    { superAdmin: { templatesReducer, templateLabelFieldsReducer } },
     { match: { params, url } }
 ) => ({
     curUrl: url,
@@ -94,7 +100,10 @@ const mapStateToProps = (
     updatedTemplateUUID: templatesReducer.updatedTemplateUUID,
     saveRequired: templatesReducer.saveRequired,
     uuid: params.uuid,
-    isExisting: !!templatesReducer.templates[params.uuid]
+    isExisting: !!templatesReducer.templates[params.uuid],
+    labelFields: Object.values(templateLabelFieldsReducer.labelFields).filter(
+        ({ templateUUID }) => String(templateUUID === params.uuid)
+    )
 });
 
 const mapDispatchToProps = (
