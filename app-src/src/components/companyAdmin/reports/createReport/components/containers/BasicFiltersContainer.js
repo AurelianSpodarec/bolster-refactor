@@ -82,7 +82,7 @@ class BasicFiltersContainer extends Component {
     componentDidMount = () => {
         const { fetchAllTemplates } = this.props;
 
-        fetchAllTemplates();
+        // fetchAllTemplates();
     };
 
     handleDateBlur = isStart => {

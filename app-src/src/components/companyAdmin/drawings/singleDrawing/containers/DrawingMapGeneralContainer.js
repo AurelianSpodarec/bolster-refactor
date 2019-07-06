@@ -79,6 +79,14 @@ class DrawingMapGeneralContainer extends Component {
 
         const isExpired = moment(drawing.expiresOn).isBefore(moment.now());
 
+        console.log('templateIDs', [
+            ...new Set(
+                this.props
+                    .getFilteredPins(this.props.pins)
+                    .map(p => p.templateID)
+            )
+        ]);
+
         return (
             <>
                 <div className="flex-container size-lg-12">
