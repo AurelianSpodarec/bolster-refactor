@@ -26,6 +26,7 @@ export default combineReducers({
     error: errorReducer,
     updatedServiceID: updatedServiceIDReducer,
     isFetching: isFetchingReducer,
+    isFetchingTemplateForService: isFetchingTemplateForServiceReducer,
     adminServices: adminServicesReducer,
     adminServiceTemplates: adminServiceTemplatesReducer
 });
@@ -34,12 +35,21 @@ function isFetchingReducer(state = false, action) {
     switch (action.type) {
         case ADMIN_FETCH_ALL_SERVICES_REQUEST:
         case ADMIN_FETCH_SINGLE_SERVICE_REQUEST:
-        case ADMIN_FETCH_TEMPLATES_FOR_SERVICE_REQUEST:
             return true;
         case ADMIN_FETCH_ALL_SERVICES_SUCCESS:
         case ADMIN_FETCH_ALL_SERVICES_FAILURE:
         case ADMIN_FETCH_SINGLE_SERVICE_SUCCESS:
         case ADMIN_FETCH_SINGLE_SERVICE_FAILURE:
+            return false;
+        default:
+            return state;
+    }
+}
+
+function isFetchingTemplateForServiceReducer(state = false, action) {
+    switch (action.type) {
+        case ADMIN_FETCH_TEMPLATES_FOR_SERVICE_REQUEST:
+            return true;
         case ADMIN_FETCH_TEMPLATES_FOR_SERVICE_SUCCESS:
         case ADMIN_FETCH_TEMPLATES_FOR_SERVICE_FAILURE:
             return false;

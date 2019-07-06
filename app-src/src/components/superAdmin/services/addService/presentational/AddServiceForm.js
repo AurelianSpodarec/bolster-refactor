@@ -43,7 +43,7 @@ const AddServiceForm = ({
             </div>
         </div>
 
-        {/* <div className="size-lg-6 size-md-12">
+        <div className="size-lg-6 size-md-12">
             <Field name="Available to companies?">
                 <CheckboxContainer
                     checked={showOnCompanySite}
@@ -51,7 +51,7 @@ const AddServiceForm = ({
                     name="showOnCompanySite"
                 />
             </Field>
-        </div> */}
+        </div>
         <BlockButtonWrapper>
             <button className="button green">
                 <i className="fa fa-plus" />

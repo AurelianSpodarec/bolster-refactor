@@ -2,13 +2,14 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
-import { convertArrToObj } from 'helpers/generic';
+import { convertArrToObj, isEmpty } from 'helpers/generic';
 import AddServiceForm from '../presentational/AddServiceForm';
 import createService from 'actions/superAdmin/services/async/createService';
 import fetchTemplates from 'actions/superAdmin/templateBuilder/async/fetchTemplates';
 import postTemplatesForService from 'actions/superAdmin/services/async/postTemplatesForService';
 
 import { ADMIN_CREATE_SERVICE_SUCCESS } from 'constants/actionTypes/services';
+import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 
 class AddServiceFormContainer extends Component {
     state = {
@@ -19,13 +20,22 @@ class AddServiceFormContainer extends Component {
 
     render() {
         const templateOptions = this._getTemplateOptions();
+        const { isFetching, error, templates } = this.props;
+
         return (
-            <AddServiceForm
-                {...this.state}
-                handleInputChange={this.handleInputChange}
-                handleSubmit={this.handleSubmit}
-                templateOptions={Object.values(templateOptions)}
-            />
+            <BlockContainer
+                isFetching={isFetching}
+                error={error}
+                isEmpty={isEmpty(templates)}
+                noWhiteBackground
+            >
+                <AddServiceForm
+                    {...this.state}
+                    handleInputChange={this.handleInputChange}
+                    handleSubmit={this.handleSubmit}
+                    templateOptions={Object.values(templateOptions)}
+                />
+            </BlockContainer>
         );
     }
 
@@ -51,7 +61,8 @@ class AddServiceFormContainer extends Component {
 
         const { createService, postTemplatesForService } = this.props;
         const { name, templateUUIDs, showOnCompanySite } = this.state;
-        createService({ name }).then(action => {
+
+        createService({ name, showOnCompanySite }).then(action => {
             if (action.type === ADMIN_CREATE_SERVICE_SUCCESS) {
                 const service = action.payload;
 
@@ -82,9 +93,9 @@ class AddServiceFormContainer extends Component {
 const mapStateToProps = ({
     superAdmin: {
         adminServicesReducer: { postSuccess },
-        templatesReducer: { templates }
+        templatesReducer: { templates, isFetching, error }
     }
-}) => ({ postSuccess, templates: Object.values(templates) });
+}) => ({ postSuccess, templates: Object.values(templates), isFetching, error });
 
 const mapDispatchToProps = dispatch => ({
     createService: postBody => {
