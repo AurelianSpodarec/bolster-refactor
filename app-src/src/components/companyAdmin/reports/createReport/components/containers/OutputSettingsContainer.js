@@ -10,7 +10,8 @@ import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import {
     SUCCESS_MODAL,
     ERROR_MODAL,
-    SELECT_PIN_SCALE
+    SELECT_PIN_SCALE,
+    LOADING_DATA
 } from 'constants/shared/modalTypes';
 import resetFilterOptions from 'actions/companyAdmin/reports/sync/resetFilterOptions';
 
@@ -22,6 +23,7 @@ import updateFilterOption from 'actions/companyAdmin/reports/sync/updateFilterOp
 import OutputSettings from '../presentational/OutputSettings';
 import addFieldError from 'actions/shared/generic/fieldErrors/sync/addFieldError';
 import removeFieldError from 'actions/shared/generic/fieldErrors/sync/removeFieldError';
+import { POST_REPORT_SUCCESS } from 'constants/actionTypes/reports';
 
 class OutputSettingsContainer extends Component {
     render() {
@@ -87,7 +89,8 @@ class OutputSettingsContainer extends Component {
                 isFloorplanGeneration
             },
             addFieldError,
-            removeFieldError
+            removeFieldError,
+            isCreating
         } = this.props;
 
         // error handling for report type
@@ -110,19 +113,19 @@ class OutputSettingsContainer extends Component {
             removeFieldError('isFloorplanGeneration');
         }
 
-        if (postSuccess && !prevProps.postSuccess) {
-            showModal(SUCCESS_MODAL, {
-                message: 'Your report is now being generated'
-            });
+        // if (postSuccess && !prevProps.postSuccess) {
+        //     showModal(SUCCESS_MODAL, {
+        //         message: 'Your report is now being generated'
+        //     });
 
-            return history.push('/company/tools/company-reports');
-        }
-        if (error && !prevProps.error) {
-            showModal(ERROR_MODAL, {
-                title: error.title || 'Error',
-                message: error.message
-            });
-        }
+        //     return history.push('/company/tools/company-reports');
+        // }
+        // if (error && !prevProps.error) {
+        //     showModal(ERROR_MODAL, {
+        //         title: error.title || 'Error',
+        //         message: error.message
+        //     });
+        // }
     };
 
     handleFilterChange = (name, value) => {
@@ -180,9 +183,34 @@ class OutputSettingsContainer extends Component {
             showModal(SELECT_PIN_SCALE, {
                 drawing: drawingForPinScale,
                 getPostBody,
-                postReport
+                postReport: this._postReport
             });
-        } else postReport(getPostBody());
+        } else {
+            this._postReport(getPostBody());
+        }
+    };
+
+    _postReport = postBody => {
+        const { postReport, showModal, history, error } = this.props;
+
+        showModal(LOADING_DATA, { message: 'Generating report...' });
+        postReport(postBody).then((action = {}) => {
+            if (action.type === POST_REPORT_SUCCESS) {
+                showModal(SUCCESS_MODAL, {
+                    message: 'Your report is now being generated'
+                });
+
+                history.push('/company/tools/company-reports');
+                return;
+            }
+
+            showModal(ERROR_MODAL, {
+                title: 'Error',
+                message:
+                    error ||
+                    'There was an error with your request. Please try again later.'
+            });
+        });
     };
 
     _getDrawingForPinScale = () => {
@@ -226,7 +254,15 @@ const mapStateToProps = ({
         floorsReducer: { floors },
         drawingsReducer: { drawings },
 
-        reportsReducer: { filters, fields, options, postSuccess, error, pinIDs }
+        reportsReducer: {
+            filters,
+            fields,
+            options,
+            postSuccess,
+            error,
+            pinIDs,
+            isCreating
+        }
     },
     shared: {
         fieldErrorsReducer: { fieldErrors }
@@ -242,7 +278,8 @@ const mapStateToProps = ({
     buildings,
     floors,
     drawings,
-    error
+    error,
+    isCreating
 });
 
 const mapDispatchToProps = {

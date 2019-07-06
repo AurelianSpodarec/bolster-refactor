@@ -17,7 +17,7 @@ export const postReportSuccess = payload => ({
     type: POST_REPORT_SUCCESS,
     payload
 });
-export const postReportNoPind = payload => ({
+export const postReportNoPins = payload => ({
     type: POST_REPORT_NO_PINS,
     payload
 });
@@ -32,16 +32,10 @@ export default postBody => dispatch => {
 
     return axios
         .post(`${API_URL}/reports`, postBody, getHeaders())
-        .then(({ status, data }) => {
-            if (status === 202) {
-                // no pins returned, display modal
-                dispatch(postReportFailure({ status, ...data }));
-            } else {
-                // actual success
-                dispatch(postReportSuccess(data));
-            }
+        .then(({ data }) => {
+            return dispatch(postReportSuccess(data));
         })
         .catch(err => {
-            dispatch(handleErrors(postReportFailure)(err));
+            return dispatch(handleErrors(postReportFailure)(err));
         });
 };

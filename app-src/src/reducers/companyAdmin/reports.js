@@ -46,7 +46,8 @@ export default combineReducers({
     isFetching: isFetchingReducer,
     rectangles: rectanglesReducer,
     furtherFiltrationOption: furtherFiltrationOptionReducer,
-    excludedPinIDs: excludedPinIDsReducer
+    excludedPinIDs: excludedPinIDsReducer,
+    isCreating: isCreatingReducer
 });
 
 //send the questionsIDs
@@ -109,6 +110,18 @@ function filtersReducer(
                 pinIDs: [],
                 floorplanPinScale: 1
             };
+        default:
+            return state;
+    }
+}
+
+function isCreatingReducer(state = false, action) {
+    switch (action.type) {
+        case POST_REPORT_REQUEST:
+            return true;
+        case POST_CUSTOM_FILTERS_FAILURE:
+        case POST_CUSTOM_FILTERS_SUCCESS:
+            return false;
         default:
             return state;
     }
