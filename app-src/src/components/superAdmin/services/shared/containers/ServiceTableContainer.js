@@ -4,7 +4,7 @@ import ServiceTable from '../presentational/ServiceTable';
 
 const ServiceTableContainer = ({ isFetching, error, services }) => (
     <ServiceTable
-        headers={['Service name', '']}
+        headers={['Service name', 'Available to companies?', '']}
         isFetching={isFetching}
         error={error}
         services={services}

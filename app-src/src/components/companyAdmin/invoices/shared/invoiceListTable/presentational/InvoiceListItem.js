@@ -63,7 +63,7 @@ const InvoiceListItem = ({
                 <span className="mobile-table-heading">{headers[4]}</span>
             )}
             {`£${
-                remainingToPay && remainingToPay > 0
+                remainingToPay && remainingToPay > 0 && !isPaid
                     ? formatCurrency(remainingToPay)
                     : 0
             }`}

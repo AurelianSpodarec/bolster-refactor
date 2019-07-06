@@ -3,10 +3,15 @@ import React from 'react';
 const UserDrawingListItem = ({
     drawing,
     checkedDrawings,
-    handleDrawingIDs
+    handleDrawingIDs,
+    siteName,
+    buildingName,
+    floorName
 }) => (
     <tr key={drawing.id}>
-        <td>{`${drawing.name}`}</td>
+        <td>{`${siteName} / ${buildingName} / ${floorName} / ${
+            drawing.name
+        }`}</td>
         <td>
             <input
                 name="drawingIDs"

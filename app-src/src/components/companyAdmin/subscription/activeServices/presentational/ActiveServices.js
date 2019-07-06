@@ -30,13 +30,15 @@ const ActiveServices = ({
                 handleChange={handleChange}
                 isAutoRenew={isAutoRenew}
             >
-                {services.map(service => (
-                    <AddServiceItem
-                        key={service.id}
-                        showModal={showModal}
-                        service={service}
-                    />
-                ))}
+                {services
+                    .filter(service => service.showOnCompanySite)
+                    .map(service => (
+                        <AddServiceItem
+                            key={service.id}
+                            showModal={showModal}
+                            service={service}
+                        />
+                    ))}
             </CompanyServicesList>
         </Form>
         <div className="size-lg-12">
