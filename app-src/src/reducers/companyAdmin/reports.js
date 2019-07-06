@@ -25,7 +25,10 @@ import {
     REMOVE_ALL_EXCLUDED_PINS,
     GET_OPERATIVE_OPTIONS_SUCCESS,
     GET_OPERATIVE_OPTIONS_FAILURE,
-    GET_OPERATIVE_OPTIONS_REQUEST
+    GET_OPERATIVE_OPTIONS_REQUEST,
+    GET_TEMPLATE_REPORT_OPTIONS_SUCCESS,
+    GET_TEMPLATE_REPORT_OPTIONS_REQUEST,
+    GET_TEMPLATE_REPORT_OPTIONS_FAILURE
 } from 'constants/actionTypes/reports';
 import { updateObj, removeObjItem, convertArrToObj } from 'helpers/generic';
 import { SORT_BY_OPTIONS } from 'constants/companyAdmin/enums';
@@ -181,7 +184,7 @@ function isFetchingReducer(state = false, action) {
 }
 
 function customFiltersReducer(
-    state = { operatives: [], pins: [], questions: [] },
+    state = { operatives: [], pins: [], questions: [], templates: [] },
     action
 ) {
     switch (action.type) {
@@ -190,7 +193,10 @@ function customFiltersReducer(
         case FETCH_PINS_SUCCESS:
             return { ...state, pins: action.payload };
         case POST_CUSTOM_FILTERS_SUCCESS:
-            return action.payload;
+            return { ...state, ...action.payload };
+        case GET_TEMPLATE_REPORT_OPTIONS_SUCCESS:
+            return { ...state, templates: action.payload };
+
         default:
             return state;
     }
@@ -229,12 +235,14 @@ function errorReducer(state = null, action) {
     switch (action.type) {
         case POST_CUSTOM_FILTERS_REQUEST:
         case GET_OPERATIVE_OPTIONS_REQUEST:
+        case GET_TEMPLATE_REPORT_OPTIONS_REQUEST:
         case POST_REPORT_REQUEST:
             return null;
         case POST_REPORT_NO_PINS:
             return action.payload;
         case POST_CUSTOM_FILTERS_FAILURE:
         case GET_OPERATIVE_OPTIONS_FAILURE:
+        case GET_TEMPLATE_REPORT_OPTIONS_FAILURE:
         case POST_REPORT_FAILURE:
             return action.error;
         default:

@@ -78,10 +78,10 @@ class AddServiceFormContainer extends Component {
         const { templates } = this.props;
 
         const options = templates
-            .map(({ name, uuid }) => {
+            .map(({ name, uuid, companyName }) => {
                 return {
-                    label: name,
-                    text: name,
+                    label: `${companyName} - ${name}`,
+                    text: `${companyName} - ${name}`,
                     value: uuid
                 };
             })

@@ -38,7 +38,6 @@ class BasicFiltersContainer extends Component {
                 toDateInclusive,
                 reportHistories
             },
-            isFetchingTemplates,
             templates
         } = this.props;
 
@@ -55,7 +54,7 @@ class BasicFiltersContainer extends Component {
                     isDrawingPage ? 12 : 6
                 } size-md-12`}
             >
-                <BlockContainer isFetching={isFetchingTemplates}>
+                <BlockContainer>
                     <BasicFilters
                         isDrawingPage={isDrawingPage}
                         dateError={fieldErrors['fromDateInclusive']}
@@ -78,12 +77,6 @@ class BasicFiltersContainer extends Component {
             </div>
         );
     }
-
-    componentDidMount = () => {
-        const { fetchAllTemplates } = this.props;
-
-        // fetchAllTemplates();
-    };
 
     handleDateBlur = isStart => {
         isStart
@@ -147,15 +140,13 @@ const mapStateToProps = ({
     companyAdmin: {
         reportsReducer: {
             fields,
-            customFilters: { pins = [] },
+            customFilters: { pins = [], templates = [] },
             filters: { pinIDs = [] }
-        },
-        templatesReducer: { isFetching: isFetchingTemplates, templates }
+        }
     }
 }) => ({
     shouldConfirm: !isObjEmpty(fields) || pins.length !== pinIDs.length,
-    isFetchingTemplates,
-    templates: Object.values(templates)
+    templates: templates
 });
 
 const mapDispatchToProps = {
