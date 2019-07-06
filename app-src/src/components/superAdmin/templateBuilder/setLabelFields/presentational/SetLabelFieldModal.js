@@ -19,7 +19,7 @@ const SetLabelModal = ({
         <Form className="generic-form labels-form" onSubmit={handleSubmit}>
             <LabelFields
                 labelType={labelType}
-                fields={[...fields].sort((a, b) => b.key - a.key)}
+                fields={[...fields].sort((a, b) => a.key - b.key)}
                 handleChange={handleChange}
                 questionOptions={questionOptions}
             />
