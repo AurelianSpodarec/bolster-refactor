@@ -37,6 +37,7 @@ class CopyTemplateModalContainer extends Component {
 
                 return {
                     label: `${company.name} - ${name}`,
+                    name: `${company.name} - ${name}`,
                     value: uuid
                 };
             })
