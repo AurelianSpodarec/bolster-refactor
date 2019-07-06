@@ -187,20 +187,20 @@ export default function(ProtectedComponent) {
                 showHidden,
                 sortBy,
                 pinBoundingBoxes,
-                floorplanPinScale
+                floorplanPinScale,
+                hasQuestions: false
             };
             return body;
         };
 
         postFilters = () => {
             const { postCustomFilters, furtherFiltrationOption } = this.props;
-            // only post filters if advanced filters require it - none / individual pins are 0,1 and dont require it
-            if (
-                furtherFiltrationOption >
-                FURTHER_FILTRATION_OPTIONS.INDIVIDUAL_PINS
-            ) {
-                return postCustomFilters(this._getPostBody());
-            }
+            const { INDIVIDUAL_PINS } = FURTHER_FILTRATION_OPTIONS;
+
+            const postBody = this._getPostBody();
+            postBody.hasQuestions = furtherFiltrationOption > INDIVIDUAL_PINS;
+
+            return postCustomFilters(this._getPostBody());
         };
     }
 
