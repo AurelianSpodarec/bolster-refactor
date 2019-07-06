@@ -14,7 +14,6 @@ import fetchOperativesForDrawing from 'actions/companyAdmin/operatives/async/fet
 import fetchCompanyUsers from 'actions/companyAdmin/userManagement/async/fetchCompanyUsers';
 import resetFilterOptions from 'actions/companyAdmin/reports/sync/resetFilterOptions';
 import fetchPinStatsForLevel from 'actions/companyAdmin/stats/async/fetchPinStatsForLevel';
-import fetchDrawingTemplates from 'actions/companyAdmin/drawings/async/fetchDrawingTemplates';
 
 class SingleDrawingContainer extends Component {
     render = () => <SingleDrawing />;
@@ -40,7 +39,6 @@ const mapDispatchToProps = dispatch => ({
         dispatch(fetchPins('drawing', drawingID));
         dispatch(fetchCompanyUsers());
         dispatch(fetchPinStatsForLevel(4, drawingID));
-        dispatch(fetchDrawingTemplates(drawingID));
     },
     resetFilterOptions: () => dispatch(resetFilterOptions())
 });

@@ -79,14 +79,6 @@ class DrawingMapGeneralContainer extends Component {
 
         const isExpired = moment(drawing.expiresOn).isBefore(moment.now());
 
-        console.log('templateIDs', [
-            ...new Set(
-                this.props
-                    .getFilteredPins(this.props.pins)
-                    .map(p => p.templateID)
-            )
-        ]);
-
         return (
             <>
                 <div className="flex-container size-lg-12">
@@ -140,6 +132,7 @@ class DrawingMapGeneralContainer extends Component {
         const {
             drawing = {},
             postFilters,
+            getTemplateOptions,
             updateReportFilter,
             match,
             fetchSingleDrawing,
@@ -155,7 +148,10 @@ class DrawingMapGeneralContainer extends Component {
             handleChange('floorID', String(drawing.floorID));
         }
 
-        updateReportFilter('drawingID', match.params.id).then(postFilters);
+        updateReportFilter('drawingID', match.params.id).then(() => {
+            postFilters();
+            getTemplateOptions();
+        });
         if (drawing.isFloorplanUpdating) {
             this._floorplanInterval = setInterval(() => {
                 fetchSingleDrawing(drawing.id);
