@@ -78,6 +78,14 @@ class LoginFormContainer extends Component {
             history.push(url);
         }
     };
+
+    componentDidMount = () => {
+        const { history } = this.props;
+
+        if (history.action.includes('REPLACE')) {
+            window.location.reload();
+        }
+    };
 }
 const mapStateToProps = ({ shared: { loginReducer } }) => loginReducer;
 

@@ -67,6 +67,7 @@ class MenuItemContainer extends Component {
         e.preventDefault();
         if (logout) {
             localStorage.setItem('token', '');
+            localStorage.setItem('justLoggedOut', true);
 
             history.replace('/auth/login');
         }
