@@ -19,7 +19,10 @@ import {
     FETCH_TEMPLATE_REQUEST,
     FETCH_TEMPLATE_SUCCESS,
     FETCH_TEMPLATE_FAILURE,
-    SET_LABEL_FIELDS
+    SET_LABEL_FIELDS,
+    FETCH_TEMPLATES_SIMPLE_REQUEST,
+    FETCH_TEMPLATES_SIMPLE_SUCCESS,
+    FETCH_TEMPLATES_SIMPLE_FAILURE
 } from 'constants/actionTypes/templateBuilder';
 import {
     FETCH_COMPANY_TEMPLATES_REQUEST,
@@ -42,12 +45,15 @@ function isFetchingReducer(state = false, action) {
         case FETCH_TEMPLATES_REQUEST:
         case FETCH_TEMPLATE_REQUEST:
         case FETCH_COMPANY_TEMPLATES_REQUEST:
+        case FETCH_TEMPLATES_SIMPLE_REQUEST:
             return true;
         case FETCH_TEMPLATES_SUCCESS:
         case FETCH_COMPANY_TEMPLATES_SUCCESS:
         case FETCH_TEMPLATE_SUCCESS:
         case FETCH_TEMPLATES_FAILURE:
         case FETCH_TEMPLATE_FAILURE:
+        case FETCH_TEMPLATES_SIMPLE_SUCCESS:
+        case FETCH_TEMPLATES_SIMPLE_FAILURE:
             return false;
         default:
             return state;
@@ -60,11 +66,13 @@ function errorReducer(state = null, action) {
         case FETCH_TEMPLATES_REQUEST:
         case FETCH_COMPANY_TEMPLATES_REQUEST:
         case FETCH_TEMPLATE_REQUEST:
+        case FETCH_TEMPLATES_SIMPLE_REQUEST:
             return null;
         case POST_TEMPLATE_FAILURE:
         case FETCH_TEMPLATES_FAILURE:
         case FETCH_COMPANY_TEMPLATES_FAILURE:
         case FETCH_TEMPLATE_FAILURE:
+        case FETCH_TEMPLATES_SIMPLE_FAILURE:
             return action.error;
         default:
             return state;
@@ -117,6 +125,8 @@ function templatesReducer(state = {}, action) {
                 ...state,
                 ...convertArrToObj(action.payload, 'uuid')
             };
+        case FETCH_TEMPLATES_SIMPLE_SUCCESS:
+            return convertArrToObj(action.payload, 'uuid');
         case FETCH_TEMPLATE_SUCCESS:
         case SET_TEMPLATE:
             return updateObj(state, action.template.uuid, action.template);

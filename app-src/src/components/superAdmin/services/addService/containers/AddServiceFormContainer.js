@@ -10,6 +10,7 @@ import postTemplatesForService from 'actions/superAdmin/services/async/postTempl
 
 import { ADMIN_CREATE_SERVICE_SUCCESS } from 'constants/actionTypes/services';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import fetchTemplatesSimple from 'actions/superAdmin/templateBuilder/async/fetchTemplatesSimple';
 
 class AddServiceFormContainer extends Component {
     state = {
@@ -40,9 +41,9 @@ class AddServiceFormContainer extends Component {
     }
 
     componentDidMount = () => {
-        const { fetchTemplates } = this.props;
+        const { fetchTemplatesSimple } = this.props;
 
-        fetchTemplates();
+        fetchTemplatesSimple();
     };
 
     componentDidUpdate = prevProps => {
@@ -104,8 +105,8 @@ const mapDispatchToProps = dispatch => ({
     postTemplatesForService: (serviceID, postBody) => {
         return dispatch(postTemplatesForService(serviceID, postBody));
     },
-    fetchTemplates: () => {
-        dispatch(fetchTemplates());
+    fetchTemplatesSimple: () => {
+        dispatch(fetchTemplatesSimple());
     }
 });
 
