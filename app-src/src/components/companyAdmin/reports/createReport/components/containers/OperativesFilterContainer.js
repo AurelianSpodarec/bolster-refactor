@@ -9,29 +9,10 @@ class OperativesFilterContainer extends Component {
     render() {
         const {
             formatArrForDropdown,
-            customFilters: { operatives: advancedOperatives },
+            customFilters: { operatives },
             filters: { companyUserIDs },
-            furtherFiltrationOption,
-            operatives: basicOperatives,
-            companyUsers,
             sizeClasses
         } = this.props;
-
-        const isAdvanced =
-            furtherFiltrationOption >
-            FURTHER_FILTRATION_OPTIONS.INDIVIDUAL_PINS;
-
-        const operatives = isAdvanced
-            ? advancedOperatives
-            : Object.values(basicOperatives)
-                  .filter(op => companyUsers[op.companyUserID || op.id])
-                  .map(op => ({
-                      id: op.companyUserID || op.id,
-                      name: `${op.userFirstName} ${
-                          op.userLastName
-                      } - ${companyUsers[op.companyUserID || op.id]
-                          .formattedOperativeCode || ''}`
-                  }));
 
         return (
             <OperativesFilter
@@ -46,13 +27,11 @@ class OperativesFilterContainer extends Component {
     componentDidMount = () => {
         const {
             handleChange,
-            location: { state: locationState }
-            // postFilters,
-            // advanced
+            location: { state: locationState },
+            postFilters
         } = this.props;
 
-        // not required on hierarchy reports
-        // if (!advanced) postFilters();
+        postFilters();
 
         if (locationState && locationState.operativeID) {
             const opIDs = [];

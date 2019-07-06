@@ -2690,6 +2690,7 @@ input {
 .leaflet-container {
     width: 100%;
     height: 465px;
+    z-index: 10;
 }
 .leaflet-pane {
     .leaflet-tooltip-pane {
@@ -5049,7 +5050,7 @@ input {
     z-index: 1000 !important;
     box-shadow: none !important;
     width: 60px !important;
-display:none;
+    display: none;
     iframe {
         -ms-transform: scale(0.75) translate(+25%, +25%);
         -moz-transform: scale(0.75) translate(+25%, +25%);

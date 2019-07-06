@@ -9,6 +9,7 @@ import removeFieldError from 'actions/shared/generic/fieldErrors/sync/removeFiel
 import { convertArrToObj, momentComparisonFormat } from 'helpers/generic';
 import showFieldErrors from 'actions/shared/generic/fieldErrors/sync/showFieldErrors';
 import { FURTHER_FILTRATION_OPTIONS } from 'constants/companyAdmin/enums';
+import getOperativeOptions from 'actions/companyAdmin/reports/async/getOperativeOptions';
 
 export default function(ProtectedComponent) {
     class WithUpdateOnChange extends React.Component {
@@ -265,14 +266,17 @@ export default function(ProtectedComponent) {
             return body;
         };
 
-        postFilters = async () => {
-            const { postCustomFilters } = this.props;
+        getOperativeOptions = () => {
+            return this.props.getOperativeOptions(this._getPostBody());
+        };
 
+        postFilters = () => {
+            const { postCustomFilters, getOperativeOptions } = this.props;
             const body = this._getPostBody();
 
-            if (body.hasQuestions) {
-                return await postCustomFilters();
-            }
+            return body.hasQuestions
+                ? postCustomFilters(body)
+                : getOperativeOptions(body);
         };
     }
 
@@ -345,7 +349,8 @@ export default function(ProtectedComponent) {
         postCustomFilters: postBody => dispatch(postCustomFilters(postBody)),
         addFieldError: (name, val) => dispatch(addFieldError(name, val)),
         removeFieldError: name => dispatch(removeFieldError(name)),
-        showFieldErrors: () => dispatch(showFieldErrors())
+        showFieldErrors: () => dispatch(showFieldErrors()),
+        getOperativeOptions: postBody => dispatch(getOperativeOptions(postBody))
     });
 
     return connect(

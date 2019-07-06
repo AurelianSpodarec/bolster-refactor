@@ -22,7 +22,10 @@ import {
     UPDATE_FURTHER_FILTRATION_OPTION,
     REMOVE_ALL_RECTANGLES,
     UPDATE_IS_PIN_EXCLUDED,
-    REMOVE_ALL_EXCLUDED_PINS
+    REMOVE_ALL_EXCLUDED_PINS,
+    GET_OPERATIVE_OPTIONS_SUCCESS,
+    GET_OPERATIVE_OPTIONS_FAILURE,
+    GET_OPERATIVE_OPTIONS_REQUEST
 } from 'constants/actionTypes/reports';
 import { updateObj, removeObjItem, convertArrToObj } from 'helpers/generic';
 import { SORT_BY_OPTIONS } from 'constants/companyAdmin/enums';
@@ -182,6 +185,8 @@ function customFiltersReducer(
     action
 ) {
     switch (action.type) {
+        case GET_OPERATIVE_OPTIONS_SUCCESS:
+            return { ...state, operatives: action.payload };
         case FETCH_PINS_SUCCESS:
             return { ...state, pins: action.payload };
         case POST_CUSTOM_FILTERS_SUCCESS:
@@ -223,11 +228,13 @@ function optionsReducer(
 function errorReducer(state = null, action) {
     switch (action.type) {
         case POST_CUSTOM_FILTERS_REQUEST:
+        case GET_OPERATIVE_OPTIONS_REQUEST:
         case POST_REPORT_REQUEST:
             return null;
         case POST_REPORT_NO_PINS:
             return action.payload;
         case POST_CUSTOM_FILTERS_FAILURE:
+        case GET_OPERATIVE_OPTIONS_FAILURE:
         case POST_REPORT_FAILURE:
             return action.error;
         default:
