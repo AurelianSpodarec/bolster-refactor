@@ -1969,6 +1969,17 @@ input {
     &.currency {
         width: 90%;
     }
+
+    &.colour-picker-input {
+        width: calc(100% - 45px);
+    }
+}
+
+.hex-box {
+    float: left;
+    width: 35px;
+    height: 35px;
+    margin-right: 10px;
 }
 
 .custom-dropdown {
