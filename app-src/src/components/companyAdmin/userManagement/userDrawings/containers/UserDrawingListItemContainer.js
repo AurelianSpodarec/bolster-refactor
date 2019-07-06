@@ -9,7 +9,7 @@ import UserDrawingListItem from '../presentational/UserDrawingListItem';
 import fetchSingleFloor from 'actions/companyAdmin/floors/async/fetchSingleFloor';
 import fetchSingleBuilding from 'actions/companyAdmin/buildings/async/fetchSingleBuilding';
 import fetchSingleSite from 'actions/companyAdmin/sites/async/fetchSingleSite';
-import { componentDidMount, componentDidUpdate } from 'helpers/generic';
+import { componentDidMount } from 'helpers/generic';
 
 const UserDrawingListItemContainer = ({
     drawing,
@@ -18,12 +18,7 @@ const UserDrawingListItemContainer = ({
     handleDrawingIDs,
     fetchSingleSite,
     fetchSingleFloor,
-    fetchSingleBuilding,
-    sites,
-    buildings,
-    floors,
-    fetchingDrawings,
-    isFetching
+    fetchSingleBuilding
 }) => {
     const [siteName, setSiteName] = useState('Unkown');
     const [floorName, setFloorName] = useState('Unkown');
@@ -95,10 +90,6 @@ const mapStateToProps = ({
         userDrawingsReducer: { isFetching: fetchingDrawings }
     }
 }) => {
-    // const drawing = drawings[match.params.id] || {};
-    // const floor = floors[drawing.floorID] || {};
-    // const building = buildings[floor.buildingID] || {};
-    // const site = sites[building.siteID] || {};
     return {
         sites: sites || {},
         buildings: buildings || {},
