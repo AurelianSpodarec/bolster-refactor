@@ -180,6 +180,7 @@ export const FURTHER_FILTRATION = {
     2: 'Pin Selector',
     3: 'Advanced'
 };
+
 export const FURTHER_FILTRATION_OPTIONS = {
     NONE: 0,
     INDIVIDUAL_PINS: 1,

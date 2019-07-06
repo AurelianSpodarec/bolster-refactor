@@ -188,17 +188,13 @@ export default function(ProtectedComponent) {
                 sortBy,
                 pinBoundingBoxes,
                 floorplanPinScale,
-                hasQuestions: false
+                hasQuestions: +furtherFiltrationOption > +INDIVIDUAL_PINS
             };
             return body;
         };
 
         postFilters = () => {
-            const { postCustomFilters, furtherFiltrationOption } = this.props;
-            const { INDIVIDUAL_PINS } = FURTHER_FILTRATION_OPTIONS;
-
-            const postBody = this._getPostBody();
-            postBody.hasQuestions = furtherFiltrationOption > INDIVIDUAL_PINS;
+            const { postCustomFilters } = this.props;
 
             return postCustomFilters(this._getPostBody());
         };
