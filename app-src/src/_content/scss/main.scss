@@ -228,11 +228,18 @@ button {
                 }
                 .label-content-field {
                     font-size: 9px;
-
+                    position: absolute;
                     p {
                         line-height: 11px;
 
                         @include swiss721-medium;
+                    }
+                    &:nth-child(1) {
+                        font-size: 9px;
+                        padding-left: 0;
+                        p {
+                            font-weight: normal;
+                        }
                     }
                     &:nth-child(2) {
                         font-size: 9px;
@@ -240,10 +247,6 @@ button {
                         p {
                             font-weight: normal;
                         }
-                    }
-                    &:first-child {
-                        margin-top: 2.5px;
-                        margin-bottom: 22px;
                     }
                 }
             }
