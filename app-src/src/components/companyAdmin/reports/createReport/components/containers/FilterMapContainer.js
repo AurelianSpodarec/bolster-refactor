@@ -81,8 +81,11 @@ class FilterMapContainer extends Component {
             removeAllRectangles();
         }
 
-        if (drawingID !== prevProps.filters.drawingID)
+        if (drawingID !== prevProps.filters.drawingID) {
+            console.warn(drawingID);
+            console.warn(prevProps.filters.drawingID);
             fetchPins('drawing', drawingID);
+        }
     };
 
     handleClick = ({ latlng }) => {

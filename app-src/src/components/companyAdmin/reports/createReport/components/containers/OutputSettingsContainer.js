@@ -150,21 +150,33 @@ class OutputSettingsContainer extends Component {
         } = this.props;
 
         if (!isEmpty(fieldErrors)) showFieldErrors();
+        // else if (
+        //     Object.values(drawings).filter(
+        //         drawing => +drawing.id === +drawingID
+        //     ).length < 1
+        // ) {
+        //     showModal(ERROR_MODAL, {
+        //         title: 'Error',
+        //         message:
+        //             'No drawings available to report, please add at least one drawing.'
+        //     });
+        // }
         else if (
-            Object.values(drawings).filter(
-                drawing => +drawing.id === +drawingID
-            ).length < 1
-        ) {
-            showModal(ERROR_MODAL, {
-                title: 'Error',
-                message:
-                    'No drawings available to report, please add at least one drawing.'
-            });
-        } else if (
             isFloorplanGeneration ||
             (isPDFGeneration && includeFloorplan)
         ) {
             const drawingForPinScale = this._getDrawingForPinScale();
+
+            if (!drawingForPinScale) {
+                showModal(ERROR_MODAL, {
+                    title: 'No drawings',
+                    message:
+                        'No drawings were found for your selection. Please edit your filters.'
+                });
+
+                return;
+            }
+
             showModal(SELECT_PIN_SCALE, {
                 drawing: drawingForPinScale,
                 getPostBody,
@@ -202,6 +214,7 @@ class OutputSettingsContainer extends Component {
                 drawing => +drawing.id === +drawingID
             );
         }
+
         return availableDrawings[0];
     };
 }

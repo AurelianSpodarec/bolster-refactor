@@ -2,13 +2,14 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
-import { convertArrToObj } from 'helpers/generic';
+import { convertArrToObj, isEmpty } from 'helpers/generic';
 import EditServiceForm from '../presentational/EditServiceForm';
 import fetchSingleService from 'actions/superAdmin/services/async/fetchSingleService';
 import editService from 'actions/superAdmin/services/async/editService';
 import fetchTemplateForService from 'actions/superAdmin/services/async/fetchTemplateForService';
 import fetchTemplates from 'actions/superAdmin/templateBuilder/async/fetchTemplates';
 import postTemplatesForService from 'actions/superAdmin/services/async/postTemplatesForService';
+import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 
 class EditServiceFormContainer extends Component {
     state = {
@@ -19,14 +20,22 @@ class EditServiceFormContainer extends Component {
 
     render() {
         const templateOptions = this._getTemplateOptions();
+        const { isFetchingTemplates, templatesError, templates } = this.props;
 
         return (
-            <EditServiceForm
-                {...this.state}
-                handleInputChange={this.handleInputChange}
-                handleSubmit={this.handleSubmit}
-                templateOptions={Object.values(templateOptions)}
-            />
+            <BlockContainer
+                isFetching={isFetchingTemplates}
+                error={templatesError}
+                isEmpty={isEmpty(templates)}
+                noWhiteBackground
+            >
+                <EditServiceForm
+                    {...this.state}
+                    handleInputChange={this.handleInputChange}
+                    handleSubmit={this.handleSubmit}
+                    templateOptions={Object.values(templateOptions)}
+                />
+            </BlockContainer>
         );
     }
 
@@ -43,22 +52,25 @@ class EditServiceFormContainer extends Component {
             history,
             isFetching,
             service,
-            serviceTemplate
+            serviceTemplate,
+            isFetchingTemplateForService
         } = this.props;
         if (!prevProps.postSuccess && postSuccess) {
             return history.push('/admin/services');
         }
         if (!isFetching && prevProps.isFetching) {
             this.setState({
-                name: service.name
+                name: service.name,
+                showOnCompanySite: service.showOnCompanySite
             });
         }
         if (
-            Object.values(prevProps.serviceTemplate).length < 1 &&
-            Object.values(serviceTemplate).length > 0
+            prevProps.isFetchingTemplateForService &&
+            !isFetchingTemplateForService &&
+            !isEmpty(serviceTemplate)
         ) {
             this.setState({
-                templateUUIDs: [`${serviceTemplate.templateIDs}`]
+                templateUUIDs: serviceTemplate.templateIDs.map(String)
             });
         }
     };
@@ -71,7 +83,8 @@ class EditServiceFormContainer extends Component {
         e.preventDefault();
         this.props.editService(this.props.id, this.state.name);
         this.props.postTemplatesForService(this.props.id, {
-            templateIDs: this.state.templateUUIDs
+            templateIDs: this.state.templateUUIDs,
+            showOnCompanySite: this.state.showOnCompanySite
         });
     };
 
@@ -99,9 +112,14 @@ const mapStateToProps = (
                 isFetching,
                 postSuccess,
                 adminServices,
-                adminServiceTemplates
+                adminServiceTemplates,
+                isFetchingTemplateForService
             },
-            templatesReducer: { templates }
+            templatesReducer: {
+                templates,
+                isFetching: isFetchingTemplates,
+                error: templatesError
+            }
         }
     },
     {
@@ -111,6 +129,9 @@ const mapStateToProps = (
     }
 ) => ({
     isFetching,
+    isFetchingTemplateForService,
+    isFetchingTemplates,
+    templatesError,
     postSuccess,
     id,
     service: adminServices[id],
