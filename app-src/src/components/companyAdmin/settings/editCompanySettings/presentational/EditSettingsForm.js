@@ -29,6 +29,7 @@ const EditSettingsForm = ({
     logoFile,
     colourCode,
     isBolsterLogoDark,
+    isUsingBolsterLabels,
     telephone,
     fax,
     labelTelNumber,
@@ -163,28 +164,39 @@ const EditSettingsForm = ({
             </div>
             <div>
                 {/* <p>##Label Settings##</p> */}
-                <Field
-                    name="Label Company Name"
-                    sizeClasses="size-lg-6"
-                >
-                    <TextInputContainer
-                        value={labelCompanyName}
-                        name="labelCompanyName"
-                        type="text"
+                <Field name="Use Bolster Labels">
+                    <CheckboxContainer
+                        checked={isUsingBolsterLabels}
                         handleChange={handleInputChange}
+                        name="isUsingBolsterLabels"
                     />
                 </Field>
-                <Field
-                    name="Label Telephone No."
-                    sizeClasses="size-lg-6"
-                >
-                    <TextInputContainer
-                        value={labelTelNumber}
-                        name="labelTelNumber"
-                        type="text"
-                        handleChange={handleInputChange}
-                    />
-                </Field>
+                {isUsingBolsterLabels && (
+                    <>
+                        <Field
+                            name="Label Company Name"
+                            sizeClasses="size-lg-6"
+                        >
+                            <TextInputContainer
+                                value={labelCompanyName}
+                                name="labelCompanyName"
+                                type="text"
+                                handleChange={handleInputChange}
+                            />
+                        </Field>
+                        <Field
+                            name="Label Telephone No."
+                            sizeClasses="size-lg-6"
+                        >
+                            <TextInputContainer
+                                value={labelTelNumber}
+                                name="labelTelNumber"
+                                type="text"
+                                handleChange={handleInputChange}
+                            />
+                        </Field>
+                    </>
+                )}
             </div>
             <div>
                 {/* <p>##Template Settings##</p> */}

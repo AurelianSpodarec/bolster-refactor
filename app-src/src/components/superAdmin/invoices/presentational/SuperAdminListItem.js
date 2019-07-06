@@ -8,12 +8,14 @@ import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/pr
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 
 const SuperAdminListItem = ({
-    invoice: { createdOn, isPaid, total, id, paymentType, companyID }
+    invoice: { createdOn, isPaid, total, id, paymentType, companyID },
+    companies
 }) => (
     <tr>
         <td>
             <DateTimeContainer date={createdOn} datetime={DATE_TIME_IDS.DATE} />
         </td>
+        <td>{companies[companyID].name}</td>
         <td>{id}</td>
         <td>{`£${formatCurrency(total)}`}</td>
         <td>{PAYMENT_TYPES[paymentType]}</td>

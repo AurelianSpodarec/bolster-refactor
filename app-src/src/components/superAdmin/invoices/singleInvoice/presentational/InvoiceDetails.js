@@ -14,7 +14,12 @@ const InvoiceDetails = ({
     invoice: { createdOn, id, isPaid, paymentType, total, isRenewal }
 }) => {
     return (
-        <BlockContainer error={error} isEmpty={!id} isFetching={isFetching}>
+        <BlockContainer
+            containerClass="size-lg-12"
+            error={error}
+            isEmpty={!id}
+            isFetching={isFetching}
+        >
             <BlockHeading title="Invoice Details" />
 
             <FieldOutput

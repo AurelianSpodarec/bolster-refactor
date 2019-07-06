@@ -42,7 +42,8 @@ const {
     DROPDOWN_OPTIONS,
     MULTI_DROPDOWN_OPTIONS,
     MULTI_MULTI_DROPDOWN,
-    MULTI_MULTI_DROPDOWN_OPTIONS
+    MULTI_MULTI_DROPDOWN_OPTIONS,
+    STATIC_IMAGE
 } = QUESTION_TYPE_VALUES;
 
 const SingleLine = ({
@@ -357,6 +358,14 @@ const MultiMultiDropdownOptions = ({
     );
 };
 
+const StaticImage = ({ question }) => (
+    <img
+        style={{ maxWidth: '100%' }}
+        alt={question.name}
+        src={`${RAW_S3_STORAGE_URL}/${question.file}`}
+    />
+);
+
 class AddPinQuestionRoute extends Component {
     state = {
         sigPad: {}
@@ -390,7 +399,8 @@ class AddPinQuestionRoute extends Component {
             [DROPDOWN_OPTIONS]: DropdownOptions,
             [MULTI_DROPDOWN_OPTIONS]: MultiDropdownOptions,
             [MULTI_MULTI_DROPDOWN]: MultiMulti,
-            [MULTI_MULTI_DROPDOWN_OPTIONS]: MultiMultiDropdownOptions
+            [MULTI_MULTI_DROPDOWN_OPTIONS]: MultiMultiDropdownOptions,
+            [STATIC_IMAGE]: StaticImage
         };
 
         const showPreReq = this.checkIfShouldShowByPreReq(
@@ -399,6 +409,14 @@ class AddPinQuestionRoute extends Component {
             answers,
             questions
         );
+
+        let fieldSize = 'size-lg-6';
+        let questionName = question.name;
+
+        if (question.type + '' === QUESTION_TYPE_VALUES.STATIC_IMAGE) {
+            fieldSize = 'size-lg-12';
+            questionName = '';
+        }
 
         if (showPreReq) {
             const SpecificField = fieldTypes[question.type + ''] || SingleLine;
@@ -413,8 +431,8 @@ class AddPinQuestionRoute extends Component {
             return (
                 <Field
                     key={question.id}
-                    name={question.name}
-                    sizeClasses={`size-lg-6 flex-row-item ${extraImageClasses}`}
+                    name={questionName}
+                    sizeClasses={`${fieldSize} flex-row-item ${extraImageClasses}`}
                     required={isRequired}
                 >
                     <SpecificField

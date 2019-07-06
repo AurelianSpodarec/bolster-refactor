@@ -1,5 +1,6 @@
 import React from 'react';
 import { Map, TileLayer } from 'react-leaflet';
+import { CRS } from 'leaflet';
 
 import MapPin from 'components/shared/pins/map/presentational/MapPin';
 import { FILE_STORAGE_URL } from 'config';
@@ -37,6 +38,7 @@ const SinglePinMap = ({ pin, zoom, user, drawing = {}, pinHistory }) => {
                 zoom={zoom}
                 minZoom={0}
                 maxZoom={5}
+                crs={CRS.Simple}
             >
                 <TileLayer
                     attribution='&amp;copy <a href="http://app.bolstersystems.com">Bolster Systems Ltd</a>'

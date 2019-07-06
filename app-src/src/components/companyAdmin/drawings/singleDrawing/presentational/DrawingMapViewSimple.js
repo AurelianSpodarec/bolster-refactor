@@ -3,6 +3,7 @@ import { Map, TileLayer, Marker } from 'react-leaflet';
 import ReactDOMServer from 'react-dom/server';
 import { FILE_STORAGE_URL } from 'config';
 import L from 'leaflet';
+import { CRS } from 'leaflet';
 
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import CustomPin from 'components/shared/pins/map/presentational/CustomPin';
@@ -119,6 +120,7 @@ const DrawingMapViewSimple = ({
                         minZoom={0}
                         maxZoom={5}
                         onClick={e => handleClick(e)}
+                        crs={CRS.Simple}
                     >
                         <TileLayer
                             attribution='&amp;copy <a href="http://app.bolstersystems.com">Bolster Systems Ltd</a>'

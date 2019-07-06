@@ -82,8 +82,14 @@ class EditSiteFormContainer extends Component {
     };
 }
 
-const mapStateToProps = ({ companyAdmin: { companySettingsReducer } }) => ({
-    isUsingBolsterLabels: companySettingsReducer.isUsingBolsterLabels
+const mapStateToProps = ({
+    companyAdmin: {
+        companySettingsReducer: {
+            companySettings: { isUsingBolsterLabels }
+        }
+    }
+}) => ({
+    isUsingBolsterLabels
 });
 
 const mapDispatchToProps = dispatch => ({

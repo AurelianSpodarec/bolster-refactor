@@ -146,6 +146,14 @@ const Settings = ({ isFetching, error, companySettings: company }) => {
                     <Block>
                         <BlockHeading title="Label Settings" />
                         <FieldOutput
+                            title="Is Using Bolster Labels?"
+                            description={
+                                company.isUsingBolsterLabels ? 'Yes' : 'No'
+                            }
+                            fieldClass="no-h-padding"
+                            sizeClass="size-lg-12"
+                        />
+                        <FieldOutput
                             title="Telephone Number"
                             description={company.labelTelNumber || notProvided}
                             fieldClass="no-h-padding"

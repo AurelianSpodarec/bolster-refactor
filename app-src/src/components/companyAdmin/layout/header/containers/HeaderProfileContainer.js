@@ -5,13 +5,14 @@ import { GENERATION_STATE_VAL } from 'constants/companyAdmin/enums';
 import moment from 'moment';
 
 import HeaderProfile from '../presentational/HeaderProfile';
+import HeaderProfileMobile from '../presentational/HeaderProfileMobile';
+
 import { logout } from 'actions/shared/auth/sync/logout';
 import { isEmpty } from 'helpers/generic';
 
 class HeaderProfileContainer extends Component {
     state = {
-        popupVisible: false,
-        renderMobile: false
+        popupVisible: false
     };
 
     render() {
@@ -19,9 +20,15 @@ class HeaderProfileContainer extends Component {
             isImpersonating,
             companyName,
             profile,
-            companyReportsLength
+            companyReportsLength,
+            onMobile,
+            company,
+            unreadMessageCount,
+            totalCredits,
+            totalRequests,
+            showModal
         } = this.props;
-        return (
+        return !onMobile ? (
             <HeaderProfile
                 updateNode={node => {
                     this.node = node;
@@ -34,7 +41,25 @@ class HeaderProfileContainer extends Component {
                 isImpersonating={isImpersonating}
                 companyName={companyName}
                 isSubscribed={this._isSubscribed()}
-                renderMobile={this.state.renderMobile}
+            />
+        ) : (
+            <HeaderProfileMobile
+                updateNode={node => {
+                    this.node = node;
+                }}
+                logout={this.logout}
+                profile={profile}
+                companyReportsLength={companyReportsLength}
+                popupVisible={this.state.popupVisible}
+                handleClick={this.handleClick}
+                isImpersonating={isImpersonating}
+                companyName={companyName}
+                isSubscribed={this._isSubscribed()}
+                company={company}
+                unreadMessageCount={unreadMessageCount}
+                totalCredits={totalCredits}
+                totalRequests={totalRequests}
+                showModal={showModal}
             />
         );
     }
@@ -99,7 +124,8 @@ const mapStateToProps = ({
         profileReducer,
         decodeJWTReducer: {
             jwtData: { companyID, headquartersCompanyID }
-        }
+        },
+        mobileReducer: { onMobile }
     }
 }) => ({
     subscriptions,
@@ -111,7 +137,8 @@ const mapStateToProps = ({
     profile: profileReducer.profile || {},
     companyReportsLength: Object.values(
         companyReportsReducer.companyReports
-    ).filter(item => item.state === GENERATION_STATE_VAL.WAITING).length
+    ).filter(item => item.state === GENERATION_STATE_VAL.WAITING).length,
+    onMobile
 });
 
 export default withRouter(

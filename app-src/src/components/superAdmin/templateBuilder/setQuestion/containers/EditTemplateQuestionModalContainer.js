@@ -24,7 +24,9 @@ class TemplateQuestionModalContainer extends Component {
 
         const prereqOptions = this._getPrereqOptions();
         const questionOptions = Object.values(questionTypeOptions).filter(
-            ({ value }) => +value !== QUESTION_TYPE_NUMBERS.STATUS
+            ({ value }) =>
+                +value !== QUESTION_TYPE_NUMBERS.STATUS &&
+                +value !== QUESTION_TYPE_NUMBERS.STATIC_IMAGE
         );
         const { statusOptions } = this.props;
         return (

@@ -13,7 +13,7 @@ import filesUploadingReducer from './fileUpload';
 import timeReducer from './time';
 import sitesFilterReducer from './sitesFilter';
 import selectedHistoryReducer from './selectedHistory';
-import onMobileReducer from './mobile';
+import mobileReducer from './mobile';
 
 export default combineReducers({
     confirmLeaveReducer,
@@ -21,7 +21,7 @@ export default combineReducers({
     fieldErrorsReducer,
     loginReducer,
     modalReducer,
-    onMobileReducer,
+    mobileReducer,
     profileReducer,
     tabsReducer,
     timeReducer,

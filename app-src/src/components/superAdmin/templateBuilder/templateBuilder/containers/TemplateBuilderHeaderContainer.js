@@ -15,7 +15,8 @@ const TemplateBuilderHeaderContainer = ({
     template,
     isExisting,
     showAddSectionModal,
-    serviceName
+    serviceName,
+    templateUUID
 }) => {
     return (
         <TemplateBuilderHeader
@@ -24,6 +25,8 @@ const TemplateBuilderHeaderContainer = ({
             serviceName={serviceName}
             showAddSectionModal={showAddSectionModal}
             isExisting={isExisting}
+            templateUUID={templateUUID}
+            companyID={companyID}
         />
     );
 

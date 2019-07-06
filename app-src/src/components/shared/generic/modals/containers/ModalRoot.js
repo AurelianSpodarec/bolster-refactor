@@ -57,7 +57,11 @@ import {
     CLIENT_SINGLE_PIN_GENERATE_REPORT_SUCCESS,
     SELECT_PIN_SCALE,
     ADD_DRAWINGS,
-    SET_TEMPLATE_IMAGE
+    SET_TEMPLATE_IMAGE,
+    ADMIN_RECORD_PAYMENT,
+    ADMIN_CONFIRM_FREE_INVOICE,
+    ADMIN_EDIT_PAYMENT,
+    ADMIN_DELETE_PAYMENT
 } from 'constants/shared/modalTypes';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
@@ -118,6 +122,10 @@ import CreateBuildingsModal from 'components/companyAdmin/buildings/addBuildings
 import CreateFloorsModal from 'components/companyAdmin/floors/addFloorsModal/presentational/CreateFloorsModal';
 import AddDrawingsModal from 'components/companyAdmin/drawings/addDrawingsModal/presentational/AddDrawingsModal';
 import SetImageModalContainer from 'components/superAdmin/templateBuilder/setImage/containers/SetImageModalContainer';
+import RecordPaymentModalContainer from 'components/superAdmin/invoices/recordPaymentModal/containers/RecordPaymentModalContainer';
+import ConfirmFreeInvoiceModalContainer from 'components/superAdmin/invoices/confirmFreeInvoiceModal/containers/ConfirmFreeInvoiceModalContainer.js';
+import EditPaymentModalContainer from 'components/superAdmin/invoices/editPaymentModal/containers/EditPaymentModalContainer';
+import DeletePaymentModalContainer from 'components/superAdmin/invoices/confirmDeletePaymentModal/containers/DeletePaymentModalContainer';
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModalContainer,
@@ -175,7 +183,11 @@ const MODAL_COMPONENTS = {
     [SINGLE_PIN_GENERATE_REPORT_SUCCESS]: SinglePinGenerateReportSuccessModalContainer,
     [CLIENT_SINGLE_PIN_GENERATE_REPORT_SUCCESS]: ClientSinglePinGenerateReportSuccessModalContainer,
     [SELECT_PIN_SCALE]: SelectPinScaleModalContainer,
-    [SET_TEMPLATE_IMAGE]: SetImageModalContainer
+    [SET_TEMPLATE_IMAGE]: SetImageModalContainer,
+    [ADMIN_RECORD_PAYMENT]: RecordPaymentModalContainer,
+    [ADMIN_CONFIRM_FREE_INVOICE]: ConfirmFreeInvoiceModalContainer,
+    [ADMIN_EDIT_PAYMENT]: EditPaymentModalContainer,
+    [ADMIN_DELETE_PAYMENT]: DeletePaymentModalContainer
 };
 
 const ModalRoot = ({ modalType, modalProps, ...otherProps }) => {

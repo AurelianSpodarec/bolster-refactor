@@ -9,6 +9,7 @@ import { COMPANY_USER_ROLE_TYPES as ROLES } from 'constants/companyAdmin/enums';
 import addFieldError from 'actions/shared/generic/fieldErrors/sync/addFieldError';
 import showFieldErrors from 'actions/shared/generic/fieldErrors/sync/showFieldErrors';
 import fetchCompanySettings from 'actions/companyAdmin/companySettings/async/fetchCompanySettings';
+import { FETCH_COMPANY_SETTINGS_SUCCESS } from 'constants/actionTypes/companySettings';
 
 class LoginFormContainer extends Component {
     state = {
@@ -58,8 +59,10 @@ class LoginFormContainer extends Component {
                 return;
             }
             if (+companyUserType === ROLES.OWNER) {
-                const { payload } = await fetchCompanySettings();
-                localStorage.setItem('colourCode', payload.colourCode);
+                const { payload, type } = await fetchCompanySettings();
+                if (type === FETCH_COMPANY_SETTINGS_SUCCESS) {
+                    localStorage.setItem('colourCode', payload.colourCode);
+                }
             }
 
             let url = '/client/companies';

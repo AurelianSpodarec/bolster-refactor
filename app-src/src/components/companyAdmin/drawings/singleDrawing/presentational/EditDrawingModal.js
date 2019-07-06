@@ -46,10 +46,15 @@ const EditDrawingModal = ({
                 <i className="fa fa-download" /> Download current floorplan
             </button>
         </BlockHeading>
-        {doesRequireCreditToReplaceFloorplan && (
+        {doesRequireCreditToReplaceFloorplan ? (
             <p className="generic-text size-lg-12">
                 Note: updating the floorplan for this drawing will cost a
                 credit.
+            </p>
+        ) : (
+            <p className="generic-text size-lg-12">
+                Note: This will not cost you a credit as this is a recently
+                created drawing.
             </p>
         )}
 
@@ -97,8 +102,14 @@ const EditDrawingModal = ({
     </ModalOuterContainer>
 );
 
-const mapStateToProps = ({ companyAdmin: { companySettingsReducer } }) => ({
-    isUsingBolsterLabels: companySettingsReducer.isUsingBolsterLabels
+const mapStateToProps = ({
+    companyAdmin: {
+        companySettingsReducer: {
+            companySettings: { isUsingBolsterLabels }
+        }
+    }
+}) => ({
+    isUsingBolsterLabels
 });
 
 export default connect(mapStateToProps)(EditDrawingModal);

@@ -97,6 +97,9 @@ button {
             min-height: 130px;
             max-height: 130px;
             overflow-y: scroll;
+            &.large {
+                max-height: 300px;
+            }
         }
 
         .generic-table {
@@ -143,9 +146,12 @@ button {
                 width: 100%;
                 font-size: 220%;
                 font-weight: 600;
-                top: 26%;
-                left: 10%;
+                top: 28%;
+                left: 9%;
                 white-space: nowrap;
+                p {
+                    @include swiss721-medium;
+                }
             }
             .label-content-small {
                 position: absolute;
@@ -154,10 +160,68 @@ button {
                 top: 42%;
                 left: 6%;
                 white-space: nowrap;
+                p {
+                    @include swiss721-roman;
+                }
                 &.for-trim {
-                    top: 54%;
+                    top: 55%;
                     left: 3%;
                     font-size: 70%;
+                }
+            }
+            .field-holder {
+                position: absolute;
+                width: 100%;
+                top: 19%;
+                left: 0;
+                padding: 0 30px;
+            }
+            .label-content-field {
+                font-size: 120%;
+                width: 100%;
+                white-space: nowrap;
+
+                p {
+                    float: left;
+                    @include swiss721-roman;
+
+                    &:first-child {
+                        padding-right: 10px;
+                    }
+                }
+
+                &:first-child {
+                    margin-bottom: 30px;
+                }
+
+                &:nth-child(2) {
+                    font-size: 240%;
+                    padding-left: 20px;
+                    p {
+                        @include swiss721-medium;
+                    }
+                }
+            }
+        }
+    }
+    &.template-builder-example {
+        .label-example-container {
+            .label-example {
+                margin: 0 auto;
+                width: 95%;
+            }
+            &.small {
+                .field-holder {
+                    top: 38%;
+                    padding: 0 20px;
+                }
+                .label-content-field {
+                    font-size: 110%;
+
+                    &:nth-child(2) {
+                        font-size: 110%;
+                        padding-left: 0;
+                    }
                 }
             }
         }
@@ -417,6 +481,10 @@ button {
 //generics
 input {
     @include ubuntu;
+}
+
+.hidden {
+    display: none;
 }
 
 .generic-search {
@@ -1035,7 +1103,8 @@ input {
     }
 
     .button,
-    button {
+    button,
+    .link-holder {
         float: right;
         margin-top: 0.5px;
         margin-left: 5px;
@@ -1773,6 +1842,9 @@ input {
         padding: 8px 15px;
         margin-top: 5px;
     }
+    &.currency {
+        width: 90%;
+    }
 }
 
 .custom-dropdown {
@@ -2248,6 +2320,10 @@ input {
 
             &:hover {
                 text-decoration: none;
+            }
+
+            &.grey {
+                color: $body-text;
             }
         }
 

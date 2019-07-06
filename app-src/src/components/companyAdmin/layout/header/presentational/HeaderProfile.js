@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 
 import NoProfilePic from '_content/images/layout/blank-profile.png';
 import { FILE_STORAGE_URL } from 'config';
-import HeaderNotificationsContainer from '../containers/HeaderNotificationsContainer';
 
 const HeaderProfile = ({
     profile,
@@ -13,8 +12,7 @@ const HeaderProfile = ({
     updateNode,
     isImpersonating,
     companyName,
-    isSubscribed,
-    renderMobile
+    isSubscribed
 }) => (
     <div className="profile" ref={updateNode}>
         <div className="user" onClick={handleClick}>
@@ -37,12 +35,6 @@ const HeaderProfile = ({
             </div>
             <i className="arrow fas fa-chevron-right" />
         </div>
-
-        {renderMobile && (
-            <div className="mobile-notifications">
-                <HeaderNotificationsContainer />
-            </div>
-        )}
 
         <div className={`options ${popupVisible ? 'visible' : ''}`}>
             <Link to="/company/profile" className="item">

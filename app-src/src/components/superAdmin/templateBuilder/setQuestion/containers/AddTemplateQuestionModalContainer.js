@@ -18,7 +18,9 @@ const AddTemplateQuestionModalContainer = ({
     statusOptions
 }) => {
     const questionOptions = Object.values(questionTypeOptions).filter(
-        ({ value }) => +value !== QUESTION_TYPE_NUMBERS.STATUS
+        ({ value }) =>
+            +value !== QUESTION_TYPE_NUMBERS.STATUS &&
+            +value !== QUESTION_TYPE_NUMBERS.STATIC_IMAGE
     );
     return (
         <TemplateQuestionFormModal

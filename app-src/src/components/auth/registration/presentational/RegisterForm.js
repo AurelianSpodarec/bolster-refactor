@@ -148,9 +148,10 @@ const RegisterForm = ({
                     name="Company.timezone"
                     options={timezoneOptions}
                     value={timezone}
-                    search={true}
                     onChange={handleChange}
+                    omitPlaceholder
                     required
+                    search
                 />
             </Field>
             <Field name="Date format" required>
@@ -158,9 +159,10 @@ const RegisterForm = ({
                     name="Company.dateFormatID"
                     options={dateFormats}
                     value={dateFormatID}
-                    search={true}
                     onChange={handleChange}
+                    omitPlaceholder
                     required
+                    search
                 />
             </Field>
 
@@ -169,12 +171,12 @@ const RegisterForm = ({
                     name="Company.vatType"
                     options={vatOptions}
                     value={vatType}
-                    search={true}
                     onChange={handleChange}
+                    omitPlaceholder
                     required
                 />
             </Field>
-            {vatType !== VAT_TYPES.OUTSIDEEU && (
+            {vatType && vatType !== VAT_TYPES.OUTSIDEEU && (
                 <Field
                     name="VAT Code"
                     required={vatType !== VAT_TYPES.OUTSIDEEU}

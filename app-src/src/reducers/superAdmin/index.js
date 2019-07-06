@@ -4,6 +4,7 @@ import companiesReducer from './companies';
 import enquiriesReducer from './enquiries';
 import companyReportsReducer from './companyReports';
 import invoicesReducer from './invoices';
+import invoicePaymentsReducer from './invoicePayments';
 import adminServicesReducer from './adminServices';
 import templateQuestionFormReducer from './templateQuestionForm';
 import templateQuestionsReducer from './templateQuestions';
@@ -18,6 +19,7 @@ export default combineReducers({
     enquiriesReducer,
     companyReportsReducer,
     invoicesReducer,
+    invoicePaymentsReducer,
     adminServicesReducer,
     templatesReducer,
     templateSectionsReducer,

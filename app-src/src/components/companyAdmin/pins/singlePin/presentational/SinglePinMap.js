@@ -1,6 +1,7 @@
 import React from 'react';
 import { Map, Marker, TileLayer } from 'react-leaflet';
 import L from 'leaflet';
+import { CRS } from 'leaflet';
 import ReactDOMServer from 'react-dom/server';
 
 import MapPin from 'components/shared/pins/map/presentational/MapPin';
@@ -97,6 +98,7 @@ const SinglePinMap = ({
                 minZoom={0}
                 maxZoom={5}
                 onClick={handleClick}
+                crs={CRS.Simple}
             >
                 <TileLayer
                     attribution='&amp;copy <a href="http://app.bolstersystems.com">Bolster Systems Ltd</a>'

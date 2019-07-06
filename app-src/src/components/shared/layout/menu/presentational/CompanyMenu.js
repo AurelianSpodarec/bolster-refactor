@@ -15,7 +15,6 @@ const CompanyMenu = ({
     isSubscribed
 }) => (
     <>
-        <div className="menu-bg" />
         <div className="menu">
             {isSubscribed && (
                 <>
@@ -64,9 +63,9 @@ const CompanyMenu = ({
                     <CompanyMenuItemContainer link="/company/users-management/operatives">
                         Operatives
                     </CompanyMenuItemContainer>
-                    {/* <CompanyMenuItemContainer link="/company/users-management/clients">
+                    <CompanyMenuItemContainer link="/company/users-management/clients">
                         Client Access
-                    </CompanyMenuItemContainer> */}
+                    </CompanyMenuItemContainer>
 
                     <CompanyDropdownMenuItems />
                 </>
