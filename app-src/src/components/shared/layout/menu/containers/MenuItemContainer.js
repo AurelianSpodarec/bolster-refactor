@@ -45,11 +45,13 @@ class MenuItemContainer extends Component {
         const { history, logout = false } = this.props;
         e.preventDefault();
         if (logout) {
-            localStorage.setItem('token', '');
+            localStorage.setItem('selectedCompany', '');
 
+            localStorage.setItem('token', '');
             history.replace('/auth/login');
         }
     };
+
     _toggleMobileMenu = () => {
         const { onMobile, toggleMobileMenu } = this.props;
         if (onMobile) {

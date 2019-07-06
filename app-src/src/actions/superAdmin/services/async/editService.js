@@ -24,7 +24,7 @@ export const editServiceFailure = error => ({
 });
 
 //will need showOnCompanySite here
-export default (id, name) => dispatch => {
+export default (id, name, showOnCompanySite) => dispatch => {
     dispatch(editServiceRequest(id, name));
     // ?
     return axios
@@ -32,7 +32,8 @@ export default (id, name) => dispatch => {
             `${ADMIN_API_URL}/services/${id}`,
             {
                 id,
-                name
+                name,
+                showOnCompanySite
             },
             getHeaders()
         )
