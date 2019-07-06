@@ -32,7 +32,7 @@ const BasicFilters = ({
 
             <Field name="Services" required>
                 <DropdownContainer
-                    placeholder="Select Service"
+                    placeholder="All services"
                     name="serviceID"
                     options={serviceOptions}
                     selectedOption={selectedService}
@@ -43,7 +43,7 @@ const BasicFilters = ({
             </Field>
             <Field name="Templates">
                 <DropdownContainer
-                    placeholder="Select Template"
+                    placeholder="All templates"
                     name="templateID"
                     options={templateOptions}
                     selectedOption={selectedTemplate}
