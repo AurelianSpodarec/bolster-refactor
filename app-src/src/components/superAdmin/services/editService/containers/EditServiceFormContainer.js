@@ -81,7 +81,11 @@ class EditServiceFormContainer extends Component {
 
     handleSubmit = e => {
         e.preventDefault();
-        this.props.editService(this.props.id, this.state.name, this.state.showOnCompanySite);
+        this.props.editService(
+            this.props.id,
+            this.state.name,
+            this.state.showOnCompanySite
+        );
         this.props.postTemplatesForService(this.props.id, {
             templateIDs: this.state.templateUUIDs
         });
@@ -151,8 +155,8 @@ const mapDispatchToProps = dispatch => ({
     fetchTemplates: () => {
         dispatch(fetchTemplates());
     },
-    editService: (id, name) => {
-        dispatch(editService(id, name));
+    editService: (id, name, showOnCompanySite) => {
+        dispatch(editService(id, name, showOnCompanySite));
     }
 });
 
