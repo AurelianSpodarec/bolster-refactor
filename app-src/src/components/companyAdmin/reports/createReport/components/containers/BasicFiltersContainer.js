@@ -52,7 +52,7 @@ class BasicFiltersContainer extends Component {
         return (
             <div
                 className={`flex-item size-lg-${
-                    isDrawingPage ? '12' : '6'
+                    isDrawingPage ? 12 : 6
                 } size-md-12`}
             >
                 <BlockContainer isFetching={isFetchingTemplates}>

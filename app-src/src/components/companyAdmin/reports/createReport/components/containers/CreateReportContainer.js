@@ -5,9 +5,10 @@ import fetchAllSites from 'actions/companyAdmin/sites/async/fetchAllSites';
 import fetchAllBuildings from 'actions/companyAdmin/buildings/async/fetchAllBuildings';
 import fetchAllFloors from 'actions/companyAdmin/floors/async/fetchAllFloors';
 import fetchAllDrawings from 'actions/companyAdmin/drawings/async/fetchAllDrawings';
-import fetchCompanyUsers from 'actions/companyAdmin/userManagement/async/fetchCompanyUsers';
 
 import CreateReport from '../presentational/CreateReport';
+import fetchCompanyOperatives from 'actions/companyAdmin/operatives/async/fetchCompanyOperatives';
+import fetchCompanyUsers from 'actions/companyAdmin/userManagement/async/fetchCompanyUsers';
 
 export class CreateReportContainer extends Component {
     render = () => <CreateReport />;
@@ -25,6 +26,7 @@ const mapDispatchToProps = dispatch => ({
         dispatch(fetchAllBuildings());
         dispatch(fetchAllFloors());
         dispatch(fetchAllDrawings());
+        dispatch(fetchCompanyOperatives());
         dispatch(fetchCompanyUsers());
     }
 });
