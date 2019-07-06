@@ -9,6 +9,8 @@ import removeFieldError from 'actions/shared/generic/fieldErrors/sync/removeFiel
 import { convertArrToObj, momentComparisonFormat } from 'helpers/generic';
 import showFieldErrors from 'actions/shared/generic/fieldErrors/sync/showFieldErrors';
 import { FURTHER_FILTRATION_OPTIONS } from 'constants/companyAdmin/enums';
+import getOperativeOptions from 'actions/companyAdmin/reports/async/getOperativeOptions';
+import getTemplateReportOptions from 'actions/companyAdmin/reports/async/getTemplateReportOptions';
 
 export default function(ProtectedComponent) {
     class WithUpdateOnChange extends React.Component {
@@ -29,6 +31,7 @@ export default function(ProtectedComponent) {
                     showFieldError={this.showFieldError}
                     getPostBody={this._getPostBody}
                     getFilteredPins={this._getFilteredPins}
+                    getTemplateOptions={this.getTemplateOptions}
                 />
             );
         }
@@ -265,14 +268,28 @@ export default function(ProtectedComponent) {
             return body;
         };
 
-        postFilters = async () => {
-            const { postCustomFilters } = this.props;
+        getTemplateOptions = () => {
+            return this.props.getTemplateOptions(this._getPostBody());
+        };
 
+        getOperativeOptions = () => {
+            return this.props.getOperativeOptions(this._getPostBody());
+        };
+
+        postFilters = async () => {
+            const {
+                postCustomFilters,
+                getOperativeOptions,
+                getTemplateOptions
+            } = this.props;
             const body = this._getPostBody();
 
             if (body.hasQuestions) {
-                return await postCustomFilters();
+                return postCustomFilters(body);
             }
+
+            await getOperativeOptions(body);
+            await getTemplateOptions(body);
         };
     }
 
@@ -345,7 +362,11 @@ export default function(ProtectedComponent) {
         postCustomFilters: postBody => dispatch(postCustomFilters(postBody)),
         addFieldError: (name, val) => dispatch(addFieldError(name, val)),
         removeFieldError: name => dispatch(removeFieldError(name)),
-        showFieldErrors: () => dispatch(showFieldErrors())
+        showFieldErrors: () => dispatch(showFieldErrors()),
+        getOperativeOptions: postBody =>
+            dispatch(getOperativeOptions(postBody)),
+        getTemplateOptions: postBody =>
+            dispatch(getTemplateReportOptions(postBody))
     });
 
     return connect(

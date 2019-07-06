@@ -30,6 +30,8 @@ class RegisterFormContainer extends Component {
         'Company.timezone': null,
         'Company.dateFormatID': null,
         'Company.vatType': null,
+        'Company.colourCode': '#e20613',
+        'Company.isBolsterLogoDark': false,
         terms: false
     };
 
@@ -49,6 +51,7 @@ class RegisterFormContainer extends Component {
                 error={this.props.error}
                 handleChange={this.handleChange}
                 handleDropDown={this.handleDropDown}
+                handleColourSelect={this.handleColourSelect}
                 timezoneOptions={timezoneOptions}
                 dateFormats={dateFormats}
                 vatOptions={vatOptions}
@@ -75,6 +78,9 @@ class RegisterFormContainer extends Component {
 
     _handleVatTypeChange = vatType => this.setState({ vatType });
 
+    handleColourSelect = ({ hex }) =>
+        this.setState({ 'Company.colourCode': hex });
+
     handleSubmit = e => {
         e.preventDefault();
 
@@ -93,7 +99,9 @@ class RegisterFormContainer extends Component {
             'Company.vatCode': vatCode,
             'Company.vatType': vatType,
             'Company.dateFormatID': dateFormatID,
-            'Company.timezone': timezone
+            'Company.timezone': timezone,
+            'Company.colourCode': colourCode,
+            'Company.isBolsterLogoDark': isBolsterLogoDark
         } = this.state;
 
         const postBody = {
@@ -113,7 +121,9 @@ class RegisterFormContainer extends Component {
                 vatType,
                 vatCode,
                 dateFormatID,
-                timezone
+                timezone,
+                colourCode,
+                isBolsterLogoDark
             }
         };
 

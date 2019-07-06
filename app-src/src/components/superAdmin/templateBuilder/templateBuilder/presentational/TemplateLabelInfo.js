@@ -11,7 +11,9 @@ const TemplateLabelInfo = ({ showSetLabelsModal, fields }) => (
                     Update
                 </button>
             </BlockHeading>
-            <LabelFieldList fields={fields} />
+            <LabelFieldList
+                fields={[...fields].sort((a, b) => a.key - b.key)}
+            />
         </BlockContainer>
     </div>
 );

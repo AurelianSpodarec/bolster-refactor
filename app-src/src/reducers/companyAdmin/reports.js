@@ -22,7 +22,13 @@ import {
     UPDATE_FURTHER_FILTRATION_OPTION,
     REMOVE_ALL_RECTANGLES,
     UPDATE_IS_PIN_EXCLUDED,
-    REMOVE_ALL_EXCLUDED_PINS
+    REMOVE_ALL_EXCLUDED_PINS,
+    GET_OPERATIVE_OPTIONS_SUCCESS,
+    GET_OPERATIVE_OPTIONS_FAILURE,
+    GET_OPERATIVE_OPTIONS_REQUEST,
+    GET_TEMPLATE_REPORT_OPTIONS_SUCCESS,
+    GET_TEMPLATE_REPORT_OPTIONS_REQUEST,
+    GET_TEMPLATE_REPORT_OPTIONS_FAILURE
 } from 'constants/actionTypes/reports';
 import { updateObj, removeObjItem, convertArrToObj } from 'helpers/generic';
 import { SORT_BY_OPTIONS } from 'constants/companyAdmin/enums';
@@ -40,7 +46,8 @@ export default combineReducers({
     isFetching: isFetchingReducer,
     rectangles: rectanglesReducer,
     furtherFiltrationOption: furtherFiltrationOptionReducer,
-    excludedPinIDs: excludedPinIDsReducer
+    excludedPinIDs: excludedPinIDsReducer,
+    isCreating: isCreatingReducer
 });
 
 //send the questionsIDs
@@ -103,6 +110,18 @@ function filtersReducer(
                 pinIDs: [],
                 floorplanPinScale: 1
             };
+        default:
+            return state;
+    }
+}
+
+function isCreatingReducer(state = false, action) {
+    switch (action.type) {
+        case POST_REPORT_REQUEST:
+            return true;
+        case POST_CUSTOM_FILTERS_FAILURE:
+        case POST_CUSTOM_FILTERS_SUCCESS:
+            return false;
         default:
             return state;
     }
@@ -178,14 +197,19 @@ function isFetchingReducer(state = false, action) {
 }
 
 function customFiltersReducer(
-    state = { operatives: [], pins: [], questions: [] },
+    state = { operatives: [], pins: [], questions: [], templates: [] },
     action
 ) {
     switch (action.type) {
+        case GET_OPERATIVE_OPTIONS_SUCCESS:
+            return { ...state, operatives: action.payload };
         case FETCH_PINS_SUCCESS:
             return { ...state, pins: action.payload };
         case POST_CUSTOM_FILTERS_SUCCESS:
-            return action.payload;
+            return { ...state, ...action.payload };
+        case GET_TEMPLATE_REPORT_OPTIONS_SUCCESS:
+            return { ...state, templates: action.payload };
+
         default:
             return state;
     }
@@ -223,11 +247,15 @@ function optionsReducer(
 function errorReducer(state = null, action) {
     switch (action.type) {
         case POST_CUSTOM_FILTERS_REQUEST:
+        case GET_OPERATIVE_OPTIONS_REQUEST:
+        case GET_TEMPLATE_REPORT_OPTIONS_REQUEST:
         case POST_REPORT_REQUEST:
             return null;
         case POST_REPORT_NO_PINS:
             return action.payload;
         case POST_CUSTOM_FILTERS_FAILURE:
+        case GET_OPERATIVE_OPTIONS_FAILURE:
+        case GET_TEMPLATE_REPORT_OPTIONS_FAILURE:
         case POST_REPORT_FAILURE:
             return action.error;
         default:

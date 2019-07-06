@@ -29,7 +29,7 @@ const EditServiceForm = ({
                 </Field>
             </div>
             <div className="size-lg-6">
-                <Field name="Template attached">
+                <Field name="Templates attached">
                     <MultiSelect
                         search
                         name="templateUUIDs"

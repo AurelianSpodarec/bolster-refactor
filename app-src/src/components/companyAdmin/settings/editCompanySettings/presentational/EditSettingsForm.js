@@ -152,17 +152,15 @@ const EditSettingsForm = ({
                     <Field name="Colour scheme (hex code)">
                         <div
                             style={{
-                                width: '2em',
-                                height: '2em',
-                                float: 'left',
-                                margin: '0.5em',
                                 backgroundColor: colourCode
                             }}
+                            className="hex-box"
                         />
                         <TextInputContainer
                             value={colourCode}
                             name="colourCode"
                             handleChange={handleInputChange}
+                            classes="colour-picker-input"
                         />
                     </Field>
                 </div>

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { HuePicker } from 'react-color';
 
 import { VAT_TYPES } from 'constants/companyAdmin/enums';
 
@@ -15,6 +16,7 @@ import Select from 'components/shared/generic/form/presentational/Select';
 const RegisterForm = ({
     handleSubmit,
     handleChange,
+    handleColourSelect,
     timezoneOptions,
     'User.email': email,
     'User.password': password,
@@ -29,6 +31,8 @@ const RegisterForm = ({
     'Company.postcode': postcode,
     'Company.vatCode': vatCode,
     'Company.vatType': vatType,
+    'Company.colourCode': colourCode,
+    'Company.isBolsterLogoDark': isBolsterLogoDark,
     vatOptions,
     dateFormats,
     'Company.dateFormatID': dateFormatID,
@@ -154,6 +158,48 @@ const RegisterForm = ({
                     required
                 />
             </Field>
+
+            <Field
+                name="Colour scheme (hex code)"
+                sizeClasses="size-lg-4 size-md-12"
+                required
+            >
+                <div
+                    style={{
+                        backgroundColor: colourCode
+                    }}
+                    className="hex-box"
+                />
+                <TextInputContainer
+                    value={colourCode}
+                    name="Company.colourCode"
+                    handleChange={handleChange}
+                    classes="colour-picker-input"
+                    required
+                />
+            </Field>
+
+            <Field
+                name="Change Colour Scheme"
+                sizeClasses="size-lg-4 size-md-12"
+            >
+                <div className="size-lg-12">
+                    <HuePicker
+                        color={colourCode || '#FFF'}
+                        onChangeComplete={handleColourSelect}
+                    />
+                </div>
+            </Field>
+
+            <div className="size-lg-12">
+                <Field name="Dark Mode" sizeClasses="size-lg-4 size-md-12">
+                    <CheckboxContainer
+                        checked={isBolsterLogoDark}
+                        handleChange={handleChange}
+                        name="Company.isBolsterLogoDark"
+                    />
+                </Field>
+            </div>
 
             <Field name="Timezone" required>
                 <Select

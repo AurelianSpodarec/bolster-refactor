@@ -9,7 +9,7 @@ import updatePinCoordinates from 'actions/companyAdmin/drawings/sync/updatePinCo
 import DrawingMapViewSimple from '../presentational/DrawingMapViewSimple';
 import DrawingInspectionLogContainer from './DrawingInspectionLogContainer';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import { convertArrToObj, momentComparisonFormat } from 'helpers/generic';
+import { convertArrToObj } from 'helpers/generic';
 import {
     COMPANY_USER_ROLE_TYPES as USER_ROLE,
     FLOORPLAN_STATE_MESSAGES,
@@ -132,6 +132,7 @@ class DrawingMapGeneralContainer extends Component {
         const {
             drawing = {},
             postFilters,
+            getTemplateOptions,
             updateReportFilter,
             match,
             fetchSingleDrawing,
@@ -147,7 +148,10 @@ class DrawingMapGeneralContainer extends Component {
             handleChange('floorID', String(drawing.floorID));
         }
 
-        updateReportFilter('drawingID', match.params.id).then(postFilters);
+        updateReportFilter('drawingID', match.params.id).then(() => {
+            postFilters();
+            getTemplateOptions();
+        });
         if (drawing.isFloorplanUpdating) {
             this._floorplanInterval = setInterval(() => {
                 fetchSingleDrawing(drawing.id);
