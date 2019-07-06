@@ -11,6 +11,7 @@ import showFieldErrors from 'actions/shared/generic/fieldErrors/sync/showFieldEr
 import fetchCompanySettings from 'actions/companyAdmin/companySettings/async/fetchCompanySettings';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { FORGOT_PASSWORD } from 'constants/shared/modalTypes';
+import { FETCH_COMPANY_SETTINGS_SUCCESS } from 'constants/actionTypes/companySettings';
 
 class LoginFormContainer extends Component {
     state = {
@@ -65,8 +66,10 @@ class LoginFormContainer extends Component {
                 return;
             }
             if (+companyUserType === ROLES.OWNER) {
-                const { payload } = await fetchCompanySettings();
-                localStorage.setItem('colourCode', payload.colourCode);
+                const { payload, type } = await fetchCompanySettings();
+                if (type === FETCH_COMPANY_SETTINGS_SUCCESS) {
+                    localStorage.setItem('colourCode', payload.colourCode);
+                }
             }
 
             let url = '/client/companies';
