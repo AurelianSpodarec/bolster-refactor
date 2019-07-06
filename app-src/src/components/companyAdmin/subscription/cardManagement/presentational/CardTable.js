@@ -10,7 +10,8 @@ const CardTable = ({
     isFetching,
     showModal,
     setPrimaryCard,
-    deleteCard
+    deleteCard,
+    onMobile
 }) => (
     <>
         <Table
@@ -25,6 +26,8 @@ const CardTable = ({
                 cards={cards}
                 setPrimaryCard={setPrimaryCard}
                 deleteCard={deleteCard}
+                onMobile={onMobile}
+                headers={headers}
             />
         </Table>
         <BlockButtonWrapper>

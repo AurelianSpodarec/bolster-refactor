@@ -10,11 +10,14 @@ const CreateReportForm = () => (
     <>
         <FilterMapContainer />
         <div className="flex-container size-lg-12">
-            <Block1FiltersContainer blockName="hierarchyFilters" />
+            <Block1FiltersContainer
+                blockName="hierarchyFilters"
+                getAllOperatives
+            />
             <BasicFiltersContainer blockName="basicFilters" />
         </div>
 
-         <FurtherFiltrationContainer />
+        <FurtherFiltrationContainer />
         <OutputSettingsContainer />
     </>
 );

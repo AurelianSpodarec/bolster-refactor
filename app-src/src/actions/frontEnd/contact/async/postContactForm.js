@@ -1,12 +1,12 @@
 import axios from 'axios';
 
-import { API_URL } from 'config/index';
 import { getHeaders, handleErrors } from 'helpers/api';
 import {
     POST_CONTACT_REQUEST,
     POST_CONTACT_SUCCESS,
     POST_CONTACT_FAILURE
 } from 'constants/actionTypes/contact';
+import { FRONTEND_API_URL } from 'config';
 
 export const postContactRequest = () => ({
     type: POST_CONTACT_REQUEST
@@ -26,7 +26,7 @@ export default postBody => dispatch => {
     dispatch(postContactRequest());
 
     return axios
-        .post(`${API_URL}/contact`, postBody, getHeaders())
+        .post(`${FRONTEND_API_URL}/enquiries/contact`, postBody, getHeaders())
         .then(res => dispatch(postContactSuccess(res.data)))
         .catch(err => dispatch(handleErrors(postContactFailure)(err)));
 };

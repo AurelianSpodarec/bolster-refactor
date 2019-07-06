@@ -12,21 +12,13 @@ import updateHierarchyAddState from 'actions/companyAdmin/hierarchy/sync/updateH
 class AddDrawingFormContainer extends Component {
     state = {
         name: '',
-        file: '',
-        templateUsageRuleOptions: {
-            '1': { text: 'Use Only Owner Company', value: 1 },
-            '2': { text: 'Use Only Own', value: 2 },
-            '3': { text: 'Use Any', value: 3 }
-        },
-        templateUsageRule: ''
+        file: ''
     };
 
     render() {
         const {
             name,
-            file,
-            templateUsageRuleOptions,
-            templateUsageRule
+            file
             // ! uncomment below and change props when api is done
             // isUsingBolsterLabels
         } = this.state;
@@ -35,8 +27,6 @@ class AddDrawingFormContainer extends Component {
             <AddDrawingForm
                 name={name}
                 file={file}
-                templateUsageRules={Object.values(templateUsageRuleOptions)}
-                selectedRule={templateUsageRuleOptions[templateUsageRule]}
                 floorID={floorID}
                 handleInputChange={this.handleInputChange}
                 handleFileChange={this.handleFileChange}
@@ -72,9 +62,9 @@ class AddDrawingFormContainer extends Component {
             hideModal
         } = this.props;
         // eslint-disable-next-line no-unused-vars
-        const { templateUsageRuleOptions, ...restState } = this.state;
+
         if (!filesUploading) {
-            createDrawing({ ...restState, floorID });
+            createDrawing({ ...this.State, floorID });
             hideModal();
         }
     };

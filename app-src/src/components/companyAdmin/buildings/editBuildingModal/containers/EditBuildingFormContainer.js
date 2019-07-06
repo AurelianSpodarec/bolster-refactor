@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import moment from 'moment';
 
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 
@@ -9,7 +10,10 @@ import editBuilding from 'actions/companyAdmin/buildings/async/editBuilding';
 class BuildingEditFormContainer extends Component {
     state = {
         name: '',
-        location: ''
+        location: '',
+        isAlertShowing: false,
+        message: '',
+        dateToSend: ''
     };
 
     render() {
@@ -18,6 +22,7 @@ class BuildingEditFormContainer extends Component {
             <BuildingEditForm
                 {...this.state}
                 handleInputChange={this.handleInputChange}
+                handleDateChange={this.handleDateChange}
                 handleSubmit={this.handleSubmit}
                 buildingID={this.props.buildingID}
                 hideModal={this.props.hideModal}
@@ -46,6 +51,12 @@ class BuildingEditFormContainer extends Component {
         this.setState({ [name]: value });
     };
 
+    handleDateChange = date => {
+        this.setState({
+            dateToSend: date
+        });
+    };
+
     //_ <-- used because this helper function is only for this class - not shared or used within the children
     _setFormDetails = () => {
         const {
@@ -65,9 +76,28 @@ class BuildingEditFormContainer extends Component {
         e.preventDefault();
         const { building, editBuilding, hideModal } = this.props;
 
-        const postBody = {
-            ...this.state
-        };
+        const {
+            name,
+            location,
+            isAlertShowing,
+            message,
+            dateToSend
+        } = this.state;
+
+        let postBody = {};
+        if (isAlertShowing) {
+            postBody = {
+                name,
+                location,
+                message: message,
+                dateToSend: moment(dateToSend).format()
+            };
+        } else {
+            postBody = {
+                name,
+                location
+            };
+        }
         editBuilding(building.id, postBody);
         hideModal();
     };

@@ -25,7 +25,10 @@ const CreateFloorsFormContainer = ({
         getKeys,
         getPostBody
     ] = useMultipleHierarchies({
-        name: ''
+        name: '',
+        isAlertShowing: false,
+        message: '',
+        dateToSend: ''
     });
     return (
         <CreateFloorsForm
@@ -47,8 +50,10 @@ const CreateFloorsFormContainer = ({
         const floors = getPostBody();
         if (floors.length === 1) {
             const [floor] = floors;
-            const { name } = floor;
-            createFloor({ name, buildingID });
+            const { name, dateToSend, message, isAlertShowing } = floor;
+            isAlertShowing
+                ? createFloor({ name, buildingID, message, dateToSend })
+                : createFloor({ name, buildingID });
         }
         if (floors.length > 1) {
             createFloors({ floors, buildingID });

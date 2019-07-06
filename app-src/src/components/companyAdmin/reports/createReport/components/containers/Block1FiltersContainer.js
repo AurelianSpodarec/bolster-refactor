@@ -11,13 +11,19 @@ export class Block1FiltersContainer extends Component {
         showError: false
     };
     render() {
-        const { fieldError, advanced, isFetching } = this.props;
+        const {
+            fieldError,
+            advanced,
+            isFetching,
+            getAllOperatives
+        } = this.props;
 
         return (
             <Block1Filters
                 fieldError={fieldError}
                 advanced={advanced}
                 isFetching={isFetching}
+                getAllOperatives={getAllOperatives}
             />
         );
     }

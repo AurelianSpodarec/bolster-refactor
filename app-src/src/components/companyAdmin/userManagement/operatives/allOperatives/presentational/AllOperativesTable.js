@@ -10,7 +10,8 @@ const AllOperativesTable = ({
     users,
     isFetching,
     error,
-    handleShowModal
+    handleShowModal,
+    onMobile
 }) => (
     <BlockContainer>
         <BlockHeading title="Operatives">
@@ -27,7 +28,12 @@ const AllOperativesTable = ({
             noDataMessage="No operatives to display."
         >
             {users.map(user => (
-                <AllOperativesListItemContainer key={user.id} user={user} />
+                <AllOperativesListItemContainer
+                    headers={headers}
+                    key={user.id}
+                    user={user}
+                    onMobile={onMobile}
+                />
             ))}
         </Table>
     </BlockContainer>

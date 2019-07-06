@@ -25,7 +25,8 @@ class SinglePinMapContainer extends Component {
             error,
             isFetching,
             drawing,
-            selectedHistory
+            selectedHistory,
+            onMobile
         } = this.props;
 
         const editPinLocationPosition = [
@@ -52,6 +53,7 @@ class SinglePinMapContainer extends Component {
                     pinHistory={selectedHistory}
                     history={this.props.history}
                     handleEditHistoryModal={this.handleEditHistoryModal}
+                    onMobile={onMobile}
                 />
             </BlockContainer>
         );
@@ -133,7 +135,8 @@ const mapStateToProps = (
             drawingsReducer: { drawings }
         },
         shared: {
-            selectedHistoryReducer: { selectedHistoryId }
+            selectedHistoryReducer: { selectedHistoryId },
+            mobileReducer: { onMobile }
         }
     },
     { match: { params } }
@@ -148,7 +151,8 @@ const mapStateToProps = (
         error,
         isFetching,
         postSuccess,
-        drawing: drawings[pin.drawingID] || {}
+        drawing: drawings[pin.drawingID] || {},
+        onMobile
     };
 };
 

@@ -1,5 +1,8 @@
 import { useState } from 'react';
 import uuid from 'uuid/v4';
+import moment from 'moment';
+
+import { removeObjItem } from './generic';
 
 export const useMultipleHierarchies = hierarchyShape => {
     // takes an empty version of the hierarchy shape / initial state for a blank hierarchy
@@ -15,8 +18,11 @@ export const useMultipleHierarchies = hierarchyShape => {
     function getPostBody() {
         return Object.values(state).map(hierarchy => {
             // eslint-disable-next-line no-unused-vars
-            const { id, ...rest } = hierarchy;
-            return rest;
+            const { id, isAlertShowing, dateToSend, ...rest } = hierarchy;
+
+            return isAlertShowing
+                ? { dateToSend: moment(dateToSend).format(), ...rest }
+                : removeObjItem(removeObjItem(rest, 'message'), 'dateToSend');
         });
     }
 

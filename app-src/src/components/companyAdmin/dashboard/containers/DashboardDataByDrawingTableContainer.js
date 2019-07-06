@@ -6,7 +6,7 @@ import { isEmpty } from 'helpers/generic';
 
 class DashboardDataByDrawingTableContainer extends Component {
     render() {
-        const { drawings, isFetching, error } = this.props;
+        const { drawings, isFetching, error, onMobile } = this.props;
 
         return (
             <BlockContainer
@@ -20,6 +20,7 @@ class DashboardDataByDrawingTableContainer extends Component {
                     drawings={drawings}
                     isFetching={isFetching}
                     error={error}
+                    onMobile={onMobile}
                 />
             </BlockContainer>
         );

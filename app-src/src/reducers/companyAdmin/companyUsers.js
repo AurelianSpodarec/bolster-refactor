@@ -25,7 +25,10 @@ import {
     UNLINK_OPERATIVE_DEVICE_REQUEST,
     EDIT_COMPANY_USER_TYPE_REQUEST,
     EDIT_COMPANY_USER_TYPE_SUCCESS,
-    EDIT_COMPANY_USER_TYPE_FAILURE
+    EDIT_COMPANY_USER_TYPE_FAILURE,
+    CHANGE_USER_TYPE_REQUEST,
+    CHANGE_USER_TYPE_SUCCESS,
+    CHANGE_USER_TYPE_FAILURE
 } from 'constants/actionTypes/usersManagement';
 
 export default combineReducers({
@@ -56,11 +59,14 @@ function isPostingReducer(state = false, action) {
     switch (action.type) {
         case CREATE_COMPANY_USER_REQUEST:
         case UNLINK_OPERATIVE_DEVICE_REQUEST:
+        case CHANGE_USER_TYPE_REQUEST:
             return true;
         case CREATE_COMPANY_USER_SUCCESS:
         case CREATE_COMPANY_USER_FAILURE:
         case UNLINK_OPERATIVE_DEVICE_FAILURE:
         case UNLINK_OPERATIVE_DEVICE_SUCCESS:
+        case CHANGE_USER_TYPE_SUCCESS:
+        case CHANGE_USER_TYPE_FAILURE:
             return false;
         default:
             return state;
@@ -74,12 +80,14 @@ function postSuccessReducer(state = false, action) {
         case EDIT_COMPANY_USER_PASSWORD_REQUEST:
         case EDIT_COMPANY_USER_TYPE_REQUEST:
         case UNLINK_OPERATIVE_DEVICE_REQUEST:
+        case CHANGE_USER_TYPE_REQUEST:
             return false;
         case CREATE_COMPANY_USER_SUCCESS:
         case EDIT_COMPANY_USER_SUCCESS:
         case EDIT_COMPANY_USER_PASSWORD_SUCCESS:
         case EDIT_COMPANY_USER_TYPE_SUCCESS:
         case UNLINK_OPERATIVE_DEVICE_SUCCESS:
+        case CHANGE_USER_TYPE_SUCCESS:
             return true;
         default:
             return state;
@@ -96,6 +104,7 @@ function errorReducer(state = null, action) {
         case DELETE_COMPANY_USER_REQUEST:
         case FETCH_SINGLE_COMPANY_USER_REQUEST:
         case UNLINK_OPERATIVE_DEVICE_REQUEST:
+        case CHANGE_USER_TYPE_REQUEST:
             return null;
         case FETCH_COMPANY_USERS_FAILURE:
         case DELETE_COMPANY_USER_FAILURE:
@@ -105,6 +114,7 @@ function errorReducer(state = null, action) {
         case CREATE_COMPANY_USER_FAILURE:
         case FETCH_SINGLE_COMPANY_USER_FAILURE:
         case UNLINK_OPERATIVE_DEVICE_FAILURE:
+        case CHANGE_USER_TYPE_FAILURE:
             return action.error;
         default:
             return state;

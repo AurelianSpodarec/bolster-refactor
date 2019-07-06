@@ -1,7 +1,6 @@
 import React from 'react';
 
 import Dropdown from 'components/shared/generic/form/presentational/Dropdown';
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import DatePickerPresentational from 'components/shared/generic/form/presentational/DatePicker';
 
 const DashboardStatsFilters = ({
@@ -15,11 +14,11 @@ const DashboardStatsFilters = ({
     handleChange,
     today
 }) => (
-    <BlockContainer>
+    <>
         <form className="multi-filters size-lg-12">
             <div className="flex item ">
                 <p className="">Selected Service:</p>
-                <div className="flex size-lg-7">
+                <div className="flex size-lg-7 size-md-12">
                     <Dropdown
                         placeholder="--select service--"
                         name="serviceID"
@@ -68,7 +67,7 @@ const DashboardStatsFilters = ({
                 </div>
             </div>
         </form>
-    </BlockContainer>
+    </>
 );
 
 export default DashboardStatsFilters;

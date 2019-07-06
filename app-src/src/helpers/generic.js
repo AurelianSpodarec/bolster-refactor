@@ -20,6 +20,12 @@ export function isObjEmpty(obj) {
     return true;
 }
 
+export const nameSort = (a, b) => {
+    if (a.userFirstName == b.userFirstName) {
+        return a.userLastName.toLowerCase() > b.userLastName.toLowerCase();
+    } else return a.userFirstName.toLowerCase() > b.userFirstName.toLowerCase();
+};
+
 export function isEmpty(item) {
     if (Array.isArray(item)) return !item.length;
     if (typeof item === 'string') return !item.length;
@@ -181,3 +187,37 @@ export function getBolsterColour() {
 export const momentComparisonFormat = 'YYYY-MM-DD';
 
 export const roundToTwoPlacesMax = num => Math.round(num * 100) / 100;
+
+export const deepEquals = (first, second) => {
+    // shouldn't be used for deep comparison of primitives but might as well account for it
+    // also works if the same object reference is passed twice for whatever reason
+    if (first === second) return true;
+
+    if (first instanceof Date) {
+        return second instanceof Date
+            ? first.getTime() === second.getTime()
+            : false;
+    }
+    if (
+        (first instanceof RegExp && second instanceof RegExp) ||
+        (first instanceof Function && second instanceof Function)
+    ) {
+        return first.ToString() === second.toString();
+    }
+
+    const firstEntries = Object.entries(first);
+    const secondEntries = Object.entries(second);
+    // basic check to see if they have same number of keys
+    if (firstEntries.length !== secondEntries.length) return false;
+
+    firstEntries.forEach(([firstKey, firstVal], index) => {
+        const [secondKey, secondVal] = secondEntries[index];
+
+        // recursive check for nested objects, arrays
+        if (typeof firstVal === 'object' && typeof secondVal === 'object') {
+            if (!deepEquals(firstVal, secondVal)) return false;
+        }
+        if (firstKey !== secondKey || firstVal !== secondVal) return false;
+    });
+    return true;
+};

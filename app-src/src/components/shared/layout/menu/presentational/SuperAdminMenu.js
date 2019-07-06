@@ -30,9 +30,25 @@ const SuperAdminMenu = ({ logout }) => (
                 <i className="fa fa-user icon" />{' '}
                 <span className="menu-text">Users</span>
             </MenuItemContainer>
+            <MenuItemContainer link="/admin/move-tool">
+                <i className="fa fa-layer-group icon" />{' '}
+                <span className="menu-text">Move Tool</span>
+            </MenuItemContainer>
             <MenuItemContainer link="/admin/services">
                 <i className="fa fa-folder-open icon" />{' '}
                 <span className="menu-text">Services</span>
+            </MenuItemContainer>
+            <MenuItemContainer link="/admin/enquiries">
+                <i className="far fa-phone icon" />{' '}
+                <span className="menu-text">User Enquiries</span>
+            </MenuItemContainer>
+            <MenuItemContainer link="/admin/demo-requests">
+                <i className="far fa-video icon" />{' '}
+                <span className="menu-text">User Demo Requests</span>
+            </MenuItemContainer>
+            <MenuItemContainer link="/admin/sos-management">
+                <i className="fas fa-hands-helping icon" />
+                <span className="menu-text">SOS Management</span>
             </MenuItemContainer>
             <Link className="item" to="#" link="/admin/users" onClick={logout}>
                 <i className="icon fas fa-sign-out" />

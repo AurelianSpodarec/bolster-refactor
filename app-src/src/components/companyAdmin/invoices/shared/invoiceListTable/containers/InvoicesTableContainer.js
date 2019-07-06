@@ -6,7 +6,7 @@ import fetchAllInvoices from 'actions/companyAdmin/invoices/async/fetchAllInvoic
 
 class InvoicesTableContainer extends Component {
     render = () => {
-        const { error, isFetching, invoices, showModal } = this.props;
+        const { error, isFetching, invoices, showModal, onMobile } = this.props;
         return (
             <InvoicesTable
                 headers={[
@@ -14,6 +14,7 @@ class InvoicesTableContainer extends Component {
                     'Order ID',
                     'Total (exc VAT)',
                     'Total (inc VAT)',
+                    'Left to pay',
                     'Type',
                     'Status',
                     '',
@@ -24,6 +25,7 @@ class InvoicesTableContainer extends Component {
                 isFetching={isFetching}
                 invoices={invoices}
                 showModal={showModal}
+                onMobile={onMobile}
             />
         );
     };
@@ -37,11 +39,15 @@ class InvoicesTableContainer extends Component {
 const mapStateToProps = ({
     companyAdmin: {
         invoicesReducer: { error, isFetching, postSuccess }
+    },
+    shared: {
+        mobileReducer: { onMobile }
     }
 }) => ({
     error,
     isFetching,
-    postSuccess
+    postSuccess,
+    onMobile
 });
 
 const mapDispatchToProps = dispatch => ({

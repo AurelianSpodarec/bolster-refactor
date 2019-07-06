@@ -20,10 +20,10 @@ const PinHistoryDetailsItem = ({
         <FieldOutput
             title="Type"
             description={services[history.serviceID].name}
-            sizeClass="size-lg-3"
+            sizeClass="size-lg-3 size-md-12"
         />
 
-        <FieldOutput title="Date added" sizeClass="size-lg-3">
+        <FieldOutput title="Date added" sizeClass="size-lg-3 size-md-12">
             <p>
                 <DateTimeContainer date={history.createdOn} />
             </p>
@@ -32,12 +32,12 @@ const PinHistoryDetailsItem = ({
         <FieldOutput
             title="Added by"
             description={`${createdBy.userFirstName} ${createdBy.userLastName}`}
-            sizeClass="size-lg-3"
+            sizeClass="size-lg-3 size-md-12"
         />
         <FieldOutput
             title="Status"
             description={`${PIN_STATUS_TYPES[history.status]}`}
-            sizeClass="size-lg-3"
+            sizeClass="size-lg-3 size-md-12"
         />
 
         <PinSectionsContainer pinHistory={history} drawingID={drawingID} />

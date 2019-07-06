@@ -9,22 +9,28 @@ const BuildingsListItemContainer = ({
     dispatch,
     expandedBuildingIds,
     building,
-    colCount
+    colCount,
+    headers,
+    onMobile
 }) => (
     <BuildingsListItem
         building={building}
         isExpanded={expandedBuildingIds.includes(building.id)}
         colCount={colCount}
         toggleExpanded={() => dispatch(toggleBuildingExpanded(building.id))}
+        onMobile={onMobile}
+        headers={headers}
     />
 );
 
 export default connect(
     ({
         shared: {
-            tablesReducer: { expandedBuildingIds }
+            tablesReducer: { expandedBuildingIds },
+            mobileReducer: { onMobile }
         }
     }) => ({
-        expandedBuildingIds
+        expandedBuildingIds,
+        onMobile
     })
 )(BuildingsListItemContainer);

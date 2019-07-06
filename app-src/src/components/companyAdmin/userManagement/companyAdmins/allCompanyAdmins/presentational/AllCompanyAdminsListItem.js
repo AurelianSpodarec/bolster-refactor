@@ -6,20 +6,55 @@ import { COMPANY_USER_ROLE_TYPES } from 'constants/companyAdmin/enums';
 const AllCompanyAdminsListItem = ({
     user,
     showDeleteModal,
-    showUnlinkModal
+    showUnlinkModal,
+    showRevokeAdminAccessModal,
+    loggedInUser,
+    onMobile,
+    headers
 }) => (
     <tr key={user.id}>
         <td>
+            {onMobile && (
+                <span className="mobile-table-heading">{headers[0]}</span>
+            )}
             {`${user.userFirstName} ${user.userLastName}`}{' '}
             {user.type === COMPANY_USER_ROLE_TYPES.OWNER ? (
                 <span>(OWNER)</span>
             ) : null}
         </td>
-        <td>{user.userEmail}</td>
-        <td>{user.userPhoneNumber}</td>
-        <td>{user.linkedDeviceID ? 'Yes' : 'No'}</td>
-        <td>{user.formattedOperativeCode}</td>
         <td>
+            {' '}
+            {onMobile && (
+                <span className="mobile-table-heading">{headers[1]}</span>
+            )}
+            {user.userEmail}
+        </td>
+        <td>
+            {' '}
+            {onMobile && (
+                <span className="mobile-table-heading">{headers[2]}</span>
+            )}
+            {user.userPhoneNumber}
+        </td>
+        <td>
+            {' '}
+            {onMobile && (
+                <span className="mobile-table-heading">{headers[3]}</span>
+            )}
+            {user.linkedDeviceID ? 'Yes' : 'No'}
+        </td>
+        <td>
+            {' '}
+            {onMobile && (
+                <span className="mobile-table-heading">{headers[4]}</span>
+            )}
+            {user.formattedOperativeCode}
+        </td>
+        <td>
+            {' '}
+            {onMobile && (
+                <span className="mobile-table-heading">{headers[5]}</span>
+            )}
             <BlockButtonWrapper additionalClasses="stacked">
                 {user.linkedDeviceID && (
                     <button className="button blue" onClick={showUnlinkModal}>
@@ -45,6 +80,24 @@ const AllCompanyAdminsListItem = ({
                     <i className="far fa-pencil" />
                     Edit
                 </Link>
+                <Link
+                    className="button blue"
+                    to={`/company/users-management/company-admins/${
+                        user.id
+                    }/drawings`}
+                >
+                    <i className="far fa-key" /> Drawings Access
+                </Link>
+                {loggedInUser.type === +COMPANY_USER_ROLE_TYPES.OWNER &&
+                    +user.type !== +COMPANY_USER_ROLE_TYPES.OWNER && (
+                        <button
+                            className="button"
+                            onClick={() => showRevokeAdminAccessModal(user.id)}
+                        >
+                            <i className="far fa-ban" />
+                            Revoke Admin
+                        </button>
+                    )}
                 {+user.type !== +COMPANY_USER_ROLE_TYPES.OWNER ? (
                     <button
                         className="button red"

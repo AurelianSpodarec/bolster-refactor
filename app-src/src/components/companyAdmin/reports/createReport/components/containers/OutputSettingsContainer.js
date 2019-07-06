@@ -6,6 +6,7 @@ import postReport from 'actions/companyAdmin/reports/async/postReport';
 import postCustomFilters from 'actions/companyAdmin/reports/async/postCustomFilters';
 import removeFilterQuestions from 'actions/companyAdmin/reports/sync/removeFilterQuestions';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
+import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import {
     SUCCESS_MODAL,
     ERROR_MODAL,
@@ -141,17 +142,41 @@ class OutputSettingsContainer extends Component {
             filters: {
                 isFloorplanGeneration,
                 includeFloorplan,
-                isPDFGeneration
+                isPDFGeneration,
+                drawingID
             },
-            showModal
+            showModal,
+            drawings
         } = this.props;
 
         if (!isEmpty(fieldErrors)) showFieldErrors();
+        // else if (
+        //     Object.values(drawings).filter(
+        //         drawing => +drawing.id === +drawingID
+        //     ).length < 1
+        // ) {
+        //     showModal(ERROR_MODAL, {
+        //         title: 'Error',
+        //         message:
+        //             'No drawings available to report, please add at least one drawing.'
+        //     });
+        // }
         else if (
             isFloorplanGeneration ||
             (isPDFGeneration && includeFloorplan)
         ) {
             const drawingForPinScale = this._getDrawingForPinScale();
+
+            if (!drawingForPinScale) {
+                showModal(ERROR_MODAL, {
+                    title: 'No drawings',
+                    message:
+                        'No drawings were found for your selection. Please edit your filters.'
+                });
+
+                return;
+            }
+
             showModal(SELECT_PIN_SCALE, {
                 drawing: drawingForPinScale,
                 getPostBody,
@@ -189,6 +214,7 @@ class OutputSettingsContainer extends Component {
                 drawing => +drawing.id === +drawingID
             );
         }
+
         return availableDrawings[0];
     };
 }

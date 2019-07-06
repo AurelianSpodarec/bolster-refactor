@@ -193,9 +193,14 @@ export default function(ProtectedComponent) {
         };
 
         postFilters = () => {
-            const { postCustomFilters } = this.props;
-
-            return postCustomFilters(this._getPostBody());
+            const { postCustomFilters, furtherFiltrationOption } = this.props;
+            // only post filters if advanced filters require it - none / individual pins are 0,1 and dont require it
+            if (
+                furtherFiltrationOption >
+                FURTHER_FILTRATION_OPTIONS.INDIVIDUAL_PINS
+            ) {
+                return postCustomFilters(this._getPostBody());
+            }
         };
     }
 
@@ -210,6 +215,7 @@ export default function(ProtectedComponent) {
                 buildingsReducer,
                 floorsReducer,
                 drawingsReducer,
+                companyUsersReducer: { users: companyUsers },
                 reportsReducer: {
                     filters,
                     fields,
@@ -220,7 +226,8 @@ export default function(ProtectedComponent) {
                     rectangles,
                     excludedPinIDs,
                     furtherFiltrationOption
-                }
+                },
+                operativesReducer: { operatives }
             }
         },
         { blockName }
@@ -248,6 +255,8 @@ export default function(ProtectedComponent) {
             options,
             postSuccess,
             error,
+            operatives,
+            companyUsers,
             services: Object.values(servicesReducer.services),
             sites: Object.values(sitesReducer.sites),
             buildings,

@@ -1,5 +1,6 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import Table from 'components/shared/generic/tables/presentational/Table';
 import DocumentsList from './DocumentsList';
@@ -13,7 +14,8 @@ const DocumentsTable = ({
     isFetching,
     clientControls = false,
     accessType,
-    smallList = false
+    smallList = false,
+    onMobile
 }) => {
     return (
         <div className="size-lg-12">
@@ -49,6 +51,8 @@ const DocumentsTable = ({
                         location={location}
                         documents={documents}
                         clientControls={clientControls}
+                        headers={['Name', 'Actions']}
+                        onMobile={onMobile}
                     />
                 </Table>
             </div>
@@ -56,4 +60,8 @@ const DocumentsTable = ({
     );
 };
 
-export default withRouter(DocumentsTable);
+export default withRouter(
+    connect(({ shared: { mobileReducer: { onMobile } } }) => ({
+        onMobile
+    }))(DocumentsTable)
+);

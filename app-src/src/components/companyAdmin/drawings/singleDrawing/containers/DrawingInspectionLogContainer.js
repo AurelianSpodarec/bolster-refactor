@@ -9,7 +9,7 @@ class DrawingInspectionLogContainer extends Component {
     };
 
     render() {
-        const { pins, isFetching, error } = this.props;
+        const { pins, isFetching, error, onMobile } = this.props;
         const filterPins = pins.filter(({ pinCode = '' }) =>
             pinCode.includes(this.state.filterValue)
         );
@@ -20,6 +20,7 @@ class DrawingInspectionLogContainer extends Component {
                 error={error}
                 pins={filterPins}
                 handleFilterChange={this.handleFilterChange}
+                onMobile={onMobile}
             />
         );
     }
@@ -39,6 +40,9 @@ const mapStateToProps = ({
             isFetching: fetchingLogs,
             error: inspectionError
         }
+    },
+    shared: {
+        mobileReducer: { onMobile }
     }
 }) => ({
     pins: Object.values(pins),
@@ -46,7 +50,8 @@ const mapStateToProps = ({
     error: error,
     inspectionLogs: Object.values(inspectionLogs),
     fetchingLogs,
-    inspectionError
+    inspectionError,
+    onMobile
 });
 
 export default connect(mapStateToProps)(DrawingInspectionLogContainer);

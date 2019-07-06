@@ -8,7 +8,8 @@ const DashboardPieChartContainer = ({
     isFetching,
     error,
     datasets,
-    statusStats: { lastUpdated }
+    statusStats: { lastUpdated },
+    onMobile
 }) => {
     const stats = _convertDataSetsToStatusStats();
     return (
@@ -16,9 +17,9 @@ const DashboardPieChartContainer = ({
             isFetching={isFetching}
             error={error}
             isEmpty={isEmpty(stats)}
-            containerClass="flex-row-item size-lg-6"
+            containerClass="flex-row-item size-lg-6 size-md-12"
         >
-            <DashboardPieChart stats={stats} />
+            <DashboardPieChart stats={stats} onMobile={onMobile} />
         </BlockContainer>
     );
 
@@ -42,12 +43,16 @@ const mapStateToProps = ({
             error,
             dashRecentPinsStats: { datasets = {} }
         }
+    },
+    shared: {
+        mobileReducer: { onMobile }
     }
 }) => ({
     statusStats,
     isFetching: isFetchingDashPinsStats,
     error: error,
-    datasets
+    datasets,
+    onMobile
 });
 
 export default connect(mapStateToProps)(DashboardPieChartContainer);

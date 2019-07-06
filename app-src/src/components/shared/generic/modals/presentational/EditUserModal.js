@@ -64,8 +64,8 @@ const EditUserModal = ({
                     </Field>
                 </div>
                 <BlockButtonWrapper>
-                    <button className="button" type="submit">
-                        Save
+                    <button className="button green" type="submit">
+                        Submit
                     </button>
                     <button className="button" onClick={hideModal}>
                         Cancel

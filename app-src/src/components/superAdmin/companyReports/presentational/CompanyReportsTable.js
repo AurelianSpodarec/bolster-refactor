@@ -2,18 +2,17 @@ import React from 'react';
 import Table from 'components/shared/generic/tables/presentational/Table';
 import CompanyReportsListItem from './CompanyReportsListItem';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
 import CompanyReportsFiltersContainer from '../containers/CompanyReportsFiltersContainer';
 
 const CompanyReportsTable = ({
     isFetching,
     error,
     companyReports,
-    headers
+    headers,
+    onMobile
 }) => {
     return (
         <>
-            <PageHeading title="Company Reports" />
             <BlockContainer
                 heading="Company Reports Queue"
                 isFetching={isFetching}
@@ -33,6 +32,8 @@ const CompanyReportsTable = ({
                         <CompanyReportsListItem
                             key={queueItem.id}
                             queueItem={queueItem}
+                            headers={headers}
+                            onMobile={onMobile}
                         />
                     ))}
                 </Table>

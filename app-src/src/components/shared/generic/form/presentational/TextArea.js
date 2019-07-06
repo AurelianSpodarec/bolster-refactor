@@ -7,17 +7,20 @@ const TextArea = ({
     handleChange,
     handleBlur,
     error,
-    charLimit
+    charLimit,
+    classes,
+    disabled
 }) => (
     <>
         <textarea
-            className="generic-input"
+            className={`generic-input ${classes}`}
             name={name}
             placeholder={placeholder}
             value={value}
             onChange={handleChange}
             onBlur={handleBlur}
             maxLength={charLimit}
+            disabled={disabled}
         />
         {!!(error && error.length) && (
             <p className="error red-text text-accent-4">{error}</p>

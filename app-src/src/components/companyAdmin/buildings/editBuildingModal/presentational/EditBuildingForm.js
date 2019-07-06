@@ -9,23 +9,35 @@ import ButtonContainer from 'components/shared/generic/button/containers/ButtonC
 const BuildingEditForm = ({
     handleSubmit,
     handleInputChange,
+    handleDateChange,
     hideModal,
     name,
     location,
-    isUsingBolsterLabels
+    isUsingBolsterLabels,
+    isAlertShowing,
+    message,
+    dateToSend
 }) => (
     <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
         {isUsingBolsterLabels ? (
             <EditBuildingFormFieldsWithLabel
                 handleInputChange={handleInputChange}
+                handleDateChange={handleDateChange}
                 name={name}
                 location={location}
+                isAlertShowing={isAlertShowing}
+                message={message}
+                dateToSend={dateToSend}
             />
         ) : (
             <EditBuildingFormFieldsNoLabel
                 handleInputChange={handleInputChange}
+                handleDateChange={handleDateChange}
                 name={name}
                 location={location}
+                isAlertShowing={isAlertShowing}
+                message={message}
+                dateToSend={dateToSend}
             />
         )}
         <BlockButtonWrapper>

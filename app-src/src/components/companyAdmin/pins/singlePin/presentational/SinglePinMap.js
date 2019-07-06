@@ -25,7 +25,8 @@ const SinglePinMap = ({
     editPinLocationPosition,
     handleEditPinLocation,
     pinHistory,
-    history
+    history,
+    onMobile
 }) => {
     const status = pinHistory.status;
     const pinColour = COLOURS[status] || 'red';
@@ -40,7 +41,10 @@ const SinglePinMap = ({
     });
     return (
         <>
-            <BlockHeading title={`Pin ${pin.pinCode}`}>
+            <BlockHeading
+                title={`Pin ${pin.pinCode}`}
+                classes={`${onMobile ? 'mobile-buttons' : ''}`}
+            >
                 <SinglePinGenerateReportContainer pinID={pin.id} />
                 <Link
                     className="button green"

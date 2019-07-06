@@ -7,22 +7,28 @@ import fetchTemplate from 'actions/superAdmin/templateBuilder/async/fetchTemplat
 import fetchAllServices from 'actions/superAdmin/services/async/fetchAllServices';
 
 import LabelExamplePage from '../presentational/LabelExamplePage';
+import { isEmpty } from 'helpers/generic';
 
 class LabelExamplePageContainer extends Component {
     render() {
-        return <LabelExamplePage />;
+        return (
+            <LabelExamplePage
+                templates={this.props.templates}
+                isFetching={this.props.isFetching}
+                error={this.props.error}
+            />
+        );
     }
     componentDidMount = () => {
-        const { fetchPageData, uuid } = this.props;
-
-        fetchPageData(uuid);
+        const { fetchPageData, uuid, labelFields } = this.props;
+        if (isEmpty(labelFields)) fetchPageData(uuid);
     };
 }
 
 const mapStateToProps = (
     {
         superAdmin: {
-            templatesReducer: { templates },
+            templatesReducer: { templates, isFetching, error },
             templateLabelFieldsReducer: { labelFields }
         }
     },
@@ -34,10 +40,13 @@ const mapStateToProps = (
 ) => ({
     companyID,
     template: templates[uuid],
+    templates,
     uuid,
     labelFields: Object.values(labelFields).filter(
         ({ templateUUID }) => templateUUID === uuid
-    )
+    ),
+    isFetching,
+    error
 });
 const mapDispatchToProps = (
     dispatch,

@@ -10,7 +10,7 @@ const CompanyApp = () => (
         <CompanyHeaderContainer />
         <div className="full-container container">
             <MenuContainer />
-            <div id="page-area">
+            <div id="page-area" className="obvious-class-name">
                 <Routes />
             </div>
         </div>

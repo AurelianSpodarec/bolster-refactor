@@ -8,15 +8,50 @@ const AllOperativesListItem = ({
     user,
     showDeleteModal,
     showUnlinkModal,
-    showMakeAdminModal
+    showMakeAdminModal,
+    onMobile,
+    headers
 }) => (
     <tr key={user.id}>
-        <td>{`${user.userFirstName} ${user.userLastName}`}</td>
-        <td>{user.userEmail}</td>
-        <td>{user.userPhoneNumber}</td>
-        <td>{user.linkedDeviceID ? 'Yes' : 'No'}</td>
-        <td>{user.formattedOperativeCode}</td>
         <td>
+            {' '}
+            {onMobile && (
+                <span className="mobile-table-heading">{headers[0]}</span>
+            )}
+            {`${user.userFirstName} ${user.userLastName}`}
+        </td>
+        <td>
+            {' '}
+            {onMobile && (
+                <span className="mobile-table-heading">{headers[1]}</span>
+            )}
+            {user.userEmail}
+        </td>
+        <td>
+            {' '}
+            {onMobile && (
+                <span className="mobile-table-heading">{headers[2]}</span>
+            )}
+            {user.userPhoneNumber}
+        </td>
+        <td>
+            {' '}
+            {onMobile && (
+                <span className="mobile-table-heading">{headers[3]}</span>
+            )}
+            {user.linkedDeviceID ? 'Yes' : 'No'}
+        </td>
+        <td>
+            {' '}
+            {onMobile && (
+                <span className="mobile-table-heading">{headers[4]}</span>
+            )}
+            {user.formattedOperativeCode}
+        </td>
+        <td>
+            {onMobile && (
+                <span className="mobile-table-heading">{headers[5]}</span>
+            )}
             <BlockButtonWrapper additionalClasses="stacked">
                 {user.linkedDeviceID && (
                     <button className="button blue" onClick={showUnlinkModal}>
@@ -45,6 +80,15 @@ const AllOperativesListItem = ({
                 >
                     <i className="far fa-pencil" /> Edit
                 </Link>
+                <Link
+                    className="button blue"
+                    to={`/company/users-management/operative/${
+                        user.id
+                    }/drawings`}
+                >
+                    <i className="far fa-key" /> Drawings Access
+                </Link>
+
                 <button className="button red" onClick={showDeleteModal}>
                     <i className="far fa-trash-alt" />
                     Delete

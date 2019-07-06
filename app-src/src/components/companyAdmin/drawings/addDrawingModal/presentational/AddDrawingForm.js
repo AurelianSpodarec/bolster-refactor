@@ -17,8 +17,6 @@ const AddDrawingForm = ({
     filesUploading,
     name,
     file,
-    templateUsageRules,
-    selectedRule,
     credits,
     handleBuyCreditsModal,
     handleClose,
@@ -26,7 +24,7 @@ const AddDrawingForm = ({
 }) => (
     <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
         <div className="size-lg-12">
-            <div className="size-lg-6">
+            <div className="size-lg-6 size-md-12">
                 <Field name="Drawing Name" required>
                     <TextInputContainer
                         name="name"
@@ -38,7 +36,7 @@ const AddDrawingForm = ({
             </div>
         </div>
         <div className="size-lg-12">
-            <div className="size-lg-6">
+            <div className="size-lg-6 size-md-12">
                 <Field name="Upload plan" required>
                     <FileUploadContainer
                         value={file}
@@ -54,21 +52,7 @@ const AddDrawingForm = ({
                 </Field>
             </div>
         </div>
-        <div className="size-lg-12">
-            <div className="size-lg-6">
-                <Field name="Set Template Usage Rule" required>
-                    <DropdownContainer
-                        placeholder="-- select rule --"
-                        name="templateUsageRule"
-                        options={templateUsageRules}
-                        value={selectedRule}
-                        selectedOption={selectedRule}
-                        handleChange={handleInputChange}
-                        required
-                    />
-                </Field>
-            </div>
-        </div>
+
         {/* {isUsingBolsterLabels && <BolsterLabelExample name={name} />} */}
 
         <BlockButtonWrapper>
@@ -78,13 +62,7 @@ const AddDrawingForm = ({
                     className="button green"
                     type="submit"
                 >
-                    {filesUploading ? (
-                        'Please wait...'
-                    ) : (
-                        <>
-                            <i className="fa fa-plus" /> Add Drawing
-                        </>
-                    )}
+                    {filesUploading ? 'Please wait...' : <>Submit</>}
                 </button>
             ) : (
                 <TooltipContainer

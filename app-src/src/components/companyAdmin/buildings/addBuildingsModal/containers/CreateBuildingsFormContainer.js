@@ -26,7 +26,10 @@ const CreateBuildingsFormContainer = ({
         getPostBody
     ] = useMultipleHierarchies({
         name: '',
-        location: ''
+        location: '',
+        isAlertShowing: false,
+        message: '',
+        dateToSend: ''
     });
     return (
         <CreateBuildingsForm
@@ -46,10 +49,32 @@ const CreateBuildingsFormContainer = ({
 
     function handleSubmit() {
         const buildings = getPostBody();
+
         if (buildings.length === 1) {
             const [building] = buildings;
-            const { name, location } = building;
-            createBuilding({ name, location, siteID });
+            const {
+                name,
+                location,
+                isAlertShowing,
+                dateToSend,
+                message
+            } = building;
+
+            if (isAlertShowing) {
+                createBuilding({
+                    name,
+                    location,
+                    siteID,
+                    dateToSend,
+                    message
+                });
+            } else {
+                createBuilding({
+                    name,
+                    location,
+                    siteID
+                });
+            }
         }
         if (buildings.length > 1) {
             createBuildings({ buildings, siteID });

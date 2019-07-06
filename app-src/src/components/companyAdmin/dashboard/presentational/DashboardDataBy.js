@@ -3,11 +3,11 @@ import BlockHeading from 'components/shared/generic/blockHeading/presentational/
 import DashboardDataByTableRoute from '../containers/DashboardDataByTableRoute';
 import TabsContainer from 'components/shared/generic/tabs/containers/TabsContainer';
 
-const DashboardDataBy = ({ selectedTab }) => (
+const DashboardDataBy = ({ selectedTab, onMobile }) => (
     <>
         <BlockHeading title={`Data by active ${selectedTab}`} />
         <TabsContainer />
-        <DashboardDataByTableRoute />
+        <DashboardDataByTableRoute onMobile={onMobile} />
     </>
 );
 

@@ -11,16 +11,16 @@ const Subscription = () => (
     <>
         <PageHeading title="Account Overview" withBackButton />
 
-        <div className="size-lg-8">
+        <div className="size-lg-8 size-md-12">
             <SubscriptionStatusContainer />
             <ActiveServicesContainer />
             <CardManagement />
         </div>
-        <div className="size-lg-4">
+        <div className="size-lg-4 size-md-12">
             <SubscriptionAutoRenewalContainer />
             <SubscriptionCreditsContainer />
         </div>
-        <div className="size-lg-8">
+        <div className="size-lg-8 size-md-12">
             <PendingInvoicesContainer />
         </div>
     </>

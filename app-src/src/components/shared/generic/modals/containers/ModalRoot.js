@@ -15,6 +15,7 @@ import {
     ADD_TEMPLATE_SECTION,
     ADD_TEMPLATE_QUESTION,
     ADMIN_EDIT_SERVICE,
+    ADD_CREDITS_TO_DRAWING,
     BUY_CREDITS,
     CONFIRM_ARCHIVE,
     CONFIRM_DELETE,
@@ -52,6 +53,7 @@ import {
     FILTER_FIELDS,
     CLIENT_FILTER_FIELDS,
     UNLINK_DEVICE,
+    REVOKE_ADMIN_ACCESS,
     COPY_TEMPLATE,
     SINGLE_PIN_GENERATE_REPORT_SUCCESS,
     CLIENT_SINGLE_PIN_GENERATE_REPORT_SUCCESS,
@@ -61,7 +63,12 @@ import {
     ADMIN_RECORD_PAYMENT,
     ADMIN_CONFIRM_FREE_INVOICE,
     ADMIN_EDIT_PAYMENT,
-    ADMIN_DELETE_PAYMENT
+    ADMIN_DELETE_PAYMENT,
+    REMOVE_DRAWINGS_ACCESS,
+    FORGOT_PASSWORD,
+    GENERATE_SOS_CODE,
+    DELETE_DEMO_REQUEST,
+    CONFIRM_MOVE_HIERARCHY_TO_COMPANY
 } from 'constants/shared/modalTypes';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
@@ -112,6 +119,7 @@ import DeleteDropdownOptionModalContainer from 'components/companyAdmin/dropdown
 import CreateCompanyAdminModal from 'components/companyAdmin/userManagement/companyAdmins/createCompanyAdmin/presentational/CreateCompanyAdminModal';
 import LoadingDataModal from '../presentational/LoadingDataModal';
 import UnlinkDeviceModalContainer from './UnlinkDeviceModalContainer';
+import RevokeAdminAccessModalContainer from './RevokeAdminAccessModalContainer';
 import CreateOperativeModal from 'components/companyAdmin/userManagement/operatives/createOperative/presentational/CreateOperativeModal';
 import CopyTemplateModalContainer from 'components/superAdmin/templateBuilder/copyTemplate/containers/CopyTemplateModalContainer';
 import DocumentResponseAgreeanceModalContainer from 'components/shared/documents/containers/DocumentResponseAgreeanceModalContainer';
@@ -126,6 +134,12 @@ import RecordPaymentModalContainer from 'components/superAdmin/invoices/recordPa
 import ConfirmFreeInvoiceModalContainer from 'components/superAdmin/invoices/confirmFreeInvoiceModal/containers/ConfirmFreeInvoiceModalContainer.js';
 import EditPaymentModalContainer from 'components/superAdmin/invoices/editPaymentModal/containers/EditPaymentModalContainer';
 import DeletePaymentModalContainer from 'components/superAdmin/invoices/confirmDeletePaymentModal/containers/DeletePaymentModalContainer';
+import RemoveUserDrawingsAccessModalContainer from 'components/companyAdmin/userManagement/userDrawings/containers/RemoveUserDrawingsAccessModalContainer';
+import ForgotPasswordModalContainer from 'components/auth/forgotPasswordModal/containers/ForgotPasswordModalContainer';
+import AddCreditsToDrawingModal from 'components/companyAdmin/drawings/addCreditsToDrawing/presentational/AddCreditsToDrawingModal';
+import DeleteDemoRequestModalContainer from 'components/superAdmin/demoRequests/containers/DeleteDemoRequestModalContainer';
+import SOSGenerationModal from 'components/superAdmin/sosManagement/sosGenerationModal/presentational/SOSGenerationModal';
+import SiteManagementConfirmMoveModalContainer from 'components/superAdmin/siteManagement/moveTool/containers/MoveToolConfirmMoveModalContainer';
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModalContainer,
@@ -145,6 +159,7 @@ const MODAL_COMPONENTS = {
     [DELETE_COMPANY_USER]: DeleteCompanyUserModalContainer,
     [DELETE_DOCUMENT]: DeleteDocumentModalContainer,
     [DELETE_ENQUIRY]: DeleteEnquiryModalContainer,
+    [DELETE_DEMO_REQUEST]: DeleteDemoRequestModalContainer,
     [DELETE_OPERATIVE]: DeleteOperativeModalContainer,
     [ERROR_MODAL]: ErrorModal,
     [EDIT_TEMPLATE]: EditTemplateModalContainer,
@@ -179,6 +194,7 @@ const MODAL_COMPONENTS = {
     [CREATE_OPERATIVE]: CreateOperativeModal,
     [LOADING_DATA]: LoadingDataModal,
     [UNLINK_DEVICE]: UnlinkDeviceModalContainer,
+    [REVOKE_ADMIN_ACCESS]: RevokeAdminAccessModalContainer,
     [DOCUMENT_RESPONSE_AGREEANCE]: DocumentResponseAgreeanceModalContainer,
     [SINGLE_PIN_GENERATE_REPORT_SUCCESS]: SinglePinGenerateReportSuccessModalContainer,
     [CLIENT_SINGLE_PIN_GENERATE_REPORT_SUCCESS]: ClientSinglePinGenerateReportSuccessModalContainer,
@@ -187,7 +203,12 @@ const MODAL_COMPONENTS = {
     [ADMIN_RECORD_PAYMENT]: RecordPaymentModalContainer,
     [ADMIN_CONFIRM_FREE_INVOICE]: ConfirmFreeInvoiceModalContainer,
     [ADMIN_EDIT_PAYMENT]: EditPaymentModalContainer,
-    [ADMIN_DELETE_PAYMENT]: DeletePaymentModalContainer
+    [ADMIN_DELETE_PAYMENT]: DeletePaymentModalContainer,
+    [REMOVE_DRAWINGS_ACCESS]: RemoveUserDrawingsAccessModalContainer,
+    [FORGOT_PASSWORD]: ForgotPasswordModalContainer,
+    [ADD_CREDITS_TO_DRAWING]: AddCreditsToDrawingModal,
+    [GENERATE_SOS_CODE]: SOSGenerationModal,
+    [CONFIRM_MOVE_HIERARCHY_TO_COMPANY]: SiteManagementConfirmMoveModalContainer
 };
 
 const ModalRoot = ({ modalType, modalProps, ...otherProps }) => {

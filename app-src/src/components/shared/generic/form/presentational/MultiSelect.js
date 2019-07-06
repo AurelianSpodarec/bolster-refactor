@@ -18,6 +18,7 @@ const MultiSelect = ({
     options = [],
     onChange,
     showError,
+    iconClass = '',
     placeholder = '-- select options --'
 }) => {
     const [isOpen, setIsOpen] = useState(false);
@@ -67,7 +68,11 @@ const MultiSelect = ({
                     </div>
                 ))}
 
-                <i className="arrow fal fa-angle-down" />
+                <i
+                    className={`arrow ${
+                        iconClass.length ? iconClass : 'fal fa-angle-down'
+                    }`}
+                />
             </div>
 
             {isOpen && (
@@ -82,7 +87,11 @@ const MultiSelect = ({
                             />
                         </div>
                     )}
-                    <div className="option-container">
+                    <div
+                        className={`option-container ${search &&
+                            options.length > 4 &&
+                            'large'}`}
+                    >
                         {!filteredOptions.length && (
                             <p>There are no options to display</p>
                         )}

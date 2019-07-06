@@ -3,10 +3,12 @@ import { connect } from 'react-redux';
 
 import DashboardStatsFilters from '../presentational/DashboardStatsFilters';
 import updateDashboardFilters from 'actions/companyAdmin/dashboard/sync/updateDashboardFilters';
+import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import fetchPinStats from 'actions/companyAdmin/dashboard/async/fetchPinStats';
 import { PIN_STATUS_TYPES } from 'constants/companyAdmin/enums';
 import _ from 'lodash';
 import moment from 'moment';
+import { isEmpty } from 'helpers/generic';
 
 class DashboardStatsFiltersContainer extends Component {
     state = {
@@ -15,21 +17,36 @@ class DashboardStatsFiltersContainer extends Component {
     };
 
     render() {
-        const { serviceOptions, statusOptions } = this.state;
-        const { filters } = this.props;
+        const { statusOptions } = this.state;
+        const {
+            filters,
+            isFetching,
+            error,
+            services,
+            subscriptions
+        } = this.props;
         const today = new Date();
+
         return (
-            <DashboardStatsFilters
-                serviceOptions={Object.values(serviceOptions)}
-                statusOptions={Object.values(statusOptions)}
-                selectedService={serviceOptions[filters.serviceID]}
-                selectedStatus={statusOptions[filters.status]}
-                selectedStartDate={filters.startDate}
-                selectedEndDate={filters.endDate}
-                handleDateChange={this.handleDateChange}
-                handleChange={this.handleChange}
-                today={today}
-            />
+            <BlockContainer
+                isFetching={isFetching}
+                error={error}
+                isEmpty={isEmpty(services) || isEmpty(subscriptions)}
+            >
+                <DashboardStatsFilters
+                    serviceOptions={Object.values(this._getRelevantServices())}
+                    statusOptions={Object.values(statusOptions)}
+                    selectedService={
+                        this._getRelevantServices()[filters.serviceID]
+                    }
+                    selectedStatus={statusOptions[filters.status]}
+                    selectedStartDate={filters.startDate}
+                    selectedEndDate={filters.endDate}
+                    handleDateChange={this.handleDateChange}
+                    handleChange={this.handleChange}
+                    today={today}
+                />
+            </BlockContainer>
         );
     }
 
@@ -65,15 +82,6 @@ class DashboardStatsFiltersContainer extends Component {
     };
 
     componentDidMount = () => {
-        const { services } = this.props;
-
-        const serviceOptions = Object.values(services).reduce(
-            (acc, { id, name }) => {
-                return { ...acc, [id]: { value: id, text: name } };
-            },
-            {}
-        );
-
         const statusOptions = Object.entries(PIN_STATUS_TYPES).map(
             ([key, value]) => ({
                 text: value,
@@ -88,7 +96,9 @@ class DashboardStatsFiltersContainer extends Component {
             {}
         );
 
-        this.setState({ serviceOptions, statusOptions: statusOptionsUpdated });
+        this.setState({
+            statusOptions: statusOptionsUpdated
+        });
     };
 
     componentDidUpdate = prevProps => {
@@ -96,6 +106,21 @@ class DashboardStatsFiltersContainer extends Component {
         if (!_.isEqual(prevProps.filters, filters)) {
             fetchPinStats(filters);
         }
+    };
+
+    _getRelevantServices = () => {
+        const {
+            services,
+            subscriptions: { serviceIDs }
+        } = this.props;
+
+        const arrServices = Object.values(services);
+
+        return arrServices
+            .filter(({ id }) => serviceIDs.includes(id))
+            .reduce((acc, { id, name }) => {
+                return { ...acc, [id]: { value: id, text: name } };
+            }, {});
     };
 }
 
@@ -106,12 +131,18 @@ const mapStateToProps = ({
             isFetching: isFetchingServices,
             error: servicesError
         },
+        subscriptionsReducer: {
+            subscriptions,
+            isFetching: isFetchingSubscriptions,
+            error: subscriptionsError
+        },
         dashboardReducer: { filters }
     }
 }) => ({
     services: services || {},
-    isFetching: isFetchingServices,
-    error: servicesError,
+    subscriptions: subscriptions || [],
+    isFetching: isFetchingServices || isFetchingSubscriptions,
+    error: servicesError || subscriptionsError,
     filters
 });
 

@@ -11,7 +11,9 @@ const FloorListItem = ({
     toggleExpanded,
     permissions,
     forwardRef,
-    isDragging
+    isDragging,
+    headers,
+    onMobile
 }) => (
     <>
         <tr
@@ -21,6 +23,9 @@ const FloorListItem = ({
             className={`draggable expandable ${isExpanded ? 'open' : ''}`}
         >
             <td>
+                {onMobile && (
+                    <span className="mobile-table-heading">{headers[0]}</span>
+                )}
                 {isExpanded ? (
                     <i className="fa fa-chevron-down" />
                 ) : (
@@ -28,8 +33,17 @@ const FloorListItem = ({
                 )}{' '}
                 {floor.name}
             </td>
-            <td>{permissions}</td>
             <td>
+                {' '}
+                {onMobile && (
+                    <span className="mobile-table-heading">{headers[1]}</span>
+                )}
+                {permissions}
+            </td>
+            <td>
+                {onMobile && (
+                    <span className="mobile-table-heading">{headers[2]}</span>
+                )}
                 <ButtonContainer
                     to={`/company/floors/${floor.id}`}
                     handleClick={e => e.stopPropagation()}

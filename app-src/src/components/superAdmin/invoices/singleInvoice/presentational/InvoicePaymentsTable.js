@@ -4,7 +4,7 @@ import Table from 'components/shared/generic/tables/presentational/Table';
 import InvoicePaymentsList from './InvoicePaymentsList';
 
 const InvoicePaymentsTable = ({
-    payments,
+    invoicePayments,
     headers,
     isFetching,
     error,
@@ -15,12 +15,12 @@ const InvoicePaymentsTable = ({
         headers={headers}
         isFetching={isFetching}
         error={error}
-        noData={!payments.length}
+        noData={!invoicePayments.length}
         noDataMessage="No items to display"
     >
         <InvoicePaymentsList
             colCount={headers.length}
-            payments={payments}
+            invoicePayments={invoicePayments}
             handleShowModal={handleShowModal}
         />
     </Table>

@@ -73,7 +73,11 @@ const AttachDocumentForm = ({
                 />
             </Field>
 
-            <Field name="Name of document" sizeClasses="size-lg-4" required>
+            <Field
+                name="Name of document"
+                sizeClasses="size-lg-4 size-md-12"
+                required
+            >
                 <TextInputContainer
                     value={name}
                     name="name"
@@ -85,7 +89,7 @@ const AttachDocumentForm = ({
             </Field>
 
             <div className="size-lg-12">
-                <div className="size-lg-6">
+                <div className="size-lg-6 size-md-12">
                     <Field name="Upload PDF or image" required>
                         <FileUploadContainer
                             name="file"
@@ -150,7 +154,7 @@ const AttachDocumentForm = ({
                     </Field>
                     {type === '3' && (
                         <div className="size-lg-12">
-                            <div className="size-lg-6">
+                            <div className="size-lg-6 size-md-12">
                                 <Field name="Agreeance frequency (days)">
                                     <TextInputContainer
                                         name="agreeanceEveryXDays"

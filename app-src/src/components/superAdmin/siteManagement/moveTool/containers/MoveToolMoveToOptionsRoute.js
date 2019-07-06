@@ -1,0 +1,179 @@
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+
+import { HIERARCHY_IDS } from 'constants/companyAdmin/enums';
+import Field from 'components/shared/generic/form/presentational/Field';
+import { showModal } from 'actions/shared/generic/modals/sync/showModal';
+import { CONFIRM_MOVE_HIERARCHY_TO_COMPANY } from 'constants/shared/modalTypes';
+import Loading from 'components/shared/generic/misc/presentational/Loading';
+
+const { BUILDING, FLOOR, DRAWING } = HIERARCHY_IDS;
+
+const Sites = ({ sites, handleSelectOption, isFetching }) => {
+    if (isFetching && !sites.length) return <Loading />;
+
+    if (!sites.length)
+        return (
+            <p className="generic-text no-data size-lg-12">
+                No sites were found
+            </p>
+        );
+
+    return (
+        <Field name="Select a site" classes="full-length">
+            {sites.map(site => (
+                <p
+                    key={site.id}
+                    className="select-option size-lg-12"
+                    onClick={() => handleSelectOption(site.name, site.id)}
+                >
+                    {site.name}
+                </p>
+            ))}
+        </Field>
+    );
+};
+
+const Buildings = ({ buildings, handleSelectOption, isFetching }) => {
+    if (isFetching && !buildings.length) return <Loading />;
+
+    if (!buildings.length)
+        return (
+            <p className="generic-text no-data size-lg-12">
+                No buildings were found
+            </p>
+        );
+
+    return (
+        <Field name="Select a building" classes="full-length">
+            {buildings.map(building => (
+                <p
+                    key={building.id}
+                    className="select-option size-lg-12"
+                    onClick={() =>
+                        handleSelectOption(
+                            `${building.siteName} / ${building.name}`,
+                            building.id
+                        )
+                    }
+                >
+                    {`${building.siteName} / ${building.name}`}
+                </p>
+            ))}
+        </Field>
+    );
+};
+
+const Floors = ({ floors, handleSelectOption, isFetching }) => {
+    if (isFetching && !floors.length) return <Loading />;
+
+    if (!floors.length)
+        return (
+            <p className="generic-text no-data size-lg-12">
+                No floors were found
+            </p>
+        );
+
+    return (
+        <Field name="Select a floor" classes="full-length">
+            {floors.map(floor => (
+                <p
+                    key={floor.id}
+                    className="select-option size-lg-12"
+                    onClick={() =>
+                        handleSelectOption(
+                            `${floor.siteName} / ${floor.buildingName} / ${
+                                floor.name
+                            }`,
+                            floor.id
+                        )
+                    }
+                >
+                    {`${floor.siteName} / ${floor.buildingName} / ${
+                        floor.name
+                    }`}
+                </p>
+            ))}
+        </Field>
+    );
+};
+
+class MoveToolMoveFromOptionsRoute extends Component {
+    render() {
+        const {
+            hierarchyID,
+            sites,
+            buildings,
+            floors,
+            selectedOption,
+            companyID,
+            isFetching
+        } = this.props;
+
+        const listTypes = {
+            [BUILDING]: Sites,
+            [FLOOR]: Buildings,
+            [DRAWING]: Floors
+        };
+
+        const SpecificField = listTypes[hierarchyID + ''] || null;
+
+        if (!selectedOption)
+            return (
+                <p className="generic-text no-data size-lg-12">
+                    Please select an option to move from the list on the left.
+                </p>
+            );
+
+        if (!SpecificField) return null;
+
+        return (
+            <SpecificField
+                sites={sites.filter(site => site.ownerCompanyID === companyID)}
+                buildings={buildings.filter(
+                    building => building.ownerCompanyID === companyID
+                )}
+                floors={floors.filter(
+                    floor => floor.ownerCompanyID === companyID
+                )}
+                handleSelectOption={this.handleSelectOption}
+                isFetching={isFetching}
+            />
+        );
+    }
+
+    handleSelectOption = (name, value) => {
+        const { showModal, companyID, moveFromCompany } = this.props;
+
+        showModal(CONFIRM_MOVE_HIERARCHY_TO_COMPANY, {
+            moveToName: name,
+            moveToValue: value,
+            moveFromCompany,
+            moveToCompany: companyID
+        });
+    };
+}
+
+const mapStateToProps = ({
+    superAdmin: {
+        sitesReducer: { sites, isFetching: isFetchingSites },
+        buildingsReducer: { buildings, isFetching: isFetchingBuildings },
+        floorsReducer: { floors, isFetching: isFetchingFloors },
+        moveToolReducer: { selectedOption }
+    }
+}) => ({
+    sites: Object.values(sites),
+    buildings: Object.values(buildings),
+    floors: Object.values(floors),
+    selectedOption,
+    isFetching: isFetchingSites || isFetchingBuildings || isFetchingFloors
+});
+
+const mapDispatchToProps = dispatch => ({
+    showModal: (type, props) => dispatch(showModal(type, props))
+});
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(MoveToolMoveFromOptionsRoute);

@@ -13,7 +13,9 @@ class CompaniesAccessListContainer extends Component {
             handleShowModal,
             parentId,
             accessType,
-            smallList = false
+            smallList = false,
+            headers,
+            onMobile
         } = this.props;
 
         return (
@@ -29,6 +31,8 @@ class CompaniesAccessListContainer extends Component {
                         : false
                 }
                 handleRemovePermission={this.handleRemovePermissionModal}
+                headers={headers}
+                onMobile={onMobile}
             />
         );
     }
@@ -94,8 +98,12 @@ class CompaniesAccessListContainer extends Component {
 const mapStateToProps = ({
     companyAdmin: {
         servicesReducer: { services }
+    },
+    shared: {
+        mobileReducer: { onMobile }
     }
 }) => ({
+    onMobile,
     services
 });
 

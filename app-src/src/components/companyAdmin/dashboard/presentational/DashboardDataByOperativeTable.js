@@ -7,7 +7,8 @@ const DashboardDataByOperativeTable = ({
     headers,
     isFetching,
     error,
-    operatives
+    operatives,
+    onMobile
 }) => (
     <Table
         withActions
@@ -21,6 +22,8 @@ const DashboardDataByOperativeTable = ({
             <DashboardDataByOperativeListItem
                 key={operative.id}
                 operative={operative}
+                onMobile={onMobile}
+                headers={headers}
             />
         ))}
     </Table>

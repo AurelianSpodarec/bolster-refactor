@@ -5,19 +5,53 @@ import Form from 'components/shared/generic/form/containers/Form';
 import Field from 'components/shared/generic/form/presentational/Field';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
+import MultiSelect from 'components/shared/generic/form/presentational/MultiSelect';
+import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
 
-const AddServiceForm = ({ handleSubmit, handleInputChange, name }) => (
+const AddServiceForm = ({
+    handleSubmit,
+    handleInputChange,
+    name,
+    templateOptions,
+    templateUUIDs,
+    showOnCompanySite
+}) => (
     <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
-        <div className="size-lg-6">
-            <Field name="Service Name" required>
-                <TextInputContainer
-                    name="name"
-                    value={name}
+        <div className="size-lg-12">
+            <div className="size-lg-6 size-md-12">
+                <Field name="Service Name" required>
+                    <TextInputContainer
+                        name="name"
+                        value={name}
+                        handleChange={handleInputChange}
+                        required
+                    />
+                </Field>
+            </div>
+            <div className="size-lg-6 size-md-12">
+                <Field name="Template attached">
+                    <MultiSelect
+                        search
+                        name="templateUUIDs"
+                        placeholder="-- select a template --"
+                        options={templateOptions}
+                        value={templateUUIDs}
+                        onChange={handleInputChange}
+                        required
+                    />
+                </Field>
+            </div>
+        </div>
+
+        {/* <div className="size-lg-6 size-md-12">
+            <Field name="Available to companies?">
+                <CheckboxContainer
+                    checked={showOnCompanySite}
                     handleChange={handleInputChange}
-                    required
+                    name="showOnCompanySite"
                 />
             </Field>
-        </div>
+        </div> */}
         <BlockButtonWrapper>
             <button className="button green">
                 <i className="fa fa-plus" />

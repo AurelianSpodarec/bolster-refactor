@@ -7,6 +7,7 @@ import {
 } from 'constants/actionTypes/superAdminInvoices';
 import { ADMIN_API_URL } from 'config';
 import { getHeaders } from 'helpers/api';
+import setAPIFieldErrors from 'actions/shared/generic/fieldErrors/sync/setAPIFieldErrors';
 
 export const saRecordInvoicePaymentRequest = () => ({
     type: SA_RECORD_INVOICE_PAYMENT_REQUEST
@@ -25,13 +26,17 @@ export const saRecordInvoicePaymentFailure = error => ({
 export default (id, postBody) => dispatch => {
     dispatch(saRecordInvoicePaymentRequest());
 
-    //! check the endpoint
     return axios
         .post(
-            `${ADMIN_API_URL}/invoices/payments/${id}`,
+            `${ADMIN_API_URL}/invoices/${id}/payments/new`,
             postBody,
             getHeaders()
         )
         .then(({ data }) => dispatch(saRecordInvoicePaymentSuccess(data)))
-        .catch(err => dispatch(saRecordInvoicePaymentFailure(err.message)));
+        .catch(error => {
+            dispatch(saRecordInvoicePaymentFailure(error.message));
+            if (error.response.status === 400)
+                // ! the below has a different structure from other error handling but is correct
+                dispatch(setAPIFieldErrors(error.response.data));
+        });
 };

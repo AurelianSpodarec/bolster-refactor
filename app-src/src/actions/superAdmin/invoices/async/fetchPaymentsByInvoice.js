@@ -26,7 +26,7 @@ export default id => dispatch => {
     dispatch(fetchPaymentsByInvoiceRequest());
 
     return axios
-        .get(`${ADMIN_API_URL}/invoices/payments/${id}`, getHeaders())
+        .get(`${ADMIN_API_URL}/invoices/${id}/payments`, getHeaders())
         .then(({ data }) => dispatch(fetchPaymentsByInvoiceSuccess(data)))
         .catch(err => dispatch(fetchPaymentsByInvoiceFailure(err.message)));
 };

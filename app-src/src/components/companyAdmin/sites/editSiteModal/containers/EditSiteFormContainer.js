@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import moment from 'moment';
 
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 
@@ -12,7 +13,10 @@ class EditSiteFormContainer extends Component {
         client: '',
         addressLine1: '',
         addressLine2: '',
-        postcode: ''
+        postcode: '',
+        isAlertShowing: false,
+        message: '',
+        dateToSend: ''
     };
 
     render() {
@@ -21,6 +25,7 @@ class EditSiteFormContainer extends Component {
             <EditSiteForm
                 {...this.state}
                 handleInputChange={this.handleInputChange}
+                handleDateChange={this.handleDateChange}
                 handleSubmit={this.handleSubmit}
                 siteID={this.props.siteID}
                 hideModal={this.props.hideModal}
@@ -46,6 +51,12 @@ class EditSiteFormContainer extends Component {
 
     handleInputChange = (name, value) => {
         this.setState({ [name]: value });
+    };
+
+    handleDateChange = date => {
+        this.setState({
+            dateToSend: date
+        });
     };
 
     //_ <-- used because this helper function is only for this class - not shared or used within the children
@@ -74,9 +85,36 @@ class EditSiteFormContainer extends Component {
             hideModal
         } = this.props;
 
-        const postBody = {
-            ...this.state
-        };
+        const {
+            name,
+            client,
+            addressLine1,
+            addressLine2,
+            postcode,
+            message,
+            dateToSend,
+            isAlertShowing
+        } = this.state;
+        let postBody = {};
+        if (isAlertShowing) {
+            postBody = {
+                name,
+                client,
+                addressLine1,
+                addressLine2,
+                postcode,
+                message: message,
+                dateToSend: moment(dateToSend).format()
+            };
+        } else {
+            postBody = {
+                name,
+                client,
+                addressLine1,
+                addressLine2,
+                postcode
+            };
+        }
         editSite(id, postBody);
         hideModal();
     };

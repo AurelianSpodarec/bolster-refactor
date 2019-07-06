@@ -5,10 +5,23 @@ import { RAW_S3_STORAGE_URL } from 'config';
 import DeleteDocumentContainer from '../containers/DeleteDocumentContainer';
 import { ACCESS_TYPES_VALUES } from 'constants/companyAdmin/enums';
 
-const DocumentsList = ({ documents, location, clientControls, accessType }) =>
+const DocumentsList = ({
+    documents,
+    location,
+    clientControls,
+    accessType,
+    onMobile,
+    headers
+}) =>
     documents.map(document => (
         <tr key={document.id}>
             <td>
+                {' '}
+                {onMobile && (
+                    <span className="mobile-table-heading">
+                        {headers[0]} / Link
+                    </span>
+                )}
                 <a
                     href={`${RAW_S3_STORAGE_URL}/${document.fileS3Key}`}
                     rel="noopener norefferrer"
@@ -22,6 +35,11 @@ const DocumentsList = ({ documents, location, clientControls, accessType }) =>
             <td>
                 {!clientControls && (
                     <>
+                        {onMobile && (
+                            <span className="mobile-table-heading">
+                                {headers[1]}
+                            </span>
+                        )}
                         <Link
                             to={`${location.pathname}/document-responses/${
                                 document.id
@@ -33,6 +51,11 @@ const DocumentsList = ({ documents, location, clientControls, accessType }) =>
 
                         {accessType >= ACCESS_TYPES_VALUES.WRITE && (
                             <>
+                                {onMobile && (
+                                    <span className="mobile-table-heading">
+                                        {headers[1]}
+                                    </span>
+                                )}
                                 <Link
                                     to={`${location.pathname}/edit-document/${
                                         document.id

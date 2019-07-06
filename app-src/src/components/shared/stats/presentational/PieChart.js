@@ -15,7 +15,8 @@ const PieChart = ({
     stats,
     hierarchyType,
     sizeClasses = 'size-lg-6',
-    wTitle = true
+    wTitle = true,
+    onMobile
     // style
 }) => {
     const isStatsEmpty = Object.values(stats.statuses).every(
@@ -53,7 +54,21 @@ const PieChart = ({
                 </p>
             ) : (
                 <div className="size-lg-12">
-                    <div className="pin-key size-lg-6">
+                    {onMobile && (
+                        <div className="size-lg-12">
+                            <div className="size-md-2" />
+                            <ReactPieChart
+                                className="size-md-8"
+                                data={pieStats}
+                                segmentsStyle={{
+                                    transition: 'stroke .3s'
+                                }}
+                                animate
+                            />
+                            <div className="size-md-2" />
+                        </div>
+                    )}
+                    <div className="pin-key size-lg-6 size-md-12">
                         <div className="pin">
                             <img src={redPin} alt="pin" />
                             <p>
@@ -97,14 +112,16 @@ const PieChart = ({
                             </p>
                         </div>
                     </div>
-                    <ReactPieChart
-                        className="size-lg-5"
-                        data={pieStats}
-                        segmentsStyle={{
-                            transition: 'stroke .3s'
-                        }}
-                        animate
-                    />
+                    {!onMobile && (
+                        <ReactPieChart
+                            className="size-lg-5"
+                            data={pieStats}
+                            segmentsStyle={{
+                                transition: 'stroke .3s'
+                            }}
+                            animate
+                        />
+                    )}
                 </div>
             )}
         </div>

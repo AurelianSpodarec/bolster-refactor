@@ -25,7 +25,7 @@ const FilterFieldsModal = ({
             <Field
                 name="Question(s)"
                 classes="no-caps"
-                sizeClasses="size-lg-6"
+                sizeClasses="size-lg-6 size-md-12"
                 required
             >
                 <MultiSelect
@@ -37,7 +37,7 @@ const FilterFieldsModal = ({
                     required
                 />
             </Field>
-            <div className="size-lg-6">
+            <div className="size-lg-6 size-md-12">
                 {showFreeForm ? (
                     <>
                         <Field
@@ -74,14 +74,14 @@ const FilterFieldsModal = ({
                     </Field>
                 )}
             </div>
-            <BlockButtonWrapper>
+            <BlockButtonWrapper sizeClasses="size-md-12">
                 <button
                     className="button green"
                     type="submit"
                     onClick={handleSubmit}
                 >
                     <i className="fa fa-save fa-fw" />
-                    Save
+                    Submit
                 </button>
                 <button
                     className="button red"

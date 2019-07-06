@@ -20,10 +20,16 @@ const TransferRequestsTable = ({
         withActions={true}
     >
         {!!incomingTransferRequests.length && (
-            <TransferRequestsList requests={incomingTransferRequests} />
+            <TransferRequestsList
+                requests={incomingTransferRequests}
+                headers={headers}
+            />
         )}
         {!!outgoingTransferRequests.length && (
-            <TransferRequestsList requests={outgoingTransferRequests} />
+            <TransferRequestsList
+                requests={outgoingTransferRequests}
+                headers={headers}
+            />
         )}
     </Table>
 );

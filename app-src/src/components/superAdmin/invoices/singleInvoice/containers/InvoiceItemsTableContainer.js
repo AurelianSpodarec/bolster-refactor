@@ -2,23 +2,20 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
-import InvoiceItemsTable from 'components/companyAdmin/invoices/singleInvoice/presentational/InvoiceItemsTable.js';
-
-// TODO: move InvoiceItemsTable and children to a shared folder, they are already generic to company/superadmin
+import InvoiceItemsTable from 'components/shared/invoices/invoiceItemsTable/presentational/InvoiceItemsTable';
 
 const InvoiceItemsTableContainer = ({
     invoice,
     error,
     isFetching,
-    invoiceItems,
-    company
+    invoiceItems
 }) => {
     return (
         <InvoiceItemsTable
-            {...{ invoice, error, isFetching, invoiceItems, company }}
+            {...{ invoice, error, isFetching, invoiceItems }}
             headers={[
                 'Item',
-                'Customer name',
+                'Custom Name',
                 'QTY',
                 'Item Price',
                 'Item VAT',

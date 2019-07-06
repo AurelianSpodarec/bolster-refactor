@@ -8,77 +8,86 @@ import FrontEndButton from 'components/frontEnd/shared/buttons/presentational/Fr
 const ContactPageForm = ({
     name,
     email,
-    number,
+    contactNumber,
     companyName,
     message,
     handleChange,
-    handleSubmit
+    handleSubmit,
+    sent
 }) => (
     <div id="contact-form-content">
         <form className="form">
             <HeadingSection title="Contact Form" />
-            <p>
-                Please fill in our form and a member of Bolster Systems will be
-                in touch.
-            </p>
-            <div className="row">
-                <Field name="Your name" required>
-                    <TextInputContainer
-                        name="name"
-                        required
-                        value={name}
-                        handleChange={handleChange}
-                    />
-                </Field>
-            </div>
-            <div className="row">
-                <Field name="Your email address" required>
-                    <TextInputContainer
-                        name="email"
-                        required
-                        value={email}
-                        type="email"
-                        handleChange={handleChange}
-                    />
-                </Field>
-            </div>
-            <div className="row">
-                <Field name="Your contact number" required>
-                    <TextInputContainer
-                        name="number"
-                        required
-                        value={number}
-                        handleChange={handleChange}
-                    />
-                </Field>
-            </div>
-            <div className="row">
-                <Field name="Company name">
-                    <TextInputContainer
-                        name="companyName"
-                        required
-                        value={companyName}
-                        handleChange={handleChange}
-                    />
-                </Field>
-            </div>
-            <div className="row">
-                <Field name="Your enquiry / message" required>
-                    <TextAreaContainer
-                        name="message"
-                        required
-                        value={message}
-                        handleChange={handleChange}
-                    />
-                </Field>
-            </div>
-            <FrontEndButton
-                type="submit"
-                classes="red"
-                handleClick={handleSubmit}
-            >
-                Submit
-            </FrontEndButton>
+            <>
+                {sent ? (
+                    <p>Thanks! A member of our team will be in touch.</p>
+                ) : (
+                    <>
+                        <p>
+                            Please fill in our form and a member of Bolster
+                            Systems will be in touch.
+                        </p>
+                        <div className="row">
+                            <Field name="Your name" required>
+                                <TextInputContainer
+                                    name="name"
+                                    required
+                                    value={name}
+                                    handleChange={handleChange}
+                                />
+                            </Field>
+                        </div>
+                        <div className="row">
+                            <Field name="Your email address" required>
+                                <TextInputContainer
+                                    name="email"
+                                    required
+                                    value={email}
+                                    type="email"
+                                    handleChange={handleChange}
+                                />
+                            </Field>
+                        </div>
+                        <div className="row">
+                            <Field name="Your contact number" required>
+                                <TextInputContainer
+                                    name="contactNumber"
+                                    required
+                                    value={contactNumber}
+                                    handleChange={handleChange}
+                                />
+                            </Field>
+                        </div>
+                        <div className="row">
+                            <Field name="Company name">
+                                <TextInputContainer
+                                    name="companyName"
+                                    required
+                                    value={companyName}
+                                    handleChange={handleChange}
+                                />
+                            </Field>
+                        </div>
+                        <div className="row">
+                            <Field name="Your enquiry / message" required>
+                                <TextAreaContainer
+                                    name="message"
+                                    required
+                                    value={message}
+                                    handleChange={handleChange}
+                                />
+                            </Field>
+                        </div>
+                        <FrontEndButton
+                            type="submit"
+                            classes="red"
+                            handleClick={handleSubmit}
+                        >
+                            Submit
+                        </FrontEndButton>
+                    </>
+                )}
+            </>
         </form>
     </div>
 );

@@ -8,6 +8,7 @@ const PaymentErrorModal = ({
     message = 'Something went wrong while trying to take your payment, please try again',
     resubmit,
     hideModal,
+    disbaledButton,
     error
 }) => (
     <ModalOuterContainer extraClasses="response-modal">
@@ -39,7 +40,11 @@ const PaymentErrorModal = ({
             <button className="button" onClick={hideModal}>
                 Cancel
             </button>
-            <button className="button yellow" onClick={resubmit}>
+            <button
+                className={`button yellow ${disbaledButton ? 'disabled' : ' '}`}
+                disabled={disbaledButton}
+                onClick={e => resubmit(e)}
+            >
                 Try again
             </button>
         </BlockButtonWrapper>

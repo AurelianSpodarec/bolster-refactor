@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import moment from 'moment';
 
 import { ERROR_MODAL, SUCCESS_MODAL } from 'constants/shared/modalTypes';
 import hideModal from 'actions/shared/generic/modals/sync/hideModal';
@@ -13,7 +14,10 @@ class EditDrawingModalContainer extends Component {
     state = {
         name: '',
         file: '',
-        isCreditsAvailable: true
+        isCreditsAvailable: true,
+        isAlertShowing: false,
+        mesage: '',
+        dateToSend: null
     };
 
     render() {
@@ -23,6 +27,7 @@ class EditDrawingModalContainer extends Component {
                 {...this.state}
                 drawing={drawing}
                 handleChange={this.handleChange}
+                handleDateChange={this.handleDateChange}
                 hideModal={hideModal}
                 handleSubmit={this.handleSubmit}
                 filesUploading={filesUploading}
@@ -60,10 +65,16 @@ class EditDrawingModalContainer extends Component {
         this.setState({ [name]: val === curVal ? '' : val });
     };
 
+    handleDateChange = date => {
+        this.setState({
+            dateToSend: date
+        });
+    };
+
     handleSubmit = e => {
         e.preventDefault();
 
-        const { name, file } = this.state;
+        const { name, file, isAlertShowing, message, dateToSend } = this.state;
         const {
             editDrawing,
             drawing,
@@ -74,11 +85,21 @@ class EditDrawingModalContainer extends Component {
             showFieldErrors
         } = this.props;
 
-        const postBody = {
-            name,
-            file
-        };
+        let postBody = {};
 
+        if (isAlertShowing) {
+            postBody = {
+                name,
+                file,
+                message,
+                dateToSend: moment(dateToSend).format()
+            };
+        } else {
+            postBody = {
+                name,
+                file
+            };
+        }
         if (!filesUploading && filesUploaded && totalCredits < 1) {
             addFieldError('file', 'Not enough drawing credits');
             showFieldErrors();

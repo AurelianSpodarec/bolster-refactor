@@ -10,12 +10,18 @@ const SiteStats = ({
     stats,
     handleDelete,
     handleArchive,
+    onMobile,
     handleEditSiteModal
 }) => (
     <div className="stats size-lg-12">
         <div className="flex-item size-lg-12">
             <SiteDetails site={site} stats={stats} />
-            <PieChart stats={stats} hierarchyType="site" />
+            <PieChart
+                stats={stats}
+                hierarchyType="site"
+                sizeClasses="size-lg-6 size-md-12"
+                onMobile={onMobile}
+            />
         </div>
 
         {site.accessType === ACCESS_TYPES_VALUES.OWNER && (

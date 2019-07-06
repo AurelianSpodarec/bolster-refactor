@@ -7,25 +7,49 @@ const SitesListFilters = ({
     name,
     statusOptions,
     selectedStatus,
-    handleChange
+    handleChange,
+    onMobile
 }) => (
     <form className="table-search size-lg-12">
-        <Search
-            value={name}
-            name="name"
-            placeholder="Search by site name..."
-            handleChange={handleChange}
-        />
-        <div className="table-filter">
-            <Dropdown
-                placeholder="All sites"
-                name="status"
-                options={statusOptions}
-                selectedOption={selectedStatus}
-                handleChange={handleChange}
-            />
-            <p>Filter by status:</p>
-        </div>
+        {onMobile ? (
+            <>
+                <Search
+                    value={name}
+                    name="name"
+                    placeholder="Search by site name..."
+                    handleChange={handleChange}
+                />
+                <div className="table-filter">
+                    <p>Filter by status:</p>
+                    <Dropdown
+                        placeholder="All sites"
+                        name="status"
+                        options={statusOptions}
+                        selectedOption={selectedStatus}
+                        handleChange={handleChange}
+                    />
+                </div>
+            </>
+        ) : (
+            <>
+                <Search
+                    value={name}
+                    name="name"
+                    placeholder="Search by site name..."
+                    handleChange={handleChange}
+                />
+                <div className="table-filter">
+                    <Dropdown
+                        placeholder="All sites"
+                        name="status"
+                        options={statusOptions}
+                        selectedOption={selectedStatus}
+                        handleChange={handleChange}
+                    />
+                    <p>Filter by status:</p>
+                </div>{' '}
+            </>
+        )}
     </form>
 );
 

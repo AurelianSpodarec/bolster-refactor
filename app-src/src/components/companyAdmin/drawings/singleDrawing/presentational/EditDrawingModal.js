@@ -12,6 +12,9 @@ import ButtonContainer from 'components/shared/generic/button/containers/ButtonC
 import { RAW_S3_STORAGE_URL } from 'config';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import BolsterLabelExample from 'components/shared/generic/form/presentational/BolsterLabelExample';
+import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
+import TextAreaContainer from 'components/shared/generic/form/containers/TextAreaContainer';
+import DatePickerPresentational from 'components/shared/generic/form/presentational/DatePicker';
 
 const getFileName = src => src.match('[^/]*$')[0];
 const EditDrawingModal = ({
@@ -19,10 +22,14 @@ const EditDrawingModal = ({
     file,
     filesUploading,
     handleChange,
+    handleDateChange,
     hideModal,
     handleSubmit,
     drawing: { doesRequireCreditToReplaceFloorplan, tilesetS3KeyOrig },
-    isUsingBolsterLabels
+    isUsingBolsterLabels,
+    isAlertShowing,
+    message,
+    dateToSend
 }) => (
     <ModalOuterContainer
         extraClasses={`${isUsingBolsterLabels ? 'w-label-example' : ''}`}
@@ -59,7 +66,11 @@ const EditDrawingModal = ({
         )}
 
         <Form className="generic-form" onSubmit={handleSubmit}>
-            <div className={isUsingBolsterLabels ? 'size-lg-6' : 'size-lg-12'}>
+            <div
+                className={
+                    isUsingBolsterLabels ? 'size-lg-6 size-md-12' : 'size-lg-12'
+                }
+            >
                 <Field name="Drawing name" required>
                     <TextInputContainer
                         name="name"
@@ -76,10 +87,61 @@ const EditDrawingModal = ({
                         acceptedTypes={['application/pdf', 'image/*']}
                     />
                 </Field>
+
+                <div className="size-lg-12">
+                    <div className="size-lg-6 size-md-12">
+                        <Field name="Send an alert?">
+                            <CheckboxContainer
+                                checked={isAlertShowing}
+                                name="isAlertShowing"
+                                text=""
+                                handleChange={handleChange}
+                            />
+                        </Field>
+                    </div>
+                </div>
+
+                {isAlertShowing && (
+                    <div className="size-lg-12">
+                        <div
+                            className={
+                                isUsingBolsterLabels
+                                    ? 'size-lg-12'
+                                    : 'size-lg-6 size-md-12'
+                            }
+                        >
+                            <Field name="Alert Message">
+                                <TextAreaContainer
+                                    value={message}
+                                    name="message"
+                                    handleChange={handleChange}
+                                />
+                            </Field>
+                        </div>
+
+                        <div
+                            className={
+                                isUsingBolsterLabels
+                                    ? 'size-lg-12'
+                                    : 'size-lg-6 size-md-12'
+                            }
+                        >
+                            <Field name="Date to send">
+                                <DatePickerPresentational
+                                    name="dateToSend"
+                                    selected={dateToSend}
+                                    onChange={handleDateChange}
+                                    placeholderText="Date"
+                                    showTimeSelect
+                                />
+                            </Field>
+                        </div>
+                    </div>
+                )}
             </div>
             {isUsingBolsterLabels && (
-                <div className="size-lg-6">
-                    <BolsterLabelExample name={name} />
+                <div className="size-lg-6 size-md-12">
+                    {/* <BolsterLabelExample name={name} hierarchy="Drawing" /> */}
                 </div>
             )}
 

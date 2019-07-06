@@ -6,13 +6,21 @@ import Settings from '../presentational/Settings';
 
 class SettingsContainer extends Component {
     render() {
-        return <Settings />;
+        return <Settings onMobile={this.props.onMobile} />;
     }
 
     componentDidMount = () => {
         this.props.fetchCompanySettings();
     };
 }
+
+const mapStateToProps = ({
+    shared: {
+        mobileReducer: { onMobile }
+    }
+}) => ({
+    onMobile
+});
 
 const mapDispatchToProps = dispatch => ({
     fetchCompanySettings: () => {
@@ -21,6 +29,6 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default connect(
-    null,
+    mapStateToProps,
     mapDispatchToProps
 )(SettingsContainer);

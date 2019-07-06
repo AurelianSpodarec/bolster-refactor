@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import moment from 'moment';
 
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 
@@ -8,7 +9,10 @@ import editFloor from 'actions/companyAdmin/floors/async/editFloor';
 
 class EditFloorFormContainer extends Component {
     state = {
-        name: ''
+        name: '',
+        isAlertShowing: false,
+        message: '',
+        dateToSend: ''
     };
 
     render() {
@@ -18,6 +22,7 @@ class EditFloorFormContainer extends Component {
                 {...this.state}
                 floorID={this.props.floorID}
                 handleInputChange={this.handleInputChange}
+                handleDateChange={this.handleDateChange}
                 handleSubmit={this.handleSubmit}
                 hideModal={this.props.hideModal}
                 isUsingBolsterLabels={isUsingBolsterLabels}
@@ -45,6 +50,12 @@ class EditFloorFormContainer extends Component {
         this.setState({ [name]: value });
     };
 
+    handleDateChange = date => {
+        this.setState({
+            dateToSend: date
+        });
+    };
+
     _setFormDetails = () => {
         const {
             floor: { name }
@@ -57,11 +68,30 @@ class EditFloorFormContainer extends Component {
 
     handleSubmit = e => {
         e.preventDefault();
-        const { floor, editFloor, hideModal } = this.props;
+        const {
+            floor,
+            editFloor,
+            hideModal,
+            isAlertShowing,
+            message,
+            dateToSend
+        } = this.props;
 
-        const postBody = {
-            ...this.state
-        };
+        const { name } = this.state;
+
+        let postBody = {};
+
+        if (isAlertShowing) {
+            postBody = {
+                name,
+                message,
+                dateToSend: moment(dateToSend).format()
+            };
+        } else {
+            postBody = {
+                name
+            };
+        }
 
         editFloor(floor.id, postBody);
         hideModal();

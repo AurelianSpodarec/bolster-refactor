@@ -29,11 +29,13 @@ class AddPinFormContainer extends Component {
             templates,
             filesUploading,
             confirmLeave,
-            isHistory,
-            services
+            isHistory
         } = this.props;
 
-        const serviceOptions = this._getServices(services);
+        const serviceOptions = convertArrToObj(
+            this._relevantServiceOptions(),
+            'value'
+        );
         const templateOptions = this._getTemplates(templates, serviceID);
 
         return (
@@ -168,14 +170,25 @@ class AddPinFormContainer extends Component {
         return convertArrToObj(templateOptions, 'value');
     };
 
-    _getServices = services => {
-        const serviceOptions = services.map(({ id, name }) => ({
+    _relevantServiceOptions = () => {
+        const {
+            services,
+            subscriptions: { serviceIDs }
+        } = this.props;
+
+        const serviceOptions = [];
+
+        serviceIDs.forEach(serviceID => {
+            serviceOptions.push(
+                services.filter(service => service.id === serviceID)[0]
+            );
+        });
+
+        return serviceOptions.map(({ id, name }) => ({
             value: id,
             label: name,
             text: name
         }));
-
-        return convertArrToObj(serviceOptions, 'value');
     };
 
     handleChange = (name, value) => {
@@ -240,7 +253,8 @@ const mapStateToProps = ({
         pinsReducer: { postSuccess },
         pinHistoriesReducer: { histories },
         pinAnswersReducer: { answers: pinAnswers },
-        servicesReducer: { services }
+        servicesReducer: { services },
+        subscriptionsReducer: { subscriptions }
     },
     shared: {
         filesUploadingReducer: { filesUploading },
@@ -264,7 +278,8 @@ const mapStateToProps = ({
     histories,
     latestPinHistory: [...Object.values(histories)].sort(
         (a, b) => moment(b.createdOn) - moment(a.createdOn)
-    )[0]
+    )[0],
+    subscriptions
 });
 
 const mapDispatchToProps = {

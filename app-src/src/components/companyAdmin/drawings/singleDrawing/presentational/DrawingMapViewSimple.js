@@ -14,6 +14,7 @@ import MapPinContainer from 'components/shared/pins/map/containers/MapPinContain
 import RedX from 'components/shared/pins/map/presentational/RedX';
 import PinSelectorOptions from 'components/shared/pinSelector/presentational/PinSelectorOptions';
 import Rectangle from 'components/shared/pinSelector/presentational/Rectangle';
+import AddCreditsToDrawingButtonContainer from '../../addCreditsToDrawing/containers/AddCreditsToDrawingButtonContainer';
 
 const getDataUrl = src => `${FILE_STORAGE_URL}/${src}/{z}/{x}/{y}.jpg`;
 // const getFileName = src => src.match('[^/]*$')[0];
@@ -41,7 +42,8 @@ const DrawingMapViewSimple = ({
     handleCancelPinSelector,
     isExcluding,
     updateCurTooltip,
-    currentTooltip
+    currentTooltip,
+    isExpired
 }) => {
     const newPinIcon = L.divIcon({
         className: '',
@@ -72,7 +74,7 @@ const DrawingMapViewSimple = ({
                                 mode={mode}
                                 handleCancel={handleCancelPinSelector}
                             />
-                        ) : (
+                        ) : !isExpired ? (
                             drawing.accessType ===
                                 ACCESS_TYPES_VALUES.OWNER && (
                                 <>
@@ -110,8 +112,25 @@ const DrawingMapViewSimple = ({
                                         <i className="far fa-pencil fa-fw" />{' '}
                                         Edit drawing
                                     </button>
+
+                                    <AddCreditsToDrawingButtonContainer
+                                        drawing={drawing}
+                                    />
                                 </>
                             )
+                        ) : (
+                            <>
+                                <AddCreditsToDrawingButtonContainer
+                                    drawing={drawing}
+                                />
+                                <button
+                                    onClick={() => {}}
+                                    className="button red pull-right"
+                                >
+                                    <i className="far fa-times" /> Drawing
+                                    expired
+                                </button>
+                            </>
                         )}
                     </BlockHeading>
                     <Map
@@ -134,7 +153,9 @@ const DrawingMapViewSimple = ({
                                 urlStart="company"
                                 key={pin.id}
                                 pin={pin}
-                                withLink={!shouldShowPinSelectorOptions}
+                                withLink={
+                                    !shouldShowPinSelectorOptions && !addMode
+                                }
                                 withTooltip={!isExcluding}
                                 isExcluding={isExcluding}
                             />
@@ -163,11 +184,13 @@ const DrawingMapViewSimple = ({
                 </div>
             ) : (
                 <Loading
-                    message={
-                        updating
-                            ? updateMessage
-                            : 'Please wait for your tileset to load'
-                    }
+                    message="Floorplan is generating, please check back later."
+                    // {
+                    //     updating
+                    //         ? updateMessage
+                    //         : 'Please wait for your tileset to load'
+                    // }
+                    withIcon={false}
                 />
             )}
         </>

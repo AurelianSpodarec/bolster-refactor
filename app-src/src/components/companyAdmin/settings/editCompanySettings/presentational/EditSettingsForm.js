@@ -46,7 +46,11 @@ const EditSettingsForm = ({
     <>
         <Form className="generic-form ize-lg-12" onSubmit={handleSubmit}>
             {/* <p>##Company Details##</p> */}
-            <Field name="Company Name" sizeClasses="size-lg-6" required>
+            <Field
+                name="Company Name"
+                sizeClasses="size-lg-6 size-md-12"
+                required
+            >
                 <TextInputContainer
                     value={name}
                     name="name"
@@ -55,7 +59,11 @@ const EditSettingsForm = ({
                     required
                 />
             </Field>
-            <Field name="Address Line 1" sizeClasses="size-lg-6" required>
+            <Field
+                name="Address Line 1"
+                sizeClasses="size-lg-6 size-md-12"
+                required
+            >
                 <TextInputContainer
                     value={addressLine1}
                     name="addressLine1"
@@ -64,7 +72,7 @@ const EditSettingsForm = ({
                     required
                 />
             </Field>
-            <Field name="Address Line 2" sizeClasses="size-lg-6">
+            <Field name="Address Line 2" sizeClasses="size-lg-6 size-md-12">
                 <TextInputContainer
                     value={addressLine2}
                     name="addressLine2"
@@ -72,7 +80,7 @@ const EditSettingsForm = ({
                     handleChange={handleInputChange}
                 />
             </Field>
-            <Field name="Town" sizeClasses="size-lg-6" required>
+            <Field name="Town" sizeClasses="size-lg-6 size-md-12" required>
                 <TextInputContainer
                     value={town}
                     name="town"
@@ -81,7 +89,7 @@ const EditSettingsForm = ({
                     required
                 />
             </Field>
-            <Field name="County" sizeClasses="size-lg-6" required>
+            <Field name="County" sizeClasses="size-lg-6 size-md-12" required>
                 <TextInputContainer
                     value={county}
                     name="county"
@@ -90,7 +98,7 @@ const EditSettingsForm = ({
                     required
                 />
             </Field>
-            <Field name="Postcode" sizeClasses="size-lg-6" required>
+            <Field name="Postcode" sizeClasses="size-lg-6 size-md-12" required>
                 <TextInputContainer
                     value={postcode}
                     name="postcode"
@@ -99,7 +107,11 @@ const EditSettingsForm = ({
                     required
                 />
             </Field>
-            <Field name="Telephone No." sizeClasses="size-lg-6" required>
+            <Field
+                name="Telephone No."
+                sizeClasses="size-lg-6 size-md-12"
+                required
+            >
                 <TextInputContainer
                     value={telephone}
                     name="telephone"
@@ -108,7 +120,7 @@ const EditSettingsForm = ({
                     required
                 />
             </Field>
-            <Field name="Fax No." sizeClasses="size-lg-6">
+            <Field name="Fax No." sizeClasses="size-lg-6 size-md-12">
                 <TextInputContainer
                     value={fax}
                     name="fax"
@@ -126,7 +138,7 @@ const EditSettingsForm = ({
                         handleChange={handleFileChange}
                     />
                 </Field>
-                <div className="size-lg-6">
+                <div className="size-lg-6 size-md-12">
                     <Field name="Change Colour Scheme">
                         <div className="size-lg-12">
                             <HuePicker
@@ -136,7 +148,7 @@ const EditSettingsForm = ({
                         </div>
                     </Field>
                 </div>
-                <div className="size-lg-6">
+                <div className="size-lg-6 size-md-12">
                     <Field name="Colour scheme (hex code)">
                         <div
                             style={{
@@ -175,7 +187,7 @@ const EditSettingsForm = ({
                     <>
                         <Field
                             name="Label Company Name"
-                            sizeClasses="size-lg-6"
+                            sizeClasses="size-lg-6 size-md-12"
                         >
                             <TextInputContainer
                                 value={labelCompanyName}
@@ -186,7 +198,7 @@ const EditSettingsForm = ({
                         </Field>
                         <Field
                             name="Label Telephone No."
-                            sizeClasses="size-lg-6"
+                            sizeClasses="size-lg-6 size-md-12"
                         >
                             <TextInputContainer
                                 value={labelTelNumber}
@@ -218,7 +230,10 @@ const EditSettingsForm = ({
             </div>
             <div>
                 {/* <p>##Bolster Client List##</p> */}
-                <Field name="Hide On Client List" sizeClasses="size-lg-6">
+                <Field
+                    name="Hide On Client List"
+                    sizeClasses="size-lg-6 size-md-12"
+                >
                     <CheckboxContainer
                         checked={hideOnClientList}
                         handleChange={handleInputChange}

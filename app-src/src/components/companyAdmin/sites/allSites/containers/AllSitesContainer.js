@@ -14,32 +14,18 @@ class AllSitesContainer extends Component {
     }
 
     componentDidMount = () => {
-        const {
-            fetchAllSites,
-            fetchAllBuildings,
-            fetchAllFloors,
-            fetchAllDrawings
-        } = this.props;
-        fetchAllSites();
-        fetchAllBuildings();
-        fetchAllFloors();
-        fetchAllDrawings();
+        const { fetchAllLevels } = this.props;
+        fetchAllLevels();
     };
 }
 
 export default connect(
     null,
     dispatch => ({
-        fetchAllSites: () => {
+        fetchAllLevels: () => {
             dispatch(fetchAllSites());
-        },
-        fetchAllBuildings: () => {
             dispatch(fetchAllBuildings());
-        },
-        fetchAllFloors: () => {
             dispatch(fetchAllFloors());
-        },
-        fetchAllDrawings: () => {
             dispatch(fetchAllDrawings());
         }
     })

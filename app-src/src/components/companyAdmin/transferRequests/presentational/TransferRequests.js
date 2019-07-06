@@ -10,7 +10,7 @@ import TwitterFeed from 'components/shared/twitterFeed/presentational/TwitterFee
 const TransferRequests = () => (
     <>
         <PageHeading title="Pending Requests" withBackButton />
-        <div className="size-lg-8">
+        <div className="size-lg-8 size-md-12">
             <BlockContainer>
                 <BlockHeading title="Pending Invites" />
                 <PendingInvitesTableContainer />
@@ -20,7 +20,7 @@ const TransferRequests = () => (
                 <TransferRequestsTableContainer />
             </BlockContainer>
         </div>
-        <div className="size-lg-4">
+        <div className="size-lg-4 size-md-12">
             <MySubscriptionContainer />
             <BlockContainer>
                 <TwitterFeed />

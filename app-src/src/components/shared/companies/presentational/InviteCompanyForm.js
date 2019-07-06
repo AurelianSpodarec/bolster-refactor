@@ -7,6 +7,7 @@ import Field from 'components/shared/generic/form/presentational/Field';
 import CheckboxListContainer from 'components/shared/generic/form/containers/CheckboxListContainer';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
+import Select from 'components/shared/generic/form/presentational/Select';
 
 const InviteCompanyForm = ({
     location,
@@ -15,7 +16,9 @@ const InviteCompanyForm = ({
     serviceOptions,
     checkedServices,
     hierarchyType,
-    handleChange
+    handleChange,
+    templateUsageRule,
+    templateRules
 }) => (
     <>
         <BlockHeading title="Company details" />
@@ -27,7 +30,7 @@ const InviteCompanyForm = ({
         <Form className="generic-form size-lg-12" onSubmit={handleSubmit}>
             <Field
                 name="Enter the company code"
-                sizeClasses="size-lg-6"
+                sizeClasses="size-lg-6 size-md-12"
                 required
             >
                 <TextInputContainer
@@ -45,6 +48,17 @@ const InviteCompanyForm = ({
                     handleChange={handleChange}
                     options={serviceOptions}
                     selectedOptions={checkedServices}
+                />
+            </Field>
+            <Field name="Set Template Usage Rule" required>
+                <Select
+                    placeholder="-- select rule --"
+                    name={'templateUsageRule'}
+                    options={templateRules}
+                    value={templateUsageRule}
+                    selectedOption={templateUsageRule}
+                    onChange={handleChange}
+                    required
                 />
             </Field>
 

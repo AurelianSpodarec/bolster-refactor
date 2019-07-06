@@ -9,12 +9,18 @@ const BuildingStats = ({
     stats,
     handleDelete,
     handleArchive,
-    handleEditBuildingModal
+    handleEditBuildingModal,
+    onMobile
 }) => (
     <div className="stats size-lg-12">
         <div className="flex-item size-lg-12">
             <BuildingDetails stats={stats} building={building} />
-            <PieChart stats={stats} hierarchyType="building" />
+            <PieChart
+                stats={stats}
+                hierarchyType="building"
+                onMobile={onMobile}
+                sizeClasses="size-lg-6 size-md-12"
+            />
         </div>
 
         {building.accessType === ACCESS_TYPES_VALUES.OWNER && (

@@ -14,6 +14,7 @@ import timeReducer from './time';
 import sitesFilterReducer from './sitesFilter';
 import selectedHistoryReducer from './selectedHistory';
 import mobileReducer from './mobile';
+import forgotPasswordReducer from './forgotPassword';
 
 export default combineReducers({
     confirmLeaveReducer,
@@ -29,5 +30,6 @@ export default combineReducers({
     tablesReducer,
     filesUploadingReducer,
     sitesFilterReducer,
-    selectedHistoryReducer
+    selectedHistoryReducer,
+    forgotPasswordReducer
 });

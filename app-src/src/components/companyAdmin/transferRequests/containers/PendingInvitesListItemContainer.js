@@ -14,7 +14,9 @@ const PendingInvitesListItemContainer = ({
     deleteOutgoingInvite,
     showModal,
     hideModal,
-    isIncoming
+    isIncoming,
+    headers,
+    onMobile
 }) => {
     const { siteName, buildingName, floorName, drawingName } = invite;
     const name = [siteName, buildingName, floorName, drawingName]
@@ -27,6 +29,8 @@ const PendingInvitesListItemContainer = ({
             handleAccept={handleAcceptModal}
             handleDecline={handleDeclineModal}
             name={name}
+            headers={headers}
+            onMobile={onMobile}
         />
     );
 
@@ -69,11 +73,15 @@ const mapStateToProps = (
             companySettingsReducer: {
                 companySettings: { id }
             }
+        },
+        shared: {
+            mobileReducer: { onMobile }
         }
     },
     { invite: { companyID } }
 ) => ({
-    isIncoming: companyID === id
+    isIncoming: companyID === id,
+    onMobile
 });
 
 const mapDispatchToProps = dispatch => ({

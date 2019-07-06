@@ -26,6 +26,7 @@ import {
 import { updateObj, removeObjItem, convertArrToObj } from 'helpers/generic';
 import { SORT_BY_OPTIONS } from 'constants/companyAdmin/enums';
 import { RESET_FILTER_OPTIONS } from 'constants/actionTypes/reports';
+import { CLIENT_FETCH_PINS_SUCCESS } from 'constants/client/actionTypes/clientPins';
 
 export default combineReducers({
     customFilters: customFiltersReducer,
@@ -166,8 +167,13 @@ function isFetchingReducer(state = false, action) {
     }
 }
 
-function customFiltersReducer(state = { operatives: [], pins: [] }, action) {
+function customFiltersReducer(
+    state = { operatives: [], pins: [], questions: [] },
+    action
+) {
     switch (action.type) {
+        case CLIENT_FETCH_PINS_SUCCESS:
+            return { ...state, pins: action.payload };
         case CLIENT_POST_CUSTOM_FILTERS_SUCCESS:
             return action.payload;
         default:

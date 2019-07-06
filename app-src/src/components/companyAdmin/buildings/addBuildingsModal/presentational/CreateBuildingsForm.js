@@ -34,14 +34,14 @@ const CreateBuildingsForm = ({
         </div>
         <BlockButtonWrapper>
             <button
-                className="button green"
+                className="button blue left"
                 type="button"
                 onClick={addBuilding}
             >
                 <i className="fa fa-plus" /> Add another building
             </button>
             <button className="button green" type="submit">
-                <i className="fa fa-plus" /> Save Buildings
+                <i className="fa fa-plus" /> Submit
             </button>
             <ButtonContainer handleClick={handleClose}>Cancel</ButtonContainer>
         </BlockButtonWrapper>

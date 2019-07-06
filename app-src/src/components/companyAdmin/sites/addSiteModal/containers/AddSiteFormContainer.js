@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import moment from 'moment';
 
 import AddSiteForm from '../presentational/AddSiteForm';
 import createSite from 'actions/companyAdmin/sites/async/createSite';
@@ -12,7 +13,10 @@ class AddSiteFormContainer extends Component {
         client: '',
         addressLine1: '',
         addressLine2: '',
-        postcode: ''
+        postcode: '',
+        isAlertShowing: false,
+        message: '',
+        dateToSend: ''
     };
 
     render() {
@@ -21,6 +25,7 @@ class AddSiteFormContainer extends Component {
             <AddSiteForm
                 {...this.state}
                 handleInputChange={this.handleInputChange}
+                handleDateChange={this.handleDateChange}
                 handleSubmit={this.handleSubmit}
                 hideModal={this.props.hideModal}
                 isUsingBolsterLabels={isUsingBolsterLabels}
@@ -40,13 +45,45 @@ class AddSiteFormContainer extends Component {
         this.setState({ [name]: value });
     };
 
+    handleDateChange = date => {
+        this.setState({
+            dateToSend: date
+        });
+    };
+
     handleSubmit = e => {
         e.preventDefault();
         const { hideModal, createSite } = this.props;
-
-        const postBody = {
-            ...this.state
-        };
+        const {
+            name,
+            client,
+            addressLine1,
+            addressLine2,
+            postcode,
+            message,
+            dateToSend,
+            isAlertShowing
+        } = this.state;
+        let postBody = {};
+        if (isAlertShowing) {
+            postBody = {
+                name,
+                client,
+                addressLine1,
+                addressLine2,
+                postcode,
+                message: message,
+                dateToSend: moment(dateToSend).format()
+            };
+        } else {
+            postBody = {
+                name,
+                client,
+                addressLine1,
+                addressLine2,
+                postcode
+            };
+        }
 
         createSite(postBody);
         hideModal();

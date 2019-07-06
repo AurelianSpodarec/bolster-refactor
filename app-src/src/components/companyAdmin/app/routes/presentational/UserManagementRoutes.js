@@ -12,6 +12,7 @@ import EditCompanyAdminContainer from 'components/companyAdmin/userManagement/co
 import EditOperativeContainer from 'components/companyAdmin/userManagement/operatives/editOperative/containers/EditOperativeContainer';
 import EditCompanyAdminPasswordContainer from 'components/companyAdmin/userManagement/companyAdmins/editCompanyAdminPassword/containers/EditCompanyAdminPasswordContainer';
 import EditOperativePasswordContainer from 'components/companyAdmin/userManagement/operatives/editOperativePassword/containers/EditOperativePasswordContainer';
+import UserDrawingsContainer from 'components/companyAdmin/userManagement/userDrawings/containers/UserDrawingsContainer';
 
 const UserManagementRoutes = ({ base = '/company/users-management' }) => (
     <SwitchWith404>
@@ -56,6 +57,16 @@ const UserManagementRoutes = ({ base = '/company/users-management' }) => (
             exact
             path={`${base}/client-access`}
             component={ClientsAccessContainer}
+        />
+        <Route
+            exact
+            path={`${base}/operative/:id/drawings`}
+            component={UserDrawingsContainer}
+        />
+        <Route
+            exact
+            path={`${base}/company-admins/:id/drawings`}
+            component={UserDrawingsContainer}
         />
     </SwitchWith404>
 );

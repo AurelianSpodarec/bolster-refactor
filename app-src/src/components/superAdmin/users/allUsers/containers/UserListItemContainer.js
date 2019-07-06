@@ -7,18 +7,18 @@ import UserListItem from '../presentational/UserListItem';
 const UserListItemContainer = ({
     user,
     showEditUserModal,
-    ShowEditPasswordModal
+    showEditPasswordModal
 }) => (
     <UserListItem
         user={user}
         handleShowEditUserModal={showEditUserModal}
-        handleShowEditUserPasswordModal={ShowEditPasswordModal}
+        handleShowEditUserPasswordModal={showEditPasswordModal}
     />
 );
 
 const mapDispatchToProps = dispatch => ({
     showEditUserModal: user => dispatch(showModal(EDIT_USER, user)),
-    ShowEditPasswordModal: user => dispatch(showModal(EDIT_USER_PASSWORD, user))
+    showEditPasswordModal: user => dispatch(showModal(EDIT_USER_PASSWORD, user))
 });
 
 export default connect(

@@ -6,7 +6,8 @@ const TemplatesTableContainer = ({
     templates,
     isFetching,
     error,
-    services
+    services,
+    onMobile
 }) => (
     <TemplatesTable
         headers={['Name', 'Service', '']}
@@ -19,6 +20,7 @@ const TemplatesTableContainer = ({
         }
         isFetching={isFetching}
         error={error}
+        onMobile={onMobile}
     />
 );
 
@@ -26,12 +28,16 @@ const mapStateToProps = ({
     companyAdmin: {
         templatesReducer: { templates, isFetching: fetchingTemplates, error },
         servicesReducer: { services, isFetching: fetchingServices }
+    },
+    shared: {
+        mobileReducer: { onMobile }
     }
 }) => ({
     templates: Object.values(templates),
     isFetching: fetchingTemplates || fetchingServices,
     services,
-    error
+    error,
+    onMobile
 });
 
 export default connect(mapStateToProps)(TemplatesTableContainer);

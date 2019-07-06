@@ -9,7 +9,7 @@ import updatePinCoordinates from 'actions/companyAdmin/drawings/sync/updatePinCo
 import DrawingMapViewSimple from '../presentational/DrawingMapViewSimple';
 import DrawingInspectionLogContainer from './DrawingInspectionLogContainer';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import { convertArrToObj } from 'helpers/generic';
+import { convertArrToObj, momentComparisonFormat } from 'helpers/generic';
 import {
     COMPANY_USER_ROLE_TYPES as USER_ROLE,
     FLOORPLAN_STATE_MESSAGES,
@@ -29,6 +29,7 @@ import addRectangle from 'actions/companyAdmin/reports/sync/addRectangle';
 import removeRectangle from 'actions/companyAdmin/reports/sync/removeRectangle';
 import removeAllRectangles from 'actions/companyAdmin/reports/sync/removeAllRectangles';
 import updateFurtherFiltrationOption from 'actions/companyAdmin/reports/sync/updateFurtherFiltrationOption';
+
 const { ADD, DELETE, EXCLUDE } = RECTANGLE_MODES;
 const { PIN_SELECTOR } = FURTHER_FILTRATION_OPTIONS;
 
@@ -39,10 +40,10 @@ class DrawingMapGeneralContainer extends Component {
     state = {
         mapZoom: 3,
         addMode: false,
-        addPinLat: 51.505,
-        addPinLng: -0.09,
-        centerLat: 51.505,
-        centerLng: -0.09,
+        addPinLat: -128,
+        addPinLng: 128,
+        centerLat: -128,
+        centerLng: 128,
         firstCorner: null,
         mode: ADD,
         currentTooltip: null
@@ -76,13 +77,15 @@ class DrawingMapGeneralContainer extends Component {
         const shouldShowPinSelectorOptions =
             +furtherFiltrationOption === +PIN_SELECTOR;
 
+        const isExpired = moment(drawing.expiresOn).isBefore(moment.now());
+
         return (
             <>
                 <div className="flex-container size-lg-12">
-                    <div className="flex-item size-lg-4">
+                    <div className="flex-item size-lg-4 size-md-12">
                         <BasicFiltersContainer isDrawingPage />
                     </div>
-                    <div className="flex-item size-lg-4">
+                    <div className="flex-item size-lg-4 size-md-12">
                         <DrawingDetailsContainer />
                     </div>
 
@@ -90,6 +93,7 @@ class DrawingMapGeneralContainer extends Component {
                 </div>
                 <BlockContainer error={error} isEmpty={!drawing}>
                     <DrawingMapViewSimple
+                        isExpired={isExpired}
                         currentTooltip={this.state.currentTooltip}
                         updateCurTooltip={this.updateCurTooltip}
                         showModal={this.props.showModal}
@@ -137,6 +141,11 @@ class DrawingMapGeneralContainer extends Component {
 
         const pinIDs = pinsFromAPI.map(({ id }) => id);
         handleChange('pinIDs', pinIDs);
+        if (drawing.siteID) {
+            handleChange('siteID', String(drawing.siteID));
+            handleChange('buildingID', String(drawing.buildingID));
+            handleChange('floorID', String(drawing.floorID));
+        }
 
         updateReportFilter('drawingID', match.params.id).then(postFilters);
         if (drawing.isFloorplanUpdating) {
@@ -150,7 +159,6 @@ class DrawingMapGeneralContainer extends Component {
         postSuccess: prevSuccess,
         drawing: prevDrawing = {},
         pinsFromAPI: prevPinsFromAPI = [],
-        handleChange,
         fromDateInclusive,
         toDateInclusive,
         fieldErrors,
@@ -159,6 +167,7 @@ class DrawingMapGeneralContainer extends Component {
     }) => {
         const {
             drawing = {},
+            handleChange,
             fetchSingleDrawing,
             postSuccess,
             pinsFromAPI = [],
@@ -171,7 +180,7 @@ class DrawingMapGeneralContainer extends Component {
         // re-fetch drawing every 5 seconds until the updated floorplan is retrieved
         if (postSuccess && !prevSuccess) fetchSingleDrawing(drawing.id);
         if (drawing.isFloorplanUpdating && !prevDrawing.isFloorplanUpdating) {
-            console.error('updating!!!!!');
+            // console.error('updating!!!!!');
             this._floorplanInterval = setInterval(
                 () => fetchSingleDrawing(drawing.id),
                 5000
@@ -199,6 +208,12 @@ class DrawingMapGeneralContainer extends Component {
         }
         if (furtherFiltrationOption !== prevOption) {
             removeAllRectangles();
+        }
+
+        if (drawing.siteID && !prevDrawing.siteID) {
+            handleChange('siteID', String(drawing.siteID));
+            handleChange('buildingID', String(drawing.buildingID));
+            handleChange('floorID', String(drawing.floorID));
         }
     };
 
@@ -250,12 +265,12 @@ class DrawingMapGeneralContainer extends Component {
     _resetCoordinates = () => {
         const { updatePinCoordinates } = this.props;
 
-        updatePinCoordinates('lat', 51.505);
-        updatePinCoordinates('lng', -0.09);
+        updatePinCoordinates('lat', -128);
+        updatePinCoordinates('lng', 128);
 
         this.setState({
-            addPinLat: 51.505,
-            addPinLng: -0.09
+            addPinLat: -128,
+            addPinLng: 128
         });
     };
 
@@ -297,46 +312,71 @@ class DrawingMapGeneralContainer extends Component {
     };
 
     _getFilteredPins = () => {
-        const {
-            pins,
-            filters
-            //  furtherFiltrationOption
-        } = this.props;
+        const { pins, filters, furtherFiltrationOption } = this.props;
 
         // ? Displays all pins if in rectangle mode, and only the selected pins otherwise.
-        // if (+furtherFiltrationOption === +PIN_SELECTOR) {
-        //     const {
-        //         fromDateInclusive,
-        //         toDateInclusive,
-        //         status,
-        //         serviceID
-        //     } = filters;
-        //     return pins.filter(pin => {
-        //         if (
-        //             fromDateInclusive &&
-        //             moment(pin.createdOn) <
-        //                 moment(fromDateInclusive, momentComparisonFormat)
-        //         ) {
-        //             return false;
-        //         }
-        //         if (
-        //             toDateInclusive &&
-        //             moment(pin.createdOn) >
-        //                 moment(toDateInclusive, momentComparisonFormat)
-        //         ) {
-        //             return false;
-        //         }
-        //         if (status && +pin.latestStatus !== +status) {
-        //             return false;
-        //         }
-        //         if (serviceID && +pin.latestServiceID !== +serviceID) {
-        //             return false;
-        //         }
-        //         return true;
-        //     });
-        // }
 
-        return pins.filter(({ id }) => filters.pinIDs.includes(id));
+        const {
+            fromDateInclusive,
+            toDateInclusive,
+            status,
+            serviceID,
+            templateID,
+            companyUserIDs
+        } = filters;
+        const NO = false;
+        // simple
+        return furtherFiltrationOption <=
+            FURTHER_FILTRATION_OPTIONS.INDIVIDUAL_PINS
+            ? pins.filter(pin => {
+                  // start date
+                  if (
+                      fromDateInclusive &&
+                      moment(pin.createdOn) <
+                          moment(fromDateInclusive, momentComparisonFormat)
+                  ) {
+                      return NO;
+                  }
+                  // end date
+                  if (
+                      toDateInclusive &&
+                      moment(pin.createdOn) >
+                          moment(toDateInclusive, momentComparisonFormat)
+                  ) {
+                      return NO;
+                  }
+                  // status
+                  if (status && +pin.latestStatus !== +status) {
+                      return NO;
+                  }
+                  // services
+                  if (serviceID && +pin.latestServiceID !== +serviceID) {
+                      return NO;
+                  }
+                  // templates
+                  if (templateID && +templateID !== pin.templateID) {
+                      return NO;
+                  }
+                  // operatives
+                  if (
+                      companyUserIDs &&
+                      companyUserIDs.length &&
+                      !companyUserIDs.includes(pin.latestCreatedByCompanyUserID)
+                  ) {
+                      return NO;
+                  }
+                  if (
+                      +furtherFiltrationOption ===
+                      FURTHER_FILTRATION_OPTIONS.INDIVIDUAL_PINS
+                  ) {
+                      if (!filters.pinIDs.includes(pin.id)) {
+                          return NO;
+                      }
+                  }
+                  return true;
+              })
+            : // advanced
+              pins.filter(({ id }) => filters.pinIDs.includes(id));
     };
 
     setMode = mode => {
@@ -369,7 +409,7 @@ const mapStateToProps = (
             addPinCoordinatesReducer: { coordinates },
             reportsReducer: {
                 customFilters: { pins: pinsFromAPI },
-                filters: { pinIDs },
+                filters: { pinIDs, templateID, companyUserIDs },
                 furtherFiltrationOption,
                 rectangles,
                 isFetching: isFetchingReports
@@ -383,6 +423,7 @@ const mapStateToProps = (
     pins: Object.values(pins),
     pinsFromAPI,
     pinIDs,
+    templateID,
     users: Object.values(users),
     services: Object.values(services),
     isFetching,
@@ -390,7 +431,8 @@ const mapStateToProps = (
     error,
     postSuccess,
     furtherFiltrationOption,
-    rectangles: Object.values(rectangles)
+    rectangles: Object.values(rectangles),
+    companyUserIDs
 });
 
 const mapDispatchToProps = {

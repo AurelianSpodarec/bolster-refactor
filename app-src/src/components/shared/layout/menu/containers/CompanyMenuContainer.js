@@ -35,6 +35,7 @@ const CompanyMenuContainer = ({
             isFromHeadquarters={isFromHeadquarters}
             unreadCount={unreadCount}
             dismissMessages={dismissNotifications}
+            openHelpScout={_openHelpScout}
         />
     );
 
@@ -45,6 +46,11 @@ const CompanyMenuContainer = ({
             moment(startOn).isBefore(Date.now()) &&
             moment(endOn).isAfter(Date.now())
         );
+    }
+
+    function _openHelpScout(e) {
+        e.preventDefault();
+        window.Beacon('toggle');
     }
 };
 const mapStateToProps = ({

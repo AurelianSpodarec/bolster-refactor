@@ -12,7 +12,8 @@ const CompanyMenu = ({
     totalRequests,
     unreadCount,
     dismissMessages,
-    isSubscribed
+    isSubscribed,
+    openHelpScout
 }) => (
     <>
         <div className="menu">
@@ -146,7 +147,10 @@ const CompanyMenu = ({
                         <span className="menu-text">My Templates</span>
                     </CompanyMenuItemContainer>
 
-                    <CompanyMenuItemContainer link="/company/tools/support">
+                    <CompanyMenuItemContainer
+                        link="/company/tools/support"
+                        onClick={e => openHelpScout(e)}
+                    >
                         <i className="far fa-info-circle fa-fw icon" />
                         <span className="menu-text">Support</span>
                     </CompanyMenuItemContainer>

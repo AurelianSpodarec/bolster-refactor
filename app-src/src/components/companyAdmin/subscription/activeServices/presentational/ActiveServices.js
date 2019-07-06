@@ -53,10 +53,15 @@ const ActiveServices = ({
 
             <p className="size-lg-12">
                 The Bolster System can support a wide range of additional
-                services, template and workflows
-                <br />
+                services, template and workflows,{' '}
                 <Link to="/company/tools/support">so get in touch</Link> and we
-                can talk through your custom requirements
+                can talk through your custom requirements.
+                <br />
+                You can call us on <a href="tel:0161 873 7679">0161 873 7679</a>
+                , or e-mail at{' '}
+                <a href="mailto:info@bolstersystems.com">
+                    info@bolstersystems.com
+                </a>
             </p>
         </div>
     </BlockContainer>

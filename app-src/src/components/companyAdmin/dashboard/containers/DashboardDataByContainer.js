@@ -10,12 +10,13 @@ class DashboardDataByContainer extends Component {
             error,
             operatives,
             drawings,
-            selectedTab
+            selectedTab,
+            onMobile
         } = this.props;
 
         return (
             <BlockContainer
-                containerClass="flex-row-item size-lg-6"
+                containerClass="flex-row-item size-lg-6 size-md-12"
                 isFetching={isFetching}
                 error={error}
             >
@@ -23,6 +24,7 @@ class DashboardDataByContainer extends Component {
                     operatives={operatives}
                     drawings={drawings}
                     selectedTab={selectedTab}
+                    onMobile={onMobile}
                 />
             </BlockContainer>
         );
@@ -34,9 +36,11 @@ const mapStateToProps = ({
         dashboardReducer: { isFetchingDashPinsStats: isFetching, error }
     },
     shared: {
-        tabsReducer: { selectedTab }
+        tabsReducer: { selectedTab },
+        mobileReducer: { onMobile }
     }
 }) => ({
+    onMobile,
     isFetching,
     error,
     selectedTab

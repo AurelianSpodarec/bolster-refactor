@@ -18,7 +18,7 @@ import archiveSite from 'actions/companyAdmin/sites/async/archiveSite';
 
 class SiteDetailsContainer extends Component {
     render() {
-        const { site, error, isFetching, stats } = this.props;
+        const { site, error, isFetching, stats, onMobile } = this.props;
 
         return (
             <BlockContainer
@@ -32,6 +32,7 @@ class SiteDetailsContainer extends Component {
                     handleDelete={this.handleDeleteModal}
                     handleArchive={this.handleArchiveModal}
                     handleEditSiteModal={this.handleEditSiteModal}
+                    onMobile={onMobile}
                 />
             </BlockContainer>
         );
@@ -55,7 +56,7 @@ class SiteDetailsContainer extends Component {
         if (postSuccess && !prevProps.postSuccess && !deleteSuccess) {
             showModal(SUCCESS_MODAL, {
                 hideModal,
-                message: 'Site edited successfully.'
+                message: 'Site updated successfully.'
             });
         }
 
@@ -112,6 +113,9 @@ const mapStateToProps = (
                 postFailure
             },
             statsReducer: { stats, isFetching: fetchingStats }
+        },
+        shared: {
+            mobileReducer: { onMobile }
         }
     },
     { match }
@@ -123,6 +127,7 @@ const mapStateToProps = (
     stats,
     id: match.params.id,
     deleteSuccess,
+    onMobile,
     postFailure
 });
 

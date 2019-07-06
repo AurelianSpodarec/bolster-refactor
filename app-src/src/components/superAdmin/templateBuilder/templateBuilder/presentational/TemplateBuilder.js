@@ -3,7 +3,8 @@ import React from 'react';
 import SectionListContiner from '../containers/SectionListContainer';
 import TemplateBuilderHeaderContainer from '../containers/TemplateBuilderHeaderContainer';
 import SaveTemplateButtonContainer from '../containers/SaveTemplateButtonContainer';
-import TemplateLabelInfoContainer from '../containers/TemplateLabelInfoContainer';
+// import TemplateLabelInfoContainer from '../containers/TemplateLabelInfoContainer';
+import PreviewSectionListContainer from '../../templatePreview/containers/PreviewSectionListContainer';
 
 const TemplateBuilder = ({
     showAddSectionModal,
@@ -17,12 +18,12 @@ const TemplateBuilder = ({
             isExisting={isExisting}
             templateUUID={templateUUID}
         />
-        <div className="size-lg-6">
+        <div className="size-lg-8">
             <SectionListContiner />
             {saveRequired && <SaveTemplateButtonContainer />}
         </div>
-        <div className="size-lg-6">
-            <TemplateLabelInfoContainer />
+        <div className="size-lg-4">
+            <PreviewSectionListContainer />
         </div>
     </div>
 );

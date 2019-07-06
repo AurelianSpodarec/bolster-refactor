@@ -5,8 +5,13 @@ import LevelsFilterContainer from '../containers/LevelsFilterContainer';
 import OperativesFilterContainer from '../containers/OperativesFilterContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 
-const Block1Filters = ({ fieldError, advanced, isFetching }) => (
-    <div className="flex-item size-lg-6">
+const Block1Filters = ({
+    fieldError,
+    advanced,
+    isFetching,
+    getAllOperatives
+}) => (
+    <div className="flex-item size-lg-6 size-md-12">
         <BlockContainer>
             <div className="size-lg-12">
                 <BlockHeading title="Location" />
@@ -19,7 +24,10 @@ const Block1Filters = ({ fieldError, advanced, isFetching }) => (
                     advanced={advanced}
                     isFetching={isFetching}
                 />
-                <OperativesFilterContainer advanced={advanced} />
+                <OperativesFilterContainer
+                    advanced={advanced}
+                    getAllOperatives={getAllOperatives}
+                />
                 {!!fieldError && (
                     <div
                         className="form-field size-lg-12"

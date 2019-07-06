@@ -1,6 +1,19 @@
 @import "./variables.scss";
 
 @media only screen and (max-width: 1024px) {
+    //layout structure
+    .container {
+        &.full-container {
+            padding: {
+                left: 0;
+                right: 0;
+            }
+        }
+    }
+    #page-area {
+        width: 100%;
+    }
+
     //company admin header
     #page-header {
         height: 57px;
@@ -10,6 +23,7 @@
             float: none;
             display: block;
             margin: 0 auto;
+
             img {
                 height: 40px;
             }
@@ -36,13 +50,14 @@
         .mobile-profile-menu {
             position: absolute;
             display: none;
-            top: 100%;
+            top: 98%;
             right: 0;
             background-color: $background-grey;
             width: 250px;
             z-index: 5000;
             &.visible {
                 display: block;
+                z-index: 1001;
             }
 
             .text {
@@ -104,6 +119,9 @@
             float: right;
             min-width: 0;
             width: auto;
+            position: absolute;
+            top: 0;
+            right: 0;
 
             .user {
                 padding: 5px 45px 5px 15px;
@@ -121,6 +139,12 @@
                 }
             }
         }
+
+        .notifications {
+            .notification-list {
+                width: 120%;
+            }
+        }
     }
 
     .menu-wrapper {
@@ -133,6 +157,7 @@
         transform: translateX(-100%);
         &.mobile-open {
             transform: translateX(0);
+            z-index: 500;
         }
     }
 
@@ -143,7 +168,554 @@
         }
     }
 
-    #page-area {
+    //inside page area
+    .breadcrumb {
         width: 100%;
+    }
+
+    .tab-container {
+        float: left;
+        margin-top: 6px;
+    }
+
+    //generics
+
+    .generic-search {
+        input {
+            font-size: 140%;
+        }
+    }
+    .button-block-container {
+        margin-top: 0;
+        .button {
+            margin-bottom: 5px;
+        }
+    }
+    .button {
+        font-size: 130%;
+        &.icon-only {
+            padding-left: 8px;
+            padding-right: 8px;
+            padding: {
+                top: 5px;
+                bottom: 5px;
+            }
+        }
+    }
+
+    .custom-dropdown {
+        input {
+            padding: 6px 10px;
+        }
+    }
+
+    .flex-container {
+        display: block;
+        .flex-item {
+            display: block;
+            .content-container {
+                display: block;
+            }
+
+            .button-container {
+                position: relative;
+                width: 100%;
+            }
+            .generic-table {
+                min-height: 85px;
+
+                tbody {
+                    display: block;
+                }
+            }
+        }
+    }
+
+    .form-field {
+        .checkbox-list {
+            .checkbox {
+                width: 100%;
+            }
+        }
+    }
+    .radio-button {
+        padding: 10px 30px 10px 0;
+    }
+
+    .checkbox {
+        &.with-subtext {
+            padding-left: 0;
+            width: 40px;
+        }
+    }
+
+    .sub-text {
+        width: calc(100% - 50px);
+    }
+
+    .ignore-padding {
+        width: calc(100% + 15px);
+        margin-left: -7.5px;
+    }
+
+    .status-icon {
+        &.add {
+            i {
+                left: -0.5px;
+            }
+        }
+    }
+
+    //TEXT
+    //Headings
+    .block-heading {
+        &.w-left-icon {
+            .heading {
+                max-width: 80%;
+            }
+        }
+        .button,
+        .link-holder {
+            margin-bottom: 5px;
+        }
+
+        &.mobile-buttons {
+            .heading {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+        }
+    }
+
+    .page-heading {
+        .heading {
+            margin-bottom: 7px;
+
+            + .button {
+                margin-top: 5px;
+            }
+        }
+        .button {
+            float: left;
+            margin-left: 0;
+            margin-right: 5px;
+        }
+    }
+
+    //Filters
+
+    .multi-filters {
+        display: block;
+
+        .flex {
+            display: block;
+            float: left;
+            width: 100%;
+        }
+        .item {
+            margin-bottom: 5px;
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+        p {
+            float: left;
+            text-align: left;
+            padding-left: 0;
+        }
+        .react-datepicker-wrapper {
+            .react-datepicker__input-container {
+                width: 100%;
+            }
+            input {
+                padding: 7.5px 6px;
+            }
+        }
+    }
+
+    .table-search {
+        .generic-search {
+            width: 100%;
+        }
+        .custom-dropdown {
+            width: 32%;
+        }
+        .table-filter {
+            width: 100%;
+            text-align: left;
+            padding-left: 0;
+            margin-top: 10px;
+            margin-bottom: 2.5px;
+
+            p {
+                float: left;
+            }
+            .custom-dropdown {
+                float: left;
+            }
+
+            &.auto {
+                width: 100%;
+            }
+            .multi-multi-dropdown {
+                width: 220px;
+            }
+        }
+        .react-datepicker-wrapper {
+            input {
+                padding: 7.5px 5px;
+            }
+            .react-datepicker__input-container {
+                width: 100%;
+            }
+        }
+
+        &.larger-search {
+            .generic-search {
+                width: 100%;
+            }
+        }
+        &.in-table {
+            .table-filter {
+                width: auto;
+                width: 52%;
+
+                .custom-dropdown {
+                    width: 63%;
+                }
+            }
+        }
+    }
+    .content-area {
+        padding: 7.5px;
+        overflow: hidden;
+
+        .tab-container {
+            position: relative;
+            top: 0;
+            right: 0;
+            margin-top: -10px;
+            margin-bottom: 10px;
+            float: left;
+        }
+    }
+    .back-button {
+        margin-bottom: 5px;
+    }
+
+    .button-area {
+        padding: 0 10px;
+    }
+    //modals
+    .modal-container {
+        .modal-block {
+            max-height: 100%;
+            position: absolute;
+            top: 50%;
+            left: 10px;
+            width: calc(100% - 20px);
+            overflow: auto;
+            transform: translateY(-50%);
+            p {
+                + .checkbox {
+                    margin-top: 10px;
+                }
+            }
+
+            &.w-label-example {
+                width: calc(100% - 20px);
+            }
+        }
+    }
+
+    //pie chart
+    .stats {
+        &.dashboard {
+            .pin-key {
+                .pin {
+                    &:last-child {
+                        margin-top: 0;
+                    }
+                }
+            }
+        }
+        .pin-key {
+            padding-right: 0;
+            margin-bottom: 0;
+            margin-top: 20px;
+            .pin {
+                width: 50%;
+                margin-bottom: 15px;
+
+                &:last-child {
+                    width: 100%;
+                    margin-top: 0;
+                }
+                p {
+                    &.no-pin {
+                        padding-left: 0;
+                        padding-top: 10px;
+                        text-align: center;
+                    }
+                }
+            }
+        }
+        .history {
+            margin-top: 20px;
+        }
+
+        .button-container {
+            .button {
+                &:nth-child(4) {
+                    margin-top: 5px;
+                    margin-right: 0;
+                }
+            }
+        }
+
+        &.drawing-stats {
+            .history {
+                margin-top: 0;
+            }
+            .pin-key {
+                margin-bottom: 0;
+            }
+        }
+    }
+    .generic-table {
+        width: calc(100% + 15px);
+        margin-left: -7.5px;
+
+        &.with-actions {
+            td {
+                &:last-child {
+                    text-align: left;
+                }
+            }
+        }
+
+        thead tr {
+            position: absolute;
+            top: -9999px;
+            left: -9999px;
+        }
+        td {
+            /* Behave  like a "row" */
+            border: none;
+            border-bottom: 1px solid #eee;
+            position: relative;
+            padding-left: 30%;
+            .mobile-table-heading {
+                /* Now like a table header */
+                position: absolute;
+                /* Top/left values mimic padding */
+                top: 9px;
+                left: 8px;
+                padding-right: 10px;
+                white-space: nowrap;
+                @include ubuntu-medium;
+            }
+            .status-icon {
+                left: 9px;
+            }
+            &:last-child {
+                text-align: left;
+            }
+        }
+        tr {
+            float: left;
+            width: 100%;
+            .generic-table {
+                width: 100%;
+                margin-left: 0;
+            }
+
+            &.expanded-row {
+                table {
+                    tbody {
+                        td {
+                            &.no-data-td {
+                                padding-left: 15px !important;
+                            }
+                            &:first-child {
+                                padding-top: 10px;
+                                padding-left: 30%;
+                                padding-bottom: 10px;
+                                &.table-container {
+                                    table {
+                                        td {
+                                            &:first-child {
+                                                padding-top: 10px;
+                                                padding-left: 30%;
+                                                padding-bottom: 10px;
+                                                &.table-container {
+                                                    table {
+                                                        td {
+                                                            &:first-child {
+                                                                padding-top: 10px;
+                                                                padding-left: 30%;
+                                                                padding-bottom: 10px;
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            .table-container {
+                &.drawing {
+                    padding: 0 !important;
+                }
+            }
+            .no-data-td {
+                padding-left: 15px !important;
+            }
+            &:last-child {
+                .no-data-td {
+                    border-bottom: none;
+                }
+            }
+        }
+        .expanded-row {
+            > td {
+                padding-left: 0;
+                padding-top: 0;
+                padding-right: 0;
+                border-bottom: none;
+            }
+        }
+        .link-holder {
+            a {
+                padding: 7px 15px;
+                min-width: 100px;
+                text-align: center;
+            }
+        }
+        .button {
+            padding: 7px 15px;
+            min-width: 100px;
+            text-align: center;
+        }
+    }
+    .generic-table,
+    table,
+    thead,
+    tbody,
+    th,
+    td,
+    tr {
+        display: block;
+    }
+    .link-holder {
+        a {
+            padding: 7px 15px;
+            min-width: 100px;
+            text-align: center;
+        }
+    }
+    .button {
+        padding: 7px 15px;
+        min-width: 100px;
+        text-align: center;
+    }
+    .small-text-table {
+        &.two-line {
+            .generic-table {
+                tr {
+                    td {
+                        font-size: 12px;
+                        padding: 5px 15px;
+                        padding-left: 30%;
+                        .mobile-table-heading {
+                            top: 5px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .inspection-log-table {
+        width: calc(100% + 15px);
+        margin-left: -7.5px;
+        .generic-table {
+            float: left;
+            width: 100%;
+        }
+    }
+    .inspection-log {
+        tr {
+            td {
+                &:first-child {
+                    padding-left: 37%;
+                }
+            }
+        }
+        .pin {
+            top: 4px;
+            left: 30%;
+        }
+    }
+    //generate report
+    .options-container {
+        padding: 10px 0;
+        margin-bottom: 10px;
+    }
+    .pin-selection-box {
+        width: 100%;
+        .content {
+            .selector-pin {
+                padding: 5px 15px;
+            }
+        }
+    }
+    .pin-selection-buttons {
+        float: left;
+        width: 100%;
+        height: 50px;
+    }
+
+    .field-output.filters {
+        display: block;
+        .filters-calc {
+            margin-bottom: 10px;
+            .centered {
+                width: 100%;
+                &:first-child {
+                    margin-bottom: 10px;
+                }
+            }
+        }
+    }
+
+    .custom-filters-block {
+        .button-block-container {
+            padding: 0;
+        }
+    }
+
+    //Account overview page / subscriptions
+    .subscriptions-list {
+        .subscription-item {
+            padding: 10px;
+        }
+    }
+    .generic-text.total-text {
+        margin-bottom: 10px;
+    }
+
+    // no label examples on mobile
+    .label-example {
+        display: none;
+    }
+
+    .area-filter {
+        width: 35%;
     }
 }

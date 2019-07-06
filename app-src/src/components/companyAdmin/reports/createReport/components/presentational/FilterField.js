@@ -25,7 +25,7 @@ const FilterField = ({
                     <strong>Answer</strong>: {joinedAnswers}
                 </p>
             </div>
-            <BlockButtonWrapper sizeClasses="size-lg-5">
+            <BlockButtonWrapper sizeClasses="size-lg-5 size-md-12">
                 <button
                     className="button yellow"
                     onClick={() => handleShowCustomFieldModal(id)}

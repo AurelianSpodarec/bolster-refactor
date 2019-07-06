@@ -6,12 +6,14 @@ import SuccessModal from '../presentational/SuccessModal';
 
 const SuccessModalContainer = ({
     hideModal,
+    title,
     message,
     link = '',
     linkMessage = ''
 }) => (
     <SuccessModal
         hideModal={hideModal}
+        title={title}
         message={message}
         link={link}
         linkMessage={linkMessage}

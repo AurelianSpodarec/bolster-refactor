@@ -4,13 +4,37 @@ import ButtonContainer from 'components/shared/generic/button/containers/ButtonC
 
 const TemplateSectionQuestion = ({
     question: { id, name, isRequired, type, canCompanyEdit },
-    selectQuestion
+    selectQuestion,
+    onMobile,
+    headers
 }) => (
     <tr key={id}>
-        <td>{name}</td>
-        <td>{QUESTION_TYPES[type]}</td>
-        <td>{isRequired ? 'Required' : 'Not required'}</td>
         <td>
+            {' '}
+            {onMobile && (
+                <span className="mobile-table-heading">{headers[0]}</span>
+            )}
+            {name}
+        </td>
+        <td>
+            {' '}
+            {onMobile && (
+                <span className="mobile-table-heading">{headers[1]}</span>
+            )}
+            {QUESTION_TYPES[type]}
+        </td>
+        <td>
+            {' '}
+            {onMobile && (
+                <span className="mobile-table-heading">{headers[2]}</span>
+            )}
+            {isRequired ? 'Required' : 'Not required'}
+        </td>
+        <td>
+            {' '}
+            {onMobile && (
+                <span className="mobile-table-heading">{headers[3]}</span>
+            )}
             <ButtonContainer handleClick={() => selectQuestion(id)}>
                 {canCompanyEdit ? (
                     <span>

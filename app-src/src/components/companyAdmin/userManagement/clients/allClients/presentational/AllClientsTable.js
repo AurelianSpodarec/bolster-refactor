@@ -16,7 +16,11 @@ const AllClientsTable = ({ headers, clients, isFetching, error }) => (
             noDataMessage="No clients to display."
             extraClasses="large"
         >
-            <AllClientsList colCount={headers.length} clients={clients} />
+            <AllClientsList
+                colCount={headers.length}
+                clients={clients}
+                headers={headers}
+            />
         </Table>
     </BlockContainer>
 );

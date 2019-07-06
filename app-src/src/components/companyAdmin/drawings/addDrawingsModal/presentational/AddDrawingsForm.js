@@ -9,6 +9,9 @@ import ButtonContainer from 'components/shared/generic/button/containers/ButtonC
 import FileUploadContainer from 'components/shared/generic/form/containers/FileUploadContainer';
 import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
 import BolsterLabelExample from 'components/shared/generic/form/presentational/BolsterLabelExample';
+import TextAreaContainer from 'components/shared/generic/form/containers/TextAreaContainer';
+import DatePickerPresentational from 'components/shared/generic/form/presentational/DatePicker';
+import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
 
 // * .*. in names is used for splitting up field validations without risking overlap with real names
 
@@ -19,8 +22,6 @@ const AddDrawingsForm = ({
     addDrawing,
     removeDrawing,
     handleClose,
-    templateUsageRules,
-    templateUsageRuleOptions,
     isUsingBolsterLabels,
     filesUploading
 }) => (
@@ -30,7 +31,9 @@ const AddDrawingsForm = ({
                 <div className="size-lg-12" key={drawing.id}>
                     <div
                         className={
-                            isUsingBolsterLabels ? 'size-lg-6' : 'size-lg-12'
+                            isUsingBolsterLabels
+                                ? 'size-lg-6 size-md-12'
+                                : 'size-lg-12'
                         }
                     >
                         <div className="size-lg-12" key={drawing.id}>
@@ -69,33 +72,72 @@ const AddDrawingsForm = ({
                                 </p>
                             </Field>
                         </div>
+
                         <div className="size-lg-12">
-                            <Field name="Set Template Usage Rule" required>
-                                <DropdownContainer
-                                    placeholder="-- select rule --"
-                                    name={`${drawing.id}.*.templateUsageRule`}
-                                    options={templateUsageRules}
-                                    value={
-                                        templateUsageRuleOptions[
-                                            drawing.templateUsageRule
-                                        ]
-                                    }
-                                    selectedOption={
-                                        templateUsageRuleOptions[
-                                            drawing.templateUsageRule
-                                        ]
-                                    }
-                                    handleChange={(name, value) =>
-                                        updateDrawing(name, value, drawing.id)
-                                    }
-                                    required
-                                />
-                            </Field>
+                            <div className="size-lg-6 size-md-12">
+                                <Field name="Send an alert?">
+                                    <CheckboxContainer
+                                        checked={drawing.isAlertShowing}
+                                        name={`${drawing.id}.*.isAlertShowing`}
+                                        text=""
+                                        handleChange={(name, value) =>
+                                            updateDrawing(
+                                                name,
+                                                value,
+                                                drawing.id
+                                            )
+                                        }
+                                    />
+                                </Field>
+                            </div>
                         </div>
+
+                        {drawing.isAlertShowing && (
+                            <div className="size-lg-12">
+                                <div className="size-lg-12">
+                                    <Field name="Alert Message">
+                                        <TextAreaContainer
+                                            value={drawing.message}
+                                            name={`${drawing.id}.*.message`}
+                                            handleChange={(name, value) =>
+                                                updateDrawing(
+                                                    name,
+                                                    value,
+                                                    drawing.id
+                                                )
+                                            }
+                                        />
+                                    </Field>
+                                </div>
+
+                                <div className="size-lg-12">
+                                    <Field name="Date to send">
+                                        <DatePickerPresentational
+                                            name={`${drawing.id}.*.dateToSend`}
+                                            selected={drawing.dateToSend}
+                                            onChange={value =>
+                                                updateDrawing(
+                                                    `${
+                                                        drawing.id
+                                                    }.*.dateToSend`,
+                                                    value,
+                                                    drawing.id
+                                                )
+                                            }
+                                            placeholderText="Date"
+                                            showTimeSelect
+                                        />
+                                    </Field>
+                                </div>
+                            </div>
+                        )}
                     </div>
                     {isUsingBolsterLabels && (
-                        <div className="size-lg-6">
-                            <BolsterLabelExample name={drawing.name} />
+                        <div className="size-lg-6 size-md-12">
+                            {/* <BolsterLabelExample
+                                name={drawing.name}
+                                hierarchy="Drawing"
+                            /> */}
                         </div>
                     )}
 
@@ -114,14 +156,15 @@ const AddDrawingsForm = ({
             ))}
         </div>
         <BlockButtonWrapper>
-            <button className="button green" type="button" onClick={addDrawing}>
+            <button
+                className="button blue left"
+                type="button"
+                onClick={addDrawing}
+            >
                 <i className="fa fa-plus" /> Add another drawing
             </button>
 
-            <SubmitContainer
-                withPlus
-                text={`Save Drawing${drawings.length > 1 ? 's' : ''}`}
-            />
+            <SubmitContainer withPlus text={'Submit'} />
             <ButtonContainer handleClick={handleClose}>Cancel</ButtonContainer>
         </BlockButtonWrapper>
     </Form>

@@ -11,7 +11,7 @@ import InvoicePaymentsTableContainer from '../containers/InvoicePaymentsTableCon
 
 const InvoicePayments = ({ handleOpenModal }) => {
     return (
-        <BlockContainer containerClass="size-lg-6">
+        <BlockContainer containerClass="flex-row-item size-lg-6">
             <BlockHeading title="Invoice Payments">
                 <button
                     onClick={() => handleOpenModal(ADMIN_CONFIRM_FREE_INVOICE)}

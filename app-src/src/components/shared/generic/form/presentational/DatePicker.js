@@ -12,19 +12,21 @@ const DatePickerPresentational = ({
     onBlur = () => {},
     sizeClasses = 'size-lg-12',
     minDate,
-    maxDate
+    maxDate,
+    showTimeSelect = false
 }) => (
     <div className={`date-picker ${sizeClasses}`}>
         <DatePicker
             id={name}
             selected={selected}
             onChange={onChange}
-            dateFormat="dd/MM/yyyy"
+            dateFormat={showTimeSelect ? 'dd/MM/yyyy HH:mm' : 'dd/MM/yyyy'}
             placeholderText={placeholderText}
             required={required}
             onBlur={onBlur}
             minDate={minDate}
             maxDate={maxDate}
+            showTimeSelect={showTimeSelect}
         />
         <i className="far fa-calendar" />
     </div>

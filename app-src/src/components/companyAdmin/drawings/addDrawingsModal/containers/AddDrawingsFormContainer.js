@@ -28,20 +28,14 @@ const AddDrawingsFormContainer = ({
     ] = useMultipleHierarchies({
         name: '',
         file: '',
-        templateUsageRule: ''
+        isAlertShowing: false,
+        message: '',
+        dateToSend: ''
     });
-
-    const templateUsageRuleOptions = {
-        '1': { text: 'Use Only Owner Company', value: 1 },
-        '2': { text: 'Use Only Own', value: 2 },
-        '3': { text: 'Use Any', value: 3 }
-    };
 
     return (
         <AddDrawingsForm
             drawings={Object.values(drawings)}
-            templateUsageRuleOptions={templateUsageRuleOptions}
-            templateUsageRules={Object.values(templateUsageRuleOptions)}
             updateDrawing={updateDrawing}
             addDrawing={addDrawing}
             removeDrawing={removeDrawing}
@@ -60,10 +54,26 @@ const AddDrawingsFormContainer = ({
         if (!filesUploading) {
             if (drawings.length === 1) {
                 const [drawing] = drawings;
-                const { name, file, templateUsageRule } = drawing;
-                createDrawing({ name, file, templateUsageRule, floorID });
+                const {
+                    name,
+                    file,
+                    isAlertShowing,
+                    message,
+                    dateToSend
+                } = drawing;
+
+                isAlertShowing
+                    ? createDrawing({
+                          name,
+                          file,
+                          message,
+                          dateToSend,
+                          floorID
+                      })
+                    : createDrawing({ name, file, floorID });
+            } else if (drawings.length > 1) {
+                createDrawings({ drawings, floorID });
             }
-            createDrawings({ drawings, floorID });
             hideModal();
         }
     }

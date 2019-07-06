@@ -6,7 +6,7 @@ import { isEmpty } from 'helpers/generic';
 
 class DashboardDataByOperativeTableContainer extends Component {
     render() {
-        const { operatives, isFetching, error } = this.props;
+        const { operatives, isFetching, error, onMobile } = this.props;
 
         return (
             <BlockContainer
@@ -26,6 +26,7 @@ class DashboardDataByOperativeTableContainer extends Component {
                     operatives={operatives}
                     isFetching={isFetching}
                     error={error}
+                    onMobile={onMobile}
                 />
             </BlockContainer>
         );
@@ -39,11 +40,15 @@ const mapStateToProps = ({
             isFetchingDashPinsStats: isFetching,
             error
         }
+    },
+    shared: {
+        mobileReducer: { onMobile }
     }
 }) => ({
     operatives: operativeData,
     isFetching,
-    error
+    error,
+    onMobile
 });
 
 export default connect(mapStateToProps)(DashboardDataByOperativeTableContainer);

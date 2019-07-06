@@ -30,7 +30,11 @@ const InviteClientForm = ({
         </p>
         <Form className="generic-form size-lg-12" onSubmit={handleSubmit}>
             <div className="size-lg-12">
-                <Field name="Email address" sizeClasses="size-lg-6" required>
+                <Field
+                    name="Email address"
+                    sizeClasses="size-lg-6 size-md-12"
+                    required
+                >
                     <TextInputContainer
                         name="email"
                         value={email}
@@ -41,7 +45,11 @@ const InviteClientForm = ({
                 </Field>
             </div>
 
-            <Field name="First name" sizeClasses="size-lg-4" required>
+            <Field
+                name="First name"
+                sizeClasses="size-lg-4 size-md-12"
+                required
+            >
                 <TextInputContainer
                     name="firstName"
                     value={firstName}
@@ -50,7 +58,7 @@ const InviteClientForm = ({
                 />
             </Field>
 
-            <Field name="Last name" sizeClasses="size-lg-4" required>
+            <Field name="Last name" sizeClasses="size-lg-4 size-md-12" required>
                 <TextInputContainer
                     name="lastName"
                     value={lastName}
@@ -59,7 +67,11 @@ const InviteClientForm = ({
                 />
             </Field>
 
-            <Field name="Phone number" sizeClasses="size-lg-4" required>
+            <Field
+                name="Phone number"
+                sizeClasses="size-lg-4 size-md-12"
+                required
+            >
                 <TextInputContainer
                     name="phoneNumber"
                     value={phoneNumber}
@@ -68,7 +80,11 @@ const InviteClientForm = ({
                 />
             </Field>
 
-            <Field name="Company name" sizeClasses="size-lg-4" required>
+            <Field
+                name="Company name"
+                sizeClasses="size-lg-4 size-md-12"
+                required
+            >
                 <TextInputContainer
                     name="companyName"
                     value={companyName}

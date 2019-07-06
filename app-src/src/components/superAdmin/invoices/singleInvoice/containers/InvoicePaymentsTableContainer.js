@@ -12,44 +12,54 @@ import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 
 import InvoicePaymentsTable from '../presentational/InvoicePaymentsTable';
 
-// TODO: move InvoiceItemsTable and children to a shared folder, they are already generic to company/superadmin
-
 const InvoicePaymentsTableContainer = ({
     error,
     isFetching,
     company,
-    payments,
-    showModal
+    invoicePayments,
+    showModal,
+    invoice
 }) => {
     return (
         <InvoicePaymentsTable
-            {...{ payments, error, isFetching, company }}
-            headers={['Date', 'Value', '']}
+            {...{ invoicePayments, error, isFetching, company }}
+            headers={['ID', 'Date', 'Value', 'Payment Method', '']}
             handleShowModal={handleShowModal}
         />
     );
 
-    function handleShowModal(type, id, value) {
-        console.error('here');
-        if (type === ADMIN_EDIT_PAYMENT) showModal(ADMIN_EDIT_PAYMENT, { id });
+    function handleShowModal(type, id, value, invoiceID, paymentMethod) {
+        if (type === ADMIN_EDIT_PAYMENT)
+            showModal(ADMIN_EDIT_PAYMENT, {
+                id,
+                invoice,
+                invoicePayments,
+                value,
+                invoiceID,
+                paymentMethod
+            });
         if (type === ADMIN_DELETE_PAYMENT)
-            showModal(ADMIN_DELETE_PAYMENT, { id });
+            showModal(ADMIN_DELETE_PAYMENT, { id, value, invoiceID });
     }
 };
 
-const mapStateToProps = ({
-    superAdmin: {
-        invoicesReducer: {
-            invoicePayments,
-            isFetching: fetchingInvoices,
-            error
+const mapStateToProps = (
+    {
+        superAdmin: {
+            invoicesReducer: { invoices },
+            invoicePaymentsReducer: {
+                invoicePayments,
+                isFetching: fetchingInvoices,
+                error
+            }
         }
-    }
-}) => ({
+    },
+    { match }
+) => ({
+    invoice: invoices[match.params.id],
     error: error,
     isFetching: fetchingInvoices,
-    // change this
-    payments: [1, 2, 3]
+    invoicePayments: Object.values(invoicePayments) || []
 });
 
 const mapDispatchToProps = {

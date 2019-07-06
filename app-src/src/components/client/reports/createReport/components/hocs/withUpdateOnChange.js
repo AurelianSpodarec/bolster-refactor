@@ -73,6 +73,7 @@ export default function(ProtectedComponent) {
                     floorID,
                     drawingID,
                     serviceID,
+                    templateID,
                     status,
                     reportHistories,
                     includePinLocation,
@@ -184,6 +185,7 @@ export default function(ProtectedComponent) {
                 companyUserIDs,
                 pinIDs: selectedPinIDs,
                 serviceID: serviceID || null,
+                templateID: templateID || null,
                 status: status || null,
                 questionFilters,
                 showHidden,
@@ -196,10 +198,17 @@ export default function(ProtectedComponent) {
         };
 
         postFilters = () => {
-            const { postCustomFilters } = this.props;
-            const selectedCompanyID = getSelectedCompanyForClient();
-
-            return postCustomFilters(selectedCompanyID, this._getPostBody());
+            const { postCustomFilters, furtherFiltrationOption } = this.props;
+            if (
+                furtherFiltrationOption >
+                FURTHER_FILTRATION_OPTIONS.INDIVIDUAL_PINS
+            ) {
+                const selectedCompanyID = getSelectedCompanyForClient();
+                return postCustomFilters(
+                    selectedCompanyID,
+                    this._getPostBody()
+                );
+            }
         };
     }
 

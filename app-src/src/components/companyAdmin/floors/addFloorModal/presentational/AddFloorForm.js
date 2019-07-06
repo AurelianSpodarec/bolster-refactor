@@ -15,7 +15,7 @@ const AddFloorForm = ({
     isUsingBolsterLabels
 }) => (
     <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
-        <div className="size-lg-6">
+        <div className="size-lg-6 size-md-12">
             <Field name="Floor name" required>
                 <TextInputContainer
                     name="name"
@@ -28,9 +28,7 @@ const AddFloorForm = ({
         {/* {isUsingBolsterLabels && <BolsterLabelExample name={name} />} */}
 
         <BlockButtonWrapper>
-            <button className="button green">
-                <i className="fa fa-plus" /> Add Floor
-            </button>
+            <button className="button green">Submit</button>
             <ButtonContainer handleClick={handleClose}>Cancel</ButtonContainer>
         </BlockButtonWrapper>
     </Form>
