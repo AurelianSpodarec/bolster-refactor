@@ -6,7 +6,7 @@ import updateReportFilter from 'actions/companyAdmin/reports/sync/updateReportFi
 import postCustomFilters from 'actions/companyAdmin/reports/async/postCustomFilters';
 import addFieldError from 'actions/shared/generic/fieldErrors/sync/addFieldError';
 import removeFieldError from 'actions/shared/generic/fieldErrors/sync/removeFieldError';
-import { convertArrToObj } from 'helpers/generic';
+import { convertArrToObj, momentComparisonFormat } from 'helpers/generic';
 import showFieldErrors from 'actions/shared/generic/fieldErrors/sync/showFieldErrors';
 import { FURTHER_FILTRATION_OPTIONS } from 'constants/companyAdmin/enums';
 
@@ -28,6 +28,7 @@ export default function(ProtectedComponent) {
                     validate={this.validate}
                     showFieldError={this.showFieldError}
                     getPostBody={this._getPostBody}
+                    getFilteredPins={this._getFilteredPins}
                 />
             );
         }
@@ -63,6 +64,77 @@ export default function(ProtectedComponent) {
             if (!showError) {
                 this.setState({ showError: true });
             }
+        };
+
+        _getFilteredPins = pins => {
+            const { filters, furtherFiltrationOption } = this.props;
+            const { INDIVIDUAL_PINS } = FURTHER_FILTRATION_OPTIONS;
+
+            // ? Displays all pins if in rectangle mode, and only the selected pins otherwise.
+
+            if (furtherFiltrationOption > INDIVIDUAL_PINS) {
+                // advanced
+                return pins.filter(({ id }) => filters.pinIDs.includes(id));
+            }
+
+            const {
+                fromDateInclusive,
+                toDateInclusive,
+                status,
+                serviceID,
+                templateID,
+                companyUserIDs
+            } = filters;
+
+            const NO = false;
+            // simple
+            return pins.filter(pin => {
+                // start date
+                if (
+                    fromDateInclusive &&
+                    moment(pin.createdOn) <
+                        moment(fromDateInclusive, momentComparisonFormat)
+                ) {
+                    return NO;
+                }
+                // end date
+                if (
+                    toDateInclusive &&
+                    moment(pin.createdOn) >
+                        moment(toDateInclusive, momentComparisonFormat)
+                ) {
+                    return NO;
+                }
+                // status
+                if (status && +pin.latestStatus !== +status) {
+                    return NO;
+                }
+                // services
+                if (serviceID && +pin.latestServiceID !== +serviceID) {
+                    return NO;
+                }
+                // templates
+                if (templateID && +templateID !== pin.templateID) {
+                    return NO;
+                }
+                // operatives
+                if (
+                    companyUserIDs &&
+                    companyUserIDs.length &&
+                    !companyUserIDs.includes(pin.latestCreatedByCompanyUserID)
+                ) {
+                    return NO;
+                }
+                if (
+                    +furtherFiltrationOption ===
+                    FURTHER_FILTRATION_OPTIONS.INDIVIDUAL_PINS
+                ) {
+                    if (!filters.pinIDs.includes(pin.id)) {
+                        return NO;
+                    }
+                }
+                return true;
+            });
         };
 
         _getPostBody = () => {
@@ -193,10 +265,14 @@ export default function(ProtectedComponent) {
             return body;
         };
 
-        postFilters = () => {
+        postFilters = async () => {
             const { postCustomFilters } = this.props;
 
-            return postCustomFilters(this._getPostBody());
+            const body = this._getPostBody();
+
+            if (body.hasQuestions) {
+                return await postCustomFilters();
+            }
         };
     }
 
