@@ -227,26 +227,83 @@ button {
                     padding: 0 12px;
                 }
                 .label-content-field {
-                    font-size: 9px;
+                    font-size: 90%;
                     position: absolute;
+                    margin: 0;
+                    padding: 0;
                     p {
                         line-height: 11px;
-
-                        @include swiss721-medium;
+                        font-weight: normal;
+                        @include swiss721-roman;
                     }
-                    &:nth-child(1) {
-                        font-size: 9px;
-                        padding-left: 0;
+                    &:first-child {
+                        left: 155px;
+                        top: -43px;
+                        width: 129px;
+                        overflow: hidden;
                         p {
-                            font-weight: normal;
+                            font-size: 240%;
+                            line-height: 24px;
+                            @include swiss721-medium;
                         }
                     }
                     &:nth-child(2) {
-                        font-size: 9px;
-                        padding-left: 0;
+                        left: 335px;
+                        top: -43px;
+                        width: 35px;
+                        overflow: hidden;
                         p {
-                            font-weight: normal;
+                            font-size: 240%;
+                            line-height: 24px;
+                            @include swiss721-medium;
                         }
+                    }
+                    &:nth-child(3) {
+                        left: 299px;
+                        top: 34px;
+                        width: 70px;
+                        overflow: hidden;
+                    }
+                    &:nth-child(4) {
+                        top: 3px;
+                        width: 125px;
+                        overflow: hidden;
+                    }
+                    &:nth-child(5) {
+                        top: 35px;
+                        width: 260px;
+                        overflow: hidden;
+                    }
+                    &:nth-child(6) {
+                        top: 46px;
+                        width: 260px;
+                        overflow: hidden;
+                    }
+                    &:nth-child(7) {
+                        top: 57px;
+                        width: 260px;
+                        overflow: hidden;
+                    }
+                    &:nth-child(8) {
+                        top: 68px;
+                        width: 260px;
+                        overflow: hidden;
+                    }
+                    &:nth-child(9) {
+                        top: 79px;
+                        width: 260px;
+                        overflow: hidden;
+                    }
+                    &:nth-child(9) {
+                        top: 79px;
+                        width: 200px;
+                        overflow: hidden;
+                    }
+                    &:nth-child(10) {
+                        top: 79px;
+                        left: 205px;
+                        width: 60px;
+                        overflow: hidden;
                     }
                 }
             }
