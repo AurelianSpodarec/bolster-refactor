@@ -19,7 +19,7 @@ const Block1Filters = ({ fieldError, advanced, isFetching }) => (
                     advanced={advanced}
                     isFetching={isFetching}
                 />
-                <OperativesFilterContainer advanced={advanced} />
+                {/* <OperativesFilterContainer advanced={advanced} /> */}
                 {!!fieldError && (
                     <div
                         className="form-field size-lg-12"

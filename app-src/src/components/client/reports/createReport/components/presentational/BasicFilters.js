@@ -91,7 +91,7 @@ const BasicFilters = ({
                     </div>
                 </Field>
 
-                {isDrawingPage && <OperativesFilterContainer advanced />}
+                {/* {isDrawingPage && <OperativesFilterContainer advanced />} */}
 
                 {!!fieldError && (
                     <p className="error red-text text-accent-4">{fieldError}</p>
