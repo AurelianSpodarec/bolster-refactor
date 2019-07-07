@@ -136,6 +136,8 @@ function errorReducer(state = null, action) {
 
 function sitesReducer(state = {}, action) {
     switch (action.type) {
+        case FETCH_ALL_SITES_REQUEST:
+            return {};
         case FETCH_ALL_SITES_SUCCESS:
             return convertArrToObj(action.payload);
         case FETCH_SINGLE_SITE_SUCCESS:
