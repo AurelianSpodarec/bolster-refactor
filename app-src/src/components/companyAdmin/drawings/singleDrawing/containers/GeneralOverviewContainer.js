@@ -26,9 +26,6 @@ class GeneralOverviewContainer extends Component {
         const drawingExpired =
             moment(drawing.expiresOn).format() < moment().format();
 
-        console.log('got access', gotAccess);
-        console.log('drawing expired', drawingExpired);
-
         return (
             <GeneralOverview
                 handleDelete={this.handleDeleteModal}
