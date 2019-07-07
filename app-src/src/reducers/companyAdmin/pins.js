@@ -67,6 +67,8 @@ function errorReducer(state = null, action) {
 
 function pinsReducer(state = {}, action) {
     switch (action.type) {
+        case FETCH_PINS_REQUEST:
+            return {};
         case FETCH_SINGLE_PIN_SUCCESS:
         case CREATE_PIN_SUCCESS:
         case EDIT_PIN_LOCATION_SUCCESS:
