@@ -26,7 +26,7 @@ class CreateOperativeAlertContainer extends Component {
             label: site.name
         }));
 
-        const operativesOptions = this._getUserOptions();
+        const usersOptions = this._getUserOptions();
 
         const filterOptions = [
             { value: 0, label: 'All operatives' },
@@ -39,7 +39,7 @@ class CreateOperativeAlertContainer extends Component {
                 {...this.state}
                 filterOptions={filterOptions}
                 allSites={allSites}
-                operatives={Object.values(operativesOptions)}
+                users={Object.values(usersOptions)}
                 handleInputChange={this.handleInputChange}
                 handleSubmit={this.handleSubmit}
             />
@@ -94,8 +94,8 @@ class CreateOperativeAlertContainer extends Component {
     };
 
     _getUserOptions = () => {
-        const { operatives } = this.props;
-        const options = operatives.map(
+        const { users } = this.props;
+        const options = users.map(
             ({ id, userFirstName, userLastName, userEmail }) => ({
                 value: id,
                 text: `${userFirstName} ${userLastName} <${userEmail}>`,
@@ -115,7 +115,7 @@ const mapStateToProps = ({
 }) => ({
     postSuccess,
     sites: Object.values(sites) || {},
-    operatives: Object.values(users).filter(({ type }) => type === OPERATIVE)
+    users: Object.values(users)
 });
 
 const mapDispatchToProps = dispatch => ({

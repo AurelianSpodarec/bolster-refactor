@@ -19,6 +19,7 @@ class SingleSiteContainer extends Component {
     componentDidMount = () => {
         const { siteID, fetchSiteData, setTabs } = this.props;
         setTabs(Object.values(SITE_TABS), SITE_TABS.GENERAL_OVERVIEW);
+
         fetchSiteData(siteID);
     };
 

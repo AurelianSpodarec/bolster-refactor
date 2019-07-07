@@ -12,7 +12,7 @@ const CreateOperativeAlertForm = ({
     handleSubmit,
     handleInputChange,
     message,
-    operatives,
+    users,
     siteID,
     allSites,
     filterOptions,
@@ -60,7 +60,7 @@ const CreateOperativeAlertForm = ({
                         <MultiSelect
                             name={'operativeIDs'}
                             search
-                            options={operatives}
+                            options={users}
                             onChange={handleInputChange}
                             value={operativeIDs}
                         />
