@@ -1,4 +1,5 @@
 import React from 'react';
+import moment from 'moment';
 
 import DrawingMapGeneralContainer from '../containers/DrawingMapGeneralContainer';
 import DrawingDocumentsContainer from '../containers/DrawingDocumentsContainer';
@@ -7,7 +8,14 @@ import DrawingCompaniesAccessContainer from '../containers/DrawingCompaniesAcces
 import DrawingOperativesAccessContainer from '../containers/DrawingOperativesAccessContainer';
 import { ACCESS_TYPES_VALUES } from 'constants/companyAdmin/enums';
 
-const GeneralOverview = ({ handleDelete, handleArchive, drawing }) => (
+const GeneralOverview = ({
+    handleDelete,
+    handleArchive,
+    drawing,
+    shouldShowBlocks,
+    drawingExpired,
+    gotAccess
+}) => (
     <>
         <div className="size-lg-12">
             <div className="size-lg-12">
@@ -16,7 +24,7 @@ const GeneralOverview = ({ handleDelete, handleArchive, drawing }) => (
         </div>
 
         <div className="flex-container size-lg-12">
-            {drawing.accessType >= ACCESS_TYPES_VALUES.WRITE && (
+            {gotAccess && !drawingExpired && (
                 <>
                     <div className="flex-item small-text-table size-lg-3 size-md-12">
                         <DrawingClientAccessContainer />
@@ -32,8 +40,12 @@ const GeneralOverview = ({ handleDelete, handleArchive, drawing }) => (
                     </div>
                 </>
             )}
-            <div className="flex-item small-text-table size-lg-3 size-md-12">
-                <DrawingDocumentsContainer />
+            <div
+                className={`flex-item small-text-table size-lg-${
+                    gotAccess && !drawingExpired ? '3' : '12'
+                } size-md-12`}
+            >
+                <DrawingDocumentsContainer drawingExpired={drawingExpired} />
             </div>
         </div>
         {drawing.accessType === ACCESS_TYPES_VALUES.OWNER && (

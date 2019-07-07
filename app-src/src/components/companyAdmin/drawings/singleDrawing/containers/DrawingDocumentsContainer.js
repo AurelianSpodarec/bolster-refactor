@@ -7,7 +7,7 @@ import DocumentsTable from 'components/shared/documents/presentational/Documents
 
 class DrawingDocumentsTableContainer extends Component {
     render() {
-        const { error, isFetching, parent } = this.props;
+        const { error, isFetching, parent, drawingExpired } = this.props;
 
         return (
             <BlockContainer error={error} containerClass="always-scrollbar">
@@ -16,6 +16,7 @@ class DrawingDocumentsTableContainer extends Component {
                     documents={this._getFilteredDocuments()}
                     isFetching={isFetching}
                     smallList={true}
+                    drawingExpired={drawingExpired}
                 />
             </BlockContainer>
         );

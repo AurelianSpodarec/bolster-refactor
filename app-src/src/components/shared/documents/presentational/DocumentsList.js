@@ -11,7 +11,8 @@ const DocumentsList = ({
     clientControls,
     accessType,
     onMobile,
-    headers
+    headers,
+    drawingExpired
 }) =>
     documents.map(document => (
         <tr key={document.id}>
@@ -49,24 +50,27 @@ const DocumentsList = ({
                             <i className="far fa-eye fa-fw" /> View responses
                         </Link>
 
-                        {accessType >= ACCESS_TYPES_VALUES.WRITE && (
-                            <>
-                                {onMobile && (
-                                    <span className="mobile-table-heading">
-                                        {headers[1]}
-                                    </span>
-                                )}
-                                <Link
-                                    to={`${location.pathname}/edit-document/${
-                                        document.id
-                                    }`}
-                                    className="button yellow icon-only"
-                                >
-                                    <i className="far fa-pencil fa-fw" />
-                                </Link>
-                                <DeleteDocumentContainer document={document} />
-                            </>
-                        )}
+                        {accessType >= ACCESS_TYPES_VALUES.WRITE &&
+                            !drawingExpired && (
+                                <>
+                                    {onMobile && (
+                                        <span className="mobile-table-heading">
+                                            {headers[1]}
+                                        </span>
+                                    )}
+                                    <Link
+                                        to={`${
+                                            location.pathname
+                                        }/edit-document/${document.id}`}
+                                        className="button yellow icon-only"
+                                    >
+                                        <i className="far fa-pencil fa-fw" />
+                                    </Link>
+                                    <DeleteDocumentContainer
+                                        document={document}
+                                    />
+                                </>
+                            )}
                     </>
                 )}
                 {/* {clientControls && <a href={`${fileURL}`} target="_blank" className="button blue"></a>} */}

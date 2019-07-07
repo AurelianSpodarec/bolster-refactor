@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import moment from 'moment';
 
 import GeneralOverview from '../presentational/GeneralOverview';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
@@ -14,15 +15,30 @@ import {
 import deleteDrawing from 'actions/companyAdmin/drawings/async/deleteDrawing';
 import archiveDrawing from 'actions/companyAdmin/drawings/async/archiveDrawing';
 import { isObjEmpty } from 'helpers/generic';
+import { ACCESS_TYPES_VALUES } from 'constants/companyAdmin/enums';
 
 class GeneralOverviewContainer extends Component {
-    render = () => (
-        <GeneralOverview
-            handleDelete={this.handleDeleteModal}
-            handleArchive={this.handleArchiveModal}
-            drawing={this.props.drawing}
-        />
-    );
+    render() {
+        const { drawing } = this.props;
+
+        const gotAccess = drawing.accessType >= ACCESS_TYPES_VALUES.WRITE;
+
+        const drawingExpired =
+            moment(drawing.expiresOn).format() < moment().format();
+
+        console.log('got access', gotAccess);
+        console.log('drawing expired', drawingExpired);
+
+        return (
+            <GeneralOverview
+                handleDelete={this.handleDeleteModal}
+                handleArchive={this.handleArchiveModal}
+                drawing={drawing}
+                gotAccess={gotAccess}
+                drawingExpired={drawingExpired}
+            />
+        );
+    }
 
     componentDidUpdate = prevProps => {
         const {

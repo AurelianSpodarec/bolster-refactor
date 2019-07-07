@@ -15,19 +15,22 @@ const DocumentsTable = ({
     clientControls = false,
     accessType,
     smallList = false,
-    onMobile
+    onMobile,
+    drawingExpired
 }) => {
     return (
         <div className="size-lg-12">
             <BlockHeading title="Documents" classes="w-table">
-                {!clientControls && accessType >= ACCESS_TYPES_VALUES.WRITE && (
-                    <ButtonContainer
-                        className="pull-right green"
-                        to={`${location.pathname}/attach-document`}
-                    >
-                        <i className="fa fa-plus" /> Add
-                    </ButtonContainer>
-                )}
+                {!clientControls &&
+                    accessType >= ACCESS_TYPES_VALUES.WRITE &&
+                    !drawingExpired && (
+                        <ButtonContainer
+                            className="pull-right green"
+                            to={`${location.pathname}/attach-document`}
+                        >
+                            <i className="fa fa-plus" /> Add
+                        </ButtonContainer>
+                    )}
             </BlockHeading>
             <div
                 className={`size-lg-12 ignore-padding ${
@@ -53,6 +56,7 @@ const DocumentsTable = ({
                         clientControls={clientControls}
                         headers={['Name', 'Actions']}
                         onMobile={onMobile}
+                        drawingExpired={drawingExpired}
                     />
                 </Table>
             </div>
