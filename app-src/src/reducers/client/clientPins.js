@@ -46,6 +46,8 @@ function errorReducer(state = null, action) {
 
 function pinsReducer(state = {}, action) {
     switch (action.type) {
+        case CLIENT_FETCH_PINS_REQUEST:
+            return {};
         case CLIENT_FETCH_SINGLE_PIN_SUCCESS:
             return updateObj(state, action.payload.pin.id, action.payload.pin);
         case CLIENT_FETCH_PINS_SUCCESS:

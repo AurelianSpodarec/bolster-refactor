@@ -37,6 +37,8 @@ function errorReducer(state = null, action) {
 
 function statsReducer(state = {}, action) {
     switch (action.type) {
+        case CLIENT_FETCH_PIN_STATS_REQUEST:
+            return {};
         case CLIENT_FETCH_PIN_STATS_SUCCESS:
             return action.payload;
         default:
