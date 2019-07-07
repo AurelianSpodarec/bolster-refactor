@@ -82,7 +82,10 @@ const AddPinForm = ({
                 )}
             </button>
             <Link
-                to={location.pathname.replace('/add-pin', '')}
+                to={location.pathname.replace(
+                    `/${isHistory ? 'add-history' : 'add-pin'}`,
+                    ''
+                )}
                 className="button"
             >
                 Cancel

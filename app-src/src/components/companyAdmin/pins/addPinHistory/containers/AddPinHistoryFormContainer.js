@@ -69,6 +69,7 @@ class AddPinFormContainer extends Component {
                         confirmLeave={confirmLeave}
                         services={Object.values(serviceOptions)}
                         selectedService={serviceOptions[serviceID]}
+                        isHistory={isHistory}
                     />
                 </BlockContainer>
             </>
