@@ -9,20 +9,11 @@ import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 
 class PinHistoryDetailsItemContainer extends Component {
     render() {
-        const {
-            history,
-            users,
-            services,
-            drawingID,
-            historyCount
-        } = this.props;
-
-        const user = users[history.createdByCompanyUserID] || {};
+        const { history, services, drawingID, historyCount } = this.props;
 
         return (
             <PinHistoryDetailsItem
                 history={history}
-                createdBy={user}
                 services={services}
                 handleEditHistoryModal={this.handleEditHistoryModal}
                 handleDeleteHistoryModal={this.handleDeleteHistoryModal}
@@ -62,12 +53,10 @@ class PinHistoryDetailsItemContainer extends Component {
 
 const mapStateToProps = ({
     companyAdmin: {
-        companyUsersReducer: { users },
         servicesReducer: { services },
         pinHistoriesReducer: { histories }
     }
 }) => ({
-    users,
     services,
     histories: Object.values(histories)
 });

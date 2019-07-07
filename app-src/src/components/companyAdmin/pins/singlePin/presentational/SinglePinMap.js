@@ -121,7 +121,7 @@ const SinglePinMap = ({
                 )}
             </Map>
             <p className="map-details">
-                Last updated by: {`${user.userFirstName} ${user.userLastName} `}
+                Last updated by: {`${user.createdByOperativeFullName} `}
                 <DateTimeContainer date={pin.latestCreatedOn} />
             </p>
         </>

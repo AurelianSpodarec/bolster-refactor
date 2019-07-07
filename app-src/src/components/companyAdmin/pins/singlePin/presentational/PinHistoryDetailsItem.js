@@ -9,7 +9,6 @@ import { PIN_STATUS_TYPES } from 'constants/companyAdmin/enums';
 
 const PinHistoryDetailsItem = ({
     history,
-    createdBy,
     services,
     handleEditHistoryModal,
     handleDeleteHistoryModal,
@@ -31,7 +30,7 @@ const PinHistoryDetailsItem = ({
 
         <FieldOutput
             title="Added by"
-            description={`${createdBy.userFirstName} ${createdBy.userLastName}`}
+            description={`${history.createdByOperativeFullName}`}
             sizeClass="size-lg-3 size-md-12"
         />
         <FieldOutput

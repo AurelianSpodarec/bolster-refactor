@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import moment from 'moment';
 
 import SinglePinMap from '../presentational/SinglePinMap';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
@@ -10,6 +11,7 @@ import editPinLocation from 'actions/companyAdmin/pins/async/editPinLocation';
 import updatePinCoordinates from 'actions/companyAdmin/drawings/sync/updatePinCoordinates';
 import { CONFIRM_EDIT_PIN } from 'constants/shared/modalTypes';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
+import { isEmpty } from 'helpers/generic';
 
 class SinglePinMapContainer extends Component {
     state = {
@@ -21,12 +23,12 @@ class SinglePinMapContainer extends Component {
     render() {
         const {
             pin,
-            user,
             error,
             isFetching,
             drawing,
             selectedHistory,
-            onMobile
+            onMobile,
+            histories
         } = this.props;
 
         const editPinLocationPosition = [
@@ -34,9 +36,13 @@ class SinglePinMapContainer extends Component {
             this.state.editPinLocationLng
         ];
 
+        const latestUserName = [...histories].sort(
+            (a, b) => moment(b.createdOn) - moment(a.createdOn).format()
+        );
+
         return (
             <BlockContainer
-                isEmpty={!pin.id || !drawing.id}
+                isEmpty={!pin.id || !drawing.id || isEmpty(histories)}
                 isFetching={isFetching}
                 error={error}
             >
@@ -45,7 +51,7 @@ class SinglePinMapContainer extends Component {
                     editPinLocationPosition={editPinLocationPosition}
                     pin={pin}
                     handleClick={this.handleMapClick}
-                    user={user}
+                    user={latestUserName[0]}
                     drawing={drawing}
                     toggleMoveMode={this.toggleMoveMode}
                     moveMode={this.state.moveMode}
@@ -131,7 +137,6 @@ const mapStateToProps = (
         companyAdmin: {
             pinsReducer: { pins, error, isFetching, postSuccess },
             pinHistoriesReducer: { histories },
-            companyUsersReducer: { users },
             drawingsReducer: { drawings }
         },
         shared: {
@@ -145,7 +150,6 @@ const mapStateToProps = (
 
     return {
         pin,
-        user: users[pin.latestCreatedByCompanyUserID] || {},
         histories: Object.values(histories),
         selectedHistory: histories[selectedHistoryId] || {},
         error,
