@@ -12,29 +12,42 @@ const OperativesList = ({
             userFirstName: firstName,
             userLastName: lastName,
             email,
-            operativeCode
+            userOperativeCode: operativeCode,
+            canEditUser
         } = operative;
+
+        const stringOperativeCode = operativeCode + '';
+
         return (
             <tr key={id}>
                 <td>
-                    {`${firstName} ${lastName} - ${operativeCode}`}
+                    {`${firstName} ${lastName} - ${stringOperativeCode.padStart(
+                        2,
+                        '0'
+                    )}`}
                     <br />
                     {email}
                 </td>
                 <td>
-                    <Link
-                        to={`/company/drawings/${documentID}/edit-operative/${id}`}
-                        className="button yellow icon-only"
-                    >
-                        <i className="far fa-pencil fa-fw" />
-                    </Link>
-                    <button
-                        onClick={() => handleDeleteOperativeModal(operative)}
-                        to="#"
-                        className="button red icon-only"
-                    >
-                        <i className="far fa-trash-alt fa-fw" />
-                    </button>
+                    {canEditUser && (
+                        <>
+                            <Link
+                                to={`/company/drawings/${documentID}/edit-operative/${id}`}
+                                className="button yellow icon-only"
+                            >
+                                <i className="far fa-pencil fa-fw" />
+                            </Link>
+                            <button
+                                onClick={() =>
+                                    handleDeleteOperativeModal(operative)
+                                }
+                                to="#"
+                                className="button red icon-only"
+                            >
+                                <i className="far fa-trash-alt fa-fw" />
+                            </button>
+                        </>
+                    )}
                 </td>
             </tr>
         );

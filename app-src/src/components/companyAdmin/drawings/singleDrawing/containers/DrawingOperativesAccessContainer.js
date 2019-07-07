@@ -6,6 +6,7 @@ import BlockContainer from 'components/shared/generic/block/containers/BlockCont
 
 import { ERROR_MODAL, DELETE_OPERATIVE } from 'constants/shared/modalTypes';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
+import { isEmpty } from 'helpers/generic';
 
 class DrawingOperativesAccessContainer extends Component {
     render() {
@@ -13,9 +14,14 @@ class DrawingOperativesAccessContainer extends Component {
         const operativesWithCodes = operatives.map(operative => {
             const user =
                 users.find(({ id }) => id === operative.companyUserID) || {};
-            const { formattedOperativeCode } = user;
-            return { ...operative, operativeCode: formattedOperativeCode };
+            const canEditUser = !isEmpty(user);
+
+            return {
+                ...operative,
+                canEditUser
+            };
         });
+
         return (
             <BlockContainer containerClass="always-scrollbar">
                 <OperativesTable
