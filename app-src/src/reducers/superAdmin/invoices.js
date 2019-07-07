@@ -12,16 +12,18 @@ import {
     ADMIN_FETCH_COMPANY_INVOICE_ITEMS_FAILURE,
     SA_MAKE_INVOICE_FREE_REQUEST,
     SA_MAKE_INVOICE_FREE_FAILURE,
-    SA_MAKE_INVOICE_FREE_SUCCESS
+    SA_MAKE_INVOICE_FREE_SUCCESS,
+    UPDATE_INVOICE_FILTERS
 } from 'constants/actionTypes/superAdminInvoices';
-import { convertArrToObj } from 'helpers/generic';
+import { convertArrToObj, updateObj } from 'helpers/generic';
 
 export default combineReducers({
     invoices: invoicesReducer,
     invoiceItems: invoiceItemsReducer,
     isFetching: isFetchingReducer,
     error: errorReducer,
-    postSuccess: postSuccessReducer
+    postSuccess: postSuccessReducer,
+    filters: filtersReducer
 });
 
 function isFetchingReducer(state = false, action) {
@@ -83,6 +85,18 @@ function invoiceItemsReducer(state = {}, action) {
     switch (action.type) {
         case ADMIN_FETCH_COMPANY_INVOICE_ITEMS_SUCCESS:
             return { ...state, ...convertArrToObj(action.payload) };
+        default:
+            return state;
+    }
+}
+
+function filtersReducer(
+    state = { searchTerm: '', paymentType: 0, hasPayed: '2' },
+    action
+) {
+    switch (action.type) {
+        case UPDATE_INVOICE_FILTERS:
+            return updateObj(state, action.fieldName, action.searchTerm);
         default:
             return state;
     }
