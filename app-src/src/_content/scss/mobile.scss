@@ -15,8 +15,10 @@
                 }
 
                 .app-btn {
+                    display: inline-block;
                     max-width: 123px;
                     margin-right: 0;
+                    width: 40%;
 
                     img {
                         max-height: 38px;
@@ -24,6 +26,8 @@
                 }
 
                 .google-btn {
+                    display: inline-block;
+
                     width: 40%;
                     max-width: 128px;
 
@@ -1144,10 +1148,6 @@
                     }
                 }
             }
-
-            .phone-number {
-                margin-top: 5px;
-            }
         }
     }
 
@@ -1618,7 +1618,7 @@
     //HEADER
     .frontend-header {
         .left {
-            width: 45%;
+            width: 35%;
 
             .logo {
                 width: 100%;
@@ -1627,18 +1627,19 @@
         }
 
         .right {
-            width: 55%;
+            width: 65%;
 
             .links {
                 display: block;
                 padding-bottom: 0;
-                padding-left: 10px;
+                padding-left: 5px;
                 text-align: center;
-                margin-top: 30px;
+                margin-top: 20px;
                 a {
                     float: right;
                     margin: 0 10px;
                     display: inline-block;
+                    font-size: 14px;
 
                     &.desktop-ver {
                         display: none;
@@ -1651,11 +1652,11 @@
                 }
 
                 .app-btn {
-                    width: 49%;
+                    width: 45%;
                     max-width: none;
                     margin: 0;
                     margin-bottom: 5px;
-                    margin-left: 20px;
+                    margin-left: 2px;
 
                     img {
                         max-height: none;
@@ -1663,7 +1664,7 @@
                 }
 
                 .google-btn {
-                    width: 49%;
+                    width: 45%;
                     max-width: none;
                     margin-left: 0;
                     margin-right: 0;
@@ -2107,14 +2108,14 @@
 
     .frontend-header {
         .left {
-            width: 45%;
+            width: 35%;
 
             .logo {
                 margin-top: 20px;
             }
         }
         .right {
-            width: 55%;
+            width: 65%;
             &.logged-in {
                 .links {
                     a {
