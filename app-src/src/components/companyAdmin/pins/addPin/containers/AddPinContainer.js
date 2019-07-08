@@ -24,7 +24,7 @@ class AddPinContainer extends Component {
 
         fetchDrawingTemplates(drawingID);
         fetchDrawingDropdownOptions(drawingID);
-        // fetchPins('drawing', drawingID);
+        fetchPins('drawing', drawingID);
     };
 }
 

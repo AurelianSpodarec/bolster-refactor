@@ -15,11 +15,12 @@ import BackButtonContainer from 'components/shared/generic/backButton/containers
 class AddPinFormContainer extends Component {
     state = {
         serviceID: '',
-        templateID: ''
+        templateID: '',
+        pinTitle: ''
     };
 
     render() {
-        const { templateID, serviceID } = this.state;
+        const { templateID, serviceID, pinTitle } = this.state;
         const {
             location,
             isFetching,
@@ -38,7 +39,7 @@ class AddPinFormContainer extends Component {
 
         return (
             <>
-                <PageHeading leftChildren={true} title="Add Pin">
+                <PageHeading leftChildren={true} title={`Add Pin ${pinTitle}`}>
                     <BackButtonContainer
                         backFromForm={{
                             urlToReplace: isHistory
@@ -80,6 +81,10 @@ class AddPinFormContainer extends Component {
             }
         }
 
+        this.setState({
+            pinTitle: this.calculatePinID()
+        });
+
         window.addEventListener('beforeunload', this.handleBeforeUnload);
     };
 
@@ -100,6 +105,26 @@ class AddPinFormContainer extends Component {
         );
         resetPinAnswers();
     }
+
+    calculatePinID = () => {
+        const { pins, CompanyUserOperativeCode } = this.props;
+
+        const opCode = CompanyUserOperativeCode.replace(/['"]+/g, '');
+
+        const pinsByOperativeCount =
+            Object.values(pins).filter(pin => pin.pinCode.endsWith(opCode))
+                .length + 1;
+
+        if (pinsByOperativeCount < 10) {
+            return '000' + pinsByOperativeCount + ':' + opCode;
+        } else if (pinsByOperativeCount >= 10 && pinsByOperativeCount < 100) {
+            return '00' + pinsByOperativeCount + ':' + opCode;
+        } else if (pinsByOperativeCount >= 100 && pinsByOperativeCount < 1000) {
+            return '0' + pinsByOperativeCount + ':' + opCode;
+        } else {
+            return pinsByOperativeCount + ':' + opCode;
+        }
+    };
 
     handleBeforeUnload = e => {
         e.returnValue = '';
@@ -220,14 +245,17 @@ const mapStateToProps = (
             templatesReducer: { templates, isFetching, error },
             addPinFormReducer: { answers, status },
             addPinCoordinatesReducer: { coordinates },
-            pinsReducer: { postSuccess, pins },
+            pinsReducer: { postSuccess, pins, isFetching: fetchingPins },
             pinHistoriesReducer: { histories },
             servicesReducer: { services },
             subscriptionsReducer: { subscriptions }
         },
         shared: {
             filesUploadingReducer: { filesUploading },
-            confirmLeaveReducer: { confirmLeave }
+            confirmLeaveReducer: { confirmLeave },
+            decodeJWTReducer: {
+                jwtData: { CompanyUserOperativeCode }
+            }
         }
     },
     { match: { params } }
@@ -242,10 +270,12 @@ const mapStateToProps = (
     confirmLeave,
     status,
     pinID: params.id,
+    fetchingPins,
     pins,
     histories,
     services: Object.values(services),
-    subscriptions
+    subscriptions,
+    CompanyUserOperativeCode
 });
 
 const mapDispatchToProps = {
