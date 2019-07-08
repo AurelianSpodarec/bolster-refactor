@@ -76,7 +76,7 @@ const FrontEndHeader = ({
                             ''
                         ) : (
                             <>
-                                <a
+                                {/* <a
                                     className="app-btn"
                                     href="https://itunes.apple.com/gb/app/bolster-app/id1090118561?mt=8"
                                     target="_blank"
@@ -97,7 +97,7 @@ const FrontEndHeader = ({
                                         alt="available on the google play store"
                                         src={googleButton}
                                     />
-                                </a>
+                                </a> */}
                                 <p className="phone-number">
                                     Tel:
                                     <a href="tel:01618737679"> 0161 873 7679</a>
