@@ -3,6 +3,7 @@ import HeadingSecondary from 'components/frontEnd/shared/headings/presentational
 import Field from 'components/shared/generic/form/presentational/Field';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import FrontEndButton from 'components/frontEnd/shared/buttons/presentational/FrontEndButton';
+import Error from 'components/shared/generic/misc/presentational/Error';
 
 const RequestDemoForm = ({
     name,
@@ -11,7 +12,8 @@ const RequestDemoForm = ({
     companyName,
     handleChange,
     handleSubmit,
-    sent
+    sent,
+    error
 }) => (
     <div className="generic-form">
         <HeadingSecondary title="Enter your details" />
@@ -66,6 +68,12 @@ const RequestDemoForm = ({
                     <br />
                     <br />
                     <span className="required">* required fields</span>
+                    {error && (
+                        <Error>
+                            Something went wrong submitting your request, please
+                            try again later.
+                        </Error>
+                    )}
                     <FrontEndButton
                         handleClick={handleSubmit}
                         type="submit"

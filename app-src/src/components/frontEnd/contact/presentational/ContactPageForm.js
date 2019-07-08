@@ -4,6 +4,7 @@ import Field from 'components/shared/generic/form/presentational/Field';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import TextAreaContainer from 'components/shared/generic/form/containers/TextAreaContainer';
 import FrontEndButton from 'components/frontEnd/shared/buttons/presentational/FrontEndButton';
+import Error from 'components/shared/generic/form/presentational/Error';
 
 const ContactPageForm = ({
     name,
@@ -13,7 +14,8 @@ const ContactPageForm = ({
     message,
     handleChange,
     handleSubmit,
-    sent
+    sent,
+    error
 }) => (
     <div id="contact-form-content">
         <form className="form">
@@ -78,6 +80,12 @@ const ContactPageForm = ({
                                 />
                             </Field>
                         </div>
+                        {error && (
+                            <Error>
+                                Something went wrong submitting your request,
+                                please try again later.
+                            </Error>
+                        )}
                         <FrontEndButton
                             type="submit"
                             classes="red"
