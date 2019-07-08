@@ -13,34 +13,32 @@ class RequestDemoFormContainer extends Component {
         companyName: '',
         sent: false
     };
-    render() {
-        return (
-            <RequestDemoForm
-                {...this.state}
-                handleChange={this.handleChange}
-                handleSubmit={this.handleSubmit}
-            />
-        );
-    }
+    render = () => (
+        <RequestDemoForm
+            {...this.state}
+            error={this.props.error}
+            handleChange={this.handleChange}
+            handleSubmit={this.handleSubmit}
+        />
+    );
 
-    handleChange = (name, value) => {
-        this.setState({ [name]: value });
-    };
+    handleChange = (name, value) => this.setState({ [name]: value });
 
     handleSubmit = e => {
         e.preventDefault();
 
         const { name, email, contactNumber, companyName } = this.state;
 
-        const postBody = {
-            name: name,
-            email: email,
-            contactNumber: contactNumber,
-            companyName: companyName
-        };
+        const postBody = { name, email, contactNumber, companyName };
 
         this.props.postRequestDemo(postBody);
-        this.setState({ sent: true });
+    };
+
+    componentDidUpdate = prevProps => {
+        const { postSuccess } = this.props;
+        if (postSuccess && !prevProps.postSuccess) {
+            this.setState({ sent: true });
+        }
     };
 }
 
@@ -49,13 +47,12 @@ const mapStateToProps = ({
         requestDemoReducer: { error, postSuccess }
     }
 }) => ({
-    error: error,
-    postSuccess: postSuccess
+    error,
+    postSuccess
 });
 
-const mapDispatchToProps = dispatch => ({
-    postRequestDemo: postBody => dispatch(postRequestDemo(postBody))
-});
+const mapDispatchToProps = { postRequestDemo };
+
 export default connect(
     mapStateToProps,
     mapDispatchToProps

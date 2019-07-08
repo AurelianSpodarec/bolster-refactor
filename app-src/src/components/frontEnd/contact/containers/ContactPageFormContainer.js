@@ -17,6 +17,7 @@ class ContactPageFormContainer extends Component {
     render = () => (
         <ContactPageForm
             {...this.state}
+            error={this.props.error}
             handleChange={this.handleChange}
             handleSubmit={this.handleSubmit}
         />
@@ -39,7 +40,13 @@ class ContactPageFormContainer extends Component {
         };
 
         postContactForm(postBody);
-        this.setState({sent: true});
+    };
+
+    componentDidUpdate = prevProps => {
+        const { postSuccess } = this.props;
+        if (postSuccess && !prevProps.postSuccess) {
+            this.setState({ sent: true });
+        }
     };
 }
 
