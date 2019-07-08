@@ -76,9 +76,9 @@ const FrontEndHeader = ({
                             ''
                         ) : (
                             <>
-                                {/* <a
+                                <a
                                     className="app-btn"
-                                    href="https://itunes.apple.com/gb/app/bolster-app/id1090118561?mt=8"
+                                    href="https://apps.apple.com/gb/app/bolster-systems/id1459750473"
                                     target="_blank"
                                     rel="noopener noreferrer"
                                 >
@@ -89,7 +89,7 @@ const FrontEndHeader = ({
                                 </a>
                                 <a
                                     className="google-btn"
-                                    href="https://play.google.com/store/apps/details?id=com.bolster.app"
+                                    href="https://bolster-android.s3-eu-west-1.amazonaws.com/bolster.apk"
                                     target="_blank"
                                     rel="noopener noreferrer"
                                 >
@@ -97,7 +97,7 @@ const FrontEndHeader = ({
                                         alt="available on the google play store"
                                         src={googleButton}
                                     />
-                                </a> */}
+                                </a>
                                 <p className="phone-number">
                                     Tel:
                                     <a href="tel:01618737679"> 0161 873 7679</a>
