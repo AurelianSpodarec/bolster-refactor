@@ -119,18 +119,21 @@ const DrawingMapViewSimple = ({
                                 </>
                             )
                         ) : (
-                            <>
-                                <AddCreditsToDrawingButtonContainer
-                                    drawing={drawing}
-                                />
-                                <button
-                                    onClick={() => {}}
-                                    className="button red pull-right"
-                                >
-                                    <i className="far fa-times" /> Drawing
-                                    expired
-                                </button>
-                            </>
+                            drawing.accessType ===
+                                ACCESS_TYPES_VALUES.OWNER && (
+                                <>
+                                    <AddCreditsToDrawingButtonContainer
+                                        drawing={drawing}
+                                    />
+                                    <button
+                                        onClick={() => {}}
+                                        className="button red pull-right"
+                                    >
+                                        <i className="far fa-times" /> Drawing
+                                        expired
+                                    </button>
+                                </>
+                            )
                         )}
                     </BlockHeading>
                     <Map
