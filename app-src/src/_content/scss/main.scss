@@ -4304,6 +4304,7 @@ input {
         }
     }
     .app-btn {
+        display: none;
         float: right;
         width: auto;
         margin-bottom: 0;
@@ -4321,6 +4322,7 @@ input {
     }
 
     .google-btn {
+        display: none;
         float: right;
         width: 25%;
         margin-right: 8px;

@@ -590,6 +590,7 @@ class AddPinQuestionRoute extends Component {
             updateAddPinAnswer,
             updateAddPinStatus,
             history,
+            isHistory,
             status,
             pins,
             isFetchingPins,

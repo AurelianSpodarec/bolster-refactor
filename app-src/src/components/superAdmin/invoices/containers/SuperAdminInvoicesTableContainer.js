@@ -27,17 +27,32 @@ const SuperAdminInvoicesTableContainer = ({
             )
             .map(filteredInvoice => filteredInvoice.id.toString());
 
-        const hasPayedBool =
-            hasPayed === '1' ? true : hasPayed === '2' ? false : null;
-
-        return invoices.filter(invoice =>
-            hasPayedBool === null
-                ? companyNameFilter.includes(invoice.companyID) ||
-                  orderIDFilter.includes(invoice.id.toString())
-                : (invoice.isPaid === hasPayedBool &&
-                      companyNameFilter.includes(invoice.companyID)) ||
-                  orderIDFilter.includes(invoice.id.toString())
+        const hasPayedInvoices = invoices.filter(
+            invoice => invoice.isPaid === true
         );
+        const hasNotPayedInvoices = invoices.filter(
+            invoice => invoice.isPaid === false
+        );
+
+        if (hasPayed === '1') {
+            return hasPayedInvoices.filter(
+                invoice =>
+                    companyNameFilter.includes(invoice.companyID) ||
+                    orderIDFilter.includes(invoice.id.toString())
+            );
+        } else if (hasPayed === '2') {
+            return hasNotPayedInvoices.filter(
+                invoice =>
+                    companyNameFilter.includes(invoice.companyID) ||
+                    orderIDFilter.includes(invoice.id.toString())
+            );
+        } else {
+            return invoices.filter(
+                invoice =>
+                    companyNameFilter.includes(invoice.companyID) ||
+                    orderIDFilter.includes(invoice.id.toString())
+            );
+        }
     }
 
     return (
