@@ -89,6 +89,7 @@ class AddPinFormContainer extends Component {
             pinID,
             pinAnswers,
             templates,
+            isHistory,
             versions
         } = this.props;
 
@@ -119,13 +120,23 @@ class AddPinFormContainer extends Component {
                 serviceID: latestTemplateUsed.serviceID
             },
             () => {
-                updateAddPinStatus(latestPinHistory.status);
+                if (!isHistory) {
+                    updateAddPinStatus(latestPinHistory.status);
+                }
                 if (templateVersion.id === latestTemplateVersionID) {
-                    pinAnswers
-                        .filter(ans => latestPinHistory.id === ans.pinHistoryID)
-                        .forEach(({ answer, templateQuestionID }) =>
-                            updateAddPinAnswer(templateQuestionID, answer)
+                    if (isHistory) {
+                        pinAnswers.filter(
+                            ans => latestPinHistory.id === ans.pinHistoryID
                         );
+                    } else {
+                        pinAnswers
+                            .filter(
+                                ans => latestPinHistory.id === ans.pinHistoryID
+                            )
+                            .forEach(({ answer, templateQuestionID }) => {
+                                updateAddPinAnswer(templateQuestionID, answer);
+                            });
+                    }
                 }
             }
         );

@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { QUESTION_TYPE_VALUES } from 'constants/shared/templateBuilder';
 import updateAddPinAnswer from 'actions/companyAdmin/drawings/sync/updateAddPinAnswer';
 import resetPinAnswers from 'actions/companyAdmin/drawings/sync/resetPinAnswers';
+
 import { PIN_STATUS_TYPES } from 'constants/companyAdmin/enums';
 import updateAddPinStatus from 'actions/companyAdmin/drawings/sync/updateAddPinStatus';
 import { withRouter } from 'react-router-dom';
@@ -459,11 +460,6 @@ class AddPinQuestionRoute extends Component {
         return null;
     }
 
-    componentDidMount() {
-        // const { resetPinAnswers } = this.props;
-        // resetPinAnswers();
-    }
-
     _getIsRequired = () => {
         const {
             question: {
@@ -635,6 +631,16 @@ class AddPinQuestionRoute extends Component {
                 updateAddPinStatus(history.status);
             }
         }
+
+        if (
+            isHistory &&
+            Object.values(oldAnswers).length ===
+                Object.values(answers).length &&
+            Object.values(prevProps.answers).length <
+                Object.values(oldAnswers).length
+        ) {
+            resetPinAnswer(question.id);
+        }
     };
 
     handleChange = (_, value) => {
@@ -655,15 +661,12 @@ class AddPinQuestionRoute extends Component {
     handleFileChange = (_, s3Key) => {
         const { updateAddPinAnswer, question, answers } = this.props;
         let curAnswer = answers[question.id];
-
         if (+question.type === +QUESTION_TYPE_VALUES.MULTI_PHOTO) {
             if (!curAnswer) {
                 curAnswer = [];
             }
-
             //Multi File
             const existing = curAnswer.includes(s3Key);
-
             if (existing) {
                 //Delete
 
