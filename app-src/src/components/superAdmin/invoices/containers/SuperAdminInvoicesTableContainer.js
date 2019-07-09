@@ -1,5 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import moment from 'moment';
+
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import fetchAllInvoices from 'actions/superAdmin/invoices/async/fetchAllInvoices';
 import SuperAdminInvoicesTable from '../presentational/SuperAdminInvoicesTable';
@@ -27,12 +29,12 @@ const SuperAdminInvoicesTableContainer = ({
             )
             .map(filteredInvoice => filteredInvoice.id.toString());
 
-        const hasPayedInvoices = invoices.filter(
-            invoice => invoice.isPaid === true
-        );
-        const hasNotPayedInvoices = invoices.filter(
-            invoice => invoice.isPaid === false
-        );
+        const hasPayedInvoices = invoices
+            .filter(invoice => invoice.isPaid === true)
+            .sort((a, b) => moment(b.createdOn) - moment(a.createdOn));
+        const hasNotPayedInvoices = invoices
+            .filter(invoice => invoice.isPaid === false)
+            .sort((a, b) => moment(b.createdOn) - moment(a.createdOn));
 
         if (hasPayed === '1') {
             return hasPayedInvoices.filter(
@@ -47,11 +49,13 @@ const SuperAdminInvoicesTableContainer = ({
                     orderIDFilter.includes(invoice.id.toString())
             );
         } else {
-            return invoices.filter(
-                invoice =>
-                    companyNameFilter.includes(invoice.companyID) ||
-                    orderIDFilter.includes(invoice.id.toString())
-            );
+            return invoices
+                .filter(
+                    invoice =>
+                        companyNameFilter.includes(invoice.companyID) ||
+                        orderIDFilter.includes(invoice.id.toString())
+                )
+                .sort((a, b) => moment(b.createdOn) - moment(a.createdOn));
         }
     }
 
