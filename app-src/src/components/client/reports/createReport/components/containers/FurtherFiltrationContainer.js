@@ -42,15 +42,14 @@ class FurtherFiltrationContainer extends Component {
         const {
             fields,
             filters: { drawingID, reportHistories },
-            furtherFiltrationOption
+            furtherFiltrationOption,
+            isDisabled
         } = this.props;
         const filtrationOptions = convertEnumToDropdownOptions(
             FURTHER_FILTRATION
         );
         const filtrationOptionsArr = Object.values(filtrationOptions).filter(
-            ({ text }) =>
-                drawingID ||
-                (text !== 'Individual Pins' && text !== 'Pin Selector')
+            ({ value }) => drawingID || (isDisabled && +value === FILTERS)
         );
         const selected = filtrationOptions[furtherFiltrationOption];
 
@@ -67,6 +66,7 @@ class FurtherFiltrationContainer extends Component {
                     handleChange={this.handleChange}
                     handleNumOfHistoriesChange={this.handleNumOfHistoriesChange}
                     selectedHistoryNum={reportHistories}
+                    isDisabled={isDisabled}
                 />
                 {+furtherFiltrationOption === +INDIVIDUAL_PINS ? (
                     <ClientPinSelectorContainer blockName="pinSelector" />
@@ -121,22 +121,24 @@ class FurtherFiltrationContainer extends Component {
             filters: { siteID, buildingID, floorID, drawingID },
             removeFilterQuestions,
             furtherFiltrationOption,
-            updateFurtherFiltrationOption
+            updateFurtherFiltrationOption,
+            isDisabled
         } = this.props;
         // reset filter fields if changing the filter
         if (prevProps.furtherFiltrationOption !== furtherFiltrationOption) {
             removeFilterQuestions();
         }
-        // reset further filters if site info changes
-        if (
-            siteID !== prevProps.filters.siteID ||
-            buildingID !== prevProps.filters.buildingID ||
-            floorID !== prevProps.filters.floorID ||
-            drawingID !== prevProps.filters.drawingID
-        ) {
-            updateFurtherFiltrationOption(0);
-            removeFilterQuestions();
-        }
+        if (isDisabled && !prevProps.isDisabled)
+            if (
+                siteID !== prevProps.filters.siteID ||
+                buildingID !== prevProps.filters.buildingID ||
+                floorID !== prevProps.filters.floorID ||
+                drawingID !== prevProps.filters.drawingID
+            ) {
+                // reset further filters if site info changes
+                updateFurtherFiltrationOption(0);
+                removeFilterQuestions();
+            }
     };
 
     _scrollToMap = () => {
@@ -220,7 +222,7 @@ const mapStateToProps = ({
     client: {
         reportsReducer: {
             customFilters: { pins = [], questions = [] },
-            filters: { pinIDs: ids = [] },
+            filters: { pinIDs: ids = [], siteID, operativeIDs = [] },
             fields,
             filters,
             furtherFiltrationOption
@@ -231,7 +233,8 @@ const mapStateToProps = ({
     customQuestions: questions || [],
     fields: Object.values(fields),
     filters,
-    furtherFiltrationOption
+    furtherFiltrationOption,
+    isDisabled: !operativeIDs.length && !siteID
 });
 
 const mapDispatchToProps = {

@@ -42,14 +42,16 @@ class FurtherFiltrationContainer extends Component {
     render() {
         const {
             fields,
-            filters: { drawingID, reportHistories, siteID },
-            furtherFiltrationOption
+            filters: { drawingID, reportHistories },
+            furtherFiltrationOption,
+            isDisabled
         } = this.props;
         const filtrationOptions = convertEnumToDropdownOptions(
             FURTHER_FILTRATION
         );
+
         const filtrationOptionsArr = Object.values(filtrationOptions).filter(
-            ({ value }) => drawingID || (siteID && +value === FILTERS)
+            ({ value }) => drawingID || (!isDisabled && +value === FILTERS)
         );
         const selected = filtrationOptions[furtherFiltrationOption];
 
@@ -66,6 +68,7 @@ class FurtherFiltrationContainer extends Component {
                     handleChange={this.handleChange}
                     handleNumOfHistoriesChange={this.handleNumOfHistoriesChange}
                     selectedHistoryNum={reportHistories}
+                    isDisabled={isDisabled}
                 />
                 {+furtherFiltrationOption === +INDIVIDUAL_PINS ? (
                     <PinSelectorContainer blockName="pinSelector" />
@@ -122,11 +125,15 @@ class FurtherFiltrationContainer extends Component {
             updateFurtherFiltrationOption,
             isFetching,
             showModal,
-            hideModal
+            hideModal,
+            isDisabled
         } = this.props;
         // reset filter fields if changing the filter
         if (prevProps.furtherFiltrationOption !== furtherFiltrationOption) {
             removeFilterQuestions();
+        }
+        if (isDisabled && !prevProps.isDisabled) {
+            updateFurtherFiltrationOption(0);
         }
         // reset further filters if site info changes
         if (
@@ -226,7 +233,7 @@ const mapStateToProps = ({
     companyAdmin: {
         reportsReducer: {
             customFilters: { pins = [], questions = [] },
-            filters: { pinIDs: ids = [] },
+            filters: { pinIDs: ids = [], siteID, operativeIDs = [] },
             fields,
             filters,
             furtherFiltrationOption,
@@ -239,7 +246,8 @@ const mapStateToProps = ({
     filters,
     shouldConfirm: !isObjEmpty(fields) || pins.length !== ids.length,
     furtherFiltrationOption,
-    isFetching
+    isFetching,
+    isDisabled: !operativeIDs.length && !siteID
 });
 
 const mapDispatchToProps = {
