@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import moment from 'moment';
 import { connect } from 'react-redux';
 import uuid from 'uuid/v4';
 
@@ -14,7 +13,6 @@ import {
 import withUpdateOnChange from '../hocs/withUpdateOnChange';
 import removeAllRectangles from 'actions/companyAdmin/reports/sync/removeAllRectangles';
 import fetchPins from 'actions/companyAdmin/pins/async/fetchPins';
-import { momentComparisonFormat } from 'helpers/generic';
 import updateFurtherFiltrationOption from 'actions/companyAdmin/reports/sync/updateFurtherFiltrationOption';
 import removeAllExcludedPins from 'actions/companyAdmin/reports/sync/removeAllExcludedPins';
 import FilterMap from 'components/shared/maps/presentational/FilterMap';
@@ -82,8 +80,6 @@ class FilterMapContainer extends Component {
         }
 
         if (drawingID !== prevProps.filters.drawingID) {
-            console.warn(drawingID);
-            console.warn(prevProps.filters.drawingID);
             fetchPins('drawing', drawingID);
         }
     };
