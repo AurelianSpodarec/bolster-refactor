@@ -233,7 +233,7 @@ const mapStateToProps = ({
     companyAdmin: {
         reportsReducer: {
             customFilters: { pins = [], questions = [] },
-            filters: { pinIDs: ids = [], siteID, operativeIDs = [] },
+            filters: { pinIDs: ids = [], siteID, companyUserIDs = [] },
             fields,
             filters,
             furtherFiltrationOption,
@@ -247,7 +247,7 @@ const mapStateToProps = ({
     shouldConfirm: !isObjEmpty(fields) || pins.length !== ids.length,
     furtherFiltrationOption,
     isFetching,
-    isDisabled: !operativeIDs.length && !siteID
+    isDisabled: !companyUserIDs.length && !siteID
 });
 
 const mapDispatchToProps = {

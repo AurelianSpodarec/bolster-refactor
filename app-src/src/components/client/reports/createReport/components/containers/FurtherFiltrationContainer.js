@@ -222,7 +222,7 @@ const mapStateToProps = ({
     client: {
         reportsReducer: {
             customFilters: { pins = [], questions = [] },
-            filters: { pinIDs: ids = [], siteID, operativeIDs = [] },
+            filters: { pinIDs: ids = [], siteID, companyUserIDs = [] },
             fields,
             filters,
             furtherFiltrationOption
@@ -234,7 +234,7 @@ const mapStateToProps = ({
     fields: Object.values(fields),
     filters,
     furtherFiltrationOption,
-    isDisabled: !operativeIDs.length && !siteID
+    isDisabled: !companyUserIDs.length && !siteID
 });
 
 const mapDispatchToProps = {
