@@ -49,11 +49,7 @@ class FurtherFiltrationContainer extends Component {
             FURTHER_FILTRATION
         );
         const filtrationOptionsArr = Object.values(filtrationOptions).filter(
-            ({ value }) => {
-                if (drawingID) return true;
-                if (siteID && +value === FILTERS) return true;
-                return false;
-            }
+            ({ value }) => drawingID || (siteID && +value === FILTERS)
         );
         const selected = filtrationOptions[furtherFiltrationOption];
 
