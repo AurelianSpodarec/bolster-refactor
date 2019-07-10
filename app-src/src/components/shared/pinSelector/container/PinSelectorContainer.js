@@ -201,6 +201,7 @@ class PinSelectorContainer extends Component {
         const prevPinIDs = Object.values(prevPinOptions).filter(
             ({ included }) => included
         );
+        console.log({ pinIDs, prevPinIDs });
 
         if (pinIDs.length !== prevPinIDs.length) {
             if (!pinIDs.length) {
@@ -208,9 +209,10 @@ class PinSelectorContainer extends Component {
                     'pinSelector',
                     'You must include some pins in the report.'
                 );
-            } else if (fieldError) {
-                removeFieldError('pinSelector');
             }
+        }
+        if (fieldError && pinIDs.length) {
+            removeFieldError('pinSelector');
         }
     };
 
