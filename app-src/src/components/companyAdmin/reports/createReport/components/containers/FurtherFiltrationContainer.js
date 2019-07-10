@@ -42,16 +42,18 @@ class FurtherFiltrationContainer extends Component {
     render() {
         const {
             fields,
-            filters: { drawingID, reportHistories },
+            filters: { drawingID, reportHistories, siteID },
             furtherFiltrationOption
         } = this.props;
         const filtrationOptions = convertEnumToDropdownOptions(
             FURTHER_FILTRATION
         );
         const filtrationOptionsArr = Object.values(filtrationOptions).filter(
-            ({ text }) =>
-                drawingID ||
-                (text !== 'Individual Pins' && text !== 'Pin Selector')
+            ({ value }) => {
+                if (drawingID) return true;
+                if (siteID && +value === FILTERS) return true;
+                return false;
+            }
         );
         const selected = filtrationOptions[furtherFiltrationOption];
 
