@@ -12,6 +12,7 @@ import fetchCompanySettings from 'actions/companyAdmin/companySettings/async/fet
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { FORGOT_PASSWORD } from 'constants/shared/modalTypes';
 import { FETCH_COMPANY_SETTINGS_SUCCESS } from 'constants/actionTypes/companySettings';
+import { checkActive } from 'actions/companyAdmin/subscriptions/async/checkActive';
 
 class LoginFormContainer extends Component {
     state = {
@@ -54,7 +55,8 @@ class LoginFormContainer extends Component {
             const {
                 isSuperAdmin,
                 companyUserType,
-                companyID
+                companyID,
+                isClientAccess
             } = await authenticate();
             if (+companyUserType === ROLES.OPERATIVE) {
                 localStorage.removeItem('token');
@@ -73,7 +75,13 @@ class LoginFormContainer extends Component {
             }
 
             let url = '/client/companies';
-            if (companyID) url = '/company';
+            if (companyID) {
+                if (!isClientAccess) url = '/company';
+                else {
+                    const hasSub = await checkActive();
+                    if (hasSub) url = '/company';
+                }
+            }
             if (isSuperAdmin) url = '/admin';
             history.push(url);
         }
