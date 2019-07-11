@@ -45,6 +45,8 @@ function errorReducer(state = null, action) {
 
 function floorsReducer(state = {}, action) {
     switch (action.type) {
+        case CLIENT_FETCH_ALL_FLOORS_REQUEST:
+            return {};
         case CLIENT_FETCH_ALL_FLOORS_SUCCESS:
             return convertArrToObj(action.payload);
         case CLIENT_FETCH_SINGLE_FLOOR_SUCCESS:

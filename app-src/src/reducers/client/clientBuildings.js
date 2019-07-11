@@ -45,6 +45,8 @@ function errorReducer(state = null, action) {
 
 function buildingsReducer(state = {}, action) {
     switch (action.type) {
+        case CLIENT_FETCH_ALL_BUILDINGS_REQUEST:
+            return {};
         case CLIENT_FETCH_ALL_BUILDINGS_SUCCESS:
             return convertArrToObj(action.payload);
         case CLIENT_FETCH_SINGLE_BUILDING_SUCCESS:
