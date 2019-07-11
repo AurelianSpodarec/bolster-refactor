@@ -9,7 +9,8 @@ const CompanyReportsTable = ({
     headers,
     isFetching,
     error,
-    onMobile
+    onMobile,
+    retryCompanyReport
 }) => (
     <>
         <BlockHeading title="Reports Table">
@@ -28,6 +29,7 @@ const CompanyReportsTable = ({
                 companyReports={companyReports}
                 onMobile={onMobile}
                 headers={headers}
+                retryCompanyReport={retryCompanyReport}
             />
         </Table>
     </>

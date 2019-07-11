@@ -1,4 +1,5 @@
 import React from 'react';
+import moment from 'moment';
 
 import { RAW_S3_STORAGE_URL } from 'config';
 
@@ -10,13 +11,23 @@ import {
 } from 'constants/companyAdmin/enums';
 import LoadingIcon from 'components/shared/generic/misc/presentational/LoadingIcon';
 
-const CompanyReportsListItem = ({ queueItem, onMobile, headers }) => {
+const CompanyReportsListItem = ({
+    queueItem,
+    onMobile,
+    headers,
+    retryCompanyReport
+}) => {
     const typeArr = [];
     if (queueItem.isCSVGeneration) typeArr.push('CSV');
     if (queueItem.isPDFGeneration) typeArr.push('PDF');
     if (queueItem.isFloorplanGeneration) typeArr.push('Floor plan');
 
     const { COMPLETE, FAILED } = GENERATION_STATE_VAL;
+
+    const isRetryAvailable =
+        queueItem.state === FAILED ||
+        (queueItem.state !== COMPLETE &&
+            moment(queueItem.createdOn) > moment().add(-1, 'hours'));
 
     return (
         <tr>
@@ -74,8 +85,19 @@ const CompanyReportsListItem = ({ queueItem, onMobile, headers }) => {
                         <i className="fa fa-download" /> Download File
                     </a>
                 ) : queueItem.state === FAILED ? (
-                    <button className="button red disabled">
-                        <i className="fa fa-times" /> Failed
+                    <button
+                        className="button red"
+                        onClick={() => retryCompanyReport(queueItem.id)}
+                    >
+                        <i className="fa fa-times" /> Failed - Retry?
+                    </button>
+                ) : isRetryAvailable ? (
+                    <button
+                        className="button"
+                        onClick={() => retryCompanyReport(queueItem.id)}
+                    >
+                        <LoadingIcon />
+                        Generating... (retry?)
                     </button>
                 ) : (
                     <button className="button disabled">
