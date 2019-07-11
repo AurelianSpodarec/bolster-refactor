@@ -2,13 +2,17 @@ import React from 'react';
 import { connect } from 'react-redux';
 import CompanyReportsTable from '../presentational/CompanyReportsTable';
 import { sortArrayByKeyAndOrder } from 'helpers/generic';
+import retryReport from 'actions/superAdmin/companyReports/async/retryReport';
+import fetchCompanyReportsQueue from 'actions/superAdmin/companyReports/async/fetchCompanyReportsQueue';
 
 const CompanyReportsTableContainer = ({
     companyReports,
     error,
     isFetching,
     sortString,
-    onMobile
+    onMobile,
+    retryReport,
+    fetchCompanyReportsQueue
 }) => {
     return (
         <CompanyReportsTable
@@ -17,11 +21,15 @@ const CompanyReportsTableContainer = ({
             isFetching={isFetching}
             headers={['Name', 'Status', 'Created On', 'Completed on', '']}
             onMobile={onMobile}
+            retryCompanyReport={id => retryCompanyReport(id)}
         />
     );
     function _getSortedQueue() {
         const [fieldName, sortOrder] = sortString.split(' ');
         return sortArrayByKeyAndOrder(companyReports, fieldName, sortOrder);
+    }
+    function retryCompanyReport(id) {
+        retryReport(id).then(fetchCompanyReportsQueue);
     }
 };
 const mapStateToProps = ({
@@ -44,4 +52,9 @@ const mapStateToProps = ({
     onMobile
 });
 
-export default connect(mapStateToProps)(CompanyReportsTableContainer);
+const mapDispatchToProps = { fetchCompanyReportsQueue, retryReport };
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(CompanyReportsTableContainer);

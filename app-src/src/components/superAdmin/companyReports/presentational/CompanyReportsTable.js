@@ -9,7 +9,8 @@ const CompanyReportsTable = ({
     error,
     companyReports,
     headers,
-    onMobile
+    onMobile,
+    retryCompanyReport
 }) => {
     return (
         <>
@@ -34,6 +35,7 @@ const CompanyReportsTable = ({
                             queueItem={queueItem}
                             headers={headers}
                             onMobile={onMobile}
+                            retryCompanyReport={retryCompanyReport}
                         />
                     ))}
                 </Table>
