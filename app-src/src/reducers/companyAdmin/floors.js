@@ -144,6 +144,8 @@ function updatedFloorIDReducer(state = 0, action) {
 
 function floorsReducer(state = {}, action) {
     switch (action.type) {
+        case FETCH_ALL_FLOORS_REQUEST:
+            return {};
         case FETCH_ALL_FLOORS_SUCCESS:
             return convertArrToObj(action.payload);
         case FETCH_SINGLE_FLOOR_SUCCESS:

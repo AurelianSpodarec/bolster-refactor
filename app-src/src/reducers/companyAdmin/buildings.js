@@ -144,6 +144,8 @@ function errorReducer(state = null, action) {
 
 function buildingsReducer(state = {}, action) {
     switch (action.type) {
+        case FETCH_ALL_BUILDINGS_REQUEST:
+            return {};
         case FETCH_ALL_BUILDINGS_SUCCESS:
             return convertArrToObj(action.payload);
         case FETCH_SINGLE_BUILDING_SUCCESS:

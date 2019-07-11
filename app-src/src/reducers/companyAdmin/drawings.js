@@ -139,6 +139,8 @@ function deleteSuccessReducer(state = false, action) {
 
 function drawingsReducer(state = {}, action) {
     switch (action.type) {
+        case FETCH_ALL_DRAWINGS_REQUEST:
+            return {};
         case FETCH_ALL_DRAWINGS_SUCCESS:
             return convertArrToObj(action.payload);
         case FETCH_SINGLE_DRAWING_SUCCESS:
