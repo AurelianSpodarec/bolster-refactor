@@ -8,15 +8,15 @@ import {
     FETCH_SINGLE_PIN_FAILURE
 } from 'constants/actionTypes/pins';
 
-export const fetchSinglePinRequest = isForDrawing => ({
+export const fetchSinglePinRequest = keepPinData => ({
     type: FETCH_SINGLE_PIN_REQUEST,
-    isForDrawing
+    keepPinData
 });
 
-export const fetchSinglePinSuccess = (payload, isForDrawing) => ({
+export const fetchSinglePinSuccess = (payload, keepPinData) => ({
     type: FETCH_SINGLE_PIN_SUCCESS,
     payload,
-    isForDrawing
+    keepPinData
 });
 
 export const fetchSinglePinFailure = error => ({
@@ -24,11 +24,11 @@ export const fetchSinglePinFailure = error => ({
     error
 });
 
-export default (id, isForDrawing) => dispatch => {
-    dispatch(fetchSinglePinRequest(isForDrawing));
+export default (id, keepPinData) => dispatch => {
+    dispatch(fetchSinglePinRequest(keepPinData));
 
     return axios
         .get(`${API_URL}/pins/${id}`, getHeaders())
-        .then(res => dispatch(fetchSinglePinSuccess(res.data, isForDrawing)))
+        .then(res => dispatch(fetchSinglePinSuccess(res.data, keepPinData)))
         .catch(err => dispatch(fetchSinglePinFailure(err.message)));
 };

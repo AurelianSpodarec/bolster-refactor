@@ -15,9 +15,9 @@ export default combineReducers({
 function historiesReducer(state = {}, action) {
     switch (action.type) {
         case FETCH_SINGLE_PIN_REQUEST:
-            return action.isForDrawing ? state : {};
+            return action.keepPinData ? state : {};
         case FETCH_SINGLE_PIN_SUCCESS:
-            return action.isForDrawing
+            return action.keepPinData
                 ? { ...state, ...convertArrToObj(action.payload.histories) }
                 : convertArrToObj(action.payload.histories, 'id');
         default:

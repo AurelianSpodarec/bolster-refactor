@@ -20,7 +20,7 @@ class EditPinHistoryContainer extends Component {
 
     componentDidMount = () => {
         const { pinID, fetchSinglePin } = this.props;
-        fetchSinglePin(pinID);
+        fetchSinglePin(pinID, true);
     };
 }
 
@@ -30,7 +30,8 @@ const mapStateToProps = (_, { match: { params } }) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    fetchSinglePin: id => dispatch(fetchSinglePin(id))
+    fetchSinglePin: (id, keepPinData) =>
+        dispatch(fetchSinglePin(id, keepPinData))
 });
 
 const WithRedux = connect(

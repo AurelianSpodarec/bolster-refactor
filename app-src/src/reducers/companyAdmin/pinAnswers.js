@@ -15,9 +15,9 @@ export default combineReducers({
 function answersReducer(state = {}, action) {
     switch (action.type) {
         case FETCH_SINGLE_PIN_REQUEST:
-            return action.isForDrawing ? state : {};
+            return action.keepPinData ? state : {};
         case FETCH_SINGLE_PIN_SUCCESS:
-            return action.isForDrawing
+            return action.keepPinData
                 ? { ...state, ...convertArrToObj(action.payload.answers) }
                 : convertArrToObj(action.payload.answers);
         default:
