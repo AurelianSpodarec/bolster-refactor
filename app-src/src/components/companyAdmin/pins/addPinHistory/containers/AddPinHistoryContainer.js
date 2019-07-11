@@ -17,9 +17,8 @@ class AddPinHistoryContainer extends Component {
     );
 
     componentDidMount = async () => {
-        const { pinID, fetchSinglePin, fetchDrawingTemplates } = this.props;
-        const { payload } = await fetchSinglePin(pinID);
-        fetchDrawingTemplates(payload.pin.drawingID);
+        const { pinID, fetchSinglePin } = this.props;
+        fetchSinglePin(pinID);
     };
 }
 
@@ -28,11 +27,7 @@ const mapStateToProps = (_, { match: { params } }) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    fetchSinglePin: pinID => dispatch(fetchSinglePin(pinID)),
-    fetchDrawingTemplates: drawingID => {
-        dispatch(fetchDrawingTemplates(drawingID));
-        dispatch(fetchDrawingDropdownOptions(drawingID));
-    }
+    fetchSinglePin: pinID => dispatch(fetchSinglePin(pinID))
 });
 
 const WithRedux = connect(
