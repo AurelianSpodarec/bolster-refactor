@@ -14,6 +14,7 @@ const CompanyReportsListItem = ({ queueItem, retryCompanyReport }) => {
 
     return (
         <tr>
+            <td>{queueItem.companyName}</td>
             <td>{queueItem.friendlyName}</td>
 
             <td>{GENERATION_STATE_TEXT[queueItem.state]}</td>
