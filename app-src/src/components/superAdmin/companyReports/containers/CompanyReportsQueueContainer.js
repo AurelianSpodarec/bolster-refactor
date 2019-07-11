@@ -6,12 +6,15 @@ import CompanyReportsQueue from '../presentational/CompanyReportsQueue';
 class CompanyReportsQueueContainer extends Component {
     render = () => <CompanyReportsQueue />;
 
-    componentDidMount = () => this.props.fetchCompanyReportsQueue();
+    componentDidMount = () => {
+        const { fetchCompanyReportsQueue } = this.props;
+        this._interval = setInterval(() => fetchCompanyReportsQueue(), 5000);
+    };
+
+    componentWillUnmount = () => clearInterval(this._interval);
 }
 
-const mapDispatchToProps = dispatch => ({
-    fetchCompanyReportsQueue: () => dispatch(fetchCompanyReportsQueue())
-});
+const mapDispatchToProps = { fetchCompanyReportsQueue };
 
 export default connect(
     null,
