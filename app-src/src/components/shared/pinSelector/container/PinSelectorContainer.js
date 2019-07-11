@@ -208,9 +208,10 @@ class PinSelectorContainer extends Component {
                     'pinSelector',
                     'You must include some pins in the report.'
                 );
-            } else if (fieldError) {
-                removeFieldError('pinSelector');
             }
+        }
+        if (fieldError && pinIDs.length) {
+            removeFieldError('pinSelector');
         }
     };
 

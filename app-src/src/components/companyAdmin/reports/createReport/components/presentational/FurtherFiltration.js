@@ -14,7 +14,8 @@ const FurtherFiltration = ({
     furtherFiltrationOptions,
     handleChange,
     selectedHistoryNum,
-    handleNumOfHistoriesChange
+    handleNumOfHistoriesChange,
+    isDisabled
 }) => (
     <div className="generic-form">
         <Field name="Number of Histories" reqiured={true}>
@@ -28,7 +29,12 @@ const FurtherFiltration = ({
                 required
             />
         </Field>
-
+        {isDisabled && (
+            <p className="generic-text small">
+                Please select either a site or operative to use the advanced
+                filter methods.
+            </p>
+        )}
         <Field name="Filter Method" sizeClasses="size-lg-12">
             <DropdownContainer
                 placeholder="None"
@@ -37,6 +43,7 @@ const FurtherFiltration = ({
                 value={selected}
                 selectedOption={selected}
                 handleChange={handleChange}
+                disabled={isDisabled}
             />
         </Field>
     </div>
