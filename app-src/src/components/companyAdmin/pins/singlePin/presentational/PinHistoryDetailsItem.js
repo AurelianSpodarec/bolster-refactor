@@ -51,7 +51,7 @@ const PinHistoryDetailsItem = ({
             </button>
 
             <button className="button yellow" onClick={handleEditHistoryModal}>
-                <i className="far fa-pencil" /> Edit history
+                <i className="far fa-pencil" /> Edit this history
             </button>
         </BlockButtonWrapper>
     </div>
