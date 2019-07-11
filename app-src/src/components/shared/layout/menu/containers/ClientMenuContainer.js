@@ -6,7 +6,7 @@ import ClientMenu from '../presentational/ClientMenu';
 import dismissMessages from 'actions/companyAdmin/messages/async/dismissMessages';
 import { MESSAGE_TYPES } from 'constants/companyAdmin/enums';
 
-const CompanyMenuContainer = ({ notifications, dismissMessages }) => {
+const ClientMenuContainer = ({ notifications, dismissMessages, companyID }) => {
     const unread = notifications.filter(({ isRead }) => !isRead);
     const unreadCount = unread.length;
     const dismissNotifications = () => {
@@ -17,6 +17,7 @@ const CompanyMenuContainer = ({ notifications, dismissMessages }) => {
         <ClientMenu
             unreadCount={unreadCount}
             dismissMessages={dismissNotifications}
+            isCompany={!!companyID}
         />
     );
 };
@@ -24,11 +25,17 @@ const CompanyMenuContainer = ({ notifications, dismissMessages }) => {
 const mapStateToProps = ({
     client: {
         messagesReducer: { messages }
+    },
+    shared: {
+        decodeJWTReducer: {
+            jwtData: { companyID }
+        }
     }
 }) => ({
     notifications: Object.values(messages)
         .filter(({ type }) => type === MESSAGE_TYPES.NOTIFICATION)
-        .sort((a, b) => moment(b.createdAt) - moment(a.createdAt))
+        .sort((a, b) => moment(b.createdAt) - moment(a.createdAt)),
+    companyID
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -40,4 +47,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(CompanyMenuContainer);
+)(ClientMenuContainer);

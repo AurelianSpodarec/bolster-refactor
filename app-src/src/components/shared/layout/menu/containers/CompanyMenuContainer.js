@@ -16,7 +16,8 @@ const CompanyMenuContainer = ({
     dismissMessages,
     subscriptions,
     subscriptions: { startOn, endOn },
-    hasInitiallyFetched
+    hasInitiallyFetched,
+    isClientAccess
 }) => {
     if (!hasInitiallyFetched) return null;
 
@@ -36,6 +37,7 @@ const CompanyMenuContainer = ({
             unreadCount={unreadCount}
             dismissMessages={dismissNotifications}
             openHelpScout={_openHelpScout}
+            isClientAccess={isClientAccess}
         />
     );
 
@@ -63,7 +65,7 @@ const mapStateToProps = ({
     },
     shared: {
         decodeJWTReducer: {
-            jwtData: { headquartersCompanyID }
+            jwtData: { headquartersCompanyID, isClientAccess }
         }
     }
 }) => {
@@ -87,7 +89,8 @@ const mapStateToProps = ({
         isFromHeadquarters: !!headquartersCompanyID,
         notifications: Object.values(messages)
             .filter(({ type }) => type === MESSAGE_TYPES.NOTIFICATION)
-            .sort((a, b) => moment(b.createdAt) - moment(a.createdAt))
+            .sort((a, b) => moment(b.createdAt) - moment(a.createdAt)),
+        isClientAccess
     };
 };
 

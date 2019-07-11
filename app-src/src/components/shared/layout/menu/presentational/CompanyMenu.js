@@ -13,7 +13,8 @@ const CompanyMenu = ({
     unreadCount,
     dismissMessages,
     isSubscribed,
-    openHelpScout
+    openHelpScout,
+    isClientAccess
 }) => (
     <>
         <div className="menu">
@@ -38,7 +39,12 @@ const CompanyMenu = ({
                     )}
 
                     <MenuHeader title="Site Management" />
-
+                    {isClientAccess && (
+                        <CompanyMenuItemContainer link="/client/companies">
+                            <i className="fal fa-clipboard-list-check icon fa-fw" />
+                            <span className="menu-text"> Invited Access</span>
+                        </CompanyMenuItemContainer>
+                    )}
                     <CompanyMenuItemContainer link="/company/sites">
                         <i className="far fa-building icon fa-fw" />
                         <span className="menu-text"> Sites</span>

@@ -3,7 +3,7 @@ import React from 'react';
 import MenuItemContainer from '../containers/MenuItemContainer';
 import MenuHeader from './MenuHeader';
 
-const ClientMenu = ({ dismissMessages, unreadCount }) => (
+const ClientMenu = ({ dismissMessages, unreadCount, isCompany }) => (
     <>
         <div className="menu">
             <MenuHeader title="My Access" />
@@ -35,6 +35,12 @@ const ClientMenu = ({ dismissMessages, unreadCount }) => (
                 <i className="far fa-briefcase icon fa-fw" />{' '}
                 <span className="menu-text">Switch Company</span>
             </MenuItemContainer>
+            {isCompany && (
+                <MenuItemContainer link="/company">
+                    <i className="fal fa-user-crown icon fa-fw" />{' '}
+                    <span className="menu-text">Company Admin</span>
+                </MenuItemContainer>
+            )}
             <MenuItemContainer link="#" logout={true}>
                 <i className="far fa-sign-out-alt icon fa-fw" />{' '}
                 <span className="menu-text">Logout</span>
