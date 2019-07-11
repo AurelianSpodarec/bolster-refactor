@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { DATE_TIME_IDS } from 'constants/companyAdmin/enums';
+import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 import DrawingTableContainer from 'components/companyAdmin/drawings/shared/containers/DrawingTableContainer';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 import withDrag from 'components/shared/dragDrop/hocs/withDrag';
@@ -38,11 +40,21 @@ const FloorListItem = ({
                 {onMobile && (
                     <span className="mobile-table-heading">{headers[1]}</span>
                 )}
+                <DateTimeContainer
+                    date={floor.createdOn}
+                    datetime={DATE_TIME_IDS.DATE}
+                />
+            </td>
+            <td>
+                {' '}
+                {onMobile && (
+                    <span className="mobile-table-heading">{headers[2]}</span>
+                )}
                 {permissions}
             </td>
             <td>
                 {onMobile && (
-                    <span className="mobile-table-heading">{headers[2]}</span>
+                    <span className="mobile-table-heading">{headers[3]}</span>
                 )}
                 <ButtonContainer
                     to={`/company/floors/${floor.id}`}

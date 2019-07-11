@@ -36,6 +36,14 @@ const LoginForm = ({
         </Field>
 
         <div className="button-area size-lg-12">
+            <p style={{ marginLeft: '10px', float: 'left', color: 'red' }}>
+                If you are looking to login to the v2 system{' '}
+                <a href="https://v2.bolstersystems.com/auth/Login">
+                    click here
+                </a>
+                .
+            </p>
+
             <button className="button green" type="submit">
                 Login
             </button>

@@ -18,7 +18,13 @@ class SitesTableContainer extends Component {
         const { isFetching, error } = this.props;
         return (
             <SitesTable
-                headers={['Site name', 'Owned by', 'Permissions', 'Action']}
+                headers={[
+                    'Site name',
+                    'Created on',
+                    'Owned by',
+                    'Permissions',
+                    'Action'
+                ]}
                 sites={this._getFilteredSites()}
                 isFetching={isFetching}
                 error={error}

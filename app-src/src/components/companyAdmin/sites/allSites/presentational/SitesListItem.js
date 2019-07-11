@@ -1,9 +1,11 @@
 import React from 'react';
 
+import { DATE_TIME_IDS } from 'constants/companyAdmin/enums';
 import withDrag from 'components/shared/dragDrop/hocs/withDrag';
 import withToggleExpand from 'components/shared/generic/tables/hocs/withToggleExpand';
 import BuildingsTableContainer from 'components/companyAdmin/buildings/shared/containers/BuildingsTableContainer';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
+import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 
 let SitesListItem = ({
     toggleExpanded,
@@ -38,10 +40,21 @@ let SitesListItem = ({
                     {site.name}
                 </td>
                 <td>
-                    {' '}
                     {onMobile && (
                         <span className="mobile-table-heading">
                             {headers[1]}
+                        </span>
+                    )}
+                    <DateTimeContainer
+                        date={site.createdOn}
+                        datetime={DATE_TIME_IDS.DATE}
+                    />
+                </td>
+                <td>
+                    {' '}
+                    {onMobile && (
+                        <span className="mobile-table-heading">
+                            {headers[2]}
                         </span>
                     )}
                     {site.ownerCompanyName}
@@ -50,7 +63,7 @@ let SitesListItem = ({
                     {' '}
                     {onMobile && (
                         <span className="mobile-table-heading">
-                            {headers[2]}
+                            {headers[3]}
                         </span>
                     )}
                     {permissions}
