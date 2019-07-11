@@ -586,7 +586,6 @@ class AddPinQuestionRoute extends Component {
             updateAddPinAnswer,
             updateAddPinStatus,
             history,
-            isHistory,
             status,
             pins,
             isFetchingPins,
@@ -630,16 +629,6 @@ class AddPinQuestionRoute extends Component {
             if (String(question.type) === STATUS) {
                 updateAddPinStatus(history.status);
             }
-        }
-
-        if (
-            isHistory &&
-            Object.values(oldAnswers).length ===
-                Object.values(answers).length &&
-            Object.values(prevProps.answers).length <
-                Object.values(oldAnswers).length
-        ) {
-            resetPinAnswer(question.id);
         }
     };
 

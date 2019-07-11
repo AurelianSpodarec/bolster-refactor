@@ -120,23 +120,14 @@ class AddPinFormContainer extends Component {
                 serviceID: latestTemplateUsed.serviceID
             },
             () => {
-                if (!isHistory) {
-                    updateAddPinStatus(latestPinHistory.status);
-                }
+                updateAddPinStatus(latestPinHistory.status);
+
                 if (templateVersion.id === latestTemplateVersionID) {
-                    if (isHistory) {
-                        pinAnswers.filter(
-                            ans => latestPinHistory.id === ans.pinHistoryID
-                        );
-                    } else {
-                        pinAnswers
-                            .filter(
-                                ans => latestPinHistory.id === ans.pinHistoryID
-                            )
-                            .forEach(({ answer, templateQuestionID }) => {
-                                updateAddPinAnswer(templateQuestionID, answer);
-                            });
-                    }
+                    pinAnswers
+                        .filter(ans => latestPinHistory.id === ans.pinHistoryID)
+                        .forEach(({ answer, templateQuestionID }) => {
+                            updateAddPinAnswer(templateQuestionID, answer);
+                        });
                 }
             }
         );
