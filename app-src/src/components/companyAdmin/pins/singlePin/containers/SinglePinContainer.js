@@ -12,7 +12,12 @@ class SinglePinContainer extends Component {
     render = () => <SinglePin />;
 
     componentDidMount = async () => {
-        const { pinId, fetchSinglePinData, fetchSinglePin } = this.props;
+        const {
+            pinId,
+            fetchSinglePinData,
+            fetchSinglePin,
+            fetchDrawingTemplates
+        } = this.props;
         const { payload } = await fetchSinglePin(pinId);
         fetchSinglePinData(pinId);
         fetchDrawingTemplates(payload.pin.drawingID);

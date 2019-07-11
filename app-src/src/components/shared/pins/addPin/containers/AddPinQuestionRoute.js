@@ -592,7 +592,8 @@ class AddPinQuestionRoute extends Component {
             addFieldError,
             removeFieldError,
             fieldErrors,
-            edit
+            edit,
+            historyID
         } = this.props;
         const prereq = this.checkIfShouldShowByPreReq(
             question.id,
@@ -619,8 +620,12 @@ class AddPinQuestionRoute extends Component {
 
         if (isDoneFetchingPins && (history.id && oldAnswers && edit)) {
             const oldAnswersArray = Object.values(oldAnswers);
+
+            // !pin history ID matters to select the right answer to prefill on edit
             const oldAnswer = oldAnswersArray.find(
-                ({ templateQuestionID }) => templateQuestionID === question.id
+                ({ templateQuestionID, pinHistoryID }) =>
+                    templateQuestionID === question.id &&
+                    pinHistoryID === Number(historyID)
             );
             if (oldAnswer) {
                 const { templateQuestionID, answer } = oldAnswer;
@@ -727,7 +732,8 @@ const mapStateToProps = (
     history: histories[params.historyID] || {},
     pins,
     isFetchingPins,
-    fieldErrors
+    fieldErrors,
+    historyID: params.historyID
 });
 
 const mapDispatchToProps = {
