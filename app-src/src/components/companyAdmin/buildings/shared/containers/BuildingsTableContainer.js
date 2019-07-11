@@ -7,7 +7,7 @@ import { hierarchySort } from 'helpers/generic';
 const BuildingsTableContainer = ({ isFetching, error, buildings }) => {
     return (
         <BuildingsTable
-            headers={['Building name', 'Permissions', 'Action']}
+            headers={['Building name', 'Created on', 'Permissions', 'Action']}
             isFetching={isFetching}
             error={error}
             buildings={buildings}

@@ -8,6 +8,7 @@ const DrawingTableContainer = ({ isFetching, error, drawings }) => (
     <DrawingTable
         headers={[
             'Drawing name',
+            'Created on',
             'Last updated',
             'Expires',
             'Permissions',
