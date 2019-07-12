@@ -79,7 +79,7 @@ class LoginFormContainer extends Component {
             if (companyID) {
                 if (!isClientAccess) url = '/company';
                 else {
-                    const hasSub = await checkActive();
+                    const hasSub = await checkActive(companyID);
                     if (hasSub) {
                         url = '/company';
                     } else {
