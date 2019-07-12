@@ -19,7 +19,15 @@ const CompanyReportsTableContainer = ({
             companyReports={_getSortedQueue()}
             error={error}
             isFetching={isFetching}
-            headers={['Company', 'Report Name', 'Status', 'Created On', 'Completed on', '']}
+            headers={[
+                'Company',
+                'Report Name',
+                'User Email',
+                'Status',
+                'Created On',
+                'Completed on',
+                ''
+            ]}
             onMobile={onMobile}
             retryCompanyReport={id => retryCompanyReport(id)}
         />

@@ -16,6 +16,7 @@ const CompanyReportsListItem = ({ queueItem, retryCompanyReport }) => {
         <tr>
             <td>{queueItem.companyName}</td>
             <td>{queueItem.friendlyName}</td>
+            <td>{queueItem.userEmail}</td>
 
             <td>{GENERATION_STATE_TEXT[queueItem.state]}</td>
             <td>
@@ -47,12 +48,12 @@ const CompanyReportsListItem = ({ queueItem, retryCompanyReport }) => {
                     //         <i className="fa fa-times" /> Failed - Retry?
                     //     </button>
                     // )
-                    <a href={`${REPORT_VIEWER_URL}/${queueItem.id}`}>
-                        <button
-                            className="button green"
-                            type="button"
-                            to={`${REPORT_VIEWER_URL}/${queueItem.id}`}
-                        >
+                    <a
+                        href={`${REPORT_VIEWER_URL}/${
+                            queueItem.id
+                        }?page=1&drawingsPerPage=100`}
+                    >
+                        <button className="button red" type="button">
                             <i className="fa fa-times" />
                             Failed - View report
                         </button>
