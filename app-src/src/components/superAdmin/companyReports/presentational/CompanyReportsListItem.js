@@ -1,6 +1,7 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
-import { RAW_S3_STORAGE_URL } from 'config';
+import { RAW_S3_STORAGE_URL, REPORT_VIEWER_URL } from 'config';
 
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 
@@ -39,12 +40,21 @@ const CompanyReportsListItem = ({ queueItem, retryCompanyReport }) => {
                         <i className="fa fa-download" /> Download File
                     </a>
                 ) : queueItem.state === FAILED ? (
-                    <button
-                        className="button red"
-                        onClick={() => retryCompanyReport(queueItem.id)}
+                    // (
+                    //     <button
+                    //         className="button red"
+                    //         onClick={() => retryCompanyReport(queueItem.id)}
+                    //     >
+                    //         <i className="fa fa-times" /> Failed - Retry?
+                    //     </button>
+                    // )
+                    <Link
+                        className="button green"
+                        to={`${REPORT_VIEWER_URL}/${queueItem.id}`}
                     >
-                        <i className="fa fa-times" /> Failed - Retry?
-                    </button>
+                        <i className="fa fa-times" />
+                        Failed - View report
+                    </Link>
                 ) : (
                     <button className="button disabled">Unavailable</button>
                 )}
