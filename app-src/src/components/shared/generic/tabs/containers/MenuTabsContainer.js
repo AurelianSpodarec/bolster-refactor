@@ -24,6 +24,16 @@ class MenuTabsContainer extends Component {
             filteredTabs = menuTabs.filter(tab => tab !== 'Admin');
         if (!isClientAccess)
             filteredTabs = menuTabs.filter(tab => tab !== 'Client Access');
+
+        if (isClientAccess && isCompanyAdmin) {
+            filteredTabs = menuTabs.filter(
+                tab =>
+                    tab !== 'Client Access' &&
+                    tab !== 'Admin' &&
+                    tab !== 'Super Admin'
+            );
+        }
+
         return (
             <Tabs
                 tabs={filteredTabs}

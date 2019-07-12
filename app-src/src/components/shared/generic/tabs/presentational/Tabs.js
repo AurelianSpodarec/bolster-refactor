@@ -5,37 +5,35 @@ import CompanyAdminIcon from '_content/images/icons/company-admin.png';
 import ClientAccessIcon from '_content/images/icons/client-access.png';
 
 const Tabs = ({ tabs, selectedTab, selectTab, classes = '' }) =>
-    tabs.includes('Company Admin') && tabs.includes('Client Access') ? (
-        <div className={`tab-container ${classes}`}>
-            {tabs.map(tab => (
-                <button
-                    key={tab}
-                    className={
-                        tab === selectedTab ? 'active full' : 'inActive full'
-                    }
-                    onClick={e => selectTab(e, tab)}
-                >
-                    {tab === 'Super Admin' && (
-                        <img src={SuperAdminIcon} alt="Super admin icon" />
-                    )}
-                    {tab === 'Admin' && (
-                        <img src={CompanyAdminIcon} alt="Admin icon" />
-                    )}
-                    {tab === 'Client Access' && (
-                        <img src={ClientAccessIcon} alt="Client Invites icon" />
-                    )}
-                    <span>
-                        {tab === 'Admin'
-                            ? 'Company Admin'
-                            : tab === 'Client Access'
-                            ? 'Client Access'
-                            : tab}
-                    </span>
-                </button>
-            ))}
-        </div>
-    ) : (
-        ''
-    );
+<div className={`tab-container ${classes}`}>
+{tabs.map(tab => (
+    <button
+        key={tab}
+        className={
+            tab === selectedTab ? 'active full' : 'inActive full'
+        }
+        onClick={e => selectTab(e, tab)}
+    >
+        {tab === 'Super Admin' && (
+            <img src={SuperAdminIcon} alt="Super admin icon" />
+        )}
+        {tab === 'Admin' && (
+            <img src={CompanyAdminIcon} alt="Admin icon" />
+        )}
+        {tab === 'Client Access' && (
+            <img src={ClientAccessIcon} alt="Client Invites icon" />
+        )}
+        <span>
+            {tab === 'Admin'
+                ? 'Company Admin'
+                : tab === 'Client Access'
+                ? 'Client Access'
+                : tab}
+        </span>
+    </button>
+))}
+</div>;
+
+
 
 export default Tabs;
