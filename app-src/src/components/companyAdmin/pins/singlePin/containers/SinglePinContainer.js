@@ -32,9 +32,7 @@ const mapDispatchToProps = dispatch => ({
     fetchSinglePinData: id => {
         return dispatch(fetchPinTemplates(id)), dispatch(fetchCompanyUsers());
     },
-    fetchSinglePin: id => {
-        return dispatch(fetchSinglePin(id));
-    },
+    fetchSinglePin: id => dispatch(fetchSinglePin(id)),
     fetchDrawingTemplates: drawingID => {
         dispatch(fetchDrawingTemplates(drawingID));
         dispatch(fetchDrawingDropdownOptions(drawingID));

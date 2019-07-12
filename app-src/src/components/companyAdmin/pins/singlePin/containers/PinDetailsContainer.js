@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import moment from 'moment';
 
 import PinDetails from '../presentational/PinDetails';
@@ -49,6 +49,13 @@ class PinDetailsContainer extends Component {
                                 : ''}
                             )
                         </h4>
+                        <Link
+                            className="button green"
+                            style={{ marginBottom: '0.25em' }}
+                            to={`/company/pins/${pin.id}/add-history`}
+                        >
+                            <i className="fa fa-plus" /> Add New History
+                        </Link>
                     </BlockHeading>
                     <PinDetails
                         pinHistory={histories.length - i}
