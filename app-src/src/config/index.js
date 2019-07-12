@@ -11,7 +11,7 @@ export const RAW_S3_STORAGE_URL =
     'https://s3-eu-west-1.amazonaws.com/bolster-dynamic-staging-media';
 
 export const REPORT_VIEWER_URL =
-    'http://bolsterdynamiclive-report-viewer.eu-west-1.elasticbeanstalk.com/1/';
+    'http://bolsterdynamiclive-report-viewer.eu-west-1.elasticbeanstalk.com/1';
 
 // export const API_URL = 'https://localhost:5021';
 // export const FILE_API_URL = 'https://localhost:5031/files';

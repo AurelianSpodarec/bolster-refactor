@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
 import { RAW_S3_STORAGE_URL, REPORT_VIEWER_URL } from 'config';
 
@@ -48,13 +47,16 @@ const CompanyReportsListItem = ({ queueItem, retryCompanyReport }) => {
                     //         <i className="fa fa-times" /> Failed - Retry?
                     //     </button>
                     // )
-                    <Link
-                        className="button green"
-                        to={`${REPORT_VIEWER_URL}/${queueItem.id}`}
-                    >
-                        <i className="fa fa-times" />
-                        Failed - View report
-                    </Link>
+                    <a href={`${REPORT_VIEWER_URL}/${queueItem.id}`}>
+                        <button
+                            className="button green"
+                            type="button"
+                            to={`${REPORT_VIEWER_URL}/${queueItem.id}`}
+                        >
+                            <i className="fa fa-times" />
+                            Failed - View report
+                        </button>
+                    </a>
                 ) : (
                     <button className="button disabled">Unavailable</button>
                 )}
