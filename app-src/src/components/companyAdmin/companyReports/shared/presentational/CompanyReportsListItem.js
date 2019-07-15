@@ -85,27 +85,26 @@ const CompanyReportsListItem = ({
                         <i className="fa fa-download" /> Download File
                     </a>
                 ) : queueItem.state === FAILED ? (
-                    <button className="button green" onClick={() => {}}>
-                        <i className="fa fa-envelope" /> Report will be e-mailed
-                    </button>
-                ) : (
-                    //  (
-                    //     <button
-                    //         className="button red"
-                    //         onClick={() => retryCompanyReport(queueItem.id)}
-                    //     >
-                    //         <i className="fa fa-times" /> Failed - Retry?
-                    //     </button>
-                    // )
-                    // isRetryAvailable ? (
-                    //     <button
-                    //         className="button"
-                    //         onClick={() => retryCompanyReport(queueItem.id)}
-                    //     >
-                    //         <LoadingIcon />
-                    //         Generating... (retry?)
+                    // (
+                    //     <button className="button green" onClick={() => {}}>
+                    //         <i className="fa fa-envelope" /> Report will be e-mailed
                     //     </button>
                     // ) :
+                    <button
+                        className="button red"
+                        onClick={() => retryCompanyReport(queueItem.id)}
+                    >
+                        <i className="fa fa-times" /> Failed - Retry?
+                    </button>
+                ) : isRetryAvailable ? (
+                    <button
+                        className="button"
+                        onClick={() => retryCompanyReport(queueItem.id)}
+                    >
+                        <LoadingIcon />
+                        Generating... (retry?)
+                    </button>
+                ) : (
                     <button className="button disabled">
                         <LoadingIcon />
                         Generating...

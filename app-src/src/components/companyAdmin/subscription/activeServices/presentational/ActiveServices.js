@@ -7,23 +7,17 @@ import BlockHeading from 'components/shared/generic/blockHeading/presentational/
 import CompanyServicesList from './CompanyServicesList';
 import StatusIcon from 'components/shared/generic/statusIcon/presentationl/StatusIcon';
 import AddServiceItem from './AddServiceItem';
-import { isObjEmpty } from 'helpers/generic';
 
 const ActiveServices = ({
     subscriptions,
     handleChange,
     services,
     showModal,
-    isAutoRenew,
-    noCards
+    isAutoRenew
 }) => (
     <BlockContainer>
         <BlockHeading title="Services" />
-        {noCards && isObjEmpty(subscriptions) && (
-            <p className="info-message error" style={{ marginBottom: '15px' }}>
-                Note: You must add a card to pay for a subscription.
-            </p>
-        )}
+
         <Form className="generic-form ignore-padding size-lg-12">
             <CompanyServicesList
                 subscriptions={subscriptions}
