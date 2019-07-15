@@ -3,10 +3,16 @@ import React from 'react';
 import Field from 'components/shared/generic/form/presentational/Field';
 import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
 import Select from 'components/shared/generic/form/presentational/Select';
-import { NUMBER_OF_HISTORIES } from 'constants/companyAdmin/enums';
+import {
+    NUMBER_OF_HISTORIES,
+    NUMBER_OF_HISTORIES_OPTIONS
+} from 'constants/companyAdmin/enums';
 
 const historyNumsOptions = Object.entries(NUMBER_OF_HISTORIES).map(
-    ([value, label]) => ({ value: +value, label })
+    ([value, label]) =>
+        ({ value: +value, label }.filter(
+            ({ value }) => value != NUMBER_OF_HISTORIES_OPTIONS.ALL
+        ))
 );
 
 const FurtherFiltration = ({
