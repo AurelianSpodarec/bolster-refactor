@@ -8,13 +8,9 @@ import {
 } from 'constants/companyAdmin/enums';
 import Select from 'components/shared/generic/form/presentational/Select';
 
-const historyNumsOptions = Object.entries(NUMBER_OF_HISTORIES).map(
-    ([value, label]) =>
-        ({ value: +value, label }.filter(
-            ({ value }) => value != NUMBER_OF_HISTORIES_OPTIONS.ALL
-        ))
-);
-
+const historyNumsOptions = Object.entries(NUMBER_OF_HISTORIES)
+    .map(([value, label]) => ({ value: +value, label }))
+    .filter(({ value }) => value != NUMBER_OF_HISTORIES_OPTIONS.ALL);
 const FurtherFiltration = ({
     selected,
     furtherFiltrationOptions,
