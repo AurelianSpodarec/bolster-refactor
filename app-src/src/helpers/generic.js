@@ -21,7 +21,7 @@ export function isObjEmpty(obj) {
 }
 
 export const nameSort = (a, b) => {
-    if (a.userFirstName == b.userFirstName) {
+    if (a.userFirstName === b.userFirstName) {
         return a.userLastName.toLowerCase() > b.userLastName.toLowerCase();
     } else return a.userFirstName.toLowerCase() > b.userFirstName.toLowerCase();
 };

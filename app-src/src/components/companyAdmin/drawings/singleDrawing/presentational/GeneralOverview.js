@@ -1,5 +1,4 @@
 import React from 'react';
-import moment from 'moment';
 
 import DrawingMapGeneralContainer from '../containers/DrawingMapGeneralContainer';
 import DrawingDocumentsContainer from '../containers/DrawingDocumentsContainer';
@@ -12,7 +11,6 @@ const GeneralOverview = ({
     handleDelete,
     handleArchive,
     drawing,
-    shouldShowBlocks,
     drawingExpired,
     gotAccess
 }) => (

@@ -4,7 +4,6 @@ import BlockHeading from 'components/shared/generic/blockHeading/presentational/
 import Field from 'components/shared/generic/form/presentational/Field';
 import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
 import DatePicker from 'components/shared/generic/form/presentational/DatePicker';
-import OperativesFilterContainer from 'components/client/reports/createReport/components/containers/OperativesFilterContainer';
 
 const BasicFilters = ({
     dateError,
@@ -19,8 +18,7 @@ const BasicFilters = ({
     statusOptions,
     selectedStatus,
     fromDateInclusive,
-    toDateInclusive,
-    isDrawingPage
+    toDateInclusive
 }) => (
     <div className="size-lg-12">
         <BlockContainer>

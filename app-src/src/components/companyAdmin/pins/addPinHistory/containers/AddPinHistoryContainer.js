@@ -4,8 +4,6 @@ import { withRouter } from 'react-router-dom';
 
 import fetchSinglePin from 'actions/companyAdmin/pins/async/fetchSinglePin';
 import AddPinHistoryFormContainer from './AddPinHistoryFormContainer';
-import fetchDrawingTemplates from 'actions/companyAdmin/drawings/async/fetchDrawingTemplates';
-import fetchDrawingDropdownOptions from 'actions/companyAdmin/drawings/async/fetchDrawingDropdownOptions';
 
 class AddPinHistoryContainer extends Component {
     render = () => (

@@ -5,10 +5,8 @@ import Select from 'components/shared/generic/form/presentational/Select';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import TextAreaContainer from 'components/shared/generic/form/containers/TextAreaContainer';
 import MultiSelect from 'components/shared/generic/form/presentational/MultiSelect';
-import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
 import RadioButtonListContainer from 'components/shared/generic/form/containers/RadioButtonListContainer';
 import { RAW_S3_STORAGE_URL } from 'config';
-import FileUploadContainer from 'components/shared/generic/form/containers/FileUploadContainer';
 import Field from 'components/shared/generic/form/presentational/Field';
 import MobileSwitch from '_content/images/mobile-switch.png';
 
@@ -123,7 +121,7 @@ function MultiMultiDropdown() {
     );
 }
 function CheckBox() {
-    return <img src={MobileSwitch} className="switch" />;
+    return <img src={MobileSwitch} alt="switch" className="switch" />;
 }
 
 function Radio({ question: { id, options }, handleChange }) {

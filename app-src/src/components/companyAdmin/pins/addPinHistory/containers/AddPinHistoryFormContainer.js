@@ -89,7 +89,6 @@ class AddPinFormContainer extends Component {
             pinID,
             pinAnswers,
             templates,
-            isHistory,
             versions
         } = this.props;
 

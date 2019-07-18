@@ -6,7 +6,6 @@ import postReport from 'actions/companyAdmin/reports/async/postReport';
 import postCustomFilters from 'actions/companyAdmin/reports/async/postCustomFilters';
 import removeFilterQuestions from 'actions/companyAdmin/reports/sync/removeFilterQuestions';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
-import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import {
     SUCCESS_MODAL,
     ERROR_MODAL,
@@ -79,18 +78,18 @@ class OutputSettingsContainer extends Component {
 
     componentDidUpdate = prevProps => {
         const {
-            postSuccess,
-            error,
-            showModal,
-            history,
+            // postSuccess,
+            // error,
+            // showModal,
+            // history,
             filters: {
                 isPDFGeneration,
                 isCSVGeneration,
                 isFloorplanGeneration
             },
             addFieldError,
-            removeFieldError,
-            isCreating
+            // isCreating,
+            removeFieldError
         } = this.props;
 
         // error handling for report type
@@ -139,17 +138,17 @@ class OutputSettingsContainer extends Component {
     handleSubmit = () => {
         const {
             getPostBody,
-            postReport,
+            // postReport,
             fieldErrors,
             showFieldErrors,
             filters: {
                 isFloorplanGeneration,
                 includeFloorplan,
-                isPDFGeneration,
-                drawingID
+                // drawingID,
+                isPDFGeneration
             },
-            showModal,
-            drawings
+            // drawings,
+            showModal
         } = this.props;
 
         if (!isEmpty(fieldErrors)) showFieldErrors();

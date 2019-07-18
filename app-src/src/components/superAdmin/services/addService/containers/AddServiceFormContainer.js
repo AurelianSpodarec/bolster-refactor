@@ -5,7 +5,6 @@ import { withRouter } from 'react-router-dom';
 import { convertArrToObj, isEmpty } from 'helpers/generic';
 import AddServiceForm from '../presentational/AddServiceForm';
 import createService from 'actions/superAdmin/services/async/createService';
-import fetchTemplates from 'actions/superAdmin/templateBuilder/async/fetchTemplates';
 import postTemplatesForService from 'actions/superAdmin/services/async/postTemplatesForService';
 
 import { ADMIN_CREATE_SERVICE_SUCCESS } from 'constants/actionTypes/services';
@@ -41,9 +40,7 @@ class AddServiceFormContainer extends Component {
     }
 
     componentDidMount = () => {
-        const { fetchTemplatesSimple } = this.props;
-
-        fetchTemplatesSimple();
+        this.props.fetchTemplatesSimple();
     };
 
     componentDidUpdate = prevProps => {
@@ -53,9 +50,7 @@ class AddServiceFormContainer extends Component {
         }
     };
 
-    handleInputChange = (name, value) => {
-        this.setState({ [name]: value });
-    };
+    handleInputChange = (name, value) => this.setState({ [name]: value });
 
     handleSubmit = e => {
         e.preventDefault();
@@ -98,17 +93,11 @@ const mapStateToProps = ({
     }
 }) => ({ postSuccess, templates: Object.values(templates), isFetching, error });
 
-const mapDispatchToProps = dispatch => ({
-    createService: postBody => {
-        return dispatch(createService(postBody));
-    },
-    postTemplatesForService: (serviceID, postBody) => {
-        return dispatch(postTemplatesForService(serviceID, postBody));
-    },
-    fetchTemplatesSimple: () => {
-        dispatch(fetchTemplatesSimple());
-    }
-});
+const mapDispatchToProps = {
+    createService,
+    postTemplatesForService,
+    fetchTemplatesSimple
+};
 
 export default withRouter(
     connect(

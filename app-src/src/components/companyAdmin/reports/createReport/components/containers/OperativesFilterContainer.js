@@ -3,7 +3,6 @@ import { withRouter } from 'react-router-dom';
 import withUpdateOnChange from '../hocs/withUpdateOnChange';
 
 import OperativesFilter from '../presentational/OperativesFilter';
-import { FURTHER_FILTRATION_OPTIONS } from 'constants/companyAdmin/enums';
 
 class OperativesFilterContainer extends Component {
     render() {

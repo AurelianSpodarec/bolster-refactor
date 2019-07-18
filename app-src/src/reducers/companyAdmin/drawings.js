@@ -29,8 +29,7 @@ import {
 
 import {
     ADD_CREDITS_TO_DRAWING_REQUEST,
-    ADD_CREDITS_TO_DRAWING_SUCCESS,
-    ADD_CREDITS_TO_DRAWING_FAILURE
+    ADD_CREDITS_TO_DRAWING_SUCCESS
 } from 'constants/actionTypes/credits';
 
 export default combineReducers({

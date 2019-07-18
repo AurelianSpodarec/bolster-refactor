@@ -5,7 +5,6 @@ import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/pr
 import Form from 'components/shared/generic/form/containers/Form';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
-import BolsterLabelExample from 'components/shared/generic/form/presentational/BolsterLabelExample';
 import TextAreaContainer from 'components/shared/generic/form/containers/TextAreaContainer';
 import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
 import DatePickerPresentational from 'components/shared/generic/form/presentational/DatePicker';

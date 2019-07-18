@@ -89,6 +89,8 @@ class MoveToolConfirmMoveModalContainer extends Component {
             case HIERARCHY_IDS.DRAWING:
                 moveDrawing(selectedOption, moveToValue, null);
                 break;
+            default:
+                break;
         }
     };
 }

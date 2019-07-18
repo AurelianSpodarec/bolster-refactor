@@ -2,7 +2,6 @@ import React from 'react';
 
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import LevelsFilterContainer from '../containers/LevelsFilterContainer';
-import OperativesFilterContainer from '../containers/OperativesFilterContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 
 const Block1Filters = ({ fieldError, advanced, isFetching }) => (

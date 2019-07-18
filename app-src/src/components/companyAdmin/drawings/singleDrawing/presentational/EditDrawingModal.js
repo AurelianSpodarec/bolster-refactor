@@ -11,7 +11,6 @@ import FileUploadContainer from 'components/shared/generic/form/containers/FileU
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 import { RAW_S3_STORAGE_URL } from 'config';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
-import BolsterLabelExample from 'components/shared/generic/form/presentational/BolsterLabelExample';
 import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
 import TextAreaContainer from 'components/shared/generic/form/containers/TextAreaContainer';
 import DatePickerPresentational from 'components/shared/generic/form/presentational/DatePicker';
