@@ -65,25 +65,48 @@ class SitesTableContainer extends Component {
         const { status } = filters;
         const name = filters.name.toLowerCase();
 
-        let sitesSearched = sites.filter(site =>
+        const sitesSearched = sites.filter(site =>
             site.name.toLowerCase().includes(name)
         );
 
+        const sitesSorted = this._getSortedSites(sitesSearched);
+
         if (status === 'active') {
-            return sitesSearched.filter(site => !site.isArchived);
+            return sitesSorted.filter(site => !site.isArchived);
         }
 
         if (status === 'read only') {
-            return sitesSearched.filter(
+            return sitesSorted.filter(
                 site => site.accessType === ACCESS_TYPES_VALUES.READONLY
             );
         }
 
         if (status === 'archived') {
-            return sitesSearched.filter(site => site.isArchived);
+            return sitesSorted.filter(site => site.isArchived);
         }
 
-        return sitesSearched.filter(site => !site.isArchived);
+        return sitesSorted.filter(site => !site.isArchived);
+    };
+
+    _getSortedSites = sites => {
+        const { filters } = this.props;
+
+        if (filters.sortBy === 'descending') {
+            console.log('descending');
+            return sites.sort(
+                (a, b) => new Date(b.createdOn) - new Date(a.createdOn)
+            );
+        }
+
+        if (filters.sortBy === 'ascending') {
+            console.log('ascending');
+            return sites.sort(
+                (a, b) => new Date(a.createdOn) - new Date(b.createdOn)
+            );
+        }
+        // default sort order as per api
+        console.log('default');
+        return sites.sort((a, b) => a.sort - b.sort);
     };
 
     handleAddSite = () => {

@@ -7,7 +7,7 @@ import SitesFilters from '../presentational/SitesFilters';
 
 class SitesFiltersContainer extends Component {
     render() {
-        const { name, status } = this.props.filters;
+        const { name, status, sortBy } = this.props.filters;
 
         const statusOptions = {
             active: { value: 'active', text: 'Active' },
@@ -15,11 +15,19 @@ class SitesFiltersContainer extends Component {
             archived: { value: 'archived', text: 'Archived' }
         };
 
+        const sortOptions = {
+            default: { value: 'default', text: 'Default' },
+            ascending: { value: 'ascending', text: 'Date Added (asc)' },
+            descending: { value: 'descending', text: 'Date Added (desc)' }
+        };
+
         return (
             <SitesFilters
                 name={name}
                 statusOptions={Object.values(statusOptions)}
                 selectedStatus={statusOptions[status]}
+                sortOptions={Object.values(sortOptions)}
+                selectedSort={sortOptions[sortBy]}
                 handleChange={this.handleChange}
                 onMobile={this.props.onMobile}
             />

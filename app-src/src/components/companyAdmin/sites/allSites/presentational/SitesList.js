@@ -4,18 +4,17 @@ import SitesListItemContainer from '../containers/SitesListItemContainer';
 import withDropZone from 'components/shared/dragDrop/hocs/withDropZone';
 
 const SitesList = ({ items: sites, colCount, forwardRef, isOver, headers }) => (
+    // ! sort function now in sites table container to optionally sort by date added.
     <tbody ref={forwardRef} className={isOver ? 'dragging' : ''}>
-        {[...sites]
-            .sort((a, b) => a.sort - b.sort)
-            .map((site, i) => (
-                <SitesListItemContainer
-                    key={site.id}
-                    site={site}
-                    colCount={colCount}
-                    index={i}
-                    headers={headers}
-                />
-            ))}
+        {[...sites].map((site, i) => (
+            <SitesListItemContainer
+                key={site.id}
+                site={site}
+                colCount={colCount}
+                index={i}
+                headers={headers}
+            />
+        ))}
     </tbody>
 );
 

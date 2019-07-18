@@ -8,7 +8,9 @@ const SitesListFilters = ({
     statusOptions,
     selectedStatus,
     handleChange,
-    onMobile
+    onMobile,
+    sortOptions,
+    selectedSort
 }) => (
     <form className="table-search size-lg-12">
         {onMobile ? (
@@ -26,6 +28,15 @@ const SitesListFilters = ({
                         name="status"
                         options={statusOptions}
                         selectedOption={selectedStatus}
+                        handleChange={handleChange}
+                    />
+                </div>
+                <div className="table-filter">
+                    <p>Sort by:</p>
+                    <Dropdown
+                        name="sortBy"
+                        options={sortOptions}
+                        selectedOption={selectedSort}
                         handleChange={handleChange}
                     />
                 </div>
@@ -48,6 +59,15 @@ const SitesListFilters = ({
                     />
                     <p>Filter by status:</p>
                 </div>{' '}
+                <div className="table-filter">
+                    <Dropdown
+                        name="sortBy"
+                        options={sortOptions}
+                        selectedOption={selectedSort}
+                        handleChange={handleChange}
+                    />
+                    <p>Sort by:</p>
+                </div>
             </>
         )}
     </form>

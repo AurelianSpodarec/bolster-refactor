@@ -7,7 +7,10 @@ export default combineReducers({
     filters: filtersReducer
 });
 
-function filtersReducer(state = { name: '', status: '' }, action) {
+function filtersReducer(
+    state = { name: '', status: '', sortBy: 'default' },
+    action
+) {
     switch (action.type) {
         case UPDATE_SITES_FILTERS:
             return updateObj(state, action.fieldName, action.searchTerm);
