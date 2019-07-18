@@ -39,10 +39,19 @@ let SitesListItem = ({
                     />
                     {site.name}
                 </td>
+
                 <td>
                     {onMobile && (
                         <span className="mobile-table-heading">
                             {headers[1]}
+                        </span>
+                    )}
+                    {site.client}
+                </td>
+                <td>
+                    {onMobile && (
+                        <span className="mobile-table-heading">
+                            {headers[2]}
                         </span>
                     )}
                     <DateTimeContainer
@@ -54,7 +63,7 @@ let SitesListItem = ({
                     {' '}
                     {onMobile && (
                         <span className="mobile-table-heading">
-                            {headers[2]}
+                            {headers[3]}
                         </span>
                     )}
                     {site.ownerCompanyName}
@@ -63,7 +72,7 @@ let SitesListItem = ({
                     {' '}
                     {onMobile && (
                         <span className="mobile-table-heading">
-                            {headers[3]}
+                            {headers[4]}
                         </span>
                     )}
                     {permissions}

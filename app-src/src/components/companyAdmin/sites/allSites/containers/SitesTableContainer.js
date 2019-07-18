@@ -20,6 +20,7 @@ class SitesTableContainer extends Component {
             <SitesTable
                 headers={[
                     'Site name',
+                    'Client',
                     'Created on',
                     'Owned by',
                     'Permissions',
