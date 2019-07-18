@@ -68,7 +68,8 @@ import {
     FORGOT_PASSWORD,
     GENERATE_SOS_CODE,
     DELETE_DEMO_REQUEST,
-    CONFIRM_MOVE_HIERARCHY_TO_COMPANY
+    CONFIRM_MOVE_HIERARCHY_TO_COMPANY,
+    ADMIN_CONFIRM_SET_IS_INVOICE_PAID
 } from 'constants/shared/modalTypes';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
@@ -140,6 +141,7 @@ import AddCreditsToDrawingModal from 'components/companyAdmin/drawings/addCredit
 import DeleteDemoRequestModalContainer from 'components/superAdmin/demoRequests/containers/DeleteDemoRequestModalContainer';
 import SOSGenerationModal from 'components/superAdmin/sosManagement/sosGenerationModal/presentational/SOSGenerationModal';
 import SiteManagementConfirmMoveModalContainer from 'components/superAdmin/siteManagement/moveTool/containers/MoveToolConfirmMoveModalContainer';
+import ConfirmSetIsInvoicePaidModalContainer from 'components/superAdmin/invoices/confirmSetIsInvoicePaidModal/containers/ConfirmSetIsInvoicePaidModalContainer';
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModalContainer,
@@ -208,7 +210,8 @@ const MODAL_COMPONENTS = {
     [FORGOT_PASSWORD]: ForgotPasswordModalContainer,
     [ADD_CREDITS_TO_DRAWING]: AddCreditsToDrawingModal,
     [GENERATE_SOS_CODE]: SOSGenerationModal,
-    [CONFIRM_MOVE_HIERARCHY_TO_COMPANY]: SiteManagementConfirmMoveModalContainer
+    [CONFIRM_MOVE_HIERARCHY_TO_COMPANY]: SiteManagementConfirmMoveModalContainer,
+    [ADMIN_CONFIRM_SET_IS_INVOICE_PAID]: ConfirmSetIsInvoicePaidModalContainer
 };
 
 const ModalRoot = ({ modalType, modalProps, ...otherProps }) => {
@@ -217,12 +220,11 @@ const ModalRoot = ({ modalType, modalProps, ...otherProps }) => {
     const SpecificModel = MODAL_COMPONENTS[modalType];
     return <SpecificModel {...modalProps} {...otherProps} />;
 };
+const mapStateToProps = ({ shared: { modalReducer } }) => modalReducer;
+
+const mapDispatchToProps = { hideModal, showModal };
 
 export default connect(
-    ({ shared }) => shared.modalReducer,
-    dispatch => ({
-        hideModal: () => dispatch(hideModal()),
-        showModal: (modalType, modalProps) =>
-            dispatch(showModal(modalType, modalProps))
-    })
+    mapStateToProps,
+    mapDispatchToProps
 )(ModalRoot);

@@ -13,7 +13,10 @@ import {
     SA_MAKE_INVOICE_FREE_REQUEST,
     SA_MAKE_INVOICE_FREE_FAILURE,
     SA_MAKE_INVOICE_FREE_SUCCESS,
-    UPDATE_INVOICE_FILTERS
+    UPDATE_INVOICE_FILTERS,
+    SA_SET_IS_INVOICE_PAID_REQUEST,
+    SA_SET_IS_INVOICE_PAID_FAILURE,
+    SA_SET_IS_INVOICE_PAID_SUCCESS
 } from 'constants/actionTypes/superAdminInvoices';
 import { convertArrToObj, updateObj } from 'helpers/generic';
 
@@ -48,11 +51,13 @@ function errorReducer(state = null, action) {
         case ADMIN_FETCH_COMPANY_INVOICES_REQUEST:
         case ADMIN_FETCH_COMPANY_INVOICE_ITEMS_REQUEST:
         case SA_MAKE_INVOICE_FREE_REQUEST:
+        case SA_SET_IS_INVOICE_PAID_REQUEST:
             return null;
         case SA_FETCH_ALL_INVOICES_FAILURE:
         case SA_MAKE_INVOICE_FREE_FAILURE:
         case ADMIN_FETCH_COMPANY_INVOICES_FAILURE:
         case ADMIN_FETCH_COMPANY_INVOICE_ITEMS_FAILURE:
+        case SA_SET_IS_INVOICE_PAID_FAILURE:
             return action.error;
         default:
             return state;
@@ -62,8 +67,10 @@ function errorReducer(state = null, action) {
 function postSuccessReducer(state = false, action) {
     switch (action.type) {
         case SA_MAKE_INVOICE_FREE_REQUEST:
+        case SA_SET_IS_INVOICE_PAID_REQUEST:
             return false;
         case SA_MAKE_INVOICE_FREE_SUCCESS:
+        case SA_SET_IS_INVOICE_PAID_SUCCESS:
             return true;
         default:
             return state;

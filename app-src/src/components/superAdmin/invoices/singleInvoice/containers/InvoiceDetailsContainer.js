@@ -2,18 +2,23 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import InvoiceDetails from '../presentational/InvoiceDetails';
+import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 
-const InvoiceDetailsContainer = ({ invoice, error, isFetching, company }) => {
-    const companyName = company ? company.name : null;
-    return (
-        <InvoiceDetails
-            invoice={invoice}
-            error={error}
-            isFetching={isFetching}
-            companyName={companyName}
-        />
-    );
-};
+const InvoiceDetailsContainer = ({
+    invoice,
+    error,
+    isFetching,
+    company,
+    showModal
+}) => (
+    <InvoiceDetails
+        invoice={invoice}
+        error={error}
+        isFetching={isFetching}
+        companyName={company.name || null}
+        showModal={showModal}
+    />
+);
 
 const mapStateToProps = (
     {
@@ -25,14 +30,19 @@ const mapStateToProps = (
     { match }
 ) => {
     const invoice = invoices[match.params.id] || {};
-    const company = companies[invoice.companyID] || null;
-
     return {
-        company,
-        invoice,
+        company: companies[invoice.companyID] || {},
+        invoice: invoices[match.params.id] || {},
         error,
         isFetching
     };
 };
 
-export default withRouter(connect(mapStateToProps)(InvoiceDetailsContainer));
+const mapDispatchToProps = { showModal };
+
+export default withRouter(
+    connect(
+        mapStateToProps,
+        mapDispatchToProps
+    )(InvoiceDetailsContainer)
+);

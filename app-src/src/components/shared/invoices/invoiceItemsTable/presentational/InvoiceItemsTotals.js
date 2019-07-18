@@ -8,10 +8,9 @@ const InvoiceItemsTotals = ({
     <tr>
         {!onMobile && (
             <>
-                {' '}
-                <td>{''}</td>
-                <td>{''}</td>
-                <td>{''}</td>
+                <td />
+                <td />
+                <td />
             </>
         )}
 
