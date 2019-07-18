@@ -30,7 +30,8 @@ const mapStateToProps = (_, { match: { params } }) => ({
 
 const mapDispatchToProps = dispatch => ({
     fetchSinglePinData: id => {
-        return dispatch(fetchPinTemplates(id)), dispatch(fetchCompanyUsers());
+        dispatch(fetchPinTemplates(id));
+        dispatch(fetchCompanyUsers());
     },
     fetchSinglePin: id => dispatch(fetchSinglePin(id)),
     fetchDrawingTemplates: drawingID => {

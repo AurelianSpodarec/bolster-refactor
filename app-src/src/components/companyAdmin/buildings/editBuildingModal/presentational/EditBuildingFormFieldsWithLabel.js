@@ -2,7 +2,6 @@ import React from 'react';
 
 import Field from 'components/shared/generic/form/presentational/Field';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
-import BolsterLabelExample from 'components/shared/generic/form/presentational/BolsterLabelExample';
 import TextAreaContainer from 'components/shared/generic/form/containers/TextAreaContainer';
 import DatePickerPresentational from 'components/shared/generic/form/presentational/DatePicker';
 import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';

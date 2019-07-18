@@ -70,9 +70,7 @@ const mapStateToProps = (
     deleteSuccess
 });
 
-const mapDispatchToProps = dispatch => ({
-    showModal: (type, props) => dispatch(showModal(type, props))
-});
+const mapDispatchToProps = { showModal };
 
 export default withRouter(
     connect(

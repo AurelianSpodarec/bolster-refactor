@@ -7,8 +7,6 @@ import TextInputContainer from 'components/shared/generic/form/containers/TextIn
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 import FileUploadContainer from 'components/shared/generic/form/containers/FileUploadContainer';
-import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
-import BolsterLabelExample from 'components/shared/generic/form/presentational/BolsterLabelExample';
 import TextAreaContainer from 'components/shared/generic/form/containers/TextAreaContainer';
 import DatePickerPresentational from 'components/shared/generic/form/presentational/DatePicker';
 import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
@@ -22,8 +20,7 @@ const AddDrawingsForm = ({
     addDrawing,
     removeDrawing,
     handleClose,
-    isUsingBolsterLabels,
-    filesUploading
+    isUsingBolsterLabels
 }) => (
     <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
         <div className="size-lg-12">

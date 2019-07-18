@@ -7,8 +7,6 @@ import CreateOperativeAlertForm from '../presentational/CreateOperativeAlertForm
 import createOperativeAlert from 'actions/companyAdmin/operativeAlerts/async/createOperativeAlert';
 import fetchAllSites from 'actions/companyAdmin/sites/async/fetchAllSites';
 import fetchCompanyUsers from 'actions/companyAdmin/userManagement/async/fetchCompanyUsers';
-import { COMPANY_USER_ROLE_TYPES } from 'constants/companyAdmin/enums';
-const { OPERATIVE } = COMPANY_USER_ROLE_TYPES;
 
 class CreateOperativeAlertContainer extends Component {
     state = {

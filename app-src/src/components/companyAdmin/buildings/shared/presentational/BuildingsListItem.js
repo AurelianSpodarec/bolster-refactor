@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { PAYMENT_TYPES, DATE_TIME_IDS } from 'constants/companyAdmin/enums';
+import { DATE_TIME_IDS } from 'constants/companyAdmin/enums';
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 import FloorTableContainer from 'components/companyAdmin/floors/shared/containers/FloorTableContainer';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';

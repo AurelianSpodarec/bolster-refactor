@@ -135,6 +135,7 @@ const HomeSlider = ({ sliderSettings }) => (
             </div>
             <div className="right">
                 <iframe
+                    title="Bolster Promotional Video"
                     src="https://player.vimeo.com/video/342716227"
                     width="560"
                     height="400"
