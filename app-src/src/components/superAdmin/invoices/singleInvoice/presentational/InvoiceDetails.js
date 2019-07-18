@@ -34,7 +34,7 @@ const InvoiceDetails = ({
             </button>
             <button
                 onClick={() =>
-                    showModal(ADMIN_CONFIRM_SET_IS_INVOICE_PAID, { isPaid })
+                    showModal(ADMIN_CONFIRM_SET_IS_INVOICE_PAID, { isPaid, id })
                 }
                 className="button green"
             >
