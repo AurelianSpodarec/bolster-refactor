@@ -24,7 +24,9 @@ class PinDetailsContainer extends Component {
             (a, b) => moment(b.createdOn) - moment(a.createdOn)
         );
 
+        
         return sortedHistories.map((history, i) => {
+            const isFirst = i === 0;
             return (
                 <BlockContainer
                     key={history.id}
@@ -49,6 +51,7 @@ class PinDetailsContainer extends Component {
                                 : ''}
                             )
                         </h4>
+                        {isFirst && 
                         <Link
                             className="button green"
                             style={{ marginBottom: '0.25em' }}
@@ -56,6 +59,7 @@ class PinDetailsContainer extends Component {
                         >
                             <i className="fa fa-plus" /> Add New History
                         </Link>
+                        }
                     </BlockHeading>
                     <PinDetails
                         pinHistory={histories.length - i}
