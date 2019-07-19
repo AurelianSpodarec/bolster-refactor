@@ -29,7 +29,7 @@ class SitesFiltersContainer extends Component {
 
         dispatch(updateSitesFilters('name', ''));
         dispatch(updateSitesFilters('status', ''));
-        dispatch(updateSitesFilters('sortBy', ''));
+        dispatch(updateSitesFilters('sortBy', 'default'));
     };
 
     handleChange = (name, value) => {
