@@ -23,15 +23,35 @@ class SitesTableContainer extends Component {
         const { status } = filters;
         const name = filters.name.toLowerCase();
 
-        let sitesSearched = sites.filter(site =>
+        const sitesSearched = sites.filter(site =>
             site.name.toLowerCase().includes(name)
         );
 
+        const sitesSorted = this._getSortedSites(sitesSearched);
+
         if (status === 'archived') {
-            return sitesSearched.filter(site => site.isArchived);
+            return sitesSorted.filter(site => site.isArchived);
         }
 
-        return sitesSearched.filter(site => !site.isArchived);
+        return sitesSorted.filter(site => !site.isArchived);
+    };
+
+    _getSortedSites = sites => {
+        const { filters } = this.props;
+
+        if (filters.sortBy === 'descending') {
+            return sites.sort(
+                (a, b) => new Date(b.createdOn) - new Date(a.createdOn)
+            );
+        }
+
+        if (filters.sortBy === 'ascending') {
+            return sites.sort(
+                (a, b) => new Date(a.createdOn) - new Date(b.createdOn)
+            );
+        }
+        // default sort order as per api
+        return sites.sort((a, b) => a.sort - b.sort);
     };
 }
 

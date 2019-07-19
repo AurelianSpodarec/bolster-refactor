@@ -92,20 +92,17 @@ class SitesTableContainer extends Component {
         const { filters } = this.props;
 
         if (filters.sortBy === 'descending') {
-            console.log('descending');
             return sites.sort(
                 (a, b) => new Date(b.createdOn) - new Date(a.createdOn)
             );
         }
 
         if (filters.sortBy === 'ascending') {
-            console.log('ascending');
             return sites.sort(
                 (a, b) => new Date(a.createdOn) - new Date(b.createdOn)
             );
         }
         // default sort order as per api
-        console.log('default');
         return sites.sort((a, b) => a.sort - b.sort);
     };
 
