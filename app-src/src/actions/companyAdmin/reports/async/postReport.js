@@ -32,7 +32,10 @@ export default postBody => dispatch => {
 
     return axios
         .post(`${API_URL}/reports`, postBody, getHeaders())
-        .then(({ data }) => {
+        .then(({ data, status }) => {
+            if (status === 202) {
+                return dispatch(postReportFailure(data.message));
+            }
             return dispatch(postReportSuccess(data));
         })
         .catch(err => {

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 
 import fetchAllSites from 'actions/companyAdmin/sites/async/fetchAllSites';
@@ -9,16 +9,13 @@ import fetchAllDrawings from 'actions/companyAdmin/drawings/async/fetchAllDrawin
 import CreateReport from '../presentational/CreateReport';
 import fetchCompanyOperatives from 'actions/companyAdmin/operatives/async/fetchCompanyOperatives';
 import fetchCompanyUsers from 'actions/companyAdmin/userManagement/async/fetchCompanyUsers';
+import { componentDidMount } from 'helpers/generic';
 
-export class CreateReportContainer extends Component {
-    render = () => <CreateReport />;
+const CreateReportContainer = ({ fetchAll }) => {
+    componentDidMount(fetchAll);
 
-    componentDidMount = () => {
-        const { fetchAll } = this.props;
-
-        fetchAll();
-    };
-}
+    return <CreateReport />;
+};
 
 const mapDispatchToProps = dispatch => ({
     fetchAll: () => {

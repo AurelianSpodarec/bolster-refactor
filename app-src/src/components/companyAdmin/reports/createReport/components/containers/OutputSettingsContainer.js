@@ -202,11 +202,11 @@ class OutputSettingsContainer extends Component {
                 history.push('/company/tools/company-reports');
                 return;
             }
-
             showModal(ERROR_MODAL, {
                 title: 'Error',
                 message:
                     error ||
+                    action.error ||
                     'There was an error with your request. Please try again later.'
             });
         });
