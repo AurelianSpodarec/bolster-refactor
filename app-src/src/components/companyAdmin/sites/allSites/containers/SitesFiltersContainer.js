@@ -29,6 +29,7 @@ class SitesFiltersContainer extends Component {
 
         dispatch(updateSitesFilters('name', ''));
         dispatch(updateSitesFilters('status', ''));
+        // ! don't change default
         dispatch(updateSitesFilters('sortBy', 'default'));
     };
 
