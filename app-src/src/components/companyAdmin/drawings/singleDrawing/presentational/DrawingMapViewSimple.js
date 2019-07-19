@@ -32,7 +32,6 @@ const DrawingMapViewSimple = ({
     history,
     showModal,
     updating,
-    updateMessage,
     shouldShowPinSelectorOptions,
     setMode,
     cornerClicked,
@@ -140,7 +139,7 @@ const DrawingMapViewSimple = ({
                         center={position}
                         zoom={zoom}
                         minZoom={0}
-                        maxZoom={5}
+                        maxZoom={10}
                         onClick={e => handleClick(e)}
                         crs={CRS.Simple}
                     >
@@ -148,6 +147,7 @@ const DrawingMapViewSimple = ({
                             attribution='&amp;copy <a href="http://app.bolstersystems.com">Bolster Systems Ltd</a>'
                             url={getDataUrl(drawing.tilesetS3Key)}
                             noWrap={true}
+                            maxZoom={10}
                         />
                         {pins.map(pin => (
                             <MapPinContainer

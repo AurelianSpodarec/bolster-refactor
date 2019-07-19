@@ -48,7 +48,7 @@ const FilterMap = ({
                 center={[-128, 128]}
                 zoom={3}
                 minZoom={0}
-                maxZoom={5}
+                maxZoom={10}
                 onClick={handleClick}
                 crs={CRS.Simple}
             >
@@ -58,6 +58,7 @@ const FilterMap = ({
                         drawing.tilesetS3Key
                     }/{z}/{x}/{y}.jpg`}
                     noWrap={true}
+                    maxZoom={10}
                 />
                 {cornerClicked && (
                     <Marker position={cornerClicked} icon={cornerClickedIcon} />
