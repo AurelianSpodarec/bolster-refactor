@@ -1,0 +1,54 @@
+import React from 'react';
+import moment from 'moment';
+
+import Table from 'components/shared/generic/tables/presentational/Table';
+import PinInspectionLogsListItem from './PinInspectionLogsListItem';
+import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
+
+const PinInspectionLogsTable = ({
+    isFetching,
+    error,
+    pins,
+    handleFilterChange,
+    onMobile
+}) => (
+    <BlockContainer containerClass="inspection-log flex-item size-lg-4 size-md-12">
+        <div className="size-lg-12">
+            <BlockHeading title="Inspection Log">
+                <div className="area-filter">
+                    <i className="icon far fa-search" />
+                    <input
+                        type="text"
+                        name="filterValue"
+                        placeholder="Enter Pin ID..."
+                        onChange={handleFilterChange}
+                    />
+                </div>
+            </BlockHeading>
+            <div className="inspection-log-table">
+                <Table
+                    headers={['Pin ID', 'Status', 'Actions']}
+                    isFetching={isFetching}
+                    error={error}
+                    noData={!pins.length}
+                    noDataMessage="No inspection logs to display."
+                    withActions
+                >
+                    {[...pins]
+                        .sort((a, b) => moment(b.updated) - moment(a.updated))
+                        .map(pin => (
+                            <PinInspectionLogsListItem
+                                key={pin.id}
+                                pin={pin}
+                                headers={['Pin ID', 'Status', 'Actions']}
+                                onMobile={onMobile}
+                            />
+                        ))}
+                </Table>
+            </div>
+        </div>
+    </BlockContainer>
+);
+
+export default PinInspectionLogsTable;

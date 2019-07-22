@@ -7,6 +7,7 @@ import fetchCompanyUsers from 'actions/companyAdmin/userManagement/async/fetchCo
 import SinglePin from '../presentational/SinglePin';
 import fetchDrawingTemplates from 'actions/companyAdmin/drawings/async/fetchDrawingTemplates';
 import fetchDrawingDropdownOptions from 'actions/companyAdmin/drawings/async/fetchDrawingDropdownOptions';
+import fetchPins from 'actions/companyAdmin/pins/async/fetchPins';
 
 class SinglePinContainer extends Component {
     render = () => <SinglePin />;
@@ -16,11 +17,17 @@ class SinglePinContainer extends Component {
             pinId,
             fetchSinglePinData,
             fetchSinglePin,
-            fetchDrawingTemplates
+            fetchDrawingTemplates,
+            // fetchPins
         } = this.props;
         const { payload } = await fetchSinglePin(pinId);
+        const {
+            pin: { drawingID }
+        } = payload;
         fetchSinglePinData(pinId);
-        fetchDrawingTemplates(payload.pin.drawingID);
+        fetchDrawingTemplates(drawingID);
+        // ! fetch pins commented out while bug fixed to stop it redirecting back to drawing.
+        // fetchPins(drawingID);
     };
 }
 
@@ -37,7 +44,8 @@ const mapDispatchToProps = dispatch => ({
     fetchDrawingTemplates: drawingID => {
         dispatch(fetchDrawingTemplates(drawingID));
         dispatch(fetchDrawingDropdownOptions(drawingID));
-    }
+    },
+    fetchPins: drawingID => dispatch(fetchPins('drawing', drawingID))
 });
 
 export default connect(
