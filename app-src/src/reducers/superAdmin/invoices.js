@@ -98,7 +98,7 @@ function invoiceItemsReducer(state = {}, action) {
 }
 
 function filtersReducer(
-    state = { searchTerm: '', paymentType: 0, hasPayed: '2' },
+    state = { searchTerm: '', paymentType: 0, hasPayed: '0' },
     action
 ) {
     switch (action.type) {

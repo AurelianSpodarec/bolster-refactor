@@ -304,3 +304,9 @@ export const RECTANGLE_MODES = {
     DELETE: 2,
     EXCLUDE: 3
 };
+
+export const INVOICE_STATUS_TYPES = {
+    ALL: 0,
+    PAID: 1,
+    UNPAID: 2
+};
