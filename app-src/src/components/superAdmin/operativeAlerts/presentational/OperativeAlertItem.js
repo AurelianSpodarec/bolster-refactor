@@ -15,11 +15,11 @@ const OperativeAlertItem = ({
         <td>{sentCount}</td>
         <td>{roundToTwoPlacesMax((deliveredCount / sentCount) * 100)}%</td>
         <td>{roundToTwoPlacesMax((readCount / sentCount) * 100)}%</td>
-        <td>
+        {/* <td>
             <ButtonContainer to={`/admin/operative-alerts/${id}/metrics`}>
                 Show Metrics
             </ButtonContainer>
-        </td>
+        </td> */}
     </tr>
 );
 
