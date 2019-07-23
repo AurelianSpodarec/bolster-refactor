@@ -7,7 +7,6 @@ import PinDetails from '../presentational/PinDetails';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import fetchSinglePin from 'actions/companyAdmin/pins/async/fetchSinglePin';
-import { isObjEmpty } from 'helpers/generic';
 
 class PinDetailsContainer extends Component {
     render() {

@@ -18,7 +18,7 @@ class SinglePinContainer extends Component {
             fetchSinglePinData,
             fetchSinglePin,
             fetchDrawingTemplates,
-            // fetchPins
+            fetchPins
         } = this.props;
         const { payload } = await fetchSinglePin(pinId);
         const {
@@ -26,8 +26,8 @@ class SinglePinContainer extends Component {
         } = payload;
         fetchSinglePinData(pinId);
         fetchDrawingTemplates(drawingID);
-        // ! fetch pins commented out while bug fixed to stop it redirecting back to drawing.
-        // fetchPins(drawingID);
+        fetchPins(drawingID);
+        // // ! fetch pins commented out while bug fixed to stop it redirecting back to drawing.
     };
 }
 

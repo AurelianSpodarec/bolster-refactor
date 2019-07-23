@@ -26,7 +26,7 @@ const PinInspectionLogsTable = ({
                     />
                 </div>
             </BlockHeading>
-            <div className="inspection-log-table">
+            <div className="inspection-log-table for-pin-single">
                 <Table
                     headers={['Pin ID', 'Status', 'Actions']}
                     isFetching={isFetching}
