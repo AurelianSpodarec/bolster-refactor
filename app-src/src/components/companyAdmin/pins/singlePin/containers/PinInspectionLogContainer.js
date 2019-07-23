@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import PinInspectionLogTable from '../present../presentational/PinInspectionLogsTableTable
+import PinInspectionLogTable from '../presentational/PinInspectionLogsTable';
 
 class PinInspectionLogContainer extends Component {
     state = {

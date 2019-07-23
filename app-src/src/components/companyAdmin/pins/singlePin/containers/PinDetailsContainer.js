@@ -7,7 +7,6 @@ import PinDetails from '../presentational/PinDetails';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import fetchSinglePin from 'actions/companyAdmin/pins/async/fetchSinglePin';
-import { isObjEmpty } from 'helpers/generic';
 
 class PinDetailsContainer extends Component {
     render() {
@@ -24,7 +23,6 @@ class PinDetailsContainer extends Component {
             (a, b) => moment(b.createdOn) - moment(a.createdOn)
         );
 
-        
         return sortedHistories.map((history, i) => {
             const isFirst = i === 0;
             return (
@@ -51,15 +49,15 @@ class PinDetailsContainer extends Component {
                                 : ''}
                             )
                         </h4>
-                        {isFirst && 
-                        <Link
-                            className="button green"
-                            style={{ marginBottom: '0.25em' }}
-                            to={`/company/pins/${pin.id}/add-history`}
-                        >
-                            <i className="fa fa-plus" /> Add New History
-                        </Link>
-                        }
+                        {isFirst && (
+                            <Link
+                                className="button green"
+                                style={{ marginBottom: '0.25em' }}
+                                to={`/company/pins/${pin.id}/add-history`}
+                            >
+                                <i className="fa fa-plus" /> Add New History
+                            </Link>
+                        )}
                     </BlockHeading>
                     <PinDetails
                         pinHistory={histories.length - i}
@@ -92,9 +90,6 @@ class PinDetailsContainer extends Component {
             fetchSinglePin(pin.id).then(({ error }) => {
                 if (error) history.push(`/company/drawings/${drawingID}`);
             });
-        }
-        if (!isObjEmpty(prevProps.pin) && isObjEmpty(pin)) {
-            history.push(`/company/drawings/${drawingID}`);
         }
     };
 }
