@@ -1,12 +1,13 @@
 import axios from 'axios';
 
-import { API_URL } from 'config/index';
 import { getHeaders, handleErrors } from 'helpers/api';
 import {
     ADMIN_CREATE_OPERATIVE_ALERT_REQUEST,
     ADMIN_CREATE_OPERATIVE_ALERT_SUCCESS,
     ADMIN_CREATE_OPERATIVE_ALERT_FAILURE
 } from 'constants/actionTypes/operativeAlerts';
+
+import { ADMIN_API_URL } from 'config';
 
 export const createOperativeAlertRequest = () => ({
     type: ADMIN_CREATE_OPERATIVE_ALERT_REQUEST
@@ -22,21 +23,10 @@ export const createOperativeAlertFailure = error => ({
     error
 });
 
-export default (postBody, filterOptionsVal = 0) => dispatch => {
+export default postBody => dispatch => {
     dispatch(createOperativeAlertRequest());
-
-    const endpoints = {
-        0: '',
-        1: 'sites',
-        2: 'operatives'
-    };
-
     return axios
-        .post(
-            `${API_URL}/operativealerts/${endpoints[filterOptionsVal]}`,
-            postBody,
-            getHeaders()
-        )
-        .then(result => dispatch(createOperativeAlertSuccess(result.data)))
+        .post(`${ADMIN_API_URL}/operativealerts`, postBody, getHeaders())
+        .then(({ data }) => dispatch(createOperativeAlertSuccess(data)))
         .catch(err => dispatch(handleErrors(createOperativeAlertFailure)(err)));
 };

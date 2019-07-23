@@ -7,6 +7,7 @@ import fetchAllInvoices from 'actions/superAdmin/invoices/async/fetchAllInvoices
 import SuperAdminInvoicesTable from '../presentational/SuperAdminInvoicesTable';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
+import { INVOICE_STATUS_TYPES } from 'constants/companyAdmin/enums';
 
 const SuperAdminInvoicesTableContainer = ({
     error,
@@ -15,50 +16,6 @@ const SuperAdminInvoicesTableContainer = ({
     companies,
     filters
 }) => {
-    function _filteredInvoices() {
-        const { searchTerm, hasPayed } = filters;
-        const companyNameFilter = Object.values(companies)
-            .filter(company =>
-                company.name.toLowerCase().includes(searchTerm.toLowerCase())
-            )
-            .map(filteredCompany => filteredCompany.id);
-
-        const orderIDFilter = invoices
-            .filter(invoice =>
-                invoice.id.toString().includes(searchTerm.toLowerCase())
-            )
-            .map(filteredInvoice => filteredInvoice.id.toString());
-
-        const hasPayedInvoices = invoices
-            .filter(invoice => invoice.isPaid === true)
-            .sort((a, b) => moment(b.createdOn) - moment(a.createdOn));
-        const hasNotPayedInvoices = invoices
-            .filter(invoice => invoice.isPaid === false)
-            .sort((a, b) => moment(b.createdOn) - moment(a.createdOn));
-
-        if (hasPayed === '1') {
-            return hasPayedInvoices.filter(
-                invoice =>
-                    companyNameFilter.includes(invoice.companyID) ||
-                    orderIDFilter.includes(invoice.id.toString())
-            );
-        } else if (hasPayed === '2') {
-            return hasNotPayedInvoices.filter(
-                invoice =>
-                    companyNameFilter.includes(invoice.companyID) ||
-                    orderIDFilter.includes(invoice.id.toString())
-            );
-        } else {
-            return invoices
-                .filter(
-                    invoice =>
-                        companyNameFilter.includes(invoice.companyID) ||
-                        orderIDFilter.includes(invoice.id.toString())
-                )
-                .sort((a, b) => moment(b.createdOn) - moment(a.createdOn));
-        }
-    }
-
     return (
         <BlockContainer>
             <BlockHeading title="All Invoices" />
@@ -79,6 +36,39 @@ const SuperAdminInvoicesTableContainer = ({
             />
         </BlockContainer>
     );
+
+    function _filteredInvoices() {
+        const { searchTerm, hasPayed } = filters;
+        const term = searchTerm.toLowerCase();
+        const companyNameFilter = Object.values(companies)
+            .filter(({ name }) => name.toLowerCase().includes(term))
+            .map(({ id }) => id);
+
+        const orderIDFilter = invoices
+            .filter(invoice => invoice.id.toString().includes(term))
+            .map(filteredInvoice => filteredInvoice.id.toString());
+
+        const filteredInvoices = invoices.filter(invoice => {
+            switch (hasPayed) {
+                case INVOICE_STATUS_TYPES.ALL:
+                    return true;
+                case INVOICE_STATUS_TYPES.PAID:
+                    return invoice.isPaid;
+                case INVOICE_STATUS_TYPES.UNPAID:
+                    return !invoice.isPaid;
+                default:
+                    return true;
+            }
+        });
+
+        return filteredInvoices
+            .filter(
+                invoice =>
+                    companyNameFilter.includes(invoice.companyID) ||
+                    orderIDFilter.includes(invoice.id.toString())
+            )
+            .sort((a, b) => moment(b.createdOn) - moment(a.createdOn));
+    }
 };
 
 const mapStateToProps = ({

@@ -13,6 +13,7 @@ import MoveToolRoutes from './MoveToolRoutes';
 import DemoRequestsRoutes from './DemoRequestsRoutes';
 import SOSManagementRoutes from './SOSManagementRoutes';
 import DashboardContainer from 'components/superAdmin/dashboard/containers/DashboardContainer';
+import OperativeAlertsRoutes from './OperativeAlertsRoutes';
 
 const AdminRoutes = ({ base = '/admin' }) => (
     <SwitchWith404>
@@ -38,6 +39,10 @@ const AdminRoutes = ({ base = '/admin' }) => (
         <Route
             path={`${base}/sos-management`}
             component={SOSManagementRoutes}
+        />
+        <Route
+            path={`${base}/operative-alerts`}
+            component={OperativeAlertsRoutes}
         />
     </SwitchWith404>
 );

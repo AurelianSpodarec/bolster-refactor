@@ -20,6 +20,7 @@ import drawingsReducer from './drawings';
 import demoRequestsReducer from './demoRequests';
 import moveToolReducer from './moveTool';
 import sosCodesReducer from './sosCodes';
+import operativeAlertsReducer from 'reducers/superAdmin/operativeAlerts';
 
 export default combineReducers({
     companiesReducer,
@@ -41,5 +42,6 @@ export default combineReducers({
     drawingsReducer,
     demoRequestsReducer,
     moveToolReducer,
-    sosCodesReducer
+    sosCodesReducer,
+    operativeAlertsReducer
 });
