@@ -98,10 +98,7 @@ const mapStateToProps = ({
     isFetching: isFetching || isFetchingCompanies
 });
 
-const mapDispatchToProps = dispatch => ({
-    showModal: (type, props) => dispatch(showModal(type, props)),
-    fetchAllInvoices: () => dispatch(fetchAllInvoices())
-});
+const mapDispatchToProps = { showModal, fetchAllInvoices };
 
 export default connect(
     mapStateToProps,
