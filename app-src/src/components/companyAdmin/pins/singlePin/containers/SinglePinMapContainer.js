@@ -12,6 +12,7 @@ import updatePinCoordinates from 'actions/companyAdmin/drawings/sync/updatePinCo
 import { CONFIRM_EDIT_PIN } from 'constants/shared/modalTypes';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { isEmpty } from 'helpers/generic';
+import PinInspectionLogContainer from './PinInspectionLogContainer';
 
 class SinglePinMapContainer extends Component {
     state = {
@@ -41,27 +42,32 @@ class SinglePinMapContainer extends Component {
         );
 
         return (
-            <BlockContainer
-                isEmpty={!pin.id || !drawing.id || isEmpty(histories)}
-                isFetching={isFetching}
-                error={error}
-            >
-                <SinglePinMap
-                    zoom={3}
-                    editPinLocationPosition={editPinLocationPosition}
-                    pin={pin}
-                    handleClick={this.handleMapClick}
-                    user={latestUserName[0]}
-                    drawing={drawing}
-                    toggleMoveMode={this.toggleMoveMode}
-                    moveMode={this.state.moveMode}
-                    handleEditPinLocation={this.handleEditPinLocation}
-                    pinHistory={selectedHistory}
-                    history={this.props.history}
-                    handleEditHistoryModal={this.handleEditHistoryModal}
-                    onMobile={onMobile}
-                />
-            </BlockContainer>
+            <div className="flex-container">
+                <BlockContainer
+                    containerClass={`${onMobile ? 'size-lg-12' : 'size-lg-8'}`}
+                    isEmpty={!pin.id || !drawing.id || isEmpty(histories)}
+                    isFetching={isFetching}
+                    error={error}
+                >
+                    <SinglePinMap
+                        zoom={3}
+                        editPinLocationPosition={editPinLocationPosition}
+                        pin={pin}
+                        handleClick={this.handleMapClick}
+                        user={latestUserName[0]}
+                        drawing={drawing}
+                        toggleMoveMode={this.toggleMoveMode}
+                        moveMode={this.state.moveMode}
+                        handleEditPinLocation={this.handleEditPinLocation}
+                        pinHistory={selectedHistory}
+                        history={this.props.history}
+                        handleEditHistoryModal={this.handleEditHistoryModal}
+                        onMobile={onMobile}
+                    />
+                </BlockContainer>
+
+                <PinInspectionLogContainer />
+            </div>
         );
     }
 

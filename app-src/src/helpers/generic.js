@@ -186,12 +186,19 @@ export function getBolsterColour() {
 
 export const momentComparisonFormat = 'YYYY-MM-DD';
 
-export const roundToTwoPlacesMax = num => Math.round(num * 100) / 100;
+export const roundToTwoPlacesMax = num => {
+    const rounded = Math.round(num * 100) / 100;
+
+    if (isNaN(rounded)) return 0;
+    return rounded;
+};
 
 export const deepEquals = (first, second) => {
     // shouldn't be used for deep comparison of primitives but might as well account for it
     // also works if the same object reference is passed twice for whatever reason
     if (first === second) return true;
+
+    if (typeof first !== typeof second) return false;
 
     if (first instanceof Date) {
         return second instanceof Date

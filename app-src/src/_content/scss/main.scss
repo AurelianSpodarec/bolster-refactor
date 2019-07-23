@@ -3673,6 +3673,11 @@ input {
     max-height: 385px;
     overflow: auto;
 
+    &.for-pin-single {
+        max-height: 475px;
+        overflow: hidden;
+    }
+
     .generic-table {
         width: 100%;
         margin-left: 0;
