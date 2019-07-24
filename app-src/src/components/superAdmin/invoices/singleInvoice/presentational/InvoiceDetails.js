@@ -27,7 +27,7 @@ const InvoiceDetails = ({
     >
         <BlockHeading title="Invoice Details">
             <button
-                onClick={() => showModal(ADMIN_CONFIRM_FREE_INVOICE)}
+                onClick={() => showModal(ADMIN_CONFIRM_FREE_INVOICE, { id })}
                 className="button red"
             >
                 <i className="far fa-money-bill-alt fa-fw" /> Make Free

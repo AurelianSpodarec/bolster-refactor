@@ -49,7 +49,7 @@ const SuperAdminInvoicesTableContainer = ({
             .map(filteredInvoice => filteredInvoice.id.toString());
 
         const filteredInvoices = invoices.filter(invoice => {
-            switch (hasPayed) {
+            switch (+hasPayed) {
                 case INVOICE_STATUS_TYPES.ALL:
                     return true;
                 case INVOICE_STATUS_TYPES.PAID:
