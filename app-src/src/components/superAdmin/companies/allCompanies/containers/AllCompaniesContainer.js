@@ -7,16 +7,10 @@ class AllCompaniesContainer extends Component {
     render() {
         return <AllCompanies />;
     }
-    componentDidMount() {
-        this.props.fetchAllCompanies();
-    }
+    componentDidMount = () => this.props.fetchAllCompanies();
 }
 
-const mapDispatchToProps = () => dispatch => ({
-    fetchAllCompanies: () => {
-        dispatch(fetchAllCompanies());
-    }
-});
+const mapDispatchToProps = { fetchAllCompanies };
 
 export default connect(
     null,

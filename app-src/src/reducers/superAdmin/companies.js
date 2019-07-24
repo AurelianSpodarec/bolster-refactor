@@ -35,7 +35,7 @@ function isFetchingReducer(state = false, action) {
     }
 }
 
-function filtersReducer(state = { name: '' }, action) {
+function filtersReducer(state = { name: '', companyType: 0 }, action) {
     switch (action.type) {
         case UPDATE_COMPANIES_FILTERS:
             return updateObj(state, action.fieldName, action.searchTerm);

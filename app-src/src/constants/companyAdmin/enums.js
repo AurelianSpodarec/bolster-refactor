@@ -310,3 +310,14 @@ export const INVOICE_STATUS_TYPES = {
     PAID: 1,
     UNPAID: 2
 };
+
+export const COMPANY_TYPES = {
+    ALL: 0,
+    ACTIVE: 1,
+    EXPIRED: 2,
+    CLIENT: 3
+};
+
+export const getEnumKey = (enumerable, num) =>
+    // eslint-disable-next-line no-unused-vars
+    (Object.entries(enumerable).find(([_, value]) => value === num) || {})[0];
