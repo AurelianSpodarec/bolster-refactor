@@ -6,6 +6,7 @@ import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import makeInvoiceFree from 'actions/superAdmin/invoices/async/makeInvoiceFree.js';
 import { SUCCESS_MODAL } from 'constants/shared/modalTypes';
+import fetchAllInvoices from 'actions/superAdmin/invoices/async/fetchAllInvoices';
 
 class ConfirmFreeInvoiceModalContainer extends Component {
     render() {
@@ -47,7 +48,8 @@ const mapStateToProps = ({
 const mapDispatchToProps = {
     hideModal,
     makeInvoiceFree,
-    showModal
+    showModal,
+    fetchAllInvoices
 };
 
 export default connect(
