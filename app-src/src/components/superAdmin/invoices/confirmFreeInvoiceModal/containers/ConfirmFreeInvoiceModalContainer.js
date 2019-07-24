@@ -23,9 +23,8 @@ class ConfirmFreeInvoiceModalContainer extends Component {
     }
 
     componentDidUpdate = prevProps => {
-        const { postSuccess, showModal, fetchAllInvoices } = this.props;
+        const { postSuccess, showModal } = this.props;
         if (!prevProps.postSuccess && postSuccess) {
-            fetchAllInvoices();
             showModal(SUCCESS_MODAL, {
                 message: 'The invoice has successfully been made free.'
             });
