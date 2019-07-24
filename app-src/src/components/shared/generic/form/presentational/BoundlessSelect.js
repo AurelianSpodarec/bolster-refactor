@@ -118,7 +118,7 @@ const BoundlessSelect = ({
             .map(opt => {
                 let label = opt.label;
                 const count = value.filter(item => item === opt.value).length;
-                if (count > 1) label = `${label} (${count})`;
+                if (count > 1) label = `${label} x ${count}`;
 
                 return { ...opt, label };
             });
