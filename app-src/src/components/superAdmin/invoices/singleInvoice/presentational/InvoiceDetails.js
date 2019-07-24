@@ -26,12 +26,16 @@ const InvoiceDetails = ({
         isFetching={isFetching}
     >
         <BlockHeading title="Invoice Details">
-            <button
-                onClick={() => showModal(ADMIN_CONFIRM_FREE_INVOICE, { id })}
-                className="button red"
-            >
-                <i className="far fa-money-bill-alt fa-fw" /> Make Free
-            </button>
+            {!isPaid && (
+                <button
+                    onClick={() =>
+                        showModal(ADMIN_CONFIRM_FREE_INVOICE, { id })
+                    }
+                    className="button red"
+                >
+                    <i className="far fa-money-bill-alt fa-fw" /> Make Free
+                </button>
+            )}
             <button
                 onClick={() =>
                     showModal(ADMIN_CONFIRM_SET_IS_INVOICE_PAID, { isPaid, id })
