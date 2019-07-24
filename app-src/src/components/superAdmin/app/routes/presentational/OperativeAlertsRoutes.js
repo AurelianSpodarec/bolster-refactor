@@ -3,7 +3,7 @@ import { Route } from 'react-router-dom';
 
 import SwitchWith404 from 'components/appRoute/routes/presentational/SwitchWith404';
 import AllOperativeAlertsContainer from 'components/superAdmin/operativeAlerts/containers/AllOperativeAlertsContainer';
-import CreateOperativeAlertContainer from 'components/superAdmin/operativeAlerts/containers/CreateOperativeAlertContainer';
+import CreateOperativeAlertContainer from 'components/superAdmin/operativeAlerts/createOperativeAlert/containers/CreateOperativeAlertContainer';
 import OperativeAlertMetricsContainer from 'components/superAdmin/operativeAlerts/operativeAlertsMetrics/containers/OperativeAlertMetricsContainer';
 
 const OperativeAlertsRoutes = ({ base = '/admin/operative-alerts' }) => (
