@@ -21,6 +21,7 @@ const ExcludedBox = ({
                 handleMouseDown={handleMouseDown}
                 handleMouseUp={handleMouseUp}
                 clicking={clicking}
+                pinsList={excludedPins}
             />
         ))}
     </div>

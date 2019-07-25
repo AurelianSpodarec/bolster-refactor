@@ -6,13 +6,14 @@ const SelectorPinItem = ({
     active,
     handleMouseDown,
     handleMouseUp,
-    clicking
+    clicking,
+    pinsList
 }) => (
     <div
         // onClick={e => handlePinClick(e, pin.value)}
         className={`selector-pin ${active ? 'active' : ''}`}
         onMouseDown={e => {
-            handlePinClick(e, pin.value);
+            handlePinClick(e, pin.value, pinsList);
             handleMouseDown();
         }}
         onMouseUp={handleMouseUp}
