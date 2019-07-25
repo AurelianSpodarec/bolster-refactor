@@ -71,7 +71,10 @@ export default function(ProtectedComponent) {
 
         _getFilteredPins = pins => {
             const { filters, furtherFiltrationOption } = this.props;
-            const { PIN_SELECTOR } = FURTHER_FILTRATION_OPTIONS;
+            const {
+                PIN_SELECTOR,
+                INDIVIDUAL_PINS
+            } = FURTHER_FILTRATION_OPTIONS;
 
             // ? Displays all pins if in rectangle mode, and only the selected pins otherwise.
 
@@ -132,20 +135,21 @@ export default function(ProtectedComponent) {
                     ) {
                         return NO;
                     }
-                    if (
-                        +furtherFiltrationOption ===
-                        FURTHER_FILTRATION_OPTIONS.INDIVIDUAL_PINS
-                    ) {
-                        if (!filters.pinIDs.includes(pin.id)) {
-                            return NO;
-                        }
-                    }
+                    // if (
+                    //     +furtherFiltrationOption ===
+                    //     FURTHER_FILTRATION_OPTIONS.INDIVIDUAL_PINS
+                    // ) {
+                    //     if (!filters.pinIDs.includes(pin.id)) {
+                    //         return NO;
+                    //     }
+                    // }
                     return YES;
                 })
                 .map(pin => ({
                     ...pin,
                     excluded:
-                        +furtherFiltrationOption === PIN_SELECTOR &&
+                        (+furtherFiltrationOption === PIN_SELECTOR ||
+                            +furtherFiltrationOption === INDIVIDUAL_PINS) &&
                         !filters.pinIDs.includes(pin.id)
                 }));
         };
