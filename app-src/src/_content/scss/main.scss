@@ -2683,6 +2683,13 @@ input {
     }
 }
 
+//dashboard
+
+.dashboard-operatives {
+    max-height: 295px;
+    margin: 0 -15px;
+}
+
 .stats {
     &.client-stats {
         .history {
