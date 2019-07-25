@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 import PinSelector from '../presentational/PinSelector';
 import withUpdateOnChange from 'components/companyAdmin/reports/createReport/components/hocs/withUpdateOnChange';
+import { sortArrayByKeyAndOrder } from 'helpers/generic';
 
 class PinSelectorContainer extends Component {
     state = {
@@ -22,8 +23,16 @@ class PinSelectorContainer extends Component {
         }
         return (
             <PinSelector
-                excludedPins={excludedPins}
-                includedPins={includedPins}
+                excludedPins={sortArrayByKeyAndOrder(
+                    excludedPins,
+                    'text',
+                    true
+                )}
+                includedPins={sortArrayByKeyAndOrder(
+                    includedPins,
+                    'text',
+                    true
+                )}
                 handlePinClick={this.handlePinClick}
                 handleSubmit={this.handleSubmit}
                 selectedPinOptions={this.state.selectedPinOptions}

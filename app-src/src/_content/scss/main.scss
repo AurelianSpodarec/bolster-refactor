@@ -2597,7 +2597,7 @@ input {
         }
         .multi-multi-dropdown {
             float: right;
-            width: 250px;
+            max-width: 250px;
             p {
                 line-height: 14px;
             }
@@ -2681,6 +2681,13 @@ input {
     .footer-logo {
         height: 42px;
     }
+}
+
+//dashboard
+
+.dashboard-operatives {
+    max-height: 295px;
+    margin: 0 -15px;
 }
 
 .stats {

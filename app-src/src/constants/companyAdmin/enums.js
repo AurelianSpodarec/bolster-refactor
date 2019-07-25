@@ -313,9 +313,9 @@ export const INVOICE_STATUS_TYPES = {
 
 export const COMPANY_TYPES = {
     ALL: 0,
-    ACTIVE: 1,
-    EXPIRED: 2,
-    CLIENT: 3
+    'Company - Active Subscription': 1,
+    'Company - Expired Subscription': 2,
+    'Client Access': 3
 };
 
 export const getEnumKey = (enumerable, num) =>

@@ -13,7 +13,7 @@ class DashboardDataByDrawingTableContainer extends Component {
                 isFetching={isFetching}
                 error={error}
                 isEmpty={isEmpty(drawings)}
-                noWhiteBackground
+                containerClass="always-scrollbar dashboard-operatives"
             >
                 <DashboardDataByDrawingTable
                     headers={['Name', 'Pins updated', '']}

@@ -18,7 +18,7 @@ const DashboardDataByOperativeTable = ({
         noData={!operatives.length}
         noDataMessage="There are no operatives to display."
     >
-        {operatives.slice(0, 8).map(operative => (
+        {operatives.map(operative => (
             <DashboardDataByOperativeListItem
                 key={operative.id}
                 operative={operative}
