@@ -2,6 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import CompaniesTable from '../presentational/CompaniesTable';
 
+import { COMPANY_TYPES } from 'constants/companyAdmin/enums';
+const { ALL } = COMPANY_TYPES;
+
 const CompaniesTableContainer = ({
     isFetching,
     fetchingError,
@@ -15,6 +18,7 @@ const CompaniesTableContainer = ({
                 'Telephone',
                 'Address',
                 'Terms Accepted On',
+                'Type',
                 ''
             ]}
             isFetching={isFetching}
@@ -25,10 +29,14 @@ const CompaniesTableContainer = ({
 
     function _getFilteredCompanies() {
         const name = filters.name.toLowerCase();
+        const { companyType } = filters;
         return companies.filter(
             company =>
-                company.name.toLowerCase().includes(name) ||
-                company.code.includes(+name)
+                // filter by name
+                (company.name.toLowerCase().includes(name) ||
+                    company.code.includes(+name)) &&
+                // filter by type
+                (companyType === ALL || companyType === company.companyType)
         );
     }
 };

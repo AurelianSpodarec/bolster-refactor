@@ -51,11 +51,12 @@ const AddSiteForm = ({
 
         <div className="size-lg-12">
             <div className="size-lg-6 size-md-12">
-                <Field name="Address line 1">
+                <Field name="Address line 1" required>
                     <TextInputContainer
                         value={addressLine1}
                         name="addressLine1"
                         handleChange={handleInputChange}
+                        required
                     />
                 </Field>
             </div>
@@ -73,11 +74,12 @@ const AddSiteForm = ({
 
         <div className="size-lg-12">
             <div className="size-lg-6 size-md-12">
-                <Field name="Postcode">
+                <Field name="Postcode" required>
                     <TextInputContainer
                         value={postcode}
                         name="postcode"
                         handleChange={handleInputChange}
+                        required
                     />
                 </Field>
             </div>

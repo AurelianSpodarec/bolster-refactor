@@ -16,7 +16,8 @@ const AddDrawingsFormContainer = ({
     createDrawings,
     updateHierarchyAddState,
     isUsingBolsterLabels,
-    filesUploading
+    filesUploading,
+    credits
 }) => {
     const [
         drawings,
@@ -46,6 +47,7 @@ const AddDrawingsFormContainer = ({
             handleSubmit={handleSubmit}
             isUsingBolsterLabels={isUsingBolsterLabels}
             filesUploading={filesUploading}
+            credits={credits}
         />
     );
 
@@ -85,11 +87,18 @@ const AddDrawingsFormContainer = ({
 };
 
 const mapStateToProps = ({
+    companyAdmin: {
+        creditsReducer: { credits }
+    },
     shared: {
         filesUploadingReducer: { filesUploading }
     }
 }) => ({
-    filesUploading
+    filesUploading,
+    credits: Object.values(credits).reduce(
+        (acc, curr) => acc + curr.quantity,
+        0
+    )
 });
 
 const mapDispatchToProps = {

@@ -12,6 +12,7 @@ import {
     FETCH_SINGLE_COMPANY_REQUEST,
     FETCH_SINGLE_COMPANY_FAILURE
 } from 'constants/actionTypes/companiesWithPermissions';
+import { COMPANY_TYPES } from 'constants/companyAdmin/enums';
 
 export default combineReducers({
     companies: companiesReducer,
@@ -35,7 +36,10 @@ function isFetchingReducer(state = false, action) {
     }
 }
 
-function filtersReducer(state = { name: '' }, action) {
+function filtersReducer(
+    state = { name: '', companyType: COMPANY_TYPES.ALL },
+    action
+) {
     switch (action.type) {
         case UPDATE_COMPANIES_FILTERS:
             return updateObj(state, action.fieldName, action.searchTerm);

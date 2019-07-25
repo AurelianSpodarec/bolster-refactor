@@ -106,6 +106,21 @@ export const enumFormat = obj =>
         label
     }));
 
+/**
+ * @param {object} obj - enum in format {KEY: 1}
+ * @returns {object} formatted enum, object suitable for <Select /> {label: Key, value: 1}
+ */
+export const enumFormatCapitalKeys = obj =>
+    Object.entries(obj).map(([label, value]) => ({
+        value: +value || value,
+        label: capitaliseWords(label)
+    }));
+
+export const capitaliseWord = word =>
+    `${word[0].toUpperCase()}${word.slice(1).toLowerCase()}`;
+
+export const capitaliseWords = words => words.split(' ').map(capitaliseWord);
+
 // For numbers without decimal
 export const formatNumber = num => Number(num).toLocaleString('en-us');
 
@@ -140,6 +155,12 @@ export function moveItem(arr, id, index) {
     sortedItems.splice(index, 0, item);
     return sortedItems.map((item, i) => ({ ...item, sort: i + 1 }));
 }
+
+export const caseInsensitiveEquals = (str1, str2) =>
+    str1.toLowerCase() === str2.toLowerCase();
+
+export const caseInsensitiveIncludes = (str1, str2) =>
+    str1.toLowerCase() === str2.toLowerCase();
 
 // call this as the argument to a .sort() on an array
 export const hierarchySort = (a, b) => a.sort - b.sort;

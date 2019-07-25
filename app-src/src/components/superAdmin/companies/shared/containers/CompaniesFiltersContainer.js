@@ -1,21 +1,39 @@
 import React from 'react';
-
-import updateCompaniesFilters from 'actions/superAdmin/companies/sync/updateCompaniesFilters';
-
 import { connect } from 'react-redux';
 
 import CompaniesFilters from '../presentational/CompaniesFilters';
 
-// TODO: add filters
+import updateCompaniesFilters from 'actions/superAdmin/companies/sync/updateCompaniesFilters';
+import { COMPANY_TYPES } from 'constants/companyAdmin/enums';
+import { enumFormatCapitalKeys } from 'helpers/generic';
 
-const CompaniesFiltersContainer = ({ filters: { name }, dispatch }) => {
-    const handleChange = (name, value) => {
-        dispatch(updateCompaniesFilters(name, value));
-    };
-
-    return <CompaniesFilters handleChange={handleChange} name={name} />;
+const CompaniesFiltersContainer = ({
+    filters: { name, companyType },
+    updateCompaniesFilters
+}) => {
+    const companyTypeOptions = enumFormatCapitalKeys(COMPANY_TYPES);
+    return (
+        <CompaniesFilters
+            handleChange={handleChange}
+            name={name}
+            companyType={companyType}
+            companyTypeOptions={companyTypeOptions}
+        />
+    );
+    function handleChange(name, value) {
+        updateCompaniesFilters(name, value);
+    }
 };
 
-export default connect(({ superAdmin: { companiesReducer } }) => ({
-    filters: companiesReducer.filters
-}))(CompaniesFiltersContainer);
+const mapStateToProps = ({
+    superAdmin: {
+        companiesReducer: { filters }
+    }
+}) => ({ filters });
+
+const mapDispatchToProps = { updateCompaniesFilters };
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(CompaniesFiltersContainer);
