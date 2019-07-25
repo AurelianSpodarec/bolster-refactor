@@ -8,6 +8,7 @@
         "chart.js": "^2.8.0",
         "core-js": "^3.1.4",
         "cross-env": "^5.2.0",
+        "es7-object-polyfill": "^1.0.0",
         "filepond": "^4.2.0",
         "filepond-plugin-file-validate-type": "^1.2.4",
         "filepond-plugin-image-preview": "^4.0.3",
