@@ -71,11 +71,11 @@ export default function(ProtectedComponent) {
 
         _getFilteredPins = pins => {
             const { filters, furtherFiltrationOption } = this.props;
-            const { INDIVIDUAL_PINS } = FURTHER_FILTRATION_OPTIONS;
+            const { PIN_SELECTOR } = FURTHER_FILTRATION_OPTIONS;
 
             // ? Displays all pins if in rectangle mode, and only the selected pins otherwise.
 
-            if (furtherFiltrationOption > INDIVIDUAL_PINS) {
+            if (+furtherFiltrationOption > PIN_SELECTOR) {
                 // advanced
                 return pins.filter(({ id }) => filters.pinIDs.includes(id));
             }
@@ -90,54 +90,64 @@ export default function(ProtectedComponent) {
             } = filters;
 
             const NO = false;
+            const YES = true;
             // simple
-            return pins.filter(pin => {
-                // start date
-                if (
-                    fromDateInclusive &&
-                    moment(pin.createdOn) <
-                        moment(fromDateInclusive, momentComparisonFormat)
-                ) {
-                    return NO;
-                }
-                // end date
-                if (
-                    toDateInclusive &&
-                    moment(pin.createdOn) >
-                        moment(toDateInclusive, momentComparisonFormat)
-                ) {
-                    return NO;
-                }
-                // status
-                if (status && +pin.latestStatus !== +status) {
-                    return NO;
-                }
-                // services
-                if (serviceID && +pin.latestServiceID !== +serviceID) {
-                    return NO;
-                }
-                // templates
-                if (templateID && +templateID !== pin.templateID) {
-                    return NO;
-                }
-                // operatives
-                if (
-                    companyUserIDs &&
-                    companyUserIDs.length &&
-                    !companyUserIDs.includes(pin.latestCreatedByCompanyUserID)
-                ) {
-                    return NO;
-                }
-                if (
-                    +furtherFiltrationOption ===
-                    FURTHER_FILTRATION_OPTIONS.INDIVIDUAL_PINS
-                ) {
-                    if (!filters.pinIDs.includes(pin.id)) {
+            return pins
+                .filter(pin => {
+                    // start date
+                    if (
+                        fromDateInclusive &&
+                        moment(pin.createdOn) <
+                            moment(fromDateInclusive, momentComparisonFormat)
+                    ) {
                         return NO;
                     }
-                }
-                return true;
-            });
+                    // end date
+                    if (
+                        toDateInclusive &&
+                        moment(pin.createdOn) >
+                            moment(toDateInclusive, momentComparisonFormat)
+                    ) {
+                        return NO;
+                    }
+                    // status
+                    if (status && +pin.latestStatus !== +status) {
+                        return NO;
+                    }
+                    // services
+                    if (serviceID && +pin.latestServiceID !== +serviceID) {
+                        return NO;
+                    }
+                    // templates
+                    if (templateID && +templateID !== pin.templateID) {
+                        return NO;
+                    }
+                    // operatives
+                    if (
+                        companyUserIDs &&
+                        companyUserIDs.length &&
+                        !companyUserIDs.includes(
+                            pin.latestCreatedByCompanyUserID
+                        )
+                    ) {
+                        return NO;
+                    }
+                    if (
+                        +furtherFiltrationOption ===
+                        FURTHER_FILTRATION_OPTIONS.INDIVIDUAL_PINS
+                    ) {
+                        if (!filters.pinIDs.includes(pin.id)) {
+                            return NO;
+                        }
+                    }
+                    return YES;
+                })
+                .map(pin => ({
+                    ...pin,
+                    excluded:
+                        +furtherFiltrationOption === PIN_SELECTOR &&
+                        !filters.pinIDs.includes(pin.id)
+                }));
         };
 
         _getPostBody = () => {

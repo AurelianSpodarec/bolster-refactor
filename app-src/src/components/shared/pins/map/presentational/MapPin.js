@@ -24,7 +24,8 @@ const DrawingMapPin = ({
         pinCode,
         latestStatus = '',
         createdOn,
-        latestCreatedOn
+        latestCreatedOn,
+        excluded
     },
     pinHistory = {},
     history,
@@ -56,6 +57,7 @@ const DrawingMapPin = ({
                 pinCode={pinCode}
                 pinID={id}
                 history={pinHistory}
+                excluded={excluded}
             />
         ),
         iconSize: [30, 50],
