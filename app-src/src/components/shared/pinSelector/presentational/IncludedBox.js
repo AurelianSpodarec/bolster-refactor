@@ -21,6 +21,7 @@ const IncludedBox = ({
                 handleMouseDown={handleMouseDown}
                 handleMouseUp={handleMouseUp}
                 clicking={clicking}
+                pinsList={includedPins}
             />
         ))}
     </div>
