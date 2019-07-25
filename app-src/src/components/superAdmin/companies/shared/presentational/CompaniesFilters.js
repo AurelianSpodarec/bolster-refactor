@@ -16,13 +16,20 @@ const CompaniesFilters = ({
             handleChange={handleChange}
         />
         <div className="table-filter">
-            <Select
-                value={companyType}
-                name="companyType"
-                options={companyTypeOptions}
-                onChange={handleChange}
-                omitPlaceholder
-            />
+            <div className="size-lg-12">
+                <div className="size-lg-4">
+                    <p>Type:</p>
+                </div>
+                <div className="size-lg-8">
+                    <Select
+                        value={companyType}
+                        name="companyType"
+                        options={companyTypeOptions}
+                        onChange={handleChange}
+                        omitPlaceholder
+                    />
+                </div>
+            </div>
         </div>
     </form>
 );

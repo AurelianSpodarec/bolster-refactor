@@ -2597,7 +2597,7 @@ input {
         }
         .multi-multi-dropdown {
             float: right;
-            width: 250px;
+            max-width: 250px;
             p {
                 line-height: 14px;
             }
