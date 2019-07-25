@@ -1,3 +1,5 @@
+import 'react-app-polyfill/ie11';
+import 'react-app-polyfill/stable';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { createStore, applyMiddleware } from 'redux';
@@ -7,8 +9,6 @@ import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
 import { DragDropContextProvider } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
-import 'react-app-polyfill/ie11';
-import 'react-app-polyfill/stable';
 
 import * as serviceWorker from 'helpers/serviceWorker';
 import reducer from 'reducers';
