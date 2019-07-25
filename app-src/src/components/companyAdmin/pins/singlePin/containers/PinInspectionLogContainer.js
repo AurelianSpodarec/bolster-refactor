@@ -10,9 +10,13 @@ class PinInspectionLogContainer extends Component {
 
     render() {
         const { pins, isFetching, error, onMobile } = this.props;
-        const filterPins = pins.filter(({ pinCode = '' }) =>
-            pinCode.includes(this.state.filterValue)
-        );
+        const filterPins = pins
+            .filter(({ pinCode = '' }) =>
+                pinCode.includes(this.state.filterValue)
+            )
+            .sort((a, b) => {
+                return a.pinCode.split(':')[0] - b.pinCode.split(':')[0];
+            });
 
         return (
             <PinInspectionLogTable
