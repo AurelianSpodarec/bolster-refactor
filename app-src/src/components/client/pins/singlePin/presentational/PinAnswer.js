@@ -120,7 +120,7 @@ export default connect()(PinAnswer);
 function formatMultiMulti(answer) {
     const formatted = answer.map(item => {
         const count = answer.filter(x => item === x).length;
-        return count > 1 ? `${item} (${count})` : item;
+        return count > 1 ? `${item} x ${count}` : item;
     });
 
     return [...new Set(formatted)].join(', ');

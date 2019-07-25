@@ -126,11 +126,18 @@ class FurtherFiltrationContainer extends Component {
             isFetching,
             showModal,
             hideModal,
-            isDisabled
+            isDisabled,
+            postFilters
         } = this.props;
         // reset filter fields if changing the filter
         if (prevProps.furtherFiltrationOption !== furtherFiltrationOption) {
             removeFilterQuestions();
+            if (
+                +prevProps.furtherFiltrationOption ===
+                FURTHER_FILTRATION_OPTIONS.PIN_SELECTOR
+            ) {
+                postFilters();
+            }
         }
         if (isDisabled && !prevProps.isDisabled) {
             updateFurtherFiltrationOption(0);

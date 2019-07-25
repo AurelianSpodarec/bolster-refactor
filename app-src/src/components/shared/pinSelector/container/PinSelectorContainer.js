@@ -167,14 +167,12 @@ class PinSelectorContainer extends Component {
     };
 
     componentDidMount = () => {
-        const { handleChange, addFieldError } = this.props;
+        const { addFieldError } = this.props;
         addFieldError(
             'pinSelector',
             'You must include some pins in the report.'
         );
         this._setPinOptions();
-        const selectedPinIDs = [];
-        handleChange('pinIDs', selectedPinIDs);
     };
 
     componentWillUnmount = () => {
@@ -225,16 +223,19 @@ class PinSelectorContainer extends Component {
     };
 
     _setPinOptions = () => {
-        const { pins = [] } = this.props.customFilters;
+        const pins = this.props.getFilteredPins(this.props.pins);
         const pinOptions = pins.reduce(
             (acc, { id: value, pinCode: text, status }) => ({
                 ...acc,
-                [value]: { value, text, status, included: false }
+                [value]: { value, text, status, included: true }
             }),
             {}
         );
-        // const pinIDs = Object.values(pinOptions).map(({ value }) => value);
-        const pinIDs = [];
+
+        const pinIDs = Object.values(pinOptions).map(({ value }) => value);
+
+        // const pinIDs = [];
+
         this.setState({ pinOptions });
         this.props.handleChange('pinIDs', pinIDs);
     };
@@ -242,9 +243,13 @@ class PinSelectorContainer extends Component {
 const mapStateToProps = ({
     shared: {
         mobileReducer: { onMobile }
+    },
+    companyAdmin: {
+        pinsReducer: { pins }
     }
 }) => ({
-    onMobile
+    onMobile,
+    pins: Object.values(pins)
 });
 export default withUpdateOnChange(
     connect(

@@ -4,9 +4,8 @@ import { CRS } from 'leaflet';
 
 //old - probably not going to use this componenet
 const DrawingMapViewAdvanced = ({ position, zoom }) => (
-    <Map center={position} zoom={zoom} crs={CRS.Simple} maxZoom={10}>
+    <Map center={position} zoom={zoom} crs={CRS.Simple}>
         <TileLayer
-            maxZoom={10}
             attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
