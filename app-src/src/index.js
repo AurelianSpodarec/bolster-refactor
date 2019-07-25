@@ -7,6 +7,8 @@ import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
 import { DragDropContextProvider } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
+import 'react-app-polyfill/ie11';
+import 'react-app-polyfill/stable';
 
 import * as serviceWorker from 'helpers/serviceWorker';
 import reducer from 'reducers';
@@ -17,7 +19,6 @@ import '_content/scss/dashboard-mobile.scss';
 import 'filepond/dist/filepond.min.css';
 import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css';
 import AppContainer from 'components/appRoute/app/containers/AppContainer';
-import 'react-app-polyfill/ie11';
 
 let middleWare = [thunk];
 
