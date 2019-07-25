@@ -32,7 +32,6 @@ const CompanyReportsListItem = ({
     return (
         <tr>
             <td>
-                {' '}
                 {onMobile && (
                     <span className="mobile-table-heading">{headers[0]}</span>
                 )}
@@ -43,26 +42,33 @@ const CompanyReportsListItem = ({
                 {onMobile && (
                     <span className="mobile-table-heading">{headers[1]}</span>
                 )}
-                {typeArr.join(', ')}
+                {queueItem.createdByUserName}
             </td>
             <td>
                 {' '}
                 {onMobile && (
                     <span className="mobile-table-heading">{headers[2]}</span>
                 )}
-                {GENERATION_STATE_TEXT[queueItem.state]}
+                {typeArr.join(', ')}
             </td>
             <td>
                 {' '}
                 {onMobile && (
                     <span className="mobile-table-heading">{headers[3]}</span>
                 )}
-                <DateTimeContainer date={queueItem.createdOn} />
+                {GENERATION_STATE_TEXT[queueItem.state]}
             </td>
             <td>
                 {' '}
                 {onMobile && (
                     <span className="mobile-table-heading">{headers[4]}</span>
+                )}
+                <DateTimeContainer date={queueItem.createdOn} />
+            </td>
+            <td>
+                {' '}
+                {onMobile && (
+                    <span className="mobile-table-heading">{headers[5]}</span>
                 )}
                 {queueItem.completedOn ? (
                     <DateTimeContainer date={queueItem.completedOn} />
@@ -73,7 +79,7 @@ const CompanyReportsListItem = ({
             <td>
                 {' '}
                 {onMobile && (
-                    <span className="mobile-table-heading">{headers[5]}</span>
+                    <span className="mobile-table-heading">{headers[6]}</span>
                 )}
                 {queueItem.state === COMPLETE ? (
                     <a

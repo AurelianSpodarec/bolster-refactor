@@ -18,6 +18,7 @@ const CompanyReportsTableContainer = ({
         <CompanyReportsTable
             headers={[
                 'Name',
+                'Created By',
                 'Type',
                 'Status',
                 'Created On',
