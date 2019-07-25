@@ -9,7 +9,8 @@ class PinSelectorContainer extends Component {
     state = {
         pinOptions: {},
         selectedPinOptions: [],
-        clicking: false
+        clicking: false,
+        shiftStartPin: ''
     };
 
     render() {
@@ -48,21 +49,70 @@ class PinSelectorContainer extends Component {
         );
     }
 
-    handlePinClick = (e, pinID) => {
+    // * HANDLE PIN CLICK
+    // * pinsList could be the included OR excluded list. Needs to work both ways and needs to be in the same order as rendered to ensure that the shift + click works
+
+    // * isFromExcluded helps determine whether the pin is in the process of being included or excluded
+
+    handlePinClick = (e, pinID, pinsList) => {
         e.preventDefault();
+
+        // * * ========= SHIFT CLICK MULTI-SELECT =========
         if (e.shiftKey) {
-            // shift
-        }
-        if (e.ctrlKey) {
-            // ctrl
+            let { shiftStartPin } = this.state;
+
+            if (!shiftStartPin) {
+                // ** if no pin id in start position, then add it
+                this.setState(prevState => ({
+                    shiftStartPin: pinID,
+                    selectedPinOptions: [...prevState.selectedPinOptions, pinID]
+                }));
+            } else {
+                // ** if the shift and click occurs a second time, slice the array of pins between the shiftStartPin and the pinID you have just clicked on
+
+                // ** maps the array of objects to an array of values;
+                const pinsArr = pinsList.map(pin => pin.value);
+
+                // ** slice between the start and the end
+
+                const indexOfShiftStart = pinsArr.indexOf(shiftStartPin);
+                const indexOfShiftEnd = pinsArr.indexOf(pinID);
+
+                const sliceIndices =
+                    indexOfShiftStart < indexOfShiftEnd + 1
+                        ? { start: indexOfShiftStart, end: indexOfShiftEnd + 1 }
+                        : {
+                              start: indexOfShiftEnd,
+                              end: indexOfShiftStart + 1
+                          };
+
+                const pinsToProcess = pinsArr.slice(
+                    sliceIndices.start,
+                    sliceIndices.end
+                );
+
+                this.setState(prevState => {
+                    return {
+                        shiftStartPin: '',
+                        selectedPinOptions: Array.from(
+                            new Set([
+                                ...prevState.selectedPinOptions,
+                                ...pinsToProcess
+                            ])
+                        )
+                    };
+                });
+            }
         } else {
+            // * * ========== SINGLE CLICK SELECT ============
             const { selectedPinOptions } = this.state;
             const newCheckedPins = selectedPinOptions.includes(pinID)
                 ? selectedPinOptions.filter(val => val !== pinID)
                 : [...selectedPinOptions, pinID];
 
             this.setState({
-                selectedPinOptions: newCheckedPins
+                selectedPinOptions: newCheckedPins,
+                shiftStartPin: ''
             });
         }
     };
