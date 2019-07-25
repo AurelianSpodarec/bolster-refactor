@@ -8,16 +8,14 @@ const CompaniesFilters = ({
     companyType,
     companyTypeOptions
 }) => (
-    <div className="size-lg-12">
-        <div className="size-lg-6">
-            <Search
-                value={name}
-                name="name"
-                placeholder="Search by company name or code..."
-                handleChange={handleChange}
-            />
-        </div>
-        <div className="size-lg-6">
+    <form className="table-search size-lg-12">
+        <Search
+            value={name}
+            name="name"
+            placeholder="Search by company name or code..."
+            handleChange={handleChange}
+        />
+        <div className="table-filter">
             <Select
                 value={companyType}
                 name="companyType"
@@ -26,7 +24,7 @@ const CompaniesFilters = ({
                 omitPlaceholder
             />
         </div>
-    </div>
+    </form>
 );
 
 export default CompaniesFilters;

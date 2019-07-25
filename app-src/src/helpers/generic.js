@@ -124,10 +124,20 @@ export const enumFormatCapitalKeys = obj =>
         label: capitaliseWords(label)
     }));
 
+/**
+ * @param {string} word
+ */
 export const capitaliseWord = word =>
     `${word[0].toUpperCase()}${word.slice(1).toLowerCase()}`;
 
-export const capitaliseWords = words => words.split(' ').map(capitaliseWord);
+/**
+ * @param {string} words - a string containing multiple space seperated words (wont work with brackets etc. todo?)
+ */
+export const capitaliseWords = words =>
+    words
+        .split(' ')
+        .map(capitaliseWord)
+        .join(' ');
 
 // For numbers without decimal
 export const formatNumber = num => Number(num).toLocaleString('en-us');
@@ -176,6 +186,10 @@ export const hierarchySort = (a, b) => a.sort - b.sort;
 // lifecycle hook tests
 
 // ? pass in a function to call on mount
+/**
+ * simulates a class component's componentdidmount method, but called like didMount(callback) instead of didMount() {do this}
+ * @param {Function} cb - the function to be invoked on mount
+ */
 export function componentDidMount(cb) {
     useEffect(() => {
         cb();
@@ -183,6 +197,10 @@ export function componentDidMount(cb) {
 }
 
 // ? pass in a function to call before unmount
+/**
+ * simulates a class component's componentwillunmount method, but called like willUnmount(callback) instead of willUnmount() {do this}
+ * @param {Function} cb - the function to be invoked on unmount
+ */
 export function componentWillUnmount(cb) {
     useEffect(() => {
         return () => cb();
@@ -190,6 +208,13 @@ export function componentWillUnmount(cb) {
 }
 
 // ? pass a function, dependencies - if the dependencies have specific values these should be specified and checked in the cb function
+/**
+ * simulates a class component's componentDidUpdate method, but called like didUpdate(callback) instead of didUpdate() {do this}
+ * to do a if (x and !prevProps.x) use if (x) or if (!x) with x as a dependency
+ * @param {Function} cb - the function to be called on each update
+ * @param {any[]} dependencies - if any of these change, the update will be triggered (also on mount, unmount) - don't use objects or arrays for this as
+ * it will only use a shallow comparison
+ */
 // ie. checking for an error, pass [error] as dependency and in the cb check if (error) {doTheThing()}
 export function componentDidUpdate(cb, dependencies = []) {
     useEffect(() => {

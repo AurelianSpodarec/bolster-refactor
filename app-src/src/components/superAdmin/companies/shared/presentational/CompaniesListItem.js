@@ -6,7 +6,7 @@ import {
     COMPANY_TYPES,
     getEnumKey
 } from 'constants/companyAdmin/enums';
-import { capitaliseWord } from 'helpers/generic';
+import { capitaliseWords } from 'helpers/generic';
 
 const CompaniesListItem = ({
     company: { name, telephone, address, id, termsAcceptedOn, companyType },
@@ -26,7 +26,7 @@ const CompaniesListItem = ({
                 '-'
             )}
         </td>
-        <td>{capitaliseWord(getEnumKey(COMPANY_TYPES, companyType))}</td>
+        <td>{capitaliseWords(getEnumKey(COMPANY_TYPES, companyType))}</td>
         <td>
             <Link to={`${url}/${id}`} className="button">
                 More info
