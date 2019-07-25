@@ -13,7 +13,7 @@ class DashboardDataByOperativeTableContainer extends Component {
                 isFetching={isFetching}
                 error={error}
                 isEmpty={isEmpty(operatives)}
-                noWhiteBackground
+                containerClass="always-scrollbar dashboard-operatives"
             >
                 <DashboardDataByOperativeTable
                     headers={[
