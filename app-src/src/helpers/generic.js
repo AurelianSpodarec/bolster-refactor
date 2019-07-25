@@ -74,9 +74,17 @@ export function updateMultipleKeys(origObj, keys, newValues) {
     );
 }
 
-export function sortArrayByKeyAndOrder(array, key, order) {
+/**
+ *
+ * sort an array of objects by a specified key and an option to choose ascending or descending
+ * @param {Array<Object>} array
+ * @param {string} key
+ * @param {boolean} [ascending] order by ascending? desc if false/omitted
+ * @returns {array} new sorted array, original array not mutated.
+ */
+export function sortArrayByKeyAndOrder(array, key, ascending) {
     return [...array].sort((a, b) => {
-        const value = order === 'asc' ? 1 : -1;
+        const value = ascending ? 1 : -1;
         return a[key] > b[key] ? value : a[key] < b[key] ? -value : 0;
     });
 }
