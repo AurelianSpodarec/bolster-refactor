@@ -16,14 +16,19 @@ import {
     UPDATE_INVOICE_FILTERS,
     SA_SET_IS_INVOICE_PAID_REQUEST,
     SA_SET_IS_INVOICE_PAID_FAILURE,
-    SA_SET_IS_INVOICE_PAID_SUCCESS
+    SA_SET_IS_INVOICE_PAID_SUCCESS,
+    SA_DELETE_INVOICE_FAILURE,
+    SA_DELETE_INVOICE_SUCCESS,
+    SA_DELETE_INVOICE_REQUEST
 } from 'constants/actionTypes/superAdminInvoices';
-import { convertArrToObj, updateObj } from 'helpers/generic';
+import { convertArrToObj, updateObj, removeObjItem } from 'helpers/generic';
 
 export default combineReducers({
     invoices: invoicesReducer,
     invoiceItems: invoiceItemsReducer,
     isFetching: isFetchingReducer,
+    isDeleting: isDeletingReducer,
+    deleteSuccess: deleteSuccessReducer,
     error: errorReducer,
     postSuccess: postSuccessReducer,
     filters: filtersReducer
@@ -45,6 +50,18 @@ function isFetchingReducer(state = false, action) {
     }
 }
 
+function isDeletingReducer(state = false, action) {
+    switch (action.type) {
+        case SA_DELETE_INVOICE_REQUEST:
+            return true;
+        case SA_DELETE_INVOICE_SUCCESS:
+        case SA_DELETE_INVOICE_FAILURE:
+            return false;
+        default:
+            return state;
+    }
+}
+
 function errorReducer(state = null, action) {
     switch (action.type) {
         case SA_FETCH_ALL_INVOICES_REQUEST:
@@ -52,12 +69,15 @@ function errorReducer(state = null, action) {
         case ADMIN_FETCH_COMPANY_INVOICE_ITEMS_REQUEST:
         case SA_MAKE_INVOICE_FREE_REQUEST:
         case SA_SET_IS_INVOICE_PAID_REQUEST:
+        case SA_DELETE_INVOICE_REQUEST:
             return null;
+
         case SA_FETCH_ALL_INVOICES_FAILURE:
         case SA_MAKE_INVOICE_FREE_FAILURE:
         case ADMIN_FETCH_COMPANY_INVOICES_FAILURE:
         case ADMIN_FETCH_COMPANY_INVOICE_ITEMS_FAILURE:
         case SA_SET_IS_INVOICE_PAID_FAILURE:
+        case SA_DELETE_INVOICE_FAILURE:
             return action.error;
         default:
             return state;
@@ -77,12 +97,25 @@ function postSuccessReducer(state = false, action) {
     }
 }
 
+function deleteSuccessReducer(state = false, action) {
+    switch (action.type) {
+        case SA_DELETE_INVOICE_REQUEST:
+            return false;
+        case SA_DELETE_INVOICE_SUCCESS:
+            return true;
+        default:
+            return state;
+    }
+}
+
 function invoicesReducer(state = {}, action) {
     switch (action.type) {
         case SA_FETCH_ALL_INVOICES_SUCCESS:
             return convertArrToObj(action.payload);
         case ADMIN_FETCH_COMPANY_INVOICES_SUCCESS:
             return { ...state, ...convertArrToObj(action.payload) };
+        case SA_DELETE_INVOICE_SUCCESS:
+            return removeObjItem(state, action.id);
         default:
             return state;
     }
