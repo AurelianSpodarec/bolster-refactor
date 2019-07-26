@@ -119,7 +119,15 @@ class EditSettingsFormContainer extends Component {
         }
     };
 
-    handleInputChange = (name, value) => this.setState({ [name]: value });
+    handleInputChange = (name, value) => {
+        if (name === 'vatType' && value === 3) {
+            // * clear the vatCode field if the company admin is now outside of the eu
+            this.setState({ [name]: value, vatCode: null });
+        } else {
+            // * otherwise set the state in the usual way
+            this.setState({ [name]: value });
+        }
+    };
 
     handleColourSelect = ({ hex }) => this.setState({ colourCode: hex });
 
