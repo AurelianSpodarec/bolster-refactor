@@ -69,7 +69,8 @@ import {
     GENERATE_SOS_CODE,
     DELETE_DEMO_REQUEST,
     CONFIRM_MOVE_HIERARCHY_TO_COMPANY,
-    ADMIN_CONFIRM_SET_IS_INVOICE_PAID
+    ADMIN_CONFIRM_SET_IS_INVOICE_PAID,
+    ADMIN_DELETE_INVOICE
 } from 'constants/shared/modalTypes';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
@@ -142,6 +143,7 @@ import DeleteDemoRequestModalContainer from 'components/superAdmin/demoRequests/
 import SOSGenerationModal from 'components/superAdmin/sosManagement/sosGenerationModal/presentational/SOSGenerationModal';
 import SiteManagementConfirmMoveModalContainer from 'components/superAdmin/siteManagement/moveTool/containers/MoveToolConfirmMoveModalContainer';
 import ConfirmSetIsInvoicePaidModalContainer from 'components/superAdmin/invoices/confirmSetIsInvoicePaidModal/containers/ConfirmSetIsInvoicePaidModalContainer';
+import ConfirmDeleteInvoiceModalContainer from 'components/superAdmin/invoices/confirmDeleteInvoiceModal/containers/ConfirmDeleteInvoiceModalContainer';
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModalContainer,
@@ -211,7 +213,8 @@ const MODAL_COMPONENTS = {
     [ADD_CREDITS_TO_DRAWING]: AddCreditsToDrawingModal,
     [GENERATE_SOS_CODE]: SOSGenerationModal,
     [CONFIRM_MOVE_HIERARCHY_TO_COMPANY]: SiteManagementConfirmMoveModalContainer,
-    [ADMIN_CONFIRM_SET_IS_INVOICE_PAID]: ConfirmSetIsInvoicePaidModalContainer
+    [ADMIN_CONFIRM_SET_IS_INVOICE_PAID]: ConfirmSetIsInvoicePaidModalContainer,
+    [ADMIN_DELETE_INVOICE]: ConfirmDeleteInvoiceModalContainer
 };
 
 const ModalRoot = ({ modalType, modalProps, ...otherProps }) => {
