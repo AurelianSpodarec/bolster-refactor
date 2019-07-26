@@ -9,7 +9,8 @@ import DrawingInspectionLogContainer from './DrawingInspectionLogContainer';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import {
     convertEnumToDropdownOptions,
-    momentComparisonFormat
+    momentComparisonFormat,
+    isEmpty
 } from 'helpers/generic';
 import {
     PIN_STATUS_TYPES,
@@ -123,6 +124,12 @@ class DrawingMapGeneralContainer extends Component {
         const pinIDs = pinsFromAPI.map(({ id }) => id);
         handleChange('pinIDs', pinIDs);
 
+        if (drawing.siteID) {
+            handleChange('siteID', String(drawing.siteID));
+            handleChange('buildingID', String(drawing.buildingID));
+            handleChange('floorID', String(drawing.floorID));
+        }
+
         updateReportFilter('drawingID', match.params.id).then(postFilters);
         if (drawing.isFloorplanUpdating) {
             this._floorplanInterval = setInterval(() => {
@@ -146,6 +153,15 @@ class DrawingMapGeneralContainer extends Component {
             fromDateInclusive,
             toDateInclusive
         } = this.props;
+
+        // ! need this here as well as on mount because unlike companyAdmin, the drawing is sometimes empty when it gets here.
+        if (isEmpty(prevDrawing) && !isEmpty(drawing)) {
+            if (drawing.siteID) {
+                handleChange('siteID', String(drawing.siteID));
+                handleChange('buildingID', String(drawing.buildingID));
+                handleChange('floorID', String(drawing.floorID));
+            }
+        }
         // when the component has finished fetching all the options, run get services options once instead of in every render
         if (!isFetching && prevIsFetching) {
             const serviceOptions = this._getServicesOptions();
