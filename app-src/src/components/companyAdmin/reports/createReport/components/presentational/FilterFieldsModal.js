@@ -74,7 +74,7 @@ const FilterFieldsModal = ({
                     </Field>
                 )}
             </div>
-            <BlockButtonWrapper sizeClasses="size-md-12">
+            <BlockButtonWrapper>
                 <button
                     className="button green"
                     type="submit"
