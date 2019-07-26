@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom'
+import { withRouter } from 'react-router-dom';
 
 import deleteInvoice from 'actions/superAdmin/invoices/async/deleteInvoice';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
@@ -23,7 +23,7 @@ class ConfirmDeleteInvoiceModalContainer extends Component {
     componentDidUpdate(prevProps) {
         const { deleteSuccess, showModal } = this.props;
         if (!prevProps.deleteSuccess && deleteSuccess) {
-            this.props.
+            // do something here
         }
     }
 
@@ -51,7 +51,9 @@ const mapDispatchToProps = dispatch => ({
     deleteInvoice: id => dispatch(deleteInvoice(id))
 });
 
-export default withRouter(connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(ConfirmDeleteInvoiceModalContainer));
+export default withRouter(
+    connect(
+        mapStateToProps,
+        mapDispatchToProps
+    )(ConfirmDeleteInvoiceModalContainer)
+);
