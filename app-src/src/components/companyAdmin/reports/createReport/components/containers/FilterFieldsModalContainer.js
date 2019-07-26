@@ -181,9 +181,13 @@ class FilterFieldsModalContainer extends Component {
             if (/^\[.*\]$/g.test(opt)) {
                 newOptions.push(
                     ...opt
+                        // remove [] and "
                         .replace(/[["\]]*/g, '')
+                        // split into seperate options
                         .split(',')
+                        // remove extra whitespace
                         .map(opt => opt.trim())
+                        // remove empty options
                         .filter(opt => !!opt)
                 );
             } else newOptions.push(opt);
