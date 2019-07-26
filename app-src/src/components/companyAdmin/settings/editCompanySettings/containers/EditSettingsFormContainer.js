@@ -7,6 +7,7 @@ import editCompanySettings from 'actions/companyAdmin/companySettings/async/edit
 
 import EditSettingsForm from '../presentational/EditSettingsForm';
 import { sortTimezones } from 'helpers/generic';
+import { VAT_TYPES } from 'constants/companyAdmin/enums';
 
 class EditSettingsFormContainer extends Component {
     state = {
@@ -33,7 +34,9 @@ class EditSettingsFormContainer extends Component {
         initialFile: '',
         timezone: { value: '', label: '' },
         dateFormat: { value: '', label: '' },
-        isUsingBolsterLabels: false
+        isUsingBolsterLabels: false,
+        vatCode: null,
+        vatType: null
     };
 
     render() {
@@ -45,6 +48,12 @@ class EditSettingsFormContainer extends Component {
             '2': { text: 'Use Only Own', value: 2 },
             '3': { text: 'Use Any', value: 3 }
         };
+
+        const vatOptions = [
+            { label: 'GB', value: VAT_TYPES.GB },
+            { label: 'EU', value: VAT_TYPES.EU },
+            { label: 'Outside EU', value: VAT_TYPES.OUTSIDEEU }
+        ];
 
         return (
             <EditSettingsForm
@@ -65,6 +74,7 @@ class EditSettingsFormContainer extends Component {
                 dateFormats={this.formatDateFormats()}
                 dateFormat={dateFormat}
                 handleDateFormatChange={this.handleDateFormatChange}
+                vatOptions={vatOptions}
             />
         );
     }
@@ -77,8 +87,6 @@ class EditSettingsFormContainer extends Component {
                 id,
                 timeZoneID,
                 type,
-                vatCode,
-                vatType,
                 logoFile,
                 timeZone,
                 dateFormat,
@@ -111,7 +119,15 @@ class EditSettingsFormContainer extends Component {
         }
     };
 
-    handleInputChange = (name, value) => this.setState({ [name]: value });
+    handleInputChange = (name, value) => {
+        if (name === 'vatType' && value === 3) {
+            // * clear the vatCode field if the company admin is now outside of the eu
+            this.setState({ [name]: value, vatCode: null });
+        } else {
+            // * otherwise set the state in the usual way
+            this.setState({ [name]: value });
+        }
+    };
 
     handleColourSelect = ({ hex }) => this.setState({ colourCode: hex });
 
