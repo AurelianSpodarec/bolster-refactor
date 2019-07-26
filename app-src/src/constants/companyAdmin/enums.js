@@ -174,6 +174,12 @@ export const VAT_TYPES = {
     OUTSIDEEU: 3
 };
 
+export const VAT_TYPE_NAME = {
+    '1': 'GB',
+    '2': 'EU',
+    '3': 'Outside EU'
+};
+
 //Report generator
 export const FURTHER_FILTRATION = {
     1: 'Individual Pins',
