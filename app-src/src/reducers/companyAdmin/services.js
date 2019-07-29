@@ -12,7 +12,8 @@ import { convertArrToObj } from 'helpers/generic';
 export default combineReducers({
     error: errorReducer,
     isFetching: isFetchingReducer,
-    services: servicesReducer
+    services: servicesReducer,
+    historicServices: companyHistoricServicesReducer
 });
 
 function isFetchingReducer(state = false, action) {
@@ -46,6 +47,14 @@ function errorReducer(state = null, action) {
 function servicesReducer(state = {}, action) {
     switch (action.type) {
         case COMPANY_ADMIN_FETCH_ALL_SERVICES_SUCCESS:
+            return convertArrToObj(action.payload);
+        default:
+            return state;
+    }
+}
+
+function companyHistoricServicesReducer(state = {}, action) {
+    switch (action.type) {
         case COMPANY_ADMIN_FETCH_HISTORIC_SERVICES_SUCCESS:
             return convertArrToObj(action.payload);
         default:

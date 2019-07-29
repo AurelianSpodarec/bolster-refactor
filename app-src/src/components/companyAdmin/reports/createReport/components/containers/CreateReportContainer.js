@@ -10,6 +10,7 @@ import CreateReport from '../presentational/CreateReport';
 import fetchCompanyOperatives from 'actions/companyAdmin/operatives/async/fetchCompanyOperatives';
 import fetchCompanyUsers from 'actions/companyAdmin/userManagement/async/fetchCompanyUsers';
 import { componentDidMount } from 'helpers/generic';
+import fetchHistoricServicesForCompany from 'actions/companyAdmin/services/async/fetchHistoricServicesForCompany';
 
 const CreateReportContainer = ({ fetchAll }) => {
     componentDidMount(fetchAll);
@@ -25,6 +26,7 @@ const mapDispatchToProps = dispatch => ({
         dispatch(fetchAllDrawings());
         dispatch(fetchCompanyOperatives());
         dispatch(fetchCompanyUsers());
+        dispatch(fetchHistoricServicesForCompany());
     }
 });
 

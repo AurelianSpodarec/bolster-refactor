@@ -313,7 +313,7 @@ export default function(ProtectedComponent) {
                 fieldErrorsReducer: { fieldErrors, errorsVisible }
             },
             companyAdmin: {
-                servicesReducer: { services },
+                servicesReducer: { historicServices },
                 sitesReducer: { sites },
                 buildingsReducer,
                 floorsReducer,
@@ -360,7 +360,7 @@ export default function(ProtectedComponent) {
             error,
             operatives,
             companyUsers,
-            services: Object.values(services),
+            services: Object.values(historicServices),
             sites: Object.values(sites),
             buildings,
             floors,
