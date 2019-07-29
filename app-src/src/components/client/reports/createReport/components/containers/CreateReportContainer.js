@@ -8,6 +8,7 @@ import fetchAllClientDrawings from 'actions/client/drawings/async/clientFetchAll
 
 import CreateReport from '../presentational/CreateReport';
 import { getSelectedCompanyForClient } from 'helpers/generic';
+import clientFetchHistoricServices from 'actions/client/services/async/clientFetchHistoricServices';
 
 export class CreateReportContainer extends Component {
     render = () => <CreateReport />;
@@ -15,16 +16,17 @@ export class CreateReportContainer extends Component {
     componentDidMount = () => {
         const selectedCompanyID = getSelectedCompanyForClient();
 
-        this.props.fetchAllLevels(selectedCompanyID);
+        this.props.fetchAll(selectedCompanyID);
     };
 }
 
 const mapDispatchToProps = dispatch => ({
-    fetchAllLevels: companyID => {
+    fetchAll: companyID => {
         dispatch(fetchAllClientSites(companyID));
         dispatch(fetchAllClientBuildings(companyID));
         dispatch(fetchAllClientFloors(companyID));
         dispatch(fetchAllClientDrawings(companyID));
+        dispatch(clientFetchHistoricServices(companyID));
     }
 });
 

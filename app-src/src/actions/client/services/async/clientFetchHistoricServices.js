@@ -21,11 +21,14 @@ export const clientFetchHistoricServicesFailure = error => ({
     error
 });
 
-export default () => dispatch => {
+export default companyID => dispatch => {
     dispatch(clientFetchHistoricServicesRequest());
 
     return axios
-        .get(`${CLIENT_API_URL}/services`, getHeaders())
+        .get(
+            `${CLIENT_API_URL}/services/company/${companyID}/historic`,
+            getHeaders()
+        )
         .then(({ data }) => dispatch(clientFetchHistoricServicesSuccess(data)))
         .catch(err =>
             dispatch(clientFetchHistoricServicesFailure(err.message))
