@@ -24,11 +24,8 @@ export const clientFetchAllServicesFailure = error => ({
 export default () => dispatch => {
     dispatch(clientFetchAllServicesRequest());
 
-    return (
-        axios
-            // ! change this url
-            .get(`${CLIENT_API_URL}/services`, getHeaders())
-            .then(res => dispatch(clientFetchAllServicesSuccess(res.data)))
-            .catch(err => dispatch(clientFetchAllServicesFailure(err.message)))
-    );
+    return axios
+        .get(`${CLIENT_API_URL}/services`, getHeaders())
+        .then(res => dispatch(clientFetchAllServicesSuccess(res.data)))
+        .catch(err => dispatch(clientFetchAllServicesFailure(err.message)));
 };

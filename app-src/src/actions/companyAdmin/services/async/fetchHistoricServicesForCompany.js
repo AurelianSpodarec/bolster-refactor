@@ -7,25 +7,27 @@ import {
     COMPANY_ADMIN_FETCH_HISTORIC_SERVICES_FAILURE
 } from 'constants/actionTypes/services';
 
-export const companyFetchAllServicesRequest = () => ({
+export const companyFetchHistoricServicesRequest = () => ({
     type: COMPANY_ADMIN_FETCH_HISTORIC_SERVICES_REQUEST
 });
 
-export const companyFetchAllServicesSuccess = payload => ({
+export const companyFetchHistoricServicesSuccess = payload => ({
     type: COMPANY_ADMIN_FETCH_HISTORIC_SERVICES_SUCCESS,
     payload
 });
 
-export const companyFetchAllServicesFailure = error => ({
+export const companyFetchHistoricServicesFailure = error => ({
     type: COMPANY_ADMIN_FETCH_HISTORIC_SERVICES_FAILURE,
     error
 });
 
 export default () => dispatch => {
-    dispatch(companyFetchAllServicesRequest());
+    dispatch(companyFetchHistoricServicesRequest());
 
     return axios
         .get(`${API_URL}/services/company/historic`, getHeaders())
-        .then(({ data }) => dispatch(companyFetchAllServicesSuccess(data)))
-        .catch(err => dispatch(companyFetchAllServicesFailure(err.message)));
+        .then(({ data }) => dispatch(companyFetchHistoricServicesSuccess(data)))
+        .catch(err =>
+            dispatch(companyFetchHistoricServicesFailure(err.message))
+        );
 };
