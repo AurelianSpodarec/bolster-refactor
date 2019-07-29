@@ -1,7 +1,6 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { HuePicker } from 'react-color';
-import Select from 'react-select';
 
 import Form from 'components/shared/generic/form/containers/Form';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
@@ -11,6 +10,8 @@ import FileUploadContainer from 'components/shared/generic/form/containers/FileU
 import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
+import Select from 'components/shared/generic/form/presentational/Select';
+import { VAT_TYPES } from 'constants/companyAdmin/enums';
 
 const EditSettingsForm = ({
     handleInputChange,
@@ -26,6 +27,9 @@ const EditSettingsForm = ({
     town,
     county,
     postcode,
+    vatCode,
+    vatType,
+    vatOptions,
     logoFile,
     colourCode,
     isBolsterLogoDark,
@@ -128,6 +132,31 @@ const EditSettingsForm = ({
                     handleChange={handleInputChange}
                 />
             </Field>
+            <Field name="VAT Type" sizeClasses="size-lg-6 size-md-12" required>
+                <Select
+                    name="vatType"
+                    options={vatOptions}
+                    value={vatType}
+                    onChange={handleInputChange}
+                    omitPlaceholder
+                    required
+                />
+            </Field>
+            {vatType && vatType !== VAT_TYPES.OUTSIDEEU && (
+                <Field
+                    name="VAT Code"
+                    required={vatType !== VAT_TYPES.OUTSIDEEU}
+                    sizeClasses="size-lg-6 size-md-12"
+                >
+                    <TextInputContainer
+                        value={vatCode}
+                        name="vatCode"
+                        type="text"
+                        handleChange={handleInputChange}
+                    />
+                </Field>
+            )}
+
             <div>
                 {/* <p>##Display Settings##</p> */}
                 <Field name="Change Company Logo">
