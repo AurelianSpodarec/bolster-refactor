@@ -313,8 +313,8 @@ export default function(ProtectedComponent) {
                 fieldErrorsReducer: { fieldErrors, errorsVisible }
             },
             companyAdmin: {
-                servicesReducer,
-                sitesReducer,
+                servicesReducer: { services },
+                sitesReducer: { sites },
                 buildingsReducer,
                 floorsReducer,
                 drawingsReducer,
@@ -335,7 +335,7 @@ export default function(ProtectedComponent) {
         },
         { blockName }
     ) => {
-        const selectedSite = sitesReducer.sites[filters.siteID] || {};
+        const selectedSite = sites[filters.siteID] || {};
         const buildingIDs = selectedSite.buildingIDs || [];
         const buildings = buildingIDs.map(id => buildingsReducer.buildings[id]);
 
@@ -360,8 +360,8 @@ export default function(ProtectedComponent) {
             error,
             operatives,
             companyUsers,
-            services: Object.values(servicesReducer.services),
-            sites: Object.values(sitesReducer.sites),
+            services: Object.values(services),
+            sites: Object.values(sites),
             buildings,
             floors,
             drawings,
