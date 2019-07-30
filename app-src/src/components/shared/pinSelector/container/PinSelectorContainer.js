@@ -277,7 +277,7 @@ class PinSelectorContainer extends Component {
         const pinOptions = pins.reduce(
             (acc, { id: value, pinCode: text, status }) => ({
                 ...acc,
-                [value]: { value, text, status, included: true }
+                [value]: { value, text, status, included: false }
             }),
             {}
         );
