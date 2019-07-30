@@ -168,9 +168,31 @@ class FilterFieldsModalContainer extends Component {
         const options = selectedQuestions
             .map(id => questionsObj[id])
             .filter(q => q && q.options)
+            .map(q => ({ ...q, options: this.formatOptions(q.options) }))
             .reduce((a, b) => a.concat(b.options), []);
 
         return [...new Set(options)].map(op => ({ label: op, value: op }));
+    };
+
+    // ? sometimes the options are a stringified array, this will seperate into normal options
+    formatOptions = options => {
+        const newOptions = [];
+        options.forEach(opt => {
+            if (/^\[.*\]$/g.test(opt)) {
+                newOptions.push(
+                    ...opt
+                        // remove [] and "
+                        .replace(/[["\]]*/g, '')
+                        // split into seperate options
+                        .split(',')
+                        // remove extra whitespace
+                        .map(opt => opt.trim())
+                        // remove empty options
+                        .filter(opt => !!opt)
+                );
+            } else newOptions.push(opt);
+        });
+        return newOptions;
     };
 
     _getQuestionOptions = () => {

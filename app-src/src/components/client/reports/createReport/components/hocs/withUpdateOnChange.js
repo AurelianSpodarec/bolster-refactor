@@ -218,7 +218,7 @@ export default function(ProtectedComponent) {
                 fieldErrorsReducer: { fieldErrors, errorsVisible }
             },
             client: {
-                servicesReducer,
+                servicesReducer: { historicServices },
                 sitesReducer,
                 buildingsReducer,
                 floorsReducer,
@@ -260,7 +260,7 @@ export default function(ProtectedComponent) {
             options,
             postSuccess,
             error,
-            services: Object.values(servicesReducer.services),
+            services: Object.values(historicServices),
             sites: Object.values(sitesReducer.sites),
             buildings,
             floors,
