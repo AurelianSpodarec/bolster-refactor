@@ -112,7 +112,7 @@ class PinSelectorContainer extends Component {
 
             this.setState({
                 selectedPinOptions: newCheckedPins,
-                shiftStartPin: ''
+                shiftStartPin: pinID
             });
         }
     };
