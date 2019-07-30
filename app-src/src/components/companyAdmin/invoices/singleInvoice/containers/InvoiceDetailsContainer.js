@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 import InvoiceDetails from '../presentational/InvoiceDetails';
+import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 
 class InvoiceDetailsContainer extends Component {
     render() {
@@ -15,6 +16,11 @@ class InvoiceDetailsContainer extends Component {
             />
         );
     }
+    toggleConfirmDeleteModal = () => {
+        const { showModal, invoice } = this.props;
+
+        showModal();
+    };
 }
 
 const mapStateToProps = ({ companyAdmin: { invoicesReducer } }, ownProps) => {
@@ -25,4 +31,13 @@ const mapStateToProps = ({ companyAdmin: { invoicesReducer } }, ownProps) => {
     };
 };
 
-export default withRouter(connect(mapStateToProps)(InvoiceDetailsContainer));
+const mapDispatchToProps = dispatch => ({
+    showModal: (modalType, props) => dispatch(showModal(modalType, props))
+});
+
+export default withRouter(
+    connect(
+        mapStateToProps,
+        mapDispatchToProps
+    )(InvoiceDetailsContainer)
+);

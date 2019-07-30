@@ -113,3 +113,5 @@ export const GENERATE_SOS_CODE = 'GENERATE_SOS_CODE';
 //site management (super admin)
 export const CONFIRM_MOVE_HIERARCHY_TO_COMPANY =
     'CONFIRM_MOVE_HIERARCHY_TO_COMPANY';
+
+export const DELETE_INVOICE = 'DELETE_INVOICE';
