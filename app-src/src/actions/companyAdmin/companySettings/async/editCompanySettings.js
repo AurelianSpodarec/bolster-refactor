@@ -6,7 +6,7 @@ import {
     EDIT_COMPANY_SETTINGS_FAILURE
 } from 'constants/actionTypes/companySettings';
 import { API_URL } from 'config';
-import { getHeaders } from 'helpers/api';
+import { getHeaders, handleErrors } from 'helpers/api';
 
 export const editCompanySettingsRequest = () => ({
     type: EDIT_COMPANY_SETTINGS_REQUEST
@@ -28,5 +28,5 @@ export default postBody => dispatch => {
     axios
         .post(`${API_URL}/settings`, postBody, getHeaders())
         .then(res => dispatch(editCompanySettingsSuccess(res.data)))
-        .catch(err => dispatch(editCompanySettingsFailure(err.message)));
+        .catch(err => dispatch(handleErrors(editCompanySettingsFailure)(err)));
 };

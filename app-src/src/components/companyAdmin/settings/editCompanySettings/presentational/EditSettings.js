@@ -6,7 +6,7 @@ import EditSettingsFormContainer from '../containers/EditSettingsFormContainer';
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 
-const EditSettings = ({ isFetching, error, companySettings: company }) => (
+const EditSettings = ({ isFetching, companySettings: company }) => (
     <>
         <PageHeading
             leftChildren={true}
@@ -15,7 +15,6 @@ const EditSettings = ({ isFetching, error, companySettings: company }) => (
         />
         <BlockContainer
             isFetching={isFetching}
-            error={error}
             isEmpty={!company.name}
         >
             <BlockHeading title="Company Details" />
