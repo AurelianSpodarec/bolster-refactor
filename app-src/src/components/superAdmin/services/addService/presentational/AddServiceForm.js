@@ -37,7 +37,6 @@ const AddServiceForm = ({
                         options={templateOptions}
                         value={templateUUIDs}
                         onChange={handleInputChange}
-                        required
                     />
                 </Field>
             </div>
