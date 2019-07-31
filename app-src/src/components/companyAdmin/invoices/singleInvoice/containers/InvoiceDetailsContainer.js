@@ -17,7 +17,7 @@ class InvoiceDetailsContainer extends Component {
         );
     }
     toggleConfirmDeleteModal = () => {
-        const { showModal, invoice } = this.props;
+        const { showModal /*invoice*/ } = this.props;
 
         showModal();
     };

@@ -21,14 +21,14 @@ class ConfirmDeleteInvoiceModalContainer extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        const { deleteSuccess, showModal } = this.props;
+        const { deleteSuccess /*showModal*/ } = this.props;
         if (!prevProps.deleteSuccess && deleteSuccess) {
             // do something here
         }
     }
 
     handleDelete = () => {
-        const { deleteInvoice, id } = this.props;
+        const { /*deleteInvoice*/ id } = this.props;
         // TODO Put the below function in once the api endpoint has been created for it.
         console.log(id);
         // deleteInvoice(id);
