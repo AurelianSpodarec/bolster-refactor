@@ -12,6 +12,7 @@ import SingleSite from '../presentational/SingleSite';
 import setTabs from 'actions/shared/generic/tabs/sync/setTabs';
 import { SITE_TABS } from 'constants/shared/tabNames';
 import resetFilterOptions from 'actions/companyAdmin/reports/sync/resetFilterOptions';
+import fetchHistoricServicesForCompany from 'actions/companyAdmin/services/async/fetchHistoricServicesForCompany';
 
 class SingleSiteContainer extends Component {
     render = () => <SingleSite />;
@@ -36,6 +37,7 @@ const mapDispatchToProps = dispatch => ({
         dispatch(fetchAllFloors());
         dispatch(fetchDocuments(hierarchyType, siteID));
         dispatch(fetchPinStatsForLevel(hierarchyType, siteID));
+        dispatch(fetchHistoricServicesForCompany());
     },
     setTabs: (tabs, selectedTab) => dispatch(setTabs(tabs, selectedTab)),
     resetFilterOptions: () => dispatch(resetFilterOptions())
