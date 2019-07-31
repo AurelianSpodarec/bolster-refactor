@@ -7,7 +7,6 @@ import CopyTemplateModal from '../presentational/CopyTemplateModal';
 import fetchTemplate from 'actions/superAdmin/templateBuilder/async/fetchTemplate';
 import postTemplate from 'actions/superAdmin/templateBuilder/async/postTemplate';
 import { ERROR_MODAL } from 'constants/shared/modalTypes';
-import fetchTemplatesSimple from 'actions/superAdmin/templateBuilder/async/fetchTemplatesSimple';
 
 class CopyTemplateModalContainer extends Component {
     state = {
@@ -26,10 +25,6 @@ class CopyTemplateModalContainer extends Component {
                 handleSubmit={this.handleSubmit}
             />
         );
-    }
-
-    componentDidMount() {
-        this.props.fetchTemplatesSimple();
     }
 
     _getTemplateOptions = () => {
@@ -165,11 +160,7 @@ const mapStateToProps = ({
     }
 }) => ({ companies, templates: Object.values(templates) });
 
-const mapDispatchToProps = {
-    fetchTemplate,
-    fetchTemplatesSimple,
-    postTemplate
-};
+const mapDispatchToProps = { fetchTemplate, postTemplate };
 
 const WithConnect = connect(
     mapStateToProps,
