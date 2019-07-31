@@ -25,7 +25,7 @@ const InvoiceDetails = ({
     return (
         <BlockContainer error={error} isEmpty={!id} isFetching={isFetching}>
             <BlockHeading title="Invoice Details">
-                {!isPaid && (
+                {/* {!isPaid && (
                     <button
                         onClick={() => console.log('clicked')}
                         className="button red"
@@ -33,7 +33,7 @@ const InvoiceDetails = ({
                         <i className="far fa-trash-alt fa-fw" />
                         Delete Invoice
                     </button>
-                )}
+                )} */}
             </BlockHeading>
 
             <FieldOutput
