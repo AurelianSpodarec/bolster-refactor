@@ -154,8 +154,8 @@ class PinSelectorContainer extends Component {
             'You must include some pins in the report.'
         );
         this._setPinOptions();
-        const selectedPinIDs = [];
-        handleChange('pinIDs', selectedPinIDs);
+        // const selectedPinIDs = [];
+        // handleChange('pinIDs', selectedPinIDs);
     };
 
     componentWillUnmount = () => {
@@ -213,8 +213,8 @@ class PinSelectorContainer extends Component {
             }),
             {}
         );
-        // const pinIDs = Object.values(pinOptions).map(({ value }) => value);
-        const pinIDs = [];
+        const pinIDs = Object.values(pinOptions).map(({ value }) => value);
+        // const pinIDs = [];
         this.setState({ pinOptions });
         this.props.handleChange('pinIDs', pinIDs);
     };

@@ -5321,3 +5321,28 @@ input {
         margin-bottom: 0;
     }
 }
+
+//not available message
+.not-available {
+    float: left;
+    width: 100%;
+    text-align: center;
+    margin: 10px 0;
+    &.w-img{
+        p{
+            top: 50%;
+            left: 0;
+            transform: translateY(-50%);
+            position: absolute;
+        }
+    }
+    p {
+        width: 100%;
+        font-size: 180%;
+       
+    }
+
+    img {
+        opacity: 0.1;
+    }
+}

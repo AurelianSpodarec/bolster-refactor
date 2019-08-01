@@ -204,6 +204,8 @@ export default function(ProtectedComponent) {
                 FURTHER_FILTRATION_OPTIONS.INDIVIDUAL_PINS
             ) {
                 const selectedCompanyID = getSelectedCompanyForClient();
+                console.warn(selectedCompanyID);
+                console.warn(this._getPostBody());
                 return postCustomFilters(
                     selectedCompanyID,
                     this._getPostBody()

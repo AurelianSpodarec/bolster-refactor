@@ -19,37 +19,46 @@ const FilterFieldsModal = ({
     handleFreeFormValChange,
     removeFreeFormVal,
     toggleAddFilter,
-    handleSubmit
+    handleSubmit,
+    isClient
 }) => {
     return (
         <BlockContainer noWhiteBackground={true}>
             <BlockHeading title="Add Filter" />
-            <Field
-                name="Question(s)"
-                classes="no-caps"
-                sizeClasses="size-lg-6"
-                required
-            >
-                <MultiSelect
-                    search
-                    options={questionOptions}
-                    value={selectedQuestions}
-                    name={'selectedQuestions'}
-                    onChange={handleChange}
-                    required
-                />
-            </Field>
-            <div className="size-lg-6">
-                {showFreeForm ? (
-                    <>
-                        <Field
-                            name="Answer"
-                            classes="fields-inside"
-                            sizeClasses="size-lg-12"
-                        >
-                            {freeFormValues.map(renderOption)}
-                        </Field>
-                        {/* <BlockButtonWrapper>
+            {isClient ? (
+                <>
+                    <div className="not-available size-lg-12">
+                        <p className="size-lg-12">Subscription required</p>
+                    </div>
+                </>
+            ) : (
+                <>
+                    <Field
+                        name="Question(s)"
+                        classes="no-caps"
+                        sizeClasses="size-lg-6"
+                        required
+                    >
+                        <MultiSelect
+                            search
+                            options={questionOptions}
+                            value={selectedQuestions}
+                            name={'selectedQuestions'}
+                            onChange={handleChange}
+                            required
+                        />
+                    </Field>
+                    <div className="size-lg-6">
+                        {showFreeForm ? (
+                            <>
+                                <Field
+                                    name="Answer"
+                                    classes="fields-inside"
+                                    sizeClasses="size-lg-12"
+                                >
+                                    {freeFormValues.map(renderOption)}
+                                </Field>
+                                {/* <BlockButtonWrapper>
                             <button
                                 className="button green"
                                 type="button"
@@ -59,41 +68,43 @@ const FilterFieldsModal = ({
                                 add option
                             </button>
                         </BlockButtonWrapper> */}
-                    </>
-                ) : (
-                    <Field
-                        sizeClasses="size-lg-12"
-                        name="Answer(s)"
-                        classes="fields-inside no-caps"
-                    >
-                        <MultiSelect
-                            search
-                            name="optionOrientedVals"
-                            value={optionOrientedVals}
-                            options={optionOrientedOptions}
-                            onChange={handleChange}
-                        />
-                    </Field>
-                )}
-            </div>
-            <BlockButtonWrapper>
-                <button
-                    className="button green"
-                    type="submit"
-                    onClick={handleSubmit}
-                >
-                    <i className="fa fa-save fa-fw" />
-                    Save
-                </button>
-                <button
-                    className="button red"
-                    type="button"
-                    onClick={toggleAddFilter}
-                >
-                    <i className="fa fa-times fa-fw" />
-                    Cancel
-                </button>
-            </BlockButtonWrapper>
+                            </>
+                        ) : (
+                            <Field
+                                sizeClasses="size-lg-12"
+                                name="Answer(s)"
+                                classes="fields-inside no-caps"
+                            >
+                                <MultiSelect
+                                    search
+                                    name="optionOrientedVals"
+                                    value={optionOrientedVals}
+                                    options={optionOrientedOptions}
+                                    onChange={handleChange}
+                                />
+                            </Field>
+                        )}
+                    </div>
+                    <BlockButtonWrapper>
+                        <button
+                            className="button green"
+                            type="submit"
+                            onClick={handleSubmit}
+                        >
+                            <i className="fa fa-save fa-fw" />
+                            Save
+                        </button>
+                        <button
+                            className="button red"
+                            type="button"
+                            onClick={toggleAddFilter}
+                        >
+                            <i className="fa fa-times fa-fw" />
+                            Cancel
+                        </button>
+                    </BlockButtonWrapper>
+                </>
+            )}
         </BlockContainer>
     );
 
