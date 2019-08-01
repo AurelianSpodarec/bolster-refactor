@@ -12,7 +12,7 @@ const DrawingStats = ({ drawing, stats, onMobile, notAvailable = false }) => (
                     Latest Pin Histories
                 </h4>
                 <div className="not-available w-img">
-                    <p>Requires subscription</p>
+                    <p>Subscription required</p>
                     <img alt="not available" src={nograph} />
                 </div>
             </>
