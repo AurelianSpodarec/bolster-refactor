@@ -62,9 +62,11 @@ class AddServiceFormContainer extends Component {
             if (action.type === ADMIN_CREATE_SERVICE_SUCCESS) {
                 const service = action.payload;
 
-                postTemplatesForService(service.id, {
-                    templateIDs: templateUUIDs
-                });
+                if (templateUUIDs.length) {
+                    postTemplatesForService(service.id, {
+                        templateIDs: templateUUIDs
+                    });
+                }
             }
         });
     };

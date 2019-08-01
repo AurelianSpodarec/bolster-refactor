@@ -37,7 +37,6 @@ const EditServiceForm = ({
                         options={templateOptions}
                         value={templateUUIDs}
                         onChange={handleInputChange}
-                        required
                     />
                 </Field>
             </div>{' '}

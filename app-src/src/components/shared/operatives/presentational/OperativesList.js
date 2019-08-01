@@ -13,7 +13,8 @@ const OperativesList = ({
             userLastName: lastName,
             email,
             userOperativeCode: operativeCode,
-            canEditUser
+            canEditUser,
+            companyName
         } = operative;
 
         const stringOperativeCode = operativeCode + '';
@@ -24,7 +25,7 @@ const OperativesList = ({
                     {`${firstName} ${lastName} - ${stringOperativeCode.padStart(
                         2,
                         '0'
-                    )}`}
+                    )} (${companyName})`}
                     <br />
                     {email}
                 </td>

@@ -10,6 +10,7 @@ import fetchTemplateForService from 'actions/superAdmin/services/async/fetchTemp
 import postTemplatesForService from 'actions/superAdmin/services/async/postTemplatesForService';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import fetchTemplatesSimple from 'actions/superAdmin/templateBuilder/async/fetchTemplatesSimple';
+import removeTemplatesFromService from 'actions/superAdmin/services/async/removeTemplatesFromService';
 
 class EditServiceFormContainer extends Component {
     state = {
@@ -40,10 +41,15 @@ class EditServiceFormContainer extends Component {
     }
 
     componentDidMount = () => {
-        this.props.fetchTemplatesSimple();
-
-        this.props.fetchSingleService(this.props.id);
-        this.props.fetchTemplateForService(this.props.id);
+        const {
+            fetchSingleService,
+            fetchTemplateForService,
+            fetchTemplatesSimple,
+            id
+        } = this.props;
+        fetchTemplatesSimple();
+        fetchSingleService(id);
+        fetchTemplateForService(id);
     };
 
     componentDidUpdate = prevProps => {
@@ -69,26 +75,39 @@ class EditServiceFormContainer extends Component {
             !isFetchingTemplateForService &&
             !isEmpty(serviceTemplate)
         ) {
-            this.setState({
-                templateUUIDs: serviceTemplate.templateIDs.map(String)
-            });
+            const templateUUIDs = serviceTemplate.templateIDs.map(String);
+            this.setState({ templateUUIDs });
         }
     };
 
-    handleInputChange = (name, value) => {
-        this.setState({ [name]: value });
-    };
+    handleInputChange = (name, value) => this.setState({ [name]: value });
 
     handleSubmit = e => {
         e.preventDefault();
-        this.props.editService(
-            this.props.id,
-            this.state.name,
-            this.state.showOnCompanySite
+        const {
+            editService,
+            id,
+            postTemplatesForService,
+            removeTemplatesFromService,
+            serviceTemplate
+        } = this.props;
+        const { name, showOnCompanySite, templateUUIDs } = this.state;
+        editService(id, name, showOnCompanySite);
+
+        const templatesToAdd = templateUUIDs.filter(
+            uuid => !serviceTemplate.templateIDs.includes(+uuid)
         );
-        this.props.postTemplatesForService(this.props.id, {
-            templateIDs: this.state.templateUUIDs
-        });
+
+        const templatesToRemove = serviceTemplate.templateIDs.filter(
+            tempID => !templateUUIDs.includes(String(tempID))
+        );
+
+        if (templatesToAdd.length) {
+            postTemplatesForService(id, { templateIDs: templatesToAdd });
+        }
+        if (templatesToRemove.length) {
+            removeTemplatesFromService(id, { templateIDs: templatesToRemove });
+        }
     };
 
     _getTemplateOptions = () => {
@@ -142,23 +161,14 @@ const mapStateToProps = (
     templates: Object.values(templates)
 });
 
-const mapDispatchToProps = dispatch => ({
-    fetchSingleService: id => {
-        return dispatch(fetchSingleService(id));
-    },
-    postTemplatesForService: (serviceID, postBody) => {
-        return dispatch(postTemplatesForService(serviceID, postBody));
-    },
-    fetchTemplateForService: serviceID => {
-        return dispatch(fetchTemplateForService(serviceID));
-    },
-    fetchTemplatesSimple: () => {
-        dispatch(fetchTemplatesSimple());
-    },
-    editService: (id, name, showOnCompanySite) => {
-        dispatch(editService(id, name, showOnCompanySite));
-    }
-});
+const mapDispatchToProps = {
+    fetchSingleService,
+    postTemplatesForService,
+    removeTemplatesFromService,
+    fetchTemplatesSimple,
+    fetchTemplateForService,
+    editService
+};
 
 export default withRouter(
     connect(
