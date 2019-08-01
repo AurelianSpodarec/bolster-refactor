@@ -100,7 +100,12 @@ class EditDrawingModalContainer extends Component {
                 file
             };
         }
-        if (!filesUploading && filesUploaded && totalCredits < 1) {
+        if (
+            !filesUploading &&
+            filesUploaded &&
+            drawing.doesRequireCreditToReplaceFloorplan &&
+            totalCredits < 1
+        ) {
             addFieldError('file', 'Not enough drawing credits');
             showFieldErrors();
         } else if (!filesUploading) editDrawing(drawing.id, postBody);
