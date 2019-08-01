@@ -81,6 +81,7 @@ class FurtherFiltrationContainer extends Component {
                         <FilterFieldsModalContainer
                             id={this.state.filterToEditID}
                             toggleAddFilter={this.toggleAddFilter}
+                            isClient
                         />
                     ) : (
                         <div className="custom-filters-block">

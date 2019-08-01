@@ -11,7 +11,7 @@ const DrawingStats = ({ drawing, stats, onMobile, notAvailable = false }) => (
                 <h4 className="heading heading-3 size-lg-12">
                     Latest Pin Histories
                 </h4>
-                <div className="not-available">
+                <div className="not-available w-img">
                     <p>Requires subscription</p>
                     <img src={nograph} />
                 </div>
