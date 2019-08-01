@@ -7,19 +7,23 @@ import CopyTemplateModal from '../presentational/CopyTemplateModal';
 import fetchTemplate from 'actions/superAdmin/templateBuilder/async/fetchTemplate';
 import postTemplate from 'actions/superAdmin/templateBuilder/async/postTemplate';
 import { ERROR_MODAL } from 'constants/shared/modalTypes';
+import fetchCompanyTemplates from 'actions/superAdmin/companies/async/fetchCompanyTemplates';
 
 class CopyTemplateModalContainer extends Component {
     state = {
-        templateUUID: null
+        templateUUID: null,
+        companyID: null
     };
 
     render() {
-        const { templateUUID } = this.state;
+        const { templateUUID, companyID } = this.state;
         const { hideModal } = this.props;
         return (
             <CopyTemplateModal
                 templateUUID={templateUUID}
                 templateOptions={this._getTemplateOptions()}
+                companyOptions={this._getCompanyOptions()}
+                companyID={companyID}
                 handleChange={this.handleChange}
                 hideModal={hideModal}
                 handleSubmit={this.handleSubmit}
@@ -27,10 +31,31 @@ class CopyTemplateModalContainer extends Component {
         );
     }
 
+    componentDidUpdate = (_, prevState) => {
+        const { companyID } = this.state;
+        const { fetchCompanyTemplates } = this.props;
+        if (prevState.companyID !== companyID) {
+            fetchCompanyTemplates(companyID);
+        }
+    };
+
+    _getCompanyOptions = () => {
+        const { companies } = this.props;
+
+        return Object.values(companies).map(({ name, id }) => ({
+            name,
+            label: name,
+            value: id
+        }));
+    };
+
     _getTemplateOptions = () => {
         const { companies, templates } = this.props;
+        const { companyID } = this.state;
+        if (!companyID) return null;
 
         return templates
+            .filter(template => template.companyID === companyID)
             .map(({ name, uuid, companyID }) => {
                 const company = companies[companyID];
                 if (!company) return null;
@@ -160,7 +185,11 @@ const mapStateToProps = ({
     }
 }) => ({ companies, templates: Object.values(templates) });
 
-const mapDispatchToProps = { fetchTemplate, postTemplate };
+const mapDispatchToProps = {
+    fetchTemplate,
+    postTemplate,
+    fetchCompanyTemplates
+};
 
 const WithConnect = connect(
     mapStateToProps,

@@ -9,6 +9,8 @@ import Field from 'components/shared/generic/form/presentational/Field';
 const CopyTemplateModal = ({
     hideModal,
     handleSubmit,
+    companyOptions,
+    companyID,
     templateOptions,
     templateUUID,
     handleChange
@@ -16,16 +18,29 @@ const CopyTemplateModal = ({
     <ModalOuterContainer extraClasses="w-form">
         <BlockHeading title="Create template from existing" />
         <Form onSubmit={handleSubmit} className="generic-form">
-            <Field styles={{ minHeight: '133px' }}>
+            <Field name="Select a company" styles={{ minHeight: '133px' }}>
                 <Select
                     search
-                    name="templateUUID"
-                    placeholder="-- select a template --"
-                    options={templateOptions}
-                    value={templateUUID}
+                    name="companyID"
+                    placeholder="-- select a company --"
+                    options={companyOptions}
+                    value={companyID}
                     onChange={handleChange}
                     required
                 />
+            </Field>
+            <Field styles={{ minHeight: '133px' }}>
+                {!!templateOptions && (
+                    <Select
+                        search
+                        name="templateUUID"
+                        placeholder="-- select a template --"
+                        options={templateOptions}
+                        value={templateUUID}
+                        onChange={handleChange}
+                        required
+                    />
+                )}
             </Field>
             <BlockButtonWrapper>
                 <button className="button green">
