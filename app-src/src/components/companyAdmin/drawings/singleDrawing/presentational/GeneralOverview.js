@@ -48,7 +48,7 @@ const GeneralOverview = ({
             </div>
         </div>
         <div className="size-lg-12">
-            <DrawingShareLinkContainer drawing={drawing} />
+            <DrawingShareLinkContainer />
         </div>
         {drawing.accessType === ACCESS_TYPES_VALUES.OWNER && (
             <div className="size-lg-12">
