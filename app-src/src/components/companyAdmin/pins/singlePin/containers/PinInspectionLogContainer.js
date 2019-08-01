@@ -9,7 +9,6 @@ class PinInspectionLogContainer extends Component {
     };
 
     render() {
-        console.log({ pins });
         const { pins, isFetching, error, onMobile } = this.props;
         const filterPins = pins
             .filter(({ pinCode = '' }) =>
