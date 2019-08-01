@@ -13,7 +13,7 @@ const DrawingStats = ({ drawing, stats, onMobile, notAvailable = false }) => (
                 </h4>
                 <div className="not-available w-img">
                     <p>Requires subscription</p>
-                    <img src={nograph} />
+                    <img alt="not available" src={nograph} />
                 </div>
             </>
         ) : (

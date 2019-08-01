@@ -69,7 +69,7 @@ class MapPinContainer extends Component {
     handleOpenPin = id => {
         if (this.props.tooltipVisible) return;
 
-        const { fetchSinglePin, historyIDs, pin, urlStart } = this.props;
+        const { fetchSinglePin, historyIDs, pin } = this.props;
         this._waitForHover = setTimeout(() => {
             if (!historyIDs.includes(pin.latestHistoryID + '')) {
                 fetchSinglePin(id, true);
