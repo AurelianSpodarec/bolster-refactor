@@ -6,6 +6,7 @@ import DrawingClientAccessContainer from '../containers/DrawingClientAccessConta
 import DrawingCompaniesAccessContainer from '../containers/DrawingCompaniesAccessContainer';
 import DrawingOperativesAccessContainer from '../containers/DrawingOperativesAccessContainer';
 import { ACCESS_TYPES_VALUES } from 'constants/companyAdmin/enums';
+import DrawingShareLinkContainer from '../containers/DrawingShareLinkContainer';
 
 const GeneralOverview = ({
     handleDelete,
@@ -45,6 +46,9 @@ const GeneralOverview = ({
             >
                 <DrawingDocumentsContainer drawingExpired={drawingExpired} />
             </div>
+        </div>
+        <div className="size-lg-12">
+            <DrawingShareLinkContainer drawing={drawing} />
         </div>
         {drawing.accessType === ACCESS_TYPES_VALUES.OWNER && (
             <div className="size-lg-12">
