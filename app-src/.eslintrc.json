@@ -18,7 +18,8 @@
         "quotes": ["error", "single"],
         "semi": ["error", "always"],
         "react/prop-types": 0,
-        "no-unused-vars": [2, { "vars": "all", "args": "after-used" }]
+        "no-unused-vars": [2, { "vars": "all", "args": "after-used" }],
+        "max-len": [1, 100]
     },
     "parser": "babel-eslint"
 }
