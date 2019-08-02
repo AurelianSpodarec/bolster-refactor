@@ -69,10 +69,10 @@ class MapPinContainer extends Component {
     handleOpenPin = id => {
         if (this.props.tooltipVisible) return;
 
-        const { fetchSinglePin, historyIDs, pin, urlStart } = this.props;
+        const { fetchSinglePin, historyIDs, pin } = this.props;
         this._waitForHover = setTimeout(() => {
             if (!historyIDs.includes(pin.latestHistoryID + '')) {
-                if (urlStart !== 'client') fetchSinglePin(id, true);
+                fetchSinglePin(id, true);
             }
             this.props.updateCurTooltip(id);
         }, 150);
@@ -88,6 +88,7 @@ class MapPinContainer extends Component {
             pin: { latestHistoryID },
             answers
         } = this.props;
+
         return answers.reduce((acc, answer) => {
             if (
                 answer.pinHistoryID === latestHistoryID &&

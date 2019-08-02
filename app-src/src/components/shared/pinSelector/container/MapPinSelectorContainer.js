@@ -14,7 +14,8 @@ const MapPinSelectorContainer = ({
     excludedPinIDs,
     handleClick,
     removeAllExcludedPins,
-    removeAllRectangles
+    removeAllRectangles,
+    isClient
 }) => {
     componentWillUnmount(() => {
         removeAllRectangles();
@@ -24,7 +25,13 @@ const MapPinSelectorContainer = ({
     const filteredPins = !isObjEmpty(rectangles)
         ? pins.filter(({ id }) => !excludedPinIDs.includes(id))
         : [];
-    return <MapPinSelector handleClick={handleClick} pins={filteredPins} />;
+    return (
+        <MapPinSelector
+            handleClick={handleClick}
+            pins={filteredPins}
+            isClient={isClient}
+        />
+    );
 };
 
 const mapStateToProps = (state, { isClient }) => {

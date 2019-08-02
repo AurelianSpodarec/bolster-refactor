@@ -23,7 +23,7 @@ class FilterFieldsModalContainer extends Component {
         optionOrientedVals: []
     };
     render() {
-        const { toggleAddFilter } = this.props;
+        const { toggleAddFilter, isClient } = this.props;
         const {
             freeFormValues,
             optionOrientedVals,
@@ -47,6 +47,7 @@ class FilterFieldsModalContainer extends Component {
                 removeFreeFormVal={this.removeFreeFormVal}
                 toggleAddFilter={toggleAddFilter}
                 handleSubmit={this.handleSubmit}
+                isClient={isClient}
             />
         );
     }

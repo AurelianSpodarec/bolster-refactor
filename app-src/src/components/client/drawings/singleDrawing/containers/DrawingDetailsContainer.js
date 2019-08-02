@@ -15,7 +15,11 @@ class DrawingDetailsContainer extends Component {
                 isFetching={isFetching}
                 isEmpty={!drawing.id || !stats.statuses}
             >
-                <DrawingStats drawing={drawing} stats={stats} />
+                <DrawingStats
+                    drawing={drawing}
+                    stats={stats}
+                    notAvailable={true}
+                />
             </BlockContainer>
         );
     }
