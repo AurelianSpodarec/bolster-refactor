@@ -5328,8 +5328,8 @@ input {
     width: 100%;
     text-align: center;
     margin: 10px 0;
-    &.w-img{
-        p{
+    &.w-img {
+        p {
             top: 50%;
             left: 0;
             transform: translateY(-50%);
@@ -5339,10 +5339,13 @@ input {
     p {
         width: 100%;
         font-size: 180%;
-       
     }
 
     img {
         opacity: 0.1;
     }
+}
+
+.share-link {
+    padding: 10px 0;
 }

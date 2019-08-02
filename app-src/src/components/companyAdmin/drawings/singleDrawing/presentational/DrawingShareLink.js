@@ -6,18 +6,20 @@ import ButtonContainer from 'components/shared/generic/button/containers/ButtonC
 
 const DrawingShareLink = ({ shareLink, postShareLink }) => (
     <BlockContainer heading="Share link">
-        {!!shareLink && (
-            <Field name="Your unique link is:">
-                <Link
-                    to={`/drawingShareLinks/${shareLink.shareKey}`}
-                >{`/drawingShareLinks/${shareLink.shareKey}`}</Link>
-            </Field>
-        )}
-        <Field name="Generate unique share link">
-            <ButtonContainer handleClick={postShareLink}>
-                Generate New Link
-            </ButtonContainer>
-        </Field>
+        <div className="share-link size-lg-12">
+            {!!shareLink && (
+                <>
+                    <p className="generic-text">
+                        Here is your unique share code:{' '}
+                        <Link
+                            to={`/drawingShareLinks/${shareLink.shareKey}`}
+                        >{`/drawingShareLinks/${shareLink.shareKey}`}</Link>
+                    </p>
+                </>
+            )}
+
+            <ButtonContainer handleClick={postShareLink}>Generate New Link</ButtonContainer>
+        </div>
     </BlockContainer>
 );
 
