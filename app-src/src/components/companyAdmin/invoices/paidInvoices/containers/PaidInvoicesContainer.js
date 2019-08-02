@@ -24,7 +24,7 @@ class PaidInvoicesContainer extends Component {
 const mapStateToProps = ({ companyAdmin: { invoicesReducer } }) => ({
     paidInvoices:
         Object.values(invoicesReducer.invoices).filter(
-            invoice => invoice.isPaid
+            invoice => invoice.isPaid && invoice.total > 0
         ) || []
 });
 
