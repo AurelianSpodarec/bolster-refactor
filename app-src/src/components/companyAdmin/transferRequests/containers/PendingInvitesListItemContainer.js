@@ -16,9 +16,16 @@ const PendingInvitesListItemContainer = ({
     hideModal,
     isIncoming,
     headers,
-    onMobile
+    onMobile,
+    services
 }) => {
-    const { siteName, buildingName, floorName, drawingName } = invite;
+    const {
+        siteName,
+        buildingName,
+        floorName,
+        drawingName,
+        serviceID
+    } = invite;
     const name = [siteName, buildingName, floorName, drawingName]
         .filter(notNull => notNull)
         .join(' / ');
@@ -31,8 +38,14 @@ const PendingInvitesListItemContainer = ({
             name={name}
             headers={headers}
             onMobile={onMobile}
+            serviceName={getServiceName()}
         />
     );
+
+    function getServiceName() {
+        return services.filter(service => service.id === invite.serviceID)[0]
+            .name;
+    }
 
     function handleAcceptModal() {
         const handleSubmit = () => {
@@ -70,6 +83,7 @@ const PendingInvitesListItemContainer = ({
 const mapStateToProps = (
     {
         companyAdmin: {
+            servicesReducer: { services },
             companySettingsReducer: {
                 companySettings: { id }
             }
@@ -81,7 +95,8 @@ const mapStateToProps = (
     { invite: { companyID } }
 ) => ({
     isIncoming: companyID === id,
-    onMobile
+    onMobile,
+    services: Object.values(services)
 });
 
 const mapDispatchToProps = dispatch => ({
