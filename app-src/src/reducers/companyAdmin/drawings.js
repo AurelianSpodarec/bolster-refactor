@@ -24,7 +24,10 @@ import {
     REORDER_DRAWING,
     CREATE_DRAWINGS_SUCCESS,
     CREATE_DRAWINGS_REQUEST,
-    CREATE_DRAWINGS_FAILURE
+    CREATE_DRAWINGS_FAILURE,
+    FETCH_DRAWING_SHARE_LINKS_REQUEST,
+    FETCH_DRAWING_SHARE_LINKS_SUCCESS,
+    FETCH_DRAWING_SHARE_LINKS_FAILURE
 } from 'constants/actionTypes/drawings';
 
 import {
@@ -40,18 +43,22 @@ export default combineReducers({
     postSuccess: postSuccessReducer,
     postFailure: postFailureReducer,
     deleteSuccess: deleteSuccessReducer,
-    updatingFloorPlan: updatingFloorPlanReducer
+    updatingFloorPlan: updatingFloorPlanReducer,
+    shareLinks: shareLinksReducer
 });
 
 function isFetchingReducer(state = false, action) {
     switch (action.type) {
         case FETCH_ALL_DRAWINGS_REQUEST:
         case FETCH_SINGLE_DRAWING_REQUEST:
+        case FETCH_DRAWING_SHARE_LINKS_REQUEST:
             return true;
         case FETCH_ALL_DRAWINGS_SUCCESS:
         case FETCH_ALL_DRAWINGS_FAILURE:
         case FETCH_SINGLE_DRAWING_SUCCESS:
         case FETCH_SINGLE_DRAWING_FAILURE:
+        case FETCH_DRAWING_SHARE_LINKS_SUCCESS:
+        case FETCH_DRAWING_SHARE_LINKS_FAILURE:
             return false;
         default:
             return state;
@@ -79,6 +86,7 @@ function errorReducer(state = null, action) {
         case DELETE_DRAWING_REQUEST:
         case ARCHIVE_DRAWING_REQUEST:
         case EDIT_DRAWING_REQUEST:
+        case FETCH_DRAWING_SHARE_LINKS_REQUEST:
             return null;
         case FETCH_ALL_DRAWINGS_FAILURE:
         case FETCH_SINGLE_DRAWING_FAILURE:
@@ -87,6 +95,7 @@ function errorReducer(state = null, action) {
         case DELETE_DRAWING_FAILURE:
         case ARCHIVE_DRAWING_FAILURE:
         case EDIT_DRAWING_FAILURE:
+        case FETCH_DRAWING_SHARE_LINKS_FAILURE:
             return action.error;
         default:
             return state;
@@ -165,6 +174,15 @@ function updatingFloorPlanReducer(state = false, action) {
             return true;
         case UPDATE_FLOOR_PLAN_CONFIRMED:
             return false;
+        default:
+            return state;
+    }
+}
+
+function shareLinksReducer(state = {}, action) {
+    switch (action.type) {
+        case FETCH_DRAWING_SHARE_LINKS_SUCCESS:
+            return updateObj(state, action.payload.id, action.payload);
         default:
             return state;
     }

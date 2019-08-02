@@ -190,7 +190,7 @@ export const hierarchySort = (a, b) => a.sort - b.sort;
  * simulates a class component's componentdidmount method, but called like didMount(callback) instead of didMount() {do this}
  * @param {Function} cb - the function to be invoked on mount
  */
-export function componentDidMount(cb) {
+export function componentDidMount(cb = () => {}) {
     useEffect(() => {
         cb();
     }, []);
@@ -201,7 +201,7 @@ export function componentDidMount(cb) {
  * simulates a class component's componentwillunmount method, but called like willUnmount(callback) instead of willUnmount() {do this}
  * @param {Function} cb - the function to be invoked on unmount
  */
-export function componentWillUnmount(cb) {
+export function componentWillUnmount(cb = () => {}) {
     useEffect(() => {
         return () => cb();
     }, []);
@@ -216,7 +216,7 @@ export function componentWillUnmount(cb) {
  * it will only use a shallow comparison
  */
 // ie. checking for an error, pass [error] as dependency and in the cb check if (error) {doTheThing()}
-export function componentDidUpdate(cb, dependencies = []) {
+export function componentDidUpdate(cb = () => {}, dependencies = []) {
     useEffect(() => {
         cb();
     }, dependencies);
