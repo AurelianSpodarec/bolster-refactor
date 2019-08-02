@@ -4,7 +4,6 @@ import {
     FETCH_PINS_BY_SHARE_LINK_SUCCESS,
     FETCH_PINS_BY_SHARE_LINK_FAILURE
 } from 'constants/actionTypes/pins';
-import { updateObj } from 'helpers/generic';
 
 export default combineReducers({
     postSuccess: postSuccessReducer,
