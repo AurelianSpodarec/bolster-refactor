@@ -54,7 +54,6 @@ class EditSettingsFormContainer extends Component {
             { label: 'EU', value: VAT_TYPES.EU },
             { label: 'Outside EU', value: VAT_TYPES.OUTSIDEEU }
         ];
-
         return (
             <EditSettingsForm
                 {...this.state}
@@ -141,9 +140,13 @@ class EditSettingsFormContainer extends Component {
         });
     };
 
-    handleTimezoneChange = timezone => this.setState({ timezone });
+    handleTimezoneChange = (name, timezone) => {
+        this.setState({ [name]: timezone });
+    };
 
-    handleDateFormatChange = dateFormat => this.setState({ dateFormat });
+    handleDateFormatChange = (name, dateFormat) => {
+        this.setState({ [name]: dateFormat });
+    };
 
     handleSubmit = e => {
         e.preventDefault();
@@ -172,11 +175,12 @@ class EditSettingsFormContainer extends Component {
             label: `${name} - ${offset}`
         }));
 
-    formatDateFormats = () =>
+    formatDateFormats = () => {
         this.props.dateFormats.map(({ id, example, momentDateTimeFormat }) => ({
             value: id,
             label: `${momentDateTimeFormat} (eg. ${example})}`
         }));
+    };
 }
 
 const mapDispatchToProps = dispatch => ({

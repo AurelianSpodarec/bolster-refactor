@@ -272,6 +272,7 @@ const EditSettingsForm = ({
                 <Field name="timezone">
                     <Select
                         options={timeZones}
+                        name="timezone"
                         value={timezone}
                         isSearchable
                         onChange={handleTimezoneChange}
@@ -281,6 +282,7 @@ const EditSettingsForm = ({
                     <Select
                         options={dateFormats}
                         value={dateFormat}
+                        name="dateFormat"
                         isSearchable
                         onChange={handleDateFormatChange}
                     />
