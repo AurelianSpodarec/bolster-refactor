@@ -83,6 +83,7 @@ const BasicFilters = ({
                         }
                         placeholderText="To Date"
                         onBlur={() => handleDateBlur()}
+                        minDate={fromDateInclusive}
                     />
                 </div>
                 <div className="size-lg-12">

@@ -89,7 +89,11 @@ class BasicFiltersContainer extends Component {
 
         handleChange(name, value)
             .then(this.validateDates)
-            .then(postFilters);
+            .then(result => {
+                if (result.type !== 'ADD_FIELD_ERROR') {
+                    postFilters();
+                }
+            });
     };
 
     validateDates = () => {
