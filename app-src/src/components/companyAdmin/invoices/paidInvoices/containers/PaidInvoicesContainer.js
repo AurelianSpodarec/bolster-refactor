@@ -11,7 +11,7 @@ const PaidInvoicesContainer = ({ error, isFetching, paidInvoices }) => (
 );
 
 const mapStateToProps = ({ companyAdmin: { invoicesReducer } }) => ({
-    paidInvoices: Object.values(invoicesReducer.invoices).filter(invoice => invoice.isPaid) || []
+    paidInvoices: Object.values(invoicesReducer.invoices).filter(({ isPaid }) => isPaid)
 });
 
 export default connect(mapStateToProps)(PaidInvoicesContainer);
