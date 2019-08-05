@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
@@ -7,33 +7,31 @@ import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 
 import SuperAdminConfirmDeleteInvoiceModal from '../presentational/SuperAdminConfirmDeleteInvoiceModal';
 
-class SuperAdminConfirmDeleteInvoiceModalContainer extends Component {
-    render() {
-        const { id, hideModal, isDeleting } = this.props;
-        return (
-            <SuperAdminConfirmDeleteInvoiceModal
-                handleDelete={this.handleDelete}
-                hideModal={hideModal}
-                message={`Are you sure you want to delete invoice ${id}?`}
-                isDeleting={isDeleting}
-            />
-        );
-    }
-
-    componentDidUpdate(prevProps) {
-        const { deleteSuccess /*showModal*/ } = this.props;
-        if (!prevProps.deleteSuccess && deleteSuccess) {
-            // do something here
+const SuperAdminConfirmDeleteInvoiceModalContainer = ({
+    id,
+    invoice,
+    hideModal,
+    isDeleting,
+    deleteInvoice,
+    deleteSuccess,
+    history
+}) => {
+    useEffect(() => {
+        if (deleteSuccess) {
+            history.push(`/admin/companies/${invoice.companyID}`);
+            hideModal();
         }
-    }
+    }, [deleteSuccess]);
 
-    handleDelete = () => {
-        const { /*deleteInvoice*/ id } = this.props;
-        // TODO Put the below function in once the api endpoint has been created for it.
-        console.log(id);
-        // deleteInvoice(id);
-    };
-}
+    return (
+        <SuperAdminConfirmDeleteInvoiceModal
+            handleDelete={() => deleteInvoice(id)}
+            hideModal={hideModal}
+            message={`Are you sure you want to delete invoice ${id}?`}
+            isDeleting={isDeleting}
+        />
+    );
+};
 
 const mapStateToProps = ({
     superAdmin: {
@@ -44,12 +42,7 @@ const mapStateToProps = ({
     deleteSuccess
 });
 
-const mapDispatchToProps = dispatch => ({
-    hideModal: () => {
-        dispatch(hideModal());
-    },
-    deleteInvoice: id => dispatch(deleteInvoice(id))
-});
+const mapDispatchToProps = { hideModal, deleteInvoice };
 
 export default withRouter(
     connect(

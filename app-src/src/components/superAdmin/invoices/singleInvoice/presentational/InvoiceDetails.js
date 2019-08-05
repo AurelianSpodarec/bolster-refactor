@@ -9,7 +9,8 @@ import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeCon
 import { formatCurrency } from 'helpers/generic';
 import {
     ADMIN_CONFIRM_FREE_INVOICE,
-    ADMIN_CONFIRM_SET_IS_INVOICE_PAID
+    ADMIN_CONFIRM_SET_IS_INVOICE_PAID,
+    ADMIN_DELETE_INVOICE
 } from 'constants/shared/modalTypes';
 
 const InvoiceDetails = ({
@@ -17,6 +18,7 @@ const InvoiceDetails = ({
     companyName,
     error,
     invoice: { createdOn, id, isPaid, paymentType, total, isRenewal },
+    invoice,
     showModal
 }) => (
     <BlockContainer
@@ -28,36 +30,30 @@ const InvoiceDetails = ({
         <BlockHeading title="Invoice Details">
             {!isPaid && (
                 <button
-                    onClick={() =>
-                        showModal(ADMIN_CONFIRM_FREE_INVOICE, { id })
-                    }
+                    onClick={() => showModal(ADMIN_CONFIRM_FREE_INVOICE, { id })}
                     className="button red"
                 >
                     <i className="far fa-money-bill-alt fa-fw" /> Make Free
                 </button>
             )}
             <button
-                onClick={() =>
-                    showModal(ADMIN_CONFIRM_SET_IS_INVOICE_PAID, { isPaid, id })
-                }
+                onClick={() => showModal(ADMIN_CONFIRM_SET_IS_INVOICE_PAID, { isPaid, id })}
                 className="button green"
             >
-                <i className="fa fa-plus fa-fw" /> Mark invoice as{' '}
-                {isPaid ? 'Unpaid' : 'Paid'}
+                <i className="fa fa-plus fa-fw" /> Mark invoice as {isPaid ? 'Unpaid' : 'Paid'}
+            </button>
+            <button
+                onClick={() => showModal(ADMIN_DELETE_INVOICE, { invoice, id })}
+                className="button green"
+            >
+                <i className="fa fa-plus fa-fw" /> Delete Invoice
             </button>
         </BlockHeading>
 
-        <FieldOutput
-            title="Invoice no"
-            description={`${id}`}
-            sizeClass="size-lg-4"
-        />
+        <FieldOutput title="Invoice no" description={`${id}`} sizeClass="size-lg-4" />
         <FieldOutput title="Date" sizeClass="size-lg-4">
             <p>
-                <DateTimeContainer
-                    date={createdOn}
-                    datetime={DATE_TIME_IDS.DATE}
-                />
+                <DateTimeContainer date={createdOn} datetime={DATE_TIME_IDS.DATE} />
             </p>
         </FieldOutput>
         <FieldOutput
@@ -70,11 +66,7 @@ const InvoiceDetails = ({
             description={isPaid ? 'Paid' : 'Not Paid'}
             sizeClass="size-lg-4"
         />
-        <FieldOutput
-            title="Company"
-            description={companyName}
-            sizeClass="size-lg-4"
-        />
+        <FieldOutput title="Company" description={companyName} sizeClass="size-lg-4" />
 
         {isPaid && (
             <FieldOutput

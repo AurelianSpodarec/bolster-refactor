@@ -10,9 +10,12 @@ import {
     PAY_INVOICE_REQUEST,
     PAY_INVOICE_SUCCESS,
     PAY_INVOICE_FAILURE,
-    FETCH_SINGLE_INVOICE_PAYMENTS_SUCCESS
+    FETCH_SINGLE_INVOICE_PAYMENTS_SUCCESS,
+    DELETE_INVOICE_REQUEST,
+    DELETE_INVOICE_SUCCESS
 } from 'constants/actionTypes/invoices';
 import { convertArrToObj, updateObj, removeObjItem } from 'helpers/generic';
+import { HIDE_MODAL } from 'constants/actionTypes/generic';
 
 export default combineReducers({
     isFetching: isFetchingReducer,
@@ -43,6 +46,7 @@ function errorReducer(state = null, action) {
         case FETCH_ALL_INVOICES_REQUEST:
         case FETCH_SINGLE_INVOICE_REQUEST:
         case PAY_INVOICE_REQUEST:
+        case HIDE_MODAL:
             return null;
         case FETCH_ALL_INVOICES_FAILURE:
         case FETCH_SINGLE_INVOICE_FAILURE:
@@ -56,8 +60,11 @@ function errorReducer(state = null, action) {
 function postSuccessReducer(state = false, action) {
     switch (action.type) {
         case PAY_INVOICE_REQUEST:
+        case DELETE_INVOICE_REQUEST:
+        case HIDE_MODAL:
             return false;
         case PAY_INVOICE_SUCCESS:
+        case DELETE_INVOICE_SUCCESS:
             return true;
         default:
             return state;

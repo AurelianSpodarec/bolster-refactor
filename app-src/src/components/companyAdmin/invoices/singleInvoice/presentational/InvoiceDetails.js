@@ -11,75 +11,56 @@ import { formatCurrency } from 'helpers/generic';
 const InvoiceDetails = ({
     isFetching,
     error,
-    invoice: {
-        createdOn,
-        id,
-        isPaid,
-        paymentType,
-        total,
-        isRenewal,
-        userFirstName,
-        userLastName
-    }
-}) => {
-    return (
-        <BlockContainer error={error} isEmpty={!id} isFetching={isFetching}>
-            <BlockHeading title="Invoice Details">
-                {/* {!isPaid && (
-                    <button
-                        onClick={() => console.log('clicked')}
-                        className="button red"
-                    >
-                        <i className="far fa-trash-alt fa-fw" />
-                        Delete Invoice
-                    </button>
-                )} */}
-            </BlockHeading>
-
-            <FieldOutput
-                title="Invoice no"
-                description={`${id}`}
-                sizeClass="size-lg-4 size-md-12"
-            />
-            <FieldOutput title="Date" sizeClass="size-lg-4 size-md-12">
-                <p>
-                    <DateTimeContainer
-                        date={createdOn}
-                        datetime={DATE_TIME_IDS.DATE}
-                    />
-                </p>
-            </FieldOutput>
-            <FieldOutput
-                title="Type"
-                description={isRenewal ? 'Renewal' : 'New Purchase'}
-                sizeClass="size-lg-4 size-md-12"
-            />
-            <FieldOutput
-                title="Status"
-                description={isPaid ? 'Paid' : 'Not Paid'}
-                sizeClass="size-lg-4 size-md-12"
-            />
-            <FieldOutput
-                title="Ordered By"
-                description={`${userFirstName} ${userLastName}`}
-                sizeClass="size-lg-4 size-md-12"
-            />
-
-            {isPaid && (
-                <FieldOutput
-                    title="Payment Method"
-                    description={PAYMENT_TYPES[paymentType]}
-                    sizeClass="size-lg-4 size-md-12"
-                />
+    invoice: { createdOn, id, isPaid, paymentType, total, isRenewal, userFirstName, userLastName },
+    toggleConfirmDeleteModal,
+    showDeleteButton
+}) => (
+    <BlockContainer error={error} isEmpty={!id} isFetching={isFetching}>
+        <BlockHeading title="Invoice Details">
+            {showDeleteButton && (
+                <button onClick={toggleConfirmDeleteModal} className="button red">
+                    <i className="far fa-trash-alt fa-fw" />
+                    Delete Invoice
+                </button>
             )}
+        </BlockHeading>
 
+        <FieldOutput title="Invoice no" description={`${id}`} sizeClass="size-lg-4 size-md-12" />
+        <FieldOutput title="Date" sizeClass="size-lg-4 size-md-12">
+            <p>
+                <DateTimeContainer date={createdOn} datetime={DATE_TIME_IDS.DATE} />
+            </p>
+        </FieldOutput>
+        <FieldOutput
+            title="Type"
+            description={isRenewal ? 'Renewal' : 'New Purchase'}
+            sizeClass="size-lg-4 size-md-12"
+        />
+        <FieldOutput
+            title="Status"
+            description={isPaid ? 'Paid' : 'Not Paid'}
+            sizeClass="size-lg-4 size-md-12"
+        />
+        <FieldOutput
+            title="Ordered By"
+            description={`${userFirstName} ${userLastName}`}
+            sizeClass="size-lg-4 size-md-12"
+        />
+
+        {isPaid && (
             <FieldOutput
-                title="Total"
-                description={`${total && formatCurrency(total)} GBP (inc. VAT)`}
-                sizeClass="size-lg-6 size-md-12"
+                title="Payment Method"
+                description={PAYMENT_TYPES[paymentType]}
+                sizeClass="size-lg-4 size-md-12"
             />
-        </BlockContainer>
-    );
-};
+        )}
+
+        <FieldOutput
+            title="Total"
+            description={`${total && formatCurrency(total)} GBP (inc. VAT)`}
+            sizeClass="size-lg-6 size-md-12"
+        />
+    </BlockContainer>
+);
 
 export default InvoiceDetails;

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
-import deleteInvoice from 'actions/superAdmin/invoices/async/deleteInvoice';
+import deleteInvoice from 'actions/companyAdmin/invoices/async/deleteInvoice';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 
 import ConfirmDeleteInvoiceModal from '../presentational/ConfirmDeleteInvoiceModal';
@@ -28,10 +28,9 @@ class ConfirmDeleteInvoiceModalContainer extends Component {
     }
 
     handleDelete = () => {
-        const { /*deleteInvoice*/ id } = this.props;
+        const { deleteInvoice, id } = this.props;
         // TODO Put the below function in once the api endpoint has been created for it.
-        console.log(id);
-        // deleteInvoice(id);
+        deleteInvoice(id);
     };
 }
 
@@ -44,12 +43,7 @@ const mapStateToProps = ({
     deleteSuccess
 });
 
-const mapDispatchToProps = dispatch => ({
-    hideModal: () => {
-        dispatch(hideModal());
-    },
-    deleteInvoice: id => dispatch(deleteInvoice(id))
-});
+const mapDispatchToProps = { hideModal, deleteInvoice };
 
 export default withRouter(
     connect(
