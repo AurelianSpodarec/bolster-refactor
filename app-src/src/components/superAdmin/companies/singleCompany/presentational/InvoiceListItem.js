@@ -14,7 +14,10 @@ const InvoiceListItem = ({ invoice }) => (
         <td>{invoice.isPaid ? 'Paid' : 'Not paid'}</td>
         <td>
             <Link
-                to={`/admin/invoices/${invoice.companyID}/${invoice.id}`}
+                to={{
+                    pathname: `/admin/invoices/${invoice.companyID}/${invoice.id}`,
+                    state: { fromCompany: true }
+                }}
                 className="button"
             >
                 View

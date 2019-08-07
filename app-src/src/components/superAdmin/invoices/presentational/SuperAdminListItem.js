@@ -22,7 +22,12 @@ const SuperAdminListItem = ({
         <td>{isPaid ? 'Paid' : 'Awaiting Payment'}</td>
         <td>
             <BlockButtonWrapper>
-                <ButtonContainer to={`/admin/invoices/${companyID}/${id}`}>
+                <ButtonContainer
+                    to={{
+                        pathname: `/admin/invoices/${companyID}/${id}`,
+                        state: { fromCompany: false }
+                    }}
+                >
                     View
                 </ButtonContainer>
             </BlockButtonWrapper>
