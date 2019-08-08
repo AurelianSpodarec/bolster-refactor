@@ -17,7 +17,6 @@ const EditSettingsForm = ({
     handleInputChange,
     handleSubmit,
     handleFileChange,
-    handleColourSelect,
     templateUsageRules,
     filesUploading,
     location,
@@ -40,12 +39,10 @@ const EditSettingsForm = ({
     labelCompanyName,
     hideOnClientList,
     selectedRule,
-    timeZones,
-    timezone,
-    handleTimezoneChange,
-    dateFormats,
-    dateFormat,
-    handleDateFormatChange
+    timeZoneOptions,
+    timeZone,
+    dateFormatOptions,
+    dateFormat
 }) => (
     <>
         <Form className="generic-form ize-lg-12" onSubmit={handleSubmit}>
@@ -172,7 +169,9 @@ const EditSettingsForm = ({
                         <div className="size-lg-12">
                             <HuePicker
                                 color={colourCode || '#FFF'}
-                                onChangeComplete={handleColourSelect}
+                                onChangeComplete={e =>
+                                    handleInputChange('colourCode', e.hex)
+                                }
                             />
                         </div>
                     </Field>
@@ -269,22 +268,22 @@ const EditSettingsForm = ({
                 </Field>
             </div>
             <div>
-                <Field name="timezone">
+                <Field name="Time zone">
                     <Select
-                        options={timeZones}
-                        name="timezone"
-                        value={timezone}
+                        options={timeZoneOptions}
+                        name="timeZone"
+                        value={timeZone}
                         isSearchable
-                        onChange={handleTimezoneChange}
+                        onChange={handleInputChange}
                     />
                 </Field>
                 <Field name="Date format">
                     <Select
-                        options={dateFormats}
+                        options={dateFormatOptions}
                         value={dateFormat}
                         name="dateFormat"
                         isSearchable
-                        onChange={handleDateFormatChange}
+                        onChange={handleInputChange}
                     />
                 </Field>
             </div>

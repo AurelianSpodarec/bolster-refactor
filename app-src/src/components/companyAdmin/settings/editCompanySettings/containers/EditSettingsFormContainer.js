@@ -6,7 +6,7 @@ import { withRouter } from 'react-router-dom';
 import editCompanySettings from 'actions/companyAdmin/companySettings/async/editCompanySettings';
 
 import EditSettingsForm from '../presentational/EditSettingsForm';
-import { sortTimezones } from 'helpers/generic';
+import { sortTimezones, isObjEmpty } from 'helpers/generic';
 import { VAT_TYPES } from 'constants/companyAdmin/enums';
 
 class EditSettingsFormContainer extends Component {
@@ -32,16 +32,24 @@ class EditSettingsFormContainer extends Component {
         hideOnClientList: false,
         defaultTemplateUsageRule: undefined,
         initialFile: '',
-        timezone: { value: '', label: '' },
+        timeZone: '',
         dateFormat: { value: '', label: '' },
         isUsingBolsterLabels: false,
         vatCode: null,
-        vatType: null
+        vatType: null,
+        timeZoneOptions: [],
+        dateFormatOptions: []
     };
 
     render() {
         const { filesUploading } = this.props;
-        const { defaultTemplateUsageRule, timezone, dateFormat } = this.state;
+        const {
+            defaultTemplateUsageRule,
+            timeZone,
+            dateFormat,
+            timeZoneOptions,
+            dateFormatOptions
+        } = this.state;
 
         const templateUsageRuleOptions = {
             '1': { text: 'Use Only Owner Company', value: 1 },
@@ -54,6 +62,7 @@ class EditSettingsFormContainer extends Component {
             { label: 'EU', value: VAT_TYPES.EU },
             { label: 'Outside EU', value: VAT_TYPES.OUTSIDEEU }
         ];
+
         return (
             <EditSettingsForm
                 {...this.state}
@@ -67,10 +76,9 @@ class EditSettingsFormContainer extends Component {
                 selectedRule={
                     templateUsageRuleOptions[defaultTemplateUsageRule]
                 }
-                timeZones={this.formatTimezones()}
-                timezone={timezone}
-                handleTimezoneChange={this.handleTimezoneChange}
-                dateFormats={this.formatDateFormats()}
+                timeZoneOptions={timeZoneOptions}
+                timeZone={timeZone}
+                dateFormatOptions={dateFormatOptions}
                 dateFormat={dateFormat}
                 handleDateFormatChange={this.handleDateFormatChange}
                 vatOptions={vatOptions}
@@ -84,10 +92,10 @@ class EditSettingsFormContainer extends Component {
                 createdOn,
                 cultureInfoID,
                 id,
-                timeZoneID,
                 type,
                 logoFile,
                 timeZone,
+                timeZones,
                 dateFormat,
                 colourCode,
                 ...restSettings
@@ -98,23 +106,23 @@ class EditSettingsFormContainer extends Component {
             initialFile: logoFile,
             logoFile,
             colourCode: colourCode,
-            timezone: {
-                label: `${timeZone.name} - ${timeZone.offset}`,
-                value: timeZone.id
-            },
-            dateFormat: {
-                label: `${dateFormat.momentDateTimeFormat} - eg. ${
-                    dateFormat.example
-                }`,
-                value: dateFormat.id
-            }
+            timeZone: timeZone.id,
+            timeZoneOptions: this.formatTimezones(),
+            dateFormat: dateFormat.id,
+            dateFormatOptions: this.formatDateFormats()
         });
     };
 
     componentDidUpdate = prevProps => {
-        const { postSuccess, history } = this.props;
+        const { postSuccess, history, timeZones, dateFormats } = this.props;
         if (postSuccess && !prevProps.postSuccess) {
             history.push('/company/settings');
+        }
+        if (isObjEmpty(prevProps.timeZones) && !isObjEmpty(timeZones)) {
+            this.setState({ timeZoneOptions: this.formatTimezones() });
+        }
+        if (isObjEmpty(prevProps.dateFormats) && !isObjEmpty(dateFormats)) {
+            this.setState({ dateFormatOptions: this.formatDateFormats() });
         }
     };
 
@@ -128,8 +136,6 @@ class EditSettingsFormContainer extends Component {
         }
     };
 
-    handleColourSelect = ({ hex }) => this.setState({ colourCode: hex });
-
     handleFileChange = (name, file) => {
         this.setState(prevState => {
             if (prevState.logoFile === file) {
@@ -140,21 +146,12 @@ class EditSettingsFormContainer extends Component {
         });
     };
 
-    handleTimezoneChange = (name, timezone) => {
-        this.setState({ [name]: timezone });
-    };
-
-    handleDateFormatChange = (name, dateFormat) => {
-        this.setState({ [name]: dateFormat });
-    };
-
     handleSubmit = e => {
         e.preventDefault();
         const { filesUploading, editCompanySettings } = this.props;
         if (!filesUploading) {
             const {
                 templateUsageRuleOptions,
-                timezone,
                 dateFormat,
                 ...postBody
             } = this.state;
@@ -163,8 +160,7 @@ class EditSettingsFormContainer extends Component {
 
             editCompanySettings({
                 ...postBody,
-                timezone: timezone.value,
-                dateFormatID: dateFormat.value
+                dateFormatID: dateFormat
             });
         }
     };
@@ -175,12 +171,11 @@ class EditSettingsFormContainer extends Component {
             label: `${name} - ${offset}`
         }));
 
-    formatDateFormats = () => {
+    formatDateFormats = () =>
         this.props.dateFormats.map(({ id, example, momentDateTimeFormat }) => ({
             value: id,
             label: `${momentDateTimeFormat} (eg. ${example})}`
         }));
-    };
 }
 
 const mapDispatchToProps = dispatch => ({
