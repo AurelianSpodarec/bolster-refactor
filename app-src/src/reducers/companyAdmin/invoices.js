@@ -12,7 +12,8 @@ import {
     PAY_INVOICE_FAILURE,
     FETCH_SINGLE_INVOICE_PAYMENTS_SUCCESS,
     DELETE_INVOICE_REQUEST,
-    DELETE_INVOICE_SUCCESS
+    DELETE_INVOICE_SUCCESS,
+    DELETE_INVOICE_FAILURE
 } from 'constants/actionTypes/invoices';
 import { convertArrToObj, updateObj, removeObjItem } from 'helpers/generic';
 import { HIDE_MODAL } from 'constants/actionTypes/generic';
@@ -23,7 +24,9 @@ export default combineReducers({
     postFailure: postFailureReducer,
     invoices: invoiceReducer,
     invoicePayments: paymentsReducer,
-    error: errorReducer
+    error: errorReducer,
+    isDeleting: isDeletingReducer,
+    deleteSuccess: deleteSuccessReducer
 });
 
 function isFetchingReducer(state = false, action) {
@@ -57,14 +60,35 @@ function errorReducer(state = null, action) {
     }
 }
 
-function postSuccessReducer(state = false, action) {
+function isDeletingReducer(state = false, action) {
     switch (action.type) {
-        case PAY_INVOICE_REQUEST:
+        case DELETE_INVOICE_REQUEST:
+            return true;
+        case DELETE_INVOICE_SUCCESS:
+        case DELETE_INVOICE_FAILURE:
+            return false;
+        default:
+            return state;
+    }
+}
+
+function deleteSuccessReducer(state = false, action) {
+    switch (action.type) {
         case DELETE_INVOICE_REQUEST:
         case HIDE_MODAL:
             return false;
-        case PAY_INVOICE_SUCCESS:
         case DELETE_INVOICE_SUCCESS:
+            return true;
+        default:
+            return state;
+    }
+}
+
+function postSuccessReducer(state = false, action) {
+    switch (action.type) {
+        case PAY_INVOICE_REQUEST:
+            return false;
+        case PAY_INVOICE_SUCCESS:
             return true;
         default:
             return state;
@@ -90,6 +114,8 @@ function invoiceReducer(state = {}, action) {
             return updateObj(state, action.payload.id, action.payload);
         case PAY_INVOICE_SUCCESS:
             return removeObjItem(state, action.payload.id);
+        case DELETE_INVOICE_SUCCESS:
+            return removeObjItem(state, action.id);
         default:
             return state;
     }
