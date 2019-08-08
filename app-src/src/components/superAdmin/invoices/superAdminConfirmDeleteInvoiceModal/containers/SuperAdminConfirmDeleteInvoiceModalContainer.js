@@ -30,12 +30,17 @@ const SuperAdminConfirmDeleteInvoiceModalContainer = ({
 
     return (
         <SuperAdminConfirmDeleteInvoiceModal
-            handleDelete={() => deleteInvoice(id)}
+            handleDelete={handleDelete}
             hideModal={hideModal}
             message={`Are you sure you want to delete invoice ${id}?`}
             isDeleting={isDeleting}
+            deleteSuccess={deleteSuccess}
         />
     );
+
+    function handleDelete() {
+        deleteInvoice(id);
+    }
 };
 
 const mapStateToProps = ({

@@ -5,7 +5,7 @@ import { PAYMENT_TYPES, DATE_TIME_IDS } from 'constants/companyAdmin/enums';
 import { formatCurrency } from 'helpers/generic';
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
-import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
+import LinkWithPropsContainer from 'components/shared/generic/button/containers/LinkWithPropsContainer.js';
 
 const SuperAdminListItem = ({
     invoice: { createdOn, isPaid, total, id, paymentType, companyID },
@@ -22,14 +22,14 @@ const SuperAdminListItem = ({
         <td>{isPaid ? 'Paid' : 'Awaiting Payment'}</td>
         <td>
             <BlockButtonWrapper>
-                <ButtonContainer
+                <LinkWithPropsContainer
                     to={{
                         pathname: `/admin/invoices/${companyID}/${id}`,
                         state: { fromCompany: false }
                     }}
                 >
                     View
-                </ButtonContainer>
+                </LinkWithPropsContainer>
             </BlockButtonWrapper>
         </td>
     </tr>

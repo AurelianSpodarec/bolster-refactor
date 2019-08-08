@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 import { PAYMENT_TYPES } from 'constants/companyAdmin/enums';
 import { formatNumber } from 'helpers/generic';
+import LinkWithPropsContainer from 'components/shared/generic/button/containers/LinkWithPropsContainer';
 
 const InvoiceListItem = ({ invoice }) => (
     <tr>
@@ -13,7 +14,7 @@ const InvoiceListItem = ({ invoice }) => (
         <td>{PAYMENT_TYPES[invoice.paymentType]}</td>
         <td>{invoice.isPaid ? 'Paid' : 'Not paid'}</td>
         <td>
-            <Link
+            <LinkWithPropsContainer
                 to={{
                     pathname: `/admin/invoices/${invoice.companyID}/${invoice.id}`,
                     state: { fromCompany: true }
@@ -21,7 +22,7 @@ const InvoiceListItem = ({ invoice }) => (
                 className="button"
             >
                 View
-            </Link>
+            </LinkWithPropsContainer>
         </td>
     </tr>
 );
