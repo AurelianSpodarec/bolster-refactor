@@ -44,9 +44,9 @@ const InvoiceDetails = ({
             </button>
             <button
                 onClick={() => showModal(ADMIN_DELETE_INVOICE, { invoice, id })}
-                className="button green"
+                className="button red"
             >
-                <i className="fa fa-plus fa-fw" /> Delete Invoice
+                <i className="fa fa-trash fa-fw" /> Delete Invoice
             </button>
         </BlockHeading>
 

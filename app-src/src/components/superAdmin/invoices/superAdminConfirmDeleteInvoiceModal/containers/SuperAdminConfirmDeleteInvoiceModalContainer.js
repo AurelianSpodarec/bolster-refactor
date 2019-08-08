@@ -14,23 +14,33 @@ const SuperAdminConfirmDeleteInvoiceModalContainer = ({
     isDeleting,
     deleteInvoice,
     deleteSuccess,
-    history
+    history,
+    location
 }) => {
     useEffect(() => {
         if (deleteSuccess) {
-            history.push(`/admin/companies/${invoice.companyID}`);
+            if (location.state.fromCompany) {
+                history.push(`/admin/companies/${invoice.companyID}`);
+            } else {
+                history.push('/admin/invoices');
+            }
             hideModal();
         }
     }, [deleteSuccess]);
 
     return (
         <SuperAdminConfirmDeleteInvoiceModal
-            handleDelete={() => deleteInvoice(id)}
+            handleDelete={handleDelete}
             hideModal={hideModal}
             message={`Are you sure you want to delete invoice ${id}?`}
             isDeleting={isDeleting}
+            deleteSuccess={deleteSuccess}
         />
     );
+
+    function handleDelete() {
+        deleteInvoice(id);
+    }
 };
 
 const mapStateToProps = ({

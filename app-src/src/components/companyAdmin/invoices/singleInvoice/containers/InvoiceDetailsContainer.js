@@ -7,21 +7,7 @@ import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { DELETE_INVOICE } from 'constants/shared/modalTypes';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 
-const InvoiceDetailsContainer = ({
-    invoice,
-    error,
-    isFetching,
-    showModal,
-    hideModal,
-    postSuccess,
-    history
-}) => {
-    useEffect(() => {
-        if (postSuccess) {
-            history.push('/company/invoices');
-            hideModal();
-        }
-    }, [postSuccess]);
+const InvoiceDetailsContainer = ({ invoice, error, isFetching, showModal }) => {
     const showDeleteButton = !invoice.isPaid;
     return (
         <InvoiceDetails

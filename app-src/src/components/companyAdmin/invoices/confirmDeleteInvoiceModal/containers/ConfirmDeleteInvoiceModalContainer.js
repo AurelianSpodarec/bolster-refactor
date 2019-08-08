@@ -9,21 +9,34 @@ import ConfirmDeleteInvoiceModal from '../presentational/ConfirmDeleteInvoiceMod
 
 class ConfirmDeleteInvoiceModalContainer extends Component {
     render() {
-        const { id, hideModal, isDeleting } = this.props;
+        const { id, hideModal, isDeleting, deleteSuccess } = this.props;
         return (
             <ConfirmDeleteInvoiceModal
                 handleDelete={this.handleDelete}
                 hideModal={hideModal}
                 message={`Are you sure you want to delete invoice ${id}?`}
                 isDeleting={isDeleting}
+                deleteSuccess={deleteSuccess}
             />
         );
     }
 
     componentDidUpdate(prevProps) {
-        const { deleteSuccess /*showModal*/ } = this.props;
+        const {
+            deleteSuccess,
+            location: {
+                state: { fromURL }
+            },
+            history,
+            hideModal /*showModal*/
+        } = this.props;
         if (!prevProps.deleteSuccess && deleteSuccess) {
-            // do something here
+            if (/subscription/.test(fromURL)) {
+                history.push('/company/subscription');
+            } else {
+                history.push('/company/invoices');
+            }
+            hideModal();
         }
     }
 
@@ -35,7 +48,7 @@ class ConfirmDeleteInvoiceModalContainer extends Component {
 }
 
 const mapStateToProps = ({
-    superAdmin: {
+    companyAdmin: {
         invoicesReducer: { isDeleting, deleteSuccess }
     }
 }) => ({
