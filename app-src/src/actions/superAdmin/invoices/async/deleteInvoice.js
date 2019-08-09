@@ -25,9 +25,8 @@ export const saDeleteInvoiceFailure = error => ({
 export default id => dispatch => {
     dispatch(saDeleteInvoiceRequest());
 
-    //! check the endpoint
     return axios
-        .delete(`${ADMIN_API_URL}/invoices/${id}/delete`, getHeaders())
+        .post(`${ADMIN_API_URL}/invoices/${id}/cancel`, {}, getHeaders())
         .then(() => dispatch(saDeleteInvoiceSuccess(id)))
         .catch(err => dispatch(saDeleteInvoiceFailure(err.message)));
 };

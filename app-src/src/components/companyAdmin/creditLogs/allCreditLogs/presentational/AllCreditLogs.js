@@ -1,5 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
 
 import CreditLogsTableContainer from '../containers/CreditLogsTableContainer';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
@@ -14,9 +13,4 @@ const AllCreditLogs = ({ isFetching }) => (
     </>
 );
 
-const mapStateToProps = ({ companyAdmin: { creditsReducer } }) => ({
-    isFetching: creditsReducer.isFetching,
-    error: creditsReducer.error
-});
-
-export default connect(mapStateToProps)(AllCreditLogs);
+export default AllCreditLogs;

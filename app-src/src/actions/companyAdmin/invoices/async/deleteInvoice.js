@@ -4,7 +4,7 @@ import {
     DELETE_INVOICE_REQUEST,
     DELETE_INVOICE_SUCCESS,
     DELETE_INVOICE_FAILURE
-} from 'constants/actionTypes/superAdminInvoices';
+} from 'constants/actionTypes/invoices';
 import { API_URL } from 'config';
 import { getHeaders } from 'helpers/api';
 
@@ -27,7 +27,7 @@ export default id => dispatch => {
 
     //! check the endpoint
     return axios
-        .delete(`${API_URL}/invoices/${id}/delete`, getHeaders())
+        .post(`${API_URL}/invoices/${id}/cancel`, {}, getHeaders())
         .then(() => dispatch(deleteInvoiceSuccess(id)))
         .catch(err => dispatch(deleteInvoiceFailure(err.message)));
 };
