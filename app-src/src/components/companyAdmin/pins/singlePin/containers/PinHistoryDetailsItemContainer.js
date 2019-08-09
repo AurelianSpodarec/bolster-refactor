@@ -6,12 +6,20 @@ import deletePinHistory from 'actions/companyAdmin/pins/async/deletePinHistory';
 import { CONFIRM_DELETE, CONFIRM_EDIT_PIN } from 'constants/shared/modalTypes';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
+import Loading from 'components/shared/generic/misc/presentational/Loading';
 
 class PinHistoryDetailsItemContainer extends Component {
     render() {
-        const { history, services, drawingID, historyCount } = this.props;
+        const {
+            history,
+            services,
+            drawingID,
+            historyCount,
+            isFetchingPin,
+            pin
+        } = this.props;
 
-        return (
+        return !isFetchingPin && !!pin ? (
             <PinHistoryDetailsItem
                 history={history}
                 services={services}
@@ -20,6 +28,8 @@ class PinHistoryDetailsItemContainer extends Component {
                 drawingID={drawingID}
                 isDeleteHistory={historyCount > 1}
             />
+        ) : (
+            <Loading />
         );
     }
 
@@ -51,14 +61,20 @@ class PinHistoryDetailsItemContainer extends Component {
     };
 }
 
-const mapStateToProps = ({
-    companyAdmin: {
-        servicesReducer: { services },
-        pinHistoriesReducer: { histories }
-    }
-}) => ({
+const mapStateToProps = (
+    {
+        companyAdmin: {
+            servicesReducer: { services },
+            pinHistoriesReducer: { histories },
+            pinsReducer: { pins, isFetching: isFetchingPin }
+        }
+    },
+    ownProps
+) => ({
     services,
-    histories: Object.values(histories)
+    isFetchingPin,
+    histories: Object.values(histories),
+    pin: pins[ownProps.history.pinID] || null
 });
 
 const mapDispatchToProps = { showModal, hideModal, deletePinHistory };
