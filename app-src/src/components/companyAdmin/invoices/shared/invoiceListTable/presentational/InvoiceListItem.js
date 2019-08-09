@@ -8,7 +8,7 @@ import { PAY_INVOICE } from 'constants/shared/modalTypes';
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 import { formatCurrency } from 'helpers/generic';
 import StatusIcon from 'components/shared/generic/statusIcon/presentationl/StatusIcon';
-import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
+import LinkWithPropsContainer from 'components/shared/generic/button/containers/LinkWithPropsContainer';
 
 const InvoiceListItem = ({
     invoice: {
@@ -24,68 +24,47 @@ const InvoiceListItem = ({
     },
     showModal,
     onMobile,
-    headers
+    headers,
+    location
 }) => (
     <tr>
         <td>
-            {onMobile && (
-                <span className="mobile-table-heading">{headers[0]}</span>
-            )}
-            <DateTimeContainer
-                date={createdOn}
-                datetime={DATE_TIME_IDS.DATETIME}
-            />
+            {onMobile && <span className="mobile-table-heading">{headers[0]}</span>}
+            <DateTimeContainer date={createdOn} datetime={DATE_TIME_IDS.DATETIME} />
         </td>
         <td>
             {' '}
-            {onMobile && (
-                <span className="mobile-table-heading">{headers[1]}</span>
-            )}
+            {onMobile && <span className="mobile-table-heading">{headers[1]}</span>}
             {id}
         </td>
         <td>
             {' '}
-            {onMobile && (
-                <span className="mobile-table-heading">{headers[2]}</span>
-            )}
+            {onMobile && <span className="mobile-table-heading">{headers[2]}</span>}
             {`£${formatCurrency(subTotal)}`}
         </td>
         <td>
             {' '}
-            {onMobile && (
-                <span className="mobile-table-heading">{headers[3]}</span>
-            )}
+            {onMobile && <span className="mobile-table-heading">{headers[3]}</span>}
             {`£${formatCurrency(total)}`}
         </td>
         <td>
             {' '}
-            {onMobile && (
-                <span className="mobile-table-heading">{headers[4]}</span>
-            )}
+            {onMobile && <span className="mobile-table-heading">{headers[4]}</span>}
             {`£${
-                remainingToPay && remainingToPay > 0 && !isPaid
-                    ? formatCurrency(remainingToPay)
-                    : 0
+                remainingToPay && remainingToPay > 0 && !isPaid ? formatCurrency(remainingToPay) : 0
             }`}
         </td>
         <td>
             {' '}
-            {onMobile && (
-                <span className="mobile-table-heading">{headers[5]}</span>
-            )}
+            {onMobile && <span className="mobile-table-heading">{headers[5]}</span>}
             {PAYMENT_TYPES[paymentType]}
         </td>
         <td>
             {' '}
-            {onMobile && (
-                <span className="mobile-table-heading">{headers[6]}</span>
-            )}
+            {onMobile && <span className="mobile-table-heading">{headers[6]}</span>}
             {isPaid ? 'Paid' : 'Awaiting Payment'}{' '}
             {onMobile && (
-                <StatusIcon
-                    classes="warning"
-                    iconClass="fa fa-exclamation-triangle far"
-                />
+                <StatusIcon classes="warning" iconClass="fa fa-exclamation-triangle far" />
             )}
         </td>
         {!onMobile && (
@@ -102,40 +81,36 @@ const InvoiceListItem = ({
                     //         padding: '0.05em'
                     //     }}
                     // />
-                    <StatusIcon
-                        classes="warning"
-                        iconClass="fa fa-exclamation-triangle far"
-                    />
+                    <StatusIcon classes="warning" iconClass="fa fa-exclamation-triangle far" />
                 )}
             </td>
         )}
 
         <td>
             {' '}
-            {onMobile && (
-                <span className="mobile-table-heading">{headers[8]}</span>
-            )}
+            {onMobile && <span className="mobile-table-heading">{headers[8]}</span>}
             {`${userFirstName} ${userLastName}`}
         </td>
         <td>
             {' '}
-            {onMobile && (
-                <span className="mobile-table-heading">{headers[9]}</span>
-            )}
+            {onMobile && <span className="mobile-table-heading">{headers[9]}</span>}
             <BlockButtonWrapper>
                 {!isPaid && (
                     <button
                         className="button green"
-                        onClick={() =>
-                            showModal(PAY_INVOICE, { invoiceID: id })
-                        }
+                        onClick={() => showModal(PAY_INVOICE, { invoiceID: id })}
                     >
                         Pay
                     </button>
                 )}
-                <ButtonContainer to={`/company/invoices/${id}`}>
+                <LinkWithPropsContainer
+                    to={{
+                        pathname: `/company/invoices/${id}`,
+                        state: { fromURL: location.pathname }
+                    }}
+                >
                     View
-                </ButtonContainer>
+                </LinkWithPropsContainer>
             </BlockButtonWrapper>
         </td>
     </tr>
