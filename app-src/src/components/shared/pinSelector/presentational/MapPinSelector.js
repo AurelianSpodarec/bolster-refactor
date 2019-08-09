@@ -9,20 +9,17 @@ const MapPinSelector = ({ pins, handleClick, isClient }) => (
             <>
                 <BlockHeading title="Pin Selector" />
                 <div className="not-available size-lg-12">
-                    <p className="size-lg-12">Subscription required</p>
+                    <p className="size-lg-12">Coming soon</p>
                 </div>
             </>
         ) : (
             <>
                 <BlockHeading title="Pin Selector">
-                    <ButtonContainer handleClick={handleClick}>
-                        Scroll to map
-                    </ButtonContainer>
+                    <ButtonContainer handleClick={handleClick}>Scroll to map</ButtonContainer>
                 </BlockHeading>
                 <p className="generic-text intro-text size-lg-12">
-                    Using the map above, draw rectangles to select the
-                    boundaries for pins to include. Included pins will be
-                    display in this box.
+                    Using the map above, draw rectangles to select the boundaries for pins to
+                    include. Included pins will be display in this box.
                 </p>
                 <div className="pin-selector size-lg-12 form-field">
                     <div className="pin-selection-box">
