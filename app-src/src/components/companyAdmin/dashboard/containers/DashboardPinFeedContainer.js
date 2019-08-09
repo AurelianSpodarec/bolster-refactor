@@ -21,7 +21,7 @@ class DashboardPinFeedContainer extends Component {
         const { fetchPinFeed, lastUpdatedOn } = this.props;
         fetchPinFeed();
 
-        this.interval = setInterval(() => fetchPinFeed(lastUpdatedOn), 10000);
+        this.interval = setInterval(() => fetchPinFeed(lastUpdatedOn), 1000 * 60);
     };
 
     componentWillUnmount = () => {
