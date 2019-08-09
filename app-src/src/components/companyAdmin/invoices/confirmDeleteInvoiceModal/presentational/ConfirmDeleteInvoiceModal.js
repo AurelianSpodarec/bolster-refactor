@@ -10,11 +10,12 @@ const ConfirmDeleteInvoiceModal = ({
     message = 'Are you sure you want to delete this?',
     isDeleting,
     deleteButtonText = 'Delete',
-    icon = 'trash-alt'
+    icon = 'trash-alt',
+    deleteSuccess
 }) => (
     <ModalOuterContainer>
         <BlockHeading title={'Confirm Delete Invoice'} />
-        {isDeleting ? (
+        {isDeleting || deleteSuccess ? (
             <div className="size-lg-12">
                 <Loading message="Deleting invoice..." />
             </div>

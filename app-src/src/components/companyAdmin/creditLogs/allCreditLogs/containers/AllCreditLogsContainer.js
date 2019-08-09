@@ -1,35 +1,26 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 
-import fetchCreditLogs from 'actions/companyAdmin/creditLogs/async/fetchCreditLogs';
-
 import AllCreditLogs from '../presentational/AllCreditLogs';
+import fetchAllInvoices from 'actions/companyAdmin/invoices/async/fetchAllInvoices';
+import { componentDidMount } from 'helpers/generic';
 
-class AllCreditLogsContainer extends Component {
-    render() {
-        const { creditLogs, isFetching, error } = this.props;
+const AllCreditLogsContainer = ({ isFetching, fetchAllInvoices }) => {
+    componentDidMount(fetchAllInvoices);
 
-        return (
-            <AllCreditLogs
-                creditLogs={creditLogs}
-                isFetching={isFetching}
-                error={error}
-            />
-        );
+    return <AllCreditLogs isFetching={isFetching} />;
+};
+
+const mapStateToProps = ({
+    companyAdmin: {
+        creditsReducer: { isFetching: fetchingCredits },
+        invoicesReducer: { isFetching: fetchingInvoices }
     }
+}) => ({ isFetching: fetchingCredits || fetchingInvoices });
 
-    componentDidMount = () => {
-        this.props.fetchCreditLogs();
-    };
-}
-
-const mapDispatchToProps = dispatch => ({
-    fetchCreditLogs: () => {
-        dispatch(fetchCreditLogs());
-    }
-});
+const mapDispatchToProps = { fetchAllInvoices };
 
 export default connect(
-    null,
+    mapStateToProps,
     mapDispatchToProps
 )(AllCreditLogsContainer);

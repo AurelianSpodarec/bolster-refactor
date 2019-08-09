@@ -51,11 +51,17 @@ class FrontEndMobileMenuContainer extends Component {
 const mapStateToProps = ({
     shared: {
         decodeJWTReducer: { jwtData }
+    },
+    frontEnd: {
+        layoutReducer: {
+            layout: { hideHeader }
+        }
     }
 }) => ({
     isSuperAdmin: jwtData.isSuperAdmin,
     isCompanyAdmin: !!jwtData.companyID,
-    isClientAccess: jwtData.isClientAccess
+    isClientAccess: jwtData.isClientAccess,
+    hideHeader
 });
 
 export default withRouter(

@@ -17,10 +17,31 @@ const DatePickerPresentational = ({
 }) => (
     <div className={`date-picker ${sizeClasses}`}>
         <DatePicker
+            minDate={minDate}
             id={name}
             selected={selected}
             onChange={onChange}
-            dateFormat={showTimeSelect ? 'dd/MM/yyyy HH:mm' : 'dd/MM/yyyy'}
+            dateFormat={
+                showTimeSelect
+                    ? [
+                          'dd/MM/yyyy HH:mm',
+                          'd/M/yyyy HH:mm',
+                          'dd/M/yyyy HH:mm',
+                          'd/MM/yyyy HH:mm',
+                          'd/M/yy HH:mm',
+                          'dd/M/yy HH:mm',
+                          'd/MM/yy HH:mm'
+                      ]
+                    : [
+                          'dd/MM/yyyy',
+                          'd/M/yyyy',
+                          'dd/M/yyyy',
+                          'd/MM/yyyy',
+                          'd/M/yy',
+                          'dd/M/yy',
+                          'd/MM/yy'
+                      ]
+            }
             placeholderText={placeholderText}
             required={required}
             onBlur={onBlur}
