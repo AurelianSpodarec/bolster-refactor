@@ -10,11 +10,13 @@ const SuperAdminConfirmDeleteInvoiceModal = ({
     message = 'Are you sure you want to delete this?',
     isDeleting,
     deleteButtonText = 'Delete',
-    icon = 'trash-alt'
+    icon = 'trash-alt',
+    deleteSuccess
 }) => (
     <ModalOuterContainer>
         <BlockHeading title={'Confirm Delete Invoice'} />
-        {isDeleting ? (
+        {/* delete success is required because the history.push takes a while to get back to the invoices page after the item has been deleted*/}
+        {isDeleting || deleteSuccess ? (
             <div className="size-lg-12">
                 <Loading message="Deleting invoice..." />
             </div>

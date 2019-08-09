@@ -1,24 +1,38 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { connect } from 'react-redux';
 
 import CreditLogsTable from '../presentational/CreditLogsTable';
 
-const CreditLogsTableContainer = ({ credits, isFetching, error, headers }) => (
-    <CreditLogsTable
-        headers={headers}
-        creditLogs={credits}
-        isFetching={isFetching}
-        error={error}
-    />
-);
+const CreditLogsTableContainer = ({ credits, invoices, isFetching, error, headers }) => {
+    const filteredCredits = useMemo(
+        () =>
+            credits.filter(credit => {
+                // only show credits for invoices that aren't free
+                const invoice = invoices[credit.invoiceID];
+                if (!invoice || invoice.total) return true;
+            }),
+        [isFetching]
+    );
+
+    return (
+        <CreditLogsTable
+            headers={headers}
+            creditLogs={filteredCredits}
+            isFetching={isFetching}
+            error={error}
+        />
+    );
+};
 
 const mapStateToProps = ({
     companyAdmin: {
-        creditsReducer: { credits, isFetching, error }
+        creditsReducer: { credits, isFetching: fetchingCredits, error },
+        invoicesReducer: { invoices, isFetching: fetchingInvoices }
     }
 }) => ({
-    credits: Object.values(credits) || null,
-    isFetching,
+    credits: Object.values(credits),
+    invoices,
+    isFetching: fetchingCredits || fetchingInvoices,
     error,
     headers: ['Date', 'Type', 'Quantity', 'Drawing Heirarchy', 'User', '']
 });

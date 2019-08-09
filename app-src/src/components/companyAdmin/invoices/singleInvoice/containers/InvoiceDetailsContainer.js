@@ -1,39 +1,44 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 import InvoiceDetails from '../presentational/InvoiceDetails';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
+import { DELETE_INVOICE } from 'constants/shared/modalTypes';
+import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 
-class InvoiceDetailsContainer extends Component {
-    render() {
-        const { invoice, error, isFetching } = this.props;
-        return (
-            <InvoiceDetails
-                invoice={invoice}
-                isFetching={isFetching}
-                error={error}
-            />
-        );
+const InvoiceDetailsContainer = ({ invoice, error, isFetching, showModal }) => {
+    const showDeleteButton = !invoice.isPaid;
+    return (
+        <InvoiceDetails
+            invoice={invoice}
+            isFetching={isFetching}
+            error={error}
+            toggleConfirmDeleteModal={toggleConfirmDeleteModal}
+            showDeleteButton={showDeleteButton}
+        />
+    );
+
+    function toggleConfirmDeleteModal() {
+        showModal(DELETE_INVOICE, { invoice, id: invoice.id });
     }
-    toggleConfirmDeleteModal = () => {
-        const { showModal /*invoice*/ } = this.props;
-
-        showModal();
-    };
-}
-
-const mapStateToProps = ({ companyAdmin: { invoicesReducer } }, ownProps) => {
-    return {
-        invoice: invoicesReducer.invoices[ownProps.match.params.id] || {},
-        error: invoicesReducer.error,
-        isFetching: invoicesReducer.isFetching
-    };
 };
 
-const mapDispatchToProps = dispatch => ({
-    showModal: (modalType, props) => dispatch(showModal(modalType, props))
+const mapStateToProps = (
+    {
+        companyAdmin: {
+            invoicesReducer: { invoices, error, isFetching, postSuccess }
+        }
+    },
+    ownProps
+) => ({
+    invoice: invoices[ownProps.match.params.id] || {},
+    error,
+    isFetching,
+    postSuccess
 });
+
+const mapDispatchToProps = { showModal, hideModal };
 
 export default withRouter(
     connect(

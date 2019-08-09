@@ -13,16 +13,16 @@ import Rectangle from 'components/shared/pinSelector/presentational/Rectangle';
 import MapPinContainer from 'components/shared/pins/map/containers/MapPinContainer';
 
 const FilterMap = ({
-    drawing,
-    pins,
-    handleClick,
+    drawing = {},
+    pins = [],
+    handleClick = () => {},
     cornerClicked,
-    rectangles,
-    handleDelete,
+    rectangles = [],
+    handleDelete = () => {},
     setMode,
     shouldShowMapOptions,
     mode,
-    handleCancelPinSelector,
+    handleCancelPinSelector = () => {},
     isExcluding,
     isClient
 }) => {
@@ -55,14 +55,10 @@ const FilterMap = ({
             >
                 <TileLayer
                     attribution='&amp;copy <a href="http://app.bolstersystems.com">Bolster Systems Ltd</a>'
-                    url={`${FILE_STORAGE_URL}/${
-                        drawing.tilesetS3Key
-                    }/{z}/{x}/{y}.jpg`}
+                    url={`${FILE_STORAGE_URL}/${drawing.tilesetS3Key}/{z}/{x}/{y}.jpg`}
                     noWrap={true}
                 />
-                {cornerClicked && (
-                    <Marker position={cornerClicked} icon={cornerClickedIcon} />
-                )}
+                {cornerClicked && <Marker position={cornerClicked} icon={cornerClickedIcon} />}
                 {rectangles.map(rectangle => (
                     <Rectangle
                         key={rectangle.id}

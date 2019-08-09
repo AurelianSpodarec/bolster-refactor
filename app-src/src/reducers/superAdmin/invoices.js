@@ -22,6 +22,7 @@ import {
     SA_DELETE_INVOICE_REQUEST
 } from 'constants/actionTypes/superAdminInvoices';
 import { convertArrToObj, updateObj, removeObjItem } from 'helpers/generic';
+import { HIDE_MODAL } from 'constants/actionTypes/generic';
 
 export default combineReducers({
     invoices: invoicesReducer,
@@ -100,6 +101,7 @@ function postSuccessReducer(state = false, action) {
 function deleteSuccessReducer(state = false, action) {
     switch (action.type) {
         case SA_DELETE_INVOICE_REQUEST:
+        case HIDE_MODAL:
             return false;
         case SA_DELETE_INVOICE_SUCCESS:
             return true;
@@ -130,10 +132,7 @@ function invoiceItemsReducer(state = {}, action) {
     }
 }
 
-function filtersReducer(
-    state = { searchTerm: '', paymentType: 0, hasPayed: '0' },
-    action
-) {
+function filtersReducer(state = { searchTerm: '', paymentType: 0, hasPayed: '0' }, action) {
     switch (action.type) {
         case UPDATE_INVOICE_FILTERS:
             return updateObj(state, action.fieldName, action.searchTerm);
