@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactPieChart from 'react-minimal-pie-chart';
+import { isIE } from 'react-device-detect';
 
 import greenPin from '_content/images/map-markers/green-pin2x.png';
 import redPin from '_content/images/map-markers/red-pin2x.png';
@@ -19,9 +20,7 @@ const PieChart = ({
     onMobile
     // style
 }) => {
-    const isStatsEmpty = Object.values(stats.statuses).every(
-        stat => stat === 0
-    );
+    const isStatsEmpty = Object.values(stats.statuses).every(stat => stat === 0);
 
     const total = Object.values(stats.statuses).reduce((acc, val) => {
         return acc + val;
@@ -42,11 +41,7 @@ const PieChart = ({
 
     return (
         <div className={`history ${sizeClasses}`}>
-            {wTitle && (
-                <h4 className="heading heading-3 size-lg-12">
-                    Latest Pin Histories
-                </h4>
-            )}
+            {wTitle && <h4 className="heading heading-3 size-lg-12">Latest Pin Histories</h4>}
 
             {isStatsEmpty ? (
                 <p className="no-data size-lg-12">
@@ -57,6 +52,7 @@ const PieChart = ({
                     {onMobile && (
                         <div className="size-lg-12">
                             <div className="size-md-2" />
+
                             <ReactPieChart
                                 className="size-md-8"
                                 data={pieStats}
@@ -68,42 +64,36 @@ const PieChart = ({
                             <div className="size-md-2" />
                         </div>
                     )}
-                    <div className="pin-key size-lg-6 size-md-12">
+                    <div className={`pin-key ${isIE ? 'size-lg-12 ' : 'size-lg-6 '}size-md-12`}>
                         <div className="pin">
                             <img src={redPin} alt="pin" />
                             <p>
                                 Action Required:{' '}
-                                <span>{`${
-                                    stats.statuses['ActionRequired']
-                                }`}</span>
+                                <span>{`${stats.statuses['ActionRequired']}`}</span>
                             </p>
                         </div>
                         <div className="pin">
                             <img src={greenPin} alt="pin" />
                             <p>
-                                Installed:{' '}
-                                <span>{`${stats.statuses['Installed']}`}</span>
+                                Installed: <span>{`${stats.statuses['Installed']}`}</span>
                             </p>
                         </div>
                         <div className="pin">
                             <img src={bluePin} alt="pin" />
                             <p>
-                                Inspected:{' '}
-                                <span>{`${stats.statuses['Inspected']}`}</span>
+                                Inspected: <span>{`${stats.statuses['Inspected']}`}</span>
                             </p>
                         </div>
                         <div className="pin">
                             <img src={yellowPin} alt="pin" />
                             <p>
-                                No Action:{' '}
-                                <span>{`${stats.statuses['NoAction']}`}</span>
+                                No Action: <span>{`${stats.statuses['NoAction']}`}</span>
                             </p>
                         </div>
                         <div className="pin">
                             <img src={purplePin} alt="pin" />
                             <p>
-                                Other:{' '}
-                                <span>{`${stats.statuses['Other']}`}</span>
+                                Other: <span>{`${stats.statuses['Other']}`}</span>
                             </p>
                         </div>
                         <div className="pin">
@@ -112,7 +102,8 @@ const PieChart = ({
                             </p>
                         </div>
                     </div>
-                    {!onMobile && (
+
+                    {!onMobile && !isIE && (
                         <ReactPieChart
                             className="size-lg-5"
                             data={pieStats}
