@@ -1,4 +1,8 @@
 import 'config/objectEntriesIE';
+import 'core-js/features/array/from';
+import 'core-js/features/array/flat';
+import 'core-js/features/set';
+import 'core-js/features/promise';
 import 'es7-object-polyfill';
 import 'react-app-polyfill/ie11';
 import 'core-js/features/array/find';
