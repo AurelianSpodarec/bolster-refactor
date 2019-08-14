@@ -19,12 +19,16 @@ import {
     EDIT_PIN_HISTORY_FAILURE,
     DELETE_PIN_HISTORY_REQUEST,
     DELETE_PIN_HISTORY_FAILURE,
-    DELETE_PIN_HISTORY_SUCCESS
+    DELETE_PIN_HISTORY_SUCCESS,
+    FETCH_ALL_PINS_FOR_DRAWING_REQUEST,
+    FETCH_ALL_PINS_FOR_DRAWING_SUCCESS,
+    FETCH_ALL_PINS_FOR_DRAWING_FAILURE
 } from 'constants/actionTypes/pins';
 
 export default combineReducers({
     pins: pinsReducer,
     isFetching: isFetchingReducer,
+    isFetchingForInspection: isFetchingForInspectionReducer,
     error: errorReducer,
     postSuccess: postSuccessReducer
 });
@@ -52,8 +56,10 @@ function errorReducer(state = null, action) {
         case EDIT_PIN_LOCATION_REQUEST:
         case EDIT_PIN_HISTORY_REQUEST:
         case DELETE_PIN_HISTORY_REQUEST:
+        case FETCH_ALL_PINS_FOR_DRAWING_REQUEST:
             return null;
         case FETCH_SINGLE_PIN_FAILURE:
+        case FETCH_ALL_PINS_FOR_DRAWING_FAILURE:
         case FETCH_PINS_FAILURE:
         case CREATE_PIN_FAILURE:
         case EDIT_PIN_LOCATION_FAILURE:
@@ -67,8 +73,13 @@ function errorReducer(state = null, action) {
 
 function pinsReducer(state = {}, action) {
     switch (action.type) {
+        case FETCH_SINGLE_PIN_REQUEST:
         case FETCH_PINS_REQUEST:
             return {};
+        case FETCH_ALL_PINS_FOR_DRAWING_REQUEST: {
+            const pinToKeep = state[action.excludingPinID];
+            return { [pinToKeep.id]: pinToKeep };
+        }
         case FETCH_SINGLE_PIN_SUCCESS:
         case CREATE_PIN_SUCCESS:
         case EDIT_PIN_LOCATION_SUCCESS:
@@ -76,7 +87,20 @@ function pinsReducer(state = {}, action) {
         case EDIT_PIN_HISTORY_SUCCESS:
             return updateObj(state, action.payload.id, action.payload);
         case FETCH_PINS_SUCCESS:
+        case FETCH_ALL_PINS_FOR_DRAWING_SUCCESS:
             return convertArrToObj(action.payload);
+        default:
+            return state;
+    }
+}
+
+function isFetchingForInspectionReducer(state = false, action) {
+    switch (action.type) {
+        case FETCH_ALL_PINS_FOR_DRAWING_REQUEST:
+            return true;
+        case FETCH_ALL_PINS_FOR_DRAWING_SUCCESS:
+        case FETCH_ALL_PINS_FOR_DRAWING_FAILURE:
+            return false;
         default:
             return state;
     }

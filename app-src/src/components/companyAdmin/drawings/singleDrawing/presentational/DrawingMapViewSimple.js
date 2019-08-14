@@ -32,7 +32,6 @@ const DrawingMapViewSimple = ({
     history,
     showModal,
     updating,
-    updateMessage,
     shouldShowPinSelectorOptions,
     setMode,
     cornerClicked,
