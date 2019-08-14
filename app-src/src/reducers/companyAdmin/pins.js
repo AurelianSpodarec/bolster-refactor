@@ -73,6 +73,7 @@ function errorReducer(state = null, action) {
 
 function pinsReducer(state = {}, action) {
     switch (action.type) {
+        case FETCH_SINGLE_PIN_REQUEST:
         case FETCH_PINS_REQUEST:
             return {};
         case FETCH_ALL_PINS_FOR_DRAWING_REQUEST: {
