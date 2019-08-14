@@ -38,23 +38,15 @@ class PinInspectionLogContainer extends Component {
 
 const mapStateToProps = ({
     companyAdmin: {
-        pinsReducer: { pins, isFetching, error },
-        inspectionLogsReducer: {
-            inspectionLogs,
-            isFetching: fetchingLogs,
-            error: inspectionError
-        }
+        pinsReducer: { pins, isFetchingForInspection, isFetching, error }
     },
     shared: {
         mobileReducer: { onMobile }
     }
 }) => ({
     pins: Object.values(pins),
-    isFetching: isFetching,
+    isFetching: isFetchingForInspection || isFetching,
     error: error,
-    inspectionLogs: Object.values(inspectionLogs),
-    fetchingLogs,
-    inspectionError,
     onMobile
 });
 

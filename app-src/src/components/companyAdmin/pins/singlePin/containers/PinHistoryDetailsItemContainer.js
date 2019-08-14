@@ -15,11 +15,12 @@ class PinHistoryDetailsItemContainer extends Component {
             services,
             drawingID,
             historyCount,
-            isFetchingPin,
-            pin
+            isLoading
         } = this.props;
 
-        return !isFetchingPin && !!pin ? (
+        return isLoading ? (
+            <Loading />
+        ) : (
             <PinHistoryDetailsItem
                 history={history}
                 services={services}
@@ -28,8 +29,6 @@ class PinHistoryDetailsItemContainer extends Component {
                 drawingID={drawingID}
                 isDeleteHistory={historyCount > 1}
             />
-        ) : (
-            <Loading />
         );
     }
 

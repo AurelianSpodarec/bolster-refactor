@@ -16,7 +16,8 @@ class PinDetailsContainer extends Component {
             services,
             error,
             isFetching,
-            pin
+            pin,
+            isLoading
         } = this.props;
 
         const sortedHistories = [...histories].sort(
@@ -67,6 +68,7 @@ class PinDetailsContainer extends Component {
                         pin={pin}
                         drawingID={pin.drawingID}
                         historyCount={histories.length}
+                        isLoading={isLoading}
                     />
                 </BlockContainer>
             );
