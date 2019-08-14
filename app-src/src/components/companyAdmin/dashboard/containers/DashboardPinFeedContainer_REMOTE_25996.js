@@ -20,7 +20,7 @@ class DashboardPinFeedContainer extends Component {
             if (!isFetching && !document.hidden) {
                 fetchPinFeed(lastUpdatedOn);
             }
-        }, 60000);
+        }, 5000);
     };
 
     componentWillUnmount = () => {

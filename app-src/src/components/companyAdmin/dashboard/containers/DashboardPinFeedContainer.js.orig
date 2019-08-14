@@ -15,12 +15,16 @@ class DashboardPinFeedContainer extends Component {
         const { fetchPinFeed, lastUpdatedOn } = this.props;
         fetchPinFeed();
 
+<<<<<<< HEAD
+        this.interval = setInterval(() => fetchPinFeed(lastUpdatedOn), 1000 * 60);
+=======
         this.interval = setInterval(() => {
             const { isFetching } = this.props;
             if (!isFetching && !document.hidden) {
                 fetchPinFeed(lastUpdatedOn);
             }
-        }, 60000);
+        }, 5000);
+>>>>>>> P-298013331-pin-feed
     };
 
     componentWillUnmount = () => {

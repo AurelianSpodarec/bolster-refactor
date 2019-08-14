@@ -8,19 +8,20 @@ class DashboardPinFeedContainer extends Component {
     render() {
         const { isFetching, error } = this.props;
 
-        return <DashboardPinFeed pins={this._sortPins()} isFetching={isFetching} error={error} />;
+        return (
+            <DashboardPinFeed
+                pins={this._sortPins()}
+                isFetching={isFetching}
+                error={error}
+            />
+        );
     }
 
     componentDidMount = () => {
         const { fetchPinFeed, lastUpdatedOn } = this.props;
         fetchPinFeed();
 
-        this.interval = setInterval(() => {
-            const { isFetching } = this.props;
-            if (!isFetching && !document.hidden) {
-                fetchPinFeed(lastUpdatedOn);
-            }
-        }, 60000);
+        this.interval = setInterval(() => fetchPinFeed(lastUpdatedOn), 1000 * 60);
     };
 
     componentWillUnmount = () => {
