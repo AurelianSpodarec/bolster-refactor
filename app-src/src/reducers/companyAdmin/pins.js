@@ -27,6 +27,7 @@ import {
 
 export default combineReducers({
     pins: pinsReducer,
+    singlePin: singlePinReducer,
     isFetching: isFetchingReducer,
     isFetchingForInspection: isFetchingForInspectionReducer,
     error: errorReducer,
@@ -101,6 +102,19 @@ function isFetchingForInspectionReducer(state = false, action) {
         case FETCH_ALL_PINS_FOR_DRAWING_SUCCESS:
         case FETCH_ALL_PINS_FOR_DRAWING_FAILURE:
             return false;
+        default:
+            return state;
+    }
+}
+function singlePinReducer(state = {}, action) {
+    switch (action.type) {
+        case FETCH_SINGLE_PIN_REQUEST:
+            return {};
+        case FETCH_SINGLE_PIN_SUCCESS:
+        case EDIT_PIN_LOCATION_SUCCESS:
+            return updateObj(state, action.payload.pin.id, action.payload.pin);
+        case EDIT_PIN_HISTORY_SUCCESS:
+            return updateObj(state, action.payload.id, action.payload);
         default:
             return state;
     }

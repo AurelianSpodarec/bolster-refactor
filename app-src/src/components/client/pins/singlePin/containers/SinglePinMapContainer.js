@@ -9,22 +9,10 @@ import fetchClientSingleDrawing from 'actions/client/drawings/async/clientFetchS
 import { getSelectedCompanyForClient } from 'helpers/generic';
 class SinglePinMapContainer extends Component {
     render() {
-        const {
-            pin,
-            user,
-            error,
-            isFetching,
-            drawing,
-            selectedHistory,
-            histories
-        } = this.props;
+        const { pin, user, error, isFetching, drawing, selectedHistory, histories } = this.props;
 
         return (
-            <BlockContainer
-                isEmpty={!pin.id || !drawing.id}
-                isFetching={isFetching}
-                error={error}
-            >
+            <BlockContainer isEmpty={!pin.id || !drawing.id} isFetching={isFetching} error={error}>
                 <SinglePinMap
                     zoom={3}
                     pin={pin}
@@ -66,13 +54,9 @@ class SinglePinMapContainer extends Component {
 const mapStateToProps = (
     {
         client: {
-            pinsReducer: { pins, error: pinsError, isFetching: fetchingPins },
+            pinsReducer: { singlePin, error: pinsError, isFetching: fetchingPins },
             pinHistoriesReducer: { histories },
-            pinOperativesReducer: {
-                users,
-                isFetching: fetchingOperatives,
-                error: operativesError
-            },
+            pinOperativesReducer: { users, isFetching: fetchingOperatives, error: operativesError },
             drawingsReducer: { drawings }
         },
         shared: {
@@ -81,7 +65,7 @@ const mapStateToProps = (
     },
     { match: { params } }
 ) => {
-    const pin = pins[params.id] || {};
+    const pin = singlePin[params.id] || {};
 
     return {
         pin,

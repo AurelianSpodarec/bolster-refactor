@@ -12,6 +12,7 @@ import {
 
 export default combineReducers({
     pins: pinsReducer,
+    singlePin: singlePinReducer,
     isFetching: isFetchingReducer,
     error: errorReducer
 });
@@ -52,6 +53,17 @@ function pinsReducer(state = {}, action) {
             return updateObj(state, action.payload.pin.id, action.payload.pin);
         case CLIENT_FETCH_PINS_SUCCESS:
             return convertArrToObj(action.payload);
+        default:
+            return state;
+    }
+}
+
+function singlePinReducer(state = {}, action) {
+    switch (action.type) {
+        case CLIENT_FETCH_SINGLE_PIN_REQUEST:
+            return {};
+        case CLIENT_FETCH_SINGLE_PIN_SUCCESS:
+            return updateObj(state, action.payload.pin.id, action.payload.pin);
         default:
             return state;
     }

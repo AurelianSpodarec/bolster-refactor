@@ -10,15 +10,7 @@ import fetchSinglePin from 'actions/companyAdmin/pins/async/fetchSinglePin';
 
 class PinDetailsContainer extends Component {
     render() {
-        const {
-            histories,
-            users,
-            services,
-            error,
-            isFetching,
-            pin,
-            isLoading
-        } = this.props;
+        const { histories, users, services, error, isFetching, pin, isLoading } = this.props;
 
         const sortedHistories = [...histories].sort(
             (a, b) => moment(b.createdOn) - moment(a.createdOn)
@@ -36,13 +28,9 @@ class PinDetailsContainer extends Component {
                     isFetching={isFetching}
                     error={error}
                 >
-                    <BlockHeading
-                        classes="underline-full"
-                        title={`Pin ${pin.pinCode}`}
-                    >
+                    <BlockHeading classes="underline-full" title={`Pin ${pin.pinCode}`}>
                         <h4 className="small-text">
-                            (History {histories.length - i} of{' '}
-                            {histories.length}{' '}
+                            (History {histories.length - i} of {histories.length}{' '}
                             {histories.length - i === histories.length
                                 ? ' - Latest'
                                 : histories.length - i === 1
@@ -99,19 +87,15 @@ class PinDetailsContainer extends Component {
 const mapStateToProps = (
     {
         companyAdmin: {
-            pinsReducer: { isFetching: fetchingPins, postSuccess, pins },
-            pinHistoriesReducer: {
-                histories,
-                isFetching: fetchingHistories,
-                error
-            },
+            pinsReducer: { isFetching: fetchingPins, postSuccess, singlePin },
+            pinHistoriesReducer: { histories, isFetching: fetchingHistories, error },
             companyUsersReducer: { users, isFetching: fetchingUsers },
             servicesReducer: { services }
         }
     },
     { match }
 ) => {
-    const pin = pins[match.params.id] || {};
+    const pin = singlePin[match.params.id] || {};
     return {
         isFetching: fetchingPins || fetchingHistories || fetchingUsers,
         error,
