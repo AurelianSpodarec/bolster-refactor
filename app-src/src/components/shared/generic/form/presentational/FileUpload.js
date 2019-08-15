@@ -24,10 +24,10 @@ const FileUpload = ({
             maxFiles={maxFiles}
             server={serverOptions}
             ref={updateRef}
+            styleButtonRemoveItemPosition={'left'}
         />
-        {!!(error && error.length) && (
-            <p className="error red-text text-accent-4">{error}</p>
-        )}
+
+        {!!(error && error.length) && <p className="error red-text text-accent-4">{error}</p>}
     </>
 );
 
