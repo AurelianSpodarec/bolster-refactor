@@ -98,9 +98,7 @@ class SinglePinMapContainer extends Component {
 
     handleEditHistoryModal = () => {
         const { showModal, selectedHistory } = this.props;
-        const editURL = `/company/pins/${selectedHistory.pinID}/edit-history/${
-            selectedHistory.id
-        }`;
+        const editURL = `/company/pins/${selectedHistory.pinID}/edit-history/${selectedHistory.id}`;
         showModal(CONFIRM_EDIT_PIN, { editURL });
     };
 
@@ -141,7 +139,7 @@ class SinglePinMapContainer extends Component {
 const mapStateToProps = (
     {
         companyAdmin: {
-            pinsReducer: { pins, error, isFetching, postSuccess },
+            pinsReducer: { singlePin, error, isFetching, postSuccess },
             pinHistoriesReducer: { histories },
             drawingsReducer: { drawings }
         },
@@ -152,7 +150,7 @@ const mapStateToProps = (
     },
     { match: { params } }
 ) => {
-    const pin = pins[params.id] || {};
+    const pin = singlePin[params.id] || {};
 
     return {
         pin,

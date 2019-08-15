@@ -34,7 +34,7 @@ const PinHistoriesContainer = ({
 const mapStateToProps = (
     {
         client: {
-            pinsReducer: { pins, isFetching, error },
+            pinsReducer: { singlePin, isFetching, error },
             drawingOperativesReducer: { users },
             servicesReducer: { services },
             pinHistoriesReducer: { histories }
@@ -45,7 +45,7 @@ const mapStateToProps = (
     },
     { match }
 ) => {
-    const pin = pins[match.params.id] || {};
+    const pin = singlePin[match.params.id] || {};
 
     return {
         isFetching,
