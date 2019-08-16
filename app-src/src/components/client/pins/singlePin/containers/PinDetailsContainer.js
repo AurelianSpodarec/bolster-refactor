@@ -11,14 +11,7 @@ import BlockHeading from 'components/shared/generic/blockHeading/presentational/
 
 class PinDetailsContainer extends Component {
     render() {
-        const {
-            histories,
-            users,
-            services,
-            error,
-            isFetching,
-            pin
-        } = this.props;
+        const { histories, users, services, error, isFetching, pin } = this.props;
 
         const sortedHistories = [...histories].sort(
             (a, b) => moment(b.createdOn) - moment(a.createdOn)
@@ -38,8 +31,7 @@ class PinDetailsContainer extends Component {
                 >
                     <BlockHeading title={`Pin ${pin.pinCode}`}>
                         <h4 className="small-text">
-                            (History {histories.length - i} of{' '}
-                            {histories.length}{' '}
+                            (History {histories.length - i} of {histories.length}{' '}
                             {histories.length - i === histories.length
                                 ? ' - Latest'
                                 : histories.length - i === 1
@@ -65,23 +57,19 @@ class PinDetailsContainer extends Component {
 const mapStateToProps = (
     {
         client: {
-            pinsReducer: { isFetching: fetchingPins, pins, error: pinsError },
+            pinsReducer: { isFetching: fetchingPins, singlePin, error: pinsError },
             pinHistoriesReducer: {
                 histories,
                 isFetching: fetchingHistories,
                 error: pinHistoriesError
             },
-            pinOperativesReducer: {
-                users,
-                isFetching: fetchingUsers,
-                error: operativesError
-            },
+            pinOperativesReducer: { users, isFetching: fetchingUsers, error: operativesError },
             servicesReducer: { services }
         }
     },
     { match }
 ) => {
-    const pin = pins[match.params.id] || {};
+    const pin = singlePin[match.params.id] || {};
     return {
         isFetching: fetchingPins || fetchingHistories || fetchingUsers,
         error: pinsError || pinHistoriesError || operativesError,

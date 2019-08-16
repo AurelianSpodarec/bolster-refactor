@@ -13,11 +13,7 @@ class SinglePinContainer extends Component {
     }
 
     componentDidMount = () => {
-        const {
-            pinID,
-            clientFetchPinOperatives,
-            fetchClientSinglePin
-        } = this.props;
+        const { pinID, clientFetchPinOperatives, fetchClientSinglePin } = this.props;
         const selectedCompanyID = getSelectedCompanyForClient();
 
         fetchClientSinglePin(selectedCompanyID, pinID);

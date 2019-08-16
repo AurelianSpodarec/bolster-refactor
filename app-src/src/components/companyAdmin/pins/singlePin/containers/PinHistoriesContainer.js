@@ -22,10 +22,7 @@ const PinHistoriesContainer = ({
         contentClass="pin-single-history no-horizontal-padding"
     >
         <BlockHeading title={`Pin ${pinCode}`}>
-            <Link
-                className="button green"
-                to={`/company/pins/${id}/add-history`}
-            >
+            <Link className="button green" to={`/company/pins/${id}/add-history`}>
                 <i className="fa fa-plus" /> Add Pin History
             </Link>
         </BlockHeading>
@@ -41,7 +38,7 @@ const PinHistoriesContainer = ({
 const mapStateToProps = (
     {
         companyAdmin: {
-            pinsReducer: { pins, isFetching, error },
+            pinsReducer: { singlePin, isFetching, error },
             companyUsersReducer: { users },
             servicesReducer: { services },
             pinHistoriesReducer: { histories }
@@ -52,7 +49,7 @@ const mapStateToProps = (
     },
     { match }
 ) => {
-    const pin = pins[match.params.id] || {};
+    const pin = singlePin[match.params.id] || {};
 
     return {
         isFetching,
