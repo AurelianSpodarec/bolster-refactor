@@ -14,8 +14,8 @@ class PinInspectionLogContainer extends Component {
             .filter(({ pinCode = '' }) =>
                 pinCode.includes(this.state.filterValue)
             )
-            .sort(({ pinCodeA = '' }, { pinCodeB = '' }) => {
-                return pinCodeA.split(':')[0] - pinCodeB.split(':')[0];
+            .sort((a, b) => {
+                return a.pinCode.split(':')[0] - b.pinCode.split(':')[0];
             });
 
         return (
