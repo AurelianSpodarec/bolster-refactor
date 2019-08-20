@@ -1155,13 +1155,16 @@ input {
             font-size: 12px;
             @include ubuntu;
         }
-
-        h4 {
-            font-size: 14px;
-            width: 100%;
-            @include ubuntu-medium;
-            margin-bottom: 5px;
-        }
+    }
+    h4 {
+        font-size: 14px;
+        width: 100%;
+        @include ubuntu-medium;
+        margin-bottom: 5px;
+    }
+    ul{
+        list-style:disc;
+        padding-left: 19px;
     }
     p {
         width: 100%;
@@ -1177,6 +1180,25 @@ input {
         text-decoration: underline;
         &:hover {
             text-decoration: none;
+        }
+    }
+
+    .generic-table{
+        border:1px solid #f5f5f5;
+        th{
+            padding-top:10px;
+            border-bottom:1px solid #f5f5f5;
+            border-right: 1px solid #f5f5f5;
+            &:last-child{
+                text-align:right;
+                border-right: none;
+            }
+        }
+        td{
+            border-right: 1px solid #f5f5f5;
+            &:last-child{
+                border-right:none;
+            }
         }
     }
 }

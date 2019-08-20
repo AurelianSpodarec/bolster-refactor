@@ -160,6 +160,10 @@ const CompanyMenu = ({
                         <i className="far fa-info-circle fa-fw icon" />
                         <span className="menu-text">Support</span>
                     </CompanyMenuItemContainer>
+                               <CompanyMenuItemContainer link="/company/terms">
+                        <i className="fas fa-align-left fa-fw icon" />
+                        <span className="menu-text"> Terms & Conditions</span>
+                    </CompanyMenuItemContainer>
                     <CompanyMenuItemContainer link="/company/approved-companies">
                         <i className="far fa-check-circle fa-fw icon" />
                         <span className="menu-text">
