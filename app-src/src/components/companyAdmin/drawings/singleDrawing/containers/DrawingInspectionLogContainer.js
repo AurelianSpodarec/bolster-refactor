@@ -13,9 +13,11 @@ class DrawingInspectionLogContainer extends Component {
         const filterPins = pins
             .filter(({ pinCode = '' }) =>
                 pinCode.includes(this.state.filterValue)
-            )
-            .sort((a, b) => {
-                return a.pinCode.split(':')[0] - b.pinCode.split(':')[0];
+            ).sort((a, b) => {
+                if(!a.pinCode || !b.pinCode) {
+                    return 0;
+                }
+                return Number(a.pinCode.replace(':', '')) - Number(b.pinCode.replace(':', ''));
             });
 
         return (
