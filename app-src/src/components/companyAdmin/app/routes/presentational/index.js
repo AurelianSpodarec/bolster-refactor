@@ -19,6 +19,7 @@ import InvoicesRoutes from './InvoicesRoutes.js';
 import ProfilesRoutes from './ProfilesRoutes';
 import SettingsRoutes from './SettingsRoutes';
 // import TransferRequestsRoutes from './TransferRequestsRoutes';
+import TermsRoutes from './TermsRoutes';
 import DropdownOptionsRoutes from './DropdownOptionsRoutes';
 import HeadquartersRoutes from './HeadquartersRoutes';
 import ApprovedCompaniesRoutes from './ApprovedCompaniesRoutes';
@@ -69,6 +70,10 @@ const CompanyRoutes = ({ base = '/company' }) => (
         <Route
             path={`${base}/tools`}
             component={withSubscriptionAuth(ToolsRoutes)}
+        />
+        <Route
+            path={`${base}/terms`}
+            component={withSubscriptionAuth(TermsRoutes)}
         />
         <Route
             path={`${base}/approved-companies`}
