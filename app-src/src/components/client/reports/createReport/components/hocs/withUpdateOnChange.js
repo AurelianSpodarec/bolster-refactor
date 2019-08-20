@@ -43,12 +43,7 @@ export default function(ProtectedComponent) {
         };
 
         validate = errorMessage => {
-            const {
-                addFieldError,
-                removeFieldError,
-                blockName,
-                fieldError
-            } = this.props;
+            const { addFieldError, removeFieldError, blockName, fieldError } = this.props;
 
             if (errorMessage) {
                 addFieldError(blockName, errorMessage);
@@ -132,14 +127,8 @@ export default function(ProtectedComponent) {
                 }
                 case FILTERS: {
                     questionFilters = fields.map(
-                        ({
-                            selectedQuestions,
-                            questionValues = [],
-                            selectedValues = []
-                        }) => {
-                            let values = questionValues.length
-                                ? questionValues
-                                : selectedValues;
+                        ({ selectedQuestions, questionValues = [], selectedValues = [] }) => {
+                            let values = questionValues.length ? questionValues : selectedValues;
 
                             return {
                                 questionGroupKeys: selectedQuestions,
@@ -159,10 +148,7 @@ export default function(ProtectedComponent) {
             };
 
             const pinBoundingBoxes = Object.values(rectangles).map(
-                ({ corners: [first, second] }) => [
-                    getLatLng(first),
-                    getLatLng(second)
-                ]
+                ({ corners: [first, second] }) => [getLatLng(first), getLatLng(second)]
             );
 
             const endDate = toDateInclusive
@@ -199,17 +185,9 @@ export default function(ProtectedComponent) {
 
         postFilters = () => {
             const { postCustomFilters, furtherFiltrationOption } = this.props;
-            if (
-                furtherFiltrationOption >
-                FURTHER_FILTRATION_OPTIONS.INDIVIDUAL_PINS
-            ) {
+            if (furtherFiltrationOption > FURTHER_FILTRATION_OPTIONS.INDIVIDUAL_PINS) {
                 const selectedCompanyID = getSelectedCompanyForClient();
-                console.warn(selectedCompanyID);
-                console.warn(this._getPostBody());
-                return postCustomFilters(
-                    selectedCompanyID,
-                    this._getPostBody()
-                );
+                return postCustomFilters(selectedCompanyID, this._getPostBody());
             }
         };
     }
@@ -244,8 +222,7 @@ export default function(ProtectedComponent) {
         const buildingIDs = selectedSite.buildingIDs || [];
         const buildings = buildingIDs.map(id => buildingsReducer.buildings[id]);
 
-        const selectedBuilding =
-            buildingsReducer.buildings[filters.buildingID] || {};
+        const selectedBuilding = buildingsReducer.buildings[filters.buildingID] || {};
         const floorIDs = selectedBuilding.floorIDs || [];
         const floors = floorIDs.map(id => floorsReducer.floors[id]);
 
@@ -275,8 +252,7 @@ export default function(ProtectedComponent) {
     };
 
     const mapDispatchToProps = dispatch => ({
-        handleChange: (name, val) =>
-            dispatch(clientUpdateReportFilter(name, val)),
+        handleChange: (name, val) => dispatch(clientUpdateReportFilter(name, val)),
         postCustomFilters: (companyID, postBody) =>
             dispatch(clientPostCustomFilters(companyID, postBody)),
         addFieldError: (name, val) => dispatch(addFieldError(name, val)),
