@@ -16,12 +16,7 @@ class DashboardContainer extends Component {
     }
 
     componentDidMount = () => {
-        const {
-            updateDashboardFilters,
-            fetchPinStats,
-            fetchPinStatusStats,
-            setTabs
-        } = this.props;
+        const { updateDashboardFilters, fetchPinStats, fetchPinStatusStats, setTabs } = this.props;
         const startDate = moment()
             .subtract(7, 'days')
             .toDate();
@@ -42,6 +37,11 @@ class DashboardContainer extends Component {
 
         fetchPinStats(startingFilters);
         fetchPinStatusStats();
+
+        localStorage.setItem('selectedService', '');
+        localStorage.setItem('selectedStatus', '');
+        localStorage.setItem('selectedStartDate', '');
+        localStorage.setItem('selectedEndDate', '');
     };
 }
 
