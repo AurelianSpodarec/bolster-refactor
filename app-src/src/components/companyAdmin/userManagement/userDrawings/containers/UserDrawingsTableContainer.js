@@ -20,6 +20,7 @@ class UserDrawingsTableContainer extends Component {
             <UserDrawingsTable
                 headers={['Drawing', 'Remove access']}
                 handleDrawingIDs={this.handleDrawingIDs}
+                selectAll={this._selectAll}
                 checkedDrawings={drawingIDs}
                 drawings={drawings}
                 isFetching={isFetching}
@@ -45,11 +46,22 @@ class UserDrawingsTableContainer extends Component {
 
     handleDrawingIDs = e => {
         const { drawingIDs } = this.state;
-
         this.setState({
             drawingIDs: drawingIDs.includes(e.target.value)
                 ? drawingIDs.filter(val => e.target.value !== val)
                 : [...drawingIDs, e.target.value]
+        });
+    };
+
+    _selectAll = () => {
+        const { drawings } = this.props;
+        //get all drawing
+        let allDrawingIDs = [];
+        drawings.forEach(drawing => {
+            allDrawingIDs.push(String(drawing.id));
+        });
+        this.setState({
+            drawingIDs: [...allDrawingIDs]
         });
     };
 }
@@ -57,12 +69,7 @@ class UserDrawingsTableContainer extends Component {
 const mapStateToProps = (
     {
         companyAdmin: {
-            userDrawingsReducer: {
-                userDrawings,
-                error,
-                isFetching,
-                removeSuccess
-            }
+            userDrawingsReducer: { userDrawings, error, isFetching, removeSuccess }
         }
     },
     {

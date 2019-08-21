@@ -3,6 +3,7 @@ import Table from 'components/shared/generic/tables/presentational/Table';
 
 import UserDrawingListItemContainer from '../containers/UserDrawingListItemContainer';
 import { REMOVE_DRAWINGS_ACCESS } from 'constants/shared/modalTypes';
+import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 
 const UserDrawingsTable = ({
     headers,
@@ -12,7 +13,8 @@ const UserDrawingsTable = ({
     checkedDrawings,
     handleDrawingIDs,
     userID,
-    showModal
+    showModal,
+    selectAll
 }) => (
     <>
         <Table
@@ -32,19 +34,25 @@ const UserDrawingsTable = ({
                 />
             ))}
         </Table>
-        {!!checkedDrawings.length && (
-            <button
-                className="button red pull-right"
-                onClick={() =>
-                    showModal(REMOVE_DRAWINGS_ACCESS, {
-                        checkedDrawings: checkedDrawings,
-                        userID: userID
-                    })
-                }
-            >
-                <i className="far fa-trash-alt" /> Remove Access
+        <div className="button-container">
+            {!!checkedDrawings.length && (
+                <button
+                    className="button red pull-right"
+                    onClick={() =>
+                        showModal(REMOVE_DRAWINGS_ACCESS, {
+                            checkedDrawings: checkedDrawings,
+                            userID: userID
+                        })
+                    }
+                >
+                    <i className="far fa-trash-alt" /> Remove Access
+                </button>
+            )}
+
+            <button className="button yellow pull-right" onClick={() => selectAll()}>
+                <i className="far fa-check-square" /> Select All
             </button>
-        )}
+        </div>
     </>
 );
 
