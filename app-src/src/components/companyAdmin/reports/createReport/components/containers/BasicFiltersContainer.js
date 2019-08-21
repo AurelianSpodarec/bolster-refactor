@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+import moment from 'moment';
 
 import { PIN_STATUS_TYPES, NUMBER_OF_HISTORIES } from 'constants/companyAdmin/enums';
 import { convertEnumToDropdownOptions, isObjEmpty } from 'helpers/generic';
@@ -69,6 +71,38 @@ class BasicFiltersContainer extends Component {
         );
     }
 
+    componentDidMount = () => {
+        const {
+            handleChange,
+            location: { state: locationState },
+            postFilters
+        } = this.props;
+
+        if (locationState && locationState.selectedService) {
+            handleChange('serviceID', locationState.selectedService);
+        }
+
+        if (locationState && locationState.selectedStatus) {
+            handleChange('status', locationState.selectedStatus);
+        }
+
+        if (locationState && locationState.selectedStartDate) {
+            this.handleDateChange(
+                'fromDateInclusive',
+                moment(locationState.selectedStartDate).toDate()
+            );
+        }
+
+        if (locationState && locationState.selectedEndDate) {
+            this.handleDateChange(
+                'toDateInclusive',
+                moment(locationState.selectedEndDate).toDate()
+            );
+        }
+
+        postFilters();
+    };
+
     handleDateBlur = isStart => {
         isStart ? this.setState({ startBlurred: true }) : this.setState({ endBlurred: true });
     };
@@ -135,9 +169,11 @@ const mapDispatchToProps = {
     fetchAllTemplates
 };
 
-export default withUpdateOnChange(
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(BasicFiltersContainer)
+export default withRouter(
+    withUpdateOnChange(
+        connect(
+            mapStateToProps,
+            mapDispatchToProps
+        )(BasicFiltersContainer)
+    )
 );
