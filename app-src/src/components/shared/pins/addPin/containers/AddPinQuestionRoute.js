@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 
 import { QUESTION_TYPE_VALUES } from 'constants/shared/templateBuilder';
@@ -22,7 +22,7 @@ import Select from 'components/shared/generic/form/presentational/Select';
 import MultiSelect from 'components/shared/generic/form/presentational/MultiSelect';
 import { RAW_S3_STORAGE_URL } from 'config';
 import resetPinAnswer from 'actions/companyAdmin/drawings/sync/resetPinAnswer';
-import { componentDidMount, isEmpty } from 'helpers/generic';
+import { componentDidMount, isEmpty, isObjEmpty } from 'helpers/generic';
 import addFieldError from 'actions/shared/generic/fieldErrors/sync/addFieldError';
 import removeFieldError from 'actions/shared/generic/fieldErrors/sync/removeFieldError';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
@@ -338,14 +338,16 @@ const MultiMultiDropdownOptions = ({
     question: { id, optionType },
     dropdownOptions,
     answers,
-    handleChange
+    handleChange,
+    edit
 }) => {
+
     const formattedOpts = dropdownOptions
-        .filter(option => option.type + '' === optionType + '')
-        .map(({ name }) => ({
-            value: name,
-            label: name
-        }));
+    .filter(option => option.type + '' === optionType + '')
+    .map(({ name }) => ({
+        value: name,
+        label: name
+    }));
 
     return (
         <BoundlessSelect
@@ -369,7 +371,8 @@ const StaticImage = ({ question }) => (
 
 class AddPinQuestionRoute extends Component {
     state = {
-        sigPad: {}
+        sigPad: {},
+        extraOptions: {}
     };
 
     render() {
@@ -383,7 +386,7 @@ class AddPinQuestionRoute extends Component {
             edit,
             resetPinAnswer,
             isHistory
-        } = this.props;
+        } = this.props; 
 
         const fieldTypes = {
             [SINGLE_LINE]: SingleLine,
@@ -630,6 +633,10 @@ class AddPinQuestionRoute extends Component {
             if (oldAnswer) {
                 const { templateQuestionID, answer } = oldAnswer;
                 updateAddPinAnswer(templateQuestionID, answer);
+                if(question.type + '' === MULTI_MULTI_DROPDOWN_OPTIONS || question.type + '' === MULTI_MULTI_DROPDOWN_OPTIONS){
+                    console.error('multi or multi-multi');
+                    console.error(answer);
+                }
             }
             if (String(question.type) === STATUS) {
                 updateAddPinStatus(history.status);
