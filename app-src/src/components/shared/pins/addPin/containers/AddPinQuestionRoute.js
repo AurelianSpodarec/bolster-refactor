@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 
 import { QUESTION_TYPE_VALUES } from 'constants/shared/templateBuilder';
@@ -22,7 +22,7 @@ import Select from 'components/shared/generic/form/presentational/Select';
 import MultiSelect from 'components/shared/generic/form/presentational/MultiSelect';
 import { RAW_S3_STORAGE_URL } from 'config';
 import resetPinAnswer from 'actions/companyAdmin/drawings/sync/resetPinAnswer';
-import { componentDidMount, isEmpty } from 'helpers/generic';
+import { componentDidMount, isEmpty, isObjEmpty } from 'helpers/generic';
 import addFieldError from 'actions/shared/generic/fieldErrors/sync/addFieldError';
 import removeFieldError from 'actions/shared/generic/fieldErrors/sync/removeFieldError';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
@@ -270,11 +270,32 @@ const DropdownOptions = ({
     question: { id, optionType },
     dropdownOptions,
     answers,
-    handleChange
+    handleChange,
+    edit,
+    originalDropdownAns
 }) => {
-    const formattedOpts = dropdownOptions
-        .filter(option => option.type + '' === optionType + '')
-        .map(({ name }) => ({ value: name, label: name }));
+    // ! If a user is editing a pin that has a dropdown option that's no longer available, this needs to be kept as an option.
+    let formattedOpts = [];
+    const filteredOptions = dropdownOptions
+        .filter(option => option.type + '' === optionType + '');
+
+    if(edit) {
+        const curOptions = filteredOptions.map(opt => opt.name);
+ 
+        formattedOpts = filteredOptions.map(({ name }) => ({
+            value: name,
+            label: name
+        }));
+        
+        if(!curOptions.includes(originalDropdownAns)) {
+            formattedOpts.push({value: originalDropdownAns, label: originalDropdownAns});
+        }
+    } else {
+        formattedOpts = dropdownOptions
+            .filter(option => option.type + '' === optionType + '')
+            .map(({ name }) => ({ value: name, label: name }));
+    }
+        
 
     return (
         <Select
@@ -293,16 +314,43 @@ const MultiDropdownOptions = ({
     question: { id, optionType },
     dropdownOptions,
     answers,
-    handleChange
+    handleChange,
+    edit,
+    originalDropdownMultiAns
 }) => {
-    const opts = dropdownOptions
-        .filter(option => option.type + '' === optionType + '')
-        .map(({ name }) => ({ value: name, label: name }));
+
+        let formattedOpts = [];
+        const filteredOptions = dropdownOptions
+                .filter(option => option.type + '' === optionType + '');
+    
+   // ! If a user is editing a pin that has a dropdown option that's no longer available, this needs to be kept as an option.
+        if(edit) {
+            const curOptions = filteredOptions.map(opt => opt.name);
+    
+            const extraOptions = originalDropdownMultiAns.reduce((acc, opt) => {
+                if(!curOptions.includes(opt) && !acc.includes(opt)) {
+                    acc.push(opt);
+                }
+                return acc;
+            }, []).map(opt => ({name: opt}));
+    
+            formattedOpts = [...filteredOptions, ...extraOptions].map(({ name }) => ({
+                value: name,
+                label: name
+            }));
+        } else {
+            formattedOpts = filteredOptions
+                .map(({ name }) => 
+                ({
+                    value: name,
+                    label: name
+                }));
+        }
 
     return (
         <MultiSelect
             required={isRequired}
-            options={opts}
+            options={formattedOpts}
             value={answers[id]}
             name={`answer-${id}`}
             onChange={handleChange}
@@ -338,15 +386,40 @@ const MultiMultiDropdownOptions = ({
     question: { id, optionType },
     dropdownOptions,
     answers,
-    handleChange
+    handleChange,
+    edit,
+    originalDropdownMultiAns
 }) => {
-    const formattedOpts = dropdownOptions
-        .filter(option => option.type + '' === optionType + '')
-        .map(({ name }) => ({
+
+    let formattedOpts = [];
+    const filteredOptions = dropdownOptions
+            .filter(option => option.type + '' === optionType + '');
+
+    // ! If a user is editing a pin that has a dropdown option that's no longer available, this needs to be kept as an option.
+    if(edit) {
+        const curOptions = filteredOptions.map(opt => opt.name);
+
+        const extraOptions = originalDropdownMultiAns.reduce((acc, opt) => {
+            if(!curOptions.includes(opt) && !acc.includes(opt)) {
+                acc.push(opt);
+            }
+            return acc;
+        }, []).map(opt => ({name: opt}));
+
+        formattedOpts = [...filteredOptions, ...extraOptions].map(({ name }) => ({
             value: name,
             label: name
         }));
-
+    } else {
+        formattedOpts = filteredOptions
+            .map(({ name }) => 
+            ({
+                value: name,
+                label: name
+            }));
+    }
+   
+        
     return (
         <BoundlessSelect
             required={isRequired}
@@ -369,7 +442,9 @@ const StaticImage = ({ question }) => (
 
 class AddPinQuestionRoute extends Component {
     state = {
-        sigPad: {}
+        sigPad: {},
+        originalDropdownMultiAns: [],
+        originalDropdownAns: ''
     };
 
     render() {
@@ -383,7 +458,7 @@ class AddPinQuestionRoute extends Component {
             edit,
             resetPinAnswer,
             isHistory
-        } = this.props;
+        } = this.props; 
 
         const fieldTypes = {
             [SINGLE_LINE]: SingleLine,
@@ -452,6 +527,8 @@ class AddPinQuestionRoute extends Component {
                         edit={edit}
                         resetPinAnswer={resetPinAnswer}
                         isHistory={isHistory}
+                        originalDropdownAns={this.state.originalDropdownAns}
+                        originalDropdownMultiAns={this.state.originalDropdownMultiAns}
                     />
                 </Field>
             );
@@ -630,6 +707,12 @@ class AddPinQuestionRoute extends Component {
             if (oldAnswer) {
                 const { templateQuestionID, answer } = oldAnswer;
                 updateAddPinAnswer(templateQuestionID, answer);
+                if(question.type + '' === MULTI_DROPDOWN_OPTIONS || question.type + '' === MULTI_MULTI_DROPDOWN_OPTIONS){
+                    this.setState({originalDropdownMultiAns: answer});
+                }
+                if(question.type + '' === DROPDOWN_OPTIONS){
+                    this.setState({originalDropdownAns: answer});
+                }
             }
             if (String(question.type) === STATUS) {
                 updateAddPinStatus(history.status);
