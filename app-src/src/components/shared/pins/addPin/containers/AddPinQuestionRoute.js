@@ -270,11 +270,32 @@ const DropdownOptions = ({
     question: { id, optionType },
     dropdownOptions,
     answers,
-    handleChange
+    handleChange,
+    edit,
+    originalDropdownAns
 }) => {
-    const formattedOpts = dropdownOptions
-        .filter(option => option.type + '' === optionType + '')
-        .map(({ name }) => ({ value: name, label: name }));
+    // ! If a user is editing a pin that has a dropdown option that's no longer available, this needs to be kept as an option.
+    let formattedOpts = [];
+    const filteredOptions = dropdownOptions
+        .filter(option => option.type + '' === optionType + '');
+
+    if(edit) {
+        const curOptions = filteredOptions.map(opt => opt.name);
+ 
+        formattedOpts = filteredOptions.map(({ name }) => ({
+            value: name,
+            label: name
+        }));
+        
+        if(!curOptions.includes(originalDropdownAns)) {
+            formattedOpts.push({value: originalDropdownAns, label: originalDropdownAns});
+        }
+    } else {
+        formattedOpts = dropdownOptions
+            .filter(option => option.type + '' === optionType + '')
+            .map(({ name }) => ({ value: name, label: name }));
+    }
+        
 
     return (
         <Select
@@ -293,16 +314,43 @@ const MultiDropdownOptions = ({
     question: { id, optionType },
     dropdownOptions,
     answers,
-    handleChange
+    handleChange,
+    edit,
+    originalDropdownMultiAns
 }) => {
-    const opts = dropdownOptions
-        .filter(option => option.type + '' === optionType + '')
-        .map(({ name }) => ({ value: name, label: name }));
+
+        let formattedOpts = [];
+        const filteredOptions = dropdownOptions
+                .filter(option => option.type + '' === optionType + '');
+    
+   // ! If a user is editing a pin that has a dropdown option that's no longer available, this needs to be kept as an option.
+        if(edit) {
+            const curOptions = filteredOptions.map(opt => opt.name);
+    
+            const extraOptions = originalDropdownMultiAns.reduce((acc, opt) => {
+                if(!curOptions.includes(opt) && !acc.includes(opt)) {
+                    acc.push(opt);
+                }
+                return acc;
+            }, []).map(opt => ({name: opt}));
+    
+            formattedOpts = [...filteredOptions, ...extraOptions].map(({ name }) => ({
+                value: name,
+                label: name
+            }));
+        } else {
+            formattedOpts = filteredOptions
+                .map(({ name }) => 
+                ({
+                    value: name,
+                    label: name
+                }));
+        }
 
     return (
         <MultiSelect
             required={isRequired}
-            options={opts}
+            options={formattedOpts}
             value={answers[id]}
             name={`answer-${id}`}
             onChange={handleChange}
@@ -340,18 +388,18 @@ const MultiMultiDropdownOptions = ({
     answers,
     handleChange,
     edit,
-    originalDropdownAns
+    originalDropdownMultiAns
 }) => {
 
     let formattedOpts = [];
     const filteredOptions = dropdownOptions
             .filter(option => option.type + '' === optionType + '');
 
-    // * * If a user is editing a pin that has a dropdown option that's no longer available, this needs to be kept as an option.
+    // ! If a user is editing a pin that has a dropdown option that's no longer available, this needs to be kept as an option.
     if(edit) {
         const curOptions = filteredOptions.map(opt => opt.name);
 
-        const extraOptions = originalDropdownAns.reduce((acc, opt) => {
+        const extraOptions = originalDropdownMultiAns.reduce((acc, opt) => {
             if(!curOptions.includes(opt) && !acc.includes(opt)) {
                 acc.push(opt);
             }
@@ -395,7 +443,8 @@ const StaticImage = ({ question }) => (
 class AddPinQuestionRoute extends Component {
     state = {
         sigPad: {},
-        originalDropdownAns: []
+        originalDropdownMultiAns: [],
+        originalDropdownAns: ''
     };
 
     render() {
@@ -479,6 +528,7 @@ class AddPinQuestionRoute extends Component {
                         resetPinAnswer={resetPinAnswer}
                         isHistory={isHistory}
                         originalDropdownAns={this.state.originalDropdownAns}
+                        originalDropdownMultiAns={this.state.originalDropdownMultiAns}
                     />
                 </Field>
             );
@@ -657,7 +707,10 @@ class AddPinQuestionRoute extends Component {
             if (oldAnswer) {
                 const { templateQuestionID, answer } = oldAnswer;
                 updateAddPinAnswer(templateQuestionID, answer);
-                if(question.type + '' === MULTI_MULTI_DROPDOWN_OPTIONS || question.type + '' === MULTI_MULTI_DROPDOWN_OPTIONS){
+                if(question.type + '' === MULTI_DROPDOWN_OPTIONS || question.type + '' === MULTI_MULTI_DROPDOWN_OPTIONS){
+                    this.setState({originalDropdownMultiAns: answer});
+                }
+                if(question.type + '' === DROPDOWN_OPTIONS){
                     this.setState({originalDropdownAns: answer});
                 }
             }
