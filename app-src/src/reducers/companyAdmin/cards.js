@@ -22,6 +22,9 @@ export default combineReducers({
     error: errorReducer,
     postSuccess: postSuccessReducer,
     postError: postErrorReducer,
+    isPosting: isPostingReducer,
+    isPostingSuccess: isPostingSuccessReducer,
+    isPostingFailure: isPostingFailureReducer,
     updatedCardID: updatedCardIDReducer
 });
 
@@ -91,6 +94,40 @@ function postErrorReducer(state = null, action) {
         case ADD_CARD_FAILURE:
         case DELETE_CARD_FAILURE:
             return action.error;
+        default:
+            return state;
+    }
+}
+
+function isPostingReducer(state = false, action) {
+    switch (action.type) {
+        case ADD_CARD_REQUEST:
+            return true;
+        case ADD_CARD_SUCCESS:
+        case ADD_CARD_FAILURE:
+            return false;
+        default:
+            return state;
+    }
+}
+
+function isPostingSuccessReducer(state = false, action) {
+    switch (action.type) {
+        case ADD_CARD_REQUEST:
+            return false;
+        case ADD_CARD_SUCCESS:
+            return true;
+        default:
+            return state;
+    }
+}
+
+function isPostingFailureReducer(state = false, action) {
+    switch (action.type) {
+        case ADD_CARD_REQUEST:
+            return false;
+        case ADD_CARD_FAILURE:
+            return true;
         default:
             return state;
     }

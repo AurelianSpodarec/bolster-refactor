@@ -1,13 +1,9 @@
 import axios from 'axios';
 
 import { API_URL } from 'config';
-import { getHeaders, handleErrors } from 'helpers/api';
+import { getHeaders } from 'helpers/api';
 
-import {
-    ADD_CARD_REQUEST,
-    ADD_CARD_SUCCESS,
-    ADD_CARD_FAILURE
-} from 'constants/actionTypes/cards';
+import { ADD_CARD_REQUEST, ADD_CARD_SUCCESS, ADD_CARD_FAILURE } from 'constants/actionTypes/cards';
 
 export const addCardRequest = () => ({
     type: ADD_CARD_REQUEST
@@ -30,15 +26,6 @@ export default postBody => dispatch => {
         .post(`${API_URL}/cards`, postBody, getHeaders())
         .then(res => dispatch(addCardSuccess(res.data)))
         .catch(err => {
-            // if (
-            //     err.response &&
-            //     err.response.data &&
-            //     err.response.data.message
-            // ) {
-            //     dispatch(handleErrors(addCardFailure))({
-            //         fieldErrors: { expiryYear: [err.response.data.message] }
-            //     });
-            // }
-            dispatch(handleErrors(addCardFailure)(err));
+            return dispatch(addCardFailure(err.message));
         });
 };

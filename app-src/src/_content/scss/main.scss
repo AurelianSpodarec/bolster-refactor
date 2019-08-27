@@ -1451,6 +1451,10 @@ input {
         padding: 0;
     }
 
+    &.basic {
+        min-height: 0;
+    }
+
     &.w-dates {
         p {
             text-align: center;
