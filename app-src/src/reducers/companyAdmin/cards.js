@@ -71,12 +71,10 @@ function errorReducer(state = null, action) {
     switch (action.type) {
         case FETCH_ALL_CARDS_REQUEST:
         case SET_PRIMARY_CARD_REQUEST:
-        case ADD_CARD_REQUEST:
         case DELETE_CARD_REQUEST:
             return null;
         case FETCH_ALL_CARDS_FAILURE:
         case SET_PRIMARY_CARD_FAILURE:
-        case ADD_CARD_FAILURE:
         case DELETE_CARD_FAILURE:
             return action.error;
         default:
