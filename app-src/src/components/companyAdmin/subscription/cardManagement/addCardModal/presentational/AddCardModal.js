@@ -18,11 +18,13 @@ const AddCardModal = ({
     CV2,
     validateMaxLength,
     postError,
-    close
+    close,
+    postingError
 }) => {
     return (
         <ModalOuterContainer close={close}>
             <BlockHeading title="Add card" />
+
             <Form className="generic-form" onSubmit={handleSubmit}>
                 <div className="size-lg-6">
                     <Field name="Card Nickname" required>
@@ -96,7 +98,11 @@ const AddCardModal = ({
                         />
                     </Field>
                 </div>
-                {!!postError && <p className="error size-lg-12">{postError}</p>}
+                {!!postingError && (
+                    <div className="form-field basic size-lg-12">
+                        <p className="info-message error">{`${postingError}. Please check over your details and try again.`}</p>
+                    </div>
+                )}
                 <BlockButtonWrapper>
                     <button className="button green" type="submit">
                         <i className="fa fa-plus" /> Add Card
