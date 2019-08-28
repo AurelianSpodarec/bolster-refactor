@@ -5,6 +5,7 @@ import fetchSingleFloor from 'actions/companyAdmin/floors/async/fetchSingleFloor
 import fetchAllDrawings from 'actions/companyAdmin/drawings/async/fetchAllDrawings';
 import fetchDocuments from 'actions/documents/async/fetchDocuments';
 import fetchPinStatsForLevel from 'actions/companyAdmin/stats/async/fetchPinStatsForLevel';
+import fetchHistoricServicesForCompany from 'actions/companyAdmin/services/async/fetchHistoricServicesForCompany';
 
 import SingleFloor from '../presentational/SingleFloor';
 import setTabs from 'actions/shared/generic/tabs/sync/setTabs';
@@ -23,6 +24,7 @@ class SingleFloorContainer extends Component {
             fetchAllDrawings,
             fetchDocuments,
             fetchPinStatsForLevel,
+            fetchHistoricServicesForCompany,
             setTabs
         } = this.props;
         setTabs(Object.values(FLOOR_TABS), FLOOR_TABS.GENERAL_OVERVIEW);
@@ -30,6 +32,7 @@ class SingleFloorContainer extends Component {
         fetchAllDrawings();
         fetchDocuments('floor', floorID);
         fetchPinStatsForLevel('floor', floorID);
+        fetchHistoricServicesForCompany();
     };
 
     componentWillUnmount = () => this.props.resetFilterOptions();
@@ -44,6 +47,7 @@ const mapDispatchToProps = {
     fetchAllDrawings,
     fetchDocuments,
     fetchPinStatsForLevel,
+    fetchHistoricServicesForCompany,
     setTabs,
     resetFilterOptions
 };

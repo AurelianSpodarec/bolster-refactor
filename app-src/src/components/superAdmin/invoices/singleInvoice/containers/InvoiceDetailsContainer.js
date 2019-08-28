@@ -17,7 +17,6 @@ const InvoiceDetailsContainer = ({
 }) => {
     useEffect(() => {
         if (postSuccess) {
-            history.push('/company/invoices');
             hideModal();
         }
     }, [postSuccess]);
