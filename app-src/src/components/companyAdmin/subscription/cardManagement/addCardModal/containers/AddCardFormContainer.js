@@ -29,17 +29,24 @@ class AddCardFormContainer extends Component {
             close={this.props.close}
             validateMaxLength={this.validateMaxLength}
             validateDate={this.validateDate}
+            postingError={this.props.postingError}
         />
     );
 
     componentDidUpdate = (prevProps, prevState) => {
-        const { addFieldError, removeFieldError } = this.props;
+        const {
+            addFieldError,
+            removeFieldError,
+            isPosting,
+            isPostingSuccess,
+            isPostingFailure,
+            postError,
+            showModal,
+            onSuccess = () => {}
+        } = this.props;
         const { expiryMonth, expiryYear } = this.state;
 
-        if (
-            expiryMonth !== prevState.expiryMonth ||
-            expiryYear !== prevState.expiryYear
-        ) {
+        if (expiryMonth !== prevState.expiryMonth || expiryYear !== prevState.expiryYear) {
             const [thisMonth, thisYear] = moment(Date.now())
                 .format('MM YYYY')
                 .split(' ');
@@ -53,22 +60,32 @@ class AddCardFormContainer extends Component {
                 removeFieldError('expiryYear');
             }
         }
+
+        if (prevProps.isPosting && !isPosting && isPostingSuccess) {
+            onSuccess();
+        }
+
+        if (prevProps.isPosting && !isPosting && isPostingFailure) {
+            addFieldError('errorPostingCard', postError);
+        }
+    };
+
+    componentWillUnmount = () => {
+        const { removeFieldError } = this.props;
+
+        removeFieldError('errorPostingCard');
     };
 
     handleChange = (name, value) => {
+        const { removeFieldError } = this.props;
+
         this.setState({ [name]: value });
+        removeFieldError('errorPostingCard');
     };
 
     handleSubmit = e => {
         e.preventDefault();
-        const {
-            nickname,
-            name,
-            cardNumber,
-            expiryMonth,
-            expiryYear,
-            CV2
-        } = this.state;
+        const { nickname, name, cardNumber, expiryMonth, expiryYear, CV2 } = this.state;
         const postBody = {
             nickname,
             name,
@@ -78,11 +95,9 @@ class AddCardFormContainer extends Component {
             CV2
         };
 
-        const { addCard, onSuccess = () => {} } = this.props;
-        addCard(postBody).then(({ payload, type, error }) => {
-            if (type === ADD_CARD_SUCCESS) return onSuccess(payload);
-            if (error) return showModal(ERROR_MODAL);
-        });
+        const { addCard } = this.props;
+
+        addCard(postBody);
     };
 
     validateMaxLength = num => value =>
@@ -91,10 +106,17 @@ class AddCardFormContainer extends Component {
 
 const mapStateToProps = ({
     companyAdmin: {
-        cardsReducer: { postError }
+        cardsReducer: { postError, isPosting, isPostingSuccess, isPostingFailure }
+    },
+    shared: {
+        fieldErrorsReducer: { fieldErrors }
     }
 }) => ({
-    postError
+    postError,
+    isPosting,
+    isPostingSuccess,
+    isPostingFailure,
+    postingError: fieldErrors['errorPostingCard']
 });
 
 const mapDispatchToProps = {
