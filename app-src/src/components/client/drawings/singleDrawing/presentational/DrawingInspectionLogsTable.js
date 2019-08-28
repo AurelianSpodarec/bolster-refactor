@@ -1,5 +1,4 @@
 import React from 'react';
-import moment from 'moment';
 
 import Table from 'components/shared/generic/tables/presentational/Table';
 import DrawingInspectionLogsListItem from './DrawingInspectionLogsListItem';
@@ -35,7 +34,6 @@ const DrawingInspectionLogsTable = ({
                     withActions
                 >
                     {[...pins]
-                        .sort((a, b) => moment(b.updated) - moment(a.updated))
                         .map(pin => (
                             <DrawingInspectionLogsListItem
                                 key={pin.id}
