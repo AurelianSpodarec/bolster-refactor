@@ -18,13 +18,7 @@ class DashboardStatsFiltersContainer extends Component {
 
     render() {
         const { statusOptions } = this.state;
-        const {
-            filters,
-            isFetching,
-            error,
-            services,
-            subscriptions
-        } = this.props;
+        const { filters, isFetching, error, services, subscriptions } = this.props;
         const today = new Date();
 
         return (
@@ -36,9 +30,7 @@ class DashboardStatsFiltersContainer extends Component {
                 <DashboardStatsFilters
                     serviceOptions={Object.values(this._getRelevantServices())}
                     statusOptions={Object.values(statusOptions)}
-                    selectedService={
-                        this._getRelevantServices()[filters.serviceID]
-                    }
+                    selectedService={this._getRelevantServices()[filters.serviceID]}
                     selectedStatus={statusOptions[filters.status]}
                     selectedStartDate={filters.startDate}
                     selectedEndDate={filters.endDate}
@@ -53,6 +45,9 @@ class DashboardStatsFiltersContainer extends Component {
     handleChange = (name, value) => {
         const { updateDashboardFilters } = this.props;
         updateDashboardFilters(name, value);
+
+        if (name === 'serviceID') localStorage.setItem('selectedService', value);
+        if (name === 'status') localStorage.setItem('selectedStatus', value);
     };
     handleDateChange = (name, date) => {
         const {
@@ -67,34 +62,31 @@ class DashboardStatsFiltersContainer extends Component {
                     .toDate();
                 updateDashboardFilters('endDate', newEnd);
             }
+            localStorage.setItem('selectedStartDate', date);
         } else if (name === 'endDate') {
-            const diffFromStart = Math.abs(
-                moment(startDate).diff(date, 'days')
-            );
+            const diffFromStart = Math.abs(moment(startDate).diff(date, 'days'));
             if (diffFromStart > 30) {
                 const newStart = moment(date)
                     .subtract(30, 'days')
                     .toDate();
                 updateDashboardFilters('startDate', newStart);
             }
+            localStorage.setItem('selectedEndDate', date);
         }
         updateDashboardFilters(name, date);
     };
 
     componentDidMount = () => {
-        const statusOptions = Object.entries(PIN_STATUS_TYPES).map(
-            ([key, value]) => ({
-                text: value,
-                value: key
-            })
-        );
+        const { filters } = this.props;
 
-        const statusOptionsUpdated = Object.values(statusOptions).reduce(
-            (acc, { value, text }) => {
-                return { ...acc, [value]: { value, text } };
-            },
-            {}
-        );
+        const statusOptions = Object.entries(PIN_STATUS_TYPES).map(([key, value]) => ({
+            text: value,
+            value: key
+        }));
+
+        const statusOptionsUpdated = Object.values(statusOptions).reduce((acc, { value, text }) => {
+            return { ...acc, [value]: { value, text } };
+        }, {});
 
         this.setState({
             statusOptions: statusOptionsUpdated
@@ -105,6 +97,8 @@ class DashboardStatsFiltersContainer extends Component {
         const { filters, fetchPinStats } = this.props;
         if (!_.isEqual(prevProps.filters, filters)) {
             fetchPinStats(filters);
+            localStorage.setItem('selectedStartDate', filters.startDate);
+            localStorage.setItem('selectedEndDate', filters.endDate);
         }
     };
 
@@ -126,11 +120,7 @@ class DashboardStatsFiltersContainer extends Component {
 
 const mapStateToProps = ({
     companyAdmin: {
-        servicesReducer: {
-            services,
-            isFetching: isFetchingServices,
-            error: servicesError
-        },
+        servicesReducer: { services, isFetching: isFetchingServices, error: servicesError },
         subscriptionsReducer: {
             subscriptions,
             isFetching: isFetchingSubscriptions,

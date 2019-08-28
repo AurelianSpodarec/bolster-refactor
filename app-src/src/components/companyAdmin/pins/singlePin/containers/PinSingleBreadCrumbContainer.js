@@ -33,11 +33,7 @@ class PinSingleBreadCrumbContainer extends Component {
             { text: `Pin ${pin.pinCode}` }
         ];
         return (
-            <Breadcrumb
-                breadcrumbs={
-                    !isFetching ? breadcrumbsArray : [{ text: 'Loading...' }]
-                }
-            >
+            <Breadcrumb breadcrumbs={!isFetching ? breadcrumbsArray : [{ text: 'Loading...' }]}>
                 {this.props.children}
             </Breadcrumb>
         );
@@ -74,7 +70,7 @@ class PinSingleBreadCrumbContainer extends Component {
 const mapStateToProps = (
     {
         companyAdmin: {
-            pinsReducer: { pins, isFetching: fetchingPins },
+            pinsReducer: { singlePin, isFetching: fetchingPins },
             drawingsReducer: { drawings, isFetching: fetchingDrawings },
             floorsReducer: { floors, isFetching: fetchingFloors },
             buildingsReducer: { buildings, isFetching: fetchingBuildings },
@@ -83,7 +79,7 @@ const mapStateToProps = (
     },
     { match }
 ) => {
-    const pin = pins[match.params.id] || {};
+    const pin = singlePin[match.params.id] || {};
     const drawing = drawings[pin.drawingID] || {};
     const floor = floors[drawing.floorID] || {};
     const building = buildings[floor.buildingID] || {};
@@ -95,11 +91,7 @@ const mapStateToProps = (
         building,
         site,
         isFetching:
-            fetchingPins ||
-            fetchingDrawings ||
-            fetchingFloors ||
-            fetchingBuildings ||
-            fetchingSites
+            fetchingPins || fetchingDrawings || fetchingFloors || fetchingBuildings || fetchingSites
     };
 };
 
