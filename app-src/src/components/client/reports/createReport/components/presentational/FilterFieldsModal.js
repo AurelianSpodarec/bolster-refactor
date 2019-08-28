@@ -28,17 +28,12 @@ const FilterFieldsModal = ({
             {isClient ? (
                 <>
                     <div className="not-available size-lg-12">
-                        <p className="size-lg-12">Subscription required</p>
+                        <p className="size-lg-12">Coming soon</p>
                     </div>
                 </>
             ) : (
                 <>
-                    <Field
-                        name="Question(s)"
-                        classes="no-caps"
-                        sizeClasses="size-lg-6"
-                        required
-                    >
+                    <Field name="Question(s)" classes="no-caps" sizeClasses="size-lg-6" required>
                         <MultiSelect
                             search
                             options={questionOptions}
@@ -86,19 +81,11 @@ const FilterFieldsModal = ({
                         )}
                     </div>
                     <BlockButtonWrapper>
-                        <button
-                            className="button green"
-                            type="submit"
-                            onClick={handleSubmit}
-                        >
+                        <button className="button green" type="submit" onClick={handleSubmit}>
                             <i className="fa fa-save fa-fw" />
                             Save
                         </button>
-                        <button
-                            className="button red"
-                            type="button"
-                            onClick={toggleAddFilter}
-                        >
+                        <button className="button red" type="button" onClick={toggleAddFilter}>
                             <i className="fa fa-times fa-fw" />
                             Cancel
                         </button>
@@ -120,11 +107,7 @@ const FilterFieldsModal = ({
                         <i className="far fa-trash-alt" />
                     </button>
                 )}
-                <TextInputContainer
-                    name={i}
-                    value={value}
-                    handleChange={handleFreeFormValChange}
-                />
+                <TextInputContainer name={i} value={value} handleChange={handleFreeFormValChange} />
             </Field>
         );
     }
