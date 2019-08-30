@@ -76,8 +76,8 @@ export default function(ProtectedComponent) {
             }
 
             const {
-                fromDateInclusive,
-                toDateInclusive,
+                fromDateInclusive: startDate,
+                toDateInclusive: endDate,
                 status,
                 serviceID,
                 templateID,
@@ -86,24 +86,29 @@ export default function(ProtectedComponent) {
 
             const NO = false;
             const YES = true;
+
+            const fromDateInclusive = this.getFilterStartDate(startDate);
+            const toDateInclusive = this.getFilterEndDate(endDate);
+
             // simple
             return pins
                 .filter(pin => {
+                    console.log(pin.id);
+                    // 2066696
                     // start date
+
                     if (
                         fromDateInclusive &&
-                        // moment(pin.createdOn) < moment(fromDateInclusive, momentComparisonFormat)
-                        this.compareDate(fromDateInclusive, pin.createdOn, 'fromDateInclusive')
+                        moment(pin.createdOn) < moment(fromDateInclusive, momentComparisonFormat)
                     ) {
-                        return YES;
+                        return NO;
                     }
                     // end date
                     if (
                         toDateInclusive &&
-                        // moment(pin.createdOn) > moment(toDateInclusive, momentComparisonFormat)
-                        this.compareDate(toDateInclusive, pin.createdOn, 'toDateInclusive')
+                        moment(pin.createdOn) > moment(toDateInclusive, momentComparisonFormat)
                     ) {
-                        return YES;
+                        return NO;
                     }
                     // status
                     if (status && +pin.latestStatus !== +status) {
@@ -245,7 +250,7 @@ export default function(ProtectedComponent) {
                 ? moment
                       .tz(toDateInclusive, timeZone.name)
                       .utc()
-                      .add(1, 'day')
+                      .add('days', 2)
                       .startOf('day')
                       .toISOString()
                 : null;
@@ -276,43 +281,35 @@ export default function(ProtectedComponent) {
             return body;
         };
 
-        compareDate = (filteredDate, dateOfPin, dateString) => {
+        getFilterStartDate = date => {
             const { timeZone } = this.props;
-            let formattedFilteredDate;
-            if (dateString === 'fromDateInclusive') {
-                formattedFilteredDate = filteredDate
-                    ? moment
-                          .tz(filteredDate, timeZone.name)
-                          .utc()
-                          .startOf('day')
-                          .toISOString()
-                    : null;
-            } else {
-                formattedFilteredDate = filteredDate
-                    ? moment
-                          .tz(filteredDate, timeZone.name)
-                          .utc()
-                          .add(1, 'day')
-                          .startOf('day')
-                          .toISOString()
-                    : null;
-            }
-            const formattedDateOfPin = moment
-                .tz(dateOfPin, timeZone.name)
+            return date
+                ? moment
+                      .tz(date, timeZone.name)
+                      .utc()
+                      .startOf('day')
+                      .toISOString()
+                : null;
+        };
+
+        getFilterEndDate = date => {
+            const { timeZone } = this.props;
+            return date
+                ? moment
+                      .tz(date, timeZone.name)
+                      .utc()
+                      .add('days', 1)
+                      .startOf('day')
+                      .toISOString()
+                : null;
+        };
+
+        getDateOfPin = date => {
+            const { timeZone } = this.props;
+            return moment
+                .tz(date, timeZone.name)
                 .utc()
                 .toISOString();
-
-            console.error(dateString, 'dateString');
-
-            console.error(formattedFilteredDate, 'formattedFilteredDate');
-
-            console.error(formattedDateOfPin, 'formattedDateOfPin');
-
-            console.warn(formattedDateOfPin >= formattedFilteredDate);
-
-            return dateString === 'fromDateInclusive'
-                ? formattedDateOfPin >= formattedFilteredDate
-                : formattedFilteredDate >= formattedDateOfPin;
         };
 
         getTemplateOptions = () => {
