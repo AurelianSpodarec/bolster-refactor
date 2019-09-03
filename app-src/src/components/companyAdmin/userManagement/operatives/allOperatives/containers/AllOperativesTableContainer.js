@@ -8,15 +8,25 @@ import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { CREATE_OPERATIVE } from 'constants/shared/modalTypes';
 import { nameSort } from 'helpers/generic';
+import Search from 'components/shared/generic/form/presentational/Search';
 const { OPERATIVE } = COMPANY_USER_ROLE_TYPES;
 
 class AllOperativesTableContainer extends Component {
+    state={searchTerm:''}
     render = () => {
         const { users, isFetching, error, onMobile } = this.props;
-
-        const sortedUsers = users.sort(nameSort);
+        const {searchTerm} = this.state;
+        const filteredUsers = users.filter(user => {
+            const name = `${user.userFirstName} ${user.userLastName}`;
+            return !searchTerm || name.includes(searchTerm) || user.userEmail.includes(searchTerm);
+        });
+        const sortedUsers = filteredUsers.sort(nameSort);
         return (
+            <>
+            
             <AllOperativesTable
+            searchTerm={searchTerm}
+            handleChange={this.handleChange}
                 headers={[
                     'Name',
                     'Email',
@@ -31,6 +41,7 @@ class AllOperativesTableContainer extends Component {
                 handleShowModal={this.handleShowModal}
                 onMobile={onMobile}
             />
+            </>
         );
     };
 
@@ -44,6 +55,8 @@ class AllOperativesTableContainer extends Component {
         }
     };
     handleShowModal = () => this.props.showModal(CREATE_OPERATIVE);
+
+    handleChange = (name, value) => this.setState({[name]:value})
 }
 
 const mapStateToProps = ({

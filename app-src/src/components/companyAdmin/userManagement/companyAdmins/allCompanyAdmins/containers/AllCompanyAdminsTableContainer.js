@@ -9,18 +9,20 @@ import { COMPANY_USER_ROLE_TYPES } from 'constants/companyAdmin/enums';
 import { CREATE_COMPANY_ADMIN } from 'constants/shared/modalTypes';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import { isEmpty, nameSort } from 'helpers/generic';
+import Search from 'components/shared/generic/form/presentational/Search';
 
 class AllCompanyAdminTableContainer extends Component {
+    state = {
+        searchTerm: ''
+    };
     render() {
         const { isFetching, error, users } = this.props;
-
+        const { searchTerm } = this.state;
         return (
-            <BlockContainer
-                isFetching={isFetching}
-                error={error}
-                isEmpty={isEmpty(users)}
-            >
+            <BlockContainer isFetching={isFetching} error={error} isEmpty={isEmpty(users)}>
                 <AllCompanyAdminsTable
+                    searchTerm={searchTerm}
+                    handleChange={this.handleChange}
                     headers={[
                         'Name',
                         'Email',
@@ -40,10 +42,15 @@ class AllCompanyAdminTableContainer extends Component {
 
     _filterUsersForAdmins = () => {
         const { users } = this.props;
+        const { searchTerm } = this.state;
 
-        const ret = users.filter(
-            user => user.type >= COMPANY_USER_ROLE_TYPES.ADMIN
-        );
+        const ret = users.filter(user => {
+            const name = `${user.userFirstName} ${user.userLastName}`;
+            return (
+                user.type >= COMPANY_USER_ROLE_TYPES.ADMIN &&
+                (!searchTerm || name.includes(searchTerm) || user.userEmail.includes(searchTerm))
+            );
+        });
 
         return ret.sort(nameSort);
     };
@@ -51,6 +58,8 @@ class AllCompanyAdminTableContainer extends Component {
     handleCreateCompanyAdmin = () => {
         this.props.showModal(CREATE_COMPANY_ADMIN);
     };
+
+    handleChange = (name, value) => this.setState({ [name]: value });
 }
 
 const mapStateToProps = ({
