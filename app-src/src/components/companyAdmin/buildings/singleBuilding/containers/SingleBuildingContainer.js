@@ -6,6 +6,7 @@ import fetchDocuments from 'actions/documents/async/fetchDocuments';
 import fetchAllFloors from 'actions/companyAdmin/floors/async/fetchAllFloors';
 import fetchAllDrawings from 'actions/companyAdmin/drawings/async/fetchAllDrawings';
 import fetchPinStatsForLevel from 'actions/companyAdmin/stats/async/fetchPinStatsForLevel';
+import fetchHistoricServicesForCompany from 'actions/companyAdmin/services/async/fetchHistoricServicesForCompany';
 
 import SingleBuilding from '../presentational/SingleBuilding';
 import setTabs from 'actions/shared/generic/tabs/sync/setTabs';
@@ -24,6 +25,7 @@ class SingleBuildingContainer extends Component {
             fetchDocuments,
             buildingID,
             fetchPinStatsForLevel,
+            fetchHistoricServicesForCompany,
             setTabs
         } = this.props;
 
@@ -33,6 +35,7 @@ class SingleBuildingContainer extends Component {
             fetchAllDrawings();
             fetchAllFloors();
             fetchDocuments('building', buildingID);
+            fetchHistoricServicesForCompany();
         });
     };
 }
@@ -43,6 +46,7 @@ const mapDispatchToProps = {
     fetchAllFloors,
     fetchDocuments,
     fetchPinStatsForLevel,
+    fetchHistoricServicesForCompany,
     setTabs
 };
 

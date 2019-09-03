@@ -21,7 +21,11 @@ const DrawingDataByDrawingListItem = ({ drawing, history }) => {
                 siteID: drawing.siteID,
                 buildingID: drawing.buildingID,
                 floorID: drawing.floorID,
-                drawingID: drawing.id
+                drawingID: drawing.id,
+                selectedService: localStorage.getItem('selectedService'),
+                selectedStatus: localStorage.getItem('selectedStatus'),
+                selectedStartDate: localStorage.getItem('selectedStartDate'),
+                selectedEndDate: localStorage.getItem('selectedEndDate')
             }
         });
     }

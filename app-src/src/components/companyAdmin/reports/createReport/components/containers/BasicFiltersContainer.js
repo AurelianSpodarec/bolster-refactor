@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+import moment from 'moment';
 
-import {
-    PIN_STATUS_TYPES,
-    NUMBER_OF_HISTORIES
-} from 'constants/companyAdmin/enums';
+import { PIN_STATUS_TYPES, NUMBER_OF_HISTORIES } from 'constants/companyAdmin/enums';
 import { convertEnumToDropdownOptions, isObjEmpty } from 'helpers/generic';
 
 import withUpdateOnChange from '../hocs/withUpdateOnChange';
@@ -43,17 +42,11 @@ class BasicFiltersContainer extends Component {
 
         const serviceOptions = formatArrForDropdown(services, true);
         const statusOptions = convertEnumToDropdownOptions(PIN_STATUS_TYPES);
-        const historyNumsOptions = convertEnumToDropdownOptions(
-            NUMBER_OF_HISTORIES
-        );
+        const historyNumsOptions = convertEnumToDropdownOptions(NUMBER_OF_HISTORIES);
         const templateOptions = formatArrForDropdown(templates, true);
 
         return (
-            <div
-                className={`flex-item size-lg-${
-                    isDrawingPage ? 12 : 6
-                } size-md-12`}
-            >
+            <div className={`flex-item size-lg-${isDrawingPage ? 12 : 6} size-md-12`}>
                 <BlockContainer>
                     <BasicFilters
                         isDrawingPage={isDrawingPage}
@@ -78,10 +71,40 @@ class BasicFiltersContainer extends Component {
         );
     }
 
+    componentDidMount = () => {
+        const {
+            handleChange,
+            location: { state: locationState },
+            postFilters
+        } = this.props;
+
+        if (locationState && locationState.selectedService) {
+            handleChange('serviceID', locationState.selectedService);
+        }
+
+        if (locationState && locationState.selectedStatus) {
+            handleChange('status', locationState.selectedStatus);
+        }
+
+        if (locationState && locationState.selectedStartDate) {
+            this.handleDateChange(
+                'fromDateInclusive',
+                moment(locationState.selectedStartDate).toDate()
+            );
+        }
+
+        if (locationState && locationState.selectedEndDate) {
+            this.handleDateChange(
+                'toDateInclusive',
+                moment(locationState.selectedEndDate).toDate()
+            );
+        }
+
+        postFilters();
+    };
+
     handleDateBlur = isStart => {
-        isStart
-            ? this.setState({ startBlurred: true })
-            : this.setState({ endBlurred: true });
+        isStart ? this.setState({ startBlurred: true }) : this.setState({ endBlurred: true });
     };
 
     handleDateChange = (name, value) => {
@@ -103,36 +126,22 @@ class BasicFiltersContainer extends Component {
             removeFieldError
         } = this.props;
 
-        if (
-            fromDateInclusive &&
-            toDateInclusive &&
-            fromDateInclusive > toDateInclusive
-        ) {
-            return addFieldError(
-                'fromDateInclusive',
-                'Start date must be before end date.'
-            );
+        if (fromDateInclusive && toDateInclusive && fromDateInclusive > toDateInclusive) {
+            return addFieldError('fromDateInclusive', 'Start date must be before end date.');
         } else {
             return removeFieldError('fromDateInclusive');
         }
     };
 
     handleChange = (name, value) => {
-        const {
-            handleChange,
-            postFilters,
-            showModal,
-            hideModal,
-            shouldConfirm
-        } = this.props;
+        const { handleChange, postFilters, showModal, hideModal, shouldConfirm } = this.props;
 
         if (shouldConfirm) {
             const handleSubmit = () => {
                 hideModal();
                 handleChange(name, value).then(postFilters);
             };
-            const message =
-                'Changing this will reset your advanced filters options, continue?';
+            const message = 'Changing this will reset your advanced filters options, continue?';
             showModal(CONFIRM_SUBMIT, { handleSubmit, message, hideModal });
         } else {
             handleChange(name, value).then(postFilters);
@@ -160,9 +169,11 @@ const mapDispatchToProps = {
     fetchAllTemplates
 };
 
-export default withUpdateOnChange(
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(BasicFiltersContainer)
+export default withRouter(
+    withUpdateOnChange(
+        connect(
+            mapStateToProps,
+            mapDispatchToProps
+        )(BasicFiltersContainer)
+    )
 );

@@ -8,11 +8,9 @@ const DrawingStats = ({ drawing, stats, onMobile, notAvailable = false }) => (
     <div className="stats drawing-stats size-lg-12">
         {notAvailable ? (
             <>
-                <h4 className="heading heading-3 size-lg-12">
-                    Latest Pin Histories
-                </h4>
+                <h4 className="heading heading-3 size-lg-12">Latest Pin Histories</h4>
                 <div className="not-available w-img">
-                    <p>Subscription required</p>
+                    <p>Coming soon</p>
                     <img alt="not available" src={nograph} />
                 </div>
             </>
@@ -24,7 +22,7 @@ const DrawingStats = ({ drawing, stats, onMobile, notAvailable = false }) => (
                 onMobile={onMobile}
             />
         )}
-        <DrawingDetails stats={stats} drawing={drawing} />
+        {!notAvailable && <DrawingDetails stats={stats} drawing={drawing} />}
     </div>
 );
 
