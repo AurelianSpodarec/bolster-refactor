@@ -26,12 +26,12 @@ const AllCompanyAdminsTable = ({
                 >
                     <i className="fa fa-plus" /> Create Admin
                 </ButtonContainer>
-             <Search 
-            value={searchTerm}
-            placeholder="search by name/email"
-            handleChange={handleChange}
-            name="searchTerm"
-        />
+                <Search 
+                    value={searchTerm}
+                    placeholder="search by name/email"
+                    handleChange={handleChange}
+                    name="searchTerm"
+                />
                 {/* <Link
                     className="button green"
                     to="/company/users-management/company-admins/create"

@@ -8,7 +8,6 @@ import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { CREATE_OPERATIVE } from 'constants/shared/modalTypes';
 import { nameSort } from 'helpers/generic';
-import Search from 'components/shared/generic/form/presentational/Search';
 const { OPERATIVE } = COMPANY_USER_ROLE_TYPES;
 
 class AllOperativesTableContainer extends Component {
