@@ -12,7 +12,6 @@ import { ERROR_MODAL } from 'constants/shared/modalTypes';
 
 class AddCardFormContainer extends Component {
     state = {
-        nickname: '',
         name: '',
         cardNumber: '',
         expiryMonth: '',
@@ -41,7 +40,6 @@ class AddCardFormContainer extends Component {
             isPostingSuccess,
             isPostingFailure,
             postError,
-            showModal,
             onSuccess = () => {}
         } = this.props;
         const { expiryMonth, expiryYear } = this.state;
@@ -85,9 +83,8 @@ class AddCardFormContainer extends Component {
 
     handleSubmit = e => {
         e.preventDefault();
-        const { nickname, name, cardNumber, expiryMonth, expiryYear, CV2 } = this.state;
+        const { name, cardNumber, expiryMonth, expiryYear, CV2 } = this.state;
         const postBody = {
-            nickname,
             name,
             cardNumber,
             expiryMonth,
