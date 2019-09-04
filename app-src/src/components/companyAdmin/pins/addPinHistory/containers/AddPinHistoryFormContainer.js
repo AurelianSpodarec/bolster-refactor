@@ -8,11 +8,29 @@ import createPin from 'actions/companyAdmin/pins/async/createPin';
 import resetPinAnswers from 'actions/companyAdmin/drawings/sync/resetPinAnswers';
 import updateAddPinStatus from 'actions/companyAdmin/drawings/sync/updateAddPinStatus';
 import updateAddPinAnswer from 'actions/companyAdmin/drawings/sync/updateAddPinAnswer';
+import { QUESTION_TYPE_VALUES } from 'constants/shared/templateBuilder';
 
 import AddPinForm from 'components/shared/pins/addPin/presentational/AddPinForm';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
 import BackButtonContainer from 'components/shared/generic/backButton/containers/BackButtonContainer';
+
+const {
+    DROPDOWN_OPTIONS,
+    MULTI_DROPDOWN_OPTIONS,
+    MULTI_MULTI_DROPDOWN_OPTIONS
+} = QUESTION_TYPE_VALUES;
+
+function getDropdownOptionsByType(dropdownOptions) {
+    return Object.values(dropdownOptions).reduce((acc, option) => {
+        if (acc[option.type]) {
+            acc[option.type].push(option.name);
+        } else {
+            acc[option.type] = [option.name];
+        }
+        return acc;
+    }, {});
+}
 
 class AddPinFormContainer extends Component {
     state = {
@@ -32,23 +50,15 @@ class AddPinFormContainer extends Component {
             isHistory
         } = this.props;
 
-        const serviceOptions = convertArrToObj(
-            this._relevantServiceOptions(),
-            'value'
-        );
+        const serviceOptions = convertArrToObj(this._relevantServiceOptions(), 'value');
         const templateOptions = this._getTemplates(templates, serviceID);
 
         return (
             <>
-                <PageHeading
-                    leftChildren={true}
-                    title={`Add Pin ${isHistory ? 'History' : ''}`}
-                >
+                <PageHeading leftChildren={true} title={`Add Pin ${isHistory ? 'History' : ''}`}>
                     <BackButtonContainer
                         backFromForm={{
-                            urlToReplace: isHistory
-                                ? '/add-history'
-                                : '/add-pin',
+                            urlToReplace: isHistory ? '/add-history' : '/add-pin',
                             with: ''
                         }}
                     />
@@ -89,7 +99,9 @@ class AddPinFormContainer extends Component {
             pinID,
             pinAnswers,
             templates,
-            versions
+            versions,
+            questions,
+            dropdownOptionsByType
         } = this.props;
 
         if (!coordinates.lat || !coordinates.lng) {
@@ -103,13 +115,9 @@ class AddPinFormContainer extends Component {
             return;
         }
         const templateVersion =
-            versions.find(
-                version => latestPinHistory.templateVersionID === version.id
-            ) || {};
+            versions.find(version => latestPinHistory.templateVersionID === version.id) || {};
         const latestTemplateUsed =
-            templates.find(
-                template => templateVersion.templateID === template.id
-            ) || {};
+            templates.find(template => templateVersion.templateID === template.id) || {};
 
         const latestTemplateVersionID = latestTemplateUsed.latestVersionID;
 
@@ -124,8 +132,35 @@ class AddPinFormContainer extends Component {
                 if (templateVersion.id === latestTemplateVersionID) {
                     pinAnswers
                         .filter(ans => latestPinHistory.id === ans.pinHistoryID)
-                        .forEach(({ answer, templateQuestionID }) => {
-                            updateAddPinAnswer(templateQuestionID, answer);
+                        .forEach(({ templateQuestionID, answer }) => {
+                            // ! important to check if question is a special pin option. Options that have been deleted should not be prefilled and added to the answers reducer
+                            const questionType = questions[templateQuestionID].type;
+
+                            if (
+                                questionType + '' === DROPDOWN_OPTIONS ||
+                                questionType + '' === MULTI_DROPDOWN_OPTIONS ||
+                                questionType + '' === MULTI_MULTI_DROPDOWN_OPTIONS
+                            ) {
+                                const { optionType } = questions[templateQuestionID];
+                                const releventPinOptions = dropdownOptionsByType[optionType];
+
+                                if (questionType + '' === DROPDOWN_OPTIONS) {
+                                    if (releventPinOptions.includes(answer)) {
+                                        updateAddPinAnswer(templateQuestionID, answer);
+                                    } else {
+                                        updateAddPinAnswer(templateQuestionID, '');
+                                    }
+                                } else {
+                                    const filteredAnswer = answer.filter(option => {
+                                        return releventPinOptions.includes(option);
+                                    });
+                                    if (filteredAnswer.length) {
+                                        updateAddPinAnswer(templateQuestionID, filteredAnswer);
+                                    }
+                                }
+                            } else {
+                                updateAddPinAnswer(templateQuestionID, answer);
+                            }
                         });
                 }
             }
@@ -181,9 +216,7 @@ class AddPinFormContainer extends Component {
         const serviceOptions = [];
 
         serviceIDs.forEach(serviceID => {
-            serviceOptions.push(
-                services.filter(service => service.id === serviceID)[0]
-            );
+            serviceOptions.push(services.filter(service => service.id === serviceID)[0]);
         });
 
         return serviceOptions.map(({ id, name }) => ({
@@ -216,8 +249,7 @@ class AddPinFormContainer extends Component {
             status
         } = this.props;
 
-        const curTemplate =
-            templates.find(({ id }) => +id === +templateID) || {};
+        const curTemplate = templates.find(({ id }) => +id === +templateID) || {};
 
         const formattedAnswers = Object.keys(answers).map(key => ({
             templateQuestionID: key,
@@ -246,6 +278,7 @@ class AddPinFormContainer extends Component {
 
 const mapStateToProps = ({
     companyAdmin: {
+        addPinDropdownOptions: { dropdownOptions },
         templatesReducer: { templates, isFetching, error },
         templateVersionsReducer: { versions },
         templateSectionsReducer: { sections },
@@ -281,7 +314,8 @@ const mapStateToProps = ({
     latestPinHistory: [...Object.values(histories)].sort(
         (a, b) => moment(b.createdOn) - moment(a.createdOn)
     )[0],
-    subscriptions
+    subscriptions,
+    dropdownOptionsByType: getDropdownOptionsByType(dropdownOptions)
 });
 
 const mapDispatchToProps = {
