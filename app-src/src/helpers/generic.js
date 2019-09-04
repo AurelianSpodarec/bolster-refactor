@@ -21,9 +21,18 @@ export function isObjEmpty(obj) {
 }
 
 export const nameSort = (a, b) => {
-    if (a.userFirstName === b.userFirstName) {
-        return a.userLastName.toLowerCase() > b.userLastName.toLowerCase();
-    } else return a.userFirstName.toLowerCase() > b.userFirstName.toLowerCase();
+    const firstNameA = a.userFirstName.toLowerCase();
+    const firstNameB = b.userFirstName.toLowerCase();
+    if (firstNameA === firstNameB) {  
+        const lastNameA  = a.userLastName.toLowerCase();
+        const lastNameB = b.userLastName.toLowerCase();
+        if (lastNameA.toLowerCase() > lastNameB.toLowerCase()) return 1;
+        if (lastNameA.toLowerCase() < lastNameB.toLowerCase()) return -1;
+        return 0;
+    }
+    if (firstNameA.toLowerCase() > firstNameB.toLowerCase()) return 1;
+    if (firstNameA.toLowerCase() < firstNameB.toLowerCase()) return -1;
+    return 0;
 };
 
 export function isEmpty(item) {
