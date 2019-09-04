@@ -8,7 +8,7 @@ export default combineReducers({
 });
 
 function filtersReducer(
-    state = { name: '', status: '', sortBy: 'default' },
+    state = { name: '', status: '', sortBy: 'descending' },
     action
 ) {
     switch (action.type) {
