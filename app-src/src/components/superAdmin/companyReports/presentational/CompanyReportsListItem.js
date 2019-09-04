@@ -9,13 +9,17 @@ import {
     GENERATION_STATE_VAL
 } from 'constants/companyAdmin/enums';
 
-const CompanyReportsListItem = ({ queueItem, retryCompanyReport }) => {
+const CompanyReportsListItem = ({ 
+    queueItem,
+    // retryCompanyReport
+    }) => {
     const { FAILED, COMPLETE } = GENERATION_STATE_VAL;
 
     return (
         <tr>
             <td>{queueItem.companyName}</td>
             <td>{queueItem.friendlyName}</td>
+            <td>{queueItem.createdByUserName}</td>
             <td>{queueItem.userEmail}</td>
 
             <td>{GENERATION_STATE_TEXT[queueItem.state]}</td>
