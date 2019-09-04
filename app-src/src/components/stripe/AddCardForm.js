@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import axios from 'axios';
 import {
     CardNumberElement,
@@ -10,6 +11,7 @@ import { API_URL } from 'config';
 import { getHeaders } from '../../helpers/api';
 import Field from 'components/shared/generic/form/presentational/Field';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
+import fetchCard from 'actions/companyAdmin/cards/async/fetchCard';
 
 class CheckoutForm extends Component {
     state = {
@@ -35,6 +37,7 @@ class CheckoutForm extends Component {
         } = await axios.get(`${API_URL}/cards/createintent`, getHeaders());
 
         const { name } = this.state;
+        const { close, fetchCard } = this.props;
 
         console.log(clientSecret);
 
@@ -55,7 +58,8 @@ class CheckoutForm extends Component {
                     this.setState({
                         errorMessage: ''
                     });
-                    console.warn(result);
+                    fetchCard(result.setupIntent.payment_method);
+                    close();
                 }
             });
 
@@ -162,4 +166,11 @@ const createOptions = () => {
     };
 };
 
-export default injectStripe(CheckoutForm);
+const mapDispatchToProps = {
+    fetchCard
+};
+
+export default connect(
+    null,
+    mapDispatchToProps
+)(injectStripe(CheckoutForm));

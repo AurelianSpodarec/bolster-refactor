@@ -11,7 +11,7 @@ const AddCardModal = ({ close }) => {
 
             <StripeProvider apiKey="pk_test_QUrrYsRQKFyb1Os4ler16ke1">
                 <Elements>
-                    <AddCardForm />
+                    <AddCardForm close={close} />
                 </Elements>
             </StripeProvider>
         </ModalOuterContainer>

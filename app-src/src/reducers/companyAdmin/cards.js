@@ -13,7 +13,10 @@ import {
     SET_PRIMARY_CARD_FAILURE,
     DELETE_CARD_REQUEST,
     DELETE_CARD_SUCCESS,
-    DELETE_CARD_FAILURE
+    DELETE_CARD_FAILURE,
+    FETCH_CARD_SUCCESS,
+    FETCH_CARD_REQUEST,
+    FETCH_CARD_FAILURE
 } from 'constants/actionTypes/cards';
 
 export default combineReducers({
@@ -31,9 +34,12 @@ export default combineReducers({
 function isFetchingReducer(state = false, action) {
     switch (action.type) {
         case FETCH_ALL_CARDS_REQUEST:
+        case FETCH_CARD_REQUEST:
             return true;
         case FETCH_ALL_CARDS_SUCCESS:
         case FETCH_ALL_CARDS_FAILURE:
+        case FETCH_CARD_SUCCESS:
+        case FETCH_CARD_FAILURE:
             return false;
         default:
             return state;
@@ -72,10 +78,12 @@ function errorReducer(state = null, action) {
         case FETCH_ALL_CARDS_REQUEST:
         case SET_PRIMARY_CARD_REQUEST:
         case DELETE_CARD_REQUEST:
+        case FETCH_CARD_REQUEST:
             return null;
         case FETCH_ALL_CARDS_FAILURE:
         case SET_PRIMARY_CARD_FAILURE:
         case DELETE_CARD_FAILURE:
+        case FETCH_CARD_FAILURE:
             return action.error;
         default:
             return state;
@@ -136,6 +144,7 @@ function cardsReducer(state = {}, action) {
         case FETCH_ALL_CARDS_SUCCESS:
             return convertArrToObj(action.payload);
         case ADD_CARD_SUCCESS:
+        case FETCH_CARD_SUCCESS:
             return updateObj(state, action.payload.id, action.payload);
         case DELETE_CARD_SUCCESS:
             return removeObjItem(state, action.id);
