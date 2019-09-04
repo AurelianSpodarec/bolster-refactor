@@ -125,7 +125,7 @@ class CheckoutForm extends Component {
                         )}
                         <div className="size-lg-12" style={{ paddingLeft: 7.5, paddingRight: 7.5 }}>
                             <button className="button green pull-right" onClick={this.clickSubmit}>
-                                Send
+                                Submit
                             </button>
                         </div>
                     </div>
