@@ -48,20 +48,16 @@ const FilterMap = ({
                 center={[-128, 128]}
                 zoom={3}
                 minZoom={0}
-                maxZoom={5}
+                maxZoom={6}
                 onClick={handleClick}
                 crs={CRS.Simple}
             >
                 <TileLayer
                     attribution='&amp;copy <a href="http://app.bolstersystems.com">Bolster Systems Ltd</a>'
-                    url={`${FILE_STORAGE_URL}/${
-                        drawing.tilesetS3Key
-                    }/{z}/{x}/{y}.jpg`}
+                    url={`${FILE_STORAGE_URL}/${drawing.tilesetS3Key}/{z}/{x}/{y}.jpg`}
                     noWrap={true}
                 />
-                {cornerClicked && (
-                    <Marker position={cornerClicked} icon={cornerClickedIcon} />
-                )}
+                {cornerClicked && <Marker position={cornerClicked} icon={cornerClickedIcon} />}
                 {rectangles.map(rectangle => (
                     <Rectangle
                         key={rectangle.id}
@@ -70,11 +66,7 @@ const FilterMap = ({
                     />
                 ))}
                 {pins.map(pin => (
-                    <MapPinContainer
-                        key={pin.id}
-                        pin={pin}
-                        isExcluding={isExcluding}
-                    />
+                    <MapPinContainer key={pin.id} pin={pin} isExcluding={isExcluding} />
                 ))}
             </Map>
         </Block>
