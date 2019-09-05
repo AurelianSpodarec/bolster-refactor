@@ -13,6 +13,9 @@ export const RAW_S3_STORAGE_URL = 'https://s3-eu-west-1.amazonaws.com/bolster-me
 export const REPORT_VIEWER_URL =
     'http://bolsterdynamiclive-report-viewer.eu-west-1.elasticbeanstalk.com/1';
 
+export const STRIPE_PUBLIC_KEY =
+    'pk_test_QUrrYsRQKFyb1Os4ler16ke1';
+
 // - Local Dev
 // export const API_URL = 'https://localhost:5021';
 // export const CLIENT_API_URL = 'https://localhost:5051';
@@ -27,3 +30,6 @@ export const REPORT_VIEWER_URL =
 //
 // export const REPORT_VIEWER_URL =
 //     'https://localhost:6001/1';
+//
+// export const STRIPE_PUBLIC_KEY =
+//     'pk_test_QUrrYsRQKFyb1Os4ler16ke1';
