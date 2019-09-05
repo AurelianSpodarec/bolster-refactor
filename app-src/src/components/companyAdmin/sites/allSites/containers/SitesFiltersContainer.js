@@ -29,8 +29,8 @@ class SitesFiltersContainer extends Component {
 
         dispatch(updateSitesFilters('name', ''));
         dispatch(updateSitesFilters('status', ''));
-        // ! don't change default
-        dispatch(updateSitesFilters('sortBy', 'default'));
+        
+        dispatch(updateSitesFilters('sortBy', 'descending'));
     };
 
     handleChange = (name, value) => {

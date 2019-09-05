@@ -103,7 +103,7 @@ class SitesTableContainer extends Component {
             );
         }
         // default sort order as per api
-        return sites.sort((a, b) => a.sort - b.sort);
+        return sites.sort(hierarchySort);
     };
 
     handleAddSite = () => {
@@ -119,7 +119,7 @@ const mapStateToProps = ({
         sitesFilterReducer: { filters }
     }
 }) => ({
-    sites: Object.values(sites).sort(hierarchySort),
+    sites: Object.values(sites),
     isFetching,
     error,
     filters,
@@ -127,17 +127,7 @@ const mapStateToProps = ({
     updatedSiteID
 });
 
-const mapDispatchToProps = dispatch => ({
-    showModal: (type, props) => {
-        dispatch(showModal(type, props));
-    },
-    hideModal: () => {
-        dispatch(hideModal());
-    },
-    updateHierarchyAddState: value => {
-        dispatch(updateHierarchyAddState(value));
-    }
-});
+const mapDispatchToProps = { showModal, hideModal, updateHierarchyAddState };
 
 export default withRouter(
     connect(

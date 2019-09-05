@@ -5,7 +5,7 @@ import ButtonContainer from 'components/shared/generic/button/containers/ButtonC
 import StatusIcon from 'components/shared/generic/statusIcon/presentationl/StatusIcon';
 
 const CardListItem = ({
-    card: { expMonth, expYear, isPrimary, lastFour, name, id, nickname },
+    card: { expMonth, expYear, isPrimary, lastFour, name, id },
     setPrimaryCard,
     onMobile,
     headers,
@@ -17,39 +17,22 @@ const CardListItem = ({
         <tr>
             <td>
                 {' '}
-                {onMobile && (
-                    <span className="mobile-table-heading">{headers[0]}</span>
-                )}
+                {onMobile && <span className="mobile-table-heading">{headers[0]}</span>}
                 {name}
             </td>
             <td>
                 {' '}
-                {onMobile && (
-                    <span className="mobile-table-heading">{headers[1]}</span>
-                )}
-                {nickname}
-            </td>
-            <td>
-                {' '}
-                {onMobile && (
-                    <span className="mobile-table-heading">{headers[2]}</span>
-                )}
+                {onMobile && <span className="mobile-table-heading">{headers[2]}</span>}
                 {`XXXX-XXXX-XXXX-${lastFour}`}
             </td>
             <td>
                 {' '}
-                {onMobile && (
-                    <span className="mobile-table-heading">{headers[3]}</span>
-                )}
+                {onMobile && <span className="mobile-table-heading">{headers[3]}</span>}
                 {`${expMonthString.padStart(2, '0')}/${expYear}`}
             </td>
             {onMobile ? (
                 <td>
-                    {onMobile && (
-                        <span className="mobile-table-heading">
-                            {headers[4]}
-                        </span>
-                    )}
+                    {onMobile && <span className="mobile-table-heading">{headers[4]}</span>}
                     {isPrimary ? (
                         <StatusIcon />
                     ) : (
@@ -67,14 +50,10 @@ const CardListItem = ({
             )}
 
             <td>
-                {onMobile && (
-                    <span className="mobile-table-heading">{headers[5]}</span>
-                )}
+                {onMobile && <span className="mobile-table-heading">{headers[5]}</span>}
                 <BlockButtonWrapper additionalClasses="card-buttons">
                     {!isPrimary && (
-                        <ButtonContainer handleClick={setPrimaryCard}>
-                            Set Primary
-                        </ButtonContainer>
+                        <ButtonContainer handleClick={setPrimaryCard}>Set Primary</ButtonContainer>
                     )}
                     <button
                         className="button icon-only red"

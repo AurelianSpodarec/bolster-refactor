@@ -5,9 +5,9 @@ export const companyAdminSitesSort = {
         archived: { value: 'archived', text: 'Archived' }
     },
     sortOptions: {
-        default: { value: 'default', text: 'Default' },
+        descending: { value: 'descending', text: 'Date Added (desc)' },
         ascending: { value: 'ascending', text: 'Date Added (asc)' },
-        descending: { value: 'descending', text: 'Date Added (desc)' }
+        default: { value: 'default', text: 'Custom' },
     }
 };
 
