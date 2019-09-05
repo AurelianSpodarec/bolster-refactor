@@ -11,12 +11,19 @@ import { nameSort } from 'helpers/generic';
 const { OPERATIVE } = COMPANY_USER_ROLE_TYPES;
 
 class AllOperativesTableContainer extends Component {
+    state={searchTerm:''}
     render = () => {
         const { users, isFetching, error, onMobile } = this.props;
-
-        const sortedUsers = users.sort(nameSort);
+        const searchTerm = this.state.searchTerm.toLowerCase();
+        const filteredUsers = users.filter(user => {
+            const name = `${user.userFirstName} ${user.userLastName}`.toLowerCase();
+            return !searchTerm || name.includes(searchTerm) || user.userEmail.includes(searchTerm);
+        });
+        const sortedUsers = filteredUsers.sort(nameSort);
         return (
             <AllOperativesTable
+            searchTerm={searchTerm}
+            handleChange={this.handleChange}
                 headers={[
                     'Name',
                     'Email',
@@ -43,7 +50,11 @@ class AllOperativesTableContainer extends Component {
             hideModal();
         }
     };
+
+    
     handleShowModal = () => this.props.showModal(CREATE_OPERATIVE);
+
+    handleChange = (name, value) => this.setState({[name]:value})
 }
 
 const mapStateToProps = ({
