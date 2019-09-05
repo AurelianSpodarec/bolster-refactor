@@ -14,22 +14,8 @@ class CardTableContainer extends Component {
     };
 
     render = () => {
-        const {
-            isFetching,
-            error,
-            showModal,
-            deleteCard,
-            cards,
-            onMobile
-        } = this.props;
-        const headers = [
-            'Name on card',
-            'Nickname',
-            'Card No.',
-            'Expiry',
-            'Primary Card',
-            'Options'
-        ];
+        const { isFetching, error, showModal, deleteCard, cards, onMobile } = this.props;
+        const headers = ['Name on card', 'Card No.', 'Expiry', 'Primary Card', 'Options'];
         return (
             <CardTable
                 cards={cards}
