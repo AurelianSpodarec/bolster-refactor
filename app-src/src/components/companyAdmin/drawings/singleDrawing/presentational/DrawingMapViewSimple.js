@@ -46,9 +46,7 @@ const DrawingMapViewSimple = ({
 }) => {
     const newPinIcon = L.divIcon({
         className: '',
-        html: ReactDOMServer.renderToString(
-            <CustomPin pinColour="red" history={history} />
-        ),
+        html: ReactDOMServer.renderToString(<CustomPin pinColour="red" history={history} />),
         iconSize: [30, 50],
         iconAnchor: [15, 50],
         popupAnchor: [0, -50]
@@ -74,8 +72,7 @@ const DrawingMapViewSimple = ({
                                 handleCancel={handleCancelPinSelector}
                             />
                         ) : !isExpired ? (
-                            drawing.accessType ===
-                                ACCESS_TYPES_VALUES.OWNER && (
+                            drawing.accessType === ACCESS_TYPES_VALUES.OWNER && (
                                 <>
                                     {addMode ? (
                                         <>
@@ -84,8 +81,7 @@ const DrawingMapViewSimple = ({
                                                 to={`${drawing.id}/add-pin`}
                                                 className="button green pull-right"
                                             >
-                                                <i className="fa fa-check" />{' '}
-                                                Confirm position
+                                                <i className="fa fa-check" /> Confirm position
                                             </button>
                                             <button
                                                 className="button red pull-right"
@@ -104,32 +100,20 @@ const DrawingMapViewSimple = ({
                                     )}
                                     <button
                                         className="button yellow"
-                                        onClick={() =>
-                                            showModal(EDIT_DRAWING, { drawing })
-                                        }
+                                        onClick={() => showModal(EDIT_DRAWING, { drawing })}
                                     >
-                                        <i className="far fa-pencil fa-fw" />{' '}
-                                        Edit drawing
+                                        <i className="far fa-pencil fa-fw" /> Edit drawing
                                     </button>
 
-                                    <AddCreditsToDrawingButtonContainer
-                                        drawing={drawing}
-                                    />
+                                    <AddCreditsToDrawingButtonContainer drawing={drawing} />
                                 </>
                             )
                         ) : (
-                            drawing.accessType ===
-                                ACCESS_TYPES_VALUES.OWNER && (
+                            drawing.accessType === ACCESS_TYPES_VALUES.OWNER && (
                                 <>
-                                    <AddCreditsToDrawingButtonContainer
-                                        drawing={drawing}
-                                    />
-                                    <button
-                                        onClick={() => {}}
-                                        className="button red pull-right"
-                                    >
-                                        <i className="far fa-times" /> Drawing
-                                        expired
+                                    <AddCreditsToDrawingButtonContainer drawing={drawing} />
+                                    <button onClick={() => {}} className="button red pull-right">
+                                        <i className="far fa-times" /> Drawing expired
                                     </button>
                                 </>
                             )
@@ -139,7 +123,7 @@ const DrawingMapViewSimple = ({
                         center={position}
                         zoom={zoom}
                         minZoom={0}
-                        maxZoom={5}
+                        maxZoom={6}
                         onClick={e => handleClick(e)}
                         crs={CRS.Simple}
                     >
@@ -155,24 +139,14 @@ const DrawingMapViewSimple = ({
                                 urlStart="company"
                                 key={pin.id}
                                 pin={pin}
-                                withLink={
-                                    !shouldShowPinSelectorOptions && !addMode
-                                }
+                                withLink={!shouldShowPinSelectorOptions && !addMode}
                                 withTooltip={!isExcluding}
                                 isExcluding={isExcluding}
                             />
                         ))}
-                        {addMode && (
-                            <Marker
-                                position={addPinPosition}
-                                icon={newPinIcon}
-                            />
-                        )}
+                        {addMode && <Marker position={addPinPosition} icon={newPinIcon} />}
                         {cornerClicked && (
-                            <Marker
-                                position={cornerClicked}
-                                icon={cornerClickedIcon}
-                            />
+                            <Marker position={cornerClicked} icon={cornerClickedIcon} />
                         )}
 
                         {rectangles.map(rectangle => (

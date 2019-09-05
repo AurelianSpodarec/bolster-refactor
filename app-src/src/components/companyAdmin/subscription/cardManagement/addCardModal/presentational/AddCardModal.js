@@ -3,13 +3,14 @@ import ModalOuterContainer from 'components/shared/generic/modals/containers/Mod
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import AddCardForm from 'components/stripe/AddCardForm';
 import { StripeProvider, Elements } from 'react-stripe-elements';
+import { STRIPE_PUBLIC_KEY } from 'config';
 
 const AddCardModal = ({ close }) => {
     return (
         <ModalOuterContainer close={close}>
             <BlockHeading title="Add card" />
 
-            <StripeProvider apiKey="pk_test_QUrrYsRQKFyb1Os4ler16ke1">
+            <StripeProvider apiKey={STRIPE_PUBLIC_KEY}>
                 <Elements>
                     <AddCardForm close={close} />
                 </Elements>
