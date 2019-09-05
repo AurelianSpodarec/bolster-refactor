@@ -1,5 +1,5 @@
 import 'config/polyfill';
-import React from 'react';
+import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { createStore, applyMiddleware } from 'redux';
 import { BrowserRouter as Router } from 'react-router-dom';
@@ -18,6 +18,7 @@ import '_content/scss/dashboard-mobile.scss';
 import 'filepond/dist/filepond.min.css';
 import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css';
 import AppContainer from 'components/appRoute/app/containers/AppContainer';
+import ScrollToTop from 'components/appRoute/app/containers/ScrollToTop';
 
 let middleWare = [thunk];
 
@@ -29,11 +30,13 @@ const store = createStore(reducer, applyMiddleware(...middleWare));
 
 ReactDOM.render(
     <Router>
-        <Provider store={store}>
-            <DragDropContextProvider backend={HTML5Backend}>
-                <AppContainer />
-            </DragDropContextProvider>
-        </Provider>
+        <ScrollToTop>
+            <Provider store={store}>
+                <DragDropContextProvider backend={HTML5Backend}>
+                    <AppContainer />
+                </DragDropContextProvider>
+            </Provider>
+        </ScrollToTop>
     </Router>,
     document.getElementById('root')
 );
