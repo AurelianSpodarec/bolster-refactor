@@ -19,6 +19,15 @@ class AllCompanyAdminTableContainer extends Component {
         const { isFetching, error, users } = this.props;
         const { searchTerm } = this.state;
         return (
+            <>
+            <BlockContainer>
+                <Search 
+                       value={searchTerm}
+                       placeholder="Search by name/email"
+                       handleChange={this.handleChange}
+                       name="searchTerm"
+                />
+            </BlockContainer>
             <BlockContainer isFetching={isFetching} error={error} isEmpty={isEmpty(users)}>
                 <AllCompanyAdminsTable
                     searchTerm={searchTerm}
@@ -37,15 +46,16 @@ class AllCompanyAdminTableContainer extends Component {
                     handleCreateCompanyAdmin={this.handleCreateCompanyAdmin}
                 />
             </BlockContainer>
+            </>
         );
     }
 
     _filterUsersForAdmins = () => {
         const { users } = this.props;
-        const { searchTerm } = this.state;
+        const  searchTerm = this.state.searchTerm.toLowerCase();
 
         const ret = users.filter(user => {
-            const name = `${user.userFirstName} ${user.userLastName}`;
+            const name = `${user.userFirstName} ${user.userLastName}`.toLowerCase();
             return (
                 user.type >= COMPANY_USER_ROLE_TYPES.ADMIN &&
                 (!searchTerm || name.includes(searchTerm) || user.userEmail.includes(searchTerm))

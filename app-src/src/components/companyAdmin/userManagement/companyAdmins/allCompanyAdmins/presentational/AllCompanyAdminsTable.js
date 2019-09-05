@@ -5,7 +5,6 @@ import AllCompanyAdminsList from './AllCompanyAdminsList';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 import { GREEN, GREEN_HOVER } from 'constants/shared/colorCodes';
-import Search from 'components/shared/generic/form/presentational/Search';
 
 const AllCompanyAdminsTable = ({
     headers,
@@ -14,7 +13,6 @@ const AllCompanyAdminsTable = ({
     error,
     showDeleteModal,
     handleCreateCompanyAdmin,
-    searchTerm, handleChange
 }) => {
     return (
         <>
@@ -26,12 +24,6 @@ const AllCompanyAdminsTable = ({
                 >
                     <i className="fa fa-plus" /> Create Admin
                 </ButtonContainer>
-                <Search 
-                    value={searchTerm}
-                    placeholder="search by name/email"
-                    handleChange={handleChange}
-                    name="searchTerm"
-                />
                 {/* <Link
                     className="button green"
                     to="/company/users-management/company-admins/create"

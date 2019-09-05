@@ -14,15 +14,13 @@ class AllOperativesTableContainer extends Component {
     state={searchTerm:''}
     render = () => {
         const { users, isFetching, error, onMobile } = this.props;
-        const {searchTerm} = this.state;
+        const searchTerm = this.state.searchTerm.toLowerCase();
         const filteredUsers = users.filter(user => {
-            const name = `${user.userFirstName} ${user.userLastName}`;
+            const name = `${user.userFirstName} ${user.userLastName}`.toLowerCase();
             return !searchTerm || name.includes(searchTerm) || user.userEmail.includes(searchTerm);
         });
         const sortedUsers = filteredUsers.sort(nameSort);
         return (
-            <>
-            
             <AllOperativesTable
             searchTerm={searchTerm}
             handleChange={this.handleChange}
@@ -40,7 +38,6 @@ class AllOperativesTableContainer extends Component {
                 handleShowModal={this.handleShowModal}
                 onMobile={onMobile}
             />
-            </>
         );
     };
 
@@ -53,6 +50,8 @@ class AllOperativesTableContainer extends Component {
             hideModal();
         }
     };
+
+    
     handleShowModal = () => this.props.showModal(CREATE_OPERATIVE);
 
     handleChange = (name, value) => this.setState({[name]:value})

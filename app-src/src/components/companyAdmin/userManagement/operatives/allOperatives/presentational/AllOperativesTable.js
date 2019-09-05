@@ -16,17 +16,20 @@ const AllOperativesTable = ({
     searchTerm,
     handleChange
 }) => (
+    <>
+        <BlockContainer>
+            <Search
+                value={searchTerm}
+                placeholder="Search by name/email"
+                handleChange={handleChange}
+                name="searchTerm"
+            />
+        </BlockContainer>
         <BlockContainer>
             <BlockHeading title="Operatives">
                 <button className="button green" onClick={handleShowModal}>
                     <i className="fa fa-plus" /> Create Operative
             </button>
-                <Search
-                    value={searchTerm}
-                    placeholder="search by name/email"
-                    handleChange={handleChange}
-                    name="searchTerm"
-                />
             </BlockHeading>
             <Table
                 withActions
@@ -46,6 +49,7 @@ const AllOperativesTable = ({
                 ))}
             </Table>
         </BlockContainer>
+        </>
     );
 
 export default AllOperativesTable;
