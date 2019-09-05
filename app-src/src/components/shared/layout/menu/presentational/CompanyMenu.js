@@ -131,10 +131,6 @@ const CompanyMenu = ({
                         <i className="far fa-folders fa-fw icon" />
                         <span className="menu-text">My Templates</span>
                     </CompanyMenuItemContainer>
-                    <CompanyMenuItemContainer link="/auth/terms">
-                        <i className="far fa-file-signature fa-fw icon"></i>
-                        <span className="menu-text">Terms and Conditions</span>
-                    </CompanyMenuItemContainer>
                     <CompanyMenuItemContainer
                         link="/company/tools/support"
                         onClick={e => openHelpScout(e)}
