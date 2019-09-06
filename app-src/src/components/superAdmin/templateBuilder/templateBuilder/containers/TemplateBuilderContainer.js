@@ -52,6 +52,8 @@ class TemplateBuilderContainer extends Component {
         postSuccess: prevPostSuccess,
         template: prevTemplate,
         isPosting: prevIsPosting,
+        template: prevTemplate,
+        deleteUnavailable: prevDeleteUnavailable
         error: prevError
     }) {
         const {
@@ -66,7 +68,8 @@ class TemplateBuilderContainer extends Component {
             history,
             hideModal,
             template,
-            companyID
+            companyID,
+            deleteUnavailable
         } = this.props;
         if (!prevPostSuccess && postSuccess) {
             const message = 'Template saved successfully.';
@@ -91,6 +94,11 @@ class TemplateBuilderContainer extends Component {
         if (error && !isExisting && !prevError) {
             history.replace('/404');
         }
+
+        if (!!deleteUnavailable && !prevDeleteUnavailable) {
+            const message = deleteUnavailable;
+            showModal(ERROR_MODAL, { message });
+        }
     }
 }
 
@@ -111,7 +119,8 @@ const mapStateToProps = (
     template: templatesReducer.templates[params.uuid],
     labelFields: Object.values(templateLabelFieldsReducer.labelFields).filter(({ templateUUID }) =>
         String(templateUUID === params.uuid)
-    )
+    ),
+    deleteUnavailable: templatesReducer.deleteUnavailable
 });
 
 const mapDispatchToProps = (
