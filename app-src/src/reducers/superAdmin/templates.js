@@ -156,6 +156,7 @@ function templatesReducer(state = {}, action) {
             return convertArrToObj(action.payload, 'uuid');
         case FETCH_TEMPLATE_SUCCESS:
         case FETCH_TEMPLATE_FOR_COMPANY_SUCCESS:
+        case DELETE_TEMPLATE_SUCCESS:
         case SET_TEMPLATE:
             return updateObj(state, action.template.uuid, action.template);
         case POST_TEMPLATE_SUCCESS:

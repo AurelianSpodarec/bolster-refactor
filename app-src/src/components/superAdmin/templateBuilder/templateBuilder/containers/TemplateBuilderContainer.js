@@ -82,13 +82,9 @@ class TemplateBuilderContainer extends Component {
                 'Please try again.'}`;
             showModal(ERROR_MODAL, { message });
         }
-
         if (!!template && template.isDeleted && (!!prevTemplate && !prevTemplate.isDeleted)) {
             const message = 'Template deleted successfully';
-            const onClose = () => {
-                hideModal();
-            };
-            showModal(SUCCESS_MODAL, { message, hideModal: onClose });
+            showModal(SUCCESS_MODAL, { message });
             history.replace(`/admin/companies/${companyID}`);
         }
 
