@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 import { ADD_TEMPLATE_SECTION, SUCCESS_MODAL, ERROR_MODAL } from 'constants/shared/modalTypes';
-import fetchTemplate from 'actions/superAdmin/templateBuilder/async/fetchTemplate';
 import fetchAllServices from 'actions/superAdmin/services/async/fetchAllServices';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import fetchSingleCompany from 'actions/superAdmin/companies/async/fetchSingleCompany';
@@ -51,7 +50,7 @@ class TemplateBuilderContainer extends Component {
 
     componentDidUpdate({
         postSuccess: prevPostSuccess,
-        template: prevTemplate
+        template: prevTemplate,
         isPosting: prevIsPosting,
         error: prevError
     }) {
