@@ -5,7 +5,8 @@ import {
     SET_SECTION,
     DELETE_SECTION,
     POST_TEMPLATE_SUCCESS,
-    FETCH_TEMPLATE_SUCCESS
+    FETCH_TEMPLATE_SUCCESS,
+    FETCH_TEMPLATE_FOR_COMPANY_SUCCESS
 } from 'constants/actionTypes/templateBuilder';
 
 export default combineReducers({
@@ -15,6 +16,7 @@ export default combineReducers({
 function sectionsReducer(state = {}, action) {
     switch (action.type) {
         case FETCH_TEMPLATE_SUCCESS:
+        case FETCH_TEMPLATE_FOR_COMPANY_SUCCESS:
             return { ...state, ...convertArrToObj(action.sections, 'uuid') };
         case SET_SECTION:
             return updateObj(state, action.section.uuid, action.section);

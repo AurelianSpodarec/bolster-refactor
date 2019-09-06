@@ -22,7 +22,10 @@ import {
     SET_LABEL_FIELDS,
     FETCH_TEMPLATES_SIMPLE_REQUEST,
     FETCH_TEMPLATES_SIMPLE_SUCCESS,
-    FETCH_TEMPLATES_SIMPLE_FAILURE
+    FETCH_TEMPLATES_SIMPLE_FAILURE,
+    FETCH_TEMPLATE_FOR_COMPANY_REQUEST,
+    FETCH_TEMPLATE_FOR_COMPANY_FAILURE,
+    FETCH_TEMPLATE_FOR_COMPANY_SUCCESS
 } from 'constants/actionTypes/templateBuilder';
 import {
     FETCH_COMPANY_TEMPLATES_REQUEST,
@@ -44,6 +47,7 @@ function isFetchingReducer(state = false, action) {
     switch (action.type) {
         case FETCH_TEMPLATES_REQUEST:
         case FETCH_TEMPLATE_REQUEST:
+        case FETCH_TEMPLATE_FOR_COMPANY_REQUEST:
         case FETCH_COMPANY_TEMPLATES_REQUEST:
         case FETCH_TEMPLATES_SIMPLE_REQUEST:
             return true;
@@ -52,6 +56,8 @@ function isFetchingReducer(state = false, action) {
         case FETCH_TEMPLATE_SUCCESS:
         case FETCH_TEMPLATES_FAILURE:
         case FETCH_TEMPLATE_FAILURE:
+        case FETCH_TEMPLATE_FOR_COMPANY_FAILURE:
+        case FETCH_TEMPLATE_FOR_COMPANY_SUCCESS:
         case FETCH_TEMPLATES_SIMPLE_SUCCESS:
         case FETCH_TEMPLATES_SIMPLE_FAILURE:
             return false;
@@ -66,12 +72,14 @@ function errorReducer(state = null, action) {
         case FETCH_TEMPLATES_REQUEST:
         case FETCH_COMPANY_TEMPLATES_REQUEST:
         case FETCH_TEMPLATE_REQUEST:
+        case FETCH_TEMPLATE_FOR_COMPANY_REQUEST:
         case FETCH_TEMPLATES_SIMPLE_REQUEST:
             return null;
         case POST_TEMPLATE_FAILURE:
         case FETCH_TEMPLATES_FAILURE:
         case FETCH_COMPANY_TEMPLATES_FAILURE:
         case FETCH_TEMPLATE_FAILURE:
+        case FETCH_TEMPLATE_FOR_COMPANY_FAILURE:
         case FETCH_TEMPLATES_SIMPLE_FAILURE:
             return action.error;
         default:
@@ -120,7 +128,7 @@ function templatesReducer(state = {}, action) {
                 ...state,
                 ...convertArrToObj(action.payload, 'uuid')
             };
-        case FETCH_COMPANY_TEMPLATES_SUCCESS:
+            case FETCH_COMPANY_TEMPLATES_SUCCESS:
             return {
                 ...state,
                 ...convertArrToObj(action.payload, 'uuid')
@@ -128,6 +136,7 @@ function templatesReducer(state = {}, action) {
         case FETCH_TEMPLATES_SIMPLE_SUCCESS:
             return convertArrToObj(action.payload, 'uuid');
         case FETCH_TEMPLATE_SUCCESS:
+        case FETCH_TEMPLATE_FOR_COMPANY_SUCCESS:
         case SET_TEMPLATE:
             return updateObj(state, action.template.uuid, action.template);
         case POST_TEMPLATE_SUCCESS:
