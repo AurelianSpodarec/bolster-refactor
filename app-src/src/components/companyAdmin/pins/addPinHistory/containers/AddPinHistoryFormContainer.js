@@ -32,23 +32,15 @@ class AddPinFormContainer extends Component {
             isHistory
         } = this.props;
 
-        const serviceOptions = convertArrToObj(
-            this._relevantServiceOptions(),
-            'value'
-        );
+        const serviceOptions = convertArrToObj(this._relevantServiceOptions(), 'value');
         const templateOptions = this._getTemplates(templates, serviceID);
 
         return (
             <>
-                <PageHeading
-                    leftChildren={true}
-                    title={`Add Pin ${isHistory ? 'History' : ''}`}
-                >
+                <PageHeading leftChildren={true} title={`Add Pin ${isHistory ? 'History' : ''}`}>
                     <BackButtonContainer
                         backFromForm={{
-                            urlToReplace: isHistory
-                                ? '/add-history'
-                                : '/add-pin',
+                            urlToReplace: isHistory ? '/add-history' : '/add-pin',
                             with: ''
                         }}
                     />
@@ -103,13 +95,9 @@ class AddPinFormContainer extends Component {
             return;
         }
         const templateVersion =
-            versions.find(
-                version => latestPinHistory.templateVersionID === version.id
-            ) || {};
+            versions.find(version => latestPinHistory.templateVersionID === version.id) || {};
         const latestTemplateUsed =
-            templates.find(
-                template => templateVersion.templateID === template.id
-            ) || {};
+            templates.find(template => templateVersion.templateID === template.id) || {};
 
         const latestTemplateVersionID = latestTemplateUsed.latestVersionID;
 
@@ -181,9 +169,7 @@ class AddPinFormContainer extends Component {
         const serviceOptions = [];
 
         serviceIDs.forEach(serviceID => {
-            serviceOptions.push(
-                services.filter(service => service.id === serviceID)[0]
-            );
+            serviceOptions.push(services.filter(service => service.id === serviceID)[0]);
         });
 
         return serviceOptions.map(({ id, name }) => ({
@@ -216,8 +202,7 @@ class AddPinFormContainer extends Component {
             status
         } = this.props;
 
-        const curTemplate =
-            templates.find(({ id }) => +id === +templateID) || {};
+        const curTemplate = templates.find(({ id }) => +id === +templateID) || {};
 
         const formattedAnswers = Object.keys(answers).map(key => ({
             templateQuestionID: key,
@@ -263,7 +248,7 @@ const mapStateToProps = ({
         confirmLeaveReducer: { confirmLeave }
     }
 }) => ({
-    templates: Object.values(templates),
+    templates: Object.values(templates).filter(({ isDeleted }) => !isDeleted),
     answers,
     coordinates,
     isFetching,
