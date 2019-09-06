@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 import { ADD_TEMPLATE_SECTION, SUCCESS_MODAL, ERROR_MODAL } from 'constants/shared/modalTypes';
+import fetchTemplate from 'actions/superAdmin/templateBuilder/async/fetchTemplate';
 import fetchAllServices from 'actions/superAdmin/services/async/fetchAllServices';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import fetchSingleCompany from 'actions/superAdmin/companies/async/fetchSingleCompany';
@@ -12,6 +13,7 @@ import resetSaveRequired from 'actions/superAdmin/templateBuilder/sync/resetSave
 import TemplateBuilder from '../presentational/TemplateBuilder';
 import { isEmpty } from 'helpers/generic';
 import fetchTemplateForCompany from 'actions/superAdmin/companies/async/fetchTemplateForCompany';
+import deleteTemplate from 'actions/superAdmin/templateBuilder/async/deleteTemplate';
 
 class TemplateBuilderContainer extends Component {
     render() {
@@ -49,6 +51,7 @@ class TemplateBuilderContainer extends Component {
 
     componentDidUpdate({
         postSuccess: prevPostSuccess,
+        template: prevTemplate
         isPosting: prevIsPosting,
         error: prevError
     }) {
@@ -62,7 +65,9 @@ class TemplateBuilderContainer extends Component {
             templateUUID,
             updatedTemplateUUID,
             history,
-            hideModal
+            hideModal,
+            template,
+            companyID
         } = this.props;
         if (!prevPostSuccess && postSuccess) {
             const message = 'Template saved successfully.';
@@ -77,6 +82,15 @@ class TemplateBuilderContainer extends Component {
             const message = `An error occurred while saving your template. ${error ||
                 'Please try again.'}`;
             showModal(ERROR_MODAL, { message });
+        }
+
+        if (!!template && template.isDeleted && (!!prevTemplate && !prevTemplate.isDeleted)) {
+            const message = 'Template deleted successfully';
+            const onClose = () => {
+                hideModal();
+            };
+            showModal(SUCCESS_MODAL, { message, hideModal: onClose });
+            history.replace(`/admin/companies/${companyID}`);
         }
 
         if (error && !isExisting && !prevError) {
@@ -99,6 +113,7 @@ const mapStateToProps = (
     saveRequired: templatesReducer.saveRequired,
     uuid: params.uuid,
     isExisting: !!templatesReducer.templates[params.uuid],
+    template: templatesReducer.templates[params.uuid],
     labelFields: Object.values(templateLabelFieldsReducer.labelFields).filter(({ templateUUID }) =>
         String(templateUUID === params.uuid)
     )
@@ -125,7 +140,9 @@ const mapDispatchToProps = (
         dispatch(fetchTemplateForCompany(companyID, templateUUID));
         dispatch(fetchAllServices());
         dispatch(fetchSingleCompany(companyID));
-    }
+    },
+
+    deleteTemplate: templateUUID => dispatch(deleteTemplate(templateUUID))
 });
 
 const WithConnect = connect(

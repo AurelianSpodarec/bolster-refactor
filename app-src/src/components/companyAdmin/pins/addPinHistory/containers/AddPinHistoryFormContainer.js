@@ -296,7 +296,7 @@ const mapStateToProps = ({
         confirmLeaveReducer: { confirmLeave }
     }
 }) => ({
-    templates: Object.values(templates),
+    templates: Object.values(templates).filter(({ isDeleted }) => !isDeleted),
     answers,
     coordinates,
     isFetching,

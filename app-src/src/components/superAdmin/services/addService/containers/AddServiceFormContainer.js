@@ -93,7 +93,12 @@ const mapStateToProps = ({
         adminServicesReducer: { postSuccess },
         templatesReducer: { templates, isFetching, error }
     }
-}) => ({ postSuccess, templates: Object.values(templates), isFetching, error });
+}) => ({
+    postSuccess,
+    templates: Object.values(templates).filter(({ isDeleted }) => !isDeleted),
+    isFetching,
+    error
+});
 
 const mapDispatchToProps = {
     createService,

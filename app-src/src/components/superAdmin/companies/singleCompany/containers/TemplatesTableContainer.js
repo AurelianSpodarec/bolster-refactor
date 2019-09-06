@@ -24,16 +24,10 @@ class TemplatesTableContainer extends Component {
                     additionalClasses="no-margin"
                     sizeClasses="size-lg-6 size-md-12"
                 >
-                    <button
-                        className="button green"
-                        onClick={this.showAddTemplateModal}
-                    >
+                    <button className="button green" onClick={this.showAddTemplateModal}>
                         <i className="fa fa-plus" /> Add
                     </button>
-                    <button
-                        className="button green"
-                        onClick={this.showCloneTemplateModal}
-                    >
+                    <button className="button green" onClick={this.showCloneTemplateModal}>
                         <i className="fas fa-clone" /> Clone
                     </button>
                 </BlockButtonWrapper>
@@ -78,7 +72,7 @@ const mapStateToProps = (
 ) => ({
     companyID: params.id,
     templates: Object.values(templates).filter(
-        temp => temp.companyID + '' === params.id + ''
+        temp => temp.companyID + '' === params.id + '' && !temp.isDeleted
     ),
     isFetching,
     error
