@@ -3,7 +3,8 @@ import axios from 'axios';
 import {
     DELETE_TEMPLATE_REQUEST,
     DELETE_TEMPLATE_SUCCESS,
-    DELETE_TEMPLATE_FAILURE
+    DELETE_TEMPLATE_FAILURE,
+    DELETE_TEMPLATE_UNAVAILABLE
 } from 'constants/actionTypes/templateBuilder';
 import { ADMIN_API_URL } from 'config';
 import { getHeaders } from 'helpers/api';
@@ -32,11 +33,21 @@ export const deleteTemplateFailure = error => ({
     error
 });
 
+export const deleteTemplateUnavailable = error => ({
+    type: DELETE_TEMPLATE_UNAVAILABLE,
+    error
+});
+
 export default uuid => dispatch => {
     dispatch(deleteTemplateRequest());
 
     return axios
         .delete(`${ADMIN_API_URL}/templates/${uuid}`, getHeaders())
-        .then(res => dispatch(deleteTemplateSuccess(res.data)))
+        .then(res => {
+            if (res.status === 202) {
+                return dispatch(deleteTemplateUnavailable(res.data.message));
+            }
+            return dispatch(deleteTemplateSuccess(res.data));
+        })
         .catch(err => dispatch(deleteTemplateFailure(err.message)));
 };

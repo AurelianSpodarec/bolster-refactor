@@ -51,7 +51,8 @@ class TemplateBuilderContainer extends Component {
     componentDidUpdate({
         postSuccess: prevPostSuccess,
         isPosting: prevIsPosting,
-        template: prevTemplate
+        template: prevTemplate,
+        deleteUnavailable: prevDeleteUnavailable
     }) {
         const {
             postSuccess,
@@ -64,7 +65,8 @@ class TemplateBuilderContainer extends Component {
             history,
             hideModal,
             template,
-            companyID
+            companyID,
+            deleteUnavailable
         } = this.props;
         if (!prevPostSuccess && postSuccess) {
             const message = 'Template saved successfully.';
@@ -86,6 +88,11 @@ class TemplateBuilderContainer extends Component {
             showModal(SUCCESS_MODAL, { message });
             history.replace(`/admin/companies/${companyID}`);
         }
+
+        if (!!deleteUnavailable && !prevDeleteUnavailable) {
+            const message = deleteUnavailable;
+            showModal(ERROR_MODAL, { message });
+        }
     }
 }
 
@@ -106,7 +113,8 @@ const mapStateToProps = (
     template: templatesReducer.templates[params.uuid],
     labelFields: Object.values(templateLabelFieldsReducer.labelFields).filter(({ templateUUID }) =>
         String(templateUUID === params.uuid)
-    )
+    ),
+    deleteUnavailable: templatesReducer.deleteUnavailable
 });
 
 const mapDispatchToProps = (

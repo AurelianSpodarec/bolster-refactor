@@ -25,7 +25,8 @@ import {
     FETCH_TEMPLATES_SIMPLE_FAILURE,
     DELETE_TEMPLATE_REQUEST,
     DELETE_TEMPLATE_FAILURE,
-    DELETE_TEMPLATE_SUCCESS
+    DELETE_TEMPLATE_SUCCESS,
+    DELETE_TEMPLATE_UNAVAILABLE
 } from 'constants/actionTypes/templateBuilder';
 import {
     FETCH_COMPANY_TEMPLATES_REQUEST,
@@ -41,7 +42,8 @@ export default combineReducers({
     isPosting: isPostingReducer,
     updatedTemplateUUID: updatedTemplateUUIDReducer,
     isFetching: isFetchingReducer,
-    deleteSuccess: deleteSuccessReducer
+    deleteSuccess: deleteSuccessReducer,
+    deleteUnavailable: deleteUnavailableReducer
 });
 
 function isFetchingReducer(state = false, action) {
@@ -102,6 +104,17 @@ function deleteSuccessReducer(state = false, action) {
             return false;
         case DELETE_TEMPLATE_SUCCESS:
             return true;
+        default:
+            return state;
+    }
+}
+
+function deleteUnavailableReducer(state = null, action) {
+    switch (action.type) {
+        case DELETE_TEMPLATE_REQUEST:
+            return null;
+        case DELETE_TEMPLATE_UNAVAILABLE:
+            return action.error;
         default:
             return state;
     }

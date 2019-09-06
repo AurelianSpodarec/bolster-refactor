@@ -18,10 +18,12 @@ const TemplateBuilderHeaderContainer = ({
     showAddSectionModal,
     serviceName,
     templateUUID,
-    showDeleteTemplateForm
+    showDeleteTemplateForm,
+    error
 }) => {
     return (
         <TemplateBuilderHeader
+            error={error}
             showTemplateForm={showTemplateForm}
             name={template.name}
             serviceName={serviceName}
@@ -43,7 +45,7 @@ const TemplateBuilderHeaderContainer = ({
 const mapStateToProps = (
     {
         superAdmin: {
-            templatesReducer: { templates },
+            templatesReducer: { templates, error },
             adminServicesReducer: { adminServices: services }
         }
     },
@@ -59,7 +61,8 @@ const mapStateToProps = (
         template: templates[uuid] || { serviceID: '' },
         uuid,
         companyID,
-        serviceName: services && template ? service.name : ''
+        serviceName: services && template ? service.name : '',
+        error
     };
 };
 
