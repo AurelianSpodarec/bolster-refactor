@@ -2,11 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
-import {
-    ADD_TEMPLATE_SECTION,
-    SUCCESS_MODAL,
-    ERROR_MODAL
-} from 'constants/shared/modalTypes';
+import { ADD_TEMPLATE_SECTION, SUCCESS_MODAL, ERROR_MODAL } from 'constants/shared/modalTypes';
 import fetchTemplate from 'actions/superAdmin/templateBuilder/async/fetchTemplate';
 import fetchAllServices from 'actions/superAdmin/services/async/fetchAllServices';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
@@ -16,6 +12,7 @@ import resetSaveRequired from 'actions/superAdmin/templateBuilder/sync/resetSave
 
 import TemplateBuilder from '../presentational/TemplateBuilder';
 import { isEmpty } from 'helpers/generic';
+import deleteTemplate from 'actions/superAdmin/templateBuilder/async/deleteTemplate';
 
 class TemplateBuilderContainer extends Component {
     render() {
@@ -53,7 +50,8 @@ class TemplateBuilderContainer extends Component {
 
     componentDidUpdate({
         postSuccess: prevPostSuccess,
-        isPosting: prevIsPosting
+        isPosting: prevIsPosting,
+        template: prevTemplate
     }) {
         const {
             postSuccess,
@@ -64,17 +62,16 @@ class TemplateBuilderContainer extends Component {
             templateUUID,
             updatedTemplateUUID,
             history,
-            hideModal
+            hideModal,
+            template,
+            companyID
         } = this.props;
         if (!prevPostSuccess && postSuccess) {
             const message = 'Template saved successfully.';
             showModal(SUCCESS_MODAL, { message, hideModal });
 
             if (templateUUID !== updatedTemplateUUID) {
-                const redirectUrl = curUrl.replace(
-                    templateUUID,
-                    updatedTemplateUUID
-                );
+                const redirectUrl = curUrl.replace(templateUUID, updatedTemplateUUID);
 
                 history.replace(redirectUrl);
             }
@@ -83,6 +80,15 @@ class TemplateBuilderContainer extends Component {
             const message = `An error occurred while saving your template. ${error ||
                 'Please try again.'}`;
             showModal(ERROR_MODAL, { message });
+        }
+
+        if (!!template && template.isDeleted && (!!prevTemplate && !prevTemplate.isDeleted)) {
+            const message = 'Template deleted successfully';
+            const onClose = () => {
+                hideModal();
+            };
+            showModal(SUCCESS_MODAL, { message, hideModal: onClose });
+            history.replace(`/admin/companies/${companyID}`);
         }
     }
 }
@@ -101,8 +107,9 @@ const mapStateToProps = (
     saveRequired: templatesReducer.saveRequired,
     uuid: params.uuid,
     isExisting: !!templatesReducer.templates[params.uuid],
-    labelFields: Object.values(templateLabelFieldsReducer.labelFields).filter(
-        ({ templateUUID }) => String(templateUUID === params.uuid)
+    template: templatesReducer.templates[params.uuid],
+    labelFields: Object.values(templateLabelFieldsReducer.labelFields).filter(({ templateUUID }) =>
+        String(templateUUID === params.uuid)
     )
 });
 
@@ -127,7 +134,9 @@ const mapDispatchToProps = (
         dispatch(fetchTemplate(templateUUID));
         dispatch(fetchAllServices());
         dispatch(fetchSingleCompany(companyID));
-    }
+    },
+
+    deleteTemplate: templateUUID => dispatch(deleteTemplate(templateUUID))
 });
 
 const WithConnect = connect(

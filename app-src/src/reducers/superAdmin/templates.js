@@ -22,7 +22,10 @@ import {
     SET_LABEL_FIELDS,
     FETCH_TEMPLATES_SIMPLE_REQUEST,
     FETCH_TEMPLATES_SIMPLE_SUCCESS,
-    FETCH_TEMPLATES_SIMPLE_FAILURE
+    FETCH_TEMPLATES_SIMPLE_FAILURE,
+    DELETE_TEMPLATE_REQUEST,
+    DELETE_TEMPLATE_FAILURE,
+    DELETE_TEMPLATE_SUCCESS
 } from 'constants/actionTypes/templateBuilder';
 import {
     FETCH_COMPANY_TEMPLATES_REQUEST,
@@ -37,7 +40,8 @@ export default combineReducers({
     postSuccess: postSuccessReducer,
     isPosting: isPostingReducer,
     updatedTemplateUUID: updatedTemplateUUIDReducer,
-    isFetching: isFetchingReducer
+    isFetching: isFetchingReducer,
+    deleteSuccess: deleteSuccessReducer
 });
 
 function isFetchingReducer(state = false, action) {
@@ -67,12 +71,14 @@ function errorReducer(state = null, action) {
         case FETCH_COMPANY_TEMPLATES_REQUEST:
         case FETCH_TEMPLATE_REQUEST:
         case FETCH_TEMPLATES_SIMPLE_REQUEST:
+        case DELETE_TEMPLATE_REQUEST:
             return null;
         case POST_TEMPLATE_FAILURE:
         case FETCH_TEMPLATES_FAILURE:
         case FETCH_COMPANY_TEMPLATES_FAILURE:
         case FETCH_TEMPLATE_FAILURE:
         case FETCH_TEMPLATES_SIMPLE_FAILURE:
+        case DELETE_TEMPLATE_FAILURE:
             return action.error;
         default:
             return state;
@@ -84,6 +90,17 @@ function postSuccessReducer(state = false, action) {
         case POST_TEMPLATE_REQUEST:
             return false;
         case POST_TEMPLATE_SUCCESS:
+            return true;
+        default:
+            return state;
+    }
+}
+
+function deleteSuccessReducer(state = false, action) {
+    switch (action.type) {
+        case DELETE_TEMPLATE_REQUEST:
+            return false;
+        case DELETE_TEMPLATE_SUCCESS:
             return true;
         default:
             return state;
