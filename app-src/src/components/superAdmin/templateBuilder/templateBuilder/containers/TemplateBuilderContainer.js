@@ -52,8 +52,7 @@ class TemplateBuilderContainer extends Component {
         postSuccess: prevPostSuccess,
         template: prevTemplate,
         isPosting: prevIsPosting,
-        template: prevTemplate,
-        deleteUnavailable: prevDeleteUnavailable
+        deleteUnavailable: prevDeleteUnavailable,
         error: prevError
     }) {
         const {
