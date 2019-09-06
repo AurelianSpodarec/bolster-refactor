@@ -25,7 +25,8 @@ import {
     FETCH_TEMPLATES_SIMPLE_FAILURE,
     FETCH_TEMPLATE_FOR_COMPANY_REQUEST,
     FETCH_TEMPLATE_FOR_COMPANY_FAILURE,
-    FETCH_TEMPLATE_FOR_COMPANY_SUCCESS
+    FETCH_TEMPLATE_FOR_COMPANY_SUCCESS,
+    FETCH_TEMPLATE_FOR_COMPANY_NOT_FOUND
 } from 'constants/actionTypes/templateBuilder';
 import {
     FETCH_COMPANY_TEMPLATES_REQUEST,
@@ -58,6 +59,7 @@ function isFetchingReducer(state = false, action) {
         case FETCH_TEMPLATE_FAILURE:
         case FETCH_TEMPLATE_FOR_COMPANY_FAILURE:
         case FETCH_TEMPLATE_FOR_COMPANY_SUCCESS:
+        case FETCH_TEMPLATE_FOR_COMPANY_NOT_FOUND:
         case FETCH_TEMPLATES_SIMPLE_SUCCESS:
         case FETCH_TEMPLATES_SIMPLE_FAILURE:
             return false;
@@ -128,7 +130,7 @@ function templatesReducer(state = {}, action) {
                 ...state,
                 ...convertArrToObj(action.payload, 'uuid')
             };
-            case FETCH_COMPANY_TEMPLATES_SUCCESS:
+        case FETCH_COMPANY_TEMPLATES_SUCCESS:
             return {
                 ...state,
                 ...convertArrToObj(action.payload, 'uuid')
