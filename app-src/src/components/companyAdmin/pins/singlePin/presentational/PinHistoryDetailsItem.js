@@ -41,7 +41,9 @@ const PinHistoryDetailsItem = ({
         />
         <FieldOutput
             title="Last edited"
-            description={history.lastEditedOn || 'N/A'}
+            description={
+                history.lastEditedOn ? <DateTimeContainer date={history.lastEditedOn} /> : 'N/A'
+            }
             sizeClass="size-lg-3 size-md-12"
         />
         <FieldOutput
