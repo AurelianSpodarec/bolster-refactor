@@ -12,6 +12,7 @@ const PinHistoryDetailsItem = ({
     services,
     handleEditHistoryModal,
     handleDeleteHistoryModal,
+    editedByUserName,
     drawingID,
     isDeleteHistory
 }) => (
@@ -38,16 +39,22 @@ const PinHistoryDetailsItem = ({
             description={`${PIN_STATUS_TYPES[history.status]}`}
             sizeClass="size-lg-3 size-md-12"
         />
+        <FieldOutput
+            title="Last edited"
+            description={history.lastEditedOn || 'N/A'}
+            sizeClass="size-lg-3 size-md-12"
+        />
+        <FieldOutput
+            title="Last edited by"
+            description={editedByUserName || 'N/A'}
+            sizeClass="size-lg-3 size-md-12"
+        />
 
         <PinSectionsContainer pinHistory={history} drawingID={drawingID} />
 
-        <BlockButtonWrapper
-            additionalClasses="item-button-container"
-            sizeClasses="size-lg-12"
-        >
+        <BlockButtonWrapper additionalClasses="item-button-container" sizeClasses="size-lg-12">
             <button className="button red" onClick={handleDeleteHistoryModal}>
-                <i className="far fa-times" /> Delete{' '}
-                {isDeleteHistory > 1 ? 'History' : 'Pin'}
+                <i className="far fa-times" /> Delete {isDeleteHistory > 1 ? 'History' : 'Pin'}
             </button>
 
             <button className="button yellow" onClick={handleEditHistoryModal}>
