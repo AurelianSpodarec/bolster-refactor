@@ -7,16 +7,16 @@ import { CONFIRM_DELETE, CONFIRM_EDIT_PIN } from 'constants/shared/modalTypes';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import Loading from 'components/shared/generic/misc/presentational/Loading';
+import fetchSingleCompanyUser from 'actions/companyAdmin/userManagement/async/fetchSingleCompanyUser';
 
 class PinHistoryDetailsItemContainer extends Component {
     render() {
-        const {
-            history,
-            services,
-            drawingID,
-            historyCount,
-            isLoading
-        } = this.props;
+        const { history, services, drawingID, historyCount, isLoading, users } = this.props;
+
+        const editedByUser = users[history.lastEditedByCompanyUserID];
+        const editedByUserName = editedByUser
+            ? `${editedByUser.userFirstName} ${editedByUser.userLastName}`
+            : null;
 
         return isLoading ? (
             <Loading />
@@ -27,27 +27,32 @@ class PinHistoryDetailsItemContainer extends Component {
                 handleEditHistoryModal={this.handleEditHistoryModal}
                 handleDeleteHistoryModal={this.handleDeleteHistoryModal}
                 drawingID={drawingID}
+                editedByUserName={editedByUserName}
                 isDeleteHistory={historyCount > 1}
             />
         );
     }
 
+    componentDidMount = () => {
+        const {
+            history: { lastEditedByCompanyUserID },
+            users,
+            fetchSingleCompanyUser
+        } = this.props;
+        const user = users[lastEditedByCompanyUserID];
+        if (lastEditedByCompanyUserID && !user) {
+            fetchSingleCompanyUser(lastEditedByCompanyUserID);
+        }
+    };
+
     handleEditHistoryModal = () => {
         const { showModal, history } = this.props;
-        const editURL = `/company/pins/${history.pinID}/edit-history/${
-            history.id
-        }`;
+        const editURL = `/company/pins/${history.pinID}/edit-history/${history.id}`;
         showModal(CONFIRM_EDIT_PIN, { editURL });
     };
 
     handleDeleteHistoryModal = () => {
-        const {
-            hideModal,
-            showModal,
-            history,
-            deletePinHistory,
-            historyCount
-        } = this.props;
+        const { hideModal, showModal, history, deletePinHistory, historyCount } = this.props;
 
         const handleDelete = () => {
             deletePinHistory(history.id);
@@ -65,7 +70,8 @@ const mapStateToProps = (
         companyAdmin: {
             servicesReducer: { services },
             pinHistoriesReducer: { histories },
-            pinsReducer: { pins, isFetching: isFetchingPin }
+            pinsReducer: { pins, isFetching: isFetchingPin },
+            companyUsersReducer: { users }
         }
     },
     ownProps
@@ -73,11 +79,11 @@ const mapStateToProps = (
     services,
     isFetchingPin,
     histories: Object.values(histories),
-    pin: pins[ownProps.history.pinID] || null
+    pin: pins[ownProps.history.pinID] || null,
+    users
 });
 
-const mapDispatchToProps = { showModal, hideModal, deletePinHistory };
-
+const mapDispatchToProps = { showModal, hideModal, deletePinHistory, fetchSingleCompanyUser };
 export default connect(
     mapStateToProps,
     mapDispatchToProps

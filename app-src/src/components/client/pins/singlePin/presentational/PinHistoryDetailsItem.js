@@ -6,7 +6,7 @@ import FieldOutput from 'components/shared/generic/fieldOutput/presentational/Fi
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 import PinSectionsContainer from '../containers/PinSectionsContainer';
 
-const PinHistoryDetailsItem = ({ history, createdBy, services, drawingID }) => (
+const PinHistoryDetailsItem = ({ history, createdBy, services, drawingID, editedBy }) => (
     <div className="item">
         <FieldOutput
             title="Type"
@@ -30,6 +30,14 @@ const PinHistoryDetailsItem = ({ history, createdBy, services, drawingID }) => (
             description={`${PIN_STATUS_TYPES[history.status]}`}
             sizeClass="size-lg-3"
         />
+        <FieldOutput
+            title="Last edited"
+            description={
+                history.lastEditedOn ? <DateTimeContainer date={history.lastEditedOn} /> : 'N/A'
+            }
+            sizeClass="size-lg-3"
+        />
+        <FieldOutput title="Last edited by" description={editedBy} sizeClass="size-lg-3" />
 
         <PinSectionsContainer pinHistory={history} drawingID={drawingID} />
     </div>
