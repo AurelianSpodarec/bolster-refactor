@@ -22,7 +22,11 @@ import {
     SET_LABEL_FIELDS,
     FETCH_TEMPLATES_SIMPLE_REQUEST,
     FETCH_TEMPLATES_SIMPLE_SUCCESS,
-    FETCH_TEMPLATES_SIMPLE_FAILURE
+    FETCH_TEMPLATES_SIMPLE_FAILURE,
+    DELETE_TEMPLATE_REQUEST,
+    DELETE_TEMPLATE_FAILURE,
+    DELETE_TEMPLATE_SUCCESS,
+    DELETE_TEMPLATE_UNAVAILABLE
 } from 'constants/actionTypes/templateBuilder';
 import {
     FETCH_COMPANY_TEMPLATES_REQUEST,
@@ -37,7 +41,9 @@ export default combineReducers({
     postSuccess: postSuccessReducer,
     isPosting: isPostingReducer,
     updatedTemplateUUID: updatedTemplateUUIDReducer,
-    isFetching: isFetchingReducer
+    isFetching: isFetchingReducer,
+    deleteSuccess: deleteSuccessReducer,
+    deleteUnavailable: deleteUnavailableReducer
 });
 
 function isFetchingReducer(state = false, action) {
@@ -67,12 +73,14 @@ function errorReducer(state = null, action) {
         case FETCH_COMPANY_TEMPLATES_REQUEST:
         case FETCH_TEMPLATE_REQUEST:
         case FETCH_TEMPLATES_SIMPLE_REQUEST:
+        case DELETE_TEMPLATE_REQUEST:
             return null;
         case POST_TEMPLATE_FAILURE:
         case FETCH_TEMPLATES_FAILURE:
         case FETCH_COMPANY_TEMPLATES_FAILURE:
         case FETCH_TEMPLATE_FAILURE:
         case FETCH_TEMPLATES_SIMPLE_FAILURE:
+        case DELETE_TEMPLATE_FAILURE:
             return action.error;
         default:
             return state;
@@ -85,6 +93,28 @@ function postSuccessReducer(state = false, action) {
             return false;
         case POST_TEMPLATE_SUCCESS:
             return true;
+        default:
+            return state;
+    }
+}
+
+function deleteSuccessReducer(state = false, action) {
+    switch (action.type) {
+        case DELETE_TEMPLATE_REQUEST:
+            return false;
+        case DELETE_TEMPLATE_SUCCESS:
+            return true;
+        default:
+            return state;
+    }
+}
+
+function deleteUnavailableReducer(state = null, action) {
+    switch (action.type) {
+        case DELETE_TEMPLATE_REQUEST:
+            return null;
+        case DELETE_TEMPLATE_UNAVAILABLE:
+            return action.error;
         default:
             return state;
     }
@@ -128,6 +158,7 @@ function templatesReducer(state = {}, action) {
         case FETCH_TEMPLATES_SIMPLE_SUCCESS:
             return convertArrToObj(action.payload, 'uuid');
         case FETCH_TEMPLATE_SUCCESS:
+        case DELETE_TEMPLATE_SUCCESS:
         case SET_TEMPLATE:
             return updateObj(state, action.template.uuid, action.template);
         case POST_TEMPLATE_SUCCESS:

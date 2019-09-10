@@ -11,25 +11,27 @@ const TemplateBuilderHeader = ({
     isExisting,
     showAddSectionModal,
     templateUUID,
-    companyID
+    companyID,
+    showDeleteTemplateForm,
+    error
 }) => (
-    <PageHeading
-        title={`Template builder : ${name} ${
-            serviceName ? `(${serviceName})` : ''
-        }`}
-    >
+    <PageHeading title={`Template builder : ${name} ${serviceName ? `(${serviceName})` : ''}`}>
         <div className="button-holder">
             <BackButtonContainer />
             <button className="button yellow" onClick={showTemplateForm}>
-                <i className="far fa-pencil" /> {name.length ? 'Edit' : 'Add'}{' '}
-                template
+                <i className="far fa-pencil" /> {name.length ? 'Edit' : 'Add'} template
             </button>
             {isExisting && (
                 <>
-                    <button
-                        onClick={showAddSectionModal}
-                        className="button blue"
-                    >
+                    {!error && (
+                        <button
+                            onClick={() => showDeleteTemplateForm(templateUUID)}
+                            className="button red"
+                        >
+                            <i className="fa fa-trash" /> Delete Template
+                        </button>
+                    )}
+                    <button onClick={showAddSectionModal} className="button blue">
                         <i className="fa fa-plus" /> Add Section
                     </button>
                     <ButtonContainer
