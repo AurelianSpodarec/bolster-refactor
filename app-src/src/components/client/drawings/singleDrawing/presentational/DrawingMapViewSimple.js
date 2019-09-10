@@ -62,7 +62,7 @@ const DrawingMapViewSimple = ({
                 center={position}
                 zoom={zoom}
                 minZoom={0}
-                maxZoom={5}
+                maxZoom={6}
                 onClick={handleClick}
                 crs={CRS.Simple}
             >
@@ -86,9 +86,7 @@ const DrawingMapViewSimple = ({
                     />
                 ))}
 
-                {cornerClicked && (
-                    <Marker position={cornerClicked} icon={cornerClickedIcon} />
-                )}
+                {cornerClicked && <Marker position={cornerClicked} icon={cornerClickedIcon} />}
                 {rectangles.map(rectangle => (
                     <Rectangle
                         key={rectangle.id}

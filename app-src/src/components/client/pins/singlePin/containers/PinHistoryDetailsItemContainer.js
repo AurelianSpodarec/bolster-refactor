@@ -8,11 +8,16 @@ class PinHistoryDetailsItemContainer extends Component {
         const { history, users, services, drawingID } = this.props;
 
         const user = users[history.createdByCompanyUserID] || {};
+        const editedUser = users[history.lastEditedByCompanyUserID];
+        const editedName = editedUser
+            ? `${editedUser.userFirstName} ${editedUser.userLastName}`
+            : 'N/A';
 
         return (
             <PinHistoryDetailsItem
                 history={history}
                 createdBy={user}
+                editedBy={editedName}
                 services={services}
                 drawingID={drawingID}
             />
@@ -31,5 +36,4 @@ const mapStateToProps = ({
     services,
     allHistories: Object.values(histories)
 });
-
 export default connect(mapStateToProps)(PinHistoryDetailsItemContainer);

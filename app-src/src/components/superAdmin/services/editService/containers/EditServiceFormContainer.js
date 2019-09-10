@@ -137,11 +137,7 @@ const mapStateToProps = (
                 adminServiceTemplates,
                 isFetchingTemplateForService
             },
-            templatesReducer: {
-                templates,
-                isFetching: isFetchingTemplates,
-                error: templatesError
-            }
+            templatesReducer: { templates, isFetching: isFetchingTemplates, error: templatesError }
         }
     },
     {
@@ -158,7 +154,7 @@ const mapStateToProps = (
     id,
     service: adminServices[id],
     serviceTemplate: adminServiceTemplates,
-    templates: Object.values(templates)
+    templates: Object.values(templates).filter(({ isDeleted }) => !isDeleted)
 });
 
 const mapDispatchToProps = {
