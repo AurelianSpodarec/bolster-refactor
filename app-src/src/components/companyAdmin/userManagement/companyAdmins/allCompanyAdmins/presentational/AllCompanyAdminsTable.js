@@ -12,11 +12,11 @@ const AllCompanyAdminsTable = ({
     isFetching,
     error,
     showDeleteModal,
-    handleCreateCompanyAdmin
+    handleCreateCompanyAdmin,
 }) => {
     return (
         <>
-            <BlockHeading title="Admins">
+        <BlockHeading title="Admins">
                 <ButtonContainer
                     handleClick={handleCreateCompanyAdmin}
                     setColour={GREEN}
@@ -27,7 +27,7 @@ const AllCompanyAdminsTable = ({
                 {/* <Link
                     className="button green"
                     to="/company/users-management/company-admins/create"
-                >
+                    >
                 </Link> */}
             </BlockHeading>
             <Table
@@ -46,7 +46,8 @@ const AllCompanyAdminsTable = ({
                     showDeleteModal={showDeleteModal}
                 />
             </Table>
-        </>
+            </>
+
     );
 };
 
