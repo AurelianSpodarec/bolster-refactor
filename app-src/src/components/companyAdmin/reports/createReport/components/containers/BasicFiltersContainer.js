@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import moment from 'moment';
+import moment from 'moment-timezone';
 
 import { PIN_STATUS_TYPES, NUMBER_OF_HISTORIES } from 'constants/companyAdmin/enums';
 import { convertEnumToDropdownOptions, isObjEmpty } from 'helpers/generic';
@@ -155,11 +155,15 @@ const mapStateToProps = ({
             fields,
             customFilters: { pins = [], templates = [] },
             filters: { pinIDs = [] }
+        },
+        companySettingsReducer: {
+            companySettings: { timeZone }
         }
     }
 }) => ({
     shouldConfirm: !isObjEmpty(fields) || pins.length !== pinIDs.length,
-    templates: templates
+    templates: templates,
+    timeZone
 });
 
 const mapDispatchToProps = {
