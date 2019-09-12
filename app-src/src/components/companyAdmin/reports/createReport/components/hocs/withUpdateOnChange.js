@@ -93,7 +93,6 @@ export default function(ProtectedComponent) {
             // simple
             return pins
                 .filter(pin => {
-                    console.log(pin.id);
                     // 2066696
                     // start date
 
@@ -240,18 +239,18 @@ export default function(ProtectedComponent) {
             const startDate = fromDateInclusive
                 ? moment
                       .tz(fromDateInclusive, timeZone.name)
-                      .utc()
                       .startOf('day')
+                      .utc()
                       .toISOString()
                 : null;
 
-            // to date needs to be the start of the next day so that we get all pins from the previous day.
+            // to date needs to be start of next day so that we get all pins from the previous day.
             const endDate = toDateInclusive
                 ? moment
                       .tz(toDateInclusive, timeZone.name)
-                      .utc()
-                      .add('days', 2)
+                      .add('days', 1)
                       .startOf('day')
+                      .utc()
                       .toISOString()
                 : null;
 
@@ -286,22 +285,23 @@ export default function(ProtectedComponent) {
             return date
                 ? moment
                       .tz(date, timeZone.name)
-                      .utc()
                       .startOf('day')
+                      .utc()
                       .toISOString()
                 : null;
         };
 
         getFilterEndDate = date => {
             const { timeZone } = this.props;
-            return date
+            const endDate = date
                 ? moment
                       .tz(date, timeZone.name)
-                      .utc()
                       .add('days', 1)
                       .startOf('day')
+                      .utc()
                       .toISOString()
                 : null;
+            return endDate;
         };
 
         getDateOfPin = date => {
@@ -313,11 +313,13 @@ export default function(ProtectedComponent) {
         };
 
         getTemplateOptions = () => {
-            return this.props.getTemplateOptions(this._getPostBody());
+            const { getTemplateOptions } = this.props;
+            return getTemplateOptions(this._getPostBody());
         };
 
         getOperativeOptions = () => {
-            return this.props.getOperativeOptions(this._getPostBody());
+            const { getOperativeOptions } = this.props;
+            return getOperativeOptions(this._getPostBody());
         };
 
         postFilters = async () => {
