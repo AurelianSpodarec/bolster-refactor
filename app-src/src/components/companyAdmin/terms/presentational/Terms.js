@@ -1917,7 +1917,7 @@ const Terms = () => (
                             During some processes, data is temporarily stored as you move from step
                             to step. This improves your experience, and data is only stored for as
                             long as is necessary for you to complete the process. All other cookies
-                            will expire in <strong>7 days</strong>.
+                            will expire <strong>in 7 days</strong>.
                         </p>
                         <p>
                             You can set your browser to refuse all or some browser cookies, or to
@@ -1951,10 +1951,14 @@ const Terms = () => (
                         </p>
                         <ul>
                             <li>
-                                <p> Internal development team Glossary. </p>
+                                <p>
+                                    Internal development team <em>Glossary</em>.{' '}
+                                </p>
                             </li>
                             <li>
-                                <p>External Development team Glossary.</p>
+                                <p>
+                                    External Development team <em>Glossary</em>.
+                                </p>
                             </li>
                             <li>
                                 <p>Specific third parties such as [Amazon Web Services].</p>
@@ -2044,25 +2048,44 @@ const Terms = () => (
                         </p>
                         <ul>
                             <li>
-                                <p> Request access to your personal data.</p>
+                                <p>
+                                    {' '}
+                                    <em>Request access to your personal data.</em>
+                                </p>
                             </li>
                             <li>
-                                <p> Request correction of your personal data.</p>
+                                <p>
+                                    {' '}
+                                    <em>Request correction of your personal data.</em>
+                                </p>
                             </li>
                             <li>
-                                <p> Request erasure of your personal data.</p>
+                                <p>
+                                    {' '}
+                                    <em>Request erasure of your personal data.</em>
+                                </p>
                             </li>
                             <li>
-                                <p> Object to processing of your personal data.</p>
+                                <p>
+                                    {' '}
+                                    <em>Object to processing of your personal data.</em>
+                                </p>
                             </li>
                             <li>
-                                <p> Request restriction of processing your personal data.</p>
+                                <p>
+                                    {' '}
+                                    <em>Request restriction of processing your personal data.</em>
+                                </p>
                             </li>
                             <li>
-                                <p>Request transfer of your personal data.</p>
+                                <p>
+                                    <em>Request transfer of your personal data.</em>
+                                </p>
                             </li>
                             <li>
-                                <p>Right to withdraw consent.</p>
+                                <p>
+                                    <em>Right to withdraw consent.</em>
+                                </p>
                             </li>
                         </ul>
                         <p>
