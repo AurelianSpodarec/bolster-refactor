@@ -38,6 +38,7 @@ const EditSettingsForm = ({
     labelTelNumber,
     labelCompanyName,
     hideOnClientList,
+    allowCompaniesToEdit,
     selectedRule,
     timeZoneOptions,
     timeZone,
@@ -47,11 +48,7 @@ const EditSettingsForm = ({
     <>
         <Form className="generic-form ize-lg-12" onSubmit={handleSubmit}>
             {/* <p>##Company Details##</p> */}
-            <Field
-                name="Company Name"
-                sizeClasses="size-lg-6 size-md-12"
-                required
-            >
+            <Field name="Company Name" sizeClasses="size-lg-6 size-md-12" required>
                 <TextInputContainer
                     value={name}
                     name="name"
@@ -60,11 +57,7 @@ const EditSettingsForm = ({
                     required
                 />
             </Field>
-            <Field
-                name="Address Line 1"
-                sizeClasses="size-lg-6 size-md-12"
-                required
-            >
+            <Field name="Address Line 1" sizeClasses="size-lg-6 size-md-12" required>
                 <TextInputContainer
                     value={addressLine1}
                     name="addressLine1"
@@ -108,11 +101,7 @@ const EditSettingsForm = ({
                     required
                 />
             </Field>
-            <Field
-                name="Telephone No."
-                sizeClasses="size-lg-6 size-md-12"
-                required
-            >
+            <Field name="Telephone No." sizeClasses="size-lg-6 size-md-12" required>
                 <TextInputContainer
                     value={telephone}
                     name="telephone"
@@ -154,7 +143,7 @@ const EditSettingsForm = ({
                 </Field>
             )}
 
-            <div>
+            <div className="size-lg-12">
                 {/* <p>##Display Settings##</p> */}
                 <Field name="Change Company Logo">
                     <FileUploadContainer
@@ -169,9 +158,7 @@ const EditSettingsForm = ({
                         <div className="size-lg-12">
                             <HuePicker
                                 color={colourCode || '#FFF'}
-                                onChangeComplete={e =>
-                                    handleInputChange('colourCode', e.hex)
-                                }
+                                onChangeComplete={e => handleInputChange('colourCode', e.hex)}
                             />
                         </div>
                     </Field>
@@ -200,7 +187,7 @@ const EditSettingsForm = ({
                     />
                 </Field>
             </div>
-            <div>
+            <div className="size-lg-12">
                 {/* <p>##Label Settings##</p> */}
                 <Field name="Use Bolster Labels">
                     <CheckboxContainer
@@ -211,10 +198,7 @@ const EditSettingsForm = ({
                 </Field>
                 {isUsingBolsterLabels && (
                     <>
-                        <Field
-                            name="Label Company Name"
-                            sizeClasses="size-lg-6 size-md-12"
-                        >
+                        <Field name="Label Company Name" sizeClasses="size-lg-6 size-md-12">
                             <TextInputContainer
                                 value={labelCompanyName}
                                 name="labelCompanyName"
@@ -222,10 +206,7 @@ const EditSettingsForm = ({
                                 handleChange={handleInputChange}
                             />
                         </Field>
-                        <Field
-                            name="Label Telephone No."
-                            sizeClasses="size-lg-6 size-md-12"
-                        >
+                        <Field name="Label Telephone No." sizeClasses="size-lg-6 size-md-12">
                             <TextInputContainer
                                 value={labelTelNumber}
                                 name="labelTelNumber"
@@ -236,13 +217,9 @@ const EditSettingsForm = ({
                     </>
                 )}
             </div>
-            <div>
+            <div className="size-lg-12">
                 {/* <p>##Template Settings##</p> */}
-                <Field
-                    name="Default Template Usage Rule"
-                    sizeClasses="size-lg-12"
-                    required
-                >
+                <Field name="Default Template Usage Rule" sizeClasses="size-lg-12" required>
                     <DropdownContainer
                         placeholder="-- select rule --"
                         name="defaultTemplateUsageRule"
@@ -254,12 +231,9 @@ const EditSettingsForm = ({
                     />
                 </Field>
             </div>
-            <div>
+            <div className="size-lg-12">
                 {/* <p>##Bolster Client List##</p> */}
-                <Field
-                    name="Hide On Client List"
-                    sizeClasses="size-lg-6 size-md-12"
-                >
+                <Field name="Hide On Client List" sizeClasses="size-lg-6 size-md-12">
                     <CheckboxContainer
                         checked={hideOnClientList}
                         handleChange={handleInputChange}
@@ -267,7 +241,16 @@ const EditSettingsForm = ({
                     />
                 </Field>
             </div>
-            <div>
+            <div className="size-lg-12">
+                <Field name="Allow companies to edit?" sizeClasses="size-lg-6 size-md-12">
+                    <CheckboxContainer
+                        checked={allowCompaniesToEdit}
+                        handleChange={handleInputChange}
+                        name="allowCompaniesToEdit"
+                    />
+                </Field>
+            </div>
+            <div className="size-lg-12">
                 <Field name="Time zone">
                     <Select
                         options={timeZoneOptions}
@@ -288,16 +271,10 @@ const EditSettingsForm = ({
                 </Field>
             </div>
             <BlockButtonWrapper>
-                <button
-                    disabled={filesUploading}
-                    onClick={handleSubmit}
-                    className="button green"
-                >
+                <button disabled={filesUploading} onClick={handleSubmit} className="button green">
                     {filesUploading ? 'Please wait...' : <>{'Confirm'}</>}
                 </button>
-                <ButtonContainer
-                    to={location.pathname.replace('/edit-settings', '')}
-                >
+                <ButtonContainer to={location.pathname.replace('/edit-settings', '')}>
                     Cancel
                 </ButtonContainer>
             </BlockButtonWrapper>
