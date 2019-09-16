@@ -5,7 +5,10 @@ import {
     ADMIN_FETCH_COMPANY_REPORTS_REQUEST,
     ADMIN_FETCH_COMPANY_REPORTS_SUCCESS,
     ADMIN_FETCH_COMPANY_REPORTS_FAILURE,
-    ADMIN_UPDATE_COMPANY_REPORTS_SORT
+    ADMIN_UPDATE_COMPANY_REPORTS_SORT,
+    ADMIN_FETCH_COMPANY_REPORTS_FULL_FAILURE,
+    ADMIN_FETCH_COMPANY_REPORTS_FULL_SUCCESS,
+    ADMIN_FETCH_COMPANY_REPORTS_FULL_REQUEST
 } from 'constants/actionTypes/companyReports';
 
 export default combineReducers({
@@ -18,9 +21,12 @@ export default combineReducers({
 function isFetchingReducer(state = false, action) {
     switch (action.type) {
         case ADMIN_FETCH_COMPANY_REPORTS_REQUEST:
+        case ADMIN_FETCH_COMPANY_REPORTS_FULL_REQUEST:
             return true;
         case ADMIN_FETCH_COMPANY_REPORTS_SUCCESS:
+        case ADMIN_FETCH_COMPANY_REPORTS_FULL_SUCCESS:
         case ADMIN_FETCH_COMPANY_REPORTS_FAILURE:
+        case ADMIN_FETCH_COMPANY_REPORTS_FULL_FAILURE:
             return false;
         default:
             return state;
@@ -30,8 +36,10 @@ function isFetchingReducer(state = false, action) {
 function errorReducer(state = null, action) {
     switch (action.type) {
         case ADMIN_FETCH_COMPANY_REPORTS_REQUEST:
+        case ADMIN_FETCH_COMPANY_REPORTS_FULL_REQUEST:
             return null;
         case ADMIN_FETCH_COMPANY_REPORTS_FAILURE:
+        case ADMIN_FETCH_COMPANY_REPORTS_FULL_FAILURE:
             return action.error;
         default:
             return state;
@@ -41,6 +49,8 @@ function errorReducer(state = null, action) {
 function companyReportsReducer(state = {}, action) {
     switch (action.type) {
         case ADMIN_FETCH_COMPANY_REPORTS_SUCCESS:
+            return { ...state, ...convertArrToObj(action.payload) };
+        case ADMIN_FETCH_COMPANY_REPORTS_FULL_SUCCESS:
             return convertArrToObj(action.payload);
         default:
             return state;
