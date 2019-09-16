@@ -10,12 +10,14 @@ import {
     FETCH_COMPANY_REPORTS_FULL_FAILURE,
     FETCH_COMPANY_REPORTS_FULL_REQUEST
 } from 'constants/actionTypes/companyReports';
+import { FETCH_STATUS } from 'constants/companyAdmin/enums';
 
 export default combineReducers({
     companyReports: companyReportsReducer,
     isFetching: isFetchingReducer,
     error: errorReducer,
-    sort: sortReducer
+    sort: sortReducer,
+    fetchStatus: fetchStatusReducer
 });
 
 function isFetchingReducer(state = false, action) {
@@ -60,6 +62,17 @@ function sortReducer(state = { sortString: 'createdOn desc' }, action) {
     switch (action.type) {
         case UPDATE_COMPANY_REPORTS_SORT:
             return updateObj(state, 'sortString', action.sortString);
+        default:
+            return state;
+    }
+}
+
+function fetchStatusReducer(state = FETCH_STATUS.NONE, action) {
+    switch (action.type) {
+        case FETCH_COMPANY_REPORTS_SUCCESS:
+            return state >= FETCH_STATUS.PARTIAL ? state : FETCH_STATUS.PARTIAL;
+        case FETCH_COMPANY_REPORTS_FULL_SUCCESS:
+            return FETCH_STATUS.FULL;
         default:
             return state;
     }

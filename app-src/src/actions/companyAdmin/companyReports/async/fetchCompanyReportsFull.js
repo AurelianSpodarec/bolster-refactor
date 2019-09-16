@@ -4,22 +4,22 @@ import { API_URL } from 'config';
 import { getHeaders } from 'helpers/api';
 
 import {
-    FETCH_COMPANY_REPORTS_REQUEST,
-    FETCH_COMPANY_REPORTS_SUCCESS,
-    FETCH_COMPANY_REPORTS_FAILURE
+    FETCH_COMPANY_REPORTS_FULL_REQUEST,
+    FETCH_COMPANY_REPORTS_FULL_SUCCESS,
+    FETCH_COMPANY_REPORTS_FULL_FAILURE
 } from 'constants/actionTypes/companyReports';
 
 export const fetchCompanyReportsFullRequest = () => ({
-    type: FETCH_COMPANY_REPORTS_REQUEST
+    type: FETCH_COMPANY_REPORTS_FULL_REQUEST
 });
 
 export const fetchCompanyReportsFullSuccess = payload => ({
-    type: FETCH_COMPANY_REPORTS_SUCCESS,
+    type: FETCH_COMPANY_REPORTS_FULL_SUCCESS,
     payload
 });
 
 export const fetchCompanyReportsFullFailure = error => ({
-    type: FETCH_COMPANY_REPORTS_FAILURE,
+    type: FETCH_COMPANY_REPORTS_FULL_FAILURE,
     error
 });
 
