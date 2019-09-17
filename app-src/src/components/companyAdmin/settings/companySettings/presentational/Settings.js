@@ -207,7 +207,7 @@ const Settings = ({ isFetching, error, companySettings: company, onMobile }) => 
                         <BlockHeading title="Access Controls" />
                         <FieldOutput
                             title="Companies allowed to edit?"
-                            description={'##Allowed##'}
+                            description={company.isEditButtonDisabled ? 'No' : 'Yes'}
                             fieldClass="no-h-padding"
                             sizeClass="size-lg-12"
                         />
