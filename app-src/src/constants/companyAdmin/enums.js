@@ -329,3 +329,9 @@ export const getEnumKey = (enumerable, num) =>
     // Object.keys(enumerable).find(val => val === num);
     // eslint-disable-next-line no-unused-vars
     (Object.entries(enumerable).find(([_, value]) => value === num) || {})[0];
+
+export const FETCH_STATUS = {
+    NONE: 1,
+    PARTIAL: 2,
+    FULL: 3
+};
