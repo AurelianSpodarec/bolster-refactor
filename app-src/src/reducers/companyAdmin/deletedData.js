@@ -123,10 +123,6 @@ function drawingsReducer(state = {}, action) {
             return {};
         case FETCH_DELETED_DRAWINGS_SUCCESS:
             return convertArrToObj(action.payload);
-        case RESTORE_DRAWING_SUCCESS:
-        case RESTORE_PIN_HISTORY_SUCCESS:
-            console.log('id', action.id);
-            return removeObjItem(state, action.id);
         default:
             return state;
     }
