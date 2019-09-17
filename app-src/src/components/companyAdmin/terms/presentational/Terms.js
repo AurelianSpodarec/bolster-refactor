@@ -22,7 +22,15 @@ const Terms = () => (
                         <p>
                             <strong>Administration Site</strong>:- the website from which the
                             Customer can access the Web Platform to manage and administer the
-                            Licenced Product, currently www.bolstersystems.com.
+                            Licenced Product, currently{' '}
+                            <a
+                                rel="noopener noreferrer"
+                                target="_blank"
+                                href="https://www.bolstersystems.com"
+                            >
+                                www.bolstersystems.com
+                            </a>
+                            .
                         </p>
                         <p>
                             <strong>Agreement</strong>:- the agreement for the purchase of the
@@ -784,9 +792,16 @@ const Terms = () => (
                                 associated media (the “<strong>App</strong>”);
                             </li>
                             <li>
-                                the web based platform software accessible through our website
-                                www.bolstersystems.com (“<strong>Website</strong>”) (the “
-                                <strong>Web Platform</strong>”); and
+                                the web based platform software accessible through our website{' '}
+                                <a
+                                    rel="noopener noreferrer"
+                                    target="_blank"
+                                    href="https://www.bolstersystems.com"
+                                >
+                                    www.bolstersystems.com
+                                </a>{' '}
+                                (“<strong>Website</strong>”) (the “<strong>Web Platform</strong>”);
+                                and
                             </li>
                             <li>
                                 all documents, text, information, data, software, executable code,
@@ -929,15 +944,21 @@ const Terms = () => (
                             or the Web Platform, whether or not it is owned by you.
                         </p>
                         <p>
-                            The terms of our privacy policy from time to time, available at
-                            www.bolstersystems.com (“<strong>Privacy Policy</strong>”) are
-                            incorporated into this EULA by reference and apply to your use of the
-                            Licensed Product. Additionally, by using the Licensed Product, you
-                            acknowledge and agree that internet transmissions are never completely
-                            private or secure. You understand that any message or information you
-                            send using the Licensed Product may be read or intercepted by others,
-                            even if there is a special notice that a particular transmission is
-                            encrypted.
+                            The terms of our privacy policy from time to time, available at{' '}
+                            <a
+                                rel="noopener noreferrer"
+                                target="_blank"
+                                href="https://www.bolstersystems.com"
+                            >
+                                www.bolstersystems.com
+                            </a>{' '}
+                            (“<strong>Privacy Policy</strong>”) are incorporated into this EULA by
+                            reference and apply to your use of the Licensed Product. Additionally,
+                            by using the Licensed Product, you acknowledge and agree that internet
+                            transmissions are never completely private or secure. You understand
+                            that any message or information you send using the Licensed Product may
+                            be read or intercepted by others, even if there is a special notice that
+                            a particular transmission is encrypted.
                         </p>
                         <p>
                             By using the Licensed Product, you consent to us collecting and using
@@ -1455,7 +1476,10 @@ const Terms = () => (
                         <p>Our full details are:</p>
                         <p>Full name of legal entity: Bolster Systems Limited</p>
                         <p>Name or title of data privacy manager: Wesley Donlon</p>
-                        <p>Email address: info@bolstersystems.com</p>
+                        <p>
+                            Email address:{' '}
+                            <a href="mailto:info@bolstersystems.com">info@bolstersystems.com</a>
+                        </p>
                         <p>
                             Postal address: 7 The Schoolhouse Second Avenue, Trafford Park,
                             Manchester, Greater Manchester M17 1DZ
@@ -1463,9 +1487,16 @@ const Terms = () => (
                         <p>
                             You have the right to make a complaint at any time to the Information
                             Commissioner's Office (ICO), the UK supervisory authority for data
-                            protection issues (www.ico.org.uk). We would, however, appreciate the
-                            chance to deal with your concerns before you approach the ICO so please
-                            contact us in the first instance.
+                            protection issues{' '}
+                            <a
+                                rel="noopener noreferrer"
+                                target="_blank"
+                                href="https://www.ico.org.uk"
+                            >
+                                (www.ico.org.uk)
+                            </a>
+                            . We would, however, appreciate the chance to deal with your concerns
+                            before you approach the ICO so please contact us in the first instance.
                         </p>
                         <h4>Changes to the privacy notice and your duty to inform us of changes</h4>
                         <p>
@@ -2164,7 +2195,7 @@ const Terms = () => (
                                 <p>Insurance: The Insurance Centre 8 China St, Lancaster LA1 1EX</p>
                             </li>
                             <li>
-                                <p>Legals: JMW Solicitors LLP 1 Byrom Place, Manchester, M3 3HG</p>
+                                <p>Legals: JMW Solicitors LLP 1 Byrom Place, Manchester, M3 3HG</p>
                             </li>
                             <li>
                                 <p>
