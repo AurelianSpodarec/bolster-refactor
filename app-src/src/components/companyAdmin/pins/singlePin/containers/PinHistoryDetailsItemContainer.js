@@ -10,7 +10,7 @@ import fetchSingleCompanyUser from 'actions/companyAdmin/userManagement/async/fe
 
 class PinHistoryDetailsItemContainer extends Component {
     render() {
-        const { history, services, drawingID, historyCount, users } = this.props;
+        const { history, services, drawingID, historyCount, users, pin } = this.props;
 
         const editedByUser = users[history.lastEditedByCompanyUserID];
         const editedByUserName = editedByUser
@@ -26,6 +26,7 @@ class PinHistoryDetailsItemContainer extends Component {
                 drawingID={drawingID}
                 editedByUserName={editedByUserName}
                 isDeleteHistory={historyCount > 1}
+                pin={pin}
             />
         );
     }
@@ -62,16 +63,21 @@ class PinHistoryDetailsItemContainer extends Component {
     };
 }
 
-const mapStateToProps = ({
-    companyAdmin: {
-        servicesReducer: { services },
-        pinHistoriesReducer: { histories },
-        companyUsersReducer: { users }
-    }
-}) => ({
+const mapStateToProps = (
+    {
+        companyAdmin: {
+            servicesReducer: { services },
+            pinHistoriesReducer: { histories },
+            companyUsersReducer: { users },
+            pinsReducer: { singlePin }
+        }
+    },
+    ownProps
+) => ({
     services,
     histories: Object.values(histories),
-    users
+    users,
+    pin: singlePin[ownProps.history.pinID]
 });
 
 const mapDispatchToProps = { showModal, hideModal, deletePinHistory, fetchSingleCompanyUser };
