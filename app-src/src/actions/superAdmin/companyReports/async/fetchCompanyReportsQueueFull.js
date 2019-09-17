@@ -27,7 +27,7 @@ export const fetchCompanyReportsFullFailure = error => ({
 export default () => dispatch => {
     dispatch(fetchCompanyReportsFullRequest());
     axios
-        .get(`${ADMIN_API_URL}/reports`, getHeaders())
+        .get(`${ADMIN_API_URL}/reports/full`, getHeaders())
         .then(({ data }) => dispatch(fetchCompanyReportsFullSuccess(data)))
         .catch(err => dispatch(fetchCompanyReportsFullFailure(err.message)));
 };
