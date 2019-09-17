@@ -12,7 +12,7 @@ const CompanyInfo = ({ company }) => (
             fieldClass="no-h-padding"
         />
 
-        {company.vatCode !== VAT_TYPES.OUTSIDEEU && (
+        {company.vatType !== VAT_TYPES.OUTSIDEEU && (
             <FieldOutput
                 title="VAT Code"
                 description={company.vatCode || 'Not provided'}
