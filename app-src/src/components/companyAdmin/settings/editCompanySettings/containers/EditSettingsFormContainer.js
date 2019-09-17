@@ -30,7 +30,6 @@ class EditSettingsFormContainer extends Component {
         labelTelNumber: null,
         labelCompanyName: null,
         hideOnClientList: false,
-        allowCompaniesToEdit: true,
         defaultTemplateUsageRule: undefined,
         initialFile: '',
         timeZone: '',
@@ -39,7 +38,8 @@ class EditSettingsFormContainer extends Component {
         vatCode: null,
         vatType: null,
         timeZoneOptions: [],
-        dateFormatOptions: []
+        dateFormatOptions: [],
+        isEditButtonDisabled: false
     };
 
     render() {

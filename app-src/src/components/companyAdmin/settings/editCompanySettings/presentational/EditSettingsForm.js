@@ -38,7 +38,7 @@ const EditSettingsForm = ({
     labelTelNumber,
     labelCompanyName,
     hideOnClientList,
-    allowCompaniesToEdit,
+    isEditButtonEnabled,
     selectedRule,
     timeZoneOptions,
     timeZone,
@@ -244,9 +244,9 @@ const EditSettingsForm = ({
             <div className="size-lg-12">
                 <Field name="Allow companies to edit?" sizeClasses="size-lg-6 size-md-12">
                     <CheckboxContainer
-                        checked={allowCompaniesToEdit}
+                        checked={isEditButtonEnabled}
                         handleChange={handleInputChange}
-                        name="allowCompaniesToEdit"
+                        name="isEditButtonEnabled"
                     />
                 </Field>
             </div>
