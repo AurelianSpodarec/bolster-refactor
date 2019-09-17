@@ -45,6 +45,7 @@ import approvedCompaniesReducer from './approvedCompanies';
 import hierarchyReducer from './hierarchy';
 import generatePinReportReducer from './generatePinReport';
 import userDrawingsReducer from './userDrawings';
+import deletedDataReducer from './deletedData';
 
 export default combineReducers({
     addPinDropdownOptions,
@@ -61,6 +62,7 @@ export default combineReducers({
     creditsReducer,
     creditLogsReducer,
     dashboardReducer,
+    deletedDataReducer,
     documentsReducer,
     drawingsReducer,
     dropdownOptionsReducer,

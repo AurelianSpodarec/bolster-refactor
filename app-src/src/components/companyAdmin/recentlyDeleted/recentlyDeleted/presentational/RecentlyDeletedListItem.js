@@ -1,25 +1,26 @@
 import React from 'react';
 
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
+import { DELETED_DATA_TYPE } from 'constants/companyAdmin/enums';
 
-const RecentlyDeletedListItem = ({ item, onMobile, headers }) => (
+const RecentlyDeletedListItem = ({ item, onMobile, headers, handleRestore }) => (
     <tr key={item.id}>
         <td>
             {' '}
             {onMobile && <span className="mobile-table-heading">{headers[0]}</span>}
-            {'##Lorem ipsum##'}
+            {item.name}
         </td>
         <td>
             {' '}
             {onMobile && <span className="mobile-table-heading">{headers[1]}</span>}
-            {'##Lorem ipsum##'}
+            {item.type === DELETED_DATA_TYPE.DRAWING ? 'Drawing' : 'Pin History'}
         </td>
         <td>
             {' '}
-            {onMobile && <span className="mobile-table-heading">{headers[4]}</span>}
+            {onMobile && <span className="mobile-table-heading">{headers[2]}</span>}
             <BlockButtonWrapper>
-                <button className="button green">
-                    <i className="fal fa-times" /> Restore
+                <button className="button green" onClick={() => handleRestore(item.id, item.type)}>
+                    <i className="fal fa-sync" /> Restore
                 </button>
             </BlockButtonWrapper>
         </td>

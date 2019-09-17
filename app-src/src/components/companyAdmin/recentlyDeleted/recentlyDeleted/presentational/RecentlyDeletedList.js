@@ -5,7 +5,7 @@ import RecentlyDeletedListItemContainer from '../containers/RecentlyDeletedListI
 const RecentlyDeletedList = ({ recentlyDeleted, colCount, headers }) => {
     return recentlyDeleted.map(item => (
         <RecentlyDeletedListItemContainer
-            key={item.id}
+            key={`${item.id}_${item.name}`}
             item={item}
             colCount={colCount}
             headers={headers}

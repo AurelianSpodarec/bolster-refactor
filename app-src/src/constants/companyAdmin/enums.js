@@ -296,8 +296,7 @@ export const FLOORPLAN_STATES = {
 };
 
 export const FLOORPLAN_STATE_MESSAGES = {
-    '-100':
-        'An error occurred while uploading your floorplan, please try again.',
+    '-100': 'An error occurred while uploading your floorplan, please try again.',
     '-1': 'Update failed. Retrying...',
     0: 'Uploading floorplan...',
     1: 'Uploading floorplan...',
@@ -322,6 +321,11 @@ export const COMPANY_TYPES = {
     'Company - Active Subscription': 1,
     'Company - Expired Subscription': 2,
     'Client Access': 3
+};
+
+export const DELETED_DATA_TYPE = {
+    DRAWING: 1,
+    PIN_HISORY: 2
 };
 
 export const getEnumKey = (enumerable, num) =>
