@@ -3,6 +3,8 @@ import Table from 'components/shared/generic/tables/presentational/Table';
 import CompanyReportsListItem from './CompanyReportsListItem';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import CompanyReportsFiltersContainer from '../containers/CompanyReportsFiltersContainer';
+import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
+import { FETCH_STATUS } from 'constants/companyAdmin/enums';
 
 const CompanyReportsTable = ({
     isFetching,
@@ -10,7 +12,9 @@ const CompanyReportsTable = ({
     companyReports,
     headers,
     onMobile,
-    retryCompanyReport
+    retryCompanyReport,
+    fetchStatus,
+    fetchCompanyReportsQueueFull
 }) => {
     return (
         <>
@@ -27,7 +31,11 @@ const CompanyReportsTable = ({
                     isFetching={isFetching}
                     error={error}
                     noData={!companyReports.length}
-                    noDataMessage="No company reports to display."
+                    noDataMessage={
+                        fetchStatus === FETCH_STATUS.FULL
+                            ? 'No company reports to display.'
+                            : 'No company reports from the last 7 days to display.'
+                    }
                 >
                     {companyReports.map(queueItem => (
                         <CompanyReportsListItem
@@ -40,6 +48,11 @@ const CompanyReportsTable = ({
                     ))}
                 </Table>
             </BlockContainer>
+            {!isFetching && fetchStatus === FETCH_STATUS.PARTIAL ? (
+                <ButtonContainer handleClick={fetchCompanyReportsQueueFull}>
+                    Fetch rest of reports
+                </ButtonContainer>
+            ) : null}
         </>
     );
 };

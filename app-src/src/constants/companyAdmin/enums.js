@@ -296,8 +296,7 @@ export const FLOORPLAN_STATES = {
 };
 
 export const FLOORPLAN_STATE_MESSAGES = {
-    '-100':
-        'An error occurred while uploading your floorplan, please try again.',
+    '-100': 'An error occurred while uploading your floorplan, please try again.',
     '-1': 'Update failed. Retrying...',
     0: 'Uploading floorplan...',
     1: 'Uploading floorplan...',
@@ -327,3 +326,9 @@ export const COMPANY_TYPES = {
 export const getEnumKey = (enumerable, num) =>
     // eslint-disable-next-line no-unused-vars
     (Object.entries(enumerable).find(([_, value]) => value === num) || {})[0];
+
+export const FETCH_STATUS = {
+    NONE: 1,
+    PARTIAL: 2,
+    FULL: 3
+};
