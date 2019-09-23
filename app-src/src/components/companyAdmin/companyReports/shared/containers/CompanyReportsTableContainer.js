@@ -4,6 +4,7 @@ import CompanyReportsTable from '../presentational/CompanyReportsTable';
 import { sortArrayByKeyAndOrder } from 'helpers/generic';
 import retryReport from 'actions/companyAdmin/reports/async/retryReport';
 import fetchCompanyReports from 'actions/companyAdmin/companyReports/async/fetchCompanyReports';
+import fetchCompanyReportsFull from 'actions/companyAdmin/companyReports/async/fetchCompanyReportsFull';
 
 const CompanyReportsTableContainer = ({
     isFetching,
@@ -12,24 +13,20 @@ const CompanyReportsTableContainer = ({
     sortString = '',
     onMobile,
     retryReport,
-    fetchCompanyReports
+    fetchCompanyReports,
+    fetchCompanyReportsFull,
+    fetchStatus
 }) => {
     return (
         <CompanyReportsTable
-            headers={[
-                'Name',
-                'Created By',
-                'Type',
-                'Status',
-                'Created On',
-                'Completed on',
-                ''
-            ]}
+            headers={['Name', 'Created By', 'Type', 'Status', 'Created On', 'Completed on', '']}
             isFetching={isFetching}
             error={error}
             companyReports={_getSortedQueue()}
             onMobile={onMobile}
             retryCompanyReport={id => retryCompanyReport(id)}
+            fetchCompanyReportsFull={fetchCompanyReportsFull}
+            fetchStatus={fetchStatus}
         />
     );
 
@@ -49,7 +46,8 @@ const mapStateToProps = ({
             companyReports,
             error,
             isFetching,
-            sort: { sortString }
+            sort: { sortString },
+            fetchStatus
         }
     },
     shared: {
@@ -60,10 +58,12 @@ const mapStateToProps = ({
     error,
     isFetching,
     sortString,
-    onMobile
+    onMobile,
+    fetchStatus
 });
 
-const mapDispatchToProps = { retryReport, fetchCompanyReports };
+const mapDispatchToProps = { retryReport, fetchCompanyReports, fetchCompanyReportsFull };
+
 export default connect(
     mapStateToProps,
     mapDispatchToProps
