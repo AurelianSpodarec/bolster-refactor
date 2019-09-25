@@ -5,6 +5,7 @@ import TemplatesTableContainer from '../containers/TemplatesTableContainer';
 import InvoicesTableContainer from '../containers/InvoicesTableContainer';
 import SubscriptionStatusContainer from '../../subscription/containers/SubscriptionStatusContainer';
 import CompanyUsersTableContainer from '../containers/CompanyUsersTableContainer';
+import CompanyInfoContainer from '../containers/CompanyInfoContainer';
 
 const SingleCompany = () => (
     <>
@@ -16,6 +17,7 @@ const SingleCompany = () => (
             <CompanyUsersTableContainer />
         </div>
         <div className="size-lg-4">
+            <CompanyInfoContainer />
             <SubscriptionStatusContainer />
             <TemplatesTableContainer />
         </div>
