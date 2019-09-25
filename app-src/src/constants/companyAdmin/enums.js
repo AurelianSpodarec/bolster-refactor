@@ -324,8 +324,11 @@ export const COMPANY_TYPES = {
 };
 
 export const DELETED_DATA_TYPE = {
-    DRAWING: 1,
-    PIN_HISORY: 2
+    drawing: 'Drawing',
+    floor: 'Floor',
+    building: 'Building',
+    site: 'Site',
+    pinHistory: 'Pin History'
 };
 
 export const getEnumKey = (enumerable, num) =>

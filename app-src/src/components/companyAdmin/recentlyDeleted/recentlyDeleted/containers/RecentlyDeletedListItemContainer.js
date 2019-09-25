@@ -3,6 +3,9 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 import restoreDrawing from 'actions/companyAdmin/drawings/async/restoreDrawing';
+import restoreFloor from 'actions/companyAdmin/floors/async/restoreFloor';
+import restoreBuilding from 'actions/companyAdmin/buildings/async/restoreBuilding';
+import restoreSite from 'actions/companyAdmin/sites/async/restoreSite';
 import restorePinHistory from 'actions/companyAdmin/pins/async/restorePinHistory';
 
 import RecentlyDeletedListItem from '../presentational/RecentlyDeletedListItem';
@@ -10,7 +13,7 @@ import RecentlyDeletedListItem from '../presentational/RecentlyDeletedListItem';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { CONFIRM_SUBMIT, ERROR_MODAL } from 'constants/shared/modalTypes';
-import { DELETED_DATA_TYPE } from 'constants/companyAdmin/enums';
+// import { DELETED_DATA_TYPE } from 'constants/companyAdmin/enums';
 
 class RecentlyDeletedListItemContainer extends Component {
     render() {
@@ -43,12 +46,27 @@ class RecentlyDeletedListItemContainer extends Component {
     };
 
     handleRestore = (id, type) => {
-        const { showModal, hideModal, restoreDrawing, restorePinHistory } = this.props;
+        const {
+            showModal,
+            hideModal,
+            restoreDrawing,
+            restoreFloor,
+            restoreBuilding,
+            restoreSite,
+            restorePinHistory
+        } = this.props;
 
         const message = 'Are you sure you would like to restore this data?';
+
         const handleSubmit = () => {
-            if (type === DELETED_DATA_TYPE.DRAWING) {
+            if (type === 'drawing') {
                 restoreDrawing(id);
+            } else if (type === 'floor') {
+                restoreFloor(id);
+            } else if (type === 'building') {
+                restoreBuilding(id);
+            } else if (type === 'site') {
+                restoreSite(id);
             } else {
                 restorePinHistory(id);
             }
@@ -73,6 +91,9 @@ const mapDispatchToProps = {
     hideModal,
     showModal,
     restoreDrawing,
+    restoreFloor,
+    restoreBuilding,
+    restoreSite,
     restorePinHistory
 };
 

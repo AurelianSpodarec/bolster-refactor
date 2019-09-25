@@ -8,18 +8,21 @@ const RecentlyDeletedListItem = ({ item, onMobile, headers, handleRestore }) => 
         <td>
             {' '}
             {onMobile && <span className="mobile-table-heading">{headers[0]}</span>}
-            {item.name}
+            {item.fullName}
         </td>
         <td>
             {' '}
             {onMobile && <span className="mobile-table-heading">{headers[1]}</span>}
-            {item.type === DELETED_DATA_TYPE.DRAWING ? 'Drawing' : 'Pin History'}
+            {DELETED_DATA_TYPE[item.hierarchyName]}
         </td>
         <td>
             {' '}
             {onMobile && <span className="mobile-table-heading">{headers[2]}</span>}
             <BlockButtonWrapper>
-                <button className="button green" onClick={() => handleRestore(item.id, item.type)}>
+                <button
+                    className="button green"
+                    onClick={() => handleRestore(item.id, item.hierarchyName)}
+                >
                     <i className="fal fa-sync" /> Restore
                 </button>
             </BlockButtonWrapper>

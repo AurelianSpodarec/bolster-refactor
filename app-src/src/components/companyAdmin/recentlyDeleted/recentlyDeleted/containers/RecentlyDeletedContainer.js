@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 // import fetchDeletedPinHistories from 'actions/companyAdmin/pins/async/fetchDeletedPinHistories';
 
 import RecentlyDeleted from '../presentational/RecentlyDeleted';
-import fetchRecentlyDeleted from 'actions/companyAdmin/recentlyDeleted/fetchRecentlyDeleted';
+import fetchRecentlyDeleted from 'actions/companyAdmin/recentlyDeleted/async/fetchRecentlyDeleted';
 
 class RecentlyDeletedContainer extends Component {
     render() {
