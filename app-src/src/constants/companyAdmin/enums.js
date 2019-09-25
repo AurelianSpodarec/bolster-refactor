@@ -233,14 +233,18 @@ export const SORT_BY_OPTIONS = {
     CREATED_ON_ASC: 1,
     CREATED_ON_DESC: 2,
     PIN_NO_ASC: 3,
-    PIN_NO_DESC: 4
+    PIN_NO_DESC: 4,
+    DRAWING_ASC: 5,
+    DRAWING_DESC: 6
 };
 
 export const SORT_BY_OPTIONS_TEXT = {
     1: 'Date Created (ascending)',
     2: 'Date Created (descending)',
     3: 'Pin Number (ascending)',
-    4: 'Pin Number (descending)'
+    4: 'Pin Number (descending)',
+    5: 'Site/Building/Floor/Drawing (ascending)',
+    6: 'Site/Building/Floor/Drawing (descending)'
 };
 
 export const LAYOUT_OPTIONS = {
