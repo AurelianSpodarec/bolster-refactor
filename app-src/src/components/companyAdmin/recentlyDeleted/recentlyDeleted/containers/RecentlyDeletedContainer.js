@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import fetchDeletedDrawings from 'actions/companyAdmin/drawings/async/fetchDeletedDrawings';
-import fetchDeletedPinHistories from 'actions/companyAdmin/pins/async/fetchDeletedPinHistories';
+// import fetchDeletedDrawings from 'actions/companyAdmin/drawings/async/fetchDeletedDrawings';
+// import fetchDeletedPinHistories from 'actions/companyAdmin/pins/async/fetchDeletedPinHistories';
 
 import RecentlyDeleted from '../presentational/RecentlyDeleted';
+import fetchRecentlyDeleted from 'actions/companyAdmin/recentlyDeleted/fetchRecentlyDeleted';
 
 class RecentlyDeletedContainer extends Component {
     render() {
@@ -12,16 +13,18 @@ class RecentlyDeletedContainer extends Component {
     }
 
     componentDidMount = () => {
-        const { fetchDeletedDrawings, fetchDeletedPinHistories } = this.props;
+        const { fetchRecentlyDeleted } = this.props;
 
-        fetchDeletedDrawings();
-        fetchDeletedPinHistories();
+        fetchRecentlyDeleted();
+        // fetchDeletedDrawings();
+        // fetchDeletedPinHistories();
     };
 }
 
 const mapDispatchToProps = {
-    fetchDeletedDrawings,
-    fetchDeletedPinHistories
+    fetchRecentlyDeleted
+    // fetchDeletedDrawings,
+    // fetchDeletedPinHistories
 };
 
 export default connect(

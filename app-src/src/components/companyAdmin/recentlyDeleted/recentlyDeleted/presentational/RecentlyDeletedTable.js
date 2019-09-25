@@ -5,7 +5,7 @@ import BlockContainer from 'components/shared/generic/block/containers/BlockCont
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import RecentlyDeletedList from './RecentlyDeletedList';
 
-const AllClientsTable = ({ headers, recentlyDeleted, isFetching, error }) => (
+const RecentlyDeletedTable = ({ headers, recentlyDeleted, isFetching, error }) => (
     <BlockContainer>
         <BlockHeading title="Deleted data" />
         <Table
@@ -25,4 +25,4 @@ const AllClientsTable = ({ headers, recentlyDeleted, isFetching, error }) => (
     </BlockContainer>
 );
 
-export default AllClientsTable;
+export default RecentlyDeletedTable;
