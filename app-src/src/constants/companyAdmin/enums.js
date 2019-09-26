@@ -328,6 +328,14 @@ export const COMPANY_TYPES = {
     'Client Access': 3
 };
 
+export const DELETED_DATA_TYPE = {
+    drawing: 'Drawing',
+    floor: 'Floor',
+    building: 'Building',
+    site: 'Site',
+    pinHistory: 'Pin History'
+};
+
 export const getEnumKey = (enumerable, num) =>
     // ? faster?
     // Object.keys(enumerable).find(val => val === num);

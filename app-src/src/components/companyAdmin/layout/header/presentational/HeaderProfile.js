@@ -17,10 +17,7 @@ const HeaderProfile = ({
     <div className="profile" ref={updateNode}>
         <div className="user" onClick={handleClick}>
             {profile.profileImageS3Key ? (
-                <img
-                    alt="profile"
-                    src={`${FILE_STORAGE_URL}/${profile.profileImageS3Key}`}
-                />
+                <img alt="profile" src={`${FILE_STORAGE_URL}/${profile.profileImageS3Key}`} />
             ) : (
                 <img src={NoProfilePic} alt="generic profile" />
             )}
@@ -28,8 +25,7 @@ const HeaderProfile = ({
             <div className="text">
                 <p>{`${profile.firstName} ${profile.lastName}`}</p>
                 <span className="email">
-                    {profile.email}{' '}
-                    {/* todo: ##  impersonation needs stling ## */}
+                    {profile.email} {/* todo: ##  impersonation needs stling ## */}
                     {isImpersonating ? `(impersonating ${companyName})` : ''}
                 </span>
             </div>
@@ -80,6 +76,14 @@ const HeaderProfile = ({
                     </Link>
                 </>
             )}
+
+            <Link to="/company/recently-deleted" className="item">
+                <i className="far fa-trash fa-fw icon" />
+
+                <span className="item-text">Recently Deleted</span>
+
+                <i className="icon fas fa-chevron-right right" />
+            </Link>
 
             <Link onClick={logout} to="#" className="item">
                 <i className="icon far fa-sign-out fa-fw" />
