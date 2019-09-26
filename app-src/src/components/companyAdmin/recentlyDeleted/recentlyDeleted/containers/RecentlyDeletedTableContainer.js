@@ -22,17 +22,6 @@ class RecentlyDeletedTableContainer extends Component {
 
         const itemsArray = [...drawings, ...floors, ...buildings, ...sites, ...pinHistories];
 
-        console.warn(itemsArray);
-
-        // const drawingsArr = drawings.map(({ id, name }) => ({ id, name, type: 1 }));
-        // const pinHistoriesArr = pinHistories.map(({ id, drawingName, pinCode }) => ({
-        //     id,
-        //     name: `${drawingName} - ${pinCode}`,
-        //     type: 2
-        // }));
-
-        // const arr = drawingsArr.concat(pinHistoriesArr);
-
         return itemsArray;
     };
 }
