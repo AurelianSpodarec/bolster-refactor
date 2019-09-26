@@ -1,53 +1,46 @@
-import React, { Component } from 'react';
+import React, { Component, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
-import withUpdateOnChange from '../hocs/withUpdateOnChange';
-import fetchSingleFloor from 'actions/companyAdmin/floors/async/fetchSingleFloor';
-import fetchSingleBuilding from 'actions/companyAdmin/buildings/async/fetchSingleBuilding';
-import fetchSingleSite from 'actions/companyAdmin/sites/async/fetchSingleSite';
-import fetchSingleDrawing from 'actions/companyAdmin/drawings/async/fetchSingleDrawing';
+import DrawingPicker from '../presentational/DrawingPicker';
 
-class DrawingPickerContainer extends Component {
-    render() {
-        return <DrawingPicker />;
+import withUpdateOnChange from '../hocs/withUpdateOnChange';
+
+const DrawingPickerContainer = ({ siteID, buildingID, floorID, drawings }) => {
+    function availableDrawings() {
+        const allDrawings = Object.values(drawings);
+
+        if (siteID) {
+            return allDrawings.filter(drawing => drawing.siteID.toString() === siteID);
+        }
+        if (buildingID) {
+            return allDrawings.filter(drawing => drawing.buildingID.toString() === buildingID);
+        }
+        if (floorID) {
+            return allDrawings.filter(drawing => drawing.floorID.toString() === floorID);
+        }
+
+        return [];
     }
-}
+
+    return <DrawingPicker drawings={availableDrawings()} />;
+};
 
 //get each drawing for each level
 const mapStateToProps = ({
     companyAdmin: {
-        sitesReducer,
-        buildingsReducer,
-        floorsReducer,
-        drawingsReducer,
+        sitesReducer: { sites },
+        drawingsReducer: { drawings },
         reportsReducer: {
             filters: { siteID, floorID, buildingID }
         }
     }
 }) => ({
     siteID,
+    sites,
     floorID,
     buildingID,
-    isFetching:
-        sitesReducer.isFetching ||
-        buildingsReducer.isFetching ||
-        floorsReducer.isFetching ||
-        drawingsReducer.isFetching
+    drawings
 });
 
-const mapDispatchToProps = {
-    fetchSingleDrawing,
-    fetchSingleFloor,
-    fetchSingleBuilding,
-    fetchSingleSite
-};
-
-export default withRouter(
-    withUpdateOnChange(
-        connect(
-            mapStateToProps,
-            mapDispatchToProps
-        )(DrawingPickerContainer)
-    )
-);
+export default withRouter(withUpdateOnChange(connect(mapStateToProps)(DrawingPickerContainer)));
