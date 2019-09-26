@@ -12,9 +12,9 @@ export const restorePinHistoryRequest = () => ({
     type: RESTORE_PIN_HISTORY_REQUEST
 });
 
-export const restorePinHistorySuccess = payload => ({
+export const restorePinHistorySuccess = id => ({
     type: RESTORE_PIN_HISTORY_SUCCESS,
-    payload
+    id
 });
 
 export const restorePinHistoryFailure = error => ({
@@ -27,6 +27,6 @@ export default pinHistoryID => dispatch => {
 
     return axios
         .delete(`${API_URL}/pins/histories/${pinHistoryID}?undo=true`, getHeaders())
-        .then(({ data }) => dispatch(restorePinHistorySuccess(data)))
+        .then(() => dispatch(restorePinHistorySuccess(pinHistoryID)))
         .catch(error => dispatch(restorePinHistoryFailure(error)));
 };
