@@ -259,7 +259,8 @@ export const PARENTAL_TYPES = {
     CHILD_COMPANY: 3
 };
 
-// adding new dropdown options to these two enum objects will dynamically add a new page for that option. The singular name is for the buttons
+/*  adding new dropdown options to these two enum objects
+    will dynamically add a new page for that option. */
 export const DROPDOWN_OPTIONS = {
     1: { name: 'FR Ratings', link: 'fr-ratings', singular: 'FR Rating' },
     2: { name: 'Item Types', link: 'item-types', singular: 'Item Type' },
@@ -332,5 +333,13 @@ export const DELETED_DATA_TYPE = {
 };
 
 export const getEnumKey = (enumerable, num) =>
+    // ? faster?
+    // Object.keys(enumerable).find(val => val === num);
     // eslint-disable-next-line no-unused-vars
     (Object.entries(enumerable).find(([_, value]) => value === num) || {})[0];
+
+export const FETCH_STATUS = {
+    NONE: 1,
+    PARTIAL: 2,
+    FULL: 3
+};

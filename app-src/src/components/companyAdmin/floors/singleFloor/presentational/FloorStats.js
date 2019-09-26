@@ -20,32 +20,24 @@ const FloorStats = ({
             sizeClasses="size-lg-6 size-md-12"
             onMobile={onMobile}
         />
-        {floor.accessType === ACCESS_TYPES_VALUES.OWNER && (
-            <div className="button-container">
-                <button
-                    className="button red"
-                    type="button"
-                    onClick={handleDelete}
-                >
-                    <i className="far fa-trash-alt fa-fw" /> Delete
-                </button>
-                <button
-                    className="button yellow"
-                    onClick={handleEditFloorModal}
-                >
-                    <i className="far fa-pencil fa-fw" /> Edit
-                </button>
 
-                <button
-                    className="button blue"
-                    onClick={handleArchive}
-                    type="button"
-                >
-                    <i className="fa fa-archive" />
-                    {floor.isArchived ? 'Un-Archive' : 'Archive'}
-                </button>
-            </div>
-        )}
+        <div className="button-container">
+            {floor.accessType === ACCESS_TYPES_VALUES.OWNER && (
+                <>
+                    <button className="button red" type="button" onClick={handleDelete}>
+                        <i className="far fa-trash-alt fa-fw" /> Delete
+                    </button>
+                    <button className="button yellow" onClick={handleEditFloorModal}>
+                        <i className="far fa-pencil fa-fw" /> Edit
+                    </button>
+                </>
+            )}
+
+            <button className="button blue" onClick={handleArchive} type="button">
+                <i className="fa fa-archive" />
+                {floor.isArchived ? 'Un-Archive' : 'Archive'}
+            </button>
+        </div>
     </div>
 );
 
