@@ -20,14 +20,13 @@ const RecentlyDeletedListItem = ({ item, onMobile, headers, handleRestore }) => 
         <td>
             {' '}
             {onMobile && <span className="mobile-table-heading">{headers[2]}</span>}
-            {'##date deleted##'}
-            {/* <DateTimeContainer date={item.deletedOn} /> */}
+            {item.deletedOn ? <DateTimeContainer date={item.deletedOn} /> : 'Not available'}
         </td>
         <td>
             {' '}
             {onMobile && <span className="mobile-table-heading">{headers[2]}</span>}
-            {'##deleted by##'}
-            {/* {item.deletedBy} */}
+            {item.deletedByCompanyUserName ? item.deletedByCompanyUserName : 'Not available'}
+            {!!item.deletedByCompanyName && ` (${item.deletedByCompanyName})`}
         </td>
         <td>
             {' '}
