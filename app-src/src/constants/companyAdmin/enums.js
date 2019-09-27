@@ -341,6 +341,7 @@ export const DELETED_DATA_TYPE = {
     floor: 'Floor',
     building: 'Building',
     site: 'Site',
+    users: 'User',
     pinHistory: 'Pin History'
 };
 

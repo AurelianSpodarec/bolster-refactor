@@ -18,9 +18,16 @@ class RecentlyDeletedTableContainer extends Component {
     }
 
     _getDeletedItems = () => {
-        const { drawings, floors, buildings, sites, pinHistories } = this.props;
+        const { drawings, floors, buildings, sites, users, pinHistories } = this.props;
 
-        const itemsArray = [...drawings, ...floors, ...buildings, ...sites, ...pinHistories];
+        const itemsArray = [
+            ...drawings,
+            ...floors,
+            ...buildings,
+            ...sites,
+            ...users,
+            ...pinHistories
+        ];
 
         return itemsArray;
     };
@@ -33,6 +40,7 @@ const mapStateToProps = ({
             floors,
             buildings,
             sites,
+            users,
             pinHistories,
             isFetchingData,
             error
@@ -43,6 +51,7 @@ const mapStateToProps = ({
     floors: Object.values(floors) || [],
     buildings: Object.values(buildings) || [],
     sites: Object.values(sites) || [],
+    users: Object.values(users) || [],
     pinHistories: Object.values(pinHistories) || [],
     isFetchingData,
     error

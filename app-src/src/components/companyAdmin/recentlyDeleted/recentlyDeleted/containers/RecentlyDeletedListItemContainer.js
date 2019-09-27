@@ -7,13 +7,13 @@ import restoreFloor from 'actions/companyAdmin/floors/async/restoreFloor';
 import restoreBuilding from 'actions/companyAdmin/buildings/async/restoreBuilding';
 import restoreSite from 'actions/companyAdmin/sites/async/restoreSite';
 import restorePinHistory from 'actions/companyAdmin/pins/async/restorePinHistory';
+import restoreUser from 'actions/companyAdmin/userManagement/async/restoreUser';
 
 import RecentlyDeletedListItem from '../presentational/RecentlyDeletedListItem';
 
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { CONFIRM_SUBMIT, ERROR_MODAL } from 'constants/shared/modalTypes';
-// import { DELETED_DATA_TYPE } from 'constants/companyAdmin/enums';
 
 class RecentlyDeletedListItemContainer extends Component {
     render() {
@@ -53,6 +53,7 @@ class RecentlyDeletedListItemContainer extends Component {
             restoreFloor,
             restoreBuilding,
             restoreSite,
+            restoreUser,
             restorePinHistory
         } = this.props;
 
@@ -67,6 +68,8 @@ class RecentlyDeletedListItemContainer extends Component {
                 restoreBuilding(id);
             } else if (type === 'site') {
                 restoreSite(id);
+            } else if (type === 'users') {
+                restoreUser(id);
             } else {
                 restorePinHistory(id);
             }
@@ -94,6 +97,7 @@ const mapDispatchToProps = {
     restoreFloor,
     restoreBuilding,
     restoreSite,
+    restoreUser,
     restorePinHistory
 };
 
