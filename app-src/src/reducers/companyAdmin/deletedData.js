@@ -14,6 +14,9 @@ import {
     RESTORE_SITE_REQUEST,
     RESTORE_SITE_SUCCESS,
     RESTORE_SITE_FAILURE,
+    RESTORE_OPERATIVE_REQUEST,
+    RESTORE_OPERATIVE_SUCCESS,
+    RESTORE_OPERATIVE_FAILURE,
     RESTORE_PIN_HISTORY_REQUEST,
     RESTORE_PIN_HISTORY_SUCCESS,
     RESTORE_PIN_HISTORY_FAILURE,
@@ -27,6 +30,7 @@ export default combineReducers({
     floors: floorsReducer,
     buildings: buildingsReducer,
     sites: sitesReducer,
+    operatives: operativesReducer,
     pinHistories: pinHistoriesReducer,
     isFetchingData: isFetchingDataReducer,
     error: errorReducer,
@@ -54,6 +58,7 @@ function isPostingReducer(state = false, action) {
         case RESTORE_FLOOR_REQUEST:
         case RESTORE_BUILDING_REQUEST:
         case RESTORE_SITE_REQUEST:
+        case RESTORE_OPERATIVE_REQUEST:
         case RESTORE_PIN_HISTORY_REQUEST:
             return true;
         case RESTORE_DRAWING_SUCCESS:
@@ -64,6 +69,8 @@ function isPostingReducer(state = false, action) {
         case RESTORE_BUILDING_FAILURE:
         case RESTORE_SITE_SUCCESS:
         case RESTORE_SITE_FAILURE:
+        case RESTORE_OPERATIVE_SUCCESS:
+        case RESTORE_OPERATIVE_FAILURE:
         case RESTORE_PIN_HISTORY_SUCCESS:
         case RESTORE_PIN_HISTORY_FAILURE:
             return false;
@@ -78,12 +85,14 @@ function postSuccessReducer(state = false, action) {
         case RESTORE_FLOOR_REQUEST:
         case RESTORE_BUILDING_REQUEST:
         case RESTORE_SITE_REQUEST:
+        case RESTORE_OPERATIVE_REQUEST:
         case RESTORE_PIN_HISTORY_REQUEST:
             return false;
         case RESTORE_DRAWING_SUCCESS:
         case RESTORE_FLOOR_SUCCESS:
         case RESTORE_BUILDING_SUCCESS:
         case RESTORE_SITE_SUCCESS:
+        case RESTORE_OPERATIVE_SUCCESS:
         case RESTORE_PIN_HISTORY_SUCCESS:
             return true;
         default:
@@ -97,12 +106,14 @@ function postFailureReducer(state = false, action) {
         case RESTORE_FLOOR_REQUEST:
         case RESTORE_BUILDING_REQUEST:
         case RESTORE_SITE_REQUEST:
+        case RESTORE_OPERATIVE_REQUEST:
         case RESTORE_PIN_HISTORY_REQUEST:
             return false;
         case RESTORE_DRAWING_FAILURE:
         case RESTORE_FLOOR_FAILURE:
         case RESTORE_BUILDING_FAILURE:
         case RESTORE_SITE_FAILURE:
+        case RESTORE_OPERATIVE_FAILURE:
         case RESTORE_PIN_HISTORY_FAILURE:
             return true;
         default:
@@ -127,12 +138,14 @@ function postErrorReducer(state = null, action) {
         case RESTORE_FLOOR_REQUEST:
         case RESTORE_BUILDING_REQUEST:
         case RESTORE_SITE_REQUEST:
+        case RESTORE_OPERATIVE_REQUEST:
         case RESTORE_PIN_HISTORY_REQUEST:
             return null;
         case RESTORE_DRAWING_FAILURE:
         case RESTORE_FLOOR_FAILURE:
         case RESTORE_BUILDING_FAILURE:
         case RESTORE_SITE_FAILURE:
+        case RESTORE_OPERATIVE_FAILURE:
         case RESTORE_PIN_HISTORY_FAILURE:
             return action.error;
         default:
@@ -186,6 +199,19 @@ function sitesReducer(state = {}, action) {
         case FETCH_RECENTLY_DELETED_SUCCESS:
             return convertArrToObj(action.payload.sites);
         case RESTORE_SITE_SUCCESS:
+            return removeObjItem(state, action.id);
+        default:
+            return state;
+    }
+}
+
+function operativesReducer(state = {}, action) {
+    switch (action.type) {
+        case FETCH_RECENTLY_DELETED_REQUEST:
+            return {};
+        case FETCH_RECENTLY_DELETED_SUCCESS:
+            return convertArrToObj(action.payload.operatives);
+        case RESTORE_OPERATIVE_SUCCESS:
             return removeObjItem(state, action.id);
         default:
             return state;
