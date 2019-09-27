@@ -17,7 +17,8 @@ const PieChart = ({
     hierarchyType,
     sizeClasses = 'size-lg-6',
     wTitle = true,
-    onMobile
+    onMobile,
+    isFiltered
     // style
 }) => {
     const isStatsEmpty = Object.values(stats.statuses).every(stat => stat === 0);
@@ -41,7 +42,12 @@ const PieChart = ({
 
     return (
         <div className={`history ${sizeClasses}`}>
-            {wTitle && <h4 className="heading heading-3 size-lg-12">Latest Pin Histories</h4>}
+            {wTitle && (
+                <h4 className="heading heading-3 size-lg-12">
+                    Latest Pin Histories
+                    {isFiltered && <span className="filtered-flag"> - filtered</span>}
+                </h4>
+            )}
 
             {isStatsEmpty ? (
                 <p className="no-data size-lg-12">
