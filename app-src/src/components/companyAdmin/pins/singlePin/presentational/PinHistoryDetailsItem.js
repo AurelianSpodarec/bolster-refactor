@@ -51,32 +51,22 @@ const PinHistoryDetailsItem = ({
             description={editedByUserName || 'N/A'}
             sizeClass="size-lg-3 size-md-12"
         />
-        {/* TODO : restore the conditional render of these once the fields are available */}
-        {/* {!!history.deletedOn && !!history.deletedBy && ( */}
-        <>
-            {/* <FieldOutput
+
+        {!!history.restoredOn && (
+            <>
+                <FieldOutput
                     title="Date Restored"
                     description={<DateTimeContainer date={history.restoredOn} /> || 'N/A'}
                     sizeClass="size-lg-3 size-md-12"
-                /> */}
-            <FieldOutput
-                title="Date Restored"
-                description={'##date restored##'}
-                sizeClass="size-lg-3 size-md-12"
-            />
+                />
 
-            {/* <FieldOutput
+                <FieldOutput
                     title="Restored By"
-                    description={history.restoredBy || 'N/A'}
+                    description={history.restoredByCompanyUserName || 'N/A'}
                     sizeClass="size-lg-3 size-md-12"
-                /> */}
-            <FieldOutput
-                title="Restored By"
-                description={'##restored by##'}
-                sizeClass="size-lg-3 size-md-12"
-            />
-        </>
-        {/* )} */}
+                />
+            </>
+        )}
         <PinSectionsContainer pinHistory={history} drawingID={drawingID} />
 
         <BlockButtonWrapper additionalClasses="item-button-container" sizeClasses="size-lg-12">

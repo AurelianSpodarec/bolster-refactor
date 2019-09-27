@@ -4,7 +4,10 @@ import RecentlyDeletedListItemContainer from '../containers/RecentlyDeletedListI
 
 const RecentlyDeletedList = ({ recentlyDeleted, colCount, headers }) => {
     return recentlyDeleted
-        .sort((a, b) => a.deletedOn - b.deletedOn)
+        .sort((a, b) => {
+            if (!b.deletedOn) return -1;
+            return b.deletedOn - a.deletedOn;
+        })
         .map(item => (
             <RecentlyDeletedListItemContainer
                 key={`${item.id}_${item.name}`}
