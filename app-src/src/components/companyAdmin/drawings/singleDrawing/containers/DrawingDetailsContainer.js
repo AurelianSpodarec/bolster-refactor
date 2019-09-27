@@ -1,91 +1,56 @@
 import React, { Component } from 'react';
-import moment from 'moment';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
-import { momentComparisonFormat } from 'helpers/generic';
-import { FURTHER_FILTRATION_OPTIONS } from 'constants/companyAdmin/enums';
+import { STATUS_TO_STATS } from 'constants/companyAdmin/enums';
 
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import DrawingStats from '../presentational/DrawingStats';
-import withUpdateOnChange from 'components/client/reports/createReport/components/hocs/withUpdateOnChange';
+import withUpdateOnChange from 'components/companyAdmin/reports/createReport/components/hocs/withUpdateOnChange';
 
 class DrawingDetailsContainer extends Component {
     render() {
-        const { drawing, stats, error, isFetching, onMobile } = this.props;
-        console.error(this._getFilteredPins());
+        const { drawing, stats, error, isFetching, onMobile, pins, getFilteredPins } = this.props;
+
+        // Drawing uses filtered pins to display stats.
+
+        const filteredStats = {
+            // stats endpoint used
+            lastUpdatedOn: stats.lastUpdatedOn,
+            statuses: { ActionRequired: 0, Inspected: 0, Installed: 0, NoAction: 0, Other: 0 }
+        };
+
+        // compare stat count to filtered pin count to show ui filtered flag
+        const statCount = stats.statuses
+            ? Object.values(stats.statuses).reduce((acc, status) => {
+                  acc += status;
+                  return acc;
+              }, 0)
+            : 0;
+        let filteredPinCount = 0;
+
+        getFilteredPins(pins).forEach(pin => {
+            filteredStats.statuses[STATUS_TO_STATS[pin.latestStatus]]++;
+            filteredPinCount++;
+        });
+
+        const isFiltered = statCount !== filteredPinCount;
 
         return (
             <BlockContainer
                 error={error}
                 isFetching={isFetching}
-                isEmpty={!drawing.id || !stats.statuses}
+                isEmpty={!drawing.id || !stats.statuses || !pins.length}
             >
-                <DrawingStats drawing={drawing} stats={stats} onMobile={onMobile} />
+                <DrawingStats
+                    drawing={drawing}
+                    isFiltered={isFiltered}
+                    stats={filteredStats}
+                    onMobile={onMobile}
+                />
             </BlockContainer>
         );
     }
-
-    _getFilteredPins = () => {
-        const { pins, filters, furtherFiltrationOption } = this.props;
-        // ? Displays all pins if in rectangle mode, and only the selected pins otherwise.
-
-        const {
-            fromDateInclusive,
-            toDateInclusive,
-            status,
-            serviceID,
-            templateID,
-            companyUserIDs
-        } = filters;
-        const NO = false;
-        // simple
-        return furtherFiltrationOption <= FURTHER_FILTRATION_OPTIONS.INDIVIDUAL_PINS
-            ? pins.filter(pin => {
-                  // start date
-                  if (
-                      fromDateInclusive &&
-                      moment(pin.createdOn) < moment(fromDateInclusive, momentComparisonFormat)
-                  ) {
-                      return NO;
-                  }
-                  // end date
-                  if (
-                      toDateInclusive &&
-                      moment(pin.createdOn) > moment(toDateInclusive, momentComparisonFormat)
-                  ) {
-                      return NO;
-                  }
-                  // status
-                  if (status && +pin.latestStatus !== +status) {
-                      return NO;
-                  }
-                  // services
-                  if (serviceID && +pin.latestServiceID !== +serviceID) {
-                      return NO;
-                  }
-                  // templates
-                  if (templateID && +templateID !== pin.templateID) {
-                      return NO;
-                  }
-                  // operatives
-                  if (
-                      companyUserIDs &&
-                      companyUserIDs.length &&
-                      !companyUserIDs.includes(pin.latestCreatedByCompanyUserID)
-                  ) {
-                      return NO;
-                  }
-                  if (+furtherFiltrationOption === FURTHER_FILTRATION_OPTIONS.INDIVIDUAL_PINS) {
-                      if (!filters.pinIDs.includes(pin.id)) {
-                          return NO;
-                      }
-                  }
-                  return true;
-              })
-            : // advanced
-              pins.filter(({ id }) => filters.pinIDs.includes(id));
-    };
 }
 
 const mapStateToProps = (
@@ -93,13 +58,7 @@ const mapStateToProps = (
         companyAdmin: {
             drawingsReducer: { drawings, isFetching: fetchingDrawings, error: drawingsError },
             statsReducer: { stats, isFetching: fetchingStats, error: statsError },
-            reportsReducer: {
-                filters: { pinIDs, companyUserIDs },
-                customFilters: { pins: pinsFromAPI },
-                furtherFiltrationOption,
-                isFetching: isFetchingReports
-            },
-            pinsReducer: { pins, isFetching: fetchingPins, error }
+            pinsReducer: { pins, isFetching: fetchingPins, error: pinsError }
         },
         shared: {
             mobileReducer: { onMobile }
@@ -108,20 +67,13 @@ const mapStateToProps = (
     { match }
 ) => ({
     drawing: drawings[match.params.id] || {},
-    isFetching: fetchingDrawings || fetchingStats,
-    error: drawingsError || statsError,
+    isFetching: fetchingDrawings || fetchingStats || fetchingPins,
+    error: drawingsError || statsError || pinsError,
     stats,
     onMobile,
     id: match.params.id,
-    pins: Object.values(pins),
+    pins: Object.values(pins)
     // operatives: Object.values(users),
-    fetchingPins: fetchingPins,
-    isFetchingReports,
-    pinsError: error,
-    pinIDs,
-    pinsFromAPI,
-    furtherFiltrationOption,
-    companyUserIDs
 });
 
-export default withUpdateOnChange(withRouter(connect(mapStateToProps)(DrawingDetailsContainer)));
+export default withRouter(withUpdateOnChange(connect(mapStateToProps)(DrawingDetailsContainer)));

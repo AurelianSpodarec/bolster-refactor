@@ -127,6 +127,14 @@ export const PIN_STATUS_TYPES = {
     50: 'Other'
 };
 
+export const STATUS_TO_STATS = {
+    10: 'ActionRequired',
+    20: 'Installed',
+    30: 'Inspected',
+    40: 'NoAction',
+    50: 'Other'
+};
+
 export const PIN_STATUS_COLOURS = {
     10: 'red',
     20: 'green',
