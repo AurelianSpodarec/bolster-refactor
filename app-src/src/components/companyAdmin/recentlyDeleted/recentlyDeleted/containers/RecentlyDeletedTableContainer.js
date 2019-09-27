@@ -9,7 +9,7 @@ class RecentlyDeletedTableContainer extends Component {
 
         return (
             <RecentlyDeletedTable
-                headers={['Deleted item', 'Type', '']}
+                headers={['Deleted item', 'Date Created', 'Date Deleted', 'Deleted By', 'Type', '']}
                 recentlyDeleted={this._getDeletedItems()}
                 isFetching={isFetchingData}
                 error={error}
