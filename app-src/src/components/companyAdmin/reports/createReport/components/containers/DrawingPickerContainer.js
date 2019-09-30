@@ -9,8 +9,9 @@ import DrawingPicker from '../presentational/DrawingPicker';
 import withUpdateOnChange from '../hocs/withUpdateOnChange';
 
 const DrawingPickerContainer = ({ siteID, buildingID, floorID, drawings }) => {
-    const [includedDrawings, setIncludeDrawing] = useState([]);
-    const [excludedDrawings, setExcludeDrawing] = useState([]);
+    const [includedDrawings, setIncludeDrawings] = useState([]);
+    const [excludedDrawings, setExcludeDrawings] = useState([]);
+    const [selectedDrawings, setSelectedDrawings] = useState([]);
 
     function usePrevious(value) {
         const ref = useRef();
@@ -20,18 +21,32 @@ const DrawingPickerContainer = ({ siteID, buildingID, floorID, drawings }) => {
         return ref.current;
     }
 
-    const prevHierachyID = usePrevious({ siteID, buildingID, floorID });
+    const prevHierarchyID = usePrevious({ siteID, buildingID, floorID });
 
     useEffect(() => {
-        setExcludeDrawing(availableDrawings());
+        //check which hierarchy has changed and set availableDrawings with the correct hierarchy ID and type
+        if (siteID) {
+            if (prevHierarchyID.siteID != siteID.toString()) {
+                setExcludeDrawings(availableDrawings(siteID, HIERARCHY_IDS.SITE));
+                setIncludeDrawings([]);
+            } else if (prevHierarchyID.buildingID != buildingID.toString()) {
+                setExcludeDrawings(availableDrawings(buildingID, HIERARCHY_IDS.BUILDING));
+                setIncludeDrawings([]);
+            } else if (prevHierarchyID.floorID != floorID.toString()) {
+                setExcludeDrawings(availableDrawings(floorID, HIERARCHY_IDS.FLOOR));
+                setIncludeDrawings([]);
+            }
+        }
     }, [siteID, buildingID, floorID]);
 
     return (
         <DrawingPicker
-            handleIncludeDrawing={handleIncludeDrawing}
             excludedDrawings={excludedDrawings}
             includedDrawings={includedDrawings}
-            handleExcludeDrawing={handleExcludeDrawing}
+            handleAddIncluded={handleAddIncluded}
+            handleDrawingClick={handleDrawingClick}
+            selectedDrawings={selectedDrawings}
+            handleAddExcluded={handleAddExcluded}
         />
     );
 
@@ -39,13 +54,28 @@ const DrawingPickerContainer = ({ siteID, buildingID, floorID, drawings }) => {
         const allDrawings = Object.values(drawings);
 
         if (hierarchyTypeID === HIERARCHY_IDS.SITE) {
-            return allDrawings.filter(drawing => drawing.siteID.toString() === hierarchyID);
+            return allDrawings
+                .filter(drawing => drawing.siteID.toString() === hierarchyID)
+                .map(drawing => ({
+                    ...drawing,
+                    included: false
+                }));
         }
         if (hierarchyTypeID === HIERARCHY_IDS.BUILDING) {
-            return allDrawings.filter(drawing => drawing.buildingID.toString() === hierarchyID);
+            return allDrawings
+                .filter(drawing => drawing.buildingID.toString() === hierarchyID)
+                .map(drawing => ({
+                    ...drawing,
+                    included: false
+                }));
         }
         if (hierarchyTypeID === HIERARCHY_IDS.FLOOR) {
-            return allDrawings.filter(drawing => drawing.floorID.toString() === hierarchyID);
+            return allDrawings
+                .filter(drawing => drawing.floorID.toString() === hierarchyID)
+                .map(drawing => ({
+                    ...drawing,
+                    included: false
+                }));
         }
 
         return [];
@@ -53,14 +83,66 @@ const DrawingPickerContainer = ({ siteID, buildingID, floorID, drawings }) => {
 
     //get drawing and select the proper hierarchyID to get the correct floor.
 
-    function handleIncludeDrawing(e, drawingID) {
+    function handleDrawingClick(e, drawingID) {
         e.preventDefault();
-        setIncludeDrawing(drawingID);
+
+        const newCheckedDrawings = selectedDrawings.includes(drawingID)
+            ? selectedDrawings.filter(selectedDrawing => selectedDrawing !== drawingID)
+            : [...selectedDrawings, drawingID];
+
+        setSelectedDrawings(newCheckedDrawings);
     }
 
-    function handleExcludeDrawing(e, drawingID, hierarchyTypeID) {
+    function handleAddIncluded(e) {
         e.preventDefault();
-        setExcludeDrawing(drawingID);
+
+        if (selectedDrawings.length && excludedDrawings.length) {
+            setIncludeDrawings([
+                ...includedDrawings,
+                ...excludedDrawings
+                    .filter(drawing => selectedDrawings.includes(drawing.id))
+                    .map(drawing => ({
+                        ...drawing,
+                        included: true
+                    }))
+            ]);
+
+            setExcludeDrawings(
+                excludedDrawings
+                    .filter(drawing => !selectedDrawings.includes(drawing.id))
+                    .map(drawing => ({
+                        ...drawing,
+                        included: false
+                    }))
+            );
+            setSelectedDrawings([]);
+        }
+    }
+    function handleAddExcluded(e) {
+        e.preventDefault();
+
+        if (selectedDrawings.length && includedDrawings.length) {
+            setExcludeDrawings([
+                ...excludedDrawings,
+                ...includedDrawings
+                    .filter(drawing => selectedDrawings.includes(drawing.id))
+                    .map(drawing => ({
+                        ...drawing,
+                        included: false
+                    }))
+            ]);
+
+            setIncludeDrawings(
+                includedDrawings
+                    .filter(drawing => !selectedDrawings.includes(drawing.id))
+                    .map(drawing => ({
+                        ...drawing,
+                        included: true
+                    }))
+            );
+
+            setSelectedDrawings([]);
+        }
     }
 };
 
