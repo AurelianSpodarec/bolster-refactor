@@ -38,7 +38,8 @@ class EditSettingsFormContainer extends Component {
         vatCode: null,
         vatType: null,
         timeZoneOptions: [],
-        dateFormatOptions: []
+        dateFormatOptions: [],
+        isEditButtonDisabled: false
     };
 
     render() {
@@ -73,9 +74,7 @@ class EditSettingsFormContainer extends Component {
                 handleColourSelect={this.handleColourSelect}
                 handleCheckboxChange={this.handleCheckboxChange}
                 templateUsageRules={Object.values(templateUsageRuleOptions)}
-                selectedRule={
-                    templateUsageRuleOptions[defaultTemplateUsageRule]
-                }
+                selectedRule={templateUsageRuleOptions[defaultTemplateUsageRule]}
                 timeZoneOptions={timeZoneOptions}
                 timeZone={timeZone}
                 dateFormatOptions={dateFormatOptions}
@@ -150,11 +149,7 @@ class EditSettingsFormContainer extends Component {
         e.preventDefault();
         const { filesUploading, editCompanySettings } = this.props;
         if (!filesUploading) {
-            const {
-                templateUsageRuleOptions,
-                dateFormat,
-                ...postBody
-            } = this.state;
+            const { templateUsageRuleOptions, dateFormat, ...postBody } = this.state;
 
             localStorage.setItem('colourCode', postBody.colourCode);
 
@@ -186,12 +181,7 @@ const mapDispatchToProps = dispatch => ({
 
 const mapStateToProps = ({
     companyAdmin: {
-        companySettingsReducer: {
-            isFetching,
-            error,
-            companySettings,
-            postSuccess
-        }
+        companySettingsReducer: { isFetching, error, companySettings, postSuccess }
     },
     shared: {
         filesUploadingReducer: { filesUploading },
