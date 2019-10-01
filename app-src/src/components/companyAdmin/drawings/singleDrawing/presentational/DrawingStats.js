@@ -4,7 +4,7 @@ import PieChart from 'components/shared/stats/presentational/PieChart';
 import DrawingDetails from './DrawingDetails';
 import nograph from '_content/images/no-graph.jpeg';
 
-const DrawingStats = ({ drawing, stats, onMobile, notAvailable = false }) => (
+const DrawingStats = ({ drawing, stats, onMobile, notAvailable = false, isFiltered = false }) => (
     <div className="stats drawing-stats size-lg-12">
         {notAvailable ? (
             <>
@@ -20,6 +20,7 @@ const DrawingStats = ({ drawing, stats, onMobile, notAvailable = false }) => (
                 stats={stats}
                 hierarchyType="drawing"
                 onMobile={onMobile}
+                isFiltered={isFiltered}
             />
         )}
         {!notAvailable && <DrawingDetails stats={stats} drawing={drawing} />}
