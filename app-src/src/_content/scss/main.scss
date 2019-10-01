@@ -1162,8 +1162,8 @@ input {
         @include ubuntu-medium;
         margin-bottom: 5px;
     }
-    ul{
-        list-style:disc;
+    ul {
+        list-style: disc;
         padding-left: 19px;
     }
     p {
@@ -1183,21 +1183,21 @@ input {
         }
     }
 
-    .generic-table{
-        border:1px solid #f5f5f5;
-        th{
-            padding-top:10px;
-            border-bottom:1px solid #f5f5f5;
+    .generic-table {
+        border: 1px solid #f5f5f5;
+        th {
+            padding-top: 10px;
+            border-bottom: 1px solid #f5f5f5;
             border-right: 1px solid #f5f5f5;
-            &:last-child{
-                text-align:right;
+            &:last-child {
+                text-align: right;
                 border-right: none;
             }
         }
-        td{
+        td {
             border-right: 1px solid #f5f5f5;
-            &:last-child{
-                border-right:none;
+            &:last-child {
+                border-right: none;
             }
         }
     }
@@ -1972,7 +1972,8 @@ input {
     }
 }
 
-.generic-input, .StripeElement {
+.generic-input,
+.StripeElement {
     float: left;
     width: 100%;
     padding: 8.5px 10px;
@@ -2790,6 +2791,10 @@ input {
             }
         }
     }
+}
+
+.filtered-flag {
+    color: $text-grey;
 }
 
 //leaflet map

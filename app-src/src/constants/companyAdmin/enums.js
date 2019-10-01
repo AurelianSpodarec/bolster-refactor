@@ -127,6 +127,14 @@ export const PIN_STATUS_TYPES = {
     50: 'Other'
 };
 
+export const STATUS_TO_STATS = {
+    10: 'ActionRequired',
+    20: 'Installed',
+    30: 'Inspected',
+    40: 'NoAction',
+    50: 'Other'
+};
+
 export const PIN_STATUS_COLOURS = {
     10: 'red',
     20: 'green',
@@ -322,6 +330,15 @@ export const COMPANY_TYPES = {
     'Company - Active Subscription': 1,
     'Company - Expired Subscription': 2,
     'Client Access': 3
+};
+
+export const DELETED_DATA_TYPE = {
+    drawing: 'Drawing',
+    floor: 'Floor',
+    building: 'Building',
+    site: 'Site',
+    users: 'User',
+    pinHistory: 'Pin History'
 };
 
 export const getEnumKey = (enumerable, num) =>
