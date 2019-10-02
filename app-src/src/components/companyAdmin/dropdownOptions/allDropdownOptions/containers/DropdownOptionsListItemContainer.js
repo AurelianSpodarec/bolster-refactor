@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import {
-    EDIT_DROPDOWN_OPTION,
-    DELETE_DROPDOWN_OPTION
-} from 'constants/shared/modalTypes';
+import { EDIT_DROPDOWN_OPTION, DELETE_DROPDOWN_OPTION } from 'constants/shared/modalTypes';
 import DropdownOptionsListItem from '../presentational/DropdownOptionsListItem';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
+import enableDropdownOption from 'actions/companyAdmin/dropdownOptions/async/enableDropdownOption';
 
 class DropdownOptionsListItemContainer extends Component {
     render() {
@@ -31,10 +29,20 @@ class DropdownOptionsListItemContainer extends Component {
         const { showModal } = this.props;
         showModal(DELETE_DROPDOWN_OPTION, { option });
     };
+
+    handleToggleEnable = option => {
+        const { enableDropdownOption } = this.props;
+        //post enable/disable
+
+        if (option.isDisabled) {
+            enableDropdownOption(option.id, option.type);
+        }
+    };
 }
 
 const mapDispatchToProps = dispatch => ({
-    showModal: (type, props) => dispatch(showModal(type, props))
+    showModal: (type, props) => dispatch(showModal(type, props)),
+    enableDropdownOption: (id, type) => dispatch(enableDropdownOption(id, type))
 });
 
 export default connect(
