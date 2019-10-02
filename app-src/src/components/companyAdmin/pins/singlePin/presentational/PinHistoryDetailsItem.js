@@ -74,7 +74,7 @@ const PinHistoryDetailsItem = ({
             <button className="button red" onClick={handleDeleteHistoryModal}>
                 <i className="far fa-times" /> Delete {isDeleteHistory > 1 ? 'History' : 'Pin'}
             </button>
-            {pin.isEditButtonEnabled && (
+            {pin && pin.isEditButtonEnabled && (
                 <button className="button yellow" onClick={handleEditHistoryModal}>
                     <i className="far fa-pencil" /> Edit this history
                 </button>
