@@ -5,6 +5,7 @@ const DropdownOptionsListItem = ({
     option,
     handleEditOptionModal,
     handleDeleteOptionModal,
+    handleToggleEnable,
     onMobile,
     headers
 }) => (
@@ -24,17 +25,23 @@ const DropdownOptionsListItem = ({
                     <i className="far fa-trash-alt" />
                     Delete
                 </button>
-                {option.isDisabled ? (
-                    <button className="button red">
-                        <i className="far fa-times fa-fw" />
-                        Disable
-                    </button>
-                ) : (
-                    <button className="button green">
-                        <i className="far fa-check fa-fw" />
-                        Enable
-                    </button>
-                )}
+
+                <button
+                    onClick={handleToggleEnable}
+                    className={`button ${option.isDisabled ? 'red' : 'green'}`}
+                >
+                    {option.isDisabled ? (
+                        <>
+                            <i className="far fa-times fa-fw" />
+                            Disable
+                        </>
+                    ) : (
+                        <>
+                            <i className="far fa-check fa-fw" />
+                            Enable
+                        </>
+                    )}
+                </button>
             </BlockButtonWrapper>
         </td>
     </tr>

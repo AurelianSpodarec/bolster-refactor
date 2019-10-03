@@ -26,7 +26,7 @@ export const enableDropdownOptionFailure = error => ({
 export default (id, type) => dispatch => {
     dispatch(enableDropdownOptionRequest());
     return axios
-        .post(`${API_URL}/dropdownoptions/${type}/${id}/disable`, getHeaders())
+        .post(`${API_URL}/dropdownoptions/${type}/${id}/enable`, getHeaders())
         .then(() => dispatch(enableDropdownOptionSuccess(id)))
         .catch(err => dispatch(enableDropdownOptionFailure(err.message)));
 };

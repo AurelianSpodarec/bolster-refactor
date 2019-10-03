@@ -15,6 +15,7 @@ class DropdownOptionsListItemContainer extends Component {
                 colCount={colCount}
                 handleEditOptionModal={this.handleEditOptionModal}
                 handleDeleteOptionModal={this.handleDeleteOptionModal}
+                handleToggleEnable={this.handleToggleEnable}
                 headers={headers}
                 onMobile={onMobile}
             />
@@ -30,8 +31,8 @@ class DropdownOptionsListItemContainer extends Component {
         showModal(DELETE_DROPDOWN_OPTION, { option });
     };
 
-    handleToggleEnable = option => {
-        const { enableDropdownOption } = this.props;
+    handleToggleEnable = () => {
+        const { enableDropdownOption, option } = this.props;
         //post enable/disable
 
         if (option.isDisabled) {
