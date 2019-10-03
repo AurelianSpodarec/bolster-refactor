@@ -24,7 +24,7 @@ import {
     CONFIRM_SUBMIT,
     CREATE_COMPANY_ADMIN,
     CREATE_OPERATIVE,
-    DELETE_DROPDOWN_OPTION,
+    TOGGLE_DROPDOWN_OPTION,
     DELETE_ENQUIRY,
     DELETE_COMPANY_USER,
     DELETE_DOCUMENT,
@@ -118,7 +118,7 @@ import EditBuildingModal from 'components/companyAdmin/buildings/editBuildingMod
 import EditFloorModal from 'components/companyAdmin/floors/editFloorModal/presentational/EditFloorModal';
 import AddDropdownOptionModal from 'components/companyAdmin/dropdownOptions/addDropdownOptionModal/presentational/AddDropdownOptionModal';
 import EditDropdownOptionModal from 'components/companyAdmin/dropdownOptions/editDropdownOptionModal/presentational/EditDropdownOptionModal';
-import DeleteDropdownOptionModalContainer from 'components/companyAdmin/dropdownOptions/deleteDropdownOptionModal/containers/DeleteDropdownOptionModalContainer';
+import ToggleDropdownOptionModalContainer from 'components/companyAdmin/dropdownOptions/toggleDropdownOptionModal/containers/ToggleDropdownOptionModalContainer';
 import CreateCompanyAdminModal from 'components/companyAdmin/userManagement/companyAdmins/createCompanyAdmin/presentational/CreateCompanyAdminModal';
 import LoadingDataModal from '../presentational/LoadingDataModal';
 import UnlinkDeviceModalContainer from './UnlinkDeviceModalContainer';
@@ -195,7 +195,7 @@ const MODAL_COMPONENTS = {
     [EDIT_FLOOR]: EditFloorModal,
     [ADD_DROPDOWN_OPTION]: AddDropdownOptionModal,
     [EDIT_DROPDOWN_OPTION]: EditDropdownOptionModal,
-    [DELETE_DROPDOWN_OPTION]: DeleteDropdownOptionModalContainer,
+    [TOGGLE_DROPDOWN_OPTION]: ToggleDropdownOptionModalContainer,
     [CREATE_COMPANY_ADMIN]: CreateCompanyAdminModal,
     [CREATE_OPERATIVE]: CreateOperativeModal,
     [LOADING_DATA]: LoadingDataModal,
