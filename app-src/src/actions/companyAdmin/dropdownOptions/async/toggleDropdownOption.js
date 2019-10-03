@@ -13,9 +13,10 @@ export const toggleDropdownOptionRequest = () => ({
     type: TOGGLE_DROPDOWN_OPTION_REQUEST
 });
 
-export const toggleDropdownOptionSuccess = id => ({
+export const toggleDropdownOptionSuccess = (id, payload) => ({
     type: TOGGLE_DROPDOWN_OPTION_SUCCESS,
-    id
+    id,
+    payload
 });
 
 export const toggleDropdownOptionFailure = error => ({
@@ -34,6 +35,6 @@ export default (id, type, isEnableRequest) => dispatch => {
             {},
             getHeaders()
         )
-        .then(() => dispatch(toggleDropdownOptionSuccess(id)))
+        .then(({ data }) => dispatch(toggleDropdownOptionSuccess(id, data)))
         .catch(err => dispatch(toggleDropdownOptionFailure(err.message)));
 };
