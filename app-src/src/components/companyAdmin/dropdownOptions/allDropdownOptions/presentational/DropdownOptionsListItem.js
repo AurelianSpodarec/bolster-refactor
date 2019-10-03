@@ -27,12 +27,12 @@ const DropdownOptionsListItem = ({
                 >
                     {option.isDisabled ? (
                         <>
-                            <i className="far fa-check fa-fw" />
+                            <i className="fa fa-plus fa-fw" />
                             Enable
                         </>
                     ) : (
                         <>
-                            <i className="far fa-times fa-fw" />
+                            <i className="fa fa-minus fa-fw" />
                             Disable
                         </>
                     )}
