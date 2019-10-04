@@ -6,7 +6,7 @@ const RecentlyDeletedList = ({ recentlyDeleted, colCount, headers }) => {
     return recentlyDeleted
         .sort((a, b) => {
             if (!b.deletedOn) return -1;
-            return b.deletedOn - a.deletedOn;
+            return new Date(b.deletedOn) - new Date(a.deletedOn);
         })
         .map(item => (
             <RecentlyDeletedListItemContainer
