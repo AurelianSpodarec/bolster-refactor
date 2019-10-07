@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 
-import { convertArrToObj, updateObj, removeObjItem } from 'helpers/generic';
+import { convertArrToObj, updateObj } from 'helpers/generic';
 import {
     FETCH_ALL_DROPDOWN_OPTIONS_REQUEST,
     FETCH_ALL_DROPDOWN_OPTIONS_SUCCESS,
@@ -11,9 +11,9 @@ import {
     EDIT_DROPDOWN_OPTION_REQUEST,
     EDIT_DROPDOWN_OPTION_SUCCESS,
     EDIT_DROPDOWN_OPTION_FAILURE,
-    DELETE_DROPDOWN_OPTION_REQUEST,
-    DELETE_DROPDOWN_OPTION_SUCCESS,
-    DELETE_DROPDOWN_OPTION_FAILURE
+    TOGGLE_DROPDOWN_OPTION_REQUEST,
+    TOGGLE_DROPDOWN_OPTION_SUCCESS,
+    TOGGLE_DROPDOWN_OPTION_FAILURE
 } from 'constants/actionTypes/dropdownOptions';
 
 export default combineReducers({
@@ -40,11 +40,11 @@ function postSuccessReducer(state = false, action) {
     switch (action.type) {
         case CREATE_DROPDOWN_OPTION_REQUEST:
         case EDIT_DROPDOWN_OPTION_REQUEST:
-        case DELETE_DROPDOWN_OPTION_REQUEST:
+        case TOGGLE_DROPDOWN_OPTION_REQUEST:
             return false;
         case CREATE_DROPDOWN_OPTION_SUCCESS:
         case EDIT_DROPDOWN_OPTION_SUCCESS:
-        case DELETE_DROPDOWN_OPTION_SUCCESS:
+        case TOGGLE_DROPDOWN_OPTION_SUCCESS:
             return true;
         default:
             return state;
@@ -55,11 +55,11 @@ function postErrorReducer(state = null, action) {
     switch (action.type) {
         case CREATE_DROPDOWN_OPTION_REQUEST:
         case EDIT_DROPDOWN_OPTION_REQUEST:
-        case DELETE_DROPDOWN_OPTION_REQUEST:
+        case TOGGLE_DROPDOWN_OPTION_REQUEST:
             return null;
         case CREATE_DROPDOWN_OPTION_FAILURE:
         case EDIT_DROPDOWN_OPTION_FAILURE:
-        case DELETE_DROPDOWN_OPTION_FAILURE:
+        case TOGGLE_DROPDOWN_OPTION_FAILURE:
             return action.error;
         default:
             return state;
@@ -84,8 +84,8 @@ function dropdownOptionsReducer(state = {}, action) {
         case CREATE_DROPDOWN_OPTION_SUCCESS:
         case EDIT_DROPDOWN_OPTION_SUCCESS:
             return updateObj(state, action.payload.id, action.payload);
-        case DELETE_DROPDOWN_OPTION_SUCCESS:
-            return removeObjItem(state, action.id);
+        case TOGGLE_DROPDOWN_OPTION_SUCCESS:
+            return updateObj(state, action.id, action.payload);
         default:
             return state;
     }
