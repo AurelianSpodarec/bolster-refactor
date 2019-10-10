@@ -10,36 +10,32 @@ import FileUpload from '../presentational/FileUpload';
 import { getAuthHeader } from 'helpers/api';
 import { areArraysEqual } from 'helpers/generic';
 import { fileUploadStart, fileUploadFinish } from 'actions/shared/fileUpload/sync/fileUpload';
-import BlockContainer from '../../block/containers/BlockContainer';
 
 class FileUploadContainer extends Component {
     state = {
         showFieldError: false,
         isAfterAdd: false,
-        files: [],
-        isLoading: true
+        files: []
     };
 
     render() {
-        const { showFieldError, isLoading } = this.state;
+        const { showFieldError } = this.state;
         const { errorsVisible, error, maxFiles, acceptedTypes } = this.props;
         const errorMessage = showFieldError || errorsVisible ? error : null;
 
         return (
-            <BlockContainer noWhiteBackground isFetching={isLoading}>
-                <FileUpload
-                    updateRef={ref => (this.pond = ref)}
-                    files={this.state.files}
-                    serverOptions={this._getServerOptions()}
-                    error={errorMessage}
-                    maxFiles={maxFiles}
-                    acceptedTypes={acceptedTypes}
-                    handleUpdateFiles={this.handleUpdateFiles}
-                    handleBeforeAdd={this.handleBeforeAdd}
-                    handleFileUploadStart={this.handleFileUploadStart}
-                    handleFileUploadFinish={this.handleFileUploadFinish}
-                />
-            </BlockContainer>
+            <FileUpload
+                updateRef={ref => (this.pond = ref)}
+                files={this.state.files}
+                serverOptions={this._getServerOptions()}
+                error={errorMessage}
+                maxFiles={maxFiles}
+                acceptedTypes={acceptedTypes}
+                handleUpdateFiles={this.handleUpdateFiles}
+                handleBeforeAdd={this.handleBeforeAdd}
+                handleFileUploadStart={this.handleFileUploadStart}
+                handleFileUploadFinish={this.handleFileUploadFinish}
+            />
         );
     }
 
@@ -73,7 +69,7 @@ class FileUploadContainer extends Component {
             options: { type: 'local' }
         });
         const files = Array.isArray(value) ? value.map(formatFile) : [formatFile(value)];
-        this.setState({ files, isLoading: false });
+        this.setState({ files });
     };
 
     _validate = () => {
