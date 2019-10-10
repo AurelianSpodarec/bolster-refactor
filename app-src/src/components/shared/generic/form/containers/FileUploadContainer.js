@@ -9,36 +9,37 @@ import removeFieldError from 'actions/shared/generic/fieldErrors/sync/removeFiel
 import FileUpload from '../presentational/FileUpload';
 import { getAuthHeader } from 'helpers/api';
 import { areArraysEqual } from 'helpers/generic';
-import {
-    fileUploadStart,
-    fileUploadFinish
-} from 'actions/shared/fileUpload/sync/fileUpload';
+import { fileUploadStart, fileUploadFinish } from 'actions/shared/fileUpload/sync/fileUpload';
+import BlockContainer from '../../block/containers/BlockContainer';
 
 class FileUploadContainer extends Component {
     state = {
         showFieldError: false,
         isAfterAdd: false,
-        files: []
+        files: [],
+        isLoading: true
     };
 
     render() {
-        const { showFieldError } = this.state;
+        const { showFieldError, isLoading } = this.state;
         const { errorsVisible, error, maxFiles, acceptedTypes } = this.props;
         const errorMessage = showFieldError || errorsVisible ? error : null;
 
         return (
-            <FileUpload
-                updateRef={ref => (this.pond = ref)}
-                files={this.state.files}
-                serverOptions={this._getServerOptions()}
-                error={errorMessage}
-                maxFiles={maxFiles}
-                acceptedTypes={acceptedTypes}
-                handleUpdateFiles={this.handleUpdateFiles}
-                handleBeforeAdd={this.handleBeforeAdd}
-                handleFileUploadStart={this.handleFileUploadStart}
-                handleFileUploadFinish={this.handleFileUploadFinish}
-            />
+            <BlockContainer noWhiteBackground isFetching={isLoading}>
+                <FileUpload
+                    updateRef={ref => (this.pond = ref)}
+                    files={this.state.files}
+                    serverOptions={this._getServerOptions()}
+                    error={errorMessage}
+                    maxFiles={maxFiles}
+                    acceptedTypes={acceptedTypes}
+                    handleUpdateFiles={this.handleUpdateFiles}
+                    handleBeforeAdd={this.handleBeforeAdd}
+                    handleFileUploadStart={this.handleFileUploadStart}
+                    handleFileUploadFinish={this.handleFileUploadFinish}
+                />
+            </BlockContainer>
         );
     }
 
@@ -58,10 +59,8 @@ class FileUploadContainer extends Component {
 
     componentDidUpdate = ({ value: prevValue }) => {
         const { value } = this.props;
-        const hasArrChanged =
-            Array.isArray(value) && !areArraysEqual(value, prevValue);
-        const hasStringChanged =
-            typeof value === 'string' && value !== prevValue;
+        const hasArrChanged = Array.isArray(value) && !areArraysEqual(value, prevValue);
+        const hasStringChanged = typeof value === 'string' && value !== prevValue;
 
         if (hasArrChanged || hasStringChanged) this._validate(value);
 
@@ -73,24 +72,14 @@ class FileUploadContainer extends Component {
             source: `${RAW_S3_STORAGE_URL}/${value}`,
             options: { type: 'local' }
         });
-        const files = Array.isArray(value)
-            ? value.map(formatFile)
-            : [formatFile(value)];
-        this.setState({ files });
+        const files = Array.isArray(value) ? value.map(formatFile) : [formatFile(value)];
+        this.setState({ files, isLoading: false });
     };
 
     _validate = () => {
-        const {
-            name,
-            error,
-            required,
-            addFieldError,
-            removeFieldError,
-            value
-        } = this.props;
+        const { name, error, required, addFieldError, removeFieldError, value } = this.props;
 
-        if (required && !(value && value.length))
-            addFieldError(name, 'This is a required field.');
+        if (required && !(value && value.length)) addFieldError(name, 'This is a required field.');
         else if (error) removeFieldError(name);
     };
 
@@ -135,15 +124,7 @@ class FileUploadContainer extends Component {
             });
     };
 
-    _handleUpload = (
-        fieldName,
-        file,
-        metadata,
-        load,
-        error,
-        progress,
-        abort
-    ) => {
+    _handleUpload = (fieldName, file, metadata, load, error, progress, abort) => {
         this.handleFileUploadStart();
         const formData = new FormData();
         formData.append(fieldName, file, file.name);
@@ -157,8 +138,7 @@ class FileUploadContainer extends Component {
         const config = {
             headers,
             cancelToken: source.token,
-            onUploadProgress: e =>
-                progress(e.lengthComputable, e.loaded, e.total)
+            onUploadProgress: e => progress(e.lengthComputable, e.loaded, e.total)
         };
 
         const { skipTemp = false } = this.props;
