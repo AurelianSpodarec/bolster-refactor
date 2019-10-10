@@ -47,9 +47,11 @@ class AddPinFormContainer extends Component {
             templates,
             filesUploading,
             confirmLeave,
-            isHistory
+            isHistory,
+            pinAnswers
         } = this.props;
 
+        console.log('pin answers', pinAnswers);
         const serviceOptions = convertArrToObj(this._relevantServiceOptions(), 'value');
         const templateOptions = this._getTemplates(templates, serviceID);
 
@@ -64,8 +66,8 @@ class AddPinFormContainer extends Component {
                     />
                 </PageHeading>
                 <BlockContainer
-                    isEmpty={!templates.length}
-                    noDataMessage="You have no pin templates."
+                    isEmpty={!templates.length || isEmpty(pinAnswers)}
+                    noDataMessage="There is no data."
                     isFetching={isFetching}
                     error={error}
                 >
