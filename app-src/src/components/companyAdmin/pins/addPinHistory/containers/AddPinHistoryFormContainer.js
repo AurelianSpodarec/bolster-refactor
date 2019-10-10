@@ -51,7 +51,6 @@ class AddPinFormContainer extends Component {
             pinAnswers
         } = this.props;
 
-        console.log('pin answers', pinAnswers);
         const serviceOptions = convertArrToObj(this._relevantServiceOptions(), 'value');
         const templateOptions = this._getTemplates(templates, serviceID);
 
