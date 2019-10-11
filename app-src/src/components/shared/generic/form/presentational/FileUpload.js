@@ -25,9 +25,7 @@ const FileUpload = ({
             server={serverOptions}
             ref={updateRef}
         />
-        {!!(error && error.length) && (
-            <p className="error red-text text-accent-4">{error}</p>
-        )}
+        {!!(error && error.length) && <p className="error red-text text-accent-4">{error}</p>}
     </>
 );
 
