@@ -17,7 +17,7 @@ const InvoiceDetails = ({
     isFetching,
     companyName,
     error,
-    invoice: { createdOn, id, isPaid, paymentType, total, isRenewal },
+    invoice: { createdOn, id, isPaid, paymentType, total, isRenewal, guid },
     invoice,
     showModal
 }) => (
@@ -31,7 +31,7 @@ const InvoiceDetails = ({
             <a
                 target="_blank"
                 rel="noopener noreferrer"
-                href={`https://6eixv6n0wf.execute-api.eu-west-1.amazonaws.com/staging/bolster-invoice-gen-staging/${id}`}
+                href={`https://6eixv6n0wf.execute-api.eu-west-1.amazonaws.com/staging/bolster-invoice-gen-staging/${guid}`}
                 className="button blue"
             >
                 <i className="fa fa-download fa-fw" /> Download Invoice
