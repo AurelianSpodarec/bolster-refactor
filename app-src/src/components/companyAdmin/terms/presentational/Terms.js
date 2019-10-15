@@ -52,11 +52,7 @@ const Terms = () => (
                             representatives of the building, property or construction (or any part
                             therefore) which is the subject of any use of the Licensed Product.
                         </p>
-                        <p>
-                            <strong>Building Owner</strong>:- the owner or its authorised
-                            representatives of the building, property or construction (or any part
-                            therefore) which is the subject of any use of the Licensed Product.
-                        </p>
+
                         <p>
                             <strong>Commencement Date</strong>:- the date the Customer purchases the
                             Licence Product and pays the Subscription Fee.
@@ -65,7 +61,7 @@ const Terms = () => (
                             <strong>Content</strong>:- all documents, text, information, data,
                             software, executable code, access codes, images, audio or video material
                             in whatever medium or form comprised in or used with the Licensed
-                            Product other than the Customer Data.{' '}
+                            Product other than the Customer Data.
                         </p>
                         <p>
                             <strong>Contract Year</strong>:- the 12 month period from the
@@ -102,7 +98,7 @@ const Terms = () => (
                         <p>
                             <strong>Licence</strong>:- the user subscription purchased by the
                             Customer that entitles Authorised Users to access and use the Licensed
-                            Product, in accordance with these terms and conditions.{' '}
+                            Product, in accordance with these terms and conditions.
                         </p>
                         <p>
                             <strong>Licensed Product</strong>:- access to and use of the Web
@@ -126,21 +122,21 @@ const Terms = () => (
                         <p>
                             <strong>Purpose</strong>:- fire safety surveying of buildings and
                             properties and the monitoring and administration of such surveys by the
-                            Customer and Authorised Users.{' '}
+                            Customer and Authorised Users.
                         </p>
                         <p>
                             <strong>Registration Form</strong>:- Bolster’s order form for the
                             Licensed Product on which the Customer registers for use of the Licensed
-                            Product on the relevant product platform.{' '}
+                            Product on the relevant product platform.
                         </p>
                         <p>
                             <strong>Subscription Fee</strong>:- the fee payable by the Customer for
-                            the use of the Licenced Product as set out in the Registration Form.{' '}
+                            the use of the Licenced Product as set out in the Registration Form.
                         </p>
                         <p>
                             <strong>Supplier</strong>:- Bolster Systems Limited (company number
                             09148744) whose registered office is at 7 The Schoolhouse Second Avenue,
-                            Trafford Park, Manchester, Greater Manchester, England, M17 1DZ.{' '}
+                            Trafford Park, Manchester, Greater Manchester, England, M17 1DZ.
                         </p>
                         <p>
                             <strong>Web Platform</strong>:- the web based application software
@@ -185,7 +181,7 @@ const Terms = () => (
                                     to allow the Customer and the Authorised Users to use the
                                     Licensed Product in accordance with its support policy in effect
                                     at the time the Licensed Product is provided and as published on
-                                    Bolster’s website www.bolstersystems.co.uk, or as otherwise
+                                    Bolster’s website www.bolstersystems.com, or as otherwise
                                     notified to the Customer by Bolster in writing from time to
                                     time. Bolster may amend the support policy in its sole and
                                     absolute discretion from time to time;
@@ -247,7 +243,7 @@ const Terms = () => (
                                     necessary equipment required by the Customer to access the
                                     Administration Site and App and the equipment required by the
                                     Authorised Users to enable them to use the Licensed Product for
-                                    the Purpose;
+                                    the Purpose;{' '}
                                 </p>
                             </li>
                             <li>
@@ -436,15 +432,12 @@ const Terms = () => (
                             </li>
                             <li>
                                 the Customer Data does not infringe any third party Intellectual
-                                Property Rights,
+                                Property Rights, and the Customer shall indemnify Bolster against
+                                all damages, losses and expenses arising as a result of any action
+                                or claim that the Customer Data breaches the warranties,
+                                representations or undertakings set out in this paragraph.
                             </li>
                         </ol>
-                        <p>
-                            and the Customer shall indemnify Bolster against all damages, losses and
-                            expenses arising as a result of any action or claim that the Customer
-                            Data breaches the warranties, representations or undertakings set out in
-                            this paragraph.
-                        </p>
                         <p>
                             The Customer shall have sole responsibility for the legality,
                             reliability, integrity, accuracy and quality of the Customer Data. The
@@ -453,7 +446,8 @@ const Terms = () => (
                             Data for the purpose of carrying out its obligations under this
                             Agreement.
                         </p>
-                        <p>The Customer acknowledges and agrees that :</p>
+
+                        <p>The Customer acknowledges and agrees that:</p>
                         <ol>
                             <li>
                                 any Customer Data or content uploaded to the Licensed Product by the
@@ -807,7 +801,8 @@ const Terms = () => (
                                 all documents, text, information, data, software, executable code,
                                 access codes, images, audio or video material in whatever medium or
                                 form comprised in or used with the App and/or the Web Platform other
-                                than the Customer Data (defined below) (“<strong>Content</strong>”),
+                                than the Customer Data (defined below) (“
+                                <strong>Content</strong>”),
                             </li>
                         </ol>
                         <p>
@@ -826,7 +821,7 @@ const Terms = () => (
                         <p>
                             The Web Platform requires internet access and the [type of operating
                             system] operating system [version of operating system] [amount] of
-                            memory] [any further requirements].
+                            [memory] [any further requirements].
                         </p>
                     </li>
                     <li>
@@ -900,7 +895,7 @@ const Terms = () => (
                         <ol>
                             <li>
                                 if you are downloading or streaming the App, download or stream a
-                                copy of the App onto your Device (as defined in this clause 5 below)
+                                copy of the App onto your Device (as define din this clause 5 below)
                                 and view, use and display the App on your Device for your business
                                 purposes only;
                             </li>
