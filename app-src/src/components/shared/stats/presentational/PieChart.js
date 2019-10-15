@@ -16,12 +16,11 @@ const PieChart = ({
     hierarchyType,
     sizeClasses = 'size-lg-6',
     wTitle = true,
-    onMobile
+    onMobile,
+    isFiltered
     // style
 }) => {
-    const isStatsEmpty = Object.values(stats.statuses).every(
-        stat => stat === 0
-    );
+    const isStatsEmpty = Object.values(stats.statuses).every(stat => stat === 0);
 
     const total = Object.values(stats.statuses).reduce((acc, val) => {
         return acc + val;
@@ -45,6 +44,7 @@ const PieChart = ({
             {wTitle && (
                 <h4 className="heading heading-3 size-lg-12">
                     Latest Pin Histories
+                    {isFiltered && <span className="filtered-flag"> - filtered</span>}
                 </h4>
             )}
 
@@ -73,37 +73,31 @@ const PieChart = ({
                             <img src={redPin} alt="pin" />
                             <p>
                                 Action Required:{' '}
-                                <span>{`${
-                                    stats.statuses['ActionRequired']
-                                }`}</span>
+                                <span>{`${stats.statuses['ActionRequired']}`}</span>
                             </p>
                         </div>
                         <div className="pin">
                             <img src={greenPin} alt="pin" />
                             <p>
-                                Installed:{' '}
-                                <span>{`${stats.statuses['Installed']}`}</span>
+                                Installed: <span>{`${stats.statuses['Installed']}`}</span>
                             </p>
                         </div>
                         <div className="pin">
                             <img src={bluePin} alt="pin" />
                             <p>
-                                Inspected:{' '}
-                                <span>{`${stats.statuses['Inspected']}`}</span>
+                                Inspected: <span>{`${stats.statuses['Inspected']}`}</span>
                             </p>
                         </div>
                         <div className="pin">
                             <img src={yellowPin} alt="pin" />
                             <p>
-                                No Action:{' '}
-                                <span>{`${stats.statuses['NoAction']}`}</span>
+                                No Action: <span>{`${stats.statuses['NoAction']}`}</span>
                             </p>
                         </div>
                         <div className="pin">
                             <img src={purplePin} alt="pin" />
                             <p>
-                                Other:{' '}
-                                <span>{`${stats.statuses['Other']}`}</span>
+                                Other: <span>{`${stats.statuses['Other']}`}</span>
                             </p>
                         </div>
                         <div className="pin">

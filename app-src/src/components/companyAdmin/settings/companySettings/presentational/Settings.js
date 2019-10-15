@@ -6,30 +6,18 @@ import { FILE_STORAGE_URL } from 'config';
 
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import Block from 'components/shared/generic/block/presentational/Block';
-import {
-    TEMPLATE_USAGE_RULES,
-    VAT_TYPE_NAME,
-    VAT_TYPES
-} from 'constants/companyAdmin/enums';
+import { TEMPLATE_USAGE_RULES, VAT_TYPE_NAME, VAT_TYPES } from 'constants/companyAdmin/enums';
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import FieldOutput from 'components/shared/generic/fieldOutput/presentational/FieldOutput';
 
-const Settings = ({
-    isFetching,
-    error,
-    companySettings: company,
-    onMobile
-}) => {
+const Settings = ({ isFetching, error, companySettings: company, onMobile }) => {
     const { timeZone = {}, dateFormat = {} } = company;
     const notProvided = 'Not Provided';
     return (
         <>
             <PageHeading title="Company Settings" withBackButton>
-                <Link
-                    className="button yellow"
-                    to="/company/settings/edit-settings"
-                >
+                <Link className="button yellow" to="/company/settings/edit-settings">
                     <i className="far fa-pencil" />
                     Edit Settings
                 </Link>
@@ -66,9 +54,7 @@ const Settings = ({
                                 </FieldOutput>{' '}
                                 <FieldOutput
                                     title="Telephone"
-                                    description={
-                                        company.telephone || notProvided
-                                    }
+                                    description={company.telephone || notProvided}
                                     fieldClass="no-h-padding"
                                 />
                                 <FieldOutput
@@ -94,15 +80,14 @@ const Settings = ({
                                     fieldClass="no-h-padding"
                                     sizeClass="size-lg-12"
                                 />
-                                {company.vatType &&
-                                    company.vatType !== VAT_TYPES.OUTSIDEEU && (
-                                        <FieldOutput
-                                            title="VAT Code"
-                                            description={company.vatCode}
-                                            fieldClass="no-h-padding"
-                                            sizeClass="size-lg-12"
-                                        />
-                                    )}
+                                {company.vatType && company.vatType !== VAT_TYPES.OUTSIDEEU && (
+                                    <FieldOutput
+                                        title="VAT Code"
+                                        description={company.vatCode}
+                                        fieldClass="no-h-padding"
+                                        sizeClass="size-lg-12"
+                                    />
+                                )}
                             </>
                         ) : (
                             <div className="field-group size-lg-12">
@@ -127,9 +112,7 @@ const Settings = ({
                                 <div className="size-lg-4 size-md-12">
                                     <FieldOutput
                                         title="Telephone"
-                                        description={
-                                            company.telephone || notProvided
-                                        }
+                                        description={company.telephone || notProvided}
                                         fieldClass="no-h-padding"
                                     />
                                     <FieldOutput
@@ -139,9 +122,7 @@ const Settings = ({
                                     />
                                     <FieldOutput
                                         title="VAT Type"
-                                        description={
-                                            VAT_TYPE_NAME[company.vatType]
-                                        }
+                                        description={VAT_TYPE_NAME[company.vatType]}
                                         fieldClass="no-h-padding"
                                     />
                                 </div>
@@ -159,16 +140,14 @@ const Settings = ({
                                         fieldClass="no-h-padding"
                                         sizeClass="size-lg-12"
                                     />
-                                    {company.vatType &&
-                                        company.vatType !==
-                                            VAT_TYPES.OUTSIDEEU && (
-                                            <FieldOutput
-                                                title="VAT Code"
-                                                description={company.vatCode}
-                                                fieldClass="no-h-padding"
-                                                sizeClass="size-lg-12"
-                                            />
-                                        )}
+                                    {company.vatType && company.vatType !== VAT_TYPES.OUTSIDEEU && (
+                                        <FieldOutput
+                                            title="VAT Code"
+                                            description={company.vatCode}
+                                            fieldClass="no-h-padding"
+                                            sizeClass="size-lg-12"
+                                        />
+                                    )}
                                 </div>
                             </div>
                         )}
@@ -185,9 +164,7 @@ const Settings = ({
                                 <img
                                     className="settings-logo"
                                     alt={`company logo for ${company.name}`}
-                                    src={`${FILE_STORAGE_URL}/${
-                                        company.logoFile
-                                    }`}
+                                    src={`${FILE_STORAGE_URL}/${company.logoFile}`}
                                 />
                             ) : (
                                 <p className="no-data size-lg-12">No logo</p>
@@ -210,17 +187,13 @@ const Settings = ({
                         </FieldOutput>
                         <FieldOutput
                             title="Dark Mode"
-                            description={
-                                company.isBolsterLogoDark ? 'On' : 'Off'
-                            }
+                            description={company.isBolsterLogoDark ? 'On' : 'Off'}
                             fieldClass="no-h-padding"
                             sizeClass="size-lg-4 size-md-12"
                         />
                         <FieldOutput
                             title="Timezone"
-                            description={`${timeZone.name} - ${
-                                timeZone.offset
-                            }`}
+                            description={`${timeZone.name} - ${timeZone.offset}`}
                         />
                         <FieldOutput
                             title="Date Format"
@@ -231,12 +204,20 @@ const Settings = ({
 
                 <div className="size-lg-4 size-md-12">
                     <Block>
+                        <BlockHeading title="Access Controls" />
+                        <FieldOutput
+                            title="Companies allowed to edit?"
+                            description={company.isEditButtonEnabled ? 'Yes' : 'No'}
+                            fieldClass="no-h-padding"
+                            sizeClass="size-lg-12"
+                        />
+                    </Block>
+
+                    <Block>
                         <BlockHeading title="Label Settings" />
                         <FieldOutput
                             title="Is Using Bolster Labels?"
-                            description={
-                                company.isUsingBolsterLabels ? 'Yes' : 'No'
-                            }
+                            description={company.isUsingBolsterLabels ? 'Yes' : 'No'}
                             fieldClass="no-h-padding"
                             sizeClass="size-lg-12"
                         />
@@ -248,9 +229,7 @@ const Settings = ({
                         />
                         <FieldOutput
                             title="Company Name"
-                            description={
-                                company.labelCompanyName || notProvided
-                            }
+                            description={company.labelCompanyName || notProvided}
                             fieldClass="no-h-padding"
                             sizeClass="size-lg-12"
                         />
@@ -260,9 +239,7 @@ const Settings = ({
                         <BlockHeading title="Bolster Client List" />
                         <FieldOutput
                             title="Hidden on client list?"
-                            description={
-                                company.hideOnClientList ? 'Yes' : 'No'
-                            }
+                            description={company.hideOnClientList ? 'Yes' : 'No'}
                             fieldClass="no-h-padding"
                             sizeClass="size-lg-12"
                         />
@@ -272,11 +249,7 @@ const Settings = ({
                         <BlockHeading title="Template Settings" />
                         <FieldOutput
                             title="Default Template Usage Rule"
-                            description={
-                                TEMPLATE_USAGE_RULES[
-                                    company.defaultTemplateUsageRule
-                                ]
-                            }
+                            description={TEMPLATE_USAGE_RULES[company.defaultTemplateUsageRule]}
                             fieldClass="no-h-padding"
                             sizeClass="size-lg-12"
                         />

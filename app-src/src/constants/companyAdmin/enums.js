@@ -127,6 +127,14 @@ export const PIN_STATUS_TYPES = {
     50: 'Other'
 };
 
+export const STATUS_TO_STATS = {
+    10: 'ActionRequired',
+    20: 'Installed',
+    30: 'Inspected',
+    40: 'NoAction',
+    50: 'Other'
+};
+
 export const PIN_STATUS_COLOURS = {
     10: 'red',
     20: 'green',
@@ -233,14 +241,18 @@ export const SORT_BY_OPTIONS = {
     CREATED_ON_ASC: 1,
     CREATED_ON_DESC: 2,
     PIN_NO_ASC: 3,
-    PIN_NO_DESC: 4
+    PIN_NO_DESC: 4,
+    DRAWING_ASC: 5,
+    DRAWING_DESC: 6
 };
 
 export const SORT_BY_OPTIONS_TEXT = {
     1: 'Date Created (ascending)',
     2: 'Date Created (descending)',
     3: 'Pin Number (ascending)',
-    4: 'Pin Number (descending)'
+    4: 'Pin Number (descending)',
+    5: 'Site/Building/Floor/Drawing (ascending)',
+    6: 'Site/Building/Floor/Drawing (descending)'
 };
 
 export const LAYOUT_OPTIONS = {
@@ -259,7 +271,8 @@ export const PARENTAL_TYPES = {
     CHILD_COMPANY: 3
 };
 
-// adding new dropdown options to these two enum objects will dynamically add a new page for that option. The singular name is for the buttons
+/*  adding new dropdown options to these two enum objects
+    will dynamically add a new page for that option. */
 export const DROPDOWN_OPTIONS = {
     1: { name: 'FR Ratings', link: 'fr-ratings', singular: 'FR Rating' },
     2: { name: 'Item Types', link: 'item-types', singular: 'Item Type' },
@@ -296,8 +309,7 @@ export const FLOORPLAN_STATES = {
 };
 
 export const FLOORPLAN_STATE_MESSAGES = {
-    '-100':
-        'An error occurred while uploading your floorplan, please try again.',
+    '-100': 'An error occurred while uploading your floorplan, please try again.',
     '-1': 'Update failed. Retrying...',
     0: 'Uploading floorplan...',
     1: 'Uploading floorplan...',
@@ -324,6 +336,23 @@ export const COMPANY_TYPES = {
     'Client Access': 3
 };
 
+export const DELETED_DATA_TYPE = {
+    drawing: 'Drawing',
+    floor: 'Floor',
+    building: 'Building',
+    site: 'Site',
+    users: 'User',
+    pinHistory: 'Pin History'
+};
+
 export const getEnumKey = (enumerable, num) =>
+    // ? faster?
+    // Object.keys(enumerable).find(val => val === num);
     // eslint-disable-next-line no-unused-vars
     (Object.entries(enumerable).find(([_, value]) => value === num) || {})[0];
+
+export const FETCH_STATUS = {
+    NONE: 1,
+    PARTIAL: 2,
+    FULL: 3
+};

@@ -47,12 +47,7 @@ export default function(ProtectedComponent) {
         };
 
         validate = errorMessage => {
-            const {
-                addFieldError,
-                removeFieldError,
-                blockName,
-                fieldError
-            } = this.props;
+            const { addFieldError, removeFieldError, blockName, fieldError } = this.props;
 
             if (errorMessage) {
                 addFieldError(blockName, errorMessage);
@@ -71,10 +66,7 @@ export default function(ProtectedComponent) {
 
         _getFilteredPins = pins => {
             const { filters, furtherFiltrationOption } = this.props;
-            const {
-                PIN_SELECTOR,
-                INDIVIDUAL_PINS
-            } = FURTHER_FILTRATION_OPTIONS;
+            const { PIN_SELECTOR, INDIVIDUAL_PINS } = FURTHER_FILTRATION_OPTIONS;
 
             // ? Displays all pins if in rectangle mode, and only the selected pins otherwise.
 
@@ -84,8 +76,8 @@ export default function(ProtectedComponent) {
             }
 
             const {
-                fromDateInclusive,
-                toDateInclusive,
+                fromDateInclusive: startDate,
+                toDateInclusive: endDate,
                 status,
                 serviceID,
                 templateID,
@@ -94,22 +86,26 @@ export default function(ProtectedComponent) {
 
             const NO = false;
             const YES = true;
+
+            const fromDateInclusive = this.getFilterStartDate(startDate);
+            const toDateInclusive = this.getFilterEndDate(endDate);
+
             // simple
             return pins
                 .filter(pin => {
+                    // 2066696
                     // start date
+
                     if (
                         fromDateInclusive &&
-                        moment(pin.createdOn) <
-                            moment(fromDateInclusive, momentComparisonFormat)
+                        moment(pin.createdOn) < moment(fromDateInclusive, momentComparisonFormat)
                     ) {
                         return NO;
                     }
                     // end date
                     if (
                         toDateInclusive &&
-                        moment(pin.createdOn) >
-                            moment(toDateInclusive, momentComparisonFormat)
+                        moment(pin.createdOn) > moment(toDateInclusive, momentComparisonFormat)
                     ) {
                         return NO;
                     }
@@ -129,9 +125,7 @@ export default function(ProtectedComponent) {
                     if (
                         companyUserIDs &&
                         companyUserIDs.length &&
-                        !companyUserIDs.includes(
-                            pin.latestCreatedByCompanyUserID
-                        )
+                        !companyUserIDs.includes(pin.latestCreatedByCompanyUserID)
                     ) {
                         return NO;
                     }
@@ -180,7 +174,8 @@ export default function(ProtectedComponent) {
                 excludedPinIDs,
                 rectangles,
                 options: { showHidden, sortBy },
-                fields
+                fields,
+                timeZone
             } = this.props;
 
             let hierarchyType;
@@ -217,14 +212,8 @@ export default function(ProtectedComponent) {
                 }
                 case FILTERS: {
                     questionFilters = fields.map(
-                        ({
-                            selectedQuestions,
-                            questionValues = [],
-                            selectedValues = []
-                        }) => {
-                            let values = questionValues.length
-                                ? questionValues
-                                : selectedValues;
+                        ({ selectedQuestions, questionValues = [], selectedValues = [] }) => {
+                            let values = questionValues.length ? questionValues : selectedValues;
 
                             return {
                                 questionGroupKeys: selectedQuestions,
@@ -244,16 +233,25 @@ export default function(ProtectedComponent) {
             };
 
             const pinBoundingBoxes = Object.values(rectangles).map(
-                ({ corners: [first, second] }) => [
-                    getLatLng(first),
-                    getLatLng(second)
-                ]
+                ({ corners: [first, second] }) => [getLatLng(first), getLatLng(second)]
             );
+            // get the utc converted time for both from date and to date.
+            const startDate = fromDateInclusive
+                ? moment
+                      .tz(fromDateInclusive, timeZone.name)
+                      .startOf('day')
+                      .utc()
+                      .toISOString()
+                : null;
 
+            // to date needs to be start of next day so that we get all pins from the previous day.
             const endDate = toDateInclusive
-                ? moment(toDateInclusive)
-                      .endOf('day')
-                      .toDate()
+                ? moment
+                      .tz(toDateInclusive, timeZone.name)
+                      .add('days', 1)
+                      .startOf('day')
+                      .utc()
+                      .toISOString()
                 : null;
 
             const body = {
@@ -265,7 +263,7 @@ export default function(ProtectedComponent) {
                 isCSVGeneration,
                 isFloorplanGeneration,
                 includeFloorplan,
-                fromDateInclusive,
+                fromDateInclusive: startDate,
                 toDateInclusive: endDate,
                 companyUserIDs,
                 serviceID: serviceID || null,
@@ -282,20 +280,50 @@ export default function(ProtectedComponent) {
             return body;
         };
 
+        getFilterStartDate = date => {
+            const { timeZone } = this.props;
+            return date
+                ? moment
+                      .tz(date, timeZone.name)
+                      .startOf('day')
+                      .utc()
+                      .toISOString()
+                : null;
+        };
+
+        getFilterEndDate = date => {
+            const { timeZone } = this.props;
+            const endDate = date
+                ? moment
+                      .tz(date, timeZone.name)
+                      .add('days', 1)
+                      .startOf('day')
+                      .utc()
+                      .toISOString()
+                : null;
+            return endDate;
+        };
+
+        getDateOfPin = date => {
+            const { timeZone } = this.props;
+            return moment
+                .tz(date, timeZone.name)
+                .utc()
+                .toISOString();
+        };
+
         getTemplateOptions = () => {
-            return this.props.getTemplateOptions(this._getPostBody());
+            const { getTemplateOptions } = this.props;
+            return getTemplateOptions(this._getPostBody());
         };
 
         getOperativeOptions = () => {
-            return this.props.getOperativeOptions(this._getPostBody());
+            const { getOperativeOptions } = this.props;
+            return getOperativeOptions(this._getPostBody());
         };
 
         postFilters = async () => {
-            const {
-                postCustomFilters,
-                getOperativeOptions,
-                getTemplateOptions
-            } = this.props;
+            const { postCustomFilters, getOperativeOptions, getTemplateOptions } = this.props;
             const body = this._getPostBody();
 
             if (body.hasQuestions) {
@@ -330,7 +358,10 @@ export default function(ProtectedComponent) {
                     excludedPinIDs,
                     furtherFiltrationOption
                 },
-                operativesReducer: { operatives }
+                operativesReducer: { operatives },
+                companySettingsReducer: {
+                    companySettings: { timeZone }
+                }
             }
         },
         { blockName }
@@ -339,8 +370,7 @@ export default function(ProtectedComponent) {
         const buildingIDs = selectedSite.buildingIDs || [];
         const buildings = buildingIDs.map(id => buildingsReducer.buildings[id]);
 
-        const selectedBuilding =
-            buildingsReducer.buildings[filters.buildingID] || {};
+        const selectedBuilding = buildingsReducer.buildings[filters.buildingID] || {};
         const floorIDs = selectedBuilding.floorIDs || [];
         const floors = floorIDs.map(id => floorsReducer.floors[id]);
 
@@ -367,7 +397,8 @@ export default function(ProtectedComponent) {
             drawings,
             fields: Object.values(fields),
             excludedPinIDs,
-            furtherFiltrationOption
+            furtherFiltrationOption,
+            timeZone
         };
     };
 
@@ -377,10 +408,8 @@ export default function(ProtectedComponent) {
         addFieldError: (name, val) => dispatch(addFieldError(name, val)),
         removeFieldError: name => dispatch(removeFieldError(name)),
         showFieldErrors: () => dispatch(showFieldErrors()),
-        getOperativeOptions: postBody =>
-            dispatch(getOperativeOptions(postBody)),
-        getTemplateOptions: postBody =>
-            dispatch(getTemplateReportOptions(postBody))
+        getOperativeOptions: postBody => dispatch(getOperativeOptions(postBody)),
+        getTemplateOptions: postBody => dispatch(getTemplateReportOptions(postBody))
     });
 
     return connect(

@@ -1,30 +1,29 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import CompanyReportsTable from '../presentational/CompanyReportsTable';
-import { sortArrayByKeyAndOrder } from 'helpers/generic';
+import { sortArrayByKeyAndOrder, getSelectedCompanyForClient } from 'helpers/generic';
+import fetchClientCompanyReportsFull from 'actions/client/reports/queue/async/fetchClientCompanyReportsFull';
 
 const CompanyReportsTableContainer = ({
     isFetching,
     error,
     companyReports,
     sortString = '',
-    onMobile
+    onMobile,
+    fetchClientCompanyReportsFull,
+    fetchStatus
 }) => {
     return (
         <CompanyReportsTable
-            headers={[
-                'Name',
-                'Type',
-                'Details',
-                'Status',
-                'Created On',
-                'Completed on',
-                ''
-            ]}
+            headers={['Name', 'Type', 'Details', 'Status', 'Created On', 'Completed on', '']}
             isFetching={isFetching}
             error={error}
             companyReports={_getSortedQueue()}
             onMobile={onMobile}
+            fetchClientCompanyReportsFull={() =>
+                fetchClientCompanyReportsFull(getSelectedCompanyForClient())
+            }
+            fetchStatus={fetchStatus}
         />
     );
 
@@ -40,7 +39,8 @@ const mapStateToProps = ({
             companyReports,
             error,
             isFetching,
-            sort: { sortString }
+            sort: { sortString },
+            fetchStatus
         }
     },
     shared: {
@@ -51,7 +51,13 @@ const mapStateToProps = ({
     error,
     isFetching,
     sortString,
-    onMobile
+    onMobile,
+    fetchStatus
 });
 
-export default connect(mapStateToProps)(CompanyReportsTableContainer);
+const mapDispatchToProps = { fetchClientCompanyReportsFull };
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(CompanyReportsTableContainer);

@@ -2797,6 +2797,10 @@ input {
     }
 }
 
+.filtered-flag {
+    color: $text-grey;
+}
+
 //leaflet map
 .leaflet-container {
     width: 100%;

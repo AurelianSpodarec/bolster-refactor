@@ -4,33 +4,38 @@ import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/pr
 const DropdownOptionsListItem = ({
     option,
     handleEditOptionModal,
-    handleDeleteOptionModal,
+    handleToggleEnable,
     onMobile,
     headers
 }) => (
     <tr>
         <td>
-            {onMobile && (
-                <span className="mobile-table-heading">{headers[0]}</span>
-            )}
+            {onMobile && <span className="mobile-table-heading">{headers[0]}</span>}
             {option.name}
         </td>
         <td>
             {onMobile && <span className="mobile-table-heading">Actions</span>}
             <BlockButtonWrapper>
-                <button
-                    onClick={() => handleEditOptionModal(option)}
-                    className="button yellow"
-                >
+                <button onClick={() => handleEditOptionModal(option)} className="button yellow">
                     <i className="far fa-pencil" />
                     Edit
                 </button>
+
                 <button
-                    onClick={() => handleDeleteOptionModal(option)}
-                    className="button red"
+                    onClick={handleToggleEnable}
+                    className={`button ${option.isDisabled ? 'green' : 'red'}`}
                 >
-                    <i className="far fa-trash-alt" />
-                    Delete
+                    {option.isDisabled ? (
+                        <>
+                            <i className="fa fa-plus fa-fw" />
+                            Enable
+                        </>
+                    ) : (
+                        <>
+                            <i className="fa fa-minus fa-fw" />
+                            Disable
+                        </>
+                    )}
                 </button>
             </BlockButtonWrapper>
         </td>
