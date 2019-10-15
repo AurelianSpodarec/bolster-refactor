@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import DrawingInspectionLogsTable from '../presentational/DrawingInspectionLogsTable';
+import withUpdateOnChange from 'components/client/reports/createReport/components/hocs/withUpdateOnChange';
 
 class DrawingInspectionLogContainer extends Component {
     state = {
@@ -9,15 +10,16 @@ class DrawingInspectionLogContainer extends Component {
     };
 
     render() {
-        const { pins, isFetching, error } = this.props;
-        const filterPins = pins.filter(({ pinCode = '' }) =>
-            pinCode.includes(this.state.filterValue)
-        ).sort((a, b) => {
-            if(!a.pinCode || !b.pinCode) {
-                return 0;
-            }
-            return Number(a.pinCode.replace(':', '')) - Number(b.pinCode.replace(':', ''));
-        });
+        const { pins, isFetching, error, getFilteredPins } = this.props;
+
+        const filterPins = getFilteredPins(pins)
+            .filter(({ pinCode = '' }) => pinCode.includes(this.state.filterValue))
+            .sort((a, b) => {
+                if (!a.pinCode || !b.pinCode) {
+                    return 0;
+                }
+                return Number(a.pinCode.replace(':', '')) - Number(b.pinCode.replace(':', ''));
+            });
 
         return (
             <DrawingInspectionLogsTable
@@ -46,4 +48,4 @@ const mapStateToProps = ({
     error: error
 });
 
-export default connect(mapStateToProps)(DrawingInspectionLogContainer);
+export default withUpdateOnChange(connect(mapStateToProps)(DrawingInspectionLogContainer));

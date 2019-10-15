@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import DrawingInspectionLogsTable from '../presentational/DrawingInspectionLogsTable';
+import withUpdateOnChange from 'components/companyAdmin/reports/createReport/components/hocs/withUpdateOnChange';
 
 class DrawingInspectionLogContainer extends Component {
     state = {
@@ -9,12 +10,11 @@ class DrawingInspectionLogContainer extends Component {
     };
 
     render() {
-        const { pins, isFetching, error, onMobile } = this.props;
-        const filterPins = pins
-            .filter(({ pinCode = '' }) =>
-                pinCode.includes(this.state.filterValue)
-            ).sort((a, b) => {
-                if(!a.pinCode || !b.pinCode) {
+        const { pins, isFetching, error, onMobile, getFilteredPins } = this.props;
+        const filterPins = getFilteredPins(pins)
+            .filter(({ pinCode = '' }) => pinCode.includes(this.state.filterValue))
+            .sort((a, b) => {
+                if (!a.pinCode || !b.pinCode) {
                     return 0;
                 }
                 return Number(a.pinCode.replace(':', '')) - Number(b.pinCode.replace(':', ''));
@@ -41,11 +41,7 @@ class DrawingInspectionLogContainer extends Component {
 const mapStateToProps = ({
     companyAdmin: {
         pinsReducer: { pins, isFetching, error },
-        inspectionLogsReducer: {
-            inspectionLogs,
-            isFetching: fetchingLogs,
-            error: inspectionError
-        }
+        inspectionLogsReducer: { inspectionLogs, isFetching: fetchingLogs, error: inspectionError }
     },
     shared: {
         mobileReducer: { onMobile }
@@ -60,4 +56,4 @@ const mapStateToProps = ({
     onMobile
 });
 
-export default connect(mapStateToProps)(DrawingInspectionLogContainer);
+export default withUpdateOnChange(connect(mapStateToProps)(DrawingInspectionLogContainer));
