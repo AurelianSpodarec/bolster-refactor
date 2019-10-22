@@ -16,6 +16,7 @@ const TestFileUploadForm = ({ handleSubmit, handleChange, file }) => (
                         value={file}
                         handleChange={handleChange}
                         maxFiles={1}
+                        acceptedTypes={['image/*']}
                     />
                 </Field>
             </div>
