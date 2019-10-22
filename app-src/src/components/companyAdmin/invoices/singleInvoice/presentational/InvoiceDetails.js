@@ -7,6 +7,7 @@ import BlockHeading from 'components/shared/generic/blockHeading/presentational/
 import FieldOutput from 'components/shared/generic/fieldOutput/presentational/FieldOutput';
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 import { formatCurrency } from 'helpers/generic';
+import { INVOICE_GEN_URL } from 'config';
 
 const InvoiceDetails = ({
     isFetching,
@@ -30,7 +31,7 @@ const InvoiceDetails = ({
             <a
                 target="_blank"
                 rel="noopener noreferrer"
-                href={`https://6eixv6n0wf.execute-api.eu-west-1.amazonaws.com/staging/bolster-invoice-gen-staging/${guid}`}
+                href={`${INVOICE_GEN_URL}/${guid}?id=${id}`}
                 className="button blue"
             >
                 <i className="fa fa-download fa-fw" /> Download Invoice
