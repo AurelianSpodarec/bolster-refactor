@@ -12,6 +12,7 @@ import {
     ADMIN_CONFIRM_SET_IS_INVOICE_PAID,
     ADMIN_DELETE_INVOICE
 } from 'constants/shared/modalTypes';
+import { INVOICE_GEN_URL } from 'config';
 
 const InvoiceDetails = ({
     isFetching,
@@ -31,7 +32,7 @@ const InvoiceDetails = ({
             <a
                 target="_blank"
                 rel="noopener noreferrer"
-                href={`https://6eixv6n0wf.execute-api.eu-west-1.amazonaws.com/staging/bolster-invoice-gen-staging/${guid}`}
+                href={`${INVOICE_GEN_URL}/${guid}?id=${id}`}
                 className="button blue"
             >
                 <i className="fa fa-download fa-fw" /> Download Invoice
