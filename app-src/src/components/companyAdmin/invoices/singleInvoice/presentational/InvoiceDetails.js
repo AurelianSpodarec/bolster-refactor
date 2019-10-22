@@ -32,7 +32,6 @@ const InvoiceDetails = ({
                 rel="noopener noreferrer"
                 href={`https://6eixv6n0wf.execute-api.eu-west-1.amazonaws.com/staging/bolster-invoice-gen-staging/${guid}`}
                 className="button blue"
-                download={`invoice-${id}.pdf`}
             >
                 <i className="fa fa-download fa-fw" /> Download Invoice
             </a>
