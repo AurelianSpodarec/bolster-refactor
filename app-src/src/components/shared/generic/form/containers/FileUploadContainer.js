@@ -41,6 +41,13 @@ class FileUploadContainer extends Component {
 
     componentDidMount = () => {
         const { value } = this.props;
+        console.log('   ');
+        console.log('   ');
+        console.log('   ');
+        console.log({ value });
+        console.log('   ');
+        console.log('   ');
+        console.log('   ');
         if (value && value.length) this._setFiles(value);
 
         this._validate();
@@ -107,17 +114,30 @@ class FileUploadContainer extends Component {
         this.props.fileUploadFinish();
     };
 
-    _handleFileLoad = (source = '', load, error) => {
-        var myRequest = new Request(source);
-        fetch(myRequest)
-            .then(function(response) {
-                response.blob().then(function(myBlob) {
-                    load(myBlob);
-                });
-            })
-            .catch(function() {
-                error('Something went wrong.');
-            });
+    _handleFileLoad = async (source = '', load, error) => {
+        const myRequest = new Request(source);
+        console.log('loading item', { source });
+
+        try {
+            const response = await fetch(myRequest);
+            const myBlob = await response.blob();
+            await load(myBlob);
+
+            console.log('loaded');
+        } catch (e) {
+            error('Something went wrong.');
+        }
+
+        // await fetch(myRequest)
+        //     .then(function(response) {
+        //         response.blob().then(function(myBlob) {
+        //             load(myBlob);
+        //             console.log('loaded!!');
+        //         });
+        //     })
+        //     .catch(function() {
+        //         error('Something went wrong.');
+        //     });
     };
 
     _handleUpload = (fieldName, file, metadata, load, error, progress, abort) => {
@@ -131,6 +151,7 @@ class FileUploadContainer extends Component {
             ...getAuthHeader(),
             'content-type': 'multipart/form-data'
         };
+
         const config = {
             headers,
             cancelToken: source.token,

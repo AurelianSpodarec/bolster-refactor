@@ -1,189 +1,100 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import axios from 'axios';
 
 import { FILE_API_URL } from 'config';
-import addFieldError from 'actions/shared/generic/fieldErrors/sync/addFieldError';
-import removeFieldError from 'actions/shared/generic/fieldErrors/sync/removeFieldError';
 
 import TestFileUpload from '../presentational/TestFileUpload';
+import withFieldValidation from 'components/shared/generic/form/hocs/withFieldValidation';
 import { getAuthHeader } from 'helpers/api';
-import { areArraysEqual } from 'helpers/generic';
 
-const testImageSrc =
-    'https://dizelaxol0ewg.cloudfront.net/5aeb8e07-7765-4425-948f-5481f81027bc/larry.jpg';
+// const testImageSrc =
+//     'https://dizelaxol0ewg.cloudfront.net/5aeb8e07-7765-4425-948f-5481f81027bc/larry.jpg';
 class FileUploadContainer extends Component {
-    state = {
-        showFieldError: false,
-        isAfterAdd: false,
-        files: [{ source: testImageSrc, options: { type: 'local' } }]
-    };
+    constructor(props) {
+        super(props);
+        this.state = {
+            fileS3Key: '',
+            progress: null
+        };
+
+        this.source = null;
+    }
 
     render() {
-        const { showFieldError } = this.state;
-        const { errorsVisible, error, maxFiles, acceptedTypes } = this.props;
-        let errorMessage;
-        if (showFieldError || errorsVisible) errorMessage = error;
-
+        const { fileS3Key, progress } = this.state;
         return (
             <TestFileUpload
-                files={this.state.files}
-                serverOptions={this._getServerOptions()}
-                error={errorMessage}
-                maxFiles={maxFiles}
-                acceptedTypes={acceptedTypes}
-                handleUpdateFiles={this.handleUpdateFiles}
+                value={fileS3Key}
+                progress={progress}
+                onChange={this.handleUpload}
+                onDelete={this.handleDelete}
+                onCancel={this.handleCancel}
             />
         );
     }
 
-    componentDidMount = () => {
-        this._validate();
+    _getFileName = src => {
+        return src.match('[^/]*$')[0];
     };
 
-    componentWillUnmount = () => {
-        const { name, removeFieldError } = this.props;
-        removeFieldError(name);
+    _handleProgress = e => {
+        const percentCompleted = Math.round((e.loaded * 100) / e.total);
+        this.setState({ progress: percentCompleted });
+        console.log({ percentCompleted });
     };
 
-    componentDidUpdate = ({ value: prevValue }) => {
-        const { value } = this.props;
-        const hasArrChanged =
-            Array.isArray(value) && !areArraysEqual(value, prevValue);
-        const hasStringChanged =
-            typeof value === 'string' && value !== prevValue;
+    handleCancel = () => {
+        this.source.cancel('Upload cancelled.');
+    };
 
-        if (hasArrChanged || hasStringChanged) {
-            this._validate(value);
+    handleUpload = async e => {
+        console.log(e.target.files);
+        const file = e.target.files[0];
+        if (!file) {
+            return;
         }
-    };
 
-    _validate = () => {
-        const {
-            name,
-            error,
-            required,
-            addFieldError,
-            removeFieldError,
-            value
-        } = this.props;
+        const { addFieldError, showError, name, skipTemp = false } = this.props;
 
-        if (required && !(value && value.length)) {
-            addFieldError(name, 'This is a required field.');
-        } else if (error) {
-            removeFieldError(name);
-        }
-    };
-
-    _getServerOptions = () => {
-        return {
-            url: FILE_API_URL,
-            process: this._handleUpload,
-            revert: this._handleRevert,
-            // load: this._handleLoad,
-            restore: null,
-            fetch: null
-        };
-    };
-
-    _handleUpload = (
-        fieldName,
-        file,
-        metadata,
-        load,
-        error,
-        progress,
-        abort
-    ) => {
         const formData = new FormData();
-        formData.append(fieldName, file, file.name);
+        formData.append(name, file, file.name);
 
-        const CancelToken = axios.CancelToken;
-        const source = CancelToken.source();
+        this.source = axios.CancelToken.source();
         const headers = {
             ...getAuthHeader(),
             'content-type': 'multipart/form-data'
         };
-        const config = {
+        const reqConfig = {
             headers,
-            cancelToken: source.token,
-            onUploadProgress: e =>
-                progress(e.lengthComputable, e.loaded, e.total)
+            cancelToken: this.source.token,
+            onUploadProgress: this._handleProgress
         };
 
-        axios
-            .post(FILE_API_URL, formData, config)
-            .then(({ data: { s3Key } }) => {
-                const { name, handleChange } = this.props;
-                handleChange(name, s3Key);
-                load(s3Key);
-            })
-            .catch(() => error('Something went wrong'));
-
-        return {
-            abort: () => {
-                source.cancel('Upload canceled');
-                abort();
+        try {
+            const response = await axios.post(
+                `${FILE_API_URL}?skipTemp=${skipTemp}`,
+                formData,
+                reqConfig
+            );
+            const newS3Key = response.data.s3Key;
+            console.log(newS3Key);
+            this.setState({ fileS3Key: newS3Key });
+        } catch (e) {
+            if (!axios.isCancel(e)) {
+                addFieldError(name, `There was a problem uploading ${file.name}.`);
+                showError();
+                console.log('error!', { e });
             }
-        };
+        }
+
+        this.setState({ progress: null });
     };
 
-    // _handleLoad = (source, load, error, progress, abort) => {
-    // var options = {
-    //     method: 'GET',
-    //     mode: 'no-cors',
-    //     cache: 'default'
-    // };
-
-    // const request = new Request(source);
-
-    //     const headers = {
-    //         ...getAuthHeader(),
-    //         'content-type': 'multipart/form-data'
-    //     };
-    //     const config = {
-    //         headers,
-    //         cancelToken: source.token,
-    //         responseType: 'blob'
-    //     };
-
-    //     axios.get(source, config);
-
-    //     return {
-    //         abort: () => {
-    //             abort();
-    //         }
-    //     };
-    // };
-
-    handleUpdateFiles = fileItems => {
-        this.setState({
-            files: fileItems.map(fileItem => fileItem.file)
-        });
-    };
-
-    _handleRevert = (s3Key, load) => {
-        const { name, handleChange } = this.props;
-        handleChange(name, s3Key);
-        load();
+    handleDelete = (e, s3Key) => {
+        e.preventDefault();
+        console.log(s3Key);
+        this.setState({ fileS3Key: '' });
     };
 }
 
-const mapStateToProps = ({ shared: { fieldErrorsReducer } }, ownProps) => ({
-    error: fieldErrorsReducer.fieldErrors[ownProps.name],
-    errorsVisible: fieldErrorsReducer.errorsVisible
-});
-
-const mapDispatchToProps = dispatch => ({
-    addFieldError: (fieldName, error) => {
-        dispatch(addFieldError(fieldName, error));
-    },
-    removeFieldError: fieldName => {
-        dispatch(removeFieldError(fieldName));
-    }
-});
-
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(FileUploadContainer);
+export default withFieldValidation(FileUploadContainer);
