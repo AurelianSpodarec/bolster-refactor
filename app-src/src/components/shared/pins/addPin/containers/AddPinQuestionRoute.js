@@ -47,12 +47,7 @@ const {
     STATIC_IMAGE
 } = QUESTION_TYPE_VALUES;
 
-const SingleLine = ({
-    isRequired,
-    question: { id, charLimit },
-    answers,
-    handleChange
-}) => {
+const SingleLine = ({ isRequired, question: { id, charLimit }, answers, handleChange }) => {
     return (
         <TextInputContainer
             required={isRequired}
@@ -64,12 +59,7 @@ const SingleLine = ({
     );
 };
 
-const MultiLine = ({
-    isRequired,
-    question: { id, charLimit },
-    answers,
-    handleChange
-}) => {
+const MultiLine = ({ isRequired, question: { id, charLimit }, answers, handleChange }) => {
     return (
         <TextAreaContainer
             required={isRequired}
@@ -80,12 +70,7 @@ const MultiLine = ({
         />
     );
 };
-const NumberInput = ({
-    isRequired,
-    question: { id, maxNum },
-    answers,
-    handleChange
-}) => {
+const NumberInput = ({ isRequired, question: { id, maxNum }, answers, handleChange }) => {
     return (
         <NumberInputContainer
             required={isRequired}
@@ -97,12 +82,7 @@ const NumberInput = ({
     );
 };
 
-const SingleDropdown = ({
-    isRequired,
-    question: { id, options },
-    answers,
-    handleChange
-}) => {
+const SingleDropdown = ({ isRequired, question: { id, options }, answers, handleChange }) => {
     const opts = options.map(({ id, text }) => ({ value: id, label: text }));
 
     return (
@@ -117,12 +97,7 @@ const SingleDropdown = ({
     );
 };
 
-const MultiDropdown = ({
-    isRequired,
-    question: { id, options },
-    answers,
-    handleChange
-}) => {
+const MultiDropdown = ({ isRequired, question: { id, options }, answers, handleChange }) => {
     const opts = options.map(({ id, text }) => ({ value: id, label: text }));
 
     return (
@@ -173,70 +148,27 @@ const Radio = ({
     );
 };
 
-const SinglePhoto = ({
-    isRequired,
-    question: { id },
-    answers,
-    handleFileChange,
-    handleImageClick,
-    edit
-}) => {
-    return edit ? (
-        <img
-            alt=""
-            src={`${RAW_S3_STORAGE_URL}/${answers[id]}`}
-            onClick={() =>
-                handleImageClick({
-                    image: `${RAW_S3_STORAGE_URL}/${answers[id]}`
-                })
-            }
-        />
-    ) : (
-        <FileUploadContainer
-            name={`answer-${id}`}
-            required={isRequired}
-            acceptedTypes={['image/*']}
-            maxFiles={1}
-            handleChange={handleFileChange}
-            value={answers[id]}
-        />
-    );
-};
+const SinglePhoto = ({ isRequired, question: { id }, answers, handleChange }) => (
+    <FileUploadContainer
+        name={`answer-${id}`}
+        required={isRequired}
+        acceptedTypes={['image/*']}
+        maxFiles={1}
+        handleChange={handleChange}
+        value={answers[id]}
+    />
+);
 
-const MultiPhoto = ({
-    isRequired,
-    question: { maxPhotos, id },
-    answers,
-    handleFileChange,
-    handleImageClick,
-    edit
-}) => {
-    return edit ? (
-        <div>
-            {(answers[id] || []).map(src => (
-                <img
-                    key={src}
-                    alt=""
-                    src={`${RAW_S3_STORAGE_URL}/${src}`}
-                    onClick={() =>
-                        handleImageClick({
-                            image: `${RAW_S3_STORAGE_URL}/${src}`
-                        })
-                    }
-                />
-            ))}
-        </div>
-    ) : (
-        <FileUploadContainer
-            name={`answer-${id}`}
-            required={isRequired}
-            acceptedTypes={['image/*']}
-            maxFiles={maxPhotos ? maxPhotos : 25}
-            handleChange={handleFileChange}
-            value={answers[id]}
-        />
-    );
-};
+const MultiPhoto = ({ isRequired, question: { maxPhotos, id }, answers, handleChange }) => (
+    <FileUploadContainer
+        name={`answer-${id}`}
+        required={isRequired}
+        acceptedTypes={['image/*']}
+        maxFiles={maxPhotos ? maxPhotos : 25}
+        handleChange={handleChange}
+        value={answers[id]}
+    />
+);
 
 const Signature = ({ isRequired, question: { id }, handleSignatureChange }) => {
     return (
@@ -276,26 +208,24 @@ const DropdownOptions = ({
 }) => {
     // ! If a user is editing a pin that has a dropdown option that's no longer available, this needs to be kept as an option.
     let formattedOpts = [];
-    const filteredOptions = dropdownOptions
-        .filter(option => option.type + '' === optionType + '');
+    const filteredOptions = dropdownOptions.filter(option => option.type + '' === optionType + '');
 
-    if(edit) {
+    if (edit) {
         const curOptions = filteredOptions.map(opt => opt.name);
- 
+
         formattedOpts = filteredOptions.map(({ name }) => ({
             value: name,
             label: name
         }));
-        
-        if(!curOptions.includes(originalDropdownAns)) {
-            formattedOpts.push({value: originalDropdownAns, label: originalDropdownAns});
+
+        if (!curOptions.includes(originalDropdownAns)) {
+            formattedOpts.push({ value: originalDropdownAns, label: originalDropdownAns });
         }
     } else {
         formattedOpts = dropdownOptions
             .filter(option => option.type + '' === optionType + '')
             .map(({ name }) => ({ value: name, label: name }));
     }
-        
 
     return (
         <Select
@@ -318,34 +248,32 @@ const MultiDropdownOptions = ({
     edit,
     originalDropdownMultiAns
 }) => {
+    let formattedOpts = [];
+    const filteredOptions = dropdownOptions.filter(option => option.type + '' === optionType + '');
 
-        let formattedOpts = [];
-        const filteredOptions = dropdownOptions
-                .filter(option => option.type + '' === optionType + '');
-    
-   // ! If a user is editing a pin that has a dropdown option that's no longer available, this needs to be kept as an option.
-        if(edit) {
-            const curOptions = filteredOptions.map(opt => opt.name);
-    
-            const extraOptions = originalDropdownMultiAns.reduce((acc, opt) => {
-                if(!curOptions.includes(opt) && !acc.includes(opt)) {
+    // ! If a user is editing a pin that has a dropdown option that's no longer available, this needs to be kept as an option.
+    if (edit) {
+        const curOptions = filteredOptions.map(opt => opt.name);
+
+        const extraOptions = originalDropdownMultiAns
+            .reduce((acc, opt) => {
+                if (!curOptions.includes(opt) && !acc.includes(opt)) {
                     acc.push(opt);
                 }
                 return acc;
-            }, []).map(opt => ({name: opt}));
-    
-            formattedOpts = [...filteredOptions, ...extraOptions].map(({ name }) => ({
-                value: name,
-                label: name
-            }));
-        } else {
-            formattedOpts = filteredOptions
-                .map(({ name }) => 
-                ({
-                    value: name,
-                    label: name
-                }));
-        }
+            }, [])
+            .map(opt => ({ name: opt }));
+
+        formattedOpts = [...filteredOptions, ...extraOptions].map(({ name }) => ({
+            value: name,
+            label: name
+        }));
+    } else {
+        formattedOpts = filteredOptions.map(({ name }) => ({
+            value: name,
+            label: name
+        }));
+    }
 
     return (
         <MultiSelect
@@ -358,12 +286,7 @@ const MultiDropdownOptions = ({
     );
 };
 
-const MultiMulti = ({
-    isRequired,
-    question: { id, options },
-    answers,
-    handleChange
-}) => {
+const MultiMulti = ({ isRequired, question: { id, options }, answers, handleChange }) => {
     const formattedOpts = options.map(({ id, text }) => ({
         value: id,
         label: text
@@ -390,36 +313,33 @@ const MultiMultiDropdownOptions = ({
     edit,
     originalDropdownMultiAns
 }) => {
-
     let formattedOpts = [];
-    const filteredOptions = dropdownOptions
-            .filter(option => option.type + '' === optionType + '');
+    const filteredOptions = dropdownOptions.filter(option => option.type + '' === optionType + '');
 
     // ! If a user is editing a pin that has a dropdown option that's no longer available, this needs to be kept as an option.
-    if(edit) {
+    if (edit) {
         const curOptions = filteredOptions.map(opt => opt.name);
 
-        const extraOptions = originalDropdownMultiAns.reduce((acc, opt) => {
-            if(!curOptions.includes(opt) && !acc.includes(opt)) {
-                acc.push(opt);
-            }
-            return acc;
-        }, []).map(opt => ({name: opt}));
+        const extraOptions = originalDropdownMultiAns
+            .reduce((acc, opt) => {
+                if (!curOptions.includes(opt) && !acc.includes(opt)) {
+                    acc.push(opt);
+                }
+                return acc;
+            }, [])
+            .map(opt => ({ name: opt }));
 
         formattedOpts = [...filteredOptions, ...extraOptions].map(({ name }) => ({
             value: name,
             label: name
         }));
     } else {
-        formattedOpts = filteredOptions
-            .map(({ name }) => 
-            ({
-                value: name,
-                label: name
-            }));
+        formattedOpts = filteredOptions.map(({ name }) => ({
+            value: name,
+            label: name
+        }));
     }
-   
-        
+
     return (
         <BoundlessSelect
             required={isRequired}
@@ -458,7 +378,7 @@ class AddPinQuestionRoute extends Component {
             edit,
             resetPinAnswer,
             isHistory
-        } = this.props; 
+        } = this.props;
 
         const fieldTypes = {
             [SINGLE_LINE]: SingleLine,
@@ -498,8 +418,7 @@ class AddPinQuestionRoute extends Component {
             const SpecificField = fieldTypes[question.type + ''] || SingleLine;
 
             const extraImageClasses =
-                (edit && question.type + '' === MULTI_PHOTO) ||
-                question.type + '' === SINGLE_PHOTO
+                (edit && question.type + '' === MULTI_PHOTO) || question.type + '' === SINGLE_PHOTO
                     ? 'photo-view'
                     : '';
 
@@ -520,7 +439,6 @@ class AddPinQuestionRoute extends Component {
                         dropdownOptions={dropdownOptions}
                         handleChange={this.handleChange}
                         handleStatusChange={this.handleStatusChange}
-                        handleFileChange={this.handleFileChange}
                         handleImageClick={this.handleImageClick}
                         handleSignatureChange={this.handleSignatureChange}
                         sigPad={this.state.sigPad}
@@ -539,13 +457,7 @@ class AddPinQuestionRoute extends Component {
 
     _getIsRequired = () => {
         const {
-            question: {
-                isRequired,
-                isRequiredVal,
-                type,
-                id,
-                prerequisiteQuestionID
-            },
+            question: { isRequired, isRequiredVal, type, id, prerequisiteQuestionID },
             answers,
             questions,
             status
@@ -566,12 +478,7 @@ class AddPinQuestionRoute extends Component {
         return false;
     };
 
-    checkIfShouldShowByPreReq = (
-        currentQuestionID,
-        prerequisiteQuestionID,
-        answers,
-        questions
-    ) => {
+    checkIfShouldShowByPreReq = (currentQuestionID, prerequisiteQuestionID, answers, questions) => {
         const { question, status } = this.props;
         const preReqQuestion = questions[prerequisiteQuestionID];
         let preReqAnswer = answers[prerequisiteQuestionID];
@@ -583,9 +490,7 @@ class AddPinQuestionRoute extends Component {
         }
 
         if (String(preReqQuestion.type) === STATUS) {
-            return (
-                String(question.prerequisiteQuestionValue) === String(status)
-            );
+            return String(question.prerequisiteQuestionValue) === String(status);
         }
 
         if (String(preReqQuestion.type) === QUESTION_TYPE_VALUES.CHECKBOX) {
@@ -610,9 +515,7 @@ class AddPinQuestionRoute extends Component {
             }
         }
 
-        if (
-            String(preReqQuestion.type) === QUESTION_TYPE_VALUES.MULTI_DROPDOWN
-        ) {
+        if (String(preReqQuestion.type) === QUESTION_TYPE_VALUES.MULTI_DROPDOWN) {
             const retArray = [];
 
             if (!preReqAnswer) {
@@ -634,9 +537,7 @@ class AddPinQuestionRoute extends Component {
 
         if (Array.isArray(preReqAnswer)) {
             //TODO maybe so case in-sensitive check
-            const lowerCaseAnswers = preReqAnswer.map(answer =>
-                String(answer).toLowerCase()
-            );
+            const lowerCaseAnswers = preReqAnswer.map(answer => String(answer).toLowerCase());
             if (
                 lowerCaseAnswers.includes(
                     String(curQuestion.prerequisiteQuestionValue).toLowerCase()
@@ -692,8 +593,7 @@ class AddPinQuestionRoute extends Component {
             removeFieldError(answerName);
         }
 
-        const isDoneFetchingPins =
-            prevProps.isFetchingPins && !isFetchingPins && !isEmpty(pins);
+        const isDoneFetchingPins = prevProps.isFetchingPins && !isFetchingPins && !isEmpty(pins);
 
         if (isDoneFetchingPins && (history.id && oldAnswers && edit)) {
             const oldAnswersArray = Object.values(oldAnswers);
@@ -701,17 +601,19 @@ class AddPinQuestionRoute extends Component {
             // !pin history ID matters to select the right answer to prefill on edit
             const oldAnswer = oldAnswersArray.find(
                 ({ templateQuestionID, pinHistoryID }) =>
-                    templateQuestionID === question.id &&
-                    pinHistoryID === Number(historyID)
+                    templateQuestionID === question.id && pinHistoryID === Number(historyID)
             );
             if (oldAnswer) {
                 const { templateQuestionID, answer } = oldAnswer;
                 updateAddPinAnswer(templateQuestionID, answer);
-                if(question.type + '' === MULTI_DROPDOWN_OPTIONS || question.type + '' === MULTI_MULTI_DROPDOWN_OPTIONS){
-                    this.setState({originalDropdownMultiAns: answer});
+                if (
+                    question.type + '' === MULTI_DROPDOWN_OPTIONS ||
+                    question.type + '' === MULTI_MULTI_DROPDOWN_OPTIONS
+                ) {
+                    this.setState({ originalDropdownMultiAns: answer });
                 }
-                if(question.type + '' === DROPDOWN_OPTIONS){
-                    this.setState({originalDropdownAns: answer});
+                if (question.type + '' === DROPDOWN_OPTIONS) {
+                    this.setState({ originalDropdownAns: answer });
                 }
             }
             if (String(question.type) === STATUS) {
@@ -733,32 +635,6 @@ class AddPinQuestionRoute extends Component {
     handleStatusChange = (_, val) => {
         const { updateAddPinStatus } = this.props;
         updateAddPinStatus(val);
-    };
-
-    handleFileChange = (_, s3Key) => {
-        const { updateAddPinAnswer, question, answers } = this.props;
-        let curAnswer = answers[question.id];
-        if (+question.type === +QUESTION_TYPE_VALUES.MULTI_PHOTO) {
-            if (!curAnswer) {
-                curAnswer = [];
-            }
-            //Multi File
-            const existing = curAnswer.includes(s3Key);
-            if (existing) {
-                //Delete
-
-                curAnswer = curAnswer.filter(item => item !== s3Key);
-
-                updateAddPinAnswer(question.id, curAnswer);
-            } else {
-                //Add
-                curAnswer.push(s3Key);
-                updateAddPinAnswer(question.id, curAnswer);
-            }
-        } else {
-            const shouldDeleteFile = answers[question.id] === s3Key;
-            updateAddPinAnswer(question.id, shouldDeleteFile ? '' : s3Key);
-        }
     };
 
     handleImageClick = imgURL => {

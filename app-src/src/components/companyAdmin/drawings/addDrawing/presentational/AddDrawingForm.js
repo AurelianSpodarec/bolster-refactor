@@ -5,14 +5,12 @@ import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/pr
 import Form from 'components/shared/generic/form/containers/Form';
 import FileUploadContainer from 'components/shared/generic/form/containers/FileUploadContainer';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
-import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
 import TooltipContainer from 'components/shared/generic/tooltip/containers/TooltipContainer';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 
 const AddDrawingForm = ({
     handleSubmit,
     handleInputChange,
-    handleFileChange,
     filesUploading,
     floorID,
     name,
@@ -41,7 +39,7 @@ const AddDrawingForm = ({
                         required
                         name="file"
                         acceptedTypes={['application/pdf', 'image/*']}
-                        handleChange={handleFileChange}
+                        handleChange={handleInputChange}
                     />
                 </Field>
             </div>
@@ -49,29 +47,17 @@ const AddDrawingForm = ({
 
         <BlockButtonWrapper>
             {credits > 0 ? (
-                <button
-                    disabled={filesUploading}
-                    className="button green"
-                    type="submit"
-                >
+                <button disabled={filesUploading} className="button green" type="submit">
                     {filesUploading ? 'Please wait...' : <>Submit</>}
                 </button>
             ) : (
-                <TooltipContainer
-                    side="top"
-                    text="You must have credits to add a drawing."
-                >
-                    <ButtonContainer
-                        handleClick={handleBuyCreditsModal}
-                        className="button red"
-                    >
+                <TooltipContainer side="top" text="You must have credits to add a drawing.">
+                    <ButtonContainer handleClick={handleBuyCreditsModal} className="button red">
                         No credits available
                     </ButtonContainer>
                 </TooltipContainer>
             )}
-            <ButtonContainer to={`/company/floors/${floorID}`}>
-                Cancel
-            </ButtonContainer>
+            <ButtonContainer to={`/company/floors/${floorID}`}>Cancel</ButtonContainer>
         </BlockButtonWrapper>
     </Form>
 );

@@ -11,8 +11,6 @@ import FileDropBox from './FileDropBox';
 import { fileUploadStart, fileUploadFinish } from 'actions/shared/fileUpload/sync/fileUpload';
 import { areArraysEqual } from 'helpers/generic';
 
-// const testImageSrc =
-//     'https://dizelaxol0ewg.cloudfront.net/5aeb8e07-7765-4425-948f-5481f81027bc/larry.jpg';
 class FileUploadContainer extends Component {
     static defaultProps = {
         maxFiles: 1,

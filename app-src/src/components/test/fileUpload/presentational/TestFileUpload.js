@@ -5,8 +5,6 @@ const getFileName = src => {
     return src.match('[^/]*$')[0];
 };
 
-const imageTypes = ['gif', 'jpeg', 'jpg', 'png'];
-
 const FileUpload = ({
     onChange,
     onDelete,
@@ -18,13 +16,7 @@ const FileUpload = ({
     inputRef,
     maxFiles
 }) => {
-    var imageKeys = fileS3Keys.filter(fName =>
-        imageTypes.some(type => fName.toLowerCase().endsWith(type))
-    );
-
-    var otherKeys = fileS3Keys.filter(
-        fName => !imageTypes.some(type => fName.toLowerCase().endsWith(type))
-    );
+    const { images, other } = organizeS3KeysByType(fileS3Keys);
 
     return (
         <>
@@ -47,7 +39,7 @@ const FileUpload = ({
                     </button>
                 </>
             )}
-            {otherKeys.map(s3Key => (
+            {other.map(s3Key => (
                 <div key={s3Key}>
                     <button type="button" onClick={e => onDelete(e, s3Key)}>
                         <i className="far fa-times fa-fw" />
@@ -55,7 +47,7 @@ const FileUpload = ({
                     <p>{getFileName(s3Key)}</p>
                 </div>
             ))}
-            {imageKeys.map(s3Key => (
+            {images.map(s3Key => (
                 <div key={s3Key}>
                     <button type="button" onClick={e => onDelete(e, s3Key)}>
                         <i className="far fa-times fa-fw" />
@@ -70,5 +62,23 @@ const FileUpload = ({
         </>
     );
 };
+const imageTypes = ['gif', 'jpeg', 'jpg', 'png'];
+
+function organizeS3KeysByType(s3KEys) {
+    return s3KEys.reduce(
+        (acc, s3Key = '') => {
+            const fileTypeSuffix = s3Key.slice(s3Key.lastIndexOf('.') + 1).toLowerCase();
+
+            if (imageTypes.includes(fileTypeSuffix)) {
+                acc.images.push(s3Key);
+            } else {
+                acc.other.push(s3Key);
+            }
+
+            return acc;
+        },
+        { images: [], other: [] }
+    );
+}
 
 export default FileUpload;

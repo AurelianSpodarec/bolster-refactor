@@ -24,7 +24,6 @@ class AddDrawingFormContainer extends Component {
                 file={file}
                 floorID={floorID}
                 handleInputChange={this.handleInputChange}
-                handleFileChange={this.handleFileChange}
                 handleSubmit={this.handleSubmit}
                 filesUploading={filesUploading}
                 credits={credits}
@@ -39,11 +38,6 @@ class AddDrawingFormContainer extends Component {
     };
 
     handleInputChange = (name, value) => this.setState({ [name]: value });
-
-    handleFileChange = (name, s3Key) => {
-        const { [name]: file } = this.state;
-        this.setState({ [name]: file === s3Key ? '' : s3Key });
-    };
 
     handleSubmit = () => {
         const { createDrawing, floorID, filesUploading } = this.props;
@@ -71,10 +65,7 @@ const mapStateToProps = (
     filesUploading,
     floorID: match.params.id,
     updatedID,
-    credits: Object.values(credits).reduce(
-        (acc, curr) => acc + curr.quantity,
-        0
-    ),
+    credits: Object.values(credits).reduce((acc, curr) => acc + curr.quantity, 0),
     postSuccess
 });
 const mapDispatchToProps = dispatch => ({

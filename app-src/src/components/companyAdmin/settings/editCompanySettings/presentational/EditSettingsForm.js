@@ -16,7 +16,6 @@ import { VAT_TYPES } from 'constants/companyAdmin/enums';
 const EditSettingsForm = ({
     handleInputChange,
     handleSubmit,
-    handleFileChange,
     templateUsageRules,
     filesUploading,
     location,
@@ -150,7 +149,7 @@ const EditSettingsForm = ({
                         name="logoFile"
                         value={logoFile}
                         acceptedTypes={['application/pdf', 'image/*']}
-                        handleChange={handleFileChange}
+                        handleChange={handleInputChange}
                     />
                 </Field>
                 <div className="size-lg-6 size-md-12">

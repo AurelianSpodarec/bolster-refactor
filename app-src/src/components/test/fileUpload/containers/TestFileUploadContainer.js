@@ -4,15 +4,13 @@ import { connect } from 'react-redux';
 
 import { FILE_API_URL } from 'config';
 
-import TestFileUpload from '../presentational/TestFileUpload';
+import FileUpload from '../presentational/TestFileUpload';
 import withFieldValidation from 'components/shared/generic/form/hocs/withFieldValidation';
 import { getAuthHeader } from 'helpers/api';
 import FileDropBox from './FileDropBox';
 import { fileUploadStart, fileUploadFinish } from 'actions/shared/fileUpload/sync/fileUpload';
 import { areArraysEqual } from 'helpers/generic';
 
-// const testImageSrc =
-//     'https://dizelaxol0ewg.cloudfront.net/5aeb8e07-7765-4425-948f-5481f81027bc/larry.jpg';
 class FileUploadContainer extends Component {
     static defaultProps = {
         maxFiles: 1,
@@ -43,7 +41,7 @@ class FileUploadContainer extends Component {
         return (
             <>
                 <FileDropBox onDrop={this.handleFileDrop}>
-                    <TestFileUpload
+                    <FileUpload
                         fileS3Keys={fileS3Keys}
                         progress={progress}
                         isDragging={isDragging}
