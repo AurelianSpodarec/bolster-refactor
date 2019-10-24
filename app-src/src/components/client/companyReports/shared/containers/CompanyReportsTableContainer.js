@@ -28,8 +28,16 @@ const CompanyReportsTableContainer = ({
     );
 
     function _getSortedQueue() {
-        const [fieldName, sortOrder] = sortString.split(' ');
-        return sortArrayByKeyAndOrder(companyReports, fieldName, sortOrder);
+        const fieldAndSort = sortString.split(' ');
+
+        const fieldName = fieldAndSort[0];
+        const sortOrder = fieldAndSort[1];
+
+        if (sortOrder === 'asc') {
+            return sortArrayByKeyAndOrder(companyReports, fieldName, true);
+        } else {
+            return sortArrayByKeyAndOrder(companyReports, fieldName, false);
+        }
     }
 };
 
