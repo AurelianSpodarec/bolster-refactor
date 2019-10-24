@@ -29,8 +29,12 @@ export default postBody => dispatch => {
         .post(`${API_URL}/subscriptions`, postBody, getHeaders())
         .then(({ data }) => dispatch(addServiceToSubscriptionSuccess(data)))
         .catch(err => {
+            if (!!err.response && !!err.response.data && !!err.response.data.message) {
+                return dispatch(addServiceToSubscriptionFailure(err.response.data.message));
+            }
+
             if (err.response.status === 400) {
-                dispatch(setAPIFieldErrors(err.response.data.errors));
+                return dispatch(setAPIFieldErrors(err.response.data.errors));
             }
             // pulls out nested API error if existing
             return dispatch(

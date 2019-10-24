@@ -81,7 +81,8 @@ class BuyCreditsModalContainer extends Component {
             postError,
             postSuccess,
             fetchAllCredits,
-            showModal
+            showModal,
+            error
         } = this.props;
         const { paymentType } = this.state;
         if (!isFetching && prevProps.isFetching) {
@@ -104,7 +105,7 @@ class BuyCreditsModalContainer extends Component {
             fetchAllCredits();
             showModal(PAYMENT_ERROR, {
                 message:
-                    'There was an error while purchasing your credits. Please try again.',
+                    error || 'There was an error while purchasing your credits. Please try again.',
                 resubmit: this.handleSubmit
             });
         }
@@ -151,7 +152,8 @@ const mapStateToProps = ({
             postError,
             costOfCredits,
             vatCostOfCredits,
-            credits
+            credits,
+            error
         },
         cardsReducer: { cards, isFetching }
     }
@@ -165,7 +167,8 @@ const mapStateToProps = ({
     vatCostOfCredits,
     postSuccess,
     postError,
-    isFetching
+    isFetching,
+    error,
 });
 
 const mapDispatchToProps = {
