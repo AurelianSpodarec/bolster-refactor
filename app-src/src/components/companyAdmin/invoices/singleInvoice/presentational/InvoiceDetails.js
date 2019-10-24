@@ -31,8 +31,9 @@ const InvoiceDetails = ({
             <a
                 target="_blank"
                 rel="noopener noreferrer"
-                href={`${INVOICE_GEN_URL}/${guid}?id=${id}`}
+                href={`${INVOICE_GEN_URL}/${guid}/invoice-${id}`}
                 className="button blue"
+                download={`invoice-${id}.pdf`}
             >
                 <i className="fa fa-download fa-fw" /> Download Invoice
             </a>
