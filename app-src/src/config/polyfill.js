@@ -1,4 +1,4 @@
-import 'config/objectEntriesIE';
+// import 'config/objectEntriesIE';
 import 'core-js/features/array/from';
 import 'core-js/features/array/flat';
 import 'core-js/features/set';
