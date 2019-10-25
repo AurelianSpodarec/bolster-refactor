@@ -8,7 +8,7 @@ import { CRS } from 'leaflet';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import CustomPin from 'components/shared/pins/map/presentational/CustomPin';
 import Loading from 'components/shared/generic/misc/presentational/Loading';
-import { ACCESS_TYPES_VALUES } from 'constants/companyAdmin/enums';
+import { ACCESS_TYPES_VALUES, FLOORPLAN_STATES } from 'constants/companyAdmin/enums';
 import { EDIT_DRAWING } from 'constants/shared/modalTypes';
 import MapPinContainer from 'components/shared/pins/map/containers/MapPinContainer';
 import RedX from 'components/shared/pins/map/presentational/RedX';
@@ -159,6 +159,13 @@ const DrawingMapViewSimple = ({
                         ))}
                     </Map>
                 </div>
+            ) : drawing.latestFloorplanState === FLOORPLAN_STATES.FAILEDCANCELLED ? (
+                <button
+                    className="button yellow"
+                    onClick={() => showModal(EDIT_DRAWING, { drawing })}
+                >
+                    <i className="far fa-pencil fa-fw" /> Upload failed - retry?
+                </button>
             ) : (
                 <Loading
                     message="Floorplan is generating, please check back later."

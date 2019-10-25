@@ -127,6 +127,14 @@ export const PIN_STATUS_TYPES = {
     50: 'Other'
 };
 
+export const STATUS_TO_STATS = {
+    10: 'ActionRequired',
+    20: 'Installed',
+    30: 'Inspected',
+    40: 'NoAction',
+    50: 'Other'
+};
+
 export const PIN_STATUS_COLOURS = {
     10: 'red',
     20: 'green',
@@ -233,14 +241,18 @@ export const SORT_BY_OPTIONS = {
     CREATED_ON_ASC: 1,
     CREATED_ON_DESC: 2,
     PIN_NO_ASC: 3,
-    PIN_NO_DESC: 4
+    PIN_NO_DESC: 4,
+    DRAWING_ASC: 5,
+    DRAWING_DESC: 6
 };
 
 export const SORT_BY_OPTIONS_TEXT = {
     1: 'Date Created (ascending)',
     2: 'Date Created (descending)',
     3: 'Pin Number (ascending)',
-    4: 'Pin Number (descending)'
+    4: 'Pin Number (descending)',
+    5: 'Site/Building/Floor/Drawing (ascending)',
+    6: 'Site/Building/Floor/Drawing (descending)'
 };
 
 export const LAYOUT_OPTIONS = {
@@ -322,6 +334,15 @@ export const COMPANY_TYPES = {
     'Company - Active Subscription': 1,
     'Company - Expired Subscription': 2,
     'Client Access': 3
+};
+
+export const DELETED_DATA_TYPE = {
+    drawing: 'Drawing',
+    floor: 'Floor',
+    building: 'Building',
+    site: 'Site',
+    users: 'User',
+    pinHistory: 'Pin History'
 };
 
 export const getEnumKey = (enumerable, num) =>

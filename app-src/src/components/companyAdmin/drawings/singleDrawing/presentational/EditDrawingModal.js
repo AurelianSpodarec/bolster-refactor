@@ -14,6 +14,7 @@ import TextInputContainer from 'components/shared/generic/form/containers/TextIn
 import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
 import TextAreaContainer from 'components/shared/generic/form/containers/TextAreaContainer';
 import DatePickerPresentational from 'components/shared/generic/form/presentational/DatePicker';
+import { FLOORPLAN_STATES } from 'constants/companyAdmin/enums';
 
 const getFileName = src => src.match('[^/]*$')[0];
 const EditDrawingModal = ({
@@ -24,52 +25,45 @@ const EditDrawingModal = ({
     handleDateChange,
     hideModal,
     handleSubmit,
-    drawing: { doesRequireCreditToReplaceFloorplan, tilesetS3KeyOrig },
+    drawing: { doesRequireCreditToReplaceFloorplan, tilesetS3KeyOrig, latestFloorplanState },
     isUsingBolsterLabels,
     isAlertShowing,
     message,
     dateToSend
 }) => (
-    <ModalOuterContainer
-        extraClasses={`${isUsingBolsterLabels ? 'w-label-example' : ''}`}
-    >
+    <ModalOuterContainer extraClasses={`${isUsingBolsterLabels ? 'w-label-example' : ''}`}>
         <BlockHeading title="Edit drawing">
-            <button
-                className="button r-margin"
-                onClick={() =>
-                    fetch(`${RAW_S3_STORAGE_URL}/${tilesetS3KeyOrig}`).then(
-                        res => {
+            {latestFloorplanState === FLOORPLAN_STATES.COMPLETE && (
+                <button
+                    className="button r-margin"
+                    onClick={() =>
+                        fetch(`${RAW_S3_STORAGE_URL}/${tilesetS3KeyOrig}`).then(res => {
                             res.blob().then(blob =>
-                                fileDownload(
-                                    blob,
-                                    getFileName(tilesetS3KeyOrig)
-                                )
+                                fileDownload(blob, getFileName(tilesetS3KeyOrig))
                             );
-                        }
-                    )
-                }
-            >
-                <i className="fa fa-download" /> Download current floorplan
-            </button>
+                        })
+                    }
+                >
+                    <i className="fa fa-download" /> Download current floorplan
+                </button>
+            )}
         </BlockHeading>
         {doesRequireCreditToReplaceFloorplan ? (
             <p className="generic-text size-lg-12">
-                Note: updating the floorplan for this drawing will cost a
-                credit.
+                Note: updating the floorplan for this drawing will cost a credit.
             </p>
         ) : (
             <p className="generic-text size-lg-12">
-                Note: This will not cost you a credit as this is a recently
-                created drawing.
+                Note: This will not cost you a credit as this is a{' '}
+                {latestFloorplanState === FLOORPLAN_STATES.FAILEDCANCELLED
+                    ? 'failed upload'
+                    : 'recently created drawing'}
+                .
             </p>
         )}
 
         <Form className="generic-form" onSubmit={handleSubmit}>
-            <div
-                className={
-                    isUsingBolsterLabels ? 'size-lg-6 size-md-12' : 'size-lg-12'
-                }
-            >
+            <div className={isUsingBolsterLabels ? 'size-lg-6 size-md-12' : 'size-lg-12'}>
                 <Field name="Drawing name" required>
                     <TextInputContainer
                         name="name"
@@ -103,11 +97,7 @@ const EditDrawingModal = ({
                 {isAlertShowing && (
                     <div className="size-lg-12">
                         <div
-                            className={
-                                isUsingBolsterLabels
-                                    ? 'size-lg-12'
-                                    : 'size-lg-6 size-md-12'
-                            }
+                            className={isUsingBolsterLabels ? 'size-lg-12' : 'size-lg-6 size-md-12'}
                         >
                             <Field name="Alert Message">
                                 <TextAreaContainer
@@ -119,11 +109,7 @@ const EditDrawingModal = ({
                         </div>
 
                         <div
-                            className={
-                                isUsingBolsterLabels
-                                    ? 'size-lg-12'
-                                    : 'size-lg-6 size-md-12'
-                            }
+                            className={isUsingBolsterLabels ? 'size-lg-12' : 'size-lg-6 size-md-12'}
                         >
                             <Field name="Date to send">
                                 <DatePickerPresentational
@@ -155,9 +141,7 @@ const EditDrawingModal = ({
                         </>
                     )}
                 </button>
-                <ButtonContainer handleClick={hideModal}>
-                    Cancel
-                </ButtonContainer>
+                <ButtonContainer handleClick={hideModal}>Cancel</ButtonContainer>
             </BlockButtonWrapper>
         </Form>
     </ModalOuterContainer>

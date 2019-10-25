@@ -14,7 +14,8 @@ const PinHistoryDetailsItem = ({
     handleDeleteHistoryModal,
     editedByUserName,
     drawingID,
-    isDeleteHistory
+    isDeleteHistory,
+    pin
 }) => (
     <div className="item">
         <FieldOutput
@@ -52,16 +53,32 @@ const PinHistoryDetailsItem = ({
             sizeClass="size-lg-3 size-md-12"
         />
 
+        {!!history.restoredOn && (
+            <>
+                <FieldOutput
+                    title="Date Restored"
+                    description={<DateTimeContainer date={history.restoredOn} /> || 'N/A'}
+                    sizeClass="size-lg-3 size-md-12"
+                />
+
+                <FieldOutput
+                    title="Restored By"
+                    description={history.restoredByCompanyUserName || 'N/A'}
+                    sizeClass="size-lg-3 size-md-12"
+                />
+            </>
+        )}
         <PinSectionsContainer pinHistory={history} drawingID={drawingID} />
 
         <BlockButtonWrapper additionalClasses="item-button-container" sizeClasses="size-lg-12">
             <button className="button red" onClick={handleDeleteHistoryModal}>
                 <i className="far fa-times" /> Delete {isDeleteHistory > 1 ? 'History' : 'Pin'}
             </button>
-
-            <button className="button yellow" onClick={handleEditHistoryModal}>
-                <i className="far fa-pencil" /> Edit this history
-            </button>
+            {pin && pin.isEditButtonEnabled && (
+                <button className="button yellow" onClick={handleEditHistoryModal}>
+                    <i className="far fa-pencil" /> Edit this history
+                </button>
+            )}
         </BlockButtonWrapper>
     </div>
 );
