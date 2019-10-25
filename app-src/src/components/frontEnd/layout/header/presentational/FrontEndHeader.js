@@ -70,7 +70,7 @@ const FrontEndHeader = ({ isSuperAdmin, isCompanyAdmin, isClientAccess, logout, 
                                     </a>
                                     <a
                                         className="google-btn"
-                                        href="https://bolster-android.s3-eu-west-1.amazonaws.com/bolster.apk"
+                                        href="https://play.google.com/store/apps/details?id=com.bolster.dynamicdroid&hl=en"
                                         target="_blank"
                                         rel="noopener noreferrer"
                                     >
