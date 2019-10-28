@@ -48,7 +48,7 @@ const DrawingPickerContainer = ({
     }, [siteID, buildingID, drawingID, floorID]);
 
     //if drawing is selected don't render component
-    if (drawingID) {
+    if (!siteID || drawingID) {
         return false;
     }
 
