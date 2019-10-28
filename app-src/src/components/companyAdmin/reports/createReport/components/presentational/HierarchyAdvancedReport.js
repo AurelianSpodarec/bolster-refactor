@@ -4,6 +4,7 @@ import Block1FiltersContainer from 'components/companyAdmin/reports/createReport
 import BasicFiltersContainer from 'components/companyAdmin/reports/createReport/components/containers/BasicFiltersContainer';
 import FurtherFiltrationContainer from 'components/companyAdmin/reports/createReport/components/containers/FurtherFiltrationContainer';
 import OutputSettingsContainer from 'components/companyAdmin/reports/createReport/components/containers/OutputSettingsContainer';
+import DrawingPickerContainer from 'components/companyAdmin/reports/createReport/components/containers/DrawingPickerContainer';
 
 const HierarchyAdvancedReport = ({ isDrawingPage = false }) => (
     <>
@@ -20,6 +21,8 @@ const HierarchyAdvancedReport = ({ isDrawingPage = false }) => (
         </div>
 
         <FurtherFiltrationContainer />
+        <DrawingPickerContainer />
+
         <OutputSettingsContainer />
     </>
 );
