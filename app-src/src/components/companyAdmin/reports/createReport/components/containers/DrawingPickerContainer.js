@@ -7,8 +7,16 @@ import { HIERARCHY_IDS } from 'constants/companyAdmin/enums';
 import DrawingPicker from '../presentational/DrawingPicker';
 
 import withUpdateOnChange from '../hocs/withUpdateOnChange';
+import updateDrawingIDsIncluded from 'actions/companyAdmin/reports/sync/updateDrawingIDsIncluded';
 
-const DrawingPickerContainer = ({ siteID, buildingID, floorID, drawings }) => {
+const DrawingPickerContainer = ({
+    siteID,
+    buildingID,
+    floorID,
+    drawingID,
+    drawings,
+    updateDrawingIDsIncluded
+}) => {
     const [includedDrawings, setIncludeDrawings] = useState([]);
     const [excludedDrawings, setExcludeDrawings] = useState([]);
     const [selectedDrawings, setSelectedDrawings] = useState([]);
@@ -26,18 +34,23 @@ const DrawingPickerContainer = ({ siteID, buildingID, floorID, drawings }) => {
     useEffect(() => {
         //check which hierarchy has changed and set availableDrawings with the correct hierarchy ID and type
         if (siteID) {
-            if (prevHierarchyID.siteID != siteID.toString()) {
+            if (siteID && prevHierarchyID.siteID != siteID.toString()) {
                 setExcludeDrawings(availableDrawings(siteID, HIERARCHY_IDS.SITE));
                 setIncludeDrawings([]);
-            } else if (prevHierarchyID.buildingID != buildingID.toString()) {
+            } else if (buildingID && prevHierarchyID.buildingID != buildingID.toString()) {
                 setExcludeDrawings(availableDrawings(buildingID, HIERARCHY_IDS.BUILDING));
                 setIncludeDrawings([]);
-            } else if (prevHierarchyID.floorID != floorID.toString()) {
+            } else if (floorID && prevHierarchyID.floorID != floorID.toString()) {
                 setExcludeDrawings(availableDrawings(floorID, HIERARCHY_IDS.FLOOR));
                 setIncludeDrawings([]);
             }
         }
-    }, [siteID, buildingID, floorID]);
+    }, [siteID, buildingID, drawingID, floorID]);
+
+    //if drawing is selected don't render component
+    if (drawingID) {
+        return false;
+    }
 
     return (
         <DrawingPicker
@@ -82,7 +95,6 @@ const DrawingPickerContainer = ({ siteID, buildingID, floorID, drawings }) => {
     }
 
     //get drawing and select the proper hierarchyID to get the correct floor.
-
     function handleDrawingClick(e, drawingID) {
         e.preventDefault();
 
@@ -94,6 +106,8 @@ const DrawingPickerContainer = ({ siteID, buildingID, floorID, drawings }) => {
     }
 
     function handleAddIncluded(e) {
+        // console.warn(this.props);
+
         e.preventDefault();
 
         if (selectedDrawings.length && excludedDrawings.length) {
@@ -106,7 +120,19 @@ const DrawingPickerContainer = ({ siteID, buildingID, floorID, drawings }) => {
                         included: true
                     }))
             ]);
-
+            //dont need this?
+            // handleChange('drawingIDs', [
+            //     ...includedDrawings.map(drawing => drawing.id),
+            //     ...excludedDrawings
+            //         .filter(drawing => selectedDrawings.includes(drawing.id))
+            //         .map(drawing => drawing.id)
+            // ]);
+            updateDrawingIDsIncluded([
+                ...includedDrawings.map(drawing => drawing.id),
+                ...excludedDrawings
+                    .filter(drawing => selectedDrawings.includes(drawing.id))
+                    .map(drawing => drawing.id)
+            ]);
             setExcludeDrawings(
                 excludedDrawings
                     .filter(drawing => !selectedDrawings.includes(drawing.id))
@@ -131,7 +157,11 @@ const DrawingPickerContainer = ({ siteID, buildingID, floorID, drawings }) => {
                         included: false
                     }))
             ]);
-
+            updateDrawingIDsIncluded([
+                includedDrawings
+                    .filter(drawing => !selectedDrawings.includes(drawing.id))
+                    .map(drawing => drawing.id)
+            ]);
             setIncludeDrawings(
                 includedDrawings
                     .filter(drawing => !selectedDrawings.includes(drawing.id))
@@ -146,13 +176,16 @@ const DrawingPickerContainer = ({ siteID, buildingID, floorID, drawings }) => {
     }
 };
 
-//get each drawing for each level
+const mapDispatchToProps = {
+    updateDrawingIDsIncluded
+};
+
 const mapStateToProps = ({
     companyAdmin: {
         sitesReducer: { sites },
         drawingsReducer: { drawings },
         reportsReducer: {
-            filters: { siteID, floorID, buildingID }
+            filters: { siteID, floorID, buildingID, drawingID }
         }
     }
 }) => ({
@@ -160,7 +193,15 @@ const mapStateToProps = ({
     sites,
     floorID,
     buildingID,
+    drawingID,
     drawings
 });
 
-export default withRouter(withUpdateOnChange(connect(mapStateToProps)(DrawingPickerContainer)));
+export default withUpdateOnChange(
+    withRouter(
+        connect(
+            mapStateToProps,
+            mapDispatchToProps
+        )(DrawingPickerContainer)
+    )
+);

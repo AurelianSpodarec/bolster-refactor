@@ -14,6 +14,10 @@ const DrawingPicker = ({
     <>
         <BlockContainer>
             <BlockHeading title="Available Drawings to Report" />
+            <p className="generic-text small">
+                Below you can choose the drawings you would like to report on. This is optional and
+                defaults to all drawings on the selected level.
+            </p>
             <div className="pin-selector size-lg-12 form-field">
                 <div className="pin-selection-box">
                     <h3>Excluded</h3>

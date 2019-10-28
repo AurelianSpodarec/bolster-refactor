@@ -16,8 +16,9 @@ const CreateReportForm = () => (
         </div>
 
         <FurtherFiltrationContainer />
-        <OutputSettingsContainer />
         <DrawingPickerContainer />
+
+        <OutputSettingsContainer />
     </>
 );
 

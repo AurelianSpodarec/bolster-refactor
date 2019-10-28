@@ -87,8 +87,7 @@ class LevelsFilterContainer extends Component {
                 hideModal();
                 return update(value).then(postFilters);
             };
-            const message =
-                'Changing this will reset your advanced filters options, continue?';
+            const message = 'Changing this will reset your advanced filters options, continue?';
             // * confirm and then do this:
             showModal(CONFIRM_SUBMIT, { handleSubmit, message, hideModal });
         } else {
@@ -150,12 +149,14 @@ class LevelsFilterContainer extends Component {
 
     componentDidUpdate = ({ customFilters: { pins: prevPins = [] } }) => {
         const {
+            customFilters,
             customFilters: { pins = [] },
             handleChange
         } = this.props;
         if (pins.length !== prevPins.length) {
             handleChange('pinIDs', pins.map(({ id }) => id));
         }
+        console.warn({ myFilters: 'here', customFilters });
     };
 
     // for advanced reports on hierarchy single pages
