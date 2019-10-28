@@ -8,7 +8,7 @@ import addFieldError from 'actions/shared/generic/fieldErrors/sync/addFieldError
 import removeFieldError from 'actions/shared/generic/fieldErrors/sync/removeFieldError';
 import { convertArrToObj, momentComparisonFormat } from 'helpers/generic';
 import showFieldErrors from 'actions/shared/generic/fieldErrors/sync/showFieldErrors';
-import { FURTHER_FILTRATION_OPTIONS } from 'constants/companyAdmin/enums';
+import { FURTHER_FILTRATION_OPTIONS, HIERARCHY_IDS } from 'constants/companyAdmin/enums';
 import getOperativeOptions from 'actions/companyAdmin/reports/async/getOperativeOptions';
 import getTemplateReportOptions from 'actions/companyAdmin/reports/async/getTemplateReportOptions';
 
@@ -175,7 +175,8 @@ export default function(ProtectedComponent) {
                 rectangles,
                 options: { showHidden, sortBy },
                 fields,
-                timeZone
+                timeZone,
+                includedDrawingsIDs
             } = this.props;
 
             let hierarchyType;
@@ -275,7 +276,8 @@ export default function(ProtectedComponent) {
                 sortBy,
                 pinBoundingBoxes,
                 floorplanPinScale,
-                hasQuestions: +furtherFiltrationOption > +INDIVIDUAL_PINS
+                hasQuestions: +furtherFiltrationOption > +INDIVIDUAL_PINS,
+                includedDrawingIDs: includedDrawingsIDs
             };
             return body;
         };
@@ -356,7 +358,8 @@ export default function(ProtectedComponent) {
                     customFilters,
                     rectangles,
                     excludedPinIDs,
-                    furtherFiltrationOption
+                    furtherFiltrationOption,
+                    includedDrawingsIDs
                 },
                 operativesReducer: { operatives },
                 companySettingsReducer: {
@@ -375,8 +378,8 @@ export default function(ProtectedComponent) {
         const floors = floorIDs.map(id => floorsReducer.floors[id]);
 
         const selectedFloor = floorsReducer.floors[filters.floorID] || {};
-        const drawingIDs = selectedFloor.drawingIDs || [];
-        const drawings = drawingIDs.map(id => drawingsReducer.drawings[id]);
+        const selectedDrawingIDs = selectedFloor.drawingIDs || [];
+        const drawings = selectedDrawingIDs.map(id => drawingsReducer.drawings[id]);
 
         return {
             fieldErrors,
@@ -398,7 +401,8 @@ export default function(ProtectedComponent) {
             fields: Object.values(fields),
             excludedPinIDs,
             furtherFiltrationOption,
-            timeZone
+            timeZone,
+            includedDrawingsIDs
         };
     };
 
