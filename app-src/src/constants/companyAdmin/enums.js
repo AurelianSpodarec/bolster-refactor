@@ -358,3 +358,19 @@ export const FETCH_STATUS = {
     PARTIAL: 2,
     FULL: 3
 };
+
+export const DEFAULT_SITES_SORT = {
+    CUSTOM: 1,
+    DATE_ASC: 2,
+    DATE_DESC: 3,
+    NAME_ASC: 4,
+    NAME_DESC: 5
+};
+
+export const DEFAULT_SITES_SORT_NAMES = {
+    1: 'Custom',
+    2: 'Date Ascending',
+    3: 'Date Descending',
+    4: 'Name Ascending',
+    5: 'Name Descending',
+};
