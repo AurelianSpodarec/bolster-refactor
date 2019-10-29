@@ -71,7 +71,7 @@ const CompanyReportsTableContainer = ({
             // wait 1s before deleting to ensure download has begun
             setTimeout(() => {
                 deleteReport(queueItem.id);
-            }, 1000);
+            }, 3000);
             window.open(s3URL);
             hideModal();
         };
