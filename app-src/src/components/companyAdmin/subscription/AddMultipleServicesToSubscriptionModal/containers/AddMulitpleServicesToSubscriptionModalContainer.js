@@ -18,19 +18,39 @@ class AddMulitpleServicesToSubscriptionModalContainer extends Component {
         stripeCardID: null,
         termsAgreed: false,
         subscriptions: [],
-        serviceIDs: []
+        serviceIDs: [],
+        creditsToBuy: this.props.creditsToBuy || '',
+        selectedServiceNames: []
     };
 
     render() {
-        const { cards, hideModal, proRataCost, services, subscriptions } = this.props;
-        const { paymentType, stripeCardID, termsAgreed, serviceIDs } = this.state;
-        const cardOptions = cards.map(card => ({
-            text: `${card.nickname || card.name} - ${card.lastFour}`,
-            value: card.id
-        }));
+        const {
+            cards,
+            hideModal,
+            proRataCost,
+            costOfCredits,
+            vatCostOfCredits,
+            credits
+        } = this.props;
+
+        const {
+            paymentType,
+            stripeCardID,
+            termsAgreed,
+            serviceIDs,
+            creditsToBuy,
+            selectedServiceNames
+        } = this.state;
+
+        const costWithoutVAT = costOfCredits * creditsToBuy;
+        const costOfVAT = vatCostOfCredits * creditsToBuy;
+        const costWithVAT = costWithoutVAT + costOfVAT;
 
         const noCards = !cards.length;
-
+        const cardOptions = cards.map(card => ({
+            label: `${card.nickname || card.name} - ${card.lastFour}`,
+            value: card.id
+        }));
         //need acitve subscriptions for available services
         // const { serviceIDs = [] } = subscriptions;
         // const unsubscribedServices = Object.values(services).filter(
@@ -42,15 +62,23 @@ class AddMulitpleServicesToSubscriptionModalContainer extends Component {
             <AddMulitpleServicesToSubscriptionModal
                 subscriptions={this.state.subscriptions}
                 services={serviceOptions}
+                selectedServiceNames={selectedServiceNames}
                 checkedServices={serviceIDs}
                 paymentType={paymentType}
                 proRataCost={proRataCost}
                 stripeCardID={stripeCardID}
                 handleChange={this.handleChange}
                 handleSubmit={this.handleSubmit}
+                handleCreditsChange={this.handleCreditsChange}
+                showAddCard={this.showAddCard}
+                hideAddCard={this.hideAddCard}
+                costWithVAT={costWithVAT}
+                costWithoutVAT={costWithoutVAT}
+                credits={credits}
                 cards={cardOptions}
                 noCards={noCards}
-                selectedCard={cardOptions.find(({ value }) => value === stripeCardID)}
+                creditsToBuy={creditsToBuy}
+                selectedCard={stripeCardID}
                 hideModal={e => {
                     e.preventDefault();
                     hideModal();
@@ -61,15 +89,20 @@ class AddMulitpleServicesToSubscriptionModalContainer extends Component {
     }
 
     componentDidMount = () => {
-        const { subscriptions } = this.props;
+        const { subscriptions, cards } = this.props;
 
         this.setState({ subscriptions });
 
         this.props.fetchAllCards();
         this.props.fetchProRataSubscriptionCost();
+        const primaryCard = cards.find(({ isPrimary }) => isPrimary);
+
+        this.setState({
+            stripeCardID: primaryCard ? primaryCard.id : null
+        });
     };
 
-    componentDidUpdate = prevProps => {
+    componentDidUpdate = (prevProps, prevState) => {
         // put primary card as default into state
         const {
             isFetching,
@@ -80,14 +113,8 @@ class AddMulitpleServicesToSubscriptionModalContainer extends Component {
             fetchAllSubscriptions,
             error
         } = this.props;
-        const { paymentType } = this.state;
+        const { paymentType, serviceIDs } = this.state;
 
-        if (!isFetching && prevProps.isFetching && cards.length) {
-            const primaryCard = cards.find(({ isPrimary }) => isPrimary);
-            this.setState({
-                stripeCardID: primaryCard ? primaryCard.id : null
-            });
-        }
         // if (postSuccess && !prevProps.postSuccess)
         if (postSuccess && !prevProps.postSuccess) {
             // success modal
@@ -110,6 +137,15 @@ class AddMulitpleServicesToSubscriptionModalContainer extends Component {
                 error: error.replace('office', 'invoice')
             });
         }
+
+        if (prevState.serviceIDs.length != serviceIDs.length) {
+            const serviceOptions = this._getServicesOptions();
+            this.setState({
+                selectedServiceNames: serviceOptions
+                    .filter(service => serviceIDs.includes(service.value.toString()))
+                    .map(service => service.text)
+            });
+        }
     };
 
     getActiveSubscriptions = () => {
@@ -126,7 +162,7 @@ class AddMulitpleServicesToSubscriptionModalContainer extends Component {
         return services.map(({ id, name }) => ({
             value: id,
             text: name,
-            disabled: !subscriptions.serviceIDs.includes(id)
+            disabled: subscriptions.serviceIDs.includes(id)
         }));
     };
     // handleServiceChange = value => {
@@ -134,29 +170,52 @@ class AddMulitpleServicesToSubscriptionModalContainer extends Component {
 
     //     this.setState({ serviceIDsSelected: serviceIDsSelected.includes(value) ? serviceIDsSelected.filter(value),  });
     // };
+    showAddCard = () => {
+        this.setState({ addCardVisible: true });
+    };
+    hideAddCard = () => {
+        this.setState({ addCardVisible: false });
+    };
+    handleAddCardSuccess = card => {
+        this.setState({ stripeCardID: card.id, addCardVisible: false });
+    };
     handleChange = (name, value) => {
         this.setState({ [name]: value });
     };
+
+    handleCreditsChange = (name, value) => {
+        let num = value;
+        if (Number(value) <= 0) num = 0;
+        this.setState({ [name]: num });
+    };
+
     handleSubmit = e => {
         e.preventDefault();
-        const { paymentType, stripeCardID } = this.state;
-        const {
-            service: { id },
-            addServiceToSubscription
-        } = this.props;
+        const { paymentType, stripeCardID, creditsToBuy, serviceIDs } = this.state;
+        const { addServiceToSubscription } = this.props;
 
         const postBody = {
             paymentType,
             stripeCardID: +paymentType === PAYMENT_IDS.CARD ? stripeCardID : null,
-            serviceIDs: [id]
+            serviceIDs: serviceIDs.map(id => parseInt(id)),
+            Credits: parseInt(creditsToBuy)
         };
+        console.log({ postBody, paymentType: +paymentType });
         addServiceToSubscription(postBody);
     };
 }
 
+//need to update the subscriptions reducer to have credits success?
 const mapStateToProps = ({
     companyAdmin: {
-        cardsReducer: { cards = {}, isFetching: fetchingCards },
+        cardsReducer: { cards, isFetching: fetchingCards },
+        creditsReducer: {
+            postSuccess: creditsPostSuccess,
+            postError,
+            costOfCredits,
+            vatCostOfCredits,
+            credits
+        },
         subscriptionsReducer: {
             isFetching: fetchingSubs,
             proRataCost,
@@ -168,8 +227,13 @@ const mapStateToProps = ({
         servicesReducer: { services, isFetching: fetchingServices }
     }
 }) => ({
+    creditsPostSuccess,
+    postError,
+    costOfCredits,
+    vatCostOfCredits,
+    credits,
     subscriptions,
-    cards: Object.values(cards),
+    cards: Object.values(cards) || [],
     isFetching: fetchingCards || fetchingSubs,
     proRataCost,
     postSuccess,

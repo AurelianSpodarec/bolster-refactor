@@ -14,6 +14,8 @@ import ButtonContainer from 'components/shared/generic/button/containers/ButtonC
 import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
 import AddServiceItem from './AddServiceItem';
 import CheckboxListContainer from 'components/shared/generic/form/containers/CheckboxListContainer';
+import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
+import Select from 'components/shared/generic/form/presentational/Select';
 
 const AddMulitpleServicesToSubscriptionModal = ({
     handleSubmit,
@@ -24,19 +26,43 @@ const AddMulitpleServicesToSubscriptionModal = ({
     selectedCard,
     services,
     proRataCost,
+    showAddCard,
+    hideAddCard,
     noCards,
     termsAgreed,
-    checkedServices
+    checkedServices,
+    handleCreditsChange,
+    costWithVAT,
+    costWithoutVAT,
+    creditsToBuy = 0,
+    selectedServiceNames
 }) => (
     <ModalOuterContainer>
-        <BlockHeading title="Add service to your subscription" />
-        {/* <p className="generic-text intro-text size-lg-12">
-            Adding the <strong>{service.name}</strong> service to your subscription will increase
-            your yearly renewal from <strong>£{formatNumber(proRataCost.currentAnnualCost)}</strong>{' '}
-            to <strong>£{formatNumber(proRataCost.newAnnualCost)}</strong>, you will be billed
-            pro-rata for your remaining subscription, leaving a{' '}
-            <strong>£{formatNumber(proRataCost.proRataCost)}</strong> fee to pay now.
-        </p> */}
+        <BlockHeading title="Add services to your subscription" />
+        {selectedServiceNames.length > 0 ? (
+            <p className="generic-text intro-text size-lg-12">
+                Adding:
+                <br />
+                {selectedServiceNames.map(serviceName => (
+                    <strong key={serviceName}>
+                        {serviceName + ' '} <br />
+                    </strong>
+                ))}
+                {selectedServiceNames.length > 1 ? 'These services ' : 'This service '}
+                will be added to your subscription and will increase your yearly renewal from{' '}
+                <strong>£{formatNumber(proRataCost.currentAnnualCost)}</strong> to{' '}
+                <strong>£{formatNumber(proRataCost.newAnnualCost)}</strong>, you will be billed
+                pro-rata for your remaining subscription, leaving a{' '}
+                {selectedServiceNames.length > 1 ? (
+                    <strong>£{formatNumber(proRataCost.proRataCost * 2)} </strong>
+                ) : (
+                    <strong>£{formatNumber(proRataCost.proRataCost)} </strong>
+                )}
+                fee to pay now.
+            </p>
+        ) : (
+            ''
+        )}
 
         <Form className="generic-form" onSubmit={handleSubmit}>
             <Field name="Available Services">
@@ -47,7 +73,30 @@ const AddMulitpleServicesToSubscriptionModal = ({
                     selectedOptions={checkedServices}
                 />
             </Field>
-            <Field name="Auto renewal">
+            <Field name="Credits to buy" sizeClasses="size-lg-12">
+                <p className="field-info">
+                    If you buy credits in blocks of 10 you will receive 1 free credit.
+                </p>
+                <TextInputContainer
+                    name="creditsToBuy"
+                    value={creditsToBuy}
+                    handleChange={handleCreditsChange}
+                    placeholder="Number of credits..."
+                    termsAgreed
+                    type="number"
+                    validate={value =>
+                        value < 0 || value % 1 ? 'Please enter a positive integer.' : ''
+                    }
+                    classes="large"
+                />
+            </Field>
+            {creditsToBuy && (
+                <p className="generic-text total-text align-right size-lg-12">
+                    Total: £{formatNumber(costWithoutVAT)}
+                    {costWithVAT > costWithoutVAT && <> (£{formatNumber(costWithVAT)} inc. VAT) </>}
+                </p>
+            )}
+            <Field name="Payment Type">
                 <div className="size-lg-6">
                     <RadioButton
                         name="paymentType"
@@ -92,6 +141,28 @@ const AddMulitpleServicesToSubscriptionModal = ({
                         handleChange={handleChange}
                     />
                 </Field>
+            )}
+            {+paymentType === PAYMENT_IDS.CARD && !noCards && (
+                <>
+                    <Field sizeClasses="size-lg-12" name="Select Card" required>
+                        <button className="button green" type="button" onClick={showAddCard}>
+                            <i className="fa fa-plus fa-fw" /> Add new card
+                        </button>
+                        <Select
+                            required
+                            name="stripeCardID"
+                            options={cards}
+                            omitPlaceholder={!!cards.length}
+                            placeholder={
+                                !cards.length
+                                    ? 'Please add a card to use card payments.'
+                                    : 'Loading cards...'
+                            }
+                            value={selectedCard}
+                            onChange={handleChange}
+                        />
+                    </Field>
+                </>
             )}
             <div className="size-lg-6 size-md-12">
                 <Field name="Agree to terms" required>
