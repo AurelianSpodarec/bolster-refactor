@@ -15,19 +15,41 @@ const CompanyReportsListItem = ({
     queueItem,
     onMobile,
     headers,
-    retryCompanyReport
+    retryCompanyReport,
+    shouldDeleteReportsAfterDownload,
+    handleDeleteAfterDownload
 }) => {
+    console.log(queueItem.state);
     const typeArr = [];
     if (queueItem.isCSVGeneration) typeArr.push('CSV');
     if (queueItem.isPDFGeneration) typeArr.push('PDF');
     if (queueItem.isFloorplanGeneration) typeArr.push('Floor plan');
 
-    const { COMPLETE, FAILED } = GENERATION_STATE_VAL;
+    const { COMPLETE, FAILED, DELETED } = GENERATION_STATE_VAL;
 
     const isRetryAvailable =
         queueItem.state === FAILED ||
         (queueItem.state !== COMPLETE &&
             moment(queueItem.createdOn) > moment().add(-1, 'hours'));
+
+    
+    const DownloadLink = shouldDeleteReportsAfterDownload ?
+        <button
+            className="button green"
+            onClick={() => handleDeleteAfterDownload(queueItem)}
+        >
+            Download Report
+        </button>
+         : 
+
+        <a
+            className="button green"
+            target="_blank"
+            rel="noopener noreferrer"
+            href={`${RAW_S3_STORAGE_URL}/${queueItem.s3Key}`}
+        >
+            <i className="fa fa-download" /> Download File
+        </a>;
 
     return (
         <tr>
@@ -82,14 +104,7 @@ const CompanyReportsListItem = ({
                     <span className="mobile-table-heading">{headers[6]}</span>
                 )}
                 {queueItem.state === COMPLETE ? (
-                    <a
-                        className="button green"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        href={`${RAW_S3_STORAGE_URL}/${queueItem.s3Key}`}
-                    >
-                        <i className="fa fa-download" /> Download File
-                    </a>
+                    DownloadLink
                 ) : queueItem.state === FAILED ? (
                     // (
                     //     <button className="button green" onClick={() => {}}>
@@ -102,6 +117,14 @@ const CompanyReportsListItem = ({
                     >
                         <i className="fa fa-times" /> Failed - Retry?
                     </button>
+                )
+                 : queueItem.state === DELETED ? 
+                    (
+                    <button className="button red"
+                    onClick={() => {}}
+                    >
+                        <i className="fa fa-times" /> Report deleted.
+                    </button>
                 ) : isRetryAvailable ? (
                     <button
                         className="button"
@@ -110,7 +133,8 @@ const CompanyReportsListItem = ({
                         <LoadingIcon />
                         Generating... (retry?)
                     </button>
-                ) : (
+                )
+                : (
                     <button className="button disabled">
                         <LoadingIcon />
                         Generating...

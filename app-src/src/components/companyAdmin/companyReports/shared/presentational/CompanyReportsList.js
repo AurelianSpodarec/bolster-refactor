@@ -5,7 +5,9 @@ const CompanyReportsList = ({
     companyReports,
     headers,
     onMobile,
-    retryCompanyReport
+    retryCompanyReport,
+    shouldDeleteReportsAfterDownload,
+    handleDeleteAfterDownload
 }) =>
     companyReports.map(queueItem => (
         <CompanyReportsListItem
@@ -14,6 +16,8 @@ const CompanyReportsList = ({
             headers={headers}
             onMobile={onMobile}
             retryCompanyReport={retryCompanyReport}
+            shouldDeleteReportsAfterDownload={shouldDeleteReportsAfterDownload}
+            handleDeleteAfterDownload={handleDeleteAfterDownload}
         />
     ));
 

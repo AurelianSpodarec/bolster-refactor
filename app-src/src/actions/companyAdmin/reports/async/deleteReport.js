@@ -6,7 +6,7 @@ import {
     DELETE_REPORT_REQUEST,
     DELETE_REPORT_SUCCESS,
     DELETE_REPORT_FAILURE
-} from 'constants/actionTypes/reports';
+} from 'constants/actionTypes/companyReports';
 
 export const deleteReportRequest = () => ({
     type: DELETE_REPORT_REQUEST
@@ -26,7 +26,7 @@ export default id => dispatch => {
     dispatch(deleteReportRequest());
 
     return axios
-        .get(`${API_URL}/reports/${id}`, getHeaders())
+        .delete(`${API_URL}/reports/${id}`, getHeaders())
         .then(({ data }) => {
             return dispatch(deleteReportSuccess(data));
         })
