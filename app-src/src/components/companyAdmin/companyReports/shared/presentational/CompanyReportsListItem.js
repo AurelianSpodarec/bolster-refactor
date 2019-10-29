@@ -19,7 +19,6 @@ const CompanyReportsListItem = ({
     shouldDeleteReportsAfterDownload,
     handleDeleteAfterDownload
 }) => {
-    console.log(queueItem.state);
     const typeArr = [];
     if (queueItem.isCSVGeneration) typeArr.push('CSV');
     if (queueItem.isPDFGeneration) typeArr.push('PDF');

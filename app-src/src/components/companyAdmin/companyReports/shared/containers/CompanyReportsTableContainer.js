@@ -63,7 +63,8 @@ const CompanyReportsTableContainer = ({
 
     function handleDeleteAfterDownload(queueItem) {
 
-        const message = 'Downloading this report will delete the file from our servers, continue?';
+        const message = 
+            'As per your company settings, downloading this report will delete it from our server.';
         const submitButtonText = 'Download and Delete'; 
         const s3URL = `${RAW_S3_STORAGE_URL}/${queueItem.s3Key}`;
         const handleSubmit = () => {
