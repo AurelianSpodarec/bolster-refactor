@@ -1,19 +1,16 @@
 import React from 'react';
 
-import { ADD_SERVICE_TO_SUBSCRIPTION } from 'constants/shared/modalTypes';
+// import { ADD_SERVICE_TO_SUBSCRIPTION } from 'constants/shared/modalTypes';
 import StatusIcon from 'components/shared/generic/statusIcon/presentationl/StatusIcon';
 
-const AddServiceItem = ({ service, key, showModal }) => (
-    <div
-        key={key}
-        className="subscription-item add-service size-lg-6 size-md-12"
-    >
+const AddServiceItem = ({ service, key }) => (
+    <div key={key} className="subscription-item add-service size-lg-6 size-md-12">
         <div className="field-name size-lg-6 size-md-8">
             <StatusIcon classes="add" iconClass="fa fa-plus" />
             <label>{service.name}</label>
         </div>
 
-        <button
+        {/* <button
             className="button green"
             onClick={e => {
                 e.preventDefault();
@@ -23,7 +20,7 @@ const AddServiceItem = ({ service, key, showModal }) => (
             }}
         >
             Add
-        </button>
+        </button> */}
     </div>
 );
 

@@ -7,14 +7,9 @@ import BlockHeading from 'components/shared/generic/blockHeading/presentational/
 import CompanyServicesList from './CompanyServicesList';
 import StatusIcon from 'components/shared/generic/statusIcon/presentationl/StatusIcon';
 import AddServiceItem from './AddServiceItem';
+import { ADD_MULTIPLE_SERVICES_TO_SUBSCRIPTION } from 'constants/shared/modalTypes';
 
-const ActiveServices = ({
-    subscriptions,
-    handleChange,
-    services,
-    showModal,
-    isAutoRenew
-}) => (
+const ActiveServices = ({ subscriptions, handleChange, services, showModal, isAutoRenew }) => (
     <BlockContainer>
         <BlockHeading title="Services" />
 
@@ -27,12 +22,24 @@ const ActiveServices = ({
                 {services
                     .filter(service => service.showOnCompanySite)
                     .map(service => (
-                        <AddServiceItem
-                            key={service.id}
-                            showModal={showModal}
-                            service={service}
-                        />
+                        <AddServiceItem key={service.id} showModal={showModal} service={service} />
                     ))}
+                <div className="subscription-item add-service size-lg-6 size-md-12">
+                    <div className="field-name size-lg-6 size-md-8">
+                        <StatusIcon classes="add" iconClass="fa fa-plus" />
+                        <label>Add service(s)</label>
+                    </div>
+
+                    <button
+                        className="button green"
+                        onClick={e => {
+                            e.preventDefault();
+                            showModal(ADD_MULTIPLE_SERVICES_TO_SUBSCRIPTION);
+                        }}
+                    >
+                        Buy Services
+                    </button>
+                </div>
             </CompanyServicesList>
         </Form>
         <div className="size-lg-12">
@@ -41,23 +48,16 @@ const ActiveServices = ({
                 classes="w-left-icon"
                 title="Looking for something specific?"
             >
-                <StatusIcon
-                    classes="question pull-left"
-                    iconClass="fa fa-question"
-                />
+                <StatusIcon classes="question pull-left" iconClass="fa fa-question" />
             </BlockHeading>
 
             <p className="size-lg-12">
-                The Bolster System can support a wide range of additional
-                services, template and workflows,{' '}
-                <Link to="/company/tools/support">so get in touch</Link> and we
-                can talk through your custom requirements.
+                The Bolster System can support a wide range of additional services, template and
+                workflows, <Link to="/company/tools/support">so get in touch</Link> and we can talk
+                through your custom requirements.
                 <br />
-                You can call us on <a href="tel:0161 873 7679">0161 873 7679</a>
-                , or e-mail at{' '}
-                <a href="mailto:info@bolstersystems.com">
-                    info@bolstersystems.com
-                </a>
+                You can call us on <a href="tel:0161 873 7679">0161 873 7679</a>, or e-mail at{' '}
+                <a href="mailto:info@bolstersystems.com">info@bolstersystems.com</a>
             </p>
         </div>
     </BlockContainer>
