@@ -39,7 +39,8 @@ class EditSettingsFormContainer extends Component {
         vatType: null,
         timeZoneOptions: [],
         dateFormatOptions: [],
-        isEditButtonDisabled: false
+        isEditButtonDisabled: false,
+        shouldDeleteReportsAfterDownload: false
     };
 
     render() {

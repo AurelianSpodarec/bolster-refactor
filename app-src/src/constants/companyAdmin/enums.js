@@ -228,13 +228,15 @@ export const GENERATION_STATE_TEXT = {
     0: 'Waiting',
     1: 'Running',
     2: 'Complete',
-    3: 'Failed'
+    3: 'Failed',
+    4: 'Deleted',
 };
 export const GENERATION_STATE_VAL = {
     WAITING: 0,
     RUNNING: 1,
     COMPLETE: 2,
-    FAILED: 3
+    FAILED: 3,
+    DELETED: 4,
 };
 
 export const SORT_BY_OPTIONS = {

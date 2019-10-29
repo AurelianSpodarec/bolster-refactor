@@ -5,6 +5,11 @@ import { sortArrayByKeyAndOrder } from 'helpers/generic';
 import retryReport from 'actions/companyAdmin/reports/async/retryReport';
 import fetchCompanyReports from 'actions/companyAdmin/companyReports/async/fetchCompanyReports';
 import fetchCompanyReportsFull from 'actions/companyAdmin/companyReports/async/fetchCompanyReportsFull';
+import deleteReport from 'actions/companyAdmin/reports/async/deleteReport';
+import { showModal } from 'actions/shared/generic/modals/sync/showModal';
+import { CONFIRM_SUBMIT } from 'constants/shared/modalTypes';
+import { RAW_S3_STORAGE_URL } from 'config';
+import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 
 const CompanyReportsTableContainer = ({
     isFetching,
@@ -15,7 +20,11 @@ const CompanyReportsTableContainer = ({
     retryReport,
     fetchCompanyReports,
     fetchCompanyReportsFull,
-    fetchStatus
+    fetchStatus,
+    shouldDeleteReportsAfterDownload,
+    deleteReport,
+    showModal,
+    hideModal
 }) => {
     return (
         <CompanyReportsTable
@@ -27,12 +36,14 @@ const CompanyReportsTableContainer = ({
             retryCompanyReport={id => retryCompanyReport(id)}
             fetchCompanyReportsFull={fetchCompanyReportsFull}
             fetchStatus={fetchStatus}
+            shouldDeleteReportsAfterDownload={shouldDeleteReportsAfterDownload}
+            handleDeleteAfterDownload={handleDeleteAfterDownload}
         />
     );
 
     function _getSortedQueue() {
         //no idea why this const doesnt work????
-        // const [fieldName, sortOrder] = sortString.split(' ');
+        // const [fieldName, sortOrder] = sortString.split(' ');
 
         const fieldAndSort = sortString.split(' ');
 
@@ -49,6 +60,24 @@ const CompanyReportsTableContainer = ({
     function retryCompanyReport(id) {
         retryReport(id).then(fetchCompanyReports);
     }
+
+    function handleDeleteAfterDownload(queueItem) {
+
+        const message = 
+            'As per your company settings, downloading this report will delete it from our server.';
+        const submitButtonText = 'Download and Delete'; 
+        const s3URL = `${RAW_S3_STORAGE_URL}/${queueItem.s3Key}`;
+        const handleSubmit = () => {
+            deleteReport(queueItem.id);
+            window.open(s3URL);
+            hideModal();
+        };
+        showModal(CONFIRM_SUBMIT, {
+            message,
+            submitButtonText,
+            handleSubmit
+        });
+    }
 };
 
 const mapStateToProps = ({
@@ -59,10 +88,16 @@ const mapStateToProps = ({
             isFetching,
             sort: { sortString },
             fetchStatus
+        },
+        companySettingsReducer: {
+            companySettings: {
+                shouldDeleteReportsAfterDownload
+            }
         }
     },
     shared: {
-        mobileReducer: { onMobile }
+        mobileReducer: { onMobile },
+
     }
 }) => ({
     companyReports: Object.values(companyReports),
@@ -70,10 +105,18 @@ const mapStateToProps = ({
     isFetching,
     sortString,
     onMobile,
-    fetchStatus
+    fetchStatus,
+    shouldDeleteReportsAfterDownload
 });
 
-const mapDispatchToProps = { retryReport, fetchCompanyReports, fetchCompanyReportsFull };
+const mapDispatchToProps = { 
+    retryReport,
+    fetchCompanyReports, 
+    fetchCompanyReportsFull, 
+    deleteReport,
+    showModal,
+    hideModal
+};
 
 export default connect(
     mapStateToProps,
