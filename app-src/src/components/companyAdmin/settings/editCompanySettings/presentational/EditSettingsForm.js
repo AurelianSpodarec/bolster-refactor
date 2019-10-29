@@ -43,7 +43,8 @@ const EditSettingsForm = ({
     timeZoneOptions,
     timeZone,
     dateFormatOptions,
-    dateFormat
+    dateFormat,
+    shouldDeleteReportsAfterDownload
 }) => (
     <>
         <Form className="generic-form ize-lg-12" onSubmit={handleSubmit}>
@@ -247,6 +248,15 @@ const EditSettingsForm = ({
                         checked={isEditButtonEnabled}
                         handleChange={handleInputChange}
                         name="isEditButtonEnabled"
+                    />
+                </Field>
+            </div>
+            <div className="size-lg-12">
+                <Field name="Delete reports after download?" sizeClasses="size-lg-6 size-md-12">
+                    <CheckboxContainer
+                        checked={shouldDeleteReportsAfterDownload}
+                        handleChange={handleInputChange}
+                        name="shouldDeleteReportsAfterDownload"
                     />
                 </Field>
             </div>
