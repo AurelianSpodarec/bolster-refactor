@@ -68,7 +68,10 @@ const CompanyReportsTableContainer = ({
         const submitButtonText = 'Download and Delete'; 
         const s3URL = `${RAW_S3_STORAGE_URL}/${queueItem.s3Key}`;
         const handleSubmit = () => {
-            deleteReport(queueItem.id);
+            // wait 1s before deleting to ensure download has begun
+            setTimeout(() => {
+                deleteReport(queueItem.id);
+            }, 1000);
             window.open(s3URL);
             hideModal();
         };
