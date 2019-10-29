@@ -12,12 +12,13 @@ import {
     ADMIN_CONFIRM_SET_IS_INVOICE_PAID,
     ADMIN_DELETE_INVOICE
 } from 'constants/shared/modalTypes';
+import { INVOICE_GEN_URL } from 'config';
 
 const InvoiceDetails = ({
     isFetching,
     companyName,
     error,
-    invoice: { createdOn, id, isPaid, paymentType, total, isRenewal },
+    invoice: { createdOn, id, isPaid, paymentType, total, isRenewal, guid },
     invoice,
     showModal
 }) => (
@@ -28,6 +29,14 @@ const InvoiceDetails = ({
         isFetching={isFetching}
     >
         <BlockHeading title="Invoice Details">
+            <a
+                target="_blank"
+                rel="noopener noreferrer"
+                href={`${INVOICE_GEN_URL}/${guid}/invoice-${id}`}
+                className="button blue"
+            >
+                <i className="fa fa-download fa-fw" /> Download Invoice
+            </a>
             {!isPaid && (
                 <button
                     onClick={() => showModal(ADMIN_CONFIRM_FREE_INVOICE, { id })}
