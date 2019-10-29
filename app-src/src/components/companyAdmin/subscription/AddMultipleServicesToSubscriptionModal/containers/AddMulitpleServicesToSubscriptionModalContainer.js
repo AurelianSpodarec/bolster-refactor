@@ -17,12 +17,13 @@ class AddMulitpleServicesToSubscriptionModalContainer extends Component {
         paymentType: 2,
         stripeCardID: null,
         termsAgreed: false,
-        subscriptions: []
+        subscriptions: [],
+        serviceIDs: []
     };
 
     render() {
         const { cards, hideModal, proRataCost, services, subscriptions } = this.props;
-        const { paymentType, stripeCardID, termsAgreed } = this.state;
+        const { paymentType, stripeCardID, termsAgreed, serviceIDs } = this.state;
         const cardOptions = cards.map(card => ({
             text: `${card.nickname || card.name} - ${card.lastFour}`,
             value: card.id
@@ -31,15 +32,17 @@ class AddMulitpleServicesToSubscriptionModalContainer extends Component {
         const noCards = !cards.length;
 
         //need acitve subscriptions for available services
-        const { serviceIDs = [] } = subscriptions;
-        const unsubscribedServices = Object.values(services).filter(
-            ({ id }) => !serviceIDs.includes(id)
-        );
+        // const { serviceIDs = [] } = subscriptions;
+        // const unsubscribedServices = Object.values(services).filter(
+        //     ({ id }) => !serviceIDs.includes(id)
+        // );
+        const serviceOptions = this._getServicesOptions();
 
         return (
             <AddMulitpleServicesToSubscriptionModal
                 subscriptions={this.state.subscriptions}
-                services={unsubscribedServices}
+                services={serviceOptions}
+                checkedServices={serviceIDs}
                 paymentType={paymentType}
                 proRataCost={proRataCost}
                 stripeCardID={stripeCardID}
@@ -118,11 +121,22 @@ class AddMulitpleServicesToSubscriptionModalContainer extends Component {
             }));
         } else return [];
     };
+    _getServicesOptions = () => {
+        const { services, subscriptions } = this.props;
+        return services.map(({ id, name }) => ({
+            value: id,
+            text: name,
+            disabled: !subscriptions.serviceIDs.includes(id)
+        }));
+    };
+    // handleServiceChange = value => {
+    //     const {serviceIDsSelected} = this.state;
 
+    //     this.setState({ serviceIDsSelected: serviceIDsSelected.includes(value) ? serviceIDsSelected.filter(value),  });
+    // };
     handleChange = (name, value) => {
         this.setState({ [name]: value });
     };
-
     handleSubmit = e => {
         e.preventDefault();
         const { paymentType, stripeCardID } = this.state;

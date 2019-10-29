@@ -13,6 +13,7 @@ import { formatNumber } from 'helpers/generic';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
 import AddServiceItem from './AddServiceItem';
+import CheckboxListContainer from 'components/shared/generic/form/containers/CheckboxListContainer';
 
 const AddMulitpleServicesToSubscriptionModal = ({
     handleSubmit,
@@ -25,7 +26,7 @@ const AddMulitpleServicesToSubscriptionModal = ({
     proRataCost,
     noCards,
     termsAgreed,
-    handleServiceChange
+    checkedServices
 }) => (
     <ModalOuterContainer>
         <BlockHeading title="Add service to your subscription" />
@@ -39,15 +40,12 @@ const AddMulitpleServicesToSubscriptionModal = ({
 
         <Form className="generic-form" onSubmit={handleSubmit}>
             <Field name="Available Services">
-                {services
-                    .filter(service => service.showOnCompanySite)
-                    .map(service => (
-                        <AddServiceItem
-                            key={service.id}
-                            service={service}
-                            handleChange={handleServiceChange}
-                        />
-                    ))}
+                <CheckboxListContainer
+                    name="serviceIDs"
+                    handleChange={handleChange}
+                    options={services}
+                    selectedOptions={checkedServices}
+                />
             </Field>
             <Field name="Auto renewal">
                 <div className="size-lg-6">

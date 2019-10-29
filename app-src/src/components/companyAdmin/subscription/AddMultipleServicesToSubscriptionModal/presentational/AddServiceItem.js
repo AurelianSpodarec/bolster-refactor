@@ -17,7 +17,7 @@ const AddServiceItem = ({ service, key, handleChange }) => (
             value={service.id}
             id={`subscription-id-${service.id}`}
             handleChange={handleChange}
-            text="Renew?"
+            text="Add service"
         />
     </div>
 );
