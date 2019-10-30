@@ -24,22 +24,6 @@ const ActiveServices = ({ subscriptions, handleChange, services, showModal, isAu
                     .map(service => (
                         <AddServiceItem key={service.id} showModal={showModal} service={service} />
                     ))}
-                <div className="subscription-item add-service size-lg-6 size-md-12">
-                    <div className="field-name size-lg-6 size-md-8">
-                        <StatusIcon classes="add" iconClass="fa fa-plus" />
-                        <label>Add service(s)</label>
-                    </div>
-
-                    <button
-                        className="button green"
-                        onClick={e => {
-                            e.preventDefault();
-                            showModal(ADD_MULTIPLE_SERVICES_TO_SUBSCRIPTION);
-                        }}
-                    >
-                        Buy Services
-                    </button>
-                </div>
             </CompanyServicesList>
         </Form>
         <div className="size-lg-12">

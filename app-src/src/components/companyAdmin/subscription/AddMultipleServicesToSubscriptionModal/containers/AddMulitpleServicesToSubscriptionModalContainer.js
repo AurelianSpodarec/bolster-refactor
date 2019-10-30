@@ -51,11 +51,7 @@ class AddMulitpleServicesToSubscriptionModalContainer extends Component {
             label: `${card.nickname || card.name} - ${card.lastFour}`,
             value: card.id
         }));
-        //need acitve subscriptions for available services
-        // const { serviceIDs = [] } = subscriptions;
-        // const unsubscribedServices = Object.values(services).filter(
-        //     ({ id }) => !serviceIDs.includes(id)
-        // );
+
         const serviceOptions = this._getServicesOptions();
 
         return (
@@ -89,8 +85,14 @@ class AddMulitpleServicesToSubscriptionModalContainer extends Component {
     }
 
     componentDidMount = () => {
-        const { subscriptions, cards } = this.props;
+        const { subscriptions, cards, serviceID } = this.props;
+        const { serviceIDs } = this.state;
 
+        if (serviceID) {
+            this.setState({
+                serviceIDs: [...serviceIDs, serviceID.toString()]
+            });
+        }
         this.setState({ subscriptions });
 
         this.props.fetchAllCards();
@@ -145,6 +147,8 @@ class AddMulitpleServicesToSubscriptionModalContainer extends Component {
                     .filter(service => serviceIDs.includes(service.value.toString()))
                     .map(service => service.text)
             });
+
+            this.props.fetchProRataSubscriptionCost(serviceIDs.length);
         }
     };
 
@@ -243,11 +247,13 @@ const mapStateToProps = ({
     error
 });
 
+//fetch
 const mapDispatchToProps = dispatch => ({
     addServiceToSubscription: body => dispatch(addServiceToSubscription(body)),
     fetchAllCards: () => dispatch(fetchAllCards()),
     fetchAllSubscriptions: () => dispatch(fetchAllSubscriptions()),
-    fetchProRataSubscriptionCost: () => dispatch(fetchProRataSubscriptionCost()),
+    fetchProRataSubscriptionCost: numberOfServices =>
+        dispatch(fetchProRataSubscriptionCost(numberOfServices)),
     hideModal: () => dispatch(hideModal()),
     showModal: (type, props) => dispatch(showModal(type, props))
 });
