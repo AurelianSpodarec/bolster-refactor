@@ -25,7 +25,10 @@ export default numberOfServices => dispatch => {
     dispatch(fetchProRataSubscriptionCostRequest());
 
     return axios
-        .get(`${API_URL}/subscriptions/proratacost?${numberOfServices}`, getHeaders())
+        .get(
+            `${API_URL}/subscriptions/proratacost?numberOfServices=${numberOfServices}`,
+            getHeaders()
+        )
         .then(res => dispatch(fetchProRataSubscriptionCostSuccess(res.data)))
         .catch(err => dispatch(fetchProRataSubscriptionCostFailure(err.message)));
 };

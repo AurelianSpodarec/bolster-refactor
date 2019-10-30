@@ -53,11 +53,7 @@ const AddMulitpleServicesToSubscriptionModal = ({
                 <strong>£{formatNumber(proRataCost.currentAnnualCost)}</strong> to{' '}
                 <strong>£{formatNumber(proRataCost.newAnnualCost)}</strong>, you will be billed
                 pro-rata for your remaining subscription, leaving a{' '}
-                {selectedServiceNames.length > 1 ? (
-                    <strong>£{formatNumber(proRataCost.proRataCost * 2)} </strong>
-                ) : (
-                    <strong>£{formatNumber(proRataCost.proRataCost)} </strong>
-                )}
+                <strong>£{formatNumber(proRataCost.proRataCost)} </strong>
                 fee to pay now.
             </p>
         ) : (
