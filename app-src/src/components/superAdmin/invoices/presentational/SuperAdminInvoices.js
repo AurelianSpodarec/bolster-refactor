@@ -1,4 +1,5 @@
 import React from 'react';
+
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
 import SuperAdminInvoicesTableContainer from '../containers/SuperAdminInvoicesTableContainer';
 import InvoicesFilterContainer from '../containers/InvoicesFilterContainer';
@@ -6,7 +7,7 @@ import BlockContainer from 'components/shared/generic/block/containers/BlockCont
 
 const SuperAdminInvoices = () => (
     <>
-        <PageHeading title="Invoices" withBackButton />
+        <PageHeading title="Invoices" withBackButton></PageHeading>
         <BlockContainer>
             <InvoicesFilterContainer />
         </BlockContainer>

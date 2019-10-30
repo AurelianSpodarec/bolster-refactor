@@ -155,11 +155,18 @@ class AddPinFormContainer extends Component {
                                         updateAddPinAnswer(templateQuestionID, '');
                                     }
                                 } else {
-                                    const filteredAnswer = answer.filter(option => {
-                                        return releventPinOptions.includes(option);
-                                    });
-                                    if (filteredAnswer.length) {
-                                        updateAddPinAnswer(templateQuestionID, filteredAnswer);
+                                    if (
+                                        questionType + '' === MULTI_MULTI_DROPDOWN_OPTIONS &&
+                                        isEmpty(answer)
+                                    ) {
+                                        updateAddPinAnswer(templateQuestionID, []);
+                                    } else {
+                                        const filteredAnswer = answer.filter(option => {
+                                            return releventPinOptions.includes(option);
+                                        });
+                                        if (filteredAnswer.length) {
+                                            updateAddPinAnswer(templateQuestionID, filteredAnswer);
+                                        }
                                     }
                                 }
                             } else {
