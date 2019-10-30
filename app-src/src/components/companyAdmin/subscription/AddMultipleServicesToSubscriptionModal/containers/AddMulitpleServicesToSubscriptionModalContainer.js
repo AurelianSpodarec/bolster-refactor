@@ -92,11 +92,11 @@ class AddMulitpleServicesToSubscriptionModalContainer extends Component {
             this.setState({
                 serviceIDs: [...serviceIDs, serviceID.toString()]
             });
+            this.props.fetchProRataSubscriptionCost(serviceIDs.length);
         }
         this.setState({ subscriptions });
 
         this.props.fetchAllCards();
-        this.props.fetchProRataSubscriptionCost();
         const primaryCard = cards.find(({ isPrimary }) => isPrimary);
 
         this.setState({
