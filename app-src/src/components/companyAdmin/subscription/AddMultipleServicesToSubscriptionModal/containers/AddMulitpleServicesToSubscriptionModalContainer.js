@@ -92,7 +92,6 @@ class AddMulitpleServicesToSubscriptionModalContainer extends Component {
             this.setState({
                 serviceIDs: [...serviceIDs, serviceID.toString()]
             });
-            this.props.fetchProRataSubscriptionCost(serviceIDs.length);
         }
         this.setState({ subscriptions });
 
@@ -106,15 +105,7 @@ class AddMulitpleServicesToSubscriptionModalContainer extends Component {
 
     componentDidUpdate = (prevProps, prevState) => {
         // put primary card as default into state
-        const {
-            isFetching,
-            cards,
-            postSuccess,
-            postFailure,
-            showModal,
-            fetchAllSubscriptions,
-            error
-        } = this.props;
+        const { postSuccess, postFailure, showModal, fetchAllSubscriptions, error } = this.props;
         const { paymentType, serviceIDs } = this.state;
 
         // if (postSuccess && !prevProps.postSuccess)
