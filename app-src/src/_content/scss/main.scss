@@ -3417,78 +3417,77 @@ input {
             }
         }
     }
+}
+.subscription-item {
+    border: 1px solid $light-grey;
+    padding: 10px 25px;
 
-    .subscription-item {
-        border: 1px solid $light-grey;
-        padding: 10px 25px;
+    .field-name {
+        label {
+            @include ubuntu-medium;
+            font-size: 140%;
+            padding-left: 42px;
+            line-height: 1;
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            height: 31px;
+        }
 
-        .field-name {
-            label {
-                @include ubuntu-medium;
-                font-size: 140%;
-                padding-left: 42px;
-                line-height: 1;
-                display: flex;
-                justify-content: center;
-                flex-direction: column;
-                height: 31px;
+        .status-icon {
+            position: absolute;
+            top: 8px;
+            margin-right: 15px;
+            display: flex;
+            margin-left: 10px;
+            flex-direction: column;
+            justify-content: center;
+            top: 7px;
+            transform: translateY(0);
+            left: 0;
+            justify-content: center;
+            display: flex;
+            font-size: 10px;
+            color: #fff;
+            &.add {
+                i {
+                    left: 0;
+                }
             }
-
-            .status-icon {
-                position: absolute;
-                top: 8px;
-                margin-right: 15px;
-                display: flex;
-                margin-left: 10px;
-                flex-direction: column;
-                justify-content: center;
-                top: 7px;
+            i {
+                position: relative;
+                top: 0;
                 transform: translateY(0);
                 left: 0;
-                justify-content: center;
+                text-align: center;
                 display: flex;
-                font-size: 10px;
-                color: #fff;
-                &.add {
-                    i {
-                        left: 0;
-                    }
-                }
-                i {
-                    position: relative;
-                    top: 0;
-                    transform: translateY(0);
-                    left: 0;
-                    text-align: center;
-                    display: flex;
-                    color: white;
-                    justify-content: center;
-                    flex-direction: column;
-                }
+                color: white;
+                justify-content: center;
+                flex-direction: column;
             }
         }
+    }
 
-        .button {
-            display: block;
-            float: right;
-            top: 6px;
-        }
+    .button {
+        display: block;
+        float: right;
+        top: 6px;
+    }
 
-        .checkbox {
-            float: right;
-        }
+    .checkbox {
+        float: right;
+    }
 
-        &:nth-child(even) {
-            .status-icon {
-                &.add {
-                    i {
-                        left: -0.5px;
-                    }
+    &:nth-child(even) {
+        .status-icon {
+            &.add {
+                i {
+                    left: -0.5px;
                 }
-                &.check {
-                    i {
-                        left: -0.5px;
-                    }
+            }
+            &.check {
+                i {
+                    left: -0.5px;
                 }
             }
         }
