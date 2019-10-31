@@ -29,6 +29,7 @@ class FileUploadContainer extends Component {
         this.state = {
             fileS3Keys,
             progress: null,
+            uploadingFileName: null,
             softError: null
         };
 
@@ -37,13 +38,18 @@ class FileUploadContainer extends Component {
     }
 
     render() {
-        const { fileS3Keys, progress, isDragging, softError } = this.state;
+        const { fileS3Keys, progress, uploadingFileName, isDragging, softError } = this.state;
         return (
             <>
-                <FileDropBox onDrop={this.handleFileDrop}>
+                <FileDropBox
+                    onDrop={this.handleFileDrop}
+                    inputRef={this.inputRef}
+                    onAddFileClick={this.handleAddFileClick}
+                >
                     <FileUpload
                         fileS3Keys={fileS3Keys}
                         progress={progress}
+                        uploadingFileName={uploadingFileName}
                         isDragging={isDragging}
                         onChange={this.handleUpload}
                         onDelete={this.handleDelete}
@@ -126,6 +132,7 @@ class FileUploadContainer extends Component {
     };
 
     handleUpload = async e => {
+        e.persist();
         const files = e.target.files;
         this.props.fileUploadStart();
 
@@ -142,6 +149,7 @@ class FileUploadContainer extends Component {
         }
 
         this.props.fileUploadFinish();
+        e.target.value = null;
     };
 
     _uploadFile = async file => {
@@ -175,6 +183,10 @@ class FileUploadContainer extends Component {
         };
 
         try {
+            this.setState({
+                uploadingFileName: file.name
+            });
+
             const response = await axios.post(
                 `${FILE_API_URL}?skipTemp=${skipTemp}`,
                 formData,
@@ -194,7 +206,7 @@ class FileUploadContainer extends Component {
                 this.setState({ softError: `There was a problem uploading ${file.name}.` });
             }
         }
-        this.setState({ progress: null });
+        this.setState({ progress: null, uploadingFileName: null });
     };
 
     handleDelete = (e, s3Key) => {

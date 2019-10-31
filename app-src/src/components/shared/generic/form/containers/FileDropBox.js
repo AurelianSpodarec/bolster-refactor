@@ -4,20 +4,15 @@ import { useDrop } from 'react-dnd';
 
 const styles = {
     wrapper: {
-        minHeight: '300px',
-        width: '300px',
-        border: 'solid grey 1px',
         margin: 0
     },
     draggingWrapper: {
-        border: 'dashed grey 1px',
-        backgroundColor: 'rgba(220,220,220,.7)',
         zIndex: 9999
     }
 };
 
 const FileDropBox = props => {
-    const { onDrop } = props;
+    const { onDrop, inputRef, onAddFileClick } = props;
     const [{ canDrop, isOver }, drop] = useDrop({
         accept: [NativeTypes.FILE],
         drop(item, monitor) {
@@ -40,7 +35,19 @@ const FileDropBox = props => {
     }
 
     return (
-        <div ref={drop} style={wrapperStyles}>
+        <div
+            ref={drop}
+            style={wrapperStyles}
+            className={`file-drop-container ${canDrop && 'can-drop'} ${isOver &&
+                'file-over'} size-lg-12`}
+        >
+            <p className="size-lg-12">
+                Drag & Drop your files or{' '}
+                <button className="button upload blue" type="button" onClick={onAddFileClick}>
+                    Browse
+                </button>
+            </p>
+
             {props.children}
         </div>
     );
