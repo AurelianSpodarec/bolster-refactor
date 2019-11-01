@@ -65,7 +65,10 @@ class AddPinFormContainer extends Component {
                     />
                 </PageHeading>
                 <BlockContainer
-                    isEmpty={!templates.length || isEmpty(pinAnswers)}
+                    isEmpty={
+                        !templates.length 
+                        // || isEmpty(pinAnswers)
+                    }
                     noDataMessage="There is no data."
                     isFetching={isFetching}
                     error={error}

@@ -6,20 +6,13 @@ import SetImageModal from '../presentational/SetImageModal';
 import { QUESTION_TYPE_NUMBERS } from 'constants/shared/templateBuilder';
 import setQuestion from 'actions/superAdmin/templateBuilder/sync/setQuestion';
 
-const SetImageModalContainer = ({
-    sectionUUID,
-    templateUUID,
-    sort,
-    hideModal,
-    setQuestion
-}) => {
+const SetImageModalContainer = ({ sectionUUID, templateUUID, sort, hideModal, setQuestion }) => {
     const [formValues, updateForm] = useState({ name: '', file: '' });
 
     return (
         <SetImageModal
             {...formValues}
             handleChange={handleChange}
-            handleFileChange={handleFileChange}
             handleSubmit={handleSubmit}
             hideModal={hideModal}
         />
@@ -27,11 +20,6 @@ const SetImageModalContainer = ({
 
     function handleChange(name, value) {
         updateForm({ ...formValues, [name]: value });
-    }
-
-    function handleFileChange(name, value) {
-        if (formValues[name] === value) handleChange(name, '');
-        else handleChange(name, value);
     }
 
     function handleSubmit() {

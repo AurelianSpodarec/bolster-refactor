@@ -18,7 +18,6 @@ import SubmitContainer from 'components/shared/generic/form/containers/SubmitCon
 
 const AttachDocumentForm = ({
     handleInputChange,
-    handleFileChange,
     handleCheckboxChange,
     handleSubmit,
     handleDateChange,
@@ -73,11 +72,7 @@ const AttachDocumentForm = ({
                 />
             </Field>
 
-            <Field
-                name="Name of document"
-                sizeClasses="size-lg-4 size-md-12"
-                required
-            >
+            <Field name="Name of document" sizeClasses="size-lg-4 size-md-12" required>
                 <TextInputContainer
                     value={name}
                     name="name"
@@ -94,7 +89,7 @@ const AttachDocumentForm = ({
                         <FileUploadContainer
                             name="file"
                             acceptedTypes={['application/pdf', 'image/*']}
-                            handleChange={handleFileChange}
+                            handleChange={handleInputChange}
                             required
                             value={file}
                         />
@@ -170,9 +165,7 @@ const AttachDocumentForm = ({
             )}
             <BlockButtonWrapper>
                 <SubmitContainer text="Attach Document" withPlus />
-                <ButtonContainer
-                    to={location.pathname.replace('/attach-document', '')}
-                >
+                <ButtonContainer to={location.pathname.replace('/attach-document', '')}>
                     Cancel
                 </ButtonContainer>
             </BlockButtonWrapper>
