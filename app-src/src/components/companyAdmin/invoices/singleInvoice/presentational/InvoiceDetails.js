@@ -7,16 +7,36 @@ import BlockHeading from 'components/shared/generic/blockHeading/presentational/
 import FieldOutput from 'components/shared/generic/fieldOutput/presentational/FieldOutput';
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 import { formatCurrency } from 'helpers/generic';
+import { INVOICE_GEN_URL } from 'config';
 
 const InvoiceDetails = ({
     isFetching,
     error,
-    invoice: { createdOn, id, isPaid, paymentType, total, isRenewal, userFirstName, userLastName },
+    invoice: {
+        createdOn,
+        id,
+        isPaid,
+        paymentType,
+        total,
+        isRenewal,
+        userFirstName,
+        userLastName,
+        guid
+    },
     toggleConfirmDeleteModal,
     showDeleteButton
 }) => (
     <BlockContainer error={error} isEmpty={!id} isFetching={isFetching}>
         <BlockHeading title="Invoice Details">
+            <a
+                target="_blank"
+                rel="noopener noreferrer"
+                href={`${INVOICE_GEN_URL}/${guid}/invoice-${id}`}
+                className="button blue"
+                download={`invoice-${id}.pdf`}
+            >
+                <i className="fa fa-download fa-fw" /> Download Invoice
+            </a>
             {showDeleteButton && (
                 <button onClick={toggleConfirmDeleteModal} className="button red">
                     <i className="far fa-trash-alt fa-fw" />
@@ -28,6 +48,8 @@ const InvoiceDetails = ({
         <FieldOutput title="Invoice no" description={`${id}`} sizeClass="size-lg-4 size-md-12" />
         <FieldOutput title="Date" sizeClass="size-lg-4 size-md-12">
             <p>
+                {' '}
+                asdfasdfasdfasdfasdfsdaf
                 <DateTimeContainer date={createdOn} datetime={DATE_TIME_IDS.DATE} />
             </p>
         </FieldOutput>

@@ -14,7 +14,9 @@ const CompanyReportsTable = ({
     onMobile,
     retryCompanyReport,
     fetchStatus,
-    fetchCompanyReportsFull
+    fetchCompanyReportsFull,
+    shouldDeleteReportsAfterDownload,
+    handleDeleteAfterDownload
 }) => (
     <>
         <BlockHeading title="Reports Table">
@@ -38,6 +40,8 @@ const CompanyReportsTable = ({
                 onMobile={onMobile}
                 headers={headers}
                 retryCompanyReport={retryCompanyReport}
+                shouldDeleteReportsAfterDownload={shouldDeleteReportsAfterDownload}
+                handleDeleteAfterDownload={handleDeleteAfterDownload}
             />
         </Table>
         {!isFetching && fetchStatus === FETCH_STATUS.PARTIAL ? (

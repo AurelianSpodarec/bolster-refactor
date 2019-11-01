@@ -13,7 +13,7 @@ const CompanyReportsListItem = ({
     queueItem,
     // retryCompanyReport
     }) => {
-    const { FAILED, COMPLETE } = GENERATION_STATE_VAL;
+    const { FAILED, COMPLETE, DELETED } = GENERATION_STATE_VAL;
 
     return (
         <tr>
@@ -62,7 +62,11 @@ const CompanyReportsListItem = ({
                             Failed - View report
                         </button>
                     </a>
-                ) : (
+                ) : queueItem.state === DELETED ? 
+                (
+                    <button className="button red disabled">Report deleted</button>
+                )
+                : (
                     <button className="button disabled">Unavailable</button>
                 )}
             </td>

@@ -28,5 +28,10 @@ export default postBody => dispatch => {
     return axios
         .post(`${API_URL}/subscriptions/credits`, postBody, getHeaders())
         .then(res => dispatch(createCreditsSuccess(res.data)))
-        .catch(err => dispatch(createCreditsFailure(err.message)));
+        .catch(err => {
+            if (!!err.response && !!err.response.data && !!err.response.data.message) {
+                return dispatch(createCreditsFailure(err.response.data.message));
+            }
+            return dispatch(createCreditsFailure(err.message));
+        });
 };
