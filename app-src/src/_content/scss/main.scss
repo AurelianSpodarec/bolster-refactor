@@ -5421,6 +5421,7 @@ input {
         background-color: black;
 
         img {
+            float: none;
             display: inline-block;
             margin-bottom: 20px;
             margin-bottom: 15px;
@@ -5447,7 +5448,6 @@ input {
         p {
             color: white;
             line-height: 1.6;
-
         }
 
         .button {
