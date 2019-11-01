@@ -32,5 +32,10 @@ export default (invoiceID, stripeCardID) => dispatch => {
             getHeaders()
         )
         .then(({ data }) => dispatch(payInvoiceSuccess(data)))
-        .catch(err => dispatch(payInvoiceFailure(err.message)));
+        .catch(err => {
+            if (!!err.response && !!err.response.data && !!err.response.data.message) {
+                return dispatch(payInvoiceFailure(err.response.data.message));
+            }
+            return dispatch(payInvoiceFailure(err.message));
+        });
 };

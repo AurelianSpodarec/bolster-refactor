@@ -8,8 +8,12 @@ import {
     UPDATE_COMPANY_REPORTS_SORT,
     FETCH_COMPANY_REPORTS_FULL_SUCCESS,
     FETCH_COMPANY_REPORTS_FULL_FAILURE,
-    FETCH_COMPANY_REPORTS_FULL_REQUEST
+    FETCH_COMPANY_REPORTS_FULL_REQUEST,
+    DELETE_REPORT_REQUEST,
+    DELETE_REPORT_SUCCESS,
+    DELETE_REPORT_FAILURE,
 } from 'constants/actionTypes/companyReports';
+
 import { FETCH_STATUS } from 'constants/companyAdmin/enums';
 
 export default combineReducers({
@@ -39,9 +43,11 @@ function errorReducer(state = null, action) {
     switch (action.type) {
         case FETCH_COMPANY_REPORTS_REQUEST:
         case FETCH_COMPANY_REPORTS_FULL_REQUEST:
+        case DELETE_REPORT_REQUEST:
             return null;
         case FETCH_COMPANY_REPORTS_FAILURE:
         case FETCH_COMPANY_REPORTS_FULL_FAILURE:
+        case DELETE_REPORT_FAILURE:
             return action.error;
         default:
             return state;
@@ -54,10 +60,13 @@ function companyReportsReducer(state = {}, action) {
             return { ...state, ...convertArrToObj(action.payload) };
         case FETCH_COMPANY_REPORTS_FULL_SUCCESS:
             return convertArrToObj(action.payload);
+        case DELETE_REPORT_SUCCESS:
+            return updateObj(state, action.payload.id, action.payload);
         default:
             return state;
     }
 }
+
 function sortReducer(state = { sortString: 'createdOn desc' }, action) {
     switch (action.type) {
         case UPDATE_COMPANY_REPORTS_SORT:
