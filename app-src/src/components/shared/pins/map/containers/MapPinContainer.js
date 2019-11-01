@@ -5,6 +5,7 @@ import MapPin from '../presentational/MapPin';
 import fetchSinglePin from 'actions/companyAdmin/pins/async/fetchSinglePin';
 import updateIsPinExcluded from 'actions/companyAdmin/reports/sync/updateIsPinExcluded';
 import clientUpdateIsPinExcluded from 'actions/client/reports/create/sync/clientUpdateIsPinExcluded';
+import { PHOTO_EXT_REGEX } from 'helpers/regex';
 
 class MapPinContainer extends Component {
     state = {
@@ -92,7 +93,7 @@ class MapPinContainer extends Component {
         return answers.reduce((acc, answer) => {
             if (
                 answer.pinHistoryID === latestHistoryID &&
-                /(.jpg|.png)$/.test(answer.answer)
+                PHOTO_EXT_REGEX.test(answer.answer)
             ) {
                 return acc.concat(answer.answer);
             }
