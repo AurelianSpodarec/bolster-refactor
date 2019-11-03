@@ -15,7 +15,10 @@ const DrawingPickerContainer = ({
     floorID,
     drawingID,
     drawings,
-    updateDrawingIDsIncluded
+    updateDrawingIDsIncluded,
+    sites,
+    buildings,
+    floors
 }) => {
     const [includedDrawings, setIncludeDrawings] = useState([]);
     const [excludedDrawings, setExcludeDrawings] = useState([]);
@@ -33,20 +36,70 @@ const DrawingPickerContainer = ({
 
     useEffect(() => {
         //check which hierarchy has changed and set availableDrawings with the correct hierarchy ID and type
-        if (siteID) {
-            if (siteID && prevHierarchyID.siteID != siteID.toString()) {
+
+        if (Object.values(drawings).length) {
+            if (siteID && prevHierarchyID.siteID != siteID.toString() && !buildingID && !floorID) {
                 setExcludeDrawings(availableDrawings(siteID, HIERARCHY_IDS.SITE));
                 setIncludeDrawings([]);
-            } else if (buildingID && prevHierarchyID.buildingID != buildingID.toString()) {
+            }
+
+            if (buildingID && prevHierarchyID.buildingID != buildingID.toString() && !floorID) {
                 setExcludeDrawings(availableDrawings(buildingID, HIERARCHY_IDS.BUILDING));
                 setIncludeDrawings([]);
-            } else if (floorID && prevHierarchyID.floorID != floorID.toString()) {
-                setExcludeDrawings(availableDrawings(floorID, HIERARCHY_IDS.FLOOR));
+            } else if (
+                buildingID != null &&
+                prevHierarchyID.buildingID != buildingID.toString() &&
+                !floorID
+            ) {
+                //if user selects all buildings
+                setExcludeDrawings(availableDrawings(siteID, HIERARCHY_IDS.SITE));
                 setIncludeDrawings([]);
             }
-        }
-    }, [siteID, buildingID, drawingID, floorID]);
 
+            if (floorID && prevHierarchyID.floorID != floorID.toString()) {
+                setExcludeDrawings(availableDrawings(floorID, HIERARCHY_IDS.FLOOR));
+                setIncludeDrawings([]);
+            } else if (
+                floorID != null &&
+                prevHierarchyID.floorID != floorID.toString() &&
+                !floorID
+            ) {
+                //if user selects all floors
+                setExcludeDrawings(availableDrawings(buildingID, HIERARCHY_IDS.BUILDING));
+                setIncludeDrawings([]);
+            }
+
+            if (excludedDrawings.length <= 0) {
+                //if nothing is set, check which id has the value and set them
+                if (floorID) {
+                    setExcludeDrawings(availableDrawings(floorID, HIERARCHY_IDS.FLOOR));
+                    setIncludeDrawings([]);
+                } else if (buildingID) {
+                    setExcludeDrawings(availableDrawings(buildingID, HIERARCHY_IDS.BUILDING));
+                    setIncludeDrawings([]);
+                } else if (siteID) {
+                    setExcludeDrawings(availableDrawings(siteID, HIERARCHY_IDS.SITE));
+                    setIncludeDrawings([]);
+                }
+            }
+        }
+
+        // if(prevDrawings);
+    }, [siteID, buildingID, drawingID, floorID, drawings]);
+
+    //component did mount
+    useEffect(() => {
+        if (siteID && !buildingID) {
+            setExcludeDrawings(availableDrawings(siteID, HIERARCHY_IDS.SITE));
+            setIncludeDrawings([]);
+        } else if (buildingID && !floorID) {
+            setExcludeDrawings(availableDrawings(buildingID, HIERARCHY_IDS.BUILDING));
+            setIncludeDrawings([]);
+        } else if (floorID) {
+            setExcludeDrawings(availableDrawings(floorID, HIERARCHY_IDS.FLOOR));
+            setIncludeDrawings([]);
+        }
+    }, []);
     //if drawing is selected don't render component
     if (!siteID || drawingID) {
         return false;
@@ -71,6 +124,9 @@ const DrawingPickerContainer = ({
                 .filter(drawing => drawing.siteID.toString() === hierarchyID)
                 .map(drawing => ({
                     ...drawing,
+                    siteName: sites[drawing.siteID].name,
+                    buildingName: buildings[drawing.buildingID].name,
+                    floorName: floors[drawing.floorID].name,
                     included: false
                 }));
         }
@@ -79,6 +135,9 @@ const DrawingPickerContainer = ({
                 .filter(drawing => drawing.buildingID.toString() === hierarchyID)
                 .map(drawing => ({
                     ...drawing,
+                    siteName: sites[drawing.siteID].name,
+                    buildingName: buildings[drawing.buildingID].name,
+                    floorName: floors[drawing.floorID].name,
                     included: false
                 }));
         }
@@ -87,6 +146,9 @@ const DrawingPickerContainer = ({
                 .filter(drawing => drawing.floorID.toString() === hierarchyID)
                 .map(drawing => ({
                     ...drawing,
+                    siteName: sites[drawing.siteID].name,
+                    buildingName: buildings[drawing.buildingID].name,
+                    floorName: floors[drawing.floorID].name,
                     included: false
                 }));
         }
@@ -106,8 +168,6 @@ const DrawingPickerContainer = ({
     }
 
     function handleAddIncluded(e) {
-        // console.warn(this.props);
-
         e.preventDefault();
 
         if (selectedDrawings.length && excludedDrawings.length) {
@@ -120,13 +180,7 @@ const DrawingPickerContainer = ({
                         included: true
                     }))
             ]);
-            //dont need this?
-            // handleChange('drawingIDs', [
-            //     ...includedDrawings.map(drawing => drawing.id),
-            //     ...excludedDrawings
-            //         .filter(drawing => selectedDrawings.includes(drawing.id))
-            //         .map(drawing => drawing.id)
-            // ]);
+
             updateDrawingIDsIncluded([
                 ...includedDrawings.map(drawing => drawing.id),
                 ...excludedDrawings
@@ -183,6 +237,8 @@ const mapDispatchToProps = {
 const mapStateToProps = ({
     companyAdmin: {
         sitesReducer: { sites },
+        buildingsReducer: { buildings },
+        floorsReducer: { floors },
         drawingsReducer: { drawings },
         reportsReducer: {
             filters: { siteID, floorID, buildingID, drawingID }
@@ -194,7 +250,9 @@ const mapStateToProps = ({
     floorID,
     buildingID,
     drawingID,
-    drawings
+    drawings,
+    buildings,
+    floors
 });
 
 export default withUpdateOnChange(

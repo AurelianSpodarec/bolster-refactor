@@ -30,6 +30,7 @@ const DrawingPicker = ({
                                 onClick={e => handleDrawingClick(e, drawing.id)}
                                 key={drawing.id}
                             >
+                                {drawing.siteName} / {drawing.buildingName} / {drawing.floorName} /{' '}
                                 {drawing.name}
                             </div>
                         ))}
@@ -56,6 +57,7 @@ const DrawingPicker = ({
                                 onClick={e => handleDrawingClick(e, drawing.id)}
                                 key={drawing.id}
                             >
+                                {drawing.siteName} / {drawing.buildingName} / {drawing.floorName} /{' '}
                                 {drawing.name}
                             </div>
                         ))}
