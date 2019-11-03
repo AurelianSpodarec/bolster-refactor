@@ -149,14 +149,12 @@ class LevelsFilterContainer extends Component {
 
     componentDidUpdate = ({ customFilters: { pins: prevPins = [] } }) => {
         const {
-            customFilters,
             customFilters: { pins = [] },
             handleChange
         } = this.props;
         if (pins.length !== prevPins.length) {
             handleChange('pinIDs', pins.map(({ id }) => id));
         }
-        console.warn({ myFilters: 'here', customFilters });
     };
 
     // for advanced reports on hierarchy single pages
