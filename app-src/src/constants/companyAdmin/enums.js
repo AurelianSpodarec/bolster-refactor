@@ -51,6 +51,8 @@ export const COMPANY_USER_ROLE_IDS = {
 export const CREDIT_LOG_TYPES = {
     1: 'Purchased',
     2: 'Free credits from purchase',
+    3: 'Used to reactivate drawing',
+    4: 'Used to extend drawing',
     51: 'Used on new drawing',
     52: 'Used to update drawing'
 };
