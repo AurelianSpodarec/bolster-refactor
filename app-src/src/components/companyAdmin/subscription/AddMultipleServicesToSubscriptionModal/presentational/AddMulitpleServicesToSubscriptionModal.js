@@ -51,7 +51,7 @@ const AddMulitpleServicesToSubscriptionModal = ({
                 <strong>£{formatNumber(proRataCost.currentAnnualCost)}</strong> to{' '}
                 <strong>£{formatNumber(proRataCost.newAnnualCost)}</strong>, you will be billed
                 pro-rata for your remaining subscription, leaving a{' '}
-                <strong>£{formatNumber(proRataCost.proRataCost)} </strong>
+                <strong>£{formatNumber(proRataCost.proRataCost)} (exc. VAT) </strong>
                 fee to pay now.
             </p>
         ) : (
@@ -91,7 +91,7 @@ const AddMulitpleServicesToSubscriptionModal = ({
                 </p>
             )}
                 <p className="generic-text total-text align-right size-lg-12">
-                    Total to pay now: £{formatNumber(costWithVAT + proRataCost.proRataCost)}
+                    Total to pay now: £{formatNumber(costWithVAT + proRataCost.proRataCost)} (£{formatNumber(costWithVAT + proRataCost.proRataCostWithVAT)} inc. VAT)
                 </p>
             <Field name="Payment Type">
                 <div className="size-lg-6">

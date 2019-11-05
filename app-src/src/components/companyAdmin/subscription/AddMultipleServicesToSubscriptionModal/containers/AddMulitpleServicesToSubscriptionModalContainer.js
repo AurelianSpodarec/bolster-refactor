@@ -195,7 +195,6 @@ class AddMulitpleServicesToSubscriptionModalContainer extends Component {
             serviceIDs: serviceIDs.map(id => parseInt(id)),
             Credits: parseInt(creditsToBuy)
         };
-        console.log({ postBody, paymentType: +paymentType });
         addServiceToSubscription(postBody);
     };
 }
