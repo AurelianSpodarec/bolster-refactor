@@ -154,6 +154,7 @@ class AddMulitpleServicesToSubscriptionModalContainer extends Component {
     };
     _getServicesOptions = () => {
         const { services, subscriptions } = this.props;
+        if (!subscriptions.serviceIDs) return [];
         return services.map(({ id, name }) => ({
             value: id,
             text: name,
