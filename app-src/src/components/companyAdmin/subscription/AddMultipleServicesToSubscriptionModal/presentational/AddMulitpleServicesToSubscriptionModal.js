@@ -12,7 +12,6 @@ import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/pr
 import { formatNumber } from 'helpers/generic';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
-import AddServiceItem from './AddServiceItem';
 import CheckboxListContainer from 'components/shared/generic/form/containers/CheckboxListContainer';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import Select from 'components/shared/generic/form/presentational/Select';
@@ -27,13 +26,12 @@ const AddMulitpleServicesToSubscriptionModal = ({
     services,
     proRataCost,
     showAddCard,
-    hideAddCard,
     noCards,
     termsAgreed,
     checkedServices,
     handleCreditsChange,
-    costWithVAT,
-    costWithoutVAT,
+    costWithVAT = 0,
+    costWithoutVAT = 0,
     creditsToBuy = 0,
     selectedServiceNames
 }) => (
@@ -88,10 +86,13 @@ const AddMulitpleServicesToSubscriptionModal = ({
             </Field>
             {creditsToBuy && (
                 <p className="generic-text total-text align-right size-lg-12">
-                    Total: £{formatNumber(costWithoutVAT)}
+                    Total for credits: £{formatNumber(costWithoutVAT)}
                     {costWithVAT > costWithoutVAT && <> (£{formatNumber(costWithVAT)} inc. VAT) </>}
                 </p>
             )}
+                <p className="generic-text total-text align-right size-lg-12">
+                    Total to pay now: £{formatNumber(costWithVAT + proRataCost.proRataCost)}
+                </p>
             <Field name="Payment Type">
                 <div className="size-lg-6">
                     <RadioButton
