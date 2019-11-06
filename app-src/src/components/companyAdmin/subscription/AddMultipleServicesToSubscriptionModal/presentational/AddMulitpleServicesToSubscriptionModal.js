@@ -137,7 +137,7 @@ onSuccess={handleAddCardSuccess} /> :
                         placeholder={
                             !cards.length
                                 ? 'Please add a card to use card payments.'
-                                : 'Loading cards...'
+                                : 'Please select a card'
                         }
                         name="stripeCardID"
                         options={cards}
