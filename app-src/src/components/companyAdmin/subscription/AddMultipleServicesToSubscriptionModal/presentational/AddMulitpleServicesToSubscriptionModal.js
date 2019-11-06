@@ -15,6 +15,7 @@ import CheckboxContainer from 'components/shared/generic/form/containers/Checkbo
 import CheckboxListContainer from 'components/shared/generic/form/containers/CheckboxListContainer';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import Select from 'components/shared/generic/form/presentational/Select';
+import AddCardFormContainer from '../../cardManagement/addCardModal/containers/AddCardFormContainer';
 
 const AddMulitpleServicesToSubscriptionModal = ({
     handleSubmit,
@@ -33,8 +34,15 @@ const AddMulitpleServicesToSubscriptionModal = ({
     costWithVAT = 0,
     costWithoutVAT = 0,
     creditsToBuy = 0,
-    selectedServiceNames
-}) => (
+    selectedServiceNames,
+    addCardVisible,
+    hideAddCard,
+    handleAddCardSuccess
+}) => addCardVisible ? 
+<AddCardFormContainer
+close={hideAddCard}
+onSuccess={handleAddCardSuccess} /> :
+(
     <ModalOuterContainer>
         <BlockHeading title="Add services to your subscription" />
         {selectedServiceNames.length > 0 ? (
