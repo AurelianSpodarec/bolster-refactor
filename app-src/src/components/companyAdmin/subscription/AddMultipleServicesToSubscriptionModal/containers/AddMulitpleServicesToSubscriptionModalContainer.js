@@ -20,7 +20,8 @@ class AddMulitpleServicesToSubscriptionModalContainer extends Component {
         subscriptions: [],
         serviceIDs: [],
         creditsToBuy: this.props.creditsToBuy || '',
-        selectedServiceNames: []
+        selectedServiceNames: [],
+        addCardVisible: false,
     };
 
     render() {
@@ -80,6 +81,7 @@ class AddMulitpleServicesToSubscriptionModalContainer extends Component {
                     hideModal();
                 }}
                 termsAgreed={termsAgreed}
+                addCardVisible={this.state.addCardVisible}
             />
         );
     }
