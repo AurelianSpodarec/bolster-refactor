@@ -157,7 +157,7 @@ class AddMulitpleServicesToSubscriptionModalContainer extends Component {
         return services.map(({ id, name }) => ({
             value: id,
             text: name,
-            disabled: !subscriptions.serviceIDs || subscriptions.serviceIDs.includes(id)
+            disabled: subscriptions.serviceIDs && subscriptions.serviceIDs.includes(id)
         }));
     };
     // handleServiceChange = value => {
