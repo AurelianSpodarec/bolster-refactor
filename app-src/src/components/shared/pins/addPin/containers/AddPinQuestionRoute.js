@@ -146,24 +146,23 @@ class AddPinQuestionRoute extends Component {
         const curQuestion = questions[currentQuestionID];
 
         if (!preReqQuestion) {
-            //No Pre Req Question So Show
             return true;
         }
 
-        if (String(preReqQuestion.type) === STATUS) {
+        if (`${preReqQuestion.type}` === STATUS) {
             return (
-                String(question.prerequisiteQuestionValue) === String(status)
+                `${question.prerequisiteQuestionValue}` === `${status}`
             );
         }
 
-        if (String(preReqQuestion.type) === QUESTION_TYPE_VALUES.CHECKBOX) {
+        if (`${preReqQuestion.type}` === QUESTION_TYPE_VALUES.CHECKBOX) {
             //Convert true to 'true'
-            preReqAnswer = String(preReqAnswer);
+            preReqAnswer = `${preReqAnswer}`;
         }
 
         if (
-            String(preReqQuestion.type) === QUESTION_TYPE_VALUES.DROPDOWN ||
-            String(preReqQuestion.type) === QUESTION_TYPE_VALUES.RADIO
+            `${preReqQuestion.type}` === QUESTION_TYPE_VALUES.DROPDOWN ||
+            `${preReqQuestion.type}` === QUESTION_TYPE_VALUES.RADIO
         ) {
             //For a drop down we have to convert the GUID to the question option.
             const selectedOption = preReqQuestion.options.find(
@@ -179,7 +178,7 @@ class AddPinQuestionRoute extends Component {
         }
 
         if (
-            String(preReqQuestion.type) === QUESTION_TYPE_VALUES.MULTI_DROPDOWN
+            `${preReqQuestion.type}` === QUESTION_TYPE_VALUES.MULTI_DROPDOWN
         ) {
             const retArray = [];
 
@@ -203,11 +202,11 @@ class AddPinQuestionRoute extends Component {
         if (Array.isArray(preReqAnswer)) {
             //TODO maybe so case in-sensitive check
             const lowerCaseAnswers = preReqAnswer.map(answer =>
-                String(answer).toLowerCase()
+                `${answer}`.toLowerCase()
             );
             if (
                 lowerCaseAnswers.includes(
-                    String(curQuestion.prerequisiteQuestionValue).toLowerCase()
+                    `${(curQuestion.prerequisiteQuestionValue)}`.toLowerCase()
                 )
             ) {
                 return true;
@@ -263,6 +262,7 @@ class AddPinQuestionRoute extends Component {
         const isDoneFetchingPins =
             prevProps.isFetchingPins && !isFetchingPins && !isEmpty(pins);
 
+        // ? only applies to edit
         if (isDoneFetchingPins && (history.id && oldAnswers && edit)) {
             const oldAnswersArray = Object.values(oldAnswers);
 
