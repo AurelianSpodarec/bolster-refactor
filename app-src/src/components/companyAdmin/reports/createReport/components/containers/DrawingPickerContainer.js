@@ -118,39 +118,35 @@ const DrawingPickerContainer = ({
 
     function availableDrawings(hierarchyID, hierarchyTypeID) {
         const allDrawings = Object.values(drawings);
+                
+        const drawingMapFunc = drawing => {
+            const site = sites[drawing.siteID] || {};
+            const building = buildings[drawing.buildingID] || {};
+            const floor = floors[drawing.floorID] || {};
+            return {
+                ...drawing,
+                siteName: site.name,
+                buildingName: building.name,
+                floorName: floor.name,
+                included: false
+            };
+        };
+
 
         if (hierarchyTypeID === HIERARCHY_IDS.SITE) {
             return allDrawings
                 .filter(drawing => drawing.siteID.toString() === hierarchyID)
-                .map(drawing => ({
-                    ...drawing,
-                    siteName: sites[drawing.siteID].name,
-                    buildingName: buildings[drawing.buildingID].name,
-                    floorName: floors[drawing.floorID].name,
-                    included: false
-                }));
+                .map(drawingMapFunc);
         }
         if (hierarchyTypeID === HIERARCHY_IDS.BUILDING) {
             return allDrawings
                 .filter(drawing => drawing.buildingID.toString() === hierarchyID)
-                .map(drawing => ({
-                    ...drawing,
-                    siteName: sites[drawing.siteID].name,
-                    buildingName: buildings[drawing.buildingID].name,
-                    floorName: floors[drawing.floorID].name,
-                    included: false
-                }));
+                .map(drawingMapFunc);
         }
         if (hierarchyTypeID === HIERARCHY_IDS.FLOOR) {
             return allDrawings
                 .filter(drawing => drawing.floorID.toString() === hierarchyID)
-                .map(drawing => ({
-                    ...drawing,
-                    siteName: sites[drawing.siteID].name,
-                    buildingName: buildings[drawing.buildingID].name,
-                    floorName: floors[drawing.floorID].name,
-                    included: false
-                }));
+                .map(drawingMapFunc);
         }
 
         return [];
