@@ -37,7 +37,7 @@ const DrawingPickerContainer = ({
     useEffect(() => {
         //check which hierarchy has changed and set availableDrawings with the correct hierarchy ID and type
 
-        if (Object.values(drawings).length) {
+        if (Object.values(drawings).length && prevHierarchyID) {
             if (siteID && prevHierarchyID.siteID != siteID.toString() && !buildingID && !floorID) {
                 setExcludeDrawings(availableDrawings(siteID, HIERARCHY_IDS.SITE));
                 setIncludeDrawings([]);
