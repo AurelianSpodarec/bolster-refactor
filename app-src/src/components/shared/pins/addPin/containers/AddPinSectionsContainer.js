@@ -7,13 +7,29 @@ import AddPinSections from '../presentational/AddPinSections';
 class AddPinSectionsContainer extends Component {
     render() {
         const relevantSections = this._getSections();
+        const sectionIDs = Object.values(relevantSections).map(sect => sect.id);
 
-        const { selectedVersion, isHistory } = this.props;
+        const { 
+            selectedVersion,
+            isHistory, 
+            isSameTemplate, 
+            pinAnswersByGroupKey, 
+            dropdownOptionsByType, 
+            oldAnswersByNameObj, 
+            template 
+        } = this.props;
+        
         return (
             <AddPinSections
                 isHistory={isHistory}
                 sections={relevantSections}
+                sectionIDs={sectionIDs}
                 selectedVersion={selectedVersion}
+                isSameTemplate={isSameTemplate}
+                pinAnswersByGroupKey={pinAnswersByGroupKey}
+                dropdownOptionsByType={dropdownOptionsByType}
+                oldAnswersByNameObj={oldAnswersByNameObj}
+                template={template}
             />
         );
     }
@@ -24,6 +40,7 @@ class AddPinSectionsContainer extends Component {
         const relevantSections = sections
             .filter(section => section.templateVersionID === selectedVersionID)
             .map(({ id, name, sort }) => ({
+                id,
                 value: id,
                 text: name,
                 sort: sort

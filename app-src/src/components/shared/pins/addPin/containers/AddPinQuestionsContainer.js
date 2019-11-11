@@ -7,13 +7,25 @@ const AddPinQuestionsContainer = ({
     sections,
     questions,
     selectedVersion,
-    isHistory
+    isHistory,
+    sectionIDs,
+    isSameTemplate,
+    pinAnswersByGroupKey,
+    dropdownOptionsByType,
+    oldAnswersByNameObj,
+    template,
 }) => (
     <AddPinQuestions
         isHistory={isHistory}
         sections={Object.values(sections)}
         questions={questions}
         selectedVersion={selectedVersion}
+        sectionIDs={sectionIDs}
+        isSameTemplate={isSameTemplate}
+        pinAnswersByGroupKey={pinAnswersByGroupKey}
+        dropdownOptionsByType={dropdownOptionsByType}
+        oldAnswersByNameObj={oldAnswersByNameObj}
+        template={template}
     />
 );
 
