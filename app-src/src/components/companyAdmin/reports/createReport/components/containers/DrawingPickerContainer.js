@@ -25,7 +25,7 @@ const DrawingPickerContainer = ({
     const [selectedDrawings, setSelectedDrawings] = useState([]);
 
     function usePrevious(value) {
-        const ref = useRef();
+        const ref = useRef(value);
         useEffect(() => {
             ref.current = value;
         });
@@ -35,7 +35,7 @@ const DrawingPickerContainer = ({
     const prevHierarchyID = usePrevious({ siteID, buildingID, floorID });
 
     useEffect(() => {
-        //check which hierarchy has changed and set availableDrawings with the correct hierarchy ID and type
+        // check which hierarchy has changed and set availableDrawings with the correct hierarchy ID and type
 
         if (Object.values(drawings).length && prevHierarchyID) {
             if (siteID && prevHierarchyID.siteID != siteID.toString() && !buildingID && !floorID) {
