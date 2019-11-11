@@ -1,5 +1,5 @@
 import 'config/polyfill';
-import React, { Component } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
 import { createStore, applyMiddleware } from 'redux';
 import { BrowserRouter as Router } from 'react-router-dom';
@@ -23,7 +23,7 @@ import ScrollToTop from 'components/appRoute/app/containers/ScrollToTop';
 let middleWare = [thunk];
 
 if (process.env.NODE_ENV !== 'production') {
-    middleWare = [...middleWare, logger];
+    // middleWare = [...middleWare, logger];
 }
 
 const store = createStore(reducer, applyMiddleware(...middleWare));
