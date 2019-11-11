@@ -3,7 +3,18 @@ import React from 'react';
 import AddPinQuestionRoute from '../containers/AddPinQuestionRoute';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 
-const AddPinQuestions = ({ sections, questions, selectedVersion, isHistory, sectionIDs, isSameTemplate, pinAnswersByGroupKey, dropdownOptionsByType, oldAnswersByNameObj, template }) =>
+const AddPinQuestions = ({ 
+    sections, 
+    questions, 
+    selectedVersion, 
+    isHistory, 
+    sectionIDs, 
+    isSameTemplate, 
+    pinAnswersByGroupKey, 
+    dropdownOptionsByType, 
+    oldAnswersByNameObj, 
+    template 
+}) =>
     [...sections]
         .sort((a, b) => a.sort - b.sort)
         .map(section => (

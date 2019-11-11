@@ -9,7 +9,16 @@ class AddPinSectionsContainer extends Component {
         const relevantSections = this._getSections();
         const sectionIDs = Object.values(relevantSections).map(sect => sect.id);
 
-        const { selectedVersion, isHistory, isSameTemplate, pinAnswersByGroupKey, dropdownOptionsByType, oldAnswersByNameObj, template } = this.props;
+        const { 
+            selectedVersion,
+            isHistory, 
+            isSameTemplate, 
+            pinAnswersByGroupKey, 
+            dropdownOptionsByType, 
+            oldAnswersByNameObj, 
+            template 
+        } = this.props;
+        
         return (
             <AddPinSections
                 isHistory={isHistory}

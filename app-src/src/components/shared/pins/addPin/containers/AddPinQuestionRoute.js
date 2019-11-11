@@ -238,8 +238,8 @@ class AddPinQuestionRoute extends Component {
         }
 
         // * remove error if the question is no longer showing
-        const error = fieldErrors[answerName];
-        if (error && !isShowingFromPrereq) {
+        const hasError = fieldErrors[answerName];
+        if (hasError && !isShowingFromPrereq) {
             removeFieldError(answerName);
         }
 
@@ -296,7 +296,9 @@ class AddPinQuestionRoute extends Component {
             const oldAnswersKeys = Object.keys(pinAnswersByGroupKey);
             if (oldAnswersKeys.includes(question.groupKey)) {
                 const oldAnswer = pinAnswersByGroupKey[question.groupKey].answer;
-                const answerToPrefill = isDropdownOptions ? this.getDropdownPrefillAnswer(oldAnswer) : oldAnswer;
+                const answerToPrefill = isDropdownOptions 
+                    ? this.getDropdownPrefillAnswer(oldAnswer) 
+                    : oldAnswer;
                 updateAddPinAnswer(question.id, answerToPrefill);
                 shouldSetDefault = false;
             }
@@ -365,21 +367,16 @@ class AddPinQuestionRoute extends Component {
 
     handleFileChange = (_, s3Key) => {
         const { updateAddPinAnswer, question, answers } = this.props;
-        let curAnswer = answers[question.id];
         if (+question.type === +QUESTION_TYPE_VALUES.MULTI_PHOTO) {
-            if (!curAnswer) {
-                curAnswer = [];
-            }
+            const curAnswer = answers[question.id] || [];            
             //Multi File
             const existing = curAnswer.includes(s3Key);
             if (existing) {
                 //Delete
-                curAnswer = curAnswer.filter(item => item !== s3Key);
-                updateAddPinAnswer(question.id, curAnswer);
+                updateAddPinAnswer(question.id, curAnswer.filter(item => item !== s3Key));
             } else {
                 //Add
-                curAnswer.push(s3Key);
-                updateAddPinAnswer(question.id, curAnswer);
+                updateAddPinAnswer(question.id, [...curAnswer, s3Key]);
             }
         } else {
             const shouldDeleteFile = answers[question.id] === s3Key;

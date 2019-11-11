@@ -2,7 +2,15 @@ import React from 'react';
 import { connect } from 'react-redux';
 import AddPinVersions from '../presentational/AddPinVersions';
 
-const AddPinVersionsContainer = ({ selectedVersion, template, isHistory, isSameTemplate, pinAnswersByGroupKey, dropdownOptionsByType, oldAnswersByNameObj}) => 
+const AddPinVersionsContainer = ({
+     selectedVersion, 
+     template, 
+     isHistory, 
+     isSameTemplate, 
+     pinAnswersByGroupKey, 
+     dropdownOptionsByType, 
+     oldAnswersByNameObj
+}) => 
     (
         <AddPinVersions
             selectedVersion={selectedVersion}

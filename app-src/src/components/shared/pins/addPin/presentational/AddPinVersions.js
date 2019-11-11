@@ -1,7 +1,15 @@
 import React from 'react';
 import AddPinSectionsContainer from '../containers/AddPinSectionsContainer';
 
-const AddPinVersions = ({ selectedVersion, isHistory, isSameTemplate, pinAnswersByGroupKey, dropdownOptionsByType, oldAnswersByNameObj, template }) => (
+const AddPinVersions = ({ 
+    selectedVersion, 
+    isHistory, 
+    isSameTemplate, 
+    pinAnswersByGroupKey, 
+    dropdownOptionsByType, 
+    oldAnswersByNameObj, 
+    template 
+}) => (
     <div className="size-lg-12">
         {selectedVersion && (
             <AddPinSectionsContainer
