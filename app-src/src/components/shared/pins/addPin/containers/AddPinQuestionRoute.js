@@ -295,7 +295,7 @@ class AddPinQuestionRoute extends Component {
     }
 
     handlePrefillSameTemplateQuestion = () => {
-        const { pinAnswersByGroupKey, question } = this.props;
+        const { pinAnswersByGroupKey, question, updateAddPinAnswer } = this.props;
         const isDropdownOptions = dropdownOptionTypes.includes(`${question.type}`);
         const oldAnswersKeys = Object.keys(pinAnswersByGroupKey);
 
@@ -316,6 +316,7 @@ class AddPinQuestionRoute extends Component {
             question, 
             questions, 
             sectionIDs, 
+            updateAddPinAnswer
          } = this.props;
 
         const isDropdownOptions = dropdownOptionTypes.includes(`${question.type}`);
