@@ -279,57 +279,78 @@ class AddPinQuestionRoute extends Component {
 
     checkShouldPrefillOrReset = () => {
         const {
-            question,
-            updateAddPinAnswer,
-            questions, 
-            sectionIDs,
             isSameTemplate,
             pinAnswersByGroupKey,
-            oldAnswersByNameObj = {},
         } = this.props;
+
         const isAddPinHistory = !!pinAnswersByGroupKey;
-        const isDropdownOptions = dropdownOptionTypes.includes(`${question.type}`);
-        let shouldSetDefault = true;
 
         if (isSameTemplate && isAddPinHistory) {
-            // handle prefill from same template
-            const oldAnswersKeys = Object.keys(pinAnswersByGroupKey);
-            if (oldAnswersKeys.includes(question.groupKey)) {
-                const oldAnswer = pinAnswersByGroupKey[question.groupKey].answer;
-                const answerToPrefill = isDropdownOptions 
-                    ? this.getDropdownPrefillAnswer(oldAnswer) 
-                    : oldAnswer;
-                updateAddPinAnswer(question.id, answerToPrefill);
-                shouldSetDefault = false;
-            }
-        } else if (isAddPinHistory) { // check that we're on a history and there's old answers?
-            const oldAnswersMatchingName = oldAnswersByNameObj[question.name] || [];
-            const oldAnswersMatchingNameAndType = oldAnswersMatchingName
-                .filter(({ type }) => type === question.type);
-            if (oldAnswersMatchingNameAndType.length) {
-                const questionsMatchingNameAndType = Object.values(questions).filter(
-                    outerQuestion => 
-                        outerQuestion.type === question.type &&
-                        outerQuestion.name === question.name &&
-                        sectionIDs.includes(outerQuestion.templateSectionID)
-                );
-                const thisQuestionIndex = questionsMatchingNameAndType.findIndex(
-                    matchedQuestion => matchedQuestion.id === question.id
-                );
+            this.handlePrefillSameTemplateQuestion();
+        } else if (isAddPinHistory) {
+            this.handlePrefillDifferentTemplateQuestion();
+        } else {
+            this.handleResetAnswer();
+        }
+    }
 
-                let matchedAnswer = oldAnswersMatchingNameAndType[thisQuestionIndex];
-                if (matchedAnswer) {
-                    shouldSetDefault = false;
-                    const answerToPrefill = isDropdownOptions 
-                        ? this.getDropdownPrefillAnswer(matchedAnswer.answer) 
-                        : matchedAnswer.answer;
-                    updateAddPinAnswer(question.id, answerToPrefill);
-                }
+    handlePrefillSameTemplateQuestion = () => {
+        const { pinAnswersByGroupKey, question } = this.props;
+        const isDropdownOptions = dropdownOptionTypes.includes(`${question.type}`);
+        const oldAnswersKeys = Object.keys(pinAnswersByGroupKey);
+
+        if (oldAnswersKeys.includes(question.groupKey)) {
+            const oldAnswer = pinAnswersByGroupKey[question.groupKey].answer;
+            const answerToPrefill = isDropdownOptions 
+                ? this.getDropdownPrefillAnswer(oldAnswer) 
+                : oldAnswer;
+            updateAddPinAnswer(question.id, answerToPrefill);
+        } else {
+            this.handleResetAnswer();
+        }
+    }
+
+    handlePrefillDifferentTemplateQuestion = () => {
+        const { 
+            oldAnswersByNameObj, 
+            question, 
+            questions, 
+            sectionIDs, 
+         } = this.props;
+
+        const isDropdownOptions = dropdownOptionTypes.includes(`${question.type}`);
+        const oldAnswersMatchingName = oldAnswersByNameObj[question.name] || [];
+        const oldAnswersMatchingNameAndType = oldAnswersMatchingName
+            .filter(({ type }) => type === question.type);
+
+        if (oldAnswersMatchingNameAndType.length) {
+            const questionsMatchingNameAndType = Object.values(questions).filter(
+                outerQuestion => 
+                    outerQuestion.type === question.type &&
+                    outerQuestion.name === question.name &&
+                    sectionIDs.includes(outerQuestion.templateSectionID)
+            );
+            const thisQuestionIndex = questionsMatchingNameAndType.findIndex(
+                matchedQuestion => matchedQuestion.id === question.id
+            );
+
+            const matchedAnswer = oldAnswersMatchingNameAndType[thisQuestionIndex];
+            if (matchedAnswer) {
+                const answerToPrefill = isDropdownOptions 
+                    ? this.getDropdownPrefillAnswer(matchedAnswer.answer) 
+                    : matchedAnswer.answer;
+                return updateAddPinAnswer(question.id, answerToPrefill);
+            } else {
+                this.handleResetAnswer();
             }
+        } else {
+            this.handleResetAnswer();
         }
-        if (shouldSetDefault) {
-            updateAddPinAnswer(question.id, getDefaultValue(question));
-        }
+    }
+
+    handleResetAnswer = () => {
+        const { question, updateAddPinAnswer } = this.props;
+        updateAddPinAnswer(question.id, getDefaultValue(question));
     }
 
     getDropdownPrefillAnswer = (answer) => {
