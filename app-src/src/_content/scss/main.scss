@@ -2861,6 +2861,12 @@ input {
         line-height: 1;
         text-align: center;
     }
+    .code-full {
+        font-size: 16px !important;
+        line-height: 1;
+        text-align: center;
+        word-break: break-all;
+    }
 }
 .map-filters {
     .block-heading {
