@@ -68,6 +68,6 @@ const MergeToolForm = ({
             </ButtonContainer>
         }
     </BlockContainer>
-    );
+);
 
 export default MergeToolForm;
