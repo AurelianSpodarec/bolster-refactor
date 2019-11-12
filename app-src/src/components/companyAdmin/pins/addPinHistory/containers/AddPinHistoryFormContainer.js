@@ -156,7 +156,9 @@ class AddPinHistoryFormContainer extends Component {
         
         const pinAnswersByGroupKey = pinAnswers.reduce((acc, ans) => {
             const question = questions[ans.templateQuestionID];
+            if (!question) return acc;
             const section = sections[question.templateSectionID];
+            if (!section) return acc;
             // filter by only relevant questions/answers
             if (question.isHidden || 
                 invalidTypes.includes(question.type) ||
@@ -190,7 +192,7 @@ class AddPinHistoryFormContainer extends Component {
             drawingID,
             pinID,
             resetPinAnswers,
-            hierarchyType
+            hierarchyType,
         } = this.props;
 
         if (!prevProps.postSuccess && postSuccess) {
@@ -228,7 +230,8 @@ class AddPinHistoryFormContainer extends Component {
         const serviceOptions = [];
 
         serviceIDs.forEach(serviceID => {
-            serviceOptions.push(services.filter(service => service.id === serviceID)[0]);
+            const option = services.find(service => service.id === serviceID);
+            if (option) serviceOptions.push(option);
         });
 
         return serviceOptions.map(({ id, name }) => ({
