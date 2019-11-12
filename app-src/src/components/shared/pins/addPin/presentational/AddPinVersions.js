@@ -8,7 +8,8 @@ const AddPinVersions = ({
     pinAnswersByGroupKey, 
     dropdownOptionsByType, 
     oldAnswersByNameObj, 
-    template 
+    template,
+    latestPinHistory,
 }) => (
     <div className="size-lg-12">
         {selectedVersion && (
@@ -21,6 +22,7 @@ const AddPinVersions = ({
                 dropdownOptionsByType={dropdownOptionsByType}
                 oldAnswersByNameObj={oldAnswersByNameObj}
                 template={template}
+                latestPinHistory={latestPinHistory}
             />
         )}
     </div>

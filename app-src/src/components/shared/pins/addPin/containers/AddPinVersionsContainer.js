@@ -9,7 +9,8 @@ const AddPinVersionsContainer = ({
      isSameTemplate, 
      pinAnswersByGroupKey, 
      dropdownOptionsByType, 
-     oldAnswersByNameObj
+     oldAnswersByNameObj,
+     latestPinHistory,
 }) => 
     (
         <AddPinVersions
@@ -20,6 +21,7 @@ const AddPinVersionsContainer = ({
             dropdownOptionsByType={dropdownOptionsByType}
             oldAnswersByNameObj={oldAnswersByNameObj}
             template={template}
+            latestPinHistory={latestPinHistory}
         />
     );
 

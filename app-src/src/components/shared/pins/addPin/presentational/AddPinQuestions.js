@@ -13,7 +13,8 @@ const AddPinQuestions = ({
     pinAnswersByGroupKey, 
     dropdownOptionsByType, 
     oldAnswersByNameObj, 
-    template 
+    template,
+    latestPinHistory
 }) =>
     [...sections]
         .sort((a, b) => a.sort - b.sort)
@@ -39,6 +40,7 @@ const AddPinQuestions = ({
                                 dropdownOptionsByType={dropdownOptionsByType}
                                 oldAnswersByNameObj={oldAnswersByNameObj}
                                 template={template}
+                                latestPinHistory={latestPinHistory}
                             />
                         ))}
                 </div>
