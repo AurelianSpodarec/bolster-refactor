@@ -94,6 +94,7 @@ class AddPinHistoryFormContainer extends Component {
                         pinAnswersByGroupKey={pinAnswersByGroupKey}
                         dropdownOptionsByType={dropdownOptionsByType}
                         oldAnswersByNameObj={this.getOldAnswersByNameObj()}
+                        latestPinHistory={latestPinHistory}
                     />
                 </BlockContainer>
             </>

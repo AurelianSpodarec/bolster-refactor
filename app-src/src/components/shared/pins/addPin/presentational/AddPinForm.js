@@ -21,7 +21,8 @@ const AddPinForm = ({
     isSameTemplate,
     pinAnswersByGroupKey,
     dropdownOptionsByType,
-    oldAnswersByNameObj
+    oldAnswersByNameObj,
+    latestPinHistory
 }) => (
     <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
         <div className="size-lg-12">
@@ -69,6 +70,7 @@ const AddPinForm = ({
                 pinAnswersByGroupKey={pinAnswersByGroupKey}
                 dropdownOptionsByType={dropdownOptionsByType}
                 oldAnswersByNameObj={oldAnswersByNameObj}
+                latestPinHistory={latestPinHistory}
             />
         )}
 

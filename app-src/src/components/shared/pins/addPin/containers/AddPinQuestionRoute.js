@@ -247,7 +247,7 @@ class AddPinQuestionRoute extends Component {
         const isDoneFetchingPins = prevProps.isFetchingPins && !isFetchingPins && !isEmpty(pins);
 
         // ? only applies to edit
-        if (isDoneFetchingPins && (history.id && oldAnswers && edit)) {
+        if (isDoneFetchingPins && (edit && history.id && oldAnswers)) {
             const oldAnswersArray = Object.values(oldAnswers);
 
             // !pin history ID matters to select the right answer to prefill on edit
@@ -289,6 +289,7 @@ class AddPinQuestionRoute extends Component {
 
         const isAddPinHistory = !!pinAnswersByGroupKey;
 
+
         if (isSameTemplate && isAddPinHistory) {
             this.handlePrefillSameTemplateQuestion();
         } else if (isAddPinHistory) {
@@ -303,7 +304,9 @@ class AddPinQuestionRoute extends Component {
         const isDropdownOptions = dropdownOptionTypes.includes(`${question.type}`);
         const oldAnswersKeys = Object.keys(pinAnswersByGroupKey);
 
-        if (oldAnswersKeys.includes(question.groupKey)) {
+        if (`${question.type}` === STATUS) {
+            this.handleStatusPrefill();
+        } else if (oldAnswersKeys.includes(question.groupKey)) {
             const oldAnswer = pinAnswersByGroupKey[question.groupKey].answer;
             const answerToPrefill = isDropdownOptions 
                 ? this.getDropdownPrefillAnswer(oldAnswer) 
@@ -323,12 +326,17 @@ class AddPinQuestionRoute extends Component {
             updateAddPinAnswer
          } = this.props;
 
+
+
         const isDropdownOptions = dropdownOptionTypes.includes(`${question.type}`);
         const oldAnswersMatchingName = oldAnswersByNameObj[question.name] || [];
         const oldAnswersMatchingNameAndType = oldAnswersMatchingName
             .filter(({ type }) => type === question.type);
 
-        if (oldAnswersMatchingNameAndType.length) {
+            
+            if (`${question.type}` === STATUS) {
+                this.handleStatusPrefill();
+            } else if (oldAnswersMatchingNameAndType.length) {
             const questionsMatchingNameAndType = Object.values(questions).filter(
                 outerQuestion => 
                     outerQuestion.type === question.type &&
@@ -356,6 +364,14 @@ class AddPinQuestionRoute extends Component {
     handleResetAnswer = () => {
         const { question, updateAddPinAnswer } = this.props;
         updateAddPinAnswer(question.id, getDefaultValue(question));
+    }
+
+    handleStatusPrefill = () => {
+        const { selectedVersion, latestPinHistory } = this.props;
+        if (!latestPinHistory) return;
+        if (selectedVersion.statusOptions.includes(latestPinHistory.status)) {
+            this.handleStatusChange(null, latestPinHistory.status);
+        }
     }
 
     getDropdownPrefillAnswer = (answer) => {
@@ -438,10 +454,11 @@ const mapStateToProps = (
     questions,
     oldAnswers,
     status,
-    history: histories[params.historyID] || {},
     pins,
     isFetchingPins,
     fieldErrors,
+    // only applies to edit history
+    history: histories[params.historyID] || {},
     historyID: params.historyID
 });
 

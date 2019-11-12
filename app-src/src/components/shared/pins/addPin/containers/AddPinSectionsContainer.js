@@ -16,7 +16,8 @@ class AddPinSectionsContainer extends Component {
             pinAnswersByGroupKey, 
             dropdownOptionsByType, 
             oldAnswersByNameObj, 
-            template 
+            template,
+            latestPinHistory,
         } = this.props;
         
         return (
@@ -30,6 +31,7 @@ class AddPinSectionsContainer extends Component {
                 dropdownOptionsByType={dropdownOptionsByType}
                 oldAnswersByNameObj={oldAnswersByNameObj}
                 template={template}
+                latestPinHistory={latestPinHistory}
             />
         );
     }

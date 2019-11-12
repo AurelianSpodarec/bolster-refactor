@@ -10,7 +10,8 @@ const AddPinSections = ({
     pinAnswersByGroupKey, 
     dropdownOptionsByType, 
     oldAnswersByNameObj, 
-    template 
+    template,
+    latestPinHistory
 }) => (
     <AddPinQuestionsContainer
         isHistory={isHistory}
@@ -22,6 +23,7 @@ const AddPinSections = ({
         dropdownOptionsByType={dropdownOptionsByType}
         oldAnswersByNameObj={oldAnswersByNameObj}
         template={template}
+        latestPinHistory={latestPinHistory}
     />
 );
 

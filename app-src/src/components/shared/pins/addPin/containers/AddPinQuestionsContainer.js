@@ -14,6 +14,7 @@ const AddPinQuestionsContainer = ({
     dropdownOptionsByType,
     oldAnswersByNameObj,
     template,
+    latestPinHistory
 }) => (
     <AddPinQuestions
         isHistory={isHistory}
@@ -26,6 +27,7 @@ const AddPinQuestionsContainer = ({
         dropdownOptionsByType={dropdownOptionsByType}
         oldAnswersByNameObj={oldAnswersByNameObj}
         template={template}
+        latestPinHistory={latestPinHistory}
     />
 );
 
