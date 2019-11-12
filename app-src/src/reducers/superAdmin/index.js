@@ -21,27 +21,29 @@ import demoRequestsReducer from './demoRequests';
 import moveToolReducer from './moveTool';
 import sosCodesReducer from './sosCodes';
 import operativeAlertsReducer from 'reducers/superAdmin/operativeAlerts';
+import mergeToolReducer from './mergeTool';
 
 export default combineReducers({
-    companiesReducer,
-    enquiriesReducer,
-    companyReportsReducer,
-    invoicesReducer,
-    invoicePaymentsReducer,
     adminServicesReducer,
+    buildingsReducer,
+    companiesReducer,
+    companyReportsReducer,
+    companySubscriptionReducer,
+    demoRequestsReducer,
+    drawingsReducer,
+    enquiriesReducer,
+    floorsReducer,
+    invoicePaymentsReducer,
+    invoicesReducer,
+    mergeToolReducer,
+    moveToolReducer,
+    operativeAlertsReducer,
+    sitesReducer,
+    sosCodesReducer,
+    templateLabelFieldsReducer,
     templatesReducer,
     templateSectionsReducer,
     templateQuestionsReducer,
     templateQuestionFormReducer,
-    templateLabelFieldsReducer,
     usersReducer,
-    companySubscriptionReducer,
-    sitesReducer,
-    buildingsReducer,
-    floorsReducer,
-    drawingsReducer,
-    demoRequestsReducer,
-    moveToolReducer,
-    sosCodesReducer,
-    operativeAlertsReducer
 });
