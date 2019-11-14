@@ -45,7 +45,7 @@ const EditSettingsForm = ({
     dateFormat,
     defaultSitesSort,
     siteSortOptions,
-    shouldDeleteReportsAfterDownload
+    shouldDeleteReportsAfterDownload,
 }) => (
     <>
         <Form className="generic-form ize-lg-12" onSubmit={handleSubmit}>
