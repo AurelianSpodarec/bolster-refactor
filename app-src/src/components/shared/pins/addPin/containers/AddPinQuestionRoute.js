@@ -218,14 +218,16 @@ class AddPinQuestionRoute extends Component {
             fieldErrors,
             edit,
             historyID,
-            template = {}
+            template
         } = this.props;
 
         const isShowingFromPrereq = this.checkIfShouldShowByPreReq();
         const answer = answers[question.id];
         const answerName = `answer-${question.id}`;
 
-        if (!isShowingFromPrereq && answer) resetPinAnswer(question.id);
+        if (!isShowingFromPrereq && answer) {
+            resetPinAnswer(question.id);
+        }
         
         const hasStatusChanged = prevProps.status !== status;
         if (`${question.type}` !== STATUS && hasStatusChanged) {
@@ -270,15 +272,17 @@ class AddPinQuestionRoute extends Component {
             if (String(question.type) === STATUS) {
                 updateAddPinStatus(history.status);
             }
-        }
+        } else {
 
         const hasTemplateChanged = 
-            (!prevProps.template && template || 
-            (prevProps.template && prevProps.template.id !== template.id));
+            (!prevProps.template && !!template || 
+            (!!prevProps.template && prevProps.template.id !== template.id));
+        
             
         if (isDoneFetchingPins || hasTemplateChanged) {
             this.checkShouldPrefillOrReset();
         }
+    }
     };
 
     checkShouldPrefillOrReset = () => {
