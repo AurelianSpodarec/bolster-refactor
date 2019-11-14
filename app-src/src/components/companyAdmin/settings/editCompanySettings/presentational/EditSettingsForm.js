@@ -44,7 +44,9 @@ const EditSettingsForm = ({
     timeZone,
     dateFormatOptions,
     dateFormat,
-    shouldDeleteReportsAfterDownload
+    defaultSitesSort,
+    siteSortOptions,
+    shouldDeleteReportsAfterDownload,
 }) => (
     <>
         <Form className="generic-form ize-lg-12" onSubmit={handleSubmit}>
@@ -229,6 +231,17 @@ const EditSettingsForm = ({
                         selectedOption={selectedRule}
                         handleChange={handleInputChange}
                         required
+                    />
+                </Field>
+            </div>
+            <div className="size-lg-12">
+                <Field name="Default sites list sort" sizeClasses="size-lg-6 size-md-12">
+                    <Select
+                        options={siteSortOptions}
+                        onChange={handleInputChange}
+                        name="defaultSitesSort"
+                        value={defaultSitesSort}
+                        omitPlaceholder
                     />
                 </Field>
             </div>

@@ -5,13 +5,14 @@ import { withRouter } from 'react-router-dom';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 
-import { ACCESS_TYPES_VALUES } from 'constants/companyAdmin/enums';
+import { ACCESS_TYPES_VALUES, DEFAULT_SITES_SORT } from 'constants/companyAdmin/enums';
 
 import { ADD_SITE, ERROR_MODAL } from 'constants/shared/modalTypes';
 
 import SitesTable from '../presentational/SitesTable';
 import { hierarchySort } from 'helpers/generic';
 import updateHierarchyAddState from 'actions/companyAdmin/hierarchy/sync/updateHierarchyAddState';
+
 
 class SitesTableContainer extends Component {
     render() {
@@ -89,21 +90,44 @@ class SitesTableContainer extends Component {
     };
 
     _getSortedSites = sites => {
-        const { filters } = this.props;
+        const { filters: { sortBy } } = this.props;
+        const { CUSTOM, DATE_ASC, DATE_DESC, NAME_ASC, NAME_DESC } = DEFAULT_SITES_SORT;
+        const dateKeys = [DATE_DESC, DATE_ASC];
+        const nameKeys = [NAME_ASC, NAME_DESC];
+        // eslint-disable-next-line
+        const ascKeys = [DATE_ASC, NAME_ASC];
+        const descKeys = [DATE_DESC, NAME_DESC];
+        const key = nameKeys.includes(+sortBy) ? 'name' : dateKeys.includes(+sortBy) ? 'createdOn' : 'sort';
+        const order = descKeys.includes(+sortBy) ? 'desc' : 'asc';
 
-        if (filters.sortBy === 'descending') {
-            return sites.sort(
-                (a, b) => new Date(b.createdOn) - new Date(a.createdOn)
-            );
+        // default sort order as per api    
+        if (+sortBy === CUSTOM) return sites.sort(hierarchySort);
+
+        if (order === 'desc') {
+            if (key === 'createdOn') {
+                return sites.sort(
+                    (a, b) => new Date(b.createdOn) - new Date(a.createdOn)
+                );
+            } else {
+                return sites.sort(
+                    (a, b) => b[key] > a[key] ? 1 :
+                    b[key] < a[key] ? -1 : 0
+                );
+            }
         }
 
-        if (filters.sortBy === 'ascending') {
+        if (order === 'asc') {
+            if (key === 'createdOn') {
             return sites.sort(
                 (a, b) => new Date(a.createdOn) - new Date(b.createdOn)
             );
+            } else {
+                return sites.sort(
+                    (a, b) => a[key] > b[key] ? 1 :
+                    a[key] < b[key] ? -1 : 0
+                );
+            }
         }
-        // default sort order as per api
-        return sites.sort(hierarchySort);
     };
 
     handleAddSite = () => {

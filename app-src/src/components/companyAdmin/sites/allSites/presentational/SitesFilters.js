@@ -29,7 +29,7 @@ const SitesListFilters = ({
                         options={statusOptions}
                         selectedOption={selectedStatus}
                         handleChange={handleChange}
-                    />
+                        />
                 </div>
                 <div className="table-filter">
                     <p>Sort by:</p>
@@ -37,7 +37,9 @@ const SitesListFilters = ({
                         name="sortBy"
                         options={sortOptions}
                         selectedOption={selectedSort}
+                        value={selectedSort}
                         handleChange={handleChange}
+                        onChange={handleChange}
                     />
                 </div>
             </>
@@ -64,6 +66,8 @@ const SitesListFilters = ({
                         name="sortBy"
                         options={sortOptions}
                         selectedOption={selectedSort}
+                        value={selectedSort}
+                        onChange={handleChange}
                         handleChange={handleChange}
                     />
                     <p>Sort by:</p>
