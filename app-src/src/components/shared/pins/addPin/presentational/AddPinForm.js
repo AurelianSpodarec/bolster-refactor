@@ -17,7 +17,12 @@ const AddPinForm = ({
     selectedTemplate,
     filesUploading,
     confirmLeave,
-    isHistory
+    isHistory,
+    isSameTemplate,
+    pinAnswersByGroupKey,
+    dropdownOptionsByType,
+    oldAnswersByNameObj,
+    latestPinHistory
 }) => (
     <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
         <div className="size-lg-12">
@@ -61,6 +66,11 @@ const AddPinForm = ({
             <AddPinVersionsContainer
                 isHistory={isHistory}
                 selectedTemplateID={selectedTemplate.value}
+                isSameTemplate={isSameTemplate}
+                pinAnswersByGroupKey={pinAnswersByGroupKey}
+                dropdownOptionsByType={dropdownOptionsByType}
+                oldAnswersByNameObj={oldAnswersByNameObj}
+                latestPinHistory={latestPinHistory}
             />
         )}
 

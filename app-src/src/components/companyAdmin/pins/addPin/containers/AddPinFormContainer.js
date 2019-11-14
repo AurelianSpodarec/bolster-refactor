@@ -166,7 +166,8 @@ class AddPinFormContainer extends Component {
         const serviceOptions = [];
 
         serviceIDs.forEach(serviceID => {
-            serviceOptions.push(services.filter(service => service.id === serviceID)[0]);
+            const option = services.find(service => service.id === serviceID);
+            if (option) serviceOptions.push(option);
         });
 
         return serviceOptions.map(({ id, name }) => ({
