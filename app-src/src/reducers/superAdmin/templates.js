@@ -23,6 +23,10 @@ import {
     FETCH_TEMPLATES_SIMPLE_REQUEST,
     FETCH_TEMPLATES_SIMPLE_SUCCESS,
     FETCH_TEMPLATES_SIMPLE_FAILURE,
+    FETCH_TEMPLATE_FOR_COMPANY_REQUEST,
+    FETCH_TEMPLATE_FOR_COMPANY_FAILURE,
+    FETCH_TEMPLATE_FOR_COMPANY_SUCCESS,
+    FETCH_TEMPLATE_FOR_COMPANY_NOT_FOUND,
     DELETE_TEMPLATE_REQUEST,
     DELETE_TEMPLATE_FAILURE,
     DELETE_TEMPLATE_SUCCESS,
@@ -50,6 +54,7 @@ function isFetchingReducer(state = false, action) {
     switch (action.type) {
         case FETCH_TEMPLATES_REQUEST:
         case FETCH_TEMPLATE_REQUEST:
+        case FETCH_TEMPLATE_FOR_COMPANY_REQUEST:
         case FETCH_COMPANY_TEMPLATES_REQUEST:
         case FETCH_TEMPLATES_SIMPLE_REQUEST:
             return true;
@@ -58,6 +63,9 @@ function isFetchingReducer(state = false, action) {
         case FETCH_TEMPLATE_SUCCESS:
         case FETCH_TEMPLATES_FAILURE:
         case FETCH_TEMPLATE_FAILURE:
+        case FETCH_TEMPLATE_FOR_COMPANY_FAILURE:
+        case FETCH_TEMPLATE_FOR_COMPANY_SUCCESS:
+        case FETCH_TEMPLATE_FOR_COMPANY_NOT_FOUND:
         case FETCH_TEMPLATES_SIMPLE_SUCCESS:
         case FETCH_TEMPLATES_SIMPLE_FAILURE:
             return false;
@@ -72,6 +80,7 @@ function errorReducer(state = null, action) {
         case FETCH_TEMPLATES_REQUEST:
         case FETCH_COMPANY_TEMPLATES_REQUEST:
         case FETCH_TEMPLATE_REQUEST:
+        case FETCH_TEMPLATE_FOR_COMPANY_REQUEST:
         case FETCH_TEMPLATES_SIMPLE_REQUEST:
         case DELETE_TEMPLATE_REQUEST:
             return null;
@@ -79,6 +88,7 @@ function errorReducer(state = null, action) {
         case FETCH_TEMPLATES_FAILURE:
         case FETCH_COMPANY_TEMPLATES_FAILURE:
         case FETCH_TEMPLATE_FAILURE:
+        case FETCH_TEMPLATE_FOR_COMPANY_FAILURE:
         case FETCH_TEMPLATES_SIMPLE_FAILURE:
         case DELETE_TEMPLATE_FAILURE:
             return action.error;
@@ -158,6 +168,7 @@ function templatesReducer(state = {}, action) {
         case FETCH_TEMPLATES_SIMPLE_SUCCESS:
             return convertArrToObj(action.payload, 'uuid');
         case FETCH_TEMPLATE_SUCCESS:
+        case FETCH_TEMPLATE_FOR_COMPANY_SUCCESS:
         case DELETE_TEMPLATE_SUCCESS:
         case SET_TEMPLATE:
             return updateObj(state, action.template.uuid, action.template);

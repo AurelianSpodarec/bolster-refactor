@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 import { ADD_TEMPLATE_SECTION, SUCCESS_MODAL, ERROR_MODAL } from 'constants/shared/modalTypes';
-import fetchTemplate from 'actions/superAdmin/templateBuilder/async/fetchTemplate';
 import fetchAllServices from 'actions/superAdmin/services/async/fetchAllServices';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import fetchSingleCompany from 'actions/superAdmin/companies/async/fetchSingleCompany';
@@ -12,6 +11,7 @@ import resetSaveRequired from 'actions/superAdmin/templateBuilder/sync/resetSave
 
 import TemplateBuilder from '../presentational/TemplateBuilder';
 import { isEmpty } from 'helpers/generic';
+import fetchTemplateForCompany from 'actions/superAdmin/companies/async/fetchTemplateForCompany';
 import deleteTemplate from 'actions/superAdmin/templateBuilder/async/deleteTemplate';
 
 class TemplateBuilderContainer extends Component {
@@ -59,6 +59,7 @@ class TemplateBuilderContainer extends Component {
             isPosting,
             showModal,
             error,
+            isExisting,
             curUrl,
             templateUUID,
             updatedTemplateUUID,
@@ -135,7 +136,7 @@ const mapDispatchToProps = (
     hideModal: () => dispatch(hideModal()),
 
     fetchPageData: templateUUID => {
-        dispatch(fetchTemplate(templateUUID));
+        dispatch(fetchTemplateForCompany(companyID, templateUUID));
         dispatch(fetchAllServices());
         dispatch(fetchSingleCompany(companyID));
     },

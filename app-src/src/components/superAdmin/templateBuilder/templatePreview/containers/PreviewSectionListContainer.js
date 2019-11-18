@@ -3,19 +3,22 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 import PreviewSectionList from '../presentational/PreviewSectionList';
-import fetchTemplate from 'actions/superAdmin/templateBuilder/async/fetchTemplate';
 import { isEmpty } from 'helpers/generic';
+import fetchTemplateForCompany from 'actions/superAdmin/companies/async/fetchTemplateForCompany';
 
 let PreviewSectionListContainer = ({
     sections,
     questionBySection,
-    fetchTemplate,
+    fetchTemplateForCompany,
     templateUUID,
     template,
-    labelFields
+    labelFields,
+    match: {
+        params: { companyID }
+    }
 }) => {
     useEffect(() => {
-        if (isEmpty(labelFields)) fetchTemplate(templateUUID);
+        if (isEmpty(labelFields)) fetchTemplateForCompany(companyID, templateUUID);
     }, []);
     return (
         <PreviewSectionList
@@ -64,7 +67,7 @@ const mapStateToProps = (
     };
 };
 
-const mapDispatchToProps = { fetchTemplate };
+const mapDispatchToProps = { fetchTemplateForCompany };
 
 PreviewSectionListContainer = connect(
     mapStateToProps,
