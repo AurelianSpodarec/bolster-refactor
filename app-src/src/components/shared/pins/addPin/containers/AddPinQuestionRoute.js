@@ -196,7 +196,7 @@ class AddPinQuestionRoute extends Component {
     };
 
     componentDidMount = () => {
-        this.checkShouldPrefillOrReset();
+        this.handlePrefillOrReset();
     }
 
     componentDidUpdate = prevProps => {
@@ -277,12 +277,12 @@ class AddPinQuestionRoute extends Component {
         
             
         if (isDoneFetchingPins || hasTemplateChanged) {
-            this.checkShouldPrefillOrReset();
+            this.handlePrefillOrReset();
         }
     }
     };
 
-    checkShouldPrefillOrReset = () => {
+    handlePrefillOrReset = () => {
         const {
             isSameTemplate,
             pinAnswersByGroupKey,
@@ -379,9 +379,11 @@ class AddPinQuestionRoute extends Component {
         // * handles dropdown options which have been removed
         const { question, dropdownOptionsByType } = this.props;
         const {type, optionType} = question;
-
+        
         const relevantOptions = dropdownOptionsByType[optionType];
         if (`${type}` === DROPDOWN_OPTIONS) {
+            // handle edge case where answer is an array, set asfirst element in array 
+            if (Array.isArray(answer)) [answer] = answer;
             if (relevantOptions.includes(answer)) {
                 return answer;
             } 
@@ -389,7 +391,6 @@ class AddPinQuestionRoute extends Component {
             const filteredAnswers = answer.filter(option => relevantOptions.includes(option));
             return filteredAnswers;
         }
-        
         return getDefaultValue(question);
     }
 
