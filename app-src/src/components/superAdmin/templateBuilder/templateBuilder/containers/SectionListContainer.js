@@ -23,11 +23,9 @@ const mapStateToProps = (
         .sort((a, b) => a.sort - b.sort)
 });
 
-const mapDispatchToProps = () => ({});
 
 const ComponentWithConnect = connect(
     mapStateToProps,
-    mapDispatchToProps
 )(SectionListContainer);
 
 export default withRouter(ComponentWithConnect);

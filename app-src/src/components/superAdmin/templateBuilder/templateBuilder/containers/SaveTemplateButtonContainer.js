@@ -83,11 +83,7 @@ const mapStateToProps = (
     allLabelFields: Object.values(labelFields)
 });
 
-const mapDispatchToProps = dispatch => ({
-    postTemplate: templateData => {
-        dispatch(postTemplate(templateData));
-    }
-});
+const mapDispatchToProps = {postTemplate};
 
 const WithConnect = connect(
     mapStateToProps,
