@@ -12,14 +12,7 @@ class CheckboxListContainer extends Component {
     };
     render() {
         const { showFieldError } = this.state;
-        const {
-            options,
-            error,
-            errorsVisible,
-            selectedOptions,
-            name,
-            classes
-        } = this.props;
+        const { options, error, errorsVisible, selectedOptions, name, classes } = this.props;
 
         const errorMessage = showFieldError || errorsVisible ? error : null;
         return (
