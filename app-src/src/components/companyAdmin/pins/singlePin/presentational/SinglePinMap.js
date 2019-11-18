@@ -63,12 +63,12 @@ const SinglePinMap = ({
                     </button>
                 )}
 
-                {pin.nextPinID && (
+                {!!pin.nextPinID && (
                     <ButtonContainer className="pull-right" to={`/company/pins/${pin.nextPinID}`}>
                         Next <i className="fa fa-arrow-right" />
                     </ButtonContainer>
                 )}
-                {pin.prevPinID && (
+                {!!pin.prevPinID && (
                     <ButtonContainer className="pull-right" to={`/company/pins/${pin.prevPinID}`}>
                         <i className="fa fa-arrow-left" />
                         Previous

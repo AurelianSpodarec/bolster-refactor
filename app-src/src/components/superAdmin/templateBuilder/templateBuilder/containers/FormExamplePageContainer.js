@@ -4,9 +4,9 @@ import { withRouter } from 'react-router-dom';
 
 import FormExamplePage from '../presentational/FormExamplePage';
 import fetchAllServices from 'actions/superAdmin/services/async/fetchAllServices';
-import fetchTemplate from 'actions/superAdmin/templateBuilder/async/fetchTemplate';
 import fetchSingleCompany from 'actions/superAdmin/companies/async/fetchSingleCompany';
 import { isEmpty } from 'helpers/generic';
+import fetchTemplateForCompany from 'actions/superAdmin/companies/async/fetchTemplateForCompany';
 
 class FormExamplePageContainer extends Component {
     render() {
@@ -42,7 +42,7 @@ const mapDispatchToProps = (
     }
 ) => ({
     fetchPageData: templateUUID => {
-        dispatch(fetchTemplate(templateUUID));
+        dispatch(fetchTemplateForCompany(companyID, templateUUID));
         dispatch(fetchAllServices());
         dispatch(fetchSingleCompany(companyID));
     }

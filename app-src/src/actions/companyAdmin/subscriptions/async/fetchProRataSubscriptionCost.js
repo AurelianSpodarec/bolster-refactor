@@ -21,13 +21,14 @@ export const fetchProRataSubscriptionCostFailure = error => ({
     error
 });
 
-export default () => dispatch => {
+export default numberOfServices => dispatch => {
     dispatch(fetchProRataSubscriptionCostRequest());
 
-    axios
-        .get(`${API_URL}/subscriptions/proratacost`, getHeaders())
+    return axios
+        .get(
+            `${API_URL}/subscriptions/proratacost?numberOfServices=${numberOfServices}`,
+            getHeaders()
+        )
         .then(res => dispatch(fetchProRataSubscriptionCostSuccess(res.data)))
-        .catch(err =>
-            dispatch(fetchProRataSubscriptionCostFailure(err.message))
-        );
+        .catch(err => dispatch(fetchProRataSubscriptionCostFailure(err.message)));
 };
