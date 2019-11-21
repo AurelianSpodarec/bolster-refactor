@@ -58,6 +58,7 @@ class TemplateBuilderContainer extends Component {
         const {
             postSuccess,
             isPosting,
+            isExisting,
             showModal,
             error,
             curUrl,
