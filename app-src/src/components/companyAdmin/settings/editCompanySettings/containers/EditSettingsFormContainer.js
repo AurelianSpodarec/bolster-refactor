@@ -74,7 +74,6 @@ class EditSettingsFormContainer extends Component {
                 filesUploading={filesUploading}
                 handleInputChange={this.handleInputChange}
                 handleSubmit={this.handleSubmit}
-                handleFileChange={this.handleFileChange}
                 handleColourSelect={this.handleColourSelect}
                 handleCheckboxChange={this.handleCheckboxChange}
                 templateUsageRules={Object.values(templateUsageRuleOptions)}
@@ -138,16 +137,6 @@ class EditSettingsFormContainer extends Component {
             // * otherwise set the state in the usual way
             this.setState({ [name]: value });
         }
-    };
-
-    handleFileChange = (name, file) => {
-        this.setState(prevState => {
-            if (prevState.logoFile === file) {
-                return { [name]: prevState.initialFile };
-            } else {
-                return { [name]: file };
-            }
-        });
     };
 
     handleSubmit = e => {

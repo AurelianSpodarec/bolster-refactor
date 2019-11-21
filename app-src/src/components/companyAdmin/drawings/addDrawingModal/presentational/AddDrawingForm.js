@@ -12,7 +12,6 @@ import ButtonContainer from 'components/shared/generic/button/containers/ButtonC
 const AddDrawingForm = ({
     handleSubmit,
     handleInputChange,
-    handleFileChange,
     filesUploading,
     name,
     file,
@@ -41,11 +40,10 @@ const AddDrawingForm = ({
                         required
                         name="file"
                         acceptedTypes={['application/pdf', 'image/*']}
-                        handleChange={handleFileChange}
+                        handleChange={handleInputChange}
                     />
                     <p className="size-lg-12">
-                        This can be changed free of charge for 24 hours after
-                        creation.
+                        This can be changed free of charge for 24 hours after creation.
                     </p>
                 </Field>
             </div>
@@ -55,11 +53,7 @@ const AddDrawingForm = ({
 
         <BlockButtonWrapper>
             {credits > 0 ? (
-                <button
-                    disabled={filesUploading}
-                    className="button green"
-                    type="submit"
-                >
+                <button disabled={filesUploading} className="button green" type="submit">
                     {filesUploading ? 'Please wait...' : <>Submit</>}
                 </button>
             ) : (
@@ -67,11 +61,7 @@ const AddDrawingForm = ({
                     side="top"
                     text="You must have credits to add a drawing. Click to buy credits."
                 >
-                    <button
-                        onClick={handleBuyCreditsModal}
-                        className="button red"
-                        type="button"
-                    >
+                    <button onClick={handleBuyCreditsModal} className="button red" type="button">
                         No credits available
                     </button>
                 </TooltipContainer>

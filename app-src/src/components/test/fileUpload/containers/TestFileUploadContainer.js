@@ -1,189 +1,223 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import axios from 'axios';
+import { connect } from 'react-redux';
 
 import { FILE_API_URL } from 'config';
-import addFieldError from 'actions/shared/generic/fieldErrors/sync/addFieldError';
-import removeFieldError from 'actions/shared/generic/fieldErrors/sync/removeFieldError';
 
-import TestFileUpload from '../presentational/TestFileUpload';
+import FileUpload from '../presentational/TestFileUpload';
+import withFieldValidation from 'components/shared/generic/form/hocs/withFieldValidation';
 import { getAuthHeader } from 'helpers/api';
+import FileDropBox from './FileDropBox';
+import { fileUploadStart, fileUploadFinish } from 'actions/shared/fileUpload/sync/fileUpload';
 import { areArraysEqual } from 'helpers/generic';
 
-const testImageSrc =
-    'https://dizelaxol0ewg.cloudfront.net/5aeb8e07-7765-4425-948f-5481f81027bc/larry.jpg';
 class FileUploadContainer extends Component {
-    state = {
-        showFieldError: false,
-        isAfterAdd: false,
-        files: [{ source: testImageSrc, options: { type: 'local' } }]
+    static defaultProps = {
+        maxFiles: 1,
+        handleChange: () => {}
     };
 
-    render() {
-        const { showFieldError } = this.state;
-        const { errorsVisible, error, maxFiles, acceptedTypes } = this.props;
-        let errorMessage;
-        if (showFieldError || errorsVisible) errorMessage = error;
+    constructor(props) {
+        super(props);
 
+        const { value } = props;
+        let fileS3Keys = value;
+        if (!Array.isArray(value)) {
+            fileS3Keys = value ? [value] : [];
+        }
+
+        this.state = {
+            fileS3Keys,
+            progress: null,
+            softError: null
+        };
+
+        this.source = null;
+        this.inputRef = React.createRef();
+    }
+
+    render() {
+        const { fileS3Keys, progress, isDragging, softError } = this.state;
         return (
-            <TestFileUpload
-                files={this.state.files}
-                serverOptions={this._getServerOptions()}
-                error={errorMessage}
-                maxFiles={maxFiles}
-                acceptedTypes={acceptedTypes}
-                handleUpdateFiles={this.handleUpdateFiles}
-            />
+            <>
+                <FileDropBox onDrop={this.handleFileDrop}>
+                    <FileUpload
+                        fileS3Keys={fileS3Keys}
+                        progress={progress}
+                        isDragging={isDragging}
+                        onChange={this.handleUpload}
+                        onDelete={this.handleDelete}
+                        onCancel={this.handleCancel}
+                        inputRef={this.inputRef}
+                        onAddFileClick={this.handleAddFileClick}
+                    />
+                </FileDropBox>
+                {!!softError && <p className="error red-text text-accent-4"> {softError}</p>}
+            </>
         );
     }
 
-    componentDidMount = () => {
-        this._validate();
-    };
-
     componentWillUnmount = () => {
-        const { name, removeFieldError } = this.props;
-        removeFieldError(name);
+        const { fileUploadFinish } = this.props;
+        // ensures the file upload is set to 0 if the page is
+        // navigated away from before files have finished uploading.
+        fileUploadFinish('close');
     };
 
     componentDidUpdate = ({ value: prevValue }) => {
         const { value } = this.props;
-        const hasArrChanged =
-            Array.isArray(value) && !areArraysEqual(value, prevValue);
-        const hasStringChanged =
-            typeof value === 'string' && value !== prevValue;
 
-        if (hasArrChanged || hasStringChanged) {
-            this._validate(value);
+        if (Array.isArray(value) && !areArraysEqual(value, prevValue)) {
+            this.setState({ fileS3Keys: value });
+        } else if (value !== prevValue) {
+            this.setState({ fileS3Keys: value ? [value] : [] });
         }
     };
 
-    _validate = () => {
-        const {
-            name,
-            error,
-            required,
-            addFieldError,
-            removeFieldError,
-            value
-        } = this.props;
+    _validateFileType = str => {
+        const fileType = str.toLowerCase();
 
-        if (required && !(value && value.length)) {
-            addFieldError(name, 'This is a required field.');
-        } else if (error) {
-            removeFieldError(name);
+        const { acceptedTypes } = this.props;
+        if (!acceptedTypes) {
+            return true;
         }
+
+        if (acceptedTypes.includes('image/*') && fileType.includes('image')) {
+            return true;
+        }
+
+        return acceptedTypes.some(x => x.toLowerCase() === fileType);
     };
 
-    _getServerOptions = () => {
-        return {
-            url: FILE_API_URL,
-            process: this._handleUpload,
-            revert: this._handleRevert,
-            // load: this._handleLoad,
-            restore: null,
-            fetch: null
-        };
+    _handleChange = () => {
+        const { maxFiles, handleChange, showError, name } = this.props;
+        const { fileS3Keys } = this.state;
+        if (maxFiles === 1) {
+            handleChange(name, fileS3Keys[0] || '');
+        } else {
+            handleChange(name, fileS3Keys);
+        }
+
+        showError();
     };
 
-    _handleUpload = (
-        fieldName,
-        file,
-        metadata,
-        load,
-        error,
-        progress,
-        abort
-    ) => {
+    handleFileDrop = async files => {
+        this.props.fileUploadStart();
+
+        for (const file of files) {
+            await this._uploadFile(file);
+        }
+
+        this.props.fileUploadFinish();
+    };
+
+    handleAddFileClick = e => {
+        e.preventDefault();
+        this.inputRef.current.click();
+    };
+
+    _handleProgress = e => {
+        const percentCompleted = Math.round((e.loaded * 100) / e.total);
+        this.setState({ progress: percentCompleted });
+    };
+
+    handleCancel = () => {
+        this.source.cancel('Upload cancelled.');
+    };
+
+    handleUpload = async e => {
+        const files = e.target.files;
+        this.props.fileUploadStart();
+
+        const { maxFiles } = this.props;
+        // if there is one file, replace the existing.
+        if (maxFiles === 1) {
+            await new Promise(resolve => {
+                this.setState({ fileS3Keys: [] }, resolve);
+            });
+        }
+
+        for (const file of files) {
+            await this._uploadFile(file);
+        }
+
+        this.props.fileUploadFinish();
+    };
+
+    _uploadFile = async file => {
+        if (!file) {
+            return;
+        }
+
+        const { name, maxFiles, skipTemp = false } = this.props;
+        const { fileS3Keys } = this.state;
+        if (fileS3Keys.length === maxFiles) {
+            this.setState({ softError: `You can only upload a maximum of ${maxFiles} files.` });
+            return;
+        }
+        if (!this._validateFileType(file.type)) {
+            this.setState({ softError: `The file type '${file.type}' is not permitted.` });
+            return;
+        }
+
         const formData = new FormData();
-        formData.append(fieldName, file, file.name);
+        formData.append(name, file, file.name);
 
-        const CancelToken = axios.CancelToken;
-        const source = CancelToken.source();
+        this.source = axios.CancelToken.source();
         const headers = {
             ...getAuthHeader(),
             'content-type': 'multipart/form-data'
         };
-        const config = {
+        const reqConfig = {
             headers,
-            cancelToken: source.token,
-            onUploadProgress: e =>
-                progress(e.lengthComputable, e.loaded, e.total)
+            cancelToken: this.source.token,
+            onUploadProgress: this._handleProgress
         };
 
-        axios
-            .post(FILE_API_URL, formData, config)
-            .then(({ data: { s3Key } }) => {
-                const { name, handleChange } = this.props;
-                handleChange(name, s3Key);
-                load(s3Key);
-            })
-            .catch(() => error('Something went wrong'));
+        try {
+            const response = await axios.post(
+                `${FILE_API_URL}?skipTemp=${skipTemp}`,
+                formData,
+                reqConfig
+            );
+            const newS3Key = response.data.s3Key;
 
-        return {
-            abort: () => {
-                source.cancel('Upload canceled');
-                abort();
+            this.setState(
+                prevState => ({
+                    fileS3Keys: prevState.fileS3Keys.concat(newS3Key),
+                    softError: null
+                }),
+                this._handleChange
+            );
+        } catch (e) {
+            if (!axios.isCancel(e)) {
+                this.setState({ softError: `There was a problem uploading ${file.name}.` });
             }
-        };
+        }
+        this.setState({ progress: null });
     };
 
-    // _handleLoad = (source, load, error, progress, abort) => {
-    // var options = {
-    //     method: 'GET',
-    //     mode: 'no-cors',
-    //     cache: 'default'
-    // };
+    handleDelete = (e, s3Key) => {
+        e.preventDefault();
 
-    // const request = new Request(source);
-
-    //     const headers = {
-    //         ...getAuthHeader(),
-    //         'content-type': 'multipart/form-data'
-    //     };
-    //     const config = {
-    //         headers,
-    //         cancelToken: source.token,
-    //         responseType: 'blob'
-    //     };
-
-    //     axios.get(source, config);
-
-    //     return {
-    //         abort: () => {
-    //             abort();
-    //         }
-    //     };
-    // };
-
-    handleUpdateFiles = fileItems => {
-        this.setState({
-            files: fileItems.map(fileItem => fileItem.file)
-        });
-    };
-
-    _handleRevert = (s3Key, load) => {
-        const { name, handleChange } = this.props;
-        handleChange(name, s3Key);
-        load();
+        this.setState(
+            prevState => ({
+                fileS3Keys: prevState.fileS3Keys.filter(key => key !== s3Key),
+                softError: null
+            }),
+            this._handleChange
+        );
     };
 }
 
-const mapStateToProps = ({ shared: { fieldErrorsReducer } }, ownProps) => ({
-    error: fieldErrorsReducer.fieldErrors[ownProps.name],
-    errorsVisible: fieldErrorsReducer.errorsVisible
-});
-
 const mapDispatchToProps = dispatch => ({
-    addFieldError: (fieldName, error) => {
-        dispatch(addFieldError(fieldName, error));
-    },
-    removeFieldError: fieldName => {
-        dispatch(removeFieldError(fieldName));
-    }
+    fileUploadStart: () => dispatch(fileUploadStart()),
+    fileUploadFinish: close => dispatch(fileUploadFinish(close))
 });
 
-export default connect(
-    mapStateToProps,
+const WithConnect = connect(
+    null,
     mapDispatchToProps
 )(FileUploadContainer);
+
+export default withFieldValidation(WithConnect);

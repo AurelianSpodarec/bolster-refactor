@@ -30,11 +30,7 @@ const AddDrawingsForm = ({
                 {drawings.map((drawing, i) => (
                     <div className="size-lg-12" key={drawing.id}>
                         <div
-                            className={
-                                isUsingBolsterLabels
-                                    ? 'size-lg-6 size-md-12'
-                                    : 'size-lg-12'
-                            }
+                            className={isUsingBolsterLabels ? 'size-lg-6 size-md-12' : 'size-lg-12'}
                         >
                             <div className="size-lg-12" key={drawing.id}>
                                 <Field name="Drawing name" required>
@@ -42,11 +38,7 @@ const AddDrawingsForm = ({
                                         name={`${drawing.id}.*.name`}
                                         value={drawing.name}
                                         handleChange={(name, value) =>
-                                            updateDrawing(
-                                                name,
-                                                value,
-                                                drawing.id
-                                            )
+                                            updateDrawing(name, value, drawing.id)
                                         }
                                         required
                                     />
@@ -58,21 +50,14 @@ const AddDrawingsForm = ({
                                         value={drawing.file}
                                         required
                                         name={`${drawing.id}.*.file`}
-                                        acceptedTypes={[
-                                            'application/pdf',
-                                            'image/*'
-                                        ]}
-                                        handleChange={(name, file) => {
-                                            updateDrawing(
-                                                name,
-                                                drawing.file ? '' : file,
-                                                drawing.id
-                                            );
+                                        acceptedTypes={['application/pdf', 'image/*']}
+                                        handleChange={(name, value) => {
+                                            updateDrawing(name, value, drawing.id);
                                         }}
                                     />
                                     <p className="size-lg-12">
-                                        This can be changed free of charge for
-                                        24 hours after creation.
+                                        This can be changed free of charge for 24 hours after
+                                        creation.
                                     </p>
                                 </Field>
                             </div>
@@ -82,16 +67,10 @@ const AddDrawingsForm = ({
                                     <Field name="Send an alert?">
                                         <CheckboxContainer
                                             checked={drawing.isAlertShowing}
-                                            name={`${
-                                                drawing.id
-                                            }.*.isAlertShowing`}
+                                            name={`${drawing.id}.*.isAlertShowing`}
                                             text=""
                                             handleChange={(name, value) =>
-                                                updateDrawing(
-                                                    name,
-                                                    value,
-                                                    drawing.id
-                                                )
+                                                updateDrawing(name, value, drawing.id)
                                             }
                                         />
                                     </Field>
@@ -106,11 +85,7 @@ const AddDrawingsForm = ({
                                                 value={drawing.message}
                                                 name={`${drawing.id}.*.message`}
                                                 handleChange={(name, value) =>
-                                                    updateDrawing(
-                                                        name,
-                                                        value,
-                                                        drawing.id
-                                                    )
+                                                    updateDrawing(name, value, drawing.id)
                                                 }
                                             />
                                         </Field>
@@ -119,15 +94,11 @@ const AddDrawingsForm = ({
                                     <div className="size-lg-12">
                                         <Field name="Date to send">
                                             <DatePickerPresentational
-                                                name={`${
-                                                    drawing.id
-                                                }.*.dateToSend`}
+                                                name={`${drawing.id}.*.dateToSend`}
                                                 selected={drawing.dateToSend}
                                                 onChange={value =>
                                                     updateDrawing(
-                                                        `${
-                                                            drawing.id
-                                                        }.*.dateToSend`,
+                                                        `${drawing.id}.*.dateToSend`,
                                                         value,
                                                         drawing.id
                                                     )
@@ -164,28 +135,18 @@ const AddDrawingsForm = ({
                 ))}
             </div>
             <BlockButtonWrapper>
-                <button
-                    className="button blue left"
-                    type="button"
-                    onClick={addDrawing}
-                >
+                <button className="button blue left" type="button" onClick={addDrawing}>
                     <i className="fa fa-plus" /> Add another drawing
                 </button>
                 {hasEnoughCredits ? (
                     <SubmitContainer withPlus text={'Submit'} />
                 ) : (
-                    <button
-                        className="button red"
-                        type="button"
-                        onClick={() => {}}
-                    >
+                    <button className="button red" type="button" onClick={() => {}}>
                         <i className="fa fa-times" />
                         Not enough credits
                     </button>
                 )}
-                <ButtonContainer handleClick={handleClose}>
-                    Cancel
-                </ButtonContainer>
+                <ButtonContainer handleClick={handleClose}>Cancel</ButtonContainer>
             </BlockButtonWrapper>
         </Form>
     );

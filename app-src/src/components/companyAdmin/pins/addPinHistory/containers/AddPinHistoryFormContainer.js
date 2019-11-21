@@ -51,6 +51,7 @@ class AddPinHistoryFormContainer extends Component {
             versions,
             latestPinHistory = {},
             dropdownOptionsByType,
+            pinAnswers
         } = this.props;
 
         const latestVersion = versions.find(vers => 
@@ -74,8 +75,11 @@ class AddPinHistoryFormContainer extends Component {
                     />
                 </PageHeading>
                 <BlockContainer
-                    isEmpty={!templates.length}
-                    noDataMessage="You have no pin templates."
+                    isEmpty={
+                        !templates.length 
+                        // || isEmpty(pinAnswers)
+                    }
+                    noDataMessage="There is no data."
                     isFetching={isFetching}
                     error={error}
                 >
@@ -291,13 +295,13 @@ class AddPinHistoryFormContainer extends Component {
 const mapStateToProps = ({
     companyAdmin: {
         addPinDropdownOptions: { dropdownOptions },
-        templatesReducer: { templates, isFetching, error },
+        templatesReducer: { templates, isFetching: isFetchingTemplates, error },
         templateVersionsReducer: { versions },
         templateSectionsReducer: { sections },
         templateQuestionsReducer: { questions },
         addPinFormReducer: { answers, status },
         addPinCoordinatesReducer: { coordinates },
-        pinsReducer: { postSuccess },
+        pinsReducer: { postSuccess, isFetching: isFetchingPins },
         pinHistoriesReducer: { histories },
         pinAnswersReducer: { answers: pinAnswers },
         servicesReducer: { services },
@@ -316,7 +320,7 @@ const mapStateToProps = ({
     templates: Object.values(templates).filter(({ isDeleted }) => !isDeleted),
     answers,
     coordinates,
-    isFetching,
+    isFetching: isFetchingTemplates || isFetchingPins,
     questions,
     sections,
     error,
