@@ -271,12 +271,11 @@ class AddPinQuestionRoute extends Component {
             }
         } else {
 
-        const hasTemplateChanged = 
-            (!prevProps.template && !!template || 
-            (!!prevProps.template && prevProps.template.id !== template.id));
-        
+        const hasTemplateAppeared = !prevProps.template && !!template;
+        const hasTemplateChanged = !!prevProps.template && prevProps.template.id !== template.id;
+        const shouldReset = hasTemplateAppeared || hasTemplateChanged || isDoneFetchingPins;
             
-        if (isDoneFetchingPins || hasTemplateChanged) {
+        if (shouldReset) {
             this.handlePrefillOrReset();
         }
     }

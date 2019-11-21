@@ -17,7 +17,6 @@ const DatePickerPresentational = ({
 }) => (
     <div className={`date-picker ${sizeClasses}`}>
         <DatePicker
-            minDate={minDate}
             id={name}
             selected={selected}
             onChange={onChange}

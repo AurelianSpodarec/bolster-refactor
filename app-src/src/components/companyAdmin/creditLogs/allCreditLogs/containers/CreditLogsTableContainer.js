@@ -9,7 +9,7 @@ const CreditLogsTableContainer = ({ credits, invoices, isFetching, error, header
             credits.filter(credit => {
                 // only show credits for invoices that aren't free
                 const invoice = invoices[credit.invoiceID];
-                if (!invoice || invoice.total) return true;
+                return (!invoice || !!invoice.total);
             }),
         [isFetching]
     );
