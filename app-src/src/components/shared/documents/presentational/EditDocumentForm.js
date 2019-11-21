@@ -8,7 +8,6 @@ import { withRouter } from 'react-router-dom';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import RadioButton from 'components/shared/generic/form/presentational/RadioButton';
 import DatePickerContainer from 'components/shared/documents/containers/AttachDocumentDatePickerContainer';
-import FileView from 'components/shared/generic/form/presentational/FileView';
 import { DOCUMENT_TYPE } from 'constants/companyAdmin/enums';
 import CheckboxListContainer from 'components/shared/generic/form/containers/CheckboxListContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
@@ -21,14 +20,11 @@ const EditDocumentForm = ({
     handleInputChange,
     handleSubmit,
     handleDateChange,
-    handleHide,
-    handleCancelUpload,
     filesUploading,
     type,
     name,
     isPhotoRequired,
     isFileViewRequired,
-    isFileViewHidden,
     isSignatureRequired,
     isUpsyncForced,
     services,

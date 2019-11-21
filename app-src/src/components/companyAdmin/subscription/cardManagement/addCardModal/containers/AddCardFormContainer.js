@@ -7,8 +7,6 @@ import addCard from 'actions/companyAdmin/cards/async/addCard';
 import AddCardModal from '../presentational/AddCardModal';
 import addFieldError from 'actions/shared/generic/fieldErrors/sync/addFieldError';
 import removeFieldError from 'actions/shared/generic/fieldErrors/sync/removeFieldError';
-import { ADD_CARD_SUCCESS } from 'constants/actionTypes/cards';
-import { ERROR_MODAL } from 'constants/shared/modalTypes';
 
 class AddCardFormContainer extends Component {
     state = {
