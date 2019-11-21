@@ -26,7 +26,6 @@ const EditDocumentForm = ({
     filesUploading,
     type,
     name,
-    fileS3Key,
     isPhotoRequired,
     isFileViewRequired,
     isFileViewHidden,
@@ -47,13 +46,11 @@ const EditDocumentForm = ({
         <BlockContainer>
             <BlockHeading title="Document Details" />
             <p className="generic-text intro-text size-lg-12">
-                Instructions: ##Lorem ipsum dolor sit amet consectetur
-                adipisicing elit. Expedita sit quas, aliquam explicabo
-                laboriosam illo. Beatae architecto, laudantium iusto iure atque
-                quas ea at possimus alias iste eaque, fuga tenetur non vero
-                repellat nostrum adipisci? Veniam, aspernatur quidem sed
-                voluptas hic quis doloremque tempora dignissimos, incidunt natus
-                perferendis, placeat possimus.##
+                Instructions: ##Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita
+                sit quas, aliquam explicabo laboriosam illo. Beatae architecto, laudantium iusto
+                iure atque quas ea at possimus alias iste eaque, fuga tenetur non vero repellat
+                nostrum adipisci? Veniam, aspernatur quidem sed voluptas hic quis doloremque tempora
+                dignissimos, incidunt natus perferendis, placeat possimus.##
             </p>
             <Form className="generic-form size-lg-12" onSubmit={handleSubmit}>
                 <Field>
@@ -81,11 +78,7 @@ const EditDocumentForm = ({
                         handleInputChange={handleInputChange}
                     />
                 </Field>
-                <Field
-                    name="Name of document"
-                    sizeClasses="size-lg-4 size-md-12"
-                    required
-                >
+                <Field name="Name of document" sizeClasses="size-lg-4 size-md-12" required>
                     <TextInputContainer
                         value={name}
                         name="name"
@@ -98,32 +91,15 @@ const EditDocumentForm = ({
 
                 <div className="size-lg-12">
                     <div className="size-lg-6 size-md-12">
-                        {!isFileViewHidden ? (
-                            <Field name="Attached file">
-                                <FileView
-                                    file={fileS3Key}
-                                    handleHide={handleHide}
-                                />
-                            </Field>
-                        ) : (
-                            <Field name="Upload PDF or image" required>
-                                <FileUploadContainer
-                                    name="file"
-                                    value={file}
-                                    acceptedTypes={[
-                                        'application/pdf',
-                                        'image/*'
-                                    ]}
-                                    handleChange={handleInputChange}
-                                    required
-                                />
-                                <ButtonContainer
-                                    handleClick={handleCancelUpload}
-                                >
-                                    Cancel File Replace
-                                </ButtonContainer>
-                            </Field>
-                        )}
+                        <Field name="Upload PDF or image" required>
+                            <FileUploadContainer
+                                name="file"
+                                value={file}
+                                acceptedTypes={['application/pdf', 'image/*']}
+                                handleChange={handleInputChange}
+                                required
+                            />
+                        </Field>
                     </div>
                 </div>
                 <div className="size-lg-12">
@@ -201,10 +177,7 @@ const EditDocumentForm = ({
                         {filesUploading ? 'Please wait...' : <>{'Confirm'}</>}
                     </button>
                     <ButtonContainer
-                        to={location.pathname.replace(
-                            `/edit-document/${documentID}`,
-                            ''
-                        )}
+                        to={location.pathname.replace(`/edit-document/${documentID}`, '')}
                     >
                         Cancel
                     </ButtonContainer>

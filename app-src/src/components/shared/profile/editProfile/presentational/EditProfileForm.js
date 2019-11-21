@@ -77,7 +77,7 @@ const EditProfileForm = ({
                         <FileUploadContainer
                             name="profileImageS3Key"
                             value={profileImageS3Key}
-                            handleChange={handleImageChange}
+                            handleChange={handleInputChange}
                             acceptedTypes={['image/*']}
                         />
                     </Field>

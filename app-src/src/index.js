@@ -23,7 +23,7 @@ import ScrollToTop from 'components/appRoute/app/containers/ScrollToTop';
 let middleWare = [thunk];
 
 if (process.env.NODE_ENV !== 'production') {
-    middleWare = [...middleWare, logger];
+    // middleWare = [...middleWare, logger];
 }
 
 const store = createStore(reducer, applyMiddleware(...middleWare));

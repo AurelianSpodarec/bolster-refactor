@@ -13,7 +13,6 @@ class EditDocumentFormContainer extends Component {
         type: '1',
         // textboxes
         name: '',
-        fileS3Key: '',
         file: '',
         // toggles
         isPhotoRequired: false,
@@ -69,25 +68,16 @@ class EditDocumentFormContainer extends Component {
     }
 
     componentDidUpdate = prevProps => {
-        const {
-            postSuccess,
-            history,
-            hierarchyType,
-            match,
-            isFetching,
-            document
-        } = this.props;
+        const { postSuccess, history, hierarchyType, match, isFetching, document } = this.props;
         const { id: hierarchyID } = match.params;
 
         if (!isFetching && prevProps.isFetching) {
-            const serviceIDs =
-                document && document.serviceIDs.map(key => String(key));
+            const serviceIDs = document && document.serviceIDs.map(key => String(key));
             this.setState({
                 ...document,
+                file: document.fileS3Key,
                 type: String(document.type),
-                startOn: document.startOn
-                    ? new Date(document.startOn)
-                    : undefined,
+                startOn: document.startOn ? new Date(document.startOn) : undefined,
                 endOn: document.endOn ? new Date(document.endOn) : undefined,
                 serviceIDs
             });
@@ -130,13 +120,7 @@ class EditDocumentFormContainer extends Component {
 
     handleSubmit = e => {
         e.preventDefault();
-        const {
-            editDocument,
-            documentID,
-            hierarchyType,
-            match,
-            filesUploading
-        } = this.props;
+        const { editDocument, documentID, hierarchyType, match, filesUploading } = this.props;
         if (!filesUploading) {
             const { id: hierarchyID } = match.params;
             const {
@@ -144,13 +128,12 @@ class EditDocumentFormContainer extends Component {
                 // eslint-disable-next-line no-unused-vars
                 services,
                 file,
-                fileS3Key,
                 ...body
             } = this.state;
             const postBody = {
                 ...body,
                 serviceIDs: serviceIDs,
-                file: file.length ? file : fileS3Key,
+                file: file || '',
                 hierarchyID,
                 hierarchyType
             };
@@ -161,11 +144,7 @@ class EditDocumentFormContainer extends Component {
 
 const mapStateToProps = (
     {
-        companyAdmin: {
-            documentsReducer,
-            servicesReducer,
-            subscriptionsReducer
-        },
+        companyAdmin: { documentsReducer, servicesReducer, subscriptionsReducer },
         shared: {
             filesUploadingReducer: { filesUploading }
         }

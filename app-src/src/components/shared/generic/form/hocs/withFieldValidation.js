@@ -34,14 +34,11 @@ export default function withFieldValidation(WrappedComponent) {
         }
 
         componentWillUnmount() {
-            const { name, removeFieldError, error } = this.props;
-            if (error) removeFieldError(name);
+            const { name, removeFieldError } = this.props;
+            removeFieldError(name);
         }
 
-        componentDidUpdate({
-            value: prevVal,
-            showFieldErrors: prevShowErrors
-        }) {
+        componentDidUpdate({ value: prevVal, showFieldErrors: prevShowErrors }) {
             const { value, showFieldErrors } = this.props;
             if (isEmpty(prevVal) && !isEmpty(value)) this._validate(value);
             if (!prevShowErrors && showFieldErrors) this.showError();
@@ -53,7 +50,7 @@ export default function withFieldValidation(WrappedComponent) {
         };
 
         handleChange = (name, value, ...rest) => {
-            const { onChange } = this.props;
+            const { onChange = () => {} } = this.props;
             this._validate(value);
             onChange(name, value, ...rest);
         };

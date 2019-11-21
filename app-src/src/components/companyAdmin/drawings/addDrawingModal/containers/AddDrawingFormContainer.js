@@ -29,7 +29,6 @@ class AddDrawingFormContainer extends Component {
                 file={file}
                 floorID={floorID}
                 handleInputChange={this.handleInputChange}
-                handleFileChange={this.handleFileChange}
                 handleSubmit={this.handleSubmit}
                 filesUploading={filesUploading}
                 credits={credits}
@@ -49,18 +48,8 @@ class AddDrawingFormContainer extends Component {
 
     handleInputChange = (name, value) => this.setState({ [name]: value });
 
-    handleFileChange = (name, s3Key) => {
-        const { [name]: file } = this.state;
-        this.setState({ [name]: file === s3Key ? '' : s3Key });
-    };
-
     handleSubmit = () => {
-        const {
-            createDrawing,
-            floorID,
-            filesUploading,
-            hideModal
-        } = this.props;
+        const { createDrawing, floorID, filesUploading, hideModal } = this.props;
         // eslint-disable-next-line no-unused-vars
 
         if (!filesUploading) {
@@ -93,10 +82,7 @@ const mapStateToProps = ({
     }
 }) => ({
     filesUploading,
-    credits: Object.values(credits).reduce(
-        (acc, curr) => acc + curr.quantity,
-        0
-    )
+    credits: Object.values(credits).reduce((acc, curr) => acc + curr.quantity, 0)
     // !alter when it's been determined that company is using bolster labels
     // isUsingBolsterLabels: companySettingsReducer.isUsingBolsterLabels
 });

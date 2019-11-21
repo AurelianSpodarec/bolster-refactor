@@ -5379,3 +5379,78 @@ input {
 .share-link {
     padding: 10px 0;
 }
+
+.file-drop-container {
+    border-radius: 2.5px;
+    padding: 10px;
+    border: 1px solid $input-border-grey;
+    transition: 0.25s background-color ease-in-out, 0.25s box-shadow ease-in-out,
+        0.25s border ease-in-out;
+
+    &.can-drop {
+        -webkit-box-shadow: inset 0px 0px 12px 0px #a5a5a5;
+        -moz-box-shadow: inset 0px 0px 12px 0px #a5a5a5;
+        box-shadow: inset 0px 0px 12px 0px #a5a5a5;
+        &.file-over {
+            background-color: $light-grey-alt;
+        }
+    }
+    p {
+        text-align: center;
+        .button {
+            font-size: 12px;
+            margin-left: 2.5px;
+        }
+    }
+}
+.file-uploader {
+    .button {
+        &.delete {
+            position: absolute;
+            right: 5px;
+            top: 5px;
+        }
+    }
+    .file-item,
+    .image-item {
+        border-radius: 2.5px;
+        margin: 2.5px 0;
+        padding: 5px 7.5px;
+        text-align: center;
+        background-color: black;
+
+        img {
+            float: none;
+            display: inline-block;
+            margin-bottom: 20px;
+            margin-bottom: 15px;
+        }
+
+        &:first-of-type {
+            margin-top: 10px;
+        }
+    }
+    .file-name {
+        text-align: left;
+        color: white;
+        margin-top: 2.5px;
+        margin-bottom: 2px;
+    }
+
+    .progress {
+        text-align: center;
+        padding: 5px;
+        background-color: black;
+        margin-top: 10px;
+        border-radius: 2.5px;
+
+        p {
+            color: white;
+            line-height: 1.6;
+        }
+
+        .button {
+            margin-bottom: 5px;
+        }
+    }
+}
