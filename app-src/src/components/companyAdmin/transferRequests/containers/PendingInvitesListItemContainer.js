@@ -24,7 +24,6 @@ const PendingInvitesListItemContainer = ({
         buildingName,
         floorName,
         drawingName,
-        serviceID
     } = invite;
     const name = [siteName, buildingName, floorName, drawingName]
         .filter(notNull => notNull)

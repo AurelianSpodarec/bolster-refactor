@@ -59,7 +59,6 @@ class TemplateBuilderContainer extends Component {
             isPosting,
             showModal,
             error,
-            isExisting,
             curUrl,
             templateUUID,
             updatedTemplateUUID,

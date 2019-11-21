@@ -51,7 +51,6 @@ class AddPinHistoryFormContainer extends Component {
             versions,
             latestPinHistory = {},
             dropdownOptionsByType,
-            pinAnswers
         } = this.props;
 
         const latestVersion = versions.find(vers => 

@@ -12,7 +12,7 @@ const styles = {
 };
 
 const FileDropBox = props => {
-    const { onDrop, inputRef, onAddFileClick } = props;
+    const { onDrop, onAddFileClick } = props;
     const [{ canDrop, isOver }, drop] = useDrop({
         accept: [NativeTypes.FILE],
         drop(item, monitor) {

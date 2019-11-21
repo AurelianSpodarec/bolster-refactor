@@ -133,7 +133,7 @@ class AddMulitpleServicesToSubscriptionModalContainer extends Component {
             });
         }
 
-        if (prevState.serviceIDs.length != serviceIDs.length) {
+        if (prevState.serviceIDs.length !== serviceIDs.length) {
             const serviceOptions = this._getServicesOptions();
             this.setState({
                 selectedServiceNames: serviceOptions

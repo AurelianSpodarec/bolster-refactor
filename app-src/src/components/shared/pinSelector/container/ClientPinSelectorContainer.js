@@ -148,14 +148,12 @@ class PinSelectorContainer extends Component {
     };
 
     componentDidMount = () => {
-        const { handleChange, addFieldError } = this.props;
+        const { addFieldError } = this.props;
         addFieldError(
             'pinSelector',
             'You must include some pins in the report.'
         );
         this._setPinOptions();
-        // const selectedPinIDs = [];
-        // handleChange('pinIDs', selectedPinIDs);
     };
 
     componentWillUnmount = () => {
