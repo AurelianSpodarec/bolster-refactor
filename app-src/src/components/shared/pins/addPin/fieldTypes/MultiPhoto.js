@@ -6,7 +6,7 @@ const MultiPhoto = ({
     isRequired,
     question: { maxPhotos, id },
     answers,
-    hanldeChange,
+    handleChange,
     handleImageClick,
     edit
 }) => 
@@ -31,7 +31,7 @@ const MultiPhoto = ({
             required={isRequired}
             acceptedTypes={['image/*']}
             maxFiles={maxPhotos ? maxPhotos : 25}
-            handleChange={hanldeChange}
+            handleChange={handleChange}
             value={answers[id]}
         />
     );
