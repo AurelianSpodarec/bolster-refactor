@@ -13,7 +13,7 @@ import { FURTHER_FILTRATION_OPTIONS } from 'constants/companyAdmin/enums';
 export default function(ProtectedComponent) {
     class WithUpdateOnChange extends React.Component {
         state = {
-            showError: false
+            showError: false,
         };
         render() {
             const { showError } = this.state;
@@ -36,7 +36,7 @@ export default function(ProtectedComponent) {
             const options = arr.map(({ id, name }) => ({
                 value: id,
                 label: name,
-                text: name
+                text: name,
             }));
 
             return asObj ? convertArrToObj(options, 'value') : options;
@@ -80,13 +80,13 @@ export default function(ProtectedComponent) {
                     toDateInclusive,
                     companyUserIDs,
                     pinIDs,
-                    floorplanPinScale
+                    floorplanPinScale,
                 },
                 furtherFiltrationOption,
                 excludedPinIDs,
                 rectangles,
                 options: { showHidden, sortBy },
-                fields
+                fields,
             } = this.props;
 
             let hierarchyType;
@@ -115,7 +115,7 @@ export default function(ProtectedComponent) {
             const {
                 INDIVIDUAL_PINS,
                 // PIN_SELECTOR,
-                FILTERS
+                FILTERS,
             } = FURTHER_FILTRATION_OPTIONS;
 
             switch (+furtherFiltrationOption) {
@@ -132,7 +132,7 @@ export default function(ProtectedComponent) {
 
                             return {
                                 questionGroupKeys: selectedQuestions,
-                                values
+                                values,
                             };
                         }
                     );
@@ -147,9 +147,9 @@ export default function(ProtectedComponent) {
                 return { latY, lngX };
             };
 
-            const pinBoundingBoxes = Object.values(rectangles).map(
-                ({ corners: [first, second] }) => [getLatLng(first), getLatLng(second)]
-            );
+            const pinBoundingBoxes = Object.values(
+                rectangles
+            ).map(({ corners: [first, second] }) => [getLatLng(first), getLatLng(second)]);
 
             const endDate = toDateInclusive
                 ? moment(toDateInclusive)
@@ -169,6 +169,7 @@ export default function(ProtectedComponent) {
                 fromDateInclusive,
                 toDateInclusive: endDate,
                 companyUserIDs,
+                excludedPinIDs,
                 pinIDs: selectedPinIDs,
                 serviceID: serviceID || null,
                 templateID: templateID || null,
@@ -177,7 +178,7 @@ export default function(ProtectedComponent) {
                 showHidden,
                 sortBy,
                 pinBoundingBoxes,
-                floorplanPinScale
+                floorplanPinScale,
             };
 
             return body;
@@ -195,7 +196,7 @@ export default function(ProtectedComponent) {
     const mapStateToProps = (
         {
             shared: {
-                fieldErrorsReducer: { fieldErrors, errorsVisible }
+                fieldErrorsReducer: { fieldErrors, errorsVisible },
             },
             client: {
                 servicesReducer: { historicServices },
@@ -212,9 +213,9 @@ export default function(ProtectedComponent) {
                     customFilters,
                     excludedPinIDs,
                     furtherFiltrationOption,
-                    rectangles
-                }
-            }
+                    rectangles,
+                },
+            },
         },
         { blockName }
     ) => {
@@ -247,7 +248,7 @@ export default function(ProtectedComponent) {
             fields: Object.values(fields),
             excludedPinIDs,
             furtherFiltrationOption,
-            rectangles
+            rectangles,
         };
     };
 
@@ -257,11 +258,8 @@ export default function(ProtectedComponent) {
             dispatch(clientPostCustomFilters(companyID, postBody)),
         addFieldError: (name, val) => dispatch(addFieldError(name, val)),
         removeFieldError: name => dispatch(removeFieldError(name)),
-        showFieldErrors: () => dispatch(showFieldErrors())
+        showFieldErrors: () => dispatch(showFieldErrors()),
     });
 
-    return connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(WithUpdateOnChange);
+    return connect(mapStateToProps, mapDispatchToProps)(WithUpdateOnChange);
 }
