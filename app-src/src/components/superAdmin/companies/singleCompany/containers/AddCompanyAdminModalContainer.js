@@ -63,7 +63,7 @@ const AddCompanyAdminModalContainer = ({
 
 const mapStateToProps = ({
     superAdmin: {
-        users: { postSuccess, error },
+        usersReducer: { postSuccess, error },
     },
 }) => ({ postSuccess, error });
 
