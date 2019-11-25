@@ -246,7 +246,7 @@ export default function(ProtectedComponent) {
             floors,
             drawings,
             fields: Object.values(fields),
-            excludedPinIDs,
+            excludedPinIDs: excludedPinIDs || [],
             furtherFiltrationOption,
             rectangles,
         };
