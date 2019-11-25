@@ -15,7 +15,7 @@ import getTemplateReportOptions from 'actions/companyAdmin/reports/async/getTemp
 export default function(ProtectedComponent) {
     class WithUpdateOnChange extends React.Component {
         state = {
-            showError: false
+            showError: false,
         };
         render() {
             const { showError } = this.state;
@@ -40,7 +40,7 @@ export default function(ProtectedComponent) {
             const options = arr.map(({ id, name }) => ({
                 value: id,
                 label: name,
-                text: name
+                text: name,
             }));
 
             return asObj ? convertArrToObj(options, 'value') : options;
@@ -81,7 +81,7 @@ export default function(ProtectedComponent) {
                 status,
                 serviceID,
                 templateID,
-                companyUserIDs
+                companyUserIDs,
             } = filters;
 
             const NO = false;
@@ -144,7 +144,7 @@ export default function(ProtectedComponent) {
                     excluded:
                         (+furtherFiltrationOption === PIN_SELECTOR ||
                             +furtherFiltrationOption === INDIVIDUAL_PINS) &&
-                        !filters.pinIDs.includes(pin.id)
+                        !filters.pinIDs.includes(pin.id),
                 }));
         };
 
@@ -168,7 +168,7 @@ export default function(ProtectedComponent) {
                     fromDateInclusive,
                     toDateInclusive,
                     companyUserIDs,
-                    floorplanPinScale
+                    floorplanPinScale,
                 },
                 furtherFiltrationOption,
                 excludedPinIDs,
@@ -176,7 +176,7 @@ export default function(ProtectedComponent) {
                 options: { showHidden, sortBy },
                 fields,
                 timeZone,
-                includedDrawingsIDs
+                includedDrawingsIDs,
             } = this.props;
 
             let hierarchyType;
@@ -218,7 +218,7 @@ export default function(ProtectedComponent) {
 
                             return {
                                 questionGroupKeys: selectedQuestions,
-                                values
+                                values,
                             };
                         }
                     );
@@ -233,9 +233,9 @@ export default function(ProtectedComponent) {
                 return { latY, lngX };
             };
 
-            const pinBoundingBoxes = Object.values(rectangles).map(
-                ({ corners: [first, second] }) => [getLatLng(first), getLatLng(second)]
-            );
+            const pinBoundingBoxes = Object.values(
+                rectangles
+            ).map(({ corners: [first, second] }) => [getLatLng(first), getLatLng(second)]);
             // get the utc converted time for both from date and to date.
             const startDate = fromDateInclusive
                 ? moment
@@ -271,13 +271,14 @@ export default function(ProtectedComponent) {
                 templateID: templateID || null,
                 status: status || null,
                 pinIDs: selectedPinIDs,
+                excludedPinIDs,
                 questionFilters: questionFilters,
                 showHidden,
                 sortBy,
                 pinBoundingBoxes,
                 floorplanPinScale,
                 hasQuestions: +furtherFiltrationOption > +INDIVIDUAL_PINS,
-                includedDrawingIDs: includedDrawingsIDs
+                includedDrawingIDs: includedDrawingsIDs,
             };
             return body;
         };
@@ -340,7 +341,7 @@ export default function(ProtectedComponent) {
     const mapStateToProps = (
         {
             shared: {
-                fieldErrorsReducer: { fieldErrors, errorsVisible }
+                fieldErrorsReducer: { fieldErrors, errorsVisible },
             },
             companyAdmin: {
                 servicesReducer: { historicServices },
@@ -359,13 +360,13 @@ export default function(ProtectedComponent) {
                     rectangles,
                     excludedPinIDs,
                     furtherFiltrationOption,
-                    includedDrawingsIDs
+                    includedDrawingsIDs,
                 },
                 operativesReducer: { operatives },
                 companySettingsReducer: {
-                    companySettings: { timeZone }
-                }
-            }
+                    companySettings: { timeZone },
+                },
+            },
         },
         { blockName }
     ) => {
@@ -402,7 +403,7 @@ export default function(ProtectedComponent) {
             excludedPinIDs,
             furtherFiltrationOption,
             timeZone,
-            includedDrawingsIDs
+            includedDrawingsIDs,
         };
     };
 
@@ -413,11 +414,8 @@ export default function(ProtectedComponent) {
         removeFieldError: name => dispatch(removeFieldError(name)),
         showFieldErrors: () => dispatch(showFieldErrors()),
         getOperativeOptions: postBody => dispatch(getOperativeOptions(postBody)),
-        getTemplateOptions: postBody => dispatch(getTemplateReportOptions(postBody))
+        getTemplateOptions: postBody => dispatch(getTemplateReportOptions(postBody)),
     });
 
-    return connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(WithUpdateOnChange);
+    return connect(mapStateToProps, mapDispatchToProps)(WithUpdateOnChange);
 }
