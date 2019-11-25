@@ -169,7 +169,7 @@ export default function(ProtectedComponent) {
                 fromDateInclusive,
                 toDateInclusive: endDate,
                 companyUserIDs,
-                excludedPinIDs,
+                excludedPinIDs: Object.values(excludedPinIDs),
                 pinIDs: selectedPinIDs,
                 serviceID: serviceID || null,
                 templateID: templateID || null,
@@ -246,7 +246,7 @@ export default function(ProtectedComponent) {
             floors,
             drawings,
             fields: Object.values(fields),
-            excludedPinIDs: excludedPinIDs || [],
+            excludedPinIDs: excludedPinIDs,
             furtherFiltrationOption,
             rectangles,
         };
