@@ -17,7 +17,6 @@ import Rectangle from 'components/shared/pinSelector/presentational/Rectangle';
 import AddCreditsToDrawingButtonContainer from '../../addCreditsToDrawing/containers/AddCreditsToDrawingButtonContainer';
 
 const getDataUrl = src => `${FILE_STORAGE_URL}/${src}/{z}/{x}/{y}.jpg`;
-// const getFileName = src => src.match('[^/]*$')[0];
 
 const DrawingMapViewSimple = ({
     position,
@@ -42,14 +41,14 @@ const DrawingMapViewSimple = ({
     isExcluding,
     updateCurTooltip,
     currentTooltip,
-    isExpired
+    isExpired,
 }) => {
     const newPinIcon = L.divIcon({
         className: '',
         html: ReactDOMServer.renderToString(<CustomPin pinColour="red" history={history} />),
         iconSize: [30, 50],
         iconAnchor: [15, 50],
-        popupAnchor: [0, -50]
+        popupAnchor: [0, -50],
     });
 
     const cornerClickedIcon = L.divIcon({
@@ -57,12 +56,12 @@ const DrawingMapViewSimple = ({
         html: ReactDOMServer.renderToString(<RedX />),
         iconSize: [30, 50],
         iconAnchor: [15, 50],
-        popupAnchor: [0, -50]
+        popupAnchor: [0, -50],
     });
-
+    const shouldShowFloorplan = !!drawing.tilesetS3Key && !updating;
     return (
         <>
-            {drawing.tilesetS3Key && !updating ? (
+            {shouldShowFloorplan ? (
                 <div className="size-lg-12" id="map">
                     <BlockHeading>
                         {shouldShowPinSelectorOptions ? (
@@ -71,8 +70,17 @@ const DrawingMapViewSimple = ({
                                 mode={mode}
                                 handleCancel={handleCancelPinSelector}
                             />
-                        ) : !isExpired ? (
+                        ) : isExpired ? (
                             drawing.accessType === ACCESS_TYPES_VALUES.OWNER && (
+                                <>
+                                    <AddCreditsToDrawingButtonContainer drawing={drawing} />
+                                    <button onClick={() => {}} className="button red pull-right">
+                                        <i className="far fa-times" /> Drawing expired
+                                    </button>
+                                </>
+                            )
+                        ) : (
+                            drawing.accessType >= ACCESS_TYPES_VALUES.WRITE && (
                                 <>
                                     {addMode ? (
                                         <>
@@ -98,23 +106,18 @@ const DrawingMapViewSimple = ({
                                             <i className="fa fa-plus" /> Add pin
                                         </button>
                                     )}
-                                    <button
-                                        className="button yellow"
-                                        onClick={() => showModal(EDIT_DRAWING, { drawing })}
-                                    >
-                                        <i className="far fa-pencil fa-fw" /> Edit drawing
-                                    </button>
+                                    {drawing.accessType === ACCESS_TYPES_VALUES.OWNER && (
+                                        <>
+                                            <button
+                                                className="button yellow"
+                                                onClick={() => showModal(EDIT_DRAWING, { drawing })}
+                                            >
+                                                <i className="far fa-pencil fa-fw" /> Edit drawing
+                                            </button>
 
-                                    <AddCreditsToDrawingButtonContainer drawing={drawing} />
-                                </>
-                            )
-                        ) : (
-                            drawing.accessType === ACCESS_TYPES_VALUES.OWNER && (
-                                <>
-                                    <AddCreditsToDrawingButtonContainer drawing={drawing} />
-                                    <button onClick={() => {}} className="button red pull-right">
-                                        <i className="far fa-times" /> Drawing expired
-                                    </button>
+                                            <AddCreditsToDrawingButtonContainer drawing={drawing} />
+                                        </>
+                                    )}
                                 </>
                             )
                         )}
@@ -168,11 +171,6 @@ const DrawingMapViewSimple = ({
             ) : (
                 <Loading
                     message="Floorplan is generating, please check back later."
-                    // {
-                    //     updating
-                    //         ? updateMessage
-                    //         : 'Please wait for your tileset to load'
-                    // }
                     withIcon={false}
                 />
             )}
