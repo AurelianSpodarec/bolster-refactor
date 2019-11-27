@@ -48,8 +48,6 @@ const InvoiceDetails = ({
         <FieldOutput title="Invoice no" description={`${id}`} sizeClass="size-lg-4 size-md-12" />
         <FieldOutput title="Date" sizeClass="size-lg-4 size-md-12">
             <p>
-                {' '}
-                asdfasdfasdfasdfasdfsdaf
                 <DateTimeContainer date={createdOn} datetime={DATE_TIME_IDS.DATE} />
             </p>
         </FieldOutput>
