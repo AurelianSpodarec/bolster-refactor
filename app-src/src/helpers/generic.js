@@ -89,12 +89,20 @@ export function updateMultipleKeys(origObj, keys, newValues) {
  * @param {Array<Object>} array
  * @param {string} key
  * @param {boolean} [ascending] order by ascending? desc if false/omitted
+ * @param {string} secondKey - if provided, will be used as a tiebreaker.
  * @returns {array} new sorted array, original array not mutated.
  */
-export function sortArrayByKeyAndOrder(array, key, ascending) {
+export function sortArrayByKeyAndOrder(array, key, ascending, secondKey) {
     return [...array].sort((a, b) => {
         const value = ascending ? 1 : -1;
-        return a[key] > b[key] ? value : a[key] < b[key] ? -value : 0;
+        if (a[key] > b[key]) return value;
+        if (a[key] < b[key]) return -value;
+        if (a[key] === b[key]) {
+            if (!secondKey) return 0;
+            if (a[secondKey] > b[secondKey]) return value;
+            if (a[secondKey] < b[secondKey]) return -value;
+            return 0;
+        } 
     });
 }
 
