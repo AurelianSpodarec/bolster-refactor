@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import React from 'react';
 
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
@@ -6,7 +7,7 @@ import WysiwygBlock from 'components/shared/generic/wysiwyg/presentational/Wysiw
 
 const EULA = () => (
     <BlockContainer>
-        <BlockHeading title="End User Licence Agreement for Bolster System's Surveying Software"></BlockHeading>
+        <BlockHeading title="End User Licence Agreement for Bolster System's Surveying Software" />
         <WysiwygBlock>
             <ol>
                 <li>
@@ -66,16 +67,16 @@ const EULA = () => (
                     <h4>Important Notice</h4>
                     <p>
                         By downloading the App or using the Licensed Product from the Website or
-                        clicking on the "accept" button below you agree to the terms of the licence
-                        which will bind you. The terms of the licence include, in particular, the
-                        privacy policy defined in condition 5 and limitations on liability in
-                        condition 10.
+                        clicking on the &quot;accept&quot; button below you agree to the terms of
+                        the licence which will bind you. The terms of the licence include, in
+                        particular, the privacy policy defined in condition 5 and limitations on
+                        liability in condition 10.
                     </p>
                     <p>
                         If you do not agree to the terms of this licence, Bolster will not license
                         the use of the Licensed Product to you and you must stop the downloading or
-                        streaming process now by clicking on the "cancel" button below. In this case
-                        the downloading or streaming process will terminate.
+                        streaming process now by clicking on the &quot;cancel&quot; button below. In
+                        this case the downloading or streaming process will terminate.
                     </p>
                 </li>
                 <li>
@@ -427,8 +428,8 @@ const EULA = () => (
                             extent permitted by applicable law, excluded from this EULA;
                         </li>
                         <li>
-                            the Licensed Products and the Content are provided to you on an "as is"
-                            basis; and
+                            the Licensed Products and the Content are provided to you on an &quot;as
+                            is&quot; basis; and
                         </li>
                         <li>
                             we will not be liable to you for your use of the Licensed Product as our
@@ -438,7 +439,9 @@ const EULA = () => (
                     </ol>
                     <p>Nothing in this Agreement excludes the liability of Bolster:</p>
                     <ol>
-                        <li>for death or personal injury caused by Bolster's negligence; or</li>
+                        <li>
+                            for death or personal injury caused by Bolster&apos;s negligence; or
+                        </li>
                         <li>for fraud or fraudulent misrepresentation; or</li>
                         <li>any other liability that cannot be excluded or limited by law.</li>
                     </ol>

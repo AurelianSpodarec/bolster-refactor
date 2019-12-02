@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import React from 'react';
 
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
@@ -6,9 +7,7 @@ import WysiwygBlock from 'components/shared/generic/wysiwyg/presentational/Wysiw
 
 const TsAndCs = () => (
     <BlockContainer>
-        <BlockHeading 
-            title="Standard Terms and Conditions of Business for Bolster System's Surveying Software" 
-        />
+        <BlockHeading title="Standard Terms and Conditions of Business for Bolster System's Surveying Software" />
         <WysiwygBlock>
             <ol>
                 <li>
@@ -69,8 +68,8 @@ const TsAndCs = () => (
 
                     <p>
                         <strong>Customer Data</strong>:- the data inputted by the Customer,
-                        Authorised Users, or Bolster on the Customer's behalf for the purpose of
-                        using the Licensed Product or facilitating the Customer’s use of the
+                        Authorised Users, or Bolster on the Customer&apos;s behalf for the purpose
+                        of using the Licensed Product or facilitating the Customer’s use of the
                         Licensed Product.
                     </p>
                     <p>
@@ -145,7 +144,7 @@ const TsAndCs = () => (
                         Subscription Term and, thereafter shall be automatically renewed for
                         successive periods equal to the Initial Subscription Term (each a “
                         <strong>Renewal Period</strong>”), unless terminated on not less than 1
-                        month's prior notice in writing to expire on or before the end of the
+                        month&apos;s prior notice in writing to expire on or before the end of the
                         Initial Subscription Term or Renewal Period (as the case may be) and the
                         Initial Subscription Term together with any subsequent Renewal Periods shall
                         constitute the <strong>Subscription Term</strong>.
@@ -192,12 +191,13 @@ const TsAndCs = () => (
                         access to the Licensed Product as set out in the Registration Form.
                     </p>
                     <p>
-                        Bolster does not warrant that (a) the Customer's use of the Licensed Product
-                        will be uninterrupted or error-free and the Customer acknowledges that the
-                        Licensed Product may be interrupted by planned or unplanned maintenance
-                        including but not limited to App store provider updates initiated by Apple;
-                        (b) the Licensed Product and/or the information obtained by the Customer
-                        through the Licensed Product will meet the Customer's requirements; and
+                        Bolster does not warrant that (a) the Customer&apos;s use of the Licensed
+                        Product will be uninterrupted or error-free and the Customer acknowledges
+                        that the Licensed Product may be interrupted by planned or unplanned
+                        maintenance including but not limited to App store provider updates
+                        initiated by Apple; (b) the Licensed Product and/or the information obtained
+                        by the Customer through the Licensed Product will meet the Customer&apos;s
+                        requirements; and
                     </p>
                     <p>
                         Bolster will not be responsible for any delays, delivery failures, or any
@@ -312,8 +312,8 @@ const TsAndCs = () => (
                     <p>
                         If the Customer or any Authorised User breaches the terms of the EULA,
                         Bolster may, without liability to the Customer and not withstanding any
-                        other rights or remedies available to it, disable the Customer's and/or any
-                        Authorised User’s password, account and access to all or part of the
+                        other rights or remedies available to it, disable the Customer&apos;s and/or
+                        any Authorised User’s password, account and access to all or part of the
                         Licensed Product and Content and shall be under no obligation to provide
                         access to the Licensed Product and/or Content until such breach has been
                         remedied and the relevant parties have agreed in writing to comply with the
@@ -350,18 +350,18 @@ const TsAndCs = () => (
                         <li>
                             <p>
                                 Bolster may, without liability to the Customer, disable the
-                                Customer's and/or any Authorised User’s password, account and access
-                                to all or part of the Licensed Product and Content and shall be
-                                under no obligation to provide access to the Licensed Product and/or
-                                Content while the invoice(s) concerned remain unpaid; and
+                                Customer&apos;s and/or any Authorised User’s password, account and
+                                access to all or part of the Licensed Product and Content and shall
+                                be under no obligation to provide access to the Licensed Product
+                                and/or Content while the invoice(s) concerned remain unpaid; and
                             </p>
                         </li>
                         <li>
                             <p>
                                 the Customer shall pay interest on the overdue amount at the rate of
-                                4% per annum above Barclays Bank plc's base rate from time to time.
-                                Such interest shall accrue on a daily basis from the due date until
-                                actual payment of the overdue amount, whether before or after
+                                4% per annum above Barclays Bank plc&apos;s base rate from time to
+                                time. Such interest shall accrue on a daily basis from the due date
+                                until actual payment of the overdue amount, whether before or after
                                 judgment.
                             </p>
                         </li>
@@ -454,7 +454,7 @@ const TsAndCs = () => (
                         </li>
                     </ol>
                     <p>
-                        If Bolster processes any personal data on the Customer's behalf when
+                        If Bolster processes any personal data on the Customer&apos;s behalf when
                         performing its obligations under this Agreement, the parties record their
                         intention that the Customer shall be the data controller and Bolster shall
                         be a data processor and in any such case:
@@ -464,13 +464,13 @@ const TsAndCs = () => (
                             the Customer acknowledges and agrees that the personal data may be
                             transferred or stored outside the EEA or the country where the Customer
                             and the Authorised Users are located in order to provide the Licensed
-                            Product and Bolster's other obligations under this Agreement;
+                            Product and Bolster&apos;s other obligations under this Agreement;
                         </li>
                         <li>
                             the Customer shall ensure that the Customer is entitled to transfer the
                             relevant personal data to Bolster so that Bolster may lawfully use,
                             process and transfer the personal data in accordance with this agreement
-                            on the Customer's behalf;
+                            on the Customer&apos;s behalf;
                         </li>
                         <li>
                             the Customer shall ensure that the relevant third parties have been
@@ -570,7 +570,7 @@ const TsAndCs = () => (
                             damage caused by errors or omissions in any information, instructions or
                             scripts provided to Bolster by the Customer in connection with the
                             provision of the Licensed Products, or any actions taken by Bolster at
-                            the Customer's direction;
+                            the Customer&apos;s direction;
                         </li>
                         <li>
                             all warranties, representations, conditions and all other terms of any
@@ -586,7 +586,9 @@ const TsAndCs = () => (
                     <p>Nothing in this Agreement excludes the liability of Bolster:</p>
                     <ol>
                         <li>
-                            <p>for death or personal injury caused by Bolster's negligence; or</p>
+                            <p>
+                                for death or personal injury caused by Bolster&apos;s negligence; or
+                            </p>
                         </li>
                         <li>
                             <p>for fraud or fraudulent misrepresentation.</p>
@@ -607,12 +609,13 @@ const TsAndCs = () => (
                         </li>
                         <li>
                             <p>
-                                Bolster's total aggregate liability in contract, tort (including
-                                negligence or breach of statutory duty), misrepresentation,
-                                restitution or otherwise, arising in connection with the performance
-                                or contemplated performance of this Agreement shall be limited to
-                                the 1.5 times the total Subscription Fees paid during the 12 months
-                                immediately preceding the date on which the claim arose.
+                                Bolster&apos;s total aggregate liability in contract, tort
+                                (including negligence or breach of statutory duty),
+                                misrepresentation, restitution or otherwise, arising in connection
+                                with the performance or contemplated performance of this Agreement
+                                shall be limited to the 1.5 times the total Subscription Fees paid
+                                during the 12 months immediately preceding the date on which the
+                                claim arose.
                             </p>
                         </li>
                     </ol>

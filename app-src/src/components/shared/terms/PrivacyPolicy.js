@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import React from 'react';
 import { NavHashLink } from 'react-router-hash-link';
 
@@ -108,7 +109,7 @@ const PrivacyPolicy = () => (
                     <h4>Controller</h4>
                     <p>
                         Bolster Systems Limited is the controller and responsible for your personal
-                        data ("we", "us" or "our").
+                        data (&quot;we&quot;, &quot;us&quot; or &quot;our&quot;).
                     </p>
                     <p>
                         We have appointed a data privacy manager who is responsible for overseeing
@@ -131,7 +132,7 @@ const PrivacyPolicy = () => (
                     </p>
                     <p>
                         You have the right to make a complaint at any time to the Information
-                        Commissioner's Office (ICO), the UK supervisory authority for data
+                        Commissioner&apos;s Office (ICO), the UK supervisory authority for data
                         protection issues{' '}
                         <a rel="noopener noreferrer" target="_blank" href="https://www.ico.org.uk">
                             (www.ico.org.uk)
@@ -238,12 +239,12 @@ const PrivacyPolicy = () => (
                         data which will be used in accordance with this privacy notice.
                     </p>
                     <p>
-                        We do not collect any <strong>Special Categories of Personal Data</strong>{' '}
-                        about you (this includes details about your race or ethnicity, religious or
-                        philosophical beliefs, sex life, sexual orientation, political opinions,
-                        trade union membership, information about your health and genetic and
-                        biometric data). Nor do we collect any information about criminal
-                        convictions and offences.
+                        We do not collect any
+                        <strong>Special Categories of Personal Data</strong> about you (this
+                        includes details about your race or ethnicity, religious or philosophical
+                        beliefs, sex life, sexual orientation, political opinions, trade union
+                        membership, information about your health and genetic and biometric data).
+                        Nor do we collect any information about criminal convictions and offences.
                     </p>
                     <h4>If you fail to provide personal data</h4>
                     <p>
@@ -314,8 +315,8 @@ const PrivacyPolicy = () => (
                                             analytics providers such as Google based outside the EU;
                                         </li>
                                         <li>
-                                            advertising networksbased inside <strong>OR</strong>{' '}
-                                            outside the EU; and
+                                            advertising networksbased inside
+                                            <strong>OR</strong> outside the EU; and
                                         </li>
                                         <li>
                                             search information providers based inside{' '}
@@ -420,9 +421,8 @@ const PrivacyPolicy = () => (
                             <tr>
                                 <td>
                                     To manage our relationship with you which will include: <br />
-                                    (a) Notifying you about changes to our terms or privacy policy{' '}
-                                    <br />
-                                    (b) Asking you to leave a review or take a survey
+                                    (a) Notifying you about changes to our terms or privacy policy
+                                    <br /> (b) Asking you to leave a review or take a survey
                                 </td>
                                 <td>
                                     (a) Identity <br />
@@ -569,16 +569,16 @@ const PrivacyPolicy = () => (
                     </p>
                     <h4>Cookies</h4>
                     <p>
-                        Our Website, Services Sites and App use "cookies", which are small text
-                        files that are stored on your computer and can be retrieved by us to assist
-                        us in customising your experience with our online services. These cookies
-                        allow us to distinguish you from other users of our services and help us
-                        improve our Services Sites and App. The information saved supports the
-                        functionality of the Website, Services Sites and App. During some processes,
-                        data is temporarily stored as you move from step to step. This improves your
-                        experience, and data is only stored for as long as is necessary for you to
-                        complete the process. All other cookies will expire{' '}
-                        <strong>in 7 days</strong>.
+                        Our Website, Services Sites and App use &quot;cookies&quot;, which are small
+                        text files that are stored on your computer and can be retrieved by us to
+                        assist us in customising your experience with our online services. These
+                        cookies allow us to distinguish you from other users of our services and
+                        help us improve our Services Sites and App. The information saved supports
+                        the functionality of the Website, Services Sites and App. During some
+                        processes, data is temporarily stored as you move from step to step. This
+                        improves your experience, and data is only stored for as long as is
+                        necessary for you to complete the process. All other cookies will expire
+                        <strong> in 7 days</strong>.
                     </p>
                     <p>
                         You can set your browser to refuse all or some browser cookies, or to alert
@@ -786,8 +786,8 @@ const PrivacyPolicy = () => (
                         our interests are overridden by the impact on you (unless we have your
                         consent or are otherwise required or permitted to by law). You can obtain
                         further information about how we assess our legitimate interests against any
-                        potential impact on you in respect of specific activities by contacting us{' '}
-                        <a href="mailto:info@bolstersystems.com">info@bolstersystems.com</a>
+                        potential impact on you in respect of specific activities by contacting us
+                        at: <a href="mailto:info@bolstersystems.com">info@bolstersystems.com</a>
                     </p>
                     <p>
                         <strong>Performance of Contract</strong> means processing your data where it
@@ -842,9 +842,9 @@ const PrivacyPolicy = () => (
                     <p>You have the right to:</p>
                     <p>
                         <strong>Request access</strong> to your personal data (commonly known as a
-                        "data subject access request"). This enables you to receive a copy of the
-                        personal data we hold about you and to check that we are lawfully processing
-                        it.
+                        &quot;data subject access request&quot;). This enables you to receive a copy
+                        of the personal data we hold about you and to check that we are lawfully
+                        processing it.
                     </p>
                     <p>
                         <strong>Request correction</strong> of the personal data that we hold about
@@ -876,7 +876,7 @@ const PrivacyPolicy = () => (
                     <p>
                         <strong>Request restriction of processing</strong> of your personal data.
                         This enables you to ask us to suspend the processing of your personal data
-                        in the following scenarios: (a) if you want us to establish the data's
+                        in the following scenarios: (a) if you want us to establish the data&apos;s
                         accuracy; (b) where our use of the data is unlawful but you do not want us
                         to erase it; (c) where you need us to hold the data even if we no longer
                         require it as you need it to establish, exercise or defend legal claims; or
