@@ -4,7 +4,7 @@ import { Route } from 'react-router-dom';
 import SwitchWith404 from 'components/appRoute/routes/presentational/SwitchWith404';
 import Login from 'components/auth/login/presentational/Login';
 import Register from 'components/auth/registration/presentational/Register';
-import Terms from 'components/auth/terms/presentational/Terms';
+import Terms from 'components/shared/terms/Terms';
 
 const AuthRoutes = ({ base = '/auth' }) => (
     <SwitchWith404>
