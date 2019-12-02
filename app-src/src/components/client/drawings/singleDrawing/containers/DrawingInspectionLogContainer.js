@@ -1,49 +1,51 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 
 import DrawingInspectionLogsTable from '../presentational/DrawingInspectionLogsTable';
+import withUpdateOnChange from 'components/client/reports/createReport/components/hocs/withUpdateOnChange';
 
-class DrawingInspectionLogContainer extends Component {
-    state = {
-        filterValue: ''
-    };
+const DrawingInspectionLogContainer = ({ error, isFetching, onMobile, pins, getFilteredPins }) => {
+    const [filterValue, setFilterValue] = useState('');
 
-    render() {
-        const { pins, isFetching, error } = this.props;
-        const filterPins = pins.filter(({ pinCode = '' }) =>
-            pinCode.includes(this.state.filterValue)
-        ).sort((a, b) => {
-            if(!a.pinCode || !b.pinCode) {
-                return 0;
-            }
-            return Number(a.pinCode.replace(':', '')) - Number(b.pinCode.replace(':', ''));
-        });
+    return (
+        <DrawingInspectionLogsTable
+            isFetching={isFetching}
+            error={error}
+            pins={filterPinsFromSearch()}
+            handleFilterChange={handleFilterChange}
+            onMobile={onMobile}
+        />
+    );
 
-        return (
-            <DrawingInspectionLogsTable
-                isFetching={isFetching}
-                error={error}
-                pins={filterPins}
-                handleFilterChange={this.handleFilterChange}
-            />
-        );
+    function filterPinsFromSearch() {
+        const filteredPins = getFilteredPins(pins)
+            .filter(({ pinCode = '' }) => pinCode.includes(filterValue))
+            .sort((a, b) => {
+                if (!a.pinCode || !b.pinCode) {
+                    return 0;
+                }
+                return Number(a.pinCode.replace(':', '')) - Number(b.pinCode.replace(':', ''));
+            });
+        return filteredPins;
     }
 
-    handleFilterChange = e => {
-        this.setState({
-            [e.target.name]: e.target.value
-        });
-    };
-}
+    function handleFilterChange({ target: { value } }) {
+        setFilterValue(value);
+    }
+};
 
 const mapStateToProps = ({
     client: {
-        pinsReducer: { pins, isFetching, error }
-    }
+        pinsReducer: { pins, isFetching, error },
+    },
+    shared: {
+        mobileReducer: { onMobile },
+    },
 }) => ({
     pins: Object.values(pins),
-    isFetching: isFetching,
-    error: error
+    isFetching,
+    error,
+    onMobile,
 });
 
-export default connect(mapStateToProps)(DrawingInspectionLogContainer);
+export default withUpdateOnChange(connect(mapStateToProps)(DrawingInspectionLogContainer));
