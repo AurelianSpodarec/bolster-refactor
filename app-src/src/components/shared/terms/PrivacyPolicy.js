@@ -635,13 +635,11 @@ const PrivacyPolicy = () => (
                         </li>
                     </ul>
                     <p>
-                        <p>
-                            We require all third parties to respect the security of your personal
-                            data and to treat it in accordance with the law. We do not allow our
-                            third-party service providers to use your personal data for their own
-                            purposes and only permit them to process your personal data for
-                            specified purposes and in accordance with our instructions.
-                        </p>
+                        We require all third parties to respect the security of your personal data
+                        and to treat it in accordance with the law. We do not allow our third-party
+                        service providers to use your personal data for their own purposes and only
+                        permit them to process your personal data for specified purposes and in
+                        accordance with our instructions.
                     </p>
                 </li>
                 <li id="transfers">
