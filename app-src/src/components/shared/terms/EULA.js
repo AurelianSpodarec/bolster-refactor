@@ -522,7 +522,8 @@ const EULA = () => (
                         If you wish to contact us in writing, or if any condition in this EULA
                         requires you to give us notice in writing, you can send this to us by e-mail
                         or by prepaid post to Bolster Systems Limited at 7 The School House, Second
-                        Avenue, Trafford Park, Manchester M17 1DZ and [E-MAIL ADDRESS]. We will
+                        Avenue, Trafford Park, Manchester M17 1DZ and{' '}
+                        <a href="mailtoinfo@bolstersystems.com">info@bolstersystems.com</a>. We will
                         confirm receipt of this by contacting you in writing, normally by e-mail.
                     </p>
                     <p>
