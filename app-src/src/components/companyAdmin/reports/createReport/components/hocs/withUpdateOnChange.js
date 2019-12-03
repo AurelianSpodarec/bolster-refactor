@@ -69,7 +69,7 @@ export default function(ProtectedComponent) {
             const { PIN_SELECTOR, INDIVIDUAL_PINS } = FURTHER_FILTRATION_OPTIONS;
 
             // ? Displays all pins if in rectangle mode, and only the selected pins otherwise.
-
+            console.log({ pins });
             if (+furtherFiltrationOption > PIN_SELECTOR) {
                 // advanced
                 return pins.filter(({ id }) => filters.pinIDs.includes(id));
@@ -98,14 +98,16 @@ export default function(ProtectedComponent) {
 
                     if (
                         fromDateInclusive &&
-                        moment(pin.createdOn) < moment(fromDateInclusive, momentComparisonFormat)
+                        moment(pin.latestCreatedOn) <
+                            moment(fromDateInclusive, momentComparisonFormat)
                     ) {
                         return NO;
                     }
                     // end date
                     if (
                         toDateInclusive &&
-                        moment(pin.createdOn) > moment(toDateInclusive, momentComparisonFormat)
+                        moment(pin.latestCreatedOn) >
+                            moment(toDateInclusive, momentComparisonFormat)
                     ) {
                         return NO;
                     }
