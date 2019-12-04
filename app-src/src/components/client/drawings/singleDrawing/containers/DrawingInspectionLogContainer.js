@@ -1,51 +1,49 @@
-import React, { useState } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import DrawingInspectionLogsTable from '../presentational/DrawingInspectionLogsTable';
-import withUpdateOnChange from 'components/client/reports/createReport/components/hocs/withUpdateOnChange';
 
-const DrawingInspectionLogContainer = ({ error, isFetching, onMobile, pins, getFilteredPins }) => {
-    const [filterValue, setFilterValue] = useState('');
+class DrawingInspectionLogContainer extends Component {
+    state = {
+        filterValue: '',
+    };
 
-    return (
-        <DrawingInspectionLogsTable
-            isFetching={isFetching}
-            error={error}
-            pins={filterPinsFromSearch()}
-            handleFilterChange={handleFilterChange}
-            onMobile={onMobile}
-        />
-    );
-
-    function filterPinsFromSearch() {
-        const filteredPins = getFilteredPins(pins)
-            .filter(({ pinCode = '' }) => pinCode.includes(filterValue))
+    render() {
+        const { pins, isFetching, error } = this.props;
+        const filterPins = pins
+            .filter(({ pinCode = '' }) => pinCode.includes(this.state.filterValue))
             .sort((a, b) => {
                 if (!a.pinCode || !b.pinCode) {
                     return 0;
                 }
                 return Number(a.pinCode.replace(':', '')) - Number(b.pinCode.replace(':', ''));
             });
-        return filteredPins;
+
+        return (
+            <DrawingInspectionLogsTable
+                isFetching={isFetching}
+                error={error}
+                pins={filterPins}
+                handleFilterChange={this.handleFilterChange}
+            />
+        );
     }
 
-    function handleFilterChange({ target: { value } }) {
-        setFilterValue(value);
-    }
-};
+    handleFilterChange = e => {
+        this.setState({
+            [e.target.name]: e.target.value,
+        });
+    };
+}
 
 const mapStateToProps = ({
     client: {
         pinsReducer: { pins, isFetching, error },
     },
-    shared: {
-        mobileReducer: { onMobile },
-    },
 }) => ({
     pins: Object.values(pins),
-    isFetching,
-    error,
-    onMobile,
+    isFetching: isFetching,
+    error: error,
 });
 
-export default withUpdateOnChange(connect(mapStateToProps)(DrawingInspectionLogContainer));
+export default connect(mapStateToProps)(DrawingInspectionLogContainer);
