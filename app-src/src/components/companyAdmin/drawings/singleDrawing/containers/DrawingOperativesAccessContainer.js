@@ -12,13 +12,12 @@ class DrawingOperativesAccessContainer extends Component {
     render() {
         const { operatives, isFetching, error, users } = this.props;
         const operativesWithCodes = operatives.map(operative => {
-            const user =
-                users.find(({ id }) => id === operative.companyUserID) || {};
+            const user = users.find(({ id }) => id === operative.companyUserID) || {};
             const canEditUser = !isEmpty(user);
 
             return {
                 ...operative,
-                canEditUser
+                canEditUser,
             };
         });
 
@@ -41,8 +40,7 @@ class DrawingOperativesAccessContainer extends Component {
         if (deletionError && !prevProps.deletionError) {
             showModal(ERROR_MODAL, {
                 title: 'Deletion Error:',
-                message:
-                    'An error occurred while removing this operative, please try again later'
+                message: 'An error occurred while removing this operative, please try again later',
             });
         }
     }
@@ -58,23 +56,14 @@ class DrawingOperativesAccessContainer extends Component {
     };
 }
 
-const mapStateToProps = ({
-    companyAdmin: { operativesReducer, companyUsersReducer }
-}) => ({
+const mapStateToProps = ({ companyAdmin: { operativesReducer, companyUsersReducer } }) => ({
     operatives: Object.values(operativesReducer.operatives),
     isFetching: operativesReducer.isFetching,
     users: Object.values(companyUsersReducer.users),
     error: operativesReducer.error,
-    deletionError: operativesReducer.deletionError
+    deletionError: operativesReducer.deletionError,
 });
 
-const mapDispatchToProps = dispatch => ({
-    showModal: (modalType, modalProps) => {
-        dispatch(showModal(modalType, modalProps));
-    }
-});
+const mapDispatchToProps = { showModal };
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(DrawingOperativesAccessContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(DrawingOperativesAccessContainer);
