@@ -3,16 +3,13 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 import postReport from 'actions/companyAdmin/reports/async/postReport';
-import postCustomFilters from 'actions/companyAdmin/reports/async/postCustomFilters';
-import removeFilterQuestions from 'actions/companyAdmin/reports/sync/removeFilterQuestions';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import {
     SUCCESS_MODAL,
     ERROR_MODAL,
     SELECT_PIN_SCALE,
-    LOADING_DATA
+    LOADING_DATA,
 } from 'constants/shared/modalTypes';
-import resetFilterOptions from 'actions/companyAdmin/reports/sync/resetFilterOptions';
 
 import showFieldErrors from 'actions/shared/generic/fieldErrors/sync/showFieldErrors';
 import { isEmpty, convertEnumToDropdownOptions } from 'helpers/generic';
@@ -32,14 +29,12 @@ class OutputSettingsContainer extends Component {
                 isPDFGeneration,
                 isCSVGeneration,
                 isFloorplanGeneration,
-                includeFloorplan
+                includeFloorplan,
             },
-            options: { showHidden, sortBy }
+            options: { showHidden, sortBy },
         } = this.props;
 
-        const sortByOptions = convertEnumToDropdownOptions(
-            SORT_BY_OPTIONS_TEXT
-        );
+        const sortByOptions = convertEnumToDropdownOptions(SORT_BY_OPTIONS_TEXT);
 
         return (
             <OutputSettings
@@ -60,71 +55,33 @@ class OutputSettingsContainer extends Component {
 
     componentDidMount = () => {
         const {
-            filters: {
-                isPDFGeneration,
-                isCSVGeneration,
-                isFloorplanGeneration
-            },
-            addFieldError
+            filters: { isPDFGeneration, isCSVGeneration, isFloorplanGeneration },
+            addFieldError,
         } = this.props;
         if (!isPDFGeneration && !isCSVGeneration && !isFloorplanGeneration) {
-            addFieldError(
-                'isFloorplanGeneration',
-                'Must select at least one option'
-            );
+            addFieldError('isFloorplanGeneration', 'Must select at least one option');
         }
     };
-    componentWillUnmount = () => this.props.resetFilterOptions();
 
     componentDidUpdate = prevProps => {
         const {
-            // postSuccess,
-            // error,
-            // showModal,
-            // history,
-            filters: {
-                isPDFGeneration,
-                isCSVGeneration,
-                isFloorplanGeneration
-            },
+            filters: { isPDFGeneration, isCSVGeneration, isFloorplanGeneration },
             addFieldError,
-            // isCreating,
-            removeFieldError
+            removeFieldError,
         } = this.props;
 
         // error handling for report type
-        const modeSelected = !!(
-            isPDFGeneration ||
-            isCSVGeneration ||
-            isFloorplanGeneration
-        );
+        const modeSelected = !!(isPDFGeneration || isCSVGeneration || isFloorplanGeneration);
         const prevModeSelected = !!(
             prevProps.filters.isPDFGeneration ||
             prevProps.filters.isCSVGeneration ||
             prevProps.filters.isFloorplanGeneration
         );
         if (!modeSelected && prevModeSelected) {
-            addFieldError(
-                'isFloorplanGeneration',
-                'Must select at least one option'
-            );
+            addFieldError('isFloorplanGeneration', 'Must select at least one option');
         } else if (modeSelected && !prevModeSelected) {
             removeFieldError('isFloorplanGeneration');
         }
-
-        // if (postSuccess && !prevProps.postSuccess) {
-        //     showModal(SUCCESS_MODAL, {
-        //         message: 'Your report is now being generated'
-        //     });
-
-        //     return history.push('/company/tools/company-reports');
-        // }
-        // if (error && !prevProps.error) {
-        //     showModal(ERROR_MODAL, {
-        //         title: error.title || 'Error',
-        //         message: error.message
-        //     });
-        // }
     };
 
     handleFilterChange = (name, value) => {
@@ -138,42 +95,20 @@ class OutputSettingsContainer extends Component {
     handleSubmit = () => {
         const {
             getPostBody,
-            // postReport,
             fieldErrors,
             showFieldErrors,
-            filters: {
-                isFloorplanGeneration,
-                includeFloorplan,
-                // drawingID,
-                isPDFGeneration
-            },
-            // drawings,
-            showModal
+            filters: { isFloorplanGeneration, includeFloorplan, isPDFGeneration },
+            showModal,
         } = this.props;
 
         if (!isEmpty(fieldErrors)) showFieldErrors();
-        // else if (
-        //     Object.values(drawings).filter(
-        //         drawing => +drawing.id === +drawingID
-        //     ).length < 1
-        // ) {
-        //     showModal(ERROR_MODAL, {
-        //         title: 'Error',
-        //         message:
-        //             'No drawings available to report, please add at least one drawing.'
-        //     });
-        // }
-        else if (
-            isFloorplanGeneration ||
-            (isPDFGeneration && includeFloorplan)
-        ) {
+        else if (isFloorplanGeneration || (isPDFGeneration && includeFloorplan)) {
             const drawingForPinScale = this._getDrawingForPinScale();
 
             if (!drawingForPinScale) {
                 showModal(ERROR_MODAL, {
                     title: 'No drawings',
-                    message:
-                        'No drawings were found for your selection. Please edit your filters.'
+                    message: 'No drawings were found for your selection. Please edit your filters.',
                 });
 
                 return;
@@ -182,7 +117,7 @@ class OutputSettingsContainer extends Component {
             showModal(SELECT_PIN_SCALE, {
                 drawing: drawingForPinScale,
                 getPostBody,
-                postReport: this._postReport
+                postReport: this._postReport,
             });
         } else {
             this._postReport(getPostBody());
@@ -196,7 +131,7 @@ class OutputSettingsContainer extends Component {
         postReport(postBody).then((action = {}) => {
             if (action.type === POST_REPORT_SUCCESS) {
                 showModal(SUCCESS_MODAL, {
-                    message: 'Your report is now being generated'
+                    message: 'Your report is now being generated',
                 });
 
                 history.push('/company/tools/company-reports');
@@ -207,7 +142,7 @@ class OutputSettingsContainer extends Component {
                 message:
                     error ||
                     action.error ||
-                    'There was an error with your request. Please try again later.'
+                    'There was an error with your request. Please try again later.',
             });
         });
     };
@@ -215,16 +150,15 @@ class OutputSettingsContainer extends Component {
     _getDrawingForPinScale = () => {
         const {
             drawings,
-            filters: { siteID, buildingID, floorID, drawingID }
+            filters: { siteID, buildingID, floorID, drawingID },
         } = this.props;
 
         let availableDrawings = Object.values(drawings);
 
-        // uses the url to figure out which hierarchy the report is being generated on and find an appropriate drawing for the pin scale modal
+        // uses the url to figure out which hierarchy the report is being generated on
+        // and find an appropriate drawing for the pin scale modal
         if (siteID) {
-            availableDrawings = availableDrawings.filter(
-                drawing => +drawing.siteID === +siteID
-            );
+            availableDrawings = availableDrawings.filter(drawing => +drawing.siteID === +siteID);
         }
         if (buildingID) {
             availableDrawings = availableDrawings.filter(
@@ -232,14 +166,10 @@ class OutputSettingsContainer extends Component {
             );
         }
         if (floorID) {
-            availableDrawings = availableDrawings.filter(
-                drawing => +drawing.floorID === +floorID
-            );
+            availableDrawings = availableDrawings.filter(drawing => +drawing.floorID === +floorID);
         }
         if (drawingID) {
-            availableDrawings = availableDrawings.filter(
-                drawing => +drawing.id === +drawingID
-            );
+            availableDrawings = availableDrawings.filter(drawing => +drawing.id === +drawingID);
         }
 
         return availableDrawings[0];
@@ -248,55 +178,30 @@ class OutputSettingsContainer extends Component {
 
 const mapStateToProps = ({
     companyAdmin: {
-        sitesReducer: { sites },
-        buildingsReducer: { buildings },
-        floorsReducer: { floors },
         drawingsReducer: { drawings },
-
-        reportsReducer: {
-            filters,
-            fields,
-            options,
-            postSuccess,
-            error,
-            pinIDs,
-            isCreating
-        }
+        reportsReducer: { filters, options, error },
     },
     shared: {
-        fieldErrorsReducer: { fieldErrors }
-    }
+        fieldErrorsReducer: { fieldErrors },
+    },
 }) => ({
     fieldErrors,
-    fields: Object.values(fields),
-    pinIDs,
     filters,
     options,
-    postSuccess,
-    sites,
-    buildings,
-    floors,
     drawings,
     error,
-    isCreating
 });
 
 const mapDispatchToProps = {
     updateFilterOption,
     postReport,
-    postCustomFilters,
-    removeFilterQuestions,
     showModal,
     showFieldErrors,
     addFieldError,
     removeFieldError,
-    resetFilterOptions
 };
 
-const WithConnect = connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(OutputSettingsContainer);
+const WithConnect = connect(mapStateToProps, mapDispatchToProps)(OutputSettingsContainer);
 
 const WithUpdateOnChange = withUpdateOnChange(WithConnect);
 
