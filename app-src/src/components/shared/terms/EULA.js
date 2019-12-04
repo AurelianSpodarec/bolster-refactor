@@ -53,14 +53,53 @@ const EULA = () => (
                 <li>
                     <h4>Operating System Requirements</h4>
                     <p>
-                        The App requires an iPhone device with a minimum of [amount] of memory.
-                        Internet access and the [type of operating system] operating system [version
-                        of operating system]. [any further requirements].
+                        The App requires an iOS or Android device. <br />
+                        The following are recommended minimum device specification. <br />
+                        <strong>iOS:-</strong> Device running iOS 10.3.4 at minimum, recommended
+                        latest iOS. <br />
+                        <ul>
+                            <li>
+                                iPhone - 5 or later <br />
+                            </li>
+                            <li>
+                                iPad - 4th generation or later <br />
+                            </li>
+                            <li>
+                                iPad mini - 3+ <br />
+                            </li>
+                            <li>
+                                iPad Air - any <br />
+                            </li>
+                            <li>
+                                iPad Pro - any <br />
+                            </li>
+                            <li>
+                                iPod touch - 6th generation or later running iOS 11+ <br />
+                            </li>
+                        </ul>
+                        At least 500mb of free space required, more needed for bigger syncs with
+                        more images etc. <br />
+                        Android:- Minimum Android version 7 - Nougat. <br />
+                        <ul>
+                            <li>Specifications: RAM: 3gb </li>
+                            <li>CPU: quad core @ 1.8ghz </li>
+                            <li>
+                                Storage: 32gb internal memory - At least 500mb free space, more
+                                needed for bigger syncs with more images etc.
+                            </li>
+                        </ul>
                     </p>
                     <p>
-                        The Web Platform requires internet access and the [type of operating system]
-                        operating system [version of operating system] [amount] of [memory] [any
-                        further requirements].
+                        The Web Platform requires internet access and is designed to be compatible
+                        with a range of web browsers and operating systems. To correctly view and
+                        engage with the Web Platform, we recommend using any of the following
+                        browsers: <br />
+                        <ul>
+                            <li>Firefox</li>
+                            <li>Chrome</li>
+                            <li>Safari</li>
+                            <li>Internet Explorer 11.0 or later</li>
+                        </ul>
                     </p>
                 </li>
                 <li>
