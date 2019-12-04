@@ -7,30 +7,18 @@ import TextInputContainer from 'components/shared/generic/form/containers/TextIn
 import FileUploadContainer from 'components/shared/generic/form/containers/FileUploadContainer';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 
-const SetImageModal = ({
-    name,
-    file,
-    handleChange,
-    handleFileChange,
-    handleSubmit,
-    hideModal
-}) => (
+const SetImageModal = ({ name, file, handleChange, handleSubmit, hideModal }) => (
     <ModalOuterContainer extraClasses="w-form">
         <BlockHeading title="Add image" />
         <Form onSubmit={handleSubmit} className="generic-form">
             <Field name="Name" required>
-                <TextInputContainer
-                    name="name"
-                    value={name}
-                    handleChange={handleChange}
-                    required
-                />
+                <TextInputContainer name="name" value={name} handleChange={handleChange} required />
             </Field>
             <Field name="Image">
                 <FileUploadContainer
                     name="file"
                     value={file}
-                    handleChange={handleFileChange}
+                    handleChange={handleChange}
                     required
                     acceptedTypes={['image/*']}
                     skipTemp

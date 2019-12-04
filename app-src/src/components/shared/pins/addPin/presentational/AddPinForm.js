@@ -17,15 +17,16 @@ const AddPinForm = ({
     selectedTemplate,
     filesUploading,
     confirmLeave,
-    isHistory
+    isHistory,
+    isSameTemplate,
+    pinAnswersByGroupKey,
+    dropdownOptionsByType,
+    oldAnswersByNameObj,
+    latestPinHistory,
 }) => (
     <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
         <div className="size-lg-12">
-            <Field
-                name="Select a service"
-                sizeClasses="size-lg-6 size-md-12"
-                required
-            >
+            <Field name="Select a service" sizeClasses="size-lg-6 size-md-12" required>
                 <DropdownContainer
                     placeholder="-- select --"
                     name="serviceID"
@@ -39,11 +40,7 @@ const AddPinForm = ({
         </div>
         {!!selectedService && (
             <div className="size-lg-12">
-                <Field
-                    name="Select a template"
-                    sizeClasses="size-lg-6 size-md-12"
-                    required
-                >
+                <Field name="Select a template" sizeClasses="size-lg-6 size-md-12" required>
                     <DropdownContainer
                         placeholder="-- select --"
                         name="templateID"
@@ -61,6 +58,11 @@ const AddPinForm = ({
             <AddPinVersionsContainer
                 isHistory={isHistory}
                 selectedTemplateID={selectedTemplate.value}
+                isSameTemplate={isSameTemplate}
+                pinAnswersByGroupKey={pinAnswersByGroupKey}
+                dropdownOptionsByType={dropdownOptionsByType}
+                oldAnswersByNameObj={oldAnswersByNameObj}
+                latestPinHistory={latestPinHistory}
             />
         )}
 
@@ -82,10 +84,7 @@ const AddPinForm = ({
                 )}
             </button>
             <Link
-                to={location.pathname.replace(
-                    `/${isHistory ? 'add-history' : 'add-pin'}`,
-                    ''
-                )}
+                to={location.pathname.replace(`/${isHistory ? 'add-history' : 'add-pin'}`, '')}
                 className="button"
             >
                 Cancel

@@ -14,6 +14,7 @@ import {
     ADD_TEMPLATE,
     ADD_TEMPLATE_SECTION,
     ADD_TEMPLATE_QUESTION,
+    ADMIN_CREATE_COMPANY_ADMIN,
     ADMIN_EDIT_SERVICE,
     ADD_CREDITS_TO_DRAWING,
     BUY_CREDITS,
@@ -71,13 +72,15 @@ import {
     CONFIRM_MOVE_HIERARCHY_TO_COMPANY,
     ADMIN_CONFIRM_SET_IS_INVOICE_PAID,
     ADMIN_DELETE_INVOICE,
-    DELETE_INVOICE
+    DELETE_INVOICE,
+    ADD_MULTIPLE_SERVICES_TO_SUBSCRIPTION
 } from 'constants/shared/modalTypes';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 
 import AddCardModalContainer from 'components/companyAdmin/subscription/cardManagement/addCardModal/containers/AddCardModalContainer';
 import AddServiceToSubscriptionModalContainer from 'components/companyAdmin/subscription/AddServiceToSubscriptionModal/containers/AddServiceToSubscriptionModalContainer';
+import AddMulitpleServicesToSubscriptionModalContainer from 'components/companyAdmin/subscription/AddMultipleServicesToSubscriptionModal/containers/AddMulitpleServicesToSubscriptionModalContainer';
 import AddTemplateModalContainer from 'components/superAdmin/templateBuilder/setTemplate/containers/AddTemplateModalContainer';
 import SetLabelFieldsModalContainer from 'components/superAdmin/templateBuilder/setLabelFields/containers/SetLabelFieldsModalContainer';
 import AddTemplateSectionModalContainer from 'components/superAdmin/templateBuilder/setSection/containers/AddTemplateSectionModalContainer';
@@ -146,6 +149,7 @@ import SiteManagementConfirmMoveModalContainer from 'components/superAdmin/siteM
 import ConfirmSetIsInvoicePaidModalContainer from 'components/superAdmin/invoices/confirmSetIsInvoicePaidModal/containers/ConfirmSetIsInvoicePaidModalContainer';
 import SuperAdminConfirmDeleteInvoiceModalContainer from 'components/superAdmin/invoices/superAdminConfirmDeleteInvoiceModal/containers/SuperAdminConfirmDeleteInvoiceModalContainer';
 import ConfirmDeleteInvoiceModalContainer from 'components/companyAdmin/invoices/confirmDeleteInvoiceModal/containers/ConfirmDeleteInvoiceModalContainer';
+import AddCompanyAdminModalContainer from 'components/superAdmin/companies/singleCompany/containers/AddCompanyAdminModalContainer';
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModalContainer,
@@ -153,6 +157,7 @@ const MODAL_COMPONENTS = {
     [ADD_TEMPLATE]: AddTemplateModalContainer,
     [ADD_TEMPLATE_QUESTION]: AddTemplateQuestionModalContainer,
     [ADD_TEMPLATE_SECTION]: AddTemplateSectionModalContainer,
+    [ADMIN_CREATE_COMPANY_ADMIN]: AddCompanyAdminModalContainer,
     [SET_LABEL_FIELDS]: SetLabelFieldsModalContainer,
     [ADMIN_EDIT_SERVICE]: EditServiceModalContainer,
     [BUY_CREDITS]: BuyCreditsModalContainer,
@@ -217,7 +222,8 @@ const MODAL_COMPONENTS = {
     [CONFIRM_MOVE_HIERARCHY_TO_COMPANY]: SiteManagementConfirmMoveModalContainer,
     [ADMIN_CONFIRM_SET_IS_INVOICE_PAID]: ConfirmSetIsInvoicePaidModalContainer,
     [ADMIN_DELETE_INVOICE]: SuperAdminConfirmDeleteInvoiceModalContainer,
-    [DELETE_INVOICE]: ConfirmDeleteInvoiceModalContainer
+    [DELETE_INVOICE]: ConfirmDeleteInvoiceModalContainer,
+    [ADD_MULTIPLE_SERVICES_TO_SUBSCRIPTION]: AddMulitpleServicesToSubscriptionModalContainer
 };
 
 const ModalRoot = ({ modalType, modalProps, ...otherProps }) => {

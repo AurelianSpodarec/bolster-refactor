@@ -77,7 +77,6 @@ class DashboardStatsFiltersContainer extends Component {
     };
 
     componentDidMount = () => {
-        const { filters } = this.props;
 
         const statusOptions = Object.entries(PIN_STATUS_TYPES).map(([key, value]) => ({
             text: value,

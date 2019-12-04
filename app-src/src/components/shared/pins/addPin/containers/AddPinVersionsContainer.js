@@ -2,14 +2,29 @@ import React from 'react';
 import { connect } from 'react-redux';
 import AddPinVersions from '../presentational/AddPinVersions';
 
-const AddPinVersionsContainer = ({ selectedVersion, isHistory }) => {
-    return (
+const AddPinVersionsContainer = ({
+     selectedVersion, 
+     template, 
+     isHistory, 
+     isSameTemplate, 
+     pinAnswersByGroupKey, 
+     dropdownOptionsByType, 
+     oldAnswersByNameObj,
+     latestPinHistory,
+}) => 
+    (
         <AddPinVersions
             selectedVersion={selectedVersion}
             isHistory={isHistory}
+            isSameTemplate={isSameTemplate}
+            pinAnswersByGroupKey={pinAnswersByGroupKey}
+            dropdownOptionsByType={dropdownOptionsByType}
+            oldAnswersByNameObj={oldAnswersByNameObj}
+            template={template}
+            latestPinHistory={latestPinHistory}
         />
     );
-};
+
 
 const mapStateToProps = (
     {
@@ -22,7 +37,8 @@ const mapStateToProps = (
 ) => {
     const template = templates[ownProps.selectedTemplateID] || {};
     return {
-        selectedVersion: versions[template.latestVersionID] || {}
+        selectedVersion: versions[template.latestVersionID] || {},
+        template
     };
 };
 

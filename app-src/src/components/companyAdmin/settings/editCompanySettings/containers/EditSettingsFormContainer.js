@@ -6,8 +6,8 @@ import { withRouter } from 'react-router-dom';
 import editCompanySettings from 'actions/companyAdmin/companySettings/async/editCompanySettings';
 
 import EditSettingsForm from '../presentational/EditSettingsForm';
-import { sortTimezones, isObjEmpty } from 'helpers/generic';
-import { VAT_TYPES } from 'constants/companyAdmin/enums';
+import { sortTimezones, isObjEmpty, enumFormat } from 'helpers/generic';
+import { VAT_TYPES, DEFAULT_SITES_SORT, DEFAULT_SITES_SORT_NAMES } from 'constants/companyAdmin/enums';
 
 class EditSettingsFormContainer extends Component {
     state = {
@@ -39,7 +39,9 @@ class EditSettingsFormContainer extends Component {
         vatType: null,
         timeZoneOptions: [],
         dateFormatOptions: [],
-        isEditButtonDisabled: false
+        isEditButtonDisabled: false,
+        shouldDeleteReportsAfterDownload: false,
+        deafultSitesSort: DEFAULT_SITES_SORT.CUSTOM
     };
 
     render() {
@@ -64,13 +66,14 @@ class EditSettingsFormContainer extends Component {
             { label: 'Outside EU', value: VAT_TYPES.OUTSIDEEU }
         ];
 
+        const siteSortOptions = enumFormat(DEFAULT_SITES_SORT_NAMES);
+    
         return (
             <EditSettingsForm
                 {...this.state}
                 filesUploading={filesUploading}
                 handleInputChange={this.handleInputChange}
                 handleSubmit={this.handleSubmit}
-                handleFileChange={this.handleFileChange}
                 handleColourSelect={this.handleColourSelect}
                 handleCheckboxChange={this.handleCheckboxChange}
                 templateUsageRules={Object.values(templateUsageRuleOptions)}
@@ -81,6 +84,7 @@ class EditSettingsFormContainer extends Component {
                 dateFormat={dateFormat}
                 handleDateFormatChange={this.handleDateFormatChange}
                 vatOptions={vatOptions}
+                siteSortOptions={siteSortOptions}
             />
         );
     }
@@ -133,16 +137,6 @@ class EditSettingsFormContainer extends Component {
             // * otherwise set the state in the usual way
             this.setState({ [name]: value });
         }
-    };
-
-    handleFileChange = (name, file) => {
-        this.setState(prevState => {
-            if (prevState.logoFile === file) {
-                return { [name]: prevState.initialFile };
-            } else {
-                return { [name]: file };
-            }
-        });
     };
 
     handleSubmit = e => {

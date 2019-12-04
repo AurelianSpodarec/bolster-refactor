@@ -3,13 +3,24 @@ import React from 'react';
 import AddPinQuestionRoute from '../containers/AddPinQuestionRoute';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 
-const AddPinQuestions = ({ sections, questions, selectedVersion, isHistory }) =>
+const AddPinQuestions = ({ 
+    sections, 
+    questions, 
+    selectedVersion, 
+    isHistory, 
+    sectionIDs, 
+    isSameTemplate, 
+    pinAnswersByGroupKey, 
+    dropdownOptionsByType, 
+    oldAnswersByNameObj, 
+    template,
+    latestPinHistory
+}) =>
     [...sections]
         .sort((a, b) => a.sort - b.sort)
         .map(section => (
             <div key={section.value} className="size-lg-12">
                 <BlockHeading classes="sub-heading" title={section.text} />
-
                 <div className="flex-row">
                     {[...questions]
                         .filter(
@@ -23,6 +34,13 @@ const AddPinQuestions = ({ sections, questions, selectedVersion, isHistory }) =>
                                 selectedVersion={selectedVersion}
                                 key={question.id}
                                 question={question}
+                                sectionIDs={sectionIDs}
+                                isSameTemplate={isSameTemplate}
+                                pinAnswersByGroupKey={pinAnswersByGroupKey}
+                                dropdownOptionsByType={dropdownOptionsByType}
+                                oldAnswersByNameObj={oldAnswersByNameObj}
+                                template={template}
+                                latestPinHistory={latestPinHistory}
                             />
                         ))}
                 </div>

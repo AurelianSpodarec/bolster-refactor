@@ -15,7 +15,7 @@ import getTemplateReportOptions from 'actions/companyAdmin/reports/async/getTemp
 export default function(ProtectedComponent) {
     class WithUpdateOnChange extends React.Component {
         state = {
-            showError: false
+            showError: false,
         };
         render() {
             const { showError } = this.state;
@@ -40,7 +40,7 @@ export default function(ProtectedComponent) {
             const options = arr.map(({ id, name }) => ({
                 value: id,
                 label: name,
-                text: name
+                text: name,
             }));
 
             return asObj ? convertArrToObj(options, 'value') : options;
@@ -69,7 +69,7 @@ export default function(ProtectedComponent) {
             const { PIN_SELECTOR, INDIVIDUAL_PINS } = FURTHER_FILTRATION_OPTIONS;
 
             // ? Displays all pins if in rectangle mode, and only the selected pins otherwise.
-
+            console.log({ pins });
             if (+furtherFiltrationOption > PIN_SELECTOR) {
                 // advanced
                 return pins.filter(({ id }) => filters.pinIDs.includes(id));
@@ -81,7 +81,7 @@ export default function(ProtectedComponent) {
                 status,
                 serviceID,
                 templateID,
-                companyUserIDs
+                companyUserIDs,
             } = filters;
 
             const NO = false;
@@ -98,14 +98,16 @@ export default function(ProtectedComponent) {
 
                     if (
                         fromDateInclusive &&
-                        moment(pin.createdOn) < moment(fromDateInclusive, momentComparisonFormat)
+                        moment(pin.latestCreatedOn) <
+                            moment(fromDateInclusive, momentComparisonFormat)
                     ) {
                         return NO;
                     }
                     // end date
                     if (
                         toDateInclusive &&
-                        moment(pin.createdOn) > moment(toDateInclusive, momentComparisonFormat)
+                        moment(pin.latestCreatedOn) >
+                            moment(toDateInclusive, momentComparisonFormat)
                     ) {
                         return NO;
                     }
@@ -144,7 +146,7 @@ export default function(ProtectedComponent) {
                     excluded:
                         (+furtherFiltrationOption === PIN_SELECTOR ||
                             +furtherFiltrationOption === INDIVIDUAL_PINS) &&
-                        !filters.pinIDs.includes(pin.id)
+                        !filters.pinIDs.includes(pin.id),
                 }));
         };
 
@@ -168,14 +170,15 @@ export default function(ProtectedComponent) {
                     fromDateInclusive,
                     toDateInclusive,
                     companyUserIDs,
-                    floorplanPinScale
+                    floorplanPinScale,
                 },
                 furtherFiltrationOption,
                 excludedPinIDs,
                 rectangles,
                 options: { showHidden, sortBy },
                 fields,
-                timeZone
+                timeZone,
+                includedDrawingsIDs,
             } = this.props;
 
             let hierarchyType;
@@ -217,7 +220,7 @@ export default function(ProtectedComponent) {
 
                             return {
                                 questionGroupKeys: selectedQuestions,
-                                values
+                                values,
                             };
                         }
                     );
@@ -232,9 +235,9 @@ export default function(ProtectedComponent) {
                 return { latY, lngX };
             };
 
-            const pinBoundingBoxes = Object.values(rectangles).map(
-                ({ corners: [first, second] }) => [getLatLng(first), getLatLng(second)]
-            );
+            const pinBoundingBoxes = Object.values(
+                rectangles
+            ).map(({ corners: [first, second] }) => [getLatLng(first), getLatLng(second)]);
             // get the utc converted time for both from date and to date.
             const startDate = fromDateInclusive
                 ? moment
@@ -270,12 +273,14 @@ export default function(ProtectedComponent) {
                 templateID: templateID || null,
                 status: status || null,
                 pinIDs: selectedPinIDs,
+                excludedPinIDs: Object.values(excludedPinIDs),
                 questionFilters: questionFilters,
                 showHidden,
                 sortBy,
                 pinBoundingBoxes,
                 floorplanPinScale,
-                hasQuestions: +furtherFiltrationOption > +INDIVIDUAL_PINS
+                hasQuestions: +furtherFiltrationOption > +INDIVIDUAL_PINS,
+                includedDrawingIDs: includedDrawingsIDs,
             };
             return body;
         };
@@ -338,7 +343,7 @@ export default function(ProtectedComponent) {
     const mapStateToProps = (
         {
             shared: {
-                fieldErrorsReducer: { fieldErrors, errorsVisible }
+                fieldErrorsReducer: { fieldErrors, errorsVisible },
             },
             companyAdmin: {
                 servicesReducer: { historicServices },
@@ -356,13 +361,14 @@ export default function(ProtectedComponent) {
                     customFilters,
                     rectangles,
                     excludedPinIDs,
-                    furtherFiltrationOption
+                    furtherFiltrationOption,
+                    includedDrawingsIDs,
                 },
                 operativesReducer: { operatives },
                 companySettingsReducer: {
-                    companySettings: { timeZone }
-                }
-            }
+                    companySettings: { timeZone },
+                },
+            },
         },
         { blockName }
     ) => {
@@ -375,8 +381,8 @@ export default function(ProtectedComponent) {
         const floors = floorIDs.map(id => floorsReducer.floors[id]);
 
         const selectedFloor = floorsReducer.floors[filters.floorID] || {};
-        const drawingIDs = selectedFloor.drawingIDs || [];
-        const drawings = drawingIDs.map(id => drawingsReducer.drawings[id]);
+        const selectedDrawingIDs = selectedFloor.drawingIDs || [];
+        const drawings = selectedDrawingIDs.map(id => drawingsReducer.drawings[id]);
 
         return {
             fieldErrors,
@@ -398,7 +404,8 @@ export default function(ProtectedComponent) {
             fields: Object.values(fields),
             excludedPinIDs,
             furtherFiltrationOption,
-            timeZone
+            timeZone,
+            includedDrawingsIDs,
         };
     };
 
@@ -409,11 +416,8 @@ export default function(ProtectedComponent) {
         removeFieldError: name => dispatch(removeFieldError(name)),
         showFieldErrors: () => dispatch(showFieldErrors()),
         getOperativeOptions: postBody => dispatch(getOperativeOptions(postBody)),
-        getTemplateOptions: postBody => dispatch(getTemplateReportOptions(postBody))
+        getTemplateOptions: postBody => dispatch(getTemplateReportOptions(postBody)),
     });
 
-    return connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(WithUpdateOnChange);
+    return connect(mapStateToProps, mapDispatchToProps)(WithUpdateOnChange);
 }

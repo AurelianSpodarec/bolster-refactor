@@ -6,7 +6,7 @@ import { FILE_STORAGE_URL } from 'config';
 
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import Block from 'components/shared/generic/block/presentational/Block';
-import { TEMPLATE_USAGE_RULES, VAT_TYPE_NAME, VAT_TYPES } from 'constants/companyAdmin/enums';
+import { TEMPLATE_USAGE_RULES, VAT_TYPE_NAME, VAT_TYPES, DEFAULT_SITES_SORT_NAMES } from 'constants/companyAdmin/enums';
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import FieldOutput from 'components/shared/generic/fieldOutput/presentational/FieldOutput';
@@ -250,6 +250,12 @@ const Settings = ({ isFetching, error, companySettings: company, onMobile }) => 
                         <FieldOutput
                             title="Default Template Usage Rule"
                             description={TEMPLATE_USAGE_RULES[company.defaultTemplateUsageRule]}
+                            fieldClass="no-h-padding"
+                            sizeClass="size-lg-12"
+                        />
+                        <FieldOutput
+                            title="Default Sites list sort"
+                            description={DEFAULT_SITES_SORT_NAMES[company.defaultSitesSort]}
                             fieldClass="no-h-padding"
                             sizeClass="size-lg-12"
                         />

@@ -2,9 +2,7 @@ import React from 'react';
 import AddPinHistoryContainer from '../containers/AddPinHistoryContainer';
 
 const AddPinHistory = () => (
-    <>
-        <AddPinHistoryContainer />
-    </>
+    <AddPinHistoryContainer />
 );
 
 export default AddPinHistory;

@@ -28,7 +28,8 @@ import {
     GET_OPERATIVE_OPTIONS_REQUEST,
     GET_TEMPLATE_REPORT_OPTIONS_SUCCESS,
     GET_TEMPLATE_REPORT_OPTIONS_REQUEST,
-    GET_TEMPLATE_REPORT_OPTIONS_FAILURE
+    GET_TEMPLATE_REPORT_OPTIONS_FAILURE,
+    UPDATE_DRAWING_IDS_INCLUDED
 } from 'constants/actionTypes/reports';
 import { updateObj, removeObjItem, convertArrToObj } from 'helpers/generic';
 import { SORT_BY_OPTIONS } from 'constants/companyAdmin/enums';
@@ -47,6 +48,7 @@ export default combineReducers({
     rectangles: rectanglesReducer,
     furtherFiltrationOption: furtherFiltrationOptionReducer,
     excludedPinIDs: excludedPinIDsReducer,
+    includedDrawingsIDs: includedDrawingsIDsReducer,
     isCreating: isCreatingReducer
 });
 
@@ -300,6 +302,21 @@ function excludedPinIDsReducer(state = {}, action) {
         case REMOVE_ALL_EXCLUDED_PINS:
         case RESET_FILTER_OPTIONS:
             return {};
+        default:
+            return state;
+    }
+}
+
+function includedDrawingsIDsReducer(state = [], action) {
+    switch (action.type) {
+        case UPDATE_DRAWING_IDS_INCLUDED:
+            console.warn({ updating: true, ids: action.ids });
+            console.warn({ updating: true, ids: action.ids });
+            console.warn({ updating: true, ids: action.ids });
+            console.warn({ updating: true, ids: action.ids });
+            return action.ids;
+        case RESET_FILTER_OPTIONS:
+            return [];
         default:
             return state;
     }

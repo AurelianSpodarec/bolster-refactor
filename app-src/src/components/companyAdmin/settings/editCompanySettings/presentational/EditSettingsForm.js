@@ -16,7 +16,6 @@ import { VAT_TYPES } from 'constants/companyAdmin/enums';
 const EditSettingsForm = ({
     handleInputChange,
     handleSubmit,
-    handleFileChange,
     templateUsageRules,
     filesUploading,
     location,
@@ -43,7 +42,10 @@ const EditSettingsForm = ({
     timeZoneOptions,
     timeZone,
     dateFormatOptions,
-    dateFormat
+    dateFormat,
+    defaultSitesSort,
+    siteSortOptions,
+    shouldDeleteReportsAfterDownload,
 }) => (
     <>
         <Form className="generic-form ize-lg-12" onSubmit={handleSubmit}>
@@ -150,7 +152,7 @@ const EditSettingsForm = ({
                         name="logoFile"
                         value={logoFile}
                         acceptedTypes={['application/pdf', 'image/*']}
-                        handleChange={handleFileChange}
+                        handleChange={handleInputChange}
                     />
                 </Field>
                 <div className="size-lg-6 size-md-12">
@@ -232,6 +234,17 @@ const EditSettingsForm = ({
                 </Field>
             </div>
             <div className="size-lg-12">
+                <Field name="Default sites list sort" sizeClasses="size-lg-6 size-md-12">
+                    <Select
+                        options={siteSortOptions}
+                        onChange={handleInputChange}
+                        name="defaultSitesSort"
+                        value={defaultSitesSort}
+                        omitPlaceholder
+                    />
+                </Field>
+            </div>
+            <div className="size-lg-12">
                 {/* <p>##Bolster Client List##</p> */}
                 <Field name="Hide On Client List" sizeClasses="size-lg-6 size-md-12">
                     <CheckboxContainer
@@ -247,6 +260,15 @@ const EditSettingsForm = ({
                         checked={isEditButtonEnabled}
                         handleChange={handleInputChange}
                         name="isEditButtonEnabled"
+                    />
+                </Field>
+            </div>
+            <div className="size-lg-12">
+                <Field name="Delete reports after download?" sizeClasses="size-lg-6 size-md-12">
+                    <CheckboxContainer
+                        checked={shouldDeleteReportsAfterDownload}
+                        handleChange={handleInputChange}
+                        name="shouldDeleteReportsAfterDownload"
                     />
                 </Field>
             </div>

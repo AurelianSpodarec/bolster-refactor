@@ -72,7 +72,12 @@ const CompanyReportsListItem = ({ queueItem, onMobile, headers }) => {
                     >
                         <i className="fa fa-download" /> Download File
                     </a>
-                ) : (
+                ) : queueItem.state === GENERATION_STATE_VAL.DELETED ? 
+                (
+                    <button className="button red disabled">Report deleted</button>
+                ) : 
+                
+                (
                     <button className="button disabled">Generating...</button>
                 )}
             </td>
