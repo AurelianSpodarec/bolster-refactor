@@ -8,18 +8,16 @@ import { convertEnumToDropdownOptions, isObjEmpty } from 'helpers/generic';
 
 import withUpdateOnChange from '../hocs/withUpdateOnChange';
 import BasicFilters from '../presentational/BasicFilters';
-import resetFilterOptions from 'actions/companyAdmin/reports/sync/resetFilterOptions';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { CONFIRM_SUBMIT } from 'constants/shared/modalTypes';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import fetchAllTemplates from 'actions/companyAdmin/templates/async/fetchAllTemplates';
 
 class BasicFiltersContainer extends Component {
     state = {
         startBlurred: false,
         endBlurred: false,
-        showDateErrors: false
+        showDateErrors: false,
     };
 
     render() {
@@ -35,9 +33,9 @@ class BasicFiltersContainer extends Component {
                 status,
                 fromDateInclusive,
                 toDateInclusive,
-                reportHistories
+                reportHistories,
             },
-            templates
+            templates,
         } = this.props;
 
         const serviceOptions = formatArrForDropdown(services, true);
@@ -75,7 +73,7 @@ class BasicFiltersContainer extends Component {
         const {
             handleChange,
             location: { state: locationState },
-            postFilters
+            postFilters,
         } = this.props;
 
         if (locationState && locationState.selectedService) {
@@ -123,7 +121,7 @@ class BasicFiltersContainer extends Component {
         const {
             filters: { fromDateInclusive, toDateInclusive },
             addFieldError,
-            removeFieldError
+            removeFieldError,
         } = this.props;
 
         if (fromDateInclusive && toDateInclusive && fromDateInclusive > toDateInclusive) {
@@ -154,30 +152,19 @@ const mapStateToProps = ({
         reportsReducer: {
             fields,
             customFilters: { pins = [], templates = [] },
-            filters: { pinIDs = [] }
+            filters: { pinIDs = [] },
         },
-        companySettingsReducer: {
-            companySettings: { timeZone }
-        }
-    }
+    },
 }) => ({
     shouldConfirm: !isObjEmpty(fields) || pins.length !== pinIDs.length,
-    templates: templates,
-    timeZone
+    templates,
 });
 
 const mapDispatchToProps = {
-    resetFilterOptions,
     hideModal,
     showModal,
-    fetchAllTemplates
 };
 
 export default withRouter(
-    withUpdateOnChange(
-        connect(
-            mapStateToProps,
-            mapDispatchToProps
-        )(BasicFiltersContainer)
-    )
+    withUpdateOnChange(connect(mapStateToProps, mapDispatchToProps)(BasicFiltersContainer))
 );

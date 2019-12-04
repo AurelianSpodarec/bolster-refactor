@@ -1,56 +1,51 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 
 import PinInspectionLogTable from '../presentational/PinInspectionLogsTable';
+import withUpdateOnChange from 'components/companyAdmin/reports/createReport/components/hocs/withUpdateOnChange';
 
-class PinInspectionLogContainer extends Component {
-    state = {
-        filterValue: ''
-    };
+const PinInspectionLogContainer = ({ error, isFetching, onMobile, pins, getFilteredPins }) => {
+    const [filterValue, setFilterValue] = useState('');
 
-    render() {
-        const { pins, isFetching, error, onMobile } = this.props;
-        const filterPins = pins
-            .filter(({ pinCode = '' }) =>
-                pinCode.includes(this.state.filterValue)
-            )
+    return (
+        <PinInspectionLogTable
+            isFetching={isFetching}
+            error={error}
+            pins={filterPinsFromSearch()}
+            handleFilterChange={handleFilterChange}
+            onMobile={onMobile}
+        />
+    );
+
+    function filterPinsFromSearch() {
+        const filteredPins = getFilteredPins(pins)
+            .filter(({ pinCode = '' }) => pinCode.includes(filterValue))
             .sort((a, b) => {
-                if(!a.pinCode || !b.pinCode) {
+                if (!a.pinCode || !b.pinCode) {
                     return 0;
                 }
                 return Number(a.pinCode.replace(':', '')) - Number(b.pinCode.replace(':', ''));
             });
-
-        return (
-            <PinInspectionLogTable
-                isFetching={isFetching}
-                error={error}
-                pins={filterPins}
-                handleFilterChange={this.handleFilterChange}
-                onMobile={onMobile}
-            />
-        );
+        return filteredPins;
     }
 
-    handleFilterChange = e => {
-        this.setState({
-            [e.target.name]: e.target.value
-        });
-    };
-}
+    function handleFilterChange({ target: { value } }) {
+        setFilterValue(value);
+    }
+};
 
 const mapStateToProps = ({
     companyAdmin: {
-        pinsReducer: { pins, isFetchingForInspection, isFetching, error }
+        pinsReducer: { pins, isFetching, error },
     },
     shared: {
-        mobileReducer: { onMobile }
-    }
+        mobileReducer: { onMobile },
+    },
 }) => ({
     pins: Object.values(pins),
-    isFetching: isFetchingForInspection || isFetching,
-    error: error,
-    onMobile
+    error,
+    onMobile,
+    isFetching,
 });
 
-export default connect(mapStateToProps)(PinInspectionLogContainer);
+export default withUpdateOnChange(connect(mapStateToProps)(PinInspectionLogContainer));

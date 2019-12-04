@@ -1,24 +1,28 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 
 import fetchAllClientSites from 'actions/client/sites/async/clientFetchAllSites';
 import fetchAllClientBuildings from 'actions/client/buildings/async/clientFetchAllBuildings';
 import fetchAllClientFloors from 'actions/client/floors/async/clientFetchAllFloors';
 import fetchAllClientDrawings from 'actions/client/drawings/async/clientFetchAllDrawings';
+import clientFetchHistoricServices from 'actions/client/services/async/clientFetchHistoricServices';
+import resetFilterOptions from 'actions/companyAdmin/reports/sync/resetFilterOptions';
 
 import CreateReport from '../presentational/CreateReport';
-import { getSelectedCompanyForClient } from 'helpers/generic';
-import clientFetchHistoricServices from 'actions/client/services/async/clientFetchHistoricServices';
 
-export class CreateReportContainer extends Component {
-    render = () => <CreateReport />;
+import {
+    getSelectedCompanyForClient,
+    componentDidMount,
+    componentWillUnmount,
+} from 'helpers/generic';
 
-    componentDidMount = () => {
-        const selectedCompanyID = getSelectedCompanyForClient();
+const CreateReportContainer = ({ fetchAll, resetFilterOptions }) => {
+    const selectedCompanyID = getSelectedCompanyForClient();
+    componentDidMount(() => fetchAll(selectedCompanyID));
+    componentWillUnmount(resetFilterOptions);
 
-        this.props.fetchAll(selectedCompanyID);
-    };
-}
+    return <CreateReport />;
+};
 
 const mapDispatchToProps = dispatch => ({
     fetchAll: companyID => {
@@ -27,10 +31,8 @@ const mapDispatchToProps = dispatch => ({
         dispatch(fetchAllClientFloors(companyID));
         dispatch(fetchAllClientDrawings(companyID));
         dispatch(clientFetchHistoricServices(companyID));
-    }
+    },
+    resetFilterOptions: () => resetFilterOptions(),
 });
 
-export default connect(
-    null,
-    mapDispatchToProps
-)(CreateReportContainer);
+export default connect(null, mapDispatchToProps)(CreateReportContainer);

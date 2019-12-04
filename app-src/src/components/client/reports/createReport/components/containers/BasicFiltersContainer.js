@@ -5,12 +5,11 @@ import { PIN_STATUS_TYPES } from 'constants/companyAdmin/enums';
 import {
     convertEnumToDropdownOptions,
     isObjEmpty,
-    getSelectedCompanyForClient
+    getSelectedCompanyForClient,
 } from 'helpers/generic';
 
 import withUpdateOnChange from '../hocs/withUpdateOnChange';
 import BasicFilters from '../presentational/BasicFilters';
-import resetFilterOptions from 'actions/client/reports/create/sync/clientResetFilterOptions';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { CONFIRM_SUBMIT } from 'constants/shared/modalTypes';
@@ -21,7 +20,7 @@ class BasicFiltersContainer extends Component {
     state = {
         startBlurred: false,
         endBlurred: false,
-        showDateErrors: false
+        showDateErrors: false,
     };
 
     render() {
@@ -31,15 +30,9 @@ class BasicFiltersContainer extends Component {
             fieldError,
             formatArrForDropdown,
             services,
-            filters: {
-                serviceID,
-                status,
-                fromDateInclusive,
-                toDateInclusive,
-                templateID
-            },
+            filters: { serviceID, status, fromDateInclusive, toDateInclusive, templateID },
             isFetchingTemplates,
-            templates
+            templates,
         } = this.props;
 
         const serviceOptions = formatArrForDropdown(services, true);
@@ -48,11 +41,7 @@ class BasicFiltersContainer extends Component {
         const templateOptions = formatArrForDropdown(templates, true);
 
         return (
-            <div
-                className={`flex-item size-lg-${
-                    isDrawingPage ? '12' : '6'
-                } size-md-12`}
-            >
+            <div className={`flex-item size-lg-${isDrawingPage ? '12' : '6'} size-md-12`}>
                 <BlockContainer isFetching={isFetchingTemplates}>
                     <BasicFilters
                         isDrawingPage={isDrawingPage}
@@ -82,9 +71,7 @@ class BasicFiltersContainer extends Component {
     };
 
     handleDateBlur = isStart => {
-        isStart
-            ? this.setState({ startBlurred: true })
-            : this.setState({ endBlurred: true });
+        isStart ? this.setState({ startBlurred: true }) : this.setState({ endBlurred: true });
     };
 
     handleDateChange = (name, value) => {
@@ -99,43 +86,25 @@ class BasicFiltersContainer extends Component {
         const {
             filters: { fromDateInclusive, toDateInclusive },
             addFieldError,
-            removeFieldError
+            removeFieldError,
         } = this.props;
 
-        if (
-            fromDateInclusive &&
-            toDateInclusive &&
-            fromDateInclusive > toDateInclusive
-        ) {
-            return addFieldError(
-                'fromDateInclusive',
-                'Start date must not be after end date.'
-            );
+        if (fromDateInclusive && toDateInclusive && fromDateInclusive > toDateInclusive) {
+            return addFieldError('fromDateInclusive', 'Start date must not be after end date.');
         } else {
             return removeFieldError('fromDateInclusive');
         }
     };
 
-    // componentWillUnmount = () => {
-    //     this.props.resetFilterOptions();
-    // };
-
     handleChange = (name, value) => {
-        const {
-            handleChange,
-            postFilters,
-            showModal,
-            hideModal,
-            shouldConfirm
-        } = this.props;
+        const { handleChange, postFilters, showModal, hideModal, shouldConfirm } = this.props;
 
         if (shouldConfirm) {
             const handleSubmit = () => {
                 hideModal();
                 handleChange(name, value).then(postFilters);
             };
-            const message =
-                'Changing this will reset your advanced filters options, continue?';
+            const message = 'Changing this will reset your advanced filters options, continue?';
             showModal(CONFIRM_SUBMIT, { handleSubmit, message, hideModal });
         } else {
             handleChange(name, value).then(postFilters);
@@ -148,26 +117,22 @@ const mapStateToProps = ({
         reportsReducer: {
             fields,
             customFilters: { pins = [] },
-            filters: { pinIDs = [] }
+            filters: { pinIDs = [] },
         },
-        templatesReducer: { isFetching: isFetchingTemplates, templates }
-    }
+        templatesReducer: { isFetching: isFetchingTemplates, templates },
+    },
 }) => ({
     shouldConfirm: !isObjEmpty(fields) || pins.length !== pinIDs.length,
     isFetchingTemplates,
-    templates: Object.values(templates)
+    templates: Object.values(templates),
 });
 
 const mapDispatchToProps = {
-    resetFilterOptions,
     hideModal,
     showModal,
-    clientFetchAllTemplates
+    clientFetchAllTemplates,
 };
 
 export default withUpdateOnChange(
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(BasicFiltersContainer)
+    connect(mapStateToProps, mapDispatchToProps)(BasicFiltersContainer)
 );
