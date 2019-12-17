@@ -5,19 +5,19 @@ import DrawingInspectionLogsTable from '../presentational/DrawingInspectionLogsT
 
 class DrawingInspectionLogContainer extends Component {
     state = {
-        filterValue: ''
+        filterValue: '',
     };
 
     render() {
         const { pins, isFetching, error } = this.props;
-        const filterPins = pins.filter(({ pinCode = '' }) =>
-            pinCode.includes(this.state.filterValue)
-        ).sort((a, b) => {
-            if(!a.pinCode || !b.pinCode) {
-                return 0;
-            }
-            return Number(a.pinCode.replace(':', '')) - Number(b.pinCode.replace(':', ''));
-        });
+        const filterPins = pins
+            .filter(({ pinCode = '' }) => pinCode.includes(this.state.filterValue))
+            .sort((a, b) => {
+                if (!a.pinCode || !b.pinCode) {
+                    return 0;
+                }
+                return Number(a.pinCode.replace(':', '')) - Number(b.pinCode.replace(':', ''));
+            });
 
         return (
             <DrawingInspectionLogsTable
@@ -31,19 +31,19 @@ class DrawingInspectionLogContainer extends Component {
 
     handleFilterChange = e => {
         this.setState({
-            [e.target.name]: e.target.value
+            [e.target.name]: e.target.value,
         });
     };
 }
 
 const mapStateToProps = ({
     client: {
-        pinsReducer: { pins, isFetching, error }
-    }
+        pinsReducer: { pins, isFetching, error },
+    },
 }) => ({
     pins: Object.values(pins),
     isFetching: isFetching,
-    error: error
+    error: error,
 });
 
 export default connect(mapStateToProps)(DrawingInspectionLogContainer);
