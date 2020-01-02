@@ -1,9 +1,10 @@
-import React from 'react';
-import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
-import Field from 'components/shared/generic/form/presentational/Field';
-import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
-import DatePicker from 'components/shared/generic/form/presentational/DatePicker';
-import OperativesFilterContainer from '../containers/OperativesFilterContainer';
+import React from "react";
+import BlockHeading from "components/shared/generic/blockHeading/presentational/BlockHeading";
+import Field from "components/shared/generic/form/presentational/Field";
+import DropdownContainer from "components/shared/generic/form/containers/DropdownContainer";
+import DatePicker from "components/shared/generic/form/presentational/DatePicker";
+import OperativesFilterContainer from "../containers/OperativesFilterContainer";
+import TextInputContainer from "components/shared/generic/form/containers/TextInputContainer";
 
 const BasicFilters = ({
     dateError,
@@ -63,27 +64,41 @@ const BasicFilters = ({
             </Field>
             <Field name="Date range" sizeClasses="w-dates size-lg-12">
                 <div className="size-lg-5">
-                    <DatePicker
+                    {/* <DatePicker
                         name="fromDateInclusive"
                         selected={fromDateInclusive}
                         onChange={val =>
-                            handleDateChange('fromDateInclusive', val)
+                            handleDateChange("fromDateInclusive", val)
                         }
                         placeholderText="From Date"
                         onBlur={() => handleDateBlur(true)}
+                    /> */}
+                    <TextInputContainer
+                        type="date"
+                        name="fromDateInclusive"
+                        handleChange={handleChange}
+                        value={fromDateInclusive}
+                        classes="basic-date-input"
                     />
                 </div>
                 <p className="size-lg-2">to</p>
                 <div className="size-lg-5">
-                    <DatePicker
+                    {/* <DatePicker
                         name="toDateInclusive"
                         selected={toDateInclusive}
                         onChange={val =>
-                            handleDateChange('toDateInclusive', val)
+                            handleDateChange("toDateInclusive", val)
                         }
                         placeholderText="To Date"
                         onBlur={() => handleDateBlur()}
                         minDate={fromDateInclusive}
+                    /> */}
+                    <TextInputContainer
+                        type="date"
+                        name="toDateInclusive"
+                        handleChange={handleChange}
+                        value={toDateInclusive}
+                        classes="basic-date-input"
                     />
                 </div>
                 <div className="size-lg-12">
