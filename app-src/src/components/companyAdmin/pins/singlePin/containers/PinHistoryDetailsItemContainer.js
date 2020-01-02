@@ -6,18 +6,21 @@ import deletePinHistory from 'actions/companyAdmin/pins/async/deletePinHistory';
 import { CONFIRM_DELETE, CONFIRM_EDIT_PIN } from 'constants/shared/modalTypes';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
+import Loading from 'components/shared/generic/misc/presentational/Loading';
 import fetchSingleCompanyUser from 'actions/companyAdmin/userManagement/async/fetchSingleCompanyUser';
 
 class PinHistoryDetailsItemContainer extends Component {
     render() {
-        const { history, services, drawingID, historyCount, users, pin } = this.props;
+        const { history, services, drawingID, historyCount, isLoading, users, pin } = this.props;
 
         const editedByUser = users[history.lastEditedByCompanyUserID];
         const editedByUserName = editedByUser
             ? `${editedByUser.userFirstName} ${editedByUser.userLastName}`
             : null;
 
-        return (
+        return isLoading ? (
+            <Loading />
+        ) : (
             <PinHistoryDetailsItem
                 history={history}
                 services={services}
@@ -68,13 +71,14 @@ const mapStateToProps = (
         companyAdmin: {
             servicesReducer: { services },
             pinHistoriesReducer: { histories },
-            companyUsersReducer: { users },
-            pinsReducer: { singlePin }
+            pinsReducer: { singlePin, isFetching: isFetchingPin },
+            companyUsersReducer: { users }
         }
     },
     ownProps
 ) => ({
     services,
+    isFetchingPin,
     histories: Object.values(histories),
     users,
     pin: singlePin[ownProps.history.pinID]

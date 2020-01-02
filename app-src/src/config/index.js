@@ -15,7 +15,6 @@ export const REPORT_VIEWER_URL =
 
 export const STRIPE_PUBLIC_KEY = 'pk_test_QUrrYsRQKFyb1Os4ler16ke1';
 
-// use like {url}/{invoiceGUID}?id={id}
 export const INVOICE_GEN_URL =
     'https://6eixv6n0wf.execute-api.eu-west-1.amazonaws.com/staging/bolster-invoice-gen-staging';
 
