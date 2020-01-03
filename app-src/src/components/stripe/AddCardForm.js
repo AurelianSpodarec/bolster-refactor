@@ -5,7 +5,7 @@ import {
     CardNumberElement,
     CardExpiryElement,
     CardCVCElement,
-    injectStripe
+    injectStripe,
 } from 'react-stripe-elements';
 import { API_URL } from 'config';
 import { getHeaders } from '../../helpers/api';
@@ -17,15 +17,12 @@ class CheckoutForm extends Component {
     state = {
         name: '',
         errorMessage: '',
-        nameProvided: true
+        nameProvided: true,
     };
 
     constructor(props) {
         super(props);
         this.submit = this.submit.bind(this);
-
-        // ToDo: Call /cards/createintent
-        console.log('constructed');
     }
 
     submit = async ev => {
@@ -33,30 +30,28 @@ class CheckoutForm extends Component {
         ev.preventDefault();
 
         const {
-            data: { clientSecret }
+            data: { clientSecret },
         } = await axios.get(`${API_URL}/cards/createintent`, getHeaders());
 
         const { name } = this.state;
         const { close, fetchCard } = this.props;
 
-        console.log(clientSecret);
-
         this.props.stripe
             .handleCardSetup(clientSecret, {
                 payment_method_data: {
-                    billing_details: { name }
-                }
+                    billing_details: { name },
+                },
             })
             .then(result => {
                 if (result.error) {
                     // Display error.message in your UI.
                     this.setState({
-                        errorMessage: result.error.message
+                        errorMessage: result.error.message,
                     });
                 } else {
                     // The setup has succeeded. Display a success message.
                     this.setState({
-                        errorMessage: ''
+                        errorMessage: '',
                     });
                     fetchCard(result.setupIntent.payment_method);
                     close();
@@ -142,7 +137,7 @@ class CheckoutForm extends Component {
         if (!name) {
             e.preventDefault();
             this.setState({
-                nameProvided: false
+                nameProvided: false,
             });
         }
     };
@@ -156,21 +151,18 @@ const createOptions = () => {
                 color: 'black',
                 fontFamily: 'Ubuntu, sans-serif',
                 '::placeholder': {
-                    color: '#4e4e4e'
-                }
+                    color: '#4e4e4e',
+                },
             },
             invalid: {
-                color: '#c23d4b'
-            }
-        }
+                color: '#c23d4b',
+            },
+        },
     };
 };
 
 const mapDispatchToProps = {
-    fetchCard
+    fetchCard,
 };
 
-export default connect(
-    null,
-    mapDispatchToProps
-)(injectStripe(CheckoutForm));
+export default connect(null, mapDispatchToProps)(injectStripe(CheckoutForm));

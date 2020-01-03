@@ -22,14 +22,13 @@ export const fetchCompanyInvoicesByPageFailure = error => ({
     error,
 });
 
-export default (page = 1, searchTerm, limit) => dispatch => {
+export default (page = 1, searchTerm, limit = 50) => dispatch => {
     dispatch(fetchCompanyInvoicesByPageRequest());
-
+    const route = '/invoices/search';
+    let queries = `?page=${page}&limit=${limit}`;
+    if (searchTerm) queries += `&searchTerm=${searchTerm}`;
     return axios
-        .get(
-            `${ADMIN_API_URL}/invoices/search?page=${page}&limit=${limit}&searchTerm=${searchTerm}`,
-            getHeaders()
-        )
+        .get(`${ADMIN_API_URL}${route}${queries}`, getHeaders())
         .then(({ data }) => dispatch(fetchCompanyInvoicesByPageSuccess(data)))
         .catch(err => dispatch(fetchCompanyInvoicesByPageFailure(err.message)));
 };

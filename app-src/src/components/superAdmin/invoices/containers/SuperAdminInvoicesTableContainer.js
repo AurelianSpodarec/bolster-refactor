@@ -1,15 +1,29 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import moment from 'moment';
 
-import { showModal } from 'actions/shared/generic/modals/sync/showModal';
-import fetchAllInvoices from 'actions/superAdmin/invoices/async/fetchAllInvoices';
 import SuperAdminInvoicesTable from '../presentational/SuperAdminInvoicesTable';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import { INVOICE_STATUS_TYPES } from 'constants/companyAdmin/enums';
+import fetchInvoicesByPage from 'actions/superAdmin/invoices/async/fetchInvoicesByPage';
+import resetInvoices from 'actions/superAdmin/invoices/sync/resetInvoices';
+import { useThrottle } from 'helpers/hooks';
 
-const SuperAdminInvoicesTableContainer = ({ error, isFetching, invoices, companies, filters }) => {
+const SuperAdminInvoicesTableContainer = ({
+    error,
+    isFetching,
+    invoices,
+    companies,
+    filters,
+    fetchInvoicesByPage,
+    resetInvoices,
+}) => {
+    const [page, setPage] = useState(1);
+    const { searchTerm } = filters;
+
+    useThrottle(handleSearch, 500, [searchTerm]);
+
     return (
         <BlockContainer>
             <BlockHeading title="All Invoices" />
@@ -19,6 +33,7 @@ const SuperAdminInvoicesTableContainer = ({ error, isFetching, invoices, compani
                 isFetching={isFetching}
                 invoices={_filteredInvoices()}
                 companies={companies}
+                fetchNextPage={fetchNextPage}
             />
         </BlockContainer>
     );
@@ -55,6 +70,16 @@ const SuperAdminInvoicesTableContainer = ({ error, isFetching, invoices, compani
             )
             .sort((a, b) => moment(b.createdOn) - moment(a.createdOn));
     }
+
+    function fetchNextPage() {
+        fetchInvoicesByPage(page + 1, searchTerm);
+        setPage(page + 1);
+    }
+    function handleSearch() {
+        resetInvoices();
+        setPage(1);
+        fetchInvoicesByPage(1, searchTerm);
+    }
 };
 
 const mapStateToProps = ({
@@ -70,6 +95,6 @@ const mapStateToProps = ({
     isFetching: isFetching || isFetchingCompanies,
 });
 
-const mapDispatchToProps = { showModal, fetchAllInvoices };
+const mapDispatchToProps = { fetchInvoicesByPage, resetInvoices };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SuperAdminInvoicesTableContainer);

@@ -1,6 +1,7 @@
 import React from 'react';
 import Table from 'components/shared/generic/tables/presentational/Table';
 import SuperAdminInvoicesList from './SuperAdminInvoicesList';
+import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 
 const SuperAdminInvoicesTable = ({
     error,
@@ -8,7 +9,8 @@ const SuperAdminInvoicesTable = ({
     invoices,
     showModal,
     headers,
-    companies
+    companies,
+    fetchNextPage,
 }) => (
     <Table
         withActions
@@ -18,11 +20,8 @@ const SuperAdminInvoicesTable = ({
         noData={!invoices.length || !Object.values(companies).length}
         noDataMessage="No invoices to display."
     >
-        <SuperAdminInvoicesList
-            invoices={invoices}
-            showModal={showModal}
-            companies={companies}
-        />
+        <SuperAdminInvoicesList invoices={invoices} showModal={showModal} companies={companies} />
+        <ButtonContainer handleClick={fetchNextPage}>Next Page</ButtonContainer>
     </Table>
 );
 

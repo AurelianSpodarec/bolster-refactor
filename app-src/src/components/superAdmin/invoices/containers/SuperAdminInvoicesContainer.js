@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import SuperAdminInvoices from '../presentational/SuperAdminInvoices';
 import fetchAllInvoices from 'actions/superAdmin/invoices/async/fetchAllInvoices';
 import fetchAllCompanies from 'actions/superAdmin/companies/async/fetchAllCompanies';
+import fetchInvoicesByPage from 'actions/superAdmin/invoices/async/fetchInvoicesByPage';
 
 class SuperAdminInvoicesContainer extends Component {
     render = () => {
@@ -19,7 +20,9 @@ class SuperAdminInvoicesContainer extends Component {
     };
 
     componentDidMount = () => {
-        this.props.fetchInvoiceData();
+        const { fetchInvoicesByPage, fetchAllCompanies } = this.props;
+        fetchAllCompanies();
+        fetchInvoicesByPage(1);
     };
 }
 
@@ -35,12 +38,6 @@ const mapStateToProps = ({
     companies,
 });
 
-const mapDispatchToProps = dispatch => ({
-    fetchInvoiceData: () => {
-        return dispatch(fetchAllCompanies()).then(() => {
-            dispatch(fetchAllInvoices());
-        });
-    },
-});
+const mapDispatchToProps = { fetchAllCompanies, fetchAllInvoices, fetchInvoicesByPage };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SuperAdminInvoicesContainer);

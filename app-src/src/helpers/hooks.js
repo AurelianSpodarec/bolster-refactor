@@ -61,3 +61,11 @@ export function usePrevious(value) {
 
     return ref.current;
 }
+
+export function useThrottle(action, timeout = 1000, deps = []) {
+    let throttleTimeout;
+    useEffect(() => {
+        setTimeout(action, timeout);
+        return clearTimeout(throttleTimeout);
+    }, deps);
+}
