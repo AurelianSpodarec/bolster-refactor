@@ -19,7 +19,9 @@ import {
     SA_SET_IS_INVOICE_PAID_SUCCESS,
     SA_DELETE_INVOICE_FAILURE,
     SA_DELETE_INVOICE_SUCCESS,
-    SA_DELETE_INVOICE_REQUEST
+    SA_DELETE_INVOICE_REQUEST,
+    SA_FETCH_INVOICES_COUNT_SUCCESS,
+    SA_FETCH_INVOICES_BY_PAGE_SUCCESS,
 } from 'constants/actionTypes/superAdminInvoices';
 import { convertArrToObj, updateObj, removeObjItem } from 'helpers/generic';
 import { HIDE_MODAL } from 'constants/actionTypes/generic';
@@ -32,7 +34,8 @@ export default combineReducers({
     deleteSuccess: deleteSuccessReducer,
     error: errorReducer,
     postSuccess: postSuccessReducer,
-    filters: filtersReducer
+    filters: filtersReducer,
+    count: countReducer,
 });
 
 function isFetchingReducer(state = false, action) {
@@ -116,6 +119,7 @@ function invoicesReducer(state = {}, action) {
             return convertArrToObj(action.payload);
         case ADMIN_FETCH_COMPANY_INVOICES_SUCCESS:
             return { ...state, ...convertArrToObj(action.payload) };
+        case SA_FETCH_INVOICES_BY_PAGE_SUCCESS:
         case SA_DELETE_INVOICE_SUCCESS:
             return removeObjItem(state, action.id);
         default:
@@ -136,6 +140,15 @@ function filtersReducer(state = { searchTerm: '', paymentType: 0, hasPayed: '0' 
     switch (action.type) {
         case UPDATE_INVOICE_FILTERS:
             return updateObj(state, action.fieldName, action.searchTerm);
+        default:
+            return state;
+    }
+}
+
+function countReducer(state = 0, action) {
+    switch (action.type) {
+        case SA_FETCH_INVOICES_COUNT_SUCCESS:
+            return action.payload.count;
         default:
             return state;
     }

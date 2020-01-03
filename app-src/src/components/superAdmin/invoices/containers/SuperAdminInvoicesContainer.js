@@ -26,17 +26,13 @@ class SuperAdminInvoicesContainer extends Component {
 const mapStateToProps = ({
     superAdmin: {
         invoicesReducer: { isFetching, error, invoices },
-        companiesReducer: {
-            isFetching: isFetchingCompany,
-            error: companiesError,
-            companies
-        }
-    }
+        companiesReducer: { isFetching: isFetchingCompany, error: companiesError, companies },
+    },
 }) => ({
     isFetching: isFetching || isFetchingCompany,
     error: error || companiesError,
     invoices,
-    companies
+    companies,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -44,10 +40,7 @@ const mapDispatchToProps = dispatch => ({
         return dispatch(fetchAllCompanies()).then(() => {
             dispatch(fetchAllInvoices());
         });
-    }
+    },
 });
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(SuperAdminInvoicesContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(SuperAdminInvoicesContainer);

@@ -9,26 +9,12 @@ import BlockContainer from 'components/shared/generic/block/containers/BlockCont
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import { INVOICE_STATUS_TYPES } from 'constants/companyAdmin/enums';
 
-const SuperAdminInvoicesTableContainer = ({
-    error,
-    isFetching,
-    invoices,
-    companies,
-    filters
-}) => {
+const SuperAdminInvoicesTableContainer = ({ error, isFetching, invoices, companies, filters }) => {
     return (
         <BlockContainer>
             <BlockHeading title="All Invoices" />
             <SuperAdminInvoicesTable
-                headers={[
-                    'Date',
-                    'Company Name',
-                    'Order ID',
-                    'Total',
-                    'Type',
-                    'Status',
-                    ''
-                ]}
+                headers={['Date', 'Company Name', 'Order ID', 'Total', 'Type', 'Status', '']}
                 error={error}
                 isFetching={isFetching}
                 invoices={_filteredInvoices()}
@@ -74,23 +60,16 @@ const SuperAdminInvoicesTableContainer = ({
 const mapStateToProps = ({
     superAdmin: {
         invoicesReducer: { error, isFetching, invoices, filters },
-        companiesReducer: {
-            isFetching: isFetchingCompanies,
-            error: companiesError,
-            companies
-        }
-    }
+        companiesReducer: { isFetching: isFetchingCompanies, error: companiesError, companies },
+    },
 }) => ({
     companies: companies || {},
     invoices: Object.values(invoices),
     error: error || companiesError,
     filters,
-    isFetching: isFetching || isFetchingCompanies
+    isFetching: isFetching || isFetchingCompanies,
 });
 
 const mapDispatchToProps = { showModal, fetchAllInvoices };
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(SuperAdminInvoicesTableContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(SuperAdminInvoicesTableContainer);
