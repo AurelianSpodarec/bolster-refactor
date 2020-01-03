@@ -5,6 +5,7 @@ import DropdownContainer from "components/shared/generic/form/containers/Dropdow
 import DatePicker from "components/shared/generic/form/presentational/DatePicker";
 import OperativesFilterContainer from "../containers/OperativesFilterContainer";
 import TextInputContainer from "components/shared/generic/form/containers/TextInputContainer";
+import DatePickerContainer from "components/shared/generic/form/containers/DatePickerContainer";
 
 const BasicFilters = ({
     dateError,
@@ -64,7 +65,7 @@ const BasicFilters = ({
             </Field>
             <Field name="Date range" sizeClasses="w-dates size-lg-12">
                 <div className="size-lg-5">
-                    {/* <DatePicker
+                    <DatePickerContainer
                         name="fromDateInclusive"
                         selected={fromDateInclusive}
                         onChange={val =>
@@ -72,18 +73,11 @@ const BasicFilters = ({
                         }
                         placeholderText="From Date"
                         onBlur={() => handleDateBlur(true)}
-                    /> */}
-                    <TextInputContainer
-                        type="date"
-                        name="fromDateInclusive"
-                        handleChange={handleChange}
-                        value={fromDateInclusive}
-                        classes="basic-date-input"
                     />
                 </div>
                 <p className="size-lg-2">to</p>
                 <div className="size-lg-5">
-                    {/* <DatePicker
+                    <DatePickerContainer
                         name="toDateInclusive"
                         selected={toDateInclusive}
                         onChange={val =>
@@ -92,13 +86,6 @@ const BasicFilters = ({
                         placeholderText="To Date"
                         onBlur={() => handleDateBlur()}
                         minDate={fromDateInclusive}
-                    /> */}
-                    <TextInputContainer
-                        type="date"
-                        name="toDateInclusive"
-                        handleChange={handleChange}
-                        value={toDateInclusive}
-                        classes="basic-date-input"
                     />
                 </div>
                 <div className="size-lg-12">

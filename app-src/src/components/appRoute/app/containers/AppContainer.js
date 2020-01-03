@@ -6,6 +6,7 @@ import { withRouter } from "react-router-dom";
 import App from "../presentational/App";
 
 import setMobileWidth from "actions/shared/generic/mobile/sync/setMobileWidth";
+import setIsIE10 from "actions/shared/generic/ieDetection/sync/setIsIE10";
 
 class AppContainer extends Component {
     render() {
@@ -14,11 +15,8 @@ class AppContainer extends Component {
     componentDidMount = () => {
         this.checkMobileWidth();
         window.addEventListener("resize", this.checkMobileWidth);
-        console.log(this.isIE10());
-        console.log(this.isIE10());
-        console.log(this.isIE10());
-        console.log(this.isIE10());
-        console.log(this.isIE10());
+
+        this.isIE10();
     };
 
     //effects onMobile reducer
@@ -33,19 +31,20 @@ class AppContainer extends Component {
     }, 1000);
 
     isIE10 = () => {
-        let isIE10 = false;
-        /*@cc_on
-            if (/^10/.test(@_jscript_version)) {
-                isIE10 = true;
-            }
-        @*/
+        const { setIsIE10 } = this.props;
+        var ua = window.navigator.userAgent;
+        var msie = ua.indexOf("MSIE ");
 
-        return isIE10;
+        // IE 10 or older
+        if (msie > 0) {
+            setIsIE10(true);
+        }
     };
 }
 
 const mapDispatchToProps = dispatch => ({
-    setMobileWidth: isMobile => dispatch(setMobileWidth(isMobile))
+    setMobileWidth: isMobile => dispatch(setMobileWidth(isMobile)),
+    setIsIE10: isIE10 => dispatch(setIsIE10(isIE10))
 });
 
 export default withRouter(connect(null, mapDispatchToProps)(AppContainer));
