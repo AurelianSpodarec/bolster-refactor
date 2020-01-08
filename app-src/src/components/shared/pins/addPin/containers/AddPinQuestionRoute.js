@@ -258,8 +258,8 @@ class AddPinQuestionRoute extends Component {
             if (oldAnswer) {
                 const { templateQuestionID, answer } = oldAnswer;
                 updateAddPinAnswer(templateQuestionID, answer);
-                if(question.type + '' === MULTI_DROPDOWN_OPTIONS ||
-                 question.type + '' === MULTI_MULTI_DROPDOWN_OPTIONS) {
+                if (question.type + '' === MULTI_DROPDOWN_OPTIONS ||
+                    question.type + '' === MULTI_MULTI_DROPDOWN_OPTIONS) {
                     this.setState({originalDropdownMultiAns: answer});
                 }
                 if (question.type + '' === DROPDOWN_OPTIONS) {

@@ -43,9 +43,9 @@ const mapStateToProps = ({
     },
 }) => ({
     pins: Object.values(pins),
-    isFetching,
     error,
     onMobile,
+    isFetching,
 });
 
 export default withUpdateOnChange(connect(mapStateToProps)(PinInspectionLogContainer));

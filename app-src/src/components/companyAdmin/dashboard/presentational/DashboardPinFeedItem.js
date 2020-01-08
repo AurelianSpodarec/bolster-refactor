@@ -38,7 +38,8 @@ const DashboardPinFeedItem = ({ pin }) => {
                         marginLeft: '10px',
                         marginBottom: '5px',
                         marginTop: '-12px',
-                        top: '6px'
+                        top: '6px',
+                        height:'30px'
                     }}
                 />
                 <span style={{ float: 'left', width: '100%' }}>

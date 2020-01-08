@@ -25,32 +25,16 @@ const SelectPinScaleModal = ({
             />
             <div className="pins-container">
                 <div style={{ top: '20%', left: '20%' }} className="pin">
-                    <img
-                        alt="pin for scale"
-                        src={RedPin}
-                        style={{ height: `${100 * scale}%` }}
-                    />
+                    <img alt="pin for scale" src={RedPin} style={{ height: `${100 * scale}%` }} />
                 </div>
                 <div style={{ top: '20%', left: '75%' }} className="pin">
-                    <img
-                        alt="pin for scale"
-                        src={RedPin}
-                        style={{ height: `${100 * scale}%` }}
-                    />
+                    <img alt="pin for scale" src={RedPin} style={{ height: `${100 * scale}%` }} />
                 </div>
                 <div style={{ top: '12%', left: '50%' }} className="pin">
-                    <img
-                        alt="pin for scale"
-                        src={RedPin}
-                        style={{ height: `${100 * scale}%` }}
-                    />
+                    <img alt="pin for scale" src={RedPin} style={{ height: `${100 * scale}%` }} />
                 </div>
                 <div style={{ top: '50%', left: '30%' }} className="pin">
-                    <img
-                        alt="pin for scale"
-                        src={RedPin}
-                        style={{ height: `${100 * scale}%` }}
-                    />
+                    <img alt="pin for scale" src={RedPin} style={{ height: `${100 * scale}%` }} />
                 </div>
             </div>
 
@@ -61,8 +45,8 @@ const SelectPinScaleModal = ({
                     type="range"
                     value={scale}
                     list="tickmarks"
-                    min={0.4}
-                    max={1.6}
+                    min={0.2}
+                    max={0.8}
                     step={0.1}
                     onChange={handleUpdatePinScale}
                 />

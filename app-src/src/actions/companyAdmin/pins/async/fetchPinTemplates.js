@@ -25,7 +25,7 @@ export const fetchPinTemplatesFailure = error => ({
 export default id => dispatch => {
     dispatch(fetchPinTemplatesRequest());
 
-    axios
+    return axios
         .get(`${API_URL}/pins/${id}/templates`, getHeaders())
         .then(res => dispatch(fetchPinTemplatesSuccess(res.data)))
         .catch(err => dispatch(fetchPinTemplatesFailure(err.message)));
