@@ -65,7 +65,8 @@ export function usePrevious(value) {
 export function useThrottle(action, timeout = 1000, deps = []) {
     let throttleTimeout;
     useEffect(() => {
-        setTimeout(action, timeout);
-        return clearTimeout(throttleTimeout);
+        clearTimeout(throttleTimeout);
+        throttleTimeout = setTimeout(action, timeout);
+        return () => clearTimeout(throttleTimeout);
     }, deps);
 }
