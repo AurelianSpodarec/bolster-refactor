@@ -5,22 +5,24 @@ import moment from 'moment';
 import SuperAdminInvoicesTable from '../presentational/SuperAdminInvoicesTable';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
-import { INVOICE_STATUS_TYPES } from 'constants/companyAdmin/enums';
+import { INVOICE_STATUS_TYPES, HAS_PAID_QUERIES } from 'constants/companyAdmin/enums';
 import fetchInvoicesByPage from 'actions/superAdmin/invoices/async/fetchInvoicesByPage';
 import resetInvoices from 'actions/superAdmin/invoices/sync/resetInvoices';
 import { useThrottle } from 'helpers/hooks';
+import { withRouter } from 'react-router-dom';
 
 const SuperAdminInvoicesTableContainer = ({
     error,
     isFetching,
     invoices,
+    count,
     companies,
     filters,
     fetchInvoicesByPage,
     resetInvoices,
 }) => {
     const [page, setPage] = useState(1);
-    const { searchTerm } = filters;
+    const { searchTerm, hasPayed } = filters;
 
     useThrottle(handleSearch, 500, [searchTerm]);
 
@@ -76,20 +78,22 @@ const SuperAdminInvoicesTableContainer = ({
         setPage(page + 1);
     }
     function handleSearch() {
+        const hasPaidQuery = HAS_PAID_QUERIES[hasPayed];
         resetInvoices();
         setPage(1);
-        fetchInvoicesByPage(1, searchTerm);
+        fetchInvoicesByPage(1, searchTerm, hasPaidQuery);
     }
 };
 
 const mapStateToProps = ({
     superAdmin: {
-        invoicesReducer: { error, isFetching, invoices, filters },
+        invoicesReducer: { error, isFetching, invoices, filters, count },
         companiesReducer: { isFetching: isFetchingCompanies, error: companiesError, companies },
     },
 }) => ({
     companies: companies || {},
     invoices: Object.values(invoices),
+    count,
     error: error || companiesError,
     filters,
     isFetching: isFetching || isFetchingCompanies,
@@ -97,4 +101,6 @@ const mapStateToProps = ({
 
 const mapDispatchToProps = { fetchInvoicesByPage, resetInvoices };
 
-export default connect(mapStateToProps, mapDispatchToProps)(SuperAdminInvoicesTableContainer);
+export default withRouter(
+    connect(mapStateToProps, mapDispatchToProps)(SuperAdminInvoicesTableContainer)
+);
