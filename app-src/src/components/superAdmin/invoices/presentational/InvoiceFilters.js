@@ -1,13 +1,13 @@
-import React from "react";
-import Search from "components/shared/generic/form/presentational/Search";
-import Dropdown from "components/shared/generic/form/presentational/Dropdown";
+import React from 'react';
+import Search from 'components/shared/generic/form/presentational/Search';
+import Dropdown from 'components/shared/generic/form/presentational/Dropdown';
 
 const InvoiceFilters = ({
     searchTerm,
     handleChange,
     hasPayedOptions,
     hasPayedOptionSelected,
-    handleSearch
+    handleSearch,
 }) => (
     <form className="table-search size-lg-12">
         <Search
