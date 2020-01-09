@@ -19,9 +19,12 @@ const SuperAdminInvoicesTableContainer = ({
     filters,
     fetchInvoicesBySearch,
     resetInvoices,
+    count,
 }) => {
+    const PAGE_SIZE = 50;
     const [page, setPage] = useState(1);
     const { searchTerm, hasPayed } = filters;
+    const pageCount = Math.floor(count / PAGE_SIZE);
 
     useThrottle(handleSearch, 500, [searchTerm]);
 
@@ -35,6 +38,10 @@ const SuperAdminInvoicesTableContainer = ({
                 invoices={_filteredInvoices()}
                 companies={companies}
                 fetchNextPage={fetchNextPage}
+                fetchPrevPage={fetchPrevPage}
+                pageCount={pageCount}
+                count={count}
+                page={page}
             />
         </BlockContainer>
     );
@@ -72,6 +79,11 @@ const SuperAdminInvoicesTableContainer = ({
             .sort((a, b) => moment(b.createdOn) - moment(a.createdOn));
     }
 
+    function fetchPrevPage() {
+        const hasPaidQuery = HAS_PAID_QUERIES[hasPayed];
+        fetchInvoicesBySearch(page - 1, searchTerm, hasPaidQuery);
+        setPage(page - 1);
+    }
     function fetchNextPage() {
         const hasPaidQuery = HAS_PAID_QUERIES[hasPayed];
         fetchInvoicesBySearch(page + 1, searchTerm, hasPaidQuery);

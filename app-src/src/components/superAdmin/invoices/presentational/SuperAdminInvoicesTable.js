@@ -11,6 +11,9 @@ const SuperAdminInvoicesTable = ({
     headers,
     companies,
     fetchNextPage,
+    page,
+    count,
+    pageCount,
 }) => (
     <Table
         withActions
@@ -21,7 +24,13 @@ const SuperAdminInvoicesTable = ({
         noDataMessage="No invoices to display."
     >
         <SuperAdminInvoicesList invoices={invoices} showModal={showModal} companies={companies} />
-        <ButtonContainer handleClick={fetchNextPage}>Next Page</ButtonContainer>
+        {page > 1 && <ButtonContainer>Previous</ButtonContainer>}
+        <p>
+            page {page} of {pageCount}
+        </p>
+        {page < pageCount && (
+            <ButtonContainer handleClick={fetchNextPage}>Next Page</ButtonContainer>
+        )}
     </Table>
 );
 
