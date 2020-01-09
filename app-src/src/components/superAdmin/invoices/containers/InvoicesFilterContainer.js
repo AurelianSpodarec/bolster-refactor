@@ -3,6 +3,7 @@ import updateInvoiceFilters from 'actions/superAdmin/invoices/sync/updateInvoice
 import { connect } from 'react-redux';
 import InvoiceFilters from '../presentational/InvoiceFilters';
 import fetchInvoicesBySearch from 'actions/superAdmin/invoices/async/fetchInvoicesBySearch';
+import { HAS_PAID_QUERIES } from 'constants/companyAdmin/enums';
 
 const invoicesFiltersContainer = ({
     filters: { searchTerm, hasPayed },
@@ -30,8 +31,9 @@ const invoicesFiltersContainer = ({
     }
 
     function handleSearch(name, value) {
+        const hasPaidQuery = HAS_PAID_QUERIES[hasPayed];
         updateInvoiceFilters(name, value);
-        fetchInvoicesBySearch(1, value);
+        fetchInvoicesBySearch(1, value, hasPaidQuery);
     }
 };
 
