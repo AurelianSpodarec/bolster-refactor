@@ -127,10 +127,26 @@ function invoicesReducer(state = {}, action) {
         case SA_FETCH_ALL_INVOICES_SUCCESS:
             return convertArrToObj(action.payload);
         case ADMIN_FETCH_COMPANY_INVOICES_SUCCESS:
-        case SA_FETCH_INVOICES_BY_PAGE_SUCCESS:
             return { ...state, ...convertArrToObj(action.payload) };
+        case SA_FETCH_INVOICES_BY_PAGE_SUCCESS:
+            return {
+                ...state,
+                ...convertArrToObj(action.payload.invoices),
+            };
         case SA_DELETE_INVOICE_SUCCESS:
             return removeObjItem(state, action.id);
+        default:
+            return state;
+    }
+}
+
+function countReducer(state = 0, action) {
+    switch (action.type) {
+        case SA_FETCH_ALL_INVOICES_SUCCESS:
+            return action.payload.length;
+        case SA_FETCH_INVOICES_BY_PAGE_SUCCESS:
+        case SA_FETCH_INVOICES_COUNT_SUCCESS:
+            return action.payload.count;
         default:
             return state;
     }
@@ -149,15 +165,6 @@ function filtersReducer(state = { searchTerm: '', paymentType: 0, hasPayed: '0' 
     switch (action.type) {
         case UPDATE_INVOICE_FILTERS:
             return updateObj(state, action.fieldName, action.searchTerm);
-        default:
-            return state;
-    }
-}
-
-function countReducer(state = 0, action) {
-    switch (action.type) {
-        case SA_FETCH_INVOICES_COUNT_SUCCESS:
-            return action.payload.count;
         default:
             return state;
     }
