@@ -28,7 +28,8 @@ const invoicesFiltersContainer = ({
 
     function handleChange(name, value) {
         updateInvoiceFilters(name, value);
-        fetchInvoicesBySearch(1, searchTerm, value);
+        const hasPaidQuery = HAS_PAID_QUERIES[value];
+        fetchInvoicesBySearch(1, searchTerm, hasPaidQuery);
     }
 
     function handleSearch(name, value) {

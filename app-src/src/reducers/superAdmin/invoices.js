@@ -21,9 +21,9 @@ import {
     SA_DELETE_INVOICE_SUCCESS,
     SA_DELETE_INVOICE_REQUEST,
     SA_FETCH_INVOICES_COUNT_SUCCESS,
-    SA_FETCH_INVOICES_BY_PAGE_SUCCESS,
-    SA_FETCH_INVOICES_BY_PAGE_FAILURE,
-    SA_FETCH_INVOICES_BY_PAGE_REQUEST,
+    SA_FETCH_INVOICES_BY_SEARCH_SUCCESS,
+    SA_FETCH_INVOICES_BY_SEARCH_FAILURE,
+    SA_FETCH_INVOICES_BY_SEARCH_REQUEST,
     SA_RESET_INVOICES,
 } from 'constants/actionTypes/superAdminInvoices';
 import { convertArrToObj, updateObj, removeObjItem } from 'helpers/generic';
@@ -45,15 +45,15 @@ function isFetchingReducer(state = false, action) {
     switch (action.type) {
         case SA_FETCH_ALL_INVOICES_REQUEST:
         case ADMIN_FETCH_COMPANY_INVOICES_REQUEST:
-        case SA_FETCH_INVOICES_BY_PAGE_REQUEST:
+        case SA_FETCH_INVOICES_BY_SEARCH_REQUEST:
             return true;
         case SA_FETCH_ALL_INVOICES_SUCCESS:
         case ADMIN_FETCH_COMPANY_INVOICES_SUCCESS:
         case ADMIN_FETCH_COMPANY_INVOICES_FAILURE:
         case ADMIN_FETCH_COMPANY_INVOICE_ITEMS_FAILURE:
         case ADMIN_FETCH_COMPANY_INVOICE_ITEMS_SUCCESS:
-        case SA_FETCH_INVOICES_BY_PAGE_FAILURE:
-        case SA_FETCH_INVOICES_BY_PAGE_SUCCESS:
+        case SA_FETCH_INVOICES_BY_SEARCH_FAILURE:
+        case SA_FETCH_INVOICES_BY_SEARCH_SUCCESS:
             return false;
         default:
             return state;
@@ -88,7 +88,7 @@ function errorReducer(state = null, action) {
         case ADMIN_FETCH_COMPANY_INVOICE_ITEMS_FAILURE:
         case SA_SET_IS_INVOICE_PAID_FAILURE:
         case SA_DELETE_INVOICE_FAILURE:
-        case SA_FETCH_INVOICES_BY_PAGE_FAILURE:
+        case SA_FETCH_INVOICES_BY_SEARCH_FAILURE:
             return action.error;
         default:
             return state;
@@ -128,7 +128,7 @@ function invoicesReducer(state = {}, action) {
             return convertArrToObj(action.payload);
         case ADMIN_FETCH_COMPANY_INVOICES_SUCCESS:
             return { ...state, ...convertArrToObj(action.payload) };
-        case SA_FETCH_INVOICES_BY_PAGE_SUCCESS:
+        case SA_FETCH_INVOICES_BY_SEARCH_SUCCESS:
             return {
                 ...state,
                 ...convertArrToObj(action.payload.invoices),
@@ -144,7 +144,7 @@ function countReducer(state = 0, action) {
     switch (action.type) {
         case SA_FETCH_ALL_INVOICES_SUCCESS:
             return action.payload.length;
-        case SA_FETCH_INVOICES_BY_PAGE_SUCCESS:
+        case SA_FETCH_INVOICES_BY_SEARCH_SUCCESS:
         case SA_FETCH_INVOICES_COUNT_SUCCESS:
             return action.payload.count;
         default:
