@@ -2006,6 +2006,11 @@ input {
     }
 }
 
+.basic-date-input{
+    padding: 3.5px 10px;
+
+}
+
 .hex-box {
     float: left;
     width: 35px;
@@ -2787,6 +2792,7 @@ input {
                 float: left;
                 width: 24px;
                 margin-right: 10px;
+                max-height:40px;
             }
 
             p {
@@ -3209,6 +3215,7 @@ input {
         top: 11px;
         left: 15px;
         width: 16px;
+        max-height: 27px;
     }
 
     tr {
@@ -5199,7 +5206,9 @@ input {
     bottom: 55px !important;
     right: 40px !important;
 }
-
+.css-k7cd9d {
+    display: none;
+}
 // force scrollbar visible on chrome
 .always-scrollbar {
     overflow-y: auto;

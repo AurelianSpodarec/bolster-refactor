@@ -70,7 +70,7 @@ function filtersReducer(
         toDateInclusive: undefined,
         companyUserIDs: [],
         pinIDs: [],
-        floorplanPinScale: 1
+        floorplanPinScale: 0.5
     },
     action
 ) {
@@ -99,7 +99,7 @@ function filtersReducer(
                 toDateInclusive: undefined,
                 companyUserIDs: [],
                 pinIDs: [],
-                floorplanPinScale: 1
+                floorplanPinScale: 0.5
             };
         default:
             return state;
@@ -167,10 +167,7 @@ function isFetchingReducer(state = false, action) {
     }
 }
 
-function customFiltersReducer(
-    state = { operatives: [], pins: [], questions: [] },
-    action
-) {
+function customFiltersReducer(state = { operatives: [], pins: [], questions: [] }, action) {
     switch (action.type) {
         case CLIENT_FETCH_PINS_SUCCESS:
             return { ...state, pins: action.payload };

@@ -1,15 +1,15 @@
-import React from 'react';
+import React from "react";
 
-import SubmitContainer from 'components/shared/generic/form/containers/SubmitContainer.js';
-import Form from 'components/shared/generic/form/containers/Form';
-import Field from 'components/shared/generic/form/presentational/Field';
-import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
-import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
-import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
-import FileUploadContainer from 'components/shared/generic/form/containers/FileUploadContainer';
-import TextAreaContainer from 'components/shared/generic/form/containers/TextAreaContainer';
-import DatePickerPresentational from 'components/shared/generic/form/presentational/DatePicker';
-import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
+import SubmitContainer from "components/shared/generic/form/containers/SubmitContainer.js";
+import Form from "components/shared/generic/form/containers/Form";
+import Field from "components/shared/generic/form/presentational/Field";
+import TextInputContainer from "components/shared/generic/form/containers/TextInputContainer";
+import BlockButtonWrapper from "components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper";
+import ButtonContainer from "components/shared/generic/button/containers/ButtonContainer";
+import FileUploadContainer from "components/shared/generic/form/containers/FileUploadContainer";
+import TextAreaContainer from "components/shared/generic/form/containers/TextAreaContainer";
+import DatePickerPresentational from "components/shared/generic/form/presentational/DatePicker";
+import CheckboxContainer from "components/shared/generic/form/containers/CheckboxContainer";
 
 // * .*. in names is used for splitting up field validations without risking overlap with real names
 
@@ -30,7 +30,11 @@ const AddDrawingsForm = ({
                 {drawings.map((drawing, i) => (
                     <div className="size-lg-12" key={drawing.id}>
                         <div
-                            className={isUsingBolsterLabels ? 'size-lg-6 size-md-12' : 'size-lg-12'}
+                            className={
+                                isUsingBolsterLabels
+                                    ? "size-lg-6 size-md-12"
+                                    : "size-lg-12"
+                            }
                         >
                             <div className="size-lg-12" key={drawing.id}>
                                 <Field name="Drawing name" required>
@@ -38,7 +42,11 @@ const AddDrawingsForm = ({
                                         name={`${drawing.id}.*.name`}
                                         value={drawing.name}
                                         handleChange={(name, value) =>
-                                            updateDrawing(name, value, drawing.id)
+                                            updateDrawing(
+                                                name,
+                                                value,
+                                                drawing.id
+                                            )
                                         }
                                         required
                                     />
@@ -50,14 +58,21 @@ const AddDrawingsForm = ({
                                         value={drawing.file}
                                         required
                                         name={`${drawing.id}.*.file`}
-                                        acceptedTypes={['application/pdf', 'image/*']}
+                                        acceptedTypes={[
+                                            "application/pdf",
+                                            "image/*"
+                                        ]}
                                         handleChange={(name, value) => {
-                                            updateDrawing(name, value, drawing.id);
+                                            updateDrawing(
+                                                name,
+                                                value,
+                                                drawing.id
+                                            );
                                         }}
                                     />
                                     <p className="size-lg-12">
-                                        This can be changed free of charge for 24 hours after
-                                        creation.
+                                        This can be changed free of charge for
+                                        24 hours after creation.
                                     </p>
                                 </Field>
                             </div>
@@ -70,7 +85,11 @@ const AddDrawingsForm = ({
                                             name={`${drawing.id}.*.isAlertShowing`}
                                             text=""
                                             handleChange={(name, value) =>
-                                                updateDrawing(name, value, drawing.id)
+                                                updateDrawing(
+                                                    name,
+                                                    value,
+                                                    drawing.id
+                                                )
                                             }
                                         />
                                     </Field>
@@ -85,7 +104,11 @@ const AddDrawingsForm = ({
                                                 value={drawing.message}
                                                 name={`${drawing.id}.*.message`}
                                                 handleChange={(name, value) =>
-                                                    updateDrawing(name, value, drawing.id)
+                                                    updateDrawing(
+                                                        name,
+                                                        value,
+                                                        drawing.id
+                                                    )
                                                 }
                                             />
                                         </Field>
@@ -135,18 +158,28 @@ const AddDrawingsForm = ({
                 ))}
             </div>
             <BlockButtonWrapper>
-                <button className="button blue left" type="button" onClick={addDrawing}>
+                <button
+                    className="button blue left"
+                    type="button"
+                    onClick={addDrawing}
+                >
                     <i className="fa fa-plus" /> Add another drawing
                 </button>
                 {hasEnoughCredits ? (
-                    <SubmitContainer withPlus text={'Submit'} />
+                    <SubmitContainer withPlus text={"Submit"} />
                 ) : (
-                    <button className="button red" type="button" onClick={() => {}}>
+                    <button
+                        className="button red"
+                        type="button"
+                        onClick={() => {}}
+                    >
                         <i className="fa fa-times" />
                         Not enough credits
                     </button>
                 )}
-                <ButtonContainer handleClick={handleClose}>Cancel</ButtonContainer>
+                <ButtonContainer handleClick={handleClose}>
+                    Cancel
+                </ButtonContainer>
             </BlockButtonWrapper>
         </Form>
     );
