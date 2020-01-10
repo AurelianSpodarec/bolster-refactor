@@ -1,9 +1,9 @@
-import React from 'react';
+import React from "react";
 
-import Roles from './Roles';
-import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
-import { DATE_TIME_IDS } from 'constants/companyAdmin/enums';
-import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
+import Roles from "./Roles";
+import DateTimeContainer from "components/shared/dateTime/containers/DateTimeContainer";
+import { DATE_TIME_IDS } from "constants/companyAdmin/enums";
+import BlockButtonWrapper from "components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper";
 
 const UserListItem = ({
     user,
@@ -14,7 +14,9 @@ const UserListItem = ({
         <td>{`${user.firstName} ${user.lastName}`}</td>
         <td>{user.email}</td>
         <td>{user.phoneNumber}</td>
+
         <Roles roles={user.roles} />
+        <td>##Silverchip##</td>
         <td>
             <DateTimeContainer
                 date={user.createdOn}

@@ -1,17 +1,18 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import UserTable from '../presentational/UserTable';
+import React from "react";
+import { connect } from "react-redux";
+import UserTable from "../presentational/UserTable";
 
 const UserTableContainer = ({ isFetching, error, users, filters }) => {
     return (
         <UserTable
             headers={[
-                'Name',
-                'Email Address',
-                'Phone Number',
-                'Role',
-                'Created On',
-                ''
+                "Name",
+                "Email Address",
+                "Phone Number",
+                "Role",
+                "Access Granted by",
+                "Created On",
+                ""
             ]}
             isFetching={isFetching}
             error={error}
