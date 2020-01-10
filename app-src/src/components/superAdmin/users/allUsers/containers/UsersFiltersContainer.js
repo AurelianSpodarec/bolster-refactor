@@ -25,7 +25,6 @@ const UsersFiltersContainer = ({
     );
 
     function handleChange(name, value) {
-        console.log({ name, value });
         const didEmailChange = name === 'email';
         const didRoleChange = name === 'role';
         const newEmail = didEmailChange ? value : email;
