@@ -7,9 +7,6 @@ import BlockContainer from 'components/shared/generic/block/containers/BlockCont
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import { INVOICE_STATUS_TYPES, HAS_PAID_QUERIES } from 'constants/companyAdmin/enums';
 import fetchInvoicesBySearch from 'actions/superAdmin/invoices/async/fetchInvoicesBySearch';
-import resetInvoices from 'actions/superAdmin/invoices/sync/resetInvoices';
-import { useThrottle } from 'helpers/hooks';
-import { withRouter } from 'react-router-dom';
 import updateInvoiceFilter from 'actions/superAdmin/invoices/sync/updateInvoiceFilter';
 import PageSelector from 'components/shared/pagination/presentational/pageSelector';
 
@@ -20,15 +17,12 @@ const SuperAdminInvoicesTableContainer = ({
     companies,
     filters,
     fetchInvoicesBySearch,
-    resetInvoices,
     count,
     updateInvoiceFilter,
 }) => {
     const PAGE_SIZE = 50;
     const { searchTerm, hasPayed, page } = filters;
     const pageCount = Math.ceil(count / PAGE_SIZE);
-
-    useThrottle(handleSearch, 500, [searchTerm]);
 
     return (
         <BlockContainer>
@@ -41,8 +35,6 @@ const SuperAdminInvoicesTableContainer = ({
                 isFetching={isFetching}
                 invoices={_filteredInvoices()}
                 companies={companies}
-                fetchNextPage={fetchNextPage}
-                fetchPrevPage={fetchPrevPage}
                 pageCount={pageCount}
                 count={count}
                 page={page}
@@ -83,19 +75,9 @@ const SuperAdminInvoicesTableContainer = ({
             .sort((a, b) => moment(b.createdOn) - moment(a.createdOn));
     }
 
-    function fetchPrevPage() {
-        setPage(page - 1);
-    }
-    function fetchNextPage() {
-        setPage(page + 1);
-    }
-    function handleSearch() {
-        resetInvoices();
-        setPage(1);
-    }
     function setPage(nextPage) {
         const hasPaidQuery = HAS_PAID_QUERIES[hasPayed];
-        fetchInvoicesBySearch(nextPage, searchTerm, hasPaidQuery);
+        fetchInvoicesBySearch(nextPage, searchTerm, hasPaidQuery, PAGE_SIZE);
         updateInvoiceFilter('page', nextPage);
     }
 };
@@ -114,8 +96,6 @@ const mapStateToProps = ({
     isFetching: isFetching || isFetchingCompanies,
 });
 
-const mapDispatchToProps = { fetchInvoicesBySearch, resetInvoices, updateInvoiceFilter };
+const mapDispatchToProps = { fetchInvoicesBySearch, updateInvoiceFilter };
 
-export default withRouter(
-    connect(mapStateToProps, mapDispatchToProps)(SuperAdminInvoicesTableContainer)
-);
+export default connect(mapStateToProps, mapDispatchToProps)(SuperAdminInvoicesTableContainer);
