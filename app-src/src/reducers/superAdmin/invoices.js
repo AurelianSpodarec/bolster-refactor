@@ -158,7 +158,10 @@ function invoiceItemsReducer(state = {}, action) {
     }
 }
 
-function filtersReducer(state = { searchTerm: '', paymentType: 0, hasPayed: '0' }, action) {
+function filtersReducer(
+    state = { searchTerm: '', paymentType: 0, hasPayed: '0', page: 1 },
+    action
+) {
     switch (action.type) {
         case UPDATE_INVOICE_FILTERS:
             return updateObj(state, action.fieldName, action.searchTerm);
