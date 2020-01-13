@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import SuperAdminInvoices from '../presentational/SuperAdminInvoices';
 import fetchAllInvoices from 'actions/superAdmin/invoices/async/fetchAllInvoices';
 import fetchAllCompanies from 'actions/superAdmin/companies/async/fetchAllCompanies';
+import fetchInvoicesBySearch from 'actions/superAdmin/invoices/async/fetchInvoicesBySearch';
 
 class SuperAdminInvoicesContainer extends Component {
     render = () => {
@@ -19,35 +20,24 @@ class SuperAdminInvoicesContainer extends Component {
     };
 
     componentDidMount = () => {
-        this.props.fetchInvoiceData();
+        const { fetchInvoicesBySearch, fetchAllCompanies } = this.props;
+        fetchAllCompanies();
+        fetchInvoicesBySearch(1);
     };
 }
 
 const mapStateToProps = ({
     superAdmin: {
         invoicesReducer: { isFetching, error, invoices },
-        companiesReducer: {
-            isFetching: isFetchingCompany,
-            error: companiesError,
-            companies
-        }
-    }
+        companiesReducer: { isFetching: isFetchingCompany, error: companiesError, companies },
+    },
 }) => ({
     isFetching: isFetching || isFetchingCompany,
     error: error || companiesError,
     invoices,
-    companies
+    companies,
 });
 
-const mapDispatchToProps = dispatch => ({
-    fetchInvoiceData: () => {
-        return dispatch(fetchAllCompanies()).then(() => {
-            dispatch(fetchAllInvoices());
-        });
-    }
-});
+const mapDispatchToProps = { fetchAllCompanies, fetchAllInvoices, fetchInvoicesBySearch };
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(SuperAdminInvoicesContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(SuperAdminInvoicesContainer);
