@@ -1,48 +1,63 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import UserTable from '../presentational/UserTable';
+import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
+import PageSelector from 'components/shared/pagination/presentational/pageSelector';
+import fetchUsersBySearch from 'actions/superAdmin/users/async/fetchUsersBySearch';
+import updateUsersFilters from 'actions/superAdmin/users/sync/updateUsersFilter';
 
-const UserTableContainer = ({ isFetching, error, users, filters }) => {
+const UserTableContainer = ({
+    isFetching,
+    error,
+    users,
+    fetchUsersBySearch,
+    updateUsersFilters,
+    filters: { role, email, page },
+    count,
+}) => {
+    const PAGE_SIZE = 50;
+    const maxPage = Math.ceil(count / PAGE_SIZE);
     return (
-        <UserTable
-            headers={[
-                'Name',
-                'Email Address',
-                'Phone Number',
-                'Role',
-                'Created On',
-                ''
-            ]}
-            isFetching={isFetching}
-            error={error}
-            users={_getFilteredUsers()}
-        />
+        <>
+            <BlockHeading title="Users">
+                <PageSelector setPage={setPage} page={page} maxPage={maxPage} />
+            </BlockHeading>
+            <UserTable
+                headers={['Name', 'Email Address', 'Phone Number', 'Role', 'Created On', '']}
+                isFetching={isFetching}
+                error={error}
+                users={_getFilteredUsers()}
+            />
+        </>
     );
 
     function _getFilteredUsers() {
-        const { role, email } = filters;
         return users.filter(
             user =>
-                (!role ||
-                    (user.roles &&
-                        user.roles.find(
-                            ({ type }) => String(type) === role
-                        ))) &&
+                (!role || (user.roles && user.roles.find(({ type }) => String(type) === role))) &&
                 user.email &&
                 user.email.toLowerCase().includes(email.toLowerCase())
         );
+    }
+
+    function setPage(nextPage) {
+        fetchUsersBySearch(nextPage, email, role, PAGE_SIZE);
+        updateUsersFilters('page', nextPage);
     }
 };
 
 const mapStateToProps = ({
     superAdmin: {
-        usersReducer: { isFetching, error, users, filters }
-    }
+        usersReducer: { isFetching, error, users, filters, count },
+    },
 }) => ({
     isFetching,
     error,
     users: Object.values(users),
-    filters
+    filters,
+    count,
 });
 
-export default connect(mapStateToProps)(UserTableContainer);
+const mapDispatchToProps = { fetchUsersBySearch, updateUsersFilters };
+
+export default connect(mapStateToProps, mapDispatchToProps)(UserTableContainer);

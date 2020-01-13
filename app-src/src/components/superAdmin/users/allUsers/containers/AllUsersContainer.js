@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import fetchAllUsers from 'actions/superAdmin/users/async/fetchAllUsers';
 import AllUsers from '../presentational/AllUsers';
+import fetchUsersBySearch from 'actions/superAdmin/users/async/fetchUsersBySearch';
 
 class AllUsersContainer extends Component {
     render = () => <AllUsers />;
 
-    componentDidMount = () => this.props.fetchAllUsers();
+    componentDidMount = () => {
+        const { fetchUsersBySearch } = this.props;
+        fetchUsersBySearch(1);
+    };
 }
 
-const mapDispatchToProps = { fetchAllUsers };
+const mapDispatchToProps = { fetchUsersBySearch };
 
-export default connect(
-    null,
-    mapDispatchToProps
-)(AllUsersContainer);
+export default connect(null, mapDispatchToProps)(AllUsersContainer);
