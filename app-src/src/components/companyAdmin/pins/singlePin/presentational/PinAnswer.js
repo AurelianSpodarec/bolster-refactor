@@ -11,14 +11,28 @@ const PinAnswer = ({
     trimmedAnswer,
     type,
     questions,
+    questionsObj,
     answers,
     // status,
     dispatch,
-    question
+    question,
+    pinHistory,
 }) => {
     const curAnswer = answers.find(item => +item.id === +trimmedAnswer.id);
     const notFoundResponse = null;
     let inner;
+
+    if (curAnswer) {
+        const curQuestion = questionsObj[curAnswer.templateQuestionID];
+
+        if (curQuestion && curQuestion.prerequisiteQuestionID) {
+            const prereqAnswer = answers.filter(answer => answer.templateQuestionID === curQuestion.prerequisiteQuestionID && answer.pinHistoryID === pinHistory.id);
+
+            if (curQuestion.prerequisiteQuestionValue !== prereqAnswer[0].answer && type !== TYPES.STATUS) return notFoundResponse;
+        }
+    }
+
+
     if ((!curAnswer || !curAnswer.answer) && type !== TYPES.STATUS) {
         return notFoundResponse;
     }
