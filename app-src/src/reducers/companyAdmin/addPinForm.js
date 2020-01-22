@@ -5,7 +5,7 @@ import {
     UPDATE_ADD_PIN_STATUS,
     RESET_PIN_ANSWER
 } from 'constants/actionTypes/drawings';
-import { updateObj, removeObjItem } from 'helpers/generic';
+import { updateObj } from 'helpers/generic';
 
 export default combineReducers({
     answers: answersReducer,
@@ -19,7 +19,7 @@ function answersReducer(state = {}, action) {
         case RESET_PIN_ANSWERS:
             return {};
         case RESET_PIN_ANSWER:
-            return removeObjItem(state, action.id);
+            return updateObj(state, action.id, action.value);
         default:
             return state;
     }
