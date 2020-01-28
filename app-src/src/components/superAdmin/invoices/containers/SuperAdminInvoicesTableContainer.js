@@ -2,37 +2,42 @@ import React from 'react';
 import { connect } from 'react-redux';
 import moment from 'moment';
 
-import { showModal } from 'actions/shared/generic/modals/sync/showModal';
-import fetchAllInvoices from 'actions/superAdmin/invoices/async/fetchAllInvoices';
 import SuperAdminInvoicesTable from '../presentational/SuperAdminInvoicesTable';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
-import { INVOICE_STATUS_TYPES } from 'constants/companyAdmin/enums';
+import { INVOICE_STATUS_TYPES, HAS_PAID_QUERIES } from 'constants/companyAdmin/enums';
+import fetchInvoicesBySearch from 'actions/superAdmin/invoices/async/fetchInvoicesBySearch';
+import updateInvoiceFilter from 'actions/superAdmin/invoices/sync/updateInvoiceFilter';
+import PageSelector from 'components/shared/pagination/presentational/pageSelector';
 
 const SuperAdminInvoicesTableContainer = ({
     error,
     isFetching,
     invoices,
     companies,
-    filters
+    filters,
+    fetchInvoicesBySearch,
+    count,
+    updateInvoiceFilter,
 }) => {
+    const PAGE_SIZE = 50;
+    const { searchTerm, hasPayed, page } = filters;
+    const pageCount = Math.ceil(count / PAGE_SIZE);
+
     return (
         <BlockContainer>
-            <BlockHeading title="All Invoices" />
+            <BlockHeading title="All Invoices">
+                <PageSelector page={page} maxPage={pageCount} setPage={setPage} />
+            </BlockHeading>
             <SuperAdminInvoicesTable
-                headers={[
-                    'Date',
-                    'Company Name',
-                    'Order ID',
-                    'Total',
-                    'Type',
-                    'Status',
-                    ''
-                ]}
+                headers={['Date', 'Company Name', 'Order ID', 'Total', 'Type', 'Status', '']}
                 error={error}
                 isFetching={isFetching}
                 invoices={_filteredInvoices()}
                 companies={companies}
+                pageCount={pageCount}
+                count={count}
+                page={page}
             />
         </BlockContainer>
     );
@@ -69,28 +74,28 @@ const SuperAdminInvoicesTableContainer = ({
             )
             .sort((a, b) => moment(b.createdOn) - moment(a.createdOn));
     }
+
+    function setPage(nextPage) {
+        const hasPaidQuery = HAS_PAID_QUERIES[hasPayed];
+        fetchInvoicesBySearch(nextPage, searchTerm, hasPaidQuery, PAGE_SIZE);
+        updateInvoiceFilter('page', nextPage);
+    }
 };
 
 const mapStateToProps = ({
     superAdmin: {
-        invoicesReducer: { error, isFetching, invoices, filters },
-        companiesReducer: {
-            isFetching: isFetchingCompanies,
-            error: companiesError,
-            companies
-        }
-    }
+        invoicesReducer: { error, isFetching, invoices, filters, count },
+        companiesReducer: { isFetching: isFetchingCompanies, error: companiesError, companies },
+    },
 }) => ({
     companies: companies || {},
     invoices: Object.values(invoices),
+    count,
     error: error || companiesError,
     filters,
-    isFetching: isFetching || isFetchingCompanies
+    isFetching: isFetching || isFetchingCompanies,
 });
 
-const mapDispatchToProps = { showModal, fetchAllInvoices };
+const mapDispatchToProps = { fetchInvoicesBySearch, updateInvoiceFilter };
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(SuperAdminInvoicesTableContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(SuperAdminInvoicesTableContainer);

@@ -159,7 +159,7 @@ class EditPinFormContainer extends Component {
             status
         } = this.props;
 
-        const formattedAnswers = Object.keys(answers).map(function(key) {
+        const formattedAnswers = Object.keys(answers).map(function (key) {
             return { questionID: key, answer: answers[key] };
         });
 
@@ -171,6 +171,8 @@ class EditPinFormContainer extends Component {
         if (!filesUploading) {
             editPinHistory(selectedHistory.id, postBody);
         }
+
+        // console.log(postBody);
     };
 }
 
@@ -210,8 +212,5 @@ const mapStateToProps = (
 const mapDispatchToProps = { editPinHistory, resetPinAnswers };
 
 export default withRouter(
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(EditPinFormContainer)
+    connect(mapStateToProps, mapDispatchToProps)(EditPinFormContainer)
 );

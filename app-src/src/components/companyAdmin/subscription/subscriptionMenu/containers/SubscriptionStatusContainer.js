@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import moment from 'moment';
 
 import SubscriptionStatus from '../presentational/SubscriptionStatus';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
@@ -16,29 +15,23 @@ class SubscriptionStatusContainer extends Component {
                     subscriptions={subscriptions}
                     noCards={noCards}
                     endOn={subscriptions.endOn}
-                    active={this.checkSubActive(
-                        subscriptions.startOn,
-                        subscriptions.endOn
-                    )}
+                    active={!!subscriptions.startOn}
                 />
             </BlockContainer>
         );
     };
-
-    checkSubActive = (start, end) =>
-        moment(start).isBefore(Date.now()) && moment(end).isAfter(Date.now());
 }
 
 const mapStateToProps = ({
     companyAdmin: {
         subscriptionsReducer: { error, isFetching, subscriptions },
-        cardsReducer: { cards }
-    }
+        cardsReducer: { cards },
+    },
 }) => ({
     subscriptions,
     error,
     isFetching,
-    cards: cards || {}
+    cards: cards || {},
 });
 
 export default connect(mapStateToProps)(SubscriptionStatusContainer);

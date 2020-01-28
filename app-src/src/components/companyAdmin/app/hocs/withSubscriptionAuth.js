@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import moment from 'moment';
 
 import { isEmpty } from 'helpers/generic';
 
@@ -11,8 +10,7 @@ export default function(ProtectedComponent) {
             const { hasInitiallyFetched } = this.props;
 
             if (!hasInitiallyFetched) return null;
-            if (!this._isSubscribed())
-                return <Redirect to="/company/subscription" />;
+            if (!this._isSubscribed()) return <Redirect to="/company/subscription" />;
 
             return <ProtectedComponent {...this.props} />;
         }
@@ -20,24 +18,21 @@ export default function(ProtectedComponent) {
         _isSubscribed = () => {
             const {
                 subscriptions,
-                subscriptions: { startOn, endOn }
+                subscriptions: { startOn },
             } = this.props;
             if (isEmpty(subscriptions)) return false;
-
-            return (
-                moment(startOn).isBefore(Date.now()) &&
-                moment(endOn).isAfter(Date.now())
-            );
+            // only fetching
+            return !!startOn;
         };
     }
 
     const mapStateToProps = ({
         companyAdmin: {
-            subscriptionsReducer: { hasInitiallyFetched, subscriptions }
-        }
+            subscriptionsReducer: { hasInitiallyFetched, subscriptions },
+        },
     }) => ({
         hasInitiallyFetched,
-        subscriptions
+        subscriptions,
     });
     return connect(mapStateToProps)(WithSubscriptionAuth);
 }
