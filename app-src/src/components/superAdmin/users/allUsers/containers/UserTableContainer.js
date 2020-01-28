@@ -23,7 +23,7 @@ const UserTableContainer = ({
                 <PageSelector setPage={setPage} page={page} maxPage={maxPage} />
             </BlockHeading>
             <UserTable
-                headers={['Name', 'Email Address', 'Phone Number', 'Role', 'Created On', '']}
+                headers={['Name', 'Email Address', 'Phone Number', 'Role','Access granted by', 'Created On', '']}
                 isFetching={isFetching}
                 error={error}
                 users={_getFilteredUsers()}

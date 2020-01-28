@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { COMPANY_USER_ROLE_IDS } from 'constants/companyAdmin/enums';
 
-const Roles = ({ roles }) => {
+const Roles = ({ roles, clientAccess }) => {
     const rolesToRender = roles.length ? (
         roles.map((role, i) => (
             <span key={i}>
@@ -17,6 +17,7 @@ const Roles = ({ roles }) => {
                     </Link>
                     )
                 </span>
+                {clientAccess && ', Client Access'}
             </span>
         ))
     ) : (
