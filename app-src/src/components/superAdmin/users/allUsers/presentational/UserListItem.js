@@ -16,7 +16,7 @@ const UserListItem = ({
         <td>{user.phoneNumber}</td>
 
     <Roles roles={user.roles} clientAccess={user.clientAccessCompanyNames.length ? true : false}/>
-    <td>{user.clientAccessCreatedByCompanyNames.join(', ') || ''}</td>
+    <td>{user.clientAccessCreatedByCompanyNames.join(', ') || '-'}</td>
         <td>
             <DateTimeContainer
                 date={user.createdOn}
