@@ -2006,9 +2006,8 @@ input {
     }
 }
 
-.basic-date-input{
+.basic-date-input {
     padding: 3.5px 10px;
-
 }
 
 .hex-box {
@@ -2788,7 +2787,7 @@ input {
                 float: left;
                 width: 24px;
                 margin-right: 10px;
-                max-height:40px;
+                max-height: 40px;
             }
 
             p {
@@ -2908,9 +2907,12 @@ input {
 }
 
 //pin selection
+.pin-selector {
+    display: flex;
+}
+
 .pin-selection-box {
-    float: left;
-    width: calc(50% - 50px);
+    flex: 1;
 
     h3 {
         margin-bottom: 5px;
@@ -2939,7 +2941,6 @@ input {
 }
 
 .pin-selection-buttons {
-    float: left;
     width: 100px;
     min-height: 1px;
 

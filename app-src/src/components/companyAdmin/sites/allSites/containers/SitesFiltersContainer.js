@@ -12,7 +12,7 @@ class SitesFiltersContainer extends Component {
     render() {
         const { name, status, sortBy } = this.props.filters;
         const { statusOptions } = companyAdminSitesSort;
-        
+
         const sortOptions = convertEnumToDropdownOptions(DEFAULT_SITES_SORT_NAMES);
 
         return (
@@ -32,8 +32,7 @@ class SitesFiltersContainer extends Component {
         const { dispatch, defaultSitesSort } = this.props;
 
         dispatch(updateSitesFilters('name', ''));
-        dispatch(updateSitesFilters('status', ''));
-        // 🤔
+        dispatch(updateSitesFilters('status', 'active'));
         dispatch(updateSitesFilters('sortBy', defaultSitesSort));
 
 
@@ -53,7 +52,7 @@ export default connect(
                     defaultSitesSort
                 }
             }
-        }, 
+        },
         shared: {
             sitesFilterReducer: { filters },
             mobileReducer: { onMobile }
