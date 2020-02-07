@@ -15,21 +15,17 @@ class CompaniesAccessListContainer extends Component {
             accessType,
             smallList = false,
             headers,
-            onMobile
+            onMobile,
         } = this.props;
+        const formattedCompanies = this.formatCompanies();
 
         return (
             <CompaniesAccessList
                 accessType={accessType}
                 handleShowModal={handleShowModal}
-                companies={Object.values(this.formatCompanies())}
+                companies={formattedCompanies}
                 parentId={parentId}
-                scrollLimit={
-                    smallList &&
-                    Object.values(this.formatCompanies()).length > 3
-                        ? true
-                        : false
-                }
+                scrollLimit={smallList && formattedCompanies.length > 3 ? true : false}
                 handleRemovePermission={this.handleRemovePermissionModal}
                 headers={headers}
                 onMobile={onMobile}
@@ -40,7 +36,6 @@ class CompaniesAccessListContainer extends Component {
     handleRemovePermissionModal = (permissionID, serviceName) => {
         const { showModal, hideModal, deleteCompanyPermissions } = this.props;
         const handleSubmit = () => {
-            // dispatch remove permission action
             deleteCompanyPermissions(permissionID);
             hideModal();
         };
@@ -50,70 +45,67 @@ class CompaniesAccessListContainer extends Component {
 
     formatCompanies = () => {
         const { companies, services } = this.props;
-        const formatted = companies.reduce(
-            (
-                acc,
-                {
-                    companyName,
-                    companyID,
-                    accessType,
-                    serviceID,
-                    inherited,
-                    state,
-                    id: permissionID
-                }
-            ) => {
-                const companyServices = acc[companyID]
-                    ? acc[companyID].services
-                    : [];
-                acc[companyID] = {
-                    ...(acc[companyID] || {
-                        companyID,
-                        companyName,
-                        accessType,
-                        allAccess: serviceID === null
-                    }),
-                    services: [
-                        ...companyServices,
-                        serviceID
-                            ? {
-                                  serviceID,
-                                  serviceName: (services[serviceID] || {}).name,
-                                  state,
-                                  inherited,
-                                  accessType,
-                                  permissionID
-                              }
-                            : undefined
-                    ]
-                };
-                return acc;
-            },
-            {}
-        );
-        return formatted;
+        const formatted = companies.reduce((acc, company) => {
+            const {
+                companyName,
+                companyID,
+                accessType,
+                serviceID,
+                inherited,
+                state,
+                id: permissionID,
+            } = company;
+
+            const companyServices = acc[companyID] ? acc[companyID].services : [];
+            const thisCompany = {
+                companyID,
+                companyName,
+                accessType,
+                allAccess: serviceID === null,
+            };
+
+            const thisService = {
+                serviceID,
+                serviceName: (services[serviceID] || {}).name,
+                state,
+                inherited,
+                accessType,
+                permissionID,
+            };
+            // prevent duplicates
+            console.log({ companyServices });
+            const shouldAddService =
+                !!serviceID &&
+                !companyServices.some(
+                    serv =>
+                        serv.serviceID === serviceID && serv.accessType === thisService.accessType
+                );
+
+            const newServices = [...companyServices];
+            if (shouldAddService) newServices.push(thisService);
+
+            acc[companyID] = {
+                ...(acc[companyID] || thisCompany),
+                services: newServices,
+            };
+            return acc;
+        }, {});
+        return Object.values(formatted);
     };
 }
 
 const mapStateToProps = ({
     companyAdmin: {
-        servicesReducer: { services }
+        servicesReducer: { services },
     },
     shared: {
-        mobileReducer: { onMobile }
-    }
+        mobileReducer: { onMobile },
+    },
 }) => ({
     onMobile,
-    services
+    services,
 });
 
-const mapDispatchToProps = dispatch => ({
-    showModal: (type, props) => dispatch(showModal(type, props)),
-    hideModal: () => dispatch(hideModal()),
-    deleteCompanyPermissions: id => dispatch(deleteCompanyPermissions(id))
-});
+const mapDispatchToProps = { showModal, hideModal, deleteCompanyPermissions };
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(CompaniesAccessListContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(CompaniesAccessListContainer);
