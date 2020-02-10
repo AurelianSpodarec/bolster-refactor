@@ -31,7 +31,10 @@ class AddPinFormContainer extends Component {
             isHistory
         } = this.props;
 
-        const serviceOptions = convertArrToObj(this._relevantServiceOptions(), 'value');
+        const serviceOptions = convertArrToObj(
+            this._relevantServiceOptions(),
+            'value'
+        );
         const templateOptions = this._getTemplates(templates, serviceID);
 
         return (
@@ -39,7 +42,9 @@ class AddPinFormContainer extends Component {
                 <PageHeading leftChildren={true} title={`Add Pin ${pinTitle}`}>
                     <BackButtonContainer
                         backFromForm={{
-                            urlToReplace: isHistory ? '/add-history' : '/add-pin',
+                            urlToReplace: isHistory
+                                ? '/add-history'
+                                : '/add-pin',
                             with: ''
                         }}
                     />
@@ -94,7 +99,10 @@ class AddPinFormContainer extends Component {
             templateID
         };
 
-        localStorage.setItem(`pinCache/${drawingID}`, JSON.stringify(saveState));
+        localStorage.setItem(
+            `pinCache/${drawingID}`,
+            JSON.stringify(saveState)
+        );
         resetPinAnswers();
     }
 
@@ -104,7 +112,8 @@ class AddPinFormContainer extends Component {
         const opCode = CompanyUserOperativeCode.replace(/['"]+/g, '');
 
         const pinsByOperativeCount =
-            Object.values(pins).filter(pin => pin.pinCode.endsWith(opCode)).length + 1;
+            Object.values(pins).filter(pin => pin.pinCode.endsWith(opCode))
+                .length + 1;
 
         if (pinsByOperativeCount < 10) {
             return '000' + pinsByOperativeCount + ':' + opCode;
@@ -148,11 +157,13 @@ class AddPinFormContainer extends Component {
         const filteredTemplates = templates.filter(
             ({ serviceID }) => +serviceID === +selectedServiceID
         );
-        const templateOptions = filteredTemplates.map(({ id, name }) => ({
-            value: id,
-            label: name,
-            text: name
-        }));
+        const templateOptions = filteredTemplates.map(
+            ({ id, name, companyName }) => ({
+                value: id,
+                label: `${name} (${companyName})`,
+                text: `${name} (${companyName})`
+            })
+        );
 
         return convertArrToObj(templateOptions, 'value');
     };
@@ -201,7 +212,8 @@ class AddPinFormContainer extends Component {
             status
         } = this.props;
 
-        const curTemplate = templates.find(({ id }) => +id === +templateID) || {};
+        const curTemplate =
+            templates.find(({ id }) => +id === +templateID) || {};
 
         const formattedAnswers = Object.keys(answers).map(key => ({
             templateQuestionID: key,
@@ -274,8 +286,5 @@ const mapDispatchToProps = {
 };
 
 export default withRouter(
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(AddPinFormContainer)
+    connect(mapStateToProps, mapDispatchToProps)(AddPinFormContainer)
 );

@@ -47,17 +47,17 @@ class AddPinHistoryFormContainer extends Component {
             templates,
             filesUploading,
             confirmLeave,
-            isHistory, 
+            isHistory,
             versions,
             latestPinHistory = {},
             dropdownOptionsByType,
         } = this.props;
 
-        const latestVersion = versions.find(vers => 
+        const latestVersion = versions.find(vers =>
             vers.id === latestPinHistory.templateVersionID) || {};
-        
+
         const isSameTemplate = templateID === latestVersion.templateID;
-        
+
         const serviceOptions = convertArrToObj(this._relevantServiceOptions(), 'value');
         const templateOptions = this._getTemplates(templates, serviceID);
 
@@ -75,7 +75,7 @@ class AddPinHistoryFormContainer extends Component {
                 </PageHeading>
                 <BlockContainer
                     isEmpty={
-                        !templates.length 
+                        !templates.length
                         // || isEmpty(pinAnswers)
                     }
                     noDataMessage="There is no data."
@@ -151,33 +151,34 @@ class AddPinHistoryFormContainer extends Component {
     getPinAnswersByGroupKey = () => {
         const { pinAnswers, latestPinHistory, sections, versions, questions } = this.props;
         const invalidTypes = [SINGLE_PHOTO, MULTI_PHOTO, SIGNATURE];
-        const latestVersion = versions.find(vers => 
+        const latestVersion = versions.find(vers =>
             vers.id === latestPinHistory.templateVersionID) || {};
-        
+
         const pinAnswersByGroupKey = pinAnswers.reduce((acc, ans) => {
             const question = questions[ans.templateQuestionID];
             if (!question) return acc;
             const section = sections[question.templateSectionID];
             if (!section) return acc;
             // filter by only relevant questions/answers
-            if (question.isHidden || 
+            if (question.isHidden ||
                 invalidTypes.includes(question.type) ||
                 section.templateVersionID !== latestVersion.id) {
                 return acc;
             } else {
                 return {
                     ...acc,
-                    [question.groupKey]: {...ans, name: question.name, type: question.type}
-                    };
-            }}, {});
-            return pinAnswersByGroupKey;
+                    [question.groupKey]: { ...ans, name: question.name, type: question.type }
+                };
+            }
+        }, {});
+        return pinAnswersByGroupKey;
     }
 
     getOldAnswersByNameObj = () => {
         const { pinAnswers, questions } = this.props;
         const oldAnswersByNameObj = pinAnswers.reduce((acc, oldAnswer) => {
             const question = questions[oldAnswer.templateQuestionID];
-            const answerToSave = {...oldAnswer, name: question.name, type: question.type};
+            const answerToSave = { ...oldAnswer, name: question.name, type: question.type };
             acc[question.name] = [answerToSave, ...(acc[question.name] || [])];
             return acc;
         }, {});
@@ -212,10 +213,10 @@ class AddPinHistoryFormContainer extends Component {
         const filteredTemplates = templates.filter(
             ({ serviceID }) => +serviceID === +selectedServiceID
         );
-        const templateOptions = filteredTemplates.map(({ id, name }) => ({
+        const templateOptions = filteredTemplates.map(({ id, name, companyName }) => ({
             value: id,
-            label: name,
-            text: name
+            label: `${name} (${companyName})`,
+            text: `${name} (${companyName})`
         }));
 
         return convertArrToObj(templateOptions, 'value');
@@ -316,25 +317,25 @@ const mapStateToProps = ({
     )[0] || {};
 
     return ({
-    templates: Object.values(templates).filter(({ isDeleted }) => !isDeleted),
-    answers,
-    coordinates,
-    isFetching: isFetchingTemplates || isFetchingPins,
-    questions,
-    sections,
-    error,
-    postSuccess,
-    filesUploading,
-    confirmLeave,
-    status,
-    services: Object.values(services),
-    versions: Object.values(versions),
-    pinAnswers: Object.values(pinAnswers),
-    histories,
-    latestPinHistory,
-    subscriptions,
-    dropdownOptionsByType: getDropdownOptionsByType(dropdownOptions)
-});
+        templates: Object.values(templates).filter(({ isDeleted }) => !isDeleted),
+        answers,
+        coordinates,
+        isFetching: isFetchingTemplates || isFetchingPins,
+        questions,
+        sections,
+        error,
+        postSuccess,
+        filesUploading,
+        confirmLeave,
+        status,
+        services: Object.values(services),
+        versions: Object.values(versions),
+        pinAnswers: Object.values(pinAnswers),
+        histories,
+        latestPinHistory,
+        subscriptions,
+        dropdownOptionsByType: getDropdownOptionsByType(dropdownOptions)
+    });
 };
 
 const mapDispatchToProps = {
