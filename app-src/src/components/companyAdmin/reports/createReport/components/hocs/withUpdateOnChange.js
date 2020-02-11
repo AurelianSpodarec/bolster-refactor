@@ -12,7 +12,7 @@ import { FURTHER_FILTRATION_OPTIONS } from 'constants/companyAdmin/enums';
 import getOperativeOptions from 'actions/companyAdmin/reports/async/getOperativeOptions';
 import getTemplateReportOptions from 'actions/companyAdmin/reports/async/getTemplateReportOptions';
 
-export default function(ProtectedComponent) {
+export default function (ProtectedComponent) {
     class WithUpdateOnChange extends React.Component {
         state = {
             showError: false,
@@ -99,7 +99,7 @@ export default function(ProtectedComponent) {
                     if (
                         fromDateInclusive &&
                         moment(pin.latestCreatedOn) <
-                            moment(fromDateInclusive, momentComparisonFormat)
+                        moment(fromDateInclusive, momentComparisonFormat)
                     ) {
                         return NO;
                     }
@@ -107,7 +107,7 @@ export default function(ProtectedComponent) {
                     if (
                         toDateInclusive &&
                         moment(pin.latestCreatedOn) >
-                            moment(toDateInclusive, momentComparisonFormat)
+                        moment(toDateInclusive, momentComparisonFormat)
                     ) {
                         return NO;
                     }
@@ -241,20 +241,20 @@ export default function(ProtectedComponent) {
             // get the utc converted time for both from date and to date.
             const startDate = fromDateInclusive
                 ? moment
-                      .tz(fromDateInclusive, timeZone.name)
-                      .startOf('day')
-                      .utc()
-                      .toISOString()
+                    .tz(fromDateInclusive, timeZone.name)
+                    .startOf('day')
+                    .utc()
+                    .toISOString()
                 : null;
 
             // to date needs to be start of next day so that we get all pins from the previous day.
             const endDate = toDateInclusive
                 ? moment
-                      .tz(toDateInclusive, timeZone.name)
-                      .add('days', 1)
-                      .startOf('day')
-                      .utc()
-                      .toISOString()
+                    .tz(toDateInclusive, timeZone.name)
+                    .add('days', 1)
+                    .startOf('day')
+                    .utc()
+                    .toISOString()
                 : null;
 
             const body = {
@@ -289,10 +289,10 @@ export default function(ProtectedComponent) {
             const { timeZone } = this.props;
             return date
                 ? moment
-                      .tz(date, timeZone.name)
-                      .startOf('day')
-                      .utc()
-                      .toISOString()
+                    .tz(date, timeZone.name)
+                    .startOf('day')
+                    .utc()
+                    .toISOString()
                 : null;
         };
 
@@ -300,11 +300,11 @@ export default function(ProtectedComponent) {
             const { timeZone } = this.props;
             const endDate = date
                 ? moment
-                      .tz(date, timeZone.name)
-                      .add('days', 1)
-                      .startOf('day')
-                      .utc()
-                      .toISOString()
+                    .tz(date, timeZone.name)
+                    .add('days', 1)
+                    .startOf('day')
+                    .utc()
+                    .toISOString()
                 : null;
             return endDate;
         };
