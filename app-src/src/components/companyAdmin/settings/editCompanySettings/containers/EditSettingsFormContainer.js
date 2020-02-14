@@ -114,7 +114,8 @@ class EditSettingsFormContainer extends Component {
             timeZone: timeZone.id,
             timeZoneOptions: this.formatTimezones(),
             dateFormat: dateFormat.id,
-            dateFormatOptions: this.formatDateFormats()
+            dateFormatOptions: this.formatDateFormats(),
+            enableQRCodes,
         });
     };
 
