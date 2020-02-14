@@ -15,7 +15,7 @@
         "google-map-react": "^1.1.5",
         "google-maps-react": "^2.0.2",
         "immutability-helper": "^3.0.1",
-        "js-file-download": "^0.4.8",
+        "js-file-download": "^0.4.9",
         "jwt-decode": "^2.2.0",
         "leaflet": "^1.4.0",
         "lodash": "^4.17.15",

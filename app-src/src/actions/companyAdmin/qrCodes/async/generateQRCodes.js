@@ -26,8 +26,13 @@ export const generateQRCodesFailure = error => ({
 export default numberOfCodes => dispatch => {
     dispatch(generateQRCodesRequest());
 
-    axios
+    const FileDownload = require('js-file-download');
+
+    return axios
         .get(`${API_URL}/companies/qrCodes?numberOfCodes=${numberOfCodes}`, getHeaders())
-        .then(res => dispatch(generateQRCodesSuccess(res.data)))
+        .then(res => {
+            dispatch(generateQRCodesSuccess(res.data));
+            FileDownload(res.data, 'qrCodes.csv');
+        })
         .catch(err => dispatch(generateQRCodesFailure(err.message)));
 };
