@@ -149,8 +149,6 @@ class EditSettingsFormContainer extends Component {
 
             localStorage.setItem('colourCode', postBody.colourCode);
 
-            console.log(postBody);
-
             editCompanySettings({
                 ...postBody,
                 dateFormatID: dateFormat

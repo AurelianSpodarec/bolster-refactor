@@ -45,7 +45,7 @@ const GenerateQRCodesModalContainer = ({
         if (prevProps.isGeneratingQRCodes && !isGeneratingQRCodes && generateSuccess) {
             showModal(SUCCESS_MODAL, {
                 title: 'Successfully generated',
-                message: 'The QR codes have successfully been generated, they will now download as a CSV file.'
+                message: 'Successfully generated the QR code(s). The CSV containing the code(s) will now download.'
             });
         }
 
@@ -53,7 +53,7 @@ const GenerateQRCodesModalContainer = ({
             setIsGenerating(false);
             showModal(ERROR_MODAL, {
                 title: 'Error generating',
-                message: 'There was an error generating your QR codes. Please try again.'
+                message: 'There was an error generating your QR code(s). Please try again.'
             });
         }
     }, [isFetching, isGeneratingQRCodes]);
