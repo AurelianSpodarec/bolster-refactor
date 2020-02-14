@@ -3,13 +3,14 @@ import { connect } from 'react-redux';
 
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import fetchCompanySettings from 'actions/companyAdmin/companySettings/async/fetchCompanySettings';
+import generateQRCodes from 'actions/companyAdmin/qrCodes/async/generateQRCodes';
 
 import { usePrevious } from 'helpers/hooks';
 
 import GenerateQRCodesModal from '../presentational/GenerateQRCodesModal';
 import { isEmpty } from 'helpers/generic';
 
-const GenerateQRCodesModalContainer = ({ hideModal, qrCodeCount, fetchCompanySettings, company, isFetching }) => {
+const GenerateQRCodesModalContainer = ({ hideModal, qrCodeCount, fetchCompanySettings, company, isFetching, generateQRCodes }) => {
     const [isLoading, setIsLoading] = useState(true);
     const [isGenerating, setIsGenerating] = useState(false);
 
@@ -49,14 +50,7 @@ const GenerateQRCodesModalContainer = ({ hideModal, qrCodeCount, fetchCompanySet
     function handleSubmit(e) {
         e.preventDefault();
 
-        // const { isAdmin, ...restForm } = form;
-
-        // const postBody = {
-        //     ...restForm,
-        //     role: isAdmin ? USER_ROLES.ADMIN : USER_ROLES.USER,
-        // };
-
-        // editTeamMember(teamMember.id, postBody);
+        generateQRCodes(form.numberOfCodes);
     }
 };
 
@@ -70,6 +64,9 @@ const mapDispatchToProps = dispatch => ({
     hideModal: () => dispatch(hideModal()),
     fetchCompanySettings: () => {
         dispatch(fetchCompanySettings());
+    },
+    generateQRCodes: numberOfCodes => {
+        dispatch(generateQRCodes(numberOfCodes));
     }
 });
 
