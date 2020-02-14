@@ -41,7 +41,8 @@ class EditSettingsFormContainer extends Component {
         dateFormatOptions: [],
         isEditButtonDisabled: false,
         deafultSitesSort: DEFAULT_SITES_SORT.CUSTOM,
-        shouldDeleteReportsAfterDownload: false
+        shouldDeleteReportsAfterDownload: false,
+        enableQRCodes: false,
     };
 
     render() {
@@ -67,7 +68,7 @@ class EditSettingsFormContainer extends Component {
         ];
 
         const siteSortOptions = enumFormat(DEFAULT_SITES_SORT_NAMES);
-    
+
         return (
             <EditSettingsForm
                 {...this.state}
@@ -101,6 +102,7 @@ class EditSettingsFormContainer extends Component {
                 timeZones,
                 dateFormat,
                 colourCode,
+                enableQRCodes,
                 ...restSettings
             }
         } = this.props;
@@ -146,6 +148,8 @@ class EditSettingsFormContainer extends Component {
             const { templateUsageRuleOptions, dateFormat, ...postBody } = this.state;
 
             localStorage.setItem('colourCode', postBody.colourCode);
+
+            console.log(postBody);
 
             editCompanySettings({
                 ...postBody,
