@@ -74,59 +74,59 @@ const DrawingMapViewSimple = ({
                             drawing.accessType === ACCESS_TYPES_VALUES.OWNER && (
                                 <>
                                     <AddCreditsToDrawingButtonContainer drawing={drawing} />
-                                    <button onClick={() => {}} className="button red pull-right">
+                                    <button onClick={() => { }} className="button red pull-right">
                                         <i className="far fa-times" /> Drawing expired
                                     </button>
                                 </>
                             )
                         ) : (
-                            drawing.accessType >= ACCESS_TYPES_VALUES.WRITE && (
-                                <>
-                                    {addMode ? (
+                                    drawing.accessType >= ACCESS_TYPES_VALUES.WRITE && (
                                         <>
-                                            <button
-                                                onClick={handleClearPinCache}
-                                                to={`${drawing.id}/add-pin`}
-                                                className="button green pull-right"
-                                            >
-                                                <i className="fa fa-check" /> Confirm position
+                                            {addMode ? (
+                                                <>
+                                                    <button
+                                                        onClick={handleClearPinCache}
+                                                        to={`${drawing.id}/add-pin`}
+                                                        className="button green pull-right"
+                                                    >
+                                                        <i className="fa fa-check" /> Confirm position
                                             </button>
-                                            <button
-                                                className="button red pull-right"
-                                                onClick={toggleAddMode}
-                                            >
-                                                Cancel
+                                                    <button
+                                                        className="button red pull-right"
+                                                        onClick={toggleAddMode}
+                                                    >
+                                                        Cancel
                                             </button>
-                                        </>
-                                    ) : (
-                                        <button
-                                            className="button green pull-right"
-                                            onClick={toggleAddMode}
-                                        >
-                                            <i className="fa fa-plus" /> Add pin
+                                                </>
+                                            ) : (
+                                                    <button
+                                                        className="button green pull-right"
+                                                        onClick={toggleAddMode}
+                                                    >
+                                                        <i className="fa fa-plus" /> Add pin
                                         </button>
-                                    )}
-                                    {drawing.accessType === ACCESS_TYPES_VALUES.OWNER && (
-                                        <>
-                                            <button
-                                                className="button yellow"
-                                                onClick={() => showModal(EDIT_DRAWING, { drawing })}
-                                            >
-                                                <i className="far fa-pencil fa-fw" /> Edit drawing
+                                                )}
+                                            {drawing.accessType === ACCESS_TYPES_VALUES.OWNER && (
+                                                <>
+                                                    <button
+                                                        className="button yellow"
+                                                        onClick={() => showModal(EDIT_DRAWING, { drawing })}
+                                                    >
+                                                        <i className="far fa-pencil fa-fw" /> Edit drawing
                                             </button>
 
-                                            <AddCreditsToDrawingButtonContainer drawing={drawing} />
+                                                    <AddCreditsToDrawingButtonContainer drawing={drawing} />
+                                                </>
+                                            )}
                                         </>
-                                    )}
-                                </>
-                            )
-                        )}
+                                    )
+                                )}
                     </BlockHeading>
                     <Map
                         center={position}
                         zoom={zoom}
                         minZoom={0}
-                        maxZoom={6}
+                        maxZoom={8}
                         onClick={e => handleClick(e)}
                         crs={CRS.Simple}
                     >
@@ -134,6 +134,7 @@ const DrawingMapViewSimple = ({
                             attribution='&amp;copy <a href="http://app.bolstersystems.com">Bolster Systems Ltd</a>'
                             url={getDataUrl(drawing.tilesetS3Key)}
                             noWrap={true}
+                            maxNativeZoom={6}
                         />
                         {pins.map(pin => (
                             <MapPinContainer
@@ -169,11 +170,11 @@ const DrawingMapViewSimple = ({
                     <i className="far fa-pencil fa-fw" /> Upload failed - retry?
                 </button>
             ) : (
-                <Loading
-                    message="Floorplan is generating, please check back later."
-                    withIcon={false}
-                />
-            )}
+                        <Loading
+                            message="Floorplan is generating, please check back later."
+                            withIcon={false}
+                        />
+                    )}
         </>
     );
 };
