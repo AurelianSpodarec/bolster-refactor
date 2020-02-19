@@ -51,9 +51,17 @@ const CompanyMenuContainer = ({
     }
 
     function _openHelpScout(e) {
+
         e.preventDefault();
         window.Beacon('toggle');
-    }
+
+      
+        document.body.classList.add('helpscout-visible'); 
+        window.Beacon('on', 'close', function(){
+            document.body.classList.remove('helpscout-visible'); 
+        });
+    
+     }
 };
 const mapStateToProps = ({
     companyAdmin: {
