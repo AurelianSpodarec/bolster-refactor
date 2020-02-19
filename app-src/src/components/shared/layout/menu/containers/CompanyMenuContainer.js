@@ -1,11 +1,11 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import moment from 'moment';
+import React from "react";
+import { connect } from "react-redux";
+import moment from "moment";
 
-import CompanyMenu from '../presentational/CompanyMenu';
-import { MESSAGE_TYPES } from 'constants/companyAdmin/enums';
-import dismissMessages from 'actions/companyAdmin/messages/async/dismissMessages';
-import { isEmpty } from 'helpers/generic';
+import CompanyMenu from "../presentational/CompanyMenu";
+import { MESSAGE_TYPES } from "constants/companyAdmin/enums";
+import dismissMessages from "actions/companyAdmin/messages/async/dismissMessages";
+import { isEmpty } from "helpers/generic";
 
 const CompanyMenuContainer = ({
     isFromHeadquarters,
@@ -51,17 +51,16 @@ const CompanyMenuContainer = ({
     }
 
     function _openHelpScout(e) {
-
+        const helpscoutClass = "helpscout-visible";
         e.preventDefault();
-        window.Beacon('toggle');
 
-      
-        document.body.classList.add('helpscout-visible'); 
-        window.Beacon('on', 'close', function(){
-            document.body.classList.remove('helpscout-visible'); 
-        });
-    
-     }
+        if (document.body.classList.contains("helpscout-visible")) {
+            document.body.classList.remove("helpscout-visible");
+        } else {
+            document.body.classList.add(helpscoutClass);
+        }
+        window.Beacon("toggle");
+    }
 };
 const mapStateToProps = ({
     companyAdmin: {
