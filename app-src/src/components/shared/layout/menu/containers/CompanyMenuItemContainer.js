@@ -40,9 +40,9 @@ class MenuItemContainer extends Component {
                 className={`item ${isActive ? 'active' : ''} custom-hover`}
                 style={
                     isActive
-                        ? { backgroundColor: companyColour, color: textColor }
+                        ? { backgroundColor: companyColour, color: isBolsterLogoDark ? 'white' :textColor  }
                         : hover
-                        ? { backgroundColor: companyColour, color: textColor }
+                        ? { backgroundColor: companyColour, color: isBolsterLogoDark ? 'white' :textColor }
                         : {}
                 }
                 onClick={() => this._toggleMobileMenu()}
