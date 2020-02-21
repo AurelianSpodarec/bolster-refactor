@@ -14,7 +14,8 @@ export const QUESTION_TYPES = {
     '13': 'Multi dropdown options',
     '14': 'Multi multi dropdown',
     '15': 'Multi multi dropdown options',
-    '16': 'Static image'
+    '16': 'Static image',
+    '17': 'Document Upload'
 };
 
 export const QUESTION_TYPE_VALUES = {
@@ -33,7 +34,8 @@ export const QUESTION_TYPE_VALUES = {
     MULTI_DROPDOWN_OPTIONS: '13',
     MULTI_MULTI_DROPDOWN: '14',
     MULTI_MULTI_DROPDOWN_OPTIONS: '15',
-    STATIC_IMAGE: '16'
+    STATIC_IMAGE: '16',
+    DOCUMENT_UPLOAD: '17',
 };
 
 export const QUESTION_TYPE_NUMBERS = {
@@ -52,7 +54,8 @@ export const QUESTION_TYPE_NUMBERS = {
     MULTI_DROPDOWN_OPTIONS: 13,
     MULTI_MULTI_DROPDOWN: 14,
     MULTI_MULTI_DROPDOWN_OPTIONS: 15,
-    STATIC_IMAGE: 16
+    STATIC_IMAGE: 16,
+    DOCUMENT_UPLOAD: 17,
 };
 
 export const STANDARD_LABEL_FIELDS = {
