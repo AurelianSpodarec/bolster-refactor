@@ -29,11 +29,15 @@ class SitesTableContainer extends Component {
 
         const sitesSorted = this._getSortedSites(sitesSearched);
 
+        if (status === 'active') {
+            return sitesSorted.filter(site => !site.isArchived);
+        }
+
         if (status === 'archived') {
             return sitesSorted.filter(site => site.isArchived);
         }
 
-        return sitesSorted.filter(site => !site.isArchived);
+        return sitesSorted;
     };
 
     _getSortedSites = sites => {

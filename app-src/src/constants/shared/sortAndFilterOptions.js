@@ -13,6 +13,7 @@ export const companyAdminSitesSort = {
 
 export const clientSitesSort = {
     statusOptions: {
+        active: { value: 'active', text: 'Active' },
         archived: { value: 'archived', text: 'Archived' }
     },
     sortOptions: {

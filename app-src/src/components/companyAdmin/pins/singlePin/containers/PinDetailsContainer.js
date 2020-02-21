@@ -10,7 +10,7 @@ import fetchSinglePin from 'actions/companyAdmin/pins/async/fetchSinglePin';
 
 class PinDetailsContainer extends Component {
     render() {
-        const { histories, users, services, error, isFetching, pin } = this.props;
+        const { histories, users, services, error, isFetching, pin, isLoading } = this.props;
 
         const sortedHistories = [...histories].sort(
             (a, b) => moment(b.createdOn) - moment(a.createdOn)
@@ -56,6 +56,7 @@ class PinDetailsContainer extends Component {
                         pin={pin}
                         drawingID={pin.drawingID}
                         historyCount={histories.length}
+                        isLoading={isLoading}
                     />
                 </BlockContainer>
             );

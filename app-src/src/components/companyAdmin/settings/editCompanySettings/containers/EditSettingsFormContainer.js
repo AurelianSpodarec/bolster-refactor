@@ -40,8 +40,8 @@ class EditSettingsFormContainer extends Component {
         timeZoneOptions: [],
         dateFormatOptions: [],
         isEditButtonDisabled: false,
-        shouldDeleteReportsAfterDownload: false,
-        deafultSitesSort: DEFAULT_SITES_SORT.CUSTOM
+        deafultSitesSort: DEFAULT_SITES_SORT.CUSTOM,
+        shouldDeleteReportsAfterDownload: false
     };
 
     render() {

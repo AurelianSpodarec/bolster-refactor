@@ -4,7 +4,8 @@ import { convertArrToObj } from 'helpers/generic';
 import {
     FETCH_SEARCH_RESULTS_REQUEST,
     FETCH_SEARCH_RESULTS_SUCCESS,
-    FETCH_SEARCH_RESULTS_FAILURE
+    FETCH_SEARCH_RESULTS_FAILURE,
+    CLEAR_SEARCH_RESULTS,
 } from 'constants/actionTypes/search';
 
 export default combineReducers({
@@ -42,6 +43,8 @@ function resultsReducer(state = {}, action) {
             return convertArrToObj(
                 action.payload.map((res, i) => ({ id: i, ...res }))
             );
+        case CLEAR_SEARCH_RESULTS:
+            return {};
         default:
             return state;
     }

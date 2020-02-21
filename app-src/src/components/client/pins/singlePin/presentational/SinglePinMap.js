@@ -14,12 +14,12 @@ const SinglePinMap = ({ pin, zoom, user, drawing = {}, pinHistory }) => {
         <>
             <BlockHeading title={`Pin ${pin.pinCode}`}>
                 <SinglePinGenerateReportContainer pinID={pin.id} />
-                {pin.nextPinID && (
+                {!!pin.nextPinID && (
                     <ButtonContainer className="pull-right" to={`/client/pins/${pin.nextPinID}`}>
                         Next <i className="fa fa-arrow-right" />
                     </ButtonContainer>
                 )}
-                {pin.prevPinID && (
+                {!!pin.prevPinID && (
                     <ButtonContainer className="pull-right" to={`/client/pins/${pin.prevPinID}`}>
                         <i className="fa fa-arrow-left" />
                         Previous

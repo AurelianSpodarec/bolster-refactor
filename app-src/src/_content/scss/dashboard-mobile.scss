@@ -389,7 +389,6 @@
     }
     .content-area {
         padding: 7.5px;
-        overflow: hidden;
 
         .tab-container {
             position: relative;
@@ -668,18 +667,11 @@
         padding: 10px 0;
         margin-bottom: 10px;
     }
-    .pin-selection-box {
-        width: 100%;
-        .content {
-            .selector-pin {
-                padding: 5px 15px;
-            }
-        }
-    }
     .pin-selection-buttons {
-        float: left;
-        width: 100%;
-        height: 50px;
+        .button {
+            margin: 0 2.5px;
+            min-width: 0;
+        }
     }
 
     .field-output.filters {
