@@ -280,6 +280,10 @@ class AddPinHistoryFormContainer extends Component {
             answers: formattedAnswers
         };
 
+        console.log(postBody);
+        console.log(postBody);
+        console.log(postBody);
+
         if (hierarchyType === 'drawing') {
             postBody.pin = {
                 drawingID: parseInt(drawingID),
