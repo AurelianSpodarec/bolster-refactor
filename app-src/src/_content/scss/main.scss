@@ -5183,6 +5183,7 @@ input {
         margin: 0 0 10px !important;
     }
 }
+
 // helpscout-beacon
 .BeaconFabButtonFrame {
     position: fixed !important;
@@ -5200,13 +5201,18 @@ input {
         transform: scale(0.75) translate(+25%, +25%);
     }
 }
+.helpscout-visible {
+    .BeaconFabButtonFrame {
+        display: block;
+    }
+}
 .BeaconContainer {
     position: fixed !important;
     bottom: 55px !important;
     right: 40px !important;
 }
 .css-k7cd9d {
-    display: none;
+    display: block;
 }
 // force scrollbar visible on chrome
 .always-scrollbar {
