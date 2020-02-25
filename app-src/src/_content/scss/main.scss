@@ -5491,6 +5491,13 @@ input {
     }
 }
 
-.clear {
-    clear: both;
+.qr-container {
+    display: flex;
+    float: left;
+    width: 100%;
+    align-items: center;
+
+    p {
+        padding-left: 15px;
+    }
 }

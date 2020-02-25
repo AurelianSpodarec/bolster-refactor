@@ -23,6 +23,7 @@
         "moment-timezone": "^0.5.27",
         "node-sass": "^4.13.0",
         "object.entries": "^1.1.0",
+        "qrcode.react": "^1.0.0",
         "react": "^16.11.0",
         "react-app-polyfill": "^1.0.4",
         "react-chartjs-2": "^2.8.0",
