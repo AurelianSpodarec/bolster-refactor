@@ -7,18 +7,20 @@ import BlockHeading from 'components/shared/generic/blockHeading/presentational/
 const PinQRCode = ({ pin }) => {
     if (!pin.qrCode) return <></>;
 
-    return <BlockContainer>
-        <BlockHeading classes="underline-full" title='QR Code' />
-        <div className="qr-container">
-            <QRCode value={pin.qrCode} size={90} />
-            <p>
-                This pin has a QR code attached.
-                <br /><br />
-                Scan this code on the Bolster app to view it on there.
-            </p>
-        </div>
-    </BlockContainer>;
+    return (
+        <BlockContainer>
+            <BlockHeading classes="underline-full" title="QR Code" />
+            <div className="qr-container">
+                <QRCode value={pin.qrCode} size={90} />
+                <p>
+                    This pin has a QR code attached.
+                    <br />
+                    <br />
+                    Scan this code on the Bolster app to view it on there.
+                </p>
+            </div>
+        </BlockContainer>
+    );
 };
 
 export default PinQRCode;
-

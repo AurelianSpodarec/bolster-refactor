@@ -12,7 +12,7 @@ import fetchAllPinsForDrawing from 'actions/companyAdmin/pins/async/fetchAllPins
 
 class SinglePinContainer extends Component {
     state = { isLoading: true };
-    render = () => <SinglePin isLoading={this.state.isLoading} curPin={this.props.pin} />;
+    render = () => <SinglePin isLoading={this.state.isLoading} pin={this.props.pin} />;
 
     componentDidMount = () => {
         const {
