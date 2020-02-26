@@ -57,11 +57,11 @@ const SinglePinMap = ({
                         </button>
                     </>
                 ) : (
-                    <button className="button pull-right" onClick={toggleMoveMode}>
-                        <i className="fa fa-arrows-alt" />
-                        Edit pin location
+                        <button className="button pull-right" onClick={toggleMoveMode}>
+                            <i className="fa fa-arrows-alt" />
+                            Edit pin location
                     </button>
-                )}
+                    )}
 
                 {!!pin.nextPinID && (
                     <ButtonContainer className="pull-right" to={`/company/pins/${pin.nextPinID}`}>
@@ -80,7 +80,7 @@ const SinglePinMap = ({
                 center={[pin.location.latY, pin.location.lngX]}
                 zoom={zoom}
                 minZoom={0}
-                maxZoom={6}
+                maxZoom={8}
                 onClick={handleClick}
                 crs={CRS.Simple}
             >
@@ -88,6 +88,7 @@ const SinglePinMap = ({
                     attribution='&amp;copy <a href="http://app.bolstersystems.com">Bolster Systems Ltd</a>'
                     url={`${FILE_STORAGE_URL}/${drawing.tilesetS3Key}/{z}/{x}/{y}.jpg`}
                     noWrap={true}
+                    maxNativeZoom={6}
                 />
                 <MapPin key={pin.id} pin={pin} pinHistory={pinHistory} />
 

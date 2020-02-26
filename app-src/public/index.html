@@ -49,6 +49,9 @@
         </script>
         <script type="text/javascript">
             window.Beacon("init", "f0acdf98-207a-4e10-a04b-bc2c53c56b0c");
+            window.Beacon("on", "close", function() {
+                document.body.classList.remove("helpscout-visible");
+            });
         </script>
         <script type="text/javascript"></script>
         <script

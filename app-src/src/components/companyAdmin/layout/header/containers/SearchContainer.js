@@ -2,16 +2,18 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import fetchSearchResults from 'actions/companyAdmin/search/async/fetchSearchResults';
+import clearSearchResults from 'actions/companyAdmin/search/sync/clearSearchResults';
 import SearchBar from '../presentational/SearchBar';
 
 class SearchContainer extends Component {
     state = {
         resultsVisible: false,
-        searchTerm: ''
+        searchTerm: '',
+        isLoading: false,
     };
 
     render() {
-        const { searchTerm, resultsVisible } = this.state;
+        const { searchTerm, resultsVisible, isLoading } = this.state;
         const { isFetching, error } = this.props;
         return (
             <div
@@ -27,9 +29,20 @@ class SearchContainer extends Component {
                     handleChange={this.handleChange}
                     results={this.formatSearchResults()}
                     handleLinkClick={() => this._closeResults()}
+                    isLoading={isLoading}
                 />
             </div>
         );
+    }
+
+    componentDidUpdate = (prevProps) => {
+        const { isFetching } = this.props;
+
+        if (prevProps.isFetching && !isFetching) {
+            this.setState({
+                isLoading: false,
+            });
+        }
     }
 
     formatSearchResults() {
@@ -40,10 +53,10 @@ class SearchContainer extends Component {
             const typeData = result.siteID
                 ? { type: 'sites', hierarchyID: result.siteID }
                 : result.buildingID
-                ? { type: 'buildings', hierarchyID: result.buildingID }
-                : result.floorID
-                ? { type: 'floors', hierarchyID: result.floorID }
-                : { type: 'drawings', hierarchyID: result.drawingID };
+                    ? { type: 'buildings', hierarchyID: result.buildingID }
+                    : result.floorID
+                        ? { type: 'floors', hierarchyID: result.floorID }
+                        : { type: 'drawings', hierarchyID: result.drawingID };
             // split search terms to highlight multiple words split by / or space
             const multiSearchTerms = searchTerm
                 .split(/\/|\s/gi)
@@ -63,8 +76,8 @@ class SearchContainer extends Component {
                                 {text}
                             </span>
                         ) : (
-                            text
-                        )
+                                text
+                            )
                     )}
                 </span>
             );
@@ -74,18 +87,28 @@ class SearchContainer extends Component {
     }
 
     handleChange = (name, value) => {
-        const { fetchSearchResults } = this.props;
+        const { fetchSearchResults, clearSearchResults } = this.props;
         const resultsVisible = !!value.length;
         this.setState({ resultsVisible, [name]: value });
+
+        if (this.fetchTimeout) clearTimeout(this.fetchTimeout);
+
+        this.setState({
+            isLoading: true,
+        });
+
         if (resultsVisible) {
             document.addEventListener('click', this.handleOutsideClick, false);
-            fetchSearchResults(value);
+            this.fetchTimeout = setTimeout(() => {
+                fetchSearchResults(value);
+            }, 750);
         } else {
             document.removeEventListener(
                 'click',
                 this.handleOutsideClick,
                 false
             );
+            clearSearchResults();
         }
     };
 
@@ -118,6 +141,9 @@ const mapStateToProps = ({
 const mapDispatchToProps = dispatch => ({
     fetchSearchResults: searchTerm => {
         dispatch(fetchSearchResults(searchTerm));
+    },
+    clearSearchResults: () => {
+        dispatch(clearSearchResults());
     }
 });
 

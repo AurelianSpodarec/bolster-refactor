@@ -860,14 +860,16 @@ input {
         a {
             float: left;
             width: 100%;
+            height: 49px;
             padding: 5px 10px;
             text-align: center;
-            display: flex;
         }
 
         img {
             max-height: 49px;
             max-width: 100%;
+            top: 50%;
+            transform: translateY(-50%);
         }
     }
 
@@ -2006,9 +2008,8 @@ input {
     }
 }
 
-.basic-date-input{
+.basic-date-input {
     padding: 3.5px 10px;
-
 }
 
 .hex-box {
@@ -2792,7 +2793,7 @@ input {
                 float: left;
                 width: 24px;
                 margin-right: 10px;
-                max-height:40px;
+                max-height: 40px;
             }
 
             p {
@@ -2912,9 +2913,12 @@ input {
 }
 
 //pin selection
+.pin-selector {
+    display: flex;
+}
+
 .pin-selection-box {
-    float: left;
-    width: calc(50% - 50px);
+    flex: 1;
 
     h3 {
         margin-bottom: 5px;
@@ -2943,7 +2947,6 @@ input {
 }
 
 .pin-selection-buttons {
-    float: left;
     width: 100px;
     min-height: 1px;
 
@@ -5184,6 +5187,7 @@ input {
         margin: 0 0 10px !important;
     }
 }
+
 // helpscout-beacon
 .BeaconFabButtonFrame {
     position: fixed !important;
@@ -5201,13 +5205,18 @@ input {
         transform: scale(0.75) translate(+25%, +25%);
     }
 }
+.helpscout-visible {
+    .BeaconFabButtonFrame {
+        display: block;
+    }
+}
 .BeaconContainer {
     position: fixed !important;
     bottom: 55px !important;
     right: 40px !important;
 }
 .css-k7cd9d {
-    display: none;
+    display: block;
 }
 // force scrollbar visible on chrome
 .always-scrollbar {

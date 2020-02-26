@@ -8,7 +8,7 @@ const SuperAdminInvoicesTable = ({
     invoices,
     showModal,
     headers,
-    companies
+    companies,
 }) => (
     <Table
         withActions
@@ -18,11 +18,7 @@ const SuperAdminInvoicesTable = ({
         noData={!invoices.length || !Object.values(companies).length}
         noDataMessage="No invoices to display."
     >
-        <SuperAdminInvoicesList
-            invoices={invoices}
-            showModal={showModal}
-            companies={companies}
-        />
+        <SuperAdminInvoicesList invoices={invoices} showModal={showModal} companies={companies} />
     </Table>
 );
 
