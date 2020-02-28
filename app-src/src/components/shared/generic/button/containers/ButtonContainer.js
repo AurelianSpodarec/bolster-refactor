@@ -19,7 +19,8 @@ class ButtonContainer extends Component {
             type = 'button',
             handleClick = () => {},
             className,
-            isAnchor = false
+            isAnchor = false,
+            openNewTab = false
         } = this.props;
 
         let style = {};
@@ -55,11 +56,19 @@ class ButtonContainer extends Component {
                 </Link>
             </div>
         ) : to && !!to.length && isAnchor ? (
-            <div className="link-holder">
-                <a {...sharedProps} href={to}>
-                    {children}
-                </a>
-            </div>
+            openNewTab ? (
+                <div className="link-holder">
+                    <a {...sharedProps} href={to} target="_blank">
+                        {children}
+                    </a>
+                </div>
+            ) : (
+                <div className="link-holder">
+                    <a {...sharedProps} href={to}>
+                        {children}
+                    </a>
+                </div>
+            )
         ) : (
             <button {...sharedProps} type={type}>
                 {children}
