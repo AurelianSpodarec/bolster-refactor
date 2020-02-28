@@ -1,12 +1,12 @@
-import React from "react";
-import { QUESTION_TYPE_NUMBERS as TYPES } from "constants/shared/templateBuilder";
-import { FILE_STORAGE_URL } from "config";
+import React from 'react';
+import { QUESTION_TYPE_NUMBERS as TYPES } from 'constants/shared/templateBuilder';
+import { FILE_STORAGE_URL,RAW_S3_STORAGE_URL } from 'config';
 // import { PIN_STATUS_TYPES } from 'constants/companyAdmin/enums';
-import { showModal } from "actions/shared/generic/modals/sync/showModal";
-import { PIN_IMAGE } from "constants/shared/modalTypes";
-import { connect } from "react-redux";
-import FieldOutput from "components/shared/generic/fieldOutput/presentational/FieldOutput";
-import { isEmpty } from "helpers/generic";
+import { showModal } from 'actions/shared/generic/modals/sync/showModal';
+import { PIN_IMAGE } from 'constants/shared/modalTypes';
+import { connect } from 'react-redux';
+import FieldOutput from 'components/shared/generic/fieldOutput/presentational/FieldOutput';
+import { isEmpty } from 'helpers/generic';
 
 const PinAnswer = ({
     trimmedAnswer,
@@ -69,7 +69,7 @@ const PinAnswer = ({
             inner = <p>{curAnswer.answer}</p>;
             break;
         case TYPES.MULTI_DROPDOWN_OPTIONS:
-            inner = <p>{curAnswer.answer.join(", ")}</p>;
+            inner = <p>{curAnswer.answer.join(', ')}</p>;
             break;
         case TYPES.MULTI_MULTI_DROPDOWN:
         case TYPES.MULTI_MULTI_DROPDOWN_OPTIONS:
@@ -96,15 +96,15 @@ const PinAnswer = ({
             var relevantOptions = options.filter(({ id }) =>
                 curAnswer.answer.includes(id)
             );
-            inner = <p>{relevantOptions.map(({ text }) => text).join(", ")}</p>;
+            inner = <p>{relevantOptions.map(({ text }) => text).join(', ')}</p>;
             break;
         case TYPES.CHECKBOX:
-            inner = <p>{curAnswer.answer ? "Yes" : "No"}</p>;
+            inner = <p>{curAnswer.answer ? 'Yes' : 'No'}</p>;
             break;
         case TYPES.SIGNATURE:
             var answerString = curAnswer.answer;
 
-            if (!answerString.startsWith("data:")) {
+            if (!answerString.startsWith('data:')) {
                 answerString = `data: image/jpeg;base64,${answerString}`;
             }
 
@@ -117,9 +117,9 @@ const PinAnswer = ({
             var URL = `${FILE_STORAGE_URL}/${curAnswer.answer}`;
             inner = (
                 <img
-                    style={{ cursor: "zoom-in" }}
+                    style={{ cursor: 'zoom-in' }}
                     alt=""
-                    src={URL + "?width=100"}
+                    src={URL + '?width=100'}
                     onClick={() =>
                         dispatch(showModal(PIN_IMAGE, { image: URL }))
                     }
@@ -131,10 +131,10 @@ const PinAnswer = ({
                 var URL = `${FILE_STORAGE_URL}/${item}`;
                 return (
                     <img
-                        style={{ cursor: "zoom-in" }}
+                        style={{ cursor: 'zoom-in' }}
                         alt={`${i + 1} of ${curAnswer.answer.length}`}
                         key={item}
-                        src={URL + "?width=100"}
+                        src={URL + '?width=100'}
                         onClick={() =>
                             dispatch(showModal(PIN_IMAGE, { image: URL }))
                         }
@@ -142,6 +142,19 @@ const PinAnswer = ({
                 );
             });
             break;
+            case TYPES.DOCUMENT_UPLOAD:
+                var docURL = `${RAW_S3_STORAGE_URL}/${curAnswer.answer}`;
+                inner = (
+             <p> 
+                    <a  href={docURL}
+                        rel="noopener norefferrer"
+                    // eslint-disable-next-line react/jsx-no-target-blank
+                    target="_blank"   className="text-link">
+                        <i className="table-icon far fa-file-alt" /> {curAnswer.answer}
+                    </a>
+              </p>
+                );
+                break;
         default:
             return notFoundResponse;
     }
@@ -164,5 +177,5 @@ function formatMultiMulti(answer) {
         return count > 1 ? `${item} (${count})` : item;
     });
 
-    return [...new Set(formatted)].join(", ");
+    return [...new Set(formatted)].join(', ');
 }
