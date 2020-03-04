@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import { PIN_STATUS_TYPES } from 'constants/companyAdmin/enums';
@@ -14,6 +15,7 @@ import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { CONFIRM_SUBMIT } from 'constants/shared/modalTypes';
 import clientFetchAllTemplates from 'actions/client/templates/async/clientFetchAllTemplates';
+import clientFetchTemplatesForDrawing from 'actions/client/templates/async/clientFetchTemplatesForDrawing';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 
 class BasicFiltersContainer extends Component {
@@ -65,9 +67,7 @@ class BasicFiltersContainer extends Component {
     }
 
     componentDidMount = () => {
-        const { clientFetchAllTemplates } = this.props;
-        const selectedCompanyID = getSelectedCompanyForClient();
-        clientFetchAllTemplates(selectedCompanyID);
+        this.handleFetchTemplates();
     };
 
     handleDateBlur = isStart => {
@@ -110,6 +110,25 @@ class BasicFiltersContainer extends Component {
             handleChange(name, value).then(postFilters);
         }
     };
+
+    handleFetchTemplates = () => {
+        const {
+            clientFetchAllTemplates,
+            clientFetchTemplatesForDrawing,
+            isDrawingPage,
+        } = this.props;
+        const selectedCompanyID = getSelectedCompanyForClient();
+        if (isDrawingPage) {
+            const {
+                match: {
+                    params: { id },
+                },
+            } = this.props;
+            clientFetchTemplatesForDrawing(selectedCompanyID, id);
+        } else {
+            clientFetchAllTemplates(selectedCompanyID);
+        }
+    };
 }
 
 const mapStateToProps = ({
@@ -131,8 +150,9 @@ const mapDispatchToProps = {
     hideModal,
     showModal,
     clientFetchAllTemplates,
+    clientFetchTemplatesForDrawing,
 };
 
 export default withUpdateOnChange(
-    connect(mapStateToProps, mapDispatchToProps)(BasicFiltersContainer)
+    withRouter(connect(mapStateToProps, mapDispatchToProps)(BasicFiltersContainer)),
 );
