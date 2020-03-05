@@ -12,7 +12,7 @@ import fetchAllPinsForDrawing from 'actions/companyAdmin/pins/async/fetchAllPins
 
 class SinglePinContainer extends Component {
     state = { isLoading: true };
-    render = () => <SinglePin isLoading={this.state.isLoading} />;
+    render = () => <SinglePin isLoading={this.state.isLoading} pin={this.props.pin} />;
 
     componentDidMount = () => {
         const {
@@ -35,8 +35,12 @@ class SinglePinContainer extends Component {
     };
 }
 
-const mapStateToProps = (_, { match: { params } }) => ({
-    pinId: params.id
+const mapStateToProps = (
+    { companyAdmin: { pinsReducer: { pins } } },
+    { match: { params } }
+) => ({
+    pinId: params.id,
+    pin: pins[params.id]
 });
 
 const mapDispatchToProps = dispatch => ({
