@@ -2,10 +2,12 @@ import React from "react";
 import { connect } from "react-redux";
 import moment from "moment";
 
-import CompanyMenu from "../presentational/CompanyMenu";
-import { MESSAGE_TYPES } from "constants/companyAdmin/enums";
-import dismissMessages from "actions/companyAdmin/messages/async/dismissMessages";
-import { isEmpty } from "helpers/generic";
+import CompanyMenu from '../presentational/CompanyMenu';
+import { MESSAGE_TYPES } from 'constants/companyAdmin/enums';
+import dismissMessages from 'actions/companyAdmin/messages/async/dismissMessages';
+import { isEmpty } from 'helpers/generic';
+import { showModal } from 'actions/shared/generic/modals/sync/showModal';
+import { GENERATE_QR_CODES } from 'constants/shared/modalTypes';
 
 const CompanyMenuContainer = ({
     isFromHeadquarters,
@@ -17,7 +19,8 @@ const CompanyMenuContainer = ({
     subscriptions,
     subscriptions: { startOn, endOn },
     hasInitiallyFetched,
-    isClientAccess
+    isClientAccess,
+    showModal,
 }) => {
     if (!hasInitiallyFetched) return null;
 
@@ -38,6 +41,7 @@ const CompanyMenuContainer = ({
             dismissMessages={dismissNotifications}
             openHelpScout={_openHelpScout}
             isClientAccess={isClientAccess}
+            handleGenerateQRCodesModal={handleGenerateQRCodesModal}
         />
     );
 
@@ -60,6 +64,12 @@ const CompanyMenuContainer = ({
             document.body.classList.add(helpscoutClass);
         }
         window.Beacon("toggle");
+    }
+
+    function handleGenerateQRCodesModal(e) {
+        e.preventDefault();
+
+        showModal(GENERATE_QR_CODES);
     }
 };
 const mapStateToProps = ({
@@ -104,7 +114,8 @@ const mapStateToProps = ({
 const mapDispatchToProps = dispatch => ({
     dismissMessages: messageType => {
         dispatch(dismissMessages(messageType));
-    }
+    },
+    showModal: (type, props) => dispatch(showModal(type, props))
 });
 
 export default connect(

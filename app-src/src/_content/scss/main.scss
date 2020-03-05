@@ -4007,6 +4007,20 @@ input {
             border-bottom: 1px solid #999;
         }
 
+        .app-links {
+            float: left;
+            width: 100%;
+            margin-top: 35px;
+
+            a {
+                margin-right: 15px;
+            }
+
+            img {
+                height: 42px;
+            }
+        }
+
         &:last-child {
             .content {
                 border-bottom: none;
@@ -5484,5 +5498,16 @@ input {
         .button {
             margin-bottom: 5px;
         }
+    }
+}
+
+.qr-container {
+    display: flex;
+    float: left;
+    width: 100%;
+    align-items: center;
+
+    p {
+        padding-left: 15px;
     }
 }
