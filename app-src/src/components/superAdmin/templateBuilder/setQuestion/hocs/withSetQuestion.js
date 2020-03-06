@@ -15,8 +15,8 @@ import { PIN_STATUS_TYPES } from 'constants/companyAdmin/enums';
 
 export default function(WrappedComponent) {
     class WithSetQuestion extends React.Component {
-        render() {
-            return (
+        render = () =>
+            (
                 <WrappedComponent
                     {...this.props}
                     prereqOptions={this._getPrereqOptions()}
@@ -25,16 +25,13 @@ export default function(WrappedComponent) {
                     statusOptions={this._getStatusOptions()}
                 />
             );
-        }
 
         componentWillUnmount = () => {
-            const { resetQuestionFields } = this.props;
-            resetQuestionFields();
+            this.props.resetQuestionFields();
         };
 
         handleInputChange = (name, value) => {
-            const { updateQuestionField } = this.props;
-            updateQuestionField(name, value);
+            this.props.updateQuestionField(name, value);
         };
 
         _getPrereqOptions = () => {
@@ -78,7 +75,9 @@ export default function(WrappedComponent) {
                 isRequired,
                 isHidden,
                 isPrefill,
-                isRequiredVal
+                isRequiredVal,
+                prefillStatus,
+                prefillStatusValue,
             } = this.props.fields;
 
             return {
@@ -89,7 +88,9 @@ export default function(WrappedComponent) {
                 isRequired,
                 isHidden,
                 isPrefill,
-                isRequiredVal
+                isRequiredVal,
+                prefillStatus,
+                prefillStatusValue,
             };
         };
 
