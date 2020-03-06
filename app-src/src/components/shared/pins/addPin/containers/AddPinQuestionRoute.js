@@ -229,6 +229,7 @@ class AddPinQuestionRoute extends Component {
 
         const hasStatusChanged = prevProps.status !== status;
         if (`${question.type}` !== STATUS && hasStatusChanged) {
+            // * handle isrequiredbasedonstatus
             const isRequiredButEmpty = this._getIsRequired() && isEmpty(answer);
 
             if (isRequiredButEmpty && isShowingFromPrereq) {
@@ -236,7 +237,12 @@ class AddPinQuestionRoute extends Component {
             } else {
                 removeFieldError(answerName);
             }
+            // * handle prefillfromstatus
+            if (+question.prefillStatus === +status) {
+                updateAddPinAnswer(question.id, question.prefillStatusValue);
+            }
         }
+        
 
         // * remove error if the question is no longer showing
         const hasError = fieldErrors[answerName];
@@ -288,7 +294,6 @@ class AddPinQuestionRoute extends Component {
 
     handlePrefillOrReset = () => {
         const { isSameTemplate, pinAnswersByGroupKey } = this.props;
-
         const isAddPinHistory = !!pinAnswersByGroupKey;
 
         if (isSameTemplate && isAddPinHistory) {
@@ -306,6 +311,7 @@ class AddPinQuestionRoute extends Component {
             question,
             updateAddPinAnswer
         } = this.props;
+        
         const isDropdownOptions = dropdownOptionTypes.includes(
             `${question.type}`
         );
@@ -419,6 +425,7 @@ class AddPinQuestionRoute extends Component {
         const { updateAddPinStatus } = this.props;
         updateAddPinStatus(val);
     };
+    
 
     handleFileChange = (_, s3Key) => {
         const { updateAddPinAnswer, question, answers } = this.props;

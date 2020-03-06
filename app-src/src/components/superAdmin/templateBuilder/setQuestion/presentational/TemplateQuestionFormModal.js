@@ -129,7 +129,7 @@ const TemplateQuestionFormModal = ({
                         name="prefillStatus"
                         onChange={handleInputChange}
                         options={statusOptions}
-                        value={prefillStatus}
+                        value={prefillStatus + ''}
                     />
                 </Field>
                 {!!prefillStatus && 

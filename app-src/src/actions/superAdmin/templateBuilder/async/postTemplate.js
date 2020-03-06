@@ -33,7 +33,7 @@ export const postTemplateFailure = error => ({
 
 export default templateData => dispatch => {
     dispatch(postTemplateRequest());
-
+    
     return axios
         .post(`${ADMIN_API_URL}/templates`, templateData, getHeaders())
         .then(res =>
