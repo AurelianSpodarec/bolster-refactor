@@ -240,7 +240,13 @@ class AddPinQuestionRoute extends Component {
             // * handle prefillfromstatus
             if (+question.prefillStatus === +status) {
                 updateAddPinAnswer(question.id, question.prefillStatusValue);
+            } else {
+                // handle reset if was, but should no longer be prefilled
+                if (+prevProps.question.prefillStatus === +status) {
+                    resetPinAnswer(question.id, getDefaultValue(question));
+                }
             }
+            
         }
         
 
