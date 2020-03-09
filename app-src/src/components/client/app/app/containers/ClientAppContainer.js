@@ -7,12 +7,11 @@ import decodeJWT from 'actions/shared/jwt/async/decodeJWT';
 import fetchClientCompanyReports from 'actions/client/reports/queue/async/fetchClientCompanyReports';
 import selectMenuTab from 'actions/shared/generic/tabs/sync/selectMenuTab';
 import fetchAllSubscriptions from 'actions/companyAdmin/subscriptions/async/fetchAllSubscriptions';
-import clientFetchHistoricServices from 'actions/client/services/async/clientFetchHistoricServices';
 
 import { MENU_TABS } from 'constants/shared/tabNames';
 import { getSelectedCompanyForClient, componentDidMount } from 'helpers/generic';
 
-const ClientAppContainer = ({fetchHomeData, selectClientMenuTab}) => {    
+const ClientAppContainer = ({ fetchHomeData, selectClientMenuTab }) => {
     componentDidMount(() => {
         const selectedCompanyID = getSelectedCompanyForClient();
         fetchHomeData(selectedCompanyID);
@@ -27,13 +26,9 @@ const mapDispatchToProps = dispatch => ({
         dispatch(fetchProfile());
         dispatch(fetchClientCompanyReports(companyID));
         dispatch(decodeJWT());
-        dispatch(clientFetchHistoricServices(companyID));
         dispatch(fetchAllSubscriptions());
     },
     selectClientMenuTab: () => dispatch(selectMenuTab(MENU_TABS.CLIENT)),
 });
 
-export default connect(
-    null,
-    mapDispatchToProps
-)(ClientAppContainer);
+export default connect(null, mapDispatchToProps)(ClientAppContainer);
