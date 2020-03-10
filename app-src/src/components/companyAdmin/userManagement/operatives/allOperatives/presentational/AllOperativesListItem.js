@@ -1,8 +1,8 @@
-import React from "react";
-import { Link, withRouter } from "react-router-dom";
+import React from 'react';
+import { Link, withRouter } from 'react-router-dom';
 
-import BlockButtonWrapper from "components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper";
-import ButtonContainer from "components/shared/generic/button/containers/ButtonContainer";
+import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
+import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 
 const AllOperativesListItem = ({
     user,
@@ -12,41 +12,41 @@ const AllOperativesListItem = ({
     onMobile,
     headers,
     history,
-    mobileDeviceName = ""
+    mobileDeviceName = ''
 }) => {
     return (
         <tr key={user.id}>
             <td>
-                {" "}
+                {' '}
                 {onMobile && (
                     <span className="mobile-table-heading">{headers[0]}</span>
                 )}
                 {`${user.userFirstName} ${user.userLastName}`}
             </td>
             <td>
-                {" "}
+                {' '}
                 {onMobile && (
                     <span className="mobile-table-heading">{headers[1]}</span>
                 )}
                 {user.userEmail}
             </td>
             <td>
-                {" "}
+                {' '}
                 {onMobile && (
                     <span className="mobile-table-heading">{headers[2]}</span>
                 )}
                 {user.userPhoneNumber}
             </td>
             <td>
-                {" "}
+                {' '}
                 {onMobile && (
                     <span className="mobile-table-heading">{headers[3]}</span>
                 )}
-                {user.linkedDeviceID ? "Yes" : "No"}{" "}
-                <span className="red-text">{`(${mobileDeviceName})`}</span>
+                {user.linkedDeviceID ? 'Yes' : 'No'}{' '}
+                {user.linkedDeviceName && <span className="red-text">{`(${user.linkedDeviceName})`}</span>}
             </td>
             <td>
-                {" "}
+                {' '}
                 {onMobile && (
                     <span className="mobile-table-heading">{headers[4]}</span>
                 )}
@@ -106,7 +106,7 @@ const AllOperativesListItem = ({
 
     function generateReport() {
         history.push({
-            pathname: "/company/tools/create-report",
+            pathname: '/company/tools/create-report',
             state: {
                 operativeID: user.id
             }
