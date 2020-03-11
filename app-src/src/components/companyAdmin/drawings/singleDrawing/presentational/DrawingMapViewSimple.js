@@ -44,7 +44,9 @@ const DrawingMapViewSimple = ({
     isExcluding,
     updateCurTooltip,
     currentTooltip,
-    isExpired
+    isExpired,
+    isAddingZone,
+    cancelZoneAdd,
 }) => {
     const newPinIcon = L.divIcon({
         className: '',
@@ -69,7 +71,7 @@ const DrawingMapViewSimple = ({
             {shouldShowFloorplan ? (
                 <div className="size-lg-12" id="map">
                     <BlockHeading>
-                        {shouldShowPinSelectorOptions ? (
+                        {isAddingZone ? <></> : shouldShowPinSelectorOptions ? (
                             <PinSelectorOptions
                                 setMode={setMode}
                                 mode={mode}
@@ -198,15 +200,24 @@ const DrawingMapViewSimple = ({
                         !addMode &&
                         drawing.accessType >= ACCESS_TYPES_VALUES.WRITE && (
                             <div className="map-bottom-buttons">
-                                <button
-                                    className="button blue"
-                                    onClick={() =>
-                                        showModal(VIEW_ZONES, { drawing })
-                                    }
-                                >
-                                    <i className="far fa-map-marker-alt fa-fw" />{' '}
-                                    View Zones
-                                </button>
+                                {isAddingZone ? <>
+                                    <button
+                                        className="button grey"
+                                        onClick={cancelZoneAdd}
+                                    >
+                                        Cancel
+                                    </button>
+                                </> : <>
+                                        <button
+                                            className="button blue"
+                                            onClick={() =>
+                                                showModal(VIEW_ZONES, { drawing })
+                                            }
+                                        >
+                                            <i className="far fa-map fa-fw" />{' '}
+                                        View Zones
+                                    </button>
+                                    </>}
                             </div>
                         )}
                 </div>

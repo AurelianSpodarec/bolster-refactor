@@ -20,6 +20,7 @@ import fetchSingleDrawing from 'actions/companyAdmin/drawings/async/fetchSingleD
 import updateFloorPlanConfirmed from 'actions/companyAdmin/drawings/sync/updateFloorPlanConfirmed';
 import updateReportFilter from 'actions/companyAdmin/reports/sync/updateReportFilter';
 import removeFieldError from 'actions/shared/generic/fieldErrors/sync/removeFieldError';
+import setZoneAddMode from 'actions/companyAdmin/zones/sync/setZoneAddMode';
 import withUpdateOnChange from 'components/companyAdmin/reports/createReport/components/hocs/withUpdateOnChange';
 import DrawingDetailsContainer from './DrawingDetailsContainer';
 import FurtherFiltrationContainer from 'components/companyAdmin/reports/createReport/components/containers/FurtherFiltrationContainer';
@@ -64,7 +65,8 @@ class DrawingMapGeneralContainer extends Component {
             error,
             drawing,
             furtherFiltrationOption,
-            rectangles
+            rectangles,
+            isAddingZone
         } = this.props;
         const position = [centerLat, centerLng];
         const addPinPosition = [addPinLat, addPinLng];
@@ -119,6 +121,8 @@ class DrawingMapGeneralContainer extends Component {
                         mode={mode}
                         handleCancelPinSelector={this.handleCancelPinSelector}
                         isExcluding={isExcluding}
+                        isAddingZone={isAddingZone}
+                        cancelZoneAdd={this.cancelZoneAdd}
                     />
                 </BlockContainer>
                 <FurtherFiltrationContainer />
@@ -333,6 +337,12 @@ class DrawingMapGeneralContainer extends Component {
         updateFurtherFiltrationOption(FURTHER_FILTRATION_OPTIONS.NONE);
         removeAllRectangles();
     };
+
+    cancelZoneAdd = () => {
+        const { setZoneAddMode } = this.props;
+
+        setZoneAddMode(false);
+    }
 }
 
 const mapStateToProps = (
@@ -349,6 +359,9 @@ const mapStateToProps = (
                 furtherFiltrationOption,
                 rectangles,
                 isFetching: isFetchingReports
+            },
+            zonesReducer: {
+                isAddMode,
             }
         }
     },
@@ -368,7 +381,8 @@ const mapStateToProps = (
     postSuccess,
     furtherFiltrationOption,
     rectangles: Object.values(rectangles),
-    companyUserIDs
+    companyUserIDs,
+    isAddingZone: isAddMode,
 });
 
 const mapDispatchToProps = {
@@ -381,7 +395,8 @@ const mapDispatchToProps = {
     addRectangle,
     removeRectangle,
     removeAllRectangles,
-    updateFurtherFiltrationOption
+    updateFurtherFiltrationOption,
+    setZoneAddMode,
 };
 
 export default withRouter(

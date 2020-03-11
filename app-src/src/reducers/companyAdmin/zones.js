@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 import {
-    SET_ADD_MODE,
+    SET_ZONE_ADD_MODE,
 } from 'constants/actionTypes/zones';
 
 export default combineReducers({
@@ -12,7 +12,7 @@ export default combineReducers({
 
 function isAddModeReducer(state = false, action) {
     switch (action.type) {
-        case SET_ADD_MODE:
+        case SET_ZONE_ADD_MODE:
             return action.value;
         default:
             return state;

@@ -4,15 +4,15 @@ import ModalOuterContainer from 'components/shared/generic/modals/containers/Mod
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 
-const ViewZonesModal = ({ hideModal }) => (
+const ViewZonesModal = ({ hideModal, addZone }) => (
     <ModalOuterContainer>
         <BlockHeading title="View zones"></BlockHeading>
 
         <p>Zones to go here...</p>
 
         <BlockButtonWrapper>
-            <button className="button green">
-                Add Zone
+            <button className="button green" onClick={addZone}>
+                <i className="fa fa-plus" /> Add Zone
             </button>
             <button className="button grey" onClick={hideModal}>
                 Cancel

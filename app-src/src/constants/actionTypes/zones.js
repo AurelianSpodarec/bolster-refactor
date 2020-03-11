@@ -1,1 +1,1 @@
-export const SET_ADD_MODE = 'SET_ADD_MODE';
+export const SET_ZONE_ADD_MODE = 'SET_ZONE_ADD_MODE';
