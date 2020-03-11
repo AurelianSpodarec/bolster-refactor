@@ -74,7 +74,8 @@ import {
     ADMIN_DELETE_INVOICE,
     DELETE_INVOICE,
     ADD_MULTIPLE_SERVICES_TO_SUBSCRIPTION,
-    GENERATE_QR_CODES
+    GENERATE_QR_CODES,
+    VIEW_ZONES,
 } from 'constants/shared/modalTypes';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
@@ -152,6 +153,7 @@ import SuperAdminConfirmDeleteInvoiceModalContainer from 'components/superAdmin/
 import ConfirmDeleteInvoiceModalContainer from 'components/companyAdmin/invoices/confirmDeleteInvoiceModal/containers/ConfirmDeleteInvoiceModalContainer';
 import AddCompanyAdminModalContainer from 'components/superAdmin/companies/singleCompany/containers/AddCompanyAdminModalContainer';
 import GenerateQRCodesModalContainer from './GenerateQRCodesModalContainer';
+import ViewZonesModalContainer from 'components/companyAdmin/drawings/singleDrawing/containers/ViewZonesModalContainer';
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModalContainer,
@@ -227,6 +229,7 @@ const MODAL_COMPONENTS = {
     [DELETE_INVOICE]: ConfirmDeleteInvoiceModalContainer,
     [ADD_MULTIPLE_SERVICES_TO_SUBSCRIPTION]: AddMulitpleServicesToSubscriptionModalContainer,
     [GENERATE_QR_CODES]: GenerateQRCodesModalContainer,
+    [VIEW_ZONES]: ViewZonesModalContainer,
 };
 
 const ModalRoot = ({ modalType, modalProps, ...otherProps }) => {

@@ -1,5 +1,6 @@
 //drawing
 export const EDIT_DRAWING = 'EDIT_DRAWING';
+export const VIEW_ZONES = 'VIEW_ZONES';
 
 //generic
 export const SUCCESS_MODAL = 'SUCCESS_MODAL';

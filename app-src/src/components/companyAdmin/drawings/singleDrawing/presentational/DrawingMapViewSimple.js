@@ -9,7 +9,7 @@ import BlockHeading from 'components/shared/generic/blockHeading/presentational/
 import CustomPin from 'components/shared/pins/map/presentational/CustomPin';
 import Loading from 'components/shared/generic/misc/presentational/Loading';
 import { ACCESS_TYPES_VALUES, FLOORPLAN_STATES } from 'constants/companyAdmin/enums';
-import { EDIT_DRAWING } from 'constants/shared/modalTypes';
+import { EDIT_DRAWING, VIEW_ZONES } from 'constants/shared/modalTypes';
 import MapPinContainer from 'components/shared/pins/map/containers/MapPinContainer';
 import RedX from 'components/shared/pins/map/presentational/RedX';
 import PinSelectorOptions from 'components/shared/pinSelector/presentational/PinSelectorOptions';
@@ -165,6 +165,7 @@ const DrawingMapViewSimple = ({
                     <div className="map-bottom-buttons">
                         <button
                             className="button blue"
+                            onClick={() => showModal(VIEW_ZONES, { drawing })}
                         >
                             <i className="far fa-map-marker-alt fa-fw" /> View Zones
                                             </button>
