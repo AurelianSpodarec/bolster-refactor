@@ -55,6 +55,7 @@ import {
     CLIENT_FILTER_FIELDS,
     UNLINK_DEVICE,
     REVOKE_ADMIN_ACCESS,
+    RESTRICT_ADMIN_PAYMENTS,
     COPY_TEMPLATE,
     SINGLE_PIN_GENERATE_REPORT_SUCCESS,
     CLIENT_SINGLE_PIN_GENERATE_REPORT_SUCCESS,
@@ -152,6 +153,7 @@ import SuperAdminConfirmDeleteInvoiceModalContainer from 'components/superAdmin/
 import ConfirmDeleteInvoiceModalContainer from 'components/companyAdmin/invoices/confirmDeleteInvoiceModal/containers/ConfirmDeleteInvoiceModalContainer';
 import AddCompanyAdminModalContainer from 'components/superAdmin/companies/singleCompany/containers/AddCompanyAdminModalContainer';
 import GenerateQRCodesModalContainer from './GenerateQRCodesModalContainer';
+import RistrictPaymentsModalContainer from './RistrictPaymentsModalContainer';
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModalContainer,
@@ -207,6 +209,7 @@ const MODAL_COMPONENTS = {
     [CREATE_OPERATIVE]: CreateOperativeModal,
     [LOADING_DATA]: LoadingDataModal,
     [UNLINK_DEVICE]: UnlinkDeviceModalContainer,
+    [RESTRICT_ADMIN_PAYMENTS]: RistrictPaymentsModalContainer,
     [REVOKE_ADMIN_ACCESS]: RevokeAdminAccessModalContainer,
     [DOCUMENT_RESPONSE_AGREEANCE]: DocumentResponseAgreeanceModalContainer,
     [SINGLE_PIN_GENERATE_REPORT_SUCCESS]: SinglePinGenerateReportSuccessModalContainer,
@@ -226,7 +229,7 @@ const MODAL_COMPONENTS = {
     [ADMIN_DELETE_INVOICE]: SuperAdminConfirmDeleteInvoiceModalContainer,
     [DELETE_INVOICE]: ConfirmDeleteInvoiceModalContainer,
     [ADD_MULTIPLE_SERVICES_TO_SUBSCRIPTION]: AddMulitpleServicesToSubscriptionModalContainer,
-    [GENERATE_QR_CODES]: GenerateQRCodesModalContainer,
+    [GENERATE_QR_CODES]: GenerateQRCodesModalContainer
 };
 
 const ModalRoot = ({ modalType, modalProps, ...otherProps }) => {
@@ -239,7 +242,4 @@ const mapStateToProps = ({ shared: { modalReducer } }) => modalReducer;
 
 const mapDispatchToProps = { hideModal, showModal };
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(ModalRoot);
+export default connect(mapStateToProps, mapDispatchToProps)(ModalRoot);

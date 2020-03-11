@@ -4,7 +4,8 @@ import { connect } from 'react-redux';
 import {
     DELETE_COMPANY_USER,
     UNLINK_DEVICE,
-    REVOKE_ADMIN_ACCESS
+    REVOKE_ADMIN_ACCESS,
+    RESTRICT_ADMIN_PAYMENTS
 } from 'constants/shared/modalTypes';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
@@ -21,6 +22,9 @@ class AllCompanyAdminsListItemContainer extends Component {
                 colCount={colCount}
                 showDeleteModal={this.deleteModal}
                 showUnlinkModal={this.unlinkModal}
+                showRestrictUserPaymentsModal={
+                    this.showRestrictUserPaymentsModal
+                }
                 showRevokeAdminAccessModal={this.revokeAdminAccess}
                 loggedInUser={loggedInUser}
                 headers={headers}
@@ -41,9 +45,7 @@ class AllCompanyAdminsListItemContainer extends Component {
         showModal(UNLINK_DEVICE, {
             hideModal,
             user,
-            message: `Are you sure you want to unlink ${user.userFirstName} ${
-                user.userLastName
-            }'s device?`
+            message: `Are you sure you want to unlink ${user.userFirstName} ${user.userLastName}'s device?`
         });
     };
 
@@ -53,9 +55,15 @@ class AllCompanyAdminsListItemContainer extends Component {
         showModal(REVOKE_ADMIN_ACCESS, {
             hideModal,
             user,
-            message: `Are you sure you want to revoke the admin access for ${
-                user.userFirstName
-            } ${user.userLastName}?`
+            message: `Are you sure you want to revoke the admin access for ${user.userFirstName} ${user.userLastName}?`
+        });
+    };
+    showRestrictUserPaymentsModal = () => {
+        const { user, showModal, hideModal } = this.props;
+
+        showModal(RESTRICT_ADMIN_PAYMENTS, {
+            hideModal,
+            user
         });
     };
 }
