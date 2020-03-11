@@ -47,6 +47,7 @@ import generatePinReportReducer from './generatePinReport';
 import userDrawingsReducer from './userDrawings';
 import deletedDataReducer from './deletedData';
 import qrCodesReducer from './qrCodes';
+import zonesReducer from './zones';
 
 export default combineReducers({
     addPinDropdownOptions,
@@ -95,5 +96,6 @@ export default combineReducers({
     templateSectionsReducer,
     templateVersionsReducer,
     transferRequestsReducer,
-    userDrawingsReducer
+    userDrawingsReducer,
+    zonesReducer,
 });
