@@ -1,13 +1,12 @@
-import axios from "axios";
+import axios from 'axios';
 
-import { API_URL } from "config/index";
-import setAPIFieldErrors from "actions/shared/generic/fieldErrors/sync/setAPIFieldErrors";
-import { getHeaders, handleErrors } from "helpers/api";
+import { API_URL } from 'config/index';
+import { getHeaders, handleErrors } from 'helpers/api';
 import {
     CREATE_PIN_REQUEST,
     CREATE_PIN_SUCCESS,
     CREATE_PIN_FAILURE
-} from "constants/actionTypes/pins";
+} from 'constants/actionTypes/pins';
 
 export const addPinRequest = () => ({
     type: CREATE_PIN_REQUEST
