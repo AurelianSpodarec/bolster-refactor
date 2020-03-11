@@ -2823,6 +2823,18 @@ input {
         opacity: 0;
     }
 }
+
+
+//buttons below map
+.map-bottom-buttons {
+    margin-top: 20px;
+
+    .button {
+        float: right;
+        margin-left: 2.5px;
+    }
+}
+
 .pin-tooltip {
     width: 250px;
     padding: 10px;

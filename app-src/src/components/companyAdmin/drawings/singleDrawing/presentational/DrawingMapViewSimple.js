@@ -104,7 +104,7 @@ const DrawingMapViewSimple = ({
                                                         onClick={toggleAddMode}
                                                     >
                                                         <i className="fa fa-plus" /> Add pin
-                                        </button>
+                                                    </button>
                                                 )}
                                             {drawing.accessType === ACCESS_TYPES_VALUES.OWNER && (
                                                 <>
@@ -161,6 +161,14 @@ const DrawingMapViewSimple = ({
                             />
                         ))}
                     </Map>
+
+                    <div className="map-bottom-buttons">
+                        <button
+                            className="button blue"
+                        >
+                            <i className="far fa-map-marker-alt fa-fw" /> View Zones
+                                            </button>
+                    </div>
                 </div>
             ) : drawing.latestFloorplanState === FLOORPLAN_STATES.FAILEDCANCELLED ? (
                 <button
