@@ -202,6 +202,18 @@ const DrawingMapViewSimple = ({
                             <div className="map-bottom-buttons">
                                 {isAddingZone ? <>
                                     <button
+                                        className="button green disabled"
+                                        disabled
+                                    >
+                                        <i className="far fa-check fa-fw" /> Finish
+                                    </button>
+                                    <button
+                                        className="button red disabled"
+                                        disabled
+                                    >
+                                        <i className="far fa-undo fa-fw" /> Undo
+                                    </button>
+                                    <button
                                         className="button grey"
                                         onClick={cancelZoneAdd}
                                     >
