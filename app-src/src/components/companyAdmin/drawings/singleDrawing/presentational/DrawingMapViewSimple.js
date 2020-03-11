@@ -1,5 +1,6 @@
 import React from 'react';
 import { Map, TileLayer, Marker } from 'react-leaflet';
+
 import ReactDOMServer from 'react-dom/server';
 import { FILE_STORAGE_URL } from 'config';
 import L from 'leaflet';
@@ -18,6 +19,7 @@ import RedX from 'components/shared/pins/map/presentational/RedX';
 import PinSelectorOptions from 'components/shared/pinSelector/presentational/PinSelectorOptions';
 import Rectangle from 'components/shared/pinSelector/presentational/Rectangle';
 import AddCreditsToDrawingButtonContainer from '../../addCreditsToDrawing/containers/AddCreditsToDrawingButtonContainer';
+import DrawingMapZones from './DrawingMapZones';
 
 const getDataUrl = src => `${FILE_STORAGE_URL}/${src}/{z}/{x}/{y}.jpg`;
 
@@ -66,6 +68,7 @@ const DrawingMapViewSimple = ({
         popupAnchor: [0, -50]
     });
     const shouldShowFloorplan = !!drawing.tilesetS3Key && !updating;
+
     return (
         <>
             {shouldShowFloorplan ? (
@@ -159,40 +162,45 @@ const DrawingMapViewSimple = ({
                             noWrap={true}
                             maxNativeZoom={6}
                         />
-                        {pins.map(pin => (
-                            <MapPinContainer
-                                updateCurTooltip={updateCurTooltip}
-                                tooltipVisible={currentTooltip === pin.id}
-                                urlStart="company"
-                                key={pin.id}
-                                pin={pin}
-                                withLink={
-                                    !shouldShowPinSelectorOptions && !addMode
-                                }
-                                withTooltip={!isExcluding}
-                                isExcluding={isExcluding}
-                            />
-                        ))}
-                        {addMode && (
-                            <Marker
-                                position={addPinPosition}
-                                icon={newPinIcon}
-                            />
-                        )}
-                        {cornerClicked && (
-                            <Marker
-                                position={cornerClicked}
-                                icon={cornerClickedIcon}
-                            />
-                        )}
 
-                        {rectangles.map(rectangle => (
-                            <Rectangle
-                                key={rectangle.id}
-                                rectangle={rectangle}
-                                onClick={() => handleDelete(rectangle.id)}
-                            />
-                        ))}
+                        {isAddingZone ? <DrawingMapZones /> : <>
+                            {pins.map(pin => (
+                                <MapPinContainer
+                                    updateCurTooltip={updateCurTooltip}
+                                    tooltipVisible={currentTooltip === pin.id}
+                                    urlStart="company"
+                                    key={pin.id}
+                                    pin={pin}
+                                    withLink={
+                                        !shouldShowPinSelectorOptions && !addMode
+                                    }
+                                    withTooltip={!isExcluding}
+                                    isExcluding={isExcluding}
+                                />
+                            ))}
+                            {addMode && (
+                                <Marker
+                                    position={addPinPosition}
+                                    icon={newPinIcon}
+                                />
+                            )}
+                            {cornerClicked && (
+                                <Marker
+                                    position={cornerClicked}
+                                    icon={cornerClickedIcon}
+                                />
+                            )}
+
+                            {rectangles.map(rectangle => (
+                                <Rectangle
+                                    key={rectangle.id}
+                                    rectangle={rectangle}
+                                    onClick={() => handleDelete(rectangle.id)}
+                                />
+                            ))}
+                        </>}
+
+
                     </Map>
 
                     {!shouldShowPinSelectorOptions &&
@@ -206,12 +214,6 @@ const DrawingMapViewSimple = ({
                                         disabled
                                     >
                                         <i className="far fa-check fa-fw" /> Finish
-                                    </button>
-                                    <button
-                                        className="button red disabled"
-                                        disabled
-                                    >
-                                        <i className="far fa-undo fa-fw" /> Undo
                                     </button>
                                     <button
                                         className="button grey"
