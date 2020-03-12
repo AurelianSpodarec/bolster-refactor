@@ -23,7 +23,14 @@ class SubscriptionContainer extends Component {
     }
 
     componentDidMount = () => {
+        const { users, companyUserID } = this.props;
         this.props.fetchSubscriptionData();
+        if (users && users[companyUserID]) {
+            this.setState({
+                shouldRestrictPayments:
+                    users[companyUserID].shouldRestrictPayments
+            });
+        }
     };
 
     componentDidUpdate = prevProps => {

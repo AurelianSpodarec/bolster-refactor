@@ -67,7 +67,7 @@ class HeaderProfileContainer extends Component {
             />
         );
     }
-    componentDidUpdate = () => {
+    componentDidMount = () => {
         const { users, companyUserID } = this.props;
 
         if (users && users[companyUserID]) {
