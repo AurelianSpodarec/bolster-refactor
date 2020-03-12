@@ -19,7 +19,7 @@ import RedX from 'components/shared/pins/map/presentational/RedX';
 import PinSelectorOptions from 'components/shared/pinSelector/presentational/PinSelectorOptions';
 import Rectangle from 'components/shared/pinSelector/presentational/Rectangle';
 import AddCreditsToDrawingButtonContainer from '../../addCreditsToDrawing/containers/AddCreditsToDrawingButtonContainer';
-import DrawingMapZones from './DrawingMapZones';
+import DrawingMapAddZone from './DrawingMapAddZone';
 
 const getDataUrl = src => `${FILE_STORAGE_URL}/${src}/{z}/{x}/{y}.jpg`;
 
@@ -163,7 +163,7 @@ const DrawingMapViewSimple = ({
                             maxNativeZoom={6}
                         />
 
-                        {isAddingZone ? <DrawingMapZones /> : <>
+                        {isAddingZone ? <DrawingMapAddZone /> : <>
                             {pins.map(pin => (
                                 <MapPinContainer
                                     updateCurTooltip={updateCurTooltip}

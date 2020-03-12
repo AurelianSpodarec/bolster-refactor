@@ -4,16 +4,45 @@ import L from 'leaflet';
 import { EditControl } from 'react-leaflet-draw';
 import '../../../../../../node_modules/leaflet-draw/dist/leaflet.draw.css';
 
-export default class DrawingMapZones extends Component {
+export default class DrawingMapViewZones extends Component {
     state = {
         renderKids: false
     }
 
     fgRef = React.createRef(null);
-    // see http://leaflet.github.io/Leaflet.draw/docs/leaflet-draw-latest.html#l-draw-event for leaflet-draw events doc
+
+    render() {
+
+        return (
+            <FeatureGroup ref={this.fgRef} >
+                {this.state.renderKids && <EditControl
+                    position='topright'
+                    onEdited={this._onEdited}
+                    onCreated={this._onCreated}
+                    onDeleted={this._onDeleted}
+                    onMounted={this._onMounted}
+                    onEditStart={this._onEditStart}
+                    onEditStop={this._onEditStop}
+                    onDeleteStart={this._onDeleteStart}
+                    onDeleteStop={this._onDeleteStop}
+                    draw={{
+                        polyline: false,
+                        rectangle: false,
+                        circle: false,
+                        marker: false,
+                        circlemarker: false,
+                    }}
+                />}
+
+            </FeatureGroup>
+        );
+    }
+
+    componentDidMount() {
+        this.setState({ renderKids: true });
+    }
 
     _onEdited = (e) => {
-
         let numEdited = 0;
         e.layers.eachLayer((layer) => {
             numEdited += 1;
@@ -73,37 +102,6 @@ export default class DrawingMapZones extends Component {
 
     _onDeleteStop = (e) => {
         console.log('_onDeleteStop', e);
-    }
-
-    render() {
-
-        return (
-            <FeatureGroup ref={this.fgRef} >
-                {this.state.renderKids && <EditControl
-                    position='topright'
-                    onEdited={this._onEdited}
-                    onCreated={this._onCreated}
-                    onDeleted={this._onDeleted}
-                    onMounted={this._onMounted}
-                    onEditStart={this._onEditStart}
-                    onEditStop={this._onEditStop}
-                    onDeleteStart={this._onDeleteStart}
-                    onDeleteStop={this._onDeleteStop}
-                    draw={{
-                        polyline: false,
-                        rectangle: false,
-                        circle: false,
-                        marker: false,
-                        circlemarker: false,
-                    }}
-                />}
-
-            </FeatureGroup>
-        );
-    }
-
-    componentDidMount() {
-        this.setState({ renderKids: true });
     }
 
     _onChange = () => {
