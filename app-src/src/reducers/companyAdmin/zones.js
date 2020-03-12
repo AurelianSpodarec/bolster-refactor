@@ -12,7 +12,7 @@ export default combineReducers({
     zones: zonesReducer,
 });
 
-function zonesOpacityReducer(state = 100, action) {
+function zonesOpacityReducer(state = 0.3, action) {
     switch (action.type) {
         case SET_ZONES_OPACITY:
             return action.value;

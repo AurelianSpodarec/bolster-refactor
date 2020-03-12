@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { FeatureGroup } from 'react-leaflet';
 import L from 'leaflet';
 import '../../../../../../node_modules/leaflet-draw/dist/leaflet.draw.css';
 
-export default class DrawingMapViewZones extends Component {
+class DrawingMapViewZones extends Component {
     state = {
         renderKids: false
     }
@@ -17,11 +18,12 @@ export default class DrawingMapViewZones extends Component {
     }
 
     componentDidMount() {
+        const { zonesOpacity } = this.props;
         const leafletGeoJSON = new L.GeoJSON(getGeoJson());
         const leafletFG = this.fgRef.current.leafletElement;
 
         leafletGeoJSON.eachLayer((layer) => {
-            layer.setStyle({ fillColor: '#b0e435', color: '#b0e435' });
+            layer.setStyle({ fillColor: '#b0e435', color: '#b0e435', fillOpacity: zonesOpacity });
             leafletFG.addLayer(layer);
         });
     }
@@ -105,3 +107,15 @@ function getGeoJson() {
         ]
     };
 }
+
+const mapStateToProps = (
+    {
+        companyAdmin: {
+            zonesReducer: { zonesOpacity }
+        }
+    }
+) => ({
+    zonesOpacity
+});
+
+export default connect(mapStateToProps)(DrawingMapViewZones);

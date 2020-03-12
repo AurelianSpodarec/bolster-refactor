@@ -259,9 +259,9 @@ const DrawingMapViewSimple = ({
                                                 <input
                                                     type="range"
                                                     min="0"
-                                                    max="100"
+                                                    max="1"
                                                     value={zonesOpacity}
-                                                    step="10"
+                                                    step="0.1"
                                                     onChange={e => handleOpacityChange(e.target.value)}
                                                 />
                                             </div>}
