@@ -1,6 +1,6 @@
-import React from "react";
-import { connect } from "react-redux";
-import moment from "moment";
+import React, { useState, useEffect, useRef } from 'react';
+import { connect } from 'react-redux';
+import moment from 'moment';
 
 import CompanyMenu from '../presentational/CompanyMenu';
 import { MESSAGE_TYPES } from 'constants/companyAdmin/enums';
@@ -21,6 +21,8 @@ const CompanyMenuContainer = ({
     hasInitiallyFetched,
     isClientAccess,
     showModal,
+    users,
+    companyUserID
 }) => {
     if (!hasInitiallyFetched) return null;
 
@@ -29,6 +31,24 @@ const CompanyMenuContainer = ({
     const dismissNotifications = () => {
         dismissMessages(MESSAGE_TYPES.NOTIFICATION);
     };
+    const [shouldRestrictPayments, setShouldRestrictPayments] = useState(false);
+
+    function usePrevious(value) {
+        const ref = useRef(value);
+        useEffect(() => {
+            ref.current = value;
+        });
+        return ref.current;
+    }
+    const prevUsers = usePrevious({ users });
+
+    useEffect(() => {
+        if (users && users[companyUserID] && !prevUsers[companyUserID]) {
+            setShouldRestrictPayments(
+                users[companyUserID].shouldRestrictPayments
+            );
+        }
+    }, [users]);
 
     return (
         <CompanyMenu
@@ -42,6 +62,7 @@ const CompanyMenuContainer = ({
             openHelpScout={_openHelpScout}
             isClientAccess={isClientAccess}
             handleGenerateQRCodesModal={handleGenerateQRCodesModal}
+            shouldRestrictPayments={shouldRestrictPayments}
         />
     );
 
@@ -55,15 +76,15 @@ const CompanyMenuContainer = ({
     }
 
     function _openHelpScout(e) {
-        const helpscoutClass = "helpscout-visible";
+        const helpscoutClass = 'helpscout-visible';
         e.preventDefault();
 
-        if (document.body.classList.contains("helpscout-visible")) {
-            document.body.classList.remove("helpscout-visible");
+        if (document.body.classList.contains('helpscout-visible')) {
+            document.body.classList.remove('helpscout-visible');
         } else {
             document.body.classList.add(helpscoutClass);
         }
-        window.Beacon("toggle");
+        window.Beacon('toggle');
     }
 
     function handleGenerateQRCodesModal(e) {
@@ -78,12 +99,14 @@ const mapStateToProps = ({
         creditsReducer: { credits },
         transferRequestsReducer: { incomingTransferRequests },
         pendingInvitesReducer: { pendingInvites },
-        subscriptionsReducer: { hasInitiallyFetched, subscriptions }
+        subscriptionsReducer: { hasInitiallyFetched, subscriptions },
+        companyUsersReducer: { users }
     },
     shared: {
         decodeJWTReducer: {
-            jwtData: { headquartersCompanyID, isClientAccess }
-        }
+            jwtData: { headquartersCompanyID, isClientAccess, companyUserID }
+        },
+        profileReducer: { profile }
     }
 }) => {
     const unreadMessageCount = Object.values(messages).filter(
@@ -107,7 +130,9 @@ const mapStateToProps = ({
         notifications: Object.values(messages)
             .filter(({ type }) => type === MESSAGE_TYPES.NOTIFICATION)
             .sort((a, b) => moment(b.createdAt) - moment(a.createdAt)),
-        isClientAccess
+        isClientAccess,
+        companyUserID,
+        users
     };
 };
 

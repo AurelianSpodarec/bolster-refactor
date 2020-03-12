@@ -20,6 +20,7 @@ import fetchIncomingTransferRequests from 'actions/companyAdmin/transferRequests
 import fetchOutgoingTransferRequests from 'actions/companyAdmin/transferRequests/async/fetchOutgoingTransferRequests';
 import fetchPendingInvites from 'actions/companyAdmin/pendingInvites/fetchPendingInvites';
 import fetchOutgoingInvites from 'actions/companyAdmin/pendingInvites/fetchOutgoingInvites';
+import fetchSingleCompanyUser from 'actions/companyAdmin/userManagement/async/fetchSingleCompanyUser';
 
 class CompanyAppContainer extends Component {
     render() {
@@ -42,8 +43,24 @@ class CompanyAppContainer extends Component {
 
         selectCompanyMenuTab();
     };
-    componentDidUpdate = () => {};
+
+    componentDidUpdate = prevProps => {
+        const { companyUserID, fetchSingleCompanyUser } = this.props;
+
+        if (!prevProps.companyUserID && companyUserID) {
+            fetchSingleCompanyUser(companyUserID);
+        }
+    };
 }
+const mapStateToProps = ({
+    shared: {
+        decodeJWTReducer: {
+            jwtData: { companyUserID }
+        }
+    }
+}) => ({
+    companyUserID
+});
 
 const mapDispatchToProps = dispatch => ({
     fetchHomeData: () => {
@@ -66,10 +83,13 @@ const mapDispatchToProps = dispatch => ({
     },
     selectCompanyMenuTab: () => {
         dispatch(selectMenuTab(MENU_TABS.COMPANY_USER));
+    },
+    fetchSingleCompanyUser: companyUserID => {
+        dispatch(fetchSingleCompanyUser(companyUserID));
     }
 });
 
 export default connect(
-    null,
+    mapStateToProps,
     mapDispatchToProps
 )(CompanyAppContainer);
