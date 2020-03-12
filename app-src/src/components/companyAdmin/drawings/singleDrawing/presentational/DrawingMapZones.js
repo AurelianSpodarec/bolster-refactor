@@ -54,6 +54,7 @@ export default class DrawingMapZones extends Component {
         let leafletFG = this.fgRef.current.leafletElement;
 
         leafletGeoJSON.eachLayer((layer) => {
+            layer.setStyle({ fillColor: '#b0e435', color: '#b0e435' });
             leafletFG.addLayer(layer);
         });
     }
@@ -118,6 +119,7 @@ export default class DrawingMapZones extends Component {
     }
 }
 
+// order of values in coordinates array is lng, lat
 function getGeoJson() {
     return {
         'type': 'FeatureCollection',
@@ -130,20 +132,63 @@ function getGeoJson() {
                     'coordinates': [
                         [
                             [
-                                -68.69921875,
-                                78.40234375
+                                78.40234375,
+                                -68.69921875
                             ],
                             [
-                                -136.5,
-                                165.80078125
+                                165.80078125,
+                                -136.5
                             ],
                             [
-                                -189.80078125,
-                                119.5625
+                                119.5625,
+                                -189.80078125
                             ],
                             [
-                                -91.94140625,
-                                31.01953125
+                                31.01953125,
+                                -91.94140625
+                            ]
+                        ]
+                    ]
+                },
+            },
+            {
+                'type': 'Feature',
+                'properties': {},
+                'geometry': {
+                    'type': 'Polygon',
+                    'coordinates': [
+                        [
+                            [
+                                222.529296875,
+                                -129.25390625
+                            ],
+                            [
+                                221.6640625,
+                                -106.111328125
+                            ],
+                            [
+                                228.084228515625,
+                                -106.321044921875
+                            ],
+                            [
+                                228.086669921875,
+                                -97.56640625
+                            ],
+                            [
+                                245.22021484375,
+                                -97.71044921875
+                            ],
+                            [
+                                245.56396484375,
+                                -106.0205078125
+                            ],
+                            [
+                                249.15478515625,
+                                -105.97802734375
+                            ],
+                            [
+                                248.85888671875,
+                                -129.001953125
                             ]
                         ]
                     ]
