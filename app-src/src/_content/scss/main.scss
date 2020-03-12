@@ -743,6 +743,10 @@ input {
         background-color: #737373;
     }
 
+    &:focus {
+        outline: none;
+    }
+
     &.red {
         background-color: $red;
 

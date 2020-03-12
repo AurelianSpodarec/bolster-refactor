@@ -30,6 +30,7 @@ import addRectangle from 'actions/companyAdmin/reports/sync/addRectangle';
 import removeRectangle from 'actions/companyAdmin/reports/sync/removeRectangle';
 import removeAllRectangles from 'actions/companyAdmin/reports/sync/removeAllRectangles';
 import updateFurtherFiltrationOption from 'actions/companyAdmin/reports/sync/updateFurtherFiltrationOption';
+import { VIEW_ZONES } from 'constants/shared/modalTypes';
 
 const { ADD, DELETE, EXCLUDE } = RECTANGLE_MODES;
 const { PIN_SELECTOR } = FURTHER_FILTRATION_OPTIONS;
@@ -47,7 +48,8 @@ class DrawingMapGeneralContainer extends Component {
         centerLng: 128,
         firstCorner: null,
         mode: ADD,
-        currentTooltip: null
+        currentTooltip: null,
+        showZones: false,
     };
 
     render() {
@@ -59,7 +61,8 @@ class DrawingMapGeneralContainer extends Component {
             centerLat,
             centerLng,
             firstCorner,
-            mode
+            mode,
+            showZones
         } = this.state;
         const {
             error,
@@ -122,7 +125,10 @@ class DrawingMapGeneralContainer extends Component {
                         handleCancelPinSelector={this.handleCancelPinSelector}
                         isExcluding={isExcluding}
                         isAddingZone={isAddingZone}
+                        handleZoneAdd={this.handleZoneAdd}
                         cancelZoneAdd={this.cancelZoneAdd}
+                        toggleZones={this.toggleZones}
+                        showZones={showZones}
                     />
                 </BlockContainer>
                 <FurtherFiltrationContainer />
@@ -338,10 +344,24 @@ class DrawingMapGeneralContainer extends Component {
         removeAllRectangles();
     };
 
+    handleZoneAdd = () => {
+        const { showModal, drawing } = this.props;
+
+        showModal(VIEW_ZONES, { drawing });
+    }
+
     cancelZoneAdd = () => {
         const { setZoneAddMode } = this.props;
 
         setZoneAddMode(false);
+    }
+
+    toggleZones = () => {
+        const { showZones } = this.state;
+
+        this.setState({
+            showZones: !showZones
+        });
     }
 }
 

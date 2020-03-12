@@ -13,13 +13,14 @@ import {
     ACCESS_TYPES_VALUES,
     FLOORPLAN_STATES
 } from 'constants/companyAdmin/enums';
-import { EDIT_DRAWING, VIEW_ZONES } from 'constants/shared/modalTypes';
+import { EDIT_DRAWING } from 'constants/shared/modalTypes';
 import MapPinContainer from 'components/shared/pins/map/containers/MapPinContainer';
 import RedX from 'components/shared/pins/map/presentational/RedX';
 import PinSelectorOptions from 'components/shared/pinSelector/presentational/PinSelectorOptions';
 import Rectangle from 'components/shared/pinSelector/presentational/Rectangle';
 import AddCreditsToDrawingButtonContainer from '../../addCreditsToDrawing/containers/AddCreditsToDrawingButtonContainer';
 import DrawingMapAddZone from './DrawingMapAddZone';
+import DrawingMapViewZones from './DrawingMapViewZones';
 
 const getDataUrl = src => `${FILE_STORAGE_URL}/${src}/{z}/{x}/{y}.jpg`;
 
@@ -48,7 +49,10 @@ const DrawingMapViewSimple = ({
     currentTooltip,
     isExpired,
     isAddingZone,
+    handleZoneAdd,
     cancelZoneAdd,
+    toggleZones,
+    showZones,
 }) => {
     const newPinIcon = L.divIcon({
         className: '',
@@ -164,6 +168,7 @@ const DrawingMapViewSimple = ({
                         />
 
                         {isAddingZone ? <DrawingMapAddZone /> : <>
+                            {showZones && <DrawingMapViewZones />}
                             {pins.map(pin => (
                                 <MapPinContainer
                                     updateCurTooltip={updateCurTooltip}
@@ -224,12 +229,15 @@ const DrawingMapViewSimple = ({
                                 </> : <>
                                         <button
                                             className="button blue"
-                                            onClick={() =>
-                                                showModal(VIEW_ZONES, { drawing })
-                                            }
+                                            onClick={handleZoneAdd}
                                         >
-                                            <i className="far fa-map fa-fw" />{' '}
-                                        View Zones
+                                            View Zones
+                                    </button>
+                                        <button
+                                            className="button blue"
+                                            onClick={toggleZones}
+                                        >
+                                            Toggle zones on/off
                                     </button>
                                     </>}
                             </div>
