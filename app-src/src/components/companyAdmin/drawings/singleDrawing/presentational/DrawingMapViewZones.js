@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { FeatureGroup } from 'react-leaflet';
 import L from 'leaflet';
-import { EditControl } from 'react-leaflet-draw';
 import '../../../../../../node_modules/leaflet-draw/dist/leaflet.draw.css';
 
 export default class DrawingMapViewZones extends Component {
@@ -12,16 +11,14 @@ export default class DrawingMapViewZones extends Component {
     fgRef = React.createRef(null);
 
     render() {
-
         return (
-            <FeatureGroup ref={this.fgRef} >
-            </FeatureGroup>
+            <FeatureGroup ref={this.fgRef} />
         );
     }
 
     componentDidMount() {
-        let leafletGeoJSON = new L.GeoJSON(getGeoJson());
-        let leafletFG = this.fgRef.current.leafletElement;
+        const leafletGeoJSON = new L.GeoJSON(getGeoJson());
+        const leafletFG = this.fgRef.current.leafletElement;
 
         leafletGeoJSON.eachLayer((layer) => {
             layer.setStyle({ fillColor: '#b0e435', color: '#b0e435' });
