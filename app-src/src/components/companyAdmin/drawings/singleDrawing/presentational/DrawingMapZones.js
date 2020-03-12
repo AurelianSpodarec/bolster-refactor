@@ -5,7 +5,11 @@ import { EditControl } from 'react-leaflet-draw';
 import '../../../../../../node_modules/leaflet-draw/dist/leaflet.draw.css';
 
 export default class DrawingMapZones extends Component {
-    fgRef = null;
+    state = {
+        renderKids: false
+    }
+
+    fgRef = React.createRef(null);
     // see http://leaflet.github.io/Leaflet.draw/docs/leaflet-draw-latest.html#l-draw-event for leaflet-draw events doc
 
     _onEdited = (e) => {
@@ -45,8 +49,13 @@ export default class DrawingMapZones extends Component {
         this._onChange();
     }
 
-    _onMounted = (drawControl) => {
-        console.log('_onMounted', drawControl);
+    _onMounted = () => {
+        let leafletGeoJSON = new L.GeoJSON(getGeoJson());
+        let leafletFG = this.fgRef.current.leafletElement;
+
+        leafletGeoJSON.eachLayer((layer) => {
+            leafletFG.addLayer(layer);
+        });
     }
 
     _onEditStart = (e) => {
@@ -66,9 +75,10 @@ export default class DrawingMapZones extends Component {
     }
 
     render() {
+
         return (
-            <FeatureGroup ref={ref => this.fgRef = ref}>
-                <EditControl
+            <FeatureGroup ref={this.fgRef} >
+                {this.state.renderKids && <EditControl
                     position='topright'
                     onEdited={this._onEdited}
                     onCreated={this._onCreated}
@@ -85,15 +95,18 @@ export default class DrawingMapZones extends Component {
                         marker: false,
                         circlemarker: false,
                     }}
-                />
+                />}
+
             </FeatureGroup>
         );
     }
 
+    componentDidMount() {
+        this.setState({ renderKids: true });
+    }
+
     _onChange = () => {
-
         // this.fgRef contains the edited geometry, which can be manipulated through the leaflet API
-
         const { onChange } = this.props;
 
         if (!this.fgRef || !onChange) {
@@ -103,4 +116,39 @@ export default class DrawingMapZones extends Component {
         const geojsonData = this.fgRef.leafletElement.toGeoJSON();
         onChange(geojsonData);
     }
+}
+
+function getGeoJson() {
+    return {
+        'type': 'FeatureCollection',
+        'features': [
+            {
+                'type': 'Feature',
+                'properties': {},
+                'geometry': {
+                    'type': 'Polygon',
+                    'coordinates': [
+                        [
+                            [
+                                -68.69921875,
+                                78.40234375
+                            ],
+                            [
+                                -136.5,
+                                165.80078125
+                            ],
+                            [
+                                -189.80078125,
+                                119.5625
+                            ],
+                            [
+                                -91.94140625,
+                                31.01953125
+                            ]
+                        ]
+                    ]
+                }
+            },
+        ]
+    };
 }
