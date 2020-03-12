@@ -254,15 +254,17 @@ const DrawingMapViewSimple = ({
                                             >
                                                 Toggle zones on/off
                                         </button>
-
-                                            <input
-                                                type="range"
-                                                min="0"
-                                                max="100"
-                                                value={zonesOpacity}
-                                                step="10"
-                                                onChange={e => handleOpacityChange(e.target.value)}
-                                            />
+                                            {showZones && <div className="map-opacity pull-right">
+                                                <p>Opacity</p>
+                                                <input
+                                                    type="range"
+                                                    min="0"
+                                                    max="100"
+                                                    value={zonesOpacity}
+                                                    step="10"
+                                                    onChange={e => handleOpacityChange(e.target.value)}
+                                                />
+                                            </div>}
                                         </>
                                     )}
                             </div>

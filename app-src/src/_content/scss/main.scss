@@ -2839,6 +2839,23 @@ input {
     }
 }
 
+
+//map opacity slider
+.map-opacity {
+    padding-top: 2px;
+    margin: 0 10px;
+
+    p {
+        float: left;
+        margin-right: 10px;
+    }
+
+    input {
+        float: left;
+        width: 150px;
+    }
+}
+
 .pin-tooltip {
     width: 250px;
     padding: 10px;
