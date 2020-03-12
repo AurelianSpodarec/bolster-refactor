@@ -1,1 +1,2 @@
 export const SET_ZONE_ADD_MODE = 'SET_ZONE_ADD_MODE';
+export const SET_ZONES_OPACITY = 'SET_ZONES_OPACITY';

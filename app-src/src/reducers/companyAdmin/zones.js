@@ -1,14 +1,25 @@
 import { combineReducers } from 'redux';
 import {
     SET_ZONE_ADD_MODE,
+    SET_ZONES_OPACITY,
 } from 'constants/actionTypes/zones';
 
 export default combineReducers({
     error: errorReducer,
     isFetching: isFetchingReducer,
     isAddMode: isAddModeReducer,
+    zonesOpacity: zonesOpacityReducer,
     zones: zonesReducer,
 });
+
+function zonesOpacityReducer(state = 100, action) {
+    switch (action.type) {
+        case SET_ZONES_OPACITY:
+            return action.value;
+        default:
+            return state;
+    }
+}
 
 function isAddModeReducer(state = false, action) {
     switch (action.type) {

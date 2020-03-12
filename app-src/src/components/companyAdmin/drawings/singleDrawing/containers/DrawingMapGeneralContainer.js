@@ -21,6 +21,7 @@ import updateFloorPlanConfirmed from 'actions/companyAdmin/drawings/sync/updateF
 import updateReportFilter from 'actions/companyAdmin/reports/sync/updateReportFilter';
 import removeFieldError from 'actions/shared/generic/fieldErrors/sync/removeFieldError';
 import setZoneAddMode from 'actions/companyAdmin/zones/sync/setZoneAddMode';
+import setZonesOpacity from 'actions/companyAdmin/zones/sync/setZonesOpacity';
 import withUpdateOnChange from 'components/companyAdmin/reports/createReport/components/hocs/withUpdateOnChange';
 import DrawingDetailsContainer from './DrawingDetailsContainer';
 import FurtherFiltrationContainer from 'components/companyAdmin/reports/createReport/components/containers/FurtherFiltrationContainer';
@@ -62,14 +63,15 @@ class DrawingMapGeneralContainer extends Component {
             centerLng,
             firstCorner,
             mode,
-            showZones
+            showZones,
         } = this.state;
         const {
             error,
             drawing,
             furtherFiltrationOption,
             rectangles,
-            isAddingZone
+            isAddingZone,
+            zonesOpacity
         } = this.props;
         const position = [centerLat, centerLng];
         const addPinPosition = [addPinLat, addPinLng];
@@ -83,6 +85,8 @@ class DrawingMapGeneralContainer extends Component {
             +furtherFiltrationOption === +PIN_SELECTOR;
 
         const isExpired = moment(drawing.expiresOn).isBefore(moment.now());
+
+        console.warn('opacity', zonesOpacity);
 
         return (
             <>
@@ -129,6 +133,8 @@ class DrawingMapGeneralContainer extends Component {
                         cancelZoneAdd={this.cancelZoneAdd}
                         toggleZones={this.toggleZones}
                         showZones={showZones}
+                        zonesOpacity={zonesOpacity}
+                        handleOpacityChange={this.handleOpacityChange}
                     />
                 </BlockContainer>
                 <FurtherFiltrationContainer />
@@ -266,6 +272,12 @@ class DrawingMapGeneralContainer extends Component {
         history.replace(`${location.pathname}/add-pin`);
     };
 
+    handleOpacityChange = (value) => {
+        const { setZonesOpacity } = this.props;
+
+        setZonesOpacity(value);
+    };
+
     handleDateChange = (date, name) => {
         const { handleChange, postFilters } = this.props;
         handleChange(name, date).then(postFilters);
@@ -348,13 +360,13 @@ class DrawingMapGeneralContainer extends Component {
         const { showModal, drawing } = this.props;
 
         showModal(VIEW_ZONES, { drawing });
-    }
+    };
 
     cancelZoneAdd = () => {
         const { setZoneAddMode } = this.props;
 
         setZoneAddMode(false);
-    }
+    };
 
     toggleZones = () => {
         const { showZones } = this.state;
@@ -362,7 +374,7 @@ class DrawingMapGeneralContainer extends Component {
         this.setState({
             showZones: !showZones
         });
-    }
+    };
 }
 
 const mapStateToProps = (
@@ -380,9 +392,7 @@ const mapStateToProps = (
                 rectangles,
                 isFetching: isFetchingReports
             },
-            zonesReducer: {
-                isAddMode,
-            }
+            zonesReducer: { isAddMode, zonesOpacity }
         }
     },
     { match }
@@ -403,6 +413,7 @@ const mapStateToProps = (
     rectangles: Object.values(rectangles),
     companyUserIDs,
     isAddingZone: isAddMode,
+    zonesOpacity
 });
 
 const mapDispatchToProps = {
@@ -417,13 +428,11 @@ const mapDispatchToProps = {
     removeAllRectangles,
     updateFurtherFiltrationOption,
     setZoneAddMode,
+    setZonesOpacity
 };
 
 export default withRouter(
     withUpdateOnChange(
-        connect(
-            mapStateToProps,
-            mapDispatchToProps
-        )(DrawingMapGeneralContainer)
+        connect(mapStateToProps, mapDispatchToProps)(DrawingMapGeneralContainer)
     )
 );
