@@ -9,6 +9,7 @@ class DrawingMapViewZones extends Component {
         renderKids: false
     }
 
+    leafletGeoJSON = null;
     fgRef = React.createRef(null);
 
     render() {
@@ -19,13 +20,22 @@ class DrawingMapViewZones extends Component {
 
     componentDidMount() {
         const { zonesOpacity } = this.props;
-        const leafletGeoJSON = new L.GeoJSON(getGeoJson());
+        this.leafletGeoJSON = new L.GeoJSON(getGeoJson());
         const leafletFG = this.fgRef.current.leafletElement;
 
-        leafletGeoJSON.eachLayer((layer) => {
+        this.leafletGeoJSON.eachLayer((layer) => {
             layer.setStyle({ fillColor: '#b0e435', color: '#b0e435', fillOpacity: zonesOpacity });
             leafletFG.addLayer(layer);
         });
+    }
+
+    componentDidUpdate(prevProps) {
+        const { zonesOpacity } = this.props;
+        const layers = this.leafletGeoJSON;
+
+        if (prevProps.zonesOpacity !== zonesOpacity) {
+            layers.eachLayer(layer => layer.setStyle({ fillOpacity: zonesOpacity }));
+        }
     }
 }
 
