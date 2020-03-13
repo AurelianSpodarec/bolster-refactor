@@ -6,8 +6,8 @@ import setZoneAddMode from 'actions/companyAdmin/zones/sync/setZoneAddMode';
 
 import ViewZonesModal from '../presentational/ViewZonesModal';
 
-const ViewZonesModalContainer = ({ hideModal, setZoneAddMode, drawing }) => {
-    return <ViewZonesModal hideModal={hideModal} addZone={addZone} />;
+const ViewZonesModalContainer = ({ hideModal, setZoneAddMode, zones }) => {
+    return <ViewZonesModal hideModal={hideModal} addZone={addZone} zonesArr={Object.values(zones)} />;
 
     function addZone() {
         setZoneAddMode(true);
@@ -15,10 +15,20 @@ const ViewZonesModalContainer = ({ hideModal, setZoneAddMode, drawing }) => {
     }
 };
 
+const mapStateToProps = (
+    {
+        companyAdmin: {
+            zonesReducer: { zones }
+        }
+    }
+) => ({
+    zones
+});
+
 const mapDispatchToProps = {
     hideModal,
     setZoneAddMode,
 };
 
-export default connect(null, mapDispatchToProps)(ViewZonesModalContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(ViewZonesModalContainer);
 

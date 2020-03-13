@@ -2856,6 +2856,26 @@ input {
     }
 }
 
+//zones list
+.zones-list{
+    max-height: 410px;
+    overflow: auto;
+
+    .headings, .zone {
+        border-bottom: 1px solid #eee;
+    }
+
+    .item {
+        padding: 10px;
+    }
+
+    .colour-box {
+        display: inline-block;
+        width: 80px;
+        height: 20px;
+    }
+}
+
 .pin-tooltip {
     width: 250px;
     padding: 10px;

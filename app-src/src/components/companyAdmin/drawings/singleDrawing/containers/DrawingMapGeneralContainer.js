@@ -356,9 +356,9 @@ class DrawingMapGeneralContainer extends Component {
     };
 
     handleZoneAdd = () => {
-        const { showModal, drawing } = this.props;
+        const { showModal } = this.props;
 
-        showModal(VIEW_ZONES, { drawing });
+        showModal(VIEW_ZONES);
     };
 
     cancelZoneAdd = () => {
