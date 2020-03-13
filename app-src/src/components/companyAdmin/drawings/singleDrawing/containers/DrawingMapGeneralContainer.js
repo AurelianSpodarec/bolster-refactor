@@ -37,7 +37,8 @@ const { ADD, DELETE, EXCLUDE } = RECTANGLE_MODES;
 const { PIN_SELECTOR } = FURTHER_FILTRATION_OPTIONS;
 
 // ! The pin selector code is repeated in the filtermapcontainer component
-// todo tidy this and maybe make them use the same component or use smaller generic components within
+// todo tidy this and maybe make them use the same component or
+// use smaller generic components within
 
 class DrawingMapGeneralContainer extends Component {
     state = {
@@ -50,7 +51,7 @@ class DrawingMapGeneralContainer extends Component {
         firstCorner: null,
         mode: ADD,
         currentTooltip: null,
-        showZones: false,
+        showZones: false
     };
 
     render() {
@@ -63,7 +64,7 @@ class DrawingMapGeneralContainer extends Component {
             centerLng,
             firstCorner,
             mode,
-            showZones,
+            showZones
         } = this.state;
         const {
             error,
@@ -85,8 +86,6 @@ class DrawingMapGeneralContainer extends Component {
             +furtherFiltrationOption === +PIN_SELECTOR;
 
         const isExpired = moment(drawing.expiresOn).isBefore(moment.now());
-
-        console.warn('opacity', zonesOpacity);
 
         return (
             <>
@@ -272,7 +271,7 @@ class DrawingMapGeneralContainer extends Component {
         history.replace(`${location.pathname}/add-pin`);
     };
 
-    handleOpacityChange = (value) => {
+    handleOpacityChange = value => {
         const { setZonesOpacity } = this.props;
 
         setZonesOpacity(value);

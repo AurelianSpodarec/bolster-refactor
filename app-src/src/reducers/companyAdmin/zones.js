@@ -1,8 +1,13 @@
 import { combineReducers } from 'redux';
 import {
+    CREATE_DRAWING_ZONE_FAILURE,
+    CREATE_DRAWING_ZONE_REQUEST,
+    CREATE_DRAWING_ZONE_SUCCESS,
     SET_ZONE_ADD_MODE,
-    SET_ZONES_OPACITY,
+    SET_ZONE_FORM_FIELD,
+    SET_ZONES_OPACITY
 } from 'constants/actionTypes/zones';
+import { CREATE_BUILDINGS_FAILURE } from 'constants/actionTypes/buildings';
 
 export default combineReducers({
     error: errorReducer,
@@ -10,7 +15,24 @@ export default combineReducers({
     isAddMode: isAddModeReducer,
     zonesOpacity: zonesOpacityReducer,
     zones: zonesReducer,
+    zoneFormData: zonesFormDataReducer
 });
+
+function zonesFormDataReducer(
+    state = {
+        name: '',
+        colorHex: '',
+        coords: null
+    },
+    action
+) {
+    switch (action.type) {
+        case SET_ZONE_FORM_FIELD:
+            return { ...state, [action.field]: action.value };
+        default:
+            return state;
+    }
+}
 
 function zonesOpacityReducer(state = 0.3, action) {
     switch (action.type) {
@@ -45,28 +67,21 @@ function isFetchingReducer(state = false, action) {
 }
 
 function errorReducer(state = null, action) {
-    // switch (action.type) {
-    //     case FETCH_PIN_STATS_REQUEST:
-    //         return null;
-
-    //     case FETCH_PIN_STATS_FAILURE:
-    //         return action.error;
-    //     default:
-    //         return state;
-    // }
-
-    return state;
+    switch (action.type) {
+        case CREATE_DRAWING_ZONE_REQUEST:
+            return null;
+        case CREATE_DRAWING_ZONE_FAILURE:
+            return action.error;
+        default:
+            return state;
+    }
 }
 
 function zonesReducer(state = {}, action) {
-    // switch (action.type) {
-    //     case FETCH_PIN_STATS_REQUEST:
-    //         return {};
-    //     case FETCH_PIN_STATS_SUCCESS:
-    //         return action.payload;
-    //     default:
-    //         return state;
-    // }
-
-    return state;
+    switch (action.type) {
+        case CREATE_DRAWING_ZONE_SUCCESS:
+            return { ...state, [action.payload.id]: action.payload };
+        default:
+            return state;
+    }
 }

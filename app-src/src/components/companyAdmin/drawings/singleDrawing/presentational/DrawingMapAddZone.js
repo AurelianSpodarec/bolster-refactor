@@ -1,14 +1,19 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import { FeatureGroup } from 'react-leaflet';
 import { EditControl } from 'react-leaflet-draw';
 import '../../../../../../node_modules/leaflet-draw/dist/leaflet.draw.css';
+import createDrawingZone from 'actions/companyAdmin/zones/async/createDrawingZone';
 
-export default class DrawingMapAddZone extends Component {
+class DrawingMapAddZone extends Component {
+    coords = null;
+
     render() {
         return (
             <FeatureGroup>
                 <EditControl
-                    position='topright'
+                    position="topright"
                     onEdited={this._onEdited}
                     onCreated={this._onCreated}
                     onDeleted={this._onDeleted}
@@ -22,78 +27,59 @@ export default class DrawingMapAddZone extends Component {
                         rectangle: false,
                         circle: false,
                         marker: false,
-                        circlemarker: false,
+                        circlemarker: false
                     }}
                 />
             </FeatureGroup>
         );
     }
 
-    _onEdited = (e) => {
-        let numEdited = 0;
-        e.layers.eachLayer((layer) => {
-            numEdited += 1;
-        });
-        console.log(`_onEdited: edited ${numEdited} layers`, e);
+    _formatCoordinates = ({ _latlngs }) => {
+        if (!_latlngs) return [];
 
-        this._onChange();
-    }
+        const [coords = []] = _latlngs;
+        return coords.map(({ lng, lat }) => [lng, lat]);
+    };
 
-    _onCreated = (e) => {
-        let type = e.layerType;
-        let layer = e.layer;
-        if (type === 'marker') {
-            // Do marker specific actions
-            console.log('_onCreated: marker created', e);
+    _onCreated = ({ layerType, layer }) => {
+        if (layerType === 'marker') {
+            // Do marker specific actions.
+        } else {
+            this.coords = this._formatCoordinates(layer);
         }
-        else {
-            console.log('_onCreated: something else created:', type, e);
-        }
-        // Do whatever else you need to. (save to db; etc)
+    };
 
-        this._onChange();
-    }
+    _onEdited = ({ layers: { _layers } }) => {
+        const editedLayers = Object.values(_layers);
+        if (editedLayers.length === 0) return;
 
-    _onDeleted = (e) => {
+        const [layer] = editedLayers;
+        this.coords = this._formatCoordinates(layer);
+    };
 
-        let numDeleted = 0;
-        e.layers.eachLayer((layer) => {
-            numDeleted += 1;
-        });
-        console.log(`onDeleted: removed ${numDeleted} layers`, e);
+    _onDeleted = () => {
+        this.coords = null;
+    };
 
-        this._onChange();
-    }
+    _handleSubmit = e => {
+        e.preventDefault();
 
-    _onMounted = () => {
-        console.log('mounted');
-    }
+        const { drawingID, createDrawingZone } = this.props;
+        const postBody = {
+            name: 'test zone',
+            colorHex: '#009900',
+            coordinates: JSON.stringify(this.coords)
+        };
 
-    _onEditStart = (e) => {
-        console.log('_onEditStart', e);
-    }
-
-    _onEditStop = (e) => {
-        console.log('_onEditStop', e);
-    }
-
-    _onDeleteStart = (e) => {
-        console.log('_onDeleteStart', e);
-    }
-
-    _onDeleteStop = (e) => {
-        console.log('_onDeleteStop', e);
-    }
-
-    _onChange = () => {
-        // this.fgRef contains the edited geometry, which can be manipulated through the leaflet API
-        const { onChange } = this.props;
-
-        if (!this.fgRef || !onChange) {
-            return;
-        }
-
-        const geojsonData = this.fgRef.leafletElement.toGeoJSON();
-        onChange(geojsonData);
-    }
+        createDrawingZone(drawingID, postBody);
+    };
 }
+
+const mapState = (_, ownProps) => ({
+    drawingID: ownProps.match.params['id']
+});
+const mapDispatch = { createDrawingZone };
+
+const WithConnect = connect(mapState, mapDispatch)(DrawingMapAddZone);
+
+export default withRouter(WithConnect);
