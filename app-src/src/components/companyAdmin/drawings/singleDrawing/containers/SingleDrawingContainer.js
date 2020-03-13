@@ -15,6 +15,7 @@ import fetchCompanyUsers from 'actions/companyAdmin/userManagement/async/fetchCo
 import fetchPinStatsForLevel from 'actions/companyAdmin/stats/async/fetchPinStatsForLevel';
 import fetchHistoricServicesForCompany from 'actions/companyAdmin/services/async/fetchHistoricServicesForCompany';
 import { componentDidMount } from 'helpers/generic';
+import fetchZonesByDrawingID from 'actions/companyAdmin/zones/async/fetchZonesByDrawingID';
 
 const SingleDrawingContainer = ({ drawingID, setTabs, fetchDrawingData }) => {
     const tabs = Object.values(DRAWING_TABS);
@@ -37,6 +38,7 @@ const mapDispatchToProps = dispatch => ({
         dispatch(fetchCompanyUsers());
         dispatch(fetchPinStatsForLevel(4, drawingID));
         dispatch(fetchHistoricServicesForCompany());
+        dispatch(fetchZonesByDrawingID(drawingID));
     },
 });
 
