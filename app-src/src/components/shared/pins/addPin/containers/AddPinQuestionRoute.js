@@ -264,7 +264,9 @@ class AddPinQuestionRoute extends Component {
                     question.type + '' === MULTI_DROPDOWN_OPTIONS ||
                     question.type + '' === MULTI_MULTI_DROPDOWN_OPTIONS
                 ) {
-                    this.setState({ originalDropdownMultiAns: answer });
+                    if (Array.isArray(answer)) {
+                        this.setState({ originalDropdownMultiAns: answer });
+                    }
                 }
                 if (question.type + '' === DROPDOWN_OPTIONS) {
                     this.setState({ originalDropdownAns: answer });

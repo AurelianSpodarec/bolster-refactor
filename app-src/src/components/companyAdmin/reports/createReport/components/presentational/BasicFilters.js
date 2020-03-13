@@ -1,11 +1,9 @@
-import React from "react";
-import BlockHeading from "components/shared/generic/blockHeading/presentational/BlockHeading";
-import Field from "components/shared/generic/form/presentational/Field";
-import DropdownContainer from "components/shared/generic/form/containers/DropdownContainer";
-import DatePicker from "components/shared/generic/form/presentational/DatePicker";
-import OperativesFilterContainer from "../containers/OperativesFilterContainer";
-import TextInputContainer from "components/shared/generic/form/containers/TextInputContainer";
-import DatePickerContainer from "components/shared/generic/form/containers/DatePickerContainer";
+import React from 'react';
+import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
+import Field from 'components/shared/generic/form/presentational/Field';
+import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
+import OperativesFilterContainer from '../containers/OperativesFilterContainer';
+import DatePickerContainer from 'components/shared/generic/form/containers/DatePickerContainer';
 
 const BasicFilters = ({
     dateError,
@@ -69,7 +67,7 @@ const BasicFilters = ({
                         name="fromDateInclusive"
                         selected={fromDateInclusive}
                         onChange={val =>
-                            handleDateChange("fromDateInclusive", val)
+                            handleDateChange('fromDateInclusive', val)
                         }
                         placeholderText="From Date"
                         onBlur={() => handleDateBlur(true)}
@@ -81,7 +79,7 @@ const BasicFilters = ({
                         name="toDateInclusive"
                         selected={toDateInclusive}
                         onChange={val =>
-                            handleDateChange("toDateInclusive", val)
+                            handleDateChange('toDateInclusive', val)
                         }
                         placeholderText="To Date"
                         onBlur={() => handleDateBlur()}
