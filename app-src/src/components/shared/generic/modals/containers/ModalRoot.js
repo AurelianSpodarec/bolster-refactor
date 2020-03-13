@@ -76,6 +76,7 @@ import {
     ADD_MULTIPLE_SERVICES_TO_SUBSCRIPTION,
     GENERATE_QR_CODES,
     VIEW_ZONES,
+    ADD_DRAWING_ZONE
 } from 'constants/shared/modalTypes';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
@@ -154,6 +155,7 @@ import ConfirmDeleteInvoiceModalContainer from 'components/companyAdmin/invoices
 import AddCompanyAdminModalContainer from 'components/superAdmin/companies/singleCompany/containers/AddCompanyAdminModalContainer';
 import GenerateQRCodesModalContainer from './GenerateQRCodesModalContainer';
 import ViewZonesModalContainer from 'components/companyAdmin/drawings/singleDrawing/containers/ViewZonesModalContainer';
+import AddDrawingZoneModalContainer from 'components/companyAdmin/drawings/addDrawingZoneModal/containers/AddDrawingZoneModalContainer';
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModalContainer,
@@ -230,6 +232,7 @@ const MODAL_COMPONENTS = {
     [ADD_MULTIPLE_SERVICES_TO_SUBSCRIPTION]: AddMulitpleServicesToSubscriptionModalContainer,
     [GENERATE_QR_CODES]: GenerateQRCodesModalContainer,
     [VIEW_ZONES]: ViewZonesModalContainer,
+    [ADD_DRAWING_ZONE]: AddDrawingZoneModalContainer
 };
 
 const ModalRoot = ({ modalType, modalProps, ...otherProps }) => {
@@ -242,7 +245,4 @@ const mapStateToProps = ({ shared: { modalReducer } }) => modalReducer;
 
 const mapDispatchToProps = { hideModal, showModal };
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(ModalRoot);
+export default connect(mapStateToProps, mapDispatchToProps)(ModalRoot);

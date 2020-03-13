@@ -7,7 +7,7 @@ import {
     FETCH_DRAWING_ZONES_SUCCESS,
     FETCH_DRAWING_ZONES_FAILURE,
     SET_ZONE_ADD_MODE,
-    SET_ZONE_FORM_FIELD,
+    SET_ZONE_FORM_COORDINATES,
     SET_ZONES_OPACITY
 } from 'constants/actionTypes/zones';
 import { convertArrToObj } from 'helpers/generic';
@@ -19,20 +19,13 @@ export default combineReducers({
     isAddMode: isAddModeReducer,
     zonesOpacity: zonesOpacityReducer,
     zones: zonesReducer,
-    zoneFormData: zonesFormDataReducer
+    zoneFormCoordinates: zonesFormCoordinatesReducer
 });
 
-function zonesFormDataReducer(
-    state = {
-        name: '',
-        colorHex: '',
-        coords: null
-    },
-    action
-) {
+function zonesFormCoordinatesReducer(state = null, action) {
     switch (action.type) {
-        case SET_ZONE_FORM_FIELD:
-            return { ...state, [action.field]: action.value };
+        case SET_ZONE_FORM_COORDINATES:
+            return action.coordinates;
         default:
             return state;
     }

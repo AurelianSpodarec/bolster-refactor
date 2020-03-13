@@ -55,6 +55,8 @@ const DrawingMapViewSimple = ({
     showZones,
     zonesOpacity,
     handleOpacityChange,
+    showAddZoneModal,
+    hasZoneCoords
 }) => {
     const newPinIcon = L.divIcon({
         className: '',
@@ -90,13 +92,13 @@ const DrawingMapViewSimple = ({
                             />
                         ) : isExpired ? (
                             drawing.accessType ===
-                            ACCESS_TYPES_VALUES.OWNER && (
+                                ACCESS_TYPES_VALUES.OWNER && (
                                 <>
                                     <AddCreditsToDrawingButtonContainer
                                         drawing={drawing}
                                     />
                                     <button
-                                        onClick={() => { }}
+                                        onClick={() => {}}
                                         className="button red pull-right"
                                     >
                                         <i className="far fa-times" /> Drawing
@@ -105,56 +107,56 @@ const DrawingMapViewSimple = ({
                                 </>
                             )
                         ) : (
-                                        drawing.accessType >= ACCESS_TYPES_VALUES.WRITE && (
-                                            <>
-                                                {addMode ? (
-                                                    <>
-                                                        <button
-                                                            onClick={handleClearPinCache}
-                                                            to={`${drawing.id}/add-pin`}
-                                                            className="button green pull-right"
-                                                        >
-                                                            <i className="fa fa-check" />{' '}
+                            drawing.accessType >= ACCESS_TYPES_VALUES.WRITE && (
+                                <>
+                                    {addMode ? (
+                                        <>
+                                            <button
+                                                onClick={handleClearPinCache}
+                                                to={`${drawing.id}/add-pin`}
+                                                className="button green pull-right"
+                                            >
+                                                <i className="fa fa-check" />{' '}
                                                 Confirm position
                                             </button>
-                                                        <button
-                                                            className="button red pull-right"
-                                                            onClick={toggleAddMode}
-                                                        >
-                                                            Cancel
+                                            <button
+                                                className="button red pull-right"
+                                                onClick={toggleAddMode}
+                                            >
+                                                Cancel
                                             </button>
-                                                    </>
-                                                ) : (
-                                                        <button
-                                                            className="button green pull-right"
-                                                            onClick={toggleAddMode}
-                                                        >
-                                                            <i className="fa fa-plus" /> Add pin
-                                                        </button>
-                                                    )}
-                                                {drawing.accessType ===
-                                                    ACCESS_TYPES_VALUES.OWNER && (
-                                                        <>
-                                                            <button
-                                                                className="button yellow"
-                                                                onClick={() =>
-                                                                    showModal(EDIT_DRAWING, {
-                                                                        drawing
-                                                                    })
-                                                                }
-                                                            >
-                                                                <i className="far fa-pencil fa-fw" />{' '}
+                                        </>
+                                    ) : (
+                                        <button
+                                            className="button green pull-right"
+                                            onClick={toggleAddMode}
+                                        >
+                                            <i className="fa fa-plus" /> Add pin
+                                        </button>
+                                    )}
+                                    {drawing.accessType ===
+                                        ACCESS_TYPES_VALUES.OWNER && (
+                                        <>
+                                            <button
+                                                className="button yellow"
+                                                onClick={() =>
+                                                    showModal(EDIT_DRAWING, {
+                                                        drawing
+                                                    })
+                                                }
+                                            >
+                                                <i className="far fa-pencil fa-fw" />{' '}
                                                 Edit drawing
                                             </button>
 
-                                                            <AddCreditsToDrawingButtonContainer
-                                                                drawing={drawing}
-                                                            />
-                                                        </>
-                                                    )}
-                                            </>
-                                        )
+                                            <AddCreditsToDrawingButtonContainer
+                                                drawing={drawing}
+                                            />
+                                        </>
                                     )}
+                                </>
+                            )
+                        )}
                     </BlockHeading>
                     <Map
                         center={position}
@@ -174,49 +176,49 @@ const DrawingMapViewSimple = ({
                         {isAddingZone ? (
                             <DrawingMapAddZone />
                         ) : (
-                                <>
-                                    {showZones && <DrawingMapViewZones />}
-                                    {pins.map(pin => (
-                                        <MapPinContainer
-                                            updateCurTooltip={updateCurTooltip}
-                                            tooltipVisible={
-                                                currentTooltip === pin.id
-                                            }
-                                            urlStart="company"
-                                            key={pin.id}
-                                            pin={pin}
-                                            withLink={
-                                                !shouldShowPinSelectorOptions &&
-                                                !addMode
-                                            }
-                                            withTooltip={!isExcluding}
-                                            isExcluding={isExcluding}
-                                        />
-                                    ))}
-                                    {addMode && (
-                                        <Marker
-                                            position={addPinPosition}
-                                            icon={newPinIcon}
-                                        />
-                                    )}
-                                    {cornerClicked && (
-                                        <Marker
-                                            position={cornerClicked}
-                                            icon={cornerClickedIcon}
-                                        />
-                                    )}
+                            <>
+                                {showZones && <DrawingMapViewZones />}
+                                {pins.map(pin => (
+                                    <MapPinContainer
+                                        updateCurTooltip={updateCurTooltip}
+                                        tooltipVisible={
+                                            currentTooltip === pin.id
+                                        }
+                                        urlStart="company"
+                                        key={pin.id}
+                                        pin={pin}
+                                        withLink={
+                                            !shouldShowPinSelectorOptions &&
+                                            !addMode
+                                        }
+                                        withTooltip={!isExcluding}
+                                        isExcluding={isExcluding}
+                                    />
+                                ))}
+                                {addMode && (
+                                    <Marker
+                                        position={addPinPosition}
+                                        icon={newPinIcon}
+                                    />
+                                )}
+                                {cornerClicked && (
+                                    <Marker
+                                        position={cornerClicked}
+                                        icon={cornerClickedIcon}
+                                    />
+                                )}
 
-                                    {rectangles.map(rectangle => (
-                                        <Rectangle
-                                            key={rectangle.id}
-                                            rectangle={rectangle}
-                                            onClick={() =>
-                                                handleDelete(rectangle.id)
-                                            }
-                                        />
-                                    ))}
-                                </>
-                            )}
+                                {rectangles.map(rectangle => (
+                                    <Rectangle
+                                        key={rectangle.id}
+                                        rectangle={rectangle}
+                                        onClick={() =>
+                                            handleDelete(rectangle.id)
+                                        }
+                                    />
+                                ))}
+                            </>
+                        )}
                     </Map>
 
                     {!shouldShowPinSelectorOptions &&
@@ -227,8 +229,10 @@ const DrawingMapViewSimple = ({
                                 {isAddingZone ? (
                                     <>
                                         <button
-                                            className="button green disabled"
-                                            disabled
+                                            className={`button green ${
+                                                hasZoneCoords ? '' : 'disabled'
+                                            }`}
+                                            onClick={showAddZoneModal}
                                         >
                                             <i className="far fa-check fa-fw" />{' '}
                                             Finish
@@ -241,20 +245,21 @@ const DrawingMapViewSimple = ({
                                         </button>
                                     </>
                                 ) : (
-                                        <>
-                                            <button
-                                                className="button blue"
-                                                onClick={handleZoneAdd}
-                                            >
-                                                View Zones
+                                    <>
+                                        <button
+                                            className="button blue"
+                                            onClick={handleZoneAdd}
+                                        >
+                                            View Zones
                                         </button>
-                                            <button
-                                                className="button blue"
-                                                onClick={toggleZones}
-                                            >
-                                                Toggle zones on/off
+                                        <button
+                                            className="button blue"
+                                            onClick={toggleZones}
+                                        >
+                                            Toggle zones on/off
                                         </button>
-                                            {showZones && <div className="map-opacity pull-right">
+                                        {showZones && (
+                                            <div className="map-opacity pull-right">
                                                 <p>Opacity</p>
                                                 <input
                                                     type="range"
@@ -262,28 +267,33 @@ const DrawingMapViewSimple = ({
                                                     max="1"
                                                     value={zonesOpacity}
                                                     step="0.1"
-                                                    onChange={e => handleOpacityChange(e.target.value)}
+                                                    onChange={e =>
+                                                        handleOpacityChange(
+                                                            e.target.value
+                                                        )
+                                                    }
                                                 />
-                                            </div>}
-                                        </>
-                                    )}
+                                            </div>
+                                        )}
+                                    </>
+                                )}
                             </div>
                         )}
                 </div>
             ) : drawing.latestFloorplanState ===
-                FLOORPLAN_STATES.FAILEDCANCELLED ? (
-                        <button
-                            className="button yellow"
-                            onClick={() => showModal(EDIT_DRAWING, { drawing })}
-                        >
-                            <i className="far fa-pencil fa-fw" /> Upload failed - retry?
-                        </button>
-                    ) : (
-                        <Loading
-                            message="Floorplan is generating, please check back later."
-                            withIcon={false}
-                        />
-                    )}
+              FLOORPLAN_STATES.FAILEDCANCELLED ? (
+                <button
+                    className="button yellow"
+                    onClick={() => showModal(EDIT_DRAWING, { drawing })}
+                >
+                    <i className="far fa-pencil fa-fw" /> Upload failed - retry?
+                </button>
+            ) : (
+                <Loading
+                    message="Floorplan is generating, please check back later."
+                    withIcon={false}
+                />
+            )}
         </>
     );
 };

@@ -31,7 +31,7 @@ import addRectangle from 'actions/companyAdmin/reports/sync/addRectangle';
 import removeRectangle from 'actions/companyAdmin/reports/sync/removeRectangle';
 import removeAllRectangles from 'actions/companyAdmin/reports/sync/removeAllRectangles';
 import updateFurtherFiltrationOption from 'actions/companyAdmin/reports/sync/updateFurtherFiltrationOption';
-import { VIEW_ZONES } from 'constants/shared/modalTypes';
+import { VIEW_ZONES, ADD_DRAWING_ZONE } from 'constants/shared/modalTypes';
 
 const { ADD, DELETE, EXCLUDE } = RECTANGLE_MODES;
 const { PIN_SELECTOR } = FURTHER_FILTRATION_OPTIONS;
@@ -134,6 +134,8 @@ class DrawingMapGeneralContainer extends Component {
                         showZones={showZones}
                         zonesOpacity={zonesOpacity}
                         handleOpacityChange={this.handleOpacityChange}
+                        showAddZoneModal={this.showAddZoneModal}
+                        hasZoneCoords={!!this.props.zoneFormCoordinates}
                     />
                 </BlockContainer>
                 <FurtherFiltrationContainer />
@@ -374,6 +376,10 @@ class DrawingMapGeneralContainer extends Component {
             showZones: !showZones
         });
     };
+
+    showAddZoneModal = () => {
+        this.props.showModal(ADD_DRAWING_ZONE);
+    };
 }
 
 const mapStateToProps = (
@@ -391,7 +397,7 @@ const mapStateToProps = (
                 rectangles,
                 isFetching: isFetchingReports
             },
-            zonesReducer: { isAddMode, zonesOpacity }
+            zonesReducer: { isAddMode, zonesOpacity, zoneFormCoordinates }
         }
     },
     { match }
@@ -412,7 +418,8 @@ const mapStateToProps = (
     rectangles: Object.values(rectangles),
     companyUserIDs,
     isAddingZone: isAddMode,
-    zonesOpacity
+    zonesOpacity,
+    zoneFormCoordinates
 });
 
 const mapDispatchToProps = {

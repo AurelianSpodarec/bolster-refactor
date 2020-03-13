@@ -4,10 +4,12 @@ import { withRouter } from 'react-router-dom';
 import { FeatureGroup } from 'react-leaflet';
 import { EditControl } from 'react-leaflet-draw';
 import '../../../../../../node_modules/leaflet-draw/dist/leaflet.draw.css';
-import createDrawingZone from 'actions/companyAdmin/zones/async/createDrawingZone';
+import setZoneFormCoordinates from 'actions/companyAdmin/zones/sync/setZoneFormCoordinates';
 
 class DrawingMapAddZone extends Component {
-    coords = null;
+    state = {
+        polygonExists: false
+    };
 
     render() {
         return (
@@ -27,7 +29,8 @@ class DrawingMapAddZone extends Component {
                         rectangle: false,
                         circle: false,
                         marker: false,
-                        circlemarker: false
+                        circlemarker: false,
+                        polygon: !this.state.polygonExists
                     }}
                 />
             </FeatureGroup>
@@ -45,7 +48,11 @@ class DrawingMapAddZone extends Component {
         if (layerType === 'marker') {
             // Do marker specific actions.
         } else {
-            this.coords = this._formatCoordinates(layer);
+            const { setZoneFormCoordinates } = this.props;
+
+            this.setState({ polygonExists: true });
+            const coords = this._formatCoordinates(layer);
+            setZoneFormCoordinates(coords);
         }
     };
 
@@ -53,32 +60,26 @@ class DrawingMapAddZone extends Component {
         const editedLayers = Object.values(_layers);
         if (editedLayers.length === 0) return;
 
+        const { setZoneFormCoordinates } = this.props;
+
         const [layer] = editedLayers;
-        this.coords = this._formatCoordinates(layer);
+        const coords = this._formatCoordinates(layer);
+        setZoneFormCoordinates(coords);
     };
 
-    _onDeleted = () => {
-        this.coords = null;
-    };
-
-    _handleSubmit = e => {
-        e.preventDefault();
-
-        const { drawingID, createDrawingZone } = this.props;
-        const postBody = {
-            name: 'test zone',
-            colorHex: '#009900',
-            coordinates: JSON.stringify(this.coords)
-        };
-
-        createDrawingZone(drawingID, postBody);
+    _onDeleted = ({ layers: { _layers } }) => {
+        const editedLayers = Object.values(_layers);
+        if (editedLayers.length === 0) return;
+        this.setState({ polygonExists: false });
+        const { setZoneFormCoordinates } = this.props;
+        setZoneFormCoordinates(null);
     };
 }
 
 const mapState = (_, ownProps) => ({
     drawingID: ownProps.match.params['id']
 });
-const mapDispatch = { createDrawingZone };
+const mapDispatch = { setZoneFormCoordinates };
 
 const WithConnect = connect(mapState, mapDispatch)(DrawingMapAddZone);
 
