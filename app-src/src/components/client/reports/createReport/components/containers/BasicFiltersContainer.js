@@ -39,8 +39,8 @@ class BasicFiltersContainer extends Component {
 
         const serviceOptions = formatArrForDropdown(services, true);
         const statusOptions = convertEnumToDropdownOptions(PIN_STATUS_TYPES);
-
-        const templateOptions = formatArrForDropdown(templates, true);
+        const myServiceTemplates = templates.filter(({ serviceID }) => !!serviceOptions[serviceID]);
+        const myServiceTemplateOptions = formatArrForDropdown(myServiceTemplates, true);
 
         return (
             <div className={`flex-item size-lg-${isDrawingPage ? '12' : '6'} size-md-12`}>
@@ -52,8 +52,8 @@ class BasicFiltersContainer extends Component {
                         handleDateChange={this.handleDateChange}
                         serviceOptions={Object.values(serviceOptions)}
                         selectedService={serviceOptions[serviceID]}
-                        templateOptions={Object.values(templateOptions)}
-                        selectedTemplate={templateOptions[templateID]}
+                        templateOptions={Object.values(myServiceTemplateOptions)}
+                        selectedTemplate={myServiceTemplateOptions[templateID]}
                         statusOptions={Object.values(statusOptions)}
                         selectedStatus={statusOptions[status]}
                         fromDateInclusive={fromDateInclusive}
