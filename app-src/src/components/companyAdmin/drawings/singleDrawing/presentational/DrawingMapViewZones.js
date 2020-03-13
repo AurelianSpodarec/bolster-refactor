@@ -10,7 +10,7 @@ class DrawingMapViewZones extends Component {
         renderKids: false
     };
 
-    leafletGeoJSON = new L.GeoJSON(getGeoJson());
+    leafletGeoJSON = new L.GeoJSON(this.getGeoJson());
     fgRef = React.createRef(null);
 
     render() {
@@ -22,10 +22,12 @@ class DrawingMapViewZones extends Component {
         const leafletFG = this.fgRef.current.leafletElement;
 
         this.leafletGeoJSON.eachLayer(layer => {
+            const layerColor = layer.feature.color;
+
             layer.setStyle({
-                fillColor: '#b0e435',
-                color: '#b0e435',
-                fillOpacity: zonesOpacity
+                fillColor: layerColor,
+                color: layerColor,
+                fillOpacity: zonesOpacity,
             });
             leafletFG.addLayer(layer);
         });
@@ -41,57 +43,38 @@ class DrawingMapViewZones extends Component {
             );
         }
     }
-}
 
-// order of values in coordinates array is lng, lat
-function getGeoJson() {
-    return {
-        type: 'FeatureCollection',
-        features: [
-            {
-                type: 'Feature',
-                properties: {},
-                geometry: {
-                    type: 'Polygon',
-                    coordinates: [
-                        [
-                            [78.40234375, -68.69921875],
-                            [165.80078125, -136.5],
-                            [119.5625, -189.80078125],
-                            [31.01953125, -91.94140625]
-                        ]
-                    ]
-                }
-            },
-            {
-                type: 'Feature',
-                properties: {},
-                geometry: {
-                    type: 'Polygon',
-                    coordinates: [
-                        [
-                            [222.529296875, -129.25390625],
-                            [221.6640625, -106.111328125],
-                            [228.084228515625, -106.321044921875],
-                            [228.086669921875, -97.56640625],
-                            [245.22021484375, -97.71044921875],
-                            [245.56396484375, -106.0205078125],
-                            [249.15478515625, -105.97802734375],
-                            [248.85888671875, -129.001953125]
-                        ]
-                    ]
-                }
-            }
-        ]
-    };
+    // order of values in coordinates array is lng, lat
+    getGeoJson() {
+        const { zones } = this.props;
+        const zonesArr = Object.values(zones);
+
+        const zoneFeatures = {
+            type: 'FeatureCollection',
+            features: zonesArr.map(zone => {
+                return {
+                    type: 'Feature',
+                    properties: {},
+                    geometry: {
+                        type: 'Polygon',
+                        coordinates: [JSON.parse(zone.coordinates)]
+                    },
+                    color: zone.colorHex
+                };
+            })
+        };
+
+        return zoneFeatures;
+    }
 }
 
 const mapStateToProps = ({
     companyAdmin: {
-        zonesReducer: { zonesOpacity }
+        zonesReducer: { zonesOpacity, zones }
     }
 }) => ({
-    zonesOpacity
+    zonesOpacity,
+    zones
 });
 
 export default connect(mapStateToProps)(DrawingMapViewZones);

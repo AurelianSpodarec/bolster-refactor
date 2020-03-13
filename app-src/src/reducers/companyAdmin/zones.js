@@ -84,7 +84,7 @@ function errorReducer(state = null, action) {
 function zonesReducer(state = {}, action) {
     switch (action.type) {
         case FETCH_DRAWING_ZONES_SUCCESS:
-            return { ...state, ...convertArrToObj(action.payload) };
+            return convertArrToObj(action.payload);
         case CREATE_DRAWING_ZONE_SUCCESS:
             return { ...state, [action.payload.id]: action.payload };
         default:
