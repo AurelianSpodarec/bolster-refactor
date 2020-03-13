@@ -23,11 +23,10 @@ export const createDrawingZoneFailure = error => ({
     error
 });
 
-export default (drawingID, postBody) => dispatch => {
+export default drawingID => dispatch => {
     dispatch(createDrawingZoneRequest());
-
     return axios
-        .post(`${API_URL}/drawings/${drawingID}/zones`, postBody, getHeaders())
+        .post(`${API_URL}/drawings/${drawingID}/zones`, getHeaders())
         .then(({ data }) => dispatch(createDrawingZoneSuccess(data)))
         .catch(err => dispatch(handleErrors(createDrawingZoneFailure)(err)));
 };

@@ -3,11 +3,15 @@ import {
     CREATE_DRAWING_ZONE_FAILURE,
     CREATE_DRAWING_ZONE_REQUEST,
     CREATE_DRAWING_ZONE_SUCCESS,
+    FETCH_DRAWING_ZONES_REQUEST,
+    FETCH_DRAWING_ZONES_SUCCESS,
+    FETCH_DRAWING_ZONES_FAILURE,
     SET_ZONE_ADD_MODE,
     SET_ZONE_FORM_FIELD,
     SET_ZONES_OPACITY
 } from 'constants/actionTypes/zones';
-import { CREATE_BUILDINGS_FAILURE } from 'constants/actionTypes/buildings';
+import { convertArrToObj } from 'helpers/generic';
+import { FETCH_ALL_APPROVED_COMPANIES_FAILURE } from 'constants/actionTypes/approvedCompanies';
 
 export default combineReducers({
     error: errorReducer,
@@ -53,24 +57,24 @@ function isAddModeReducer(state = false, action) {
 }
 
 function isFetchingReducer(state = false, action) {
-    // switch (action.type) {
-    //     case FETCH_PIN_STATS_REQUEST:
-    //         return true;
-    //     case FETCH_PIN_STATS_SUCCESS:
-    //     case FETCH_PIN_STATS_FAILURE:
-    //         return false;
-    //     default:
-    //         return state;
-    // }
-
-    return state;
+    switch (action.type) {
+        case FETCH_DRAWING_ZONES_REQUEST:
+            return true;
+        case FETCH_DRAWING_ZONES_SUCCESS:
+        case FETCH_DRAWING_ZONES_FAILURE:
+            return false;
+        default:
+            return state;
+    }
 }
 
 function errorReducer(state = null, action) {
     switch (action.type) {
         case CREATE_DRAWING_ZONE_REQUEST:
+        case FETCH_DRAWING_ZONES_REQUEST:
             return null;
         case CREATE_DRAWING_ZONE_FAILURE:
+        case FETCH_ALL_APPROVED_COMPANIES_FAILURE:
             return action.error;
         default:
             return state;
@@ -79,6 +83,8 @@ function errorReducer(state = null, action) {
 
 function zonesReducer(state = {}, action) {
     switch (action.type) {
+        case FETCH_DRAWING_ZONES_SUCCESS:
+            return { ...state, ...convertArrToObj(action.payload) };
         case CREATE_DRAWING_ZONE_SUCCESS:
             return { ...state, [action.payload.id]: action.payload };
         default:
