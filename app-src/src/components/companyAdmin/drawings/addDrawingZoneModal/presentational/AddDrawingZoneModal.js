@@ -18,7 +18,7 @@ const AddDrawingsZoneModal = ({
 }) => {
     return (
         <ModalOuterContainer>
-            <BlockHeading title={'Create Drawings'} />
+            <BlockHeading title="Create Drawing Zone" />
             <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
                 <Field name="Name" required>
                     <TextInputContainer
@@ -37,10 +37,10 @@ const AddDrawingsZoneModal = ({
                     </div>
                 </Field>
                 <BlockButtonWrapper>
-                    <button type="submit" className="button blue left">
-                        Submit
+                    <button className="button green" type="submit">
+                        <i className="fa fa-plus" /> Add Zone
                     </button>
-                    <button type="button" onClick={hideModal}>
+                    <button className="button grey" onClick={hideModal}>
                         Cancel
                     </button>
                 </BlockButtonWrapper>

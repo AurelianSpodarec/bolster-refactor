@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
 
 import createDrawingZone from 'actions/companyAdmin/zones/async/createDrawingZone';
 
@@ -10,7 +9,8 @@ const AddDrawingsZoneModalContainer = ({
     hideModal,
     coordinates,
     drawingID,
-    createDrawingZone
+    createDrawingZone,
+    handleCreateZoneFinish
 }) => {
     const [name, updateName] = useState('');
     const [colorHex, updateColorHex] = useState('#ff0000');
@@ -39,19 +39,21 @@ const AddDrawingsZoneModalContainer = ({
             colorHex,
             coordinates: JSON.stringify(coordinates)
         };
-        createDrawingZone(drawingID, postBody).then(hideModal);
+        createDrawingZone(drawingID, postBody).then(_handleSubmitEnd);
+    }
+
+    function _handleSubmitEnd() {
+        hideModal();
+        handleCreateZoneFinish();
     }
 };
 
-const mapStateToProps = (state, ownProps) => ({
-    drawingID: ownProps.match.params['id'],
+const mapStateToProps = state => ({
     coordinates: state.companyAdmin.zonesReducer.zoneFormCoordinates
 });
 const mapDispatchToProps = { createDrawingZone };
 
-const WithConnect = connect(
+export default connect(
     mapStateToProps,
     mapDispatchToProps
 )(AddDrawingsZoneModalContainer);
-
-export default withRouter(WithConnect);

@@ -377,8 +377,22 @@ class DrawingMapGeneralContainer extends Component {
         });
     };
 
+    handleCreateZoneFinish = () => {
+        const { setZoneAddMode } = this.props;
+        setZoneAddMode(false);
+
+        this.setState({
+            showZones: true
+        });
+    };
+
     showAddZoneModal = () => {
-        this.props.showModal(ADD_DRAWING_ZONE);
+        const { showModal, drawingID } = this.props;
+
+        showModal(ADD_DRAWING_ZONE, {
+            handleCreateZoneFinish: this.handleCreateZoneFinish,
+            drawingID
+        });
     };
 }
 
@@ -402,6 +416,7 @@ const mapStateToProps = (
     },
     { match }
 ) => ({
+    drawingID: match.params.id,
     drawing: drawings[match.params.id] || {},
     coordinates,
     pins: Object.values(pins),
