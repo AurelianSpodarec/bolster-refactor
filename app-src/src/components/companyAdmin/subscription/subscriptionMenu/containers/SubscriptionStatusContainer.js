@@ -6,7 +6,12 @@ import BlockContainer from 'components/shared/generic/block/containers/BlockCont
 
 class SubscriptionStatusContainer extends Component {
     render = () => {
-        const { subscriptions, isFetching, cards } = this.props;
+        const {
+            subscriptions,
+            isFetching,
+            cards,
+            shouldRestrictPayments
+        } = this.props;
         const noCards = !Object.values(cards).length;
 
         return (
@@ -16,6 +21,7 @@ class SubscriptionStatusContainer extends Component {
                     noCards={noCards}
                     endOn={subscriptions.endOn}
                     active={!!subscriptions.startOn}
+                    shouldRestrictPayments={shouldRestrictPayments}
                 />
             </BlockContainer>
         );
@@ -25,13 +31,13 @@ class SubscriptionStatusContainer extends Component {
 const mapStateToProps = ({
     companyAdmin: {
         subscriptionsReducer: { error, isFetching, subscriptions },
-        cardsReducer: { cards },
-    },
+        cardsReducer: { cards }
+    }
 }) => ({
     subscriptions,
     error,
     isFetching,
-    cards: cards || {},
+    cards: cards || {}
 });
 
 export default connect(mapStateToProps)(SubscriptionStatusContainer);
