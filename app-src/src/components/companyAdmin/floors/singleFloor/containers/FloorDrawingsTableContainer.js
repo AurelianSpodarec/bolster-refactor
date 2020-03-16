@@ -16,19 +16,21 @@ import fetchSingleFloor from 'actions/companyAdmin/floors/async/fetchSingleFloor
 import fetchAllDrawings from 'actions/companyAdmin/drawings/async/fetchAllDrawings';
 
 class FloorDrawingsTableContainer extends Component {
+    state = { shouldRestrictPayments: false };
     render() {
         const { floor } = this.props;
         return (
             <BlockContainer>
                 <BlockHeading title="Drawings" classes="w-table">
-                    {floor.accessType === ACCESS_TYPES_VALUES.OWNER && (
-                        <button
-                            className="button green"
-                            onClick={this.handleAddDrawingsModal}
-                        >
-                            <i className="fa fa-plus" /> Add Drawing
-                        </button>
-                    )}
+                    {floor.accessType === ACCESS_TYPES_VALUES.OWNER &&
+                        !this.state.shouldRestrictPayments && (
+                            <button
+                                className="button green"
+                                onClick={this.handleAddDrawingsModal}
+                            >
+                                <i className="fa fa-plus" /> Add Drawing
+                            </button>
+                        )}
                 </BlockHeading>
                 <DrawingTableContainer ids={floor.drawingIDs || []} />
             </BlockContainer>
@@ -36,8 +38,21 @@ class FloorDrawingsTableContainer extends Component {
     }
 
     componentDidMount = () => {
-        const { showModal, floorID, isAdding } = this.props;
+        const {
+            showModal,
+            floorID,
+            isAdding,
+            users,
+            companyUserID
+        } = this.props;
+
         if (isAdding) showModal(ADD_DRAWINGS, { floorID });
+        if (users && users[companyUserID]) {
+            this.setState({
+                shouldRestrictPayments:
+                    users[companyUserID].shouldRestrictPayments
+            });
+        }
     };
 
     componentDidUpdate = prevProps => {
@@ -51,9 +66,16 @@ class FloorDrawingsTableContainer extends Component {
             updateHierarchyAddState,
             fetchAllDrawings,
             fetchSingleFloor,
-            floorID
+            floorID,
+            users,
+            companyUserID
         } = this.props;
-
+        if (users && users[companyUserID] && !prevProps.users[companyUserID]) {
+            this.setState({
+                shouldRestrictPayments:
+                    users[companyUserID].shouldRestrictPayments
+            });
+        }
         if (!prevProps.postSuccess && postSuccess) {
             if (updatedID) {
                 history.push(`/company/drawings/${updatedID}`);
@@ -85,7 +107,13 @@ const mapStateToProps = (
         companyAdmin: {
             floorsReducer: { isFetching, floors },
             drawingsReducer: { postSuccess, updatedID, error },
-            hierarchyReducer: { isAdding }
+            hierarchyReducer: { isAdding },
+            companyUsersReducer: { users }
+        },
+        shared: {
+            decodeJWTReducer: {
+                jwtData: { companyUserID }
+            }
         }
     },
     { match: { params } }
@@ -96,7 +124,9 @@ const mapStateToProps = (
     isFetching,
     isAdding,
     floor: floors[params.id] || {},
-    floorID: params.id
+    floorID: params.id,
+    users,
+    companyUserID
 });
 
 const mapDispatchToProps = {
@@ -107,8 +137,5 @@ const mapDispatchToProps = {
     fetchAllDrawings
 };
 export default withRouter(
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(FloorDrawingsTableContainer)
+    connect(mapStateToProps, mapDispatchToProps)(FloorDrawingsTableContainer)
 );

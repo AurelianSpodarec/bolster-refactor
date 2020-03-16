@@ -7,22 +7,32 @@ import SubscriptionCreditsContainer from '../../credits/containers/SubscriptionC
 import CardManagement from '../../cardManagement/presentational/CardManagement';
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
 
-const Subscription = () => (
+const Subscription = ({ shouldRestrictPayments }) => (
     <>
         <PageHeading title="Account Overview" withBackButton />
 
         <div className="size-lg-8 size-md-12">
-            <SubscriptionStatusContainer />
-            <ActiveServicesContainer />
-            <CardManagement />
+            <SubscriptionStatusContainer
+                shouldRestrictPayments={shouldRestrictPayments}
+            />
+            {!shouldRestrictPayments && (
+                <>
+                    <ActiveServicesContainer />
+                    <CardManagement />
+                </>
+            )}
         </div>
-        <div className="size-lg-4 size-md-12">
-            <SubscriptionAutoRenewalContainer />
-            <SubscriptionCreditsContainer />
-        </div>
-        <div className="size-lg-8 size-md-12">
-            <PendingInvoicesContainer />
-        </div>
+        {!shouldRestrictPayments && (
+            <>
+                <div className="size-lg-4 size-md-12">
+                    <SubscriptionAutoRenewalContainer />
+                    <SubscriptionCreditsContainer />
+                </div>
+                <div className="size-lg-8 size-md-12">
+                    <PendingInvoicesContainer />
+                </div>
+            </>
+        )}
     </>
 );
 
