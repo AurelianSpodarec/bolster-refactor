@@ -1,51 +1,51 @@
 export const ROLE_TYPES = {
     '0': 'Owner',
     '1': 'Admin',
-    '2': 'Operative',
+    '2': 'Operative'
 };
 
 export const HIERARCHY_TYPES = {
     '1': 'site',
     '2': 'building',
     '3': 'floor',
-    '4': 'drawing',
+    '4': 'drawing'
 };
 
 export const HIERARCHY_IDS = {
     SITE: '1',
     BUILDING: '2',
     FLOOR: '3',
-    DRAWING: '4',
+    DRAWING: '4'
 };
 
 export const TEMPLATE_USAGE_RULES = {
     1: 'Use Only Owner Company',
     2: 'Use Only Own',
-    3: 'Use Any',
+    3: 'Use Any'
 };
 
 export const TEMPLATE_USAGE_RULES_VALUES = {
     ONLY_OWNER_COMPANY: 1,
     ONLY_OWN: 2,
-    USE_ANY: 3,
+    USE_ANY: 3
 };
 
 export const DOCUMENT_TYPE = {
     '1': 'View only',
     '2': 'Requires agreement (once)',
-    '3': 'Requires agreement (multiple)',
+    '3': 'Requires agreement (multiple)'
 };
 
 export const COMPANY_USER_ROLE_TYPES = {
     OWNER: 100,
     ADMIN: 75,
-    OPERATIVE: 50,
+    OPERATIVE: 50
 };
 
 export const COMPANY_USER_ROLE_IDS = {
     50: 'Operative',
     75: 'Admin',
-    100: 'Owner',
+    100: 'Owner'
 };
 
 export const CREDIT_LOG_TYPES = {
@@ -54,63 +54,63 @@ export const CREDIT_LOG_TYPES = {
     3: 'Used to reactivate drawing',
     4: 'Used to extend drawing',
     51: 'Used on new drawing',
-    52: 'Used to update drawing',
+    52: 'Used to update drawing'
 };
 
 export const MESSAGE_TYPES = {
     NOTIFICATION: 1,
-    SYSTEM: 20,
+    SYSTEM: 20
 };
 
 export const ACCESS_TYPES = {
     1: '(Read only)',
     10: '(View only)',
     50: '',
-    100: '(Owner)',
+    100: '(Owner)'
 };
 
 export const ACCESS_TYPES_VALUES = {
     READ_ONLY: 1,
     VIEW_ONLY: 10,
     WRITE: 50,
-    OWNER: 100,
+    OWNER: 100
 };
 
 export const PERMISSION_STATES = {
     PENDING: 0,
     ACCEPTED: 1,
-    REJECTED: 2,
+    REJECTED: 2
 };
 
 export const SITES_FILTER_TYPES = {
     active: 'Active',
     readonly: 'Read only',
-    archived: 'Archived',
+    archived: 'Archived'
 };
 
 export const LABEL_TYPES = {
     1: 'Standard',
-    2: 'Trim',
+    2: 'Trim'
 };
 
 export const LABEL_TYPES_NUMS = {
     STANDARD: 1,
-    TRIM: 2,
+    TRIM: 2
 };
 
 export const LABEL_TYPES_IMAGES = {
     1: '_content/images/labels/standard.png',
-    2: '_content/images/labels/trim.png',
+    2: '_content/images/labels/trim.png'
 };
 
 export const LABEL_QUES_TYPES = {
     1: 'Static',
-    2: 'Dynamic',
+    2: 'Dynamic'
 };
 
 export const LABEL_QUES_TYPES_NUMS = {
     STATIC: 1,
-    DYNAMIC: 2,
+    DYNAMIC: 2
 };
 
 export const PIN_STATUS_IDS = {
@@ -118,7 +118,7 @@ export const PIN_STATUS_IDS = {
     INSTALLED: 20,
     INSPECTED: 30,
     NO_ACTION: 40,
-    OTHER: 50,
+    OTHER: 50
 };
 
 export const PIN_STATUS_TYPES = {
@@ -126,7 +126,7 @@ export const PIN_STATUS_TYPES = {
     20: 'Installed',
     30: 'Inspected',
     40: 'No Action',
-    50: 'Other',
+    50: 'Other'
 };
 
 export const STATUS_TO_STATS = {
@@ -134,7 +134,7 @@ export const STATUS_TO_STATS = {
     20: 'Installed',
     30: 'Inspected',
     40: 'NoAction',
-    50: 'Other',
+    50: 'Other'
 };
 
 export const PIN_STATUS_COLOURS = {
@@ -142,52 +142,52 @@ export const PIN_STATUS_COLOURS = {
     20: 'green',
     30: 'blue',
     40: 'yellow',
-    50: 'purple',
+    50: 'purple'
 };
 
 export const PAYMENT_IDS = {
     CARD: 1,
-    INVOICE: 2,
+    INVOICE: 2
 };
 
 export const PAYMENT_TYPES = {
     1: 'By Card',
-    2: 'By Invoice',
+    2: 'By Invoice'
 };
 
 export const SUBSCRIPTION_RENEWAL_IDS = {
     CARD: 10,
-    INVOICE: 20,
+    INVOICE: 20
 };
 
 export const DATE_TIME_IDS = {
     DATETIME: 1,
     DATE: 2,
-    TIME: 3,
+    TIME: 3
 };
 
 export const DATE_TIME_DEFAULTS = {
     1: 'DD/MM/YYYY - HH:mm',
     2: 'DD/MM/YYYY',
-    3: 'HH:mm',
+    3: 'HH:mm'
 };
 
 export const DATE_TIMES = {
     1: 'momentDateTimeFormat',
     2: 'momentDateFormat',
-    3: 'momentTimeFormat',
+    3: 'momentTimeFormat'
 };
 
 export const VAT_TYPES = {
     GB: 1,
     EU: 2,
-    OUTSIDEEU: 3,
+    OUTSIDEEU: 3
 };
 
 export const VAT_TYPE_NAME = {
     '1': 'GB',
     '2': 'EU',
-    '3': 'Outside EU',
+    '3': 'Outside EU'
 };
 
 //Report generator
@@ -195,6 +195,7 @@ export const FURTHER_FILTRATION = {
     1: 'Individual Pins',
     2: 'Pin Selector',
     3: 'Advanced',
+    4: 'Zones'
 };
 
 export const FURTHER_FILTRATION_OPTIONS = {
@@ -202,28 +203,29 @@ export const FURTHER_FILTRATION_OPTIONS = {
     INDIVIDUAL_PINS: 1,
     PIN_SELECTOR: 2,
     FILTERS: 3,
+    ZONES: 4
 };
 
 export const NUMBER_OF_HISTORIES = {
     1: 'Latest',
     2: 'Earliest',
-    3: 'All',
+    3: 'All'
 };
 
 export const NUMBER_OF_HISTORIES_OPTIONS = {
     LATEST: 1,
     EARLIEST: 2,
-    ALL: 3,
+    ALL: 3
 };
 
 export const SORT_BY = {
     1: 'Ascending',
-    2: 'Decending',
+    2: 'Decending'
 };
 
 export const REPORT_FORMATS = {
     1: 'pdf',
-    2: 'csv',
+    2: 'csv'
 };
 
 export const GENERATION_STATE_TEXT = {
@@ -231,14 +233,14 @@ export const GENERATION_STATE_TEXT = {
     1: 'Running',
     2: 'Complete',
     3: 'Failed',
-    4: 'Deleted',
+    4: 'Deleted'
 };
 export const GENERATION_STATE_VAL = {
     WAITING: 0,
     RUNNING: 1,
     COMPLETE: 2,
     FAILED: 3,
-    DELETED: 4,
+    DELETED: 4
 };
 
 export const SORT_BY_OPTIONS = {
@@ -247,7 +249,7 @@ export const SORT_BY_OPTIONS = {
     PIN_NO_ASC: 3,
     PIN_NO_DESC: 4,
     DRAWING_ASC: 5,
-    DRAWING_DESC: 6,
+    DRAWING_DESC: 6
 };
 
 export const SORT_BY_OPTIONS_TEXT = {
@@ -256,23 +258,23 @@ export const SORT_BY_OPTIONS_TEXT = {
     3: 'Pin Number (ascending)',
     4: 'Pin Number (descending)',
     5: 'Site/Building/Floor/Drawing (ascending)',
-    6: 'Site/Building/Floor/Drawing (descending)',
+    6: 'Site/Building/Floor/Drawing (descending)'
 };
 
 export const LAYOUT_OPTIONS = {
     ONE_COLUMN: 1,
-    TWO_COLUMN: 2,
+    TWO_COLUMN: 2
 };
 
 export const LAYOUT_OPTIONS_TEXT = {
     1: 'One column',
-    2: 'Two columns',
+    2: 'Two columns'
 };
 
 export const PARENTAL_TYPES = {
     NONE: 1,
     HEADQUARTERS: 2,
-    CHILD_COMPANY: 3,
+    CHILD_COMPANY: 3
 };
 
 /*  adding new dropdown options to these two enum objects
@@ -283,25 +285,25 @@ export const DROPDOWN_OPTIONS = {
     3: {
         name: 'Installation Types',
         link: 'installation-types',
-        singular: 'Installation Type',
-    },
+        singular: 'Installation Type'
+    }
 };
 
 export const DROPDOWN_OPTION_LOOKUP = {
     'fr-ratings': 1,
     'item-types': 2,
-    'installation-types': 3,
+    'installation-types': 3
 };
 
 export const DROPDOWN_OPTION_ENUM = {
     1: 'FR Ratings',
     2: 'Item Types',
-    3: 'Installation Types',
+    3: 'Installation Types'
 };
 export const DROPDOWN_OPTION_VALS = {
     frRatings: 1,
     itemTypes: 2,
-    installationTypes: 3,
+    installationTypes: 3
 };
 
 export const FLOORPLAN_STATES = {
@@ -309,35 +311,36 @@ export const FLOORPLAN_STATES = {
     FAILEDRETRYING: -1,
     WAITING: 0,
     RUNNING: 1,
-    COMPLETE: 100,
+    COMPLETE: 100
 };
 
 export const FLOORPLAN_STATE_MESSAGES = {
-    '-100': 'An error occurred while uploading your floorplan, please try again.',
+    '-100':
+        'An error occurred while uploading your floorplan, please try again.',
     '-1': 'Update failed. Retrying...',
     0: 'Uploading floorplan...',
     1: 'Uploading floorplan...',
-    100: '',
+    100: ''
 };
 
 export const RECTANGLE_MODES = {
     NONE: 0,
     ADD: 1,
     DELETE: 2,
-    EXCLUDE: 3,
+    EXCLUDE: 3
 };
 
 export const INVOICE_STATUS_TYPES = {
     ALL: 0,
     PAID: 1,
-    UNPAID: 2,
+    UNPAID: 2
 };
 
 export const COMPANY_TYPES = {
     ALL: 0,
     'Company - Active Subscription': 1,
     'Company - Expired Subscription': 2,
-    'Client Access': 3,
+    'Client Access': 3
 };
 
 export const DELETED_DATA_TYPE = {
@@ -346,7 +349,7 @@ export const DELETED_DATA_TYPE = {
     building: 'Building',
     site: 'Site',
     users: 'User',
-    pinHistory: 'Pin History',
+    pinHistory: 'Pin History'
 };
 
 export const getEnumKey = (enumerable, num) =>
@@ -358,7 +361,7 @@ export const getEnumKey = (enumerable, num) =>
 export const FETCH_STATUS = {
     NONE: 1,
     PARTIAL: 2,
-    FULL: 3,
+    FULL: 3
 };
 
 export const DEFAULT_SITES_SORT = {
@@ -366,7 +369,7 @@ export const DEFAULT_SITES_SORT = {
     DATE_ASC: 2,
     DATE_DESC: 3,
     NAME_ASC: 4,
-    NAME_DESC: 5,
+    NAME_DESC: 5
 };
 
 export const DEFAULT_SITES_SORT_NAMES = {
@@ -374,11 +377,11 @@ export const DEFAULT_SITES_SORT_NAMES = {
     2: 'Date Ascending',
     3: 'Date Descending',
     4: 'Name Ascending',
-    5: 'Name Descending',
+    5: 'Name Descending'
 };
 
 export const HAS_PAID_QUERIES = {
     0: undefined,
     1: 'true',
-    2: 'false',
+    2: 'false'
 };

@@ -2,16 +2,27 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import showModal from 'actions/shared/generic/modals/sync/showModal';
 import hideModal from 'actions/shared/generic/modals/sync/hideModal';
-import { FILTER_FIELDS, CONFIRM_SUBMIT, LOADING_DATA } from 'constants/shared/modalTypes';
+import {
+    FILTER_FIELDS,
+    CONFIRM_SUBMIT,
+    LOADING_DATA
+} from 'constants/shared/modalTypes';
 
 import FurtherFiltration from '../presentational/FurtherFiltration';
 import PinSelectorContainer from 'components/shared/pinSelector/container/PinSelectorContainer';
 import updateReportFilter from 'actions/companyAdmin/reports/sync/updateReportFilter';
-import { convertEnumToDropdownOptions, removeDuplicates, isObjEmpty } from 'helpers/generic';
+import {
+    convertEnumToDropdownOptions,
+    removeDuplicates,
+    isObjEmpty
+} from 'helpers/generic';
 import addFilterQuestion from 'actions/companyAdmin/reports/sync/addFilterQuestion';
 import removeFilterQuestion from 'actions/companyAdmin/reports/sync/removeFilterQuestion';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
-import { FURTHER_FILTRATION, FURTHER_FILTRATION_OPTIONS } from 'constants/companyAdmin/enums';
+import {
+    FURTHER_FILTRATION,
+    FURTHER_FILTRATION_OPTIONS
+} from 'constants/companyAdmin/enums';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import removeFilterQuestions from 'actions/companyAdmin/reports/sync/removeFilterQuestions';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
@@ -20,21 +31,29 @@ import MapPinSelectorContainer from 'components/shared/pinSelector/container/Map
 import withUpdateOnChange from '../hocs/withUpdateOnChange';
 import updateFurtherFiltrationOption from 'actions/companyAdmin/reports/sync/updateFurtherFiltrationOption';
 import FilterFieldsModalContainer from './FilterFieldsModalContainer';
-const { PIN_SELECTOR, INDIVIDUAL_PINS, FILTERS } = FURTHER_FILTRATION_OPTIONS;
+import ZoneSelectorContainer from 'components/shared/pinSelector/container/ZoneSelectorContainer';
+const {
+    PIN_SELECTOR,
+    INDIVIDUAL_PINS,
+    FILTERS,
+    ZONES
+} = FURTHER_FILTRATION_OPTIONS;
 
 class FurtherFiltrationContainer extends Component {
     state = {
         addFilter: true,
-        filterToEditID: null,
+        filterToEditID: null
     };
     render() {
         const {
             fields,
             filters: { drawingID, reportHistories },
             furtherFiltrationOption,
-            isDisabled,
+            isDisabled
         } = this.props;
-        const filtrationOptions = convertEnumToDropdownOptions(FURTHER_FILTRATION);
+        const filtrationOptions = convertEnumToDropdownOptions(
+            FURTHER_FILTRATION
+        );
 
         const filtrationOptionsArr = Object.values(filtrationOptions).filter(
             ({ value }) => drawingID || (!isDisabled && +value === FILTERS)
@@ -45,7 +64,8 @@ class FurtherFiltrationContainer extends Component {
             <BlockContainer>
                 <BlockHeading title="Advanced Filters" />
                 <p className="generic-text small">
-                    Here you can make create much more specific filters on your data set.
+                    Here you can make create much more specific filters on your
+                    data set.
                 </p>
                 <FurtherFiltration
                     furtherFiltrationOptions={filtrationOptionsArr}
@@ -55,7 +75,9 @@ class FurtherFiltrationContainer extends Component {
                     selectedHistoryNum={reportHistories}
                     isDisabled={isDisabled}
                 />
-                {+furtherFiltrationOption === +INDIVIDUAL_PINS ? (
+                {+furtherFiltrationOption === +ZONES ? (
+                    <ZoneSelectorContainer blockName="zoneSelector" />
+                ) : +furtherFiltrationOption === +INDIVIDUAL_PINS ? (
                     <PinSelectorContainer blockName="pinSelector" />
                 ) : +furtherFiltrationOption === +PIN_SELECTOR ? (
                     <MapPinSelectorContainer
@@ -76,8 +98,12 @@ class FurtherFiltrationContainer extends Component {
                                         key={field.id}
                                         field={field}
                                         questions={this._getQuestionsOptions()}
-                                        handleShowCustomFieldModal={this.handleShowCustomFieldModal}
-                                        removeCustomField={this.removeCustomField}
+                                        handleShowCustomFieldModal={
+                                            this.handleShowCustomFieldModal
+                                        }
+                                        removeCustomField={
+                                            this.removeCustomField
+                                        }
                                     />
                                 ))}
                             </div>
@@ -88,7 +114,8 @@ class FurtherFiltrationContainer extends Component {
                                     type="button"
                                     className="button green"
                                 >
-                                    <i className="fa fa-plus fa-fw" /> Add filter
+                                    <i className="fa fa-plus fa-fw" /> Add
+                                    filter
                                 </button>
                             </BlockButtonWrapper>
                         </div>
@@ -107,12 +134,15 @@ class FurtherFiltrationContainer extends Component {
             showModal,
             hideModal,
             isDisabled,
-            postFilters,
+            postFilters
         } = this.props;
         // reset filter fields if changing the filter
         if (prevProps.furtherFiltrationOption !== furtherFiltrationOption) {
             removeFilterQuestions();
-            if (+prevProps.furtherFiltrationOption === FURTHER_FILTRATION_OPTIONS.PIN_SELECTOR) {
+            if (
+                +prevProps.furtherFiltrationOption ===
+                FURTHER_FILTRATION_OPTIONS.PIN_SELECTOR
+            ) {
                 postFilters();
             }
         }
@@ -132,7 +162,7 @@ class FurtherFiltrationContainer extends Component {
         // loading filters - slow on live
         if (isFetching && !prevProps.isFetching) {
             showModal(LOADING_DATA, {
-                message: 'Filtering Pins, please wait.',
+                message: 'Filtering Pins, please wait.'
             });
         }
 
@@ -148,7 +178,7 @@ class FurtherFiltrationContainer extends Component {
     toggleAddFilter = () => {
         this.setState({
             addFilter: !this.state.addFilter,
-            filterToEditID: null,
+            filterToEditID: null
         });
     };
 
@@ -160,7 +190,7 @@ class FurtherFiltrationContainer extends Component {
     handleShowCustomFieldModal = id => {
         this.setState({
             addFilter: !this.state.addFilter,
-            filterToEditID: id,
+            filterToEditID: id
         });
     };
 
@@ -177,7 +207,7 @@ class FurtherFiltrationContainer extends Component {
         const options = uniques.reduce(
             (acc, curr) => ({
                 ...acc,
-                [curr.id]: { value: curr.id, text: curr.name },
+                [curr.id]: { value: curr.id, text: curr.name }
             }),
             {}
         );
@@ -191,14 +221,21 @@ class FurtherFiltrationContainer extends Component {
     };
 
     handleNumOfHistoriesChange = (name, value) => {
-        const { handleChange, postFilters, showModal, hideModal, shouldConfirm } = this.props;
+        const {
+            handleChange,
+            postFilters,
+            showModal,
+            hideModal,
+            shouldConfirm
+        } = this.props;
 
         if (shouldConfirm) {
             const handleSubmit = () => {
                 hideModal();
                 handleChange(name, value).then(postFilters);
             };
-            const message = 'Changing this will reset your advanced filters options, continue?';
+            const message =
+                'Changing this will reset your advanced filters options, continue?';
             showModal(CONFIRM_SUBMIT, { handleSubmit, message, hideModal });
         } else {
             handleChange(name, value).then(postFilters);
@@ -214,9 +251,9 @@ const mapStateToProps = ({
             fields,
             filters,
             furtherFiltrationOption,
-            isFetching,
-        },
-    },
+            isFetching
+        }
+    }
 }) => ({
     customQuestions: questions,
     fields: Object.values(fields),
@@ -224,7 +261,7 @@ const mapStateToProps = ({
     shouldConfirm: !isObjEmpty(fields) || pins.length !== ids.length,
     furtherFiltrationOption,
     isFetching,
-    isDisabled: !companyUserIDs.length && !siteID,
+    isDisabled: !companyUserIDs.length && !siteID
 });
 
 const mapDispatchToProps = {
@@ -234,7 +271,7 @@ const mapDispatchToProps = {
     removeFilterQuestions,
     showModal,
     hideModal,
-    updateFurtherFiltrationOption,
+    updateFurtherFiltrationOption
 };
 
 export default withUpdateOnChange(
