@@ -30,15 +30,8 @@ class ZoneSelectorContainer extends Component {
     };
 
     componentWillUnmount = () => {
-        const {
-            customFilters: { pins },
-            handleChange,
-            removeFieldError,
-            blockName
-        } = this.props;
-
-        const pinIDs = pins.map(({ id }) => id);
-        handleChange(pinIDs);
+        const { handleChange, removeFieldError, blockName } = this.props;
+        handleChange('pinIDs', []);
         removeFieldError(blockName);
     };
 

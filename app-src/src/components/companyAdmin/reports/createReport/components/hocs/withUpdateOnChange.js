@@ -78,7 +78,10 @@ export default function(ProtectedComponent) {
             } = FURTHER_FILTRATION_OPTIONS;
 
             // ? Displays all pins if in rectangle mode, and only the selected pins otherwise.
-            if (+furtherFiltrationOption > PIN_SELECTOR) {
+            if (
+                +furtherFiltrationOption > PIN_SELECTOR &&
+                +furtherFiltrationOption !== ZONES
+            ) {
                 // advanced
                 return pins.filter(({ id }) => filters.pinIDs.includes(id));
             }
@@ -141,24 +144,25 @@ export default function(ProtectedComponent) {
                     ) {
                         return NO;
                     }
-                    // if (
-                    //     +furtherFiltrationOption ===
-                    //     FURTHER_FILTRATION_OPTIONS.INDIVIDUAL_PINS
-                    // ) {
-                    //     if (!filters.pinIDs.includes(pin.id)) {
-                    //         return NO;
-                    //     }
-                    // }
+
                     return YES;
                 })
-                .map(pin => ({
-                    ...pin,
-                    excluded:
-                        (+furtherFiltrationOption === PIN_SELECTOR ||
-                            +furtherFiltrationOption === ZONES ||
-                            +furtherFiltrationOption === INDIVIDUAL_PINS) &&
-                        !filters.pinIDs.includes(pin.id)
-                }));
+                .map(pin => {
+                    const isEXcludeFilterType =
+                        +furtherFiltrationOption === PIN_SELECTOR ||
+                        +furtherFiltrationOption === ZONES ||
+                        +furtherFiltrationOption === INDIVIDUAL_PINS;
+
+                    const { pinIDs } = filters;
+                    const excluded =
+                        (isEXcludeFilterType && !pinIDs.length) ||
+                        !pinIDs.includes(pin.id);
+
+                    return {
+                        ...pin,
+                        excluded
+                    };
+                });
         };
 
         _getPostBody = () => {
