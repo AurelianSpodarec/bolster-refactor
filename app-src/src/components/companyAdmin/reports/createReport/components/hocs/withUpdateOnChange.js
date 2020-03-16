@@ -434,7 +434,7 @@ export default function(ProtectedComponent) {
             furtherFiltrationOption,
             timeZone,
             includedDrawingsIDs,
-            zones: Object.values(zones)
+            zonesObj: zones
         };
     };
 

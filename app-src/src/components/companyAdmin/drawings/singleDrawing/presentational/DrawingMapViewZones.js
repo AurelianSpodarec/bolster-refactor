@@ -27,7 +27,7 @@ class DrawingMapViewZones extends Component {
             layer.setStyle({
                 fillColor: layerColor,
                 color: layerColor,
-                fillOpacity: zonesOpacity,
+                fillOpacity: zonesOpacity
             });
             leafletFG.addLayer(layer);
         });
@@ -57,7 +57,7 @@ class DrawingMapViewZones extends Component {
                     properties: {},
                     geometry: {
                         type: 'Polygon',
-                        coordinates: [JSON.parse(zone.coordinates)]
+                        coordinates: [zone.coordinates]
                     },
                     color: zone.colorHex
                 };

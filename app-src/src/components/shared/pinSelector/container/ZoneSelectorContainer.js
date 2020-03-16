@@ -70,29 +70,31 @@ class ZoneSelectorContainer extends Component {
     };
 
     _getPinsIncludedPinIDs = () => {
-        const { zones } = this.props;
-        const { includedZones: zoneIDs } = this.state;
+        const { zonesObj } = this.props;
+        const { included } = this.state;
 
-        const pinsWithinZones = zoneIDs
-            .map(id => zones[id])
+        const pinIDsWithinZones = included
+            .map(id => zonesObj[id])
             .filter(zone => zone)
             .map(({ coordinates }) => coordinates)
-            .reduce((acc, zoneCoords) => {
-                const pinIDsWithinCoords = this._filterPinsWithinPolygon(
-                    zoneCoords
-                );
+            .reduce((acc, poly) => {
+                const pinIDsWithinCoords = this._filterPinsWithinPolygon(poly);
                 return acc.concat(pinIDsWithinCoords);
-            }, []);
+            }, [])
+            .map(pin => pin.id);
 
-        console.log({ pinsWithinZones });
-        return pinsWithinZones;
+        return pinIDsWithinZones;
     };
 
-    _filterPinsWithinPolygon = zoneCoords => {
-        const { pins } = this.props;
-        return pins.filter(({ location: lngX, latY }) => {
+    _filterPinsWithinPolygon = poly => {
+        const {
+            customFilters: { pins }
+        } = this.props;
+
+        return pins.filter(({ location: { lngX, latY } }) => {
             const point = [lngX, latY];
-            return this._isInsidePolygon(point, zoneCoords);
+            const inside = this._isInsidePolygon(point, poly);
+            return inside;
         });
     };
 
@@ -116,12 +118,14 @@ class ZoneSelectorContainer extends Component {
     };
 
     _setZoneOptions = () => {
-        const { zones } = this.props;
-        const zoneOptions = zones.map(({ id, name, colorHex }) => ({
-            value: id,
-            text: name,
-            colorHex
-        }));
+        const { zonesObj } = this.props;
+        const zoneOptions = Object.values(zonesObj).map(
+            ({ id, name, colorHex }) => ({
+                value: id,
+                text: name,
+                colorHex
+            })
+        );
 
         this.setState({ zoneOptions, includedZones: [] }, this._handleChange);
     };
@@ -146,17 +150,15 @@ class ZoneSelectorContainer extends Component {
         }
     };
 
-    handleInclude = pinIDs => {
-        console.log({ pinIDs });
+    handleInclude = zoneIDs => {
         const { included } = this.state;
-        const updated = included.concat(pinIDs);
+        const updated = included.concat(zoneIDs);
         this.setState({ included: updated }, this._handleChange);
     };
 
-    handleExclude = pinIDs => {
-        console.log({ pinIDs });
+    handleExclude = zoneIDs => {
         const { included } = this.state;
-        const updated = included.filter(val => !pinIDs.includes(val));
+        const updated = included.filter(val => !zoneIDs.includes(val));
         this.setState({ included: updated }, this._handleChange);
     };
 }
