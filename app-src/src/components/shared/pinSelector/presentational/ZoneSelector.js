@@ -30,15 +30,12 @@ const ZoneSelector = ({
                         options={included}
                         onSubmit={handleExclude}
                     />
-
-                    {error && (
-                        <div className="size-lg-12">
-                            <p className="error red-text text-accent-4">
-                                {error}
-                            </p>
-                        </div>
-                    )}
                 </div>
+                {error && (
+                    <div className="size-lg-12">
+                        <p className="error red-text text-accent-4">{error}</p>
+                    </div>
+                )}
             </div>
         </>
     );
