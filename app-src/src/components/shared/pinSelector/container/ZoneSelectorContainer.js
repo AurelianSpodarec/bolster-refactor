@@ -70,20 +70,49 @@ class ZoneSelectorContainer extends Component {
     };
 
     _getPinsIncludedPinIDs = () => {
-        const { pins, zones } = this.props;
+        const { zones } = this.props;
         const { includedZones: zoneIDs } = this.state;
 
         const pinsWithinZones = zoneIDs
             .map(id => zones[id])
             .filter(zone => zone)
             .map(({ coordinates }) => coordinates)
-            .reduce((acc, coords) => {
-                // need to filter within polygon
-                const pinIDsWithinCoords = [];
+            .reduce((acc, zoneCoords) => {
+                const pinIDsWithinCoords = this._filterPinsWithinPolygon(
+                    zoneCoords
+                );
                 return acc.concat(pinIDsWithinCoords);
             }, []);
 
+        console.log({ pinsWithinZones });
         return pinsWithinZones;
+    };
+
+    _filterPinsWithinPolygon = zoneCoords => {
+        const { pins } = this.props;
+        return pins.filter(({ location: lngX, latY }) => {
+            const point = [lngX, latY];
+            return this._isInsidePolygon(point, zoneCoords);
+        });
+    };
+
+    _isInsidePolygon = (point, polygon) => {
+        var x = point[0],
+            y = point[1];
+
+        var inside = false;
+        for (var i = 0, j = polygon.length - 1; i < polygon.length; j = i++) {
+            var xi = polygon[i][0],
+                yi = polygon[i][1];
+            var xj = polygon[j][0],
+                yj = polygon[j][1];
+
+            var intersect =
+                yi > y != yj > y && x < ((xj - xi) * (y - yi)) / (yj - yi) + xi;
+            if (intersect) inside = !inside;
+        }
+
+        return inside;
     };
 
     _setZoneOptions = () => {
@@ -137,7 +166,7 @@ const mapStateToProps = ({
         pinsReducer: { pins }
     }
 }) => ({
-    pins: Object.values(pins)
+    pinsObj: Object.values(pins)
 });
 export default withUpdateOnChange(
     connect(mapStateToProps, null)(ZoneSelectorContainer)
