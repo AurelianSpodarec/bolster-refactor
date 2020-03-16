@@ -76,11 +76,19 @@ function errorReducer(state = null, action) {
 
 function zonesReducer(state = {}, action) {
     switch (action.type) {
-        case FETCH_DRAWING_ZONES_SUCCESS:
-            return convertArrToObj(action.payload);
+        case FETCH_DRAWING_ZONES_SUCCESS: {
+            return convertArrToObj(action.payload.map(formatZone));
+        }
         case CREATE_DRAWING_ZONE_SUCCESS:
-            return { ...state, [action.payload.id]: action.payload };
+            return {
+                ...state,
+                [action.payload.id]: formatZone(action.payload)
+            };
         default:
             return state;
     }
+}
+
+function formatZone({ coordinates, ...zone }) {
+    return { ...zone, coordinates: JSON.parse(coordinates) };
 }
