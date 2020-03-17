@@ -24,6 +24,7 @@ const FrontEndRoutes = ({ base = '/' }) => (
             component={ShareLinkDrawingContainer}
         />
         <Route path={`${base}qr/pin`} component={QRCodesPageRedirect} />
+        <Route path={`${base}qr/zone`} component={QRCodesPageRedirect} />
         <Route path={`${base}qrcode`} component={QRCodesPage} />
     </SwitchWith404>
 );
