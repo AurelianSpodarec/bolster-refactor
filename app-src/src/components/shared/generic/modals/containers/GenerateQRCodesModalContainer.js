@@ -129,8 +129,8 @@ const mapDispatchToProps = dispatch => ({
     fetchCompanySettings: () => {
         dispatch(fetchCompanySettings());
     },
-    generateQRCodes: numberOfCodes => {
-        dispatch(generateQRCodes(numberOfCodes));
+    generateQRCodes: (numberOfCodes, zone) => {
+        dispatch(generateQRCodes(numberOfCodes, zone));
     }
 });
 
