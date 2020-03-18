@@ -20,6 +20,7 @@ const AddCompanyAdminModalContainer = ({
         email: '',
         phoneNumber: '',
         password: '',
+        shouldRestrictPayments: false,
     });
     const prevProps = usePrevious({ postSuccess, error });
     useEffect(() => {
