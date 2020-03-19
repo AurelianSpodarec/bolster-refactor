@@ -145,13 +145,6 @@ class DrawingMapGeneralContainer extends Component {
             companyUserID
         } = this.props;
         if (objectUsers && objectUsers[companyUserID]) {
-            console.log('im hitting');
-            console.log('im hitting');
-            console.log('im hitting');
-            console.log('im hitting');
-            console.log('im hitting');
-            console.log('im hitting');
-
             this.setState({
                 shouldRestrictPayments:
                     objectUsers[companyUserID].shouldRestrictPayments

@@ -20,7 +20,10 @@ class CreateCompanyAdminFormContainer extends Component {
         email: '',
         phoneNumber: '',
         password: '',
-        confirmPassword: ''
+        confirmPassword: '',
+        shouldRestrictPayments: false,
+        //should the admin be able to restirct payments to other users
+        shouldRestrictPaymentsAccess: true,
     };
 
     render() {
@@ -37,11 +40,11 @@ class CreateCompanyAdminFormContainer extends Component {
     }
 
     componentDidUpdate = prevProps => {
-        const { postSuccess, showModal, hideModal, error } = this.props;
+        const { postSuccess, showModal, hideModal, companyUserID, users, error } = this.props;
         if (postSuccess && !prevProps.postSuccess) {
             showModal(SUCCESS_MODAL, {
                 hideModal,
-                message: 'Admin added successfully.'
+                message: 'Admin added successfully.',
             });
         }
         if (error && !prevProps.error) {
@@ -50,7 +53,22 @@ class CreateCompanyAdminFormContainer extends Component {
                 title: 'Error',
                 message:
                     error.message ||
-                    'There was an error processing your request, please try again later.'
+                    'There was an error processing your request, please try again later.',
+            });
+        }
+
+        if (users && users[companyUserID] && !prevProps.users[companyUserID]) {
+            this.setState({
+                shouldRestrictPaymentsAccess: !users[companyUserID].shouldRestrictPayments,
+            });
+        }
+    };
+
+    componentDidMount = () => {
+        const { users, companyUserID } = this.props;
+        if (users && users[companyUserID]) {
+            this.setState({
+                shouldRestrictPaymentsAccess: !users[companyUserID].shouldRestrictPayments,
             });
         }
     };
@@ -63,11 +81,11 @@ class CreateCompanyAdminFormContainer extends Component {
         e.preventDefault();
 
         // eslint-disable-next-line no-unused-vars
-        const { confirmPassword, ...rest } = this.state;
+        const { confirmPassword, shouldRestrictPaymentsAccess, ...rest } = this.state;
 
         const postBody = {
             ...rest,
-            type: COMPANY_USER_ROLE_TYPES.ADMIN
+            type: COMPANY_USER_ROLE_TYPES.ADMIN,
         };
         this.props.createCompanyUser(postBody);
     };
@@ -84,18 +102,23 @@ class CreateCompanyAdminFormContainer extends Component {
     };
 
     validateConfirmPassword = confirmPassword =>
-        this.state.password !== confirmPassword
-            ? 'Passwords do not match'
-            : null;
+        this.state.password !== confirmPassword ? 'Passwords do not match' : null;
 }
 
 const mapStateToProps = ({
     companyAdmin: {
-        companyUsersReducer: { postSuccess, error }
-    }
+        companyUsersReducer: { postSuccess, error, users },
+    },
+    shared: {
+        decodeJWTReducer: {
+            jwtData: { companyUserID },
+        },
+    },
 }) => ({
     postSuccess,
-    error
+    error,
+    companyUserID,
+    users,
 });
 
 const mapDispatchToProps = {
@@ -103,12 +126,9 @@ const mapDispatchToProps = {
     addFieldError,
     removeFieldError,
     hideModal,
-    showModal
+    showModal,
 };
 
 export default withRouter(
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(CreateCompanyAdminFormContainer)
+    connect(mapStateToProps, mapDispatchToProps)(CreateCompanyAdminFormContainer),
 );
