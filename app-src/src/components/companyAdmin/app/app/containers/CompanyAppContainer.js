@@ -31,10 +31,15 @@ class CompanyAppContainer extends Component {
         const {
             fetchHomeData,
             fetchCompanySettings,
-            selectCompanyMenuTab
+            selectCompanyMenuTab,
+            decodeJWT,
+            fetchSingleCompanyUser
         } = this.props;
 
         fetchHomeData();
+        decodeJWT().then(({ payload = {} }) => {
+            fetchSingleCompanyUser(payload.companyUserID);
+        });
         fetchCompanySettings().then(({ payload = {} }) => {
             if (payload.colourCode) {
                 localStorage.setItem('colourCode', payload.colourCode);
@@ -43,24 +48,7 @@ class CompanyAppContainer extends Component {
 
         selectCompanyMenuTab();
     };
-
-    componentDidUpdate = prevProps => {
-        const { companyUserID, fetchSingleCompanyUser } = this.props;
-
-        if (!prevProps.companyUserID && companyUserID) {
-            fetchSingleCompanyUser(companyUserID);
-        }
-    };
 }
-const mapStateToProps = ({
-    shared: {
-        decodeJWTReducer: {
-            jwtData: { companyUserID }
-        }
-    }
-}) => ({
-    companyUserID
-});
 
 const mapDispatchToProps = dispatch => ({
     fetchHomeData: () => {
@@ -68,7 +56,6 @@ const mapDispatchToProps = dispatch => ({
         dispatch(fetchSingleCompany());
         dispatch(fetchMessages());
         dispatch(fetchCompanyReports());
-        dispatch(decodeJWT());
         dispatch(companyFetchAllServices());
         dispatch(fetchAllSubscriptions());
         dispatch(fetchCreditLogs());
@@ -77,6 +64,9 @@ const mapDispatchToProps = dispatch => ({
         dispatch(fetchOutgoingTransferRequests());
         dispatch(fetchPendingInvites());
         dispatch(fetchOutgoingInvites());
+    },
+    decodeJWT: () => {
+        return dispatch(decodeJWT());
     },
     fetchCompanySettings: () => {
         return dispatch(fetchCompanySettings());
@@ -89,7 +79,4 @@ const mapDispatchToProps = dispatch => ({
     }
 });
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(CompanyAppContainer);
+export default connect(null, mapDispatchToProps)(CompanyAppContainer);
