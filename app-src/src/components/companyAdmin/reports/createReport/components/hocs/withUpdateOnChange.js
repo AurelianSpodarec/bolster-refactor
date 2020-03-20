@@ -15,7 +15,7 @@ import getTemplateReportOptions from 'actions/companyAdmin/reports/async/getTemp
 export default function(ProtectedComponent) {
     class WithUpdateOnChange extends React.Component {
         state = {
-            showError: false
+            showError: false,
         };
         render() {
             const { showError } = this.state;
@@ -40,19 +40,14 @@ export default function(ProtectedComponent) {
             const options = arr.map(({ id, name }) => ({
                 value: id,
                 label: name,
-                text: name
+                text: name,
             }));
 
             return asObj ? convertArrToObj(options, 'value') : options;
         };
 
         validate = errorMessage => {
-            const {
-                addFieldError,
-                removeFieldError,
-                blockName,
-                fieldError
-            } = this.props;
+            const { addFieldError, removeFieldError, blockName, fieldError } = this.props;
 
             if (errorMessage) {
                 addFieldError(blockName, errorMessage);
@@ -71,17 +66,10 @@ export default function(ProtectedComponent) {
 
         _getFilteredPins = pins => {
             const { filters, furtherFiltrationOption } = this.props;
-            const {
-                PIN_SELECTOR,
-                INDIVIDUAL_PINS,
-                ZONES
-            } = FURTHER_FILTRATION_OPTIONS;
+            const { PIN_SELECTOR, INDIVIDUAL_PINS, ZONES } = FURTHER_FILTRATION_OPTIONS;
 
             // ? Displays all pins if in rectangle mode, and only the selected pins otherwise.
-            if (
-                +furtherFiltrationOption > PIN_SELECTOR &&
-                +furtherFiltrationOption !== ZONES
-            ) {
+            if (+furtherFiltrationOption > PIN_SELECTOR && +furtherFiltrationOption !== ZONES) {
                 // advanced
                 return pins.filter(({ id }) => filters.pinIDs.includes(id));
             }
@@ -92,7 +80,7 @@ export default function(ProtectedComponent) {
                 status,
                 serviceID,
                 templateID,
-                companyUserIDs
+                companyUserIDs,
             } = filters;
 
             const NO = false;
@@ -138,9 +126,7 @@ export default function(ProtectedComponent) {
                     if (
                         companyUserIDs &&
                         companyUserIDs.length &&
-                        !companyUserIDs.includes(
-                            pin.latestCreatedByCompanyUserID
-                        )
+                        !companyUserIDs.includes(pin.latestCreatedByCompanyUserID)
                     ) {
                         return NO;
                     }
@@ -155,12 +141,11 @@ export default function(ProtectedComponent) {
 
                     const { pinIDs } = filters;
                     const excluded =
-                        (isEXcludeFilterType && !pinIDs.length) ||
-                        !pinIDs.includes(pin.id);
+                        (isEXcludeFilterType && !pinIDs.length) || !pinIDs.includes(pin.id);
 
                     return {
                         ...pin,
-                        excluded
+                        excluded,
                     };
                 });
         };
@@ -185,7 +170,7 @@ export default function(ProtectedComponent) {
                     fromDateInclusive,
                     toDateInclusive,
                     companyUserIDs,
-                    floorplanPinScale
+                    floorplanPinScale,
                 },
                 furtherFiltrationOption,
                 excludedPinIDs,
@@ -193,7 +178,7 @@ export default function(ProtectedComponent) {
                 options: { showHidden, sortBy },
                 fields,
                 timeZone,
-                includedDrawingsIDs
+                includedDrawingsIDs,
             } = this.props;
 
             let hierarchyType;
@@ -219,31 +204,26 @@ export default function(ProtectedComponent) {
             let questionFilters = null;
             let selectedPinIDs = null;
 
-            const { INDIVIDUAL_PINS, FILTERS } = FURTHER_FILTRATION_OPTIONS;
+            const { INDIVIDUAL_PINS, ZONES, FILTERS } = FURTHER_FILTRATION_OPTIONS;
 
             switch (+furtherFiltrationOption) {
+                case ZONES:
                 case INDIVIDUAL_PINS: {
                     selectedPinIDs = pinIDs.filter(
-                        id => !Object.values(excludedPinIDs).includes(id)
+                        id => !Object.values(excludedPinIDs).includes(id),
                     );
                     break;
                 }
                 case FILTERS: {
                     questionFilters = fields.map(
-                        ({
-                            selectedQuestions,
-                            questionValues = [],
-                            selectedValues = []
-                        }) => {
-                            let values = questionValues.length
-                                ? questionValues
-                                : selectedValues;
+                        ({ selectedQuestions, questionValues = [], selectedValues = [] }) => {
+                            let values = questionValues.length ? questionValues : selectedValues;
 
                             return {
                                 questionGroupKeys: selectedQuestions,
-                                values
+                                values,
                             };
-                        }
+                        },
                     );
                     break;
                 }
@@ -257,11 +237,8 @@ export default function(ProtectedComponent) {
             };
 
             const pinBoundingBoxes = Object.values(
-                rectangles
-            ).map(({ corners: [first, second] }) => [
-                getLatLng(first),
-                getLatLng(second)
-            ]);
+                rectangles,
+            ).map(({ corners: [first, second] }) => [getLatLng(first), getLatLng(second)]);
             // get the utc converted time for both from date and to date.
             const startDate = fromDateInclusive
                 ? moment
@@ -304,7 +281,7 @@ export default function(ProtectedComponent) {
                 pinBoundingBoxes,
                 floorplanPinScale,
                 hasQuestions: +furtherFiltrationOption > +INDIVIDUAL_PINS,
-                includedDrawingIDs: includedDrawingsIDs
+                includedDrawingIDs: includedDrawingsIDs,
             };
             return body;
         };
@@ -352,11 +329,7 @@ export default function(ProtectedComponent) {
         };
 
         postFilters = async () => {
-            const {
-                postCustomFilters,
-                getOperativeOptions,
-                getTemplateOptions
-            } = this.props;
+            const { postCustomFilters, getOperativeOptions, getTemplateOptions } = this.props;
             const body = this._getPostBody();
 
             if (body.hasQuestions) {
@@ -371,7 +344,7 @@ export default function(ProtectedComponent) {
     const mapStateToProps = (
         {
             shared: {
-                fieldErrorsReducer: { fieldErrors, errorsVisible }
+                fieldErrorsReducer: { fieldErrors, errorsVisible },
             },
             companyAdmin: {
                 servicesReducer: { historicServices },
@@ -390,31 +363,28 @@ export default function(ProtectedComponent) {
                     rectangles,
                     excludedPinIDs,
                     furtherFiltrationOption,
-                    includedDrawingsIDs
+                    includedDrawingsIDs,
                 },
                 operativesReducer: { operatives },
                 companySettingsReducer: {
-                    companySettings: { timeZone }
+                    companySettings: { timeZone },
                 },
-                zonesReducer: { zones }
-            }
+                zonesReducer: { zones },
+            },
         },
-        { blockName }
+        { blockName },
     ) => {
         const selectedSite = sites[filters.siteID] || {};
         const buildingIDs = selectedSite.buildingIDs || [];
         const buildings = buildingIDs.map(id => buildingsReducer.buildings[id]);
 
-        const selectedBuilding =
-            buildingsReducer.buildings[filters.buildingID] || {};
+        const selectedBuilding = buildingsReducer.buildings[filters.buildingID] || {};
         const floorIDs = selectedBuilding.floorIDs || [];
         const floors = floorIDs.map(id => floorsReducer.floors[id]);
 
         const selectedFloor = floorsReducer.floors[filters.floorID] || {};
         const selectedDrawingIDs = selectedFloor.drawingIDs || [];
-        const drawings = selectedDrawingIDs.map(
-            id => drawingsReducer.drawings[id]
-        );
+        const drawings = selectedDrawingIDs.map(id => drawingsReducer.drawings[id]);
 
         return {
             fieldErrors,
@@ -438,7 +408,7 @@ export default function(ProtectedComponent) {
             furtherFiltrationOption,
             timeZone,
             includedDrawingsIDs,
-            zonesObj: zones
+            zonesObj: zones,
         };
     };
 
@@ -448,10 +418,8 @@ export default function(ProtectedComponent) {
         addFieldError: (name, val) => dispatch(addFieldError(name, val)),
         removeFieldError: name => dispatch(removeFieldError(name)),
         showFieldErrors: () => dispatch(showFieldErrors()),
-        getOperativeOptions: postBody =>
-            dispatch(getOperativeOptions(postBody)),
-        getTemplateOptions: postBody =>
-            dispatch(getTemplateReportOptions(postBody))
+        getOperativeOptions: postBody => dispatch(getOperativeOptions(postBody)),
+        getTemplateOptions: postBody => dispatch(getTemplateReportOptions(postBody)),
     });
 
     return connect(mapStateToProps, mapDispatchToProps)(WithUpdateOnChange);
