@@ -77,7 +77,7 @@ const EditSettingsForm = ({
                         handleChange={handleInputChange}
                     />
                 </Field>
-                <Field name="Town" sizeClasses="size-lg-6 size-md-12" required>
+                <Field name="Town / City" sizeClasses="size-lg-6 size-md-12" required>
                     <TextInputContainer
                         value={town}
                         name="town"
