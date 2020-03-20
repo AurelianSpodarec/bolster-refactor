@@ -148,10 +148,10 @@ class LevelsFilterContainer extends Component {
         }
     };
 
-    componentDidUpdate = ({ customFilters: { pins: prevPins = [] }, filters: { siteID: prevSiteID } }) => {
+    componentDidUpdate = ({ customFilters: { pins: prevPins = [] }, filters: { siteID: prevSiteID, companyUserIDs: prevCompanyUserIDs = [] } }) => {
         const {
             customFilters: { pins = [] },
-            filters: { siteID },
+            filters: { siteID, companyUserIDs = [] },
             handleChange,
             updateReportFilter,
             postFilters
@@ -159,10 +159,10 @@ class LevelsFilterContainer extends Component {
         if (pins.length !== prevPins.length) {
             handleChange('pinIDs', pins.map(({ id }) => id));
         }
-        if (siteID !== prevSiteID) {
+        if (siteID !== prevSiteID || companyUserIDs !== prevCompanyUserIDs) {
             let value = null;
 
-            if (!siteID) value = HIERARCHY_IDS.ALL_SITES;
+            if (!siteID && !companyUserIDs.length) value = HIERARCHY_IDS.ALL_SITES;
 
             updateReportFilter('hierarchyType', value).then(postFilters);
         }
