@@ -15,6 +15,7 @@ import fetchSingleBuilding from 'actions/companyAdmin/buildings/async/fetchSingl
 import fetchSingleSite from 'actions/companyAdmin/sites/async/fetchSingleSite';
 import fetchSingleDrawing from 'actions/companyAdmin/drawings/async/fetchSingleDrawing';
 import updateReportFilter from 'actions/companyAdmin/reports/sync/updateReportFilter';
+import removeFieldError from 'actions/shared/generic/fieldErrors/sync/removeFieldError';
 
 class LevelsFilterContainer extends Component {
     render() {
@@ -154,7 +155,8 @@ class LevelsFilterContainer extends Component {
             filters: { siteID, companyUserIDs = [] },
             handleChange,
             updateReportFilter,
-            postFilters
+            postFilters,
+            removeFieldError
         } = this.props;
         if (pins.length !== prevPins.length) {
             handleChange('pinIDs', pins.map(({ id }) => id));
@@ -162,7 +164,15 @@ class LevelsFilterContainer extends Component {
         if (siteID !== prevSiteID || companyUserIDs !== prevCompanyUserIDs) {
             let value = null;
 
-            if (!siteID && !companyUserIDs.length) value = HIERARCHY_IDS.ALL_SITES;
+            if (!siteID && !companyUserIDs.length) {
+                value = HIERARCHY_IDS.ALL_SITES;
+            } else {
+                removeFieldError('fromDateInclusive');
+            }
+
+            this.setState({
+                initialLoad: false,
+            });
 
             updateReportFilter('hierarchyType', value).then(postFilters);
         }
@@ -243,7 +253,8 @@ const mapDispatchToProps = {
     fetchSingleSite,
     updateReportFilter,
     showModal,
-    hideModal
+    hideModal,
+    removeFieldError
 };
 
 export default withUpdateOnChange(
