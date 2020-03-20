@@ -129,7 +129,7 @@ class BasicFiltersContainer extends Component {
         } else {
             const diff = moment(toDateInclusive).diff(fromDateInclusive, 'days');
 
-            if (diff > 7 && hierarchyType === HIERARCHY_IDS.ALL_SITES) {
+            if (diff >= 7 && hierarchyType === HIERARCHY_IDS.ALL_SITES) {
                 return addFieldError('fromDateInclusive', 'You must select a date range of 7 days or less.');
             }
 

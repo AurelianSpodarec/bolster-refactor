@@ -219,7 +219,7 @@ class LevelsFilterContainer extends Component {
         if (fromDateInclusive && toDateInclusive) {
             const diff = moment(toDateInclusive).diff(fromDateInclusive, 'days');
 
-            if (diff > 7) {
+            if (diff >= 7) {
                 return addFieldError('fromDateInclusive', 'You must select a date range of 7 days or less.');
             }
 
