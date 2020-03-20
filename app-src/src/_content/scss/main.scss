@@ -3168,6 +3168,14 @@ input {
         width: 750px;
         overflow: auto;
 
+        &.qr-view {
+            width: 230px;
+
+            .button {
+                margin-top: 10px;
+            }
+        }
+
         &.w-label-example {
             width: 850px;
         }
