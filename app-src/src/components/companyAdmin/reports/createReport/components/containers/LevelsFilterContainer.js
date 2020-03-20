@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+import moment from 'moment-timezone';
 
 import { convertArrToObj, isObjEmpty } from 'helpers/generic';
 import { CONFIRM_SUBMIT } from 'constants/shared/modalTypes';
@@ -166,6 +167,7 @@ class LevelsFilterContainer extends Component {
 
             if (!siteID && !companyUserIDs.length) {
                 value = HIERARCHY_IDS.ALL_SITES;
+                this.validateDates();
             } else {
                 removeFieldError('fromDateInclusive');
             }
@@ -205,6 +207,24 @@ class LevelsFilterContainer extends Component {
         fetchSingleDrawing(drawingID).then(({ payload: { floorID } }) =>
             this.handlePrefillFloor(floorID)
         );
+    };
+
+    validateDates = () => {
+        const {
+            filters: { fromDateInclusive, toDateInclusive },
+            addFieldError,
+            removeFieldError,
+        } = this.props;
+
+        if (fromDateInclusive && toDateInclusive) {
+            const diff = moment(toDateInclusive).diff(fromDateInclusive, 'days');
+
+            if (diff > 7) {
+                return addFieldError('fromDateInclusive', 'You must select a date range of 7 days or less.');
+            }
+
+            return removeFieldError('fromDateInclusive');
+        }
     };
 }
 
