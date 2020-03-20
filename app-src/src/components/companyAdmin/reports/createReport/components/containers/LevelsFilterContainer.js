@@ -14,6 +14,7 @@ import fetchSingleFloor from 'actions/companyAdmin/floors/async/fetchSingleFloor
 import fetchSingleBuilding from 'actions/companyAdmin/buildings/async/fetchSingleBuilding';
 import fetchSingleSite from 'actions/companyAdmin/sites/async/fetchSingleSite';
 import fetchSingleDrawing from 'actions/companyAdmin/drawings/async/fetchSingleDrawing';
+import updateReportFilter from 'actions/companyAdmin/reports/sync/updateReportFilter';
 
 class LevelsFilterContainer extends Component {
     render() {
@@ -147,13 +148,23 @@ class LevelsFilterContainer extends Component {
         }
     };
 
-    componentDidUpdate = ({ customFilters: { pins: prevPins = [] } }) => {
+    componentDidUpdate = ({ customFilters: { pins: prevPins = [] }, filters: { siteID: prevSiteID } }) => {
         const {
             customFilters: { pins = [] },
-            handleChange
+            filters: { siteID },
+            handleChange,
+            updateReportFilter,
+            postFilters
         } = this.props;
         if (pins.length !== prevPins.length) {
             handleChange('pinIDs', pins.map(({ id }) => id));
+        }
+        if (siteID !== prevSiteID) {
+            let value = null;
+
+            if (!siteID) value = HIERARCHY_IDS.ALL_SITES;
+
+            updateReportFilter('hierarchyType', value).then(postFilters);
         }
     };
 
@@ -206,12 +217,12 @@ const mapStateToProps = (
     const hierarchy = path.includes('drawing')
         ? HIERARCHY_IDS.DRAWING
         : path.includes('floor')
-        ? HIERARCHY_IDS.FLOOR
-        : path.includes('building')
-        ? HIERARCHY_IDS.BUILDING
-        : path.includes('site')
-        ? HIERARCHY_IDS.SITE
-        : '';
+            ? HIERARCHY_IDS.FLOOR
+            : path.includes('building')
+                ? HIERARCHY_IDS.BUILDING
+                : path.includes('site')
+                    ? HIERARCHY_IDS.SITE
+                    : '';
     const hierarchyID = params.id;
     return {
         hierarchy,
@@ -230,6 +241,7 @@ const mapDispatchToProps = {
     fetchSingleFloor,
     fetchSingleBuilding,
     fetchSingleSite,
+    updateReportFilter,
     showModal,
     hideModal
 };
