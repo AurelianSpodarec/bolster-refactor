@@ -31,6 +31,7 @@ const TemplateQuestionFormModal = ({
     statusOptions,
     prefillStatus,
     prefillStatusValue,
+    addPrefillOption,
     ...otherFields
 }) => {
     return (
@@ -124,23 +125,37 @@ const TemplateQuestionFormModal = ({
                         handleChange={handleInputChange}
                     />
                 </Field>
-                <Field name="Prefill Based on status?">
-                    <Select 
-                        name="prefillStatus"
-                        onChange={handleInputChange}
-                        options={statusOptions}
-                        value={prefillStatus + ''}
-                    />
-                </Field>
-                {!!prefillStatus && 
-                <Field name="Prefill Value">
-                    <TextInputContainer
-                        name="prefillStatusValue"
-                        handleChange={handleInputChange}
-                        value={prefillStatusValue}
-                    />
-                </Field>
-                }
+                <div className="dropdown-create  size-lg-12">
+                    <Field name="Prefill Based on status?">
+                        <Select
+                            name="prefillStatus"
+                            onChange={handleInputChange}
+                            options={statusOptions}
+                            value={prefillStatus + ''}
+                        />
+                    </Field>
+                    {!!prefillStatus && (
+                        <Field name="Prefill Value">
+                            <TextInputContainer
+                                name="prefillStatusValue"
+                                handleChange={handleInputChange}
+                                value={prefillStatusValue}
+                            />
+                        </Field>
+                    )}
+                    <div className="field-intro size-lg-12">
+                        <div className="size-lg-12">
+                            <button
+                                onClick={addPrefillOption}
+                                className="button add-option green"
+                                type="button"
+                            >
+                                <i className="fa fa-plus"></i>Add prefill status
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
                 <BlockButtonWrapper>
                     <button className="button green">
                         <i className="fa fa-plus" /> Add Question

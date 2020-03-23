@@ -12,7 +12,7 @@ import withUpdateOnChange from '../hocs/withUpdateOnChange';
 
 const questionTypeOptions = [
     { label: 'Free Form', value: 1 },
-    { label: 'Option oriented', value: 2 }
+    { label: 'Option oriented', value: 2 },
 ];
 
 class FilterFieldsModalContainer extends Component {
@@ -20,15 +20,11 @@ class FilterFieldsModalContainer extends Component {
         showFreeForm: true,
         selectedQuestions: [],
         freeFormValues: [],
-        optionOrientedVals: []
+        optionOrientedVals: [],
     };
     render() {
         const { toggleAddFilter } = this.props;
-        const {
-            freeFormValues,
-            optionOrientedVals,
-            selectedQuestions
-        } = this.state;
+        const { freeFormValues, optionOrientedVals, selectedQuestions } = this.state;
 
         return (
             <FilterFieldsModal
@@ -60,7 +56,7 @@ class FilterFieldsModalContainer extends Component {
                 selectedQuestions,
                 freeFormValues: questionValues,
                 optionOrientedVals: selectedValues,
-                showFreeForm: !selectedValues.length
+                showFreeForm: !selectedValues.length,
             });
         } else {
             this.addFreeFormVal();
@@ -93,7 +89,7 @@ class FilterFieldsModalContainer extends Component {
         vals[index] = value;
 
         this.setState({
-            freeFormValues: vals
+            freeFormValues: vals,
         });
     };
 
@@ -101,34 +97,27 @@ class FilterFieldsModalContainer extends Component {
         const { freeFormValues } = this.state;
 
         this.setState({
-            freeFormValues: [...freeFormValues, '']
+            freeFormValues: [...freeFormValues, ''],
         });
     };
-
+    //here tom
     removeFreeFormVal = index => {
         const { freeFormValues } = this.state;
-        const vals = [
-            ...freeFormValues.slice(0, index),
-            ...freeFormValues.slice(index + 1)
-        ];
+        const vals = [...freeFormValues.slice(0, index), ...freeFormValues.slice(index + 1)];
         this.setState({
-            freeFormValues: vals
+            freeFormValues: vals,
         });
     };
 
     handleSubmit = async () => {
-        const {
-            selectedQuestions,
-            freeFormValues,
-            optionOrientedVals
-        } = this.state;
+        const { selectedQuestions, freeFormValues, optionOrientedVals } = this.state;
         const {
             field,
             updateFilterQuestionField,
             removeFilterQuestion,
             toggleAddFilter,
             customQuestions,
-            postFilters
+            postFilters,
         } = this.props;
 
         const newID = uuid();
@@ -151,7 +140,7 @@ class FilterFieldsModalContainer extends Component {
             id,
             selectedQuestions: validQuestionIDs,
             questionValues: showFreeForm ? freeFormValues : [],
-            selectedValues: showFreeForm ? [] : optionOrientedVals
+            selectedValues: showFreeForm ? [] : optionOrientedVals,
         };
 
         await updateFilterQuestionField(id, filterItem);
@@ -208,7 +197,7 @@ class FilterFieldsModalContainer extends Component {
                 value: q.id,
                 name: q.id,
                 label: q.name,
-                disabled
+                disabled,
             };
         });
     };
@@ -219,27 +208,24 @@ const mapStateToProps = (
         companyAdmin: {
             reportsReducer: {
                 fields,
-                customFilters: { questionOptions = [], questions }
-            }
-        }
+                customFilters: { questionOptions = [], questions },
+            },
+        },
     },
     { id }
 ) => ({
     field: fields[id],
     questionOptions: convertArrToObj(questionOptions),
-    customQuestions: questions
+    customQuestions: questions,
 });
 
 const mapDispatchToProps = {
     hideModal,
     updateReportFilter,
     updateFilterQuestionField,
-    removeFilterQuestion
+    removeFilterQuestion,
 };
 
 export default withUpdateOnChange(
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(FilterFieldsModalContainer)
+    connect(mapStateToProps, mapDispatchToProps)(FilterFieldsModalContainer)
 );
