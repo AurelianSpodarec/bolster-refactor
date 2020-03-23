@@ -216,7 +216,7 @@ class LevelsFilterContainer extends Component {
             removeFieldError,
         } = this.props;
 
-        if (fromDateInclusive && toDateInclusive) {
+        if (fromDateInclusive) {
             const toDate = toDateInclusive || moment(new Date().setHours(0, 0, 0, 0));
 
             const diff = moment(toDate).diff(fromDateInclusive, 'days');
