@@ -10,15 +10,7 @@ class DrawingInspectionLogContainer extends Component {
     };
 
     render() {
-        const { pins, isFetching, error } = this.props;
-        const filterPins = pins
-            .filter(({ pinCode = '' }) => pinCode.includes(this.state.filterValue))
-            .sort((a, b) => {
-                if (!a.pinCode || !b.pinCode) {
-                    return 0;
-                }
-                return Number(a.pinCode.replace(':', '')) - Number(b.pinCode.replace(':', ''));
-            });
+        const { isFetching, error } = this.props;
 
         return (
             <DrawingInspectionLogsTable
