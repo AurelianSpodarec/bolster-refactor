@@ -127,7 +127,9 @@ class BasicFiltersContainer extends Component {
         if (fromDateInclusive && toDateInclusive && fromDateInclusive > toDateInclusive) {
             return addFieldError('fromDateInclusive', 'Start date must be before end date.');
         } else {
-            const diff = moment(toDateInclusive).diff(fromDateInclusive, 'days');
+            const toDate = toDateInclusive || new Date().setHours(0, 0, 0, 0);
+
+            const diff = moment(toDate).diff(fromDateInclusive, 'days');
 
             if (diff >= 7 && hierarchyType === HIERARCHY_IDS.ALL_SITES) {
                 return addFieldError('fromDateInclusive', 'You must select a date range of 7 days or less.');
