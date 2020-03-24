@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import DrawingInspectionLogsTable from '../presentational/DrawingInspectionLogsTable';
+import withUpdateOnChange from 'components/client/reports/createReport/components/hocs/withUpdateOnChange';
 
 class DrawingInspectionLogContainer extends Component {
     state = {
@@ -9,25 +10,32 @@ class DrawingInspectionLogContainer extends Component {
     };
 
     render() {
-        const { pins, isFetching, error } = this.props;
-        const filterPins = pins
-            .filter(({ pinCode = '' }) => pinCode.includes(this.state.filterValue))
+        const { isFetching, error } = this.props;
+
+        return (
+            <DrawingInspectionLogsTable
+                isFetching={isFetching}
+                error={error}
+                pins={this.filterPinsFromSearch()}
+                handleFilterChange={this.handleFilterChange}
+            />
+        );
+    }
+
+    filterPinsFromSearch = () => {
+        const { getFilteredPins, pins } = this.props;
+        const { filterValue } = this.state;
+
+        const filteredPins = getFilteredPins(pins)
+            .filter(({ pinCode = '' }) => pinCode.includes(filterValue))
             .sort((a, b) => {
                 if (!a.pinCode || !b.pinCode) {
                     return 0;
                 }
                 return Number(a.pinCode.replace(':', '')) - Number(b.pinCode.replace(':', ''));
             });
-
-        return (
-            <DrawingInspectionLogsTable
-                isFetching={isFetching}
-                error={error}
-                pins={filterPins}
-                handleFilterChange={this.handleFilterChange}
-            />
-        );
-    }
+        return filteredPins;
+    };
 
     handleFilterChange = e => {
         this.setState({
@@ -46,4 +54,4 @@ const mapStateToProps = ({
     error: error,
 });
 
-export default connect(mapStateToProps)(DrawingInspectionLogContainer);
+export default withUpdateOnChange(connect(mapStateToProps)(DrawingInspectionLogContainer));
