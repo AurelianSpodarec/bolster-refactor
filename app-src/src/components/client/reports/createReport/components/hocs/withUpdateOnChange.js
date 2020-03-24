@@ -6,7 +6,11 @@ import clientUpdateReportFilter from 'actions/client/reports/create/sync/clientU
 import clientPostCustomFilters from 'actions/client/reports/create/async/clientPostCustomFilters';
 import addFieldError from 'actions/shared/generic/fieldErrors/sync/addFieldError';
 import removeFieldError from 'actions/shared/generic/fieldErrors/sync/removeFieldError';
-import { convertArrToObj, getSelectedCompanyForClient } from 'helpers/generic';
+import {
+    convertArrToObj,
+    getSelectedCompanyForClient,
+    momentComparisonFormat,
+} from 'helpers/generic';
 import showFieldErrors from 'actions/shared/generic/fieldErrors/sync/showFieldErrors';
 import { FURTHER_FILTRATION_OPTIONS } from 'constants/companyAdmin/enums';
 
@@ -25,6 +29,7 @@ export default function(ProtectedComponent) {
                     fieldError={showError || errorsVisible ? fieldError : null}
                     postFilters={this.postFilters}
                     formatArrForDropdown={this.formatArrForDropdown}
+                    getFilteredPins={this._getFilteredPins}
                     validate={this.validate}
                     showFieldError={this.showFieldError}
                     getPostBody={this._getPostBody}
@@ -59,7 +64,91 @@ export default function(ProtectedComponent) {
                 this.setState({ showError: true });
             }
         };
+        _getFilteredPins = pins => {
+            const { filters, furtherFiltrationOption } = this.props;
+            const { PIN_SELECTOR, INDIVIDUAL_PINS } = FURTHER_FILTRATION_OPTIONS;
 
+            // ? Displays all pins if in rectangle mode, and only the selected pins otherwise.
+            console.log({ pins });
+            if (+furtherFiltrationOption > PIN_SELECTOR) {
+                // advanced
+                return pins.filter(({ id }) => filters.pinIDs.includes(id));
+            }
+
+            const {
+                fromDateInclusive: startDate,
+                toDateInclusive: endDate,
+                status,
+                serviceID,
+                templateID,
+                companyUserIDs,
+            } = filters;
+
+            const NO = false;
+            const YES = true;
+
+            const fromDateInclusive = this.getFilterStartDate(startDate);
+            const toDateInclusive = this.getFilterEndDate(endDate);
+
+            // simple
+            return pins
+                .filter(pin => {
+                    // 2066696
+                    // start date
+
+                    if (
+                        fromDateInclusive &&
+                        moment(pin.latestCreatedOn) <
+                            moment(fromDateInclusive, momentComparisonFormat)
+                    ) {
+                        return NO;
+                    }
+                    // end date
+                    if (
+                        toDateInclusive &&
+                        moment(pin.latestCreatedOn) >
+                            moment(toDateInclusive, momentComparisonFormat)
+                    ) {
+                        return NO;
+                    }
+                    // status
+                    if (status && +pin.latestStatus !== +status) {
+                        return NO;
+                    }
+                    // services
+                    if (serviceID && +pin.latestServiceID !== +serviceID) {
+                        return NO;
+                    }
+                    // templates
+                    if (templateID && +templateID !== pin.templateID) {
+                        return NO;
+                    }
+                    // operatives
+                    if (
+                        companyUserIDs &&
+                        companyUserIDs.length &&
+                        !companyUserIDs.includes(pin.latestCreatedByCompanyUserID)
+                    ) {
+                        return NO;
+                    }
+                    // if (
+                    //     +furtherFiltrationOption ===
+                    //     FURTHER_FILTRATION_OPTIONS.INDIVIDUAL_PINS
+                    // ) {
+                    //     if (!filters.pinIDs.includes(pin.id)) {
+                    //         return NO;
+                    //     }
+                    // }
+                    return YES;
+                })
+                .map(pin => ({
+                    ...pin,
+                    excluded:
+                        (+furtherFiltrationOption === PIN_SELECTOR ||
+                            +furtherFiltrationOption === INDIVIDUAL_PINS) &&
+                        !filters.pinIDs.includes(pin.id),
+                }));
+        };
         _getPostBody = () => {
             const {
                 filters: {
@@ -121,7 +210,7 @@ export default function(ProtectedComponent) {
             switch (+furtherFiltrationOption) {
                 case INDIVIDUAL_PINS: {
                     selectedPinIDs = pinIDs.filter(
-                        id => !Object.values(excludedPinIDs).includes(id)
+                        id => !Object.values(excludedPinIDs).includes(id),
                     );
                     break;
                 }
@@ -134,7 +223,7 @@ export default function(ProtectedComponent) {
                                 questionGroupKeys: selectedQuestions,
                                 values,
                             };
-                        }
+                        },
                     );
                     break;
                 }
@@ -148,7 +237,7 @@ export default function(ProtectedComponent) {
             };
 
             const pinBoundingBoxes = Object.values(
-                rectangles
+                rectangles,
             ).map(({ corners: [first, second] }) => [getLatLng(first), getLatLng(second)]);
 
             const endDate = toDateInclusive
@@ -191,6 +280,29 @@ export default function(ProtectedComponent) {
                 return postCustomFilters(selectedCompanyID, this._getPostBody());
             }
         };
+
+        getFilterStartDate = date => {
+            const { timeZone } = this.props;
+            return date
+                ? moment
+                      .tz(date, timeZone.name)
+                      .startOf('day')
+                      .utc()
+                      .toISOString()
+                : null;
+        };
+        getFilterEndDate = date => {
+            const { timeZone } = this.props;
+            const endDate = date
+                ? moment
+                      .tz(date, timeZone.name)
+                      .add('days', 1)
+                      .startOf('day')
+                      .utc()
+                      .toISOString()
+                : null;
+            return endDate;
+        };
     }
 
     const mapStateToProps = (
@@ -217,7 +329,7 @@ export default function(ProtectedComponent) {
                 },
             },
         },
-        { blockName }
+        { blockName },
     ) => {
         const selectedSite = sitesReducer.sites[filters.siteID] || {};
         const buildingIDs = selectedSite.buildingIDs || [];
