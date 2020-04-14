@@ -30,7 +30,15 @@ const SuperAdminInvoicesTableContainer = ({
                 <PageSelector page={page} maxPage={pageCount} setPage={setPage} />
             </BlockHeading>
             <SuperAdminInvoicesTable
-                headers={['Date', 'Company Name', 'Order ID', 'Total', 'Type', 'Status', '']}
+                headers={[
+                    'Date',
+                    'Company Name',
+                    'Order ID',
+                    'Sub Total (Ex Vat)',
+                    'Type',
+                    'Status',
+                    '',
+                ]}
                 error={error}
                 isFetching={isFetching}
                 invoices={_filteredInvoices()}
@@ -70,7 +78,7 @@ const SuperAdminInvoicesTableContainer = ({
             .filter(
                 invoice =>
                     companyNameFilter.includes(invoice.companyID) ||
-                    orderIDFilter.includes(invoice.id.toString())
+                    orderIDFilter.includes(invoice.id.toString()),
             )
             .sort((a, b) => moment(b.createdOn) - moment(a.createdOn));
     }
