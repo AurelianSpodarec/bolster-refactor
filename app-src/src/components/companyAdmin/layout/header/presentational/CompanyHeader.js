@@ -15,7 +15,8 @@ const Header = ({
     unreadMessageCount,
     totalCredits,
     totalRequests,
-    showModal
+    showModal,
+    shouldRestrictPayments
 }) => (
     <header id="page-header" style={{ borderColor: companyColour }}>
         <div className="container">
@@ -44,12 +45,16 @@ const Header = ({
             <div className="account-area">
                 {/*** notifications ***/}
                 <div className="notifications">
-                    <button className="item main" onClick={showModal}>
-                        {company.parentalType === PARENTAL_TYPES.NONE && (
-                            <span className="number green">{totalCredits}</span>
-                        )}
-                        <i className="far fa-money-bill-alt fa-fw" />
-                    </button>
+                    {!shouldRestrictPayments && (
+                        <button className="item main" onClick={showModal}>
+                            {company.parentalType === PARENTAL_TYPES.NONE && (
+                                <span className="number green">
+                                    {totalCredits}
+                                </span>
+                            )}
+                            <i className="far fa-money-bill-alt fa-fw" />
+                        </button>
+                    )}
                     <HeaderNotificationsContainer />
                     <Link to="/company/message-centre" className="item main">
                         {!!unreadMessageCount && (

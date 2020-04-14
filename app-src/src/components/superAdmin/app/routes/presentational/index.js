@@ -14,6 +14,7 @@ import DemoRequestsRoutes from './DemoRequestsRoutes';
 import SOSManagementRoutes from './SOSManagementRoutes';
 import DashboardContainer from 'components/superAdmin/dashboard/containers/DashboardContainer';
 import OperativeAlertsRoutes from './OperativeAlertsRoutes';
+import MergeToolRoutes from './MergeToolRoutes';
 
 const AdminRoutes = ({ base = '/admin' }) => (
     <SwitchWith404>
@@ -36,6 +37,7 @@ const AdminRoutes = ({ base = '/admin' }) => (
 
         <Route path={`${base}/demo-requests`} component={DemoRequestsRoutes} />
         <Route path={`${base}/move-tool`} component={MoveToolRoutes} />
+        <Route path={`${base}/merge-tool`} component={MergeToolRoutes} />
         <Route
             path={`${base}/sos-management`}
             component={SOSManagementRoutes}

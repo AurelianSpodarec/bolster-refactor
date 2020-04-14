@@ -9,11 +9,13 @@ import fetchAllDrawings from 'actions/companyAdmin/drawings/async/fetchAllDrawin
 import CreateReport from '../presentational/CreateReport';
 import fetchCompanyOperatives from 'actions/companyAdmin/operatives/async/fetchCompanyOperatives';
 import fetchCompanyUsers from 'actions/companyAdmin/userManagement/async/fetchCompanyUsers';
-import { componentDidMount } from 'helpers/generic';
+import { componentDidMount, componentWillUnmount } from 'helpers/generic';
 import fetchHistoricServicesForCompany from 'actions/companyAdmin/services/async/fetchHistoricServicesForCompany';
+import resetFilterOptions from 'actions/companyAdmin/reports/sync/resetFilterOptions';
 
-const CreateReportContainer = ({ fetchAll }) => {
+const CreateReportContainer = ({ fetchAll, resetFilterOptions }) => {
     componentDidMount(fetchAll);
+    componentWillUnmount(resetFilterOptions);
 
     return <CreateReport />;
 };
@@ -27,10 +29,8 @@ const mapDispatchToProps = dispatch => ({
         dispatch(fetchCompanyOperatives());
         dispatch(fetchCompanyUsers());
         dispatch(fetchHistoricServicesForCompany());
-    }
+    },
+    resetFilterOptions: () => dispatch(resetFilterOptions()),
 });
 
-export default connect(
-    null,
-    mapDispatchToProps
-)(CreateReportContainer);
+export default connect(null, mapDispatchToProps)(CreateReportContainer);

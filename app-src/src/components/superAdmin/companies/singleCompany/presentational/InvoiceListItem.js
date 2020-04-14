@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 import { PAYMENT_TYPES } from 'constants/companyAdmin/enums';
 import { formatNumber } from 'helpers/generic';

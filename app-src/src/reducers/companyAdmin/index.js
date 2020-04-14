@@ -46,6 +46,7 @@ import hierarchyReducer from './hierarchy';
 import generatePinReportReducer from './generatePinReport';
 import userDrawingsReducer from './userDrawings';
 import deletedDataReducer from './deletedData';
+import qrCodesReducer from './qrCodes';
 
 export default combineReducers({
     addPinDropdownOptions,
@@ -82,6 +83,7 @@ export default combineReducers({
     pinAnswersReducer,
     pinHistoriesReducer,
     pinsReducer,
+    qrCodesReducer,
     reportsReducer,
     searchReducer,
     servicesReducer,

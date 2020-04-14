@@ -40,8 +40,9 @@ class EditSettingsFormContainer extends Component {
         timeZoneOptions: [],
         dateFormatOptions: [],
         isEditButtonDisabled: false,
+        deafultSitesSort: DEFAULT_SITES_SORT.CUSTOM,
         shouldDeleteReportsAfterDownload: false,
-        deafultSitesSort: DEFAULT_SITES_SORT.CUSTOM
+        enableQRCodes: false,
     };
 
     render() {
@@ -67,14 +68,13 @@ class EditSettingsFormContainer extends Component {
         ];
 
         const siteSortOptions = enumFormat(DEFAULT_SITES_SORT_NAMES);
-    
+
         return (
             <EditSettingsForm
                 {...this.state}
                 filesUploading={filesUploading}
                 handleInputChange={this.handleInputChange}
                 handleSubmit={this.handleSubmit}
-                handleFileChange={this.handleFileChange}
                 handleColourSelect={this.handleColourSelect}
                 handleCheckboxChange={this.handleCheckboxChange}
                 templateUsageRules={Object.values(templateUsageRuleOptions)}
@@ -102,6 +102,7 @@ class EditSettingsFormContainer extends Component {
                 timeZones,
                 dateFormat,
                 colourCode,
+                enableQRCodes,
                 ...restSettings
             }
         } = this.props;
@@ -113,7 +114,8 @@ class EditSettingsFormContainer extends Component {
             timeZone: timeZone.id,
             timeZoneOptions: this.formatTimezones(),
             dateFormat: dateFormat.id,
-            dateFormatOptions: this.formatDateFormats()
+            dateFormatOptions: this.formatDateFormats(),
+            enableQRCodes,
         });
     };
 
@@ -138,16 +140,6 @@ class EditSettingsFormContainer extends Component {
             // * otherwise set the state in the usual way
             this.setState({ [name]: value });
         }
-    };
-
-    handleFileChange = (name, file) => {
-        this.setState(prevState => {
-            if (prevState.logoFile === file) {
-                return { [name]: prevState.initialFile };
-            } else {
-                return { [name]: file };
-            }
-        });
     };
 
     handleSubmit = e => {

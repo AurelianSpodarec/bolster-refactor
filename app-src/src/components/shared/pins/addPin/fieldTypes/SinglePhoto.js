@@ -7,7 +7,7 @@ const SinglePhoto = ({
     isRequired,
     question: { id },
     answers,
-    handleFileChange,
+    handleChange,
     handleImageClick,
     edit
 }) => {
@@ -27,7 +27,7 @@ const SinglePhoto = ({
             required={isRequired}
             acceptedTypes={['image/*']}
             maxFiles={1}
-            handleChange={handleFileChange}
+            handleChange={handleChange}
             value={answers[id]}
         />
     );

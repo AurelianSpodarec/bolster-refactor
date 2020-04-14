@@ -1,13 +1,17 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import moment from 'moment';
 
 import SubscriptionStatus from '../presentational/SubscriptionStatus';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 
 class SubscriptionStatusContainer extends Component {
     render = () => {
-        const { subscriptions, isFetching, cards } = this.props;
+        const {
+            subscriptions,
+            isFetching,
+            cards,
+            shouldRestrictPayments
+        } = this.props;
         const noCards = !Object.values(cards).length;
 
         return (
@@ -16,17 +20,12 @@ class SubscriptionStatusContainer extends Component {
                     subscriptions={subscriptions}
                     noCards={noCards}
                     endOn={subscriptions.endOn}
-                    active={this.checkSubActive(
-                        subscriptions.startOn,
-                        subscriptions.endOn
-                    )}
+                    active={!!subscriptions.startOn}
+                    shouldRestrictPayments={shouldRestrictPayments}
                 />
             </BlockContainer>
         );
     };
-
-    checkSubActive = (start, end) =>
-        moment(start).isBefore(Date.now()) && moment(end).isAfter(Date.now());
 }
 
 const mapStateToProps = ({

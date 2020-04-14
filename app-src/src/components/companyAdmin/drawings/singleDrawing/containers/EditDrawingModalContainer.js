@@ -17,7 +17,7 @@ class EditDrawingModalContainer extends Component {
         isCreditsAvailable: true,
         isAlertShowing: false,
         mesage: '',
-        dateToSend: null
+        dateToSend: null,
     };
 
     render() {
@@ -39,7 +39,7 @@ class EditDrawingModalContainer extends Component {
         const { drawing } = this.props;
 
         this.setState({
-            name: drawing.name
+            name: drawing.name,
         });
     };
 
@@ -49,13 +49,13 @@ class EditDrawingModalContainer extends Component {
         if (!prevProps.postSuccess && postSuccess && filesUploaded) {
             showModal(SUCCESS_MODAL, {
                 message:
-                    'New floor plan successfully changed. It may take a few minutes before the updated floor plan is available to view, please check back later'
+                    'New floor plan successfully changed. It may take a few minutes before the updated floor plan is available to view, please check back later',
             });
         } else if (!prevProps.error && error) {
             showModal(ERROR_MODAL);
         } else if (!prevProps.postSuccess && postSuccess && !filesUploaded) {
             showModal(SUCCESS_MODAL, {
-                message: 'Drawing name successfully changed'
+                message: 'Drawing name successfully changed',
             });
         }
     };
@@ -67,7 +67,7 @@ class EditDrawingModalContainer extends Component {
 
     handleDateChange = date => {
         this.setState({
-            dateToSend: date
+            dateToSend: date,
         });
     };
 
@@ -82,7 +82,7 @@ class EditDrawingModalContainer extends Component {
             filesUploaded,
             totalCredits,
             addFieldError,
-            showFieldErrors
+            showFieldErrors,
         } = this.props;
 
         let postBody = {};
@@ -92,19 +92,21 @@ class EditDrawingModalContainer extends Component {
                 name,
                 file,
                 message,
-                dateToSend: moment(dateToSend).format()
+                dateToSend: moment(dateToSend).format(),
             };
         } else {
             postBody = {
                 name,
-                file
+                file,
             };
         }
+        const hasFileUploaded = !filesUploading && filesUploaded;
+        const hasNoCredits = totalCredits < 1;
         if (
-            !filesUploading &&
-            filesUploaded &&
             drawing.doesRequireCreditToReplaceFloorplan &&
-            totalCredits < 1
+            !!file &&
+            hasFileUploaded &&
+            hasNoCredits
         ) {
             addFieldError('file', 'Not enough drawing credits');
             showFieldErrors();
@@ -117,35 +119,23 @@ class EditDrawingModalContainer extends Component {
 const mapStateToProps = ({
     companyAdmin: {
         drawingsReducer: { error, postSuccess },
-        creditsReducer: { credits }
+        creditsReducer: { credits },
     },
     shared: {
-        filesUploadingReducer: { filesUploading, filesUploaded }
-    }
+        filesUploadingReducer: { filesUploading, filesUploaded },
+    },
 }) => {
-    const totalCredits = Object.values(credits).reduce(
-        (a, b) => a + b.quantity,
-        0
-    );
+    const totalCredits = Object.values(credits).reduce((a, b) => a + b.quantity, 0);
 
     return {
         error,
         postSuccess,
         filesUploading,
         filesUploaded,
-        totalCredits
+        totalCredits,
     };
 };
 
-const mapDispatchToProps = dispatch => ({
-    hideModal: () => dispatch(hideModal()),
-    showModal: (type, props) => dispatch(showModal(type, props)),
-    editDrawing: (id, body) => dispatch(editDrawing(id, body)),
-    addFieldError: (field, err) => dispatch(addFieldError(field, err)),
-    showFieldErrors: () => dispatch(showFieldErrors())
-});
+const mapDispatchToProps = { hideModal, showModal, editDrawing, addFieldError, showFieldErrors };
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(EditDrawingModalContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(EditDrawingModalContainer);

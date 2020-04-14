@@ -1,8 +1,7 @@
 import axios from 'axios';
 
 import { API_URL } from 'config/index';
-import setAPIFieldErrors from 'actions/shared/generic/fieldErrors/sync/setAPIFieldErrors';
-import { getHeaders } from 'helpers/api';
+import { getHeaders, handleErrors } from 'helpers/api';
 import {
     CREATE_PIN_REQUEST,
     CREATE_PIN_SUCCESS,
@@ -29,9 +28,5 @@ export default postBody => dispatch => {
     axios
         .post(`${API_URL}/pins`, postBody, getHeaders())
         .then(result => dispatch(addPinSuccess(result.data)))
-        .catch(error => {
-            dispatch(addPinFailure(error));
-            if (error.response.status === 400)
-                dispatch(setAPIFieldErrors(error.response.data.errors));
-        });
+        .catch(err => handleErrors(addPinFailure)(err));
 };

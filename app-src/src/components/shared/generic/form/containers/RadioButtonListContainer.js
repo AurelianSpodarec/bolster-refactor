@@ -47,6 +47,11 @@ class RadioButtonListContainer extends Component {
         }
     };
 
+    componentWillUnmount = () => {
+        const {name, removeFieldError} = this.props;
+        removeFieldError(name);
+    }
+
     _validate = () => {
         const {
             name,

@@ -7,7 +7,6 @@ import BlockHeading from 'components/shared/generic/blockHeading/presentational/
 import CompanyServicesList from './CompanyServicesList';
 import StatusIcon from 'components/shared/generic/statusIcon/presentationl/StatusIcon';
 import AddServiceItem from './AddServiceItem';
-import { ADD_MULTIPLE_SERVICES_TO_SUBSCRIPTION } from 'constants/shared/modalTypes';
 
 const ActiveServices = ({ subscriptions, handleChange, services, showModal, isAutoRenew }) => (
     <BlockContainer>

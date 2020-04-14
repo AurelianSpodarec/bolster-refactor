@@ -19,19 +19,21 @@ class RegisterFormContainer extends Component {
         'User.lastName': '',
         'User.email': '',
         'User.password': '',
+        'User.phoneNumber': '',
         confirmPassword: '',
         //company name
         'Company.name': '',
-        'Company.phoneNumber': '',
         'Company.addressLine1': '',
+        'Company.addressLine2': '',
         'Company.town': '',
+        'Company.county': '',
         'Company.postcode ': '',
+        'Company.phoneNumber ': '',
+        'Company.fax ': '',
         'Company.vatCode': '',
         'Company.timezone': null,
         'Company.dateFormatID': null,
         'Company.vatType': null,
-        'Company.colourCode': '#e20613',
-        'Company.isBolsterLogoDark': false,
         terms: false
     };
 
@@ -89,19 +91,20 @@ class RegisterFormContainer extends Component {
             'User.password': password,
             'User.firstName': firstName,
             'User.lastName': lastName,
+            'User.phoneNumber': phoneNumber,
             //company name
             'Company.name': name,
-            'Company.phoneNumber': phoneNumber,
             'Company.addressLine1': addressLine1,
             'Company.addressLine2': addressLine2,
             'Company.town': town,
+            'Company.county': county,
             'Company.postcode': postcode,
+            'Company.phoneNumber': companyPhoneNumber,
+            'Company.fax': fax,
             'Company.vatCode': vatCode,
             'Company.vatType': vatType,
             'Company.dateFormatID': dateFormatID,
             'Company.timezone': timezone,
-            'Company.colourCode': colourCode,
-            'Company.isBolsterLogoDark': isBolsterLogoDark
         } = this.state;
 
         const postBody = {
@@ -117,13 +120,14 @@ class RegisterFormContainer extends Component {
                 addressLine1,
                 addressLine2,
                 town,
+                county,
                 postcode,
+                phoneNumber: companyPhoneNumber,
+                fax,
                 vatType,
                 vatCode,
                 dateFormatID,
                 timezone,
-                colourCode,
-                isBolsterLogoDark
             }
         };
 

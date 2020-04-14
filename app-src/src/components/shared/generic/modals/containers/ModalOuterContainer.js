@@ -8,12 +8,13 @@ import updateHierarchyAddState from 'actions/companyAdmin/hierarchy/sync/updateH
 
 class ModalOuterContainer extends Component {
     render() {
-        const { extraClasses, children } = this.props;
+        const { extraClasses, children, hideCloseButton } = this.props;
 
         return (
             <ModalOuter
                 handleClose={this.handleClose}
                 extraClasses={extraClasses}
+                hideCloseButton={hideCloseButton}
             >
                 {children}
             </ModalOuter>

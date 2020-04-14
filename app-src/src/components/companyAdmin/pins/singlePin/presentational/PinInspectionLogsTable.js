@@ -30,7 +30,7 @@ const PinInspectionLogsTable = ({
                     headers={['Pin ID', 'Status', 'Actions']}
                     isFetching={isFetching}
                     error={error}
-                    noData={!pins.length}
+                    noData={isFetching || !pins.length}
                     noDataMessage="No inspection logs to display."
                     withActions
                 >

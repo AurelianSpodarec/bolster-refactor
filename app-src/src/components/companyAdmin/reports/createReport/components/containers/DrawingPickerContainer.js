@@ -38,17 +38,17 @@ const DrawingPickerContainer = ({
         // check which hierarchy has changed and set availableDrawings with the correct hierarchy ID and type
 
         if (Object.values(drawings).length && prevHierarchyID) {
-            if (siteID && prevHierarchyID.siteID != siteID.toString() && !buildingID && !floorID) {
+            if (siteID && prevHierarchyID.siteID !== siteID.toString() && !buildingID && !floorID) {
                 setExcludeDrawings(availableDrawings(siteID, HIERARCHY_IDS.SITE));
                 setIncludeDrawings([]);
             }
 
-            if (buildingID && prevHierarchyID.buildingID != buildingID.toString() && !floorID) {
+            if (buildingID && prevHierarchyID.buildingID !== buildingID.toString() && !floorID) {
                 setExcludeDrawings(availableDrawings(buildingID, HIERARCHY_IDS.BUILDING));
                 setIncludeDrawings([]);
             } else if (
                 buildingID != null &&
-                prevHierarchyID.buildingID != buildingID.toString() &&
+                prevHierarchyID.buildingID !== buildingID.toString() &&
                 !floorID
             ) {
                 //if user selects all buildings
@@ -56,12 +56,12 @@ const DrawingPickerContainer = ({
                 setIncludeDrawings([]);
             }
 
-            if (floorID && prevHierarchyID.floorID != floorID.toString()) {
+            if (floorID && prevHierarchyID.floorID !== floorID.toString()) {
                 setExcludeDrawings(availableDrawings(floorID, HIERARCHY_IDS.FLOOR));
                 setIncludeDrawings([]);
             } else if (
-                floorID != null &&
-                prevHierarchyID.floorID != floorID.toString() &&
+                floorID !== null &&
+                prevHierarchyID.floorID !== floorID.toString() &&
                 !floorID
             ) {
                 //if user selects all floors

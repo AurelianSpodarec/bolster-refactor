@@ -1,8 +1,8 @@
-import React from 'react';
-import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
-import ExcludedBox from './ExcludedBox';
-import IncludedBox from './IncludedBox';
-import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
+import React from "react";
+import BlockHeading from "components/shared/generic/blockHeading/presentational/BlockHeading";
+import ExcludedBox from "./ExcludedBox";
+import IncludedBox from "./IncludedBox";
+import ButtonContainer from "components/shared/generic/button/containers/ButtonContainer";
 
 const PinSelector = ({
     excludedPins,
@@ -25,53 +25,48 @@ const PinSelector = ({
             Using either of the boxes below, select which pins you would like to
             be included in your report.
         </p>
-        <div className="pin-selector size-lg-12 form-field">
-            <div className="pin-selection-box">
-                <h3>Excluded</h3>
-                <ExcludedBox
-                    selectedPinOptions={selectedPinOptions}
-                    excludedPins={excludedPins}
-                    handlePinClick={handlePinClick}
-                    handleMouseDown={handleMouseDown}
-                    handleMouseUp={handleMouseUp}
-                    handleMouseOut={handleMouseOut}
-                    clicking={clicking}
-                />
-            </div>
-            <div className="pin-selection-buttons">
-                <ButtonContainer
-                    className="exclude icon-only"
-                    handleClick={handleAddExcluded}
-                >
-                    {onMobile ? (
-                        <i className="far fa-long-arrow-up" />
-                    ) : (
+        <div className="form-field size-lg-12">
+            <div className="pin-selector size-lg-12">
+                <div className="pin-selection-box">
+                    <h3>Excluded</h3>
+                    <ExcludedBox
+                        selectedPinOptions={selectedPinOptions}
+                        excludedPins={excludedPins}
+                        handlePinClick={handlePinClick}
+                        handleMouseDown={handleMouseDown}
+                        handleMouseUp={handleMouseUp}
+                        handleMouseOut={handleMouseOut}
+                        clicking={clicking}
+                    />
+                </div>
+                <div className="pin-selection-buttons">
+                    <ButtonContainer
+                        className="exclude icon-only"
+                        handleClick={handleAddExcluded}
+                    >
                         <i className="far fa-long-arrow-left" />
-                    )}
-                </ButtonContainer>
-                <ButtonContainer
-                    className="include icon-only"
-                    handleClick={handleAddIncluded}
-                >
-                    {onMobile ? (
-                        <i className="far fa-long-arrow-down" />
-                    ) : (
+                    </ButtonContainer>
+                    <ButtonContainer
+                        className="include icon-only"
+                        handleClick={handleAddIncluded}
+                    >
                         <i className="far fa-long-arrow-right" />
-                    )}
-                </ButtonContainer>
+                    </ButtonContainer>
+                </div>
+                <div className="pin-selection-box">
+                    <h3>Included</h3>
+                    <IncludedBox
+                        selectedPinOptions={selectedPinOptions}
+                        includedPins={includedPins}
+                        handlePinClick={handlePinClick}
+                        handleMouseDown={handleMouseDown}
+                        handleMouseUp={handleMouseUp}
+                        handleMouseOut={handleMouseOut}
+                        clicking={clicking}
+                    />
+                </div>
             </div>
-            <div className="pin-selection-box">
-                <h3>Included</h3>
-                <IncludedBox
-                    selectedPinOptions={selectedPinOptions}
-                    includedPins={includedPins}
-                    handlePinClick={handlePinClick}
-                    handleMouseDown={handleMouseDown}
-                    handleMouseUp={handleMouseUp}
-                    handleMouseOut={handleMouseOut}
-                    clicking={clicking}
-                />
-            </div>
+
             {error && (
                 <div className="size-lg-12">
                     <p className="error red-text text-accent-4">{error}</p>

@@ -6,14 +6,15 @@ const InvoiceFilters = ({
     searchTerm,
     handleChange,
     hasPayedOptions,
-    hasPayedOptionSelected
+    hasPayedOptionSelected,
+    handleSearch,
 }) => (
     <form className="table-search size-lg-12">
         <Search
             value={searchTerm}
             name="searchTerm"
             placeholder="Search by Company name or Order ID..."
-            handleChange={handleChange}
+            handleChange={handleSearch}
         />
         <div className="table-filter">
             <Dropdown

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import uuid from 'uuid/v4';
 import moment from 'moment';
 
@@ -8,7 +8,7 @@ export const useMultipleHierarchies = hierarchyShape => {
     // takes an empty version of the hierarchy shape / initial state for a blank hierarchy
     const firstID = uuid();
     const [state, setState] = useState({
-        [firstID]: { ...hierarchyShape, id: firstID }
+        [firstID]: { ...hierarchyShape, id: firstID },
     });
 
     function getKeys() {
@@ -41,7 +41,7 @@ export const useMultipleHierarchies = hierarchyShape => {
         const [id, fieldName] = name.split('.*.');
         return setState({
             ...state,
-            [id]: { ...state[id], [fieldName]: value }
+            [id]: { ...state[id], [fieldName]: value },
         });
     }
 
@@ -49,13 +49,24 @@ export const useMultipleHierarchies = hierarchyShape => {
         return state;
     }
 
-    return [
-        state,
-        updateState,
-        addHierarchy,
-        deleteHierarchy,
-        getKeys,
-        getPostBody,
-        getState
-    ];
+    return [state, updateState, addHierarchy, deleteHierarchy, getKeys, getPostBody, getState];
 };
+
+export function usePrevious(value) {
+    const ref = useRef(value);
+
+    useEffect(() => {
+        ref.current = value;
+    });
+
+    return ref.current;
+}
+
+export function useThrottle(action, timeout = 1000, deps = []) {
+    let throttleTimeout;
+    useEffect(() => {
+        clearTimeout(throttleTimeout);
+        throttleTimeout = setTimeout(action, timeout);
+        return () => clearTimeout(throttleTimeout);
+    }, deps);
+}

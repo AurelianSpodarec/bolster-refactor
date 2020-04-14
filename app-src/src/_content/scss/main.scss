@@ -35,6 +35,10 @@ button {
     margin: 0;
 }
 
+em {
+    font-style: italic;
+}
+
 .container {
     width: 100%;
     max-width: 1700px;
@@ -856,14 +860,16 @@ input {
         a {
             float: left;
             width: 100%;
+            height: 49px;
             padding: 5px 10px;
             text-align: center;
-            display: flex;
         }
 
         img {
             max-height: 49px;
             max-width: 100%;
+            top: 50%;
+            transform: translateY(-50%);
         }
     }
 
@@ -2002,6 +2008,10 @@ input {
     }
 }
 
+.basic-date-input {
+    padding: 3.5px 10px;
+}
+
 .hex-box {
     float: left;
     width: 35px;
@@ -2540,6 +2550,10 @@ input {
         vertical-align: top;
     }
 
+    .red-text {
+        color: $red;
+    }
+
     .table-icon {
         margin-right: 5px;
     }
@@ -2779,6 +2793,7 @@ input {
                 float: left;
                 width: 24px;
                 margin-right: 10px;
+                max-height: 40px;
             }
 
             p {
@@ -2856,6 +2871,12 @@ input {
         line-height: 1;
         text-align: center;
     }
+    .code-full {
+        font-size: 16px !important;
+        line-height: 1;
+        text-align: center;
+        word-break: break-all;
+    }
 }
 .map-filters {
     .block-heading {
@@ -2892,9 +2913,12 @@ input {
 }
 
 //pin selection
+.pin-selector {
+    display: flex;
+}
+
 .pin-selection-box {
-    float: left;
-    width: calc(50% - 50px);
+    flex: 1;
 
     h3 {
         margin-bottom: 5px;
@@ -2923,7 +2947,6 @@ input {
 }
 
 .pin-selection-buttons {
-    float: left;
     width: 100px;
     min-height: 1px;
 
@@ -3195,6 +3218,7 @@ input {
         top: 11px;
         left: 15px;
         width: 16px;
+        max-height: 27px;
     }
 
     tr {
@@ -3981,6 +4005,20 @@ input {
             width: 100%;
             padding: 20px 0;
             border-bottom: 1px solid #999;
+        }
+
+        .app-links {
+            float: left;
+            width: 100%;
+            margin-top: 35px;
+
+            a {
+                margin-right: 15px;
+            }
+
+            img {
+                height: 42px;
+            }
         }
 
         &:last-child {
@@ -5163,6 +5201,7 @@ input {
         margin: 0 0 10px !important;
     }
 }
+
 // helpscout-beacon
 .BeaconFabButtonFrame {
     position: fixed !important;
@@ -5180,12 +5219,19 @@ input {
         transform: scale(0.75) translate(+25%, +25%);
     }
 }
+.helpscout-visible {
+    .BeaconFabButtonFrame {
+        display: block;
+    }
+}
 .BeaconContainer {
     position: fixed !important;
     bottom: 55px !important;
     right: 40px !important;
 }
-
+.css-k7cd9d {
+    display: block;
+}
 // force scrollbar visible on chrome
 .always-scrollbar {
     overflow-y: auto;
@@ -5378,4 +5424,90 @@ input {
 
 .share-link {
     padding: 10px 0;
+}
+
+.file-drop-container {
+    border-radius: 2.5px;
+    padding: 10px;
+    border: 1px solid $input-border-grey;
+    transition: 0.25s background-color ease-in-out, 0.25s box-shadow ease-in-out,
+        0.25s border ease-in-out;
+
+    &.can-drop {
+        -webkit-box-shadow: inset 0px 0px 12px 0px #a5a5a5;
+        -moz-box-shadow: inset 0px 0px 12px 0px #a5a5a5;
+        box-shadow: inset 0px 0px 12px 0px #a5a5a5;
+        &.file-over {
+            background-color: $light-grey-alt;
+        }
+    }
+    p {
+        text-align: center;
+        .button {
+            font-size: 12px;
+            margin-left: 2.5px;
+        }
+    }
+}
+.file-uploader {
+    .button {
+        &.delete {
+            position: absolute;
+            right: 5px;
+            top: 5px;
+        }
+    }
+    .file-item,
+    .image-item {
+        border-radius: 2.5px;
+        margin: 2.5px 0;
+        padding: 5px 7.5px;
+        text-align: center;
+        background-color: black;
+
+        img {
+            float: none;
+            display: inline-block;
+            margin-bottom: 20px;
+            margin-bottom: 15px;
+        }
+
+        &:first-of-type {
+            margin-top: 10px;
+        }
+    }
+    .file-name {
+        text-align: left;
+        color: white;
+        margin-top: 2.5px;
+        margin-bottom: 2px;
+    }
+
+    .progress {
+        text-align: center;
+        padding: 5px;
+        background-color: black;
+        margin-top: 10px;
+        border-radius: 2.5px;
+
+        p {
+            color: white;
+            line-height: 1.6;
+        }
+
+        .button {
+            margin-bottom: 5px;
+        }
+    }
+}
+
+.qr-container {
+    display: flex;
+    float: left;
+    width: 100%;
+    align-items: center;
+
+    p {
+        padding-left: 15px;
+    }
 }

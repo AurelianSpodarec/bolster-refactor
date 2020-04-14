@@ -10,26 +10,28 @@ const SearchBar = ({
     handleChange,
     results,
     ref,
-    handleLinkClick
+    handleLinkClick,
+    isLoading,
 }) => (
-    <div className="size-lg-12" ref={ref}>
-        <Search
-            placeholder="Search..."
-            handleChange={handleChange}
-            value={searchTerm}
-            name="searchTerm"
-        />
-        {resultsVisible && (
-            <div className="dropdown-search-results visible">
-                <SearchResults
-                    results={results}
-                    isFetching={isFetching}
-                    error={error}
-                    handleLinkClick={handleLinkClick}
-                />
-            </div>
-        )}
-    </div>
-);
+        <div className="size-lg-12" ref={ref}>
+            <Search
+                placeholder="Search..."
+                handleChange={handleChange}
+                value={searchTerm}
+                name="searchTerm"
+            />
+            {resultsVisible && (
+                <div className="dropdown-search-results visible">
+                    <SearchResults
+                        results={results}
+                        isFetching={isFetching}
+                        error={error}
+                        handleLinkClick={handleLinkClick}
+                        isLoading={isLoading}
+                    />
+                </div>
+            )}
+        </div>
+    );
 
 export default SearchBar;

@@ -2,8 +2,8 @@ import React from 'react';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import Field from 'components/shared/generic/form/presentational/Field';
 import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
-import DatePicker from 'components/shared/generic/form/presentational/DatePicker';
 import OperativesFilterContainer from '../containers/OperativesFilterContainer';
+import DatePickerContainer from 'components/shared/generic/form/containers/DatePickerContainer';
 
 const BasicFilters = ({
     dateError,
@@ -63,7 +63,7 @@ const BasicFilters = ({
             </Field>
             <Field name="Date range" sizeClasses="w-dates size-lg-12">
                 <div className="size-lg-5">
-                    <DatePicker
+                    <DatePickerContainer
                         name="fromDateInclusive"
                         selected={fromDateInclusive}
                         onChange={val =>
@@ -75,7 +75,7 @@ const BasicFilters = ({
                 </div>
                 <p className="size-lg-2">to</p>
                 <div className="size-lg-5">
-                    <DatePicker
+                    <DatePickerContainer
                         name="toDateInclusive"
                         selected={toDateInclusive}
                         onChange={val =>

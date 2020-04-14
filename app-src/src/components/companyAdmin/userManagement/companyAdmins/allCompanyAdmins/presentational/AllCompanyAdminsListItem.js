@@ -8,6 +8,7 @@ const AllCompanyAdminsListItem = ({
     showDeleteModal,
     showUnlinkModal,
     showRevokeAdminAccessModal,
+    showRestrictUserPaymentsModal,
     loggedInUser,
     onMobile,
     headers,
@@ -44,6 +45,9 @@ const AllCompanyAdminsListItem = ({
                     <span className="mobile-table-heading">{headers[3]}</span>
                 )}
                 {user.linkedDeviceID ? 'Yes' : 'No'}
+                {user.linkedDeviceName && (
+                    <span className="red-text">{` (${user.linkedDeviceName})`}</span>
+                )}
             </td>
             <td>
                 {' '}
@@ -72,27 +76,21 @@ const AllCompanyAdminsListItem = ({
                     </button>
                     <Link
                         className="button green"
-                        to={`/company/users-management/company-admins/${
-                            user.id
-                        }/edit-password`}
+                        to={`/company/users-management/company-admins/${user.id}/edit-password`}
                     >
                         <i className="far fa-lock-alt fa-fw" />
                         Change password
                     </Link>
                     <Link
                         className="button yellow "
-                        to={`/company/users-management/company-admins/${
-                            user.id
-                        }/edit`}
+                        to={`/company/users-management/company-admins/${user.id}/edit`}
                     >
                         <i className="far fa-pencil" />
                         Edit
                     </Link>
                     <Link
                         className="button blue"
-                        to={`/company/users-management/company-admins/${
-                            user.id
-                        }/drawings`}
+                        to={`/company/users-management/company-admins/${user.id}/drawings`}
                     >
                         <i className="far fa-key" /> Drawings Access
                     </Link>
@@ -108,6 +106,30 @@ const AllCompanyAdminsListItem = ({
                                 Revoke Admin
                             </button>
                         )}
+                    {loggedInUser.type === +COMPANY_USER_ROLE_TYPES.OWNER &&
+                        +user.type !== +COMPANY_USER_ROLE_TYPES.OWNER &&
+                        (user.shouldRestrictPayments ? (
+                            <button
+                                className="button green"
+                                onClick={() =>
+                                    showRestrictUserPaymentsModal(user.id)
+                                }
+                            >
+                                <i className="far fa-money-bill-alt" />
+                                Enable Payments
+                            </button>
+                        ) : (
+                            <button
+                                className="button red"
+                                onClick={() =>
+                                    showRestrictUserPaymentsModal(user.id)
+                                }
+                            >
+                                <i className="far fa-money-bill-alt" />
+                                Restrict Payments
+                            </button>
+                        ))}
+
                     {+user.type !== +COMPANY_USER_ROLE_TYPES.OWNER ? (
                         <button
                             className="button red"

@@ -25,7 +25,7 @@ export const fetchDrawingDropdownOptionsFailure = error => ({
 export default drawingID => dispatch => {
     dispatch(fetchDrawingDropdownOptionsRequest());
 
-    axios
+    return axios
         .get(
             `${API_URL}/drawings/${drawingID}/usabledropdownoptions`,
             getHeaders()

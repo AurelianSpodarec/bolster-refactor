@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 import fetchSinglePin from 'actions/companyAdmin/pins/async/fetchSinglePin';
 import fetchPinTemplates from 'actions/companyAdmin/pins/async/fetchPinTemplates';
@@ -7,48 +8,58 @@ import fetchCompanyUsers from 'actions/companyAdmin/userManagement/async/fetchCo
 import SinglePin from '../presentational/SinglePin';
 import fetchDrawingTemplates from 'actions/companyAdmin/drawings/async/fetchDrawingTemplates';
 import fetchDrawingDropdownOptions from 'actions/companyAdmin/drawings/async/fetchDrawingDropdownOptions';
-import fetchPins from 'actions/companyAdmin/pins/async/fetchPins';
+import fetchAllPinsForDrawing from 'actions/companyAdmin/pins/async/fetchAllPinsForDrawing.js';
 
 class SinglePinContainer extends Component {
-    render = () => <SinglePin />;
+    state = { isLoading: true };
+    render = () => <SinglePin isLoading={this.state.isLoading} pin={this.props.pin} />;
 
-    componentDidMount = async () => {
+    componentDidMount = () => {
         const {
             pinId,
             fetchSinglePinData,
             fetchSinglePin,
-            fetchDrawingTemplates,
-            fetchPins
+            fetchPinsForInspectionLog
         } = this.props;
-        const { payload } = await fetchSinglePin(pinId);
-        const {
-            pin: { drawingID }
-        } = payload;
-        fetchSinglePinData(pinId);
-        fetchDrawingTemplates(drawingID);
-        fetchPins(drawingID);
-        // // ! fetch pins commented out while bug fixed to stop it redirecting back to drawing.
+
+        let drawingID = null;
+        fetchSinglePin(pinId)
+            .then(({ payload }) => {
+                drawingID = payload.pin.drawingID;
+                return fetchSinglePinData(pinId, drawingID);
+            })
+            .then(() => {
+                this.setState({ isLoading: false });
+                fetchPinsForInspectionLog(drawingID, pinId);
+            });
     };
 }
 
-const mapStateToProps = (_, { match: { params } }) => ({
-    pinId: params.id
+const mapStateToProps = (
+    { companyAdmin: { pinsReducer: { pins } } },
+    { match: { params } }
+) => ({
+    pinId: params.id,
+    pin: pins[params.id]
 });
 
 const mapDispatchToProps = dispatch => ({
-    fetchSinglePinData: id => {
-        dispatch(fetchPinTemplates(id));
-        dispatch(fetchCompanyUsers());
+    fetchSinglePinData: (id, drawingID) => {
+        return Promise.all([
+            dispatch(fetchPinTemplates(id)),
+            dispatch(fetchCompanyUsers()),
+            dispatch(fetchDrawingTemplates(drawingID)),
+            dispatch(fetchDrawingDropdownOptions(drawingID))
+        ]);
     },
     fetchSinglePin: id => dispatch(fetchSinglePin(id)),
-    fetchDrawingTemplates: drawingID => {
-        dispatch(fetchDrawingTemplates(drawingID));
-        dispatch(fetchDrawingDropdownOptions(drawingID));
-    },
-    fetchPins: drawingID => dispatch(fetchPins('drawing', drawingID))
+    fetchPinsForInspectionLog: (id, pinIDToKeep) =>
+        dispatch(fetchAllPinsForDrawing(id, pinIDToKeep))
 });
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(SinglePinContainer);
+export default withRouter(
+    connect(
+        mapStateToProps,
+        mapDispatchToProps
+    )(SinglePinContainer)
+);

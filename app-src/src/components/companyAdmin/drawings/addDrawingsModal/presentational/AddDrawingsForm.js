@@ -1,15 +1,15 @@
-import React from 'react';
+import React from "react";
 
-import SubmitContainer from 'components/shared/generic/form/containers/SubmitContainer.js';
-import Form from 'components/shared/generic/form/containers/Form';
-import Field from 'components/shared/generic/form/presentational/Field';
-import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
-import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
-import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
-import FileUploadContainer from 'components/shared/generic/form/containers/FileUploadContainer';
-import TextAreaContainer from 'components/shared/generic/form/containers/TextAreaContainer';
-import DatePickerPresentational from 'components/shared/generic/form/presentational/DatePicker';
-import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
+import SubmitContainer from "components/shared/generic/form/containers/SubmitContainer.js";
+import Form from "components/shared/generic/form/containers/Form";
+import Field from "components/shared/generic/form/presentational/Field";
+import TextInputContainer from "components/shared/generic/form/containers/TextInputContainer";
+import BlockButtonWrapper from "components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper";
+import ButtonContainer from "components/shared/generic/button/containers/ButtonContainer";
+import FileUploadContainer from "components/shared/generic/form/containers/FileUploadContainer";
+import TextAreaContainer from "components/shared/generic/form/containers/TextAreaContainer";
+import DatePickerPresentational from "components/shared/generic/form/presentational/DatePicker";
+import CheckboxContainer from "components/shared/generic/form/containers/CheckboxContainer";
 
 // * .*. in names is used for splitting up field validations without risking overlap with real names
 
@@ -32,8 +32,8 @@ const AddDrawingsForm = ({
                         <div
                             className={
                                 isUsingBolsterLabels
-                                    ? 'size-lg-6 size-md-12'
-                                    : 'size-lg-12'
+                                    ? "size-lg-6 size-md-12"
+                                    : "size-lg-12"
                             }
                         >
                             <div className="size-lg-12" key={drawing.id}>
@@ -59,13 +59,13 @@ const AddDrawingsForm = ({
                                         required
                                         name={`${drawing.id}.*.file`}
                                         acceptedTypes={[
-                                            'application/pdf',
-                                            'image/*'
+                                            "application/pdf",
+                                            "image/*"
                                         ]}
-                                        handleChange={(name, file) => {
+                                        handleChange={(name, value) => {
                                             updateDrawing(
                                                 name,
-                                                drawing.file ? '' : file,
+                                                value,
                                                 drawing.id
                                             );
                                         }}
@@ -82,9 +82,7 @@ const AddDrawingsForm = ({
                                     <Field name="Send an alert?">
                                         <CheckboxContainer
                                             checked={drawing.isAlertShowing}
-                                            name={`${
-                                                drawing.id
-                                            }.*.isAlertShowing`}
+                                            name={`${drawing.id}.*.isAlertShowing`}
                                             text=""
                                             handleChange={(name, value) =>
                                                 updateDrawing(
@@ -119,15 +117,11 @@ const AddDrawingsForm = ({
                                     <div className="size-lg-12">
                                         <Field name="Date to send">
                                             <DatePickerPresentational
-                                                name={`${
-                                                    drawing.id
-                                                }.*.dateToSend`}
+                                                name={`${drawing.id}.*.dateToSend`}
                                                 selected={drawing.dateToSend}
                                                 onChange={value =>
                                                     updateDrawing(
-                                                        `${
-                                                            drawing.id
-                                                        }.*.dateToSend`,
+                                                        `${drawing.id}.*.dateToSend`,
                                                         value,
                                                         drawing.id
                                                     )
@@ -172,7 +166,7 @@ const AddDrawingsForm = ({
                     <i className="fa fa-plus" /> Add another drawing
                 </button>
                 {hasEnoughCredits ? (
-                    <SubmitContainer withPlus text={'Submit'} />
+                    <SubmitContainer withPlus text={"Submit"} />
                 ) : (
                     <button
                         className="button red"

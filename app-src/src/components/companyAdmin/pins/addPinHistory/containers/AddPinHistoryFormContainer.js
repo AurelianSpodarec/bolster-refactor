@@ -15,11 +15,7 @@ import BlockContainer from 'components/shared/generic/block/containers/BlockCont
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
 import BackButtonContainer from 'components/shared/generic/backButton/containers/BackButtonContainer';
 
-const {
-    SINGLE_PHOTO,
-    MULTI_PHOTO,
-    SIGNATURE
-} = QUESTION_TYPE_VALUES;
+const { SINGLE_PHOTO, MULTI_PHOTO, SIGNATURE } = QUESTION_TYPE_VALUES;
 
 function getDropdownOptionsByType(dropdownOptions) {
     return Object.values(dropdownOptions).reduce((acc, option) => {
@@ -35,7 +31,7 @@ function getDropdownOptionsByType(dropdownOptions) {
 class AddPinHistoryFormContainer extends Component {
     state = {
         templateID: '',
-        serviceID: ''
+        serviceID: '',
     };
 
     render() {
@@ -47,17 +43,17 @@ class AddPinHistoryFormContainer extends Component {
             templates,
             filesUploading,
             confirmLeave,
-            isHistory, 
+            isHistory,
             versions,
             latestPinHistory = {},
             dropdownOptionsByType,
         } = this.props;
 
-        const latestVersion = versions.find(vers => 
-            vers.id === latestPinHistory.templateVersionID) || {};
-        
+        const latestVersion =
+            versions.find(vers => vers.id === latestPinHistory.templateVersionID) || {};
+
         const isSameTemplate = templateID === latestVersion.templateID;
-        
+
         const serviceOptions = convertArrToObj(this._relevantServiceOptions(), 'value');
         const templateOptions = this._getTemplates(templates, serviceID);
 
@@ -69,13 +65,16 @@ class AddPinHistoryFormContainer extends Component {
                     <BackButtonContainer
                         backFromForm={{
                             urlToReplace: isHistory ? '/add-history' : '/add-pin',
-                            with: ''
+                            with: '',
                         }}
                     />
                 </PageHeading>
                 <BlockContainer
-                    isEmpty={!templates.length}
-                    noDataMessage="You have no pin templates."
+                    isEmpty={
+                        !templates.length
+                        // || isEmpty(pinAnswers)
+                    }
+                    noDataMessage="There is no data."
                     isFetching={isFetching}
                     error={error}
                 >
@@ -133,11 +132,11 @@ class AddPinHistoryFormContainer extends Component {
         this.setState(
             {
                 templateID: latestTemplateUsed.id,
-                serviceID: latestTemplateUsed.serviceID
+                serviceID: latestTemplateUsed.serviceID,
             },
             () => {
                 updateAddPinStatus(latestPinHistory.status);
-            }
+            },
         );
     };
 
@@ -147,40 +146,43 @@ class AddPinHistoryFormContainer extends Component {
 
     getPinAnswersByGroupKey = () => {
         const { pinAnswers, latestPinHistory, sections, versions, questions } = this.props;
+
         const invalidTypes = [SINGLE_PHOTO, MULTI_PHOTO, SIGNATURE];
-        const latestVersion = versions.find(vers => 
-            vers.id === latestPinHistory.templateVersionID) || {};
-        
+        const latestVersion =
+            versions.find(vers => vers.id === latestPinHistory.templateVersionID) || {};
+
         const pinAnswersByGroupKey = pinAnswers.reduce((acc, ans) => {
             const question = questions[ans.templateQuestionID];
             if (!question) return acc;
             const section = sections[question.templateSectionID];
             if (!section) return acc;
             // filter by only relevant questions/answers
-            if (question.isHidden || 
+            if (
                 invalidTypes.includes(question.type) ||
-                section.templateVersionID !== latestVersion.id) {
+                section.templateVersionID !== latestVersion.id
+            ) {
                 return acc;
             } else {
                 return {
                     ...acc,
-                    [question.groupKey]: {...ans, name: question.name, type: question.type}
-                    };
-            }}, {});
-            return pinAnswersByGroupKey;
-    }
+                    [question.groupKey]: { ...ans, name: question.name, type: question.type },
+                };
+            }
+        }, {});
+        return pinAnswersByGroupKey;
+    };
 
     getOldAnswersByNameObj = () => {
         const { pinAnswers, questions } = this.props;
         const oldAnswersByNameObj = pinAnswers.reduce((acc, oldAnswer) => {
             const question = questions[oldAnswer.templateQuestionID];
-            const answerToSave = {...oldAnswer, name: question.name, type: question.type};
+            const answerToSave = { ...oldAnswer, name: question.name, type: question.type };
             acc[question.name] = [answerToSave, ...(acc[question.name] || [])];
             return acc;
         }, {});
 
         return oldAnswersByNameObj;
-    }
+    };
 
     componentDidUpdate = prevProps => {
         const {
@@ -207,12 +209,12 @@ class AddPinHistoryFormContainer extends Component {
 
     _getTemplates = (templates, selectedServiceID) => {
         const filteredTemplates = templates.filter(
-            ({ serviceID }) => +serviceID === +selectedServiceID
+            ({ serviceID }) => +serviceID === +selectedServiceID,
         );
-        const templateOptions = filteredTemplates.map(({ id, name }) => ({
+        const templateOptions = filteredTemplates.map(({ id, name, companyName }) => ({
             value: id,
-            label: name,
-            text: name
+            label: `${name} (${companyName})`,
+            text: `${name} (${companyName})`,
         }));
 
         return convertArrToObj(templateOptions, 'value');
@@ -221,7 +223,7 @@ class AddPinHistoryFormContainer extends Component {
     _relevantServiceOptions = () => {
         const {
             services,
-            subscriptions: { serviceIDs }
+            subscriptions: { serviceIDs },
         } = this.props;
 
         const serviceOptions = [];
@@ -234,7 +236,7 @@ class AddPinHistoryFormContainer extends Component {
         return serviceOptions.map(({ id, name }) => ({
             value: id,
             label: name,
-            text: name
+            text: name,
         }));
     };
 
@@ -258,28 +260,32 @@ class AddPinHistoryFormContainer extends Component {
             filesUploading,
             hierarchyType,
             pinID,
-            status
+            status,
         } = this.props;
 
         const curTemplate = templates.find(({ id }) => +id === +templateID) || {};
 
         const formattedAnswers = Object.keys(answers).map(key => ({
             templateQuestionID: key,
-            answer: answers[key]
+            answer: answers[key],
         }));
 
         const postBody = {
             history: {
                 templateVersionID: curTemplate.latestVersionID,
-                pinStatus: status
+                pinStatus: status,
             },
-            answers: formattedAnswers
+            answers: formattedAnswers,
         };
+
+        console.log(postBody);
+        console.log(postBody);
+        console.log(postBody);
 
         if (hierarchyType === 'drawing') {
             postBody.pin = {
                 drawingID: parseInt(drawingID),
-                location: { lngX: coordinates.lng, latY: coordinates.lat }
+                location: { lngX: coordinates.lng, latY: coordinates.lat },
             };
         }
 
@@ -291,59 +297,53 @@ class AddPinHistoryFormContainer extends Component {
 const mapStateToProps = ({
     companyAdmin: {
         addPinDropdownOptions: { dropdownOptions },
-        templatesReducer: { templates, isFetching, error },
+        templatesReducer: { templates, isFetching: isFetchingTemplates, error },
         templateVersionsReducer: { versions },
         templateSectionsReducer: { sections },
         templateQuestionsReducer: { questions },
         addPinFormReducer: { answers, status },
         addPinCoordinatesReducer: { coordinates },
-        pinsReducer: { postSuccess },
+        pinsReducer: { postSuccess, isFetching: isFetchingPins },
         pinHistoriesReducer: { histories },
         pinAnswersReducer: { answers: pinAnswers },
         servicesReducer: { services },
-        subscriptionsReducer: { subscriptions }
+        subscriptionsReducer: { subscriptions },
     },
     shared: {
         filesUploadingReducer: { filesUploading },
-        confirmLeaveReducer: { confirmLeave }
-    }
+        confirmLeaveReducer: { confirmLeave },
+    },
 }) => {
-    const latestPinHistory = Object.values(histories).sort(
-        (a, b) => moment(b.createdOn) - moment(a.createdOn)
-    )[0] || {};
+    const latestPinHistory =
+        Object.values(histories).sort((a, b) => moment(b.createdOn) - moment(a.createdOn))[0] || {};
 
-    return ({
-    templates: Object.values(templates).filter(({ isDeleted }) => !isDeleted),
-    answers,
-    coordinates,
-    isFetching,
-    questions,
-    sections,
-    error,
-    postSuccess,
-    filesUploading,
-    confirmLeave,
-    status,
-    services: Object.values(services),
-    versions: Object.values(versions),
-    pinAnswers: Object.values(pinAnswers),
-    histories,
-    latestPinHistory,
-    subscriptions,
-    dropdownOptionsByType: getDropdownOptionsByType(dropdownOptions)
-});
+    return {
+        templates: Object.values(templates).filter(({ isDeleted }) => !isDeleted),
+        answers,
+        coordinates,
+        isFetching: isFetchingTemplates || isFetchingPins,
+        questions,
+        sections,
+        error,
+        postSuccess,
+        filesUploading,
+        confirmLeave,
+        status,
+        services: Object.values(services),
+        versions: Object.values(versions),
+        pinAnswers: Object.values(pinAnswers),
+        histories,
+        latestPinHistory,
+        subscriptions,
+        dropdownOptionsByType: getDropdownOptionsByType(dropdownOptions),
+    };
 };
 
 const mapDispatchToProps = {
     createPin,
     resetPinAnswers,
     updateAddPinStatus,
-    updateAddPinAnswer
+    updateAddPinAnswer,
 };
 
-export default withRouter(
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(AddPinHistoryFormContainer)
-);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AddPinHistoryFormContainer));

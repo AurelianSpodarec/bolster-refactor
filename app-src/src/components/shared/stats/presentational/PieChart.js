@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactPieChart from 'react-minimal-pie-chart';
+import { isIE } from 'react-device-detect';
 
 import greenPin from '_content/images/map-markers/green-pin2x.png';
 import redPin from '_content/images/map-markers/red-pin2x.png';
@@ -57,6 +58,7 @@ const PieChart = ({
                     {onMobile && (
                         <div className="size-lg-12">
                             <div className="size-md-2" />
+
                             <ReactPieChart
                                 className="size-md-8"
                                 data={pieStats}
@@ -68,7 +70,7 @@ const PieChart = ({
                             <div className="size-md-2" />
                         </div>
                     )}
-                    <div className="pin-key size-lg-6 size-md-12">
+                    <div className={`pin-key ${isIE ? 'size-lg-12 ' : 'size-lg-6 '}size-md-12`}>
                         <div className="pin">
                             <img src={redPin} alt="pin" />
                             <p>
@@ -106,7 +108,8 @@ const PieChart = ({
                             </p>
                         </div>
                     </div>
-                    {!onMobile && (
+
+                    {!onMobile && !isIE && (
                         <ReactPieChart
                             className="size-lg-5"
                             data={pieStats}

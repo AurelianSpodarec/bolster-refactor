@@ -52,6 +52,9 @@ class SubscriptionCreditsContainer extends Component {
 const mapStateToProps = ({
     companyAdmin: {
         creditsReducer: { credits, isFetching, costOfCredits, vatCostOfCredits }
+    },
+    shared: {
+        profileReducer: { profile }
     }
 }) => ({
     totalCredits: Object.values(credits).reduce(

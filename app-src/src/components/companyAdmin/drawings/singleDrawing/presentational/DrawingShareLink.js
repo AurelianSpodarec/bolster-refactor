@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import Field from 'components/shared/generic/form/presentational/Field';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 
 const DrawingShareLink = ({ shareLink, postShareLink }) => (

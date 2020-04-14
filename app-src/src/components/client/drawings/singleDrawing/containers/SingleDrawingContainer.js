@@ -11,8 +11,8 @@ import clientFetchDocuments from 'actions/client/documents/async/clientFetchDocu
 import SingleDrawing from '../presentational/SingleDrawing';
 import { getSelectedCompanyForClient } from 'helpers/generic';
 import fetchClientPinStatsForLevel from 'actions/client/stats/async/fetchClientPinStatsForLevel';
-import clientResetFilterOptions from 'actions/client/reports/create/sync/clientResetFilterOptions';
 import fetchCompanyUsers from 'actions/companyAdmin/userManagement/async/fetchCompanyUsers';
+import clientFetchServicesForDrawing from 'actions/client/services/async/clientFetchServicesForDrawing';
 
 class SingleDrawingContainer extends Component {
     render = () => <SingleDrawing />;
@@ -24,7 +24,6 @@ class SingleDrawingContainer extends Component {
 
         fetchDrawingData(selectedCompanyID, drawingID);
     };
-    componentWillUnmount = () => this.props.resetFilterOptions();
 }
 
 const mapDispatchToProps = dispatch => ({
@@ -35,11 +34,11 @@ const mapDispatchToProps = dispatch => ({
         dispatch(clientFetchDocuments(companyID, 'drawing', drawingID));
         dispatch(fetchClientPinStatsForLevel(companyID, 4, drawingID));
         dispatch(fetchCompanyUsers());
+        dispatch(clientFetchServicesForDrawing(drawingID));
     },
-    resetFilterOptions: () => dispatch(clientResetFilterOptions())
 });
 
 export default connect(
     (_, { match }) => ({ drawingID: match.params.id }),
-    mapDispatchToProps
+    mapDispatchToProps,
 )(SingleDrawingContainer);

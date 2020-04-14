@@ -50,16 +50,17 @@ class TemplateBuilderContainer extends Component {
 
     componentDidUpdate({
         postSuccess: prevPostSuccess,
-        isPosting: prevIsPosting,
         template: prevTemplate,
-        deleteUnavailable: prevDeleteUnavailable
+        isPosting: prevIsPosting,
+        deleteUnavailable: prevDeleteUnavailable,
+        error: prevError
     }) {
         const {
             postSuccess,
             isPosting,
+            isExisting,
             showModal,
             error,
-            isExisting,
             curUrl,
             templateUUID,
             updatedTemplateUUID,
@@ -75,7 +76,6 @@ class TemplateBuilderContainer extends Component {
 
             if (templateUUID !== updatedTemplateUUID) {
                 const redirectUrl = curUrl.replace(templateUUID, updatedTemplateUUID);
-
                 history.replace(redirectUrl);
             }
         }
@@ -88,6 +88,10 @@ class TemplateBuilderContainer extends Component {
             const message = 'Template deleted successfully';
             showModal(SUCCESS_MODAL, { message });
             history.replace(`/admin/companies/${companyID}`);
+        }
+
+        if (error && !isExisting && !prevError) {
+            history.replace('/404');
         }
 
         if (!!deleteUnavailable && !prevDeleteUnavailable) {

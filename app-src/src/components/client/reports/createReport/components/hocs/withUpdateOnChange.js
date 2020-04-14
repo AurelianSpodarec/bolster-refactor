@@ -6,14 +6,18 @@ import clientUpdateReportFilter from 'actions/client/reports/create/sync/clientU
 import clientPostCustomFilters from 'actions/client/reports/create/async/clientPostCustomFilters';
 import addFieldError from 'actions/shared/generic/fieldErrors/sync/addFieldError';
 import removeFieldError from 'actions/shared/generic/fieldErrors/sync/removeFieldError';
-import { convertArrToObj, getSelectedCompanyForClient } from 'helpers/generic';
+import {
+    convertArrToObj,
+    getSelectedCompanyForClient,
+    momentComparisonFormat,
+} from 'helpers/generic';
 import showFieldErrors from 'actions/shared/generic/fieldErrors/sync/showFieldErrors';
 import { FURTHER_FILTRATION_OPTIONS } from 'constants/companyAdmin/enums';
 
 export default function(ProtectedComponent) {
     class WithUpdateOnChange extends React.Component {
         state = {
-            showError: false
+            showError: false,
         };
         render() {
             const { showError } = this.state;
@@ -25,6 +29,7 @@ export default function(ProtectedComponent) {
                     fieldError={showError || errorsVisible ? fieldError : null}
                     postFilters={this.postFilters}
                     formatArrForDropdown={this.formatArrForDropdown}
+                    getFilteredPins={this._getFilteredPins}
                     validate={this.validate}
                     showFieldError={this.showFieldError}
                     getPostBody={this._getPostBody}
@@ -36,7 +41,7 @@ export default function(ProtectedComponent) {
             const options = arr.map(({ id, name }) => ({
                 value: id,
                 label: name,
-                text: name
+                text: name,
             }));
 
             return asObj ? convertArrToObj(options, 'value') : options;
@@ -59,7 +64,91 @@ export default function(ProtectedComponent) {
                 this.setState({ showError: true });
             }
         };
+        _getFilteredPins = pins => {
+            const { filters, furtherFiltrationOption } = this.props;
+            const { PIN_SELECTOR, INDIVIDUAL_PINS } = FURTHER_FILTRATION_OPTIONS;
 
+            // ? Displays all pins if in rectangle mode, and only the selected pins otherwise.
+            console.log({ pins });
+            if (+furtherFiltrationOption > PIN_SELECTOR) {
+                // advanced
+                return pins.filter(({ id }) => filters.pinIDs.includes(id));
+            }
+
+            const {
+                fromDateInclusive: startDate,
+                toDateInclusive: endDate,
+                status,
+                serviceID,
+                templateID,
+                companyUserIDs,
+            } = filters;
+
+            const NO = false;
+            const YES = true;
+
+            const fromDateInclusive = this.getFilterStartDate(startDate);
+            const toDateInclusive = this.getFilterEndDate(endDate);
+
+            // simple
+            return pins
+                .filter(pin => {
+                    // 2066696
+                    // start date
+
+                    if (
+                        fromDateInclusive &&
+                        moment(pin.latestCreatedOn) <
+                            moment(fromDateInclusive, momentComparisonFormat)
+                    ) {
+                        return NO;
+                    }
+                    // end date
+                    if (
+                        toDateInclusive &&
+                        moment(pin.latestCreatedOn) >
+                            moment(toDateInclusive, momentComparisonFormat)
+                    ) {
+                        return NO;
+                    }
+                    // status
+                    if (status && +pin.latestStatus !== +status) {
+                        return NO;
+                    }
+                    // services
+                    if (serviceID && +pin.latestServiceID !== +serviceID) {
+                        return NO;
+                    }
+                    // templates
+                    if (templateID && +templateID !== pin.templateID) {
+                        return NO;
+                    }
+                    // operatives
+                    if (
+                        companyUserIDs &&
+                        companyUserIDs.length &&
+                        !companyUserIDs.includes(pin.latestCreatedByCompanyUserID)
+                    ) {
+                        return NO;
+                    }
+                    // if (
+                    //     +furtherFiltrationOption ===
+                    //     FURTHER_FILTRATION_OPTIONS.INDIVIDUAL_PINS
+                    // ) {
+                    //     if (!filters.pinIDs.includes(pin.id)) {
+                    //         return NO;
+                    //     }
+                    // }
+                    return YES;
+                })
+                .map(pin => ({
+                    ...pin,
+                    excluded:
+                        (+furtherFiltrationOption === PIN_SELECTOR ||
+                            +furtherFiltrationOption === INDIVIDUAL_PINS) &&
+                        !filters.pinIDs.includes(pin.id),
+                }));
+        };
         _getPostBody = () => {
             const {
                 filters: {
@@ -80,13 +169,13 @@ export default function(ProtectedComponent) {
                     toDateInclusive,
                     companyUserIDs,
                     pinIDs,
-                    floorplanPinScale
+                    floorplanPinScale,
                 },
                 furtherFiltrationOption,
                 excludedPinIDs,
                 rectangles,
                 options: { showHidden, sortBy },
-                fields
+                fields,
             } = this.props;
 
             let hierarchyType;
@@ -115,13 +204,13 @@ export default function(ProtectedComponent) {
             const {
                 INDIVIDUAL_PINS,
                 // PIN_SELECTOR,
-                FILTERS
+                FILTERS,
             } = FURTHER_FILTRATION_OPTIONS;
 
             switch (+furtherFiltrationOption) {
                 case INDIVIDUAL_PINS: {
                     selectedPinIDs = pinIDs.filter(
-                        id => !Object.values(excludedPinIDs).includes(id)
+                        id => !Object.values(excludedPinIDs).includes(id),
                     );
                     break;
                 }
@@ -132,9 +221,9 @@ export default function(ProtectedComponent) {
 
                             return {
                                 questionGroupKeys: selectedQuestions,
-                                values
+                                values,
                             };
-                        }
+                        },
                     );
                     break;
                 }
@@ -147,9 +236,9 @@ export default function(ProtectedComponent) {
                 return { latY, lngX };
             };
 
-            const pinBoundingBoxes = Object.values(rectangles).map(
-                ({ corners: [first, second] }) => [getLatLng(first), getLatLng(second)]
-            );
+            const pinBoundingBoxes = Object.values(
+                rectangles,
+            ).map(({ corners: [first, second] }) => [getLatLng(first), getLatLng(second)]);
 
             const endDate = toDateInclusive
                 ? moment(toDateInclusive)
@@ -169,6 +258,7 @@ export default function(ProtectedComponent) {
                 fromDateInclusive,
                 toDateInclusive: endDate,
                 companyUserIDs,
+                excludedPinIDs: Object.values(excludedPinIDs),
                 pinIDs: selectedPinIDs,
                 serviceID: serviceID || null,
                 templateID: templateID || null,
@@ -177,7 +267,7 @@ export default function(ProtectedComponent) {
                 showHidden,
                 sortBy,
                 pinBoundingBoxes,
-                floorplanPinScale
+                floorplanPinScale,
             };
 
             return body;
@@ -190,12 +280,35 @@ export default function(ProtectedComponent) {
                 return postCustomFilters(selectedCompanyID, this._getPostBody());
             }
         };
+
+        getFilterStartDate = date => {
+            const { timeZone } = this.props;
+            return date
+                ? moment
+                      .tz(date, timeZone.name)
+                      .startOf('day')
+                      .utc()
+                      .toISOString()
+                : null;
+        };
+        getFilterEndDate = date => {
+            const { timeZone } = this.props;
+            const endDate = date
+                ? moment
+                      .tz(date, timeZone.name)
+                      .add('days', 1)
+                      .startOf('day')
+                      .utc()
+                      .toISOString()
+                : null;
+            return endDate;
+        };
     }
 
     const mapStateToProps = (
         {
             shared: {
-                fieldErrorsReducer: { fieldErrors, errorsVisible }
+                fieldErrorsReducer: { fieldErrors, errorsVisible },
             },
             client: {
                 servicesReducer: { historicServices },
@@ -212,11 +325,11 @@ export default function(ProtectedComponent) {
                     customFilters,
                     excludedPinIDs,
                     furtherFiltrationOption,
-                    rectangles
-                }
-            }
+                    rectangles,
+                },
+            },
         },
-        { blockName }
+        { blockName },
     ) => {
         const selectedSite = sitesReducer.sites[filters.siteID] || {};
         const buildingIDs = selectedSite.buildingIDs || [];
@@ -245,9 +358,9 @@ export default function(ProtectedComponent) {
             floors,
             drawings,
             fields: Object.values(fields),
-            excludedPinIDs,
+            excludedPinIDs: excludedPinIDs,
             furtherFiltrationOption,
-            rectangles
+            rectangles,
         };
     };
 
@@ -257,11 +370,8 @@ export default function(ProtectedComponent) {
             dispatch(clientPostCustomFilters(companyID, postBody)),
         addFieldError: (name, val) => dispatch(addFieldError(name, val)),
         removeFieldError: name => dispatch(removeFieldError(name)),
-        showFieldErrors: () => dispatch(showFieldErrors())
+        showFieldErrors: () => dispatch(showFieldErrors()),
     });
 
-    return connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(WithUpdateOnChange);
+    return connect(mapStateToProps, mapDispatchToProps)(WithUpdateOnChange);
 }

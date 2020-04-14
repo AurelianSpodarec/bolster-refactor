@@ -1,4 +1,4 @@
-import React, { Component, } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import updateAddPinAnswer from 'actions/companyAdmin/drawings/sync/updateAddPinAnswer';
@@ -30,9 +30,8 @@ const {
 const dropdownOptionTypes = [
     DROPDOWN_OPTIONS,
     MULTI_DROPDOWN_OPTIONS,
-    MULTI_MULTI_DROPDOWN_OPTIONS,
+    MULTI_MULTI_DROPDOWN_OPTIONS
 ];
-
 
 class AddPinQuestionRoute extends Component {
     state = {
@@ -51,7 +50,7 @@ class AddPinQuestionRoute extends Component {
             edit,
             resetPinAnswer,
             isHistory
-        } = this.props; 
+        } = this.props;
 
         const showPreReq = this.checkIfShouldShowByPreReq();
 
@@ -59,13 +58,14 @@ class AddPinQuestionRoute extends Component {
 
         const fieldSize = `size-lg-${isImage ? '12' : '6'}`;
         const questionName = isImage ? '' : question.name;
-      
+
         if (showPreReq) {
-            const SpecificField = fieldTypes[question.type + ''] || fieldTypes[SINGLE_LINE];
+            const SpecificField =
+                fieldTypes[question.type + ''] || fieldTypes[SINGLE_LINE];
 
             const extraImageClasses =
                 (edit && question.type + '' === MULTI_PHOTO) ||
-                question.type + '' === SINGLE_PHOTO
+                    question.type + '' === SINGLE_PHOTO
                     ? 'photo-view'
                     : '';
 
@@ -86,7 +86,6 @@ class AddPinQuestionRoute extends Component {
                         dropdownOptions={dropdownOptions}
                         handleChange={this.handleChange}
                         handleStatusChange={this.handleStatusChange}
-                        handleFileChange={this.handleFileChange}
                         handleImageClick={this.handleImageClick}
                         handleSignatureChange={this.handleSignatureChange}
                         sigPad={this.state.sigPad}
@@ -94,7 +93,9 @@ class AddPinQuestionRoute extends Component {
                         resetPinAnswer={resetPinAnswer}
                         isHistory={isHistory}
                         originalDropdownAns={this.state.originalDropdownAns}
-                        originalDropdownMultiAns={this.state.originalDropdownMultiAns}
+                        originalDropdownMultiAns={
+                            this.state.originalDropdownMultiAns
+                        }
                     />
                 </Field>
             );
@@ -104,8 +105,8 @@ class AddPinQuestionRoute extends Component {
     }
 
     _getIsRequired = () => {
-        const {question, status} = this.props;
-        const {isRequired, isRequiredVal, type} = question;
+        const { question, status } = this.props;
+        const { isRequired, isRequiredVal, type } = question;
 
         const showPreReq = this.checkIfShouldShowByPreReq();
 
@@ -117,14 +118,8 @@ class AddPinQuestionRoute extends Component {
         return false;
     };
 
-    checkIfShouldShowByPreReq = (
-    ) => {
-        const { 
-            question,
-            status,
-            questions,
-            answers 
-        } = this.props;
+    checkIfShouldShowByPreReq = () => {
+        const { question, status, questions, answers } = this.props;
         const { id: currentQuestionID, prerequisiteQuestionID } = question;
 
         const preReqQuestion = questions[prerequisiteQuestionID];
@@ -161,11 +156,10 @@ class AddPinQuestionRoute extends Component {
         }
 
         if (`${preReqQuestion.type}` === QUESTION_TYPE_VALUES.MULTI_DROPDOWN) {
-            
             if (!preReqAnswer) {
                 return false;
             }
-            
+
             const retArray = [];
 
             preReqAnswer.forEach(curAnswer => {
@@ -182,9 +176,13 @@ class AddPinQuestionRoute extends Component {
         }
 
         if (Array.isArray(preReqAnswer)) {
-            const lowerCaseAnswers = preReqAnswer.map(answer => `${answer}`.toLowerCase());
-            if (lowerCaseAnswers
-                .includes(`${(curQuestion.prerequisiteQuestionValue)}`.toLowerCase())
+            const lowerCaseAnswers = preReqAnswer.map(answer =>
+                `${answer}`.toLowerCase()
+            );
+            if (
+                lowerCaseAnswers.includes(
+                    `${curQuestion.prerequisiteQuestionValue}`.toLowerCase()
+                )
             ) {
                 return true;
             }
@@ -198,8 +196,8 @@ class AddPinQuestionRoute extends Component {
     };
 
     componentDidMount = () => {
-        this.checkShouldPrefillOrReset();
-    }
+        this.handlePrefillOrReset();
+    };
 
     componentDidUpdate = prevProps => {
         const {
@@ -226,15 +224,15 @@ class AddPinQuestionRoute extends Component {
         const answerName = `answer-${question.id}`;
 
         if (!isShowingFromPrereq && answer) {
-            resetPinAnswer(question.id);
+            resetPinAnswer(question.id, getDefaultValue(question));
         }
-        
+
         const hasStatusChanged = prevProps.status !== status;
         if (`${question.type}` !== STATUS && hasStatusChanged) {
             const isRequiredButEmpty = this._getIsRequired() && isEmpty(answer);
-            
+
             if (isRequiredButEmpty && isShowingFromPrereq) {
-                 addFieldError(answerName, 'This is a required field.');
+                addFieldError(answerName, 'This is a required field.');
             } else {
                 removeFieldError(answerName);
             }
@@ -246,10 +244,11 @@ class AddPinQuestionRoute extends Component {
             removeFieldError(answerName);
         }
 
-        const isDoneFetchingPins = prevProps.isFetchingPins && !isFetchingPins && !isEmpty(pins);
+        const isDoneFetchingPins =
+            prevProps.isFetchingPins && !isFetchingPins && !isEmpty(pins);
 
         // ? only applies to edit
-        if (isDoneFetchingPins && (edit && history.id && oldAnswers)) {
+        if (isDoneFetchingPins && edit && history.id && oldAnswers) {
             const oldAnswersArray = Object.values(oldAnswers);
 
             // !pin history ID matters to select the right answer to prefill on edit
@@ -261,38 +260,38 @@ class AddPinQuestionRoute extends Component {
             if (oldAnswer) {
                 const { templateQuestionID, answer } = oldAnswer;
                 updateAddPinAnswer(templateQuestionID, answer);
-                if(question.type + '' === MULTI_DROPDOWN_OPTIONS ||
-                 question.type + '' === MULTI_MULTI_DROPDOWN_OPTIONS) {
-                    this.setState({originalDropdownMultiAns: answer});
+                if (
+                    question.type + '' === MULTI_DROPDOWN_OPTIONS ||
+                    question.type + '' === MULTI_MULTI_DROPDOWN_OPTIONS
+                ) {
+                    if (Array.isArray(answer)) {
+                        this.setState({ originalDropdownMultiAns: answer });
+                    }
                 }
-                if(question.type + '' === DROPDOWN_OPTIONS){
-                    this.setState({originalDropdownAns: answer});
+                if (question.type + '' === DROPDOWN_OPTIONS) {
+                    this.setState({ originalDropdownAns: answer });
                 }
             }
             if (String(question.type) === STATUS) {
                 updateAddPinStatus(history.status);
             }
         } else {
+            const hasTemplateAppeared = !prevProps.template && !!template;
+            const hasTemplateChanged =
+                !!prevProps.template && prevProps.template.id !== template.id;
+            const shouldReset =
+                hasTemplateAppeared || hasTemplateChanged || isDoneFetchingPins;
 
-        const hasTemplateChanged = 
-            (!prevProps.template && !!template || 
-            (!!prevProps.template && prevProps.template.id !== template.id));
-        
-            
-        if (isDoneFetchingPins || hasTemplateChanged) {
-            this.checkShouldPrefillOrReset();
+            if (shouldReset) {
+                this.handlePrefillOrReset();
+            }
         }
-    }
     };
 
-    checkShouldPrefillOrReset = () => {
-        const {
-            isSameTemplate,
-            pinAnswersByGroupKey,
-        } = this.props;
+    handlePrefillOrReset = () => {
+        const { isSameTemplate, pinAnswersByGroupKey } = this.props;
 
         const isAddPinHistory = !!pinAnswersByGroupKey;
-
 
         if (isSameTemplate && isAddPinHistory) {
             this.handlePrefillSameTemplateQuestion();
@@ -301,48 +300,56 @@ class AddPinQuestionRoute extends Component {
         } else {
             this.handleResetAnswer();
         }
-    }
+    };
 
     handlePrefillSameTemplateQuestion = () => {
-        const { pinAnswersByGroupKey, question, updateAddPinAnswer } = this.props;
-        const isDropdownOptions = dropdownOptionTypes.includes(`${question.type}`);
+        const {
+            pinAnswersByGroupKey,
+            question,
+            updateAddPinAnswer
+        } = this.props;
+        const isDropdownOptions = dropdownOptionTypes.includes(
+            `${question.type}`
+        );
         const oldAnswersKeys = Object.keys(pinAnswersByGroupKey);
 
         if (`${question.type}` === STATUS) {
             this.handleStatusPrefill();
         } else if (oldAnswersKeys.includes(question.groupKey)) {
             const oldAnswer = pinAnswersByGroupKey[question.groupKey].answer;
-            const answerToPrefill = isDropdownOptions 
-                ? this.getDropdownPrefillAnswer(oldAnswer) 
+            const answerToPrefill = isDropdownOptions
+                ? this.getDropdownPrefillAnswer(oldAnswer)
                 : oldAnswer;
             updateAddPinAnswer(question.id, answerToPrefill);
         } else {
             this.handleResetAnswer();
         }
-    }
+    };
 
     handlePrefillDifferentTemplateQuestion = () => {
-        const { 
-            oldAnswersByNameObj, 
-            question, 
-            questions, 
-            sectionIDs, 
+        const {
+            oldAnswersByNameObj,
+            question,
+            questions,
+            sectionIDs,
             updateAddPinAnswer
-         } = this.props;
+        } = this.props;
 
-
-
-        const isDropdownOptions = dropdownOptionTypes.includes(`${question.type}`);
+        const isDropdownOptions = dropdownOptionTypes.includes(
+            `${question.type}`
+        );
         const oldAnswersMatchingName = oldAnswersByNameObj[question.name] || [];
-        const oldAnswersMatchingNameAndType = oldAnswersMatchingName
-            .filter(({ type }) => type === question.type);
+        const oldAnswersMatchingNameAndType = oldAnswersMatchingName.filter(
+            ({ type }) => type === question.type
+        );
 
-            
-            if (`${question.type}` === STATUS) {
-                this.handleStatusPrefill();
-            } else if (oldAnswersMatchingNameAndType.length) {
-            const questionsMatchingNameAndType = Object.values(questions).filter(
-                outerQuestion => 
+        if (`${question.type}` === STATUS) {
+            this.handleStatusPrefill();
+        } else if (oldAnswersMatchingNameAndType.length) {
+            const questionsMatchingNameAndType = Object.values(
+                questions
+            ).filter(
+                outerQuestion =>
                     outerQuestion.type === question.type &&
                     outerQuestion.name === question.name &&
                     sectionIDs.includes(outerQuestion.templateSectionID)
@@ -351,10 +358,11 @@ class AddPinQuestionRoute extends Component {
                 matchedQuestion => matchedQuestion.id === question.id
             );
 
-            const matchedAnswer = oldAnswersMatchingNameAndType[thisQuestionIndex];
+            const matchedAnswer =
+                oldAnswersMatchingNameAndType[thisQuestionIndex];
             if (matchedAnswer) {
-                const answerToPrefill = isDropdownOptions 
-                    ? this.getDropdownPrefillAnswer(matchedAnswer.answer) 
+                const answerToPrefill = isDropdownOptions
+                    ? this.getDropdownPrefillAnswer(matchedAnswer.answer)
                     : matchedAnswer.answer;
                 return updateAddPinAnswer(question.id, answerToPrefill);
             } else {
@@ -363,12 +371,12 @@ class AddPinQuestionRoute extends Component {
         } else {
             this.handleResetAnswer();
         }
-    }
+    };
 
     handleResetAnswer = () => {
         const { question, updateAddPinAnswer } = this.props;
         updateAddPinAnswer(question.id, getDefaultValue(question));
-    }
+    };
 
     handleStatusPrefill = () => {
         const { selectedVersion, latestPinHistory } = this.props;
@@ -376,25 +384,28 @@ class AddPinQuestionRoute extends Component {
         if (selectedVersion.statusOptions.includes(latestPinHistory.status)) {
             this.handleStatusChange(null, latestPinHistory.status);
         }
-    }
+    };
 
-    getDropdownPrefillAnswer = (answer) => {
+    getDropdownPrefillAnswer = answer => {
         // * handles dropdown options which have been removed
         const { question, dropdownOptionsByType } = this.props;
-        const {type, optionType} = question;
+        const { type, optionType } = question;
 
         const relevantOptions = dropdownOptionsByType[optionType];
         if (`${type}` === DROPDOWN_OPTIONS) {
+            // handle edge case where answer is an array, set asfirst element in array
+            if (Array.isArray(answer)) [answer] = answer;
             if (relevantOptions.includes(answer)) {
                 return answer;
-            } 
+            }
         } else if (!isEmpty(answer)) {
-            const filteredAnswers = answer.filter(option => relevantOptions.includes(option));
+            const filteredAnswers = answer.filter(option =>
+                relevantOptions.includes(option)
+            );
             return filteredAnswers;
         }
-        
         return getDefaultValue(question);
-    }
+    };
 
     handleChange = (_, value) => {
         const { updateAddPinAnswer, question } = this.props;
@@ -414,12 +425,15 @@ class AddPinQuestionRoute extends Component {
     handleFileChange = (_, s3Key) => {
         const { updateAddPinAnswer, question, answers } = this.props;
         if (+question.type === +QUESTION_TYPE_VALUES.MULTI_PHOTO) {
-            const curAnswer = answers[question.id] || [];            
+            const curAnswer = answers[question.id] || [];
             //Multi File
             const existing = curAnswer.includes(s3Key);
             if (existing) {
                 //Delete
-                updateAddPinAnswer(question.id, curAnswer.filter(item => item !== s3Key));
+                updateAddPinAnswer(
+                    question.id,
+                    curAnswer.filter(item => item !== s3Key)
+                );
             } else {
                 //Add
                 updateAddPinAnswer(question.id, [...curAnswer, s3Key]);
@@ -444,8 +458,7 @@ const mapStateToProps = (
             templateQuestionsReducer: { questions },
             pinAnswersReducer: { answers: oldAnswers },
             pinHistoriesReducer: { histories },
-            pinsReducer: { pins, isFetching: isFetchingPins },
-
+            pinsReducer: { pins, isFetching: isFetchingPins }
         },
         shared: {
             fieldErrorsReducer: { fieldErrors }
@@ -477,8 +490,5 @@ const mapDispatchToProps = {
 };
 
 export default withRouter(
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(AddPinQuestionRoute)
+    connect(mapStateToProps, mapDispatchToProps)(AddPinQuestionRoute)
 );

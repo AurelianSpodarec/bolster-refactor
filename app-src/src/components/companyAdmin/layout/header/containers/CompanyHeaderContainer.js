@@ -12,6 +12,9 @@ import { BUY_CREDITS } from 'constants/shared/modalTypes';
 import { MESSAGE_TYPES } from 'constants/companyAdmin/enums';
 
 class CompanyHeaderContainer extends Component {
+    state = {
+        shouldRestrictPayments: false
+    };
     render() {
         const {
             profile,
@@ -22,7 +25,8 @@ class CompanyHeaderContainer extends Component {
             isImpersonating,
             showModal,
             onMobile,
-            toggleMobileMenu
+            toggleMobileMenu,
+            shouldUsePayments
         } = this.props;
 
         const companyColour = getCompanyColour(companySettings.companyColour);
@@ -30,6 +34,7 @@ class CompanyHeaderContainer extends Component {
         return !onMobile ? (
             <CompanyHeader
                 profile={profile}
+                shouldUsePayments={shouldUsePayments}
                 company={companySettings}
                 companyColour={companyColour}
                 unreadMessageCount={unreadMessageCount}
@@ -40,6 +45,7 @@ class CompanyHeaderContainer extends Component {
                     e.preventDefault();
                     showModal(BUY_CREDITS);
                 }}
+                shouldRestrictPayments={this.state.shouldRestrictPayments}
             />
         ) : (
             <CompanyHeaderMobile
@@ -58,6 +64,26 @@ class CompanyHeaderContainer extends Component {
             />
         );
     }
+    componentDidMount = () => {
+        const { users, companyUserID } = this.props;
+
+        if (users && users[companyUserID]) {
+            this.setState({
+                shouldRestrictPayments:
+                    users[companyUserID].shouldRestrictPayments
+            });
+        }
+    };
+    componentDidUpdate = prevProps => {
+        const { users, companyUserID } = this.props;
+
+        if (users && users[companyUserID] && !prevProps.users[companyUserID]) {
+            this.setState({
+                shouldRestrictPayments:
+                    users[companyUserID].shouldRestrictPayments
+            });
+        }
+    };
 }
 
 const mapStateToProps = ({
@@ -66,12 +92,13 @@ const mapStateToProps = ({
         messagesReducer: { messages },
         creditsReducer: { credits, isFetching, costOfCredits },
         transferRequestsReducer: { incomingTransferRequests },
-        pendingInvitesReducer: { pendingInvites }
+        pendingInvitesReducer: { pendingInvites },
+        companyUsersReducer: { users }
     },
     shared: {
         profileReducer: { profile },
         decodeJWTReducer: {
-            jwtData: { headquartersCompanyID, companyID }
+            jwtData: { headquartersCompanyID, companyID, companyUserID }
         },
         mobileReducer: { onMobile }
     }
@@ -91,6 +118,7 @@ const mapStateToProps = ({
 
     return {
         profile: profile,
+        shouldUsePayments: profile.firstName,
         companySettings,
         unreadMessageCount,
         totalCredits,
@@ -98,7 +126,9 @@ const mapStateToProps = ({
         isImpersonating,
         isFetching,
         costOfCredits,
-        onMobile
+        onMobile,
+        companyUserID,
+        users
     };
 };
 

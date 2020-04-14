@@ -4,6 +4,7 @@ import Field from 'components/shared/generic/form/presentational/Field';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
+import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
 
 const CreateCompanyAdminForm = ({
     confirmPassword,
@@ -16,7 +17,9 @@ const CreateCompanyAdminForm = ({
     phoneNumber,
     password,
     validatePassword,
-    validateConfirmPassword
+    validateConfirmPassword,
+    shouldRestrictPayments,
+    shouldRestrictPaymentsAccess,
 }) => (
     <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
         <div className="size-lg-12">
@@ -90,6 +93,17 @@ const CreateCompanyAdminForm = ({
                     />
                 </Field>
             </div>
+            {shouldRestrictPaymentsAccess && (
+                <div className="size-lg-6">
+                    <Field name="Restrict Payments?">
+                        <CheckboxContainer
+                            name="shouldRestrictPayments"
+                            checked={shouldRestrictPayments}
+                            handleChange={handleInputChange}
+                        />
+                    </Field>
+                </div>
+            )}
         </div>
 
         <BlockButtonWrapper>

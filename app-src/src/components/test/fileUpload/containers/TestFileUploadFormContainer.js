@@ -7,6 +7,7 @@ class TestFileUploadFormContainer extends Component {
         // file:
         // 'https://dizelaxol0ewg.cloudfront.net/5aeb8e07-7765-4425-948f-5481f81027bc/larry.jpg'
         // file: 'tmp/00fd67d1-8c89-4726-8f18-2df81cb8b132/larry.jpg'
+        file: ''
     };
 
     render() {

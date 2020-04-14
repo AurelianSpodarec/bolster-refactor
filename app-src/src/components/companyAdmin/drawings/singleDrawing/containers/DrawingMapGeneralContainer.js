@@ -46,7 +46,8 @@ class DrawingMapGeneralContainer extends Component {
         centerLng: 128,
         firstCorner: null,
         mode: ADD,
-        currentTooltip: null
+        currentTooltip: null,
+        shouldRestrictPayments: false
     };
 
     render() {
@@ -58,7 +59,8 @@ class DrawingMapGeneralContainer extends Component {
             centerLat,
             centerLng,
             firstCorner,
-            mode
+            mode,
+            shouldRestrictPayments
         } = this.state;
         const {
             error,
@@ -119,6 +121,7 @@ class DrawingMapGeneralContainer extends Component {
                         mode={mode}
                         handleCancelPinSelector={this.handleCancelPinSelector}
                         isExcluding={isExcluding}
+                        shouldRestrictPayments={shouldRestrictPayments}
                     />
                 </BlockContainer>
                 <FurtherFiltrationContainer />
@@ -137,9 +140,16 @@ class DrawingMapGeneralContainer extends Component {
             match,
             fetchSingleDrawing,
             pinsFromAPI = [],
-            handleChange
+            handleChange,
+            objectUsers,
+            companyUserID
         } = this.props;
-
+        if (objectUsers && objectUsers[companyUserID]) {
+            this.setState({
+                shouldRestrictPayments:
+                    objectUsers[companyUserID].shouldRestrictPayments
+            });
+        }
         const pinIDs = pinsFromAPI.map(({ id }) => id);
         handleChange('pinIDs', pinIDs);
         if (drawing.siteID) {
@@ -167,7 +177,8 @@ class DrawingMapGeneralContainer extends Component {
         toDateInclusive,
         fieldErrors,
         rectangles: prevRectangles,
-        furtherFiltrationOption: prevOption
+        furtherFiltrationOption: prevOption,
+        objectUsers: prevUsers
     }) => {
         const {
             drawing = {},
@@ -179,7 +190,10 @@ class DrawingMapGeneralContainer extends Component {
             rectangles,
             postFilters,
             furtherFiltrationOption,
-            removeAllRectangles
+            removeAllRectangles,
+            users,
+            objectUsers,
+            companyUserID
         } = this.props;
         // re-fetch drawing every 5 seconds until the updated floorplan is retrieved
         if (postSuccess && !prevSuccess) fetchSingleDrawing(drawing.id);
@@ -218,6 +232,17 @@ class DrawingMapGeneralContainer extends Component {
             handleChange('siteID', String(drawing.siteID));
             handleChange('buildingID', String(drawing.buildingID));
             handleChange('floorID', String(drawing.floorID));
+        }
+
+        if (
+            objectUsers &&
+            objectUsers[companyUserID] &&
+            !prevUsers[companyUserID]
+        ) {
+            this.setState({
+                shouldRestrictPayments:
+                    objectUsers[companyUserID].shouldRestrictPayments
+            });
         }
     };
 
@@ -350,6 +375,11 @@ const mapStateToProps = (
                 rectangles,
                 isFetching: isFetchingReports
             }
+        },
+        shared: {
+            decodeJWTReducer: {
+                jwtData: { companyUserID }
+            }
         }
     },
     { match }
@@ -361,6 +391,7 @@ const mapStateToProps = (
     pinIDs,
     templateID,
     users: Object.values(users),
+    objectUsers: users,
     services: Object.values(services),
     isFetching,
     isFetchingReports,
@@ -368,7 +399,8 @@ const mapStateToProps = (
     postSuccess,
     furtherFiltrationOption,
     rectangles: Object.values(rectangles),
-    companyUserIDs
+    companyUserIDs,
+    companyUserID
 });
 
 const mapDispatchToProps = {
@@ -386,9 +418,6 @@ const mapDispatchToProps = {
 
 export default withRouter(
     withUpdateOnChange(
-        connect(
-            mapStateToProps,
-            mapDispatchToProps
-        )(DrawingMapGeneralContainer)
+        connect(mapStateToProps, mapDispatchToProps)(DrawingMapGeneralContainer)
     )
 );

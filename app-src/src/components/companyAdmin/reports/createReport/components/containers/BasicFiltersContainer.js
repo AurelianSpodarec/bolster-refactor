@@ -4,22 +4,20 @@ import { connect } from 'react-redux';
 import moment from 'moment-timezone';
 
 import { PIN_STATUS_TYPES, NUMBER_OF_HISTORIES } from 'constants/companyAdmin/enums';
-import { convertEnumToDropdownOptions, isObjEmpty } from 'helpers/generic';
+import { convertEnumToDropdownOptions, isObjEmpty, convertArrToObj } from 'helpers/generic';
 
 import withUpdateOnChange from '../hocs/withUpdateOnChange';
 import BasicFilters from '../presentational/BasicFilters';
-import resetFilterOptions from 'actions/companyAdmin/reports/sync/resetFilterOptions';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { CONFIRM_SUBMIT } from 'constants/shared/modalTypes';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import fetchAllTemplates from 'actions/companyAdmin/templates/async/fetchAllTemplates';
 
 class BasicFiltersContainer extends Component {
     state = {
         startBlurred: false,
         endBlurred: false,
-        showDateErrors: false
+        showDateErrors: false,
     };
 
     render() {
@@ -35,15 +33,15 @@ class BasicFiltersContainer extends Component {
                 status,
                 fromDateInclusive,
                 toDateInclusive,
-                reportHistories
+                reportHistories,
             },
-            templates
+            templates,
         } = this.props;
 
         const serviceOptions = formatArrForDropdown(services, true);
         const statusOptions = convertEnumToDropdownOptions(PIN_STATUS_TYPES);
         const historyNumsOptions = convertEnumToDropdownOptions(NUMBER_OF_HISTORIES);
-        const templateOptions = formatArrForDropdown(templates, true);
+        const templateOptions = this.formatTemplateArrForDropdown(templates);
 
         return (
             <div className={`flex-item size-lg-${isDrawingPage ? 12 : 6} size-md-12`}>
@@ -75,7 +73,7 @@ class BasicFiltersContainer extends Component {
         const {
             handleChange,
             location: { state: locationState },
-            postFilters
+            postFilters,
         } = this.props;
 
         if (locationState && locationState.selectedService) {
@@ -123,7 +121,7 @@ class BasicFiltersContainer extends Component {
         const {
             filters: { fromDateInclusive, toDateInclusive },
             addFieldError,
-            removeFieldError
+            removeFieldError,
         } = this.props;
 
         if (fromDateInclusive && toDateInclusive && fromDateInclusive > toDateInclusive) {
@@ -147,6 +145,16 @@ class BasicFiltersContainer extends Component {
             handleChange(name, value).then(postFilters);
         }
     };
+
+    formatTemplateArrForDropdown = arr => {
+        const options = arr.map(({ id, name, companyName }) => ({
+            value: id,
+            label: `${name} (${companyName})`,
+            text: `${name} (${companyName})`,
+        }));
+
+        return convertArrToObj(options, 'value');
+    };
 }
 
 const mapStateToProps = ({
@@ -154,30 +162,19 @@ const mapStateToProps = ({
         reportsReducer: {
             fields,
             customFilters: { pins = [], templates = [] },
-            filters: { pinIDs = [] }
+            filters: { pinIDs = [] },
         },
-        companySettingsReducer: {
-            companySettings: { timeZone }
-        }
-    }
+    },
 }) => ({
     shouldConfirm: !isObjEmpty(fields) || pins.length !== pinIDs.length,
-    templates: templates,
-    timeZone
+    templates,
 });
 
 const mapDispatchToProps = {
-    resetFilterOptions,
     hideModal,
     showModal,
-    fetchAllTemplates
 };
 
 export default withRouter(
-    withUpdateOnChange(
-        connect(
-            mapStateToProps,
-            mapDispatchToProps
-        )(BasicFiltersContainer)
-    )
+    withUpdateOnChange(connect(mapStateToProps, mapDispatchToProps)(BasicFiltersContainer))
 );

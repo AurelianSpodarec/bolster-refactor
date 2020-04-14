@@ -38,7 +38,6 @@ class AttachDocumentFormContainer extends Component {
                 handleRadioChange={this.handleRadioChange}
                 handleCheckboxChange={this.handleCheckboxChange}
                 handleMultiselectChange={this.handleMultiselectChange}
-                handleFileChange={this.handleFileChange}
                 handleDateChange={this.handleDateChange}
                 validateDatePicker={this.validateDatePicker}
                 backUrl={backUrl}
@@ -72,21 +71,11 @@ class AttachDocumentFormContainer extends Component {
 
     handleInputChange = (name, value) => this.setState({ [name]: value });
 
-    handleFileChange = (name, s3Key) => {
-        const { [name]: file } = this.state;
-        this.setState({ [name]: file === s3Key ? '' : s3Key });
-    };
-
     handleDateChange = (date, name) => this.setState({ [name]: date });
 
     handleSubmit = e => {
         e.preventDefault();
-        const {
-            createDocument,
-            hierarchyType,
-            hierarchyID,
-            filesUploading
-        } = this.props;
+        const { createDocument, hierarchyType, hierarchyID, filesUploading } = this.props;
         if (!filesUploading) {
             const {
                 serviceIDs,
@@ -105,11 +94,7 @@ class AttachDocumentFormContainer extends Component {
 
 const mapStateToProps = (
     {
-        companyAdmin: {
-            servicesReducer,
-            subscriptionsReducer,
-            documentsReducer
-        },
+        companyAdmin: { servicesReducer, subscriptionsReducer, documentsReducer },
         shared: {
             filesUploadingReducer: { filesUploading }
         }

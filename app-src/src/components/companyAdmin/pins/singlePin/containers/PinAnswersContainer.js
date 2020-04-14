@@ -6,22 +6,24 @@ import PinAnswer from '../presentational/PinAnswer';
 const PinAnswersContainer = ({
     questionType,
     questions,
+    questionsObj,
     pinAnswers,
     pinHistory,
     status,
     relevantAnswer,
     question
 }) => (
-    <PinAnswer
-        question={question}
-        answers={pinAnswers}
-        trimmedAnswer={relevantAnswer}
-        questions={questions}
-        type={questionType}
-        pinHistory={pinHistory}
-        status={status}
-    />
-);
+        <PinAnswer
+            question={question}
+            answers={pinAnswers}
+            trimmedAnswer={relevantAnswer}
+            questions={questions}
+            questionsObj={questionsObj}
+            type={questionType}
+            pinHistory={pinHistory}
+            status={status}
+        />
+    );
 
 const mapStateToProps = (
     {
@@ -37,6 +39,7 @@ const mapStateToProps = (
         status: pinHistory.status,
         pinAnswers,
         questions: Object.values(questions),
+        questionsObj: questions,
         relevantAnswer:
             pinAnswers.find(
                 answer =>

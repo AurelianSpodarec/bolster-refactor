@@ -3,7 +3,6 @@ import Table from 'components/shared/generic/tables/presentational/Table';
 
 import UserDrawingListItemContainer from '../containers/UserDrawingListItemContainer';
 import { REMOVE_DRAWINGS_ACCESS } from 'constants/shared/modalTypes';
-import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 
 const UserDrawingsTable = ({
     headers,
