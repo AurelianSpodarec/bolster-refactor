@@ -9,6 +9,7 @@ export const HIERARCHY_TYPES = {
     '2': 'building',
     '3': 'floor',
     '4': 'drawing',
+    '100': 'all sites'
 };
 
 export const HIERARCHY_IDS = {
@@ -16,6 +17,7 @@ export const HIERARCHY_IDS = {
     BUILDING: '2',
     FLOOR: '3',
     DRAWING: '4',
+    ALL_SITES: '100'
 };
 
 export const TEMPLATE_USAGE_RULES = {

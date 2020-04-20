@@ -8,7 +8,7 @@ import addFieldError from 'actions/shared/generic/fieldErrors/sync/addFieldError
 import removeFieldError from 'actions/shared/generic/fieldErrors/sync/removeFieldError';
 import { convertArrToObj, momentComparisonFormat } from 'helpers/generic';
 import showFieldErrors from 'actions/shared/generic/fieldErrors/sync/showFieldErrors';
-import { FURTHER_FILTRATION_OPTIONS } from 'constants/companyAdmin/enums';
+import { FURTHER_FILTRATION_OPTIONS, HIERARCHY_IDS } from 'constants/companyAdmin/enums';
 import getOperativeOptions from 'actions/companyAdmin/reports/async/getOperativeOptions';
 import getTemplateReportOptions from 'actions/companyAdmin/reports/async/getTemplateReportOptions';
 
@@ -187,6 +187,10 @@ export default function (ProtectedComponent) {
             if (siteID) {
                 hierarchyType = 'site';
                 hierarchyID = siteID;
+            } else {
+                if (!companyUserIDs.length) {
+                    hierarchyType = HIERARCHY_IDS.ALL_SITES;
+                }
             }
             if (buildingID) {
                 hierarchyType = 'building';
