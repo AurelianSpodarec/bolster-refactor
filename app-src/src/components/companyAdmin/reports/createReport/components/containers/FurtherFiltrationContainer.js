@@ -32,12 +32,11 @@ class FurtherFiltrationContainer extends Component {
             fields,
             filters: { drawingID, reportHistories },
             furtherFiltrationOption,
-            isDisabled,
         } = this.props;
         const filtrationOptions = convertEnumToDropdownOptions(FURTHER_FILTRATION);
 
         const filtrationOptionsArr = Object.values(filtrationOptions).filter(
-            ({ value }) => drawingID || (!isDisabled && +value === FILTERS)
+            ({ value }) => drawingID || +value === FILTERS,
         );
         const selected = filtrationOptions[furtherFiltrationOption];
 
@@ -53,7 +52,6 @@ class FurtherFiltrationContainer extends Component {
                     handleChange={this.handleChange}
                     handleNumOfHistoriesChange={this.handleNumOfHistoriesChange}
                     selectedHistoryNum={reportHistories}
-                    isDisabled={isDisabled}
                 />
                 {+furtherFiltrationOption === +INDIVIDUAL_PINS ? (
                     <PinSelectorContainer blockName="pinSelector" />
@@ -106,7 +104,6 @@ class FurtherFiltrationContainer extends Component {
             isFetching,
             showModal,
             hideModal,
-            isDisabled,
             postFilters,
         } = this.props;
         // reset filter fields if changing the filter
@@ -115,9 +112,6 @@ class FurtherFiltrationContainer extends Component {
             if (+prevProps.furtherFiltrationOption === FURTHER_FILTRATION_OPTIONS.PIN_SELECTOR) {
                 postFilters();
             }
-        }
-        if (isDisabled && !prevProps.isDisabled) {
-            updateFurtherFiltrationOption(0);
         }
         // reset further filters if site info changes
         if (
@@ -179,7 +173,7 @@ class FurtherFiltrationContainer extends Component {
                 ...acc,
                 [curr.id]: { value: curr.id, text: curr.name },
             }),
-            {}
+            {},
         );
         return options;
     };
@@ -224,7 +218,6 @@ const mapStateToProps = ({
     shouldConfirm: !isObjEmpty(fields) || pins.length !== ids.length,
     furtherFiltrationOption,
     isFetching,
-    isDisabled: !companyUserIDs.length && !siteID,
 });
 
 const mapDispatchToProps = {
@@ -238,5 +231,5 @@ const mapDispatchToProps = {
 };
 
 export default withUpdateOnChange(
-    connect(mapStateToProps, mapDispatchToProps)(FurtherFiltrationContainer)
+    connect(mapStateToProps, mapDispatchToProps)(FurtherFiltrationContainer),
 );
