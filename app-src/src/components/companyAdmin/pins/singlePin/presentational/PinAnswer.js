@@ -1,12 +1,12 @@
-import React from "react";
-import { QUESTION_TYPE_NUMBERS as TYPES } from "constants/shared/templateBuilder";
-import { FILE_STORAGE_URL } from "config";
+import React from 'react';
+import { QUESTION_TYPE_NUMBERS as TYPES } from 'constants/shared/templateBuilder';
+import { FILE_STORAGE_URL } from 'config';
 // import { PIN_STATUS_TYPES } from 'constants/companyAdmin/enums';
-import { showModal } from "actions/shared/generic/modals/sync/showModal";
-import { PIN_IMAGE } from "constants/shared/modalTypes";
-import { connect } from "react-redux";
-import FieldOutput from "components/shared/generic/fieldOutput/presentational/FieldOutput";
-import { isEmpty } from "helpers/generic";
+import { showModal } from 'actions/shared/generic/modals/sync/showModal';
+import { PIN_IMAGE } from 'constants/shared/modalTypes';
+import { connect } from 'react-redux';
+import FieldOutput from 'components/shared/generic/fieldOutput/presentational/FieldOutput';
+import { isEmpty } from 'helpers/generic';
 
 const PinAnswer = ({
     trimmedAnswer,
@@ -17,7 +17,7 @@ const PinAnswer = ({
     // status,
     dispatch,
     question,
-    pinHistory
+    pinHistory,
 }) => {
     const curAnswer = answers.find(item => +item.id === +trimmedAnswer.id);
     const notFoundResponse = null;
@@ -29,29 +29,20 @@ const PinAnswer = ({
         if (curQuestion && curQuestion.prerequisiteQuestionID) {
             const prereqAnswer = answers.filter(
                 answer =>
-                    answer.templateQuestionID ===
-                        curQuestion.prerequisiteQuestionID &&
-                    answer.pinHistoryID === pinHistory.id
+                    answer.templateQuestionID === curQuestion.prerequisiteQuestionID &&
+                    answer.pinHistoryID === pinHistory.id,
             );
 
             if (!isEmpty(prereqAnswer)) {
-                const prereqQuestion =
-                    questionsObj[prereqAnswer[0].templateQuestionID];
+                const prereqQuestion = questionsObj[prereqAnswer[0].templateQuestionID];
 
                 if (prereqQuestion.type === TYPES.MULTI_DROPDOWN) {
-                    if (
-                        !prereqAnswer[0].answer.includes(
-                            curQuestion.prerequisiteQuestionValue
-                        )
-                    )
+                    if (!prereqAnswer[0].answer.includes(curQuestion.prerequisiteQuestionValue))
                         return notFoundResponse;
                 } else if (prereqQuestion.type === TYPES.CHECKBOX) {
                     // do nothing
                 } else {
-                    if (
-                        curQuestion.prerequisiteQuestionValue !==
-                        prereqAnswer[0].answer
-                    )
+                    if (curQuestion.prerequisiteQuestionValue !== prereqAnswer[0].answer)
                         return notFoundResponse;
                 }
             }
@@ -69,7 +60,7 @@ const PinAnswer = ({
             inner = <p>{curAnswer.answer}</p>;
             break;
         case TYPES.MULTI_DROPDOWN_OPTIONS:
-            inner = <p>{curAnswer.answer.join(", ")}</p>;
+            inner = <p>{curAnswer.answer.join(', ')}</p>;
             break;
         case TYPES.MULTI_MULTI_DROPDOWN:
         case TYPES.MULTI_MULTI_DROPDOWN_OPTIONS:
@@ -78,51 +69,41 @@ const PinAnswer = ({
         case TYPES.DROPDOWN:
         case TYPES.RADIO:
             var relevantQuestion = questions.find(
-                ({ id }) => +id === +curAnswer.templateQuestionID
+                ({ id }) => +id === +curAnswer.templateQuestionID,
             );
             if (!relevantQuestion) return notFoundResponse;
 
-            var relevantOption = relevantQuestion.options.find(
-                ({ id }) => id === curAnswer.answer
-            );
+            var relevantOption = relevantQuestion.options.find(({ id }) => id === curAnswer.answer);
             if (!relevantOption) return notFoundResponse;
 
             inner = <p>{relevantOption.text}</p>;
             break;
         case TYPES.MULTI_DROPDOWN:
-            var { options } = questions.find(
-                item => +item.id === curAnswer.templateQuestionID
-            );
-            var relevantOptions = options.filter(({ id }) =>
-                curAnswer.answer.includes(id)
-            );
-            inner = <p>{relevantOptions.map(({ text }) => text).join(", ")}</p>;
+            var { options } = questions.find(item => +item.id === curAnswer.templateQuestionID);
+            var relevantOptions = options.filter(({ id }) => curAnswer.answer.includes(id));
+            inner = <p>{relevantOptions.map(({ text }) => text).join(', ')}</p>;
             break;
         case TYPES.CHECKBOX:
-            inner = <p>{curAnswer.answer ? "Yes" : "No"}</p>;
+            inner = <p>{curAnswer.answer ? 'Yes' : 'No'}</p>;
             break;
         case TYPES.SIGNATURE:
             var answerString = curAnswer.answer;
 
-            if (!answerString.startsWith("data:")) {
+            if (!answerString.startsWith('data:')) {
                 answerString = `data: image/jpeg;base64,${answerString}`;
             }
 
-            inner = (
-                <img className="signature" alt="signature" src={answerString} />
-            );
+            inner = <img className="signature" alt="signature" src={answerString} />;
 
             break;
         case TYPES.SINGLE_PHOTO:
             var URL = `${FILE_STORAGE_URL}/${curAnswer.answer}`;
             inner = (
                 <img
-                    style={{ cursor: "zoom-in" }}
+                    style={{ cursor: 'zoom-in' }}
                     alt=""
-                    src={URL + "?width=100"}
-                    onClick={() =>
-                        dispatch(showModal(PIN_IMAGE, { image: URL }))
-                    }
+                    src={URL + '?width=100'}
+                    onClick={() => dispatch(showModal(PIN_IMAGE, { image: URL + '?width=1500' }))}
                 />
             );
             break;
@@ -131,12 +112,12 @@ const PinAnswer = ({
                 var URL = `${FILE_STORAGE_URL}/${item}`;
                 return (
                     <img
-                        style={{ cursor: "zoom-in" }}
+                        style={{ cursor: 'zoom-in' }}
                         alt={`${i + 1} of ${curAnswer.answer.length}`}
                         key={item}
-                        src={URL + "?width=100"}
+                        src={URL + '?width=100'}
                         onClick={() =>
-                            dispatch(showModal(PIN_IMAGE, { image: URL }))
+                            dispatch(showModal(PIN_IMAGE, { image: URL + '?width=1500' }))
                         }
                     />
                 );
@@ -164,5 +145,5 @@ function formatMultiMulti(answer) {
         return count > 1 ? `${item} (${count})` : item;
     });
 
-    return [...new Set(formatted)].join(", ");
+    return [...new Set(formatted)].join(', ');
 }

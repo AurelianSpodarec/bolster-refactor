@@ -14,7 +14,7 @@ const PinAnswer = ({
     answers,
     // status,
     dispatch,
-    question
+    question,
 }) => {
     const curAnswer = answers.find(item => +item.id === +trimmedAnswer.id);
     const notFoundResponse = null;
@@ -37,24 +37,18 @@ const PinAnswer = ({
         case TYPES.DROPDOWN:
         case TYPES.RADIO:
             var relevantQuestion = questions.find(
-                ({ id }) => +id === +curAnswer.templateQuestionID
+                ({ id }) => +id === +curAnswer.templateQuestionID,
             );
             if (!relevantQuestion) return notFoundResponse;
 
-            var relevantOption = relevantQuestion.options.find(
-                ({ id }) => id === curAnswer.answer
-            );
+            var relevantOption = relevantQuestion.options.find(({ id }) => id === curAnswer.answer);
             if (!relevantOption) return notFoundResponse;
 
             inner = <p>{relevantOption.text}</p>;
             break;
         case TYPES.MULTI_DROPDOWN:
-            var { options } = questions.find(
-                item => +item.id === curAnswer.templateQuestionID
-            );
-            var relevantOptions = options.filter(({ id }) =>
-                curAnswer.answer.includes(id)
-            );
+            var { options } = questions.find(item => +item.id === curAnswer.templateQuestionID);
+            var relevantOptions = options.filter(({ id }) => curAnswer.answer.includes(id));
             inner = <p>{relevantOptions.map(({ text }) => text).join(', ')}</p>;
             break;
         case TYPES.CHECKBOX:
@@ -67,9 +61,7 @@ const PinAnswer = ({
                 answerString = `data: image/jpeg;base64${answerString}`;
             }
 
-            inner = (
-                <img className="signature" alt="signature" src={answerString} />
-            );
+            inner = <img className="signature" alt="signature" src={answerString} />;
 
             break;
         case TYPES.SINGLE_PHOTO:
@@ -79,9 +71,7 @@ const PinAnswer = ({
                     style={{ cursor: 'zoom-in' }}
                     alt=""
                     src={URL + '?width=100'}
-                    onClick={() =>
-                        dispatch(showModal(PIN_IMAGE, { image: URL }))
-                    }
+                    onClick={() => dispatch(showModal(PIN_IMAGE, { image: URL + '?width=1500' }))}
                 />
             );
             break;
@@ -95,7 +85,7 @@ const PinAnswer = ({
                         key={item}
                         src={URL + '?width=100'}
                         onClick={() =>
-                            dispatch(showModal(PIN_IMAGE, { image: URL }))
+                            dispatch(showModal(PIN_IMAGE, { image: URL + '?width=1500' }))
                         }
                     />
                 );
@@ -105,11 +95,7 @@ const PinAnswer = ({
             return notFoundResponse;
     }
     return (
-        <FieldOutput
-            title={question.name}
-            key={question.id}
-            sizeClass="size-lg-4 flex-row-item"
-        >
+        <FieldOutput title={question.name} key={question.id} sizeClass="size-lg-4 flex-row-item">
             {inner}
         </FieldOutput>
     );
