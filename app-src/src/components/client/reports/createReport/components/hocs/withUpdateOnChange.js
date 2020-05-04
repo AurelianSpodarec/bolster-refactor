@@ -14,7 +14,7 @@ import {
 import showFieldErrors from 'actions/shared/generic/fieldErrors/sync/showFieldErrors';
 import { FURTHER_FILTRATION_OPTIONS } from 'constants/companyAdmin/enums';
 
-export default function(ProtectedComponent) {
+export default function (ProtectedComponent) {
     class WithUpdateOnChange extends React.Component {
         state = {
             showError: false,
@@ -240,11 +240,7 @@ export default function(ProtectedComponent) {
                 rectangles,
             ).map(({ corners: [first, second] }) => [getLatLng(first), getLatLng(second)]);
 
-            const endDate = toDateInclusive
-                ? moment(toDateInclusive)
-                      .endOf('day')
-                      .toDate()
-                : null;
+            const endDate = toDateInclusive ? moment(toDateInclusive).endOf('day').toDate() : null;
 
             const body = {
                 hierarchyType,
@@ -282,24 +278,19 @@ export default function(ProtectedComponent) {
         };
 
         getFilterStartDate = date => {
-            const { timeZone } = this.props;
-            return date
-                ? moment
-                      .tz(date, timeZone.name)
-                      .startOf('day')
-                      .utc()
-                      .toISOString()
-                : null;
+            const companyID = getSelectedCompanyForClient();
+            const { companies } = this.props;
+            const company = companies[companyID] || {};
+            const { timeZone = 'Europe/London' } = company;
+            return date ? moment.tz(date, timeZone).startOf('day').utc().toISOString() : null;
         };
         getFilterEndDate = date => {
-            const { timeZone } = this.props;
+            const companyID = getSelectedCompanyForClient();
+            const { companies } = this.props;
+            const company = companies[companyID] || {};
+            const { timeZone = 'Europe/London' } = company;
             const endDate = date
-                ? moment
-                      .tz(date, timeZone.name)
-                      .add('days', 1)
-                      .startOf('day')
-                      .utc()
-                      .toISOString()
+                ? moment.tz(date, timeZone.name).add('days', 1).startOf('day').utc().toISOString()
                 : null;
             return endDate;
         };
@@ -327,6 +318,7 @@ export default function(ProtectedComponent) {
                     furtherFiltrationOption,
                     rectangles,
                 },
+                companiesReducer: { companies },
             },
         },
         { blockName },
@@ -361,6 +353,7 @@ export default function(ProtectedComponent) {
             excludedPinIDs: excludedPinIDs,
             furtherFiltrationOption,
             rectangles,
+            companies,
         };
     };
 
