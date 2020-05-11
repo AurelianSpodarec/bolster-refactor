@@ -12,6 +12,10 @@ import {
     SELECT_PIN_SCALE
 } from 'constants/shared/modalTypes';
 
+import {
+    FURTHER_FILTRATION_OPTIONS
+} from 'constants/companyAdmin/enums';
+
 import clientResetFilterOptions from 'actions/client/reports/create/sync/clientResetFilterOptions.js';
 
 import showFieldErrors from 'actions/shared/generic/fieldErrors/sync/showFieldErrors';
@@ -149,12 +153,19 @@ class OutputSettingsContainer extends Component {
                 includeFloorplan,
                 isPDFGeneration
             },
-            showModal
+            showModal,
+            furtherFiltrationOption
         } = this.props;
 
         const selectedCompanyID = getSelectedCompanyForClient();
 
         if (!isEmpty(fieldErrors)) showFieldErrors();
+        else if (furtherFiltrationOption && furtherFiltrationOption !== FURTHER_FILTRATION_OPTIONS.INDIVIDUAL_PINS.toString()) {
+            showModal(ERROR_MODAL, {
+                title: 'Not available',
+                message: 'The filter method you have chosen is only available through accounts with a full subscription. Please choose another filter method'
+            });
+        }
         else if (
             isFloorplanGeneration ||
             (isPDFGeneration && includeFloorplan)
@@ -208,7 +219,7 @@ const mapStateToProps = ({
         buildingsReducer: { buildings },
         floorsReducer: { floors },
         drawingsReducer: { drawings },
-        reportsReducer: { filters, fields, options, postSuccess, error, pinIDs }
+        reportsReducer: { filters, fields, options, postSuccess, error, pinIDs, furtherFiltrationOption }
     },
     shared: {
         fieldErrorsReducer: { fieldErrors }
@@ -224,7 +235,8 @@ const mapStateToProps = ({
     buildings,
     floors,
     drawings,
-    error
+    error,
+    furtherFiltrationOption
 });
 
 const mapDispatchToProps = {
