@@ -29,15 +29,15 @@ const PieChart = ({
 
     const pieStats = !isStatsEmpty
         ? Object.entries(stats.statuses).map(([title, value]) => {
-              return {
-                  title,
-                  value,
-                  color: statsPieChartColours[title],
-                  style: {
-                      backgroundColor: '#000'
-                  }
-              };
-          })
+            return {
+                title,
+                value,
+                color: statsPieChartColours[title],
+                style: {
+                    backgroundColor: '#000'
+                }
+            };
+        })
         : [{ title: 'Empty', value: 100, color: '#cecece' }];
 
     return (
@@ -54,73 +54,73 @@ const PieChart = ({
                     There are currently no pins on this {hierarchyType}.
                 </p>
             ) : (
-                <div className="size-lg-12">
-                    {onMobile && (
-                        <div className="size-lg-12">
-                            <div className="size-md-2" />
+                    <div className="size-lg-12">
+                        {onMobile && (
+                            <div className="size-lg-12">
+                                <div className="size-md-2" />
 
+                                <ReactPieChart
+                                    className="size-md-8"
+                                    data={pieStats}
+                                    segmentsStyle={{
+                                        transition: 'stroke .3s'
+                                    }}
+                                    animate
+                                />
+                                <div className="size-md-2" />
+                            </div>
+                        )}
+                        <div className={`pin-key ${isIE ? 'size-lg-12 ' : 'size-lg-6 '}size-md-12`}>
+                            <div className="pin">
+                                <img src={redPin} alt="pin" />
+                                <p>
+                                    Action Required:{' '}
+                                    <span>{`${stats.statuses['ActionRequired']}`}</span>
+                                </p>
+                            </div>
+                            <div className="pin">
+                                <img src={greenPin} alt="pin" />
+                                <p>
+                                    Installed: <span>{`${stats.statuses['Installed']}`}</span>
+                                </p>
+                            </div>
+                            <div className="pin">
+                                <img src={bluePin} alt="pin" />
+                                <p>
+                                    Inspected: <span>{`${stats.statuses['Inspected']}`}</span>
+                                </p>
+                            </div>
+                            <div className="pin">
+                                <img src={yellowPin} alt="pin" />
+                                <p>
+                                    No Action: <span>{`${stats.statuses['NoAction']}`}</span>
+                                </p>
+                            </div>
+                            <div className="pin">
+                                <img src={purplePin} alt="pin" />
+                                <p>
+                                    Other: <span>{`${stats.statuses['Other']}`}</span>
+                                </p>
+                            </div>
+                            <div className="pin">
+                                <p className="no-pin">
+                                    Total: <span>{`${total}`}</span>
+                                </p>
+                            </div>
+                        </div>
+
+                        {!onMobile && !isIE && (
                             <ReactPieChart
-                                className="size-md-8"
+                                className="size-lg-5"
                                 data={pieStats}
                                 segmentsStyle={{
                                     transition: 'stroke .3s'
                                 }}
                                 animate
                             />
-                            <div className="size-md-2" />
-                        </div>
-                    )}
-                    <div className={`pin-key ${isIE ? 'size-lg-12 ' : 'size-lg-6 '}size-md-12`}>
-                        <div className="pin">
-                            <img src={redPin} alt="pin" />
-                            <p>
-                                Action Required:{' '}
-                                <span>{`${stats.statuses['ActionRequired']}`}</span>
-                            </p>
-                        </div>
-                        <div className="pin">
-                            <img src={greenPin} alt="pin" />
-                            <p>
-                                Installed: <span>{`${stats.statuses['Installed']}`}</span>
-                            </p>
-                        </div>
-                        <div className="pin">
-                            <img src={bluePin} alt="pin" />
-                            <p>
-                                Inspected: <span>{`${stats.statuses['Inspected']}`}</span>
-                            </p>
-                        </div>
-                        <div className="pin">
-                            <img src={yellowPin} alt="pin" />
-                            <p>
-                                No Action: <span>{`${stats.statuses['NoAction']}`}</span>
-                            </p>
-                        </div>
-                        <div className="pin">
-                            <img src={purplePin} alt="pin" />
-                            <p>
-                                Other: <span>{`${stats.statuses['Other']}`}</span>
-                            </p>
-                        </div>
-                        <div className="pin">
-                            <p className="no-pin">
-                                Total: <span>{`${total}`}</span>
-                            </p>
-                        </div>
+                        )}
                     </div>
-
-                    {!onMobile && !isIE && (
-                        <ReactPieChart
-                            className="size-lg-5"
-                            data={pieStats}
-                            segmentsStyle={{
-                                transition: 'stroke .3s'
-                            }}
-                            animate
-                        />
-                    )}
-                </div>
-            )}
+                )}
         </div>
     );
 };

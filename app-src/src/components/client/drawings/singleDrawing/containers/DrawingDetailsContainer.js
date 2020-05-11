@@ -18,7 +18,6 @@ class DrawingDetailsContainer extends Component {
                 <DrawingStats
                     drawing={drawing}
                     stats={stats}
-                    notAvailable={true}
                 />
             </BlockContainer>
         );
