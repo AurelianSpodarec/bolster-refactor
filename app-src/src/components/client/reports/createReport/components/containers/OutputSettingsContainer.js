@@ -159,13 +159,13 @@ class OutputSettingsContainer extends Component {
 
         const selectedCompanyID = getSelectedCompanyForClient();
 
-        if (!isEmpty(fieldErrors)) showFieldErrors();
-        else if (furtherFiltrationOption && furtherFiltrationOption !== FURTHER_FILTRATION_OPTIONS.INDIVIDUAL_PINS.toString()) {
+        if (furtherFiltrationOption && furtherFiltrationOption !== FURTHER_FILTRATION_OPTIONS.INDIVIDUAL_PINS.toString()) {
             showModal(ERROR_MODAL, {
                 title: 'Not available',
                 message: 'The filter method you have chosen is only available through accounts with a full subscription. Please choose another filter method'
             });
         }
+        else if (!isEmpty(fieldErrors)) showFieldErrors();
         else if (
             isFloorplanGeneration ||
             (isPDFGeneration && includeFloorplan)
