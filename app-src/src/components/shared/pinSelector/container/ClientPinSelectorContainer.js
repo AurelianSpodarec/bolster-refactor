@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 import PinSelector from '../presentational/PinSelector';
 import withUpdateOnChange from 'components/client/reports/createReport/components/hocs/withUpdateOnChange';
@@ -204,7 +205,8 @@ class PinSelectorContainer extends Component {
     };
 
     _setPinOptions = () => {
-        const pinOptions = this.props.customFilters.pins.reduce(
+        const pins = this.props.getFilteredPins(this.props.pins);
+        const pinOptions = pins.reduce(
             (acc, { id: value, pinCode: text, status }) => ({
                 ...acc,
                 [value]: { value, text, status, included: false }
@@ -218,4 +220,12 @@ class PinSelectorContainer extends Component {
     };
 }
 
-export default withUpdateOnChange(PinSelectorContainer);
+const mapStateToProps = ({
+    client: {
+        pinsReducer: { pins }
+    }
+}) => ({
+    pins: Object.values(pins)
+});
+
+export default withUpdateOnChange(connect(mapStateToProps, null)(PinSelectorContainer));
