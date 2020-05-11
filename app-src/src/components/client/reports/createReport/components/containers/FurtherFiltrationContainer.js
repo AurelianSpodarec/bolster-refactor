@@ -31,7 +31,8 @@ import withUpdateOnChange from '../hocs/withUpdateOnChange';
 import MapPinSelectorContainer from 'components/shared/pinSelector/container/MapPinSelectorContainer';
 import updateFurtherFiltrationOption from 'actions/client/reports/create/sync/clientUpdateFurtherFiltrationOption';
 import FilterFieldsModalContainer from './FilterFieldsModalContainer';
-const { PIN_SELECTOR, INDIVIDUAL_PINS, FILTERS } = FURTHER_FILTRATION_OPTIONS;
+import ZoneSelectorContainer from 'components/shared/pinSelector/container/ZoneSelectorContainer';
+const { PIN_SELECTOR, INDIVIDUAL_PINS, FILTERS, ZONES } = FURTHER_FILTRATION_OPTIONS;
 
 class FurtherFiltrationContainer extends Component {
     state = {
@@ -68,7 +69,9 @@ class FurtherFiltrationContainer extends Component {
                     selectedHistoryNum={reportHistories}
                     isDisabled={isDisabled}
                 />
-                {+furtherFiltrationOption === +INDIVIDUAL_PINS ? (
+                {+furtherFiltrationOption === +ZONES ? (
+                    <ZoneSelectorContainer isClient blockName="zoneSelector" />
+                ) : +furtherFiltrationOption === +INDIVIDUAL_PINS ? (
                     <ClientPinSelectorContainer blockName="pinSelector" />
                 ) : +furtherFiltrationOption === +PIN_SELECTOR ? (
                     <MapPinSelectorContainer
@@ -84,35 +87,35 @@ class FurtherFiltrationContainer extends Component {
                             isClient
                         />
                     ) : (
-                        <div className="custom-filters-block">
-                            <div className="size-lg-12">
-                                {fields.map(field => (
-                                    <FilterField
-                                        key={field.id}
-                                        field={field}
-                                        questions={this._getQuestionsOptions()}
-                                        handleShowCustomFieldModal={
-                                            this.handleShowCustomFieldModal
-                                        }
-                                        removeCustomField={
-                                            this.removeCustomField
-                                        }
-                                    />
-                                ))}
-                            </div>
+                            <div className="custom-filters-block">
+                                <div className="size-lg-12">
+                                    {fields.map(field => (
+                                        <FilterField
+                                            key={field.id}
+                                            field={field}
+                                            questions={this._getQuestionsOptions()}
+                                            handleShowCustomFieldModal={
+                                                this.handleShowCustomFieldModal
+                                            }
+                                            removeCustomField={
+                                                this.removeCustomField
+                                            }
+                                        />
+                                    ))}
+                                </div>
 
-                            <BlockButtonWrapper>
-                                <button
-                                    onClick={this.toggleAddFilter}
-                                    type="button"
-                                    className="button green"
-                                >
-                                    <i className="fa fa-plus fa-fw" /> Add
+                                <BlockButtonWrapper>
+                                    <button
+                                        onClick={this.toggleAddFilter}
+                                        type="button"
+                                        className="button green"
+                                    >
+                                        <i className="fa fa-plus fa-fw" /> Add
                                     filter
                                 </button>
-                            </BlockButtonWrapper>
-                        </div>
-                    )
+                                </BlockButtonWrapper>
+                            </div>
+                        )
                 ) : null}
             </BlockContainer>
         );

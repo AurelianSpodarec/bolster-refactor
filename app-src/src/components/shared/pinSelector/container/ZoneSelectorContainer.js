@@ -11,7 +11,7 @@ class ZoneSelectorContainer extends Component {
     };
 
     render() {
-        const { fieldError } = this.props;
+        const { fieldError, isClient } = this.props;
         const { included, excluded } = this._getOptions();
 
         return (
@@ -21,6 +21,7 @@ class ZoneSelectorContainer extends Component {
                 handleExclude={this.handleExclude}
                 handleInclude={this.handleInclude}
                 error={fieldError}
+                isClient={isClient}
             />
         );
     }
