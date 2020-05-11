@@ -20,8 +20,7 @@ const BasicFilters = ({
     fromDateInclusive,
     toDateInclusive
 }) => (
-    <div className="size-lg-12">
-        <BlockContainer>
+        <div className="size-lg-12">
             <div className="size-lg-12">
                 <BlockHeading title="General Filters" />
                 <p className="generic-text small">
@@ -95,8 +94,7 @@ const BasicFilters = ({
                     <p className="error red-text text-accent-4">{fieldError}</p>
                 )}
             </div>
-        </BlockContainer>
-    </div>
-);
+        </div>
+    );
 
 export default BasicFilters;
