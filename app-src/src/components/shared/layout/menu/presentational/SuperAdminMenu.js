@@ -6,6 +6,7 @@ import {
     DROPDOWN_OPTION_VALS,
     DROPDOWN_OPTION_MANUFACTURER_ENABLED,
     DROPDOWN_OPTION_ENUM,
+    DROPDOWN_OPTIONS,
 } from 'constants/companyAdmin/enums';
 
 // import DropdownMenuItemContainer from '../containers/DropdownMenuItemContainer';
@@ -46,7 +47,7 @@ const SuperAdminMenu = ({ logout }) => (
 
             {Object.values(DROPDOWN_OPTION_VALS).map(option => {
                 return DROPDOWN_OPTION_MANUFACTURER_ENABLED[option] ? (
-                    <MenuItemContainer link="/admin/services">
+                    <MenuItemContainer link={`/admin/pin-options/${DROPDOWN_OPTIONS[option].link}`}>
                         <i className="fa fa-wrench icon" />{' '}
                         <span className="menu-text">{DROPDOWN_OPTION_ENUM[option]}</span>
                     </MenuItemContainer>

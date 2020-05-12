@@ -1,6 +1,12 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 
+import {
+    DROPDOWN_OPTION_VALS,
+    DROPDOWN_OPTION_MANUFACTURER_ENABLED,
+    DROPDOWN_OPTIONS,
+} from 'constants/companyAdmin/enums';
+
 import SwitchWith404 from 'components/appRoute/routes/presentational/SwitchWith404';
 import ServicesRoutes from './ServicesRoutes';
 import UsersRoutes from './UsersRoutes.js';
@@ -15,6 +21,7 @@ import SOSManagementRoutes from './SOSManagementRoutes';
 import DashboardContainer from 'components/superAdmin/dashboard/containers/DashboardContainer';
 import OperativeAlertsRoutes from './OperativeAlertsRoutes';
 import MergeToolRoutes from './MergeToolRoutes';
+import PinOptionsManufacturersRoutes from './PinOptionsManufacturersRoutes';
 
 const AdminRoutes = ({ base = '/admin' }) => (
     <SwitchWith404>
@@ -23,29 +30,18 @@ const AdminRoutes = ({ base = '/admin' }) => (
         <Route path={`${base}/companies`} component={CompaniesRoutes} />
         <Route path={`${base}/users`} component={UsersRoutes} />
         <Route path={`${base}/profile`} component={ProfilesRoutes} />
-        <Route
-            path={`${base}/company-reports`}
-            component={CompanyReportsRoutes}
-        />
+        <Route path={`${base}/company-reports`} component={CompanyReportsRoutes} />
         <Route path={`${base}/invoices`} component={InvoicesRoutes} />
 
-        <Route
-            path={`${base}/site-management/user-enquiries`}
-            component={EnquiriesRoutes}
-        />
+        <Route path={`${base}/site-management/user-enquiries`} component={EnquiriesRoutes} />
         <Route path={`${base}/enquiries`} component={EnquiriesRoutes} />
 
         <Route path={`${base}/demo-requests`} component={DemoRequestsRoutes} />
         <Route path={`${base}/move-tool`} component={MoveToolRoutes} />
         <Route path={`${base}/merge-tool`} component={MergeToolRoutes} />
-        <Route
-            path={`${base}/sos-management`}
-            component={SOSManagementRoutes}
-        />
-        <Route
-            path={`${base}/operative-alerts`}
-            component={OperativeAlertsRoutes}
-        />
+        <Route path={`${base}/sos-management`} component={SOSManagementRoutes} />
+        <Route path={`${base}/operative-alerts`} component={OperativeAlertsRoutes} />
+        <Route path={`${base}/pin-options`} component={PinOptionsManufacturersRoutes} />
     </SwitchWith404>
 );
 
