@@ -1,0 +1,40 @@
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+
+import ManufacturerListItem from '../presentational/ManufacturerListItem';
+import { showModal } from 'actions/shared/generic/modals/sync/showModal';
+
+class ManufacturerListItemContainer extends Component {
+    render() {
+        const { manufacturer, colCount, headers, onMobile } = this.props;
+        return (
+            <ManufacturerListItem
+                manufacturer={manufacturer}
+                colCount={colCount}
+                handleEditManufacturerModal={this.handleEditManufacturerModal}
+                headers={headers}
+                onMobile={onMobile}
+            />
+        );
+    }
+    handleEditManufacturerModal = manufacturer => {
+        const { showModal } = this.props;
+        // showModal(EDIT_MANUFACTURER, { manufacturer });
+        // todo edit manufacturer modal and associated redux functions
+    };
+}
+
+const mapDispatchToProps = dispatch => ({
+    showModal: (type, props) => dispatch(showModal(type, props)),
+});
+
+export default connect(
+    ({
+        shared: {
+            mobileReducer: { onMobile },
+        },
+    }) => ({
+        onMobile,
+    }),
+    mapDispatchToProps,
+)(ManufacturerListItemContainer);
