@@ -6,6 +6,7 @@ import {
     SA_FETCH_PIN_OPTION_MANUFACTURERS_SUCCESS,
     SA_FETCH_PIN_OPTION_MANUFACTURERS_FAILURE,
 } from 'constants/actionTypes/superAdminManufacturers';
+import { DROPDOWN_OPTION_LOOKUP } from 'constants/companyAdmin/enums';
 
 export default combineReducers({
     manufacturers: manufacturersReducer,

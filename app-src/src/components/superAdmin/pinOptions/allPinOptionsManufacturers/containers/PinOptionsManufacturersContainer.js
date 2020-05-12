@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { DROPDOWN_OPTION_LOOKUP, DROPDOWN_OPTIONS } from 'constants/companyAdmin/enums';
-// import fetchAllDropdownOptions from 'actions/companyAdmin/dropdownOptions/async/fetchAllDropdownOptions';
+import fetchManufacturersByPinOptionType from 'actions/superAdmin/manufacturers/async/fetchManufacturersByPinOptionType';
 
 import PinOptionsManufacturers from '../presentational/PinOptionsManufacturers';
 
@@ -14,16 +14,15 @@ class PinOptionsManufacturersContainer extends Component {
         return <PinOptionsManufacturers name={name} type={DROPDOWN_OPTION_LOOKUP[type]} />;
     }
 
-    // componentDidMount = () => {
-    //     const {
-    //         fetchAllDropdownOptions,
-    //         match: {
-    //             params: { type },
-    //         },
-    //     } = this.props;
-    //     fetchAllDropdownOptions(DROPDOWN_OPTION_LOOKUP[type]);
-    // };
-    // Todo: fetch manufacturer by pin option type - create actions and reducers for this
+    componentDidMount = () => {
+        const {
+            fetchManufacturersByPinOptionType,
+            match: {
+                params: { type },
+            },
+        } = this.props;
+        fetchManufacturersByPinOptionType(DROPDOWN_OPTION_LOOKUP[type]);
+    };
 }
 
 const mapStateToProps = (
@@ -37,11 +36,10 @@ const mapStateToProps = (
     type,
 });
 
-// const mapDispatchToProps = dispatch => ({
-//     fetchAllDropdownOptions: type => {
-//         dispatch(fetchAllDropdownOptions(type));
-//     },
-// });
+const mapDispatchToProps = dispatch => ({
+    fetchManufacturersByPinOptionType: type => {
+        dispatch(fetchManufacturersByPinOptionType(type));
+    },
+});
 
-// export default connect(mapStateToProps, mapDispatchToProps)(PinOptionsListContainer);
-export default connect(mapStateToProps)(PinOptionsManufacturersContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(PinOptionsManufacturersContainer);

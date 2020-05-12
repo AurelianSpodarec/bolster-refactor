@@ -10,11 +10,13 @@ import { isObjEmpty } from 'helpers/generic';
 class ManufacturerTableContainer extends Component {
     render() {
         const { isFetching, error, manufacturers, title, type } = this.props;
+        const dummyManufacturers = [{ name: 'Brush Electric', id: 1 }];
 
         return (
             <ManufacturerTable
                 headers={['Name', '']}
-                manufacturers={manufacturers}
+                // manufacturers={manufacturers}
+                manufacturers={dummyManufacturers}
                 isFetching={isFetching}
                 error={error}
                 title={title}
@@ -50,19 +52,22 @@ class ManufacturerTableContainer extends Component {
     };
 }
 
-const mapStateToProps = ({
-    superAdmin: {
-        pinOptionManufacturers: { manufacturers, isFetching, error, postSuccess, postError },
+const mapStateToProps = (
+    {
+        superAdmin: {
+            manufacturersReducer: { manufacturers, isFetching, error, postSuccess, postError },
+        },
+        shared: {
+            fieldErrorsReducer: { fieldErrors },
+        },
     },
-    shared: {
-        fieldErrorsReducer: { fieldErrors },
-    },
-}) => ({
+    ownProps,
+) => ({
     postError,
     postSuccess,
     isFetching,
     error,
-    manufacturers: Object.values(manufacturers) || [],
+    manufacturers: manufacturers[ownProps.type] ? Object.values(manufacturers[ownProps.type]) : [],
     fieldErrors,
 });
 

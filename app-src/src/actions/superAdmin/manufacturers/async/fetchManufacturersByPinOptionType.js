@@ -28,6 +28,6 @@ export default pinOptionType => dispatch => {
 
     return axios
         .get(`${ADMIN_API_URL}/manufacturer/${pinOptionType}`, getHeaders())
-        .then(({ data }) => dispatch(fetchManufacturersByPinOptionTypeSuccess(data)))
+        .then(({ data }) => dispatch(fetchManufacturersByPinOptionTypeSuccess(data, pinOptionType)))
         .catch(err => dispatch(fetchManufacturersByPinOptionTypeFailure(err.message)));
 };
