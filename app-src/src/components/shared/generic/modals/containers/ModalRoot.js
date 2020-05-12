@@ -75,7 +75,8 @@ import {
     ADMIN_DELETE_INVOICE,
     DELETE_INVOICE,
     ADD_MULTIPLE_SERVICES_TO_SUBSCRIPTION,
-    GENERATE_QR_CODES
+    GENERATE_QR_CODES,
+    ADMIN_ADD_MANUFACTURER,
 } from 'constants/shared/modalTypes';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
@@ -154,6 +155,7 @@ import ConfirmDeleteInvoiceModalContainer from 'components/companyAdmin/invoices
 import AddCompanyAdminModalContainer from 'components/superAdmin/companies/singleCompany/containers/AddCompanyAdminModalContainer';
 import GenerateQRCodesModalContainer from './GenerateQRCodesModalContainer';
 import RistrictPaymentsModalContainer from './RistrictPaymentsModalContainer';
+import AddManufacturerModal from 'components/superAdmin/pinOptions/addManufacturerToPinOptionType/presentational/AddManufacturerModal';
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModalContainer,
@@ -229,7 +231,8 @@ const MODAL_COMPONENTS = {
     [ADMIN_DELETE_INVOICE]: SuperAdminConfirmDeleteInvoiceModalContainer,
     [DELETE_INVOICE]: ConfirmDeleteInvoiceModalContainer,
     [ADD_MULTIPLE_SERVICES_TO_SUBSCRIPTION]: AddMulitpleServicesToSubscriptionModalContainer,
-    [GENERATE_QR_CODES]: GenerateQRCodesModalContainer
+    [GENERATE_QR_CODES]: GenerateQRCodesModalContainer,
+    [ADMIN_ADD_MANUFACTURER]: AddManufacturerModal,
 };
 
 const ModalRoot = ({ modalType, modalProps, ...otherProps }) => {
