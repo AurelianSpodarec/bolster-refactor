@@ -9,7 +9,7 @@ export const HIERARCHY_TYPES = {
     '2': 'building',
     '3': 'floor',
     '4': 'drawing',
-    '100': 'all sites'
+    '100': 'all sites',
 };
 
 export const HIERARCHY_IDS = {
@@ -17,7 +17,7 @@ export const HIERARCHY_IDS = {
     BUILDING: '2',
     FLOOR: '3',
     DRAWING: '4',
-    ALL_SITES: '100'
+    ALL_SITES: '100',
 };
 
 export const TEMPLATE_USAGE_RULES = {
@@ -304,6 +304,12 @@ export const DROPDOWN_OPTION_VALS = {
     frRatings: 1,
     itemTypes: 2,
     installationTypes: 3,
+};
+
+export const DROPDOWN_OPTION_MANUFACTURER_ENABLED = {
+    1: false,
+    2: false,
+    3: true,
 };
 
 export const FLOORPLAN_STATES = {
