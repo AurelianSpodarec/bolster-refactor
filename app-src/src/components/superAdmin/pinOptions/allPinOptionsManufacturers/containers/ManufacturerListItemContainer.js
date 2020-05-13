@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+import { ADMIN_EDIT_MANUFACTURER } from 'constants/shared/modalTypes';
+
 import ManufacturerListItem from '../presentational/ManufacturerListItem';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 
@@ -19,7 +21,7 @@ class ManufacturerListItemContainer extends Component {
     }
     handleEditManufacturerModal = manufacturer => {
         const { showModal } = this.props;
-        // showModal(EDIT_MANUFACTURER, { manufacturer });
+        showModal(ADMIN_EDIT_MANUFACTURER, { manufacturer });
         // todo edit manufacturer modal and associated redux functions
     };
 }
