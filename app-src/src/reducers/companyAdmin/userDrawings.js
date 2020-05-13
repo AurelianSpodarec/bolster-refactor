@@ -22,6 +22,8 @@ export default combineReducers({
 
 function userDrawingsReducer(state = {}, action) {
     switch (action.type) {
+        case FETCH_USER_DRAWINGS_REQUEST:
+            return {};
         case FETCH_USER_DRAWINGS_SUCCESS:
             return convertArrToObj(action.payload);
         case REMOVE_USER_DRAWINGS_ACCESS_FAILURE:
