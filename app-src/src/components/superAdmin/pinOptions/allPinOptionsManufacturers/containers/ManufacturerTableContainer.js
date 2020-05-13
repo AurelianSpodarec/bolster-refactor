@@ -6,17 +6,16 @@ import { SUCCESS_MODAL, ERROR_MODAL, ADMIN_ADD_MANUFACTURER } from 'constants/sh
 import ManufacturerTable from '../presentational/ManufacturerTable';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { isObjEmpty } from 'helpers/generic';
+import { DROPDOWN_OPTIONS } from 'constants/companyAdmin/enums';
 
 class ManufacturerTableContainer extends Component {
     render() {
         const { isFetching, error, manufacturers, title, type } = this.props;
-        const dummyManufacturers = [{ name: 'Brush Electric', id: 1 }];
 
         return (
             <ManufacturerTable
                 headers={['Name', '']}
-                // manufacturers={manufacturers}
-                manufacturers={dummyManufacturers}
+                manufacturers={manufacturers}
                 isFetching={isFetching}
                 error={error}
                 title={title}
@@ -31,7 +30,7 @@ class ManufacturerTableContainer extends Component {
         if (postSuccess && !prevProps.postSuccess) {
             showModal(SUCCESS_MODAL, {
                 hideModal,
-                message: 'Manufacturers updated successfully',
+                message: 'Manufacturer added successfully',
             });
         }
         if (postError && !prevProps.postError && isObjEmpty(fieldErrors)) {
@@ -40,7 +39,7 @@ class ManufacturerTableContainer extends Component {
                 title: 'Error',
                 message:
                     postError.message ||
-                    '##There was an error processing your request, please try again later.##',
+                    'There was an error processing your request, please try again later.',
             });
         }
     };
@@ -48,7 +47,6 @@ class ManufacturerTableContainer extends Component {
     handleAddManufacturerModal = () => {
         const { showModal, type } = this.props;
         showModal(ADMIN_ADD_MANUFACTURER, { type });
-        // TODO MODAL FOR ADD MANUFACTURER AND ASSOCIATED ACTIONS AND REDUCERS
     };
 }
 
@@ -62,14 +60,19 @@ const mapStateToProps = (
         },
     },
     ownProps,
-) => ({
-    postError,
-    postSuccess,
-    isFetching,
-    error,
-    manufacturers: manufacturers[ownProps.type] ? Object.values(manufacturers[ownProps.type]) : [],
-    fieldErrors,
-});
+) => {
+    const pinOptionKey = DROPDOWN_OPTIONS[ownProps.type].reduxKey;
+    return {
+        postError,
+        postSuccess,
+        isFetching,
+        error,
+        manufacturers: manufacturers[pinOptionKey]
+            ? Object.values(manufacturers[pinOptionKey])
+            : [],
+        fieldErrors,
+    };
+};
 
 const mapDispatchToProps = dispatch => ({
     showModal: (type, props) => {

@@ -15,6 +15,8 @@ export default combineReducers({
     manufacturers: manufacturersReducer,
     isFetching: isFetchingReducer,
     error: errorReducer,
+    postSuccess: postSuccessReducer,
+    postFailure: postFailureReducer,
 });
 
 function isFetchingReducer(state = false, action) {
