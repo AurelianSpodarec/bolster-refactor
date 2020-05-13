@@ -8,6 +8,9 @@ import {
     SA_CREATE_MANUFACTURER_REQUEST,
     SA_CREATE_MANUFACTURER_SUCCESS,
     SA_CREATE_MANUFACTURER_FAILURE,
+    SA_EDIT_MANUFACTURER_REQUEST,
+    SA_EDIT_MANUFACTURER_SUCCESS,
+    SA_EDIT_MANUFACTURER_FAILURE,
 } from 'constants/actionTypes/superAdminManufacturers';
 import { DROPDOWN_OPTIONS } from 'constants/companyAdmin/enums';
 
@@ -45,8 +48,10 @@ function errorReducer(state = null, action) {
 function postSuccessReducer(state = false, action) {
     switch (action.type) {
         case SA_CREATE_MANUFACTURER_REQUEST:
+        case SA_EDIT_MANUFACTURER_REQUEST:
             return false;
         case SA_CREATE_MANUFACTURER_SUCCESS:
+        case SA_EDIT_MANUFACTURER_SUCCESS:
             return true;
         default:
             return state;
@@ -56,8 +61,10 @@ function postSuccessReducer(state = false, action) {
 function postErrorReducer(state = false, action) {
     switch (action.type) {
         case SA_CREATE_MANUFACTURER_REQUEST:
+        case SA_EDIT_MANUFACTURER_REQUEST:
             return false;
         case SA_CREATE_MANUFACTURER_FAILURE:
+        case SA_EDIT_MANUFACTURER_FAILURE:
             return true;
         default:
             return state;
@@ -73,6 +80,7 @@ function manufacturersReducer(state = {}, action) {
                 convertArrToObj(action.payload),
             );
         case SA_CREATE_MANUFACTURER_SUCCESS:
+        case SA_EDIT_MANUFACTURER_SUCCESS:
             return {
                 ...state,
                 [DROPDOWN_OPTIONS[action.pinOptionType].reduxKey]: updateObj(
