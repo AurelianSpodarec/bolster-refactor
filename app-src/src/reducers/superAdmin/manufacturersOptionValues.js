@@ -8,6 +8,9 @@ import {
     SA_CREATE_OPTION_VALUE_REQUEST,
     SA_CREATE_OPTION_VALUE_SUCCESS,
     SA_CREATE_OPTION_VALUE_FAILURE,
+    SA_EDIT_OPTION_VALUE_REQUEST,
+    SA_EDIT_OPTION_VALUE_SUCCESS,
+    SA_EDIT_OPTION_VALUE_FAILURE,
 } from 'constants/actionTypes/superAdminManufacturers';
 
 export default combineReducers({
@@ -44,10 +47,10 @@ function errorReducer(state = null, action) {
 function postSuccessReducer(state = false, action) {
     switch (action.type) {
         case SA_CREATE_OPTION_VALUE_REQUEST:
-            // case SA_EDIT_OPTION_VALUE_REQUEST:
+        case SA_EDIT_OPTION_VALUE_REQUEST:
             return false;
         case SA_CREATE_OPTION_VALUE_SUCCESS:
-            // case SA_EDIT_OPTION_VALUE_SUCCESS:
+        case SA_EDIT_OPTION_VALUE_SUCCESS:
             return true;
         default:
             return state;
@@ -57,10 +60,10 @@ function postSuccessReducer(state = false, action) {
 function postErrorReducer(state = false, action) {
     switch (action.type) {
         case SA_CREATE_OPTION_VALUE_REQUEST:
-            // case SA_EDIT_OPTION_VALUE_REQUEST:
+        case SA_EDIT_OPTION_VALUE_REQUEST:
             return false;
         case SA_CREATE_OPTION_VALUE_FAILURE:
-            // case SA_EDIT_OPTION_VALUE_FAILURE:
+        case SA_EDIT_OPTION_VALUE_FAILURE:
             return true;
         default:
             return state;
@@ -72,6 +75,7 @@ function manufacturersOptionValuesReducer(state = {}, action) {
         case SA_FETCH_OPTION_VALUES_BY_MANUFACTURER_SUCCESS:
             return updateObj(state, action.manufacturerID, convertArrToObj(action.payload));
         case SA_CREATE_OPTION_VALUE_SUCCESS:
+        case SA_EDIT_OPTION_VALUE_SUCCESS:
             return {
                 ...state,
                 [action.manufacturerID]: updateObj(
