@@ -1,7 +1,14 @@
 import React from 'react';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
+import { Link, withRouter } from 'react-router-dom';
 
-const ManufacturerListItem = ({ manufacturer, handleEditManufacturerModal, onMobile, headers }) => (
+const ManufacturerListItem = ({
+    manufacturer,
+    handleEditManufacturerModal,
+    onMobile,
+    headers,
+    match: { url },
+}) => (
     <tr>
         <td>
             {onMobile && <span className="mobile-table-heading">{headers[0]}</span>}
@@ -17,9 +24,12 @@ const ManufacturerListItem = ({ manufacturer, handleEditManufacturerModal, onMob
                     <i className="far fa-pencil" />
                     Edit
                 </button>
+                <Link to={`${url}/${manufacturer.id}`} className="button">
+                    Manage Options
+                </Link>
             </BlockButtonWrapper>
         </td>
     </tr>
 );
 
-export default ManufacturerListItem;
+export default withRouter(ManufacturerListItem);
