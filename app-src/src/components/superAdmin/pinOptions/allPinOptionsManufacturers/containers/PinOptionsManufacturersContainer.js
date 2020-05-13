@@ -15,12 +15,7 @@ class PinOptionsManufacturersContainer extends Component {
     }
 
     componentDidMount = () => {
-        const {
-            fetchManufacturersByPinOptionType,
-            match: {
-                params: { type },
-            },
-        } = this.props;
+        const { fetchManufacturersByPinOptionType, type } = this.props;
         fetchManufacturersByPinOptionType(DROPDOWN_OPTION_LOOKUP[type]);
     };
 }

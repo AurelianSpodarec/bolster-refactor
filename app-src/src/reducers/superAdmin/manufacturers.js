@@ -11,6 +11,9 @@ import {
     SA_EDIT_MANUFACTURER_REQUEST,
     SA_EDIT_MANUFACTURER_SUCCESS,
     SA_EDIT_MANUFACTURER_FAILURE,
+    SA_FETCH_SINGLE_MANUFACTURER_REQUEST,
+    SA_FETCH_SINGLE_MANUFACTURER_SUCCESS,
+    SA_FETCH_SINGLE_MANUFACTURER_FAILURE,
 } from 'constants/actionTypes/superAdminManufacturers';
 import { DROPDOWN_OPTIONS } from 'constants/companyAdmin/enums';
 
@@ -25,9 +28,12 @@ export default combineReducers({
 function isFetchingReducer(state = false, action) {
     switch (action.type) {
         case SA_FETCH_PIN_OPTION_MANUFACTURERS_REQUEST:
+        case SA_FETCH_SINGLE_MANUFACTURER_REQUEST:
             return true;
         case SA_FETCH_PIN_OPTION_MANUFACTURERS_SUCCESS:
         case SA_FETCH_PIN_OPTION_MANUFACTURERS_FAILURE:
+        case SA_FETCH_SINGLE_MANUFACTURER_SUCCESS:
+        case SA_FETCH_SINGLE_MANUFACTURER_FAILURE:
             return false;
         default:
             return state;
@@ -81,6 +87,7 @@ function manufacturersReducer(state = {}, action) {
             );
         case SA_CREATE_MANUFACTURER_SUCCESS:
         case SA_EDIT_MANUFACTURER_SUCCESS:
+        case SA_FETCH_SINGLE_MANUFACTURER_SUCCESS:
             return {
                 ...state,
                 [DROPDOWN_OPTIONS[action.pinOptionType].reduxKey]: updateObj(

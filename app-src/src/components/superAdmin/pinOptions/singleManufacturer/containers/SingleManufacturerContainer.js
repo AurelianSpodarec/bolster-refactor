@@ -1,40 +1,68 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import fetchOptionValuesByManufacturer from 'actions/superAdmin/manufacturers/async/fetchOptionValuesByManufacturer';
 
-// import { DROPDOWN_OPTION_LOOKUP, DROPDOWN_OPTIONS } from 'constants/companyAdmin/enums';
+import { DROPDOWN_OPTION_LOOKUP, DROPDOWN_OPTIONS } from 'constants/companyAdmin/enums';
+
+import fetchOptionValuesByManufacturer from 'actions/superAdmin/manufacturers/async/fetchOptionValuesByManufacturer';
+import fetchSingleManufacturer from 'actions/superAdmin/manufacturers/async/fetchSingleManufacturer';
+
+import SingleManufacturer from '../presentational/SingleManufacturer';
+import Loading from 'components/shared/generic/misc/presentational/Loading';
+import ConfirmSetIsInvoicePaidModalContainer from 'components/superAdmin/invoices/confirmSetIsInvoicePaidModal/containers/ConfirmSetIsInvoicePaidModalContainer';
 
 class SingleManufacturerContainer extends Component {
     render() {
-        const { type, manufacturerID } = this.props;
-        // const { name } = DROPDOWN_OPTIONS[DROPDOWN_OPTION_LOOKUP[type]];
+        const { type, manufacturerID, manufacturers, isFetching } = this.props;
 
-        console.error(type, manufacturerID);
+        const isManufacturerFetched = manufacturers.hasOwnProperty(manufacturerID) && !isFetching;
+        console.log(isFetching);
 
-        return <div>##this is the single manufacturer pin options page##</div>;
+        return !isManufacturerFetched ? (
+            <Loading />
+        ) : (
+            <SingleManufacturer manufacturers={manufacturers} manufacturerID={manufacturerID} />
+        );
     }
 
     componentDidMount = () => {
-        const { fetchOptionValuesByManufacturer, manufacturerID } = this.props;
+        const {
+            fetchOptionValuesByManufacturer,
+            fetchSingleManufacturer,
+            manufacturerID,
+            type,
+        } = this.props;
+        fetchSingleManufacturer(manufacturerID, DROPDOWN_OPTION_LOOKUP[type]);
         fetchOptionValuesByManufacturer(manufacturerID);
     };
 }
 
 const mapStateToProps = (
-    _,
+    {
+        superAdmin: {
+            manufacturersReducer: { isFetching, error, manufacturers },
+        },
+    },
     {
         match: {
             params: { type, id },
         },
     },
-) => ({
-    type,
-    manufacturerID: id,
-});
+) => {
+    const pinOptionKey = DROPDOWN_OPTIONS[DROPDOWN_OPTION_LOOKUP[type]].reduxKey;
+
+    return {
+        type,
+        manufacturerID: id,
+        isFetching,
+        error,
+        manufacturers: manufacturers[pinOptionKey] || {},
+    };
+};
 
 const mapDispatchToProps = {
     fetchOptionValuesByManufacturer,
+    fetchSingleManufacturer,
 };
 
 export default withRouter(
