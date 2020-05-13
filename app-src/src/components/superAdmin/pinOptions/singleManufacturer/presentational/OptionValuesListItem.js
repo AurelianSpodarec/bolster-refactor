@@ -2,17 +2,23 @@ import React from 'react';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import { Link, withRouter } from 'react-router-dom';
 
-const OptionValueListItem = ({
+const OptionValuesListItem = ({
     optionValue,
     handleEditOptionValueModal,
     onMobile,
     headers,
     match: { url },
+    selectedServiceNames,
 }) => (
     <tr>
         <td>
             {onMobile && <span className="mobile-table-heading">{headers[0]}</span>}
             {optionValue.name}
+        </td>
+
+        <td>
+            {onMobile && <span className="mobile-table-heading">{headers[1]}</span>}
+            {selectedServiceNames}
         </td>
         <td>
             {onMobile && <span className="mobile-table-heading">Actions</span>}
@@ -32,4 +38,4 @@ const OptionValueListItem = ({
     </tr>
 );
 
-export default withRouter(OptionValueListItem);
+export default withRouter(OptionValuesListItem);

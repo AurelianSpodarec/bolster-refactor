@@ -1,27 +1,38 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { ADMIN_EDIT_MANUFACTURER } from 'constants/shared/modalTypes';
-
-import OptionValueListItem from '.../presentational/OptionValueListItem;
+import { ADMIN_EDIT_OPTION_VALUE } from 'constants/shared/modalTypes';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 
-class OptionValueListItemContainer extends Component {
+import OptionValuesListItem from '../presentational/OptionValuesListItem';
+
+class OptionValuesListItemContainer extends Component {
     render() {
-        const { optionValue, colCount, headers, onMobile } = this.props;
+        const { optionValue, colCount, headers, onMobile, services } = this.props;
+
+        const selectedServiceNames = services
+            .reduce((acc, currService) => {
+                if (optionValue.serviceIDs.includes(currService.id)) {
+                    acc.push(currService.name);
+                }
+                return acc;
+            }, [])
+            .join(', ');
+
         return (
-            <OptionValueListItem
+            <OptionValuesListItem
                 optionValue={optionValue}
                 colCount={colCount}
                 handleEditOptionValueModal={this.handleEditOptionValueModal}
                 headers={headers}
                 onMobile={onMobile}
+                selectedServiceNames={selectedServiceNames}
             />
         );
     }
     handleEditOptionValueModal = optionValue => {
-        const { showModal } = this.props;
-        // showModal(ADMIN_EDIT_MANUFACTURER, { optionValue });
+        const { showModal, services } = this.props;
+        // showModal(ADMIN_EDIT_OPTION_VALUE, { optionValue, services });
         // todo edit option value modal and associated redux functions
     };
 }
@@ -39,4 +50,4 @@ export default connect(
         onMobile,
     }),
     mapDispatchToProps,
-)(OptionValueListItemContainer);
+)(OptionValuesListItemContainer);

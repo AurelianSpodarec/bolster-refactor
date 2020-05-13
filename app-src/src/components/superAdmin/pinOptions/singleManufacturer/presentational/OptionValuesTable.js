@@ -6,14 +6,15 @@ import Table from 'components/shared/generic/tables/presentational/Table';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 
+import OptionValuesList from './OptionValuesList';
+
 const OptionValuesTable = ({
     handleAddOptionValueModal,
     headers,
     optionValues,
     isFetching,
     error,
-    title,
-    type,
+    services,
 }) => {
     return (
         <BlockContainer>
@@ -31,11 +32,12 @@ const OptionValuesTable = ({
                 noDataMessage={'There are no option values to display.'}
                 extraClasses="large"
             >
-                {/* <ManufacturerList
+                <OptionValuesList
                     colCount={headers.length}
                     optionValues={optionValues}
                     headers={headers}
-                /> */}
+                    services={services}
+                />
             </Table>
         </BlockContainer>
     );

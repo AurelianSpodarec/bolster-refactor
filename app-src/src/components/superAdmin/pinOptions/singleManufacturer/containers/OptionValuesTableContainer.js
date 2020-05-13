@@ -11,17 +11,18 @@ import { DROPDOWN_OPTIONS, DROPDOWN_OPTION_LOOKUP } from 'constants/companyAdmin
 
 class OptionValuesTableContainer extends Component {
     render() {
-        const { isFetching, error, optionValues, title, type } = this.props;
+        const { isFetching, error, optionValues, title, type, services } = this.props;
 
         return (
             <OptionValuesTable
-                headers={['Name', '']}
+                headers={['Name', 'Services', '']}
                 optionValues={optionValues}
                 isFetching={isFetching}
                 error={error}
                 title={title}
                 handleAddOptionValueModal={this.handleAddOptionValueModal}
                 type={type}
+                services={Object.values(services)}
             />
         );
     }
@@ -49,7 +50,6 @@ class OptionValuesTableContainer extends Component {
         const { showModal, manufacturer, services } = this.props;
 
         showModal(ADMIN_ADD_OPTION_VALUE, { manufacturer, services });
-        // todo create redux and modal for adding an option value
     };
 }
 
