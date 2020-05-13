@@ -16,6 +16,8 @@ export default combineReducers({
     manufacturersOptionValues: manufacturersOptionValuesReducer,
     isFetching: isFetchingReducer,
     error: errorReducer,
+    postSuccess: postSuccessReducer,
+    postError: postErrorReducer,
 });
 
 function isFetchingReducer(state = false, action) {
@@ -44,10 +46,10 @@ function errorReducer(state = null, action) {
 function postSuccessReducer(state = false, action) {
     switch (action.type) {
         case SA_CREATE_OPTION_VALUE_REQUEST:
-        // case SA_EDIT_OPTION_VALUE_REQUEST:
+            // case SA_EDIT_OPTION_VALUE_REQUEST:
             return false;
         case SA_CREATE_OPTION_VALUE_SUCCESS:
-        // case SA_EDIT_OPTION_VALUE_SUCCESS:
+            // case SA_EDIT_OPTION_VALUE_SUCCESS:
             return true;
         default:
             return state;
@@ -57,10 +59,10 @@ function postSuccessReducer(state = false, action) {
 function postErrorReducer(state = false, action) {
     switch (action.type) {
         case SA_CREATE_OPTION_VALUE_REQUEST:
-        // case SA_EDIT_OPTION_VALUE_REQUEST:
+            // case SA_EDIT_OPTION_VALUE_REQUEST:
             return false;
         case SA_CREATE_OPTION_VALUE_FAILURE:
-        // case SA_EDIT_OPTION_VALUE_FAILURE:
+            // case SA_EDIT_OPTION_VALUE_FAILURE:
             return true;
         default:
             return state;
@@ -74,8 +76,12 @@ function manufacturersOptionValuesReducer(state = {}, action) {
         case SA_CREATE_OPTION_VALUE_SUCCESS:
             return {
                 ...state,
-                [action.manufacturerID]: updateObj(state[action.manufacturerID], action.payload.id, action.payload);
-            }
+                [action.manufacturerID]: updateObj(
+                    state[action.manufacturerID],
+                    action.payload.id,
+                    action.payload,
+                ),
+            };
         default:
             return state;
     }
