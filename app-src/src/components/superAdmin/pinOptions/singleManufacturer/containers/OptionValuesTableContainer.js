@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
-import { SUCCESS_MODAL, ERROR_MODAL, ADMIN_ADD_MANUFACTURER } from 'constants/shared/modalTypes';
+import { SUCCESS_MODAL, ERROR_MODAL, ADMIN_ADD_OPTION_VALUE } from 'constants/shared/modalTypes';
 
 import OptionValuesTable from '../presentational/OptionValuesTable';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { isObjEmpty } from 'helpers/generic';
-import { DROPDOWN_OPTIONS } from 'constants/companyAdmin/enums';
+import { DROPDOWN_OPTIONS, DROPDOWN_OPTION_LOOKUP } from 'constants/companyAdmin/enums';
 
 class OptionValuesTableContainer extends Component {
     render() {
@@ -31,7 +31,7 @@ class OptionValuesTableContainer extends Component {
         if (postSuccess && !prevProps.postSuccess) {
             showModal(SUCCESS_MODAL, {
                 hideModal,
-                message: 'Manufacturers list updated successfully.',
+                message: 'Option values list updated successfully.',
             });
         }
         if (postError && !prevProps.postError && isObjEmpty(fieldErrors)) {
@@ -46,8 +46,9 @@ class OptionValuesTableContainer extends Component {
     };
 
     handleAddOptionValueModal = () => {
-        const { showModal, type } = this.props;
-        // showModal(ADMIN_ADD_OPTION_VALUE, { type });
+        const { showModal, manufacturer, services } = this.props;
+
+        showModal(ADMIN_ADD_OPTION_VALUE, { manufacturer, services });
         // todo create redux and modal for adding an option value
     };
 }
@@ -55,7 +56,23 @@ class OptionValuesTableContainer extends Component {
 const mapStateToProps = (
     {
         superAdmin: {
-            manufacturersOptionValuesReducer: { manufacturersOptionValues, isFetching, error },
+            manufacturersReducer: {
+                manufacturers,
+                isFetching: isFetchingManufacturers,
+                error: manufacturersError,
+            },
+            manufacturersOptionValuesReducer: {
+                manufacturersOptionValues,
+                isFetching,
+                error,
+                postSuccess,
+                postError,
+            },
+            adminServicesReducer: {
+                adminServices,
+                isFetching: isFetchingServices,
+                error: servicesError,
+            },
         },
         shared: {
             fieldErrorsReducer: { fieldErrors },
@@ -63,17 +80,24 @@ const mapStateToProps = (
     },
     {
         match: {
-            params: { id },
+            params: { id, type },
         },
     },
 ) => {
+    const pinOptionKey = DROPDOWN_OPTIONS[DROPDOWN_OPTION_LOOKUP[type]].reduxKey;
+
     return {
-        isFetching,
-        error,
+        manufacturer: manufacturers[pinOptionKey][id],
+        manufacturerID: id,
+        isFetching: isFetching || isFetchingServices || isFetchingManufacturers,
+        error: error || servicesError || manufacturersError,
         optionValues: manufacturersOptionValues[id]
             ? Object.values(manufacturersOptionValues[id])
             : [],
+        services: adminServices,
         fieldErrors,
+        postSuccess,
+        postError,
     };
 };
 

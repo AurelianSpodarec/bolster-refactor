@@ -1,15 +1,17 @@
 import React from 'react';
 
-import { DROPDOWN_OPTIONS } from 'constants/companyAdmin/enums';
-
 import ModalOuterContainer from 'components/shared/generic/modals/containers/ModalOuterContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import AddOptionValueFormContainer from '../containers/AddOptionValueFormContainer';
 
-const AddOptionValueModal = ({ type }) => (
+const AddOptionValueModal = ({ manufacturer, services }) => (
     <ModalOuterContainer>
-        <BlockHeading title={`Add ${DROPDOWN_OPTIONS[type].singular} Option Value`} />
-        <AddOptionValueFormContainer type={type} buttonText={'Add Option Value'} />
+        <BlockHeading title={`Add Option Value to ${manufacturer.name}`} />
+        <AddOptionValueFormContainer
+            services={Object.values(services)}
+            manufacturer={manufacturer}
+            buttonText={'Add Option Value'}
+        />
     </ModalOuterContainer>
 );
 

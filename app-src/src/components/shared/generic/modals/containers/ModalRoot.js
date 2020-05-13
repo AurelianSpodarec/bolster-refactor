@@ -78,6 +78,7 @@ import {
     GENERATE_QR_CODES,
     ADMIN_ADD_MANUFACTURER,
     ADMIN_EDIT_MANUFACTURER,
+    ADMIN_ADD_OPTION_VALUE,
 } from 'constants/shared/modalTypes';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
@@ -158,6 +159,7 @@ import GenerateQRCodesModalContainer from './GenerateQRCodesModalContainer';
 import RistrictPaymentsModalContainer from './RistrictPaymentsModalContainer';
 import AddManufacturerModal from 'components/superAdmin/pinOptions/addManufacturer/presentational/AddManufacturerModal';
 import EditManufacturerModal from 'components/superAdmin/pinOptions/editManufacturer/presentational/EditManufacturerModal';
+import AddOptionValueModal from 'components/superAdmin/pinOptions/addOptionValue/presentational/AddOptionValueModal';
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModalContainer,
@@ -236,6 +238,7 @@ const MODAL_COMPONENTS = {
     [GENERATE_QR_CODES]: GenerateQRCodesModalContainer,
     [ADMIN_ADD_MANUFACTURER]: AddManufacturerModal,
     [ADMIN_EDIT_MANUFACTURER]: EditManufacturerModal,
+    [ADMIN_ADD_OPTION_VALUE]: AddOptionValueModal,
 };
 
 const ModalRoot = ({ modalType, modalProps, ...otherProps }) => {

@@ -3,7 +3,7 @@ import {
     SA_CREATE_OPTION_VALUE_REQUEST,
     SA_CREATE_OPTION_VALUE_SUCCESS,
     SA_CREATE_OPTION_VALUE_FAILURE,
-} from 'constants/actionTypes/superAdminOptionValues';
+} from 'constants/actionTypes/superAdminManufacturers';
 import { ADMIN_API_URL } from 'config';
 import { getHeaders } from 'helpers/api';
 import setAPIFieldErrors from 'actions/shared/generic/fieldErrors/sync/setAPIFieldErrors';

@@ -8,9 +8,7 @@ import {
     SA_CREATE_OPTION_VALUE_REQUEST,
     SA_CREATE_OPTION_VALUE_SUCCESS,
     SA_CREATE_OPTION_VALUE_FAILURE,
-    SA_CREATE_MANUFACTURER_SUCCESS,
 } from 'constants/actionTypes/superAdminManufacturers';
-import { DROPDOWN_OPTIONS } from 'constants/companyAdmin/enums';
 
 export default combineReducers({
     manufacturersOptionValues: manufacturersOptionValuesReducer,
