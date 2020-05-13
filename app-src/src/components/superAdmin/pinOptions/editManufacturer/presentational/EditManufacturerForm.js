@@ -31,7 +31,7 @@ const EditManufacturerForm = ({
 
         <BlockButtonWrapper>
             <button className="button green">
-                <i className="fa fa-plus" /> {buttonText}
+                <i className="fa fa-check" /> {buttonText}
             </button>
             <ButtonContainer handleClick={hideModal}>Cancel</ButtonContainer>
         </BlockButtonWrapper>

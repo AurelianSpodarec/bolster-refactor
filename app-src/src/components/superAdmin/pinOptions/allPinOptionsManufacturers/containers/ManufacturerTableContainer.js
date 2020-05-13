@@ -30,7 +30,7 @@ class ManufacturerTableContainer extends Component {
         if (postSuccess && !prevProps.postSuccess) {
             showModal(SUCCESS_MODAL, {
                 hideModal,
-                message: 'Manufacturer added successfully',
+                message: 'Manufacturers list updated successfully.',
             });
         }
         if (postError && !prevProps.postError && isObjEmpty(fieldErrors)) {

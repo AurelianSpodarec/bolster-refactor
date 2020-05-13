@@ -9,7 +9,7 @@ const EditManufacturerModal = ({ manufacturer }) => (
         <BlockHeading title={`Edit ${manufacturer.name}`} />
         <EditManufacturerFormContainer
             manufacturer={manufacturer}
-            buttonText={'Edit Manufacturer'}
+            buttonText={'Confirm'}
             type={manufacturer.pinOptionType}
         />
     </ModalOuterContainer>
