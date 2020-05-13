@@ -6,17 +6,16 @@ import { DROPDOWN_OPTION_LOOKUP, DROPDOWN_OPTIONS } from 'constants/companyAdmin
 
 import fetchOptionValuesByManufacturer from 'actions/superAdmin/manufacturers/async/fetchOptionValuesByManufacturer';
 import fetchSingleManufacturer from 'actions/superAdmin/manufacturers/async/fetchSingleManufacturer';
+import fetchAllServices from 'actions/superAdmin/services/async/fetchAllServices';
 
 import SingleManufacturer from '../presentational/SingleManufacturer';
 import Loading from 'components/shared/generic/misc/presentational/Loading';
-import ConfirmSetIsInvoicePaidModalContainer from 'components/superAdmin/invoices/confirmSetIsInvoicePaidModal/containers/ConfirmSetIsInvoicePaidModalContainer';
 
 class SingleManufacturerContainer extends Component {
     render() {
-        const { type, manufacturerID, manufacturers, isFetching } = this.props;
+        const { manufacturerID, manufacturers, isFetching } = this.props;
 
         const isManufacturerFetched = manufacturers.hasOwnProperty(manufacturerID) && !isFetching;
-        console.log(isFetching);
 
         return !isManufacturerFetched ? (
             <Loading />
@@ -29,11 +28,13 @@ class SingleManufacturerContainer extends Component {
         const {
             fetchOptionValuesByManufacturer,
             fetchSingleManufacturer,
+            fetchAllServices,
             manufacturerID,
             type,
         } = this.props;
         fetchSingleManufacturer(manufacturerID, DROPDOWN_OPTION_LOOKUP[type]);
         fetchOptionValuesByManufacturer(manufacturerID);
+        fetchAllServices();
     };
 }
 
@@ -63,6 +64,7 @@ const mapStateToProps = (
 const mapDispatchToProps = {
     fetchOptionValuesByManufacturer,
     fetchSingleManufacturer,
+    fetchAllServices,
 };
 
 export default withRouter(
