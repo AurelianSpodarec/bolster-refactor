@@ -16,7 +16,7 @@ export default combineReducers({
     isFetching: isFetchingReducer,
     error: errorReducer,
     postSuccess: postSuccessReducer,
-    postFailure: postFailureReducer,
+    postError: postErrorReducer,
 });
 
 function isFetchingReducer(state = false, action) {
@@ -53,7 +53,7 @@ function postSuccessReducer(state = false, action) {
     }
 }
 
-function postFailureReducer(state = false, action) {
+function postErrorReducer(state = false, action) {
     switch (action.type) {
         case SA_CREATE_MANUFACTURER_REQUEST:
             return false;
