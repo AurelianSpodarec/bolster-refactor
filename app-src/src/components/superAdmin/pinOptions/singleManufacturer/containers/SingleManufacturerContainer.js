@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import fetchOptionValuesByManufacturer from 'actions/superAdmin/manufacturers/async/fetchOptionValuesByManufacturer';
 
 // import { DROPDOWN_OPTION_LOOKUP, DROPDOWN_OPTIONS } from 'constants/companyAdmin/enums';
 
@@ -13,15 +15,10 @@ class SingleManufacturerContainer extends Component {
         return <div>##this is the single manufacturer pin options page##</div>;
     }
 
-    // componentDidMount = () => {
-    //     const {
-    //         fetchManufacturersByPinOptionType,
-    //         match: {
-    //             params: { type },
-    //         },
-    //     } = this.props;
-    //     fetchManufacturersByPinOptionType(DROPDOWN_OPTION_LOOKUP[type]);
-    // };
+    componentDidMount = () => {
+        const { fetchOptionValuesByManufacturer, manufacturerID } = this.props;
+        fetchOptionValuesByManufacturer(manufacturerID);
+    };
 }
 
 const mapStateToProps = (
@@ -36,8 +33,10 @@ const mapStateToProps = (
     manufacturerID: id,
 });
 
-// const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = {
+    fetchOptionValuesByManufacturer,
+};
 
-// });
-
-export default connect(mapStateToProps)(SingleManufacturerContainer);
+export default withRouter(
+    connect(mapStateToProps, mapDispatchToProps)(SingleManufacturerContainer),
+);
