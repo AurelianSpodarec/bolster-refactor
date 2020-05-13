@@ -79,6 +79,7 @@ import {
     ADMIN_ADD_MANUFACTURER,
     ADMIN_EDIT_MANUFACTURER,
     ADMIN_ADD_OPTION_VALUE,
+    ADMIN_EDIT_OPTION_VALUE,
 } from 'constants/shared/modalTypes';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
@@ -160,6 +161,7 @@ import RistrictPaymentsModalContainer from './RistrictPaymentsModalContainer';
 import AddManufacturerModal from 'components/superAdmin/pinOptions/addManufacturer/presentational/AddManufacturerModal';
 import EditManufacturerModal from 'components/superAdmin/pinOptions/editManufacturer/presentational/EditManufacturerModal';
 import AddOptionValueModal from 'components/superAdmin/pinOptions/addOptionValue/presentational/AddOptionValueModal';
+import EditOptionValueModal from 'components/superAdmin/pinOptions/editOptionValue/presentational/EditOptionValueModal';
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModalContainer,
@@ -239,6 +241,7 @@ const MODAL_COMPONENTS = {
     [ADMIN_ADD_MANUFACTURER]: AddManufacturerModal,
     [ADMIN_EDIT_MANUFACTURER]: EditManufacturerModal,
     [ADMIN_ADD_OPTION_VALUE]: AddOptionValueModal,
+    [ADMIN_EDIT_OPTION_VALUE]: EditOptionValueModal,
 };
 
 const ModalRoot = ({ modalType, modalProps, ...otherProps }) => {

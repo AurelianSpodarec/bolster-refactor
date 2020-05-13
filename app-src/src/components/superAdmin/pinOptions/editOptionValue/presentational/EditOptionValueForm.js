@@ -7,7 +7,7 @@ import TextInputContainer from 'components/shared/generic/form/containers/TextIn
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 import MultiSelect from 'components/shared/generic/form/presentational/MultiSelect';
 
-const AddManufacturerForm = ({
+const EditOptionValueForm = ({
     handleSubmit,
     handleInputChange,
     hideModal,
@@ -31,6 +31,7 @@ const AddManufacturerForm = ({
                 </Field>
             </div>
         </div>
+
         <div className="size-lg-12">
             <Field name="Select services for this option value" required>
                 <MultiSelect
@@ -44,12 +45,13 @@ const AddManufacturerForm = ({
                 />
             </Field>
         </div>
+
         <BlockButtonWrapper>
             <button className="button green">
-                <i className="fa fa-plus" /> {buttonText}
+                <i className="fa fa-check" /> {buttonText}
             </button>
             <ButtonContainer handleClick={hideModal}>Cancel</ButtonContainer>
         </BlockButtonWrapper>
     </Form>
 );
-export default AddManufacturerForm;
+export default EditOptionValueForm;
