@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
-import createDropdownOption from 'actions/companyAdmin/dropdownOptions/async/createDropdownOption';
+import createManufacturer from 'actions/superAdmin/manufacturers/async/createManufacturer';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
+
 import AddManufacturerForm from '../presentational/AddManufacturerForm';
 import { DROPDOWN_OPTIONS } from 'constants/companyAdmin/enums';
 
@@ -41,6 +42,7 @@ class AddManufacturerFormContainer extends Component {
 
         const postBody = {
             ...this.state,
+            pinOptionType: type,
         };
 
         createManufacturer(type, postBody);

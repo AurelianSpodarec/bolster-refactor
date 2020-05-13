@@ -1,12 +1,15 @@
 import { combineReducers } from 'redux';
 
-import { convertArrToObj } from 'helpers/generic';
+import { convertArrToObj, updateObj } from 'helpers/generic';
 import {
     SA_FETCH_PIN_OPTION_MANUFACTURERS_REQUEST,
     SA_FETCH_PIN_OPTION_MANUFACTURERS_SUCCESS,
     SA_FETCH_PIN_OPTION_MANUFACTURERS_FAILURE,
+    SA_CREATE_MANUFACTURER_REQUEST,
+    SA_CREATE_MANUFACTURER_SUCCESS,
+    SA_CREATE_MANUFACTURER_FAILURE,
 } from 'constants/actionTypes/superAdminManufacturers';
-import { DROPDOWN_OPTION_LOOKUP } from 'constants/companyAdmin/enums';
+import { DROPDOWN_OPTIONS } from 'constants/companyAdmin/enums';
 
 export default combineReducers({
     manufacturers: manufacturersReducer,
@@ -37,10 +40,45 @@ function errorReducer(state = null, action) {
     }
 }
 
+function postSuccessReducer(state = false, action) {
+    switch (action.type) {
+        case SA_CREATE_MANUFACTURER_REQUEST:
+            return false;
+        case SA_CREATE_MANUFACTURER_SUCCESS:
+            return true;
+        default:
+            return state;
+    }
+}
+
+function postFailureReducer(state = false, action) {
+    switch (action.type) {
+        case SA_CREATE_MANUFACTURER_REQUEST:
+            return false;
+        case SA_CREATE_MANUFACTURER_FAILURE:
+            return true;
+        default:
+            return state;
+    }
+}
+
 function manufacturersReducer(state = {}, action) {
     switch (action.type) {
         case SA_FETCH_PIN_OPTION_MANUFACTURERS_SUCCESS:
-            return { ...state, [action.pinOptionType]: convertArrToObj(action.payload) };
+            return updateObj(
+                state,
+                DROPDOWN_OPTIONS[action.pinOptionType].reduxKey,
+                convertArrToObj(action.payload),
+            );
+        case SA_CREATE_MANUFACTURER_SUCCESS:
+            return {
+                ...state,
+                [DROPDOWN_OPTIONS[action.pinOptionType].reduxKey]: updateObj(
+                    state[DROPDOWN_OPTIONS[action.pinOptionType].reduxKey],
+                    action.payload.id,
+                    action.payload,
+                ),
+            };
         default:
             return state;
     }
