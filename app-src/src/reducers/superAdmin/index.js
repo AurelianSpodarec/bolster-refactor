@@ -23,6 +23,7 @@ import sosCodesReducer from './sosCodes';
 import operativeAlertsReducer from 'reducers/superAdmin/operativeAlerts';
 import mergeToolReducer from './mergeTool';
 import manufacturersReducer from './manufacturers';
+import manufacturersOptionValuesReducer from './manufacturersOptionValues';
 
 export default combineReducers({
     adminServicesReducer,
@@ -37,6 +38,7 @@ export default combineReducers({
     invoicePaymentsReducer,
     invoicesReducer,
     manufacturersReducer,
+    manufacturersOptionValuesReducer,
     mergeToolReducer,
     moveToolReducer,
     operativeAlertsReducer,
