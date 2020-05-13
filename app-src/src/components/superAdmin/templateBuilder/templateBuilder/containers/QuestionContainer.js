@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { DragSource, DropTarget } from 'react-dnd';
 import flow from 'lodash/flow';
+import uuid from 'uuid/v1';
 
 import { EDIT_TEMPLATE_QUESTION } from 'constants/shared/modalTypes';
 import { DRAG_TYPES } from 'constants/superAdmin/dragTypes';
@@ -10,6 +11,7 @@ import showModal from 'actions/shared/generic/modals/sync/showModal';
 import deleteQuestion from 'actions/superAdmin/templateBuilder/sync/deleteQuestion';
 
 import Question from '../presentational/Question';
+import setQuestion from 'actions/superAdmin/templateBuilder/sync/setQuestion';
 
 class QuestionContainer extends Component {
     render() {
@@ -37,11 +39,26 @@ class QuestionContainer extends Component {
                         isDragging={isDragging}
                         question={question}
                         showEditQuesModel={() => showEditQuesModel(question)}
+                        handleDuplicateQuestion={() => this.handleDuplicateQuestion(question)}
                         deleteQuestion={() => deleteQuestion(uuid)}
                     />
                 </div>
             )
         );
+    }
+
+    handleDuplicateQuestion = questionToCopy => {
+        const { setQuestion } = this.props;
+
+        const newUuid = uuid();
+
+        const newQuestion = {
+            ...questionToCopy,
+            name: questionToCopy.name + ' - (Copy)',
+            uuid: newUuid
+        };
+
+        setQuestion(newQuestion);
     }
 }
 
@@ -134,6 +151,9 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
     },
     deleteQuestion: uuid => {
         dispatch(deleteQuestion(uuid));
+    },
+    setQuestion: question => {
+        dispatch(setQuestion(question));
     }
 });
 
