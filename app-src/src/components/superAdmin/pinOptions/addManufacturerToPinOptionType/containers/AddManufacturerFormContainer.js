@@ -5,6 +5,7 @@ import { withRouter } from 'react-router-dom';
 import createDropdownOption from 'actions/companyAdmin/dropdownOptions/async/createDropdownOption';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import AddManufacturerForm from '../presentational/AddManufacturerForm';
+import { DROPDOWN_OPTIONS } from 'constants/companyAdmin/enums';
 
 class AddManufacturerFormContainer extends Component {
     state = {
@@ -29,36 +30,41 @@ class AddManufacturerFormContainer extends Component {
     };
 
     validateName = value => {
-        const { dropdownOptions } = this.props;
-        const existingNames = dropdownOptions.map(({ name }) => name);
-        if (existingNames.includes(value)) return 'Please choose a unique name.';
+        const { manufacturers } = this.props;
+        const nameTaken = manufacturers.some(manufacturer => manufacturer.name === value);
+        if (nameTaken) return 'Please choose a unique name.';
     };
 
     handleSubmit = e => {
         e.preventDefault();
-        const { createDropdownOption, type } = this.props;
+        const { createManufacturer, type } = this.props;
 
         const postBody = {
             ...this.state,
         };
 
-        createDropdownOption(type, postBody);
+        createManufacturer(type, postBody);
     };
 }
 
 const mapStateToProps = (
     {
-        companyAdmin: {
-            dropdownOptionsReducer: { dropdownOptions },
+        superAdmin: {
+            manufacturersReducer: { manufacturers },
         },
     },
     { type },
-) => ({
-    dropdownOptions: Object.values(dropdownOptions).filter(op => op.type === type),
-});
+) => {
+    const pinOptionType = DROPDOWN_OPTIONS[type].reduxKey;
+    return {
+        manufacturers: manufacturers[pinOptionType]
+            ? Object.values(manufacturers[pinOptionType])
+            : [],
+    };
+};
 
 const mapDispatchToProps = {
-    createDropdownOption,
+    createManufacturer,
     hideModal,
 };
 

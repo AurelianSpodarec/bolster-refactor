@@ -280,12 +280,13 @@ export const PARENTAL_TYPES = {
 /*  adding new dropdown options to these two enum objects
     will dynamically add a new page for that option. */
 export const DROPDOWN_OPTIONS = {
-    1: { name: 'FR Ratings', link: 'fr-ratings', singular: 'FR Rating' },
-    2: { name: 'Item Types', link: 'item-types', singular: 'Item Type' },
+    1: { name: 'FR Ratings', link: 'fr-ratings', singular: 'FR Rating', reduxKey: 'frRatings' },
+    2: { name: 'Item Types', link: 'item-types', singular: 'Item Type', reduxKey: 'itemTypes' },
     3: {
         name: 'Installation Types',
         link: 'installation-types',
         singular: 'Installation Type',
+        reduxKey: 'installationTypes',
     },
 };
 
