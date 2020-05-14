@@ -24,6 +24,7 @@ import operativeAlertsReducer from 'reducers/superAdmin/operativeAlerts';
 import mergeToolReducer from './mergeTool';
 import manufacturersReducer from './manufacturers';
 import manufacturersOptionValuesReducer from './manufacturersOptionValues';
+import optionValueDocumentsReducer from './optionValueDocuments';
 
 export default combineReducers({
     adminServicesReducer,
@@ -42,6 +43,7 @@ export default combineReducers({
     mergeToolReducer,
     moveToolReducer,
     operativeAlertsReducer,
+    optionValueDocumentsReducer,
     sitesReducer,
     sosCodesReducer,
     templateLabelFieldsReducer,
