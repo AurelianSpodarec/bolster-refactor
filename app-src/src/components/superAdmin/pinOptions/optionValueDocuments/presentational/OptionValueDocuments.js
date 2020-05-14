@@ -1,11 +1,17 @@
 import React from 'react';
 
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
+import OptionValueDocumentListContainer from '../containers/OptionValueDocumentListContainer';
 
-const OptionValueDocuments = ({ name }) => (
+const OptionValueDocuments = ({ optionValues, optionValueID, handleAddDocumentModal }) => (
     <>
-        <PageHeading title={`${name} Documents`} withBackButton />
-        <div>##this is the option value documents container##</div>
+        <PageHeading title={`${optionValues[optionValueID].name} Documents`} withBackButton>
+            {' '}
+            <button className="button green" onClick={handleAddDocumentModal}>
+                <i className="fa fa-plus" /> {'Add Document'}
+            </button>
+        </PageHeading>
+        <OptionValueDocumentListContainer />
     </>
 );
 
