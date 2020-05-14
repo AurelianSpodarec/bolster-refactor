@@ -81,6 +81,7 @@ import {
     ADMIN_ADD_OPTION_VALUE,
     ADMIN_EDIT_OPTION_VALUE,
     ADMIN_ADD_DOCUMENT_TO_OPTION_VALUE,
+    ADMIN_EDIT_OPTION_VALUE_DOCUMENT,
 } from 'constants/shared/modalTypes';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
@@ -164,6 +165,7 @@ import EditManufacturerModal from 'components/superAdmin/pinOptions/editManufact
 import AddOptionValueModal from 'components/superAdmin/pinOptions/addOptionValue/presentational/AddOptionValueModal';
 import EditOptionValueModal from 'components/superAdmin/pinOptions/editOptionValue/presentational/EditOptionValueModal';
 import AddDocumentToOptionValueModal from 'components/superAdmin/pinOptions/addDocumentToOptionValue/presentational/AddDocumentToOptionValueModal';
+import EditOptionValueDocumentModal from 'components/superAdmin/pinOptions/editOptionValueDocument/presentational/EditOptionValueDocumentModal';
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModalContainer,
@@ -245,6 +247,7 @@ const MODAL_COMPONENTS = {
     [ADMIN_ADD_OPTION_VALUE]: AddOptionValueModal,
     [ADMIN_EDIT_OPTION_VALUE]: EditOptionValueModal,
     [ADMIN_ADD_DOCUMENT_TO_OPTION_VALUE]: AddDocumentToOptionValueModal,
+    [ADMIN_EDIT_OPTION_VALUE_DOCUMENT]: EditOptionValueDocumentModal,
 };
 
 const ModalRoot = ({ modalType, modalProps, ...otherProps }) => {

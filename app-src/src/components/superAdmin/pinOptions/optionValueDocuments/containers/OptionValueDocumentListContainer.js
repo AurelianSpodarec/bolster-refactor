@@ -5,14 +5,15 @@ import { withRouter, Link } from 'react-router-dom';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import OptionValueDocumentsList from '../presentational/OptionValueDocumentsList';
+import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 
 class OptionValueDocumentListContainer extends Component {
     render() {
-        const { documents, isFetching, error } = this.props;
+        const { documents, isFetching, error, optionValueID } = this.props;
 
         return (
             <>
-                <OptionValueDocumentsList documents={documents} />
+                <OptionValueDocumentsList documents={documents} optionValueID={optionValueID} />
             </>
         );
     }
@@ -44,4 +45,10 @@ const mapStateToProps = (
 });
 // todo map state to props for object value documents
 
-export default withRouter(connect(mapStateToProps)(OptionValueDocumentListContainer));
+const mapDispatchToProps = {
+    showModal,
+};
+
+export default withRouter(
+    connect(mapStateToProps, mapDispatchToProps)(OptionValueDocumentListContainer),
+);

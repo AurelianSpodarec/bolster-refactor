@@ -8,6 +8,9 @@ import {
     SA_CREATE_DOCUMENT_FOR_OPTION_VALUE_REQUEST,
     SA_CREATE_DOCUMENT_FOR_OPTION_VALUE_SUCCESS,
     SA_CREATE_DOCUMENT_FOR_OPTION_VALUE_FAILURE,
+    SA_EDIT_OPTION_VALUE_DOCUMENT_REQUEST,
+    SA_EDIT_OPTION_VALUE_DOCUMENT_SUCCESS,
+    SA_EDIT_OPTION_VALUE_DOCUMENT_FAILURE,
 } from 'constants/actionTypes/superAdminManufacturers';
 
 export default combineReducers({
@@ -44,10 +47,10 @@ function errorReducer(state = null, action) {
 function postSuccessReducer(state = false, action) {
     switch (action.type) {
         case SA_CREATE_DOCUMENT_FOR_OPTION_VALUE_REQUEST:
-            // case SA_EDIT_OPTION_VALUE_REQUEST:
+        case SA_EDIT_OPTION_VALUE_DOCUMENT_REQUEST:
             return false;
         case SA_CREATE_DOCUMENT_FOR_OPTION_VALUE_SUCCESS:
-            // case SA_EDIT_OPTION_VALUE_SUCCESS:
+        case SA_EDIT_OPTION_VALUE_DOCUMENT_SUCCESS:
             return true;
         default:
             return state;
@@ -57,10 +60,10 @@ function postSuccessReducer(state = false, action) {
 function postErrorReducer(state = false, action) {
     switch (action.type) {
         case SA_CREATE_DOCUMENT_FOR_OPTION_VALUE_REQUEST:
-            // case SA_EDIT_OPTION_VALUE_REQUEST:
+        case SA_EDIT_OPTION_VALUE_DOCUMENT_REQUEST:
             return false;
         case SA_CREATE_DOCUMENT_FOR_OPTION_VALUE_FAILURE:
-            // case SA_EDIT_OPTION_VALUE_FAILURE:
+        case SA_EDIT_OPTION_VALUE_DOCUMENT_FAILURE:
             return true;
         default:
             return state;
@@ -72,6 +75,7 @@ function optionValueDocumentsReducer(state = {}, action) {
         case SA_FETCH_DOCUMENTS_BY_OPTION_VALUE_SUCCESS:
             return updateObj(state, action.optionValueID, convertArrToObj(action.payload));
         case SA_CREATE_DOCUMENT_FOR_OPTION_VALUE_SUCCESS:
+        case SA_EDIT_OPTION_VALUE_DOCUMENT_SUCCESS:
             return {
                 ...state,
                 [action.optionValueID]: updateObj(
@@ -80,16 +84,6 @@ function optionValueDocumentsReducer(state = {}, action) {
                     action.payload,
                 ),
             };
-        // case SA_CREATE_DOCUMENT_FOR_OPTION_VALUE_SUCCESS:
-        // case SA_EDIT_OPTION_VALUE_SUCCESS:
-        //     return {
-        //         ...state,
-        //         [action.manufacturerID]: updateObj(
-        //             state[action.manufacturerID],
-        //             action.payload.id,
-        //             action.payload,
-        //         ),
-        //     };
         default:
             return state;
     }
