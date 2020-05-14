@@ -30,7 +30,7 @@ export default (manufacturerID, postBody) => dispatch => {
 
     axios
         .patch(
-            `${ADMIN_API_URL}/manufacturer/${manufacturerID}/optionvalues`,
+            `${ADMIN_API_URL}/manufacturer/${manufacturerID}/optionvalues/${postBody.id}`,
             postBody,
             getHeaders(),
         )

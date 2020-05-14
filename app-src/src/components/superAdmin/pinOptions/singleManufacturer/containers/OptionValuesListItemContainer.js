@@ -32,8 +32,7 @@ class OptionValuesListItemContainer extends Component {
     }
     handleEditOptionValueModal = optionValue => {
         const { showModal, services } = this.props;
-        // showModal(ADMIN_EDIT_OPTION_VALUE, { optionValue, services });
-        // todo edit option value modal and associated redux functions
+        showModal(ADMIN_EDIT_OPTION_VALUE, { optionValue, services });
     };
 }
 

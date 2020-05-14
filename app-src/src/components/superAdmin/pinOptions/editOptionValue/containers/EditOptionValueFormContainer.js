@@ -41,6 +41,7 @@ class EditOptionValueFormContainer extends Component {
 
     validateName = value => {
         const { optionValues, optionValue: optionValueBeingEdited } = this.props;
+
         const nameTaken = optionValues.some(
             optionValue =>
                 optionValue.name === value && optionValue.id !== optionValueBeingEdited.id,

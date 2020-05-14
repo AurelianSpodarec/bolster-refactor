@@ -30,7 +30,7 @@ const OptionValuesListItem = ({
                     <i className="far fa-pencil" />
                     Edit
                 </button>
-                <Link to={`${url}/${optionValue.id}`} className="button">
+                <Link to={`${url}/${optionValue.id}/documents`} className="button">
                     Manage Option Value Documents
                 </Link>
             </BlockButtonWrapper>
