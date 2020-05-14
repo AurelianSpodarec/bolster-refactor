@@ -6,10 +6,10 @@ import AddDocumentToOptionValueFormContainer from '../containers/AddDocumentToOp
 
 const AddDocumentToOptionValueModal = ({ optionValue }) => (
     <ModalOuterContainer>
-        <BlockHeading title={`Add Option Value to ${OptionValuesList.name}`} />
+        <BlockHeading title={`Add Document to ${optionValue.name}`} />
         <AddDocumentToOptionValueFormContainer
             optionValue={optionValue}
-            buttonText={'Add Option Value'}
+            buttonText={'Add Document'}
         />
     </ModalOuterContainer>
 );

@@ -10,9 +10,12 @@ import AddDocumentToOptionValueForm from '../presentational/AddDocumentToOptionV
 class AddDocumentToOptionValueFormContainer extends Component {
     state = {
         name: '',
+        fileS3Key: '',
     };
 
     render() {
+        const { filesUploading } = this.props;
+
         return (
             <AddDocumentToOptionValueForm
                 {...this.state}
@@ -21,6 +24,7 @@ class AddDocumentToOptionValueFormContainer extends Component {
                 hideModal={this.props.hideModal}
                 buttonText={this.props.buttonText}
                 validateName={this.validateName}
+                filesUploading={filesUploading}
             />
         );
     }
@@ -30,35 +34,41 @@ class AddDocumentToOptionValueFormContainer extends Component {
     };
 
     validateName = value => {
-        const { optionValues } = this.props;
-        const nameTaken = optionValues.some(optionValue => optionValue.name === value);
+        const { documents } = this.props;
+        const nameTaken = documents.some(document => document.name === value);
         if (nameTaken) return 'Please choose a unique name.';
     };
 
     handleSubmit = e => {
         e.preventDefault();
-        const { createDocumentForOptionValue, optionValue } = this.props;
+        const { createDocumentForOptionValue, optionValue, filesUploading } = this.props;
 
-        const postBody = {
-            ...this.state,
-        };
+        if (!filesUploading) {
+            const postBody = {
+                ...this.state,
+            };
 
-        createDocumentForOptionValue(optionValue.id, postBody);
+            createDocumentForOptionValue(optionValue.id, postBody);
+        }
     };
 }
 
 const mapStateToProps = (
     {
         superAdmin: {
-            manufacturersOptionValuesReducer: { manufacturersOptionValues },
+            optionValueDocumentsReducer: { optionValueDocuments },
+        },
+        shared: {
+            filesUploadingReducer: { filesUploading },
         },
     },
-    { manufacturer },
+    { optionValue },
 ) => {
     return {
-        optionValues: manufacturersOptionValues[manufacturer.id]
-            ? Object.values(manufacturersOptionValues[manufacturer.id])
+        documents: optionValueDocuments[optionValue.id]
+            ? Object.values(optionValueDocuments[optionValue.id])
             : [],
+        filesUploading,
     };
 };
 
