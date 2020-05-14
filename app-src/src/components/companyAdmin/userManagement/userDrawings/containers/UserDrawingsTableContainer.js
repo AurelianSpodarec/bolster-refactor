@@ -6,6 +6,7 @@ import fetchUserDrawings from 'actions/companyAdmin/userManagement/async/fetchUs
 import UserDrawingsTable from '../presentational/UserDrawingsTable';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
+import fetchServicePermissionsForDrawing from 'actions/companyAdmin/services/async/fetchServicePermissionsForDrawing';
 
 class UserDrawingsTableContainer extends Component {
     state = {
@@ -14,7 +15,7 @@ class UserDrawingsTableContainer extends Component {
 
     render() {
         const { drawingIDs } = this.state;
-        const { drawings, isFetching, showModal, id } = this.props;
+        const { drawings, isFetching, showModal, id, drawingServices } = this.props;
 
         return (
             <UserDrawingsTable
@@ -26,14 +27,16 @@ class UserDrawingsTableContainer extends Component {
                 isFetching={isFetching}
                 showModal={showModal}
                 userID={id}
+                drawingServices={drawingServices}
             />
         );
     }
 
     componentDidMount = () => {
-        const { id, fetchUserDrawings } = this.props;
+        const { id, fetchUserDrawings, fetchServicePermissionsForDrawing } = this.props;
 
         fetchUserDrawings(id);
+        fetchServicePermissionsForDrawing(id);
     };
 
     componentDidUpdate = prevProps => {
@@ -69,7 +72,8 @@ class UserDrawingsTableContainer extends Component {
 const mapStateToProps = (
     {
         companyAdmin: {
-            userDrawingsReducer: { userDrawings, error, isFetching, removeSuccess }
+            userDrawingsReducer: { userDrawings, error, isFetching, removeSuccess },
+            servicesReducer: { drawingServices, error: servicesError }
         }
     },
     {
@@ -82,11 +86,14 @@ const mapStateToProps = (
     error,
     isFetching,
     id,
-    removeSuccess
+    removeSuccess,
+    drawingServices: Object.values(drawingServices) || [],
+    servicesError
 });
 
 const mapDispatchToProps = dispatch => ({
     fetchUserDrawings: id => dispatch(fetchUserDrawings(id)),
+    fetchServicePermissionsForDrawing: id => dispatch(fetchServicePermissionsForDrawing(id)),
     showModal: (type, modalProps) => dispatch(showModal(type, modalProps)),
     hideModal: () => dispatch(hideModal())
 });
