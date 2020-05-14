@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
-import createNewDocumentVersion from 'actions/superAdmin/manufacturers/async/createNewDocumentVersion';
+import createNewOptionValueDocumentVersion from 'actions/superAdmin/manufacturers/async/createNewOptionValueDocumentVersion';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 
 import AddNewDocumentVersionForm from '../presentational/AddNewDocumentVersionForm';
@@ -33,14 +33,19 @@ class AddNewDocumentVersionFormContainer extends Component {
 
     handleSubmit = e => {
         e.preventDefault();
-        const { createNewDocumentVersion, document, filesUploading } = this.props;
+        const {
+            createNewOptionValueDocumentVersion,
+            document,
+            filesUploading,
+            optionValueID,
+        } = this.props;
 
         if (!filesUploading) {
             const postBody = {
                 ...this.state,
             };
 
-            createNewDocumentVersion(document.id, postBody);
+            createNewOptionValueDocumentVersion(optionValueID, document.id, postBody);
         }
     };
 }
@@ -56,7 +61,7 @@ const mapStateToProps = ({
 };
 
 const mapDispatchToProps = {
-    createNewDocumentVersion,
+    createNewOptionValueDocumentVersion,
     hideModal,
 };
 

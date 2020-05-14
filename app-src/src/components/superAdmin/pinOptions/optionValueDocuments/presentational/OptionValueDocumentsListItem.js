@@ -3,11 +3,15 @@ import BlockContainer from 'components/shared/generic/block/containers/BlockCont
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import DocumentVersionsListContainer from '../containers/DocumentVersionsListContainer';
 
-const OptionValueDocumentsListItem = ({ document, handleEditDocumentModal }) => {
+const OptionValueDocumentsListItem = ({
+    document,
+    handleEditDocumentModal,
+    handleAddDocumentVersionModal,
+}) => {
     return (
         <BlockContainer>
             <BlockHeading title={document.name} classes={'underline-full'}>
-                <button onClick={() => {}} className="button green">
+                <button onClick={handleAddDocumentVersionModal} className="button green">
                     <i className="far fa-plus" />
                     Add New Version
                 </button>

@@ -4,10 +4,14 @@ import ModalOuterContainer from 'components/shared/generic/modals/containers/Mod
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import AddNewDocumentVersionFormContainer from '../containers/AddNewDocumentVersionFormContainer';
 
-const AddNewDocumentVersionModal = ({ document }) => (
+const AddNewDocumentVersionModal = ({ document, optionValueID }) => (
     <ModalOuterContainer>
         <BlockHeading title={`Add new version to ${document.name}`} />
-        <AddNewDocumentVersionFormContainer document={document} buttonText={'Add Version'} />
+        <AddNewDocumentVersionFormContainer
+            document={document}
+            optionValueID={optionValueID}
+            buttonText={'Add Version'}
+        />
     </ModalOuterContainer>
 );
 
