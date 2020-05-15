@@ -12,11 +12,17 @@ export const deleteOptionValueDocumentVersionRequest = () => ({
     type: SA_DELETE_OPTION_VALUE_DOCUMENT_VERSION_REQUEST,
 });
 
-export const deleteOptionValueDocumentVersionSuccess = (optionValueID, documentID, versionID) => ({
+export const deleteOptionValueDocumentVersionSuccess = (
+    optionValueID,
+    documentID,
+    versionID,
+    isLastVersion,
+) => ({
     type: SA_DELETE_OPTION_VALUE_DOCUMENT_VERSION_SUCCESS,
     optionValueID,
     documentID,
     versionID,
+    isLastVersion,
 });
 
 export const deleteOptionValueDocumentVersionFailure = error => ({
@@ -24,15 +30,22 @@ export const deleteOptionValueDocumentVersionFailure = error => ({
     error,
 });
 
-export default (optionValueID, documentID, versionID) => dispatch => {
+export default (optionValueID, documentID, versionID, isLastVersion) => dispatch => {
     dispatch(deleteOptionValueDocumentVersionRequest());
     return axios
         .delete(
-            `${ADMIN_API_URL}/manufacturer/optionvalues/${optionValueID}/documents/${documentID}/versions${versionID}`,
+            `${ADMIN_API_URL}/manufacturer/optionvalues/${optionValueID}/documents/${documentID}/versions/${versionID}`,
             getHeaders(),
         )
         .then(() =>
-            dispatch(deleteOptionValueDocumentVersionSuccess(optionValueID, documentID, versionID)),
+            dispatch(
+                deleteOptionValueDocumentVersionSuccess(
+                    optionValueID,
+                    documentID,
+                    versionID,
+                    isLastVersion,
+                ),
+            ),
         )
         .catch(err => {
             dispatch(deleteOptionValueDocumentVersionFailure(err.message));

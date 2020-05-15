@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import moment from 'moment';
 
-import deleteOptionValueDocumentVersion from 'actions/companyAdmin/invoices/async/deleteInvoice';
+import deleteOptionValueDocumentVersion from 'actions/superAdmin/manufacturers/async/deleteOptionValueDocumentVersion';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 
 import ConfirmDeleteDocumentVersionModal from '../presentational/ConfirmDeleteDocumentVersionModal';
@@ -24,9 +24,10 @@ class ConfirmDeleteDocumentVersionModalContainer extends Component {
     }
 
     handleDelete = () => {
-        const { deleteOptionValueDocumentVersion, id } = this.props;
+        const { deleteOptionValueDocumentVersion, optionValueID, document, version } = this.props;
         // TODO Put the below function in once the api endpoint has been created for it.
-        deleteOptionValueDocumentVersion(id);
+        const isLastVersion = document.versions.length === 1;
+        deleteOptionValueDocumentVersion(optionValueID, document.id, version.id, isLastVersion);
     };
 }
 

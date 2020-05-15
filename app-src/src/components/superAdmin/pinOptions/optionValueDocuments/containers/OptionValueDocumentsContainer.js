@@ -43,7 +43,14 @@ class OptionValueDocumentsContainer extends Component {
     };
 
     componentDidUpdate = prevProps => {
-        const { postSuccess, showModal, hideModal, postError, fieldErrors } = this.props;
+        const {
+            postSuccess,
+            showModal,
+            hideModal,
+            postError,
+            fieldErrors,
+            deleteSuccess,
+        } = this.props;
         if (postSuccess && !prevProps.postSuccess) {
             showModal(SUCCESS_MODAL, {
                 hideModal,
@@ -57,6 +64,12 @@ class OptionValueDocumentsContainer extends Component {
                 message:
                     postError.message ||
                     'There was an error processing your request, please try again later.',
+            });
+        }
+        if (deleteSuccess && !prevProps.deleteSuccess) {
+            showModal(SUCCESS_MODAL, {
+                hideModal,
+                message: 'Document version deleted successfully.',
             });
         }
     };
@@ -73,7 +86,7 @@ const mapStateToProps = (
     {
         superAdmin: {
             manufacturersOptionValuesReducer: { manufacturersOptionValues, isFetching, error },
-            optionValueDocumentsReducer: { postSuccess, postError },
+            optionValueDocumentsReducer: { postSuccess, postError, deleteSuccess },
         },
     },
     {
@@ -89,6 +102,7 @@ const mapStateToProps = (
     error,
     postSuccess,
     postError,
+    deleteSuccess,
 });
 
 const mapDispatchToProps = {

@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 
-import { convertArrToObj, updateObj } from 'helpers/generic';
+import { convertArrToObj, updateObj, removeObjItem } from 'helpers/generic';
+import { removeDeletedDocumentVersion } from 'helpers/redux';
 import {
     SA_FETCH_DOCUMENTS_BY_OPTION_VALUE_REQUEST,
     SA_FETCH_DOCUMENTS_BY_OPTION_VALUE_SUCCESS,
@@ -110,6 +111,21 @@ function optionValueDocumentsReducer(state = {}, action) {
                     action.payload,
                 ),
             };
+        case SA_DELETE_OPTION_VALUE_DOCUMENT_VERSION_SUCCESS:
+            return action.isLastVersion
+                ? updateObj(
+                      state,
+                      action.optionValueID,
+                      removeObjItem(state[action.optionValueID], action.documentID),
+                  )
+                : {
+                      ...state,
+                      [action.optionValueID]: removeDeletedDocumentVersion(
+                          state[action.optionValueID],
+                          action.documentID,
+                          action.versionID,
+                      ),
+                  };
 
         default:
             return state;
