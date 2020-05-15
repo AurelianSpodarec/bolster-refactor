@@ -3,6 +3,7 @@ import BlockContainer from 'components/shared/generic/block/containers/BlockCont
 import TemplatesTableContainer from '../containers/TemplatesTableContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
+import PinOptionsTableContainer from '../containers/PinOptionsTableContainer';
 
 const Templates = () => (
     <>
@@ -11,6 +12,7 @@ const Templates = () => (
             <BlockHeading title="Templates" />
             <TemplatesTableContainer />
         </BlockContainer>
+        <PinOptionsTableContainer />
     </>
 );
 
