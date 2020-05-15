@@ -7,6 +7,7 @@ const OptionValueDocumentsListItem = ({
     document,
     handleEditDocumentModal,
     handleAddDocumentVersionModal,
+    optionValueID,
 }) => {
     return (
         <BlockContainer>
@@ -21,7 +22,7 @@ const OptionValueDocumentsListItem = ({
                 </button>
             </BlockHeading>
 
-            <DocumentVersionsListContainer document={document} />
+            <DocumentVersionsListContainer document={document} optionValueID={optionValueID} />
         </BlockContainer>
     );
 };

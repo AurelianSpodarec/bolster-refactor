@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import moment from 'moment';
 
 import OptionValueDocumentsListItem from '../presentational/OptionValueDocumentsListItem';
 import {
@@ -13,18 +12,17 @@ class OptionValueDocumentsListItemContainer extends Component {
     state = { active: false };
 
     render() {
-        const { document } = this.props;
+        const { document, optionValueID } = this.props;
 
         return (
             <OptionValueDocumentsListItem
                 document={document}
                 handleEditDocumentModal={this.handleEditDocumentModal}
                 handleAddDocumentVersionModal={this.handleAddDocumentVersionModal}
+                optionValueID={optionValueID}
             />
         );
     }
-
-    componentDidUpdate = prevProps => {};
 
     handleEditDocumentModal = () => {
         const { showModal, document, optionValueID } = this.props;
@@ -34,7 +32,6 @@ class OptionValueDocumentsListItemContainer extends Component {
     handleAddDocumentVersionModal = () => {
         const { showModal, document, optionValueID } = this.props;
         showModal(ADMIN_ADD_OPTION_VALUE_DOCUMENT_VERSION, { optionValueID, document });
-        //todo add version to document modal and reducers
     };
 }
 

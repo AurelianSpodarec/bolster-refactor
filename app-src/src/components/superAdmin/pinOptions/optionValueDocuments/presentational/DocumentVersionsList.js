@@ -14,7 +14,7 @@ import { PIN_IMAGE, DOCUMENT_VIEW } from 'constants/shared/modalTypes';
 import FieldOutput from 'components/shared/generic/fieldOutput/presentational/FieldOutput';
 import { RAW_S3_STORAGE_URL } from 'config';
 
-const DocumentVersionsList = ({ versions, dispatch }) => (
+const DocumentVersionsList = ({ versions, dispatch, handleDeleteDocumentVersionModal }) => (
     <div>
         {versions
             .sort((a, b) => b.createdAt - a.createdAt)
@@ -66,7 +66,10 @@ const DocumentVersionsList = ({ versions, dispatch }) => (
 
                     <div className={'flex-row-item size-lg-2'}>
                         {!version.hasBeenUsed && (
-                            <button className={'button red'}>
+                            <button
+                                className={'button red'}
+                                onClick={() => handleDeleteDocumentVersionModal(version)}
+                            >
                                 <i className={'far fa-trash'} />
                                 {'Delete Version'}
                             </button>

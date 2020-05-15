@@ -14,6 +14,9 @@ import {
     SA_CREATE_NEW_OPTION_VALUE_DOCUMENT_VERSION_REQUEST,
     SA_CREATE_NEW_OPTION_VALUE_DOCUMENT_VERSION_SUCCESS,
     SA_CREATE_NEW_OPTION_VALUE_DOCUMENT_VERSION_FAILURE,
+    SA_DELETE_OPTION_VALUE_DOCUMENT_VERSION_REQUEST,
+    SA_DELETE_OPTION_VALUE_DOCUMENT_VERSION_SUCCESS,
+    SA_DELETE_OPTION_VALUE_DOCUMENT_VERSION_FAILURE,
 } from 'constants/actionTypes/superAdminManufacturers';
 
 export default combineReducers({
@@ -22,6 +25,7 @@ export default combineReducers({
     error: errorReducer,
     postSuccess: postSuccessReducer,
     postError: postErrorReducer,
+    deleteSuccess: deleteSuccessReducer,
 });
 
 function isFetchingReducer(state = false, action) {
@@ -67,10 +71,24 @@ function postErrorReducer(state = false, action) {
         case SA_CREATE_DOCUMENT_FOR_OPTION_VALUE_REQUEST:
         case SA_EDIT_OPTION_VALUE_DOCUMENT_REQUEST:
         case SA_CREATE_NEW_OPTION_VALUE_DOCUMENT_VERSION_REQUEST:
+        case SA_DELETE_OPTION_VALUE_DOCUMENT_VERSION_REQUEST:
             return false;
         case SA_CREATE_DOCUMENT_FOR_OPTION_VALUE_FAILURE:
         case SA_EDIT_OPTION_VALUE_DOCUMENT_FAILURE:
         case SA_CREATE_NEW_OPTION_VALUE_DOCUMENT_VERSION_FAILURE:
+        case SA_DELETE_OPTION_VALUE_DOCUMENT_VERSION_FAILURE:
+            return true;
+        default:
+            return state;
+    }
+}
+
+// for redirect after delete, can't use postsuccess as edit shares that success bool
+function deleteSuccessReducer(state = false, action) {
+    switch (action.type) {
+        case SA_DELETE_OPTION_VALUE_DOCUMENT_VERSION_REQUEST:
+            return false;
+        case SA_DELETE_OPTION_VALUE_DOCUMENT_VERSION_SUCCESS:
             return true;
         default:
             return state;
@@ -92,6 +110,7 @@ function optionValueDocumentsReducer(state = {}, action) {
                     action.payload,
                 ),
             };
+
         default:
             return state;
     }

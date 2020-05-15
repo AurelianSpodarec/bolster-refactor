@@ -1,19 +1,24 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import moment from 'moment';
 
 import deleteOptionValueDocumentVersion from 'actions/companyAdmin/invoices/async/deleteInvoice';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 
 import ConfirmDeleteDocumentVersionModal from '../presentational/ConfirmDeleteDocumentVersionModal';
+import { DATE_TIME_DEFAULTS, DATE_TIME_IDS } from 'constants/companyAdmin/enums';
 
 class ConfirmDeleteDocumentVersionModalContainer extends Component {
     render() {
-        const { hideModal } = this.props;
+        const { hideModal, version } = this.props;
         return (
             <ConfirmDeleteDocumentVersionModal
                 handleDelete={this.handleDelete}
                 hideModal={hideModal}
-                message={'Are you sure you want to delete document version?'}
+                version={version}
+                message={`Are you sure you want to delete document version dated ${moment(
+                    version.createdAt,
+                ).format(DATE_TIME_DEFAULTS[DATE_TIME_IDS.DATETIME])}?`}
             />
         );
     }
