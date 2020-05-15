@@ -19,11 +19,13 @@ class DocumentVersionsListContainer extends Component {
 
     handleDeleteDocumentVersionModal = version => {
         const { showModal, document, optionValueID } = this.props;
-        showModal(ADMIN_DELETE_OPTION_VALUE_DOCUMENT_VERSION, {
-            optionValueID,
-            document,
-            version,
-        });
+        if (!version.hasBeenUsed) {
+            showModal(ADMIN_DELETE_OPTION_VALUE_DOCUMENT_VERSION, {
+                optionValueID,
+                document,
+                version,
+            });
+        }
     };
 }
 

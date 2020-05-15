@@ -25,9 +25,11 @@ class ConfirmDeleteDocumentVersionModalContainer extends Component {
 
     handleDelete = () => {
         const { deleteOptionValueDocumentVersion, optionValueID, document, version } = this.props;
-        // TODO Put the below function in once the api endpoint has been created for it.
-        const isLastVersion = document.versions.length === 1;
-        deleteOptionValueDocumentVersion(optionValueID, document.id, version.id, isLastVersion);
+
+        if (!version.hasBeenUsed) {
+            const isLastVersion = document.versions.length === 1;
+            deleteOptionValueDocumentVersion(optionValueID, document.id, version.id, isLastVersion);
+        }
     };
 }
 
