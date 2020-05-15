@@ -5430,8 +5430,7 @@ input {
     border-radius: 2.5px;
     padding: 10px;
     border: 1px solid $input-border-grey;
-    transition: 0.25s background-color ease-in-out, 0.25s box-shadow ease-in-out,
-        0.25s border ease-in-out;
+    transition: 0.25s background-color ease-in-out, 0.25s box-shadow ease-in-out, 0.25s border ease-in-out;
 
     &.can-drop {
         -webkit-box-shadow: inset 0px 0px 12px 0px #a5a5a5;
@@ -5509,5 +5508,34 @@ input {
 
     p {
         padding-left: 15px;
+    }
+}
+
+.field-output {
+    .preview-wrapper {
+        width: 100px;
+        height: auto;
+        z-index: 1;
+        .preview-click-div {
+            position: absolute;
+            top: 20px;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 5;
+        }
+        .document-version-preview {
+            z-index: 2;
+            &.pdf-preview {
+                width: 100px;
+                height: auto;
+            }
+        }
+    }
+    .document-version-preview {
+        &.image-preview {
+            max-width: 100px;
+            height: auto;
+        }
     }
 }

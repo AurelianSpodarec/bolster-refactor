@@ -391,3 +391,8 @@ export const HAS_PAID_QUERIES = {
     1: 'true',
     2: 'false',
 };
+
+export const DOCUMENT_VIEW_TYPES = {
+    IMAGE: 0,
+    PDF: 1,
+};

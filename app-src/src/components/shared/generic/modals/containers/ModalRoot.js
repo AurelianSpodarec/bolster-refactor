@@ -83,6 +83,7 @@ import {
     ADMIN_ADD_DOCUMENT_TO_OPTION_VALUE,
     ADMIN_EDIT_OPTION_VALUE_DOCUMENT,
     ADMIN_ADD_OPTION_VALUE_DOCUMENT_VERSION,
+    DOCUMENT_VIEW,
 } from 'constants/shared/modalTypes';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
@@ -168,6 +169,7 @@ import EditOptionValueModal from 'components/superAdmin/pinOptions/editOptionVal
 import AddDocumentToOptionValueModal from 'components/superAdmin/pinOptions/addDocumentToOptionValue/presentational/AddDocumentToOptionValueModal';
 import EditOptionValueDocumentModal from 'components/superAdmin/pinOptions/editOptionValueDocument/presentational/EditOptionValueDocumentModal';
 import AddNewDocumentVersionModal from 'components/superAdmin/pinOptions/addNewDocumentVersion/presentational/AddNewDocumentVersionModal';
+import DocumentViewModal from '../presentational/DocumentViewModal';
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModalContainer,
@@ -251,6 +253,7 @@ const MODAL_COMPONENTS = {
     [ADMIN_ADD_DOCUMENT_TO_OPTION_VALUE]: AddDocumentToOptionValueModal,
     [ADMIN_EDIT_OPTION_VALUE_DOCUMENT]: EditOptionValueDocumentModal,
     [ADMIN_ADD_OPTION_VALUE_DOCUMENT_VERSION]: AddNewDocumentVersionModal,
+    [DOCUMENT_VIEW]: DocumentViewModal,
 };
 
 const ModalRoot = ({ modalType, modalProps, ...otherProps }) => {
