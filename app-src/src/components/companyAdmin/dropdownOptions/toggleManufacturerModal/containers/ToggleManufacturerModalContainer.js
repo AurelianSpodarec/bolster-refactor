@@ -2,38 +2,33 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
-// import toggleDropdownOption from 'actions/companyAdmin/dropdownOptions/async/toggleDropdownOption';
+import toggleManufacturer from 'actions/companyAdmin/manufacturers/async/toggleManufacturer';
 import ToggleManufacturerModal from '../presentational/ToggleManufacturerModal';
 
-// const ToggleManufacturerModalContainer = ({ option, toggleManufacturer, hideModal }) => {
-const ToggleManufacturerModalContainer = ({ option, hideModal }) => {
-    const isEnableRequest = option.isDisabled;
+const ToggleManufacturerModalContainer = ({ manufacturer, hideModal, toggleManufacturer }) => {
+    const isEnableRequest = manufacturer.isDisabled;
     return (
         <ToggleManufacturerModal
             toggleManufacturer={() => {
                 hideModal();
-                // toggleManufacturer(option.id, option.type, isEnableRequest);
+                toggleManufacturer(manufacturer.id, manufacturer.type, isEnableRequest);
             }}
             hideModal={e => {
                 e.preventDefault();
                 hideModal();
             }}
             message={`Are you sure you want to ${
-                option.isDisabled ? 'enable' : 'disable'
-            } this dropdown option - ${option.name}?`}
+                isEnableRequest ? 'enable' : 'disable'
+            } this manufacturer - ${manufacturer.name}?`}
             deleteButtonText={'Confirm'}
             icon="check"
         />
     );
 };
 
-const mapDispatchToProps = dispatch => ({
-    hideModal: () => {
-        dispatch(hideModal());
-    },
-    // toggleManufacturer: (id, type, isEnableRequest) => {
-    //     dispatch(toggleManufacturer(id, type, isEnableRequest));
-    // },
-});
+const mapDispatchToProps = {
+    hideModal,
+    toggleManufacturer,
+};
 
 export default connect(null, mapDispatchToProps)(ToggleManufacturerModalContainer);

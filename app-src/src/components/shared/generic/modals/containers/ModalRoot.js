@@ -87,6 +87,8 @@ import {
     ADMIN_DELETE_OPTION_VALUE_DOCUMENT_VERSION,
     COMPANY_ADD_MANUFACTURER,
     COMPANY_EDIT_MANUFACTURER,
+    COMPANY_TOGGLE_MANUFACTURER,
+    COMPANY_TOGGLE_MANUFACTURER_OPTION_VALUE,
 } from 'constants/shared/modalTypes';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
@@ -176,6 +178,8 @@ import DocumentViewModal from '../presentational/DocumentViewModal';
 import AdminConfirmDeleteDocumentVersionModalContainer from 'components/superAdmin/pinOptions/confirmDeleteDocumentVersion/containers/ConfirmDeleteDocumentVersionModalContainer';
 import AddManufacturerModal from 'components/companyAdmin/dropdownOptions/addManufacturer/presentational/AddManufacturerModal';
 import EditManufacturerModal from 'components/companyAdmin/dropdownOptions/editManufacturer/presentational/EditManufacturerModal';
+import ToggleManufacturerModalContainer from 'components/companyAdmin/dropdownOptions/toggleManufacturerModal/containers/ToggleManufacturerModalContainer';
+import ToggleManufacturerOptionValueModalContainer from 'components/companyAdmin/dropdownOptions/toggleManufacturerOptionValueModal/containers/ToggleManufacturerOptionValueModalContainer';
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModalContainer,
