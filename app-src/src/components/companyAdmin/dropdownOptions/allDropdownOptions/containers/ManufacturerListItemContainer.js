@@ -23,7 +23,6 @@ class ManufacturerListItemContainer extends Component {
     handleEditManufacturerModal = manufacturer => {
         const { showModal } = this.props;
         showModal(COMPANY_EDIT_MANUFACTURER, { manufacturer });
-        // todo company admin edit manufacturer modal and associated redux functions
     };
 
     handleToggleEnable = () => {
