@@ -28,16 +28,6 @@ const ManufacturerListItem = ({
                     </button>
                 )}
 
-                {!manufacturer.isDefault && (
-                    <button
-                        onClick={() => handleEditManufacturerModal(manufacturer)}
-                        className="button yellow"
-                    >
-                        <i className="far fa-pencil" />
-                        Edit
-                    </button>
-                )}
-
                 <button
                     onClick={handleToggleEnable}
                     className={`button ${manufacturer.isDisabled ? 'green' : 'red'}`}

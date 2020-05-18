@@ -1,7 +1,5 @@
 import React from 'react';
 
-import { DROPDOWN_OPTIONS } from 'constants/companyAdmin/enums';
-
 import Table from 'components/shared/generic/tables/presentational/Table';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
@@ -13,8 +11,6 @@ const ManufacturerTable = ({
     manufacturers,
     isFetching,
     error,
-    title,
-    type,
 }) => {
     return (
         <BlockContainer>

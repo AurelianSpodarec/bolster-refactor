@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { SUCCESS_MODAL, ERROR_MODAL, ADMIN_ADD_MANUFACTURER } from 'constants/shared/modalTypes';
+import {
+    SUCCESS_MODAL,
+    ERROR_MODAL,
+    ADD_MANUFACTURER,
+    COMPANY_ADD_MANUFACTURER,
+} from 'constants/shared/modalTypes';
 
 import ManufacturerTable from '../presentational/ManufacturerTable';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
@@ -46,7 +51,7 @@ class ManufacturerTableContainer extends Component {
 
     handleAddManufacturerModal = () => {
         const { showModal, type } = this.props;
-        showModal(ADMIN_ADD_MANUFACTURER, { type });
+        showModal(COMPANY_ADD_MANUFACTURER, { type });
     };
 }
 
