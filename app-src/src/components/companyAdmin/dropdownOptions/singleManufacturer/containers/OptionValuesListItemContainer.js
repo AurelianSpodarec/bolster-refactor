@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { ADMIN_EDIT_OPTION_VALUE } from 'constants/shared/modalTypes';
+import { COMPANY_TOGGLE_MANUFACTURER_OPTION_VALUE } from 'constants/shared/modalTypes';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 
 import OptionValuesListItem from '../presentational/OptionValuesListItem';
@@ -24,6 +24,7 @@ class OptionValuesListItemContainer extends Component {
                 optionValue={optionValue}
                 colCount={colCount}
                 handleEditOptionValueModal={this.handleEditOptionValueModal}
+                handleToggleEnable={this.handleToggleEnable}
                 headers={headers}
                 onMobile={onMobile}
                 selectedServiceNames={selectedServiceNames}
@@ -37,6 +38,8 @@ class OptionValuesListItemContainer extends Component {
     };
 
     handleToggleEnable = () => {
+        const { showModal, optionValue } = this.props;
+        showModal(COMPANY_TOGGLE_MANUFACTURER_OPTION_VALUE, { optionValue });
         // todo company admin toggle enable disable option value redux and modal
     };
 }

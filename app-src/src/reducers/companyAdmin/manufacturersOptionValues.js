@@ -11,6 +11,9 @@ import {
     EDIT_OPTION_VALUE_REQUEST,
     EDIT_OPTION_VALUE_SUCCESS,
     EDIT_OPTION_VALUE_FAILURE,
+    TOGGLE_MANUFACTURER_OPTION_VALUE_REQUEST,
+    TOGGLE_MANUFACTURER_OPTION_VALUE_SUCCESS,
+    TOGGLE_MANUFACTURER_OPTION_VALUE_FAILURE,
 } from 'constants/actionTypes/companyAdminManufacturers';
 
 export default combineReducers({
@@ -48,9 +51,11 @@ function postSuccessReducer(state = false, action) {
     switch (action.type) {
         case CREATE_OPTION_VALUE_REQUEST:
         case EDIT_OPTION_VALUE_REQUEST:
+        case TOGGLE_MANUFACTURER_OPTION_VALUE_REQUEST:
             return false;
         case CREATE_OPTION_VALUE_SUCCESS:
         case EDIT_OPTION_VALUE_SUCCESS:
+        case TOGGLE_MANUFACTURER_OPTION_VALUE_SUCCESS:
             return true;
         default:
             return state;
@@ -61,9 +66,11 @@ function postErrorReducer(state = false, action) {
     switch (action.type) {
         case CREATE_OPTION_VALUE_REQUEST:
         case EDIT_OPTION_VALUE_REQUEST:
+        case TOGGLE_MANUFACTURER_OPTION_VALUE_REQUEST:
             return false;
         case CREATE_OPTION_VALUE_FAILURE:
         case EDIT_OPTION_VALUE_FAILURE:
+        case TOGGLE_MANUFACTURER_OPTION_VALUE_FAILURE:
             return true;
         default:
             return state;
@@ -76,6 +83,7 @@ function manufacturersOptionValuesReducer(state = {}, action) {
             return updateObj(state, action.manufacturerID, convertArrToObj(action.payload));
         case CREATE_OPTION_VALUE_SUCCESS:
         case EDIT_OPTION_VALUE_SUCCESS:
+        case TOGGLE_MANUFACTURER_OPTION_VALUE_SUCCESS:
             return {
                 ...state,
                 [action.manufacturerID]: updateObj(

@@ -13,9 +13,9 @@ export const toggleManufacturerOptionValueRequest = () => ({
     type: TOGGLE_MANUFACTURER_OPTION_VALUE_REQUEST,
 });
 
-export const toggleManufacturerOptionValueSuccess = (id, payload) => ({
+export const toggleManufacturerOptionValueSuccess = (manufacturerID, payload) => ({
     type: TOGGLE_MANUFACTURER_OPTION_VALUE_SUCCESS,
-    id,
+    manufacturerID,
     payload,
 });
 
@@ -24,17 +24,17 @@ export const toggleManufacturerOptionValueFailure = error => ({
     error,
 });
 
-export default (id, type, isEnableRequest) => dispatch => {
+export default (id, manufacturerID, isEnableRequest) => dispatch => {
     dispatch(toggleManufacturerOptionValueRequest());
 
     return axios
         .post(
-            `${API_URL}/dropdownoptions/${type}/${id}/disable${
-                isEnableRequest ? '?undo=true' : ''
+            `${API_URL}/manufacturer/${manufacturerID}/enabledOptionValues/enable/${id}${
+                isEnableRequest ? '?undo=false' : '?undo=true'
             }`,
             {},
             getHeaders(),
         )
-        .then(({ data }) => dispatch(toggleManufacturerOptionValueSuccess(id, data)))
+        .then(({ data }) => dispatch(toggleManufacturerOptionValueSuccess(manufacturerID, data)))
         .catch(err => dispatch(toggleManufacturerOptionValueFailure(err.message)));
 };

@@ -268,6 +268,7 @@ const MODAL_COMPONENTS = {
     [COMPANY_ADD_MANUFACTURER]: AddManufacturerModal,
     [COMPANY_EDIT_MANUFACTURER]: EditManufacturerModal,
     [COMPANY_TOGGLE_MANUFACTURER]: ToggleManufacturerModalContainer,
+    [COMPANY_TOGGLE_MANUFACTURER_OPTION_VALUE]: ToggleManufacturerOptionValueModalContainer,
 };
 
 const ModalRoot = ({ modalType, modalProps, ...otherProps }) => {

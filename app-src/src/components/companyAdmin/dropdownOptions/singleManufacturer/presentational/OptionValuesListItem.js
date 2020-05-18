@@ -35,17 +35,17 @@ const OptionValuesListItem = ({
                 )}
                 <button
                     onClick={handleToggleEnable}
-                    className={`button ${optionValue.isDisabled ? 'green' : 'red'}`}
+                    className={`button ${optionValue.isEnabled ? 'red' : 'green'}`}
                 >
-                    {optionValue.isDisabled ? (
-                        <>
-                            <i className="fa fa-plus fa-fw" />
-                            Enable
-                        </>
-                    ) : (
+                    {optionValue.isEnabled ? (
                         <>
                             <i className="fa fa-minus fa-fw" />
                             Disable
+                        </>
+                    ) : (
+                        <>
+                            <i className="fa fa-plus fa-fw" />
+                            Enable
                         </>
                     )}
                 </button>

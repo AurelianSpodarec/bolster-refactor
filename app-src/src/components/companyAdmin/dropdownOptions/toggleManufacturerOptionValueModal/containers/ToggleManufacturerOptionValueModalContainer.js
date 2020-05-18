@@ -10,13 +10,17 @@ const ToggleManufacturerOptionValueContainer = ({
     toggleManufacturerOptionValue,
     hideModal,
 }) => {
-    const isEnableRequest = optionValue.isDisabled;
+    const isEnableRequest = !optionValue.isEnabled;
 
     return (
         <ToggleManufacturerOptionValue
             toggleManufacturerOptionValue={() => {
                 hideModal();
-                toggleManufacturerOptionValue(optionValue.id, optionValue.type, isEnableRequest);
+                toggleManufacturerOptionValue(
+                    optionValue.id,
+                    optionValue.manufacturerID,
+                    isEnableRequest,
+                );
             }}
             hideModal={e => {
                 e.preventDefault();
