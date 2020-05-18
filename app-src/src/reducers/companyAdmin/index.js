@@ -47,6 +47,9 @@ import generatePinReportReducer from './generatePinReport';
 import userDrawingsReducer from './userDrawings';
 import deletedDataReducer from './deletedData';
 import qrCodesReducer from './qrCodes';
+import manufacturersReducer from './manufacturers';
+import manufacturersOptionValuesReducer from './manufacturersOptionValues';
+import optionValueDocumentsReducer from './optionValueDocuments';
 
 export default combineReducers({
     addPinDropdownOptions,
@@ -77,8 +80,11 @@ export default combineReducers({
     latestPinFeedReducer,
     companyReportsReducer,
     messagesReducer,
+    manufacturersReducer,
+    manufacturersOptionValuesReducer,
     operativeAlertsReducer,
     operativesReducer,
+    optionValueDocumentsReducer,
     pendingInvitesReducer,
     pinAnswersReducer,
     pinHistoriesReducer,
@@ -95,5 +101,5 @@ export default combineReducers({
     templateSectionsReducer,
     templateVersionsReducer,
     transferRequestsReducer,
-    userDrawingsReducer
+    userDrawingsReducer,
 });

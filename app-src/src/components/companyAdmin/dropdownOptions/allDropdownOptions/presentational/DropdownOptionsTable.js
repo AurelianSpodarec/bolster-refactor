@@ -14,33 +14,34 @@ const DropdownOptionsTable = ({
     isFetching,
     error,
     title,
-    type
+    type,
 }) => {
     return (
         <BlockContainer>
-            <BlockHeading title={title}>
-                <button className="button green" onClick={handleAddOptionModal}>
-                    <i className="fa fa-plus" />{' '}
-                    {`Add ${DROPDOWN_OPTIONS[type].singular}`}
-                </button>
-            </BlockHeading>
-            <Table
-                withActions
-                headers={headers}
-                isFetching={isFetching}
-                error={error}
-                noData={!dropdownOptions.length}
-                noDataMessage={`There are no ${
-                    DROPDOWN_OPTIONS[type].name
-                } to display.`}
-                extraClasses="large"
-            >
-                <DropdownOptionsList
-                    colCount={headers.length}
-                    dropdownOptions={dropdownOptions}
-                    headers={headers}
-                />
-            </Table>
+            <div className="size-lg-12">
+                <BlockHeading title={title} classes="w-table">
+                    <button className="pull-right button green" onClick={handleAddOptionModal}>
+                        <i className="fa fa-plus" /> {`Add ${DROPDOWN_OPTIONS[type].singular}`}
+                    </button>
+                </BlockHeading>
+                <div className="size-lg-12">
+                    <Table
+                        withActions
+                        headers={headers}
+                        isFetching={isFetching}
+                        error={error}
+                        noData={!dropdownOptions.length}
+                        noDataMessage={`There are no ${DROPDOWN_OPTIONS[type].name} to display.`}
+                        extraClasses="large"
+                    >
+                        <DropdownOptionsList
+                            colCount={headers.length}
+                            dropdownOptions={dropdownOptions}
+                            headers={headers}
+                        />
+                    </Table>
+                </div>
+            </div>
         </BlockContainer>
     );
 };

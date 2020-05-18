@@ -52,7 +52,7 @@ class ManufacturerTableContainer extends Component {
 
 const mapStateToProps = (
     {
-        superAdmin: {
+        companyAdmin: {
             manufacturersReducer: { manufacturers, isFetching, error, postSuccess, postError },
         },
         shared: {

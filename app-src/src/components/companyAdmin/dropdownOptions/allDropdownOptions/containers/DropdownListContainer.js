@@ -17,9 +17,8 @@ class DropdownListContainer extends Component {
     componentDidMount = () => {
         const { fetchAllDropdownOptions, fetchManufacturersByPinOptionType, type } = this.props;
 
-        fetchManufacturersByPinOptionType(DROPDOWN_OPTION_LOOKUP[type]).then(() => {
-            fetchAllDropdownOptions(DROPDOWN_OPTION_LOOKUP[type]);
-        });
+        fetchManufacturersByPinOptionType(DROPDOWN_OPTION_LOOKUP[type]);
+        fetchAllDropdownOptions(DROPDOWN_OPTION_LOOKUP[type]);
     };
 }
 
