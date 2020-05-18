@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
-import { SUCCESS_MODAL, ERROR_MODAL } from 'constants/shared/modalTypes';
+import { SUCCESS_MODAL, ERROR_MODAL, COMPANY_ADD_OPTION_VALUE } from 'constants/shared/modalTypes';
 
 import OptionValuesTable from '../presentational/OptionValuesTable';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
@@ -51,8 +51,8 @@ class OptionValuesTableContainer extends Component {
     };
 
     handleAddOptionValueModal = () => {
-        // const { showModal, manufacturer, services } = this.props;
-        // showModal(ADMIN_ADD_OPTION_VALUE, { manufacturer, services });
+        const { showModal, manufacturer, services } = this.props;
+        showModal(COMPANY_ADD_OPTION_VALUE, { manufacturer, services });
         // todo company admin add option value reducer and modal
     };
 
