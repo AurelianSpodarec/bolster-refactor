@@ -5,6 +5,7 @@ import { Link, withRouter } from 'react-router-dom';
 const ManufacturerListItem = ({
     manufacturer,
     handleEditManufacturerModal,
+    handleToggleEnable,
     onMobile,
     headers,
     match: { url },
@@ -17,13 +18,43 @@ const ManufacturerListItem = ({
         <td>
             {onMobile && <span className="mobile-table-heading">Actions</span>}
             <BlockButtonWrapper>
+                {!manufacturer.isDefault && (
+                    <button
+                        onClick={() => handleEditManufacturerModal(manufacturer)}
+                        className="button yellow"
+                    >
+                        <i className="far fa-pencil" />
+                        Edit
+                    </button>
+                )}
+
+                {!manufacturer.isDefault && (
+                    <button
+                        onClick={() => handleEditManufacturerModal(manufacturer)}
+                        className="button yellow"
+                    >
+                        <i className="far fa-pencil" />
+                        Edit
+                    </button>
+                )}
+
                 <button
-                    onClick={() => handleEditManufacturerModal(manufacturer)}
-                    className="button yellow"
+                    onClick={handleToggleEnable}
+                    className={`button ${manufacturer.isDisabled ? 'green' : 'red'}`}
                 >
-                    <i className="far fa-pencil" />
-                    Edit
+                    {manufacturer.isDisabled ? (
+                        <>
+                            <i className="fa fa-plus fa-fw" />
+                            Enable
+                        </>
+                    ) : (
+                        <>
+                            <i className="fa fa-minus fa-fw" />
+                            Disable
+                        </>
+                    )}
                 </button>
+
                 <Link to={`${url}/${manufacturer.id}`} className="button">
                     Manage Options
                 </Link>

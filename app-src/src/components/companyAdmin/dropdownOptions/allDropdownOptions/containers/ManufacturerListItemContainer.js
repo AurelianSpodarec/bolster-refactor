@@ -16,6 +16,7 @@ class ManufacturerListItemContainer extends Component {
                 handleEditManufacturerModal={this.handleEditManufacturerModal}
                 headers={headers}
                 onMobile={onMobile}
+                handleToggleEnable={this.handleToggleEnable}
             />
         );
     }
@@ -23,6 +24,12 @@ class ManufacturerListItemContainer extends Component {
         // const { showModal } = this.props;
         // showModal(ADMIN_EDIT_MANUFACTURER, { manufacturer });
         // todo company admin edit manufacturer modal and associated redux functions
+    };
+
+    handleToggleEnable = () => {
+        // const { showModal, manufacturer } = this.props;
+        // showModal(TOGGLE_MANUFACTURER, { manufacturer });
+        // todo company admin enable and disable manufacturers
     };
 }
 
