@@ -2,7 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
-import { COMPANY_EDIT_MANUFACTURER } from 'constants/shared/modalTypes';
+import {
+    COMPANY_EDIT_MANUFACTURER,
+    COMPANY_TOGGLE_MANUFACTURER,
+} from 'constants/shared/modalTypes';
 
 import ManufacturerListItem from '../presentational/ManufacturerListItem';
 
@@ -26,8 +29,8 @@ class ManufacturerListItemContainer extends Component {
     };
 
     handleToggleEnable = () => {
-        // const { showModal, manufacturer } = this.props;
-        // showModal(TOGGLE_MANUFACTURER, { manufacturer });
+        const { showModal, manufacturer } = this.props;
+        showModal(COMPANY_TOGGLE_MANUFACTURER, { manufacturer });
         // todo company admin enable and disable manufacturers
     };
 }

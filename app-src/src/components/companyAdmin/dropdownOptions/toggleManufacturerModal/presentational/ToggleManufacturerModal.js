@@ -4,14 +4,12 @@ import BlockHeading from 'components/shared/generic/blockHeading/presentational/
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import ModalOuterContainer from 'components/shared/generic/modals/containers/ModalOuterContainer';
 
-// const ToggleManufacturerModal = ({ toggleManufacturer, hideModal, message }) => (
-const ToggleManufacturerModal = ({ hideModal, message }) => (
+const ToggleManufacturerModal = ({ hideModal, message, toggleManufacturer }) => (
     <ModalOuterContainer>
         <BlockHeading title={'Confirmation'} />
         <p className="generic-text intro-text size-lg-12">{message}</p>
         <BlockButtonWrapper>
-            {/* <button className="button green" onClick={toggleManufacturer}> */}
-            <button className="button green" onClick={() => {}}>
+            <button className="button green" onClick={toggleManufacturer}>
                 <i className={'far fa-check fa-fw'} />
                 Confirm
             </button>

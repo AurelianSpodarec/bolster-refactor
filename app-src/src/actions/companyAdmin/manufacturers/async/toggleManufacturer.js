@@ -17,6 +17,7 @@ export const toggleManufacturerSuccess = (id, payload) => ({
     type: TOGGLE_MANUFACTURER_SUCCESS,
     id,
     payload,
+    pinOptionType: payload.pinOptionType,
 });
 
 export const toggleManufacturerFailure = error => ({
@@ -24,13 +25,13 @@ export const toggleManufacturerFailure = error => ({
     error,
 });
 
-export default (id, type, isEnableRequest) => dispatch => {
+export default (id, isEnableRequest) => dispatch => {
     dispatch(toggleManufacturerRequest());
 
     return axios
         .post(
-            `${API_URL}/dropdownoptions/${type}/${id}/disable${
-                isEnableRequest ? '?undo=true' : ''
+            `${API_URL}/manufacturer/enabledManufacturers/enable/${id}${
+                isEnableRequest ? '?undo=false' : '?undo=true'
             }`,
             {},
             getHeaders(),

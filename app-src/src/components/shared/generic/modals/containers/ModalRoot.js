@@ -267,6 +267,7 @@ const MODAL_COMPONENTS = {
     [ADMIN_DELETE_OPTION_VALUE_DOCUMENT_VERSION]: AdminConfirmDeleteDocumentVersionModalContainer,
     [COMPANY_ADD_MANUFACTURER]: AddManufacturerModal,
     [COMPANY_EDIT_MANUFACTURER]: EditManufacturerModal,
+    [COMPANY_TOGGLE_MANUFACTURER]: ToggleManufacturerModalContainer,
 };
 
 const ModalRoot = ({ modalType, modalProps, ...otherProps }) => {

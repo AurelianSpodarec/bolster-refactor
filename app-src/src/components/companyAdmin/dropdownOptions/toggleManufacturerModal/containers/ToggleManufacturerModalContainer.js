@@ -6,12 +6,12 @@ import toggleManufacturer from 'actions/companyAdmin/manufacturers/async/toggleM
 import ToggleManufacturerModal from '../presentational/ToggleManufacturerModal';
 
 const ToggleManufacturerModalContainer = ({ manufacturer, hideModal, toggleManufacturer }) => {
-    const isEnableRequest = manufacturer.isDisabled;
+    const isEnableRequest = !manufacturer.isEnabled;
     return (
         <ToggleManufacturerModal
             toggleManufacturer={() => {
                 hideModal();
-                toggleManufacturer(manufacturer.id, manufacturer.type, isEnableRequest);
+                toggleManufacturer(manufacturer.id, isEnableRequest);
             }}
             hideModal={e => {
                 e.preventDefault();

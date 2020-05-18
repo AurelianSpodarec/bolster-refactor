@@ -30,9 +30,9 @@ const ManufacturerListItem = ({
 
                 <button
                     onClick={handleToggleEnable}
-                    className={`button ${manufacturer.isDisabled ? 'green' : 'red'}`}
+                    className={`button ${manufacturer.isEnabled ? 'green' : 'red'}`}
                 >
-                    {manufacturer.isDisabled ? (
+                    {manufacturer.isEnabled ? (
                         <>
                             <i className="fa fa-plus fa-fw" />
                             Enable

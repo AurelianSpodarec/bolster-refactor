@@ -14,6 +14,9 @@ import {
     FETCH_SINGLE_MANUFACTURER_REQUEST,
     FETCH_SINGLE_MANUFACTURER_SUCCESS,
     FETCH_SINGLE_MANUFACTURER_FAILURE,
+    TOGGLE_MANUFACTURER_REQUEST,
+    TOGGLE_MANUFACTURER_SUCCESS,
+    TOGGLE_MANUFACTURER_FAILURE,
 } from 'constants/actionTypes/companyAdminManufacturers';
 import { DROPDOWN_OPTIONS } from 'constants/companyAdmin/enums';
 
@@ -55,9 +58,11 @@ function postSuccessReducer(state = false, action) {
     switch (action.type) {
         case CREATE_MANUFACTURER_REQUEST:
         case EDIT_MANUFACTURER_REQUEST:
+        case TOGGLE_MANUFACTURER_REQUEST:
             return false;
         case CREATE_MANUFACTURER_SUCCESS:
         case EDIT_MANUFACTURER_SUCCESS:
+        case TOGGLE_MANUFACTURER_SUCCESS:
             return true;
         default:
             return state;
@@ -68,9 +73,11 @@ function postErrorReducer(state = false, action) {
     switch (action.type) {
         case CREATE_MANUFACTURER_REQUEST:
         case EDIT_MANUFACTURER_REQUEST:
+        case TOGGLE_MANUFACTURER_REQUEST:
             return false;
         case CREATE_MANUFACTURER_FAILURE:
         case EDIT_MANUFACTURER_FAILURE:
+        case TOGGLE_MANUFACTURER_FAILURE:
             return true;
         default:
             return state;
@@ -88,6 +95,7 @@ function manufacturersReducer(state = {}, action) {
         case CREATE_MANUFACTURER_SUCCESS:
         case EDIT_MANUFACTURER_SUCCESS:
         case FETCH_SINGLE_MANUFACTURER_SUCCESS:
+        case TOGGLE_MANUFACTURER_SUCCESS:
             return {
                 ...state,
                 [DROPDOWN_OPTIONS[action.pinOptionType].reduxKey]: updateObj(
