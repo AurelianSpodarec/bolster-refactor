@@ -50,7 +50,8 @@ const OptionValuesListItem = ({
                     )}
                 </button>
                 <Link to={`${url}/${optionValue.id}/documents`} className="button">
-                    Manage Option Value Documents
+                    <i className="fa fa-eye fa-fw" />
+                    Documents
                 </Link>
             </BlockButtonWrapper>
         </td>
