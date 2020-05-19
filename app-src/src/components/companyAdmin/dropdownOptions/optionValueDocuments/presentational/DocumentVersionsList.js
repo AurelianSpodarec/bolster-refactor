@@ -14,7 +14,12 @@ import { DOCUMENT_VIEW } from 'constants/shared/modalTypes';
 import FieldOutput from 'components/shared/generic/fieldOutput/presentational/FieldOutput';
 import { RAW_S3_STORAGE_URL } from 'config';
 
-const DocumentVersionsList = ({ versions, dispatch, handleDeleteDocumentVersionModal }) => (
+const DocumentVersionsList = ({
+    versions,
+    dispatch,
+    handleDeleteDocumentVersionModal,
+    isReadOnly,
+}) => (
     <div>
         {versions
             .sort((a, b) => b.createdAt - a.createdAt)
@@ -65,7 +70,7 @@ const DocumentVersionsList = ({ versions, dispatch, handleDeleteDocumentVersionM
                     </FieldOutput>
 
                     <div className={'flex-row-item size-lg-2'}>
-                        {!version.hasBeenUsed && (
+                        {!version.hasBeenUsed && !isReadOnly && (
                             <button
                                 className={'button red'}
                                 onClick={() => handleDeleteDocumentVersionModal(version)}

@@ -27,6 +27,7 @@ class OptionValueDocumentsContainer extends Component {
                 optionValues={optionValues}
                 optionValueID={optionValueID}
                 handleAddDocumentModal={this.handleAddDocumentModal}
+                isReadOnly={optionValues[optionValueID].isDefault}
             />
         );
     }

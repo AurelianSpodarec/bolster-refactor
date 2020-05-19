@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 
 import OptionValueDocumentsListItem from '../presentational/OptionValueDocumentsListItem';
 import {
-    ADMIN_EDIT_OPTION_VALUE_DOCUMENT,
-    ADMIN_ADD_OPTION_VALUE_DOCUMENT_VERSION,
+    COMPANY_EDIT_OPTION_VALUE_DOCUMENT,
+    COMPANY_ADD_OPTION_VALUE_DOCUMENT_VERSION,
 } from 'constants/shared/modalTypes';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 
@@ -12,7 +12,7 @@ class OptionValueDocumentsListItemContainer extends Component {
     state = { active: false };
 
     render() {
-        const { document, optionValueID } = this.props;
+        const { document, optionValueID, isReadOnly } = this.props;
 
         return (
             <OptionValueDocumentsListItem
@@ -20,18 +20,21 @@ class OptionValueDocumentsListItemContainer extends Component {
                 handleEditDocumentModal={this.handleEditDocumentModal}
                 handleAddDocumentVersionModal={this.handleAddDocumentVersionModal}
                 optionValueID={optionValueID}
+                isReadOnly={isReadOnly}
             />
         );
     }
 
     handleEditDocumentModal = () => {
-        const { showModal, document, optionValueID } = this.props;
-        showModal(ADMIN_EDIT_OPTION_VALUE_DOCUMENT, { optionValueID, document });
+        // const { showModal, document, optionValueID } = this.props;
+        // showModal(COMPANY_EDIT_OPTION_VALUE_DOCUMENT, { optionValueID, document });
+        // todo company admin edit option value document redux and modal
     };
 
     handleAddDocumentVersionModal = () => {
-        const { showModal, document, optionValueID } = this.props;
-        showModal(ADMIN_ADD_OPTION_VALUE_DOCUMENT_VERSION, { optionValueID, document });
+        // const { showModal, document, optionValueID } = this.props;
+        // showModal(COMPANY_ADD_OPTION_VALUE_DOCUMENT_VERSION, { optionValueID, document });
+        // todo company admin add option value document version redux and modal
     };
 }
 

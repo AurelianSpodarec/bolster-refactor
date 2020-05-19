@@ -3,7 +3,7 @@ import moment from 'moment';
 
 import OptionValueDocumentsListItemContainer from '../containers/OptionValueDocumentsListItemContainer';
 
-const OptionValueDocumentsList = ({ documents, optionValueID }) => {
+const OptionValueDocumentsList = ({ documents, optionValueID, isReadOnly }) => {
     return documents
         .sort((a, b) => moment(a.createdAt) - moment(b.createdAt))
         .map(document => (
@@ -11,6 +11,7 @@ const OptionValueDocumentsList = ({ documents, optionValueID }) => {
                 key={document.id}
                 document={document}
                 optionValueID={optionValueID}
+                isReadOnly={isReadOnly}
             />
         ));
 };

@@ -8,7 +8,7 @@ import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 
 class OptionValueDocumentListContainer extends Component {
     render() {
-        const { documents, isFetching, error, optionValueID } = this.props;
+        const { documents, isFetching, error, optionValueID, isReadOnly } = this.props;
 
         return !isFetching && !documents.length ? (
             <BlockContainer
@@ -17,7 +17,11 @@ class OptionValueDocumentListContainer extends Component {
                 noDataMessage="There are no documents attached to this option value."
             />
         ) : (
-            <OptionValueDocumentsList documents={documents} optionValueID={optionValueID} />
+            <OptionValueDocumentsList
+                documents={documents}
+                optionValueID={optionValueID}
+                isReadOnly={isReadOnly}
+            />
         );
     }
 }

@@ -8,21 +8,30 @@ const OptionValueDocumentsListItem = ({
     handleEditDocumentModal,
     handleAddDocumentVersionModal,
     optionValueID,
+    isReadOnly,
 }) => {
     return (
         <BlockContainer>
             <BlockHeading title={document.name} classes={'underline-full'}>
-                <button onClick={handleAddDocumentVersionModal} className="button green">
-                    <i className="far fa-plus" />
-                    Add New Version
-                </button>
-                <button onClick={handleEditDocumentModal} className="button yellow">
-                    <i className="far fa-pencil" />
-                    Edit Name
-                </button>
+                {!isReadOnly && (
+                    <>
+                        <button onClick={handleAddDocumentVersionModal} className="button green">
+                            <i className="far fa-plus" />
+                            Add New Version
+                        </button>
+                        <button onClick={handleEditDocumentModal} className="button yellow">
+                            <i className="far fa-pencil" />
+                            Edit Name
+                        </button>
+                    </>
+                )}
             </BlockHeading>
 
-            <DocumentVersionsListContainer document={document} optionValueID={optionValueID} />
+            <DocumentVersionsListContainer
+                document={document}
+                optionValueID={optionValueID}
+                isReadOnly={isReadOnly}
+            />
         </BlockContainer>
     );
 };
