@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { COMPANY_TOGGLE_MANUFACTURER_OPTION_VALUE } from 'constants/shared/modalTypes';
+import {
+    COMPANY_TOGGLE_MANUFACTURER_OPTION_VALUE,
+    COMPANY_EDIT_OPTION_VALUE,
+} from 'constants/shared/modalTypes';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 
 import OptionValuesListItem from '../presentational/OptionValuesListItem';
@@ -32,8 +35,8 @@ class OptionValuesListItemContainer extends Component {
         );
     }
     handleEditOptionValueModal = optionValue => {
-        // const { showModal, services } = this.props;
-        // showModal(ADMIN_EDIT_OPTION_VALUE, { optionValue, services });
+        const { showModal, services } = this.props;
+        showModal(COMPANY_EDIT_OPTION_VALUE, { optionValue, services });
         // todo company admin edit option value redux and modal
     };
 

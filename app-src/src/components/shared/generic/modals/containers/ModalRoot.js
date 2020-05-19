@@ -90,6 +90,7 @@ import {
     COMPANY_TOGGLE_MANUFACTURER,
     COMPANY_TOGGLE_MANUFACTURER_OPTION_VALUE,
     COMPANY_ADD_OPTION_VALUE,
+    COMPANY_EDIT_OPTION_VALUE,
 } from 'constants/shared/modalTypes';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
@@ -182,6 +183,7 @@ import EditManufacturerModal from 'components/companyAdmin/dropdownOptions/editM
 import ToggleManufacturerModalContainer from 'components/companyAdmin/dropdownOptions/toggleManufacturerModal/containers/ToggleManufacturerModalContainer';
 import ToggleManufacturerOptionValueModalContainer from 'components/companyAdmin/dropdownOptions/toggleManufacturerOptionValueModal/containers/ToggleManufacturerOptionValueModalContainer';
 import AddOptionValueModal from 'components/companyAdmin/dropdownOptions/addOptionValue/presentational/AddOptionValueModal';
+import EditOptionValueModal from 'components/companyAdmin/dropdownOptions/editOptionValue/presentational/EditOptionValueModal';
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModalContainer,
@@ -272,6 +274,7 @@ const MODAL_COMPONENTS = {
     [COMPANY_TOGGLE_MANUFACTURER]: ToggleManufacturerModalContainer,
     [COMPANY_TOGGLE_MANUFACTURER_OPTION_VALUE]: ToggleManufacturerOptionValueModalContainer,
     [COMPANY_ADD_OPTION_VALUE]: AddOptionValueModal,
+    [COMPANY_EDIT_OPTION_VALUE]: EditOptionValueModal,
 };
 
 const ModalRoot = ({ modalType, modalProps, ...otherProps }) => {
