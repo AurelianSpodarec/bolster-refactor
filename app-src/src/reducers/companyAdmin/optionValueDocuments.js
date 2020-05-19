@@ -3,22 +3,22 @@ import { combineReducers } from 'redux';
 import { convertArrToObj, updateObj, removeObjItem } from 'helpers/generic';
 import { removeDeletedDocumentVersion } from 'helpers/redux';
 import {
-    SA_FETCH_DOCUMENTS_BY_OPTION_VALUE_REQUEST,
-    SA_FETCH_DOCUMENTS_BY_OPTION_VALUE_SUCCESS,
-    SA_FETCH_DOCUMENTS_BY_OPTION_VALUE_FAILURE,
-    SA_CREATE_DOCUMENT_FOR_OPTION_VALUE_REQUEST,
-    SA_CREATE_DOCUMENT_FOR_OPTION_VALUE_SUCCESS,
-    SA_CREATE_DOCUMENT_FOR_OPTION_VALUE_FAILURE,
-    SA_EDIT_OPTION_VALUE_DOCUMENT_REQUEST,
-    SA_EDIT_OPTION_VALUE_DOCUMENT_SUCCESS,
-    SA_EDIT_OPTION_VALUE_DOCUMENT_FAILURE,
-    SA_CREATE_NEW_OPTION_VALUE_DOCUMENT_VERSION_REQUEST,
-    SA_CREATE_NEW_OPTION_VALUE_DOCUMENT_VERSION_SUCCESS,
-    SA_CREATE_NEW_OPTION_VALUE_DOCUMENT_VERSION_FAILURE,
-    SA_DELETE_OPTION_VALUE_DOCUMENT_VERSION_REQUEST,
-    SA_DELETE_OPTION_VALUE_DOCUMENT_VERSION_SUCCESS,
-    SA_DELETE_OPTION_VALUE_DOCUMENT_VERSION_FAILURE,
-} from 'constants/actionTypes/superAdminManufacturers';
+    FETCH_DOCUMENTS_BY_OPTION_VALUE_REQUEST,
+    FETCH_DOCUMENTS_BY_OPTION_VALUE_SUCCESS,
+    FETCH_DOCUMENTS_BY_OPTION_VALUE_FAILURE,
+    CREATE_DOCUMENT_FOR_OPTION_VALUE_REQUEST,
+    CREATE_DOCUMENT_FOR_OPTION_VALUE_SUCCESS,
+    CREATE_DOCUMENT_FOR_OPTION_VALUE_FAILURE,
+    EDIT_OPTION_VALUE_DOCUMENT_REQUEST,
+    EDIT_OPTION_VALUE_DOCUMENT_SUCCESS,
+    EDIT_OPTION_VALUE_DOCUMENT_FAILURE,
+    CREATE_NEW_OPTION_VALUE_DOCUMENT_VERSION_REQUEST,
+    CREATE_NEW_OPTION_VALUE_DOCUMENT_VERSION_SUCCESS,
+    CREATE_NEW_OPTION_VALUE_DOCUMENT_VERSION_FAILURE,
+    DELETE_OPTION_VALUE_DOCUMENT_VERSION_REQUEST,
+    DELETE_OPTION_VALUE_DOCUMENT_VERSION_SUCCESS,
+    DELETE_OPTION_VALUE_DOCUMENT_VERSION_FAILURE,
+} from 'constants/actionTypes/companyAdminManufacturers';
 
 export default combineReducers({
     optionValueDocuments: optionValueDocumentsReducer,
@@ -31,10 +31,10 @@ export default combineReducers({
 
 function isFetchingReducer(state = false, action) {
     switch (action.type) {
-        case SA_FETCH_DOCUMENTS_BY_OPTION_VALUE_REQUEST:
+        case FETCH_DOCUMENTS_BY_OPTION_VALUE_REQUEST:
             return true;
-        case SA_FETCH_DOCUMENTS_BY_OPTION_VALUE_SUCCESS:
-        case SA_FETCH_DOCUMENTS_BY_OPTION_VALUE_FAILURE:
+        case FETCH_DOCUMENTS_BY_OPTION_VALUE_SUCCESS:
+        case FETCH_DOCUMENTS_BY_OPTION_VALUE_FAILURE:
             return false;
         default:
             return state;
@@ -43,9 +43,9 @@ function isFetchingReducer(state = false, action) {
 
 function errorReducer(state = null, action) {
     switch (action.type) {
-        case SA_FETCH_DOCUMENTS_BY_OPTION_VALUE_REQUEST:
+        case FETCH_DOCUMENTS_BY_OPTION_VALUE_REQUEST:
             return null;
-        case SA_FETCH_DOCUMENTS_BY_OPTION_VALUE_FAILURE:
+        case FETCH_DOCUMENTS_BY_OPTION_VALUE_FAILURE:
             return action.error;
         default:
             return state;
@@ -54,13 +54,13 @@ function errorReducer(state = null, action) {
 
 function postSuccessReducer(state = false, action) {
     switch (action.type) {
-        case SA_CREATE_DOCUMENT_FOR_OPTION_VALUE_REQUEST:
-        case SA_EDIT_OPTION_VALUE_DOCUMENT_REQUEST:
-        case SA_CREATE_NEW_OPTION_VALUE_DOCUMENT_VERSION_REQUEST:
+        case CREATE_DOCUMENT_FOR_OPTION_VALUE_REQUEST:
+        case EDIT_OPTION_VALUE_DOCUMENT_REQUEST:
+        case CREATE_NEW_OPTION_VALUE_DOCUMENT_VERSION_REQUEST:
             return false;
-        case SA_CREATE_DOCUMENT_FOR_OPTION_VALUE_SUCCESS:
-        case SA_EDIT_OPTION_VALUE_DOCUMENT_SUCCESS:
-        case SA_CREATE_NEW_OPTION_VALUE_DOCUMENT_VERSION_SUCCESS:
+        case CREATE_DOCUMENT_FOR_OPTION_VALUE_SUCCESS:
+        case EDIT_OPTION_VALUE_DOCUMENT_SUCCESS:
+        case CREATE_NEW_OPTION_VALUE_DOCUMENT_VERSION_SUCCESS:
             return true;
         default:
             return state;
@@ -69,15 +69,15 @@ function postSuccessReducer(state = false, action) {
 
 function postErrorReducer(state = false, action) {
     switch (action.type) {
-        case SA_CREATE_DOCUMENT_FOR_OPTION_VALUE_REQUEST:
-        case SA_EDIT_OPTION_VALUE_DOCUMENT_REQUEST:
-        case SA_CREATE_NEW_OPTION_VALUE_DOCUMENT_VERSION_REQUEST:
-        case SA_DELETE_OPTION_VALUE_DOCUMENT_VERSION_REQUEST:
+        case CREATE_DOCUMENT_FOR_OPTION_VALUE_REQUEST:
+        case EDIT_OPTION_VALUE_DOCUMENT_REQUEST:
+        case CREATE_NEW_OPTION_VALUE_DOCUMENT_VERSION_REQUEST:
+        case DELETE_OPTION_VALUE_DOCUMENT_VERSION_REQUEST:
             return false;
-        case SA_CREATE_DOCUMENT_FOR_OPTION_VALUE_FAILURE:
-        case SA_EDIT_OPTION_VALUE_DOCUMENT_FAILURE:
-        case SA_CREATE_NEW_OPTION_VALUE_DOCUMENT_VERSION_FAILURE:
-        case SA_DELETE_OPTION_VALUE_DOCUMENT_VERSION_FAILURE:
+        case CREATE_DOCUMENT_FOR_OPTION_VALUE_FAILURE:
+        case EDIT_OPTION_VALUE_DOCUMENT_FAILURE:
+        case CREATE_NEW_OPTION_VALUE_DOCUMENT_VERSION_FAILURE:
+        case DELETE_OPTION_VALUE_DOCUMENT_VERSION_FAILURE:
             return true;
         default:
             return state;
@@ -87,9 +87,9 @@ function postErrorReducer(state = false, action) {
 // for redirect after delete, can't use postsuccess as edit shares that success bool
 function deleteSuccessReducer(state = false, action) {
     switch (action.type) {
-        case SA_DELETE_OPTION_VALUE_DOCUMENT_VERSION_REQUEST:
+        case DELETE_OPTION_VALUE_DOCUMENT_VERSION_REQUEST:
             return false;
-        case SA_DELETE_OPTION_VALUE_DOCUMENT_VERSION_SUCCESS:
+        case DELETE_OPTION_VALUE_DOCUMENT_VERSION_SUCCESS:
             return true;
         default:
             return state;
@@ -98,11 +98,11 @@ function deleteSuccessReducer(state = false, action) {
 
 function optionValueDocumentsReducer(state = {}, action) {
     switch (action.type) {
-        case SA_FETCH_DOCUMENTS_BY_OPTION_VALUE_SUCCESS:
+        case FETCH_DOCUMENTS_BY_OPTION_VALUE_SUCCESS:
             return updateObj(state, action.optionValueID, convertArrToObj(action.payload));
-        case SA_CREATE_DOCUMENT_FOR_OPTION_VALUE_SUCCESS:
-        case SA_EDIT_OPTION_VALUE_DOCUMENT_SUCCESS:
-        case SA_CREATE_NEW_OPTION_VALUE_DOCUMENT_VERSION_SUCCESS:
+        case CREATE_DOCUMENT_FOR_OPTION_VALUE_SUCCESS:
+        case EDIT_OPTION_VALUE_DOCUMENT_SUCCESS:
+        case CREATE_NEW_OPTION_VALUE_DOCUMENT_VERSION_SUCCESS:
             return {
                 ...state,
                 [action.optionValueID]: updateObj(
@@ -111,7 +111,7 @@ function optionValueDocumentsReducer(state = {}, action) {
                     action.payload,
                 ),
             };
-        case SA_DELETE_OPTION_VALUE_DOCUMENT_VERSION_SUCCESS:
+        case DELETE_OPTION_VALUE_DOCUMENT_VERSION_SUCCESS:
             return action.isLastVersion
                 ? updateObj(
                       state,

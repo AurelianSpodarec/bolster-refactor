@@ -42,7 +42,6 @@ const mapStateToProps = (
     isFetching,
     error,
 });
-// todo map state to props for object value documents
 
 const mapDispatchToProps = {
     showModal,
