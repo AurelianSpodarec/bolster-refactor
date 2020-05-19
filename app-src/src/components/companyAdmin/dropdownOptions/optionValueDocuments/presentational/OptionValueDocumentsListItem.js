@@ -9,6 +9,7 @@ const OptionValueDocumentsListItem = ({
     handleAddDocumentVersionModal,
     optionValueID,
     isReadOnly,
+    manufacturerID,
 }) => {
     return (
         <BlockContainer>
@@ -31,6 +32,7 @@ const OptionValueDocumentsListItem = ({
                 document={document}
                 optionValueID={optionValueID}
                 isReadOnly={isReadOnly}
+                manufacturerID={manufacturerID}
             />
         </BlockContainer>
     );

@@ -12,7 +12,7 @@ class OptionValueDocumentsListItemContainer extends Component {
     state = { active: false };
 
     render() {
-        const { document, optionValueID, isReadOnly } = this.props;
+        const { document, optionValueID, isReadOnly, manufacturerID } = this.props;
 
         return (
             <OptionValueDocumentsListItem
@@ -21,6 +21,7 @@ class OptionValueDocumentsListItemContainer extends Component {
                 handleAddDocumentVersionModal={this.handleAddDocumentVersionModal}
                 optionValueID={optionValueID}
                 isReadOnly={isReadOnly}
+                manufacturerID={manufacturerID}
             />
         );
     }
@@ -28,13 +29,15 @@ class OptionValueDocumentsListItemContainer extends Component {
     handleEditDocumentModal = () => {
         const { showModal, document, optionValueID, manufacturerID } = this.props;
         showModal(COMPANY_EDIT_OPTION_VALUE_DOCUMENT, { manufacturerID, optionValueID, document });
-        // todo company admin edit option value document redux and modal
     };
 
     handleAddDocumentVersionModal = () => {
-        // const { showModal, document, optionValueID } = this.props;
-        // showModal(COMPANY_ADD_OPTION_VALUE_DOCUMENT_VERSION, { optionValueID, document });
-        // todo company admin add option value document version redux and modal
+        const { showModal, document, optionValueID, manufacturerID } = this.props;
+        showModal(COMPANY_ADD_OPTION_VALUE_DOCUMENT_VERSION, {
+            manufacturerID,
+            optionValueID,
+            document,
+        });
     };
 }
 

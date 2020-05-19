@@ -19,14 +19,15 @@ class DocumentVersionsListContainer extends Component {
     }
 
     handleDeleteDocumentVersionModal = version => {
-        const { showModal, document, optionValueID } = this.props;
-        // if (!version.hasBeenUsed) {
-        //     showModal(COMPANY_DELETE_OPTION_VALUE_DOCUMENT_VERSION, {
-        //         optionValueID,
-        //         document,
-        //         version,
-        //     });
-        // }
+        const { manufacturerID, showModal, document, optionValueID } = this.props;
+        if (!version.hasBeenUsed) {
+            showModal(COMPANY_DELETE_OPTION_VALUE_DOCUMENT_VERSION, {
+                manufacturerID,
+                optionValueID,
+                document,
+                version,
+            });
+        }
         //todo company admin delete document version redux and modal
     };
 }
