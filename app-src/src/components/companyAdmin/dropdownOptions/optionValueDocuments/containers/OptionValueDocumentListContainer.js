@@ -24,7 +24,7 @@ class OptionValueDocumentListContainer extends Component {
 
 const mapStateToProps = (
     {
-        superAdmin: {
+        companyAdmin: {
             optionValueDocumentsReducer: { optionValueDocuments, isFetching, error },
         },
     },
