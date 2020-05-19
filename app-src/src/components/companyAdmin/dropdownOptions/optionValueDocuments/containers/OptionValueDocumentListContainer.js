@@ -8,7 +8,14 @@ import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 
 class OptionValueDocumentListContainer extends Component {
     render() {
-        const { documents, isFetching, error, optionValueID, isReadOnly } = this.props;
+        const {
+            documents,
+            isFetching,
+            error,
+            optionValueID,
+            isReadOnly,
+            manufacturerID,
+        } = this.props;
 
         return !isFetching && !documents.length ? (
             <BlockContainer
@@ -21,6 +28,7 @@ class OptionValueDocumentListContainer extends Component {
                 documents={documents}
                 optionValueID={optionValueID}
                 isReadOnly={isReadOnly}
+                manufacturerID={manufacturerID}
             />
         );
     }

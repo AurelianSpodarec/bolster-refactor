@@ -92,6 +92,7 @@ import {
     COMPANY_ADD_OPTION_VALUE,
     COMPANY_EDIT_OPTION_VALUE,
     COMPANY_ADD_DOCUMENT_TO_OPTION_VALUE,
+    COMPANY_EDIT_OPTION_VALUE_DOCUMENT,
 } from 'constants/shared/modalTypes';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
@@ -186,6 +187,7 @@ import ToggleManufacturerOptionValueModalContainer from 'components/companyAdmin
 import AddOptionValueModal from 'components/companyAdmin/dropdownOptions/addOptionValue/presentational/AddOptionValueModal';
 import EditOptionValueModal from 'components/companyAdmin/dropdownOptions/editOptionValue/presentational/EditOptionValueModal';
 import AddDocumentToOptionValueModal from 'components/companyAdmin/dropdownOptions/addDocumentToOptionValue/presentational/AddDocumentToOptionValueModal';
+import EditOptionValueDocumentModal from 'components/companyAdmin/dropdownOptions/editOptionValueDocument/presentational/EditOptionValueDocumentModal';
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModalContainer,
@@ -278,6 +280,7 @@ const MODAL_COMPONENTS = {
     [COMPANY_ADD_OPTION_VALUE]: AddOptionValueModal,
     [COMPANY_EDIT_OPTION_VALUE]: EditOptionValueModal,
     [COMPANY_ADD_DOCUMENT_TO_OPTION_VALUE]: AddDocumentToOptionValueModal,
+    [COMPANY_EDIT_OPTION_VALUE_DOCUMENT]: EditOptionValueDocumentModal,
 };
 
 const ModalRoot = ({ modalType, modalProps, ...otherProps }) => {

@@ -26,8 +26,8 @@ class OptionValueDocumentsListItemContainer extends Component {
     }
 
     handleEditDocumentModal = () => {
-        // const { showModal, document, optionValueID } = this.props;
-        // showModal(COMPANY_EDIT_OPTION_VALUE_DOCUMENT, { optionValueID, document });
+        const { showModal, document, optionValueID, manufacturerID } = this.props;
+        showModal(COMPANY_EDIT_OPTION_VALUE_DOCUMENT, { manufacturerID, optionValueID, document });
         // todo company admin edit option value document redux and modal
     };
 
