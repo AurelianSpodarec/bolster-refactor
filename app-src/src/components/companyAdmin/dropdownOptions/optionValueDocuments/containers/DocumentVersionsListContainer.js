@@ -28,7 +28,6 @@ class DocumentVersionsListContainer extends Component {
                 version,
             });
         }
-        //todo company admin delete document version redux and modal
     };
 }
 

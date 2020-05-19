@@ -94,6 +94,7 @@ import {
     COMPANY_ADD_DOCUMENT_TO_OPTION_VALUE,
     COMPANY_EDIT_OPTION_VALUE_DOCUMENT,
     COMPANY_ADD_OPTION_VALUE_DOCUMENT_VERSION,
+    COMPANY_DELETE_OPTION_VALUE_DOCUMENT_VERSION,
 } from 'constants/shared/modalTypes';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
@@ -190,6 +191,7 @@ import EditOptionValueModal from 'components/companyAdmin/dropdownOptions/editOp
 import AddDocumentToOptionValueModal from 'components/companyAdmin/dropdownOptions/addDocumentToOptionValue/presentational/AddDocumentToOptionValueModal';
 import EditOptionValueDocumentModal from 'components/companyAdmin/dropdownOptions/editOptionValueDocument/presentational/EditOptionValueDocumentModal';
 import AddNewDocumentVersionModal from 'components/companyAdmin/dropdownOptions/addNewDocumentVersion/presentational/AddNewDocumentVersionModal';
+import ConfirmDeleteDocumentVersionModalContainer from 'components/companyAdmin/dropdownOptions/confirmDeleteDocumentVersion/containers/ConfirmDeleteDocumentVersionModalContainer';
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModalContainer,
@@ -284,6 +286,7 @@ const MODAL_COMPONENTS = {
     [COMPANY_ADD_DOCUMENT_TO_OPTION_VALUE]: AddDocumentToOptionValueModal,
     [COMPANY_EDIT_OPTION_VALUE_DOCUMENT]: EditOptionValueDocumentModal,
     [COMPANY_ADD_OPTION_VALUE_DOCUMENT_VERSION]: AddNewDocumentVersionModal,
+    [COMPANY_DELETE_OPTION_VALUE_DOCUMENT_VERSION]: ConfirmDeleteDocumentVersionModalContainer,
 };
 
 const ModalRoot = ({ modalType, modalProps, ...otherProps }) => {
