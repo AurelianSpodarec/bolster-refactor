@@ -46,7 +46,8 @@ const ManufacturerListItem = ({
                 </button>
 
                 <Link to={`${url}/${manufacturer.id}`} className="button">
-                    Manage Options
+                    <i className="fa fa-eye fa-fw" />
+                    Values
                 </Link>
             </BlockButtonWrapper>
         </td>
