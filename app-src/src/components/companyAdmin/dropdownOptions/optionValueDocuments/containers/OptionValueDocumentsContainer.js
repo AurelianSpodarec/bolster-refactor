@@ -5,7 +5,7 @@ import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import {
     SUCCESS_MODAL,
     ERROR_MODAL,
-    // COMPANY_ADD_DOCUMENT_TO_OPTION_VALUE,
+    COMPANY_ADD_DOCUMENT_TO_OPTION_VALUE,
 } from 'constants/shared/modalTypes';
 
 import OptionValueDocuments from '../presentational/OptionValueDocuments';
@@ -76,10 +76,9 @@ class OptionValueDocumentsContainer extends Component {
     };
 
     handleAddDocumentModal = () => {
-        // const { optionValueID, showModal, optionValues } = this.props;
-        // const optionValue = optionValues[optionValueID];
-        // showModal(COMPANY_ADD_DOCUMENT_TO_OPTION_VALUE, { optionValue });
-        // todo company admin add document to option value redux and documents
+        const { optionValueID, showModal, optionValues } = this.props;
+        const optionValue = optionValues[optionValueID];
+        showModal(COMPANY_ADD_DOCUMENT_TO_OPTION_VALUE, { optionValue });
     };
 }
 

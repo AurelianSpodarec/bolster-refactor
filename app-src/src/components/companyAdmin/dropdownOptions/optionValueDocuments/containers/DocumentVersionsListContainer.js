@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
-import { ADMIN_DELETE_OPTION_VALUE_DOCUMENT_VERSION } from 'constants/shared/modalTypes';
+import { COMPANY_DELETE_OPTION_VALUE_DOCUMENT_VERSION } from 'constants/shared/modalTypes';
 
 import DocumentVersionsList from '../presentational/DocumentVersionsList';
 
@@ -20,13 +20,14 @@ class DocumentVersionsListContainer extends Component {
 
     handleDeleteDocumentVersionModal = version => {
         const { showModal, document, optionValueID } = this.props;
-        if (!version.hasBeenUsed) {
-            showModal(ADMIN_DELETE_OPTION_VALUE_DOCUMENT_VERSION, {
-                optionValueID,
-                document,
-                version,
-            });
-        }
+        // if (!version.hasBeenUsed) {
+        //     showModal(COMPANY_DELETE_OPTION_VALUE_DOCUMENT_VERSION, {
+        //         optionValueID,
+        //         document,
+        //         version,
+        //     });
+        // }
+        //todo company admin delete document version redux and modal
     };
 }
 
