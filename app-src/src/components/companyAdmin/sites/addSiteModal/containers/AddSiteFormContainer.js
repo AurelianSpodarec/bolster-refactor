@@ -6,6 +6,12 @@ import moment from 'moment';
 import AddSiteForm from '../presentational/AddSiteForm';
 import createSite from 'actions/companyAdmin/sites/async/createSite';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
+import fetchManufacturersByPinOptionType from 'actions/companyAdmin/manufacturers/async/fetchManufacturersByPinOptionType';
+import {
+    DROPDOWN_OPTION_MANUFACTURER_ENABLED,
+    DROPDOWN_OPTIONS,
+} from 'constants/companyAdmin/enums';
+import fetchAllOptionValues from 'actions/companyAdmin/manufacturers/async/fetchAllOptionValues';
 
 class AddSiteFormContainer extends Component {
     state = {
@@ -16,7 +22,7 @@ class AddSiteFormContainer extends Component {
         postcode: '',
         isAlertShowing: false,
         message: '',
-        dateToSend: ''
+        dateToSend: '',
     };
 
     render() {
@@ -33,6 +39,25 @@ class AddSiteFormContainer extends Component {
         );
     }
 
+    async componentDidMount() {
+        const { fetchManufacturersByPinOptionType, fetchAllOptionValues } = this.props;
+
+        // ** Only do a fetch for the manufacturers of a specific type if manufacturing is enabled. Wait for them to resolve before adding a site.
+        const pinOptionTypes = Object.keys(DROPDOWN_OPTIONS).filter(option => {
+            return DROPDOWN_OPTION_MANUFACTURER_ENABLED[option];
+        });
+
+        const fn = function fetchManufacturers(pinOptionType) {
+            return fetchManufacturersByPinOptionType(pinOptionType);
+        };
+
+        const actions = pinOptionTypes.map(fn);
+
+        await Promise.all(actions).then(() => {
+            fetchAllOptionValues();
+        });
+    }
+
     componentDidUpdate = prevProps => {
         const { postSuccess, history, updatedSiteID } = this.props;
 
@@ -47,7 +72,7 @@ class AddSiteFormContainer extends Component {
 
     handleDateChange = date => {
         this.setState({
-            dateToSend: date
+            dateToSend: date,
         });
     };
 
@@ -62,7 +87,7 @@ class AddSiteFormContainer extends Component {
             postcode,
             message,
             dateToSend,
-            isAlertShowing
+            isAlertShowing,
         } = this.state;
         let postBody = {};
         if (isAlertShowing) {
@@ -73,7 +98,7 @@ class AddSiteFormContainer extends Component {
                 addressLine2,
                 postcode,
                 message: message,
-                dateToSend: moment(dateToSend).format()
+                dateToSend: moment(dateToSend).format(),
             };
         } else {
             postBody = {
@@ -81,7 +106,7 @@ class AddSiteFormContainer extends Component {
                 client,
                 addressLine1,
                 addressLine2,
-                postcode
+                postcode,
             };
         }
 
@@ -94,28 +119,21 @@ const mapStateToProps = ({
     companyAdmin: {
         sitesReducer,
         companySettingsReducer: {
-            companySettings: { isUsingBolsterLabels }
-        }
-    }
+            companySettings: { isUsingBolsterLabels },
+        },
+    },
 }) => ({
     isUsingBolsterLabels,
     postSuccess: sitesReducer.postSuccess,
     error: sitesReducer.error,
-    updatedSiteID: sitesReducer.updatedSiteID
+    updatedSiteID: sitesReducer.updatedSiteID,
 });
 
-const mapDispatchToProps = dispatch => ({
-    createSite: postBody => {
-        dispatch(createSite(postBody));
-    },
-    hideModal: () => {
-        dispatch(hideModal());
-    }
-});
+const mapDispatchToProps = {
+    createSite,
+    hideModal,
+    fetchManufacturersByPinOptionType,
+    fetchAllOptionValues,
+};
 
-export default withRouter(
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(AddSiteFormContainer)
-);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AddSiteFormContainer));

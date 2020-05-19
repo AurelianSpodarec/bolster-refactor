@@ -14,7 +14,11 @@ import {
     TOGGLE_MANUFACTURER_OPTION_VALUE_REQUEST,
     TOGGLE_MANUFACTURER_OPTION_VALUE_SUCCESS,
     TOGGLE_MANUFACTURER_OPTION_VALUE_FAILURE,
+    FETCH_ALL_OPTION_VALUES_REQUEST,
+    FETCH_ALL_OPTION_VALUES_SUCCESS,
+    FETCH_ALL_OPTION_VALUES_FAILURE,
 } from 'constants/actionTypes/companyAdminManufacturers';
+import { formatAllOptionValuesByManufacturer } from 'helpers/redux';
 
 export default combineReducers({
     manufacturersOptionValues: manufacturersOptionValuesReducer,
@@ -27,9 +31,12 @@ export default combineReducers({
 function isFetchingReducer(state = false, action) {
     switch (action.type) {
         case FETCH_OPTION_VALUES_BY_MANUFACTURER_REQUEST:
+        case FETCH_ALL_OPTION_VALUES_REQUEST:
             return true;
         case FETCH_OPTION_VALUES_BY_MANUFACTURER_SUCCESS:
         case FETCH_OPTION_VALUES_BY_MANUFACTURER_FAILURE:
+        case FETCH_ALL_OPTION_VALUES_SUCCESS:
+        case FETCH_ALL_OPTION_VALUES_FAILURE:
             return false;
         default:
             return state;
@@ -39,8 +46,10 @@ function isFetchingReducer(state = false, action) {
 function errorReducer(state = null, action) {
     switch (action.type) {
         case FETCH_OPTION_VALUES_BY_MANUFACTURER_REQUEST:
+        case FETCH_ALL_OPTION_VALUES_REQUEST:
             return null;
         case FETCH_OPTION_VALUES_BY_MANUFACTURER_FAILURE:
+        case FETCH_ALL_OPTION_VALUES_FAILURE:
             return action.error;
         default:
             return state;
@@ -92,6 +101,8 @@ function manufacturersOptionValuesReducer(state = {}, action) {
                     action.payload,
                 ),
             };
+        case FETCH_ALL_OPTION_VALUES_SUCCESS:
+            return formatAllOptionValuesByManufacturer(action.payload);
         default:
             return state;
     }
