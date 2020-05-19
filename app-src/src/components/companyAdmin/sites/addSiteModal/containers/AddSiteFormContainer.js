@@ -12,6 +12,8 @@ import {
     DROPDOWN_OPTIONS,
 } from 'constants/companyAdmin/enums';
 import fetchAllOptionValues from 'actions/companyAdmin/manufacturers/async/fetchAllOptionValues';
+import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import { isObjEmpty } from 'helpers/generic';
 
 class AddSiteFormContainer extends Component {
     state = {
@@ -23,19 +25,34 @@ class AddSiteFormContainer extends Component {
         isAlertShowing: false,
         message: '',
         dateToSend: '',
+        setManufacturersForSite: this.props.useManufacturingByDefault,
+        manufacturerOptions: [],
+        selectedManufacturerOptions: [],
+        optionValues: [],
+        selectedOptionValues: [],
     };
 
     render() {
-        const { isUsingBolsterLabels } = this.props;
+        const { isUsingBolsterLabels, isFetching, error, optionValues } = this.props;
+
         return (
-            <AddSiteForm
-                {...this.state}
-                handleInputChange={this.handleInputChange}
-                handleDateChange={this.handleDateChange}
-                handleSubmit={this.handleSubmit}
-                hideModal={this.props.hideModal}
-                isUsingBolsterLabels={isUsingBolsterLabels}
-            />
+            <BlockContainer
+                // isEmpty={true}
+                isFetching={isFetching}
+                error={error}
+                contentClass="no-padding"
+            >
+                <AddSiteForm
+                    {...this.state}
+                    handleInputChange={this.handleInputChange}
+                    handleDateChange={this.handleDateChange}
+                    handleSubmit={this.handleSubmit}
+                    hideModal={this.props.hideModal}
+                    isUsingBolsterLabels={isUsingBolsterLabels}
+                    isFetching={isFetching}
+                    error={error}
+                />
+            </BlockContainer>
         );
     }
 
@@ -59,10 +76,24 @@ class AddSiteFormContainer extends Component {
     }
 
     componentDidUpdate = prevProps => {
-        const { postSuccess, history, updatedSiteID } = this.props;
+        const { postSuccess, history, updatedSiteID, isFetching } = this.props;
 
         if (postSuccess && !prevProps.postSuccess) {
             history.push(`/company/sites/${updatedSiteID}`);
+        }
+
+        if (prevProps.isFetching && !isFetching) {
+            const manufacturerOptions = this.createManufacturerOptionList();
+            const selectedManufacturerOptions = manufacturerOptions.reduce((acc, manufacturer) => {
+                if (manufacturer.isEnabled) {
+                    acc.push(String(manufacturer.value));
+                }
+
+                return acc;
+            }, []);
+            const optionValuesOptions = this.createOptionValuesList();
+
+            this.setState({ manufacturerOptions, selectedManufacturerOptions });
         }
     };
 
@@ -113,20 +144,66 @@ class AddSiteFormContainer extends Component {
         createSite(postBody);
         hideModal();
     };
+
+    createManufacturerOptionList = () => {
+        const { manufacturers } = this.props;
+        if (!isObjEmpty(manufacturers)) {
+            return Object.values(DROPDOWN_OPTIONS).reduce((acc, { reduxKey }) => {
+                if (manufacturers[reduxKey]) {
+                    const manufacturerOptions = this.formatManufacturerOptions(
+                        Object.values(manufacturers[reduxKey]),
+                    );
+
+                    acc = [...acc, ...manufacturerOptions];
+                }
+
+                return acc;
+            }, []);
+        }
+        return [];
+    };
+
+    formatManufacturerOptions = manufacturers => {
+        return manufacturers.map(({ id, name, isEnabled }) => {
+            return {
+                text: name,
+                value: id,
+                isEnabled,
+            };
+        });
+    };
+
+    createOptionValuesList = () => {
+        const { optionValues } = this.props;
+    };
 }
 
 const mapStateToProps = ({
     companyAdmin: {
         sitesReducer,
         companySettingsReducer: {
-            companySettings: { isUsingBolsterLabels },
+            companySettings: { isUsingBolsterLabels, useManufacturingByDefault },
+        },
+        manufacturersReducer: {
+            manufacturers,
+            isFetching: isFetchingManufacturers,
+            error: manufacturersError,
+        },
+        manufacturersOptionValuesReducer: {
+            manufacturersOptionValues,
+            isFetching: isFetchingOptionValues,
+            error: optionValuesError,
         },
     },
 }) => ({
     isUsingBolsterLabels,
     postSuccess: sitesReducer.postSuccess,
-    error: sitesReducer.error,
+    error: sitesReducer.error || manufacturersError || optionValuesError,
     updatedSiteID: sitesReducer.updatedSiteID,
+    manufacturers,
+    optionValues: manufacturersOptionValues,
+    isFetching: isFetchingManufacturers || isFetchingOptionValues,
+    useManufacturingByDefault,
 });
 
 const mapDispatchToProps = {
