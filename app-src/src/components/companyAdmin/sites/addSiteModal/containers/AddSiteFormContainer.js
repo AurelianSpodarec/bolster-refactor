@@ -138,9 +138,8 @@ class AddSiteFormContainer extends Component {
             isAlertShowing,
             selectedOptionValues,
         } = this.state;
-        console.log('SELECTED OPTION VALUES', selectedOptionValues);
+
         const filteredOptionValues = this.removeUnusedManufacturerDefaults();
-        console.log('FILTERED OPTION VALUES', filteredOptionValues);
 
         let postBody = {};
         if (isAlertShowing) {
