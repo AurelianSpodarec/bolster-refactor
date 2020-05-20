@@ -28,13 +28,12 @@ class AddSiteFormContainer extends Component {
         setManufacturersForSite: this.props.useManufacturingByDefault,
         manufacturerOptions: [],
         selectedManufacturerOptions: [],
-        optionValues: [],
         selectedOptionValues: [],
         optionValuesOptions: {},
     };
 
     render() {
-        const { isUsingBolsterLabels, isFetching, error, optionValues } = this.props;
+        const { isUsingBolsterLabels, isFetching, error, manufacturers } = this.props;
 
         return (
             <BlockContainer
@@ -52,6 +51,7 @@ class AddSiteFormContainer extends Component {
                     isUsingBolsterLabels={isUsingBolsterLabels}
                     isFetching={isFetching}
                     error={error}
+                    manufacturers={manufacturers}
                 />
             </BlockContainer>
         );
@@ -93,11 +93,23 @@ class AddSiteFormContainer extends Component {
                 return acc;
             }, []);
             const optionValuesOptions = this.createOptionValuesList();
+            let selectedOptionValues = [];
+            Object.values(optionValuesOptions).forEach(optionList => {
+                const optionListSelectedIDs = optionList.reduce((acc, optionValue) => {
+                    if (optionValue.isEnabled) {
+                        acc.push(String(optionValue.value));
+                    }
+
+                    return acc;
+                }, []);
+                selectedOptionValues = selectedOptionValues.concat(optionListSelectedIDs);
+            });
 
             this.setState({
                 manufacturerOptions,
                 selectedManufacturerOptions,
                 optionValuesOptions,
+                selectedOptionValues,
             });
         }
     };
@@ -124,7 +136,12 @@ class AddSiteFormContainer extends Component {
             message,
             dateToSend,
             isAlertShowing,
+            selectedOptionValues,
         } = this.state;
+        console.log('SELECTED OPTION VALUES', selectedOptionValues);
+        const filteredOptionValues = this.removeUnusedManufacturerDefaults();
+        console.log('FILTERED OPTION VALUES', filteredOptionValues);
+
         let postBody = {};
         if (isAlertShowing) {
             postBody = {
@@ -146,8 +163,8 @@ class AddSiteFormContainer extends Component {
             };
         }
 
-        createSite(postBody);
-        hideModal();
+        // createSite(postBody);
+        // hideModal();
     };
 
     createManufacturerOptionList = () => {
@@ -183,9 +200,46 @@ class AddSiteFormContainer extends Component {
         const { optionValues } = this.props;
 
         return Object.entries(optionValues).reduce((acc, [manufacturerID, options]) => {
-            acc = { ...acc, [manufacturerID]: this.formatOptions(Object.values(options)) };
+            const formattedOptionValues = this.formatOptions(Object.values(options));
+            const filteredOptionValues = formattedOptionValues.filter(option =>
+                this.shouldOptionValueBeIncluded(option.serviceIDs),
+            );
+            acc = { ...acc, [manufacturerID]: filteredOptionValues };
             return acc;
         }, {});
+    };
+
+    shouldOptionValueBeIncluded = serviceIDs => {
+        const { subscriptionServiceIDs } = this.props;
+        return serviceIDs.some(id => subscriptionServiceIDs.includes(id));
+    };
+
+    removeUnusedManufacturerDefaults = () => {
+        const {
+            selectedOptionValues,
+            optionValuesOptions,
+            selectedManufacturerOptions,
+            setManufacturersForSite,
+        } = this.state;
+
+        if (setManufacturersForSite) {
+            const possibleOptionValues = Object.entries(optionValuesOptions).reduce(
+                (acc, [manufacturerID, optionList]) => {
+                    if (selectedManufacturerOptions.includes(manufacturerID)) {
+                        const optionsToInclude = optionList.map(option => option.id);
+                        acc = [...acc, ...optionsToInclude];
+                    }
+                    return acc;
+                },
+                [],
+            );
+
+            return selectedOptionValues.filter(option =>
+                possibleOptionValues.includes(Number(option)),
+            );
+        } else {
+            return [];
+        }
     };
 }
 
@@ -205,6 +259,9 @@ const mapStateToProps = ({
             isFetching: isFetchingOptionValues,
             error: optionValuesError,
         },
+        subscriptionsReducer: {
+            subscriptions: { serviceIDs: subscriptionServiceIDs },
+        },
     },
 }) => ({
     isUsingBolsterLabels,
@@ -215,6 +272,7 @@ const mapStateToProps = ({
     optionValues: manufacturersOptionValues,
     isFetching: isFetchingManufacturers || isFetchingOptionValues,
     useManufacturingByDefault,
+    subscriptionServiceIDs,
 });
 
 const mapDispatchToProps = {

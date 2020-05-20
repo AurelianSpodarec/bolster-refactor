@@ -10,6 +10,7 @@ import CheckboxContainer from 'components/shared/generic/form/containers/Checkbo
 import TextAreaContainer from 'components/shared/generic/form/containers/TextAreaContainer';
 import DatePickerPresentational from 'components/shared/generic/form/presentational/DatePicker';
 import CheckboxListContainer from 'components/shared/generic/form/containers/CheckboxListContainer';
+import { DROPDOWN_OPTIONS } from 'constants/companyAdmin/enums';
 
 const AddSiteForm = ({
     handleSubmit,
@@ -28,6 +29,8 @@ const AddSiteForm = ({
     dateToSend,
     selectedManufacturerOptions,
     manufacturerOptions,
+    optionValuesOptions,
+    selectedOptionValues,
 }) => (
     <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
         <div className="size-lg-12">
@@ -153,6 +156,35 @@ const AddSiteForm = ({
                 </Field>
             </div>
         )}
+
+        {setManufacturersForSite &&
+            Object.entries(optionValuesOptions).map(([manufacturerID, optionValues]) => {
+                if (selectedManufacturerOptions.includes(manufacturerID)) {
+                    const manufacturerInfo = manufacturerOptions.find(
+                        element => String(element.id) === String(manufacturerID),
+                    );
+
+                    return (
+                        <div className="size-lg-12">
+                            <Field
+                                labelClasses="no-capitalise"
+                                name={`${manufacturerInfo.name} ${
+                                    DROPDOWN_OPTIONS[manufacturerInfo.pinOptionType].name
+                                }
+                              `}
+                            >
+                                <CheckboxListContainer
+                                    name="selectedOptionValues"
+                                    text=""
+                                    handleChange={handleInputChange}
+                                    selectedOptions={selectedOptionValues}
+                                    options={Object.values(optionValues)}
+                                />
+                            </Field>
+                        </div>
+                    );
+                } else return null;
+            })}
 
         <BlockButtonWrapper>
             <button className="button green">Submit</button>
