@@ -142,7 +142,7 @@ const AddSiteForm = ({
         </div>
         {setManufacturersForSite && (
             <div className="size-lg-12">
-                <Field labelClasses="no-capitalise" name="Set manufacturer(s) for site?">
+                <Field labelClasses="no-capitalise" name="Manufacturer(s)">
                     <CheckboxListContainer
                         name="selectedManufacturerOptions"
                         text=""

@@ -30,6 +30,7 @@ class AddSiteFormContainer extends Component {
         selectedManufacturerOptions: [],
         optionValues: [],
         selectedOptionValues: [],
+        optionValuesOptions: {},
     };
 
     render() {
@@ -93,7 +94,11 @@ class AddSiteFormContainer extends Component {
             }, []);
             const optionValuesOptions = this.createOptionValuesList();
 
-            this.setState({ manufacturerOptions, selectedManufacturerOptions });
+            this.setState({
+                manufacturerOptions,
+                selectedManufacturerOptions,
+                optionValuesOptions,
+            });
         }
     };
 
@@ -150,7 +155,7 @@ class AddSiteFormContainer extends Component {
         if (!isObjEmpty(manufacturers)) {
             return Object.values(DROPDOWN_OPTIONS).reduce((acc, { reduxKey }) => {
                 if (manufacturers[reduxKey]) {
-                    const manufacturerOptions = this.formatManufacturerOptions(
+                    const manufacturerOptions = this.formatOptions(
                         Object.values(manufacturers[reduxKey]),
                     );
 
@@ -163,18 +168,24 @@ class AddSiteFormContainer extends Component {
         return [];
     };
 
-    formatManufacturerOptions = manufacturers => {
-        return manufacturers.map(({ id, name, isEnabled }) => {
+    formatOptions = options => {
+        return options.map(option => {
             return {
-                text: name,
-                value: id,
-                isEnabled,
+                ...option,
+                text: option.name,
+                value: option.id,
+                isEnabled: option.isEnabled,
             };
         });
     };
 
     createOptionValuesList = () => {
         const { optionValues } = this.props;
+
+        return Object.entries(optionValues).reduce((acc, [manufacturerID, options]) => {
+            acc = { ...acc, [manufacturerID]: this.formatOptions(Object.values(options)) };
+            return acc;
+        }, {});
     };
 }
 
