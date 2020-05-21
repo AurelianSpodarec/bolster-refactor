@@ -65,7 +65,7 @@ const CreateBuildingsFormContainer = ({
         optionValuesOptions: {},
     });
 
-    const [defaultSelections, setDefaultSelections] = useState({
+    const [initialOptions, setInitialOptions] = useState({
         isManufacturingSetAbove: false,
         setManufacturersForSite: false,
         manufacturerOptions: [],
@@ -73,6 +73,8 @@ const CreateBuildingsFormContainer = ({
         selectedOptionValues: [],
         optionValuesOptions: {},
     });
+
+    const [areOptionsLoaded, setAreOptionsLoaded] = useState(false);
 
     const prevProps = usePrevious({ isFetching });
 
@@ -141,15 +143,16 @@ const CreateBuildingsFormContainer = ({
                 );
             }
 
-            setDefaultSelections(initialOptions);
+            setInitialOptions(initialOptions);
             setInitialManufacturerBuildingOptions(initialOptions);
+            setAreOptionsLoaded(true);
         }
     }, [isFetching]);
 
     return (
         <BlockContainer
-            isEmpty={isObjEmpty(manufacturers) || isObjEmpty(optionValues)}
-            isFetching={isFetching}
+            isEmpty={isObjEmpty(manufacturers) || isObjEmpty(optionValues) || !areOptionsLoaded}
+            isFetching={isFetching || !areOptionsLoaded}
             error={error}
             contentClass="no-padding"
         >
@@ -165,6 +168,7 @@ const CreateBuildingsFormContainer = ({
                 handleClose={handleClose}
                 handleSubmit={handleSubmit}
                 isUsingBolsterLabels={isUsingBolsterLabels}
+                initialOptions={initialOptions}
             />
         </BlockContainer>
     );

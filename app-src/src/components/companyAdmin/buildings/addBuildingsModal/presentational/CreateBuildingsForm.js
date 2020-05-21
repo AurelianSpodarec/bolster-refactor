@@ -15,6 +15,7 @@ const CreateBuildingsForm = ({
     removeBuilding,
     handleClose,
     isUsingBolsterLabels,
+    initialOptions,
 }) => (
     <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
         <div className="size-lg-12">
@@ -33,7 +34,11 @@ const CreateBuildingsForm = ({
             )}
         </div>
         <BlockButtonWrapper>
-            <button className="button blue left" type="button" onClick={addBuilding}>
+            <button
+                className="button blue left"
+                type="button"
+                onClick={() => addBuilding(initialOptions)}
+            >
                 <i className="fa fa-plus" /> Add another building
             </button>
             <button className="button green" type="submit">
