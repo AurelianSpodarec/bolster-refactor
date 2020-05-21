@@ -89,3 +89,30 @@ export const createHierarchyPreselectedManufacturersList = (
         return acc;
     }, []);
 };
+
+// remove defaults for option values that don't have a selected manufacturer on submit
+export const removeUnusedManufacturerDefaults = building => {
+    const {
+        selectedOptionValues,
+        optionValuesOptions,
+        selectedManufacturerOptions,
+        setManufacturersForHierarchy,
+    } = building;
+
+    if (setManufacturersForHierarchy) {
+        const possibleOptionValues = Object.entries(optionValuesOptions).reduce(
+            (acc, [manufacturerID, optionList]) => {
+                if (selectedManufacturerOptions.includes(manufacturerID)) {
+                    const optionsToInclude = optionList.map(option => option.id);
+                    acc = [...acc, ...optionsToInclude];
+                }
+                return acc;
+            },
+            [],
+        );
+
+        return selectedOptionValues.filter(option => possibleOptionValues.includes(Number(option)));
+    } else {
+        return [];
+    }
+};

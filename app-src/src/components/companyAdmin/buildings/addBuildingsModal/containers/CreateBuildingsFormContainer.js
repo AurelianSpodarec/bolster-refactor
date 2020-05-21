@@ -10,6 +10,7 @@ import {
     createPreselectedManufacturersList,
     createPreselectedOptionValuesList,
     createHierarchyPreselectedManufacturersList,
+    removeUnusedManufacturerDefaults,
 } from 'helpers/manufacturers';
 
 import CreateBuildingsForm from '../presentational/CreateBuildingsForm';
@@ -58,7 +59,7 @@ const CreateBuildingsFormContainer = ({
         message: '',
         dateToSend: '',
         isManufacturingSetAbove: false,
-        setManufacturersForSite: false,
+        setManufacturersForHierarchy: false,
         manufacturerOptions: [],
         selectedManufacturerOptions: [],
         selectedOptionValues: [],
@@ -67,7 +68,7 @@ const CreateBuildingsFormContainer = ({
 
     const [initialOptions, setInitialOptions] = useState({
         isManufacturingSetAbove: false,
-        setManufacturersForSite: false,
+        setManufacturersForHierarchy: false,
         manufacturerOptions: [],
         selectedManufacturerOptions: [],
         selectedOptionValues: [],
@@ -104,7 +105,7 @@ const CreateBuildingsFormContainer = ({
 
             const initialOptions = {
                 isManufacturingSetAbove,
-                setManufacturersForSite: null,
+                setManufacturersForHierarchy: null,
                 optionValuesOptions: null,
                 selectedOptionValues: null,
                 manufacturerOptions: null,
@@ -114,7 +115,7 @@ const CreateBuildingsFormContainer = ({
             if (isManufacturingSetAbove) {
                 // prefill options from hierarchy above
 
-                initialOptions.setManufacturersForSite = true;
+                initialOptions.setManufacturersForHierarchy = true;
                 initialOptions.optionValuesOptions = createOptionValuesList(
                     optionValues,
                     subscriptionServiceIDs,
@@ -129,7 +130,7 @@ const CreateBuildingsFormContainer = ({
                 );
             } else {
                 // set default prefills as per the company admin options
-                initialOptions.setManufacturersForSite = useManufacturingByDefault;
+                initialOptions.setManufacturersForHierarchy = useManufacturingByDefault;
                 initialOptions.optionValuesOptions = createOptionValuesList(
                     optionValues,
                     subscriptionServiceIDs,
@@ -178,7 +179,20 @@ const CreateBuildingsFormContainer = ({
 
         if (buildings.length === 1) {
             const [building] = buildings;
-            const { name, location, isAlertShowing, dateToSend, message } = building;
+            const {
+                name,
+                location,
+                isAlertShowing,
+                dateToSend,
+                message,
+                setManufacturersForHierarchy,
+            } = building;
+
+            const optionValueIDs = removeUnusedManufacturerDefaults(building);
+
+            const manufacturingEnabledOptions = initialOptions.isManufacturingSetAbove
+                ? {}
+                : { isManufacturingEnabled: setManufacturersForHierarchy, optionValueIDs };
 
             if (isAlertShowing) {
                 createBuilding({
@@ -187,17 +201,55 @@ const CreateBuildingsFormContainer = ({
                     siteID,
                     dateToSend,
                     message,
+                    ...manufacturingEnabledOptions,
                 });
             } else {
                 createBuilding({
                     name,
                     location,
                     siteID,
+                    ...manufacturingEnabledOptions,
                 });
             }
         }
+
         if (buildings.length > 1) {
-            createBuildings({ buildings, siteID });
+            const formattedBuildings = buildings.map(building => {
+                const {
+                    name,
+                    location,
+                    isAlertShowing,
+                    dateToSend,
+                    message,
+                    setManufacturersForHierarchy,
+                } = building;
+
+                const optionValueIDs = removeUnusedManufacturerDefaults(building);
+
+                const manufacturingEnabledOptions = initialOptions.isManufacturingSetAbove
+                    ? {}
+                    : { isManufacturingEnabled: setManufacturersForHierarchy, optionValueIDs };
+
+                if (isAlertShowing) {
+                    return {
+                        name,
+                        location,
+                        siteID,
+                        dateToSend,
+                        message,
+                        ...manufacturingEnabledOptions,
+                    };
+                } else {
+                    return {
+                        name,
+                        location,
+                        siteID,
+                        ...manufacturingEnabledOptions,
+                    };
+                }
+            });
+
+            createBuildings({ buildings: formattedBuildings, siteID });
         }
         hideModal();
     }
@@ -212,10 +264,10 @@ const CreateBuildingsFormContainer = ({
     //         selectedOptionValues,
     //         optionValuesOptions,
     //         selectedManufacturerOptions,
-    //         setManufacturersForSite,
+    //         setManufacturersForHierarchy,
     //     } = this.state;
 
-    //     if (setManufacturersForSite) {
+    //     if (setManufacturersForHierarchy) {
     //         const possibleOptionValues = Object.entries(optionValuesOptions).reduce(
     //             (acc, [manufacturerID, optionList]) => {
     //                 if (selectedManufacturerOptions.includes(manufacturerID)) {

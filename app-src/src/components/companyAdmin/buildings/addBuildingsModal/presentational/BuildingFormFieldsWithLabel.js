@@ -89,8 +89,8 @@ const BuildingFormFieldsWithLabel = ({ buildings, updateBuilding, removeBuilding
                 <div className="size-lg-6 size-md-12">
                     <Field labelClasses="no-capitalise" name="Set manufacturer(s) for building?">
                         <CheckboxContainer
-                            checked={building.setManufacturersForSite}
-                            name={`${building.id}.*.setManufacturersForSite`}
+                            checked={building.setManufacturersForHierarchy}
+                            name={`${building.id}.*.setManufacturersForHierarchy`}
                             text=""
                             handleChange={(name, value) => updateBuilding(name, value, building.id)}
                             disabled={building.isManufacturingSetAbove}
@@ -99,7 +99,7 @@ const BuildingFormFieldsWithLabel = ({ buildings, updateBuilding, removeBuilding
                 </div>
             </div>
 
-            {building.setManufacturersForSite && (
+            {building.setManufacturersForHierarchy && (
                 <div className="size-lg-12">
                     <Field labelClasses="no-capitalise" name="Manufacturer(s)">
                         <CheckboxListContainer
@@ -114,7 +114,7 @@ const BuildingFormFieldsWithLabel = ({ buildings, updateBuilding, removeBuilding
                 </div>
             )}
 
-            {building.setManufacturersForSite &&
+            {building.setManufacturersForHierarchy &&
                 Object.entries(building.optionValuesOptions).map(
                     ([manufacturerID, optionValues]) => {
                         if (building.selectedManufacturerOptions.includes(manufacturerID)) {
