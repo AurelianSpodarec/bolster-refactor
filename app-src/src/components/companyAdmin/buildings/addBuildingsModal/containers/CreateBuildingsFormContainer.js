@@ -230,23 +230,21 @@ const CreateBuildingsFormContainer = ({
                     ? {}
                     : { isManufacturingEnabled: setManufacturersForHierarchy, optionValueIDs };
 
-                if (isAlertShowing) {
-                    return {
-                        name,
-                        location,
-                        siteID,
-                        dateToSend,
-                        message,
-                        ...manufacturingEnabledOptions,
-                    };
-                } else {
-                    return {
-                        name,
-                        location,
-                        siteID,
-                        ...manufacturingEnabledOptions,
-                    };
-                }
+                return isAlertShowing
+                    ? {
+                          name,
+                          location,
+                          siteID,
+                          dateToSend,
+                          message,
+                          ...manufacturingEnabledOptions,
+                      }
+                    : {
+                          name,
+                          location,
+                          siteID,
+                          ...manufacturingEnabledOptions,
+                      };
             });
 
             createBuildings({ buildings: formattedBuildings, siteID });
@@ -258,34 +256,6 @@ const CreateBuildingsFormContainer = ({
         hideModal();
         updateHierarchyAddState(false);
     }
-
-    // function removeUnusedManufacturerDefaults() {
-    //     const {
-    //         selectedOptionValues,
-    //         optionValuesOptions,
-    //         selectedManufacturerOptions,
-    //         setManufacturersForHierarchy,
-    //     } = this.state;
-
-    //     if (setManufacturersForHierarchy) {
-    //         const possibleOptionValues = Object.entries(optionValuesOptions).reduce(
-    //             (acc, [manufacturerID, optionList]) => {
-    //                 if (selectedManufacturerOptions.includes(manufacturerID)) {
-    //                     const optionsToInclude = optionList.map(option => option.id);
-    //                     acc = [...acc, ...optionsToInclude];
-    //                 }
-    //                 return acc;
-    //             },
-    //             [],
-    //         );
-
-    //         return selectedOptionValues.filter(option =>
-    //             possibleOptionValues.includes(Number(option)),
-    //         );
-    //     } else {
-    //         return [];
-    //     }
-    // }
 };
 
 const mapStateToProps = (
