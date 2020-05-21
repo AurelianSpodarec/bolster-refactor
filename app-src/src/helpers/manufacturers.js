@@ -79,7 +79,7 @@ export const createHierarchyPreselectedManufacturersList = (
         const relevantOptionValues = optionValues[manufacturer.id];
         if (relevantOptionValues) {
             const hasManufacturerOptionValues = Object.values(relevantOptionValues).some(option =>
-                selectedOptionValues.includes(option.id),
+                selectedOptionValues.includes(String(option.id)),
             );
             if (hasManufacturerOptionValues) {
                 acc.push(String(manufacturer.id));

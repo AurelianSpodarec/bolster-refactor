@@ -6,14 +6,12 @@ import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/pr
 import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
 import TextAreaContainer from 'components/shared/generic/form/containers/TextAreaContainer';
 import DatePickerPresentational from 'components/shared/generic/form/presentational/DatePicker';
+import CheckboxListContainer from 'components/shared/generic/form/containers/CheckboxListContainer';
+import { DROPDOWN_OPTIONS } from 'constants/companyAdmin/enums';
 
 // * .*. in names is used for splitting up field validations without risking overlap with real names
 
-const BuildingFormFieldsWithLabel = ({
-    buildings,
-    updateBuilding,
-    removeBuilding
-}) =>
+const BuildingFormFieldsWithLabel = ({ buildings, updateBuilding, removeBuilding }) =>
     buildings.map(building => (
         <div key={building.id} className="size-lg-12">
             <div className="size-lg-6 size-md-12">
@@ -22,9 +20,7 @@ const BuildingFormFieldsWithLabel = ({
                         <TextInputContainer
                             name={`${building.id}.*.name`}
                             value={building.name}
-                            handleChange={(name, value) =>
-                                updateBuilding(name, value, building.id)
-                            }
+                            handleChange={(name, value) => updateBuilding(name, value, building.id)}
                             required
                         />
                     </Field>
@@ -34,9 +30,7 @@ const BuildingFormFieldsWithLabel = ({
                         <TextInputContainer
                             value={building.location}
                             name={`${building.id}.*.location`}
-                            handleChange={(name, value) =>
-                                updateBuilding(name, value, building.id)
-                            }
+                            handleChange={(name, value) => updateBuilding(name, value, building.id)}
                         />
                     </Field>
                 </div>
@@ -79,7 +73,7 @@ const BuildingFormFieldsWithLabel = ({
                                         updateBuilding(
                                             `${building.id}.*.dateToSend`,
                                             value,
-                                            building.id
+                                            building.id,
                                         )
                                     }
                                     placeholderText="Date"
@@ -90,12 +84,70 @@ const BuildingFormFieldsWithLabel = ({
                     </div>
                 )}
             </div>
-            <div className="size-lg-6">
-                {/* <BolsterLabelExample
-                    name={building.name}
-                    hierarchy="Building"
-                /> */}
+
+            <div className="size-lg-12">
+                <div className="size-lg-6 size-md-12">
+                    <Field labelClasses="no-capitalise" name="Set manufacturer(s) for building?">
+                        <CheckboxContainer
+                            checked={building.setManufacturersForSite}
+                            name={`${building.id}.*.setManufacturersForSite`}
+                            text=""
+                            handleChange={(name, value) => updateBuilding(name, value, building.id)}
+                            disabled={building.isManufacturingSetAbove}
+                        />
+                    </Field>
+                </div>
             </div>
+
+            {building.setManufacturersForSite && (
+                <div className="size-lg-12">
+                    <Field labelClasses="no-capitalise" name="Manufacturer(s)">
+                        <CheckboxListContainer
+                            name={`${building.id}.*.selectedManufacturerOptions`}
+                            text=""
+                            handleChange={(name, value) => updateBuilding(name, value, building.id)}
+                            selectedOptions={building.selectedManufacturerOptions}
+                            options={building.manufacturerOptions}
+                            allOptionsDisabled={building.isManufacturingSetAbove}
+                        />
+                    </Field>
+                </div>
+            )}
+
+            {building.setManufacturersForSite &&
+                Object.entries(building.optionValuesOptions).map(
+                    ([manufacturerID, optionValues]) => {
+                        if (building.selectedManufacturerOptions.includes(manufacturerID)) {
+                            const manufacturerInfo = building.manufacturerOptions.find(
+                                element => String(element.id) === String(manufacturerID),
+                            );
+
+                            return (
+                                <div className="size-lg-12">
+                                    <Field
+                                        labelClasses="no-capitalise"
+                                        name={`${manufacturerInfo.name} ${
+                                            DROPDOWN_OPTIONS[manufacturerInfo.pinOptionType].name
+                                        }
+                              `}
+                                    >
+                                        <CheckboxListContainer
+                                            name={`${building.id}.*.selectedOptionValues`}
+                                            text=""
+                                            handleChange={(name, value) =>
+                                                updateBuilding(name, value, building.id)
+                                            }
+                                            selectedOptions={building.selectedOptionValues}
+                                            options={Object.values(optionValues)}
+                                            allOptionsDisabled={building.isManufacturingSetAbove}
+                                        />
+                                    </Field>
+                                </div>
+                            );
+                        } else return null;
+                    },
+                )}
+
             {buildings.length > 1 && (
                 <BlockButtonWrapper>
                     <button

@@ -57,6 +57,7 @@ const CreateBuildingsFormContainer = ({
         isAlertShowing: false,
         message: '',
         dateToSend: '',
+        isManufacturingSetAbove: false,
         setManufacturersForSite: false,
         manufacturerOptions: [],
         selectedManufacturerOptions: [],
@@ -65,6 +66,7 @@ const CreateBuildingsFormContainer = ({
     });
 
     const [defaultSelections, setDefaultSelections] = useState({
+        isManufacturingSetAbove: false,
         setManufacturersForSite: false,
         manufacturerOptions: [],
         selectedManufacturerOptions: [],
@@ -99,6 +101,7 @@ const CreateBuildingsFormContainer = ({
             const isManufacturingSetAbove = site.isManufacturingEnabled;
 
             const initialOptions = {
+                isManufacturingSetAbove,
                 setManufacturersForSite: null,
                 optionValuesOptions: null,
                 selectedOptionValues: null,
@@ -114,7 +117,7 @@ const CreateBuildingsFormContainer = ({
                     optionValues,
                     subscriptionServiceIDs,
                 );
-                initialOptions.selectedOptionValues = site.optionValueIDs;
+                initialOptions.selectedOptionValues = site.optionValueIDs.map(id => String(id));
 
                 initialOptions.manufacturerOptions = createManufacturerOptionList(manufacturers);
                 initialOptions.selectedManufacturerOptions = createHierarchyPreselectedManufacturersList(
