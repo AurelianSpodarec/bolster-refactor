@@ -49,7 +49,29 @@ export const useMultipleHierarchies = hierarchyShape => {
         return state;
     }
 
-    return [state, updateState, addHierarchy, deleteHierarchy, getKeys, getPostBody, getState];
+    function setInitialHierarchyManufacturerOptions(initialOptions, id) {
+        const isInitialSet = !id;
+
+        if (isInitialSet) {
+            const formState = Object.entries(state);
+            let [buildingID, buildingState] = formState[0];
+
+            const newState = { [buildingID]: { ...buildingState, ...initialOptions } };
+
+            setState(newState);
+        }
+    }
+
+    return [
+        state,
+        updateState,
+        addHierarchy,
+        deleteHierarchy,
+        getKeys,
+        getPostBody,
+        getState,
+        setInitialHierarchyManufacturerOptions,
+    ];
 };
 
 export function usePrevious(value) {

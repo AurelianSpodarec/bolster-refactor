@@ -5,7 +5,6 @@ import { withRouter } from 'react-router-dom';
 import fetchAllOptionValues from 'actions/companyAdmin/manufacturers/async/fetchAllOptionValues';
 import fetchManufacturersByPinOptionType from 'actions/companyAdmin/manufacturers/async/fetchManufacturersByPinOptionType';
 import {
-    formatOptions,
     createManufacturerOptionList,
     createOptionValuesList,
     createPreselectedManufacturersList,
@@ -23,6 +22,7 @@ import {
     DROPDOWN_OPTIONS,
     DROPDOWN_OPTION_MANUFACTURER_ENABLED,
 } from 'constants/companyAdmin/enums';
+import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import { isObjEmpty } from 'helpers/generic';
 
 const CreateBuildingsFormContainer = ({
@@ -39,6 +39,8 @@ const CreateBuildingsFormContainer = ({
     optionValues,
     subscriptionServiceIDs,
     site,
+    useManufacturingByDefault,
+    error,
 }) => {
     const [
         buildings,
@@ -47,15 +49,23 @@ const CreateBuildingsFormContainer = ({
         removeBuilding,
         getKeys,
         getPostBody,
+        _,
+        setInitialManufacturerBuildingOptions,
     ] = useMultipleHierarchies({
         name: '',
         location: '',
         isAlertShowing: false,
         message: '',
         dateToSend: '',
+        setManufacturersForSite: false,
+        manufacturerOptions: [],
+        selectedManufacturerOptions: [],
+        selectedOptionValues: [],
+        optionValuesOptions: {},
     });
 
     const [defaultSelections, setDefaultSelections] = useState({
+        setManufacturersForSite: false,
         manufacturerOptions: [],
         selectedManufacturerOptions: [],
         selectedOptionValues: [],
@@ -87,55 +97,73 @@ const CreateBuildingsFormContainer = ({
     useEffect(() => {
         if (prevProps.isFetching && !isFetching) {
             const isManufacturingSetAbove = site.isManufacturingEnabled;
-            let optionValuesOptions;
-            let selectedOptionValues;
-            let manufacturerOptions;
-            let selectedManufacturerOptions;
+
+            const initialOptions = {
+                setManufacturersForSite: null,
+                optionValuesOptions: null,
+                selectedOptionValues: null,
+                manufacturerOptions: null,
+                selectedManufacturerOptions: null,
+            };
 
             if (isManufacturingSetAbove) {
                 // prefill options from hierarchy above
-                optionValuesOptions = createOptionValuesList(optionValues, subscriptionServiceIDs);
-                selectedOptionValues = site.optionValueIDs;
 
-                manufacturerOptions = createManufacturerOptionList(manufacturers);
-                selectedManufacturerOptions = createHierarchyPreselectedManufacturersList(
-                    manufacturerOptions,
+                initialOptions.setManufacturersForSite = true;
+                initialOptions.optionValuesOptions = createOptionValuesList(
                     optionValues,
-                    selectedOptionValues,
+                    subscriptionServiceIDs,
+                );
+                initialOptions.selectedOptionValues = site.optionValueIDs;
+
+                initialOptions.manufacturerOptions = createManufacturerOptionList(manufacturers);
+                initialOptions.selectedManufacturerOptions = createHierarchyPreselectedManufacturersList(
+                    initialOptions.manufacturerOptions,
+                    optionValues,
+                    initialOptions.selectedOptionValues,
                 );
             } else {
                 // set default prefills as per the company admin options
-                optionValuesOptions = createOptionValuesList(optionValues, subscriptionServiceIDs);
-                selectedOptionValues = createPreselectedOptionValuesList(optionValuesOptions);
-                manufacturerOptions = createManufacturerOptionList(manufacturers);
-                selectedManufacturerOptions = createPreselectedManufacturersList(
-                    manufacturerOptions,
+                initialOptions.setManufacturersForSite = useManufacturingByDefault;
+                initialOptions.optionValuesOptions = createOptionValuesList(
+                    optionValues,
+                    subscriptionServiceIDs,
+                );
+                initialOptions.selectedOptionValues = createPreselectedOptionValuesList(
+                    initialOptions.optionValuesOptions,
+                );
+                initialOptions.manufacturerOptions = createManufacturerOptionList(manufacturers);
+                initialOptions.selectedManufacturerOptions = createPreselectedManufacturersList(
+                    initialOptions.manufacturerOptions,
                 );
             }
 
-            setDefaultSelections({
-                manufacturerOptions,
-                selectedManufacturerOptions,
-                selectedOptionValues,
-                optionValuesOptions,
-            });
+            setDefaultSelections(initialOptions);
+            setInitialManufacturerBuildingOptions(initialOptions);
         }
     }, [isFetching]);
 
     return (
-        <CreateBuildingsForm
-            buildings={Object.values(buildings)}
-            updateBuilding={updateBuilding}
-            addBuilding={addBuilding}
-            removeBuilding={removeBuilding}
-            buildingIDs={getKeys()}
-            getKeys
-            siteID={siteID}
-            hideModal={hideModal}
-            handleClose={handleClose}
-            handleSubmit={handleSubmit}
-            isUsingBolsterLabels={isUsingBolsterLabels}
-        />
+        <BlockContainer
+            isEmpty={isObjEmpty(manufacturers) || isObjEmpty(optionValues)}
+            isFetching={isFetching}
+            error={error}
+            contentClass="no-padding"
+        >
+            <CreateBuildingsForm
+                buildings={Object.values(buildings)}
+                updateBuilding={updateBuilding}
+                addBuilding={addBuilding}
+                removeBuilding={removeBuilding}
+                buildingIDs={getKeys()}
+                getKeys
+                siteID={siteID}
+                hideModal={hideModal}
+                handleClose={handleClose}
+                handleSubmit={handleSubmit}
+                isUsingBolsterLabels={isUsingBolsterLabels}
+            />
+        </BlockContainer>
     );
 
     function handleSubmit() {
