@@ -28,18 +28,21 @@ export const useMultipleHierarchies = hierarchyShape => {
 
     function addHierarchy(initialOptions) {
         const newID = uuid();
-        setState({ ...state, [newID]: { ...hierarchyShape, id: newID } });
 
         if (initialOptions) {
-            setInitialHierarchyManufacturerOptions(initialOptions, newID);
+            setState({ ...state, [newID]: { ...hierarchyShape, ...initialOptions, id: newID } });
+        } else {
+            setState({ ...state, [newID]: { ...hierarchyShape, id: newID } });
         }
     }
 
     function deleteHierarchy(id) {
         // eslint-disable-next-line no-unused-vars
         const { [id]: removed, ...newState } = state;
+
         setState(newState);
     }
+
     function updateState(name, value) {
         // * This is to split the field validations up
         const [id, fieldName] = name.split('.*.');
@@ -62,11 +65,6 @@ export const useMultipleHierarchies = hierarchyShape => {
             let [buildingID, buildingState] = formState[0];
 
             const newState = { [buildingID]: { ...buildingState, ...initialOptions } };
-
-            setState(newState);
-        } else {
-            // when add building is clicked, we still want the initial options prefilled
-            const newState = { ...state, [id]: { ...state[id], ...initialOptions } };
 
             setState(newState);
         }
