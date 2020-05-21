@@ -136,7 +136,7 @@ class AddSiteFormContainer extends Component {
             message,
             dateToSend,
             isAlertShowing,
-            selectedOptionValues,
+            setManufacturersForSite,
         } = this.state;
 
         const filteredOptionValues = this.removeUnusedManufacturerDefaults();
@@ -151,6 +151,8 @@ class AddSiteFormContainer extends Component {
                 postcode,
                 message: message,
                 dateToSend: moment(dateToSend).format(),
+                isManufacturingEnabled: setManufacturersForSite,
+                optionValueIDs: filteredOptionValues,
             };
         } else {
             postBody = {
@@ -159,11 +161,13 @@ class AddSiteFormContainer extends Component {
                 addressLine1,
                 addressLine2,
                 postcode,
+                isManufacturingEnabled: setManufacturersForSite,
+                optionValueIDs: filteredOptionValues,
             };
         }
 
-        // createSite(postBody);
-        // hideModal();
+        createSite(postBody);
+        hideModal();
     };
 
     createManufacturerOptionList = () => {
