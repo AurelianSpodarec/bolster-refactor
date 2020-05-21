@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import moment from 'moment';
 
+import { formatOptions } from 'helpers/manufacturers';
+
 import AddSiteForm from '../presentational/AddSiteForm';
 import createSite from 'actions/companyAdmin/sites/async/createSite';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
@@ -175,7 +177,7 @@ class AddSiteFormContainer extends Component {
         if (!isObjEmpty(manufacturers)) {
             return Object.values(DROPDOWN_OPTIONS).reduce((acc, { reduxKey }) => {
                 if (manufacturers[reduxKey]) {
-                    const manufacturerOptions = this.formatOptions(
+                    const manufacturerOptions = formatOptions(
                         Object.values(manufacturers[reduxKey]),
                     );
 
@@ -188,22 +190,11 @@ class AddSiteFormContainer extends Component {
         return [];
     };
 
-    formatOptions = options => {
-        return options.map(option => {
-            return {
-                ...option,
-                text: option.name,
-                value: option.id,
-                isEnabled: option.isEnabled,
-            };
-        });
-    };
-
     createOptionValuesList = () => {
         const { optionValues } = this.props;
 
         return Object.entries(optionValues).reduce((acc, [manufacturerID, options]) => {
-            const formattedOptionValues = this.formatOptions(Object.values(options));
+            const formattedOptionValues = formatOptions(Object.values(options));
             const filteredOptionValues = formattedOptionValues.filter(option =>
                 this.shouldOptionValueBeIncluded(option.serviceIDs),
             );
