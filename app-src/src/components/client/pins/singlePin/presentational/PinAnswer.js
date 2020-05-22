@@ -104,6 +104,7 @@ const PinAnswer = ({
 export default connect()(PinAnswer);
 
 function formatMultiMulti(answer) {
+    if (!Array.isArray(answer)) return answer;
     const formatted = answer.map(item => {
         const count = answer.filter(x => item === x).length;
         return count > 1 ? `${item} x ${count}` : item;
