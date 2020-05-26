@@ -9,6 +9,8 @@ import BolsterLabelExample from 'components/shared/generic/form/presentational/B
 import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
 import TextAreaContainer from 'components/shared/generic/form/containers/TextAreaContainer';
 import DatePickerPresentational from 'components/shared/generic/form/presentational/DatePicker';
+import { DROPDOWN_OPTIONS } from 'constants/companyAdmin/enums';
+import CheckboxListContainer from 'components/shared/generic/form/containers/CheckboxListContainer';
 
 const EditSiteForm = ({
     handleSubmit,
@@ -23,7 +25,12 @@ const EditSiteForm = ({
     isUsingBolsterLabels,
     isAlertShowing,
     message,
-    dateToSend
+    dateToSend,
+    setManufacturersForHierarchy,
+    manufacturerOptions,
+    selectedManufacturerOptions,
+    selectedOptionValues,
+    optionValuesOptions,
 }) => (
     <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
         <div className="size-lg-12">
@@ -84,9 +91,7 @@ const EditSiteForm = ({
                 </Field>
             </div>
         </div>
-        {isUsingBolsterLabels && (
-            <BolsterLabelExample name={name} hierarchy="Site" />
-        )}
+        {isUsingBolsterLabels && <BolsterLabelExample name={name} hierarchy="Site" />}
 
         <div className="size-lg-12">
             <div className="size-lg-6 size-md-12">
@@ -126,6 +131,61 @@ const EditSiteForm = ({
                 </div>
             </div>
         )}
+
+        <div className="size-lg-12">
+            <div className="size-lg-6 size-md-12">
+                <Field labelClasses="no-capitalise" name="Set manufacturer(s) for site?">
+                    <CheckboxContainer
+                        checked={setManufacturersForHierarchy}
+                        name="setManufacturersForHierarchy"
+                        text=""
+                        handleChange={handleInputChange}
+                    />
+                </Field>
+            </div>
+        </div>
+        {setManufacturersForHierarchy && (
+            <div className="size-lg-12">
+                <Field labelClasses="no-capitalise" name="Manufacturer(s)">
+                    <CheckboxListContainer
+                        name="selectedManufacturerOptions"
+                        text=""
+                        handleChange={handleInputChange}
+                        selectedOptions={selectedManufacturerOptions}
+                        options={manufacturerOptions}
+                    />
+                </Field>
+            </div>
+        )}
+
+        {setManufacturersForHierarchy &&
+            Object.entries(optionValuesOptions).map(([manufacturerID, optionValues]) => {
+                if (selectedManufacturerOptions.includes(manufacturerID)) {
+                    const manufacturerInfo = manufacturerOptions.find(
+                        element => String(element.id) === String(manufacturerID),
+                    );
+
+                    return (
+                        <div className="size-lg-12">
+                            <Field
+                                labelClasses="no-capitalise"
+                                name={`${manufacturerInfo.name} ${
+                                    DROPDOWN_OPTIONS[manufacturerInfo.pinOptionType].name
+                                }
+                              `}
+                            >
+                                <CheckboxListContainer
+                                    name="selectedOptionValues"
+                                    text=""
+                                    handleChange={handleInputChange}
+                                    selectedOptions={selectedOptionValues}
+                                    options={Object.values(optionValues)}
+                                />
+                            </Field>
+                        </div>
+                    );
+                } else return null;
+            })}
 
         <BlockButtonWrapper>
             <button className="button green">

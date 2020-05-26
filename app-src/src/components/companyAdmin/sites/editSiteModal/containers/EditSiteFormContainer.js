@@ -3,9 +3,25 @@ import { connect } from 'react-redux';
 import moment from 'moment';
 
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
+import {
+    createManufacturerOptionList,
+    createOptionValuesList,
+    createPreselectedManufacturersList,
+    createPreselectedOptionValuesList,
+    createHierarchyPreselectedManufacturersList,
+    removeUnusedManufacturerDefaults,
+} from 'helpers/manufacturers';
+import editSite from 'actions/companyAdmin/sites/async/editSite';
+import {
+    DROPDOWN_OPTIONS,
+    DROPDOWN_OPTION_MANUFACTURER_ENABLED,
+} from 'constants/companyAdmin/enums';
+import fetchAllOptionValues from 'actions/companyAdmin/manufacturers/async/fetchAllOptionValues';
+import fetchManufacturersByPinOptionType from 'actions/companyAdmin/manufacturers/async/fetchManufacturersByPinOptionType';
 
 import EditSiteForm from '../presentational/EditSiteForm';
-import editSite from 'actions/companyAdmin/sites/async/editSite';
+import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import { isObjEmpty } from 'helpers/generic';
 
 class EditSiteFormContainer extends Component {
     state = {
@@ -16,35 +32,109 @@ class EditSiteFormContainer extends Component {
         postcode: '',
         isAlertShowing: false,
         message: '',
-        dateToSend: ''
+        dateToSend: '',
+        setManufacturersForHierarchy: false,
+        manufacturerOptions: [],
+        selectedManufacturerOptions: [],
+        selectedOptionValues: [],
+        optionValuesOptions: {},
+        areOptionsLoaded: false,
     };
 
     render() {
-        const { isUsingBolsterLabels } = this.props;
+        const { isUsingBolsterLabels, error } = this.props;
+        const { areOptionsLoaded } = this.state;
         return (
-            <EditSiteForm
-                {...this.state}
-                handleInputChange={this.handleInputChange}
-                handleDateChange={this.handleDateChange}
-                handleSubmit={this.handleSubmit}
-                siteID={this.props.siteID}
-                hideModal={this.props.hideModal}
-                isUsingBolsterLabels={isUsingBolsterLabels}
-            />
+            <BlockContainer
+                isEmpty={!areOptionsLoaded}
+                isFetching={!areOptionsLoaded}
+                error={error}
+                contentClass="no-padding"
+            >
+                <EditSiteForm
+                    {...this.state}
+                    handleInputChange={this.handleInputChange}
+                    handleDateChange={this.handleDateChange}
+                    handleSubmit={this.handleSubmit}
+                    siteID={this.props.siteID}
+                    hideModal={this.props.hideModal}
+                    isUsingBolsterLabels={isUsingBolsterLabels}
+                />
+            </BlockContainer>
         );
     }
-    componentDidUpdate = prevProps => {
-        const { site } = this.props;
 
-        if (!prevProps.site.id && !!site.id) {
+    componentDidMount = async () => {
+        const { site, fetchManufacturersByPinOptionType, fetchAllOptionValues } = this.props;
+
+        // ** Only do a fetch for the manufacturers of a specific type if manufacturing is enabled. Wait for them to resolve before adding a site.
+        const pinOptionTypes = Object.keys(DROPDOWN_OPTIONS).filter(option => {
+            return DROPDOWN_OPTION_MANUFACTURER_ENABLED[option];
+        });
+
+        const fn = function fetchManufacturers(pinOptionType) {
+            return fetchManufacturersByPinOptionType(pinOptionType);
+        };
+
+        const actions = pinOptionTypes.map(fn);
+
+        await Promise.all(actions).then(() => {
+            fetchAllOptionValues();
+        });
+
+        if (site.id > 0) {
             this._setFormDetails();
         }
     };
 
-    componentDidMount = () => {
-        const { site } = this.props;
+    componentDidUpdate = prevProps => {
+        const {
+            site,
+            isFetching,
+            optionValues,
+            subscriptionServiceIDs,
+            manufacturers,
+        } = this.props;
 
-        if (site.id > 0) {
+        if (prevProps.isFetching && !isFetching) {
+            const initialOptions = {
+                setManufacturersForHierarchy: site.isManufacturingEnabled,
+                manufacturerOptions: [],
+                selectedManufacturerOptions: [],
+                selectedOptionValues: [],
+                optionValuesOptions: {},
+                areOptionsLoaded: true,
+            };
+
+            initialOptions.optionValuesOptions = createOptionValuesList(
+                optionValues,
+                subscriptionServiceIDs,
+            );
+            initialOptions.manufacturerOptions = createManufacturerOptionList(manufacturers);
+
+            if (site.isManufacturingEnabled) {
+                // prefill options from site already saved
+                initialOptions.selectedOptionValues = site.optionValueIDs.map(id => String(id));
+
+                initialOptions.selectedManufacturerOptions = createHierarchyPreselectedManufacturersList(
+                    initialOptions.manufacturerOptions,
+                    optionValues,
+                    initialOptions.selectedOptionValues,
+                );
+            } else {
+                //prefill from company settings in anticipation of isManufacturingEnabled being set to true
+                initialOptions.selectedOptionValues = createPreselectedOptionValuesList(
+                    initialOptions.optionValuesOptions,
+                );
+                initialOptions.selectedManufacturerOptions = createPreselectedManufacturersList(
+                    initialOptions.manufacturerOptions,
+                );
+            }
+
+            this.setState(initialOptions);
+        }
+
+        if (!prevProps.site.id && !!site.id) {
             this._setFormDetails();
         }
     };
@@ -55,14 +145,14 @@ class EditSiteFormContainer extends Component {
 
     handleDateChange = date => {
         this.setState({
-            dateToSend: date
+            dateToSend: date,
         });
     };
 
     //_ <-- used because this helper function is only for this class - not shared or used within the children
     _setFormDetails = () => {
         const {
-            site: { name, client, addressLine1, addressLine2, postcode }
+            site: { name, client, addressLine1, addressLine2, postcode },
         } = this.props;
 
         this.setState({
@@ -70,7 +160,7 @@ class EditSiteFormContainer extends Component {
             client,
             addressLine1,
             addressLine2,
-            postcode
+            postcode,
         });
     };
 
@@ -82,7 +172,7 @@ class EditSiteFormContainer extends Component {
         const {
             site: { id },
             editSite,
-            hideModal
+            hideModal,
         } = this.props;
 
         const {
@@ -93,8 +183,15 @@ class EditSiteFormContainer extends Component {
             postcode,
             message,
             dateToSend,
-            isAlertShowing
+            isAlertShowing,
+            setManufacturersForHierarchy,
         } = this.state;
+
+        const manufacturingEnabledOptions = {
+            isManufacturingEnabled: setManufacturersForHierarchy,
+            optionValueIDs: removeUnusedManufacturerDefaults(this.state),
+        };
+
         let postBody = {};
         if (isAlertShowing) {
             postBody = {
@@ -104,7 +201,8 @@ class EditSiteFormContainer extends Component {
                 addressLine2,
                 postcode,
                 message: message,
-                dateToSend: moment(dateToSend).format()
+                dateToSend: moment(dateToSend).format(),
+                ...manufacturingEnabledOptions,
             };
         } else {
             postBody = {
@@ -112,7 +210,8 @@ class EditSiteFormContainer extends Component {
                 client,
                 addressLine1,
                 addressLine2,
-                postcode
+                postcode,
+                ...manufacturingEnabledOptions,
             };
         }
         editSite(id, postBody);
@@ -122,22 +221,41 @@ class EditSiteFormContainer extends Component {
 
 const mapStateToProps = ({
     companyAdmin: {
+        sitesReducer,
         companySettingsReducer: {
-            companySettings: { isUsingBolsterLabels }
-        }
-    }
-}) => ({
-    isUsingBolsterLabels
-});
-
-const mapDispatchToProps = dispatch => ({
-    editSite: (siteID, postBody) => {
-        dispatch(editSite(siteID, postBody));
+            companySettings: { isUsingBolsterLabels, useManufacturingByDefault },
+        },
+        manufacturersReducer: {
+            manufacturers,
+            isFetching: isFetchingManufacturers,
+            error: manufacturersError,
+        },
+        manufacturersOptionValuesReducer: {
+            manufacturersOptionValues,
+            isFetching: isFetchingOptionValues,
+            error: optionValuesError,
+        },
+        subscriptionsReducer: {
+            subscriptions: { serviceIDs: subscriptionServiceIDs },
+        },
     },
-    hideModal: () => dispatch(hideModal())
+}) => ({
+    isUsingBolsterLabels,
+    postSuccess: sitesReducer.postSuccess,
+    error: sitesReducer.error || manufacturersError || optionValuesError,
+    updatedSiteID: sitesReducer.updatedSiteID,
+    manufacturers,
+    optionValues: manufacturersOptionValues,
+    isFetching: isFetchingManufacturers || isFetchingOptionValues,
+    useManufacturingByDefault,
+    subscriptionServiceIDs,
 });
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(EditSiteFormContainer);
+const mapDispatchToProps = {
+    editSite,
+    hideModal,
+    fetchManufacturersByPinOptionType,
+    fetchAllOptionValues,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(EditSiteFormContainer);
