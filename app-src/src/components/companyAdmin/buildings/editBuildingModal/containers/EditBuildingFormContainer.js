@@ -166,7 +166,22 @@ class BuildingEditFormContainer extends Component {
         e.preventDefault();
         const { building, editBuilding, hideModal } = this.props;
 
-        const { name, location, isAlertShowing, message, dateToSend } = this.state;
+        const {
+            name,
+            location,
+            isAlertShowing,
+            message,
+            dateToSend,
+            setManufacturersForHierarchy,
+            isManufacturingInherited,
+        } = this.state;
+
+        const manufacturingEnabledOptions = isManufacturingInherited
+            ? {}
+            : {
+                  isManufacturingEnabled: setManufacturersForHierarchy,
+                  optionValueIDs: removeUnusedManufacturerDefaults(this.state),
+              };
 
         let postBody = {};
         if (isAlertShowing) {
@@ -175,11 +190,13 @@ class BuildingEditFormContainer extends Component {
                 location,
                 message: message,
                 dateToSend: moment(dateToSend).format(),
+                ...manufacturingEnabledOptions,
             };
         } else {
             postBody = {
                 name,
                 location,
+                ...manufacturingEnabledOptions,
             };
         }
         editBuilding(building.id, postBody);
