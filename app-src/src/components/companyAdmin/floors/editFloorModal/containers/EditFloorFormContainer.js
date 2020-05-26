@@ -158,18 +158,9 @@ class EditFloorFormContainer extends Component {
 
     handleSubmit = e => {
         e.preventDefault();
-        const {
-            floor,
-            editFloor,
-            hideModal,
-            isAlertShowing,
-            message,
-            dateToSend,
-            setManufacturersForHierarchy,
-            isManufacturingInherited,
-        } = this.props;
+        const { floor, editFloor, hideModal, isAlertShowing, message, dateToSend } = this.props;
 
-        const { name } = this.state;
+        const { name, setManufacturersForHierarchy, isManufacturingInherited } = this.state;
 
         const manufacturingEnabledOptions = isManufacturingInherited
             ? {}
