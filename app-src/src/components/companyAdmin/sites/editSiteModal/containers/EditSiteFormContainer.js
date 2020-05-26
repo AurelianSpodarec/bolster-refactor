@@ -21,7 +21,6 @@ import fetchManufacturersByPinOptionType from 'actions/companyAdmin/manufacturer
 
 import EditSiteForm from '../presentational/EditSiteForm';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import { isObjEmpty } from 'helpers/generic';
 
 class EditSiteFormContainer extends Component {
     state = {
@@ -67,7 +66,7 @@ class EditSiteFormContainer extends Component {
     componentDidMount = async () => {
         const { site, fetchManufacturersByPinOptionType, fetchAllOptionValues } = this.props;
 
-        // ** Only do a fetch for the manufacturers of a specific type if manufacturing is enabled. Wait for them to resolve before adding a site.
+        // ** Only do a fetch for the manufacturers of a specific type if manufacturing is enabled. Wait for them to resolve before editing a site.
         const pinOptionTypes = Object.keys(DROPDOWN_OPTIONS).filter(option => {
             return DROPDOWN_OPTION_MANUFACTURER_ENABLED[option];
         });

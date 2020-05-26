@@ -61,7 +61,7 @@ const AddDrawingsFormContainer = ({
         isAlertShowing: false,
         message: '',
         dateToSend: '',
-        isManufacturingSetAbove: false,
+        isManufacturingInherited: false,
         setManufacturersForHierarchy: false,
         manufacturerOptions: [],
         selectedManufacturerOptions: [],
@@ -70,7 +70,7 @@ const AddDrawingsFormContainer = ({
     });
 
     const [initialOptions, setInitialOptions] = useState({
-        isManufacturingSetAbove: false,
+        isManufacturingInherited: false,
         setManufacturersForHierarchy: false,
         manufacturerOptions: [],
         selectedManufacturerOptions: [],
@@ -104,10 +104,10 @@ const AddDrawingsFormContainer = ({
 
     useEffect(() => {
         if (prevProps.isFetching && !isFetching) {
-            const isManufacturingSetAbove = floor.isManufacturingEnabled;
+            const isManufacturingInherited = floor.isManufacturingEnabled;
 
             const initialOptions = {
-                isManufacturingSetAbove,
+                isManufacturingInherited,
                 setManufacturersForHierarchy: null,
                 optionValuesOptions: null,
                 selectedOptionValues: null,
@@ -115,7 +115,7 @@ const AddDrawingsFormContainer = ({
                 selectedManufacturerOptions: null,
             };
 
-            if (isManufacturingSetAbove) {
+            if (isManufacturingInherited) {
                 // prefill options from hierarchy above
 
                 initialOptions.setManufacturersForHierarchy = true;
@@ -194,7 +194,7 @@ const AddDrawingsFormContainer = ({
 
                 const optionValueIDs = removeUnusedManufacturerDefaults(drawing);
 
-                const manufacturingEnabledOptions = initialOptions.isManufacturingSetAbove
+                const manufacturingEnabledOptions = initialOptions.isManufacturingInherited
                     ? {}
                     : { isManufacturingEnabled: setManufacturersForHierarchy, optionValueIDs };
 
@@ -221,7 +221,7 @@ const AddDrawingsFormContainer = ({
 
                     const optionValueIDs = removeUnusedManufacturerDefaults(drawing);
 
-                    const manufacturingEnabledOptions = initialOptions.isManufacturingSetAbove
+                    const manufacturingEnabledOptions = initialOptions.isManufacturingInherited
                         ? {}
                         : { isManufacturingEnabled: setManufacturersForHierarchy, optionValueIDs };
 

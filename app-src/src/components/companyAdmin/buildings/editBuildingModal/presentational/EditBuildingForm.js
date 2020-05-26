@@ -15,6 +15,12 @@ const BuildingEditForm = ({
     isAlertShowing,
     message,
     dateToSend,
+    isManufacturingInherited,
+    setManufacturersForHierarchy,
+    manufacturerOptions,
+    selectedManufacturerOptions,
+    selectedOptionValues,
+    optionValuesOptions,
 }) => (
     <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
         <EditBuildingFormFieldsNoLabel
@@ -25,6 +31,12 @@ const BuildingEditForm = ({
             isAlertShowing={isAlertShowing}
             message={message}
             dateToSend={dateToSend}
+            isManufacturingInherited={isManufacturingInherited}
+            setManufacturersForHierarchy={setManufacturersForHierarchy}
+            manufacturerOptions={manufacturerOptions}
+            selectedManufacturerOptions={selectedManufacturerOptions}
+            selectedOptionValues={selectedOptionValues}
+            optionValuesOptions={optionValuesOptions}
         />
 
         <BlockButtonWrapper>

@@ -57,7 +57,7 @@ const CreateFloorsFormContainer = ({
         isAlertShowing: false,
         message: '',
         dateToSend: '',
-        isManufacturingSetAbove: false,
+        isManufacturingInherited: false,
         setManufacturersForHierarchy: false,
         manufacturerOptions: [],
         selectedManufacturerOptions: [],
@@ -66,7 +66,7 @@ const CreateFloorsFormContainer = ({
     });
 
     const [initialOptions, setInitialOptions] = useState({
-        isManufacturingSetAbove: false,
+        isManufacturingInherited: false,
         setManufacturersForHierarchy: false,
         manufacturerOptions: [],
         selectedManufacturerOptions: [],
@@ -100,10 +100,10 @@ const CreateFloorsFormContainer = ({
 
     useEffect(() => {
         if (prevProps.isFetching && !isFetching) {
-            const isManufacturingSetAbove = building.isManufacturingEnabled;
+            const isManufacturingInherited = building.isManufacturingEnabled;
 
             const initialOptions = {
-                isManufacturingSetAbove,
+                isManufacturingInherited,
                 setManufacturersForHierarchy: null,
                 optionValuesOptions: null,
                 selectedOptionValues: null,
@@ -111,7 +111,7 @@ const CreateFloorsFormContainer = ({
                 selectedManufacturerOptions: null,
             };
 
-            if (isManufacturingSetAbove) {
+            if (isManufacturingInherited) {
                 // prefill options from hierarchy above
 
                 initialOptions.setManufacturersForHierarchy = true;
@@ -187,7 +187,7 @@ const CreateFloorsFormContainer = ({
 
             const optionValueIDs = removeUnusedManufacturerDefaults(floor);
 
-            const manufacturingEnabledOptions = initialOptions.isManufacturingSetAbove
+            const manufacturingEnabledOptions = initialOptions.isManufacturingInherited
                 ? {}
                 : { isManufacturingEnabled: setManufacturersForHierarchy, optionValueIDs };
 
@@ -213,7 +213,7 @@ const CreateFloorsFormContainer = ({
 
                 const optionValueIDs = removeUnusedManufacturerDefaults(floor);
 
-                const manufacturingEnabledOptions = initialOptions.isManufacturingSetAbove
+                const manufacturingEnabledOptions = initialOptions.isManufacturingInherited
                     ? {}
                     : { isManufacturingEnabled: setManufacturersForHierarchy, optionValueIDs };
 

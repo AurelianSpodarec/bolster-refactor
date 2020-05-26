@@ -128,7 +128,7 @@ const AddDrawingsForm = ({
                                         handleChange={(name, value) =>
                                             updateDrawing(name, value, drawing.id)
                                         }
-                                        disabled={drawing.isManufacturingSetAbove}
+                                        disabled={drawing.isManufacturingInherited}
                                     />
                                 </Field>
                             </div>
@@ -145,7 +145,7 @@ const AddDrawingsForm = ({
                                         }
                                         selectedOptions={drawing.selectedManufacturerOptions}
                                         options={drawing.manufacturerOptions}
-                                        allOptionsDisabled={drawing.isManufacturingSetAbove}
+                                        allOptionsDisabled={drawing.isManufacturingInherited}
                                     />
                                 </Field>
                             </div>
@@ -184,7 +184,7 @@ const AddDrawingsForm = ({
                                                         }
                                                         options={Object.values(optionValues)}
                                                         allOptionsDisabled={
-                                                            drawing.isManufacturingSetAbove
+                                                            drawing.isManufacturingInherited
                                                         }
                                                     />
                                                 </Field>

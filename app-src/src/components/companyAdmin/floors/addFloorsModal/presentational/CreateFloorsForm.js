@@ -102,7 +102,7 @@ const CreateFloorsForm = ({
                                     handleChange={(name, value) =>
                                         updateFloor(name, value, floor.id)
                                     }
-                                    disabled={floor.isManufacturingSetAbove}
+                                    disabled={floor.isManufacturingInherited}
                                 />
                             </Field>
                         </div>
@@ -119,7 +119,7 @@ const CreateFloorsForm = ({
                                     }
                                     selectedOptions={floor.selectedManufacturerOptions}
                                     options={floor.manufacturerOptions}
-                                    allOptionsDisabled={floor.isManufacturingSetAbove}
+                                    allOptionsDisabled={floor.isManufacturingInherited}
                                 />
                             </Field>
                         </div>
@@ -152,7 +152,7 @@ const CreateFloorsForm = ({
                                                     selectedOptions={floor.selectedOptionValues}
                                                     options={Object.values(optionValues)}
                                                     allOptionsDisabled={
-                                                        floor.isManufacturingSetAbove
+                                                        floor.isManufacturingInherited
                                                     }
                                                 />
                                             </Field>

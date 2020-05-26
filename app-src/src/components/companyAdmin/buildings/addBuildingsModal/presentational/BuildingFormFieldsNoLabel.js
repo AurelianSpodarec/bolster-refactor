@@ -93,7 +93,7 @@ const BuildingFormFieldsWithLabel = ({ buildings, updateBuilding, removeBuilding
                             name={`${building.id}.*.setManufacturersForHierarchy`}
                             text=""
                             handleChange={(name, value) => updateBuilding(name, value, building.id)}
-                            disabled={building.isManufacturingSetAbove}
+                            disabled={building.isManufacturingInherited}
                         />
                     </Field>
                 </div>
@@ -108,7 +108,7 @@ const BuildingFormFieldsWithLabel = ({ buildings, updateBuilding, removeBuilding
                             handleChange={(name, value) => updateBuilding(name, value, building.id)}
                             selectedOptions={building.selectedManufacturerOptions}
                             options={building.manufacturerOptions}
-                            allOptionsDisabled={building.isManufacturingSetAbove}
+                            allOptionsDisabled={building.isManufacturingInherited}
                         />
                     </Field>
                 </div>
@@ -139,7 +139,7 @@ const BuildingFormFieldsWithLabel = ({ buildings, updateBuilding, removeBuilding
                                             }
                                             selectedOptions={building.selectedOptionValues}
                                             options={Object.values(optionValues)}
-                                            allOptionsDisabled={building.isManufacturingSetAbove}
+                                            allOptionsDisabled={building.isManufacturingInherited}
                                         />
                                     </Field>
                                 </div>

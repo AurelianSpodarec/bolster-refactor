@@ -58,7 +58,7 @@ const CreateBuildingsFormContainer = ({
         isAlertShowing: false,
         message: '',
         dateToSend: '',
-        isManufacturingSetAbove: false,
+        isManufacturingInherited: false,
         setManufacturersForHierarchy: false,
         manufacturerOptions: [],
         selectedManufacturerOptions: [],
@@ -67,7 +67,7 @@ const CreateBuildingsFormContainer = ({
     });
 
     const [initialOptions, setInitialOptions] = useState({
-        isManufacturingSetAbove: false,
+        isManufacturingInherited: false,
         setManufacturersForHierarchy: false,
         manufacturerOptions: [],
         selectedManufacturerOptions: [],
@@ -101,10 +101,10 @@ const CreateBuildingsFormContainer = ({
 
     useEffect(() => {
         if (prevProps.isFetching && !isFetching) {
-            const isManufacturingSetAbove = site.isManufacturingEnabled;
+            const isManufacturingInherited = site.isManufacturingEnabled;
 
             const initialOptions = {
-                isManufacturingSetAbove,
+                isManufacturingInherited,
                 setManufacturersForHierarchy: null,
                 optionValuesOptions: null,
                 selectedOptionValues: null,
@@ -112,7 +112,7 @@ const CreateBuildingsFormContainer = ({
                 selectedManufacturerOptions: null,
             };
 
-            if (isManufacturingSetAbove) {
+            if (isManufacturingInherited) {
                 // prefill options from hierarchy above
 
                 initialOptions.setManufacturersForHierarchy = true;
@@ -190,7 +190,7 @@ const CreateBuildingsFormContainer = ({
 
             const optionValueIDs = removeUnusedManufacturerDefaults(building);
 
-            const manufacturingEnabledOptions = initialOptions.isManufacturingSetAbove
+            const manufacturingEnabledOptions = initialOptions.isManufacturingInherited
                 ? {}
                 : { isManufacturingEnabled: setManufacturersForHierarchy, optionValueIDs };
 
@@ -226,7 +226,7 @@ const CreateBuildingsFormContainer = ({
 
                 const optionValueIDs = removeUnusedManufacturerDefaults(building);
 
-                const manufacturingEnabledOptions = initialOptions.isManufacturingSetAbove
+                const manufacturingEnabledOptions = initialOptions.isManufacturingInherited
                     ? {}
                     : { isManufacturingEnabled: setManufacturersForHierarchy, optionValueIDs };
 
