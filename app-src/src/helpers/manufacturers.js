@@ -91,13 +91,13 @@ export const createHierarchyPreselectedManufacturersList = (
 };
 
 // remove defaults for option values that don't have a selected manufacturer on submit
-export const removeUnusedManufacturerDefaults = building => {
+export const removeUnusedManufacturerDefaults = hierarchy => {
     const {
         selectedOptionValues,
         optionValuesOptions,
         selectedManufacturerOptions,
         setManufacturersForHierarchy,
-    } = building;
+    } = hierarchy;
 
     if (setManufacturersForHierarchy) {
         const possibleOptionValues = Object.entries(optionValuesOptions).reduce(

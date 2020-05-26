@@ -177,13 +177,61 @@ const CreateFloorsFormContainer = ({
         const floors = getPostBody();
         if (floors.length === 1) {
             const [floor] = floors;
-            const { name, dateToSend, message, isAlertShowing } = floor;
+            const {
+                name,
+                dateToSend,
+                message,
+                isAlertShowing,
+                setManufacturersForHierarchy,
+            } = floor;
+
+            const optionValueIDs = removeUnusedManufacturerDefaults(floor);
+
+            const manufacturingEnabledOptions = initialOptions.isManufacturingSetAbove
+                ? {}
+                : { isManufacturingEnabled: setManufacturersForHierarchy, optionValueIDs };
+
             isAlertShowing
-                ? createFloor({ name, buildingID, message, dateToSend })
-                : createFloor({ name, buildingID });
+                ? createFloor({
+                      name,
+                      buildingID,
+                      message,
+                      dateToSend,
+                      ...manufacturingEnabledOptions,
+                  })
+                : createFloor({ name, buildingID, ...manufacturingEnabledOptions });
         }
         if (floors.length > 1) {
-            createFloors({ floors, buildingID });
+            const formattedFloors = floors.map(floor => {
+                const {
+                    name,
+                    isAlertShowing,
+                    dateToSend,
+                    message,
+                    setManufacturersForHierarchy,
+                } = floor;
+
+                const optionValueIDs = removeUnusedManufacturerDefaults(floor);
+
+                const manufacturingEnabledOptions = initialOptions.isManufacturingSetAbove
+                    ? {}
+                    : { isManufacturingEnabled: setManufacturersForHierarchy, optionValueIDs };
+
+                return isAlertShowing
+                    ? {
+                          name,
+                          buildingID,
+                          dateToSend,
+                          message,
+                          ...manufacturingEnabledOptions,
+                      }
+                    : {
+                          name,
+                          buildingID,
+                          ...manufacturingEnabledOptions,
+                      };
+            });
+            createFloors({ floors: formattedFloors, buildingID });
         }
         hideModal();
     }
