@@ -113,6 +113,6 @@ export const removeUnusedManufacturerDefaults = hierarchy => {
 
         return selectedOptionValues.filter(option => possibleOptionValues.includes(Number(option)));
     } else {
-        return [];
+        return null;
     }
 };
