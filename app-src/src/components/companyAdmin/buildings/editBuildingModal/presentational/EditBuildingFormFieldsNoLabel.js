@@ -89,7 +89,7 @@ const BuildingFormFieldsNoLabel = ({
 
         <div className="size-lg-12">
             <div className="size-lg-6 size-md-12">
-                <Field labelClasses="no-capitalise" name="Set manufacturer(s) for site?">
+                <Field labelClasses="no-capitalise" name="Set manufacturer(s) for building?">
                     <CheckboxContainer
                         checked={setManufacturersForHierarchy}
                         name="setManufacturersForHierarchy"
