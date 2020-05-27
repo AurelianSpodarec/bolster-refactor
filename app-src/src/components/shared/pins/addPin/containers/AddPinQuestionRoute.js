@@ -50,6 +50,7 @@ class AddPinQuestionRoute extends Component {
             edit,
             resetPinAnswer,
             isHistory,
+            drawing,
         } = this.props;
 
         const showPreReq = this.checkIfShouldShowByPreReq();
@@ -58,6 +59,7 @@ class AddPinQuestionRoute extends Component {
 
         const fieldSize = `size-lg-${isImage ? '12' : '6'}`;
         const questionName = isImage ? '' : question.name;
+        const isManufacturingEnabledForDrawing = drawing.isManufacturingEnabled;
 
         if (showPreReq) {
             const SpecificField = fieldTypes[question.type + ''] || fieldTypes[SINGLE_LINE];
@@ -92,6 +94,7 @@ class AddPinQuestionRoute extends Component {
                         isHistory={isHistory}
                         originalDropdownAns={this.state.originalDropdownAns}
                         originalDropdownMultiAns={this.state.originalDropdownMultiAns}
+                        isManufacturingEnabledForDrawing={isManufacturingEnabledForDrawing}
                     />
                 </Field>
             );
@@ -429,12 +432,14 @@ class AddPinQuestionRoute extends Component {
 const mapStateToProps = (
     {
         companyAdmin: {
+            manufacturersOptionValuesReducer: { manufacturersOptionValues },
             addPinDropdownOptions: { dropdownOptions },
             addPinFormReducer: { answers, status },
             templateQuestionsReducer: { questions },
             pinAnswersReducer: { answers: oldAnswers },
             pinHistoriesReducer: { histories },
             pinsReducer: { pins, isFetching: isFetchingPins },
+            drawingsReducer: { drawings },
         },
         shared: {
             fieldErrorsReducer: { fieldErrors },
@@ -442,6 +447,7 @@ const mapStateToProps = (
     },
     { match: { params } },
 ) => ({
+    manufacturersOptionValues,
     dropdownOptions,
     answers,
     questions,
@@ -450,6 +456,7 @@ const mapStateToProps = (
     pins,
     isFetchingPins,
     fieldErrors,
+    drawing: drawings[params.id],
     // only applies to edit history
     history: histories[params.historyID] || {},
     historyID: params.historyID,

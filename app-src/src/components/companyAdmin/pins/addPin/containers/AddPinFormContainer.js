@@ -16,7 +16,7 @@ class AddPinFormContainer extends Component {
     state = {
         serviceID: '',
         templateID: '',
-        pinTitle: ''
+        pinTitle: '',
     };
 
     render() {
@@ -28,13 +28,10 @@ class AddPinFormContainer extends Component {
             templates,
             filesUploading,
             confirmLeave,
-            isHistory
+            isHistory,
         } = this.props;
 
-        const serviceOptions = convertArrToObj(
-            this._relevantServiceOptions(),
-            'value'
-        );
+        const serviceOptions = convertArrToObj(this._relevantServiceOptions(), 'value');
         const templateOptions = this._getTemplates(templates, serviceID);
 
         return (
@@ -42,10 +39,8 @@ class AddPinFormContainer extends Component {
                 <PageHeading leftChildren={true} title={`Add Pin ${pinTitle}`}>
                     <BackButtonContainer
                         backFromForm={{
-                            urlToReplace: isHistory
-                                ? '/add-history'
-                                : '/add-pin',
-                            with: ''
+                            urlToReplace: isHistory ? '/add-history' : '/add-pin',
+                            with: '',
                         }}
                     />
                 </PageHeading>
@@ -82,7 +77,7 @@ class AddPinFormContainer extends Component {
         }
 
         this.setState({
-            pinTitle: this.calculatePinID()
+            pinTitle: this.calculatePinID(),
         });
 
         window.addEventListener('beforeunload', this.handleBeforeUnload);
@@ -96,13 +91,10 @@ class AddPinFormContainer extends Component {
         const saveState = {
             answers,
             status,
-            templateID
+            templateID,
         };
 
-        localStorage.setItem(
-            `pinCache/${drawingID}`,
-            JSON.stringify(saveState)
-        );
+        localStorage.setItem(`pinCache/${drawingID}`, JSON.stringify(saveState));
         resetPinAnswers();
     }
 
@@ -112,8 +104,7 @@ class AddPinFormContainer extends Component {
         const opCode = CompanyUserOperativeCode.replace(/['"]+/g, '');
 
         const pinsByOperativeCount =
-            Object.values(pins).filter(pin => pin.pinCode.endsWith(opCode))
-                .length + 1;
+            Object.values(pins).filter(pin => pin.pinCode.endsWith(opCode)).length + 1;
 
         if (pinsByOperativeCount < 10) {
             return '000' + pinsByOperativeCount + ':' + opCode;
@@ -137,7 +128,7 @@ class AddPinFormContainer extends Component {
             drawingID,
             pinID,
             resetPinAnswers,
-            hierarchyType
+            hierarchyType,
         } = this.props;
 
         if (!prevProps.postSuccess && postSuccess) {
@@ -155,15 +146,13 @@ class AddPinFormContainer extends Component {
 
     _getTemplates = (templates, selectedServiceID) => {
         const filteredTemplates = templates.filter(
-            ({ serviceID }) => +serviceID === +selectedServiceID
+            ({ serviceID }) => +serviceID === +selectedServiceID,
         );
-        const templateOptions = filteredTemplates.map(
-            ({ id, name, companyName }) => ({
-                value: id,
-                label: `${name} (${companyName})`,
-                text: `${name} (${companyName})`
-            })
-        );
+        const templateOptions = filteredTemplates.map(({ id, name, companyName }) => ({
+            value: id,
+            label: `${name} (${companyName})`,
+            text: `${name} (${companyName})`,
+        }));
 
         return convertArrToObj(templateOptions, 'value');
     };
@@ -171,7 +160,7 @@ class AddPinFormContainer extends Component {
     _relevantServiceOptions = () => {
         const {
             services,
-            subscriptions: { serviceIDs }
+            subscriptions: { serviceIDs },
         } = this.props;
 
         const serviceOptions = [];
@@ -184,7 +173,7 @@ class AddPinFormContainer extends Component {
         return serviceOptions.map(({ id, name }) => ({
             value: id,
             label: name,
-            text: name
+            text: name,
         }));
     };
 
@@ -209,29 +198,28 @@ class AddPinFormContainer extends Component {
             filesUploading,
             hierarchyType,
             pinID,
-            status
+            status,
         } = this.props;
 
-        const curTemplate =
-            templates.find(({ id }) => +id === +templateID) || {};
+        const curTemplate = templates.find(({ id }) => +id === +templateID) || {};
 
         const formattedAnswers = Object.keys(answers).map(key => ({
             templateQuestionID: key,
-            answer: answers[key]
+            answer: answers[key],
         }));
 
         const postBody = {
             history: {
                 templateVersionID: curTemplate.latestVersionID,
-                pinStatus: status
+                pinStatus: status,
             },
-            answers: formattedAnswers
+            answers: formattedAnswers,
         };
 
         if (hierarchyType === 'drawing') {
             postBody.pin = {
                 drawingID: parseInt(drawingID),
-                location: { lngX: coordinates.lng, latY: coordinates.lat }
+                location: { lngX: coordinates.lng, latY: coordinates.lat },
             };
         }
 
@@ -247,24 +235,26 @@ const mapStateToProps = (
             addPinFormReducer: { answers, status },
             addPinCoordinatesReducer: { coordinates },
             pinsReducer: { postSuccess, pins, isFetching: fetchingPins },
+            manufacturersOptionValuesReducer: { isFetching: isFetchingOptionValues },
+            manufacturersReducer: { isFetching: isFetchingManufacturers },
             pinHistoriesReducer: { histories },
             servicesReducer: { services },
-            subscriptionsReducer: { subscriptions }
+            subscriptionsReducer: { subscriptions },
         },
         shared: {
             filesUploadingReducer: { filesUploading },
             confirmLeaveReducer: { confirmLeave },
             decodeJWTReducer: {
-                jwtData: { CompanyUserOperativeCode }
-            }
-        }
+                jwtData: { CompanyUserOperativeCode },
+            },
+        },
     },
-    { match: { params } }
+    { match: { params } },
 ) => ({
     templates: Object.values(templates).filter(({ isDeleted }) => !isDeleted),
     answers,
     coordinates,
-    isFetching,
+    isFetching: isFetching || isFetchingManufacturers || isFetchingOptionValues,
     error,
     postSuccess,
     filesUploading,
@@ -276,15 +266,13 @@ const mapStateToProps = (
     histories,
     services: Object.values(services),
     subscriptions,
-    CompanyUserOperativeCode
+    CompanyUserOperativeCode,
 });
 
 const mapDispatchToProps = {
     createPin,
     resetPinAnswers,
-    updateAddPinStatus
+    updateAddPinStatus,
 };
 
-export default withRouter(
-    connect(mapStateToProps, mapDispatchToProps)(AddPinFormContainer)
-);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AddPinFormContainer));

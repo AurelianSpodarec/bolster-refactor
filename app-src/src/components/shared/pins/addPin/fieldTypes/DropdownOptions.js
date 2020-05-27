@@ -1,7 +1,6 @@
 import React from 'react';
 import Select from 'components/shared/generic/form/presentational/Select';
 
-
 const DropdownOptions = ({
     isRequired,
     question: { id, optionType },
@@ -9,31 +8,33 @@ const DropdownOptions = ({
     answers,
     handleChange,
     edit,
-    originalDropdownAns
+    originalDropdownAns,
+    drawingIsManufacturingEnabled,
 }) => {
     // ! If a user is editing a pin that has a dropdown option that's no longer available,
     // ! this needs to be kept as an option.
     let formattedOpts = [];
-    const filteredOptions = dropdownOptions
-        .filter(option => option.type + '' === optionType + '');
+    const filteredOptions = dropdownOptions.filter(option => option.type + '' === optionType + '');
 
-    if(edit) {
+    if (edit) {
         const curOptions = filteredOptions.map(opt => opt.name);
- 
+
         formattedOpts = filteredOptions.map(({ name }) => ({
             value: name,
-            label: name
+            label: name,
         }));
-        
-        if(!curOptions.includes(originalDropdownAns)) {
-            formattedOpts.push({value: originalDropdownAns, label: originalDropdownAns});
+
+        if (!curOptions.includes(originalDropdownAns)) {
+            formattedOpts.push({ value: originalDropdownAns, label: originalDropdownAns });
         }
     } else {
         formattedOpts = dropdownOptions
             .filter(option => option.type + '' === optionType + '')
             .map(({ name }) => ({ value: name, label: name }));
     }
-        
+
+    console.warn(answers);
+    console.warn(answers[id]);
 
     return (
         <Select
