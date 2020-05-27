@@ -31,7 +31,7 @@ const DropdownOptions = ({
     });
 
     if (edit) {
-        // todo change the edit so that it links the dropdown options
+        // todo change the edit so that it can handle manufacturer pin options
         const curOptions = filteredOptions.map(opt => opt.name);
 
         formattedOpts = filteredOptions.map(option => ({
