@@ -8,11 +8,11 @@ import fetchDrawingTemplates from 'actions/companyAdmin/drawings/async/fetchDraw
 import fetchDrawingDropdownOptions from 'actions/companyAdmin/drawings/async/fetchDrawingDropdownOptions';
 import fetchPins from 'actions/companyAdmin/pins/async/fetchPins';
 import fetchSingleDrawing from 'actions/companyAdmin/drawings/async/fetchSingleDrawing';
+import updateDrawingDropdownOptions from 'actions/companyAdmin/drawings/sync/updateDrawingDropdownOptions';
 
 import AddPinFormContainer from './AddPinFormContainer';
 import { fetchManufacturerPinOptions } from 'helpers/redux';
 import { isObjEmpty } from 'helpers/generic';
-import updateDrawingDropdownOptions from 'actions/companyAdmin/drawings/sync/updateDrawingDropdownOptions';
 
 class AddPinContainer extends Component {
     render = () => <AddPinFormContainer hierarchyType="drawing" drawingID={this.props.drawingID} />;
@@ -126,6 +126,7 @@ const mapDispatchToProps = {
     fetchManufacturersByPinOptionType,
     fetchAllOptionValues,
     updateDrawingDropdownOptions,
+    fetchSingleDrawing,
 };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AddPinContainer));

@@ -32,6 +32,8 @@ const MultiMultiDropdownOptions = ({
     // ! If a user is editing a pin that has a dropdown option that's no longer available
     // , this needs to be kept as an option.
     if (edit) {
+        // todo change the edit so that it can handle manufacturer pin options
+
         const curOptions = filteredOptions.map(opt => opt.name);
 
         const extraOptions = originalDropdownMultiAns

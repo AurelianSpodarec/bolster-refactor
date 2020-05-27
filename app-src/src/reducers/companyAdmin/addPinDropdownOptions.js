@@ -6,11 +6,13 @@ import {
     FETCH_DRAWING_DROPDOWN_OPTIONS_FAILURE,
     UPDATE_DRAWING_DROPDOWN_OPTIONS,
 } from 'constants/actionTypes/drawings';
+import { FETCH_ALL_OPTION_VALUES_REQUEST } from 'constants/actionTypes/companyAdminManufacturers';
 import { convertArrToObj } from 'helpers/generic';
 
 export default combineReducers({
     dropdownOptions: dropdownOptionsReducer,
     dropdownOptionsLookup: dropdownOptionsLookupReducer,
+    areManufacturerOptionsIncluded: areManufacturerOptionsIncludedReducer,
     isFetching: isFetchingReducer,
     error: errorReducer,
 });
@@ -55,6 +57,18 @@ function dropdownOptionsLookupReducer(state = [], action) {
             return convertArrToObj(action.payload);
         case UPDATE_DRAWING_DROPDOWN_OPTIONS:
             return convertArrToObj(action.options);
+        default:
+            return state;
+    }
+}
+
+function areManufacturerOptionsIncludedReducer(state = [], action) {
+    switch (action.type) {
+        case FETCH_DRAWING_DROPDOWN_OPTIONS_REQUEST:
+        case FETCH_ALL_OPTION_VALUES_REQUEST:
+            return false;
+        case UPDATE_DRAWING_DROPDOWN_OPTIONS:
+            return true;
         default:
             return state;
     }

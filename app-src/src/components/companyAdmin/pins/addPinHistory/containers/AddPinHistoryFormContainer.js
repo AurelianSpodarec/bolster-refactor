@@ -9,6 +9,7 @@ import resetPinAnswers from 'actions/companyAdmin/drawings/sync/resetPinAnswers'
 import updateAddPinStatus from 'actions/companyAdmin/drawings/sync/updateAddPinStatus';
 import updateAddPinAnswer from 'actions/companyAdmin/drawings/sync/updateAddPinAnswer';
 import { QUESTION_TYPE_VALUES } from 'constants/shared/templateBuilder';
+import { DROPDOWN_OPTION_MANUFACTURER_ENABLED } from 'constants/companyAdmin/enums';
 
 import AddPinForm from 'components/shared/pins/addPin/presentational/AddPinForm';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
@@ -17,12 +18,17 @@ import BackButtonContainer from 'components/shared/generic/backButton/containers
 
 const { SINGLE_PHOTO, MULTI_PHOTO, SIGNATURE } = QUESTION_TYPE_VALUES;
 
-function getDropdownOptionsByType(dropdownOptions) {
+function getDropdownOptionsByType(dropdownOptions, drawing) {
     return Object.values(dropdownOptions).reduce((acc, option) => {
+        const isManufacturingEnabledForDrawingAndType =
+            drawing.isManufacturingEnabled && DROPDOWN_OPTION_MANUFACTURER_ENABLED[option.type];
+
+        const value = isManufacturingEnabledForDrawingAndType ? option.id : option.name;
+
         if (acc[option.type]) {
-            acc[option.type].push(option.name);
+            acc[option.type].push(value);
         } else {
-            acc[option.type] = [option.name];
+            acc[option.type] = [value];
         }
         return acc;
     }, {});
@@ -278,10 +284,6 @@ class AddPinHistoryFormContainer extends Component {
             answers: formattedAnswers,
         };
 
-        console.log(postBody);
-        console.log(postBody);
-        console.log(postBody);
-
         if (hierarchyType === 'drawing') {
             postBody.pin = {
                 drawingID: parseInt(drawingID),
@@ -294,26 +296,29 @@ class AddPinHistoryFormContainer extends Component {
     };
 }
 
-const mapStateToProps = ({
-    companyAdmin: {
-        addPinDropdownOptions: { dropdownOptions },
-        templatesReducer: { templates, isFetching: isFetchingTemplates, error },
-        templateVersionsReducer: { versions },
-        templateSectionsReducer: { sections },
-        templateQuestionsReducer: { questions },
-        addPinFormReducer: { answers, status },
-        addPinCoordinatesReducer: { coordinates },
-        pinsReducer: { postSuccess, isFetching: isFetchingPins },
-        pinHistoriesReducer: { histories },
-        pinAnswersReducer: { answers: pinAnswers },
-        servicesReducer: { services },
-        subscriptionsReducer: { subscriptions },
+const mapStateToProps = (
+    {
+        companyAdmin: {
+            addPinDropdownOptions: { dropdownOptions },
+            templatesReducer: { templates, isFetching: isFetchingTemplates, error },
+            templateVersionsReducer: { versions },
+            templateSectionsReducer: { sections },
+            templateQuestionsReducer: { questions },
+            addPinFormReducer: { answers, status },
+            addPinCoordinatesReducer: { coordinates },
+            pinsReducer: { postSuccess, isFetching: isFetchingPins },
+            pinHistoriesReducer: { histories },
+            pinAnswersReducer: { answers: pinAnswers },
+            servicesReducer: { services },
+            subscriptionsReducer: { subscriptions },
+        },
+        shared: {
+            filesUploadingReducer: { filesUploading },
+            confirmLeaveReducer: { confirmLeave },
+        },
     },
-    shared: {
-        filesUploadingReducer: { filesUploading },
-        confirmLeaveReducer: { confirmLeave },
-    },
-}) => {
+    ownProps,
+) => {
     const latestPinHistory =
         Object.values(histories).sort((a, b) => moment(b.createdOn) - moment(a.createdOn))[0] || {};
 
@@ -335,7 +340,7 @@ const mapStateToProps = ({
         histories,
         latestPinHistory,
         subscriptions,
-        dropdownOptionsByType: getDropdownOptionsByType(dropdownOptions),
+        dropdownOptionsByType: getDropdownOptionsByType(dropdownOptions, ownProps.drawing),
     };
 };
 

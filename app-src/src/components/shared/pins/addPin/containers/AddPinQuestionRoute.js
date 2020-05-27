@@ -212,6 +212,8 @@ class AddPinQuestionRoute extends Component {
             edit,
             historyID,
             template,
+            isFetchingOptionValues,
+            optionValues,
         } = this.props;
 
         const isShowingFromPrereq = this.checkIfShouldShowByPreReq();
@@ -240,6 +242,8 @@ class AddPinQuestionRoute extends Component {
         }
 
         const isDoneFetchingPins = prevProps.isFetchingPins && !isFetchingPins && !isEmpty(pins);
+        const isDoneFetchingOptionValues =
+            prevProps.isFetchingOptionValues && !isFetchingOptionValues && !isEmpty(optionValues);
 
         // ? only applies to edit
         if (isDoneFetchingPins && edit && history.id && oldAnswers) {
@@ -275,6 +279,7 @@ class AddPinQuestionRoute extends Component {
             const shouldReset = hasTemplateAppeared || hasTemplateChanged || isDoneFetchingPins;
 
             if (shouldReset) {
+                console.log('resetting');
                 this.handlePrefillOrReset();
             }
         }
@@ -373,6 +378,8 @@ class AddPinQuestionRoute extends Component {
         const { type, optionType } = question;
 
         const relevantOptions = dropdownOptionsByType[optionType];
+
+        console.log('RELEVANT OPTIONS', relevantOptions);
         if (`${type}` === DROPDOWN_OPTIONS) {
             // handle edge case where answer is an array, set asfirst element in array
             if (Array.isArray(answer)) [answer] = answer;
@@ -387,7 +394,6 @@ class AddPinQuestionRoute extends Component {
     };
 
     handleChange = (_, value) => {
-        console.log(value);
         const { updateAddPinAnswer, question } = this.props;
         updateAddPinAnswer(question.id, value);
     };
@@ -433,7 +439,10 @@ class AddPinQuestionRoute extends Component {
 const mapStateToProps = (
     {
         companyAdmin: {
-            manufacturersOptionValuesReducer: { manufacturersOptionValues },
+            manufacturersOptionValuesReducer: {
+                manufacturersOptionValues,
+                isFetching: isFetchingOptionValues,
+            },
             addPinDropdownOptions: { dropdownOptions },
             addPinFormReducer: { answers, status },
             templateQuestionsReducer: { questions },
@@ -446,9 +455,10 @@ const mapStateToProps = (
             fieldErrorsReducer: { fieldErrors },
         },
     },
-    { match: { params } },
+    { match: { params, url } },
 ) => ({
-    manufacturersOptionValues,
+    optionValues: manufacturersOptionValues,
+    isFetchingOptionValues,
     dropdownOptions,
     answers,
     questions,
@@ -457,7 +467,10 @@ const mapStateToProps = (
     pins,
     isFetchingPins,
     fieldErrors,
-    drawing: drawings[params.id],
+    drawing:
+        url.endsWith('add-history') && pins[params.id]
+            ? drawings[pins[params.id].drawingID]
+            : drawings[params.id],
     // only applies to edit history
     history: histories[params.historyID] || {},
     historyID: params.historyID,
