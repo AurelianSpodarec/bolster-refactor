@@ -69,7 +69,6 @@ export default function (ProtectedComponent) {
             const { PIN_SELECTOR, INDIVIDUAL_PINS } = FURTHER_FILTRATION_OPTIONS;
 
             // ? Displays all pins if in rectangle mode, and only the selected pins otherwise.
-            console.log({ pins });
             if (+furtherFiltrationOption > PIN_SELECTOR) {
                 // advanced
                 return pins.filter(({ id }) => filters.pinIDs.includes(id));

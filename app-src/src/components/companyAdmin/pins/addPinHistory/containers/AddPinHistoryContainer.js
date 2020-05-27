@@ -12,8 +12,12 @@ import fetchSinglePin from 'actions/companyAdmin/pins/async/fetchSinglePin';
 import AddPinHistoryFormContainer from './AddPinHistoryFormContainer';
 import { fetchManufacturerPinOptions } from 'helpers/redux';
 import { isObjEmpty } from 'helpers/generic';
+import Loading from 'components/shared/generic/misc/presentational/Loading';
 
 class AddPinHistoryContainer extends Component {
+    state = {
+        isReady: false,
+    };
     render = () => {
         return (
             <AddPinHistoryFormContainer
@@ -21,6 +25,7 @@ class AddPinHistoryContainer extends Component {
                 hierarchyType="pin"
                 pinID={this.props.pinID}
                 isHistory
+                isReady={this.state.isReady}
             />
         );
     };
@@ -106,6 +111,7 @@ class AddPinHistoryContainer extends Component {
                 const newOptions = [...dropdownOptionsFilteredArray, ...drawingOptionValues];
 
                 updateDrawingDropdownOptions(newOptions);
+                this.setState({ isReady: true });
             }
         }
     };

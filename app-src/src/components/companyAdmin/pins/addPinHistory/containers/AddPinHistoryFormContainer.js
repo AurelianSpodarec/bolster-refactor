@@ -53,6 +53,7 @@ class AddPinHistoryFormContainer extends Component {
             versions,
             latestPinHistory = {},
             dropdownOptionsByType,
+            isReady,
         } = this.props;
 
         const latestVersion =
@@ -77,11 +78,11 @@ class AddPinHistoryFormContainer extends Component {
                 </PageHeading>
                 <BlockContainer
                     isEmpty={
-                        !templates.length
+                        !templates.length || !isReady
                         // || isEmpty(pinAnswers)
                     }
                     noDataMessage="There is no data."
-                    isFetching={isFetching}
+                    isFetching={isFetching || !isReady}
                     error={error}
                 >
                     <AddPinForm

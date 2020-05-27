@@ -212,7 +212,7 @@ class AddPinQuestionRoute extends Component {
             edit,
             historyID,
             template,
-            isFetchingOptionValues,
+            areManufacturerOptionsIncluded,
             optionValues,
         } = this.props;
 
@@ -242,8 +242,10 @@ class AddPinQuestionRoute extends Component {
         }
 
         const isDoneFetchingPins = prevProps.isFetchingPins && !isFetchingPins && !isEmpty(pins);
-        const isDoneFetchingOptionValues =
-            prevProps.isFetchingOptionValues && !isFetchingOptionValues && !isEmpty(optionValues);
+        const isDoneIncludingManufacturerOptions =
+            prevProps.areManufacturerOptionsIncluded &&
+            !areManufacturerOptionsIncluded &&
+            !isEmpty(optionValues);
 
         // ? only applies to edit
         if (isDoneFetchingPins && edit && history.id && oldAnswers) {
@@ -276,10 +278,13 @@ class AddPinQuestionRoute extends Component {
             const hasTemplateAppeared = !prevProps.template && !!template;
             const hasTemplateChanged =
                 !!prevProps.template && prevProps.template.id !== template.id;
-            const shouldReset = hasTemplateAppeared || hasTemplateChanged || isDoneFetchingPins;
+            const shouldReset =
+                hasTemplateAppeared ||
+                hasTemplateChanged ||
+                isDoneFetchingPins ||
+                isDoneIncludingManufacturerOptions;
 
             if (shouldReset) {
-                console.log('resetting');
                 this.handlePrefillOrReset();
             }
         }
@@ -379,7 +384,6 @@ class AddPinQuestionRoute extends Component {
 
         const relevantOptions = dropdownOptionsByType[optionType];
 
-        console.log('RELEVANT OPTIONS', relevantOptions);
         if (`${type}` === DROPDOWN_OPTIONS) {
             // handle edge case where answer is an array, set asfirst element in array
             if (Array.isArray(answer)) [answer] = answer;
@@ -443,7 +447,7 @@ const mapStateToProps = (
                 manufacturersOptionValues,
                 isFetching: isFetchingOptionValues,
             },
-            addPinDropdownOptions: { dropdownOptions },
+            addPinDropdownOptions: { dropdownOptions, areManufacturerOptionsIncluded },
             addPinFormReducer: { answers, status },
             templateQuestionsReducer: { questions },
             pinAnswersReducer: { answers: oldAnswers },
@@ -458,6 +462,7 @@ const mapStateToProps = (
     { match: { params, url } },
 ) => ({
     optionValues: manufacturersOptionValues,
+    areManufacturerOptionsIncluded,
     isFetchingOptionValues,
     dropdownOptions,
     answers,
