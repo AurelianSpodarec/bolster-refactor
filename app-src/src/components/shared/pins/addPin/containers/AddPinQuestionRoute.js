@@ -387,6 +387,7 @@ class AddPinQuestionRoute extends Component {
     };
 
     handleChange = (_, value) => {
+        console.log(value);
         const { updateAddPinAnswer, question } = this.props;
         updateAddPinAnswer(question.id, value);
     };

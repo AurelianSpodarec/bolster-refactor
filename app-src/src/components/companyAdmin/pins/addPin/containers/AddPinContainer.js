@@ -83,7 +83,7 @@ class AddPinContainer extends Component {
                     [],
                 );
 
-                const dropdownOptionsFilteredArray = dropdownOptions.reduce((acc, option) => {
+                const dropdownOptionsFilteredArray = dropdownOptions.filter(option => {
                     const areManufacturingOptionsReplacingThisOption = originalOptionTypesToRemove.includes(
                         option.type,
                     );
