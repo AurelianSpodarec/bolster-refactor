@@ -110,6 +110,7 @@ class AddPinHistoryContainer extends Component {
                     [],
                 );
 
+                // if manufacturing enabled for a specific pin option type, all dropdown options will need to be replaced by the manufacturers option values of that type
                 const dropdownOptionsFilteredArray = dropdownOptions.filter(option => {
                     const areManufacturingOptionsReplacingThisOption = originalOptionTypesToRemove.includes(
                         option.type,
@@ -119,6 +120,7 @@ class AddPinHistoryContainer extends Component {
 
                 const newOptions = [...dropdownOptionsFilteredArray, ...drawingOptionValues];
 
+                // alters the add pin dropdown options reducer with the list of manufacturer option values that need to be included instead
                 updateDrawingDropdownOptions(newOptions);
                 this.setState({ isReady: true });
             }

@@ -11,7 +11,6 @@ import { convertArrToObj } from 'helpers/generic';
 
 export default combineReducers({
     dropdownOptions: dropdownOptionsReducer,
-    dropdownOptionsLookup: dropdownOptionsLookupReducer,
     areManufacturerOptionsIncluded: areManufacturerOptionsIncludedReducer,
     isFetching: isFetchingReducer,
     error: errorReducer,
@@ -46,17 +45,6 @@ function dropdownOptionsReducer(state = [], action) {
             return action.payload;
         case UPDATE_DRAWING_DROPDOWN_OPTIONS:
             return action.options;
-        default:
-            return state;
-    }
-}
-
-function dropdownOptionsLookupReducer(state = [], action) {
-    switch (action.type) {
-        case FETCH_DRAWING_DROPDOWN_OPTIONS_SUCCESS:
-            return convertArrToObj(action.payload);
-        case UPDATE_DRAWING_DROPDOWN_OPTIONS:
-            return convertArrToObj(action.options);
         default:
             return state;
     }
