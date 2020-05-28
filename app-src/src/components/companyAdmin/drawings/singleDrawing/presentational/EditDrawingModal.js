@@ -133,7 +133,7 @@ const EditDrawingModal = ({
             </div>
             <div className="size-lg-12">
                 <div className="size-lg-6 size-md-12">
-                    <Field labelClasses="no-capitalise" name="Set manufacturer(s) for floor?">
+                    <Field labelClasses="no-capitalise" name="Set manufacturer(s) for drawing?">
                         <CheckboxContainer
                             checked={setManufacturersForHierarchy}
                             name="setManufacturersForHierarchy"
