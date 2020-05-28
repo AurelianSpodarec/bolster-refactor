@@ -116,3 +116,11 @@ export const removeUnusedManufacturerDefaults = hierarchy => {
         return null;
     }
 };
+
+// option values formatted without manufacturers
+
+export const convertManufacturersOptionsToObject = manufacturerOptionValues => {
+    return Object.values(manufacturerOptionValues).reduce((acc, options) => {
+        return { ...acc, ...options };
+    }, {});
+};

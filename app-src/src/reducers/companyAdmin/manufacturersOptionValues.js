@@ -88,6 +88,8 @@ function postErrorReducer(state = false, action) {
 
 function manufacturersOptionValuesReducer(state = {}, action) {
     switch (action.type) {
+        case FETCH_ALL_OPTION_VALUES_REQUEST:
+            return {};
         case FETCH_OPTION_VALUES_BY_MANUFACTURER_SUCCESS:
             return updateObj(state, action.manufacturerID, convertArrToObj(action.payload));
         case CREATE_OPTION_VALUE_SUCCESS:

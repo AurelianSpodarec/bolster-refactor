@@ -3,13 +3,17 @@ import { combineReducers } from 'redux';
 import {
     FETCH_DRAWING_DROPDOWN_OPTIONS_REQUEST,
     FETCH_DRAWING_DROPDOWN_OPTIONS_SUCCESS,
-    FETCH_DRAWING_DROPDOWN_OPTIONS_FAILURE
+    FETCH_DRAWING_DROPDOWN_OPTIONS_FAILURE,
+    UPDATE_DRAWING_DROPDOWN_OPTIONS,
 } from 'constants/actionTypes/drawings';
+import { FETCH_ALL_OPTION_VALUES_REQUEST } from 'constants/actionTypes/companyAdminManufacturers';
+import { convertArrToObj } from 'helpers/generic';
 
 export default combineReducers({
     dropdownOptions: dropdownOptionsReducer,
+    areManufacturerOptionsIncluded: areManufacturerOptionsIncludedReducer,
     isFetching: isFetchingReducer,
-    error: errorReducer
+    error: errorReducer,
 });
 
 function isFetchingReducer(state = false, action) {
@@ -39,6 +43,20 @@ function dropdownOptionsReducer(state = [], action) {
     switch (action.type) {
         case FETCH_DRAWING_DROPDOWN_OPTIONS_SUCCESS:
             return action.payload;
+        case UPDATE_DRAWING_DROPDOWN_OPTIONS:
+            return action.options;
+        default:
+            return state;
+    }
+}
+
+function areManufacturerOptionsIncludedReducer(state = [], action) {
+    switch (action.type) {
+        case FETCH_DRAWING_DROPDOWN_OPTIONS_REQUEST:
+        case FETCH_ALL_OPTION_VALUES_REQUEST:
+            return false;
+        case UPDATE_DRAWING_DROPDOWN_OPTIONS:
+            return true;
         default:
             return state;
     }
