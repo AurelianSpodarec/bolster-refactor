@@ -1521,7 +1521,6 @@ input {
         font-size: 140%;
         margin-bottom: 12.5px;
         @include ubuntu-medium;
-        text-transform: capitalize;
         sub {
             color: $red;
         }
@@ -4193,9 +4192,6 @@ input {
             margin-bottom: 0;
             .title {
                 text-transform: none;
-                &:first-letter {
-                    text-transform: capitalize;
-                }
             }
         }
 
@@ -5100,9 +5096,6 @@ input {
                         margin-bottom: 0;
                         .title {
                             text-transform: none;
-                            &:first-letter {
-                                text-transform: capitalize;
-                            }
                         }
                     }
                     label {

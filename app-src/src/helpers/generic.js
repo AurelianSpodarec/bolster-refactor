@@ -23,8 +23,8 @@ export function isObjEmpty(obj) {
 export const nameSort = (a, b) => {
     const firstNameA = a.userFirstName.toLowerCase();
     const firstNameB = b.userFirstName.toLowerCase();
-    if (firstNameA === firstNameB) {  
-        const lastNameA  = a.userLastName.toLowerCase();
+    if (firstNameA === firstNameB) {
+        const lastNameA = a.userLastName.toLowerCase();
         const lastNameB = b.userLastName.toLowerCase();
         if (lastNameA.toLowerCase() > lastNameB.toLowerCase()) return 1;
         if (lastNameA.toLowerCase() < lastNameB.toLowerCase()) return -1;
@@ -47,7 +47,7 @@ export function isEmpty(item) {
 export function updateObj(origObj, key, newItem) {
     return {
         ...origObj,
-        [key]: newItem
+        [key]: newItem,
     };
 }
 
@@ -79,7 +79,7 @@ export function updateMultipleKeys(origObj, keys, newValues) {
             newObj[key] = newValues[i];
             return newObj;
         },
-        { ...origObj }
+        { ...origObj },
     );
 }
 
@@ -101,7 +101,7 @@ export function sortArrayByKeyAndOrder(array, key, ascending, secondKey) {
             if (!secondKey) return 0;
             if (a[secondKey] > b[secondKey]) return value;
             if (a[secondKey] < b[secondKey]) return -value;
-        } 
+        }
         return 0;
     });
 }
@@ -110,7 +110,7 @@ export function swapItemSorts(obj, key1, key2) {
     return {
         ...obj,
         [key1]: updateObj(obj[key1], 'sort', obj[key2].sort),
-        [key2]: updateObj(obj[key2], 'sort', obj[key1].sort)
+        [key2]: updateObj(obj[key2], 'sort', obj[key1].sort),
     };
 }
 
@@ -118,7 +118,7 @@ export function swapItemSorts(obj, key1, key2) {
 export function convertEnumToDropdownOptions(obj) {
     const options = Object.keys(obj).map(key => ({
         value: key,
-        text: obj[key]
+        text: obj[key],
     }));
 
     return convertArrToObj(options, 'value');
@@ -128,7 +128,7 @@ export function convertEnumToDropdownOptions(obj) {
 export const enumFormat = obj =>
     Object.entries(obj).map(([value, label]) => ({
         value: +value || value,
-        label
+        label,
     }));
 
 /**
@@ -138,40 +138,31 @@ export const enumFormat = obj =>
 export const enumFormatCapitalKeys = obj =>
     Object.entries(obj).map(([label, value]) => ({
         value: +value || value,
-        label: capitaliseWords(label)
+        label: capitaliseWords(label),
     }));
 
 /**
  * @param {string} word
  */
-export const capitaliseWord = word =>
-    `${word[0].toUpperCase()}${word.slice(1).toLowerCase()}`;
+export const capitaliseWord = word => `${word[0].toUpperCase()}${word.slice(1).toLowerCase()}`;
 
 /**
  * @param {string} words - a string containing multiple space seperated words (wont work with brackets etc. todo?)
  */
-export const capitaliseWords = words =>
-    words
-        .split(' ')
-        .map(capitaliseWord)
-        .join(' ');
+export const capitaliseWords = words => words.split(' ').map(capitaliseWord).join(' ');
 
 // For numbers without decimal
 export const formatNumber = num => Number(num).toLocaleString('en-us');
 
 // for decimal .00
-export const formatCurrency = num =>
-    num.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+export const formatCurrency = num => num.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
 
-const getOffsetValue = ({ offset }) =>
-    Number(offset.slice(4, 10).replace(':', '')) || 0;
+const getOffsetValue = ({ offset }) => Number(offset.slice(4, 10).replace(':', '')) || 0;
 const sortByOffset = (a, b) => getOffsetValue(a) - getOffsetValue(b);
 
-export const sortTimezones = timezonesArr =>
-    [...timezonesArr].sort(sortByOffset);
+export const sortTimezones = timezonesArr => [...timezonesArr].sort(sortByOffset);
 
-export const formatDate = date =>
-    moment(date).format(DATE_TIME_DEFAULTS.DATETIME);
+export const formatDate = date => moment(date).format(DATE_TIME_DEFAULTS.DATETIME);
 
 // boolean byID for if using an array of objects with IDs
 export const removeDuplicates = (arr, byID) =>
@@ -182,20 +173,16 @@ export const removeDuplicates = (arr, byID) =>
     });
 
 export function moveItem(arr, id, index) {
-    const sortedItems = arr
-        .filter(item => item.id !== id)
-        .sort((a, b) => a.sort - b.sort);
+    const sortedItems = arr.filter(item => item.id !== id).sort((a, b) => a.sort - b.sort);
     const item = arr.find(item => item.id === id);
 
     sortedItems.splice(index, 0, item);
     return sortedItems.map((item, i) => ({ ...item, sort: i + 1 }));
 }
 
-export const caseInsensitiveEquals = (str1, str2) =>
-    str1.toLowerCase() === str2.toLowerCase();
+export const caseInsensitiveEquals = (str1, str2) => str1.toLowerCase() === str2.toLowerCase();
 
-export const caseInsensitiveIncludes = (str1, str2) =>
-    str1.toLowerCase() === str2.toLowerCase();
+export const caseInsensitiveIncludes = (str1, str2) => str1.toLowerCase() === str2.toLowerCase();
 
 // call this as the argument to a .sort() on an array
 export const hierarchySort = (a, b) => a.sort - b.sort;
@@ -272,9 +259,7 @@ export const deepEquals = (first, second) => {
     if (typeof first !== typeof second) return false;
 
     if (first instanceof Date) {
-        return second instanceof Date
-            ? first.getTime() === second.getTime()
-            : false;
+        return second instanceof Date ? first.getTime() === second.getTime() : false;
     }
     if (
         (first instanceof RegExp && second instanceof RegExp) ||
@@ -298,4 +283,12 @@ export const deepEquals = (first, second) => {
         if (firstKey !== secondKey || firstVal !== secondVal) return false;
     });
     return true;
+};
+
+export const toTitleCase = string => {
+    return string
+        .toLowerCase()
+        .split(' ')
+        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(' ');
 };

@@ -1,4 +1,5 @@
 import React from 'react';
+import { toTitleCase } from 'helpers/generic';
 
 const Field = ({
     children,
@@ -7,20 +8,20 @@ const Field = ({
     classes = '',
     required = false,
     htmlFor,
-    styles = {}
-}) => (
-    <div
-        className={`form-field ${sizeClasses} ${classes} `}
-        style={{ ...styles }}
-    >
-        {name && name.length && (
-            <label className="title" htmlFor={htmlFor}>
-                {name} {required && <sub>*</sub>}
-            </label>
-        )}
+    styles = {},
+}) => {
+    const titleCaseName = toTitleCase(name);
+    return (
+        <div className={`form-field ${sizeClasses} ${classes} `} style={{ ...styles }}>
+            {name && name.length && (
+                <label className="title" htmlFor={htmlFor}>
+                    {titleCaseName} {required && <sub>*</sub>}
+                </label>
+            )}
 
-        {children}
-    </div>
-);
+            {children}
+        </div>
+    );
+};
 
 export default Field;
