@@ -17,7 +17,8 @@ const OutputSettings = ({
     isCSVGeneration,
     isFloorplanGeneration,
     includeFloorplan,
-    showHidden
+    isOEMManualGeneration,
+    showHidden,
 }) => (
     <div className="size-lg-12">
         <BlockContainer>
@@ -66,9 +67,7 @@ const OutputSettings = ({
                                                         ? includePinLocation
                                                         : isPDFGeneration
                                                 }
-                                                handleChange={
-                                                    handleFilterChange
-                                                }
+                                                handleChange={handleFilterChange}
                                                 name="includePinLocation"
                                             />
                                             <p className="sub-text" />
@@ -84,9 +83,7 @@ const OutputSettings = ({
                                                         ? includeFloorplan
                                                         : isPDFGeneration
                                                 }
-                                                handleChange={
-                                                    handleFilterChange
-                                                }
+                                                handleChange={handleFilterChange}
                                                 name="includeFloorplan"
                                             />
                                             <p className="sub-text" />
@@ -95,6 +92,14 @@ const OutputSettings = ({
                                 </div>
                             </>
                         )}
+
+                        <Field sizeClasses="size-lg-6 size-md-12" name="Include Manuels?">
+                            <CheckboxContainer
+                                checked={isOEMManualGeneration}
+                                handleChange={handleFilterChange}
+                                name="isOEMManualGeneration"
+                            />
+                        </Field>
                     </div>
                     <div className="size-lg-6 size-md-12">
                         <Field name="Sort by">
@@ -117,8 +122,7 @@ const OutputSettings = ({
                                 name="showHidden"
                             />
                             <p className="sub-text">
-                                - Check to include questions that are hidden on
-                                the templates?
+                                - Check to include questions that are hidden on the templates?
                             </p>
                         </Field>
                     </div>
