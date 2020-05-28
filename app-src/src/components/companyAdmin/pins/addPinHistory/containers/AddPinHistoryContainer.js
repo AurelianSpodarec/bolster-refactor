@@ -13,6 +13,7 @@ import AddPinHistoryFormContainer from './AddPinHistoryFormContainer';
 import { fetchManufacturerPinOptions } from 'helpers/redux';
 import { isObjEmpty } from 'helpers/generic';
 import Loading from 'components/shared/generic/misc/presentational/Loading';
+import { shouldOptionValueBeIncluded } from 'helpers/manufacturers';
 
 class AddPinHistoryContainer extends Component {
     state = {
@@ -72,6 +73,7 @@ class AddPinHistoryContainer extends Component {
                 drawing,
                 optionValues,
                 updateDrawingDropdownOptions,
+                subscriptionServiceIDs,
             } = this.props;
 
             // check to see if we should be using manufacturing pin options instead of the original dropdown options
@@ -94,7 +96,14 @@ class AddPinHistoryContainer extends Component {
                             if (!originalOptionTypesToRemove.includes(option.type)) {
                                 originalOptionTypesToRemove.push(option.type);
                             }
-                            acc.push({ ...option });
+                            if (
+                                shouldOptionValueBeIncluded(
+                                    option.serviceIDs,
+                                    subscriptionServiceIDs,
+                                )
+                            ) {
+                                acc.push({ ...option });
+                            }
                         }
                         return acc;
                     },

@@ -13,6 +13,7 @@ import updateDrawingDropdownOptions from 'actions/companyAdmin/drawings/sync/upd
 import AddPinFormContainer from './AddPinFormContainer';
 import { fetchManufacturerPinOptions } from 'helpers/redux';
 import { isObjEmpty } from 'helpers/generic';
+import { shouldOptionValueBeIncluded } from 'helpers/manufacturers';
 
 class AddPinContainer extends Component {
     render = () => <AddPinFormContainer hierarchyType="drawing" drawingID={this.props.drawingID} />;
@@ -54,6 +55,7 @@ class AddPinContainer extends Component {
                 drawing,
                 optionValues,
                 updateDrawingDropdownOptions,
+                subscriptionServiceIDs,
             } = this.props;
 
             // check to see if we should be using manufacturing pin options instead of the original dropdown options
@@ -76,7 +78,14 @@ class AddPinContainer extends Component {
                             if (!originalOptionTypesToRemove.includes(option.type)) {
                                 originalOptionTypesToRemove.push(option.type);
                             }
-                            acc.push({ ...option });
+                            if (
+                                shouldOptionValueBeIncluded(
+                                    option.serviceIDs,
+                                    subscriptionServiceIDs,
+                                )
+                            ) {
+                                acc.push({ ...option });
+                            }
                         }
                         return acc;
                     },
