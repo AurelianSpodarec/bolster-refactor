@@ -35,9 +35,12 @@ const DropdownOptions = ({
         const curOptions = filteredOptions.map(opt => opt.name);
 
         formattedOpts = filteredOptions.map(option => ({
-            value: option.name,
+            value: isManufacturingEnabledForType ? option.id : option.name,
             label: option.name,
+            id: option.id || null,
         }));
+        console.log('FORMATTED OPTIONS', formattedOpts);
+        console.log('ANSWERS', answers[id]);
 
         if (!curOptions.includes(originalDropdownAns)) {
             formattedOpts.push({ value: originalDropdownAns, label: originalDropdownAns });

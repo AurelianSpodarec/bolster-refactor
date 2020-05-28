@@ -16,7 +16,7 @@ import PageHeading from 'components/shared/generic/pageHeading/presentational/Pa
 
 class EditPinFormContainer extends Component {
     state = {
-        status: ''
+        status: '',
     };
 
     render() {
@@ -28,18 +28,15 @@ class EditPinFormContainer extends Component {
             templates,
             filesUploading,
             confirmLeave,
-            selectedHistory
+            selectedHistory,
+            isReady,
         } = this.props;
 
         const statusOptions = convertEnumToDropdownOptions(PIN_STATUS_TYPES);
 
         return (
             <>
-                <PageHeading
-                    leftChildren={true}
-                    title="Edit Pin History"
-                    withBackButton
-                />
+                <PageHeading leftChildren={true} title="Edit Pin History" withBackButton />
                 <BlockContainer
                     isEmpty={!Object.values(templates).length}
                     isFetching={isFetching}
@@ -69,7 +66,7 @@ class EditPinFormContainer extends Component {
             coordinates,
             history,
             hierarchyType,
-            selectedHistory
+            selectedHistory,
         } = this.props;
 
         if (!coordinates.lat || !coordinates.lng) {
@@ -84,7 +81,7 @@ class EditPinFormContainer extends Component {
 
         if (!isObjEmpty(pins)) {
             this.setState({
-                status: selectedHistory.status
+                status: selectedHistory.status,
             });
         }
 
@@ -108,12 +105,12 @@ class EditPinFormContainer extends Component {
             pinID,
             resetPinAnswers,
             hierarchyType,
-            selectedHistory
+            selectedHistory,
         } = this.props;
 
         if (isObjEmpty(prevProps.pins) && !isObjEmpty(pins)) {
             this.setState({
-                status: selectedHistory.status
+                status: selectedHistory.status,
             });
         }
 
@@ -138,7 +135,7 @@ class EditPinFormContainer extends Component {
         const { templates } = this.props;
         const templateOptions = templates.map(({ id, name }) => ({
             value: id,
-            text: name
+            text: name,
         }));
 
         return convertArrToObj(templateOptions, 'value');
@@ -151,13 +148,7 @@ class EditPinFormContainer extends Component {
     handleSubmit = e => {
         e.preventDefault();
 
-        const {
-            editPinHistory,
-            answers,
-            filesUploading,
-            selectedHistory,
-            status
-        } = this.props;
+        const { editPinHistory, answers, filesUploading, selectedHistory, status } = this.props;
 
         const formattedAnswers = Object.keys(answers).map(function (key) {
             return { questionID: key, answer: answers[key] };
@@ -165,7 +156,7 @@ class EditPinFormContainer extends Component {
 
         const postBody = {
             answers: formattedAnswers,
-            status
+            status,
         };
 
         if (!filesUploading) {
@@ -179,22 +170,18 @@ class EditPinFormContainer extends Component {
 const mapStateToProps = (
     {
         companyAdmin: {
-            templatesReducer: {
-                templates,
-                isFetching: isFetchingTemplates,
-                error
-            },
+            templatesReducer: { templates, isFetching: isFetchingTemplates, error },
             pinHistoriesReducer: { histories },
             addPinFormReducer: { answers, status },
             addPinCoordinatesReducer: { coordinates },
-            pinsReducer: { pins, postSuccess, isFetching: isFetchingPins }
+            pinsReducer: { pins, postSuccess, isFetching: isFetchingPins },
         },
         shared: {
             filesUploadingReducer: { filesUploading },
-            confirmLeaveReducer: { confirmLeave }
-        }
+            confirmLeaveReducer: { confirmLeave },
+        },
     },
-    { historyID }
+    { historyID },
 ) => ({
     pins,
     templates: Object.values(templates),
@@ -206,11 +193,9 @@ const mapStateToProps = (
     filesUploading,
     confirmLeave,
     selectedHistory: histories[historyID] || {},
-    status
+    status,
 });
 
 const mapDispatchToProps = { editPinHistory, resetPinAnswers };
 
-export default withRouter(
-    connect(mapStateToProps, mapDispatchToProps)(EditPinFormContainer)
-);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(EditPinFormContainer));

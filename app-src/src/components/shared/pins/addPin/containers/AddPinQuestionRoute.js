@@ -248,7 +248,16 @@ class AddPinQuestionRoute extends Component {
             !isEmpty(optionValues);
 
         // ? only applies to edit
+
+        console.log(
+            isDoneIncludingManufacturerOptions,
+            isDoneFetchingPins,
+            edit,
+            history.id,
+            oldAnswers,
+        );
         if (isDoneFetchingPins && edit && history.id && oldAnswers) {
+            console.log('edittingggg');
             const oldAnswersArray = Object.values(oldAnswers);
 
             // !pin history ID matters to select the right answer to prefill on edit
@@ -473,7 +482,7 @@ const mapStateToProps = (
     isFetchingPins,
     fieldErrors,
     drawing:
-        url.endsWith('add-history') && pins[params.id]
+        (url.endsWith('add-history') || url.includes('edit-history')) && pins[params.id]
             ? drawings[pins[params.id].drawingID]
             : drawings[params.id],
     // only applies to edit history
