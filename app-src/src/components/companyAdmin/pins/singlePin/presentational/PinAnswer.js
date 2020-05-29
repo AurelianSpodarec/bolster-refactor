@@ -25,7 +25,7 @@ const PinAnswer = ({
     const notFoundResponse = null;
     let inner;
 
-    if (isCurAnswerForManufacturing && !isObjEmpty(optionValuesLookup)) {
+    if (isCurAnswerForManufacturing && !isObjEmpty(optionValuesLookup) && !!curAnswer.answer) {
         if (type === TYPES.DROPDOWN_OPTIONS) {
             curAnswer.answer = optionValuesLookup[curAnswer.answer].name;
         } else if (
