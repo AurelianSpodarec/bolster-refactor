@@ -18,11 +18,13 @@ const UserDrawingListItemContainer = ({
     handleDrawingIDs,
     fetchSingleSite,
     fetchSingleFloor,
-    fetchSingleBuilding
+    fetchSingleBuilding,
+    services,
+    drawingServices,
 }) => {
-    const [siteName, setSiteName] = useState('Unkown');
-    const [floorName, setFloorName] = useState('Unkown');
-    const [buildingName, setBuildingName] = useState('Unkown');
+    const [siteName, setSiteName] = useState('Unknown');
+    const [floorName, setFloorName] = useState('Unknown');
+    const [buildingName, setBuildingName] = useState('Unknown');
 
     componentDidMount(() => {
         fetchSingleSite(drawing.siteID)
@@ -58,8 +60,29 @@ const UserDrawingListItemContainer = ({
             siteName={siteName}
             buildingName={buildingName}
             floorName={floorName}
+            serviceNames={getServiceNames()}
         />
     );
+
+    function getServicesForCurrentDrawing() {
+        const curServices = drawingServices.filter(x => x.drawingID === drawing.id);
+
+        return curServices[0].serviceIDs;
+    }
+
+    function getServiceNames() {
+        if (!drawingServices.length) return null;
+
+        const serviceIDs = getServicesForCurrentDrawing();
+
+        const filteredServices = services.filter(service => {
+            return serviceIDs.includes(service.id);
+        });
+
+        const names = filteredServices.map(service => service.name).join(', ');
+
+        return names;
+    }
 };
 
 const mapDispatchToProps = dispatch => ({
@@ -87,7 +110,8 @@ const mapStateToProps = ({
         sitesReducer: { sites, isFetching: fetchingSites },
         buildingsReducer: { buildings, isFetching: fetchingBuildings },
         floorsReducer: { floors, isFetching: fetchingFloors },
-        userDrawingsReducer: { isFetching: fetchingDrawings }
+        userDrawingsReducer: { isFetching: fetchingDrawings },
+        servicesReducer: { services, drawingServices, error: servicesError }
     }
 }) => {
     return {
@@ -95,7 +119,10 @@ const mapStateToProps = ({
         buildings: buildings || {},
         floors: floors || {},
         fetchingDrawings,
-        isFetching: fetchingFloors || fetchingBuildings || fetchingSites
+        isFetching: fetchingFloors || fetchingBuildings || fetchingSites,
+        services: Object.values(services) || [],
+        drawingServices: Object.values(drawingServices) || [],
+        servicesError
     };
 };
 export default connect(
