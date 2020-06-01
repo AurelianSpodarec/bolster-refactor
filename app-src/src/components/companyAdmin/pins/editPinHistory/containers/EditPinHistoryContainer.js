@@ -29,6 +29,7 @@ class EditPinHistoryContainer extends Component {
                 historyID={historyID}
                 isReady={this.state.isReady}
                 drawing={this.props.drawing}
+                formatDropdownOptions={this.formatDropdownOptions}
             />
         );
     }
@@ -69,63 +70,64 @@ class EditPinHistoryContainer extends Component {
             !isObjEmpty(this.props.optionValues)
         ) {
             // replace add pin dropdown options with manufacturer enabled options if applicable
+            const { selectedHistory } = this.props;
+            this.formatDropdownOptions(selectedHistory.serviceID);
+        }
+    };
 
-            const {
-                dropdownOptions,
-                drawing,
-                optionValues,
-                updateDrawingDropdownOptions,
-                subscriptionServiceIDs,
-            } = this.props;
+    formatDropdownOptions = serviceID => {
+        const {
+            dropdownOptions,
+            drawing,
+            optionValues,
+            updateDrawingDropdownOptions,
+            subscriptionServiceIDs,
+        } = this.props;
 
-            // check to see if we should be using manufacturing pin options instead of the original dropdown options
-            if (drawing.isManufacturingEnabled) {
-                const drawingOptionValueIDs = drawing.optionValueIDs;
-                const originalOptionTypesToRemove = [];
+        // check to see if we should be using manufacturing pin options instead of the original dropdown options
+        if (drawing.isManufacturingEnabled) {
+            const drawingOptionValueIDs = drawing.optionValueIDs;
+            const originalOptionTypesToRemove = [];
 
-                // get manufacturer option values in an array ready to be reduced into the options that may replace certain fields.
-                const formattedManufacturerOptionValues = Object.values(optionValues).reduce(
-                    (acc, options) => {
-                        return [...acc, ...Object.values(options)];
-                    },
-                    [],
+            // get manufacturer option values in an array ready to be reduced into the options that may replace certain fields.
+            const formattedManufacturerOptionValues = Object.values(optionValues).reduce(
+                (acc, options) => {
+                    return [...acc, ...Object.values(options)];
+                },
+                [],
+            );
+
+            const drawingOptionValues = formattedManufacturerOptionValues.reduce((acc, option) => {
+                const isCorrectForDrawingAndServiceID = serviceID
+                    ? drawingOptionValueIDs.includes(option.id) &&
+                      option.serviceIDs.includes(Number(serviceID))
+                    : drawingOptionValueIDs.includes(option.id);
+
+                if (isCorrectForDrawingAndServiceID) {
+                    // mark the types that need to be removed from the dropdown options
+                    if (!originalOptionTypesToRemove.includes(option.type)) {
+                        originalOptionTypesToRemove.push(option.type);
+                    }
+                    if (shouldOptionValueBeIncluded(option.serviceIDs, subscriptionServiceIDs)) {
+                        acc.push({ ...option });
+                    }
+                }
+                return acc;
+            }, []);
+
+            // if manufacturing enabled for a specific pin option type, all dropdown options will need to be replaced by the manufacturers option values of that type
+            const dropdownOptionsFilteredArray = dropdownOptions.filter(option => {
+                const areManufacturingOptionsReplacingThisOption = originalOptionTypesToRemove.includes(
+                    option.type,
                 );
+                return !areManufacturingOptionsReplacingThisOption;
+            }, []);
 
-                const drawingOptionValues = formattedManufacturerOptionValues.reduce(
-                    (acc, option) => {
-                        if (drawingOptionValueIDs.includes(option.id)) {
-                            // mark the types that need to be removed from the dropdown options
-                            if (!originalOptionTypesToRemove.includes(option.type)) {
-                                originalOptionTypesToRemove.push(option.type);
-                            }
-                            if (
-                                shouldOptionValueBeIncluded(
-                                    option.serviceIDs,
-                                    subscriptionServiceIDs,
-                                )
-                            ) {
-                                acc.push({ ...option });
-                            }
-                        }
-                        return acc;
-                    },
-                    [],
-                );
+            const newOptions = [...dropdownOptionsFilteredArray, ...drawingOptionValues];
 
-                // if manufacturing enabled for a specific pin option type, all dropdown options will need to be replaced by the manufacturers option values of that type
-                const dropdownOptionsFilteredArray = dropdownOptions.filter(option => {
-                    const areManufacturingOptionsReplacingThisOption = originalOptionTypesToRemove.includes(
-                        option.type,
-                    );
-                    return !areManufacturingOptionsReplacingThisOption;
-                }, []);
-
-                const newOptions = [...dropdownOptionsFilteredArray, ...drawingOptionValues];
-
-                // alters the add pin dropdown options reducer with the list of manufacturer option values that need to be included instead
-                updateDrawingDropdownOptions(newOptions);
-                this.setState({ isReady: true });
-            }
+            // alters the add pin dropdown options reducer with the list of manufacturer option values that need to be included instead
+            updateDrawingDropdownOptions(newOptions);
+            this.setState({ isReady: true });
         }
     };
 }
@@ -140,6 +142,7 @@ const mapStateToProps = (
                 subscriptions: { serviceIDs: subscriptionServiceIDs },
             },
             pinsReducer: { pins },
+            pinHistoriesReducer: { histories },
         },
     },
     { match: { params } },
@@ -151,6 +154,7 @@ const mapStateToProps = (
     isFetching: isFetching,
     dropdownOptions,
     subscriptionServiceIDs,
+    selectedHistory: histories[params.historyID] || {},
 });
 
 const mapDispatchToProps = {

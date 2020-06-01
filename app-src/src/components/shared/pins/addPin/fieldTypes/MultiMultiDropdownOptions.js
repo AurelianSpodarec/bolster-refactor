@@ -34,7 +34,9 @@ const MultiMultiDropdownOptions = ({
     if (edit) {
         // todo change the edit so that it can handle manufacturer pin options
 
-        const curOptions = filteredOptions.map(opt => opt.name);
+        const curOptions = filteredOptions.map(opt =>
+            isManufacturingEnabledForType ? opt.id : opt.name,
+        );
 
         const extraOptions = originalDropdownMultiAns
             .reduce((acc, opt) => {
