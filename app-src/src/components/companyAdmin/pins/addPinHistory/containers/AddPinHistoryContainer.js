@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import moment from 'moment';
 import { withRouter } from 'react-router-dom';
 
 import fetchAllOptionValues from 'actions/companyAdmin/manufacturers/async/fetchAllOptionValues';
@@ -26,6 +27,7 @@ class AddPinHistoryContainer extends Component {
                 pinID={this.props.pinID}
                 isHistory
                 isReady={this.state.isReady}
+                formatDropdownOptions={this.formatDropdownOptions}
             />
         );
     };
@@ -66,63 +68,69 @@ class AddPinHistoryContainer extends Component {
             !isObjEmpty(this.props.optionValues)
         ) {
             // replace add pin dropdown options with manufacturer enabled options if applicable
+            const { versions, latestPinHistory, templates } = this.props;
+            const templateVersion =
+                versions.find(version => latestPinHistory.templateVersionID === version.id) || {};
 
-            const {
-                dropdownOptions,
-                drawing,
-                optionValues,
-                updateDrawingDropdownOptions,
-                subscriptionServiceIDs,
-            } = this.props;
+            const latestTemplateUsed =
+                templates.find(template => templateVersion.templateID === template.id) || {};
+            this.formatDropdownOptions(latestTemplateUsed.serviceID);
+        }
+    };
 
-            // check to see if we should be using manufacturing pin options instead of the original dropdown options
-            if (drawing.isManufacturingEnabled) {
-                const drawingOptionValueIDs = drawing.optionValueIDs;
-                const originalOptionTypesToRemove = [];
+    formatDropdownOptions = serviceID => {
+        const {
+            dropdownOptions,
+            drawing,
+            optionValues,
+            updateDrawingDropdownOptions,
+            subscriptionServiceIDs,
+        } = this.props;
 
-                // get manufacturer option values in an array ready to be reduced into the options that may replace certain fields.
-                const formattedManufacturerOptionValues = Object.values(optionValues).reduce(
-                    (acc, options) => {
-                        return [...acc, ...Object.values(options)];
-                    },
-                    [],
+        // check to see if we should be using manufacturing pin options instead of the original dropdown options
+        if (drawing.isManufacturingEnabled) {
+            const drawingOptionValueIDs = drawing.optionValueIDs;
+            const originalOptionTypesToRemove = [];
+
+            // get manufacturer option values in an array ready to be reduced into the options that may replace certain fields.
+            const formattedManufacturerOptionValues = Object.values(optionValues).reduce(
+                (acc, options) => {
+                    return [...acc, ...Object.values(options)];
+                },
+                [],
+            );
+
+            const drawingOptionValues = formattedManufacturerOptionValues.reduce((acc, option) => {
+                const isCorrectForDrawingAndServiceID = serviceID
+                    ? drawingOptionValueIDs.includes(option.id) &&
+                      option.serviceIDs.includes(Number(serviceID))
+                    : drawingOptionValueIDs.includes(option.id);
+
+                if (isCorrectForDrawingAndServiceID) {
+                    // mark the types that need to be removed from the dropdown options
+                    if (!originalOptionTypesToRemove.includes(option.type)) {
+                        originalOptionTypesToRemove.push(option.type);
+                    }
+                    if (shouldOptionValueBeIncluded(option.serviceIDs, subscriptionServiceIDs)) {
+                        acc.push({ ...option });
+                    }
+                }
+                return acc;
+            }, []);
+
+            // if manufacturing enabled for a specific pin option type, all dropdown options will need to be replaced by the manufacturers option values of that type
+            const dropdownOptionsFilteredArray = dropdownOptions.filter(option => {
+                const areManufacturingOptionsReplacingThisOption = originalOptionTypesToRemove.includes(
+                    option.type,
                 );
+                return !areManufacturingOptionsReplacingThisOption;
+            }, []);
 
-                const drawingOptionValues = formattedManufacturerOptionValues.reduce(
-                    (acc, option) => {
-                        if (drawingOptionValueIDs.includes(option.id)) {
-                            // mark the types that need to be removed from the dropdown options
-                            if (!originalOptionTypesToRemove.includes(option.type)) {
-                                originalOptionTypesToRemove.push(option.type);
-                            }
-                            if (
-                                shouldOptionValueBeIncluded(
-                                    option.serviceIDs,
-                                    subscriptionServiceIDs,
-                                )
-                            ) {
-                                acc.push({ ...option });
-                            }
-                        }
-                        return acc;
-                    },
-                    [],
-                );
+            const newOptions = [...dropdownOptionsFilteredArray, ...drawingOptionValues];
 
-                // if manufacturing enabled for a specific pin option type, all dropdown options will need to be replaced by the manufacturers option values of that type
-                const dropdownOptionsFilteredArray = dropdownOptions.filter(option => {
-                    const areManufacturingOptionsReplacingThisOption = originalOptionTypesToRemove.includes(
-                        option.type,
-                    );
-                    return !areManufacturingOptionsReplacingThisOption;
-                }, []);
-
-                const newOptions = [...dropdownOptionsFilteredArray, ...drawingOptionValues];
-
-                // alters the add pin dropdown options reducer with the list of manufacturer option values that need to be included instead
-                updateDrawingDropdownOptions(newOptions);
-                this.setState({ isReady: true });
-            }
+            // alters the add pin dropdown options reducer with the list of manufacturer option values that need to be included instead
+            updateDrawingDropdownOptions(newOptions);
+            this.setState({ isReady: true });
         }
     };
 }
@@ -137,17 +145,28 @@ const mapStateToProps = (
                 subscriptions: { serviceIDs: subscriptionServiceIDs },
             },
             pinsReducer: { pins },
+            pinHistoriesReducer: { histories },
+            templatesReducer: { templates, isFetching: isFetchingTemplates },
+            templateVersionsReducer: { versions },
         },
     },
     { match: { params } },
-) => ({
-    pinID: params.id,
-    optionValues: manufacturersOptionValues,
-    drawing: pins[params.id] ? drawings[pins[params.id].drawingID] : {},
-    isFetching: isFetching,
-    dropdownOptions,
-    subscriptionServiceIDs,
-});
+) => {
+    const latestPinHistory =
+        Object.values(histories).sort((a, b) => moment(b.createdOn) - moment(a.createdOn))[0] || {};
+
+    return {
+        pinID: params.id,
+        optionValues: manufacturersOptionValues,
+        drawing: pins[params.id] ? drawings[pins[params.id].drawingID] : {},
+        isFetching: isFetching || isFetchingTemplates,
+        dropdownOptions,
+        subscriptionServiceIDs,
+        templates: Object.values(templates).filter(({ isDeleted }) => !isDeleted),
+        versions: Object.values(versions),
+        latestPinHistory,
+    };
+};
 
 const mapDispatchToProps = {
     fetchSinglePin,
