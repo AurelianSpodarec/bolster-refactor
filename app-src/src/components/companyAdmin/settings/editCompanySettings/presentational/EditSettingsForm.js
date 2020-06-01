@@ -247,7 +247,7 @@ const EditSettingsForm = ({
                 </Field>
             </div>
             <div className="size-lg-12">
-                <Field name="Use OEM Manufacturing By Default" sizeClasses="size-lg-6 size-md-12">
+                <Field name="Use O&M Manufacturing By Default" sizeClasses="size-lg-6 size-md-12">
                     <CheckboxContainer
                         checked={useManufacturingByDefault}
                         handleChange={handleInputChange}

@@ -276,7 +276,7 @@ const Settings = ({ isFetching, error, companySettings: company, onMobile }) => 
                             sizeClass="size-lg-12"
                         />
                         <FieldOutput
-                            title="Use OEM Manufacturing By Default?"
+                            title="Use O&M Manufacturing By Default?"
                             description={company.useManufacturingByDefault ? 'Yes' : 'No'}
                             fieldClass="no-h-padding"
                             sizeClass="size-lg-12"
