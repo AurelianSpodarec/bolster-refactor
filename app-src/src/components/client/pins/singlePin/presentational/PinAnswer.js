@@ -14,7 +14,7 @@ const PinAnswer = ({
     answers,
     // status,
     dispatch,
-    question
+    question,
 }) => {
     const curAnswer = answers.find(item => +item.id === +trimmedAnswer.id);
     const notFoundResponse = null;
@@ -38,25 +38,19 @@ const PinAnswer = ({
         case TYPES.DROPDOWN:
         case TYPES.RADIO:
             var relevantQuestion = questions.find(
-                ({ id }) => +id === +curAnswer.templateQuestionID
+                ({ id }) => +id === +curAnswer.templateQuestionID,
             );
             if (!relevantQuestion) return notFoundResponse;
 
-            var relevantOption = relevantQuestion.options.find(
-                ({ id }) => id === curAnswer.answer
-            );
+            var relevantOption = relevantQuestion.options.find(({ id }) => id === curAnswer.answer);
             if (!relevantOption) return notFoundResponse;
 
             inner = <p>{relevantOption.text}</p>;
             break;
         case TYPES.MULTI_DROPDOWN:
-            var { options } = questions.find(
-                item => +item.id === curAnswer.templateQuestionID
-            );
-            var relevantOptions = options.filter(({ id }) =>
-                curAnswer.answer.includes(id)
-            );
-            inner = <p>{relevantOptions.map(({ text }) => text).join(", ")}</p>;
+            var { options } = questions.find(item => +item.id === curAnswer.templateQuestionID);
+            var relevantOptions = options.filter(({ id }) => curAnswer.answer.includes(id));
+            inner = <p>{relevantOptions.map(({ text }) => text).join(', ')}</p>;
             break;
         case TYPES.CHECKBOX:
             inner = <p>{curAnswer.answer ? "Yes" : "No"}</p>;
@@ -68,21 +62,17 @@ const PinAnswer = ({
                 answerString = `data: image/jpeg;base64${answerString}`;
             }
 
-            inner = (
-                <img className='signature' alt='signature' src={answerString} />
-            );
+            inner = <img className="signature" alt="signature" src={answerString} />;
 
             break;
         case TYPES.SINGLE_PHOTO:
             var URL = `${RAW_S3_STORAGE_URL}/${curAnswer.answer}`;
             inner = (
                 <img
-                    style={{ cursor: "zoom-in" }}
-                    alt=''
-                    src={URL + "?width=100"}
-                    onClick={() =>
-                        dispatch(showModal(PIN_IMAGE, { image: URL }))
-                    }
+                    style={{ cursor: 'zoom-in' }}
+                    alt=""
+                    src={URL + '?width=100'}
+                    onClick={() => dispatch(showModal(PIN_IMAGE, { image: URL + '?width=1500' }))}
                 />
             );
             break;
@@ -113,7 +103,7 @@ const PinAnswer = ({
                         key={item}
                         src={URL + "?width=100"}
                         onClick={() =>
-                            dispatch(showModal(PIN_IMAGE, { image: URL }))
+                            dispatch(showModal(PIN_IMAGE, { image: URL + '?width=1500' }))
                         }
                     />
                 );
@@ -124,11 +114,7 @@ const PinAnswer = ({
     }
 
     return (
-        <FieldOutput
-            title={question.name}
-            key={question.id}
-            sizeClass='size-lg-4 flex-row-item'
-        >
+        <FieldOutput title={question.name} key={question.id} sizeClass="size-lg-4 flex-row-item">
             {inner}
         </FieldOutput>
     );
@@ -137,6 +123,7 @@ const PinAnswer = ({
 export default connect()(PinAnswer);
 
 function formatMultiMulti(answer) {
+    if (!Array.isArray(answer)) return answer;
     const formatted = answer.map(item => {
         const count = answer.filter(x => item === x).length;
         return count > 1 ? `${item} x ${count}` : item;

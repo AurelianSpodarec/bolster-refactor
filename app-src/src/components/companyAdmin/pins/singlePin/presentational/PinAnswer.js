@@ -18,7 +18,7 @@ const PinAnswer = ({
     // status,
     dispatch,
     question,
-    pinHistory
+    pinHistory,
 }) => {
     const curAnswer = answers.find(item => +item.id === +trimmedAnswer.id);
     const notFoundResponse = null;
@@ -30,29 +30,20 @@ const PinAnswer = ({
         if (curQuestion && curQuestion.prerequisiteQuestionID) {
             const prereqAnswer = answers.filter(
                 answer =>
-                    answer.templateQuestionID ===
-                        curQuestion.prerequisiteQuestionID &&
-                    answer.pinHistoryID === pinHistory.id
+                    answer.templateQuestionID === curQuestion.prerequisiteQuestionID &&
+                    answer.pinHistoryID === pinHistory.id,
             );
 
             if (!isEmpty(prereqAnswer)) {
-                const prereqQuestion =
-                    questionsObj[prereqAnswer[0].templateQuestionID];
+                const prereqQuestion = questionsObj[prereqAnswer[0].templateQuestionID];
 
                 if (prereqQuestion.type === TYPES.MULTI_DROPDOWN) {
-                    if (
-                        !prereqAnswer[0].answer.includes(
-                            curQuestion.prerequisiteQuestionValue
-                        )
-                    )
+                    if (!prereqAnswer[0].answer.includes(curQuestion.prerequisiteQuestionValue))
                         return notFoundResponse;
                 } else if (prereqQuestion.type === TYPES.CHECKBOX) {
                     // do nothing
                 } else {
-                    if (
-                        curQuestion.prerequisiteQuestionValue !==
-                        prereqAnswer[0].answer
-                    )
+                    if (curQuestion.prerequisiteQuestionValue !== prereqAnswer[0].answer)
                         return notFoundResponse;
                 }
             }
@@ -79,24 +70,18 @@ const PinAnswer = ({
         case TYPES.DROPDOWN:
         case TYPES.RADIO:
             var relevantQuestion = questions.find(
-                ({ id }) => +id === +curAnswer.templateQuestionID
+                ({ id }) => +id === +curAnswer.templateQuestionID,
             );
             if (!relevantQuestion) return notFoundResponse;
 
-            var relevantOption = relevantQuestion.options.find(
-                ({ id }) => id === curAnswer.answer
-            );
+            var relevantOption = relevantQuestion.options.find(({ id }) => id === curAnswer.answer);
             if (!relevantOption) return notFoundResponse;
 
             inner = <p>{relevantOption.text}</p>;
             break;
         case TYPES.MULTI_DROPDOWN:
-            var { options } = questions.find(
-                item => +item.id === curAnswer.templateQuestionID
-            );
-            var relevantOptions = options.filter(({ id }) =>
-                curAnswer.answer.includes(id)
-            );
+            var { options } = questions.find(item => +item.id === curAnswer.templateQuestionID);
+            var relevantOptions = options.filter(({ id }) => curAnswer.answer.includes(id));
             inner = <p>{relevantOptions.map(({ text }) => text).join(', ')}</p>;
             break;
         case TYPES.CHECKBOX:
@@ -109,9 +94,7 @@ const PinAnswer = ({
                 answerString = `data: image/jpeg;base64,${answerString}`;
             }
 
-            inner = (
-                <img className="signature" alt="signature" src={answerString} />
-            );
+            inner = <img className="signature" alt="signature" src={answerString} />;
 
             break;
         case TYPES.SINGLE_PHOTO:
@@ -121,9 +104,7 @@ const PinAnswer = ({
                     style={{ cursor: 'zoom-in' }}
                     alt=""
                     src={URL + '?width=100'}
-                    onClick={() =>
-                        dispatch(showModal(PIN_IMAGE, { image: URL }))
-                    }
+                    onClick={() => dispatch(showModal(PIN_IMAGE, { image: URL + '?width=1500' }))}
                 />
             );
             break;
@@ -137,7 +118,7 @@ const PinAnswer = ({
                         key={item}
                         src={URL + '?width=100'}
                         onClick={() =>
-                            dispatch(showModal(PIN_IMAGE, { image: URL }))
+                            dispatch(showModal(PIN_IMAGE, { image: URL + '?width=1500' }))
                         }
                     />
                 );
@@ -174,6 +155,7 @@ const PinAnswer = ({
 export default connect()(PinAnswer);
 
 function formatMultiMulti(answer) {
+    if (!Array.isArray(answer)) return answer;
     const formatted = answer.map(item => {
         const count = answer.filter(x => item === x).length;
         return count > 1 ? `${item} (${count})` : item;

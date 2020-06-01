@@ -32,7 +32,7 @@ import {
     UPDATE_DRAWING_IDS_INCLUDED
 } from 'constants/actionTypes/reports';
 import { updateObj, removeObjItem, convertArrToObj } from 'helpers/generic';
-import { SORT_BY_OPTIONS } from 'constants/companyAdmin/enums';
+import { SORT_BY_OPTIONS, HIERARCHY_IDS } from 'constants/companyAdmin/enums';
 import { FETCH_PINS_SUCCESS } from 'constants/actionTypes/pins';
 
 export default combineReducers({
@@ -66,7 +66,7 @@ function filtersReducer(
         drawingID: null,
         serviceID: null,
         templateID: null,
-        hierarchyType: null,
+        hierarchyType: HIERARCHY_IDS.ALL_SITES,
         hierarchyID: null,
         status: null,
         reportHistories: 1,

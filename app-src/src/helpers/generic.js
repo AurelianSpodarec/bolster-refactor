@@ -101,8 +101,8 @@ export function sortArrayByKeyAndOrder(array, key, ascending, secondKey) {
             if (!secondKey) return 0;
             if (a[secondKey] > b[secondKey]) return value;
             if (a[secondKey] < b[secondKey]) return -value;
-            return 0;
         } 
+        return 0;
     });
 }
 

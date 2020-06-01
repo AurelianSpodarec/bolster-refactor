@@ -12,6 +12,7 @@ const Question = ({
     isDragging,
     question,
     showEditQuesModel,
+    handleDuplicateQuestion,
     deleteQuestion,
     isPrereq
 }) => {
@@ -61,22 +62,30 @@ const Question = ({
                                 </button>
                             </TooltipContainer>
                         ) : (
-                            <button
-                                className="button red icon-only"
-                                onClick={deleteQuestion}
-                            >
-                                <i className="far fa-trash-alt" />
-                            </button>
-                        )}
+                                <button
+                                    className="button red icon-only"
+                                    onClick={deleteQuestion}
+                                >
+                                    <i className="far fa-trash-alt" />
+                                </button>
+                            )}
                         {+question.questionType !==
                             +QUESTION_TYPE_NUMBERS.STATIC_IMAGE && (
-                            <button
-                                className="button yellow icon-only"
-                                onClick={showEditQuesModel}
-                            >
-                                <i className="far fa-pencil" />
-                            </button>
-                        )}
+                                <>
+                                    <button
+                                        className="button icon-only"
+                                        onClick={handleDuplicateQuestion}
+                                    >
+                                        <i className="far fa-clone" />
+                                    </button>
+                                    <button
+                                        className="button yellow icon-only"
+                                        onClick={showEditQuesModel}
+                                    >
+                                        <i className="far fa-pencil" />
+                                    </button>
+                                </>
+                            )}
                     </div>
                 </>
             )}

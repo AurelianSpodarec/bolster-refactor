@@ -20,6 +20,7 @@ import fetchIncomingTransferRequests from 'actions/companyAdmin/transferRequests
 import fetchOutgoingTransferRequests from 'actions/companyAdmin/transferRequests/async/fetchOutgoingTransferRequests';
 import fetchPendingInvites from 'actions/companyAdmin/pendingInvites/fetchPendingInvites';
 import fetchOutgoingInvites from 'actions/companyAdmin/pendingInvites/fetchOutgoingInvites';
+import fetchSingleCompanyUser from 'actions/companyAdmin/userManagement/async/fetchSingleCompanyUser';
 
 class CompanyAppContainer extends Component {
     render() {
@@ -30,10 +31,15 @@ class CompanyAppContainer extends Component {
         const {
             fetchHomeData,
             fetchCompanySettings,
-            selectCompanyMenuTab
+            selectCompanyMenuTab,
+            decodeJWT,
+            fetchSingleCompanyUser
         } = this.props;
 
         fetchHomeData();
+        decodeJWT().then(({ payload = {} }) => {
+            fetchSingleCompanyUser(payload.companyUserID);
+        });
         fetchCompanySettings().then(({ payload = {} }) => {
             if (payload.colourCode) {
                 localStorage.setItem('colourCode', payload.colourCode);
@@ -42,7 +48,6 @@ class CompanyAppContainer extends Component {
 
         selectCompanyMenuTab();
     };
-    componentDidUpdate = () => {};
 }
 
 const mapDispatchToProps = dispatch => ({
@@ -51,7 +56,6 @@ const mapDispatchToProps = dispatch => ({
         dispatch(fetchSingleCompany());
         dispatch(fetchMessages());
         dispatch(fetchCompanyReports());
-        dispatch(decodeJWT());
         dispatch(companyFetchAllServices());
         dispatch(fetchAllSubscriptions());
         dispatch(fetchCreditLogs());
@@ -61,15 +65,18 @@ const mapDispatchToProps = dispatch => ({
         dispatch(fetchPendingInvites());
         dispatch(fetchOutgoingInvites());
     },
+    decodeJWT: () => {
+        return dispatch(decodeJWT());
+    },
     fetchCompanySettings: () => {
         return dispatch(fetchCompanySettings());
     },
     selectCompanyMenuTab: () => {
         dispatch(selectMenuTab(MENU_TABS.COMPANY_USER));
+    },
+    fetchSingleCompanyUser: companyUserID => {
+        dispatch(fetchSingleCompanyUser(companyUserID));
     }
 });
 
-export default connect(
-    null,
-    mapDispatchToProps
-)(CompanyAppContainer);
+export default connect(null, mapDispatchToProps)(CompanyAppContainer);

@@ -23,16 +23,18 @@ const RegisterForm = ({
     confirmPassword,
     'User.firstName': firstName,
     'User.lastName': lastName,
+    'User.phoneNumber': phoneNumber,
     //company name
     'Company.name': name,
-    'Company.phoneNumber': phoneNumber,
     'Company.addressLine1': addressLine1,
+    'Company.addressLine2': addressLine2,
     'Company.town': town,
+    'Company.county': county,
     'Company.postcode': postcode,
+    'Company.phoneNumber': companyPhoneNumber,
+    'Company.fax': fax,
     'Company.vatCode': vatCode,
     'Company.vatType': vatType,
-    'Company.colourCode': colourCode,
-    'Company.isBolsterLogoDark': isBolsterLogoDark,
     vatOptions,
     dateFormats,
     'Company.dateFormatID': dateFormatID,
@@ -42,243 +44,239 @@ const RegisterForm = ({
     validatePassword,
     validateConfirmPassword
 }) => (
-    <BlockContainer error={error}>
-        <BlockHeading title="Register for bolster systems" />
-        <Form className="generic-form size-lg-12" onSubmit={handleSubmit}>
-            <Field
-                name="First name"
-                sizeClasses="size-lg-4 size-md-12"
-                required
-            >
-                <TextInputContainer
-                    value={firstName}
-                    name={'User.firstName'}
-                    placeholder="Please enter your first name"
-                    handleChange={handleChange}
-                />
-            </Field>
-            <Field name="Last Name" sizeClasses="size-lg-4 size-md-12" required>
-                <TextInputContainer
-                    value={lastName}
-                    name="User.lastName"
-                    placeholder="Please enter your last name"
-                    required
-                    handleChange={handleChange}
-                />
-            </Field>
-
-            <Field name="Email" sizeClasses="size-lg-4 size-md-12" required>
-                <TextInputContainer
-                    value={email}
-                    name="User.email"
-                    type="email"
-                    placeholder="Please enter your email"
-                    required
-                    handleChange={handleChange}
-                />
-            </Field>
-            <Field name="Password" sizeClasses="size-lg-4 size-md-12" required>
-                <TextInputContainer
-                    value={password}
-                    name="User.password"
-                    type="password"
-                    placeholder="Please enter your password"
-                    handleChange={handleChange}
-                    validate={validatePassword}
-                    required
-                />
-            </Field>
-
-            <Field
-                name="Confirm password"
-                sizeClasses="size-lg-4 size-md-12"
-                required
-            >
-                <TextInputContainer
-                    name="confirmPassword"
-                    value={confirmPassword}
-                    handleChange={handleChange}
-                    placeholder="Please confirm your password"
-                    type="password"
-                    validate={validateConfirmPassword}
-                    required
-                />
-            </Field>
-
-            <Field name="Telephone" sizeClasses="size-lg-4 size-md-12" required>
-                <TextInputContainer
-                    value={phoneNumber}
-                    name="Company.phoneNumber"
-                    placeholder="Please enter your telephone number"
-                    handleChange={handleChange}
-                    required
-                />
-            </Field>
-            <Field
-                name="Business name"
-                sizeClasses="size-lg-4 size-md-12"
-                required
-            >
-                <TextInputContainer
-                    value={name}
-                    name="Company.name"
-                    placeholder="Please enter your Business name"
-                    handleChange={handleChange}
-                    required
-                />
-            </Field>
-            <Field
-                name="First Line of Address"
-                sizeClasses="size-lg-4 size-md-12"
-                required
-            >
-                <TextInputContainer
-                    value={addressLine1}
-                    name="Company.addressLine1"
-                    placeholder="Address line 1"
-                    handleChange={handleChange}
-                    required
-                />
-            </Field>
-            <Field name="Town/City" sizeClasses="size-lg-4 size-md-12" required>
-                <TextInputContainer
-                    value={town}
-                    name="Company.town"
-                    placeholder="Town or City"
-                    handleChange={handleChange}
-                    required
-                />
-            </Field>
-            <Field name="Postcode" sizeClasses="size-lg-4 size-md-12" required>
-                <TextInputContainer
-                    value={postcode}
-                    name="Company.postcode"
-                    placeholder="Postcode"
-                    handleChange={handleChange}
-                    required
-                />
-            </Field>
-
-            <Field
-                name="Colour scheme (hex code)"
-                sizeClasses="size-lg-4 size-md-12"
-                required
-            >
-                <div
-                    style={{
-                        backgroundColor: colourCode
-                    }}
-                    className="hex-box"
-                />
-                <TextInputContainer
-                    value={colourCode}
-                    name="Company.colourCode"
-                    handleChange={handleChange}
-                    classes="colour-picker-input"
-                    required
-                />
-            </Field>
-
-            <Field
-                name="Change Colour Scheme"
-                sizeClasses="size-lg-4 size-md-12"
-            >
-                <div className="size-lg-12">
-                    <HuePicker
-                        color={colourCode || '#FFF'}
-                        onChangeComplete={handleColourSelect}
-                    />
-                </div>
-            </Field>
-
-            <div className="size-lg-12">
-                <Field name="Dark Mode" sizeClasses="size-lg-4 size-md-12">
-                    <CheckboxContainer
-                        checked={isBolsterLogoDark}
-                        handleChange={handleChange}
-                        name="Company.isBolsterLogoDark"
-                    />
-                </Field>
-            </div>
-
-            <Field name="Timezone" required>
-                <Select
-                    name="Company.timezone"
-                    options={timezoneOptions}
-                    value={timezone}
-                    onChange={handleChange}
-                    omitPlaceholder
-                    required
-                    search
-                />
-            </Field>
-            <Field name="Date format" required>
-                <Select
-                    name="Company.dateFormatID"
-                    options={dateFormats}
-                    value={dateFormatID}
-                    onChange={handleChange}
-                    omitPlaceholder
-                    required
-                    search
-                />
-            </Field>
-
-            <Field name="VAT Type" required>
-                <Select
-                    name="Company.vatType"
-                    options={vatOptions}
-                    value={vatType}
-                    onChange={handleChange}
-                    omitPlaceholder
-                    required
-                />
-            </Field>
-            {vatType && vatType !== VAT_TYPES.OUTSIDEEU && (
+        <BlockContainer error={error}>
+            <BlockHeading title="Register for bolster systems" />
+            <Form className="generic-form size-lg-12" onSubmit={handleSubmit}>
                 <Field
-                    name="VAT Code"
-                    required={vatType !== VAT_TYPES.OUTSIDEEU}
+                    name="First name"
+                    sizeClasses="size-lg-4 size-md-12"
+                    required
                 >
                     <TextInputContainer
-                        name="Company.vatCode"
-                        value={vatCode}
+                        value={firstName}
+                        name={'User.firstName'}
+                        placeholder="Please enter your first name"
                         handleChange={handleChange}
-                        required={vatType !== VAT_TYPES.OUTSIDEEU}
+                        required
                     />
                 </Field>
-            )}
-            <Field name="Terms and Conditions" required>
-                <p className="generic-text size-lg-12">
-                    To register, please agree to our{' '}
-                    <Link to="/auth/terms">Terms and Conditions</Link>.
-                </p>
-                <CheckboxContainer
-                    checked={terms}
-                    handleChange={handleChange}
-                    name="terms"
+                <Field name="Last Name" sizeClasses="size-lg-4 size-md-12" required>
+                    <TextInputContainer
+                        value={lastName}
+                        name="User.lastName"
+                        placeholder="Please enter your last name"
+                        required
+                        handleChange={handleChange}
+                    />
+                </Field>
+
+                <Field name="Email" sizeClasses="size-lg-4 size-md-12" required>
+                    <TextInputContainer
+                        value={email}
+                        name="User.email"
+                        type="email"
+                        placeholder="Please enter your email"
+                        required
+                        handleChange={handleChange}
+                    />
+                </Field>
+                <Field name="Password" sizeClasses="size-lg-4 size-md-12" required>
+                    <TextInputContainer
+                        value={password}
+                        name="User.password"
+                        type="password"
+                        placeholder="Please enter your password"
+                        handleChange={handleChange}
+                        validate={validatePassword}
+                        required
+                    />
+                </Field>
+
+                <Field
+                    name="Confirm password"
+                    sizeClasses="size-lg-4 size-md-12"
                     required
-                />
-            </Field>
-            <div className="button-area size-lg-12">
-                {terms ? (
-                    <button className="button green" type="submit">
-                        Submit
-                    </button>
-                ) : (
-                    <button
-                        className="button green disabled"
-                        disabled
-                        type="submit"
+                >
+                    <TextInputContainer
+                        name="confirmPassword"
+                        value={confirmPassword}
+                        handleChange={handleChange}
+                        placeholder="Please confirm your password"
+                        type="password"
+                        validate={validateConfirmPassword}
+                        required
+                    />
+                </Field>
+
+                <Field name="Telephone" sizeClasses="size-lg-4 size-md-12" required>
+                    <TextInputContainer
+                        value={phoneNumber}
+                        name="User.phoneNumber"
+                        placeholder="Please enter your telephone number"
+                        handleChange={handleChange}
+                        required
+                    />
+                </Field>
+                <Field
+                    name="Business name"
+                    sizeClasses="size-lg-4 size-md-12"
+                    required
+                >
+                    <TextInputContainer
+                        value={name}
+                        name="Company.name"
+                        placeholder="Please enter your Business name"
+                        handleChange={handleChange}
+                        required
+                    />
+                </Field>
+                <Field
+                    name="Address Line 1"
+                    sizeClasses="size-lg-4 size-md-12"
+                    required
+                >
+                    <TextInputContainer
+                        value={addressLine1}
+                        name="Company.addressLine1"
+                        placeholder="Address line 1"
+                        handleChange={handleChange}
+                        required
+                    />
+                </Field>
+                <Field
+                    name="Address Line 2"
+                    sizeClasses="size-lg-4 size-md-12"
+                >
+                    <TextInputContainer
+                        value={addressLine2}
+                        name="Company.addressLine2"
+                        placeholder="Address line 2"
+                        handleChange={handleChange}
+                    />
+                </Field>
+                <Field name="Town / City" sizeClasses="size-lg-4 size-md-12" required>
+                    <TextInputContainer
+                        value={town}
+                        name="Company.town"
+                        placeholder="Town or City"
+                        handleChange={handleChange}
+                        required
+                    />
+                </Field>
+                <Field name="County" sizeClasses="size-lg-4 size-md-12" required>
+                    <TextInputContainer
+                        value={county}
+                        name="Company.county"
+                        placeholder="County"
+                        handleChange={handleChange}
+                        required
+                    />
+                </Field>
+                <Field name="Postcode" sizeClasses="size-lg-4 size-md-12" required>
+                    <TextInputContainer
+                        value={postcode}
+                        name="Company.postcode"
+                        placeholder="Postcode"
+                        handleChange={handleChange}
+                        required
+                    />
+                </Field>
+                <Field name="Business Telephone No." sizeClasses="size-lg-4 size-md-12" required>
+                    <TextInputContainer
+                        value={companyPhoneNumber}
+                        name="Company.phoneNumber"
+                        placeholder="Telephone No."
+                        handleChange={handleChange}
+                        required
+                    />
+                </Field>
+                <Field name="Business Fax No." sizeClasses="size-lg-4 size-md-12">
+                    <TextInputContainer
+                        value={fax}
+                        name="Company.fax"
+                        placeholder="Fax No."
+                        handleChange={handleChange}
+                    />
+                </Field>
+
+                <Field name="Timezone" required>
+                    <Select
+                        name="Company.timezone"
+                        options={timezoneOptions}
+                        value={timezone}
+                        onChange={handleChange}
+                        omitPlaceholder
+                        required
+                        search
+                    />
+                </Field>
+                <Field name="Date format" required>
+                    <Select
+                        name="Company.dateFormatID"
+                        options={dateFormats}
+                        value={dateFormatID}
+                        onChange={handleChange}
+                        omitPlaceholder
+                        required
+                        search
+                    />
+                </Field>
+
+                <Field name="VAT Type" required>
+                    <Select
+                        name="Company.vatType"
+                        options={vatOptions}
+                        value={vatType}
+                        onChange={handleChange}
+                        omitPlaceholder
+                        required
+                    />
+                </Field>
+                {vatType && vatType !== VAT_TYPES.OUTSIDEEU && (
+                    <Field
+                        name="VAT Code"
+                        required={vatType !== VAT_TYPES.OUTSIDEEU}
                     >
-                        Submit
-                    </button>
+                        <TextInputContainer
+                            name="Company.vatCode"
+                            value={vatCode}
+                            handleChange={handleChange}
+                            required={vatType !== VAT_TYPES.OUTSIDEEU}
+                        />
+                    </Field>
                 )}
-                <Link to="/auth/login" className="button red">
-                    Cancel
+                <Field name="Terms and Conditions" required>
+                    <p className="generic-text size-lg-12">
+                        To register, please agree to our{' '}
+                        <Link to="/auth/terms">Terms and Conditions</Link>.
+                </p>
+                    <CheckboxContainer
+                        checked={terms}
+                        handleChange={handleChange}
+                        name="terms"
+                        required
+                    />
+                </Field>
+                <div className="button-area size-lg-12">
+                    {terms ? (
+                        <button className="button green" type="submit">
+                            Submit
+                        </button>
+                    ) : (
+                            <button
+                                className="button green disabled"
+                                disabled
+                                type="submit"
+                            >
+                                Submit
+                            </button>
+                        )}
+                    <Link to="/auth/login" className="button red">
+                        Cancel
                 </Link>
-            </div>
-        </Form>
-    </BlockContainer>
-);
+                </div>
+            </Form>
+        </BlockContainer>
+    );
 
 export default RegisterForm;

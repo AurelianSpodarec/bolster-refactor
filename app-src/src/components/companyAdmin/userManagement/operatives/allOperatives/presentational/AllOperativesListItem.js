@@ -11,7 +11,8 @@ const AllOperativesListItem = ({
     showMakeAdminModal,
     onMobile,
     headers,
-    history
+    history,
+    mobileDeviceName = ''
 }) => {
     return (
         <tr key={user.id}>
@@ -41,7 +42,8 @@ const AllOperativesListItem = ({
                 {onMobile && (
                     <span className="mobile-table-heading">{headers[3]}</span>
                 )}
-                {user.linkedDeviceID ? 'Yes' : 'No'}
+                {user.linkedDeviceID ? 'Yes' : 'No'}{' '}
+                {user.linkedDeviceName && <span className="red-text">{`(${user.linkedDeviceName})`}</span>}
             </td>
             <td>
                 {' '}
@@ -69,9 +71,7 @@ const AllOperativesListItem = ({
                     </button>
                     <Link
                         className="button green"
-                        to={`/company/users-management/operatives/${
-                            user.id
-                        }/edit-password`}
+                        to={`/company/users-management/operatives/${user.id}/edit-password`}
                     >
                         <i className="far fa-lock-alt fa-fw" />
                         Change Password
@@ -84,17 +84,13 @@ const AllOperativesListItem = ({
                     </ButtonContainer>
                     <Link
                         className="button yellow"
-                        to={`/company/users-management/operatives/${
-                            user.id
-                        }/edit`}
+                        to={`/company/users-management/operatives/${user.id}/edit`}
                     >
                         <i className="far fa-pencil" /> Edit
                     </Link>
                     <Link
                         className="button blue"
-                        to={`/company/users-management/operative/${
-                            user.id
-                        }/drawings`}
+                        to={`/company/users-management/operative/${user.id}/drawings`}
                     >
                         <i className="far fa-key" /> Drawings Access
                     </Link>

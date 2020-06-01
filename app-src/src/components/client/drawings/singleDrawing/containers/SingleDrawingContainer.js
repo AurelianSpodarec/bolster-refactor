@@ -12,6 +12,7 @@ import SingleDrawing from '../presentational/SingleDrawing';
 import { getSelectedCompanyForClient } from 'helpers/generic';
 import fetchClientPinStatsForLevel from 'actions/client/stats/async/fetchClientPinStatsForLevel';
 import fetchCompanyUsers from 'actions/companyAdmin/userManagement/async/fetchCompanyUsers';
+import clientFetchServicesForDrawing from 'actions/client/services/async/clientFetchServicesForDrawing';
 
 class SingleDrawingContainer extends Component {
     render = () => <SingleDrawing />;
@@ -33,10 +34,11 @@ const mapDispatchToProps = dispatch => ({
         dispatch(clientFetchDocuments(companyID, 'drawing', drawingID));
         dispatch(fetchClientPinStatsForLevel(companyID, 4, drawingID));
         dispatch(fetchCompanyUsers());
+        dispatch(clientFetchServicesForDrawing(drawingID));
     },
 });
 
 export default connect(
     (_, { match }) => ({ drawingID: match.params.id }),
-    mapDispatchToProps
+    mapDispatchToProps,
 )(SingleDrawingContainer);

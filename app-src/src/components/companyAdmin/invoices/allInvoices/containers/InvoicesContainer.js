@@ -14,8 +14,46 @@ class InvoicesContainer extends Component {
     componentDidMount = () => {
         this.props.fetchAllInvoices();
     };
+
+    componentDidUpdate = prevProps => {
+        const {
+            users,
+            companyUserID,
+            postSuccess,
+            fetchSubscriptionData,
+            history
+        } = this.props;
+
+        if (postSuccess && !prevProps.postSuccess) {
+            fetchSubscriptionData();
+        }
+
+        if (
+            users &&
+            companyUserID &&
+            users[companyUserID] &&
+            users[companyUserID].shouldRestrictPayments
+        ) {
+            if (users[companyUserID].shouldRestrictPayments) {
+                history.push('/company/subscription');
+            }
+        }
+    };
 }
 
+const mapStateToProps = ({
+    companyAdmin: {
+        companyUsersReducer: { users }
+    },
+    shared: {
+        decodeJWTReducer: {
+            jwtData: { companyUserID }
+        }
+    }
+}) => ({
+    companyUserID,
+    users
+});
 const mapDispatchToProps = dispatch => ({
     fetchAllInvoices: () => {
         dispatch(fetchAllInvoices());
@@ -23,8 +61,5 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default withRouter(
-    connect(
-        null,
-        mapDispatchToProps
-    )(InvoicesContainer)
+    connect(mapStateToProps, mapDispatchToProps)(InvoicesContainer)
 );

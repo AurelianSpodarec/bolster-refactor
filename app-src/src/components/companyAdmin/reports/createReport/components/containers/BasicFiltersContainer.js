@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import moment from 'moment-timezone';
 
-import { PIN_STATUS_TYPES, NUMBER_OF_HISTORIES } from 'constants/companyAdmin/enums';
+import { PIN_STATUS_TYPES, NUMBER_OF_HISTORIES, HIERARCHY_IDS } from 'constants/companyAdmin/enums';
 import { convertEnumToDropdownOptions, isObjEmpty, convertArrToObj } from 'helpers/generic';
 
 import withUpdateOnChange from '../hocs/withUpdateOnChange';
@@ -119,7 +119,7 @@ class BasicFiltersContainer extends Component {
 
     validateDates = () => {
         const {
-            filters: { fromDateInclusive, toDateInclusive },
+            filters: { fromDateInclusive, toDateInclusive, hierarchyType },
             addFieldError,
             removeFieldError,
         } = this.props;
@@ -127,6 +127,14 @@ class BasicFiltersContainer extends Component {
         if (fromDateInclusive && toDateInclusive && fromDateInclusive > toDateInclusive) {
             return addFieldError('fromDateInclusive', 'Start date must be before end date.');
         } else {
+            const toDate = toDateInclusive || new Date().setHours(0, 0, 0, 0);
+
+            const diff = moment(toDate).diff(fromDateInclusive, 'days');
+
+            if (diff >= 7 && hierarchyType === HIERARCHY_IDS.ALL_SITES) {
+                return addFieldError('fromDateInclusive', 'You must select a date range of 7 days or less.');
+            }
+
             return removeFieldError('fromDateInclusive');
         }
     };
