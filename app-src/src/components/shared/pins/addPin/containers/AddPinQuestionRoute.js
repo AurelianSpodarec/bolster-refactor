@@ -249,15 +249,7 @@ class AddPinQuestionRoute extends Component {
 
         // ? only applies to edit
 
-        console.log(
-            isDoneIncludingManufacturerOptions,
-            isDoneFetchingPins,
-            edit,
-            history.id,
-            oldAnswers,
-        );
         if (isDoneFetchingPins && edit && history.id && oldAnswers) {
-            console.log('edittingggg');
             const oldAnswersArray = Object.values(oldAnswers);
 
             // !pin history ID matters to select the right answer to prefill on edit

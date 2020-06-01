@@ -39,8 +39,6 @@ const DropdownOptions = ({
             label: option.name,
             id: option.id || null,
         }));
-        console.log('FORMATTED OPTIONS', formattedOpts);
-        console.log('ANSWERS', answers[id]);
 
         if (!curOptions.includes(originalDropdownAns)) {
             formattedOpts.push({ value: originalDropdownAns, label: originalDropdownAns });
