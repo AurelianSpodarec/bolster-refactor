@@ -178,9 +178,13 @@ class AddPinFormContainer extends Component {
     };
 
     handleChange = (name, value) => {
-        const { resetPinAnswers, updateAddPinStatus } = this.props;
+        const { resetPinAnswers, updateAddPinStatus, formatDropdownOptions } = this.props;
         resetPinAnswers();
         updateAddPinStatus('');
+
+        if (name === 'serviceID') {
+            formatDropdownOptions(value);
+        }
 
         this.setState({ [name]: value });
     };

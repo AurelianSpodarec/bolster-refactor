@@ -16,7 +16,13 @@ import { isObjEmpty } from 'helpers/generic';
 import { shouldOptionValueBeIncluded } from 'helpers/manufacturers';
 
 class AddPinContainer extends Component {
-    render = () => <AddPinFormContainer hierarchyType="drawing" drawingID={this.props.drawingID} />;
+    render = () => (
+        <AddPinFormContainer
+            hierarchyType="drawing"
+            drawingID={this.props.drawingID}
+            formatDropdownOptions={this.formatDropdownOptions}
+        />
+    );
 
     componentDidMount = async () => {
         const {
@@ -50,59 +56,60 @@ class AddPinContainer extends Component {
         ) {
             // replace add pin dropdown options with manufacturer enabled options if applicable
 
-            const {
-                dropdownOptions,
-                drawing,
-                optionValues,
-                updateDrawingDropdownOptions,
-                subscriptionServiceIDs,
-            } = this.props;
+            this.formatDropdownOptions();
+        }
+    };
 
-            // check to see if we should be using manufacturing pin options instead of the original dropdown options
-            if (drawing.isManufacturingEnabled) {
-                const drawingOptionValueIDs = drawing.optionValueIDs;
-                const originalOptionTypesToRemove = [];
+    formatDropdownOptions = serviceID => {
+        const {
+            dropdownOptions,
+            drawing,
+            optionValues,
+            updateDrawingDropdownOptions,
+            subscriptionServiceIDs,
+        } = this.props;
 
-                // get manufacturer option values in an array ready to be reduced into the options that may replace certain fields.
-                const formattedManufacturerOptionValues = Object.values(optionValues).reduce(
-                    (acc, options) => {
-                        return [...acc, ...Object.values(options)];
-                    },
-                    [],
+        // check to see if we should be using manufacturing pin options instead of the original dropdown options
+        if (drawing.isManufacturingEnabled) {
+            const drawingOptionValueIDs = drawing.optionValueIDs;
+            const originalOptionTypesToRemove = [];
+
+            // get manufacturer option values in an array ready to be reduced into the options that may replace certain fields.
+            const formattedManufacturerOptionValues = Object.values(optionValues).reduce(
+                (acc, options) => {
+                    return [...acc, ...Object.values(options)];
+                },
+                [],
+            );
+
+            const drawingOptionValues = formattedManufacturerOptionValues.reduce((acc, option) => {
+                const isCorrectForDrawingAndServiceID = serviceID
+                    ? drawingOptionValueIDs.includes(option.id) &&
+                      option.serviceIDs.includes(Number(serviceID))
+                    : drawingOptionValueIDs.includes(option.id);
+
+                if (isCorrectForDrawingAndServiceID) {
+                    // mark the types that need to be removed from the dropdown options
+                    if (!originalOptionTypesToRemove.includes(option.type)) {
+                        originalOptionTypesToRemove.push(option.type);
+                    }
+                    if (shouldOptionValueBeIncluded(option.serviceIDs, subscriptionServiceIDs)) {
+                        acc.push({ ...option });
+                    }
+                }
+                return acc;
+            }, []);
+
+            const dropdownOptionsFilteredArray = dropdownOptions.filter(option => {
+                const areManufacturingOptionsReplacingThisOption = originalOptionTypesToRemove.includes(
+                    option.type,
                 );
+                return !areManufacturingOptionsReplacingThisOption;
+            }, []);
 
-                const drawingOptionValues = formattedManufacturerOptionValues.reduce(
-                    (acc, option) => {
-                        if (drawingOptionValueIDs.includes(option.id)) {
-                            // mark the types that need to be removed from the dropdown options
-                            if (!originalOptionTypesToRemove.includes(option.type)) {
-                                originalOptionTypesToRemove.push(option.type);
-                            }
-                            if (
-                                shouldOptionValueBeIncluded(
-                                    option.serviceIDs,
-                                    subscriptionServiceIDs,
-                                )
-                            ) {
-                                acc.push({ ...option });
-                            }
-                        }
-                        return acc;
-                    },
-                    [],
-                );
+            const newOptions = [...dropdownOptionsFilteredArray, ...drawingOptionValues];
 
-                const dropdownOptionsFilteredArray = dropdownOptions.filter(option => {
-                    const areManufacturingOptionsReplacingThisOption = originalOptionTypesToRemove.includes(
-                        option.type,
-                    );
-                    return !areManufacturingOptionsReplacingThisOption;
-                }, []);
-
-                const newOptions = [...dropdownOptionsFilteredArray, ...drawingOptionValues];
-
-                updateDrawingDropdownOptions(newOptions);
-            }
+            updateDrawingDropdownOptions(newOptions);
         }
     };
 }
