@@ -93,7 +93,7 @@ const OutputSettings = ({
                             </>
                         )}
 
-                        <Field sizeClasses="size-lg-6 size-md-12" name="Include Manuals?">
+                        <Field sizeClasses="size-lg-6 size-md-12" name="Include O&M Manuals?">
                             <CheckboxContainer
                                 checked={isOandMManualGeneration}
                                 handleChange={handleFilterChange}
