@@ -1,6 +1,5 @@
 import React from 'react';
 import moment from 'moment';
-import { connect } from 'react-redux';
 
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import {

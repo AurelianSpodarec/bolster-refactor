@@ -2,12 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import MenuItemContainer from '../containers/MenuItemContainer';
-import {
-    DROPDOWN_OPTION_VALS,
-    DROPDOWN_OPTION_MANUFACTURER_ENABLED,
-    DROPDOWN_OPTION_ENUM,
-    DROPDOWN_OPTIONS,
-} from 'constants/companyAdmin/enums';
 import AdminPinOptionsMenuItems from './AdminPinOptionsMenuItems';
 
 // import DropdownMenuItemContainer from '../containers/DropdownMenuItemContainer';

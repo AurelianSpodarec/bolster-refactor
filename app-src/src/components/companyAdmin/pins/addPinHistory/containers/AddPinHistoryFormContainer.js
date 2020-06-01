@@ -119,7 +119,6 @@ class AddPinHistoryFormContainer extends Component {
             pinID,
             templates,
             versions,
-            formatDropdownOptions,
         } = this.props;
 
         if (!coordinates.lat || !coordinates.lng) {

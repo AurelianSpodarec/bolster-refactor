@@ -9,7 +9,7 @@ import {
     DOCUMENT_VIEW_TYPES,
 } from 'constants/companyAdmin/enums';
 import { FILE_STORAGE_URL } from 'config';
-import { PIN_IMAGE, DOCUMENT_VIEW } from 'constants/shared/modalTypes';
+import { DOCUMENT_VIEW } from 'constants/shared/modalTypes';
 
 import FieldOutput from 'components/shared/generic/fieldOutput/presentational/FieldOutput';
 import { RAW_S3_STORAGE_URL } from 'config';

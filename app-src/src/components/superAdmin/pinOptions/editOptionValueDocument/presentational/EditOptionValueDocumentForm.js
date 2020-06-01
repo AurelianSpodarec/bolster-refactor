@@ -5,7 +5,6 @@ import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/pr
 import Form from 'components/shared/generic/form/containers/Form';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
-import MultiSelect from 'components/shared/generic/form/presentational/MultiSelect';
 
 const EditOptionValueDocumentForm = ({
     handleSubmit,

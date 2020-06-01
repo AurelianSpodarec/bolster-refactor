@@ -1,12 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import {
-    SUCCESS_MODAL,
-    ERROR_MODAL,
-    ADD_MANUFACTURER,
-    COMPANY_ADD_MANUFACTURER,
-} from 'constants/shared/modalTypes';
+import { SUCCESS_MODAL, ERROR_MODAL, COMPANY_ADD_MANUFACTURER } from 'constants/shared/modalTypes';
 
 import ManufacturerTable from '../presentational/ManufacturerTable';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';

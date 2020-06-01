@@ -1,12 +1,6 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 
-import {
-    DROPDOWN_OPTION_VALS,
-    DROPDOWN_OPTION_MANUFACTURER_ENABLED,
-    DROPDOWN_OPTIONS,
-} from 'constants/companyAdmin/enums';
-
 import SwitchWith404 from 'components/appRoute/routes/presentational/SwitchWith404';
 import ServicesRoutes from './ServicesRoutes';
 import UsersRoutes from './UsersRoutes.js';

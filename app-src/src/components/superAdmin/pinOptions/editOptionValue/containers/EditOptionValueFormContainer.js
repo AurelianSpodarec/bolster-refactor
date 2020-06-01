@@ -6,7 +6,6 @@ import editOptionValue from 'actions/superAdmin/manufacturers/async/editOptionVa
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 
 import EditOptionValueForm from '../presentational/EditOptionValueForm';
-import { DROPDOWN_OPTIONS } from 'constants/companyAdmin/enums';
 
 class EditOptionValueFormContainer extends Component {
     state = {

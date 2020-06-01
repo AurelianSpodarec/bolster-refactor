@@ -7,7 +7,6 @@ import {
     UPDATE_DRAWING_DROPDOWN_OPTIONS,
 } from 'constants/actionTypes/drawings';
 import { FETCH_ALL_OPTION_VALUES_REQUEST } from 'constants/actionTypes/companyAdminManufacturers';
-import { convertArrToObj } from 'helpers/generic';
 
 export default combineReducers({
     dropdownOptions: dropdownOptionsReducer,

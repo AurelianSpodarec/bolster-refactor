@@ -50,6 +50,7 @@ const CreateBuildingsFormContainer = ({
         removeBuilding,
         getKeys,
         getPostBody,
+        // eslint-disable-next-line no-unused-vars
         _,
         setInitialManufacturerBuildingOptions,
     ] = useMultipleHierarchies({
