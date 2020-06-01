@@ -110,7 +110,11 @@ const CreateFloorsForm = ({
 
                     {floor.setManufacturersForHierarchy && (
                         <div className="size-lg-12">
-                            <Field labelClasses="no-capitalise" name="Manufacturer(s)">
+                            <Field
+                                labelClasses="no-capitalise"
+                                name="Manufacturer(s)"
+                                required={floor.setManufacturersForHierarchy}
+                            >
                                 <CheckboxListContainer
                                     name={`${floor.id}.*.selectedManufacturerOptions`}
                                     text=""
@@ -120,6 +124,7 @@ const CreateFloorsForm = ({
                                     selectedOptions={floor.selectedManufacturerOptions}
                                     options={floor.manufacturerOptions}
                                     allOptionsDisabled={floor.isManufacturingInherited}
+                                    required={floor.setManufacturersForHierarchy}
                                 />
                             </Field>
                         </div>
@@ -142,6 +147,7 @@ const CreateFloorsForm = ({
                                                         .name
                                                 }
                               `}
+                                                required
                                             >
                                                 <CheckboxListContainer
                                                     name={`${floor.id}.*.selectedOptionValues`}
@@ -154,6 +160,7 @@ const CreateFloorsForm = ({
                                                     allOptionsDisabled={
                                                         floor.isManufacturingInherited
                                                     }
+                                                    required
                                                 />
                                             </Field>
                                         </div>

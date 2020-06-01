@@ -145,13 +145,18 @@ const AddSiteForm = ({
         </div>
         {setManufacturersForSite && (
             <div className="size-lg-12">
-                <Field labelClasses="no-capitalise" name="Manufacturer(s)">
+                <Field
+                    labelClasses="no-capitalise"
+                    name="Manufacturer(s)"
+                    required={setManufacturersForSite}
+                >
                     <CheckboxListContainer
                         name="selectedManufacturerOptions"
                         text=""
                         handleChange={handleInputChange}
                         selectedOptions={selectedManufacturerOptions}
                         options={manufacturerOptions}
+                        required={setManufacturersForSite}
                     />
                 </Field>
             </div>
@@ -172,6 +177,7 @@ const AddSiteForm = ({
                                     DROPDOWN_OPTIONS[manufacturerInfo.pinOptionType].name
                                 }
                               `}
+                                required
                             >
                                 <CheckboxListContainer
                                     name="selectedOptionValues"
@@ -179,6 +185,7 @@ const AddSiteForm = ({
                                     handleChange={handleInputChange}
                                     selectedOptions={selectedOptionValues}
                                     options={Object.values(optionValues)}
+                                    required
                                 />
                             </Field>
                         </div>

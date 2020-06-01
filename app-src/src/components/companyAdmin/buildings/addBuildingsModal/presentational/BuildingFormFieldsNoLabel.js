@@ -101,7 +101,11 @@ const BuildingFormFieldsWithLabel = ({ buildings, updateBuilding, removeBuilding
 
             {building.setManufacturersForHierarchy && (
                 <div className="size-lg-12">
-                    <Field labelClasses="no-capitalise" name="Manufacturer(s)">
+                    <Field
+                        labelClasses="no-capitalise"
+                        name="Manufacturer(s)"
+                        required={building.setManufacturersForHierarchy}
+                    >
                         <CheckboxListContainer
                             name={`${building.id}.*.selectedManufacturerOptions`}
                             text=""
@@ -109,6 +113,7 @@ const BuildingFormFieldsWithLabel = ({ buildings, updateBuilding, removeBuilding
                             selectedOptions={building.selectedManufacturerOptions}
                             options={building.manufacturerOptions}
                             allOptionsDisabled={building.isManufacturingInherited}
+                            required={building.setManufacturersForHierarchy}
                         />
                     </Field>
                 </div>
@@ -130,6 +135,7 @@ const BuildingFormFieldsWithLabel = ({ buildings, updateBuilding, removeBuilding
                                             DROPDOWN_OPTIONS[manufacturerInfo.pinOptionType].name
                                         }
                               `}
+                                        required
                                     >
                                         <CheckboxListContainer
                                             name={`${building.id}.*.selectedOptionValues`}
@@ -140,6 +146,7 @@ const BuildingFormFieldsWithLabel = ({ buildings, updateBuilding, removeBuilding
                                             selectedOptions={building.selectedOptionValues}
                                             options={Object.values(optionValues)}
                                             allOptionsDisabled={building.isManufacturingInherited}
+                                            required
                                         />
                                     </Field>
                                 </div>

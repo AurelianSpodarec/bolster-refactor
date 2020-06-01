@@ -136,7 +136,11 @@ const AddDrawingsForm = ({
 
                         {drawing.setManufacturersForHierarchy && (
                             <div className="size-lg-12">
-                                <Field labelClasses="no-capitalise" name="Manufacturer(s)">
+                                <Field
+                                    labelClasses="no-capitalise"
+                                    name="Manufacturer(s)"
+                                    required={drawing.setManufacturersForHierarchy}
+                                >
                                     <CheckboxListContainer
                                         name={`${drawing.id}.*.selectedManufacturerOptions`}
                                         text=""
@@ -146,6 +150,7 @@ const AddDrawingsForm = ({
                                         selectedOptions={drawing.selectedManufacturerOptions}
                                         options={drawing.manufacturerOptions}
                                         allOptionsDisabled={drawing.isManufacturingInherited}
+                                        required={drawing.setManufacturersForHierarchy}
                                     />
                                 </Field>
                             </div>
@@ -171,7 +176,9 @@ const AddDrawingsForm = ({
                                                             manufacturerInfo.pinOptionType
                                                         ].name
                                                     }
+                                                    
                               `}
+                                                    required
                                                 >
                                                     <CheckboxListContainer
                                                         name={`${drawing.id}.*.selectedOptionValues`}
@@ -186,6 +193,7 @@ const AddDrawingsForm = ({
                                                         allOptionsDisabled={
                                                             drawing.isManufacturingInherited
                                                         }
+                                                        required
                                                     />
                                                 </Field>
                                             </div>
