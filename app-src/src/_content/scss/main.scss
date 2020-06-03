@@ -1664,6 +1664,7 @@ input {
         width: 100%;
         padding-left: 45px;
         padding-right: 10px;
+        box-decoration-break: clone;
     }
 
     .inner {
