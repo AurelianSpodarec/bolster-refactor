@@ -15,11 +15,7 @@ import BlockContainer from 'components/shared/generic/block/containers/BlockCont
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
 import BackButtonContainer from 'components/shared/generic/backButton/containers/BackButtonContainer';
 
-const {
-    SINGLE_PHOTO,
-    MULTI_PHOTO,
-    SIGNATURE
-} = QUESTION_TYPE_VALUES;
+const { SINGLE_PHOTO, MULTI_PHOTO, SIGNATURE } = QUESTION_TYPE_VALUES;
 
 function getDropdownOptionsByType(dropdownOptions) {
     return Object.values(dropdownOptions).reduce((acc, option) => {
@@ -35,7 +31,7 @@ function getDropdownOptionsByType(dropdownOptions) {
 class AddPinHistoryFormContainer extends Component {
     state = {
         templateID: '',
-        serviceID: ''
+        serviceID: '',
     };
 
     render() {
@@ -53,8 +49,8 @@ class AddPinHistoryFormContainer extends Component {
             dropdownOptionsByType,
         } = this.props;
 
-        const latestVersion = versions.find(vers =>
-            vers.id === latestPinHistory.templateVersionID) || {};
+        const latestVersion =
+            versions.find(vers => vers.id === latestPinHistory.templateVersionID) || {};
 
         const isSameTemplate = templateID === latestVersion.templateID;
 
@@ -69,7 +65,7 @@ class AddPinHistoryFormContainer extends Component {
                     <BackButtonContainer
                         backFromForm={{
                             urlToReplace: isHistory ? '/add-history' : '/add-pin',
-                            with: ''
+                            with: '',
                         }}
                     />
                 </PageHeading>
@@ -136,11 +132,11 @@ class AddPinHistoryFormContainer extends Component {
         this.setState(
             {
                 templateID: latestTemplateUsed.id,
-                serviceID: latestTemplateUsed.serviceID
+                serviceID: latestTemplateUsed.serviceID,
             },
             () => {
                 updateAddPinStatus(latestPinHistory.status);
-            }
+            },
         );
     };
 
@@ -150,9 +146,10 @@ class AddPinHistoryFormContainer extends Component {
 
     getPinAnswersByGroupKey = () => {
         const { pinAnswers, latestPinHistory, sections, versions, questions } = this.props;
+
         const invalidTypes = [SINGLE_PHOTO, MULTI_PHOTO, SIGNATURE];
-        const latestVersion = versions.find(vers =>
-            vers.id === latestPinHistory.templateVersionID) || {};
+        const latestVersion =
+            versions.find(vers => vers.id === latestPinHistory.templateVersionID) || {};
 
         const pinAnswersByGroupKey = pinAnswers.reduce((acc, ans) => {
             const question = questions[ans.templateQuestionID];
@@ -160,19 +157,20 @@ class AddPinHistoryFormContainer extends Component {
             const section = sections[question.templateSectionID];
             if (!section) return acc;
             // filter by only relevant questions/answers
-            if (question.isHidden ||
+            if (
                 invalidTypes.includes(question.type) ||
-                section.templateVersionID !== latestVersion.id) {
+                section.templateVersionID !== latestVersion.id
+            ) {
                 return acc;
             } else {
                 return {
                     ...acc,
-                    [question.groupKey]: { ...ans, name: question.name, type: question.type }
+                    [question.groupKey]: { ...ans, name: question.name, type: question.type },
                 };
             }
         }, {});
         return pinAnswersByGroupKey;
-    }
+    };
 
     getOldAnswersByNameObj = () => {
         const { pinAnswers, questions } = this.props;
@@ -184,7 +182,7 @@ class AddPinHistoryFormContainer extends Component {
         }, {});
 
         return oldAnswersByNameObj;
-    }
+    };
 
     componentDidUpdate = prevProps => {
         const {
@@ -211,12 +209,12 @@ class AddPinHistoryFormContainer extends Component {
 
     _getTemplates = (templates, selectedServiceID) => {
         const filteredTemplates = templates.filter(
-            ({ serviceID }) => +serviceID === +selectedServiceID
+            ({ serviceID }) => +serviceID === +selectedServiceID,
         );
         const templateOptions = filteredTemplates.map(({ id, name, companyName }) => ({
             value: id,
             label: `${name} (${companyName})`,
-            text: `${name} (${companyName})`
+            text: `${name} (${companyName})`,
         }));
 
         return convertArrToObj(templateOptions, 'value');
@@ -225,7 +223,7 @@ class AddPinHistoryFormContainer extends Component {
     _relevantServiceOptions = () => {
         const {
             services,
-            subscriptions: { serviceIDs }
+            subscriptions: { serviceIDs },
         } = this.props;
 
         const serviceOptions = [];
@@ -238,7 +236,7 @@ class AddPinHistoryFormContainer extends Component {
         return serviceOptions.map(({ id, name }) => ({
             value: id,
             label: name,
-            text: name
+            text: name,
         }));
     };
 
@@ -262,22 +260,22 @@ class AddPinHistoryFormContainer extends Component {
             filesUploading,
             hierarchyType,
             pinID,
-            status
+            status,
         } = this.props;
 
         const curTemplate = templates.find(({ id }) => +id === +templateID) || {};
 
         const formattedAnswers = Object.keys(answers).map(key => ({
             templateQuestionID: key,
-            answer: answers[key]
+            answer: answers[key],
         }));
 
         const postBody = {
             history: {
                 templateVersionID: curTemplate.latestVersionID,
-                pinStatus: status
+                pinStatus: status,
             },
-            answers: formattedAnswers
+            answers: formattedAnswers,
         };
 
         console.log(postBody);
@@ -287,7 +285,7 @@ class AddPinHistoryFormContainer extends Component {
         if (hierarchyType === 'drawing') {
             postBody.pin = {
                 drawingID: parseInt(drawingID),
-                location: { lngX: coordinates.lng, latY: coordinates.lat }
+                location: { lngX: coordinates.lng, latY: coordinates.lat },
             };
         }
 
@@ -309,18 +307,17 @@ const mapStateToProps = ({
         pinHistoriesReducer: { histories },
         pinAnswersReducer: { answers: pinAnswers },
         servicesReducer: { services },
-        subscriptionsReducer: { subscriptions }
+        subscriptionsReducer: { subscriptions },
     },
     shared: {
         filesUploadingReducer: { filesUploading },
-        confirmLeaveReducer: { confirmLeave }
-    }
+        confirmLeaveReducer: { confirmLeave },
+    },
 }) => {
-    const latestPinHistory = Object.values(histories).sort(
-        (a, b) => moment(b.createdOn) - moment(a.createdOn)
-    )[0] || {};
+    const latestPinHistory =
+        Object.values(histories).sort((a, b) => moment(b.createdOn) - moment(a.createdOn))[0] || {};
 
-    return ({
+    return {
         templates: Object.values(templates).filter(({ isDeleted }) => !isDeleted),
         answers,
         coordinates,
@@ -338,20 +335,15 @@ const mapStateToProps = ({
         histories,
         latestPinHistory,
         subscriptions,
-        dropdownOptionsByType: getDropdownOptionsByType(dropdownOptions)
-    });
+        dropdownOptionsByType: getDropdownOptionsByType(dropdownOptions),
+    };
 };
 
 const mapDispatchToProps = {
     createPin,
     resetPinAnswers,
     updateAddPinStatus,
-    updateAddPinAnswer
+    updateAddPinAnswer,
 };
 
-export default withRouter(
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(AddPinHistoryFormContainer)
-);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AddPinHistoryFormContainer));

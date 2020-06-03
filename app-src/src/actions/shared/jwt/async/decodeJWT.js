@@ -17,5 +17,5 @@ export const decodeJWTSuccess = payload => ({
 export default () => dispatch => {
     dispatch(decodeJWTRequest());
 
-    getDecodedJWT().then(data => dispatch(decodeJWTSuccess(data)));
+    return getDecodedJWT().then(data => dispatch(decodeJWTSuccess(data)));
 };

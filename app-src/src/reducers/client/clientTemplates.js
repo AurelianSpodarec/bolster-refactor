@@ -11,7 +11,10 @@ import {
 import {
     CLIENT_FETCH_ALL_TEMPLATES_REQUEST,
     CLIENT_FETCH_ALL_TEMPLATES_SUCCESS,
-    CLIENT_FETCH_ALL_TEMPLATES_FAILURE
+    CLIENT_FETCH_ALL_TEMPLATES_FAILURE,
+    CLIENT_FETCH_TEMPLATES_FOR_DRAWING_REQUEST,
+    CLIENT_FETCH_TEMPLATES_FOR_DRAWING_FAILURE,
+    CLIENT_FETCH_TEMPLATES_FOR_DRAWING_SUCCESS
 } from 'constants/client/actionTypes/clientTemplates';
 
 export default combineReducers({
@@ -24,9 +27,12 @@ function isFetchingReducer(state = false, action) {
     switch (action.type) {
         case CLIENT_FETCH_PIN_TEMPLATES_REQUEST:
         case CLIENT_FETCH_ALL_TEMPLATES_REQUEST:
+        case CLIENT_FETCH_TEMPLATES_FOR_DRAWING_REQUEST:
             return true;
         case CLIENT_FETCH_PIN_TEMPLATES_SUCCESS:
         case CLIENT_FETCH_PIN_TEMPLATES_FAILURE:
+        case CLIENT_FETCH_TEMPLATES_FOR_DRAWING_FAILURE:
+        case CLIENT_FETCH_TEMPLATES_FOR_DRAWING_SUCCESS:
         case CLIENT_FETCH_ALL_TEMPLATES_SUCCESS:
         case CLIENT_FETCH_ALL_TEMPLATES_FAILURE:
             return false;
@@ -39,9 +45,11 @@ function errorReducer(state = null, action) {
     switch (action.type) {
         case CLIENT_FETCH_PIN_TEMPLATES_REQUEST:
         case CLIENT_FETCH_ALL_TEMPLATES_REQUEST:
+        case CLIENT_FETCH_TEMPLATES_FOR_DRAWING_REQUEST:
             return null;
         case CLIENT_FETCH_PIN_TEMPLATES_FAILURE:
         case CLIENT_FETCH_ALL_TEMPLATES_FAILURE:
+        case CLIENT_FETCH_TEMPLATES_FOR_DRAWING_FAILURE:
             return action.error;
         default:
             return state;
@@ -53,6 +61,7 @@ function templatesReducer(state = {}, action) {
         case CLIENT_FETCH_PIN_TEMPLATES_SUCCESS:
             return convertArrToObj(action.payload.templates);
         case CLIENT_FETCH_ALL_TEMPLATES_SUCCESS:
+        case CLIENT_FETCH_TEMPLATES_FOR_DRAWING_SUCCESS:
             return convertArrToObj(action.payload);
         default:
             return state;

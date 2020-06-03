@@ -24,37 +24,6 @@ class Block1FiltersContainer extends Component {
             />
         );
     }
-
-    componentDidMount = () => {
-        this._validate();
-    };
-
-    componentDidUpdate = prevProps => {
-        const {
-            filters: { siteID, companyUserIDs },
-            showFieldError
-        } = this.props;
-        if (
-            prevProps.filters.siteID !== siteID ||
-            prevProps.filters.companyUserIDs.length !== companyUserIDs.length
-        ) {
-            this._validate();
-            showFieldError();
-        }
-    };
-
-    _validate = () => {
-        const {
-            filters: { siteID, companyUserIDs },
-            validate
-        } = this.props;
-
-        if (!siteID && !companyUserIDs.length) {
-            validate('You must select either a site or an operative.');
-        } else {
-            validate();
-        }
-    };
 }
 
 export default withUpdateOnChange(Block1FiltersContainer);

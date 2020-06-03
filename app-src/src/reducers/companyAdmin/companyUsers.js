@@ -28,7 +28,10 @@ import {
     EDIT_COMPANY_USER_TYPE_FAILURE,
     CHANGE_USER_TYPE_REQUEST,
     CHANGE_USER_TYPE_SUCCESS,
-    CHANGE_USER_TYPE_FAILURE
+    CHANGE_USER_TYPE_FAILURE,
+    TOGGLE_RESTRICT_USER_PAYMENTS_REQUEST,
+    TOGGLE_RESTRICT_USER_PAYMENTS_SUCCESS,
+    TOGGLE_RESTRICT_USER_PAYMENTS_FAILURE
 } from 'constants/actionTypes/usersManagement';
 
 export default combineReducers({
@@ -60,6 +63,7 @@ function isPostingReducer(state = false, action) {
         case CREATE_COMPANY_USER_REQUEST:
         case UNLINK_OPERATIVE_DEVICE_REQUEST:
         case CHANGE_USER_TYPE_REQUEST:
+        case TOGGLE_RESTRICT_USER_PAYMENTS_REQUEST:
             return true;
         case CREATE_COMPANY_USER_SUCCESS:
         case CREATE_COMPANY_USER_FAILURE:
@@ -67,6 +71,8 @@ function isPostingReducer(state = false, action) {
         case UNLINK_OPERATIVE_DEVICE_SUCCESS:
         case CHANGE_USER_TYPE_SUCCESS:
         case CHANGE_USER_TYPE_FAILURE:
+        case TOGGLE_RESTRICT_USER_PAYMENTS_SUCCESS:
+        case TOGGLE_RESTRICT_USER_PAYMENTS_FAILURE:
             return false;
         default:
             return state;
@@ -81,6 +87,7 @@ function postSuccessReducer(state = false, action) {
         case EDIT_COMPANY_USER_TYPE_REQUEST:
         case UNLINK_OPERATIVE_DEVICE_REQUEST:
         case CHANGE_USER_TYPE_REQUEST:
+        case TOGGLE_RESTRICT_USER_PAYMENTS_REQUEST:
             return false;
         case CREATE_COMPANY_USER_SUCCESS:
         case EDIT_COMPANY_USER_SUCCESS:
@@ -88,6 +95,7 @@ function postSuccessReducer(state = false, action) {
         case EDIT_COMPANY_USER_TYPE_SUCCESS:
         case UNLINK_OPERATIVE_DEVICE_SUCCESS:
         case CHANGE_USER_TYPE_SUCCESS:
+        case TOGGLE_RESTRICT_USER_PAYMENTS_SUCCESS:
             return true;
         default:
             return state;
@@ -103,6 +111,7 @@ function errorReducer(state = null, action) {
         case CREATE_COMPANY_USER_REQUEST:
         case DELETE_COMPANY_USER_REQUEST:
         case FETCH_SINGLE_COMPANY_USER_REQUEST:
+        case TOGGLE_RESTRICT_USER_PAYMENTS_REQUEST:
         case UNLINK_OPERATIVE_DEVICE_REQUEST:
         case CHANGE_USER_TYPE_REQUEST:
             return null;
@@ -115,6 +124,7 @@ function errorReducer(state = null, action) {
         case FETCH_SINGLE_COMPANY_USER_FAILURE:
         case UNLINK_OPERATIVE_DEVICE_FAILURE:
         case CHANGE_USER_TYPE_FAILURE:
+        case TOGGLE_RESTRICT_USER_PAYMENTS_FAILURE:
             return action.error;
         default:
             return state;

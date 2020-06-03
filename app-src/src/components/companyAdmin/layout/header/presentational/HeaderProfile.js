@@ -12,12 +12,16 @@ const HeaderProfile = ({
     updateNode,
     isImpersonating,
     companyName,
-    isSubscribed
+    isSubscribed,
+    shouldRestrictPayments
 }) => (
     <div className="profile" ref={updateNode}>
         <div className="user" onClick={handleClick}>
             {profile.profileImageS3Key ? (
-                <img alt="profile" src={`${FILE_STORAGE_URL}/${profile.profileImageS3Key}`} />
+                <img
+                    alt="profile"
+                    src={`${FILE_STORAGE_URL}/${profile.profileImageS3Key}`}
+                />
             ) : (
                 <img src={NoProfilePic} alt="generic profile" />
             )}
@@ -25,7 +29,8 @@ const HeaderProfile = ({
             <div className="text">
                 <p>{`${profile.firstName} ${profile.lastName}`}</p>
                 <span className="email">
-                    {profile.email} {/* todo: ##  impersonation needs stling ## */}
+                    {profile.email}{' '}
+                    {/* todo: ##  impersonation needs stling ## */}
                     {isImpersonating ? `(impersonating ${companyName})` : ''}
                 </span>
             </div>
@@ -45,18 +50,24 @@ const HeaderProfile = ({
 
                 <i className="icon fas fa-chevron-right right" />
             </Link>
-            <Link to="/company/subscription" className="item">
-                <i className="far fa-money-check fa-fw fa-fw icon" />
-                <span className="item-text">Subscription &amp; Credits</span>
+            {!shouldRestrictPayments && (
+                <>
+                    <Link to="/company/subscription" className="item">
+                        <i className="far fa-money-check fa-fw fa-fw icon" />
+                        <span className="item-text">
+                            Subscription &amp; Credits
+                        </span>
 
-                <i className="icon fas fa-chevron-right right" />
-            </Link>
-            <Link to="/company/invoices" className="item">
-                <i className="far fa-receipt fa-fw fa-fw icon" />
-                <span className="item-text">Orders</span>
+                        <i className="icon fas fa-chevron-right right" />
+                    </Link>
+                    <Link to="/company/invoices" className="item">
+                        <i className="far fa-receipt fa-fw fa-fw icon" />
+                        <span className="item-text">Orders</span>
 
-                <i className="icon fas fa-chevron-right right" />
-            </Link>
+                        <i className="icon fas fa-chevron-right right" />
+                    </Link>
+                </>
+            )}
 
             {isSubscribed && (
                 <>

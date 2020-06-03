@@ -177,7 +177,7 @@ class FilterFieldsModalContainer extends Component {
                         // remove extra whitespace
                         .map(opt => opt.trim())
                         // remove empty options
-                        .filter(opt => !!opt)
+                        .filter(opt => !!opt),
                 );
             } else newOptions.push(opt);
         });
@@ -212,7 +212,7 @@ const mapStateToProps = (
             },
         },
     },
-    { id }
+    { id },
 ) => ({
     field: fields[id],
     questionOptions: convertArrToObj(questionOptions),
@@ -227,5 +227,5 @@ const mapDispatchToProps = {
 };
 
 export default withUpdateOnChange(
-    connect(mapStateToProps, mapDispatchToProps)(FilterFieldsModalContainer)
+    connect(mapStateToProps, mapDispatchToProps)(FilterFieldsModalContainer),
 );

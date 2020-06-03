@@ -24,7 +24,4 @@ const mapDispatchToProps = dispatch => ({
     }
 });
 
-export default connect(
-    null,
-    mapDispatchToProps
-)(AllCompanyAdminsContainer);
+export default connect(null, mapDispatchToProps)(AllCompanyAdminsContainer);
