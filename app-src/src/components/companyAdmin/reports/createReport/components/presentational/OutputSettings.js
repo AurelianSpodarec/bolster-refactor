@@ -17,7 +17,7 @@ const OutputSettings = ({
     isCSVGeneration,
     isFloorplanGeneration,
     includeFloorplan,
-    isOandMManualGeneration,
+    isOAndMManualGeneration,
     showHidden,
 }) => (
     <div className="size-lg-12">
@@ -95,9 +95,9 @@ const OutputSettings = ({
 
                         <Field sizeClasses="size-lg-6 size-md-12" name="Include O&M Manuals?">
                             <CheckboxContainer
-                                checked={isOandMManualGeneration}
+                                checked={isOAndMManualGeneration}
                                 handleChange={handleFilterChange}
-                                name="isOandMManualGeneration"
+                                name="isOAndMManualGeneration"
                             />
                         </Field>
                     </div>

@@ -30,7 +30,7 @@ class OutputSettingsContainer extends Component {
                 isCSVGeneration,
                 isFloorplanGeneration,
                 includeFloorplan,
-                isOandMManualGeneration,
+                isOAndMManualGeneration,
             },
             options: { showHidden, sortBy },
         } = this.props;
@@ -44,7 +44,7 @@ class OutputSettingsContainer extends Component {
                 isFloorplanGeneration={isFloorplanGeneration}
                 isPDFGeneration={isPDFGeneration}
                 includeFloorplan={includeFloorplan}
-                isOandMManualGeneration={isOandMManualGeneration}
+                isOAndMManualGeneration={isOAndMManualGeneration}
                 sortByOptions={Object.values(sortByOptions)}
                 selectSortBy={sortByOptions[sortBy]}
                 showHidden={showHidden}
