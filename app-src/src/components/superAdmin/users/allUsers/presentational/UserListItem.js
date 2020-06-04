@@ -4,6 +4,7 @@ import Roles from "./Roles";
 import DateTimeContainer from "components/shared/dateTime/containers/DateTimeContainer";
 import { DATE_TIME_IDS } from "constants/companyAdmin/enums";
 import BlockButtonWrapper from "components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper";
+import { Link } from "react-router-dom";
 
 const UserListItem = ({
     user,
@@ -16,7 +17,17 @@ const UserListItem = ({
         <td>{user.phoneNumber}</td>
 
         <Roles roles={user.roles} />
-        <td>{user.clientAccessCreatedByCompanyNames.join(", ") || "-"}</td>
+        <td>
+            {user.clientAccessCreatedByCompanyNames.map((company) => (
+                <Link
+                    key={company.companyID}
+                    className="link"
+                    to={`/admin/companies/${company.companyID}`}
+                >
+                    {company.name}
+                </Link>
+            ))}
+        </td>
         <td>
             <DateTimeContainer
                 date={user.createdOn}
