@@ -18,15 +18,25 @@ const UserListItem = ({
 
         <Roles roles={user.roles} />
         <td>
-            {user.clientAccessCreatedByCompanyNames.map((company) => (
-                <Link
-                    key={company.companyID}
-                    className="link"
-                    to={`/admin/companies/${company.companyID}`}
-                >
-                    {company.name}
-                </Link>
-            ))}
+            {user.clientAccessCreatedByCompanies.length ? (
+                user.clientAccessCreatedByCompanies.map((company, i, arr) => {
+                    const isTheLastCompany = arr.length - 1 === i;
+                    return (
+                        <>
+                            <Link
+                                key={company.companyID}
+                                className="link"
+                                to={`/admin/companies/${company.companyID}`}
+                            >
+                                {company.name}
+                            </Link>
+                            {!isTheLastCompany && <span>, </span>}
+                        </>
+                    );
+                })
+            ) : (
+                <span>N/A</span>
+            )}
         </td>
         <td>
             <DateTimeContainer
