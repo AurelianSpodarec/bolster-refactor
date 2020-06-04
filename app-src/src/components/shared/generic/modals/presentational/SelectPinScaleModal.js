@@ -12,7 +12,7 @@ const SelectPinScaleModal = ({
     scale,
     handleUpdatePinScale,
     handleSubmit,
-    handleCancelScale
+    handleCancelScale,
 }) => (
     <ModalOuterContainer>
         <BlockHeading title="Select Size of Pins" />
@@ -45,9 +45,9 @@ const SelectPinScaleModal = ({
                     type="range"
                     value={scale}
                     list="tickmarks"
-                    min={0.2}
-                    max={0.8}
-                    step={0.1}
+                    min={0.15}
+                    max={0.9}
+                    step={0.05}
                     onChange={handleUpdatePinScale}
                 />
                 <img alt="example pin" src={RedPin} className="pin pin-large" />
