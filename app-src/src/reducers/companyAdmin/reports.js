@@ -29,7 +29,7 @@ import {
     GET_TEMPLATE_REPORT_OPTIONS_SUCCESS,
     GET_TEMPLATE_REPORT_OPTIONS_REQUEST,
     GET_TEMPLATE_REPORT_OPTIONS_FAILURE,
-    UPDATE_DRAWING_IDS_INCLUDED
+    UPDATE_DRAWING_IDS_INCLUDED,
 } from 'constants/actionTypes/reports';
 import { updateObj, removeObjItem, convertArrToObj } from 'helpers/generic';
 import { SORT_BY_OPTIONS, HIERARCHY_IDS } from 'constants/companyAdmin/enums';
@@ -49,7 +49,7 @@ export default combineReducers({
     furtherFiltrationOption: furtherFiltrationOptionReducer,
     excludedPinIDs: excludedPinIDsReducer,
     includedDrawingsIDs: includedDrawingsIDsReducer,
-    isCreating: isCreatingReducer
+    isCreating: isCreatingReducer,
 });
 
 //send the questionsIDs
@@ -80,9 +80,9 @@ function filtersReducer(
         toDateInclusive: undefined,
         companyUserIDs: [],
         pinIDs: [],
-        floorplanPinScale: 0.5
+        floorplanPinScale: 0.9,
     },
-    action
+    action,
 ) {
     switch (action.type) {
         case UPDATE_REPORT_FILTER:
@@ -110,7 +110,7 @@ function filtersReducer(
                 toDateInclusive: undefined,
                 companyUserIDs: [],
                 pinIDs: [],
-                floorplanPinScale: 0.5
+                floorplanPinScale: 0.5,
             };
         default:
             return state;
@@ -134,7 +134,7 @@ function fieldsReducer(state = {}, action) {
         case UPDATE_FILTER_QUESTION_FIELD:
             return {
                 ...state,
-                [action.name]: action.value
+                [action.name]: action.value,
             };
         case REMOVE_FILTER_QUESTION:
             return removeObjItem(state, action.id);
@@ -145,16 +145,16 @@ function fieldsReducer(state = {}, action) {
                     id: action.id,
                     selectedQuestions: [],
                     questionValues: [],
-                    selectedValues: []
-                }
+                    selectedValues: [],
+                },
             };
         case UPDATE_FILTER_QUESTION_VALS:
             return {
                 ...state,
                 [action.id]: {
                     ...state[action.id],
-                    selectedValues: action.selected
-                }
+                    selectedValues: action.selected,
+                },
             };
         case REMOVE_FILTER_QUESTIONS:
         case RESET_FILTER_OPTIONS:
@@ -200,7 +200,7 @@ function isFetchingReducer(state = false, action) {
 
 function customFiltersReducer(
     state = { operatives: [], pins: [], questions: [], templates: [] },
-    action
+    action,
 ) {
     switch (action.type) {
         case GET_OPERATIVE_OPTIONS_SUCCESS:
@@ -229,9 +229,9 @@ function pinResultsReducer(state = {}, action) {
 function optionsReducer(
     state = {
         showHidden: false,
-        sortBy: String(SORT_BY_OPTIONS.PIN_NO_ASC)
+        sortBy: String(SORT_BY_OPTIONS.PIN_NO_ASC),
     },
-    action
+    action,
 ) {
     switch (action.type) {
         case UPDATE_FILTER_OPTION:
@@ -239,7 +239,7 @@ function optionsReducer(
         case RESET_FILTER_OPTIONS:
             return {
                 showHidden: false,
-                sortBy: String(SORT_BY_OPTIONS.PIN_NO_ASC)
+                sortBy: String(SORT_BY_OPTIONS.PIN_NO_ASC),
             };
         default:
             return state;
@@ -270,7 +270,7 @@ function rectanglesReducer(state = {}, action) {
         case ADD_RECTANGLE:
             return updateObj(state, action.id, {
                 id: action.id,
-                corners: [action.topLeft, action.bottomRight]
+                corners: [action.topLeft, action.bottomRight],
             });
         case REMOVE_RECTANGLE:
             return removeObjItem(state, action.id);

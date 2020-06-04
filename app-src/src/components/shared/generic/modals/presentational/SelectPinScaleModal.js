@@ -45,8 +45,8 @@ const SelectPinScaleModal = ({
                     type="range"
                     value={scale}
                     list="tickmarks"
-                    min={0.1}
-                    max={0.8}
+                    min={0.2}
+                    max={1.6}
                     step={0.1}
                     onChange={handleUpdatePinScale}
                 />
