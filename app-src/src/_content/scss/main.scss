@@ -2690,6 +2690,32 @@ input {
 }
 
 //footer
+.client-access-banner {
+    position: fixed;
+    bottom: 56px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-height: auto;
+    background-color: #939393;
+    padding: 7.5px 20px;
+
+    .banner-text {
+        color: #fff;
+        line-height: 18px;
+        font-size: 14px;
+        font-family: "Ubuntu", sans-serif;
+        font-weight: 400;
+        .demo-link {
+            margin-left: 5px;
+            a {
+                color: #fff;
+            }
+        }
+    }
+}
+
 #page-footer {
     width: 100%;
     bottom: 0;
@@ -5430,8 +5456,7 @@ input {
     border-radius: 2.5px;
     padding: 10px;
     border: 1px solid $input-border-grey;
-    transition: 0.25s background-color ease-in-out, 0.25s box-shadow ease-in-out,
-        0.25s border ease-in-out;
+    transition: 0.25s background-color ease-in-out, 0.25s box-shadow ease-in-out, 0.25s border ease-in-out;
 
     &.can-drop {
         -webkit-box-shadow: inset 0px 0px 12px 0px #a5a5a5;
