@@ -9,9 +9,9 @@ const logos = {
     black: BlackLogo,
 };
 
-const Footer = ({ company, companyColour, isCompanySelected }) => (
+const Footer = ({ company, companyColour, isCompanySelected, isCompanyAdmin }) => (
     <>
-        <ClientAccessBanner />
+        {!isCompanyAdmin && <ClientAccessBanner />}
         <footer
             id="page-footer"
             style={{
