@@ -9,9 +9,8 @@ import changeProfilePassword from 'actions/shared/profile/async/changeProfilePas
 
 class EditProfilePasswordFormContainer extends Component {
     state = {
-        oldPassword: '',
         password: '',
-        confirmPassword: ''
+        confirmPassword: '',
     };
 
     render = () => (
@@ -37,10 +36,9 @@ class EditProfilePasswordFormContainer extends Component {
 
     handleSubmit = e => {
         e.preventDefault();
-        const { password, oldPassword } = this.state;
+        const { password } = this.state;
         const postBody = {
-            oldPassword,
-            password
+            password,
         };
 
         this.props.changeProfilePassword(postBody);
@@ -66,7 +64,7 @@ class EditProfilePasswordFormContainer extends Component {
 }
 
 const mapStateToProps = ({ shared: { profileReducer } }) => ({
-    postSuccess: profileReducer.postSuccess
+    postSuccess: profileReducer.postSuccess,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -74,12 +72,9 @@ const mapDispatchToProps = dispatch => ({
     removeFieldError: field => dispatch(removeFieldError(field)),
     changeProfilePassword: (id, password) => {
         dispatch(changeProfilePassword(id, password));
-    }
+    },
 });
 
 export default withRouter(
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(EditProfilePasswordFormContainer)
+    connect(mapStateToProps, mapDispatchToProps)(EditProfilePasswordFormContainer),
 );
