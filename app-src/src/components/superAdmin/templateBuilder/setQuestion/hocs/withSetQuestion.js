@@ -35,32 +35,25 @@ export default function (WrappedComponent) {
 
         handlePrefillStatusValueChange = (prefillStatus, value) => {
             const {
-                fields: { prefillStatusValues },
+                fields: { statusPrefills },
                 updateQuestionField,
             } = this.props;
 
-            updateQuestionField(
-                'prefillStatusValues',
-                updateObj(prefillStatusValues, prefillStatus, value),
-            );
-
-            console.log({ prefillStatus, value, prefillStatusValues });
+            updateQuestionField('statusPrefills', updateObj(statusPrefills, prefillStatus, value));
         };
 
         handlePrefillStatusChange = (name, value) => {
             const {
-                fields: { prefillStatuses, prefillStatusValues },
+                fields: { prefillStatuses, statusPrefills },
                 updateQuestionField,
             } = this.props;
-            console.warn({ name, value, prefillStatuses });
-            //value is an array from multiselect
 
             if (prefillStatuses.length != value.length) {
                 prefillStatuses.forEach(status => {
                     if (!value.includes(status)) {
                         updateQuestionField(
-                            'prefillStatusValues',
-                            removeObjItem(prefillStatusValues, status),
+                            'statusPrefills',
+                            removeObjItem(statusPrefills, status),
                         );
                     }
                 });
@@ -110,8 +103,7 @@ export default function (WrappedComponent) {
                 isHidden,
                 isPrefill,
                 isRequiredVal,
-                prefillStatuses,
-                prefillStatusValue,
+                statusPrefills,
             } = this.props.fields;
 
             return {
@@ -123,8 +115,8 @@ export default function (WrappedComponent) {
                 isHidden,
                 isPrefill,
                 isRequiredVal,
-                prefillStatuses,
-                prefillStatusValue,
+                prefillStatuses: Object.keys(statusPrefills),
+                statusPrefills,
             };
         };
 

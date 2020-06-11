@@ -52,7 +52,7 @@ const AddTemplateQuestionModalContainer = ({
             sort: _getSort(),
             ...getQuestionData(),
         };
-
+        console.log(newQuestion);
         setQuestion(newQuestion);
     }
 

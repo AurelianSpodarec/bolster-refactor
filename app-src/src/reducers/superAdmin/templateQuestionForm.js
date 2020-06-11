@@ -33,7 +33,7 @@ const initialQuestionFields = {
     statusOptions: [],
     isRequiredVal: null,
     prefillStatuses: [],
-    prefillStatusValues: [],
+    statusPrefills: {},
 };
 
 export default combineReducers({

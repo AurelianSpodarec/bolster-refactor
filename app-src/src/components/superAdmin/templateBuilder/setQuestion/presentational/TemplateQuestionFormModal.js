@@ -13,6 +13,7 @@ import SpecificFieldsRoute from '../containers/SpecificFieldsRoute';
 import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
 import Select from 'components/shared/generic/form/presentational/Select';
 import MultiSelect from 'components/shared/generic/form/presentational/MultiSelect';
+import { PIN_STATUS_TYPES } from 'constants/companyAdmin/enums';
 
 const TemplateQuestionFormModal = ({
     questionTypeOptions,
@@ -31,7 +32,7 @@ const TemplateQuestionFormModal = ({
     action,
     statusOptions,
     prefillStatuses,
-    prefillStatusValues,
+    statusPrefills,
     addPrefillOption,
     handlePrefillStatusChange,
     handlePrefillStatusValueChange,
@@ -137,43 +138,24 @@ const TemplateQuestionFormModal = ({
                             name={'prefillStatuses'}
                             onChange={handlePrefillStatusChange}
                         />
-
-                        {prefillStatuses.length &&
-                            prefillStatuses.map((prefillStatus, index) => (
-                                <>
-                                    {/* <Select
-                                name="prefillStatus"
-                                onChange={handleInputChange}
-                                options={statusOptions}
-                                value={prefillStatus + ''}
-                            /> */}
-
-                                    <Field name={`${prefillStatus} Value`} key={index}>
-                                        <TextInputContainer
-                                            name="prefillStatusValues"
-                                            handleChange={(name, value) => {
-                                                handlePrefillStatusValueChange(
-                                                    prefillStatus,
-                                                    value,
-                                                );
-                                            }}
-                                            value={prefillStatusValues[prefillStatus]}
-                                        />
-                                    </Field>
-                                </>
-                            ))}
                     </Field>
-                    <div className="field-intro size-lg-12">
-                        <div className="size-lg-12">
-                            <button
-                                onClick={addPrefillOption}
-                                className="button add-option green"
-                                type="button"
-                            >
-                                <i className="fa fa-plus"></i>Add prefill status
-                            </button>
-                        </div>
-                    </div>
+                    {prefillStatuses.length &&
+                        prefillStatuses.map((prefillStatus, index) => (
+                            <>
+                                <Field
+                                    name={`${PIN_STATUS_TYPES[prefillStatus]} Value`}
+                                    key={index}
+                                >
+                                    <TextInputContainer
+                                        name="statusPrefills"
+                                        handleChange={(name, value) => {
+                                            handlePrefillStatusValueChange(prefillStatus, value);
+                                        }}
+                                        value={statusPrefills[prefillStatus]}
+                                    />
+                                </Field>
+                            </>
+                        ))}
                 </div>
 
                 <BlockButtonWrapper>

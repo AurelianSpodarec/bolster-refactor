@@ -41,7 +41,16 @@ class TemplateQuestionModalContainer extends Component {
     }
     componentDidMount = () => {
         const { question, updateQuestionFields } = this.props;
-        updateQuestionFields(question);
+        const questionStatusPrefills = question.statusPrefills;
+        let sortedPrefilStatuses;
+        console.warn(question);
+
+        if (questionStatusPrefills && Object.keys(questionStatusPrefills).length) {
+            sortedPrefilStatuses = Object.keys(questionStatusPrefills);
+            updateQuestionFields({ ...question, sortedPrefilStatuses });
+        } else {
+            updateQuestionFields(question);
+        }
     };
 
     handleSubmit = e => {
