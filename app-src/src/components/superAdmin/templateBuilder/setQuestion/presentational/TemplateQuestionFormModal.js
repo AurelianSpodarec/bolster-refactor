@@ -12,6 +12,7 @@ import BlockHeading from 'components/shared/generic/blockHeading/presentational/
 import SpecificFieldsRoute from '../containers/SpecificFieldsRoute';
 import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
 import Select from 'components/shared/generic/form/presentational/Select';
+import MultiSelect from 'components/shared/generic/form/presentational/MultiSelect';
 
 const TemplateQuestionFormModal = ({
     questionTypeOptions,
@@ -29,9 +30,11 @@ const TemplateQuestionFormModal = ({
     handleSubmit,
     action,
     statusOptions,
-    prefillStatus,
-    prefillStatusValue,
+    prefillStatuses,
+    prefillStatusValues,
     addPrefillOption,
+    handlePrefillStatusChange,
+    handlePrefillStatusValueChange,
     ...otherFields
 }) => {
     return (
@@ -127,22 +130,39 @@ const TemplateQuestionFormModal = ({
                 </Field>
                 <div className="dropdown-create  size-lg-12">
                     <Field name="Prefill Based on status?">
-                        <Select
-                            name="prefillStatus"
-                            onChange={handleInputChange}
+                        <MultiSelect
+                            search
                             options={statusOptions}
-                            value={prefillStatus + ''}
+                            value={prefillStatuses}
+                            name={'prefillStatuses'}
+                            onChange={handlePrefillStatusChange}
                         />
+
+                        {prefillStatuses.length &&
+                            prefillStatuses.map((prefillStatus, index) => (
+                                <>
+                                    {/* <Select
+                                name="prefillStatus"
+                                onChange={handleInputChange}
+                                options={statusOptions}
+                                value={prefillStatus + ''}
+                            /> */}
+
+                                    <Field name={`${prefillStatus} Value`} key={index}>
+                                        <TextInputContainer
+                                            name="prefillStatusValues"
+                                            handleChange={(name, value) => {
+                                                handlePrefillStatusValueChange(
+                                                    prefillStatus,
+                                                    value,
+                                                );
+                                            }}
+                                            value={prefillStatusValues[prefillStatus]}
+                                        />
+                                    </Field>
+                                </>
+                            ))}
                     </Field>
-                    {!!prefillStatus && (
-                        <Field name="Prefill Value">
-                            <TextInputContainer
-                                name="prefillStatusValue"
-                                handleChange={handleInputChange}
-                                value={prefillStatusValue}
-                            />
-                        </Field>
-                    )}
                     <div className="field-intro size-lg-12">
                         <div className="size-lg-12">
                             <button

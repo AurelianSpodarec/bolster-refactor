@@ -1,10 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import {
-    PREREQ_TYPES,
-    QUESTION_TYPE_VALUES
-} from 'constants/shared/templateBuilder';
+import { PREREQ_TYPES, QUESTION_TYPE_VALUES } from 'constants/shared/templateBuilder';
 import updateQuestionField from 'actions/superAdmin/templateBuilder/sync/updateQuestionField';
 import setQuestion from 'actions/superAdmin/templateBuilder/sync/setQuestion';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
@@ -12,19 +9,21 @@ import { convertArrToObj } from 'helpers/generic';
 import resetQuestionFields from 'actions/superAdmin/templateBuilder/sync/resetQuestionFields';
 import updateQuestionFields from 'actions/superAdmin/templateBuilder/sync/updateQuestionFields';
 import { PIN_STATUS_TYPES } from 'constants/companyAdmin/enums';
+import { isEmpty, updateObj, removeObjItem } from 'helpers/generic';
 
-export default function(WrappedComponent) {
+export default function (WrappedComponent) {
     class WithSetQuestion extends React.Component {
-        render = () =>
-            (
-                <WrappedComponent
-                    {...this.props}
-                    prereqOptions={this._getPrereqOptions()}
-                    handleInputChange={this.handleInputChange}
-                    getQuestionData={this.getQuestionData}
-                    statusOptions={this._getStatusOptions()}
-                />
-            );
+        render = () => (
+            <WrappedComponent
+                {...this.props}
+                prereqOptions={this._getPrereqOptions()}
+                handleInputChange={this.handleInputChange}
+                getQuestionData={this.getQuestionData}
+                statusOptions={this._getStatusOptions()}
+                handlePrefillStatusChange={this.handlePrefillStatusChange}
+                handlePrefillStatusValueChange={this.handlePrefillStatusValueChange}
+            />
+        );
 
         componentWillUnmount = () => {
             this.props.resetQuestionFields();
@@ -32,6 +31,41 @@ export default function(WrappedComponent) {
 
         handleInputChange = (name, value) => {
             this.props.updateQuestionField(name, value);
+        };
+
+        handlePrefillStatusValueChange = (prefillStatus, value) => {
+            const {
+                fields: { prefillStatusValues },
+                updateQuestionField,
+            } = this.props;
+
+            updateQuestionField(
+                'prefillStatusValues',
+                updateObj(prefillStatusValues, prefillStatus, value),
+            );
+
+            console.log({ prefillStatus, value, prefillStatusValues });
+        };
+
+        handlePrefillStatusChange = (name, value) => {
+            const {
+                fields: { prefillStatuses, prefillStatusValues },
+                updateQuestionField,
+            } = this.props;
+            console.warn({ name, value, prefillStatuses });
+            //value is an array from multiselect
+
+            if (prefillStatuses.length != value.length) {
+                prefillStatuses.forEach(status => {
+                    if (!value.includes(status)) {
+                        updateQuestionField(
+                            'prefillStatusValues',
+                            removeObjItem(prefillStatusValues, status),
+                        );
+                    }
+                });
+            }
+            updateQuestionField('prefillStatuses', value);
         };
 
         _getPrereqOptions = () => {
@@ -43,7 +77,7 @@ export default function(WrappedComponent) {
                 .map(({ uuid, name, questionType }) => ({
                     value: uuid,
                     text: name,
-                    isStatus: questionType + '' === STATUS
+                    isStatus: questionType + '' === STATUS,
                 }));
 
             return convertArrToObj(options, 'value');
@@ -51,18 +85,18 @@ export default function(WrappedComponent) {
 
         _getStatusOptions = () => {
             const {
-                template: { statusOptions = [] }
+                template: { statusOptions = [] },
             } = this.props;
             return statusOptions.map(value => ({
                 label: PIN_STATUS_TYPES[value + ''],
-                value: value + ''
+                value: value + '',
             }));
         };
 
         getQuestionData = () => {
             return {
                 ...this._getSharedData(),
-                ...this._getSpecificData()
+                ...this._getSpecificData(),
             };
         };
 
@@ -76,7 +110,7 @@ export default function(WrappedComponent) {
                 isHidden,
                 isPrefill,
                 isRequiredVal,
-                prefillStatus,
+                prefillStatuses,
                 prefillStatusValue,
             } = this.props.fields;
 
@@ -89,7 +123,7 @@ export default function(WrappedComponent) {
                 isHidden,
                 isPrefill,
                 isRequiredVal,
-                prefillStatus,
+                prefillStatuses,
                 prefillStatusValue,
             };
         };
@@ -104,7 +138,7 @@ export default function(WrappedComponent) {
                 questionType,
                 canCompanyEdit,
                 defaultValue,
-                optionType
+                optionType,
             } = this.props.fields;
 
             switch (questionType + '') {
@@ -135,15 +169,15 @@ export default function(WrappedComponent) {
             superAdmin: {
                 templateQuestionFormReducer: { fields },
                 templateQuestionsReducer: { questions },
-                templatesReducer: { templates }
-            }
+                templatesReducer: { templates },
+            },
         },
-        { templateUUID }
+        { templateUUID },
     ) => {
         return {
             fields,
             questions: Object.values(questions),
-            template: templates[templateUUID] || {}
+            template: templates[templateUUID] || {},
         };
     };
 
@@ -163,11 +197,8 @@ export default function(WrappedComponent) {
         },
         resetQuestionFields: () => {
             dispatch(resetQuestionFields());
-        }
+        },
     });
 
-    return connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(WithSetQuestion);
+    return connect(mapStateToProps, mapDispatchToProps)(WithSetQuestion);
 }

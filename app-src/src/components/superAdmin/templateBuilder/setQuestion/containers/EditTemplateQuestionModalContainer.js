@@ -5,28 +5,23 @@ import { convertArrToObj } from 'helpers/generic';
 import {
     PREREQ_TYPES,
     QUESTION_TYPE_NUMBERS,
-    QUESTION_TYPE_VALUES
+    QUESTION_TYPE_VALUES,
 } from 'constants/shared/templateBuilder';
 import TemplateQuestionFormModal from '../presentational/TemplateQuestionFormModal';
 
 class TemplateQuestionModalContainer extends Component {
     render() {
         const {
-            fields: {
-                questionType,
-                questionTypeOptions,
-                prereqUUID,
-                ...fields
-            },
+            fields: { questionType, questionTypeOptions, prereqUUID, ...fields },
             hideModal,
-            handleInputChange
+            handleInputChange,
         } = this.props;
 
         const prereqOptions = this._getPrereqOptions();
         const questionOptions = Object.values(questionTypeOptions).filter(
             ({ value }) =>
                 +value !== QUESTION_TYPE_NUMBERS.STATUS &&
-                +value !== QUESTION_TYPE_NUMBERS.STATIC_IMAGE
+                +value !== QUESTION_TYPE_NUMBERS.STATIC_IMAGE,
         );
         const { statusOptions } = this.props;
         return (
@@ -55,7 +50,7 @@ class TemplateQuestionModalContainer extends Component {
 
         const newQuestion = {
             ...question,
-            ...getQuestionData()
+            ...getQuestionData(),
         };
 
         setQuestion(newQuestion);
@@ -64,7 +59,7 @@ class TemplateQuestionModalContainer extends Component {
     _getPrereqOptions = () => {
         const {
             questions,
-            question: { templateUUID, uuid }
+            question: { templateUUID, uuid },
         } = this.props;
 
         const options = questions
@@ -73,12 +68,12 @@ class TemplateQuestionModalContainer extends Component {
                     q.templateUUID === templateUUID &&
                     PREREQ_TYPES.includes(q.questionType + '') &&
                     q.uuid !== uuid &&
-                    q.prereqUUID !== uuid
+                    q.prereqUUID !== uuid,
             )
             .map(({ uuid, name, questionType }) => ({
                 value: uuid,
                 text: name,
-                isStatus: questionType + '' === QUESTION_TYPE_VALUES.STATUS
+                isStatus: questionType + '' === QUESTION_TYPE_VALUES.STATUS,
             }));
 
         return convertArrToObj(options, 'value');
