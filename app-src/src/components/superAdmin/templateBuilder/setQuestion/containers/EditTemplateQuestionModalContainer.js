@@ -23,7 +23,11 @@ class TemplateQuestionModalContainer extends Component {
                 +value !== QUESTION_TYPE_NUMBERS.STATUS &&
                 +value !== QUESTION_TYPE_NUMBERS.STATIC_IMAGE,
         );
-        const { statusOptions } = this.props;
+        const {
+            statusOptions,
+            handlePrefillStatusChange,
+            handlePrefillStatusValueChange,
+        } = this.props;
         return (
             <TemplateQuestionFormModal
                 {...fields}
@@ -36,6 +40,8 @@ class TemplateQuestionModalContainer extends Component {
                 handleInputChange={handleInputChange}
                 handleSubmit={this.handleSubmit}
                 action="Edit"
+                handlePrefillStatusChange={handlePrefillStatusChange}
+                handlePrefillStatusValueChange={handlePrefillStatusValueChange}
             />
         );
     }
@@ -43,11 +49,11 @@ class TemplateQuestionModalContainer extends Component {
         const { question, updateQuestionFields } = this.props;
         const questionStatusPrefills = question.statusPrefills;
         let sortedPrefilStatuses;
-        console.warn(question);
 
         if (questionStatusPrefills && Object.keys(questionStatusPrefills).length) {
             sortedPrefilStatuses = Object.keys(questionStatusPrefills);
-            updateQuestionFields({ ...question, sortedPrefilStatuses });
+
+            updateQuestionFields({ ...question, prefillStatuses: sortedPrefilStatuses });
         } else {
             updateQuestionFields(question);
         }

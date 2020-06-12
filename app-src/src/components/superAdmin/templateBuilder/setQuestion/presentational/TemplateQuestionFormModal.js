@@ -33,7 +33,6 @@ const TemplateQuestionFormModal = ({
     statusOptions,
     prefillStatuses,
     statusPrefills,
-    addPrefillOption,
     handlePrefillStatusChange,
     handlePrefillStatusValueChange,
     ...otherFields
@@ -139,23 +138,19 @@ const TemplateQuestionFormModal = ({
                             onChange={handlePrefillStatusChange}
                         />
                     </Field>
-                    {prefillStatuses.length &&
-                        prefillStatuses.map((prefillStatus, index) => (
-                            <>
-                                <Field
-                                    name={`${PIN_STATUS_TYPES[prefillStatus]} Value`}
-                                    key={index}
-                                >
-                                    <TextInputContainer
-                                        name="statusPrefills"
-                                        handleChange={(name, value) => {
-                                            handlePrefillStatusValueChange(prefillStatus, value);
-                                        }}
-                                        value={statusPrefills[prefillStatus]}
-                                    />
-                                </Field>
-                            </>
-                        ))}
+                    {prefillStatuses.length
+                        ? prefillStatuses.map((prefillStatus, index) => (
+                              <Field name={`${PIN_STATUS_TYPES[prefillStatus]} Value`} key={index}>
+                                  <TextInputContainer
+                                      name="statusPrefills"
+                                      handleChange={(name, value) => {
+                                          handlePrefillStatusValueChange(prefillStatus, value);
+                                      }}
+                                      value={statusPrefills[prefillStatus]}
+                                  />
+                              </Field>
+                          ))
+                        : ''}
                 </div>
 
                 <BlockButtonWrapper>
