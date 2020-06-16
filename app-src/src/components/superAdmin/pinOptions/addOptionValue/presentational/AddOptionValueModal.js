@@ -5,7 +5,7 @@ import BlockHeading from 'components/shared/generic/blockHeading/presentational/
 import AddOptionValueFormContainer from '../containers/AddOptionValueFormContainer';
 
 const AddOptionValueModal = ({ manufacturer, services }) => (
-    <ModalOuterContainer>
+    <ModalOuterContainer extraClasses="no-scroll">
         <BlockHeading title={`Add Option Value to ${manufacturer.name}`} />
         <AddOptionValueFormContainer
             services={Object.values(services)}
