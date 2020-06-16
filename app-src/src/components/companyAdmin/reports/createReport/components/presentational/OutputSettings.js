@@ -49,6 +49,12 @@ const OutputSettings = ({
                                     name="isFloorplanGeneration"
                                     text="Floor plan"
                                 />
+                                <CheckboxContainer
+                                    checked={isOAndMManualGeneration}
+                                    handleChange={handleFilterChange}
+                                    name="isOAndMManualGeneration"
+                                    text="Include O&M Manuals?"
+                                />
                             </div>
                         </Field>
                         {isPDFGeneration && (
@@ -92,14 +98,6 @@ const OutputSettings = ({
                                 </div>
                             </>
                         )}
-
-                        <Field sizeClasses="size-lg-6 size-md-12" name="Include O&M Manuals?">
-                            <CheckboxContainer
-                                checked={isOAndMManualGeneration}
-                                handleChange={handleFilterChange}
-                                name="isOAndMManualGeneration"
-                            />
-                        </Field>
                     </div>
                     <div className="size-lg-6 size-md-12">
                         <Field name="Sort by">
