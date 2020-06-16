@@ -1525,6 +1525,11 @@ input {
         sub {
             color: $red;
         }
+
+        .small {
+            font-size: 90%;
+            text-transform: none;
+        }
     }
 
     .error {
