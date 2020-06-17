@@ -5,7 +5,7 @@ import BlockHeading from 'components/shared/generic/blockHeading/presentational/
 import EditOptionValueFormContainer from '../containers/EditOptionValueFormContainer';
 
 const EditOptionValueModal = ({ optionValue, services }) => (
-    <ModalOuterContainer>
+    <ModalOuterContainer extraClasses="no-scroll">
         <BlockHeading title={`Edit ${optionValue.name}`} />
         <EditOptionValueFormContainer
             optionValue={optionValue}
