@@ -14,6 +14,9 @@ const CreateBuildingsForm = ({
     removeBuilding,
     handleClose,
     initialOptions,
+    showManufacturingOptions,
+    setShowManufacturingOptions,
+    siteName,
 }) => (
     <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
         <div className="size-lg-12">
@@ -21,6 +24,9 @@ const CreateBuildingsForm = ({
                 buildings={buildings}
                 updateBuilding={updateBuilding}
                 removeBuilding={removeBuilding}
+                showManufacturingOptions={showManufacturingOptions}
+                setShowManufacturingOptions={setShowManufacturingOptions}
+                siteName={siteName}
             />
         </div>
         <BlockButtonWrapper>

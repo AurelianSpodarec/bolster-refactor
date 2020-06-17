@@ -8,10 +8,18 @@ import TextAreaContainer from 'components/shared/generic/form/containers/TextAre
 import DatePickerPresentational from 'components/shared/generic/form/presentational/DatePicker';
 import CheckboxListContainer from 'components/shared/generic/form/containers/CheckboxListContainer';
 import { DROPDOWN_OPTIONS } from 'constants/companyAdmin/enums';
+import FieldOutput from 'components/shared/generic/fieldOutput/presentational/FieldOutput';
 
 // * .*. in names is used for splitting up field validations without risking overlap with real names
 
-const BuildingFormFieldsWithLabel = ({ buildings, updateBuilding, removeBuilding }) =>
+const BuildingFormFieldsWithLabel = ({
+    buildings,
+    updateBuilding,
+    removeBuilding,
+    showManufacturingOptions,
+    setShowManufacturingOptions,
+    siteName,
+}) =>
     buildings.map(building => (
         <div key={building.id} className="size-lg-12">
             <div className="size-lg-6 size-md-12">
@@ -84,76 +92,106 @@ const BuildingFormFieldsWithLabel = ({ buildings, updateBuilding, removeBuilding
                     </div>
                 )}
             </div>
+            {showManufacturingOptions ? (
+                <>
+                    <div className="size-lg-12">
+                        <div className="size-lg-6 size-md-12">
+                            <Field
+                                labelClasses="no-capitalise"
+                                name="Set manufacturer(s) for building?"
+                            >
+                                <CheckboxContainer
+                                    checked={building.setManufacturersForHierarchy}
+                                    name={`${building.id}.*.setManufacturersForHierarchy`}
+                                    text=""
+                                    handleChange={(name, value) =>
+                                        updateBuilding(name, value, building.id)
+                                    }
+                                    disabled={building.isManufacturingInherited}
+                                />
+                            </Field>
+                        </div>
+                    </div>
+                    {building.setManufacturersForHierarchy && (
+                        <div className="size-lg-12">
+                            <Field
+                                labelClasses="no-capitalise"
+                                name="Manufacturer(s)"
+                                required={building.setManufacturersForHierarchy}
+                            >
+                                <CheckboxListContainer
+                                    name={`${building.id}.*.selectedManufacturerOptions`}
+                                    text=""
+                                    handleChange={(name, value) =>
+                                        updateBuilding(name, value, building.id)
+                                    }
+                                    selectedOptions={building.selectedManufacturerOptions}
+                                    options={building.manufacturerOptions}
+                                    allOptionsDisabled={building.isManufacturingInherited}
+                                    required={building.setManufacturersForHierarchy}
+                                />
+                            </Field>
+                        </div>
+                    )}
+                    {building.setManufacturersForHierarchy &&
+                        Object.entries(building.optionValuesOptions).map(
+                            ([manufacturerID, optionValues]) => {
+                                if (building.selectedManufacturerOptions.includes(manufacturerID)) {
+                                    const manufacturerInfo = building.manufacturerOptions.find(
+                                        element => String(element.id) === String(manufacturerID),
+                                    );
 
-            <div className="size-lg-12">
-                <div className="size-lg-6 size-md-12">
-                    <Field labelClasses="no-capitalise" name="Set manufacturer(s) for building?">
-                        <CheckboxContainer
-                            checked={building.setManufacturersForHierarchy}
-                            name={`${building.id}.*.setManufacturersForHierarchy`}
-                            text=""
-                            handleChange={(name, value) => updateBuilding(name, value, building.id)}
-                            disabled={building.isManufacturingInherited}
-                        />
-                    </Field>
-                </div>
-            </div>
-
-            {building.setManufacturersForHierarchy && (
-                <div className="size-lg-12">
-                    <Field
-                        labelClasses="no-capitalise"
-                        name="Manufacturer(s)"
-                        required={building.setManufacturersForHierarchy}
-                    >
-                        <CheckboxListContainer
-                            name={`${building.id}.*.selectedManufacturerOptions`}
-                            text=""
-                            handleChange={(name, value) => updateBuilding(name, value, building.id)}
-                            selectedOptions={building.selectedManufacturerOptions}
-                            options={building.manufacturerOptions}
-                            allOptionsDisabled={building.isManufacturingInherited}
-                            required={building.setManufacturersForHierarchy}
-                        />
-                    </Field>
-                </div>
-            )}
-
-            {building.setManufacturersForHierarchy &&
-                Object.entries(building.optionValuesOptions).map(
-                    ([manufacturerID, optionValues]) => {
-                        if (building.selectedManufacturerOptions.includes(manufacturerID)) {
-                            const manufacturerInfo = building.manufacturerOptions.find(
-                                element => String(element.id) === String(manufacturerID),
-                            );
-
-                            return (
-                                <div className="size-lg-12">
-                                    <Field
-                                        labelClasses="no-capitalise"
-                                        name={`${manufacturerInfo.name} ${
-                                            DROPDOWN_OPTIONS[manufacturerInfo.pinOptionType].name
-                                        }
+                                    return (
+                                        <div className="size-lg-12">
+                                            <Field
+                                                labelClasses="no-capitalise"
+                                                name={`${manufacturerInfo.name} ${
+                                                    DROPDOWN_OPTIONS[manufacturerInfo.pinOptionType]
+                                                        .name
+                                                }
                               `}
-                                        required
-                                    >
-                                        <CheckboxListContainer
-                                            name={`${building.id}.*.selectedOptionValues`}
-                                            text=""
-                                            handleChange={(name, value) =>
-                                                updateBuilding(name, value, building.id)
-                                            }
-                                            selectedOptions={building.selectedOptionValues}
-                                            options={Object.values(optionValues)}
-                                            allOptionsDisabled={building.isManufacturingInherited}
-                                            required
-                                        />
-                                    </Field>
-                                </div>
-                            );
-                        } else return null;
-                    },
-                )}
+                                                required
+                                            >
+                                                <CheckboxListContainer
+                                                    name={`${building.id}.*.selectedOptionValues`}
+                                                    text=""
+                                                    handleChange={(name, value) =>
+                                                        updateBuilding(name, value, building.id)
+                                                    }
+                                                    selectedOptions={building.selectedOptionValues}
+                                                    options={Object.values(optionValues)}
+                                                    allOptionsDisabled={
+                                                        building.isManufacturingInherited
+                                                    }
+                                                    required
+                                                />
+                                            </Field>
+                                        </div>
+                                    );
+                                } else return null;
+                            },
+                        )}
+                </>
+            ) : (
+                <>
+                    <FieldOutput fieldClass="center-align">
+                        <div className="form-field size-lg-12">
+                            <p>
+                                Manufacturers already set at {siteName}.
+                                <br /> This cannot be overridden at this level, click{' '}
+                                <span
+                                    onClick={() => {
+                                        setShowManufacturingOptions(true);
+                                    }}
+                                >
+                                    here
+                                </span>{' '}
+                                to see the settings.
+                            </p>
+                        </div>
+                    </FieldOutput>
+                </>
+            )}
 
             {buildings.length > 1 && (
                 <BlockButtonWrapper>

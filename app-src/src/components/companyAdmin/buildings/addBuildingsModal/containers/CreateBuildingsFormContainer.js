@@ -76,6 +76,8 @@ const CreateBuildingsFormContainer = ({
         optionValuesOptions: {},
     });
 
+    const [showManufacturingOptions, setShowManufacturingOptions] = useState(true);
+
     const [areOptionsLoaded, setAreOptionsLoaded] = useState(false);
 
     const prevProps = usePrevious({ isFetching });
@@ -129,6 +131,7 @@ const CreateBuildingsFormContainer = ({
                     optionValues,
                     initialOptions.selectedOptionValues,
                 );
+                setShowManufacturingOptions(false);
             } else {
                 // set default prefills as per the company admin options
                 initialOptions.setManufacturersForHierarchy = useManufacturingByDefault;
@@ -166,11 +169,14 @@ const CreateBuildingsFormContainer = ({
                 buildingIDs={getKeys()}
                 getKeys
                 siteID={siteID}
+                siteName={site.name}
                 hideModal={hideModal}
                 handleClose={handleClose}
                 handleSubmit={handleSubmit}
                 isUsingBolsterLabels={isUsingBolsterLabels}
                 initialOptions={initialOptions}
+                showManufacturingOptions={showManufacturingOptions}
+                setShowManufacturingOptions={setShowManufacturingOptions}
             />
         </BlockContainer>
     );

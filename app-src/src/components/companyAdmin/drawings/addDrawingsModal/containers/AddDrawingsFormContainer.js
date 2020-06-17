@@ -83,6 +83,8 @@ const AddDrawingsFormContainer = ({
 
     const prevProps = usePrevious({ isFetching });
 
+    const [showManufacturingOptions, setShowManufacturingOptions] = useState(true);
+
     useEffect(() => {
         // ** Only do a fetch for the manufacturers of a specific type if manufacturing is enabled. Wait for them to resolve before adding a drawing.
         async function getPinOptions() {
@@ -105,7 +107,7 @@ const AddDrawingsFormContainer = ({
 
     useEffect(() => {
         if (prevProps.isFetching && !isFetching) {
-            const isManufacturingInherited = floor.isManufacturingEnabled;
+            const isManufacturingInherited = floor.manufacturingInheritedFrom;
 
             const initialOptions = {
                 isManufacturingInherited,
@@ -114,6 +116,7 @@ const AddDrawingsFormContainer = ({
                 selectedOptionValues: null,
                 manufacturerOptions: null,
                 selectedManufacturerOptions: null,
+                manufacturingInheritedFrom: null,
             };
 
             if (isManufacturingInherited) {
@@ -132,6 +135,8 @@ const AddDrawingsFormContainer = ({
                     optionValues,
                     initialOptions.selectedOptionValues,
                 );
+                initialOptions.manufacturingInheritedFrom = floor.manufacturingInheritedFrom;
+                setShowManufacturingOptions(false);
             } else {
                 // set default prefills as per the company admin options
                 initialOptions.setManufacturersForHierarchy = useManufacturingByDefault;
@@ -175,6 +180,8 @@ const AddDrawingsFormContainer = ({
                 filesUploading={filesUploading}
                 credits={credits}
                 initialOptions={initialOptions}
+                setShowManufacturingOptions={setShowManufacturingOptions}
+                showManufacturingOptions={showManufacturingOptions}
             />
         </BlockContainer>
     );

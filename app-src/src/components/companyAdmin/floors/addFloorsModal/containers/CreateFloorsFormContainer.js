@@ -79,6 +79,8 @@ const CreateFloorsFormContainer = ({
 
     const prevProps = usePrevious({ isFetching });
 
+    const [showManufacturingOptions, setShowManufacturingOptions] = useState(true);
+
     useEffect(() => {
         // ** Only do a fetch for the manufacturers of a specific type if manufacturing is enabled. Wait for them to resolve before adding a site.
         async function getPinOptions() {
@@ -101,7 +103,7 @@ const CreateFloorsFormContainer = ({
 
     useEffect(() => {
         if (prevProps.isFetching && !isFetching) {
-            const isManufacturingInherited = building.isManufacturingEnabled;
+            const isManufacturingInherited = building.manufacturingInheritedFrom;
 
             const initialOptions = {
                 isManufacturingInherited,
@@ -110,6 +112,7 @@ const CreateFloorsFormContainer = ({
                 selectedOptionValues: null,
                 manufacturerOptions: null,
                 selectedManufacturerOptions: null,
+                manufacturingInheritedFrom: null,
             };
 
             if (isManufacturingInherited) {
@@ -128,6 +131,8 @@ const CreateFloorsFormContainer = ({
                     optionValues,
                     initialOptions.selectedOptionValues,
                 );
+                initialOptions.manufacturingInheritedFrom = building.manufacturingInheritedFrom;
+                setShowManufacturingOptions(false);
             } else {
                 // set default prefills as per the company admin options
                 initialOptions.setManufacturersForHierarchy = useManufacturingByDefault;
@@ -170,6 +175,8 @@ const CreateFloorsFormContainer = ({
                 handleSubmit={handleSubmit}
                 isUsingBolsterLabels={isUsingBolsterLabels}
                 initialOptions={initialOptions}
+                setShowManufacturingOptions={setShowManufacturingOptions}
+                showManufacturingOptions={showManufacturingOptions}
             />
         </BlockContainer>
     );

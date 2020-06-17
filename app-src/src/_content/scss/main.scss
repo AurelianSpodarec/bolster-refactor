@@ -1914,6 +1914,10 @@ input {
         @include ubuntu;
         font-size: 140%;
         color: $text-grey;
+        span{
+            color:$body-text;
+            cursor:pointer;
+        }
     }
 
     img {
@@ -1960,6 +1964,9 @@ input {
             width: 10em;
             margin-top: 5px;
         }
+    }
+    &.center-align{
+        text-align:center;
     }
 }
 

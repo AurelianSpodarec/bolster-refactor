@@ -10,7 +10,7 @@ import updateHierarchyAddState from 'actions/companyAdmin/hierarchy/sync/updateH
 class CreateBuildingFormContainer extends Component {
     state = {
         name: '',
-        location: ''
+        location: '',
     };
 
     render() {
@@ -28,6 +28,15 @@ class CreateBuildingFormContainer extends Component {
             />
         );
     }
+    componentDidMount = () => {
+        const { sites, siteID } = this.props;
+
+        console.warn(sites[siteID]);
+        console.warn(sites[siteID]);
+        console.warn(sites[siteID]);
+        console.warn(sites);
+        console.warn(sites);
+    };
 
     handleInputChange = (name, value) => {
         this.setState({ [name]: value });
@@ -35,9 +44,14 @@ class CreateBuildingFormContainer extends Component {
 
     handleSubmit = e => {
         e.preventDefault();
-        const { siteID, createBuilding, hideModal } = this.props;
+        const { siteID, createBuilding, hideModal, sites } = this.props;
         const postBody = { ...this.state, siteID };
-        createBuilding(postBody);
+        // createBuilding(postBody);
+        console.warn(sites[siteID]);
+        console.warn(sites[siteID]);
+        console.warn(sites[siteID]);
+        console.warn(sites);
+        console.warn(sites);
         hideModal();
     };
 
@@ -49,9 +63,10 @@ class CreateBuildingFormContainer extends Component {
     };
 }
 
-const mapStateToProps = ({ companyAdmin: { companySettingsReducer } }) => ({
+const mapStateToProps = ({ companyAdmin: { companySettingsReducer, sitesReducer } }) => ({
     // !alter when it's been determined that company is using bolster labels
     // isUsingBolsterLabels: companySettingsReducer.isUsingBolsterLabels
+    sites: sitesReducer.sites,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -59,12 +74,9 @@ const mapDispatchToProps = dispatch => ({
     hideModal: () => dispatch(hideModal()),
     updateHierarchyAddState: value => {
         dispatch(updateHierarchyAddState(value));
-    }
+    },
 });
 
 export default withRouter(
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(CreateBuildingFormContainer)
+    connect(mapStateToProps, mapDispatchToProps)(CreateBuildingFormContainer),
 );
