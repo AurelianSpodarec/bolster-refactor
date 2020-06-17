@@ -10,6 +10,7 @@ import CheckboxContainer from 'components/shared/generic/form/containers/Checkbo
 import DatePickerPresentational from 'components/shared/generic/form/presentational/DatePicker';
 import CheckboxListContainer from 'components/shared/generic/form/containers/CheckboxListContainer';
 import { DROPDOWN_OPTIONS } from 'constants/companyAdmin/enums';
+import FieldOutput from 'components/shared/generic/fieldOutput/presentational/FieldOutput';
 
 const FloorEditForm = ({
     handleSubmit,
@@ -27,6 +28,9 @@ const FloorEditForm = ({
     selectedManufacturerOptions,
     selectedOptionValues,
     optionValuesOptions,
+    handleShowManufacturingOptions,
+    showManufacturingOptions,
+    manufacturingInheritedFrom,
 }) => (
     <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
         <div className="size-lg-12">
@@ -79,63 +83,90 @@ const FloorEditForm = ({
                     </div>
                 )}
             </div>
-            <div className="size-lg-12">
-                <div className="size-lg-6 size-md-12">
-                    <Field labelClasses="no-capitalise" name="Set manufacturer(s) for floor?">
-                        <CheckboxContainer
-                            checked={setManufacturersForHierarchy}
-                            name="setManufacturersForHierarchy"
-                            text=""
-                            handleChange={handleInputChange}
-                            disabled={isManufacturingInherited}
-                        />
-                    </Field>
-                </div>
-            </div>
-            {setManufacturersForHierarchy && (
-                <div className="size-lg-12">
-                    <Field labelClasses="no-capitalise" name="Manufacturer(s)">
-                        <CheckboxListContainer
-                            name="selectedManufacturerOptions"
-                            text=""
-                            handleChange={handleInputChange}
-                            selectedOptions={selectedManufacturerOptions}
-                            options={manufacturerOptions}
-                            allOptionsDisabled={isManufacturingInherited}
-                        />
-                    </Field>
-                </div>
-            )}
+            {showManufacturingOptions ? (
+                <>
+                    <div className="size-lg-12">
+                        <div className="size-lg-6 size-md-12">
+                            <Field
+                                labelClasses="no-capitalise"
+                                name="Set manufacturer(s) for floor?"
+                            >
+                                <CheckboxContainer
+                                    checked={setManufacturersForHierarchy}
+                                    name="setManufacturersForHierarchy"
+                                    text=""
+                                    handleChange={handleInputChange}
+                                    disabled={isManufacturingInherited}
+                                />
+                            </Field>
+                        </div>
+                    </div>
+                    {setManufacturersForHierarchy && (
+                        <div className="size-lg-12">
+                            <Field labelClasses="no-capitalise" name="Manufacturer(s)">
+                                <CheckboxListContainer
+                                    name="selectedManufacturerOptions"
+                                    text=""
+                                    handleChange={handleInputChange}
+                                    selectedOptions={selectedManufacturerOptions}
+                                    options={manufacturerOptions}
+                                    allOptionsDisabled={isManufacturingInherited}
+                                />
+                            </Field>
+                        </div>
+                    )}
 
-            {setManufacturersForHierarchy &&
-                Object.entries(optionValuesOptions).map(([manufacturerID, optionValues]) => {
-                    if (selectedManufacturerOptions.includes(manufacturerID)) {
-                        const manufacturerInfo = manufacturerOptions.find(
-                            element => String(element.id) === String(manufacturerID),
-                        );
+                    {setManufacturersForHierarchy &&
+                        Object.entries(optionValuesOptions).map(
+                            ([manufacturerID, optionValues]) => {
+                                if (selectedManufacturerOptions.includes(manufacturerID)) {
+                                    const manufacturerInfo = manufacturerOptions.find(
+                                        element => String(element.id) === String(manufacturerID),
+                                    );
 
-                        return (
-                            <div className="size-lg-12">
-                                <Field
-                                    labelClasses="no-capitalise"
-                                    name={`${manufacturerInfo.name} ${
-                                        DROPDOWN_OPTIONS[manufacturerInfo.pinOptionType].name
-                                    }
+                                    return (
+                                        <div className="size-lg-12">
+                                            <Field
+                                                labelClasses="no-capitalise"
+                                                name={`${manufacturerInfo.name} ${
+                                                    DROPDOWN_OPTIONS[manufacturerInfo.pinOptionType]
+                                                        .name
+                                                }
                               `}
-                                >
-                                    <CheckboxListContainer
-                                        name="selectedOptionValues"
-                                        text=""
-                                        handleChange={handleInputChange}
-                                        selectedOptions={selectedOptionValues}
-                                        options={Object.values(optionValues)}
-                                        allOptionsDisabled={isManufacturingInherited}
-                                    />
-                                </Field>
+                                            >
+                                                <CheckboxListContainer
+                                                    name="selectedOptionValues"
+                                                    text=""
+                                                    handleChange={handleInputChange}
+                                                    selectedOptions={selectedOptionValues}
+                                                    options={Object.values(optionValues)}
+                                                    allOptionsDisabled={isManufacturingInherited}
+                                                />
+                                            </Field>
+                                        </div>
+                                    );
+                                } else return null;
+                            },
+                        )}
+                </>
+            ) : (
+                <>
+                    <>
+                        <FieldOutput fieldClass="center-align">
+                            <div className="form-field size-lg-12">
+                                <p>
+                                    Manufacturers already set at {manufacturingInheritedFrom}.
+                                    <br /> This cannot be overridden at this level, click{' '}
+                                    <span onClick={() => handleShowManufacturingOptions()}>
+                                        here
+                                    </span>{' '}
+                                    to see the settings.
+                                </p>
                             </div>
-                        );
-                    } else return null;
-                })}
+                        </FieldOutput>
+                    </>
+                </>
+            )}
         </div>
 
         <BlockButtonWrapper>

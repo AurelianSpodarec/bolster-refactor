@@ -28,15 +28,6 @@ class CreateBuildingFormContainer extends Component {
             />
         );
     }
-    componentDidMount = () => {
-        const { sites, siteID } = this.props;
-
-        console.warn(sites[siteID]);
-        console.warn(sites[siteID]);
-        console.warn(sites[siteID]);
-        console.warn(sites);
-        console.warn(sites);
-    };
 
     handleInputChange = (name, value) => {
         this.setState({ [name]: value });

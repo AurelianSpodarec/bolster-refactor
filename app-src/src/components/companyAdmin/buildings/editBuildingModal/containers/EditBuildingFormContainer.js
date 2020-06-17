@@ -36,11 +36,13 @@ class BuildingEditFormContainer extends Component {
         selectedOptionValues: [],
         optionValuesOptions: {},
         areOptionsLoaded: false,
+        showManufacturingOptions: true,
+        manufacturingInheritedFrom: '',
     };
 
     render() {
         const { isUsingBolsterLabels, error } = this.props;
-        const { areOptionsLoaded } = this.state;
+        const { areOptionsLoaded, showManufacturingOptions } = this.state;
         return (
             <BlockContainer
                 isEmpty={!areOptionsLoaded}
@@ -56,6 +58,8 @@ class BuildingEditFormContainer extends Component {
                     buildingID={this.props.buildingID}
                     hideModal={this.props.hideModal}
                     isUsingBolsterLabels={isUsingBolsterLabels}
+                    handleShowManufacturingOptions={this.handleShowManufacturingOptions}
+                    showManufacturingOptions={showManufacturingOptions}
                 />
             </BlockContainer>
         );
@@ -102,6 +106,7 @@ class BuildingEditFormContainer extends Component {
                 selectedOptionValues: [],
                 optionValuesOptions: {},
                 areOptionsLoaded: true,
+                manufacturingInheritedFrom: building.manufacturingInheritedFrom,
             };
 
             initialOptions.optionValuesOptions = createOptionValuesList(
@@ -119,6 +124,9 @@ class BuildingEditFormContainer extends Component {
                     optionValues,
                     initialOptions.selectedOptionValues,
                 );
+                if (building.manufacturingInheritedFrom) {
+                    this.setState({ showManufacturingOptions: false });
+                }
             } else {
                 //prefill from company settings in anticipation of isManufacturingEnabled being set to true
                 initialOptions.selectedOptionValues = createPreselectedOptionValuesList(
@@ -135,6 +143,9 @@ class BuildingEditFormContainer extends Component {
         if (!prevProps.building.id && !!building.id) {
             this._setFormDetails();
         }
+    };
+    handleShowManufacturingOptions = () => {
+        this.setState({ showManufacturingOptions: true });
     };
 
     handleInputChange = (name, value) => {

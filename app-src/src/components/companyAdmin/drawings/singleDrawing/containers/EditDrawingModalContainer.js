@@ -41,6 +41,8 @@ class EditDrawingModalContainer extends Component {
         selectedOptionValues: [],
         optionValuesOptions: {},
         areOptionsLoaded: false,
+        showManufacturingOptions: true,
+        manufacturingInheritedFrom: '',
     };
 
     render() {
@@ -62,6 +64,7 @@ class EditDrawingModalContainer extends Component {
                     hideModal={hideModal}
                     handleSubmit={this.handleSubmit}
                     filesUploading={filesUploading}
+                    handleShowManufacturingOptions={this.handleShowManufacturingOptions}
                 />
             </BlockContainer>
         );
@@ -112,6 +115,7 @@ class EditDrawingModalContainer extends Component {
                 selectedOptionValues: [],
                 optionValuesOptions: {},
                 areOptionsLoaded: true,
+                manufacturingInheritedFrom: drawing.manufacturingInheritedFrom,
             };
 
             initialOptions.optionValuesOptions = createOptionValuesList(
@@ -129,6 +133,9 @@ class EditDrawingModalContainer extends Component {
                     optionValues,
                     initialOptions.selectedOptionValues,
                 );
+                if (drawing.manufacturingInheritedFrom) {
+                    this.setState({ showManufacturingOptions: false });
+                }
             } else {
                 //prefill from company settings in anticipation of isManufacturingEnabled being set to true
                 initialOptions.selectedOptionValues = createPreselectedOptionValuesList(
@@ -166,7 +173,9 @@ class EditDrawingModalContainer extends Component {
             dateToSend: date,
         });
     };
-
+    handleShowManufacturingOptions = () => {
+        this.setState({ showManufacturingOptions: true });
+    };
     handleSubmit = e => {
         e.preventDefault();
 

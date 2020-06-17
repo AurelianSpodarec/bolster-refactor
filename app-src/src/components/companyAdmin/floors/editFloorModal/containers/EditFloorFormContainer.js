@@ -35,6 +35,8 @@ class EditFloorFormContainer extends Component {
         selectedOptionValues: [],
         optionValuesOptions: {},
         areOptionsLoaded: false,
+        showManufacturingOptions: true,
+        manufacturingInheritedFrom: '',
     };
 
     render() {
@@ -55,6 +57,7 @@ class EditFloorFormContainer extends Component {
                     handleSubmit={this.handleSubmit}
                     hideModal={this.props.hideModal}
                     isUsingBolsterLabels={isUsingBolsterLabels}
+                    handleShowManufacturingOptions={this.handleShowManufacturingOptions}
                 />
             </BlockContainer>
         );
@@ -101,6 +104,7 @@ class EditFloorFormContainer extends Component {
                 selectedOptionValues: [],
                 optionValuesOptions: {},
                 areOptionsLoaded: true,
+                manufacturingInheritedFrom: floor.manufacturingInheritedFrom,
             };
 
             initialOptions.optionValuesOptions = createOptionValuesList(
@@ -118,6 +122,9 @@ class EditFloorFormContainer extends Component {
                     optionValues,
                     initialOptions.selectedOptionValues,
                 );
+                if (floor.manufacturingInheritedFrom) {
+                    this.setState({ showManufacturingOptions: false });
+                }
             } else {
                 //prefill from company settings in anticipation of isManufacturingEnabled being set to true
                 initialOptions.selectedOptionValues = createPreselectedOptionValuesList(
@@ -134,6 +141,9 @@ class EditFloorFormContainer extends Component {
         if (!prevProps.floor.id && !!floor.id) {
             this._setFormDetails();
         }
+    };
+    handleShowManufacturingOptions = () => {
+        this.setState({ showManufacturingOptions: true });
     };
 
     handleInputChange = (name, value) => {

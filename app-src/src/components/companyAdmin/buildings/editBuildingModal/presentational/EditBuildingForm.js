@@ -21,6 +21,9 @@ const BuildingEditForm = ({
     selectedManufacturerOptions,
     selectedOptionValues,
     optionValuesOptions,
+    handleShowManufacturingOptions,
+    showManufacturingOptions,
+    manufacturingInheritedFrom,
 }) => (
     <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
         <EditBuildingFormFieldsNoLabel
@@ -37,6 +40,9 @@ const BuildingEditForm = ({
             selectedManufacturerOptions={selectedManufacturerOptions}
             selectedOptionValues={selectedOptionValues}
             optionValuesOptions={optionValuesOptions}
+            handleShowManufacturingOptions={handleShowManufacturingOptions}
+            showManufacturingOptions={showManufacturingOptions}
+            manufacturingInheritedFrom={manufacturingInheritedFrom}
         />
 
         <BlockButtonWrapper>
