@@ -9,7 +9,7 @@ export const HIERARCHY_TYPES = {
     '2': 'building',
     '3': 'floor',
     '4': 'drawing',
-    '100': 'all sites'
+    '100': 'all sites',
 };
 
 export const HIERARCHY_IDS = {
@@ -17,7 +17,7 @@ export const HIERARCHY_IDS = {
     BUILDING: '2',
     FLOOR: '3',
     DRAWING: '4',
-    ALL_SITES: '100'
+    ALL_SITES: '100',
 };
 
 export const TEMPLATE_USAGE_RULES = {
@@ -188,8 +188,8 @@ export const VAT_TYPES = {
 
 export const VAT_TYPE_NAME = {
     '1': 'GB',
-    '2': 'EU',
-    '3': 'Outside EU',
+    '2': 'Europe',
+    '3': 'Outside Europe',
 };
 
 //Report generator
