@@ -6,14 +6,16 @@ import { DOCUMENT_VIEW_TYPES } from 'constants/companyAdmin/enums';
 
 class DocumentPreviewModal extends Component {
     state = { isLoading: true };
+
     render() {
         const { image, type } = this.props;
         return (
             <ModalOuterContainer>
                 {this.state.isLoading && <Loading message="Loading photo..." />}
                 {type === DOCUMENT_VIEW_TYPES.PDF ? (
-                    <embed
+                    <iframe
                         src={image}
+                        id="pdf-preview"
                         type="application/pdf"
                         className="document-version-preview pdf-preview"
                         onLoad={() => this.setState({ isLoading: false })}
