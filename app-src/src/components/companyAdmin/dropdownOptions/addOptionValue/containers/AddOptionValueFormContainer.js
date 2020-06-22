@@ -12,17 +12,24 @@ class AddOptionValueFormContainer extends Component {
         name: '',
         serviceIDs: [],
         serviceOptions: [],
+        showAddDocumentForm: false,
+        docName: '',
+        fileS3Key: '',
     };
 
     render() {
+        const { filesUploading } = this.props;
+
         return (
             <AddOptionValueForm
                 {...this.state}
+                handleShowAddDocForm={this.handleShowAddDocForm}
                 handleInputChange={this.handleInputChange}
                 handleSubmit={this.handleSubmit}
                 hideModal={this.props.hideModal}
                 buttonText={this.props.buttonText}
                 validateName={this.validateName}
+                filesUploading={filesUploading}
             />
         );
     }
@@ -32,7 +39,11 @@ class AddOptionValueFormContainer extends Component {
 
         this.setState({ serviceOptions });
     };
+    handleShowAddDocForm = () => {
+        const { showAddDocumentForm } = this.state;
 
+        this.setState({ showAddDocumentForm: !showAddDocumentForm });
+    };
     handleInputChange = (name, value) => {
         this.setState({ [name]: value });
     };
@@ -45,15 +56,24 @@ class AddOptionValueFormContainer extends Component {
 
     handleSubmit = e => {
         e.preventDefault();
-        const { createOptionValue, manufacturer } = this.props;
-        const { name, serviceIDs } = this.state;
-
-        const postBody = {
-            name,
-            serviceIDs,
-        };
-
-        createOptionValue(manufacturer.id, postBody);
+        const { createOptionValue, manufacturer, filesUploading } = this.props;
+        const { name, serviceIDs, docName, fileS3Key } = this.state;
+        let postBody = {};
+        if (!filesUploading) {
+            if (docName.length) {
+                postBody = {
+                    name,
+                    serviceIDs,
+                    document: { name: docName, fileS3Key },
+                };
+            } else {
+                postBody = {
+                    name,
+                    serviceIDs,
+                };
+            }
+            createOptionValue(manufacturer.id, postBody);
+        }
     };
 
     formatServicesWithSubscriptions = () => {

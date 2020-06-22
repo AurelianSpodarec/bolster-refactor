@@ -11,6 +11,9 @@ class AddOptionValueFormContainer extends Component {
     state = {
         name: '',
         serviceIDs: [],
+        showAddDocumentForm: false,
+        docName: '',
+        fileS3Key: '',
     };
 
     render() {
@@ -30,6 +33,7 @@ class AddOptionValueFormContainer extends Component {
                 buttonText={this.props.buttonText}
                 validateName={this.validateName}
                 serviceOptions={serviceOptions}
+                handleShowAddDocForm={this.handleShowAddDocForm}
             />
         );
     }
@@ -44,15 +48,33 @@ class AddOptionValueFormContainer extends Component {
         if (nameTaken) return 'Please choose a unique name.';
     };
 
+    handleShowAddDocForm = () => {
+        const { showAddDocumentForm } = this.state;
+
+        this.setState({ showAddDocumentForm: !showAddDocumentForm });
+    };
+
     handleSubmit = e => {
         e.preventDefault();
-        const { createOptionValue, manufacturer } = this.props;
+        const { createOptionValue, manufacturer, filesUploading } = this.props;
+        const { name, serviceIDs, docName, fileS3Key } = this.state;
+        let postBody = {};
 
-        const postBody = {
-            ...this.state,
-        };
-
-        createOptionValue(manufacturer.id, postBody);
+        if (!filesUploading) {
+            if (docName.length) {
+                postBody = {
+                    name,
+                    serviceIDs,
+                    document: { name: docName, fileS3Key },
+                };
+            } else {
+                postBody = {
+                    name,
+                    serviceIDs,
+                };
+            }
+            createOptionValue(manufacturer.id, postBody);
+        }
     };
 }
 
