@@ -15,7 +15,7 @@ import { RAW_S3_STORAGE_URL } from 'config';
 
 const DocumentVersionsList = ({
     versions,
-    dispatch,
+    showModal,
     handleDeleteDocumentVersionModal,
     isReadOnly,
 }) => (
@@ -42,12 +42,10 @@ const DocumentVersionsList = ({
                                 <div
                                     className={'preview-click-div'}
                                     onClick={() =>
-                                        dispatch(
-                                            showModal(DOCUMENT_VIEW, {
-                                                image: `${RAW_S3_STORAGE_URL}/${version.fileS3Key}#toolbar=0&navpanes=0&scrollbar=0`,
-                                                type: DOCUMENT_VIEW_TYPES.PDF,
-                                            }),
-                                        )
+                                        showModal(DOCUMENT_VIEW, {
+                                            image: `${RAW_S3_STORAGE_URL}/${version.fileS3Key}#toolbar=0&navpanes=0&scrollbar=0`,
+                                            type: DOCUMENT_VIEW_TYPES.PDF,
+                                        })
                                     }
                                 ></div>
                             </div>
@@ -56,12 +54,10 @@ const DocumentVersionsList = ({
                                 src={`${FILE_STORAGE_URL}/${version.fileS3Key}?width=500`}
                                 alt="preview of the upload"
                                 onClick={() =>
-                                    dispatch(
-                                        showModal(DOCUMENT_VIEW, {
-                                            image: `${FILE_STORAGE_URL}/${version.fileS3Key}?width=1500`,
-                                            type: DOCUMENT_VIEW_TYPES.IMAGE,
-                                        }),
-                                    )
+                                    showModal(DOCUMENT_VIEW, {
+                                        image: `${FILE_STORAGE_URL}/${version.fileS3Key}?width=1500`,
+                                        type: DOCUMENT_VIEW_TYPES.IMAGE,
+                                    })
                                 }
                                 className="document-version-preview image-preview"
                             />

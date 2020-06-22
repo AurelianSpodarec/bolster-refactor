@@ -14,6 +14,7 @@ class DocumentVersionsListContainer extends Component {
                 versions={versions}
                 handleDeleteDocumentVersionModal={this.handleDeleteDocumentVersionModal}
                 isReadOnly={this.props.isReadOnly}
+                showModal={this.props.showModal}
             />
         );
     }
