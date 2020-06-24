@@ -23,7 +23,7 @@ const AddManufacturerForm = ({
     fileS3Key,
     showConfirmNoDocument,
 }) => (
-    <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
+    <Form className="generic-form size-lg-12">
         <div className="size-lg-12">
             <div className="size-lg-6 size-md-12">
                 <Field name="Upload PDF or image">
@@ -78,7 +78,7 @@ const AddManufacturerForm = ({
             </div>
         )}
         <BlockButtonWrapper>
-            <button className="button green">
+            <button className="button green" onClick={e => handleSubmit(e)}>
                 <i className="fa fa-plus" /> {buttonText}
             </button>
             <ButtonContainer handleClick={hideModal}>Cancel</ButtonContainer>

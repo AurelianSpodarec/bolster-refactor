@@ -45,6 +45,11 @@ class AddOptionValueFormContainer extends Component {
         this.setState({ confirmNoDocument: !confirmNoDocument });
     };
     handleInputChange = (name, value) => {
+        const { fileS3Key, showConfirmNoDocument, confirmNoDocument } = this.state;
+
+        if (name === 'fileS3Key' && !confirmNoDocument) {
+            this.setState({ showConfirmNoDocument: false });
+        }
         this.setState({ [name]: value });
     };
 
@@ -66,6 +71,7 @@ class AddOptionValueFormContainer extends Component {
         } = this.state;
 
         let postBody = {};
+        console.log({ filesUploading });
 
         if (!filesUploading) {
             if (!fileS3Key.length && !confirmNoDocument && !showConfirmNoDocument) {
@@ -114,10 +120,14 @@ const mapStateToProps = (
                 subscriptions: { serviceIDs: subscriptionServiceIDs },
             },
         },
+        shared: {
+            filesUploadingReducer: { filesUploading },
+        },
     },
     { manufacturer },
 ) => {
     return {
+        filesUploading,
         optionValues: manufacturersOptionValues[manufacturer.id]
             ? Object.values(manufacturersOptionValues[manufacturer.id])
             : [],

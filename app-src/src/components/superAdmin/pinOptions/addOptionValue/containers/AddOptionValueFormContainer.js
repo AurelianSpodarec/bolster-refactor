@@ -39,6 +39,12 @@ class AddOptionValueFormContainer extends Component {
     }
 
     handleInputChange = (name, value) => {
+        const { confirmNoDocument } = this.state;
+
+        if (name === 'fileS3Key' && !confirmNoDocument) {
+            this.setState({ showConfirmNoDocument: false });
+        }
+
         this.setState({ [name]: value });
     };
 
