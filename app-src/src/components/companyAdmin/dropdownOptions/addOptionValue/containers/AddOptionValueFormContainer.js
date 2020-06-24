@@ -12,9 +12,9 @@ class AddOptionValueFormContainer extends Component {
         name: '',
         serviceIDs: [],
         serviceOptions: [],
-        showAddDocumentForm: false,
-        docName: '',
+        confirmNoDocument: false,
         fileS3Key: '',
+        showConfirmNoDocument: false,
     };
 
     render() {
@@ -40,9 +40,9 @@ class AddOptionValueFormContainer extends Component {
         this.setState({ serviceOptions });
     };
     handleShowAddDocForm = () => {
-        const { showAddDocumentForm } = this.state;
+        const { confirmNoDocument } = this.state;
 
-        this.setState({ showAddDocumentForm: !showAddDocumentForm });
+        this.setState({ confirmNoDocument: !confirmNoDocument });
     };
     handleInputChange = (name, value) => {
         this.setState({ [name]: value });
@@ -57,14 +57,29 @@ class AddOptionValueFormContainer extends Component {
     handleSubmit = e => {
         e.preventDefault();
         const { createOptionValue, manufacturer, filesUploading } = this.props;
-        const { name, serviceIDs, docName, fileS3Key } = this.state;
+        const {
+            name,
+            serviceIDs,
+            fileS3Key,
+            confirmNoDocument,
+            showConfirmNoDocument,
+        } = this.state;
+
         let postBody = {};
+
         if (!filesUploading) {
-            if (docName.length) {
+            if (!fileS3Key.length && !confirmNoDocument && !showConfirmNoDocument) {
+                this.setState({ showConfirmNoDocument: true });
+                return false;
+            } else if (fileS3Key.length && !confirmNoDocument && showConfirmNoDocument) {
+                this.setState({ showConfirmNoDocument: false });
+            }
+
+            if (fileS3Key.length && !confirmNoDocument) {
                 postBody = {
                     name,
                     serviceIDs,
-                    document: { name: docName, fileS3Key },
+                    document: { fileS3Key },
                 };
             } else {
                 postBody = {

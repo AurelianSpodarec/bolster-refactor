@@ -11,9 +11,9 @@ class AddOptionValueFormContainer extends Component {
     state = {
         name: '',
         serviceIDs: [],
-        showAddDocumentForm: false,
-        docName: '',
+        confirmNoDocument: false,
         fileS3Key: '',
+        showConfirmNoDocument: false,
     };
 
     render() {
@@ -49,23 +49,38 @@ class AddOptionValueFormContainer extends Component {
     };
 
     handleShowAddDocForm = () => {
-        const { showAddDocumentForm } = this.state;
+        const { confirmNoDocument } = this.state;
 
-        this.setState({ showAddDocumentForm: !showAddDocumentForm });
+        this.setState({ confirmNoDocument: !confirmNoDocument });
     };
 
     handleSubmit = e => {
         e.preventDefault();
         const { createOptionValue, manufacturer, filesUploading } = this.props;
-        const { name, serviceIDs, docName, fileS3Key } = this.state;
+
+        const {
+            name,
+            serviceIDs,
+            fileS3Key,
+            confirmNoDocument,
+            showConfirmNoDocument,
+        } = this.state;
+
         let postBody = {};
 
         if (!filesUploading) {
-            if (docName.length) {
+            if (!fileS3Key.length && !confirmNoDocument && !showConfirmNoDocument) {
+                this.setState({ showConfirmNoDocument: true });
+                return false;
+            } else if (fileS3Key.length && !confirmNoDocument && showConfirmNoDocument) {
+                this.setState({ showConfirmNoDocument: false });
+            }
+
+            if (fileS3Key.length && !confirmNoDocument) {
                 postBody = {
                     name,
                     serviceIDs,
-                    document: { name: docName, fileS3Key },
+                    document: { fileS3Key },
                 };
             } else {
                 postBody = {

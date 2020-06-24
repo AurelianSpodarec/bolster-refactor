@@ -18,22 +18,24 @@ const AddManufacturerForm = ({
     validateName,
     serviceOptions,
     serviceIDs,
-    showAddDocumentForm,
     handleShowAddDocForm,
-    docName,
+    confirmNoDocument,
     fileS3Key,
+    showConfirmNoDocument,
 }) => (
     <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
         <div className="size-lg-12">
             <div className="size-lg-6 size-md-12">
-                <Field name="Name" required>
-                    <TextInputContainer
-                        name="name"
-                        value={name}
+                <Field name="Upload PDF or image">
+                    <FileUploadContainer
+                        name="fileS3Key"
+                        acceptedTypes={['application/pdf', 'image/*']}
                         handleChange={handleInputChange}
-                        validate={validateName}
-                        required
+                        value={fileS3Key}
                     />
+                    {showConfirmNoDocument && !confirmNoDocument && (
+                        <p className="error red-text text-accent-4"> This is a required field </p>
+                    )}
                 </Field>
             </div>
         </div>
@@ -51,35 +53,25 @@ const AddManufacturerForm = ({
             </Field>
         </div>
         <div className="size-lg-12">
-            <Field name="Add document">
+            <Field name="Proceed without document?">
                 <CheckboxContainer
-                    checked={showAddDocumentForm}
-                    name="showAddDocumentForm"
-                    value={showAddDocumentForm}
+                    checked={confirmNoDocument}
+                    name="confirmNoDocument"
+                    value={confirmNoDocument}
                     handleChange={handleShowAddDocForm}
-                />{' '}
+                />
             </Field>
         </div>
-        {showAddDocumentForm && (
+        {confirmNoDocument && (
             <div className="size-lg-12">
                 <div className="size-lg-6 size-md-12">
-                    <Field name="Document Name" required>
+                    <Field name="Option Value Name" required>
                         <TextInputContainer
-                            name="docName"
-                            value={docName}
+                            name="name"
+                            value={name}
                             handleChange={handleInputChange}
+                            validate={validateName}
                             required
-                        />
-                    </Field>
-                </div>
-                <div className="size-lg-6 size-md-12">
-                    <Field name="Upload PDF or image" required>
-                        <FileUploadContainer
-                            name="fileS3Key"
-                            acceptedTypes={['application/pdf', 'image/*']}
-                            handleChange={handleInputChange}
-                            required
-                            value={fileS3Key}
                         />
                     </Field>
                 </div>
