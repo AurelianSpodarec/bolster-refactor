@@ -4,15 +4,9 @@ import { RAW_S3_STORAGE_URL, REPORT_VIEWER_URL } from 'config';
 
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 
-import {
-    GENERATION_STATE_TEXT,
-    GENERATION_STATE_VAL
-} from 'constants/companyAdmin/enums';
+import { GENERATION_STATE_TEXT, GENERATION_STATE_VAL } from 'constants/companyAdmin/enums';
 
-const CompanyReportsListItem = ({ 
-    queueItem,
-    // retryCompanyReport
-    }) => {
+const CompanyReportsListItem = ({ queueItem, retryCompanyReport }) => {
     const { FAILED, COMPLETE, DELETED } = GENERATION_STATE_VAL;
 
     return (
@@ -27,11 +21,7 @@ const CompanyReportsListItem = ({
                 <DateTimeContainer date={queueItem.createdOn} />
             </td>
             <td>
-                {queueItem.completedOn ? (
-                    <DateTimeContainer date={queueItem.completedOn} />
-                ) : (
-                    'N/A'
-                )}
+                {queueItem.completedOn ? <DateTimeContainer date={queueItem.completedOn} /> : 'N/A'}
             </td>
             <td>
                 {queueItem.state === COMPLETE ? (
@@ -52,21 +42,17 @@ const CompanyReportsListItem = ({
                     //         <i className="fa fa-times" /> Failed - Retry?
                     //     </button>
                     // )
-                    <a
-                        href={`${REPORT_VIEWER_URL}/${
-                            queueItem.id
-                        }?page=1&drawingsPerPage=100`}
-                    >
+                    <a href={`${REPORT_VIEWER_URL}/${queueItem.id}?page=1&drawingsPerPage=100`}>
                         <button className="button red" type="button">
                             <i className="fa fa-times" />
                             Failed - View report
                         </button>
                     </a>
-                ) : queueItem.state === DELETED ? 
-                (
-                    <button className="button red disabled">Report deleted</button>
-                )
-                : (
+                ) : queueItem.state === DELETED ? (
+                    <button className="button red" onClick={() => retryCompanyReport(queueItem.id)}>
+                        <i className="fa fa-times" /> Deleted - Retry?
+                    </button>
+                ) : (
                     <button className="button disabled">Unavailable</button>
                 )}
             </td>
