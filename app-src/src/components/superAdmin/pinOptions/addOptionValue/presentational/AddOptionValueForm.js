@@ -32,6 +32,7 @@ const AddManufacturerForm = ({
                         name="docName"
                         value={docName}
                         handleChange={handleInputChange}
+                        validate={validateName}
                     />
                 </Field>
             </div>
