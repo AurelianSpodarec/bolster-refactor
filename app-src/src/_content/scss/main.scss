@@ -1521,7 +1521,6 @@ input {
         font-size: 140%;
         margin-bottom: 12.5px;
         @include ubuntu-medium;
-        text-transform: capitalize;
         sub {
             color: $red;
         }
@@ -1665,6 +1664,7 @@ input {
         width: 100%;
         padding-left: 45px;
         padding-right: 10px;
+        box-decoration-break: clone;
     }
 
     .inner {
@@ -1914,6 +1914,10 @@ input {
         @include ubuntu;
         font-size: 140%;
         color: $text-grey;
+        span{
+            color:$body-text;
+            cursor:pointer;
+        }
     }
 
     img {
@@ -1960,6 +1964,9 @@ input {
             width: 10em;
             margin-top: 5px;
         }
+    }
+    &.center-align{
+        text-align:center;
     }
 }
 
@@ -3085,7 +3092,7 @@ input {
     }
 
     .modal-block {
-        max-height: 80%;
+        max-height: 90%;
         transform: translateX(-50%) translateY(-50%);
         position: absolute;
         top: 50%;
@@ -3095,6 +3102,10 @@ input {
 
         &.w-label-example {
             width: 850px;
+        }
+
+        &.no-scroll{
+            overflow: initial;
         }
 
         &.w-form {
@@ -4193,9 +4204,6 @@ input {
             margin-bottom: 0;
             .title {
                 text-transform: none;
-                &:first-letter {
-                    text-transform: capitalize;
-                }
             }
         }
 
@@ -5100,9 +5108,6 @@ input {
                         margin-bottom: 0;
                         .title {
                             text-transform: none;
-                            &:first-letter {
-                                text-transform: capitalize;
-                            }
                         }
                     }
                     label {
@@ -5430,8 +5435,7 @@ input {
     border-radius: 2.5px;
     padding: 10px;
     border: 1px solid $input-border-grey;
-    transition: 0.25s background-color ease-in-out, 0.25s box-shadow ease-in-out,
-        0.25s border ease-in-out;
+    transition: 0.25s background-color ease-in-out, 0.25s box-shadow ease-in-out, 0.25s border ease-in-out;
 
     &.can-drop {
         -webkit-box-shadow: inset 0px 0px 12px 0px #a5a5a5;
@@ -5509,5 +5513,34 @@ input {
 
     p {
         padding-left: 15px;
+    }
+}
+
+.field-output {
+    .preview-wrapper {
+        width: 100px;
+        height: auto;
+        z-index: 1;
+        .preview-click-div {
+            position: absolute;
+            top: 20px;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 5;
+        }
+        .document-version-preview {
+            z-index: 2;
+            &.pdf-preview {
+                width: 100px;
+                height: auto;
+            }
+        }
+    }
+    .document-version-preview {
+        &.image-preview {
+            max-width: 100px;
+            height: auto;
+        }
     }
 }

@@ -7,14 +7,18 @@ import editCompanySettings from 'actions/companyAdmin/companySettings/async/edit
 
 import EditSettingsForm from '../presentational/EditSettingsForm';
 import { sortTimezones, isObjEmpty, enumFormat } from 'helpers/generic';
-import { VAT_TYPES, DEFAULT_SITES_SORT, DEFAULT_SITES_SORT_NAMES } from 'constants/companyAdmin/enums';
+import {
+    VAT_TYPES,
+    DEFAULT_SITES_SORT,
+    DEFAULT_SITES_SORT_NAMES,
+} from 'constants/companyAdmin/enums';
 
 class EditSettingsFormContainer extends Component {
     state = {
         templateUsageRuleOptions: {
             '1': { label: 'Use Only Owner Company', value: 1 },
             '2': { label: 'Use Only Own', value: 2 },
-            '3': { label: 'Use Any', value: 3 }
+            '3': { label: 'Use Any', value: 3 },
         },
         name: '',
         addressLine1: '',
@@ -43,6 +47,7 @@ class EditSettingsFormContainer extends Component {
         deafultSitesSort: DEFAULT_SITES_SORT.CUSTOM,
         shouldDeleteReportsAfterDownload: false,
         enableQRCodes: false,
+        useManufacturingByDefault: false,
     };
 
     render() {
@@ -52,19 +57,19 @@ class EditSettingsFormContainer extends Component {
             timeZone,
             dateFormat,
             timeZoneOptions,
-            dateFormatOptions
+            dateFormatOptions,
         } = this.state;
 
         const templateUsageRuleOptions = {
             '1': { text: 'Use Only Owner Company', value: 1 },
             '2': { text: 'Use Only Own', value: 2 },
-            '3': { text: 'Use Any', value: 3 }
+            '3': { text: 'Use Any', value: 3 },
         };
 
         const vatOptions = [
             { label: 'GB', value: VAT_TYPES.GB },
             { label: 'EU', value: VAT_TYPES.EU },
-            { label: 'Outside EU', value: VAT_TYPES.OUTSIDEEU }
+            { label: 'Outside EU', value: VAT_TYPES.OUTSIDEEU },
         ];
 
         const siteSortOptions = enumFormat(DEFAULT_SITES_SORT_NAMES);
@@ -104,7 +109,7 @@ class EditSettingsFormContainer extends Component {
                 colourCode,
                 enableQRCodes,
                 ...restSettings
-            }
+            },
         } = this.props;
         this.setState({
             ...restSettings,
@@ -152,7 +157,7 @@ class EditSettingsFormContainer extends Component {
 
             editCompanySettings({
                 ...postBody,
-                dateFormatID: dateFormat
+                dateFormatID: dateFormat,
             });
         }
     };
@@ -160,30 +165,30 @@ class EditSettingsFormContainer extends Component {
     formatTimezones = () =>
         sortTimezones(this.props.timeZones).map(({ id, name, offset }) => ({
             value: id,
-            label: `${name} - ${offset}`
+            label: `${name} - ${offset}`,
         }));
 
     formatDateFormats = () =>
         this.props.dateFormats.map(({ id, example, momentDateTimeFormat }) => ({
             value: id,
-            label: `${momentDateTimeFormat} (eg. ${example})}`
+            label: `${momentDateTimeFormat} (eg. ${example})}`,
         }));
 }
 
 const mapDispatchToProps = dispatch => ({
     editCompanySettings: postBody => {
         dispatch(editCompanySettings(postBody));
-    }
+    },
 });
 
 const mapStateToProps = ({
     companyAdmin: {
-        companySettingsReducer: { isFetching, error, companySettings, postSuccess }
+        companySettingsReducer: { isFetching, error, companySettings, postSuccess },
     },
     shared: {
         filesUploadingReducer: { filesUploading },
-        timeReducer: { timeZones, dateFormats }
-    }
+        timeReducer: { timeZones, dateFormats },
+    },
 }) => ({
     isFetching,
     error,
@@ -191,12 +196,7 @@ const mapStateToProps = ({
     filesUploading,
     postSuccess,
     timeZones: Object.values(timeZones),
-    dateFormats: Object.values(dateFormats)
+    dateFormats: Object.values(dateFormats),
 });
 
-export default withRouter(
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(EditSettingsFormContainer)
-);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(EditSettingsFormContainer));

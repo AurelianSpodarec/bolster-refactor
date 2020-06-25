@@ -1,6 +1,5 @@
 import React from 'react';
 
-import EditBuildingFormFieldsWithLabel from 'components/companyAdmin/buildings/editBuildingModal/presentational/EditBuildingFormFieldsWithLabel';
 import EditBuildingFormFieldsNoLabel from 'components/companyAdmin/buildings/editBuildingModal/presentational/EditBuildingFormFieldsNoLabel';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import Form from 'components/shared/generic/form/containers/Form';
@@ -13,33 +12,39 @@ const BuildingEditForm = ({
     hideModal,
     name,
     location,
-    isUsingBolsterLabels,
     isAlertShowing,
     message,
-    dateToSend
+    dateToSend,
+    isManufacturingInherited,
+    setManufacturersForHierarchy,
+    manufacturerOptions,
+    selectedManufacturerOptions,
+    selectedOptionValues,
+    optionValuesOptions,
+    handleShowManufacturingOptions,
+    showManufacturingOptions,
+    manufacturingInheritedFrom,
 }) => (
     <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
-        {isUsingBolsterLabels ? (
-            <EditBuildingFormFieldsWithLabel
-                handleInputChange={handleInputChange}
-                handleDateChange={handleDateChange}
-                name={name}
-                location={location}
-                isAlertShowing={isAlertShowing}
-                message={message}
-                dateToSend={dateToSend}
-            />
-        ) : (
-            <EditBuildingFormFieldsNoLabel
-                handleInputChange={handleInputChange}
-                handleDateChange={handleDateChange}
-                name={name}
-                location={location}
-                isAlertShowing={isAlertShowing}
-                message={message}
-                dateToSend={dateToSend}
-            />
-        )}
+        <EditBuildingFormFieldsNoLabel
+            handleInputChange={handleInputChange}
+            handleDateChange={handleDateChange}
+            name={name}
+            location={location}
+            isAlertShowing={isAlertShowing}
+            message={message}
+            dateToSend={dateToSend}
+            isManufacturingInherited={isManufacturingInherited}
+            setManufacturersForHierarchy={setManufacturersForHierarchy}
+            manufacturerOptions={manufacturerOptions}
+            selectedManufacturerOptions={selectedManufacturerOptions}
+            selectedOptionValues={selectedOptionValues}
+            optionValuesOptions={optionValuesOptions}
+            handleShowManufacturingOptions={handleShowManufacturingOptions}
+            showManufacturingOptions={showManufacturingOptions}
+            manufacturingInheritedFrom={manufacturingInheritedFrom}
+        />
+
         <BlockButtonWrapper>
             <button className="button green">Confirm</button>
             <ButtonContainer handleClick={hideModal}>Cancel</ButtonContainer>
