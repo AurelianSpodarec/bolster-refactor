@@ -15,6 +15,7 @@ class AddOptionValueFormContainer extends Component {
         confirmNoDocument: false,
         fileS3Key: '',
         showConfirmNoDocument: false,
+        docName: '',
     };
 
     render() {
@@ -45,7 +46,7 @@ class AddOptionValueFormContainer extends Component {
         this.setState({ confirmNoDocument: !confirmNoDocument });
     };
     handleInputChange = (name, value) => {
-        const { fileS3Key, showConfirmNoDocument, confirmNoDocument } = this.state;
+        const { confirmNoDocument } = this.state;
 
         if (name === 'fileS3Key' && !confirmNoDocument) {
             this.setState({ showConfirmNoDocument: false });
@@ -68,10 +69,10 @@ class AddOptionValueFormContainer extends Component {
             fileS3Key,
             confirmNoDocument,
             showConfirmNoDocument,
+            docName,
         } = this.state;
 
         let postBody = {};
-        console.log({ filesUploading });
 
         if (!filesUploading) {
             if (!fileS3Key.length && !confirmNoDocument && !showConfirmNoDocument) {
@@ -85,7 +86,7 @@ class AddOptionValueFormContainer extends Component {
                 postBody = {
                     name,
                     serviceIDs,
-                    document: { fileS3Key },
+                    document: { fileS3Key, name: docName },
                 };
             } else {
                 postBody = {

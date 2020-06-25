@@ -14,6 +14,7 @@ class AddOptionValueFormContainer extends Component {
         confirmNoDocument: false,
         fileS3Key: '',
         showConfirmNoDocument: false,
+        docName: '',
     };
 
     render() {
@@ -70,6 +71,7 @@ class AddOptionValueFormContainer extends Component {
             fileS3Key,
             confirmNoDocument,
             showConfirmNoDocument,
+            docName,
         } = this.state;
 
         let postBody = {};
@@ -86,7 +88,7 @@ class AddOptionValueFormContainer extends Component {
                 postBody = {
                     name,
                     serviceIDs,
-                    document: { fileS3Key },
+                    document: { fileS3Key, name: docName },
                 };
             } else {
                 postBody = {
