@@ -26,10 +26,6 @@ const CompanyReportsListItem = ({
     const isRetryAvailable =
         queueItem.state === FAILED ||
         (queueItem.state !== COMPLETE && moment(queueItem.createdOn) > moment().add(-1, 'hours'));
-    console.log({
-        delete: queueItem.state === DELETED,
-        isRetryAvailable,
-    });
 
     const DownloadLink = shouldDeleteReportsAfterDownload ? (
         <button className="button green" onClick={() => handleDeleteAfterDownload(queueItem)}>
@@ -94,7 +90,7 @@ const CompanyReportsListItem = ({
                 ) : isRetryAvailable ? (
                     <button className="button" onClick={() => retryCompanyReport(queueItem.id)}>
                         <LoadingIcon />
-                        Generating... (retry?) oi
+                        Generating... (retry?)
                     </button>
                 ) : queueItem.state === DELETED ? (
                     <button
